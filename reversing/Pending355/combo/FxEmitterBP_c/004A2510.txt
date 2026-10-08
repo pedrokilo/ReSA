@@ -1,0 +1,47 @@
+// FxEmitterBP_c::FreePrt @ 0x004a2510 [0x4a2510..0x4a2548]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 TasksPending_004a2510(int param_1)
+
+{
+  int iVar1;
+  int in_ECX;
+  
+  iVar1 = *(int *)(in_ECX + 0x20);
+  while( true ) {
+    if (iVar1 == 0) {
+      return 0;
+    }
+    if (*(int *)(iVar1 + 0x28) == param_1) break;
+    iVar1 = *(int *)(iVar1 + 4);
+  }
+  FUN_004a8e30(iVar1);
+  FUN_004a93b0(iVar1);
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004A2510: add ecx,20h
+004A2513: push esi
+004A2514: mov esi,dword ptr [ecx]
+004A2516: test esi,esi
+004A2518: je 004A252C
+004A251A: mov eax,dword ptr [esp+8]
+004A251E: mov edi,edi
+004A2520: cmp dword ptr [esi+28h],eax
+004A2523: je 004A2532
+004A2525: mov esi,dword ptr [esi+4]
+004A2528: test esi,esi
+004A252A: jne 004A2520
+004A252C: xor al,al
+004A252E: pop esi
+004A252F: ret 4
+004A2532: push esi
+004A2533: call 004A8E30
+004A2538: push esi
+004A2539: mov ecx,0A9AE80h
+004A253E: call 004A93B0
+004A2543: mov al,1
+004A2545: pop esi
+004A2546: ret 4

@@ -1,0 +1,31 @@
+# CamProcess355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Replay actual aprobado para este banco: fuentes, instrumentos, binarios archivados y hashes del EXE/DLL ejecutados comprobados. Forma parte de un cierre parcial; el lote completo no quedó validado con las fuentes finales.
+
+Funciones del alcance: `CCam::Process`.
+
+[Resumen registrado](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-cam-process355/20261008-072254-971344/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+# CamProcess355
+
+Preparado: 8.192 pares de CCam::Process (0x526FC0), reconstruido desde pseudocódigo y ASM completo en World355Evidence/CCam_Process.txt, EXE canónico 72ae59e4. Hook false; ejecución y aprobación pendientes del coordinador.
+
+Cubre los modos 0..67 (al menos 120 pares por modo), objetivos jugador/otro peatón/vehículo y objetivo inicialmente nulo, cámara activa y secundaria, objetivo fijo, filtrado de posición, escalada, pelea, look behind y laterales, contadores y overrides de FOV, fuente y objetivo. Compara todos los bytes de cámara, peatones, inteligencia, vehículo, matrices, tarea, pads y doce regiones globales contiguas junto con las trazas. Conserva y restaura pads, globals y estado/bloqueo del hook.
+
+El dispatch llama a los métodos de cada modo reconstruidos. Para aislar Process, los 27 colaboradores de modo tienen callbacks deterministas iguales en EXE y DLL; también se aíslan FindPlayerPed, RegisterReference, ClearCrossHairImmediately, consultas de escalada/pelea, target de escalada, Using3rdPersonMouseCam, GetVehicleAppearance, controles de mirada del vehículo, KeepTrackOfTheSpeed, LookBehind, LookRight y GetVectorsReadyForRW. GetLookBehindForPed conserva su lógica real compartida (la DLL puede insertarla inline). Vector y trigonometría conservan las implementaciones reales. La prueba acredita el controlador y no la integración de todos los modos en una partida.
+
+SOURCES incluye las dependencias reales usadas por el banco. Sólo el coordinador compila y ejecuta run_local.py; no hay compilaciones ni GTA paralelos.
+
+## Evidencia y cierre del lote 355
+
+No hay una aprobación histórica registrada en los informes disponibles de este banco.
+
+Último informe disponible: `20261008-032917-902050`; resultado del banco: no aprobado. Evidencia: [summary.json](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-cam-process355/20261008-032917-902050/summary.json>).
+
+Validación final del lote pendiente: una aprobación histórica no acredita las fuentes actuales. El cierre requiere repetir los bancos afectados y comprobar los hashes actuales de fuentes, instrumentos, EXE y ASI ejecutada mediante el registro estricto coordinado por la raíz. Este README no autoriza activar hooks.
+
+La equivalencia está limitada a los fixtures y ramas descritos arriba. Las colaboraciones aisladas simétricamente no acreditan su implementación; estos resultados no constituyen una campaña integral de juego ni independencia del EXE.

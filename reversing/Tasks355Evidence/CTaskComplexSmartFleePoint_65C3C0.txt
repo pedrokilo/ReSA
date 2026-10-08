@@ -1,0 +1,99 @@
+// CTaskComplexSmartFleePoint::SetFleePosition @ 0x0065c3c0 [0x65c3c0..0x65c427]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0065c3c0(float *param_1,float param_2,undefined1 param_3)
+
+{
+  int in_ECX;
+  
+  if ((((*(float *)(in_ECX + 0x18) == *param_1) && (*(float *)(in_ECX + 0x1c) == param_1[1])) &&
+      (*(float *)(in_ECX + 0x20) == param_1[2])) && (*(float *)(in_ECX + 0x2c) == param_2)) {
+    *(undefined1 *)(in_ECX + 0x24) = param_3;
+    return;
+  }
+  *(float *)(in_ECX + 0x18) = *param_1;
+  *(float *)(in_ECX + 0x1c) = param_1[1];
+  *(float *)(in_ECX + 0x20) = param_1[2];
+  *(float *)(in_ECX + 0x2c) = param_2;
+  *(undefined1 *)(in_ECX + 0x41) = 1;
+  *(undefined1 *)(in_ECX + 0x24) = param_3;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0065C3C0: fld dword ptr [ecx+18h]
+0065C3C3: mov edx,dword ptr [esp+4]
+0065C3C7: fcomp dword ptr [edx]
+0065C3C9: fnstsw ax
+0065C3CB: test ah,44h
+0065C3CE: jp 0065C3F8
+0065C3D0: fld dword ptr [ecx+1Ch]
+0065C3D3: fcomp dword ptr [edx+4]
+0065C3D6: fnstsw ax
+0065C3D8: test ah,44h
+0065C3DB: jp 0065C3F8
+0065C3DD: fld dword ptr [ecx+20h]
+0065C3E0: fcomp dword ptr [edx+8]
+0065C3E3: fnstsw ax
+0065C3E5: test ah,44h
+0065C3E8: jp 0065C3F8
+0065C3EA: fld dword ptr [ecx+2Ch]
+0065C3ED: fcomp dword ptr [esp+8]
+0065C3F1: fnstsw ax
+0065C3F3: test ah,44h
+0065C3F6: jnp 0065C41E
+0065C3F8: mov eax,dword ptr [edx]
+0065C3FA: mov dword ptr [ecx+18h],eax
+0065C3FD: mov eax,dword ptr [edx+4]
+0065C400: mov dword ptr [ecx+1Ch],eax
+0065C403: mov edx,dword ptr [edx+8]
+0065C406: mov eax,dword ptr [esp+8]
+0065C40A: mov dword ptr [ecx+20h],edx
+0065C40D: mov dl,byte ptr [esp+0Ch]
+0065C411: mov dword ptr [ecx+2Ch],eax
+0065C414: mov byte ptr [ecx+41h],1
+0065C418: mov byte ptr [ecx+24h],dl
+0065C41B: ret 0Ch
+0065C41E: mov al,byte ptr [esp+0Ch]
+0065C422: mov byte ptr [ecx+24h],al
+0065C425: ret 0Ch
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x65C3C0, 0x65C427) ====
+0065C3C0: fld dword ptr [ecx+18h]
+0065C3C3: mov edx,dword ptr [esp+4]
+0065C3C7: fcomp dword ptr [edx]
+0065C3C9: fnstsw ax
+0065C3CB: test ah,44h
+0065C3CE: jp 0065C3F8
+0065C3D0: fld dword ptr [ecx+1Ch]
+0065C3D3: fcomp dword ptr [edx+4]
+0065C3D6: fnstsw ax
+0065C3D8: test ah,44h
+0065C3DB: jp 0065C3F8
+0065C3DD: fld dword ptr [ecx+20h]
+0065C3E0: fcomp dword ptr [edx+8]
+0065C3E3: fnstsw ax
+0065C3E5: test ah,44h
+0065C3E8: jp 0065C3F8
+0065C3EA: fld dword ptr [ecx+2Ch]
+0065C3ED: fcomp dword ptr [esp+8]
+0065C3F1: fnstsw ax
+0065C3F3: test ah,44h
+0065C3F6: jnp 0065C41E
+0065C3F8: mov eax,dword ptr [edx]
+0065C3FA: mov dword ptr [ecx+18h],eax
+0065C3FD: mov eax,dword ptr [edx+4]
+0065C400: mov dword ptr [ecx+1Ch],eax
+0065C403: mov edx,dword ptr [edx+8]
+0065C406: mov eax,dword ptr [esp+8]
+0065C40A: mov dword ptr [ecx+20h],edx
+0065C40D: mov dl,byte ptr [esp+0Ch]
+0065C411: mov dword ptr [ecx+2Ch],eax
+0065C414: mov byte ptr [ecx+41h],1
+0065C418: mov byte ptr [ecx+24h],dl
+0065C41B: ret 0Ch
+0065C41E: mov al,byte ptr [esp+0Ch]
+0065C422: mov byte ptr [ecx+24h],al
+0065C425: ret 0Ch

@@ -1,3 +1,7 @@
+<!-- USER STOP 2026-10-08 -->
+Estado al detener el trabajo: reconstrucción solicitada completada y aprobación histórica conservada. No se ejecutó una nueva regresión con las fuentes finales. Los hashes y límites actuales se detallan en [el estado de todas las listas](../../docs/EstadoListasSolicitadas.md). Las notas siguientes conservan su fecha y alcance originales.
+<!-- /USER STOP 2026-10-08 -->
+
 # Hooks duplicados y virtuales con hook plano
 
 Validadas el 03/10/2026 con **6.144 pares original/candidato dentro de GTA**, todos exactos: 20 funciones de 7 clases con `validated=1`.

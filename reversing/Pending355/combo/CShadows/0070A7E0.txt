@@ -1,0 +1,178 @@
+// CShadows::CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>> @ 0x0070a7e0 [0x70a7e0..0x70a952]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0070a7e0(undefined4 *param_1,float param_2,float param_3,float param_4,float param_5,
+                 int param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9,
+                 undefined4 param_10,undefined4 param_11,undefined4 param_12,undefined4 param_13,
+                 undefined4 param_14,float param_15,undefined4 param_16,undefined4 param_17,
+                 undefined4 param_18,undefined4 param_19)
+
+{
+  int *piVar1;
+  int *piVar2;
+  int iVar3;
+  int *piVar4;
+  float local_10;
+  float fStack_c;
+  float fStack_8;
+  float fStack_4;
+  
+  piVar1 = (int *)*param_1;
+  while (piVar1 != (int *)0x0) {
+    piVar2 = (int *)*piVar1;
+    piVar1 = (int *)piVar1[1];
+    if (((((((short)piVar2[0xb] != DAT_00b7cd78) &&
+           (*(short *)(piVar2 + 0xb) = DAT_00b7cd78, (*(byte *)(piVar2 + 7) & 1) != 0)) &&
+          ((*(byte *)((int)piVar2 + 0x1e) & 1) == 0)) &&
+         ((*(byte *)((int)piVar2 + 0x2f) == DAT_00b72914 || (*(byte *)((int)piVar2 + 0x2f) == 0xd)))
+         ) && (((**(code **)(*piVar2 + 0x24))(&local_10), param_2 < fStack_8 &&
+               ((local_10 < param_4 && (param_3 < fStack_c)))))) && (fStack_4 < param_5)) {
+      iVar3 = piVar2[5];
+      piVar4 = (int *)(iVar3 + 0x30);
+      if (iVar3 == 0) {
+        piVar4 = piVar2 + 1;
+      }
+      if (*(float *)(param_6 + 8) - param_15 <
+          *(float *)(*(int *)((&DAT_00a9b0c8)[*(short *)((int)piVar2 + 0x22)] + 0x14) + 0x14) +
+          (float)piVar4[2]) {
+        piVar4 = (int *)(iVar3 + 0x30);
+        if (iVar3 == 0) {
+          piVar4 = piVar2 + 1;
+        }
+        if (*(float *)(*(int *)((&DAT_00a9b0c8)[*(short *)((int)piVar2 + 0x22)] + 0x14) + 8) +
+            (float)piVar4[2] < *(float *)(param_6 + 8)) {
+          FUN_0070a040(piVar2,param_6,param_7,param_8,param_9,param_10,param_11,param_12,param_13,
+                       param_14,param_15,param_16,param_17,param_18,param_19);
+        }
+      }
+    }
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0070A7E0: mov eax,dword ptr [esp+4]
+0070A7E4: mov eax,dword ptr [eax]
+0070A7E6: sub esp,10h
+0070A7E9: test eax,eax
+0070A7EB: je 0070A94F
+0070A7F1: push ebx
+0070A7F2: mov ebx,dword ptr [esp+5Ch]
+0070A7F6: push ebp
+0070A7F7: mov ebp,dword ptr [esp+64h]
+0070A7FB: push esi
+0070A7FC: push edi
+0070A7FD: mov edi,dword ptr [esp+38h]
+0070A801: jmp 0070A810
+0070A803: mov eax,dword ptr [esp+24h]
+0070A807: jmp 0070A810
+0070A809: lea esp,[esp+00000000h]
+ 00
+0070A810: mov esi,dword ptr [eax]
+0070A812: mov ecx,dword ptr [eax+4]
+0070A815: mov ax,word ptr ds:[00B7CD78h]
+0070A81B: cmp word ptr [esi+2Ch],ax
+0070A81F: mov dword ptr [esp+24h],ecx
+0070A823: je 0070A93F
+0070A829: mov word ptr [esi+2Ch],ax
+0070A82D: test byte ptr [esi+1Ch],1
+0070A831: je 0070A93F
+0070A837: test byte ptr [esi+1Eh],1
+0070A83B: jne 0070A93F
+0070A841: mov al,byte ptr [esi+2Fh]
+0070A844: mov ecx,dword ptr ds:[00B72914h]
+0070A84A: movzx edx,al
+0070A84D: cmp edx,ecx
+0070A84F: je 0070A859
+0070A851: cmp al,0Dh
+0070A853: jne 0070A93F
+0070A859: mov eax,dword ptr [esi]
+0070A85B: lea ecx,[esp+10h]
+0070A85F: push ecx
+0070A860: mov ecx,esi
+0070A862: call dword ptr [eax+24h]
+0070A865: fld dword ptr [esp+28h]
+0070A869: fcomp dword ptr [esp+18h]
+0070A86D: fnstsw ax
+0070A86F: test ah,5
+0070A872: jp 0070A93F
+0070A878: fld dword ptr [esp+30h]
+0070A87C: fcomp dword ptr [esp+10h]
+0070A880: fnstsw ax
+0070A882: test ah,41h
+0070A885: jne 0070A93F
+0070A88B: fld dword ptr [esp+2Ch]
+0070A88F: fcomp dword ptr [esp+14h]
+0070A893: fnstsw ax
+0070A895: test ah,5
+0070A898: jp 0070A93F
+0070A89E: fld dword ptr [esp+34h]
+0070A8A2: fcomp dword ptr [esp+1Ch]
+0070A8A6: fnstsw ax
+0070A8A8: test ah,41h
+0070A8AB: jne 0070A93F
+0070A8B1: mov ecx,dword ptr [esi+14h]
+0070A8B4: test ecx,ecx
+0070A8B6: lea eax,[ecx+30h]
+0070A8B9: jne 0070A8BE
+0070A8BB: lea eax,[esi+4]
+0070A8BE: movsx edx,word ptr [esi+22h]
+0070A8C2: fld dword ptr [edi+8]
+0070A8C5: mov edx,dword ptr [edx*4+00A9B0C8h]
+ 00
+0070A8CC: fsub dword ptr [esp+5Ch]
+0070A8D0: mov edx,dword ptr [edx+14h]
+0070A8D3: fld dword ptr [edx+14h]
+0070A8D6: fadd dword ptr [eax+8]
+0070A8D9: fcompp
+0070A8DB: fnstsw ax
+0070A8DD: test ah,41h
+0070A8E0: jne 0070A93F
+0070A8E2: test ecx,ecx
+0070A8E4: lea eax,[ecx+30h]
+0070A8E7: jne 0070A8EC
+0070A8E9: lea eax,[esi+4]
+0070A8EC: fld dword ptr [edx+8]
+0070A8EF: fadd dword ptr [eax+8]
+0070A8F2: fcomp dword ptr [edi+8]
+0070A8F5: fnstsw ax
+0070A8F7: test ah,5
+0070A8FA: jp 0070A93F
+0070A8FC: mov eax,dword ptr [esp+64h]
+0070A900: mov ecx,dword ptr [esp+60h]
+0070A904: mov edx,dword ptr [esp+5Ch]
+0070A908: push ebp
+0070A909: push ebx
+0070A90A: push eax
+0070A90B: mov eax,dword ptr [esp+64h]
+0070A90F: push ecx
+0070A910: mov ecx,dword ptr [esp+64h]
+0070A914: push edx
+0070A915: mov edx,dword ptr [esp+64h]
+0070A919: push eax
+0070A91A: mov eax,dword ptr [esp+64h]
+0070A91E: push ecx
+0070A91F: mov ecx,dword ptr [esp+64h]
+0070A923: push edx
+0070A924: mov edx,dword ptr [esp+64h]
+0070A928: push eax
+0070A929: mov eax,dword ptr [esp+64h]
+0070A92D: push ecx
+0070A92E: mov ecx,dword ptr [esp+64h]
+0070A932: push edx
+0070A933: push eax
+0070A934: push ecx
+0070A935: push edi
+0070A936: push esi
+0070A937: call 0070A040
+0070A93C: add esp,3Ch
+0070A93F: mov eax,dword ptr [esp+24h]
+0070A943: test eax,eax
+0070A945: jne 0070A803
+0070A94B: pop edi
+0070A94C: pop esi
+0070A94D: pop ebp
+0070A94E: pop ebx
+0070A94F: add esp,10h
+0070A952: ret

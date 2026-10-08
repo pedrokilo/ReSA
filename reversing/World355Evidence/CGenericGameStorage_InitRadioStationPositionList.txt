@@ -1,0 +1,12 @@
+// CGenericGameStorage::InitRadioStationPositionList @ 0x00618e70 [0x618e70..0x618e70]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00618e70(void)
+
+{
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00618E70: ret

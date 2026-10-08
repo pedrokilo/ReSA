@@ -1,0 +1,153 @@
+// CTaskComplexWanderStandard::Clone @ 0x0048e530 [0x48e530..0x48e5c4]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 * FUN_0048e530(void)
+
+{
+  undefined4 *puVar1;
+  int in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_008385db;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  puVar1 = (undefined4 *)FUN_0061a5a0(0x38);
+  local_4 = 0;
+  if (puVar1 != (undefined4 *)0x0) {
+    FUN_0066f450(*(undefined4 *)(in_ECX + 0xc),*(undefined1 *)(in_ECX + 0x10),
+                 *(byte *)(in_ECX + 0x24) & 1,0x3f000000);
+    *puVar1 = &PTR_FUN_0085a200;
+    puVar1[10] = 0;
+    puVar1[0xb] = 0;
+    *(undefined1 *)(puVar1 + 0xc) = 0;
+    *(undefined1 *)((int)puVar1 + 0x31) = 0;
+    puVar1[0xd] = 0;
+    ExceptionList = local_c;
+    return puVar1;
+  }
+  ExceptionList = local_c;
+  return (undefined4 *)0x0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0048E530: push 0FFFFFFFFh
+0048E532: push 8385DBh
+0048E537: mov eax,dword ptr fs:[00000000h]
+0048E53D: push eax
+0048E53E: mov dword ptr fs:[00000000h],esp
+ 00
+0048E545: push ecx
+0048E546: push ebx
+0048E547: push esi
+0048E548: push edi
+0048E549: push 38h
+0048E54B: mov edi,ecx
+0048E54D: call 0061A5A0
+0048E552: mov esi,eax
+0048E554: add esp,4
+0048E557: mov dword ptr [esp+0Ch],esi
+0048E55B: xor ebx,ebx
+0048E55D: cmp esi,ebx
+0048E55F: mov dword ptr [esp+18h],ebx
+0048E563: je 0048E5B1
+0048E565: mov eax,dword ptr ds:[0086FCB0h]
+0048E56A: xor ecx,ecx
+0048E56C: mov cl,byte ptr [edi+24h]
+0048E56F: xor edx,edx
+0048E571: mov dl,byte ptr [edi+10h]
+0048E574: push eax
+0048E575: mov eax,dword ptr [edi+0Ch]
+0048E578: and ecx,0FFFFFF01h
+0048E57E: push ecx
+0048E57F: push edx
+0048E580: push eax
+0048E581: mov ecx,esi
+0048E583: call 0066F450
+0048E588: mov dword ptr [esi],85A200h
+0048E58E: mov dword ptr [esi+28h],ebx
+0048E591: mov dword ptr [esi+2Ch],ebx
+0048E594: mov byte ptr [esi+30h],bl
+0048E597: mov byte ptr [esi+31h],bl
+0048E59A: pop edi
+0048E59B: mov dword ptr [esi+34h],ebx
+0048E59E: mov eax,esi
+0048E5A0: pop esi
+0048E5A1: pop ebx
+0048E5A2: mov ecx,dword ptr [esp+4]
+0048E5A6: mov dword ptr fs:[00000000h],ecx
+ 00
+0048E5AD: add esp,10h
+0048E5B0: ret
+0048E5B1: mov ecx,dword ptr [esp+10h]
+0048E5B5: pop edi
+0048E5B6: pop esi
+0048E5B7: xor eax,eax
+0048E5B9: pop ebx
+0048E5BA: mov dword ptr fs:[00000000h],ecx
+ 00
+0048E5C1: add esp,10h
+0048E5C4: ret
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x48E530, 0x48E5C4) ====
+0048E530: push 0FFFFFFFFh
+0048E532: push 8385DBh
+0048E537: mov eax,dword ptr fs:[00000000h]
+0048E53D: push eax
+0048E53E: mov dword ptr fs:[00000000h],esp
+ 00
+0048E545: push ecx
+0048E546: push ebx
+0048E547: push esi
+0048E548: push edi
+0048E549: push 38h
+0048E54B: mov edi,ecx
+0048E54D: call 0061A5A0
+0048E552: mov esi,eax
+0048E554: add esp,4
+0048E557: mov dword ptr [esp+0Ch],esi
+0048E55B: xor ebx,ebx
+0048E55D: cmp esi,ebx
+0048E55F: mov dword ptr [esp+18h],ebx
+0048E563: je 0048E5B1
+0048E565: mov eax,dword ptr ds:[0086FCB0h]
+0048E56A: xor ecx,ecx
+0048E56C: mov cl,byte ptr [edi+24h]
+0048E56F: xor edx,edx
+0048E571: mov dl,byte ptr [edi+10h]
+0048E574: push eax
+0048E575: mov eax,dword ptr [edi+0Ch]
+0048E578: and ecx,0FFFFFF01h
+0048E57E: push ecx
+0048E57F: push edx
+0048E580: push eax
+0048E581: mov ecx,esi
+0048E583: call 0066F450
+0048E588: mov dword ptr [esi],85A200h
+0048E58E: mov dword ptr [esi+28h],ebx
+0048E591: mov dword ptr [esi+2Ch],ebx
+0048E594: mov byte ptr [esi+30h],bl
+0048E597: mov byte ptr [esi+31h],bl
+0048E59A: pop edi
+0048E59B: mov dword ptr [esi+34h],ebx
+0048E59E: mov eax,esi
+0048E5A0: pop esi
+0048E5A1: pop ebx
+0048E5A2: mov ecx,dword ptr [esp+4]
+0048E5A6: mov dword ptr fs:[00000000h],ecx
+ 00
+0048E5AD: add esp,10h
+0048E5B0: ret
+0048E5B1: mov ecx,dword ptr [esp+10h]
+0048E5B5: pop edi
+0048E5B6: pop esi
+0048E5B7: xor eax,eax
+0048E5B9: pop ebx
+0048E5BA: mov dword ptr fs:[00000000h],ecx
+ 00
+0048E5C1: add esp,10h
+0048E5C4: ret

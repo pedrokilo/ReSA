@@ -1,0 +1,71 @@
+// CGenericGameStorage::DoGameSpecificStuffBeforeSave @ 0x00618f50 [0x618f50..0x618feb]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00618f50(void)
+
+{
+  byte bVar1;
+  undefined4 uVar2;
+  
+  FUN_00556b10();
+  FUN_00455470();
+  bVar1 = DAT_00b7cee7;
+  if (199 < DAT_00b7cee7) {
+    bVar1 = 200;
+  }
+  *(float *)(DAT_00b7cd98 + 0x540) = (float)bVar1;
+  FUN_004464c0(0);
+  FUN_0055c180(0x88,0x3f800000);
+  FUN_004414c0(0x168);
+  *(undefined2 *)(&DAT_00b7cedc + (uint)DAT_00b7cd74 * 400) = 0;
+  FUN_0056e210(0xffffffff);
+  FUN_0060a530();
+  uVar2 = 0;
+  FUN_0056e210(0xffffffff,0);
+  FUN_00609f10(uVar2);
+  FUN_0053c500(1,0);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00618F50: push ecx
+00618F51: call 00556B10
+00618F56: call 00455470
+00618F5B: mov al,byte ptr ds:[00B7CEE7h]
+00618F60: cmp al,0C8h
+00618F62: jae 00618F6D
+00618F64: movzx eax,al
+00618F67: mov dword ptr [esp],eax
+00618F6B: jmp 00618F75
+00618F6D: mov dword ptr [esp],0C8h
+00618F75: fild dword ptr [esp]
+00618F79: mov ecx,dword ptr ds:[00B7CD98h]
+00618F7F: push 0
+00618F81: fstp dword ptr [ecx+00000540h]
+00618F87: call 004464C0
+00618F8C: push 3F800000h
+00618F91: push 88h
+00618F96: call 0055C180
+00618F9B: push 168h
+00618FA0: call 004414C0
+00618FA5: movzx edx,byte ptr ds:[00B7CD74h]
+ 00
+00618FAC: imul edx,edx,190h
+00618FB2: push 0FFFFFFFFh
+00618FB4: mov word ptr [edx+00B7CEDCh],0
+00618FBD: call 0056E210
+00618FC2: add esp,14h
+00618FC5: mov ecx,eax
+00618FC7: call 0060A530
+00618FCC: push 0
+00618FCE: push 0FFFFFFFFh
+00618FD0: call 0056E210
+00618FD5: add esp,4
+00618FD8: mov ecx,eax
+00618FDA: call 00609F10
+00618FDF: push 0
+00618FE1: push 1
+00618FE3: call 0053C500
+00618FE8: add esp,0Ch
+00618FEB: ret

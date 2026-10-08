@@ -1,0 +1,54 @@
+// InteriorGroup_c::Update @ 0x005968e0 [0x5968e0..0x59692c]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005968e0(void)
+
+{
+  int in_ECX;
+  
+  FUN_00595200();
+  if (*(char *)(in_ECX + 0xb8) == '\0') {
+    FUN_00595590();
+    if (*(char *)(in_ECX + 0xb8) != '\0') goto LAB_00596903;
+LAB_00596914:
+    if (*(char *)(in_ECX + 0xb9) == '\0') goto LAB_00596925;
+  }
+  else {
+LAB_00596903:
+    if (*(char *)(in_ECX + 0xb9) == '\0') {
+      FUN_00596890();
+      goto LAB_00596914;
+    }
+  }
+  FUN_00596830();
+LAB_00596925:
+  FUN_005950d0();
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005968E0: push esi
+005968E1: mov esi,ecx
+005968E3: call 00595200
+005968E8: mov al,byte ptr [esi+000000B8h]
+005968EE: test al,al
+005968F0: jne 00596903
+005968F2: mov ecx,esi
+005968F4: call 00595590
+005968F9: mov al,byte ptr [esi+000000B8h]
+005968FF: test al,al
+00596901: je 00596914
+00596903: mov al,byte ptr [esi+000000B9h]
+00596909: test al,al
+0059690B: jne 0059691E
+0059690D: mov ecx,esi
+0059690F: call 00596890
+00596914: mov al,byte ptr [esi+000000B9h]
+0059691A: test al,al
+0059691C: je 00596925
+0059691E: mov ecx,esi
+00596920: call 00596830
+00596925: mov ecx,esi
+00596927: pop esi
+00596928: jmp 005950D0

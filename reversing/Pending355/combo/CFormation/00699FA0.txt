@@ -1,0 +1,55 @@
+// CFormation::ReturnDestinationForPed @ 0x00699fa0 [0x699fa0..0x699fea]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+uint FUN_00699fa0(int param_1,undefined4 *param_2)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  uint uVar3;
+  
+  uVar3 = 0;
+  while ((param_1 != (&DAT_00c1a4dc)[uVar3] || ((int)(&DAT_00c1a2c0)[uVar3] < 0))) {
+    uVar3 = uVar3 + 1;
+    if (0x17 < (int)uVar3) {
+      return uVar3 & 0xffffff00;
+    }
+  }
+  iVar1 = (&DAT_00c1a2c0)[uVar3];
+  *param_2 = (&DAT_00c1a31c)[iVar1 * 3];
+  uVar2 = (&DAT_00c1a320)[iVar1 * 3];
+  param_2[1] = uVar2;
+  param_2[2] = (&DAT_00c1a324)[iVar1 * 3];
+  return CONCAT31((int3)((uint)uVar2 >> 8),1);
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00699FA0: mov ecx,dword ptr [esp+4]
+00699FA4: xor eax,eax
+00699FA6: cmp ecx,dword ptr [eax*4+00C1A4DCh]
+ 00
+00699FAD: jne 00699FBA
+00699FAF: mov edx,dword ptr [eax*4+00C1A2C0h]
+ 00
+00699FB6: test edx,edx
+00699FB8: jge 00699FC3
+00699FBA: inc eax
+00699FBB: cmp eax,18h
+00699FBE: jl 00699FA6
+00699FC0: xor al,al
+00699FC2: ret
+00699FC3: mov eax,dword ptr [eax*4+00C1A2C0h]
+ 00
+00699FCA: mov edx,dword ptr [esp+8]
+00699FCE: lea eax,[eax+eax*2]
+00699FD1: lea ecx,[eax*4+00C1A31Ch]
+ 00
+00699FD8: mov eax,dword ptr [ecx]
+00699FDA: mov dword ptr [edx],eax
+00699FDC: mov eax,dword ptr [ecx+4]
+00699FDF: mov dword ptr [edx+4],eax
+00699FE2: mov ecx,dword ptr [ecx+8]
+00699FE5: mov dword ptr [edx+8],ecx
+00699FE8: mov al,1
+00699FEA: ret

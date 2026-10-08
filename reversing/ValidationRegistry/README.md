@@ -14,11 +14,11 @@ La tabla conserva lo acreditado en aquellas revalidaciones. El estado actual se 
 | IKChain_c::SetupBones | 131 pares únicos | Sí | Acreditada para el alcance del banco |
 | RpAnimBlendClumpUpdateAnimations | 652 pares | Sí | Acreditada para el alcance del banco |
 
-Hay **6.329 funciones con `validated=1`** y **0 con vigencia confirmada para el árbol modificado**. La barra de vigencia es **0/8.447 · 0,00%**.
+Hay **6.684 funciones con `validated=1`** y **117 con vigencia confirmada para el árbol modificado**. La barra de vigencia es **117/8.446 · 1,39%**.
 
-**950 funciones conservan coincidencia de todas sus fuentes registradas.** La coincidencia de fuentes y la evidencia aprobada se consultan por función en el inventario. La revisión de dependencias es una condición adicional para acreditar vigencia; no se deduce de haber pasado un banco.
+**1.053 funciones conservan coincidencia de todas sus fuentes registradas.** La coincidencia de fuentes y la evidencia aprobada se consultan por función en el inventario. La revisión de dependencias es una condición adicional para acreditar vigencia; no se deduce de haber pasado un banco.
 
-El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 8.040 entradas: 0 vigentes, 6.329 con evidencia histórica por revisar y 1.711 sin evidencia vinculada. Las 407 entradas pendientes de reconstrucción se contabilizan aparte. Sin evidencia vinculada no significa nunca probada ni fallida.
+El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 8.394 entradas: 117 vigentes, 6.567 con evidencia histórica por revisar y 1.710 sin evidencia vinculada. Las 52 entradas pendientes de reconstrucción se contabilizan aparte. Sin evidencia vinculada no significa nunca probada ni fallida.
 
 ### Integridad del universo catalogado
 

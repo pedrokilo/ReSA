@@ -39,6 +39,29 @@ def evaluate(root, hooks_path, registry_path=None):
             raise ValueError('Evidence path outside repository')
         return candidate
 
+    # Invocation-only caches; changes during one evaluation invalidate stat keys.
+    file_cache, tree_cache = {}, {}
+    def invocation_digest(path):
+        path = Path(path).resolve()
+        stat = path.stat()
+        key = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+        if not stat.st_ino:
+            key += (str(path),)
+        if key not in file_cache:
+            file_cache[key] = digest(path)
+        return file_cache[key]
+    def invocation_tree_digest(path):
+        path = Path(path).resolve()
+        if not path.is_dir():
+            return None
+        # Inventory once per evaluate; no cache survives into the next invocation.
+        if path not in tree_cache:
+            entries = [(p.relative_to(path).as_posix(), invocation_digest(p))
+                       for p in path.rglob('*') if p.is_file()]
+            tree_cache[path] = hashlib.sha256(json.dumps(sorted(entries), ensure_ascii=True,
+                                                        separators=(',', ':')).encode()).hexdigest()
+        return tree_cache[path]
+
     seen, results = set(), []
     for record in data['functions']:
         key = tuple(record['hook'][k] for k in KEY)
@@ -47,7 +70,7 @@ def evaluate(root, hooks_path, registry_path=None):
         seen.add(key)
         evidence = record['evidence']
         path = local(evidence['path'])
-        evidence_ok = path.is_file() and digest(path) == evidence['sha256']
+        evidence_ok = path.is_file() and invocation_digest(path) == evidence['sha256']
         if evidence_ok:
             summary = json.loads(path.read_text(encoding='utf-8'))
             for part in evidence['passed_path']:
@@ -55,7 +78,7 @@ def evaluate(root, hooks_path, registry_path=None):
             evidence_ok = summary is True
         sources = record['tested_sources']
         source_match = bool(sources) and all(
-            local(p).is_file() and digest(local(p)) == h for p, h in sources.items()
+            local(p).is_file() and invocation_digest(local(p)) == h for p, h in sources.items()
         )
         # A complete dependency review must carry its own evidence and file hashes.
         review = record.get('dependency_review')
@@ -63,11 +86,11 @@ def evaluate(root, hooks_path, registry_path=None):
         if review is not None:
             proof = local(review['evidence_path'])
             dependencies_match = (
-                proof.is_file() and digest(proof) == review['evidence_sha256']
+                proof.is_file() and invocation_digest(proof) == review['evidence_sha256']
                 and bool(review['files'])
-                and all(local(p).is_file() and digest(local(p)) == h
+                and all(local(p).is_file() and invocation_digest(local(p)) == h
                         for p, h in review['files'].items())
-                and all(tree_digest(local(p)) == h for p, h in review.get('trees', {}).items())
+                and all(invocation_tree_digest(local(p)) == h for p, h in review.get('trees', {}).items())
             )
         current = evidence_ok and source_match and dependencies_match
         results.append(dict(hook=record['hook'], evidence_ok=evidence_ok,

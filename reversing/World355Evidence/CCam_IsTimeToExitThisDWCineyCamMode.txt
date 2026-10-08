@@ -1,0 +1,138 @@
+// CCam::IsTimeToExitThisDWCineyCamMode @ 0x00517400 [0x517400..0x5174f4]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_00517400(int param_1,float *param_2,float *param_3,undefined4 param_4,char param_5)
+
+{
+  float fVar1;
+  bool bVar2;
+  char cVar3;
+  int in_ECX;
+  undefined1 local_2c [44];
+  
+  if (*(char *)((int)&DAT_00b6ec5c + param_1) != '\0') {
+    return 1;
+  }
+  fVar1 = SQRT((param_3[1] - param_2[1]) * (param_3[1] - param_2[1]) +
+               (*param_3 - *param_2) * (*param_3 - *param_2) +
+               (param_3[2] - param_2[2]) * (param_3[2] - param_2[2]));
+  if ((fVar1 < *(float *)(&DAT_008ccbcc + (param_1 + -0x14) * 4)) ||
+     (fVar1 < *(float *)(&DAT_008ccbf0 + (param_1 + -0x14) * 4) ==
+      (fVar1 == *(float *)(&DAT_008ccbf0 + (param_1 + -0x14) * 4)))) {
+    bVar2 = false;
+  }
+  else {
+    bVar2 = true;
+  }
+  cVar3 = '\x01';
+  if (param_5 != '\0') {
+    DAT_00b7cd68 = *(undefined4 *)(in_ECX + 0x21c);
+    cVar3 = FUN_0056ba00(param_3,param_2,local_2c,&param_5,1,1,0,0,0,0,0,0);
+    cVar3 = '\x01' - (cVar3 != '\0');
+    DAT_00b7cd68 = 0;
+  }
+  if (((0x13 < param_1) && (param_1 < 0x1d)) &&
+     ((!bVar2 || ((cVar3 == '\0' || (DAT_008ccba4 < DAT_00b7cb84)))))) {
+    return 1;
+  }
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00517400: sub esp,2Ch
+00517403: push edi
+00517404: mov edi,dword ptr [esp+34h]
+00517408: mov al,byte ptr [edi+00B6EC5Ch]
+0051740E: sub edi,14h
+00517411: test al,al
+00517413: je 0051741E
+00517415: mov al,1
+00517417: pop edi
+00517418: add esp,2Ch
+0051741B: ret 14h
+0051741E: mov edx,dword ptr [esp+3Ch]
+00517422: fld dword ptr [edx]
+00517424: push ebx
+00517425: push esi
+00517426: mov esi,dword ptr [esp+40h]
+0051742A: fsub dword ptr [esi]
+0051742C: fld dword ptr [edx+4]
+0051742F: fsub dword ptr [esi+4]
+00517432: fld dword ptr [edx+8]
+00517435: fsub dword ptr [esi+8]
+00517438: fld st(0)
+0051743A: fmul st,st(1)
+0051743C: fld st(3)
+0051743E: fmul st,st(4)
+00517440: faddp st(1),st
+00517442: fld st(2)
+00517444: fmul st,st(3)
+00517446: faddp st(1),st
+00517448: fsqrt
+0051744A: fstp st(3)
+0051744C: fstp st(0)
+0051744E: fstp st(0)
+00517450: fcom dword ptr [edi*4+008CCBCCh]
+ 00
+00517457: fnstsw ax
+00517459: test ah,1
+0051745C: jne 00517470
+0051745E: fcomp dword ptr [edi*4+008CCBF0h]
+ 00
+00517465: fnstsw ax
+00517467: test ah,41h
+0051746A: jp 00517472
+0051746C: mov bl,1
+0051746E: jmp 00517474
+00517470: fstp st(0)
+00517472: xor bl,bl
+00517474: cmp byte ptr [esp+4Ch],0
+00517479: mov al,1
+0051747B: je 005174BC
+0051747D: mov eax,dword ptr [ecx+0000021Ch]
+00517483: push 0
+00517485: push 0
+00517487: push 0
+00517489: push 0
+0051748B: push 0
+0051748D: push 0
+0051748F: push 1
+00517491: push 1
+00517493: lea ecx,[esp+6Ch]
+00517497: push ecx
+00517498: mov dword ptr ds:[00B7CD68h],eax
+0051749D: lea eax,[esp+30h]
+005174A1: push eax
+005174A2: push esi
+005174A3: push edx
+005174A4: call 0056BA00
+005174A9: add esp,30h
+005174AC: neg al
+005174AE: sbb al,al
+005174B0: inc al
+005174B2: mov dword ptr ds:[00B7CD68h],0
+005174BC: lea ecx,[edi+14h]
+005174BF: cmp ecx,14h
+005174C2: jl 005174EA
+005174C4: cmp ecx,1Ch
+005174C7: jg 005174EA
+005174C9: test bl,bl
+005174CB: je 005174DF
+005174CD: test al,al
+005174CF: je 005174DF
+005174D1: mov ecx,dword ptr ds:[00B7CB84h]
+005174D7: cmp ecx,dword ptr ds:[008CCBA4h]
+005174DD: jbe 005174EA
+005174DF: pop esi
+005174E0: pop ebx
+005174E1: mov al,1
+005174E3: pop edi
+005174E4: add esp,2Ch
+005174E7: ret 14h
+005174EA: pop esi
+005174EB: pop ebx
+005174EC: xor al,al
+005174EE: pop edi
+005174EF: add esp,2Ch
+005174F2: ret 14h

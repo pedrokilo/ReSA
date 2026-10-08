@@ -1,0 +1,19 @@
+int32 CTrain::FindClosestTrackNode(CVector position, int32* outTrackId) {
+    auto bestDistance = std::bit_cast<float>(0x47C34FF3u);
+    int32 closest; // The EXE also leaves this indeterminate if no node improves the initial distance.
+    for (int32 track = 0; track < 4; ++track) {
+        const auto* nodes = pTrackNodes[track];
+        for (int32 i = 0; i < NumTrackNodes[track]; ++i) {
+            const auto x = position.x - float(nodes[i].x) * .125f;
+            const auto y = position.y - float(nodes[i].y) * .125f;
+            const auto z = position.z - float(nodes[i].z) * .125f;
+            const auto distance = std::sqrt((z * z + y * y) + x * x);
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                closest = i;
+                *outTrackId = track;
+            }
+        }
+    }
+    return closest;
+}

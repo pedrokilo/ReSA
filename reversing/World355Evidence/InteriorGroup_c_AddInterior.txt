@@ -1,0 +1,39 @@
+// InteriorGroup_c::AddInterior @ 0x00594840 [0x594840..0x594863]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00594840(undefined4 param_1)
+
+{
+  int iVar1;
+  int in_ECX;
+  int *piVar2;
+  
+  iVar1 = 0;
+  piVar2 = (int *)(in_ECX + 0x10);
+  do {
+    if (*piVar2 == 0) {
+      *(undefined4 *)(in_ECX + 0x10 + iVar1 * 4) = param_1;
+      *(char *)(in_ECX + 0xf) = *(char *)(in_ECX + 0xf) + '\x01';
+      return;
+    }
+    iVar1 = iVar1 + 1;
+    piVar2 = piVar2 + 1;
+  } while (iVar1 < 8);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00594840: xor eax,eax
+00594842: lea edx,[ecx+10h]
+00594845: cmp dword ptr [edx],0
+00594848: je 00594856
+0059484A: inc eax
+0059484B: add edx,4
+0059484E: cmp eax,8
+00594851: jl 00594845
+00594853: ret 4
+00594856: mov edx,dword ptr [esp+4]
+0059485A: mov dword ptr [ecx+eax*4+10h],edx
+0059485E: inc byte ptr [ecx+0Fh]
+00594861: ret 4

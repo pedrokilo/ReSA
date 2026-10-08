@@ -1,0 +1,106 @@
+// CAEScriptAudioEntity::PreloadMissionAudio @ 0x004ec190 [0x4ec190..0x4ec26b]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004ec190(uint param_1,undefined4 param_2)
+
+{
+  int *piVar1;
+  undefined2 *puVar2;
+  char cVar3;
+  int iVar4;
+  int in_ECX;
+  int iVar5;
+  
+  if (((byte)param_1 < 4) && (cVar3 = FUN_004ebfe0(param_1), cVar3 != '\0')) {
+    iVar5 = in_ECX + (param_1 & 0xff) * 0x20;
+    piVar1 = (int *)(iVar5 + 0xac);
+    puVar2 = (undefined2 *)(iVar5 + 0xa8);
+    cVar3 = FUN_004d9cc0(&param_2,puVar2,piVar1,param_1 & 0xff);
+    if (cVar3 != '\0') {
+      iVar4 = CONCAT22((short)((uint)*piVar1 >> 0x10),(ushort)(byte)param_1);
+      if (*piVar1 < 0) {
+        FUN_004d88a0(*puVar2,iVar4 + 0x1a);
+      }
+      else {
+        FUN_004d8ed0(*puVar2,*(undefined2 *)piVar1,iVar4 + 0x1a);
+      }
+      *(undefined4 *)(iVar5 + 0xa4) = param_2;
+      *(undefined4 *)(iVar5 + 0x9c) = 0;
+      *(undefined4 *)(iVar5 + 0x90) = 0xc47a0000;
+      *(undefined4 *)(iVar5 + 0x94) = 0xc47a0000;
+      *(undefined4 *)(iVar5 + 0x98) = 0xc47a0000;
+    }
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004EC190: sub esp,0Ch
+004EC193: push ebx
+004EC194: mov ebx,dword ptr [esp+14h]
+004EC198: cmp bl,4
+004EC19B: push esi
+004EC19C: mov esi,ecx
+004EC19E: jae 004EC264
+004EC1A4: push ebx
+004EC1A5: call 004EBFE0
+004EC1AA: test al,al
+004EC1AC: je 004EC264
+004EC1B2: movzx eax,bl
+004EC1B5: push ebp
+004EC1B6: mov ecx,eax
+004EC1B8: push edi
+004EC1B9: shl ecx,5
+004EC1BC: add esi,ecx
+004EC1BE: push eax
+004EC1BF: lea edi,[esi+000000ACh]
+004EC1C5: push edi
+004EC1C6: lea ebp,[esi+000000A8h]
+004EC1CC: lea edx,[esp+2Ch]
+004EC1D0: push ebp
+004EC1D1: push edx
+004EC1D2: call 004D9CC0
+004EC1D7: add esp,10h
+004EC1DA: test al,al
+004EC1DC: je 004EC262
+004EC1E2: mov eax,dword ptr [edi]
+004EC1E4: xor ecx,ecx
+004EC1E6: test eax,eax
+004EC1E8: movzx ax,bl
+004EC1EC: jl 004EC209
+004EC1EE: mov cx,word ptr [edi]
+004EC1F1: xor edx,edx
+004EC1F3: mov dx,word ptr [ebp]
+004EC1F7: add eax,1Ah
+004EC1FA: push eax
+004EC1FB: push ecx
+004EC1FC: mov ecx,0B5F8B8h
+004EC201: push edx
+004EC202: call 004D8ED0
+004EC207: jmp 004EC21C
+004EC209: mov cx,word ptr [ebp]
+004EC20D: add eax,1Ah
+004EC210: push eax
+004EC211: push ecx
+004EC212: mov ecx,0B5F8B8h
+004EC217: call 004D88A0
+004EC21C: mov edx,dword ptr [esp+24h]
+004EC220: mov dword ptr [esi+000000A4h],edx
+004EC226: mov dword ptr [esi+0000009Ch],0
+004EC230: mov dword ptr [esp+10h],0C47A0000h
+004EC238: mov eax,dword ptr [esp+10h]
+004EC23C: add esi,90h
+004EC242: mov dword ptr [esp+14h],0C47A0000h
+004EC24A: mov ecx,dword ptr [esp+14h]
+004EC24E: mov dword ptr [esi],eax
+004EC250: mov dword ptr [esp+18h],0C47A0000h
+004EC258: mov edx,dword ptr [esp+18h]
+004EC25C: mov dword ptr [esi+4],ecx
+004EC25F: mov dword ptr [esi+8],edx
+004EC262: pop edi
+004EC263: pop ebp
+004EC264: pop esi
+004EC265: pop ebx
+004EC266: add esp,0Ch
+004EC269: ret 8

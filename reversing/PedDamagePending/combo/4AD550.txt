@@ -1,0 +1,81 @@
+// CPedDamageResponseCalculator::AccountForPedArmour @ 0x004ad550 [0x4ad550..0x4ad603]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004ad550(int param_1,int param_2)
+
+{
+  int iVar1;
+  int in_ECX;
+  
+  if (((*(float *)(param_1 + 0x548) != 0.0) && (*(int *)(in_ECX + 0xc) != 0x35)) &&
+     (*(int *)(in_ECX + 0xc) != 0x36)) {
+    iVar1 = FUN_0056e210(0xffffffff);
+    if (iVar1 == param_1) {
+      *(undefined4 *)(&DAT_00b7ce80 + (uint)DAT_00b7cd74 * 400) = DAT_00b7cb84;
+    }
+    if (*(float *)(in_ECX + 4) < *(float *)(param_1 + 0x548) !=
+        (*(float *)(in_ECX + 4) == *(float *)(param_1 + 0x548))) {
+      *(undefined4 *)(param_2 + 4) = *(undefined4 *)(in_ECX + 4);
+      *(float *)(param_1 + 0x548) = *(float *)(param_1 + 0x548) - *(float *)(in_ECX + 4);
+      *(undefined4 *)(in_ECX + 4) = 0;
+      return;
+    }
+    *(float *)(in_ECX + 4) = *(float *)(in_ECX + 4) - *(float *)(param_1 + 0x548);
+    *(undefined4 *)(param_2 + 4) = *(undefined4 *)(param_1 + 0x548);
+    *(undefined4 *)(param_1 + 0x548) = 0;
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004AD550: push esi
+004AD551: push edi
+004AD552: mov edi,dword ptr [esp+0Ch]
+004AD556: fld dword ptr [edi+00000548h]
+004AD55C: mov esi,ecx
+004AD55E: fcomp dword ptr ds:[00858B50h]
+004AD564: fnstsw ax
+004AD566: test ah,44h
+004AD569: jnp 004AD5FF
+004AD56F: mov eax,dword ptr [esi+0Ch]
+004AD572: cmp eax,35h
+004AD575: je 004AD5FF
+004AD57B: cmp eax,36h
+004AD57E: je 004AD5FF
+004AD580: push 0FFFFFFFFh
+004AD582: call 0056E210
+004AD587: add esp,4
+004AD58A: cmp eax,edi
+004AD58C: jne 004AD5A7
+004AD58E: movzx eax,byte ptr ds:[00B7CD74h]
+ 00
+004AD595: mov ecx,dword ptr ds:[00B7CB84h]
+004AD59B: imul eax,eax,190h
+004AD5A1: mov dword ptr [eax+00B7CE80h],ecx
+004AD5A7: fld dword ptr [esi+4]
+004AD5AA: fcomp dword ptr [edi+00000548h]
+004AD5B0: fnstsw ax
+004AD5B2: test ah,41h
+004AD5B5: jp 004AD5DC
+004AD5B7: mov edx,dword ptr [esi+4]
+004AD5BA: mov eax,dword ptr [esp+10h]
+004AD5BE: mov dword ptr [eax+4],edx
+004AD5C1: fld dword ptr [edi+00000548h]
+004AD5C7: fsub dword ptr [esi+4]
+004AD5CA: fstp dword ptr [edi+00000548h]
+004AD5D0: pop edi
+004AD5D1: mov dword ptr [esi+4],0
+ 00
+004AD5D8: pop esi
+004AD5D9: ret 8
+004AD5DC: fld dword ptr [esi+4]
+004AD5DF: mov edx,dword ptr [esp+10h]
+004AD5E3: fsub dword ptr [edi+00000548h]
+004AD5E9: fstp dword ptr [esi+4]
+004AD5EC: mov ecx,dword ptr [edi+00000548h]
+004AD5F2: mov dword ptr [edx+4],ecx
+004AD5F5: mov dword ptr [edi+00000548h],0
+004AD5FF: pop edi
+004AD600: pop esi
+004AD601: ret 8

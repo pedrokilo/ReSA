@@ -1,0 +1,117 @@
+006B67E0: sub esp,50h
+006B67E3: push ebx
+006B67E4: mov ebx,ecx
+006B67E6: movsx ecx,word ptr [ebx+22h]
+006B67EA: mov edx,dword ptr [ecx*4+00A9B0C8h]
+ 00
+006B67F1: mov eax,dword ptr [ebx+000005A4h]
+006B67F7: push ebp
+006B67F8: push esi
+006B67F9: push edi
+006B67FA: mov edi,dword ptr [esp+64h]
+006B67FE: mov ebp,dword ptr [edi+2Ch]
+006B6801: mov ecx,ebx
+006B6803: mov dword ptr [esp+10h],eax
+006B6807: mov dword ptr [esp+64h],edx
+006B680B: call 00535300
+006B6810: lea ecx,[eax+18h]
+006B6813: mov esi,dword ptr [ecx]
+006B6815: lea edx,[edi+18h]
+006B6818: mov dword ptr [edx],esi
+006B681A: mov esi,dword ptr [ecx+4]
+006B681D: mov dword ptr [edx+4],esi
+006B6820: mov esi,dword ptr [ecx+8]
+006B6823: mov dword ptr [edx+8],esi
+006B6826: mov ecx,dword ptr [ecx+0Ch]
+006B6829: mov dword ptr [edx+0Ch],ecx
+006B682C: mov esi,eax
+006B682E: mov ecx,6
+006B6833: rep movs dword ptr es:[edi],dword ptr [esi]
+006B6835: mov eax,dword ptr [ebx+000005B0h]
+006B683B: lea esi,[eax+10h]
+006B683E: mov ecx,10h
+006B6843: lea edi,[esp+20h]
+006B6847: rep movs dword ptr es:[edi],dword ptr [esi]
+006B6849: mov esi,dword ptr [eax+4]
+006B684C: test esi,esi
+006B684E: je 006B6872
+006B6850: push 2
+006B6852: lea edx,[esi+10h]
+006B6855: push edx
+006B6856: lea eax,[esp+28h]
+006B685A: push eax
+006B685B: call 007F25A0
+006B6860: mov esi,dword ptr [esi+4]
+006B6863: mov eax,dword ptr [esp+1Ch]
+006B6867: add esp,0Ch
+006B686A: cmp esi,eax
+006B686C: je 006B6872
+006B686E: test esi,esi
+006B6870: jne 006B6850
+006B6872: mov edx,dword ptr [esp+54h]
+006B6876: mov ecx,dword ptr [esp+50h]
+006B687A: mov eax,dword ptr [esp+58h]
+006B687E: push 0FFh
+006B6883: push 0Dh
+006B6885: mov dword ptr [esp+20h],edx
+006B6889: mov edx,dword ptr [esp+6Ch]
+006B688D: fld dword ptr [edx+40h]
+006B6890: mov dword ptr [esp+1Ch],ecx
+006B6894: fmul dword ptr ds:[00858B8Ch]
+006B689A: push 43h
+006B689C: lea ecx,[esp+20h]
+006B68A0: push ecx
+006B68A1: push ecx
+006B68A2: mov ecx,dword ptr [ebp+8]
+006B68A5: fstp dword ptr [esp]
+006B68A8: mov dword ptr [esp+30h],eax
+006B68AC: call 0040FD10
+006B68B1: mov ebx,dword ptr [ebx+000005B4h]
+006B68B7: lea esi,[ebx+10h]
+006B68BA: mov ecx,10h
+006B68BF: lea edi,[esp+20h]
+006B68C3: rep movs dword ptr es:[edi],dword ptr [esi]
+006B68C5: mov esi,dword ptr [ebx+4]
+006B68C8: test esi,esi
+006B68CA: je 006B68F2
+006B68CC: lea esp,[esp]
+006B68D0: push 2
+006B68D2: lea eax,[esi+10h]
+006B68D5: push eax
+006B68D6: lea ecx,[esp+28h]
+006B68DA: push ecx
+006B68DB: call 007F25A0
+006B68E0: mov esi,dword ptr [esi+4]
+006B68E3: mov eax,dword ptr [esp+1Ch]
+006B68E7: add esp,0Ch
+006B68EA: cmp esi,eax
+006B68EC: je 006B68F2
+006B68EE: test esi,esi
+006B68F0: jne 006B68D0
+006B68F2: mov edx,dword ptr [esp+50h]
+006B68F6: mov eax,dword ptr [esp+54h]
+006B68FA: mov ecx,dword ptr [esp+58h]
+006B68FE: push 0FFh
+006B6903: push 0Fh
+006B6905: mov dword ptr [esp+1Ch],edx
+006B6909: mov dword ptr [esp+20h],eax
+006B690D: mov eax,dword ptr [esp+6Ch]
+006B6911: fld dword ptr [eax+44h]
+006B6914: push 43h
+006B6916: fmul dword ptr ds:[00858B8Ch]
+006B691C: lea edx,[esp+20h]
+006B6920: push edx
+006B6921: push ecx
+006B6922: mov dword ptr [esp+30h],ecx
+006B6926: fstp dword ptr [esp]
+006B6929: mov ecx,dword ptr [ebp+8]
+006B692C: add ecx,14h
+006B692F: call 0040FD10
+006B6934: pop edi
+006B6935: pop esi
+006B6936: mov word ptr [ebp],2
+006B693C: pop ebp
+006B693D: mov al,1
+006B693F: pop ebx
+006B6940: add esp,50h
+006B6943: ret 4

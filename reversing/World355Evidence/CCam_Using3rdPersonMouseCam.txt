@@ -1,0 +1,25 @@
+// CCam::Using3rdPersonMouseCam @ 0x0050a850 [0x50a850..0x50a865]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined1 FUN_0050a850(void)
+
+{
+  int in_ECX;
+  
+  if ((DAT_00b6ec2e != '\0') && (*(short *)(in_ECX + 0xc) == 4)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0050A850: mov al,byte ptr ds:[00B6EC2Eh]
+0050A855: test al,al
+0050A857: je 0050A863
+0050A859: cmp word ptr [ecx+0Ch],4
+0050A85E: jne 0050A863
+0050A860: mov al,1
+0050A862: ret
+0050A863: xor al,al
+0050A865: ret

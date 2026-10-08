@@ -1,0 +1,81 @@
+// CTaskComplexPlayHandSignalAnim::GetAnimIdForPed @ 0x0061b460 [0x61b460..0x61b4b2]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_0061b460(int param_1)
+
+{
+  int iVar1;
+  
+  iVar1 = *(int *)(param_1 + 0x598);
+  if (iVar1 == 7) {
+    return 0x140;
+  }
+  if (iVar1 == 8) {
+    return 0x141;
+  }
+  if (iVar1 == 9) {
+    return 0x142;
+  }
+  if (iVar1 == 0xb) {
+    return 0x144;
+  }
+  return ((iVar1 != 0xe) - 1 & 0x144) - 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0061B460: mov eax,dword ptr [esp+4]
+0061B464: mov eax,dword ptr [eax+00000598h]
+0061B46A: cmp eax,7
+0061B46D: jne 0061B477
+0061B46F: mov eax,140h
+0061B474: ret 4
+0061B477: cmp eax,8
+0061B47A: jne 0061B484
+0061B47C: mov eax,141h
+0061B481: ret 4
+0061B484: cmp eax,9
+0061B487: jne 0061B491
+0061B489: mov eax,142h
+0061B48E: ret 4
+0061B491: cmp eax,0Bh
+0061B494: jne 0061B49E
+0061B496: mov eax,144h
+0061B49B: ret 4
+0061B49E: xor ecx,ecx
+0061B4A0: cmp eax,0Eh
+0061B4A3: setne cl
+0061B4A6: dec ecx
+0061B4A7: and ecx,144h
+0061B4AD: dec ecx
+0061B4AE: mov eax,ecx
+0061B4B0: ret 4
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x61B460, 0x61B4B2) ====
+0061B460: mov eax,dword ptr [esp+4]
+0061B464: mov eax,dword ptr [eax+00000598h]
+0061B46A: cmp eax,7
+0061B46D: jne 0061B477
+0061B46F: mov eax,140h
+0061B474: ret 4
+0061B477: cmp eax,8
+0061B47A: jne 0061B484
+0061B47C: mov eax,141h
+0061B481: ret 4
+0061B484: cmp eax,9
+0061B487: jne 0061B491
+0061B489: mov eax,142h
+0061B48E: ret 4
+0061B491: cmp eax,0Bh
+0061B494: jne 0061B49E
+0061B496: mov eax,144h
+0061B49B: ret 4
+0061B49E: xor ecx,ecx
+0061B4A0: cmp eax,0Eh
+0061B4A3: setne cl
+0061B4A6: dec ecx
+0061B4A7: and ecx,144h
+0061B4AD: dec ecx
+0061B4AE: mov eax,ecx
+0061B4B0: ret 4

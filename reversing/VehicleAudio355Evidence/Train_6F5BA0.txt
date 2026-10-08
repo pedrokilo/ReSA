@@ -1,0 +1,159 @@
+// CTrain::FindMaximumSpeedToStopAtStations @ 0x006f5ba0 [0x6f5ba0..0x6f5ccf]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+ushort FUN_006f5ba0(float *param_1)
+
+{
+  float fVar1;
+  undefined2 in_AX;
+  int in_ECX;
+  byte bVar2;
+  float *pfVar3;
+  ushort uVar4;
+  float local_4;
+  
+  *param_1 = 50.0;
+  uVar4 = CONCAT11((char)((ushort)in_AX >> 8),*(char *)(in_ECX + 0x5c0));
+  local_4 = 10000.0;
+  if (*(char *)(in_ECX + 0x5c0) == '\0') {
+    bVar2 = *(byte *)(in_ECX + 0x5b8) >> 6 & 1;
+    pfVar3 = (float *)&DAT_00c38034;
+    do {
+      fVar1 = *pfVar3 - *(float *)(in_ECX + 0x5a8);
+      if (bVar2 == 0) {
+        fVar1 = fVar1 - 40.0;
+      }
+      else {
+        fVar1 = fVar1 + 40.0;
+      }
+      for (; _DAT_00c37fec * 0.5 < fVar1; fVar1 = fVar1 - _DAT_00c37fec) {
+      }
+      for (; fVar1 < _DAT_00c37fec * -0.5; fVar1 = fVar1 + _DAT_00c37fec) {
+      }
+      if (bVar2 == 0) {
+        if (fVar1 < 0.0) {
+          fVar1 = -fVar1;
+          goto LAB_006f5c9a;
+        }
+      }
+      else if (0.0 < fVar1) {
+LAB_006f5c9a:
+        if (fVar1 < local_4) {
+          local_4 = fVar1;
+        }
+      }
+      pfVar3 = pfVar3 + 1;
+    } while ((int)pfVar3 < 0xc3804c);
+    if (500.0 <= local_4) {
+      *param_1 = 100000.0;
+    }
+    else {
+      *param_1 = (1.0 - (500.0 - local_4) * 0.002) * 50.0;
+    }
+    uVar4 = (ushort)(local_4 < 5.0) << 8 | (ushort)NAN(local_4) << 10 |
+            (ushort)(local_4 == 5.0) << 0xe;
+    if (local_4 < 5.0) {
+      return CONCAT11((char)(uVar4 >> 8),1);
+    }
+  }
+  return uVar4 & 0xff00;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F5BA0: push ecx
+006F5BA1: push edi
+006F5BA2: mov edi,dword ptr [esp+0Ch]
+006F5BA6: mov dword ptr [edi],42480000h
+006F5BAC: mov al,byte ptr [ecx+000005C0h]
+006F5BB2: test al,al
+006F5BB4: mov dword ptr [esp+4],461C4000h
+006F5BBC: jne 006F5CC9
+006F5BC2: fld dword ptr ds:[00C37FECh]
+006F5BC8: mov dl,byte ptr [ecx+000005B8h]
+006F5BCE: fmul dword ptr ds:[00858B8Ch]
+006F5BD4: shr dl,6
+006F5BD7: fld dword ptr ds:[00C37FECh]
+006F5BDD: push esi
+006F5BDE: fmul dword ptr ds:[00858F40h]
+006F5BE4: and dl,1
+006F5BE7: mov esi,0C38034h
+006F5BEC: lea esp,[esp]
+006F5BF0: test dl,dl
+006F5BF2: fld dword ptr [esi]
+006F5BF4: fsub dword ptr [ecx+000005A8h]
+006F5BFA: je 006F5C04
+006F5BFC: fadd dword ptr ds:[00858A10h]
+006F5C02: jmp 006F5C0A
+006F5C04: fsub dword ptr ds:[00858A10h]
+006F5C0A: fcom st(2)
+006F5C0C: fnstsw ax
+006F5C0E: test ah,41h
+006F5C11: jne 006F5C22
+006F5C13: fsub dword ptr ds:[00C37FECh]
+006F5C19: fcom st(2)
+006F5C1B: fnstsw ax
+006F5C1D: test ah,41h
+006F5C20: je 006F5C13
+006F5C22: fcom st(1)
+006F5C24: fnstsw ax
+006F5C26: test ah,5
+006F5C29: jp 006F5C3F
+006F5C2B: jmp 006F5C30
+006F5C2D: lea ecx,[ecx]
+006F5C30: fadd dword ptr ds:[00C37FECh]
+006F5C36: fcom st(1)
+006F5C38: fnstsw ax
+006F5C3A: test ah,5
+006F5C3D: jnp 006F5C30
+006F5C3F: test dl,dl
+006F5C41: fcom dword ptr ds:[00858B50h]
+006F5C47: fnstsw ax
+006F5C49: je 006F5C93
+006F5C4B: test ah,41h
+006F5C4E: je 006F5C9A
+006F5C50: fstp st(0)
+006F5C52: add esi,4
+006F5C55: cmp esi,0C3804Ch
+006F5C5B: jl 006F5BF0
+006F5C5D: fstp st(0)
+006F5C5F: pop esi
+006F5C60: fstp st(0)
+006F5C62: fld dword ptr [esp+4]
+006F5C66: fcomp dword ptr ds:[00858B58h]
+006F5C6C: fnstsw ax
+006F5C6E: test ah,5
+006F5C71: jp 006F5CAB
+006F5C73: fld dword ptr ds:[00858B58h]
+006F5C79: fsub dword ptr [esp+4]
+006F5C7D: fmul dword ptr ds:[00858F44h]
+006F5C83: fsubr dword ptr ds:[00858624h]
+006F5C89: fmul dword ptr ds:[00858B40h]
+006F5C8F: fstp dword ptr [edi]
+006F5C91: jmp 006F5CB1
+006F5C93: test ah,5
+006F5C96: jp 006F5C50
+006F5C98: fchs
+006F5C9A: fcom dword ptr [esp+8]
+006F5C9E: fnstsw ax
+006F5CA0: test ah,5
+006F5CA3: jp 006F5C50
+006F5CA5: fstp dword ptr [esp+8]
+006F5CA9: jmp 006F5C52
+006F5CAB: mov dword ptr [edi],47C35000h
+006F5CB1: fld dword ptr [esp+4]
+006F5CB5: fcomp dword ptr ds:[00858C80h]
+006F5CBB: fnstsw ax
+006F5CBD: test ah,5
+006F5CC0: jp 006F5CC9
+006F5CC2: mov al,1
+006F5CC4: pop edi
+006F5CC5: pop ecx
+006F5CC6: ret 4
+006F5CC9: xor al,al
+006F5CCB: pop edi
+006F5CCC: pop ecx
+006F5CCD: ret 4
+ 006F5CD0: 8B

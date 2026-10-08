@@ -1,0 +1,42 @@
+// CGenericGameStorage::OpenFileForWriting @ 0x005d0dd0 [0x5d0dd0..0x5d0e22]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_005d0dd0(void)
+
+{
+  DAT_00c16ef0 = thunk_FUN_008232d8(&DAT_00c16db8,&DAT_00860adc);
+  if (DAT_00c16ef0 == 0) {
+    DAT_00c17034 = 4;
+    return 0;
+  }
+  DAT_00c16ef4 = 0;
+  DAT_00c16eec = 0;
+  if (DAT_00c16ee8 == (void *)0x0) {
+    DAT_00c16ee8 = operator_new(0xc801);
+  }
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D0DD0: push 860ADCh
+005D0DD5: push 0C16DB8h
+005D0DDA: call 00538900
+005D0DDF: xor ecx,ecx
+005D0DE1: add esp,8
+005D0DE4: cmp eax,ecx
+005D0DE6: mov dword ptr ds:[00C16EF0h],eax
+005D0DEB: jne 005D0DFA
+005D0DED: mov dword ptr ds:[00C17034h],4
+005D0DF7: xor al,al
+005D0DF9: ret
+005D0DFA: cmp dword ptr ds:[00C16EE8h],ecx
+005D0E00: mov dword ptr ds:[00C16EF4h],ecx
+005D0E06: mov dword ptr ds:[00C16EECh],ecx
+005D0E0C: jne 005D0E20
+005D0E0E: push 0C801h
+005D0E13: call 00821195
+005D0E18: add esp,4
+005D0E1B: mov dword ptr ds:[00C16EE8h],eax
+005D0E20: mov al,1
+005D0E22: ret

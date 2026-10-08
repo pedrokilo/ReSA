@@ -1,0 +1,220 @@
+// CTaskGangHassleVehicle::CalcTargetOffset @ 0x006641a0 [0x6641a0..0x664297]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006641a0(void)
+
+{
+  float *pfVar1;
+  float fVar2;
+  float fVar3;
+  int iVar4;
+  int in_ECX;
+  
+  *(undefined4 *)(in_ECX + 0x2c) = 0;
+  *(undefined4 *)(in_ECX + 0x28) = 0;
+  *(undefined4 *)(in_ECX + 0x24) = 0;
+  pfVar1 = *(float **)((&DAT_00a9b0c8)[*(short *)(*(int *)(in_ECX + 0x10) + 0x22)] + 0x14);
+  fVar2 = pfVar1[1];
+  fVar3 = pfVar1[4];
+  iVar4 = *(int *)(in_ECX + 0x14);
+  if (iVar4 == 0) {
+    *(float *)(in_ECX + 0x24) = *pfVar1 - *(float *)(in_ECX + 0x20);
+    *(float *)(in_ECX + 0x28) = fVar3 * 0.5;
+    return;
+  }
+  if (iVar4 == 1) {
+    *(float *)(in_ECX + 0x24) = pfVar1[3] + *(float *)(in_ECX + 0x20);
+    *(float *)(in_ECX + 0x28) = fVar3 * 0.5;
+    return;
+  }
+  if (iVar4 == 2) {
+    *(float *)(in_ECX + 0x24) = *pfVar1 - *(float *)(in_ECX + 0x20);
+    *(float *)(in_ECX + 0x28) = fVar2 * 0.5;
+    return;
+  }
+  if (iVar4 == 3) {
+    *(float *)(in_ECX + 0x24) = pfVar1[3] + *(float *)(in_ECX + 0x20);
+    *(float *)(in_ECX + 0x28) = fVar2 * 0.5;
+    return;
+  }
+  if (iVar4 == 4) {
+    *(float *)(in_ECX + 0x28) = fVar2 - *(float *)(in_ECX + 0x20);
+    return;
+  }
+  if (iVar4 == 5) {
+    *(float *)(in_ECX + 0x28) = fVar3 + *(float *)(in_ECX + 0x20);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006641A0: sub esp,18h
+006641A3: mov eax,dword ptr [ecx+10h]
+006641A6: xor edx,edx
+006641A8: mov dword ptr [ecx+2Ch],edx
+006641AB: mov dword ptr [ecx+28h],edx
+006641AE: mov dword ptr [ecx+24h],edx
+006641B1: movsx eax,word ptr [eax+22h]
+006641B5: mov eax,dword ptr [eax*4+00A9B0C8h]
+ 00
+006641BC: mov eax,dword ptr [eax+14h]
+006641BF: push esi
+006641C0: mov esi,eax
+006641C2: push edi
+006641C3: mov edi,dword ptr [esi]
+006641C5: mov dword ptr [esp+8],edi
+006641C9: mov edi,dword ptr [esi+4]
+006641CC: mov esi,dword ptr [esi+8]
+006641CF: add eax,0Ch
+006641D2: mov dword ptr [esp+10h],esi
+006641D6: mov esi,dword ptr [eax]
+006641D8: mov dword ptr [esp+14h],esi
+006641DC: mov esi,dword ptr [eax+4]
+006641DF: mov eax,dword ptr [eax+8]
+006641E2: mov dword ptr [esp+1Ch],eax
+006641E6: mov eax,dword ptr [ecx+14h]
+006641E9: cmp eax,edx
+006641EB: mov dword ptr [esp+0Ch],edi
+006641EF: pop edi
+006641F0: mov dword ptr [esp+14h],esi
+006641F4: pop esi
+006641F5: jne 00664212
+006641F7: fld dword ptr [esp]
+006641FB: fsub dword ptr [ecx+20h]
+006641FE: fstp dword ptr [ecx+24h]
+00664201: fld dword ptr [esp+10h]
+00664205: fmul dword ptr ds:[00858B8Ch]
+0066420B: fstp dword ptr [ecx+28h]
+0066420E: add esp,18h
+00664211: ret
+00664212: cmp eax,1
+00664215: jne 00664232
+00664217: fld dword ptr [esp+0Ch]
+0066421B: fadd dword ptr [ecx+20h]
+0066421E: fstp dword ptr [ecx+24h]
+00664221: fld dword ptr [esp+10h]
+00664225: fmul dword ptr ds:[00858B8Ch]
+0066422B: fstp dword ptr [ecx+28h]
+0066422E: add esp,18h
+00664231: ret
+00664232: cmp eax,2
+00664235: jne 00664252
+00664237: fld dword ptr [esp]
+0066423B: fsub dword ptr [ecx+20h]
+0066423E: fstp dword ptr [ecx+24h]
+00664241: fld dword ptr [esp+4]
+00664245: fmul dword ptr ds:[00858B8Ch]
+0066424B: fstp dword ptr [ecx+28h]
+0066424E: add esp,18h
+00664251: ret
+00664252: cmp eax,3
+00664255: jne 00664272
+00664257: fld dword ptr [esp+0Ch]
+0066425B: fadd dword ptr [ecx+20h]
+0066425E: fstp dword ptr [ecx+24h]
+00664261: fld dword ptr [esp+4]
+00664265: fmul dword ptr ds:[00858B8Ch]
+0066426B: fstp dword ptr [ecx+28h]
+0066426E: add esp,18h
+00664271: ret
+00664272: cmp eax,4
+00664275: jne 00664285
+00664277: fld dword ptr [esp+4]
+0066427B: fsub dword ptr [ecx+20h]
+0066427E: fstp dword ptr [ecx+28h]
+00664281: add esp,18h
+00664284: ret
+00664285: cmp eax,5
+00664288: jne 00664294
+0066428A: fld dword ptr [esp+10h]
+0066428E: fadd dword ptr [ecx+20h]
+00664291: fstp dword ptr [ecx+28h]
+00664294: add esp,18h
+00664297: ret
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x6641A0, 0x664297) ====
+006641A0: sub esp,18h
+006641A3: mov eax,dword ptr [ecx+10h]
+006641A6: xor edx,edx
+006641A8: mov dword ptr [ecx+2Ch],edx
+006641AB: mov dword ptr [ecx+28h],edx
+006641AE: mov dword ptr [ecx+24h],edx
+006641B1: movsx eax,word ptr [eax+22h]
+006641B5: mov eax,dword ptr [eax*4+00A9B0C8h]
+ 00
+006641BC: mov eax,dword ptr [eax+14h]
+006641BF: push esi
+006641C0: mov esi,eax
+006641C2: push edi
+006641C3: mov edi,dword ptr [esi]
+006641C5: mov dword ptr [esp+8],edi
+006641C9: mov edi,dword ptr [esi+4]
+006641CC: mov esi,dword ptr [esi+8]
+006641CF: add eax,0Ch
+006641D2: mov dword ptr [esp+10h],esi
+006641D6: mov esi,dword ptr [eax]
+006641D8: mov dword ptr [esp+14h],esi
+006641DC: mov esi,dword ptr [eax+4]
+006641DF: mov eax,dword ptr [eax+8]
+006641E2: mov dword ptr [esp+1Ch],eax
+006641E6: mov eax,dword ptr [ecx+14h]
+006641E9: cmp eax,edx
+006641EB: mov dword ptr [esp+0Ch],edi
+006641EF: pop edi
+006641F0: mov dword ptr [esp+14h],esi
+006641F4: pop esi
+006641F5: jne 00664212
+006641F7: fld dword ptr [esp]
+006641FB: fsub dword ptr [ecx+20h]
+006641FE: fstp dword ptr [ecx+24h]
+00664201: fld dword ptr [esp+10h]
+00664205: fmul dword ptr ds:[00858B8Ch]
+0066420B: fstp dword ptr [ecx+28h]
+0066420E: add esp,18h
+00664211: ret
+00664212: cmp eax,1
+00664215: jne 00664232
+00664217: fld dword ptr [esp+0Ch]
+0066421B: fadd dword ptr [ecx+20h]
+0066421E: fstp dword ptr [ecx+24h]
+00664221: fld dword ptr [esp+10h]
+00664225: fmul dword ptr ds:[00858B8Ch]
+0066422B: fstp dword ptr [ecx+28h]
+0066422E: add esp,18h
+00664231: ret
+00664232: cmp eax,2
+00664235: jne 00664252
+00664237: fld dword ptr [esp]
+0066423B: fsub dword ptr [ecx+20h]
+0066423E: fstp dword ptr [ecx+24h]
+00664241: fld dword ptr [esp+4]
+00664245: fmul dword ptr ds:[00858B8Ch]
+0066424B: fstp dword ptr [ecx+28h]
+0066424E: add esp,18h
+00664251: ret
+00664252: cmp eax,3
+00664255: jne 00664272
+00664257: fld dword ptr [esp+0Ch]
+0066425B: fadd dword ptr [ecx+20h]
+0066425E: fstp dword ptr [ecx+24h]
+00664261: fld dword ptr [esp+4]
+00664265: fmul dword ptr ds:[00858B8Ch]
+0066426B: fstp dword ptr [ecx+28h]
+0066426E: add esp,18h
+00664271: ret
+00664272: cmp eax,4
+00664275: jne 00664285
+00664277: fld dword ptr [esp+4]
+0066427B: fsub dword ptr [ecx+20h]
+0066427E: fstp dword ptr [ecx+28h]
+00664281: add esp,18h
+00664284: ret
+00664285: cmp eax,5
+00664288: jne 00664294
+0066428A: fld dword ptr [esp+10h]
+0066428E: fadd dword ptr [ecx+20h]
+00664291: fstp dword ptr [ecx+28h]
+00664294: add esp,18h
+00664297: ret

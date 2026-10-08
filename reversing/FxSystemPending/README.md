@@ -1,3 +1,7 @@
+<!-- USER STOP 2026-10-08 -->
+Estado al detener el trabajo: reconstrucción solicitada completada y aprobación histórica conservada. No se ejecutó una nueva regresión con las fuentes finales. Los hashes y límites actuales se detallan en [el estado de todas las listas](../../docs/EstadoListasSolicitadas.md). Las notas siguientes conservan su fecha y alcance originales.
+<!-- /USER STOP 2026-10-08 -->
+
 # FxSystem_c: funciones pendientes
 
 ReconstrucciÃ³n de ambas sobrecargas AddParticle (0x4AA440 y 0x4AA540), Update (0x4AAF70) y UpdateBoundingBoxCB (0x4AA9A0), cotejada con REA y ensamblador en `combo/`.

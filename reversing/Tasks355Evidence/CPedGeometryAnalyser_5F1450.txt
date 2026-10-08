@@ -1,0 +1,176 @@
+// CPedGeometryAnalyser::ComputeEntityHitSide-2 @ 0x005f1450 [0x5f1450..0x5f14f4]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+uint FUN_005f1450(float *param_1,int param_2,int param_3)
+
+{
+  int iVar1;
+  float *pfVar2;
+  float *pfVar3;
+  uint uVar4;
+  uint uVar5;
+  uint uVar6;
+  
+  uVar6 = 4;
+  while( true ) {
+    uVar4 = uVar6 - 1 & 0x80000003;
+    if ((int)uVar4 < 0) {
+      uVar4 = (uVar4 - 1 | 0xfffffffc) + 1;
+    }
+    uVar5 = uVar6 & 0x80000003;
+    if ((int)uVar5 < 0) {
+      uVar5 = (uVar5 - 1 | 0xfffffffc) + 1;
+    }
+    pfVar2 = (float *)(param_2 + uVar4 * 0xc);
+    pfVar3 = (float *)(param_2 + uVar5 * 0xc);
+    if ((0.0 <= *param_1 * *pfVar2 +
+                pfVar2[2] * param_1[2] + *(float *)(param_2 + 4 + uVar4 * 0xc) * param_1[1] +
+                *(float *)(param_3 + uVar4 * 4)) &&
+       (*param_1 * *pfVar3 + pfVar3[2] * param_1[2] + pfVar3[1] * param_1[1] +
+        *(float *)(param_3 + uVar5 * 4) < 0.0)) break;
+    iVar1 = uVar6 - 3;
+    uVar6 = uVar6 + 1;
+    if (3 < iVar1) {
+      return 0;
+    }
+  }
+  return uVar5;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005F1450: mov edx,dword ptr [esp+4]
+005F1454: push ebx
+005F1455: push ebp
+005F1456: mov ebp,dword ptr [esp+10h]
+005F145A: push esi
+005F145B: push edi
+005F145C: mov ebx,4
+005F1461: lea eax,[ebx-1]
+005F1464: and eax,80000003h
+005F1469: jns 005F1470
+005F146B: dec eax
+005F146C: or eax,0FFFFFFFCh
+005F146F: inc eax
+005F1470: mov ecx,ebx
+005F1472: and ecx,80000003h
+005F1478: jns 005F147F
+005F147A: dec ecx
+005F147B: or ecx,0FFFFFFFCh
+005F147E: inc ecx
+005F147F: lea esi,[eax+eax*2]
+005F1482: fld dword ptr [ebp+esi*4+4]
+005F1486: lea esi,[ebp+esi*4]
+005F148A: fmul dword ptr [edx+4]
+005F148D: lea edi,[ecx+ecx*2]
+005F1490: fld dword ptr [esi+8]
+005F1493: lea edi,[ebp+edi*4]
+005F1497: fmul dword ptr [edx+8]
+005F149A: faddp st(1),st
+005F149C: fld dword ptr [edx]
+005F149E: fmul dword ptr [esi]
+005F14A0: mov esi,dword ptr [esp+1Ch]
+005F14A4: faddp st(1),st
+005F14A6: fadd dword ptr [esi+eax*4]
+005F14A9: fcomp dword ptr ds:[00858B50h]
+005F14AF: fnstsw ax
+005F14B1: test ah,1
+005F14B4: jne 005F14DA
+005F14B6: fld dword ptr [edi+4]
+005F14B9: fmul dword ptr [edx+4]
+005F14BC: fld dword ptr [edi+8]
+005F14BF: fmul dword ptr [edx+8]
+005F14C2: faddp st(1),st
+005F14C4: fld dword ptr [edx]
+005F14C6: fmul dword ptr [edi]
+005F14C8: faddp st(1),st
+005F14CA: fadd dword ptr [esi+ecx*4]
+005F14CD: fcomp dword ptr ds:[00858B50h]
+005F14D3: fnstsw ax
+005F14D5: test ah,5
+005F14D8: jnp 005F14EE
+005F14DA: inc ebx
+005F14DB: lea eax,[ebx-4]
+005F14DE: cmp eax,4
+005F14E1: jl 005F1461
+005F14E7: pop edi
+005F14E8: pop esi
+005F14E9: pop ebp
+005F14EA: xor eax,eax
+005F14EC: pop ebx
+005F14ED: ret
+005F14EE: pop edi
+005F14EF: pop esi
+005F14F0: pop ebp
+005F14F1: mov eax,ecx
+005F14F3: pop ebx
+005F14F4: ret
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x5F1450, 0x5F14F4) ====
+005F1450: mov edx,dword ptr [esp+4]
+005F1454: push ebx
+005F1455: push ebp
+005F1456: mov ebp,dword ptr [esp+10h]
+005F145A: push esi
+005F145B: push edi
+005F145C: mov ebx,4
+005F1461: lea eax,[ebx-1]
+005F1464: and eax,80000003h
+005F1469: jns 005F1470
+005F146B: dec eax
+005F146C: or eax,0FFFFFFFCh
+005F146F: inc eax
+005F1470: mov ecx,ebx
+005F1472: and ecx,80000003h
+005F1478: jns 005F147F
+005F147A: dec ecx
+005F147B: or ecx,0FFFFFFFCh
+005F147E: inc ecx
+005F147F: lea esi,[eax+eax*2]
+005F1482: fld dword ptr [ebp+esi*4+4]
+005F1486: lea esi,[ebp+esi*4]
+005F148A: fmul dword ptr [edx+4]
+005F148D: lea edi,[ecx+ecx*2]
+005F1490: fld dword ptr [esi+8]
+005F1493: lea edi,[ebp+edi*4]
+005F1497: fmul dword ptr [edx+8]
+005F149A: faddp st(1),st
+005F149C: fld dword ptr [edx]
+005F149E: fmul dword ptr [esi]
+005F14A0: mov esi,dword ptr [esp+1Ch]
+005F14A4: faddp st(1),st
+005F14A6: fadd dword ptr [esi+eax*4]
+005F14A9: fcomp dword ptr ds:[00858B50h]
+005F14AF: fnstsw ax
+005F14B1: test ah,1
+005F14B4: jne 005F14DA
+005F14B6: fld dword ptr [edi+4]
+005F14B9: fmul dword ptr [edx+4]
+005F14BC: fld dword ptr [edi+8]
+005F14BF: fmul dword ptr [edx+8]
+005F14C2: faddp st(1),st
+005F14C4: fld dword ptr [edx]
+005F14C6: fmul dword ptr [edi]
+005F14C8: faddp st(1),st
+005F14CA: fadd dword ptr [esi+ecx*4]
+005F14CD: fcomp dword ptr ds:[00858B50h]
+005F14D3: fnstsw ax
+005F14D5: test ah,5
+005F14D8: jnp 005F14EE
+005F14DA: inc ebx
+005F14DB: lea eax,[ebx-4]
+005F14DE: cmp eax,4
+005F14E1: jl 005F1461
+005F14E7: pop edi
+005F14E8: pop esi
+005F14E9: pop ebp
+005F14EA: xor eax,eax
+005F14EC: pop ebx
+005F14ED: ret
+005F14EE: pop edi
+005F14EF: pop esi
+005F14F0: pop ebp
+005F14F1: mov eax,ecx
+005F14F3: pop ebx
+005F14F4: ret

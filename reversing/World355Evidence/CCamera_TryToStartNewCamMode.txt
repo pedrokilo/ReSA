@@ -1,0 +1,3031 @@
+// CCamera::TryToStartNewCamMode @ 0x0051e560 [0x51e560..0x52010f]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+char FUN_0051e560(undefined4 param_1)
+
+{
+  int iVar1;
+  char cVar2;
+  int iVar3;
+  float *pfVar4;
+  int iVar5;
+  int iVar6;
+  float *pfVar7;
+  int iVar8;
+  undefined4 *puVar9;
+  undefined4 uVar10;
+  int in_ECX;
+  float fVar11;
+  byte bVar12;
+  float10 fVar13;
+  float10 fVar14;
+  undefined4 uVar15;
+  undefined4 uVar16;
+  undefined4 uVar17;
+  float local_290;
+  float local_28c;
+  float local_288;
+  char local_281;
+  float local_280;
+  float local_27c;
+  float local_278;
+  undefined4 local_274;
+  float local_270;
+  float local_26c;
+  char local_266 [2];
+  float local_264;
+  float local_260;
+  float local_25c;
+  float local_258;
+  float local_254;
+  float local_250;
+  float local_24c;
+  float local_248;
+  undefined4 local_240;
+  undefined4 local_23c;
+  undefined4 local_238;
+  undefined4 local_234;
+  undefined4 local_230;
+  undefined4 local_22c;
+  undefined1 local_228 [12];
+  undefined1 local_21c [12];
+  undefined1 local_210 [12];
+  undefined1 local_204 [12];
+  undefined1 local_1f8 [12];
+  undefined1 local_1ec [12];
+  undefined1 local_1e0 [12];
+  undefined1 local_1d4 [12];
+  undefined1 local_1c8 [12];
+  undefined1 local_1bc [12];
+  undefined1 local_1b0 [12];
+  undefined1 local_1a4 [12];
+  undefined1 local_198 [12];
+  undefined1 local_18c [12];
+  undefined1 local_180 [12];
+  undefined1 local_174 [12];
+  undefined1 local_168 [12];
+  undefined1 local_15c [12];
+  undefined1 local_150 [12];
+  undefined1 local_144 [12];
+  undefined1 local_138 [12];
+  undefined1 local_12c [12];
+  undefined1 local_120 [12];
+  undefined1 local_114 [12];
+  undefined1 local_108 [12];
+  undefined1 local_fc [12];
+  undefined1 local_f0 [12];
+  undefined1 local_e4 [12];
+  undefined1 local_d8 [12];
+  undefined1 local_cc [12];
+  undefined1 local_c0 [12];
+  undefined1 local_b4 [12];
+  undefined1 local_a8 [12];
+  undefined1 local_9c [12];
+  undefined1 local_90 [12];
+  undefined1 local_84 [12];
+  undefined1 local_78 [12];
+  undefined1 local_6c [12];
+  undefined1 local_60 [12];
+  undefined1 local_54 [12];
+  undefined1 local_48 [12];
+  undefined1 local_3c [12];
+  undefined1 local_30 [12];
+  undefined1 local_24 [12];
+  undefined1 local_18 [12];
+  undefined1 local_c [12];
+  
+  switch(param_1) {
+  case 0:
+    iVar8 = FUN_0056e0d0(0xffffffff,0);
+    if ((iVar8 != 0) &&
+       (((*(int *)(iVar8 + 0x590) != 5 || (*(short *)(*(int *)(in_ECX + 0x958) + 0x22) == 0x1cc)) &&
+        (*(short *)(iVar8 + 0x22) != 0x1b0)))) {
+      local_240 = 0xbfb33333;
+      local_23c = 0xc0133333;
+      local_238 = 0x3e99999a;
+      iVar3 = FUN_0056e0d0(0xffffffff,0);
+      puVar9 = (undefined4 *)FUN_0059c790(local_168,*(undefined4 *)(iVar3 + 0x14),&local_240);
+      local_274 = *puVar9;
+      local_270 = (float)puVar9[1];
+      local_26c = (float)puVar9[2];
+      iVar3 = FUN_0056e0d0(0xffffffff,0);
+      if (*(int *)(iVar3 + 0x14) == 0) {
+        iVar3 = iVar3 + 4;
+      }
+      else {
+        iVar3 = *(int *)(iVar3 + 0x14) + 0x30;
+      }
+      FUN_00411a00(iVar3);
+      FUN_0056e0d0(0xffffffff,0);
+      if (*(int *)(iVar8 + 0x14) == 0) {
+        iVar3 = iVar8 + 4;
+      }
+      else {
+        iVar3 = *(int *)(iVar8 + 0x14) + 0x30;
+      }
+      cVar2 = FUN_0056a490(iVar3,&local_274,1,0,0,0,0,0,0);
+      if (cVar2 != '\0') {
+        FUN_0050c7c0(iVar8,0xe,2,2);
+        return '\x01';
+      }
+    }
+    break;
+  case 1:
+    pfVar7 = (float *)FUN_0056e010(local_210,0xffffffff);
+    local_290 = *pfVar7;
+    local_28c = pfVar7[1];
+    local_288 = pfVar7[2];
+    pfVar7 = (float *)FUN_0056e090(0xffffffff);
+    local_280 = *pfVar7;
+    local_27c = pfVar7[1];
+    local_278 = 0.0;
+    FUN_0059c910();
+    local_26c = local_278 * 20.0;
+    local_288 = local_288 + local_26c;
+    local_290 = local_27c * 3.0 + local_280 * 20.0 + local_290;
+    local_28c = local_27c * 20.0 + local_28c + local_280 * -3.0;
+    iVar8 = FUN_0056e0d0(0xffffffff,0);
+    if (((iVar8 != 0) && (iVar8 = FUN_0056e0d0(0xffffffff,0), *(int *)(iVar8 + 0x590) == 5)) &&
+       (*(short *)(*(int *)(in_ECX + 0x958) + 0x22) != 0x1cc)) {
+      return '\0';
+    }
+    fVar13 = (float10)FUN_005696c0(local_290,local_28c,local_288 + 5.0,&local_281,0);
+    if (local_281 == '\0') {
+      fVar13 = (float10)FUN_00569750(local_290,local_28c,local_288 - 5.0,&local_281);
+      if (local_281 != '\0') {
+        local_288 = (float)(fVar13 + (float10)1.5);
+      }
+    }
+    else {
+      local_288 = (float)(fVar13 + (float10)1.5);
+    }
+    uVar10 = FUN_0056e010(local_108,0xffffffff,&local_290,1,0,0,0,0,0,0);
+    cVar2 = FUN_0056a490(uVar10);
+    if (cVar2 == '\0') {
+      return '\0';
+    }
+    uVar10 = FUN_0056e010(local_1f8,0xffffffff,&local_290);
+    pfVar7 = (float *)FUN_0040fe60(local_48,uVar10);
+    local_258 = *pfVar7;
+    local_254 = pfVar7[1];
+    local_250 = 0.0;
+    fVar13 = (float10)FUN_004082c0();
+    if (((float10)40.0 < fVar13) &&
+       (pfVar7 = (float *)FUN_0056e090(0xffffffff),
+       0.0 < pfVar7[2] * 0.0 + local_258 * *pfVar7 + local_254 * pfVar7[1])) {
+      return '\0';
+    }
+    fVar13 = (float10)FUN_004082c0();
+    bVar12 = fVar13 < (float10)4.5 |
+             (byte)((ushort)((ushort)(NAN(fVar13) || NAN((float10)4.5)) << 10) >> 8);
+    goto LAB_0051e8cb;
+  case 2:
+    iVar8 = FUN_0056e0d0(0xffffffff,0);
+    if (((iVar8 == 0) || (iVar8 = FUN_0056e0d0(0xffffffff,0), *(int *)(iVar8 + 0x590) != 5)) ||
+       (*(short *)(*(int *)(in_ECX + 0x958) + 0x22) == 0x1cc)) {
+      pfVar7 = (float *)FUN_0056e010(local_1e0,0xffffffff);
+      local_290 = *pfVar7;
+      local_28c = pfVar7[1];
+      local_288 = pfVar7[2];
+      pfVar7 = (float *)FUN_0056e090(0xffffffff);
+      local_280 = *pfVar7;
+      local_27c = pfVar7[1];
+      local_278 = 0.0;
+      FUN_0059c910();
+      local_26c = local_278 * 16.0;
+      local_288 = local_26c + local_288;
+      local_290 = local_27c * 2.5 + local_280 * 16.0 + local_290;
+      local_28c = local_27c * 16.0 + local_28c + local_280 * -2.5;
+      fVar13 = (float10)FUN_005696c0(local_290,local_28c,local_288 + 5.0,&local_281,0);
+      if (local_281 == '\0') {
+        fVar13 = (float10)FUN_00569750(local_290,local_28c,local_288 - 5.0,&local_281);
+        if (local_281 != '\0') {
+          local_288 = (float)(fVar13 + (float10)0.5);
+        }
+      }
+      else {
+        local_288 = (float)(fVar13 + (float10)0.5);
+      }
+      uVar10 = FUN_0056e010(local_f0,0xffffffff,&local_290,1,0,0,0,0,0,0);
+      cVar2 = FUN_0056a490(uVar10);
+      if (cVar2 != '\0') {
+        uVar10 = FUN_0056e010(local_1c8,0xffffffff,&local_290);
+        pfVar7 = (float *)FUN_0040fe60(local_78,uVar10);
+        local_258 = *pfVar7;
+        local_254 = pfVar7[1];
+        local_250 = 0.0;
+        fVar13 = (float10)FUN_004082c0();
+        if (((fVar13 <= (float10)29.0) ||
+            (pfVar7 = (float *)FUN_0056e090(0xffffffff),
+            local_258 * *pfVar7 + pfVar7[2] * 0.0 + local_254 * pfVar7[1] <= 0.0)) &&
+           (fVar13 = (float10)FUN_004082c0(), (float10)2.0 <= fVar13)) {
+          local_274 = 0;
+          local_270 = 0.0;
+          local_26c = 0.0;
+          FUN_0050bec0(&local_290,&local_274);
+          uVar17 = 2;
+          uVar16 = 2;
+          uVar15 = 0xf;
+          uVar10 = FUN_0056e120(0xffffffff,0xf,2,2);
+          FUN_0050c7c0(uVar10,uVar15,uVar16,uVar17);
+          FUN_007ee1d0(DAT_00c1703c,0x3e19999a);
+          cVar2 = FUN_0050b830();
+          return '\x01' - (cVar2 != '\0');
+        }
+      }
+    }
+    break;
+  case 3:
+    pfVar7 = (float *)FUN_0056e010(local_1b0,0xffffffff);
+    local_290 = *pfVar7;
+    local_28c = pfVar7[1];
+    local_288 = pfVar7[2];
+    pfVar7 = (float *)FUN_0056e090(0xffffffff);
+    local_280 = *pfVar7;
+    local_27c = pfVar7[1];
+    local_278 = 0.0;
+    FUN_0059c910();
+    local_26c = local_278 * 30.0;
+    local_290 = local_27c * 8.0 + local_280 * 30.0 + local_290;
+    local_28c = local_27c * 30.0 + local_28c + local_280 * -8.0;
+    local_288 = local_26c + local_288 + 16.0;
+    uVar10 = FUN_0056e010(local_d8,0xffffffff,&local_290,1,0,0,0,0,0,0);
+    cVar2 = FUN_0056a490(uVar10);
+    if (cVar2 != '\0') {
+      local_274 = 0;
+      local_270 = 0.0;
+      local_26c = 0.0;
+      FUN_0050bec0(&local_290,&local_274);
+      uVar17 = 2;
+      uVar16 = 2;
+      uVar15 = 0xf;
+      uVar10 = FUN_0056e120(0xffffffff,0xf,2,2);
+      FUN_0050c7c0(uVar10,uVar15,uVar16,uVar17);
+      cVar2 = FUN_0050b830();
+      if (cVar2 == '\0') {
+        FUN_007ee1d0(DAT_00c1703c,0x3e19999a);
+        return '\x01';
+      }
+    }
+    break;
+  case 5:
+    pfVar7 = (float *)FUN_0056e010(local_198,0xffffffff);
+    local_290 = *pfVar7;
+    local_28c = pfVar7[1];
+    local_288 = pfVar7[2];
+    pfVar7 = (float *)FUN_0056e090(0xffffffff);
+    local_280 = *pfVar7;
+    local_27c = pfVar7[1];
+    local_278 = 0.0;
+    FUN_0059c910();
+    local_26c = local_278 * 30.0;
+    local_288 = local_26c + local_288;
+    local_290 = local_27c * -6.0 + local_280 * 30.0 + local_290;
+    local_28c = local_27c * 30.0 + local_28c + local_280 * 6.0;
+    fVar13 = (float10)FUN_005696c0(local_290,local_28c,local_288 + 5.0,&local_281,0);
+    if (local_281 == '\0') {
+      fVar13 = (float10)FUN_00569750(local_290,local_28c,local_288 - 5.0,&local_281);
+      if (local_281 != '\0') {
+        local_288 = (float)(fVar13 + (float10)3.5);
+      }
+    }
+    else {
+      local_288 = (float)(fVar13 + (float10)3.5);
+    }
+    uVar10 = FUN_0056e010(local_18,0xffffffff,&local_290,1,0,0,0,0,0,0);
+    cVar2 = FUN_0056a490(uVar10);
+    if (cVar2 == '\0') {
+      return '\0';
+    }
+    local_274 = 0;
+    local_270 = 0.0;
+    local_26c = 0.0;
+    FUN_0050bec0(&local_290,&local_274);
+    uVar10 = 0xf;
+    goto LAB_0051ffad;
+  case 6:
+    uVar17 = 2;
+    uVar16 = 2;
+    uVar15 = 0x10;
+    uVar10 = FUN_0056e120(0xffffffff,0x10,2,2);
+    FUN_0050c7c0(uVar10,uVar15,uVar16,uVar17);
+    return '\x01';
+  case 7:
+    FUN_0056e210(0xffffffff);
+    iVar8 = FUN_0041be60();
+    if (((0 < iVar8) && (iVar8 = FUN_0056e0d0(0xffffffff,0), iVar8 != 0)) &&
+       ((iVar8 = FUN_0056e0d0(0xffffffff,0), iVar8 == 0 ||
+        ((iVar8 = FUN_0056e0d0(0xffffffff,0), *(int *)(iVar8 + 0x590) != 5 ||
+         (*(short *)(*(int *)(in_ECX + 0x958) + 0x22) == 0x1cc)))))) {
+      fVar11 = *(float *)(DAT_00b74494 + 8);
+      local_260 = (float)DAT_00b74494;
+      do {
+        do {
+          do {
+            do {
+              do {
+                if (fVar11 == 0.0) {
+                  return '\0';
+                }
+                fVar11 = (float)((int)fVar11 + -1);
+                local_264 = fVar11;
+                iVar8 = FUN_0041cc10(fVar11);
+              } while ((((iVar8 == 0) || (*(int *)(iVar8 + 0x590) != 0)) ||
+                       (iVar3 = FUN_0056e0d0(0xffffffff,0), iVar8 == iVar3)) ||
+                      (((*(byte *)(iVar8 + 0x428) & 1) == 0 ||
+                       ((*(byte *)(iVar8 + 0x36) & 0xf8) != 0x18))));
+              pfVar7 = (float *)(*(int *)(iVar8 + 0x14) + 0x30);
+              if (*(int *)(iVar8 + 0x14) == 0) {
+                pfVar7 = (float *)(iVar8 + 4);
+              }
+              pfVar4 = (float *)FUN_0056e010(local_180,0xffffffff);
+              local_24c = *pfVar7 - *pfVar4;
+              iVar3 = *(int *)(iVar8 + 0x14) + 0x30;
+              if (*(int *)(iVar8 + 0x14) == 0) {
+                iVar3 = iVar8 + 4;
+              }
+              iVar5 = FUN_0056e010(local_c0,0xffffffff);
+              local_248 = *(float *)(iVar3 + 4) - *(float *)(iVar5 + 4);
+              if (*(int *)(iVar8 + 0x14) == 0) {
+                iVar3 = iVar8 + 4;
+              }
+              else {
+                iVar3 = *(int *)(iVar8 + 0x14) + 0x30;
+              }
+              uVar10 = FUN_0056e010(local_228,0xffffffff,iVar3);
+              FUN_0040fe60(local_60,uVar10);
+              fVar13 = (float10)FUN_004082c0();
+            } while ((float10)30.0 <= fVar13);
+            iVar3 = FUN_0056e0d0(0xffffffff,0);
+            iVar3 = *(int *)(iVar3 + 0x14);
+            iVar5 = FUN_0056e0d0(0xffffffff,0);
+          } while (0.0 <= local_24c * *(float *)(iVar3 + 0x10) +
+                          local_248 * *(float *)(*(int *)(iVar5 + 0x14) + 0x14));
+          iVar3 = *(int *)(iVar8 + 0x14);
+          iVar5 = FUN_0056e0d0(0xffffffff,0);
+          iVar5 = *(int *)(iVar5 + 0x14);
+          iVar1 = *(int *)(iVar8 + 0x14);
+          iVar6 = FUN_0056e0d0(0xffffffff,0);
+          fVar11 = local_264;
+        } while (*(float *)(iVar5 + 0x10) * *(float *)(iVar3 + 0x10) +
+                 *(float *)(*(int *)(iVar6 + 0x14) + 0x14) * *(float *)(iVar1 + 0x14) <= 0.8);
+        FUN_0050c7c0(iVar8,0x12,2,2);
+        cVar2 = FUN_0050b830();
+        fVar11 = local_264;
+      } while (cVar2 != '\0');
+      return '\x01';
+    }
+    break;
+  case 8:
+    FUN_0056e210(0xffffffff);
+    iVar8 = FUN_0041be60();
+    if ((0 < iVar8) && (iVar8 = FUN_0056e0d0(0xffffffff,0), iVar8 != 0)) {
+      fVar11 = *(float *)(DAT_00b74494 + 8);
+      local_248 = (float)DAT_00b74494;
+      iVar8 = FUN_0056e0d0(0xffffffff,0);
+      if (((iVar8 == 0) ||
+          ((iVar8 = FUN_0056e0d0(0xffffffff,0), *(int *)(iVar8 + 0x590) != 5 ||
+           (*(short *)(*(int *)(in_ECX + 0x958) + 0x22) == 0x1cc)))) && (fVar11 != 0.0)) {
+        do {
+          fVar11 = (float)((int)fVar11 + -1);
+          local_264 = fVar11;
+          iVar8 = FUN_0041cc10(fVar11);
+          if ((((iVar8 != 0) && (*(int *)(iVar8 + 0x590) == 0)) &&
+              (iVar3 = FUN_0056e0d0(0xffffffff,0), iVar8 != iVar3)) &&
+             ((*(byte *)(iVar8 + 0x428) & 1) != 0)) {
+            pfVar7 = (float *)(*(int *)(iVar8 + 0x14) + 0x30);
+            if (*(int *)(iVar8 + 0x14) == 0) {
+              pfVar7 = (float *)(iVar8 + 4);
+            }
+            pfVar4 = (float *)FUN_0056e010(local_150,0xffffffff);
+            local_24c = *pfVar7 - *pfVar4;
+            iVar3 = *(int *)(iVar8 + 0x14) + 0x30;
+            if (*(int *)(iVar8 + 0x14) == 0) {
+              iVar3 = iVar8 + 4;
+            }
+            iVar5 = FUN_0056e010(local_a8,0xffffffff);
+            local_260 = *(float *)(iVar3 + 4) - *(float *)(iVar5 + 4);
+            if (*(int *)(iVar8 + 0x14) == 0) {
+              iVar3 = iVar8 + 4;
+            }
+            else {
+              iVar3 = *(int *)(iVar8 + 0x14) + 0x30;
+            }
+            uVar10 = FUN_0056e010(local_138,0xffffffff,iVar3);
+            FUN_0040fe60(local_30,uVar10);
+            fVar13 = (float10)FUN_004082c0();
+            if (fVar13 < (float10)30.0) {
+              iVar3 = FUN_0056e0d0(0xffffffff,0);
+              iVar3 = *(int *)(iVar3 + 0x14);
+              iVar5 = FUN_0056e0d0(0xffffffff,0);
+              if (local_24c * *(float *)(iVar3 + 0x10) +
+                  local_260 * *(float *)(*(int *)(iVar5 + 0x14) + 0x14) < 0.0) {
+                iVar3 = *(int *)(iVar8 + 0x14);
+                iVar5 = FUN_0056e0d0(0xffffffff,0);
+                iVar5 = *(int *)(iVar5 + 0x14);
+                iVar1 = *(int *)(iVar8 + 0x14);
+                iVar6 = FUN_0056e0d0(0xffffffff,0);
+                fVar11 = local_264;
+                if (0.8 < *(float *)(iVar5 + 0x10) * *(float *)(iVar3 + 0x10) +
+                          *(float *)(*(int *)(iVar6 + 0x14) + 0x14) * *(float *)(iVar1 + 0x14)) {
+                  local_234 = 0xbfb33333;
+                  local_230 = 0xc0133333;
+                  local_22c = 0x3e99999a;
+                  puVar9 = (undefined4 *)
+                           FUN_0059c790(local_120,*(undefined4 *)(iVar8 + 0x14),&local_234);
+                  local_274 = *puVar9;
+                  iVar5 = *(int *)(iVar8 + 0x14);
+                  local_270 = (float)puVar9[1];
+                  local_26c = (float)puVar9[2];
+                  iVar3 = iVar5 + 0x30;
+                  if (iVar5 == 0) {
+                    iVar3 = iVar8 + 4;
+                  }
+                  FUN_00411a00(iVar3);
+                  if (iVar5 == 0) {
+                    iVar5 = iVar8 + 4;
+                  }
+                  else {
+                    iVar5 = iVar5 + 0x30;
+                  }
+                  cVar2 = FUN_0056a490(iVar5,&local_274,1,0,0,0,0,0,0);
+                  if (cVar2 == '\0') {
+                    return '\0';
+                  }
+                  FUN_0050c7c0(iVar8,0xe,2,2);
+                  cVar2 = FUN_0050b830();
+                  fVar11 = local_264;
+                  if (cVar2 == '\0') {
+                    return '\x01';
+                  }
+                }
+              }
+            }
+          }
+          if (fVar11 == 0.0) {
+            return '\0';
+          }
+        } while( true );
+      }
+    }
+    break;
+  case 0xf:
+    iVar8 = FUN_0056e0d0(0xffffffff,0);
+    if (iVar8 == 0) {
+      return '\0';
+    }
+    pfVar7 = (float *)FUN_0056e010(local_90,0xffffffff);
+    local_290 = *pfVar7;
+    local_28c = pfVar7[1];
+    local_288 = pfVar7[2];
+    pfVar7 = (float *)FUN_0056e090(0xffffffff);
+    local_280 = *pfVar7;
+    local_27c = pfVar7[1];
+    local_278 = 0.0;
+    FUN_0059c910();
+    local_26c = local_278 * 34.0;
+    local_290 = local_280 * 34.0 + local_290;
+    local_28c = local_28c + local_27c * 34.0;
+    local_288 = local_26c + local_288;
+    iVar8 = FUN_0056e010(local_21c,0xffffffff);
+    local_288 = *(float *)(iVar8 + 8) + 0.5;
+    iVar8 = FUN_0056e0d0(0xffffffff,0);
+    if (*(int *)(iVar8 + 0x590) == 5) {
+      local_288 = local_288 + 1.0;
+    }
+    uVar10 = FUN_0056e010(local_204,0xffffffff,&local_290,1,0,0,0,0,0,0);
+    cVar2 = FUN_0056a490(uVar10);
+    if (cVar2 == '\0') {
+      return '\0';
+    }
+    uVar10 = FUN_0056e010(local_1ec,0xffffffff,&local_290);
+    FUN_0040fe60(&local_274,uVar10);
+    uVar10 = FUN_0056e010(local_1d4,0xffffffff,&local_290);
+    pfVar7 = (float *)FUN_0040fe60(local_1bc,uVar10);
+    local_258 = *pfVar7;
+    local_254 = pfVar7[1];
+    local_250 = pfVar7[2];
+    fVar13 = (float10)FUN_004082c0();
+    if (((float10)44.0 < fVar13) &&
+       (pfVar7 = (float *)FUN_0056e090(0xffffffff),
+       0.0 < local_258 * *pfVar7 + pfVar7[2] * 0.0 + local_254 * pfVar7[1])) {
+      return '\0';
+    }
+    fVar13 = (float10)FUN_004082c0();
+    bVar12 = fVar13 < (float10)3.0 |
+             (byte)((ushort)((ushort)(NAN(fVar13) || NAN((float10)3.0)) << 10) >> 8);
+    goto LAB_0051e8cb;
+  case 0x10:
+    iVar8 = FUN_0056e0d0(0xffffffff,0);
+    if (iVar8 == 0) {
+      return '\0';
+    }
+    pfVar7 = (float *)FUN_0056e010(local_1a4,0xffffffff);
+    local_290 = *pfVar7;
+    local_28c = pfVar7[1];
+    local_288 = pfVar7[2];
+    pfVar7 = (float *)FUN_0056e090(0xffffffff);
+    local_280 = *pfVar7;
+    local_27c = pfVar7[1];
+    local_278 = 0.0;
+    FUN_0059c910();
+    fVar13 = (float10)FUN_0053cc70(local_280,local_27c);
+    fVar14 = (float10)fcos(fVar13 + (float10)1.0471976);
+    fVar13 = (float10)fsin(fVar13 + (float10)1.0471976);
+    local_270 = (float)fVar13;
+    local_280 = (float)(fVar14 + (float10)local_280);
+    local_27c = local_270 + local_27c;
+    FUN_0059c910();
+    local_26c = local_278 * 30.0;
+    local_290 = local_280 * 30.0 + local_290;
+    local_28c = local_28c + local_27c * 30.0;
+    local_288 = local_26c + local_288;
+    iVar8 = FUN_0056e010(local_18c,0xffffffff);
+    local_288 = *(float *)(iVar8 + 8) - 5.5;
+    local_266[0] = '\0';
+    fVar13 = (float10)FUN_00569750(local_290,local_28c,local_288,local_266);
+    local_264 = (float)fVar13;
+    if (local_266[0] == '\x01') {
+      local_288 = local_264 + 0.5;
+    }
+    else {
+      cVar2 = FUN_006e8580(local_290,local_28c,local_288,&local_264,0,0);
+      if (cVar2 != '\0') {
+        local_260 = DAT_008cc8c0;
+        iVar8 = FUN_0056e0d0(0xffffffff,0);
+        fVar11 = local_260;
+        if ((iVar8 != 0) &&
+           (iVar8 = FUN_0056e0d0(0xffffffff,0), fVar11 = local_260, *(int *)(iVar8 + 0x590) == 5)) {
+          fVar11 = _DAT_008cc8c4;
+        }
+        if (local_288 < fVar11 + local_264) {
+          local_288 = fVar11 + local_264;
+        }
+      }
+    }
+    uVar10 = FUN_0056e010(local_174,0xffffffff,&local_290,1,0,0,0,0,0,0);
+    cVar2 = FUN_0056a490(uVar10);
+    if (cVar2 == '\0') {
+      return '\0';
+    }
+    uVar10 = FUN_0056e010(local_15c,0xffffffff,&local_290);
+    FUN_0040fe60(&local_274,uVar10);
+    fVar13 = (float10)FUN_004082c0();
+    if ((float10)50.0 < fVar13) {
+      return '\0';
+    }
+    fVar13 = (float10)FUN_004082c0();
+    bVar12 = fVar13 < (float10)3.0 |
+             (byte)((ushort)((ushort)(NAN(fVar13) || NAN((float10)3.0)) << 10) >> 8);
+    goto LAB_0051e8cb;
+  case 0x11:
+    iVar8 = FUN_0056e0d0(0xffffffff,0);
+    if (iVar8 == 0) {
+      return '\0';
+    }
+    pfVar7 = (float *)FUN_0056e010(local_144,0xffffffff);
+    local_290 = *pfVar7;
+    local_28c = pfVar7[1];
+    local_288 = pfVar7[2];
+    pfVar7 = (float *)FUN_0056e090(0xffffffff);
+    local_280 = *pfVar7;
+    local_27c = pfVar7[1];
+    local_278 = 0.0;
+    FUN_0059c910();
+    fVar13 = (float10)FUN_0053cc70(local_280,local_27c);
+    fVar14 = (float10)fcos(fVar13 + (float10)3.3161256);
+    fVar13 = (float10)fsin(fVar13 + (float10)3.3161256);
+    local_270 = (float)fVar13;
+    local_280 = (float)(fVar14 + (float10)local_280);
+    local_27c = local_270 + local_27c;
+    FUN_0059c910();
+    local_26c = local_278 * 25.0;
+    local_290 = local_280 * 25.0 + local_290;
+    local_28c = local_28c + local_27c * 25.0;
+    local_288 = local_26c + local_288;
+    iVar8 = FUN_0056e010(local_12c,0xffffffff);
+    local_288 = *(float *)(iVar8 + 8) - 1.0;
+    local_266[0] = '\0';
+    fVar13 = (float10)FUN_00569750(local_290,local_28c,local_288,local_266);
+    local_264 = (float)fVar13;
+    if (local_266[0] == '\x01') {
+      local_288 = local_264 + 0.5;
+    }
+    else {
+      cVar2 = FUN_006e8580(local_290,local_28c,local_288,&local_264,0,0);
+      if (cVar2 != '\0') {
+        local_260 = DAT_008cc8c0;
+        iVar8 = FUN_0056e0d0(0xffffffff,0);
+        fVar11 = local_260;
+        if ((iVar8 != 0) &&
+           (iVar8 = FUN_0056e0d0(0xffffffff,0), fVar11 = local_260, *(int *)(iVar8 + 0x590) == 5)) {
+          fVar11 = _DAT_008cc8c4;
+        }
+        if (local_288 < fVar11 + local_264) {
+          local_288 = fVar11 + local_264;
+        }
+      }
+    }
+    uVar10 = FUN_0056e010(local_114,0xffffffff,&local_290,1,0,0,0,0,0,0);
+    cVar2 = FUN_0056a490(uVar10);
+    if (cVar2 == '\0') {
+      return '\0';
+    }
+    uVar10 = FUN_0056e010(local_fc,0xffffffff,&local_290);
+    puVar9 = (undefined4 *)FUN_0040fe60(local_e4,uVar10);
+    local_274 = *puVar9;
+    local_270 = (float)puVar9[1];
+    local_26c = (float)puVar9[2];
+    uVar10 = FUN_0056e010(local_cc,0xffffffff,&local_290);
+    pfVar7 = (float *)FUN_0040fe60(local_b4,uVar10);
+    local_258 = *pfVar7;
+    local_254 = pfVar7[1];
+    local_250 = pfVar7[2];
+    fVar13 = (float10)FUN_004082c0();
+    if (((float10)50.0 < fVar13) &&
+       (pfVar7 = (float *)FUN_0056e090(0xffffffff),
+       0.0 < local_258 * *pfVar7 + pfVar7[2] * 0.0 + local_254 * pfVar7[1])) {
+      return '\0';
+    }
+    fVar13 = (float10)FUN_004082c0();
+    bVar12 = fVar13 < (float10)2.0 |
+             (byte)((ushort)((ushort)(NAN(fVar13) || NAN((float10)2.0)) << 10) >> 8);
+    goto LAB_0051e8cb;
+  case 0x12:
+    pfVar7 = (float *)FUN_0056e010(local_9c,0xffffffff);
+    local_290 = *pfVar7;
+    local_28c = pfVar7[1];
+    local_288 = pfVar7[2];
+    iVar8 = FUN_0056e0d0(0xffffffff,0);
+    if ((iVar8 == 0) || (iVar8 = FUN_0056e0d0(0xffffffff,0), *(int *)(iVar8 + 0x590) != 5)) {
+      local_288 = local_288 - 23.0;
+    }
+    else {
+      local_288 = local_288 + 23.0;
+    }
+    pfVar7 = (float *)FUN_0056e090(0xffffffff);
+    local_280 = *pfVar7;
+    local_27c = pfVar7[1];
+    local_278 = pfVar7[2];
+    fVar13 = (float10)FUN_0053cc70(local_280,local_27c);
+    local_278 = 0.0;
+    fVar14 = (float10)fcos(fVar13 + (float10)2.5307274);
+    fVar13 = (float10)fsin(fVar13 + (float10)2.5307274);
+    local_270 = (float)fVar13;
+    local_280 = (float)((float10)local_280 + fVar14);
+    local_27c = local_270 + local_27c;
+    FUN_0059c910();
+    local_266[1] = 0;
+    local_26c = local_278 * 15.0;
+    local_290 = local_290 + local_280 * 15.0;
+    local_28c = local_28c + local_27c * 15.0;
+    local_288 = local_26c + local_288;
+    fVar13 = (float10)FUN_005696c0(local_290,local_28c,local_288,local_266 + 1,0);
+    local_25c = (float)fVar13;
+    if (fVar13 == (float10)1.0) {
+      if (local_288 < local_25c) {
+        local_288 = local_25c + 0.5;
+      }
+    }
+    else {
+      cVar2 = FUN_006e8580(local_290,local_28c,local_288,&local_25c,0,0);
+      if (cVar2 != '\0') {
+        local_260 = DAT_008cc8c0;
+        iVar8 = FUN_0056e0d0(0xffffffff,0);
+        fVar11 = local_260;
+        if ((iVar8 != 0) &&
+           (iVar8 = FUN_0056e0d0(0xffffffff,0), fVar11 = local_260, *(int *)(iVar8 + 0x590) == 5)) {
+          fVar11 = _DAT_008cc8c4;
+        }
+        if (local_288 < fVar11 + local_25c) {
+          local_288 = fVar11 + local_25c;
+        }
+      }
+    }
+    uVar10 = FUN_0056e010(local_84,0xffffffff,&local_290,1,0,0,0,0,0,0);
+    cVar2 = FUN_0056a490(uVar10);
+    if (cVar2 == '\0') {
+      return '\0';
+    }
+    uVar10 = FUN_0056e010(local_6c,0xffffffff,&local_290);
+    FUN_0040fe60(&local_274,uVar10);
+    fVar13 = (float10)FUN_004082c0();
+    if ((float10)57.0 < fVar13) {
+      return '\0';
+    }
+    fVar13 = (float10)FUN_004082c0();
+    if (fVar13 < (float10)1.0) {
+      return '\0';
+    }
+    goto LAB_0051e8e0;
+  case 0x13:
+    pfVar7 = (float *)FUN_0056e010(local_54,0xffffffff);
+    local_290 = *pfVar7;
+    local_28c = pfVar7[1];
+    local_288 = pfVar7[2];
+    iVar8 = FUN_0056e0d0(0xffffffff,0);
+    if ((iVar8 == 0) || (iVar8 = FUN_0056e0d0(0xffffffff,0), *(int *)(iVar8 + 0x590) != 5)) {
+      local_288 = local_288 - 1.0;
+    }
+    else {
+      local_288 = local_288 + 4.0;
+    }
+    pfVar7 = (float *)FUN_0056e090(0xffffffff);
+    local_280 = *pfVar7;
+    local_27c = pfVar7[1];
+    local_278 = pfVar7[2];
+    fVar13 = (float10)FUN_0053cc70(local_280,local_27c);
+    local_278 = 0.0;
+    fVar14 = (float10)fcos(fVar13 + (float10)0.4886922);
+    fVar13 = (float10)fsin(fVar13 + (float10)0.4886922);
+    local_270 = (float)fVar13;
+    local_280 = (float)((float10)local_280 + fVar14);
+    local_27c = local_270 + local_27c;
+    FUN_0059c910();
+    local_266[1] = 0;
+    local_26c = local_278 * 12.5;
+    local_290 = local_290 + local_280 * 12.5;
+    local_28c = local_28c + local_27c * 12.5;
+    local_288 = local_26c + local_288;
+    fVar13 = (float10)FUN_005696c0(local_290,local_28c,local_288,local_266 + 1,0);
+    local_25c = (float)fVar13;
+    if (fVar13 == (float10)1.0) {
+      if (local_288 < local_25c) {
+        local_288 = local_25c + 0.5;
+      }
+    }
+    else {
+      cVar2 = FUN_006e8580(local_290,local_28c,local_288,&local_25c,0,0);
+      if (cVar2 != '\0') {
+        local_260 = DAT_008cc8c0;
+        iVar8 = FUN_0056e0d0(0xffffffff,0);
+        fVar11 = local_260;
+        if ((iVar8 != 0) &&
+           (iVar8 = FUN_0056e0d0(0xffffffff,0), fVar11 = local_260, *(int *)(iVar8 + 0x590) == 5)) {
+          fVar11 = _DAT_008cc8c4;
+        }
+        if (local_288 < fVar11 + local_25c) {
+          local_288 = fVar11 + local_25c;
+        }
+      }
+    }
+    uVar10 = FUN_0056e010(local_3c,0xffffffff,&local_290,1,0,0,0,0,0,0);
+    cVar2 = FUN_0056a490(uVar10);
+    if (cVar2 == '\0') {
+      return '\0';
+    }
+    uVar10 = FUN_0056e010(local_24,0xffffffff,&local_290);
+    puVar9 = (undefined4 *)FUN_0040fe60(local_c,uVar10);
+    local_274 = *puVar9;
+    local_270 = (float)puVar9[1];
+    local_26c = (float)puVar9[2];
+    fVar13 = (float10)FUN_004082c0();
+    if ((float10)36.0 < fVar13) {
+      return '\0';
+    }
+    fVar13 = (float10)FUN_004082c0();
+    bVar12 = fVar13 < (float10)2.0 |
+             (byte)((ushort)((ushort)(NAN(fVar13) || NAN((float10)2.0)) << 10) >> 8);
+LAB_0051e8cb:
+    if ((POPCOUNT(bVar12) & 1U) == 0) {
+LAB_0051e8e0:
+      local_274 = 0;
+      local_270 = 0.0;
+      local_26c = 0.0;
+      FUN_0050bec0(&local_290,&local_274);
+      uVar10 = 0xf;
+LAB_0051ffad:
+      uVar17 = 2;
+      uVar16 = 2;
+      uVar15 = FUN_0056e120(0xffffffff,uVar10,2,2);
+      FUN_0050c7c0(uVar15,uVar10,uVar16,uVar17);
+      cVar2 = FUN_0050b830();
+      return '\x01' - (cVar2 != '\0');
+    }
+    break;
+  case 0x14:
+    cVar2 = FUN_0051a740(1);
+    if (cVar2 != '\0') {
+      uVar10 = 0x38;
+      goto LAB_0051ffad;
+    }
+    break;
+  case 0x15:
+    cVar2 = FUN_0051b120(1);
+    if (cVar2 != '\0') {
+      uVar10 = 0x39;
+      goto LAB_0051ffad;
+    }
+    break;
+  case 0x16:
+    cVar2 = FUN_0051b850(1);
+    if (cVar2 != '\0') {
+      uVar10 = 0x3a;
+      goto LAB_0051ffad;
+    }
+    break;
+  case 0x17:
+    cVar2 = FUN_0051c250(1);
+    if (cVar2 != '\0') {
+      uVar10 = 0x3b;
+      goto LAB_0051ffad;
+    }
+    break;
+  case 0x18:
+  case 0x19:
+    DAT_00b6f059 = 0;
+    return '\0';
+  case 0x1a:
+    cVar2 = FUN_0051c760(1);
+    if (cVar2 != '\0') {
+      uVar10 = 0x3e;
+      goto LAB_0051ffad;
+    }
+    break;
+  case 0x1b:
+    cVar2 = FUN_0051cc30(1);
+    if (cVar2 != '\0') {
+      uVar10 = 0x3f;
+      goto LAB_0051ffad;
+    }
+    break;
+  case 0x1c:
+    cVar2 = FUN_0051d100(1);
+    if (cVar2 != '\0') {
+      uVar10 = 0x40;
+      goto LAB_0051ffad;
+    }
+    break;
+  case 0x1d:
+    uVar17 = 2;
+    uVar16 = 2;
+    uVar15 = 0x12;
+    uVar10 = FUN_0056e120(0xffffffff,0x12,2,2);
+    FUN_0050c7c0(uVar10,uVar15,uVar16,uVar17);
+    return '\x01';
+  }
+  return '\0';
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0051E560: sub esp,290h
+0051E566: mov eax,dword ptr [esp+00000294h]
+ 00
+0051E56D: cmp eax,1Dh
+0051E570: push ebx
+0051E571: push ebp
+0051E572: push esi
+0051E573: push edi
+0051E574: mov edi,ecx
+0051E576: mov dword ptr [esp+5Ch],edi
+0051E57A: ja 0051F0EC
+0051E580: jmp dword ptr [eax*4+00520110h]
+ 00
+0051E587: push 0
+0051E589: push 0FFFFFFFFh
+0051E58B: call 0056E0D0
+0051E590: mov esi,eax
+0051E592: add esp,8
+0051E595: test esi,esi
+0051E597: je 0051F0EC
+0051E59D: cmp dword ptr [esi+00000590h],5
+ 05
+0051E5A4: jne 0051E5B8
+0051E5A6: mov eax,dword ptr [edi+00000958h]
+0051E5AC: cmp word ptr [eax+22h],1CCh
+0051E5B2: jne 0051F0EC
+0051E5B8: cmp word ptr [esi+22h],1B0h
+0051E5BE: je 0051F0EC
+0051E5C4: push 0
+0051E5C6: push 0FFFFFFFFh
+0051E5C8: mov dword ptr [esp+68h],0BFB33333h
+0051E5D0: mov dword ptr [esp+6Ch],0C0133333h
+0051E5D8: mov dword ptr [esp+70h],3E99999Ah
+0051E5E0: call 0056E0D0
+0051E5E5: mov eax,dword ptr [eax+14h]
+0051E5E8: lea ecx,[esp+68h]
+0051E5EC: push ecx
+0051E5ED: push eax
+0051E5EE: lea edx,[esp+00000148h]
+ 00
+0051E5F5: push edx
+0051E5F6: call 0059C790
+0051E5FB: mov ecx,dword ptr [eax]
+0051E5FD: mov dword ptr [esp+40h],ecx
+0051E601: mov edx,dword ptr [eax+4]
+0051E604: mov dword ptr [esp+44h],edx
+0051E608: mov eax,dword ptr [eax+8]
+0051E60B: push 0
+0051E60D: push 0FFFFFFFFh
+0051E60F: mov dword ptr [esp+50h],eax
+0051E613: call 0056E0D0
+0051E618: mov ecx,dword ptr [eax+14h]
+0051E61B: add esp,1Ch
+0051E61E: test ecx,ecx
+0051E620: je 0051E627
+0051E622: lea eax,[ecx+30h]
+0051E625: jmp 0051E62A
+0051E627: add eax,4
+0051E62A: push eax
+0051E62B: lea ecx,[esp+30h]
+0051E62F: call 00411A00
+0051E634: push 0
+0051E636: push 0FFFFFFFFh
+0051E638: call 0056E0D0
+0051E63D: mov eax,dword ptr [esi+14h]
+0051E640: add esp,8
+0051E643: test eax,eax
+0051E645: je 0051E64C
+0051E647: add eax,30h
+0051E64A: jmp 0051E64F
+0051E64C: lea eax,[esi+4]
+0051E64F: push 0
+0051E651: push 0
+0051E653: push 0
+0051E655: push 0
+0051E657: push 0
+0051E659: push 0
+0051E65B: push 1
+0051E65D: lea ecx,[esp+48h]
+0051E661: push ecx
+0051E662: push eax
+0051E663: call 0056A490
+0051E668: add esp,24h
+0051E66B: test al,al
+0051E66D: je 0051F0EC
+0051E673: push 2
+0051E675: push 2
+0051E677: push 0Eh
+0051E679: push esi
+0051E67A: mov ecx,edi
+0051E67C: call 0050C7C0
+0051E681: pop edi
+0051E682: pop esi
+0051E683: pop ebp
+0051E684: mov al,1
+0051E686: pop ebx
+0051E687: add esp,290h
+0051E68D: ret 4
+0051E690: lea edx,[esp+00000090h]
+ 00
+0051E697: push 0FFFFFFFFh
+0051E699: push edx
+0051E69A: call 0056E010
+0051E69F: mov ecx,dword ptr [eax]
+0051E6A1: mov dword ptr [esp+18h],ecx
+0051E6A5: mov edx,dword ptr [eax+4]
+0051E6A8: mov dword ptr [esp+1Ch],edx
+0051E6AC: mov eax,dword ptr [eax+8]
+0051E6AF: push 0FFFFFFFFh
+0051E6B1: mov dword ptr [esp+24h],eax
+0051E6B5: call 0056E090
+0051E6BA: mov ecx,dword ptr [eax]
+0051E6BC: mov dword ptr [esp+2Ch],ecx
+0051E6C0: mov edx,dword ptr [eax+4]
+0051E6C3: mov dword ptr [esp+30h],edx
+0051E6C7: mov eax,dword ptr [eax+8]
+0051E6CA: mov dword ptr [esp+34h],eax
+0051E6CE: add esp,0Ch
+0051E6D1: lea ecx,[esp+20h]
+0051E6D5: mov dword ptr [esp+28h],0
+0051E6DD: call 0059C910
+0051E6E2: fld dword ptr [esp+20h]
+0051E6E6: fmul dword ptr ds:[00858BA4h]
+0051E6EC: push 0
+0051E6EE: fld dword ptr [esp+28h]
+0051E6F2: push 0FFFFFFFFh
+0051E6F4: fmul dword ptr ds:[00858BA4h]
+0051E6FA: fld dword ptr [esp+30h]
+0051E6FE: fmul dword ptr ds:[00858BA4h]
+0051E704: fstp dword ptr [esp+3Ch]
+0051E708: fxch st(1)
+0051E70A: fadd dword ptr [esp+18h]
+0051E70E: fstp dword ptr [esp+18h]
+0051E712: fadd dword ptr [esp+1Ch]
+0051E716: fld dword ptr [esp+20h]
+0051E71A: fadd dword ptr [esp+3Ch]
+0051E71E: fld dword ptr [esp+2Ch]
+0051E722: fmul dword ptr ds:[00858B3Ch]
+0051E728: fld dword ptr [esp+28h]
+0051E72C: fmul dword ptr ds:[00859024h]
+0051E732: fxch st(1)
+0051E734: fadd dword ptr [esp+18h]
+0051E738: fstp dword ptr [esp+18h]
+0051E73C: fxch st(2)
+0051E73E: fadd st,st(2)
+0051E740: fstp dword ptr [esp+1Ch]
+0051E744: fstp st(1)
+0051E746: fstp dword ptr [esp+20h]
+0051E74A: call 0056E0D0
+0051E74F: add esp,8
+0051E752: test eax,eax
+0051E754: je 0051E77F
+0051E756: push 0
+0051E758: push 0FFFFFFFFh
+0051E75A: call 0056E0D0
+0051E75F: mov ecx,dword ptr [eax+00000590h]
+0051E765: add esp,8
+0051E768: cmp ecx,5
+0051E76B: jne 0051E77F
+0051E76D: mov ecx,dword ptr [edi+00000958h]
+0051E773: cmp word ptr [ecx+22h],1CCh
+0051E779: jne 0051F0EC
+0051E77F: fld dword ptr [esp+18h]
+0051E783: mov eax,dword ptr [esp+14h]
+0051E787: fadd dword ptr ds:[00858C80h]
+0051E78D: push 0
+0051E78F: lea edx,[esp+23h]
+0051E793: push edx
+0051E794: push ecx
+0051E795: mov ecx,dword ptr [esp+1Ch]
+0051E799: fstp dword ptr [esp]
+0051E79C: push eax
+0051E79D: push ecx
+0051E79E: call 005696C0
+0051E7A3: mov al,byte ptr [esp+33h]
+0051E7A7: add esp,14h
+0051E7AA: test al,al
+0051E7AC: je 0051E7BA
+0051E7AE: fadd dword ptr ds:[00858CE8h]
+0051E7B4: fstp dword ptr [esp+18h]
+0051E7B8: jmp 0051E7F7
+0051E7BA: mov eax,dword ptr [esp+14h]
+0051E7BE: fstp st(0)
+0051E7C0: fld dword ptr [esp+18h]
+0051E7C4: lea edx,[esp+1Fh]
+0051E7C8: fsub dword ptr ds:[00858C80h]
+0051E7CE: push edx
+0051E7CF: push ecx
+0051E7D0: mov ecx,dword ptr [esp+18h]
+0051E7D4: fstp dword ptr [esp]
+0051E7D7: push eax
+0051E7D8: push ecx
+0051E7D9: call 00569750
+0051E7DE: mov al,byte ptr [esp+2Fh]
+0051E7E2: add esp,10h
+0051E7E5: test al,al
+0051E7E7: je 0051E7F5
+0051E7E9: fadd dword ptr ds:[00858CE8h]
+0051E7EF: fstp dword ptr [esp+18h]
+0051E7F3: jmp 0051E7F7
+0051E7F5: fstp st(0)
+0051E7F7: push 0
+0051E7F9: push 0
+0051E7FB: push 0
+0051E7FD: push 0
+0051E7FF: push 0
+0051E801: push 0
+0051E803: push 1
+0051E805: lea edx,[esp+2Ch]
+0051E809: push edx
+0051E80A: lea eax,[esp+000001B8h]
+ 00
+0051E811: push 0FFFFFFFFh
+0051E813: push eax
+0051E814: call 0056E010
+0051E819: add esp,8
+0051E81C: push eax
+0051E81D: call 0056A490
+0051E822: add esp,24h
+0051E825: test al,al
+0051E827: je 0051F0EC
+0051E82D: lea ecx,[esp+10h]
+0051E831: push ecx
+0051E832: lea edx,[esp+000000ACh]
+ 00
+0051E839: push 0FFFFFFFFh
+0051E83B: push edx
+0051E83C: call 0056E010
+0051E841: add esp,8
+0051E844: push eax
+0051E845: lea eax,[esp+00000260h]
+ 00
+0051E84C: push eax
+0051E84D: call 0040FE60
+0051E852: mov ecx,dword ptr [eax]
+0051E854: mov edx,dword ptr [eax+4]
+0051E857: mov eax,dword ptr [eax+8]
+0051E85A: mov dword ptr [esp+54h],ecx
+0051E85E: mov dword ptr [esp+5Ch],eax
+0051E862: add esp,0Ch
+0051E865: lea ecx,[esp+48h]
+0051E869: mov dword ptr [esp+4Ch],edx
+0051E86D: mov dword ptr [esp+50h],0
+0051E875: call 004082C0
+0051E87A: fcomp dword ptr ds:[00858A10h]
+0051E880: fnstsw ax
+0051E882: test ah,41h
+0051E885: jne 0051E8BC
+0051E887: push 0FFFFFFFFh
+0051E889: call 0056E090
+0051E88E: fld dword ptr [esp+50h]
+0051E892: fmul dword ptr [eax+4]
+0051E895: add esp,4
+0051E898: fld dword ptr [esp+48h]
+0051E89C: fmul dword ptr [eax]
+0051E89E: faddp st(1),st
+0051E8A0: fld dword ptr [eax+8]
+0051E8A3: fmul dword ptr ds:[00858B50h]
+0051E8A9: faddp st(1),st
+0051E8AB: fcomp dword ptr ds:[00858B50h]
+0051E8B1: fnstsw ax
+0051E8B3: test ah,41h
+0051E8B6: je 0051F0EC
+0051E8BC: lea ecx,[esp+48h]
+0051E8C0: call 004082C0
+0051E8C5: fcomp dword ptr ds:[00863214h]
+0051E8CB: fnstsw ax
+0051E8CD: test ah,5
+0051E8D0: jnp 0051F0EC
+0051E8D6: lea ecx,[esp+2Ch]
+0051E8DA: push ecx
+0051E8DB: lea edx,[esp+14h]
+0051E8DF: push edx
+0051E8E0: mov ecx,edi
+0051E8E2: mov dword ptr [esp+34h],0
+0051E8EA: mov dword ptr [esp+38h],0
+0051E8F2: mov dword ptr [esp+3Ch],0
+0051E8FA: call 0050BEC0
+0051E8FF: push 2
+0051E901: push 2
+0051E903: push 0Fh
+0051E905: jmp 0051FFAD
+0051E90A: push 0
+0051E90C: push 0FFFFFFFFh
+0051E90E: call 0056E0D0
+0051E913: add esp,8
+0051E916: test eax,eax
+0051E918: je 0051E943
+0051E91A: push 0
+0051E91C: push 0FFFFFFFFh
+0051E91E: call 0056E0D0
+0051E923: mov ecx,dword ptr [eax+00000590h]
+0051E929: add esp,8
+0051E92C: cmp ecx,5
+0051E92F: jne 0051E943
+0051E931: mov eax,dword ptr [edi+00000958h]
+0051E937: cmp word ptr [eax+22h],1CCh
+0051E93D: jne 0051F0EC
+0051E943: lea ecx,[esp+000000C0h]
+ 00
+0051E94A: push 0FFFFFFFFh
+0051E94C: push ecx
+0051E94D: call 0056E010
+0051E952: mov edx,dword ptr [eax]
+0051E954: mov dword ptr [esp+18h],edx
+0051E958: mov ecx,dword ptr [eax+4]
+0051E95B: mov dword ptr [esp+1Ch],ecx
+0051E95F: mov edx,dword ptr [eax+8]
+0051E962: push 0FFFFFFFFh
+0051E964: mov dword ptr [esp+24h],edx
+0051E968: call 0056E090
+0051E96D: mov ecx,dword ptr [eax]
+0051E96F: mov dword ptr [esp+2Ch],ecx
+0051E973: mov edx,dword ptr [eax+4]
+0051E976: mov dword ptr [esp+30h],edx
+0051E97A: mov eax,dword ptr [eax+8]
+0051E97D: mov dword ptr [esp+34h],eax
+0051E981: add esp,0Ch
+0051E984: lea ecx,[esp+20h]
+0051E988: mov dword ptr [esp+28h],0
+0051E990: call 0059C910
+0051E995: fld dword ptr [esp+20h]
+0051E999: fmul dword ptr ds:[008599D0h]
+0051E99F: push 0
+0051E9A1: fld dword ptr [esp+28h]
+0051E9A5: lea ecx,[esp+23h]
+0051E9A9: fmul dword ptr ds:[008599D0h]
+0051E9AF: push ecx
+0051E9B0: fld dword ptr [esp+30h]
+0051E9B4: push ecx
+0051E9B5: fmul dword ptr ds:[008599D0h]
+0051E9BB: fstp dword ptr [esp+40h]
+0051E9BF: fxch st(1)
+0051E9C1: fadd dword ptr [esp+1Ch]
+0051E9C5: fstp dword ptr [esp+1Ch]
+0051E9C9: fadd dword ptr [esp+20h]
+0051E9CD: fld dword ptr [esp+40h]
+0051E9D1: fadd dword ptr [esp+24h]
+0051E9D5: fld dword ptr [esp+30h]
+0051E9D9: fmul dword ptr ds:[00858FA0h]
+0051E9DF: fld dword ptr [esp+2Ch]
+0051E9E3: fmul dword ptr ds:[008631B0h]
+0051E9E9: fxch st(1)
+0051E9EB: fadd dword ptr [esp+1Ch]
+0051E9EF: fstp dword ptr [esp+1Ch]
+0051E9F3: mov eax,dword ptr [esp+1Ch]
+0051E9F7: fxch st(2)
+0051E9F9: fadd st,st(2)
+0051E9FB: fstp dword ptr [esp+20h]
+0051E9FF: mov edx,dword ptr [esp+20h]
+0051EA03: fstp st(1)
+0051EA05: fstp dword ptr [esp+24h]
+0051EA09: fld dword ptr [esp+24h]
+0051EA0D: fadd dword ptr ds:[00858C80h]
+0051EA13: fstp dword ptr [esp]
+0051EA16: push edx
+0051EA17: push eax
+0051EA18: call 005696C0
+0051EA1D: mov al,byte ptr [esp+33h]
+0051EA21: add esp,14h
+0051EA24: test al,al
+0051EA26: je 0051EA34
+0051EA28: fadd dword ptr ds:[00858B8Ch]
+0051EA2E: fstp dword ptr [esp+18h]
+0051EA32: jmp 0051EA71
+0051EA34: mov edx,dword ptr [esp+14h]
+0051EA38: fstp st(0)
+0051EA3A: fld dword ptr [esp+18h]
+0051EA3E: mov eax,dword ptr [esp+10h]
+0051EA42: fsub dword ptr ds:[00858C80h]
+0051EA48: lea ecx,[esp+1Fh]
+0051EA4C: push ecx
+0051EA4D: push ecx
+0051EA4E: fstp dword ptr [esp]
+0051EA51: push edx
+0051EA52: push eax
+0051EA53: call 00569750
+0051EA58: mov al,byte ptr [esp+2Fh]
+0051EA5C: add esp,10h
+0051EA5F: test al,al
+0051EA61: je 0051EA6F
+0051EA63: fadd dword ptr ds:[00858B8Ch]
+0051EA69: fstp dword ptr [esp+18h]
+0051EA6D: jmp 0051EA71
+0051EA6F: fstp st(0)
+0051EA71: push 0
+0051EA73: push 0
+0051EA75: push 0
+0051EA77: push 0
+0051EA79: push 0
+0051EA7B: push 0
+0051EA7D: push 1
+0051EA7F: lea ecx,[esp+2Ch]
+0051EA83: push ecx
+0051EA84: lea edx,[esp+000001D0h]
+ 00
+0051EA8B: push 0FFFFFFFFh
+0051EA8D: push edx
+0051EA8E: call 0056E010
+0051EA93: add esp,8
+0051EA96: push eax
+0051EA97: call 0056A490
+0051EA9C: add esp,24h
+0051EA9F: test al,al
+0051EAA1: je 0051F0EC
+0051EAA7: lea eax,[esp+10h]
+0051EAAB: push eax
+0051EAAC: lea ecx,[esp+000000DCh]
+ 00
+0051EAB3: push 0FFFFFFFFh
+0051EAB5: push ecx
+0051EAB6: call 0056E010
+0051EABB: add esp,8
+0051EABE: push eax
+0051EABF: lea edx,[esp+00000230h]
+ 00
+0051EAC6: push edx
+0051EAC7: call 0040FE60
+0051EACC: mov ecx,dword ptr [eax]
+0051EACE: mov edx,dword ptr [eax+4]
+0051EAD1: mov eax,dword ptr [eax+8]
+0051EAD4: mov dword ptr [esp+54h],ecx
+0051EAD8: mov dword ptr [esp+5Ch],eax
+0051EADC: add esp,0Ch
+0051EADF: lea ecx,[esp+48h]
+0051EAE3: mov dword ptr [esp+4Ch],edx
+0051EAE7: mov dword ptr [esp+50h],0
+0051EAEF: call 004082C0
+0051EAF4: fcomp dword ptr ds:[00863210h]
+0051EAFA: fnstsw ax
+0051EAFC: test ah,41h
+0051EAFF: jne 0051EB36
+0051EB01: push 0FFFFFFFFh
+0051EB03: call 0056E090
+0051EB08: fld dword ptr [esp+50h]
+0051EB0C: fmul dword ptr [eax+4]
+0051EB0F: add esp,4
+0051EB12: fld dword ptr [eax+8]
+0051EB15: fmul dword ptr ds:[00858B50h]
+0051EB1B: faddp st(1),st
+0051EB1D: fld dword ptr [esp+48h]
+0051EB21: fmul dword ptr [eax]
+0051EB23: faddp st(1),st
+0051EB25: fcomp dword ptr ds:[00858B50h]
+0051EB2B: fnstsw ax
+0051EB2D: test ah,41h
+0051EB30: je 0051F0EC
+0051EB36: lea ecx,[esp+48h]
+0051EB3A: call 004082C0
+0051EB3F: fcomp dword ptr ds:[00858CA0h]
+0051EB45: fnstsw ax
+0051EB47: test ah,5
+0051EB4A: jnp 0051F0EC
+0051EB50: lea ecx,[esp+2Ch]
+0051EB54: push ecx
+0051EB55: lea edx,[esp+14h]
+0051EB59: push edx
+0051EB5A: mov ecx,edi
+0051EB5C: mov dword ptr [esp+34h],0
+0051EB64: mov dword ptr [esp+38h],0
+0051EB6C: mov dword ptr [esp+3Ch],0
+0051EB74: call 0050BEC0
+0051EB79: push 2
+0051EB7B: push 2
+0051EB7D: push 0Fh
+0051EB7F: push 0FFFFFFFFh
+0051EB81: call 0056E120
+0051EB86: add esp,4
+0051EB89: push eax
+0051EB8A: mov ecx,edi
+0051EB8C: call 0050C7C0
+0051EB91: mov eax,dword ptr ds:[00C1703Ch]
+0051EB96: push 3E19999Ah
+0051EB9B: push eax
+0051EB9C: call 007EE1D0
+0051EBA1: add esp,8
+0051EBA4: call 0050B830
+0051EBA9: pop edi
+0051EBAA: neg al
+0051EBAC: pop esi
+0051EBAD: sbb al,al
+0051EBAF: pop ebp
+0051EBB0: inc al
+0051EBB2: pop ebx
+0051EBB3: add esp,290h
+0051EBB9: ret 4
+0051EBBC: lea ecx,[esp+000000F0h]
+ 00
+0051EBC3: push 0FFFFFFFFh
+0051EBC5: push ecx
+0051EBC6: call 0056E010
+0051EBCB: mov edx,dword ptr [eax]
+0051EBCD: mov dword ptr [esp+18h],edx
+0051EBD1: mov ecx,dword ptr [eax+4]
+0051EBD4: mov dword ptr [esp+1Ch],ecx
+0051EBD8: mov edx,dword ptr [eax+8]
+0051EBDB: push 0FFFFFFFFh
+0051EBDD: mov dword ptr [esp+24h],edx
+0051EBE1: call 0056E090
+0051EBE6: mov ecx,dword ptr [eax]
+0051EBE8: mov dword ptr [esp+2Ch],ecx
+0051EBEC: mov edx,dword ptr [eax+4]
+0051EBEF: mov dword ptr [esp+30h],edx
+0051EBF3: mov eax,dword ptr [eax+8]
+0051EBF6: mov dword ptr [esp+34h],eax
+0051EBFA: add esp,0Ch
+0051EBFD: lea ecx,[esp+20h]
+0051EC01: mov dword ptr [esp+28h],0
+0051EC09: call 0059C910
+0051EC0E: fld dword ptr [esp+20h]
+0051EC12: fmul dword ptr ds:[00858CA4h]
+0051EC18: push 0
+0051EC1A: fld dword ptr [esp+28h]
+0051EC1E: push 0
+0051EC20: fmul dword ptr ds:[00858CA4h]
+0051EC26: push 0
+0051EC28: fld dword ptr [esp+34h]
+0051EC2C: push 0
+0051EC2E: fmul dword ptr ds:[00858CA4h]
+0051EC34: push 0
+0051EC36: push 0
+0051EC38: push 1
+0051EC3A: fstp dword ptr [esp+50h]
+0051EC3E: fxch st(1)
+0051EC40: lea ecx,[esp+2Ch]
+0051EC44: fadd dword ptr [esp+2Ch]
+0051EC48: push ecx
+0051EC49: lea edx,[esp+000001E8h]
+ 00
+0051EC50: push 0FFFFFFFFh
+0051EC52: fstp dword ptr [esp+34h]
+0051EC56: push edx
+0051EC57: fadd dword ptr [esp+3Ch]
+0051EC5B: fld dword ptr [esp+5Ch]
+0051EC5F: fadd dword ptr [esp+40h]
+0051EC63: fld dword ptr [esp+4Ch]
+0051EC67: fmul dword ptr ds:[00859000h]
+0051EC6D: fld dword ptr [esp+48h]
+0051EC71: fmul dword ptr ds:[0085B320h]
+0051EC77: fxch st(1)
+0051EC79: fadd dword ptr [esp+38h]
+0051EC7D: fstp dword ptr [esp+38h]
+0051EC81: fxch st(2)
+0051EC83: fadd st,st(2)
+0051EC85: fstp dword ptr [esp+3Ch]
+0051EC89: fstp st(1)
+0051EC8B: fadd dword ptr ds:[008599D0h]
+0051EC91: fstp dword ptr [esp+40h]
+0051EC95: call 0056E010
+0051EC9A: add esp,8
+0051EC9D: push eax
+0051EC9E: call 0056A490
+0051ECA3: add esp,24h
+0051ECA6: test al,al
+0051ECA8: je 0051F0EC
+0051ECAE: lea eax,[esp+2Ch]
+0051ECB2: push eax
+0051ECB3: lea ecx,[esp+14h]
+0051ECB7: push ecx
+0051ECB8: mov ecx,edi
+0051ECBA: mov dword ptr [esp+34h],0
+0051ECC2: mov dword ptr [esp+38h],0
+0051ECCA: mov dword ptr [esp+3Ch],0
+0051ECD2: call 0050BEC0
+0051ECD7: push 2
+0051ECD9: push 2
+0051ECDB: push 0Fh
+0051ECDD: push 0FFFFFFFFh
+0051ECDF: call 0056E120
+0051ECE4: add esp,4
+0051ECE7: push eax
+0051ECE8: mov ecx,edi
+0051ECEA: call 0050C7C0
+0051ECEF: call 0050B830
+0051ECF4: test al,al
+0051ECF6: jne 0051F0EC
+0051ECFC: mov edx,dword ptr ds:[00C1703Ch]
+0051ED02: push 3E19999Ah
+0051ED07: push edx
+0051ED08: call 007EE1D0
+0051ED0D: add esp,8
+0051ED10: pop edi
+0051ED11: pop esi
+0051ED12: pop ebp
+0051ED13: mov al,1
+0051ED15: pop ebx
+0051ED16: add esp,290h
+0051ED1C: ret 4
+0051ED1F: lea eax,[esp+00000108h]
+ 00
+0051ED26: push 0FFFFFFFFh
+0051ED28: push eax
+0051ED29: call 0056E010
+0051ED2E: mov ecx,dword ptr [eax]
+0051ED30: mov dword ptr [esp+18h],ecx
+0051ED34: mov edx,dword ptr [eax+4]
+0051ED37: mov dword ptr [esp+1Ch],edx
+0051ED3B: mov eax,dword ptr [eax+8]
+0051ED3E: push 0FFFFFFFFh
+0051ED40: mov dword ptr [esp+24h],eax
+0051ED44: call 0056E090
+0051ED49: mov ecx,dword ptr [eax]
+0051ED4B: mov dword ptr [esp+2Ch],ecx
+0051ED4F: mov edx,dword ptr [eax+4]
+0051ED52: mov dword ptr [esp+30h],edx
+0051ED56: mov eax,dword ptr [eax+8]
+0051ED59: mov dword ptr [esp+34h],eax
+0051ED5D: add esp,0Ch
+0051ED60: lea ecx,[esp+20h]
+0051ED64: mov dword ptr [esp+28h],0
+0051ED6C: call 0059C910
+0051ED71: fld dword ptr [esp+20h]
+0051ED75: fmul dword ptr ds:[00858CA4h]
+0051ED7B: push 0
+0051ED7D: fld dword ptr [esp+28h]
+0051ED81: lea ecx,[esp+23h]
+0051ED85: fmul dword ptr ds:[00858CA4h]
+0051ED8B: push ecx
+0051ED8C: fld dword ptr [esp+30h]
+0051ED90: push ecx
+0051ED91: fmul dword ptr ds:[00858CA4h]
+0051ED97: fstp dword ptr [esp+40h]
+0051ED9B: fxch st(1)
+0051ED9D: fadd dword ptr [esp+1Ch]
+0051EDA1: fstp dword ptr [esp+1Ch]
+0051EDA5: fadd dword ptr [esp+20h]
+0051EDA9: fld dword ptr [esp+40h]
+0051EDAD: fadd dword ptr [esp+24h]
+0051EDB1: fld dword ptr [esp+30h]
+0051EDB5: fmul dword ptr ds:[0085A5C0h]
+0051EDBB: fld dword ptr [esp+2Ch]
+0051EDBF: fmul dword ptr ds:[00858B44h]
+0051EDC5: fxch st(1)
+0051EDC7: fadd dword ptr [esp+1Ch]
+0051EDCB: fstp dword ptr [esp+1Ch]
+0051EDCF: mov eax,dword ptr [esp+1Ch]
+0051EDD3: fxch st(2)
+0051EDD5: fadd st,st(2)
+0051EDD7: fstp dword ptr [esp+20h]
+0051EDDB: mov edx,dword ptr [esp+20h]
+0051EDDF: fstp st(1)
+0051EDE1: fstp dword ptr [esp+24h]
+0051EDE5: fld dword ptr [esp+24h]
+0051EDE9: fadd dword ptr ds:[00858C80h]
+0051EDEF: fstp dword ptr [esp]
+0051EDF2: push edx
+0051EDF3: push eax
+0051EDF4: call 005696C0
+0051EDF9: mov al,byte ptr [esp+33h]
+0051EDFD: add esp,14h
+0051EE00: test al,al
+0051EE02: je 0051EE10
+0051EE04: fadd dword ptr ds:[00859028h]
+0051EE0A: fstp dword ptr [esp+18h]
+0051EE0E: jmp 0051EE4D
+0051EE10: mov edx,dword ptr [esp+14h]
+0051EE14: fstp st(0)
+0051EE16: fld dword ptr [esp+18h]
+0051EE1A: mov eax,dword ptr [esp+10h]
+0051EE1E: fsub dword ptr ds:[00858C80h]
+0051EE24: lea ecx,[esp+1Fh]
+0051EE28: push ecx
+0051EE29: push ecx
+0051EE2A: fstp dword ptr [esp]
+0051EE2D: push edx
+0051EE2E: push eax
+0051EE2F: call 00569750
+0051EE34: mov al,byte ptr [esp+2Fh]
+0051EE38: add esp,10h
+0051EE3B: test al,al
+0051EE3D: je 0051EE4B
+0051EE3F: fadd dword ptr ds:[00859028h]
+0051EE45: fstp dword ptr [esp+18h]
+0051EE49: jmp 0051EE4D
+0051EE4B: fstp st(0)
+0051EE4D: push 0
+0051EE4F: push 0
+0051EE51: push 0
+0051EE53: push 0
+0051EE55: push 0
+0051EE57: push 0
+0051EE59: push 1
+0051EE5B: lea ecx,[esp+2Ch]
+0051EE5F: push ecx
+0051EE60: lea edx,[esp+000002A8h]
+ 00
+0051EE67: push 0FFFFFFFFh
+0051EE69: push edx
+0051EE6A: call 0056E010
+0051EE6F: add esp,8
+0051EE72: push eax
+0051EE73: call 0056A490
+0051EE78: add esp,24h
+0051EE7B: test al,al
+0051EE7D: je 0051F0EC
+0051EE83: lea eax,[esp+2Ch]
+0051EE87: push eax
+0051EE88: lea ecx,[esp+14h]
+0051EE8C: push ecx
+0051EE8D: mov ecx,edi
+0051EE8F: mov dword ptr [esp+34h],0
+0051EE97: mov dword ptr [esp+38h],0
+0051EE9F: mov dword ptr [esp+3Ch],0
+0051EEA7: call 0050BEC0
+0051EEAC: push 2
+0051EEAE: push 2
+0051EEB0: push 0Fh
+0051EEB2: jmp 0051FFAD
+0051EEB7: push 2
+0051EEB9: push 2
+0051EEBB: push 10h
+0051EEBD: push 0FFFFFFFFh
+0051EEBF: call 0056E120
+0051EEC4: add esp,4
+0051EEC7: push eax
+0051EEC8: mov ecx,edi
+0051EECA: call 0050C7C0
+0051EECF: pop edi
+0051EED0: pop esi
+0051EED1: pop ebp
+0051EED2: mov al,1
+0051EED4: pop ebx
+0051EED5: add esp,290h
+0051EEDB: ret 4
+0051EEDE: push 0FFFFFFFFh
+0051EEE0: call 0056E210
+0051EEE5: add esp,4
+0051EEE8: mov ecx,eax
+0051EEEA: call 0041BE60
+0051EEEF: cmp eax,1
+0051EEF2: jl 0051F0EC
+0051EEF8: push 0
+0051EEFA: push 0FFFFFFFFh
+0051EEFC: call 0056E0D0
+0051EF01: add esp,8
+0051EF04: test eax,eax
+0051EF06: je 0051F0EC
+0051EF0C: push 0
+0051EF0E: push 0FFFFFFFFh
+0051EF10: call 0056E0D0
+0051EF15: add esp,8
+0051EF18: test eax,eax
+0051EF1A: je 0051EF45
+0051EF1C: push 0
+0051EF1E: push 0FFFFFFFFh
+0051EF20: call 0056E0D0
+0051EF25: mov ecx,dword ptr [eax+00000590h]
+0051EF2B: add esp,8
+0051EF2E: cmp ecx,5
+0051EF31: jne 0051EF45
+0051EF33: mov edx,dword ptr [edi+00000958h]
+0051EF39: cmp word ptr [edx+22h],1CCh
+0051EF3F: jne 0051F0EC
+0051EF45: mov ebp,dword ptr ds:[00B74494h]
+0051EF4B: mov ebx,dword ptr [ebp+8]
+0051EF4E: test ebx,ebx
+0051EF50: mov dword ptr [esp+40h],ebp
+0051EF54: je 0051F0EC
+0051EF5A: lea ebx,[ebx+00000000h]
+0051EF60: dec ebx
+0051EF61: push ebx
+0051EF62: mov ecx,ebp
+0051EF64: mov dword ptr [esp+40h],ebx
+0051EF68: call 0041CC10
+0051EF6D: mov esi,eax
+0051EF6F: test esi,esi
+0051EF71: je 0051F0E4
+0051EF77: mov eax,dword ptr [esi+00000590h]
+0051EF7D: test eax,eax
+0051EF7F: jne 0051F0E4
+0051EF85: push 0
+0051EF87: push 0FFFFFFFFh
+0051EF89: call 0056E0D0
+0051EF8E: add esp,8
+0051EF91: cmp esi,eax
+0051EF93: je 0051F0E4
+0051EF99: test byte ptr [esi+00000428h],1
+ 01
+0051EFA0: je 0051F0E4
+0051EFA6: mov al,byte ptr [esi+36h]
+0051EFA9: and al,0F8h
+0051EFAB: cmp al,18h
+0051EFAD: jne 0051F0E4
+0051EFB3: mov eax,dword ptr [esi+14h]
+0051EFB6: test eax,eax
+0051EFB8: lea edi,[eax+30h]
+0051EFBB: jne 0051EFC0
+0051EFBD: lea edi,[esi+4]
+0051EFC0: lea ecx,[esp+00000120h]
+ 00
+0051EFC7: push 0FFFFFFFFh
+0051EFC9: push ecx
+0051EFCA: call 0056E010
+0051EFCF: fld dword ptr [edi]
+0051EFD1: fsub dword ptr [eax]
+0051EFD3: mov eax,dword ptr [esi+14h]
+0051EFD6: add esp,8
+0051EFD9: test eax,eax
+0051EFDB: fstp dword ptr [esp+54h]
+0051EFDF: lea edi,[eax+30h]
+0051EFE2: jne 0051EFE7
+0051EFE4: lea edi,[esi+4]
+0051EFE7: lea edx,[esp+000001E0h]
+ 00
+0051EFEE: push 0FFFFFFFFh
+0051EFF0: push edx
+0051EFF1: call 0056E010
+0051EFF6: fld dword ptr [edi+4]
+0051EFF9: fsub dword ptr [eax+4]
+0051EFFC: mov eax,dword ptr [esi+14h]
+0051EFFF: add esp,8
+0051F002: test eax,eax
+0051F004: fstp dword ptr [esp+58h]
+0051F008: je 0051F00F
+0051F00A: add eax,30h
+0051F00D: jmp 0051F012
+0051F00F: lea eax,[esi+4]
+0051F012: push eax
+0051F013: lea eax,[esp+7Ch]
+0051F017: push 0FFFFFFFFh
+0051F019: push eax
+0051F01A: call 0056E010
+0051F01F: add esp,8
+0051F022: push eax
+0051F023: lea ecx,[esp+00000248h]
+ 00
+0051F02A: push ecx
+0051F02B: call 0040FE60
+0051F030: add esp,0Ch
+0051F033: mov ecx,eax
+0051F035: call 004082C0
+0051F03A: fcomp dword ptr ds:[00858CA4h]
+0051F040: fnstsw ax
+0051F042: test ah,5
+0051F045: jp 0051F0E4
+0051F04B: push 0
+0051F04D: push 0FFFFFFFFh
+0051F04F: call 0056E0D0
+0051F054: mov edi,dword ptr [eax+14h]
+0051F057: push 0
+0051F059: push 0FFFFFFFFh
+0051F05B: call 0056E0D0
+0051F060: fld dword ptr [esp+68h]
+0051F064: mov edx,dword ptr [eax+14h]
+0051F067: fmul dword ptr [edx+14h]
+0051F06A: add esp,10h
+0051F06D: fld dword ptr [esp+54h]
+0051F071: fmul dword ptr [edi+10h]
+0051F074: faddp st(1),st
+0051F076: fcomp dword ptr ds:[00858B50h]
+0051F07C: fnstsw ax
+0051F07E: test ah,5
+0051F081: jp 0051F0E4
+0051F083: mov edi,dword ptr [esi+14h]
+0051F086: push 0
+0051F088: push 0FFFFFFFFh
+0051F08A: call 0056E0D0
+0051F08F: mov ebx,dword ptr [eax+14h]
+0051F092: mov ebp,dword ptr [esi+14h]
+0051F095: push 0
+0051F097: push 0FFFFFFFFh
+0051F099: call 0056E0D0
+0051F09E: mov eax,dword ptr [eax+14h]
+0051F0A1: fld dword ptr [eax+14h]
+0051F0A4: add esp,10h
+0051F0A7: fmul dword ptr [ebp+14h]
+0051F0AA: fld dword ptr [ebx+10h]
+0051F0AD: fmul dword ptr [edi+10h]
+0051F0B0: faddp st(1),st
+0051F0B2: fcomp dword ptr ds:[00858C98h]
+0051F0B8: fnstsw ax
+0051F0BA: test ah,41h
+0051F0BD: jne 0051F0DC
+0051F0BF: mov ecx,dword ptr [esp+5Ch]
+0051F0C3: push 2
+0051F0C5: push 2
+0051F0C7: push 12h
+0051F0C9: push esi
+0051F0CA: call 0050C7C0
+0051F0CF: call 0050B830
+0051F0D4: test al,al
+0051F0D6: je 00520101
+0051F0DC: mov ebp,dword ptr [esp+40h]
+0051F0E0: mov ebx,dword ptr [esp+3Ch]
+0051F0E4: test ebx,ebx
+0051F0E6: jne 0051EF60
+0051F0EC: pop edi
+0051F0ED: pop esi
+0051F0EE: pop ebp
+0051F0EF: xor al,al
+0051F0F1: pop ebx
+0051F0F2: add esp,290h
+0051F0F8: ret 4
+0051F0FB: push 0FFFFFFFFh
+0051F0FD: call 0056E210
+0051F102: add esp,4
+0051F105: mov ecx,eax
+0051F107: call 0041BE60
+0051F10C: cmp eax,1
+0051F10F: jl 0051F0EC
+0051F111: push 0
+0051F113: push 0FFFFFFFFh
+0051F115: call 0056E0D0
+0051F11A: add esp,8
+0051F11D: test eax,eax
+0051F11F: je 0051F0EC
+0051F121: mov ebp,dword ptr ds:[00B74494h]
+0051F127: mov ebx,dword ptr [ebp+8]
+0051F12A: push 0
+0051F12C: push 0FFFFFFFFh
+0051F12E: mov dword ptr [esp+60h],ebp
+0051F132: call 0056E0D0
+0051F137: add esp,8
+0051F13A: test eax,eax
+0051F13C: je 0051F163
+0051F13E: push 0
+0051F140: push 0FFFFFFFFh
+0051F142: call 0056E0D0
+0051F147: mov ecx,dword ptr [eax+00000590h]
+0051F14D: add esp,8
+0051F150: cmp ecx,5
+0051F153: jne 0051F163
+0051F155: mov ecx,dword ptr [edi+00000958h]
+0051F15B: cmp word ptr [ecx+22h],1CCh
+0051F161: jne 0051F0EC
+0051F163: test ebx,ebx
+0051F165: je 0051F0EC
+0051F167: dec ebx
+0051F168: push ebx
+0051F169: mov ecx,ebp
+0051F16B: mov dword ptr [esp+40h],ebx
+0051F16F: call 0041CC10
+0051F174: mov esi,eax
+0051F176: test esi,esi
+0051F178: je 0051F375
+0051F17E: mov eax,dword ptr [esi+00000590h]
+0051F184: test eax,eax
+0051F186: jne 0051F375
+0051F18C: push 0
+0051F18E: push 0FFFFFFFFh
+0051F190: call 0056E0D0
+0051F195: add esp,8
+0051F198: cmp esi,eax
+0051F19A: je 0051F375
+0051F1A0: test byte ptr [esi+00000428h],1
+ 01
+0051F1A7: je 0051F375
+0051F1AD: mov eax,dword ptr [esi+14h]
+0051F1B0: test eax,eax
+0051F1B2: lea edi,[eax+30h]
+0051F1B5: jne 0051F1BA
+0051F1B7: lea edi,[esi+4]
+0051F1BA: lea edx,[esp+00000150h]
+ 00
+0051F1C1: push 0FFFFFFFFh
+0051F1C3: push edx
+0051F1C4: call 0056E010
+0051F1C9: fld dword ptr [edi]
+0051F1CB: fsub dword ptr [eax]
+0051F1CD: mov eax,dword ptr [esi+14h]
+0051F1D0: add esp,8
+0051F1D3: test eax,eax
+0051F1D5: fstp dword ptr [esp+54h]
+0051F1D9: lea edi,[eax+30h]
+0051F1DC: jne 0051F1E1
+0051F1DE: lea edi,[esi+4]
+0051F1E1: lea eax,[esp+000001F8h]
+ 00
+0051F1E8: push 0FFFFFFFFh
+0051F1EA: push eax
+0051F1EB: call 0056E010
+0051F1F0: fld dword ptr [edi+4]
+0051F1F3: fsub dword ptr [eax+4]
+0051F1F6: mov eax,dword ptr [esi+14h]
+0051F1F9: add esp,8
+0051F1FC: test eax,eax
+0051F1FE: fstp dword ptr [esp+40h]
+0051F202: je 0051F209
+0051F204: add eax,30h
+0051F207: jmp 0051F20C
+0051F209: lea eax,[esi+4]
+0051F20C: push eax
+0051F20D: lea ecx,[esp+0000016Ch]
+ 00
+0051F214: push 0FFFFFFFFh
+0051F216: push ecx
+0051F217: call 0056E010
+0051F21C: add esp,8
+0051F21F: push eax
+0051F220: lea edx,[esp+00000278h]
+ 00
+0051F227: push edx
+0051F228: call 0040FE60
+0051F22D: add esp,0Ch
+0051F230: mov ecx,eax
+0051F232: call 004082C0
+0051F237: fcomp dword ptr ds:[00858CA4h]
+0051F23D: fnstsw ax
+0051F23F: test ah,5
+0051F242: jp 0051F375
+0051F248: push 0
+0051F24A: push 0FFFFFFFFh
+0051F24C: call 0056E0D0
+0051F251: mov edi,dword ptr [eax+14h]
+0051F254: push 0
+0051F256: push 0FFFFFFFFh
+0051F258: call 0056E0D0
+0051F25D: fld dword ptr [esp+50h]
+0051F261: mov eax,dword ptr [eax+14h]
+0051F264: fmul dword ptr [eax+14h]
+0051F267: add esp,10h
+0051F26A: fld dword ptr [esp+54h]
+0051F26E: fmul dword ptr [edi+10h]
+0051F271: faddp st(1),st
+0051F273: fcomp dword ptr ds:[00858B50h]
+0051F279: fnstsw ax
+0051F27B: test ah,5
+0051F27E: jp 0051F375
+0051F284: mov edi,dword ptr [esi+14h]
+0051F287: push 0
+0051F289: push 0FFFFFFFFh
+0051F28B: call 0056E0D0
+0051F290: mov ebx,dword ptr [eax+14h]
+0051F293: mov ebp,dword ptr [esi+14h]
+0051F296: push 0
+0051F298: push 0FFFFFFFFh
+0051F29A: call 0056E0D0
+0051F29F: mov ecx,dword ptr [eax+14h]
+0051F2A2: fld dword ptr [ecx+14h]
+0051F2A5: add esp,10h
+0051F2A8: fmul dword ptr [ebp+14h]
+0051F2AB: fld dword ptr [ebx+10h]
+0051F2AE: fmul dword ptr [edi+10h]
+0051F2B1: faddp st(1),st
+0051F2B3: fcomp dword ptr ds:[00858C98h]
+0051F2B9: fnstsw ax
+0051F2BB: test ah,41h
+0051F2BE: jne 0051F36D
+0051F2C4: lea edx,[esp+6Ch]
+0051F2C8: mov dword ptr [esp+6Ch],0BFB33333h
+0051F2D0: mov dword ptr [esp+70h],0C0133333h
+0051F2D8: mov dword ptr [esp+74h],3E99999Ah
+0051F2E0: mov eax,dword ptr [esi+14h]
+0051F2E3: push edx
+0051F2E4: push eax
+0051F2E5: lea eax,[esp+00000188h]
+ 00
+0051F2EC: push eax
+0051F2ED: call 0059C790
+0051F2F2: mov ecx,dword ptr [eax]
+0051F2F4: mov edi,dword ptr [esi+14h]
+0051F2F7: mov dword ptr [esp+38h],ecx
+0051F2FB: mov edx,dword ptr [eax+4]
+0051F2FE: mov dword ptr [esp+3Ch],edx
+0051F302: mov eax,dword ptr [eax+8]
+0051F305: add esp,0Ch
+0051F308: test edi,edi
+0051F30A: mov dword ptr [esp+34h],eax
+0051F30E: lea eax,[edi+30h]
+0051F311: jne 0051F316
+0051F313: lea eax,[esi+4]
+0051F316: push eax
+0051F317: lea ecx,[esp+30h]
+0051F31B: call 00411A00
+0051F320: test edi,edi
+0051F322: je 0051F329
+0051F324: add edi,30h
+0051F327: jmp 0051F32C
+0051F329: lea edi,[esi+4]
+0051F32C: push 0
+0051F32E: push 0
+0051F330: push 0
+0051F332: push 0
+0051F334: push 0
+0051F336: push 0
+0051F338: push 1
+0051F33A: lea ecx,[esp+48h]
+0051F33E: push ecx
+0051F33F: push edi
+0051F340: call 0056A490
+0051F345: add esp,24h
+0051F348: test al,al
+0051F34A: je 0051F0EC
+0051F350: mov ecx,dword ptr [esp+5Ch]
+0051F354: push 2
+0051F356: push 2
+0051F358: push 0Eh
+0051F35A: push esi
+0051F35B: call 0050C7C0
+0051F360: call 0050B830
+0051F365: test al,al
+0051F367: je 00520101
+0051F36D: mov ebp,dword ptr [esp+58h]
+0051F371: mov ebx,dword ptr [esp+3Ch]
+0051F375: test ebx,ebx
+0051F377: jne 0051F167
+0051F37D: pop edi
+0051F37E: pop esi
+0051F37F: pop ebp
+0051F380: xor al,al
+0051F382: pop ebx
+0051F383: add esp,290h
+0051F389: ret 4
+0051F38C: push 0
+0051F38E: push 0FFFFFFFFh
+0051F390: call 0056E0D0
+0051F395: add esp,8
+0051F398: test eax,eax
+0051F39A: je 0051F0EC
+0051F3A0: lea edx,[esp+00000210h]
+ 00
+0051F3A7: push 0FFFFFFFFh
+0051F3A9: push edx
+0051F3AA: call 0056E010
+0051F3AF: mov ecx,dword ptr [eax]
+0051F3B1: mov dword ptr [esp+18h],ecx
+0051F3B5: mov edx,dword ptr [eax+4]
+0051F3B8: mov dword ptr [esp+1Ch],edx
+0051F3BC: mov eax,dword ptr [eax+8]
+0051F3BF: push 0FFFFFFFFh
+0051F3C1: mov dword ptr [esp+24h],eax
+0051F3C5: call 0056E090
+0051F3CA: mov ecx,dword ptr [eax]
+0051F3CC: mov dword ptr [esp+2Ch],ecx
+0051F3D0: mov edx,dword ptr [eax+4]
+0051F3D3: mov dword ptr [esp+30h],edx
+0051F3D7: mov eax,dword ptr [eax+8]
+0051F3DA: mov dword ptr [esp+34h],eax
+0051F3DE: add esp,0Ch
+0051F3E1: lea ecx,[esp+20h]
+0051F3E5: mov dword ptr [esp+28h],0
+0051F3ED: call 0059C910
+0051F3F2: fld dword ptr [esp+20h]
+0051F3F6: fmul dword ptr ds:[0086322Ch]
+0051F3FC: lea ecx,[esp+00000084h]
+ 00
+0051F403: fld dword ptr [esp+24h]
+0051F407: push 0FFFFFFFFh
+0051F409: fmul dword ptr ds:[0086322Ch]
+0051F40F: push ecx
+0051F410: fld dword ptr [esp+30h]
+0051F414: fmul dword ptr ds:[0086322Ch]
+0051F41A: fstp dword ptr [esp+3Ch]
+0051F41E: fxch st(1)
+0051F420: fadd dword ptr [esp+18h]
+0051F424: fstp dword ptr [esp+18h]
+0051F428: fld dword ptr [esp+1Ch]
+0051F42C: fadd st,st(1)
+0051F42E: fstp dword ptr [esp+1Ch]
+0051F432: fstp st(0)
+0051F434: fld dword ptr [esp+3Ch]
+0051F438: fadd dword ptr [esp+20h]
+0051F43C: fstp dword ptr [esp+20h]
+0051F440: call 0056E010
+0051F445: fld dword ptr [eax+8]
+0051F448: push 0
+0051F44A: fadd dword ptr ds:[00858B8Ch]
+0051F450: push 0FFFFFFFFh
+0051F452: fstp dword ptr [esp+28h]
+0051F456: call 0056E0D0
+0051F45B: mov ecx,dword ptr [eax+00000590h]
+0051F461: add esp,10h
+0051F464: cmp ecx,5
+0051F467: jne 0051F477
+0051F469: fld dword ptr [esp+18h]
+0051F46D: fadd dword ptr ds:[00858624h]
+0051F473: fstp dword ptr [esp+18h]
+0051F477: push 0
+0051F479: push 0
+0051F47B: push 0
+0051F47D: push 0
+0051F47F: push 0
+0051F481: push 0
+0051F483: push 1
+0051F485: lea edx,[esp+2Ch]
+0051F489: push edx
+0051F48A: lea eax,[esp+000000BCh]
+ 00
+0051F491: push 0FFFFFFFFh
+0051F493: push eax
+0051F494: call 0056E010
+0051F499: add esp,8
+0051F49C: push eax
+0051F49D: call 0056A490
+0051F4A2: add esp,24h
+0051F4A5: test al,al
+0051F4A7: je 0051F0EC
+0051F4AD: lea ecx,[esp+10h]
+0051F4B1: push ecx
+0051F4B2: lea edx,[esp+000000B8h]
+ 00
+0051F4B9: push 0FFFFFFFFh
+0051F4BB: push edx
+0051F4BC: call 0056E010
+0051F4C1: add esp,8
+0051F4C4: push eax
+0051F4C5: lea eax,[esp+34h]
+0051F4C9: push eax
+0051F4CA: call 0040FE60
+0051F4CF: add esp,0Ch
+0051F4D2: lea ecx,[esp+10h]
+0051F4D6: push ecx
+0051F4D7: lea edx,[esp+000000D0h]
+ 00
+0051F4DE: push 0FFFFFFFFh
+0051F4E0: push edx
+0051F4E1: call 0056E010
+0051F4E6: add esp,8
+0051F4E9: push eax
+0051F4EA: lea eax,[esp+000000ECh]
+ 00
+0051F4F1: push eax
+0051F4F2: call 0040FE60
+0051F4F7: mov ecx,dword ptr [eax]
+0051F4F9: mov edx,dword ptr [eax+4]
+0051F4FC: mov eax,dword ptr [eax+8]
+0051F4FF: mov dword ptr [esp+54h],ecx
+0051F503: add esp,0Ch
+0051F506: lea ecx,[esp+2Ch]
+0051F50A: mov dword ptr [esp+4Ch],edx
+0051F50E: mov dword ptr [esp+50h],eax
+0051F512: call 004082C0
+0051F517: fcomp dword ptr ds:[00858FF8h]
+0051F51D: fnstsw ax
+0051F51F: test ah,41h
+0051F522: jne 0051F559
+0051F524: push 0FFFFFFFFh
+0051F526: call 0056E090
+0051F52B: fld dword ptr [esp+50h]
+0051F52F: fmul dword ptr [eax+4]
+0051F532: add esp,4
+0051F535: fld dword ptr [eax+8]
+0051F538: fmul dword ptr ds:[00858B50h]
+0051F53E: faddp st(1),st
+0051F540: fld dword ptr [esp+48h]
+0051F544: fmul dword ptr [eax]
+0051F546: faddp st(1),st
+0051F548: fcomp dword ptr ds:[00858B50h]
+0051F54E: fnstsw ax
+0051F550: test ah,41h
+0051F553: je 0051F0EC
+0051F559: lea ecx,[esp+2Ch]
+0051F55D: call 004082C0
+0051F562: fcomp dword ptr ds:[00858B3Ch]
+0051F568: jmp 0051E8CB
+0051F56D: push 0
+0051F56F: push 0FFFFFFFFh
+0051F571: call 0056E0D0
+0051F576: add esp,8
+0051F579: test eax,eax
+0051F57B: je 0051F0EC
+0051F581: lea eax,[esp+000000FCh]
+ 00
+0051F588: push 0FFFFFFFFh
+0051F58A: push eax
+0051F58B: call 0056E010
+0051F590: mov ecx,dword ptr [eax]
+0051F592: mov dword ptr [esp+18h],ecx
+0051F596: mov edx,dword ptr [eax+4]
+0051F599: mov dword ptr [esp+1Ch],edx
+0051F59D: mov eax,dword ptr [eax+8]
+0051F5A0: push 0FFFFFFFFh
+0051F5A2: mov dword ptr [esp+24h],eax
+0051F5A6: call 0056E090
+0051F5AB: mov ecx,dword ptr [eax]
+0051F5AD: mov dword ptr [esp+2Ch],ecx
+0051F5B1: mov edx,dword ptr [eax+4]
+0051F5B4: mov dword ptr [esp+30h],edx
+0051F5B8: mov eax,dword ptr [eax+8]
+0051F5BB: mov dword ptr [esp+34h],eax
+0051F5BF: add esp,0Ch
+0051F5C2: lea ecx,[esp+20h]
+0051F5C6: mov dword ptr [esp+28h],0
+0051F5CE: call 0059C910
+0051F5D3: mov ecx,dword ptr [esp+24h]
+0051F5D7: mov edx,dword ptr [esp+20h]
+0051F5DB: push ecx
+0051F5DC: push edx
+0051F5DD: call 0053CC70
+0051F5E2: fadd dword ptr ds:[008630F8h]
+0051F5E8: mov eax,dword ptr [esp+30h]
+0051F5EC: add esp,8
+0051F5EF: fld st(0)
+0051F5F1: lea ecx,[esp+20h]
+0051F5F5: fcos
+0051F5F7: mov dword ptr [esp+28h],eax
+0051F5FB: fxch st(1)
+0051F5FD: fsin
+0051F5FF: fstp dword ptr [esp+30h]
+0051F603: fadd dword ptr [esp+20h]
+0051F607: fstp dword ptr [esp+20h]
+0051F60B: fld dword ptr [esp+30h]
+0051F60F: fadd dword ptr [esp+24h]
+0051F613: fstp dword ptr [esp+24h]
+0051F617: call 0059C910
+0051F61C: fld dword ptr [esp+20h]
+0051F620: lea ecx,[esp+00000114h]
+ 00
+0051F627: fmul dword ptr ds:[00858CA4h]
+0051F62D: push 0FFFFFFFFh
+0051F62F: fld dword ptr [esp+28h]
+0051F633: push ecx
+0051F634: fmul dword ptr ds:[00858CA4h]
+0051F63A: fld dword ptr [esp+30h]
+0051F63E: fmul dword ptr ds:[00858CA4h]
+0051F644: fstp dword ptr [esp+3Ch]
+0051F648: fxch st(1)
+0051F64A: fadd dword ptr [esp+18h]
+0051F64E: fstp dword ptr [esp+18h]
+0051F652: fld dword ptr [esp+1Ch]
+0051F656: fadd st,st(1)
+0051F658: fstp dword ptr [esp+1Ch]
+0051F65C: fstp st(0)
+0051F65E: fld dword ptr [esp+3Ch]
+0051F662: fadd dword ptr [esp+20h]
+0051F666: fstp dword ptr [esp+20h]
+0051F66A: call 0056E010
+0051F66F: fld dword ptr [eax+8]
+0051F672: mov ecx,dword ptr [esp+1Ch]
+0051F676: fsub dword ptr ds:[00859B4Ch]
+0051F67C: lea edx,[esp+42h]
+0051F680: push edx
+0051F681: mov edx,dword ptr [esp+1Ch]
+0051F685: fstp dword ptr [esp+24h]
+0051F689: mov eax,dword ptr [esp+24h]
+0051F68D: push eax
+0051F68E: mov byte ptr [esp+4Ah],0
+0051F693: push ecx
+0051F694: push edx
+0051F695: call 00569750
+0051F69A: fstp dword ptr [esp+54h]
+0051F69E: mov al,byte ptr [esp+52h]
+0051F6A2: add esp,18h
+0051F6A5: cmp al,1
+0051F6A7: jne 0051F6B9
+0051F6A9: fld dword ptr [esp+3Ch]
+0051F6AD: fadd dword ptr ds:[00858B8Ch]
+0051F6B3: fstp dword ptr [esp+18h]
+0051F6B7: jmp 0051F733
+0051F6B9: mov ecx,dword ptr [esp+18h]
+0051F6BD: mov edx,dword ptr [esp+14h]
+0051F6C1: push 0
+0051F6C3: push 0
+0051F6C5: lea eax,[esp+44h]
+0051F6C9: push eax
+0051F6CA: mov eax,dword ptr [esp+1Ch]
+0051F6CE: push ecx
+0051F6CF: push edx
+0051F6D0: push eax
+0051F6D1: call 006E8580
+0051F6D6: add esp,18h
+0051F6D9: test al,al
+0051F6DB: je 0051F733
+0051F6DD: mov ecx,dword ptr ds:[008CC8C0h]
+0051F6E3: push 0
+0051F6E5: push 0FFFFFFFFh
+0051F6E7: mov dword ptr [esp+48h],ecx
+0051F6EB: call 0056E0D0
+0051F6F0: add esp,8
+0051F6F3: test eax,eax
+0051F6F5: je 0051F716
+0051F6F7: push 0
+0051F6F9: push 0FFFFFFFFh
+0051F6FB: call 0056E0D0
+0051F700: mov ecx,dword ptr [eax+00000590h]
+0051F706: add esp,8
+0051F709: cmp ecx,5
+0051F70C: jne 0051F716
+0051F70E: fld dword ptr ds:[008CC8C4h]
+0051F714: jmp 0051F71A
+0051F716: fld dword ptr [esp+40h]
+0051F71A: fadd dword ptr [esp+3Ch]
+0051F71E: fld dword ptr [esp+18h]
+0051F722: fcomp st(1)
+0051F724: fnstsw ax
+0051F726: test ah,5
+0051F729: jp 0051F731
+0051F72B: fstp dword ptr [esp+18h]
+0051F72F: jmp 0051F733
+0051F731: fstp st(0)
+0051F733: push 0
+0051F735: push 0
+0051F737: push 0
+0051F739: push 0
+0051F73B: push 0
+0051F73D: push 0
+0051F73F: push 1
+0051F741: lea edx,[esp+2Ch]
+0051F745: push edx
+0051F746: lea eax,[esp+0000014Ch]
+ 00
+0051F74D: push 0FFFFFFFFh
+0051F74F: push eax
+0051F750: call 0056E010
+0051F755: add esp,8
+0051F758: push eax
+0051F759: call 0056A490
+0051F75E: add esp,24h
+0051F761: test al,al
+0051F763: je 0051F0EC
+0051F769: lea ecx,[esp+10h]
+0051F76D: push ecx
+0051F76E: lea edx,[esp+00000148h]
+ 00
+0051F775: push 0FFFFFFFFh
+0051F777: push edx
+0051F778: call 0056E010
+0051F77D: add esp,8
+0051F780: push eax
+0051F781: lea eax,[esp+34h]
+0051F785: push eax
+0051F786: call 0040FE60
+0051F78B: add esp,0Ch
+0051F78E: lea ecx,[esp+2Ch]
+0051F792: call 004082C0
+0051F797: fcomp dword ptr ds:[00858B40h]
+0051F79D: fnstsw ax
+0051F79F: test ah,41h
+0051F7A2: je 0051F0EC
+0051F7A8: lea ecx,[esp+2Ch]
+0051F7AC: call 004082C0
+0051F7B1: fcomp dword ptr ds:[00858B3Ch]
+0051F7B7: jmp 0051E8CB
+0051F7BC: push 0
+0051F7BE: push 0FFFFFFFFh
+0051F7C0: call 0056E0D0
+0051F7C5: add esp,8
+0051F7C8: test eax,eax
+0051F7CA: je 0051F0EC
+0051F7D0: lea eax,[esp+0000015Ch]
+ 00
+0051F7D7: push 0FFFFFFFFh
+0051F7D9: push eax
+0051F7DA: call 0056E010
+0051F7DF: mov ecx,dword ptr [eax]
+0051F7E1: mov dword ptr [esp+18h],ecx
+0051F7E5: mov edx,dword ptr [eax+4]
+0051F7E8: mov dword ptr [esp+1Ch],edx
+0051F7EC: mov eax,dword ptr [eax+8]
+0051F7EF: push 0FFFFFFFFh
+0051F7F1: mov dword ptr [esp+24h],eax
+0051F7F5: call 0056E090
+0051F7FA: mov ecx,dword ptr [eax]
+0051F7FC: mov dword ptr [esp+2Ch],ecx
+0051F800: mov edx,dword ptr [eax+4]
+0051F803: mov dword ptr [esp+30h],edx
+0051F807: mov eax,dword ptr [eax+8]
+0051F80A: mov dword ptr [esp+34h],eax
+0051F80E: add esp,0Ch
+0051F811: lea ecx,[esp+20h]
+0051F815: mov dword ptr [esp+28h],0
+0051F81D: call 0059C910
+0051F822: mov ecx,dword ptr [esp+24h]
+0051F826: mov edx,dword ptr [esp+20h]
+0051F82A: push ecx
+0051F82B: push edx
+0051F82C: call 0053CC70
+0051F831: fadd dword ptr ds:[00863228h]
+0051F837: mov eax,dword ptr [esp+30h]
+0051F83B: add esp,8
+0051F83E: fld st(0)
+0051F840: lea ecx,[esp+20h]
+0051F844: fcos
+0051F846: mov dword ptr [esp+28h],eax
+0051F84A: fxch st(1)
+0051F84C: fsin
+0051F84E: fstp dword ptr [esp+30h]
+0051F852: fadd dword ptr [esp+20h]
+0051F856: fstp dword ptr [esp+20h]
+0051F85A: fld dword ptr [esp+30h]
+0051F85E: fadd dword ptr [esp+24h]
+0051F862: fstp dword ptr [esp+24h]
+0051F866: call 0059C910
+0051F86B: fld dword ptr [esp+20h]
+0051F86F: lea ecx,[esp+00000174h]
+ 00
+0051F876: fmul dword ptr ds:[00858FE8h]
+0051F87C: push 0FFFFFFFFh
+0051F87E: fld dword ptr [esp+28h]
+0051F882: push ecx
+0051F883: fmul dword ptr ds:[00858FE8h]
+0051F889: fld dword ptr [esp+30h]
+0051F88D: fmul dword ptr ds:[00858FE8h]
+0051F893: fstp dword ptr [esp+3Ch]
+0051F897: fxch st(1)
+0051F899: fadd dword ptr [esp+18h]
+0051F89D: fstp dword ptr [esp+18h]
+0051F8A1: fld dword ptr [esp+1Ch]
+0051F8A5: fadd st,st(1)
+0051F8A7: fstp dword ptr [esp+1Ch]
+0051F8AB: fstp st(0)
+0051F8AD: fld dword ptr [esp+3Ch]
+0051F8B1: fadd dword ptr [esp+20h]
+0051F8B5: fstp dword ptr [esp+20h]
+0051F8B9: call 0056E010
+0051F8BE: fld dword ptr [eax+8]
+0051F8C1: mov ecx,dword ptr [esp+1Ch]
+0051F8C5: fsub dword ptr ds:[00858624h]
+0051F8CB: lea edx,[esp+42h]
+0051F8CF: push edx
+0051F8D0: mov edx,dword ptr [esp+1Ch]
+0051F8D4: fstp dword ptr [esp+24h]
+0051F8D8: mov eax,dword ptr [esp+24h]
+0051F8DC: push eax
+0051F8DD: mov byte ptr [esp+4Ah],0
+0051F8E2: push ecx
+0051F8E3: push edx
+0051F8E4: call 00569750
+0051F8E9: fstp dword ptr [esp+54h]
+0051F8ED: mov al,byte ptr [esp+52h]
+0051F8F1: add esp,18h
+0051F8F4: cmp al,1
+0051F8F6: jne 0051F908
+0051F8F8: fld dword ptr [esp+3Ch]
+0051F8FC: fadd dword ptr ds:[00858B8Ch]
+0051F902: fstp dword ptr [esp+18h]
+0051F906: jmp 0051F982
+0051F908: mov ecx,dword ptr [esp+18h]
+0051F90C: mov edx,dword ptr [esp+14h]
+0051F910: push 0
+0051F912: push 0
+0051F914: lea eax,[esp+44h]
+0051F918: push eax
+0051F919: mov eax,dword ptr [esp+1Ch]
+0051F91D: push ecx
+0051F91E: push edx
+0051F91F: push eax
+0051F920: call 006E8580
+0051F925: add esp,18h
+0051F928: test al,al
+0051F92A: je 0051F982
+0051F92C: mov ecx,dword ptr ds:[008CC8C0h]
+0051F932: push 0
+0051F934: push 0FFFFFFFFh
+0051F936: mov dword ptr [esp+48h],ecx
+0051F93A: call 0056E0D0
+0051F93F: add esp,8
+0051F942: test eax,eax
+0051F944: je 0051F965
+0051F946: push 0
+0051F948: push 0FFFFFFFFh
+0051F94A: call 0056E0D0
+0051F94F: mov ecx,dword ptr [eax+00000590h]
+0051F955: add esp,8
+0051F958: cmp ecx,5
+0051F95B: jne 0051F965
+0051F95D: fld dword ptr ds:[008CC8C4h]
+0051F963: jmp 0051F969
+0051F965: fld dword ptr [esp+40h]
+0051F969: fadd dword ptr [esp+3Ch]
+0051F96D: fld dword ptr [esp+18h]
+0051F971: fcomp st(1)
+0051F973: fnstsw ax
+0051F975: test ah,5
+0051F978: jp 0051F980
+0051F97A: fstp dword ptr [esp+18h]
+0051F97E: jmp 0051F982
+0051F980: fstp st(0)
+0051F982: push 0
+0051F984: push 0
+0051F986: push 0
+0051F988: push 0
+0051F98A: push 0
+0051F98C: push 0
+0051F98E: push 1
+0051F990: lea edx,[esp+2Ch]
+0051F994: push edx
+0051F995: lea eax,[esp+000001ACh]
+ 00
+0051F99C: push 0FFFFFFFFh
+0051F99E: push eax
+0051F99F: call 0056E010
+0051F9A4: add esp,8
+0051F9A7: push eax
+0051F9A8: call 0056A490
+0051F9AD: add esp,24h
+0051F9B0: test al,al
+0051F9B2: je 0051F0EC
+0051F9B8: lea ecx,[esp+10h]
+0051F9BC: push ecx
+0051F9BD: lea edx,[esp+000001A8h]
+ 00
+0051F9C4: push 0FFFFFFFFh
+0051F9C6: push edx
+0051F9C7: call 0056E010
+0051F9CC: add esp,8
+0051F9CF: push eax
+0051F9D0: lea eax,[esp+000001C4h]
+ 00
+0051F9D7: push eax
+0051F9D8: call 0040FE60
+0051F9DD: mov ecx,dword ptr [eax]
+0051F9DF: mov edx,dword ptr [eax+4]
+0051F9E2: mov eax,dword ptr [eax+8]
+0051F9E5: add esp,0Ch
+0051F9E8: mov dword ptr [esp+2Ch],ecx
+0051F9EC: lea ecx,[esp+10h]
+0051F9F0: push ecx
+0051F9F1: mov dword ptr [esp+34h],edx
+0051F9F5: lea edx,[esp+000001D8h]
+ 00
+0051F9FC: push 0FFFFFFFFh
+0051F9FE: push edx
+0051F9FF: mov dword ptr [esp+40h],eax
+0051FA03: call 0056E010
+0051FA08: add esp,8
+0051FA0B: push eax
+0051FA0C: lea eax,[esp+000001F4h]
+ 00
+0051FA13: push eax
+0051FA14: call 0040FE60
+0051FA19: mov ecx,dword ptr [eax]
+0051FA1B: mov edx,dword ptr [eax+4]
+0051FA1E: mov eax,dword ptr [eax+8]
+0051FA21: mov dword ptr [esp+54h],ecx
+0051FA25: add esp,0Ch
+0051FA28: lea ecx,[esp+2Ch]
+0051FA2C: mov dword ptr [esp+4Ch],edx
+0051FA30: mov dword ptr [esp+50h],eax
+0051FA34: call 004082C0
+0051FA39: fcomp dword ptr ds:[00858B40h]
+0051FA3F: fnstsw ax
+0051FA41: test ah,41h
+0051FA44: jne 0051FA7B
+0051FA46: push 0FFFFFFFFh
+0051FA48: call 0056E090
+0051FA4D: fld dword ptr [esp+50h]
+0051FA51: fmul dword ptr [eax+4]
+0051FA54: add esp,4
+0051FA57: fld dword ptr [eax+8]
+0051FA5A: fmul dword ptr ds:[00858B50h]
+0051FA60: faddp st(1),st
+0051FA62: fld dword ptr [esp+48h]
+0051FA66: fmul dword ptr [eax]
+0051FA68: faddp st(1),st
+0051FA6A: fcomp dword ptr ds:[00858B50h]
+0051FA70: fnstsw ax
+0051FA72: test ah,41h
+0051FA75: je 0051F0EC
+0051FA7B: lea ecx,[esp+2Ch]
+0051FA7F: call 004082C0
+0051FA84: fcomp dword ptr ds:[00858CA0h]
+0051FA8A: jmp 0051E8CB
+0051FA8F: lea eax,[esp+00000204h]
+ 00
+0051FA96: push 0FFFFFFFFh
+0051FA98: push eax
+0051FA99: call 0056E010
+0051FA9E: mov ecx,dword ptr [eax]
+0051FAA0: mov dword ptr [esp+18h],ecx
+0051FAA4: mov edx,dword ptr [eax+4]
+0051FAA7: mov dword ptr [esp+1Ch],edx
+0051FAAB: mov eax,dword ptr [eax+8]
+0051FAAE: push 0
+0051FAB0: push 0FFFFFFFFh
+0051FAB2: mov dword ptr [esp+28h],eax
+0051FAB6: call 0056E0D0
+0051FABB: add esp,10h
+0051FABE: test eax,eax
+0051FAC0: mov esi,5
+0051FAC5: je 0051FAE9
+0051FAC7: push 0
+0051FAC9: push 0FFFFFFFFh
+0051FACB: call 0056E0D0
+0051FAD0: mov ecx,dword ptr [eax+00000590h]
+0051FAD6: add esp,8
+0051FAD9: cmp ecx,esi
+0051FADB: jne 0051FAE9
+0051FADD: fld dword ptr [esp+18h]
+0051FAE1: fadd dword ptr ds:[00858F84h]
+0051FAE7: jmp 0051FAF3
+0051FAE9: fld dword ptr [esp+18h]
+0051FAED: fsub dword ptr ds:[00858F84h]
+0051FAF3: push 0FFFFFFFFh
+0051FAF5: fstp dword ptr [esp+1Ch]
+0051FAF9: call 0056E090
+0051FAFE: mov ecx,dword ptr [eax]
+0051FB00: mov dword ptr [esp+24h],ecx
+0051FB04: mov edx,dword ptr [eax+4]
+0051FB07: mov dword ptr [esp+28h],edx
+0051FB0B: mov eax,dword ptr [eax+8]
+0051FB0E: push edx
+0051FB0F: push ecx
+0051FB10: mov dword ptr [esp+34h],eax
+0051FB14: call 0053CC70
+0051FB19: fadd dword ptr ds:[00863224h]
+0051FB1F: add esp,0Ch
+0051FB22: lea ecx,[esp+20h]
+0051FB26: fld st(0)
+0051FB28: mov dword ptr [esp+28h],0
+0051FB30: fcos
+0051FB32: fxch st(1)
+0051FB34: fsin
+0051FB36: fstp dword ptr [esp+30h]
+0051FB3A: fld dword ptr [esp+20h]
+0051FB3E: fadd st,st(1)
+0051FB40: fstp dword ptr [esp+20h]
+0051FB44: fstp st(0)
+0051FB46: fld dword ptr [esp+30h]
+0051FB4A: fadd dword ptr [esp+24h]
+0051FB4E: fstp dword ptr [esp+24h]
+0051FB52: call 0059C910
+0051FB57: fld dword ptr [esp+20h]
+0051FB5B: push 0
+0051FB5D: fmul dword ptr ds:[00858B48h]
+0051FB63: lea ecx,[esp+3Fh]
+0051FB67: fld dword ptr [esp+28h]
+0051FB6B: push ecx
+0051FB6C: fmul dword ptr ds:[00858B48h]
+0051FB72: mov byte ptr [esp+43h],0
+0051FB77: fld dword ptr [esp+30h]
+0051FB7B: fmul dword ptr ds:[00858B48h]
+0051FB81: fstp dword ptr [esp+3Ch]
+0051FB85: fld dword ptr [esp+18h]
+0051FB89: fadd st,st(2)
+0051FB8B: fstp dword ptr [esp+18h]
+0051FB8F: mov ecx,dword ptr [esp+18h]
+0051FB93: fld dword ptr [esp+1Ch]
+0051FB97: fadd st,st(1)
+0051FB99: fstp dword ptr [esp+1Ch]
+0051FB9D: mov eax,dword ptr [esp+1Ch]
+0051FBA1: fstp st(0)
+0051FBA3: fstp st(0)
+0051FBA5: fld dword ptr [esp+3Ch]
+0051FBA9: fadd dword ptr [esp+20h]
+0051FBAD: fstp dword ptr [esp+20h]
+0051FBB1: mov edx,dword ptr [esp+20h]
+0051FBB5: push edx
+0051FBB6: push eax
+0051FBB7: push ecx
+0051FBB8: call 005696C0
+0051FBBD: fst dword ptr [esp+58h]
+0051FBC1: fcomp dword ptr ds:[00858624h]
+0051FBC7: add esp,14h
+0051FBCA: fnstsw ax
+0051FBCC: test ah,44h
+0051FBCF: jp 0051FBF4
+0051FBD1: fld dword ptr [esp+18h]
+0051FBD5: fcomp dword ptr [esp+44h]
+0051FBD9: fnstsw ax
+0051FBDB: test ah,5
+0051FBDE: jp 0051FC6C
+0051FBE4: fld dword ptr [esp+44h]
+0051FBE8: fadd dword ptr ds:[00858B8Ch]
+0051FBEE: fstp dword ptr [esp+18h]
+0051FBF2: jmp 0051FC6C
+0051FBF4: mov eax,dword ptr [esp+18h]
+0051FBF8: mov ecx,dword ptr [esp+14h]
+0051FBFC: push 0
+0051FBFE: push 0
+0051FC00: lea edx,[esp+4Ch]
+0051FC04: push edx
+0051FC05: mov edx,dword ptr [esp+1Ch]
+0051FC09: push eax
+0051FC0A: push ecx
+0051FC0B: push edx
+0051FC0C: call 006E8580
+0051FC11: add esp,18h
+0051FC14: test al,al
+0051FC16: je 0051FC6C
+0051FC18: mov eax,dword ptr ds:[008CC8C0h]
+0051FC1D: push 0
+0051FC1F: push 0FFFFFFFFh
+0051FC21: mov dword ptr [esp+48h],eax
+0051FC25: call 0056E0D0
+0051FC2A: add esp,8
+0051FC2D: test eax,eax
+0051FC2F: je 0051FC4F
+0051FC31: push 0
+0051FC33: push 0FFFFFFFFh
+0051FC35: call 0056E0D0
+0051FC3A: mov ecx,dword ptr [eax+00000590h]
+0051FC40: add esp,8
+0051FC43: cmp ecx,esi
+0051FC45: jne 0051FC4F
+0051FC47: fld dword ptr ds:[008CC8C4h]
+0051FC4D: jmp 0051FC53
+0051FC4F: fld dword ptr [esp+40h]
+0051FC53: fadd dword ptr [esp+44h]
+0051FC57: fld dword ptr [esp+18h]
+0051FC5B: fcomp st(1)
+0051FC5D: fnstsw ax
+0051FC5F: test ah,5
+0051FC62: jp 0051FC6A
+0051FC64: fstp dword ptr [esp+18h]
+0051FC68: jmp 0051FC6C
+0051FC6A: fstp st(0)
+0051FC6C: push 0
+0051FC6E: push 0
+0051FC70: push 0
+0051FC72: push 0
+0051FC74: push 0
+0051FC76: push 0
+0051FC78: push 1
+0051FC7A: lea ecx,[esp+2Ch]
+0051FC7E: push ecx
+0051FC7F: lea edx,[esp+0000023Ch]
+ 00
+0051FC86: push 0FFFFFFFFh
+0051FC88: push edx
+0051FC89: call 0056E010
+0051FC8E: add esp,8
+0051FC91: push eax
+0051FC92: call 0056A490
+0051FC97: add esp,24h
+0051FC9A: test al,al
+0051FC9C: je 0051F0EC
+0051FCA2: lea eax,[esp+10h]
+0051FCA6: push eax
+0051FCA7: lea ecx,[esp+00000238h]
+ 00
+0051FCAE: push 0FFFFFFFFh
+0051FCB0: push ecx
+0051FCB1: call 0056E010
+0051FCB6: add esp,8
+0051FCB9: push eax
+0051FCBA: lea edx,[esp+34h]
+0051FCBE: push edx
+0051FCBF: call 0040FE60
+0051FCC4: add esp,0Ch
+0051FCC7: lea ecx,[esp+2Ch]
+0051FCCB: call 004082C0
+0051FCD0: fcomp dword ptr ds:[00863208h]
+0051FCD6: fnstsw ax
+0051FCD8: test ah,41h
+0051FCDB: je 0051F0EC
+0051FCE1: lea ecx,[esp+2Ch]
+0051FCE5: call 004082C0
+0051FCEA: fcomp dword ptr ds:[00858624h]
+0051FCF0: fnstsw ax
+0051FCF2: test ah,5
+0051FCF5: jnp 0051F0EC
+0051FCFB: lea eax,[esp+2Ch]
+0051FCFF: push eax
+0051FD00: lea ecx,[esp+14h]
+0051FD04: push ecx
+0051FD05: jmp 0051E8E0
+0051FD0A: lea edx,[esp+0000024Ch]
+ 00
+0051FD11: push 0FFFFFFFFh
+0051FD13: push edx
+0051FD14: call 0056E010
+0051FD19: mov ecx,dword ptr [eax]
+0051FD1B: mov dword ptr [esp+18h],ecx
+0051FD1F: mov edx,dword ptr [eax+4]
+0051FD22: mov dword ptr [esp+1Ch],edx
+0051FD26: mov eax,dword ptr [eax+8]
+0051FD29: push 0
+0051FD2B: push 0FFFFFFFFh
+0051FD2D: mov dword ptr [esp+28h],eax
+0051FD31: call 0056E0D0
+0051FD36: add esp,10h
+0051FD39: test eax,eax
+0051FD3B: mov esi,5
+0051FD40: je 0051FD64
+0051FD42: push 0
+0051FD44: push 0FFFFFFFFh
+0051FD46: call 0056E0D0
+0051FD4B: mov ecx,dword ptr [eax+00000590h]
+0051FD51: add esp,8
+0051FD54: cmp ecx,esi
+0051FD56: jne 0051FD64
+0051FD58: fld dword ptr [esp+18h]
+0051FD5C: fadd dword ptr ds:[00858B90h]
+0051FD62: jmp 0051FD6E
+0051FD64: fld dword ptr [esp+18h]
+0051FD68: fsub dword ptr ds:[00858624h]
+0051FD6E: push 0FFFFFFFFh
+0051FD70: fstp dword ptr [esp+1Ch]
+0051FD74: call 0056E090
+0051FD79: mov ecx,dword ptr [eax]
+0051FD7B: mov dword ptr [esp+24h],ecx
+0051FD7F: mov edx,dword ptr [eax+4]
+0051FD82: mov dword ptr [esp+28h],edx
+0051FD86: mov eax,dword ptr [eax+8]
+0051FD89: push edx
+0051FD8A: push ecx
+0051FD8B: mov dword ptr [esp+34h],eax
+0051FD8F: call 0053CC70
+0051FD94: fadd dword ptr ds:[00863220h]
+0051FD9A: add esp,0Ch
+0051FD9D: lea ecx,[esp+20h]
+0051FDA1: fld st(0)
+0051FDA3: mov dword ptr [esp+28h],0
+0051FDAB: fcos
+0051FDAD: fxch st(1)
+0051FDAF: fsin
+0051FDB1: fstp dword ptr [esp+30h]
+0051FDB5: fld dword ptr [esp+20h]
+0051FDB9: fadd st,st(1)
+0051FDBB: fstp dword ptr [esp+20h]
+0051FDBF: fstp st(0)
+0051FDC1: fld dword ptr [esp+30h]
+0051FDC5: fadd dword ptr [esp+24h]
+0051FDC9: fstp dword ptr [esp+24h]
+0051FDCD: call 0059C910
+0051FDD2: fld dword ptr [esp+20h]
+0051FDD6: push 0
+0051FDD8: fmul dword ptr ds:[0086321Ch]
+0051FDDE: lea ecx,[esp+3Fh]
+0051FDE2: fld dword ptr [esp+28h]
+0051FDE6: push ecx
+0051FDE7: fmul dword ptr ds:[0086321Ch]
+0051FDED: mov byte ptr [esp+43h],0
+0051FDF2: fld dword ptr [esp+30h]
+0051FDF6: fmul dword ptr ds:[0086321Ch]
+0051FDFC: fstp dword ptr [esp+3Ch]
+0051FE00: fld dword ptr [esp+18h]
+0051FE04: fadd st,st(2)
+0051FE06: fstp dword ptr [esp+18h]
+0051FE0A: mov ecx,dword ptr [esp+18h]
+0051FE0E: fld dword ptr [esp+1Ch]
+0051FE12: fadd st,st(1)
+0051FE14: fstp dword ptr [esp+1Ch]
+0051FE18: mov eax,dword ptr [esp+1Ch]
+0051FE1C: fstp st(0)
+0051FE1E: fstp st(0)
+0051FE20: fld dword ptr [esp+3Ch]
+0051FE24: fadd dword ptr [esp+20h]
+0051FE28: fstp dword ptr [esp+20h]
+0051FE2C: mov edx,dword ptr [esp+20h]
+0051FE30: push edx
+0051FE31: push eax
+0051FE32: push ecx
+0051FE33: call 005696C0
+0051FE38: fst dword ptr [esp+58h]
+0051FE3C: fcomp dword ptr ds:[00858624h]
+0051FE42: add esp,14h
+0051FE45: fnstsw ax
+0051FE47: test ah,44h
+0051FE4A: jp 0051FE6F
+0051FE4C: fld dword ptr [esp+18h]
+0051FE50: fcomp dword ptr [esp+44h]
+0051FE54: fnstsw ax
+0051FE56: test ah,5
+0051FE59: jp 0051FEE7
+0051FE5F: fld dword ptr [esp+44h]
+0051FE63: fadd dword ptr ds:[00858B8Ch]
+0051FE69: fstp dword ptr [esp+18h]
+0051FE6D: jmp 0051FEE7
+0051FE6F: mov eax,dword ptr [esp+18h]
+0051FE73: mov ecx,dword ptr [esp+14h]
+0051FE77: push 0
+0051FE79: push 0
+0051FE7B: lea edx,[esp+4Ch]
+0051FE7F: push edx
+0051FE80: mov edx,dword ptr [esp+1Ch]
+0051FE84: push eax
+0051FE85: push ecx
+0051FE86: push edx
+0051FE87: call 006E8580
+0051FE8C: add esp,18h
+0051FE8F: test al,al
+0051FE91: je 0051FEE7
+0051FE93: mov eax,dword ptr ds:[008CC8C0h]
+0051FE98: push 0
+0051FE9A: push 0FFFFFFFFh
+0051FE9C: mov dword ptr [esp+48h],eax
+0051FEA0: call 0056E0D0
+0051FEA5: add esp,8
+0051FEA8: test eax,eax
+0051FEAA: je 0051FECA
+0051FEAC: push 0
+
+==== continuation dis.sh 0x51feac 0x52010f ====
+0051FEAC: push 0
+0051FEAE: push 0FFFFFFFFh
+0051FEB0: call 0056E0D0
+0051FEB5: mov ecx,dword ptr [eax+00000590h]
+0051FEBB: add esp,8
+0051FEBE: cmp ecx,esi
+0051FEC0: jne 0051FECA
+0051FEC2: fld dword ptr ds:[008CC8C4h]
+0051FEC8: jmp 0051FECE
+0051FECA: fld dword ptr [esp+40h]
+0051FECE: fadd dword ptr [esp+44h]
+0051FED2: fld dword ptr [esp+18h]
+0051FED6: fcomp st(1)
+0051FED8: fnstsw ax
+0051FEDA: test ah,5
+0051FEDD: jp 0051FEE5
+0051FEDF: fstp dword ptr [esp+18h]
+0051FEE3: jmp 0051FEE7
+0051FEE5: fstp st(0)
+0051FEE7: push 0
+0051FEE9: push 0
+0051FEEB: push 0
+0051FEED: push 0
+0051FEEF: push 0
+0051FEF1: push 0
+0051FEF3: push 1
+0051FEF5: lea ecx,[esp+2Ch]
+0051FEF9: push ecx
+0051FEFA: lea edx,[esp+00000284h]
+ 00
+0051FF01: push 0FFFFFFFFh
+0051FF03: push edx
+0051FF04: call 0056E010
+0051FF09: add esp,8
+0051FF0C: push eax
+0051FF0D: call 0056A490
+0051FF12: add esp,24h
+0051FF15: test al,al
+0051FF17: je 0051F0EC
+0051FF1D: lea eax,[esp+10h]
+0051FF21: push eax
+0051FF22: lea ecx,[esp+00000280h]
+ 00
+0051FF29: push 0FFFFFFFFh
+0051FF2B: push ecx
+0051FF2C: call 0056E010
+0051FF31: add esp,8
+0051FF34: push eax
+0051FF35: lea edx,[esp+0000029Ch]
+ 00
+0051FF3C: push edx
+0051FF3D: call 0040FE60
+0051FF42: mov ecx,dword ptr [eax]
+0051FF44: mov edx,dword ptr [eax+4]
+0051FF47: mov eax,dword ptr [eax+8]
+0051FF4A: mov dword ptr [esp+38h],ecx
+0051FF4E: add esp,0Ch
+0051FF51: lea ecx,[esp+2Ch]
+0051FF55: mov dword ptr [esp+30h],edx
+0051FF59: mov dword ptr [esp+34h],eax
+0051FF5D: call 004082C0
+0051FF62: fcomp dword ptr ds:[00863204h]
+0051FF68: fnstsw ax
+0051FF6A: test ah,41h
+0051FF6D: je 0051F0EC
+0051FF73: lea ecx,[esp+2Ch]
+0051FF77: call 004082C0
+0051FF7C: fcomp dword ptr ds:[00858CA0h]
+0051FF82: jmp 0051E8CB
+0051FF87: movzx eax,byte ptr [edi+59h]
+0051FF8B: imul eax,eax,238h
+0051FF91: push 1
+0051FF93: lea ecx,[eax+edi+00000174h]
+ 00
+0051FF9A: call 0051A740
+0051FF9F: test al,al
+0051FFA1: je 0051F0EC
+0051FFA7: push 2
+0051FFA9: push 2
+0051FFAB: push 38h
+0051FFAD: push 0FFFFFFFFh
+0051FFAF: call 0056E120
+0051FFB4: add esp,4
+0051FFB7: push eax
+0051FFB8: mov ecx,edi
+0051FFBA: call 0050C7C0
+0051FFBF: call 0050B830
+0051FFC4: pop edi
+0051FFC5: neg al
+0051FFC7: pop esi
+0051FFC8: sbb al,al
+0051FFCA: pop ebp
+0051FFCB: inc al
+0051FFCD: pop ebx
+0051FFCE: add esp,290h
+0051FFD4: ret 4
+0051FFD7: movzx ecx,byte ptr [edi+59h]
+0051FFDB: imul ecx,ecx,238h
+0051FFE1: push 1
+0051FFE3: lea ecx,[ecx+edi+00000174h]
+ 00
+0051FFEA: call 0051B120
+0051FFEF: test al,al
+0051FFF1: je 0051F0EC
+0051FFF7: push 2
+0051FFF9: push 2
+0051FFFB: push 39h
+0051FFFD: jmp 0051FFAD
+0051FFFF: movzx edx,byte ptr [edi+59h]
+00520003: imul edx,edx,238h
+00520009: push 1
+0052000B: lea ecx,[edx+edi+00000174h]
+ 00
+00520012: call 0051B850
+00520017: test al,al
+00520019: je 0051F0EC
+0052001F: push 2
+00520021: push 2
+00520023: push 3Ah
+00520025: jmp 0051FFAD
+00520027: movzx eax,byte ptr [edi+59h]
+0052002B: imul eax,eax,238h
+00520031: push 1
+00520033: lea ecx,[eax+edi+00000174h]
+ 00
+0052003A: call 0051C250
+0052003F: test al,al
+00520041: je 0051F0EC
+00520047: push 2
+00520049: push 2
+0052004B: push 3Bh
+0052004D: jmp 0051FFAD
+00520052: pop edi
+00520053: pop esi
+00520054: pop ebp
+00520055: mov byte ptr ds:[00B6F059h],0
+ 00
+0052005C: xor al,al
+0052005E: pop ebx
+0052005F: add esp,290h
+00520065: ret 4
+00520068: movzx ecx,byte ptr [edi+59h]
+0052006C: imul ecx,ecx,238h
+00520072: push 1
+00520074: lea ecx,[ecx+edi+00000174h]
+ 00
+0052007B: call 0051C760
+00520080: test al,al
+00520082: je 0051F0EC
+00520088: push 2
+0052008A: push 2
+0052008C: push 3Eh
+0052008E: jmp 0051FFAD
+00520093: movzx edx,byte ptr [edi+59h]
+00520097: imul edx,edx,238h
+0052009D: push 1
+0052009F: lea ecx,[edx+edi+00000174h]
+ 00
+005200A6: call 0051CC30
+005200AB: test al,al
+005200AD: je 0051F0EC
+005200B3: push 2
+005200B5: push 2
+005200B7: push 3Fh
+005200B9: jmp 0051FFAD
+005200BE: movzx eax,byte ptr [edi+59h]
+005200C2: imul eax,eax,238h
+005200C8: push 1
+005200CA: lea ecx,[eax+edi+00000174h]
+ 00
+005200D1: call 0051D100
+005200D6: test al,al
+005200D8: je 0051F0EC
+005200DE: push 2
+005200E0: push 2
+005200E2: push 40h
+005200E4: jmp 0051FFAD
+005200E9: push 2
+005200EB: push 2
+005200ED: push 12h
+005200EF: push 0FFFFFFFFh
+005200F1: call 0056E120
+005200F6: add esp,4
+005200F9: push eax
+005200FA: mov ecx,edi
+005200FC: call 0050C7C0
+00520101: pop edi
+00520102: pop esi
+00520103: pop ebp
+00520104: mov al,1
+00520106: pop ebx
+00520107: add esp,290h
+0052010D: ret 4

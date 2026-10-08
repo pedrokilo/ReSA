@@ -1,1 +1,8 @@
 * text=auto eol=lf
+
+# Preserve extracted evidence and tested fixture bytes; do not reformat to remove EOF blanks.
+reversing/**/LiveComparison.hpp whitespace=-blank-at-eof
+reversing/**/*.py whitespace=-blank-at-eof
+reversing/**/*.txt whitespace=-trailing-space,-blank-at-eof
+reversing/**/*-snapshot.cpp whitespace=-blank-at-eof
+reversing/**/*-snapshot.h whitespace=-blank-at-eof

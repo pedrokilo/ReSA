@@ -1,0 +1,987 @@
+{
+  "scope_count": 122,
+  "prepared_count": 112,
+  "pairs_pending355": 361472,
+  "auxiliary_pairs": 1024,
+  "banks": [
+    {
+      "bank": "ProjectileCore355",
+      "class": "CProjectileInfo",
+      "fn_name": "Initialise",
+      "address": "0x00737B40",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "ProjectileCore355",
+      "class": "CProjectileInfo",
+      "fn_name": "GetProjectileInfo",
+      "address": "0x00737BF0",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "ProjectileCore355",
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveFXSystem",
+      "address": "0x00737B80",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "ProjectileCore355",
+      "class": "CProjectileInfo",
+      "fn_name": "Shutdown",
+      "address": "0x00737BC0",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "ProjectileCore355",
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveNotAdd",
+      "address": "0x00737C00",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "ProjectileCore355",
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveDetonatorProjectiles",
+      "address": "0x00738860",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "ProjectileRemove355",
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveProjectile",
+      "address": "0x007388F0",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "ProjectileRemove355",
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveAllProjectiles",
+      "address": "0x007399B0",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "ProjectileRemove355",
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveIfThisIsAProjectile",
+      "address": "0x00739A40",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorCore355",
+      "class": "InteriorGroup_c",
+      "fn_name": "Init",
+      "address": "0x005947E0",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorCore355",
+      "class": "InteriorGroup_c",
+      "fn_name": "AddInterior",
+      "address": "0x00594840",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorCore355",
+      "class": "InteriorGroup_c",
+      "fn_name": "GetPed",
+      "address": "0x00594B90",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorCore355",
+      "class": "InteriorGroup_c",
+      "fn_name": "GetEntity",
+      "address": "0x00594BD0",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorCore355",
+      "class": "InteriorGroup_c",
+      "fn_name": "ContainsInteriorType",
+      "address": "0x00595250",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorCore355",
+      "class": "InteriorGroup_c",
+      "fn_name": "GetNumInteriorInfos",
+      "address": "0x00594920",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorCore355",
+      "class": "InteriorGroup_c",
+      "fn_name": "GetRandomInterior",
+      "address": "0x005948C0",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorCore355",
+      "class": "InteriorGroup_c",
+      "fn_name": "FindInteriorInfo",
+      "address": "0x00594970",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorCore355",
+      "class": "InteriorGroup_c",
+      "fn_name": "CalcIsVisible",
+      "address": "0x00595200",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorCore355",
+      "class": "InteriorGroup_c",
+      "fn_name": "Setup",
+      "address": "0x00595320",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorControl355",
+      "class": "InteriorGroup_c",
+      "fn_name": "Update",
+      "address": "0x005968E0",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorControl355",
+      "class": "InteriorGroup_c",
+      "fn_name": "SetupPeds",
+      "address": "0x00596890",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorControl355",
+      "class": "InteriorGroup_c",
+      "fn_name": "UpdatePeds",
+      "address": "0x00596830",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorControl355",
+      "class": "InteriorGroup_c",
+      "fn_name": "RemovePed",
+      "address": "0x00594E30",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorControl355",
+      "class": "InteriorGroup_c",
+      "fn_name": "SetupOfficePeds",
+      "address": "0x00594BF0",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorClosest355",
+      "class": "InteriorGroup_c",
+      "fn_name": "FindClosestInteriorInfo",
+      "address": "0x00594A50",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorExit355",
+      "class": "InteriorGroup_c",
+      "fn_name": "Exit",
+      "address": "0x00595290",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorExit355",
+      "class": "InteriorGroup_c",
+      "fn_name": "DereferenceAnims",
+      "address": "0x00595160",
+      "pairs": 1024,
+      "in_scope": false
+    },
+    {
+      "bank": "InteriorPathsLoaded355",
+      "class": "InteriorGroup_c",
+      "fn_name": "ArePathsLoaded",
+      "address": "0x00595380",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraLinear355",
+      "class": "CCamera",
+      "fn_name": "VectorMoveLinear",
+      "address": "0x0050D160",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraLinear355",
+      "class": "CCamera",
+      "fn_name": "VectorTrackLinear",
+      "address": "0x0050D1D0",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraLinear355",
+      "class": "CCamera",
+      "fn_name": "ProcessVectorTrackLinear-0",
+      "address": "0x0050D350",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraLinear355",
+      "class": "CCamera",
+      "fn_name": "ProcessVectorTrackLinear-1",
+      "address": "0x00516440",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraLinear355",
+      "class": "CCamera",
+      "fn_name": "ProcessVectorMoveLinear-0",
+      "address": "0x0050D430",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraLinear355",
+      "class": "CCamera",
+      "fn_name": "ProcessVectorMoveLinear-1",
+      "address": "0x005164A0",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraLinear355",
+      "class": "CCamera",
+      "fn_name": "ProcessFOVLerp-0",
+      "address": "0x0050D510",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraDuck355",
+      "class": "CCamera",
+      "fn_name": "HandleCameraMotionForDucking",
+      "address": "0x0050CFA0",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraDuck355",
+      "class": "CCamera",
+      "fn_name": "HandleCameraMotionForDuckingDuringAim",
+      "address": "0x0050D090",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageCore355",
+      "class": "CGenericGameStorage",
+      "fn_name": "GetCurrentVersionNumber",
+      "address": "0x005D0F50",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageCore355",
+      "class": "CGenericGameStorage",
+      "fn_name": "MakeValidSaveName",
+      "address": "0x005D0E90",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageCore355",
+      "class": "CGenericGameStorage",
+      "fn_name": "CloseFile",
+      "address": "0x005D0E30",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageCore355",
+      "class": "CGenericGameStorage",
+      "fn_name": "OpenFileForWriting",
+      "address": "0x005D0DD0",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageCore355",
+      "class": "CGenericGameStorage",
+      "fn_name": "OpenFileForReading",
+      "address": "0x005D0D20",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageCore355",
+      "class": "CGenericGameStorage",
+      "fn_name": "GetSavedGameDateAndTime",
+      "address": "0x00618D00",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageCore355",
+      "class": "CGenericGameStorage",
+      "fn_name": "InitRadioStationPositionList",
+      "address": "0x00618E70",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageCore355",
+      "class": "CGenericGameStorage",
+      "fn_name": "RestoreForStartLoad",
+      "address": "0x00619000",
+      "pairs": 512,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageIO355",
+      "class": "CGenericGameStorage",
+      "fn_name": "LoadWorkBuffer",
+      "address": "0x005D10B0",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageIO355",
+      "class": "CGenericGameStorage",
+      "fn_name": "SaveWorkBuffer",
+      "address": "0x005D0F80",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageIO355",
+      "class": "CGenericGameStorage",
+      "fn_name": "CheckSlotDataValid",
+      "address": "0x005D1380",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageIO355",
+      "class": "CGenericGameStorage",
+      "fn_name": "CheckDataNotCorrupt",
+      "address": "0x005D1170",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageGame355",
+      "class": "CGenericGameStorage",
+      "fn_name": "DoGameSpecificStuffBeforeSave",
+      "address": "0x00618F50",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "StorageGame355",
+      "class": "CGenericGameStorage",
+      "fn_name": "DoGameSpecificStuffAfterSucessLoad",
+      "address": "0x00618E90",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CarPassenger355",
+      "class": "CCarEnterExit",
+      "fn_name": "MakeUndraggedPassengerPedsLeaveCar",
+      "address": "0x0064F540",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CamCore355",
+      "class": "CCam",
+      "fn_name": "Using3rdPersonMouseCam",
+      "address": "0x0050A850",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CamCore355",
+      "class": "CCam",
+      "fn_name": "KeepTrackOfTheSpeed",
+      "address": "0x00509DF0",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CamCineExit355",
+      "class": "CCam",
+      "fn_name": "IsTimeToExitThisDWCineyCamMode",
+      "address": "0x00517400",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "CamLamp355",
+      "class": "CCam",
+      "fn_name": "GetLookFromLampPostPos",
+      "address": "0x005161A0",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "WeaponDrive355",
+      "class": "CWeapon",
+      "fn_name": "DoDriveByAutoAiming",
+      "address": "0x0073D720",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptShutdown355",
+      "class": "CRunningScript",
+      "fn_name": "ShutdownThisScript",
+      "address": "0x00465AA0",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraDerived355",
+      "class": "CCamera",
+      "fn_name": "CalculateDerivedValues",
+      "address": "0x005150E0",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraFrustum355",
+      "class": "CCamera",
+      "fn_name": "CalculateFrustumPlanes",
+      "address": "0x00514D60",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptLocate355",
+      "class": "CRunningScript",
+      "fn_name": "LocateCarCommand",
+      "address": "0x00487A20",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptLocate355",
+      "class": "CRunningScript",
+      "fn_name": "LocateObjectCommand",
+      "address": "0x00487D10",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptLocateChar355",
+      "class": "CRunningScript",
+      "fn_name": "LocateCharCommand",
+      "address": "0x00486D80",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptLocateChar355",
+      "class": "CRunningScript",
+      "fn_name": "LocateCharCarCommand",
+      "address": "0x00487420",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptLocateChar355",
+      "class": "CRunningScript",
+      "fn_name": "LocateCharCharCommand",
+      "address": "0x004870F0",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptLocateChar355",
+      "class": "CRunningScript",
+      "fn_name": "LocateCharObjectCommand",
+      "address": "0x00487720",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptArea355",
+      "class": "CRunningScript",
+      "fn_name": "CarInAreaCheckCommand",
+      "address": "0x00488EC0",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptArea355",
+      "class": "CRunningScript",
+      "fn_name": "ObjectInAreaCheckCommand",
+      "address": "0x00489150",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptArea355",
+      "class": "CRunningScript",
+      "fn_name": "CharInAreaCheckCommand",
+      "address": "0x00488B50",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptAnim355",
+      "class": "CRunningScript",
+      "fn_name": "PlayAnimScriptCommand",
+      "address": "0x00470150",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptPickup355",
+      "class": "CRunningScript",
+      "fn_name": "ScriptTaskPickUpObject",
+      "address": "0x0046AF50",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptAngled355",
+      "class": "CRunningScript",
+      "fn_name": "CharInAngledAreaCheckCommand",
+      "address": "0x00487F60",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptAngled355",
+      "class": "CRunningScript",
+      "fn_name": "FlameInAngledAreaCheckCommand",
+      "address": "0x00488780",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "ScriptAngled355",
+      "class": "CRunningScript",
+      "fn_name": "ObjectInAngledAreaCheckCommand",
+      "address": "0x004883F0",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraPath355",
+      "class": "CCamera",
+      "fn_name": "LoadPathSplines",
+      "address": "0x005B24D0",
+      "pairs": 1024,
+      "in_scope": true
+    },
+    {
+      "bank": "WeaponScreen355",
+      "class": "CWeapon",
+      "fn_name": "FindNearestTargetEntityWithScreenCoors",
+      "address": "0x0073E240",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorOffice355",
+      "class": "InteriorGroup_c",
+      "fn_name": "UpdateOfficePeds",
+      "address": "0x00594E90",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorSpawn355",
+      "class": "InteriorGroup_c",
+      "fn_name": "SetupHousePeds",
+      "address": "0x005965E0",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorSpawn355",
+      "class": "InteriorGroup_c",
+      "fn_name": "SetupShopPeds",
+      "address": "0x00594C10",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraRwCopy355",
+      "class": "CCamera",
+      "fn_name": "CopyCameraMatrixToRWCam",
+      "address": "0x0050AFA0",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraCollision355",
+      "class": "CCamera",
+      "fn_name": "CameraColDetAndReact",
+      "address": "0x00520190",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraNear355",
+      "class": "CCamera",
+      "fn_name": "SetNearClipBasedOnPedCollision",
+      "address": "0x0050CB90",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "CamPlane355",
+      "class": "CCam",
+      "fn_name": "Process_DW_PlaneCam3",
+      "address": "0x0051D100",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "CamPlaneOrbit355",
+      "class": "CCam",
+      "fn_name": "Process_DW_PlaneCam1",
+      "address": "0x0051C760",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "CamPlaneOrbit355",
+      "class": "CCam",
+      "fn_name": "Process_DW_PlaneCam2",
+      "address": "0x0051CC30",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "CamSyphon355",
+      "class": "CCam",
+      "fn_name": "Process_SpecialFixedForSyphon",
+      "address": "0x00517500",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "CarDoorPosition355",
+      "class": "CCarEnterExit",
+      "fn_name": "GetPositionToOpenCarDoor",
+      "address": "0x0064E740",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "WeaponTank355",
+      "class": "CWeapon",
+      "fn_name": "DoTankDoomAiming",
+      "address": "0x0073D1E0",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CamRotate355",
+      "class": "CCam",
+      "fn_name": "RotCamIfInFrontCar",
+      "address": "0x0050A4F0",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CamAttached355",
+      "class": "CCam",
+      "fn_name": "Process_AttachedCam",
+      "address": "0x00512B10",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CamFlyBy355",
+      "class": "CCam",
+      "fn_name": "Process_FlyBy",
+      "address": "0x005B25F0",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CarQuit355",
+      "class": "CCarEnterExit",
+      "fn_name": "IsPlayerToQuitCarEnter",
+      "address": "0x0064F240",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CarRoom355",
+      "class": "CCarEnterExit",
+      "fn_name": "IsRoomForPedToLeaveCar",
+      "address": "0x006504C0",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CarNearest355",
+      "class": "CCarEnterExit",
+      "fn_name": "GetNearestCarPassengerDoor",
+      "address": "0x00650BB0",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraImprove355",
+      "class": "CCamera",
+      "fn_name": "ImproveNearClip",
+      "address": "0x00516B20",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CamSpotter355",
+      "class": "CCam",
+      "fn_name": "Process_DW_PlaneSpotterCam",
+      "address": "0x0051C250",
+      "pairs": 2048,
+      "in_scope": true
+    },
+    {
+      "bank": "InteriorSetupPaths355",
+      "class": "InteriorGroup_c",
+      "fn_name": "SetupPaths",
+      "address": "0x00595590",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CamDead355",
+      "class": "CCam",
+      "fn_name": "ProcessPedsDeadBaby",
+      "address": "0x00519250",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "WeaponOccupant355",
+      "class": "CWeapon",
+      "fn_name": "CheckForShootingVehicleOccupant",
+      "address": "0x0073F480",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CamMan355",
+      "class": "CCam",
+      "fn_name": "Process_DW_CamManCam",
+      "address": "0x0051B120",
+      "pairs": 4096,
+      "in_scope": true
+    },
+    {
+      "bank": "CamLookBehind355",
+      "class": "CCam",
+      "fn_name": "LookBehind",
+      "address": "0x00520690",
+      "pairs": 8192,
+      "in_scope": true
+    },
+    {
+      "bank": "CamLookSide355",
+      "class": "CCam",
+      "fn_name": "LookRight",
+      "address": "0x00520E40",
+      "pairs": 8192,
+      "in_scope": true
+    },
+    {
+      "bank": "CamArrest355",
+      "class": "CCam",
+      "fn_name": "ProcessArrestCamOne",
+      "address": "0x00518500",
+      "pairs": 12288,
+      "in_scope": true
+    },
+    {
+      "bank": "CamWheel355",
+      "class": "CCam",
+      "fn_name": "Process_WheelCam",
+      "address": "0x00512110",
+      "pairs": 16384,
+      "in_scope": true
+    },
+    {
+      "bank": "CamHeliChase355",
+      "class": "CCam",
+      "fn_name": "Process_DW_HeliChaseCam",
+      "address": "0x0051A740",
+      "pairs": 16384,
+      "in_scope": true
+    },
+    {
+      "bank": "CamBirdy355",
+      "class": "CCam",
+      "fn_name": "Process_DW_BirdyCam",
+      "address": "0x0051B850",
+      "pairs": 16384,
+      "in_scope": true
+    },
+    {
+      "bank": "ProjectileUpdate355",
+      "class": "CProjectileInfo",
+      "fn_name": "Update",
+      "address": "0x00738B20",
+      "pairs": 8192,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraNewMode355",
+      "class": "CCamera",
+      "fn_name": "TryToStartNewCamMode",
+      "address": "0x0051E560",
+      "pairs": 16384,
+      "in_scope": true
+    },
+    {
+      "bank": "WeaponCarShot355",
+      "class": "CWeapon",
+      "fn_name": "FireInstantHitFromCar",
+      "address": "0x0073EC40",
+      "pairs": 8192,
+      "in_scope": true
+    },
+    {
+      "bank": "ProjectileAdd355",
+      "class": "CProjectileInfo",
+      "fn_name": "AddProjectile",
+      "address": "0x00737C80",
+      "pairs": 16384,
+      "in_scope": true
+    },
+    {
+      "bank": "WeaponInstant355",
+      "class": "CWeapon",
+      "fn_name": "FireInstantHit",
+      "address": "0x0073FB10",
+      "pairs": 20480,
+      "in_scope": true
+    },
+    {
+      "bank": "CameraProcess355",
+      "class": "CCamera",
+      "fn_name": "Process",
+      "address": "0x0052B730",
+      "pairs": 16384,
+      "in_scope": true
+    },
+    {
+      "bank": "CamControl355",
+      "class": "CCamera",
+      "fn_name": "CamControl",
+      "address": "0x00527FA0",
+      "pairs": 24576,
+      "in_scope": true,
+      "runtime_status": "prepared_not_validated"
+    }
+  ],
+  "remaining": [
+    {
+      "class": "CCam",
+      "fn_name": "Process",
+      "address": "0x00526FC0",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_1rstPersonPedOnPC",
+      "address": "0x0050EB70",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_AimWeapon",
+      "address": "0x00521500",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_Cam_TwoPlayer",
+      "address": "0x00525E50",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_Cam_TwoPlayer_InCarAndShooting",
+      "address": "0x00519810",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_Cam_TwoPlayer_Separate_Cars",
+      "address": "0x00513510",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_FollowCar_SA",
+      "address": "0x005245B0",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_FollowPedWithMouse",
+      "address": "0x0050F970",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_FollowPed_SA",
+      "address": "0x00522D40",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_M16_1stPerson",
+      "address": "0x005105C0",
+      "type": "S"
+    }
+  ],
+  "delegated_to_tasks355": [
+    "Process",
+    "Process_1rstPersonPedOnPC",
+    "Process_AimWeapon",
+    "Process_Cam_TwoPlayer",
+    "Process_Cam_TwoPlayer_InCarAndShooting",
+    "Process_Cam_TwoPlayer_Separate_Cars",
+    "Process_FollowCar_SA",
+    "Process_FollowPedWithMouse",
+    "Process_FollowPed_SA",
+    "Process_M16_1stPerson"
+  ]
+}

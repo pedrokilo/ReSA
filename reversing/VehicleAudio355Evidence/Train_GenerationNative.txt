@@ -1,0 +1,118 @@
+void CTrain::DoTrainGenerationAndRemoval() {
+    auto& nearStation = StaticRef<uint8>(0xC38068);
+    const auto now = StaticRef<uint32>(0xB7CB84);
+    const auto previousTime = StaticRef<uint32>(0xB7CB78);
+    if (now / 3000u != previousTime / 3000u) {
+        nearStation = 0;
+        for (const auto& station : aStationCoors) {
+            const auto player = FindPlayerCoors(-1);
+            const auto dy = station.y - player.y;
+            const auto dx = station.x - player.x;
+            if (std::sqrt(dy * dy + dx * dx) < 60.f) nearStation = 1;
+        }
+    }
+    const auto period = nearStation ? 1u : 950u;
+    const auto generationRadius = nearStation ? 100.f : 70.f;
+    if (StaticRef<uint32>(0xB7CB84) / period == StaticRef<uint32>(0xB7CB78) / period) return;
+    bool found = false;
+    auto* pool = GetVehiclePool();
+    for (int32 i = int32(pool->GetSize()) - 1; i >= 0; --i) {
+        auto* vehicle = pool->GetAt(i);
+        if (!vehicle || !vehicle->IsTrain()) continue;
+        auto* train = vehicle->AsTrain();
+        if (!train->trainFlags.bIsFrontCarriage || train->trainFlags.bMissionTrain) continue;
+        found = true;
+        bool remove = true;
+        for (auto* carriage = train; carriage; carriage = carriage->m_pNextCarriage) {
+            const auto delta = TheCamera.GetPosition() - carriage->GetPosition();
+            auto* playerVehicle = FindPlayerVehicle(-1, false);
+            if (carriage == playerVehicle || std::sqrt(delta.y * delta.y + delta.x * delta.x) < 220.f) remove = false;
+        }
+        if (remove) {
+            while (train) {auto* next = train->m_pNextCarriage;CWorld::Remove(train);delete train;train = next;}
+        }
+    }
+    if (bDisableRandomTrains) return;
+    const auto models = [](uint32 type) {return reinterpret_cast<const int32*>(0x8D44F8 + type * 0x40);};
+    if (GenTrain_Status != 0) {
+        if (GenTrain_Status != 1) return;
+        bool loaded = true;
+        for (auto* model = models(GenTrain_TrainConfig); *model; ++model) {
+            if (StaticRef<uint8>(0x8E4CD0 + *model * 20) != 1) {CStreaming::RequestModel(*model, 8);loaded = false;}
+        }
+        if (!loaded) return;
+        const auto camera = TheCamera.GetPosition();
+        auto& node = pTrackNodes[GenTrain_Track][GenTrain_GenerationNode];
+        const auto dx = float(node.x) * .125f - camera.x;
+        const auto dy = float(node.y) * .125f - camera.y;
+        if (std::sqrt(dx * dx + dy * dy) > 60.f) {
+            CTrain* created;
+            CreateMissionTrain({0.f,0.f,0.f}, GenTrain_Direction != 0, GenTrain_TrainConfig, &created, nullptr, int32(GenTrain_GenerationNode), int32(GenTrain_Track), false);
+            int32 speed;
+            if (GenTrain_Track == 0) {
+                speed = int32(CGeneral::GetRandomNumber()) % 30 + 15;
+                auto& current = pTrackNodes[GenTrain_Track][GenTrain_GenerationNode];
+                const auto x = float(current.x) * .125f - 2222.f;
+                const auto y = float(current.y) * .125f + 1750.f;
+                if (std::sqrt(x * x + y * y) < 300.f) speed /= 2;
+            } else speed = int32(CGeneral::GetRandomNumber()) % 7 + 7;
+            float maximum;
+            created->FindMaximumSpeedToStopAtStations(&maximum);
+            if (float(speed) < maximum) maximum = float(speed);
+            SetTrainSpeed(created, maximum);
+            created->m_autoPilot.m_nCruiseSpeed = uint8(speed);
+        }
+        for (auto* model = models(GenTrain_TrainConfig); *model; ++model) {CStreaming::SetModelIsDeletable(*model);CStreaming::SetModelTxdIsDeletable(*model);}
+        GenTrain_Status = 0;
+        return;
+    }
+    if (found) return;
+    const auto camera = TheCamera.GetPosition();
+    GenTrain_Track = 0;
+    GenTrain_GenerationNode = uint32(int32(CGeneral::GetRandomNumber()) % NumTrackNodes[0]);
+    const auto distance = [&]() {
+        const auto& node = pTrackNodes[GenTrain_Track][GenTrain_GenerationNode];
+        const auto dy = float(node.y) * .125f - camera.y;
+        const auto dx = float(node.x) * .125f - camera.x;
+        return std::sqrt(dy * dy + dx * dx);
+    };
+    auto dist = distance();
+    const auto nodePos = CVector{float(pTrackNodes[0][GenTrain_GenerationNode].x) * .125f,float(pTrackNodes[0][GenTrain_GenerationNode].y) * .125f,float(pTrackNodes[0][GenTrain_GenerationNode].z) * .125f};
+    bool skipFirst = dist >= generationRadius;
+    if (!skipFirst) {
+        if (nodePos.z + 6.f <= FindPlayerCoors(-1).z) {
+            const auto player = FindPlayerCoors(-1);
+            if (!(CCullZones::FindTunnelAttributesForCoors(player) & 0x880) && (CCullZones::FindTunnelAttributesForCoors(nodePos) & 0x800)) skipFirst = true;
+        }
+    }
+    if (!skipFirst) {
+        const auto direction = CGeneral::GetRandomNumber() & 1;
+        GenTrain_Direction = uint8(direction);
+        auto previousNode = GenTrain_GenerationNode;
+        while (dist < 170.f) {
+            previousNode = GenTrain_GenerationNode;
+            if (!direction) GenTrain_GenerationNode = uint32((int32(GenTrain_GenerationNode) + 1) % NumTrackNodes[GenTrain_Track]);
+            else {auto index = int32(GenTrain_GenerationNode) - 1;if(index < 0) index += NumTrackNodes[GenTrain_Track];GenTrain_GenerationNode = uint32(index);}
+            dist = distance();
+        }
+        auto& lastType = StaticRef<int32>(0xC38064);
+        GenTrain_TrainConfig = uint32(int32(uint32(lastType) + 1u) % 8);
+        GenTrain_Status = 1;
+        lastType = int32(GenTrain_TrainConfig);
+        if (dist > 220.f) {GenTrain_GenerationNode = previousNode;return;}
+        return;
+    }
+    if (GenTrain_Status != 0 || StaticRef<int32>(0xC81314) != 2) return;
+    GenTrain_Track = 1;
+    GenTrain_GenerationNode = uint32(int32(CGeneral::GetRandomNumber()) % NumTrackNodes[1]);
+    dist = distance();
+    if (!(dist < generationRadius)) return;
+    const auto direction = CGeneral::GetRandomNumber() & 1;
+    GenTrain_Direction = uint8(direction);
+    while (dist < 170.f) {
+        if (!direction) GenTrain_GenerationNode = uint32((int32(GenTrain_GenerationNode) + 1) % NumTrackNodes[GenTrain_Track]);
+        else {auto index = int32(GenTrain_GenerationNode) - 1;if(index < 0) index += NumTrackNodes[GenTrain_Track];GenTrain_GenerationNode = uint32(index);}
+        dist = distance();
+    }
+    if (dist < 220.f) {GenTrain_Status = 1;GenTrain_TrainConfig = uint32(int32(CGeneral::GetRandomNumber()) % 2 + 8);}
+}

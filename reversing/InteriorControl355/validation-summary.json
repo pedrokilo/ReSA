@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2560,
+  "pairs_per_function": {
+    "InteriorGroup_c::Update": 512,
+    "InteriorGroup_c::SetupPeds": 512,
+    "InteriorGroup_c::UpdatePeds": 512,
+    "InteriorGroup_c::RemovePed": 512,
+    "InteriorGroup_c::SetupOfficePeds": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "ac5f9041f04d5802c880a0bd2b8e658b778802cfc3b1c6049159b84917f74dcb",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-control355\\20261007-210431-873664",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "InteriorGroup_c::Update": true,
+    "InteriorGroup_c::SetupPeds": true,
+    "InteriorGroup_c::UpdatePeds": true,
+    "InteriorGroup_c::RemovePed": true,
+    "InteriorGroup_c::SetupOfficePeds": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "6bc375f34ca87e1201a41e6a75a093397d2fb72dbb859839c926ea77ac690eaa",
+      "pdb": "a5a6da29af5df7c2b21436b5becd293a2fe8d4722fd860bd8791b8ad28137316"
+    },
+    "sources": {
+      "source/game_sa/Interior/InteriorGroup_c.cpp": "b58641c2fd5196e88d6b6ae13cde055828ac793a24f45450d896884097a162a2",
+      "source/game_sa/Interior/InteriorGroup_c.h": "7af15b0396c14c31ab991caa252a8a3ca71ec22e8e5c9e0a805aa823c780f131",
+      "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82",
+      "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "4b9e1ddef5255792281ca4b1021823dd3c93c3eb95f70d03205484d10943af70",
+      "build_probe.py": "2674517d509308fdf0e7b95d3e21bb0e32659633a04bb60512026be8416ffc03",
+      "run_local.py": "6e49b3c2ecca6fece75c247f040bc4f8054f8ad92752b5eb4d085057e03b114b"
+    }
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: []",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

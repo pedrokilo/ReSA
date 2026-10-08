@@ -38,7 +38,8 @@ public:
     struct RwTexture* GetShadowRwTexture();
 
     void              Destroy();
-    CShadowCamera*    GetShadowCamera();
+    // 0x7059E0: lea eax, [ecx+8]; ret
+    CShadowCamera*    GetShadowCamera() { return &m_camera; }
     void              DrawBorderAroundTexture(const RwRGBA& color);
 
     /// this creates all stuff for shadow processing (cameras, textures)

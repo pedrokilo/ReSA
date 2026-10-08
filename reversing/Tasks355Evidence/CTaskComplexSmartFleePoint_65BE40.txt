@@ -1,0 +1,72 @@
+// CTaskComplexSmartFleePoint::ComputeFleeDir @ 0x0065be40 [0x65be40..0x65be7a]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0065be40(int param_1)
+
+{
+  int iVar1;
+  float *pfVar2;
+  int in_ECX;
+  int iVar3;
+  
+  iVar1 = *(int *)(param_1 + 0x14);
+  iVar3 = iVar1 + 0x30;
+  if (iVar1 == 0) {
+    iVar3 = param_1 + 4;
+    pfVar2 = (float *)(param_1 + 4);
+  }
+  else {
+    pfVar2 = (float *)(iVar1 + 0x30);
+  }
+  FUN_0053cdc0(*pfVar2 - *(float *)(in_ECX + 0x18),*(float *)(iVar3 + 4) - *(float *)(in_ECX + 0x1c)
+              );
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0065BE40: mov edx,dword ptr [esp+4]
+0065BE44: mov eax,dword ptr [edx+14h]
+0065BE47: test eax,eax
+0065BE49: push esi
+0065BE4A: lea esi,[eax+30h]
+0065BE4D: jne 0065BE76
+0065BE4F: lea esi,[edx+4]
+0065BE52: lea eax,[edx+4]
+0065BE55: fld dword ptr [esi+4]
+0065BE58: sub esp,8
+0065BE5B: fsub dword ptr [ecx+1Ch]
+0065BE5E: fstp dword ptr [esp+4]
+0065BE62: fld dword ptr [eax]
+0065BE64: fsub dword ptr [ecx+18h]
+0065BE67: fstp dword ptr [esp]
+0065BE6A: call 0053CDC0
+0065BE6F: add esp,8
+0065BE72: pop esi
+0065BE73: ret 4
+0065BE76: add eax,30h
+0065BE79: jmp 0065BE55
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x65BE40, 0x65BE7A) ====
+0065BE40: mov edx,dword ptr [esp+4]
+0065BE44: mov eax,dword ptr [edx+14h]
+0065BE47: test eax,eax
+0065BE49: push esi
+0065BE4A: lea esi,[eax+30h]
+0065BE4D: jne 0065BE76
+0065BE4F: lea esi,[edx+4]
+0065BE52: lea eax,[edx+4]
+0065BE55: fld dword ptr [esi+4]
+0065BE58: sub esp,8
+0065BE5B: fsub dword ptr [ecx+1Ch]
+0065BE5E: fstp dword ptr [esp+4]
+0065BE62: fld dword ptr [eax]
+0065BE64: fsub dword ptr [ecx+18h]
+0065BE67: fstp dword ptr [esp]
+0065BE6A: call 0053CDC0
+0065BE6F: add esp,8
+0065BE72: pop esi
+0065BE73: ret 4
+0065BE76: add eax,30h
+0065BE79: jmp 0065BE55

@@ -1,0 +1,70 @@
+// CPedGeometryAnalyser::CanPedJumpObstacle- @ 0x005f1b00 [0x5f1b00..0x5f1b67]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+uint FUN_005f1b00(int param_1,uint param_2)
+
+{
+  int iVar1;
+  float *pfVar2;
+  uint uVar3;
+  float local_c;
+  float local_8;
+  float local_4;
+  
+  if ((*(uint *)(param_2 + 0x1c) & 0x400000) != 0) {
+    return param_2 & 0xffffff00;
+  }
+  iVar1 = *(int *)(param_1 + 0x14);
+  if (iVar1 == 0) {
+    pfVar2 = (float *)(param_1 + 4);
+  }
+  else {
+    pfVar2 = (float *)(iVar1 + 0x30);
+  }
+  local_c = *(float *)(iVar1 + 0x10) + *pfVar2;
+  local_8 = *(float *)(iVar1 + 0x14) + pfVar2[1];
+  local_4 = *(float *)(iVar1 + 0x18) + pfVar2[2];
+  uVar3 = FUN_0056a490(pfVar2,&local_c,1,0,0,1,0,0,0);
+  return uVar3;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005F1B00: mov eax,dword ptr [esp+8]
+005F1B04: mov ecx,dword ptr [eax+1Ch]
+005F1B07: sub esp,0Ch
+005F1B0A: test ecx,400000h
+005F1B10: je 005F1B18
+005F1B12: xor al,al
+005F1B14: add esp,0Ch
+005F1B17: ret
+005F1B18: mov eax,dword ptr [esp+10h]
+005F1B1C: mov ecx,dword ptr [eax+14h]
+005F1B1F: test ecx,ecx
+005F1B21: je 005F1B28
+005F1B23: lea eax,[ecx+30h]
+005F1B26: jmp 005F1B2B
+005F1B28: add eax,4
+005F1B2B: fld dword ptr [ecx+10h]
+005F1B2E: push 0
+005F1B30: fadd dword ptr [eax]
+005F1B32: push 0
+005F1B34: push 0
+005F1B36: push 1
+005F1B38: fstp dword ptr [esp+10h]
+005F1B3C: push 0
+005F1B3E: fld dword ptr [ecx+14h]
+005F1B41: push 0
+005F1B43: fadd dword ptr [eax+4]
+005F1B46: push 1
+005F1B48: fstp dword ptr [esp+20h]
+005F1B4C: fld dword ptr [ecx+18h]
+005F1B4F: lea ecx,[esp+1Ch]
+005F1B53: fadd dword ptr [eax+8]
+005F1B56: push ecx
+005F1B57: push eax
+005F1B58: fstp dword ptr [esp+2Ch]
+005F1B5C: call 0056A490
+005F1B61: add esp,24h
+005F1B64: add esp,0Ch
+005F1B67: ret

@@ -1,0 +1,40 @@
+// CTrain::FindCarriage @ 0x006f5eb0 [0x6f5eb0..0x6f5ed3]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_006f5eb0(int param_1,byte param_2)
+
+{
+  byte bVar1;
+  
+  bVar1 = 0;
+  if (param_2 != 0) {
+    while( true ) {
+      param_1 = *(int *)(param_1 + 0x5d4);
+      if (param_1 == 0) break;
+      bVar1 = bVar1 + 1;
+      if (param_2 <= bVar1) {
+        return param_1;
+      }
+    }
+    param_1 = 0;
+  }
+  return param_1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F5EB0: mov dl,byte ptr [esp+8]
+006F5EB4: mov eax,dword ptr [esp+4]
+006F5EB8: xor cl,cl
+006F5EBA: test dl,dl
+006F5EBC: jbe 006F5ED3
+006F5EBE: mov edi,edi
+006F5EC0: mov eax,dword ptr [eax+000005D4h]
+006F5EC6: test eax,eax
+006F5EC8: je 006F5ED1
+006F5ECA: inc cl
+006F5ECC: cmp cl,dl
+006F5ECE: jb 006F5EC0
+006F5ED0: ret
+006F5ED1: xor eax,eax
+006F5ED3: ret

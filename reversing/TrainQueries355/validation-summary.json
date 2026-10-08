@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CTrain::FindClosestTrackNode": 1024,
+    "CTrain::IsNextStationAllowed": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "a42c39b0b3c29ca4faedca23f5c5eaaa934dcbc1d4018779029cbc9329999a1b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-queries355\\20261008-011753-566671",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTrain::FindClosestTrackNode": true,
+    "CTrain::IsNextStationAllowed": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "39db7c8b5e7cf01144a739615085f9b5d5e2ee0edd1a1f7cc614616e14ee0c08",
+      "pdb": "6786808d34c0704e2844952a2ebdb9846222c2ec6648aedb8849a2c535047028"
+    },
+    "sources": {
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/Entity/Vehicle/Train.cpp": "5cdaa8aa1ed9a2589f9f7cd4c00dcb1b69f04fecf589345709638bccbd968578",
+      "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+      "source/game_sa/FileMgr.cpp": "a7a192213bcc8f9c445f080ea27e957fc58c27e8345fedd35be93bca37c51f68",
+      "source/game_sa/FileMgr.h": "5ee4a8305e446d6d3ef391530d1a4226b59940d2a781bf97a096a2d268ee514f",
+      "source/game_sa/GameLogic.cpp": "994cdcf0c7ef08399cd25419b8258a608f7bbeb55bd41fcca10a2f58d216602b",
+      "source/game_sa/GameLogic.h": "e615c702306154b8d0ce8c544c06def27bbff416a8f2ba9278ff7dcc47121af3",
+      "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
+      "source/game_sa/Stats.cpp": "c4b1cb449064f08aed0dc14a870ca3277f3bc88c18cc5a5fe595829d534378ca",
+      "source/game_sa/Stats.h": "06ea5fa42ae006428bd2d2fe505f68e7f2506cd207f46d6b96f57c930abf1e44",
+      "source/game_sa/Streaming.cpp": "e57824efb241473d770fd6b3a2fd3ecd025c97cae0d4b004c2929e18be5290de",
+      "source/game_sa/Streaming.h": "7b5c70a1f45fb905831e5e0b8c27b5a44aa35c04192eb9b59a1224df0f35c1c3",
+      "source/game_sa/TheZones.cpp": "eb1b671449c3216b4eaf16af19e4776bcc9c534573cd3001b5b5ded446d97815",
+      "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+      "source/game_sa/TrainNode.cpp": "daac0f40ef5188bf19b272a28d88156b97e0fe16d11954d350b019aaab58bbd5",
+      "source/game_sa/TrainNode.h": "b13b62e15e7c59772b8ace67f5b3d12ff3df602b4ea7cbc20b887e6e40585c75",
+      "source/game_sa/World.cpp": "b7ff3a0962752810a3e1568ca6d66a53754d69e64491b9b8127c679e793d19ca",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "../probe_build.py": "8e76d4a04b26c055f1d7259246abdbf4f8e56eed372a13171b483327e1c03633",
+      "../TrainRemove355/build_probe.py": "36687130c5b9fcb600bffc988cfc9aad8a3b3f9a1060ab4f075360827b823ed6",
+      "../TrainRead355/LiveComparison.hpp": "937a63b5147611b79ca5e8edb2711ee363f39e4c327ce8ce1d3da4ac551f3fab",
+      "../TrainRead355/build_probe.py": "572455892bdf087898c2b4cbc2fcb7027708a4fddde1a8f0fa17b6cf407cb3e1",
+      "../TrainInit355/LiveComparison.hpp": "aa6f5edaed511b47c2d87fc36634cca32e7855eac688cd4fdf71fcf693be59f4",
+      "../TrainCoordinates355/LiveComparison.hpp": "517a749e986c7489ddfa02b6a692e21f6df5f6f0a9ed77f2fd9ba413aedf7b9e",
+      "../TrainSkip355/run_local.py": "c7f2f01552cec60d85f64ab9b6a17943ef2d27f4c045b4f39075aa6c67a81390",
+      "../Pending355/batch_probe.py": "8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6",
+      "../TrainSkip355/LiveComparison.hpp": "950a5e5306d78082e22c3ad3f1a1541cb7e3ece5e0cd3f5492d05b9e22d4e3e5",
+      "../TrainCoordinates355/run_local.py": "6325de84349066daf89ddbd6da0f1f024a006eed40a119754c8df19ce8af77a4",
+      "../Pending355/batches/a5623c6eb421/LiveComparison.hpp": "84196f0d04350035eb6cd101ff5b104cff7b17134d78ae6c92876df6a791fbd2",
+      "../TrainRead355/run_local.py": "b8d76f3ec5b4f6234aba82ace823c19291922b37a0e762ccb15ffc6d97711d55",
+      "../TrainRemove355/LiveComparison.hpp": "6d6822058beb8fb3894b42671b397b2df70ca2aca3d30a443b14d3872cd7d21b",
+      "../runtime_runner.py": "8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536",
+      "../TrainInit355/build_probe.py": "8b5d6ed6727b657b7e3ad6a8e574e179fde541ce0a7cf28db44a9c1909575e1a",
+      "../TrainNearest355/build_probe.py": "cb43be7a48e0116dfe02280050216516700f55363c44f77aed26e7c4cdff976b",
+      "LiveComparison.hpp": "562640f7ab6dd2624b5aad4dacc0e1d9b42149bf8693a1167649ac8cc8583de3",
+      "../TrainSkip355/build_probe.py": "2427ade68807ddb2b72706b1ece8059a6df6d6e446f72b55181ca6c9f8658e10",
+      "../ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "../probe_case.py": "6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8",
+      "../TrainLinks355/LiveComparison.hpp": "d9c4e9248996284234d66c8f9bfde300a94fa3325d7bd66c17f6992f5ae6b790",
+      "../TrainCoordinates355/build_probe.py": "d8df03edbd77d56b40b419fe5212a1459f6c9b6e5cbd0d41139cc988c8a53dd7",
+      "../TrainNearest355/LiveComparison.hpp": "14b748668ee91f111d093bee0ae38b586f252c82ce4dcd3d87f0534ebb659c08",
+      "../TrainLinks355/run_local.py": "637bcb70be3c4643314e168f565ba4bcdbdef0546e620d7c662c286e1dbd9762",
+      "../probe_summary.py": "28224064c276ed8fd6ffd450db22e3ec782a6e068fdb275f270bb7ef49a6f072",
+      "run_local.py": "75619a93597442f5cf4601af44fe66b953b693ca8969928c3f8e7797f7edf28e",
+      "../TrainNearest355/run_local.py": "ef363f48a7458ab9d1ffc78975809f5f68e4afa0f2684d09639ce5dde043bd1a",
+      "../TrainInit355/run_local.py": "a7eb0f2680eaaa52dbdd4ac8083cb76c0f9e03048d1f5601b6a49184601b5910",
+      "../TrainLinks355/build_probe.py": "200674e5d7b9decd5ac0e1c3eb08b94daf8143e52d068f2aaa9022cfb15564ae",
+      "build_probe.py": "1ec909ba2145c225f87abca6860668813f4ecbed12e690433f6ffebade154335",
+      "../TrainRemove355/run_local.py": "6d6d6005875440dfc2ff172a77d9a82f943d3f415d9a476bfb0369807c6ac1a3"
+    },
+    "batch_driver": "reversing/Pending355/batches/a5623c6eb421/LiveComparison.hpp",
+    "batch_banks": [
+      "TrainLinks355",
+      "TrainCoordinates355",
+      "TrainQueries355",
+      "TrainRemove355",
+      "TrainSkip355",
+      "TrainInit355",
+      "TrainRead355",
+      "TrainNearest355"
+    ]
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"../TrainSkip355/run_local.py\", \"tested_sha256\": \"c7f2f01552cec60d85f64ab9b6a17943ef2d27f4c045b4f39075aa6c67a81390\", \"current_sha256\": \"56fcf39b508c898286dc4bc5879334f52f3dc334d97e331a08f565fc3c2716b6\"}, {\"path\": \"../Pending355/batch_probe.py\", \"tested_sha256\": \"8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6\", \"current_sha256\": \"23153f67f0c83b82850b212c353aae655549c060fa1926e1c1a62ba526c23998\"}, {\"path\": \"../TrainCoordinates355/run_local.py\", \"tested_sha256\": \"6325de84349066daf89ddbd6da0f1f024a006eed40a119754c8df19ce8af77a4\", \"current_sha256\": \"01a0a2be559ab45f5bf33f45afdf33abde2c9047e2329838d5dc7c3e801bef15\"}, {\"path\": \"../TrainRead355/run_local.py\", \"tested_sha256\": \"b8d76f3ec5b4f6234aba82ace823c19291922b37a0e762ccb15ffc6d97711d55\", \"current_sha256\": \"3aa0d114de6e3b4a19a00a1e35fcbf1322dfcf5f00b5c6c4f12f66ce47d2253f\"}, {\"path\": \"../runtime_runner.py\", \"tested_sha256\": \"8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536\", \"current_sha256\": \"e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c\"}, {\"path\": \"../probe_case.py\", \"tested_sha256\": \"6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8\", \"current_sha256\": \"61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44\"}, {\"path\": \"../TrainLinks355/run_local.py\", \"tested_sha256\": \"637bcb70be3c4643314e168f565ba4bcdbdef0546e620d7c662c286e1dbd9762\", \"current_sha256\": \"c001a65978b24785603959c87a7417998755992702bd950a09c1d122bfee40ae\"}, {\"path\": \"run_local.py\", \"tested_sha256\": \"75619a93597442f5cf4601af44fe66b953b693ca8969928c3f8e7797f7edf28e\", \"current_sha256\": \"bd2c0206e8cddc7b432c8fa1444753a49a71ee562bbf47eadf4eecf43c50e328\"}, {\"path\": \"../TrainNearest355/run_local.py\", \"tested_sha256\": \"ef363f48a7458ab9d1ffc78975809f5f68e4afa0f2684d09639ce5dde043bd1a\", \"current_sha256\": \"b5c59002a4151b10a2d7445d8c028d2cb00a5c1dd67182986d0d60e6825186f7\"}, {\"path\": \"../TrainInit355/run_local.py\", \"tested_sha256\": \"a7eb0f2680eaaa52dbdd4ac8083cb76c0f9e03048d1f5601b6a49184601b5910\", \"current_sha256\": \"18e52af0db839f8869a43c10eb8c69ab3d08ecfa1162172850591c5c19f21f95\"}, {\"path\": \"../TrainRemove355/run_local.py\", \"tested_sha256\": \"6d6d6005875440dfc2ff172a77d9a82f943d3f415d9a476bfb0369807c6ac1a3\", \"current_sha256\": \"843a1a1ceb87e80e872ec4e9fa93221757a73c687a422cc410eb2a3854214852\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

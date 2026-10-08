@@ -1,0 +1,25 @@
+# CamRotate355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Replay actual aprobado para este banco: fuentes, instrumentos, binarios archivados y hashes del EXE/DLL ejecutados comprobados. Forma parte de un cierre parcial; el lote completo no quedó validado con las fuentes finales.
+
+Funciones del alcance: `CCam::RotCamIfInFrontCar`.
+
+[Resumen registrado](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-cam-rotate355/20261008-072436-046499/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+# CamRotate355
+
+RotCamIfInFrontCar: 4096 pares, reconstruida combo REA/ASM. Cámara local y cámara activa global (restaurada), ángulos, velocidades, look states y timestep; FPATAN/FSIN/FCOS preservados. Pad ficticio y controles pareados, BehindPed ejecutado real sobre pad vacío. Buffer angular real en ambos lados. Globals restaurados, FNV64 y trazas/output exactos. Pendiente de compilación y validación coordinada.
+
+## Evidencia y cierre del lote 355
+
+Aprobación histórica: `20261008-041001-493612`, 4096 pares. Informe: [summary.json](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-cam-rotate355/20261008-041001-493612/summary.json>). Corresponde al estado de fuentes e instrumentos de esa ejecución.
+
+Último informe disponible: `20261008-041001-493612`; resultado del banco: aprobado en ese snapshot. Evidencia: [summary.json](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-cam-rotate355/20261008-041001-493612/summary.json>).
+
+Validación final del lote pendiente: una aprobación histórica no acredita las fuentes actuales. El cierre requiere repetir los bancos afectados y comprobar los hashes actuales de fuentes, instrumentos, EXE y ASI ejecutada mediante el registro estricto coordinado por la raíz. Este README no autoriza activar hooks.
+
+La equivalencia está limitada a los fixtures y ramas descritos arriba. Las colaboraciones aisladas simétricamente no acreditan su implementación; estos resultados no constituyen una campaña integral de juego ni independencia del EXE.

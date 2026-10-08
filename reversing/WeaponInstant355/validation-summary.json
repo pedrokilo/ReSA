@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "178a8ca77440af8460597c9b3dde50aae816a8124589f667328cdf76abc19b3b",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 20480,
+  "pairs_per_function": {
+    "CWeapon::FireInstantHit": 20480
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "fba3170c6b90116a821f5b1399a638c232029d336bed2aafedcf2e66b776f47c",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weapon-instant355\\20261008-062300-248587",
+  "covered_functions": {
+    "CWeapon::FireInstantHit": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "178a8ca77440af8460597c9b3dde50aae816a8124589f667328cdf76abc19b3b",
+      "pdb": "d29cb73e44bd959b562a07776145905817a8468ee14fc5c644d933a8a8ab45d2"
+    },
+    "sources": {
+      "source/game_sa/Audio/AudioEngine.cpp": "1f1df28760dd9e26fb75057a274faaa7ddb69bf5a5512ac46924b7e1ce889736",
+      "source/game_sa/Birds.cpp": "5aeaf04803fd250cc16341320f2dc43992bade7950727fd723ab04e4eaa54921",
+      "source/game_sa/Cam.cpp": "56d445a586cedb1050a53c696240dc37f61b48079260d7d7f771a019833eea25",
+      "source/game_sa/Cam.h": "152544a77d20fccc663c48ec5935860e94b4f72fe3161638f230c50b66522844",
+      "source/game_sa/Camera.cpp": "15d5dd63bd235dcf0c5155908a5696a5bb6638a0b469dc1cdd399dcebffaa3d0",
+      "source/game_sa/Camera.h": "9c821aac9d832dd894be472898974ecc9b1398e437f22b04c0190912f1f2dc29",
+      "source/game_sa/Collision/Collision.cpp": "6152fe2b71b1e83c19fad3e2938ffe5d36f19eef8035cc73c97313274abce5a1",
+      "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
+      "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9",
+      "source/game_sa/Core/Matrix.cpp": "f5c9d1f294ca4fdd5245eb23ff28148550d78e9a1615d3e1f4de6f814281d69b",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Entity/Ped/Ped.cpp": "90d80d2d8b15f900cee469afc299eabd3e7494c0d04275699bec1fefe8b3f324",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+      "source/game_sa/Entity/Vehicle/Automobile.cpp": "8339c1f562afcd4a7b1bd86072ecc4dbc9e684cd73ebf3f559d2b683424c88cc",
+      "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+      "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
+      "source/game_sa/Events/EventGunShot.cpp": "4ded8ba26d062f63ebe5df416acb03ab7ca6fb5eaeebdeedd83658c303171b80",
+      "source/game_sa/Events/EventGunShotWhizzedBy.cpp": "547498a69d3d1275960c739b0e7cea99bc2449bd21a9e87b289a7c2cc2e8179f",
+      "source/game_sa/Fx/Fx.cpp": "f49769e46cab323646fd04b0fe2733372aa8a5b6f43a45e9a4a92ff0db71e065",
+      "source/game_sa/IdleCam.cpp": "aa037700427d33fc382c44a2c3fb76c469ed089d6b0248f3aa9a0075944422a9",
+      "source/game_sa/IdleCam.h": "730c34b9f5e7b7fe299038971dbe5d45fa5a257de22b183ef1a48408de339de4",
+      "source/game_sa/InterestingEvents.cpp": "46998e4409ab04fe5c660204ce07b5c5677a514dea8776e6db24e3a0d67d3e16",
+      "source/game_sa/Models/BaseModelInfo.h": "91bece0c4ec1c9f8772b17ba11dcbc9f8e75636292f995f735cbd06514419cc6",
+      "source/game_sa/Models/PedModelInfo.cpp": "6b1290b38f3d0e7f8dd78400db046afa58292f042f55873aac1ac1eff9a4a4f6",
+      "source/game_sa/Pad.cpp": "788db8e78a4908133a3dff0f72a817c03a4ef1d9a4f4e1a42e36b30d1142190a",
+      "source/game_sa/Pad.h": "478c06acc86628c09d9ba3140519ae92b5eb6b4fcbedaaa7d8e9fcf7edacc64e",
+      "source/game_sa/PedClothesDesc.cpp": "4489094d24c3e0c1a781c59169692d7cdb6cc7f03ac1a0951c9d4924e3777dc8",
+      "source/game_sa/PedClothesDesc.h": "a88240dd6a493856993dea39d1d3e8a98016ab5cbcc534a408232812b6fe4e01",
+      "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+      "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+      "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+      "source/game_sa/PointLights.cpp": "2de870ef6ebbdd7ea6ed3b530884795518b1c2985a3c4298135f01cbdf505339",
+      "source/game_sa/Ragdoll/IKChainManager.cpp": "c2e0c7d3f0c686cd3308e881771fe6862804a29da5238c8a2087e3941ef7a255",
+      "source/game_sa/Ragdoll/IKChainManager.h": "5b9ccff23eeba87ab4aed02aa2c598a5b6f51ee35813e45dd06777e325455b8d",
+      "source/game_sa/RwHelper.cpp": "e96c5a84b700287d858f98463225569cab14d38551aad693bc253f555a151a0d",
+      "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735",
+      "source/game_sa/Shadows.cpp": "62329a0d6b70b83b44027195b1a8bd5c0de224e054f800e5e6e4c74e9f612448",
+      "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+      "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "5f3c11f02924b3fb895128558ccacdaa7ad41d92d960c74b5edb617ba7fead54",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.h": "945dc59db432d358c436dcffa3af5a850c50fbfaa59e6d96110d943c79d51d63",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+      "source/game_sa/WaterLevel.cpp": "6232a946b766f42518de96894fab06b4653aa70ce49f7e6793dc0b06b9681eaf",
+      "source/game_sa/WaterLevel.h": "4bb60aebd442b9352e84bfbedc2f25f63cca3f2c4604965a3e6755191ab57ade",
+      "source/game_sa/Weapon.cpp": "b9a609bc4999f956839b8ea13205083638a6d8b9aecc7d20d23c46dbcf7809ef",
+      "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6",
+      "source/game_sa/WeaponInfo.cpp": "c128b92aead79147314e64caa63736114ff8fdb072824708cd4a7670fe6f4aa8",
+      "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
+      "source/game_sa/World.cpp": "b7ff3a0962752810a3e1568ca6d66a53754d69e64491b9b8127c679e793d19ca",
+      "source/game_sa/World_Helper.cpp": "9123f85bf6571857625fa05ba2ee7e16a86a1715d3a0a841f6d5cabae1d19330",
+      "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "../probe_build.py": "8e76d4a04b26c055f1d7259246abdbf4f8e56eed372a13171b483327e1c03633",
+      "../runtime_runner.py": "e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c",
+      "../probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44",
+      "../CamFollowPed355/LiveComparison.hpp": "cd93266daeea630ac1becb3162081c60dfdf9beed2921023233376d18b0d767c",
+      "../CamFollowPed355/run_local.py": "19eaea4956d3f999f35df68cecc803dc9f05b460e21fc6acd697f28fad4999c1",
+      "../ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "../CamFollowPed355/build_probe.py": "9e41c470e28241315d129cdfa555d3754f420534eb2cbf92327a8e4db193e225",
+      "../ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "build_probe.py": "2e89a39a89b35e3e2204a1c1bc2b071619e30cefe76f020079f9b330482c8977",
+      "run_local.py": "92600eb69f3eedb6b9144118544505c7ed41dd27ecd6cfd48ed2a3215b125216",
+      "../Pending355/batches/9c9e69d4a958/LiveComparison.hpp": "bab902d1387de13de8bf7b679f306e086af07cf669647f2c4007edbf970bf2a2",
+      "../Pending355/batch_probe.py": "23153f67f0c83b82850b212c353aae655549c060fa1926e1c1a62ba526c23998",
+      "LiveComparison.hpp": "ba5b24adef70509d672190b050dbcf0d1ac8675dbd9fbc654ad4af7afa0a67cf",
+      "../probe_summary.py": "28224064c276ed8fd6ffd450db22e3ec782a6e068fdb275f270bb7ef49a6f072"
+    },
+    "batch_driver": "reversing/Pending355/batches/9c9e69d4a958/LiveComparison.hpp",
+    "batch_banks": [
+      "CamFollowPed355",
+      "WeaponInstant355"
+    ],
+    "full_source_manifest": false
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: []"
+  ]
+}

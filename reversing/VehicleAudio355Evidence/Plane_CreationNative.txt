@@ -1,0 +1,54 @@
+static float PlaneSpawnTrig355(float angle, float radius, float position, bool sine) {
+    float result;
+    if (sine) {
+        __asm {
+            fld angle
+            fsin
+            fmul radius
+            fadd position
+            fstp result
+        }
+    } else {
+        __asm {
+            fld angle
+            fcos
+            fmul radius
+            fadd position
+            fstp result
+        }
+    }
+    return result;
+}
+
+void CPlane::FindPlaneCreationCoors(CVector* outCoors, CVector* outTargetCoors, float* outPlaneOrientation, float* outFlightHeight, bool isBigPlane) {
+    const auto radius = isBigPlane ? 340.f : 140.f;
+    const auto baseHeight = isBigPlane ? 200.f : 25.f;
+    CColSphere sphere;
+    CColBox box;
+    for (int32 offset = 0; offset < 500; offset += 10) {
+        const auto angle = float(CGeneral::GetRandomNumber() % 360) * StaticRef<float>(0x8595EC);
+        *outCoors = FindPlayerCoors(-1);
+        *outFlightHeight = (float(CGeneral::GetRandomNumber() & 15) + float(offset)) + baseHeight;
+        outCoors->x = PlaneSpawnTrig355(angle, radius, outCoors->x, false);
+        outCoors->y = PlaneSpawnTrig355(angle, radius, outCoors->y, true);
+        outCoors->z += *outFlightHeight;
+        *outTargetCoors = FindPlayerCoors(-1);
+        const auto ahead = float(CGeneral::GetRandomNumber() & 31) + 20.f;
+        const auto& cameraForward = StaticRef<CVector>(0xB6F9AC);
+        outTargetCoors->x += cameraForward.x * ahead;
+        outTargetCoors->y += cameraForward.y * ahead;
+        outTargetCoors->z += cameraForward.z * ahead;
+        outTargetCoors->z += *outFlightHeight;
+        *outPlaneOrientation = CGeneral::GetATanOfXY(outTargetCoors->x - outCoors->x, outTargetCoors->y - outCoors->y);
+        const CVector end{(outTargetCoors->x - outCoors->x) + outTargetCoors->x, (outTargetCoors->y - outCoors->y) + outTargetCoors->y, (outTargetCoors->z - outCoors->z) + outTargetCoors->z};
+        CWorld::AdvanceCurrentScanCode();
+        sphere.Set(15.f, *outCoors, static_cast<eSurfaceType>(0), 0, tColLighting{0xFF});
+        if (CWorld::GetIsLineOfSightClear(*outCoors, end, true, false, false, false, false, false, false)) {
+            const auto y = int32(int64(outCoors->y));
+            const auto x = int32(int64(outCoors->x));
+            if (!CCollision::CheckCameraCollisionBuildings(x, y, box, sphere, sphere, sphere)) break;
+        }
+    }
+    *outFlightHeight += 20.f;
+    outTargetCoors->z += 20.f;
+}

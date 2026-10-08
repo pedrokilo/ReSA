@@ -1,0 +1,146 @@
+// CClothesBuilder::ConstructGeometryArray @ 0x005a55a0 [0x5a55a0..0x5a56b6]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005a55a0(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 param_4,
+                 undefined4 param_5)
+
+{
+  byte *pbVar1;
+  int iVar2;
+  int *piVar3;
+  undefined4 uVar4;
+  int *piVar5;
+  int iVar6;
+  undefined4 *local_c;
+  undefined4 local_8;
+  undefined4 local_4;
+  
+  local_c = param_1;
+  iVar6 = 0x180;
+  piVar3 = param_2;
+  do {
+    piVar5 = piVar3 + 1;
+    iVar2 = *piVar3;
+    if (iVar2 == 0) {
+      *local_c = 0;
+    }
+    else {
+      pbVar1 = (byte *)(*(int *)((int)piVar5 + ((int)&DAT_00a9b6c4 - (int)param_2)) + 0x13);
+      *pbVar1 = *pbVar1 | 2;
+      uVar4 = FUN_0053cf70(iVar2,&DAT_00867150);
+      FUN_005324d0(uVar4,&local_4,&local_8);
+      FUN_0040a080(iVar6,local_4,local_8,DAT_00bc12f8,0x12);
+      FUN_0040ea10(1);
+      if ((iVar6 + -0x17f < 10) && (*piVar5 != 0)) {
+        FUN_005a41c0(iVar6 + 1,*piVar5);
+        FUN_0040e3a0();
+      }
+      iVar2 = *(int *)((int)piVar5 + ((int)&DAT_00a9b6c4 - (int)param_2));
+      uVar4 = FUN_005a4940(*(undefined4 *)(iVar2 + 0x1c),"normal",&DAT_0085a508,"ripped",param_3,
+                           param_4,param_5);
+      *local_c = uVar4;
+      FUN_005a48b0(*(undefined4 *)(iVar2 + 0x1c),iVar6 + -0x180);
+      FUN_004089a0(iVar6);
+    }
+    local_c = local_c + 1;
+    iVar2 = iVar6 + -0x17f;
+    iVar6 = iVar6 + 1;
+    piVar3 = piVar5;
+  } while (iVar2 < 10);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005A55A0: sub esp,0Ch
+005A55A3: mov eax,dword ptr [esp+10h]
+005A55A7: push ebx
+005A55A8: push ebp
+005A55A9: push esi
+005A55AA: mov dword ptr [esp+0Ch],eax
+005A55AE: mov eax,dword ptr [esp+20h]
+005A55B2: mov ebp,0A9B6C4h
+005A55B7: push edi
+005A55B8: mov esi,180h
+005A55BD: lea ebx,[eax+4]
+005A55C0: sub ebp,eax
+005A55C2: mov ecx,dword ptr [ebx-4]
+005A55C5: test ecx,ecx
+005A55C7: je 005A5687
+005A55CD: mov eax,dword ptr [ebx+ebp]
+005A55D0: or byte ptr [eax+13h],2
+005A55D4: push 867150h
+005A55D9: push ecx
+005A55DA: call 0053CF70
+005A55DF: add esp,8
+005A55E2: lea ecx,[esp+14h]
+005A55E6: push ecx
+005A55E7: lea edx,[esp+1Ch]
+005A55EB: push edx
+005A55EC: push eax
+005A55ED: mov ecx,0BC12C0h
+005A55F2: call 005324D0
+005A55F7: mov eax,dword ptr ds:[00BC12F8h]
+005A55FC: mov ecx,dword ptr [esp+14h]
+005A5600: mov edx,dword ptr [esp+18h]
+005A5604: push 12h
+005A5606: push eax
+005A5607: push ecx
+005A5608: push edx
+005A5609: push esi
+005A560A: call 0040A080
+005A560F: push 1
+005A5611: call 0040EA10
+005A5616: lea eax,[esi+1]
+005A5619: lea ecx,[eax+FFFFFE80h]
+005A561F: add esp,18h
+005A5622: cmp ecx,0Ah
+005A5625: jge 005A563C
+005A5627: mov ecx,dword ptr [ebx]
+005A5629: test ecx,ecx
+005A562B: je 005A563C
+005A562D: push ecx
+005A562E: push eax
+005A562F: call 005A41C0
+005A5634: add esp,8
+005A5637: call 0040E3A0
+005A563C: mov edx,dword ptr [esp+30h]
+005A5640: mov ecx,dword ptr [esp+2Ch]
+005A5644: mov edi,dword ptr [ebx+ebp]
+005A5647: mov eax,dword ptr [edi+1Ch]
+005A564A: push edx
+005A564B: mov edx,dword ptr [esp+2Ch]
+005A564F: push ecx
+005A5650: push edx
+005A5651: push 867168h
+005A5656: push 85A508h
+005A565B: push 867160h
+005A5660: push eax
+005A5661: call 005A4940
+005A5666: mov ecx,dword ptr [esp+2Ch]
+005A566A: lea edx,[esi+FFFFFE80h]
+005A5670: mov dword ptr [ecx],eax
+005A5672: mov eax,dword ptr [edi+1Ch]
+005A5675: push edx
+005A5676: push eax
+005A5677: call 005A48B0
+005A567C: push esi
+005A567D: call 004089A0
+005A5682: add esp,28h
+005A5685: jmp 005A5691
+005A5687: mov ecx,dword ptr [esp+10h]
+005A568B: mov dword ptr [ecx],0
+005A5691: mov ecx,dword ptr [esp+10h]
+005A5695: inc esi
+005A5696: add ecx,4
+005A5699: lea edx,[esi+FFFFFE80h]
+005A569F: add ebx,4
+005A56A2: cmp edx,0Ah
+005A56A5: mov dword ptr [esp+10h],ecx
+005A56A9: jl 005A55C2
+005A56AF: pop edi
+005A56B0: pop esi
+005A56B1: pop ebp
+005A56B2: pop ebx
+005A56B3: add esp,0Ch
+005A56B6: ret

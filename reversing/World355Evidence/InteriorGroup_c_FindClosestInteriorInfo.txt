@@ -1,0 +1,168 @@
+// InteriorGroup_c::FindClosestInteriorInfo @ 0x00594a50 [0x594a50..0x594b88]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4
+FUN_00594a50(int param_1,float param_2,float param_3,float param_4,float param_5,undefined4 *param_6
+            ,int *param_7,float *param_8)
+
+{
+  int iVar1;
+  float fVar2;
+  float fVar3;
+  char cVar4;
+  int iVar5;
+  int in_ECX;
+  char *pcVar6;
+  char *pcVar7;
+  int iVar8;
+  int *piVar9;
+  float local_18;
+  
+  fVar2 = param_5 * param_5;
+  iVar8 = 0;
+  local_18 = 999999.0;
+  piVar9 = (int *)(in_ECX + 0x10);
+  param_5 = 1.12104e-44;
+  pcVar7 = (char *)0x0;
+  do {
+    if ((*piVar9 != 0) && (cVar4 = FUN_005913e0(&param_2,0,0,0), cVar4 != '\0')) {
+      iVar1 = *piVar9;
+      iVar5 = (int)*(char *)(iVar1 + 0x40d);
+      if (0 < iVar5) {
+        pcVar6 = (char *)(iVar1 + 0x590);
+        do {
+          if ((((param_1 == -1) || (*pcVar6 == param_1)) && (pcVar6[1] == '\0')) &&
+             ((fVar3 = (param_2 - *(float *)(pcVar6 + 4)) * (param_2 - *(float *)(pcVar6 + 4)) +
+                       (param_3 - *(float *)(pcVar6 + 8)) * (param_3 - *(float *)(pcVar6 + 8)) +
+                       (param_4 - *(float *)(pcVar6 + 0xc)) * (param_4 - *(float *)(pcVar6 + 0xc)),
+              fVar3 < fVar2 && (fVar3 < local_18)))) {
+            pcVar7 = pcVar6;
+            iVar8 = iVar1;
+            local_18 = fVar3;
+          }
+          pcVar6 = pcVar6 + 0x20;
+          iVar5 = iVar5 + -1;
+        } while (iVar5 != 0);
+      }
+    }
+    piVar9 = piVar9 + 1;
+    param_5 = (float)((int)param_5 + -1);
+  } while (param_5 != 0.0);
+  if (pcVar7 == (char *)0x0) {
+    return 0;
+  }
+  *param_6 = pcVar7;
+  *param_7 = iVar8;
+  *param_8 = local_18;
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00594A50: sub esp,18h
+00594A53: fld dword ptr [esp+2Ch]
+00594A57: push ebx
+00594A58: fmul dword ptr [esp+30h]
+00594A5C: push ebp
+00594A5D: push edi
+00594A5E: xor ebx,ebx
+00594A60: fstp dword ptr [esp+10h]
+00594A64: xor ebp,ebp
+00594A66: mov dword ptr [esp+0Ch],497423F0h
+00594A6E: lea edi,[ecx+10h]
+00594A71: mov dword ptr [esp+38h],8
+00594A79: push esi
+00594A7A: lea ebx,[ebx+00000000h]
+00594A80: mov ecx,dword ptr [edi]
+00594A82: test ecx,ecx
+00594A84: je 00594B46
+00594A8A: push 0
+00594A8C: push 0
+00594A8E: push 0
+00594A90: lea eax,[esp+3Ch]
+00594A94: push eax
+00594A95: call 005913E0
+00594A9A: test al,al
+00594A9C: je 00594B46
+00594AA2: mov edx,dword ptr [edi]
+00594AA4: movsx eax,byte ptr [edx+0000040Dh]
+ 00
+00594AAB: test eax,eax
+00594AAD: jle 00594B46
+00594AB3: lea ecx,[edx+00000590h]
+00594AB9: mov dword ptr [esp+18h],ecx
+00594ABD: mov esi,eax
+00594AC0: cmp dword ptr [esp+2Ch],0FFFFFFFFh
+00594AC5: je 00594AD0
+00594AC7: movsx eax,byte ptr [ecx]
+00594ACA: cmp eax,dword ptr [esp+2Ch]
+00594ACE: jne 00594B3C
+00594AD0: mov al,byte ptr [ecx+1]
+00594AD3: test al,al
+00594AD5: jne 00594B3C
+00594AD7: mov eax,dword ptr [ecx+4]
+00594ADA: fld dword ptr [esp+30h]
+00594ADE: mov dword ptr [esp+1Ch],eax
+00594AE2: fsub dword ptr [esp+1Ch]
+00594AE6: mov eax,dword ptr [ecx+8]
+00594AE9: fld dword ptr [esp+34h]
+00594AED: mov dword ptr [esp+20h],eax
+00594AF1: fsub dword ptr [esp+20h]
+00594AF5: mov eax,dword ptr [ecx+0Ch]
+00594AF8: fld dword ptr [esp+38h]
+00594AFC: mov dword ptr [esp+24h],eax
+00594B00: fsub dword ptr [esp+24h]
+00594B04: fld st(0)
+00594B06: fmul st,st(1)
+00594B08: fld st(2)
+00594B0A: fmul st,st(3)
+00594B0C: faddp st(1),st
+00594B0E: fld st(3)
+00594B10: fmul st,st(4)
+00594B12: faddp st(1),st
+00594B14: fstp st(3)
+00594B16: fstp st(0)
+00594B18: fstp st(0)
+00594B1A: fcom dword ptr [esp+14h]
+00594B1E: fnstsw ax
+00594B20: test ah,5
+00594B23: jp 00594B3A
+00594B25: fcom dword ptr [esp+10h]
+00594B29: fnstsw ax
+00594B2B: test ah,5
+00594B2E: jp 00594B3A
+00594B30: fstp dword ptr [esp+10h]
+00594B34: mov ebx,ecx
+00594B36: mov ebp,edx
+00594B38: jmp 00594B3C
+00594B3A: fstp st(0)
+00594B3C: add ecx,20h
+00594B3F: dec esi
+00594B40: jne 00594AC0
+00594B46: mov eax,dword ptr [esp+3Ch]
+00594B4A: add edi,4
+00594B4D: dec eax
+00594B4E: mov dword ptr [esp+3Ch],eax
+00594B52: jne 00594A80
+00594B58: test ebx,ebx
+00594B5A: pop esi
+00594B5B: je 00594B7E
+00594B5D: mov ecx,dword ptr [esp+3Ch]
+00594B61: fld dword ptr [esp+0Ch]
+00594B65: mov edx,dword ptr [esp+40h]
+00594B69: mov eax,dword ptr [esp+44h]
+00594B6D: mov dword ptr [ecx],ebx
+00594B6F: pop edi
+00594B70: mov dword ptr [edx],ebp
+00594B72: fstp dword ptr [eax]
+00594B74: pop ebp
+00594B75: mov al,1
+00594B77: pop ebx
+00594B78: add esp,18h
+00594B7B: ret 20h
+00594B7E: pop edi
+00594B7F: pop ebp
+00594B80: xor al,al
+00594B82: pop ebx
+00594B83: add esp,18h
+00594B86: ret 20h

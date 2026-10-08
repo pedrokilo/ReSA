@@ -1,0 +1,127 @@
+// CTaskComplexFollowLeaderInFormation::Constructor @ 0x006949a0 [0x6949a0..0x694a26]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006949a0(undefined4 param_1,int param_2,undefined4 *param_3,undefined4 param_4)
+
+{
+  undefined4 *in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_00847518;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  FUN_0061a3b0();
+  in_ECX[3] = param_1;
+  *in_ECX = &PTR_FUN_00870c3c;
+  in_ECX[4] = param_2;
+  in_ECX[5] = *param_3;
+  in_ECX[6] = param_3[1];
+  in_ECX[7] = param_3[2];
+  local_4 = 0;
+  in_ECX[8] = 4;
+  in_ECX[9] = param_4;
+  if (param_2 != 0) {
+    FUN_00571b70(in_ECX + 4);
+  }
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006949A0: push 0FFFFFFFFh
+006949A2: push 847518h
+006949A7: mov eax,dword ptr fs:[00000000h]
+006949AD: push eax
+006949AE: mov dword ptr fs:[00000000h],esp
+ 00
+006949B5: push ecx
+006949B6: push ebx
+006949B7: push esi
+006949B8: mov esi,ecx
+006949BA: push edi
+006949BB: mov dword ptr [esp+0Ch],esi
+006949BF: call 0061A3B0
+006949C4: mov eax,dword ptr [esp+20h]
+006949C8: mov ecx,dword ptr [esp+24h]
+006949CC: test ecx,ecx
+006949CE: mov edi,dword ptr [esp+28h]
+006949D2: mov dword ptr [esi+0Ch],eax
+006949D5: mov dword ptr [esi],870C3Ch
+006949DB: lea eax,[esi+10h]
+006949DE: mov dword ptr [eax],ecx
+006949E0: mov ebx,dword ptr [edi]
+006949E2: lea edx,[esi+14h]
+006949E5: mov dword ptr [edx],ebx
+006949E7: mov ebx,dword ptr [edi+4]
+006949EA: mov dword ptr [edx+4],ebx
+006949ED: mov edi,dword ptr [edi+8]
+006949F0: mov dword ptr [edx+8],edi
+006949F3: mov edx,dword ptr [esp+2Ch]
+006949F7: mov dword ptr [esp+18h],0
+006949FF: mov dword ptr [esi+20h],4
+ 00
+00694A06: mov dword ptr [esi+24h],edx
+00694A09: je 00694A11
+00694A0B: push eax
+00694A0C: call 00571B70
+00694A11: mov ecx,dword ptr [esp+10h]
+00694A15: pop edi
+00694A16: mov eax,esi
+00694A18: pop esi
+00694A19: pop ebx
+00694A1A: mov dword ptr fs:[00000000h],ecx
+ 00
+00694A21: add esp,10h
+00694A24: ret 10h
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x6949A0, 0x694A26) ====
+006949A0: push 0FFFFFFFFh
+006949A2: push 847518h
+006949A7: mov eax,dword ptr fs:[00000000h]
+006949AD: push eax
+006949AE: mov dword ptr fs:[00000000h],esp
+ 00
+006949B5: push ecx
+006949B6: push ebx
+006949B7: push esi
+006949B8: mov esi,ecx
+006949BA: push edi
+006949BB: mov dword ptr [esp+0Ch],esi
+006949BF: call 0061A3B0
+006949C4: mov eax,dword ptr [esp+20h]
+006949C8: mov ecx,dword ptr [esp+24h]
+006949CC: test ecx,ecx
+006949CE: mov edi,dword ptr [esp+28h]
+006949D2: mov dword ptr [esi+0Ch],eax
+006949D5: mov dword ptr [esi],870C3Ch
+006949DB: lea eax,[esi+10h]
+006949DE: mov dword ptr [eax],ecx
+006949E0: mov ebx,dword ptr [edi]
+006949E2: lea edx,[esi+14h]
+006949E5: mov dword ptr [edx],ebx
+006949E7: mov ebx,dword ptr [edi+4]
+006949EA: mov dword ptr [edx+4],ebx
+006949ED: mov edi,dword ptr [edi+8]
+006949F0: mov dword ptr [edx+8],edi
+006949F3: mov edx,dword ptr [esp+2Ch]
+006949F7: mov dword ptr [esp+18h],0
+006949FF: mov dword ptr [esi+20h],4
+ 00
+00694A06: mov dword ptr [esi+24h],edx
+00694A09: je 00694A11
+00694A0B: push eax
+00694A0C: call 00571B70
+00694A11: mov ecx,dword ptr [esp+10h]
+00694A15: pop edi
+00694A16: mov eax,esi
+00694A18: pop esi
+00694A19: pop ebx
+00694A1A: mov dword ptr fs:[00000000h],ecx
+ 00
+00694A21: add esp,10h
+00694A24: ret 10h

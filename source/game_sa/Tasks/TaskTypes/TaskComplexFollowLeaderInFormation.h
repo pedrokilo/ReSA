@@ -32,12 +32,13 @@ public:
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;
+    CTask*    CreateSubTask(eTaskType type, CPed* ped);
 
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CTaskComplexFollowLeaderInFormation* Constructor(CPedGroup* pedGroup, CPed* ped, CVector const& posn, float a5) { return this; }
+    CTaskComplexFollowLeaderInFormation* Constructor(CPedGroup* pedGroup, CPed* ped, CVector const& posn, float a5) { this->CTaskComplexFollowLeaderInFormation::CTaskComplexFollowLeaderInFormation(pedGroup, ped, posn, a5); return this; }
     CTaskComplexFollowLeaderInFormation* Destructor() { this->CTaskComplexFollowLeaderInFormation::~CTaskComplexFollowLeaderInFormation(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexFollowLeaderInFormation, 0x28);

@@ -1,0 +1,69 @@
+// CAEScriptAudioEntity::GetMissionAudioLoadingStatus @ 0x004ebf60 [0x4ebf60..0x4ebfd0]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_004ebf60(byte param_1)
+
+{
+  undefined4 uVar1;
+  int in_ECX;
+  int iVar2;
+  undefined4 in_EDX;
+  
+  uVar1 = 1;
+  if (param_1 < 4) {
+    iVar2 = in_ECX + (uint)param_1 * 0x20;
+    if (-1 < *(int *)(iVar2 + 0xa8)) {
+      if (-1 < *(int *)(iVar2 + 0xac)) {
+        uVar1 = FUN_004d8f00(*(undefined2 *)(iVar2 + 0xa8),*(undefined2 *)(iVar2 + 0xac),
+                             CONCAT22((short)((uint)*(int *)(iVar2 + 0xac) >> 0x10),(ushort)param_1)
+                             + 0x1a);
+        return uVar1;
+      }
+      uVar1 = FUN_004d88d0(*(undefined2 *)(iVar2 + 0xa8),
+                           CONCAT22((short)((uint)in_EDX >> 0x10),(ushort)param_1) + 0x1a);
+    }
+  }
+  return uVar1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004EBF60: mov dl,byte ptr [esp+4]
+004EBF64: cmp dl,4
+004EBF67: mov al,1
+004EBF69: jae 004EBFCE
+004EBF6B: push esi
+004EBF6C: movzx esi,dl
+004EBF6F: shl esi,5
+004EBF72: add ecx,esi
+004EBF74: mov esi,dword ptr [ecx+000000A8h]
+004EBF7A: test esi,esi
+004EBF7C: pop esi
+004EBF7D: jl 004EBFCE
+004EBF7F: mov eax,dword ptr [ecx+000000ACh]
+004EBF85: test eax,eax
+004EBF87: jl 004EBFB2
+004EBF89: movzx ax,dl
+004EBF8D: xor edx,edx
+004EBF8F: mov dx,word ptr [ecx+000000ACh]
+ 00
+004EBF96: add eax,1Ah
+004EBF99: push eax
+004EBF9A: xor eax,eax
+004EBF9C: mov ax,word ptr [ecx+000000A8h]
+ 00
+004EBFA3: push edx
+004EBFA4: mov ecx,0B5F8B8h
+004EBFA9: push eax
+004EBFAA: call 004D8F00
+004EBFAF: ret 4
+004EBFB2: movzx dx,dl
+004EBFB6: xor eax,eax
+004EBFB8: mov ax,word ptr [ecx+000000A8h]
+ 00
+004EBFBF: mov ecx,0B5F8B8h
+004EBFC4: add edx,1Ah
+004EBFC7: push edx
+004EBFC8: push eax
+004EBFC9: call 004D88D0
+004EBFCE: ret 4

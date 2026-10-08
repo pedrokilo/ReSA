@@ -1,0 +1,58 @@
+// FxEmitterBP_c::CreateInstance @ 0x004a2b40 [0x4a2b40..0x4a2b8f]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 * FUN_004a2b40(void)
+
+{
+  undefined4 *puVar1;
+  undefined4 *puVar2;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_00838e9b;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  puVar1 = operator_new(0x14);
+  local_4 = 0;
+  puVar2 = (undefined4 *)0x0;
+  if (puVar1 != (undefined4 *)0x0) {
+    FUN_004a9f20();
+    *puVar1 = &PTR_FUN_0085a7a4;
+    puVar2 = puVar1;
+  }
+  ExceptionList = local_c;
+  return puVar2;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004A2B40: push 0FFFFFFFFh
+004A2B42: push 838E9Bh
+004A2B47: mov eax,dword ptr fs:[00000000h]
+004A2B4D: push eax
+004A2B4E: mov dword ptr fs:[00000000h],esp
+ 00
+004A2B55: push ecx
+004A2B56: push esi
+004A2B57: push 14h
+004A2B59: call 0082119A
+004A2B5E: mov esi,eax
+004A2B60: add esp,4
+004A2B63: mov dword ptr [esp+4],esi
+004A2B67: xor eax,eax
+004A2B69: cmp esi,eax
+004A2B6B: mov dword ptr [esp+10h],eax
+004A2B6F: je 004A2B80
+004A2B71: mov ecx,esi
+004A2B73: call 004A9F20
+004A2B78: mov dword ptr [esi],85A7A4h
+004A2B7E: mov eax,esi
+004A2B80: mov ecx,dword ptr [esp+8]
+004A2B84: pop esi
+004A2B85: mov dword ptr fs:[00000000h],ecx
+ 00
+004A2B8C: add esp,10h
+004A2B8F: ret
+004A2B90: push esi

@@ -1,0 +1,86 @@
+// CTrain::IsNextStationAllowed @ 0x006f7260 [0x6f7260..0x6f72ef]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_006f7260(float param_1)
+
+{
+  float10 fVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  undefined2 extraout_var;
+  uint3 uVar5;
+  float10 fVar6;
+  int local_4;
+  
+  iVar3 = *(int *)((int)param_1 + 0x5d0);
+  iVar4 = (int)param_1;
+  while (iVar2 = iVar3, iVar2 != 0) {
+    iVar4 = iVar2;
+    iVar3 = *(int *)(iVar2 + 0x5d0);
+  }
+  param_1 = *(float *)(iVar4 + 0x5a8);
+  FUN_006f5f00(*(byte *)(iVar4 + 0x5b8) >> 6 & 1,param_1,&param_1,&local_4);
+  iVar4 = FUN_00572300(&DAT_008d48f8 + local_4 * 3);
+  param_1 = (float)iVar4;
+  fVar6 = (float10)FUN_00558e40(0xb5);
+  fVar6 = fVar6 + (float10)1.0;
+  fVar1 = (float10)param_1;
+  uVar5 = (uint3)(CONCAT22(extraout_var,
+                           (ushort)(fVar6 < fVar1) << 8 | (ushort)(NAN(fVar6) || NAN(fVar1)) << 10 |
+                           (ushort)(fVar6 == fVar1) << 0xe) >> 8);
+  if (fVar6 < fVar1) {
+    return (uint)uVar5 << 8;
+  }
+  return CONCAT31(uVar5,1);
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F7260: push ecx
+006F7261: mov eax,dword ptr [esp+8]
+006F7265: mov ecx,dword ptr [eax+000005D0h]
+006F726B: test ecx,ecx
+006F726D: je 006F727C
+006F7270: mov eax,ecx
+006F7272: mov ecx,dword ptr [eax+000005D0h]
+006F7278: test ecx,ecx
+006F727A: jne 006F7270
+006F727C: mov ecx,dword ptr [eax+000005A8h]
+006F7282: movzx eax,byte ptr [eax+000005B8h]
+ 00
+006F7289: shr al,6
+006F728C: mov dword ptr [esp+8],ecx
+006F7290: lea edx,[esp]
+006F7294: push edx
+006F7295: mov edx,dword ptr [esp+0Ch]
+006F7299: lea ecx,[esp+0Ch]
+006F729D: push ecx
+006F729E: push edx
+006F729F: and eax,0FFFFFF01h
+006F72A4: push eax
+006F72A5: call 006F5F00
+006F72AA: mov eax,dword ptr [esp+10h]
+006F72AE: lea ecx,[eax+eax*2]
+006F72B1: lea edx,[ecx*4+008D48F8h]
+ 00
+006F72B8: push edx
+006F72B9: call 00572300
+006F72BE: mov dword ptr [esp+1Ch],eax
+006F72C2: fild dword ptr [esp+1Ch]
+006F72C6: push 0B5h
+006F72CB: fstp dword ptr [esp+20h]
+006F72CF: call 00558E40
+006F72D4: fadd dword ptr ds:[00858624h]
+006F72DA: add esp,18h
+006F72DD: fcomp dword ptr [esp+8]
+006F72E1: fnstsw ax
+006F72E3: test ah,1
+006F72E6: jne 006F72EC
+006F72E8: mov al,1
+006F72EA: pop ecx
+006F72EB: ret
+006F72EC: xor al,al
+006F72EE: pop ecx
+006F72EF: ret
+ 006F72F0: 83

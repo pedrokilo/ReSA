@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 3072,
+  "pairs_per_function": {
+    "CProjectileInfo::Initialise": 512,
+    "CProjectileInfo::GetProjectileInfo": 512,
+    "CProjectileInfo::RemoveFXSystem": 512,
+    "CProjectileInfo::Shutdown": 512,
+    "CProjectileInfo::RemoveNotAdd": 512,
+    "CProjectileInfo::RemoveDetonatorProjectiles": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "cc52abec521ca8d41f809a266c2a34a68f2458a345afa7bb32c49cfdfc6e847f",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-projectile-core355\\20261007-204038-114408",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CProjectileInfo::Initialise": true,
+    "CProjectileInfo::GetProjectileInfo": true,
+    "CProjectileInfo::RemoveFXSystem": true,
+    "CProjectileInfo::Shutdown": true,
+    "CProjectileInfo::RemoveNotAdd": true,
+    "CProjectileInfo::RemoveDetonatorProjectiles": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "942838d0f9789ee8af9bffad2db7d7c07fc5708ae336a6308272e5711c4e1848",
+      "pdb": "525b4fba7ad7cb33943e5d43c9e5b6fbba7526511859309dd85438ba55f1fd5b"
+    },
+    "sources": {
+      "source/game_sa/ProjectileInfo.cpp": "02c7af46c312878ac817a22138ced741327771a4620b974a0db3ad636bc5874d",
+      "source/game_sa/ProjectileInfo.h": "bad9fe0cb797165eb2040d9d6d804bfd0d8753efcbe5beceaae8443105b3e76f",
+      "source/game_sa/Entity/Object/Projectile.h": "fef9579dc5db403a3f83406cd16bf1979ce4ee368270b5a535c2086713952e5e"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "d08c46f3f03230a5ed86cdf36ae24b850c4d8311f20abcd01722604c84342923",
+      "build_probe.py": "2d647dc6de36ffaed1f79bc5230b7636dec1bee0c8137e439fff0b52fd1a43a7",
+      "run_local.py": "352723f9fab856ee1a86817a943d02bcab0d8bcc01ee60d6f8de21c8411840e5"
+    }
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"LiveComparison.hpp\", \"tested_sha256\": \"d08c46f3f03230a5ed86cdf36ae24b850c4d8311f20abcd01722604c84342923\", \"current_sha256\": \"5ded3cff4fba5d3311bc5888d401ef515a9f1c0f2f9cfd9f9b0324b1854d39e5\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

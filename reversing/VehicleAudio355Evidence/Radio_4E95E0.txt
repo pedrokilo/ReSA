@@ -1,0 +1,137 @@
+// CAERadioTrackManager::ChooseDJBanterIndexFromList @ 0x004e95e0 [0x4e95e0..0x4e96b4]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+/* WARNING: Removing unreachable block (ram,0x004e9698) */
+
+int FUN_004e95e0(char param_1,int param_2)
+
+{
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
+  int iVar6;
+  int iVar7;
+  
+  iVar4 = (int)param_1;
+  iVar6 = *(int *)(param_2 + iVar4 * 8);
+  if (iVar6 == 0x782) {
+    return -1;
+  }
+  iVar6 = *(int *)(param_2 + 4 + iVar4 * 8) - iVar6;
+  iVar7 = iVar6 + 1;
+  iVar6 = FUN_004d9c10(0,iVar6);
+  _param_1 = 0;
+  if (iVar7 < 1) {
+    return -1;
+  }
+  iVar5 = (*(int *)(&DAT_008c8cb4 + iVar4 * 8) - *(int *)(&DAT_008c8cb0 + iVar4 * 8)) + -1;
+  do {
+    iVar1 = (_param_1 + iVar6) % iVar7 + *(int *)(param_2 + iVar4 * 8);
+    iVar2 = 0;
+    while( true ) {
+      iVar3 = 0xf;
+      if (iVar5 < 0x10) {
+        iVar3 = iVar5;
+      }
+      if (iVar3 <= iVar2) {
+        return iVar1;
+      }
+      if (iVar1 == (&DAT_00b61d78)[iVar4 * 0xf + iVar2]) break;
+      iVar2 = iVar2 + 1;
+    }
+    _param_1 = _param_1 + 1;
+    if (iVar7 <= _param_1) {
+      return -1;
+    }
+  } while( true );
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004E95E0: push ebx
+004E95E1: movsx ebx,byte ptr [esp+8]
+004E95E6: push ebp
+004E95E7: push edi
+004E95E8: mov edi,dword ptr [esp+14h]
+004E95EC: mov eax,dword ptr [edi+ebx*8]
+004E95EF: or ebp,0FFFFFFFFh
+004E95F2: cmp eax,782h
+004E95F7: je 004E96AD
+004E95FD: push esi
+004E95FE: mov esi,dword ptr [edi+ebx*8+4]
+004E9602: sub esi,eax
+004E9604: inc esi
+004E9605: lea eax,[esi-1]
+004E9608: push eax
+004E9609: push 0
+004E960B: call 004D9C10
+004E9610: add esp,8
+004E9613: test esi,esi
+004E9615: mov dword ptr [esp+18h],eax
+004E9619: mov dword ptr [esp+14h],0
+004E9621: jle 004E9690
+004E9623: mov ebp,dword ptr [ebx*8+008C8CB4h]
+ 00
+004E962A: mov eax,dword ptr [ebx*8+008C8CB0h]
+ 00
+004E9631: mov edi,dword ptr [edi+ebx*8]
+004E9634: sub ebp,eax
+004E9636: dec ebp
+004E9637: jmp 004E9640
+004E9639: lea esp,[esp+00000000h]
+ 00
+004E9640: mov ecx,dword ptr [esp+14h]
+004E9644: mov edx,dword ptr [esp+18h]
+004E9648: lea eax,[ecx+edx]
+004E964B: cdq
+004E964C: idiv eax,esi
+004E964E: mov eax,edx
+004E9650: add eax,edi
+004E9652: xor ecx,ecx
+004E9654: cmp ebp,0Fh
+004E9657: mov edx,0Fh
+004E965C: jg 004E9660
+004E965E: mov edx,ebp
+004E9660: cmp ecx,edx
+004E9662: jge 004E969D
+004E9664: mov edx,ebx
+004E9666: imul edx,edx,0Fh
+004E9669: add edx,ecx
+004E966B: cmp eax,dword ptr [edx*4+00B61D78h]
+ 00
+004E9672: je 004E9677
+004E9674: inc ecx
+004E9675: jmp 004E9654
+004E9677: mov eax,dword ptr [esp+14h]
+004E967B: inc eax
+004E967C: cmp eax,esi
+004E967E: mov dword ptr [esp+14h],eax
+004E9682: jl 004E9640
+004E9684: pop esi
+004E9685: pop edi
+004E9686: pop ebp
+004E9687: mov eax,0FFFFFFFFh
+004E968C: pop ebx
+004E968D: ret 8
+004E9690: mov al,byte ptr [esp+14h]
+004E9694: test al,al
+004E9696: je 004E96A4
+004E9698: mov eax,0FFFFFFFFh
+004E969D: pop esi
+004E969E: pop edi
+004E969F: pop ebp
+004E96A0: pop ebx
+004E96A1: ret 8
+004E96A4: pop esi
+004E96A5: pop edi
+004E96A6: mov eax,ebp
+004E96A8: pop ebp
+004E96A9: pop ebx
+004E96AA: ret 8
+004E96AD: pop edi
+004E96AE: mov eax,ebp
+004E96B0: pop ebp
+004E96B1: pop ebx
+004E96B2: ret 8

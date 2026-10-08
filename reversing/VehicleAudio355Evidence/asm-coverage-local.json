@@ -1,0 +1,13 @@
+{
+  "Bike::ProcessControl": {
+    "start": "0x6B9250",
+    "end": "0x6BC92C",
+    "segments": [
+      "original through 0x6BAD78",
+      "0x6BAD7C through 0x6BC8BB",
+      "0x6BC8BE through 0x6BC92C"
+    ],
+    "complete": true,
+    "note": "Continuation files preserve recovery provenance; final ret 0x6BC92C."
+  }
+}

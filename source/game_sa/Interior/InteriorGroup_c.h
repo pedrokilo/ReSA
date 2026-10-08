@@ -48,20 +48,20 @@ public:
     int32 AddInterior(Interior_c* interior);
     void SetupPeds();
     void UpdatePeds();
-    int32 SetupHousePeds();
-    int8 SetupPaths();
+    void SetupHousePeds();
+    void SetupPaths();
     int8 ArePathsLoaded();
     void Setup();
-    int8 Exit();
+    void Exit();
     int8 ContainsInteriorType(int32 a2);
-    int8 CalcIsVisible();
+    void CalcIsVisible();
 
     void DereferenceAnims();
     void ReferenceAnims();
 
     void UpdateOfficePeds();
-    int8 RemovePed(CPed* a2);
-    int32 SetupShopPeds();
+    void RemovePed(CPed* a2);
+    void SetupShopPeds();
     void SetupOfficePeds();
     CEntity* GetEntity();
     CPed* GetPed(int32);

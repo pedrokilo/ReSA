@@ -1,0 +1,57 @@
+void CTrain::CreateMissionTrain(CVector posn, bool clockwise, uint32 type, CTrain** first, CTrain** last, int32 nodeIndex, int32 track, bool mission) {
+    if (nodeIndex < 0) nodeIndex = FindClosestTrackNode(posn, &track);
+    auto rail = float(pTrackNodes[track][nodeIndex].m_nDistanceFromStart) * StaticRef<float>(0x859040);
+    auto* models = reinterpret_cast<const int32*>(0x8D44F8 + type * 0x40);
+    std::array<CTrain*,16> carriages;
+    int32 count = 0;
+    CTrain* previous = nullptr;
+    for (; *models; ++models) {
+        auto* train = new CTrain(*models, PERMANENT_VEHICLE);
+        train->m_matrix->SetTranslate({0.f,0.f,0.f});
+        train->m_nNodeIndex = int16(nodeIndex);
+        train->SetStatus(STATUS_ABANDONED);
+        train->vehicleFlags.bIsLocked = true;
+        train->m_fCurrentRailDistance = rail;
+        train->trainFlags.bMissionTrain = mission;
+        train->trainFlags.bClockwiseDirection = clockwise;
+        train->m_nTrackId = int8(track);
+        if (mission) train->trainFlags.bStopsAtStations = false;
+        if (!previous) {
+            if (mission) {train->SetPosn(posn);train->FindPositionOnTrackFromCoors();}
+            train->m_fLength = 0.f;
+        } else if (!clockwise) {
+            const auto& box = CModelInfo::GetModelInfo(previous->m_nModelIndex)->GetColModel()->m_boundBox;
+            const auto length = box.m_vecMax.y - box.m_vecMin.y;
+            train->m_fLength = length;
+            rail += length;
+        } else {
+            const auto& box = CModelInfo::GetModelInfo(train->m_nModelIndex)->GetColModel()->m_boundBox;
+            const auto length = box.m_vecMax.y - box.m_vecMin.y;
+            train->m_fLength = -length;
+            rail -= length;
+        }
+        carriages[size_t(count++)] = train;
+        if (!previous) {train->trainFlags.bIsFrontCarriage = true;if(first)*first=train;}
+        else {
+            train->trainFlags.bIsFrontCarriage = false;
+            *(reinterpret_cast<uint8*>(train) + 0x42A) |= 2;
+            previous->trainFlags.bIsLastCarriage = false;
+        }
+        train->trainFlags.bIsLastCarriage = true;
+        if (last) *last = train;
+        train->m_pPrevCarriage = previous;
+        if (previous) previous->RegisterReference(reinterpret_cast<CEntity**>(&train->m_pPrevCarriage));
+        train->m_pNextCarriage = nullptr;
+        if (previous) {previous->m_pNextCarriage = train;train->RegisterReference(reinterpret_cast<CEntity**>(&previous->m_pNextCarriage));}
+        train->ProcessControl();
+        previous = train;
+    }
+    while (--count >= 0) {CWorld::Remove(carriages[size_t(count)]);CWorld::Add(carriages[size_t(count)]);}
+    if ((*first)->m_nModelIndex != 449) {
+        CPopulation::AddPedInCar(*first, true, -1, 0, false, false);
+        if (*first && (*first)->m_pDriver) (*first)->m_pDriver->GetIntelligence()->SetPedDecisionMakerType(6);
+    }
+    bool streak = false;
+    for (auto* train=*first;train;train=train->m_pNextCarriage) if(train->m_nModelIndex==538){streak=true;break;}
+    for (auto* train=*first;train;train=train->m_pNextCarriage) train->trainFlags.bIsStreakModel = streak;
+}

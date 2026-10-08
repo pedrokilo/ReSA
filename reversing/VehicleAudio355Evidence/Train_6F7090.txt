@@ -1,0 +1,113 @@
+// CTrain::FindNearestTrain @ 0x006f7090 [0x6f7090..0x6f713b]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_006f7090(float param_1,float param_2,undefined4 param_3,char param_4)
+
+{
+  float fVar1;
+  float *pfVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
+  int iVar6;
+  float local_4;
+  
+  iVar4 = DAT_00b74494[2];
+  iVar5 = 0;
+  local_4 = 1e+07;
+  if (iVar4 != 0) {
+    iVar6 = iVar4 * 0xa18;
+    do {
+      iVar3 = iVar4 + -1;
+      iVar4 = iVar4 + -1;
+      iVar6 = iVar6 + -0xa18;
+      if (((-1 < *(char *)(iVar3 + DAT_00b74494[1])) && (iVar3 = *DAT_00b74494 + iVar6, iVar3 != 0))
+         && (*(int *)(iVar3 + 0x590) == 6)) {
+        if (*(int *)(iVar3 + 0x14) == 0) {
+          pfVar2 = (float *)(iVar3 + 4);
+        }
+        else {
+          pfVar2 = (float *)(*(int *)(iVar3 + 0x14) + 0x30);
+        }
+        fVar1 = SQRT((*pfVar2 - param_1) * (*pfVar2 - param_1) +
+                     (pfVar2[1] - param_2) * (pfVar2[1] - param_2));
+        if ((fVar1 < local_4) && ((param_4 == '\0' || ((*(byte *)(iVar3 + 0x5b8) & 8) != 0)))) {
+          iVar5 = iVar3;
+          local_4 = fVar1;
+        }
+      }
+    } while (iVar4 != 0);
+  }
+  return iVar5;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F7090: push ecx
+006F7091: push ebx
+006F7092: push edi
+006F7093: mov edi,dword ptr ds:[00B74494h]
+006F7099: mov edx,dword ptr [edi+8]
+006F709C: xor ebx,ebx
+006F709E: test edx,edx
+006F70A0: mov dword ptr [esp+8],4B189680h
+006F70A8: je 006F7136
+006F70AE: push ebp
+006F70AF: mov ebp,dword ptr [edi+4]
+006F70B2: push esi
+006F70B3: mov esi,edx
+006F70B5: imul esi,esi,0A18h
+006F70BB: jmp 006F70C0
+006F70BD: lea ecx,[ecx]
+006F70C0: mov al,byte ptr [edx+ebp-1]
+006F70C4: dec edx
+006F70C5: sub esi,0A18h
+006F70CB: test al,al
+006F70CD: js 006F7130
+006F70CF: mov ecx,dword ptr [edi]
+006F70D1: add ecx,esi
+006F70D3: je 006F7130
+006F70D5: cmp dword ptr [ecx+00000590h],6
+ 06
+006F70DC: jne 006F7130
+006F70DE: mov eax,dword ptr [ecx+14h]
+006F70E1: test eax,eax
+006F70E3: je 006F70EA
+006F70E5: add eax,30h
+006F70E8: jmp 006F70ED
+006F70EA: lea eax,[ecx+4]
+006F70ED: fld dword ptr [eax]
+006F70EF: fsub dword ptr [esp+18h]
+006F70F3: fld dword ptr [eax+4]
+006F70F6: fsub dword ptr [esp+1Ch]
+006F70FA: fld st(0)
+006F70FC: fmul st,st(1)
+006F70FE: fld st(2)
+006F7100: fmul st,st(3)
+006F7102: faddp st(1),st
+006F7104: fsqrt
+006F7106: fstp st(2)
+006F7108: fstp st(0)
+006F710A: fcom dword ptr [esp+10h]
+006F710E: fnstsw ax
+006F7110: test ah,5
+006F7113: jp 006F712E
+006F7115: mov al,byte ptr [esp+24h]
+006F7119: test al,al
+006F711B: je 006F7126
+006F711D: test byte ptr [ecx+000005B8h],8
+ 08
+006F7124: je 006F712E
+006F7126: fstp dword ptr [esp+10h]
+006F712A: mov ebx,ecx
+006F712C: jmp 006F7130
+006F712E: fstp st(0)
+006F7130: test edx,edx
+006F7132: jne 006F70C0
+006F7134: pop esi
+006F7135: pop ebp
+006F7136: pop edi
+006F7137: mov eax,ebx
+006F7139: pop ebx
+006F713A: pop ecx
+006F713B: ret

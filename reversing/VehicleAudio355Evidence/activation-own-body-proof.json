@@ -1,0 +1,30 @@
+{
+  "class": "CTrain",
+  "fn_name": "TrainHitStuff<CPtrListSingleLink<CPhysical*>>",
+  "address": "0x006F5CF0",
+  "path": "source/game_sa/Entity/Vehicle/Train.cpp",
+  "line": 469,
+  "body_candidates": 1,
+  "self_forward": false,
+  "source_sha256": "7b1215f4ab53ebdc5003a96bcdf5c18fe1fa13083c4f7280d20a9726613001a8",
+  "body_sha256": "da35282294c9ef44936588fee2a908d7ee35ccd24ff643758684771000c3343d",
+  "reason": "Hook installs free global function template, not CTrain::TrainHitStuff. Production native template has full list traversal; no original-target forwarding call. Generic class-qualified extractor misses global template.",
+  "evidence": "reversing/VehicleAudio355Evidence/Train_6F5CF0.txt",
+  "runtime": "Historical TrainHit355 passed 20261008-024817-633875. Final current-source replay/hash verification pending; this proof does not authorize activation.",
+  "body_hash_definition": "UTF8 decoded LF body from opening through matching closing brace, inclusive",
+  "reviewed_body": "{\n    auto* node = ptrList.GetNode();\n    while (node) {\n        auto* physical = static_cast<CPhysical*>(node->Item);\n        node = node->Next;\n        if (physical == entity) continue;\n        physical->physicalFlags.bProcessCollisionEvenIfStationary = true;\n        if (physical->GetType() != ENTITY_TYPE_OBJECT || !physical->GetIsStatic()) continue;\n        const auto model = int32(int16(physical->m_nModelIndex));\n        if (model != int32(StaticRef<uint16>(0x8CD6C8)) && model != int32(StaticRef<uint16>(0x8CD6CC)) && model != int32(StaticRef<uint16>(0x8CD6D0))) continue;\n        physical->SetIsStatic(false);\n        physical->AddToMovingList();\n        physical->m_nFakePhysics = 0;\n    }\n}",
+  "audit_date": "2026-10-08",
+  "native_semantic_review": [
+    "6F5D01..D08 obtains item and advances Next before skipping self",
+    "6F5D0A..D1B sets physical bit0x800 for every nonself before objecttype4gate",
+    "6F5D20..D2C static OR waitingforcollisionflags bit4/40000; GetIsStatic Entity.h174 is precisely both flags",
+    "6F5D2E signedmodelMOVSX16 compared against zeroextendedglobaluint16models 8CD6C8/CC/D0",
+    "6F5D53 virtualSetIsStaticfalse slot4 then AddToMovingList542800 then bytefakephysicsB8=0; source order matches",
+    "No return or call to6F5CF0 originaltarget; template freefunction is instantiated by hook, no reconstructionlocalhelpers involved"
+  ],
+  "format_only_review": {
+    "before_source_sha256": "c3542ac2799e8f31672b62b325570f72b5e9ec13b85affdcc17058fa9f951e2e",
+    "reviewed_body_sha256_unchanged": "da35282294c9ef44936588fee2a908d7ee35ccd24ff643758684771000c3343d",
+    "change": "Blank EOF/blank whitespace cleanup only; all nonblank lines and exact reviewed native template body preserved."
+  }
+}

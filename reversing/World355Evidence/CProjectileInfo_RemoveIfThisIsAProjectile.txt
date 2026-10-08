@@ -1,0 +1,98 @@
+// CProjectileInfo::RemoveIfThisIsAProjectile @ 0x00739a40 [0x739a40..0x739af8]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_00739a40(int param_1)
+
+{
+  int iVar1;
+  char *pcVar2;
+  int iVar3;
+  
+  iVar3 = 0;
+  pcVar2 = &DAT_00c891b8;
+  while (((&DAT_00c89110)[iVar3] != param_1 || (*pcVar2 == '\0'))) {
+    iVar3 = iVar3 + 1;
+    pcVar2 = pcVar2 + 0x24;
+    if (0x1f < iVar3) {
+      return 0;
+    }
+  }
+  (&DAT_00c891b8)[iVar3 * 0x24] = 0;
+  if ((&DAT_00c891c8)[iVar3 * 9] != 0) {
+    FUN_004aa3f0();
+    (&DAT_00c891c8)[iVar3 * 9] = 0;
+  }
+  iVar1 = ((&DAT_00c89110)[iVar3] - *DAT_00b7449c) / 0x19c;
+  FUN_00587c60(3,(uint)*(byte *)(DAT_00b7449c[1] + iVar1) + iVar1 * 0x100);
+  FUN_00563280((&DAT_00c89110)[iVar3]);
+  if ((undefined4 *)(&DAT_00c89110)[iVar3] != (undefined4 *)0x0) {
+    (*(code *)**(undefined4 **)(&DAT_00c89110)[iVar3])(1);
+  }
+  (&DAT_00c89110)[iVar3] = 0;
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00739A40: mov ecx,dword ptr [esp+4]
+00739A44: push esi
+00739A45: xor esi,esi
+00739A47: mov eax,0C891B8h
+00739A4C: lea esp,[esp]
+00739A50: cmp dword ptr [esi*4+00C89110h],ecx
+ 00
+00739A57: jne 00739A5E
+00739A59: cmp byte ptr [eax],0
+00739A5C: jne 00739A6B
+00739A5E: inc esi
+00739A5F: add eax,24h
+00739A62: cmp esi,20h
+00739A65: jl 00739A50
+00739A67: xor al,al
+00739A69: pop esi
+00739A6A: ret
+00739A6B: push edi
+00739A6C: lea edi,[esi+esi*8]
+00739A6F: shl edi,2
+00739A72: mov byte ptr [edi+00C891B8h],0
+ 00
+00739A79: mov ecx,dword ptr [edi+00C891C8h]
+00739A7F: test ecx,ecx
+00739A81: je 00739A92
+00739A83: call 004AA3F0
+00739A88: mov dword ptr [edi+00C891C8h],0
+00739A92: mov edi,dword ptr ds:[00B7449Ch]
+00739A98: mov edx,dword ptr [edi]
+00739A9A: mov ecx,dword ptr [esi*4+00C89110h]
+ 00
+00739AA1: sub ecx,edx
+00739AA3: mov eax,13E22CBDh
+00739AA8: imul ecx
+00739AAA: mov ecx,dword ptr [edi+4]
+00739AAD: sar edx,5
+00739AB0: mov eax,edx
+00739AB2: shr eax,1Fh
+00739AB5: add edx,eax
+00739AB7: movzx eax,byte ptr [ecx+edx]
+00739ABB: shl edx,8
+00739ABE: add eax,edx
+00739AC0: push eax
+00739AC1: push 3
+00739AC3: call 00587C60
+00739AC8: mov ecx,dword ptr [esi*4+00C89110h]
+ 00
+00739ACF: push ecx
+00739AD0: call 00563280
+00739AD5: mov ecx,dword ptr [esi*4+00C89110h]
+ 00
+00739ADC: add esp,0Ch
+00739ADF: test ecx,ecx
+00739AE1: pop edi
+00739AE2: je 00739AEA
+00739AE4: mov edx,dword ptr [ecx]
+00739AE6: push 1
+00739AE8: call dword ptr [edx]
+00739AEA: mov dword ptr [esi*4+00C89110h],0
+00739AF5: mov al,1
+00739AF7: pop esi
+00739AF8: ret

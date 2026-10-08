@@ -1,0 +1,55 @@
+// CCamExtra::ChangeCamera @ 0x005404a0 [0x5404a0..0x5404da]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_005404a0(void)
+
+{
+  short sVar1;
+  int in_ECX;
+  
+  switch(*(undefined2 *)(in_ECX + 0x10a)) {
+  case 0:
+  case 2:
+  case 3:
+    if (*(short *)(in_ECX + 0x1a) == 0) {
+      return 0;
+    }
+    sVar1 = *(short *)(in_ECX + 0x4a);
+    break;
+  case 1:
+    if (*(short *)(in_ECX + 0x10) == 0) {
+      return 0;
+    }
+    sVar1 = *(short *)(in_ECX + 0x40);
+    break;
+  default:
+    return (uint)(byte)((ushort)*(undefined2 *)(in_ECX + 0x10a) >> 8) << 8;
+  }
+  if (sVar1 != 0) {
+    return 0;
+  }
+  return 1;
+}
+
+
+==== complete EXE assembly ====
+005404A0: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+005404A7: cmp eax,3
+005404AA: ja 005404D8
+005404AC: jmp dword ptr [eax*4+005404DCh]
+ 00
+005404B3: cmp word ptr [ecx+1Ah],0
+005404B8: je 005404D5
+005404BA: cmp word ptr [ecx+4Ah],0
+005404BF: jmp 005404CD
+005404C1: cmp word ptr [ecx+10h],0
+005404C6: je 005404D5
+005404C8: cmp word ptr [ecx+40h],0
+005404CD: jne 005404D5
+005404CF: mov eax,1
+005404D4: ret
+005404D5: xor eax,eax
+005404D7: ret
+005404D8: xor al,al
+005404DA: ret

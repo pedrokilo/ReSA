@@ -1,0 +1,110 @@
+void CPlane::ProcessFlyingCarStuff() {
+    // Private reconstruction draft; do not apply before auditing x87 helpers.
+    if (CTimer::GetTimeStep() <= 0.f) return;
+    auto* bytes = reinterpret_cast<uint8*>(this);
+    auto field = [bytes](size_t offset) -> float& { return *reinterpret_cast<float*>(bytes + offset); };
+    auto status = [bytes] { return bytes[0x36] >> 3; };
+    m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvance355());
+    const float speed = PlaneDamageSpeed355(&m_vecMoveSpeed);
+    float skid = m_fLeftRightSkid, up = m_fSteeringUpDown, lateral = m_fSteeringLeftRight;
+    if (m_fHealth < StaticRef<float>(0x859F80) && status() == 0) {
+        m_damageManager.SetAeroplaneCompStatus(12, 2);
+        m_damageManager.SetAeroplaneCompStatus(13, 2);
+        skid += .5f;
+        if (PlaneFlightRollCompare355(this, StaticRef<float>(0x86DAF4), false)) lateral += .75f;
+        if (PlaneFlightRollCompare355(this, StaticRef<float>(0x858FE4), true)) up += .5f;
+    }
+    if (m_nModelIndex != 464) {
+        for (int32 node = 12; node < 25; ++node) {
+            const int32 damage = std::bit_cast<int32>(m_damageManager.GetAeroplaneCompStatus(uint8(node)));
+            if (!m_aCarNodes[node] || damage <= 0) continue;
+            int32 panel = -1;
+            for (int32 i = 0; i < 4; ++i) {
+                if (*reinterpret_cast<int16*>(bytes + 0x6AC + 0x20 * i) == node) { panel = i; break; }
+            }
+            float strength;
+            if (node <= 15) {
+                if (m_fAccelerationBreakStatus > 0.f) {
+                    const float spread = StaticRef<float>(0x8D344C);
+                    const float upper = PlaneFlightBound355(spread, false), lower = PlaneFlightBound355(spread, true);
+                    const int32 random = CGeneral::GetRandomNumber();
+                    m_fAccelerationBreakStatus = PlanePropellerWave355(m_fAccelerationBreakStatus, upper, lower,
+                        random, damage, uint32(m_planeDamageWave), StaticRef<uint32>(0x8D3448), CTimer::GetTimeStep());
+                }
+                strength = float(damage) * .5f;
+            } else if (node <= 20) {
+                const size_t axis = node == 16 ? 0x988 : node <= 18 ? 0x98C : 0x990;
+                const uintptr_t amplitudeAddress = node == 16 ? 0x8D3440 : node <= 18 ? 0x8D3434 : 0x8D3428;
+                const uintptr_t panelAddress = node == 16 ? 0x8D343C : node <= 18 ? 0x8D3430 : 0x8D3424;
+                const uintptr_t feedbackAddress = node == 16 ? 0x8D3438 : node <= 18 ? 0x8D342C : 0x8D3420;
+                const float amplitude = StaticRef<float>(amplitudeAddress);
+                field(axis) = PlaneFlightDecay355(field(axis), damage, node == 16);
+                const int32 random = CGeneral::GetRandomNumber();
+                const float squaredDamage = float(std::bit_cast<int32>(uint32(damage) * uint32(damage)));
+                field(axis) = PlaneDamageNoise355(field(axis), amplitude, random, squaredDamage, CTimer::GetTimeStep(), speed);
+                float& local = node == 16 ? skid : node <= 18 ? up : lateral;
+                local = field(axis);
+                if (panel >= 0) {
+                    const float panelAmplitude = StaticRef<float>(panelAddress);
+                    const int32 panelRandom = CGeneral::GetRandomNumber();
+                    auto& rotationSpeed = field(0x6C4 + panel * 0x20);
+                    rotationSpeed = PlaneDamageNoise355(rotationSpeed, panelAmplitude, panelRandom,
+                        squaredDamage, CTimer::GetTimeStep(), speed);
+                    local = PlaneFlightProductAdd355(local, StaticRef<float>(feedbackAddress), field(0x6B8 + panel * 0x20), node != 19);
+                }
+                strength = float(damage) * StaticRef<float>(node == 16 ? 0x858CC4 : node <= 18 ? 0x858FCC : 0x858C84);
+            } else continue;
+            if (strength > 0.f && !(bytes[0x42B] & 0x40) && (speed > StaticRef<float>(0x858C24) || (CGeneral::GetRandomNumber() & 7) == 0)) {
+                auto* cameraMatrix = StaticRef<CMatrix*>(0xB6F03C);
+                const CVector* cameraPosition = cameraMatrix ? &cameraMatrix->GetPosition() : &StaticRef<CVector>(0xB6F02C);
+                if ((PlaneFlightDistanceBelow355(&GetPosition(), cameraPosition, StaticRef<float>(0x859AEC)) || status() == 0) && m_aCarNodes[node]) {
+                    CVector point;
+                    reinterpret_cast<CVector*(__cdecl*)(CVector*, const CMatrix*, const CVector*)>(0x59C890)(
+                        &point, m_matrix, reinterpret_cast<const CVector*>(&m_aCarNodes[node]->modelling.pos));
+                    FxPrtMult_c mults{0.f, 0.f, 0.f, .2f, 1.f, 1.f, strength};
+                    CVector velocity;
+                    PlaneFlightParticleVelocity355(&velocity, &m_vecMoveSpeed);
+                    velocity.x = PlaneFlightVelocityNoise355(velocity.x, CGeneral::GetRandomNumber());
+                    velocity.y = PlaneFlightVelocityNoise355(velocity.y, CGeneral::GetRandomNumber());
+                    velocity.z = PlaneFlightVelocityNoise355(velocity.z, CGeneral::GetRandomNumber());
+                    (void)CGeneral::GetRandomNumber(); // EXE normalizes and discards this draw, 0x6CBFF0.
+                    point.x = PlaneFlightPositionNoise355(point.x, strength, CGeneral::GetRandomNumber());
+                    point.y = PlaneFlightPositionNoise355(point.y, strength, CGeneral::GetRandomNumber());
+                    point.z = PlaneFlightPositionNoise355(point.z, strength, CGeneral::GetRandomNumber());
+                    g_fx.m_SmokeHuge->AddParticle(point, velocity, 0.f, mults, -1.f, 1.2f, .6f, false);
+                }
+            }
+        }
+    }
+    const uint8 vehicleStatus = status();
+    if (vehicleStatus != 0 && vehicleStatus != 8 && vehicleStatus != 3) {
+        const float decrement = CTimer::GetTimeStep() * StaticRef<float>(0x858CDC);
+        if (m_fPropSpeed > decrement) {
+            if (m_fPropSpeed > StaticRef<float>(0x8D33D0)) m_fPropSpeed = PlaneFlightProductAdd355(m_fPropSpeed, CTimer::GetTimeStep(), StaticRef<float>(0x859CD8), true);
+            else m_fPropSpeed -= decrement;
+            bytes[0xB8] = 0;
+        } else { m_fPropSpeed = 0.f; bytes[0x428] &= 0xEF; }
+        return;
+    }
+    float target = PlaneFlightPropellerTarget355(m_fAccelerationBreakStatus);
+    if (vehicleStatus == 0 || vehicleStatus == 8) PlaneFlightCeiling355(this, m_nModelIndex == 464 ? 1 : 3, &target);
+    const bool drowned = (bytes[0x42B] & 0x40) != 0;
+    m_fPropSpeed = PlaneFloatFlightBlend355(m_fPropSpeed, target, CTimer::GetTimeStep(), StaticRef<float>(0x8D33D8));
+    if (drowned) { bytes[0x428] &= 0xEF; m_fPropSpeed = m_fAccelerationBreakStatus = 0.f; }
+    if (m_nModelIndex == 464) {
+        if (!drowned && (bytes[0x428] & 0x10)) FlyingControl(eFlightModel(1), skid, up, lateral, m_fAccelerationBreakStatus);
+        return;
+    }
+    if (!(bytes[0x428] & 0x10)) return;
+    if (!(m_fPropSpeed > StaticRef<float>(0x8D33CC)) && !PlaneFlightSpeedSquaredAbove355(&m_vecMoveSpeed)) return;
+    if (m_nModelIndex == 520 && status() == 0 && int32(*reinterpret_cast<uint16*>(bytes + 0x86C)) >= int32(StaticRef<int16>(0x8D33C8))) {
+        auto* old = m_pFlyingHandlingData;
+        auto* modelInfo = StaticRef<uint8*>(0xA9B76C);
+        m_pFlyingHandlingData = reinterpret_cast<tFlyingHandlingData*(__thiscall*)(void*, uint8)>(0x6F52D0)(reinterpret_cast<void*>(0xC2B9C8), modelInfo[0x4A]);
+        if (double(m_fAccelerationBreakStatus) > StaticRef<double>(0x859EF8) || (bytes[0x960] < 4 && !(*reinterpret_cast<uint32*>(bytes + 0x40) & 0x08000000)))
+            FlyingControl(eFlightModel(6), skid, up, -lateral, m_fAccelerationBreakStatus * StaticRef<float>(0x8D341C));
+        m_pFlyingHandlingData = old;
+        return;
+    }
+    FlyingControl(eFlightModel(3), skid, up, lateral, m_fAccelerationBreakStatus);
+}

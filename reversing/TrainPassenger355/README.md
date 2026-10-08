@@ -1,0 +1,29 @@
+# TrainPassenger355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Reconstrucción aplicada y aprobación histórica disponible. Falta completar el replay con todas las fuentes finales; no se acredita vigencia actual de este banco.
+
+Funciones del alcance: `CTrain::RemoveRandomPassenger`.
+
+[Evidencia histórica](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-train-passenger355/20261008-014435-267858/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+<!-- vehicle355-status -->
+Current status (2026-10-08): Current-source final replay/hash verification remains pending; no current-source approval is asserted. Latest completed report: 20261008-014435-267858, passed for the tested snapshot. Latest historical passing report: 20261008-014435-267858.
+Native implementations are applied; older preparation and approval notes below describe historical snapshots.
+<!-- /vehicle355-status -->
+
+RemoveRandomPassenger 0x6F6850: 1024 EXE/DLL pairs prepared, runtime pending. Replay, changing player queries, task-type short circuit, direction/driver, pending passenger state, generation counters, RNG thresholds, spawn/allocation failures and registration order. Full train/ped/intelligence/allocation hashes plus exact dependency trace. Replay byte restored. Existing task constructor 0x63BDD0 and SetTask 0x681AF0 remain EXE dependencies outside this scope, symmetrically isolated by bank; no self-forward. Evidence ../VehicleAudio355Evidence/Train_6F6850.txt.
+
+Coordinator runtime approval: 1,024 comparisons, no differences, report 20261008-014435-267858.
+
+<!-- vehicle355-evidence-links -->
+Evidence files verified on disk (2026-10-08):
+
+- [CTrain.RemoveRandomPassenger_6F6850.c](../_handoff/ghidra/CTrain.RemoveRandomPassenger_6F6850.c)
+- [Train_6F6850.txt](../VehicleAudio355Evidence/Train_6F6850.txt)
+
+The comparison covers isolated symmetric fixtures and ordered collaborator calls. Historical passing reports apply only to the tested snapshot. Final current-source replay/hash verification remains pending; arbitrary runtime graphs, invalid pointers and unconstrained external callbacks are outside these fixtures.
+<!-- /vehicle355-evidence-links -->

@@ -1,0 +1,65 @@
+// InteriorGroup_c::Init @ 0x005947e0 [0x5947e0..0x594838]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005947e0(undefined4 param_1,undefined1 param_2)
+
+{
+  undefined4 *puVar1;
+  int in_ECX;
+  int iVar2;
+  
+  puVar1 = (undefined4 *)(in_ECX + 0x10);
+  for (iVar2 = 8; iVar2 != 0; iVar2 = iVar2 + -1) {
+    *puVar1 = 0;
+    puVar1 = puVar1 + 1;
+  }
+  puVar1 = (undefined4 *)(in_ECX + 0x78);
+  iVar2 = 0x10;
+  do {
+    puVar1[-0x10] = 0;
+    *puVar1 = 0;
+    puVar1 = puVar1 + 1;
+    iVar2 = iVar2 + -1;
+  } while (iVar2 != 0);
+  *(undefined1 *)(in_ECX + 0xf) = 0;
+  *(undefined1 *)(in_ECX + 0xb8) = 0;
+  *(undefined1 *)(in_ECX + 0xb9) = 0;
+  *(undefined1 *)(in_ECX + 0x34) = 0;
+  *(undefined1 *)(in_ECX + 0x35) = 0;
+  *(undefined1 *)(in_ECX + 0xba) = 0;
+  *(undefined4 *)(in_ECX + 8) = param_1;
+  *(undefined1 *)(in_ECX + 0xd) = param_2;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005947E0: mov edx,ecx
+005947E2: push ebx
+005947E3: push edi
+005947E4: xor eax,eax
+005947E6: lea edi,[edx+10h]
+005947E9: mov ecx,8
+005947EE: rep stos dword ptr es:[edi]
+005947F0: lea eax,[edx+78h]
+005947F3: mov ecx,10h
+005947F8: xor ebx,ebx
+005947FA: lea ebx,[ebx+00000000h]
+00594800: mov dword ptr [eax-40h],ebx
+00594803: mov dword ptr [eax],ebx
+00594805: add eax,4
+00594808: dec ecx
+00594809: jne 00594800
+0059480B: mov eax,dword ptr [esp+0Ch]
+0059480F: mov cl,byte ptr [esp+10h]
+00594813: pop edi
+00594814: mov byte ptr [edx+0Fh],bl
+00594817: mov byte ptr [edx+000000B8h],bl
+0059481D: mov byte ptr [edx+000000B9h],bl
+00594823: mov byte ptr [edx+34h],bl
+00594826: mov byte ptr [edx+35h],bl
+00594829: mov byte ptr [edx+000000BAh],bl
+0059482F: mov dword ptr [edx+8],eax
+00594832: mov byte ptr [edx+0Dh],cl
+00594835: pop ebx
+00594836: ret 8

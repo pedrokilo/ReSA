@@ -1,0 +1,243 @@
+// CWaterLevel::GetWaterLevelNoWaves @ 0x006e8580 [0x6e8580..0x6e8760]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+bool FUN_006e8580(float param_1,float param_2,undefined4 param_3,undefined4 *param_4,
+                 undefined4 *param_5,undefined4 *param_6)
+
+{
+  byte bVar1;
+  ushort uVar2;
+  ushort *puVar3;
+  char cVar4;
+  int iVar5;
+  int iVar6;
+  uint uVar7;
+  float fVar8;
+  
+  FUN_008219f0((double)(param_1 * 0.002 + 6.0));
+  iVar5 = FUN_00821b40();
+  FUN_008219f0((double)(param_2 * 0.002 + 6.0));
+  iVar6 = FUN_00821b40();
+  if ((((iVar5 < 0) || (0xb < iVar5)) || (iVar6 < 0)) || (0xb < iVar6)) {
+    *param_4 = 0;
+    if (param_5 != (undefined4 *)0x0) {
+      *param_5 = 0x3f800000;
+    }
+    if (param_6 != (undefined4 *)0x0) {
+      *param_6 = 0;
+    }
+    return true;
+  }
+  uVar2 = *(ushort *)((int)&DAT_00c21b70 + (iVar6 + iVar5 * 0xc) * 2);
+  uVar7 = (uint)uVar2;
+  fVar8 = param_2;
+  switch(uVar2 >> 0xe) {
+  case 0:
+    goto switchD_006e8605_caseD_0;
+  case 1:
+    cVar4 = FUN_006e5bb0(&DAT_00c21c90 + (uVar7 & 0x3fff) * 5,param_1,param_2,param_3,param_4,
+                         param_5,param_6);
+    return cVar4 != '\0';
+  case 2:
+    cVar4 = FUN_006e5e90(&DAT_00c22854 + (uVar7 & 0x3fff) * 4,param_1,param_2,param_3,param_4,
+                         param_5,param_6);
+    return cVar4 != '\0';
+  case 3:
+    fVar8 = (float)(uVar7 & 0x3fff);
+  default:
+    bVar1 = (&DAT_00c215f9)[(int)fVar8 * 2];
+    puVar3 = (ushort *)(&DAT_00c215f8 + (int)fVar8 * 2);
+    while ((bVar1 & 0xc0) != 0) {
+      uVar2 = *puVar3;
+      if (uVar2 >> 0xe == 1) {
+        cVar4 = FUN_006e5bb0(&DAT_00c21c90 + (uVar2 & 0x3fff) * 5,param_1,param_2,param_3,param_4,
+                             param_5,param_6);
+LAB_006e8713:
+        if (cVar4 != '\0') {
+          return true;
+        }
+      }
+      else if (uVar2 >> 0xe == 2) {
+        cVar4 = FUN_006e5e90(&DAT_00c22854 + (uVar2 & 0x3fff) * 4,param_1,param_2,param_3,param_4);
+        goto LAB_006e8713;
+      }
+      bVar1 = *(byte *)((int)puVar3 + 3);
+      puVar3 = puVar3 + 1;
+    }
+switchD_006e8605_caseD_0:
+    return false;
+  }
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006E8580: push ecx
+006E8581: fld dword ptr [esp+8]
+006E8585: push ebx
+006E8586: fmul dword ptr ds:[00858F44h]
+006E858C: push ebp
+006E858D: push esi
+006E858E: push edi
+006E858F: fadd dword ptr ds:[00858B44h]
+006E8595: sub esp,8
+006E8598: fstp qword ptr [esp]
+006E859B: call 008219F0
+006E85A0: call 00821B40
+006E85A5: fld dword ptr [esp+24h]
+006E85A9: fmul dword ptr ds:[00858F44h]
+006E85AF: mov esi,eax
+006E85B1: fadd dword ptr ds:[00858B44h]
+006E85B7: fstp qword ptr [esp]
+006E85BA: call 008219F0
+006E85BF: add esp,8
+006E85C2: call 00821B40
+006E85C7: test esi,esi
+006E85C9: jl 006E8733
+006E85CF: cmp esi,0Ch
+006E85D2: jge 006E8733
+006E85D8: test eax,eax
+006E85DA: jl 006E8733
+006E85E0: cmp eax,0Ch
+006E85E3: jge 006E8733
+006E85E9: lea ecx,[esi+esi*2]
+006E85EC: lea edx,[eax+ecx*4]
+006E85EF: movzx eax,word ptr [edx*2+00C21B70h]
+006E85F7: mov ecx,eax
+006E85F9: shr ecx,0Eh
+006E85FC: cmp ecx,3
+006E85FF: ja 006E8692
+006E8605: jmp dword ptr [ecx*4+006E8764h]
+ 00
+006E860C: mov ecx,dword ptr [esp+2Ch]
+006E8610: mov edx,dword ptr [esp+28h]
+006E8614: push ecx
+006E8615: mov ecx,dword ptr [esp+28h]
+006E8619: push edx
+006E861A: mov edx,dword ptr [esp+28h]
+006E861E: push ecx
+006E861F: mov ecx,dword ptr [esp+28h]
+006E8623: push edx
+006E8624: mov edx,dword ptr [esp+28h]
+006E8628: and eax,3FFFh
+006E862D: push ecx
+006E862E: lea eax,[eax+eax*4]
+006E8631: push edx
+006E8632: lea ecx,[eax*2+00C21C90h]
+ 00
+006E8639: push ecx
+006E863A: call 006E5BB0
+006E863F: add esp,1Ch
+006E8642: pop edi
+006E8643: pop esi
+006E8644: test al,al
+006E8646: pop ebp
+006E8647: setne al
+006E864A: pop ebx
+006E864B: pop ecx
+006E864C: ret
+006E864D: mov edx,dword ptr [esp+2Ch]
+006E8651: mov ecx,dword ptr [esp+28h]
+006E8655: push edx
+006E8656: mov edx,dword ptr [esp+28h]
+006E865A: push ecx
+006E865B: mov ecx,dword ptr [esp+28h]
+006E865F: push edx
+006E8660: mov edx,dword ptr [esp+28h]
+006E8664: push ecx
+006E8665: mov ecx,dword ptr [esp+28h]
+006E8669: push edx
+006E866A: and eax,3FFFh
+006E866F: push ecx
+006E8670: lea edx,[eax*8+00C22854h]
+ 00
+006E8677: push edx
+006E8678: call 006E5E90
+006E867D: add esp,1Ch
+006E8680: pop edi
+006E8681: pop esi
+006E8682: test al,al
+006E8684: pop ebp
+006E8685: setne al
+006E8688: pop ebx
+006E8689: pop ecx
+006E868A: ret
+006E868B: and eax,3FFFh
+006E8690: jmp 006E8696
+006E8692: mov eax,dword ptr [esp+1Ch]
+006E8696: test byte ptr [eax*2+00C215F9h],0C0h
+006E869E: lea eax,[eax*2+00C215F8h]
+ 00
+006E86A5: je 006E872B
+006E86AB: mov esi,dword ptr [esp+2Ch]
+006E86AF: mov edi,dword ptr [esp+28h]
+006E86B3: mov ebx,dword ptr [esp+24h]
+006E86B7: mov ebp,dword ptr [esp+20h]
+006E86BB: mov dword ptr [esp+10h],eax
+006E86C0: movzx eax,word ptr [eax]
+006E86C3: mov ecx,eax
+006E86C5: shr ecx,0Eh
+006E86C8: dec ecx
+006E86C9: je 006E86F0
+006E86CB: dec ecx
+006E86CC: jne 006E871A
+006E86CE: mov ecx,dword ptr [esp+1Ch]
+006E86D2: mov edx,dword ptr [esp+18h]
+006E86D6: push esi
+006E86D7: push edi
+006E86D8: push ebx
+006E86D9: push ebp
+006E86DA: push ecx
+006E86DB: and eax,3FFFh
+006E86E0: push edx
+006E86E1: lea eax,[eax*8+00C22854h]
+ 00
+006E86E8: push eax
+006E86E9: call 006E5E90
+006E86EE: jmp 006E8713
+006E86F0: mov ecx,dword ptr [esp+1Ch]
+006E86F4: mov edx,dword ptr [esp+18h]
+006E86F8: push esi
+006E86F9: push edi
+006E86FA: push ebx
+006E86FB: push ebp
+006E86FC: push ecx
+006E86FD: and eax,3FFFh
+006E8702: lea eax,[eax+eax*4]
+006E8705: push edx
+006E8706: lea ecx,[eax*2+00C21C90h]
+ 00
+006E870D: push ecx
+006E870E: call 006E5BB0
+006E8713: add esp,1Ch
+006E8716: test al,al
+006E8718: jne 006E8759
+006E871A: mov eax,dword ptr [esp+10h]
+006E871E: add eax,2
+006E8721: test byte ptr [eax+1],0C0h
+006E8725: mov dword ptr [esp+10h],eax
+006E8729: jne 006E86C0
+006E872B: pop edi
+006E872C: pop esi
+006E872D: pop ebp
+006E872E: xor al,al
+006E8730: pop ebx
+006E8731: pop ecx
+006E8732: ret
+006E8733: mov eax,dword ptr [esp+28h]
+006E8737: test eax,eax
+006E8739: mov edx,dword ptr [esp+24h]
+006E873D: mov dword ptr [edx],0
+006E8743: je 006E874B
+006E8745: mov dword ptr [eax],3F800000h
+006E874B: mov eax,dword ptr [esp+2Ch]
+006E874F: test eax,eax
+006E8751: je 006E8759
+006E8753: mov dword ptr [eax],0
+006E8759: pop edi
+006E875A: pop esi
+006E875B: pop ebp
+006E875C: mov al,1
+006E875E: pop ebx
+006E875F: pop ecx
+006E8760: ret
+ 006E8761: 8D

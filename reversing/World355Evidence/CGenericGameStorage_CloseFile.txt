@@ -1,0 +1,33 @@
+// CGenericGameStorage::CloseFile @ 0x005d0e30 [0x5d0e30..0x5d0e60]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_005d0e30(void)
+
+{
+  int iVar1;
+  
+  if (DAT_00c16ee8 != (void *)0x0) {
+                    /* WARNING: Subroutine does not return */
+    _free(DAT_00c16ee8);
+  }
+  iVar1 = _fclose(DAT_00c16ef0);
+  return CONCAT31((int3)((uint)-iVar1 >> 8),'\x01' - (iVar1 != 0));
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D0E30: mov eax,dword ptr ds:[00C16EE8h]
+005D0E35: test eax,eax
+005D0E37: je 005D0E4C
+005D0E39: push eax
+005D0E3A: call 008213AE
+005D0E3F: add esp,4
+005D0E42: mov dword ptr ds:[00C16EE8h],0
+005D0E4C: mov eax,dword ptr ds:[00C16EF0h]
+005D0E51: push eax
+005D0E52: call 005389D0
+005D0E57: add esp,4
+005D0E5A: neg eax
+005D0E5C: sbb al,al
+005D0E5E: inc al
+005D0E60: ret

@@ -1,0 +1,41 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "evidence": "CCamera_CamControl.txt",
+  "status": "asm_audited_runtime_not_started",
+  "limitations": [
+    {
+      "function": "CCamera::CamControl",
+      "address": "0x00527FA0",
+      "kind": "original_uninitialized_stack_read",
+      "domain": "Vehículo tipo BIKE, escaleras activas, zona encontrada, m_pToGarageWeAreIn == nullptr, entra a calcular cámara fija.",
+      "asm_evidence": [
+        "0x528351 carga ECX=[ESI+0x81C] (garage); 0x528357 TEST ECX; si es cero permite zona EDI no nula en 0x52835B/0x52835D.",
+        "0x528378 TEST ECX; 0x52837A JE 0x528445 salta la única llamada previa que escribe las dos ranuras: 0x528380..0x52838A pasa &stack[0x78] y &stack[0x74] a 0x449FF0.",
+        "0x528445..0x528696 escribe source/center/direction/extent/LOS pero no stack[0x74] ni stack[0x78] en el nivel de ESP base tras los cuatro PUSH de registros.",
+        "0x528800 MOV EAX,[ESP+0x74] lee puntero indeterminado; si no es cero, 0x528838 MOV ECX,[EAX+0x170] lo desreferencia.",
+        "0x52887A MOV EAX,[ESP+0x78] lee el segundo puntero; si no es cero, 0x528882 MOV ECX,[EAX+0x170] lo desreferencia.",
+        "Prólogo 0x527FA0 SUB ESP,0xB4 y PUSH EBX/EBP/ESI/EDI; no rellena el frame. Se auditó desde entrada hasta esas lecturas, no solo el pseudocódigo."
+      ],
+      "nearby_deterministic_cases": "BIKE + stairs + zone + garage válido con primera puerta; BIKE sin stairs; pedestrian + stairs + zone sin garage; cámaras fijas ya establecidas.",
+      "fixture_exclusion": "No se certifica la combinación vehicular de stairs con garage nulo al calcular la cámara fija; el banco no condicionará el resultado a residuos de pila.",
+      "candidate_defined_fallback": "El C++ instalado en CameraControlVehicleGarage inicializa first/second a nullptr. Sin garage parte de la fuente de cámara actual y del target; después CameraControlGarageDoorSource, con ambas puertas nulas, usa el target como base y la dirección normalizada target-center (center es el target en el camino vehicular). Aplica los offsets globales de vehículo y establece posición fija. Este comportamiento definido queda fuera del dominio comparable y no se certifica como equivalente al EXE."
+    },
+    {
+      "function": "CCamera::CamControl",
+      "address": "0x00527FA0",
+      "kind": "original_uninitialized_stack_read",
+      "domain": "Al calcular cámara fija de garage, FindDoors devuelve primera puerta nullptr y segunda puerta válida.",
+      "asm_evidence": [
+        "Vehículo: 0x528393 TEST primera; cero ->0x5283E1 lee segunda; no cero ->0x5283E9 MOV EDI,2 y 0x5283EB JMP 0x528696 sin escribir el vector alternativo stack[0x40..0x48].",
+        "Vehículo: 0x528741 CMP EDI,1; para EDI=2, 0x528744 JNE 0x528764; 0x528764 FLD [ESP+0x40], 0x528770 FLD [ESP+0x44] y 0x52877C FLD [ESP+0x48] consumen el vector alternativo no establecido en ese camino.",
+        "Ped: 0x529226 TEST primera; cero ->0x529274 lee segunda; no cero ->0x52927A JNE 0x529507 conserva selector 2 sin calcular vector alternativo.",
+        "Ped: 0x5295B2 CMP EBX,1; selector2 ->0x5295D5 FLD [ESP+0x40], 0x5295E1 FLD [ESP+0x44], 0x5295ED FLD [ESP+0x48]. X/Y se restan del centro y se normalizan, y participan en la primera llamada SetCamPositionForFixedMode.",
+        "El frame no se inicializa en el prólogo; en esta rama de ped/vehículo los primeros stores pertinentes a esas ranuras provienen de rutas alternativas saltadas (normalización de escalera), o posteriores al consumo."
+      ],
+      "nearby_deterministic_cases": "Ambas puertas válidas; primera válida y segunda nullptr; ambas nullptr (la componente Z temporal no establecida se descarta antes de normalizar).",
+      "fixture_exclusion": "No se valida primera nullptr + segunda válida, pues la llamada inicial de cámara fija depende de X/Y anteriores del frame.",
+      "candidate_defined_fallback": "El C++ instalado usa target como initialSource vehicular cuando first es nullptr. En ped conserva la fuente de cámara actual cuando first es nullptr y second es válida; calcula direction respecto al centro del garage, aplica desplazamiento 13 y altura y realiza la primera llamada fija. En ambos caminos el helper final usa la posición y el eje Right del dummy de la segunda puerta, más offsets globales, para la llamada fija final. Son elecciones definidas fuera del dominio comparable, no equivalencia certificada."
+    }
+  ],
+  "installed_source_review": "source/game_sa/Camera.cpp: CameraControlVehicleGarage, CameraControlPedGarage y CameraControlGarageDoorSource; revisión de cuerpos instalados 2026-10-08."
+}

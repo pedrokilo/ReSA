@@ -1,0 +1,19 @@
+bool CBike::SetUpWheelColModel(CColModel* wheelCol) {
+    const auto* source = GetColModel();
+    wheelCol->m_boundBox = source->m_boundBox;
+    wheelCol->m_boundSphere = source->m_boundSphere;
+    auto* data = wheelCol->GetData();
+    const auto* model = GetVehicleModelInfo();
+    const auto setWheel = [&](int32 component, int32 index, float radius, uint8 piece) {
+        auto* frame = m_aBikeNodes[component];
+        RwMatrix matrix = *RwFrameGetMatrix(frame);
+        for (auto* parent = RwFrameGetParent(frame); parent && parent != m_aBikeNodes[BIKE_CHASSIS]; parent = RwFrameGetParent(parent)) {
+            RwMatrixTransform(&matrix, RwFrameGetMatrix(parent), rwCOMBINEPOSTCONCAT);
+        }
+        data->m_pSpheres[index].Set(radius, CVector{matrix.pos}, static_cast<eSurfaceType>(67), piece, tColLighting{255});
+    };
+    setWheel(BIKE_WHEEL_FRONT, 0, model->m_fWheelSizeFront * .5f, 13);
+    setWheel(BIKE_WHEEL_REAR, 1, model->m_fWheelSizeRear * .5f, 15);
+    data->m_nNumSpheres = 2;
+    return true;
+}

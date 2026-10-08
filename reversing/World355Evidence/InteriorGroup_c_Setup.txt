@@ -1,0 +1,67 @@
+// InteriorGroup_c::Setup @ 0x00595320 [0x595320..0x59537b]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00595320(void)
+
+{
+  char cVar1;
+  int in_ECX;
+  
+  cVar1 = FUN_00595250(2);
+  if (cVar1 != '\0') {
+    *(undefined1 *)(in_ECX + 0xe) = 0;
+    FUN_005950d0();
+    return;
+  }
+  cVar1 = FUN_00595250(0);
+  if (cVar1 == '\0') {
+    cVar1 = FUN_00595250(6);
+    if (cVar1 == '\0') {
+      cVar1 = FUN_00595250(1);
+      *(byte *)(in_ECX + 0xe) = (-(cVar1 != '\0') & 3U) - 1;
+      FUN_005950d0();
+      return;
+    }
+  }
+  *(undefined1 *)(in_ECX + 0xe) = 1;
+  FUN_005950d0();
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00595320: push esi
+00595321: push 2
+00595323: mov esi,ecx
+00595325: call 00595250
+0059532A: test al,al
+0059532C: je 0059533A
+0059532E: mov byte ptr [esi+0Eh],0
+00595332: mov ecx,esi
+00595334: pop esi
+00595335: jmp 005950D0
+0059533A: push 0
+0059533C: mov ecx,esi
+0059533E: call 00595250
+00595343: test al,al
+00595345: jne 00595370
+00595347: push 6
+00595349: mov ecx,esi
+0059534B: call 00595250
+00595350: test al,al
+00595352: jne 00595370
+00595354: push 1
+00595356: mov ecx,esi
+00595358: call 00595250
+0059535D: neg al
+0059535F: sbb al,al
+00595361: and al,3
+00595363: dec al
+00595365: mov byte ptr [esi+0Eh],al
+00595368: mov ecx,esi
+0059536A: pop esi
+0059536B: jmp 005950D0
+00595370: mov byte ptr [esi+0Eh],1
+00595374: mov ecx,esi
+00595376: pop esi
+00595377: jmp 005950D0

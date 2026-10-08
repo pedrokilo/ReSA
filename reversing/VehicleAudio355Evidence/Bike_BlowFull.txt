@@ -1,0 +1,85 @@
+006BEA10: push esi
+006BEA11: mov esi,ecx
+006BEA13: test byte ptr [esi+0000042Ah],20h
+ 20
+006BEA1A: je 006BEB18
+006BEA20: fld dword ptr [esi+4Ch]
+006BEA23: mov al,byte ptr [esi+36h]
+006BEA26: mov edx,dword ptr [esi+40h]
+006BEA29: fadd dword ptr ds:[00859020h]
+006BEA2F: mov ecx,dword ptr [esi+18h]
+006BEA32: and al,7
+006BEA34: or al,28h
+006BEA36: fstp dword ptr [esi+4Ch]
+006BEA39: or edx,20000000h
+006BEA3F: push 4000h
+006BEA44: push ecx
+006BEA45: mov byte ptr [esi+36h],al
+006BEA48: mov dword ptr [esi+40h],edx
+006BEA4B: call 007322F0
+006BEA50: mov eax,dword ptr [esi+14h]
+006BEA53: add esp,8
+006BEA56: test eax,eax
+006BEA58: mov dword ptr [esi+000004C0h],0
+006BEA62: mov word ptr [esi+000004DEh],0
+006BEA6B: lea edx,[eax+30h]
+006BEA6E: jne 006BEA7F
+006BEA70: lea edx,[esi+4]
+006BEA73: lea ecx,[esi+4]
+006BEA76: test eax,eax
+006BEA78: je 006BEA84
+006BEA7A: add eax,30h
+006BEA7D: jmp 006BEA87
+006BEA7F: lea ecx,[eax+30h]
+006BEA82: jmp 006BEA76
+006BEA84: lea eax,[esi+4]
+006BEA87: mov edx,dword ptr [edx+8]
+006BEA8A: mov ecx,dword ptr [ecx+4]
+006BEA8D: push edx
+006BEA8E: mov edx,dword ptr [eax]
+006BEA90: push ecx
+006BEA91: push edx
+006BEA92: push 3ECCCCCDh
+006BEA97: mov ecx,0B6F028h
+006BEA9C: call 0050A9F0
+006BEAA1: mov ecx,esi
+006BEAA3: call 006D1C80
+006BEAA8: mov cl,byte ptr [esi+000004A8h]
+006BEAAE: mov al,byte ptr [esi+00000428h]
+006BEAB4: and cl,0E7h
+006BEAB7: mov byte ptr [esi+000004A8h],cl
+006BEABD: and al,0AFh
+006BEABF: push 0
+006BEAC1: mov ecx,esi
+006BEAC3: mov byte ptr [esi+00000428h],al
+006BEAC9: call 006D2330
+006BEACE: mov eax,dword ptr [esi+14h]
+006BEAD1: test eax,eax
+006BEAD3: je 006BEADA
+006BEAD5: add eax,30h
+006BEAD8: jmp 006BEADD
+006BEADA: lea eax,[esi+4]
+006BEADD: mov ecx,dword ptr [esp+0Ch]
+006BEAE1: push ecx
+006BEAE2: mov ecx,dword ptr [eax]
+006BEAE4: push 0BF800000h
+006BEAE9: push 1
+006BEAEB: push 0
+006BEAED: sub esp,0Ch
+006BEAF0: mov edx,esp
+006BEAF2: mov dword ptr [edx],ecx
+006BEAF4: mov ecx,dword ptr [eax+4]
+006BEAF7: mov eax,dword ptr [eax+8]
+006BEAFA: mov dword ptr [edx+4],ecx
+006BEAFD: mov ecx,dword ptr [esp+24h]
+006BEB01: push 4
+006BEB03: push ecx
+006BEB04: push esi
+006BEB05: mov dword ptr [edx+8],eax
+006BEB08: call 00736A50
+006BEB0D: push 0
+006BEB0F: push esi
+006BEB10: call 0043DF20
+006BEB15: add esp,30h
+006BEB18: pop esi
+006BEB19: ret 8

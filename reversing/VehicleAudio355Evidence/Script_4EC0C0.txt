@@ -1,0 +1,34 @@
+// CAEScriptAudioEntity::SetMissionAudioPosition @ 0x004ec0c0 [0x4ec0c0..0x4ec0f2]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004ec0c0(byte param_1,undefined4 *param_2)
+
+{
+  int iVar1;
+  int in_ECX;
+  
+  iVar1 = (uint)param_1 * 0x20 + in_ECX;
+  *(undefined4 *)(iVar1 + 0x90) = *param_2;
+  *(undefined4 *)(iVar1 + 0x94) = param_2[1];
+  *(undefined4 *)(iVar1 + 0x98) = param_2[2];
+  *(undefined4 *)(iVar1 + 0x9c) = 0;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004EC0C0: movzx eax,byte ptr [esp+4]
+004EC0C5: mov edx,dword ptr [esp+8]
+004EC0C9: shl eax,5
+004EC0CC: add eax,ecx
+004EC0CE: push esi
+004EC0CF: mov esi,dword ptr [edx]
+004EC0D1: lea ecx,[eax+00000090h]
+004EC0D7: mov dword ptr [ecx],esi
+004EC0D9: mov esi,dword ptr [edx+4]
+004EC0DC: mov dword ptr [ecx+4],esi
+004EC0DF: mov edx,dword ptr [edx+8]
+004EC0E2: mov dword ptr [ecx+8],edx
+004EC0E5: mov dword ptr [eax+0000009Ch],0
+004EC0EF: pop esi
+004EC0F0: ret 8

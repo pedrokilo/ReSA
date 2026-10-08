@@ -1,0 +1,486 @@
+006BC930: sub esp,30h
+006BC933: push ebx
+006BC934: push ebp
+006BC935: push esi
+006BC936: mov esi,ecx
+006BC938: movsx eax,word ptr [esi+22h]
+006BC93C: mov ebp,dword ptr [eax*4+00A9B0C8h]
+ 00
+006BC943: mov dl,byte ptr [esi+000003DBh]
+006BC949: mov al,byte ptr [esi+00000424h]
+006BC94F: and dl,0FCh
+006BC952: test al,al
+006BC954: push edi
+006BC955: mov byte ptr [esi+000003DBh],dl
+006BC95B: jl 006BC97D
+006BC95D: movsx ecx,al
+006BC960: mov al,byte ptr [ecx+0097D6C0h]
+006BC966: test al,al
+006BC968: jne 006BC97D
+006BC96A: mov eax,dword ptr [esp+44h]
+006BC96E: add dword ptr [eax],2
+006BC971: xor al,al
+006BC973: pop edi
+006BC974: pop esi
+006BC975: pop ebp
+006BC976: pop ebx
+006BC977: add esp,30h
+006BC97A: ret 4
+006BC97D: movzx eax,byte ptr [esi+36h]
+006BC981: shr eax,3
+006BC984: cmp eax,0Ch
+006BC987: ja 006BCF71
+006BC98D: jmp dword ptr [eax*4+006BCF80h]
+ 00
+006BC994: mov ebx,dword ptr [esp+44h]
+006BC998: add dword ptr [ebx],2
+006BC99B: mov al,byte ptr [esi+00000614h]
+006BC9A1: and al,0F7h
+006BC9A3: push 0FFFFFFFFh
+006BC9A5: mov byte ptr [esi+00000614h],al
+006BC9AB: call 0056E210
+006BC9B0: mov ecx,dword ptr [eax+00000530h]
+006BC9B6: add esp,4
+006BC9B9: cmp ecx,3Dh
+006BC9BC: je 006BCC23
+006BC9C2: push 0FFFFFFFFh
+006BC9C4: call 0056E210
+006BC9C9: mov ecx,dword ptr [eax+00000530h]
+006BC9CF: add esp,4
+006BC9D2: cmp ecx,3Ah
+006BC9D5: je 006BCC23
+006BC9DB: mov eax,dword ptr [esi+00000460h]
+006BC9E1: test eax,eax
+006BC9E3: je 006BCA09
+006BC9E5: cmp dword ptr ds:[00B7CD98h],eax
+006BC9EB: jne 006BC9F8
+006BC9ED: mov edx,dword ptr [esi]
+006BC9EF: push 0
+006BC9F1: mov ecx,esi
+006BC9F3: call dword ptr [edx+60h]
+006BC9F6: jmp 006BCA09
+006BC9F8: cmp dword ptr ds:[00B7CF28h],eax
+006BC9FE: jne 006BCA09
+006BCA00: mov eax,dword ptr [esi]
+006BCA02: push 1
+006BCA04: mov ecx,esi
+006BCA06: call dword ptr [eax+60h]
+006BCA09: fld dword ptr [esi+00000650h]
+006BCA0F: mov ecx,dword ptr [esi+00000384h]
+006BCA15: fcomp dword ptr ds:[00858B50h]
+006BCA1B: mov edi,dword ptr [esi+0000063Ch]
+006BCA21: fnstsw ax
+006BCA23: test ah,5
+006BCA26: jp 006BCAFE
+006BCA2C: fld dword ptr [edi+0Ch]
+006BCA2F: fmul dword ptr [esi+00000650h]
+006BCA35: fadd dword ptr [ecx+18h]
+006BCA38: fstp dword ptr [esi+000000A8h]
+006BCA3E: fld dword ptr [esi+000004A0h]
+006BCA44: fcomp dword ptr ds:[00858B50h]
+006BCA4A: fnstsw ax
+006BCA4C: test ah,44h
+006BCA4F: jp 006BCA5A
+006BCA51: test byte ptr [esi+00000428h],20h
+ 20
+006BCA58: je 006BCA68
+006BCA5A: mov al,byte ptr [esi+00000804h]
+006BCA60: test al,al
+006BCA62: jne 006BCC07
+006BCA68: lea ecx,[esi+44h]
+006BCA6B: call 004082C0
+006BCA70: mov edx,dword ptr ds:[008712FCh]
+006BCA76: push ecx
+006BCA77: fstp dword ptr [esp]
+006BCA7A: push edx
+006BCA7B: call 00404330
+006BCA80: fstp dword ptr [esp+4Ch]
+006BCA84: fld dword ptr [esp+4Ch]
+006BCA88: mov eax,dword ptr [esi+0000049Ch]
+006BCA8E: fdiv dword ptr ds:[008712FCh]
+006BCA94: add esp,8
+006BCA97: push eax
+006BCA98: push ecx
+006BCA99: fstp dword ptr [esp]
+006BCA9C: call 00420800
+006BCAA1: fadd dword ptr [esi+0000049Ch]
+006BCAA7: fld dword ptr [edi+10h]
+006BCAAA: push 0Bh
+006BCAAC: fmul dword ptr [esi+00000090h]
+006BCAB2: fmul dword ptr [esi+00000650h]
+006BCAB8: fmul dword ptr [esp+50h]
+006BCABC: fmulp st(1),st
+006BCABE: fmul dword ptr ds:[00858B8Ch]
+006BCAC4: fstp dword ptr [esp+50h]
+006BCAC8: call 00559AF0
+006BCACD: mov ebp,dword ptr [esi+14h]
+006BCAD0: fmul dword ptr [esp+50h]
+006BCAD4: lea ecx,[ebp+10h]
+006BCAD7: push ecx
+006BCAD8: lea edx,[esi+000000A4h]
+006BCADE: fstp dword ptr [esp+54h]
+006BCAE2: push edx
+006BCAE3: lea eax,[esp+24h]
+006BCAE7: push eax
+006BCAE8: call 0040FE30
+006BCAED: add esp,18h
+006BCAF0: add ebp,20h
+006BCAF3: push ebp
+006BCAF4: push ecx
+006BCAF5: lea ecx,[esp+24h]
+006BCAF9: jmp 006BCBC2
+006BCAFE: fld dword ptr [edi+4]
+006BCB01: fmul dword ptr [esi+00000650h]
+006BCB07: fadd dword ptr [ecx+18h]
+006BCB0A: fstp dword ptr [esi+000000A8h]
+006BCB10: fld dword ptr [esi+000004A0h]
+006BCB16: fcomp dword ptr ds:[00858B50h]
+006BCB1C: fnstsw ax
+006BCB1E: test ah,5
+006BCB21: jnp 006BCB31
+006BCB23: mov al,byte ptr [esi+00000804h]
+006BCB29: test al,al
+006BCB2B: jne 006BCC07
+006BCB31: lea ecx,[esi+44h]
+006BCB34: call 004082C0
+006BCB39: mov edx,dword ptr ds:[008712FCh]
+006BCB3F: push ecx
+006BCB40: fstp dword ptr [esp]
+006BCB43: push edx
+006BCB44: call 00404330
+006BCB49: fstp dword ptr [esp+4Ch]
+006BCB4D: fld dword ptr [esp+4Ch]
+006BCB51: mov eax,dword ptr [esi+000004A0h]
+006BCB57: fdiv dword ptr ds:[008712FCh]
+006BCB5D: add esp,8
+006BCB60: push eax
+006BCB61: push ecx
+006BCB62: fstp dword ptr [esp]
+006BCB65: call 00420800
+006BCB6A: fadd dword ptr [esi+000004A0h]
+006BCB70: fld dword ptr [edi+8]
+006BCB73: push 0Bh
+006BCB75: fmul dword ptr [esi+00000090h]
+006BCB7B: fmul dword ptr [esi+00000650h]
+006BCB81: fmul dword ptr [esp+50h]
+006BCB85: fmulp st(1),st
+006BCB87: fmul dword ptr ds:[00858B8Ch]
+006BCB8D: fstp dword ptr [esp+50h]
+006BCB91: call 00559AF0
+006BCB96: mov ebp,dword ptr [esi+14h]
+006BCB99: fmul dword ptr [esp+50h]
+006BCB9D: lea ecx,[ebp+10h]
+006BCBA0: push ecx
+006BCBA1: lea edx,[esi+000000A4h]
+006BCBA7: fstp dword ptr [esp+54h]
+006BCBAB: push edx
+006BCBAC: lea eax,[esp+3Ch]
+006BCBB0: push eax
+006BCBB1: call 0040FE30
+006BCBB6: add esp,18h
+006BCBB9: add ebp,20h
+006BCBBC: push ebp
+006BCBBD: push ecx
+006BCBBE: lea ecx,[esp+3Ch]
+006BCBC2: fld dword ptr ds:[00B7CB5Ch]
+006BCBC8: mov edi,eax
+006BCBCA: fmul dword ptr [esp+4Ch]
+006BCBCE: fchs
+006BCBD0: fstp dword ptr [esp]
+006BCBD3: push ecx
+006BCBD4: call 0040FE90
+006BCBD9: mov ecx,dword ptr [edi]
+006BCBDB: mov edx,esp
+006BCBDD: mov dword ptr [edx],ecx
+006BCBDF: mov ecx,dword ptr [edi+4]
+006BCBE2: mov dword ptr [edx+4],ecx
+006BCBE5: mov ecx,dword ptr [edi+8]
+006BCBE8: mov dword ptr [edx+8],ecx
+006BCBEB: mov ecx,dword ptr [eax]
+006BCBED: sub esp,0Ch
+006BCBF0: mov edx,esp
+006BCBF2: mov dword ptr [edx],ecx
+006BCBF4: mov ecx,dword ptr [eax+4]
+006BCBF7: mov eax,dword ptr [eax+8]
+006BCBFA: mov dword ptr [edx+4],ecx
+006BCBFD: mov ecx,esi
+006BCBFF: mov dword ptr [edx+8],eax
+006BCC02: call 00542A50
+006BCC07: mov ecx,esi
+006BCC09: call 00571A90
+006BCC0E: test byte ptr [esi+36h],0F8h
+006BCC12: jne 006BCC1B
+006BCC14: mov ecx,esi
+006BCC16: call 00741FD0
+006BCC1B: push ebx
+006BCC1C: mov ecx,esi
+006BCC1E: call 006B6D40
+006BCC23: push 0
+006BCC25: call 0053FB70
+006BCC2A: add esp,4
+006BCC2D: mov ecx,eax
+006BCC2F: call 0053FFE0
+006BCC34: test ax,ax
+006BCC37: je 006BCF71
+006BCC3D: mov ecx,esi
+006BCC3F: call 006D24F0
+006BCC44: mov al,1
+006BCC46: pop edi
+006BCC47: pop esi
+006BCC48: pop ebp
+006BCC49: pop ebx
+006BCC4A: add esp,30h
+006BCC4D: ret 4
+006BCC50: mov eax,dword ptr [esp+44h]
+006BCC54: add dword ptr [eax],2
+006BCC57: mov al,1
+006BCC59: pop edi
+006BCC5A: pop esi
+006BCC5B: pop ebp
+006BCC5C: pop ebx
+006BCC5D: add esp,30h
+006BCC60: ret 4
+006BCC63: push esi
+006BCC64: call 0041DA30
+006BCC69: add esp,4
+006BCC6C: mov ecx,esi
+006BCC6E: call 005485E0
+006BCC73: push esi
+006BCC74: call 00436540
+006BCC79: fld dword ptr [esi+000003C8h]
+006BCC7F: mov cl,byte ptr [esi+00000805h]
+006BCC85: fmul dword ptr ds:[00858B38h]
+006BCC8B: add esp,4
+006BCC8E: lea edx,[esi+000004B4h]
+006BCC94: push edx
+006BCC95: mov byte ptr [esi+00000806h],cl
+006BCC9B: mov al,2
+006BCC9D: mov byte ptr [esi+00000804h],al
+006BCCA3: push ecx
+006BCCA4: mov ecx,dword ptr [esi+00000384h]
+006BCCAA: fstp dword ptr [esp]
+006BCCAD: add ecx,2Ch
+006BCCB0: mov byte ptr [esi+00000805h],al
+006BCCB6: call 006D0530
+006BCCBB: fld dword ptr [ebp+40h]
+006BCCBE: mov eax,dword ptr ds:[00B7CB5Ch]
+006BCCC3: fmul dword ptr ds:[00858B8Ch]
+006BCCC9: push ecx
+006BCCCA: mov dword ptr [esp+48h],eax
+006BCCCE: mov eax,dword ptr [esi+14h]
+006BCCD1: fstp dword ptr [esp]
+006BCCD4: lea edi,[esi+44h]
+006BCCD7: push edi
+006BCCD8: add eax,10h
+006BCCDB: push eax
+006BCCDC: push 0
+006BCCDE: mov ecx,esi
+006BCCE0: call 006D1230
+006BCCE5: fmul dword ptr [esp+44h]
+006BCCE9: mov eax,dword ptr [esi+14h]
+006BCCEC: add eax,10h
+006BCCEF: fadd dword ptr [esi+00000750h]
+006BCCF5: fstp dword ptr [esi+00000750h]
+006BCCFB: mov ecx,dword ptr ds:[00B7CB5Ch]
+006BCD01: fld dword ptr [ebp+44h]
+006BCD04: push ecx
+006BCD05: fmul dword ptr ds:[00858B8Ch]
+006BCD0B: mov dword ptr [esp+48h],ecx
+006BCD0F: mov ecx,esi
+006BCD11: fstp dword ptr [esp]
+006BCD14: push edi
+006BCD15: push eax
+006BCD16: push 0
+006BCD18: call 006D1230
+006BCD1D: fmul dword ptr [esp+44h]
+006BCD21: test byte ptr [esi+000003DBh],3
+ 03
+006BCD28: fadd dword ptr [esi+00000754h]
+006BCD2E: fstp dword ptr [esi+00000754h]
+006BCD34: je 006BCD40
+006BCD36: mov edx,dword ptr [esi]
+006BCD38: mov ecx,esi
+006BCD3A: call dword ptr [edx+000000D8h]
+006BCD40: mov eax,dword ptr [esi+00000514h]
+006BCD46: test eax,eax
+006BCD48: jbe 006BCD51
+006BCD4A: dec eax
+006BCD4B: mov dword ptr [esi+00000514h],eax
+006BCD51: mov cl,byte ptr [esi+0000042Bh]
+006BCD57: mov al,byte ptr [esi+00000614h]
+006BCD5D: and cl,0DEh
+006BCD60: and al,7Fh
+006BCD62: mov byte ptr [esi+00000614h],al
+006BCD68: mov byte ptr [esi+0000042Bh],cl
+006BCD6E: mov al,1
+006BCD70: pop edi
+006BCD71: pop esi
+006BCD72: pop ebp
+006BCD73: pop ebx
+006BCD74: add esp,30h
+006BCD77: ret 4
+006BCD7A: push esi
+006BCD7B: call 0041DA30
+006BCD80: push esi
+006BCD81: call 00437C20
+006BCD86: mov al,byte ptr [esi+000003DBh]
+006BCD8C: add esp,8
+006BCD8F: test al,3
+006BCD91: je 006BCD9D
+006BCD93: mov eax,dword ptr [esi]
+006BCD95: mov ecx,esi
+006BCD97: call dword ptr [eax+000000D8h]
+006BCD9D: mov eax,dword ptr [esp+44h]
+006BCDA1: add dword ptr [eax],2
+006BCDA4: mov dl,byte ptr [esi+00000614h]
+006BCDAA: mov cl,byte ptr [esi+0000042Ah]
+006BCDB0: and dl,7Fh
+006BCDB3: test cl,8
+006BCDB6: mov byte ptr [esi+00000614h],dl
+006BCDBC: mov al,dl
+006BCDBE: je 006BCDE7
+006BCDC0: or byte ptr [esi+00000428h],20h
+ 20
+006BCDC7: mov dword ptr [esi+0000049Ch],0
+006BCDD1: mov dword ptr [esi+000004A0h],3F800000h
+006BCDDB: mov al,1
+006BCDDD: pop edi
+006BCDDE: pop esi
+006BCDDF: pop ebp
+006BCDE0: pop ebx
+006BCDE1: add esp,30h
+006BCDE4: ret 4
+006BCDE7: and al,0F7h
+006BCDE9: mov byte ptr [esi+00000614h],al
+006BCDEF: mov al,1
+006BCDF1: pop edi
+006BCDF2: pop esi
+006BCDF3: pop ebp
+006BCDF4: pop ebx
+006BCDF5: add esp,30h
+006BCDF8: ret 4
+006BCDFB: xor edi,edi
+006BCDFD: lea ecx,[esi+44h]
+006BCE00: mov dword ptr [esi+000004A0h],edi
+006BCE06: call 00406DA0
+006BCE0B: fcomp dword ptr ds:[00858C58h]
+006BCE11: mov bl,20h
+006BCE13: mov dl,10h
+006BCE15: fnstsw ax
+006BCE17: test ah,5
+006BCE1A: jnp 006BCE2E
+006BCE1C: test byte ptr [esi+00000614h],dl
+006BCE22: jne 006BCE2E
+006BCE24: mov al,byte ptr [esi+00000428h]
+006BCE2A: and al,0DFh
+006BCE2C: jmp 006BCE36
+006BCE2E: mov al,byte ptr [esi+00000428h]
+006BCE34: or al,bl
+006BCE36: mov byte ptr [esi+00000428h],al
+006BCE3C: cmp dword ptr [esi+00000460h],edi
+006BCE42: mov dword ptr [esi+0000049Ch],edi
+006BCE48: mov dword ptr [esi+00000514h],edi
+006BCE4E: mov cl,8
+006BCE50: jne 006BCE62
+006BCE52: cmp dword ptr [esi+00000464h],edi
+006BCE58: jne 006BCE62
+006BCE5A: test byte ptr [esi+0000042Ah],cl
+006BCE60: je 006BCE71
+006BCE62: test byte ptr [esi+00000614h],dl
+006BCE68: jne 006BCE71
+006BCE6A: mov eax,dword ptr [esp+44h]
+006BCE6E: add dword ptr [eax],2
+006BCE71: mov dl,byte ptr [esi+00000614h]
+006BCE77: mov al,byte ptr [esi+0000042Ah]
+006BCE7D: and dl,7Fh
+006BCE80: test cl,al
+006BCE82: mov dword ptr [esi+00000654h],edi
+006BCE88: mov dword ptr [esi+00000658h],edi
+006BCE8E: mov byte ptr [esi+00000614h],dl
+006BCE94: je 006BCF71
+006BCE9A: or byte ptr [esi+00000428h],bl
+006BCEA0: mov dword ptr [esi+0000049Ch],edi
+006BCEA6: mov dword ptr [esi+000004A0h],3F800000h
+006BCEB0: mov al,1
+006BCEB2: pop edi
+006BCEB3: pop esi
+006BCEB4: pop ebp
+006BCEB5: pop ebx
+006BCEB6: add esp,30h
+006BCEB9: ret 4
+006BCEBC: lea ecx,[esi+44h]
+006BCEBF: call 00406DA0
+006BCEC4: fcomp dword ptr ds:[00858C58h]
+006BCECA: fnstsw ax
+006BCECC: test ah,5
+006BCECF: jp 006BCEE6
+006BCED1: or byte ptr [esi+00000428h],20h
+ 20
+006BCED8: mov dword ptr [esi+000004A0h],3F800000h
+006BCEE2: xor eax,eax
+006BCEE4: jmp 006BCEFD
+006BCEE6: mov cl,byte ptr [esi+00000428h]
+006BCEEC: xor eax,eax
+006BCEEE: and cl,0DFh
+006BCEF1: mov dword ptr [esi+000004A0h],eax
+006BCEF7: mov byte ptr [esi+00000428h],cl
+006BCEFD: mov dword ptr [esi+00000494h],eax
+006BCF03: mov dword ptr [esi+0000049Ch],eax
+006BCF09: mov dword ptr [esi+00000514h],eax
+006BCF0F: mov eax,dword ptr [esp+44h]
+006BCF13: add dword ptr [eax],2
+006BCF16: and byte ptr [esi+00000614h],7Fh
+ 7F
+006BCF1D: mov al,1
+006BCF1F: pop edi
+006BCF20: pop esi
+006BCF21: pop ebp
+006BCF22: pop ebx
+006BCF23: add esp,30h
+006BCF26: ret 4
+006BCF29: mov dl,byte ptr [esi+00000428h]
+006BCF2F: mov cl,byte ptr [esi+00000614h]
+006BCF35: xor eax,eax
+006BCF37: or dl,20h
+006BCF3A: and cl,7Fh
+006BCF3D: mov dword ptr [esi+000004A0h],3D4CCCCDh
+006BCF47: mov byte ptr [esi+00000428h],dl
+006BCF4D: mov dword ptr [esi+00000494h],eax
+006BCF53: mov dword ptr [esi+0000049Ch],eax
+006BCF59: mov dword ptr [esi+00000514h],eax
+006BCF5F: mov byte ptr [esi+00000614h],cl
+006BCF65: mov dword ptr [esi+00000654h],eax
+006BCF6B: mov dword ptr [esi+00000658h],eax
+006BCF71: pop edi
+006BCF72: pop esi
+006BCF73: pop ebp
+006BCF74: mov al,1
+006BCF76: pop ebx
+006BCF77: add esp,30h
+006BCF7A: ret 4
+006BCF7D: lea ecx,[ecx]
+006BCF80: xchg eax,esp
+006BCF81: leave
+006BCF82: imul eax,dword ptr [eax],50h
+006BCF86: imul eax,dword ptr [eax],63h
+006BCF8A: imul eax,dword ptr [eax],7Ah
+006BCF8D: int 6Bh
+006BCF8F: add bl,bh
+006BCF91: int 6Bh
+006BCF93: add byte ptr [ecx],ch
+006BCF95: iretd
+006BCF96: imul eax,dword ptr [eax],71h
+006BCF99: iretd
+006BCF9A: imul eax,dword ptr [eax],71h
+006BCF9D: iretd
+006BCF9E: imul eax,dword ptr [eax],71h
+006BCFA1: iretd
+006BCFA2: imul eax,dword ptr [eax],0FFFFFFBCh
+006BCFA5: into
+006BCFA6: imul eax,dword ptr [eax],71h
+006BCFA9: iretd
+006BCFAA: imul eax,dword ptr [eax],71h
+006BCFAD: iretd
+006BCFAE: imul eax,dword ptr [eax],7Ah
+006BCFB1: int 6Bh
+006BCFB3: add byte ptr [eax+90909090h],dl

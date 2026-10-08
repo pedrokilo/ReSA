@@ -1,0 +1,554 @@
+[
+  {
+    "cls": "CTaskGoToVehicleAndLean",
+    "fn": "Clone",
+    "a": 6693296,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGoToVehicleAndLean_6621B0.txt"
+  },
+  {
+    "cls": "CTaskGoToVehicleAndLean",
+    "fn": "MakeAbortable",
+    "a": 6702336,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGoToVehicleAndLean_664500.txt"
+  },
+  {
+    "cls": "CTaskGoToVehicleAndLean",
+    "fn": "CreateNextSubTask",
+    "a": 6702480,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGoToVehicleAndLean_664590.txt"
+  },
+  {
+    "cls": "CTaskGoToVehicleAndLean",
+    "fn": "CreateFirstSubTask",
+    "a": 6704448,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGoToVehicleAndLean_664D40.txt"
+  },
+  {
+    "cls": "CTaskGoToVehicleAndLean",
+    "fn": "ControlSubTask",
+    "a": 6704736,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGoToVehicleAndLean_664E60.txt"
+  },
+  {
+    "cls": "CTaskComplexFollowLeaderInFormation",
+    "fn": "Constructor",
+    "a": 6900128,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexFollowLeaderInFormation_6949A0.txt"
+  },
+  {
+    "cls": "CTaskComplexFollowLeaderInFormation",
+    "fn": "Clone",
+    "a": 6903616,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexFollowLeaderInFormation_695740.txt"
+  },
+  {
+    "cls": "CTaskComplexFollowLeaderInFormation",
+    "fn": "GetTaskType",
+    "a": 6900272,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexFollowLeaderInFormation_694A30.txt"
+  },
+  {
+    "cls": "CTaskComplexFollowLeaderInFormation",
+    "fn": "CreateNextSubTask",
+    "a": 6907936,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexFollowLeaderInFormation_696820.txt"
+  },
+  {
+    "cls": "CTaskComplexFollowLeaderInFormation",
+    "fn": "CreateFirstSubTask",
+    "a": 6908128,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexFollowLeaderInFormation_6968E0.txt"
+  },
+  {
+    "cls": "CTaskComplexFollowLeaderInFormation",
+    "fn": "ControlSubTask",
+    "a": 6908224,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexFollowLeaderInFormation_696940.txt"
+  },
+  {
+    "cls": "CTaskComplexPlayHandSignalAnim",
+    "fn": "GetAnimIdForPed",
+    "a": 6403168,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexPlayHandSignalAnim_61B460.txt"
+  },
+  {
+    "cls": "CTaskComplexPlayHandSignalAnim",
+    "fn": "CreateSubTask",
+    "a": 6402800,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexPlayHandSignalAnim_61B2F0.txt"
+  },
+  {
+    "cls": "CTaskComplexPlayHandSignalAnim",
+    "fn": "Clone",
+    "a": 6404608,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexPlayHandSignalAnim_61BA00.txt"
+  },
+  {
+    "cls": "CTaskComplexPlayHandSignalAnim",
+    "fn": "CreateNextSubTask",
+    "a": 6403440,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexPlayHandSignalAnim_61B570.txt"
+  },
+  {
+    "cls": "CTaskComplexPlayHandSignalAnim",
+    "fn": "CreateFirstSubTask",
+    "a": 6403312,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexPlayHandSignalAnim_61B4F0.txt"
+  },
+  {
+    "cls": "CTaskComplexPlayHandSignalAnim",
+    "fn": "ControlSubTask",
+    "a": 6403456,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexPlayHandSignalAnim_61B580.txt"
+  },
+  {
+    "cls": "CTaskComplexSunbathe",
+    "fn": "CanSunbathe",
+    "a": 6496576,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSunbathe_632140.txt"
+  },
+  {
+    "cls": "CTaskComplexSunbathe",
+    "fn": "ShouldLoadSunbatheAnims",
+    "a": 6496656,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSunbathe_632190.txt"
+  },
+  {
+    "cls": "CTaskComplexSunbathe",
+    "fn": "CreateSubTask",
+    "a": 6521488,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSunbathe_638290.txt"
+  },
+  {
+    "cls": "CTaskComplexSunbathe",
+    "fn": "Clone",
+    "a": 6514336,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSunbathe_6366A0.txt"
+  },
+  {
+    "cls": "CTaskComplexSunbathe",
+    "fn": "GetTaskType",
+    "a": 6496320,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSunbathe_632040.txt"
+  },
+  {
+    "cls": "CTaskComplexSunbathe",
+    "fn": "MakeAbortable",
+    "a": 6496496,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSunbathe_6320F0.txt"
+  },
+  {
+    "cls": "CTaskComplexSunbathe",
+    "fn": "CreateNextSubTask",
+    "a": 6527472,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSunbathe_6399F0.txt"
+  },
+  {
+    "cls": "CTaskComplexSunbathe",
+    "fn": "CreateFirstSubTask",
+    "a": 6528176,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSunbathe_639CB0.txt"
+  },
+  {
+    "cls": "CTaskComplexSunbathe",
+    "fn": "ControlSubTask",
+    "a": 6521248,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSunbathe_6381A0.txt"
+  },
+  {
+    "cls": "CTaskComplexWanderStandard",
+    "fn": "WillChat",
+    "a": 6729424,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexWanderStandard_66AED0.txt"
+  },
+  {
+    "cls": "CTaskComplexWanderStandard",
+    "fn": "SetNextMinScanTime",
+    "a": 6729568,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexWanderStandard_66AF60.txt"
+  },
+  {
+    "cls": "CTaskComplexWanderStandard",
+    "fn": "LookForSexyCars",
+    "a": 6729680,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexWanderStandard_66AFD0.txt"
+  },
+  {
+    "cls": "CTaskComplexWanderStandard",
+    "fn": "LookForChatPartners",
+    "a": 6749600,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexWanderStandard_66FDA0.txt"
+  },
+  {
+    "cls": "CTaskComplexWanderStandard",
+    "fn": "LookForGangMembers",
+    "a": 6750464,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexWanderStandard_670100.txt"
+  },
+  {
+    "cls": "CTaskComplexWanderStandard",
+    "fn": "Clone",
+    "a": 4777264,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexWanderStandard_48E530.txt"
+  },
+  {
+    "cls": "CTaskGangHassleVehicle",
+    "fn": "GetTargetHeading",
+    "a": 6684112,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGangHassleVehicle_65FDD0.txt"
+  },
+  {
+    "cls": "CTaskGangHassleVehicle",
+    "fn": "CalcTargetOffset",
+    "a": 6701472,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGangHassleVehicle_6641A0.txt"
+  },
+  {
+    "cls": "CTaskGangHassleVehicle",
+    "fn": "Clone",
+    "a": 6683648,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGangHassleVehicle_65FC00.txt"
+  },
+  {
+    "cls": "CTaskGangHassleVehicle",
+    "fn": "CreateNextSubTask",
+    "a": 6683776,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGangHassleVehicle_65FC80.txt"
+  },
+  {
+    "cls": "CTaskGangHassleVehicle",
+    "fn": "CreateFirstSubTask",
+    "a": 6704032,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGangHassleVehicle_664BA0.txt"
+  },
+  {
+    "cls": "CTaskGangHassleVehicle",
+    "fn": "ControlSubTask",
+    "a": 6698944,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskGangHassleVehicle_6637C0.txt"
+  },
+  {
+    "cls": "CTaskComplexGangFollower",
+    "fn": "Constructor",
+    "a": 6679200,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexGangFollower_65EAA0.txt"
+  },
+  {
+    "cls": "CTaskComplexGangFollower",
+    "fn": "Destructor",
+    "a": 6679472,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexGangFollower_65EBB0.txt"
+  },
+  {
+    "cls": "CTaskComplexGangFollower",
+    "fn": "CalculateOffsetPosition",
+    "a": 6679872,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexGangFollower_65ED40.txt"
+  },
+  {
+    "cls": "CTaskComplexGangFollower",
+    "fn": "Clone",
+    "a": 6679728,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexGangFollower_65ECB0.txt"
+  },
+  {
+    "cls": "CTaskComplexGangFollower",
+    "fn": "MakeAbortable",
+    "a": 6679600,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexGangFollower_65EC30.txt"
+  },
+  {
+    "cls": "CTaskComplexGangFollower",
+    "fn": "CreateNextSubTask",
+    "a": 6708736,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexGangFollower_665E00.txt"
+  },
+  {
+    "cls": "CTaskComplexGangFollower",
+    "fn": "CreateFirstSubTask",
+    "a": 6709600,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexGangFollower_666160.txt"
+  },
+  {
+    "cls": "CTaskComplexGangFollower",
+    "fn": "ControlSubTask",
+    "a": 6695440,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexGangFollower_662A10.txt"
+  },
+  {
+    "cls": "CTaskComplexHitPedWithCar",
+    "fn": "ComputeEvasiveStepMoveDir",
+    "a": 6634304,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexHitPedWithCar_653B40.txt"
+  },
+  {
+    "cls": "CTaskComplexHitPedWithCar",
+    "fn": "HitHurtsPed",
+    "a": 6634208,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexHitPedWithCar_653AE0.txt"
+  },
+  {
+    "cls": "CTaskComplexHitPedWithCar",
+    "fn": "CreateSubTask",
+    "a": 6643936,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexHitPedWithCar_6560E0.txt"
+  },
+  {
+    "cls": "CTaskComplexHitPedWithCar",
+    "fn": "Clone",
+    "a": 6642096,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexHitPedWithCar_6559B0.txt"
+  },
+  {
+    "cls": "CTaskComplexHitPedWithCar",
+    "fn": "GetTaskType",
+    "a": 6634016,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexHitPedWithCar_653A20.txt"
+  },
+  {
+    "cls": "CTaskComplexHitPedWithCar",
+    "fn": "CreateNextSubTask",
+    "a": 6650608,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexHitPedWithCar_657AF0.txt"
+  },
+  {
+    "cls": "CTaskComplexHitPedWithCar",
+    "fn": "CreateFirstSubTask",
+    "a": 6644480,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexHitPedWithCar_656300.txt"
+  },
+  {
+    "cls": "CTaskComplexHitPedWithCar",
+    "fn": "ControlSubTask",
+    "a": 6634128,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexHitPedWithCar_653A90.txt"
+  },
+  {
+    "cls": "CTaskComplexSmartFleePoint",
+    "fn": "SetDefaultTaskWanderDir",
+    "a": 6667776,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSmartFleePoint_65BE00.txt"
+  },
+  {
+    "cls": "CTaskComplexSmartFleePoint",
+    "fn": "ComputeFleeDir",
+    "a": 6667840,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSmartFleePoint_65BE40.txt"
+  },
+  {
+    "cls": "CTaskComplexSmartFleePoint",
+    "fn": "CreateSubTask",
+    "a": 6667904,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSmartFleePoint_65BE80.txt"
+  },
+  {
+    "cls": "CTaskComplexSmartFleePoint",
+    "fn": "SetFleePosition",
+    "a": 6669248,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSmartFleePoint_65C3C0.txt"
+  },
+  {
+    "cls": "CTaskComplexSmartFleePoint",
+    "fn": "Clone",
+    "a": 6672080,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSmartFleePoint_65CED0.txt"
+  },
+  {
+    "cls": "CTaskComplexSmartFleePoint",
+    "fn": "GetTaskType",
+    "a": 6667680,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSmartFleePoint_65BDA0.txt"
+  },
+  {
+    "cls": "CTaskComplexSmartFleePoint",
+    "fn": "MakeAbortable",
+    "a": 6667712,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSmartFleePoint_65BDC0.txt"
+  },
+  {
+    "cls": "CTaskComplexSmartFleePoint",
+    "fn": "CreateNextSubTask",
+    "a": 6668480,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSmartFleePoint_65C0C0.txt"
+  },
+  {
+    "cls": "CTaskComplexSmartFleePoint",
+    "fn": "CreateFirstSubTask",
+    "a": 6668608,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSmartFleePoint_65C140.txt"
+  },
+  {
+    "cls": "CTaskComplexSmartFleePoint",
+    "fn": "ControlSubTask",
+    "a": 6668768,
+    "evidence": "reversing\\Tasks355Evidence\\CTaskComplexSmartFleePoint_65C1E0.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "CanPedJumpObstacle(contacted)",
+    "a": 6238928,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F32D0.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "CanPedTargetPoint",
+    "a": 6232944,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F1B70.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeBuildingHitPoints",
+    "a": 6233648,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F1E30.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeClearTarget",
+    "a": 6249856,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F5D80.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeClosestSurfacePoint(posn)",
+    "a": 6239984,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F36F0.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeClosestSurfacePoint(rect)",
+    "a": 6237200,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F2C10.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeEntityBoundingBoxCornersUncached",
+    "a": 6234016,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F1FA0.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeEntityBoundingBoxPlanes",
+    "a": 6239840,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F3660.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeEntityBoundingBoxSegmentPlanesUncached",
+    "a": 6231888,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F1750.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeEntityBoundingSphere",
+    "a": 6241312,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F3C20.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeMoveDirToAvoidEntity",
+    "a": 6240048,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F3730.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeEntityDirs",
+    "a": 6231296,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F1500.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeEntityHitSide(1)",
+    "a": 6241216,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F3BC0.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeEntityHitSide(2)",
+    "a": 6231120,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F1450.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeEntityHitSide(3)",
+    "a": 6240960,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F3AC0.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputePedHitSide(physical)",
+    "a": 6239808,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F3640.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputePedHitSide(posn)",
+    "a": 6233712,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F1E70.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputePedShotSide",
+    "a": 6231024,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F13F0.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeRouteRoundEntityBoundingBox(1)",
+    "a": 6250768,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F6110.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeRouteRoundEntityBoundingBox(2)",
+    "a": 6241744,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F3DD0.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "ComputeRouteRoundSphere",
+    "a": 6232208,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F1890.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "GetIsLineOfSightClear(ped)",
+    "a": 6249008,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F5A30.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "GetIsLineOfSightClear(v3d)",
+    "a": 6237952,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F2F00.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "GetNearestPed",
+    "a": 6239632,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F3590.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "IsEntityBlockingTarget",
+    "a": 6240624,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F3970.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "IsInAir",
+    "a": 6233264,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F1CB0.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "IsWanderPathClear",
+    "a": 6238064,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F2F70.txt"
+  },
+  {
+    "cls": "CPedGeometryAnalyser",
+    "fn": "LiesInsideBoundingBox",
+    "a": 6240384,
+    "evidence": "reversing\\Tasks355Evidence\\CPedGeometryAnalyser_5F3880.txt"
+  }
+]

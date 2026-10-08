@@ -1,0 +1,604 @@
+// CAERadioTrackManager::StopRadio @ 0x004e9820 [0x4e9820..0x4e9d8a]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004e9820(int param_1,char param_2)
+
+{
+  char *pcVar1;
+  int iVar2;
+  char cVar3;
+  char *in_ECX;
+  
+  iVar2 = *(int *)(in_ECX + 0x68);
+  if (((iVar2 == 0) || (iVar2 == 1)) || (iVar2 == 2)) {
+    if (((DAT_00b7cb49 == '\0') && (DAT_00b7cb48 == '\0')) || (param_2 != '\0')) {
+      in_ECX[0x68] = '\x03';
+      in_ECX[0x69] = '\0';
+      in_ECX[0x6a] = '\0';
+      in_ECX[0x6b] = '\0';
+    }
+    pcVar1 = in_ECX + in_ECX[0xe9] * 0x2c + 0x100;
+    pcVar1[0] = '\0';
+    pcVar1[1] = '\0';
+    pcVar1[2] = '\0';
+    pcVar1[3] = '\0';
+    pcVar1 = in_ECX + in_ECX[0xe9] * 0x2c + 0x114;
+    pcVar1[0] = -1;
+    pcVar1[1] = -1;
+    pcVar1[2] = -1;
+    pcVar1[3] = -1;
+    pcVar1 = in_ECX + in_ECX[0xe9] * 0x2c + 0x118;
+    pcVar1[0] = -1;
+    pcVar1[1] = -1;
+    pcVar1[2] = -1;
+    pcVar1[3] = -1;
+    in_ECX[in_ECX[0xe9] * 0x2c + 0x124] = '\x06';
+    pcVar1 = in_ECX + in_ECX[0xe9] * 0x2c + 0x104;
+    pcVar1[0] = '\0';
+    pcVar1[1] = '\0';
+    pcVar1[2] = '\0';
+    pcVar1[3] = '\0';
+    pcVar1 = in_ECX + in_ECX[0xe9] * 0x2c + 0x114;
+    pcVar1[0] = -1;
+    pcVar1[1] = -1;
+    pcVar1[2] = -1;
+    pcVar1[3] = -1;
+    pcVar1 = in_ECX + in_ECX[0xe9] * 0x2c + 0x11c;
+    pcVar1[0] = -1;
+    pcVar1[1] = -1;
+    pcVar1[2] = -1;
+    pcVar1[3] = -1;
+    in_ECX[in_ECX[0xe9] * 0x2c + 0x125] = '\x06';
+    pcVar1 = in_ECX + (in_ECX[0xe9] + 6) * 0x2c;
+    pcVar1[0] = '\0';
+    pcVar1[1] = '\0';
+    pcVar1[2] = '\0';
+    pcVar1[3] = '\0';
+    pcVar1 = in_ECX + in_ECX[0xe9] * 0x2c + 0x114;
+    pcVar1[0] = -1;
+    pcVar1[1] = -1;
+    pcVar1[2] = -1;
+    pcVar1[3] = -1;
+    pcVar1 = in_ECX + in_ECX[0xe9] * 0x2c + 0x120;
+    pcVar1[0] = -1;
+    pcVar1[1] = -1;
+    pcVar1[2] = -1;
+    pcVar1[3] = -1;
+    in_ECX[in_ECX[0xe9] * 0x2c + 0x126] = '\x06';
+    *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x110) = DAT_00b7cb84;
+    in_ECX[in_ECX[0xe9] * 0x2c + 0x127] = DAT_00b70154;
+    in_ECX[in_ECX[0xe9] * 0x2c + 0x128] = DAT_00b70153;
+    cVar3 = in_ECX[0xe9];
+    if (((-1 < *(int *)(in_ECX + cVar3 * 0x2c + 0x10c)) && (cVar3 != '\0')) && (cVar3 != '\r')) {
+      *(int *)(in_ECX + cVar3 * 4 + 0x18) =
+           *(int *)(in_ECX + cVar3 * 4 + 0x18) +
+           (DAT_00b7cb7c - *(int *)(in_ECX + cVar3 * 0x2c + 0x10c));
+    }
+    if (in_ECX[0xe9] == '\r') {
+      in_ECX[0x33c] = '\0';
+      in_ECX[0x33d] = '\0';
+      in_ECX[0x33e] = '\0';
+      in_ECX[0x33f] = '\0';
+    }
+    else {
+      *(int *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x100) =
+           (*(int *)(in_ECX + 0xe4) - *(int *)(in_ECX + 0xe0)) + -100;
+      switch(in_ECX[0xf5]) {
+      case '\0':
+      case '\x01':
+      case '\x02':
+      case '\x05':
+        *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x114) = *(undefined4 *)(in_ECX + 0xe0);
+        *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x118) = *(undefined4 *)(in_ECX + 0xd8);
+        in_ECX[in_ECX[0xe9] * 0x2c + 0x124] = in_ECX[0xf5];
+        break;
+      case '\x03':
+        if (in_ECX[0xe9] == '\v') {
+          *(undefined4 *)(in_ECX + 0x2e8) = *(undefined4 *)(&DAT_008cad50 + in_ECX[0xf7] * 4);
+        }
+        else {
+          pcVar1 = in_ECX + in_ECX[0xe9] * 0x2c + 0x104;
+          pcVar1[0] = -0x10;
+          pcVar1[1] = 'I';
+          pcVar1[2] = '\x02';
+          pcVar1[3] = '\0';
+        }
+        pcVar1 = in_ECX + (in_ECX[0xe9] + 6) * 0x2c;
+        pcVar1[0] = -0x78;
+        pcVar1[1] = '\x13';
+        pcVar1[2] = '\0';
+        pcVar1[3] = '\0';
+        *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x114) = *(undefined4 *)(in_ECX + 0xe0);
+        if (*(int *)(in_ECX + 0xc4) == *(int *)(in_ECX + 0xd8)) {
+          *(int *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x118) = *(int *)(in_ECX + 0xc4);
+          in_ECX[in_ECX[0xe9] * 0x2c + 0x124] = in_ECX[0xf0];
+          *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x11c) = *(undefined4 *)(in_ECX + 200);
+          in_ECX[in_ECX[0xe9] * 0x2c + 0x125] = in_ECX[0xf1];
+          *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x120) = *(undefined4 *)(in_ECX + 0xcc);
+          in_ECX[in_ECX[0xe9] * 0x2c + 0x126] = in_ECX[0xf2];
+        }
+        else {
+          *(int *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x118) = *(int *)(in_ECX + 0xd8);
+          in_ECX[in_ECX[0xe9] * 0x2c + 0x124] = in_ECX[0xf5];
+          *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x11c) = *(undefined4 *)(in_ECX + 0xc4);
+          in_ECX[in_ECX[0xe9] * 0x2c + 0x125] = in_ECX[0xf0];
+          *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x120) = *(undefined4 *)(in_ECX + 200);
+          in_ECX[in_ECX[0xe9] * 0x2c + 0x126] = in_ECX[0xf1];
+        }
+        break;
+      case '\x04':
+      case '\a':
+        pcVar1 = in_ECX + in_ECX[0xe9] * 0x2c + 0x104;
+        pcVar1[0] = -0x78;
+        pcVar1[1] = '\x13';
+        pcVar1[2] = '\0';
+        pcVar1[3] = '\0';
+        *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x114) = *(undefined4 *)(in_ECX + 0xe0);
+        if (*(int *)(in_ECX + 0xc4) == *(int *)(in_ECX + 0xd8)) {
+          *(int *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x118) = *(int *)(in_ECX + 0xc4);
+          in_ECX[in_ECX[0xe9] * 0x2c + 0x124] = in_ECX[0xf0];
+          *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x11c) = *(undefined4 *)(in_ECX + 200);
+          in_ECX[in_ECX[0xe9] * 0x2c + 0x125] = in_ECX[0xf1];
+        }
+        else {
+          *(int *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x118) = *(int *)(in_ECX + 0xd8);
+          in_ECX[in_ECX[0xe9] * 0x2c + 0x124] = in_ECX[0xf5];
+          *(undefined4 *)(in_ECX + in_ECX[0xe9] * 0x2c + 0x11c) = *(undefined4 *)(in_ECX + 0xc4);
+          in_ECX[in_ECX[0xe9] * 0x2c + 0x125] = in_ECX[0xf0];
+        }
+      }
+    }
+  }
+  *in_ECX = '\0';
+  in_ECX[3] = '\0';
+  if (((DAT_00b7cb49 != '\0') || (DAT_00b7cb48 != '\0')) && (param_2 == '\0')) {
+    in_ECX[0x78] = -1;
+    in_ECX[0x79] = -1;
+    in_ECX[0x7a] = -1;
+    in_ECX[0x7b] = -1;
+    in_ECX[0x5c] = '\0';
+    in_ECX[0x5d] = '\0';
+    in_ECX[0x5e] = '\0';
+    in_ECX[0x5f] = '\0';
+  }
+  if (param_1 == 0) {
+    if (param_2 != '\0') {
+      in_ECX[0x6c] = '\0';
+      in_ECX[0x6d] = '\0';
+      in_ECX[0x6e] = '\0';
+      in_ECX[0x6f] = '\0';
+      in_ECX[0x70] = '\0';
+      in_ECX[0x71] = '\0';
+      in_ECX[0x72] = '\0';
+      in_ECX[0x73] = '\0';
+      in_ECX[6] = '\0';
+    }
+  }
+  else {
+    in_ECX[0x6c] = '\0';
+    in_ECX[0x6d] = '\0';
+    in_ECX[0x6e] = '\0';
+    in_ECX[0x6f] = '\0';
+    in_ECX[0x70] = '\0';
+    in_ECX[0x71] = '\0';
+    in_ECX[0x72] = '\0';
+    in_ECX[0x73] = '\0';
+    in_ECX[0x7c] = -1;
+    in_ECX[0x7d] = -1;
+    in_ECX[0x7e] = -1;
+    in_ECX[0x7f] = -1;
+    in_ECX[1] = '\0';
+    in_ECX[6] = '\0';
+    FUN_00506ea0(0x23,0,0x3f800000);
+    if (in_ECX[0xe9] == -1) {
+      in_ECX[0xe9] = '\r';
+    }
+    *(char *)(param_1 + 0x1a) = in_ECX[0xe9];
+    *(char *)(param_1 + 6) = in_ECX[0xea];
+    if (((*(int *)(in_ECX + 0x68) != 7) || (*in_ECX != '\0')) ||
+       ((*(int *)(in_ECX + 0x6c) != 0 || (*(int *)(in_ECX + 0x70) != 0)))) {
+      *(undefined4 *)(in_ECX + 0x58) = DAT_00b7cb84;
+      in_ECX[0x16] = DAT_00b70154;
+      in_ECX[0x17] = DAT_00b70153;
+      *(int *)(in_ECX + 0x74) = (int)in_ECX[0xe9];
+    }
+    if (in_ECX[0xe9] == '\0') {
+      cVar3 = FUN_004d9c10(1,0xd);
+      in_ECX[0xe9] = cVar3;
+      return;
+    }
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004E9820: push ebx
+004E9821: push ebp
+004E9822: push esi
+004E9823: mov esi,ecx
+004E9825: mov eax,dword ptr [esi+68h]
+004E9828: xor ebp,ebp
+004E982A: or ebx,0FFFFFFFFh
+004E982D: cmp eax,ebp
+004E982F: push edi
+004E9830: je 004E9840
+004E9832: cmp eax,1
+004E9835: je 004E9840
+004E9837: cmp eax,2
+004E983A: jne 004E9C9F
+004E9840: mov al,byte ptr ds:[00B7CB49h]
+004E9845: test al,al
+004E9847: jne 004E9852
+004E9849: mov al,byte ptr ds:[00B7CB48h]
+004E984E: test al,al
+004E9850: je 004E985A
+004E9852: mov al,byte ptr [esp+18h]
+004E9856: test al,al
+004E9858: je 004E9861
+004E985A: mov dword ptr [esi+68h],3
+ 00
+004E9861: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9868: imul eax,eax,2Ch
+004E986B: mov dword ptr [eax+esi+00000100h],ebp
+ 00
+004E9872: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9879: imul ecx,ecx,2Ch
+004E987C: mov dword ptr [ecx+esi+00000114h],ebx
+ 00
+004E9883: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E988A: imul edx,edx,2Ch
+004E988D: mov dword ptr [edx+esi+00000118h],ebx
+ 00
+004E9894: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E989B: imul eax,eax,2Ch
+004E989E: mov byte ptr [eax+esi+00000124h],6
+004E98A6: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E98AD: imul ecx,ecx,2Ch
+004E98B0: mov dword ptr [ecx+esi+00000104h],ebp
+ 00
+004E98B7: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E98BE: imul edx,edx,2Ch
+004E98C1: mov dword ptr [edx+esi+00000114h],ebx
+ 00
+004E98C8: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E98CF: imul eax,eax,2Ch
+004E98D2: mov dword ptr [eax+esi+0000011Ch],ebx
+ 00
+004E98D9: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E98E0: imul ecx,ecx,2Ch
+004E98E3: mov byte ptr [ecx+esi+00000125h],6
+004E98EB: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E98F2: add edx,6
+004E98F5: imul edx,edx,2Ch
+004E98F8: mov dword ptr [edx+esi],ebp
+004E98FB: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9902: imul eax,eax,2Ch
+004E9905: mov dword ptr [eax+esi+00000114h],ebx
+ 00
+004E990C: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9913: imul ecx,ecx,2Ch
+004E9916: mov dword ptr [ecx+esi+00000120h],ebx
+ 00
+004E991D: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E9924: imul edx,edx,2Ch
+004E9927: mov byte ptr [edx+esi+00000126h],6
+004E992F: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9936: mov ecx,dword ptr ds:[00B7CB84h]
+004E993C: imul eax,eax,2Ch
+004E993F: mov dword ptr [eax+esi+00000110h],ecx
+ 00
+004E9946: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E994D: mov al,byte ptr ds:[00B70154h]
+004E9952: imul edx,edx,2Ch
+004E9955: mov byte ptr [edx+esi+00000127h],al
+ 00
+004E995C: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9963: mov dl,byte ptr ds:[00B70153h]
+004E9969: imul ecx,ecx,2Ch
+004E996C: mov byte ptr [ecx+esi+00000128h],dl
+ 00
+004E9973: mov al,byte ptr [esi+000000E9h]
+004E9979: movsx ecx,al
+004E997C: mov edx,ecx
+004E997E: imul edx,edx,2Ch
+004E9981: mov edx,dword ptr [edx+esi+0000010Ch]
+ 00
+004E9988: cmp edx,ebp
+004E998A: jl 004E999F
+004E998C: test al,al
+004E998E: je 004E999F
+004E9990: cmp al,0Dh
+004E9992: je 004E999F
+004E9994: mov eax,dword ptr ds:[00B7CB7Ch]
+004E9999: sub eax,edx
+004E999B: add dword ptr [esi+ecx*4+18h],eax
+004E999F: mov al,byte ptr [esi+000000E9h]
+004E99A5: cmp al,0Dh
+004E99A7: jne 004E99B4
+004E99A9: mov dword ptr [esi+0000033Ch],ebp
+004E99AF: jmp 004E9C9F
+004E99B4: mov ecx,dword ptr [esi+000000E4h]
+004E99BA: mov edi,dword ptr [esi+000000E0h]
+004E99C0: movsx edx,al
+004E99C3: imul edx,edx,2Ch
+004E99C6: sub ecx,edi
+004E99C8: sub ecx,64h
+004E99CB: mov dword ptr [edx+esi+00000100h],ecx
+ 00
+004E99D2: movsx eax,byte ptr [esi+000000F5h]
+ 00
+004E99D9: cmp eax,7
+004E99DC: ja 004E9C9F
+004E99E2: jmp dword ptr [eax*4+004E9D8Ch]
+ 00
+004E99E9: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E99F0: mov ecx,dword ptr [esi+000000E0h]
+004E99F6: imul eax,eax,2Ch
+004E99F9: mov dword ptr [eax+esi+00000114h],ecx
+ 00
+004E9A00: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E9A07: mov eax,dword ptr [esi+000000D8h]
+004E9A0D: imul edx,edx,2Ch
+004E9A10: mov dword ptr [edx+esi+00000118h],eax
+ 00
+004E9A17: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9A1E: mov dl,byte ptr [esi+000000F5h]
+004E9A24: imul ecx,ecx,2Ch
+004E9A27: mov byte ptr [ecx+esi+00000124h],dl
+ 00
+004E9A2E: jmp 004E9C9F
+004E9A33: mov al,byte ptr [esi+000000E9h]
+004E9A39: cmp al,0Bh
+004E9A3B: jne 004E9A53
+004E9A3D: movsx eax,byte ptr [esi+000000F7h]
+ 00
+004E9A44: mov ecx,dword ptr [eax*4+008CAD50h]
+ 00
+004E9A4B: mov dword ptr [esi+000002E8h],ecx
+004E9A51: jmp 004E9A64
+004E9A53: movsx edx,al
+004E9A56: imul edx,edx,2Ch
+004E9A59: mov dword ptr [edx+esi+00000104h],249F0h
+004E9A64: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9A6B: add eax,6
+004E9A6E: imul eax,eax,2Ch
+004E9A71: mov dword ptr [eax+esi],1388h
+ 00
+004E9A78: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9A7F: mov edx,dword ptr [esi+000000E0h]
+004E9A85: imul ecx,ecx,2Ch
+004E9A88: mov dword ptr [ecx+esi+00000114h],edx
+ 00
+004E9A8F: mov eax,dword ptr [esi+000000D8h]
+004E9A95: mov ecx,dword ptr [esi+000000C4h]
+004E9A9B: cmp ecx,eax
+004E9A9D: jne 004E9B2C
+004E9AA3: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9AAA: imul eax,eax,2Ch
+004E9AAD: mov dword ptr [eax+esi+00000118h],ecx
+ 00
+004E9AB4: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E9ABB: mov al,byte ptr [esi+000000F0h]
+004E9AC1: imul edx,edx,2Ch
+004E9AC4: mov byte ptr [edx+esi+00000124h],al
+ 00
+004E9ACB: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9AD2: mov edx,dword ptr [esi+000000C8h]
+004E9AD8: imul ecx,ecx,2Ch
+004E9ADB: mov dword ptr [ecx+esi+0000011Ch],edx
+ 00
+004E9AE2: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9AE9: mov cl,byte ptr [esi+000000F1h]
+004E9AEF: imul eax,eax,2Ch
+004E9AF2: mov byte ptr [eax+esi+00000125h],cl
+ 00
+004E9AF9: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E9B00: mov eax,dword ptr [esi+000000CCh]
+004E9B06: imul edx,edx,2Ch
+004E9B09: mov dword ptr [edx+esi+00000120h],eax
+ 00
+004E9B10: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9B17: mov dl,byte ptr [esi+000000F2h]
+004E9B1D: imul ecx,ecx,2Ch
+004E9B20: mov byte ptr [ecx+esi+00000126h],dl
+ 00
+004E9B27: jmp 004E9C9F
+004E9B2C: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9B33: imul ecx,ecx,2Ch
+004E9B36: mov dword ptr [ecx+esi+00000118h],eax
+ 00
+004E9B3D: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E9B44: mov al,byte ptr [esi+000000F5h]
+004E9B4A: imul edx,edx,2Ch
+004E9B4D: mov byte ptr [edx+esi+00000124h],al
+ 00
+004E9B54: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9B5B: mov edx,dword ptr [esi+000000C4h]
+004E9B61: imul ecx,ecx,2Ch
+004E9B64: mov dword ptr [ecx+esi+0000011Ch],edx
+ 00
+004E9B6B: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9B72: mov cl,byte ptr [esi+000000F0h]
+004E9B78: imul eax,eax,2Ch
+004E9B7B: mov byte ptr [eax+esi+00000125h],cl
+ 00
+004E9B82: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E9B89: mov eax,dword ptr [esi+000000C8h]
+004E9B8F: imul edx,edx,2Ch
+004E9B92: mov dword ptr [edx+esi+00000120h],eax
+ 00
+004E9B99: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9BA0: mov dl,byte ptr [esi+000000F1h]
+004E9BA6: imul ecx,ecx,2Ch
+004E9BA9: mov byte ptr [ecx+esi+00000126h],dl
+ 00
+004E9BB0: jmp 004E9C9F
+004E9BB5: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9BBC: imul eax,eax,2Ch
+004E9BBF: mov dword ptr [eax+esi+00000104h],1388h
+004E9BCA: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9BD1: mov edx,dword ptr [esi+000000E0h]
+004E9BD7: imul ecx,ecx,2Ch
+004E9BDA: mov dword ptr [ecx+esi+00000114h],edx
+ 00
+004E9BE1: mov eax,dword ptr [esi+000000D8h]
+004E9BE7: mov ecx,dword ptr [esi+000000C4h]
+004E9BED: cmp ecx,eax
+004E9BEF: jne 004E9C49
+004E9BF1: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9BF8: imul eax,eax,2Ch
+004E9BFB: mov dword ptr [eax+esi+00000118h],ecx
+ 00
+004E9C02: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E9C09: mov al,byte ptr [esi+000000F0h]
+004E9C0F: imul edx,edx,2Ch
+004E9C12: mov byte ptr [edx+esi+00000124h],al
+ 00
+004E9C19: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9C20: mov edx,dword ptr [esi+000000C8h]
+004E9C26: imul ecx,ecx,2Ch
+004E9C29: mov dword ptr [ecx+esi+0000011Ch],edx
+ 00
+004E9C30: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9C37: mov cl,byte ptr [esi+000000F1h]
+004E9C3D: imul eax,eax,2Ch
+004E9C40: mov byte ptr [eax+esi+00000125h],cl
+ 00
+004E9C47: jmp 004E9C9F
+004E9C49: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E9C50: imul edx,edx,2Ch
+004E9C53: mov dword ptr [edx+esi+00000118h],eax
+ 00
+004E9C5A: movsx eax,byte ptr [esi+000000E9h]
+ 00
+004E9C61: mov cl,byte ptr [esi+000000F5h]
+004E9C67: imul eax,eax,2Ch
+004E9C6A: mov byte ptr [eax+esi+00000124h],cl
+ 00
+004E9C71: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E9C78: mov eax,dword ptr [esi+000000C4h]
+004E9C7E: imul edx,edx,2Ch
+004E9C81: mov dword ptr [edx+esi+0000011Ch],eax
+ 00
+004E9C88: movsx ecx,byte ptr [esi+000000E9h]
+ 00
+004E9C8F: mov dl,byte ptr [esi+000000F0h]
+004E9C95: imul ecx,ecx,2Ch
+004E9C98: mov byte ptr [ecx+esi+00000125h],dl
+ 00
+004E9C9F: mov byte ptr [esi],0
+004E9CA2: mov byte ptr [esi+3],0
+004E9CA6: mov al,byte ptr ds:[00B7CB49h]
+004E9CAB: test al,al
+004E9CAD: jne 004E9CB8
+004E9CAF: mov al,byte ptr ds:[00B7CB48h]
+004E9CB4: test al,al
+004E9CB6: je 004E9CC6
+004E9CB8: mov al,byte ptr [esp+18h]
+004E9CBC: test al,al
+004E9CBE: jne 004E9CC6
+004E9CC0: mov dword ptr [esi+78h],ebx
+004E9CC3: mov dword ptr [esi+5Ch],ebp
+004E9CC6: mov edi,dword ptr [esp+14h]
+004E9CCA: cmp edi,ebp
+004E9CCC: je 004E9D72
+004E9CD2: push 3F800000h
+004E9CD7: push ebp
+004E9CD8: push 23h
+004E9CDA: mov ecx,0B6BC90h
+004E9CDF: mov dword ptr [esi+6Ch],ebp
+004E9CE2: mov dword ptr [esi+70h],ebp
+004E9CE5: mov dword ptr [esi+7Ch],ebx
+004E9CE8: mov byte ptr [esi+1],0
+004E9CEC: mov byte ptr [esi+6],0
+004E9CF0: call 00506EA0
+004E9CF5: cmp byte ptr [esi+000000E9h],bl
+004E9CFB: jne 004E9D04
+004E9CFD: mov byte ptr [esi+000000E9h],0Dh
+ 0D
+004E9D04: mov al,byte ptr [esi+000000E9h]
+004E9D0A: mov byte ptr [edi+1Ah],al
+004E9D0D: mov cl,byte ptr [esi+000000EAh]
+004E9D13: mov byte ptr [edi+6],cl
+004E9D16: cmp dword ptr [esi+68h],7
+004E9D1A: jne 004E9D2B
+004E9D1C: cmp byte ptr [esi],0
+004E9D1F: jne 004E9D2B
+004E9D21: cmp dword ptr [esi+6Ch],ebp
+004E9D24: jne 004E9D2B
+004E9D26: cmp dword ptr [esi+70h],ebp
+004E9D29: je 004E9D4F
+004E9D2B: mov edx,dword ptr ds:[00B7CB84h]
+004E9D31: mov dword ptr [esi+58h],edx
+004E9D34: mov al,byte ptr ds:[00B70154h]
+004E9D39: movsx edx,byte ptr [esi+000000E9h]
+ 00
+004E9D40: mov byte ptr [esi+16h],al
+004E9D43: mov cl,byte ptr ds:[00B70153h]
+004E9D49: mov byte ptr [esi+17h],cl
+004E9D4C: mov dword ptr [esi+74h],edx
+004E9D4F: mov al,byte ptr [esi+000000E9h]
+004E9D55: test al,al
+004E9D57: jne 004E9D84
+004E9D59: push 0Dh
+004E9D5B: push 1
+004E9D5D: call 004D9C10
+004E9D62: add esp,8
+004E9D65: pop edi
+004E9D66: mov byte ptr [esi+000000E9h],al
+004E9D6C: pop esi
+004E9D6D: pop ebp
+004E9D6E: pop ebx
+004E9D6F: ret 8
+004E9D72: mov al,byte ptr [esp+18h]
+004E9D76: test al,al
+004E9D78: je 004E9D84
+004E9D7A: mov dword ptr [esi+6Ch],ebp
+004E9D7D: mov dword ptr [esi+70h],ebp
+004E9D80: mov byte ptr [esi+6],0
+004E9D84: pop edi
+004E9D85: pop esi
+004E9D86: pop ebp
+004E9D87: pop ebx
+004E9D88: ret 8

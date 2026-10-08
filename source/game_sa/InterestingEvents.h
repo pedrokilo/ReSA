@@ -57,13 +57,13 @@ public:
             uint8 m_b4 : 1;
             uint8 m_b8 : 1;
         };
-        uint8         m_nFlags{};
+        uint8         m_nFlags;
     };
     uint32            m_CurrentFrameCounter{CTimer::GetFrameCounter() - 1};
     uint32            m_nLastScanTimeUpdate{};
     float             m_fRadius{30.f};
-    CVector           m_vecCenter{};
-    CVector           vec148{};
+    CVector           m_vecCenter;
+    CVector           vec148;
     int8              m_nInterestingEvent{-1};
 
 public:
@@ -73,7 +73,7 @@ public:
     CInterestingEvents* Constructor();
 
     ~CInterestingEvents();
-    CInterestingEvents* Destructor();
+    static void Destructor();
 
     void Add(CInterestingEvents::EType type, CEntity* entity);
     void ScanForNearbyEntities();

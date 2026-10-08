@@ -1,0 +1,705 @@
+// CAERadioTrackManager::ChooseTalkRadioShow @ 0x004e8e40 [0x4e8e40..0x4e94b7]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004e8e40(void)
+
+{
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  char cVar4;
+  char *pcVar5;
+  float10 fVar6;
+  char local_20 [32];
+  
+  pcVar5 = local_20;
+  for (iVar2 = 7; iVar2 != 0; iVar2 = iVar2 + -1) {
+    pcVar5[0] = -1;
+    pcVar5[1] = -1;
+    pcVar5[2] = -1;
+    pcVar5[3] = -1;
+    pcVar5 = pcVar5 + 4;
+  }
+  pcVar5[0] = -1;
+  pcVar5[1] = -1;
+  cVar4 = '\0';
+  pcVar5[2] = -1;
+  fVar6 = (float10)FUN_00558e40(0x136);
+  if ((fVar6 == (float10)0.0) || (fVar6 = (float10)FUN_00558e40(0x137), fVar6 != (float10)0.0)) {
+    fVar6 = (float10)FUN_00558e40(0x138);
+    if (fVar6 != (float10)0.0) {
+      local_20[0] = '\x0f';
+      goto LAB_004e8eb3;
+    }
+  }
+  else {
+    local_20[0] = '\x0e';
+LAB_004e8eb3:
+    cVar4 = '\x01';
+  }
+  fVar6 = (float10)FUN_00558e40(0x139);
+  if (fVar6 == (float10)0.0) {
+    local_20[cVar4] = '\f';
+LAB_004e8f15:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float10)FUN_00558e40(0x139);
+    if ((fVar6 != (float10)0.0) && (fVar6 = (float10)FUN_00558e40(0x138), fVar6 == (float10)0.0)) {
+      local_20[cVar4] = '\r';
+      goto LAB_004e8f15;
+    }
+  }
+  fVar6 = (float10)FUN_00558e40(0x13b);
+  if ((fVar6 != (float10)0.0) && (fVar6 = (float10)FUN_00558e40(0x13c), fVar6 == (float10)0.0)) {
+    local_20[cVar4] = '\x06';
+    cVar4 = cVar4 + '\x01';
+  }
+  fVar6 = (float10)FUN_00558e40(0x12e);
+  if ((fVar6 == (float10)0.0) || (fVar6 = (float10)FUN_00558e40(0x13a), fVar6 != (float10)0.0)) {
+    fVar6 = (float10)FUN_00558e40(0x13c);
+    if ((fVar6 != (float10)0.0) && (fVar6 = (float10)FUN_00558e40(0x13d), fVar6 == (float10)0.0)) {
+      local_20[cVar4] = '\x04';
+      goto LAB_004e8ff3;
+    }
+    fVar6 = (float10)FUN_00558e40(0x13d);
+    if (fVar6 != (float10)0.0) {
+      local_20[cVar4] = '\x05';
+      goto LAB_004e8ff3;
+    }
+  }
+  else {
+    local_20[cVar4] = '\x03';
+LAB_004e8ff3:
+    cVar4 = cVar4 + '\x01';
+  }
+  fVar6 = (float10)FUN_00558e40(0x13e);
+  if (fVar6 == (float10)0.0) {
+    local_20[cVar4] = '\a';
+LAB_004e903b:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float10)FUN_00558e40(0x13e);
+    if (fVar6 != (float10)0.0) {
+      local_20[cVar4] = '\b';
+      goto LAB_004e903b;
+    }
+  }
+  fVar6 = (float10)FUN_00558e40(0x13f);
+  if (fVar6 == (float10)0.0) {
+    local_20[cVar4] = '\t';
+LAB_004e90db:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float10)FUN_00558e40(0x13f);
+    if (((fVar6 != (float10)0.0) && (fVar6 = (float10)FUN_00558e40(0x130), fVar6 == (float10)0.0))
+       && (fVar6 = (float10)FUN_00558e40(0x140), fVar6 == (float10)0.0)) {
+      local_20[cVar4] = '\n';
+      goto LAB_004e90db;
+    }
+    fVar6 = (float10)FUN_00558e40(0x140);
+    if (fVar6 != (float10)0.0) {
+      local_20[cVar4] = '\v';
+      goto LAB_004e90db;
+    }
+  }
+  fVar6 = (float10)FUN_00558e40(0x141);
+  if (fVar6 == (float10)0.0) {
+    local_20[cVar4] = '\x1b';
+LAB_004e9123:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float10)FUN_00558e40(0x141);
+    if (fVar6 != (float10)0.0) {
+      local_20[cVar4] = '\x1c';
+      goto LAB_004e9123;
+    }
+  }
+  fVar6 = (float10)FUN_00558e40(0x142);
+  if (fVar6 == (float10)0.0) {
+    local_20[cVar4] = '\x1d';
+LAB_004e916b:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float10)FUN_00558e40(0x142);
+    if (fVar6 != (float10)0.0) {
+      local_20[cVar4] = '\x1e';
+      goto LAB_004e916b;
+    }
+  }
+  fVar6 = (float10)FUN_00558e40(0x143);
+  if (fVar6 == (float10)0.0) {
+    local_20[cVar4] = '\0';
+LAB_004e91f1:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float10)FUN_00558e40(0x144);
+    if ((fVar6 != (float10)0.0) && (fVar6 = (float10)FUN_00558e40(0x145), fVar6 == (float10)0.0)) {
+      local_20[cVar4] = '\x01';
+      goto LAB_004e91f1;
+    }
+    fVar6 = (float10)FUN_00558e40(0x146);
+    if (fVar6 != (float10)0.0) {
+      local_20[cVar4] = '\x02';
+      goto LAB_004e91f1;
+    }
+  }
+  fVar6 = (float10)FUN_00558e40(0x12e);
+  if (fVar6 == (float10)0.0) {
+    local_20[cVar4] = '\x10';
+  }
+  else {
+    fVar6 = (float10)FUN_00558e40(0x12e);
+    if ((fVar6 == (float10)0.0) || (fVar6 = (float10)FUN_00558e40(0x12f), fVar6 != (float10)0.0)) {
+      fVar6 = (float10)FUN_00558e40(0x12f);
+      if ((fVar6 == (float10)0.0) || (fVar6 = (float10)FUN_00558e40(0x143), fVar6 != (float10)0.0))
+      {
+        fVar6 = (float10)FUN_00558e40(0x143);
+        if ((fVar6 == (float10)0.0) || (fVar6 = (float10)FUN_00558e40(0x130), fVar6 != (float10)0.0)
+           ) {
+          fVar6 = (float10)FUN_00558e40(0x130);
+          if ((fVar6 == (float10)0.0) ||
+             (fVar6 = (float10)FUN_00558e40(0x131), fVar6 != (float10)0.0)) {
+            fVar6 = (float10)FUN_00558e40(0x131);
+            if ((fVar6 == (float10)0.0) ||
+               (fVar6 = (float10)FUN_00558e40(0x132), fVar6 != (float10)0.0)) {
+              fVar6 = (float10)FUN_00558e40(0x132);
+              if ((fVar6 == (float10)0.0) ||
+                 (fVar6 = (float10)FUN_00558e40(0x133), fVar6 != (float10)0.0)) {
+                fVar6 = (float10)FUN_00558e40(0x133);
+                if ((fVar6 == (float10)0.0) ||
+                   (fVar6 = (float10)FUN_00558e40(0x134), fVar6 != (float10)0.0)) {
+                  fVar6 = (float10)FUN_00558e40(0x134);
+                  if ((fVar6 == (float10)0.0) ||
+                     (fVar6 = (float10)FUN_00558e40(0x135), fVar6 != (float10)0.0)) {
+                    fVar6 = (float10)FUN_00558e40(0x135);
+                    if ((fVar6 == (float10)0.0) ||
+                       (fVar6 = (float10)FUN_00558e40(0xb5), fVar6 == (float10)4.0)) {
+                      fVar6 = (float10)FUN_00558e40(0xb5);
+                      if (fVar6 != (float10)4.0) goto LAB_004e9481;
+                      local_20[cVar4] = '\x1a';
+                    }
+                    else {
+                      local_20[cVar4] = '\x19';
+                    }
+                  }
+                  else {
+                    local_20[cVar4] = '\x18';
+                  }
+                }
+                else {
+                  local_20[cVar4] = '\x17';
+                }
+              }
+              else {
+                local_20[cVar4] = '\x16';
+              }
+            }
+            else {
+              local_20[cVar4] = '\x15';
+            }
+          }
+          else {
+            local_20[cVar4] = '\x14';
+          }
+        }
+        else {
+          local_20[cVar4] = '\x13';
+        }
+      }
+      else {
+        local_20[cVar4] = '\x12';
+      }
+    }
+    else {
+      local_20[cVar4] = '\x11';
+    }
+  }
+  cVar4 = cVar4 + '\x01';
+LAB_004e9481:
+  iVar2 = cVar4 + -1;
+  do {
+    iVar1 = FUN_004d9c10(0,iVar2);
+    cVar4 = '\0';
+    if (iVar2 < 1) {
+      return;
+    }
+    iVar3 = 0;
+    while (local_20[iVar1] != (&DAT_00b62c1c)[iVar3]) {
+      cVar4 = cVar4 + '\x01';
+      iVar3 = (int)cVar4;
+      if (iVar2 <= iVar3) {
+        return;
+      }
+    }
+  } while( true );
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004E8E40: sub esp,20h
+004E8E43: push ebx
+004E8E44: push esi
+004E8E45: push edi
+004E8E46: or eax,0FFFFFFFFh
+004E8E49: mov ecx,7
+004E8E4E: lea edi,[esp+0Ch]
+004E8E52: rep stos dword ptr es:[edi]
+004E8E54: stos word ptr es:[edi]
+004E8E56: push 136h
+004E8E5B: xor bl,bl
+004E8E5D: stos byte ptr es:[edi]
+004E8E5E: call 00558E40
+004E8E63: add esp,4
+004E8E66: fcomp dword ptr ds:[00858B50h]
+004E8E6C: fnstsw ax
+004E8E6E: test ah,44h
+004E8E71: jnp 004E8E94
+004E8E73: push 137h
+004E8E78: call 00558E40
+004E8E7D: fcomp dword ptr ds:[00858B50h]
+004E8E83: add esp,4
+004E8E86: fnstsw ax
+004E8E88: test ah,44h
+004E8E8B: jp 004E8E94
+004E8E8D: mov byte ptr [esp+0Ch],0Eh
+004E8E92: jmp 004E8EB3
+004E8E94: push 138h
+004E8E99: call 00558E40
+004E8E9E: fcomp dword ptr ds:[00858B50h]
+004E8EA4: add esp,4
+004E8EA7: fnstsw ax
+004E8EA9: test ah,44h
+004E8EAC: jnp 004E8EB5
+004E8EAE: mov byte ptr [esp+0Ch],0Fh
+004E8EB3: mov bl,1
+004E8EB5: push 139h
+004E8EBA: call 00558E40
+004E8EBF: fcomp dword ptr ds:[00858B50h]
+004E8EC5: add esp,4
+004E8EC8: fnstsw ax
+004E8ECA: test ah,44h
+004E8ECD: jp 004E8ED9
+004E8ECF: movsx eax,bl
+004E8ED2: mov byte ptr [esp+eax+0Ch],0Ch
+004E8ED7: jmp 004E8F15
+004E8ED9: push 139h
+004E8EDE: call 00558E40
+004E8EE3: fcomp dword ptr ds:[00858B50h]
+004E8EE9: add esp,4
+004E8EEC: fnstsw ax
+004E8EEE: test ah,44h
+004E8EF1: jnp 004E8F17
+004E8EF3: push 138h
+004E8EF8: call 00558E40
+004E8EFD: fcomp dword ptr ds:[00858B50h]
+004E8F03: add esp,4
+004E8F06: fnstsw ax
+004E8F08: test ah,44h
+004E8F0B: jp 004E8F17
+004E8F0D: movsx ecx,bl
+004E8F10: mov byte ptr [esp+ecx+0Ch],0Dh
+004E8F15: inc bl
+004E8F17: push 13Bh
+004E8F1C: call 00558E40
+004E8F21: fcomp dword ptr ds:[00858B50h]
+004E8F27: add esp,4
+004E8F2A: fnstsw ax
+004E8F2C: test ah,44h
+004E8F2F: jnp 004E8F55
+004E8F31: push 13Ch
+004E8F36: call 00558E40
+004E8F3B: fcomp dword ptr ds:[00858B50h]
+004E8F41: add esp,4
+004E8F44: fnstsw ax
+004E8F46: test ah,44h
+004E8F49: jp 004E8F55
+004E8F4B: movsx edx,bl
+004E8F4E: mov byte ptr [esp+edx+0Ch],6
+004E8F53: inc bl
+004E8F55: push 12Eh
+004E8F5A: call 00558E40
+004E8F5F: fcomp dword ptr ds:[00858B50h]
+004E8F65: add esp,4
+004E8F68: fnstsw ax
+004E8F6A: test ah,44h
+004E8F6D: jnp 004E8F93
+004E8F6F: push 13Ah
+004E8F74: call 00558E40
+004E8F79: fcomp dword ptr ds:[00858B50h]
+004E8F7F: add esp,4
+004E8F82: fnstsw ax
+004E8F84: test ah,44h
+004E8F87: jp 004E8F93
+004E8F89: movsx eax,bl
+004E8F8C: mov byte ptr [esp+eax+0Ch],3
+004E8F91: jmp 004E8FF3
+004E8F93: push 13Ch
+004E8F98: call 00558E40
+004E8F9D: fcomp dword ptr ds:[00858B50h]
+004E8FA3: add esp,4
+004E8FA6: fnstsw ax
+004E8FA8: test ah,44h
+004E8FAB: jnp 004E8FD1
+004E8FAD: push 13Dh
+004E8FB2: call 00558E40
+004E8FB7: fcomp dword ptr ds:[00858B50h]
+004E8FBD: add esp,4
+004E8FC0: fnstsw ax
+004E8FC2: test ah,44h
+004E8FC5: jp 004E8FD1
+004E8FC7: movsx ecx,bl
+004E8FCA: mov byte ptr [esp+ecx+0Ch],4
+004E8FCF: jmp 004E8FF3
+004E8FD1: push 13Dh
+004E8FD6: call 00558E40
+004E8FDB: fcomp dword ptr ds:[00858B50h]
+004E8FE1: add esp,4
+004E8FE4: fnstsw ax
+004E8FE6: test ah,44h
+004E8FE9: jnp 004E8FF5
+004E8FEB: movsx edx,bl
+004E8FEE: mov byte ptr [esp+edx+0Ch],5
+004E8FF3: inc bl
+004E8FF5: push 13Eh
+004E8FFA: call 00558E40
+004E8FFF: fcomp dword ptr ds:[00858B50h]
+004E9005: add esp,4
+004E9008: fnstsw ax
+004E900A: test ah,44h
+004E900D: jp 004E9019
+004E900F: movsx eax,bl
+004E9012: mov byte ptr [esp+eax+0Ch],7
+004E9017: jmp 004E903B
+004E9019: push 13Eh
+004E901E: call 00558E40
+004E9023: fcomp dword ptr ds:[00858B50h]
+004E9029: add esp,4
+004E902C: fnstsw ax
+004E902E: test ah,44h
+004E9031: jnp 004E903D
+004E9033: movsx ecx,bl
+004E9036: mov byte ptr [esp+ecx+0Ch],8
+004E903B: inc bl
+004E903D: push 13Fh
+004E9042: call 00558E40
+004E9047: fcomp dword ptr ds:[00858B50h]
+004E904D: add esp,4
+004E9050: fnstsw ax
+004E9052: test ah,44h
+004E9055: jp 004E9061
+004E9057: movsx edx,bl
+004E905A: mov byte ptr [esp+edx+0Ch],9
+004E905F: jmp 004E90DB
+004E9061: push 13Fh
+004E9066: call 00558E40
+004E906B: fcomp dword ptr ds:[00858B50h]
+004E9071: add esp,4
+004E9074: fnstsw ax
+004E9076: test ah,44h
+004E9079: jnp 004E90B9
+004E907B: push 130h
+004E9080: call 00558E40
+004E9085: fcomp dword ptr ds:[00858B50h]
+004E908B: add esp,4
+004E908E: fnstsw ax
+004E9090: test ah,44h
+004E9093: jp 004E90B9
+004E9095: push 140h
+004E909A: call 00558E40
+004E909F: fcomp dword ptr ds:[00858B50h]
+004E90A5: add esp,4
+004E90A8: fnstsw ax
+004E90AA: test ah,44h
+004E90AD: jp 004E90B9
+004E90AF: movsx eax,bl
+004E90B2: mov byte ptr [esp+eax+0Ch],0Ah
+004E90B7: jmp 004E90DB
+004E90B9: push 140h
+004E90BE: call 00558E40
+004E90C3: fcomp dword ptr ds:[00858B50h]
+004E90C9: add esp,4
+004E90CC: fnstsw ax
+004E90CE: test ah,44h
+004E90D1: jnp 004E90DD
+004E90D3: movsx ecx,bl
+004E90D6: mov byte ptr [esp+ecx+0Ch],0Bh
+004E90DB: inc bl
+004E90DD: push 141h
+004E90E2: call 00558E40
+004E90E7: fcomp dword ptr ds:[00858B50h]
+004E90ED: add esp,4
+004E90F0: fnstsw ax
+004E90F2: test ah,44h
+004E90F5: jp 004E9101
+004E90F7: movsx edx,bl
+004E90FA: mov byte ptr [esp+edx+0Ch],1Bh
+004E90FF: jmp 004E9123
+004E9101: push 141h
+004E9106: call 00558E40
+004E910B: fcomp dword ptr ds:[00858B50h]
+004E9111: add esp,4
+004E9114: fnstsw ax
+004E9116: test ah,44h
+004E9119: jnp 004E9125
+004E911B: movsx eax,bl
+004E911E: mov byte ptr [esp+eax+0Ch],1Ch
+004E9123: inc bl
+004E9125: push 142h
+004E912A: call 00558E40
+004E912F: fcomp dword ptr ds:[00858B50h]
+004E9135: add esp,4
+004E9138: fnstsw ax
+004E913A: test ah,44h
+004E913D: jp 004E9149
+004E913F: movsx ecx,bl
+004E9142: mov byte ptr [esp+ecx+0Ch],1Dh
+004E9147: jmp 004E916B
+004E9149: push 142h
+004E914E: call 00558E40
+004E9153: fcomp dword ptr ds:[00858B50h]
+004E9159: add esp,4
+004E915C: fnstsw ax
+004E915E: test ah,44h
+004E9161: jnp 004E916D
+004E9163: movsx edx,bl
+004E9166: mov byte ptr [esp+edx+0Ch],1Eh
+004E916B: inc bl
+004E916D: push 143h
+004E9172: call 00558E40
+004E9177: fcomp dword ptr ds:[00858B50h]
+004E917D: add esp,4
+004E9180: fnstsw ax
+004E9182: test ah,44h
+004E9185: jp 004E9191
+004E9187: movsx eax,bl
+004E918A: mov byte ptr [esp+eax+0Ch],0
+004E918F: jmp 004E91F1
+004E9191: push 144h
+004E9196: call 00558E40
+004E919B: fcomp dword ptr ds:[00858B50h]
+004E91A1: add esp,4
+004E91A4: fnstsw ax
+004E91A6: test ah,44h
+004E91A9: jnp 004E91CF
+004E91AB: push 145h
+004E91B0: call 00558E40
+004E91B5: fcomp dword ptr ds:[00858B50h]
+004E91BB: add esp,4
+004E91BE: fnstsw ax
+004E91C0: test ah,44h
+004E91C3: jp 004E91CF
+004E91C5: movsx ecx,bl
+004E91C8: mov byte ptr [esp+ecx+0Ch],1
+004E91CD: jmp 004E91F1
+004E91CF: push 146h
+004E91D4: call 00558E40
+004E91D9: fcomp dword ptr ds:[00858B50h]
+004E91DF: add esp,4
+004E91E2: fnstsw ax
+004E91E4: test ah,44h
+004E91E7: jnp 004E91F3
+004E91E9: movsx edx,bl
+004E91EC: mov byte ptr [esp+edx+0Ch],2
+004E91F1: inc bl
+004E91F3: push 12Eh
+004E91F8: call 00558E40
+004E91FD: fcomp dword ptr ds:[00858B50h]
+004E9203: add esp,4
+004E9206: fnstsw ax
+004E9208: test ah,44h
+004E920B: jp 004E921A
+004E920D: movsx eax,bl
+004E9210: mov byte ptr [esp+eax+0Ch],10h
+004E9215: jmp 004E947F
+004E921A: push 12Eh
+004E921F: call 00558E40
+004E9224: fcomp dword ptr ds:[00858B50h]
+004E922A: add esp,4
+004E922D: fnstsw ax
+004E922F: test ah,44h
+004E9232: jnp 004E925B
+004E9234: push 12Fh
+004E9239: call 00558E40
+004E923E: fcomp dword ptr ds:[00858B50h]
+004E9244: add esp,4
+004E9247: fnstsw ax
+004E9249: test ah,44h
+004E924C: jp 004E925B
+004E924E: movsx ecx,bl
+004E9251: mov byte ptr [esp+ecx+0Ch],11h
+004E9256: jmp 004E947F
+004E925B: push 12Fh
+004E9260: call 00558E40
+004E9265: fcomp dword ptr ds:[00858B50h]
+004E926B: add esp,4
+004E926E: fnstsw ax
+004E9270: test ah,44h
+004E9273: jnp 004E929C
+004E9275: push 143h
+004E927A: call 00558E40
+004E927F: fcomp dword ptr ds:[00858B50h]
+004E9285: add esp,4
+004E9288: fnstsw ax
+004E928A: test ah,44h
+004E928D: jp 004E929C
+004E928F: movsx edx,bl
+004E9292: mov byte ptr [esp+edx+0Ch],12h
+004E9297: jmp 004E947F
+004E929C: push 143h
+004E92A1: call 00558E40
+004E92A6: fcomp dword ptr ds:[00858B50h]
+004E92AC: add esp,4
+004E92AF: fnstsw ax
+004E92B1: test ah,44h
+004E92B4: jnp 004E92DD
+004E92B6: push 130h
+004E92BB: call 00558E40
+004E92C0: fcomp dword ptr ds:[00858B50h]
+004E92C6: add esp,4
+004E92C9: fnstsw ax
+004E92CB: test ah,44h
+004E92CE: jp 004E92DD
+004E92D0: movsx eax,bl
+004E92D3: mov byte ptr [esp+eax+0Ch],13h
+004E92D8: jmp 004E947F
+004E92DD: push 130h
+004E92E2: call 00558E40
+004E92E7: fcomp dword ptr ds:[00858B50h]
+004E92ED: add esp,4
+004E92F0: fnstsw ax
+004E92F2: test ah,44h
+004E92F5: jnp 004E931E
+004E92F7: push 131h
+004E92FC: call 00558E40
+004E9301: fcomp dword ptr ds:[00858B50h]
+004E9307: add esp,4
+004E930A: fnstsw ax
+004E930C: test ah,44h
+004E930F: jp 004E931E
+004E9311: movsx ecx,bl
+004E9314: mov byte ptr [esp+ecx+0Ch],14h
+004E9319: jmp 004E947F
+004E931E: push 131h
+004E9323: call 00558E40
+004E9328: fcomp dword ptr ds:[00858B50h]
+004E932E: add esp,4
+004E9331: fnstsw ax
+004E9333: test ah,44h
+004E9336: jnp 004E935F
+004E9338: push 132h
+004E933D: call 00558E40
+004E9342: fcomp dword ptr ds:[00858B50h]
+004E9348: add esp,4
+004E934B: fnstsw ax
+004E934D: test ah,44h
+004E9350: jp 004E935F
+004E9352: movsx edx,bl
+004E9355: mov byte ptr [esp+edx+0Ch],15h
+004E935A: jmp 004E947F
+004E935F: push 132h
+004E9364: call 00558E40
+004E9369: fcomp dword ptr ds:[00858B50h]
+004E936F: add esp,4
+004E9372: fnstsw ax
+004E9374: test ah,44h
+004E9377: jnp 004E93A0
+004E9379: push 133h
+004E937E: call 00558E40
+004E9383: fcomp dword ptr ds:[00858B50h]
+004E9389: add esp,4
+004E938C: fnstsw ax
+004E938E: test ah,44h
+004E9391: jp 004E93A0
+004E9393: movsx eax,bl
+004E9396: mov byte ptr [esp+eax+0Ch],16h
+004E939B: jmp 004E947F
+004E93A0: push 133h
+004E93A5: call 00558E40
+004E93AA: fcomp dword ptr ds:[00858B50h]
+004E93B0: add esp,4
+004E93B3: fnstsw ax
+004E93B5: test ah,44h
+004E93B8: jnp 004E93E1
+004E93BA: push 134h
+004E93BF: call 00558E40
+004E93C4: fcomp dword ptr ds:[00858B50h]
+004E93CA: add esp,4
+004E93CD: fnstsw ax
+004E93CF: test ah,44h
+004E93D2: jp 004E93E1
+004E93D4: movsx ecx,bl
+004E93D7: mov byte ptr [esp+ecx+0Ch],17h
+004E93DC: jmp 004E947F
+004E93E1: push 134h
+004E93E6: call 00558E40
+004E93EB: fcomp dword ptr ds:[00858B50h]
+004E93F1: add esp,4
+004E93F4: fnstsw ax
+004E93F6: test ah,44h
+004E93F9: jnp 004E941F
+004E93FB: push 135h
+004E9400: call 00558E40
+004E9405: fcomp dword ptr ds:[00858B50h]
+004E940B: add esp,4
+004E940E: fnstsw ax
+004E9410: test ah,44h
+004E9413: jp 004E941F
+004E9415: movsx edx,bl
+004E9418: mov byte ptr [esp+edx+0Ch],18h
+004E941D: jmp 004E947F
+004E941F: push 135h
+004E9424: call 00558E40
+004E9429: fcomp dword ptr ds:[00858B50h]
+004E942F: add esp,4
+004E9432: fnstsw ax
+004E9434: test ah,44h
+004E9437: jnp 004E945D
+004E9439: push 0B5h
+004E943E: call 00558E40
+004E9443: fcomp dword ptr ds:[00858B90h]
+004E9449: add esp,4
+004E944C: fnstsw ax
+004E944E: test ah,44h
+004E9451: jnp 004E945D
+004E9453: movsx eax,bl
+004E9456: mov byte ptr [esp+eax+0Ch],19h
+004E945B: jmp 004E947F
+004E945D: push 0B5h
+004E9462: call 00558E40
+004E9467: fcomp dword ptr ds:[00858B90h]
+004E946D: add esp,4
+004E9470: fnstsw ax
+004E9472: test ah,44h
+004E9475: jp 004E9481
+004E9477: movsx ecx,bl
+004E947A: mov byte ptr [esp+ecx+0Ch],1Ah
+004E947F: inc bl
+004E9481: movsx eax,bl
+004E9484: lea esi,[eax-1]
+004E9487: push esi
+004E9488: push 0
+004E948A: call 004D9C10
+004E948F: mov al,byte ptr [esp+eax+14h]
+004E9493: add esp,8
+004E9496: xor dl,dl
+004E9498: test esi,esi
+004E949A: jle 004E94B1
+004E949C: xor ecx,ecx
+004E949E: mov edi,edi
+004E94A0: cmp al,byte ptr [ecx+00B62C1Ch]
+004E94A6: je 004E9487
+004E94A8: inc dl
+004E94AA: movsx ecx,dl
+004E94AD: cmp ecx,esi
+004E94AF: jl 004E94A0
+004E94B1: pop edi
+004E94B2: pop esi
+004E94B3: pop ebx
+004E94B4: add esp,20h
+004E94B7: ret

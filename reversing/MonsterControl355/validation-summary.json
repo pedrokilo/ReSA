@@ -1,0 +1,120 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CMonsterTruck::ExtendSuspension": 1024,
+    "CMonsterTruck::ResetSuspension": 1024,
+    "CMonsterTruck::ProcessControl": 1024,
+    "CMonsterTruck::ProcessControlCollisionCheck": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "876349aa332db2176ec00c76ae234bab746f339ad9199add05adc6b64c40665d",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-monster-control355\\20261008-024202-737146",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CMonsterTruck::ExtendSuspension": true,
+    "CMonsterTruck::ResetSuspension": true,
+    "CMonsterTruck::ProcessControl": true,
+    "CMonsterTruck::ProcessControlCollisionCheck": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "6be0062f060f9ce86ebad80a12f61c79113e0f9f198a7660324173ef43b91161",
+      "pdb": "e4c50bb35bdda4091041333bd177783f1045933415237e9cbcbbbe7e6855148e"
+    },
+    "sources": {
+      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+      "source/game_sa/Collision/ColDisk.h": "8666a5d9db9398e1450355de5ba7d2e4bc8a6f04bd682835fa21e634ff29f378",
+      "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
+      "source/game_sa/Collision/ColPoint.h": "cc2bfb8434c6f47ee61c92179823459d8e2d2739b35bf275485f1f305c6b4139",
+      "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
+      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+      "source/game_sa/Core/Vector2D.cpp": "4c38d5243ea3a0f455eea66e66edb92bffbb7b22dfb5a8d17858b2769811220d",
+      "source/game_sa/Entity/Physical.cpp": "da7b76cef731cd27334346d8623899218ead1fefc4ad97f8dc99df0c60b73678",
+      "source/game_sa/Entity/Physical.h": "3dc44efcc999a3ff8974e1a3da78963d0dfb00f3e9d3ee07d026efc01e275052",
+      "source/game_sa/Entity/Vehicle/Automobile.cpp": "8339c1f562afcd4a7b1bd86072ecc4dbc9e684cd73ebf3f559d2b683424c88cc",
+      "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
+      "source/game_sa/Entity/Vehicle/MonsterTruck.cpp": "5db8ac652aba2cc692dfabcc38cfa1a9132afc6ca3abeb6e1b2b2f1855637ab0",
+      "source/game_sa/Entity/Vehicle/MonsterTruck.h": "17d298117fc2c4077c0a5a26dd6cb5b5199f3be1d5b17227feae005f2cd59946",
+      "source/game_sa/General.cpp": "808742b15646ca279418ead9bff4e959207bebeb304f5a6918ae5bfdccd0d007",
+      "source/game_sa/MemoryMgr.cpp": "1d41f5a00f5cc9e2cf48d61092041ea8c68fd517450d5afe514852fb8aa01e71",
+      "source/game_sa/Models/VehicleModelInfo.cpp": "285653ae78a97161446a703e2a6a80475790de6636ed8b4a93fc2636914c3ef0",
+      "source/game_sa/Scripts/RunningScript.cpp": "97e154de676b6e7ed93ea2c5371b2760b830831f6e7f8150a4af2ed14e7a19e4",
+      "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132",
+      "source/game_sa/ShotInfo.cpp": "b0669f3fba9183fc8a0b71f7aa09061462909111888f776a84899a75016a7162",
+      "source/game_sa/Tasks/PedScriptedTaskRecord.cpp": "01d552a0bd2d3fd3e67d9621e2f323763338217f49498d42a04a93c0666e53a4",
+      "source/game_sa/Tasks/TaskComplexSequence.cpp": "3497ea85aebba258669ea20dbd06fd3628f1e443bca554bfbdd257f1984d5df5",
+      "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+      "source/game_sa/Tasks/TaskSequences.h": "d5bd3ed94c21607e341346f00d229f7d7f4f5cbb6e0765294fa679cb8e593466",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleAffectSecondaryBehaviour.cpp": "a4cd5f29b51455bf526c9dd70ad05a7e8ccd2e31bdff8d7e68b4cc107507deed",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.h": "1ff7839029e64a876a39800df123f7dd0dc4a31c467db1b91f461ba2dc538026",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp": "2cb8a345829c6ee27294197cb07269c99c9c8210b67b96ab61945c88f1c1a73e",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleNone.h": "0040a9400cfbcabce567ff15c642ea59f577e1fad041b9a1afcc71d37396c682",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/tHandlingData.h": "ea37455813b823f871ec95d5d9a796246b66e91be7241a2858caf7731ad08105"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "../ScriptLocateChar355/run_local.py": "5c4da3652cdbb4ac3029f3d05f2f7cd142eea2c07ad99d61733ce4ce9851948a",
+      "../MonsterSetup355/LiveComparison.hpp": "be41642a7ea44f0d91295e04fba14d92388a96f1fe7d21a789a3cc3ae31f462c",
+      "../MonsterSuspension355/build_probe.py": "80b6617d5f05b953652c01d6edaa3c10449faf543872044d82519d7f96dec833",
+      "../ScriptPickup355/run_local.py": "b5df759a6abac07d7c9316d4d9987c33b6d6706113e2e4be5b1e0255c57d4749",
+      "build_probe.py": "7a135f13143b0c6ab5d2b025ad8a41f0c886d96014e5afda8efdd5a8f49e2bbd",
+      "../ScriptAngled355/run_local.py": "1f4f37c94fa33b0a2ad3835afb49b4475496536ce91a09987ff898a7c2c6d9fe",
+      "../MonsterSetup355/build_probe.py": "877edcebdb29cd5dee8176414db669196772c812e4bd89617eb1038e55959108",
+      "../probe_case.py": "6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8",
+      "../ScriptArea355/build_probe.py": "e50594ffdeb34ff1ac5464312c6b31e232534b5a7c29d28e4b3fdb0c6db80bd8",
+      "run_local.py": "78d60f5e12f327aeb5d7b9b71a557e36d8daa6e6c1f0bc9f1d25b4d14183131f",
+      "../ScriptLocateChar355/build_probe.py": "fc9876e82dc325cc0ca353410217f2950f9cb87cb67965a011a47e3446d070aa",
+      "../ScriptLocate355/LiveComparison.hpp": "f7973f9bd173d2637638145731939a132c7f85222e76a8b7101b92a9d73e9430",
+      "../ScriptAngled355/build_probe.py": "39eecb623e12b0a0f027b813ba183b61246bbbbd8c7d66be4cb873e3e002a7b9",
+      "../ScriptPickup355/LiveComparison.hpp": "bb586c246545b77cae2634a706e785d12dc9604d8adc542cd50d220ff3ee7c0a",
+      "../probe_build.py": "8e76d4a04b26c055f1d7259246abdbf4f8e56eed372a13171b483327e1c03633",
+      "../ScriptLocateChar355/LiveComparison.hpp": "1e7479a0dd1ae87a1555a67f4edba45440e2e03c55c96b79d8a950a7c7a01cf1",
+      "../ScriptPickup355/build_probe.py": "11cc6e6473418a8c50b885942aa41519b856fa541d95221e84e43763757ad3e8",
+      "../ScriptArea355/LiveComparison.hpp": "51192040b7516dc5f40fe9827159e7a1cdcdeaeaa55ac99c572831daa95c3bd1",
+      "../MonsterSuspension355/LiveComparison.hpp": "177f8588fe2053b564bc01b1bd0e67d58ea12c935fb697c9f5dacaf080c12fc6",
+      "../MonsterSuspension355/run_local.py": "54e847dd6c7a294636d9db74450d95bd5695a2608a6150ad5803165a14519372",
+      "../ScriptLocate355/build_probe.py": "f87b7df6efb4f172b1312b529aaab55810128decefd4d85f97d8211522d12f56",
+      "../ScriptArea355/run_local.py": "a24af905ad7a50f3daa2444b0f1e516ff1458e42074540f5eb0150464f40ae94",
+      "../ScriptLocate355/run_local.py": "a859d774487c0b0629dcf1961c4a82928c44ecacf438986a9201c9bb80e625f6",
+      "../Pending355/batch_probe.py": "8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6",
+      "../ScriptAngled355/LiveComparison.hpp": "50736d82b7f4bc1dc895f2a4d8cfacb9071972a2e4f7d6652d739c1a3cdd249f",
+      "../runtime_runner.py": "8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536",
+      "../Pending355/batches/a470befb61ba/LiveComparison.hpp": "1fef35bacd73772431c853a2084a808f8af4a129e138e83d61a74ea05d7cddb6",
+      "../probe_summary.py": "28224064c276ed8fd6ffd450db22e3ec782a6e068fdb275f270bb7ef49a6f072",
+      "../ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "../MonsterSetup355/run_local.py": "faa75d8f8cda8848e1430c4cf85ecd05f3afb61825ed24a901273c93ef9f3950",
+      "LiveComparison.hpp": "f549f48ae0d46642b17105fbd70a4c25d65821330649b972405fd5e77933301f"
+    },
+    "batch_driver": "reversing/Pending355/batches/a470befb61ba/LiveComparison.hpp",
+    "batch_banks": [
+      "ScriptLocate355",
+      "ScriptLocateChar355",
+      "ScriptArea355",
+      "ScriptPickup355",
+      "ScriptAngled355",
+      "MonsterControl355",
+      "MonsterSetup355",
+      "MonsterSuspension355"
+    ]
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"../probe_case.py\", \"tested_sha256\": \"6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8\", \"current_sha256\": \"61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44\"}, {\"path\": \"run_local.py\", \"tested_sha256\": \"78d60f5e12f327aeb5d7b9b71a557e36d8daa6e6c1f0bc9f1d25b4d14183131f\", \"current_sha256\": \"9eb3190cfe9b401c067eb0eb96e00b10f9c599f87673924ab59c96a5e4557d8d\"}, {\"path\": \"../ScriptLocateChar355/LiveComparison.hpp\", \"tested_sha256\": \"1e7479a0dd1ae87a1555a67f4edba45440e2e03c55c96b79d8a950a7c7a01cf1\", \"current_sha256\": \"9d5ac09e163e4b167aed6bcc42fb862208d13672e14b7c27e3cd6a7168ce52c4\"}, {\"path\": \"../ScriptArea355/LiveComparison.hpp\", \"tested_sha256\": \"51192040b7516dc5f40fe9827159e7a1cdcdeaeaa55ac99c572831daa95c3bd1\", \"current_sha256\": \"c2c79e030403c48a39b0cb1ad6a7db5a66239388a0502ed11e467599471c07d1\"}, {\"path\": \"../MonsterSuspension355/run_local.py\", \"tested_sha256\": \"54e847dd6c7a294636d9db74450d95bd5695a2608a6150ad5803165a14519372\", \"current_sha256\": \"6afb908e0786d13dcc024cadb440c720602d91c1b006877f98ff6eaa7a3c97a7\"}, {\"path\": \"../Pending355/batch_probe.py\", \"tested_sha256\": \"8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6\", \"current_sha256\": \"23153f67f0c83b82850b212c353aae655549c060fa1926e1c1a62ba526c23998\"}, {\"path\": \"../runtime_runner.py\", \"tested_sha256\": \"8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536\", \"current_sha256\": \"e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c\"}, {\"path\": \"../MonsterSetup355/run_local.py\", \"tested_sha256\": \"faa75d8f8cda8848e1430c4cf85ecd05f3afb61825ed24a901273c93ef9f3950\", \"current_sha256\": \"35907241826a53cf0207dcbd68f74291b58ad30bf1541a669fdb6482fb073ed2\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

@@ -1,0 +1,312 @@
+// CTaskComplexWanderStandard::LookForSexyCars @ 0x0066afd0 [0x66afd0..0x66b14c]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_0066afd0(int param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  float fVar4;
+  float fVar5;
+  float fVar6;
+  char cVar7;
+  float *pfVar8;
+  int iVar9;
+  float *pfVar10;
+  undefined1 local_1c [16];
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_008450b8;
+  local_c = ExceptionList;
+  pfVar10 = (float *)(*(int *)(param_1 + 0x14) + 0x30);
+  if (*(int *)(param_1 + 0x14) == 0) {
+    pfVar10 = (float *)(param_1 + 4);
+  }
+  iVar1 = *(int *)(param_1 + 0x47c);
+  iVar9 = 0;
+  ExceptionList = &local_c;
+  do {
+    iVar2 = *(int *)(iVar1 + 0xe0 + iVar9 * 4);
+    iVar9 = iVar9 + 1;
+    if ((((iVar2 != 0) && (iVar2 != *(int *)(param_1 + 0x58c))) &&
+        (40000 < *(uint *)(*(int *)(iVar2 + 900) + 0xd8))) && (500.0 < *(float *)(iVar2 + 0x4c0))) {
+      pfVar8 = (float *)(*(int *)(iVar2 + 0x14) + 0x30);
+      if (*(int *)(iVar2 + 0x14) == 0) {
+        pfVar8 = (float *)(iVar2 + 4);
+      }
+      fVar4 = *pfVar8 - *pfVar10;
+      fVar5 = pfVar8[1] - pfVar10[1];
+      fVar6 = pfVar8[2] - pfVar10[2];
+      if (((fVar4 * fVar4 + fVar5 * fVar5 + fVar6 * fVar6 < 25.0) &&
+          (iVar3 = *(int *)(param_1 + 0x14),
+          0.0 < fVar4 * *(float *)(iVar3 + 0x10) +
+                fVar5 * *(float *)(iVar3 + 0x14) + fVar6 * *(float *)(iVar3 + 0x18))) &&
+         (cVar7 = FUN_0056a490(pfVar10,pfVar8,1,0,0,1,0,0,0), cVar7 != '\0')) {
+        FUN_004af010(iVar2);
+        local_4 = 0;
+        FUN_004ab420(local_1c,0);
+        FUN_0066af60(param_1);
+        local_4 = 0xffffffff;
+        FUN_004af0a0();
+        ExceptionList = local_c;
+        return 1;
+      }
+    }
+    if (0xf < iVar9) {
+      ExceptionList = local_c;
+      return 0;
+    }
+  } while( true );
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0066AFD0: push 0FFFFFFFFh
+0066AFD2: push 8450B8h
+0066AFD7: mov eax,dword ptr fs:[00000000h]
+0066AFDD: push eax
+0066AFDE: mov dword ptr fs:[00000000h],esp
+ 00
+0066AFE5: sub esp,14h
+0066AFE8: push ebx
+0066AFE9: push ebp
+0066AFEA: push esi
+0066AFEB: push edi
+0066AFEC: mov edi,dword ptr [esp+34h]
+0066AFF0: mov eax,dword ptr [edi+14h]
+0066AFF3: test eax,eax
+0066AFF5: mov dword ptr [esp+10h],ecx
+0066AFF9: lea ebp,[eax+30h]
+0066AFFC: jne 0066B001
+0066AFFE: lea ebp,[edi+4]
+0066B001: mov eax,dword ptr [edi+0000047Ch]
+0066B007: mov dword ptr [esp+34h],eax
+0066B00B: xor ebx,ebx
+0066B00D: lea ecx,[ecx]
+0066B010: mov ecx,dword ptr [esp+34h]
+0066B014: mov esi,dword ptr [ecx+ebx*4+000000E0h]
+ 00
+0066B01B: inc ebx
+0066B01C: test esi,esi
+0066B01E: je 0066B12D
+0066B024: cmp esi,dword ptr [edi+0000058Ch]
+0066B02A: je 0066B12D
+0066B030: mov edx,dword ptr [esi+00000384h]
+0066B036: cmp dword ptr [edx+000000D8h],9C40h
+0066B040: jbe 0066B12D
+0066B046: fld dword ptr [esi+000004C0h]
+0066B04C: fcomp dword ptr ds:[00858B58h]
+0066B052: fnstsw ax
+0066B054: test ah,41h
+0066B057: jne 0066B12D
+0066B05D: mov eax,dword ptr [esi+14h]
+0066B060: test eax,eax
+0066B062: lea ecx,[eax+30h]
+0066B065: jne 0066B06A
+0066B067: lea ecx,[esi+4]
+0066B06A: fld dword ptr [ecx]
+0066B06C: fsub dword ptr [ebp]
+0066B06F: fld dword ptr [ecx+4]
+0066B072: fsub dword ptr [ebp+4]
+0066B075: fld dword ptr [ecx+8]
+0066B078: fsub dword ptr [ebp+8]
+0066B07B: fld st(0)
+0066B07D: fmul st,st(1)
+0066B07F: fld st(2)
+0066B081: fmul st,st(3)
+0066B083: faddp st(1),st
+0066B085: fld st(3)
+0066B087: fmul st,st(4)
+0066B089: faddp st(1),st
+0066B08B: fld dword ptr ds:[0086FCD8h]
+0066B091: fmul dword ptr ds:[0086FCD8h]
+0066B097: fcompp
+0066B099: fnstsw ax
+0066B09B: test ah,41h
+0066B09E: jne 0066B127
+0066B0A4: mov eax,dword ptr [edi+14h]
+0066B0A7: fmul dword ptr [eax+18h]
+0066B0AA: fxch st(1)
+0066B0AC: fmul dword ptr [eax+14h]
+0066B0AF: faddp st(1),st
+0066B0B1: fxch st(1)
+0066B0B3: fmul dword ptr [eax+10h]
+0066B0B6: faddp st(1),st
+0066B0B8: fcomp dword ptr ds:[00858B50h]
+0066B0BE: fnstsw ax
+0066B0C0: test ah,41h
+0066B0C3: jne 0066B12D
+0066B0C5: push 0
+0066B0C7: push 0
+0066B0C9: push 0
+0066B0CB: push 1
+0066B0CD: push 0
+0066B0CF: push 0
+0066B0D1: push 1
+0066B0D3: push ecx
+0066B0D4: push ebp
+0066B0D5: call 0056A490
+0066B0DA: add esp,24h
+0066B0DD: test al,al
+0066B0DF: je 0066B12D
+0066B0E1: push esi
+0066B0E2: lea ecx,[esp+18h]
+0066B0E6: call 004AF010
+0066B0EB: mov eax,dword ptr [edi+0000047Ch]
+0066B0F1: push 0
+0066B0F3: lea ecx,[esp+18h]
+0066B0F7: push ecx
+0066B0F8: lea ecx,[eax+68h]
+0066B0FB: mov dword ptr [esp+34h],0
+0066B103: call 004AB420
+0066B108: mov ecx,dword ptr [esp+10h]
+0066B10C: push edi
+0066B10D: call 0066AF60
+0066B112: lea ecx,[esp+14h]
+0066B116: mov dword ptr [esp+2Ch],0FFFFFFFFh
+0066B11E: call 004AF0A0
+0066B123: mov al,1
+0066B125: jmp 0066B138
+0066B127: fstp st(0)
+0066B129: fstp st(0)
+0066B12B: fstp st(0)
+0066B12D: cmp ebx,10h
+0066B130: jl 0066B010
+0066B136: xor al,al
+0066B138: mov ecx,dword ptr [esp+24h]
+0066B13C: pop edi
+0066B13D: pop esi
+0066B13E: pop ebp
+0066B13F: pop ebx
+0066B140: mov dword ptr fs:[00000000h],ecx
+ 00
+0066B147: add esp,20h
+0066B14A: ret 4
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x66AFD0, 0x66B14C) ====
+0066AFD0: push 0FFFFFFFFh
+0066AFD2: push 8450B8h
+0066AFD7: mov eax,dword ptr fs:[00000000h]
+0066AFDD: push eax
+0066AFDE: mov dword ptr fs:[00000000h],esp
+ 00
+0066AFE5: sub esp,14h
+0066AFE8: push ebx
+0066AFE9: push ebp
+0066AFEA: push esi
+0066AFEB: push edi
+0066AFEC: mov edi,dword ptr [esp+34h]
+0066AFF0: mov eax,dword ptr [edi+14h]
+0066AFF3: test eax,eax
+0066AFF5: mov dword ptr [esp+10h],ecx
+0066AFF9: lea ebp,[eax+30h]
+0066AFFC: jne 0066B001
+0066AFFE: lea ebp,[edi+4]
+0066B001: mov eax,dword ptr [edi+0000047Ch]
+0066B007: mov dword ptr [esp+34h],eax
+0066B00B: xor ebx,ebx
+0066B00D: lea ecx,[ecx]
+0066B010: mov ecx,dword ptr [esp+34h]
+0066B014: mov esi,dword ptr [ecx+ebx*4+000000E0h]
+ 00
+0066B01B: inc ebx
+0066B01C: test esi,esi
+0066B01E: je 0066B12D
+0066B024: cmp esi,dword ptr [edi+0000058Ch]
+0066B02A: je 0066B12D
+0066B030: mov edx,dword ptr [esi+00000384h]
+0066B036: cmp dword ptr [edx+000000D8h],9C40h
+0066B040: jbe 0066B12D
+0066B046: fld dword ptr [esi+000004C0h]
+0066B04C: fcomp dword ptr ds:[00858B58h]
+0066B052: fnstsw ax
+0066B054: test ah,41h
+0066B057: jne 0066B12D
+0066B05D: mov eax,dword ptr [esi+14h]
+0066B060: test eax,eax
+0066B062: lea ecx,[eax+30h]
+0066B065: jne 0066B06A
+0066B067: lea ecx,[esi+4]
+0066B06A: fld dword ptr [ecx]
+0066B06C: fsub dword ptr [ebp]
+0066B06F: fld dword ptr [ecx+4]
+0066B072: fsub dword ptr [ebp+4]
+0066B075: fld dword ptr [ecx+8]
+0066B078: fsub dword ptr [ebp+8]
+0066B07B: fld st(0)
+0066B07D: fmul st,st(1)
+0066B07F: fld st(2)
+0066B081: fmul st,st(3)
+0066B083: faddp st(1),st
+0066B085: fld st(3)
+0066B087: fmul st,st(4)
+0066B089: faddp st(1),st
+0066B08B: fld dword ptr ds:[0086FCD8h]
+0066B091: fmul dword ptr ds:[0086FCD8h]
+0066B097: fcompp
+0066B099: fnstsw ax
+0066B09B: test ah,41h
+0066B09E: jne 0066B127
+0066B0A4: mov eax,dword ptr [edi+14h]
+0066B0A7: fmul dword ptr [eax+18h]
+0066B0AA: fxch st(1)
+0066B0AC: fmul dword ptr [eax+14h]
+0066B0AF: faddp st(1),st
+0066B0B1: fxch st(1)
+0066B0B3: fmul dword ptr [eax+10h]
+0066B0B6: faddp st(1),st
+0066B0B8: fcomp dword ptr ds:[00858B50h]
+0066B0BE: fnstsw ax
+0066B0C0: test ah,41h
+0066B0C3: jne 0066B12D
+0066B0C5: push 0
+0066B0C7: push 0
+0066B0C9: push 0
+0066B0CB: push 1
+0066B0CD: push 0
+0066B0CF: push 0
+0066B0D1: push 1
+0066B0D3: push ecx
+0066B0D4: push ebp
+0066B0D5: call 0056A490
+0066B0DA: add esp,24h
+0066B0DD: test al,al
+0066B0DF: je 0066B12D
+0066B0E1: push esi
+0066B0E2: lea ecx,[esp+18h]
+0066B0E6: call 004AF010
+0066B0EB: mov eax,dword ptr [edi+0000047Ch]
+0066B0F1: push 0
+0066B0F3: lea ecx,[esp+18h]
+0066B0F7: push ecx
+0066B0F8: lea ecx,[eax+68h]
+0066B0FB: mov dword ptr [esp+34h],0
+0066B103: call 004AB420
+0066B108: mov ecx,dword ptr [esp+10h]
+0066B10C: push edi
+0066B10D: call 0066AF60
+0066B112: lea ecx,[esp+14h]
+0066B116: mov dword ptr [esp+2Ch],0FFFFFFFFh
+0066B11E: call 004AF0A0
+0066B123: mov al,1
+0066B125: jmp 0066B138
+0066B127: fstp st(0)
+0066B129: fstp st(0)
+0066B12B: fstp st(0)
+0066B12D: cmp ebx,10h
+0066B130: jl 0066B010
+0066B136: xor al,al
+0066B138: mov ecx,dword ptr [esp+24h]
+0066B13C: pop edi
+0066B13D: pop esi
+0066B13E: pop ebp
+0066B13F: pop ebx
+0066B140: mov dword ptr fs:[00000000h],ecx
+ 00
+0066B147: add esp,20h
+0066B14A: ret 4

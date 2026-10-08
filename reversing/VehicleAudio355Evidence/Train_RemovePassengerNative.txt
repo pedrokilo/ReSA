@@ -1,0 +1,29 @@
+void CTrain::RemoveRandomPassenger() {
+    if (StaticRef<uint8>(0xA43088) == 1) return;
+    auto* player = FindPlayerPed(-1);
+    if (player->m_pVehicle == this) return;
+    auto* task = player->GetTaskManager().m_aPrimaryTasks[TASK_PRIMARY_PRIMARY];
+    if (task && (int32(task->GetTaskType()) == 701 || int32(task->GetTaskType()) == 700) && *reinterpret_cast<CVehicle**>(reinterpret_cast<uint8*>(task) + 0xC) == this) return;
+    const auto clockwise = bool(trainFlags.bClockwiseDirection);
+    player = FindPlayerPed(-1);
+    if (player->bInVehicle && player->m_pVehicle == this && ((clockwise && m_pDriver == player) || (!clockwise && m_pDriver != player))) return;
+    if (m_nNumPassengersToLeave == 0) return;
+    if (m_pTemporaryPassenger) {
+        if (m_pTemporaryPassenger->bInVehicle) return;
+        m_pTemporaryPassenger->CleanUpOldReference(reinterpret_cast<CEntity**>(&m_pTemporaryPassenger));
+        m_pTemporaryPassenger = nullptr;
+    }
+    auto rating = CGeneral::GetRandomIntInRange(0, 12);
+    if (rating == 12) rating = 11;
+    if ((CGeneral::GetRandomNumber() & 0xFFFF) < 100) rating = 25;
+    auto* ped = CPopulation::AddPedInCar(this, !clockwise, rating, 0, false, false);
+    if (!ped) return;
+    *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(ped) + 0x478) |= 0x40000u;
+    m_nNumPassengersToLeave = uint8(m_nNumPassengersToLeave - 1);
+    m_pTemporaryPassenger = ped;
+    ped->RegisterReference(reinterpret_cast<CEntity**>(&m_pTemporaryPassenger));
+    // Preserve the existing task constructor and task-manager dependency ABI.
+    auto* storage = CTask::operator new(0x1C);
+    auto* leave = storage ? reinterpret_cast<CTask*(__thiscall*)(void*,CVehicle*,int32,int32,bool)>(0x63BDD0)(storage, this, 0, 0, true) : nullptr;
+    reinterpret_cast<void(__thiscall*)(CTaskManager*,CTask*,ePrimaryTasks,bool)>(0x681AF0)(&ped->GetTaskManager(), leave, TASK_PRIMARY_PRIMARY, false);
+}

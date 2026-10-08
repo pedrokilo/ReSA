@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 5120,
+  "pairs_per_function": {
+    "InteriorGroup_c::Init": 512,
+    "InteriorGroup_c::AddInterior": 512,
+    "InteriorGroup_c::GetPed": 512,
+    "InteriorGroup_c::GetEntity": 512,
+    "InteriorGroup_c::ContainsInteriorType": 512,
+    "InteriorGroup_c::GetNumInteriorInfos": 512,
+    "InteriorGroup_c::GetRandomInterior": 512,
+    "InteriorGroup_c::FindInteriorInfo": 512,
+    "InteriorGroup_c::CalcIsVisible": 512,
+    "InteriorGroup_c::Setup": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "8d1f476f2726592b7a1efbe977b8a7cbb6d4a4a0985175298fdd1714258ef9a1",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-core355\\20261007-204757-174574",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "InteriorGroup_c::Init": true,
+    "InteriorGroup_c::AddInterior": true,
+    "InteriorGroup_c::GetPed": true,
+    "InteriorGroup_c::GetEntity": true,
+    "InteriorGroup_c::ContainsInteriorType": true,
+    "InteriorGroup_c::GetNumInteriorInfos": true,
+    "InteriorGroup_c::GetRandomInterior": true,
+    "InteriorGroup_c::FindInteriorInfo": true,
+    "InteriorGroup_c::CalcIsVisible": true,
+    "InteriorGroup_c::Setup": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "fbc1e2f673d07dffbf1030e4e07c3622f8ae9ab047696171c87b79b406e950de",
+      "pdb": "9a086000788adb1d2afee61cb44d2fdda254be36cdd381692493ea991584628a"
+    },
+    "sources": {
+      "source/game_sa/Interior/InteriorGroup_c.cpp": "f406a45a0c79cf173f39a320e6a0f7a9cc7ff7a8a03a1b466dc4cef187e19b9a",
+      "source/game_sa/Interior/InteriorGroup_c.h": "e1009f010c0dbf0a4d5d3847184d55a2585d7d7eca8850065f458325994b5934",
+      "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82",
+      "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "11c211cca0f3351cf328e80f7c0da0ff1d73b2816c42a843618ca79f870514bc",
+      "build_probe.py": "8910b6c80a607f6a76346d59136f6697452946b0918aff038255d6c2358ab710",
+      "run_local.py": "1eade3881e695ae17654673e842554038010187f6939649972141f2d6d9922b2"
+    }
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"LiveComparison.hpp\", \"tested_sha256\": \"11c211cca0f3351cf328e80f7c0da0ff1d73b2816c42a843618ca79f870514bc\", \"current_sha256\": \"fefe6c20a9df2661222a4b4c4ded350f7dae8fc09b85200a9d7339aafb56cf34\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

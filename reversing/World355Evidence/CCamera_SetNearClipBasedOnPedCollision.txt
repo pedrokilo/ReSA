@@ -1,0 +1,29 @@
+// Sin pseudocódigo de Ghidra para 0x0050cb90: {'cls': 'CCamera', 'fn': 'SetNearClipBasedOnPedCollision', 'error': '{"code":"invalid_request","category":"invalid_input","message":"Analysis input is invalid. Check the arguments and try again.","retryable":true,"remediation":{"action":"Correct the listed arguments and retry."}}'}
+==== ensamblador exacto (dis.sh) ====
+0050CB90: mov eax,dword ptr ds:[00B6FE88h]
+0050CB95: fld dword ptr [eax+10h]
+0050CB98: fld dword ptr [esp+4]
+0050CB9C: fsqrt
+0050CB9E: fdiv dword ptr ds:[00B6EC68h]
+0050CBA4: fmul dword ptr ds:[008CCC84h]
+0050CBAA: fld dword ptr ds:[00858C24h]
+0050CBB0: fsub st,st(2)
+0050CBB2: fmulp st(1),st
+0050CBB4: fadd st,st(1)
+0050CBB6: fst dword ptr [esp+4]
+0050CBBA: fcomp st(1)
+0050CBBC: fnstsw ax
+0050CBBE: test ah,5
+0050CBC1: jp 0050CBC9
+0050CBC3: fstp dword ptr [esp+4]
+0050CBC7: jmp 0050CBCB
+0050CBC9: fstp st(0)
+0050CBCB: mov ecx,dword ptr [esp+4]
+0050CBCF: mov edx,dword ptr ds:[00C1703Ch]
+0050CBD5: push ecx
+0050CBD6: push edx
+0050CBD7: call 007EE1D0
+0050CBDC: add esp,8
+0050CBDF: ret 4
+
+// Delimitación corregida: función real 0x50CB90..0x50CBDF. REA no produjo pseudocódigo; reconstrucción basada en ASM completo.

@@ -1,0 +1,113 @@
+// CTaskComplexHitPedWithCar::CreateNextSubTask @ 0x00657af0 [0x657af0..0x657b55]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_00657af0(void)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  int in_ECX;
+  
+  iVar1 = (**(code **)(**(int **)(in_ECX + 8) + 0x10))();
+  if (iVar1 < 0x1f7) {
+    if ((((iVar1 != 0x1f6) && (iVar1 != 200)) && (iVar1 != 0xd0)) && (iVar1 != 0x19e)) {
+      return 0;
+    }
+  }
+  else if (iVar1 != 0x1fa) {
+    if (iVar1 != 0x1fb) {
+      return 0;
+    }
+    if (*(char *)(*(int *)(in_ECX + 8) + 0x10) != '\0') {
+      return 0;
+    }
+    uVar2 = FUN_006560e0(0xd0);
+    return uVar2;
+  }
+  uVar2 = FUN_006560e0(0x516);
+  return uVar2;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00657AF0: push esi
+00657AF1: mov esi,ecx
+00657AF3: mov ecx,dword ptr [esi+8]
+00657AF6: mov eax,dword ptr [ecx]
+00657AF8: push edi
+00657AF9: xor edi,edi
+00657AFB: call dword ptr [eax+10h]
+00657AFE: cmp eax,1F6h
+00657B03: jg 00657B2F
+00657B05: je 00657B1A
+00657B07: sub eax,0C8h
+00657B0C: je 00657B1A
+00657B0E: sub eax,8
+00657B11: je 00657B1A
+00657B13: sub eax,0CEh
+00657B18: jne 00657B28
+00657B1A: push 516h
+00657B1F: mov ecx,esi
+00657B21: call 006560E0
+00657B26: mov edi,eax
+00657B28: mov eax,edi
+00657B2A: pop edi
+00657B2B: pop esi
+00657B2C: ret 4
+00657B2F: sub eax,1FAh
+00657B34: je 00657B1A
+00657B36: dec eax
+00657B37: jne 00657B28
+00657B39: mov ecx,dword ptr [esi+8]
+00657B3C: mov al,byte ptr [ecx+10h]
+00657B3F: test al,al
+00657B41: jne 00657B28
+00657B43: push 0D0h
+00657B48: mov ecx,esi
+00657B4A: call 006560E0
+00657B4F: mov edi,eax
+00657B51: pop edi
+00657B52: pop esi
+00657B53: ret 4
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x657AF0, 0x657B55) ====
+00657AF0: push esi
+00657AF1: mov esi,ecx
+00657AF3: mov ecx,dword ptr [esi+8]
+00657AF6: mov eax,dword ptr [ecx]
+00657AF8: push edi
+00657AF9: xor edi,edi
+00657AFB: call dword ptr [eax+10h]
+00657AFE: cmp eax,1F6h
+00657B03: jg 00657B2F
+00657B05: je 00657B1A
+00657B07: sub eax,0C8h
+00657B0C: je 00657B1A
+00657B0E: sub eax,8
+00657B11: je 00657B1A
+00657B13: sub eax,0CEh
+00657B18: jne 00657B28
+00657B1A: push 516h
+00657B1F: mov ecx,esi
+00657B21: call 006560E0
+00657B26: mov edi,eax
+00657B28: mov eax,edi
+00657B2A: pop edi
+00657B2B: pop esi
+00657B2C: ret 4
+00657B2F: sub eax,1FAh
+00657B34: je 00657B1A
+00657B36: dec eax
+00657B37: jne 00657B28
+00657B39: mov ecx,dword ptr [esi+8]
+00657B3C: mov al,byte ptr [ecx+10h]
+00657B3F: test al,al
+00657B41: jne 00657B28
+00657B43: push 0D0h
+00657B48: mov ecx,esi
+00657B4A: call 006560E0
+00657B4F: mov edi,eax
+00657B51: pop edi
+00657B52: pop esi
+00657B53: ret 4

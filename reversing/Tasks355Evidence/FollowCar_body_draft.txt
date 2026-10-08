@@ -1,0 +1,221 @@
+// Draft only; not installed yet.
+void CCam::Process_FollowCar_SA(const CVector& targetPosition,float,float,float,bool preserveAngles) {
+    if (!m_pCamTargetEntity->GetIsTypeVehicle()) return;
+    auto* vehicle=static_cast<CVehicle*>(m_pCamTargetEntity);
+    auto* pad=CPad::GetPad(vehicle->m_pDriver && vehicle->m_pDriver->m_nPedType==PED_TYPE_PLAYER2?1:0);
+    const auto f=[](uintptr_t address){return StaticRef<float>(address);};
+    const auto raw=[](const void* object,size_t offset){return static_cast<const uint8*>(object)+offset;};
+    const float step=CTimer::GetTimeStep();
+    TheCamera.ApplyVehicleCameraTweaks(vehicle);
+    const int model=vehicle->GetModelIndex();
+    const int type=*reinterpret_cast<const int32*>(raw(vehicle,0x590)),subclass=*reinterpret_cast<const int32*>(raw(vehicle,0x594));
+    uint32 state=0;
+    if (model==441 || model==464 || model==564 || model==594) state=5;
+    else if (model==465 || model==501) state=6;
+    else if (type==9 || subclass==2) state=1;
+    else if (subclass==3) state=2;
+    else if (subclass==4) {
+        if (model==520 && *reinterpret_cast<const uint16*>(raw(vehicle,0x86C))>=StaticRef<uint32>(0x8D33C8)) state=2;
+        else state=uint32((model==539)-1)&3;
+    } else if (subclass==5) state=4;
+    const uintptr_t row=0x8CC600+state*60;
+    float distance=f(0xB6F0E8)+f(row+4);
+    int arrayPosition=0;
+    TheCamera.GetArrPosForVehicleType(static_cast<eVehicleType>(vehicle->GetVehicleAppearance()),arrayPosition);
+    const bool fixedStatus=(*reinterpret_cast<const uint8*>(raw(vehicle,0x36))&0xF8)==0x40;
+    float verticalOffset=0.f;
+    const int zoom=StaticRef<int32>(0xB6F0DC);
+    if (fixedStatus) verticalOffset=f(0x8CC430+arrayPosition*4);
+    else if (zoom==1) verticalOffset=f(0x8CC41C+arrayPosition*4);
+    else if (zoom==2) verticalOffset=f(0x8CC430+arrayPosition*4);
+    else if (zoom==3) verticalOffset=f(0x8CC444+arrayPosition*4);
+    float height=vehicle->GetColModel()->m_boundBox.m_vecMax.z;
+    const auto* widthModel=vehicle->GetColModel();
+    float width=std::abs(widthModel->m_boundBox.m_vecMin.y)+std::abs(widthModel->m_boundBox.m_vecMin.y);
+    auto& towingBlend=StaticRef<float>(0xB7011C);
+    CVector focal=targetPosition;
+    auto* trailer=vehicle->m_pVehicleBeingTowed;
+    if (!trailer) {
+        if (subclass==9 || subclass==2) {
+            if (!vehicle->m_apPassengers[0]) { if (towingBlend>0.f) towingBlend=std::max(towingBlend-step*f(0x8CCEE8),0.f); }
+            else if (towingBlend<1.f) towingBlend=std::min(step*f(0x8CCEE8)+towingBlend,1.f);
+            height+=f(0x8CCEE0)*towingBlend;
+        } else towingBlend=0.f;
+    } else {
+        if (towingBlend<1.f) towingBlend=std::min(step*f(0x8CCEE8)+towingBlend,1.f);
+        const auto minimum=vehicle->GetColModel()->m_boundBox.m_vecMin;
+        const auto maximum=vehicle->GetColModel()->m_boundBox.m_vecMax;
+        width+=(maximum-minimum).Magnitude()*f(0x8CCEE4)*towingBlend;
+        const float maximumZ=std::max(vehicle->GetColModel()->m_boundBox.m_vecMax.z,height);
+        height=(maximumZ-height)*towingBlend+height;
+        const float weight=towingBlend*.5f;
+        focal=focal*(1.f-weight)+trailer->GetPosition()*weight;
+    }
+    distance+=f(0xB6FD70)*width;
+    const float minimumDistance=f(0xB6FD70)*width*f(row+12);
+    if (vehicle->GetVehicleAppearance()==VEHICLE_APPEARANCE_HELI && !fixedStatus) focal+=vehicle->GetMatrix().GetUp()*f(0x8CC53C)*height;
+    else {
+        const float excess=height*f(row)-f(row+8);
+        if (excess>0.f) {focal.z+=excess;distance+=excess;verticalOffset+=(f(0x8CCEDC)/distance)*excess;}
+    }
+    focal.z*=f(0xB6FD74);verticalOffset+=f(0xB6FD78);
+    float historyDistance=f(row+16);
+    if (zoom==1 && (state==0 || state==1)) historyDistance*=.65f;
+    historyDistance=std::max(historyDistance,distance);
+    m_fCaMaxDistance=distance;m_fCaMinDistance=3.5f;
+    const bool reset=m_bResetStatics;
+    const auto& matrix=vehicle->GetMatrix();
+    if (!reset) {
+        const float speed=vehicle->m_vecMoveSpeed.x*matrix.GetForward().x+matrix.GetForward().y*vehicle->m_vecMoveSpeed.y+matrix.GetForward().z*vehicle->m_vecMoveSpeed.z;
+        if ((subclass==0 || subclass==9) && speed>f(0x8CC540)) m_fFOV+=(speed-f(0x8CC540))*step;
+        if (m_fFOV>70.f) m_fFOV=(m_fFOV-70.f)*CamPower(f(0x8CC544),step)+70.f;
+        m_fFOV=std::clamp(m_fFOV,70.f,100.f);
+    } else m_fFOV=70.f;
+    if (reset || StaticRef<bool>(0xB6F042) || StaticRef<bool>(0xB6F043)) {
+        m_bResetStatics=false;m_bRotating=false;m_bCollisionChecksOn=true;StaticRef<bool>(0xB6F999)=true;
+        if (!StaticRef<bool>(0xB6F050) && !preserveAngles) {
+            m_fVerticalAngle=0.f;m_fHorizontalAngle=CameraHeadingMinusHalfPI(vehicle);
+            if (StaticRef<bool>(0xB6F043)) m_fHorizontalAngle+=PI;
+        }
+        m_fBetaSpeed=m_fAlphaSpeed=0.f;m_fDistance=1000.f;
+        m_vecFront=M16Direction(m_fHorizontalAngle,m_fVerticalAngle);
+        m_avecTargetHistoryPos[0]=focal-m_vecFront*historyDistance;m_anTargetHistoryTime[0]=CTimer::GetTimeInMS();
+        m_avecTargetHistoryPos[1]=focal-m_vecFront*distance;m_nCurrentHistoryPoints=0;
+        if (!StaticRef<bool>(0xB6F050) && !preserveAngles) m_fVerticalAngle=-verticalOffset;
+    }
+    m_vecFront=focal-m_avecTargetHistoryPos[0];m_vecFront.Normalise();
+    const float actualDistance=(focal-m_avecTargetHistoryPos[1]).Magnitude();
+    float historyAngle=std::atan2(-m_vecFront.x,m_vecFront.y)-HALF_PI;
+    if (historyAngle < -PI) historyAngle+=TWO_PI;
+    float velocityAngle=historyAngle;
+    const auto& velocity=vehicle->m_vecMoveSpeed;
+    if (std::sqrt(velocity.y*velocity.y+velocity.x*velocity.x)>.02f) velocityAngle=std::atan2(-velocity.x,velocity.y)-HALF_PI;
+    if (velocityAngle>historyAngle+PI) velocityAngle-=TWO_PI;else if (velocityAngle < historyAngle-PI) velocityAngle+=TWO_PI;
+    const float speedAlong=velocity.x*m_vecFront.x+velocity.y*m_vecFront.y+velocity.z*m_vecFront.z;
+    const CVector perpendicular=velocity-m_vecFront*speedAlong;
+    const float weight=std::min(step*f(row+40)*perpendicular.Magnitude(),1.f);
+    const float followMaximum=step*f(row+44);
+    historyAngle+=std::clamp((velocityAngle-historyAngle)*weight,-followMaximum,followMaximum);
+    if (historyAngle>m_fHorizontalAngle+PI) historyAngle-=TWO_PI;else if (historyAngle<m_fHorizontalAngle-PI) historyAngle+=TWO_PI;
+    const float betaCorrection=(historyAngle-m_fHorizontalAngle)/std::max(step,1.f);
+    float historyPitch=M16Asin(std::clamp(m_vecFront.z,-1.f,1.f));
+    if (actualDistance<distance && minimumDistance<distance) distance=std::max(minimumDistance,actualDistance);
+    float upper=f(row+52);
+    const bool heightCorrection=velocity.SquaredMagnitude()<.040000003f && (type!=9 || *reinterpret_cast<const uint8*>(raw(vehicle,0x804))>3) && subclass!=3 && (subclass!=4 || *reinterpret_cast<const uint8*>(raw(vehicle,0x960))!=0);
+    if (heightCorrection) {
+        CVector right=CrossProduct(matrix.GetForward(),CVector{0,0,1});right.Normalise();
+        CVector upward=CrossProduct(right,matrix.GetForward());upward.Normalise();
+        if (upward.x*m_vecFront.x+upward.z*m_vecFront.z+upward.y*m_vecFront.y>0.f) {
+            const auto& box=vehicle->GetColModel()->m_boundBox;
+            const float elevation=(focal.z-vehicle->GetPosition().z)+vehicle->GetHeightAboveRoad();
+            const float heading=vehicle->GetHeading()-HALF_PI;
+            const float folded=M16Asin(std::sin(m_fHorizontalAngle-heading));
+            float sideDistance;
+            if (folded<=std::atan2(box.m_vecMax.x,-box.m_vecMin.y)) sideDistance=(f(0x8CCED4)-box.m_vecMin.y)/std::cos(folded);
+            else sideDistance=(f(0x8CCED8)+box.m_vecMax.x)/std::cos(std::max(0.f,HALF_PI-folded));
+            const float pitch=std::atan2(matrix.GetForward().z,std::sqrt(matrix.GetForward().y*matrix.GetForward().y+matrix.GetForward().x*matrix.GetForward().x));
+            upper=std::atan2(elevation,sideDistance*f(0x8CCED0))+pitch*std::cos(m_fHorizontalAngle-(vehicle->GetHeading()-HALF_PI));
+            if (type==0 && *reinterpret_cast<const uint8*>(raw(vehicle,0x960))>1 && std::abs(DotProduct(vehicle->m_vecTurnSpeed,matrix.GetForward()))<.05f) {
+                const float roll=std::atan2(matrix.GetRight().z,std::sqrt(matrix.GetRight().y*matrix.GetRight().y+matrix.GetRight().x*matrix.GetRight().x));
+                upper+=roll*std::cos((m_fHorizontalAngle-(vehicle->GetHeading()-HALF_PI))+HALF_PI);
+            }
+        }
+    }
+    float idealAlpha=std::clamp(historyPitch-verticalOffset,-f(row+56),upper);
+    const float maximumAlpha=step*f(row+24);
+    const float automaticAlpha=std::clamp((idealAlpha-m_fVerticalAngle)*(1.f-CamPower(f(row+20),step)),-maximumAlpha,maximumAlpha);
+    const float horizontal=-float(pad->AimWeaponLeftRight(nullptr));
+    float vertical=float(pad->AimWeaponUpDown(nullptr));
+    if (StaticRef<bool>(0xB6EC2E)) vertical=0.f;
+    const float inputScale=m_fFOV*.0125f;
+    float betaInput=inputScale*.071428575f*std::abs(horizontal)*horizontal*f(0x8CC4A0)*f(0x8CC4A0);
+    float alphaInput=inputScale*.042857144f*std::abs(vertical)*vertical*f(0x8CC4A0)*f(0x8CC4A0);
+    bool restricted=true;
+    if (model==443 || model==486 || model==406 || model==524 || model==592 || model==520 || model==525 || model==530 || model==531) alphaInput=0.f;
+    else if (model==564 || (type==0 && (*reinterpret_cast<const uint32*>(raw(vehicle,0x38C))&0x20000))) alphaInput=betaInput=0.f;
+    else restricted=false;
+    if (StaticRef<int32>(0x8CC384)!=3) alphaInput=betaInput=0.f;
+    if (state==0) {
+        const float steering=float(pad->GetSteeringUpDown());
+        auto* driver=vehicle->m_pDriver;
+        if (std::abs(steering)>120.f && driver && driver->GetIntelligence()->m_TaskMgr.GetActiveTask()) {
+            if (int(driver->GetIntelligence()->m_TaskMgr.GetActiveTask()->GetTaskType())!=704) {
+                const float activeSteering=float(pad->GetSteeringUpDown());
+                alphaInput+=inputScale*.042857144f*std::abs(activeSteering)*activeSteering*f(0x8CC4A0)*f(0x8CC4A0)*.5f;
+            }
+        }
+    }
+    if (alphaInput>0.f) alphaInput*=.5f;
+    bool mouseActive=false;
+    auto& mouseTimer=StaticRef<float>(0xB70118);
+    if (StaticRef<bool>(0xB6EC2E) && !pad->DisablePlayerControls) {
+        const float mouseY=f(0xB73428)+f(0xB73428),mouseX=f(0xB73424)*-2.f;
+        const bool allow=StaticRef<bool>((subclass==3 || subclass==4)?0xC1CC03:0xC1CC02);
+        if ((mouseX==0.f && mouseY==0.f) || (*reinterpret_cast<const uint16*>(raw(pad,0x2C))==0 && allow)) {
+            if (mouseTimer>0.f) {
+                idealAlpha=m_fVerticalAngle;m_fBetaSpeed=m_fAlphaSpeed=0.f;alphaInput=betaInput=0.f;
+                mouseTimer=std::max(0.f,mouseTimer-step);mouseActive=true;
+            }
+        } else {
+            alphaInput=mouseY*inputScale*f(0xB6EC1C);betaInput=mouseX*inputScale*f(0xB6EC1C);
+            m_fBetaSpeed=m_fAlphaSpeed=0.f;idealAlpha=m_fVerticalAngle;mouseTimer=f(0x8CCECC)*50.f;mouseActive=true;
+        }
+    }
+    if (auto* passenger=vehicle->m_apPassengers[0]; passenger && passenger->GetIntelligence()->m_TaskMgr.GetActiveTask()) {
+        auto& manager=passenger->GetIntelligence()->m_TaskMgr;
+        if (int(manager.GetActiveTask()->GetTaskType())==1309 && (*raw(manager.GetActiveTask(),0x2D)&1))
+            alphaInput=upper-f(0x8CCEC8)<=m_fVerticalAngle?0.f:step*f(0x8CCEC4);
+    }
+    if (restricted) {
+        auto& locked=StaticRef<bool>(0xB70114);
+        bool correct=!locked;
+        if (StaticRef<int32>(0x8CC388)!=18) { locked=false;correct=true; }
+        if (correct && std::abs(verticalOffset+m_fVerticalAngle)>.05f) alphaInput=(-verticalOffset-m_fVerticalAngle)*f(0x8CCEC0);
+        else locked=true;
+    }
+    alphaInput*=f(row+48);betaInput*=f(row+48);
+    const float smoothing=CamPower(f(row+32),step);
+    float maximumSpeed=f(row+36);
+    m_fBetaSpeed=smoothing*m_fBetaSpeed+(1.f-smoothing)*std::clamp(betaInput+betaCorrection,-maximumSpeed,maximumSpeed);
+    if (std::abs(m_fBetaSpeed)<f(0x8CCEBC)) m_fBetaSpeed=0.f;
+    if (!mouseActive) betaInput=step*m_fBetaSpeed;
+    m_fHorizontalAngle+=betaInput;
+    if (StaticRef<bool>(0xB6F050)) m_fHorizontalAngle=CGeneral::GetATanOfXY(m_vecFront.x,m_vecFront.y)+PI;
+    ClipBeta();
+    if (state<2 && idealAlpha<m_fVerticalAngle && distance<=actualDistance) {
+        const uint8 contacts=type==0?*raw(vehicle,0x960):(type==9?*raw(vehicle,0x804):0);
+        if (contacts>1) alphaInput+=(idealAlpha-m_fVerticalAngle)*f(0x8CCEB8);
+    }
+    m_fAlphaSpeed=smoothing*m_fAlphaSpeed+(1.f-smoothing)*alphaInput;
+    if (alphaInput>0.f) maximumSpeed*=.5f;
+    m_fAlphaSpeed=std::clamp(m_fAlphaSpeed,-maximumSpeed,maximumSpeed);
+    if (std::abs(m_fAlphaSpeed)<f(0x8CCEB4)) m_fAlphaSpeed=0.f;
+    idealAlpha+=mouseActive?alphaInput:step*m_fAlphaSpeed;
+    m_fVerticalAngle+=mouseActive?alphaInput:automaticAlpha;
+    if (m_fVerticalAngle>upper) { m_fVerticalAngle=upper;m_fAlphaSpeed=0.f; }
+    else if (m_fVerticalAngle < -f(row+56)) { m_fVerticalAngle=-f(row+56);m_fAlphaSpeed=0.f; }
+    if (std::abs(f(0x8CCEB0)-m_fVerticalAngle)<f(0x8CCEAC)) m_fVerticalAngle=f(0x8CCEB0);
+    StaticRef<float>(0x8CCEB0)=m_fVerticalAngle;
+    if (std::abs(f(0x8CCEA8)-m_fHorizontalAngle)<f(0x8CCEA4)) m_fHorizontalAngle=f(0x8CCEA8);
+    StaticRef<float>(0x8CCEA8)=m_fHorizontalAngle;
+    m_vecFront=M16Direction(m_fHorizontalAngle,m_fVerticalAngle);
+    CameraRoundVector4(m_vecSource);GetVectorsReadyForRW();
+    StaticRef<bool>(0xB6F042)=StaticRef<bool>(0xB6F043)=false;
+    m_vecSource=focal-m_vecFront*distance;m_vecTargetCoorsForFudgeInter=focal;
+    m_avecTargetHistoryPos[2]=m_avecTargetHistoryPos[0];
+    const auto historyFront=M16Direction(m_fHorizontalAngle,idealAlpha+verticalOffset);
+    m_avecTargetHistoryPos[0]=focal-historyFront*historyDistance;
+    m_avecTargetHistoryPos[1]=focal-historyFront*distance;
+    CCamera::SetColVarsVehicle(static_cast<eVehicleType>(state),zoom);
+    if (StaticRef<int32>(0x8CC384)==3) {
+        StaticRef<bool>(0xB6FC70)=false;CWorld::pIgnoreEntity=vehicle;
+        TheCamera.CameraVehicleModeSpecialCases(vehicle);
+        if (*raw(vehicle,0x429)&4) StaticRef<bool>(0x9655E5)=true;
+        TheCamera.CameraColDetAndReact(&m_vecSource,&focal);TheCamera.ImproveNearClip(vehicle,nullptr,&m_vecSource,&focal);
+        CWorld::pIgnoreEntity=nullptr;CameraRoundVector4(m_vecSource);
+    }
+    StaticRef<bool>(0xB6F042)=StaticRef<bool>(0xB6F043)=false;
+    CameraRoundVector4(m_vecSource);GetVectorsReadyForRW();
+    StaticRef<CVector>(0xB6F018)=focal;
+}
+

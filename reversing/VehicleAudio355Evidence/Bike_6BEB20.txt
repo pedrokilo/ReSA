@@ -1,0 +1,317 @@
+// Sin pseudocódigo de Ghidra para 0x006beb20: None
+==== ensamblador exacto (dis.sh) ====
+006BEB20: push 0FFFFFFFFh
+006BEB22: mov eax,dword ptr fs:[00000000h]
+006BEB28: push 848363h
+006BEB2D: push eax
+006BEB2E: mov dword ptr fs:[00000000h],esp
+ 00
+006BEB35: sub esp,98h
+006BEB3B: push ebx
+006BEB3C: push ebp
+006BEB3D: push esi
+006BEB3E: mov esi,ecx
+006BEB40: mov al,byte ptr [esi+0000042Bh]
+006BEB46: test al,al
+006BEB48: push edi
+006BEB49: js 006BEE91
+006BEB4F: test dword ptr [esi+40h],20000000h
+ 20
+006BEB56: jne 006BEE91
+006BEB5C: mov bl,byte ptr [esp+000000B8h]
+ 00
+006BEB63: movzx eax,bl
+006BEB66: sub eax,0Dh
+006BEB69: je 006BEB74
+006BEB6B: sub eax,2
+006BEB6E: jne 006BEB76
+006BEB70: mov bl,1
+006BEB72: jmp 006BEB76
+006BEB74: xor bl,bl
+006BEB76: movzx eax,bl
+006BEB79: mov cl,byte ptr [eax+esi+0000065Ch]
+ 00
+006BEB80: test cl,cl
+006BEB82: lea eax,[eax+esi+0000065Ch]
+ 00
+006BEB89: mov byte ptr [esp+13h],0
+006BEB8E: jne 006BECA5
+006BEB94: push 0
+006BEB96: push 5Ah
+006BEB98: lea ecx,[esi+00000138h]
+006BEB9E: mov byte ptr [eax],1
+006BEBA1: call 004F6420
+006BEBA6: mov cl,byte ptr [esi+36h]
+006BEBA9: and cl,0F8h
+006BEBAC: cmp cl,10h
+006BEBAF: jne 006BEBBA
+006BEBB1: push esi
+006BEBB2: call 00423FC0
+006BEBB7: add esp,4
+006BEBBA: mov al,byte ptr [esp+000000BCh]
+ 00
+006BEBC1: test al,al
+006BEBC3: je 006BECA0
+006BEBC9: mov edx,dword ptr ds:[008D322Ch]
+006BEBCF: fld dword ptr ds:[008D322Ch]
+006BEBD5: mov edi,dword ptr [esi+14h]
+006BEBD8: fchs
+006BEBDA: push edx
+006BEBDB: push ecx
+006BEBDC: fstp dword ptr [esp]
+006BEBDF: call 0041BD90
+006BEBE4: fmul dword ptr [esi+0000008Ch]
+006BEBEA: push ecx
+006BEBEB: mov eax,esp
+006BEBED: fst dword ptr [esp+20h]
+006BEBF1: fmul dword ptr [edi+8]
+006BEBF4: fld dword ptr [esp+20h]
+006BEBF8: fmul dword ptr [edi+4]
+006BEBFB: fld dword ptr [esp+20h]
+006BEBFF: fmul dword ptr [edi]
+006BEC01: fstp dword ptr [esp+24h]
+006BEC05: mov ecx,dword ptr [esp+24h]
+006BEC09: mov dword ptr [eax],ecx
+006BEC0B: fstp dword ptr [esp+28h]
+006BEC0F: mov edx,dword ptr [esp+28h]
+006BEC13: mov dword ptr [eax+4],edx
+006BEC16: fstp dword ptr [esp+2Ch]
+006BEC1A: mov ecx,dword ptr [esp+2Ch]
+006BEC1E: mov dword ptr [eax+8],ecx
+006BEC21: mov ecx,esi
+006BEC23: call 005429F0
+006BEC28: fld dword ptr ds:[008D322Ch]
+006BEC2E: mov edx,dword ptr ds:[008D322Ch]
+006BEC34: fchs
+006BEC36: mov edi,dword ptr [esi+14h]
+006BEC39: push edx
+006BEC3A: push ecx
+006BEC3B: fstp dword ptr [esp]
+006BEC3E: call 0041BD90
+006BEC43: fmul dword ptr [esi+00000090h]
+006BEC49: push ecx
+006BEC4A: add edi,10h
+006BEC4D: mov eax,esp
+006BEC4F: fst dword ptr [esp+20h]
+006BEC53: sub esp,0Ch
+006BEC56: fmul dword ptr [edi-8]
+006BEC59: fld dword ptr [esp+2Ch]
+006BEC5D: fmul dword ptr [edi-0Ch]
+006BEC60: fld dword ptr [esp+2Ch]
+006BEC64: fmul dword ptr [edi-10h]
+006BEC67: mov ecx,dword ptr [edi]
+006BEC69: mov edx,dword ptr [edi+4]
+006BEC6C: mov dword ptr [eax],ecx
+006BEC6E: mov ecx,dword ptr [edi+8]
+006BEC71: fstp dword ptr [esp+30h]
+006BEC75: mov dword ptr [eax+4],edx
+006BEC78: mov dword ptr [eax+8],ecx
+006BEC7B: fstp dword ptr [esp+34h]
+006BEC7F: mov eax,dword ptr [esp+30h]
+006BEC83: mov ecx,dword ptr [esp+34h]
+006BEC87: fstp dword ptr [esp+38h]
+006BEC8B: mov edx,esp
+006BEC8D: mov dword ptr [edx],eax
+006BEC8F: mov eax,dword ptr [esp+38h]
+006BEC93: mov dword ptr [edx+4],ecx
+006BEC96: mov ecx,esi
+006BEC98: mov dword ptr [edx+8],eax
+006BEC9B: call 00542A50
+006BECA0: mov byte ptr [esp+13h],1
+006BECA5: mov eax,dword ptr [esi+00000460h]
+006BECAB: test eax,eax
+006BECAD: je 006BEE8B
+006BECB3: cmp bl,0Dh
+006BECB6: jne 006BECE7
+006BECB8: fld dword ptr [esi+00000720h]
+006BECBE: fcomp dword ptr ds:[00871284h]
+006BECC4: fnstsw ax
+006BECC6: test ah,5
+006BECC9: jnp 006BED1A
+006BECCB: fld dword ptr [esi+00000724h]
+006BECD1: fcomp dword ptr ds:[00871284h]
+006BECD7: fnstsw ax
+006BECD9: test ah,5
+006BECDC: jnp 006BED1A
+006BECDE: mov al,byte ptr [esp+13h]
+006BECE2: jmp 006BEE93
+006BECE7: cmp bl,0Eh
+006BECEA: jne 006BEE8B
+006BECF0: fld dword ptr [esi+00000728h]
+006BECF6: fcomp dword ptr ds:[00871284h]
+006BECFC: fnstsw ax
+006BECFE: test ah,5
+006BED01: jnp 006BED1A
+006BED03: fld dword ptr [esi+0000072Ch]
+006BED09: fcomp dword ptr ds:[00871284h]
+006BED0F: fnstsw ax
+006BED11: test ah,5
+006BED14: jp 006BEE8B
+006BED1A: fld dword ptr [esi+4Ch]
+006BED1D: lea ebp,[esi+44h]
+006BED20: fld dword ptr [ebp+4]
+006BED23: fld dword ptr [ebp]
+006BED26: fld st(0)
+006BED28: fmul st,st(1)
+006BED2A: fld st(2)
+006BED2C: fmul st,st(3)
+006BED2E: faddp st(1),st
+006BED30: fld st(3)
+006BED32: fmul st,st(4)
+006BED34: faddp st(1),st
+006BED36: fstp st(3)
+006BED38: fstp st(0)
+006BED3A: fstp st(0)
+006BED3C: fsqrt
+006BED3E: fcom dword ptr ds:[008D3230h]
+006BED44: fnstsw ax
+006BED46: test ah,41h
+006BED49: jne 006BEE89
+006BED4F: test byte ptr [esi+36h],0F8h
+006BED53: jne 006BED68
+006BED55: fcomp dword ptr ds:[008D3234h]
+006BED5B: fnstsw ax
+006BED5D: test ah,41h
+006BED60: jne 006BEE8B
+006BED66: jmp 006BED6A
+006BED68: fstp st(0)
+006BED6A: cmp bl,0Dh
+006BED6D: jne 006BEE32
+006BED73: push 0
+006BED75: push 1
+006BED77: push 0
+006BED79: push 0
+006BED7B: push 0
+006BED7D: push 31h
+006BED7F: push 0
+006BED81: push 0
+006BED83: lea edi,[esi+000000E0h]
+006BED89: push edi
+006BED8A: push ebp
+006BED8B: push esi
+006BED8C: lea ecx,[esp+00000098h]
+ 00
+006BED93: call 004AFCF0
+006BED98: mov ecx,dword ptr [esi+00000460h]
+006BED9E: mov eax,dword ptr [ecx+0000047Ch]
+006BEDA4: push 0
+006BEDA6: lea edx,[esp+70h]
+006BEDAA: push edx
+006BEDAB: lea ecx,[eax+68h]
+006BEDAE: mov dword ptr [esp+000000B8h],0
+006BEDB9: call 004AB420
+006BEDBE: mov eax,dword ptr [esi+00000464h]
+006BEDC4: test eax,eax
+006BEDC6: je 006BEE18
+006BEDC8: push 0
+006BEDCA: push 0
+006BEDCC: push 0
+006BEDCE: push 0
+006BEDD0: push 0
+006BEDD2: push 31h
+006BEDD4: push 0
+006BEDD6: push 0
+006BEDD8: push edi
+006BEDD9: push ebp
+006BEDDA: push esi
+006BEDDB: lea ecx,[esp+5Ch]
+006BEDDF: call 004AFCF0
+006BEDE4: mov eax,dword ptr [esi+00000464h]
+006BEDEA: mov eax,dword ptr [eax+0000047Ch]
+006BEDF0: push 0
+006BEDF2: lea ecx,[esp+34h]
+006BEDF6: push ecx
+006BEDF7: lea ecx,[eax+68h]
+006BEDFA: mov byte ptr [esp+000000B8h],1
+006BEE02: call 004AB420
+006BEE07: lea ecx,[esp+30h]
+006BEE0B: mov byte ptr [esp+000000B0h],0
+006BEE13: call 004AFE70
+006BEE18: lea ecx,[esp+6Ch]
+006BEE1C: mov dword ptr [esp+000000B0h],0FFFFFFFFh
+006BEE27: call 004AFE70
+006BEE2C: mov al,byte ptr [esp+13h]
+006BEE30: jmp 006BEE93
+006BEE32: fld dword ptr ds:[008D322Ch]
+006BEE38: mov edi,dword ptr [esi+14h]
+006BEE3B: fmul dword ptr [esi+00000090h]
+006BEE41: push edi
+006BEE42: push ecx
+006BEE43: lea edx,[esp+2Ch]
+006BEE47: fadd st(0),st
+006BEE49: fstp dword ptr [esp]
+006BEE4C: push edx
+006BEE4D: call 0040FE90
+006BEE52: add edi,10h
+006BEE55: mov edx,dword ptr [edi]
+006BEE57: mov ecx,esp
+006BEE59: mov dword ptr [ecx],edx
+006BEE5B: mov edx,dword ptr [edi+4]
+006BEE5E: mov dword ptr [ecx+4],edx
+006BEE61: mov edx,dword ptr [edi+8]
+006BEE64: mov dword ptr [ecx+8],edx
+006BEE67: mov edx,dword ptr [eax]
+006BEE69: sub esp,0Ch
+006BEE6C: mov ecx,esp
+006BEE6E: mov dword ptr [ecx],edx
+006BEE70: mov edx,dword ptr [eax+4]
+006BEE73: mov eax,dword ptr [eax+8]
+006BEE76: mov dword ptr [ecx+4],edx
+006BEE79: mov dword ptr [ecx+8],eax
+006BEE7C: mov ecx,esi
+006BEE7E: call 00542A50
+006BEE83: mov al,byte ptr [esp+13h]
+006BEE87: jmp 006BEE93
+006BEE89: fstp st(0)
+006BEE8B: mov al,byte ptr [esp+13h]
+006BEE8F: jmp 006BEE93
+006BEE91: xor al,al
+006BEE93: mov ecx,dword ptr [esp+000000A8h]
+ 00
+006BEE9A: pop edi
+006BEE9B: pop esi
+006BEE9C: pop ebp
+006BEE9D: mov dword ptr fs:[00000000h],ecx
+ 00
+006BEEA4: pop ebx
+006BEEA5: add esp,0A4h
+006BEEAB: ret 8
+006BEEB0: sub esp,74h
+006BEEB3: push esi
+006BEEB4: mov esi,ecx
+006BEEB6: call 00535300
+006BEEBB: mov eax,dword ptr [eax+10h]
+006BEEBE: mov ecx,esi
+006BEEC0: mov dword ptr [esp+0Ch],eax
+006BEEC4: call 00535300
+006BEEC9: fld dword ptr [eax+4]
+006BEECC: mov eax,dword ptr [esi+14h]
+006BEECF: fchs
+006BEED1: test eax,eax
+006BEED3: fstp dword ptr [esp+8]
+006BEED7: lea ecx,[eax+10h]
+006BEEDA: mov edx,dword ptr [ecx]
+006BEEDC: mov dword ptr [esp+34h],edx
+006BEEE0: mov edx,dword ptr [ecx+4]
+006BEEE3: mov ecx,dword ptr [ecx+8]
+006BEEE6: mov dword ptr [esp+3Ch],ecx
+006BEEEA: mov dword ptr [esp+38h],edx
+006BEEEE: lea ecx,[eax+30h]
+006BEEF1: jne 006BEEF6
+006BEEF3: lea ecx,[esi+4]
+006BEEF6: test eax,eax
+006BEEF8: fld dword ptr [esp+34h]
+006BEEFC: fmul dword ptr [esp+8]
+006BEF00: fsubr dword ptr [ecx]
+006BEF02: lea ecx,[eax+30h]
+006BEF05: fstp dword ptr [esp+10h]
+006BEF09: jne 006BEF0E
+006BEF0B: lea ecx,[esi+4]
+006BEF0E: test eax,eax
+006BEF10: fld dword ptr [esp+38h]
+006BEF14: fmul dword ptr [esp+8]
+006BEF18: fsubr dword ptr [ecx+4]
+006BEF1B: lea ecx,[eax+30h]
+ 006BEF1E: D9
+006BEF1F: pop esp
+ 006BEF20: 24

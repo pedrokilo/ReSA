@@ -1,0 +1,18 @@
+funciones a volcar: 5
+(node:37308) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("file%3A///D%3A/Original/gta-reversed-master/reversing/_handoff/rea/rea-x86/vehicle355-loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+abriendo 2026-10-08T02:31:53.056Z
+{"level":30,"time":1791426713206,"application":"rea","mode":"mcp","layer":"server","tool":"open_binary","durationMs":142.65,"status":"ok","msg":"MCP tool execution completed"}
+{"level":40,"time":1791426968577,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":255360.17,"status":"error","msg":"MCP tool execution completed"}
+1 / 5 2026-10-08T02:36:08.581Z
+{"level":40,"time":1791426969205,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":621.85,"status":"error","msg":"MCP tool execution completed"}
+2 / 5 2026-10-08T02:36:09.206Z
+{"level":40,"time":1791426969835,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":627.25,"status":"error","msg":"MCP tool execution completed"}
+3 / 5 2026-10-08T02:36:09.836Z
+{"level":40,"time":1791426970465,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":628.14,"status":"error","msg":"MCP tool execution completed"}
+4 / 5 2026-10-08T02:36:10.466Z
+{"level":40,"time":1791426971063,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":596.26,"status":"error","msg":"MCP tool execution completed"}
+5 / 5 2026-10-08T02:36:11.064Z
+{"level":30,"time":1791426971100,"application":"rea","mode":"mcp","layer":"server","tool":"close_binary","durationMs":0.94,"status":"ok","msg":"MCP tool execution completed"}
+FIN ok=0 fallos=5

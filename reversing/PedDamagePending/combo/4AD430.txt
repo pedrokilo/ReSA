@@ -1,0 +1,177 @@
+// CPedDamageResponseCalculator::AccountForPedDamageStats @ 0x004ad430 [0x4ad430..0x4ad546]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004ad430(int param_1)
+
+{
+  int iVar1;
+  bool bVar2;
+  float fVar3;
+  char cVar4;
+  int *in_ECX;
+  float10 fVar5;
+  
+  bVar2 = (float)in_ECX[1] == DAT_008a6260;
+  cVar4 = FUN_005df8f0();
+  if (cVar4 == '\0') {
+    fVar3 = *(float *)(*(int *)(param_1 + 0x59c) + 0x2c) * (float)in_ECX[1];
+  }
+  else {
+    fVar3 = (float)in_ECX[1] * 0.33;
+  }
+  in_ECX[1] = (int)fVar3;
+  if (((*in_ECX == 0) || ((*(byte *)(*in_ECX + 0x36) & 7) != 3)) ||
+     (cVar4 = FUN_005df8f0(), cVar4 == '\0')) {
+    if ((param_1 != 0) && (cVar4 = FUN_005df8f0(), cVar4 != '\0')) {
+      iVar1 = *in_ECX;
+      if (iVar1 == 0) {
+        return;
+      }
+      if (((*(byte *)(iVar1 + 0x36) & 7) == 3) &&
+         (cVar4 = FUN_00601d10(param_1,iVar1), cVar4 != '\0')) goto LAB_004ad524;
+    }
+    iVar1 = *in_ECX;
+    if (iVar1 == 0) {
+      return;
+    }
+    if ((*(byte *)(iVar1 + 0x36) & 7) != 3) {
+      return;
+    }
+    if (*(char *)(param_1 + 0x484) != '\x02') {
+      return;
+    }
+    cVar4 = FUN_005f7f40(param_1,iVar1);
+    if (cVar4 == '\0') {
+      return;
+    }
+    if (in_ECX[3] == 0x33) {
+      return;
+    }
+    if (in_ECX[3] == 0x25) {
+      return;
+    }
+  }
+  else {
+    cVar4 = FUN_005f7f40(param_1,*in_ECX);
+    if (cVar4 == '\0') {
+      return;
+    }
+    if (in_ECX[3] == 0x33) {
+      return;
+    }
+    if (in_ECX[3] == 0x25) {
+      return;
+    }
+    if (bVar2) {
+      return;
+    }
+  }
+LAB_004ad524:
+  fVar5 = (float10)FUN_00404330(0x41480000,(float)in_ECX[1] * 0.1);
+  in_ECX[1] = (int)(float)fVar5;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004AD430: push ebx
+004AD431: push esi
+004AD432: mov esi,ecx
+004AD434: fld dword ptr [esi+4]
+004AD437: push edi
+004AD438: fcomp dword ptr ds:[008A6260h]
+004AD43E: fnstsw ax
+004AD440: test ah,44h
+004AD443: jp 004AD449
+004AD445: mov bl,1
+004AD447: jmp 004AD44B
+004AD449: xor bl,bl
+004AD44B: mov edi,dword ptr [esp+10h]
+004AD44F: mov ecx,edi
+004AD451: call 005DF8F0
+004AD456: test al,al
+004AD458: je 004AD465
+004AD45A: fld dword ptr [esi+4]
+004AD45D: fmul dword ptr ds:[0085AD74h]
+004AD463: jmp 004AD471
+004AD465: mov eax,dword ptr [edi+0000059Ch]
+004AD46B: fld dword ptr [eax+2Ch]
+004AD46E: fmul dword ptr [esi+4]
+004AD471: mov ecx,dword ptr [esi]
+004AD473: fstp dword ptr [esi+4]
+004AD476: test ecx,ecx
+004AD478: je 004AD4C1
+004AD47A: mov dl,byte ptr [ecx+36h]
+004AD47D: and dl,7
+004AD480: cmp dl,3
+004AD483: jne 004AD4C1
+004AD485: call 005DF8F0
+004AD48A: test al,al
+004AD48C: je 004AD4C1
+004AD48E: mov eax,dword ptr [esi]
+004AD490: push eax
+004AD491: push edi
+004AD492: call 005F7F40
+004AD497: add esp,8
+004AD49A: test al,al
+004AD49C: je 004AD541
+004AD4A2: mov eax,dword ptr [esi+0Ch]
+004AD4A5: cmp eax,33h
+004AD4A8: je 004AD541
+004AD4AE: cmp eax,25h
+004AD4B1: je 004AD541
+004AD4B7: test bl,bl
+004AD4B9: jne 004AD541
+004AD4BF: jmp 004AD524
+004AD4C1: test edi,edi
+004AD4C3: je 004AD4EF
+004AD4C5: mov ecx,edi
+004AD4C7: call 005DF8F0
+004AD4CC: test al,al
+004AD4CE: je 004AD4EF
+004AD4D0: mov eax,dword ptr [esi]
+004AD4D2: test eax,eax
+004AD4D4: je 004AD541
+004AD4D6: mov cl,byte ptr [eax+36h]
+004AD4D9: and cl,7
+004AD4DC: cmp cl,3
+004AD4DF: jne 004AD4EF
+004AD4E1: push eax
+004AD4E2: push edi
+004AD4E3: call 00601D10
+004AD4E8: add esp,8
+004AD4EB: test al,al
+004AD4ED: jne 004AD524
+004AD4EF: mov eax,dword ptr [esi]
+004AD4F1: test eax,eax
+004AD4F3: je 004AD541
+004AD4F5: mov dl,byte ptr [eax+36h]
+004AD4F8: and dl,7
+004AD4FB: cmp dl,3
+004AD4FE: jne 004AD541
+004AD500: cmp byte ptr [edi+00000484h],2
+ 02
+004AD507: jne 004AD541
+004AD509: push eax
+004AD50A: push edi
+004AD50B: call 005F7F40
+004AD510: add esp,8
+004AD513: test al,al
+004AD515: je 004AD541
+004AD517: mov eax,dword ptr [esi+0Ch]
+004AD51A: cmp eax,33h
+004AD51D: je 004AD541
+004AD51F: cmp eax,25h
+004AD522: je 004AD541
+004AD524: fld dword ptr [esi+4]
+004AD527: push ecx
+004AD528: fmul dword ptr ds:[00858B1Ch]
+004AD52E: fstp dword ptr [esp]
+004AD531: push 41480000h
+004AD536: call 00404330
+004AD53B: fstp dword ptr [esi+4]
+004AD53E: add esp,8
+004AD541: pop edi
+004AD542: pop esi
+004AD543: pop ebx
+004AD544: ret 8

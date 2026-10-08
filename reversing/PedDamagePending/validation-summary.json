@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 6144,
+  "pairs_per_function": {
+    "CPedDamageResponseCalculator::AccountForPedDamageStats": 1024,
+    "CPedDamageResponseCalculator::AccountForPedArmour": 1024,
+    "CPedDamageResponseCalculator::ComputeWillForceDeath": 2048,
+    "CPedDamageResponseCalculator::ComputeDamageResponse": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e8e11d98db7ec1158d8fec75b4340f3b72032641c8e01341734b7f98b0ed353a",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ped-damage-pending\\20261007-210728-008290",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CPedDamageResponseCalculator::AccountForPedDamageStats": true,
+    "CPedDamageResponseCalculator::AccountForPedArmour": true,
+    "CPedDamageResponseCalculator::ComputeWillForceDeath": true,
+    "CPedDamageResponseCalculator::ComputeDamageResponse": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "58a296a2f9b31ce493e797955e231e30b40840f19f0b49871737b58d80c1a7c9",
+      "pdb": "3a6b16e0d597c1a01b42f9c0c3f402598868e2bf3b32ab429c763bd269b97977"
+    },
+    "sources": {
+      "source/game_sa/PedDamageResponseCalculator.cpp": "f617ca7075e0dd453608f06837f993d5830675157c02b53edc54c5ae09d684be",
+      "source/game_sa/PedDamageResponseCalculator.h": "171cf52530ce70ddbfe877fd2c82feda5d7094f9677c1e54b0769d74d49f5134",
+      "source/game_sa/PedDamageResponse.h": "b8d633254cf96a2b99ffefbc71901d9a49d73f5da3c56d37554bd2fce675f46f",
+      "source/game_sa/PedStats.h": "ca105a64fd965faeedb580a2fa6f5e6ca9ea0517f432201790e5a98c5acbd0a0",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+      "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c",
+      "source/game_sa/Events/EventDamage.cpp": "7aff5ec64306c598d0b260a825beb535cef42932a7343d67cd32b3bcf0f31e9c",
+      "source/game_sa/Events/EventDamage.h": "0b039361cb2f917e475ce43c695640f08e57ad8c35dc0f79d988286d55b96e7d",
+      "source/game_sa/Events/Event.h": "03bdb8dc071929a39f1e8f44e51fddbe0390afd27ce80074fb8d36ad71c5cf99",
+      "source/game_sa/Events/EventEditableResponse.h": "8450841942c66715a0a16a50e4331bdd1b25a207735f580667d3e751d2789e30",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "85e857dcb63b2c84b4dd31d19f1c0165fdd337606ae22405678ca0433633a18a",
+      "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
+      "source/game_sa/PedGroupMembership.h": "15a1f964b9292f642bf760642393e7b422c93a59092e2f6e06099f3d4a0e045a"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "5aebed2e03f48fa87a2d64bee84d3d002fa908eb5f00a6e59fb59f88ff507b39",
+      "build_probe.py": "d26594ee2f4fa527848809210ae9a8020858e56c880a6b29b2fdf497c50bef57",
+      "run_local.py": "8f718104017c89aa99cf29eedcd0b79c4a6a4d82a37e0ba09f2999ab6a6e39bb"
+    }
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"run_local.py\", \"tested_sha256\": \"8f718104017c89aa99cf29eedcd0b79c4a6a4d82a37e0ba09f2999ab6a6e39bb\", \"current_sha256\": \"05e2ff952238cbd6aab33d651e985b60e384548cb846275c7d308c1e68ffe653\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

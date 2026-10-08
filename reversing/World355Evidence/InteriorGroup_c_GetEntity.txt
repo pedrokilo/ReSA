@@ -1,0 +1,15 @@
+// InteriorGroup_c::GetEntity @ 0x00594bd0 [0x594bd0..0x594bd3]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_00594bd0(void)
+
+{
+  int in_ECX;
+  
+  return *(undefined4 *)(in_ECX + 8);
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00594BD0: mov eax,dword ptr [ecx+8]
+00594BD3: ret

@@ -1,0 +1,8 @@
+bool CTrain::IsNextStationAllowed(CTrain* train) {
+    const auto* engine = FindEngine(train);
+    auto distance = engine->m_fCurrentRailDistance;
+    int32 station;
+    FindNextStationPositionInDirection(engine->trainFlags.bClockwiseDirection, distance, &distance, &station);
+    const auto level = CTheZones::GetLevelFromPosition(aStationCoors[station]);
+    return CStats::GetStatValue(static_cast<eStats>(181)) + 1.f >= float(level);
+}

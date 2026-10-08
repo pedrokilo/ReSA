@@ -1,0 +1,20 @@
+{
+  "class": "CPlane",
+  "function": "VehicleDamage",
+  "address": "0x6CC4B0",
+  "validationlimitations": [
+    {
+      "branch": "accepted explosive weapon followed by damage smoke effect",
+      "exe_behavior": "Reads uninitialized stack float [esp+0x14] at 0x6CC915; multiplying zero damage can produce zero or NaN depending on prior stack contents.",
+      "native_behavior": "Defined positive zero particle force; avoids an uninitialized C++ read.",
+      "evidence": [
+        "0x6CC57F collision path initializes factor to 1",
+        "0x6CC915 fld dword ptr [esp+14h]",
+        "0x6CC919 fmul dword ptr [esp+58h]",
+        "0x6CC923 stores particle force"
+      ],
+      "comparison_scope": "Exclude explosivetosmoke from deterministic equivalence; accepted explosivetoBlowUpCar remains exercised; collisiontosmoke remains exercised.",
+      "status": "explicit limited deviation accepted by parent; no full equivalence claim"
+    }
+  ]
+}

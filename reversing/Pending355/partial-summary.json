@@ -1,0 +1,898 @@
+{
+  "kind": "partial_current_replay",
+  "all_scope_current": false,
+  "whole_batch_passed": false,
+  "current_banks": 74,
+  "current_functions": 117,
+  "scope_functions": 354,
+  "pairs": 301568,
+  "banks": [
+    {
+      "bank": "BikeAI355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-ai355\\20261008-065039-140758",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeBlow355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-blow355\\20261008-065144-952329",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeBurst355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-burst355\\20261008-065202-330197",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeControl355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-control355\\20261008-065219-724488",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeCore355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-core355\\20261008-065242-706340",
+      "pairs": 5120
+    },
+    {
+      "bank": "BikeDamage355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-damage355\\20261008-065302-845061",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeHands355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-hands355\\20261008-065320-097477",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeInputs355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-inputs355\\20261008-065339-000335",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikePreRender355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-pre-render355\\20261008-065420-101227",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeRatios355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-ratios355\\20261008-065946-351248",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeRider355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-rider355\\20261008-065536-474295",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeRoad355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-road355\\20261008-065641-875641",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeSetup355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-setup355\\20261008-065702-041609",
+      "pairs": 1024
+    },
+    {
+      "bank": "BikeWheel355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-wheel355\\20261008-065725-386807",
+      "pairs": 1024
+    },
+    {
+      "bank": "Boat355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-boat355\\20261008-065747-118703",
+      "pairs": 2048
+    },
+    {
+      "bank": "CamAim355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-aim355\\20261008-065812-968852",
+      "pairs": 1024
+    },
+    {
+      "bank": "CamArrest355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-arrest355\\20261008-070159-192693",
+      "pairs": 12288
+    },
+    {
+      "bank": "CamAttached355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-attached355\\20261008-070227-381382",
+      "pairs": 4096
+    },
+    {
+      "bank": "CamBirdy355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-birdy355\\20261008-070246-909117",
+      "pairs": 16384
+    },
+    {
+      "bank": "CamCineExit355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-cine-exit355\\20261008-070316-745163",
+      "pairs": 2048
+    },
+    {
+      "bank": "CamControl355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-control355\\20261008-070335-007128",
+      "pairs": 24576
+    },
+    {
+      "bank": "CamCore355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-core355\\20261008-070429-747009",
+      "pairs": 2048
+    },
+    {
+      "bank": "CamDead355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-dead355\\20261008-070454-889206",
+      "pairs": 4096
+    },
+    {
+      "bank": "CameraCollision355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-collision355\\20261008-070514-223142",
+      "pairs": 4096
+    },
+    {
+      "bank": "CameraDerived355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-derived355\\20261008-070558-805628",
+      "pairs": 2048
+    },
+    {
+      "bank": "CameraDuck355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-duck355\\20261008-070617-299554",
+      "pairs": 2048
+    },
+    {
+      "bank": "CameraFrustum355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-frustum355\\20261008-070653-663724",
+      "pairs": 2048
+    },
+    {
+      "bank": "CameraImprove355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-improve355\\20261008-070712-399522",
+      "pairs": 4096
+    },
+    {
+      "bank": "CameraLinear355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-linear355\\20261008-070732-093629",
+      "pairs": 7168
+    },
+    {
+      "bank": "CameraNear355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-near355\\20261008-070759-551855",
+      "pairs": 2048
+    },
+    {
+      "bank": "CameraNewMode355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-new-mode355\\20261008-070817-079516",
+      "pairs": 16384
+    },
+    {
+      "bank": "CameraPath355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-path355\\20261008-070847-021754",
+      "pairs": 1024
+    },
+    {
+      "bank": "CameraProcess355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-process355\\20261008-071113-018494",
+      "pairs": 16384
+    },
+    {
+      "bank": "CameraRwCopy355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-rw-copy355\\20261008-071203-989417",
+      "pairs": 2048
+    },
+    {
+      "bank": "CamFirstPerson355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-first-person355\\20261008-071223-798393",
+      "pairs": 1024
+    },
+    {
+      "bank": "CamFlyBy355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-flyby355\\20261008-071330-722075",
+      "pairs": 4096
+    },
+    {
+      "bank": "CamFollowCar355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-follow-car355\\20261008-071354-284321",
+      "pairs": 1024
+    },
+    {
+      "bank": "CamFollowPed355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-follow-ped355\\20261008-071541-647693",
+      "pairs": 1024
+    },
+    {
+      "bank": "CamHeliChase355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-heli-chase355\\20261008-071711-112076",
+      "pairs": 16384
+    },
+    {
+      "bank": "CamLamp355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-lamp355\\20261008-071747-503711",
+      "pairs": 2048
+    },
+    {
+      "bank": "CamLookBehind355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-look-behind355\\20261008-071838-681442",
+      "pairs": 8192
+    },
+    {
+      "bank": "CamLookSide355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-look-side355\\20261008-071901-010246",
+      "pairs": 8192
+    },
+    {
+      "bank": "CamM16355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-m16355\\20261008-071921-577190",
+      "pairs": 1024
+    },
+    {
+      "bank": "CamMan355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-man355\\20261008-072038-960522",
+      "pairs": 4096
+    },
+    {
+      "bank": "CamMouse355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-mouse355\\20261008-072058-940646",
+      "pairs": 1024
+    },
+    {
+      "bank": "CamPlane355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-plane355\\20261008-072211-668943",
+      "pairs": 2048
+    },
+    {
+      "bank": "CamPlaneOrbit355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-plane-orbit355\\20261008-072232-818049",
+      "pairs": 4096
+    },
+    {
+      "bank": "CamProcess355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-process355\\20261008-072254-971344",
+      "pairs": 8192
+    },
+    {
+      "bank": "CamRotate355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-rotate355\\20261008-072436-046499",
+      "pairs": 4096
+    },
+    {
+      "bank": "CamShooting355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-shooting355\\20261008-072455-211741",
+      "pairs": 1024
+    },
+    {
+      "bank": "CamSpotter355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-spotter355\\20261008-072620-746986",
+      "pairs": 2048
+    },
+    {
+      "bank": "CamSyphon355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-syphon355\\20261008-072639-682205",
+      "pairs": 2048
+    },
+    {
+      "bank": "CamTwoCars355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-two-cars355\\20261008-072657-861344",
+      "pairs": 1024
+    },
+    {
+      "bank": "CamTwoPlayer355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-two-player355\\20261008-072759-721606",
+      "pairs": 1024
+    },
+    {
+      "bank": "CamWheel355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-wheel355\\20261008-072907-883905",
+      "pairs": 16384
+    },
+    {
+      "bank": "CarDoorPosition355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-car-door-position355\\20261008-072936-842403",
+      "pairs": 4096
+    },
+    {
+      "bank": "CarNearest355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-car-nearest355\\20261008-073021-130759",
+      "pairs": 4096
+    },
+    {
+      "bank": "CarPassenger355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-car-passenger355\\20261008-073040-551140",
+      "pairs": 1024
+    },
+    {
+      "bank": "CarQuit355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-car-quit355\\20261008-073058-726675",
+      "pairs": 4096
+    },
+    {
+      "bank": "CarRoom355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-car-room355\\20261008-073118-190832",
+      "pairs": 4096
+    },
+    {
+      "bank": "ClothesArray355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-array355\\20261008-073137-965298",
+      "pairs": 2048
+    },
+    {
+      "bank": "ClothesGeometry355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-geometry355\\20261008-073210-737889",
+      "pairs": 5120
+    },
+    {
+      "bank": "ClothesRules355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-rules355\\20261008-073233-409056",
+      "pairs": 5120
+    },
+    {
+      "bank": "ClothesSkin355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-skin355\\20261008-073316-942555",
+      "pairs": 2048
+    },
+    {
+      "bank": "ClothesTextures355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-textures355\\20261008-073410-280094",
+      "pairs": 2048
+    },
+    {
+      "bank": "FormationAssign355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-formation-assign355\\20261008-073434-929286",
+      "pairs": 3072
+    },
+    {
+      "bank": "FormationFollow355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-formation-follow355\\20261008-073454-266158",
+      "pairs": 3328
+    },
+    {
+      "bank": "FormationGather355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-formation-gather355\\20261008-073531-980231",
+      "pairs": 2048
+    },
+    {
+      "bank": "FormationLookup355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-formation-lookup355\\20261008-073551-127008",
+      "pairs": 6144
+    },
+    {
+      "bank": "FxEmitterCore355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx-emitter-core355\\20261008-073610-587736",
+      "pairs": 6144
+    },
+    {
+      "bank": "FxEmitterParticle355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx-emitter-particle355\\20261008-073638-018841",
+      "pairs": 1024
+    },
+    {
+      "bank": "FxEmitterRender355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx-emitter-render355\\20261008-073656-465179",
+      "pairs": 3072
+    },
+    {
+      "bank": "GangJoin355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gang-join355\\20261008-073907-648304",
+      "pairs": 1792
+    },
+    {
+      "bank": "GeometryCore355",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-geometry-core355\\20261008-073932-615814",
+      "pairs": 4608
+    }
+  ],
+  "skipped": [
+    {
+      "bank": "GangFollower355",
+      "reason": "Latest report not passed/current",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "GeometryQueries355",
+      "reason": "Latest report not passed/current",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "GeometryRoutes355",
+      "reason": "Latest report not passed/current",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HandSignal355",
+      "reason": "Latest report not passed/current",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HassleVehicle355",
+      "reason": "Latest report not passed/current",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HitCar355",
+      "reason": "Latest report not passed/current",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HudCrosshairs355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HudHelp355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HudPlayerInfo355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HudSubtitles355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HudSuccess355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HudTimers355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HudVitals355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "HudWanted355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "InterestingCore355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "InterestingScan355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "InteriorClosest355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "InteriorControl355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "InteriorCore355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "InteriorExit355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "InteriorOffice355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "InteriorPathsLoaded355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "InteriorSetupPaths355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "InteriorSpawn355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "MonsterControl355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "MonsterSetup355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "MonsterSuspension355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "PedDamagePending",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "PlaneAmbient355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "PlaneBlow355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "PlaneControl355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "PlaneCreation355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "PlaneDamage355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "PlaneFlying355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "PlaneGeneration355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "PlaneInputs355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "PlanePreRender355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ProjectileAdd355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ProjectileCore355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ProjectileRemove355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ProjectileUpdate355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "RadioConcat355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "RadioDJ355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "RadioQueue355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "RadioRetune355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "RadioSelection355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "RadioService355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "RadioStop355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "RadioTrack355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "RadioVolumes355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptAngled355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptAnim355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptArea355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptBank355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptEvents355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptLinks355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptLoaded355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptLocate355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptLocateChar355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptPickup355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptPreload355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptShutdown355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ScriptUpdate355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ShadowGenerate355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ShadowPermanent355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ShadowSectors355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ShadowStatic355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ShadowTriangle355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ShadowVehicle355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ShadowXY355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "ShadowXYZ355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "SmartFlee355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "StorageCore355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "StorageGame355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "StorageIO355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "Sunbathe355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainAddPassenger355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainCoordinates355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainCreate355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainCtor355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainGeneration355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainHit355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainInit355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainLinks355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainNearest355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainPassenger355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainPosition355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainQueries355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainRead355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainRemove355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "TrainSkip355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "VehicleLean355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "Wander355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "WaterFog355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "WaterNearest355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "WaterQuery355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "WaterRender355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "WeaponCarShot355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "WeaponDrive355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "WeaponInstant355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "WeaponOccupant355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "WeaponScreen355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    },
+    {
+      "bank": "WeaponTank355",
+      "reason": "Not full final manifest",
+      "status": "historical_or_unvalidated_current_retained"
+    }
+  ]
+}

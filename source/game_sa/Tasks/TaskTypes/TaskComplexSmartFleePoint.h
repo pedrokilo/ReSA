@@ -11,7 +11,7 @@ class CTaskSimpleStandStill;
 
 class NOTSA_EXPORT_VTABLE CTaskComplexSmartFleePoint : public CTaskComplex {
 public:
-    CVector m_initalPos{};                  // 0xC
+    CVector m_initalPos;                    // Como el original: se escribe al crear la primera subtarea.
     CVector m_fleePoint{};                  // 0x18
     bool m_doScream{};                      // 0x24
     int32 m_fleeTimeMs{};                   // 0x28
@@ -29,10 +29,10 @@ public:
     CTaskComplexSmartFleePoint(CVector const& fleePos, bool doScream, float safeDist, int32 fleeTimeMs);
     CTaskComplexSmartFleePoint(const CTaskComplexSmartFleePoint& o); // NOTSA
 
-    int8 SetDefaultTaskWanderDir(CPed* ped);
+    void SetDefaultTaskWanderDir(CPed* ped);
     uint32 ComputeFleeDir(CPed*);
     CTask* CreateSubTask(eTaskType taskType, CPed* ped);
-    int8 SetFleePosition(CVector const& a2, float a3, bool a4);
+    void SetFleePosition(CVector const& a2, float a3, bool a4);
 
     CTask*    Clone() const override { return new CTaskComplexSmartFleePoint{ *this }; }
     eTaskType GetTaskType() const override { return Type; }

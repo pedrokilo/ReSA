@@ -1,0 +1,64 @@
+// InteriorGroup_c::SetupPeds @ 0x00596890 [0x596890..0x5968df]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00596890(void)
+
+{
+  char cVar1;
+  int in_ECX;
+  
+  if ((*(int *)(in_ECX + 0x30) != 0) && (DAT_00bb3dc2 != '\0')) {
+    cVar1 = *(char *)(in_ECX + 0xe);
+    if (cVar1 == '\0') {
+      FUN_005965e0();
+      *(undefined1 *)(in_ECX + 0xb9) = 1;
+      return;
+    }
+    if (cVar1 == '\x01') {
+      FUN_00594c10();
+      *(undefined1 *)(in_ECX + 0xb9) = 1;
+      return;
+    }
+    if (cVar1 == '\x02') {
+      FUN_00594bf0();
+    }
+    *(undefined1 *)(in_ECX + 0xb9) = 1;
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00596890: push esi
+00596891: mov esi,ecx
+00596893: mov eax,dword ptr [esi+30h]
+00596896: test eax,eax
+00596898: je 005968DE
+0059689A: mov al,byte ptr ds:[00BB3DC2h]
+0059689F: test al,al
+005968A1: je 005968DE
+005968A3: mov al,byte ptr [esi+0Eh]
+005968A6: test al,al
+005968A8: jne 005968B8
+005968AA: call 005965E0
+005968AF: mov byte ptr [esi+000000B9h],1
+ 01
+005968B6: pop esi
+005968B7: ret
+005968B8: cmp al,1
+005968BA: jne 005968CC
+005968BC: mov ecx,esi
+005968BE: call 00594C10
+005968C3: mov byte ptr [esi+000000B9h],1
+ 01
+005968CA: pop esi
+005968CB: ret
+005968CC: cmp al,2
+005968CE: jne 005968D7
+005968D0: mov ecx,esi
+005968D2: call 00594BF0
+005968D7: mov byte ptr [esi+000000B9h],1
+ 01
+005968DE: pop esi
+005968DF: ret
+005968E0: push esi

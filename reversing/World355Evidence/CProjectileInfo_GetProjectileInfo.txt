@@ -1,0 +1,294 @@
+// Sin pseudocódigo de Ghidra para 0x00737bf0: {'cls': 'CProjectileInfo', 'fn': 'GetProjectileInfo', 'error': '{"code":"invalid_request","category":"invalid_input","message":"Analysis input is invalid. Check the arguments and try again.","retryable":true,"remediation":{"action":"Correct the listed arguments and retry."}}'}
+==== ensamblador exacto (dis.sh) ====
+00737BF0: mov eax,dword ptr [esp+4]
+00737BF4: lea eax,[eax+eax*8]
+00737BF7: lea eax,[eax*4+00C891A8h]
+ 00
+00737BFE: ret
+00737C00: mov eax,dword ptr [esp+8]
+00737C04: cmp eax,10h
+00737C07: je 00737C45
+00737C09: cmp eax,27h
+00737C0C: je 00737C45
+00737C0E: cmp eax,12h
+00737C11: jne 00737C27
+00737C13: push 0
+00737C15: push 0BF800000h
+00737C1A: push 1
+00737C1C: push 0
+00737C1E: sub esp,0Ch
+00737C21: mov eax,esp
+00737C23: push 1
+00737C25: jmp 00737C57
+00737C27: cmp eax,13h
+00737C2A: je 00737C31
+00737C2C: cmp eax,14h
+00737C2F: jne 00737C7A
+00737C31: push 0
+00737C33: push 0BF800000h
+00737C38: push 1
+00737C3A: push 0
+00737C3C: sub esp,0Ch
+00737C3F: mov eax,esp
+00737C41: push 2
+00737C43: jmp 00737C57
+00737C45: push 0
+00737C47: push 0BF800000h
+00737C4C: push 1
+00737C4E: push 0
+00737C50: sub esp,0Ch
+00737C53: mov eax,esp
+00737C55: push 0
+00737C57: mov ecx,dword ptr [esp+2Ch]
+00737C5B: mov edx,dword ptr [esp+30h]
+00737C5F: mov dword ptr [eax],ecx
+00737C61: mov ecx,dword ptr [esp+34h]
+00737C65: mov dword ptr [eax+4],edx
+00737C68: mov edx,dword ptr [esp+24h]
+00737C6C: push edx
+00737C6D: push 0
+00737C6F: mov dword ptr [eax+8],ecx
+00737C72: call 00736A50
+00737C77: add esp,28h
+00737C7A: ret
+00737C80: push 0FFFFFFFFh
+00737C82: push 848DF3h
+00737C87: mov eax,dword ptr fs:[00000000h]
+00737C8D: push eax
+00737C8E: mov dword ptr fs:[00000000h],esp
+ 00
+00737C95: sub esp,0A4h
+00737C9B: push ebx
+00737C9C: push ebp
+00737C9D: push esi
+00737C9E: xor esi,esi
+00737CA0: push edi
+00737CA1: mov dword ptr [esp+7Ch],esi
+00737CA5: mov dword ptr [esp+00000080h],esi
+ 00
+00737CAC: mov edi,dword ptr [esp+000000C8h]
+ 00
+00737CB3: mov ebp,dword ptr [esp+000000C4h]
+ 00
+00737CBA: lea eax,[edi-10h]
+00737CBD: cmp eax,2Ah
+00737CC0: mov dword ptr [esp+000000BCh],esi
+ 00
+00737CC7: mov dword ptr [esp+38h],3F400000h
+00737CCF: mov byte ptr [esp+1Bh],1
+00737CD4: mov byte ptr [esp+1Ah],0
+00737CD9: ja 0073836A
+00737CDF: movzx eax,byte ptr [eax+007387F0h]
+ 00
+00737CE6: jmp dword ptr [eax*4+007387D4h]
+ 00
+00737CED: fld dword ptr [esp+000000D8h]
+ 00
+00737CF4: mov ecx,dword ptr ds:[00B7CB84h]
+00737CFA: fcomp dword ptr ds:[00858B50h]
+00737D00: add ecx,4E20h
+00737D06: mov dword ptr [esp+34h],ecx
+00737D0A: fnstsw ax
+00737D0C: test ah,44h
+00737D0F: jp 00737D1B
+00737D11: mov dword ptr [esp+10h],0
+00737D19: jmp 00737D32
+00737D1B: fld dword ptr [esp+000000D8h]
+ 00
+00737D22: fmul dword ptr ds:[008717ACh]
+00737D28: fadd dword ptr ds:[00858FCCh]
+00737D2E: fstp dword ptr [esp+10h]
+00737D32: mov eax,dword ptr [ebp+14h]
+00737D35: cmp eax,esi
+00737D37: je 00737D4B
+00737D39: fld dword ptr [eax+14h]
+00737D3C: fld dword ptr [eax+10h]
+00737D3F: fchs
+00737D41: fxch st(1)
+00737D43: fpatan
+00737D45: fstp dword ptr [esp+14h]
+00737D49: jmp 00737D52
+00737D4B: mov edx,dword ptr [ebp+10h]
+00737D4E: mov dword ptr [esp+14h],edx
+00737D52: push esi
+00737D53: push esi
+00737D54: push esi
+00737D55: lea ecx,[esp+48h]
+00737D59: call 0059AF40
+00737D5E: mov eax,dword ptr [esp+14h]
+00737D62: push eax
+00737D63: lea ecx,[esp+40h]
+00737D67: call 0059B390
+00737D6C: fld dword ptr [esp+6Ch]
+00737D70: fadd dword ptr [esp+000000CCh]
+ 00
+00737D77: mov byte ptr [esp+1Ah],5
+00737D7C: mov dword ptr [esp+38h],3F000000h
+00737D84: fstp dword ptr [esp+6Ch]
+00737D88: fld dword ptr [esp+70h]
+00737D8C: fadd dword ptr [esp+000000D0h]
+ 00
+00737D93: fstp dword ptr [esp+70h]
+00737D97: fld dword ptr [esp+74h]
+00737D9B: fadd dword ptr [esp+000000D4h]
+ 00
+00737DA2: fstp dword ptr [esp+74h]
+00737DA6: fld dword ptr [esp+14h]
+00737DAA: fsin
+00737DAC: fld dword ptr [esp+14h]
+00737DB0: fcos
+00737DB2: fmul dword ptr [esp+10h]
+00737DB6: fxch st(1)
+00737DB8: fmul dword ptr [esp+10h]
+00737DBC: fmul dword ptr ds:[00858C1Ch]
+00737DC2: fstp dword ptr [esp+28h]
+00737DC6: mov ecx,dword ptr [esp+28h]
+00737DCA: mov dword ptr [esp+1Ch],ecx
+00737DCE: fstp dword ptr [esp+2Ch]
+00737DD2: mov edx,dword ptr [esp+2Ch]
+00737DD6: fld dword ptr [esp+000000D8h]
+ 00
+00737DDD: mov dword ptr [esp+20h],edx
+00737DE1: fadd dword ptr ds:[00858624h]
+00737DE7: fmul dword ptr ds:[00858EE8h]
+00737DED: fmul dword ptr [esp+10h]
+00737DF1: fstp dword ptr [esp+30h]
+00737DF5: mov eax,dword ptr [esp+30h]
+00737DF9: mov dword ptr [esp+24h],eax
+00737DFD: jmp 0073836A
+00737E02: fld dword ptr [esp+000000D8h]
+ 00
+00737E09: mov ecx,dword ptr ds:[00B7CB84h]
+00737E0F: fcomp dword ptr ds:[00858B50h]
+00737E15: add ecx,7D0h
+00737E1B: mov dword ptr [esp+34h],ecx
+00737E1F: fnstsw ax
+00737E21: test ah,44h
+00737E24: jp 00737E30
+00737E26: mov dword ptr [esp+10h],0
+00737E2E: jmp 00737E47
+00737E30: fld dword ptr [esp+000000D8h]
+ 00
+00737E37: fmul dword ptr ds:[008717ACh]
+00737E3D: fadd dword ptr ds:[00858FCCh]
+00737E43: fstp dword ptr [esp+10h]
+00737E47: cmp edi,27h
+00737E4A: jne 00737E5A
+00737E4C: fld dword ptr [esp+10h]
+00737E50: fmul dword ptr ds:[00858B8Ch]
+00737E56: fstp dword ptr [esp+10h]
+00737E5A: mov eax,dword ptr [ebp+14h]
+00737E5D: cmp eax,esi
+00737E5F: je 00737E73
+00737E61: fld dword ptr [eax+14h]
+00737E64: fld dword ptr [eax+10h]
+00737E67: fchs
+00737E69: fxch st(1)
+00737E6B: fpatan
+00737E6D: fstp dword ptr [esp+14h]
+00737E71: jmp 00737E7A
+00737E73: mov edx,dword ptr [ebp+10h]
+00737E76: mov dword ptr [esp+14h],edx
+00737E7A: mov al,byte ptr [ebp+36h]
+00737E7D: and al,7
+00737E7F: cmp al,2
+00737E81: jne 00737E9D
+00737E83: fld dword ptr [esp+14h]
+00737E87: push ecx
+00737E88: fadd dword ptr ds:[00858CB8h]
+00737E8E: fstp dword ptr [esp]
+00737E91: call 0053CB50
+00737E96: fstp dword ptr [esp+18h]
+00737E9A: add esp,4
+00737E9D: push esi
+00737E9E: push esi
+00737E9F: push esi
+00737EA0: lea ecx,[esp+48h]
+00737EA4: call 0059AF40
+00737EA9: mov ecx,dword ptr [esp+14h]
+00737EAD: push ecx
+00737EAE: lea ecx,[esp+40h]
+00737EB2: call 0059B390
+00737EB7: fld dword ptr [esp+6Ch]
+00737EBB: cmp word ptr [ebp+22h],195h
+00737EC1: fadd dword ptr [esp+000000CCh]
+ 00
+00737EC8: fstp dword ptr [esp+6Ch]
+00737ECC: fld dword ptr [esp+70h]
+00737ED0: fadd dword ptr [esp+000000D0h]
+ 00
+00737ED7: fstp dword ptr [esp+70h]
+00737EDB: fld dword ptr [esp+74h]
+00737EDF: fadd dword ptr [esp+000000D4h]
+ 00
+00737EE6: fstp dword ptr [esp+74h]
+00737EEA: fld dword ptr [esp+14h]
+00737EEE: fsin
+00737EF0: fld dword ptr [esp+14h]
+00737EF4: fcos
+00737EF6: fmul dword ptr [esp+10h]
+00737EFA: fxch st(1)
+00737EFC: fmul dword ptr [esp+10h]
+00737F00: fmul dword ptr ds:[00858C1Ch]
+00737F06: fstp dword ptr [esp+28h]
+00737F0A: mov edx,dword ptr [esp+28h]
+00737F0E: mov dword ptr [esp+1Ch],edx
+00737F12: fstp dword ptr [esp+2Ch]
+00737F16: mov eax,dword ptr [esp+2Ch]
+00737F1A: fld dword ptr [esp+000000D8h]
+ 00
+00737F21: mov dword ptr [esp+20h],eax
+00737F25: fadd dword ptr ds:[00858624h]
+00737F2B: fmul dword ptr ds:[00858EE8h]
+00737F31: fmul dword ptr [esp+10h]
+00737F35: fstp dword ptr [esp+30h]
+00737F39: mov ecx,dword ptr [esp+30h]
+00737F3D: mov dword ptr [esp+24h],ecx
+00737F41: jne 00737F64
+00737F43: fld dword ptr [esp+28h]
+00737F47: fadd dword ptr [ebp+44h]
+00737F4A: fstp dword ptr [esp+1Ch]
+00737F4E: fld dword ptr [esp+20h]
+00737F52: fadd dword ptr [ebp+48h]
+00737F55: fstp dword ptr [esp+20h]
+00737F59: fld dword ptr [esp+24h]
+00737F5D: fadd dword ptr [ebp+4Ch]
+00737F60: fstp dword ptr [esp+24h]
+00737F64: cmp edi,27h
+00737F67: mov byte ptr [esp+1Ah],5
+00737F6C: mov dword ptr [esp+38h],3F000000h
+00737F74: jne 0073836A
+00737F7A: mov dword ptr [esp+38h],3CF5C28Fh
+00737F82: jmp 0073836A
+00737F87: fld dword ptr [esp+000000D8h]
+ 00
+00737F8E: mov edx,dword ptr ds:[00B7CB84h]
+00737F94: fmul dword ptr ds:[008717ACh]
+00737F9A: add edx,7D0h
+00737FA0: mov dword ptr [esp+34h],edx
+00737FA4: fadd dword ptr ds:[00858FCCh]
+00737FAA: fst dword ptr [esp+10h]
+00737FAE: fcomp dword ptr ds:[00858CC4h]
+00737FB4: fnstsw ax
+00737FB6: test ah,5
+00737FB9: jp 00737FC3
+00737FBB: mov dword ptr [esp+10h],3E4CCCCDh
+00737FC3: mov eax,dword ptr [ebp+14h]
+00737FC6: cmp eax,esi
+00737FC8: je 00737FDC
+00737FCA: fld dword ptr [eax+14h]
+00737FCD: fld dword ptr [eax+10h]
+00737FD0: fchs
+00737FD2: fxch st(1)
+00737FD4: fpatan
+00737FD6: fstp dword ptr [esp+14h]
+00737FDA: jmp 00737FE3
+00737FDC: mov eax,dword ptr [ebp+10h]
+00737FDF: mov dword ptr [esp+14h],eax
+00737FE3: push esi
+00737FE4: push esi
+00737FE5: push esi
+00737FE6: lea ecx,[esp+48h]
+00737FEA: call 0059AF40
+ 00737FEF: 8B
+00737FF0: dec esp

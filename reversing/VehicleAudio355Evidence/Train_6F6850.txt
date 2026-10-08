@@ -1,0 +1,227 @@
+// CTrain::RemoveRandomPassenger @ 0x006f6850 [0x6f6850..0x6f6a18]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006f6850(void)
+
+{
+  byte bVar1;
+  int *piVar2;
+  int iVar3;
+  uint uVar4;
+  undefined4 uVar5;
+  int in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 uStack_4;
+  
+  uStack_4 = 0xffffffff;
+  puStack_8 = &LAB_00848b1b;
+  local_c = ExceptionList;
+  if (DAT_00a43088 == '\x01') {
+    return;
+  }
+  ExceptionList = &local_c;
+  iVar3 = FUN_0056e210(0xffffffff);
+  if (*(int *)(iVar3 + 0x58c) != in_ECX) {
+    piVar2 = *(int **)(*(int *)(iVar3 + 0x47c) + 0x10);
+    if ((piVar2 != (int *)0x0) &&
+       (((iVar3 = (**(code **)(*piVar2 + 0x10))(), iVar3 == 0x2bd ||
+         (iVar3 = (**(code **)(*piVar2 + 0x10))(), iVar3 == 700)) && (piVar2[3] == in_ECX)))) {
+      ExceptionList = local_c;
+      return;
+    }
+    uVar4 = (*(byte *)(in_ECX + 0x5b8) & 0x40) >> 6;
+    iVar3 = FUN_0056e210(0xffffffff);
+    if (((*(uint *)(iVar3 + 0x46c) & 0x100) != 0) && (*(int *)(iVar3 + 0x58c) == in_ECX)) {
+      if (uVar4 == 1) {
+        if (*(int *)(in_ECX + 0x460) == iVar3) {
+          ExceptionList = local_c;
+          return;
+        }
+      }
+      else if ((uVar4 == 0) && (*(int *)(in_ECX + 0x460) != iVar3)) {
+        ExceptionList = local_c;
+        return;
+      }
+    }
+    if ((*(byte *)(in_ECX + 0x5cb) & 0xf) != 0) {
+      piVar2 = (int *)(in_ECX + 0x5cc);
+      if (*(int *)(in_ECX + 0x5cc) != 0) {
+        if ((*(uint *)(*(int *)(in_ECX + 0x5cc) + 0x46c) & 0x100) != 0) {
+          ExceptionList = local_c;
+          return;
+        }
+        FUN_00571a00(piVar2);
+        *piVar2 = 0;
+      }
+      FUN_00407180(0,0xc);
+      _rand();
+      iVar3 = FUN_00613a00();
+      if (iVar3 != 0) {
+        *(uint *)(iVar3 + 0x478) = *(uint *)(iVar3 + 0x478) | 0x40000;
+        bVar1 = *(byte *)(in_ECX + 0x5cb);
+        *(byte *)(in_ECX + 0x5cb) = (bVar1 - 1 ^ bVar1) & 0xf ^ bVar1;
+        *piVar2 = iVar3;
+        FUN_00571b70(piVar2);
+        iVar3 = FUN_0061a5a0(0x1c);
+        uStack_4 = 0;
+        if (iVar3 == 0) {
+          uVar5 = 0;
+        }
+        else {
+          uVar5 = FUN_0063bdd0(in_ECX,0,0,1);
+        }
+        uStack_4 = 0xffffffff;
+        FUN_00681af0(uVar5,3,0);
+      }
+    }
+    ExceptionList = local_c;
+    return;
+  }
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F6850: push 0FFFFFFFFh
+006F6852: push 848B1Bh
+006F6857: mov eax,dword ptr fs:[00000000h]
+006F685D: push eax
+006F685E: mov dword ptr fs:[00000000h],esp
+ 00
+006F6865: push ecx
+006F6866: cmp byte ptr ds:[00A43088h],1
+ 01
+006F686D: push esi
+006F686E: mov esi,ecx
+006F6870: je 006F6A09
+006F6876: push 0FFFFFFFFh
+006F6878: call 0056E210
+006F687D: mov ecx,dword ptr [eax+0000058Ch]
+006F6883: add esp,4
+006F6886: cmp ecx,esi
+006F6888: je 006F6A09
+006F688E: mov eax,dword ptr [eax+0000047Ch]
+006F6894: push ebx
+006F6895: push ebp
+006F6896: push edi
+006F6897: mov edi,dword ptr [eax+10h]
+006F689A: test edi,edi
+006F689C: je 006F68C3
+006F689E: mov eax,dword ptr [edi]
+006F68A0: mov ecx,edi
+006F68A2: call dword ptr [eax+10h]
+006F68A5: cmp eax,2BDh
+006F68AA: je 006F68BA
+006F68AC: mov edx,dword ptr [edi]
+006F68AE: mov ecx,edi
+006F68B0: call dword ptr [edx+10h]
+006F68B3: cmp eax,2BCh
+006F68B8: jne 006F68C3
+006F68BA: cmp dword ptr [edi+0Ch],esi
+006F68BD: je 006F6A06
+006F68C3: xor eax,eax
+006F68C5: mov al,byte ptr [esi+000005B8h]
+006F68CB: push 0FFFFFFFFh
+006F68CD: shr eax,6
+006F68D0: and eax,1
+006F68D3: mov ebp,eax
+006F68D5: call 0056E210
+006F68DA: mov ecx,dword ptr [eax+0000046Ch]
+006F68E0: mov edx,100h
+006F68E5: add esp,4
+006F68E8: test edx,ecx
+006F68EA: je 006F6917
+006F68EC: cmp dword ptr [eax+0000058Ch],esi
+006F68F2: jne 006F6917
+006F68F4: cmp ebp,1
+006F68F7: jne 006F6907
+006F68F9: cmp dword ptr [esi+00000460h],eax
+006F68FF: je 006F6A06
+006F6905: jmp 006F6917
+006F6907: test ebp,ebp
+006F6909: jne 006F6917
+006F690B: cmp dword ptr [esi+00000460h],eax
+006F6911: jne 006F6A06
+006F6917: test byte ptr [esi+000005CBh],0Fh
+ 0F
+006F691E: je 006F6A06
+006F6924: mov ecx,dword ptr [esi+000005CCh]
+006F692A: test ecx,ecx
+006F692C: lea ebx,[esi+000005CCh]
+006F6932: je 006F694C
+006F6934: test dword ptr [ecx+0000046Ch],edx
+006F693A: jne 006F6A06
+006F6940: push ebx
+006F6941: call 00571A00
+006F6946: mov dword ptr [ebx],0
+006F694C: push 0Ch
+006F694E: push 0
+006F6950: call 00407180
+006F6955: mov edi,eax
+006F6957: add esp,8
+006F695A: cmp edi,0Ch
+006F695D: jne 006F6964
+006F695F: mov edi,0Bh
+006F6964: call 00821B1E
+006F6969: and eax,0FFFFh
+006F696E: cmp eax,64h
+006F6971: jge 006F6978
+006F6973: mov edi,19h
+006F6978: push 0
+006F697A: test ebp,ebp
+006F697C: push 0
+006F697E: sete cl
+006F6981: push 0
+006F6983: push edi
+006F6984: push ecx
+006F6985: push esi
+006F6986: call 00613A00
+006F698B: mov edi,eax
+006F698D: add esp,18h
+006F6990: test edi,edi
+006F6992: je 006F6A06
+006F6994: or dword ptr [edi+00000478h],40000h
+006F699E: mov al,byte ptr [esi+000005CBh]
+006F69A4: mov dl,al
+006F69A6: dec dl
+006F69A8: xor dl,al
+006F69AA: and dl,0Fh
+006F69AD: xor dl,al
+006F69AF: push ebx
+006F69B0: mov ecx,edi
+006F69B2: mov byte ptr [esi+000005CBh],dl
+006F69B8: mov dword ptr [ebx],edi
+006F69BA: call 00571B70
+006F69BF: push 1Ch
+006F69C1: call 0061A5A0
+006F69C6: add esp,4
+006F69C9: mov dword ptr [esp+10h],eax
+006F69CD: test eax,eax
+006F69CF: mov dword ptr [esp+1Ch],0
+006F69D7: je 006F69E9
+006F69D9: push 1
+006F69DB: push 0
+006F69DD: push 0
+006F69DF: push esi
+006F69E0: mov ecx,eax
+006F69E2: call 0063BDD0
+006F69E7: jmp 006F69EB
+006F69E9: xor eax,eax
+006F69EB: mov ecx,dword ptr [edi+0000047Ch]
+006F69F1: push 0
+006F69F3: push 3
+006F69F5: push eax
+006F69F6: add ecx,4
+006F69F9: mov dword ptr [esp+28h],0FFFFFFFFh
+006F6A01: call 00681AF0
+006F6A06: pop edi
+006F6A07: pop ebp
+006F6A08: pop ebx
+006F6A09: mov ecx,dword ptr [esp+8]
+006F6A0D: pop esi
+006F6A0E: mov dword ptr fs:[00000000h],ecx
+ 00
+006F6A15: add esp,10h
+006F6A18: ret

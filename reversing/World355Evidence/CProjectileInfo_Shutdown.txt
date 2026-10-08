@@ -1,0 +1,35 @@
+// CProjectileInfo::Shutdown @ 0x00737bc0 [0x737bc0..0x737be9]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00737bc0(void)
+
+{
+  int *piVar1;
+  
+  piVar1 = &DAT_00c891c8;
+  do {
+    if (*piVar1 != 0) {
+      FUN_004a9810(*piVar1);
+      *piVar1 = 0;
+    }
+    piVar1 = piVar1 + 9;
+  } while ((int)piVar1 < 0xc89648);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00737BC0: push esi
+00737BC1: mov esi,0C891C8h
+00737BC6: mov eax,dword ptr [esi]
+00737BC8: test eax,eax
+00737BCA: je 00737BDD
+00737BCC: push eax
+00737BCD: mov ecx,0A9AE80h
+00737BD2: call 004A9810
+00737BD7: mov dword ptr [esi],0
+00737BDD: add esi,24h
+00737BE0: cmp esi,0C89648h
+00737BE6: jl 00737BC6
+00737BE8: pop esi
+00737BE9: ret

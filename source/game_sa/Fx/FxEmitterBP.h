@@ -6,12 +6,6 @@ class FxEmitterPrt_c;
 
 class NOTSA_EXPORT_VTABLE FxEmitterBP_c : public FxPrimBP_c {
 public:
-    uint16 m_nLodStart;
-    uint16 m_nLodEnd;
-
-    bool   m_bHasInfoFlatData;
-    bool   m_bHasInfoHeatHazeData;
-
 public:
     static void InjectHooks();
 
@@ -33,4 +27,4 @@ private:
 
 
 };
-VALIDATE_SIZE(FxEmitterBP_c, 0x48);
+VALIDATE_SIZE(FxEmitterBP_c, 0x40);

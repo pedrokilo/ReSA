@@ -1,3 +1,7 @@
+<!-- USER STOP 2026-10-08 -->
+Estado al detener el trabajo: reconstrucción solicitada completada y aprobación histórica conservada. No se ejecutó una nueva regresión con las fuentes finales. Los hashes y límites actuales se detallan en [el estado de todas las listas](../../docs/EstadoListasSolicitadas.md). Las notas siguientes conservan su fecha y alcance originales.
+<!-- /USER STOP 2026-10-08 -->
+
 # CFont: funciones pendientes
 
 Reconstrucción de PrintChar (0x718A10), FindSubFontCharacter (0x7192C0), RenderFontBuffer (0x719840) y ProcessCurrentString (0x71A220), cotejada con pseudocódigo REA y ensamblador del EXE 1.0 US en `combo/`.

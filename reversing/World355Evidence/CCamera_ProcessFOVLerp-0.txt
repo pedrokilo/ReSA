@@ -1,0 +1,50 @@
+// CCamera::ProcessFOVLerp-0 @ 0x0050d510 [0x50d510..0x50d580]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0050d510(float param_1)
+
+{
+  int in_ECX;
+  float10 fVar1;
+  
+  *(undefined1 *)(in_ECX + 0xcb5) = 1;
+  if (*(char *)(in_ECX + 0xcb4) != '\0') {
+    fVar1 = (float10)fsin(((float10)270.0 - (float10)param_1 * (float10)180.0) *
+                          (float10)0.017453292);
+    *(float *)(in_ECX + 0xcb8) =
+         (float)(((float10)*(float *)(in_ECX + 0xcb0) - (float10)*(float *)(in_ECX + 0xcac)) *
+                 (fVar1 + (float10)1.0) * (float10)0.5 + (float10)*(float *)(in_ECX + 0xcac));
+    return;
+  }
+  *(float *)(in_ECX + 0xcb8) =
+       (*(float *)(in_ECX + 0xcb0) - *(float *)(in_ECX + 0xcac)) * param_1 +
+       *(float *)(in_ECX + 0xcac);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0050D510: mov al,byte ptr [ecx+00000CB4h]
+0050D516: test al,al
+0050D518: mov byte ptr [ecx+00000CB5h],1
+ 01
+0050D51F: je 0050D562
+0050D521: fld dword ptr [esp+4]
+0050D525: fmul dword ptr ds:[0085A994h]
+0050D52B: fsubr dword ptr ds:[00859070h]
+0050D531: fmul dword ptr ds:[008595ECh]
+0050D537: fsin
+0050D539: fadd dword ptr ds:[00858624h]
+0050D53F: fmul dword ptr ds:[00858B8Ch]
+0050D545: fld dword ptr [ecx+00000CB0h]
+0050D54B: fsub dword ptr [ecx+00000CACh]
+0050D551: fmulp st(1),st
+0050D553: fadd dword ptr [ecx+00000CACh]
+0050D559: fstp dword ptr [ecx+00000CB8h]
+0050D55F: ret 4
+0050D562: fld dword ptr [ecx+00000CB0h]
+0050D568: fsub dword ptr [ecx+00000CACh]
+0050D56E: fmul dword ptr [esp+4]
+0050D572: fadd dword ptr [ecx+00000CACh]
+0050D578: fstp dword ptr [ecx+00000CB8h]
+0050D57E: ret 4

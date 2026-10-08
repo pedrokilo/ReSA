@@ -1,0 +1,434 @@
+// Sin pseudocódigo de Ghidra para 0x0065ced0: None
+==== ensamblador exacto (dis.sh) ====
+0065CED0: push 0FFFFFFFFh
+0065CED2: push 8441ABh
+0065CED7: mov eax,dword ptr fs:[00000000h]
+0065CEDD: push eax
+0065CEDE: mov dword ptr fs:[00000000h],esp
+ 00
+0065CEE5: push ecx
+0065CEE6: push esi
+0065CEE7: push 44h
+0065CEE9: mov esi,ecx
+0065CEEB: call 0061A5A0
+0065CEF0: add esp,4
+0065CEF3: mov dword ptr [esp+4],eax
+0065CEF7: test eax,eax
+0065CEF9: mov dword ptr [esp+10h],0
+0065CF01: je 0065CF2C
+0065CF03: mov ecx,dword ptr [esi+28h]
+0065CF06: mov edx,dword ptr [esi+2Ch]
+0065CF09: push ecx
+0065CF0A: xor ecx,ecx
+0065CF0C: mov cl,byte ptr [esi+24h]
+0065CF0F: push edx
+0065CF10: add esi,18h
+0065CF13: push ecx
+0065CF14: push esi
+0065CF15: mov ecx,eax
+0065CF17: call 0065BD20
+0065CF1C: pop esi
+0065CF1D: mov ecx,dword ptr [esp+4]
+0065CF21: mov dword ptr fs:[00000000h],ecx
+ 00
+0065CF28: add esp,10h
+0065CF2B: ret
+0065CF2C: mov ecx,dword ptr [esp+8]
+0065CF30: xor eax,eax
+0065CF32: pop esi
+0065CF33: mov dword ptr fs:[00000000h],ecx
+ 00
+0065CF3A: add esp,10h
+0065CF3D: ret
+0065CF40: push 0FFFFFFFFh
+0065CF42: push 8441CBh
+0065CF47: mov eax,dword ptr fs:[00000000h]
+0065CF4D: push eax
+0065CF4E: mov dword ptr fs:[00000000h],esp
+ 00
+0065CF55: push ecx
+0065CF56: push esi
+0065CF57: push 40h
+0065CF59: mov esi,ecx
+0065CF5B: call 0061A5A0
+0065CF60: add esp,4
+0065CF63: mov dword ptr [esp+4],eax
+0065CF67: test eax,eax
+0065CF69: mov dword ptr [esp+10h],0
+0065CF71: je 0065CF96
+0065CF73: mov ecx,dword ptr [esi+2Ch]
+0065CF76: mov edx,dword ptr [esi+28h]
+0065CF79: push ecx
+0065CF7A: mov ecx,dword ptr [esi+1Ch]
+0065CF7D: push edx
+0065CF7E: mov edx,dword ptr [esi+20h]
+0065CF81: push ecx
+0065CF82: xor ecx,ecx
+0065CF84: mov cl,byte ptr [esi+24h]
+0065CF87: push edx
+0065CF88: mov edx,dword ptr [esi+0Ch]
+0065CF8B: push ecx
+0065CF8C: push edx
+0065CF8D: mov ecx,eax
+0065CF8F: call 0065C430
+0065CF94: jmp 0065CF98
+0065CF96: xor eax,eax
+0065CF98: mov ecx,dword ptr [esi+30h]
+0065CF9B: mov dword ptr [eax+30h],ecx
+0065CF9E: mov ecx,dword ptr [esp+8]
+0065CFA2: pop esi
+0065CFA3: mov dword ptr fs:[00000000h],ecx
+ 00
+0065CFAA: add esp,10h
+0065CFAD: ret
+0065CFB0: push 0FFFFFFFFh
+0065CFB2: push 8441EBh
+0065CFB7: mov eax,dword ptr fs:[00000000h]
+0065CFBD: push eax
+0065CFBE: mov dword ptr fs:[00000000h],esp
+ 00
+0065CFC5: push ecx
+0065CFC6: push esi
+0065CFC7: push 54h
+0065CFC9: mov esi,ecx
+0065CFCB: call 0061A5A0
+0065CFD0: add esp,4
+0065CFD3: mov dword ptr [esp+4],eax
+0065CFD7: test eax,eax
+0065CFD9: mov dword ptr [esp+10h],0
+0065CFE1: je 0065D01C
+0065CFE3: mov ecx,dword ptr [esi+2Ch]
+0065CFE6: mov edx,dword ptr [esi+28h]
+0065CFE9: push ecx
+0065CFEA: mov ecx,dword ptr [esi+44h]
+0065CFED: push edx
+0065CFEE: mov edx,dword ptr [esi+40h]
+0065CFF1: push ecx
+0065CFF2: mov ecx,dword ptr [esi+1Ch]
+0065CFF5: push edx
+0065CFF6: mov edx,dword ptr [esi+20h]
+0065CFF9: push ecx
+0065CFFA: xor ecx,ecx
+0065CFFC: mov cl,byte ptr [esi+24h]
+0065CFFF: push edx
+0065D000: mov edx,dword ptr [esi+0Ch]
+0065D003: push ecx
+0065D004: push edx
+0065D005: mov ecx,eax
+0065D007: call 0065C900
+0065D00C: pop esi
+0065D00D: mov ecx,dword ptr [esp+4]
+0065D011: mov dword ptr fs:[00000000h],ecx
+ 00
+0065D018: add esp,10h
+0065D01B: ret
+0065D01C: mov ecx,dword ptr [esp+8]
+0065D020: xor eax,eax
+0065D022: pop esi
+0065D023: mov dword ptr fs:[00000000h],ecx
+ 00
+0065D02A: add esp,10h
+0065D02D: ret
+0065D030: push 0FFFFFFFFh
+0065D032: push 84420Bh
+0065D037: mov eax,dword ptr fs:[00000000h]
+0065D03D: push eax
+0065D03E: mov dword ptr fs:[00000000h],esp
+ 00
+0065D045: push ecx
+0065D046: push esi
+0065D047: push 54h
+0065D049: mov esi,ecx
+0065D04B: call 0061A5A0
+0065D050: add esp,4
+0065D053: mov dword ptr [esp+4],eax
+0065D057: test eax,eax
+0065D059: mov dword ptr [esp+10h],0
+0065D061: je 0065D0A0
+0065D063: mov ecx,dword ptr [esi+2Ch]
+0065D066: mov edx,dword ptr [esi+28h]
+0065D069: push ecx
+0065D06A: mov ecx,dword ptr [esi+4Ch]
+0065D06D: push edx
+0065D06E: mov edx,dword ptr [esi+48h]
+0065D071: push ecx
+0065D072: mov ecx,dword ptr [esi+44h]
+0065D075: push edx
+0065D076: mov edx,dword ptr [esi+1Ch]
+0065D079: push ecx
+0065D07A: mov ecx,dword ptr [esi+20h]
+0065D07D: push edx
+0065D07E: xor edx,edx
+0065D080: mov dl,byte ptr [esi+40h]
+0065D083: push ecx
+0065D084: mov ecx,dword ptr [esi+0Ch]
+0065D087: push edx
+0065D088: push ecx
+0065D089: mov ecx,eax
+0065D08B: call 0065CC60
+0065D090: pop esi
+0065D091: mov ecx,dword ptr [esp+4]
+0065D095: mov dword ptr fs:[00000000h],ecx
+ 00
+0065D09C: add esp,10h
+0065D09F: ret
+0065D0A0: mov ecx,dword ptr [esp+8]
+0065D0A4: xor eax,eax
+0065D0A6: pop esi
+0065D0A7: mov dword ptr fs:[00000000h],ecx
+ 00
+0065D0AE: add esp,10h
+0065D0B1: ret
+0065D0C0: push esi
+0065D0C1: mov esi,ecx
+0065D0C3: call 0065B370
+0065D0C8: test byte ptr [esp+8],1
+0065D0CD: je 0065D0D8
+0065D0CF: push esi
+0065D0D0: call 0061A5B0
+0065D0D5: add esp,4
+0065D0D8: mov eax,esi
+0065D0DA: pop esi
+0065D0DB: ret 4
+0065D0E0: push esi
+0065D0E1: mov esi,ecx
+0065D0E3: call 0065B410
+0065D0E8: test byte ptr [esp+8],1
+0065D0ED: je 0065D0F8
+0065D0EF: push esi
+0065D0F0: call 0061A5B0
+0065D0F5: add esp,4
+0065D0F8: mov eax,esi
+0065D0FA: pop esi
+0065D0FB: ret 4
+0065D100: mov eax,dword ptr [esp+4]
+0065D104: push esi
+0065D105: mov esi,ecx
+0065D107: mov ecx,dword ptr [eax+0000046Ch]
+0065D10D: test ch,1
+0065D110: je 0065D12C
+0065D112: mov ecx,dword ptr [eax+0000058Ch]
+0065D118: test ecx,ecx
+0065D11A: je 0065D12C
+0065D11C: push 2CAh
+0065D121: mov ecx,esi
+0065D123: call 0065B460
+0065D128: pop esi
+0065D129: ret 4
+0065D12C: push eax
+0065D12D: mov ecx,esi
+0065D12F: call 0065B820
+0065D134: push 384h
+0065D139: mov ecx,esi
+0065D13B: call 0065B460
+0065D140: pop esi
+0065D141: ret 4
+0065D150: push esi
+0065D151: mov esi,ecx
+0065D153: mov ecx,dword ptr [esi+8]
+0065D156: mov eax,dword ptr [ecx]
+0065D158: push edi
+0065D159: xor edi,edi
+0065D15B: call dword ptr [eax+10h]
+0065D15E: mov ecx,dword ptr [esi+8]
+0065D161: mov edx,dword ptr [ecx]
+0065D163: call dword ptr [edx+10h]
+0065D166: cmp eax,384h
+0065D16B: jg 0065D219
+0065D171: je 0065D1B3
+0065D173: cmp eax,0F4h
+0065D178: je 0065D1A2
+0065D17A: cmp eax,2CAh
+0065D17F: jne 0065D231
+0065D185: mov eax,dword ptr [esp+0Ch]
+0065D189: push eax
+0065D18A: mov ecx,esi
+0065D18C: call 0065B820
+0065D191: push 384h
+0065D196: mov ecx,esi
+0065D198: call 0065B460
+0065D19D: pop edi
+0065D19E: pop esi
+0065D19F: ret 4
+0065D1A2: push 516h
+0065D1A7: mov ecx,esi
+0065D1A9: call 0065B460
+0065D1AE: pop edi
+0065D1AF: pop esi
+0065D1B0: ret 4
+0065D1B3: mov ecx,dword ptr [esp+0Ch]
+0065D1B7: push ecx
+0065D1B8: mov ecx,esi
+0065D1BA: call 0065B820
+0065D1BF: fld dword ptr [esi+18h]
+0065D1C2: fsub dword ptr [esi+0Ch]
+0065D1C5: mov ecx,esi
+0065D1C7: fld dword ptr [esi+1Ch]
+0065D1CA: fsub dword ptr [esi+10h]
+0065D1CD: fld dword ptr [esi+20h]
+0065D1D0: fsub dword ptr [esi+14h]
+0065D1D3: fld dword ptr [esi+34h]
+0065D1D6: fld st(1)
+0065D1D8: fmul st,st(2)
+0065D1DA: fld st(3)
+0065D1DC: fmul st,st(4)
+0065D1DE: faddp st(1),st
+0065D1E0: fld st(4)
+0065D1E2: fmul st,st(5)
+0065D1E4: faddp st(1),st
+0065D1E6: fld st(1)
+0065D1E8: fmul st,st(2)
+0065D1EA: fcompp
+0065D1EC: fstp st(0)
+0065D1EE: fstp st(0)
+0065D1F0: fnstsw ax
+0065D1F2: fstp st(0)
+0065D1F4: test ah,5
+0065D1F7: fstp st(0)
+0065D1F9: jp 0065D20A
+0065D1FB: push 387h
+0065D200: call 0065B460
+0065D205: pop edi
+0065D206: pop esi
+0065D207: ret 4
+0065D20A: push 384h
+0065D20F: call 0065B460
+0065D214: pop edi
+0065D215: pop esi
+0065D216: ret 4
+0065D219: cmp eax,387h
+0065D21E: jne 0065D231
+0065D220: push 0F4h
+0065D225: mov ecx,esi
+0065D227: call 0065B460
+0065D22C: pop edi
+0065D22D: pop esi
+0065D22E: ret 4
+0065D231: mov eax,edi
+0065D233: pop edi
+0065D234: pop esi
+0065D235: ret 4
+0065D240: push esi
+0065D241: mov esi,ecx
+0065D243: call 0065B9D0
+0065D248: test byte ptr [esp+8],1
+0065D24D: je 0065D258
+0065D24F: push esi
+0065D250: call 0061A5B0
+0065D255: add esp,4
+0065D258: mov eax,esi
+0065D25A: pop esi
+0065D25B: ret 4
+0065D260: push esi
+0065D261: mov esi,ecx
+0065D263: call 0065BDB0
+0065D268: test byte ptr [esp+8],1
+0065D26D: je 0065D278
+0065D26F: push esi
+0065D270: call 0061A5B0
+0065D275: add esp,4
+0065D278: mov eax,esi
+0065D27A: pop esi
+0065D27B: ret 4
+0065D280: push esi
+0065D281: mov esi,ecx
+0065D283: call 0065C4D0
+0065D288: test byte ptr [esp+8],1
+0065D28D: je 0065D298
+0065D28F: push esi
+0065D290: call 0061A5B0
+0065D295: add esp,4
+0065D298: mov eax,esi
+0065D29A: pop esi
+0065D29B: ret 4
+0065D2A0: push esi
+0065D2A1: mov esi,ecx
+0065D2A3: call 0065C9A0
+0065D2A8: test byte ptr [esp+8],1
+0065D2AD: je 0065D2B8
+0065D2AF: push esi
+0065D2B0: call 0061A5B0
+0065D2B5: add esp,4
+0065D2B8: mov eax,esi
+0065D2BA: pop esi
+0065D2BB: ret 4
+0065D2C0: push esi
+0065D2C1: mov esi,ecx
+0065D2C3: call 0065CD10
+0065D2C8: test byte ptr [esp+8],1
+0065D2CD: je 0065D2D8
+0065D2CF: push esi
+ 0065D2D0: E8
+
+==== COMPLETE CANONICAL EVIDENCE ====
+// CTaskComplexSmartFleePoint::Clone @ 0x0065ced0 [0x65ced0..0x65cf3d]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_0065ced0(void)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  int in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_008441ab;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  iVar1 = FUN_0061a5a0(0x44);
+  local_4 = 0;
+  if (iVar1 != 0) {
+    uVar2 = FUN_0065bd20(in_ECX + 0x18,*(undefined1 *)(in_ECX + 0x24),*(undefined4 *)(in_ECX + 0x2c)
+                         ,*(undefined4 *)(in_ECX + 0x28));
+    ExceptionList = local_c;
+    return uVar2;
+  }
+  ExceptionList = local_c;
+  return 0;
+}
+
+
+==== Full ASM [0x65CED0, 0x65CF3D) ====
+0065CED0: push 0FFFFFFFFh
+0065CED2: push 8441ABh
+0065CED7: mov eax,dword ptr fs:[00000000h]
+0065CEDD: push eax
+0065CEDE: mov dword ptr fs:[00000000h],esp
+ 00
+0065CEE5: push ecx
+0065CEE6: push esi
+0065CEE7: push 44h
+0065CEE9: mov esi,ecx
+0065CEEB: call 0061A5A0
+0065CEF0: add esp,4
+0065CEF3: mov dword ptr [esp+4],eax
+0065CEF7: test eax,eax
+0065CEF9: mov dword ptr [esp+10h],0
+0065CF01: je 0065CF2C
+0065CF03: mov ecx,dword ptr [esi+28h]
+0065CF06: mov edx,dword ptr [esi+2Ch]
+0065CF09: push ecx
+0065CF0A: xor ecx,ecx
+0065CF0C: mov cl,byte ptr [esi+24h]
+0065CF0F: push edx
+0065CF10: add esi,18h
+0065CF13: push ecx
+0065CF14: push esi
+0065CF15: mov ecx,eax
+0065CF17: call 0065BD20
+0065CF1C: pop esi
+0065CF1D: mov ecx,dword ptr [esp+4]
+0065CF21: mov dword ptr fs:[00000000h],ecx
+ 00
+0065CF28: add esp,10h
+0065CF2B: ret
+0065CF2C: mov ecx,dword ptr [esp+8]
+0065CF30: xor eax,eax
+0065CF32: pop esi
+0065CF33: mov dword ptr fs:[00000000h],ecx
+ 00
+0065CF3A: add esp,10h
+0065CF3D: ret

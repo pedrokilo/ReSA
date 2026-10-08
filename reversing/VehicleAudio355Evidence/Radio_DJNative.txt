@@ -1,0 +1,72 @@
+int32 CAERadioTrackManager::ChooseDJBanterIndex(eRadioID id) {
+    const auto station = int32(int8(id));
+    const auto special = StaticRef<int8>(0xB62C73);
+    const auto index = int32(StaticRef<int8>(0xB62C72));
+    int32 selected = -1;
+    if (special == 0) {
+        selected = (&StaticRef<int32>(0x8C8BF0))[station * 2];
+    } else if (special == 1) {
+        const auto* range = &StaticRef<int32>(0x8C8C50) + station * 2;
+        if (index == 0 || (index == 1 && range[0] != range[1])) {
+            selected = range[index];
+        }
+    } else if (special == 2) {
+        selected = (&StaticRef<int32>(0x8CB280))[station * 22 + index];
+    }
+    if (selected == 1922) {
+        selected = -1;
+    } else if (selected >= 0) {
+        const auto* history = &StaticRef<int32>(0xB61D78) + station * 15;
+        for (int32 i = 0; i < 15; ++i) {
+            if (history[i] == selected) {
+                selected = -1;
+                break;
+            }
+        }
+    }
+    if (selected != -1) {
+        return selected;
+    }
+    const auto choose = [&](uintptr_t list) { return ChooseDJBanterIndexFromList(id, reinterpret_cast<int32**>(list)); };
+    if (station == 0) {
+        return choose(CGameLogic::LaRiotsActiveHere() ? 0x8C8E30 : 0x8C8CB0);
+    }
+    if (!CAEAudioUtility::ResolveProbability(.6f) || StaticRef<int32>(0xB72914) != 0) {
+        return selected;
+    }
+    const auto hour = StaticRef<uint8>(0xB70153);
+    const auto forecast = [](int32 weather) { return CWeather::ForecastWeather(static_cast<eWeatherType>(weather), 3); };
+    if (forecast(16) || forecast(8)) {
+        if (CAEAudioUtility::ResolveProbability(.5f)) {
+            selected = choose(0x8C8E90);
+            if (selected != -1) {
+                return selected;
+            }
+        }
+    } else {
+        // Preserve these forecast calls: the following EXE hour range [8,6) is impossible.
+        const auto sunny = forecast(0) || forecast(2) || forecast(13) || forecast(6) || forecast(11) || forecast(17);
+        (void)sunny;
+        if (forecast(9) && CAEAudioUtility::ResolveProbability(.5f)) {
+            selected = choose(0x8C8F50);
+            if (selected != -1) {
+                return selected;
+            }
+        }
+    }
+    uintptr_t list{};
+    if (hour >= 6 && hour <= 8) {
+        list = 0x8C8DD0;
+    } else if (hour >= 18 && hour <= 20) {
+        list = 0x8C8D70;
+    } else if (hour >= 22 || hour <= 2) {
+        list = 0x8C8E30;
+    }
+    if (list && CAEAudioUtility::ResolveProbability(.3f)) {
+        selected = choose(list);
+        if (selected != -1) {
+            return selected;
+        }
+    }
+    return choose(0x8C8CB0);
+}

@@ -1,0 +1,26 @@
+// InteriorGroup_c::SetupOfficePeds @ 0x00594bf0 [0x594bf0..0x594c09]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00594bf0(void)
+
+{
+  int in_ECX;
+  
+  FUN_0040bbb0(2);
+  FUN_0040ea10(0);
+  *(undefined1 *)(in_ECX + 0x36) = 0;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00594BF0: push esi
+00594BF1: push 2
+00594BF3: mov esi,ecx
+00594BF5: call 0040BBB0
+00594BFA: push 0
+00594BFC: call 0040EA10
+00594C01: add esp,8
+00594C04: mov byte ptr [esi+36h],0
+00594C08: pop esi
+00594C09: ret

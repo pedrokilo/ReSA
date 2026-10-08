@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CWaterLevel::RenderWater": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "49d66d94586ff311d867ea1ccf4b4c347562df0fa83411be22e8c64df1f79d3b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-water-render355\\20261008-012157-621813",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CWaterLevel::RenderWater": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "adada20406e19c24bd5b7a03906dc894f4f5f7dc2caafe14d07987d33ebe9d9b",
+      "pdb": "48f790500ed1684e8d27a7b47ed12a80a3ab7c3abac468abdcec5a62c8e4cc95"
+    },
+    "sources": {
+      "source/game_sa/Camera.h": "9c821aac9d832dd894be472898974ecc9b1398e437f22b04c0190912f1f2dc29",
+      "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/Entity/Object/Object.h": "f03b35af984aea8002242d44d264f4e959b1b4a0fe2bf0dff5e5d1e833fc3750",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+      "source/game_sa/Formation.cpp": "1d82f3d8a40630f4896626d5f3137e5c9ae889947752a67eb7b56aea668bed69",
+      "source/game_sa/Formation.h": "4f78e323bfa94bd1eb3c537de4f784b75bd839af6b4936b44e77dd16d5df8659",
+      "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+      "source/game_sa/PedList.h": "f5ad189c530dbda2874b0c19336fde1bc509eba40acf93939dd3cc2f6f7a6433",
+      "source/game_sa/PointList.h": "1eab97924fde314ef6ff5e48f9d40075040b24e42e94beadd2cb6741e1463b86",
+      "source/game_sa/Pools/ObjectPool.h": "833e700558e62963f6716def8201758504b89c2f94d02e460acc5e35f0cb58cd",
+      "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
+      "source/game_sa/PostEffects.h": "49e72593a3044800e965673ec52541fd33fcc9cb7e9cfb56044427756e8d1543",
+      "source/game_sa/RGBA.h": "ab66a3bef4b0af6d30cf5f535eda15f9935eb28ca5df94c41b740c4cdad4e42a",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/WaterLevel.cpp": "33c3a5c8462577d1697bdd7667bf28dcca4720a9042a72596a2fe4cc3b13e73b",
+      "source/game_sa/WaterLevel.h": "4bb60aebd442b9352e84bfbedc2f25f63cca3f2c4604965a3e6755191ab57ade",
+      "source/game_sa/Weather.h": "2e1157e99a5d1c74402b94df44a72ff0d599dce975071bb87396ab5b19851852"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "../WaterFog355/LiveComparison.hpp": "21a66b5b63a23defe0803282b464eb3afd6445fe2d5cb27f3a4867000a695ab1",
+      "../probe_case.py": "6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8",
+      "../WaterFog355/build_probe.py": "fed3c952dc88e94841984024b19979d9095c7c546d3906c807311cbc0426da95",
+      "../probe_build.py": "8e76d4a04b26c055f1d7259246abdbf4f8e56eed372a13171b483327e1c03633",
+      "run_local.py": "05e98b72bb64d11c5d658e797fb826a5e0066965696d24de5a8714d044c93439",
+      "../Pending355/batch_probe.py": "8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6",
+      "../runtime_runner.py": "8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536",
+      "../ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "../FormationAssign355/run_local.py": "ebf9a766a2204eb8b9a878c6bba652691c9c6b1d66d3ded3ec9b48a0772be5e3",
+      "../FormationLookup355/build_probe.py": "6bdeb03d486ea0723ff1bdcb7cbb4cd08a8c5dffa188d2b941361d6b465f1e39",
+      "../FormationLookup355/run_local.py": "492734e0c02a292c22ca52c0a5925687a4f4510f6a094faff4e1aed20de239fe",
+      "../FormationAssign355/LiveComparison.hpp": "20d33bfa2a4f62e175ea5cbd2eb131114d9077cfda8772bc9e56f92623c7be00",
+      "../Pending355/batches/4feac1832be9/LiveComparison.hpp": "6fd855d03ea31f718ad54d080da7c65919acf6634dc586a2d2514b77345bbd65",
+      "../FormationGather355/LiveComparison.hpp": "c8faa607ac8cbd240bd98d801683bc02844e821aadb975cd6580a87d7e131646",
+      "build_probe.py": "32294233e96a70975539eae187517eba7b4f5a2d9e9fb791c1dcd853b01c742c",
+      "../probe_summary.py": "28224064c276ed8fd6ffd450db22e3ec782a6e068fdb275f270bb7ef49a6f072",
+      "../FormationGather355/build_probe.py": "dab22134903516e729cd9dfdcdb58846cfe7acf48092cc1e35c1f81112fd1d3f",
+      "../WaterFog355/run_local.py": "2d85c5efcdd1f065968c1c751ba6adf9878979836bfba0af75d7fa56e4697ec6",
+      "../FormationGather355/run_local.py": "e9d5894a545364ffbbd79adddcfb4806f2bafa60a0065c2e896fc0deb74bf7b6",
+      "../FormationAssign355/build_probe.py": "ae7aefa40f32549659191535cf0e0a0034b1c129d84ecbc94ffa8e474158dc67",
+      "LiveComparison.hpp": "dd0f0bf3368f3f82ffbeeb44ea0a9277f117bbe48cd3b7dfaef119fc46aada96",
+      "../FormationLookup355/LiveComparison.hpp": "646959fb4751bfde1f7029b88101babf5a8df6f912cc24c5b094ad910feb9d87"
+    },
+    "batch_driver": "reversing/Pending355/batches/4feac1832be9/LiveComparison.hpp",
+    "batch_banks": [
+      "WaterFog355",
+      "WaterRender355",
+      "FormationLookup355",
+      "FormationAssign355",
+      "FormationGather355"
+    ]
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"../probe_case.py\", \"tested_sha256\": \"6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8\", \"current_sha256\": \"61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44\"}, {\"path\": \"run_local.py\", \"tested_sha256\": \"05e98b72bb64d11c5d658e797fb826a5e0066965696d24de5a8714d044c93439\", \"current_sha256\": \"2bc4db676a9276e5a3b657904f9cff08822ca995c7a5f7634ed2a8cd062d9c33\"}, {\"path\": \"../Pending355/batch_probe.py\", \"tested_sha256\": \"8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6\", \"current_sha256\": \"23153f67f0c83b82850b212c353aae655549c060fa1926e1c1a62ba526c23998\"}, {\"path\": \"../runtime_runner.py\", \"tested_sha256\": \"8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536\", \"current_sha256\": \"e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c\"}, {\"path\": \"../FormationAssign355/run_local.py\", \"tested_sha256\": \"ebf9a766a2204eb8b9a878c6bba652691c9c6b1d66d3ded3ec9b48a0772be5e3\", \"current_sha256\": \"572d1565399bab201f5f157a7374a189f5803cf8153e9628d19c55cd68df3ee0\"}, {\"path\": \"../FormationLookup355/run_local.py\", \"tested_sha256\": \"492734e0c02a292c22ca52c0a5925687a4f4510f6a094faff4e1aed20de239fe\", \"current_sha256\": \"ddebeb78bca4e28622474378d6fc3eb4288f8ca9d0be2253fd64375b4c0b7c2c\"}, {\"path\": \"../FormationGather355/LiveComparison.hpp\", \"tested_sha256\": \"c8faa607ac8cbd240bd98d801683bc02844e821aadb975cd6580a87d7e131646\", \"current_sha256\": \"8bfa31763ce487a6eab8ceaeb8d02410096caf6216dc98571bdca262bc5e6b13\"}, {\"path\": \"../FormationGather355/build_probe.py\", \"tested_sha256\": \"dab22134903516e729cd9dfdcdb58846cfe7acf48092cc1e35c1f81112fd1d3f\", \"current_sha256\": \"bcd3670019a0d2e3b2e795f30b32bea6f7b3812e8745f5966576ae09ad0eb0b0\"}, {\"path\": \"../WaterFog355/run_local.py\", \"tested_sha256\": \"2d85c5efcdd1f065968c1c751ba6adf9878979836bfba0af75d7fa56e4697ec6\", \"current_sha256\": \"a6f393d767860fa0dba7e882560be793cdc888eeb53f92e2851ff904f79121af\"}, {\"path\": \"../FormationGather355/run_local.py\", \"tested_sha256\": \"e9d5894a545364ffbbd79adddcfb4806f2bafa60a0065c2e896fc0deb74bf7b6\", \"current_sha256\": \"4a4e3ddecdec1a7edb84f9e5194a1bcfc32f9e635f4594e7323efdf93374ca09\"}, {\"path\": \"../FormationAssign355/build_probe.py\", \"tested_sha256\": \"ae7aefa40f32549659191535cf0e0a0034b1c129d84ecbc94ffa8e474158dc67\", \"current_sha256\": \"2df327c5060cc49e78c0b7932bf2accf58d340db5e2a221e9bf9c4d1cd4bddad\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

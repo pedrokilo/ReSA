@@ -1,0 +1,59 @@
+// InteriorGroup_c::CalcIsVisible @ 0x00595200 [0x595200..0x595242]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00595200(void)
+
+{
+  char cVar1;
+  int in_ECX;
+  int iVar2;
+  
+  *(undefined1 *)(in_ECX + 0x35) = *(undefined1 *)(in_ECX + 0x34);
+  iVar2 = 0;
+  *(undefined1 *)(in_ECX + 0x34) = 0;
+  if ('\0' < *(char *)(in_ECX + 0xf)) {
+    while (cVar1 = FUN_005929f0(), cVar1 == '\0') {
+      iVar2 = iVar2 + 1;
+      if (*(char *)(in_ECX + 0xf) <= iVar2) {
+        return;
+      }
+    }
+    *(undefined1 *)(in_ECX + 0x34) = 1;
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00595200: push esi
+00595201: mov esi,ecx
+00595203: mov al,byte ptr [esi+34h]
+00595206: mov byte ptr [esi+35h],al
+00595209: mov al,byte ptr [esi+0Fh]
+0059520C: push edi
+0059520D: xor edi,edi
+0059520F: test al,al
+00595211: mov byte ptr [esi+34h],0
+00595215: jle 00595240
+00595217: push ebx
+00595218: lea ebx,[esi+10h]
+0059521B: jmp 00595220
+0059521D: lea ecx,[ecx]
+00595220: mov ecx,dword ptr [ebx]
+00595222: call 005929F0
+00595227: test al,al
+00595229: jne 0059523B
+0059522B: movsx ecx,byte ptr [esi+0Fh]
+0059522F: inc edi
+00595230: add ebx,4
+00595233: cmp edi,ecx
+00595235: jl 00595220
+00595237: pop ebx
+00595238: pop edi
+00595239: pop esi
+0059523A: ret
+0059523B: mov byte ptr [esi+34h],1
+0059523F: pop ebx
+00595240: pop edi
+00595241: pop esi
+00595242: ret

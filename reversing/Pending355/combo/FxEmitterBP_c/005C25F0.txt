@@ -1,0 +1,84 @@
+// FxEmitterBP_c::Load @ 0x005c25f0 [0x5c25f0..0x5c26a9]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 TasksPending_005c25f0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+
+{
+  undefined2 uVar1;
+  int in_ECX;
+  undefined1 auStack_184 [4];
+  undefined1 auStack_180 [128];
+  char acStack_100 [256];
+  
+  FUN_005c2010(param_1,param_2,param_3);
+  thunk_FUN_005389b0(param_1,acStack_100,0x100);
+  _sscanf(acStack_100,"%s %f",auStack_180,auStack_184);
+  uVar1 = FUN_00821b40();
+  *(undefined2 *)(in_ECX + 0x38) = uVar1;
+  thunk_FUN_005389b0(param_1,acStack_100,0x100);
+  _sscanf(acStack_100,"%s %f",auStack_180,auStack_184);
+  uVar1 = FUN_00821b40();
+  *(undefined2 *)(in_ECX + 0x3a) = uVar1;
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005C25F0: mov eax,dword ptr [esp+0Ch]
+005C25F4: sub esp,184h
+005C25FA: push esi
+005C25FB: push edi
+005C25FC: mov edi,dword ptr [esp+00000190h]
+ 00
+005C2603: mov esi,ecx
+005C2605: mov ecx,dword ptr [esp+00000194h]
+ 00
+005C260C: push eax
+005C260D: push ecx
+005C260E: push edi
+005C260F: mov ecx,esi
+005C2611: call 005C2010
+005C2616: push 100h
+005C261B: lea edx,[esp+00000090h]
+ 00
+005C2622: push edx
+005C2623: push edi
+005C2624: call 004AB250
+005C2629: lea eax,[esp+14h]
+005C262D: push eax
+005C262E: lea ecx,[esp+1Ch]
+005C2632: push ecx
+005C2633: lea edx,[esp+000000A0h]
+ 00
+005C263A: push 86AA68h
+005C263F: push edx
+005C2640: call 008220AD
+005C2645: fld dword ptr [esp+24h]
+005C2649: fmul dword ptr ds:[00859A44h]
+005C264F: call 00821B40
+005C2654: mov word ptr [esi+38h],ax
+005C2658: push 100h
+005C265D: lea eax,[esp+000000ACh]
+ 00
+005C2664: push eax
+005C2665: push edi
+005C2666: call 004AB250
+005C266B: lea ecx,[esp+30h]
+005C266F: push ecx
+005C2670: lea edx,[esp+38h]
+005C2674: push edx
+005C2675: lea eax,[esp+000000BCh]
+ 00
+005C267C: push 86AA68h
+005C2681: push eax
+005C2682: call 008220AD
+005C2687: fld dword ptr [esp+40h]
+005C268B: fmul dword ptr ds:[00859A44h]
+005C2691: add esp,38h
+005C2694: call 00821B40
+005C2699: mov word ptr [esi+3Ah],ax
+005C269D: pop edi
+005C269E: mov al,1
+005C26A0: pop esi
+005C26A1: add esp,184h
+005C26A7: ret 0Ch

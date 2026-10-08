@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CInterestingEvents::ScanForNearbyEntities": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "1111d12ac6deed974cca32476d98e9b9a7abeb26ad8c9c623512175cf1435c35",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interesting-scan355\\20261007-213320-610015",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CInterestingEvents::ScanForNearbyEntities": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "6a350a31f2ffc62bd9212fa1af7a258665ee31182e0438f6f090d44209a58fc0",
+      "pdb": "7168e1a3b3a4a31debd323f47ccff5375dcc1223b2cdd45640e40f2f4e47395c"
+    },
+    "sources": {
+      "source/game_sa/InterestingEvents.cpp": "46998e4409ab04fe5c660204ce07b5c5677a514dea8776e6db24e3a0d67d3e16",
+      "source/game_sa/InterestingEvents.h": "a4b35e4b6b9ce1a8077d4c76e4bbdd474c0bf85887efcbde0867a607e6774834",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/Camera.h": "a70e8e9a6c56763330d39e9b5ab05a81f5a6cf34d2820063a3b4ba17d5da6fa8",
+      "source/game_sa/Cam.h": "56a9f6d0895d5eaf0ba1e605c70861c52e1a71102ab7122b33ddc3e4cb017954",
+      "source/game_sa/Core/MatrixLink.h": "ce05ae9f46be69790be1ffb2a9270470e8b021519a83284270164fd3d8528355",
+      "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+      "source/game_sa/RepeatSector.h": "0610dce5556682560562d91666f543aa7500e628c8fc46051d1e1f9943e1a603",
+      "source/game_sa/Core/PtrNodeDoubleLink.h": "2bd019b827934edfc92c734ba7aa91fa5a9e85b1a4d8a5aea40602b1bae652c7",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+      "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "a01f81e100b6fd7260e5df86566efe6972a86c7a426eaf04a3145aa61507a40f",
+      "build_probe.py": "49faa65539e53327b91b320a638a9f4817ffb2ac22e3368115272a41943d6059",
+      "run_local.py": "e3f72f714cf40f1a76d50b1458a5f70dae953137de04c6e0dfdfc8b7c1fe8dc5"
+    }
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"run_local.py\", \"tested_sha256\": \"e3f72f714cf40f1a76d50b1458a5f70dae953137de04c6e0dfdfc8b7c1fe8dc5\", \"current_sha256\": \"853de62268215a97a314732654ef951cbe00802d5ec6bbd5acb0a4cf19c5b0ee\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

@@ -1,0 +1,30 @@
+funciones a volcar: 11
+(node:60352) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("file%3A///D%3A/Original/gta-reversed-master/reversing/_handoff/rea/rea-x86/vehicle355-big-loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+abriendo 2026-10-08T05:25:00.855Z
+{"level":30,"time":1791437101420,"application":"rea","mode":"mcp","layer":"server","tool":"open_binary","durationMs":551.95,"status":"ok","msg":"MCP tool execution completed"}
+{"level":40,"time":1791437377042,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":275616.54,"status":"error","msg":"MCP tool execution completed"}
+1 / 11 2026-10-08T05:29:37.044Z
+{"level":40,"time":1791437377649,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":601.1,"status":"error","msg":"MCP tool execution completed"}
+2 / 11 2026-10-08T05:29:37.650Z
+{"level":40,"time":1791437378301,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":644.75,"status":"error","msg":"MCP tool execution completed"}
+3 / 11 2026-10-08T05:29:38.300Z
+{"level":40,"time":1791437378910,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":606.63,"status":"error","msg":"MCP tool execution completed"}
+4 / 11 2026-10-08T05:29:38.912Z
+{"level":40,"time":1791437379528,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":609.08,"status":"error","msg":"MCP tool execution completed"}
+5 / 11 2026-10-08T05:29:39.527Z
+{"level":40,"time":1791437380142,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":610.83,"status":"error","msg":"MCP tool execution completed"}
+6 / 11 2026-10-08T05:29:40.141Z
+{"level":40,"time":1791437380751,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":606.51,"status":"error","msg":"MCP tool execution completed"}
+7 / 11 2026-10-08T05:29:40.751Z
+{"level":40,"time":1791437382164,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":1408.55,"status":"error","msg":"MCP tool execution completed"}
+8 / 11 2026-10-08T05:29:42.163Z
+{"level":40,"time":1791437382766,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":599.48,"status":"error","msg":"MCP tool execution completed"}
+9 / 11 2026-10-08T05:29:42.765Z
+{"level":40,"time":1791437383356,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":586.09,"status":"error","msg":"MCP tool execution completed"}
+10 / 11 2026-10-08T05:29:43.354Z
+{"level":40,"time":1791437383942,"application":"rea","mode":"mcp","layer":"server","tool":"procedure_pseudo_code","durationMs":583.83,"status":"error","msg":"MCP tool execution completed"}
+11 / 11 2026-10-08T05:29:43.941Z
+{"level":30,"time":1791437383945,"application":"rea","mode":"mcp","layer":"server","tool":"close_binary","durationMs":0.39,"status":"ok","msg":"MCP tool execution completed"}
+FIN ok=0 fallos=11

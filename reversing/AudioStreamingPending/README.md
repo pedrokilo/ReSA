@@ -1,3 +1,7 @@
+<!-- USER STOP 2026-10-08 -->
+Estado al detener el trabajo: reconstrucción solicitada completada y aprobación histórica conservada. No se ejecutó una nueva regresión con las fuentes finales. Los hashes y límites actuales se detallan en [el estado de todas las listas](../../docs/EstadoListasSolicitadas.md). Las notas siguientes conservan su fecha y alcance originales.
+<!-- /USER STOP 2026-10-08 -->
+
 # Streaming pendientes
 
 Validación del banco aprobada el 2026-10-07: 2560 pares EXE/DLL, sin diferencias. Informe: [summary.json](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-audio-streaming-pending/20261007-191140-299188/summary.json>); comparaciones: [comparisons.jsonl](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-audio-streaming-pending/20261007-191140-299188/comparisons.jsonl>).

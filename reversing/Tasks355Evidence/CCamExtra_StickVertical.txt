@@ -1,0 +1,117 @@
+// CCamExtra::StickVertical @ 0x00540f80 [0x540f80..0x54103b]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+uint FUN_00540f80(void)
+
+{
+  short sVar1;
+  uint uVar2;
+  int in_ECX;
+  uint uVar3;
+  
+  sVar1 = DAT_00b7345e;
+  if (DAT_00b73402 != '\0') {
+    sVar1 = -DAT_00b7345e;
+  }
+  uVar3 = (uint)sVar1;
+  uVar2 = uVar3;
+  if (sVar1 < 0) {
+    uVar2 = -uVar3;
+  }
+  if ((100 < (int)uVar2) && ((*(short *)(in_ECX + 0x10e) != 0 || (*(short *)(in_ECX + 0x26) == 0))))
+  {
+    if (0 < sVar1) {
+      return uVar3 - 0x32;
+    }
+    return uVar3 + 0x32;
+  }
+  uVar2 = FUN_0050a850();
+  if ((char)uVar2 != '\0') {
+    if (sVar1 < 0) {
+      uVar3 = -uVar3;
+    }
+    uVar2 = uVar3;
+    if (0x32 < (int)uVar3) {
+      if (0 < sVar1) {
+        uVar2 = FUN_00821b40();
+        return uVar2;
+      }
+      uVar2 = FUN_00821b40();
+      return uVar2;
+    }
+  }
+  return uVar2 & 0xffff0000;
+}
+
+
+==== complete EXE assembly ====
+00540F80: push ecx
+00540F81: mov al,byte ptr ds:[00B73402h]
+00540F86: test al,al
+00540F88: push esi
+00540F89: push edi
+00540F8A: mov di,word ptr ds:[00B7345Eh]
+ 00
+00540F91: mov word ptr [esp+8],di
+00540F96: je 00540FA5
+00540F98: mov eax,dword ptr [esp+8]
+00540F9C: neg eax
+00540F9E: mov dword ptr [esp+8],eax
+00540FA2: mov di,ax
+00540FA5: test di,di
+00540FA8: movsx esi,di
+00540FAB: mov eax,esi
+00540FAD: jge 00540FB1
+00540FAF: neg eax
+00540FB1: cmp eax,64h
+00540FB4: jle 00540FDF
+00540FB6: cmp word ptr [ecx+0000010Eh],0
+00540FBE: jne 00540FCC
+00540FC0: cmp word ptr [ecx+26h],0
+00540FC5: setne al
+00540FC8: test al,al
+00540FCA: jne 00540FDF
+00540FCC: test di,di
+00540FCF: jle 00540FD8
+00540FD1: pop edi
+00540FD2: lea eax,[esi-32h]
+00540FD5: pop esi
+00540FD6: pop ecx
+00540FD7: ret
+00540FD8: pop edi
+00540FD9: lea eax,[esi+32h]
+00540FDC: pop esi
+00540FDD: pop ecx
+00540FDE: ret
+00540FDF: mov ecx,0B6F19Ch
+00540FE4: call 0050A850
+00540FE9: test al,al
+00540FEB: je 00541035
+00540FED: test di,di
+00540FF0: mov eax,esi
+00540FF2: jge 00540FF6
+00540FF4: neg eax
+00540FF6: cmp eax,32h
+00540FF9: jle 00541035
+00540FFB: test di,di
+00540FFE: pop edi
+00540FFF: jle 0054101B
+00541001: add esi,0FFFFFFCEh
+00541004: mov dword ptr [esp+4],esi
+00541008: fild dword ptr [esp+4]
+0054100C: pop esi
+0054100D: fmul dword ptr ds:[00858B8Ch]
+00541013: add esp,4
+00541016: jmp 00821B40
+0054101B: add esi,32h
+0054101E: mov dword ptr [esp+4],esi
+00541022: fild dword ptr [esp+4]
+00541026: pop esi
+00541027: fmul dword ptr ds:[00858B8Ch]
+0054102D: add esp,4
+00541030: jmp 00821B40
+00541035: pop edi
+00541036: xor ax,ax
+00541039: pop esi
+0054103A: pop ecx
+0054103B: ret

@@ -1,0 +1,30 @@
+# BikeDamage355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Replay actual aprobado para este banco: fuentes, instrumentos, binarios archivados y hashes del EXE/DLL ejecutados comprobados. Forma parte de un cierre parcial; el lote completo no quedó validado con las fuentes finales.
+
+Funciones del alcance: `CBike::VehicleDamage`.
+
+[Resumen registrado](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-bike-damage355/20261008-065302-845061/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+<!-- vehicle355-status -->
+Current status (2026-10-08): Current-source final replay/hash verification remains pending; no current-source approval is asserted. Latest completed report: 20261008-044551-700442, passed for the tested snapshot. Latest historical passing report: 20261008-044551-700442.
+Native implementations are applied; older preparation and approval notes below describe historical snapshots.
+<!-- /vehicle355-status -->
+
+VehicleDamage 0x6B8EC0 VMT871360 slot56:1024 pares pendientes. ASM completo Bike_DamageFull. Input positive/0/negative, stored collision thresholds, progress0/50/100, local damage before mutable progress, gate damage/invulnerability, building/vehicle/ped and directional impact, statuses, driver speech, repeated player queries, protected health factors/clamp, fire setup/references. Paired Knock/Progress/PlayerVehicle/PlayerPed/Reference/Wanted/Say, player query/speech mutate health to check timing. Whole bike hash and dependency trace. Finite moderate damage/speed fixtures; NaN/overflow not certified. No globals changed, hooksfalse until validation.
+
+Strict semantic pointer outputs added before byte-hash cleanup: NULL, fixture region+byte offset, or unknown_exact+full uintptr value. Unknown values never collapse into a shared sentinel. Current matrix/driver/physical damager/last damage entity/vehicle damager are compared; handling identity is also compared. The existing full remaining-object byte hash and ordered collaborator traces remain mandatory. Raw fixture pointers are then cleared only after semantic identity capture. No production source change.
+
+<!-- vehicle355-evidence-links -->
+Evidence files verified on disk (2026-10-08):
+
+- [Bike_DamageFull.txt](../VehicleAudio355Evidence/Bike_DamageFull.txt)
+
+REA pseudocode recovery for CBike::VehicleDamage failed in both recorded attempts; full native ASM remains available. [Recovery diagnostics](../VehicleAudio355Evidence/artifacts/link-pseudo-recovery/index.json), [first attempt](../VehicleAudio355Evidence/artifacts/link-pseudo-recovery/index-first-failure.json). This entry is not claimed as complete REA pseudocode + ASM.
+
+The comparison covers isolated symmetric fixtures and ordered collaborator calls. Historical passing reports apply only to the tested snapshot. Final current-source replay/hash verification remains pending; arbitrary runtime graphs, invalid pointers and unconstrained external callbacks are outside these fixtures.
+<!-- /vehicle355-evidence-links -->

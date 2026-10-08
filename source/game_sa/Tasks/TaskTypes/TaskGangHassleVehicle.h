@@ -18,7 +18,7 @@ public:
     float     m_fOffsetX;
     CVector   m_vecPosn;
     bool      m_bRemoveAnim;
-    bool      m_b31;
+    uint8     m_b31;
     CEntity*  m_pEntity;
     uint32    m_nTime;
     int32     dword3C;

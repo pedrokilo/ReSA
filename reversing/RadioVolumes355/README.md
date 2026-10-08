@@ -1,0 +1,30 @@
+# RadioVolumes355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Reconstrucción aplicada y aprobación histórica disponible. Falta completar el replay con todas las fuentes finales; no se acredita vigencia actual de este banco.
+
+Funciones del alcance: `CAERadioTrackManager::UpdateRadioVolumes`.
+
+[Evidencia histórica](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-radio-volumes355/20261008-020732-679230/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+<!-- vehicle355-status -->
+Current status (2026-10-08): Current-source final replay/hash verification remains pending; no current-source approval is asserted. Latest completed report: 20261008-020732-679230, passed for the tested snapshot. Latest historical passing report: 20261008-020732-679230.
+Native implementations are applied; older preparation and approval notes below describe historical snapshots.
+<!-- /vehicle355-status -->
+
+UpdateRadioVolumes 0x4EA010: 1024 pares pendientes. Cutscene/pausa/camera/speech globals aislados; hardware master getters secuencia mutable y trazada para exigir orden y repetición; eventos/posición/distancia15 exacta/NaN; fade m_f80/84 negativo/cero/NaN; bass-1..3; channel16 truncation. Getters/engine/relative/channel stubs simétricos, vector Magnitude real pura. ASM log10 fldlg2/fyl2x en draft Radio_VolumesNative.txt; Cuerpo nativo aplicado; hook reversed=false hasta aprobación. Cuatro globalsbyte restaurados.
+
+Runtime approved: 1,024 paired cases, report 20261008-020732-679230. Source and bank remain frozen for final coordinator verification.
+
+<!-- vehicle355-evidence-links -->
+Evidence files verified on disk (2026-10-08):
+
+- [CAERadioTrackManager.UpdateRadioVolumes_4EA010.c](../_handoff/ghidra/CAERadioTrackManager.UpdateRadioVolumes_4EA010.c)
+- [Radio_4EA010.txt](../VehicleAudio355Evidence/Radio_4EA010.txt)
+- [Radio_VolumesNative.txt](../VehicleAudio355Evidence/Radio_VolumesNative.txt)
+
+The comparison covers isolated symmetric fixtures and ordered collaborator calls. Historical passing reports apply only to the tested snapshot. Final current-source replay/hash verification remains pending; arbitrary runtime graphs, invalid pointers and unconstrained external callbacks are outside these fixtures.
+<!-- /vehicle355-evidence-links -->

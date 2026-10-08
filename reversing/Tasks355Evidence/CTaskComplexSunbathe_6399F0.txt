@@ -1,0 +1,556 @@
+// Sin pseudocódigo de Ghidra para 0x006399f0: None
+==== ensamblador exacto (dis.sh) ====
+006399F0: push ebp
+006399F1: mov ebp,dword ptr [esp+8]
+006399F5: mov eax,dword ptr [ebp+00000598h]
+006399FB: cmp eax,16h
+006399FE: push esi
+006399FF: push edi
+00639A00: mov esi,ecx
+00639A02: je 00639A09
+00639A04: cmp eax,5
+00639A07: jne 00639A16
+00639A09: push ebp
+00639A0A: push 2
+00639A0C: mov ecx,0C0B058h
+00639A11: call 00602590
+00639A16: mov ecx,dword ptr [esi+8]
+00639A19: mov eax,dword ptr [ecx]
+00639A1B: xor edi,edi
+00639A1D: call dword ptr [eax+10h]
+00639A20: add eax,0FFFFFF36h
+00639A25: cmp eax,0E4h
+00639A2A: ja 00639B9F
+00639A30: movzx ecx,byte ptr [eax+00639BC0h]
+ 00
+00639A37: jmp dword ptr [ecx*4+00639BA8h]
+ 00
+00639A3E: mov al,byte ptr [esi+0Dh]
+00639A41: test al,al
+00639A43: je 00639A77
+00639A45: mov ecx,esi
+00639A47: call 00632190
+00639A4C: test al,al
+00639A4E: je 00639AE5
+00639A54: mov edx,dword ptr [esi+28h]
+00639A57: mov al,byte ptr [edx+10h]
+00639A5A: test al,al
+00639A5C: je 00639AE5
+00639A62: push ebp
+00639A63: push 1AEh
+00639A68: mov ecx,esi
+00639A6A: call 00638290
+00639A6F: mov edi,eax
+00639A71: pop edi
+00639A72: pop esi
+00639A73: pop ebp
+00639A74: ret 4
+00639A77: mov eax,dword ptr [esi+28h]
+00639A7A: mov cl,byte ptr [eax+10h]
+00639A7D: test cl,cl
+00639A7F: je 00639AE5
+00639A81: mov ecx,dword ptr [esi+24h]
+00639A84: mov al,byte ptr [ecx+10h]
+00639A87: test al,al
+00639A89: je 00639AE5
+00639A8B: push ebp
+00639A8C: push 1ACh
+00639A91: mov ecx,esi
+00639A93: call 00638290
+00639A98: mov edi,eax
+00639A9A: pop edi
+00639A9B: pop esi
+00639A9C: pop ebp
+00639A9D: ret 4
+00639AA0: mov edx,dword ptr [esi+24h]
+00639AA3: mov al,byte ptr [edx+10h]
+00639AA6: test al,al
+00639AA8: je 00639AE5
+00639AAA: mov edi,dword ptr ds:[00B7CB84h]
+00639AB0: push 186A0h
+00639AB5: push 4E20h
+00639ABA: call 00407180
+00639ABF: add esp,8
+00639AC2: push ebp
+00639AC3: push 1A2h
+00639AC8: mov ecx,esi
+00639ACA: mov dword ptr [esi+14h],edi
+00639ACD: mov dword ptr [esi+18h],eax
+00639AD0: mov byte ptr [esi+1Ch],1
+00639AD4: call 00638290
+00639AD9: mov edi,eax
+00639ADB: pop edi
+00639ADC: mov byte ptr [esi+0Dh],1
+00639AE0: pop esi
+00639AE1: pop ebp
+00639AE2: ret 4
+00639AE5: push ebp
+00639AE6: push 516h
+00639AEB: mov ecx,esi
+00639AED: call 00638290
+00639AF2: mov edi,eax
+00639AF4: pop edi
+00639AF5: pop esi
+00639AF6: pop ebp
+00639AF7: ret 4
+00639AFA: mov eax,dword ptr [esi+28h]
+00639AFD: mov cl,byte ptr [eax+10h]
+00639B00: test cl,cl
+00639B02: je 00639B46
+00639B04: call 00632140
+00639B09: test al,al
+00639B0B: je 00639A62
+00639B11: lea ecx,[esi+14h]
+00639B14: call 00420E30
+00639B19: test al,al
+00639B1B: jne 00639A62
+00639B21: mov eax,dword ptr [esi+20h]
+00639B24: test eax,eax
+00639B26: je 00639B31
+00639B28: cmp eax,2
+00639B2B: jne 00639A62
+00639B31: push ebp
+00639B32: push 1ADh
+00639B37: mov ecx,esi
+00639B39: call 00638290
+00639B3E: mov edi,eax
+00639B40: pop edi
+00639B41: pop esi
+00639B42: pop ebp
+00639B43: ret 4
+00639B46: push ebp
+00639B47: push 0CAh
+00639B4C: mov ecx,esi
+00639B4E: call 00638290
+00639B53: mov edi,eax
+00639B55: pop edi
+00639B56: pop esi
+00639B57: pop ebp
+00639B58: ret 4
+00639B5B: mov ecx,dword ptr [esi+24h]
+00639B5E: mov al,byte ptr [ecx+10h]
+00639B61: test al,al
+00639B63: mov ecx,esi
+00639B65: push ebp
+00639B66: je 00639B7A
+00639B68: push 1A2h
+00639B6D: call 00638290
+00639B72: mov edi,eax
+00639B74: pop edi
+00639B75: pop esi
+00639B76: pop ebp
+00639B77: ret 4
+00639B7A: push 516h
+00639B7F: call 00638290
+00639B84: mov edi,eax
+00639B86: pop edi
+00639B87: pop esi
+00639B88: pop ebp
+00639B89: ret 4
+00639B8C: push ebp
+00639B8D: push 516h
+00639B92: mov ecx,esi
+00639B94: call 00638290
+00639B99: mov byte ptr [esi+0Dh],0
+00639B9D: mov edi,eax
+00639B9F: mov eax,edi
+00639BA1: pop edi
+00639BA2: pop esi
+00639BA3: pop ebp
+00639BA4: ret 4
+00639BA8: call 0063:9AFA0063
+00639BB0: mov al,byte ptr ds:[5B00639Ah]
+00639BB5: wait
+00639BB6: arpl word ptr [eax],ax
+00639BB8: mov word ptr [ebx+9B9F0063h],ds
+00639BBE: arpl word ptr [eax],ax
+00639BC0: add byte ptr ds:[05050505h],al
+00639BC6: add eax,5050505h
+00639BCB: add eax,5050505h
+00639BD0: add eax,5050505h
+00639BD5: add eax,5050505h
+00639BDA: add eax,5050505h
+00639BDF: add eax,5050505h
+00639BE4: add eax,5050505h
+00639BE9: add eax,5050505h
+00639BEE: add eax,5050505h
+00639BF3: add eax,5050505h
+00639BF8: add eax,5050505h
+00639BFD: add eax,5050505h
+00639C02: add eax,5050505h
+00639C07: add eax,5050505h
+00639C0C: add eax,5050505h
+00639C11: add eax,5050505h
+00639C16: add eax,5050505h
+00639C1B: add eax,5050505h
+00639C20: add eax,5050505h
+00639C25: add eax,5050505h
+00639C2A: add eax,5050505h
+00639C2F: add eax,5050505h
+00639C34: add eax,5050505h
+00639C39: add eax,5050505h
+00639C3E: add eax,5050505h
+00639C43: add eax,5050505h
+00639C48: add eax,5050505h
+00639C4D: add eax,5050505h
+00639C52: add eax,5050505h
+00639C57: add eax,5050505h
+00639C5C: add eax,5050505h
+00639C61: add eax,5050505h
+00639C66: add eax,5050505h
+00639C6B: add eax,5050505h
+00639C70: add eax,5050505h
+00639C75: add eax,5050505h
+00639C7A: add eax,5050505h
+00639C7F: add eax,5050505h
+00639C84: add eax,5050505h
+00639C89: add eax,5050505h
+00639C8E: add eax,5050505h
+00639C93: add eax,5050505h
+00639C98: add dword ptr ds:[05050505h],eax
+00639C9E: add eax,2050505h
+00639CA3: add eax,dword ptr [eax+edx*4]
+00639CB0: push esi
+00639CB1: push edi
+00639CB2: mov esi,ecx
+00639CB4: call 00821B1E
+00639CB9: mov edi,dword ptr [esp+0Ch]
+00639CBD: cmp dword ptr [edi+00000598h],5
+ 05
+00639CC4: jne 00639CF5
+00639CC6: call 00821B1E
+00639CCB: and eax,0FFFFh
+00639CD0: mov dword ptr [esp+0Ch],eax
+00639CD4: fild dword ptr [esp+0Ch]
+00639CD8: fmul dword ptr ds:[00858B14h]
+00639CDE: fmul dword ptr ds:[00859024h]
+00639CE4: call 00821B40
+00639CE9: mov ecx,2
+00639CEE: sub ecx,eax
+00639CF0: mov dword ptr [esi+20h],ecx
+00639CF3: jmp 00639D22
+00639CF5: movsx edx,word ptr [edi+22h]
+00639CF9: push edx
+00639CFA: call 00611760
+00639CFF: add esp,4
+00639D02: test al,al
+00639D04: je 00639D1B
+00639D06: call 00821B1E
+00639D0B: cmp eax,3FFFh
+00639D10: setl al
+00639D13: movzx eax,al
+00639D16: mov dword ptr [esi+20h],eax
+00639D19: jmp 00639D22
+00639D1B: mov dword ptr [esi+20h],1
+ 00
+00639D22: mov ecx,dword ptr [esi+24h]
+00639D25: mov al,byte ptr [ecx+10h]
+00639D28: test al,al
+00639D2A: jne 00639D40
+00639D2C: mov edx,dword ptr [esi+2Ch]
+00639D2F: add edx,63E7h
+00639D35: push 8
+00639D37: push edx
+00639D38: call 004087E0
+00639D3D: add esp,8
+00639D40: mov eax,dword ptr [esi+28h]
+00639D43: mov cl,byte ptr [eax+10h]
+00639D46: test cl,cl
+00639D48: jne 00639D5E
+00639D4A: mov ecx,dword ptr [esi+30h]
+00639D4D: add ecx,63E7h
+00639D53: push 8
+00639D55: push ecx
+00639D56: call 004087E0
+00639D5B: add esp,8
+00639D5E: mov ecx,esi
+00639D60: mov byte ptr [esi+0Dh],0
+00639D64: call 00632190
+00639D69: mov cl,byte ptr [esi+0Ch]
+00639D6C: test cl,cl
+00639D6E: je 00639D97
+00639D70: test al,al
+00639D72: je 00639D9B
+00639D74: mov eax,dword ptr [esi+34h]
+00639D77: test eax,eax
+00639D79: jne 00639DBA
+00639D7B: mov edx,dword ptr [esi+28h]
+00639D7E: mov al,byte ptr [edx+10h]
+00639D81: test al,al
+00639D83: je 00639DBA
+00639D85: push edi
+00639D86: push 1ACh
+00639D8B: mov ecx,esi
+00639D8D: call 00638290
+00639D92: pop edi
+00639D93: pop esi
+00639D94: ret 4
+00639D97: test al,al
+00639D99: jne 00639DA5
+00639D9B: mov ecx,dword ptr [esi+24h]
+00639D9E: mov dl,byte ptr [ecx+10h]
+00639DA1: test dl,dl
+00639DA3: je 00639DB3
+00639DA5: mov edx,dword ptr [esi+24h]
+00639DA8: mov cl,byte ptr [edx+10h]
+00639DAB: test cl,cl
+00639DAD: jne 00639DCC
+00639DAF: test al,al
+00639DB1: jne 00639DBA
+00639DB3: pop edi
+00639DB4: xor eax,eax
+00639DB6: pop esi
+00639DB7: ret 4
+00639DBA: push edi
+00639DBB: push 0CAh
+00639DC0: mov ecx,esi
+00639DC2: call 00638290
+00639DC7: pop edi
+00639DC8: pop esi
+00639DC9: ret 4
+00639DCC: call 00821B1E
+00639DD1: and eax,0FFFFh
+00639DD6: mov dword ptr [esp+0Ch],eax
+00639DDA: fild dword ptr [esp+0Ch]
+00639DDE: mov eax,dword ptr ds:[00B7CB84h]
+00639DE3: mov dword ptr [esi+14h],eax
+00639DE6: fmul dword ptr ds:[00858B14h]
+ 00639DEC: D8
+ 00639DED: 0D
+ 00639DEE: 68
+00639DEF: out 86h,al
+
+==== COMPLETE CANONICAL EVIDENCE ====
+// CTaskComplexSunbathe::CreateNextSubTask @ 0x006399f0 [0x6399f0..0x639ba6]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_006399f0(int param_1)
+
+{
+  char cVar1;
+  undefined4 uVar2;
+  undefined4 uVar3;
+  int in_ECX;
+  
+  if ((*(int *)(param_1 + 0x598) == 0x16) || (*(int *)(param_1 + 0x598) == 5)) {
+    FUN_00602590(2,param_1);
+  }
+  uVar2 = (**(code **)(**(int **)(in_ECX + 8) + 0x10))();
+  uVar3 = DAT_00b7cb84;
+  switch(uVar2) {
+  case 0xca:
+    if (*(char *)(in_ECX + 0xd) == '\0') {
+      if ((*(char *)(*(int *)(in_ECX + 0x28) + 0x10) != '\0') &&
+         (*(char *)(*(int *)(in_ECX + 0x24) + 0x10) != '\0')) {
+        uVar3 = FUN_00638290(0x1ac,param_1);
+        return uVar3;
+      }
+    }
+    else {
+      cVar1 = FUN_00632190();
+      if ((cVar1 != '\0') && (*(char *)(*(int *)(in_ECX + 0x28) + 0x10) != '\0')) goto LAB_00639a62;
+    }
+    break;
+  default:
+    return 0;
+  case 0x1a2:
+    if (*(char *)(*(int *)(in_ECX + 0x28) + 0x10) == '\0') {
+      uVar3 = FUN_00638290(0xca,param_1);
+      return uVar3;
+    }
+    cVar1 = FUN_00632140();
+    if (((cVar1 != '\0') && (cVar1 = FUN_00420e30(), cVar1 == '\0')) &&
+       ((*(int *)(in_ECX + 0x20) == 0 || (*(int *)(in_ECX + 0x20) == 2)))) {
+      uVar3 = FUN_00638290(0x1ad,param_1);
+      return uVar3;
+    }
+LAB_00639a62:
+    uVar3 = FUN_00638290(0x1ae,param_1);
+    return uVar3;
+  case 0x1ac:
+    if (*(char *)(*(int *)(in_ECX + 0x24) + 0x10) != '\0') {
+      uVar2 = FUN_00407180(20000,100000);
+      *(undefined4 *)(in_ECX + 0x14) = uVar3;
+      *(undefined4 *)(in_ECX + 0x18) = uVar2;
+      *(undefined1 *)(in_ECX + 0x1c) = 1;
+      uVar3 = FUN_00638290(0x1a2,param_1);
+      *(undefined1 *)(in_ECX + 0xd) = 1;
+      return uVar3;
+    }
+    break;
+  case 0x1ad:
+    if (*(char *)(*(int *)(in_ECX + 0x24) + 0x10) == '\0') {
+      uVar3 = FUN_00638290(0x516,param_1);
+      return uVar3;
+    }
+    uVar3 = FUN_00638290(0x1a2,param_1);
+    return uVar3;
+  case 0x1ae:
+    uVar3 = FUN_00638290(0x516,param_1);
+    *(undefined1 *)(in_ECX + 0xd) = 0;
+    return uVar3;
+  }
+  uVar3 = FUN_00638290(0x516,param_1);
+  return uVar3;
+}
+
+
+==== Full ASM [0x6399F0, 0x639BA6) ====
+006399F0: push ebp
+006399F1: mov ebp,dword ptr [esp+8]
+006399F5: mov eax,dword ptr [ebp+00000598h]
+006399FB: cmp eax,16h
+006399FE: push esi
+006399FF: push edi
+00639A00: mov esi,ecx
+00639A02: je 00639A09
+00639A04: cmp eax,5
+00639A07: jne 00639A16
+00639A09: push ebp
+00639A0A: push 2
+00639A0C: mov ecx,0C0B058h
+00639A11: call 00602590
+00639A16: mov ecx,dword ptr [esi+8]
+00639A19: mov eax,dword ptr [ecx]
+00639A1B: xor edi,edi
+00639A1D: call dword ptr [eax+10h]
+00639A20: add eax,0FFFFFF36h
+00639A25: cmp eax,0E4h
+00639A2A: ja 00639B9F
+00639A30: movzx ecx,byte ptr [eax+00639BC0h]
+ 00
+00639A37: jmp dword ptr [ecx*4+00639BA8h]
+ 00
+00639A3E: mov al,byte ptr [esi+0Dh]
+00639A41: test al,al
+00639A43: je 00639A77
+00639A45: mov ecx,esi
+00639A47: call 00632190
+00639A4C: test al,al
+00639A4E: je 00639AE5
+00639A54: mov edx,dword ptr [esi+28h]
+00639A57: mov al,byte ptr [edx+10h]
+00639A5A: test al,al
+00639A5C: je 00639AE5
+00639A62: push ebp
+00639A63: push 1AEh
+00639A68: mov ecx,esi
+00639A6A: call 00638290
+00639A6F: mov edi,eax
+00639A71: pop edi
+00639A72: pop esi
+00639A73: pop ebp
+00639A74: ret 4
+00639A77: mov eax,dword ptr [esi+28h]
+00639A7A: mov cl,byte ptr [eax+10h]
+00639A7D: test cl,cl
+00639A7F: je 00639AE5
+00639A81: mov ecx,dword ptr [esi+24h]
+00639A84: mov al,byte ptr [ecx+10h]
+00639A87: test al,al
+00639A89: je 00639AE5
+00639A8B: push ebp
+00639A8C: push 1ACh
+00639A91: mov ecx,esi
+00639A93: call 00638290
+00639A98: mov edi,eax
+00639A9A: pop edi
+00639A9B: pop esi
+00639A9C: pop ebp
+00639A9D: ret 4
+00639AA0: mov edx,dword ptr [esi+24h]
+00639AA3: mov al,byte ptr [edx+10h]
+00639AA6: test al,al
+00639AA8: je 00639AE5
+00639AAA: mov edi,dword ptr ds:[00B7CB84h]
+00639AB0: push 186A0h
+00639AB5: push 4E20h
+00639ABA: call 00407180
+00639ABF: add esp,8
+00639AC2: push ebp
+00639AC3: push 1A2h
+00639AC8: mov ecx,esi
+00639ACA: mov dword ptr [esi+14h],edi
+00639ACD: mov dword ptr [esi+18h],eax
+00639AD0: mov byte ptr [esi+1Ch],1
+00639AD4: call 00638290
+00639AD9: mov edi,eax
+00639ADB: pop edi
+00639ADC: mov byte ptr [esi+0Dh],1
+00639AE0: pop esi
+00639AE1: pop ebp
+00639AE2: ret 4
+00639AE5: push ebp
+00639AE6: push 516h
+00639AEB: mov ecx,esi
+00639AED: call 00638290
+00639AF2: mov edi,eax
+00639AF4: pop edi
+00639AF5: pop esi
+00639AF6: pop ebp
+00639AF7: ret 4
+00639AFA: mov eax,dword ptr [esi+28h]
+00639AFD: mov cl,byte ptr [eax+10h]
+00639B00: test cl,cl
+00639B02: je 00639B46
+00639B04: call 00632140
+00639B09: test al,al
+00639B0B: je 00639A62
+00639B11: lea ecx,[esi+14h]
+00639B14: call 00420E30
+00639B19: test al,al
+00639B1B: jne 00639A62
+00639B21: mov eax,dword ptr [esi+20h]
+00639B24: test eax,eax
+00639B26: je 00639B31
+00639B28: cmp eax,2
+00639B2B: jne 00639A62
+00639B31: push ebp
+00639B32: push 1ADh
+00639B37: mov ecx,esi
+00639B39: call 00638290
+00639B3E: mov edi,eax
+00639B40: pop edi
+00639B41: pop esi
+00639B42: pop ebp
+00639B43: ret 4
+00639B46: push ebp
+00639B47: push 0CAh
+00639B4C: mov ecx,esi
+00639B4E: call 00638290
+00639B53: mov edi,eax
+00639B55: pop edi
+00639B56: pop esi
+00639B57: pop ebp
+00639B58: ret 4
+00639B5B: mov ecx,dword ptr [esi+24h]
+00639B5E: mov al,byte ptr [ecx+10h]
+00639B61: test al,al
+00639B63: mov ecx,esi
+00639B65: push ebp
+00639B66: je 00639B7A
+00639B68: push 1A2h
+00639B6D: call 00638290
+00639B72: mov edi,eax
+00639B74: pop edi
+00639B75: pop esi
+00639B76: pop ebp
+00639B77: ret 4
+00639B7A: push 516h
+00639B7F: call 00638290
+00639B84: mov edi,eax
+00639B86: pop edi
+00639B87: pop esi
+00639B88: pop ebp
+00639B89: ret 4
+00639B8C: push ebp
+00639B8D: push 516h
+00639B92: mov ecx,esi
+00639B94: call 00638290
+00639B99: mov byte ptr [esi+0Dh],0
+00639B9D: mov edi,eax
+00639B9F: mov eax,edi
+00639BA1: pop edi
+00639BA2: pop esi
+00639BA3: pop ebp
+00639BA4: ret 4

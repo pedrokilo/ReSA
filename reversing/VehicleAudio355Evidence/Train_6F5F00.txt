@@ -1,0 +1,90 @@
+// CTrain::FindNextStationPositionInDirection @ 0x006f5f00 [0x6f5f00..0x6f5f74]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006f5f00(char param_1,float param_2,undefined4 *param_3,int *param_4)
+
+{
+  int iVar1;
+  int iVar2;
+  
+  iVar1 = 0;
+  do {
+    if (param_2 < (float)(&DAT_00c38034)[iVar1]) {
+      if (iVar1 < 6) goto LAB_006f5f23;
+      break;
+    }
+    iVar1 = iVar1 + 1;
+  } while (iVar1 < 6);
+  iVar1 = 0;
+LAB_006f5f23:
+  iVar2 = iVar1;
+  if ((param_1 == '\0') && (iVar2 = iVar1 + -1, iVar2 < 0)) {
+    iVar2 = iVar1 + 5;
+  }
+  if (ABS(param_2 - (float)(&DAT_00c38034)[iVar2]) < 100.0) {
+    if (param_1 == '\0') {
+      iVar2 = iVar2 + -1;
+    }
+    else {
+      iVar2 = iVar2 + 1;
+    }
+    if (iVar2 < 0) {
+      iVar2 = iVar2 + 6;
+    }
+    if (5 < iVar2) {
+      iVar2 = 0;
+    }
+  }
+  *param_4 = iVar2;
+  *param_3 = (&DAT_00c38034)[iVar2];
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F5F00: xor ecx,ecx
+006F5F02: fld dword ptr [ecx*4+00C38034h]
+ 00
+006F5F09: fcomp dword ptr [esp+8]
+006F5F0D: fnstsw ax
+006F5F0F: test ah,41h
+006F5F12: je 006F5F1C
+006F5F14: inc ecx
+006F5F15: cmp ecx,6
+006F5F18: jl 006F5F02
+006F5F1A: jmp 006F5F21
+006F5F1C: cmp ecx,6
+006F5F1F: jl 006F5F23
+006F5F21: xor ecx,ecx
+006F5F23: mov dl,byte ptr [esp+4]
+006F5F27: test dl,dl
+006F5F29: jne 006F5F31
+006F5F2B: dec ecx
+006F5F2C: jns 006F5F31
+006F5F2E: add ecx,6
+006F5F31: fld dword ptr [esp+8]
+006F5F35: fsub dword ptr [ecx*4+00C38034h]
+ 00
+006F5F3C: fabs
+006F5F3E: fcomp dword ptr ds:[00858628h]
+006F5F44: fnstsw ax
+006F5F46: test ah,5
+006F5F49: jp 006F5F61
+006F5F4B: test dl,dl
+006F5F4D: je 006F5F52
+006F5F4F: inc ecx
+006F5F50: jmp 006F5F53
+006F5F52: dec ecx
+006F5F53: test ecx,ecx
+006F5F55: jge 006F5F5A
+006F5F57: add ecx,6
+006F5F5A: cmp ecx,6
+006F5F5D: jl 006F5F61
+006F5F5F: xor ecx,ecx
+006F5F61: mov eax,dword ptr [esp+10h]
+006F5F65: mov edx,dword ptr [esp+0Ch]
+006F5F69: mov dword ptr [eax],ecx
+006F5F6B: mov ecx,dword ptr [ecx*4+00C38034h]
+ 00
+006F5F72: mov dword ptr [edx],ecx
+006F5F74: ret

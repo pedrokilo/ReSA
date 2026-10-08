@@ -1,0 +1,120 @@
+// CTrain::InitTrains @ 0x006f7440 [0x6f7440..0x6f754f]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006f7440(void)
+
+{
+  int iVar1;
+  int iVar2;
+  uint in_ECX;
+  undefined4 *puVar3;
+  float *pfVar4;
+  uint local_4;
+  
+  DAT_00c38010 = 0;
+  DAT_00c3800c = 0;
+  local_4 = in_ECX;
+  if (DAT_00c38024 == 0) {
+    FUN_006f55d0("data\\paths\\tracks.dat",&DAT_00c38024,&DAT_00c38014,&DAT_00c37fec,0);
+  }
+  if (DAT_00c38028 == 0) {
+    FUN_006f55d0("data\\paths\\tracks3.dat",&DAT_00c38028,&DAT_00c38018,&DAT_00c37ff0,1);
+  }
+  if (DAT_00c3802c == 0) {
+    FUN_006f55d0("data\\paths\\tracks2.dat",&DAT_00c3802c,&DAT_00c3801c,&DAT_00c37ff4,2);
+  }
+  if (DAT_00c38030 == 0) {
+    FUN_006f55d0("data\\paths\\tracks4.dat",&DAT_00c38030,&DAT_00c38020,&DAT_00c37ff8,3);
+  }
+  iVar1 = DAT_00c38024;
+  puVar3 = &DAT_008d48f8;
+  pfVar4 = (float *)&DAT_00c38034;
+  do {
+    iVar2 = FUN_006f6bd0(*puVar3,puVar3[1],puVar3[2],&local_4);
+    local_4 = (uint)*(ushort *)(iVar1 + 6 + iVar2 * 10);
+    puVar3 = puVar3 + 3;
+    *pfVar4 = (float)local_4 * 0.33333334;
+    pfVar4 = pfVar4 + 1;
+  } while ((int)puVar3 < 0x8d4940);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F7440: push ecx
+006F7441: mov eax,dword ptr ds:[00C38024h]
+006F7446: push ebx
+006F7447: xor ebx,ebx
+006F7449: cmp eax,ebx
+006F744B: push esi
+006F744C: push edi
+006F744D: mov byte ptr ds:[00C38010h],bl
+006F7453: mov dword ptr ds:[00C3800Ch],ebx
+006F7459: jne 006F7478
+006F745B: push ebx
+006F745C: push 0C37FECh
+006F7461: push 0C38014h
+006F7466: push 0C38024h
+006F746B: push 8724DCh
+006F7470: call 006F55D0
+006F7475: add esp,14h
+006F7478: cmp dword ptr ds:[00C38028h],ebx
+006F747E: jne 006F749E
+006F7480: push 1
+006F7482: push 0C37FF0h
+006F7487: push 0C38018h
+006F748C: push 0C38028h
+006F7491: push 8724C4h
+006F7496: call 006F55D0
+006F749B: add esp,14h
+006F749E: cmp dword ptr ds:[00C3802Ch],ebx
+006F74A4: jne 006F74C4
+006F74A6: push 2
+006F74A8: push 0C37FF4h
+006F74AD: push 0C3801Ch
+006F74B2: push 0C3802Ch
+006F74B7: push 8724ACh
+006F74BC: call 006F55D0
+006F74C1: add esp,14h
+006F74C4: cmp dword ptr ds:[00C38030h],ebx
+006F74CA: jne 006F74EA
+006F74CC: push 3
+006F74CE: push 0C37FF8h
+006F74D3: push 0C38020h
+006F74D8: push 0C38030h
+006F74DD: push 872494h
+006F74E2: call 006F55D0
+006F74E7: add esp,14h
+006F74EA: mov ebx,dword ptr ds:[00C38024h]
+006F74F0: mov edi,0C38034h
+006F74F5: mov esi,8D48F8h
+006F74FA: lea ebx,[ebx+00000000h]
+006F7500: lea eax,[esp+0Ch]
+006F7504: push eax
+006F7505: sub esp,0Ch
+006F7508: mov ecx,esi
+006F750A: mov eax,dword ptr [ecx]
+006F750C: mov edx,esp
+006F750E: mov dword ptr [edx],eax
+006F7510: mov eax,dword ptr [ecx+4]
+006F7513: mov ecx,dword ptr [ecx+8]
+006F7516: mov dword ptr [edx+4],eax
+006F7519: mov dword ptr [edx+8],ecx
+006F751C: call 006F6BD0
+006F7521: lea edx,[eax+eax*4]
+006F7524: movzx eax,word ptr [ebx+edx*2+6]
+006F7529: mov dword ptr [esp+1Ch],eax
+006F752D: add esi,0Ch
+006F7530: fild dword ptr [esp+1Ch]
+006F7534: add esp,10h
+006F7537: add edi,4
+006F753A: cmp esi,8D4940h
+006F7540: fmul dword ptr ds:[00859040h]
+006F7546: fstp dword ptr [edi-4]
+006F7549: jl 006F7500
+006F754B: pop edi
+006F754C: pop esi
+006F754D: pop ebx
+006F754E: pop ecx
+006F754F: ret
+ 006F7550: 6A

@@ -1,0 +1,146 @@
+// CGenericGameStorage::CheckDataNotCorrupt @ 0x005d1170 [0x5d1170..0x5d1268]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+bool FUN_005d1170(undefined4 param_1,undefined4 param_2)
+
+{
+  byte bVar1;
+  byte bVar2;
+  byte bVar3;
+  byte bVar4;
+  int iVar5;
+  char cVar6;
+  uint uVar7;
+  int iVar8;
+  
+  iVar8 = 0;
+  DAT_00c16efc = 0;
+  cVar6 = FUN_005d0d20(param_2,param_1);
+  if (cVar6 == '\0') {
+    return false;
+  }
+  cVar6 = FUN_005d10b0();
+  while (cVar6 != '\0') {
+    uVar7 = 0;
+    if (DAT_008d2be0 != 0) {
+      do {
+        iVar8 = iVar8 + (uint)*(byte *)((int)DAT_00c16ee8 + uVar7);
+        uVar7 = uVar7 + 1;
+      } while (uVar7 < DAT_008d2be0);
+    }
+    cVar6 = FUN_005d10b0();
+  }
+  if ((3 < DAT_008d2be0) && (DAT_00c17034 == 0)) {
+    bVar1 = *(byte *)((int)DAT_00c16ee8 + (DAT_008d2be0 - 4));
+    iVar5 = *(int *)((int)DAT_00c16ee8 + (DAT_008d2be0 - 4));
+    bVar2 = *(byte *)((int)DAT_00c16ee8 + (DAT_008d2be0 - 3));
+    bVar3 = *(byte *)((int)DAT_00c16ee8 + (DAT_008d2be0 - 2));
+    bVar4 = *(byte *)((int)DAT_00c16ee8 + (DAT_008d2be0 - 1));
+    if (DAT_00c16ee8 == (void *)0x0) {
+      _fclose(DAT_00c16ef0);
+      return iVar8 - ((uint)bVar1 + (uint)bVar2 + (uint)bVar3 + (uint)bVar4) == iVar5;
+    }
+                    /* WARNING: Subroutine does not return */
+    _free(DAT_00c16ee8);
+  }
+  if (DAT_00c16ee8 == (void *)0x0) {
+    _fclose(DAT_00c16ef0);
+    return false;
+  }
+                    /* WARNING: Subroutine does not return */
+  _free(DAT_00c16ee8);
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D1170: push ecx
+005D1171: mov eax,dword ptr [esp+8]
+005D1175: mov ecx,dword ptr [esp+0Ch]
+005D1179: push ebx
+005D117A: push esi
+005D117B: push eax
+005D117C: xor ebx,ebx
+005D117E: push ecx
+005D117F: xor esi,esi
+005D1181: mov byte ptr [esp+13h],bl
+005D1185: mov byte ptr ds:[00C16EFCh],bl
+005D118B: call 005D0D20
+005D1190: add esp,8
+005D1193: test al,al
+005D1195: jne 005D119B
+005D1197: pop esi
+005D1198: pop ebx
+005D1199: pop ecx
+005D119A: ret
+005D119B: push edi
+005D119C: call 005D10B0
+005D11A1: test al,al
+005D11A3: je 005D11CB
+005D11A5: mov ecx,dword ptr ds:[008D2BE0h]
+005D11AB: xor eax,eax
+005D11AD: cmp ecx,ebx
+005D11AF: jbe 005D11C2
+005D11B1: mov edx,dword ptr ds:[00C16EE8h]
+005D11B7: movzx edi,byte ptr [edx+eax]
+005D11BB: add esi,edi
+005D11BD: inc eax
+005D11BE: cmp eax,ecx
+005D11C0: jb 005D11B7
+005D11C2: call 005D10B0
+005D11C7: test al,al
+005D11C9: jne 005D11A5
+005D11CB: cmp dword ptr ds:[00C17034h],ebx
+005D11D1: mov al,1
+005D11D3: jne 005D11D9
+005D11D5: mov al,byte ptr [esp+0Fh]
+005D11D9: mov ecx,dword ptr ds:[008D2BE0h]
+005D11DF: cmp ecx,4
+005D11E2: jb 005D11E8
+005D11E4: cmp al,bl
+005D11E6: je 005D1216
+005D11E8: mov eax,dword ptr ds:[00C16EE8h]
+005D11ED: cmp eax,ebx
+005D11EF: je 005D1200
+005D11F1: push eax
+005D11F2: call 008213AE
+005D11F7: add esp,4
+005D11FA: mov dword ptr ds:[00C16EE8h],ebx
+005D1200: mov edx,dword ptr ds:[00C16EF0h]
+005D1206: push edx
+005D1207: call 005389D0
+005D120C: add esp,4
+005D120F: pop edi
+005D1210: pop esi
+005D1211: xor al,al
+005D1213: pop ebx
+005D1214: pop ecx
+005D1215: ret
+005D1216: mov eax,dword ptr ds:[00C16EE8h]
+005D121B: movzx edx,byte ptr [eax+ecx-4]
+005D1220: mov edi,dword ptr [eax+ecx-4]
+005D1224: push ebp
+005D1225: movzx ebp,byte ptr [eax+ecx-3]
+005D122A: add edx,ebp
+005D122C: movzx ebp,byte ptr [eax+ecx-2]
+005D1231: movzx ecx,byte ptr [eax+ecx-1]
+005D1236: add edx,ebp
+005D1238: add edx,ecx
+005D123A: sub esi,edx
+005D123C: cmp eax,ebx
+005D123E: pop ebp
+005D123F: je 005D1250
+005D1241: push eax
+005D1242: call 008213AE
+005D1247: add esp,4
+005D124A: mov dword ptr ds:[00C16EE8h],ebx
+005D1250: mov edx,dword ptr ds:[00C16EF0h]
+005D1256: push edx
+005D1257: call 005389D0
+005D125C: add esp,4
+005D125F: cmp esi,edi
+005D1261: pop edi
+005D1262: pop esi
+005D1263: sete al
+005D1266: pop ebx
+005D1267: pop ecx
+005D1268: ret

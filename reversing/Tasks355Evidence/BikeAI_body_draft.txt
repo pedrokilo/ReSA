@@ -1,0 +1,80 @@
+// 0x6BC930
+bool CBike::ProcessAI(uint32& extraHandlingFlags) {
+    const auto byte=[&](size_t offset)->uint8& { return *reinterpret_cast<uint8*>(reinterpret_cast<uint8*>(this)+offset); };
+    const auto number=[&](size_t offset)->float& { return *reinterpret_cast<float*>(reinterpret_cast<uint8*>(this)+offset); };
+    const auto word=[&](size_t offset)->uint32& { return *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(this)+offset); };
+    const auto f=[](uintptr_t address){return StaticRef<float>(address);};
+    const uintptr_t modelInfo=StaticRef<uintptr_t>(0xA9B0C8+uintptr_t(uint16(GetModelIndex()))*4);
+    byte(0x3DB)&=0xFC;
+    const int8 area=int8(byte(0x424));
+    if (area>=0 && !StaticRef<uint8>(0x97D6C0+area)) { extraHandlingFlags+=2;return false; }
+    switch (byte(0x36)>>3) {
+    case 0: {
+        extraHandlingFlags+=2;byte(0x614)&=0xF7;
+        if (int(FindPlayerPed(-1)->m_nPedState)!=61 && int(FindPlayerPed(-1)->m_nPedState)!=58) {
+            if (m_pDriver) {
+                if (StaticRef<CPed*>(0xB7CD98)==m_pDriver) ProcessControlInputs(0);
+                else if (StaticRef<CPed*>(0xB7CF28)==m_pDriver) ProcessControlInputs(1);
+            }
+            const auto bikeHandling=word(0x63C);
+            const auto handling=word(0x384);
+            const float lean=number(0x650);
+            const bool positive=lean>=0.f;
+            number(0xA8)=*reinterpret_cast<const float*>(bikeHandling+(positive?4:12))*lean+*reinterpret_cast<const float*>(handling+24);
+            const bool forceNeeded=positive?(number(0x4A0)<0.f || !byte(0x804)):((number(0x4A0)==0.f && !(byte(0x428)&0x20)) || !byte(0x804));
+            if (forceNeeded) {
+                const float speed=std::min(f(0x8712FC),m_vecMoveSpeed.Magnitude());
+                const float pedal=number(positive?0x4A0:0x49C);
+                const float clamped=std::max(speed/f(0x8712FC),pedal);
+                float force=*reinterpret_cast<const float*>(bikeHandling+(positive?8:16))*number(0x90)*lean*speed*(clamped+pedal)*f(0x858B8C);
+                force*=CStats::GetFatAndMuscleModifier(static_cast<eStatModAbilities>(11));
+                const auto& matrix=GetMatrix();
+                ApplyTurnForce(matrix.GetUp()*-(CTimer::GetTimeStep()*force),*reinterpret_cast<const CVector*>(reinterpret_cast<const uint8*>(this)+0xA4)+matrix.GetForward());
+            }
+            PruneReferences();
+            if (!(byte(0x36)&0xF8)) DoDriveByShootings();
+            DoSoftGroundResistance(extraHandlingFlags);
+        }
+        if (CPad::GetPad(0)->CarGunJustDown()) ActivateBomb();
+        return true;
+    }
+    case 1:extraHandlingFlags+=2;return true;
+    case 2: {
+        CCarAI::UpdateCarAI(this);CPhysical::ProcessControl();CCarCtrl::UpdateCarOnRails(this);
+        byte(0x806)=byte(0x805);byte(0x804)=byte(0x805)=2;
+        auto* transmission=reinterpret_cast<cTransmission*>(uintptr_t(word(0x384))+0x2C);
+        transmission->CalculateGearForSimpleCar(number(0x3C8)*f(0x858B38),*reinterpret_cast<uint8*>(reinterpret_cast<uint8*>(this)+0x4B4));
+        const float frontRadius=*reinterpret_cast<const float*>(modelInfo+0x40)*f(0x858B8C);
+        const float firstStep=CTimer::GetTimeStep();
+        number(0x750)+=ProcessWheelRotation(static_cast<tWheelState>(0),GetMatrix().GetForward(),m_vecMoveSpeed,frontRadius)*firstStep;
+        const float secondStep=CTimer::GetTimeStep();
+        number(0x754)+=ProcessWheelRotation(static_cast<tWheelState>(0),GetMatrix().GetForward(),m_vecMoveSpeed,*reinterpret_cast<const float*>(modelInfo+0x44)*f(0x858B8C))*secondStep;
+        if (byte(0x3DB)&3) PlayCarHorn();
+        if (word(0x514)) --word(0x514);
+        byte(0x42B)&=0xDE;byte(0x614)&=0x7F;return true;
+    }
+    case 3:case 12:
+        CCarAI::UpdateCarAI(this);CCarCtrl::SteerAICarWithPhysics(this);
+        if (byte(0x3DB)&3) PlayCarHorn();
+        extraHandlingFlags+=2;byte(0x614)&=0x7F;
+        if (byte(0x42A)&8) { byte(0x428)|=0x20;number(0x49C)=0.f;number(0x4A0)=1.f; }
+        else byte(0x614)&=0xF7;
+        return true;
+    case 4:
+        number(0x4A0)=0.f;
+        if (m_vecMoveSpeed.SquaredMagnitude()<f(0x858C58) || (byte(0x614)&0x10)) byte(0x428)|=0x20;
+        else byte(0x428)&=0xDF;
+        number(0x49C)=0.f;word(0x514)=0;
+        if ((m_pDriver || m_apPassengers[0] || (byte(0x42A)&8)) && !(byte(0x614)&0x10)) extraHandlingFlags+=2;
+        number(0x654)=number(0x658)=0.f;byte(0x614)&=0x7F;
+        if (byte(0x42A)&8) { byte(0x428)|=0x20;number(0x49C)=0.f;number(0x4A0)=1.f; }
+        return true;
+    case 5:
+        number(0x4A0)=.05f;byte(0x428)|=0x20;number(0x494)=number(0x49C)=0.f;word(0x514)=0;byte(0x614)&=0x7F;number(0x654)=number(0x658)=0.f;return true;
+    case 9:
+        if (m_vecMoveSpeed.SquaredMagnitude()<f(0x858C58)) { byte(0x428)|=0x20;number(0x4A0)=1.f; }
+        else { byte(0x428)&=0xDF;number(0x4A0)=0.f; }
+        number(0x494)=number(0x49C)=0.f;word(0x514)=0;extraHandlingFlags+=2;byte(0x614)&=0x7F;return true;
+    default:return true;
+    }
+}

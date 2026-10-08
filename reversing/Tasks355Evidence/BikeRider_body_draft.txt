@@ -1,0 +1,127 @@
+namespace {
+float BikeRiderPower(float base,float step) {
+    float result;
+    __asm {
+        fld base
+        fld step
+        mov eax,00822130h
+        call eax
+        fstp result
+    }
+    return result;
+}
+}
+// 0x6B7280
+void CBike::ProcessRiderAnims(CPed* rider, CVehicle* vehicle, CRideAnimData* rideData, tBikeHandlingData* handling, int16) {
+    const auto number=[](const void* object,size_t offset)->float& {return *reinterpret_cast<float*>(reinterpret_cast<uintptr_t>(object)+offset);};
+    const auto byte=[](void* object,size_t offset)->uint8& {return *reinterpret_cast<uint8*>(reinterpret_cast<uintptr_t>(object)+offset);};
+    const auto f=[](uintptr_t address){return StaticRef<float>(address);};
+    const bool player=rider->IsPlayer();
+    const int type=*reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(vehicle)+0x590);
+    auto* bike=type==9?vehicle:nullptr;
+    auto* automobile=type==0?vehicle:nullptr;
+    const uint8 contacts=bike?byte(bike,0x804):automobile?byte(automobile,0x960):0;
+    auto* clump=rider->GetRpClump();
+    const auto association=[&](int id){return RpAnimBlendClumpGetAssociation(clump,static_cast<AnimationId>(id));};
+    auto* left=association(196);auto* right=association(197);auto* idle=association(195);
+    CAnimBlendAssociation* forward=nullptr;CAnimBlendAssociation* backward=nullptr;
+    if (player) { forward=association(199);backward=association(198); }
+    auto* reverse=association(200);auto* special=association(202);
+    if (!special) special=association(203);
+    if (!special) special=association(204);
+    const auto& matrix=vehicle->GetMatrix();
+    const float speed=vehicle->m_vecMoveSpeed.x*matrix.GetForward().x+vehicle->m_vecMoveSpeed.y*matrix.GetForward().y+vehicle->m_vecMoveSpeed.z*matrix.GetForward().z;
+    if (*reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(vehicle)+0x594)==10 && (reverse || special)) byte(vehicle,0x7B5)=0;
+    const auto knockOff=[&] {
+        CEventKnockOffBike driverEvent(vehicle,vehicle->m_vecMoveSpeed,CVector{0,0,1},0.f,0.f,54,2,0,nullptr,true,false);
+        rider->GetEventGroup().Add(&driverEvent,false);
+        if (vehicle->m_apPassengers[0] && vehicle->m_apPassengers[0]!=rider) {
+            CEventKnockOffBike passengerEvent(vehicle,vehicle->m_vecMoveSpeed,CVector{0,0,1},0.f,0.f,54,2,0,nullptr,false,false);
+            vehicle->m_apPassengers[0]->GetEventGroup().Add(&passengerEvent,false);
+        }
+    };
+    const float angularLimit=(rider->GetBikeRidingSkill()+1.f)*f(0x871348);
+    if (angularLimit*angularLimit<vehicle->m_vecTurnSpeed.SquaredMagnitude()) knockOff();
+    float leanFwdTarget=0.f;
+    const auto blend=[&](int id,float delta){return CAnimManager::BlendAnimation(clump,rideData->AnimGroup,static_cast<AnimationId>(id),delta);};
+    const auto faded=[](CAnimBlendAssociation* animation){return !animation || (animation->m_BlendAmount<1.f && animation->m_BlendDelta<=0.f);};
+    const auto fade=[](CAnimBlendAssociation* animation){if(animation && animation->m_BlendDelta>=0.f)animation->m_BlendDelta=-4.f;};
+    if (special || std::abs(speed)>=.02f) {
+        if (speed>=0.f) { fade(idle);fade(reverse); }
+        else {
+            float reverseLimit=(rider->GetBikeRidingSkill()+1.f)*3.5f;
+            if (*reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(vehicle)+0x594)==2) reverseLimit+=reverseLimit;
+            const float reverseVelocity=number(vehicle->m_pHandlingData,0x8C);
+            if (reverseLimit*reverseVelocity<=speed || (!contacts && (matrix.GetUp().z>=-.5f || CTimer::GetTimeInMS()-*reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(vehicle)+0x3C)>99))) {
+                if (number(vehicle,0x49C)>=0.f || speed<=reverseVelocity*1.5f) {
+                    if (player && speed<reverseVelocity*1.5f) leanFwdTarget=-1.f;
+                    fade(idle);fade(reverse);
+                } else if (faded(reverse)) reverse=blend(200,4.f);
+            } else knockOff();
+        }
+    } else if (faded(idle)) idle=blend(195,2.f);
+    const float nonClippedStep=StaticRef<float>(0xB7CB58)*.02f;
+    float available=1.f;
+    if (idle) available=1.f-std::min(nonClippedStep*idle->m_BlendDelta+idle->m_BlendAmount,1.f);
+    if (special) available-=std::min(nonClippedStep*special->m_BlendDelta+special->m_BlendAmount,available);
+    if (reverse) available-=std::min(nonClippedStep*reverse->m_BlendDelta+reverse->m_BlendAmount,available);
+    float lean=rideData->LeanAngle/handling->m_fFullAnimLean;
+    if (leanFwdTarget==-1.f) lean=0.f;else lean=std::clamp(lean,-1.f,1.f);
+    const float leanSmoothing=BikeRiderPower(f(0x871350),CTimer::GetTimeStep());
+    rideData->AnimLeanLeft=leanSmoothing*rideData->AnimLeanLeft+(1.f-leanSmoothing)*lean;
+    if (!player || vehicle->m_apPassengers[0]) {
+        leanFwdTarget=0.f;if(bike)byte(bike,0x614)&=0x7F;
+    } else if (leanFwdTarget> -1.f) {
+        leanFwdTarget=rideData->LeanFwd;
+        bool ordinary=true;
+        bool wheelie=false;
+        float wheelieDifference=0.f;
+        if (bike) {
+            auto& flags=byte(bike,0x614);flags&=0x7F;
+            if (number(bike,0x730)<=0.f && number(bike,0x734)<=0.f && matrix.GetForward().z>0.f && (number(bike,0x738)>0.f || number(bike,0x73C)>0.f)) {
+                wheelie=true;wheelieDifference=handling->m_fWheelieAng-matrix.GetForward().z;
+                if(wheelieDifference<handling->m_fWheelieAng*.5f)flags|=0x80;
+            } else if (number(bike,0x738)<=0.f && number(bike,0x73C)<=0.f && matrix.GetForward().z<0.f && (number(bike,0x730)>0.f || number(bike,0x734)>0.f) && handling->m_fStoppieAng*.6f<handling->m_fStoppieAng-matrix.GetForward().z) flags|=0x80;
+        } else if (automobile && number(automobile,0x7F4)<=0.f && number(automobile,0x7F8)<=0.f && matrix.GetForward().z>0.f && (number(automobile,0x7FC)>0.f || number(automobile,0x800)>0.f)) {
+            wheelie=true;wheelieDifference=handling->m_fWheelieAng-matrix.GetForward().z;
+        }
+        if (wheelie && wheelieDifference<.15f) { if(leanFwdTarget<=.25f)leanFwdTarget=.25f;ordinary=false; }
+        if (ordinary) {
+            if (number(vehicle,0x4A0)<=.5f || speed<=.01f) {
+                if (number(vehicle,0x49C)>.5f && leanFwdTarget<=0.f && speed<number(vehicle->m_pHandlingData,0x88)*.3f && leanFwdTarget>=-.3f) leanFwdTarget=-.3f;
+            } else if (leanFwdTarget<=.1f) leanFwdTarget=.1f;
+        }
+        if (std::abs(lean)>.3f) leanFwdTarget*=std::max(1.f-(std::abs(lean)-.3f)/.26f,0.f);
+    }
+    if (!player) rideData->AnimLeanFwd=0.f;
+    else { const float smoothing=BikeRiderPower(f(0x87134C),CTimer::GetTimeStep());rideData->AnimLeanFwd=smoothing*rideData->AnimLeanFwd+(1.f-smoothing)*leanFwdTarget; }
+    float lateralWeight,forwardWeight;
+    if (std::abs(rideData->AnimLeanLeft)>.56f || !player) { forwardWeight=0.f;lateralWeight=1.f; }
+    else if (std::abs(rideData->AnimLeanFwd)>.56f) { forwardWeight=1.f;lateralWeight=0.f; }
+    else {
+        lateralWeight=rideData->AnimLeanLeft;forwardWeight=rideData->AnimLeanFwd;
+        const float magnitude=std::sqrt(forwardWeight*forwardWeight+lateralWeight*lateralWeight);
+        if (magnitude>.01f) { const float inverse=1.f/magnitude;forwardWeight*=inverse;lateralWeight*=inverse; }
+        forwardWeight=std::abs(forwardWeight);lateralWeight=std::abs(lateralWeight);
+    }
+    const auto add=[&](int id){return CAnimManager::AddAnimation(clump,rideData->AnimGroup,static_cast<AnimationId>(id));};
+    const auto pose=[](CAnimBlendAssociation* animation,CAnimBlendAssociation* opposite,float amount,float value) {
+        animation->m_BlendAmount=amount;animation->SetCurrentTime(animation->m_BlendHier->m_fTotalTime*value);animation->m_Flags&=uint16(~1);opposite->m_BlendAmount=0.f;
+    };
+    if (player) {
+        if(!forward)forward=add(199);if(!backward)backward=add(198);
+        if(rideData->AnimLeanFwd<0.f)pose(backward,forward,forwardWeight*available,-rideData->AnimLeanFwd);
+        else pose(forward,backward,forwardWeight*available,rideData->AnimLeanFwd);
+    }
+    if(!left)left=add(196);if(!right)right=add(197);
+    if(rideData->AnimLeanLeft<0.f)pose(left,right,lateralWeight*available,-rideData->AnimLeanLeft);
+    else pose(right,left,lateralWeight*available,rideData->AnimLeanLeft);
+    if (speed>.3f) {
+        auto* boneMatrix=*reinterpret_cast<RwMatrix**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(rider)+0x490)+0x10);
+        const float extent=speed*f(0x871338),minimum=-extent;
+        const auto jitter=[&](uintptr_t axis) {const int random=CGeneral::GetRandomNumber();const float angle=(extent-minimum)*float(random)*f(0x858C7C)+minimum;RwMatrixRotate(boneMatrix,reinterpret_cast<const RwV3d*>(axis),angle,rwCOMBINEPOSTCONCAT);};
+        jitter(0x8D232C);jitter(0x8D2338);
+        *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(rider)+0x470)|=0x4000;
+    }
+}
+

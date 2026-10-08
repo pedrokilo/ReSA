@@ -1,3 +1,7 @@
+<!-- USER STOP 2026-10-08 -->
+Estado al detener el trabajo: reconstrucción solicitada completada y aprobación histórica conservada. No se ejecutó una nueva regresión con las fuentes finales. Los hashes y límites actuales se detallan en [el estado de todas las listas](../../docs/EstadoListasSolicitadas.md). Las notas siguientes conservan su fecha y alcance originales.
+<!-- /USER STOP 2026-10-08 -->
+
 # LineUpProcessPending
 
 Clase: `CTaskUtilityLineUpPedWithCar`. Funciones: ProcessPed. Casos previstos: 1024 pares EXE/DLL.

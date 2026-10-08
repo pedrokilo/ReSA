@@ -1,3 +1,7 @@
+<!-- USER STOP 2026-10-08 -->
+Estado al detener el trabajo: reconstrucción solicitada completada y aprobación histórica conservada. No se ejecutó una nueva regresión con las fuentes finales. Los hashes y límites actuales se detallan en [el estado de todas las listas](../../docs/EstadoListasSolicitadas.md). Las notas siguientes conservan su fecha y alcance originales.
+<!-- /USER STOP 2026-10-08 -->
+
 # CRoadBlocks: CreateRoadBlockBetween2Points
 
 Reconstrucción de `0x4619C0..0x4629D5`, con combo Ghidra 12.1.4 vía REA y ensamblador exacto. La evidencia completa está en `evidence/combo-4619C0.txt`.

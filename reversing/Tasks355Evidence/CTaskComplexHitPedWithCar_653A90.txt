@@ -1,0 +1,319 @@
+// Sin pseudocódigo de Ghidra para 0x00653a90: {'cls': 'CTaskComplexHitPedWithCar', 'fn': 'ControlSubTask', 'error': '{"code":"invalid_request","category":"invalid_input","message":"Analysis input is invalid. Check the arguments and try again.","retryable":true,"remediation":{"action":"Correct the listed arguments and retry."}}'}
+==== ensamblador exacto (dis.sh) ====
+00653A90: mov eax,dword ptr [ecx+8]
+00653A93: ret 4
+00653AA0: push esi
+00653AA1: mov esi,ecx
+00653AA3: mov ecx,dword ptr [esp+8]
+00653AA7: call 005DF8F0
+00653AAC: test al,al
+00653AAE: je 00653AB8
+00653AB0: fld dword ptr ds:[0086F128h]
+00653AB6: jmp 00653ABE
+00653AB8: fld dword ptr ds:[0086F120h]
+00653ABE: fcomp dword ptr [esi+10h]
+00653AC1: pop esi
+00653AC2: fnstsw ax
+00653AC4: test ah,5
+00653AC7: jp 00653ACE
+00653AC9: mov al,1
+00653ACB: ret 4
+00653ACE: xor al,al
+00653AD0: ret 4
+00653AE0: push esi
+00653AE1: push edi
+00653AE2: mov edi,dword ptr [esp+0Ch]
+00653AE6: mov esi,ecx
+00653AE8: mov ecx,edi
+00653AEA: call 005DF8F0
+00653AEF: test al,al
+00653AF1: je 00653AFB
+00653AF3: fld dword ptr ds:[0086F124h]
+00653AF9: jmp 00653B01
+00653AFB: fld dword ptr ds:[0086F11Ch]
+00653B01: fcomp dword ptr [esi+10h]
+00653B04: fnstsw ax
+00653B06: test ah,5
+00653B09: jp 00653B12
+00653B0B: pop edi
+00653B0C: mov al,1
+00653B0E: pop esi
+00653B0F: ret 4
+00653B12: fld dword ptr [edi+000000E8h]
+00653B18: fcomp dword ptr ds:[00858C9Ch]
+00653B1E: fnstsw ax
+00653B20: test ah,5
+00653B23: jp 00653B35
+00653B25: fld dword ptr [esi+10h]
+00653B28: fcomp dword ptr ds:[00858B3Ch]
+00653B2E: fnstsw ax
+00653B30: test ah,41h
+00653B33: je 00653B0B
+00653B35: pop edi
+00653B36: xor al,al
+00653B38: pop esi
+00653B39: ret 4
+00653B40: mov eax,dword ptr [esp+8]
+00653B44: sub esp,0Ch
+00653B47: push esi
+00653B48: mov esi,dword ptr [esp+1Ch]
+00653B4C: push esi
+00653B4D: push eax
+00653B4E: call 005F3BC0
+00653B53: add esp,8
+00653B56: cmp eax,3
+00653B59: ja 00653BD6
+00653B5B: jmp dword ptr [eax*4+00653BF8h]
+ 00
+00653B62: mov esi,dword ptr [esi+14h]
+00653B65: mov ecx,dword ptr [esi]
+00653B67: mov edx,dword ptr [esi+4]
+00653B6A: jmp 00653B77
+00653B6C: mov esi,dword ptr [esi+14h]
+00653B6F: add esi,10h
+00653B72: mov ecx,dword ptr [esi]
+00653B74: mov edx,dword ptr [esi+4]
+00653B77: mov eax,dword ptr [esi+8]
+00653B7A: mov dword ptr [esp+4],ecx
+00653B7E: fld dword ptr [esp+4]
+00653B82: fmul dword ptr ds:[00858C1Ch]
+00653B88: mov dword ptr [esp+8],edx
+00653B8C: mov dword ptr [esp+0Ch],eax
+00653B90: fstp dword ptr [esp+4]
+00653B94: fld dword ptr [esp+8]
+00653B98: fmul dword ptr ds:[00858C1Ch]
+00653B9E: fstp dword ptr [esp+8]
+00653BA2: fld dword ptr [esp+0Ch]
+00653BA6: fmul dword ptr ds:[00858C1Ch]
+00653BAC: fstp dword ptr [esp+0Ch]
+00653BB0: jmp 00653BD6
+00653BB2: mov esi,dword ptr [esi+14h]
+00653BB5: mov ecx,dword ptr [esi]
+00653BB7: mov edx,dword ptr [esi+4]
+00653BBA: jmp 00653BC7
+00653BBC: mov esi,dword ptr [esi+14h]
+00653BBF: add esi,10h
+00653BC2: mov ecx,dword ptr [esi]
+00653BC4: mov edx,dword ptr [esi+4]
+00653BC7: mov eax,dword ptr [esi+8]
+00653BCA: mov dword ptr [esp+4],ecx
+00653BCE: mov dword ptr [esp+8],edx
+00653BD2: mov dword ptr [esp+0Ch],eax
+00653BD6: mov eax,dword ptr [esp+14h]
+00653BDA: mov edx,dword ptr [esp+4]
+00653BDE: mov ecx,eax
+00653BE0: mov dword ptr [ecx],edx
+00653BE2: mov edx,dword ptr [esp+8]
+00653BE6: mov dword ptr [ecx+4],edx
+00653BE9: mov edx,dword ptr [esp+0Ch]
+00653BED: mov dword ptr [ecx+8],edx
+00653BF0: pop esi
+00653BF1: add esp,0Ch
+00653BF4: ret
+00653BF5: lea ecx,[ecx]
+00653BF8: mov esp,6200653Bh
+00653BFD: cmp esp,dword ptr [ebp]
+00653C00: ins byte ptr es:[edi],dx
+00653C01: cmp esp,dword ptr [ebp]
+00653C04: mov dl,3Bh
+00653C06: add byte ptr gs:[eax+90909090h],dl
+ 90
+00653C10: push 0FFFFFFFFh
+00653C12: push 843518h
+00653C17: mov eax,dword ptr fs:[00000000h]
+00653C1D: push eax
+00653C1E: mov dword ptr fs:[00000000h],esp
+ 00
+00653C25: push ecx
+00653C26: push esi
+00653C27: mov esi,ecx
+00653C29: mov dword ptr [esp+4],esi
+00653C2D: call 0061A390
+00653C32: mov ecx,dword ptr [esp+18h]
+00653C36: test ecx,ecx
+00653C38: mov edx,dword ptr [esp+1Ch]
+00653C3C: lea eax,[esi+8]
+00653C3F: mov dword ptr [esp+10h],0
+00653C47: mov dword ptr [esi],86F2C0h
+00653C4D: mov dword ptr [eax],ecx
+00653C4F: mov dword ptr [esi+0Ch],edx
+00653C52: je 00653C5A
+00653C54: push eax
+00653C55: call 00571B70
+00653C5A: mov ecx,dword ptr [esp+8]
+00653C5E: mov eax,esi
+00653C60: pop esi
+00653C61: mov dword ptr fs:[00000000h],ecx
+ 00
+00653C68: add esp,10h
+00653C6B: ret 8
+00653C70: mov eax,1FAh
+00653C75: ret
+00653C80: xor al,al
+00653C82: ret 0Ch
+00653C90: push 0FFFFFFFFh
+00653C92: push 843538h
+00653C97: mov eax,dword ptr fs:[00000000h]
+00653C9D: push eax
+00653C9E: mov dword ptr fs:[00000000h],esp
+ 00
+00653CA5: push ecx
+00653CA6: push esi
+00653CA7: mov esi,ecx
+00653CA9: mov dword ptr [esp+4],esi
+00653CAD: mov dword ptr [esi],86F2C0h
+00653CB3: mov ecx,dword ptr [esi+8]
+00653CB6: test ecx,ecx
+00653CB8: lea eax,[esi+8]
+00653CBB: mov dword ptr [esp+10h],0
+00653CC3: je 00653CCB
+00653CC5: push eax
+00653CC6: call 00571A00
+00653CCB: mov ecx,esi
+00653CCD: mov dword ptr [esp+10h],0FFFFFFFFh
+00653CD5: call 0061A3A0
+00653CDA: mov ecx,dword ptr [esp+8]
+00653CDE: pop esi
+00653CDF: mov dword ptr fs:[00000000h],ecx
+ 00
+00653CE6: add esp,10h
+00653CE9: ret
+00653CF0: sub esp,34h
+00653CF3: push esi
+00653CF4: push edi
+00653CF5: mov edi,ecx
+00653CF7: mov ecx,dword ptr [edi+8]
+00653CFA: mov eax,dword ptr [ecx+00000594h]
+00653D00: test eax,eax
+00653D02: jne 00653E92
+00653D08: call 006AA200
+00653D0D: mov esi,eax
+00653D0F: test esi,esi
+00653D11: je 00653E92
+00653D17: call 00821B1E
+00653D1C: mov dword ptr [esp+8],eax
+00653D20: fild dword ptr [esp+8]
+00653D24: fmul dword ptr ds:[00858C7Ch]
+00653D2A: fcomp dword ptr ds:[00858B8Ch]
+00653D30: fnstsw ax
+00653D32: test ah,41h
+00653D35: mov eax,dword ptr [edi+8]
+00653D38: mov eax,dword ptr [eax+14h]
+00653D3B: fld dword ptr [eax+20h]
+00653D3E: fmul dword ptr ds:[00858B8Ch]
+00653D44: fld dword ptr [eax+24h]
+00653D47: fmul dword ptr ds:[00858B8Ch]
+00653D4D: fld dword ptr [eax+28h]
+00653D50: fmul dword ptr ds:[00858B8Ch]
+00653D56: jne 00653DB3
+00653D58: fstp dword ptr [esp+2Ch]
+00653D5C: fld dword ptr [eax]
+00653D5E: fmul dword ptr ds:[00858B1Ch]
+00653D64: fld dword ptr [eax+4]
+00653D67: fmul dword ptr ds:[00858B1Ch]
+00653D6D: fld dword ptr [eax+8]
+00653D70: mov eax,dword ptr [esp+40h]
+00653D74: fmul dword ptr ds:[00858B1Ch]
+00653D7A: fstp dword ptr [esp+14h]
+00653D7E: fxch st(1)
+00653D80: fadd dword ptr [eax+44h]
+00653D83: fstp dword ptr [esp+18h]
+00653D87: fadd dword ptr [eax+48h]
+00653D8A: fld dword ptr [esp+14h]
+00653D8E: fadd dword ptr [eax+4Ch]
+00653D91: fstp dword ptr [esp+20h]
+00653D95: fld dword ptr [esp+18h]
+00653D99: fadd st,st(3)
+00653D9B: fstp dword ptr [esp+0Ch]
+00653D9F: fadd st,st(1)
+00653DA1: fstp dword ptr [esp+10h]
+00653DA5: fstp st(0)
+00653DA7: fstp st(0)
+00653DA9: fld dword ptr [esp+20h]
+00653DAD: fadd dword ptr [esp+2Ch]
+00653DB1: jmp 00653E12
+00653DB3: fstp dword ptr [esp+38h]
+00653DB7: fld dword ptr [eax]
+00653DB9: fmul dword ptr ds:[00858B1Ch]
+00653DBF: fld dword ptr [eax+4]
+00653DC2: fmul dword ptr ds:[00858B1Ch]
+00653DC8: fld dword ptr [eax+8]
+00653DCB: mov eax,dword ptr [esp+40h]
+00653DCF: fmul dword ptr ds:[00858B1Ch]
+00653DD5: fstp dword ptr [esp+2Ch]
+00653DD9: fld dword ptr [eax+44h]
+00653DDC: fsub st,st(2)
+00653DDE: fstp dword ptr [esp+18h]
+00653DE2: fld dword ptr [eax+48h]
+00653DE5: fsub st,st(1)
+00653DE7: fstp st(2)
+00653DE9: fstp st(0)
+00653DEB: fld dword ptr [eax+4Ch]
+00653DEE: fsub dword ptr [esp+2Ch]
+00653DF2: fstp dword ptr [esp+20h]
+00653DF6: fld dword ptr [esp+18h]
+00653DFA: fadd st,st(3)
+00653DFC: fstp dword ptr [esp+0Ch]
+00653E00: fadd st,st(1)
+00653E02: fstp dword ptr [esp+10h]
+00653E06: fstp st(0)
+00653E08: fstp st(0)
+00653E0A: fld dword ptr [esp+20h]
+00653E0E: fadd dword ptr [esp+38h]
+00653E12: mov edx,dword ptr [esp+0Ch]
+00653E16: mov eax,dword ptr [esp+10h]
+00653E1A: lea ecx,[esi+44h]
+00653E1D: mov dword ptr [ecx],edx
+00653E1F: mov dword ptr [ecx+4],eax
+00653E22: fstp dword ptr [esp+14h]
+00653E26: mov edx,dword ptr [esp+14h]
+00653E2A: mov dword ptr [ecx+8],edx
+00653E2D: mov eax,dword ptr [edi+8]
+00653E30: mov eax,dword ptr [eax+14h]
+00653E33: fld dword ptr [eax+20h]
+00653E36: add eax,10h
+00653E39: fmul dword ptr ds:[0085862Ch]
+00653E3F: sub esp,0Ch
+00653E42: mov ecx,esp
+00653E44: sub esp,0Ch
+00653E47: fstp dword ptr [esp+24h]
+00653E4B: fld dword ptr [eax+14h]
+00653E4E: fmul dword ptr ds:[0085862Ch]
+00653E54: fstp dword ptr [esp+28h]
+00653E58: fld dword ptr [eax+18h]
+00653E5B: mov edx,dword ptr [eax]
+00653E5D: fmul dword ptr ds:[0085862Ch]
+00653E63: mov dword ptr [ecx],edx
+00653E65: mov edx,dword ptr [eax+4]
+00653E68: mov eax,dword ptr [eax+8]
+00653E6B: mov dword ptr [ecx+4],edx
+00653E6E: mov edx,dword ptr [esp+24h]
+00653E72: mov dword ptr [ecx+8],eax
+00653E75: mov eax,dword ptr [esp+28h]
+00653E79: mov ecx,esp
+00653E7B: mov dword ptr [ecx],edx
+00653E7D: fstp dword ptr [esp+2Ch]
+00653E81: mov edx,dword ptr [esp+2Ch]
+00653E85: mov dword ptr [ecx+4],eax
+00653E88: mov dword ptr [ecx+8],edx
+00653E8B: mov ecx,esi
+ 00653E8D: E8
+ 00653E8E: BE
+00653E8F: jmp 00653E7F
+
+==== COMPLETE CANONICAL EVIDENCE ====
+// CTaskComplexHitPedWithCar::ControlSubTask @ 0x00653a90 [0x653a90..0x653a95]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 TasksPending_00653a90(void)
+
+{
+  int in_ECX;
+  
+  return *(undefined4 *)(in_ECX + 8);
+}
+
+
+==== Full ASM [0x653A90, 0x653A95) ====
+00653A90: mov eax,dword ptr [ecx+8]
+00653A93: ret 4

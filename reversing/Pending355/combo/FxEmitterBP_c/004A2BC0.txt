@@ -1,0 +1,89 @@
+// FxEmitterBP_c::Update @ 0x004a2bc0 [0x4a2bc0..0x4a2c39]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int TasksPending_004a2bc0(undefined4 param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  char cVar3;
+  int iVar4;
+  int in_ECX;
+  
+  iVar4 = FUN_004a8ec0();
+  if (iVar4 != 0) {
+    iVar2 = *(int *)(in_ECX + 0x20);
+    while (iVar2 != 0) {
+      if (*(char *)(*(int *)(iVar2 + 0x28) + 0x51) == '\x03') {
+        *(undefined1 *)(*(int *)(iVar2 + 0x28) + 0x51) = 2;
+      }
+      if ((*(char *)(*(int *)(iVar2 + 0x28) + 0x50) == '\x02') ||
+         (cVar3 = FUN_004a21d0(param_1,iVar2), cVar3 == '\0')) {
+        iVar2 = *(int *)(iVar2 + 4);
+      }
+      else {
+        iVar1 = *(int *)(iVar2 + 4);
+        FUN_004a8e30(iVar2);
+        FUN_004a93b0(iVar2);
+        iVar2 = iVar1;
+      }
+    }
+    return iVar4;
+  }
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004A2BC0: push ecx
+004A2BC1: push ebx
+004A2BC2: mov ebx,ecx
+004A2BC4: push ebp
+004A2BC5: lea ebp,[ebx+20h]
+004A2BC8: mov ecx,ebp
+004A2BCA: call 004A8EC0
+004A2BCF: test eax,eax
+004A2BD1: mov dword ptr [esp+8],eax
+004A2BD5: jne 004A2BDD
+004A2BD7: pop ebp
+004A2BD8: pop ebx
+004A2BD9: pop ecx
+004A2BDA: ret 4
+004A2BDD: push esi
+004A2BDE: mov esi,dword ptr [ebp]
+004A2BE1: test esi,esi
+004A2BE3: je 004A2C33
+004A2BE5: push edi
+004A2BE6: mov eax,dword ptr [esi+28h]
+004A2BE9: cmp byte ptr [eax+51h],3
+004A2BED: jne 004A2BF3
+004A2BEF: mov byte ptr [eax+51h],2
+004A2BF3: mov eax,dword ptr [esi+28h]
+004A2BF6: cmp byte ptr [eax+50h],2
+004A2BFA: je 004A2C27
+004A2BFC: mov ecx,dword ptr [esp+18h]
+004A2C00: push esi
+004A2C01: push ecx
+004A2C02: mov ecx,ebx
+004A2C04: call 004A21D0
+004A2C09: test al,al
+004A2C0B: je 004A2C27
+004A2C0D: mov edi,dword ptr [esi+4]
+004A2C10: push esi
+004A2C11: mov ecx,ebp
+004A2C13: call 004A8E30
+004A2C18: push esi
+004A2C19: mov ecx,0A9AE80h
+004A2C1E: call 004A93B0
+004A2C23: mov esi,edi
+004A2C25: jmp 004A2C2A
+004A2C27: mov esi,dword ptr [esi+4]
+004A2C2A: test esi,esi
+004A2C2C: jne 004A2BE6
+004A2C2E: mov eax,dword ptr [esp+10h]
+004A2C32: pop edi
+004A2C33: pop esi
+004A2C34: pop ebp
+004A2C35: pop ebx
+004A2C36: pop ecx
+004A2C37: ret 4

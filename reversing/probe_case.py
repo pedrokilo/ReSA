@@ -2,12 +2,14 @@
 import json
 import sys
 from pathlib import Path
-from runtime_runner import run_case, digest
+from runtime_runner import run_case, digest, terminal_event
 
 def analyzer(expected: dict):
     total = sum(expected.values())
     def analyze(path):
-        if not path.exists(): return None
+        # Read the complete evidence only when its terminal record has arrived.
+        # Acceptance below still checks every pair and the restored state.
+        if not terminal_event(path): return None
         rows = [json.loads(s) for s in path.read_text().splitlines(keepends=True) if s.endswith('\n')]
         fails = [f"{r['function']}: {r['failures']}/{r['cases']}" for r in rows if r['event'] == 'function_summary' and r['failures']]
         finished = any(r['event'] in ('complete', 'error', 'assertion') for r in rows)

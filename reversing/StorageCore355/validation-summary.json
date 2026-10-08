@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CGenericGameStorage::GetCurrentVersionNumber": 512,
+    "CGenericGameStorage::MakeValidSaveName": 512,
+    "CGenericGameStorage::CloseFile": 512,
+    "CGenericGameStorage::OpenFileForWriting": 512,
+    "CGenericGameStorage::OpenFileForReading": 512,
+    "CGenericGameStorage::GetSavedGameDateAndTime": 512,
+    "CGenericGameStorage::InitRadioStationPositionList": 512,
+    "CGenericGameStorage::RestoreForStartLoad": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "6b6be90568e8eaeca2e2ef9526c8c07e636ed8a3b50cc56ac262df011462ceec",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-storage-core355\\20261007-205706-515796",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CGenericGameStorage::GetCurrentVersionNumber": true,
+    "CGenericGameStorage::MakeValidSaveName": true,
+    "CGenericGameStorage::CloseFile": true,
+    "CGenericGameStorage::OpenFileForWriting": true,
+    "CGenericGameStorage::OpenFileForReading": true,
+    "CGenericGameStorage::GetSavedGameDateAndTime": true,
+    "CGenericGameStorage::InitRadioStationPositionList": true,
+    "CGenericGameStorage::RestoreForStartLoad": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "ee39d8f5902b6f98c9e04dfd045f30c90873797cad49dfa4c50925bf05fc780c",
+      "pdb": "7bb2223b988bca73e6a73998ee6e3f37c31b46e013ba4c184f906788ebaa0490"
+    },
+    "sources": {
+      "source/game_sa/GenericGameStorage.cpp": "1efade16c323860dffd9724973fa70eac834928219efe898fe47a84d78a7937a",
+      "source/game_sa/GenericGameStorage.h": "01b1ede214c3871cac34a38c30fcc4578b85487f140c8b3e3ae95b7c230662d0",
+      "source/game_sa/C_PcSave.h": "9ce5bfc6d6dcccef1cc786f6feaaedaf9e76671450786ccd543a5ecb3345f920",
+      "source/game_sa/Core/KeyGen.cpp": "3bb96a07f76557a9114e32ee9377294c507214a2f5dc0ece5fc3b61893cbfe1d"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "116194720b059ab73e08b1f0816ec4a2e9f939ff7e7aab0bab7356805888e053",
+      "build_probe.py": "10a96f3d0646198fef70af878ed6b1296d2fe8b065b0ef4e31a32433d5f5a08f",
+      "run_local.py": "1aab4bbea550b897886a1311800c6b2c0e085140336e71e59972e458acd1436a"
+    }
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: []",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

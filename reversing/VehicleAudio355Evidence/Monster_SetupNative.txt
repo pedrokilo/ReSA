@@ -1,0 +1,45 @@
+void CMonsterTruck::SetupSuspensionLines() {
+    auto& model = *GetVehicleModelInfo();
+    auto& colModel = *model.GetColModel();
+    auto& data = *colModel.GetData();
+    m_fSuspensionRadius = model.m_fWheelSizeFront * .5f;
+    if (!data.m_pDisks || !data.bUsesDisks) {
+        if (data.m_pDisks) {
+            CMemoryMgr::Free(data.m_pDisks);
+        }
+        data.bUsesDisks = true;
+        data.m_nNumLines = 4;
+        data.m_pDisks = static_cast<CColDisk*>(CMemoryMgr::Malloc(4 * sizeof(CColDisk), 0));
+    }
+    for (int32 i = 0; i < 4; ++i) {
+        CVector wheel;
+        model.GetWheelPosn(i, wheel, false);
+        auto& disk = data.m_pDisks[i];
+        disk.m_fRadius = m_fSuspensionRadius;
+        disk.m_vecCenter = wheel;
+        disk.m_vThickness = CVector{i < 2 ? -1.f : 1.f, 0.f, 0.f};
+        disk.m_fThickness = m_fSuspensionRadius * StaticRef<float>(0x858CC8);
+        disk.m_Surface.m_nMaterial = static_cast<eSurfaceType>(60);
+        disk.m_Surface.m_nPiece = std::array<uint8, 4>{13, 15, 14, 16}[i];
+        disk.m_Surface.m_nLighting = tColLighting(255);
+        m_aSuspensionSpringLength[i] = wheel.z + m_pHandlingData->m_fSuspensionUpperLimit;
+        m_aSuspensionLineLength[i] = wheel.z + m_pHandlingData->m_fSuspensionLowerLimit;
+    }
+    const auto ratio = 1.f - 1.f / (m_pHandlingData->m_fSuspensionForceLevel * 4.f);
+    m_fFrontHeightAboveRoad = ratio * (m_aSuspensionSpringLength[0] - m_aSuspensionLineLength[0]) + (m_fSuspensionRadius - m_aSuspensionSpringLength[0]);
+    m_fRearHeightAboveRoad = m_fFrontHeightAboveRoad;
+    for (size_t i = 0; i < 4; ++i) {
+        m_fWheelsSuspensionCompression[i] = 1.f;
+        m_wheelPosition[i] = model.m_fWheelSizeFront * .5f - m_fFrontHeightAboveRoad;
+    }
+    const auto bottom = m_fFrontHeightAboveRoad - m_fSuspensionRadius;
+    if (bottom < colModel.m_boundBox.m_vecMin.z) {
+        colModel.m_boundBox.m_vecMin.z = bottom;
+    }
+    const auto minSize = colModel.m_boundBox.m_vecMin.Magnitude();
+    const auto maxSize = colModel.m_boundBox.m_vecMax.Magnitude();
+    const auto radius = minSize > maxSize ? minSize : maxSize;
+    if (radius > colModel.m_boundSphere.m_fRadius) {
+        colModel.m_boundSphere.m_fRadius = radius;
+    }
+}

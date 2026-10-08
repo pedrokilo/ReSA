@@ -1,0 +1,97 @@
+// CCamExtra::Visible @ 0x00513220 [0x513220..0x5132c3]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+char FUN_00513220(void)
+
+{
+  char cVar1;
+  int iVar2;
+  undefined4 local_30;
+  undefined1 local_2c [44];
+  
+  local_30 = 0;
+  DAT_008ccb80 = 5;
+  if (*(int *)(DAT_00b7cd98 + 0x14) == 0) {
+    iVar2 = DAT_00b7cd98 + 4;
+  }
+  else {
+    iVar2 = *(int *)(DAT_00b7cd98 + 0x14) + 0x30;
+  }
+  cVar1 = FUN_0056ba00(&stack0x00000004,iVar2,local_2c,&local_30,1,0,0,0,0,1,1,0);
+  if (cVar1 != '\0') {
+    return '\0';
+  }
+  if (*(int *)(DAT_00b7cf28 + 0x14) == 0) {
+    iVar2 = DAT_00b7cf28 + 4;
+  }
+  else {
+    iVar2 = *(int *)(DAT_00b7cf28 + 0x14) + 0x30;
+  }
+  cVar1 = FUN_0056ba00(&stack0x00000004,iVar2,local_2c,&local_30,1,0,0,0,0,1,1,0);
+  return '\x01' - (cVar1 != '\0');
+}
+
+
+==== complete EXE assembly ====
+00513220: sub esp,30h
+00513223: mov ecx,dword ptr ds:[00B7CD98h]
+00513229: mov dword ptr [esp],0
+00513231: mov byte ptr ds:[008CCB80h],5
+ 05
+00513238: mov eax,dword ptr [ecx+14h]
+0051323B: test eax,eax
+0051323D: je 00513244
+0051323F: add eax,30h
+00513242: jmp 00513247
+00513244: lea eax,[ecx+4]
+00513247: push 0
+00513249: push 1
+0051324B: push 1
+0051324D: push 0
+0051324F: push 0
+00513251: push 0
+00513253: push 0
+00513255: push 1
+00513257: lea ecx,[esp+20h]
+0051325B: push ecx
+0051325C: lea edx,[esp+28h]
+00513260: push edx
+00513261: push eax
+00513262: lea eax,[esp+60h]
+00513266: push eax
+00513267: call 0056BA00
+0051326C: add esp,30h
+0051326F: test al,al
+00513271: je 0051327B
+00513273: xor al,al
+00513275: add esp,30h
+00513278: ret 0Ch
+0051327B: mov ecx,dword ptr ds:[00B7CF28h]
+00513281: mov eax,dword ptr [ecx+14h]
+00513284: test eax,eax
+00513286: je 0051328D
+00513288: add eax,30h
+0051328B: jmp 00513290
+0051328D: lea eax,[ecx+4]
+00513290: push 0
+00513292: push 1
+00513294: push 1
+00513296: push 0
+00513298: push 0
+0051329A: push 0
+0051329C: push 0
+0051329E: push 1
+005132A0: lea ecx,[esp+20h]
+005132A4: push ecx
+005132A5: lea edx,[esp+28h]
+005132A9: push edx
+005132AA: push eax
+005132AB: lea eax,[esp+60h]
+005132AF: push eax
+005132B0: call 0056BA00
+005132B5: add esp,30h
+005132B8: neg al
+005132BA: sbb al,al
+005132BC: inc al
+005132BE: add esp,30h
+005132C1: ret 0Ch

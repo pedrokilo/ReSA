@@ -1,0 +1,122 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CWaterLevel::FindNearestWaterAndItsFlow": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "ff592c600e55225da1033fb76a55d51b1453924101fa41b39cd422860f60a5c9",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-water-nearest355\\20261008-010505-130901",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CWaterLevel::FindNearestWaterAndItsFlow": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "61bb97a52ecac47cc06cc65b58d7dafb89c3e8cb36f59f37fed6a3d1ad35caea",
+      "pdb": "7093e33fa26ed13f2338a8dd5b548215305c3a1acc51267a08ef61d0dcf44338"
+    },
+    "sources": {
+      "source/game_sa/Audio/AEAudioUtility.h": "ea4d1eb95c63065e11eca92a622fc646a726f87630e5a239c507fd62a1039fdc",
+      "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
+      "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250",
+      "source/game_sa/Audio/AudioEngine.h": "8e30732908a9ea6ffea7bc587cb5610c361ae6f85aaf9c4a37535609b16625a9",
+      "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
+      "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
+      "source/game_sa/Audio/Entities/AEDoorAudioEntity.h": "d7df4f85c749a7ee9dcef265025dcb00044d43a799b8f224354579f9fb8b02d5",
+      "source/game_sa/Audio/Entities/AEExplosionAudioEntity.h": "f3d23a729d8132bfbb765b025e9b95d69adbd4bf6a0997d33a4cc145fcaef73b",
+      "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "36ff93c3997768edf488fa60d956c4fd0cba35c399420a0541171f3fc0d5ad9c",
+      "source/game_sa/Audio/Entities/AEScriptAudioEntity.cpp": "548f728e646f43a23359c741284e5af3952ebeec4a1ecfdf5dee985d6495e050",
+      "source/game_sa/Audio/Entities/AEScriptAudioEntity.h": "fb3d52247b5b1895156048b8941e1a4eb7c653fe355474111bbe093de9f9ea1e",
+      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.h": "dd37152c6e9367600ae57dce27de99263ed09688278a9157eab97d602e01a31f",
+      "source/game_sa/Audio/Hardware/AEAudioHardware.cpp": "0f0307a7444f2cc773476d559daf7b5030751d739ef044f5a3f103ef3d50da83",
+      "source/game_sa/Audio/Hardware/AEAudioHardware.h": "e09c4152ef905e510e374162f1e08eb318ba64eb85672d2ffb5f02d5d4ec7ae5",
+      "source/game_sa/Audio/Managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f",
+      "source/game_sa/Audio/Managers/AESoundManager.cpp": "4e82a4b6cf3c9c94b4a3b053e105d168ff267e09a23fbac7b517eeb84a219789",
+      "source/game_sa/Audio/Managers/AESoundManager.h": "b2403444aef581c21788c4da2bfed2f2b97e81c3f673f7aac1105b7cd2ede3a4",
+      "source/game_sa/Camera.h": "9c821aac9d832dd894be472898974ecc9b1398e437f22b04c0190912f1f2dc29",
+      "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
+      "source/game_sa/Collision/ColTriangle.h": "4c44f284207ecf62fff89de2751bc56aec84a793373304f96fd57062cb125f4a",
+      "source/game_sa/Collision/ColTrianglePlane.h": "4b5a5a9ac830973ae14af16eb74cb73a0ee0d1a8106583292ba60a7c338de499",
+      "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+      "source/game_sa/Core/Vector2D.h": "8d04bab5a3e40bcea6905c38645544702fa1ae351a3ed84fff68e4155e3089d0",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Enums/eAudioEvents.h": "08f03e80257757fc442c04e9809346499a4c74c114354e5b97fed91fb9936a8c",
+      "source/game_sa/Enums/eSurfaceType.h": "de02d948d327b524fa9f1315674ec47dfc3f95960de35babe8693291055f88b1",
+      "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+      "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+      "source/game_sa/Localisation.h": "9be94865262d5eae958990a4a2619bda2892b67144ee50d8d5c1c7598c25ad6c",
+      "source/game_sa/PostEffects.h": "49e72593a3044800e965673ec52541fd33fcc9cb7e9cfb56044427756e8d1543",
+      "source/game_sa/RGBA.h": "ab66a3bef4b0af6d30cf5f535eda15f9935eb28ca5df94c41b740c4cdad4e42a",
+      "source/game_sa/RealTimeShadow.h": "9851f77d169019512dfb60e050f620ad383e84c94193bdf80aacbba7d0533b49",
+      "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
+      "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
+      "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
+      "source/game_sa/Shadows.cpp": "62329a0d6b70b83b44027195b1a8bd5c0de224e054f800e5e6e4c74e9f612448",
+      "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/WaterLevel.cpp": "57670fd8dd5f015095f20660a73cf41d05d87d4f9a60f8dd32e182de0331bc07",
+      "source/game_sa/WaterLevel.h": "4bb60aebd442b9352e84bfbedc2f25f63cca3f2c4604965a3e6755191ab57ade",
+      "source/game_sa/Weather.h": "2e1157e99a5d1c74402b94df44a72ff0d599dce975071bb87396ab5b19851852"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "../runtime_runner.py": "8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536",
+      "../WaterRender355/run_local.py": "05e98b72bb64d11c5d658e797fb826a5e0066965696d24de5a8714d044c93439",
+      "../ShadowPermanent355/run_local.py": "4d17a84747b66173725b33ed10a7778da953465940578c378f76b96de563e0be",
+      "../WaterQuery355/LiveComparison.hpp": "acb2e0051f445fb4933bf4e275b177175aaef07f62a364e12ad543619ec03e59",
+      "../WaterQuery355/build_probe.py": "b7e315ac38c5b7f7b4232d3aea001bda2fb1a6eeba93d25f5c04dae51ec9beb5",
+      "../WaterFog355/build_probe.py": "fed3c952dc88e94841984024b19979d9095c7c546d3906c807311cbc0426da95",
+      "../WaterFog355/LiveComparison.hpp": "21a66b5b63a23defe0803282b464eb3afd6445fe2d5cb27f3a4867000a695ab1",
+      "../Pending355/batch_probe.py": "8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6",
+      "../ShadowPermanent355/LiveComparison.hpp": "48512b04b90924233134e99cf03865ee0f88df42261d9b02d961aee59dffd8f6",
+      "../probe_summary.py": "28224064c276ed8fd6ffd450db22e3ec782a6e068fdb275f270bb7ef49a6f072",
+      "../ScriptEvents355/build_probe.py": "57b67d0044450b4747317bb4c7f071785f91b1f9e7df2667694fa869c674d787",
+      "../ScriptEvents355/run_local.py": "f407d3970646931e4ed3edf5bf8f542dc640f7b7fab9f88c1cdef36d7b919bba",
+      "../WaterQuery355/run_local.py": "d844f344c1f094f9e1d007d194440860846d0c82e9f04e42a3d2315701fa58e2",
+      "../WaterFog355/run_local.py": "2d85c5efcdd1f065968c1c751ba6adf9878979836bfba0af75d7fa56e4697ec6",
+      "../WaterRender355/LiveComparison.hpp": "c26c6134580b12ef57a9b0188203bc745147096a9cb671a15e8a9af307a8d4a8",
+      "../ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "../ShadowPermanent355/build_probe.py": "addbd47bc5614bb59acbbf206801b71b17bb3f42244156b0ecf10d300199c76a",
+      "run_local.py": "a13bb2c3da0a5598fcb890649703af047b213a78d674f79231d8749f0afdd163",
+      "../WaterRender355/build_probe.py": "32294233e96a70975539eae187517eba7b4f5a2d9e9fb791c1dcd853b01c742c",
+      "build_probe.py": "74cd2f240b73719dd307851042826c211f41e934e9f7393290bbb1075f9c57cc",
+      "LiveComparison.hpp": "27864a86008263cb9df1881efaf579e938d90ac6e53221d8908d69164f0c252c",
+      "../probe_build.py": "8e76d4a04b26c055f1d7259246abdbf4f8e56eed372a13171b483327e1c03633",
+      "../probe_case.py": "6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8",
+      "../ScriptEvents355/LiveComparison.hpp": "b6a54e854b2af480cfe6553a8aa57c684a0bbded100389c7114a68d97369abfc",
+      "../Pending355/batches/b6375fe97cd1/LiveComparison.hpp": "377fad7dc6b4b2f8d2a9e00407880e12258165a185566c33ef79f0a1fd67b41e"
+    },
+    "batch_driver": "reversing/Pending355/batches/b6375fe97cd1/LiveComparison.hpp",
+    "batch_banks": [
+      "ScriptEvents355",
+      "ShadowPermanent355",
+      "WaterNearest355",
+      "WaterFog355",
+      "WaterQuery355",
+      "WaterRender355"
+    ]
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"../runtime_runner.py\", \"tested_sha256\": \"8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536\", \"current_sha256\": \"e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c\"}, {\"path\": \"../WaterRender355/run_local.py\", \"tested_sha256\": \"05e98b72bb64d11c5d658e797fb826a5e0066965696d24de5a8714d044c93439\", \"current_sha256\": \"2bc4db676a9276e5a3b657904f9cff08822ca995c7a5f7634ed2a8cd062d9c33\"}, {\"path\": \"../ShadowPermanent355/run_local.py\", \"tested_sha256\": \"4d17a84747b66173725b33ed10a7778da953465940578c378f76b96de563e0be\", \"current_sha256\": \"e85a4fc3d492e19e8d45643fe633f49456a82521ffbe82ab1e3818135c986153\"}, {\"path\": \"../Pending355/batch_probe.py\", \"tested_sha256\": \"8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6\", \"current_sha256\": \"23153f67f0c83b82850b212c353aae655549c060fa1926e1c1a62ba526c23998\"}, {\"path\": \"../ScriptEvents355/run_local.py\", \"tested_sha256\": \"f407d3970646931e4ed3edf5bf8f542dc640f7b7fab9f88c1cdef36d7b919bba\", \"current_sha256\": \"4f290e55245e1dc9766f8a2c9a50d9086a3bd779380cc69aac48de48228c8c95\"}, {\"path\": \"../WaterQuery355/run_local.py\", \"tested_sha256\": \"d844f344c1f094f9e1d007d194440860846d0c82e9f04e42a3d2315701fa58e2\", \"current_sha256\": \"a0ada75707eb38df641f05ee338a1f22297e432b7a6c41bd65da63ad80107972\"}, {\"path\": \"../WaterFog355/run_local.py\", \"tested_sha256\": \"2d85c5efcdd1f065968c1c751ba6adf9878979836bfba0af75d7fa56e4697ec6\", \"current_sha256\": \"a6f393d767860fa0dba7e882560be793cdc888eeb53f92e2851ff904f79121af\"}, {\"path\": \"../WaterRender355/LiveComparison.hpp\", \"tested_sha256\": \"c26c6134580b12ef57a9b0188203bc745147096a9cb671a15e8a9af307a8d4a8\", \"current_sha256\": \"dd0f0bf3368f3f82ffbeeb44ea0a9277f117bbe48cd3b7dfaef119fc46aada96\"}, {\"path\": \"run_local.py\", \"tested_sha256\": \"a13bb2c3da0a5598fcb890649703af047b213a78d674f79231d8749f0afdd163\", \"current_sha256\": \"ede89477346ab9f72d6bccb463bd52e5ac90aa7a7c20b5ba8518d78c8d30c893\"}, {\"path\": \"../probe_case.py\", \"tested_sha256\": \"6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8\", \"current_sha256\": \"61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

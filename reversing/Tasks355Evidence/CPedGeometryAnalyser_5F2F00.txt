@@ -1,0 +1,103 @@
+// CPedGeometryAnalyser::GetIsLineOfSightClear-v3d @ 0x005f2f00 [0x5f2f00..0x5f2f64]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+bool FUN_005f2f00(undefined4 param_1,undefined4 param_2,int param_3)
+
+{
+  undefined4 uVar1;
+  char cVar2;
+  undefined1 local_20 [32];
+  
+  FUN_0040ef50(param_1,param_2);
+  uVar1 = *(undefined4 *)((&DAT_00a9b0c8)[*(short *)(param_3 + 0x22)] + 0x14);
+  if (*(int *)(param_3 + 0x14) == 0) {
+    FUN_0054f560();
+    FUN_0054f1b0(*(undefined4 *)(param_3 + 0x14));
+  }
+  cVar2 = FUN_00417730(local_20,*(undefined4 *)(param_3 + 0x14),uVar1,0,0);
+  return cVar2 == '\0';
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005F2F00: mov eax,dword ptr [esp+8]
+005F2F04: mov ecx,dword ptr [esp+4]
+005F2F08: sub esp,20h
+005F2F0B: push esi
+005F2F0C: push edi
+005F2F0D: push eax
+005F2F0E: push ecx
+005F2F0F: lea ecx,[esp+10h]
+005F2F13: call 0040EF50
+005F2F18: mov esi,dword ptr [esp+34h]
+005F2F1C: movsx edx,word ptr [esi+22h]
+005F2F20: mov eax,dword ptr [edx*4+00A9B0C8h]
+ 00
+005F2F27: mov edi,dword ptr [eax+14h]
+005F2F2A: mov eax,dword ptr [esi+14h]
+005F2F2D: test eax,eax
+005F2F2F: jne 005F2F44
+005F2F31: mov ecx,esi
+005F2F33: call 0054F560
+005F2F38: mov ecx,dword ptr [esi+14h]
+005F2F3B: push ecx
+005F2F3C: lea ecx,[esi+4]
+005F2F3F: call 0054F1B0
+005F2F44: mov esi,dword ptr [esi+14h]
+005F2F47: push 0
+005F2F49: push 0
+005F2F4B: push edi
+005F2F4C: lea edx,[esp+14h]
+005F2F50: push esi
+005F2F51: push edx
+005F2F52: call 00417730
+005F2F57: add esp,14h
+005F2F5A: neg al
+005F2F5C: pop edi
+005F2F5D: pop esi
+005F2F5E: sbb eax,eax
+005F2F60: inc eax
+005F2F61: add esp,20h
+005F2F64: ret
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x5F2F00, 0x5F2F64) ====
+005F2F00: mov eax,dword ptr [esp+8]
+005F2F04: mov ecx,dword ptr [esp+4]
+005F2F08: sub esp,20h
+005F2F0B: push esi
+005F2F0C: push edi
+005F2F0D: push eax
+005F2F0E: push ecx
+005F2F0F: lea ecx,[esp+10h]
+005F2F13: call 0040EF50
+005F2F18: mov esi,dword ptr [esp+34h]
+005F2F1C: movsx edx,word ptr [esi+22h]
+005F2F20: mov eax,dword ptr [edx*4+00A9B0C8h]
+ 00
+005F2F27: mov edi,dword ptr [eax+14h]
+005F2F2A: mov eax,dword ptr [esi+14h]
+005F2F2D: test eax,eax
+005F2F2F: jne 005F2F44
+005F2F31: mov ecx,esi
+005F2F33: call 0054F560
+005F2F38: mov ecx,dword ptr [esi+14h]
+005F2F3B: push ecx
+005F2F3C: lea ecx,[esi+4]
+005F2F3F: call 0054F1B0
+005F2F44: mov esi,dword ptr [esi+14h]
+005F2F47: push 0
+005F2F49: push 0
+005F2F4B: push edi
+005F2F4C: lea edx,[esp+14h]
+005F2F50: push esi
+005F2F51: push edx
+005F2F52: call 00417730
+005F2F57: add esp,14h
+005F2F5A: neg al
+005F2F5C: pop edi
+005F2F5D: pop esi
+005F2F5E: sbb eax,eax
+005F2F60: inc eax
+005F2F61: add esp,20h
+005F2F64: ret

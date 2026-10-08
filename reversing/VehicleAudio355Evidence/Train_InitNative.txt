@@ -1,0 +1,14 @@
+void CTrain::InitTrains() {
+    bDisableRandomTrains = false;
+    GenTrain_Status = 0;
+    constexpr const char* filenames[]{"data\\paths\\tracks.dat", "data\\paths\\tracks3.dat", "data\\paths\\tracks2.dat", "data\\paths\\tracks4.dat"};
+    for (int32 track = 0; track < 4; ++track) {
+        if (!pTrackNodes[track]) ReadAndInterpretTrackFile(filenames[track], &pTrackNodes[track], &NumTrackNodes[track], &arrTotalTrackLength[track], track);
+    }
+    const auto* nodes = pTrackNodes[0];
+    for (int32 station = 0; station < 6; ++station) {
+        int32 track;
+        const auto index = FindClosestTrackNode(aStationCoors[station], &track);
+        StationDist[station] = float(nodes[index].m_nDistanceFromStart) * StaticRef<float>(0x859040);
+    }
+}

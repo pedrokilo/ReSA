@@ -14,11 +14,11 @@ public:
 
     CTaskComplexWanderStandard(eMoveState MoveState, uint8 Dir, bool bWanderSensibly = true);
 
-    CTask* Clone() const override { return new CTaskComplexWanderStandard(m_nMoveState, m_nDir); } // 0x48E530
+    CTask* Clone() const override { return new CTaskComplexWanderStandard(m_nMoveState, m_nDir, m_bWanderSensibly); } // 0x48E530
     eWanderType GetWanderType() override { return WANDER_TYPE_STANDARD; } // 0x48E5D0
     void ScanForStuff(CPed* ped) override;
 
-    bool WillChat(const CPed& first, const CPed& second);
+    static bool __stdcall WillChat(const CPed& first, const CPed& second);
     void SetNextMinScanTime(CPed* ped);
     bool LookForSexyCars(CPed* ped);
     bool LookForChatPartners(CPed* ped);

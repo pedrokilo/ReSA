@@ -1,0 +1,29 @@
+bool CBike::BurstTyre(uint8 component, bool physicalEffect) {
+    if (vehicleFlags.bTyresDontBurst || (m_nPhysicalFlags & 0x20000000u)) return false;
+    if (component == 13) component = 0;
+    else if (component == 15) component = 1;
+    auto* status = reinterpret_cast<uint8*>(this) + 0x65C + component;
+    bool changed = false;
+    if (*status == 0) {
+        *status = 1;
+        m_vehicleAudio.AddAudioEvent(static_cast<eAudioEvents>(90), 0.f);
+        if (GetStatus() == STATUS_PHYSICS) CCarCtrl::SwitchVehicleToRealPhysics(this);
+        if (physicalEffect) {
+            const auto limit = StaticRef<float>(0x8D322C);
+            const auto force = CGeneral::GetRandomNumberInRange<float>(-limit, limit) * m_fMass;
+            ApplyMoveForce(GetRight() * force);
+            const auto turn = CGeneral::GetRandomNumberInRange<float>(-limit, limit) * m_fTurnMass;
+            ApplyTurnForce(GetRight() * turn, GetForward());
+        }
+        changed = true;
+    }
+    // Component 13 is mapped to zero above; the EXE's later front-wheel event branch is unreachable.
+    if (m_pDriver && component == 14 && (m_aRatioHistory[2] >= StaticRef<float>(0x871284) || m_aRatioHistory[3] >= StaticRef<float>(0x871284))) {
+        const auto speed = std::sqrt((m_vecMoveSpeed.x * m_vecMoveSpeed.x + m_vecMoveSpeed.y * m_vecMoveSpeed.y) + m_vecMoveSpeed.z * m_vecMoveSpeed.z);
+        if (speed > StaticRef<float>(0x8D3230) && (GetStatus() != STATUS_PLAYER || speed > StaticRef<float>(0x8D3234))) {
+            const auto amount = (StaticRef<float>(0x8D322C) * m_fTurnMass) * 2.f;
+            ApplyTurnForce(GetRight() * amount, GetForward());
+        }
+    }
+    return changed;
+}

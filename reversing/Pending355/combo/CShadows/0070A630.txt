@@ -1,0 +1,206 @@
+// CShadows::CastShadowSectorList<CPtrListSingleLink<CPhysical*>> @ 0x0070a630 [0x70a630..0x70a7dd]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0070a630(undefined4 *param_1,float param_2,float param_3,float param_4,float param_5,
+                 int param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9,
+                 undefined4 param_10,undefined4 param_11,undefined4 param_12,undefined4 param_13,
+                 undefined4 param_14,float param_15,undefined4 param_16,undefined4 param_17,
+                 undefined4 param_18,undefined4 param_19)
+
+{
+  int *piVar1;
+  int *piVar2;
+  int iVar3;
+  int *piVar4;
+  float local_10;
+  float fStack_c;
+  float fStack_8;
+  float fStack_4;
+  
+  piVar1 = (int *)*param_1;
+  while (piVar1 != (int *)0x0) {
+    piVar2 = (int *)*piVar1;
+    piVar1 = (int *)piVar1[1];
+    if ((((short)piVar2[0xb] != DAT_00b7cd78) &&
+        (*(short *)(piVar2 + 0xb) = DAT_00b7cd78, (*(byte *)(piVar2 + 7) & 1) != 0)) &&
+       ((*(byte *)((int)piVar2 + 0x2f) == DAT_00b72914 || (*(byte *)((int)piVar2 + 0x2f) == 0xd))))
+    {
+      if (piVar2[5] == 0) {
+        FUN_0054f560();
+        FUN_0054f1b0(piVar2[5]);
+      }
+      if ((((0.97 < *(float *)(piVar2[5] + 0x28)) &&
+           ((**(code **)(*piVar2 + 0x24))(&local_10), param_2 < fStack_8)) && (local_10 < param_4))
+         && ((param_3 < fStack_c && (fStack_4 < param_5)))) {
+        iVar3 = piVar2[5];
+        piVar4 = (int *)(iVar3 + 0x30);
+        if (iVar3 == 0) {
+          piVar4 = piVar2 + 1;
+        }
+        if (*(float *)(param_6 + 8) - param_15 <
+            *(float *)(*(int *)((&DAT_00a9b0c8)[*(short *)((int)piVar2 + 0x22)] + 0x14) + 0x14) +
+            (float)piVar4[2]) {
+          piVar4 = (int *)(iVar3 + 0x30);
+          if (iVar3 == 0) {
+            piVar4 = piVar2 + 1;
+          }
+          if (*(float *)(*(int *)((&DAT_00a9b0c8)[*(short *)((int)piVar2 + 0x22)] + 0x14) + 8) +
+              (float)piVar4[2] < *(float *)(param_6 + 8)) {
+            FUN_007086b0(piVar2,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
+                         param_10,param_11,param_12,param_13,param_14,param_15,param_16,param_17,
+                         param_18,param_19);
+          }
+        }
+      }
+    }
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0070A630: mov eax,dword ptr [esp+4]
+0070A634: mov eax,dword ptr [eax]
+0070A636: sub esp,10h
+0070A639: test eax,eax
+0070A63B: je 0070A7DA
+0070A641: push ebx
+0070A642: mov ebx,dword ptr [esp+5Ch]
+0070A646: push ebp
+0070A647: mov ebp,dword ptr [esp+64h]
+0070A64B: push esi
+0070A64C: push edi
+0070A64D: mov edi,dword ptr [esp+38h]
+0070A651: jmp 0070A660
+0070A653: mov eax,dword ptr [esp+24h]
+0070A657: jmp 0070A660
+0070A659: lea esp,[esp+00000000h]
+ 00
+0070A660: mov esi,dword ptr [eax]
+0070A662: mov ecx,dword ptr [eax+4]
+0070A665: mov ax,word ptr ds:[00B7CD78h]
+0070A66B: cmp word ptr [esi+2Ch],ax
+0070A66F: mov dword ptr [esp+24h],ecx
+0070A673: je 0070A7CA
+0070A679: mov word ptr [esi+2Ch],ax
+0070A67D: test byte ptr [esi+1Ch],1
+0070A681: je 0070A7CA
+0070A687: mov al,byte ptr [esi+2Fh]
+0070A68A: mov ecx,dword ptr ds:[00B72914h]
+0070A690: movzx edx,al
+0070A693: cmp edx,ecx
+0070A695: je 0070A69F
+0070A697: cmp al,0Dh
+0070A699: jne 0070A7CA
+0070A69F: mov eax,dword ptr [esi+14h]
+0070A6A2: test eax,eax
+0070A6A4: jne 0070A6B9
+0070A6A6: mov ecx,esi
+0070A6A8: call 0054F560
+0070A6AD: mov eax,dword ptr [esi+14h]
+0070A6B0: push eax
+0070A6B1: lea ecx,[esi+4]
+0070A6B4: call 0054F1B0
+0070A6B9: mov ecx,dword ptr [esi+14h]
+0070A6BC: fld dword ptr [ecx+28h]
+0070A6BF: fcomp dword ptr ds:[00872724h]
+0070A6C5: fnstsw ax
+0070A6C7: test ah,41h
+0070A6CA: jne 0070A7CA
+0070A6D0: mov edx,dword ptr [esi]
+0070A6D2: lea eax,[esp+10h]
+0070A6D6: push eax
+0070A6D7: mov ecx,esi
+0070A6D9: call dword ptr [edx+24h]
+0070A6DC: fld dword ptr [esp+28h]
+0070A6E0: fcomp dword ptr [esp+18h]
+0070A6E4: fnstsw ax
+0070A6E6: test ah,5
+0070A6E9: jp 0070A7CA
+0070A6EF: fld dword ptr [esp+30h]
+0070A6F3: fcomp dword ptr [esp+10h]
+0070A6F7: fnstsw ax
+0070A6F9: test ah,41h
+0070A6FC: jne 0070A7CA
+0070A702: fld dword ptr [esp+2Ch]
+0070A706: fcomp dword ptr [esp+14h]
+0070A70A: fnstsw ax
+0070A70C: test ah,5
+0070A70F: jp 0070A7CA
+0070A715: fld dword ptr [esp+34h]
+0070A719: fcomp dword ptr [esp+1Ch]
+0070A71D: fnstsw ax
+0070A71F: test ah,41h
+0070A722: jne 0070A7CA
+0070A728: mov ecx,dword ptr [esi+14h]
+0070A72B: test ecx,ecx
+0070A72D: lea eax,[ecx+30h]
+0070A730: jne 0070A735
+0070A732: lea eax,[esi+4]
+0070A735: movsx edx,word ptr [esi+22h]
+0070A739: fld dword ptr [edi+8]
+0070A73C: mov edx,dword ptr [edx*4+00A9B0C8h]
+ 00
+0070A743: fsub dword ptr [esp+5Ch]
+0070A747: mov edx,dword ptr [edx+14h]
+0070A74A: fld dword ptr [edx+14h]
+0070A74D: fadd dword ptr [eax+8]
+0070A750: fcompp
+0070A752: fnstsw ax
+0070A754: test ah,41h
+0070A757: jne 0070A7CA
+0070A759: test ecx,ecx
+0070A75B: lea eax,[ecx+30h]
+0070A75E: jne 0070A763
+0070A760: lea eax,[esi+4]
+0070A763: fld dword ptr [edx+8]
+0070A766: fadd dword ptr [eax+8]
+0070A769: fcomp dword ptr [edi+8]
+0070A76C: fnstsw ax
+0070A76E: test ah,5
+0070A771: jp 0070A7CA
+0070A773: mov eax,dword ptr [esp+64h]
+0070A777: mov ecx,dword ptr [esp+60h]
+0070A77B: mov edx,dword ptr [esp+5Ch]
+0070A77F: push ebp
+0070A780: push ebx
+0070A781: push eax
+0070A782: mov eax,dword ptr [esp+64h]
+0070A786: push ecx
+0070A787: mov ecx,dword ptr [esp+64h]
+0070A78B: push edx
+0070A78C: mov edx,dword ptr [esp+64h]
+0070A790: push eax
+0070A791: mov eax,dword ptr [esp+64h]
+0070A795: push ecx
+0070A796: mov ecx,dword ptr [esp+64h]
+0070A79A: push edx
+0070A79B: mov edx,dword ptr [esp+64h]
+0070A79F: push eax
+0070A7A0: mov eax,dword ptr [esp+64h]
+0070A7A4: push ecx
+0070A7A5: mov ecx,dword ptr [esp+64h]
+0070A7A9: push edx
+0070A7AA: mov edx,dword ptr [esp+60h]
+0070A7AE: push eax
+0070A7AF: mov eax,dword ptr [esp+60h]
+0070A7B3: push ecx
+0070A7B4: mov ecx,dword ptr [esp+60h]
+0070A7B8: push edi
+0070A7B9: push edx
+0070A7BA: mov edx,dword ptr [esp+64h]
+0070A7BE: push eax
+0070A7BF: push ecx
+0070A7C0: push edx
+0070A7C1: push esi
+0070A7C2: call 007086B0
+0070A7C7: add esp,4Ch
+0070A7CA: mov eax,dword ptr [esp+24h]
+0070A7CE: test eax,eax
+0070A7D0: jne 0070A653
+0070A7D6: pop edi
+0070A7D7: pop esi
+0070A7D8: pop ebp
+0070A7D9: pop ebx
+0070A7DA: add esp,10h
+0070A7DD: ret

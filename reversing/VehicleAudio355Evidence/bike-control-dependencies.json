@@ -1,0 +1,488 @@
+[
+  {
+    "index": 0,
+    "address": "0x00406DA0",
+    "symbols": [
+      "Physical.cpp: float ApplyColSqMag(const CVector& v) {",
+      "TaskComplexDestroyCarArmed.cpp:         const auto& winfo = ped->GetActiveWeapon().GetWeaponInfo(ped);",
+      "TaskComplexDestroyCarMelee.cpp:                 CVector moveDir = m_VehToDestroy->m_vecMoveSpeed;",
+      "TaskComplexDestroyCarMelee.cpp:         const float range = m_MaxAtkRange;",
+      "TaskComplexGangLeader.cpp:             CPed* closestMem  = nullptr;",
+      "TaskComplexGoToCarDoorAndStandStill.cpp:         if ((m_TargetPt - doorOpenPos).Magnitude() > 0.01f) { // 0x64A9D1",
+      "TaskComplexKillPedOnFootMelee.cpp: static float KillMeleeTargetDistance(CPed* ped, const CVector& targetPos) {",
+      "TaskComplexKillPedOnFootMelee.cpp:         const float range = m_arriveRange;",
+      "TaskComplexKillPedOnFootMelee.cpp:         const float range = m_arriveRange;",
+      "TaskComplexKillPedOnFootMelee.cpp:         const float range = m_attackRange;",
+      "TaskComplexPolicePursuit.cpp:         if ((pursuer->m_pVehicle->GetPosition() - pursuer->GetPosition()).SquaredMagnitude() < 25.f) {",
+      "Object.cpp: float ObjSqMag(const CVector& v) {",
+      "Object.cpp: // por las constantes inversas del EXE (6.6666665 y 3.3333333) y ceil del CRT + _ftol2."
+    ]
+  },
+  {
+    "index": 1,
+    "address": "0x0040FDB0",
+    "symbols": [
+      "CarAI.cpp: float Dot3(const CVector& a, const CVector& b) {",
+      "TaskComplexAvoidOtherPedWhileWandering.cpp:             const auto &fwd = ped->GetMatrix().GetForward(), &avoidFwd = m_PedToAvoid->GetMatrix().GetForward();",
+      "TaskComplexWalkAlongsidePed.cpp:             const float negPtDotFwd  = -((targetPtForPed.y * fwd.y + targetPtForPed.z * fwd.z) + targetPtForPed.x * fwd.x);",
+      "Vehicle.cpp: float VehEDot(const CVector& a, const CVector& b) {"
+    ]
+  },
+  {
+    "index": 2,
+    "address": "0x0040FE30",
+    "symbols": [
+      "EntryExit.cpp:                 memTeleportTo = plyrPos + CVector{ offsets[offsetIdx].x, offsets[offsetIdx].y, 0.f };",
+      "Object.cpp:             m_vecForce = (m_vecForce + m_vecMoveSpeed) * 0.5F;"
+    ]
+  },
+  {
+    "index": 3,
+    "address": "0x0040FE90",
+    "symbols": [
+      "EventHandler.cpp:     const auto ComputeKnockOffDirection = [&](int32 selector) -> CVector {"
+    ]
+  },
+  {
+    "index": 4,
+    "address": "0x004119D0",
+    "symbols": [
+      "Collision.cpp:             const auto invDist   = 1.0f / dist;",
+      "Physical.cpp: CVector ApplyColDivide(const CVector& v, float divisor) {",
+      "Physical.cpp:                                     const float fInvCollisionDamage = 1.0f / fCollisionDamage;",
+      "Physical.cpp:                                         const float fInvColPoints = 1.0f / (float)totalColPointsToProcess;",
+      "TaskSimpleClimb.cpp:         const auto DivideByTimeStep = [](const CVector& v) {",
+      "Object.cpp:             m_vecForce = (m_vecForce + m_vecMoveSpeed) * 0.5F;"
+    ]
+  },
+  {
+    "index": 5,
+    "address": "0x00424100",
+    "symbols": []
+  },
+  {
+    "index": 6,
+    "address": "0x0042CE40",
+    "symbols": [
+      "CarCtrl.cpp: void CCarCtrl::ScanForPedDanger(CVehicle* vehicle) {"
+    ]
+  },
+  {
+    "index": 7,
+    "address": "0x004A9BE0",
+    "symbols": [
+      "FxManager.cpp: FxSystem_c* FxManager_c::CreateFxSystem(Const char* name, const CVector& point, RwMatrix* objectMatrix, bool ignoreBoundingChecks) {"
+    ]
+  },
+  {
+    "index": 8,
+    "address": "0x004AA2F0",
+    "symbols": [
+      "FxSystem.cpp: void FxSystem_c::Play() {"
+    ]
+  },
+  {
+    "index": 9,
+    "address": "0x004AA3F0",
+    "symbols": [
+      "FxSystem.cpp: void FxSystem_c::Kill() {"
+    ]
+  },
+  {
+    "index": 10,
+    "address": "0x004AB420",
+    "symbols": [
+      "EventGroup.cpp: CEvent* CEventGroup::Add(CEvent* event, bool bValid) {"
+    ]
+  },
+  {
+    "index": 11,
+    "address": "0x004ABA50",
+    "symbols": [
+      "RwHelper.cpp: CEventGlobalGroup* GetEventGlobalGroup() {"
+    ]
+  },
+  {
+    "index": 12,
+    "address": "0x004B10C0",
+    "symbols": [
+      "EventVehicleOnFire.cpp: CEventVehicleOnFire::CEventVehicleOnFire(CVehicle* vehicle)"
+    ]
+  },
+  {
+    "index": 13,
+    "address": "0x004B1170",
+    "symbols": []
+  },
+  {
+    "index": 14,
+    "address": "0x004D68B0",
+    "symbols": [
+      "RpAnimBlend.cpp: CAnimBlendAssociation* RpAnimBlendClumpGetAssociation(RpClump* clump, uint32 animId) {"
+    ]
+  },
+  {
+    "index": 15,
+    "address": "0x00502280",
+    "symbols": [
+      "AEVehicleAudioEntity.cpp: void CAEVehicleAudioEntity::Service() {"
+    ]
+  },
+  {
+    "index": 16,
+    "address": "0x00535300",
+    "symbols": [
+      "Entity.cpp: CColModel* CEntity::GetColModel() const {"
+    ]
+  },
+  {
+    "index": 17,
+    "address": "0x0053F920",
+    "symbols": [
+      "Pad.cpp: void CPad::StartShake(int16 time, uint8 freq, uint32 shakeDelayMs) {"
+    ]
+  },
+  {
+    "index": 18,
+    "address": "0x0053FB70",
+    "symbols": []
+  },
+  {
+    "index": 19,
+    "address": "0x005429F0",
+    "symbols": [
+      "Physical.cpp: void CPhysical::ApplyMoveForce(CVector force)"
+    ]
+  },
+  {
+    "index": 20,
+    "address": "0x00542A50",
+    "symbols": [
+      "Physical.cpp: void CPhysical::ApplyTurnForce(CVector force, CVector point) {"
+    ]
+  },
+  {
+    "index": 21,
+    "address": "0x00542CE0",
+    "symbols": [
+      "Physical.cpp: CVector CPhysical::GetSpeed(CVector point)",
+      "Physical.cpp:     // de entidad est\u00c3\u00a1tica (0x54A4ED); el resto va directo a 0x54A88F."
+    ]
+  },
+  {
+    "index": 22,
+    "address": "0x005433B0",
+    "symbols": [
+      "Physical.cpp: void CPhysical::SkipPhysics()"
+    ]
+  },
+  {
+    "index": 23,
+    "address": "0x00543C90",
+    "symbols": [
+      "Physical.cpp: bool CPhysical::ApplySpringCollision(float fSuspensionForceLevel, CVector& direction, CVector& collisionPoint, float fSpringLength, float fSuspensionBias, float& fSpringForceDampin"
+    ]
+  },
+  {
+    "index": 24,
+    "address": "0x00543D60",
+    "symbols": [
+      "Physical.cpp: bool CPhysical::ApplySpringCollisionAlt(float fSuspensionForceLevel, CVector& direction, CVector& collisionPoint, float fSpringLength, float fSuspensionBias, CVector& normal, float"
+    ]
+  },
+  {
+    "index": 25,
+    "address": "0x00543E90",
+    "symbols": [
+      "Physical.cpp: bool CPhysical::ApplySpringDampening(float fDampingForce, float fSpringForceDampingLimit, CVector& direction, CVector& collisionPoint, CVector& collisionPos) {"
+    ]
+  },
+  {
+    "index": 26,
+    "address": "0x005485E0",
+    "symbols": [
+      "Physical.cpp: /**"
+    ]
+  },
+  {
+    "index": 27,
+    "address": "0x00559AF0",
+    "symbols": [
+      "Stats.cpp: float CStats::GetFatAndMuscleModifier(eStatModAbilities statMod) {"
+    ]
+  },
+  {
+    "index": 28,
+    "address": "0x0055E5C0",
+    "symbols": [
+      "SurfaceInfos_c.cpp: eAdhesionGroup SurfaceInfos_c::GetAdhesionGroup(SurfaceId id)"
+    ]
+  },
+  {
+    "index": 29,
+    "address": "0x0055E600",
+    "symbols": [
+      "SurfaceInfos_c.cpp: float SurfaceInfos_c::GetWetMultiplier(SurfaceId id)"
+    ]
+  },
+  {
+    "index": 30,
+    "address": "0x0055E630",
+    "symbols": [
+      "SurfaceInfos_c.cpp: uint32 SurfaceInfos_c::GetSkidmarkType(SurfaceId id)"
+    ]
+  },
+  {
+    "index": 31,
+    "address": "0x0055E810",
+    "symbols": [
+      "SurfaceInfos_c.cpp: uint32 SurfaceInfos_c::GetRoughness(SurfaceId id)"
+    ]
+  },
+  {
+    "index": 32,
+    "address": "0x0055EB50",
+    "symbols": [
+      "SurfaceInfos_c.cpp: float SurfaceInfos_c::GetAdhesiveLimit(CColPoint* colPoint)"
+    ]
+  },
+  {
+    "index": 33,
+    "address": "0x0056E210",
+    "symbols": [
+      "World_Helper.cpp: CPlayerPed* FindPlayerPed(int32 playerId) {"
+    ]
+  },
+  {
+    "index": 34,
+    "address": "0x0059C730",
+    "symbols": [
+      "Cover.cpp: CVector CoverCross(const CVector& a, const CVector& b) {",
+      "Collision.cpp:     const float cx = nz * eny - enz * ny;",
+      "ProcSurfaceInfo.cpp:         CVector forwardVec;",
+      "Vehicle.cpp: CVector VehECross(const CVector& a, const CVector& b) {"
+    ]
+  },
+  {
+    "index": 35,
+    "address": "0x0059C790",
+    "symbols": [
+      "BouncingPanel.cpp: CVector Multiply3x3_MV_59C790(const CMatrix& m, const CVector& v) {",
+      "Buoyancy.cpp: CVector BuoyancyMultiply3x3(const CMatrix& m, const CVector& v) {",
+      "Cover.cpp: CVector CoverMultiply3x3(const CMatrix& m, const CVector& v) {",
+      "Glass.cpp: CVector Multiply3x3_59C790(const CMatrix& m, const CVector& v) {",
+      "PedAttractorManager.cpp: static CVector TransformVectorOG(const CMatrix& m, const CVector& v) {",
+      "World.cpp: CVector WldEMultiply3x3MV(const CMatrix& m, const CVector& v) {",
+      "PedAttractorPedPlacer.cpp: static CVector TransformVectorOG(const CMatrix& m, const CVector& v) {",
+      "Collision.cpp: inline CVector Multiply3x3(const CMatrix& m, const CVector& v) {",
+      "Collision.cpp:     const auto cp       = ColProc59b::MultiplyMatrixWithVector(matBA, tempTriCol.m_vecPoint);",
+      "Collision.cpp: inline CVector MulVector(const CMatrix& m, const CVector& v) {",
+      "Collision.cpp:     if (!cmA.m_pColData) {",
+      "Entity.cpp:                 (void)GetMatrix();",
+      "Physical.cpp:         CVector com;",
+      "Physical.cpp:             CVector vecNegativeCentreOfMass = -m_vecCentreOfMass;",
+      "Physical.cpp: // y = (up.y*z + right.y*x) + fwd.y*y, z = (up.z*z + right.z*x) + fwd.z*y.",
+      "Physical.cpp: CVector PhysAttachMat3x3_59C790(const CMatrix& m, const CVector& v) {",
+      "Physical.cpp:         const CVector vecOffset = PhysAttachMat3x3_59C790(attachedToEntityMatrix, m_vecAttachOffset);",
+      "Physical.cpp:         CVector vecCenterOfMassMultiplied = PhysAttachMat3x3_59C790(*m_matrix, m_vecCentreOfMass);",
+      "Physical.cpp:     const auto Multiply3x3 = [](const CMatrix& m, const CVector& v) {",
+      "Physical.cpp:     // x = (up.x*v.z + fwd.x*v.y) + right.x*v.x; y = (up.y*v.z + right.y*v.x) + fwd.y*v.y; z = (up.z*v.z + right.z*v.x) + fwd.z*v.y",
+      "TaskComplexGoToBoatSteeringWheel.cpp:     // de sumas del EXE, y despues la posicion",
+      "TaskSimpleHoldEntity.cpp: CVector HoldMultiply3x3_59C790(const CMatrix& m, const CVector& v) {",
+      "TaskSimpleHoldEntity.cpp:                     const CMatrix& pedMat = *ped->m_matrix;",
+      "TaskSimpleRunNamedAnim.cpp:     const CMatrix& mat = *ped->m_matrix;",
+      "Object.cpp: CVector ObjMultiply3x3(const CMatrix& m, const CVector& v) {",
+      "Object.cpp:     auto vecPoint = ObjMultiply3x3(*m_matrix, m_pObjectInfo->m_vFxOffset);",
+      "Object.cpp:         auto vecPoint = ObjMultiply3x3(*m_matrix, m_pObjectInfo->m_vFxOffset);",
+      "Ped.cpp: CVector PedE_Multiply3x3(const CMatrix& m, const CVector& v) {",
+      "Ped.cpp:     attachedMatrix.GetPosition() += PedE_Multiply3x3(attachedMatrix, offset);",
+      "Bmx.cpp: CVector BmxMultiply3x3_MV(const CMatrix& m, const CVector& v) {",
+      "Boat.cpp: CVector BoatMultiply3x3(const CMatrix& m, const CVector& v) {",
+      "QuadBike.cpp: CVector QuadMultiply3x3_MV(const CMatrix& m, const CVector& v) {",
+      "Vehicle.cpp: CVector VehEMatVec(const CMatrix& m, const CVector& v) {",
+      "Vehicle.cpp:     m_vecMoveSpeed   = VehEInvVec(mat, m_vecMoveSpeed);",
+      "Vehicle.cpp:     const auto rotorSize      = VehEMatVec(matrix, rotorSizeOS);"
+    ]
+  },
+  {
+    "index": 36,
+    "address": "0x0059C810",
+    "symbols": [
+      "BouncingPanel.cpp: CVector Multiply3x3_VM_59C810(const CVector& v, const CMatrix& m) {",
+      "Door.cpp: CVector DoorMultiply3x3_VM(const CVector& v, const CMatrix& m) {",
+      "World.cpp: CVector WldAMultiply3x3VM(const CVector& v, const CMatrix& m) {",
+      "World.cpp:         const CVector& pos = entity->GetPosition();",
+      "World.cpp: CVector WldEMultiply3x3VM(const CVector& v, const CMatrix& m) {",
+      "World.cpp:             CColSphere sphere;",
+      "QuadBike.cpp: CVector QuadMultiply3x3_VM(const CVector& v, const CMatrix& m) {",
+      "QuadBike.cpp:         const CVector velocity = QuadMultiply3x3_VM(m_vecTurnSpeed, *m_matrix);",
+      "Vehicle.cpp: CVector VehEInvVec(const CMatrix& m, const CVector& v) {",
+      "Vehicle.cpp:     m_vecMoveSpeed   = VehEInvVec(mat, m_vecMoveSpeed);"
+    ]
+  },
+  {
+    "index": 37,
+    "address": "0x0059C910",
+    "symbols": [
+      "BulletTraces.cpp:         const CVector camPos = TheCamera.GetPosition();",
+      "CarCtrl.cpp:         const CMatrix& launcherMat = *entityLauncher->m_matrix;",
+      "Clouds.cpp:             CVector dir{ vcPos2.x - camPos.x, vcPos2.y - camPos.y, vcPos2.z - camPos.z };",
+      "Cover.cpp: void CoverNormalise(CVector& v) {",
+      "EntryExit.cpp:         const auto& memPos = mem->GetPosition();",
+      "GameLogic.cpp:             CVector dir{ pos2.x - pos1.x, pos2.y - pos1.y, pos2.z - pos1.z };",
+      "Occluder.cpp:     auto normal = right.Cross(up);",
+      "SetPiece.cpp:     CVector dir{ target.x - posn.x, target.y - posn.y, 0.0f };",
+      "TimeCycle.cpp:     CalcDirnLightToSunX87(&m_vecDirnLightToSun);",
+      "ProcSurfaceInfo.cpp:         CVector forwardVec;",
+      "TaskComplexFleeAnyMeans.cpp:     {",
+      "TaskComplexInvestigateDisturbance.cpp:     // el umbral es 0.707 (0x863C1C) y un NaN tambi\u00c3\u00a9n agacha (fcomp + test ah,5)",
+      "TaskComplexWalkRoundBuildingAttempt.cpp:         const auto& pedPos = ped->GetPosition();",
+      "CustomCarEnvMapPipeline.cpp:         CVector dir{ pos.x - prevX, pos.y - prevY, 0.0f };",
+      "Vehicle.cpp: void VehENormalise(CVector& v) {",
+      "Vehicle.cpp:                         const auto& firstCamPos = *TheCamera.GetGameCamPosition();"
+    ]
+  },
+  {
+    "index": 38,
+    "address": "0x005DF8F0",
+    "symbols": [
+      "TaskComplexCarSlowBeDraggedOutAndStandUp.cpp:         (void)ped->IsPlayer();"
+    ]
+  },
+  {
+    "index": 39,
+    "address": "0x0060A8A0",
+    "symbols": [
+      "PlayerPed.cpp: void CPlayerPed::ResetPlayerBreath() {"
+    ]
+  },
+  {
+    "index": 40,
+    "address": "0x006B5FB0",
+    "symbols": [
+      "Bike.cpp: void CBike::ProcessBuoyancy() {"
+    ]
+  },
+  {
+    "index": 41,
+    "address": "0x006D05E0",
+    "symbols": [
+      "cTransmission.cpp: // Como el original: las comparaciones siguen las del EXE (con NaN cada condici\u00c3\u00b3n cae del mismo lado)."
+    ]
+  },
+  {
+    "index": 42,
+    "address": "0x006D1340",
+    "symbols": [
+      "Vehicle.cpp: void CVehicle::ProcessDelayedExplosion() {"
+    ]
+  },
+  {
+    "index": 43,
+    "address": "0x006D21F0",
+    "symbols": [
+      "Vehicle.cpp: void CVehicle::ProcessCarAlarm() {",
+      "Vehicle.cpp:     // truncado a entero de 32 bits con _ftol2); si el contador es menor que el paso (comparacion sin signo) se pone a cero"
+    ]
+  },
+  {
+    "index": 44,
+    "address": "0x006D2570",
+    "symbols": [
+      "Vehicle.cpp: void CVehicle::ActivateBombWhenEntered() {"
+    ]
+  },
+  {
+    "index": 45,
+    "address": "0x006D2980",
+    "symbols": [
+      "Vehicle.cpp: void CVehicle::UpdateClumpAlpha() {"
+    ]
+  },
+  {
+    "index": 46,
+    "address": "0x006D73B0",
+    "symbols": [
+      "Vehicle.cpp:     RH_ScopedInstall(FindTyreNearestPoint, 0x6D7BC0);",
+      "Vehicle.cpp: void CVehicle::ProcessBikeWheel(CVector& wheelFwd, CVector& wheelRight, CVector& wheelContactSpeed, CVector& wheelContactPoint, int32 wheelsOnGround, float thrust, float brake,"
+    ]
+  },
+  {
+    "index": 47,
+    "address": "0x006E0950",
+    "symbols": [
+      "Vehicle.cpp:     // RH_ScopedInstall(DoHeadLightEffect, 0x6E0A50);",
+      "Vehicle.cpp: void CVehicle::ProcessSirenAndHorn(bool arg0) {"
+    ]
+  },
+  {
+    "index": 48,
+    "address": "0x0072DDD0",
+    "symbols": [
+      "CullZones.cpp: bool CCullZones::DoExtraAirResistanceForPlayer() {"
+    ]
+  },
+  {
+    "index": 49,
+    "address": "0x00821B40",
+    "symbols": [
+      "Clouds.cpp: int32 CloudsFtol(float value) {",
+      "Replay.cpp: inline int64 ReplayFtol(float value) {",
+      "Stats.cpp: int32 StatsFtol(float v) { return static_cast<int32>(static_cast<int64>(v)); }",
+      "TimeCycle.cpp: static int64 Ftol(float value) {",
+      "Timer.cpp: // fild den (+2^32) ; fdivr num",
+      "Weather.cpp: inline int32 Ftol(float f) { return (int32)f; }",
+      "AESmoothFadeThread.cpp: LONG DbToDsVolume(float volume) {",
+      "ColourSet.cpp: static int64 Ftol(float value) {",
+      "CustomCarEnvMapPipeline.cpp: int32 Ftol(float x) {",
+      "CustomCarEnvMapPipeline_EnvMat.cpp: uint8 ToFixed8(float x) {",
+      "Object.cpp: int32 ObjFtol(float f) {",
+      "Object.cpp: uint8 ObjCeilSteps(float f) {",
+      "Vehicle.cpp: int32 VehEFtol(float f) { return static_cast<int32>(static_cast<int64>(f)); }",
+      "AEMFDecoder.cpp: long CAEMFDecoder::GetStreamPlayTimeMs() {",
+      "AEVorbisDecoder.cpp: long SecondsToMs(double seconds) {",
+      "AEWaveDecoder.cpp: long BytesToMs(uint32 bytes, uint32 bytesPerSecond) {"
+    ]
+  },
+  {
+    "index": 50,
+    "address": "0x00821E70",
+    "symbols": [
+      "BulletInfo.cpp: // (anterior & 0x300) | 0x7F (0x828F05), as\u00c3\u00ad que fadd/fsub/fmul/fsqrt redondean como el juego; despu\u00c3\u00a9s",
+      "cHandlingDataMgr.cpp: // (anterior & 0x300) | 0x7F, como en BulletInfo.cpp; el llamador multiplica en la FPU por 57.29578f",
+      "PedIK.cpp: // (anterior & 0x300) | 0x7F, como en BulletInfo.cpp",
+      "TaskSimpleDead.cpp: // (anterior & 0x300) | 0x7F; el resultado queda en ST0",
+      "TaskSimpleSwim.cpp: float __declspec(naked) __cdecl AsinSubX87(float x, float sub) {",
+      "Bmx.cpp: // (anterior & 0x300) | 0x7F; el resultado se niega (fmul -1.0, exacto) y se guarda a float"
+    ]
+  },
+  {
+    "index": 51,
+    "address": "0x00822130",
+    "symbols": [
+      "BouncingPanel.cpp: // con la precision completa de ST0 en las tres multiplicaciones",
+      "Door.cpp: void DoorMultiplyByPow(float& angVel, float rate, float step) {",
+      "ShotInfo.cpp:             const double base = 0.9599999785423279;",
+      "World.cpp: // y exponente ms_fTimeStep; cada componente se multiplica por el resultado y se redondea a float.",
+      "World.cpp:                             // 0.707 (0x8CDEEC) y como exponente ms_fTimeStep (no en milisegundos); cada componente se",
+      "AESmoothFadeThread.cpp:                 // volumen = inicio + 20 \u00c2\u00b7 log10(1 + paso \u00c2\u00b7 progreso) con fyl2x.",
+      "Physical.cpp:                 const float fDamp = CPhysical::PHYSICAL_SHIFT_SPEED_DAMP;",
+      "Physical.cpp:         const float fBase = 1.0f - fSpeedMagnitude;",
+      "Physical.cpp:         const float fBase = m_fAirResistance;",
+      "Physical.cpp:         const float fBase = 0.98f;",
+      "Physical.cpp:         const float fBase = StaticRef<float>(0x8CD7EC);",
+      "TaskSimpleCarJumpOut.cpp:         const double base  = 0.9599999785423279;",
+      "TaskSimpleJetPack.cpp: float __declspec(naked) __cdecl JpLerpThrustAngleX87(float udS, float angle, float step) {",
+      "TaskSimpleSwim.cpp: float __declspec(naked) __cdecl MulPowX87(float base, float exp, float v) {",
+      "Object.cpp: // completo de ST0 (sin redondearlo antes a float).",
+      "Ped.cpp:         float ts = CTimer::GetTimeStep();",
+      "Bmx.cpp: float BmxPowTimes(float base, float timeStep, float x) {",
+      "Boat.cpp:                 float* const rawPtr = &m_fRawSteerAngle;",
+      "QuadBike.cpp: float QuadDeltaStoredDamp(float res, float timeStep, float vel) {",
+      "QuadBike.cpp:     m_sRideAnimData.LeanAngle = QuadLeanAngle(",
+      "Vehicle.cpp: float VehEPow(float base, float exponent) {",
+      "AEWeatherAudioEntity.cpp:         const uint32 duration = CWeather::LightningDuration;",
+      "AEAudioHardware.cpp:         // si el canal no se puede atenuar, se suma el ST0 completo a fullSum."
+    ]
+  }
+]

@@ -1,0 +1,419 @@
+#pragma once
+#include <fstream>
+#include <reversiblehooks/RootHookCategory.h>
+#include <reversiblehooks/ReversibleHook/Base.h>
+#include "TaskComplexWanderStandard.h"
+#include "EventSexyVehicle.h"
+#include "EventChatPartner.h"
+#include "EventAcquaintancePedDislike.h"
+#include "../ProbeRuntime.hpp"
+namespace Wander355Live {
+inline bool done{}; inline std::ofstream log; inline json trace;
+inline void Write(const json& j){ReversingProbe::PumpMessages();log<<j.dump()<<'\n';log.flush();}
+struct Fn{const char* cls;const char* name;uintptr_t address,vt;int slot,cases;};
+inline Fn fns[]{
+{"CTaskComplexWanderStandard","WillChat",0x66AED0,0,-1,512},
+{"CTaskComplexWanderStandard","SetNextMinScanTime",0x66AF60,0,-1,256},
+{"CTaskComplexWanderStandard","LookForSexyCars",0x66AFD0,0,-1,512},
+{"CTaskComplexWanderStandard","LookForChatPartners",0x66FDA0,0,-1,1024},
+{"CTaskComplexWanderStandard","LookForGangMembers",0x670100,0,-1,512},
+{"CTaskComplexWanderStandard","Clone",0x48E530,0x85A200,1,256}};
+alignas(16) inline std::array<uint8,sizeof(CPed)> ped,player;
+alignas(16) inline std::array<uint8,sizeof(CTaskComplexWanderStandard)> task;
+alignas(16) inline std::array<uint8,128> arena,subtask;
+alignas(16) inline std::array<uint8,sizeof(CPedIntelligence)> intel,otherIntel;alignas(16) inline std::array<uint8,sizeof(CAutomobile)> vehicle;alignas(16) inline std::array<uint8,sizeof(tHandlingData)> handling;alignas(16) inline std::array<uint8,sizeof(CMatrix)> matrix,otherMatrix,vehicleMatrix;alignas(16) inline std::array<uint8,sizeof(CPedGroup)> group;inline std::array<void*,15> subVT{},taskVT{}; inline int subType{},scenario{};inline size_t allocated{};
+template<class T>inline void Put(void* p,size_t o,T v){std::memcpy(static_cast<uint8*>(p)+o,&v,sizeof(v));}
+inline json Ptr(uintptr_t p){if(!p)return nullptr;
+#define P(x) if(p>=uintptr_t(x.data())&&p<uintptr_t(x.data())+x.size())return json::array({#x,p-uintptr_t(x.data())});
+P(ped) P(player) P(task) P(arena) P(subtask) P(intel) P(otherIntel) P(vehicle) P(handling) P(matrix) P(otherMatrix) P(vehicleMatrix) P(group)
+#undef P
+return p;}
+inline json VmtIdentity355(uintptr_t value) {
+    struct Table { const char* name; uintptr_t canonical; };
+    static constexpr Table tables[]{
+{"CTaskAllocator",0x870E30},
+{"CTaskAllocatorAttack",0x870e60},
+{"CTaskAllocatorKillOnFoot",0x870e48},
+{"CTaskAllocatorKillThreatsBasic",0x870e90},
+{"CTaskAllocatorKillThreatsBasicRandomGroup",0x86C80C},
+{"CTaskAllocatorKillThreatsDriveby",0x870ea8},
+{"CTaskAllocatorPlayerCommandAttack",0x870e78},
+{"CTaskComplexArrestPed",0x8709A8},
+{"CTaskComplexAttractorPartnerWait",0x86e284},
+{"CTaskComplexAvoidEntity",0x86FF00},
+{"CTaskComplexAvoidOtherPedWhileWandering",0x86FEC4},
+{"CTaskComplexBeCop",0x85A428},
+{"CTaskComplexBeInCouple",0x870724},
+{"CTaskComplexBeInGroup",0x86E22C},
+{"CTaskComplexBeStill",0x86C7BC},
+{"CTaskComplexCarDrive",0x86E934},
+{"CTaskComplexCarDriveMission",0x86E9A4},
+{"CTaskComplexCarDriveMissionFleeScene",0x85B95C},
+{"CTaskComplexCarDriveMissionKillPed",0x85B994},
+{"CTaskComplexCarDriveWander",0x86E96C},
+{"CTaskComplexCarSlowBeDraggedOut",0x86EF54},
+{"CTaskComplexCarSlowBeDraggedOutAndStandUp",0x86EF80},
+{"CTaskComplexChat",0x8706A0},
+{"CTaskComplexClimb",0x859DCC},
+{"CTaskComplexCopInCar",0x870A2C},
+{"CTaskComplexCrossRoadLookAndAchieveHeading",0x86DFF0},
+{"CTaskComplexDestroyCar",0x86d968},
+{"CTaskComplexDestroyCarArmed",0x86d9c4},
+{"CTaskComplexDestroyCarMelee",0x86d994},
+{"CTaskComplexDie",0x86DE78},
+{"CTaskComplexDieInCar",0x86DE04},
+{"CTaskComplexDiveFromAttachedEntityAndGetUp",0x85a358},
+{"CTaskComplexDragPedFromCar",0x86EB6C},
+{"CTaskComplexDriveFireTruck",0x86F570},
+{"CTaskComplexDrivePointRoute",0x86ebf8},
+{"CTaskComplexDriveToPoint",0x86E9DC},
+{"CTaskComplexEnterAnyCarAsDriver",0x86EA14},
+{"CTaskComplexEnterBoatAsDriver",0x86e7d0},
+{"CTaskComplexEnterCar",0x86e6f0},
+{"CTaskComplexEnterCarAsDriver",0x86EAAC},
+{"CTaskComplexEnterCarAsDriverTimed",0x86e720},
+{"CTaskComplexEnterCarAsPassenger",0x86EADC},
+{"CTaskComplexEnterCarAsPassengerTimed",0x86e74c},
+{"CTaskComplexEnterCarAsPassengerWait",0x86E778},
+{"CTaskComplexEvasiveCower",0x86F3BC},
+{"CTaskComplexEvasiveDiveAndGetUp",0x86f268},
+{"CTaskComplexEvasiveStep",0x86F218},
+{"CTaskComplexExtinguishFireOnFoot",0x86F5FC},
+{"CTaskComplexExtinguishFires",0x870dd0},
+{"CTaskComplexFacial",0x870ADC},
+{"CTaskComplexFallAndGetUp",0x870454},
+{"CTaskComplexFallAndStayDown",0x870480},
+{"CTaskComplexFallToDeath",0x870520},
+{"CTaskComplexFleeAnyMeans",0x86f7f0},
+{"CTaskComplexFleeEntity",0x86f708},
+{"CTaskComplexFleePoint",0x86f6cc},
+{"CTaskComplexFleeShooting",0x86f7c4},
+{"CTaskComplexFollowLeaderAnyMeans",0x870c68},
+{"CTaskComplexFollowLeaderInFormation",0x870c3c},
+{"CTaskComplexFollowNodeRoute",0x8700a8},
+{"CTaskComplexFollowNodeRouteShooting",0x0},
+{"CTaskComplexFollowPatrolRoute",0x870114},
+{"CTaskComplexFollowPedFootsteps",0x870CC0},
+{"CTaskComplexFollowPointRoute",0x870078},
+{"CTaskComplexGangFollower",0x86F938},
+{"CTaskComplexGangJoinRespond",0x86FB5C},
+{"CTaskComplexGangLeader",0x86F8FC},
+{"CTaskComplexGetOnBoatSeat",0x86f044},
+{"CTaskComplexGetUpAndStandStill",0x870404},
+{"CTaskComplexGoToAttractor",0x86FF3C},
+{"CTaskComplexGoToBoatSteeringWheel",0x86f018},
+{"CTaskComplexGoToCarDoorAndStandStill",0x86ec4c},
+{"CTaskComplexGoToPointAiming",0x86fe00},
+{"CTaskComplexGoToPointAndStandStill",0x86fda8},
+{"CTaskComplexGoToPointAndStandStillAndAchieveHeading",0x86FE58},
+{"CTaskComplexGoToPointAndStandStillTimed",0x86FDD4},
+{"CTaskComplexGoToPointAnyMeans",0x86FF68},
+{"CTaskComplexGoToPointShooting",0x86fe2c},
+{"CTaskComplexGoToPointUntilCollisionAndStandStill",0x0},
+{"CTaskComplexGotoDoorAndOpen",0x86FFC0},
+{"CTaskComplexHitByGunResponse",0x86e06c},
+{"CTaskComplexHitPedWithCar",0x86f294},
+{"CTaskComplexHitResponse",0x86e040},
+{"CTaskComplexInAirAndLand",0x8704AC},
+{"CTaskComplexInWater",0x86e4ec},
+{"CTaskComplexInvestigateDeadPed",0x870d3c},
+{"CTaskComplexInvestigateDisturbance",0x870010},
+{"CTaskComplexJump",0x870570},
+{"CTaskComplexKillAllThreats",0x86DA1C},
+{"CTaskComplexKillCriminal",0x870a00},
+{"CTaskComplexKillPedFromBoat",0x86da98},
+{"CTaskComplexKillPedGroupOnFoot",0x86da48},
+{"CTaskComplexKillPedOnFoot",0x86D894},
+{"CTaskComplexKillPedOnFootArmed",0x86d918},
+{"CTaskComplexKillPedOnFootMelee",0x86d8ec},
+{"CTaskComplexKillPedOnFootStealth",0x86d8c0},
+{"CTaskComplexLeaveAnyCar",0x858EB0},
+{"CTaskComplexLeaveBoat",0x86e854},
+{"CTaskComplexLeaveCar",0x86E828},
+{"CTaskComplexLeaveCarAndDie",0x86dd00},
+{"CTaskComplexLeaveCarAndFlee",0x86e8ac},
+{"CTaskComplexLeaveCarAndWander",0x86e880},
+{"CTaskComplexLeaveCarAsPassengerWait",0x86e7a4},
+{"CTaskComplexMedicTreatInjuredPed",0x86F518},
+{"CTaskComplexMoveBackAndJump",0x86f390},
+{"CTaskComplexObserveTrafficLights",0x86DF98},
+{"CTaskComplexOnFire",0x86e308},
+{"CTaskComplexOpenDriverDoor",0x86EB0C},
+{"CTaskComplexOpenPassengerDoor",0x86EB3C},
+{"CTaskComplexPartner",0x870664},
+{"CTaskComplexPartnerChat",0x8707C4},
+{"CTaskComplexPartnerDeal",0x870754},
+{"CTaskComplexPartnerGreet",0x87078c},
+{"CTaskComplexPartnerShove",0x870800},
+{"CTaskComplexPassObject",0x86fb18},
+{"CTaskComplexPlayHandSignalAnim",0x86d5dc},
+{"CTaskComplexPolicePursuit",0x8709d4},
+{"CTaskComplexPresentIDToCop",0x86F544},
+{"CTaskComplexProstituteSolicit",0x86FB88},
+{"CTaskComplexReactToAttack",0x86D868},
+{"CTaskComplexReactToGunAimedAt",0x870d78},
+{"CTaskComplexRoadRage",0x86d9f0},
+{"CTaskComplexScreamInCarThenLeave",0x86e8d8},
+{"CTaskComplexSeekCoverUntilTargetDead",0x86dac4},
+{"CTaskComplexSeekEntityAiming",0x870c94},
+{"CTaskComplexSeekEntityAnyMeansXYOffset",0x870CF0},
+{"CTaskComplexSeekEntityRadiusAngleOffset",0x0085A388},
+{"CTaskComplexSeekEntityStandard",0x00859DF8},
+{"CTaskComplexSequence",0x86e200},
+{"CTaskComplexShuffleSeats",0x86ea40},
+{"CTaskComplexSignalAtPed",0x86fa8c},
+{"CTaskComplexSitDownThenIdleThenStandUp",0x86df60},
+{"CTaskComplexSmartFleeEntity",0x86f784},
+{"CTaskComplexSmartFleePoint",0x86f744},
+{"CTaskComplexStareAtPed",0x86fa2c},
+{"CTaskComplexStealCar",0x86e7fc},
+{"CTaskComplexStuckInAir",0x870608},
+{"CTaskComplexSunbathe",0x86e0ac},
+{"CTaskComplexTrackEntity",0x86F998},
+{"CTaskComplexTreatAccident",0x86F4EC},
+{"CTaskComplexTurnToFaceEntityOrCoord",0x86ff94},
+{"CTaskComplexUseAttractor",0x86e134},
+{"CTaskComplexUseAttractorPartner",0x86e2b0},
+{"CTaskComplexUseClosestFreeScriptedAttractor",0x86e428},
+{"CTaskComplexUseClosestFreeScriptedAttractorRun",0x85b904},
+{"CTaskComplexUseClosestFreeScriptedAttractorSprint",0x85b930},
+{"CTaskComplexUseEffect",0x86e0d8},
+{"CTaskComplexUseEffectRunning",0x86e594},
+{"CTaskComplexUseEffectSprinting",0x86e5c0},
+{"CTaskComplexUseEntryExit",0x0},
+{"CTaskComplexUseGoggles",0x86E4A8},
+{"CTaskComplexUseMobilePhone",0x86E454},
+{"CTaskComplexUsePairedAttractor",0x86e258},
+{"CTaskComplexUseScriptedAttractor",0x86e2dc},
+{"CTaskComplexUseScriptedBrain",0x86e568},
+{"CTaskComplexUseSequence",0x86e518},
+{"CTaskComplexUseSwatRope",0x86F59C},
+{"CTaskComplexUseWaterCannon",0x86F5D0},
+{"CTaskComplexWaitAtAttractor",0x86e108},
+{"CTaskComplexWaitForBackup",0x870da4},
+{"CTaskComplexWaitForBus",0x86e18c},
+{"CTaskComplexWaitForDryWeather",0x86e160},
+{"CTaskComplexWaitForPed",0x8706F8},
+{"CTaskComplexWalkAlongsidePed",0x8706cc},
+{"CTaskComplexWalkRoundBuildingAttempt",0x86f334},
+{"CTaskComplexWalkRoundCar",0x86f308},
+{"CTaskComplexWalkRoundFire",0x86f3e8},
+{"CTaskComplexWalkRoundObject",0x86F364},
+{"CTaskComplexWander",0x86FE84},
+{"CTaskComplexWanderCop",0x859C80},
+{"CTaskComplexWanderCriminal",0x85A23C},
+{"CTaskComplexWanderFlee",0x86f690},
+{"CTaskComplexWanderGang",0x8700D4},
+{"CTaskComplexWanderMedic",0x86F48C},
+{"CTaskComplexWanderProstitute",0x870148},
+{"CTaskComplexWanderStandard",0x85A200},
+{"CTaskGangHasslePed",0x86FA00},
+{"CTaskGangHassleVehicle",0x86F9D4},
+{"CTaskGoToVehicleAndLean",0x86FAC8},
+{"CTaskInteriorBeInHouse",0x8701e8},
+{"CTaskInteriorBeInOffice",0x870218},
+{"CTaskInteriorBeInShop",0x870244},
+{"CTaskInteriorGoToInfo",0x8702bc},
+{"CTaskInteriorLieInBed",0x870338},
+{"CTaskInteriorShopKeeper",0x870290},
+{"CTaskInteriorSitAtDesk",0x87035c},
+{"CTaskInteriorSitInChair",0x870314},
+{"CTaskInteriorUseInfo",0x8702e8},
+{"CTaskLeanOnVehicle",0x86FAF4},
+{"CTaskSimpleAchieveHeading",0x86fd74},
+{"CTaskSimpleAffectSecondaryBehaviour",0x870b08},
+{"CTaskSimpleAnim",0x86D504},
+{"CTaskSimpleArrestPed",0x870984},
+{"CTaskSimpleBeHit",0x86D844},
+{"CTaskSimpleBeHitWhileMoving",0x86D7FC},
+{"CTaskSimpleBeKickedOnGround",0x86D7D8},
+{"CTaskSimpleBikeJacked",0x86EFAC},
+{"CTaskSimpleCarAlign",0x86EC78},
+{"CTaskSimpleCarCloseDoorFromInside",0x86ed08},
+{"CTaskSimpleCarCloseDoorFromOutside",0x86ed2c},
+{"CTaskSimpleCarDrive",0x86E904},
+{"CTaskSimpleCarDriveTimed",0x859E50},
+{"CTaskSimpleCarFallOut",0x86efd0},
+{"CTaskSimpleCarForcePedOut",0x86EE94},
+{"CTaskSimpleCarGetIn",0x86ed50},
+{"CTaskSimpleCarGetOut",0x86ee4c},
+{"CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse",0x86ede0},
+{"CTaskSimpleCarJumpOut",0x86ee70},
+{"CTaskSimpleCarOpenDoorFromOutside",0x86ec9c},
+{"CTaskSimpleCarOpenLockedDoorFromOutside",0x86ecc0},
+{"CTaskSimpleCarSetPedInAsDriver",0x86EE28},
+{"CTaskSimpleCarSetPedInAsPassenger",0x86EE04},
+{"CTaskSimpleCarSetPedOut",0x86EEB8},
+{"CTaskSimpleCarSetPedSlowDraggedOut",0x86EF30},
+{"CTaskSimpleCarSetTempAction",0x86ea6c},
+{"CTaskSimpleCarShuffle",0x86ed74},
+{"CTaskSimpleCarSlowBeDraggedOut",0x86ef0c},
+{"CTaskSimpleCarSlowDragPedOut",0x86EEE8},
+{"CTaskSimpleCarWaitForDoorNotToBeInUse",0x86edbc},
+{"CTaskSimpleCarWaitToSlowDown",0x86ed98},
+{"CTaskSimpleChat",0x86C78C},
+{"CTaskSimpleChoking",0x86d820},
+{"CTaskSimpleClearLookAt",0x86E404},
+{"CTaskSimpleClimb",0x87059C},
+{"CTaskSimpleCower",0x85a0d0},
+{"CTaskSimpleCreateCarAndGetIn",0x86F070},
+{"CTaskSimpleDead",0x86DEA4},
+{"CTaskSimpleDetonate",0x0},
+{"CTaskSimpleDie",0x86DDBC},
+{"CTaskSimpleDieInCar",0x86DDE0},
+{"CTaskSimpleDoHandSignal",0x86fa68},
+{"CTaskSimpleDrown",0x86DE30},
+{"CTaskSimpleDrownInCar",0x86DE54},
+{"CTaskSimpleDuck",0x870bc4},
+{"CTaskSimpleDuckToggle",0x86dd98},
+{"CTaskSimpleDuckWhileShotsWhizzing",0x870BEC},
+{"CTaskSimpleEvasiveDive",0x86F244},
+{"CTaskSimpleEvasiveStep",0x86F1F4},
+{"CTaskSimpleFacial",0x870ab8},
+{"CTaskSimpleFall",0x870430},
+{"CTaskSimpleFight",0x86D684},
+{"CTaskSimpleFightingControl",0x86d700},
+{"CTaskSimpleFinishBrain",0x859d20},
+{"CTaskSimpleGangDriveBy",0x86D944},
+{"CTaskSimpleGetUp",0x8703E0},
+{"CTaskSimpleGiveCPR",0x86F4C8},
+{"CTaskSimpleGoTo",0x86fd1c},
+{"CTaskSimpleGoToPoint",0x86fd50},
+{"CTaskSimpleGoToPointFine",0x86F964},
+{"CTaskSimpleGunControl",0x86d76c},
+{"CTaskSimpleHailTaxi",0x0},
+{"CTaskSimpleHailTaxiAndPause",0x0},
+{"CTaskSimpleHandsUp",0x85a29c},
+{"CTaskSimpleHitByGunFromFront",0x86dc10},
+{"CTaskSimpleHitByGunFromLeft",0x86dc88},
+{"CTaskSimpleHitByGunFromRear",0x86dc4c},
+{"CTaskSimpleHitByGunFromRight",0x86dcc4},
+{"CTaskSimpleHitFromBack",0x86db70},
+{"CTaskSimpleHitFromBehind",0x86f168},
+{"CTaskSimpleHitFromFront",0x86e5ec},
+{"CTaskSimpleHitFromLeft",0x86dba4},
+{"CTaskSimpleHitFromRight",0x86dbd8},
+{"CTaskSimpleHitHead",0x86F1D0},
+{"CTaskSimpleHitWall",0x86F1A0},
+{"CTaskSimpleHoldEntity",0x870B2C},
+{"CTaskSimpleHurtPedWithCar",0x86f2e4},
+{"CTaskSimpleIKChain",0x86DB48},
+{"CTaskSimpleIKLookAt",0x86E37C},
+{"CTaskSimpleIKManager",0x86E358},
+{"CTaskSimpleIKPointArm",0x86E3A4},
+{"CTaskSimpleInAir",0x8704D8},
+{"CTaskSimpleJetPack",0x8705c4},
+{"CTaskSimpleJump",0x87054C},
+{"CTaskSimpleKillPedWithCar",0x86f2c0},
+{"CTaskSimpleLand",0x8704FC},
+{"CTaskSimpleLookAbout",0x0085A164},
+{"CTaskSimpleNone",0x859CFC},
+{"CTaskSimpleOnEscalator",0x85B8DC},
+{"CTaskSimplePause",0x85A278},
+{"CTaskSimplePickUpBike",0x86ece4},
+{"CTaskSimplePickUpEntity",0x870b50},
+{"CTaskSimplePlayHandSignalAnim",0x86D5B8},
+{"CTaskSimplePlayerOnFire",0x86e334},
+{"CTaskSimplePlayerOnFoot",0x8708ec},
+{"CTaskSimplePutDownEntity",0x870b74},
+{"CTaskSimpleRunAnim",0x86D528},
+{"CTaskSimpleRunAnimLoopedMiddle",0x0},
+{"CTaskSimpleRunNamedAnim",0x86D54C},
+{"CTaskSimpleRunTimedAnim",0x86d570},
+{"CTaskSimpleSay",0x85a1dc},
+{"CTaskSimpleScratchHead",0x85A100},
+{"CTaskSimpleSetCharDecisionMaker",0x859da0},
+{"CTaskSimpleSetCharIgnoreWeaponRangeFlag",0x859ebc},
+{"CTaskSimpleSetKindaStayInSamePlace",0x86dd74},
+{"CTaskSimpleSetPedAsAutoDriver",0x86eff4},
+{"CTaskSimpleSetStayInSamePlace",0x86DD50},
+{"CTaskSimpleShakeFist",0x870a94},
+{"CTaskSimpleSitDown",0x86def4},
+{"CTaskSimpleSitIdle",0x86df18},
+{"CTaskSimpleSlideToCoord",0x86FFEC},
+{"CTaskSimpleStandStill",0x86DD2C},
+{"CTaskSimpleStandUp",0x86df3c},
+{"CTaskSimpleStealthKill",0x86da74},
+{"CTaskSimpleSwim",0x870920},
+{"CTaskSimpleThrowControl",0x86D7B4},
+{"CTaskSimpleThrowProjectile",0x86d790},
+{"CTaskSimpleTired",0x86DED0},
+{"CTaskSimpleTogglePedThreatScanner",0x85A334},
+{"CTaskSimpleTriggerEvent",0x0},
+{"CTaskSimpleTriggerLookAt",0x86E3CC},
+{"CTaskSimpleTurn180",0x86e01c},
+{"CTaskSimpleUninterruptable",0x859580},
+{"CTaskSimpleUseAtm",0x85a134},
+{"CTaskSimpleUseGun",0x86D724},
+{"CTaskSimpleWaitForBus",0x86e1b8},
+{"CTaskSimpleWaitForPizza",0x86E1DC},
+{"CTaskSimpleWaitUntilAreaCodesMatch",0x86e544},
+{"CTaskSimpleWaitUntilLeaderAreaCodesMatch",0x86c7e8},
+{"CTaskSimpleWaitUntilPedIsInCar",0x86f0b8},
+{"CTaskSimpleWaitUntilPedIsOutCar",0x86F094}
+    };
+    static const auto dllTables=[] {
+        std::array<uintptr_t,std::size(tables)> result{};
+        for(size_t i=0;i<result.size();++i)result[i]=uintptr_t(ReversibleHooks::detail::GetVTableAddress(tables[i].name));
+        return result;
+    }();
+    for(size_t i=0;i<std::size(tables);++i)if(value==tables[i].canonical||value==dllTables[i])return json::array({"vtable",tables[i].name});
+    return Ptr(value);
+}
+inline json Words(const void* p,size_t n){json j=json::array();for(size_t i=0;i<n/4;++i)j.push_back(i==0?VmtIdentity355(static_cast<const uint32*>(p)[i]):Ptr(static_cast<const uint32*>(p)[i]));return j;}
+inline void* __cdecl New(size_t n){allocated=n;trace.push_back({"new",n});return arena.data();}
+inline int __fastcall Type(CTask*,void*){trace.push_back({"type",subType});return subType;}
+inline CPed* __cdecl Player(int id){trace.push_back({"player",id});return reinterpret_cast<CPed*>(player.data());}
+inline bool __fastcall IsPlayer(const CPed*p,void*){bool b=(scenario&(p==reinterpret_cast<CPed*>(ped.data())?1:2))!=0;trace.push_back({"player",Ptr(uintptr_t(p)),b});return b;}
+inline bool __cdecl Gang(int type){bool b=type>=7&&type<=16;return b;}
+inline bool __cdecl Friends(const CPed&a,const CPed&b){bool r=(scenario&4)==0;trace.push_back({"friends",Ptr(uintptr_t(&a)),Ptr(uintptr_t(&b)),r});return r;}
+inline CTask* __fastcall Active(CTaskManager*p,void*){bool yes=(scenario&8)==0;trace.push_back({"active",Ptr(uintptr_t(p)),yes});return yes?reinterpret_cast<CTask*>(subtask.data()):nullptr;}
+inline int __fastcall Kind(CTask*,void*){trace.push_back({"kind",0});return 0;}
+inline bool __fastcall Pavement(SurfaceInfos_c*,void*,SurfaceId surface){bool r=(scenario&16)==0;trace.push_back({"pavement",int(surface),r});return r;}
+inline bool __cdecl Busy(){bool r=(scenario&32)!=0;trace.push_back({"busy",r});return r;}
+inline bool __cdecl Riot(){bool r=(scenario&64)!=0;trace.push_back({"riot",r});return r;}
+inline CTask* __fastcall Find(CPedIntelligence*p,void*,int type){bool r=(scenario&128)!=0;trace.push_back({"find",Ptr(uintptr_t(p)),type,r});return r?reinterpret_cast<CTask*>(subtask.data()):nullptr;}
+inline CEvent* __fastcall Event(const CEventGroup*,void*,int type){trace.push_back({"event_find",type});return nullptr;}
+inline bool __cdecl LOS(const CVector&a,const CVector&b,bool c,bool d,bool e,bool f,bool g,bool h,bool i){bool r=(scenario&256)==0;trace.push_back({"los",std::bit_cast<uint32>(a.x),std::bit_cast<uint32>(a.y),std::bit_cast<uint32>(b.x),std::bit_cast<uint32>(b.y),c,d,e,f,g,h,i,r});return r;}
+inline CPedGroup* __cdecl Group(const CPed*p){bool r=p==reinterpret_cast<CPed*>(player.data())&&(scenario&512)==0;trace.push_back({"group",Ptr(uintptr_t(p)),r});return r?reinterpret_cast<CPedGroup*>(group.data()):nullptr;}
+inline int __fastcall Members(const CPedGroupMembership*,void*){trace.push_back({"members",1});return 1;}
+inline void __fastcall Target(CTaskComplexWander*,void*,const CPed*,CVector& out,const CNodeAddress&){out=CVector{0.f,0.f,0.f};trace.push_back({"target"});}
+inline CEvent* __fastcall AddEvent(CEventGroup*p,void*,CEvent* e,bool valid){int type=e->GetEventType();json payload=nullptr;auto*b=reinterpret_cast<uint8*>(e);if(type==EVENT_SEXY_VEHICLE)payload=Ptr(*reinterpret_cast<uintptr_t*>(b+12));else if(type==EVENT_CHAT_PARTNER)payload=json::array({bool(b[12]),Ptr(*reinterpret_cast<uintptr_t*>(b+16))});else payload=json::array({int(*reinterpret_cast<int16*>(b+14)),Ptr(*reinterpret_cast<uintptr_t*>(b+20))});trace.push_back({"add_event",Ptr(uintptr_t(p)),type,payload,valid});return nullptr;}
+inline void __fastcall Ref(CEntity*p,void*,CEntity**){trace.push_back({"reference",Ptr(uintptr_t(p))});}
+inline void __fastcall Clean(CEntity*p,void*,CEntity**){trace.push_back({"cleanup",Ptr(uintptr_t(p))});}
+inline ReversibleHooks::ReversibleHook::Base* FindHook(const char* c,const char* n){ReversibleHooks::ReversibleHook::Base* r{};ReversingProbe::PumpMessages();ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& cat){if(cat.Name()==c)for(auto& h:cat.Items())if(h->Name()==n)r=h.get();});return r;}
+inline void Update(){
+if(done)return;char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);auto dir=std::filesystem::path(exe).parent_path();if(!std::filesystem::exists(dir/"wander355-runtime.start")){done=true;return;}
+if(!log.is_open()){log.open(dir/"wander355-runtime.jsonl");ReversingProbe::InstallFailureCapture("wander355");Write({{"event","waiting_for_player"}});}if(!FindPlayerPed()||CCutsceneMgr::IsRunning())return;done=true;
+std::string only;{std::ifstream f(dir/"wander355-only.txt");if(f)std::getline(f,only);}subVT[4]=reinterpret_cast<void*>(&Type);subVT[11]=reinterpret_cast<void*>(&Kind);
+const auto savedTime=CTimer::GetTimeInMS();const auto savedFocus=CWorld::PlayerInFocus;auto* savedPlayer=CWorld::Players[0].m_pPed;bool pass=true,selected=false;int total=0;
+for(const auto& fn:fns){auto full=std::string(fn.cls)+"::"+fn.name;if(!only.empty()&&only!=full)continue;selected=true;auto*h=FindHook(fn.cls,fn.name);if(!h){Write({{"event","error"},{"reason","missing hook"},{"function",full}});return;}auto hs=h->Hooked(),hl=h->Locked();h->LockState(false);int failures=0;json coverage=json::object();{
+using ReversingProbe::EntryPatch;using std::bit_cast;
+EntryPatch ne(0x61A5A0,New),nd(bit_cast<uintptr_t>(&CTask::operator new),New);
+EntryPatch pe(0x5DF8F0,IsPlayer),pd(bit_cast<uintptr_t>(&CPed::IsPlayer),IsPlayer);
+EntryPatch fr(0x601D10,Friends),frd(bit_cast<uintptr_t>(&CPedIntelligence::AreFriends),Friends);
+EntryPatch ac(0x681720,Active),acd(bit_cast<uintptr_t>(&CTaskManager::GetActiveTask),Active);
+EntryPatch pa(0x55E7F0,Pavement),pad(bit_cast<uintptr_t>(&SurfaceInfos_c::IsPavement),Pavement);
+EntryPatch bu(0x4076A0,Busy),bud(bit_cast<uintptr_t>(&CStreaming::IsVeryBusy),Busy);
+EntryPatch ri(0x441C10,Riot),rid(bit_cast<uintptr_t>(&CGameLogic::LaRiotsActiveHere),Riot);
+EntryPatch fi(0x600EE0,Find),fid(bit_cast<uintptr_t>(&CPedIntelligence::FindTaskByType),Find);
+EntryPatch ev(0x4AB650,Event),evd(bit_cast<uintptr_t>(&CEventGroup::GetEventOfType),Event);
+EntryPatch los(0x56A490,LOS),losd(bit_cast<uintptr_t>(&CWorld::GetIsLineOfSightClear),LOS);
+EntryPatch gr(0x5F7E80,Group),grd(bit_cast<uintptr_t>(&CPedGroups::GetPedsGroup),Group);
+EntryPatch mem(0x5F6AA0,Members),memd(bit_cast<uintptr_t>(&CPedGroupMembership::CountMembersExcludingLeader),Members);
+EntryPatch ta(0x669F60,Target),tad(bit_cast<uintptr_t>(&CTaskComplexWander::ComputeTargetPos),Target);
+EntryPatch adde(0x4AB420,AddEvent),addd(bit_cast<uintptr_t>(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add)),AddEvent);
+EntryPatch refe(0x571B70,Ref),refd(bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference)),Ref);
+EntryPatch cle(0x571A00,Clean),cld(bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference)),Clean);
+for(int i=0;i<fn.cases;++i){scenario=i;subType=TASK_COMPLEX_WANDER;json result[2];for(int candidate=0;candidate<2;++candidate){h->State(candidate!=0);auto address=fn.slot<0?fn.address:*reinterpret_cast<uintptr_t*>(fn.vt+4*fn.slot);bool switches=fn.slot<0?ReversingProbe::JumpsToDll(fn.address)==(candidate!=0):(address<0x400000||address>=0x1000000)==(candidate!=0);pass&=switches;
+task.fill(0xCD);arena.fill(0xCD);ped.fill(0);player.fill(0);subtask.fill(0);allocated=0;trace=json::array();auto*t=reinterpret_cast<CTaskComplexWanderStandard*>(task.data());auto*p=reinterpret_cast<CPed*>(ped.data());auto*q=reinterpret_cast<CPed*>(player.data());Put(task.data(),0,fn.vt);Put<uint32>(task.data(),4,0);Put(task.data(),8,subtask.data());Put(subtask.data(),0,subVT.data());intel.fill(0);otherIntel.fill(0);vehicle.fill(0);handling.fill(0);matrix.fill(0);otherMatrix.fill(0);vehicleMatrix.fill(0);group.fill(0);Put(ped.data(),0x47C,intel.data());Put(player.data(),0x47C,otherIntel.data());Put(ped.data(),0x14,matrix.data());Put(player.data(),0x14,otherMatrix.data());Put(vehicle.data(),0x14,vehicleMatrix.data());reinterpret_cast<CMatrix*>(matrix.data())->GetForward()=CVector{0.f,1.f,0.f};reinterpret_cast<CMatrix*>(otherMatrix.data())->GetForward()=CVector{0.f,-1.f,0.f};p->GetPosition()=CVector{0.f,1.f,0.f};q->GetPosition()=CVector{0.f,2.f,0.f};auto*v=reinterpret_cast<CVehicle*>(vehicle.data());v->GetPosition()=CVector{0.f,float(i%7),0.f};v->m_pHandlingData=reinterpret_cast<tHandlingData*>(handling.data());v->m_pHandlingData->m_nMonetaryValue=(i&4)?40000:40001;v->m_fHealth=(i&8)?500.f:501.f;Put(intel.data(),0xE0+4*((i/8)%16),(i&16)?nullptr:vehicle.data());Put(intel.data(),0x130+4*((i/16)%16),player.data());t->m_nMoveState=static_cast<eMoveState>(i%3==0?PEDMOVE_WALK:PEDMOVE_RUN);t->m_nDir=uint8(i%8);t->m_bWanderSensibly=(i&2)!=0;t->m_nMinNextScanTime=0;t->m_LastNode.m_wAreaId=0;t->m_LastNode.m_wNodeId=0;t->m_NextNode.m_wAreaId=0;t->m_NextNode.m_wNodeId=0;p->m_nPedType=std::string(fn.name)=="WillChat"?static_cast<ePedType>(i%32):PED_TYPE_CIVMALE;q->m_nPedType=std::string(fn.name)=="WillChat"?static_cast<ePedType>((i/16)%32):PED_TYPE_CIVMALE;std::memcpy(taskVT.data(),reinterpret_cast<void*>(0x85A200),15*4);taskVT[4]=reinterpret_cast<void*>(&Type);taskVT[11]=reinterpret_cast<void*>(&Kind);Put(task.data(),0,taskVT.data());CWorld::PlayerInFocus=0;CWorld::Players[0].m_pPed=reinterpret_cast<CPlayerPed*>(q);*reinterpret_cast<uint32*>(0xB7CB84)=4000;
+
+uintptr_t ret=0;if(fn.slot==1)ret=uintptr_t(reinterpret_cast<CTask*(__thiscall*)(void*)>(address)(t));else if(std::string(fn.name)=="WillChat")ret=uintptr_t(reinterpret_cast<bool(__stdcall*)(const CPed&,const CPed&)>(address)(*p,*q));else if(std::string(fn.name)=="SetNextMinScanTime")reinterpret_cast<void(__thiscall*)(void*,CPed*)>(address)(t,p);else ret=uintptr_t(reinterpret_cast<bool(__thiscall*)(void*,CPed*)>(address)(t,p));
+
+if(candidate){coverage[ret?"nonnull":"null"]=coverage.value(ret?"nonnull":"null",0)+1;for(auto&e:trace){auto n=e[0].get<std::string>();coverage[n]=coverage.value(n,0)+1;}}
+result[candidate]={{"return",fn.slot==1?Ptr(ret):json(ret)},{"task",Words(task.data(),task.size())},{"ped",Words(ped.data(),ped.size())},{"subtask",Words(subtask.data(),subtask.size())},{"allocation",allocated?Words(arena.data(),allocated):json(nullptr)},{"trace",trace},{"switch",switches}};
+}bool equal=result[0]==result[1];pass&=equal;failures+=!equal;Write({{"event","comparison"},{"function",full},{"case",i},{"pair",total++},{"equal",equal},{"accepted",equal},{"original",result[0]},{"candidate",result[1]}});}
+}*reinterpret_cast<uint32*>(0xB7CB84)=savedTime;CWorld::PlayerInFocus=savedFocus;CWorld::Players[0].m_pPed=savedPlayer;h->State(hs);h->LockState(hl);auto require=[&](const char*n){if(!coverage.value(n,0)){pass=false;Write({{"event","error"},{"function",full},{"reason","missing coverage"},{"branch",n}});}};if(std::string(fn.name).starts_with("LookFor")){require("nonnull");require("add_event");}Write({{"event","function_summary"},{"function",full},{"cases",fn.cases},{"failures",failures},{"coverage",coverage}});}
+Write({{"event",pass&&selected?"complete":"error"},{"pairs",total},{"state_restored",CTimer::GetTimeInMS()==savedTime&&CWorld::Players[0].m_pPed==savedPlayer&&CWorld::PlayerInFocus==savedFocus}});
+}
+}

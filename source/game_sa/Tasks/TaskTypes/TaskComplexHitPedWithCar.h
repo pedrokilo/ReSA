@@ -42,7 +42,7 @@ private: // Wrappers for hooks
 public:
     CVehicle* m_Veh{};
     float     m_ImpulseMag{};
-    int32     m_PedHitSide{};
+    int32     m_PedHitSide; // Como el original: se escribe en CreateFirstSubTask.
     int32     m_DownTime{1000};
-    CVector   m_MoveDir{};
+    CVector   m_MoveDir; // Como el original: se escribe solamente para el paso evasivo.
 };            

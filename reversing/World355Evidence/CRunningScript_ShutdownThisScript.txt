@@ -1,0 +1,173 @@
+// CRunningScript::ShutdownThisScript @ 0x00465aa0 [0x465aa0..0x465bfa]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00465aa0(void)
+
+{
+  int iVar1;
+  int *piVar2;
+  int iVar3;
+  undefined4 uVar4;
+  int in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_00837cfb;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  *(undefined1 *)(in_ECX + 0xc4) = 0;
+  if (*(char *)(in_ECX + 199) != '\0') {
+    iVar1 = FUN_00470910(*(undefined4 *)(in_ECX + 0x10));
+    (&DAT_00a47b64)[iVar1 * 0x20] = (&DAT_00a47b64)[iVar1 * 0x20] + -1;
+  }
+  switch(*(undefined1 *)(in_ECX + 0xc9)) {
+  case 0:
+  case 2:
+  case 3:
+  case 5:
+    piVar2 = &DAT_00a48960;
+    if (*(char *)(in_ECX + 0xdc) == '\0') {
+      piVar2 = (int *)(in_ECX + 0x3c);
+    }
+    iVar1 = *piVar2 >> 8;
+    if (((*(char *)(iVar1 + DAT_00b74490[1]) == (char)*piVar2) &&
+        (iVar1 = iVar1 * 0x7c4 + *DAT_00b74490, iVar1 != 0)) &&
+       (*(uint *)(iVar1 + 0x474) = *(uint *)(iVar1 + 0x474) & 0xff7fffff,
+       *(char *)(in_ECX + 0xc9) == '\x05')) {
+      iVar3 = FUN_0061a5a0(8);
+      local_4 = 0;
+      if (iVar3 == 0) {
+        uVar4 = 0;
+      }
+      else {
+        uVar4 = FUN_00463640();
+      }
+      local_4 = 0xffffffff;
+      FUN_00635720(iVar1,uVar4);
+      ExceptionList = local_c;
+      return;
+    }
+    break;
+  case 1:
+  case 4:
+    piVar2 = &DAT_00a48960;
+    if (*(char *)(in_ECX + 0xdc) == '\0') {
+      piVar2 = (int *)(in_ECX + 0x3c);
+    }
+    iVar1 = *piVar2 >> 8;
+    if ((*(char *)(iVar1 + DAT_00b7449c[1]) == (char)*piVar2) &&
+       (iVar1 = iVar1 * 0x19c + *DAT_00b7449c, iVar1 != 0)) {
+      *(uint *)(iVar1 + 0x140) = *(uint *)(iVar1 + 0x140) & 0xffdfffff | 0x100000;
+    }
+  }
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00465AA0: push 0FFFFFFFFh
+00465AA2: push 837CFBh
+00465AA7: mov eax,dword ptr fs:[00000000h]
+00465AAD: push eax
+00465AAE: mov dword ptr fs:[00000000h],esp
+ 00
+00465AB5: push ecx
+00465AB6: push esi
+00465AB7: mov esi,ecx
+00465AB9: mov al,byte ptr [esi+000000C7h]
+00465ABF: test al,al
+00465AC1: push edi
+00465AC2: mov byte ptr [esi+000000C4h],0
+ 00
+00465AC9: je 00465AE8
+00465ACB: mov eax,dword ptr [esi+10h]
+00465ACE: push eax
+00465ACF: mov ecx,0A47B60h
+00465AD4: call 00470910
+00465AD9: shl eax,5
+00465ADC: lea ecx,[eax+00A47B64h]
+00465AE2: mov al,byte ptr [ecx]
+00465AE4: dec al
+00465AE6: mov byte ptr [ecx],al
+00465AE8: movsx eax,byte ptr [esi+000000C9h]
+ 00
+00465AEF: cmp eax,5
+00465AF2: ja 00465BEA
+00465AF8: jmp dword ptr [eax*4+00465BFCh]
+ 00
+00465AFF: mov al,byte ptr [esi+000000DCh]
+00465B05: test al,al
+00465B07: mov eax,0A48960h
+00465B0C: jne 00465B11
+00465B0E: lea eax,[esi+3Ch]
+00465B11: mov ecx,dword ptr [eax]
+00465B13: mov edx,dword ptr ds:[00B74490h]
+00465B19: mov edi,dword ptr [edx+4]
+00465B1C: mov eax,ecx
+00465B1E: sar eax,8
+00465B21: cmp byte ptr [eax+edi],cl
+00465B24: jne 00465BEA
+00465B2A: mov ecx,dword ptr [edx]
+00465B2C: imul eax,eax,7C4h
+00465B32: add eax,ecx
+00465B34: mov edi,eax
+00465B36: test edi,edi
+00465B38: je 00465BEA
+00465B3E: and dword ptr [edi+00000474h],0FF7FFFFFh
+00465B48: cmp byte ptr [esi+000000C9h],5
+ 05
+00465B4F: jne 00465BEA
+00465B55: push 8
+00465B57: call 0061A5A0
+00465B5C: add esp,4
+00465B5F: mov dword ptr [esp+8],eax
+00465B63: test eax,eax
+00465B65: mov dword ptr [esp+14h],0
+00465B6D: je 00465B78
+00465B6F: mov ecx,eax
+00465B71: call 00463640
+00465B76: jmp 00465B7A
+00465B78: xor eax,eax
+00465B7A: push eax
+00465B7B: push edi
+00465B7C: mov dword ptr [esp+1Ch],0FFFFFFFFh
+00465B84: call 00635720
+00465B89: add esp,8
+00465B8C: pop edi
+00465B8D: pop esi
+00465B8E: mov ecx,dword ptr [esp+4]
+00465B92: mov dword ptr fs:[00000000h],ecx
+ 00
+00465B99: add esp,10h
+00465B9C: ret
+00465B9D: mov al,byte ptr [esi+000000DCh]
+00465BA3: test al,al
+00465BA5: mov eax,0A48960h
+00465BAA: jne 00465BAF
+00465BAC: lea eax,[esi+3Ch]
+00465BAF: mov ecx,dword ptr [eax]
+00465BB1: mov edx,dword ptr ds:[00B7449Ch]
+00465BB7: mov esi,dword ptr [edx+4]
+00465BBA: mov eax,ecx
+00465BBC: sar eax,8
+00465BBF: cmp byte ptr [eax+esi],cl
+00465BC2: jne 00465BEA
+00465BC4: mov esi,dword ptr [edx]
+00465BC6: imul eax,eax,19Ch
+00465BCC: add eax,esi
+00465BCE: test eax,eax
+00465BD0: je 00465BEA
+00465BD2: mov ecx,dword ptr [eax+00000140h]
+00465BD8: and ecx,0FFDFFFFFh
+00465BDE: or ecx,100000h
+00465BE4: mov dword ptr [eax+00000140h],ecx
+00465BEA: mov ecx,dword ptr [esp+0Ch]
+00465BEE: pop edi
+00465BEF: pop esi
+00465BF0: mov dword ptr fs:[00000000h],ecx
+ 00
+00465BF7: add esp,10h
+00465BFA: ret

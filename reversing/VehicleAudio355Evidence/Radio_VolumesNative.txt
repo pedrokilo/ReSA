@@ -1,0 +1,59 @@
+static float CalculateRadioVolume355() {
+    const auto effects = AEAudioHardware.GetEffectsMasterScalingFactor();
+    const auto music = AEAudioHardware.GetMusicMasterScalingFactor();
+    const auto twenty = StaticRef<float>(0x858BA4);
+    const auto nine = StaticRef<float>(0x85EED4);
+    float result;
+    __asm {
+        fld effects
+        fdiv music
+        fldlg2
+        fxch st(1)
+        fyl2x
+        fmul twenty
+        fsub nine
+        fstp result
+    }
+    return result;
+
+}
+
+void CAERadioTrackManager::UpdateRadioVolumes() {
+    auto volume = -4.f;
+    if (!((StaticRef<uint8>(0xB7CB49) || StaticRef<uint8>(0xB7CB48)) && m_bEnabledInPauseMode)) {
+        if (CCutsceneMgr::IsRunning()) volume = -100.f;
+        else if (StaticRef<uint8>(0xB6F065)) volume = -16.f;
+        else if (AEAudioHardware.GetEffectsMasterScalingFactor() > 0.f && AEAudioHardware.GetMusicMasterScalingFactor() > 0.f) {
+            bool duck = StaticRef<uint8>(0xB613E4) != 0;
+            if (!duck) {
+                for (uint8 slot = 0; slot < 2; ++slot) {
+                    if (!AudioEngine.IsMissionAudioSampleFinished(slot) && AudioEngine.GetMissionAudioEvent(slot) != 65535) {
+                        auto* position = AudioEngine.GetMissionAudioPosition(slot);
+                        if (!position) { duck = true; break; }
+                        CVector relative;
+                        CAEAudioEnvironment::GetPositionRelativeToCamera_Vector(&relative, position);
+                        if (relative.Magnitude() <= 15.f) { duck = true; break; }
+                    }
+                }
+            }
+            if (duck) {
+                const auto first = CalculateRadioVolume355();
+                const auto attenuation = first < 0.f ? CalculateRadioVolume355() : 0.f;
+                m_f80 = attenuation;
+                m_f84 = StaticRef<float>(0x85904C) * attenuation;
+                volume = attenuation - 4.f;
+            } else if (m_f80 < 0.f) {
+                const auto increased = m_f84 + m_f80;
+                m_f80 = increased < 0.f ? increased : 0.f;
+                volume = m_f80 - 4.f;
+            }
+        }
+        if (AudioEngine.IsAmbienceRadioActive()) volume -= 20.f;
+    }
+    if (m_bBassEnhance) {
+        const auto bass = int8(m_ActiveSettings.BassSetting);
+        if (bass == 1) volume -= 2.f;
+        else if (bass == 2) volume += 1.5f;
+    }
+    AEAudioHardware.SetChannelVolume(int16(m_HwClientHandle), 0, volume, 0);
+}

@@ -1,0 +1,69 @@
+void CTrain::AddNearbyPedAsRandomPassenger() {
+    auto* player = FindPlayerPed(-1);
+    if (player->m_pVehicle == this) return;
+    auto* active = player->GetTaskManager().m_aPrimaryTasks[TASK_PRIMARY_PRIMARY];
+    if (active && (int32(active->GetTaskType()) == 701 || int32(active->GetTaskType()) == 700) && *reinterpret_cast<CVehicle**>(reinterpret_cast<uint8*>(active) + 0xC) == this) return;
+    const auto clockwise = bool(trainFlags.bClockwiseDirection);
+    if (m_nNumPassengersToLeave == m_nNumPassengersToEnter) return;
+    if (m_pTemporaryPassenger) {
+        const auto leftTrain = m_pTemporaryPassenger->bJustGotOffTrain;
+        const auto inVehicle = m_pTemporaryPassenger->bInVehicle;
+        if (leftTrain == inVehicle) return;
+        if (m_pTemporaryPassenger->GetIntelligence()->FindTaskByType(static_cast<eTaskType>(707))) return;
+        m_pTemporaryPassenger->CleanUpOldReference(reinterpret_cast<CEntity**>(&m_pTemporaryPassenger));
+        auto* previous = m_pTemporaryPassenger;
+        if (!previous->bJustGotOffTrain && previous->bInVehicle && previous->m_pVehicle == this) CPopulation::RemovePed(previous);
+        m_pTemporaryPassenger = nullptr;
+    }
+    const auto position = GetPosition();
+    const auto right = GetRight();
+    const auto originDot = (position.z * right.z + position.y * right.y) + position.x * right.x;
+    CPed* closest = nullptr;
+    float closestDistance = 999999.f;
+    auto* pool = GetPedPool();
+    for (int32 i = int32(pool->GetSize()) - 1; i >= 0; --i) {
+        auto* ped = pool->GetAt(i);
+        if (!ped || ped->GetCreatedBy() != 1 || CPedGroups::GetPedsGroup(ped) || ped->GetPlayerData() || int32(ped->m_nPedType) == 6 || ped->bInVehicle || ped->bJustGotOffTrain) continue;
+        const auto state = int32(ped->m_nPedState);
+        if (state == 54 || state == 55 || state == 56 || ped->GetIntelligence()->FindTaskByType(static_cast<eTaskType>(700))) continue;
+        const auto& current = ped->GetPosition();
+        const auto& trainPosition = GetPosition();
+        const auto dx = current.x - trainPosition.x;
+        const auto dy = current.y - trainPosition.y;
+        const auto distance = dx * dx + dy * dy;
+        if (!(distance <= 625.f)) continue;
+        const auto side = (current.z * m_matrix->GetRight().z + current.y * m_matrix->GetRight().y) + current.x * m_matrix->GetRight().x - originDot;
+        if ((!clockwise && side <= 0.f) || (clockwise && side >= 0.f)) {
+            if (distance < closestDistance) {closest = ped;closestDistance = distance;}
+        }
+    }
+    if (!closest) return;
+    CVector doorPosition;
+    int32 door = 0;
+    CCarEnterExit::GetNearestCarDoor(closest, this, doorPosition, door);
+    CMatrix inverse;
+    Invert(*m_matrix, inverse);
+    auto relative = inverse.TransformPoint(doorPosition);
+    if (!clockwise) relative -= GetRight();
+    else relative += GetRight();
+    // These existing task constructors and sequencing calls remain dependencies outside this scope.
+    auto* seekStorage = CTask::operator new(0x58);
+    auto* seek = seekStorage ? reinterpret_cast<CTask*(__thiscall*)(void*,CEntity*,int32,int32,float,float,float,bool,bool)>(0x661DC0)(seekStorage, this, 50000, 1000, StaticRef<float>(0x86FC2C), StaticRef<float>(0x86FC28), StaticRef<float>(0x86FC30), true, true) : nullptr;
+    *reinterpret_cast<CVector*>(reinterpret_cast<uint8*>(seek) + 0x44) = relative;
+    *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(seek) + 0x50) = 7;
+    auto* sequenceStorage = CTask::operator new(0x40);
+    auto* sequence = sequenceStorage ? reinterpret_cast<CTask*(__thiscall*)(void*)>(0x632BD0)(sequenceStorage) : nullptr;
+    const auto append = reinterpret_cast<bool(__thiscall*)(CTask*,CTask*)>(0x632D10);
+    append(sequence, seek);
+    auto* enterStorage = CTask::operator new(0x50);
+    CTask* enter = nullptr;
+    if (enterStorage) {
+        if (!clockwise) enter = reinterpret_cast<CTask*(__thiscall*)(void*,CVehicle*)>(0x6402F0)(enterStorage, this);
+        else enter = reinterpret_cast<CTask*(__thiscall*)(void*,CVehicle*,int32,bool)>(0x640340)(enterStorage, this, 0, false);
+    }
+    append(sequence, enter);
+    reinterpret_cast<void(__thiscall*)(CTaskManager*,CTask*,ePrimaryTasks,bool)>(0x681AF0)(&closest->GetTaskManager(), sequence, TASK_PRIMARY_PRIMARY, false);
+    m_nNumPassengersToLeave = uint8(m_nNumPassengersToLeave + 1);
+    m_pTemporaryPassenger = closest;
+    closest->RegisterReference(reinterpret_cast<CEntity**>(&m_pTemporaryPassenger));
+}

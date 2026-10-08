@@ -6,19 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CWaterLevel
- * Reconstrucción: INCOMPLETA — 25/30 funciones reconstruidas.
- * Pendientes de reconstruir: 5.
+ * Reconstrucción: COMPLETA — 30/30 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 5.
- * Validación registrada: 0/30 entradas.
+ * Validación registrada: 5/30 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   AddWaveToResult | 0x006E81E0 | S
- *   FindNearestWaterAndItsFlow | 0x006E9D70 | S
- *   GetWaterLevelNoWaves | 0x006E8580 | S
- *   RenderWater | 0x006EF650 | S
- *   RenderWaterFog | 0x006E7760 | S
  * BLOQUEADAS (nombre | dirección | tipo):
  *   AddWaveToResult | 0x006E81E0 | S
  *   FindNearestWaterAndItsFlow | 0x006E9D70 | S
@@ -30,6 +24,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "WaterLevel.h"
+#include "PostEffects.h"
 #include <sstream>
 
 #define TRIANGLE_ARGS_OUT X1, Y1, P1, X2, Y2, P2, X3, Y3, P3
@@ -72,12 +67,12 @@ void CWaterLevel::InjectHooks() {
 
     RH_ScopedOverloadedInstall(GetWaterLevel, "", 0x6EB690, bool(*)(float, float, float, float&, uint8, CVector*));
     RH_ScopedGlobalInstall(SetUpWaterFog, 0x6EA9F0);
-    RH_ScopedGlobalInstall(FindNearestWaterAndItsFlow, 0x6E9D70, { .reversed = false });
-    RH_ScopedGlobalInstall(GetWaterLevelNoWaves, 0x6E8580, { .reversed = false });
-    RH_ScopedGlobalInstall(RenderWaterFog, 0x6E7760, { .reversed = false });
+    RH_ScopedGlobalInstall(FindNearestWaterAndItsFlow, 0x6E9D70);
+    RH_ScopedGlobalInstall(GetWaterLevelNoWaves, 0x6E8580);
+    RH_ScopedGlobalInstall(RenderWaterFog, 0x6E7760);
     RH_ScopedGlobalInstall(CalculateWavesOnlyForCoordinate, 0x6E6EF0);
-    RH_ScopedGlobalInstall(RenderWater, 0x6EF650, { .reversed = false });
-    RH_ScopedGlobalInstall(AddWaveToResult, 0x6E81E0, { .reversed = false });
+    RH_ScopedGlobalInstall(RenderWater, 0x6EF650);
+    RH_ScopedGlobalInstall(AddWaveToResult, 0x6E81E0);
     RH_ScopedGlobalInstall(SetCameraRange, 0x6E9C80);
 }
 
@@ -219,10 +214,73 @@ void CWaterLevel::Shutdown() {
     }
 }
 
+static float WaterInterpolateWave(float base, float alongX, float alongY, float fractionX, float fractionY, float level, bool lower) {
+    float result;
+    __asm {
+        fld alongX
+        fsub base
+        cmp lower, 0
+        je upperX
+        fmul fractionX
+        jmp yTerm
+    upperX:
+        fld dword ptr ds:[0x858624]
+        fsub fractionX
+        fmulp st(1), st
+    yTerm:
+        fld alongY
+        fsub base
+        cmp lower, 0
+        je upperY
+        fmul fractionY
+        jmp sumTerms
+    upperY:
+        fld dword ptr ds:[0x858624]
+        fsub fractionY
+        fmulp st(1), st
+    sumTerms:
+        faddp st(1), st
+        fadd level
+        fadd base
+        fstp result
+    }
+    return result;
+}
+
 // 0x6E81E0
 void CWaterLevel::AddWaveToResult(float x, float y, float* pfWaterLevel, float fUnkn1, float fUnkn2, CVector* pVecNormal)
 {
-    plugin::Call<0x6E81E0, float, float, float*, float, float, CVector*>(x, y, pfWaterLevel, fUnkn1, fUnkn2, pVecNormal);
+    const float halfX = x * 0.5f, halfY = y * 0.5f;
+    const double floorX = std::floor(double(halfX)), floorY = std::floor(double(halfY));
+    const float fractionX = float(double(halfX) - floorX), fractionY = float(double(halfY) - floorY);
+    const auto ix = int32(floorX * 2.0), iy = int32(floorY * 2.0);
+    float base = 0.0f, alongX = 0.0f, alongY = 0.0f;
+    const bool lower = double(fractionX) + double(fractionY) < 1.0;
+    if (lower) {
+        CalculateWavesOnlyForCoordinate2(ix, iy, &base, fUnkn1, fUnkn2);
+        CalculateWavesOnlyForCoordinate2(ix + 2, iy, &alongX, fUnkn1, fUnkn2);
+        CalculateWavesOnlyForCoordinate2(ix, iy + 2, &alongY, fUnkn1, fUnkn2);
+        const float dx = alongX - base, dy = alongY - base;
+        if (pVecNormal) {
+            *pfWaterLevel = WaterInterpolateWave(base, alongX, alongY, fractionX, fractionY, *pfWaterLevel, lower);
+            *pVecNormal = CVector{-2.0f * dx, -2.0f * dy, 4.0f};
+            pVecNormal->Normalise();
+        } else {
+            *pfWaterLevel = WaterInterpolateWave(base, alongX, alongY, fractionX, fractionY, *pfWaterLevel, lower);
+        }
+    } else {
+        CalculateWavesOnlyForCoordinate2(ix + 2, iy + 2, &base, fUnkn1, fUnkn2);
+        CalculateWavesOnlyForCoordinate2(ix, iy + 2, &alongX, fUnkn1, fUnkn2);
+        CalculateWavesOnlyForCoordinate2(ix + 2, iy, &alongY, fUnkn1, fUnkn2);
+        const float dx = alongX - base, dy = alongY - base;
+        if (pVecNormal) {
+            *pfWaterLevel = WaterInterpolateWave(base, alongX, alongY, fractionX, fractionY, *pfWaterLevel, lower);
+            *pVecNormal = CVector{2.0f * dx, 2.0f * dy, 4.0f};
+            pVecNormal->Normalise();
+        } else {
+            *pfWaterLevel = WaterInterpolateWave(base, alongX, alongY, fractionX, fractionY, *pfWaterLevel, lower);
+        }
+    }
 }
 
 // 0x6EE240
@@ -667,14 +725,102 @@ void CWaterLevel::SetUpWaterFog(int32 minX, int32 minY, int32 maxX, int32 maxY) 
     ms_WaterFog.z[idx]    = fogZ;
 }
 
+static double WaterNearestDistance(double x, double y) {
+    double result;
+    __asm {
+        fld y
+        fmul st, st
+        fld x
+        fmul st, st
+        faddp st(1), st
+        fsqrt
+        fstp result
+    }
+    return result;
+}
+
 // 0x6E9D70
 void CWaterLevel::FindNearestWaterAndItsFlow() {
-    plugin::Call<0x6E9D70>();
+    const auto& position = TheCamera.GetPosition();
+    const float x = position.x, y = position.y;
+    if (!(x > -3000.0f && x < 3000.0f && y > -3000.0f && y < 3000.0f)) {
+        TheCamera.m_fDistanceToWater = 0.0f;
+        TheCamera.m_fHeightOfNearestWater = 0.0f;
+        m_CurrentDesiredFlow.x = 0.0f; m_CurrentDesiredFlow.y = 0.0f;
+        return;
+    }
+    float nearest = 10000000.0f, nearestWaves = 10000000.0f, height = 0.0f;
+    for (int32 i = 0; i < int32(NumWaterQuads); ++i) {
+        const auto& quad = WaterQuads[i];
+        const auto& a = m_aVertices[quad.verts[0]];
+        const auto& b = m_aVertices[quad.verts[1]];
+        const auto& c = m_aVertices[quad.verts[2]];
+        double dx = x < a.x ? double(a.x) - x : x > b.x ? double(x) - b.x : 0.0;
+        double dy = y < a.y ? double(a.y) - y : y > c.y ? double(y) - c.y : 0.0;
+        const double distance = WaterNearestDistance(dx, dy);
+        bool waves = false;
+        for (const auto index : quad.verts) {
+            const auto& vertex = m_aVertices[index];
+            waves |= vertex.rp.bigWaves != 0.0f || vertex.rp.smallWaves != 0.0f;
+        }
+        if (distance < nearestWaves && waves) {
+            nearestWaves = float(distance);
+            height = a.rp.z;
+        }
+        if (distance < nearest) {
+            nearest = float(distance);
+            std::array<float, 4> squared;
+            for (size_t k = 0; k < 4; ++k) {
+                const auto& vertex = m_aVertices[quad.verts[k]];
+                const double vx = double(x) - vertex.x, vy = double(y) - vertex.y;
+                squared[k] = float(vy * vy + vx * vx);
+            }
+            size_t chosen;
+            if (squared[0] < squared[1] && squared[0] < squared[2] && squared[0] < squared[3]) chosen = 0;
+            else if (squared[1] < squared[2] && squared[1] < squared[3]) chosen = 1;
+            else if (squared[2] < squared[3]) chosen = 2;
+            else chosen = 3;
+            const auto& vertex = m_aVertices[quad.verts[chosen]];
+            m_CurrentDesiredFlow.x = float(vertex.rp.flowX) * (1.0f / 64.0f);
+            m_CurrentDesiredFlow.y = float(vertex.rp.flowY) * (1.0f / 64.0f);
+        }
+    }
+    TheCamera.m_fDistanceToWater = nearestWaves;
+    TheCamera.m_fHeightOfNearestWater = height;
 }
 
 // 0x6E8580
 bool CWaterLevel::GetWaterLevelNoWaves(CVector pos, float * pOutWaterLevel, float * pOutBigWaves, float * pOutSmallWaves) {
-    return plugin::CallAndReturn<bool, 0x6E8580, CVector, float *, float *, float *>(pos, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
+    // The EXE evaluates the multiply/add in x87 before passing a double to floor.
+    const auto blockIndex = [](float coord) -> int32 {
+        const auto value = std::floor(double(coord) * double(0.002f) + 6.0);
+        if (!std::isfinite(value) || value < double(INT32_MIN) || value > double(INT32_MAX)) return INT32_MIN;
+        return int32(value);
+    };
+    const auto x = blockIndex(pos.x), y = blockIndex(pos.y);
+    if (x < 0 || x >= 12 || y < 0 || y >= 12) {
+        *pOutWaterLevel = 0.0f;
+        if (pOutBigWaves) *pOutBigWaves = 1.0f;
+        if (pOutSmallWaves) *pOutSmallWaves = 0.0f;
+        return true;
+    }
+    const auto check = [&](const PolyInfo& info) {
+        switch (info.Type()) {
+        case PolyInfo::PType::SINGLE_QUAD:
+            return plugin::CallAndReturn<bool, 0x6E5BB0>(&WaterQuads[info.Id()], pos.x, pos.y, pos.z, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
+        case PolyInfo::PType::SINGLE_TRI:
+            return plugin::CallAndReturn<bool, 0x6E5E90>(&WaterTriangles[info.Id()], pos.x, pos.y, pos.z, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
+        default:
+            return false;
+        }
+    };
+    const auto& info = m_BlockPolyInfo[x][y];
+    if (info.Type() == PolyInfo::PType::NONE) return false;
+    if (info.Type() != PolyInfo::PType::COMBO) return check(info);
+    for (uint32 i = info.Id(); m_PolyCombos[i].Type() != PolyInfo::PType::NONE; ++i) {
+        if (check(m_PolyCombos[i])) return true;
+    }
+    return false;
 }
 
 bool CWaterLevel::GetWaterDepth(const CVector& vecPos, float* pOutWaterDepth, float* pOutWaterLevel, float* pOutGroundLevel)
@@ -687,7 +833,81 @@ bool CWaterLevel::GetWaterDepth(const CVector& vecPos, float* pOutWaterDepth, fl
 void CWaterLevel::RenderWaterFog() {
     ZoneScoped;
 
-    plugin::Call<0x6E7760>();
+    if (!m_bWaterFog || !m_bWaterFogScript) return;
+    const auto truncate = [](double value) -> int32 {
+        if (!std::isfinite(value) || value < -9223372036854775808.0 || value >= 9223372036854775808.0) return 0;
+        return int32(uint32(int64(value)));
+    };
+    const int32 layers = truncate(double(int32(m_WaterFogDensity)) * CWeather::WaterFogFXControl);
+    if (!(CWeather::UnderWaterness < CPostEffects::m_fWaterFXStartUnderWaterness) || !layers) {
+        gWaterFogIndex = 0;
+        return;
+    }
+    const float step = float(double(m_fWaterFogHeight) / float(layers));
+    const int32 count = int32(gWaterFogIndex);
+    gWaterFogIndex = 0;
+    auto& insideFade = StaticRef<float>(0xC228EC);
+    auto& insideHold = StaticRef<float>(0xC228F0);
+    const float fadeSpeed = StaticRef<float>(0x8D37F0);
+    const float timeStep = CTimer::GetTimeStep();
+    if (gbPlayerIsInsideWaterFog) {
+        const double fade = double(timeStep) * fadeSpeed + insideFade;
+        insideFade = float(fade);
+        if (fade > 1.0) insideFade = 1.0f;
+        insideHold = 40.0f;
+    } else {
+        const double hold = double(insideHold) - timeStep;
+        insideHold = float(hold);
+        if (hold <= 0.0) {
+            insideHold = 0.0f;
+            const double fade = double(insideFade) - double(timeStep) * fadeSpeed;
+            insideFade = float(fade);
+            if (fade < 0.0) insideFade = 0.0f;
+        }
+    }
+    gbPlayerIsInsideWaterFog = false;
+    const auto insideColor = StaticRef<CRGBA>(0x8D37EC);
+    if (insideFade > 0.0f) {
+        const int32 alphaBase = truncate(double(insideColor.a) * insideFade);
+        const auto alpha = uint8(truncate(double(alphaBase) * CWeather::WaterFogFXControl));
+        CPostEffects::ImmediateModeRenderStatesStore();
+        CPostEffects::ImmediateModeRenderStatesSet();
+        CPostEffects::DrawQuad(0.0f, 0.0f, float(RsGlobal.maximumWidth), float(RsGlobal.maximumHeight), insideColor.r, insideColor.g, insideColor.b, alpha, nullptr);
+        CPostEffects::ImmediateModeRenderStatesReStore();
+        if (insideFade == 1.0f) return;
+    }
+    CPostEffects::ImmediateModeRenderStatesStore();
+    CPostEffects::ImmediateModeRenderStatesSet();
+    RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(TRUE));
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, nullptr);
+    const int32 visibleLayers = truncate((1.0 - double(insideFade)) * layers);
+    const auto color = StaticRef<CRGBA>(0x8D37E8);
+    int32 vertices = 0;
+    const auto flush = [&] {
+        if (vertices && RwIm3DTransform(TempBufferVertices.m_3d, vertices, nullptr, rwIM3D_VERTEXXYZ)) {
+            RwIm3DRenderPrimitive(rwPRIMTYPETRILIST);
+            RwIm3DEnd();
+        }
+        vertices = 0;
+    };
+    for (int32 i = 0; i < count; ++i) {
+        const float minX = float(ms_WaterFog.minX[i]), maxX = float(ms_WaterFog.maxX[i]);
+        const float minY = float(ms_WaterFog.minY[i]), maxY = float(ms_WaterFog.maxY[i]);
+        const float xs[]{minX,maxX,maxX,minX,maxX,minX};
+        const float ys[]{minY,minY,maxY,minY,maxY,maxY};
+        float z = ms_WaterFog.z[i];
+        for (int32 layer = 0; layer < visibleLayers; ++layer) {
+            for (int32 k = 0; k < 6; ++k) {
+                auto* vertex = &TempBufferVertices.m_3d[vertices++];
+                RwIm3DVertexSetPos(vertex, xs[k], ys[k], z);
+                RwIm3DVertexSetRGBA(vertex, color.r, color.g, color.b, color.a);
+                if (vertices == 2046) flush();
+            }
+            z = float(double(z) + step);
+        }
+    }
+    flush();
+    CPostEffects::ImmediateModeRenderStatesReStore();
 }
 
 // 0x6E6EF0
@@ -828,9 +1048,225 @@ void CWaterLevel::RenderHighDetailWaterTriangle(int32 X1, int32 Y1, CRenPar P1, 
     plugin::CallAndReturn<void, 0x6EDDC0, int32, int32, CRenPar, int32, int32, CRenPar, int32, int32, CRenPar>(X1, Y1, P1, X2, Y2, P2, X3, Y3, P3);
 }
 
+namespace {
+void WaterRenderShifts() {
+    int32 randomValue; float angleSpill, noiseMultiplier, cosineSpill;
+    __asm {
+        fld dword ptr ds:[00B7CB5Ch]
+        fmul dword ptr ds:[00C22890h]
+        fmul dword ptr ds:[008D392Ch]
+        fld dword ptr ds:[00859018h]
+        fmul st,st(1)
+        fadd dword ptr ds:[008D3824h]
+        fstp dword ptr ds:[008D3824h]
+        fld dword ptr ds:[00B7CB5Ch]
+        fmul dword ptr ds:[00C22894h]
+        fmul dword ptr ds:[008D392Ch]
+        fld dword ptr ds:[00859018h]
+        fmul st,st(1)
+        fadd dword ptr ds:[008D3828h]
+        fstp dword ptr ds:[008D3828h]
+        fld dword ptr ds:[008D3824h]
+        fcomp dword ptr ds:[00858624h]
+        fnstsw ax
+        test ah,41h
+        jne water006EF956
+        fld dword ptr ds:[008D3824h]
+        fsub dword ptr ds:[00858624h]
+        fstp dword ptr ds:[008D3824h]
+    water006EF956:
+        fld dword ptr ds:[008D3828h]
+        fcomp dword ptr ds:[00858624h]
+        fnstsw ax
+        test ah,41h
+        jne water006EF97B
+        fld dword ptr ds:[008D3828h]
+        fsub dword ptr ds:[00858624h]
+        fstp dword ptr ds:[008D3828h]
+    water006EF97B:
+        fxch st(1)
+        fmul dword ptr ds:[00858CECh]
+        fadd dword ptr ds:[008D382Ch]
+        fstp dword ptr ds:[008D382Ch]
+        fmul dword ptr ds:[00858CECh]
+        fadd dword ptr ds:[008D3830h]
+        fstp dword ptr ds:[008D3830h]
+        fld dword ptr ds:[008D382Ch]
+        fcomp dword ptr ds:[00858624h]
+        fnstsw ax
+        test ah,41h
+        jne water006EF9C6
+        fld dword ptr ds:[008D382Ch]
+        fsub dword ptr ds:[00858624h]
+        fstp dword ptr ds:[008D382Ch]
+    water006EF9C6:
+        fld dword ptr ds:[008D3830h]
+        fcomp dword ptr ds:[00858624h]
+        fnstsw ax
+        test ah,41h
+        jne water006EF9EB
+        fld dword ptr ds:[008D3830h]
+        fsub dword ptr ds:[00858624h]
+        fstp dword ptr ds:[008D3830h]
+    water006EF9EB:
+        mov eax,dword ptr ds:[00B7CB84h]
+        mov edx,eax
+        and edx,0FFFh
+        test edx,edx
+        mov dword ptr randomValue,edx
+        fild dword ptr randomValue
+        jge water006EFA0A
+        fadd dword ptr ds:[00858C54h]
+    water006EFA0A:
+        fmul dword ptr ds:[00872174h]
+        and eax,1FFFh
+        test eax,eax
+        mov dword ptr randomValue,eax
+        fld st(0)
+        fsin
+        fmul dword ptr ds:[00C812E8h]
+        fmul dword ptr ds:[00859018h]
+        fadd dword ptr ds:[008D3824h]
+        fstp dword ptr ds:[00C21184h]
+        fcos
+        fmul dword ptr ds:[00C812E8h]
+        fmul dword ptr ds:[00859018h]
+        fadd dword ptr ds:[008D3828h]
+        fstp dword ptr ds:[00C21180h]
+        fild dword ptr randomValue
+        jge water006EFA5D
+        fadd dword ptr ds:[00858C54h]
+    water006EFA5D:
+        fmul dword ptr ds:[00872170h]
+        mov eax,dword ptr ds:[008D382Ch]
+        mov ecx,dword ptr ds:[008D3928h]
+        mov dword ptr ds:[00C2117Ch],eax
+        fstp dword ptr angleSpill
+        mov dword ptr noiseMultiplier,ecx
+        fld dword ptr angleSpill
+        fcos
+        fst dword ptr cosineSpill
+        fmul dword ptr ds:[0087216Ch]
+        fadd dword ptr ds:[008D3830h]
+        fstp dword ptr ds:[00C21178h]
+        mov eax, 00821B1Eh
+        call eax
+        mov edx,dword ptr ds:[008D3928h]
+        mov dword ptr randomValue,eax
+        fild dword ptr randomValue
+        fmul dword ptr ds:[00858C7Ch]
+        fmul dword ptr noiseMultiplier
+        mov dword ptr noiseMultiplier,edx
+        fstp dword ptr ds:[00C21174h]
+        mov eax, 00821B1Eh
+        call eax
+        mov dword ptr randomValue,eax
+        fild dword ptr randomValue
+        fmul dword ptr ds:[00858C7Ch]
+        fld dword ptr angleSpill
+        fsin
+        fmul dword ptr ds:[008D3834h]
+        fadd dword ptr ds:[00C21174h]
+        fstp dword ptr ds:[00C21174h]
+        fmul dword ptr noiseMultiplier
+        fld dword ptr cosineSpill
+        fmul dword ptr ds:[008D3834h]
+        faddp st(1),st
+        fstp dword ptr ds:[00C21170h]
+    }
+}
+}
+
 // 0x6EF650
 void CWaterLevel::RenderWater() {
-    plugin::Call<0x6EF650>();
+    if (!CGame::CanSeeWaterFromCurrArea()) return;
+    SetCameraRange();
+    plugin::Call<0x734650>();
+    uiTempBufferIndicesStored = 0;
+    uiTempBufferVerticesStored = 0;
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, seabd32Raster);
+    RwRenderStateSet(rwRENDERSTATEFOGENABLE, RWRSTATE(TRUE));
+    RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(rwBLENDSRCALPHA));
+    RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(rwBLENDINVSRCALPHA));
+    RwRenderStateSet(static_cast<RwRenderState>(30), nullptr);
+    RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
+    for (int32 i = 0; i < int32(m_NumBlocksOutsideWorldToBeRendered); ++i) {
+        const int32 x = m_BlocksToBeRenderedOutsideWorldX[i], y = m_BlocksToBeRenderedOutsideWorldY[i];
+        const auto& camera = TheCamera.GetPosition();
+        const double dx = double(camera.x) - ((double(x) + 0.5) * 500.0 - 3000.0);
+        const double dy = double(camera.y) - ((double(y) + 0.5) * 500.0 - 3000.0);
+        const bool distant = std::sqrt(dx * dx + dy * dy) >= StaticRef<float>(0x8D3934);
+        const auto segment = [&](float minX, float maxX, float minY, float maxY) {
+            if (distant) plugin::Call<0x6E6870, int32, int32, float, float, float, float>(x, y, minX, maxX, minY, maxY);
+            else plugin::Call<0x6E6A10, int32, int32, float, float, float, float>(x, y, minX, maxX, minY, maxY);
+        };
+        if (x < 0 || x > 11 || y < 0 || y > 11) segment(0.0f,1.0f,0.0f,1.0f);
+        else {
+            if (x == 0) segment(0.0f,0.04f,0.0f,1.0f);
+            else if (x == 11) segment(0.96f,1.0f,0.0f,1.0f);
+            if (y == 0) segment(0.0f,1.0f,0.0f,0.04f);
+            else if (y == 11) segment(0.0f,1.0f,0.96f,1.0f);
+        }
+    }
+    const auto flush = [] {
+        if (uiTempBufferVerticesStored) {
+            LittleTest();
+            if (RwIm3DTransform(TempBufferVertices.m_3d, uiTempBufferVerticesStored, nullptr, rwIM3D_VERTEXUV)) {
+                RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, uiTempBufferIndicesStored);
+                RwIm3DEnd();
+            }
+        }
+        uiTempBufferVerticesStored = 0; uiTempBufferIndicesStored = 0;
+    };
+    flush();
+    RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(FALSE));
+    RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(StaticRef<uint32>(0x8D3930)));
+    WaterRenderShifts();
+    const auto lowByte = [](float value) {return uint8(int64(value));};
+    WaterColor.r = lowByte(StaticRef<float>(0xB7C508));
+    WaterColor.g = lowByte(StaticRef<float>(0xB7C50C));
+    WaterColor.b = lowByte(StaticRef<float>(0xB7C510));
+    WaterColorTriangle = WaterColor;
+    WaterLayerAlpha[1] = uint32(int64(double(StaticRef<float>(0xB7C514)) * 0.5));
+    const int32 alpha = int32(WaterLayerAlpha[1]);
+    const int32 combined = int32(uint32(alpha) << 8) / (256 - alpha);
+    WaterLayerAlpha[0] = uint32(std::min(combined, 255));
+    uiTempBufferVerticesStored = 0; uiTempBufferIndicesStored = 0;
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, waterclear256Raster);
+    RwRenderStateSet(rwRENDERSTATEFOGENABLE, RWRSTATE(TRUE));
+    RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(rwBLENDSRCALPHA));
+    RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(rwBLENDINVSRCALPHA));
+    for (int32 i = 0; i < int32(NumWaterTriangles); ++i) {
+        auto& triangle = WaterTriangles[i];
+        if (!triangle.bToBeRendered) continue;
+        const auto& a = m_aVertices[triangle.verts[0]], b = m_aVertices[triangle.verts[1]], c = m_aVertices[triangle.verts[2]];
+        RenderWaterTriangle(a.x,a.y,a.rp,b.x,b.y,b.rp,c.x,c.y,c.rp);
+        triangle.bToBeRendered = false;
+    }
+    for (int32 i = 0; i < int32(NumWaterQuads); ++i) {
+        auto& quad = WaterQuads[i];
+        if (!quad.bToBeRendered) continue;
+        if (StaticRef<bool>(0xC228DC)) {
+            WaterColor.r = lowByte(float((i & 15) * 15.9375f));
+            WaterColor.g = lowByte(float(((i >> 4) & 15) * 15.9375f));
+            WaterColor.b = lowByte(float(((i >> 8) & 15) * 15.9375f));
+            WaterColor.a = lowByte(StaticRef<float>(0xB7C514));
+            WaterColorTriangle = WaterColor;
+        }
+        const auto& a = m_aVertices[quad.verts[0]], b = m_aVertices[quad.verts[1]], c = m_aVertices[quad.verts[2]], d = m_aVertices[quad.verts[3]];
+        RenderWaterRectangle(a.x,b.x,a.y,c.y,a.rp,b.rp,c.rp,d.rp);
+        quad.bToBeRendered = false;
+    }
+    for (int32 i = 0; i < int32(m_NumBlocksOutsideWorldToBeRendered); ++i) {
+        const int32 x = m_BlocksToBeRenderedOutsideWorldX[i], y = m_BlocksToBeRenderedOutsideWorldY[i];
+        if (x >= 0 && x <= 11 && y >= 0 && y <= 11) continue;
+        const int32 minX = x * 500 - 3000, minY = y * 500 - 3000;
+        const CRenPar parameters{0.0f,1.0f,0.0f,0,0};
+        RenderWaterRectangle(minX,minX+500,minY,minY+500,parameters,parameters,parameters,parameters);
+    }
+    flush();
+    RenderBoatWakes();
+    plugin::Call<0x734650>();
 }
 
 void CWaterLevel::SyncWater() {
@@ -1014,4 +1450,9 @@ void CWaterLevel::HandleBeachToysStuff() {
 template<size_t NumVerts>
 CWaterVertex CWaterPolygon<NumVerts>::GetVertex(uint16 idx) const {
     return CWaterLevel::m_aVertices[verts[idx]];
+}
+
+// External collaborator; reconstruction is outside the current pending scope.
+bool CWaterLevel::TestLineAgainstWater(CVector from, CVector to, CVector* intersection) {
+    return plugin::CallAndReturn<bool, 0x6E61B0, CVector, CVector, CVector*>(from, to, intersection);
 }

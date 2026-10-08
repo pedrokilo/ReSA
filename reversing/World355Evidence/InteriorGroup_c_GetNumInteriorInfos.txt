@@ -1,0 +1,70 @@
+// InteriorGroup_c::GetNumInteriorInfos @ 0x00594920 [0x594920..0x59496a]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_00594920(int param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  int in_ECX;
+  char *pcVar3;
+  int iVar4;
+  int *piVar5;
+  int iVar6;
+  
+  iVar2 = 0;
+  piVar5 = (int *)(in_ECX + 0x10);
+  iVar6 = 8;
+  do {
+    iVar1 = *piVar5;
+    if ((iVar1 != 0) && (iVar4 = (int)*(char *)(iVar1 + 0x40d), 0 < iVar4)) {
+      pcVar3 = (char *)(iVar1 + 0x590);
+      do {
+        if (*pcVar3 == param_1) {
+          iVar2 = iVar2 + 1;
+        }
+        pcVar3 = pcVar3 + 0x20;
+        iVar4 = iVar4 + -1;
+      } while (iVar4 != 0);
+    }
+    piVar5 = piVar5 + 1;
+    iVar6 = iVar6 + -1;
+  } while (iVar6 != 0);
+  return iVar2;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00594920: push ebx
+00594921: mov ebx,dword ptr [esp+8]
+00594925: push ebp
+00594926: push esi
+00594927: push edi
+00594928: xor eax,eax
+0059492A: lea esi,[ecx+10h]
+0059492D: mov edi,8
+00594932: mov ecx,dword ptr [esi]
+00594934: test ecx,ecx
+00594936: je 0059495E
+00594938: movsx edx,byte ptr [ecx+0000040Dh]
+ 00
+0059493F: test edx,edx
+00594941: jle 0059495E
+00594943: add ecx,590h
+00594949: lea esp,[esp+00000000h]
+ 00
+00594950: movsx ebp,byte ptr [ecx]
+00594953: cmp ebp,ebx
+00594955: jne 00594958
+00594957: inc eax
+00594958: add ecx,20h
+0059495B: dec edx
+0059495C: jne 00594950
+0059495E: add esi,4
+00594961: dec edi
+00594962: jne 00594932
+00594964: pop edi
+00594965: pop esi
+00594966: pop ebp
+00594967: pop ebx
+00594968: ret 4

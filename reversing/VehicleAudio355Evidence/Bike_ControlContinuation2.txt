@@ -1,0 +1,39 @@
+006BC8BE: fchs
+006BC8C0: mov ecx,esp
+006BC8C2: fstp dword ptr [esp+2Ch]
+006BC8C6: fld dword ptr [esp+6Ch]
+006BC8CA: mov dword ptr [ecx],edx
+006BC8CC: fchs
+006BC8CE: mov edx,dword ptr [esp+2Ch]
+006BC8D2: fld st(0)
+006BC8D4: sub esp,0Ch
+006BC8D7: fmul dword ptr [eax]
+006BC8D9: fstp dword ptr [esp+40h]
+006BC8DD: fld st(0)
+006BC8DF: fmul dword ptr [eax+4]
+006BC8E2: fstp dword ptr [esp+44h]
+006BC8E6: fmul dword ptr [eax+8]
+006BC8E9: mov eax,dword ptr [esp+34h]
+006BC8ED: mov dword ptr [ecx+4],eax
+006BC8F0: mov dword ptr [ecx+8],edx
+006BC8F3: mov ecx,dword ptr [esp+40h]
+006BC8F7: mov edx,dword ptr [esp+44h]
+006BC8FB: mov eax,esp
+006BC8FD: mov dword ptr [eax],ecx
+006BC8FF: fstp dword ptr [esp+48h]
+006BC903: mov ecx,dword ptr [esp+48h]
+006BC907: mov dword ptr [eax+4],edx
+006BC90A: mov dword ptr [eax+8],ecx
+006BC90D: mov ecx,esi
+006BC90F: call 00542A50
+006BC914: mov ecx,dword ptr [esp+0000018Ch]
+ 00
+006BC91B: pop edi
+006BC91C: pop esi
+006BC91D: pop ebp
+006BC91E: mov dword ptr fs:[00000000h],ecx
+ 00
+006BC925: pop ebx
+006BC926: add esp,188h
+006BC92C: ret
+ 006BC930: 83

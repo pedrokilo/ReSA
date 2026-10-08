@@ -1,0 +1,97 @@
+// CCamera::HandleCameraMotionForDuckingDuringAim @ 0x0050d090 [0x50d090..0x50d15c]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0050d090(int param_1,int param_2,int param_3,char param_4)
+
+{
+  float fVar1;
+  int iVar2;
+  int in_ECX;
+  
+  FUN_006010a0(1);
+  iVar2 = FUN_006010a0(1);
+  if (((iVar2 == 0) || ((*(uint *)(param_1 + 0x46c) & 0x4000000) == 0)) ||
+     (*(char *)(iVar2 + 0x19) != '\0')) {
+    fVar1 = 0.0;
+  }
+  else {
+    fVar1 = -0.35;
+  }
+  if (param_4 == '\0') {
+    *(float *)(in_ECX + 0xc58) =
+         DAT_00b7cb5c * 0.13 * (fVar1 - *(float *)(in_ECX + 0xc58)) + *(float *)(in_ECX + 0xc58);
+  }
+  if (param_2 != 0) {
+    *(float *)(param_2 + 8) = *(float *)(in_ECX + 0xc58) + *(float *)(param_2 + 8);
+  }
+  if (param_3 != 0) {
+    *(float *)(param_3 + 8) = *(float *)(in_ECX + 0xc58) + *(float *)(param_3 + 8);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0050D090: push esi
+0050D091: mov esi,dword ptr [esp+8]
+0050D095: push edi
+0050D096: mov edi,ecx
+0050D098: mov ecx,dword ptr [esi+0000047Ch]
+0050D09E: push 1
+0050D0A0: call 006010A0
+0050D0A5: mov ecx,dword ptr [esi+0000047Ch]
+0050D0AB: push 1
+0050D0AD: mov dword ptr [esp+10h],0
+0050D0B5: call 006010A0
+0050D0BA: test eax,eax
+0050D0BC: je 0050D100
+0050D0BE: test dword ptr [esi+0000046Ch],4000000h
+0050D0C8: je 0050D100
+0050D0CA: mov cl,byte ptr [eax+19h]
+0050D0CD: test cl,cl
+0050D0CF: jne 0050D100
+0050D0D1: fld dword ptr [esi+4Ch]
+0050D0D4: fld dword ptr [esi+48h]
+0050D0D7: fld dword ptr [esi+44h]
+0050D0DA: fld st(0)
+0050D0DC: fmul st,st(1)
+0050D0DE: fld st(2)
+0050D0E0: fmul st,st(3)
+0050D0E2: faddp st(1),st
+0050D0E4: fld st(3)
+0050D0E6: fmul st,st(4)
+0050D0E8: faddp st(1),st
+0050D0EA: fcomp dword ptr ds:[008630ECh]
+0050D0F0: fstp st(0)
+0050D0F2: fstp st(0)
+0050D0F4: fstp st(0)
+0050D0F6: fld dword ptr ds:[008630F0h]
+0050D0FC: fnstsw ax
+0050D0FE: jmp 0050D104
+0050D100: fld dword ptr [esp+0Ch]
+0050D104: mov al,byte ptr [esp+18h]
+0050D108: test al,al
+0050D10A: jne 0050D12E
+0050D10C: fsub dword ptr [edi+00000C58h]
+0050D112: fld dword ptr ds:[00B7CB5Ch]
+0050D118: fmul dword ptr ds:[00859020h]
+0050D11E: fmulp st(1),st
+0050D120: fadd dword ptr [edi+00000C58h]
+0050D126: fstp dword ptr [edi+00000C58h]
+0050D12C: jmp 0050D130
+0050D12E: fstp st(0)
+0050D130: mov eax,dword ptr [esp+10h]
+0050D134: test eax,eax
+0050D136: je 0050D144
+0050D138: fld dword ptr [edi+00000C58h]
+0050D13E: fadd dword ptr [eax+8]
+0050D141: fstp dword ptr [eax+8]
+0050D144: mov eax,dword ptr [esp+14h]
+0050D148: test eax,eax
+0050D14A: je 0050D158
+0050D14C: fld dword ptr [edi+00000C58h]
+0050D152: fadd dword ptr [eax+8]
+0050D155: fstp dword ptr [eax+8]
+0050D158: pop edi
+0050D159: pop esi
+0050D15A: ret 10h

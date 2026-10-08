@@ -1,0 +1,120 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CHud::DrawPlayerInfo": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "2c9f5a1955dcb7d8eaffe9b2d5b9b6cb06d680051899a422fea9d9ca75ad7c52",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hud-player-info355\\20261008-010203-192887",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CHud::DrawPlayerInfo": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "41e2b6f87a2cea4267b577ce63f334ecc7c64b496558b8e1b44d6441f9b7025a",
+      "pdb": "2f75b1dc6a6e599325df94289e3c9ab6e5c6b90bafa3fea8343ebc185d1394f2"
+    },
+    "sources": {
+      "source/game_sa/Audio/AudioEngine.h": "8e30732908a9ea6ffea7bc587cb5610c361ae6f85aaf9c4a37535609b16625a9",
+      "source/game_sa/Camera.h": "9c821aac9d832dd894be472898974ecc9b1398e437f22b04c0190912f1f2dc29",
+      "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+      "source/game_sa/Font.h": "87e5bd9978ecfc2e34951832c5cc5e13e3b553f9b697753ba20869c68f545d07",
+      "source/game_sa/GameLogic.h": "e615c702306154b8d0ce8c544c06def27bbff416a8f2ba9278ff7dcc47121af3",
+      "source/game_sa/Hud.cpp": "de5ac241c9eb199cc0e7902b4d204265da0ccf8142c2ac02b1d3cc95588afb02",
+      "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
+      "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+      "source/game_sa/Messages.cpp": "620f6fd2e3090684e251e8d550e0c5afc3b1cd0de1dd12fb39aa14a6f4df2182",
+      "source/game_sa/Messages.h": "45954753fb9ed893c4c91100abda7f8a426896eeef5c9079e250635bcf575ba3",
+      "source/game_sa/Models/BaseModelInfo.h": "91bece0c4ec1c9f8772b17ba11dcbc9f8e75636292f995f735cbd06514419cc6",
+      "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
+      "source/game_sa/OnscreenTimer.h": "1eb2b519b8ace348f12a5a84fe725a6fc84daf34c0e837d510173631bcc8af8f",
+      "source/game_sa/OnscreenTimerEntry.h": "970b4808cae95ef8a914e8745b2f7fcbdce1a94f1d95bb1d6908801baf87065b",
+      "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
+      "source/game_sa/PedGroupMembership.h": "15a1f964b9292f642bf760642393e7b422c93a59092e2f6e06099f3d4a0e045a",
+      "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
+      "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+      "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c",
+      "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+      "source/game_sa/RGBA.h": "ab66a3bef4b0af6d30cf5f535eda15f9935eb28ca5df94c41b740c4cdad4e42a",
+      "source/game_sa/Scripts/TheScripts.h": "0752ee8199640597c0e4cebc5e1e6609948ed236773731cbeb715710cf9871fb",
+      "source/game_sa/Sprite.h": "09e56f6ca566219c85fe6ee4d983584bd0a8f5b415cc172c35589ad2c09e538d",
+      "source/game_sa/Sprite2d.h": "ee32c8bb9d2ab4089fa71683113e6dfe2398b92cf4d5e890bdd6c43d10284592",
+      "source/game_sa/Stats.h": "06ea5fa42ae006428bd2d2fe505f68e7f2506cd207f46d6b96f57c930abf1e44",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+      "source/game_sa/Text/Text.h": "c37296988233a6936c373ef7b8ca3b2ef1ba0aca659917de6370cc616f256ee6",
+      "source/game_sa/TxdDef.h": "537cbd1c1e4b44e941d31d3bd3191c215c26bef5358d0bfcf468d50d2dc52144",
+      "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
+      "source/game_sa/Wanted.h": "7a4366269000d6cd77fa2e6f2d4df0e0b8dad842d491995b9813fef7f305eb84",
+      "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6",
+      "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "../HudHelp355/LiveComparison.hpp": "82a475fde48d8f0bc927b1eda70baeffeb1532c8e0a56268470bf817c8a385fc",
+      "../probe_case.py": "6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8",
+      "../HudCrosshairs355/build_probe.py": "6e2b47a4e9ee41fc243b0d9ee4e5fe09a70254a38b3f5b6607317d11b0b3b960",
+      "../HudCrosshairs355/run_local.py": "4da760a961ecf20f10eda91099fe35244aaaaa6662761f07486a90a8d257684b",
+      "../probe_build.py": "8e76d4a04b26c055f1d7259246abdbf4f8e56eed372a13171b483327e1c03633",
+      "../HudWanted355/build_probe.py": "825cb753d1892828f6eb81fe3fe961026a725f755efb4d9c70f9dc67b089eb96",
+      "../probe_summary.py": "28224064c276ed8fd6ffd450db22e3ec782a6e068fdb275f270bb7ef49a6f072",
+      "../HudSuccess355/LiveComparison.hpp": "42eec75395f99e9eaacd09ea2aa654b59845bbe5e183fe61a16fd6113ee1de0e",
+      "../HudTimers355/run_local.py": "be9ff926069e7bcc385d9b8315622b8d2ee30af3e735f14c85ca0597a55470ea",
+      "build_probe.py": "5c2039dbb10f4d69540d5c5acf6a34239671ef226c7d38e92c9508f64560ffad",
+      "../Pending355/batches/a7db5bb960f4/LiveComparison.hpp": "e2f85f8a8897fe5ddec0fe05827238e637b2dfdd85e4e5bf82e0f18a1bee71fe",
+      "../HudCrosshairs355/LiveComparison.hpp": "f50ef131ca050efccb6ee98e5c2a102eb6326da7bea882ce7a1ae8b27318b062",
+      "../HudVitals355/run_local.py": "5f9168b87e360ce808c1912554e52bda8c2945c04fec62532c37d4f45740af53",
+      "../HudSubtitles355/run_local.py": "515446a4c69e6daae7fef6f4e55a81f9acb7b72bfec98c1a12efb4243c3c6048",
+      "../ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "../HudSuccess355/build_probe.py": "165600437df15e90fdc845d3f3b846e29bc7ad883dc74b5b891d4147f7a0edbc",
+      "../HudTimers355/build_probe.py": "4aafc98ec578dc0a4c0d40aa967d02c18358330a5259c32fa3a3c74b19c5e514",
+      "../HudSubtitles355/build_probe.py": "d0a3b3d3eee0fd356cda71ccfc7f8f0b9879af83c5195ae2b86dc25dfb27f9f5",
+      "../HudWanted355/run_local.py": "e57259fd00c3f6cf6d9eaba1117bc9e2a25b68458e055c90cd5d65875f1a8d62",
+      "../HudTimers355/LiveComparison.hpp": "63fb34c5f788dc82b0ca0f1db8665d41e7f700ecbef9b91a62c616a2c0ef0807",
+      "../Pending355/batch_probe.py": "8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6",
+      "../runtime_runner.py": "8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536",
+      "LiveComparison.hpp": "b9d3a58800156f9308725fa1d27281ee1ef86cfdc428e8c1c27d4369ddec6e0c",
+      "run_local.py": "a296b29922459940839d57986a4a088ee6c126d45d156574f1d4ad123f0234d4",
+      "../HudVitals355/LiveComparison.hpp": "ff2d48c7d31added0ecc5758a17ec0b01be11ec74116ae73c4e584637b9b7229",
+      "../HudVitals355/build_probe.py": "93ea510c8d42816d6d47070a1fd254c5cad58c46be904e894a6e4fc21f9540d5",
+      "../HudHelp355/run_local.py": "f2e8537a3e9ff490c8e60e66d5a5c423775162652a09e20ea711a1eeb80977d2",
+      "../HudWanted355/LiveComparison.hpp": "08f2a1b608a390548fc4de348fa0ec4fe65d643f4d4885f6d8d715b9931177e1",
+      "../HudHelp355/build_probe.py": "5cffe44bb01eb3872428b8409cd0db5e81c90be656441017dfbae4b5601c6fbd",
+      "../HudSuccess355/run_local.py": "b3d8342114726420d4acbafba4a177a56cc269a27324d55e63972cbfdeade61e",
+      "../HudSubtitles355/LiveComparison.hpp": "53c56fc68031e33fb4f0c5163a99388ed2e18f667fa1357273a07fba8ea21573"
+    },
+    "batch_driver": "reversing/Pending355/batches/a7db5bb960f4/LiveComparison.hpp",
+    "batch_banks": [
+      "HudSubtitles355",
+      "HudWanted355",
+      "HudTimers355",
+      "HudVitals355",
+      "HudCrosshairs355",
+      "HudHelp355",
+      "HudPlayerInfo355",
+      "HudSuccess355"
+    ]
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"../probe_case.py\", \"tested_sha256\": \"6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8\", \"current_sha256\": \"61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44\"}, {\"path\": \"../HudCrosshairs355/run_local.py\", \"tested_sha256\": \"4da760a961ecf20f10eda91099fe35244aaaaa6662761f07486a90a8d257684b\", \"current_sha256\": \"6c66d6dc724fbfa0e18d451ad1cbf0bee46abdbee125c2f06a3e64d19bd26a49\"}, {\"path\": \"../HudTimers355/run_local.py\", \"tested_sha256\": \"be9ff926069e7bcc385d9b8315622b8d2ee30af3e735f14c85ca0597a55470ea\", \"current_sha256\": \"302926f5f4811aa53a9c63c4deccce1fa17c5e1160ea647b66429847c34b23a6\"}, {\"path\": \"../HudVitals355/run_local.py\", \"tested_sha256\": \"5f9168b87e360ce808c1912554e52bda8c2945c04fec62532c37d4f45740af53\", \"current_sha256\": \"be8d2644d1303e65816a0346c4f8138456035338ccf93f38446f9d36490d15f3\"}, {\"path\": \"../HudSubtitles355/run_local.py\", \"tested_sha256\": \"515446a4c69e6daae7fef6f4e55a81f9acb7b72bfec98c1a12efb4243c3c6048\", \"current_sha256\": \"10d907e54a5de3866fcf5e812df6f7e5bb0309125a425a07a47c195f6203c48d\"}, {\"path\": \"../HudWanted355/run_local.py\", \"tested_sha256\": \"e57259fd00c3f6cf6d9eaba1117bc9e2a25b68458e055c90cd5d65875f1a8d62\", \"current_sha256\": \"da50c0f7dee15b73d5244fbbc74f82c2c7a0eed71e8280df812b24b4ed0a823c\"}, {\"path\": \"../Pending355/batch_probe.py\", \"tested_sha256\": \"8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6\", \"current_sha256\": \"23153f67f0c83b82850b212c353aae655549c060fa1926e1c1a62ba526c23998\"}, {\"path\": \"../runtime_runner.py\", \"tested_sha256\": \"8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536\", \"current_sha256\": \"e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c\"}, {\"path\": \"run_local.py\", \"tested_sha256\": \"a296b29922459940839d57986a4a088ee6c126d45d156574f1d4ad123f0234d4\", \"current_sha256\": \"ee0b00170a281665f802703306887ef9fda4e564c6aa07979fa72e750185cbf9\"}, {\"path\": \"../HudHelp355/run_local.py\", \"tested_sha256\": \"f2e8537a3e9ff490c8e60e66d5a5c423775162652a09e20ea711a1eeb80977d2\", \"current_sha256\": \"a52f6ca3d17631128dfa9fd1b1cdaafb97a2eb87f3b0c1fbe9192105afd8df66\"}, {\"path\": \"../HudSuccess355/run_local.py\", \"tested_sha256\": \"b3d8342114726420d4acbafba4a177a56cc269a27324d55e63972cbfdeade61e\", \"current_sha256\": \"17b4e291d40585a527b7c81ab57b76ae511ae922f40ac0ea5ea85951fc828da1\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

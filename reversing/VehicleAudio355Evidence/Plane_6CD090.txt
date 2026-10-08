@@ -1,0 +1,279 @@
+// CPlane::FindPlaneCreationCoors @ 0x006cd090 [0x6cd090..0x6cd2ee]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006cd090(float *param_1,float *param_2,float *param_3,float *param_4,char param_5)
+
+{
+  float fVar1;
+  float fVar2;
+  float fVar3;
+  char cVar4;
+  int iVar5;
+  float *pfVar6;
+  uint uVar7;
+  undefined4 uVar8;
+  float10 fVar9;
+  int local_80;
+  float local_7c;
+  float local_78;
+  float local_60;
+  float local_5c;
+  float local_58;
+  float local_4c;
+  undefined1 local_48 [12];
+  undefined1 local_3c [12];
+  undefined1 local_30 [20];
+  undefined1 local_1c [28];
+  
+  local_80 = 0;
+  if (param_5 == '\0') {
+    local_7c = 140.0;
+    local_78 = 25.0;
+  }
+  else {
+    local_7c = 340.0;
+    local_78 = 200.0;
+  }
+  for (; local_80 < 500; local_80 = local_80 + 10) {
+    iVar5 = _rand();
+    fVar1 = (float)(iVar5 % 0x168) * 0.017453292;
+    pfVar6 = (float *)FUN_0056e010(local_48,0xffffffff);
+    *param_1 = *pfVar6;
+    param_1[1] = pfVar6[1];
+    param_1[2] = pfVar6[2];
+    uVar7 = _rand();
+    *param_4 = (float)(uVar7 & 0xf) + (float)local_80 + local_78;
+    fVar9 = (float10)fcos((float10)fVar1);
+    *param_1 = (float)(fVar9 * (float10)local_7c + (float10)*param_1);
+    fVar9 = (float10)fsin((float10)fVar1);
+    param_1[1] = (float)(fVar9 * (float10)local_7c + (float10)param_1[1]);
+    param_1[2] = param_1[2] + *param_4;
+    pfVar6 = (float *)FUN_0056e010(local_3c,0xffffffff);
+    *param_2 = *pfVar6;
+    param_2[1] = pfVar6[1];
+    param_2[2] = pfVar6[2];
+    uVar7 = _rand();
+    fVar3 = (float)(uVar7 & 0x1f) + 20.0;
+    fVar1 = DAT_00b6f9b0 * fVar3;
+    fVar2 = DAT_00b6f9b4 * fVar3;
+    fVar3 = DAT_00b6f9ac * fVar3 + *param_2;
+    *param_2 = fVar3;
+    fVar1 = fVar1 + param_2[1];
+    param_2[1] = fVar1;
+    fVar2 = fVar2 + param_2[2];
+    param_2[2] = fVar2;
+    param_2[2] = fVar2 + *param_4;
+    fVar9 = (float10)FUN_0053cc70(fVar3 - *param_1,fVar1 - param_1[1]);
+    *param_3 = (float)fVar9;
+    local_4c = param_2[2] - param_1[2];
+    local_60 = (*param_2 - *param_1) + *param_2;
+    local_5c = (param_2[1] - param_1[1]) + param_2[1];
+    local_58 = local_4c + param_2[2];
+    if (DAT_00b7cd78 == -1) {
+      FUN_00563470();
+      DAT_00b7cd78 = 1;
+    }
+    else {
+      DAT_00b7cd78 = DAT_00b7cd78 + 1;
+    }
+    FUN_0040fd10(0x41700000,param_1,0,0,0xff);
+    cVar4 = FUN_0056a490(param_1,&local_60,1,0,0,0,0,0,0);
+    if (cVar4 != '\0') {
+      uVar8 = FUN_00821b40(local_1c,local_30,local_30,local_30);
+      uVar8 = FUN_00821b40(uVar8);
+      cVar4 = FUN_0041a820(uVar8);
+      if (cVar4 == '\0') break;
+    }
+  }
+  *param_4 = *param_4 + 20.0;
+  param_2[2] = param_2[2] + 20.0;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006CD090: sub esp,80h
+006CD096: mov al,byte ptr [esp+00000094h]
+ 00
+006CD09D: test al,al
+006CD09F: mov dword ptr [esp],0
+006CD0A7: je 006CD0BB
+006CD0A9: mov dword ptr [esp+4],43AA0000h
+006CD0B1: mov dword ptr [esp+8],43480000h
+006CD0B9: jmp 006CD0CB
+006CD0BB: mov dword ptr [esp+4],430C0000h
+006CD0C3: mov dword ptr [esp+8],41C80000h
+006CD0CB: push ebx
+006CD0CC: mov ebx,dword ptr [esp+00000094h]
+ 00
+006CD0D3: push ebp
+006CD0D4: mov ebp,dword ptr [esp+00000094h]
+ 00
+006CD0DB: push esi
+006CD0DC: mov esi,dword ptr [esp+00000094h]
+ 00
+006CD0E3: push edi
+006CD0E4: mov edi,dword ptr [esp+00000094h]
+ 00
+006CD0EB: jmp 006CD0F0
+006CD0ED: lea ecx,[ecx]
+006CD0F0: cmp dword ptr [esp+10h],1F4h
+006CD0F8: jge 006CD2CE
+006CD0FE: call 00821B1E
+006CD103: cdq
+006CD104: mov ecx,168h
+006CD109: idiv eax,ecx
+006CD10B: push 0FFFFFFFFh
+006CD10D: mov dword ptr [esp+20h],edx
+006CD111: fild dword ptr [esp+20h]
+006CD115: lea edx,[esp+4Ch]
+006CD119: push edx
+006CD11A: fmul dword ptr ds:[008595ECh]
+006CD120: fstp dword ptr [esp+24h]
+006CD124: call 0056E010
+006CD129: mov edx,dword ptr [eax]
+006CD12B: mov ecx,edi
+006CD12D: mov dword ptr [ecx],edx
+006CD12F: mov edx,dword ptr [eax+4]
+006CD132: mov dword ptr [ecx+4],edx
+006CD135: mov eax,dword ptr [eax+8]
+006CD138: mov dword ptr [ecx+8],eax
+006CD13B: call 00821B1E
+006CD140: and eax,0Fh
+006CD143: mov dword ptr [esp+28h],eax
+006CD147: fild dword ptr [esp+28h]
+006CD14B: lea ecx,[esp+5Ch]
+006CD14F: push 0FFFFFFFFh
+006CD151: push ecx
+006CD152: fiadd dword ptr [esp+20h]
+006CD156: fadd dword ptr [esp+28h]
+006CD15A: fstp dword ptr [ebx]
+006CD15C: fld dword ptr [esp+2Ch]
+006CD160: fcos
+006CD162: fmul dword ptr [esp+24h]
+006CD166: fadd dword ptr [edi]
+006CD168: fstp dword ptr [edi]
+006CD16A: fld dword ptr [esp+2Ch]
+006CD16E: fsin
+006CD170: fmul dword ptr [esp+24h]
+006CD174: fadd dword ptr [edi+4]
+006CD177: fstp dword ptr [edi+4]
+006CD17A: fld dword ptr [edi+8]
+006CD17D: fadd dword ptr [ebx]
+006CD17F: fstp dword ptr [edi+8]
+006CD182: call 0056E010
+006CD187: mov ecx,dword ptr [eax]
+006CD189: mov edx,esi
+006CD18B: mov dword ptr [edx],ecx
+006CD18D: mov ecx,dword ptr [eax+4]
+006CD190: mov dword ptr [edx+4],ecx
+006CD193: mov eax,dword ptr [eax+8]
+006CD196: mov dword ptr [edx+8],eax
+006CD199: call 00821B1E
+006CD19E: and eax,1Fh
+006CD1A1: mov dword ptr [esp+30h],eax
+006CD1A5: fild dword ptr [esp+30h]
+006CD1A9: fadd dword ptr ds:[00858BA4h]
+006CD1AF: fld dword ptr ds:[00B6F9ACh]
+006CD1B5: fmul st,st(1)
+006CD1B7: fld dword ptr ds:[00B6F9B0h]
+006CD1BD: fmul st,st(2)
+006CD1BF: fstp dword ptr [esp+38h]
+006CD1C3: fld dword ptr ds:[00B6F9B4h]
+006CD1C9: fmul st,st(2)
+006CD1CB: fstp dword ptr [esp+3Ch]
+006CD1CF: fadd dword ptr [esi]
+006CD1D1: fstp st(1)
+006CD1D3: fst dword ptr [esi]
+006CD1D5: fld dword ptr [esp+38h]
+006CD1D9: fadd dword ptr [esi+4]
+006CD1DC: fst dword ptr [esi+4]
+006CD1DF: fld dword ptr [esp+3Ch]
+006CD1E3: fadd dword ptr [esi+8]
+006CD1E6: fst dword ptr [esi+8]
+006CD1E9: fadd dword ptr [ebx]
+006CD1EB: fstp dword ptr [esi+8]
+006CD1EE: fsub dword ptr [edi+4]
+006CD1F1: add esp,8
+006CD1F4: fstp dword ptr [esp+4]
+006CD1F8: fsub dword ptr [edi]
+006CD1FA: fstp dword ptr [esp]
+006CD1FD: call 0053CC70
+006CD202: fstp dword ptr [ebp]
+006CD205: add esp,8
+006CD208: cmp word ptr ds:[00B7CD78h],0FFFFh
+006CD211: fld dword ptr [esi]
+006CD213: fsub dword ptr [edi]
+006CD215: fld dword ptr [esi+4]
+006CD218: fsub dword ptr [edi+4]
+006CD21B: fld dword ptr [esi+8]
+006CD21E: fsub dword ptr [edi+8]
+006CD221: fstp dword ptr [esp+44h]
+006CD225: fxch st(1)
+006CD227: fadd dword ptr [esi]
+006CD229: fstp dword ptr [esp+30h]
+006CD22D: fadd dword ptr [esi+4]
+006CD230: fstp dword ptr [esp+34h]
+006CD234: fld dword ptr [esp+44h]
+006CD238: fadd dword ptr [esi+8]
+006CD23B: fstp dword ptr [esp+38h]
+006CD23F: jae 006CD24A
+006CD241: inc word ptr ds:[00B7CD78h]
+ 00
+006CD248: jmp 006CD258
+006CD24A: call 00563470
+006CD24F: mov word ptr ds:[00B7CD78h],1
+006CD258: push 0FFh
+006CD25D: push 0
+006CD25F: push 0
+006CD261: push edi
+006CD262: push 41700000h
+006CD267: lea ecx,[esp+74h]
+006CD26B: call 0040FD10
+006CD270: push 0
+006CD272: push 0
+006CD274: push 0
+006CD276: push 0
+006CD278: push 0
+006CD27A: push 0
+006CD27C: push 1
+006CD27E: lea ecx,[esp+4Ch]
+006CD282: push ecx
+006CD283: push edi
+006CD284: call 0056A490
+006CD289: add esp,24h
+006CD28C: test al,al
+006CD28E: je 006CD2C4
+006CD290: fld dword ptr [edi+4]
+006CD293: lea edx,[esp+60h]
+006CD297: push edx
+006CD298: lea eax,[esp+64h]
+006CD29C: push eax
+006CD29D: lea ecx,[esp+68h]
+006CD2A1: push ecx
+006CD2A2: lea edx,[esp+00000080h]
+ 00
+006CD2A9: push edx
+006CD2AA: call 00821B40
+006CD2AF: fld dword ptr [edi]
+006CD2B1: push eax
+006CD2B2: call 00821B40
+006CD2B7: push eax
+006CD2B8: call 0041A820
+006CD2BD: add esp,18h
+006CD2C0: test al,al
+006CD2C2: je 006CD2CE
+006CD2C4: add dword ptr [esp+10h],0Ah
+006CD2C9: jmp 006CD0F0
+006CD2CE: fld dword ptr [ebx]
+006CD2D0: pop edi
+006CD2D1: fadd dword ptr ds:[00858BA4h]
+006CD2D7: fstp dword ptr [ebx]
+006CD2D9: fld dword ptr [esi+8]
+006CD2DC: fadd dword ptr ds:[00858BA4h]
+006CD2E2: fstp dword ptr [esi+8]
+006CD2E5: pop esi
+006CD2E6: pop ebp
+006CD2E7: pop ebx
+006CD2E8: add esp,80h
+006CD2EE: ret

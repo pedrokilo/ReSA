@@ -1,3 +1,7 @@
+<!-- USER STOP 2026-10-08 -->
+Estado al detener el trabajo: reconstrucción solicitada completada y aprobación histórica conservada. No se ejecutó una nueva regresión con las fuentes finales. Los hashes y límites actuales se detallan en [el estado de todas las listas](../../docs/EstadoListasSolicitadas.md). Las notas siguientes conservan su fecha y alcance originales.
+<!-- /USER STOP 2026-10-08 -->
+
 # CRope pendientes
 
 UpdateWeightInRope 0x5561B0 reconstruido desde combo completo de REA en `combo/5561B0.txt`, con límite de longitud, colocación lineal, seis iteraciones de restricciones y velocidades. Banco de 1024 pares: anclajes0..31, estirada/corta, longitudes y timestep positivos diversos. Compara retorno, todos los bytes del objeto y salida, y trazas de normalización sustituida EXE+DLL. Comprueba hook, actividad positiva y restauración de timestep+hooks.

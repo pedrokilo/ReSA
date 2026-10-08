@@ -29,7 +29,7 @@ public:
     bool           m_bSunbatheAnimsReferenced{};
     bool           m_bAborted{};
     CTaskTimer     m_BathingTimer{};
-    eSunbatherType m_SunbatherType{};
+    eSunbatherType m_SunbatherType;
     CAnimBlock*    m_pBeachAnimBlock{};
     CAnimBlock*    m_pSunbatheAnimBlock{};
     int32          m_BeachAnimBlockIndex{};
@@ -51,6 +51,7 @@ public:
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;
+    CTask*    CreateSubTask(eTaskType type, CPed* ped);
 
 private:
     // 0x631F80

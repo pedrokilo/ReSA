@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 3328,
+  "pairs_per_function": {
+    "CTaskComplexHitPedWithCar::ComputeEvasiveStepMoveDir": 512,
+    "CTaskComplexHitPedWithCar::HitHurtsPed": 512,
+    "CTaskComplexHitPedWithCar::CreateSubTask": 512,
+    "CTaskComplexHitPedWithCar::Clone": 256,
+    "CTaskComplexHitPedWithCar::GetTaskType": 256,
+    "CTaskComplexHitPedWithCar::CreateNextSubTask": 512,
+    "CTaskComplexHitPedWithCar::CreateFirstSubTask": 512,
+    "CTaskComplexHitPedWithCar::ControlSubTask": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "aa44bb61c992cb5fdaac8bc427d7e40b3976dcbb2ebfa15ff8b293d634eb4a3a",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hit-car355\\20261007-214720-022297",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskComplexHitPedWithCar::ComputeEvasiveStepMoveDir": true,
+    "CTaskComplexHitPedWithCar::HitHurtsPed": true,
+    "CTaskComplexHitPedWithCar::CreateSubTask": true,
+    "CTaskComplexHitPedWithCar::Clone": true,
+    "CTaskComplexHitPedWithCar::GetTaskType": true,
+    "CTaskComplexHitPedWithCar::CreateNextSubTask": true,
+    "CTaskComplexHitPedWithCar::CreateFirstSubTask": true,
+    "CTaskComplexHitPedWithCar::ControlSubTask": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "703db43bae134fd9ac59482122f517c6cfb6201f912ee2d640f7f6d81340fb77",
+      "pdb": "257420a9bb7ff0fda06f8b6d7661496e8db942f74f7ec7664cad3ad18f4368a7"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "dfed89f6ab0a2855602734bc320472acb18e0577902eb312cc898d130ec03474",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "76e3780181bd9268da7a7f731d74f06652e2f690011f547d6808a5c8bb607b7d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleKillPedWithCar.cpp": "dcded441bf913c41089bd1eabeddae9681c5a22df17f3f14f1719679931b2d0d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleKillPedWithCar.h": "c75bf2e48d984b14681765c395b310f4cd3d55cb904502d800f6f39a11fb4b51",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHurtPedWithCar.cpp": "e1d604dd486ca684cc16a91f01d7e397e600f85586db1c9d41686c896ec6d171",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHurtPedWithCar.h": "8d705a63a69fde71fbcd00bd00c9ffdd06bf029f88c26cadffe08f49e9d01081",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "ffef77c92057fcb17cad3264c0f5b7e57cec137f26a5d0612ed63a2c4c968548",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromBehind.cpp": "2e80114e52f7dda0ca5e73b17909d10a451b1b043c9436d39e461c70033adf3c",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromBehind.h": "5229b9c091e8338c55b6e95b4316e8687683469f2fce89541e4f831a2cdf375b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp": "579e736c02f61e2b004c2283291c103d0c88f53a658dad4915f27c15b5255c87",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.h": "c9d40ef550c3e4ef830459786a6aaedca33559802947d4231a6fb89abd1a9a37",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleLeaveGroup.cpp": "930068309b2c32719561366807d6012ca5191b541eb64d588c40a3156803dac5",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleLeaveGroup.h": "d3412e6298ad5fc4470b72986889263c96dce3e680a07a93974ef0a1a2f70d25",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleNone.cpp": "cea8e3e76b4d062998265b56a38ef30a4204dddaeeab553814d3c353389e4899",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleNone.h": "0040a9400cfbcabce567ff15c642ea59f577e1fad041b9a1afcc71d37396c682",
+      "source/game_sa/PedGeometryAnalyser.cpp": "5acb6101e8be88141dd6a291e5a7bde5496e7c10dd06ef05f36236af10e8e6e7",
+      "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "b3400b9aa34b2d05fe31f4ba6d8a523a2e5e2ac82c8779cc3a4a465eabb1941b",
+      "build_probe.py": "428c16d2a81e60cd36f89a423752365388d97b5ebf813ffe8f238b6b7792d833",
+      "run_local.py": "4c48240cf7895f27df9bbbc70efa69feec782fa2a4cc5c499e07b6c6db83e7db"
+    }
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"LiveComparison.hpp\", \"tested_sha256\": \"b3400b9aa34b2d05fe31f4ba6d8a523a2e5e2ac82c8779cc3a4a465eabb1941b\", \"current_sha256\": \"1407d7830536f02d93717b7bed342169cbaf53e6ba41670f50433fc9106b8b83\"}, {\"path\": \"run_local.py\", \"tested_sha256\": \"4c48240cf7895f27df9bbbc70efa69feec782fa2a4cc5c499e07b6c6db83e7db\", \"current_sha256\": \"e529ab8fd82084faff835f6bfe93520485b3fe314275e7d0e10a335542d29b84\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

@@ -1,0 +1,24 @@
+// CPedGeometryAnalyser::ComputePedHitSide-physical @ 0x005f3640 [0x5f3640..0x5f364f]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005f3640(void)
+
+{
+  FUN_005f1e70();
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005F3640: mov eax,dword ptr [esp+8]
+005F3644: add eax,44h
+005F3647: mov dword ptr [esp+8],eax
+005F364B: jmp 005F1E70
+ 005F3650: E9
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x5F3640, 0x5F364F) ====
+005F3640: mov eax,dword ptr [esp+8]
+005F3644: add eax,44h
+005F3647: mov dword ptr [esp+8],eax
+005F364B: jmp 005F1E70

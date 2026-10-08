@@ -1,0 +1,250 @@
+// Draft only, not installed yet.
+namespace {
+float CameraRound4(float value) {
+    double scaled,integral;
+    float result;
+    const int five=5,four=4;
+    __asm {
+        fld qword ptr ds:[00859EA8h]
+        fild five
+        mov eax,00822130h
+        call eax
+        fmul value
+        fld value
+        fcomp dword ptr ds:[00858B50h]
+        fnstsw ax
+        test ah,5
+        jp camera_round_positive
+        fsub dword ptr ds:[00858C80h]
+        jmp camera_round_fraction
+    camera_round_positive:
+        fadd dword ptr ds:[00858C80h]
+    camera_round_fraction:
+        fmul dword ptr ds:[00858B1Ch]
+        fstp scaled
+    }
+    std::modf(scaled,&integral);
+    __asm {
+        fld integral
+        fld qword ptr ds:[00859EA8h]
+        fild four
+        mov eax,00822130h
+        call eax
+        fdivp st(1),st
+        fstp result
+    }
+    return result;
+}
+float CameraPedHeading(CPed* ped) {
+    if (!*reinterpret_cast<CMatrix**>(reinterpret_cast<uint8*>(ped)+0x14)) return *reinterpret_cast<float*>(reinterpret_cast<uint8*>(ped)+0x10);
+    const float x=-ped->GetMatrix().GetForward().x,y=ped->GetMatrix().GetForward().y;
+    float result;
+    __asm {
+        fld x
+        fld y
+        fpatan
+        fstp result
+    }
+    return result;
+}
+void CameraRoundVector4(CVector& v) { v.x=CameraRound4(v.x);v.y=CameraRound4(v.y);v.z=CameraRound4(v.z); }
+}
+void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, float, bool resetHistory) {
+    if (!m_pCamTargetEntity->GetIsTypePed()) return;
+    auto* ped=static_cast<CPed*>(m_pCamTargetEntity);
+    if (!ped->IsPlayer()) return;
+    auto* pad=CPad::GetPad(ped->m_nPedType==PED_TYPE_PLAYER2?1:0);
+    auto* intelligence=ped->GetIntelligence();
+    const auto f=[](uintptr_t address){return StaticRef<float>(address);};
+    const uint32 flags=*reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(ped)+0x46C);
+    const float step=CTimer::GetTimeStep();
+    const uint32 interior=StaticRef<int32>(0xB72914)!=0;
+    const uintptr_t row=0x8CC548+interior*60;
+    float extraDistance=f(row+4);
+    if (!(flags&1) && StaticRef<int32>(0xB6F0F0)==3 && intelligence->GetUsingParachute()) extraDistance+=extraDistance;
+    float minimumDistance=f(row+12), maximumDistance=f(row+16);
+    float distance=f(0xB6F0FC)+extraDistance;
+    const float upper=f(row+52),lower=f(row+56);
+    if (f(0xB6EC50)<distance) minimumDistance=distance;
+    float verticalOffset=f(row+8);
+    switch (StaticRef<int32>(0xB6F0F0)) {
+    case 1:verticalOffset+=m_fTargetZoomOneZExtra;break;
+    case 2:verticalOffset+=interior?m_fTargetZoomTwoInteriorZExtra:m_fTargetZoomTwoZExtra;break;
+    case 3:verticalOffset+=m_fTargetZoomThreeZExtra;break;
+    }
+    float verticalTaskWeight=0.f,horizontalTaskWeight=0.f;
+    StaticRef<float>(0xB6EC50)=distance;
+    if (auto* swim=intelligence->GetTaskSwim()) {
+        horizontalTaskWeight=1.f;
+        if (int(swim->m_nSwimState)!=4) verticalTaskWeight=.5f;
+    } else if (intelligence->GetTaskJetPack()) {
+        horizontalTaskWeight=.5f;if (!(flags&1)) verticalTaskWeight=3.f;
+    }
+    if (!StaticRef<bool>(0xB6F080)) {
+        if (!m_bResetStatics) {
+            const float raised=step+m_fFOV;
+            if (70.f<=raised) { const float reduced=m_fFOV-step;m_fFOV=reduced<=70.f?70.f:reduced; }
+            else m_fFOV=raised;
+        } else m_fFOV=70.f;
+    }
+    CVector focal=targetPosition;focal.z+=f(row);
+    const float historyDistance=std::max(distance,maximumDistance);
+    const bool reset=m_bResetStatics || StaticRef<bool>(0xB6F042) || StaticRef<bool>(0xB6F043) || resetHistory;
+    if (resetHistory) {
+        StaticRef<CVector>(0x8CCC3C)=ped->GetPosition();StaticRef<CVector>(0xB6EC7C)=CVector{0,0,0};
+        focal=ped->GetPosition();focal.z+=f(row);
+    } else if (!reset) {
+        auto* standing=ped->m_standingOnEntity;
+        const auto boat=[](CEntity* e){return e && e->GetIsTypeVehicle() && *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(e)+0x594)==6;};
+        if (standing && (boat(standing) || boat(*reinterpret_cast<CEntity**>(reinterpret_cast<uint8*>(standing)+0xFC)))) {
+            const auto& velocity=*reinterpret_cast<CVector*>(reinterpret_cast<uint8*>(standing)+0x44);
+            const float speed=velocity.Magnitude();
+            const float factor=std::max(0.f,speed-f(0x8CCEA0))/std::max(f(0x8CCEA0),speed);
+            const CVector offset=velocity*factor*step;
+            m_avecTargetHistoryPos[0]-=offset;m_avecTargetHistoryPos[1]-=offset;
+        }
+    }
+    if (reset) {
+        TheCamera.ResetDuckingSystem(ped);m_bRotating=false;StaticRef<bool>(0xB6EC54)=false;m_bCollisionChecksOn=true;
+        const bool preserve=StaticRef<bool>(0xB6F050) || resetHistory;
+        if (!preserve) {
+            m_fHorizontalAngle=CameraPedHeading(ped)-HALF_PI;
+            if (StaticRef<bool>(0xB6F043)) m_fHorizontalAngle+=PI;
+        }
+        m_fBetaSpeed=m_fAlphaSpeed=0.f;m_fDistance=1000.f;
+        if (distance==f(0xB6F0F4)) { StaticRef<float>(0xB6F0FC)=f(0xB6F0F8);distance=f(0xB6F0F8); }
+        if (!preserve) {
+            m_fVerticalAngle=0.f;
+            if (flags&1) m_fVerticalAngle=-M16Asin(std::clamp(DotProduct(ped->field_578,ped->GetMatrix().GetForward()),-1.f,1.f));
+        }
+        m_vecFront=M16Direction(m_fHorizontalAngle,m_fVerticalAngle);
+        m_avecTargetHistoryPos[0]=focal-m_vecFront*historyDistance;m_anTargetHistoryTime[0]=CTimer::GetTimeInMS();
+        m_avecTargetHistoryPos[1]=focal-m_vecFront*distance;m_nCurrentHistoryPoints=0;
+        if (!preserve) m_fVerticalAngle=-verticalOffset;
+        auto* swim=intelligence->GetTaskSwim();
+        if (!swim || int(intelligence->GetTaskSwim()->m_nSwimState)==4) { if (intelligence->GetTaskJetPack()) m_fVerticalAngle-=.34906587f; }
+        else m_fVerticalAngle-=.2617994f;
+        CPad::GetPad(0)->ClearMouseHistory();
+    }
+    m_vecFront=focal-m_avecTargetHistoryPos[0];m_vecFront.Normalise();
+    const float actualDistance=(focal-m_avecTargetHistoryPos[1]).Magnitude();
+    if (actualDistance<distance && f(row+12)<distance) distance=std::max(actualDistance,minimumDistance);
+    float historyAngle=std::atan2(-m_vecFront.x,m_vecFront.y)-HALF_PI;
+    if (historyAngle < -PI) historyAngle+=TWO_PI;
+    float pedAngle=CameraPedHeading(ped)-HALF_PI;
+    float difference=pedAngle-historyAngle;
+    if (difference>PI) pedAngle-=TWO_PI;else if (difference < -PI) pedAngle+=TWO_PI;
+    auto& forceBehind=StaticRef<bool>(0xB6EC54);
+    if (pad->GetForceCameraBehindPlayer()) forceBehind=true;
+    else if (forceBehind && (ped->m_vecMoveSpeed.SquaredMagnitude()>.001f || std::abs(pedAngle-historyAngle)<.01f || pad->AimWeaponLeftRight(ped)!=0 || pad->AimWeaponUpDown(ped)!=0)) forceBehind=false;
+    difference=pedAngle-historyAngle;
+    float followWeight=0.f, followMaximum=0.f, angleChange=0.f;
+    if (std::abs(difference)<f(0x8CCE9C) || forceBehind || horizontalTaskWeight!=0.f) {
+        followWeight=step*f(row+40);followMaximum=step*f(row+44);
+        if (!forceBehind && horizontalTaskWeight==0.f) {
+            const float speed=ped->m_standingOnEntity ? (ped->m_vecMoveSpeed-*reinterpret_cast<CVector*>(reinterpret_cast<uint8*>(ped->m_standingOnEntity)+0x44)).Magnitude() : ped->m_vecMoveSpeed.Magnitude();
+            followWeight=std::min(speed*followWeight,1.f);
+        } else {
+            followWeight=std::min(followWeight*f(0x8CCE98),1.f);followMaximum*=f(0x8CCE94);
+            if (horizontalTaskWeight!=0.f) {followWeight*=horizontalTaskWeight;followMaximum*=horizontalTaskWeight;}
+        }
+        angleChange=std::clamp(difference*followWeight,-followMaximum,followMaximum);
+    }
+    historyAngle+=angleChange;
+    if (historyAngle>m_fHorizontalAngle+PI) historyAngle-=TWO_PI;else if (historyAngle<m_fHorizontalAngle-PI) historyAngle+=TWO_PI;
+    const float betaCorrection=(historyAngle-m_fHorizontalAngle)/std::max(step,1.f);
+    float historyPitch=M16Asin(std::clamp(m_vecFront.z,-1.f,1.f));
+    const float separation=std::abs(pedAngle-historyAngle);
+    if (separation>f(0x8CCE90) && ped->m_vecMoveSpeed.SquaredMagnitude()>.002f) {
+        const float factor=std::min(((separation-f(0x8CCE90))*1.2f)/(PI-f(0x8CCE90)),1.f);
+        const float maximum=HALF_PI-(HALF_PI-f(0x8CCE8C))*factor;
+        const float weight=CamPower(f(0x8CCE88),step);
+        if (historyPitch>maximum) historyPitch=weight*historyPitch+(1.f-weight)*maximum;
+        else if (historyPitch < -maximum) historyPitch=historyPitch*weight-(1.f-weight)*maximum;
+    }
+    float pitchCorrection=0.f;
+    if (verticalTaskWeight!=0.f || (forceBehind && (flags&1))) {
+        float wantedPitch=0.f;
+        if (intelligence->GetTaskJetPack()) wantedPitch=-.34906587f;
+        else if (intelligence->GetTaskSwim()) wantedPitch=-.2617994f;
+        else if (flags&1) wantedPitch=-M16Asin(std::clamp(DotProduct(ped->field_578,ped->GetMatrix().GetForward()),-1.f,1.f));
+        float weight=std::min(f(0x8CCE84)*followWeight,1.f),maximum=f(0x8CCE80)*followMaximum;
+        if (verticalTaskWeight!=0.f) {weight*=verticalTaskWeight;maximum*=verticalTaskWeight;}
+        pitchCorrection=std::clamp((wantedPitch-historyPitch)*weight,-maximum,maximum);
+    }
+    const float wantedAlpha=std::clamp((historyPitch+pitchCorrection)-verticalOffset,-lower,upper);
+    const float maximumAlphaChange=step*f(row+24);
+    const float alphaAuto=std::clamp((wantedAlpha-m_fVerticalAngle)*(1.f-CamPower(f(row+20),step)),-maximumAlphaChange,maximumAlphaChange);
+    float betaStick=-float(pad->AimWeaponLeftRight(ped)),alphaStick=float(pad->AimWeaponUpDown(ped));
+    if (auto* gun=intelligence->GetTaskUseGun()) {
+        gun=intelligence->GetTaskUseGun();
+        if ((int(gun->m_NextCmd)==2 || int(gun->m_NextCmd)==3) && intelligence->GetTaskUseGun()->m_WeaponInfo && !intelligence->GetTaskUseGun()->m_WeaponInfo->flags.bAimWithArm) {
+            const float walk=pad->GetPedWalkLeftRight();
+            if (std::abs(betaStick)<std::abs(walk)) betaStick=-float(pad->GetPedWalkLeftRight());
+        }
+    }
+    if ((alphaStick!=0.f || betaStick!=0.f) && pad->GetPedWalkLeftRight()==0 && pad->GetPedWalkUpDown()==0) {
+        auto* player=FindPlayerPed(0);const CVector forward=player->GetMatrix().GetForward();
+        const CVector cameraForward=TheCamera.GetForwardVector();
+        if (DotProduct(cameraForward,forward)>.3f) { CVector point=player->GetPosition()+cameraForward*5.f;g_ikChainMan.LookAt("FollowPedSA",player,nullptr,1500,static_cast<eBoneTag>(-1),&point,false,.25f,500,3,false); }
+    }
+    const float scale=m_fFOV*.0125f;
+    betaStick=scale*f(0x859B50)*std::abs(betaStick)*f(0x8CC4A0)*f(0x8CC4A0)*betaStick;
+    alphaStick=scale*f(0x8631AC)*std::abs(alphaStick)*f(0x8CC4A0)*f(0x8CC4A0)*alphaStick;
+    if (auto* climb=intelligence->GetTaskClimb()) {
+        intelligence->GetTaskClimb()->GetCameraStickModifier(ped,m_fVerticalAngle,m_fHorizontalAngle,alphaStick,betaStick);
+    } else {
+        auto* active=intelligence->GetTaskManager().GetActiveTask();
+        if (int(active->GetTaskType())==701) plugin::CallMethod<0x63A380>(intelligence->GetTaskManager().GetActiveTask(),ped,distance,&m_fVerticalAngle,&m_fHorizontalAngle,&alphaStick,&betaStick);
+    }
+    const float speedWeight=CamPower(f(row+32),step),maximumSpeed=f(row+36);
+    const float wantedBetaSpeed=std::clamp(betaStick+betaCorrection,-maximumSpeed,maximumSpeed);
+    m_fBetaSpeed=(1.f-speedWeight)*wantedBetaSpeed+speedWeight*m_fBetaSpeed;
+    if (std::abs(m_fBetaSpeed)<f(0x8CCE7C)) m_fBetaSpeed=0.f;
+    const bool mouse=StaticRef<bool>(0xB6EC2E) && !pad->DisablePlayerControls;
+    float betaDelta;
+    if (!mouse) betaDelta=step*m_fBetaSpeed;
+    else { betaStick=m_fFOV*.0125f*f(0xB73424)*-2.5f*f(0xB6EC1C);m_fBetaSpeed=0.f;betaDelta=betaStick; }
+    m_fHorizontalAngle+=betaDelta;ClipBeta();
+    m_fAlphaSpeed=alphaStick*speedWeight+(1.f-speedWeight)*m_fAlphaSpeed;
+    m_fAlphaSpeed=std::clamp(m_fAlphaSpeed,-maximumSpeed,maximumSpeed);
+    if (std::abs(m_fAlphaSpeed)<f(0x8CCE78)) m_fAlphaSpeed=0.f;
+    const float historyDelta=step*m_fAlphaSpeed+alphaAuto;
+    float alphaDelta=historyDelta;
+    if (mouse) {
+        alphaStick=m_fFOV*.0125f*f(0xB73428)*2.5f*f(0xB6EC1C);
+        const uint8 transition=StaticRef<uint8>(0xC3EFAB);
+        if ((StaticRef<bool>(0xB6F079) && TheCamera.GetFadingDirection()==1 && transition>45) || transition>200) alphaStick=std::clamp(-verticalOffset-m_fVerticalAngle,-.05f,.05f);
+        m_fAlphaSpeed=0.f;alphaDelta=alphaStick;
+    }
+    m_fVerticalAngle+=alphaDelta;
+    if (m_fVerticalAngle>upper) {m_fVerticalAngle=upper;m_fAlphaSpeed=0.f;}
+    else if (m_fVerticalAngle < -lower) {m_fVerticalAngle=-lower;m_fAlphaSpeed=0.f;}
+    if (std::abs(f(0x8CCE74)-m_fVerticalAngle)<f(0x8CCE70)) m_fVerticalAngle=f(0x8CCE74);
+    StaticRef<float>(0x8CCE74)=m_fVerticalAngle;
+    if (std::abs(f(0x8CCE6C)-m_fHorizontalAngle)<f(0x8CCE68)) m_fHorizontalAngle=f(0x8CCE6C);
+    StaticRef<float>(0x8CCE6C)=m_fHorizontalAngle;
+    m_vecFront=M16Direction(m_fHorizontalAngle,m_fVerticalAngle);GetVectorsReadyForRW();
+    StaticRef<bool>(0xB6F042)=false;StaticRef<bool>(0xB6F043)=false;
+    m_vecSource=focal-m_vecFront*distance;CameraRoundVector4(m_vecSource);
+    const float historyAlpha=(historyDelta+wantedAlpha)+verticalOffset;
+    const CVector historyFront=M16Direction(m_fHorizontalAngle,historyAlpha);
+    m_avecTargetHistoryPos[0]=focal-historyFront*historyDistance;
+    m_avecTargetHistoryPos[1]=focal-historyFront*distance;
+    if (pad->GetForceCameraBehindPlayer() && pad->AimWeaponLeftRight(nullptr)!=0) {
+        float difference=m_fHorizontalAngle-(ped->m_fCurrentRotation-HALF_PI);
+        if (difference>PI) difference-=TWO_PI;else if (difference < -PI) difference+=TWO_PI;
+        if (std::abs(difference)<step*.1f) ped->m_fAimingRotation=m_fHorizontalAngle+HALF_PI;
+    }
+    TheCamera.HandleCameraMotionForDucking(ped,&m_vecSource,&focal,false);
+    m_vecTargetCoorsForFudgeInter=focal;CameraRoundVector4(m_vecSource);
+    CCamera::SetColVarsPed(static_cast<ePedType>(interior),StaticRef<int32>(0xB6F0F0));
+    if (StaticRef<int32>(0x8CC384)==3) {
+        TheCamera.CameraGenericModeSpecialCases(ped);StaticRef<bool>(0x8A5B14)=true;StaticRef<bool>(0x8A5B15)=true;StaticRef<bool>(0x8A5B17)=true;
+        TheCamera.CameraColDetAndReact(&m_vecSource,&focal);TheCamera.ImproveNearClip(nullptr,ped,&m_vecSource,&focal);CameraRoundVector4(m_vecSource);
+    }
+    StaticRef<bool>(0xB6F042)=false;StaticRef<bool>(0xB6F043)=false;CameraRoundVector4(m_vecSource);GetVectorsReadyForRW();
+    if (!interior && StaticRef<int32>(0xB6F0D8)!=1 && (flags&1) && !plugin::CallMethodAndReturn<bool,0x441390>(ped) && !StaticRef<bool>(0xB6FCDD) && !StaticRef<bool>(0xB6FD14) && !StaticRef<bool>(0xB6FCB4) && ped->m_vecMoveSpeed.SquaredMagnitude()<.0001f) gIdleCam.Process();
+    else StaticRef<uint32>(0xB6FE34)=0;
+    m_bResetStatics=false;
+}

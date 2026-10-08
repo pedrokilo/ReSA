@@ -1,0 +1,25 @@
+# InterestingScan355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Reconstrucción aplicada y aprobación histórica disponible. Falta completar el replay con todas las fuentes finales; no se acredita vigencia actual de este banco.
+
+Funciones del alcance: `CInterestingEvents::ScanForNearbyEntities`.
+
+[Evidencia histórica](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-interesting-scan355/20261007-213320-610015/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+# InterestingScan355
+
+Varía listas de sectores, peatones y vehículos, códigos de escaneo, distancia y banderas de interés. Compara las entidades registradas en cada llamada, el orden de las trazas y el estado de todos los objetos; incluye limpieza al desbordar el código de escaneo.
+
+Funciones y pares previstos:
+
+- `CInterestingEvents::ScanForNearbyEntities` — 0x605A30; 2048 pares EXE/DLL.
+
+La evidencia canónica se conserva en `../Interesting355/combo/`. `LiveComparison.hpp` especifica los fixtures y colaboradores aislados mediante parches simétricos de las entradas EXE y DLL. Esos colaboradores quedan fuera de la acreditación del banco. El banco exige conmutación real del hook, compara resultados, estado y trazas, y restaura los globals y hooks modificados.
+
+Estado al preparar esta documentación: `approved_historical`. Último informe: `D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interesting-scan355\20261007-213320-610015`. Un informe histórico no acredita fuentes modificadas posteriormente: la aprobación definitiva depende de los hashes actuales y del preflight de `Pending355/register.py`.
+
+Compilar con `python reversing/InterestingScan355/build_probe.py`; ejecutar con GTA cerrado mediante `python reversing/InterestingScan355/run_local.py`. Root serializa las compilaciones y ejecuciones del lote para no mezclar sondas.

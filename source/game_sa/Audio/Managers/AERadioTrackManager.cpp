@@ -6,28 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAERadioTrackManager
- * Reconstrucción: INCOMPLETA — 29/43 funciones reconstruidas.
- * Pendientes de reconstruir: 14.
+ * Reconstrucción: COMPLETA — 43/43 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 14.
- * Validación registrada: 0/43 entradas.
+ * Validación registrada: 14/43 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   CheckForStationRetune | 0x004EB660 | S
- *   CheckForTrackConcatenation | 0x004EA930 | S
- *   ChooseAdvertIndex | 0x004E9570 | S
- *   ChooseDJBanterIndex | 0x004EA2D0 | S
- *   ChooseDJBanterIndexFromList | 0x004E95E0 | S
- *   ChooseIdentIndex | 0x004E94C0 | S
- *   ChooseMusicTrackIndex | 0x004EA270 | S
- *   ChooseTalkRadioShow | 0x004E8E40 | S
- *   IsVehicleRadioActive | 0x004E9800 | S
- *   QueueUpTracksForStation | 0x004EA670 | S
- *   Service | 0x004EB9A0 | S
- *   StopRadio | 0x004E9820 | S
- *   TrackRadioStation | 0x004EAC30 | S
- *   UpdateRadioVolumes | 0x004EA010 | S
  * BLOQUEADAS (nombre | dirección | tipo):
  *   CheckForStationRetune | 0x004EB660 | S
  *   CheckForTrackConcatenation | 0x004EA930 | S
@@ -65,11 +50,11 @@ void CAERadioTrackManager::InjectHooks() {
     RH_ScopedInstall(Load, 0x5D40E0);
     RH_ScopedInstall(Save, 0x5D3EE0);
     RH_ScopedInstall(Initialise, 0x5B9390);
-    RH_ScopedInstall(Service, 0x4EB9A0, { .reversed = false });
+    RH_ScopedInstall(Service, 0x4EB9A0);
     RH_ScopedInstall(DisplayRadioStationName, 0x4E9E50);
-    RH_ScopedInstall(CheckForStationRetune, 0x4EB660, { .reversed = false });
+    RH_ScopedInstall(CheckForStationRetune, 0x4EB660);
     RH_ScopedInstall(CheckForPause, 0x4EA590);
-    RH_ScopedInstall(IsVehicleRadioActive, 0x4E9800, { .reversed = false });
+    RH_ScopedInstall(IsVehicleRadioActive, 0x4E9800);
     RH_ScopedInstall(AddDJBanterIndexToHistory, 0x4E97B0);
     RH_ScopedInstall(AddAdvertIndexToHistory, 0x4E9760);
     RH_ScopedInstall(AddIdentIndexToHistory, 0x4E9720);
@@ -77,26 +62,26 @@ void CAERadioTrackManager::InjectHooks() {
     RH_ScopedOverloadedInstall(StartRadio, "manual", 0x4EB3C0, void (CAERadioTrackManager::*)(eRadioID, eBassSetting, float, bool));
     RH_ScopedOverloadedInstall(StartRadio, "with-settings", 0x4EB550, void (CAERadioTrackManager::*)(const tVehicleAudioSettings&));
     RH_ScopedInstall(CheckForStationRetuneDuringPause, 0x4EB890);
-    RH_ScopedInstall(TrackRadioStation, 0x4EAC30, { .reversed = false });
+    RH_ScopedInstall(TrackRadioStation, 0x4EAC30);
     RH_ScopedInstall(ChooseTracksForStation, 0x4EB180);
-    RH_ScopedInstall(CheckForTrackConcatenation, 0x4EA930, { .reversed = false });
-    RH_ScopedInstall(QueueUpTracksForStation, 0x4EA670, { .reversed = false });
-    RH_ScopedInstall(ChooseDJBanterIndex, 0x4EA2D0, { .reversed = false });
-    RH_ScopedInstall(ChooseDJBanterIndexFromList, 0x4E95E0, { .reversed = false });
-    RH_ScopedInstall(ChooseAdvertIndex, 0x4E9570, { .reversed = false });
-    RH_ScopedInstall(ChooseIdentIndex, 0x4E94C0, { .reversed = false });
-    RH_ScopedInstall(ChooseMusicTrackIndex, 0x4EA270, { .reversed = false });
-    RH_ScopedInstall(ChooseTalkRadioShow, 0x4E8E40, { .reversed = false });
+    RH_ScopedInstall(CheckForTrackConcatenation, 0x4EA930);
+    RH_ScopedInstall(QueueUpTracksForStation, 0x4EA670);
+    RH_ScopedInstall(ChooseDJBanterIndex, 0x4EA2D0);
+    RH_ScopedInstall(ChooseDJBanterIndexFromList, 0x4E95E0);
+    RH_ScopedInstall(ChooseAdvertIndex, 0x4E9570);
+    RH_ScopedInstall(ChooseIdentIndex, 0x4E94C0);
+    RH_ScopedInstall(ChooseMusicTrackIndex, 0x4EA270);
+    RH_ScopedInstall(ChooseTalkRadioShow, 0x4E8E40);
     RH_ScopedInstall(CheckForMissionStatsChanges, 0x4E8410);
     RH_ScopedInstall(StartTrackPlayback, 0x4EA640);
-    RH_ScopedInstall(UpdateRadioVolumes, 0x4EA010, { .reversed = false });
+    RH_ScopedInstall(UpdateRadioVolumes, 0x4EA010);
     RH_ScopedInstall(PlayRadioAnnouncement, 0x4E8400);
     RH_ScopedInstall(GetCurrentRadioStationID, 0x4E83F0);
     RH_ScopedInstall(GetRadioStationListenTimes, 0x4E83E0);
     RH_ScopedInstall(GetRadioStationName, 0x4E9E10);
     RH_ScopedInstall(GetRadioStationNameKey, 0x4E8380);
     RH_ScopedInstall(HasRadioRetuneJustStarted, 0x4E8370);
-    RH_ScopedInstall(StopRadio, 0x4E9820, { .reversed = false });
+    RH_ScopedInstall(StopRadio, 0x4E9820);
     RH_ScopedInstall(IsRadioOn, 0x4E8350, { .reversed = true });
     RH_ScopedInstall(InitialiseRadioStationID, 0x4E8330);
     RH_ScopedInstall(SetBassEnhanceOnOff, 0x4E9DB0);
@@ -415,49 +400,109 @@ void CAERadioTrackManager::CheckForMissionStatsChanges() {
 
 // 0x4EA930
 void CAERadioTrackManager::CheckForTrackConcatenation() {
-    plugin::CallMethod<0x4EA930, CAERadioTrackManager*>(this);
-    /*
-    const auto utPlayMode = AEUserRadioTrackManager.GetUserTrackPlayMode();
-    if (m_ActiveSettings.m_nCurrentRadioStation == RADIO_USER_TRACKS && utPlayMode != 0) {
-        if (utPlayMode == 2 && m_ActiveSettings.m_iTrackPlayTime != -4) { // ???
-            AEUserRadioTrackManager.SetUserTrackIndex(m_ActiveSettings.m_aTrackQueue.front());
-
-            m_ActiveSettings.m_aTrackQueue[1] = AEUserRadioTrackManager.SelectUserTrackIndex();
-            m_ActiveSettings.m_aTrackTypes[1] = TYPE_USER_TRACK;
-            m_ActiveSettings.m_aTrackIndexes[1] = m_ActiveSettings.m_aTrackQueue[1];
-
-            AEAudioHardware.PlayTrack(
-                m_ActiveSettings.m_aTrackQueue[0],
-                m_ActiveSettings.m_aTrackQueue[1],
-                0u,
-                m_ActiveSettings.m_nTrackFlags,
-                m_ActiveSettings.m_aTrackTypes[0] == TYPE_USER_TRACK,
-                m_ActiveSettings.m_aTrackTypes[1] == TYPE_USER_TRACK // always true?
-            );
-        }
-        m_nUserTrackPlayMode = AEUserRadioTrackManager.GetUserTrackPlayMode();
-    }
-
-    const auto nextTrack = m_ActiveSettings.m_aTrackQueue[1];
-    if (AEAudioHardware.GetActiveTrackID() == nextTrack && nextTrack >= 0) {
-        m_ActiveSettings.SwitchToNextTrack();
-
-        if (m_ActiveSettings.m_aTrackQueue[1] == -1) {
-            const auto radioId = m_ActiveSettings.m_nCurrentRadioStation;
-            if (radioId == RADIO_USER_TRACKS) {
-                if (!FrontEndMenuManager.m_nRadioMode && CAEAudioUtility::ResolveProbability(0.17f)) {
-                    m_ActiveSettings.m_aTrackQueue
-                }
+    int8 count = 1;
+    int8 userIndex = 1;
+    auto& settings = m_ActiveSettings;
+    if (settings.StationID == static_cast<eRadioID>(12)) {
+        const auto savedMode = m_nUserTrackPlayMode;
+        if (savedMode != AEUserRadioTrackManager.GetUserTrackPlayMode()) {
+            if ((savedMode == 2 || AEUserRadioTrackManager.GetUserTrackPlayMode() == 2) && settings.PlayTime != -4) {
+                AEUserRadioTrackManager.SetUserTrackIndex(settings.TrackQueue[0]);
+                settings.TrackQueue[1] = AEUserRadioTrackManager.SelectUserTrackIndex();
+                settings.TrackTypes[1] = TYPE_USER_TRACK;
+                settings.TrackIndices[1] = int8(settings.TrackQueue[1]);
+                userIndex = 2;
+                AEAudioHardware.PlayTrack(uint32(settings.TrackQueue[0]), settings.TrackQueue[1], 0, uint8(settings.TrackFlags), settings.TrackTypes[0] == TYPE_USER_TRACK, settings.TrackTypes[1] == TYPE_USER_TRACK);
             }
+            m_nUserTrackPlayMode = AEUserRadioTrackManager.GetUserTrackPlayMode();
         }
     }
-    */
+    const auto next = settings.TrackQueue[1];
+    if (AEAudioHardware.GetActiveTrackID() != next || next < 0) return;
+    settings.SwitchToNextTrack();
+    if (settings.TrackQueue[1] == -1) {
+        const auto station = settings.StationID;
+        if (station == static_cast<eRadioID>(12)) {
+            if (!StaticRef<uint8>(0xBA67F8) && CAEAudioUtility::ResolveProbability(std::bit_cast<float>(0x3E2E147Bu))) {
+                settings.TrackQueue[size_t(userIndex)] = ChooseAdvertIndex(station);
+                settings.TrackTypes[size_t(userIndex)] = TYPE_ADVERT;
+                ++userIndex;
+            }
+            settings.TrackQueue[size_t(userIndex)] = AEUserRadioTrackManager.SelectUserTrackIndex();
+            settings.TrackTypes[size_t(userIndex)] = TYPE_USER_TRACK;
+            settings.TrackIndices[size_t(userIndex)] = int8(settings.TrackQueue[size_t(userIndex)]);
+            ++userIndex;
+            settings.TrackQueue[size_t(userIndex)] = AEUserRadioTrackManager.SelectUserTrackIndex();
+            settings.TrackTypes[size_t(userIndex)] = TYPE_USER_TRACK;
+            settings.TrackIndices[size_t(userIndex)] = int8(settings.TrackQueue[size_t(userIndex)]);
+        } else if (settings.TrackTypes[0] == TYPE_INTRO || settings.TrackTypes[0] == TYPE_TRACK || settings.TrackTypes[0] == TYPE_OUTRO) {
+            if (station == static_cast<eRadioID>(0)) {
+                QueueUpTracksForStation(station, &count, 2, settings);
+            } else if (int8(m_nTracksInARow[size_t(int8(station))]) < 2 && CAEAudioUtility::ResolveProbability(.5f)) {
+                if (CAEAudioUtility::ResolveProbability(.5f)) QueueUpTracksForStation(station, &count, 0, settings);
+                QueueUpTracksForStation(station, &count, 3, settings);
+            } else {
+                if (CAEAudioUtility::ResolveProbability(.5f)) QueueUpTracksForStation(station, &count, 0, settings);
+                if (!QueueUpTracksForStation(station, &count, 2, settings)) QueueUpTracksForStation(station, &count, 1, settings);
+            }
+        } else QueueUpTracksForStation(station, &count, 3, settings);
+    }
+    AEAudioHardware.PlayTrack(uint32(settings.TrackQueue[0]), settings.TrackQueue[1], 0, uint8(settings.TrackFlags), settings.TrackTypes[0] == TYPE_USER_TRACK, settings.TrackTypes[1] == TYPE_USER_TRACK);
 }
+
 
 // 0x4EB660
 void CAERadioTrackManager::CheckForStationRetune() {
-    plugin::CallMethod<0x4EB660, CAERadioTrackManager*>(this);
+    if (int8(m_ActiveSettings.StationID) == 0) return;
+    m_bRetuneJustStarted = false;
+    const auto active = m_nMode == eRadioTrackMode::RADIO_STARTING || m_nMode == eRadioTrackMode::RADIO_WAITING_TO_PLAY || m_nMode == eRadioTrackMode::RADIO_PLAYING || m_bInitialised || m_nStationsListed != 0 || m_nStationsListDown != 0 || int8(m_ActiveSettings.StationID) == 13;
+    if (active && AudioEngine.GetCutsceneTrackStatus() == 0) {
+        const auto* options = CAEVehicleAudioEntity::StaticGetPlayerVehicleAudioSettingsForRadio();
+        if (options && (int8(options->RadioType) == 0 || int8(options->RadioType) == 3 || int8(options->RadioType) == 2) && StaticRef<uint8>(0xA43088) != 1) {
+            if (int8(CAEVehicleAudioEntity::StaticGetPlayerVehicleAudioSettingsForRadio()->RadioType) != 0) return;
+            bool requested = true;
+            if (m_iRadioStationScriptRequest < 0) {
+                if (CPad::GetPad(0)->NextStationJustUp()) {
+                    m_nStationsListDown = m_nStationsListed;
+                    m_nStationsListed = int32(uint32(m_nStationsListed) + 1u);
+                    m_nTimeRadioStationRetuned = StaticRef<uint32>(0xB7CB84);
+                } else if (CPad::GetPad(0)->LastStationJustUp()) {
+                    m_nStationsListDown = m_nStationsListed;
+                    m_nStationsListed = int32(uint32(m_nStationsListed) - 1u);
+                    m_nTimeRadioStationRetuned = StaticRef<uint32>(0xB7CB84);
+                } else requested = false;
+            } else {
+                m_nStationsListDown = m_nStationsListed;
+                m_nStationsListed = int32(uint32(m_iRadioStationScriptRequest) - uint32(int32(int8(m_RequestedSettings.StationID))));
+                m_iRadioStationScriptRequest = -1;
+                m_nTimeRadioStationRetuned = StaticRef<uint32>(0xB7CB84);
+            }
+            if (requested) {m_bDisplayStationName = true;m_bRetuneJustStarted = true;}
+        }
+    }
+    if (m_nStationsListed == 0 && m_nStationsListDown == 0) return;
+    auto station = int8(uint8(int8(m_RequestedSettings.StationID)) + uint8(m_nStationsListed));
+    if (station < 1) station = int8(station + 13);
+    else if (station > 13) station = int8(station - 13);
+    if (station == 13 || (station == 12 && StaticRef<uint16>(0xB6B976) == 0)) {
+        StopRadio(nullptr, false);
+        AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_CLICK_OFF, 0.f, 1.f);
+        AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_RETUNE_STOP, 0.f, 1.f);
+    } else {
+        if (int8(m_ActiveSettings.StationID) == 13) {
+            AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_CLICK_ON, 0.f, 1.f);
+            m_ActiveSettings.StationID = static_cast<eRadioID>(-1);
+        } else StopRadio(nullptr, false);
+        AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_RETUNE_START, 0.f, 1.f);
+        const auto delay = !(StaticRef<float>(0xB6F14C) > StaticRef<float>(0x858C20)) ? 2000u : 4000u;
+        if (StaticRef<uint32>(0xB7CB84) <= m_nTimeRadioStationRetuned + 1500u) return;
+        if (StaticRef<uint32>(0xB7CB84) <= field_60 + delay) return;
+    }
+    StartRadio(static_cast<eRadioID>(station), m_ActiveSettings.BassSetting, m_ActiveSettings.BassGain, false);
+    m_nStationsListed = 0;
+    m_nStationsListDown = 0;
 }
+
 
 // 0x4EB890
 void CAERadioTrackManager::CheckForStationRetuneDuringPause() {
@@ -493,77 +538,64 @@ void CAERadioTrackManager::StartTrackPlayback() {
 }
 
 // 0x4EA010
+static float CalculateRadioVolume355() {
+    const auto effects = AEAudioHardware.GetEffectsMasterScalingFactor();
+    const auto music = AEAudioHardware.GetMusicMasterScalingFactor();
+    const auto twenty = StaticRef<float>(0x858BA4);
+    const auto nine = StaticRef<float>(0x85EED4);
+    float result;
+    __asm {
+        fld effects
+        fdiv music
+        fldlg2
+        fxch st(1)
+        fyl2x
+        fmul twenty
+        fsub nine
+        fstp result
+    }
+    return result;
+
+}
+
 void CAERadioTrackManager::UpdateRadioVolumes() {
-    plugin::CallMethod<0x4EA010, CAERadioTrackManager*>(this);
-
-    /*
-    const auto fEffectsScalingFactor = AEAudioHardware.GetEffectsMasterScalingFactor();
-    const auto fMusicScalingFactor = AEAudioHardware.GetMusicMasterScalingFactor();
-
-    auto volume = -4.0f;
-    if (!CTimer::GetIsPaused() || !m_bEnabledInPauseMode) {
-        if (CTimer::GetIsSlowMotionActive()) {
-            volume = -100.0f;
-        }
-        else if (TheCamera.m_bWideScreenOn) {
-            volume = -16.0f;
-        }
-        else if (fEffectsScalingFactor > 0.0f && fMusicScalingFactor > 0.0f) {
-            if (!CAEPedSpeechAudioEntity::s_bForceAudible) {
-                auto audioEvent = 0;
-                while (true) {
-                    if (!AudioEngine.IsMissionAudioSampleFinished(audioEvent) && AudioEngine.GetMissionAudioEvent(audioEvent) != 0xFFFF) {
-                        auto missionAudioPosition = AudioEngine.GetMissionAudioPosition(audioEvent);
-                        if (!missionAudioPosition)
-                            break;
-
-                        CAEAudioEnvironment::GetPositionRelativeToCamera(v9, missionAudioPosition);
-                        if (CVector::Magnitude(&v9) <= 15.0f)
-                            break;
-                    }
-                    if (++audioEvent >= 2) {
-                        if (m_f80 >= 0.0f)
-                            goto LABEL_22;
-
-                        auto v4 = m_f84 + m_f80;
-                        if (v4 >= 0.0f)
-                            v4 = 0.0f;
-                        m_f80 = v4;
-                        goto LABEL_21;
+    auto volume = -4.f;
+    if (!((StaticRef<uint8>(0xB7CB49) || StaticRef<uint8>(0xB7CB48)) && m_bEnabledInPauseMode)) {
+        if (CCutsceneMgr::IsRunning()) volume = -100.f;
+        else if (StaticRef<uint8>(0xB6F065)) volume = -16.f;
+        else if (AEAudioHardware.GetEffectsMasterScalingFactor() > 0.f && AEAudioHardware.GetMusicMasterScalingFactor() > 0.f) {
+            bool duck = StaticRef<uint8>(0xB613E4) != 0;
+            if (!duck) {
+                for (uint8 slot = 0; slot < 2; ++slot) {
+                    if (!AudioEngine.IsMissionAudioSampleFinished(slot) && AudioEngine.GetMissionAudioEvent(slot) != 65535) {
+                        auto* position = AudioEngine.GetMissionAudioPosition(slot);
+                        if (!position) { duck = true; break; }
+                        CVector relative;
+                        CAEAudioEnvironment::GetPositionRelativeToCamera_Vector(&relative, position);
+                        if (relative.Magnitude() <= 15.f) { duck = true; break; }
                     }
                 }
             }
-
-            volumea = fEffectsScalingFactor;
-            if (__FYL2X__(volumea / fMusicScalingFactor, 0.30102999566398119802) * 20.0f - 9.0f >= 0.0f) {
-                v4 = 0.0f;
-            } else {
-                volumeb = fEffectsScalingFactor;
-                v4 = __FYL2X__(volumeb / fMusicScalingFactor, 0.30102999566398119802) * 20.0f - 9.0f;
+            if (duck) {
+                const auto first = CalculateRadioVolume355();
+                const auto attenuation = first < 0.f ? CalculateRadioVolume355() : 0.f;
+                m_f80 = attenuation;
+                m_f84 = StaticRef<float>(0x85904C) * attenuation;
+                volume = attenuation - 4.f;
+            } else if (m_f80 < 0.f) {
+                const auto increased = m_f84 + m_f80;
+                m_f80 = increased < 0.f ? increased : 0.f;
+                volume = m_f80 - 4.f;
             }
-            m_f80 = v4;
-            m_f84 = -0.02 * v4;
-        LABEL_21:
-            volume = v4 - 4.0f;
         }
-    LABEL_22:
-        if (AudioEngine.IsAmbienceRadioActive())
-            volume = volume - 20.0f;
+        if (AudioEngine.IsAmbienceRadioActive()) volume -= 20.f;
     }
-
-    if (m_bBassEnhance && m_ActiveSettings.m_BassSetting) {
-        switch (m_ActiveSettings.m_BassSetting) {
-        case 1:
-            volume -= 2.0f;
-            break;
-        case 2:
-            volume += 1.5f;
-            break;
-        }
+    if (m_bBassEnhance) {
+        const auto bass = int8(m_ActiveSettings.BassSetting);
+        if (bass == 1) volume -= 2.f;
+        else if (bass == 2) volume += 1.5f;
     }
-
-    AEAudioHardware.SetChannelVolume(m_nChannel, 0, volume, 0);
-    */
+    AEAudioHardware.SetChannelVolume(int16(m_HwClientHandle), 0, volume, 0);
 }
 
 // 0x4E8400
@@ -665,42 +697,426 @@ void CAERadioTrackManager::StartRadio(eRadioID id, eBassSetting bassSetting, flo
 
 // 0x4EAC30
 bool CAERadioTrackManager::TrackRadioStation(eRadioID id, bool skipTrack) {
-    return plugin::CallMethodAndReturn<bool, 0x4EAC30, CAERadioTrackManager*, int8, uint8>(this, id, skipTrack);
+    auto& state = m_aRadioState[size_t(int8(id))];
+    if (state.m_nGameClockHours >= 0 && state.m_nGameClockDays >= 0) {
+        auto days = int32(StaticRef<uint8>(0xB70154)) - state.m_nGameClockDays;
+        if (days < 0) {
+            const auto month = int8(StaticRef<uint8>(0xB70155));
+            const auto previousMonth = int8(month - 1) < 0 ? int8(month + 11) : int8(month - 1);
+            days += StaticRef<uint8>(0x8CCF24 + previousMonth);
+        }
+        if (days * 24 - state.m_nGameClockHours + int32(StaticRef<uint8>(0xB70153)) > 5) return false;
+    }
+    auto elapsed = int32(StaticRef<uint32>(0xB7CB84) - uint32(state.m_iTimeInMs));
+    if (elapsed < 7001) elapsed = 7000;
+    const auto skipMinimum = int32(uint32(state.m_aElapsed[0]) + 1u);
+    if (skipTrack && elapsed <= skipMinimum) elapsed = skipMinimum;
+    auto& settings = m_RequestedSettings;
+    settings.TrackQueue.fill(-1);
+    settings.TrackTypes.fill(TYPE_NONE);
+    settings.TrackIndices.fill(-1);
+    int8 count = 0;
+    int32 total = 0;
+    for (int32 i = 0; i < 3; ++i) {
+        total = int32(uint32(total) + uint32(state.m_aElapsed[size_t(i)]));
+        if (elapsed > total) continue;
+        settings.PlayTime = i == 0 ? int32(uint32(state.m_iTrackPlayTime) + uint32(elapsed)) : int32(uint32(state.m_aElapsed[size_t(i)]) - uint32(total) + uint32(elapsed));
+        const auto type = state.m_aTrackTypes[size_t(i)];
+        switch (type) {
+        case TYPE_INDENT: case TYPE_ADVERT: case TYPE_DJ_BANTER:
+            settings.TrackQueue[0] = state.m_aTrackQueue[size_t(i)];
+            settings.TrackTypes[0] = type;
+            count = 1;
+            QueueUpTracksForStation(id, &count, id == static_cast<eRadioID>(12) ? 4 : 3, settings);
+            return true;
+        case TYPE_INTRO: case TYPE_TRACK: case TYPE_USER_TRACK: {
+            const auto copies = type == TYPE_INTRO ? 3 : 2;
+            for (int32 j = 0; j < copies; ++j) {
+                // The EXE copies adjacent fields even when i+j exceeds the three saved tracks.
+                settings.TrackQueue[size_t(j)] = reinterpret_cast<const int32*>(state.m_aTrackQueue.data())[i + j];
+                settings.TrackTypes[size_t(j)] = reinterpret_cast<const int8*>(state.m_aTrackTypes.data())[i + j];
+            }
+            if (type == TYPE_USER_TRACK && settings.TrackQueue[1] == -1) {
+                settings.TrackQueue[1] = AEUserRadioTrackManager.SelectUserTrackIndex();
+                settings.TrackTypes[1] = TYPE_USER_TRACK;
+                settings.TrackIndices[1] = int8(settings.TrackQueue[1]);
+            }
+            return true;
+        }
+        case TYPE_OUTRO:
+            settings.TrackQueue[0] = state.m_aTrackQueue[size_t(i)];
+            settings.TrackTypes[0] = type;
+            count = 1;
+            if (id == static_cast<eRadioID>(0)) QueueUpTracksForStation(id, &count, 2, settings);
+            else {
+                if (CAEAudioUtility::ResolveProbability(.5f)) QueueUpTracksForStation(id, &count, 0, settings);
+                if (!QueueUpTracksForStation(id, &count, 2, settings)) QueueUpTracksForStation(id, &count, 1, settings);
+            }
+            return true;
+        default: return false;
+        }
+    }
+    if (elapsed <= int32(uint32(total) + 7000u)) {
+        if (id == static_cast<eRadioID>(12)) QueueUpTracksForStation(id, &count, 4, settings);
+        QueueUpTracksForStation(id, &count, id == static_cast<eRadioID>(12) ? 4 : 3, settings);
+        elapsed = int32(uint32(elapsed) - uint32(total));
+        settings.PlayTime = elapsed > 4999 ? 5000 : elapsed;
+        return true;
+    }
+    if (elapsed <= int32(uint32(total) + 155000u)) {
+        QueueUpTracksForStation(id, &count, 4, settings);
+        settings.PlayTime = int32(uint32(elapsed) - uint32(total) - 5000u);
+        return true;
+    }
+    if (int32(uint32(total) + 160000u) < elapsed) return false;
+    if (id == static_cast<eRadioID>(12)) {
+        QueueUpTracksForStation(id, &count, 4, settings);
+        if (!StaticRef<uint8>(0xBA67F8) && CAEAudioUtility::ResolveProbability(std::bit_cast<float>(0x3E2E147Bu))) QueueUpTracksForStation(id, &count, 1, settings);
+    } else {
+        QueueUpTracksForStation(id, &count, 5, settings);
+        AddMusicTrackIndexToHistory(id, settings.TrackIndices[size_t(count - 1)]);
+        if (id == static_cast<eRadioID>(0)) QueueUpTracksForStation(id, &count, 2, settings);
+        else if (CAEAudioUtility::ResolveProbability(.5f)) {
+            if (CAEAudioUtility::ResolveProbability(.5f)) QueueUpTracksForStation(id, &count, 0, settings);
+            QueueUpTracksForStation(id, &count, 3, settings);
+        } else {
+            if (CAEAudioUtility::ResolveProbability(.5f)) QueueUpTracksForStation(id, &count, 0, settings);
+            if (!QueueUpTracksForStation(id, &count, 2, settings)) QueueUpTracksForStation(id, &count, 1, settings);
+        }
+    }
+    settings.PlayTime = int32(uint32(elapsed) - uint32(total) - 155000u);
+    return true;
 }
 
+
 // 0x4EA670
-bool CAERadioTrackManager::QueueUpTracksForStation(eRadioID id, int8* iTrackCount, int8 radioState, tRadioSettings& settings) {
-    return plugin::CallMethodAndReturn<bool, 0x4EA670, CAERadioTrackManager*, int8, int8*, int8, tRadioSettings&>(this, id, iTrackCount, radioState, settings);
+bool CAERadioTrackManager::QueueUpTracksForStation(eRadioID id, int8* count, int8 state, tRadioSettings& settings) {
+    const auto station = int32(int8(id));
+    const auto advance = [&] { *count = int8(*count + 1); };
+    const auto queueSimple = [&](int32 track, int8 type, bool rejectInvalid) {
+        settings.TrackQueue.data()[*count] = track;
+        if (rejectInvalid && track == -1) {
+            return false;
+        }
+        settings.TrackTypes.data()[*count] = type;
+        advance();
+        return true;
+    };
+    const auto queueOutro = [&] {
+        const auto index = station * 31 + int32(settings.TrackIndices.data()[*count]);
+        const auto* range = &StaticRef<int32>(0x8CA1B0) + index * 2;
+        return queueSimple(CAEAudioUtility::GetRandomNumberInRange(range[0], range[1]), TYPE_OUTRO, false);
+    };
+    switch (state) {
+    case TYPE_INDENT:
+        return station != 12 && queueSimple(ChooseIdentIndex(id), TYPE_INDENT, true);
+    case TYPE_ADVERT:
+        return queueSimple(ChooseAdvertIndex(id), TYPE_ADVERT, false);
+    case TYPE_DJ_BANTER:
+        return station != 12 && queueSimple(ChooseDJBanterIndex(id), TYPE_DJ_BANTER, true);
+    case TYPE_INTRO: {
+        if (station == 12) {
+            return false;
+        }
+        settings.TrackIndices.data()[*count] = ChooseMusicTrackIndex(id);
+        const auto index = station * 31 + int32(settings.TrackIndices.data()[*count]);
+        const auto* introRange = &StaticRef<int32>(0x8C9610) + index * 2;
+        queueSimple(CAEAudioUtility::GetRandomNumberInRange(introRange[0], introRange[1]), TYPE_INTRO, false);
+        settings.TrackIndices.data()[*count] = settings.TrackIndices.data()[*count - 1];
+        queueSimple((&StaticRef<int32>(0x8C9040))[station * 31 + int32(settings.TrackIndices.data()[*count])], TYPE_TRACK, false);
+        settings.TrackIndices.data()[*count] = settings.TrackIndices.data()[*count - 1];
+        return queueOutro();
+    }
+    case TYPE_TRACK:
+        if (station == 12) {
+            const auto track = AEUserRadioTrackManager.SelectUserTrackIndex();
+            settings.TrackQueue.data()[*count] = track;
+            settings.TrackTypes.data()[*count] = TYPE_USER_TRACK;
+            settings.TrackIndices.data()[*count] = int8(track);
+            advance();
+            return true;
+        }
+        settings.TrackIndices.data()[*count] = ChooseMusicTrackIndex(id);
+        queueSimple((&StaticRef<int32>(0x8C9040))[station * 31 + int32(settings.TrackIndices.data()[*count])], TYPE_TRACK, false);
+        settings.TrackIndices.data()[*count] = settings.TrackIndices.data()[*count - 1];
+        return queueOutro();
+    case TYPE_OUTRO:
+        if (station == 12) {
+            return false;
+        }
+        settings.TrackIndices.data()[*count] = ChooseMusicTrackIndex(id);
+        return queueOutro();
+    default:
+        return true;
+    }
 }
 
 // 0x4E9820
-void CAERadioTrackManager::StopRadio(tVehicleAudioSettings* settings, bool duringPause) {
-    return plugin::CallMethod<0x4E9820, CAERadioTrackManager*, tVehicleAudioSettings*, bool>(this, settings, duringPause);
+void CAERadioTrackManager::StopRadio(tVehicleAudioSettings* options, bool duringPause) {
+    auto& settings = m_ActiveSettings;
+    const auto paused = StaticRef<uint8>(0xB7CB49) || StaticRef<uint8>(0xB7CB48);
+    if (m_nMode == eRadioTrackMode::RADIO_STARTING || m_nMode == eRadioTrackMode::RADIO_WAITING_TO_PLAY || m_nMode == eRadioTrackMode::RADIO_PLAYING) {
+        if (!paused || duringPause) m_nMode = eRadioTrackMode::RADIO_STOPPING;
+        auto& state = m_aRadioState[size_t(int8(settings.StationID))];
+        for (size_t i = 0; i < 3; ++i) {
+            state.m_aElapsed[i] = 0;
+            state.m_iTrackPlayTime = -1;
+            state.m_aTrackQueue[i] = -1;
+            state.m_aTrackTypes[i] = TYPE_NONE;
+        }
+        state.m_iTimeInMs = int32(StaticRef<uint32>(0xB7CB84));
+        state.m_nGameClockDays = int8(StaticRef<uint8>(0xB70154));
+        state.m_nGameClockHours = int8(StaticRef<uint8>(0xB70153));
+        if (state.m_iTimeInPauseModeInMs >= 0 && int8(settings.StationID) != 0 && int8(settings.StationID) != 13) {
+            auto& listened = m_aListenTimes[size_t(int8(settings.StationID))];
+            listened = int32(uint32(listened) + StaticRef<uint32>(0xB7CB7C) - uint32(state.m_iTimeInPauseModeInMs));
+        }
+        if (int8(settings.StationID) == 13) state.m_aElapsed[0] = 0;
+        else {
+            state.m_aElapsed[0] = int32(uint32(settings.TrackLengthMs) - uint32(settings.PlayTime) - 100u);
+            const auto type = settings.CurrTrackType;
+            switch (type) {
+            case TYPE_INDENT: case TYPE_ADVERT: case TYPE_DJ_BANTER: case TYPE_OUTRO:
+                state.m_iTrackPlayTime = settings.PlayTime;
+                state.m_aTrackQueue[0] = settings.CurrTrackID;
+                state.m_aTrackTypes[0] = type;
+                break;
+            case TYPE_INTRO:
+                state.m_aElapsed[1] = int8(settings.StationID) == 11 ? StaticRef<int32>(0x8CAD50 + int32(settings.TrackIndices[0]) * 4) : 150000;
+                state.m_aElapsed[2] = 5000;
+                state.m_iTrackPlayTime = settings.PlayTime;
+                if (settings.TrackQueue[0] == settings.CurrTrackID) {
+                    for (size_t i = 0; i < 3; ++i) {state.m_aTrackQueue[i] = settings.TrackQueue[i];state.m_aTrackTypes[i] = settings.TrackTypes[i];}
+                } else {
+                    state.m_aTrackQueue[0] = settings.CurrTrackID;state.m_aTrackTypes[0] = type;
+                    for (size_t i = 1; i < 3; ++i) {state.m_aTrackQueue[i] = settings.TrackQueue[i - 1];state.m_aTrackTypes[i] = settings.TrackTypes[i - 1];}
+                }
+                break;
+            case TYPE_TRACK: case TYPE_USER_TRACK:
+                state.m_aElapsed[1] = 5000;
+                state.m_iTrackPlayTime = settings.PlayTime;
+                if (settings.TrackQueue[0] == settings.CurrTrackID) {
+                    for (size_t i = 0; i < 2; ++i) {state.m_aTrackQueue[i] = settings.TrackQueue[i];state.m_aTrackTypes[i] = settings.TrackTypes[i];}
+                } else {
+                    state.m_aTrackQueue[0] = settings.CurrTrackID;state.m_aTrackTypes[0] = type;
+                    state.m_aTrackQueue[1] = settings.TrackQueue[0];state.m_aTrackTypes[1] = settings.TrackTypes[0];
+                }
+                break;
+            }
+        }
+    }
+    m_bInitialised = false;
+    m_bEnabledInPauseMode = false;
+    if ((StaticRef<uint8>(0xB7CB49) || StaticRef<uint8>(0xB7CB48)) && !duringPause) {
+        m_iRadioStationMenuRequest = -1;
+        m_nRetuneStartedTime = 0;
+    }
+    if (!options) {
+        if (duringPause) {m_nStationsListed = 0;m_nStationsListDown = 0;m_bRetuneJustStarted = false;}
+        return;
+    }
+    m_nStationsListed = 0;
+    m_nStationsListDown = 0;
+    m_iRadioStationScriptRequest = -1;
+    m_bDisplayStationName = false;
+    m_bRetuneJustStarted = false;
+    AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_RETUNE_STOP, 0.f, 1.f);
+    if (int8(settings.StationID) == -1) settings.StationID = static_cast<eRadioID>(13);
+    options->RadioStation = settings.StationID;
+    options->BassSetting = settings.BassSetting;
+    if (m_nMode != eRadioTrackMode::RADIO_STOPPED || m_bInitialised || m_nStationsListed != 0 || m_nStationsListDown != 0) {
+        m_nSavedTimeMs = StaticRef<uint32>(0xB7CB84);
+        m_nSavedGameClockDays = StaticRef<uint8>(0xB70154);
+        m_nSavedGameClockHours = StaticRef<uint8>(0xB70153);
+        m_nSavedRadioStationId = int8(settings.StationID);
+    }
+    if (int8(settings.StationID) == 0) settings.StationID = static_cast<eRadioID>(CAEAudioUtility::GetRandomNumberInRange<int32>(1, 13));
 }
+
 
 // 0x4E94C0
 int32 CAERadioTrackManager::ChooseIdentIndex(eRadioID id) {
-    return plugin::CallAndReturn<int32, 0x4E94C0, CAERadioTrackManager*, int8>(this, id);
+    const auto station = int32(int8(id));
+    const auto* range = &StaticRef<int32>(0x8C8FB0) + station * 2;
+    if (range[0] == 1922) {
+        return -1;
+    }
+    for (;;) {
+        const auto selected = CAEAudioUtility::GetRandomNumberInRange(range[0], range[1]);
+        if (station == 6 && selected == 1100 && CStats::GetStatValue(static_cast<eStats>(338)) == 0.f) {
+            continue;
+        }
+        const auto count = std::min(8, range[1] - range[0] - 1);
+        const auto* history = &StaticRef<int32>(0xB62980) + station * 8;
+        bool repeated = false;
+        for (int32 i = 0; i < count; ++i) {
+            if (history[i] == selected) {
+                repeated = true;
+                break;
+            }
+        }
+        if (!repeated) {
+            return selected;
+        }
+    }
 }
 
 // 0x4E9570
 int32 CAERadioTrackManager::ChooseAdvertIndex(eRadioID id) {
-    return plugin::CallAndReturn<int32, 0x4E9570, CAERadioTrackManager*, int8>(this, id);
+    const auto station = int32(int8(id));
+    const auto* banned = &StaticRef<int32>(0x8CADD0) + station * 23;
+    const auto* history = &StaticRef<int32>(0xB620C0) + station * 40;
+    for (;;) {
+        const auto selected = CAEAudioUtility::GetRandomNumberInRange(StaticRef<int32>(0x8C8B88), StaticRef<int32>(0x8C8B8C));
+        bool repeated = false;
+        for (int32 i = 0; i < 23; ++i) {
+            if (banned[i] == selected) {
+                repeated = true;
+                break;
+            }
+        }
+        if (repeated) {
+            continue;
+        }
+        for (int32 i = 0; i < 40; ++i) {
+            if (history[i] == selected) {
+                repeated = true;
+                break;
+            }
+        }
+        if (!repeated) {
+            return selected;
+        }
+    }
 }
 
 // 0x4EA270
 int8 CAERadioTrackManager::ChooseMusicTrackIndex(eRadioID id) {
-    return plugin::CallAndReturn<int8, 0x4EA270, CAERadioTrackManager*, int8>(this, id);
+    if (id == static_cast<eRadioID>(11)) {
+        return ChooseTalkRadioShow();
+    }
+    const auto station = int32(int8(id));
+    const auto available = (&StaticRef<int32>(0x8C9010))[station];
+    const auto* history = &StaticRef<int8>(0xB62B40) + station * 20;
+    for (;;) {
+        const auto selected = int8(CAEAudioUtility::GetRandomNumberInRange(0, available - 1));
+        bool repeated = false;
+        for (int32 i = 0; i < std::min(20, available - 2); ++i) {
+            if (history[i] == selected) {
+                repeated = true;
+                break;
+            }
+        }
+        if (!repeated) {
+            return selected;
+        }
+    }
 }
 
 // 0x4EA2D0
 int32 CAERadioTrackManager::ChooseDJBanterIndex(eRadioID id) {
-    return plugin::CallAndReturn<int32, 0x4EA2D0, CAERadioTrackManager*, int8>(this, id);
+    const auto station = int32(int8(id));
+    const auto special = StaticRef<int8>(0xB62C73);
+    const auto index = int32(StaticRef<int8>(0xB62C72));
+    int32 selected = -1;
+    if (special == 0) {
+        selected = (&StaticRef<int32>(0x8C8BF0))[station * 2];
+    } else if (special == 1) {
+        const auto* range = &StaticRef<int32>(0x8C8C50) + station * 2;
+        if (index == 0 || (index == 1 && range[0] != range[1])) {
+            selected = range[index];
+        }
+    } else if (special == 2) {
+        selected = (&StaticRef<int32>(0x8CB280))[station * 22 + index];
+    }
+    if (selected == 1922) {
+        selected = -1;
+    } else if (selected >= 0) {
+        const auto* history = &StaticRef<int32>(0xB61D78) + station * 15;
+        for (int32 i = 0; i < 15; ++i) {
+            if (history[i] == selected) {
+                selected = -1;
+                break;
+            }
+        }
+    }
+    if (selected != -1) {
+        return selected;
+    }
+    const auto choose = [&](uintptr_t list) { return ChooseDJBanterIndexFromList(id, reinterpret_cast<int32**>(list)); };
+    if (station == 0) {
+        return choose(CGameLogic::LaRiotsActiveHere() ? 0x8C8E30 : 0x8C8CB0);
+    }
+    if (!CAEAudioUtility::ResolveProbability(.6f) || StaticRef<int32>(0xB72914) != 0) {
+        return selected;
+    }
+    const auto hour = StaticRef<uint8>(0xB70153);
+    const auto forecast = [](int32 weather) { return CWeather::ForecastWeather(static_cast<eWeatherType>(weather), 3); };
+    if (forecast(16) || forecast(8)) {
+        if (CAEAudioUtility::ResolveProbability(.5f)) {
+            selected = choose(0x8C8E90);
+            if (selected != -1) {
+                return selected;
+            }
+        }
+    } else {
+        // Preserve these forecast calls: the following EXE hour range [8,6) is impossible.
+        const auto sunny = forecast(0) || forecast(2) || forecast(13) || forecast(6) || forecast(11) || forecast(17);
+        (void)sunny;
+        if (forecast(9) && CAEAudioUtility::ResolveProbability(.5f)) {
+            selected = choose(0x8C8F50);
+            if (selected != -1) {
+                return selected;
+            }
+        }
+    }
+    uintptr_t list{};
+    if (hour >= 6 && hour <= 8) {
+        list = 0x8C8DD0;
+    } else if (hour >= 18 && hour <= 20) {
+        list = 0x8C8D70;
+    } else if (hour >= 22 || hour <= 2) {
+        list = 0x8C8E30;
+    }
+    if (list && CAEAudioUtility::ResolveProbability(.3f)) {
+        selected = choose(list);
+        if (selected != -1) {
+            return selected;
+        }
+    }
+    return choose(0x8C8CB0);
 }
 
 // 0x4E95E0
 int32 CAERadioTrackManager::ChooseDJBanterIndexFromList(eRadioID id, int32** list) {
-    return plugin::CallMethodAndReturn<int32, 0x4E95E0, CAERadioTrackManager*, eRadioID, int32**>(this, id, list);
+    const auto station = int32(int8(id));
+    const auto* ranges = reinterpret_cast<int32*>(list);
+    const auto start = ranges[station * 2];
+    if (start == 1922) {
+        return -1;
+    }
+    const auto available = ranges[station * 2 + 1] - start + 1;
+    const auto offset = CAEAudioUtility::GetRandomNumberInRange(0, available - 1);
+    if (available <= 0) {
+        return -1;
+    }
+    const auto* range = &StaticRef<int32>(0x8C8CB0) + station * 2;
+    const auto count = std::min(15, range[1] - range[0] - 1);
+    const auto* history = &StaticRef<int32>(0xB61D78) + station * 15;
+    for (int32 i = 0; i < available; ++i) {
+        const auto selected = start + (offset + i) % available;
+        bool repeated = false;
+        for (int32 h = 0; h < count; ++h) {
+            if (history[h] == selected) {
+                repeated = true;
+                break;
+            }
+        }
+        if (!repeated) {
+            return selected;
+        }
+    }
+    return -1;
 }
 
 // 0x4EB180
@@ -779,7 +1195,240 @@ void CAERadioTrackManager::ChooseTracksForStation(eRadioID id) {
 
 // 0x4E8E40
 int8 CAERadioTrackManager::ChooseTalkRadioShow() {
-    return plugin::CallAndReturn<int8, 0x4E8E40>();
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  char cVar4;
+  char *pcVar5;
+  float fVar6;
+  char local_20 [32];
+
+  pcVar5 = local_20;
+  for (iVar2 = 7; iVar2 != 0; iVar2 = iVar2 + -1) {
+    pcVar5[0] = -1;
+    pcVar5[1] = -1;
+    pcVar5[2] = -1;
+    pcVar5[3] = -1;
+    pcVar5 = pcVar5 + 4;
+  }
+  pcVar5[0] = -1;
+  pcVar5[1] = -1;
+  cVar4 = '\0';
+  pcVar5[2] = -1;
+  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x136));
+  if ((fVar6 == (float)0.0) || (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x137)), fVar6 != (float)0.0)) {
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x138));
+    if (fVar6 != (float)0.0) {
+      local_20[0] = '\x0f';
+      goto LAB_004e8eb3;
+    }
+  }
+  else {
+    local_20[0] = '\x0e';
+LAB_004e8eb3:
+    cVar4 = '\x01';
+  }
+  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x139));
+  if (fVar6 == (float)0.0) {
+    local_20[cVar4] = '\f';
+LAB_004e8f15:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x139));
+    if ((fVar6 != (float)0.0) && (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x138)), fVar6 == (float)0.0)) {
+      local_20[cVar4] = '\r';
+      goto LAB_004e8f15;
+    }
+  }
+  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x13b));
+  if ((fVar6 != (float)0.0) && (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x13c)), fVar6 == (float)0.0)) {
+    local_20[cVar4] = '\x06';
+    cVar4 = cVar4 + '\x01';
+  }
+  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x12e));
+  if ((fVar6 == (float)0.0) || (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x13a)), fVar6 != (float)0.0)) {
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x13c));
+    if ((fVar6 != (float)0.0) && (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x13d)), fVar6 == (float)0.0)) {
+      local_20[cVar4] = '\x04';
+      goto LAB_004e8ff3;
+    }
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x13d));
+    if (fVar6 != (float)0.0) {
+      local_20[cVar4] = '\x05';
+      goto LAB_004e8ff3;
+    }
+  }
+  else {
+    local_20[cVar4] = '\x03';
+LAB_004e8ff3:
+    cVar4 = cVar4 + '\x01';
+  }
+  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x13e));
+  if (fVar6 == (float)0.0) {
+    local_20[cVar4] = '\a';
+LAB_004e903b:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x13e));
+    if (fVar6 != (float)0.0) {
+      local_20[cVar4] = '\b';
+      goto LAB_004e903b;
+    }
+  }
+  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x13f));
+  if (fVar6 == (float)0.0) {
+    local_20[cVar4] = '\t';
+LAB_004e90db:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x13f));
+    if (((fVar6 != (float)0.0) && (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x130)), fVar6 == (float)0.0))
+       && (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x140)), fVar6 == (float)0.0)) {
+      local_20[cVar4] = '\n';
+      goto LAB_004e90db;
+    }
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x140));
+    if (fVar6 != (float)0.0) {
+      local_20[cVar4] = '\v';
+      goto LAB_004e90db;
+    }
+  }
+  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x141));
+  if (fVar6 == (float)0.0) {
+    local_20[cVar4] = '\x1b';
+LAB_004e9123:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x141));
+    if (fVar6 != (float)0.0) {
+      local_20[cVar4] = '\x1c';
+      goto LAB_004e9123;
+    }
+  }
+  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x142));
+  if (fVar6 == (float)0.0) {
+    local_20[cVar4] = '\x1d';
+LAB_004e916b:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x142));
+    if (fVar6 != (float)0.0) {
+      local_20[cVar4] = '\x1e';
+      goto LAB_004e916b;
+    }
+  }
+  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x143));
+  if (fVar6 == (float)0.0) {
+    local_20[cVar4] = '\0';
+LAB_004e91f1:
+    cVar4 = cVar4 + '\x01';
+  }
+  else {
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x144));
+    if ((fVar6 != (float)0.0) && (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x145)), fVar6 == (float)0.0)) {
+      local_20[cVar4] = '\x01';
+      goto LAB_004e91f1;
+    }
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x146));
+    if (fVar6 != (float)0.0) {
+      local_20[cVar4] = '\x02';
+      goto LAB_004e91f1;
+    }
+  }
+  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x12e));
+  if (fVar6 == (float)0.0) {
+    local_20[cVar4] = '\x10';
+  }
+  else {
+    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x12e));
+    if ((fVar6 == (float)0.0) || (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x12f)), fVar6 != (float)0.0)) {
+      fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x12f));
+      if ((fVar6 == (float)0.0) || (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x143)), fVar6 != (float)0.0))
+      {
+        fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x143));
+        if ((fVar6 == (float)0.0) || (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x130)), fVar6 != (float)0.0)
+           ) {
+          fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x130));
+          if ((fVar6 == (float)0.0) ||
+             (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x131)), fVar6 != (float)0.0)) {
+            fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x131));
+            if ((fVar6 == (float)0.0) ||
+               (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x132)), fVar6 != (float)0.0)) {
+              fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x132));
+              if ((fVar6 == (float)0.0) ||
+                 (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x133)), fVar6 != (float)0.0)) {
+                fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x133));
+                if ((fVar6 == (float)0.0) ||
+                   (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x134)), fVar6 != (float)0.0)) {
+                  fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x134));
+                  if ((fVar6 == (float)0.0) ||
+                     (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x135)), fVar6 != (float)0.0)) {
+                    fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0x135));
+                    if ((fVar6 == (float)0.0) ||
+                       (fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0xb5)), fVar6 == (float)4.0)) {
+                      fVar6 = (float)CStats::GetStatValue(static_cast<eStats>(0xb5));
+                      if (fVar6 != (float)4.0) goto LAB_004e9481;
+                      local_20[cVar4] = '\x1a';
+                    }
+                    else {
+                      local_20[cVar4] = '\x19';
+                    }
+                  }
+                  else {
+                    local_20[cVar4] = '\x18';
+                  }
+                }
+                else {
+                  local_20[cVar4] = '\x17';
+                }
+              }
+              else {
+                local_20[cVar4] = '\x16';
+              }
+            }
+            else {
+              local_20[cVar4] = '\x15';
+            }
+          }
+          else {
+            local_20[cVar4] = '\x14';
+          }
+        }
+        else {
+          local_20[cVar4] = '\x13';
+        }
+      }
+      else {
+        local_20[cVar4] = '\x12';
+      }
+    }
+    else {
+      local_20[cVar4] = '\x11';
+    }
+  }
+  cVar4 = cVar4 + '\x01';
+LAB_004e9481:
+  iVar2 = cVar4 + -1;
+  do {
+    iVar1 = CAEAudioUtility::GetRandomNumberInRange(0,iVar2);
+    cVar4 = '\0';
+    if (iVar2 < 1) {
+      return local_20[iVar1];
+    }
+    iVar3 = 0;
+    while (local_20[iVar1] != (&StaticRef<int8>(0xB62C1C))[iVar3]) {
+      cVar4 = cVar4 + '\x01';
+      iVar3 = (int)cVar4;
+      if (iVar2 <= iVar3) {
+        return local_20[iVar1];
+      }
+    }
+  } while( true );
 }
 
 // 0x4E96C0
@@ -819,7 +1468,7 @@ void CAERadioTrackManager::CheckForPause() {
         AEAudioHardware.SetChannelFrequencyScalingFactor(m_HwClientHandle, 0, m_bEnabledInPauseMode ? 1.0f : 0.0f);
     } else {
         const auto* settings = CAEVehicleAudioEntity::StaticGetPlayerVehicleAudioSettingsForRadio();
-        
+
         if (settings && notsa::contains({
                 AE_RT_CIVILIAN,
                 AE_RT_EMERGENCY,
@@ -839,8 +1488,120 @@ void CAERadioTrackManager::CheckForPause() {
 
 // 0x4EB9A0
 void CAERadioTrackManager::Service(int32 playTime) {
-    plugin::CallMethod<0x4EB9A0, CAERadioTrackManager*, int32>(this, playTime);
+    auto& settings = m_ActiveSettings;
+    StaticRef<int32>(0x8CBA68) = settings.PlayTime;
+    settings.PlayTime = playTime;
+    settings.TrackLengthMs = AEAudioHardware.GetTrackLengthMs();
+    settings.CurrTrackID = AEAudioHardware.GetPlayingTrackID();
+    if (!StaticRef<uint8>(0xB7CB49) && !StaticRef<uint8>(0xB7CB48)) {
+        CheckForMissionStatsChanges();
+        CheckForStationRetune();
+    } else CheckForStationRetuneDuringPause();
+    if (m_bInitialised && m_nMode == eRadioTrackMode::RADIO_STOPPED) {
+        if (int8(m_RequestedSettings.StationID) == 13) {
+            settings = m_RequestedSettings;
+            const auto* options = CAEVehicleAudioEntity::StaticGetPlayerVehicleAudioSettingsForRadio();
+            if (options && (int8(options->RadioType) == 0 || int8(options->RadioType) == 3 || int8(options->RadioType) == 2)) m_bDisplayStationName = true;
+            m_bInitialised = false;
+        } else if (!AudioEngine.IsAmbienceTrackActive()) {
+            settings = m_RequestedSettings;
+            m_nMode = eRadioTrackMode::RADIO_STARTING;
+            if (IsVehicleRadioActive()) m_bDisplayStationName = true;
+            m_bInitialised = false;
+        }
+    }
+    switch (m_nMode) {
+    case eRadioTrackMode::RADIO_STARTING:
+        if (settings.PlayTime < 0) settings.PlayTime = 0;
+        AEAudioHardware.SetBassSetting(m_bBassEnhance ? settings.BassSetting : static_cast<eBassSetting>(0), settings.BassGain);
+        AEAudioHardware.PlayTrack(uint32(settings.TrackQueue[0]), settings.TrackQueue[1], uint32(settings.PlayTime), uint8(settings.TrackFlags), settings.TrackTypes[0] == TYPE_USER_TRACK, settings.TrackTypes[1] == TYPE_USER_TRACK);
+        m_nMode = eRadioTrackMode::RADIO_WAITING_TO_PLAY;
+        return;
+    case eRadioTrackMode::RADIO_WAITING_TO_PLAY:
+        if (settings.PlayTime == -2) {
+            AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_RETUNE_STOP, 0.f, 1.f);
+            StartTrackPlayback();
+            field_60 = StaticRef<uint32>(0xB7CB84);
+            m_aRadioState[size_t(int8(settings.StationID))].m_iTimeInPauseModeInMs = int32(StaticRef<uint32>(0xB7CB7C));
+            m_nMode = eRadioTrackMode::RADIO_PLAYING;
+            return;
+        }
+        if (settings.PlayTime == -8 && (settings.CurrTrackID == settings.TrackQueue[1] || (settings.CurrTrackID == settings.TrackQueue[0] && settings.TrackQueue[1] == -1))) {
+            settings.TrackQueue[0] = ChooseAdvertIndex(static_cast<eRadioID>(12));
+            settings.TrackTypes[0] = TYPE_ADVERT;
+            settings.TrackQueue[1] = AEUserRadioTrackManager.SelectUserTrackIndex();
+            settings.TrackTypes[1] = TYPE_USER_TRACK;
+            settings.TrackIndices[1] = int8(settings.TrackQueue[1]);
+            m_nMode = eRadioTrackMode::RADIO_STARTING;
+            return;
+        }
+        break;
+    case eRadioTrackMode::RADIO_PLAYING: {
+        if (int8(settings.StationID) == 12 && settings.PlayTime == -6) {
+            if (AEAudioHardware.GetActiveTrackID() == settings.TrackQueue[0] && settings.TrackQueue[1] != -1) {
+                settings.TrackQueue[0] = settings.TrackQueue[1];
+                settings.TrackIndices[0] = settings.TrackIndices[1];
+                settings.TrackTypes[0] = settings.TrackTypes[1];
+                settings.TrackQueue[1] = AEUserRadioTrackManager.SelectUserTrackIndex();
+                settings.TrackTypes[1] = TYPE_USER_TRACK;
+                settings.TrackIndices[1] = int8(settings.TrackQueue[1]);
+            } else {
+                settings.TrackQueue[0] = AEUserRadioTrackManager.SelectUserTrackIndex();
+                settings.TrackTypes[0] = TYPE_USER_TRACK;
+                settings.TrackIndices[0] = int8(settings.TrackQueue[0]);
+                settings.TrackQueue[1] = AEUserRadioTrackManager.SelectUserTrackIndex();
+                settings.TrackTypes[1] = TYPE_USER_TRACK;
+                settings.TrackIndices[1] = int8(settings.TrackQueue[1]);
+            }
+            m_nMode = eRadioTrackMode::RADIO_STARTING;
+        }
+        const auto record = [&](int8 type, int32 track, int8 index) {
+            if (type == TYPE_INTRO || type == TYPE_TRACK || type == TYPE_OUTRO || type == TYPE_USER_TRACK) AddMusicTrackIndexToHistory(settings.StationID, index);
+            else if (type == TYPE_INDENT) reinterpret_cast<void(__thiscall*)(CAERadioTrackManager*,eRadioID,int32)>(0x4E9720)(this, settings.StationID, track);
+            else if (type == TYPE_ADVERT) reinterpret_cast<void(__thiscall*)(CAERadioTrackManager*,eRadioID,int32)>(0x4E9760)(this, settings.StationID, track);
+            else if (type == TYPE_DJ_BANTER) reinterpret_cast<void(__thiscall*)(CAERadioTrackManager*,eRadioID,int32)>(0x4E97B0)(this, settings.StationID, track);
+        };
+        if (settings.TrackQueue[0] == settings.CurrTrackID) {
+            record(settings.TrackTypes[0], settings.TrackQueue[0], settings.TrackIndices[0]);
+            settings.CurrTrackType = settings.TrackTypes[0];
+            settings.CurrTrackIdx = settings.TrackIndices[0];
+        } else if (settings.PrevTrackID == settings.CurrTrackID) {
+            record(settings.PrevTrackType, settings.PrevTrackID, settings.PrevTrackIdx);
+            settings.CurrTrackType = settings.PrevTrackType;
+            settings.CurrTrackIdx = settings.PrevTrackIdx;
+        }
+        if (int8(settings.StationID) == 12 && (settings.TrackTypes[0] == TYPE_USER_TRACK || AEUserRadioTrackManager.GetUserTrackPlayMode() == 0)) {
+            if (CPad::GetPad(0)->IsRadioTrackSkipPressed()) {
+                StopRadio(nullptr, true);
+                while (m_nMode != eRadioTrackMode::RADIO_STOPPED || m_bInitialised || m_nStationsListed != 0 || m_nStationsListDown != 0) {
+                    Service(AEAudioHardware.GetTrackPlayTime());
+                    AEAudioHardware.Service();
+                }
+                StartRadio(settings.StationID, settings.BassSetting, settings.BassGain, true);
+            }
+        }
+        CheckForPause();
+        UpdateRadioVolumes();
+        CheckForTrackConcatenation();
+        AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_RETUNE_STOP, 0.f, 1.f);
+        return;
+    }
+    case eRadioTrackMode::RADIO_STOPPING:
+    case eRadioTrackMode::RADIO_STOPPING_CHANNELS_STOPPED:
+        AEAudioHardware.StopTrack();
+        m_nMode = eRadioTrackMode::RADIO_WAITING_TO_STOP;
+        return;
+    case eRadioTrackMode::RADIO_STOPPING_SILENCED:
+        m_nMode = eRadioTrackMode::RADIO_STOPPING_CHANNELS_STOPPED;
+        return;
+    case eRadioTrackMode::RADIO_WAITING_TO_STOP:
+        if (settings.PlayTime == -6 || settings.PlayTime == -8) m_nMode = eRadioTrackMode::RADIO_STOPPED;
+        else if (settings.PlayTime == -7 || settings.PlayTime == -2) {AEAudioHardware.StopTrack();return;}
+        break;
+    default: break;
+    }
 }
+
 
 // 0x5D40E0
 void CAERadioTrackManager::Load() {

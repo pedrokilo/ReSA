@@ -1,0 +1,91 @@
+bool CAERadioTrackManager::TrackRadioStation(eRadioID id, bool skipTrack) {
+    auto& state = m_aRadioState[size_t(int8(id))];
+    if (state.m_nGameClockHours >= 0 && state.m_nGameClockDays >= 0) {
+        auto days = int32(StaticRef<uint8>(0xB70154)) - state.m_nGameClockDays;
+        if (days < 0) {
+            const auto month = int8(StaticRef<uint8>(0xB70155));
+            const auto previousMonth = int8(month - 1) < 0 ? int8(month + 11) : int8(month - 1);
+            days += StaticRef<uint8>(0x8CCF24 + previousMonth);
+        }
+        if (days * 24 - state.m_nGameClockHours + int32(StaticRef<uint8>(0xB70153)) > 5) return false;
+    }
+    auto elapsed = int32(StaticRef<uint32>(0xB7CB84) - uint32(state.m_iTimeInPauseModeInMs));
+    if (elapsed < 7001) elapsed = 7000;
+    const auto skipMinimum = int32(uint32(state.m_aElapsed[0]) + 1u);
+    if (skipTrack && elapsed <= skipMinimum) elapsed = skipMinimum;
+    auto& settings = m_RequestedSettings;
+    settings.TrackQueue.fill(-1);
+    settings.TrackTypes.fill(TYPE_NONE);
+    settings.TrackIndices.fill(-1);
+    int8 count = 0;
+    int32 total = 0;
+    for (int32 i = 0; i < 3; ++i) {
+        total = int32(uint32(total) + uint32(state.m_aElapsed[size_t(i)]));
+        if (elapsed > total) continue;
+        settings.PlayTime = i == 0 ? int32(uint32(state.m_iTrackPlayTime) + uint32(elapsed)) : int32(uint32(state.m_aElapsed[size_t(i)]) - uint32(total) + uint32(elapsed));
+        const auto type = state.m_aTrackTypes[size_t(i)];
+        switch (type) {
+        case TYPE_INDENT: case TYPE_ADVERT: case TYPE_DJ_BANTER:
+            settings.TrackQueue[0] = state.m_aTrackQueue[size_t(i)];
+            settings.TrackTypes[0] = type;
+            count = 1;
+            QueueUpTracksForStation(id, &count, id == static_cast<eRadioID>(12) ? 4 : 3, settings);
+            return true;
+        case TYPE_INTRO: case TYPE_TRACK: case TYPE_USER_TRACK: {
+            const auto copies = type == TYPE_INTRO ? 3 : 2;
+            for (int32 j = 0; j < copies; ++j) {
+                // The EXE copies adjacent fields even when i+j exceeds the three saved tracks.
+                settings.TrackQueue[size_t(j)] = reinterpret_cast<const int32*>(state.m_aTrackQueue.data())[i + j];
+                settings.TrackTypes[size_t(j)] = reinterpret_cast<const int8*>(state.m_aTrackTypes.data())[i + j];
+            }
+            if (type == TYPE_USER_TRACK && settings.TrackQueue[1] == -1) {
+                settings.TrackQueue[1] = AEUserRadioTrackManager.SelectUserTrackIndex();
+                settings.TrackTypes[1] = TYPE_USER_TRACK;
+                settings.TrackIndices[1] = int8(settings.TrackQueue[1]);
+            }
+            return true;
+        }
+        case TYPE_OUTRO:
+            settings.TrackQueue[0] = state.m_aTrackQueue[size_t(i)];
+            settings.TrackTypes[0] = type;
+            count = 1;
+            if (id == static_cast<eRadioID>(0)) QueueUpTracksForStation(id, &count, 2, settings);
+            else {
+                if (CAEAudioUtility::ResolveProbability(.5f)) QueueUpTracksForStation(id, &count, 0, settings);
+                if (!QueueUpTracksForStation(id, &count, 2, settings)) QueueUpTracksForStation(id, &count, 1, settings);
+            }
+            return true;
+        default: return false;
+        }
+    }
+    if (elapsed <= int32(uint32(total) + 7000u)) {
+        if (id == static_cast<eRadioID>(12)) QueueUpTracksForStation(id, &count, 4, settings);
+        QueueUpTracksForStation(id, &count, id == static_cast<eRadioID>(12) ? 4 : 3, settings);
+        elapsed = int32(uint32(elapsed) - uint32(total));
+        settings.PlayTime = elapsed > 4999 ? 5000 : elapsed;
+        return true;
+    }
+    if (elapsed <= int32(uint32(total) + 155000u)) {
+        QueueUpTracksForStation(id, &count, 4, settings);
+        settings.PlayTime = int32(uint32(elapsed) - uint32(total) - 5000u);
+        return true;
+    }
+    if (int32(uint32(total) + 160000u) < elapsed) return false;
+    if (id == static_cast<eRadioID>(12)) {
+        QueueUpTracksForStation(id, &count, 4, settings);
+        if (!StaticRef<uint8>(0xBA67F8) && CAEAudioUtility::ResolveProbability(std::bit_cast<float>(0x3E2E147Bu))) QueueUpTracksForStation(id, &count, 1, settings);
+    } else {
+        QueueUpTracksForStation(id, &count, 5, settings);
+        AddMusicTrackIndexToHistory(id, settings.TrackIndices[size_t(count - 1)]);
+        if (id == static_cast<eRadioID>(0)) QueueUpTracksForStation(id, &count, 2, settings);
+        else if (CAEAudioUtility::ResolveProbability(.5f)) {
+            if (CAEAudioUtility::ResolveProbability(.5f)) QueueUpTracksForStation(id, &count, 0, settings);
+            QueueUpTracksForStation(id, &count, 3, settings);
+        } else {
+            if (CAEAudioUtility::ResolveProbability(.5f)) QueueUpTracksForStation(id, &count, 0, settings);
+            if (!QueueUpTracksForStation(id, &count, 2, settings)) QueueUpTracksForStation(id, &count, 1, settings);
+        }
+    }
+    settings.PlayTime = int32(uint32(elapsed) - uint32(total) - 155000u);
+    return true;
+}

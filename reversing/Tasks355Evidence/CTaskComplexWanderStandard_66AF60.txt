@@ -1,0 +1,114 @@
+// CTaskComplexWanderStandard::SetNextMinScanTime @ 0x0066af60 [0x66af60..0x66afc9]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0066af60(void)
+
+{
+  int *piVar1;
+  int iVar2;
+  int iVar3;
+  int *in_ECX;
+  
+  piVar1 = (int *)FUN_00681720();
+  if (piVar1 != (int *)0x0) {
+    iVar2 = (**(code **)(*piVar1 + 0x10))();
+    iVar3 = (**(code **)(*in_ECX + 0x10))();
+    if (iVar2 == iVar3) {
+      iVar2 = (**(code **)(*piVar1 + 0x2c))();
+      iVar3 = (**(code **)(*in_ECX + 0x2c))();
+      if (iVar2 == iVar3) {
+        iVar2 = FUN_00681720();
+        *(int *)(iVar2 + 0x34) = DAT_00b7cb84 + 100000;
+      }
+    }
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0066AF60: push ebx
+0066AF61: mov ebx,dword ptr [esp+8]
+0066AF65: mov eax,dword ptr [ebx+0000047Ch]
+0066AF6B: push esi
+0066AF6C: push edi
+0066AF6D: mov edi,ecx
+0066AF6F: lea ecx,[eax+4]
+0066AF72: call 00681720
+0066AF77: mov esi,eax
+0066AF79: test esi,esi
+0066AF7B: je 0066AFC4
+0066AF7D: mov eax,dword ptr [esi]
+0066AF7F: push ebp
+0066AF80: mov ecx,esi
+0066AF82: call dword ptr [eax+10h]
+0066AF85: mov edx,dword ptr [edi]
+0066AF87: mov ecx,edi
+0066AF89: mov ebp,eax
+0066AF8B: call dword ptr [edx+10h]
+0066AF8E: cmp ebp,eax
+0066AF90: pop ebp
+0066AF91: jne 0066AFC4
+0066AF93: mov eax,dword ptr [esi]
+0066AF95: mov ecx,esi
+0066AF97: call dword ptr [eax+2Ch]
+0066AF9A: mov edx,dword ptr [edi]
+0066AF9C: mov ecx,edi
+0066AF9E: mov esi,eax
+0066AFA0: call dword ptr [edx+2Ch]
+0066AFA3: cmp esi,eax
+0066AFA5: jne 0066AFC4
+0066AFA7: mov eax,dword ptr [ebx+0000047Ch]
+0066AFAD: lea ecx,[eax+4]
+0066AFB0: call 00681720
+0066AFB5: mov ecx,dword ptr ds:[00B7CB84h]
+0066AFBB: add ecx,186A0h
+0066AFC1: mov dword ptr [eax+34h],ecx
+0066AFC4: pop edi
+0066AFC5: pop esi
+0066AFC6: pop ebx
+0066AFC7: ret 4
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x66AF60, 0x66AFC9) ====
+0066AF60: push ebx
+0066AF61: mov ebx,dword ptr [esp+8]
+0066AF65: mov eax,dword ptr [ebx+0000047Ch]
+0066AF6B: push esi
+0066AF6C: push edi
+0066AF6D: mov edi,ecx
+0066AF6F: lea ecx,[eax+4]
+0066AF72: call 00681720
+0066AF77: mov esi,eax
+0066AF79: test esi,esi
+0066AF7B: je 0066AFC4
+0066AF7D: mov eax,dword ptr [esi]
+0066AF7F: push ebp
+0066AF80: mov ecx,esi
+0066AF82: call dword ptr [eax+10h]
+0066AF85: mov edx,dword ptr [edi]
+0066AF87: mov ecx,edi
+0066AF89: mov ebp,eax
+0066AF8B: call dword ptr [edx+10h]
+0066AF8E: cmp ebp,eax
+0066AF90: pop ebp
+0066AF91: jne 0066AFC4
+0066AF93: mov eax,dword ptr [esi]
+0066AF95: mov ecx,esi
+0066AF97: call dword ptr [eax+2Ch]
+0066AF9A: mov edx,dword ptr [edi]
+0066AF9C: mov ecx,edi
+0066AF9E: mov esi,eax
+0066AFA0: call dword ptr [edx+2Ch]
+0066AFA3: cmp esi,eax
+0066AFA5: jne 0066AFC4
+0066AFA7: mov eax,dword ptr [ebx+0000047Ch]
+0066AFAD: lea ecx,[eax+4]
+0066AFB0: call 00681720
+0066AFB5: mov ecx,dword ptr ds:[00B7CB84h]
+0066AFBB: add ecx,186A0h
+0066AFC1: mov dword ptr [eax+34h],ecx
+0066AFC4: pop edi
+0066AFC5: pop esi
+0066AFC6: pop ebx
+0066AFC7: ret 4

@@ -1,0 +1,84 @@
+// CCamera::ProcessVectorMoveLinear-0 @ 0x0050d430 [0x50d430..0x50d50e]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0050d430(float param_1)
+
+{
+  int in_ECX;
+  float10 fVar1;
+  
+  *(undefined1 *)(in_ECX + 0xcec) = 1;
+  if (*(char *)(in_ECX + 0xcdc) != '\0') {
+    fVar1 = (float10)fsin(((float10)270.0 - (float10)param_1 * (float10)180.0) *
+                          (float10)0.017453292);
+    fVar1 = (fVar1 + (float10)1.0) * (float10)0.5;
+    *(float *)(in_ECX + 0xce0) =
+         (float)(((float10)*(float *)(in_ECX + 0xcd0) - (float10)*(float *)(in_ECX + 0xcc4)) * fVar1
+                + (float10)*(float *)(in_ECX + 0xcc4));
+    *(float *)(in_ECX + 0xce4) =
+         (float)(((float10)*(float *)(in_ECX + 0xcd4) - (float10)*(float *)(in_ECX + 0xcc8)) * fVar1
+                + (float10)*(float *)(in_ECX + 0xcc8));
+    *(float *)(in_ECX + 0xce8) =
+         (float)(((float10)*(float *)(in_ECX + 0xcd8) - (float10)*(float *)(in_ECX + 0xccc)) * fVar1
+                + (float10)*(float *)(in_ECX + 0xccc));
+    return;
+  }
+  *(float *)(in_ECX + 0xce0) =
+       (*(float *)(in_ECX + 0xcd0) - *(float *)(in_ECX + 0xcc4)) * param_1 +
+       *(float *)(in_ECX + 0xcc4);
+  *(float *)(in_ECX + 0xce4) =
+       (*(float *)(in_ECX + 0xcd4) - *(float *)(in_ECX + 0xcc8)) * param_1 +
+       *(float *)(in_ECX + 0xcc8);
+  *(float *)(in_ECX + 0xce8) =
+       (*(float *)(in_ECX + 0xcd8) - *(float *)(in_ECX + 0xccc)) * param_1 +
+       *(float *)(in_ECX + 0xccc);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0050D430: mov al,byte ptr [ecx+00000CDCh]
+0050D436: test al,al
+0050D438: mov byte ptr [ecx+00000CECh],1
+ 01
+0050D43F: je 0050D4B8
+0050D441: fld dword ptr [esp+4]
+0050D445: fmul dword ptr ds:[0085A994h]
+0050D44B: fsubr dword ptr ds:[00859070h]
+0050D451: fmul dword ptr ds:[008595ECh]
+0050D457: fsin
+0050D459: fadd dword ptr ds:[00858624h]
+0050D45F: fmul dword ptr ds:[00858B8Ch]
+0050D465: fld dword ptr [ecx+00000CD0h]
+0050D46B: fsub dword ptr [ecx+00000CC4h]
+0050D471: fmul st,st(1)
+0050D473: fadd dword ptr [ecx+00000CC4h]
+0050D479: fstp dword ptr [ecx+00000CE0h]
+0050D47F: fld dword ptr [ecx+00000CD4h]
+0050D485: fsub dword ptr [ecx+00000CC8h]
+0050D48B: fmul st,st(1)
+0050D48D: fadd dword ptr [ecx+00000CC8h]
+0050D493: fstp dword ptr [ecx+00000CE4h]
+0050D499: fld dword ptr [ecx+00000CD8h]
+0050D49F: fsub dword ptr [ecx+00000CCCh]
+0050D4A5: fmul st,st(1)
+0050D4A7: fadd dword ptr [ecx+00000CCCh]
+0050D4AD: fstp dword ptr [ecx+00000CE8h]
+0050D4B3: fstp st(0)
+0050D4B5: ret 4
+0050D4B8: fld dword ptr [ecx+00000CD0h]
+0050D4BE: fsub dword ptr [ecx+00000CC4h]
+0050D4C4: fmul dword ptr [esp+4]
+0050D4C8: fadd dword ptr [ecx+00000CC4h]
+0050D4CE: fstp dword ptr [ecx+00000CE0h]
+0050D4D4: fld dword ptr [ecx+00000CD4h]
+0050D4DA: fsub dword ptr [ecx+00000CC8h]
+0050D4E0: fmul dword ptr [esp+4]
+0050D4E4: fadd dword ptr [ecx+00000CC8h]
+0050D4EA: fstp dword ptr [ecx+00000CE4h]
+0050D4F0: fld dword ptr [ecx+00000CD8h]
+0050D4F6: fsub dword ptr [ecx+00000CCCh]
+0050D4FC: fmul dword ptr [esp+4]
+0050D500: fadd dword ptr [ecx+00000CCCh]
+0050D506: fstp dword ptr [ecx+00000CE8h]
+0050D50C: ret 4

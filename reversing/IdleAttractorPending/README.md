@@ -1,3 +1,7 @@
+<!-- USER STOP 2026-10-08 -->
+Estado al detener el trabajo: reconstrucción solicitada completada y aprobación histórica conservada. No se ejecutó una nueva regresión con las fuentes finales. Los hashes y límites actuales se detallan en [el estado de todas las listas](../../docs/EstadoListasSolicitadas.md). Las notas siguientes conservan su fecha y alcance originales.
+<!-- /USER STOP 2026-10-08 -->
+
 # CIdleCam y CPedAttractor: funciones completadas
 
 Reconstrucción estática con `reversing/_handoff/combo.sh`, pseudocódigo Ghidra 12.1.4 vía REA y ensamblador completo del EXE 1.0 US (sha256 72ae59e4…). **Validado el 07/10/2026: 2.048/2.048 pares exactos**, 1.024 por función; estado, configuración y partidas restaurados. [Evidencia](validation-summary.json).

@@ -1,3 +1,7 @@
+<!-- USER STOP 2026-10-08 -->
+Estado al detener el trabajo: reconstrucción solicitada completada y aprobación histórica conservada. No se ejecutó una nueva regresión con las fuentes finales. Los hashes y límites actuales se detallan en [el estado de todas las listas](../../docs/EstadoListasSolicitadas.md). Las notas siguientes conservan su fecha y alcance originales.
+<!-- /USER STOP 2026-10-08 -->
+
 # CTaskSimpleFightingControl: ProcessPed validada
 
 ProcessPed 0x62A0A0 revisado con combo.sh: no existe pseudocódigo Ghidra para esta dirección; evidencia disponible en combo-62A0A0.txt es ensamblador completo hasta ret 4 (0x62A378). **Validado el 07/10/2026: 1.024/1.024 pares exactos**, con cobertura positiva en las once ramas exigidas; estado, configuración y partidas restaurados. [Evidencia](validation-summary.json).

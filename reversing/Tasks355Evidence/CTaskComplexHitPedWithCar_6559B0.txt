@@ -1,0 +1,103 @@
+// CTaskComplexHitPedWithCar::Clone @ 0x006559b0 [0x6559b0..0x655a13]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_006559b0(void)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  int in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_0084388b;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  iVar1 = FUN_0061a5a0(0x28);
+  local_4 = 0;
+  if (iVar1 != 0) {
+    uVar2 = FUN_006539a0(*(undefined4 *)(in_ECX + 0xc),*(undefined4 *)(in_ECX + 0x10));
+    ExceptionList = local_c;
+    return uVar2;
+  }
+  ExceptionList = local_c;
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006559B0: push 0FFFFFFFFh
+006559B2: push 84388Bh
+006559B7: mov eax,dword ptr fs:[00000000h]
+006559BD: push eax
+006559BE: mov dword ptr fs:[00000000h],esp
+ 00
+006559C5: push ecx
+006559C6: push esi
+006559C7: push 28h
+006559C9: mov esi,ecx
+006559CB: call 0061A5A0
+006559D0: add esp,4
+006559D3: mov dword ptr [esp+4],eax
+006559D7: test eax,eax
+006559D9: mov dword ptr [esp+10h],0
+006559E1: je 00655A02
+006559E3: mov ecx,dword ptr [esi+10h]
+006559E6: mov edx,dword ptr [esi+0Ch]
+006559E9: push ecx
+006559EA: push edx
+006559EB: mov ecx,eax
+006559ED: call 006539A0
+006559F2: pop esi
+006559F3: mov ecx,dword ptr [esp+4]
+006559F7: mov dword ptr fs:[00000000h],ecx
+ 00
+006559FE: add esp,10h
+00655A01: ret
+00655A02: mov ecx,dword ptr [esp+8]
+00655A06: xor eax,eax
+00655A08: pop esi
+00655A09: mov dword ptr fs:[00000000h],ecx
+ 00
+00655A10: add esp,10h
+00655A13: ret
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x6559B0, 0x655A13) ====
+006559B0: push 0FFFFFFFFh
+006559B2: push 84388Bh
+006559B7: mov eax,dword ptr fs:[00000000h]
+006559BD: push eax
+006559BE: mov dword ptr fs:[00000000h],esp
+ 00
+006559C5: push ecx
+006559C6: push esi
+006559C7: push 28h
+006559C9: mov esi,ecx
+006559CB: call 0061A5A0
+006559D0: add esp,4
+006559D3: mov dword ptr [esp+4],eax
+006559D7: test eax,eax
+006559D9: mov dword ptr [esp+10h],0
+006559E1: je 00655A02
+006559E3: mov ecx,dword ptr [esi+10h]
+006559E6: mov edx,dword ptr [esi+0Ch]
+006559E9: push ecx
+006559EA: push edx
+006559EB: mov ecx,eax
+006559ED: call 006539A0
+006559F2: pop esi
+006559F3: mov ecx,dword ptr [esp+4]
+006559F7: mov dword ptr fs:[00000000h],ecx
+ 00
+006559FE: add esp,10h
+00655A01: ret
+00655A02: mov ecx,dword ptr [esp+8]
+00655A06: xor eax,eax
+00655A08: pop esi
+00655A09: mov dword ptr fs:[00000000h],ecx
+ 00
+00655A10: add esp,10h
+00655A13: ret

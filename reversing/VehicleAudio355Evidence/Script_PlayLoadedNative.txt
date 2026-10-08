@@ -1,0 +1,39 @@
+void CAEScriptAudioEntity::PlayLoadedMissionAudio(uint8 slotId) {
+    CAESound sound;
+    if (slotId >= MISSION_AUDIO_COUNT) {
+        return;
+    }
+    auto& link = wavLinks[slotId];
+    if (link.m_nBankId < 0 || link.m_nBankSlotId < 0 || GetMissionAudioLoadingStatus(slotId) != 1) {
+        return;
+    }
+    auto volume = -100.f;
+    bool protectedSound{};
+    if (link.m_nAudioEvent != 65535) {
+        volume = GetDefaultVolume(static_cast<eAudioEvents>(link.m_nAudioEvent));
+        if (slotId < 2) {
+            protectedSound = true;
+            if (volume == -128.f) {
+                volume = 6.f;
+            }
+        }
+    }
+    bool frontend{};
+    CVector position;
+    if (link.m_pEntity) {
+        position = link.m_pEntity->GetPosition();
+    } else {
+        position = link.m_vPosition;
+        if (position == CVector{-1000.f, -1000.f, -1000.f} || position == CVector{0.f, 0.f, 0.f}) {
+            position = CVector{0.f, 1.f, 0.f};
+            frontend = true;
+        }
+    }
+    sound.Initialise(static_cast<eSoundBankSlot>(slotId + 26), static_cast<eSoundID>(uint16(link.m_nBankSlotId)), this, position, volume, 2.f, 1.f, 1.f, 0, 0, 0.f, 0);
+    sound.m_Flags = 14;
+    sound.SetFlags(SOUND_FRONT_END, frontend);
+    sound.SetFlags(SOUND_IS_DUCKABLE, protectedSound);
+    sound.SetFlags(SOUND_IS_COMPRESSABLE, protectedSound);
+    sound.SetFlags(SOUND_SMOOTH_DUCKING, protectedSound);
+    link.m_Sound = AESoundManager.RequestNewSound(&sound);
+}

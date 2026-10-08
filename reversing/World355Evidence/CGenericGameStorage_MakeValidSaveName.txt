@@ -1,0 +1,108 @@
+// CGenericGameStorage::MakeValidSaveName @ 0x005d0e90 [0x5d0e90..0x5d0f3d]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005d0e90(int param_1)
+
+{
+  char cVar1;
+  undefined2 *puVar2;
+  char *pcVar3;
+  int iVar4;
+  undefined2 *puVar5;
+  char local_104 [257];
+  char local_3;
+  
+  local_104[0] = '\0';
+  FUN_00821bb5(local_104,&DAT_0086bae0,&DAT_00c16f18,param_1 + 1);
+  pcVar3 = local_104;
+  do {
+    local_3 = *pcVar3;
+    pcVar3 = pcVar3 + 1;
+  } while (local_3 != '\0');
+  if (0x100 < (uint)((int)pcVar3 - (int)(local_104 + 1))) {
+  }
+  puVar2 = (undefined2 *)&stack0xfffffefb;
+  do {
+    puVar5 = puVar2;
+    puVar2 = (undefined2 *)((int)puVar5 + 1);
+  } while (*(char *)((int)puVar5 + 1) != '\0');
+  *(undefined2 *)((int)puVar5 + 1) = 0x622e;
+  *(undefined1 *)((int)puVar5 + 3) = 0;
+  iVar4 = 0;
+  do {
+    cVar1 = local_104[iVar4];
+    (&DAT_00c16db8)[iVar4] = cVar1;
+    iVar4 = iVar4 + 1;
+  } while (cVar1 != '\0');
+  cVar1 = DAT_00c16db8;
+  for (pcVar3 = &DAT_00c16db8; (cVar1 != '\0' && (*pcVar3 != '\n')); pcVar3 = pcVar3 + 1) {
+    if (*pcVar3 == '?') {
+      *pcVar3 = ' ';
+    }
+    cVar1 = pcVar3[1];
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D0E90: sub esp,104h
+005D0E96: mov eax,dword ptr [esp+00000108h]
+ 00
+005D0E9D: inc eax
+005D0E9E: push eax
+005D0E9F: push 0C16F18h
+005D0EA4: lea ecx,[esp+8]
+005D0EA8: push 86BAE0h
+005D0EAD: push ecx
+005D0EAE: mov byte ptr [esp+10h],0
+005D0EB3: call 00821BB5
+005D0EB8: lea eax,[esp+10h]
+005D0EBC: add esp,10h
+005D0EBF: lea edx,[eax+1]
+005D0EC2: mov cl,byte ptr [eax]
+005D0EC4: inc eax
+005D0EC5: test cl,cl
+005D0EC7: jne 005D0EC2
+005D0EC9: sub eax,edx
+005D0ECB: cmp eax,101h
+005D0ED0: jb 005D0ED9
+005D0ED2: mov byte ptr [esp+00000101h],cl
+ 00
+005D0ED9: push edi
+005D0EDA: lea edi,[esp+4]
+005D0EDE: dec edi
+005D0EE0: mov al,byte ptr [edi+1]
+005D0EE3: inc edi
+005D0EE4: test al,al
+005D0EE6: jne 005D0EE0
+005D0EE8: mov dx,word ptr ds:[0086BADCh]
+ 00
+005D0EEF: mov al,byte ptr ds:[0086BADEh]
+005D0EF4: mov word ptr [edi],dx
+005D0EF7: mov byte ptr [edi+2],al
+005D0EFA: xor eax,eax
+005D0EFC: pop edi
+005D0EFD: lea ecx,[ecx]
+005D0F00: mov cl,byte ptr [esp+eax]
+005D0F04: mov byte ptr [eax+00C16DB8h],cl
+005D0F0A: inc eax
+005D0F0B: test cl,cl
+005D0F0D: jne 005D0F00
+005D0F0F: mov cl,byte ptr ds:[00C16DB8h]
+005D0F15: test cl,cl
+005D0F17: mov eax,0C16DB8h
+005D0F1C: je 005D0F37
+005D0F1E: mov edi,edi
+005D0F20: mov cl,byte ptr [eax]
+005D0F22: cmp cl,0Ah
+005D0F25: je 005D0F37
+005D0F27: cmp cl,3Fh
+005D0F2A: jne 005D0F2F
+005D0F2C: mov byte ptr [eax],20h
+005D0F2F: mov cl,byte ptr [eax+1]
+005D0F32: inc eax
+005D0F33: test cl,cl
+005D0F35: jne 005D0F20
+005D0F37: add esp,104h
+005D0F3D: ret

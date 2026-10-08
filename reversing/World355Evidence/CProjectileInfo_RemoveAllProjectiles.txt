@@ -1,0 +1,90 @@
+// CProjectileInfo::RemoveAllProjectiles @ 0x007399b0 [0x7399b0..0x739a3d]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_007399b0(void)
+
+{
+  undefined4 *puVar1;
+  int iVar2;
+  int *piVar3;
+  int *piVar4;
+  
+  piVar3 = &DAT_00c89110;
+  piVar4 = &DAT_00c891c8;
+  do {
+    puVar1 = (undefined4 *)*piVar3;
+    if ((char)piVar4[-4] != '\0') {
+      *(undefined1 *)(piVar4 + -4) = 0;
+      if (*piVar4 != 0) {
+        FUN_004a9810(*piVar4);
+        *piVar4 = 0;
+      }
+      iVar2 = ((int)puVar1 - *DAT_00b7449c) / 0x19c;
+      FUN_00587c60(3,(uint)*(byte *)(DAT_00b7449c[1] + iVar2) + iVar2 * 0x100);
+      FUN_00563280(puVar1);
+      if (puVar1 != (undefined4 *)0x0) {
+        (**(code **)*puVar1)(1);
+      }
+    }
+    piVar4 = piVar4 + 9;
+    piVar3 = piVar3 + 1;
+  } while ((int)piVar4 < 0xc89648);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+007399B0: push ebx
+007399B1: push ebp
+007399B2: push esi
+007399B3: push edi
+007399B4: mov ebx,0C89110h
+007399B9: mov edi,0C891C8h
+007399BE: mov edi,edi
+007399C0: mov al,byte ptr [edi-10h]
+007399C3: test al,al
+007399C5: mov esi,dword ptr [ebx]
+007399C7: je 00739A2B
+007399C9: mov eax,dword ptr [edi]
+007399CB: test eax,eax
+007399CD: mov byte ptr [edi-10h],0
+007399D1: je 007399E4
+007399D3: push eax
+007399D4: mov ecx,0A9AE80h
+007399D9: call 004A9810
+007399DE: mov dword ptr [edi],0
+007399E4: mov ebp,dword ptr ds:[00B7449Ch]
+007399EA: mov edx,dword ptr [ebp]
+007399ED: mov ecx,esi
+007399EF: sub ecx,edx
+007399F1: mov eax,13E22CBDh
+007399F6: imul ecx
+007399F8: mov ecx,dword ptr [ebp+4]
+007399FB: sar edx,5
+007399FE: mov eax,edx
+00739A00: shr eax,1Fh
+00739A03: add edx,eax
+00739A05: movzx eax,byte ptr [ecx+edx]
+00739A09: shl edx,8
+00739A0C: add eax,edx
+00739A0E: push eax
+00739A0F: push 3
+00739A11: call 00587C60
+00739A16: push esi
+00739A17: call 00563280
+00739A1C: add esp,0Ch
+00739A1F: test esi,esi
+00739A21: je 00739A2B
+00739A23: mov edx,dword ptr [esi]
+00739A25: push 1
+00739A27: mov ecx,esi
+00739A29: call dword ptr [edx]
+00739A2B: add edi,24h
+00739A2E: add ebx,4
+00739A31: cmp edi,0C89648h
+00739A37: jl 007399C0
+00739A39: pop edi
+00739A3A: pop esi
+00739A3B: pop ebp
+00739A3C: pop ebx
+00739A3D: ret

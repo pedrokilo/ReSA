@@ -1,0 +1,74 @@
+// CMonsterTruck::ExtendSuspension @ 0x006c7d80 [0x6c7d80..0x6c7ddf]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void FUN_006c7d80(void)
+
+{
+  float fVar1;
+  int in_ECX;
+  float *pfVar2;
+  int iVar3;
+  
+  pfVar2 = (float *)(in_ECX + 0x838);
+  iVar3 = 4;
+  do {
+    fVar1 = *pfVar2 - DAT_00b7cb5c * *(float *)(in_ECX + 0x998) * _DAT_008d33ac;
+    *pfVar2 = fVar1;
+    if (pfVar2[0x14] <= fVar1) {
+      if (pfVar2[0x10] < fVar1) {
+        fVar1 = pfVar2[0x10];
+        goto LAB_006c7dce;
+      }
+    }
+    else {
+      fVar1 = pfVar2[0x14];
+LAB_006c7dce:
+      *pfVar2 = fVar1;
+    }
+    pfVar2[-0x19] = 1.0;
+    pfVar2 = pfVar2 + 1;
+    iVar3 = iVar3 + -1;
+    if (iVar3 == 0) {
+      return;
+    }
+  } while( true );
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006C7D80: push ecx
+006C7D81: push esi
+006C7D82: lea edx,[ecx+00000838h]
+006C7D88: mov esi,4
+006C7D8D: lea ecx,[ecx]
+006C7D90: fld dword ptr ds:[00B7CB5Ch]
+006C7D96: fmul dword ptr [ecx+00000998h]
+006C7D9C: fmul dword ptr ds:[008D33ACh]
+006C7DA2: fsubr dword ptr [edx]
+006C7DA4: fst dword ptr [esp+4]
+006C7DA8: fstp dword ptr [edx]
+006C7DAA: fld dword ptr [esp+4]
+006C7DAE: fcomp dword ptr [edx+50h]
+006C7DB1: fnstsw ax
+006C7DB3: test ah,5
+006C7DB6: jp 006C7DBD
+006C7DB8: mov eax,dword ptr [edx+50h]
+006C7DBB: jmp 006C7DCE
+006C7DBD: fld dword ptr [esp+4]
+006C7DC1: fcomp dword ptr [edx+40h]
+006C7DC4: fnstsw ax
+006C7DC6: test ah,41h
+006C7DC9: jne 006C7DD0
+006C7DCB: mov eax,dword ptr [edx+40h]
+006C7DCE: mov dword ptr [edx],eax
+006C7DD0: mov dword ptr [edx-64h],3F800000h
+ 3F
+006C7DD7: add edx,4
+006C7DDA: dec esi
+006C7DDB: jne 006C7D90
+006C7DDD: pop esi
+006C7DDE: pop ecx
+006C7DDF: ret
+ 006C7DE0: 64

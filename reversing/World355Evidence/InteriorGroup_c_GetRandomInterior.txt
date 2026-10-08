@@ -1,0 +1,67 @@
+// InteriorGroup_c::GetRandomInterior @ 0x005948c0 [0x5948c0..0x59491b]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_005948c0(void)
+
+{
+  int iVar1;
+  int in_ECX;
+  int iVar2;
+  int *piVar3;
+  int iVar4;
+  
+  _rand();
+  iVar1 = FUN_00821b40();
+  iVar4 = 0;
+  iVar2 = 0;
+  piVar3 = (int *)(in_ECX + 0x10);
+  do {
+    if (*piVar3 != 0) {
+      if (iVar4 == iVar1) {
+        return *(undefined4 *)(in_ECX + 0x10 + iVar2 * 4);
+      }
+      iVar4 = iVar4 + 1;
+    }
+    iVar2 = iVar2 + 1;
+    piVar3 = piVar3 + 1;
+  } while (iVar2 < 8);
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005948C0: sub esp,8
+005948C3: push esi
+005948C4: mov esi,ecx
+005948C6: movsx eax,byte ptr [esi+0Fh]
+005948CA: push edi
+005948CB: mov dword ptr [esp+0Ch],eax
+005948CF: call 00821B1E
+005948D4: and eax,0FFFFh
+005948D9: mov dword ptr [esp+8],eax
+005948DD: fild dword ptr [esp+8]
+005948E1: fmul dword ptr ds:[00858B14h]
+005948E7: fimul dword ptr [esp+0Ch]
+005948EB: call 00821B40
+005948F0: xor edi,edi
+005948F2: xor ecx,ecx
+005948F4: lea edx,[esi+10h]
+005948F7: cmp dword ptr [edx],0
+005948FA: je 00594901
+005948FC: cmp edi,eax
+005948FE: je 00594912
+00594900: inc edi
+00594901: inc ecx
+00594902: add edx,4
+00594905: cmp ecx,8
+00594908: jl 005948F7
+0059490A: pop edi
+0059490B: pop esi
+0059490C: xor eax,eax
+0059490E: add esp,8
+00594911: ret
+00594912: mov eax,dword ptr [esi+ecx*4+10h]
+00594916: pop edi
+00594917: pop esi
+00594918: add esp,8
+0059491B: ret

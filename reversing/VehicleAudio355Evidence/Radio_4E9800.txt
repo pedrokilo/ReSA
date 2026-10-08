@@ -1,0 +1,35 @@
+// CAERadioTrackManager::IsVehicleRadioActive @ 0x004e9800 [0x4e9800..0x4e981d]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_004e9800(void)
+
+{
+  char cVar1;
+  int iVar2;
+  
+  iVar2 = FUN_004f4ed0();
+  if (iVar2 != 0) {
+    cVar1 = *(char *)(iVar2 + 0x1b);
+    if (((cVar1 == '\0') || (cVar1 == '\x03')) || (cVar1 == '\x02')) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004E9800: call 004F4ED0
+004E9805: test eax,eax
+004E9807: je 004E981B
+004E9809: mov al,byte ptr [eax+1Bh]
+004E980C: test al,al
+004E980E: je 004E9818
+004E9810: cmp al,3
+004E9812: je 004E9818
+004E9814: cmp al,2
+004E9816: jne 004E981B
+004E9818: mov al,1
+004E981A: ret
+004E981B: xor al,al
+004E981D: ret

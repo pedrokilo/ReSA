@@ -1,0 +1,81 @@
+// CGenericGameStorage::OpenFileForReading @ 0x005d0d20 [0x5d0d20..0x5d0dc8]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_005d0d20(char *param_1,int param_2)
+
+{
+  char cVar1;
+  int iVar2;
+  
+  if (param_1 != (char *)0x0) {
+    iVar2 = (int)&DAT_00c15fc8 - (int)param_1;
+    do {
+      cVar1 = *param_1;
+      param_1[iVar2] = cVar1;
+      param_1 = param_1 + 1;
+    } while (cVar1 != '\0');
+    FUN_00821bb5(&DAT_00c15f60,"%s%i%s",&DAT_00c16f18,param_2 + 1,&DAT_0086badc);
+  }
+  DAT_00c16ef0 = thunk_FUN_008232d8(&DAT_00c15fc8,&DAT_00859c6c);
+  if (DAT_00c16ef0 == 0) {
+    DAT_00c17034 = 4;
+    return 0;
+  }
+  DAT_00c16ef8 = FUN_005389e0(DAT_00c16ef0);
+  DAT_008d2be0 = 0xc800;
+  DAT_00c16eec = 0xc800;
+  DAT_00c16ef4 = 0;
+  if (DAT_00c16ee8 == (void *)0x0) {
+    DAT_00c16ee8 = operator_new(0xc801);
+  }
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D0D20: mov eax,dword ptr [esp+4]
+005D0D24: test eax,eax
+005D0D26: je 005D0D5C
+005D0D28: mov edx,0C15FC8h
+005D0D2D: sub edx,eax
+005D0D30: mov cl,byte ptr [eax]
+005D0D32: mov byte ptr [edx+eax],cl
+005D0D35: inc eax
+005D0D36: test cl,cl
+005D0D38: jne 005D0D30
+005D0D3A: mov eax,dword ptr [esp+8]
+005D0D3E: push 86BADCh
+005D0D43: inc eax
+005D0D44: push eax
+005D0D45: push 0C16F18h
+005D0D4A: push 86BAD4h
+005D0D4F: push 0C15F60h
+005D0D54: call 00821BB5
+005D0D59: add esp,14h
+005D0D5C: push 859C6Ch
+005D0D61: push 0C15FC8h
+005D0D66: call 00538900
+005D0D6B: add esp,8
+005D0D6E: test eax,eax
+005D0D70: mov dword ptr ds:[00C16EF0h],eax
+005D0D75: jne 005D0D84
+005D0D77: mov dword ptr ds:[00C17034h],4
+005D0D81: xor al,al
+005D0D83: ret
+005D0D84: push eax
+005D0D85: call 005389E0
+005D0D8A: mov dword ptr ds:[00C16EF8h],eax
+005D0D8F: mov eax,0C800h
+005D0D94: mov dword ptr ds:[008D2BE0h],eax
+005D0D99: mov dword ptr ds:[00C16EECh],eax
+005D0D9E: mov eax,dword ptr ds:[00C16EE8h]
+005D0DA3: add esp,4
+005D0DA6: test eax,eax
+005D0DA8: mov dword ptr ds:[00C16EF4h],0
+005D0DB2: jne 005D0DC6
+005D0DB4: push 0C801h
+005D0DB9: call 00821195
+005D0DBE: add esp,4
+005D0DC1: mov dword ptr ds:[00C16EE8h],eax
+005D0DC6: mov al,1
+005D0DC8: ret

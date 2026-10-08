@@ -1,0 +1,481 @@
+{
+  "functions": 73,
+  "pairs": 74752,
+  "approved_historical_functions": 36,
+  "banks": [
+    {
+      "bank": "MonsterControl355",
+      "functions": 4,
+      "pairs": 4096,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/MonsterControl355/README.md",
+      "readme_sha256": "19d7740e39ecc64c529bc6a05a297818e1eeab6908884a02de5bda1df9045ad6"
+    },
+    {
+      "bank": "MonsterSetup355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/MonsterSetup355/README.md",
+      "readme_sha256": "874acb1312be5d9cc6903f4017c572a69d7f9adf0285203ee792a483dfbec492"
+    },
+    {
+      "bank": "PlaneAmbient355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/PlaneAmbient355/README.md",
+      "readme_sha256": "879bb7725a9261de34bacdf51da00af420fefc22e485a8da3a6cbf3e3bbc4811"
+    },
+    {
+      "bank": "ScriptLinks355",
+      "functions": 6,
+      "pairs": 6144,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/ScriptLinks355/README.md",
+      "readme_sha256": "0a9ebd079635f7a44e9212917a98b626a5e1a36f8ced6cfe4d024659049b1dff"
+    },
+    {
+      "bank": "ScriptPreload355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/ScriptPreload355/README.md",
+      "readme_sha256": "86813c32a7709dffc9db0759932f89c68471a9d484f4ac91a902a4167d7bb6f3"
+    },
+    {
+      "bank": "TrainLinks355",
+      "functions": 5,
+      "pairs": 5120,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainLinks355/README.md",
+      "readme_sha256": "ee74b24cd8a104c3789805bc37c4529760a46cf0d3a4420cdb5859664e087369"
+    },
+    {
+      "bank": "TrainCoordinates355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainCoordinates355/README.md",
+      "readme_sha256": "f5e15285a1739d89b7a299321266e9048b2f985a54a3546f2792c3d06b694cd8"
+    },
+    {
+      "bank": "RadioSelection355",
+      "functions": 6,
+      "pairs": 6144,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/RadioSelection355/README.md",
+      "readme_sha256": "31cd0049829cfc64bb58eec683fb06154581215fcb56351da75b7af7ce628ec2"
+    },
+    {
+      "bank": "RadioQueue355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [
+        "QueueUpTracksForStation 0x4EA670: 1.024 pares preparados; pendiente aplicar borrador fuente y ejecutar. Cuenta 0-2, estados -1..7, estaciones 0-12; selecci\ufffdn positiva/negativa y user tracks. Comparaci\ufffdn de todo settings, contador y traza de selecci\ufffdn/RNG con tablas originales de intros/tracks/outros. Dependencias sim\ufffdtricas. Evidencia combo ../VehicleAudio355Evidence/Radio_4EA670.txt."
+      ],
+      "readme": "reversing/RadioQueue355/README.md",
+      "readme_sha256": "71778d81ae6071d6fdbbc594043cfb12a2cc5ea6cdae6f94857e329df6908b18"
+    },
+    {
+      "bank": "BikeCore355",
+      "functions": 5,
+      "pairs": 5120,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeCore355/README.md",
+      "readme_sha256": "5b3b205979d2bce484cbf5294dca90c2d218449aa6615799fb3503697a14634b"
+    },
+    {
+      "bank": "BikeWheel355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeWheel355/README.md",
+      "readme_sha256": "afacd8ca0e3c70b8b74ad0673b85197498b24c319707fc7988780779dabde0ae"
+    },
+    {
+      "bank": "RadioDJ355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [
+        "ChooseDJBanterIndex 0x4EA2D0: 1.024 pares preparados; pendiente aplicar fuente y ejecutar. DJ especial 0/1/2/otros, \ufffdndices 0-21, historiales repetidos, horas 0-23, forecast, probabilidad, persecuci\ufffdn y disturbios. Incluye secuencia exacta de llamadas forecast aun para rama original imposible [8,6). Stubs sim\ufffdtricos de dependencias; compara return/historia y trazas. Restaura globales. Evidencia combo ../VehicleAudio355Evidence/Radio_4EA2D0.txt."
+      ],
+      "readme": "reversing/RadioDJ355/README.md",
+      "readme_sha256": "3ff993d1acf3065b76910679cc360eb2203a6385228b8f5b32a717480b2b67b2"
+    },
+    {
+      "bank": "TrainQueries355",
+      "functions": 2,
+      "pairs": 2048,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainQueries355/README.md",
+      "readme_sha256": "e6b969d3231ed1afa389fbfc1c88ede7fd23321bfcd95a7c588382442c4686cb"
+    },
+    {
+      "bank": "TrainNearest355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainNearest355/README.md",
+      "readme_sha256": "6b0036f40b308bec94f25c1b0a041dce39f8459f6210ebcff8bef877ca441232"
+    },
+    {
+      "bank": "ScriptLoaded355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/ScriptLoaded355/README.md",
+      "readme_sha256": "6a8061e8c8abd7b2d4283fa8fc07b46caba638653697cac5cfd8d51d421bfc8d"
+    },
+    {
+      "bank": "PlaneControl355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/PlaneControl355/README.md",
+      "readme_sha256": "b89625fbedc5e3acda709d340685eea0a8a698a7257235cc6ce408b513343844"
+    },
+    {
+      "bank": "MonsterSuspension355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/MonsterSuspension355/README.md",
+      "readme_sha256": "499b81483b7de15c4196ea44253bfcb99f6fc0be16878a7539815458e198179b"
+    },
+    {
+      "bank": "TrainRemove355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainRemove355/README.md",
+      "readme_sha256": "72576a284430de75d0f37f1fbca04ce50b6df64075731daeb0e605c4d9b559be"
+    },
+    {
+      "bank": "ScriptBank355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/ScriptBank355/README.md",
+      "readme_sha256": "c4041c5f9c9e8c7746e1c1b00e804cef1ddb7f15aef9349125b9c018c9563b6b"
+    },
+    {
+      "bank": "ScriptUpdate355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/ScriptUpdate355/README.md",
+      "readme_sha256": "506feab54d0d842d8d6ba817fa46a0beef489399efb7ab822324372176ce9718"
+    },
+    {
+      "bank": "RadioVolumes355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/RadioVolumes355/README.md",
+      "readme_sha256": "51b3787f93e9cd778946ff9b17d55e08caac8f6ae9814f62569a4ee177d51d3b"
+    },
+    {
+      "bank": "TrainSkip355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainSkip355/README.md",
+      "readme_sha256": "18609a82652071a953fdb8796891cee1cf7210ea196fd21c72be9ae6eaf5b8ef"
+    },
+    {
+      "bank": "BikeRatios355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeRatios355/README.md",
+      "readme_sha256": "2c154fa8ec0d0ecaee9ee51f2c084ba3e8a08b053a3ebf871246b0c379df5d62"
+    },
+    {
+      "bank": "TrainInit355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainInit355/README.md",
+      "readme_sha256": "1392db0e471e8ac40bbe367c683f8fb302c7ca3fccaee9fb1f4c95e1b5a34058"
+    },
+    {
+      "bank": "TrainRead355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainRead355/README.md",
+      "readme_sha256": "b624631c22bda68f979425bad79f20fd7b7f791ef1c6942495c7365266856ec2"
+    },
+    {
+      "bank": "TrainCtor355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainCtor355/README.md",
+      "readme_sha256": "142b5a9d7921a3b0f79ee764440ca618aa7001e9dc32ada3401478e4e21819e1"
+    },
+    {
+      "bank": "TrainHit355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainHit355/README.md",
+      "readme_sha256": "1edc9362eff1335e28696b939ba81feb81b61a2a66b63208e1150c7e0f715f9a"
+    },
+    {
+      "bank": "PlaneCreation355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/PlaneCreation355/README.md",
+      "readme_sha256": "30fd02ec59685cd1aa90b347a40d22a3925016ccd91b241e6dba1622fa760396"
+    },
+    {
+      "bank": "RadioConcat355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/RadioConcat355/README.md",
+      "readme_sha256": "cf97f22c410044474d840694d38b8ea9fada0eb2c65edcc9d098e2013df917be"
+    },
+    {
+      "bank": "TrainPosition355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainPosition355/README.md",
+      "readme_sha256": "5b455256ecbbc36cbd388d9c7a6d417abe3d0045abdabe6e9f8f1407e39b7075"
+    },
+    {
+      "bank": "RadioTrack355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/RadioTrack355/README.md",
+      "readme_sha256": "964e6758a53a15d9d13d88f5ed1f22e3ff0d867b5d2f4aed41e7b704529e533d"
+    },
+    {
+      "bank": "RadioStop355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/RadioStop355/README.md",
+      "readme_sha256": "d49e5db26e9866eaead945829861d5bec822a8ba7361ffe651494f2f4ce55faf"
+    },
+    {
+      "bank": "RadioRetune355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/RadioRetune355/README.md",
+      "readme_sha256": "5d31f0ff964cf0b95d5912f7032f2f92420f10be3519e504e4ebd87ac6c2e35b"
+    },
+    {
+      "bank": "RadioService355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/RadioService355/README.md",
+      "readme_sha256": "a7a559725ccbeb8601387dfa7bdc556f8e38e4d228fac3ecbb805c070417e925"
+    },
+    {
+      "bank": "BikeBurst355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeBurst355/README.md",
+      "readme_sha256": "f8b6bde7f330c4e8162f437cdfb157ccbe667f732cce36713ce476b632d97b64"
+    },
+    {
+      "bank": "TrainPassenger355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Historical runtime approval recorded; final source-hash verification belongs to coordinator.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainPassenger355/README.md",
+      "readme_sha256": "bfa6dbc08e52b36e9201335096e788604a85b1a219b94d4f06c22c7ddef6ef58"
+    },
+    {
+      "bank": "TrainGeneration355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainGeneration355/README.md",
+      "readme_sha256": "a1e519e8d7ef95f59051ae820e88a1c5df3f492d2f93ec36a879a3f995d4e758"
+    },
+    {
+      "bank": "TrainCreate355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainCreate355/README.md",
+      "readme_sha256": "0a7ae8d2966928ee3b9d130793c8c854a5b3f6f7152c46a5494e1cd584c93817"
+    },
+    {
+      "bank": "TrainAddPassenger355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/TrainAddPassenger355/README.md",
+      "readme_sha256": "406078ea95ab50ff490acf24b3035f044aa89e8c775644e89e31cba709b6fad8"
+    },
+    {
+      "bank": "BikeRoad355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeRoad355/README.md",
+      "readme_sha256": "3c3b988c659ee1feb9b8f2bb9787796cb87a6eb2d654cbee2dea82f72f12fc5d"
+    },
+    {
+      "bank": "BikeHands355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeHands355/README.md",
+      "readme_sha256": "6be50aed2ddc9224ec889b2a6590f59f1f1bb25330e14658cd1a6e6f4245945b"
+    },
+    {
+      "bank": "BikeSetup355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeSetup355/README.md",
+      "readme_sha256": "8702d25e3506a92563accd1a190681182407c220d84b8210e7bf1eb5fb6f45cd"
+    },
+    {
+      "bank": "BikeBlow355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeBlow355/README.md",
+      "readme_sha256": "3e09a1b8051b6965a3ba08081eb6c116769cefdcddabe21d0309fe59d470e4c2"
+    },
+    {
+      "bank": "BikeDamage355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeDamage355/README.md",
+      "readme_sha256": "e979639fee57171360f63d99e7d699aceca5f8a12b985d0d7faf3020a077322b"
+    },
+    {
+      "bank": "BikeInputs355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeInputs355/README.md",
+      "readme_sha256": "595f401e25cca9e52ffbfb415ee16c5087484dcd6dc7d0a838a151d93b133a8d"
+    },
+    {
+      "bank": "PlaneBlow355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/PlaneBlow355/README.md",
+      "readme_sha256": "78145495cf3d487247e91f183d5c24710461adc867ae235b990f6104dfccbe58"
+    },
+    {
+      "bank": "PlaneDamage355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/PlaneDamage355/README.md",
+      "readme_sha256": "2b7c64bfcc57b0496b7498da6d04ed6a7d0959f287bd3eb2b01f6e254443a28e"
+    },
+    {
+      "bank": "PlaneInputs355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/PlaneInputs355/README.md",
+      "readme_sha256": "4491cae48e3e414c8f2c9879275c3f4971be5528ca3447f8fad75ca64d147c62"
+    },
+    {
+      "bank": "PlaneGeneration355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/PlaneGeneration355/README.md",
+      "readme_sha256": "d74d3c20d8f824b61619fe21e8bdd6b0692dcd9aca539a2518d66cdd00940730"
+    },
+    {
+      "bank": "PlaneFlying355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/PlaneFlying355/README.md",
+      "readme_sha256": "d14cf3573a44392c1048a382a3d01869879f378ff4f35a251231de7bae3ec903"
+    },
+    {
+      "bank": "BikeControl355",
+      "functions": 1,
+      "pairs": 1024,
+      "status": "Native bodies and bank prepared; runtime approval pending or repair/repeat pending. No equivalence approval is claimed.",
+      "historical_stale_lines": [],
+      "readme": "reversing/BikeControl355/README.md",
+      "readme_sha256": "224fbc97a729d6aa8bf5ca4a38fb94f8e2838555a765bb8d4001cc5782d3d623"
+    }
+  ],
+  "source_mutations": false,
+  "csv_mutations": false,
+  "activation_mutations": false,
+  "limitations": [
+    "CPlane::VehicleDamage explosive-to-smoke uninitialized EXE stack factor: defined C++ +0 deviation documented; that subroute has no deterministic equality claim.",
+    "CBike::ProcessControl native ASM relocation includes SEH metadata/funclet and no original-body branch; 16 exception fixtures succeeded historically; nested/arbitrary exception unwinds not certified.",
+    "Math/physics/audio/render collaborators isolated symmetrically in banks; invalid pointers/signaling NaNs and unconstrained callback mutations outside fixtures are not certified.",
+    "Recovered full REA pseudo for all formerly failed large functions; complete segmented ASM retained, including end RET/table records.",
+    "Some generator drafts are stale; actual production sources and bank headers are authoritative.",
+    "Historical runtime successes require final coordinator current-source hash confirmation before hook activation."
+  ]
+}

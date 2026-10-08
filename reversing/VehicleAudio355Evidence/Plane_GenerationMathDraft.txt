@@ -1,0 +1,53 @@
+
+static void PlaneGenerationHeading355(CVehicle* vehicle,float heading){
+ auto* matrix=vehicle->m_matrix;
+ __asm {
+  fld heading
+  mov eax,matrix
+  fsin
+  xor ecx,ecx
+  mov dword ptr [eax+8],ecx
+  mov dword ptr [eax+18h],ecx
+  mov dword ptr [eax+20h],ecx
+  mov dword ptr [eax+24h],ecx
+  mov dword ptr [eax+28h],3F800000h
+  fst dword ptr [eax]
+  fld heading
+  fcos
+  fld st(0)
+  fchs
+  fstp dword ptr [eax+4]
+  fstp dword ptr [eax+10h]
+  fstp dword ptr [eax+14h]
+ }
+}
+static CVector PlaneGenerationVelocity355(float heading,bool helicopter){
+ const float speed=StaticRef<float>(0x862D68);CVector result;
+ auto* output=&result;
+ __asm {
+  mov edx,output
+  cmp helicopter,0
+  je plane_generated_speed
+  fld heading
+  fcos
+  fld heading
+  fsin
+  fmul speed
+  fstp dword ptr [edx+4]
+  fmul speed
+  fstp dword ptr [edx]
+  jmp generated_speed_done
+ plane_generated_speed:
+  fld heading
+  fsin
+  fld heading
+  fcos
+  fmul speed
+  fstp dword ptr [edx]
+  fmul speed
+  fstp dword ptr [edx+4]
+ generated_speed_done:
+  mov dword ptr [edx+8],0
+ }
+ return result;
+}

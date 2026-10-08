@@ -32,7 +32,7 @@ public:
     CTaskComplexPlayHandSignalAnim(const CTaskComplexPlayHandSignalAnim&);
     ~CTaskComplexPlayHandSignalAnim();
 
-    static AnimationId GetAnimIdForPed(CPed* ped);
+    static AnimationId __stdcall GetAnimIdForPed(CPed* ped);
 
     CTask* CreateSubTask(eTaskType taskType);
 

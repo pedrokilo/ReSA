@@ -1,0 +1,101 @@
+// CCarEnterExit::MakeUndraggedPassengerPedsLeaveCar @ 0x0064f540 [0x64f540..0x64f5f4]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0064f540(int param_1,int param_2,undefined4 param_3)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  int iVar3;
+  int *piVar4;
+  undefined1 local_2c [32];
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_008431f8;
+  local_c = ExceptionList;
+  iVar3 = 0;
+  if (*(char *)(param_1 + 0x488) != '\0') {
+    piVar4 = (int *)(param_1 + 0x464);
+    ExceptionList = &local_c;
+    do {
+      iVar1 = *piVar4;
+      if (((iVar1 != 0) && (iVar1 != param_2)) && ((*(uint *)(iVar1 + 0x470) & 0x800000) == 0)) {
+        uVar2 = FUN_0064f110(param_1,iVar1);
+        FUN_004aeac0(param_3,param_1,uVar2);
+        local_4 = 0;
+        FUN_004ab420(local_2c,0);
+        local_4 = 0xffffffff;
+        FUN_004aeb90();
+      }
+      iVar3 = iVar3 + 1;
+      piVar4 = piVar4 + 1;
+    } while (iVar3 < (int)(uint)*(byte *)(param_1 + 0x488));
+  }
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0064F540: mov eax,dword ptr fs:[00000000h]
+0064F546: push 0FFFFFFFFh
+0064F548: push 8431F8h
+0064F54D: push eax
+0064F54E: mov dword ptr fs:[00000000h],esp
+ 00
+0064F555: sub esp,20h
+0064F558: push ebx
+0064F559: push edi
+0064F55A: mov edi,dword ptr [esp+38h]
+0064F55E: mov al,byte ptr [edi+00000488h]
+0064F564: xor ebx,ebx
+0064F566: test al,al
+0064F568: jbe 0064F5E4
+0064F56A: push ebp
+0064F56B: push esi
+0064F56C: lea ebp,[edi+00000464h]
+0064F572: mov esi,dword ptr [ebp]
+0064F575: test esi,esi
+0064F577: je 0064F5D3
+0064F579: cmp esi,dword ptr [esp+44h]
+0064F57D: je 0064F5D3
+0064F57F: test dword ptr [esi+00000470h],800000h
+0064F589: jne 0064F5D3
+0064F58B: push esi
+0064F58C: push edi
+0064F58D: call 0064F110
+0064F592: add esp,8
+0064F595: push eax
+0064F596: mov eax,dword ptr [esp+4Ch]
+0064F59A: push edi
+0064F59B: push eax
+0064F59C: lea ecx,[esp+1Ch]
+0064F5A0: call 004AEAC0
+0064F5A5: mov esi,dword ptr [esi+0000047Ch]
+0064F5AB: push 0
+0064F5AD: lea ecx,[esp+14h]
+0064F5B1: push ecx
+0064F5B2: lea ecx,[esi+68h]
+0064F5B5: mov dword ptr [esp+40h],0
+0064F5BD: call 004AB420
+0064F5C2: lea ecx,[esp+10h]
+0064F5C6: mov dword ptr [esp+38h],0FFFFFFFFh
+0064F5CE: call 004AEB90
+0064F5D3: movzx edx,byte ptr [edi+00000488h]
+ 00
+0064F5DA: inc ebx
+0064F5DB: add ebp,4
+0064F5DE: cmp ebx,edx
+0064F5E0: jl 0064F572
+0064F5E2: pop esi
+0064F5E3: pop ebp
+0064F5E4: mov ecx,dword ptr [esp+28h]
+0064F5E8: pop edi
+0064F5E9: pop ebx
+0064F5EA: mov dword ptr fs:[00000000h],ecx
+ 00
+0064F5F1: add esp,2Ch
+0064F5F4: ret

@@ -1,0 +1,25 @@
+# FxEmitterParticle355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Replay actual aprobado para este banco: fuentes, instrumentos, binarios archivados y hashes del EXE/DLL ejecutados comprobados. Forma parte de un cierre parcial; el lote completo no quedó validado con las fuentes finales.
+
+Funciones del alcance: `FxEmitterBP_c::UpdateParticle`.
+
+[Resumen registrado](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fx-emitter-particle355/20261008-073638-018841/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+# FxEmitterParticle355
+
+UpdateParticle 0x4A21D0: runtime APPROVED 1024/1024 original/candidate pairs, report 20261007-220513-738272. Fix followed exact random normalization before rotation-range multiplication. Fixtures cover life/time scaling, position/velocity, positive/negative/dual rotation, random bytes, flotation and underwater death. Full particle/system/blueprint/emitter bytes and traces compared, globals restored. Movement and water dependencies isolated symmetrically; actual FxInfo modules and map water are outside this bank. Hook activation managed by root after final inventory update.
+
+## Evidencia y cierre del lote 355
+
+Aprobación histórica: `20261007-220513-738272`, 1024 pares. Informe: [summary.json](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fx-emitter-particle355/20261007-220513-738272/summary.json>). Corresponde al estado de fuentes e instrumentos de esa ejecución.
+
+Último informe disponible: `20261007-220513-738272`; resultado del banco: aprobado en ese snapshot. Evidencia: [summary.json](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fx-emitter-particle355/20261007-220513-738272/summary.json>).
+
+Validación final del lote pendiente: una aprobación histórica no acredita las fuentes actuales. El cierre requiere repetir los bancos afectados y comprobar los hashes actuales de fuentes, instrumentos, EXE y ASI ejecutada mediante el registro estricto coordinado por la raíz. Este README no autoriza activar hooks.
+
+La equivalencia está limitada a los fixtures y ramas descritos arriba. Las colaboraciones aisladas simétricamente no acreditan su implementación; estos resultados no constituyen una campaña integral de juego ni independencia del EXE.

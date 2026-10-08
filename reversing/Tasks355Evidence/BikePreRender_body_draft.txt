@@ -1,0 +1,219 @@
+namespace {
+float BikePreRenderChassisHeight355(float lean, float height) {
+    float result;
+    __asm {
+        fld lean
+        fcos
+        fld dword ptr ds:[00858624h]
+        fsub st,st(1)
+        fmul height
+        fmul dword ptr ds:[00858C20h]
+        fstp result
+        fstp st(0)
+    }
+    return result;
+}
+void BikePreRenderContact355(CVector& out, const CVector& point, const CVector& right, float lean, float height) {
+    const float* p = &point.x;
+    const float* r = &right.x;
+    float* o = &out.x;
+    __asm {
+        mov eax, p
+        mov edx, r
+        mov ecx, o
+        fld lean
+        fsin
+        fmul height
+        fmul dword ptr ds:[00858C98h]
+        fld st(0)
+        fmul dword ptr [edx]
+        fadd dword ptr [eax]
+        fstp dword ptr [ecx]
+        fld st(0)
+        fmul dword ptr [edx+4]
+        fadd dword ptr [eax+4]
+        fstp dword ptr [ecx+4]
+        fmul dword ptr [edx+8]
+        fadd dword ptr [eax+8]
+        fstp dword ptr [ecx+8]
+    }
+}
+void BikePreRenderTrig355(float angle, float multiplier, float& sineOut, float& cosineOut) {
+    float sine, cosine;
+    __asm {
+        fld angle
+        fmul multiplier
+        fld st(0)
+        fsin
+        fstp sine
+        fcos
+        fstp cosine
+    }
+    sineOut = sine; cosineOut = cosine;
+}
+float BikePreRenderSine355(float angle, float factor) {
+    float result;
+    __asm {
+        fld angle
+        fsin
+        fmul factor
+        fstp result
+    }
+    return result;
+}
+float BikePreRenderForkAngle355(float height, float original, float forkLength) {
+    float result;
+    __asm {
+        fld height
+        fsub original
+        fdiv forkLength
+        fst result
+        mov eax, 00821E70h
+        call eax
+        fchs
+        fstp result
+    }
+    return result;
+}
+}
+
+// 0x6BD090
+void CBike::PreRender() {
+    CVehicle::PreRender();
+    auto* col = GetColModel();
+    auto* data = col->m_pColData;
+    auto* lines = data->m_pLines;
+    auto* bytes = reinterpret_cast<uint8*>(this);
+    const auto flag = [&](size_t offset, uint8 mask) { return (bytes[offset] & mask) != 0; };
+    if (flag(0x42B, 1)) {
+        reinterpret_cast<void(__thiscall*)(CBike*)>((*reinterpret_cast<uintptr_t**>(this))[52])(this);
+        for (int wheel = 0; wheel < 2; ++wheel) {
+            const int first = wheel * 2;
+            const float resting = 1.f - m_fSuspensionLength[first] / m_fLineLength[first];
+            const float compression = (std::min(m_aWheelRatios[first], m_aWheelRatios[first + 1]) - resting) / (1.f - resting);
+            float height = lines[first].m_vecStart.z;
+            if (compression > 0.f) height -= compression * m_fSuspensionLength[first];
+            m_aWheelSuspensionHeights[wheel] = (height - m_aWheelSuspensionHeights[wheel]) * .75f + m_aWheelSuspensionHeights[wheel];
+        }
+    }
+    const auto status = uint8(bytes[0x36] >> 3);
+    if (status <= 3) {
+        const float speed = m_vecMoveSpeed.Magnitude();
+        const auto rearState = m_WheelStates[1];
+        for (int wheel = 0; wheel < 2; ++wheel) {
+            int line = wheel ? 3 : 0;
+            if (!wheel && m_aWheelRatios[0] >= 1.f && m_aWheelRatios[1] < 1.f) line = 1;
+            if (wheel && m_aWheelRatios[3] >= 1.f && m_aWheelRatios[2] < 1.f) line = 2;
+            uint32 particles = !wheel && rearState != static_cast<tWheelState>(2) ? 4 : 0;
+            auto* contact = &m_aWheelColPoints[line];
+            CVector position;
+            BikePreRenderContact355(position, contact->m_vecPoint, m_matrix->GetRight(), m_RideAnimData.LeanAngle, GetColModel()->m_boundBox.m_vecMin.z);
+            particles += uint32(m_bWheelBloody[wheel]) + 2 * uint32(m_bMoreSkidMarks[wheel]);
+            AddSingleWheelParticles(m_WheelStates[wheel], m_nWheelStatus[wheel], m_aWheelRatios[line], speed,
+                                    contact, &position, m_RideAnimData.LeanAngle > 0.f ? -1.f : 1.f,
+                                    wheel, uint32(m_aWheelSkidmarkType[wheel]), &m_bWheelBloody[wheel], particles);
+        }
+    }
+    m_bLeanMatrixCalculated = false;
+    CalculateLeanMatrix();
+    if (flag(0x428, 0x10) && !(uint32(m_pHandlingData->m_nHandlingFlags) & 0x1000) &&
+        DotProduct(m_matrix->GetForward(), m_vecMoveSpeed) / StaticRef<float>(0xC1C81C) < 130.f && !flag(0x42B, 0x40)) {
+        AddExhaustParticles();
+    }
+    AddDamagedVehicleParticles();
+    if (m_nModelIndex == 523 && flag(0x42D, 0x80) && flag(0x428, 0x10) && !(StaticRef<uint32>(uintptr_t(this) + 0x40) & 0x20000000)) {
+        const uint32 phase = CTimer::GetTimeInMS() & 0x1FF;
+        const uint8 red = phase < 256 ? uint8(phase) : uint8(-int32(phase));
+        const uint8 blue = uint8(255 - red);
+        const CVector left{-.28f, .6f, .3f}, right{.28f, .6f, .3f};
+        const int intensity = int(StaticRef<float>(0xB7C4E4) * StaticRef<float>(0x8714AC));
+        const bool first = phase < 256;
+        CCoronas::RegisterCorona(uint32(uintptr_t(this) + (first ? 0x15 : 0x16)), this,
+            first ? 0 : 255, 0, first ? 255 : 0, uint8(intensity), first ? left : right,
+            .4f, 40.f, static_cast<eCoronaType>(0), static_cast<eCoronaFlareType>(0), static_cast<eCoronaReflType>(0),
+            static_cast<eCoronaLOSCheck>(0), static_cast<eCoronaTrail>(0), 0.f, false, 1.5f, false, 30.f, false, true);
+        const CVector light = m_matrix->GetPosition() + m_matrix->GetForward() + m_matrix->GetUp() * .5f;
+        CPointLights::AddLight(0, light, CVector{0.f, 0.f, 0.f}, 10.f,
+                              float(red) * StaticRef<float>(0x85C6D4), 0.f,
+                              float(blue) * StaticRef<float>(0x85C6D4), 0, true, nullptr);
+    }
+    DoVehicleLights(m_mLeanMatrix, static_cast<eVehicleLightsFlags>(4));
+    CShadows::StoreShadowForVehicle(this, VEH_SHD_BIKE);
+    auto* model = GetVehicleModelInfo();
+    float steerSine, steerCosine;
+    BikePreRenderTrig355(m_fSteerAngle, 1.f, steerSine, steerCosine);
+    const CVector wheelDirection = m_matrix->TransformVector(CVector{0.f, -steerSine, steerCosine});
+    const CVector rearDirection = m_matrix->GetForward();
+    for (int wheel = 0; wheel < 2; ++wheel) {
+        const int first = wheel * 2;
+        if (!(m_aRatioHistory[first] > 0.f || m_aRatioHistory[first + 1] > 0.f)) continue;
+        const float radius = (wheel ? model->m_fWheelSizeRear : model->m_fWheelSizeFront) * .5f;
+        const CVector local{0.f, (lines[first].m_vecEnd.y + lines[first].m_vecStart.y) * .5f,
+            lines[first].m_vecStart.z - std::min(m_aWheelRatios[first], m_aWheelRatios[first + 1]) * m_fSuspensionLength[first] - model->m_fWheelSizeFront * .5f};
+        CVector contact;
+        TransformFromObjectSpace(contact, local);
+        const float rotation = ProcessWheelRotation(wheel ? m_WheelStates[1] : static_cast<tWheelState>(0), wheel ? rearDirection : wheelDirection, contact, radius);
+        m_aWheelAngularVelocity[wheel] = rotation;
+        m_aWheelPitchAngles[wheel] += rotation * CTimer::GetTimeStep();
+    }
+    CMatrix frameMatrix;
+    if (m_aBikeNodes[BIKE_FORKS_FRONT]) {
+        frameMatrix.Attach(&m_aBikeNodes[BIKE_FORKS_FRONT]->modelling, false);
+        const CVector position = frameMatrix.GetPosition();
+        CMatrix rotation;
+        RwMatrix attached{};
+        rotation.Attach(&attached, false);
+        rotation.SetUnity();
+        rotation.UpdateRW();
+        float axisSine, axisCosine;
+        BikePreRenderTrig355(model->m_fBikeSteerAngle, StaticRef<float>(0x8595EC), axisSine, axisCosine);
+        CVector axis{0.f, axisSine, -axisCosine};
+        axis.Normalise();
+        CQuaternion quaternion;
+        quaternion.Set(reinterpret_cast<RwV3d*>(&axis), -m_RideAnimData.BarSteerAngle);
+        quaternion.Get(&attached);
+        rotation.Update();
+        frameMatrix.SetUnity();
+        frameMatrix = frameMatrix * rotation;
+        frameMatrix.GetPosition() += position;
+        frameMatrix.UpdateRW();
+        if (m_aBikeNodes[BIKE_HANDLEBARS]) {
+            frameMatrix.Attach(&m_aBikeNodes[BIKE_HANDLEBARS]->modelling, false);
+            const CVector extraPosition = frameMatrix.GetPosition();
+            if (status == 4 || status == 5) {
+                frameMatrix.SetUnity(); frameMatrix *= rotation; frameMatrix.GetPosition() += extraPosition;
+            } else frameMatrix.SetTranslate(extraPosition);
+            frameMatrix.UpdateRW();
+        }
+    }
+    if (m_aBikeNodes[BIKE_FORKS_REAR]) {
+        frameMatrix.Attach(&m_aBikeNodes[BIKE_FORKS_REAR]->modelling, false);
+        const CVector position = frameMatrix.GetPosition();
+        frameMatrix.SetRotate(BikePreRenderForkAngle355(m_aWheelSuspensionHeights[1], m_aWheelOrigHeights[1], m_fSwingArmLength), 0.f, 0.f);
+        frameMatrix.GetPosition() += position; frameMatrix.UpdateRW();
+    }
+    frameMatrix.Attach(&m_aBikeNodes[BIKE_WHEEL_FRONT]->modelling, false);
+    const CVector frontPosition = frameMatrix.GetPosition();
+    const float height = m_aWheelSuspensionHeights[0] - m_aWheelOrigHeights[0];
+    const CVector suspensionOffset{frontPosition.x,
+        (lines[0].m_vecEnd.y + lines[0].m_vecStart.y) * .5f - m_fForkYOffset - height * m_fSteerAngleTan, height - m_fForkZOffset};
+    if (m_nWheelStatus[0] == 1) frameMatrix.SetRotate(m_aWheelPitchAngles[0], 0.f, BikePreRenderSine355(m_aWheelPitchAngles[0], .05f));
+    else frameMatrix.SetRotateX(m_aWheelPitchAngles[0]);
+    frameMatrix.GetPosition() += suspensionOffset; frameMatrix.UpdateRW();
+    frameMatrix.Attach(&m_aBikeNodes[BIKE_MUDGUARD]->modelling, false);
+    frameMatrix.GetPosition() = suspensionOffset; frameMatrix.UpdateRW();
+    frameMatrix.Attach(&m_aBikeNodes[BIKE_WHEEL_REAR]->modelling, false);
+    const CVector rearPosition = frameMatrix.GetPosition();
+    if (m_nWheelStatus[1] == 1) frameMatrix.SetRotate(m_aWheelPitchAngles[1], 0.f, BikePreRenderSine355(m_aWheelPitchAngles[1], .07f));
+    else frameMatrix.SetRotateX(m_aWheelPitchAngles[1]);
+    frameMatrix.GetPosition() += rearPosition; frameMatrix.UpdateRW();
+    if (m_aBikeNodes[BIKE_CHASSIS]) {
+        frameMatrix.Attach(&m_aBikeNodes[BIKE_CHASSIS]->modelling, false);
+        const CVector position = frameMatrix.GetPosition();
+        const float z = BikePreRenderChassisHeight355(m_RideAnimData.LeanAngle, col->m_boundBox.m_vecMin.z);
+        frameMatrix.SetRotateX(std::abs(m_RideAnimData.LeanAngle) * -.05f);
+        frameMatrix.RotateY(m_RideAnimData.LeanAngle);
+        frameMatrix.GetPosition() += CVector{position.x, position.y, z};
+        frameMatrix.UpdateRW();
+    }
+}

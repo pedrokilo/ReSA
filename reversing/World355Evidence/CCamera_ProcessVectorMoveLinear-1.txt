@@ -1,0 +1,53 @@
+// CCamera::ProcessVectorMoveLinear-1 @ 0x005164a0 [0x5164a0..0x5164f6]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005164a0(void)
+
+{
+  float fVar1;
+  int in_ECX;
+  
+  fVar1 = (float)DAT_00b7cb84;
+  if (DAT_00b7cb84 < 0) {
+    fVar1 = fVar1 + 4.2949673e+09;
+  }
+  if (fVar1 < *(float *)(in_ECX + 0xcc0) != (fVar1 == *(float *)(in_ECX + 0xcc0))) {
+    FUN_0050d430((fVar1 - *(float *)(in_ECX + 0xcbc)) /
+                 (*(float *)(in_ECX + 0xcc0) - *(float *)(in_ECX + 0xcbc)));
+    return;
+  }
+  if (*(char *)(in_ECX + 0xcee) != '\0') {
+    *(undefined1 *)(in_ECX + 0xcec) = 1;
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005164A0: push ecx
+005164A1: mov eax,dword ptr ds:[00B7CB84h]
+005164A6: fild dword ptr ds:[00B7CB84h]
+005164AC: test eax,eax
+005164AE: jge 005164B6
+005164B0: fadd dword ptr ds:[00858C54h]
+005164B6: fcom dword ptr [ecx+00000CC0h]
+005164BC: fnstsw ax
+005164BE: test ah,41h
+005164C1: jp 005164E2
+005164C3: fsub dword ptr [ecx+00000CBCh]
+005164C9: push ecx
+005164CA: fld dword ptr [ecx+00000CC0h]
+005164D0: fsub dword ptr [ecx+00000CBCh]
+005164D6: fdivp st(1),st
+005164D8: fstp dword ptr [esp]
+005164DB: call 0050D430
+005164E0: pop ecx
+005164E1: ret
+005164E2: mov al,byte ptr [ecx+00000CEEh]
+005164E8: fstp st(0)
+005164EA: test al,al
+005164EC: je 005164F5
+005164EE: mov byte ptr [ecx+00000CECh],1
+ 01
+005164F5: pop ecx
+005164F6: ret

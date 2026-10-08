@@ -1,0 +1,49 @@
+// CFormation::ReturnTargetPedForPed @ 0x00699f50 [0x699f50..0x699f91]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00699f50(int param_1,undefined4 *param_2)
+
+{
+  int iVar1;
+  
+  iVar1 = 0;
+  if (0 < DAT_00c1a4d8) {
+    while ((param_1 != (&DAT_00c1a4dc)[iVar1] || ((int)(&DAT_00c1a2c0)[iVar1] < 0))) {
+      iVar1 = iVar1 + 1;
+      if (DAT_00c1a4d8 <= iVar1) {
+        return;
+      }
+    }
+    *param_2 = (&DAT_00c1a45c)[(&DAT_00c1a2c0)[iVar1]];
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00699F50: mov ecx,dword ptr ds:[00C1A4D8h]
+00699F56: xor eax,eax
+00699F58: test ecx,ecx
+00699F5A: jle 00699F91
+00699F5C: mov edx,dword ptr [esp+4]
+00699F60: push esi
+00699F61: cmp edx,dword ptr [eax*4+00C1A4DCh]
+ 00
+00699F68: jne 00699F75
+00699F6A: mov esi,dword ptr [eax*4+00C1A2C0h]
+ 00
+00699F71: test esi,esi
+00699F73: jge 00699F7C
+00699F75: inc eax
+00699F76: cmp eax,ecx
+00699F78: jl 00699F61
+00699F7A: pop esi
+00699F7B: ret
+00699F7C: mov eax,dword ptr [eax*4+00C1A2C0h]
+ 00
+00699F83: mov ecx,dword ptr [eax*4+00C1A45Ch]
+ 00
+00699F8A: mov edx,dword ptr [esp+0Ch]
+00699F8E: mov dword ptr [edx],ecx
+00699F90: pop esi
+00699F91: ret

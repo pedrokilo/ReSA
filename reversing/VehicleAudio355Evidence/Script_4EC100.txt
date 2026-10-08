@@ -1,0 +1,37 @@
+// CAEScriptAudioEntity::AttachMissionAudioToPhysical @ 0x004ec100 [0x4ec100..0x4ec14d]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004ec100(byte param_1,undefined4 param_2)
+
+{
+  int iVar1;
+  int in_ECX;
+  
+  iVar1 = (uint)param_1 * 0x20 + in_ECX;
+  *(undefined4 *)(iVar1 + 0x9c) = param_2;
+  *(undefined4 *)(iVar1 + 0x90) = 0xc47a0000;
+  *(undefined4 *)(iVar1 + 0x94) = 0xc47a0000;
+  *(undefined4 *)(iVar1 + 0x98) = 0xc47a0000;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004EC100: sub esp,0Ch
+004EC103: movzx eax,byte ptr [esp+10h]
+004EC108: shl eax,5
+004EC10B: add eax,ecx
+004EC10D: mov ecx,dword ptr [esp+14h]
+004EC111: mov dword ptr [eax+0000009Ch],ecx
+004EC117: mov dword ptr [esp],0C47A0000h
+004EC11F: mov edx,dword ptr [esp]
+004EC123: add eax,90h
+004EC128: mov dword ptr [eax],edx
+004EC12A: mov dword ptr [esp+4],0C47A0000h
+004EC132: mov ecx,dword ptr [esp+4]
+004EC136: mov dword ptr [esp+8],0C47A0000h
+004EC13E: mov edx,dword ptr [esp+8]
+004EC142: mov dword ptr [eax+4],ecx
+004EC145: mov dword ptr [eax+8],edx
+004EC148: add esp,0Ch
+004EC14B: ret 8

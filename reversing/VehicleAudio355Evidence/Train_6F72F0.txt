@@ -1,0 +1,143 @@
+// CTrain::SkipToNextAllowedStation @ 0x006f72f0 [0x6f72f0..0x6f7436]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006f72f0(float param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  float fVar3;
+  int iVar4;
+  undefined4 uVar5;
+  float10 fVar6;
+  int local_8;
+  float local_4;
+  
+  iVar1 = *(int *)((int)param_1 + 0x5d0);
+  iVar2 = (int)param_1;
+  while (iVar1 != 0) {
+    iVar2 = *(int *)(iVar2 + 0x5d0);
+    iVar1 = *(int *)(iVar2 + 0x5d0);
+  }
+  param_1 = *(float *)(iVar2 + 0x5a8);
+  do {
+    FUN_006f5f00(*(byte *)(iVar2 + 0x5b8) >> 6 & 1,param_1,&param_1,&local_8);
+    iVar1 = local_8;
+    iVar4 = FUN_00572300(&DAT_008d48f8 + local_8 * 3);
+    local_4 = (float)iVar4;
+    fVar6 = (float10)FUN_00558e40(0xb5);
+  } while (fVar6 + (float10)1.0 < (float10)local_4);
+  *(float *)(iVar2 + 0x5a8) = param_1;
+  if ((*(byte *)(iVar2 + 0x5b8) & 0x40) == 0) {
+    fVar3 = param_1 + 20.0;
+    *(undefined4 *)(iVar2 + 0x5a4) = 0xbdcccccd;
+  }
+  else {
+    fVar3 = param_1 - 20.0;
+    *(undefined4 *)(iVar2 + 0x5a4) = 0x3dcccccd;
+  }
+  *(float *)(iVar2 + 0x5a8) = fVar3;
+  FUN_0040eb70(&DAT_008d48f8 + iVar1 * 3);
+  FUN_0040ea10(0);
+  uVar5 = FUN_00821b40();
+  FUN_004414c0(uVar5);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F72F0: sub esp,8
+006F72F3: push esi
+006F72F4: mov esi,dword ptr [esp+10h]
+006F72F8: mov ecx,dword ptr [esi+000005D0h]
+006F72FE: test ecx,ecx
+006F7300: lea eax,[esi+000005D0h]
+006F7306: push edi
+006F7307: je 006F7322
+006F7309: lea esp,[esp+00000000h]
+ 00
+006F7310: mov esi,dword ptr [eax]
+006F7312: mov ecx,dword ptr [esi+000005D0h]
+006F7318: test ecx,ecx
+006F731A: lea eax,[esi+000005D0h]
+006F7320: jne 006F7310
+006F7322: mov eax,dword ptr [esi+000005A8h]
+006F7328: mov dword ptr [esp+14h],eax
+006F732C: lea esp,[esp]
+006F7330: mov eax,dword ptr [esp+14h]
+006F7334: lea ecx,[esp+8]
+006F7338: push ecx
+006F7339: xor ecx,ecx
+006F733B: mov cl,byte ptr [esi+000005B8h]
+006F7341: shr cl,6
+006F7344: lea edx,[esp+18h]
+006F7348: push edx
+006F7349: push eax
+006F734A: and ecx,0FFFFFF01h
+006F7350: push ecx
+006F7351: call 006F5F00
+006F7356: mov edi,dword ptr [esp+18h]
+006F735A: lea edx,[edi+edi*2]
+006F735D: lea eax,[edx*4+008D48F8h]
+ 00
+006F7364: push eax
+006F7365: call 00572300
+006F736A: mov dword ptr [esp+20h],eax
+006F736E: fild dword ptr [esp+20h]
+006F7372: push 0B5h
+006F7377: fstp dword ptr [esp+24h]
+006F737B: call 00558E40
+006F7380: fadd dword ptr ds:[00858624h]
+006F7386: add esp,18h
+006F7389: fcomp dword ptr [esp+0Ch]
+006F738D: fnstsw ax
+006F738F: test ah,1
+006F7392: jne 006F7330
+006F7394: mov al,byte ptr [esi+000005B8h]
+006F739A: fld dword ptr [esp+14h]
+006F739E: test al,40h
+006F73A0: mov ecx,dword ptr [esp+14h]
+006F73A4: mov dword ptr [esi+000005A8h],ecx
+006F73AA: je 006F73BE
+006F73AC: fsub dword ptr ds:[00858BA4h]
+006F73B2: mov dword ptr [esi+000005A4h],3DCCCCCDh
+006F73BC: jmp 006F73CE
+006F73BE: fadd dword ptr ds:[00858BA4h]
+006F73C4: mov dword ptr [esi+000005A4h],0BDCCCCCDh
+006F73CE: lea eax,[edi+edi*2]
+006F73D1: fstp dword ptr [esi+000005A8h]
+006F73D7: lea edi,[eax*4+008D48F8h]
+ 00
+006F73DE: push edi
+006F73DF: call 0040EB70
+006F73E4: push 0
+006F73E6: call 0040EA10
+006F73EB: mov eax,dword ptr [esi+14h]
+006F73EE: add esp,8
+006F73F1: test eax,eax
+006F73F3: je 006F73FA
+006F73F5: add eax,30h
+006F73F8: jmp 006F73FD
+006F73FA: lea eax,[esi+4]
+006F73FD: fld dword ptr [edi]
+006F73FF: fsub dword ptr [eax]
+006F7401: fld dword ptr [edi+4]
+006F7404: fsub dword ptr [eax+4]
+006F7407: fld st(1)
+006F7409: fmulp st(2),st
+006F740B: fld st(0)
+006F740D: fmul st,st(1)
+006F740F: faddp st(2),st
+006F7411: fxch st(1)
+006F7413: fsqrt
+006F7415: fstp st(1)
+006F7417: fmul dword ptr ds:[00858C28h]
+006F741D: fadd dword ptr ds:[00858F84h]
+006F7423: call 00821B40
+006F7428: push eax
+006F7429: call 004414C0
+006F742E: add esp,4
+006F7431: pop edi
+006F7432: pop esi
+006F7433: add esp,8
+006F7436: ret

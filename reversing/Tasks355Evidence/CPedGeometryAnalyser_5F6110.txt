@@ -1,0 +1,64 @@
+// CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox-1 @ 0x005f6110 [0x5f6110..0x5f6141]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005f6110(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
+                 undefined4 param_5)
+
+{
+  int iVar1;
+  
+  if (*(int *)(param_1 + 0x14) == 0) {
+    iVar1 = param_1 + 4;
+  }
+  else {
+    iVar1 = *(int *)(param_1 + 0x14) + 0x30;
+  }
+  FUN_005f3dd0(param_1,iVar1,param_2,param_3,param_4,param_5);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005F6110: mov ecx,dword ptr [esp+4]
+005F6114: mov eax,dword ptr [ecx+14h]
+005F6117: test eax,eax
+005F6119: je 005F6120
+005F611B: add eax,30h
+005F611E: jmp 005F6123
+005F6120: lea eax,[ecx+4]
+005F6123: mov edx,dword ptr [esp+14h]
+005F6127: push edx
+005F6128: mov edx,dword ptr [esp+14h]
+005F612C: push edx
+005F612D: mov edx,dword ptr [esp+14h]
+005F6131: push edx
+005F6132: mov edx,dword ptr [esp+14h]
+005F6136: push edx
+005F6137: push eax
+005F6138: push ecx
+005F6139: call 005F3DD0
+005F613E: add esp,18h
+005F6141: ret
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x5F6110, 0x5F6141) ====
+005F6110: mov ecx,dword ptr [esp+4]
+005F6114: mov eax,dword ptr [ecx+14h]
+005F6117: test eax,eax
+005F6119: je 005F6120
+005F611B: add eax,30h
+005F611E: jmp 005F6123
+005F6120: lea eax,[ecx+4]
+005F6123: mov edx,dword ptr [esp+14h]
+005F6127: push edx
+005F6128: mov edx,dword ptr [esp+14h]
+005F612C: push edx
+005F612D: mov edx,dword ptr [esp+14h]
+005F6131: push edx
+005F6132: mov edx,dword ptr [esp+14h]
+005F6136: push edx
+005F6137: push eax
+005F6138: push ecx
+005F6139: call 005F3DD0
+005F613E: add esp,18h
+005F6141: ret

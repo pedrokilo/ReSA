@@ -1,0 +1,58 @@
+// CCamera::VectorTrackLinear @ 0x0050d1d0 [0x50d1d0..0x50d239]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0050d1d0(undefined4 *param_1,undefined4 *param_2,float param_3,undefined1 param_4)
+
+{
+  float fVar1;
+  int in_ECX;
+  
+  fVar1 = (float)DAT_00b7cb84;
+  if (DAT_00b7cb84 < 0) {
+    fVar1 = fVar1 + 4.2949673e+09;
+  }
+  *(float *)(in_ECX + 0xc5c) = fVar1;
+  *(float *)(in_ECX + 0xc60) = fVar1 + param_3;
+  *(undefined4 *)(in_ECX + 0xc64) = *param_2;
+  *(undefined4 *)(in_ECX + 0xc68) = param_2[1];
+  *(undefined4 *)(in_ECX + 0xc6c) = param_2[2];
+  *(undefined4 *)(in_ECX + 0xc70) = *param_1;
+  *(undefined4 *)(in_ECX + 0xc74) = param_1[1];
+  *(undefined4 *)(in_ECX + 0xc78) = param_1[2];
+  *(undefined1 *)(in_ECX + 0xc7c) = param_4;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0050D1D0: push ecx
+0050D1D1: mov eax,dword ptr ds:[00B7CB84h]
+0050D1D6: fild dword ptr ds:[00B7CB84h]
+0050D1DC: test eax,eax
+0050D1DE: push esi
+0050D1DF: jge 0050D1E7
+0050D1E1: fadd dword ptr ds:[00858C54h]
+0050D1E7: mov eax,dword ptr [esp+10h]
+0050D1EB: fst dword ptr [ecx+00000C5Ch]
+0050D1F1: fadd dword ptr [esp+14h]
+0050D1F5: lea edx,[ecx+00000C64h]
+0050D1FB: fstp dword ptr [ecx+00000C60h]
+0050D201: mov esi,dword ptr [eax]
+0050D203: mov dword ptr [edx],esi
+0050D205: mov esi,dword ptr [eax+4]
+0050D208: mov dword ptr [edx+4],esi
+0050D20B: mov eax,dword ptr [eax+8]
+0050D20E: mov dword ptr [edx+8],eax
+0050D211: mov eax,dword ptr [esp+0Ch]
+0050D215: mov esi,dword ptr [eax]
+0050D217: lea edx,[ecx+00000C70h]
+0050D21D: mov dword ptr [edx],esi
+0050D21F: mov esi,dword ptr [eax+4]
+0050D222: mov dword ptr [edx+4],esi
+0050D225: mov eax,dword ptr [eax+8]
+0050D228: mov dword ptr [edx+8],eax
+0050D22B: mov dl,byte ptr [esp+18h]
+0050D22F: mov byte ptr [ecx+00000C7Ch],dl
+0050D235: pop esi
+0050D236: pop ecx
+0050D237: ret 10h

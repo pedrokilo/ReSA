@@ -1,0 +1,93 @@
+// CPlane::SwitchAmbientPlanes @ 0x006ccc50 [0x6ccc50..0x6ccce0]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006ccc50(char param_1)
+
+{
+  int iVar1;
+  int *piVar2;
+  int iVar3;
+  undefined4 *puVar4;
+  int iVar5;
+  
+  piVar2 = DAT_00b74494;
+  if (DAT_008d33bc == '\0') {
+    DAT_008d33bc = param_1;
+    return;
+  }
+  if ((param_1 == '\0') && (iVar5 = DAT_00b74494[2], iVar5 != 0)) {
+    iVar3 = iVar5 * 0xa18;
+    do {
+      iVar1 = iVar5 + -1;
+      iVar5 = iVar5 + -1;
+      iVar3 = iVar3 + -0xa18;
+      if ((((-1 < *(char *)(iVar1 + piVar2[1])) &&
+           (puVar4 = (undefined4 *)(*piVar2 + iVar3), puVar4 != (undefined4 *)0x0)) &&
+          ((puVar4[0x165] == 3 || (puVar4[0x165] == 4)))) && (*(char *)(puVar4 + 0x129) == '\x01'))
+      {
+        FUN_00563280(puVar4);
+        (**(code **)*puVar4)(1);
+      }
+    } while (iVar5 != 0);
+  }
+  DAT_008d33bc = param_1;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006CCC50: mov al,byte ptr ds:[008D33BCh]
+006CCC55: test al,al
+006CCC57: push ebx
+006CCC58: push edi
+006CCC59: je 006CCCD5
+006CCC5B: mov cl,byte ptr [esp+0Ch]
+006CCC5F: test cl,cl
+006CCC61: jne 006CCCCC
+006CCC63: mov ebx,dword ptr ds:[00B74494h]
+006CCC69: mov edi,dword ptr [ebx+8]
+006CCC6C: test edi,edi
+006CCC6E: je 006CCCCC
+006CCC70: push ebp
+006CCC71: mov ebp,edi
+006CCC73: push esi
+006CCC74: imul ebp,ebp,0A18h
+006CCC7A: lea ebx,[ebx+00000000h]
+006CCC80: mov eax,dword ptr [ebx+4]
+006CCC83: mov dl,byte ptr [edi+eax-1]
+006CCC87: dec edi
+006CCC88: sub ebp,0A18h
+006CCC8E: test dl,dl
+006CCC90: js 006CCCC6
+006CCC92: mov esi,dword ptr [ebx]
+006CCC94: add esi,ebp
+006CCC96: je 006CCCC6
+006CCC98: mov eax,dword ptr [esi+00000594h]
+006CCC9E: cmp eax,3
+006CCCA1: je 006CCCA8
+006CCCA3: cmp eax,4
+006CCCA6: jne 006CCCC6
+006CCCA8: cmp byte ptr [esi+000004A4h],1
+ 01
+006CCCAF: jne 006CCCC6
+006CCCB1: push esi
+006CCCB2: call 00563280
+006CCCB7: mov edx,dword ptr [esi]
+006CCCB9: add esp,4
+006CCCBC: push 1
+006CCCBE: mov ecx,esi
+006CCCC0: call dword ptr [edx]
+006CCCC2: mov cl,byte ptr [esp+14h]
+006CCCC6: test edi,edi
+006CCCC8: jne 006CCC80
+006CCCCA: pop esi
+006CCCCB: pop ebp
+006CCCCC: pop edi
+006CCCCD: mov byte ptr ds:[008D33BCh],cl
+006CCCD3: pop ebx
+006CCCD4: ret
+006CCCD5: mov al,byte ptr [esp+0Ch]
+006CCCD9: pop edi
+006CCCDA: mov byte ptr ds:[008D33BCh],al
+006CCCDF: pop ebx
+006CCCE0: ret

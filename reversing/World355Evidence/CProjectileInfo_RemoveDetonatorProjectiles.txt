@@ -1,0 +1,89 @@
+// CProjectileInfo::RemoveDetonatorProjectiles @ 0x00738860 [0x738860..0x7388ec]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00738860(void)
+
+{
+  int iVar1;
+  undefined4 *puVar2;
+  int *piVar3;
+  int *piVar4;
+  
+  piVar3 = &DAT_00c89110;
+  piVar4 = &DAT_00c891c8;
+  do {
+    if (((char)piVar4[-4] != '\0') && (iVar1 = *piVar3, piVar4[-8] == 0x27)) {
+      if (*(int *)(iVar1 + 0x14) == 0) {
+        puVar2 = (undefined4 *)(iVar1 + 4);
+      }
+      else {
+        puVar2 = (undefined4 *)(*(int *)(iVar1 + 0x14) + 0x30);
+      }
+      FUN_00736a50(0,piVar4[-7],0,*puVar2,puVar2[1],puVar2[2],0,1,0xbf800000,0);
+      *(undefined1 *)(piVar4 + -4) = 0;
+      if (*piVar4 != 0) {
+        FUN_004aa3f0();
+        *piVar4 = 0;
+      }
+      *(uint *)(iVar1 + 0x1c) = *(uint *)(iVar1 + 0x1c) | 0x800;
+    }
+    piVar4 = piVar4 + 9;
+    piVar3 = piVar3 + 1;
+  } while ((int)piVar4 < 0xc89648);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00738860: push ebp
+00738861: push esi
+00738862: push edi
+00738863: mov ebp,0C89110h
+00738868: mov esi,0C891C8h
+0073886D: lea ecx,[ecx]
+00738870: mov al,byte ptr [esi-10h]
+00738873: test al,al
+00738875: je 007388DB
+00738877: cmp dword ptr [esi-20h],27h
+0073887B: mov edi,dword ptr [ebp]
+0073887E: jne 007388DB
+00738880: mov eax,dword ptr [edi+14h]
+00738883: test eax,eax
+00738885: je 0073888C
+00738887: add eax,30h
+0073888A: jmp 0073888F
+0073888C: lea eax,[edi+4]
+0073888F: mov edx,dword ptr [eax]
+00738891: push 0
+00738893: push 0BF800000h
+00738898: push 1
+0073889A: push 0
+0073889C: sub esp,0Ch
+0073889F: mov ecx,esp
+007388A1: mov dword ptr [ecx],edx
+007388A3: mov edx,dword ptr [eax+4]
+007388A6: mov eax,dword ptr [eax+8]
+007388A9: mov dword ptr [ecx+4],edx
+007388AC: mov dword ptr [ecx+8],eax
+007388AF: mov ecx,dword ptr [esi-1Ch]
+007388B2: push 0
+007388B4: push ecx
+007388B5: push 0
+007388B7: call 00736A50
+007388BC: mov ecx,dword ptr [esi]
+007388BE: add esp,28h
+007388C1: test ecx,ecx
+007388C3: mov byte ptr [esi-10h],0
+007388C7: je 007388D4
+007388C9: call 004AA3F0
+007388CE: mov dword ptr [esi],0
+007388D4: or dword ptr [edi+1Ch],800h
+ 00
+007388DB: add esi,24h
+007388DE: add ebp,4
+007388E1: cmp esi,0C89648h
+007388E7: jl 00738870
+007388E9: pop edi
+007388EA: pop esi
+007388EB: pop ebp
+007388EC: ret

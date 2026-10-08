@@ -6,29 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CRunningScript
- * Reconstrucción: INCOMPLETA — 24/39 funciones reconstruidas.
- * Pendientes de reconstruir: 15.
+ * Reconstrucción: COMPLETA — 39/39 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 15.
- * Validación registrada: 0/39 entradas.
+ * Validación registrada: 15/39 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   CarInAreaCheckCommand | 0x00488EC0 | S
- *   CharInAngledAreaCheckCommand | 0x00487F60 | S
- *   CharInAreaCheckCommand | 0x00488B50 | S
- *   FlameInAngledAreaCheckCommand | 0x00488780 | S
- *   LocateCarCommand | 0x00487A20 | S
- *   LocateCharCarCommand | 0x00487420 | S
- *   LocateCharCharCommand | 0x004870F0 | S
- *   LocateCharCommand | 0x00486D80 | S
- *   LocateCharObjectCommand | 0x00487720 | S
- *   LocateObjectCommand | 0x00487D10 | S
- *   ObjectInAngledAreaCheckCommand | 0x004883F0 | S
- *   ObjectInAreaCheckCommand | 0x00489150 | S
- *   PlayAnimScriptCommand | 0x00470150 | S
- *   ScriptTaskPickUpObject | 0x0046AF50 | S
- *   ShutdownThisScript | 0x00465AA0 | S
  * BLOQUEADAS (nombre | dirección | tipo):
  *   CarInAreaCheckCommand | 0x00488EC0 | S
  *   CharInAngledAreaCheckCommand | 0x00487F60 | S
@@ -49,6 +33,14 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "Tasks/TaskTypes/TaskSimpleFinishBrain.h"
+#include "Tasks/ScriptedBrainTaskStore.h"
+#include "Tasks/TaskTypes/TaskSimpleRunNamedAnim.h"
+#include "Tasks/TaskTypes/TaskSimpleAffectSecondaryBehaviour.h"
+#include "Tasks/TaskSequences.h"
+#include "Tasks/TaskTypes/TaskSimpleHoldEntity.h"
+#include "Tasks/PedScriptedTaskRecord.h"
+#include "ShotInfo.h"
 
 #include "RunningScript.h"
 #include "TheScripts.h"
@@ -97,19 +89,19 @@ void CRunningScript::InjectHooks() {
     RH_ScopedInstall(Init, 0x4648E0);
     RH_ScopedInstall(GetCorrectPedModelIndexForEmergencyServiceType, 0x464F50);
 
-    RH_ScopedInstall(PlayAnimScriptCommand, 0x470150, { .reversed = false });
-    RH_ScopedInstall(LocateCarCommand, 0x487A20, { .reversed = false });
-    RH_ScopedInstall(LocateCharCommand, 0x486D80, { .reversed = false });
-    RH_ScopedInstall(LocateObjectCommand, 0x487D10, { .reversed = false });
-    RH_ScopedInstall(LocateCharCarCommand, 0x487420, { .reversed = false });
-    RH_ScopedInstall(LocateCharCharCommand, 0x4870F0, { .reversed = false });
-    RH_ScopedInstall(LocateCharObjectCommand, 0x487720, { .reversed = false });
-    RH_ScopedInstall(CarInAreaCheckCommand, 0x488EC0, { .reversed = false });
-    RH_ScopedInstall(CharInAreaCheckCommand, 0x488B50, { .reversed = false });
-    RH_ScopedInstall(ObjectInAreaCheckCommand, 0x489150, { .reversed = false });
-    RH_ScopedInstall(CharInAngledAreaCheckCommand, 0x487F60, { .reversed = false });
-    RH_ScopedInstall(FlameInAngledAreaCheckCommand, 0x488780, { .reversed = false });
-    RH_ScopedInstall(ObjectInAngledAreaCheckCommand, 0x4883F0, { .reversed = false });
+    RH_ScopedInstall(PlayAnimScriptCommand, 0x470150);
+    RH_ScopedInstall(LocateCarCommand, 0x487A20);
+    RH_ScopedInstall(LocateCharCommand, 0x486D80);
+    RH_ScopedInstall(LocateObjectCommand, 0x487D10);
+    RH_ScopedInstall(LocateCharCarCommand, 0x487420);
+    RH_ScopedInstall(LocateCharCharCommand, 0x4870F0);
+    RH_ScopedInstall(LocateCharObjectCommand, 0x487720);
+    RH_ScopedInstall(CarInAreaCheckCommand, 0x488EC0);
+    RH_ScopedInstall(CharInAreaCheckCommand, 0x488B50);
+    RH_ScopedInstall(ObjectInAreaCheckCommand, 0x489150);
+    RH_ScopedInstall(CharInAngledAreaCheckCommand, 0x487F60);
+    RH_ScopedInstall(FlameInAngledAreaCheckCommand, 0x488780);
+    RH_ScopedInstall(ObjectInAngledAreaCheckCommand, 0x4883F0);
     RH_ScopedInstall(CollectParameters, 0x464080, { .stackArguments = 1 });
     RH_ScopedInstall(CollectNextParameterWithoutIncreasingPC, 0x464250, { .stackArguments = 0 });
     RH_ScopedInstall(StoreParameters, 0x464370, { .stackArguments = 1 });
@@ -125,10 +117,10 @@ void CRunningScript::InjectHooks() {
     RH_ScopedInstall(SetCharCoordinates, 0x464DC0);
     RH_ScopedInstall(AddScriptToList, 0x464C00, { .stackArguments = 1 });
     RH_ScopedInstall(RemoveScriptFromList, 0x464BD0, { .stackArguments = 1 });
-    RH_ScopedInstall(ShutdownThisScript, 0x465AA0, { .reversed = false });
+    RH_ScopedInstall(ShutdownThisScript, 0x465AA0);
     RH_ScopedInstall(IsPedDead, 0x464D70);
     RH_ScopedInstall(ThisIsAValidRandomPed, 0x489490);
-    RH_ScopedInstall(ScriptTaskPickUpObject, 0x46AF50, { .reversed = false });
+    RH_ScopedInstall(ScriptTaskPickUpObject, 0x46AF50);
     RH_ScopedInstall(UpdateCompareFlag, 0x4859D0, { .stackArguments = 1 });
     RH_ScopedInstall(UpdatePC, 0x464DA0, { .stackArguments = 1 });
     RH_ScopedInstall(ProcessOneCommand, 0x469EB0);
@@ -255,31 +247,31 @@ void CRunningScript::RemoveScriptFromList(CRunningScript** queueList) {
  * @addr 0x465AA0
  */
 void CRunningScript::ShutdownThisScript() {
-    return plugin::CallMethod<0x465AA0>(this);
-    /*
-    if (m_bIsExternal) {
-        const auto idx = CTheScripts::StreamedScripts.GetStreamedScriptWithThisStartAddress(m_pBaseIP);
-        CTheScripts::StreamedScripts.m_aScripts[idx].Status--;
+    m_IsActive = false;
+    if (m_IsExternal) {
+        const auto index = CTheScripts::StreamedScripts.GetStreamedScriptWithThisStartAddress(m_BaseIP);
+        --CTheScripts::StreamedScripts.m_aScripts.data()[index].m_NumberOfUsers;
     }
-
-    switch (m_nExternalType) {
+    const auto reference = m_ThisMustBeTheOnlyMissionRunning
+        ? CTheScripts::LocalVariablesForCurrentMission.data()[0].iParam
+        : m_LocalVars.data()[0].iParam;
+    switch (m_ExternalType) {
     case 0:
     case 2:
     case 3:
-    case 5: {
-        const auto pedRef = m_bIsMission
-            ? CTheScripts::LocalVariablesForCurrentMission.front().iParam
-            : m_aLocalVars[0].iParam;
-        if (const auto ped = GetPedPool()->GetAtRef(pedRef)) {
+    case 5:
+        if (auto* ped = GetPedPool()->GetAtRef(reference)) {
             ped->bHasAScriptBrain = false;
-            if (m_nExternalType == 5) {
-                CScriptedBrainTaskStore::SetTask(ped, new CTaskSimpleFinishBrain{});
-            }
+            if (m_ExternalType == 5) CScriptedBrainTaskStore::SetTask(ped, new CTaskSimpleFinishBrain);
+        }
+        break;
+    case 1:
+    case 4:
+        if (auto* object = GetObjectPool()->GetAtRef(reference)) {
+            object->m_nObjectFlags = (object->m_nObjectFlags & ~0x200000u) | 0x100000u;
         }
         break;
     }
-    }
-    */
 }
 
 // 0x465C20
@@ -328,67 +320,319 @@ void CRunningScript::GivePedScriptedTask(CPed* ped, CTask* task, int32 opcode) {
 
 // 0x470150
 void CRunningScript::PlayAnimScriptCommand(int32 commandId) {
-    plugin::CallMethod<0x470150, CRunningScript*, int32>(this, commandId);
+    bool canInterrupt = true, offsetPed = false;
+    CollectParameters(1);
+    const auto pedHandle = ScriptParams[0].iParam;
+    char animName[24], blockName[16];
+    ReadTextLabelFromScript(animName,24);
+    ReadTextLabelFromScript(blockName,16);
+    if (commandId == 0x88A) {
+        CollectParameters(8);
+        canInterrupt = ScriptParams[6].iParam != 0;
+        offsetPed = ScriptParams[7].iParam != 0;
+    } else if (commandId == 0x605 || commandId == 0x812 || commandId == 0xA1A) {
+        if (commandId == 0x812) canInterrupt = false;
+        CollectParameters(6);
+    }
+    const auto duration = ScriptParams[5].iParam;
+    uint32 flags = ScriptParams[1].iParam || (duration > 0 && !ScriptParams[4].iParam) ? 0x12 : 0x10;
+    if (ScriptParams[2].iParam) flags |= 0x40;
+    if (ScriptParams[3].iParam) flags |= 0x80;
+    if (!ScriptParams[4].iParam) flags |= 8;
+    if (commandId == 0xA1A) flags |= 0x400;
+    const bool sequence = CTaskSequences::ms_iActiveSequence >= 0;
+    auto* memory = CTask::operator new(sizeof(CTaskSimpleRunNamedAnim));
+    CTask* task = memory ? ::new(memory) CTaskSimpleRunNamedAnim(animName,blockName,flags,ScriptParams[0].fParam,uint32(duration > 0 ? duration : -1),!canInterrupt,sequence,offsetPed,false) : nullptr;
+    if (commandId == 0xA1A) {
+        memory = CTask::operator new(sizeof(CTaskSimpleAffectSecondaryBehaviour));
+        task = memory ? ::new(memory) CTaskSimpleAffectSecondaryBehaviour(true,eSecondaryTask(4),task) : nullptr;
+    }
+    GivePedScriptedTask(pedHandle,task,commandId);
 }
 
 // 0x487A20
+static void LocateScriptEntity(CRunningScript* script, const CVector& pos, bool threeD, bool object, bool forceFalse) {
+    const auto centerX = ScriptParams[1].fParam;
+    const auto centerY = ScriptParams[2].fParam;
+    const auto radiusX = ScriptParams[threeD ? 4 : 3].fParam;
+    const auto radiusY = ScriptParams[threeD ? 5 : 4].fParam;
+    const auto lowerX = centerX - radiusX;
+    bool inside = pos.x >= lowerX && pos.x <= centerX + radiusX && pos.y >= centerY - radiusY && pos.y <= centerY + radiusY;
+    if (threeD) inside = inside && pos.z >= ScriptParams[3].fParam - ScriptParams[6].fParam && pos.z <= ScriptParams[3].fParam + ScriptParams[6].fParam;
+    script->UpdateCompareFlag(!forceFalse && inside);
+    if (ScriptParams[threeD ? 7 : 5].iParam) script->HighlightImportantArea(CVector2D{lowerX,centerY-radiusY}, CVector2D{centerX+radiusX,centerY+radiusY}, threeD ? ScriptParams[3].fParam : -100.0f);
+}
+
 void CRunningScript::LocateCarCommand(int32 commandId) {
-    plugin::CallMethod<0x487A20, CRunningScript*, int32>(this, commandId);
+    const bool threeD = commandId >= 0x1AF && commandId <= 0x1B0;
+    CollectParameters(threeD ? 8 : 6);
+    auto* vehicle = GetVehiclePool()->GetAtRef(ScriptParams[0].iParam);
+    bool forceFalse = false;
+    if (commandId == 0x1AE || commandId == 0x1B0) {
+        const auto timestep = CTimer::GetTimeStep() < StaticRef<float>(0xB7CB54) ? CTimer::GetTimeStep() : StaticRef<float>(0xB7CB54);
+        forceFalse = !(vehicle->m_fMovingSpeed <= timestep * 0.01f);
+    }
+    LocateScriptEntity(this, vehicle->GetPosition(), threeD, false, forceFalse);
 }
 
 // 0x486D80
+static CVector ScriptPedLocation(CPed* ped) {
+    if (ped->bInVehicle && ped->m_pVehicle) return ped->m_pVehicle->GetPosition();
+    return ped->GetPosition();
+}
+
 void CRunningScript::LocateCharCommand(int32 commandId) {
-    plugin::CallMethod<0x486D80, CRunningScript*, int32>(this, commandId);
+    const bool threeD = commandId >= 0xFE && commandId <= 0x103;
+    CollectParameters(threeD ? 8 : 6);
+    auto* ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+    const auto pos = ScriptPedLocation(ped);
+    bool forceFalse = false;
+    switch (commandId) {
+    case 0xEF: case 0xF0: case 0xF1: case 0x101: case 0x102: case 0x103:
+        forceFalse = !CTheScripts::IsPedStopped(ped);
+    }
+    switch (commandId) {
+    case 0xEC: case 0xEF: case 0xFE: case 0x101: break;
+    case 0xED: case 0xF0: case 0xFF: case 0x102: forceFalse |= ped->bInVehicle; break;
+    case 0xEE: case 0xF1: case 0x100: case 0x103: forceFalse |= !ped->bInVehicle; break;
+    default: forceFalse = true;
+    }
+    LocateScriptEntity(this, pos, threeD, false, forceFalse);
 }
 
 // 0x487D10
 void CRunningScript::LocateObjectCommand(int32 commandId) {
-    plugin::CallMethod<0x487D10, CRunningScript*, int32>(this, commandId);
+    const bool threeD = commandId == 0x4E6;
+    CollectParameters(threeD ? 8 : 6);
+    auto* object = GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
+    LocateScriptEntity(this, object->GetPosition(), threeD, true, false);
 }
 
 // 0x487420
+static void LocateScriptPedPair(CRunningScript* script, CPed* ped, const CVector& target, bool threeD, int32 mode) {
+    const auto pos = ScriptPedLocation(ped);
+    const auto radiusX = ScriptParams[2].fParam;
+    const auto radiusY = ScriptParams[3].fParam;
+    const auto lowerX = target.x - radiusX;
+    bool inside = pos.x >= lowerX && pos.x <= target.x + radiusX && pos.y >= target.y - radiusY && pos.y <= target.y + radiusY;
+    if (threeD) inside = inside && pos.z >= target.z - ScriptParams[4].fParam && pos.z <= target.z + ScriptParams[4].fParam;
+    if (mode == 1) inside &= !ped->bInVehicle;
+    else if (mode == 2) inside &= ped->bInVehicle;
+    else if (mode != 0) inside = false;
+    script->UpdateCompareFlag(inside);
+    if (ScriptParams[threeD ? 5 : 4].iParam) script->HighlightImportantArea(CVector2D{lowerX,target.y-radiusY}, CVector2D{target.x+radiusX,target.y+radiusY}, threeD ? target.z : -100.0f);
+}
+
 void CRunningScript::LocateCharCarCommand(int32 commandId) {
-    plugin::CallMethod<0x487420, CRunningScript*, int32>(this, commandId);
+    const bool threeD = commandId >= 0x205 && commandId <= 0x207;
+    CollectParameters(threeD ? 6 : 5);
+    auto* ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+    const auto target = GetVehiclePool()->GetAtRef(ScriptParams[1].iParam)->GetPosition();
+    const auto mode = threeD ? commandId - 0x205 : commandId - 0x202;
+    LocateScriptPedPair(this, ped, target, threeD, mode);
 }
 
 // 0x4870F0
 void CRunningScript::LocateCharCharCommand(int32 commandId) {
-    plugin::CallMethod<0x4870F0, CRunningScript*, int32>(this, commandId);
+    const bool threeD = commandId >= 0x104 && commandId <= 0x106;
+    CollectParameters(threeD ? 6 : 5);
+    auto* ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+    const auto target = ScriptPedLocation(GetPedPool()->GetAtRef(ScriptParams[1].iParam));
+    const auto mode = threeD ? commandId - 0x104 : commandId - 0xF2;
+    LocateScriptPedPair(this, ped, target, threeD, mode);
 }
 
 // 0x487720
 void CRunningScript::LocateCharObjectCommand(int32 commandId) {
-    plugin::CallMethod<0x487720, CRunningScript*, int32>(this, commandId);
+    const bool threeD = commandId >= 0x474 && commandId <= 0x476;
+    CollectParameters(threeD ? 6 : 5);
+    auto* ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+    const auto target = GetObjectPool()->GetAtRef(ScriptParams[1].iParam)->GetPosition();
+    const auto mode = threeD ? commandId - 0x474 : commandId - 0x471;
+    LocateScriptPedPair(this, ped, target, threeD, mode);
 }
 
 // 0x488EC0
+static void ScriptAreaTest(CRunningScript* script, const CVector& pos, bool threeD, bool forceFalse) {
+    float minX = ScriptParams[1].fParam, minY = ScriptParams[2].fParam;
+    float maxX = ScriptParams[threeD ? 4 : 3].fParam, maxY = ScriptParams[threeD ? 5 : 4].fParam;
+    float minZ = 0.0f, maxZ = 0.0f;
+    if (threeD) {
+        minZ = ScriptParams[3].fParam;
+        maxZ = ScriptParams[6].fParam;
+        if (maxZ < minZ) std::swap(minZ, maxZ);
+    }
+    if (maxX < minX) std::swap(minX, maxX);
+    if (maxY < minY) std::swap(minY, maxY);
+    const auto inside = !forceFalse && pos.x >= minX && pos.x <= maxX && pos.y >= minY && pos.y <= maxY && (!threeD || (pos.z >= minZ && pos.z <= maxZ));
+    script->UpdateCompareFlag(inside);
+    if (ScriptParams[threeD ? 7 : 5].iParam) script->HighlightImportantArea(CVector2D{minX,minY}, CVector2D{maxX,maxY}, threeD ? (maxZ + minZ) * 0.5f : -100.0f);
+}
+
 void CRunningScript::CarInAreaCheckCommand(int32 commandId) {
-    plugin::CallMethod<0x488EC0, CRunningScript*, int32>(this, commandId);
+    const bool threeD = commandId == 0xB1 || commandId == 0x1AC;
+    CollectParameters(threeD ? 8 : 6);
+    auto* vehicle = GetVehiclePool()->GetAtRef(ScriptParams[0].iParam);
+    const auto forceFalse = (commandId == 0x1AB || commandId == 0x1AC) && !CTheScripts::IsVehicleStopped(vehicle);
+    ScriptAreaTest(this, vehicle->GetPosition(), threeD, forceFalse);
 }
 
 // 0x488B50
 void CRunningScript::CharInAreaCheckCommand(int32 commandId) {
-    plugin::CallMethod<0x488B50, CRunningScript*, int32>(this, commandId);
+    const bool threeD = commandId == 0xA4 || (commandId >= 0x1A6 && commandId <= 0x1AA);
+    CollectParameters(threeD ? 8 : 6);
+    auto* ped = GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+    const auto pos = ScriptPedLocation(ped);
+    bool forceFalse = false;
+    switch (commandId) {
+    case 0x1A3: case 0x1A4: case 0x1A5: case 0x1A8: case 0x1A9: case 0x1AA: forceFalse = !CTheScripts::IsPedStopped(ped);
+    }
+    switch (commandId) {
+    case 0xA3: case 0xA4: case 0x1A3: case 0x1A8: break;
+    case 0x1A1: case 0x1A4: case 0x1A6: case 0x1A9: forceFalse |= ped->bInVehicle; break;
+    case 0x1A2: case 0x1A5: case 0x1A7: case 0x1AA: forceFalse |= !ped->bInVehicle; break;
+    default: forceFalse = true;
+    }
+    ScriptAreaTest(this, pos, threeD, forceFalse);
 }
 
 // 0x489150
 void CRunningScript::ObjectInAreaCheckCommand(int32 commandId) {
-    plugin::CallMethod<0x489150, CRunningScript*, int32>(this, commandId);
+    const bool threeD = commandId == 0x4EA;
+    CollectParameters(threeD ? 8 : 6);
+    auto* object = GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
+    ScriptAreaTest(this, object->GetPosition(), threeD, false);
 }
 
+namespace {
+struct ScriptAngledBox {
+    CVector2D a, b, c, d, ab, ac;
+    float abLength, acLength, minZ, maxZ;
+    bool threeD, draw;
+};
+ScriptAngledBox MakeScriptAngledBox(bool threeD, int offset) {
+    ScriptAngledBox box{};
+    box.threeD = threeD;
+    box.a = CVector2D{ScriptParams[offset].fParam, ScriptParams[offset+1].fParam};
+    const int end = offset + (threeD ? 3 : 2);
+    box.b = CVector2D{ScriptParams[end].fParam, ScriptParams[end+1].fParam};
+    if (threeD) {
+        box.minZ = ScriptParams[offset+2].fParam;
+        box.maxZ = ScriptParams[end+2].fParam;
+        if (box.maxZ < box.minZ) std::swap(box.minZ,box.maxZ);
+    }
+    const float angledWidth = ScriptParams[offset+(threeD?6:4)].fParam;
+    box.draw = ScriptParams[offset+(threeD?7:5)].iParam != 0;
+    const float startX=box.a.x, startY=box.a.y, endX=box.b.x, endY=box.b.y;
+    const float halfPi=std::bit_cast<float>(0x3FC90FDBu),twoPi=std::bit_cast<float>(0x40C90FDBu),zero=0.0f;
+    auto radianFunction = static_cast<float(*)(float,float,float,float)>(&CGeneral::GetRadianAngleBetweenPoints);
+    float cornerCX,cornerCY,cornerDX,cornerDY,minusCosWidth;
+    __asm {
+        push endY
+        push endX
+        push startY
+        push startX
+        call radianFunction
+        add esp,16
+        fadd halfPi
+        fcom zero
+        fnstsw ax
+        test ah,5
+        jp nonnegative
+    negative:
+        fadd twoPi
+        fcom zero
+        fnstsw ax
+        test ah,5
+        jnp negative
+    nonnegative:
+        fcom twoPi
+        fnstsw ax
+        test ah,41h
+        jne normalized
+    tooLarge:
+        fsub twoPi
+        fcom twoPi
+        fnstsw ax
+        test ah,41h
+        je tooLarge
+    normalized:
+        fld st(0)
+        fsin
+        fmul angledWidth
+        fld endX
+        fadd st(0),st(1)
+        fstp cornerDX
+        fxch st(1)
+        fcos
+        fmul angledWidth
+        fchs
+        fst minusCosWidth
+        fadd endY
+        fstp cornerDY
+        fadd startX
+        fstp cornerCX
+        fld minusCosWidth
+        fadd startY
+        fstp cornerCY
+    }
+    box.c=CVector2D{cornerCX,cornerCY};box.d=CVector2D{cornerDX,cornerDY};
+    box.ab=box.b-box.a;box.ac=box.c-box.a;
+    box.abLength=std::sqrt(box.ab.x*box.ab.x+box.ab.y*box.ab.y);
+    box.acLength=std::sqrt(box.ac.x*box.ac.x+box.ac.y*box.ac.y);
+    return box;
+}
+void ScriptNormalizeAngled(CVector2D& v) {
+    const float sq=v.x*v.x+v.y*v.y;
+    if(sq>0.0f){const float inv=1.0f/std::sqrt(sq);v.x*=inv;v.y*=inv;}else v.x=1.0f;
+}
+bool ScriptInsideAngled(ScriptAngledBox& box,const CVector& pos,bool flame) {
+    ScriptNormalizeAngled(box.ab);
+    const float x=pos.x-box.a.x,y=pos.y-box.a.y;
+    const float first=x*box.ab.x+y*box.ab.y;
+    if(!(first>=0.0f&&first<=box.abLength))return false;
+    if(flame)ScriptNormalizeAngled(box.ac);else box.ac.Normalise();
+    const float second=x*box.ac.x+y*box.ac.y;
+    return second>=0.0f&&second<=box.acLength&&(!box.threeD||(pos.z>=box.minZ&&pos.z<=box.maxZ));
+}
+void ScriptDrawAngled(CRunningScript* script,const ScriptAngledBox& box) {
+    if(box.draw)CTheScripts::HighlightImportantAngledArea(uint32(uintptr_t(script)+uintptr_t(script->m_IP)),box.a.x,box.a.y,box.b.x,box.b.y,box.d.x,box.d.y,box.c.x,box.c.y,box.threeD?(box.minZ+box.maxZ)*0.5f:-100.0f);
+}
+}
 // 0x487F60
 void CRunningScript::CharInAngledAreaCheckCommand(int32 commandId) {
-    plugin::CallMethod<0x487F60, CRunningScript*, int32>(this, commandId);
+    const bool threeD=commandId>=0x5FC&&commandId<=0x601;
+    CollectParameters(threeD?9:7);
+    auto* ped=GetPedPool()->GetAtRef(ScriptParams[0].iParam);
+    bool stopped=true;
+    if((commandId>=0x5F9&&commandId<=0x5FB)||(commandId>=0x5FF&&commandId<=0x601))stopped=CTheScripts::IsPedStopped(ped);
+    auto box=MakeScriptAngledBox(threeD,1);
+    bool inside=stopped&&ScriptInsideAngled(box,ScriptPedLocation(ped),false);
+    switch(commandId){
+    case 0x5F7:case 0x5FA:case 0x5FD:case 0x600:inside=inside&&!ped->bInVehicle;break;
+    case 0x5F8:case 0x5FB:case 0x5FE:case 0x601:inside=inside&&ped->bInVehicle;break;
+    case 0x5F6:case 0x5F9:case 0x5FC:case 0x5FF:break;
+    default:inside=false;break;
+    }
+    UpdateCompareFlag(inside);ScriptDrawAngled(this,box);
 }
-
 // 0x488780
 void CRunningScript::FlameInAngledAreaCheckCommand(int32 commandId) {
-    plugin::CallMethod<0x488780, CRunningScript*, int32>(this, commandId);
+    const bool threeD=commandId==0x72E;
+    CollectParameters(threeD?8:6);
+    auto box=MakeScriptAngledBox(threeD,0);
+    bool inside=false;
+    for(uint16 i=0;i<100&&!inside;++i){CVector pos;if(CShotInfo::GetFlameThrowerShotPosn(uint8(i),pos))inside=ScriptInsideAngled(box,pos,true);}
+    UpdateCompareFlag(inside);ScriptDrawAngled(this,box);
 }
-
 // 0x4883F0
 void CRunningScript::ObjectInAngledAreaCheckCommand(int32 commandId) {
-    plugin::CallMethod<0x4883F0, CRunningScript*, int32>(this, commandId);
+    const bool threeD=commandId==0x8E4;
+    CollectParameters(threeD?9:7);
+    auto* object=GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
+    auto box=MakeScriptAngledBox(threeD,1);
+    const bool inside=ScriptInsideAngled(box,object->GetPosition(),false);
+    UpdateCompareFlag(inside);ScriptDrawAngled(this,box);
 }
 
 // 0x464D70
@@ -510,7 +754,35 @@ int16 CRunningScript::GetPadState(uint16 playerIndex, eButtonId buttonId) {
 
 // 0x46AF50
 void CRunningScript::ScriptTaskPickUpObject(int32 commandId) {
-    plugin::CallMethod<0x46AF50, CRunningScript*, int32>(this, commandId);
+    CollectParameters(7);
+    const auto pedHandle = ScriptParams[0].iParam;
+    auto* object = GetObjectPool()->GetAtRef(ScriptParams[1].iParam);
+    const CVector offset{ScriptParams[2].fParam, ScriptParams[3].fParam, ScriptParams[4].fParam};
+    const auto bone = uint8(ScriptParams[5].iParam);
+    const auto boneFlags = uint8(ScriptParams[6].iParam);
+    char anim[24], block[16];
+    ReadTextLabelFromScript(anim, sizeof(anim));
+    ReadTextLabelFromScript(block, sizeof(block));
+    const bool useDefault = !std::strcmp(anim, "NULL") || !std::strcmp(block, "NULL");
+    CollectParameters(1);
+    const auto flags = eAnimationFlags(ScriptParams[0].iParam == 0 ? 0x18 : 0x10);
+    CTask* task = nullptr;
+    if (auto* memory = CTask::operator new(sizeof(CTaskSimpleHoldEntity))) {
+        task = useDefault
+            ? static_cast<CTask*>(::new(memory) CTaskSimpleHoldEntity(object, &offset, bone, boneFlags, AnimationId(0xBF), AssocGroupId(0), false))
+            : static_cast<CTask*>(::new(memory) CTaskSimpleHoldEntity(object, &offset, bone, boneFlags, anim, block, flags));
+    }
+    if (pedHandle == -1) {
+        if (commandId == 0x70A) {
+            auto* memory = CTask::operator new(sizeof(CTaskSimpleAffectSecondaryBehaviour));
+            task = memory ? ::new(memory) CTaskSimpleAffectSecondaryBehaviour(true, eSecondaryTask(4), task) : nullptr;
+            CTaskSequences::GetActiveSequence().AddTask(task);
+        }
+    } else {
+        auto* ped = GetPedPool()->GetAtRef(pedHandle);
+        ped->GetTaskManager().SetTaskSecondary(task, eSecondaryTask(commandId == 0x70A ? 4 : 0));
+        CPedScriptedTaskRecord::ms_scriptedTasks[CPedScriptedTaskRecord::GetVacantSlot()].Set(ped, commandId, task);
+    }
 }
 
 // 0x464DC0

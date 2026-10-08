@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 6144,
+  "pairs_per_function": {
+    "CInterestingEvents::Constructor": 1024,
+    "CInterestingEvents::Destructor": 1024,
+    "CInterestingEvents::GetInterestingEvent": 2048,
+    "CInterestingEvents::Add": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b21b85d4e342f57f07c21ea276f96567b98926bd10f87f57554635f23718c0d4",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interesting-core355\\20261007-211705-783695",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CInterestingEvents::Constructor": true,
+    "CInterestingEvents::Destructor": true,
+    "CInterestingEvents::GetInterestingEvent": true,
+    "CInterestingEvents::Add": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "508c31cb857917a112242d2152ae50ea394f8a5fa08d94217fe154e0b97ecc80",
+      "pdb": "d6e0dc5c993ce69999ee0635d09072565ea2daa16ba7c479698cf83045aca619"
+    },
+    "sources": {
+      "source/game_sa/InterestingEvents.cpp": "5ca44261fcd66b3be62009058a632dc0db5ea892549ce3f34f38c82a19b5c88d",
+      "source/game_sa/InterestingEvents.h": "a4b35e4b6b9ce1a8077d4c76e4bbdd474c0bf85887efcbde0867a607e6774834",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/Camera.h": "a70e8e9a6c56763330d39e9b5ab05a81f5a6cf34d2820063a3b4ba17d5da6fa8",
+      "source/game_sa/Cam.h": "56a9f6d0895d5eaf0ba1e605c70861c52e1a71102ab7122b33ddc3e4cb017954",
+      "source/game_sa/Core/MatrixLink.h": "ce05ae9f46be69790be1ffb2a9270470e8b021519a83284270164fd3d8528355",
+      "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+      "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "7c5ab364d3c58888e48b0b5329e1dc05d744064c7db3309adfd016e91a4082ba",
+      "build_probe.py": "4985110e78e4b0c74e90e13cb9e6beecc312b130ebf070252bdae068b50e0b1d",
+      "run_local.py": "f8a307d1b6f3bc6af9a806e80d119f674930afd7ef15560cfbabe4d85b29772a"
+    }
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"run_local.py\", \"tested_sha256\": \"f8a307d1b6f3bc6af9a806e80d119f674930afd7ef15560cfbabe4d85b29772a\", \"current_sha256\": \"1669911a4a135e67079d0af508ee40b2d0b9891da3fce88c5d56e1321eb70501\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

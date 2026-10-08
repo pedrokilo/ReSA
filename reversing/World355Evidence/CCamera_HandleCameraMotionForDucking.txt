@@ -1,0 +1,110 @@
+// CCamera::HandleCameraMotionForDucking @ 0x0050cfa0 [0x50cfa0..0x50d085]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void FUN_0050cfa0(int param_1,int param_2,int param_3,char param_4)
+
+{
+  float fVar1;
+  int iVar2;
+  int in_ECX;
+  
+  FUN_006010a0(1);
+  iVar2 = FUN_006010a0(1);
+  if (((iVar2 == 0) || ((*(uint *)(param_1 + 0x46c) & 0x4000000) == 0)) ||
+     (*(char *)(iVar2 + 0x19) != '\0')) {
+    fVar1 = 0.0;
+  }
+  else if (*(float *)(param_1 + 0x4c) * *(float *)(param_1 + 0x4c) +
+           *(float *)(param_1 + 0x48) * *(float *)(param_1 + 0x48) +
+           *(float *)(param_1 + 0x44) * *(float *)(param_1 + 0x44) <= 1.0000001e-06) {
+    fVar1 = _DAT_008ccb94 - 1.0;
+  }
+  else {
+    fVar1 = _DAT_008ccb98 - 0.5;
+  }
+  if (param_4 == '\0') {
+    *(float *)(in_ECX + 0xc54) =
+         DAT_00b7cb5c * 0.1 * (fVar1 - *(float *)(in_ECX + 0xc54)) + *(float *)(in_ECX + 0xc54);
+  }
+  if (param_2 != 0) {
+    *(float *)(param_2 + 8) = *(float *)(in_ECX + 0xc54) + *(float *)(param_2 + 8);
+  }
+  if (param_3 != 0) {
+    *(float *)(param_3 + 8) = *(float *)(in_ECX + 0xc54) + *(float *)(param_3 + 8);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0050CFA0: push esi
+0050CFA1: mov esi,dword ptr [esp+8]
+0050CFA5: push edi
+0050CFA6: mov edi,ecx
+0050CFA8: mov ecx,dword ptr [esi+0000047Ch]
+0050CFAE: push 1
+0050CFB0: call 006010A0
+0050CFB5: mov ecx,dword ptr [esi+0000047Ch]
+0050CFBB: push 1
+0050CFBD: mov dword ptr [esp+10h],0
+0050CFC5: call 006010A0
+0050CFCA: test eax,eax
+0050CFCC: je 0050D029
+0050CFCE: test dword ptr [esi+0000046Ch],4000000h
+0050CFD8: je 0050D029
+0050CFDA: mov cl,byte ptr [eax+19h]
+0050CFDD: test cl,cl
+0050CFDF: jne 0050D029
+0050CFE1: fld dword ptr [esi+4Ch]
+0050CFE4: fld dword ptr [esi+48h]
+0050CFE7: fld dword ptr [esi+44h]
+0050CFEA: fld st(0)
+0050CFEC: fmul st,st(1)
+0050CFEE: fld st(2)
+0050CFF0: fmul st,st(3)
+0050CFF2: faddp st(1),st
+0050CFF4: fld st(3)
+0050CFF6: fmul st,st(4)
+0050CFF8: faddp st(1),st
+0050CFFA: fcomp dword ptr ds:[008630ECh]
+0050D000: fstp st(0)
+0050D002: fnstsw ax
+0050D004: fstp st(0)
+0050D006: test ah,41h
+0050D009: fstp st(0)
+0050D00B: jne 0050D01B
+0050D00D: fld dword ptr ds:[008CCB98h]
+0050D013: fsub dword ptr ds:[00858B8Ch]
+0050D019: jmp 0050D02D
+0050D01B: fld dword ptr ds:[008CCB94h]
+0050D021: fsub dword ptr ds:[00858624h]
+0050D027: jmp 0050D02D
+0050D029: fld dword ptr [esp+0Ch]
+0050D02D: mov al,byte ptr [esp+18h]
+0050D031: test al,al
+0050D033: jne 0050D057
+0050D035: fsub dword ptr [edi+00000C54h]
+0050D03B: fld dword ptr ds:[00B7CB5Ch]
+0050D041: fmul dword ptr ds:[00858B1Ch]
+0050D047: fmulp st(1),st
+0050D049: fadd dword ptr [edi+00000C54h]
+0050D04F: fstp dword ptr [edi+00000C54h]
+0050D055: jmp 0050D059
+0050D057: fstp st(0)
+0050D059: mov eax,dword ptr [esp+10h]
+0050D05D: test eax,eax
+0050D05F: je 0050D06D
+0050D061: fld dword ptr [edi+00000C54h]
+0050D067: fadd dword ptr [eax+8]
+0050D06A: fstp dword ptr [eax+8]
+0050D06D: mov eax,dword ptr [esp+14h]
+0050D071: test eax,eax
+0050D073: je 0050D081
+0050D075: fld dword ptr [edi+00000C54h]
+0050D07B: fadd dword ptr [eax+8]
+0050D07E: fstp dword ptr [eax+8]
+0050D081: pop edi
+0050D082: pop esi
+0050D083: ret 10h

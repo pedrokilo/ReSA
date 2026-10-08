@@ -1,0 +1,70 @@
+// CAEScriptAudioEntity::GetMissionAudioPosition @ 0x004ec4d0 [0x4ec4d0..0x4ec54e]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+float * FUN_004ec4d0(byte param_1)
+
+{
+  int iVar1;
+  int in_ECX;
+  int iVar2;
+  
+  iVar2 = in_ECX + (uint)param_1 * 0x20;
+  iVar1 = *(int *)(iVar2 + 0x9c);
+  if (iVar1 != 0) {
+    if (*(int *)(iVar1 + 0x14) != 0) {
+      return (float *)(*(int *)(iVar1 + 0x14) + 0x30);
+    }
+    return (float *)(iVar1 + 4);
+  }
+  if ((((*(int *)(iVar2 + 0x90) != -0x3b860000) || (*(int *)(iVar2 + 0x94) != -0x3b860000)) ||
+      (*(int *)(iVar2 + 0x98) != -0x3b860000)) &&
+     (((*(float *)(iVar2 + 0x90) != 0.0 || (*(float *)(iVar2 + 0x94) != 0.0)) ||
+      (*(float *)(iVar2 + 0x98) != 0.0)))) {
+    return (float *)(iVar2 + 0x90);
+  }
+  return (float *)0x0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004EC4D0: movzx eax,byte ptr [esp+4]
+004EC4D5: shl eax,5
+004EC4D8: add ecx,eax
+004EC4DA: mov eax,dword ptr [ecx+0000009Ch]
+004EC4E0: test eax,eax
+004EC4E2: je 004EC4F7
+004EC4E4: mov ecx,dword ptr [eax+14h]
+004EC4E7: test ecx,ecx
+004EC4E9: je 004EC4F1
+004EC4EB: lea eax,[ecx+30h]
+004EC4EE: ret 4
+004EC4F1: add eax,4
+004EC4F4: ret 4
+004EC4F7: mov edx,dword ptr [ecx+00000090h]
+004EC4FD: add ecx,90h
+004EC503: mov eax,0C47A0000h
+004EC508: cmp edx,eax
+004EC50A: jne 004EC516
+004EC50C: cmp dword ptr [ecx+4],eax
+004EC50F: jne 004EC516
+004EC511: cmp dword ptr [ecx+8],eax
+004EC514: je 004EC54A
+004EC516: fld dword ptr [ecx]
+004EC518: fcomp dword ptr ds:[00858B50h]
+004EC51E: fnstsw ax
+004EC520: test ah,44h
+004EC523: jp 004EC545
+004EC525: fld dword ptr [ecx+4]
+004EC528: fcomp dword ptr ds:[00858B50h]
+004EC52E: fnstsw ax
+004EC530: test ah,44h
+004EC533: jp 004EC545
+004EC535: fld dword ptr [ecx+8]
+004EC538: fcomp dword ptr ds:[00858B50h]
+004EC53E: fnstsw ax
+004EC540: test ah,44h
+004EC543: jnp 004EC54A
+004EC545: mov eax,ecx
+004EC547: ret 4
+004EC54A: xor eax,eax
+004EC54C: ret 4

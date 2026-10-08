@@ -1,0 +1,55 @@
+0050A0A0: sub esp,8
+0050A0A3: mov eax,dword ptr [esp+10h]
+0050A0A7: fld qword ptr ds:[00859EA8h]
+0050A0AD: inc eax
+0050A0AE: mov dword ptr [esp],eax
+0050A0B2: fild dword ptr [esp]
+0050A0B6: call 00822130
+0050A0BB: fmul dword ptr [esp+0Ch]
+0050A0BF: fld dword ptr [esp+0Ch]
+0050A0C3: fcomp dword ptr ds:[00858B50h]
+0050A0C9: fnstsw ax
+0050A0CB: test ah,5
+0050A0CE: jp 0050A0D8
+0050A0D0: fsub dword ptr ds:[00858C80h]
+0050A0D6: jmp 0050A0DE
+0050A0D8: fadd dword ptr ds:[00858C80h]
+0050A0DE: fmul dword ptr ds:[00858B1Ch]
+0050A0E4: lea ecx,[esp]
+0050A0E8: push ecx
+0050A0E9: sub esp,8
+0050A0EC: fstp qword ptr [esp]
+0050A0EF: call 008232F0
+0050A0F4: fstp st(0)
+0050A0F6: fld qword ptr [esp+0Ch]
+0050A0FA: fst dword ptr [esp+18h]
+0050A0FE: fld qword ptr ds:[00859EA8h]
+0050A104: fild dword ptr [esp+1Ch]
+0050A108: call 00822130
+0050A10D: fst dword ptr [esp+18h]
+0050A111: fdivp st(1),st
+0050A113: add esp,14h
+0050A116: ret
+0050A120: push esi
+0050A121: mov esi,dword ptr [esp+8]
+0050A125: mov eax,dword ptr [esi]
+0050A127: push edi
+0050A128: mov edi,dword ptr [esp+10h]
+0050A12C: push edi
+0050A12D: push eax
+0050A12E: call 0050A0A0
+0050A133: fstp dword ptr [esi]
+0050A135: mov ecx,dword ptr [esi+4]
+0050A138: push edi
+0050A139: push ecx
+0050A13A: call 0050A0A0
+0050A13F: fstp dword ptr [esi+4]
+0050A142: mov edx,dword ptr [esi+8]
+0050A145: push edi
+0050A146: push edx
+0050A147: call 0050A0A0
+0050A14C: fstp dword ptr [esi+8]
+0050A14F: add esp,18h
+0050A152: pop edi
+0050A153: pop esi
+0050A154: ret

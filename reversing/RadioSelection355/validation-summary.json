@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 6144,
+  "pairs_per_function": {
+    "CAERadioTrackManager::ChooseIdentIndex": 1024,
+    "CAERadioTrackManager::ChooseAdvertIndex": 1024,
+    "CAERadioTrackManager::ChooseMusicTrackIndex": 1024,
+    "CAERadioTrackManager::ChooseDJBanterIndexFromList": 1024,
+    "CAERadioTrackManager::ChooseTalkRadioShow": 1024,
+    "CAERadioTrackManager::IsVehicleRadioActive": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e4942890023f280bdd09833fd4806c15cd6bb5129af42a4ba4069cd9f9cede3d",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-radio-selection355\\20261007-215201-680039",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAERadioTrackManager::ChooseIdentIndex": true,
+    "CAERadioTrackManager::ChooseAdvertIndex": true,
+    "CAERadioTrackManager::ChooseMusicTrackIndex": true,
+    "CAERadioTrackManager::ChooseDJBanterIndexFromList": true,
+    "CAERadioTrackManager::ChooseTalkRadioShow": true,
+    "CAERadioTrackManager::IsVehicleRadioActive": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "a2358eec939be71fedc5c809060bfe6808b7fc29fc9f347e4244a9fbf5cd4462",
+      "pdb": "38b8aabb2d260eb25a9135c194cf4984ad37355f0047d735b9b6dd77b09d96e0"
+    },
+    "sources": {
+      "source/game_sa/Audio/Managers/AERadioTrackManager.cpp": "818307b94a75814f71e66529df713d6591d0f4e7ad6171dccf853726579b2828",
+      "source/game_sa/Audio/Managers/AERadioTrackManager.h": "949ddd5a6c222a37cff3cc1bc99f1d27a85963a0f9a98a21bd0992147e8e3888",
+      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp": "c318db6295f697ccd64f1981acd072c438ed2fe9f8bf37144384dbddfad3c1f4",
+      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.h": "dd37152c6e9367600ae57dce27de99263ed09688278a9157eab97d602e01a31f",
+      "source/game_sa/Audio/AEAudioUtility.cpp": "64b6dc387de99da3e70c7e8f0e800e8a79ef4649c29d78e92299e59319b0252b",
+      "source/game_sa/Audio/AEAudioUtility.h": "ea4d1eb95c63065e11eca92a622fc646a726f87630e5a239c507fd62a1039fdc",
+      "source/game_sa/Stats.cpp": "c4b1cb449064f08aed0dc14a870ca3277f3bc88c18cc5a5fe595829d534378ca",
+      "source/game_sa/Stats.h": "06ea5fa42ae006428bd2d2fe505f68e7f2506cd207f46d6b96f57c930abf1e44"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "0337f6c8cee2ff7be1f0e7c14c54641c4df199acb9621e7d459e7357f84416ca",
+      "build_probe.py": "10316415957a4fb98ad851f1f0cf2a4cf45e40184911b5df719ca0aa2766318c",
+      "run_local.py": "f7b2e1addfadd3d12230d7a86c6ba0b63d670f51c46ebb9b8f461b69cf55a1af"
+    }
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"run_local.py\", \"tested_sha256\": \"f7b2e1addfadd3d12230d7a86c6ba0b63d670f51c46ebb9b8f461b69cf55a1af\", \"current_sha256\": \"cea31e62a70d4a4661436238db5228de8ade4e949086974da7ab38afa698c248\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

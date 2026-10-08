@@ -1,0 +1,3 @@
+from pathlib import Path
+for name in ['source/game_sa/Entity/Vehicle/Plane.cpp','reversing/VehicleAudio355Evidence/Plane_GenerationNative.txt','reversing/VehicleAudio355Evidence/Plane_GenerationNativeDraft.txt']:
+ p=Path(name);s=p.read_text().replace('plugin::CallMethodAndReturn<CVehicle*,0x6C4190>(storage,GenPlane_ModelIndex,1)','reinterpret_cast<CVehicle*(__thiscall*)(void*,int32,int32)>(0x6C4190)(storage,GenPlane_ModelIndex,1)').replace('plugin::CallMethodAndReturn<CPlane*,0x6C8E20>(storage,GenPlane_ModelIndex,1)','reinterpret_cast<CPlane*(__thiscall*)(void*,int32,int32)>(0x6C8E20)(storage,GenPlane_ModelIndex,1)');p.write_text(s)

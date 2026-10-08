@@ -1,0 +1,29 @@
+# HandSignal355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Reconstrucción aplicada y aprobación histórica disponible. Falta completar el replay con todas las fuentes finales; no se acredita vigencia actual de este banco.
+
+Funciones del alcance: `CTaskComplexPlayHandSignalAnim::GetAnimIdForPed`, `CTaskComplexPlayHandSignalAnim::CreateSubTask`, `CTaskComplexPlayHandSignalAnim::Clone`, `CTaskComplexPlayHandSignalAnim::CreateNextSubTask`, `CTaskComplexPlayHandSignalAnim::CreateFirstSubTask`, `CTaskComplexPlayHandSignalAnim::ControlSubTask`.
+
+[Evidencia histórica](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-hand-signal355/20261008-011231-755625/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+# CTaskComplexPlayHandSignalAnim: seis pendientes
+
+Banco previsto de2.560pares: GetAnimId256, CreateSub256, Clone256, Next256, First512, Control1024. Pendiente de compilación y ejecución. Evidencia combo en ../Tasks355Evidence.
+
+GetAnimId es stdcall y preserva EDX (el caller del EXE usa su valor tras la llamada). First detecta brazo ocupado, pandilla y modelos103/105/107. Control cubre carga/referencias de cuatro modelos de manos y bloque ghands; cada global se restaura. CreateSub ejercita construcción real de secuencia con dos tareas, aleatorio determinista y memoriaCD; se comparan asignaciones completas salvo vptr. La carga y referencias externas se aíslan; no reproduce animación/streaming reales.
+
+EXE validation approved by the root coordinator: report `20261008-011231-755625`. All required comparisons and coverage gates passed; this records the tested source before final global hook activation.
+
+## Evidencia y cierre del lote 355
+
+Aprobación histórica: `20261008-011231-755625`, 2560 pares. Informe: [summary.json](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-hand-signal355/20261008-011231-755625/summary.json>). Corresponde al estado de fuentes e instrumentos de esa ejecución.
+
+Último informe disponible: `20261008-011231-755625`; resultado del banco: aprobado en ese snapshot. Evidencia: [summary.json](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-hand-signal355/20261008-011231-755625/summary.json>).
+
+Validación final del lote pendiente: una aprobación histórica no acredita las fuentes actuales. El cierre requiere repetir los bancos afectados y comprobar los hashes actuales de fuentes, instrumentos, EXE y ASI ejecutada mediante el registro estricto coordinado por la raíz. Este README no autoriza activar hooks.
+
+La equivalencia está limitada a los fixtures y ramas descritos arriba. Las colaboraciones aisladas simétricamente no acreditan su implementación; estos resultados no constituyen una campaña integral de juego ni independencia del EXE.

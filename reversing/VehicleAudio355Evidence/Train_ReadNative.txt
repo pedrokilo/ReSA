@@ -1,0 +1,40 @@
+void CTrain::ReadAndInterpretTrackFile(const char* filename, CTrainNode** nodes, int32* lineCount, float* totalDist, int32 skipStations) {
+    if (!*nodes) {
+        auto* buffer = new char[0xB530];
+        CFileMgr::LoadFile(filename, reinterpret_cast<uint8*>(buffer), 0xB530, "rb");
+        size_t cursor{};
+        const auto header = [&]() {
+            size_t length{};
+            while (buffer[cursor] != '\n') gString[length++] = buffer[cursor++];
+            gString[length] = 0;
+            ++cursor;
+        };
+        header();
+        if (std::memcmp(gString, "processed", 10) == 0) header();
+        sscanf(gString, "%d", lineCount);
+        *nodes = new CTrainNode[*lineCount];
+        auto* station = aStationCoors;
+        float x, y, z;
+        int32 marked;
+        for (int32 i = 0; i < *lineCount; ++i) {
+            size_t length{};
+            while (buffer[cursor] != '\n') gString[length++] = buffer[cursor++];
+            ++cursor; // Como el original: no termina cada fila con cero.
+            sscanf(gString, "%f %f %f %d", &x, &y, &z, &marked);
+            (*nodes)[i].x = int16(int64(x * 8.f));
+            (*nodes)[i].y = int16(int64(y * 8.f));
+            (*nodes)[i].z = int16(int64(z * 8.f));
+            if (!skipStations && marked) *station++ = CVector{x, y, z};
+        }
+        delete[] buffer;
+    }
+    auto distance = 0.f;
+    for (int32 i = 0; i < *lineCount; ++i) {
+        (*nodes)[i].m_nDistanceFromStart = uint16(int64(3.f * distance));
+        const auto next = (i + 1) % *lineCount;
+        const auto dy = float((*nodes)[i].y) * .125f - float((*nodes)[next].y) * .125f;
+        const auto dx = float((*nodes)[i].x) * .125f - float((*nodes)[next].x) * .125f;
+        distance += std::sqrt(dx * dx + dy * dy);
+    }
+    *totalDist = distance;
+}

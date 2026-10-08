@@ -1,0 +1,125 @@
+// CTrain::RemoveAllTrains @ 0x006f6aa0 [0x6f6aa0..0x6f6b58]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006f6aa0(void)
+
+{
+  int *piVar1;
+  char *pcVar2;
+  bool bVar3;
+  int *piVar4;
+  int iVar5;
+  undefined4 *puVar6;
+  undefined4 *puVar7;
+  int iVar8;
+  undefined4 *puVar9;
+  
+  piVar4 = DAT_00b74494;
+  iVar8 = DAT_00b74494[2];
+  if (iVar8 != 0) {
+    iVar5 = iVar8 * 0xa18;
+    do {
+      pcVar2 = (char *)(piVar4[1] + -1 + iVar8);
+      iVar8 = iVar8 + -1;
+      iVar5 = iVar5 + -0xa18;
+      if (((-1 < *pcVar2) && (puVar9 = (undefined4 *)(*piVar4 + iVar5), puVar9 != (undefined4 *)0x0)
+          ) && (puVar9[0x164] == 6)) {
+        bVar3 = false;
+        puVar7 = puVar9;
+        do {
+          puVar6 = (undefined4 *)FUN_0056e0d0(0xffffffff,0);
+          if (puVar7 == puVar6) {
+            bVar3 = true;
+          }
+          puVar7 = (undefined4 *)puVar7[0x174];
+          puVar6 = puVar9;
+        } while (puVar7 != (undefined4 *)0x0);
+        do {
+          puVar7 = (undefined4 *)FUN_0056e0d0(0xffffffff,0);
+          if (puVar6 == puVar7) {
+            bVar3 = true;
+          }
+          piVar1 = puVar6 + 0x175;
+          puVar6 = (undefined4 *)*piVar1;
+        } while ((undefined4 *)*piVar1 != (undefined4 *)0x0);
+        if (!bVar3) {
+          FUN_00563280(puVar9);
+          (**(code **)*puVar9)(1);
+        }
+      }
+    } while (iVar8 != 0);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F6AA0: sub esp,8
+006F6AA3: mov ecx,dword ptr ds:[00B74494h]
+006F6AA9: push ebp
+006F6AAA: mov ebp,dword ptr [ecx+8]
+006F6AAD: test ebp,ebp
+006F6AAF: mov dword ptr [esp+4],ecx
+006F6AB3: je 006F6B54
+006F6AB9: push ebx
+006F6ABA: mov eax,ebp
+006F6ABC: push esi
+006F6ABD: imul eax,eax,0A18h
+006F6AC3: push edi
+006F6AC4: mov edx,dword ptr [ecx+4]
+006F6AC7: mov bl,byte ptr [edx+ebp-1]
+006F6ACB: dec ebp
+006F6ACC: sub eax,0A18h
+006F6AD1: test bl,bl
+006F6AD3: mov dword ptr [esp+14h],eax
+006F6AD7: js 006F6B49
+006F6AD9: mov edi,dword ptr [ecx]
+006F6ADB: add edi,eax
+006F6ADD: je 006F6B49
+006F6ADF: cmp dword ptr [edi+00000590h],6
+ 06
+006F6AE6: jne 006F6B49
+006F6AE8: xor bl,bl
+006F6AEA: mov esi,edi
+006F6AEC: lea esp,[esp]
+006F6AF0: push 0
+006F6AF2: push 0FFFFFFFFh
+006F6AF4: call 0056E0D0
+006F6AF9: add esp,8
+006F6AFC: cmp esi,eax
+006F6AFE: jne 006F6B02
+006F6B00: mov bl,1
+006F6B02: mov esi,dword ptr [esi+000005D0h]
+006F6B08: test esi,esi
+006F6B0A: jne 006F6AF0
+006F6B0C: mov esi,edi
+006F6B0E: mov edi,edi
+006F6B10: push 0
+006F6B12: push 0FFFFFFFFh
+006F6B14: call 0056E0D0
+006F6B19: add esp,8
+006F6B1C: cmp esi,eax
+006F6B1E: jne 006F6B22
+006F6B20: mov bl,1
+006F6B22: mov esi,dword ptr [esi+000005D4h]
+006F6B28: test esi,esi
+006F6B2A: jne 006F6B10
+006F6B2C: test bl,bl
+006F6B2E: jne 006F6B41
+006F6B30: push edi
+006F6B31: call 00563280
+006F6B36: mov eax,dword ptr [edi]
+006F6B38: add esp,4
+006F6B3B: push 1
+006F6B3D: mov ecx,edi
+006F6B3F: call dword ptr [eax]
+006F6B41: mov ecx,dword ptr [esp+10h]
+006F6B45: mov eax,dword ptr [esp+14h]
+006F6B49: test ebp,ebp
+006F6B4B: jne 006F6AC4
+006F6B51: pop edi
+006F6B52: pop esi
+006F6B53: pop ebx
+006F6B54: pop ebp
+006F6B55: add esp,8
+006F6B58: ret

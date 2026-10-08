@@ -1,0 +1,27 @@
+// CGenericGameStorage::GetCurrentVersionNumber @ 0x005d0f50 [0x5d0f50..0x5d0f79]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005d0f50(void)
+
+{
+  undefined1 local_28 [40];
+  
+  FUN_00821bb5(local_28,&DAT_0086bae8,"Apr 28 2005","10:28:55");
+  FUN_0053cf00(local_28);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D0F50: sub esp,28h
+005D0F53: push 86BAFCh
+005D0F58: push 86BAF0h
+005D0F5D: lea eax,[esp+8]
+005D0F61: push 86BAE8h
+005D0F66: push eax
+005D0F67: call 00821BB5
+005D0F6C: lea ecx,[esp+10h]
+005D0F70: push ecx
+005D0F71: call 0053CF00
+005D0F76: add esp,3Ch
+005D0F79: ret

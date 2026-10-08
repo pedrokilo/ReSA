@@ -1,0 +1,60 @@
+bool CAERadioTrackManager::QueueUpTracksForStation(eRadioID id, int8* count, int8 state, tRadioSettings& settings) {
+    const auto station = int32(int8(id));
+    const auto advance = [&] { *count = int8(*count + 1); };
+    const auto queueSimple = [&](int32 track, int8 type, bool rejectInvalid) {
+        settings.TrackQueue.data()[*count] = track;
+        if (rejectInvalid && track == -1) {
+            return false;
+        }
+        settings.TrackTypes.data()[*count] = type;
+        advance();
+        return true;
+    };
+    const auto queueOutro = [&] {
+        const auto index = station * 31 + int32(settings.TrackIndices.data()[*count]);
+        const auto* range = &StaticRef<int32>(0x8CA1B0) + index * 2;
+        return queueSimple(CAEAudioUtility::GetRandomNumberInRange(range[0], range[1]), TYPE_OUTRO, false);
+    };
+    switch (state) {
+    case TYPE_INDENT:
+        return station != 12 && queueSimple(ChooseIdentIndex(id), TYPE_INDENT, true);
+    case TYPE_ADVERT:
+        return queueSimple(ChooseAdvertIndex(id), TYPE_ADVERT, false);
+    case TYPE_DJ_BANTER:
+        return station != 12 && queueSimple(ChooseDJBanterIndex(id), TYPE_DJ_BANTER, true);
+    case TYPE_INTRO: {
+        if (station == 12) {
+            return false;
+        }
+        settings.TrackIndices.data()[*count] = ChooseMusicTrackIndex(id);
+        const auto index = station * 31 + int32(settings.TrackIndices.data()[*count]);
+        const auto* introRange = &StaticRef<int32>(0x8C9610) + index * 2;
+        queueSimple(CAEAudioUtility::GetRandomNumberInRange(introRange[0], introRange[1]), TYPE_INTRO, false);
+        settings.TrackIndices.data()[*count] = settings.TrackIndices.data()[*count - 1];
+        queueSimple((&StaticRef<int32>(0x8C9040))[station * 31 + int32(settings.TrackIndices.data()[*count])], TYPE_TRACK, false);
+        settings.TrackIndices.data()[*count] = settings.TrackIndices.data()[*count - 1];
+        return queueOutro();
+    }
+    case TYPE_TRACK:
+        if (station == 12) {
+            const auto track = AEUserRadioTrackManager.SelectUserTrackIndex();
+            settings.TrackQueue.data()[*count] = track;
+            settings.TrackTypes.data()[*count] = TYPE_USER_TRACK;
+            settings.TrackIndices.data()[*count] = int8(track);
+            advance();
+            return true;
+        }
+        settings.TrackIndices.data()[*count] = ChooseMusicTrackIndex(id);
+        queueSimple((&StaticRef<int32>(0x8C9040))[station * 31 + int32(settings.TrackIndices.data()[*count])], TYPE_TRACK, false);
+        settings.TrackIndices.data()[*count] = settings.TrackIndices.data()[*count - 1];
+        return queueOutro();
+    case TYPE_OUTRO:
+        if (station == 12) {
+            return false;
+        }
+        settings.TrackIndices.data()[*count] = ChooseMusicTrackIndex(id);
+        return queueOutro();
+    default:
+        return true;
+    }
+}

@@ -1,0 +1,13 @@
+// CGenericGameStorage::RestoreForStartLoad @ 0x00619000 [0x619000..0x619002]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined1 FUN_00619000(void)
+
+{
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00619000: xor al,al
+00619002: ret

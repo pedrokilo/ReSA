@@ -80,14 +80,15 @@ STARTUP_STALL_SECONDS=240  # margen antes del primer resultado (carga del juego)
 
 def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=False,unhook='Audio,Global/SurfaceInfos_c',wait_for_exit=False):
     exe=GAME/'gta_sa.exe';probe=GAME/f'_baseline/gta_reversed-{prefix}-probe.asi'
-    if digest(exe)!=EXE_HASH or digest(probe)!=probe_hash:raise RuntimeError('Ejecutable o sonda no coincide con el hash aprobado.')
+    executed_exe_hash=digest(exe);executed_probe_hash=digest(probe)
+    if executed_exe_hash!=EXE_HASH or executed_probe_hash!=probe_hash:raise RuntimeError('Ejecutable o sonda no coincide con el hash aprobado.')
     rows=csv.reader(subprocess.check_output(['tasklist','/FO','CSV','/NH'],text=True,errors='replace').splitlines())
     if any(r and r[0].lower() in ('gta_sa.exe','gta-sa.exe') for r in rows):raise RuntimeError('Cerrar GTA antes de la prueba.')
     lock=GAME/'reversed-tests.lock'
     with lock.open('x') as f:f.write(prefix)
     folder=GAME/f'resultados-{prefix}'/datetime.now().strftime('%Y%m%d-%H%M%S-%f')
     marker=GAME/f'{prefix}-runtime.start';log=GAME/f'{prefix}-runtime.jsonl'
-    process=None;backups=[];owns_marker=False;before=saves();result={'passed':False,'saves_before':before}
+    process=None;backups=[];owns_marker=False;before=saves();result={'passed':False,'saves_before':before,'executed_probe_sha256':executed_probe_hash,'original_exe_sha256':executed_exe_hash}
     try:
         folder.mkdir(parents=True)
         if marker.exists():raise RuntimeError('Existe un marcador previo de prueba.')
@@ -102,6 +103,7 @@ def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=Fa
             target=GAME/f'scripts/gta_reversed.{ext}';backup=folder/f'normal.{ext}'
             shutil.copy2(target,backup);backups.append((target,backup,digest(backup)))
             shutil.copy2(GAME/f'_baseline/gta_reversed-{prefix}-probe.{ext}',target)
+            if ext=='asi' and digest(target)!=executed_probe_hash:raise RuntimeError('ASI instalada distinta del hash aprobado.')
         marker.write_text('local deterministic comparison\n');owns_marker=True
         args=[str(exe),'--dump-hooks-to=runtime-hooks.csv']
         if unhook:args.append('--unhook='+unhook)

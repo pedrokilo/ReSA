@@ -1,0 +1,245 @@
+// CAEScriptAudioEntity::PlayMissionBankSound @ 0x004ec6d0 [0x4ec6d0..0x4ec8fd]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004ec6d0(uint param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
+                 float param_5,char param_6,undefined4 param_7)
+
+{
+  char cVar1;
+  char cVar2;
+  undefined4 in_EAX;
+  undefined4 uVar3;
+  int iVar4;
+  int in_ECX;
+  undefined4 uVar5;
+  undefined4 *puVar6;
+  undefined4 unaff_EBP;
+  undefined1 uVar7;
+  undefined4 uVar8;
+  undefined4 *unaff_retaddr;
+  
+  uVar7 = (undefined1)((uint)unaff_EBP >> 0x18);
+  if (param_5._0_1_ < 2) {
+    return;
+  }
+  if (3 < param_5._0_1_) {
+    return;
+  }
+  uVar3 = CONCAT31((int3)((uint)in_EAX >> 8),param_6);
+  if ((param_6 != '\0') && (uVar3 = FUN_004ef570(param_1,in_ECX), (short)uVar3 != 0)) {
+    return;
+  }
+  iVar4 = CONCAT22((short)((uint)uVar3 >> 0x10),(ushort)param_5._0_1_) + 0x1a;
+  cVar1 = FUN_004d88c0(*(undefined2 *)(((uint)param_5 & 0xff) * 0x20 + 0xa8 + in_ECX),iVar4);
+  if (cVar1 == '\0') {
+    return;
+  }
+  cVar1 = *(char *)((param_1 & 0xffff) + DAT_00bd00f8);
+  if (param_1 == 0) {
+    cVar2 = FUN_004dc670(unaff_retaddr,&stack0xffffffec);
+    if ((cVar2 == '\0') && (cVar2 = FUN_004dc670(unaff_retaddr,&stack0xffffffec), cVar2 == '\0')) {
+      cVar2 = FUN_004dc670(unaff_retaddr,&stack0xffffffec);
+      if ((cVar2 == '\0') && (cVar2 = FUN_004dc670(unaff_retaddr,&stack0xffffffec), cVar2 == '\0'))
+      {
+        uVar3 = *unaff_retaddr;
+        uVar5 = unaff_retaddr[1];
+        uVar8 = unaff_retaddr[2];
+        goto LAB_004ec874;
+      }
+      uVar3 = *unaff_retaddr;
+      uVar5 = unaff_retaddr[1];
+      uVar8 = unaff_retaddr[2];
+    }
+    else {
+      uVar3 = 0;
+      uVar5 = 0x3f800000;
+      uVar8 = 0;
+    }
+    uVar7 = 1;
+  }
+  else {
+    puVar6 = (undefined4 *)(*(int *)(param_1 + 0x14) + 0x30);
+    if (*(int *)(param_1 + 0x14) == 0) {
+      puVar6 = (undefined4 *)(param_1 + 4);
+    }
+    uVar3 = *puVar6;
+    uVar5 = puVar6[1];
+    uVar8 = puVar6[2];
+  }
+LAB_004ec874:
+  FUN_004efe50(param_4,param_2,in_ECX,uVar3,uVar5,uVar8,(float)(int)cVar1 + param_5,iVar4,param_7,
+               0x3f800000,0,0,0,0);
+  *(undefined2 *)(in_ECX + 0x5e) = 6;
+  FUN_004ef2b0(1,uVar7);
+  if (param_1 != 0) {
+    FUN_004ef2b0(0x80,1);
+    FUN_004ef820(param_1);
+  }
+  *(uint *)(in_ECX + 0x14) = param_1 & 0xffff;
+  FUN_004efb10(in_ECX + 8);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004EC6D0: sub esp,10h
+004EC6D3: push ebx
+004EC6D4: mov bl,byte ptr [esp+28h]
+004EC6D8: cmp bl,2
+004EC6DB: push ebp
+004EC6DC: push esi
+004EC6DD: push edi
+004EC6DE: mov ebp,ecx
+004EC6E0: mov byte ptr [esp+13h],0
+004EC6E5: jb 004EC8F4
+004EC6EB: cmp bl,4
+004EC6EE: jae 004EC8F4
+004EC6F4: mov al,byte ptr [esp+38h]
+004EC6F8: test al,al
+004EC6FA: mov esi,dword ptr [esp+24h]
+004EC6FE: je 004EC715
+004EC700: push ebp
+004EC701: push esi
+004EC702: mov ecx,0B62CB0h
+004EC707: call 004EF570
+004EC70C: test ax,ax
+004EC70F: jne 004EC8F4
+004EC715: movzx ax,bl
+004EC719: xor ecx,ecx
+004EC71B: add eax,1Ah
+004EC71E: push eax
+004EC71F: mov dword ptr [esp+3Ch],eax
+004EC723: movzx eax,bl
+004EC726: shl eax,5
+004EC729: mov cx,word ptr [eax+ebp+000000A8h]
+004EC731: push ecx
+004EC732: mov ecx,0B5F8B8h
+004EC737: call 004D88C0
+004EC73C: test al,al
+004EC73E: je 004EC8F4
+004EC744: mov edx,dword ptr ds:[00BD00F8h]
+004EC74A: mov ebx,dword ptr [esp+2Ch]
+004EC74E: test ebx,ebx
+004EC750: movzx eax,si
+004EC753: mov dword ptr [esp+24h],eax
+004EC757: movsx eax,byte ptr [eax+edx]
+004EC75B: mov dword ptr [esp+34h],eax
+004EC75F: fild dword ptr [esp+34h]
+004EC763: fadd dword ptr [esp+3Ch]
+004EC767: fstp dword ptr [esp+34h]
+004EC76B: je 004EC787
+004EC76D: mov eax,dword ptr [ebx+14h]
+004EC770: test eax,eax
+004EC772: lea edx,[eax+30h]
+004EC775: jne 004EC77A
+004EC777: lea edx,[ebx+4]
+004EC77A: mov eax,dword ptr [edx]
+004EC77C: mov ecx,dword ptr [edx+4]
+004EC77F: mov edi,dword ptr [edx+8]
+004EC782: jmp 004EC874
+004EC787: mov esi,dword ptr [esp+28h]
+004EC78B: lea ecx,[esp+14h]
+004EC78F: push ecx
+004EC790: push esi
+004EC791: mov dword ptr [esp+1Ch],0C47A0000h
+004EC799: mov dword ptr [esp+20h],0C47A0000h
+004EC7A1: mov dword ptr [esp+24h],0C47A0000h
+004EC7A9: call 004DC670
+004EC7AE: add esp,8
+004EC7B1: test al,al
+004EC7B3: jne 004EC84B
+004EC7B9: lea edx,[esp+14h]
+004EC7BD: push edx
+004EC7BE: push esi
+004EC7BF: mov dword ptr [esp+1Ch],0
+004EC7C7: mov dword ptr [esp+20h],0
+004EC7CF: mov dword ptr [esp+24h],0
+004EC7D7: call 004DC670
+004EC7DC: add esp,8
+004EC7DF: test al,al
+004EC7E1: jne 004EC84B
+004EC7E3: lea eax,[esp+14h]
+004EC7E7: push eax
+004EC7E8: push esi
+004EC7E9: mov dword ptr [esp+1Ch],0BF800000h
+004EC7F1: mov dword ptr [esp+20h],0
+004EC7F9: mov dword ptr [esp+24h],0
+004EC801: call 004DC670
+004EC806: add esp,8
+004EC809: test al,al
+004EC80B: jne 004EC841
+004EC80D: lea ecx,[esp+14h]
+004EC811: push ecx
+004EC812: push esi
+004EC813: mov dword ptr [esp+1Ch],3F800000h
+004EC81B: mov dword ptr [esp+20h],0
+004EC823: mov dword ptr [esp+24h],0
+004EC82B: call 004DC670
+004EC830: add esp,8
+004EC833: test al,al
+004EC835: jne 004EC841
+004EC837: mov eax,dword ptr [esi]
+004EC839: mov ecx,dword ptr [esi+4]
+004EC83C: mov edi,dword ptr [esi+8]
+004EC83F: jmp 004EC874
+004EC841: mov eax,dword ptr [esi]
+004EC843: mov ecx,dword ptr [esi+4]
+004EC846: mov edi,dword ptr [esi+8]
+004EC849: jmp 004EC86F
+004EC84B: mov dword ptr [esp+14h],0
+004EC853: mov eax,dword ptr [esp+14h]
+004EC857: mov dword ptr [esp+18h],3F800000h
+004EC85F: mov ecx,dword ptr [esp+18h]
+004EC863: mov dword ptr [esp+1Ch],0
+004EC86B: mov edi,dword ptr [esp+1Ch]
+004EC86F: mov byte ptr [esp+13h],1
+004EC874: mov edx,dword ptr [esp+44h]
+004EC878: push 0
+004EC87A: push 0
+004EC87C: push 0
+004EC87E: push 0
+004EC880: push 3F800000h
+004EC885: push edx
+004EC886: mov edx,dword ptr [esp+58h]
+004EC88A: push edx
+004EC88B: mov edx,dword ptr [esp+50h]
+004EC88F: push edx
+004EC890: sub esp,0Ch
+004EC893: mov edx,esp
+004EC895: mov dword ptr [edx],eax
+004EC897: mov eax,dword ptr [esp+5Ch]
+004EC89B: mov dword ptr [edx+4],ecx
+004EC89E: mov ecx,dword ptr [esp+64h]
+004EC8A2: push ebp
+004EC8A3: push eax
+004EC8A4: lea esi,[ebp+8]
+004EC8A7: push ecx
+004EC8A8: mov ecx,esi
+004EC8AA: mov dword ptr [edx+8],edi
+004EC8AD: call 004EFE50
+004EC8B2: movzx dx,byte ptr [esp+13h]
+004EC8B8: mov ecx,esi
+004EC8BA: mov word ptr [ebp+5Eh],6
+004EC8C0: push edx
+004EC8C1: push 1
+004EC8C3: call 004EF2B0
+004EC8C8: test ebx,ebx
+004EC8CA: je 004EC8E2
+004EC8CC: push 1
+004EC8CE: push 80h
+004EC8D3: mov ecx,esi
+004EC8D5: call 004EF2B0
+004EC8DA: push ebx
+004EC8DB: mov ecx,esi
+004EC8DD: call 004EF820
+004EC8E2: mov eax,dword ptr [esp+24h]
+004EC8E6: push esi
+004EC8E7: mov ecx,0B62CB0h
+004EC8EC: mov dword ptr [ebp+14h],eax
+004EC8EF: call 004EFB10
+004EC8F4: pop edi
+004EC8F5: pop esi
+004EC8F6: pop ebp
+004EC8F7: pop ebx
+004EC8F8: add esp,10h
+004EC8FB: ret 24h

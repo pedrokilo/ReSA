@@ -1,0 +1,71 @@
+static float TrainProjection355(float x, float y, float nx, float ny, float px, float py) {
+    float result;
+    __asm {
+        fld x
+        fsub nx
+        fmul st, st(0)
+        fld y
+        fsub ny
+        fmul st, st(0)
+        faddp st(1), st
+        fsqrt
+        fmul st, st(0)
+        fld nx
+        fsub x
+        fld px
+        fsub x
+        fmulp st(1), st
+        fld ny
+        fsub y
+        fld py
+        fsub y
+        fmulp st(1), st
+        faddp st(1), st
+        fdiv st, st(1)
+        fstp result
+        fstp st(0)
+    }
+    return result;
+}
+
+void CTrain::FindPositionOnTrackFromCoors() {
+    for (int32 i = 0; i < NumTrackNodes[m_nTrackId]; ++i) {
+        const auto next = (i + 1) % NumTrackNodes[m_nTrackId];
+        auto* nodes = pTrackNodes[m_nTrackId];
+        const auto x = float(nodes[i].x) * .125f;
+        const auto y = float(nodes[i].y) * .125f;
+        const auto nx = float(nodes[next].x) * .125f;
+        const auto ny = float(nodes[next].y) * .125f;
+        const auto& pos = GetPosition();
+        const auto factor = TrainProjection355(x, y, nx, ny, pos.x, pos.y);
+        if (!(factor > StaticRef<float>(0x858CDC) && factor < StaticRef<float>(0x872490))) continue;
+        const auto dx = nx - x;
+        const auto dy = ny - y;
+        const auto ax = dx * factor;
+        const auto projectedX = ax + x;
+        const auto projectedY = dy * factor + y;
+        const auto errorX = projectedX - pos.x;
+        const auto errorY = projectedY - pos.y;
+        if (std::sqrt((errorX * errorX + errorY * errorY) + (factor * 0.f) * (factor * 0.f)) < 3.f) {
+            const auto before = float(nodes[i].m_nDistanceFromStart) * StaticRef<float>(0x859040);
+            const auto after = float(nodes[next].m_nDistanceFromStart) * StaticRef<float>(0x859040);
+            auto distance = (after - before) * factor + before;
+            m_fCurrentRailDistance = distance;
+            const auto& box = CModelInfo::GetModelInfo(m_nModelIndex)->GetColModel()->m_boundBox;
+            distance -= (box.m_vecMax.y - box.m_vecMin.y) * .5f;
+            m_fCurrentRailDistance = distance;
+            if (distance < 0.f) m_fCurrentRailDistance = distance + arrTotalTrackLength[m_nTrackId];
+            m_fTrainSpeed = std::sqrt((m_vecMoveSpeed.z * m_vecMoveSpeed.z + m_vecMoveSpeed.y * m_vecMoveSpeed.y) + m_vecMoveSpeed.x * m_vecMoveSpeed.x);
+            const auto dot = (dy * m_vecMoveSpeed.y + m_vecMoveSpeed.z * 0.f) + dx * m_vecMoveSpeed.x;
+            if (bool(trainFlags.bClockwiseDirection) == (dot > 0.f)) m_fTrainSpeed = -m_fTrainSpeed;
+            return;
+        }
+        const auto lighting = nodes[i].GetLightingFromCollision().value;
+        const auto day = StaticRef<float>(0x8D12C0);
+        const auto previous = float(lighting >> 4) * StaticRef<float>(0x858F10) * day + (1.f - day) * float(lighting & 15) * StaticRef<float>(0x858F10);
+        const auto nextLighting = nodes[next].GetLightingFromCollision().value;
+        const auto nextDay = StaticRef<float>(0x8D12C0);
+        const auto current = float(nextLighting >> 4) * StaticRef<float>(0x858F10) * nextDay + (1.f - nextDay) * float(nextLighting & 15) * StaticRef<float>(0x858F10);
+        m_fContactSurfaceBrightness = (current - previous) * factor + previous;
+    }
+}

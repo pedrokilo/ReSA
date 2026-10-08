@@ -1,0 +1,508 @@
+
+static uint32 PlaneWaveAdvance355(){
+ const float spread=StaticRef<float>(0x8D33E0),one=StaticRef<float>(0x858624),randomScale=StaticRef<float>(0x858C7C),timeScale=StaticRef<float>(0x858B38),countScale=StaticRef<float>(0x858C4C),unsignedAdjustment=StaticRef<float>(0x858C54);const double rangeBase=StaticRef<double>(0x85A310);const uintptr_t truncate=0x821B40,randomFunction=0x821B1E;float upper,lower;int32 random;uint32 result;
+ __asm {
+  fld spread
+  fadd rangeBase
+  fstp upper
+  fld one
+  fsub spread
+  fstp lower
+  mov eax,randomFunction
+  call eax
+  mov random,eax
+  fild random
+  fmul randomScale
+  fld upper
+  fsub lower
+  fmul st,st(1)
+  fadd lower
+  fld dword ptr ds:[0B7CB5Ch]
+  fmul timeScale
+  fmul countScale
+  mov eax,truncate
+  call eax
+  mov result,eax
+  fild result
+  cmp result,0
+  jge unsigned_wave_count
+  fadd unsignedAdjustment
+ unsigned_wave_count:
+  fmulp st(1),st
+  mov eax,truncate
+  call eax
+  fstp st(0)
+  mov result,eax
+ }
+ return result;
+}
+static float PlaneDamageSpeed355(const CVector* speed){
+ const float scale=StaticRef<float>(0x858B3C),one=1.f;float result;
+ __asm {
+  mov edx,speed
+  fld dword ptr [edx+8]
+  fld dword ptr [edx+4]
+  fld dword ptr [edx]
+  fld st(0)
+  fmul st,st(1)
+  fld st(2)
+  fmul st,st(3)
+  faddp st(1),st
+  fld st(3)
+  fmul st,st(4)
+  faddp st(1),st
+  fsqrt
+  fstp st(3)
+  fstp st(0)
+  fstp st(0)
+  fmul scale
+  fcom one
+  fnstsw ax
+  test ah,41h
+  jne plane_speed_store
+  fstp st(0)
+  fld one
+ plane_speed_store:
+  fstp result
+ }
+ return result;
+}
+static float PlaneDamageNoise355(float oldValue,float amplitude,int32 random,float squaredDamage,float step,float speed){
+ const float randomScale=StaticRef<float>(0x858C7C);float result;
+ __asm {
+  fild random
+  fmul randomScale
+  fld amplitude
+  fadd amplitude
+  fmulp st(1),st
+  fsub amplitude
+  fmul squaredDamage
+  fmul step
+  fmul speed
+  fadd oldValue
+  fstp result
+ }
+ return result;
+}
+static float PlanePropellerWave355(float oldValue,float upper,float lower,int32 random,int32 damage,uint32 wave,uint32 period,float step){
+ const float randomScale=StaticRef<float>(0x858C7C),circle=StaticRef<float>(0x858CBC),unsignedAdjustment=StaticRef<float>(0x858C54),one=1.f,amount=StaticRef<float>(0x8D3444);float result;
+ __asm {
+  fild random
+  fmul randomScale
+  fild damage
+  fild wave
+  cmp wave,0
+  jge unsigned_wave
+  fadd unsignedAdjustment
+ unsigned_wave:
+  fmul circle
+  fild period
+  cmp period,0
+  jge unsigned_period
+  fadd unsignedAdjustment
+ unsigned_period:
+  fdivp st(1),st
+  fsin
+  fsub one
+  fld upper
+  fsub lower
+  fmul st,st(3)
+  fadd lower
+  fmulp st(1),st
+  fmul st,st(1)
+  fmul st,st(1)
+  fmul step
+  fmul amount
+  fadd oldValue
+  fstp result
+  fstp st(0)
+  fstp st(0)
+ }
+ return result;
+}
+
+static float PlaneFlightDecay355(float oldValue,int32 damage,bool storeFactor){
+ const float scale=StaticRef<float>(0x858CC4),one=1.f;float decay,result;
+ __asm {
+  fild damage
+  fmul scale
+  cmp storeFactor,0
+  je flight_decay_extended
+  fstp decay
+  fld decay
+ flight_decay_extended:
+  fsubr one
+  fmul oldValue
+  fstp result
+ }
+ return result;
+}
+static float PlaneFlightProductAdd355(float value,float a,float b,bool subtract){
+ float result;
+ __asm {
+  fld a
+  fmul b
+  cmp subtract,0
+  je flight_add_product
+  fsubr value
+  jmp flight_product_store
+ flight_add_product:
+  fadd value
+ flight_product_store:
+  fstp result
+ }
+ return result;
+}
+static float PlaneFloatFlightBlend355(float value,float target,float step,float factor){
+ float result;
+ __asm {
+  fld target
+  fsub value
+  fmul step
+  fmul factor
+  fadd value
+  fstp result
+ }
+ return result;
+}
+static bool PlaneFlightDistanceBelow355(const CVector* first,const CVector* second,float threshold){
+ uint16 comparison;
+ __asm {
+  mov eax,first
+  mov edx,second
+  fld dword ptr [eax]
+  fsub dword ptr [edx]
+  fld dword ptr [eax+4]
+  fsub dword ptr [edx+4]
+  fld dword ptr [eax+8]
+  fsub dword ptr [edx+8]
+  fld st(0)
+  fmul st,st(1)
+  fld st(2)
+  fmul st,st(3)
+  faddp st(1),st
+  fld st(3)
+  fmul st,st(4)
+  faddp st(1),st
+  fcomp threshold
+  fstp st(0)
+  fnstsw ax
+  fstp st(0)
+  fstp st(0)
+  mov comparison,ax
+ }
+ return (comparison&0x500)==0x100;
+}
+static bool PlaneFlightRollCompare355(CPlane* plane,float threshold,bool greater){
+ const uintptr_t roll=0x420B30;uint16 comparison;
+ __asm {
+  mov ecx,plane
+  mov eax,roll
+  call eax
+  fabs
+  fcomp threshold
+  fnstsw ax
+  mov comparison,ax
+ }
+ return greater?!(comparison&0x4100):(comparison&0x500)==0x100;
+}
+static void PlaneFlightCeiling355(CPlane* plane,int32 model,float* target){
+ const uintptr_t ceiling=0x6D2600;const float zero=0.f,lower=-1.f,scale=StaticRef<float>(0x858B38),adjust=StaticRef<float>(0x858CEC);
+ __asm {
+  mov ecx,plane
+  mov eax,dword ptr [ecx+14h]
+  test eax,eax
+  je ceiling_first_placement
+  add eax,30h
+  jmp ceiling_first_ready
+ ceiling_first_placement:
+  lea eax,[ecx+4]
+ ceiling_first_ready:
+  push model
+  push dword ptr [eax+8]
+  mov eax,ceiling
+  call eax
+  fcomp zero
+  fnstsw ax
+  test ah,41h
+  jne ceiling_done
+  mov ecx,plane
+  mov eax,dword ptr [ecx+14h]
+  test eax,eax
+  je ceiling_second_placement
+  add eax,30h
+  jmp ceiling_second_ready
+ ceiling_second_placement:
+  lea eax,[ecx+4]
+ ceiling_second_ready:
+  push model
+  push dword ptr [eax+8]
+  mov eax,ceiling
+  call eax
+  fmul scale
+  fld zero
+  fcomp st(1)
+  fnstsw ax
+  test ah,41h
+  jne ceiling_target_multiply
+  fstp st(0)
+  fld zero
+ ceiling_target_multiply:
+  mov edx,target
+  fmul dword ptr [edx]
+  fstp dword ptr [edx]
+  mov ecx,plane
+  mov eax,dword ptr [ecx+14h]
+  test eax,eax
+  je ceiling_third_placement
+  add eax,30h
+  jmp ceiling_third_ready
+ ceiling_third_placement:
+  lea eax,[ecx+4]
+ ceiling_third_ready:
+  push model
+  push dword ptr [eax+8]
+  mov eax,ceiling
+  call eax
+  fmul adjust
+  mov edx,plane
+  fsubr dword ptr [edx+994h]
+  fld lower
+  fcomp st(1)
+  fnstsw ax
+  test ah,41h
+  jne ceiling_acceleration_store
+  fstp st(0)
+  fld lower
+ ceiling_acceleration_store:
+  mov edx,plane
+  fstp dword ptr [edx+994h]
+ ceiling_done:
+ }
+}
+
+static float PlaneFlightBound355(float spread,bool subtract){
+ const float one=1.f;const double extendedOne=1.;float result;
+ __asm {
+  cmp subtract,0
+  jne flight_bound_subtract
+  fld spread
+  fadd extendedOne
+  jmp flight_bound_store
+ flight_bound_subtract:
+  fld one
+  fsub spread
+ flight_bound_store:
+  fstp result
+ }
+ return result;
+}
+static void PlaneFlightParticleVelocity355(CVector* result,const CVector* speed){
+ const float quarter=StaticRef<float>(0x858C84),multiplier=StaticRef<float>(0x858B40);float roundedZ;
+ __asm {
+  mov edx,speed
+  mov eax,result
+  fld dword ptr [edx]
+  fmul quarter
+  fmul multiplier
+  fstp dword ptr [eax]
+  fld dword ptr [edx+4]
+  fmul quarter
+  fmul multiplier
+  fstp dword ptr [eax+4]
+  fld dword ptr [edx+8]
+  fmul quarter
+  fstp roundedZ
+  fld roundedZ
+  fmul multiplier
+  fstp dword ptr [eax+8]
+ }
+}
+static float PlaneFlightVelocityNoise355(float value,int32 random){
+ const float randomScale=StaticRef<float>(0x858C7C),spread=StaticRef<float>(0x871A74),base=StaticRef<float>(0x858C20);float result;
+ __asm {
+  fild random
+  fmul randomScale
+  fmul spread
+  fadd base
+  fmul value
+  fstp result
+ }
+ return result;
+}
+static float PlaneFlightPositionNoise355(float value,float strength,int32 random){
+ const float randomScale=StaticRef<float>(0x858C7C);float negative=-strength,result;
+ __asm {
+  fild random
+  fmul randomScale
+  fld strength
+  fsub negative
+  fmul st,st(1)
+  fadd negative
+  fadd value
+  fstp result
+  fstp st(0)
+ }
+ return result;
+}
+static float PlaneFlightPropellerTarget355(float acceleration){
+ const float standard=StaticRef<float>(0x8D33D0),maximum=StaticRef<float>(0x8D33D4),minimum=StaticRef<float>(0x8D33CC),zero=0.f;float result=standard;
+ __asm {
+  fld acceleration
+  fcomp zero
+  fnstsw ax
+  test ah,41h
+  jne flight_target_negative
+  fld maximum
+  fsub standard
+  jmp flight_target_blend
+ flight_target_negative:
+  fld acceleration
+  fcomp zero
+  fnstsw ax
+  test ah,5
+  jp flight_target_done
+  fld standard
+  fsub minimum
+ flight_target_blend:
+  fmul acceleration
+  fadd standard
+  fstp result
+ flight_target_done:
+ }
+ return result;
+}
+static bool PlaneFlightSpeedSquaredAbove355(const CVector* speed){
+ const double threshold=StaticRef<double>(0x859068);uint16 comparison;
+ __asm {
+  mov edx,speed
+  fld dword ptr [edx+8]
+  fld dword ptr [edx+4]
+  fld dword ptr [edx]
+  fld st(0)
+  fmul st,st(1)
+  fld st(2)
+  fmul st,st(3)
+  faddp st(1),st
+  fld st(3)
+  fmul st,st(4)
+  faddp st(1),st
+  fcomp threshold
+  fstp st(0)
+  fnstsw ax
+  fstp st(0)
+  fstp st(0)
+  mov comparison,ax
+ }
+ return !(comparison&0x4100);
+}
+
+void CPlane::ProcessFlyingCarStuff() {
+    if (CTimer::GetTimeStep() <= 0.f) return;
+    auto* bytes = reinterpret_cast<uint8*>(this);
+    auto field = [bytes](size_t offset) -> float& { return *reinterpret_cast<float*>(bytes + offset); };
+    auto status = [bytes] { return bytes[0x36] >> 3; };
+    m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvance355());
+    const float speed = PlaneDamageSpeed355(&m_vecMoveSpeed);
+    float skid = m_fLeftRightSkid, up = m_fSteeringUpDown, lateral = m_fSteeringLeftRight;
+    if (m_fHealth < StaticRef<float>(0x859F80) && status() == 0) {
+        m_damageManager.SetAeroplaneCompStatus(12, 2);
+        m_damageManager.SetAeroplaneCompStatus(13, 2);
+        skid += .5f;
+        if (PlaneFlightRollCompare355(this, StaticRef<float>(0x86DAF4), false)) lateral += .75f;
+        if (PlaneFlightRollCompare355(this, StaticRef<float>(0x858FE4), true)) up += .5f;
+    }
+    if (m_nModelIndex != 464) {
+        for (int32 node = 12; node < 25; ++node) {
+            const int32 damage = std::bit_cast<int32>(m_damageManager.GetAeroplaneCompStatus(uint8(node)));
+            if (!m_aCarNodes[node] || damage <= 0) continue;
+            int32 panel = -1;
+            for (int32 i = 0; i < 4; ++i) {
+                if (*reinterpret_cast<int16*>(bytes + 0x6AC + 0x20 * i) == node) { panel = i; break; }
+            }
+            float strength;
+            if (node <= 15) {
+                if (m_fAccelerationBreakStatus > 0.f) {
+                    const float spread = StaticRef<float>(0x8D344C);
+                    const float upper = PlaneFlightBound355(spread, false), lower = PlaneFlightBound355(spread, true);
+                    const int32 random = CGeneral::GetRandomNumber();
+                    m_fAccelerationBreakStatus = PlanePropellerWave355(m_fAccelerationBreakStatus, upper, lower,
+                        random, damage, uint32(m_planeDamageWave), StaticRef<uint32>(0x8D3448), CTimer::GetTimeStep());
+                }
+                strength = float(damage) * .5f;
+            } else if (node <= 20) {
+                const size_t axis = node == 16 ? 0x988 : node <= 18 ? 0x98C : 0x990;
+                const uintptr_t amplitudeAddress = node == 16 ? 0x8D3440 : node <= 18 ? 0x8D3434 : 0x8D3428;
+                const uintptr_t panelAddress = node == 16 ? 0x8D343C : node <= 18 ? 0x8D3430 : 0x8D3424;
+                const uintptr_t feedbackAddress = node == 16 ? 0x8D3438 : node <= 18 ? 0x8D342C : 0x8D3420;
+                const float amplitude = StaticRef<float>(amplitudeAddress);
+                field(axis) = PlaneFlightDecay355(field(axis), damage, node == 16);
+                const int32 random = CGeneral::GetRandomNumber();
+                const float squaredDamage = float(std::bit_cast<int32>(uint32(damage) * uint32(damage)));
+                field(axis) = PlaneDamageNoise355(field(axis), amplitude, random, squaredDamage, CTimer::GetTimeStep(), speed);
+                float& local = node == 16 ? skid : node <= 18 ? up : lateral;
+                local = field(axis);
+                if (panel >= 0) {
+                    const float panelAmplitude = StaticRef<float>(panelAddress);
+                    const int32 panelRandom = CGeneral::GetRandomNumber();
+                    auto& rotationSpeed = field(0x6C4 + panel * 0x20);
+                    rotationSpeed = PlaneDamageNoise355(rotationSpeed, panelAmplitude, panelRandom,
+                        squaredDamage, CTimer::GetTimeStep(), speed);
+                    local = PlaneFlightProductAdd355(local, StaticRef<float>(feedbackAddress), field(0x6B8 + panel * 0x20), node != 19);
+                }
+                strength = float(damage) * StaticRef<float>(node == 16 ? 0x858CC4 : node <= 18 ? 0x858FCC : 0x858C84);
+            } else continue;
+            if (strength > 0.f && !(bytes[0x42B] & 0x40) && (speed > StaticRef<float>(0x858C24) || (CGeneral::GetRandomNumber() & 7) == 0)) {
+                auto* cameraMatrix = StaticRef<CMatrix*>(0xB6F03C);
+                const CVector* cameraPosition = cameraMatrix ? &cameraMatrix->GetPosition() : &StaticRef<CVector>(0xB6F02C);
+                if ((PlaneFlightDistanceBelow355(&GetPosition(), cameraPosition, StaticRef<float>(0x859AEC)) || status() == 0) && m_aCarNodes[node]) {
+                    CVector point;
+                    reinterpret_cast<CVector*(__cdecl*)(CVector*, const CMatrix*, const CVector*)>(0x59C890)(
+                        &point, m_matrix, reinterpret_cast<const CVector*>(&m_aCarNodes[node]->modelling.pos));
+                    FxPrtMult_c mults{0.f, 0.f, 0.f, .2f, 1.f, 1.f, strength};
+                    CVector velocity;
+                    PlaneFlightParticleVelocity355(&velocity, &m_vecMoveSpeed);
+                    velocity.x = PlaneFlightVelocityNoise355(velocity.x, CGeneral::GetRandomNumber());
+                    velocity.y = PlaneFlightVelocityNoise355(velocity.y, CGeneral::GetRandomNumber());
+                    velocity.z = PlaneFlightVelocityNoise355(velocity.z, CGeneral::GetRandomNumber());
+                    (void)CGeneral::GetRandomNumber(); // EXE normalizes and discards this draw, 0x6CBFF0.
+                    point.x = PlaneFlightPositionNoise355(point.x, strength, CGeneral::GetRandomNumber());
+                    point.y = PlaneFlightPositionNoise355(point.y, strength, CGeneral::GetRandomNumber());
+                    point.z = PlaneFlightPositionNoise355(point.z, strength, CGeneral::GetRandomNumber());
+                    g_fx.m_SmokeHuge->AddParticle(point, velocity, 0.f, mults, -1.f, 1.2f, .6f, false);
+                }
+            }
+        }
+    }
+    const uint8 vehicleStatus = status();
+    if (vehicleStatus != 0 && vehicleStatus != 8 && vehicleStatus != 3) {
+        const float decrement = CTimer::GetTimeStep() * StaticRef<float>(0x858CDC);
+        if (m_fPropSpeed > decrement) {
+            if (m_fPropSpeed > StaticRef<float>(0x8D33D0)) m_fPropSpeed = PlaneFlightProductAdd355(m_fPropSpeed, CTimer::GetTimeStep(), StaticRef<float>(0x859CD8), true);
+            else m_fPropSpeed -= decrement;
+            bytes[0xB8] = 0;
+        } else { m_fPropSpeed = 0.f; bytes[0x428] &= 0xEF; }
+        return;
+    }
+    float target = PlaneFlightPropellerTarget355(m_fAccelerationBreakStatus);
+    if (vehicleStatus == 0 || vehicleStatus == 8) PlaneFlightCeiling355(this, m_nModelIndex == 464 ? 1 : 3, &target);
+    const bool drowned = (bytes[0x42B] & 0x40) != 0;
+    m_fPropSpeed = PlaneFloatFlightBlend355(m_fPropSpeed, target, CTimer::GetTimeStep(), StaticRef<float>(0x8D33D8));
+    if (drowned) { bytes[0x428] &= 0xEF; m_fPropSpeed = m_fAccelerationBreakStatus = 0.f; }
+    if (m_nModelIndex == 464) {
+        if (!drowned && (bytes[0x428] & 0x10)) FlyingControl(eFlightModel(1), skid, up, lateral, m_fAccelerationBreakStatus);
+        return;
+    }
+    if (!(bytes[0x428] & 0x10)) return;
+    if (!(m_fPropSpeed > StaticRef<float>(0x8D33CC)) && !PlaneFlightSpeedSquaredAbove355(&m_vecMoveSpeed)) return;
+    if (m_nModelIndex == 520 && status() == 0 && int32(*reinterpret_cast<uint16*>(bytes + 0x86C)) >= int32(StaticRef<int16>(0x8D33C8))) {
+        auto* old = m_pFlyingHandlingData;
+        auto* modelInfo = StaticRef<uint8*>(0xA9B76C);
+        m_pFlyingHandlingData = reinterpret_cast<tFlyingHandlingData*(__thiscall*)(void*, uint8)>(0x6F52D0)(reinterpret_cast<void*>(0xC2B9C8), modelInfo[0x4A]);
+        if (double(m_fAccelerationBreakStatus) > StaticRef<double>(0x859EF8) || (bytes[0x960] < 4 && !(*reinterpret_cast<uint32*>(bytes + 0x40) & 0x08000000)))
+            FlyingControl(eFlightModel(6), skid, up, -lateral, m_fAccelerationBreakStatus * StaticRef<float>(0x8D341C));
+        m_pFlyingHandlingData = old;
+        return;
+    }
+    FlyingControl(eFlightModel(3), skid, up, lateral, m_fAccelerationBreakStatus);
+}

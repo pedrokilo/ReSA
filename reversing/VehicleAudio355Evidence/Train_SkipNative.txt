@@ -1,0 +1,24 @@
+void CTrain::SkipToNextAllowedStation(CTrain* train) {
+    auto* engine = FindEngine(train);
+    auto railDistance = engine->m_fCurrentRailDistance;
+    int32 station;
+    do {
+        FindNextStationPositionInDirection(engine->trainFlags.bClockwiseDirection, railDistance, &railDistance, &station);
+        const auto level = float(CTheZones::GetLevelFromPosition(aStationCoors[station]));
+        if (CStats::GetStatValue(static_cast<eStats>(181)) + 1.f >= level) break;
+    } while (true);
+    engine->m_fCurrentRailDistance = railDistance;
+    if (engine->trainFlags.bClockwiseDirection) {
+        engine->m_fCurrentRailDistance = railDistance - 20.f;
+        engine->m_fTrainSpeed = .1f;
+    } else {
+        engine->m_fCurrentRailDistance = railDistance + 20.f;
+        engine->m_fTrainSpeed = -.1f;
+    }
+    CStreaming::LoadScene(aStationCoors[station]);
+    CStreaming::LoadAllRequestedModels(false);
+    const auto dx = aStationCoors[station].x - engine->GetPosition().x;
+    const auto dy = aStationCoors[station].y - engine->GetPosition().y;
+    const auto minutes = std::sqrt(dx * dx + dy * dy) * StaticRef<float>(0x858C28) + StaticRef<float>(0x858F84);
+    CGameLogic::PassTime(uint32(int64(minutes)));
+}

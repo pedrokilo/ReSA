@@ -1,0 +1,27 @@
+# FormationLookup355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Replay actual aprobado para este banco: fuentes, instrumentos, binarios archivados y hashes del EXE/DLL ejecutados comprobados. Forma parte de un cierre parcial; el lote completo no quedó validado con las fuentes finales.
+
+Funciones del alcance: `CFormation::ReturnTargetPedForPed`, `CFormation::ReturnDestinationForPed`, `CFormation::GenerateGatherDestinations`.
+
+[Resumen registrado](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-formation-lookup355/20261008-073551-127008/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+# FormationLookup355
+
+EXE/DLL paired differential bank. Canonical GTA SA EXE SHA256: `72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b`. Reconstruction evidence is under `reversing/Pending355/combo`; the fixture and comparison contract are in `LiveComparison.hpp`.
+
+- `CFormation::ReturnTargetPedForPed`: 2048 pairs.
+- `CFormation::ReturnDestinationForPed`: 2048 pairs.
+- `CFormation::GenerateGatherDestinations`: 2048 pairs.
+
+Ped and target tokens vary count, duplicate identities, missing links and untouched output sentinels. Gather uses a real matrix or placement, list counts 0–30 and six headings including large angles. Compare bool return, sixteen output bytes, normalized pointer and entire global region C1A2C0–C1A554. Each function must reach found and missing cases; restore that region and hook state.
+
+Each pair restores the same fixture before original and candidate execution and verifies dispatch switching. Equality is exact; no tolerance accepts divergent results. Scoped collaborator patches and hook states are restored after execution. These finite synthetic fixtures do not prove every asset or live-game situation.
+
+Historical run `20261008-012217-925500`: **passed**, 6144 pairs, all equal, state restored, saves unchanged and configurations restored, as recorded by `summary.json`. Evidence: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-formation-lookup355/20261008-012217-925500`. Runtime log SHA256: `37dc92573f1f80860eca729703abb214e981683065dc20e82f02546c3f1d1c7f`.
+
+Final source/hash repeat is pending the coordinator's final build and registration; the historic approval does not certify later source or dependency changes. `build_probe.py` builds the instrument and `run_local.py` executes its isolated probe; the coordinator exclusively owns compilation and game execution.

@@ -1,0 +1,80 @@
+// CTrain::TrainHitStuff<CPtrListSingleLink<CPhysical*>> @ 0x006f5cf0 [0x6f5cf0..0x6f5d71]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006f5cf0(undefined4 *param_1,int *param_2)
+
+{
+  int *piVar1;
+  int *piVar2;
+  uint uVar3;
+  
+  piVar1 = (int *)*param_1;
+  while (piVar1 != (int *)0x0) {
+    piVar2 = (int *)*piVar1;
+    piVar1 = (int *)piVar1[1];
+    if ((((piVar2 != param_2) &&
+         (piVar2[0x10] = piVar2[0x10] | 0x800, (*(byte *)((int)piVar2 + 0x36) & 7) == 4)) &&
+        (((piVar2[7] & 4U) != 0 || ((piVar2[7] & 0x40000U) != 0)))) &&
+       (((uVar3 = (uint)*(short *)((int)piVar2 + 0x22), uVar3 == DAT_008cd6c8 ||
+         (uVar3 == DAT_008cd6cc)) || (uVar3 == DAT_008cd6d0)))) {
+      (**(code **)(*piVar2 + 0x10))(0);
+      FUN_00542800();
+      *(undefined1 *)(piVar2 + 0x2e) = 0;
+    }
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F5CF0: mov eax,dword ptr [esp+4]
+006F5CF4: push edi
+006F5CF5: mov edi,dword ptr [eax]
+006F5CF7: test edi,edi
+006F5CF9: je 006F5D70
+006F5CFB: push ebp
+006F5CFC: mov ebp,dword ptr [esp+10h]
+006F5D00: push esi
+006F5D01: mov esi,dword ptr [edi]
+006F5D03: cmp esi,ebp
+006F5D05: mov edi,dword ptr [edi+4]
+006F5D08: je 006F5D6A
+006F5D0A: mov eax,dword ptr [esi+40h]
+006F5D0D: mov cl,byte ptr [esi+36h]
+006F5D10: or eax,800h
+006F5D15: and cl,7
+006F5D18: cmp cl,4
+006F5D1B: mov dword ptr [esi+40h],eax
+006F5D1E: jne 006F5D6A
+006F5D20: mov eax,dword ptr [esi+1Ch]
+006F5D23: test cl,al
+006F5D25: jne 006F5D2E
+006F5D27: test eax,40000h
+006F5D2C: je 006F5D6A
+006F5D2E: movsx eax,word ptr [esi+22h]
+006F5D32: movzx edx,word ptr ds:[008CD6C8h]
+ 00
+006F5D39: cmp eax,edx
+006F5D3B: je 006F5D53
+006F5D3D: movzx ecx,word ptr ds:[008CD6CCh]
+ 00
+006F5D44: cmp eax,ecx
+006F5D46: je 006F5D53
+006F5D48: movzx edx,word ptr ds:[008CD6D0h]
+ 00
+006F5D4F: cmp eax,edx
+006F5D51: jne 006F5D6A
+006F5D53: mov eax,dword ptr [esi]
+006F5D55: push 0
+006F5D57: mov ecx,esi
+006F5D59: call dword ptr [eax+10h]
+006F5D5C: mov ecx,esi
+006F5D5E: call 00542800
+006F5D63: mov byte ptr [esi+000000B8h],0
+ 00
+006F5D6A: test edi,edi
+006F5D6C: jne 006F5D01
+006F5D6E: pop esi
+006F5D6F: pop ebp
+006F5D70: pop edi
+006F5D71: ret

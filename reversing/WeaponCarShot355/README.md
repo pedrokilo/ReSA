@@ -1,0 +1,29 @@
+# WeaponCarShot355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Reconstrucción aplicada y aprobación histórica disponible. Falta completar el replay con todas las fuentes finales; no se acredita vigencia actual de este banco.
+
+Funciones del alcance: `CWeapon::FireInstantHitFromCar`.
+
+[Evidencia histórica](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-weapon-car-shot355/20261008-032257-018597/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+# WeaponCarShot355
+
+FireInstantHitFromCar (`0x73EC40`), 8192 pares EXE/DLL pendientes. C++ completo desde combo `../World355Evidence/CWeapon_FireInstantHitFromCar.txt`; constantes reales del ASM prevalecen sobre valores discordantes del pseudo.
+
+Cubre nonbike y bike, driver y sin driver, left/right/forward, model type5/other, seat dummy/bbox, bone Rw transform, timestep, random spread, aim y fire. Fixtures arma/vehículo/driver/matrices/model/info/bone/clump aisladas, sin disparo/eventos reales; stubs simétricos de info/HAnim/player/rand/aim/fire. FNV1a64 de todos los bytes de arma/vehículo/driver/matriz, salida y trace exacta. Model table/timestep restaurados. Pares0..8191.
+
+## Evidencia y cierre del lote 355
+
+Último informe real: `20261008-032257-018597`; aprobado, 8192 pares. Evidencia: [summary.json](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-weapon-car-shot355/20261008-032257-018597/summary.json>).
+
+Última aprobación histórica: `20261008-032257-018597`; aprobado, 8192 pares. Evidencia: [summary.json](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-weapon-car-shot355/20261008-032257-018597/summary.json>).
+
+Repetición final de las fuentes actuales pendiente. Los informes anteriores acreditan únicamente la sonda y los fixtures de aquella ejecución; este README no certifica coincidencia con las fuentes o instrumentos actuales. El cierre requiere el replay y los hashes estrictos coordinados por la raíz.
+
+La equivalencia se limita a los fixtures documentados. Los colaboradores aislados simétricamente no acreditan su implementación ni una campaña integral de juego. Se conservan las limitaciones particulares descritas arriba y las desviaciones documentadas en `Pending355/resolutions.json`. Este README no autoriza activar hooks.
+
+Evidencia de las funciones objetivo del banco: [CWeapon_FireInstantHitFromCar.txt](../World355Evidence/CWeapon_FireInstantHitFromCar.txt). Cada archivo conserva el pseudocódigo disponible y el ensamblador; sus avisos y limitaciones siguen vigentes. Los colaboradores sustituidos no quedan acreditados por estos enlaces.

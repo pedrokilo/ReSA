@@ -1,0 +1,387 @@
+// CTrain::FindPositionOnTrackFromCoors @ 0x006f6cc0 [0x6f6cc0..0x6f7084]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006f6cc0(void)
+
+{
+  int iVar1;
+  int iVar2;
+  float fVar3;
+  float fVar4;
+  float fVar5;
+  float fVar6;
+  float fVar7;
+  float fVar8;
+  float fVar9;
+  byte bVar10;
+  float *pfVar11;
+  int in_ECX;
+  int iVar12;
+  int iVar13;
+  int local_4c;
+  
+  if ((int)(&DAT_00c38014)[*(byte *)(in_ECX + 0x5c0)] < 1) {
+    return;
+  }
+  local_4c = 0;
+  iVar12 = 0;
+  do {
+    iVar1 = iVar12 + 1;
+    iVar2 = (&DAT_00c38024)[*(byte *)(in_ECX + 0x5c0)];
+    fVar3 = (float)(int)*(short *)(local_4c + iVar2) * 0.125;
+    fVar4 = (float)(int)*(short *)(local_4c + iVar2 + 2) * 0.125;
+    iVar13 = (iVar1 % (int)(&DAT_00c38014)[*(byte *)(in_ECX + 0x5c0)]) * 10;
+    fVar5 = (float)(int)*(short *)(iVar13 + iVar2) * 0.125;
+    fVar6 = (float)(int)*(short *)(iVar13 + 2 + iVar2) * 0.125;
+    if (*(int *)(in_ECX + 0x14) == 0) {
+      pfVar11 = (float *)(in_ECX + 4);
+    }
+    else {
+      pfVar11 = (float *)(*(int *)(in_ECX + 0x14) + 0x30);
+    }
+    fVar7 = SQRT((fVar3 - fVar5) * (fVar3 - fVar5) + (fVar4 - fVar6) * (fVar4 - fVar6));
+    fVar7 = ((*pfVar11 - fVar3) * (fVar5 - fVar3) + (pfVar11[1] - fVar4) * (fVar6 - fVar4)) /
+            (fVar7 * fVar7);
+    if ((0.001 < fVar7) && (fVar7 < 1.001)) {
+      fVar8 = ((fVar5 - fVar3) * fVar7 + fVar3) - *pfVar11;
+      fVar9 = ((fVar6 - fVar4) * fVar7 + fVar4) - pfVar11[1];
+      if (SQRT(fVar8 * fVar8 + fVar9 * fVar9 + fVar7 * 0.0 * fVar7 * 0.0) < 3.0) {
+        fVar8 = (float)*(ushort *)((&DAT_00c38024)[*(byte *)(in_ECX + 0x5c0)] + 6 + iVar12 * 10) *
+                0.33333334;
+        fVar8 = ((float)*(ushort *)
+                         ((&DAT_00c38024)[*(byte *)(in_ECX + 0x5c0)] + 6 +
+                         (iVar1 % (int)(&DAT_00c38014)[*(byte *)(in_ECX + 0x5c0)]) * 10) *
+                 0.33333334 - fVar8) * fVar7 + fVar8;
+        *(float *)(in_ECX + 0x5a8) = fVar8;
+        fVar8 = fVar8 - (*(float *)(*(int *)((&DAT_00a9b0c8)[*(short *)(in_ECX + 0x22)] + 0x14) +
+                                   0x10) -
+                        *(float *)(*(int *)((&DAT_00a9b0c8)[*(short *)(in_ECX + 0x22)] + 0x14) + 4))
+                        * 0.5;
+        *(float *)(in_ECX + 0x5a8) = fVar8;
+        if (fVar8 < 0.0) {
+          *(float *)(in_ECX + 0x5a8) =
+               fVar8 + *(float *)(&DAT_00c37fec + (uint)*(byte *)(in_ECX + 0x5c0) * 4);
+        }
+        fVar7 = SQRT(*(float *)(in_ECX + 0x44) * *(float *)(in_ECX + 0x44) +
+                     *(float *)(in_ECX + 0x48) * *(float *)(in_ECX + 0x48) +
+                     *(float *)(in_ECX + 0x4c) * *(float *)(in_ECX + 0x4c));
+        *(float *)(in_ECX + 0x5a4) = fVar7;
+        if ((bool)(*(byte *)(in_ECX + 0x5b8) >> 6 & 1) !=
+            0.0 < (fVar5 - fVar3) * *(float *)(in_ECX + 0x44) +
+                  *(float *)(in_ECX + 0x4c) * 0.0 + (fVar6 - fVar4) * *(float *)(in_ECX + 0x48)) {
+          return;
+        }
+        *(float *)(in_ECX + 0x5a4) = -fVar7;
+        return;
+      }
+      bVar10 = FUN_006f5f80();
+      fVar3 = (float)(bVar10 >> 4) * 0.033333335 * DAT_008d12c0 +
+              (1.0 - DAT_008d12c0) * (float)(bVar10 & 0xf) * 0.033333335;
+      bVar10 = FUN_006f5f80();
+      *(float *)(in_ECX + 300) =
+           (((float)(bVar10 >> 4) * 0.033333335 * DAT_008d12c0 +
+            (1.0 - DAT_008d12c0) * (float)(bVar10 & 0xf) * 0.033333335) - fVar3) * fVar7 + fVar3;
+    }
+    local_4c = local_4c + 10;
+    iVar12 = iVar1;
+    if ((int)(&DAT_00c38014)[*(byte *)(in_ECX + 0x5c0)] <= iVar1) {
+      return;
+    }
+  } while( true );
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006F6CC0: sub esp,50h
+006F6CC3: push ebx
+006F6CC4: push esi
+006F6CC5: mov esi,ecx
+006F6CC7: movzx eax,byte ptr [esi+000005C0h]
+ 00
+006F6CCE: mov ecx,dword ptr [eax*4+00C38014h]
+ 00
+006F6CD5: xor ebx,ebx
+006F6CD7: cmp ecx,ebx
+006F6CD9: jle 006F707F
+006F6CDF: push ebp
+006F6CE0: mov dword ptr [esp+10h],ebx
+006F6CE4: push edi
+006F6CE5: jmp 006F6CF0
+006F6CE7: lea esp,[esp+00000000h]
+ 00
+006F6CEE: mov edi,edi
+006F6CF0: movzx ecx,byte ptr [esi+000005C0h]
+ 00
+006F6CF7: lea eax,[ebx+1]
+006F6CFA: mov dword ptr [esp+20h],eax
+006F6CFE: shl ecx,2
+006F6D01: cdq
+006F6D02: idiv eax,dword ptr [ecx+00C38014h]
+006F6D08: mov eax,dword ptr [ecx+00C38024h]
+006F6D0E: mov ecx,dword ptr [esp+14h]
+006F6D12: movsx edi,word ptr [ecx+eax]
+006F6D16: add ecx,eax
+006F6D18: mov dword ptr [esp+18h],edi
+006F6D1C: movsx edi,word ptr [ecx+2]
+006F6D20: fild dword ptr [esp+18h]
+006F6D24: mov dword ptr [esp+18h],edi
+006F6D28: fmul dword ptr ds:[00858C48h]
+006F6D2E: fstp dword ptr [esp+24h]
+006F6D32: fild dword ptr [esp+18h]
+006F6D36: fmul dword ptr ds:[00858C48h]
+006F6D3C: fstp dword ptr [esp+28h]
+006F6D40: lea edi,[edx+edx*4]
+006F6D43: shl edi,1
+006F6D45: movsx ebp,word ptr [edi+eax]
+006F6D49: movsx eax,word ptr [edi+eax+2]
+006F6D4E: mov dword ptr [esp+18h],ebp
+006F6D52: fild dword ptr [esp+18h]
+006F6D56: mov dword ptr [esp+18h],eax
+006F6D5A: mov eax,dword ptr [esi+14h]
+006F6D5D: test eax,eax
+006F6D5F: fmul dword ptr ds:[00858C48h]
+006F6D65: fstp dword ptr [esp+30h]
+006F6D69: fild dword ptr [esp+18h]
+006F6D6D: fmul dword ptr ds:[00858C48h]
+006F6D73: fstp dword ptr [esp+34h]
+006F6D77: je 006F6D7E
+006F6D79: add eax,30h
+006F6D7C: jmp 006F6D81
+006F6D7E: lea eax,[esi+4]
+006F6D81: fld dword ptr [esp+24h]
+006F6D85: mov ebp,dword ptr [eax]
+006F6D87: fsub dword ptr [esp+30h]
+006F6D8B: mov dword ptr [esp+3Ch],ebp
+006F6D8F: fld dword ptr [esp+28h]
+006F6D93: mov ebp,dword ptr [eax+4]
+006F6D96: fsub dword ptr [esp+34h]
+006F6D9A: mov dword ptr [esp+40h],ebp
+006F6D9E: fld st(0)
+006F6DA0: mov eax,dword ptr [eax+8]
+006F6DA3: fmul st,st(1)
+006F6DA5: mov dword ptr [esp+44h],eax
+006F6DA9: fld st(2)
+006F6DAB: fmul st,st(3)
+006F6DAD: faddp st(1),st
+006F6DAF: fsqrt
+006F6DB1: fstp st(2)
+006F6DB3: fstp st(0)
+006F6DB5: fld dword ptr [esp+30h]
+006F6DB9: fsub dword ptr [esp+24h]
+006F6DBD: fst dword ptr [esp+18h]
+006F6DC1: fld dword ptr [esp+34h]
+006F6DC5: fsub dword ptr [esp+28h]
+006F6DC9: fst dword ptr [esp+1Ch]
+006F6DCD: fld dword ptr [esp+3Ch]
+006F6DD1: fsub dword ptr [esp+24h]
+006F6DD5: fld dword ptr [esp+40h]
+006F6DD9: fsub dword ptr [esp+28h]
+006F6DDD: fmul st,st(2)
+006F6DDF: fxch st(1)
+006F6DE1: fmul st,st(3)
+006F6DE3: faddp st(1),st
+006F6DE5: fld st(3)
+006F6DE7: fmul st,st(4)
+006F6DE9: fdivp st(1),st
+006F6DEB: fstp dword ptr [esp+10h]
+006F6DEF: fstp st(0)
+006F6DF1: fstp st(0)
+006F6DF3: fstp st(0)
+006F6DF5: fld dword ptr [esp+10h]
+006F6DF9: fcomp dword ptr ds:[00858CDCh]
+006F6DFF: fnstsw ax
+006F6E01: test ah,41h
+006F6E04: jne 006F6F40
+006F6E0A: fld dword ptr [esp+10h]
+006F6E0E: fcomp dword ptr ds:[00872490h]
+006F6E14: fnstsw ax
+006F6E16: test ah,5
+006F6E19: jp 006F6F40
+006F6E1F: fld dword ptr [esp+1Ch]
+006F6E23: fld dword ptr [esp+18h]
+006F6E27: fmul dword ptr [esp+10h]
+006F6E2B: fstp dword ptr [esp+54h]
+006F6E2F: fmul dword ptr [esp+10h]
+006F6E33: fld dword ptr [esp+10h]
+006F6E37: fmul dword ptr ds:[00858B50h]
+006F6E3D: fld dword ptr [esp+54h]
+006F6E41: fadd dword ptr [esp+24h]
+006F6E45: fstp dword ptr [esp+48h]
+006F6E49: fxch st(1)
+006F6E4B: fadd dword ptr [esp+28h]
+006F6E4F: fstp dword ptr [esp+4Ch]
+006F6E53: fld dword ptr [esp+48h]
+006F6E57: fsub dword ptr [esp+3Ch]
+006F6E5B: fld dword ptr [esp+4Ch]
+006F6E5F: fsub dword ptr [esp+40h]
+006F6E63: fxch st(2)
+006F6E65: fld st(0)
+006F6E67: fmul st,st(1)
+006F6E69: fld st(3)
+006F6E6B: fmul st,st(4)
+006F6E6D: faddp st(1),st
+006F6E6F: fld st(2)
+006F6E71: fmul st,st(3)
+006F6E73: faddp st(1),st
+006F6E75: fsqrt
+006F6E77: fxch st(3)
+006F6E79: fstp st(1)
+006F6E7B: fstp st(0)
+006F6E7D: fstp st(0)
+006F6E7F: fcomp dword ptr ds:[00858B3Ch]
+006F6E85: fnstsw ax
+006F6E87: test ah,5
+006F6E8A: jnp 006F6F6D
+006F6E90: call 006F5F80
+006F6E95: fld dword ptr ds:[008D12C0h]
+006F6E9B: mov cl,al
+006F6E9D: and cl,0Fh
+006F6EA0: movzx edx,cl
+006F6EA3: movzx ecx,byte ptr [esi+000005C0h]
+ 00
+006F6EAA: mov dword ptr [esp+1Ch],edx
+006F6EAE: mov ecx,dword ptr [ecx*4+00C38024h]
+ 00
+006F6EB5: shr al,4
+006F6EB8: fild dword ptr [esp+1Ch]
+006F6EBC: movzx eax,al
+006F6EBF: fmul dword ptr ds:[00858F10h]
+006F6EC5: mov dword ptr [esp+1Ch],eax
+006F6EC9: fld dword ptr ds:[00858624h]
+006F6ECF: fsub st,st(2)
+006F6ED1: add ecx,edi
+006F6ED3: fmulp st(1),st
+006F6ED5: fild dword ptr [esp+1Ch]
+006F6ED9: fmul dword ptr ds:[00858F10h]
+006F6EDF: fmul st,st(2)
+006F6EE1: faddp st(1),st
+006F6EE3: fstp dword ptr [esp+18h]
+006F6EE7: fstp st(0)
+006F6EE9: call 006F5F80
+006F6EEE: fld dword ptr ds:[008D12C0h]
+006F6EF4: mov dl,al
+006F6EF6: and dl,0Fh
+006F6EF9: movzx ecx,dl
+006F6EFC: mov dword ptr [esp+1Ch],ecx
+006F6F00: shr al,4
+006F6F03: movzx edx,al
+006F6F06: fild dword ptr [esp+1Ch]
+006F6F0A: mov dword ptr [esp+1Ch],edx
+006F6F0E: fmul dword ptr ds:[00858F10h]
+006F6F14: fld dword ptr ds:[00858624h]
+006F6F1A: fsub st,st(2)
+006F6F1C: fmulp st(1),st
+006F6F1E: fild dword ptr [esp+1Ch]
+006F6F22: fmul dword ptr ds:[00858F10h]
+006F6F28: fmul st,st(2)
+006F6F2A: faddp st(1),st
+006F6F2C: fsub dword ptr [esp+18h]
+006F6F30: fmul dword ptr [esp+10h]
+006F6F34: fadd dword ptr [esp+18h]
+006F6F38: fstp dword ptr [esi+0000012Ch]
+006F6F3E: fstp st(0)
+006F6F40: movzx eax,byte ptr [esi+000005C0h]
+ 00
+006F6F47: mov edx,dword ptr [esp+14h]
+006F6F4B: mov ebx,dword ptr [esp+20h]
+006F6F4F: mov ecx,dword ptr [eax*4+00C38014h]
+ 00
+006F6F56: add edx,0Ah
+006F6F59: cmp ebx,ecx
+006F6F5B: mov dword ptr [esp+14h],edx
+006F6F5F: jl 006F6CF0
+006F6F65: pop edi
+006F6F66: pop ebp
+006F6F67: pop esi
+006F6F68: pop ebx
+006F6F69: add esp,50h
+006F6F6C: ret
+006F6F6D: movzx ecx,byte ptr [esi+000005C0h]
+ 00
+006F6F74: shl ecx,2
+006F6F77: mov eax,dword ptr [ecx+00C38024h]
+006F6F7D: lea edi,[ebx+ebx*4]
+006F6F80: movzx edi,word ptr [eax+edi*2+6]
+006F6F85: lea edx,[edx+edx*4]
+006F6F88: movzx eax,word ptr [eax+edx*2+6]
+006F6F8D: movsx edx,word ptr [esi+22h]
+006F6F91: mov dword ptr [esp+20h],edi
+006F6F95: fild dword ptr [esp+20h]
+006F6F99: mov dword ptr [esp+20h],eax
+006F6F9D: fmul dword ptr ds:[00859040h]
+006F6FA3: fild dword ptr [esp+20h]
+006F6FA7: fmul dword ptr ds:[00859040h]
+006F6FAD: fsub st,st(1)
+006F6FAF: fmul dword ptr [esp+10h]
+006F6FB3: faddp st(1),st
+006F6FB5: fst dword ptr [esi+000005A8h]
+006F6FBB: mov eax,dword ptr [edx*4+00A9B0C8h]
+ 00
+006F6FC2: mov eax,dword ptr [eax+14h]
+006F6FC5: fld dword ptr [eax+10h]
+006F6FC8: fsub dword ptr [eax+4]
+006F6FCB: fmul dword ptr ds:[00858B8Ch]
+006F6FD1: fsubp st(1),st
+006F6FD3: fcom dword ptr ds:[00858B50h]
+006F6FD9: fst dword ptr [esi+000005A8h]
+006F6FDF: fnstsw ax
+006F6FE1: test ah,5
+006F6FE4: jp 006F6FF4
+006F6FE6: fadd dword ptr [ecx+00C37FECh]
+006F6FEC: fstp dword ptr [esi+000005A8h]
+006F6FF2: jmp 006F6FF6
+006F6FF4: fstp st(0)
+006F6FF6: fld dword ptr [esi+4Ch]
+006F6FF9: mov ecx,dword ptr [esi+44h]
+006F6FFC: fld st(0)
+006F6FFE: mov dword ptr [esp+18h],ecx
+006F7002: fmul st,st(1)
+006F7004: fld dword ptr [esi+48h]
+006F7007: fstp st(2)
+006F7009: fld st(1)
+006F700B: fmul st,st(2)
+006F700D: faddp st(1),st
+006F700F: fld dword ptr [esp+18h]
+006F7013: fmul dword ptr [esp+18h]
+006F7017: faddp st(1),st
+006F7019: fsqrt
+006F701B: fstp st(1)
+006F701D: fst dword ptr [esi+000005A4h]
+006F7023: fld dword ptr [esp+30h]
+006F7027: fsub dword ptr [esp+24h]
+006F702B: fld dword ptr [esp+34h]
+006F702F: fsub dword ptr [esp+28h]
+006F7033: fmul dword ptr [esi+48h]
+006F7036: fld dword ptr [esi+4Ch]
+006F7039: fmul dword ptr ds:[00858B50h]
+006F703F: faddp st(1),st
+006F7041: fxch st(1)
+006F7043: fmul dword ptr [esi+44h]
+006F7046: faddp st(1),st
+006F7048: fcomp dword ptr ds:[00858B50h]
+006F704E: fnstsw ax
+006F7050: test ah,41h
+006F7053: jne 006F7059
+006F7055: mov al,1
+006F7057: jmp 006F705B
+006F7059: xor al,al
+006F705B: mov dl,byte ptr [esi+000005B8h]
+006F7061: shr dl,6
+006F7064: and dl,1
+006F7067: xor dl,al
+006F7069: jne 006F707B
+006F706B: pop edi
+006F706C: fchs
+006F706E: pop ebp
+006F706F: fstp dword ptr [esi+000005A4h]
+006F7075: pop esi
+006F7076: pop ebx
+006F7077: add esp,50h
+006F707A: ret
+006F707B: pop edi
+006F707C: fstp st(0)
+006F707E: pop ebp
+006F707F: pop esi
+006F7080: pop ebx
+006F7081: add esp,50h
+006F7084: ret

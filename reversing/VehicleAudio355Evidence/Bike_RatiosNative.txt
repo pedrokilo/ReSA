@@ -1,0 +1,53 @@
+void CBike::DoBurstAndSoftGroundRatios() {
+    const auto* model = GetVehicleModelInfo();
+    const auto& forward = GetForward();
+    const auto speed = std::fabs((m_vecMoveSpeed.z * forward.z + m_vecMoveSpeed.y * forward.y) + m_vecMoveSpeed.x * forward.x);
+    std::array<bool,4> applySoft{true,true,true,true};
+    for (size_t wheel = 0; wheel < 2; ++wheel) {
+        const auto first = wheel * 2;
+        const auto second = first + 1;
+        if (m_nWheelStatus[wheel] == 2) {
+            m_aWheelRatios[first] = 1.f;
+            m_aWheelRatios[second] = 1.f;
+            applySoft[first] = applySoft[second] = false;
+        } else if (m_nWheelStatus[wheel] == 1) {
+            const auto random = float(CGeneral::GetRandomNumber() & 0xFFFF) * StaticRef<float>(0x858B14);
+            const auto speedInteger = uint16(int64(speed * StaticRef<float>(0x858A10)));
+            if (int64(random * float(uint32(speedInteger) + 98u)) < 100) {
+                const auto amount = (m_fLineLength[first] - m_fSuspensionLength[first]) / m_fLineLength[first] * StaticRef<float>(0x871310);
+                const auto left = m_aWheelRatios[first] + amount;
+                const auto right = m_aWheelRatios[second] + amount;
+                m_aWheelRatios[first] = left < 1.f ? left : 1.f;
+                m_aWheelRatios[second] = right < 1.f ? right : 1.f;
+            }
+            applySoft[first] = applySoft[second] = false;
+        } else if ((m_aWheelRatios[first] < 1.f && m_aWheelColPoints[first].m_nSurfaceTypeB == static_cast<eSurfaceType>(178)) || (m_aWheelRatios[second] < 1.f && m_aWheelColPoints[second].m_nSurfaceTypeB == static_cast<eSurfaceType>(178))) {
+            auto cycle = StaticRef<float>(0x871328) / ((wheel == 0 ? model->m_fWheelSizeFront : model->m_fWheelSizeRear) * StaticRef<float>(0x858B8C));
+            if (speed > StaticRef<float>(0x87132C)) cycle *= speed / StaticRef<float>(0x87132C);
+            const auto inverse = 1.f / cycle;
+            const auto previous = inverse * m_aWheelPitchAngles[wheel];
+            const auto previousPhase = previous - float(std::floor(double(previous)));
+            const auto next = (CTimer::GetTimeStep() * m_aWheelAngularVelocity[wheel] + m_aWheelPitchAngles[wheel]) * inverse;
+            const auto nextPhase = next - float(std::floor(double(next)));
+            if ((m_aWheelAngularVelocity[wheel] > 0.f && nextPhase < previousPhase) || (m_aWheelAngularVelocity[wheel] < 0.f && nextPhase > previousPhase)) {
+                const auto amount = (m_fLineLength[first] - m_fSuspensionLength[first]) / m_fLineLength[first] * StaticRef<float>(0x871324);
+                const auto left = m_aWheelRatios[first] - amount;
+                const auto right = m_aWheelRatios[second] - amount;
+                m_aWheelRatios[first] = left > StaticRef<float>(0x858CC4) ? left : StaticRef<float>(0x858CC4);
+                m_aWheelRatios[second] = right > StaticRef<float>(0x858CC4) ? right : StaticRef<float>(0x858CC4);
+            }
+            applySoft[first] = applySoft[second] = false;
+        }
+    }
+    for (size_t i = 0; i < 4; ++i) {
+        if (!applySoft[i] || !(m_aWheelRatios[i] < 1.f) || g_surfaceInfos.GetAdhesionGroup(m_aWheelColPoints[i].m_nSurfaceTypeB) != ADHESION_GROUP_SAND || m_nModelIndex == 432) continue;
+        const auto flags = uint32(m_nHandlingFlagsIntValue);
+        const auto multiplier = flags & 0x200000u ? StaticRef<float>(0x87131C) : flags & 0x100000u ? StaticRef<float>(0x871318) : StaticRef<float>(0x871314);
+        auto factor = (1.f - speed / StaticRef<float>(0x871320) * StaticRef<float>(0x858CB0)) - StaticRef<float>(0xC81308) * StaticRef<float>(0x858CB0);
+        if (StaticRef<float>(0x858EE8) > factor) factor = StaticRef<float>(0x858EE8);
+        const auto amount = (m_fLineLength[i] - m_fSuspensionLength[i]) / m_fLineLength[i] * factor * multiplier;
+        const auto ratio = amount + m_aWheelRatios[i];
+        m_aWheelRatios[i] = ratio;
+        if (ratio > 1.f) m_aWheelRatios[i] = 1.f;
+    }
+}

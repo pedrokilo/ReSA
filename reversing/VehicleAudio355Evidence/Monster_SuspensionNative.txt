@@ -1,0 +1,50 @@
+void CMonsterTruck::ProcessSuspension() {
+    std::array<CVector, 4> directions;
+    std::array<CVector, 4> points;
+    std::array<CVector, 4> speeds;
+    std::array<float, 4> dampingLimits;
+    const auto& up = GetUp();
+    for (size_t i = 0; i < 4; ++i) {
+        directions[i] = CVector{up.x * -1.f, up.y * -1.f, up.z * -1.f};
+        points[i] = m_fWheelsSuspensionCompression[i] < 1.f ? m_wheelColPoint[i].m_vecPoint - GetPosition() : CVector{};
+    }
+    for (size_t i = 0; i < 4; ++i) {
+        if (m_fWheelsSuspensionCompression[i] < 1.f) {
+            const auto bias = i == 1 || i == 3 ? 1.f - m_pHandlingData->m_fSuspensionBiasBetweenFrontAndRear : m_pHandlingData->m_fSuspensionBiasBetweenFrontAndRear;
+            ApplySpringCollisionAlt(m_pHandlingData->m_fSuspensionForceLevel, directions[i], points[i], m_fWheelsSuspensionCompression[i], bias, m_wheelColPoint[i].m_vecNormal, dampingLimits[i]);
+        }
+    }
+    for (size_t i = 0; i < 4; ++i) {
+        speeds[i] = GetSpeed(points[i]);
+        if (m_apWheelCollisionEntity[i]) {
+            speeds[i] -= m_apWheelCollisionEntity[i]->GetSpeed(m_vWheelCollisionPos[i]);
+        }
+        if (m_fWheelsSuspensionCompression[i] < StaticRef<float>(0x8717D4) && m_wheelColPoint[i].m_vecNormal.z > StaticRef<float>(0x858F9C)) {
+            directions[i] = -m_wheelColPoint[i].m_vecNormal;
+        }
+    }
+    for (size_t i = 0; i < 4; ++i) {
+        if (m_fWheelsSuspensionCompression[i] < 1.f) {
+            ApplySpringDampening(m_pHandlingData->m_fSuspensionDampingLevel, dampingLimits[i], directions[i], points[i], speeds[i]);
+        }
+    }
+    for (size_t i = 0; i < 4; ++i) {
+        auto* collision = m_apWheelCollisionEntity[i];
+        auto& colPoint = m_wheelColPoint[i];
+        if (m_fWheelsSuspensionCompression[i] < 1.f && collision && collision->GetType() == ENTITY_TYPE_VEHICLE) {
+            if (m_fWheelsSuspensionCompression[i] < .5f) {
+                static_cast<CVehicle*>(collision)->VehicleDamage((1.f - m_fWheelsSuspensionCompression[i]) * m_fMass * StaticRef<float>(0x8D33B8), static_cast<eVehicleCollisionComponent>(colPoint.m_nPieceTypeB), this, &colPoint.m_vecPoint, &colPoint.m_vecNormal, static_cast<eWeaponType>(49));
+            }
+            if (colPoint.m_vecNormal.z > .5f) {
+                const auto point = colPoint.m_vecPoint - collision->GetPosition();
+                const auto ratio = 1.f - m_fWheelsSuspensionCompression[i];
+                CVector force{colPoint.m_vecNormal.x * .25f, colPoint.m_vecNormal.y * .25f, colPoint.m_vecNormal.z};
+                force.x = ((force.x * StaticRef<float>(0x8D33B4)) * ratio) * collision->m_fMass;
+                force.y = ((force.y * StaticRef<float>(0x8D33B4)) * ratio) * collision->m_fMass;
+                force.z = ((force.z * StaticRef<float>(0x8D33B4)) * ratio) * collision->m_fMass;
+                collision->ApplyForce(force, point, true);
+            }
+        }
+        m_apWheelCollisionEntity[i] = nullptr;
+    }
+}

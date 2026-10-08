@@ -1,0 +1,94 @@
+// CGenericGameStorage::DoGameSpecificStuffAfterSucessLoad @ 0x00618e90 [0x618e90..0x618f43]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00618e90(void)
+
+{
+  undefined4 *puVar1;
+  
+  FUN_006a01a0(0);
+  FUN_00411e30();
+  if (DAT_00b6f03c == 0) {
+    puVar1 = &DAT_00b6f02c;
+  }
+  else {
+    puVar1 = (undefined4 *)(DAT_00b6f03c + 0x30);
+  }
+  FUN_0040ed80(puVar1);
+  if (DAT_00b6f03c == 0) {
+    puVar1 = &DAT_00b6f02c;
+  }
+  else {
+    puVar1 = (undefined4 *)(DAT_00b6f03c + 0x30);
+  }
+  FUN_0040eb70(puVar1);
+  FUN_0040ea10(0);
+  FUN_0053c500(1,0);
+  DAT_00c16edc = 1;
+  DAT_00c16edd = 1;
+  FUN_0050ac20(0,0);
+  FUN_0046a000();
+  FUN_0049cde0();
+  FUN_005a82c0(DAT_00b7cd98,0);
+  FUN_00610bf0();
+  FUN_0040b3a0();
+  FUN_00443ff0();
+  DAT_0096ab91 = 0;
+  FUN_00572440(DAT_0096ab90);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00618E90: push 0
+00618E92: mov ecx,0C1B340h
+00618E97: call 006A01A0
+00618E9C: call 00411E30
+00618EA1: mov eax,dword ptr ds:[00B6F03Ch]
+00618EA6: test eax,eax
+00618EA8: je 00618EAF
+00618EAA: add eax,30h
+00618EAD: jmp 00618EB4
+00618EAF: mov eax,0B6F02Ch
+00618EB4: push eax
+00618EB5: call 0040ED80
+00618EBA: mov eax,dword ptr ds:[00B6F03Ch]
+00618EBF: add esp,4
+00618EC2: test eax,eax
+00618EC4: je 00618ECB
+00618EC6: add eax,30h
+00618EC9: jmp 00618ED0
+00618ECB: mov eax,0B6F02Ch
+00618ED0: push eax
+00618ED1: call 0040EB70
+00618ED6: push 0
+00618ED8: call 0040EA10
+00618EDD: push 0
+00618EDF: push 1
+00618EE1: call 0053C500
+00618EE6: add esp,10h
+00618EE9: push 0
+00618EEB: push 0
+00618EED: mov ecx,0B6F028h
+00618EF2: mov byte ptr ds:[00C16EDCh],1
+ 01
+00618EF9: mov byte ptr ds:[00C16EDDh],1
+ 01
+00618F00: call 0050AC20
+00618F05: call 0046A000
+00618F0A: call 0049CDE0
+00618F0F: mov eax,dword ptr ds:[00B7CD98h]
+00618F14: push 0
+00618F16: push eax
+00618F17: call 005A82C0
+00618F1C: call 00610BF0
+00618F21: call 0040B3A0
+00618F26: call 00443FF0
+00618F2B: xor ecx,ecx
+00618F2D: mov cl,byte ptr ds:[0096AB90h]
+00618F33: mov byte ptr ds:[0096AB91h],0
+ 00
+00618F3A: push ecx
+00618F3B: call 00572440
+00618F40: add esp,0Ch
+00618F43: ret

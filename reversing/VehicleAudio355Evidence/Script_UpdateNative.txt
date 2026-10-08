@@ -1,0 +1,77 @@
+void CAEScriptAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
+    if (!sound) return;
+    CVector sentinel{-1000.f, -1000.f, -1000.f};
+    for (auto& link : wavLinks) {
+        if (link.m_Sound == sound) {
+            if (curPlayPos == -1) {
+                link.m_Sound = nullptr;
+                return;
+            }
+            if (link.m_pEntity) sound->SetPosition(link.m_pEntity->GetPosition());
+            continue;
+        }
+        const auto now = CTimer::GetTimeInMS();
+        switch (sound->m_Event) {
+        case 104:
+            if (now > m_nLastTimeHornPlayed + 300u) {
+                sound->StopSoundAndForget();
+                m_nLastTimeHornPlayed = 0;
+                PlayResidentSoundEvent(static_cast<eSoundBankSlot>(40), static_cast<eSoundBank>(44), static_cast<eSoundID>(2), static_cast<eAudioEvents>(1021), sound->m_CurrPos, reinterpret_cast<CPhysical*>(sound->m_AudioEntity), -12.f, 1.f, 0, 2.5f);
+            } else {
+                sound->m_Volume = m_Volume;
+                sound->m_Speed = m_Speed;
+            }
+            break;
+        case 1086:
+            if (now > m_nLastTimeHornPlayed + 4500u) {
+                if (sound->m_Volume > StaticRef<float>(0x85A708)) sound->m_Volume -= StaticRef<float>(0x858B1C);
+                else {
+                    sound->StopSoundAndForget();
+                    m_nLastTimeHornPlayed = 0;
+                }
+                if (sound->m_Speed > 0.f) {
+                    auto speed = sound->m_Speed - StaticRef<float>(0x858CDC);
+                    if (0.f > speed) speed = 0.f;
+                    sound->m_Speed = speed;
+                }
+            }
+            if (now > m_nLastTimeHornPlayed + 4800u && !field_7C) {
+                const auto sfx = int16(CAEAudioUtility::GetRandomNumberInRange<int32>(1, 3));
+                PlayMissionBankSound(static_cast<eAudioEvents>(1160), sentinel, nullptr, sfx, 3, 0, 0.f, 2.f, 1.f);
+                field_7C = 1;
+            }
+            break;
+        case 1113:
+        case 1118: {
+            auto volume = GetDefaultVolume(static_cast<eAudioEvents>(sound->m_Event));
+            if (std::bit_cast<uint32>(field_8C) == 0x3F800000u) {
+                if (sound->m_Volume < volume) {
+                    const auto increased = sound->m_Volume + StaticRef<float>(0x858B1C);
+                    sound->m_Volume = increased < volume ? increased : volume;
+                }
+            } else if (std::bit_cast<uint32>(field_8C) == 0x40000000u) {
+                volume -= StaticRef<float>(0x859008);
+                if (sound->m_Volume > volume) {
+                    const auto reduced = sound->m_Volume - StaticRef<float>(0x858B1C);
+                    sound->m_Volume = reduced > volume ? reduced : volume;
+                } else sound->StopSoundAndForget();
+            }
+            break;
+        }
+        case 1042:
+        case 1167:
+        case 1177:
+            if (now > m_nLastTimeHornPlayed + 300u) {
+                sound->StopSoundAndForget();
+                m_nLastTimeHornPlayed = 0;
+            }
+            break;
+        case 1147:
+            if (now > m_nLastTimeHornPlayed + 500u) {
+                sound->StopSoundAndForget();
+                m_nLastTimeHornPlayed = 0;
+            }
+            break;
+        }
+    }
+}

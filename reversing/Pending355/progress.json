@@ -1,0 +1,1253 @@
+{
+  "scope": 355,
+  "prepared": 354,
+  "approved_historical": 352,
+  "approved_source_matches": 0,
+  "missing": [
+    [
+      "CPedDamageResponseCalculator",
+      "IsBleedingWeapon"
+    ]
+  ],
+  "banks": [
+    {
+      "bank": "BikeAI355",
+      "prefix": "bike-ai355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-ai355\\20261008-015031-936853"
+    },
+    {
+      "bank": "BikeBlow355",
+      "prefix": "bike-blow355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-blow355\\20261008-044447-425925"
+    },
+    {
+      "bank": "BikeBurst355",
+      "prefix": "bike-burst355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-burst355\\20261008-052103-559174"
+    },
+    {
+      "bank": "BikeControl355",
+      "prefix": "bike-control355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-control355\\20261008-023146-075310"
+    },
+    {
+      "bank": "BikeCore355",
+      "prefix": "bike-core355",
+      "functions": 5,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-core355\\20261008-052129-104573"
+    },
+    {
+      "bank": "BikeDamage355",
+      "prefix": "bike-damage355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-damage355\\20261008-044551-700442"
+    },
+    {
+      "bank": "BikeHands355",
+      "prefix": "bike-hands355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-hands355\\20261008-052152-318305"
+    },
+    {
+      "bank": "BikeInputs355",
+      "prefix": "bike-inputs355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-inputs355\\20261008-044630-961682"
+    },
+    {
+      "bank": "BikePreRender355",
+      "prefix": "bike-pre-render355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-pre-render355\\20261008-054038-044813"
+    },
+    {
+      "bank": "BikeRatios355",
+      "prefix": "bike-ratios355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-ratios355\\20261008-044651-461814"
+    },
+    {
+      "bank": "BikeRider355",
+      "prefix": "bike-rider355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-rider355\\20261008-024627-912355"
+    },
+    {
+      "bank": "BikeRoad355",
+      "prefix": "bike-road355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-road355\\20261008-044710-678195"
+    },
+    {
+      "bank": "BikeSetup355",
+      "prefix": "bike-setup355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-setup355\\20261008-055151-274364"
+    },
+    {
+      "bank": "BikeWheel355",
+      "prefix": "bike-wheel355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bike-wheel355\\20261008-052240-156962"
+    },
+    {
+      "bank": "Boat355",
+      "prefix": "boat355",
+      "functions": 5,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-boat355\\20261007-203302-929311"
+    },
+    {
+      "bank": "CamAim355",
+      "prefix": "cam-aim355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-aim355\\20261008-054855-394045"
+    },
+    {
+      "bank": "CamArrest355",
+      "prefix": "cam-arrest355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-arrest355\\20261008-040303-925206"
+    },
+    {
+      "bank": "CamAttached355",
+      "prefix": "cam-attached355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-attached355\\20261008-040817-349333"
+    },
+    {
+      "bank": "CamBirdy355",
+      "prefix": "cam-birdy355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-birdy355\\20261008-052559-836753"
+    },
+    {
+      "bank": "CamCineExit355",
+      "prefix": "cam-cine-exit355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-cine-exit355\\20261008-040841-477099"
+    },
+    {
+      "bank": "CamControl355",
+      "prefix": "cam-control355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-control355\\20261008-025315-386510"
+    },
+    {
+      "bank": "CamCore355",
+      "prefix": "cam-core355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-core355\\20261007-210514-518811"
+    },
+    {
+      "bank": "CamDead355",
+      "prefix": "cam-dead355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-dead355\\20261008-040900-693079"
+    },
+    {
+      "bank": "CameraCollision355",
+      "prefix": "camera-collision355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-collision355\\20261007-221447-225791"
+    },
+    {
+      "bank": "CameraDerived355",
+      "prefix": "camera-derived355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-derived355\\20261008-041820-952361"
+    },
+    {
+      "bank": "CameraDuck355",
+      "prefix": "camera-duck355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-duck355\\20261007-222014-783330"
+    },
+    {
+      "bank": "CameraFrustum355",
+      "prefix": "camera-frustum355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-frustum355\\20261008-050101-057603"
+    },
+    {
+      "bank": "CameraImprove355",
+      "prefix": "camera-improve355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-improve355\\20261008-041908-734100"
+    },
+    {
+      "bank": "CameraLinear355",
+      "prefix": "camera-linear355",
+      "functions": 7,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-linear355\\20261007-210125-857627"
+    },
+    {
+      "bank": "CameraNear355",
+      "prefix": "camera-near355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-near355\\20261007-221526-026282"
+    },
+    {
+      "bank": "CameraNewMode355",
+      "prefix": "camera-new-mode355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-new-mode355\\20261008-045912-807470"
+    },
+    {
+      "bank": "CameraPath355",
+      "prefix": "camera-path355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-path355\\20261008-041930-768411"
+    },
+    {
+      "bank": "CameraProcess355",
+      "prefix": "camera-process355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-process355\\20261008-055356-496428"
+    },
+    {
+      "bank": "CameraRwCopy355",
+      "prefix": "camera-rw-copy355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-camera-rw-copy355\\20261008-041954-355268"
+    },
+    {
+      "bank": "CamFirstPerson355",
+      "prefix": "cam-first-person355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-first-person355\\20261008-042349-160853"
+    },
+    {
+      "bank": "CamFlyBy355",
+      "prefix": "cam-flyby355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-flyby355\\20261008-040920-961789"
+    },
+    {
+      "bank": "CamFollowCar355",
+      "prefix": "cam-follow-car355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-follow-car355\\20261008-055450-569191"
+    },
+    {
+      "bank": "CamFollowPed355",
+      "prefix": "cam-follow-ped355",
+      "functions": 1,
+      "status": "failed_latest",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-follow-ped355\\20261008-060034-515136"
+    },
+    {
+      "bank": "CamHeliChase355",
+      "prefix": "cam-heli-chase355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-heli-chase355\\20261008-054120-973277"
+    },
+    {
+      "bank": "CamLamp355",
+      "prefix": "cam-lamp355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-lamp355\\20261008-040942-232803"
+    },
+    {
+      "bank": "CamLookBehind355",
+      "prefix": "cam-look-behind355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-look-behind355\\20261008-043911-445325"
+    },
+    {
+      "bank": "CamLookSide355",
+      "prefix": "cam-look-side355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-look-side355\\20261008-043936-049360"
+    },
+    {
+      "bank": "CamM16355",
+      "prefix": "cam-m16355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-m16355\\20261008-053140-291670"
+    },
+    {
+      "bank": "CamMan355",
+      "prefix": "cam-man355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-man355\\20261008-044000-677299"
+    },
+    {
+      "bank": "CamMouse355",
+      "prefix": "cam-mouse355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-mouse355\\20261008-054740-678434"
+    },
+    {
+      "bank": "CamPlane355",
+      "prefix": "cam-plane355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-plane355\\20261008-042016-389545"
+    },
+    {
+      "bank": "CamPlaneOrbit355",
+      "prefix": "cam-plane-orbit355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-plane-orbit355\\20261007-221638-490681"
+    },
+    {
+      "bank": "CamProcess355",
+      "prefix": "cam-process355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-process355\\20261008-053027-810338"
+    },
+    {
+      "bank": "CamRotate355",
+      "prefix": "cam-rotate355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-rotate355\\20261008-041001-493612"
+    },
+    {
+      "bank": "CamShooting355",
+      "prefix": "cam-shooting355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-shooting355\\20261008-053357-752779"
+    },
+    {
+      "bank": "CamSpotter355",
+      "prefix": "cam-spotter355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-spotter355\\20261008-044023-288234"
+    },
+    {
+      "bank": "CamSyphon355",
+      "prefix": "cam-syphon355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-syphon355\\20261007-221720-489647"
+    },
+    {
+      "bank": "CamTwoCars355",
+      "prefix": "cam-two-cars355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-two-cars355\\20261008-051038-559649"
+    },
+    {
+      "bank": "CamTwoPlayer355",
+      "prefix": "cam-two-player355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-two-player355\\20261008-042722-311004"
+    },
+    {
+      "bank": "CamWheel355",
+      "prefix": "cam-wheel355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-wheel355\\20261008-040141-224857"
+    },
+    {
+      "bank": "CarDoorPosition355",
+      "prefix": "car-door-position355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-car-door-position355\\20261007-221756-132959"
+    },
+    {
+      "bank": "CarNearest355",
+      "prefix": "car-nearest355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-car-nearest355\\20261008-022245-955056"
+    },
+    {
+      "bank": "CarPassenger355",
+      "prefix": "car-passenger355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-car-passenger355\\20261007-205809-268548"
+    },
+    {
+      "bank": "CarQuit355",
+      "prefix": "car-quit355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-car-quit355\\20261008-022204-816615"
+    },
+    {
+      "bank": "CarRoom355",
+      "prefix": "car-room355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-car-room355\\20261008-022225-380092"
+    },
+    {
+      "bank": "ClothesArray355",
+      "prefix": "clothes-array355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-array355\\20261007-224233-352297"
+    },
+    {
+      "bank": "ClothesGeometry355",
+      "prefix": "clothes-geometry355",
+      "functions": 3,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-geometry355\\20261008-050341-751665"
+    },
+    {
+      "bank": "ClothesRules355",
+      "prefix": "clothes-rules355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-rules355\\20261007-214324-727580"
+    },
+    {
+      "bank": "ClothesSkin355",
+      "prefix": "clothes-skin355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-skin355\\20261008-050402-528001"
+    },
+    {
+      "bank": "ClothesTextures355",
+      "prefix": "clothes-textures355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-textures355\\20261007-221237-651309"
+    },
+    {
+      "bank": "FormationAssign355",
+      "prefix": "formation-assign355",
+      "functions": 3,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-formation-assign355\\20261008-014849-773744"
+    },
+    {
+      "bank": "FormationFollow355",
+      "prefix": "formation-follow355",
+      "functions": 6,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-formation-follow355\\20261008-014928-809237"
+    },
+    {
+      "bank": "FormationGather355",
+      "prefix": "formation-gather355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-formation-gather355\\20261008-014909-150577"
+    },
+    {
+      "bank": "FormationLookup355",
+      "prefix": "formation-lookup355",
+      "functions": 3,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-formation-lookup355\\20261008-012217-925500"
+    },
+    {
+      "bank": "FxEmitterCore355",
+      "prefix": "fx-emitter-core355",
+      "functions": 4,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx-emitter-core355\\20261007-220240-336659"
+    },
+    {
+      "bank": "FxEmitterParticle355",
+      "prefix": "fx-emitter-particle355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx-emitter-particle355\\20261007-220513-738272"
+    },
+    {
+      "bank": "FxEmitterRender355",
+      "prefix": "fx-emitter-render355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx-emitter-render355\\20261007-222532-935246"
+    },
+    {
+      "bank": "GangFollower355",
+      "prefix": "gang-follower355",
+      "functions": 7,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gang-follower355\\20261008-013115-980305"
+    },
+    {
+      "bank": "GangJoin355",
+      "prefix": "gang-join355",
+      "functions": 5,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gang-join355\\20261007-203203-483629"
+    },
+    {
+      "bank": "GeometryCore355",
+      "prefix": "geometry-core355",
+      "functions": 6,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-geometry-core355\\20261008-022531-655219"
+    },
+    {
+      "bank": "GeometryQueries355",
+      "prefix": "geometry-queries355",
+      "functions": 20,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-geometry-queries355\\20261008-022611-416976"
+    },
+    {
+      "bank": "GeometryRoutes355",
+      "prefix": "geometry-routes355",
+      "functions": 3,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-geometry-routes355\\20261008-024532-669655"
+    },
+    {
+      "bank": "HandSignal355",
+      "prefix": "hand-signal355",
+      "functions": 6,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hand-signal355\\20261008-011231-755625"
+    },
+    {
+      "bank": "HassleVehicle355",
+      "prefix": "hassle-vehicle355",
+      "functions": 6,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hassle-vehicle355\\20261008-013029-119265"
+    },
+    {
+      "bank": "HitCar355",
+      "prefix": "hit-car355",
+      "functions": 8,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hit-car355\\20261007-214720-022297"
+    },
+    {
+      "bank": "HudCrosshairs355",
+      "prefix": "hud-crosshairs355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hud-crosshairs355\\20261008-010014-554885"
+    },
+    {
+      "bank": "HudHelp355",
+      "prefix": "hud-help355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hud-help355\\20261008-010110-114730"
+    },
+    {
+      "bank": "HudPlayerInfo355",
+      "prefix": "hud-player-info355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hud-player-info355\\20261008-010203-192887"
+    },
+    {
+      "bank": "HudSubtitles355",
+      "prefix": "hud-subtitles355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hud-subtitles355\\20261008-005749-966648"
+    },
+    {
+      "bank": "HudSuccess355",
+      "prefix": "hud-success355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hud-success355\\20261008-010259-472553"
+    },
+    {
+      "bank": "HudTimers355",
+      "prefix": "hud-timers355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hud-timers355\\20261008-005837-540489"
+    },
+    {
+      "bank": "HudVitals355",
+      "prefix": "hud-vitals355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hud-vitals355\\20261008-005920-261710"
+    },
+    {
+      "bank": "HudWanted355",
+      "prefix": "hud-wanted355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hud-wanted355\\20261008-005814-337441"
+    },
+    {
+      "bank": "InterestingCore355",
+      "prefix": "interesting-core355",
+      "functions": 4,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interesting-core355\\20261007-211705-783695"
+    },
+    {
+      "bank": "InterestingScan355",
+      "prefix": "interesting-scan355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interesting-scan355\\20261007-213320-610015"
+    },
+    {
+      "bank": "InteriorClosest355",
+      "prefix": "interior-closest355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-closest355\\20261008-020114-348640"
+    },
+    {
+      "bank": "InteriorControl355",
+      "prefix": "interior-control355",
+      "functions": 5,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-control355\\20261007-210431-873664"
+    },
+    {
+      "bank": "InteriorCore355",
+      "prefix": "interior-core355",
+      "functions": 10,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-core355\\20261007-204757-174574"
+    },
+    {
+      "bank": "InteriorExit355",
+      "prefix": "interior-exit355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-exit355\\20261008-020134-898785"
+    },
+    {
+      "bank": "InteriorOffice355",
+      "prefix": "interior-office355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-office355\\20261008-020212-902386"
+    },
+    {
+      "bank": "InteriorPathsLoaded355",
+      "prefix": "interior-paths-loaded355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-paths-loaded355\\20261008-020154-615014"
+    },
+    {
+      "bank": "InteriorSetupPaths355",
+      "prefix": "interior-setup-paths355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-setup-paths355\\20261008-020256-734750"
+    },
+    {
+      "bank": "InteriorSpawn355",
+      "prefix": "interior-spawn355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-spawn355\\20261008-020232-371962"
+    },
+    {
+      "bank": "MonsterControl355",
+      "prefix": "monster-control355",
+      "functions": 4,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-monster-control355\\20261008-024202-737146"
+    },
+    {
+      "bank": "MonsterSetup355",
+      "prefix": "monster-setup355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-monster-setup355\\20261008-024222-120602"
+    },
+    {
+      "bank": "MonsterSuspension355",
+      "prefix": "monster-suspension355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-monster-suspension355\\20261008-024240-715874"
+    },
+    {
+      "bank": "PedDamagePending",
+      "prefix": "ped-damage-pending",
+      "functions": 4,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ped-damage-pending\\20261007-210728-008290"
+    },
+    {
+      "bank": "PlaneAmbient355",
+      "prefix": "plane-ambient355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plane-ambient355\\20261008-045209-886331"
+    },
+    {
+      "bank": "PlaneBlow355",
+      "prefix": "plane-blow355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plane-blow355\\20261008-052345-729902"
+    },
+    {
+      "bank": "PlaneControl355",
+      "prefix": "plane-control355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plane-control355\\20261008-045254-472194"
+    },
+    {
+      "bank": "PlaneCreation355",
+      "prefix": "plane-creation355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plane-creation355\\20261008-045318-070599"
+    },
+    {
+      "bank": "PlaneDamage355",
+      "prefix": "plane-damage355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plane-damage355\\20261008-045800-253106"
+    },
+    {
+      "bank": "PlaneFlying355",
+      "prefix": "plane-flying355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plane-flying355\\20261008-045721-607107"
+    },
+    {
+      "bank": "PlaneGeneration355",
+      "prefix": "plane-generation355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plane-generation355\\20261008-045741-690243"
+    },
+    {
+      "bank": "PlaneInputs355",
+      "prefix": "plane-inputs355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plane-inputs355\\20261008-025200-936978"
+    },
+    {
+      "bank": "PlanePreRender355",
+      "prefix": "plane-prerender355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-plane-prerender355\\20261008-025219-656200"
+    },
+    {
+      "bank": "ProjectileAdd355",
+      "prefix": "projectile-add355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-projectile-add355\\20261008-022104-441344"
+    },
+    {
+      "bank": "ProjectileCore355",
+      "prefix": "projectile-core355",
+      "functions": 6,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-projectile-core355\\20261007-204038-114408"
+    },
+    {
+      "bank": "ProjectileRemove355",
+      "prefix": "projectile-remove355",
+      "functions": 3,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-projectile-remove355\\20261007-221933-528941"
+    },
+    {
+      "bank": "ProjectileUpdate355",
+      "prefix": "projectile-update355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-projectile-update355\\20261008-052937-363970"
+    },
+    {
+      "bank": "RadioConcat355",
+      "prefix": "radio-concat355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-radio-concat355\\20261008-021101-541498"
+    },
+    {
+      "bank": "RadioDJ355",
+      "prefix": "radio-dj355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-radio-dj355\\20261008-020712-018463"
+    },
+    {
+      "bank": "RadioQueue355",
+      "prefix": "radio-queue355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-radio-queue355\\20261008-014556-222886"
+    },
+    {
+      "bank": "RadioRetune355",
+      "prefix": "radio-retune355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-radio-retune355\\20261008-032150-220480"
+    },
+    {
+      "bank": "RadioSelection355",
+      "prefix": "radio-selection355",
+      "functions": 6,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-radio-selection355\\20261007-215201-680039"
+    },
+    {
+      "bank": "RadioService355",
+      "prefix": "radio-service355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-radio-service355\\20261008-032211-414156"
+    },
+    {
+      "bank": "RadioStop355",
+      "prefix": "radio-stop355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-radio-stop355\\20261008-032128-374353"
+    },
+    {
+      "bank": "RadioTrack355",
+      "prefix": "radio-track355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-radio-track355\\20261008-032100-192298"
+    },
+    {
+      "bank": "RadioVolumes355",
+      "prefix": "radio-volumes355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-radio-volumes355\\20261008-020732-679230"
+    },
+    {
+      "bank": "ScriptAngled355",
+      "prefix": "script-angled355",
+      "functions": 3,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-angled355\\20261008-024131-774854"
+    },
+    {
+      "bank": "ScriptAnim355",
+      "prefix": "script-anim355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-anim355\\20261008-022305-841354"
+    },
+    {
+      "bank": "ScriptArea355",
+      "prefix": "script-area355",
+      "functions": 3,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-area355\\20261008-045656-936113"
+    },
+    {
+      "bank": "ScriptBank355",
+      "prefix": "script-bank355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-bank355\\20261008-023109-084995"
+    },
+    {
+      "bank": "ScriptEvents355",
+      "prefix": "script-events355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-events355\\20261008-010403-174215"
+    },
+    {
+      "bank": "ScriptLinks355",
+      "prefix": "script-links355",
+      "functions": 6,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-links355\\20261007-205240-078573"
+    },
+    {
+      "bank": "ScriptLoaded355",
+      "prefix": "script-loaded355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-loaded355\\20261008-042037-359035"
+    },
+    {
+      "bank": "ScriptLocate355",
+      "prefix": "script-locate355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-locate355\\20261008-045605-499190"
+    },
+    {
+      "bank": "ScriptLocateChar355",
+      "prefix": "script-locate-char355",
+      "functions": 4,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-locate-char355\\20261008-052639-595259"
+    },
+    {
+      "bank": "ScriptPickup355",
+      "prefix": "script-pickup355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-pickup355\\20261008-024111-145481"
+    },
+    {
+      "bank": "ScriptPreload355",
+      "prefix": "script-preload355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-preload355\\20261008-020607-715362"
+    },
+    {
+      "bank": "ScriptShutdown355",
+      "prefix": "script-shutdown355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-shutdown355\\20261007-215359-927962"
+    },
+    {
+      "bank": "ScriptUpdate355",
+      "prefix": "script-update355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-script-update355\\20261008-023126-882798"
+    },
+    {
+      "bank": "ShadowGenerate355",
+      "prefix": "shadow-generate355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-generate355\\20261007-222415-214621"
+    },
+    {
+      "bank": "ShadowPermanent355",
+      "prefix": "shadow-permanent355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-permanent355\\20261008-010429-715840"
+    },
+    {
+      "bank": "ShadowSectors355",
+      "prefix": "shadow-sectors355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-sectors355\\20261007-224002-507368"
+    },
+    {
+      "bank": "ShadowStatic355",
+      "prefix": "shadow-static355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-static355\\20261007-222459-192284"
+    },
+    {
+      "bank": "ShadowTriangle355",
+      "prefix": "shadow-triangle355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-triangle355\\20261007-222335-843925"
+    },
+    {
+      "bank": "ShadowVehicle355",
+      "prefix": "shadow-vehicle355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-vehicle355\\20261007-225312-784473"
+    },
+    {
+      "bank": "ShadowXY355",
+      "prefix": "shadow-xy355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-xy355\\20261007-233010-901472"
+    },
+    {
+      "bank": "ShadowXYZ355",
+      "prefix": "shadow-xyz355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-xyz355\\20261007-225444-952326"
+    },
+    {
+      "bank": "SmartFlee355",
+      "prefix": "smart-flee355",
+      "functions": 10,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-smart-flee355\\20261008-011551-091985"
+    },
+    {
+      "bank": "StorageCore355",
+      "prefix": "storage-core355",
+      "functions": 8,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-storage-core355\\20261007-205706-515796"
+    },
+    {
+      "bank": "StorageGame355",
+      "prefix": "storage-game355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-storage-game355\\20261008-020053-075574"
+    },
+    {
+      "bank": "StorageIO355",
+      "prefix": "storage-io355",
+      "functions": 4,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-storage-io355\\20261008-020018-083286"
+    },
+    {
+      "bank": "Sunbathe355",
+      "prefix": "sunbathe355",
+      "functions": 6,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-sunbathe355\\20261008-012922-194921"
+    },
+    {
+      "bank": "TrainAddPassenger355",
+      "prefix": "train-addpassenger355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-addpassenger355\\20261008-014535-893141"
+    },
+    {
+      "bank": "TrainCoordinates355",
+      "prefix": "train-coordinates355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-coordinates355\\20261008-011734-829084"
+    },
+    {
+      "bank": "TrainCreate355",
+      "prefix": "train-create355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-create355\\20261008-024917-862972"
+    },
+    {
+      "bank": "TrainCtor355",
+      "prefix": "train-ctor355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-ctor355\\20261008-014327-194356"
+    },
+    {
+      "bank": "TrainGeneration355",
+      "prefix": "train-generation355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-generation355\\20261008-024856-945375"
+    },
+    {
+      "bank": "TrainHit355",
+      "prefix": "train-hit355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-hit355\\20261008-024817-633875"
+    },
+    {
+      "bank": "TrainInit355",
+      "prefix": "train-init355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-init355\\20261008-011852-026176"
+    },
+    {
+      "bank": "TrainLinks355",
+      "prefix": "train-links355",
+      "functions": 5,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-links355\\20261008-011706-019489"
+    },
+    {
+      "bank": "TrainNearest355",
+      "prefix": "train-nearest355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-nearest355\\20261008-011930-068753"
+    },
+    {
+      "bank": "TrainPassenger355",
+      "prefix": "train-passenger355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-passenger355\\20261008-014435-267858"
+    },
+    {
+      "bank": "TrainPosition355",
+      "prefix": "train-position355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-position355\\20261008-045146-101524"
+    },
+    {
+      "bank": "TrainQueries355",
+      "prefix": "train-queries355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-queries355\\20261008-011753-566671"
+    },
+    {
+      "bank": "TrainRead355",
+      "prefix": "train-read355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-read355\\20261008-011911-477026"
+    },
+    {
+      "bank": "TrainRemove355",
+      "prefix": "train-remove355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-remove355\\20261008-011813-203922"
+    },
+    {
+      "bank": "TrainSkip355",
+      "prefix": "train-skip355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-train-skip355\\20261008-011832-847068"
+    },
+    {
+      "bank": "VehicleLean355",
+      "prefix": "vehicle-lean355",
+      "functions": 5,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-vehicle-lean355\\20261008-011309-582333"
+    },
+    {
+      "bank": "Wander355",
+      "prefix": "wander355",
+      "functions": 6,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wander355\\20261008-011104-463648"
+    },
+    {
+      "bank": "WaterFog355",
+      "prefix": "water-fog355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-water-fog355\\20261008-014827-567058"
+    },
+    {
+      "bank": "WaterNearest355",
+      "prefix": "water-nearest355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-water-nearest355\\20261008-010505-130901"
+    },
+    {
+      "bank": "WaterQuery355",
+      "prefix": "water-query355",
+      "functions": 2,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-water-query355\\20261008-010547-214551"
+    },
+    {
+      "bank": "WaterRender355",
+      "prefix": "water-render355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-water-render355\\20261008-012157-621813"
+    },
+    {
+      "bank": "WeaponCarShot355",
+      "prefix": "weapon-car-shot355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weapon-car-shot355\\20261008-032257-018597"
+    },
+    {
+      "bank": "WeaponDrive355",
+      "prefix": "weapon-drive355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weapon-drive355\\20261008-042058-950566"
+    },
+    {
+      "bank": "WeaponInstant355",
+      "prefix": "weapon-instant355",
+      "functions": 1,
+      "status": "failed_latest",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weapon-instant355\\20261008-060335-004671"
+    },
+    {
+      "bank": "WeaponOccupant355",
+      "prefix": "weapon-occupant355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weapon-occupant355\\20261008-055634-486611"
+    },
+    {
+      "bank": "WeaponScreen355",
+      "prefix": "weapon-screen355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weapon-screen355\\20261008-021251-487799"
+    },
+    {
+      "bank": "WeaponTank355",
+      "prefix": "weapon-tank355",
+      "functions": 1,
+      "status": "approved_historical",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weapon-tank355\\20261008-021315-915568"
+    }
+  ]
+}

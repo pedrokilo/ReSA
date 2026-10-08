@@ -1,0 +1,16 @@
+template<typename PtrListType>
+void TrainHitStuff(PtrListType& ptrList, CEntity* entity) {
+    auto* node = ptrList.GetNode();
+    while (node) {
+        auto* physical = static_cast<CPhysical*>(node->Item);
+        node = node->Next;
+        if (physical == entity) continue;
+        physical->physicalFlags.bProcessCollisionEvenIfStationary = true;
+        if (physical->GetType() != ENTITY_TYPE_OBJECT || !physical->GetIsStatic()) continue;
+        const auto model = int32(physical->m_nModelIndex);
+        if (model != int32(StaticRef<uint16>(0x8CD6C8)) && model != int32(StaticRef<uint16>(0x8CD6CC)) && model != int32(StaticRef<uint16>(0x8CD6D0))) continue;
+        physical->SetIsStatic(false);
+        physical->AddToMovingList();
+        physical->m_nFakePhysics = 0;
+    }
+}

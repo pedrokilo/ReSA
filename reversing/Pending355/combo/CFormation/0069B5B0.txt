@@ -1,0 +1,196 @@
+// CFormation::DistributeDestinations_CoverPoints @ 0x0069b5b0 [0x69b5b0..0x69b6f9]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0069b5b0(undefined4 *param_1,float param_2,float param_3)
+
+{
+  int iVar1;
+  int iVar2;
+  float fVar3;
+  float fVar4;
+  float *pfVar5;
+  int iVar6;
+  int iVar7;
+  int iVar8;
+  undefined4 *puVar9;
+  float *pfVar10;
+  float local_4;
+  
+  puVar9 = &DAT_00c1a4d8;
+  for (iVar6 = 0x1f; iVar6 != 0; iVar6 = iVar6 + -1) {
+    *puVar9 = *param_1;
+    param_1 = param_1 + 1;
+    puVar9 = puVar9 + 1;
+  }
+  if (DAT_00c1a4d8 != 0) {
+    puVar9 = &DAT_00c1a2c0;
+    for (iVar6 = 8; iVar6 != 0; iVar6 = iVar6 + -1) {
+      *puVar9 = 0xffffffff;
+      puVar9 = puVar9 + 1;
+    }
+    iVar6 = 0;
+    if (0 < DAT_00c1a318) {
+      pfVar10 = (float *)&DAT_00c1a31c;
+      do {
+        iVar7 = -1;
+        iVar8 = 0;
+        local_4 = 0.4;
+        fVar3 = SQRT((*pfVar10 - param_2) * (*pfVar10 - param_2) +
+                     (pfVar10[1] - param_3) * (pfVar10[1] - param_3));
+        if (0 < DAT_00c1a4d8) {
+          do {
+            iVar1 = (&DAT_00c1a4dc)[iVar8];
+            if ((int)(&DAT_00c1a2c0)[iVar8] < 0) {
+              iVar2 = *(int *)(iVar1 + 0x14);
+              pfVar5 = (float *)(iVar2 + 0x30);
+              if (iVar2 == 0) {
+                pfVar5 = (float *)(iVar1 + 4);
+              }
+              fVar4 = SQRT((*pfVar5 - param_2) * (*pfVar5 - param_2) +
+                           (pfVar5[1] - param_3) * (pfVar5[1] - param_3));
+              if (fVar3 <= fVar4 + 1.0) {
+                pfVar5 = (float *)(iVar2 + 0x30);
+                if (iVar2 == 0) {
+                  pfVar5 = (float *)(iVar1 + 4);
+                }
+                fVar4 = 1.0 - ((SQRT((*pfVar5 - *pfVar10) * (*pfVar5 - *pfVar10) +
+                                     (pfVar5[1] - pfVar10[1]) * (pfVar5[1] - pfVar10[1])) + fVar3) -
+                              fVar4) / fVar4;
+                if (local_4 < fVar4) {
+                  iVar7 = iVar8;
+                  local_4 = fVar4;
+                }
+              }
+            }
+            iVar8 = iVar8 + 1;
+          } while (iVar8 < DAT_00c1a4d8);
+          if (-1 < iVar7) {
+            (&DAT_00c1a2c0)[iVar7] = iVar6;
+          }
+        }
+        iVar6 = iVar6 + 1;
+        pfVar10 = pfVar10 + 3;
+      } while (iVar6 < DAT_00c1a318);
+    }
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0069B5B0: push ecx
+0069B5B1: push esi
+0069B5B2: mov esi,dword ptr [esp+0Ch]
+0069B5B6: push edi
+0069B5B7: mov ecx,1Fh
+0069B5BC: mov edi,0C1A4D8h
+0069B5C1: rep movs dword ptr es:[edi],dword ptr [esi]
+0069B5C3: mov eax,dword ptr ds:[00C1A4D8h]
+0069B5C8: test eax,eax
+0069B5CA: je 0069B6F6
+0069B5D0: or eax,0FFFFFFFFh
+0069B5D3: mov ecx,8
+0069B5D8: mov edi,0C1A2C0h
+0069B5DD: rep stos dword ptr es:[edi]
+0069B5DF: mov eax,dword ptr ds:[00C1A318h]
+0069B5E4: push ebp
+0069B5E5: xor ebp,ebp
+0069B5E7: test eax,eax
+0069B5E9: jle 0069B6F5
+0069B5EF: mov edi,0C1A31Ch
+0069B5F4: push ebx
+0069B5F5: fld dword ptr [edi]
+0069B5F7: mov eax,dword ptr ds:[00C1A4D8h]
+0069B5FC: fsub dword ptr [esp+1Ch]
+0069B600: or ebx,0FFFFFFFFh
+0069B603: fld dword ptr [edi+4]
+0069B606: xor esi,esi
+0069B608: test eax,eax
+0069B60A: fsub dword ptr [esp+20h]
+0069B60E: fld st(0)
+0069B610: mov dword ptr [esp+10h],3ECCCCCDh
+0069B618: fmul st,st(1)
+0069B61A: fld st(2)
+0069B61C: fmul st,st(3)
+0069B61E: faddp st(1),st
+0069B620: fsqrt
+0069B622: fstp st(2)
+0069B624: fstp st(0)
+0069B626: fstp dword ptr [esp+18h]
+0069B62A: jle 0069B6E3
+0069B630: mov eax,dword ptr [esi*4+00C1A2C0h]
+ 00
+0069B637: test eax,eax
+0069B639: mov edx,dword ptr [esi*4+00C1A4DCh]
+ 00
+0069B640: jge 0069B6CA
+0069B646: mov ecx,dword ptr [edx+14h]
+0069B649: test ecx,ecx
+0069B64B: lea eax,[ecx+30h]
+0069B64E: jne 0069B653
+0069B650: lea eax,[edx+4]
+0069B653: fld dword ptr [eax]
+0069B655: fsub dword ptr [esp+1Ch]
+0069B659: fld dword ptr [eax+4]
+0069B65C: fsub dword ptr [esp+20h]
+0069B660: fld st(0)
+0069B662: fmul st,st(1)
+0069B664: fld st(2)
+0069B666: fmul st,st(3)
+0069B668: faddp st(1),st
+0069B66A: fsqrt
+0069B66C: fstp st(2)
+0069B66E: fstp st(0)
+0069B670: fld dword ptr ds:[00858624h]
+0069B676: fadd st,st(1)
+0069B678: fcomp dword ptr [esp+18h]
+0069B67C: fnstsw ax
+0069B67E: test ah,1
+0069B681: jne 0069B6C8
+0069B683: test ecx,ecx
+0069B685: lea eax,[ecx+30h]
+0069B688: jne 0069B68D
+0069B68A: lea eax,[edx+4]
+0069B68D: fld dword ptr [eax]
+0069B68F: fsub dword ptr [edi]
+0069B691: fld dword ptr [eax+4]
+0069B694: fsub dword ptr [edi+4]
+0069B697: fld st(0)
+0069B699: fmul st,st(1)
+0069B69B: fld st(2)
+0069B69D: fmul st,st(3)
+0069B69F: faddp st(1),st
+0069B6A1: fsqrt
+0069B6A3: fstp st(2)
+0069B6A5: fstp st(0)
+0069B6A7: fadd dword ptr [esp+18h]
+0069B6AB: fsub st,st(1)
+0069B6AD: fdivrp st(1),st
+0069B6AF: fsubr dword ptr ds:[00858624h]
+0069B6B5: fcom dword ptr [esp+10h]
+0069B6B9: fnstsw ax
+0069B6BB: test ah,41h
+0069B6BE: jne 0069B6C8
+0069B6C0: fstp dword ptr [esp+10h]
+0069B6C4: mov ebx,esi
+0069B6C6: jmp 0069B6CA
+0069B6C8: fstp st(0)
+0069B6CA: mov eax,dword ptr ds:[00C1A4D8h]
+0069B6CF: inc esi
+0069B6D0: cmp esi,eax
+0069B6D2: jl 0069B630
+0069B6D8: test ebx,ebx
+0069B6DA: jl 0069B6E3
+0069B6DC: mov dword ptr [ebx*4+00C1A2C0h],ebp
+ 00
+0069B6E3: mov eax,dword ptr ds:[00C1A318h]
+0069B6E8: inc ebp
+0069B6E9: add edi,0Ch
+0069B6EC: cmp ebp,eax
+0069B6EE: jl 0069B5F5
+0069B6F4: pop ebx
+0069B6F5: pop ebp
+0069B6F6: pop edi
+0069B6F7: pop esi
+0069B6F8: pop ecx
+0069B6F9: ret

@@ -1,0 +1,120 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CWeapon::DoTankDoomAiming": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "01fdc4be72bd518ec335c3eefb281d4f2daebbd355a0c01fd4b395d7a9d9fafa",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weapon-tank355\\20261008-021315-915568",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CWeapon::DoTankDoomAiming": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "a2a4d367e722f8e126ac21d7f27e06334654a1c89ac4ae2dbcabe4178ecf50c1",
+      "pdb": "d6a2bf48459508da7d75a6f6a96436e6b753adbcbf607cbca4c5707f696206c6"
+    },
+    "sources": {
+      "source/game_sa/Audio/AEAudioUtility.cpp": "64b6dc387de99da3e70c7e8f0e800e8a79ef4649c29d78e92299e59319b0252b",
+      "source/game_sa/Audio/AEAudioUtility.h": "ea4d1eb95c63065e11eca92a622fc646a726f87630e5a239c507fd62a1039fdc",
+      "source/game_sa/Audio/AudioEngine.cpp": "1f1df28760dd9e26fb75057a274faaa7ddb69bf5a5512ac46924b7e1ce889736",
+      "source/game_sa/Audio/AudioEngine.h": "8e30732908a9ea6ffea7bc587cb5610c361ae6f85aaf9c4a37535609b16625a9",
+      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp": "c318db6295f697ccd64f1981acd072c438ed2fe9f8bf37144384dbddfad3c1f4",
+      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.h": "dd37152c6e9367600ae57dce27de99263ed09688278a9157eab97d602e01a31f",
+      "source/game_sa/Audio/Hardware/AEAudioHardware.cpp": "0f0307a7444f2cc773476d559daf7b5030751d739ef044f5a3f103ef3d50da83",
+      "source/game_sa/Audio/Hardware/AEAudioHardware.h": "e09c4152ef905e510e374162f1e08eb318ba64eb85672d2ffb5f02d5d4ec7ae5",
+      "source/game_sa/Audio/Managers/AERadioTrackManager.cpp": "3699ea01225dd95b75b4ea3f5707bc5bd0d54fe02701555517241613bd81768d",
+      "source/game_sa/Audio/Managers/AERadioTrackManager.h": "949ddd5a6c222a37cff3cc1bc99f1d27a85963a0f9a98a21bd0992147e8e3888",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+      "source/game_sa/Collision/ColLine.cpp": "75cf786653ef2f3d1bdd75e6f73998ee0fc3df934255e6d73f6eb9cd3533dc44",
+      "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
+      "source/game_sa/Collision/ColSphere.cpp": "5d26de46746cff2bcca5e7e4232e0be8d8a32fdb6a6750f0d558756d12fbb39c",
+      "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
+      "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
+      "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+      "source/game_sa/Core/Matrix.cpp": "f5c9d1f294ca4fdd5245eb23ff28148550d78e9a1615d3e1f4de6f814281d69b",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/DamageManager.cpp": "65512fd91772049fb6eba307668552d26c0795c42d6cfbe582c1dc4e8b98739b",
+      "source/game_sa/Darkel.cpp": "3356380dbbe2cf4fa0be9b9fca5c8a55c010fca484ac5c1715d6043da4cfa6cc",
+      "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+      "source/game_sa/Entity/Vehicle/Automobile.cpp": "8339c1f562afcd4a7b1bd86072ecc4dbc9e684cd73ebf3f559d2b683424c88cc",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+      "source/game_sa/Models/BaseModelInfo.h": "91bece0c4ec1c9f8772b17ba11dcbc9f8e75636292f995f735cbd06514419cc6",
+      "source/game_sa/Pad.cpp": "788db8e78a4908133a3dff0f72a817c03a4ef1d9a4f4e1a42e36b30d1142190a",
+      "source/game_sa/Pad.h": "478c06acc86628c09d9ba3140519ae92b5eb6b4fcbedaaa7d8e9fcf7edacc64e",
+      "source/game_sa/Sprite.cpp": "7022e667f7b077bd8133eeb30b8234c59ae8c16de6ecf3353c27422262662319",
+      "source/game_sa/Stats.cpp": "c4b1cb449064f08aed0dc14a870ca3277f3bc88c18cc5a5fe595829d534378ca",
+      "source/game_sa/Stats.h": "06ea5fa42ae006428bd2d2fe505f68e7f2506cd207f46d6b96f57c930abf1e44",
+      "source/game_sa/SurfaceInfos_c.cpp": "85f034f55ee7d572e78d8684921c306f00850cead2b79e2f6bf2a02b21502786",
+      "source/game_sa/Weapon.cpp": "f46b92b102f12505f2182c15a95e11e337a73ee14a9befff36fa8fcdf43e8ec6",
+      "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "../RadioTrack355/LiveComparison.hpp": "20e9f17a4312700d5fc4a1b3f44aa6fd3e52217e6afc125700ac8da34781ff7b",
+      "../WeaponOccupant355/LiveComparison.hpp": "58482ae058c1ecaa99471b74ea2608e6a07beaf27db4e5df9e5407013a28125c",
+      "../RadioRetune355/build_probe.py": "7243aae0fd288f363b0a5cc47b9d8e63c9f70e7ad8af05ecabcca00feecba9fd",
+      "../RadioStop355/run_local.py": "8fa27b59fd49db1b30d65c438d238280199f8d39fa2432c109f21d964e2d0e45",
+      "../RadioService355/build_probe.py": "7e600e98e917f9e7452671ab4fa1806c1b6ff608108d022b1165da8e12555aa5",
+      "../Pending355/batches/d2036b2efed6/LiveComparison.hpp": "7fd3c4401eb38f7398b861502a9780bcbc2a3f9813d3fa0bebf71fd6362a56ba",
+      "../RadioRetune355/run_local.py": "c1ccc2d6b395b3aa49d907974fda13c7b3bbd36d1c496a08b68a67abf621173f",
+      "../RadioTrack355/run_local.py": "4fefb97721863c5cb5cb4489ad61ac8211997169854992eabeda5cbd5f7c3e2b",
+      "../ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "../probe_summary.py": "28224064c276ed8fd6ffd450db22e3ec782a6e068fdb275f270bb7ef49a6f072",
+      "../runtime_runner.py": "8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536",
+      "../WeaponOccupant355/run_local.py": "6658521d78f33fd10605f74674c0e6275c4d607fa519e6c422ed5de64b5b972f",
+      "../WeaponScreen355/build_probe.py": "3b049b5b9101090dc906c6467b95d92b85c4ec7c2fc6c8f865bb697c92717624",
+      "../RadioTrack355/build_probe.py": "cc15fd4b92cdb8cc9fef545562c393f8a8697a483dfa9e4eac8bb91cfc60731e",
+      "../RadioService355/run_local.py": "689b1f2c3e49c8cb02773c82d3b1b4bad7363e7e2cab0e63187a994d322ee7d8",
+      "../probe_case.py": "6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8",
+      "build_probe.py": "2b56a691e7e47472929398b0f218e36048261c7d5b6105a5311bee72704d8407",
+      "../WeaponScreen355/LiveComparison.hpp": "02db468999759dd1b7838466930a574cb81947ce6b6d89eaf7a998049ac78453",
+      "../RadioConcat355/LiveComparison.hpp": "595d39d9ab5d8e8b23656fcf806c9c6faa717fa084afdd897d0747268b1737d9",
+      "../RadioStop355/LiveComparison.hpp": "574b608d149042a923b6d79649775bcae73875099ec5e162cb019e0b0a26c9f0",
+      "../probe_build.py": "8e76d4a04b26c055f1d7259246abdbf4f8e56eed372a13171b483327e1c03633",
+      "../WeaponScreen355/run_local.py": "0f6cc7fce3b89a6b141967b20f95402b1eb0b31ed90718fa8f3c7ac76ab03734",
+      "../WeaponOccupant355/build_probe.py": "f4b7c3fae17bd69b709115587f91df7df698f9e29890e21629c4ae7e7490bbb8",
+      "LiveComparison.hpp": "eac49a33a5a8992778316539b5c3c2def524d48bfa526cffe27c2bd0be4dd04f",
+      "../RadioRetune355/LiveComparison.hpp": "69a4bba7c70b925032068a7882b11d3982028ef2b80737871ebb317249706b86",
+      "../Pending355/batch_probe.py": "8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6",
+      "../RadioConcat355/run_local.py": "088129f8ba02b52c43b09c663bb1afbf432c081d2c740fa3930b1204dadbb52b",
+      "../RadioService355/LiveComparison.hpp": "c341cabbe92ef64cddbeea47cc88133e529d550878ae071d571217513f7e4b64",
+      "../RadioConcat355/build_probe.py": "91f1358899ccc3d0e0e71e27b0f53efb041db8165f29f75d0f69b625493172b2",
+      "../RadioStop355/build_probe.py": "070751a9896500212984d1ed1997ba797d98fa629cc3ebab1cd85d27eb317140",
+      "run_local.py": "4392bf2fab5178e6c5853b2362b814a6ddc5e7e2561de110ac4e8af62b82ed46"
+    },
+    "batch_driver": "reversing/Pending355/batches/d2036b2efed6/LiveComparison.hpp",
+    "batch_banks": [
+      "RadioConcat355",
+      "RadioTrack355",
+      "RadioStop355",
+      "RadioRetune355",
+      "RadioService355",
+      "WeaponScreen355",
+      "WeaponTank355",
+      "WeaponOccupant355"
+    ]
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"../RadioTrack355/LiveComparison.hpp\", \"tested_sha256\": \"20e9f17a4312700d5fc4a1b3f44aa6fd3e52217e6afc125700ac8da34781ff7b\", \"current_sha256\": \"499fd4e579978757dc35b36d1cec8401ca4fa40b005bf531c7bb20126f514dea\"}, {\"path\": \"../WeaponOccupant355/LiveComparison.hpp\", \"tested_sha256\": \"58482ae058c1ecaa99471b74ea2608e6a07beaf27db4e5df9e5407013a28125c\", \"current_sha256\": \"f50070789bfe4ba1b5b050e8cb403ca8b31eee98003b601f2014a52974b09adc\"}, {\"path\": \"../RadioStop355/run_local.py\", \"tested_sha256\": \"8fa27b59fd49db1b30d65c438d238280199f8d39fa2432c109f21d964e2d0e45\", \"current_sha256\": \"ad4aaae6d6afb87890af65773580c32cd0128654c962da270d5df0ddc2d15fba\"}, {\"path\": \"../RadioRetune355/run_local.py\", \"tested_sha256\": \"c1ccc2d6b395b3aa49d907974fda13c7b3bbd36d1c496a08b68a67abf621173f\", \"current_sha256\": \"1aa890b7b4d343177ffccc847ace0fa26e5af5b35d685018f85a3236abe1cb6f\"}, {\"path\": \"../RadioTrack355/run_local.py\", \"tested_sha256\": \"4fefb97721863c5cb5cb4489ad61ac8211997169854992eabeda5cbd5f7c3e2b\", \"current_sha256\": \"47e29868b8235cd58435777c1fcebf81dd35c7fddd95175fc5cf808a40b3f04f\"}, {\"path\": \"../runtime_runner.py\", \"tested_sha256\": \"8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536\", \"current_sha256\": \"e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c\"}, {\"path\": \"../RadioService355/run_local.py\", \"tested_sha256\": \"689b1f2c3e49c8cb02773c82d3b1b4bad7363e7e2cab0e63187a994d322ee7d8\", \"current_sha256\": \"2f5ba597e08d4b0d4f71dcacdb36742ee19ba705b320e3aed4379a1b1917a846\"}, {\"path\": \"../probe_case.py\", \"tested_sha256\": \"6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8\", \"current_sha256\": \"61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44\"}, {\"path\": \"../RadioStop355/LiveComparison.hpp\", \"tested_sha256\": \"574b608d149042a923b6d79649775bcae73875099ec5e162cb019e0b0a26c9f0\", \"current_sha256\": \"e0c296893af99f65e440abfad0762ac39595455c206ac66fdc61b1173ed0718c\"}, {\"path\": \"../Pending355/batch_probe.py\", \"tested_sha256\": \"8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6\", \"current_sha256\": \"23153f67f0c83b82850b212c353aae655549c060fa1926e1c1a62ba526c23998\"}, {\"path\": \"../RadioConcat355/run_local.py\", \"tested_sha256\": \"088129f8ba02b52c43b09c663bb1afbf432c081d2c740fa3930b1204dadbb52b\", \"current_sha256\": \"26614b4ff667c206473a43943cd2cc986446b150b5e9c3d84ef2b05830d84519\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

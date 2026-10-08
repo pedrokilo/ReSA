@@ -1,0 +1,35 @@
+void CAEScriptAudioEntity::PlayMissionBankSound(eAudioEvents eventId, CVector& posn, CPhysical* physical, int16 sfxId, uint8 linkId, uint8 onlyIfNotPlaying, float volume, float maxDistance, float speed) {
+    if (linkId < 2 || linkId >= MISSION_AUDIO_COUNT) {
+        return;
+    }
+    if (onlyIfNotPlaying && AESoundManager.AreSoundsOfThisEventPlayingForThisEntity(int16(eventId), this) != 0) {
+        return;
+    }
+    const auto slot = static_cast<eSoundBankSlot>(linkId + 26);
+    const auto bank = static_cast<eSoundBank>(uint16(wavLinks[linkId].m_nBankId));
+    if (!AEAudioHardware.IsSoundBankLoaded(bank, slot)) {
+        return;
+    }
+    const auto event = static_cast<eAudioEvents>(uint16(eventId));
+    const auto adjustedVolume = GetDefaultVolume(event) + volume;
+    bool frontend{};
+    CVector position;
+    if (physical) {
+        position = physical->GetPosition();
+    } else if (posn == CVector{-1000.f, -1000.f, -1000.f} || posn == CVector{0.f, 0.f, 0.f}) {
+        position = CVector{0.f, 1.f, 0.f};
+        frontend = true;
+    } else {
+        position = posn;
+        frontend = posn == CVector{-1.f, 0.f, 0.f} || posn == CVector{1.f, 0.f, 0.f};
+    }
+    m_tempSound.Initialise(slot, static_cast<eSoundID>(uint16(sfxId)), this, position, adjustedVolume, maxDistance, speed, 1.f, 0, 0, 0.f, 0);
+    m_tempSound.m_Flags = 6;
+    m_tempSound.SetFlags(SOUND_FRONT_END, frontend);
+    if (physical) {
+        m_tempSound.SetFlags(SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY, 1);
+        m_tempSound.RegisterWithPhysicalEntity(physical);
+    }
+    m_tempSound.m_Event = int32(uint16(eventId));
+    AESoundManager.RequestNewSound(&m_tempSound);
+}

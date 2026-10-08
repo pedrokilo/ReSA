@@ -2,11 +2,11 @@
 
 La [hoja de ruta de ReSA](../docs/ProjectRoadmap.md) sitúa estas pruebas dentro del objetivo de reconstrucción funcionalmente equivalente e independencia del EXE. Reconstrucción, validación, desbloqueo e independencia son dimensiones separadas; el total de pares no es un total de funciones validadas.
 
-La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 6.329 funciones a sus pruebas; las acreditaciones históricas se revisan contra las fuentes y dependencias del árbol actual. Las 6.329 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 8.040 reconstruidas](../docs/ValidationInventory.md) identifica también las 1.711 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
+La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 6.684 funciones a sus pruebas; las acreditaciones históricas se revisan contra las fuentes y dependencias del árbol actual. Las 6.684 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 8.394 reconstruidas](../docs/ValidationInventory.md) identifica también las 1.710 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
 
 ## Estado actual del catálogo de hooks
 
-El corte vigente de `ReSA` contiene **771 clases/grupos y 8.447 entradas**: 8.040 reconstruidas y 407 pendientes. De ellas, **6.329 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
+El corte vigente de `ReSA` contiene **771 clases/grupos y 8.446 entradas**: 8.394 reconstruidas y 52 pendientes. De ellas, **6.684 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
@@ -302,3 +302,7 @@ Se conserva la configuración de inicio normal. Los bancos usan carga rápida te
 ## Lote de 78 pendientes (07/10/2026)
 
 [Reconstrucción y validación del lote](PendingBatch/README.md): 78 funciones de 27 clases, 30 bancos y 81.664 pares EXE/DLL. Se conservan las limitaciones de cada banco; no acredita validación completa de todas las funciones de esas clases. Las fuentes finales se recompilan con /MP6 y se comprueba la restauración del juego.
+
+<!-- USER LISTS STOP STATUS -->
+Estado de las listas solicitadas al detener el trabajo: [reconstrucción y validación parcial](../docs/EstadoListasSolicitadas.md). Las 67 clases tienen la reconstrucción solicitada aplicada; el último lote quedó con 117/354 funciones verificadas con las fuentes finales y un fallo pendiente en el destructor de GangFollower.
+<!-- /USER LISTS STOP STATUS -->

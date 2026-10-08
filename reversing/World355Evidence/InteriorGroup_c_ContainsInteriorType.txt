@@ -1,0 +1,45 @@
+// InteriorGroup_c::ContainsInteriorType @ 0x00595250 [0x595250..0x595284]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_00595250(uint param_1)
+
+{
+  int in_ECX;
+  int *piVar1;
+  int iVar2;
+  
+  iVar2 = 0;
+  piVar1 = (int *)(in_ECX + 0x10);
+  while ((*piVar1 == 0 || (**(byte **)(*piVar1 + 0x14) != param_1))) {
+    iVar2 = iVar2 + 1;
+    piVar1 = piVar1 + 1;
+    if (7 < iVar2) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00595250: push esi
+00595251: mov esi,dword ptr [esp+8]
+00595255: xor edx,edx
+00595257: add ecx,10h
+00595260: mov eax,dword ptr [ecx]
+00595262: test eax,eax
+00595264: je 00595270
+00595266: mov eax,dword ptr [eax+14h]
+00595269: movzx eax,byte ptr [eax]
+0059526C: cmp eax,esi
+0059526E: je 0059527F
+00595270: inc edx
+00595271: add ecx,4
+00595274: cmp edx,8
+00595277: jl 00595260
+00595279: xor al,al
+0059527B: pop esi
+0059527C: ret 4
+0059527F: mov al,1
+00595281: pop esi
+00595282: ret 4

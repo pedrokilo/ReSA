@@ -1,0 +1,27 @@
+[
+  {
+    "function": "CCamera::Process",
+    "file": "source/game_sa/Camera.cpp",
+    "line": 1704
+  },
+  {
+    "function": "CCamera::CamControl",
+    "file": "source/game_sa/Camera.cpp",
+    "line": 2236
+  },
+  {
+    "function": "CWeapon::FireInstantHit",
+    "file": "source/game_sa/Weapon.cpp",
+    "line": 1598
+  },
+  {
+    "function": "CBike::ProcessRiderAnims",
+    "file": "source/game_sa/Entity/Vehicle/Bike.cpp",
+    "line": 449
+  },
+  {
+    "function": "CPlane::DoPlaneGenerationAndRemoval",
+    "file": "source/game_sa/Entity/Vehicle/Plane.cpp",
+    "line": 539
+  }
+]

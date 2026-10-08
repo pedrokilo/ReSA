@@ -84,7 +84,7 @@ public:
     static inline auto& GenTrain_GenerationNode = StaticRef<uint32>(0xC38008);
     static inline auto& GenTrain_Status = StaticRef<uint32>(0xC3800C);
     static inline auto& bDisableRandomTrains = StaticRef<bool>(0xC38010);
-    static CVector aStationCoors[6];
+    static inline auto& aStationCoors = StaticRef<CVector[6]>(0x8D48F8);
 
     static constexpr auto Type = VEHICLE_TYPE_TRAIN;
 

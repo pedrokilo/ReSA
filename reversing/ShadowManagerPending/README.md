@@ -1,3 +1,7 @@
+<!-- USER STOP 2026-10-08 -->
+Estado al detener el trabajo: reconstrucción solicitada completada y aprobación histórica conservada. No se ejecutó una nueva regresión con las fuentes finales. Los hashes y límites actuales se detallan en [el estado de todas las listas](../../docs/EstadoListasSolicitadas.md). Las notas siguientes conservan su fecha y alcance originales.
+<!-- /USER STOP 2026-10-08 -->
+
 # CRealTimeShadowManager: funciones pendientes
 
 Reconstrucción de ReInit (0x706870) y GetRealTimeShadow (0x706970), cotejada con REA y ensamblador en `combo/`. GetRealTimeShadow devuelve un puntero nullable, reserva el slot cero para el jugador y selecciona el último slot libre para otras entidades. ReInit respeta el orden de destrucción, creación y asociación de rasters.

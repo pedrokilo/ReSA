@@ -8,7 +8,7 @@ class NOTSA_EXPORT_VTABLE CTaskComplexGangJoinRespond : public CTaskComplex {
 public:
     bool  m_response{};
     bool  m_animsReferenced{};
-    int32 m_attempts{};
+    int32 m_attempts; // Como el original: se inicializa al crear la primera subtarea.
 
 public:
     static constexpr auto Type = TASK_COMPLEX_GANG_JOIN_RESPOND;

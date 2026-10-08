@@ -1,0 +1,70 @@
+// CAERadioTrackManager::ChooseAdvertIndex @ 0x004e9570 [0x4e9570..0x4e95d1]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004e9570(char param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  int *piVar3;
+  
+LAB_004e9582:
+  do {
+    iVar1 = FUN_004d9c10(DAT_008c8b88,DAT_008c8b8c);
+    iVar2 = 0;
+    piVar3 = (int *)(&DAT_008cadd0 + param_1 * 0x5c);
+    do {
+      if (iVar1 == *piVar3) goto LAB_004e9582;
+      iVar2 = iVar2 + 1;
+      piVar3 = piVar3 + 1;
+    } while (iVar2 < 0x17);
+    iVar2 = 0;
+    piVar3 = &DAT_00b620c0 + param_1 * 0x28;
+    while (iVar1 != *piVar3) {
+      iVar2 = iVar2 + 1;
+      piVar3 = piVar3 + 1;
+      if (0x27 < iVar2) {
+        return;
+      }
+    }
+  } while( true );
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004E9570: push esi
+004E9571: movsx esi,byte ptr [esp+8]
+004E9576: mov eax,esi
+004E9578: imul eax,eax,5Ch
+004E957B: push edi
+004E957C: lea edi,[eax+008CADD0h]
+004E9582: mov ecx,dword ptr ds:[008C8B8Ch]
+004E9588: mov edx,dword ptr ds:[008C8B88h]
+004E958E: push ecx
+004E958F: push edx
+004E9590: call 004D9C10
+004E9595: add esp,8
+004E9598: xor ecx,ecx
+004E959A: mov edx,edi
+004E959C: lea esp,[esp]
+004E95A0: cmp eax,dword ptr [edx]
+004E95A2: je 004E9582
+004E95A4: inc ecx
+004E95A5: add edx,4
+004E95A8: cmp ecx,17h
+004E95AB: jl 004E95A0
+004E95AD: lea ecx,[esi+esi*4]
+004E95B0: shl ecx,5
+004E95B3: xor edx,edx
+004E95B5: add ecx,0B620C0h
+004E95BB: jmp 004E95C0
+004E95BD: lea ecx,[ecx]
+004E95C0: cmp eax,dword ptr [ecx]
+004E95C2: je 004E9582
+004E95C4: inc edx
+004E95C5: add ecx,4
+004E95C8: cmp edx,28h
+004E95CB: jl 004E95C0
+004E95CD: pop edi
+004E95CE: pop esi
+004E95CF: ret 4

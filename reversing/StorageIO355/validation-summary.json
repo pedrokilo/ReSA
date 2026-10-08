@@ -1,0 +1,118 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CGenericGameStorage::LoadWorkBuffer": 1024,
+    "CGenericGameStorage::SaveWorkBuffer": 1024,
+    "CGenericGameStorage::CheckSlotDataValid": 1024,
+    "CGenericGameStorage::CheckDataNotCorrupt": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e95951e69834ea8c200cab0a00b2f75f8f4ebd3f349bd2a1bb931dcae9207732",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-storage-io355\\20261008-020018-083286",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CGenericGameStorage::LoadWorkBuffer": true,
+    "CGenericGameStorage::SaveWorkBuffer": true,
+    "CGenericGameStorage::CheckSlotDataValid": true,
+    "CGenericGameStorage::CheckDataNotCorrupt": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "79dfa34b013b3e8b1eba8dfa5ab21f8371b872d3031461b6c6dae9f4090c98d5",
+      "pdb": "8da1fbb1045dea1c4138845d9f0551b9448de30eb3dd7bee9dc2667f7b8a62b6"
+    },
+    "sources": {
+      "source/game_sa/C_PcSave.h": "9ce5bfc6d6dcccef1cc786f6feaaedaf9e76671450786ccd543a5ecb3345f920",
+      "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
+      "source/game_sa/Core/KeyGen.cpp": "3bb96a07f76557a9114e32ee9377294c507214a2f5dc0ece5fc3b61893cbfe1d",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+      "source/game_sa/General.cpp": "808742b15646ca279418ead9bff4e959207bebeb304f5a6918ae5bfdccd0d007",
+      "source/game_sa/GenericGameStorage.cpp": "455a7c3c9ade65feb79dbb6f33bc344da772f796ea5a7f2083f6fb5070289e5a",
+      "source/game_sa/GenericGameStorage.h": "01b1ede214c3871cac34a38c30fcc4578b85487f140c8b3e3ae95b7c230662d0",
+      "source/game_sa/Interior/InteriorGroup_c.cpp": "4469b4d9536b96b206b9dca7a8dbca73b2412be0de649e3e813d4ef080c9bfb4",
+      "source/game_sa/Interior/InteriorGroup_c.h": "80ad6d255a9d4aa13013bb714b3f2afd9eda5bd6029270db143ce1f811fc14db",
+      "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0",
+      "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+      "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82",
+      "source/game_sa/Models/BaseModelInfo.h": "91bece0c4ec1c9f8772b17ba11dcbc9f8e75636292f995f735cbd06514419cc6",
+      "source/game_sa/Models/PedModelInfo.h": "feaecc2e78dfa36c4bab6e7f97f9015f2fe5f2d15731bf85b6f8347c60d9bda7",
+      "source/game_sa/NodeAddress.h": "a22f707c909a6cc7786132304de10096a7e9721036e76ced52df9786fe2f8bdd",
+      "source/game_sa/PathFind.cpp": "b57cf6b5365de50d90e410e41e75dc7bcd40d34065689b0289544494c927267c",
+      "source/game_sa/PathFind.h": "357ab650168e37e361b942ed271e2221605b075899dc0a8f273b30c59dd6f331",
+      "source/game_sa/PopCycle.cpp": "21bd0ae5cbb6a59be5917c4de6c032b82d9cf3e5659a57bec9ebedad6e709b68",
+      "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2",
+      "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInHouse.cpp": "b5596c35c68a6b8b497a2eb60192158a535c4688a339b5f88ec09bf1aa3048b7",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInOffice.cpp": "f0dff0c2fbb75e39b1580168e5d7db54bd3bda3a723df9ad9c29aa4d1d043ce2",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInShop.cpp": "26f36be5908b61a071c564b62c19e05b65a7e3aef5c69acebcd4f2533429b0fa",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp": "187e8cbbb11ce30097cb6a89f1bdb1a56f33b16da80b8cde6bd241e5db97bf68",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "../probe_case.py": "6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8",
+      "../InteriorClosest355/run_local.py": "102e20496949ea81c09b71bd81532ee6c0812f3b1fb95e310ede7795b0e260ec",
+      "../StorageGame355/LiveComparison.hpp": "8f30b8d0283b2b458979edfa05a599d8cc39f606f64273efc61dcfdd729a501e",
+      "../InteriorOffice355/LiveComparison.hpp": "72a0729206a19e8f3eb30d2e8c2d6a7ae33b8308c29f2d05c5293558862ef2bd",
+      "../InteriorPathsLoaded355/build_probe.py": "4a6ac1e0c74fd96a15c7810a576a619dd54d5979c5dfbb6dbcdb45afae63dd81",
+      "../ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "../InteriorSetupPaths355/LiveComparison.hpp": "a78887301828f6a5d1220ad96eb2bae8c1cb29897b4f2713b69256bc4ceedee0",
+      "../probe_build.py": "8e76d4a04b26c055f1d7259246abdbf4f8e56eed372a13171b483327e1c03633",
+      "run_local.py": "b983feabcc9b52461da31bcce9cd0e9baa63b7b314ce0876bba255f108795dcf",
+      "../probe_summary.py": "28224064c276ed8fd6ffd450db22e3ec782a6e068fdb275f270bb7ef49a6f072",
+      "../Pending355/batch_probe.py": "8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6",
+      "../InteriorSpawn355/LiveComparison.hpp": "bde542d1af38086f815a9375e85792723a99c35d51ab4218e806350ff797e77a",
+      "../InteriorSetupPaths355/run_local.py": "955ba47e930241027b0fb3db251d7ab2088061712203a7a8dcd934b20ab6dac2",
+      "../runtime_runner.py": "8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536",
+      "../InteriorClosest355/build_probe.py": "838c8647f615bdc9bdc5496491744d12b39c3edd05d60cfc545e4619d58df70c",
+      "../InteriorSetupPaths355/build_probe.py": "f1546a214e19ec4fb29a4b05d423283ec641233df74d8500e8a1d2e05ac09091",
+      "../InteriorExit355/LiveComparison.hpp": "6487dfa8ee13f452772c3d6842e42f206f2316bd8d951e2d4ddb3a79a1895432",
+      "../InteriorSpawn355/run_local.py": "00a8853712767550ce5e79243f1b485733a2abc28d97a36e50a5a47a210e3368",
+      "LiveComparison.hpp": "e2552e2ae3506ee3561baa84b51c75fcbb1f99696948eb9f1597ef6bb84868fe",
+      "../InteriorExit355/run_local.py": "28261e3962716d126b6a3a42ccb92ee670e1b89a1454232a1a811a799b7e165d",
+      "../StorageGame355/build_probe.py": "45b8e497128943a2dab75973b632c2c26b90840331889ef014ba7eaace38c483",
+      "../InteriorOffice355/run_local.py": "f4e5597492d08acdaa8bdfdd07b3fc5c9798159060fe2f48bc92c7cd1d45578e",
+      "../InteriorSpawn355/build_probe.py": "e0728c9a092a6affbdbc8b8a918540d819f08876c4030a47bcd23df96ff71055",
+      "../InteriorOffice355/build_probe.py": "bf9ecba74a91914d7f92755c9bf2314aec1667ab10fc2408c0b37b9834137eac",
+      "../InteriorExit355/build_probe.py": "591c9817cf05b5984397225b91ab05ee459160c17cba18208833cdc8b0d2aa77",
+      "../Pending355/batches/c9aada89d5f0/LiveComparison.hpp": "c0a046141d8713ab3cc60292a2a2527168f1e1968821efc3dfad1607e6db9a55",
+      "../InteriorPathsLoaded355/LiveComparison.hpp": "3a1397ddff83b5e6f6781b5ff37e4fbfa9b002d0c5818c181a25269c9ee4abba",
+      "../StorageGame355/run_local.py": "c129dd58504ad63a1f102db66a2496c65d0cab23467bfd40fb6203c9ff70e833",
+      "../InteriorPathsLoaded355/run_local.py": "3c8a1a2a5d1a526af6efb84f44cdc3d950df0ce33679f664477d0b60fa2e2c1a",
+      "build_probe.py": "e49f4bd4ad4dbb451d75365b071ae88ad550538fe8f055a0041fb18652f4a570",
+      "../InteriorClosest355/LiveComparison.hpp": "69b31cb66677348ff8062535b29fd8dde48e19535226cad08f50e6b2cd0aab83"
+    },
+    "batch_driver": "reversing/Pending355/batches/c9aada89d5f0/LiveComparison.hpp",
+    "batch_banks": [
+      "StorageIO355",
+      "StorageGame355",
+      "InteriorClosest355",
+      "InteriorExit355",
+      "InteriorPathsLoaded355",
+      "InteriorOffice355",
+      "InteriorSpawn355",
+      "InteriorSetupPaths355"
+    ]
+  },
+  "limitations": [
+    "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
+    "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
+    "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"../probe_case.py\", \"tested_sha256\": \"6c048c8056a0fb29b5405c8703c8a333698113d24948441175659b5cda67aef8\", \"current_sha256\": \"61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44\"}, {\"path\": \"../Pending355/batch_probe.py\", \"tested_sha256\": \"8df93f861e2033b0ebe48667c1f647b3d2a84d181ba29140c5cf331198b7fee6\", \"current_sha256\": \"23153f67f0c83b82850b212c353aae655549c060fa1926e1c1a62ba526c23998\"}, {\"path\": \"../runtime_runner.py\", \"tested_sha256\": \"8400c722505d52897b4c5300a0a158bea87eead30fd35abe11567ca46d893536\", \"current_sha256\": \"e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c\"}]",
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+  ]
+}

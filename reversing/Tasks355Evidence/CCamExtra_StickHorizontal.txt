@@ -1,0 +1,113 @@
+// CCamExtra::StickHorizontal @ 0x00540e80 [0x540e80..0x540f7a]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+uint FUN_00540e80(void)
+
+{
+  float fVar1;
+  float fVar2;
+  uint uVar3;
+  int in_ECX;
+  
+  fVar1 = (float)(int)DAT_00b7345c;
+  fVar2 = fVar1;
+  if (fVar1 < 0.0) {
+    fVar2 = -fVar1;
+  }
+  if ((100.0 < fVar2) && ((*(short *)(in_ECX + 0x10e) != 0 || (*(short *)(in_ECX + 0x26) == 0)))) {
+    if (0.0 < fVar1) {
+      uVar3 = FUN_00821b40();
+      return uVar3;
+    }
+    uVar3 = FUN_00821b40();
+    return uVar3;
+  }
+  uVar3 = FUN_0050a850();
+  if ((char)uVar3 != '\0') {
+    fVar2 = fVar1;
+    if (fVar1 < 0.0) {
+      fVar2 = -fVar1;
+    }
+    uVar3 = uVar3 & 0xffff0000;
+    if (50.0 < fVar2) {
+      if (0.0 < fVar1) {
+        uVar3 = FUN_00821b40();
+        return uVar3;
+      }
+      uVar3 = FUN_00821b40();
+      return uVar3;
+    }
+  }
+  return uVar3 & 0xffff0000;
+}
+
+
+==== complete EXE assembly ====
+00540E80: push ecx
+00540E81: movsx eax,word ptr ds:[00B7345Ch]
+ 00
+00540E88: mov dword ptr [esp],eax
+00540E8C: fild dword ptr [esp]
+00540E90: fst dword ptr [esp]
+00540E94: fcomp dword ptr ds:[00858B50h]
+00540E9A: fld dword ptr [esp]
+00540E9E: fnstsw ax
+00540EA0: test ah,5
+00540EA3: jp 00540EA7
+00540EA5: fchs
+00540EA7: fcomp dword ptr ds:[00858628h]
+00540EAD: fnstsw ax
+00540EAF: test ah,41h
+00540EB2: jne 00540F07
+00540EB4: cmp word ptr [ecx+0000010Eh],0
+00540EBC: jne 00540ECA
+00540EBE: cmp word ptr [ecx+26h],0
+00540EC3: setne al
+00540EC6: test al,al
+00540EC8: jne 00540F07
+00540ECA: fld dword ptr [esp]
+00540ECE: fcomp dword ptr ds:[00858B50h]
+00540ED4: fld dword ptr [esp]
+00540ED8: fnstsw ax
+00540EDA: test ah,41h
+00540EDD: jne 00540EF3
+00540EDF: fsub dword ptr ds:[00858628h]
+00540EE5: fadd dword ptr ds:[00858B40h]
+00540EEB: add esp,4
+00540EEE: jmp 00821B40
+00540EF3: fadd dword ptr ds:[00858628h]
+00540EF9: fsub dword ptr ds:[00858B40h]
+00540EFF: add esp,4
+00540F02: jmp 00821B40
+00540F07: mov ecx,0B6F19Ch
+00540F0C: call 0050A850
+00540F11: test al,al
+00540F13: je 00540F76
+00540F15: fld dword ptr [esp]
+00540F19: fcomp dword ptr ds:[00858B50h]
+00540F1F: fld dword ptr [esp]
+00540F23: fnstsw ax
+00540F25: test ah,5
+00540F28: jp 00540F2C
+00540F2A: fchs
+00540F2C: fcomp dword ptr ds:[00858B40h]
+00540F32: fnstsw ax
+00540F34: test ah,41h
+00540F37: jne 00540F76
+00540F39: fld dword ptr [esp]
+00540F3D: fcomp dword ptr ds:[00858B50h]
+00540F43: fld dword ptr [esp]
+00540F47: fnstsw ax
+00540F49: test ah,41h
+00540F4C: jne 00540F62
+00540F4E: fsub dword ptr ds:[00858B40h]
+00540F54: fmul dword ptr ds:[00858B8Ch]
+00540F5A: add esp,4
+00540F5D: jmp 00821B40
+00540F62: fadd dword ptr ds:[00858B40h]
+00540F68: fmul dword ptr ds:[00858B8Ch]
+00540F6E: add esp,4
+00540F71: jmp 00821B40
+00540F76: xor ax,ax
+00540F79: pop ecx
+00540F7A: ret

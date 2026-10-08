@@ -1,0 +1,42 @@
+// CProjectileInfo::RemoveFXSystem @ 0x00737b80 [0x737b80..0x737bb7]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00737b80(char param_1)
+
+{
+  int in_ECX;
+  
+  if (*(int *)(in_ECX + 0x20) != 0) {
+    if (param_1 != '\0') {
+      FUN_004a9810(*(int *)(in_ECX + 0x20));
+      *(undefined4 *)(in_ECX + 0x20) = 0;
+      return;
+    }
+    FUN_004aa3f0();
+    *(undefined4 *)(in_ECX + 0x20) = 0;
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00737B80: push esi
+00737B81: mov esi,ecx
+00737B83: mov ecx,dword ptr [esi+20h]
+00737B86: test ecx,ecx
+00737B88: je 00737BB4
+00737B8A: mov al,byte ptr [esp+8]
+00737B8E: test al,al
+00737B90: je 00737BA8
+00737B92: push ecx
+00737B93: mov ecx,0A9AE80h
+00737B98: call 004A9810
+00737B9D: mov dword ptr [esi+20h],0
+ 00
+00737BA4: pop esi
+00737BA5: ret 4
+00737BA8: call 004AA3F0
+00737BAD: mov dword ptr [esi+20h],0
+ 00
+00737BB4: pop esi
+00737BB5: ret 4

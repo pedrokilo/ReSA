@@ -1,0 +1,2170 @@
+{
+  "classes": [
+    "CCarEnterExit",
+    "CInterestingEvents",
+    "CPedDamageResponseCalculator",
+    "CTaskComplexGangJoinRespond",
+    "CTaskComplexKillPedFromBoat",
+    "CTaskGoToVehicleAndLean",
+    "CWaterLevel",
+    "CMonsterTruck",
+    "CTaskComplexFollowLeaderInFormation",
+    "CTaskComplexPlayHandSignalAnim",
+    "CTaskComplexSunbathe",
+    "CTaskComplexWanderStandard",
+    "CTaskGangHassleVehicle",
+    "CWeapon",
+    "CTaskComplexGangFollower",
+    "FxEmitterBP_c",
+    "CClothesBuilder",
+    "CFormation",
+    "CHud",
+    "CTaskComplexHitPedWithCar",
+    "CPlane",
+    "CShadows",
+    "CTaskComplexSmartFleePoint",
+    "CAEScriptAudioEntity",
+    "CProjectileInfo",
+    "CAERadioTrackManager",
+    "CGenericGameStorage",
+    "CRunningScript",
+    "CBike",
+    "CCamera",
+    "CTrain",
+    "InteriorGroup_c",
+    "CPedGeometryAnalyser",
+    "CCam"
+  ],
+  "functions": [
+    {
+      "class": "CWeapon",
+      "fn_name": "CheckForShootingVehicleOccupant",
+      "address": "0x0073F480",
+      "type": "S"
+    },
+    {
+      "class": "CWeapon",
+      "fn_name": "DoDriveByAutoAiming",
+      "address": "0x0073D720",
+      "type": "S"
+    },
+    {
+      "class": "CWeapon",
+      "fn_name": "DoTankDoomAiming",
+      "address": "0x0073D1E0",
+      "type": "S"
+    },
+    {
+      "class": "CWeapon",
+      "fn_name": "FindNearestTargetEntityWithScreenCoors",
+      "address": "0x0073E240",
+      "type": "S"
+    },
+    {
+      "class": "CWeapon",
+      "fn_name": "FireInstantHit",
+      "address": "0x0073FB10",
+      "type": "S"
+    },
+    {
+      "class": "CWeapon",
+      "fn_name": "FireInstantHitFromCar",
+      "address": "0x0073EC40",
+      "type": "S"
+    },
+    {
+      "class": "CWaterLevel",
+      "fn_name": "AddWaveToResult",
+      "address": "0x006E81E0",
+      "type": "S"
+    },
+    {
+      "class": "CWaterLevel",
+      "fn_name": "FindNearestWaterAndItsFlow",
+      "address": "0x006E9D70",
+      "type": "S"
+    },
+    {
+      "class": "CWaterLevel",
+      "fn_name": "GetWaterLevelNoWaves",
+      "address": "0x006E8580",
+      "type": "S"
+    },
+    {
+      "class": "CWaterLevel",
+      "fn_name": "RenderWater",
+      "address": "0x006EF650",
+      "type": "S"
+    },
+    {
+      "class": "CWaterLevel",
+      "fn_name": "RenderWaterFog",
+      "address": "0x006E7760",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "AddProjectile",
+      "address": "0x00737C80",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "GetProjectileInfo",
+      "address": "0x00737BF0",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "Initialise",
+      "address": "0x00737B40",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveAllProjectiles",
+      "address": "0x007399B0",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveDetonatorProjectiles",
+      "address": "0x00738860",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveFXSystem",
+      "address": "0x00737B80",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveIfThisIsAProjectile",
+      "address": "0x00739A40",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveNotAdd",
+      "address": "0x00737C00",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "RemoveProjectile",
+      "address": "0x007388F0",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "Shutdown",
+      "address": "0x00737BC0",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "Update",
+      "address": "0x00738B20",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "CanPedJumpObstacle-",
+      "address": "0x005F1B00",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "CanPedJumpObstacle-contacted",
+      "address": "0x005F32D0",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "CanPedTargetPoint",
+      "address": "0x005F1B70",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeBuildingHitPoints",
+      "address": "0x005F1E30",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeClearTarget",
+      "address": "0x005F5D80",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeClosestSurfacePoint-posn",
+      "address": "0x005F36F0",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeClosestSurfacePoint-rect",
+      "address": "0x005F2C10",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeEntityBoundingBoxCornersUncached",
+      "address": "0x005F1FA0",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeEntityBoundingBoxPlanes",
+      "address": "0x005F3660",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeEntityBoundingBoxSegmentPlanesUncached",
+      "address": "0x005F1750",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeEntityBoundingSphere",
+      "address": "0x005F3C20",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeEntityDirs",
+      "address": "0x005F1500",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeEntityHitSide-1",
+      "address": "0x005F3BC0",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeEntityHitSide-2",
+      "address": "0x005F1450",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeEntityHitSide-3",
+      "address": "0x005F3AC0",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeMoveDirToAvoidEntity",
+      "address": "0x005F3730",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputePedHitSide-physical",
+      "address": "0x005F3640",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputePedHitSide-posn",
+      "address": "0x005F1E70",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputePedShotSide",
+      "address": "0x005F13F0",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeRouteRoundEntityBoundingBox-1",
+      "address": "0x005F6110",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeRouteRoundEntityBoundingBox-2",
+      "address": "0x005F3DD0",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "ComputeRouteRoundSphere",
+      "address": "0x005F1890",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "GetIsLineOfSightClear-ped",
+      "address": "0x005F5A30",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "GetIsLineOfSightClear-v3d",
+      "address": "0x005F2F00",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "GetNearestPed",
+      "address": "0x005F3590",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "IsEntityBlockingTarget",
+      "address": "0x005F3970",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "IsInAir",
+      "address": "0x005F1CB0",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "IsWanderPathClear",
+      "address": "0x005F2F70",
+      "type": "S"
+    },
+    {
+      "class": "CPedGeometryAnalyser",
+      "fn_name": "LiesInsideBoundingBox",
+      "address": "0x005F3880",
+      "type": "S"
+    },
+    {
+      "class": "CPedDamageResponseCalculator",
+      "fn_name": "AccountForPedArmour",
+      "address": "0x004AD550",
+      "type": "S"
+    },
+    {
+      "class": "CPedDamageResponseCalculator",
+      "fn_name": "AccountForPedDamageStats",
+      "address": "0x004AD430",
+      "type": "S"
+    },
+    {
+      "class": "CPedDamageResponseCalculator",
+      "fn_name": "ComputeDamageResponse",
+      "address": "0x004B5AC0",
+      "type": "S"
+    },
+    {
+      "class": "CPedDamageResponseCalculator",
+      "fn_name": "ComputeWillForceDeath",
+      "address": "0x004AD610",
+      "type": "S"
+    },
+    {
+      "class": "CPedDamageResponseCalculator",
+      "fn_name": "IsBleedingWeapon",
+      "address": "0x004B5C2A",
+      "type": "S"
+    },
+    {
+      "class": "CInterestingEvents",
+      "fn_name": "Add",
+      "address": "0x00602590",
+      "type": "S"
+    },
+    {
+      "class": "CInterestingEvents",
+      "fn_name": "Constructor",
+      "address": "0x006023A0",
+      "type": "S"
+    },
+    {
+      "class": "CInterestingEvents",
+      "fn_name": "Destructor",
+      "address": "0x00856880",
+      "type": "S"
+    },
+    {
+      "class": "CInterestingEvents",
+      "fn_name": "GetInterestingEvent",
+      "address": "0x006028A0",
+      "type": "S"
+    },
+    {
+      "class": "CInterestingEvents",
+      "fn_name": "ScanForNearbyEntities",
+      "address": "0x00605A30",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "CheckDataNotCorrupt",
+      "address": "0x005D1170",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "CheckSlotDataValid",
+      "address": "0x005D1380",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "CloseFile",
+      "address": "0x005D0E30",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "DoGameSpecificStuffAfterSucessLoad",
+      "address": "0x00618E90",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "DoGameSpecificStuffBeforeSave",
+      "address": "0x00618F50",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "GetCurrentVersionNumber",
+      "address": "0x005D0F50",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "GetSavedGameDateAndTime",
+      "address": "0x00618D00",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "InitRadioStationPositionList",
+      "address": "0x00618E70",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "LoadWorkBuffer",
+      "address": "0x005D10B0",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "MakeValidSaveName",
+      "address": "0x005D0E90",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "OpenFileForReading",
+      "address": "0x005D0D20",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "OpenFileForWriting",
+      "address": "0x005D0DD0",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "RestoreForStartLoad",
+      "address": "0x00619000",
+      "type": "S"
+    },
+    {
+      "class": "CGenericGameStorage",
+      "fn_name": "SaveWorkBuffer",
+      "address": "0x005D0F80",
+      "type": "S"
+    },
+    {
+      "class": "CFormation",
+      "fn_name": "DistributeDestinations",
+      "address": "0x0069B240",
+      "type": "S"
+    },
+    {
+      "class": "CFormation",
+      "fn_name": "DistributeDestinations_CoverPoints",
+      "address": "0x0069B5B0",
+      "type": "S"
+    },
+    {
+      "class": "CFormation",
+      "fn_name": "DistributeDestinations_PedsToAttack",
+      "address": "0x0069B700",
+      "type": "S"
+    },
+    {
+      "class": "CFormation",
+      "fn_name": "FindCoverPoints",
+      "address": "0x0069B860",
+      "type": "S"
+    },
+    {
+      "class": "CFormation",
+      "fn_name": "GenerateGatherDestinations",
+      "address": "0x0069A620",
+      "type": "S"
+    },
+    {
+      "class": "CFormation",
+      "fn_name": "GenerateGatherDestinations_AroundCar",
+      "address": "0x0069A770",
+      "type": "S"
+    },
+    {
+      "class": "CFormation",
+      "fn_name": "ReturnDestinationForPed",
+      "address": "0x00699FA0",
+      "type": "S"
+    },
+    {
+      "class": "CFormation",
+      "fn_name": "ReturnTargetPedForPed",
+      "address": "0x00699F50",
+      "type": "S"
+    },
+    {
+      "class": "CClothesBuilder",
+      "fn_name": "BlendGeometry-2",
+      "address": "0x005A4F10",
+      "type": "S"
+    },
+    {
+      "class": "CClothesBuilder",
+      "fn_name": "BlendGeometry-3",
+      "address": "0x005A4940",
+      "type": "S"
+    },
+    {
+      "class": "CClothesBuilder",
+      "fn_name": "ConstructGeometryAndSkinArrays",
+      "address": "0x005A6530",
+      "type": "S"
+    },
+    {
+      "class": "CClothesBuilder",
+      "fn_name": "ConstructGeometryArray",
+      "address": "0x005A55A0",
+      "type": "S"
+    },
+    {
+      "class": "CClothesBuilder",
+      "fn_name": "ConstructTextures",
+      "address": "0x005A6040",
+      "type": "S"
+    },
+    {
+      "class": "CClothesBuilder",
+      "fn_name": "CopyGeometry",
+      "address": "0x005A5340",
+      "type": "S"
+    },
+    {
+      "class": "CClothesBuilder",
+      "fn_name": "PreprocessClothesDesc",
+      "address": "0x005A44C0",
+      "type": "S"
+    },
+    {
+      "class": "CClothesBuilder",
+      "fn_name": "ReleaseGeometry",
+      "address": "0x005A47B0",
+      "type": "S"
+    },
+    {
+      "class": "CCarEnterExit",
+      "fn_name": "GetNearestCarPassengerDoor",
+      "address": "0x00650BB0",
+      "type": "S"
+    },
+    {
+      "class": "CCarEnterExit",
+      "fn_name": "GetPositionToOpenCarDoor",
+      "address": "0x0064E740",
+      "type": "S"
+    },
+    {
+      "class": "CCarEnterExit",
+      "fn_name": "IsPlayerToQuitCarEnter",
+      "address": "0x0064F240",
+      "type": "S"
+    },
+    {
+      "class": "CCarEnterExit",
+      "fn_name": "IsRoomForPedToLeaveCar",
+      "address": "0x006504C0",
+      "type": "S"
+    },
+    {
+      "class": "CCarEnterExit",
+      "fn_name": "MakeUndraggedPassengerPedsLeaveCar",
+      "address": "0x0064F540",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "CalculateDerivedValues",
+      "address": "0x005150E0",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "CalculateFrustumPlanes",
+      "address": "0x00514D60",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "CamControl",
+      "address": "0x00527FA0",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "CameraColDetAndReact",
+      "address": "0x00520190",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "CopyCameraMatrixToRWCam",
+      "address": "0x0050AFA0",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "HandleCameraMotionForDucking",
+      "address": "0x0050CFA0",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "HandleCameraMotionForDuckingDuringAim",
+      "address": "0x0050D090",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "ImproveNearClip",
+      "address": "0x00516B20",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "LoadPathSplines",
+      "address": "0x005B24D0",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "Process",
+      "address": "0x0052B730",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "ProcessFOVLerp-0",
+      "address": "0x0050D510",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "ProcessVectorMoveLinear-0",
+      "address": "0x0050D430",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "ProcessVectorMoveLinear-1",
+      "address": "0x005164A0",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "ProcessVectorTrackLinear-0",
+      "address": "0x0050D350",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "ProcessVectorTrackLinear-1",
+      "address": "0x00516440",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "SetNearClipBasedOnPedCollision",
+      "address": "0x0050CB90",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "TryToStartNewCamMode",
+      "address": "0x0051E560",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "VectorMoveLinear",
+      "address": "0x0050D160",
+      "type": "S"
+    },
+    {
+      "class": "CCamera",
+      "fn_name": "VectorTrackLinear",
+      "address": "0x0050D1D0",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "AddNearbyPedAsRandomPassenger",
+      "address": "0x006F8170",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "Constructor",
+      "address": "0x006F6030",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "CreateMissionTrain",
+      "address": "0x006F7550",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "DoTrainGenerationAndRemoval",
+      "address": "0x006F7900",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "FindCaboose",
+      "address": "0x006F5E70",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "FindCarriage",
+      "address": "0x006F5EB0",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "FindClosestTrackNode",
+      "address": "0x006F6BD0",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "FindCoorsFromPositionOnTrack",
+      "address": "0x006F59E0",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "FindEngine",
+      "address": "0x006F5E90",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "FindMaximumSpeedToStopAtStations",
+      "address": "0x006F5BA0",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "FindNearestTrain",
+      "address": "0x006F7090",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "FindNextStationPositionInDirection",
+      "address": "0x006F5F00",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "FindPositionOnTrackFromCoors",
+      "address": "0x006F6CC0",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "InitTrains",
+      "address": "0x006F7440",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "IsNextStationAllowed",
+      "address": "0x006F7260",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "ReadAndInterpretTrackFile",
+      "address": "0x006F55D0",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "RemoveAllTrains",
+      "address": "0x006F6AA0",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "RemoveRandomPassenger",
+      "address": "0x006F6850",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "SkipToNextAllowedStation",
+      "address": "0x006F72F0",
+      "type": "S"
+    },
+    {
+      "class": "CTrain",
+      "fn_name": "TrainHitStuff<CPtrListSingleLink<CPhysical*>>",
+      "address": "0x006F5CF0",
+      "type": "S"
+    },
+    {
+      "class": "CPlane",
+      "fn_name": "BlowUpCar",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CPlane",
+      "fn_name": "DoPlaneGenerationAndRemoval",
+      "address": "0x006CD2F0",
+      "type": "S"
+    },
+    {
+      "class": "CPlane",
+      "fn_name": "FindPlaneCreationCoors",
+      "address": "0x006CD090",
+      "type": "S"
+    },
+    {
+      "class": "CPlane",
+      "fn_name": "PreRender",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CPlane",
+      "fn_name": "ProcessControl",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CPlane",
+      "fn_name": "ProcessControlInputs",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CPlane",
+      "fn_name": "ProcessFlyingCarStuff",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CPlane",
+      "fn_name": "SwitchAmbientPlanes",
+      "address": "0x006CCC50",
+      "type": "S"
+    },
+    {
+      "class": "CPlane",
+      "fn_name": "VehicleDamage",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CMonsterTruck",
+      "fn_name": "ExtendSuspension",
+      "address": "0x006C7D80",
+      "type": "S"
+    },
+    {
+      "class": "CMonsterTruck",
+      "fn_name": "ProcessControl",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CMonsterTruck",
+      "fn_name": "ProcessControlCollisionCheck",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CMonsterTruck",
+      "fn_name": "ProcessSuspension",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CMonsterTruck",
+      "fn_name": "ResetSuspension",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CMonsterTruck",
+      "fn_name": "SetupSuspensionLines",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "BlowUpCar",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "BurstTyre",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "DoBurstAndSoftGroundRatios",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "DoSoftGroundResistance",
+      "address": "0x006B6D40",
+      "type": "S"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "FixHandsToBars",
+      "address": "0x006B7F90",
+      "type": "S"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "GetCorrectedWorldDoorPosition",
+      "address": "0x006BF230",
+      "type": "S"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "PlaceOnRoadProperly",
+      "address": "0x006BEEB0",
+      "type": "S"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "PlayCarHorn",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "PreRender",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "ProcessAI",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "ProcessControl",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "ProcessControlInputs",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "ProcessRiderAnims",
+      "address": "0x006B7280",
+      "type": "S"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "ResetSuspension",
+      "address": "0x006B6740",
+      "type": "S"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "SetRemoveAnimFlags",
+      "address": "0x006B5F50",
+      "type": "S"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "SetUpWheelColModel",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "SetupSuspensionLines",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CBike",
+      "fn_name": "VehicleDamage",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "FxEmitterBP_c",
+      "fn_name": "CreateInstance",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "FxEmitterBP_c",
+      "fn_name": "FreePrtFromPrim",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "FxEmitterBP_c",
+      "fn_name": "Load",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "FxEmitterBP_c",
+      "fn_name": "Render",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "FxEmitterBP_c",
+      "fn_name": "RenderHeatHaze",
+      "address": "0x004A1940",
+      "type": "S"
+    },
+    {
+      "class": "FxEmitterBP_c",
+      "fn_name": "Update",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "FxEmitterBP_c",
+      "fn_name": "UpdateParticle",
+      "address": "0x004A21D0",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "AttachMissionAudioToPhysical",
+      "address": "0x004EC100",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "ClearMissionAudio",
+      "address": "0x004EC040",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "GetMissionAudioLoadingStatus",
+      "address": "0x004EBF60",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "GetMissionAudioPosition",
+      "address": "0x004EC4D0",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "IsMissionAudioSampleFinished",
+      "address": "0x004EBFE0",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "PlayLoadedMissionAudio",
+      "address": "0x004EC270",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "PlayMissionBankSound",
+      "address": "0x004EC6D0",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "PreloadMissionAudio",
+      "address": "0x004EC190",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "ProcessMissionAudioEvent",
+      "address": "0x004ECCF0",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "SetMissionAudioPosition",
+      "address": "0x004EC0C0",
+      "type": "S"
+    },
+    {
+      "class": "CAEScriptAudioEntity",
+      "fn_name": "UpdateParameters",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "CheckForStationRetune",
+      "address": "0x004EB660",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "CheckForTrackConcatenation",
+      "address": "0x004EA930",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "ChooseAdvertIndex",
+      "address": "0x004E9570",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "ChooseDJBanterIndex",
+      "address": "0x004EA2D0",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "ChooseDJBanterIndexFromList",
+      "address": "0x004E95E0",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "ChooseIdentIndex",
+      "address": "0x004E94C0",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "ChooseMusicTrackIndex",
+      "address": "0x004EA270",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "ChooseTalkRadioShow",
+      "address": "0x004E8E40",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "IsVehicleRadioActive",
+      "address": "0x004E9800",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "QueueUpTracksForStation",
+      "address": "0x004EA670",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "Service",
+      "address": "0x004EB9A0",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "StopRadio",
+      "address": "0x004E9820",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "TrackRadioStation",
+      "address": "0x004EAC30",
+      "type": "S"
+    },
+    {
+      "class": "CAERadioTrackManager",
+      "fn_name": "UpdateRadioVolumes",
+      "address": "0x004EA010",
+      "type": "S"
+    },
+    {
+      "class": "CTaskGoToVehicleAndLean",
+      "fn_name": "Clone",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGoToVehicleAndLean",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGoToVehicleAndLean",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGoToVehicleAndLean",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGoToVehicleAndLean",
+      "fn_name": "MakeAbortable",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGangHassleVehicle",
+      "fn_name": "CalcTargetOffset",
+      "address": "0x006641A0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskGangHassleVehicle",
+      "fn_name": "Clone",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGangHassleVehicle",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGangHassleVehicle",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGangHassleVehicle",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGangHassleVehicle",
+      "fn_name": "GetTargetHeading",
+      "address": "0x0065FDD0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexSunbathe",
+      "fn_name": "Clone",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSunbathe",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSunbathe",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSunbathe",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSunbathe",
+      "fn_name": "GetTaskType",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSunbathe",
+      "fn_name": "MakeAbortable",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSmartFleePoint",
+      "fn_name": "Clone",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSmartFleePoint",
+      "fn_name": "ComputeFleeDir",
+      "address": "0x0065BE40",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexSmartFleePoint",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSmartFleePoint",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSmartFleePoint",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSmartFleePoint",
+      "fn_name": "CreateSubTask",
+      "address": "0x0065BE80",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexSmartFleePoint",
+      "fn_name": "GetTaskType",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSmartFleePoint",
+      "fn_name": "MakeAbortable",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexSmartFleePoint",
+      "fn_name": "SetDefaultTaskWanderDir",
+      "address": "0x0065BE00",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexSmartFleePoint",
+      "fn_name": "SetFleePosition",
+      "address": "0x0065C3C0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexPlayHandSignalAnim",
+      "fn_name": "Clone",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexPlayHandSignalAnim",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexPlayHandSignalAnim",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexPlayHandSignalAnim",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexPlayHandSignalAnim",
+      "fn_name": "CreateSubTask",
+      "address": "0x0061B2F0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexPlayHandSignalAnim",
+      "fn_name": "GetAnimIdForPed",
+      "address": "0x0061B460",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexKillPedFromBoat",
+      "fn_name": "Clone",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexKillPedFromBoat",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexKillPedFromBoat",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexKillPedFromBoat",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexKillPedFromBoat",
+      "fn_name": "GetTaskType",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGangJoinRespond",
+      "fn_name": "Clone",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGangJoinRespond",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGangJoinRespond",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGangJoinRespond",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGangJoinRespond",
+      "fn_name": "MakeAbortable",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGangFollower",
+      "fn_name": "Clone",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGangFollower",
+      "fn_name": "Constructor",
+      "address": "0x0065EAA0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexGangFollower",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGangFollower",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGangFollower",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGangFollower",
+      "fn_name": "Destructor",
+      "address": "0x0065EBB0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexGangFollower",
+      "fn_name": "MakeAbortable",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexFollowLeaderInFormation",
+      "fn_name": "Clone",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexFollowLeaderInFormation",
+      "fn_name": "Constructor",
+      "address": "0x006949A0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexFollowLeaderInFormation",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexFollowLeaderInFormation",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexFollowLeaderInFormation",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexFollowLeaderInFormation",
+      "fn_name": "GetTaskType",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "AddInterior",
+      "address": "0x00594840",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "ArePathsLoaded",
+      "address": "0x00595380",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "CalcIsVisible",
+      "address": "0x00595200",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "ContainsInteriorType",
+      "address": "0x00595250",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "Exit",
+      "address": "0x00595290",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "FindClosestInteriorInfo",
+      "address": "0x00594A50",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "FindInteriorInfo",
+      "address": "0x00594970",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "GetEntity",
+      "address": "0x00594BD0",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "GetNumInteriorInfos",
+      "address": "0x00594920",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "GetPed",
+      "address": "0x00594B90",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "GetRandomInterior",
+      "address": "0x005948C0",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "Init",
+      "address": "0x005947E0",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "RemovePed",
+      "address": "0x00594E30",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "Setup",
+      "address": "0x00595320",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "SetupHousePeds",
+      "address": "0x005965E0",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "SetupOfficePeds",
+      "address": "0x00594BF0",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "SetupPaths",
+      "address": "0x00595590",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "SetupPeds",
+      "address": "0x00596890",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "SetupShopPeds",
+      "address": "0x00594C10",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "Update",
+      "address": "0x005968E0",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "UpdateOfficePeds",
+      "address": "0x00594E90",
+      "type": "S"
+    },
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "UpdatePeds",
+      "address": "0x00596830",
+      "type": "S"
+    },
+    {
+      "class": "CShadows",
+      "fn_name": "AddPermanentShadow",
+      "address": "0x00706F60",
+      "type": "S"
+    },
+    {
+      "class": "CShadows",
+      "fn_name": "CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>>",
+      "address": "0x0070A7E0",
+      "type": "S"
+    },
+    {
+      "class": "CShadows",
+      "fn_name": "CastShadowEntityXY",
+      "address": "0x007086B0",
+      "type": "S"
+    },
+    {
+      "class": "CShadows",
+      "fn_name": "CastShadowEntityXYZ",
+      "address": "0x0070A040",
+      "type": "S"
+    },
+    {
+      "class": "CShadows",
+      "fn_name": "CastShadowSectorList<CPtrListSingleLink<CPhysical*>>",
+      "address": "0x0070A630",
+      "type": "S"
+    },
+    {
+      "class": "CShadows",
+      "fn_name": "GeneratePolysForStaticShadow",
+      "address": "0x0070B730",
+      "type": "S"
+    },
+    {
+      "class": "CShadows",
+      "fn_name": "ShadowRenderTriangleCB",
+      "address": "0x00709CF0",
+      "type": "S"
+    },
+    {
+      "class": "CShadows",
+      "fn_name": "StoreShadowForVehicle",
+      "address": "0x0070BDA0",
+      "type": "S"
+    },
+    {
+      "class": "CShadows",
+      "fn_name": "StoreStaticShadow",
+      "address": "0x0070BA00",
+      "type": "S"
+    },
+    {
+      "class": "CShadows",
+      "fn_name": "UpdatePermanentShadows",
+      "address": "0x0070C950",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "CarInAreaCheckCommand",
+      "address": "0x00488EC0",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "CharInAngledAreaCheckCommand",
+      "address": "0x00487F60",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "CharInAreaCheckCommand",
+      "address": "0x00488B50",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "FlameInAngledAreaCheckCommand",
+      "address": "0x00488780",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "LocateCarCommand",
+      "address": "0x00487A20",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "LocateCharCarCommand",
+      "address": "0x00487420",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "LocateCharCharCommand",
+      "address": "0x004870F0",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "LocateCharCommand",
+      "address": "0x00486D80",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "LocateCharObjectCommand",
+      "address": "0x00487720",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "LocateObjectCommand",
+      "address": "0x00487D10",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "ObjectInAngledAreaCheckCommand",
+      "address": "0x004883F0",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "ObjectInAreaCheckCommand",
+      "address": "0x00489150",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "PlayAnimScriptCommand",
+      "address": "0x00470150",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "ScriptTaskPickUpObject",
+      "address": "0x0046AF50",
+      "type": "S"
+    },
+    {
+      "class": "CRunningScript",
+      "fn_name": "ShutdownThisScript",
+      "address": "0x00465AA0",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "GetLookFromLampPostPos",
+      "address": "0x005161A0",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "IsTimeToExitThisDWCineyCamMode",
+      "address": "0x00517400",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "KeepTrackOfTheSpeed",
+      "address": "0x00509DF0",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "LookBehind",
+      "address": "0x00520690",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "LookRight",
+      "address": "0x00520E40",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process",
+      "address": "0x00526FC0",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "ProcessArrestCamOne",
+      "address": "0x00518500",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "ProcessPedsDeadBaby",
+      "address": "0x00519250",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_1rstPersonPedOnPC",
+      "address": "0x0050EB70",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_AimWeapon",
+      "address": "0x00521500",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_AttachedCam",
+      "address": "0x00512B10",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_Cam_TwoPlayer",
+      "address": "0x00525E50",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_Cam_TwoPlayer_InCarAndShooting",
+      "address": "0x00519810",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_Cam_TwoPlayer_Separate_Cars",
+      "address": "0x00513510",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_DW_BirdyCam",
+      "address": "0x0051B850",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_DW_CamManCam",
+      "address": "0x0051B120",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_DW_HeliChaseCam",
+      "address": "0x0051A740",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_DW_PlaneCam1",
+      "address": "0x0051C760",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_DW_PlaneCam2",
+      "address": "0x0051CC30",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_DW_PlaneCam3",
+      "address": "0x0051D100",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_DW_PlaneSpotterCam",
+      "address": "0x0051C250",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_FlyBy",
+      "address": "0x005B25F0",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_FollowCar_SA",
+      "address": "0x005245B0",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_FollowPedWithMouse",
+      "address": "0x0050F970",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_FollowPed_SA",
+      "address": "0x00522D40",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_M16_1stPerson",
+      "address": "0x005105C0",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_SpecialFixedForSyphon",
+      "address": "0x00517500",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Process_WheelCam",
+      "address": "0x00512110",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "RotCamIfInFrontCar",
+      "address": "0x0050A4F0",
+      "type": "S"
+    },
+    {
+      "class": "CCam",
+      "fn_name": "Using3rdPersonMouseCam",
+      "address": "0x0050A850",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexHitPedWithCar",
+      "fn_name": "Clone",
+      "address": "0x006559B0",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexHitPedWithCar",
+      "fn_name": "ComputeEvasiveStepMoveDir",
+      "address": "0x00653B40",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexHitPedWithCar",
+      "fn_name": "ControlSubTask",
+      "address": "0x00653A90",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexHitPedWithCar",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00656300",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexHitPedWithCar",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00657AF0",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexHitPedWithCar",
+      "fn_name": "CreateSubTask",
+      "address": "0x006560E0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexHitPedWithCar",
+      "fn_name": "GetTaskType",
+      "address": "0x00653A20",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexHitPedWithCar",
+      "fn_name": "HitHurtsPed",
+      "address": "0x00653AE0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexWanderStandard",
+      "fn_name": "Clone",
+      "address": "0x0048E530",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexWanderStandard",
+      "fn_name": "LookForChatPartners",
+      "address": "0x0066FDA0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexWanderStandard",
+      "fn_name": "LookForGangMembers",
+      "address": "0x00670100",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexWanderStandard",
+      "fn_name": "LookForSexyCars",
+      "address": "0x0066AFD0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexWanderStandard",
+      "fn_name": "SetNextMinScanTime",
+      "address": "0x0066AF60",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexWanderStandard",
+      "fn_name": "WillChat",
+      "address": "0x0066AED0",
+      "type": "S"
+    },
+    {
+      "class": "CHud",
+      "fn_name": "DrawCrossHairs",
+      "address": "0x0058E020",
+      "type": "S"
+    },
+    {
+      "class": "CHud",
+      "fn_name": "DrawHelpText",
+      "address": "0x0058B6E0",
+      "type": "S"
+    },
+    {
+      "class": "CHud",
+      "fn_name": "DrawMissionTimers",
+      "address": "0x0058B180",
+      "type": "S"
+    },
+    {
+      "class": "CHud",
+      "fn_name": "DrawPlayerInfo",
+      "address": "0x0058EAF0",
+      "type": "S"
+    },
+    {
+      "class": "CHud",
+      "fn_name": "DrawSubtitles",
+      "address": "0x0058C250",
+      "type": "S"
+    },
+    {
+      "class": "CHud",
+      "fn_name": "DrawSuccessFailedMessage",
+      "address": "0x0058C6A0",
+      "type": "S"
+    },
+    {
+      "class": "CHud",
+      "fn_name": "DrawVitalStats",
+      "address": "0x00589650",
+      "type": "S"
+    },
+    {
+      "class": "CHud",
+      "fn_name": "DrawWanted",
+      "address": "0x0058D9A0",
+      "type": "S"
+    }
+  ]
+}

@@ -1,0 +1,231 @@
+// CInterestingEvents::Constructor @ 0x006023a0 [0x6023a0..0x60255e]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006023a0(void)
+
+{
+  int in_ECX;
+  undefined4 *puVar1;
+  int iVar2;
+  undefined2 *puVar3;
+  
+  *(byte *)(in_ECX + 300) = *(byte *)(in_ECX + 300) & 0xfe | 0xe;
+  *(undefined1 *)(in_ECX + 0x154) = 0xff;
+  *(undefined4 *)(in_ECX + 0x134) = 0;
+  *(undefined4 *)(in_ECX + 0x138) = 0x41f00000;
+  *(int *)(in_ECX + 0x130) = DAT_00b7cb4c + -1;
+  puVar1 = (undefined4 *)(in_ECX + 8);
+  iVar2 = 8;
+  do {
+    puVar1[-2] = 0;
+    puVar1[-1] = 0;
+    *puVar1 = 0;
+    puVar1 = puVar1 + 3;
+    iVar2 = iVar2 + -1;
+  } while (iVar2 != 0);
+  iVar2 = 0;
+  puVar3 = (undefined2 *)(in_ECX + 0x7e);
+  puVar1 = (undefined4 *)(in_ECX + 0xb8);
+  do {
+    *puVar1 = 0;
+    *puVar3 = 2000;
+    *(undefined1 *)(in_ECX + 0x60 + iVar2) = 5;
+    iVar2 = iVar2 + 1;
+    puVar1 = puVar1 + 1;
+    puVar3 = puVar3 + 1;
+  } while (iVar2 < 0x1d);
+  *(undefined1 *)(in_ECX + 0x7c) = 10;
+  *(undefined1 *)(in_ECX + 0x7b) = 10;
+  *(undefined1 *)(in_ECX + 0x7a) = 9;
+  *(undefined1 *)(in_ECX + 0x79) = 9;
+  *(undefined1 *)(in_ECX + 0x78) = 9;
+  *(undefined1 *)(in_ECX + 0x77) = 9;
+  *(undefined1 *)(in_ECX + 0x76) = 9;
+  *(undefined1 *)(in_ECX + 0x70) = 9;
+  *(undefined1 *)(in_ECX + 0x6f) = 9;
+  *(undefined1 *)(in_ECX + 99) = 1;
+  *(undefined1 *)(in_ECX + 0x62) = 1;
+  *(undefined1 *)(in_ECX + 0x61) = 1;
+  *(undefined1 *)(in_ECX + 0x74) = 7;
+  *(undefined1 *)(in_ECX + 0x72) = 7;
+  *(undefined2 *)(in_ECX + 0xb6) = 4000;
+  *(undefined2 *)(in_ECX + 0xb4) = 4000;
+  *(undefined1 *)(in_ECX + 0x73) = 6;
+  *(undefined1 *)(in_ECX + 0x6c) = 6;
+  *(undefined1 *)(in_ECX + 0x6d) = 6;
+  *(undefined1 *)(in_ECX + 0x6b) = 6;
+  *(undefined2 *)(in_ECX + 0xb2) = 8000;
+  *(undefined2 *)(in_ECX + 0xb0) = 6000;
+  *(undefined2 *)(in_ECX + 0xae) = 6000;
+  *(undefined2 *)(in_ECX + 0xac) = 6000;
+  *(undefined2 *)(in_ECX + 0xa8) = 8000;
+  *(undefined2 *)(in_ECX + 0xa6) = 6000;
+  *(undefined2 *)(in_ECX + 0xa2) = 6000;
+  *(undefined2 *)(in_ECX + 0xa0) = 6000;
+  *(undefined2 *)(in_ECX + 0x9e) = 6000;
+  *(undefined2 *)(in_ECX + 0x9c) = 6000;
+  *(undefined2 *)(in_ECX + 0x9a) = 6000;
+  *(undefined2 *)(in_ECX + 0x96) = 8000;
+  *(undefined2 *)(in_ECX + 0x94) = 6000;
+  *(undefined2 *)(in_ECX + 0x92) = 6000;
+  *(undefined1 *)(in_ECX + 0x67) = 2;
+  *(undefined1 *)(in_ECX + 0x66) = 2;
+  *(undefined1 *)(in_ECX + 0x65) = 2;
+  *(undefined1 *)(in_ECX + 100) = 2;
+  *(undefined1 *)(in_ECX + 0x75) = 8;
+  *(undefined1 *)(in_ECX + 0x71) = 8;
+  *(undefined1 *)(in_ECX + 0x6e) = 5;
+  *(undefined1 *)(in_ECX + 0x6a) = 5;
+  *(undefined1 *)(in_ECX + 0x69) = 4;
+  *(undefined1 *)(in_ECX + 0x68) = 4;
+  *(undefined2 *)(in_ECX + 0xaa) = 5000;
+  *(undefined2 *)(in_ECX + 0xa4) = 5000;
+  *(undefined2 *)(in_ECX + 0x98) = 5000;
+  *(undefined2 *)(in_ECX + 0x90) = 3000;
+  *(undefined2 *)(in_ECX + 0x8e) = 3000;
+  *(undefined2 *)(in_ECX + 0x8c) = 3000;
+  *(undefined2 *)(in_ECX + 0x8a) = 3000;
+  *(undefined2 *)(in_ECX + 0x88) = 3000;
+  *(undefined2 *)(in_ECX + 0x86) = 3000;
+  *(undefined2 *)(in_ECX + 0x84) = 5000;
+  *(undefined2 *)(in_ECX + 0x82) = 5000;
+  *(undefined2 *)(in_ECX + 0x80) = 5000;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006023A0: mov eax,ecx
+006023A2: mov cl,byte ptr [eax+0000012Ch]
+006023A8: push ebx
+006023A9: and cl,0FEh
+006023AC: push esi
+006023AD: or cl,0Eh
+006023B0: push edi
+006023B1: xor edi,edi
+006023B3: mov byte ptr [eax+0000012Ch],cl
+006023B9: mov byte ptr [eax+00000154h],0FFh
+ FF
+006023C0: mov dword ptr [eax+00000134h],edi
+006023C6: mov dword ptr [eax+00000138h],41F00000h
+006023D0: mov edx,dword ptr ds:[00B7CB4Ch]
+006023D6: dec edx
+006023D7: mov dword ptr [eax+00000130h],edx
+006023DD: lea ecx,[eax+8]
+006023E0: mov edx,8
+006023E5: mov dword ptr [ecx-8],edi
+006023E8: mov dword ptr [ecx-4],edi
+006023EB: mov dword ptr [ecx],edi
+006023ED: add ecx,0Ch
+006023F0: dec edx
+006023F1: jne 006023E5
+006023F3: xor ecx,ecx
+006023F5: lea esi,[eax+7Eh]
+006023F8: lea edx,[eax+000000B8h]
+006023FE: mov ebx,2
+00602403: mov dword ptr [edx],edi
+00602405: mov word ptr [esi],7D0h
+0060240A: mov byte ptr [eax+ecx+60h],5
+0060240F: inc ecx
+00602410: add edx,4
+00602413: add esi,ebx
+00602415: cmp ecx,1Dh
+00602418: jl 00602403
+0060241A: mov cl,0Ah
+0060241C: mov byte ptr [eax+7Ch],cl
+0060241F: mov byte ptr [eax+7Bh],cl
+00602422: mov cl,9
+00602424: mov byte ptr [eax+7Ah],cl
+00602427: mov byte ptr [eax+79h],cl
+0060242A: mov byte ptr [eax+78h],cl
+0060242D: mov byte ptr [eax+77h],cl
+00602430: mov byte ptr [eax+76h],cl
+00602433: mov byte ptr [eax+70h],cl
+00602436: mov byte ptr [eax+6Fh],cl
+00602439: mov cl,1
+0060243B: mov dl,7
+0060243D: mov byte ptr [eax+63h],cl
+00602440: mov byte ptr [eax+62h],cl
+00602443: mov byte ptr [eax+61h],cl
+00602446: mov ecx,0FA0h
+0060244B: mov esi,1F40h
+00602450: mov byte ptr [eax+74h],dl
+00602453: mov byte ptr [eax+72h],dl
+00602456: mov dl,6
+00602458: mov word ptr [eax+000000B6h],cx
+ 00
+0060245F: mov word ptr [eax+000000B4h],cx
+ 00
+00602466: mov ecx,1770h
+0060246B: pop edi
+0060246C: mov byte ptr [eax+73h],dl
+0060246F: mov byte ptr [eax+6Ch],dl
+00602472: mov byte ptr [eax+6Dh],dl
+00602475: mov byte ptr [eax+6Bh],dl
+00602478: mov edx,1388h
+0060247D: mov word ptr [eax+000000B2h],si
+ 00
+00602484: mov word ptr [eax+000000B0h],cx
+ 00
+0060248B: mov word ptr [eax+000000AEh],cx
+ 00
+00602492: mov word ptr [eax+000000ACh],cx
+ 00
+00602499: mov word ptr [eax+000000A8h],si
+ 00
+006024A0: mov word ptr [eax+000000A6h],cx
+ 00
+006024A7: mov word ptr [eax+000000A2h],cx
+ 00
+006024AE: mov word ptr [eax+000000A0h],cx
+ 00
+006024B5: mov word ptr [eax+0000009Eh],cx
+ 00
+006024BC: mov word ptr [eax+0000009Ch],cx
+ 00
+006024C3: mov word ptr [eax+0000009Ah],cx
+ 00
+006024CA: mov word ptr [eax+00000096h],si
+ 00
+006024D1: mov word ptr [eax+00000094h],cx
+ 00
+006024D8: mov word ptr [eax+00000092h],cx
+ 00
+006024DF: mov ecx,0BB8h
+006024E4: pop esi
+006024E5: mov byte ptr [eax+67h],bl
+006024E8: mov byte ptr [eax+66h],bl
+006024EB: mov byte ptr [eax+65h],bl
+006024EE: mov byte ptr [eax+64h],bl
+006024F1: mov byte ptr [eax+75h],8
+006024F5: mov byte ptr [eax+71h],8
+006024F9: mov byte ptr [eax+6Eh],5
+006024FD: mov byte ptr [eax+6Ah],5
+00602501: mov byte ptr [eax+69h],4
+00602505: mov byte ptr [eax+68h],4
+00602509: mov word ptr [eax+000000AAh],dx
+ 00
+00602510: mov word ptr [eax+000000A4h],dx
+ 00
+00602517: mov word ptr [eax+00000098h],dx
+ 00
+0060251E: mov word ptr [eax+00000090h],cx
+ 00
+00602525: mov word ptr [eax+0000008Eh],cx
+ 00
+0060252C: mov word ptr [eax+0000008Ch],cx
+ 00
+00602533: mov word ptr [eax+0000008Ah],cx
+ 00
+0060253A: mov word ptr [eax+00000088h],cx
+ 00
+00602541: mov word ptr [eax+00000086h],cx
+ 00
+00602548: mov word ptr [eax+00000084h],dx
+ 00
+0060254F: mov word ptr [eax+00000082h],dx
+ 00
+00602556: mov word ptr [eax+00000080h],dx
+ 00
+0060255D: pop ebx
+0060255E: ret

@@ -1,0 +1,106 @@
+// CAERadioTrackManager::ChooseIdentIndex @ 0x004e94c0 [0x4e94c0..0x4e9562]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_004e94c0(char param_1)
+
+{
+  int iVar1;
+  int *piVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
+  int iVar6;
+  float10 fVar7;
+  
+  iVar5 = (int)param_1;
+  if (*(int *)(&DAT_008c8fb0 + iVar5 * 8) == 0x782) {
+    return -1;
+  }
+LAB_004e94e1:
+  iVar1 = FUN_004d9c10(*(undefined4 *)(&DAT_008c8fb0 + iVar5 * 8),
+                       *(undefined4 *)(&DAT_008c8fb4 + iVar5 * 8));
+  if ((param_1 == '\x06') && (iVar1 == 0x44c)) goto code_r0x004e9508;
+  goto LAB_004e9522;
+code_r0x004e9508:
+  fVar7 = (float10)FUN_00558e40(0x152);
+  if (fVar7 != (float10)0.0) {
+LAB_004e9522:
+    iVar4 = 0;
+    iVar6 = (*(int *)(&DAT_008c8fb4 + iVar5 * 8) - *(int *)(&DAT_008c8fb0 + iVar5 * 8)) + -1;
+    piVar2 = &DAT_00b62980 + iVar5 * 8;
+    while( true ) {
+      iVar3 = 8;
+      if (iVar6 < 9) {
+        iVar3 = iVar6;
+      }
+      if (iVar3 <= iVar4) {
+        return iVar1;
+      }
+      if (iVar1 == *piVar2) break;
+      iVar4 = iVar4 + 1;
+      piVar2 = piVar2 + 1;
+    }
+  }
+  goto LAB_004e94e1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004E94C0: push ebx
+004E94C1: mov bl,byte ptr [esp+8]
+004E94C5: push ebp
+004E94C6: movsx ebp,bl
+004E94C9: mov ecx,dword ptr [ebp*8+008C8FB0h]
+ 00
+004E94D0: or eax,0FFFFFFFFh
+004E94D3: cmp ecx,782h
+004E94D9: je 004E955E
+004E94DF: push esi
+004E94E0: push edi
+004E94E1: mov eax,dword ptr [ebp*8+008C8FB4h]
+ 00
+004E94E8: mov ecx,dword ptr [ebp*8+008C8FB0h]
+ 00
+004E94EF: push eax
+004E94F0: push ecx
+004E94F1: call 004D9C10
+004E94F6: add esp,8
+004E94F9: cmp bl,6
+004E94FC: mov edi,eax
+004E94FE: jne 004E9522
+004E9500: cmp edi,44Ch
+004E9506: jne 004E9522
+004E9508: push 152h
+004E950D: call 00558E40
+004E9512: fcomp dword ptr ds:[00858B50h]
+004E9518: add esp,4
+004E951B: fnstsw ax
+004E951D: test ah,44h
+004E9520: jnp 004E94E1
+004E9522: mov eax,dword ptr [ebp*8+008C8FB0h]
+ 00
+004E9529: mov esi,dword ptr [ebp*8+008C8FB4h]
+ 00
+004E9530: sub esi,eax
+004E9532: mov eax,ebp
+004E9534: xor edx,edx
+004E9536: shl eax,5
+004E9539: dec esi
+004E953A: add eax,0B62980h
+004E9540: cmp esi,8
+004E9543: mov ecx,8
+004E9548: jg 004E954C
+004E954A: mov ecx,esi
+004E954C: cmp edx,ecx
+004E954E: jge 004E955A
+004E9550: cmp edi,dword ptr [eax]
+004E9552: je 004E94E1
+004E9554: inc edx
+004E9555: add eax,4
+004E9558: jmp 004E9540
+004E955A: mov eax,edi
+004E955C: pop edi
+004E955D: pop esi
+004E955E: pop ebp
+004E955F: pop ebx
+004E9560: ret 4

@@ -1,0 +1,58 @@
+from pathlib import Path
+p=Path('source/game_sa/Entity/Vehicle/Plane.cpp');s=p.read_text();a=s.index('void CPlane::BlowUpCar(');b=s.index('// 0x6CABB0',a);native='''void CPlane::BlowUpCar(CEntity* damager, bool bHideExplosion) {
+    auto* bytes = reinterpret_cast<uint8*>(this);
+    if (!(bytes[0x42A] & 0x20)) return;
+    if (GetStatus() != STATUS_PLAYER && uint8(m_autoPilot.m_nCarMission) != 57 && m_nModelIndex != MODEL_RCBARON) {
+        m_autoPilot.m_nCarMission = static_cast<eCarMission>(57);
+        m_fHealth = 0.f;
+        return;
+    }
+    if (damager == FindPlayerPed(-1) || damager == FindPlayerVehicle(-1, false)) {
+        auto& info = CWorld::Players[CWorld::PlayerInFocus];
+        info.m_nHavocCaused += 20;
+        info.m_fCurrentChaseValue += 10.f;
+        const int32 cost = CGeneral::GetRandomNumber() % 6000 + 4000;
+        CStats::IncrementStat(static_cast<eStats>(125), float(cost));
+    }
+    if (GetStatus() == STATUS_PLAYER) {
+        if (m_pDriver) m_pDriver->bDontRender = true;
+        for (auto* ped : m_apPassengers) if (ped) ped->bDontRender = true;
+        m_nFlags &= 0xFFFFFF7E;
+        m_vecMoveSpeed = CVector{0.f, 0.f, 0.f};
+        m_vecTurnSpeed = CVector{0.f, 0.f, 0.f};
+    }
+    bytes[0x36] = (bytes[0x36] & 7) | 0x28;
+    m_nPhysicalFlags |= 0x20000000;
+    m_nTimeWhenBlowedUp = CTimer::GetTimeInMS();
+    CVisibilityPlugins::SetClumpForAllAtomicsFlag(GetRpClump(), 0x4000);
+    m_damageManager.FuckCarCompletely(false);
+    if (m_nModelIndex != MODEL_RCBARON) {
+        CAutomobile::SetBumperDamage(static_cast<ePanels>(5), false);
+        CAutomobile::SetBumperDamage(static_cast<ePanels>(6), false);
+        for (int32 door = 0; door < 6; ++door) CAutomobile::SetDoorDamage(static_cast<eDoors>(door), false);
+        CAutomobile::SpawnFlyingComponent(static_cast<eCarNodes>(5), 1);
+        if (auto* node = m_aCarNodes[5]) {
+            RpAtomic* atomic{};
+            RwFrameForAllObjects(node, GetCurrentAtomicObjectCB, &atomic);
+            if (atomic) rwObjectSetFlags(atomic, 0);
+        }
+    }
+    bytes[0x4A8] &= 0xF8;
+    m_fHealth = 0.f;
+    m_wBombTimer = 0;
+    TheCamera.CamShake(.4f, GetPosition());
+    KillPedsInVehicle();
+    bytes[0x4A8] &= 0xE7;
+    bytes[0x428] &= 0xAF;
+    bytes[0x42D] &= 0x7F;
+    bytes[0x868] &= 0xFE;
+    m_bSmokeEjectorEnabled = false;
+    if (bytes[0x428] & 2) { bytes[0x428] &= 0xFD; --CCarCtrl::NumAmbulancesOnDuty; }
+    if (bytes[0x428] & 4) { bytes[0x428] &= 0xFB; --CCarCtrl::NumFireTrucksOnDuty; }
+    ChangeLawEnforcerState(false);
+    gFireManager.StartFire(this, damager, .8f, 1, 7000, 0);
+    CDarkel::RegisterCarBlownUpByPlayer(*this, 0);
+    CExplosion::AddExplosion(this, damager, static_cast<eExplosionType>(m_nModelIndex == MODEL_RCBARON ? 12 : 7), GetPosition(), 0, 1, -1.f, 0);
+}
+
+''';p.write_text(s[:a]+native+s[b:]);Path('reversing/VehicleAudio355Evidence/Plane_BlowNative.txt').write_text(native)

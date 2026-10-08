@@ -1,0 +1,60 @@
+// CPedGeometryAnalyser::ComputeClosestSurfacePoint-posn @ 0x005f36f0 [0x5f36f0..0x5f3725]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005f36f0(int param_1,undefined4 param_2,undefined4 param_3)
+
+{
+  undefined1 local_30 [48];
+  
+  FUN_005f1fa0(*(undefined4 *)(param_1 + 8),param_2,local_30);
+  FUN_005f2c10(param_1,local_30,param_3);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005F36F0: mov ecx,dword ptr [esp+8]
+005F36F4: sub esp,30h
+005F36F7: push esi
+005F36F8: mov esi,dword ptr [esp+38h]
+005F36FC: fld dword ptr [esi+8]
+005F36FF: lea eax,[esp+4]
+005F3703: push eax
+005F3704: push ecx
+005F3705: push ecx
+005F3706: fstp dword ptr [esp]
+005F3709: call 005F1FA0
+005F370E: mov edx,dword ptr [esp+4Ch]
+005F3712: push edx
+005F3713: lea eax,[esp+14h]
+005F3717: push eax
+005F3718: push esi
+005F3719: call 005F2C10
+005F371E: add esp,18h
+005F3721: pop esi
+005F3722: add esp,30h
+005F3725: ret
+
+==== COMPLETE CANONICAL EVIDENCE ====
+==== Full ASM [0x5F36F0, 0x5F3725) ====
+005F36F0: mov ecx,dword ptr [esp+8]
+005F36F4: sub esp,30h
+005F36F7: push esi
+005F36F8: mov esi,dword ptr [esp+38h]
+005F36FC: fld dword ptr [esi+8]
+005F36FF: lea eax,[esp+4]
+005F3703: push eax
+005F3704: push ecx
+005F3705: push ecx
+005F3706: fstp dword ptr [esp]
+005F3709: call 005F1FA0
+005F370E: mov edx,dword ptr [esp+4Ch]
+005F3712: push edx
+005F3713: lea eax,[esp+14h]
+005F3717: push eax
+005F3718: push esi
+005F3719: call 005F2C10
+005F371E: add esp,18h
+005F3721: pop esi
+005F3722: add esp,30h
+005F3725: ret

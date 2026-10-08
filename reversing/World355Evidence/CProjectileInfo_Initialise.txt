@@ -1,0 +1,46 @@
+// CProjectileInfo::Initialise @ 0x00737b40 [0x737b40..0x737b79]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00737b40(void)
+
+{
+  int iVar1;
+  undefined4 *puVar2;
+  
+  puVar2 = &DAT_00c89110;
+  for (iVar1 = 0x20; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *puVar2 = 0;
+    puVar2 = puVar2 + 1;
+  }
+  puVar2 = &DAT_00c891ac;
+  do {
+    puVar2[-1] = 0x10;
+    *puVar2 = 0;
+    puVar2[2] = 0;
+    *(undefined1 *)(puVar2 + 3) = 0;
+    puVar2[7] = 0;
+    puVar2 = puVar2 + 9;
+  } while ((int)puVar2 < 0xc8962c);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00737B40: push edi
+00737B41: mov ecx,20h
+00737B46: xor eax,eax
+00737B48: mov edi,0C89110h
+00737B4D: rep stos dword ptr es:[edi]
+00737B4F: mov edx,0C891ACh
+00737B54: mov ecx,10h
+00737B59: pop edi
+00737B5A: lea ebx,[ebx+00000000h]
+00737B60: mov dword ptr [edx-4],ecx
+00737B63: mov dword ptr [edx],eax
+00737B65: mov dword ptr [edx+8],eax
+00737B68: mov byte ptr [edx+0Ch],al
+00737B6B: mov dword ptr [edx+1Ch],eax
+00737B6E: add edx,24h
+00737B71: cmp edx,0C8962Ch
+00737B77: jl 00737B60
+00737B79: ret

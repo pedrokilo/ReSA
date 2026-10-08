@@ -1,0 +1,46 @@
+
+// The creation phase belongs before this selection block; do not apply this fragment alone.
+// Pseudocode recovered in Pending355/artifacts/vehicle-rea-recovery/CPlane.Generation_6CD2F0.c.
+static void PlaneGenerationSelect355(int32 aircraftCount){
+ auto& state=CPlane::GenPlane_Status;auto& model=CPlane::GenPlane_ModelIndex;auto& previous=CPlane::GenPlane_LastTimeGenerated;
+ if(StaticRef<int32>(0xB72914)||aircraftCount>4||CPlane::AreWeInNoPlaneZone()||StaticRef<bool>(0xB5F852)){
+  previous=CTimer::GetTimeInMS();return;
+ }
+ bool policeAllowed=static_cast<int32>(FindPlayerPed(-1)->GetWantedLevel())>=4;
+ if(policeAllowed)policeAllowed=FindPlayerVehicle(-1,false)!=nullptr;
+ if(policeAllowed){
+  auto* vehicle=FindPlayerVehicle(-1,false);
+  if(*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(vehicle)+0x594)!=4){vehicle=FindPlayerVehicle(-1,false);policeAllowed=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(vehicle)+0x594)==3;}
+ }
+ if(policeAllowed)policeAllowed=FindPlayerVehicle(-1,false)->m_nModelIndex!=577;
+ if(policeAllowed)policeAllowed=FindPlayerVehicle(-1,false)->m_nModelIndex!=592;
+ if(policeAllowed)policeAllowed=CTimer::GetTimeInMS()>uint32(previous+60000u);
+ if(policeAllowed){
+  auto* pool=StaticRef<void*>(0xB74494);int32 remaining=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(pool)+8),hydras=0;
+  while(remaining){--remaining;auto* vehicle=reinterpret_cast<CVehicle*(__thiscall*)(void*,int32)>(0x41CC10)(pool,remaining);if(vehicle&&reinterpret_cast<uint8*>(vehicle)[0x3BA]==59)++hydras;}
+  bool spawn=hydras<1;
+  if(!spawn&&hydras<2)spawn=static_cast<int32>(FindPlayerPed(-1)->GetWantedLevel())>4;
+  if(spawn){model=520;state=1;}
+ }
+ if(aircraftCount>0||state)return;
+ const auto appearance=[](){auto* vehicle=FindPlayerVehicle(-1,false);return vehicle->GetVehicleAppearance();};
+ if((StaticRef<int16>(0xC81314)==0||StaticRef<int16>(0xC81314)==4)&&StaticRef<int16>(0xC81320)!=19&&StaticRef<int16>(0xC8131C)!=19){
+  bool allowed=FindPlayerVehicle(-1,false)==nullptr;
+  if(!allowed){allowed=int32(appearance())!=3;if(allowed)allowed=int32(appearance())!=5;}
+  if(allowed&&uint32(previous+120000u)<CTimer::GetTimeInMS()){
+   const auto random=CGeneral::GetRandomNumber()&7;
+   model=random==3||random==4?512:random==5||random==6?511:476;state=1;return;
+  }
+  if(state)return;
+ }
+ if(StaticRef<bool>(0xC0BC5C)){
+  if(!CTheScripts::IsPlayerOnAMission()&&uint32(previous+350000u)<CTimer::GetTimeInMS()){model=497;state=1;return;}
+  if(state)return;
+ }
+ if(CGameLogic::LaRiotsActiveHere()){state=1;model=497;return;}
+ if(!state&&StaticRef<int16>(0xC81314)!=0&&StaticRef<int16>(0xC81314)!=4&&!StaticRef<bool>(0xC0BC5C)&&StaticRef<int16>(0xC81320)!=19&&StaticRef<int16>(0xC8131C)!=19&&uint32(previous+200000u)<CTimer::GetTimeInMS()&&!CPlane::AreWeInNoBigPlaneZone()){
+  bool allowed=FindPlayerVehicle(-1,false)==nullptr;
+  if(!allowed){allowed=int32(appearance())!=3;if(allowed)allowed=int32(appearance())!=5;}
+  if(allowed){model=(CGeneral::GetRandomNumber()&1)?592:577;state=1;}
+ }
+}

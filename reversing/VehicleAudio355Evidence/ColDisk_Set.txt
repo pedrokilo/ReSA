@@ -1,0 +1,329 @@
+// Sin pseudocódigo de Ghidra para 0x0040fd50: None
+==== ensamblador exacto (dis.sh) ====
+0040FD50: mov eax,dword ptr [esp+4]
+0040FD54: mov edx,dword ptr [esp+8]
+0040FD58: mov dword ptr [ecx+0Ch],eax
+0040FD5B: push esi
+0040FD5C: mov esi,dword ptr [edx]
+0040FD5E: mov eax,ecx
+0040FD60: mov dword ptr [eax],esi
+0040FD62: mov esi,dword ptr [edx+4]
+0040FD65: mov dword ptr [eax+4],esi
+0040FD68: mov edx,dword ptr [edx+8]
+0040FD6B: mov dword ptr [eax+8],edx
+0040FD6E: mov edx,dword ptr [esp+10h]
+0040FD72: mov esi,dword ptr [edx]
+0040FD74: lea eax,[ecx+14h]
+0040FD77: mov dword ptr [eax],esi
+0040FD79: mov esi,dword ptr [edx+4]
+0040FD7C: mov dword ptr [eax+4],esi
+0040FD7F: mov edx,dword ptr [edx+8]
+0040FD82: mov dword ptr [eax+8],edx
+0040FD85: mov eax,dword ptr [esp+14h]
+0040FD89: mov dl,byte ptr [esp+18h]
+0040FD8D: mov dword ptr [ecx+20h],eax
+0040FD90: mov al,byte ptr [esp+1Ch]
+0040FD94: mov byte ptr [ecx+10h],dl
+0040FD97: mov dl,byte ptr [esp+20h]
+0040FD9B: mov byte ptr [ecx+11h],al
+0040FD9E: mov byte ptr [ecx+12h],dl
+0040FDA1: pop esi
+0040FDA2: ret 1Ch
+0040FDB0: mov eax,dword ptr [esp+4]
+0040FDB4: mov ecx,dword ptr [esp+8]
+0040FDB8: fld dword ptr [eax+8]
+0040FDBB: fmul dword ptr [ecx+8]
+0040FDBE: fld dword ptr [eax+4]
+0040FDC1: fmul dword ptr [ecx+4]
+0040FDC4: faddp st(1),st
+0040FDC6: fld dword ptr [eax]
+0040FDC8: fmul dword ptr [ecx]
+0040FDCA: faddp st(1),st
+0040FDCC: ret
+0040FDD0: mov eax,dword ptr [esp+4]
+0040FDD4: fld dword ptr [eax]
+0040FDD6: mov edx,dword ptr [esp+8]
+0040FDDA: fadd dword ptr [edx]
+0040FDDC: fstp dword ptr [ecx]
+0040FDDE: fld dword ptr [eax+4]
+0040FDE1: fadd dword ptr [edx+4]
+0040FDE4: fstp dword ptr [ecx+4]
+0040FDE7: fld dword ptr [eax+8]
+0040FDEA: fadd dword ptr [edx+8]
+0040FDED: fstp dword ptr [ecx+8]
+0040FDF0: ret 8
+0040FE00: mov eax,dword ptr [esp+4]
+0040FE04: fld dword ptr [eax]
+0040FE06: mov edx,dword ptr [esp+8]
+0040FE0A: fsub dword ptr [edx]
+0040FE0C: fstp dword ptr [ecx]
+0040FE0E: fld dword ptr [eax+4]
+0040FE11: fsub dword ptr [edx+4]
+0040FE14: fstp dword ptr [ecx+4]
+0040FE17: fld dword ptr [eax+8]
+0040FE1A: fsub dword ptr [edx+8]
+0040FE1D: fstp dword ptr [ecx+8]
+0040FE20: ret 8
+0040FE30: mov eax,dword ptr [esp+8]
+0040FE34: fld dword ptr [eax+8]
+0040FE37: mov ecx,dword ptr [esp+0Ch]
+0040FE3B: fadd dword ptr [ecx+8]
+0040FE3E: fld dword ptr [eax+4]
+0040FE41: fadd dword ptr [ecx+4]
+0040FE44: fld dword ptr [eax]
+0040FE46: mov eax,dword ptr [esp+4]
+0040FE4A: fadd dword ptr [ecx]
+0040FE4C: fstp dword ptr [eax]
+0040FE4E: fstp dword ptr [eax+4]
+0040FE51: fstp dword ptr [eax+8]
+0040FE54: ret
+0040FE60: mov eax,dword ptr [esp+8]
+0040FE64: fld dword ptr [eax+8]
+0040FE67: mov ecx,dword ptr [esp+0Ch]
+0040FE6B: fsub dword ptr [ecx+8]
+0040FE6E: fld dword ptr [eax+4]
+0040FE71: fsub dword ptr [ecx+4]
+0040FE74: fld dword ptr [eax]
+0040FE76: mov eax,dword ptr [esp+4]
+0040FE7A: fsub dword ptr [ecx]
+0040FE7C: fstp dword ptr [eax]
+0040FE7E: fstp dword ptr [eax+4]
+0040FE81: fstp dword ptr [eax+8]
+0040FE84: ret
+0040FE90: mov eax,dword ptr [esp+0Ch]
+0040FE94: fld dword ptr [esp+8]
+0040FE98: fmul dword ptr [eax+8]
+0040FE9B: fld dword ptr [esp+8]
+0040FE9F: fmul dword ptr [eax+4]
+0040FEA2: fld dword ptr [esp+8]
+0040FEA6: fmul dword ptr [eax]
+0040FEA8: mov eax,dword ptr [esp+4]
+0040FEAC: fstp dword ptr [eax]
+0040FEAE: fstp dword ptr [eax+4]
+0040FEB1: fstp dword ptr [eax+8]
+0040FEB4: ret
+0040FEC0: mov eax,dword ptr [esp+8]
+0040FEC4: fld dword ptr [esp+0Ch]
+0040FEC8: fmul dword ptr [eax+8]
+0040FECB: fld dword ptr [esp+0Ch]
+0040FECF: fmul dword ptr [eax+4]
+0040FED2: fld dword ptr [esp+0Ch]
+0040FED6: fmul dword ptr [eax]
+0040FED8: mov eax,dword ptr [esp+4]
+0040FEDC: fstp dword ptr [eax]
+0040FEDE: fstp dword ptr [eax+4]
+0040FEE1: fstp dword ptr [eax+8]
+0040FEE4: ret
+0040FEF0: fld dword ptr [esp+4]
+0040FEF4: mov eax,ecx
+0040FEF6: fmul dword ptr [eax]
+0040FEF8: fstp dword ptr [eax]
+0040FEFA: fld dword ptr [esp+4]
+0040FEFE: fmul dword ptr [eax+4]
+0040FF01: fstp dword ptr [eax+4]
+0040FF04: fld dword ptr [esp+4]
+0040FF08: fmul dword ptr [eax+8]
+0040FF0B: fstp dword ptr [eax+8]
+0040FF0E: ret 4
+0040FF20: sub esp,18h
+0040FF23: fld dword ptr [ecx+0Ch]
+0040FF26: push esi
+0040FF27: mov esi,dword ptr [esp+20h]
+0040FF2B: fld dword ptr [esi]
+0040FF2D: push edi
+0040FF2E: fsub dword ptr [ecx]
+0040FF30: mov edi,dword ptr [esp+28h]
+0040FF34: fld dword ptr [esi+4]
+0040FF37: lea eax,[esp+28h]
+0040FF3B: fsub dword ptr [ecx+4]
+0040FF3E: push eax
+0040FF3F: fld dword ptr [esi+8]
+0040FF42: fsub dword ptr [ecx+8]
+0040FF45: lea ecx,[esp+28h]
+0040FF49: fld st(2)
+0040FF4B: push ecx
+0040FF4C: fmul dword ptr [edi]
+0040FF4E: push ecx
+0040FF4F: fld st(1)
+0040FF51: fmul dword ptr [edi+8]
+0040FF54: faddp st(1),st
+0040FF56: fld st(2)
+0040FF58: fmul dword ptr [edi+4]
+0040FF5B: faddp st(1),st
+0040FF5D: fadd st(0),st
+0040FF5F: fstp dword ptr [esp+30h]
+0040FF63: mov edx,dword ptr [esp+30h]
+0040FF67: fld st(0)
+0040FF69: fmul st,st(1)
+0040FF6B: fld st(3)
+0040FF6D: fmul st,st(4)
+0040FF6F: faddp st(1),st
+0040FF71: fld st(2)
+0040FF73: fmul st,st(3)
+0040FF75: faddp st(1),st
+0040FF77: fld st(4)
+0040FF79: fmul st,st(5)
+0040FF7B: fsubp st(1),st
+0040FF7D: fstp dword ptr [esp]
+0040FF80: push edx
+0040FF81: fstp st(0)
+0040FF83: push 3F800000h
+0040FF88: fstp st(0)
+0040FF8A: fstp st(0)
+0040FF8C: fstp st(0)
+0040FF8E: call 0053CE30
+0040FF93: add esp,14h
+0040FF96: test al,al
+0040FF98: jne 0040FFA2
+0040FF9A: pop edi
+0040FF9B: pop esi
+0040FF9C: add esp,18h
+0040FF9F: ret 10h
+0040FFA2: fld dword ptr [esp+24h]
+0040FFA6: mov eax,dword ptr [esp+2Ch]
+0040FFAA: fmul dword ptr [edi]
+0040FFAC: fld dword ptr [esp+24h]
+0040FFB0: fmul dword ptr [edi+4]
+0040FFB3: fld dword ptr [esp+24h]
+0040FFB7: fmul dword ptr [edi+8]
+0040FFBA: fstp dword ptr [esp+1Ch]
+0040FFBE: fxch st(1)
+0040FFC0: fadd dword ptr [esi]
+0040FFC2: fstp dword ptr [esp+8]
+0040FFC6: mov ecx,dword ptr [esp+8]
+0040FFCA: fadd dword ptr [esi+4]
+0040FFCD: fstp dword ptr [esp+0Ch]
+0040FFD1: fld dword ptr [esp+1Ch]
+0040FFD5: mov edx,dword ptr [esp+0Ch]
+0040FFD9: fadd dword ptr [esi+8]
+0040FFDC: mov dword ptr [eax],ecx
+0040FFDE: mov dword ptr [eax+4],edx
+0040FFE1: mov edx,dword ptr [esp+30h]
+0040FFE5: fstp dword ptr [esp+10h]
+0040FFE9: mov ecx,dword ptr [esp+10h]
+0040FFED: fld dword ptr [esp+28h]
+0040FFF1: mov dword ptr [eax+8],ecx
+0040FFF4: fmul dword ptr [edi]
+0040FFF6: fld dword ptr [esp+28h]
+0040FFFA: fmul dword ptr [edi+4]
+0040FFFD: fld dword ptr [esp+28h]
+00410001: fmul dword ptr [edi+8]
+00410004: pop edi
+00410005: fstp dword ptr [esp+18h]
+00410009: fxch st(1)
+0041000B: fadd dword ptr [esi]
+0041000D: fstp dword ptr [esp+4]
+00410011: mov eax,dword ptr [esp+4]
+00410015: fadd dword ptr [esi+4]
+00410018: fstp dword ptr [esp+8]
+0041001C: fld dword ptr [esp+18h]
+00410020: mov ecx,dword ptr [esp+8]
+00410024: fadd dword ptr [esi+8]
+00410027: mov dword ptr [edx],eax
+00410029: mov dword ptr [edx+4],ecx
+0041002C: pop esi
+0041002D: fstp dword ptr [esp+8]
+00410031: mov eax,dword ptr [esp+8]
+00410035: mov dword ptr [edx+8],eax
+00410038: mov al,1
+0041003A: add esp,18h
+0041003D: ret 10h
+00410040: mov eax,dword ptr [esp+4]
+00410044: fld dword ptr [ecx]
+00410046: fsub dword ptr [eax]
+00410048: fld dword ptr [ecx+4]
+0041004B: fsub dword ptr [eax+4]
+0041004E: fld dword ptr [ecx+8]
+00410051: fsub dword ptr [eax+8]
+00410054: fld dword ptr [ecx+0Ch]
+00410057: fld st(1)
+00410059: fmul st,st(2)
+0041005B: fld st(4)
+0041005D: fmul st,st(5)
+0041005F: faddp st(1),st
+00410061: fld st(3)
+00410063: fmul st,st(4)
+00410065: faddp st(1),st
+00410067: fld st(1)
+00410069: fmul st,st(2)
+0041006B: fcompp
+0041006D: fstp st(0)
+0041006F: fstp st(0)
+00410071: fnstsw ax
+00410073: fstp st(0)
+00410075: test ah,41h
+00410078: fstp st(0)
+0041007A: jne 00410084
+0041007C: mov eax,1
+00410081: ret 4
+00410084: xor eax,eax
+00410086: ret 4
+00410090: mov eax,dword ptr [esp+4]
+00410094: fld dword ptr [ecx]
+00410096: fsub dword ptr [eax]
+00410098: xor dl,dl
+0041009A: fld dword ptr [ecx+4]
+0041009D: fsub dword ptr [eax+4]
+004100A0: fld dword ptr [ecx+8]
+004100A3: fsub dword ptr [eax+8]
+004100A6: fld dword ptr [eax+0Ch]
+004100A9: fadd dword ptr [ecx+0Ch]
+004100AC: fld st(1)
+004100AE: fmul st,st(2)
+004100B0: fld st(4)
+004100B2: fmul st,st(5)
+004100B4: faddp st(1),st
+004100B6: fld st(3)
+004100B8: fmul st,st(4)
+004100BA: faddp st(1),st
+004100BC: fld st(1)
+004100BE: fmul st,st(2)
+004100C0: fcompp
+004100C2: fstp st(0)
+004100C4: fstp st(0)
+004100C6: fnstsw ax
+004100C8: mov al,1
+004100CA: fstp st(0)
+004100CC: test ah,41h
+004100CF: fstp st(0)
+004100D1: je 004100D5
+004100D3: mov al,dl
+004100D5: ret 4
+004100E0: sub esp,20h
+004100E3: push esi
+004100E4: mov esi,dword ptr [esp+28h]
+004100E8: fld dword ptr [esi]
+004100EA: push edi
+004100EB: fsub dword ptr [ecx]
+004100ED: mov edi,dword ptr [esp+30h]
+004100F1: mov eax,dword ptr [ecx+0Ch]
+004100F4: mov dword ptr [esp+8],eax
+004100F8: fstp dword ptr [esp+1Ch]
+004100FC: fld dword ptr [esi+4]
+004100FF: fsub dword ptr [ecx+4]
+00410102: fstp dword ptr [esp+20h]
+00410106: fld dword ptr [esi+8]
+00410109: fsub dword ptr [ecx+8]
+0041010C: lea ecx,[esp+10h]
+00410110: fstp dword ptr [esp+24h]
+00410114: fld dword ptr [edi]
+00410116: fsub dword ptr [esi]
+00410118: fstp dword ptr [esp+10h]
+0041011C: fld dword ptr [edi+4]
+0041011F: fsub dword ptr [esi+4]
+00410122: fstp dword ptr [esp+14h]
+00410126: fld dword ptr [edi+8]
+00410129: fsub dword ptr [esi+8]
+0041012C: fst dword ptr [esp+18h]
+00410130: fmul dword ptr [esp+18h]
+00410134: fld dword ptr [esp+14h]
+00410138: fmul dword ptr [esp+14h]
+0041013C: faddp st(1),st
+0041013E: fld dword ptr [esp+10h]
+00410142: fmul dword ptr [esp+10h]
+00410146: faddp st(1),st
+00410148: fsqrt
+0041014A: fstp dword ptr [esp+0Ch]
+ 0041014E: E8
+ 0041014F: BD
+ 00410150: C7

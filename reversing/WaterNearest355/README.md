@@ -1,0 +1,25 @@
+# WaterNearest355 — estado al detener el trabajo
+
+Cierre solicitado por el usuario el 08/10/2026. Reconstrucción aplicada y aprobación histórica disponible. Falta completar el replay con todas las fuentes finales; no se acredita vigencia actual de este banco.
+
+Funciones del alcance: `CWaterLevel::FindNearestWaterAndItsFlow`.
+
+[Evidencia histórica](validation-summary.json); [último informe](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-water-nearest355/20261008-010505-130901/summary.json>). Comparación limitada a los fixtures y colaboradores aislados descritos abajo; no certifica una campaña completa de juego.
+
+[Estado de todas las listas](../../docs/EstadoListasSolicitadas.md); [cierre parcial del lote](../Pending355/README.md).
+
+## Notas anteriores: preparación y evidencia histórica
+
+# WaterNearest355
+
+Varía triángulos, cuadriláteros, alturas y posiciones de cámara; compara distancia y altura como bits de float y el estado de cámara. El cálculo conserva la raíz y suma residentes x87.
+
+Funciones y pares previstos:
+
+- `CWaterLevel::FindNearestWaterAndItsFlow` — 0x6E9D70; 1024 pares EXE/DLL.
+
+La evidencia canónica se conserva en `../Pending355/combo/`. `LiveComparison.hpp` especifica los fixtures y colaboradores aislados mediante parches simétricos de las entradas EXE y DLL. Esos colaboradores quedan fuera de la acreditación del banco. El banco exige conmutación real del hook, compara resultados, estado y trazas, y restaura los globals y hooks modificados.
+
+Estado al preparar esta documentación: `approved_historical`. Último informe: `D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-water-nearest355\20261008-010505-130901`. Un informe histórico no acredita fuentes modificadas posteriormente: la aprobación definitiva depende de los hashes actuales y del preflight de `Pending355/register.py`.
+
+Compilar con `python reversing/WaterNearest355/build_probe.py`; ejecutar con GTA cerrado mediante `python reversing/WaterNearest355/run_local.py`. Root serializa las compilaciones y ejecuciones del lote para no mezclar sondas.

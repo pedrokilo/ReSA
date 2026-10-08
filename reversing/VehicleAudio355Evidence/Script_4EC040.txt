@@ -1,0 +1,59 @@
+// CAEScriptAudioEntity::ClearMissionAudio @ 0x004ec040 [0x4ec040..0x4ec0bb]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004ec040(byte param_1)
+
+{
+  undefined4 in_EAX;
+  int iVar1;
+  int in_ECX;
+  
+  if (param_1 < 4) {
+    FUN_004efc60(CONCAT22((short)((uint)in_EAX >> 0x10),(ushort)param_1) + 0x1a,1);
+    iVar1 = (uint)param_1 * 0x20 + in_ECX;
+    *(undefined4 *)(iVar1 + 0x9c) = 0;
+    *(undefined4 *)(iVar1 + 0x90) = 0xc47a0000;
+    *(undefined4 *)((param_1 + 5) * 0x20 + in_ECX) = 0;
+    *(undefined4 *)(iVar1 + 0x94) = 0xc47a0000;
+    *(undefined4 *)(iVar1 + 0x98) = 0xc47a0000;
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004EC040: sub esp,0Ch
+004EC043: push ebx
+004EC044: mov bl,byte ptr [esp+14h]
+004EC048: cmp bl,4
+004EC04B: push esi
+004EC04C: mov esi,ecx
+004EC04E: jae 004EC0B4
+004EC050: movzx ax,bl
+004EC054: push 1
+004EC056: mov ecx,0B62CB0h
+004EC05B: add eax,1Ah
+004EC05E: push eax
+004EC05F: call 004EFC60
+004EC064: movzx eax,bl
+004EC067: lea ecx,[eax+5]
+004EC06A: shl eax,5
+004EC06D: add eax,esi
+004EC06F: shl ecx,5
+004EC072: mov dword ptr [eax+0000009Ch],0
+004EC07C: mov dword ptr [esp+8],0C47A0000h
+004EC084: mov edx,dword ptr [esp+8]
+004EC088: add eax,90h
+004EC08D: mov dword ptr [eax],edx
+004EC08F: mov dword ptr [ecx+esi],0
+ 00
+004EC096: mov dword ptr [esp+0Ch],0C47A0000h
+004EC09E: mov ecx,dword ptr [esp+0Ch]
+004EC0A2: mov dword ptr [esp+10h],0C47A0000h
+004EC0AA: mov edx,dword ptr [esp+10h]
+004EC0AE: mov dword ptr [eax+4],ecx
+004EC0B1: mov dword ptr [eax+8],edx
+004EC0B4: pop esi
+004EC0B5: pop ebx
+004EC0B6: add esp,0Ch
+004EC0B9: ret 4

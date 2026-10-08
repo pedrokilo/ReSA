@@ -1,0 +1,173 @@
+// CFormation::GenerateGatherDestinations @ 0x0069a620 [0x69a620..0x69a750]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0069a620(int *param_1,int param_2)
+
+{
+  float fVar1;
+  float fVar2;
+  float fVar3;
+  int *piVar4;
+  float *pfVar5;
+  int iVar6;
+  int iVar7;
+  undefined4 *puVar8;
+  float10 fVar9;
+  float10 fVar10;
+  float10 fVar11;
+  
+  piVar4 = param_1;
+  DAT_00c1a318 = 0;
+  puVar8 = &DAT_00c1a43c;
+  for (iVar6 = 6; iVar6 != 0; iVar6 = iVar6 + -1) {
+    *puVar8 = 0;
+    puVar8 = puVar8 + 1;
+  }
+  fVar3 = *(float *)(param_2 + 0x558);
+  iVar6 = *param_1;
+  switch(iVar6) {
+  case 1:
+    fVar9 = (float10)1.25;
+    break;
+  case 2:
+    fVar9 = (float10)1.5;
+    break;
+  case 3:
+    fVar9 = (float10)1.75;
+    break;
+  case 4:
+    fVar9 = (float10)2.125;
+    break;
+  default:
+    fVar9 = (float10)2.5;
+  }
+  param_1 = (int *)0x0;
+  iVar7 = DAT_00c1a318;
+  if (0 < iVar6) {
+    do {
+      if (iVar6 < 2) {
+        fVar10 = (float10)fVar3 + (float10)1.5707964;
+      }
+      else {
+        fVar10 = (float10)3.1415927 / (float10)iVar6 +
+                 (((float10)(int)param_1 / (float10)iVar6) * (float10)6.2831855 - (float10)fVar3);
+      }
+      fVar11 = (float10)fsin(fVar10);
+      fVar10 = (float10)fcos(fVar10);
+      if (*(int *)(param_2 + 0x14) == 0) {
+        pfVar5 = (float *)(param_2 + 4);
+      }
+      else {
+        pfVar5 = (float *)(*(int *)(param_2 + 0x14) + 0x30);
+      }
+      fVar1 = pfVar5[1];
+      fVar2 = pfVar5[2];
+      if (iVar7 < 0x18) {
+        (&DAT_00c1a31c)[iVar7 * 3] = (float)(fVar11 * fVar9) + *pfVar5;
+        (&DAT_00c1a320)[iVar7 * 3] = (float)(fVar10 * fVar9 + (float10)fVar1);
+        (&DAT_00c1a324)[iVar7 * 3] = fVar2;
+        iVar7 = DAT_00c1a318 + 1;
+        DAT_00c1a318 = iVar7;
+      }
+      iVar6 = *piVar4;
+      param_1 = (int *)((int)param_1 + 1);
+    } while ((int)param_1 < iVar6);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0069A620: sub esp,1Ch
+0069A623: mov edx,dword ptr [esp+24h]
+0069A627: push edi
+0069A628: xor eax,eax
+0069A62A: mov dword ptr ds:[00C1A318h],0
+0069A634: mov ecx,6
+0069A639: mov edi,0C1A43Ch
+0069A63E: rep stos dword ptr es:[edi]
+0069A640: mov eax,dword ptr [edx+00000558h]
+0069A646: mov edi,dword ptr [esp+24h]
+0069A64A: mov dword ptr [esp+28h],eax
+0069A64E: mov eax,dword ptr [edi]
+0069A650: lea ecx,[eax-1]
+0069A653: cmp ecx,3
+0069A656: mov dword ptr [esp+4],eax
+0069A65A: ja 0069A683
+0069A65C: jmp dword ptr [ecx*4+0069A754h]
+ 00
+0069A663: fld dword ptr ds:[008595F0h]
+0069A669: jmp 0069A689
+0069A66B: fld dword ptr ds:[00858CE8h]
+0069A671: jmp 0069A689
+0069A673: fld dword ptr ds:[00862E2Ch]
+0069A679: jmp 0069A689
+0069A67B: fld dword ptr ds:[00870E20h]
+0069A681: jmp 0069A689
+0069A683: fld dword ptr ds:[00858FA0h]
+0069A689: xor ecx,ecx
+0069A68B: test eax,eax
+0069A68D: mov dword ptr [esp+24h],ecx
+0069A691: jle 0069A74A
+0069A697: push esi
+0069A698: mov esi,dword ptr ds:[00C1A318h]
+0069A69E: mov edi,edi
+0069A6A0: cmp eax,1
+0069A6A3: jg 0069A6B1
+0069A6A5: fld dword ptr [esp+2Ch]
+0069A6A9: fadd dword ptr ds:[00858FE4h]
+0069A6AF: jmp 0069A6D1
+0069A6B1: fild dword ptr [esp+8]
+0069A6B5: fild dword ptr [esp+28h]
+0069A6B9: fdiv st,st(1)
+0069A6BB: fmul dword ptr ds:[00858CBCh]
+0069A6C1: fsub dword ptr [esp+2Ch]
+0069A6C5: fld dword ptr ds:[00858CB8h]
+0069A6CB: fdiv st,st(2)
+0069A6CD: faddp st(1),st
+0069A6CF: fstp st(1)
+0069A6D1: fld st(0)
+0069A6D3: mov eax,dword ptr [edx+14h]
+0069A6D6: test eax,eax
+0069A6D8: fsin
+0069A6DA: fmul st,st(2)
+0069A6DC: fstp dword ptr [esp+18h]
+0069A6E0: fcos
+0069A6E2: fmul st,st(1)
+0069A6E4: je 0069A6EB
+0069A6E6: add eax,30h
+0069A6E9: jmp 0069A6EE
+0069A6EB: lea eax,[edx+4]
+0069A6EE: cmp esi,18h
+0069A6F1: fld dword ptr [esp+18h]
+0069A6F5: fadd dword ptr [eax]
+0069A6F7: fstp dword ptr [esp+0Ch]
+0069A6FB: fadd dword ptr [eax+4]
+0069A6FE: fstp dword ptr [esp+10h]
+0069A702: fld dword ptr [eax+8]
+0069A705: fstp dword ptr [esp+14h]
+0069A709: jge 0069A736
+0069A70B: lea eax,[esi+esi*2]
+0069A70E: mov esi,dword ptr [esp+0Ch]
+0069A712: lea eax,[eax*4+00C1A31Ch]
+ 00
+0069A719: mov dword ptr [eax],esi
+0069A71B: mov esi,dword ptr [esp+10h]
+0069A71F: mov dword ptr [eax+4],esi
+0069A722: mov esi,dword ptr [esp+14h]
+0069A726: mov dword ptr [eax+8],esi
+0069A729: mov esi,dword ptr ds:[00C1A318h]
+0069A72F: inc esi
+0069A730: mov dword ptr ds:[00C1A318h],esi
+0069A736: mov eax,dword ptr [edi]
+0069A738: inc ecx
+0069A739: cmp ecx,eax
+0069A73B: mov dword ptr [esp+28h],ecx
+0069A73F: mov dword ptr [esp+8],eax
+0069A743: jl 0069A6A0
+0069A749: pop esi
+0069A74A: fstp st(0)
+0069A74C: pop edi
+0069A74D: add esp,1Ch
+0069A750: ret
+ 0069A751: 8D
