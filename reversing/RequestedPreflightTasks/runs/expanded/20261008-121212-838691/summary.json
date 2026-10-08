@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "c5feca9509d3388cddcf4b214505c385993545ccb8083ce91507757be35b9847",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 192,
+  "pairs_per_function": {
+    "CTaskComplexGangJoinRespond::Destructor": 64,
+    "CTaskComplexFollowLeaderInFormation::Destructor": 64,
+    "CTaskComplexGoToAttractor::Destructor": 32,
+    "CTaskComplexSmartFleePoint::Destructor": 32
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "40b8bd4caf23e363212d5a23593bd1815a2b76e9046355d5b6817ba7fc233b7c",
+  "scope": "all destructor decision branches; isolated animation/reference collaborators; concrete native child destruction; no integration claim",
+  "harness_restored": true,
+  "timer_unchanged": true,
+  "harness_sha256": "247583a6c834d429bf24680a01608411ed9ac7762009144efe15e084adfcb1ea",
+  "mapped_timer_fixture": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "saves_unchanged": true,
+  "configs_restored": true
+}

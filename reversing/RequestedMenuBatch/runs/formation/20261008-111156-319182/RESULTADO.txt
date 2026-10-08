@@ -1,0 +1,3 @@
+FALLO: formation
+Funciones con diferencias: CFormation::FindCoverPointsBehindBox: 129/256
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-formation-cover-pending\20261008-111156-319182

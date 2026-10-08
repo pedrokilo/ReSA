@@ -1,0 +1,38 @@
+12463E00: 55                       push ebp
+12463E01: 8bec                     mov ebp, esp
+12463E03: 6aff                     push -1
+12463E05: 68f0d61413               push 0x1314d6f0
+12463E0A: 64a100000000             mov eax, dword ptr fs:[0]
+12463E10: 50                       push eax
+12463E11: 81ecc4000000             sub esp, 0xc4
+12463E17: 53                       push ebx
+12463E18: 56                       push esi
+12463E19: 57                       push edi
+12463E1A: 8d7df0                   lea edi, [ebp - 0x10]
+12463E1D: b901000000               mov ecx, 1
+12463E22: b8cccccccc               mov eax, 0xcccccccc
+12463E27: f3ab                     rep stosd dword ptr es:[edi], eax
+12463E29: a1409a6b13               mov eax, dword ptr [0x136b9a40]
+12463E2E: 33c5                     xor eax, ebp
+12463E30: 50                       push eax
+12463E31: 8d45f4                   lea eax, [ebp - 0xc]
+12463E34: 64a300000000             mov dword ptr fs:[0], eax
+12463E3A: e8a0f9c2fe               call 0x110937df
+12463E3F: 898530ffffff             mov dword ptr [ebp - 0xd0], eax
+12463E45: 8b4508                   mov eax, dword ptr [ebp + 8]
+12463E48: 50                       push eax
+12463E49: 8b8d30ffffff             mov ecx, dword ptr [ebp - 0xd0]
+12463E4F: e87d5bc4fe               call 0x110a99d1
+12463E54: 90                       nop 
+12463E55: 8b4df4                   mov ecx, dword ptr [ebp - 0xc]
+12463E58: 64890d00000000           mov dword ptr fs:[0], ecx
+12463E5F: 59                       pop ecx
+12463E60: 5f                       pop edi
+12463E61: 5e                       pop esi
+12463E62: 5b                       pop ebx
+12463E63: 81c4d0000000             add esp, 0xd0
+12463E69: 3bec                     cmp ebp, esp
+12463E6B: e8103ebffe               call 0x11057c80
+12463E70: 8be5                     mov esp, ebp
+12463E72: 5d                       pop ebp
+12463E73: c3                       ret 

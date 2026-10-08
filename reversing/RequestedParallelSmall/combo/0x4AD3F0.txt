@@ -1,0 +1,31 @@
+// CPedDamageResponseCalculator::Constructor @ 0x004ad3f0 [0x4ad3f0..0x4ad416]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004ad3f0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
+                 undefined1 param_5)
+
+{
+  undefined4 *in_ECX;
+  
+  *in_ECX = param_1;
+  in_ECX[1] = param_2;
+  in_ECX[2] = param_4;
+  in_ECX[3] = param_3;
+  *(undefined1 *)(in_ECX + 4) = param_5;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004AD3F0: mov edx,dword ptr [esp+8]
+004AD3F4: mov eax,ecx
+004AD3F6: mov ecx,dword ptr [esp+4]
+004AD3FA: mov dword ptr [eax],ecx
+004AD3FC: mov ecx,dword ptr [esp+10h]
+004AD400: mov dword ptr [eax+4],edx
+004AD403: mov edx,dword ptr [esp+0Ch]
+004AD407: mov dword ptr [eax+8],ecx
+004AD40A: mov cl,byte ptr [esp+14h]
+004AD40E: mov dword ptr [eax+0Ch],edx
+004AD411: mov byte ptr [eax+10h],cl
+004AD414: ret 14h

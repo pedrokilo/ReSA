@@ -1,0 +1,3 @@
+FALLO: Tasks preflight lifetime
+Probe failure: preserve complete log
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-task-lifetime\20261008-120044-944823

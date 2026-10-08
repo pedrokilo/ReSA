@@ -465243,6 +465243,863 @@
       },
       "scope": "Paired isolated fixtures only; symmetric collaborators do not certify collaborator internals or full-game behavior. Fixture domain and collaborator boundaries from README: # InteriorCommerce\n\nEstado: validación final de fixtures aprobada por el coordinador; informe `20261008-092822-849396`, 16384 pares. El alcance se limita a los fixtures y colaboradores documentados.\n\n16 funciones, 1.024 pares por función (16.384 en total). Fuente propuesta en [commerce-draft.json](../InteriorEvidence/artifacts/commerce-draft.json); el coordinador integra los reemplazos sin perder cambios de otras áreas. La transcripción nativa de 2.025 instrucciones preserva el ABI x86, x87, la secuencia RNG y los retornos originales; todas las ramas internas residen en la DLL. No contiene tablas de salto ni SEH. Las llamadas y el tail jump a colaboradores externos conservan contratos canónicos.\n\n## Funciones y evidencia\n\n- `Interior_c::Office_PlaceEdgeFillers` (`0x599210`): [REA y ASM](../InteriorEvidence/Interior_c.Office_PlaceEdgeFillers_599210.txt).\n- `Interior_c::Office_PlaceDesk` (`0x5993e0`): [REA y ASM](../InteriorEvidence/Interior_c.Office_PlaceDesk_5993E0.txt).\n- `Interior_c::Office_PlaceEdgeDesks` (`0x5995b0`): [REA y ASM](../InteriorEvidence/Interior_c.Office_PlaceEdgeDesks_5995B0.txt).\n- `Interior_c::Office_FurnishEdges` (`0x599770`): [REA y ASM](../InteriorEvidence/Interior_c.Office_FurnishEdges_599770.txt).\n- `Interior_c::Office_PlaceDeskQuad` (`0x599960`): [REA y ASM](../InteriorEvidence/Interior_c.Office_PlaceDeskQuad_599960.txt).\n- `Interior_c::Office_FurnishCenter` (`0x599a30`): [REA y ASM](../InteriorEvidence/Interior_c.Office_FurnishCenter_599A30.txt).\n- `Interior_c::FurnishOffice` (`0x599af0`): [REA y ASM](../InteriorEvidence/Interior_c.FurnishOffice_599AF0.txt).\n- `Interior_c::Shop_Place3PieceUnit` (`0x599bb0`): [REA y ASM](../InteriorEvidence/Interior_c.Shop_Place3PieceUnit_599BB0.txt).\n- `Interior_c::Shop_PlaceEdgeUnits` (`0x599dc0`): [REA y ASM](../InteriorEvidence/Interior_c.Shop_PlaceEdgeUnits_599DC0.txt).\n- `Interior_c::Shop_PlaceCounter` (`0x599ef0`): [REA y ASM](../InteriorEvidence/Interior_c.Shop_PlaceCounter_599EF0.txt).\n- `Interior_c::Shop_PlaceFixedUnits` (`0x59a030`): [REA y ASM](../InteriorEvidence/Interior_c.Shop_PlaceFixedUnits_59A030.txt).\n- `Interior_c::Shop_FurnishCeiling` (`0x59a130`): [REA y ASM](../InteriorEvidence/Interior_c.Shop_FurnishCeiling_59A130.txt).\n- `Interior_c::Shop_AddShelfInfo` (`0x59a140`): [REA y ASM](../InteriorEvidence/Interior_c.Shop_AddShelfInfo_59A140.txt).\n- `Interior_c::Shop_FurnishEdges` (`0x59a1b0`): [REA y ASM](../InteriorEvidence/Interior_c.Shop_FurnishEdges_59A1B0.txt).\n- `Interior_c::Shop_FurnishAisles` (`0x59a590`): [REA y ASM](../InteriorEvidence/Interior_c.Shop_FurnishAisles_59A590.txt).\n- `Interior_c::FurnishShop` (`0x59a790`): [REA y ASM](../InteriorEvidence/Interior_c.FurnishShop_59A790.txt).\n\n## Aislamiento y límites\n\nEl banco parchea simétricamente 24 entradas colaboradoras y excluye siempre la función objetivo. Conmuta el hook de la función objetivo y comprueba el destino EXE/DLL. Los demás hooks de comercio permanecen apagados durante cada par. El conversor CRT `0x821B40` ejecuta su implementación canónica sin parche porque es una conversión x87 pura.\n\nCompara retorno EAX de las funciones con resultado, los bytes completos del Interior_c, hashes de caja y mueble, globals contiguos explícitos de oficina/estantes y trazas ordenadas de argumentos, RNG y salidas de colocación. El único puntero de fixture que se excluye del hash de Interior_c es m_box, después de la llamada; ambas ejecuciones usan la misma caja y se compara su contenido. Los punteros de salida a temporales de pila de PlaceFurniture se identifican por su contrato outX/outY y se comparan sus valores y relación de alias, evitando diferencias de dirección entre marcos de llamada.\n\nDimensiones 5..28, direcciones 0..3, riqueza 0..4, IDs y contadores variables; GetNumEmptyTiles incluye 0..8. PlaceFurniture alterna éxito/fallo y siempre inicializa salidas positivas para que los recorridos avancen. GetFurniture devuelve un mueble válido porque Shop_Place3PieceUnit desreferencia su ID; no se certifican grafos arbitrarios, nulos inválidos ni todas las configuraciones del motor. Los colaboradores aislados no acreditan sus implementaciones.\n\nShop_FurnishCeiling en 0x59A130 es únicamente RET, comprobado en los bytes del EXE. REA lo fusiona como alias del rango de FurnishOffice: el pseudocódigo de ese archivo no describe una función independiente de techo. El banco verifica la entrada vacía y ausencia de efectos; no se afirma pseudocódigo independiente recuperado. FurnishOffice usa el tail jump a ese colaborador; su cuerpo nativo termina en 0x599BA9, sin incorporar funciones vecinas que el rango REA incluye.\n\nOffice_PlaceEdgeFillers devuelve un avance entero escrito por PlaceFurniture, no un booleano; su declaración requiere int32 junto con el cuerpo nativo. El coordinador ya ajustó el header. Firmas int/float sugeridas por REA en Office_PlaceDesk se contrastan con los slots y RET18 del ASM; se conservan los parámetros enteros reales.\n\nLa sonda restaura los dos globals de comercio y todos los estados/locks de hooks al finalizar. Los parches temporales usan EntryPatch. No se modifican partidas, ASI de producción ni archivos del juego desde este agente.",
       "review_reference": "reversing/InteriorCommerce/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDecision",
+        "fn_name": "From",
+        "address": "0x006006B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedLeafValidation/LiveBatch/validation-summary.json",
+        "sha256": "01214de63597463519d1baf400bf11c08a29d114fc5a2c32e968013646af9d6a",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/DecisionMakers/Decision.cpp": "c4e5a2967a162b5226a34963e97173f1fad54fb7605025b0846ece09468f8474",
+        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9"
+      },
+      "source_provenance": "Fresh Debug /MP6 probe at cbf6d72f; sources frozen before engine comparison, restored instrumentation afterward. Recorded probe and log hashes.",
+      "dependency_review": null,
+      "scope": "CDecision: disjoint valid objects and self assignment; no partial object overlap. GetTaskType: direct entry, GTA vtable, compiler virtual dispatch; 256 valid field combinations. No collaborator behavior accreditation. Actual GTA/candidate entries, candidate code, both nine-slot vtables and all hook flags restored by byte/flag comparison. REA GetTaskType pseudocode remains unavailable; six-byte assembly and bytes established."
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleGangDriveBy",
+        "fn_name": "GetTaskType",
+        "address": "0x006218B0",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/RequestedLeafValidation/LiveBatch/validation-summary.json",
+        "sha256": "01214de63597463519d1baf400bf11c08a29d114fc5a2c32e968013646af9d6a",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "4f1121a03a4176a539811d14e439d3d66e0944256121b3e42ef72694d608df2e",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "e5bab0d39861798628d71233106ece0b0582d9c94e729dfcb8b98210a4a94d78"
+      },
+      "source_provenance": "Fresh Debug /MP6 probe at cbf6d72f; sources frozen before engine comparison, restored instrumentation afterward. Recorded probe and log hashes.",
+      "dependency_review": null,
+      "scope": "CDecision: disjoint valid objects and self assignment; no partial object overlap. GetTaskType: direct entry, GTA vtable, compiler virtual dispatch; 256 valid field combinations. No collaborator behavior accreditation. Actual GTA/candidate entries, candidate code, both nine-slot vtables and all hook flags restored by byte/flag comparison. REA GetTaskType pseudocode remains unavailable; six-byte assembly and bytes established."
+    },
+    {
+      "hook": {
+        "class": "CPedDamageResponseCalculator",
+        "fn_name": "Constructor",
+        "address": "0x004AD3F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedMenuBatch/runs/constructor/20261008-111101-552593/enriched-summary.json",
+        "sha256": "d11058d601e6a9922cd31404bf2d79a2807306c4f499825d0844f89a385cbaae",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/PedDamageResponseCalculator.cpp": "8584781f05fa350e083b87338fd7245d520c686be1d39c75f87373c9ab1269f9",
+        "source/game_sa/PedDamageResponseCalculator.h": "171cf52530ce70ddbfe877fd2c82feda5d7094f9677c1e54b0769d74d49f5134"
+      },
+      "source_provenance": "Fresh Debug /MP6 isolated engine replay at cbf6d72fd35d49d4a148a8f7a7b200a8833d85af; source and instruments frozen in linked manifest. Executed ASI 708d85aa0870f5396e9aff83768d2ffbfc49b061dfbb1f3293b5da08af9eda24; comparison log 5b5abfdaa7045af8c792221ce4c42edfb89ab4d6c7d87ae591595d11f24c33e7. Temporary instrumentation restored. Historical fixture evidence; dependency review incomplete.",
+      "dependency_review": null,
+      "scope": "Valid aligned20-byte storage, null/non-dereferenced entity pointer tokens, bool and valid weapon/body enums. Copies signed zero, infinity, NaN, subnormal and maximum finite float bits. All20bytes including padding and EAX=this compared; no damage calculation accreditation. Both hook entry byte ranges and all hook flags/locks restored and compared. Original WinInput startup used to reach menu after candidate Acquire0x80070005; startup/WinInput not accredited. Prior failures preserved."
+    },
+    {
+      "hook": {
+        "class": "CInterestingEvents",
+        "fn_name": "InvalidateNonVisibleEvents",
+        "address": "0x006029C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedMenuBatch/runs/visibility/20261008-112224-200531/enriched-summary.json",
+        "sha256": "8ae1d0563d36dc8d3a36b494aabb81784950d14196a31b92305c5f9a20afd0b0",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/InterestingEvents.cpp": "9bbd2b4f9e6e5077bbe1ca0d11c2eb03f1435e4eae942ffbc752324c03154f2d",
+        "source/game_sa/InterestingEvents.h": "a4b35e4b6b9ce1a8077d4c76e4bbdd474c0bf85887efcbde0867a607e6774834"
+      },
+      "source_provenance": "Fresh Debug /MP6 isolated engine replay at cbf6d72fd35d49d4a148a8f7a7b200a8833d85af; source and instruments frozen in linked manifest. Executed ASI 450c768f39d410002d00a60cacd901a05da77d62e0053bf9a39055d50c961039; comparison log 37f1454d643aa21874219bdb49b58538aa4ce1090506bf6ba9cdc6999cfd655b. Temporary instrumentation restored. Historical fixture evidence; dependency review incomplete.",
+      "dependency_review": null,
+      "scope": "Eight-slot event fixtures, null/entity masks, cameras0..2, selection active/inactive, entity matrix/placement, LOS visible/occluded. Complete events/entity bytes and ordered LOS/cleanup traces compared. EXE/DLL LOS and CleanUpOldReference symmetrically mocked: no CWorld/Entity reference-internals/full-game accreditation. Camera and four patch entries restored byte-for-byte. Both hook entry byte ranges and all hook flags/locks restored and compared. Original WinInput startup used to reach menu after candidate Acquire0x80070005; startup/WinInput not accredited. Prior failures preserved."
+    },
+    {
+      "hook": {
+        "class": "CFormation",
+        "fn_name": "FindCoverPointsBehindBox",
+        "address": "0x00699FF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedMenuBatch/runs/formation-expanded/20261008-113522-938438/enriched-summary.json",
+        "sha256": "6456e221ee6ab016897bf5f52d1fc2fb5e9a4f24c6f0c20be95a74512d172f5b",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Formation.cpp": "ccffff9b791845ade307c1a494d11563df3668e1a18ddfef2bfc9e9644c9c8f9",
+        "source/game_sa/Formation.h": "4f78e323bfa94bd1eb3c537de4f784b75bd839af6b4936b44e77dd16d5df8659"
+      },
+      "source_provenance": "Fresh Debug /MP6 isolated engine replay at cbf6d72fd35d49d4a148a8f7a7b200a8833d85af; source and instruments frozen in linked manifest. Executed ASI 77df9633e31882bcf666730502637b0ab6d5d89f63e76e75ff6f32c21de82f78; comparison log 92c47117de7a61907a0597444ce6930b6767d44ce316619e89c2cac4811e2b10. Temporary instrumentation restored. Historical fixture evidence; dependency review incomplete.",
+      "dependency_review": null,
+      "scope": "Nondegenerate boxes, rigid rotations/inclinations, output capacities0/22/23/24, target quadrants, signed zero and positive/negative7 with adjacent heights, exact corner distance and adjacent lower/upper cutoffs plus100. Full CPointList bytes compared;2048height inside/2048outside,990adding/3106unchanged. Invalid pointers/capacities, NaNs/infinities and full-world behavior excluded. Local x87 helpers reviewed against original0x59C890/0x59C910; original0x59C890 independently defines cutoff frontier. Both hook entry byte ranges and all hook flags/locks restored and compared. Original WinInput startup used to reach menu after candidate Acquire0x80070005; startup/WinInput not accredited. Prior failures preserved."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWanderStandard",
+        "fn_name": "GetWanderType",
+        "address": "0x0048E5D0",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightWander/runs/20261008-115205-491044/enriched-summary.json",
+        "sha256": "850ef5eb9eabea4997593dd124faf61dfd11ef64fe8632d12e51ce94027c7669",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 1280,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "f8c4f45478809448d42b62ecada5f6b13022c3482e5cff558626d493523e2ab5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "01264ffbbe870028e52c75f7ea531ea5848b9a481620f9591c6f7f6a6667228e"
+      },
+      "source_provenance": "Fresh Debug /MP6 pregraphics harness with source/instrument freeze from linked manifest. ASI 3ae5526495a6c6d228c31b5046a1718ca7898a4ce9e47c05a0f72bb075c60df1; log 770ba8387e92e2cf9f3d40e894663eaf3cfc5199936140f2e893cc792aa986be; independently preserved harness log 21f541b3ba20b75d4bc5dc624763c6706f8f9a93d824a72c9387628d29eb49cf. Natural process exit0, normal sources/binaries restored after compile and execution.",
+      "dependency_review": null,
+      "scope": "Pure GetWanderType getter only;256 valid allocated stack objects/field seeds across five paths: GTA entry, candidate entry, GTA vtable slot11, compiler vtable slot11, and non-inlined virtual dispatch. Return EAX0 and unchanged object bytes, real entry switching and both15-slot vtables checked. No graphics/input/RW or full startup initialized; WinMain early-return harness does not accredit WinMain. All other hooks temporarily original, wrapper restores all flags/candados and byte ranges; getter bank independently restores vtables/entries. Constructors/destructors are fixture setup, not separately accredited. REA lookup/pseudocode for this tiny entry remains unavailable; original raw bytes33 C0 C3 and full three-byte assembly establish behavior. Historical fixture only, dependency review incomplete. Prior frontend failures retained."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGangJoinRespond",
+        "fn_name": "Constructor",
+        "address": "0x006616F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTasks/validation-summary.json",
+        "sha256": "6afc571a387b8667d0e59479971f14b6dea8f6ddd42a1827c39914c90a08df91",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "02795115a8baa801bb6932732b6726fc68bd315556860d1ab17e26913c4dcf25",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "abdcc77c0c65af0e4cf521f1a4a36454ebd71a1236e060ad6d73eac468a89a2f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h": "fc34cfe2ff9bcb0802522d154561550b96dfe0544ced46bf150d297da4e02672",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "62e147287b10f34e98f7cc21cd3974d22200c2d3eb618b2ca317763cc3ad6626",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "d7361f1c94baf194fd2e216a6c20ff575827558f2848fe85da1c58987c6e3b5b",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+      },
+      "source_provenance": "Corrected pregraphics probe c5feca9509d3388cddcf4b214505c385993545ccb8083ce91507757be35b9847; exact compiled manifest retained in combined summary. Root runtime runs 20261008-121043-687291 and 20261008-121212-838691; raw comparison/harness hashes audited.",
+      "dependency_review": null,
+      "scope": "Pregraphics execution with mapped timer zero; 128 poison-storage constructor pairs per constructor, null-reference destructor fixtures plus all isolated destructor decision branches using real private native child objects and declared animation/reference stubs. Payload and traces compare original against candidate; raw vptrs are preserved and checked against distinct native/DLL CTask tables. Constructor remaining virtual methods and full game/reference/animation integration are not certified. Historical fixture approval only; no exhaustive full-class behavior or current dependency review claim."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGoToAttractor",
+        "fn_name": "Constructor",
+        "address": "0x0066B640",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTasks/validation-summary.json",
+        "sha256": "6afc571a387b8667d0e59479971f14b6dea8f6ddd42a1827c39914c90a08df91",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "02795115a8baa801bb6932732b6726fc68bd315556860d1ab17e26913c4dcf25",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "abdcc77c0c65af0e4cf521f1a4a36454ebd71a1236e060ad6d73eac468a89a2f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h": "fc34cfe2ff9bcb0802522d154561550b96dfe0544ced46bf150d297da4e02672",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "62e147287b10f34e98f7cc21cd3974d22200c2d3eb618b2ca317763cc3ad6626",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "d7361f1c94baf194fd2e216a6c20ff575827558f2848fe85da1c58987c6e3b5b",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+      },
+      "source_provenance": "Corrected pregraphics probe c5feca9509d3388cddcf4b214505c385993545ccb8083ce91507757be35b9847; exact compiled manifest retained in combined summary. Root runtime runs 20261008-121043-687291 and 20261008-121212-838691; raw comparison/harness hashes audited.",
+      "dependency_review": null,
+      "scope": "Pregraphics execution with mapped timer zero; 128 poison-storage constructor pairs per constructor, null-reference destructor fixtures plus all isolated destructor decision branches using real private native child objects and declared animation/reference stubs. Payload and traces compare original against candidate; raw vptrs are preserved and checked against distinct native/DLL CTask tables. Constructor remaining virtual methods and full game/reference/animation integration are not certified. Historical fixture approval only; no exhaustive full-class behavior or current dependency review claim."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexSmartFleePoint",
+        "fn_name": "Constructor",
+        "address": "0x0065BD20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTasks/validation-summary.json",
+        "sha256": "6afc571a387b8667d0e59479971f14b6dea8f6ddd42a1827c39914c90a08df91",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "02795115a8baa801bb6932732b6726fc68bd315556860d1ab17e26913c4dcf25",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "abdcc77c0c65af0e4cf521f1a4a36454ebd71a1236e060ad6d73eac468a89a2f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h": "fc34cfe2ff9bcb0802522d154561550b96dfe0544ced46bf150d297da4e02672",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "62e147287b10f34e98f7cc21cd3974d22200c2d3eb618b2ca317763cc3ad6626",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "d7361f1c94baf194fd2e216a6c20ff575827558f2848fe85da1c58987c6e3b5b",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+      },
+      "source_provenance": "Corrected pregraphics probe c5feca9509d3388cddcf4b214505c385993545ccb8083ce91507757be35b9847; exact compiled manifest retained in combined summary. Root runtime runs 20261008-121043-687291 and 20261008-121212-838691; raw comparison/harness hashes audited.",
+      "dependency_review": null,
+      "scope": "Pregraphics execution with mapped timer zero; 128 poison-storage constructor pairs per constructor, null-reference destructor fixtures plus all isolated destructor decision branches using real private native child objects and declared animation/reference stubs. Payload and traces compare original against candidate; raw vptrs are preserved and checked against distinct native/DLL CTask tables. Constructor remaining virtual methods and full game/reference/animation integration are not certified. Historical fixture approval only; no exhaustive full-class behavior or current dependency review claim."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGangJoinRespond",
+        "fn_name": "Destructor",
+        "address": "0x00661720",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTasks/validation-summary.json",
+        "sha256": "6afc571a387b8667d0e59479971f14b6dea8f6ddd42a1827c39914c90a08df91",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "02795115a8baa801bb6932732b6726fc68bd315556860d1ab17e26913c4dcf25",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "abdcc77c0c65af0e4cf521f1a4a36454ebd71a1236e060ad6d73eac468a89a2f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h": "fc34cfe2ff9bcb0802522d154561550b96dfe0544ced46bf150d297da4e02672",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "62e147287b10f34e98f7cc21cd3974d22200c2d3eb618b2ca317763cc3ad6626",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "d7361f1c94baf194fd2e216a6c20ff575827558f2848fe85da1c58987c6e3b5b",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+      },
+      "source_provenance": "Corrected pregraphics probe c5feca9509d3388cddcf4b214505c385993545ccb8083ce91507757be35b9847; exact compiled manifest retained in combined summary. Root runtime runs 20261008-121043-687291 and 20261008-121212-838691; raw comparison/harness hashes audited.",
+      "dependency_review": null,
+      "scope": "Pregraphics execution with mapped timer zero; 128 poison-storage constructor pairs per constructor, null-reference destructor fixtures plus all isolated destructor decision branches using real private native child objects and declared animation/reference stubs. Payload and traces compare original against candidate; raw vptrs are preserved and checked against distinct native/DLL CTask tables. Constructor remaining virtual methods and full game/reference/animation integration are not certified. Historical fixture approval only; no exhaustive full-class behavior or current dependency review claim."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGoToAttractor",
+        "fn_name": "Destructor",
+        "address": "0x0066B6A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTasks/validation-summary.json",
+        "sha256": "6afc571a387b8667d0e59479971f14b6dea8f6ddd42a1827c39914c90a08df91",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 160,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "02795115a8baa801bb6932732b6726fc68bd315556860d1ab17e26913c4dcf25",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "abdcc77c0c65af0e4cf521f1a4a36454ebd71a1236e060ad6d73eac468a89a2f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h": "fc34cfe2ff9bcb0802522d154561550b96dfe0544ced46bf150d297da4e02672",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "62e147287b10f34e98f7cc21cd3974d22200c2d3eb618b2ca317763cc3ad6626",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "d7361f1c94baf194fd2e216a6c20ff575827558f2848fe85da1c58987c6e3b5b",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+      },
+      "source_provenance": "Corrected pregraphics probe c5feca9509d3388cddcf4b214505c385993545ccb8083ce91507757be35b9847; exact compiled manifest retained in combined summary. Root runtime runs 20261008-121043-687291 and 20261008-121212-838691; raw comparison/harness hashes audited.",
+      "dependency_review": null,
+      "scope": "Pregraphics execution with mapped timer zero; 128 poison-storage constructor pairs per constructor, null-reference destructor fixtures plus all isolated destructor decision branches using real private native child objects and declared animation/reference stubs. Payload and traces compare original against candidate; raw vptrs are preserved and checked against distinct native/DLL CTask tables. Constructor remaining virtual methods and full game/reference/animation integration are not certified. Historical fixture approval only; no exhaustive full-class behavior or current dependency review claim."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexSmartFleePoint",
+        "fn_name": "Destructor",
+        "address": "0x0065BDB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTasks/validation-summary.json",
+        "sha256": "6afc571a387b8667d0e59479971f14b6dea8f6ddd42a1827c39914c90a08df91",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 160,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "02795115a8baa801bb6932732b6726fc68bd315556860d1ab17e26913c4dcf25",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "abdcc77c0c65af0e4cf521f1a4a36454ebd71a1236e060ad6d73eac468a89a2f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h": "fc34cfe2ff9bcb0802522d154561550b96dfe0544ced46bf150d297da4e02672",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "62e147287b10f34e98f7cc21cd3974d22200c2d3eb618b2ca317763cc3ad6626",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "d7361f1c94baf194fd2e216a6c20ff575827558f2848fe85da1c58987c6e3b5b",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+      },
+      "source_provenance": "Corrected pregraphics probe c5feca9509d3388cddcf4b214505c385993545ccb8083ce91507757be35b9847; exact compiled manifest retained in combined summary. Root runtime runs 20261008-121043-687291 and 20261008-121212-838691; raw comparison/harness hashes audited.",
+      "dependency_review": null,
+      "scope": "Pregraphics execution with mapped timer zero; 128 poison-storage constructor pairs per constructor, null-reference destructor fixtures plus all isolated destructor decision branches using real private native child objects and declared animation/reference stubs. Payload and traces compare original against candidate; raw vptrs are preserved and checked against distinct native/DLL CTask tables. Constructor remaining virtual methods and full game/reference/animation integration are not certified. Historical fixture approval only; no exhaustive full-class behavior or current dependency review claim."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexFollowLeaderInFormation",
+        "fn_name": "Destructor",
+        "address": "0x00694A40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTasks/validation-summary.json",
+        "sha256": "6afc571a387b8667d0e59479971f14b6dea8f6ddd42a1827c39914c90a08df91",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "02795115a8baa801bb6932732b6726fc68bd315556860d1ab17e26913c4dcf25",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "abdcc77c0c65af0e4cf521f1a4a36454ebd71a1236e060ad6d73eac468a89a2f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h": "fc34cfe2ff9bcb0802522d154561550b96dfe0544ced46bf150d297da4e02672",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "62e147287b10f34e98f7cc21cd3974d22200c2d3eb618b2ca317763cc3ad6626",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "d7361f1c94baf194fd2e216a6c20ff575827558f2848fe85da1c58987c6e3b5b",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+      },
+      "source_provenance": "Corrected pregraphics probe c5feca9509d3388cddcf4b214505c385993545ccb8083ce91507757be35b9847; exact compiled manifest retained in combined summary. Root runtime runs 20261008-121043-687291 and 20261008-121212-838691; raw comparison/harness hashes audited.",
+      "dependency_review": null,
+      "scope": "Pregraphics execution with mapped timer zero; 128 poison-storage constructor pairs per constructor, null-reference destructor fixtures plus all isolated destructor decision branches using real private native child objects and declared animation/reference stubs. Payload and traces compare original against candidate; raw vptrs are preserved and checked against distinct native/DLL CTask tables. Constructor remaining virtual methods and full game/reference/animation integration are not certified. Historical fixture approval only; no exhaustive full-class behavior or current dependency review claim."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexKillPedFromBoat",
+        "fn_name": "Constructor",
+        "address": "0x006227C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+        "sha256": "57fd2745a174d0d80476bd1388c83f6f78279da6e2620881b822bc199d7c5ff7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "92609802434d262b305b81f67aa28138e2c07e36d4e397fd80a22cc84b525e5a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "0b223617bd34423a7170f4f82be2ce1f9b8b6a85861fdc1b97173dbabe87a2b3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "76e3780181bd9268da7a7f731d74f06652e2f690011f547d6808a5c8bb607b7d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "c14959a3a77c72193d28677c99672a31057b7542390c045606f279fcfa3e5fc5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Compiled manifest from ASI dd894da46d3656b8e675ae86b7f22c029def435d314774a20fb872918989a88b retained in approved summary; exact raw comparison and harness hashes verified. Base Task.h and Task.cpp are compiled source evidence; no independent base-destructor validation inferred.",
+      "dependency_review": null,
+      "scope": "Six constructor/destructor identities, 256 cases each; exact full payload, native terminal CTask vptr and collaborator trace comparison. Pregraphics only. Reference and animation collaborators stubbed, no game startup, pools or general task integration accredited.",
+      "review_reference": "reversing/RequestedPreflightTaskCtorDtor/TaskBaseReview/CTASK_EXPLICIT_DESTRUCTOR_ASM.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexKillPedFromBoat",
+        "fn_name": "Destructor",
+        "address": "0x00622830",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+        "sha256": "57fd2745a174d0d80476bd1388c83f6f78279da6e2620881b822bc199d7c5ff7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "92609802434d262b305b81f67aa28138e2c07e36d4e397fd80a22cc84b525e5a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "0b223617bd34423a7170f4f82be2ce1f9b8b6a85861fdc1b97173dbabe87a2b3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "76e3780181bd9268da7a7f731d74f06652e2f690011f547d6808a5c8bb607b7d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "c14959a3a77c72193d28677c99672a31057b7542390c045606f279fcfa3e5fc5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Compiled manifest from ASI dd894da46d3656b8e675ae86b7f22c029def435d314774a20fb872918989a88b retained in approved summary; exact raw comparison and harness hashes verified. Base Task.h and Task.cpp are compiled source evidence; no independent base-destructor validation inferred.",
+      "dependency_review": null,
+      "scope": "Six constructor/destructor identities, 256 cases each; exact full payload, native terminal CTask vptr and collaborator trace comparison. Pregraphics only. Reference and animation collaborators stubbed, no game startup, pools or general task integration accredited.",
+      "review_reference": "reversing/RequestedPreflightTaskCtorDtor/TaskBaseReview/CTASK_EXPLICIT_DESTRUCTOR_ASM.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexHitPedWithCar",
+        "fn_name": "Constructor",
+        "address": "0x006539A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+        "sha256": "57fd2745a174d0d80476bd1388c83f6f78279da6e2620881b822bc199d7c5ff7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "92609802434d262b305b81f67aa28138e2c07e36d4e397fd80a22cc84b525e5a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "0b223617bd34423a7170f4f82be2ce1f9b8b6a85861fdc1b97173dbabe87a2b3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "76e3780181bd9268da7a7f731d74f06652e2f690011f547d6808a5c8bb607b7d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "c14959a3a77c72193d28677c99672a31057b7542390c045606f279fcfa3e5fc5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Compiled manifest from ASI dd894da46d3656b8e675ae86b7f22c029def435d314774a20fb872918989a88b retained in approved summary; exact raw comparison and harness hashes verified. Base Task.h and Task.cpp are compiled source evidence; no independent base-destructor validation inferred.",
+      "dependency_review": null,
+      "scope": "Six constructor/destructor identities, 256 cases each; exact full payload, native terminal CTask vptr and collaborator trace comparison. Pregraphics only. Reference and animation collaborators stubbed, no game startup, pools or general task integration accredited.",
+      "review_reference": "reversing/RequestedPreflightTaskCtorDtor/TaskBaseReview/CTASK_EXPLICIT_DESTRUCTOR_ASM.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexHitPedWithCar",
+        "fn_name": "Destructor",
+        "address": "0x00653A30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+        "sha256": "57fd2745a174d0d80476bd1388c83f6f78279da6e2620881b822bc199d7c5ff7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "92609802434d262b305b81f67aa28138e2c07e36d4e397fd80a22cc84b525e5a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "0b223617bd34423a7170f4f82be2ce1f9b8b6a85861fdc1b97173dbabe87a2b3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "76e3780181bd9268da7a7f731d74f06652e2f690011f547d6808a5c8bb607b7d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "c14959a3a77c72193d28677c99672a31057b7542390c045606f279fcfa3e5fc5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Compiled manifest from ASI dd894da46d3656b8e675ae86b7f22c029def435d314774a20fb872918989a88b retained in approved summary; exact raw comparison and harness hashes verified. Base Task.h and Task.cpp are compiled source evidence; no independent base-destructor validation inferred.",
+      "dependency_review": null,
+      "scope": "Six constructor/destructor identities, 256 cases each; exact full payload, native terminal CTask vptr and collaborator trace comparison. Pregraphics only. Reference and animation collaborators stubbed, no game startup, pools or general task integration accredited.",
+      "review_reference": "reversing/RequestedPreflightTaskCtorDtor/TaskBaseReview/CTASK_EXPLICIT_DESTRUCTOR_ASM.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexSunbathe",
+        "fn_name": "Constructor",
+        "address": "0x00631F80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+        "sha256": "57fd2745a174d0d80476bd1388c83f6f78279da6e2620881b822bc199d7c5ff7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "92609802434d262b305b81f67aa28138e2c07e36d4e397fd80a22cc84b525e5a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "0b223617bd34423a7170f4f82be2ce1f9b8b6a85861fdc1b97173dbabe87a2b3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "76e3780181bd9268da7a7f731d74f06652e2f690011f547d6808a5c8bb607b7d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "c14959a3a77c72193d28677c99672a31057b7542390c045606f279fcfa3e5fc5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Compiled manifest from ASI dd894da46d3656b8e675ae86b7f22c029def435d314774a20fb872918989a88b retained in approved summary; exact raw comparison and harness hashes verified. Base Task.h and Task.cpp are compiled source evidence; no independent base-destructor validation inferred.",
+      "dependency_review": null,
+      "scope": "Six constructor/destructor identities, 256 cases each; exact full payload, native terminal CTask vptr and collaborator trace comparison. Pregraphics only. Reference and animation collaborators stubbed, no game startup, pools or general task integration accredited.",
+      "review_reference": "reversing/RequestedPreflightTaskCtorDtor/TaskBaseReview/CTASK_EXPLICIT_DESTRUCTOR_ASM.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexSunbathe",
+        "fn_name": "Destructor",
+        "address": "0x00632050",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+        "sha256": "57fd2745a174d0d80476bd1388c83f6f78279da6e2620881b822bc199d7c5ff7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "92609802434d262b305b81f67aa28138e2c07e36d4e397fd80a22cc84b525e5a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "0b223617bd34423a7170f4f82be2ce1f9b8b6a85861fdc1b97173dbabe87a2b3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "76e3780181bd9268da7a7f731d74f06652e2f690011f547d6808a5c8bb607b7d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "c14959a3a77c72193d28677c99672a31057b7542390c045606f279fcfa3e5fc5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Compiled manifest from ASI dd894da46d3656b8e675ae86b7f22c029def435d314774a20fb872918989a88b retained in approved summary; exact raw comparison and harness hashes verified. Base Task.h and Task.cpp are compiled source evidence; no independent base-destructor validation inferred.",
+      "dependency_review": null,
+      "scope": "Six constructor/destructor identities, 256 cases each; exact full payload, native terminal CTask vptr and collaborator trace comparison. Pregraphics only. Reference and animation collaborators stubbed, no game startup, pools or general task integration accredited.",
+      "review_reference": "reversing/RequestedPreflightTaskCtorDtor/TaskBaseReview/CTASK_EXPLICIT_DESTRUCTOR_ASM.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWanderStandard",
+        "fn_name": "Constructor",
+        "address": "0x0048E4F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedWanderRemaining/validation-summary.json",
+        "sha256": "50b966dfb36ff29844ce555fe8447e2659ff14b7e67e99b08881ea2ed28e83c4",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "f8c4f45478809448d42b62ecada5f6b13022c3482e5cff558626d493523e2ab5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "01264ffbbe870028e52c75f7ea531ea5848b9a481620f9591c6f7f6a6667228e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876"
+      },
+      "source_provenance": "Exact compiled manifest for retained ASI 2a7e4d2a4e8599f5c5b45b7a716083f1ea0379813ad201988f43bc4ab1a0f1f4; raw comparison log and enriched summary hashes verified; full internal state restoration and natural exit0 confirmed.",
+      "dependency_review": null,
+      "scope": "Historical pregraphics constructor, 2048 pairs: full 0x38-byte object payload/padding exact except explicitly named native/DLL Standard vptr relocation; returned this and entry gates checked. Eight valid eMoveState values, both bool values, 256 uint8 directions with representative correlated corpus, not exhaustive Cartesian coverage. Directions outside usual game direction values are byte-domain characterization only. Original radius global canonical float .5 captured/unchanged. No game startup, actor integration, pools or current dependency accreditation.",
+      "review_reference": "reversing/RequestedWanderRemaining/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWanderStandard",
+        "fn_name": "ScanForStuff",
+        "address": "0x00672600",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/RequestedWanderRemaining/validation-summary.json",
+        "sha256": "50b966dfb36ff29844ce555fe8447e2659ff14b7e67e99b08881ea2ed28e83c4",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "f8c4f45478809448d42b62ecada5f6b13022c3482e5cff558626d493523e2ab5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "01264ffbbe870028e52c75f7ea531ea5848b9a481620f9591c6f7f6a6667228e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876"
+      },
+      "source_provenance": "Exact compiled manifest for retained ASI 2a7e4d2a4e8599f5c5b45b7a716083f1ea0379813ad201988f43bc4ab1a0f1f4; raw comparison log and enriched summary hashes verified; full internal state restoration and natural exit0 confirmed.",
+      "dependency_review": null,
+      "scope": "Historical pregraphics timer/control-flow characterization, 4096 pairs: full payload and padding exact, named Standard vptr mapping only; exact helper short-circuit traces and independent unsigned32 timer model. Original and DLL Gang/Chat/Cars entries replaced by explicit boolean/minimum-time collaborators; CPed is full-size aligned opaque storage token, no live actor construction or dereference. Clock captured/restored. Start/stop/pause/minimum/cutoff/wraparound and int32 extreme intervals covered; memory-valid characterization does not prove all tested states reachable in gameplay. Helpers, real actor integration, pools and game startup not accredited. No current dependency accreditation.",
+      "review_reference": "reversing/RequestedWanderRemaining/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleFightingControl",
+        "fn_name": "Constructor",
+        "address": "0x0061DC10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightAdditionalLifetimes/runs/20261008-124111-185817/enriched-summary.json",
+        "sha256": "43712b82179d72d7feb363421dcd84ebfac611d555245c2ea41ae0e8bd5568d2",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "c0a67e40026b09625b817e8f172178ed8a698acb69d5d58200da3511067c9ad3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp": "5d75866f38c13eb5583c392d974835a5763db944f6f1b36744d830a769653ea3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h": "e33d4f016d49d437a32ef6ea9d2732dbf146edbe5f85a8b12e1782ca2c1f3fc6",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+        "source/game_sa/World.cpp": "b7ff3a0962752810a3e1568ca6d66a53754d69e64491b9b8127c679e793d19ca"
+      },
+      "source_provenance": "Actual compiled manifest ASI34d447605f7973746b8794568b663e40cde731d8698ba682845bab1fd7dac031; all13 sources and10 instruments hash-checked. Runtime20261008-124111-185817 logs/harness hashes audited. Prior failures and immutable baseline archives preserved.",
+      "dependency_review": null,
+      "scope": "Pregraphics controlled reference/player ABI fixtures and concrete private native child; no real actors integration. FightingControl constructor poison byte9 preserved and float1 verified; Solicit flags mask (old&E2C0)|02C0 preserves unspecified bits. Exact payload/traces and both entry gates checked, raw vptrs preserved and strictly checked against known native/DLL tables. All hook/body/table/collaborator states, full52-byte assertion entry span, CRT modes and handlers restored; natural exit0. Historical fixtures only; dependency review absent, no full-class integration claim."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexProstituteSolicit",
+        "fn_name": "Constructor",
+        "address": "0x00661A60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightAdditionalLifetimes/runs/20261008-124111-185817/enriched-summary.json",
+        "sha256": "43712b82179d72d7feb363421dcd84ebfac611d555245c2ea41ae0e8bd5568d2",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "c0a67e40026b09625b817e8f172178ed8a698acb69d5d58200da3511067c9ad3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp": "5d75866f38c13eb5583c392d974835a5763db944f6f1b36744d830a769653ea3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h": "e33d4f016d49d437a32ef6ea9d2732dbf146edbe5f85a8b12e1782ca2c1f3fc6",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+        "source/game_sa/World.cpp": "b7ff3a0962752810a3e1568ca6d66a53754d69e64491b9b8127c679e793d19ca"
+      },
+      "source_provenance": "Actual compiled manifest ASI34d447605f7973746b8794568b663e40cde731d8698ba682845bab1fd7dac031; all13 sources and10 instruments hash-checked. Runtime20261008-124111-185817 logs/harness hashes audited. Prior failures and immutable baseline archives preserved.",
+      "dependency_review": null,
+      "scope": "Pregraphics controlled reference/player ABI fixtures and concrete private native child; no real actors integration. FightingControl constructor poison byte9 preserved and float1 verified; Solicit flags mask (old&E2C0)|02C0 preserves unspecified bits. Exact payload/traces and both entry gates checked, raw vptrs preserved and strictly checked against known native/DLL tables. All hook/body/table/collaborator states, full52-byte assertion entry span, CRT modes and handlers restored; natural exit0. Historical fixtures only; dependency review absent, no full-class integration claim."
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleFightingControl",
+        "fn_name": "Destructor",
+        "address": "0x0061DCA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightAdditionalLifetimes/runs/20261008-124111-185817/enriched-summary.json",
+        "sha256": "43712b82179d72d7feb363421dcd84ebfac611d555245c2ea41ae0e8bd5568d2",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 32,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "c0a67e40026b09625b817e8f172178ed8a698acb69d5d58200da3511067c9ad3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp": "5d75866f38c13eb5583c392d974835a5763db944f6f1b36744d830a769653ea3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h": "e33d4f016d49d437a32ef6ea9d2732dbf146edbe5f85a8b12e1782ca2c1f3fc6",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+        "source/game_sa/World.cpp": "b7ff3a0962752810a3e1568ca6d66a53754d69e64491b9b8127c679e793d19ca"
+      },
+      "source_provenance": "Actual compiled manifest ASI34d447605f7973746b8794568b663e40cde731d8698ba682845bab1fd7dac031; all13 sources and10 instruments hash-checked. Runtime20261008-124111-185817 logs/harness hashes audited. Prior failures and immutable baseline archives preserved.",
+      "dependency_review": null,
+      "scope": "Pregraphics controlled reference/player ABI fixtures and concrete private native child; no real actors integration. FightingControl constructor poison byte9 preserved and float1 verified; Solicit flags mask (old&E2C0)|02C0 preserves unspecified bits. Exact payload/traces and both entry gates checked, raw vptrs preserved and strictly checked against known native/DLL tables. All hook/body/table/collaborator states, full52-byte assertion entry span, CRT modes and handlers restored; natural exit0. Historical fixtures only; dependency review absent, no full-class integration claim."
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexProstituteSolicit",
+        "fn_name": "Destructor",
+        "address": "0x00661AF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPreflightAdditionalLifetimes/runs/20261008-124111-185817/enriched-summary.json",
+        "sha256": "43712b82179d72d7feb363421dcd84ebfac611d555245c2ea41ae0e8bd5568d2",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "c0a67e40026b09625b817e8f172178ed8a698acb69d5d58200da3511067c9ad3",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp": "5d75866f38c13eb5583c392d974835a5763db944f6f1b36744d830a769653ea3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h": "e33d4f016d49d437a32ef6ea9d2732dbf146edbe5f85a8b12e1782ca2c1f3fc6",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+        "source/game_sa/World.cpp": "b7ff3a0962752810a3e1568ca6d66a53754d69e64491b9b8127c679e793d19ca"
+      },
+      "source_provenance": "Actual compiled manifest ASI34d447605f7973746b8794568b663e40cde731d8698ba682845bab1fd7dac031; all13 sources and10 instruments hash-checked. Runtime20261008-124111-185817 logs/harness hashes audited. Prior failures and immutable baseline archives preserved.",
+      "dependency_review": null,
+      "scope": "Pregraphics controlled reference/player ABI fixtures and concrete private native child; no real actors integration. FightingControl constructor poison byte9 preserved and float1 verified; Solicit flags mask (old&E2C0)|02C0 preserves unspecified bits. Exact payload/traces and both entry gates checked, raw vptrs preserved and strictly checked against known native/DLL tables. All hook/body/table/collaborator states, full52-byte assertion entry span, CRT modes and handlers restored; natural exit0. Historical fixtures only; dependency review absent, no full-class integration claim."
     }
   ]
 }

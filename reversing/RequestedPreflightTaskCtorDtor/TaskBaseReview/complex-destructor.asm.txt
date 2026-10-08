@@ -1,0 +1,27 @@
+0061A3D0: push 0FFFFFFFFh
+0061A3D2: push 83F0E8h
+0061A3D7: mov eax,dword ptr fs:[00000000h]
+0061A3DD: push eax
+0061A3DE: mov dword ptr fs:[00000000h],esp
+ 00
+0061A3E5: push ecx
+0061A3E6: push esi
+0061A3E7: mov esi,ecx
+0061A3E9: mov dword ptr [esp+4],esi
+0061A3ED: mov dword ptr [esi],86D4CCh
+0061A3F3: mov ecx,dword ptr [esi+8]
+0061A3F6: test ecx,ecx
+0061A3F8: mov dword ptr [esp+10h],0
+0061A400: je 0061A408
+0061A402: mov eax,dword ptr [ecx]
+0061A404: push 1
+0061A406: call dword ptr [eax]
+0061A408: mov ecx,dword ptr [esp+8]
+0061A40C: mov dword ptr [esi+8],0
+ 00
+0061A413: mov dword ptr [esi],86D48Ch
+0061A419: pop esi
+0061A41A: mov dword ptr fs:[00000000h],ecx
+ 00
+0061A421: add esp,10h
+0061A424: ret

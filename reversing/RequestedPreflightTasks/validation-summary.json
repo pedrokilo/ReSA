@@ -1,0 +1,205 @@
+{
+  "passed": true,
+  "historical_only": true,
+  "dependency_review": null,
+  "pairs": 1088,
+  "functions": [
+    {
+      "hook": {
+        "class": "CTaskComplexGangJoinRespond",
+        "fn_name": "Constructor",
+        "address": "0x006616F0",
+        "type": "S"
+      },
+      "pairs": 128
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGoToAttractor",
+        "fn_name": "Constructor",
+        "address": "0x0066B640",
+        "type": "S"
+      },
+      "pairs": 128
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexSmartFleePoint",
+        "fn_name": "Constructor",
+        "address": "0x0065BD20",
+        "type": "S"
+      },
+      "pairs": 128
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGangJoinRespond",
+        "fn_name": "Destructor",
+        "address": "0x00661720",
+        "type": "S"
+      },
+      "pairs": 192
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGoToAttractor",
+        "fn_name": "Destructor",
+        "address": "0x0066B6A0",
+        "type": "S"
+      },
+      "pairs": 160
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexSmartFleePoint",
+        "fn_name": "Destructor",
+        "address": "0x0065BDB0",
+        "type": "S"
+      },
+      "pairs": 160
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexFollowLeaderInFormation",
+        "fn_name": "Destructor",
+        "address": "0x00694A40",
+        "type": "S"
+      },
+      "pairs": 192
+    }
+  ],
+  "runs": [
+    {
+      "mode": "lifetime",
+      "summary_path": "reversing/RequestedPreflightTasks/runs/lifetime/20261008-121043-687291/enriched-summary.json",
+      "summary_sha256": "6fc57555da179a5dc3086cdc3c0a6334467f84c357d9c472082688ecfd495321",
+      "log_path": "reversing/RequestedPreflightTasks/runs/lifetime/20261008-121043-687291/comparisons.jsonl",
+      "log_sha256": "ccad597b4e7a4e8886c92feee3e86d5c1f0ca55c55adcd6c8e001cc32c939dd9",
+      "harness_path": "reversing/RequestedPreflightTasks/runs/lifetime/20261008-121043-687291/harness.jsonl",
+      "harness_sha256": "247583a6c834d429bf24680a01608411ed9ac7762009144efe15e084adfcb1ea",
+      "pairs": 896,
+      "terminal": {
+        "candidates_restored": true,
+        "entries_restored": true,
+        "event": "complete",
+        "flags_restored": true,
+        "pairs": 896,
+        "scope": "limited fixtures; no full-function validation claim",
+        "state_restored": true,
+        "tables_restored": true
+      }
+    },
+    {
+      "mode": "expanded",
+      "summary_path": "reversing/RequestedPreflightTasks/runs/expanded/20261008-121212-838691/enriched-summary.json",
+      "summary_sha256": "be9581d21b11892c615a709c23934ca7f9a89a3612a778170ca8642d556f589a",
+      "log_path": "reversing/RequestedPreflightTasks/runs/expanded/20261008-121212-838691/comparisons.jsonl",
+      "log_sha256": "40b8bd4caf23e363212d5a23593bd1815a2b76e9046355d5b6817ba7fc233b7c",
+      "harness_path": "reversing/RequestedPreflightTasks/runs/expanded/20261008-121212-838691/harness.jsonl",
+      "harness_sha256": "247583a6c834d429bf24680a01608411ed9ac7762009144efe15e084adfcb1ea",
+      "pairs": 192,
+      "terminal": {
+        "candidates_restored": true,
+        "collaborator_entries_restored": true,
+        "entries_restored": true,
+        "event": "complete",
+        "flags_restored": true,
+        "pairs": 192,
+        "scope": "all destructor decision branches; isolated animation/reference collaborators; concrete native child destruction; no integration claim",
+        "state_restored": true,
+        "tables_restored": true
+      }
+    }
+  ],
+  "executed_probe_sha256": "c5feca9509d3388cddcf4b214505c385993545ccb8083ce91507757be35b9847",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "build_manifest_path": "reversing/RequestedPreflightTasks/artifacts/manifest.json",
+  "build_manifest_sha256": "530e70e4dc30de451c34c1fdc3e222b835c7cf32ac170dea7a2f0cdb83d7b6d9",
+  "compiled_manifest": {
+    "head": "cbf6d72fd35d49d4a148a8f7a7b200a8833d85af",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "02795115a8baa801bb6932732b6726fc68bd315556860d1ab17e26913c4dcf25",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "abdcc77c0c65af0e4cf521f1a4a36454ebd71a1236e060ad6d73eac468a89a2f",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h": "fc34cfe2ff9bcb0802522d154561550b96dfe0544ced46bf150d297da4e02672",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "62e147287b10f34e98f7cc21cd3974d22200c2d3eb618b2ca317763cc3ad6626",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "d7361f1c94baf194fd2e216a6c20ff575827558f2848fe85da1c58987c6e3b5b",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+      "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+      "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+    },
+    "bank_sources": {
+      "reversing/RequestedPreflightTasks/FrontendDiagnostic.hpp": "a005913416e56d9160f91364fe8e175cb4af6ea8000498115e6e031ae93ba49d",
+      "reversing/RequestedPreflightTasks/LiveComparison.hpp": "8df4d5439deb7010e2fb5aad7872009ff0b07c3926e616a835d84485a591ea08",
+      "reversing/RequestedPreflightTasks/build_probe.py": "e733a648e99f7be0e95d96f49e92f1f6a9c5c3acb1a35cb0053d73519bbf64e6",
+      "reversing/RequestedPreflightTasks/run_local.py": "5a11b57a042fff708982ca9475fc983edb85ca7c09f0f27cdb4eec3bf79b08c8",
+      "reversing/RequestedPreflightTasks/Diagnostics/TaskLifetimeDiagnostic.hpp": "663bcd6dc723b9ba24f2677169e0a7bfef38cd6a3e73b71ec615aecdb0bb6398",
+      "reversing/RequestedParallelTasks/TaskLifetimeComparison.hpp": "bc9766c52f56efc73d4bd5269ce46ca94ac408b84c90d6350c19be746ef5e1d6",
+      "reversing/RequestedParallelTasks/TaskLifetimeExpanded/Expanded.hpp": "86b6b5ac7afc67a99c25cddfcce190af07a43faf24169c6c9753ecc9f6a7d2b8",
+      "reversing/RequestedParallelTasks/Frontend.hpp": "65f378fa95e1ce74a3324999b17964d674e4b5a111edfc725dbd47ac94d9b6d4",
+      "reversing/RequestedParallelTasks/run_local.py": "45238fb90c2ce5b185259b42d4848eee71ba2926b282384b63eb511e7bcbfa72",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Preflight task constructor/destructor fixtures only. NOTSA_WinMain enters after logging shutdown guard and before SystemParametersInfo/RW/graphics/input. Original WinMain not compared. All other hooks temporarily original, restored after frozen lifetime banks. CTimer initial mapped values are read-only fixture context; no timer integration/pool/gameplay claim. No game startup accreditation.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "023ccfc61c7a6fac5e4a688e5cf6bfb2519a02e90d3dcbc52e57e007166443c5"
+    },
+    "asi": "c5feca9509d3388cddcf4b214505c385993545ccb8083ce91507757be35b9847",
+    "pdb": "e133341edaffa1a0686fbfee20b62606be89c430ef135f930d2a9d119b31eec4"
+  },
+  "audit": {
+    "comparison_rows_checked": 1088,
+    "all_equal": true,
+    "original_and_candidate_gate_checks": true,
+    "constructor_returned_this_both_routes": true,
+    "constructor_payload_bytes_equal": true,
+    "original_vtable_checked": true,
+    "candidate_vtable_checked": true,
+    "constructor_virtual_checks": [
+      "GetTaskType",
+      "IsSimple",
+      "GetSubTask"
+    ],
+    "other_vtable_methods_certified": false,
+    "destructor_terminal_vptr_original": "0x0086D48C",
+    "destructor_terminal_candidate": "exported DLL CTask table, also independently sampled by explicit CTask destructor in expanded bank",
+    "vptr_normalized_or_overwritten": false,
+    "expanded_traces_both_routes_equal_expected": true,
+    "restored_flags_entries_candidate_bodies_tables_collaborators": true,
+    "timer_bytes_unchanged": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "scope": "Pregraphics execution with mapped timer zero; 128 poison-storage constructor pairs per constructor, null-reference destructor fixtures plus all isolated destructor decision branches using real private native child objects and declared animation/reference stubs. Payload and traces compare original against candidate; raw vptrs are preserved and checked against distinct native/DLL CTask tables. Constructor remaining virtual methods and full game/reference/animation integration are not certified. Historical fixture approval only; no exhaustive full-class behavior or current dependency review claim.",
+  "preserved_prior_failures": [
+    "reversing/RequestedPreflightTasks/artifacts/previous-bank-325761b4a672c68c700236bd4a960baf16144a08d637b42fde1105239e2859b7.jsonl",
+    "reversing/RequestedPreflightTasks/artifacts/previous-harness-247583a6c834d429bf24680a01608411ed9ac7762009144efe15e084adfcb1ea.jsonl"
+  ],
+  "prior_build_archive": [
+    "reversing/RequestedPreflightTasks/artifacts/baseline-cf6928139676ac285fb57bde9cd4c0021cc1cb9d830de1133250a54e49943ed8"
+  ]
+}

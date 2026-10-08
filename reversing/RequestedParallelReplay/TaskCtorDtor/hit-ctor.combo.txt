@@ -1,0 +1,69 @@
+// CTaskComplexHitPedWithCar::Constructor @ 0x006539a0 [0x6539a0..0x653a11]
+// Ghidra 12.1.4 vÃ­a REA, gta-sa.exe 1.0 US (sha256 72ae59e4â€¦). PseudocÃ³digo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006539a0(int param_1,undefined4 param_2)
+
+{
+  undefined4 uVar1;
+  undefined4 *in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_008434d8;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  FUN_0061a3b0();
+  in_ECX[4] = param_2;
+  *in_ECX = &PTR_FUN_0086f294;
+  in_ECX[3] = param_1;
+  local_4 = 0;
+  uVar1 = FUN_00821b40();
+  in_ECX[6] = uVar1;
+  if (param_1 != 0) {
+    FUN_00571b70(in_ECX + 3);
+  }
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006539A0: push 0FFFFFFFFh
+006539A2: push 8434D8h
+006539A7: mov eax,dword ptr fs:[00000000h]
+006539AD: push eax
+006539AE: mov dword ptr fs:[00000000h],esp
+ 00
+006539B5: push ecx
+006539B6: push ebx
+006539B7: push esi
+006539B8: mov esi,ecx
+006539BA: push edi
+006539BB: mov dword ptr [esp+0Ch],esi
+006539BF: call 0061A3B0
+006539C4: mov eax,dword ptr [esp+24h]
+006539C8: mov ebx,dword ptr [esp+20h]
+006539CC: lea edi,[esi+0Ch]
+006539CF: mov dword ptr [esi+10h],eax
+006539D2: mov dword ptr [esi],86F294h
+006539D8: mov dword ptr [edi],ebx
+006539DA: fld dword ptr ds:[0086F118h]
+006539E0: mov dword ptr [esp+18h],0
+006539E8: call 00821B40
+006539ED: test ebx,ebx
+006539EF: mov dword ptr [esi+18h],eax
+006539F2: je 006539FC
+006539F4: push edi
+006539F5: mov ecx,ebx
+006539F7: call 00571B70
+006539FC: mov ecx,dword ptr [esp+10h]
+00653A00: pop edi
+00653A01: mov eax,esi
+00653A03: pop esi
+00653A04: pop ebx
+00653A05: mov dword ptr fs:[00000000h],ecx
+ 00
+00653A0C: add esp,10h
+00653A0F: ret 8

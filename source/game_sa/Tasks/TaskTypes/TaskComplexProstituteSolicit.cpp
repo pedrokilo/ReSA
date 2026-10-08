@@ -55,6 +55,17 @@ CTaskComplexProstituteSolicit::CTaskComplexProstituteSolicit(CPed* client) : CTa
     m_nCurrentTimer = 0;
     m_pClient = client;
     m_nVehicleMovementTimer = 850;
+    // 0x661A60: flags = (flags & 0xE2C0) | 0x02C0; preserve the unnamed upper bits.
+    bSearchingForSecludedPlace = false;
+    bSexProcessStarted = false;
+    bTaskCanBeFinished = false;
+    bPedsCanPotentiallySeeThis = false;
+    bPedsCanSeeThis = false;
+    bCopsCanSeeThis = false;
+    bMoveCameraDown = false;
+    bPlayerHasAcceptedSexProposition = false;
+    bVehicleShifted = false;
+    bSecludedPlaceMessageShown = false;
     b07 = true;
     b08 = true;
     b10 = true;

@@ -17,7 +17,7 @@ public:
     int32 m_fleeTimeMs{};                   // 0x28
     float m_safeDist{};                     // 0x2C
     eMoveState m_moveState{PEDMOVE_SPRINT}; // 0x30
-    CTaskTimer m_timer{};                   // 0x34
+    CTaskTimer m_timer;                   // 0x34
     uint8 m_fleeDir{};                      // 0x40
     bool m_hasFleePointChanged{};           // 0x41
 

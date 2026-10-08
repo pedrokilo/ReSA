@@ -3057,7 +3057,7 @@
   },
   {
     "file": "source/game_sa/Formation.cpp",
-    "sha256": "36ef26a75266bd34f10b4b7a2a9ad982a66495e059f13ad7cd97542b84aa49c5"
+    "sha256": "ccffff9b791845ade307c1a494d11563df3668e1a18ddfef2bfc9e9644c9c8f9"
   },
   {
     "file": "source/game_sa/Formation.h",
@@ -3761,7 +3761,7 @@
   },
   {
     "file": "source/game_sa/InterestingEvents.cpp",
-    "sha256": "f806277ed43d15d6cf55b9020a65c54fe5d878703ac302edf94ca8c7aae38d3f"
+    "sha256": "9bbd2b4f9e6e5077bbe1ca0d11c2eb03f1435e4eae942ffbc752324c03154f2d"
   },
   {
     "file": "source/game_sa/InterestingEvents.h",
@@ -5941,11 +5941,11 @@
   },
   {
     "file": "source/game_sa/Tasks/Task.cpp",
-    "sha256": "6125234ef4662d786ba71880a00972d7e0d7e6ead58a67dbfb577a657399f265"
+    "sha256": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84"
   },
   {
     "file": "source/game_sa/Tasks/Task.h",
-    "sha256": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74"
+    "sha256": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311"
   },
   {
     "file": "source/game_sa/Tasks/TaskCategories.cpp",
@@ -7041,7 +7041,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp",
-    "sha256": "11dea5cd266292b1ac6ae62093e84dfbd4871c36f5783b6a1262d6643ef994b4"
+    "sha256": "5d75866f38c13eb5583c392d974835a5763db944f6f1b36744d830a769653ea3"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h",
@@ -7133,7 +7133,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h",
-    "sha256": "f6035d323cf5a8dd2569053120dbe2c9462bd4cabedaeb06b581a9256f76f864"
+    "sha256": "fc34cfe2ff9bcb0802522d154561550b96dfe0544ced46bf150d297da4e02672"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp",
@@ -7161,11 +7161,11 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp",
-    "sha256": "c30dbffef0deb33c4392bdbf15e3c5169e03ce4bbc71725c94cde610d9dd41af"
+    "sha256": "c14959a3a77c72193d28677c99672a31057b7542390c045606f279fcfa3e5fc5"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h",
-    "sha256": "f1df83a32c77167f7e3e7ee9a9139dcc708c332c453d6a67fd6d0392b44b07c7"
+    "sha256": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp",
@@ -7925,7 +7925,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h",
-    "sha256": "e014e9b08160b111a7fac0efafe2f8ed37bbd6f629696fa56bfca76be04dd07d"
+    "sha256": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp",

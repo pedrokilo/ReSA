@@ -1,0 +1,8 @@
+12FAB010: 55                       push ebp
+12FAB011: 8bec                     mov ebp, esp
+12FAB013: 8b4508                   mov eax, dword ptr [ebp + 8]
+12FAB016: 50                       push eax
+12FAB017: e83eed0cfe               call 0x11079d5a
+12FAB01C: 83c404                   add esp, 4
+12FAB01F: 5d                       pop ebp
+12FAB020: c3                       ret 

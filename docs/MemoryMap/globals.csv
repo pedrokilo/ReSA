@@ -3360,7 +3360,7 @@ reference,0x00B72994,0x00772994,source/game_sa/Tasks/TaskTypes/TaskComplexKillCr
 reference,0x00859E30,0x00459E30,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp,348,"StaticRef<float>(0x859E30), StaticRef<float>(0x859E34), true, true};",source_global_reference
 reference,0x00859E34,0x00459E34,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp,348,"StaticRef<float>(0x859E30), StaticRef<float>(0x859E34), true, true};",source_global_reference
 ms_animBlock,0x008D2E38,0x004D2E38,source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h,16,static inline auto& ms_animBlock = StaticRef<uint32>(0x8D2E38);,source_global_reference
-reference,0x00B6F0D8,0x0076F0D8,source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp,291,if (StaticRef<int32>(0xB6F0D8) == 1) {,source_global_reference
+reference,0x00B6F0D8,0x0076F0D8,source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp,302,if (StaticRef<int32>(0xB6F0D8) == 1) {,source_global_reference
 pedHitDist,0x008D22B0,0x004D22B0,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp,167,auto& pedHitDist = StaticRef<float>(0x8D22B0);,source_global_reference
 flt_8D2ED4,0x008D2ED4,0x004D2ED4,source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetIn.cpp,158,const auto& flt_8D2ED4 = StaticRef<float>(0x8D2ED4); // 10.f,source_global_reference
 flt_8D2ED0,0x008D2ED0,0x004D2ED0,source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetIn.cpp,161,const auto& flt_8D2ED0 = StaticRef<float>(0x8D2ED0); // 0.01f,source_global_reference

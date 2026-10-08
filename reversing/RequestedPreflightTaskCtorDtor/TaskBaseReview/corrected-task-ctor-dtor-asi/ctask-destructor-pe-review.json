@@ -1,0 +1,233 @@
+{
+  "asi_path": "D:\\Original\\gta-reversed-master\\reversing\\RequestedPreflightTaskCtorDtor\\artifacts\\gta_reversed-preflight-task-ctor-dtor.asi",
+  "asi_sha256": "6f13e4930f64ddee35b8d1f66a080a5fa82cf4625667b47157b6f02ee52f9557",
+  "image_base": "0x10000000",
+  "ctask_vtable_export": "0x131ba5e4",
+  "slot0_entry": "0x1109fce7",
+  "slot0_body": "0x11245220",
+  "slot0_thunks": [
+    {
+      "from": "0x1109fce7",
+      "to": "0x11245220"
+    }
+  ],
+  "ordinary_destructor_export": "0x1106c676",
+  "ordinary_destructor_body": "0x12463d90",
+  "ordinary_destructor_thunks": [
+    {
+      "from": "0x1106c676",
+      "to": "0x12463d90"
+    }
+  ],
+  "procedures": [
+    {
+      "label": "ctask-deleting-vtable-thunk",
+      "body": "0x11245220",
+      "stores_exact_ctask_vtable": [],
+      "calls": [
+        {
+          "instruction": "0x11245279",
+          "entry": "0x110593af",
+          "body": "0x12f89340",
+          "thunks": [
+            {
+              "from": "0x110593af",
+              "to": "0x12f89340"
+            }
+          ]
+        },
+        {
+          "instruction": "0x1124529c",
+          "entry": "0x1109d51e",
+          "body": "0x12f89600",
+          "thunks": [
+            {
+              "from": "0x1109d51e",
+              "to": "0x12f89600"
+            }
+          ]
+        },
+        {
+          "instruction": "0x112452af",
+          "entry": "0x1106c676",
+          "body": "0x12463d90",
+          "thunks": [
+            {
+              "from": "0x1106c676",
+              "to": "0x12463d90"
+            }
+          ]
+        },
+        {
+          "instruction": "0x112452c9",
+          "entry": "0x1108f85b",
+          "body": "0x12463e10",
+          "thunks": [
+            {
+              "from": "0x1108f85b",
+              "to": "0x12463e10"
+            }
+          ]
+        },
+        {
+          "instruction": "0x112452d9",
+          "entry": "0x110916a1",
+          "body": "0x1125f0f0",
+          "thunks": [
+            {
+              "from": "0x110916a1",
+              "to": "0x1125f0f0"
+            }
+          ]
+        },
+        {
+          "instruction": "0x112452fa",
+          "entry": "0x11057c80",
+          "body": "0x12f89fd0",
+          "thunks": [
+            {
+              "from": "0x11057c80",
+              "to": "0x12f89fd0"
+            }
+          ]
+        }
+      ],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "ctask-ordinary-destructor",
+      "body": "0x12463d90",
+      "stores_exact_ctask_vtable": [
+        {
+          "address": "0x12463da2",
+          "memory_destination": "dword ptr [eax]"
+        }
+      ],
+      "calls": [],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x12f89340",
+      "body": "0x12f89340",
+      "stores_exact_ctask_vtable": [],
+      "calls": [
+        {
+          "instruction": "0x12f893cf",
+          "entry": "0x12f893d6",
+          "body": "0x12f893d6",
+          "thunks": []
+        },
+        {
+          "instruction": "0x12f893ee",
+          "entry": "0x11060844",
+          "body": "0x12f894a0",
+          "thunks": [
+            {
+              "from": "0x11060844",
+              "to": "0x12f894a0"
+            }
+          ]
+        }
+      ],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x12f89600",
+      "body": "0x12f89600",
+      "stores_exact_ctask_vtable": [],
+      "calls": [
+        {
+          "instruction": "0x12f89607",
+          "entry": "0x1106db89",
+          "body": "0x11a77ed0",
+          "thunks": [
+            {
+              "from": "0x1106db89",
+              "to": "0x11a77ed0"
+            }
+          ]
+        }
+      ],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x12463e10",
+      "body": "0x12463e10",
+      "stores_exact_ctask_vtable": [],
+      "calls": [
+        {
+          "instruction": "0x12463e4a",
+          "entry": "0x110937df",
+          "body": "0x11bfb430",
+          "thunks": [
+            {
+              "from": "0x110937df",
+              "to": "0x11bfb430"
+            }
+          ]
+        },
+        {
+          "instruction": "0x12463e5f",
+          "entry": "0x110a99d1",
+          "body": "0x12463eb0",
+          "thunks": [
+            {
+              "from": "0x110a99d1",
+              "to": "0x12463eb0"
+            }
+          ]
+        },
+        {
+          "instruction": "0x12463e7b",
+          "entry": "0x11057c80",
+          "body": "0x12f89fd0",
+          "thunks": [
+            {
+              "from": "0x11057c80",
+              "to": "0x12f89fd0"
+            }
+          ]
+        }
+      ],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x1125f0f0",
+      "body": "0x1125f0f0",
+      "stores_exact_ctask_vtable": [],
+      "calls": [
+        {
+          "instruction": "0x1125f10f",
+          "entry": "0x1108fda1",
+          "body": "0x12f895a0",
+          "thunks": [
+            {
+              "from": "0x1108fda1",
+              "to": "0x12f895a0"
+            }
+          ]
+        },
+        {
+          "instruction": "0x1125f122",
+          "entry": "0x11057c80",
+          "body": "0x12f89fd0",
+          "thunks": [
+            {
+              "from": "0x11057c80",
+              "to": "0x12f89fd0"
+            }
+          ]
+        }
+      ],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x12f89fd0",
+      "body": "0x12f89fd0",
+      "stores_exact_ctask_vtable": [],
+      "calls": [],
+      "linear_disassembly_stops_at_first_ret": true
+    }
+  ],
+  "limitation": "Static linear decoding. Store destination and call order must be assessed with this-flow; MSVC deleting thunk may support flags1/2/4; inspect exact flag branches, not assume EXE ABI; body includes free branch. No runtime or branch replay."
+}

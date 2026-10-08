@@ -1,0 +1,21 @@
+0061A660: mov eax,ecx
+0061A662: test byte ptr [esp+4],1
+0061A667: push edi
+0061A668: mov dword ptr [eax],86D48Ch
+0061A66E: je 0061A694
+0061A670: push esi
+0061A671: mov esi,dword ptr ds:[00B744A8h]
+0061A677: mov ecx,dword ptr [esi]
+0061A679: mov edx,eax
+0061A67B: sub edx,ecx
+0061A67D: mov ecx,dword ptr [esi+4]
+0061A680: mov edi,esi
+0061A682: sar edx,7
+0061A685: lea esi,[ecx+edx]
+0061A688: or byte ptr [esi],80h
+0061A68B: cmp edx,dword ptr [edi+0Ch]
+0061A68E: pop esi
+0061A68F: jge 0061A694
+0061A691: mov dword ptr [edi+0Ch],edx
+0061A694: pop edi
+0061A695: ret 4

@@ -1,0 +1,68 @@
+// CInterestingEvents::InvalidateEvent @ 0x00602960 [0x602960..0x6029b7]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00602960(int param_1)
+
+{
+  int iVar1;
+  int in_ECX;
+  int iVar2;
+  
+  iVar2 = 0;
+  iVar1 = in_ECX;
+  do {
+    if (iVar1 == param_1) {
+      *(undefined4 *)(iVar1 + 4) = 0;
+      if (*(int *)(iVar1 + 8) != 0) {
+        FUN_00571a00((undefined4 *)(iVar1 + 8));
+        *(undefined4 *)(iVar1 + 8) = 0;
+      }
+      if (*(char *)(in_ECX + 0x154) == iVar2) {
+        *(undefined1 *)(in_ECX + 0x154) = 0xff;
+      }
+      return;
+    }
+    iVar2 = iVar2 + 1;
+    iVar1 = iVar1 + 0xc;
+  } while (iVar2 < 8);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00602960: push ebx
+00602961: mov ebx,ecx
+00602963: mov ecx,dword ptr [esp+8]
+00602967: push esi
+00602968: xor esi,esi
+0060296A: mov eax,ebx
+0060296C: lea esp,[esp]
+00602970: cmp eax,ecx
+00602972: je 00602982
+00602974: inc esi
+00602975: add eax,0Ch
+00602978: cmp esi,8
+0060297B: jl 00602970
+0060297D: pop esi
+0060297E: pop ebx
+0060297F: ret 4
+00602982: mov ecx,dword ptr [eax+8]
+00602985: test ecx,ecx
+00602987: push edi
+00602988: lea edi,[eax+8]
+0060298B: mov dword ptr [eax+4],0
+ 00
+00602992: je 006029A0
+00602994: push edi
+00602995: call 00571A00
+0060299A: mov dword ptr [edi],0
+006029A0: movsx eax,byte ptr [ebx+00000154h]
+ 00
+006029A7: cmp eax,esi
+006029A9: pop edi
+006029AA: jne 006029B3
+006029AC: mov byte ptr [ebx+00000154h],0FFh
+ FF
+006029B3: pop esi
+006029B4: pop ebx
+006029B5: ret 4

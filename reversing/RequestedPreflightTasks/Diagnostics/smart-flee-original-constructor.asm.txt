@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0065BD20: 56                 push        esi
+  0065BD21: 8B F1              mov         esi,ecx
+  0065BD23: E8 88 E6 FB FF     call        0061A3B0
+  0065BD28: 8B 4C 24 08        mov         ecx,dword ptr [esp+8]
+  0065BD2C: C7 06 44 F7 86 00  mov         dword ptr [esi],86F744h
+  0065BD32: 8B 11              mov         edx,dword ptr [ecx]
+  0065BD34: 8D 46 18           lea         eax,[esi+18h]
+  0065BD37: 89 10              mov         dword ptr [eax],edx
+  0065BD39: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  0065BD3C: 89 50 04           mov         dword ptr [eax+4],edx
+  0065BD3F: 8B 49 08           mov         ecx,dword ptr [ecx+8]
+  0065BD42: 8A 54 24 0C        mov         dl,byte ptr [esp+0Ch]
+  0065BD46: 89 48 08           mov         dword ptr [eax+8],ecx
+  0065BD49: 8B 44 24 14        mov         eax,dword ptr [esp+14h]
+  0065BD4D: 8B 4C 24 10        mov         ecx,dword ptr [esp+10h]
+  0065BD51: 89 46 28           mov         dword ptr [esi+28h],eax
+  0065BD54: 33 C0              xor         eax,eax
+  0065BD56: 88 56 24           mov         byte ptr [esi+24h],dl
+  0065BD59: 89 4E 2C           mov         dword ptr [esi+2Ch],ecx
+  0065BD5C: C7 46 30 07 00 00  mov         dword ptr [esi+30h],7
+            00
+  0065BD63: 89 46 34           mov         dword ptr [esi+34h],eax
+  0065BD66: 89 46 38           mov         dword ptr [esi+38h],eax
+  0065BD69: 88 46 3C           mov         byte ptr [esi+3Ch],al
+  0065BD6C: 88 46 3D           mov         byte ptr [esi+3Dh],al
+  0065BD6F: 88 46 40           mov         byte ptr [esi+40h],al
+  0065BD72: 88 46 41           mov         byte ptr [esi+41h],al
+  0065BD75: 8B 46 28           mov         eax,dword ptr [esi+28h]
+  0065BD78: 83 F8 FF           cmp         eax,0FFFFFFFFh
+  0065BD7B: 74 10              je          0065BD8D
+  0065BD7D: 8B 15 84 CB B7 00  mov         edx,dword ptr ds:[00B7CB84h]
+  0065BD83: 89 56 34           mov         dword ptr [esi+34h],edx
+  0065BD86: 89 46 38           mov         dword ptr [esi+38h],eax
+  0065BD89: C6 46 3C 01        mov         byte ptr [esi+3Ch],1
+  0065BD8D: 8B C6              mov         eax,esi
+  0065BD8F: 5E                 pop         esi
+  0065BD90: C2 10 00           ret         10h
+
+  Summary
+
+      456000 .text

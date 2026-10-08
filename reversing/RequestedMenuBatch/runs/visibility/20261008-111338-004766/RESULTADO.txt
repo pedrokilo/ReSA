@@ -1,0 +1,3 @@
+FALLO: visibility
+Funciones con diferencias: CInterestingEvents::InvalidateNonVisibleEvents: 126/384
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interesting-visibility-pending\20261008-111338-004766

@@ -1,0 +1,8 @@
+12F89510: 55                       push ebp
+12F89511: 8bec                     mov ebp, esp
+12F89513: 8b4508                   mov eax, dword ptr [ebp + 8]
+12F89516: 50                       push eax
+12F89517: e86d460efe               call 0x1106db89
+12F8951C: 83c404                   add esp, 4
+12F8951F: 5d                       pop ebp
+12F89520: c3                       ret 

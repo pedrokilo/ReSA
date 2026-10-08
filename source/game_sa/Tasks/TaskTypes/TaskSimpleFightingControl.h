@@ -8,12 +8,12 @@ class CEntity;
 class NOTSA_EXPORT_VTABLE CTaskSimpleFightingControl : public CTaskSimple {
 public:
     bool m_bool{};
-    bool m_bool2{};
+    bool m_bool2; // 0x61DC10 leaves this byte unchanged.
     uint16 m_uint16{};
     CEntity* m_target{};
     float m_angleRad{};
     float m_maxAttackRange{};
-    float m_unk3{};
+    float m_unk3{1.f};
     uint32 m_nextAttackTime{};
     uint32 m_someTime{};
 

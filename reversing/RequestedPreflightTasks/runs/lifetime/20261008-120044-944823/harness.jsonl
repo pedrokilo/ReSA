@@ -1,0 +1,5 @@
+{"event":"preflight_entered","graphics_initialized":false}
+{"event":"timer_fixture","initial_ms":0,"mapped_timer_bytes":[0,0,0,0,0,0,0,0,0,0,0,0]}
+{"event":"before_task_bank","hooks_snapshotted":8449}
+{"event":"task_bank_returned"}
+{"changed_ranges":[],"entries_restored":true,"event":"complete","flags_restored":true,"snapshot_ranges":16898,"state_restored":true,"timer_unchanged":true}

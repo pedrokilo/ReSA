@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "2a7e4d2a4e8599f5c5b45b7a716083f1ea0379813ad201988f43bc4ab1a0f1f4",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 6144,
+  "pairs_per_function": {
+    "CTaskComplexWanderStandard::Constructor": 2048,
+    "CTaskComplexWanderStandard::ScanForStuff": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "caea293d292b835b1fcb5bf282aa516d8b86092cc60dc63d892149b1c7ffc412",
+  "comparison_scope": "full 52-byte payload plus exact named native/DLL Standard vptr mapping; helper traces independent model",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "cbf6d72fd35d49d4a148a8f7a7b200a8833d85af",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "f8c4f45478809448d42b62ecada5f6b13022c3482e5cff558626d493523e2ab5",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "01264ffbbe870028e52c75f7ea531ea5848b9a481620f9591c6f7f6a6667228e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+      "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876"
+    },
+    "bank_sources": {
+      "reversing/RequestedWanderRemaining/LiveComparison.hpp": "9e96dc30846204464b80fc011018db1cea3d8790bb648ab70c246392cba7ea97",
+      "reversing/RequestedWanderRemaining/build_probe.py": "30df51e76e01a4d7ee05dc218328a37a722b63017f3824a865a4781bb6dd1373",
+      "reversing/RequestedWanderRemaining/run_local.py": "a49b7da096bceb3a38b2bd4db937a714491e81feb508a2ee46d681df4c9e10b4",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Preflight Constructor2048 and ScanForStuff4096 only. Opaque full-size aligned CPed token; native/DLL helper replacements observe identity and bool short-circuit, no live ped integration. Clock fixture captured/restored; radius must canonical .5. NOTSA_WinMain enters after logging shutdown guard and before SystemParametersInfo/RW/graphics/input. Original WinMain not compared. All other hooks temporarily original, restored after remaining Wander bank. No game startup accreditation.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "524008a7aa8b668685f00d172ad96972926615c70d3cde6f667e6688a87e1ac1"
+    },
+    "asi": "2a7e4d2a4e8599f5c5b45b7a716083f1ea0379813ad201988f43bc4ab1a0f1f4",
+    "pdb": "394056b12891b4b9ed8e3980160ea088cfdc4ed85066ac61b77ab5361fe241d6"
+  },
+  "runner_sha256": "a49b7da096bceb3a38b2bd4db937a714491e81feb508a2ee46d681df4c9e10b4"
+}

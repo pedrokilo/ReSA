@@ -1,0 +1,65 @@
+{
+  "comparison_log_sha256": "325761b4a672c68c700236bd4a960baf16144a08d637b42fde1105239e2859b7",
+  "harness_log_sha256": "247583a6c834d429bf24680a01608411ed9ac7762009144efe15e084adfcb1ea",
+  "functions": {
+    "CTaskComplexGangJoinRespond::Constructor": {
+      "cases": 128,
+      "accepted_existing_limited_gate": 128,
+      "payload_failures": 0,
+      "raw_failures": 128,
+      "original_gate_failures": 0,
+      "candidate_gate_failures": 0
+    },
+    "CTaskComplexGoToAttractor::Constructor": {
+      "cases": 128,
+      "accepted_existing_limited_gate": 128,
+      "payload_failures": 0,
+      "raw_failures": 128,
+      "original_gate_failures": 0,
+      "candidate_gate_failures": 0
+    },
+    "CTaskComplexSmartFleePoint::Constructor": {
+      "cases": 128,
+      "accepted_existing_limited_gate": 1,
+      "payload_failures": 127,
+      "raw_failures": 128,
+      "original_gate_failures": 0,
+      "candidate_gate_failures": 0
+    },
+    "CTaskComplexGangJoinRespond::Destructor": {
+      "cases": 128,
+      "accepted_existing_limited_gate": 128,
+      "payload_failures": 0,
+      "raw_failures": 128,
+      "original_gate_failures": 0,
+      "candidate_gate_failures": 0
+    },
+    "CTaskComplexGoToAttractor::Destructor": {
+      "cases": 128,
+      "accepted_existing_limited_gate": 128,
+      "payload_failures": 0,
+      "raw_failures": 128,
+      "original_gate_failures": 0,
+      "candidate_gate_failures": 0
+    },
+    "CTaskComplexSmartFleePoint::Destructor": {
+      "cases": 128,
+      "accepted_existing_limited_gate": 128,
+      "payload_failures": 0,
+      "raw_failures": 128,
+      "original_gate_failures": 0,
+      "candidate_gate_failures": 0
+    },
+    "CTaskComplexFollowLeaderInFormation::Destructor": {
+      "cases": 128,
+      "accepted_existing_limited_gate": 128,
+      "payload_failures": 0,
+      "raw_failures": 128,
+      "original_gate_failures": 0,
+      "candidate_gate_failures": 0
+    }
+  },
+  "smart_flee_single_passing_seed": [
+    46
+  ]
+}

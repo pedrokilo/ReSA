@@ -1,0 +1,42 @@
+// CTaskComplexWanderStandard::Constructor @ 0x0048e4f0 [0x48e4f0..0x48e52b]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0048e4f0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+
+{
+  undefined4 *in_ECX;
+  
+  FUN_0066f450(param_1,param_2,param_3,0x3f000000);
+  *in_ECX = &PTR_FUN_0085a200;
+  in_ECX[10] = 0;
+  in_ECX[0xb] = 0;
+  *(undefined1 *)(in_ECX + 0xc) = 0;
+  *(undefined1 *)((int)in_ECX + 0x31) = 0;
+  in_ECX[0xd] = 0;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0048E4F0: mov eax,dword ptr ds:[0086FCB0h]
+0048E4F5: mov edx,dword ptr [esp+8]
+0048E4F9: push esi
+0048E4FA: push eax
+0048E4FB: mov eax,dword ptr [esp+0Ch]
+0048E4FF: mov esi,ecx
+0048E501: mov ecx,dword ptr [esp+14h]
+0048E505: push ecx
+0048E506: push edx
+0048E507: push eax
+0048E508: mov ecx,esi
+0048E50A: call 0066F450
+0048E50F: xor eax,eax
+0048E511: mov dword ptr [esi],85A200h
+0048E517: mov dword ptr [esi+28h],eax
+0048E51A: mov dword ptr [esi+2Ch],eax
+0048E51D: mov byte ptr [esi+30h],al
+0048E520: mov byte ptr [esi+31h],al
+0048E523: mov dword ptr [esi+34h],eax
+0048E526: mov eax,esi
+0048E528: pop esi
+0048E529: ret 0Ch

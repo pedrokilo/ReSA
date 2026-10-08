@@ -1,0 +1,81 @@
+11245240: 55                       push ebp
+11245241: 8bec                     mov ebp, esp
+11245243: 6aff                     push -1
+11245245: 68302f0b13               push 0x130b2f30
+1124524A: 64a100000000             mov eax, dword ptr fs:[0]
+11245250: 50                       push eax
+11245251: 81eccc000000             sub esp, 0xcc
+11245257: 53                       push ebx
+11245258: 56                       push esi
+11245259: 57                       push edi
+1124525A: 51                       push ecx
+1124525B: 8d7de8                   lea edi, [ebp - 0x18]
+1124525E: b903000000               mov ecx, 3
+11245263: b8cccccccc               mov eax, 0xcccccccc
+11245268: f3ab                     rep stosd dword ptr es:[edi], eax
+1124526A: 59                       pop ecx
+1124526B: a1409a6b13               mov eax, dword ptr [0x136b9a40]
+11245270: 33c5                     xor eax, ebp
+11245272: 50                       push eax
+11245273: 8d45f4                   lea eax, [ebp - 0xc]
+11245276: 64a300000000             mov dword ptr fs:[0], eax
+1124527C: 894dec                   mov dword ptr [ebp - 0x14], ecx
+1124527F: 8b4508                   mov eax, dword ptr [ebp + 8]
+11245282: 83e002                   and eax, 2
+11245285: 7445                     je 0x112452cc
+11245287: 6876c60611               push 0x1106c676
+1124528C: 8b45ec                   mov eax, dword ptr [ebp - 0x14]
+1124528F: 8b48fc                   mov ecx, dword ptr [eax - 4]
+11245292: 51                       push ecx
+11245293: 6a08                     push 8
+11245295: 8b55ec                   mov edx, dword ptr [ebp - 0x14]
+11245298: 52                       push edx
+11245299: e81141e1ff               call 0x110593af
+1124529E: 90                       nop 
+1124529F: 8b4508                   mov eax, dword ptr [ebp + 8]
+112452A2: 83e001                   and eax, 1
+112452A5: 741d                     je 0x112452c4
+112452A7: 8b45ec                   mov eax, dword ptr [ebp - 0x14]
+112452AA: 8b48fc                   mov ecx, dword ptr [eax - 4]
+112452AD: 8d14cd04000000           lea edx, [ecx*8 + 4]
+112452B4: 52                       push edx
+112452B5: 8b45ec                   mov eax, dword ptr [ebp - 0x14]
+112452B8: 83e804                   sub eax, 4
+112452BB: 50                       push eax
+112452BC: e85d82e5ff               call 0x1109d51e
+112452C1: 83c408                   add esp, 8
+112452C4: 8b45ec                   mov eax, dword ptr [ebp - 0x14]
+112452C7: 83e804                   sub eax, 4
+112452CA: eb38                     jmp 0x11245304
+112452CC: 8b4dec                   mov ecx, dword ptr [ebp - 0x14]
+112452CF: e8a273e2ff               call 0x1106c676
+112452D4: 90                       nop 
+112452D5: 8b4508                   mov eax, dword ptr [ebp + 8]
+112452D8: 83e001                   and eax, 1
+112452DB: 7424                     je 0x11245301
+112452DD: 8b4508                   mov eax, dword ptr [ebp + 8]
+112452E0: 83e004                   and eax, 4
+112452E3: 750e                     jne 0x112452f3
+112452E5: 8b45ec                   mov eax, dword ptr [ebp - 0x14]
+112452E8: 50                       push eax
+112452E9: e86da5e4ff               call 0x1108f85b
+112452EE: 83c404                   add esp, 4
+112452F1: eb0e                     jmp 0x11245301
+112452F3: 6a08                     push 8
+112452F5: 8b45ec                   mov eax, dword ptr [ebp - 0x14]
+112452F8: 50                       push eax
+112452F9: e8a3c3e4ff               call 0x110916a1
+112452FE: 83c408                   add esp, 8
+11245301: 8b45ec                   mov eax, dword ptr [ebp - 0x14]
+11245304: 8b4df4                   mov ecx, dword ptr [ebp - 0xc]
+11245307: 64890d00000000           mov dword ptr fs:[0], ecx
+1124530E: 59                       pop ecx
+1124530F: 5f                       pop edi
+11245310: 5e                       pop esi
+11245311: 5b                       pop ebx
+11245312: 81c4d8000000             add esp, 0xd8
+11245318: 3bec                     cmp ebp, esp
+1124531A: e86129e1ff               call 0x11057c80
+1124531F: 8be5                     mov esp, ebp
+11245321: 5d                       pop ebp
+11245322: c20400                   ret 4

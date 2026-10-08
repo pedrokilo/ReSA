@@ -1,0 +1,74 @@
+[
+  {
+    "class": "CTaskComplexSunbathe",
+    "function": "Constructor",
+    "catalogue_address": "0x00631F80",
+    "type": "S",
+    "procedure": "0x00631F80",
+    "ok": true,
+    "evidence_id": "ev_c9eb1dd2effa81640a08cdd525d904f1c6e070bc17769e0ed7ccf84384de03c7",
+    "path": "1473-0x00631F80.json",
+    "raw_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1473-0x00631F80.json",
+    "raw_sha256": "d0b7d2ae8b56ceccbb2399bb2538a062f0855b306a98359bf9ba8afb1df5a067"
+  },
+  {
+    "class": "CTaskComplexSunbathe",
+    "function": "Destructor",
+    "catalogue_address": "0x00632050",
+    "type": "S",
+    "procedure": "0x00632050",
+    "ok": true,
+    "evidence_id": "ev_85da095c6c378836fc8077b001e4f2e83ba5428cd12de6f02e965dc1139a2f45",
+    "path": "1474-0x00632050.json",
+    "raw_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1474-0x00632050.json",
+    "raw_sha256": "474030b3e2cae1b39e296a2b229562f91ab83958d0ea97da5e60c7a2d928b4c5"
+  },
+  {
+    "class": "CTaskComplexKillPedFromBoat",
+    "function": "Constructor",
+    "catalogue_address": "0x006227C0",
+    "type": "S",
+    "procedure": "0x006227C0",
+    "ok": true,
+    "evidence_id": "ev_9d9f37d910994b845b2affacdae4a9d2c8dd092e43f77b0a736fac0bf0208ebc",
+    "path": "1489-0x006227C0.json",
+    "raw_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1489-0x006227C0.json",
+    "raw_sha256": "420be640d939d93c277d6a84578149c529d121c00237b6c7b72f53eb3cdaefc1"
+  },
+  {
+    "class": "CTaskComplexKillPedFromBoat",
+    "function": "Destructor",
+    "catalogue_address": "0x00622830",
+    "type": "S",
+    "procedure": "0x00622830",
+    "ok": true,
+    "evidence_id": "ev_cbae675eb7ec2e18754601e058f6c11e1865baf9b31601b96953f1573b0e3370",
+    "path": "1490-0x00622830.json",
+    "raw_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1490-0x00622830.json",
+    "raw_sha256": "da58f26056625794358dc3c3be4ee78387f52a4d47d0dc2c89a17f7f5894d394"
+  },
+  {
+    "class": "CTaskComplexHitPedWithCar",
+    "function": "Constructor",
+    "catalogue_address": "0x006539A0",
+    "type": "S",
+    "procedure": "0x006539A0",
+    "ok": true,
+    "evidence_id": "ev_182a570a9fcfccf5812df0e8a0014cae84684db82a945ef66d11676f601fc9cc",
+    "path": "1645-0x006539A0.json",
+    "raw_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1645-0x006539A0.json",
+    "raw_sha256": "665451dad74ceb40b1dd19111afabf00ebe98d5679a8d7dd849f23c996f707b1"
+  },
+  {
+    "class": "CTaskComplexHitPedWithCar",
+    "function": "Destructor",
+    "catalogue_address": "0x00653A30",
+    "type": "S",
+    "procedure": "0x00653A30",
+    "ok": true,
+    "evidence_id": "ev_6809395d574695b2a78a70dfae641399909cda77edc4c81faf2fa172252f120a",
+    "path": "1646-0x00653A30.json",
+    "raw_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1646-0x00653A30.json",
+    "raw_sha256": "fada6e017cc945f0837e710c2abb0bfa11bee0a576c77f834f67f932ae417443"
+  }
+]

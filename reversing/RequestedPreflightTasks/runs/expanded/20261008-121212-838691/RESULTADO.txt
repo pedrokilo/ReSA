@@ -1,0 +1,3 @@
+APROBADO: Tasks preflight expanded
+Comparacion automatizada completada.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-task-expanded\20261008-121212-838691

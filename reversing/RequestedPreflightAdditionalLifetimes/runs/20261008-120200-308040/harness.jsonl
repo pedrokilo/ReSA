@@ -1,0 +1,4 @@
+{"bank":"additional-lifetime","event":"preflight_entered","graphics_initialized":false}
+{"event":"before_lifetime_bank","hooks_snapshotted":8449,"vrt_tables":4}
+{"event":"lifetime_bank_returned"}
+{"crt_restored":false,"entries_restored":true,"event":"error","flags_restored":true,"return_to_winmain":true,"snapshot_ranges":16898,"state_restored":false,"tables_restored":true}

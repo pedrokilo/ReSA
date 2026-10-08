@@ -1,0 +1,75 @@
+// CDecision::From @ 0x006006b0 [0x6006b0..0x60070c]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006006b0(int param_1)
+
+{
+  undefined1 *puVar1;
+  int in_ECX;
+  int iVar2;
+  undefined1 *puVar3;
+  undefined1 *puVar4;
+  undefined1 *puVar5;
+  
+  puVar4 = (undefined1 *)(param_1 + 0x31);
+  puVar3 = (undefined1 *)(param_1 + 0x1a);
+  puVar5 = (undefined1 *)(in_ECX + 0x30);
+  puVar1 = (undefined1 *)(in_ECX + 0x18);
+  iVar2 = 6;
+  do {
+    *(undefined4 *)(puVar1 + -0x18) = *(undefined4 *)(puVar3 + -0x1a);
+    *puVar1 = puVar1[param_1 - in_ECX];
+    puVar1[1] = puVar3[-1];
+    puVar1[2] = *puVar3;
+    puVar1[3] = puVar3[1];
+    *puVar5 = puVar5[param_1 - in_ECX];
+    puVar5[1] = *puVar4;
+    puVar1 = puVar1 + 4;
+    puVar3 = puVar3 + 4;
+    puVar5 = puVar5 + 2;
+    puVar4 = puVar4 + 2;
+    iVar2 = iVar2 + -1;
+  } while (iVar2 != 0);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006006B0: push ebx
+006006B1: push ebp
+006006B2: push esi
+006006B3: push edi
+006006B4: mov edi,dword ptr [esp+14h]
+006006B8: lea ebp,[edi+31h]
+006006BB: lea edx,[edi+1Ah]
+006006BE: lea esi,[ecx+30h]
+006006C1: lea eax,[ecx+18h]
+006006C4: sub edi,ecx
+006006C6: mov ecx,6
+006006CB: jmp 006006D0
+006006CD: lea ecx,[ecx]
+006006D0: mov ebx,dword ptr [edx-1Ah]
+006006D3: mov dword ptr [eax-18h],ebx
+006006D6: mov bl,byte ptr [edi+eax]
+006006D9: mov byte ptr [eax],bl
+006006DB: mov bl,byte ptr [edx-1]
+006006DE: mov byte ptr [eax+1],bl
+006006E1: mov bl,byte ptr [edx]
+006006E3: mov byte ptr [eax+2],bl
+006006E6: mov bl,byte ptr [edx+1]
+006006E9: mov byte ptr [eax+3],bl
+006006EC: mov bl,byte ptr [edi+esi]
+006006EF: mov byte ptr [esi],bl
+006006F1: mov bl,byte ptr [ebp]
+006006F4: mov byte ptr [esi+1],bl
+006006F7: add eax,4
+006006FA: add edx,4
+006006FD: add esi,2
+00600700: add ebp,2
+00600703: dec ecx
+00600704: jne 006006D0
+00600706: pop edi
+00600707: pop esi
+00600708: pop ebp
+00600709: pop ebx
+0060070A: ret 4

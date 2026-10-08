@@ -1,0 +1,18 @@
+{
+  "status": "prepared_not_built_not_executed",
+  "expected_pairs": 1536,
+  "files": {
+    "boat-ctor.combo.txt": "fdd204dfa5e275f0a2edee891216f9fb179649284d1bce7c4357ced5eceab9bf",
+    "boat-dtor.combo.txt": "7c5388d49d4b1e866a1bc740ad924c35e89daf230d06c04673862fb1639f9c99",
+    "build_probe.py": "74d38d73111bf902e17293c4b9c9325a43165025ad0168829d97b7da3bb55fee",
+    "FIXTURES.md": "822866cade747081c4ccd16d3eea21d24c237a5459dbc1b7434137c236edfbde",
+    "Frontend.hpp": "3777d9a1cdf8cbf973fe392c1951acfd876f6ee784ad7e8002a0185f15ceab1f",
+    "hit-ctor.combo.txt": "25ebf801c8ea61b49acadc4b35b37179fae840b586a3f2929ae7edee2ada4e2e",
+    "hit-dtor.combo.txt": "4a28bf69b1ccd5fb67b3e5573af72faef4d2b3dcd38d352ba61581c50ad14cd6",
+    "LiveComparison.hpp": "773547bb8dd4baa70eea7158ae5efae8a5f124625a07d9226810522ff5d59650",
+    "rea-evidence-references.json": "943314e288f4d244efb64790c0ba8aa3be6ac00f06baaa90d22101dbb2520eb6",
+    "run_local.py": "410f9492c62bf305f4de19891f1d7ab88f40611acc50ca2728276da3a6a6fc60",
+    "sun-ctor.combo.txt": "5c7e29c404087c3c34d7e8dc3d4b674c37c6f3a6c5001f205aef909e33529495",
+    "sun-dtor.combo.txt": "f2f9c781b7acffbf25b25da62b07bf56705de2fb57e5ef13716cae8024c03cd3"
+  }
+}

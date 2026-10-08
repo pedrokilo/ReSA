@@ -1,16 +1,17 @@
 {
   "schema_version": 1,
   "requested_base": "24adc9887871e167b4b64e981446b265ba1e16df",
-  "inspected_head": "24adc9887871e167b4b64e981446b265ba1e16df",
+  "inspected_head": "cbf6d72fd35d49d4a148a8f7a7b200a8833d85af",
   "selection": "Classes requested by user; requested_pending=1 selects initial validated=0 identities. Historical rows are context, not an automatic replay expansion.",
-  "hooks_sha256": "ef70524f4153e6b497dc055534700df97551df03fd089c15b2715750c66f4c1c",
-  "registry_sha256": "fca9e49d6af9c42a84af2d91b1aa9b749427b25e2ea198c4ef6e3d54c50bc617",
+  "hooks_sha256": "a5bd5b69149265cc55c4eafe8b96884d6ecc0c894733635663f2f307974b4c9b",
+  "registry_sha256": "40cd785cf50e7119b689b70acfaf1e4a75a6cf500a4776472c2bd342678259f3",
   "classes": {
     "CAEAudioHardware": {
       "expected_pending": 1,
       "historical_linked": 53,
       "total": 54,
       "requested_pending": 1,
+      "pending_now": 1,
       "pending_with_candidate_summary": 0,
       "unlinked": 1
     },
@@ -19,30 +20,32 @@
       "historical_linked": 58,
       "total": 59,
       "requested_pending": 1,
+      "pending_now": 1,
       "pending_with_candidate_summary": 0,
       "unlinked": 1
     },
     "CDecision": {
       "expected_pending": 1,
-      "unlinked": 1,
+      "historical_linked": 3,
       "total": 3,
       "requested_pending": 1,
-      "pending_with_candidate_summary": 0,
-      "historical_linked": 2
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CFormation": {
       "expected_pending": 1,
-      "historical_linked": 8,
+      "historical_linked": 9,
       "total": 9,
       "requested_pending": 1,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 1
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CPedGroupPlacer": {
       "expected_pending": 1,
       "historical_linked": 3,
       "total": 4,
       "requested_pending": 1,
+      "pending_now": 1,
       "pending_with_candidate_summary": 0,
       "unlinked": 1
     },
@@ -51,6 +54,7 @@
       "historical_linked": 50,
       "total": 51,
       "requested_pending": 1,
+      "pending_now": 1,
       "pending_with_candidate_summary": 0,
       "unlinked": 1
     },
@@ -59,30 +63,32 @@
       "historical_linked": 11,
       "total": 12,
       "requested_pending": 1,
+      "pending_now": 1,
       "pending_with_candidate_summary": 0,
       "unlinked": 1
     },
     "CTaskComplexFollowLeaderInFormation": {
       "expected_pending": 1,
-      "historical_linked": 6,
+      "historical_linked": 7,
       "total": 7,
       "requested_pending": 1,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 1
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CTaskSimpleGangDriveBy": {
       "expected_pending": 1,
-      "historical_linked": 3,
+      "historical_linked": 4,
       "total": 4,
       "requested_pending": 1,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 1
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "InteriorGroup_c": {
       "expected_pending": 1,
       "historical_linked": 23,
       "total": 24,
       "requested_pending": 1,
+      "pending_now": 1,
       "pending_with_candidate_summary": 0,
       "unlinked": 1
     },
@@ -91,78 +97,82 @@
       "historical_linked": 5,
       "total": 6,
       "requested_pending": 1,
+      "pending_now": 1,
       "pending_with_candidate_summary": 0,
       "unlinked": 1
     },
     "CInterestingEvents": {
       "expected_pending": 2,
-      "historical_linked": 5,
+      "historical_linked": 6,
       "total": 7,
       "requested_pending": 2,
+      "pending_now": 1,
       "pending_with_candidate_summary": 0,
-      "unlinked": 2
+      "unlinked": 1
     },
     "CPedDamageResponseCalculator": {
       "expected_pending": 2,
-      "historical_linked": 4,
+      "historical_linked": 5,
       "total": 6,
       "requested_pending": 2,
+      "pending_now": 1,
       "pending_with_candidate_summary": 0,
-      "unlinked": 2
+      "unlinked": 1
     },
     "CTaskComplexGangJoinRespond": {
       "expected_pending": 2,
-      "historical_linked": 5,
+      "historical_linked": 7,
       "total": 7,
       "requested_pending": 2,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 2
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CTaskComplexGoToAttractor": {
       "expected_pending": 2,
-      "historical_linked": 3,
+      "historical_linked": 5,
       "total": 5,
       "requested_pending": 2,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 2
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CTaskComplexHitPedWithCar": {
       "expected_pending": 2,
-      "historical_linked": 8,
+      "historical_linked": 10,
       "total": 10,
       "requested_pending": 2,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 2
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CTaskComplexKillPedFromBoat": {
       "expected_pending": 2,
-      "historical_linked": 5,
+      "historical_linked": 7,
       "total": 7,
       "requested_pending": 2,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 2
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CTaskComplexSmartFleePoint": {
       "expected_pending": 2,
-      "historical_linked": 10,
+      "historical_linked": 12,
       "total": 12,
       "requested_pending": 2,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 2
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CTaskComplexSunbathe": {
       "expected_pending": 2,
-      "historical_linked": 6,
+      "historical_linked": 8,
       "total": 8,
       "requested_pending": 2,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 2
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CTaskGangHasslePed": {
       "expected_pending": 2,
       "unlinked": 2,
       "total": 5,
       "requested_pending": 2,
+      "pending_now": 2,
       "pending_with_candidate_summary": 0,
       "historical_linked": 3
     },
@@ -171,6 +181,7 @@
       "historical_linked": 6,
       "total": 8,
       "requested_pending": 2,
+      "pending_now": 2,
       "pending_with_candidate_summary": 0,
       "unlinked": 2
     },
@@ -179,6 +190,7 @@
       "historical_linked": 5,
       "total": 7,
       "requested_pending": 2,
+      "pending_now": 2,
       "pending_with_candidate_summary": 0,
       "unlinked": 2
     },
@@ -187,6 +199,7 @@
       "unlinked": 2,
       "total": 5,
       "requested_pending": 2,
+      "pending_now": 2,
       "pending_with_candidate_summary": 0,
       "historical_linked": 3
     },
@@ -195,6 +208,7 @@
       "unlinked": 2,
       "total": 9,
       "requested_pending": 2,
+      "pending_now": 2,
       "pending_with_candidate_summary": 0,
       "historical_linked": 7
     },
@@ -203,6 +217,7 @@
       "historical_linked": 4,
       "total": 7,
       "requested_pending": 3,
+      "pending_now": 3,
       "pending_with_candidate_summary": 0,
       "unlinked": 3
     },
@@ -211,22 +226,24 @@
       "historical_linked": 6,
       "total": 9,
       "requested_pending": 3,
+      "pending_now": 3,
       "pending_with_candidate_summary": 0,
       "unlinked": 3
     },
     "CTaskComplexWanderStandard": {
       "expected_pending": 3,
-      "historical_linked": 6,
+      "historical_linked": 9,
       "total": 9,
       "requested_pending": 3,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 3
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CAEFrontendAudioEntity": {
       "expected_pending": 4,
       "historical_linked": 2,
       "total": 6,
       "requested_pending": 4,
+      "pending_now": 4,
       "pending_with_candidate_summary": 0,
       "unlinked": 4
     },
@@ -235,6 +252,7 @@
       "unlinked": 4,
       "total": 7,
       "requested_pending": 4,
+      "pending_now": 4,
       "pending_with_candidate_summary": 0,
       "historical_linked": 3
     },
@@ -243,6 +261,7 @@
       "historical_linked": 14,
       "total": 19,
       "requested_pending": 5,
+      "pending_now": 5,
       "pending_with_candidate_summary": 0,
       "unlinked": 5
     },
@@ -251,6 +270,7 @@
       "unlinked": 5,
       "total": 11,
       "requested_pending": 5,
+      "pending_now": 5,
       "pending_with_candidate_summary": 0,
       "historical_linked": 6
     },
@@ -259,6 +279,7 @@
       "unlinked": 5,
       "total": 7,
       "requested_pending": 5,
+      "pending_now": 5,
       "pending_with_candidate_summary": 0,
       "historical_linked": 2
     },
@@ -267,38 +288,43 @@
       "unlinked": 5,
       "total": 7,
       "requested_pending": 5,
+      "pending_now": 5,
       "pending_with_candidate_summary": 0,
       "historical_linked": 2
     },
     "CTaskSimpleFightingControl": {
       "expected_pending": 6,
-      "unlinked": 6,
+      "unlinked": 4,
       "total": 7,
       "requested_pending": 6,
+      "pending_now": 4,
       "pending_with_candidate_summary": 0,
-      "historical_linked": 1
+      "historical_linked": 3
     },
     "CRoadBlocks": {
       "expected_pending": 7,
       "unlinked": 7,
       "total": 8,
       "requested_pending": 7,
+      "pending_now": 7,
       "pending_with_candidate_summary": 0,
       "historical_linked": 1
     },
     "CTaskComplexProstituteSolicit": {
       "expected_pending": 7,
-      "unlinked": 7,
+      "unlinked": 5,
       "total": 11,
       "requested_pending": 7,
+      "pending_now": 5,
       "pending_with_candidate_summary": 0,
-      "historical_linked": 4
+      "historical_linked": 6
     },
     "CAEScriptAudioEntity": {
       "expected_pending": 8,
       "historical_linked": 11,
       "total": 19,
       "requested_pending": 8,
+      "pending_now": 8,
       "pending_with_candidate_summary": 0,
       "unlinked": 8
     },
@@ -307,6 +333,7 @@
       "historical_linked": 29,
       "total": 38,
       "requested_pending": 9,
+      "pending_now": 9,
       "pending_with_candidate_summary": 0,
       "unlinked": 9
     },
@@ -315,6 +342,7 @@
       "unlinked": 9,
       "total": 11,
       "requested_pending": 9,
+      "pending_now": 9,
       "pending_with_candidate_summary": 0,
       "historical_linked": 2
     },
@@ -323,6 +351,7 @@
       "unlinked": 9,
       "total": 11,
       "requested_pending": 9,
+      "pending_now": 9,
       "pending_with_candidate_summary": 0,
       "historical_linked": 2
     },
@@ -331,6 +360,7 @@
       "unlinked": 11,
       "total": 12,
       "requested_pending": 11,
+      "pending_now": 11,
       "pending_with_candidate_summary": 0,
       "historical_linked": 1
     },
@@ -339,6 +369,7 @@
       "historical_linked": 4,
       "total": 17,
       "requested_pending": 13,
+      "pending_now": 13,
       "pending_with_candidate_summary": 0,
       "unlinked": 13
     },
@@ -347,6 +378,7 @@
       "unlinked": 13,
       "total": 14,
       "requested_pending": 13,
+      "pending_now": 13,
       "pending_with_candidate_summary": 0,
       "historical_linked": 1
     },
@@ -355,6 +387,7 @@
       "unlinked": 14,
       "total": 44,
       "requested_pending": 14,
+      "pending_now": 14,
       "pending_with_candidate_summary": 0,
       "historical_linked": 30
     },
@@ -363,6 +396,7 @@
       "unlinked": 14,
       "total": 23,
       "requested_pending": 14,
+      "pending_now": 14,
       "pending_with_candidate_summary": 0,
       "historical_linked": 9
     },
@@ -371,6 +405,7 @@
       "unlinked": 15,
       "total": 20,
       "requested_pending": 15,
+      "pending_now": 15,
       "pending_with_candidate_summary": 0,
       "historical_linked": 5
     },
@@ -379,6 +414,7 @@
       "unlinked": 15,
       "total": 23,
       "requested_pending": 15,
+      "pending_now": 15,
       "pending_with_candidate_summary": 0,
       "historical_linked": 8
     },
@@ -387,6 +423,7 @@
       "unlinked": 16,
       "total": 19,
       "requested_pending": 16,
+      "pending_now": 16,
       "pending_with_candidate_summary": 0,
       "historical_linked": 3
     },
@@ -395,6 +432,7 @@
       "unlinked": 18,
       "total": 24,
       "requested_pending": 18,
+      "pending_now": 18,
       "pending_with_candidate_summary": 0,
       "historical_linked": 6
     },
@@ -403,6 +441,7 @@
       "historical_linked": 20,
       "total": 40,
       "requested_pending": 20,
+      "pending_now": 20,
       "pending_with_candidate_summary": 0,
       "unlinked": 20
     },
@@ -411,6 +450,7 @@
       "historical_linked": 10,
       "total": 31,
       "requested_pending": 21,
+      "pending_now": 21,
       "pending_with_candidate_summary": 0,
       "unlinked": 21
     },
@@ -419,6 +459,7 @@
       "historical_linked": 18,
       "total": 40,
       "requested_pending": 22,
+      "pending_now": 22,
       "pending_with_candidate_summary": 0,
       "unlinked": 22
     },
@@ -427,6 +468,7 @@
       "unlinked": 24,
       "total": 39,
       "requested_pending": 24,
+      "pending_now": 24,
       "pending_with_candidate_summary": 0,
       "historical_linked": 15
     },
@@ -435,6 +477,7 @@
       "unlinked": 25,
       "total": 30,
       "requested_pending": 25,
+      "pending_now": 25,
       "pending_with_candidate_summary": 0,
       "historical_linked": 5
     },
@@ -443,6 +486,7 @@
       "unlinked": 27,
       "total": 32,
       "requested_pending": 27,
+      "pending_now": 27,
       "pending_with_candidate_summary": 0,
       "historical_linked": 5
     },
@@ -451,6 +495,7 @@
       "unlinked": 29,
       "total": 43,
       "requested_pending": 29,
+      "pending_now": 29,
       "pending_with_candidate_summary": 0,
       "historical_linked": 14
     },
@@ -459,6 +504,7 @@
       "unlinked": 30,
       "total": 32,
       "requested_pending": 30,
+      "pending_now": 30,
       "pending_with_candidate_summary": 0,
       "historical_linked": 2
     },
@@ -467,6 +513,7 @@
       "unlinked": 30,
       "total": 38,
       "requested_pending": 30,
+      "pending_now": 30,
       "pending_with_candidate_summary": 0,
       "historical_linked": 8
     },
@@ -475,6 +522,7 @@
       "unlinked": 31,
       "total": 35,
       "requested_pending": 31,
+      "pending_now": 31,
       "pending_with_candidate_summary": 0,
       "historical_linked": 4
     },
@@ -483,6 +531,7 @@
       "unlinked": 32,
       "total": 36,
       "requested_pending": 32,
+      "pending_now": 32,
       "pending_with_candidate_summary": 0,
       "historical_linked": 4
     },
@@ -491,6 +540,7 @@
       "historical_linked": 3,
       "total": 35,
       "requested_pending": 32,
+      "pending_now": 32,
       "pending_with_candidate_summary": 0,
       "unlinked": 32
     },
@@ -499,6 +549,7 @@
       "unlinked": 35,
       "total": 37,
       "requested_pending": 35,
+      "pending_now": 35,
       "pending_with_candidate_summary": 0,
       "historical_linked": 2
     },
@@ -507,6 +558,7 @@
       "unlinked": 35,
       "total": 38,
       "requested_pending": 35,
+      "pending_now": 35,
       "pending_with_candidate_summary": 0,
       "historical_linked": 3
     },
@@ -515,6 +567,7 @@
       "unlinked": 35,
       "total": 41,
       "requested_pending": 35,
+      "pending_now": 35,
       "pending_with_candidate_summary": 0,
       "historical_linked": 6
     },
@@ -523,6 +576,7 @@
       "unlinked": 54,
       "total": 56,
       "requested_pending": 54,
+      "pending_now": 54,
       "pending_with_candidate_summary": 0,
       "historical_linked": 2
     },
@@ -531,6 +585,7 @@
       "unlinked": 63,
       "total": 63,
       "requested_pending": 63,
+      "pending_now": 63,
       "pending_with_candidate_summary": 0
     },
     "CPopulation": {
@@ -538,6 +593,7 @@
       "unlinked": 64,
       "total": 66,
       "requested_pending": 64,
+      "pending_now": 64,
       "pending_with_candidate_summary": 0,
       "historical_linked": 2
     },
@@ -546,6 +602,7 @@
       "unlinked": 69,
       "total": 69,
       "requested_pending": 69,
+      "pending_now": 69,
       "pending_with_candidate_summary": 0
     },
     "CCheat": {
@@ -553,6 +610,7 @@
       "unlinked": 72,
       "total": 72,
       "requested_pending": 72,
+      "pending_now": 72,
       "pending_with_candidate_summary": 0
     },
     "CPad": {
@@ -560,6 +618,7 @@
       "unlinked": 75,
       "total": 75,
       "requested_pending": 75,
+      "pending_now": 75,
       "pending_with_candidate_summary": 0
     },
     "CVehicleModelInfo": {
@@ -567,6 +626,7 @@
       "unlinked": 75,
       "total": 75,
       "requested_pending": 75,
+      "pending_now": 75,
       "pending_with_candidate_summary": 0
     },
     "CAudioEngine": {
@@ -574,6 +634,7 @@
       "unlinked": 82,
       "total": 82,
       "requested_pending": 82,
+      "pending_now": 82,
       "pending_with_candidate_summary": 0
     },
     "CVisibilityPlugins": {
@@ -581,6 +642,7 @@
       "unlinked": 84,
       "total": 84,
       "requested_pending": 84,
+      "pending_now": 84,
       "pending_with_candidate_summary": 0
     },
     "CCamera": {
@@ -588,6 +650,7 @@
       "unlinked": 91,
       "total": 110,
       "requested_pending": 91,
+      "pending_now": 91,
       "pending_with_candidate_summary": 0,
       "historical_linked": 19
     },
@@ -596,6 +659,7 @@
       "unlinked": 94,
       "total": 94,
       "requested_pending": 94,
+      "pending_now": 94,
       "pending_with_candidate_summary": 0
     },
     "CAutomobile": {
@@ -603,6 +667,7 @@
       "unlinked": 99,
       "total": 99,
       "requested_pending": 99,
+      "pending_now": 99,
       "pending_with_candidate_summary": 0
     },
     "CAEVehicleAudioEntity": {
@@ -610,13 +675,14 @@
       "unlinked": 102,
       "total": 106,
       "requested_pending": 102,
+      "pending_now": 102,
       "pending_with_candidate_summary": 0,
       "historical_linked": 4
     }
   },
   "totals": {
-    "unlinked": 1710,
-    "historical_linked": 600
+    "unlinked": 1685,
+    "historical_linked": 625
   },
   "total_identities": 2310,
   "requested_pending": 1710,
@@ -6633,9 +6699,9 @@
       "address": "0x004AD3F0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-111101-552593",
+      "evidence": "reversing/RequestedMenuBatch/runs/constructor/20261008-111101-552593/enriched-summary.json",
       "candidate_banks": ""
     },
     {
@@ -8140,9 +8206,9 @@
       "address": "0x006029C0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-112224-200531",
+      "evidence": "reversing/RequestedMenuBatch/runs/visibility/20261008-112224-200531/enriched-summary.json",
       "candidate_banks": ""
     },
     {
@@ -8800,9 +8866,9 @@
       "address": "0x00699FF0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-113522-938438",
+      "evidence": "reversing/RequestedMenuBatch/runs/formation-expanded/20261008-113522-938438/enriched-summary.json",
       "candidate_banks": ""
     },
     {
@@ -20878,9 +20944,9 @@
       "address": "0x0061DC10",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-124111-185817",
+      "evidence": "reversing/RequestedPreflightAdditionalLifetimes/runs/20261008-124111-185817/enriched-summary.json",
       "candidate_banks": ""
     },
     {
@@ -20889,9 +20955,9 @@
       "address": "0x0061DCA0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-124111-185817",
+      "evidence": "reversing/RequestedPreflightAdditionalLifetimes/runs/20261008-124111-185817/enriched-summary.json",
       "candidate_banks": ""
     },
     {
@@ -21164,10 +21230,10 @@
       "address": "0x00631F80",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTaskCtorDtor",
+      "evidence": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+      "candidate_banks": "RequestedPreflightTaskCtorDtor"
     },
     {
       "class": "CTaskComplexSunbathe",
@@ -21208,10 +21274,10 @@
       "address": "0x00632050",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTaskCtorDtor",
+      "evidence": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+      "candidate_banks": "RequestedPreflightTaskCtorDtor"
     },
     {
       "class": "CTaskComplexSunbathe",
@@ -21263,9 +21329,9 @@
       "address": "0x0065BD20",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTasks",
+      "evidence": "reversing/RequestedPreflightTasks/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -21318,9 +21384,9 @@
       "address": "0x0065BDB0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTasks",
+      "evidence": "reversing/RequestedPreflightTasks/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -21604,10 +21670,10 @@
       "address": "0x006227C0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTaskCtorDtor",
+      "evidence": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+      "candidate_banks": "RequestedPreflightTaskCtorDtor"
     },
     {
       "class": "CTaskComplexKillPedFromBoat",
@@ -21648,10 +21714,10 @@
       "address": "0x00622830",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTaskCtorDtor",
+      "evidence": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+      "candidate_banks": "RequestedPreflightTaskCtorDtor"
     },
     {
       "class": "CTaskComplexKillPedFromBoat",
@@ -21802,9 +21868,9 @@
       "address": "0x0066B640",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTasks",
+      "evidence": "reversing/RequestedPreflightTasks/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -21835,9 +21901,9 @@
       "address": "0x0066B6A0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTasks",
+      "evidence": "reversing/RequestedPreflightTasks/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -21857,9 +21923,9 @@
       "address": "0x006616F0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTasks",
+      "evidence": "reversing/RequestedPreflightTasks/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -21901,9 +21967,9 @@
       "address": "0x00661720",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTasks",
+      "evidence": "reversing/RequestedPreflightTasks/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -21978,9 +22044,9 @@
       "address": "0x00694A40",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTasks",
+      "evidence": "reversing/RequestedPreflightTasks/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -25080,10 +25146,10 @@
       "address": "0x006539A0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTaskCtorDtor",
+      "evidence": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+      "candidate_banks": "RequestedPreflightTaskCtorDtor"
     },
     {
       "class": "CTaskComplexHitPedWithCar",
@@ -25135,10 +25201,10 @@
       "address": "0x00653A30",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedPreflightTaskCtorDtor",
+      "evidence": "reversing/RequestedPreflightTaskCtorDtor/validation-summary.json",
+      "candidate_banks": "RequestedPreflightTaskCtorDtor"
     },
     {
       "class": "CTaskComplexHitPedWithCar",
@@ -25179,9 +25245,9 @@
       "address": "0x00661A60",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-124111-185817",
+      "evidence": "reversing/RequestedPreflightAdditionalLifetimes/runs/20261008-124111-185817/enriched-summary.json",
       "candidate_banks": ""
     },
     {
@@ -25234,9 +25300,9 @@
       "address": "0x00661AF0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-124111-185817",
+      "evidence": "reversing/RequestedPreflightAdditionalLifetimes/runs/20261008-124111-185817/enriched-summary.json",
       "candidate_banks": ""
     },
     {
@@ -25300,10 +25366,10 @@
       "address": "0x0048E4F0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedWanderRemaining",
+      "evidence": "reversing/RequestedWanderRemaining/validation-summary.json",
+      "candidate_banks": "RequestedWanderRemaining"
     },
     {
       "class": "CTaskComplexWanderStandard",
@@ -25311,9 +25377,9 @@
       "address": "0x0048E5D0",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-115205-491044",
+      "evidence": "reversing/RequestedPreflightWander/runs/20261008-115205-491044/enriched-summary.json",
       "candidate_banks": ""
     },
     {
@@ -25355,10 +25421,10 @@
       "address": "0x00672600",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedWanderRemaining",
+      "evidence": "reversing/RequestedWanderRemaining/validation-summary.json",
+      "candidate_banks": "RequestedWanderRemaining"
     },
     {
       "class": "CTaskComplexWanderStandard",
@@ -25399,9 +25465,9 @@
       "address": "0x006218B0",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "LiveBatch",
+      "evidence": "reversing/RequestedLeafValidation/LiveBatch/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -26004,9 +26070,9 @@
       "address": "0x006006B0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "LiveBatch",
+      "evidence": "reversing/RequestedLeafValidation/LiveBatch/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -26037,5 +26103,6 @@
     "Candidate summary passed=true does not accredit current sources or dependencies.",
     "Read-only registry evaluation verifies registered summary/source/dependency hashes; it does not replay GTA or re-hash remote historical logs."
   ],
-  "audit_mode": "full_registry_evaluate"
+  "audit_mode": "selection_only_current_unverified",
+  "pending_now": 1685
 }

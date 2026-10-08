@@ -83,8 +83,8 @@ CTaskComplexSunbathe::CTaskComplexSunbathe(CObject* towel, bool bStartStanding) 
     }
 
     const auto LoadAnim = [](int32& idx, CAnimBlock*& blk, const char* name) {
-        idx = CAnimManager::GetAnimationBlockIndex(name);
         blk = CAnimManager::GetAnimationBlock(name);
+        idx = CAnimManager::GetAnimationBlockIndex(name);
     };
     LoadAnim(m_BeachAnimBlockIndex, m_pBeachAnimBlock, "beach");
     LoadAnim(m_SunbatheAnimBlockIndex, m_pSunbatheAnimBlock, "sunbathe");
@@ -100,8 +100,8 @@ CTaskComplexSunbathe::CTaskComplexSunbathe(const CTaskComplexSunbathe& o) :
 // 0x632050
 CTaskComplexSunbathe::~CTaskComplexSunbathe() {
     if (m_pTowel) {
-        m_pTowel->m_nObjectType = OBJECT_TEMPORARY;
         CEntity::SafeCleanUpRef(m_pTowel);
+        m_pTowel->m_nObjectType = OBJECT_TEMPORARY;
     }
 
     const auto UnrefAnimBlock = [](bool& refed, int32 blkIdx) {

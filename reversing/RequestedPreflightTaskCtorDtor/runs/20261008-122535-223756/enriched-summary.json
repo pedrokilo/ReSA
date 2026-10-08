@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "dd894da46d3656b8e675ae86b7f22c029def435d314774a20fb872918989a88b",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 1536,
+  "pairs_per_function": {
+    "CTaskComplexKillPedFromBoat::Constructor": 256,
+    "CTaskComplexKillPedFromBoat::Destructor": 256,
+    "CTaskComplexHitPedWithCar::Constructor": 256,
+    "CTaskComplexHitPedWithCar::Destructor": 256,
+    "CTaskComplexSunbathe::Constructor": 256,
+    "CTaskComplexSunbathe::Destructor": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b9796867fec704454a1cb1469764e4ea6791f1d67c4561aab6954bad220fc5a7",
+  "scope": "private task storage; reference/animation collaborators stubbed; subtask destructor trace only; exact terminal vptr and bytes checked",
+  "harness_restored": true,
+  "harness_sha256": "86e8c6f57f7ab2c8c11c3e580fb5796a7bbfab05fece371cd90a0f3c039a064b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "cbf6d72fd35d49d4a148a8f7a7b200a8833d85af",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "92609802434d262b305b81f67aa28138e2c07e36d4e397fd80a22cc84b525e5a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "0b223617bd34423a7170f4f82be2ce1f9b8b6a85861fdc1b97173dbabe87a2b3",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "76e3780181bd9268da7a7f731d74f06652e2f690011f547d6808a5c8bb607b7d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "c14959a3a77c72193d28677c99672a31057b7542390c045606f279fcfa3e5fc5",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+      "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+      "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    },
+    "bank_sources": {
+      "reversing/RequestedPreflightTaskCtorDtor/LiveComparison.hpp": "02dc8d6bbc24b8439399c5564182c2f41bf3abe750c1e6fcb71d6597d51b5448",
+      "reversing/RequestedPreflightTaskCtorDtor/TaskCtorDtorBank.hpp": "16ab83d3793dca21e73153e5132fd40ae1fe57105f8427a13f2366f96b6d9bf7",
+      "reversing/RequestedPreflightTaskCtorDtor/VTableRanges.hpp": "232ad42e2dd92d3d256c0599fccf970db0659d56d71124ac4c16e9c536222676",
+      "reversing/RequestedPreflightTaskCtorDtor/build_probe.py": "59f615ac929ca65690faab097e2bbf1b6cc9d40d4f34f13f8b9191f47c5da662",
+      "reversing/RequestedPreflightTaskCtorDtor/run_local.py": "bfca8471a6a67c582c2f1bade19db593794c2f6ac6f365c45f1e34a9edb50c6e",
+      "reversing/RequestedParallelReplay/TaskCtorDtor/LiveComparison.hpp": "773547bb8dd4baa70eea7158ae5efae8a5f124625a07d9226810522ff5d59650",
+      "reversing/RequestedParallelReplay/TaskCtorDtor/run_local.py": "410f9492c62bf305f4de19891f1d7ab88f40611acc50ca2728276da3a6a6fc60",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Preflight task constructors/destructors1536 only. Reference/animation collaborators stubbed; subtask fake deleting destructor; no pools. NOTSA_WinMain enters after logging shutdown guard and before SystemParametersInfo/RW/graphics/input. Original WinMain not compared. All other hooks temporarily original, restored after frozen TaskCtorDtor bank. No game startup accreditation.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "f89888677b7fbc5f9bcba946e7b0a245bc01b3eda3ae4963a57f3834a7e90466"
+    },
+    "asi": "dd894da46d3656b8e675ae86b7f22c029def435d314774a20fb872918989a88b",
+    "pdb": "c517968345c5e5b0517358d55caf30d5d221bf957a8b598cb94b6e9b92152ac6"
+  },
+  "runner_sha256": "bfca8471a6a67c582c2f1bade19db593794c2f6ac6f365c45f1e34a9edb50c6e"
+}

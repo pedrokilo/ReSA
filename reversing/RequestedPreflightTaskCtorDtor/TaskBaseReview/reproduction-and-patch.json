@@ -1,0 +1,52 @@
+{
+  "evidence": "runtime reproduction before patch",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "asi_sha256": "41fe3e63571149f0d0901865b9848ce870537a7ee2afaea345b4130f530d76da",
+  "log_sha256": "4de207978fd077bc0c67c96ec7ab6047be0a251bf64f4716c1c4efa7fe8859b9",
+  "summaries": [
+    {
+      "cases": 256,
+      "event": "function_summary",
+      "failures": 0,
+      "function": "CTaskComplexKillPedFromBoat::Constructor"
+    },
+    {
+      "cases": 256,
+      "event": "function_summary",
+      "failures": 256,
+      "function": "CTaskComplexKillPedFromBoat::Destructor"
+    },
+    {
+      "cases": 256,
+      "event": "function_summary",
+      "failures": 0,
+      "function": "CTaskComplexHitPedWithCar::Constructor"
+    },
+    {
+      "cases": 256,
+      "event": "function_summary",
+      "failures": 256,
+      "function": "CTaskComplexHitPedWithCar::Destructor"
+    },
+    {
+      "cases": 256,
+      "event": "function_summary",
+      "failures": 256,
+      "function": "CTaskComplexSunbathe::Constructor"
+    },
+    {
+      "cases": 256,
+      "event": "function_summary",
+      "failures": 256,
+      "function": "CTaskComplexSunbathe::Destructor"
+    }
+  ],
+  "restoration": {
+    "bytes_restored": true,
+    "event": "error",
+    "failed_ranges": [],
+    "pairs": 1536,
+    "state_restored": true
+  },
+  "source_after_patch_sha256": "c14959a3a77c72193d28677c99672a31057b7542390c045606f279fcfa3e5fc5"
+}

@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00602960: 53                 push        ebx
+  00602961: 8B D9              mov         ebx,ecx
+  00602963: 8B 4C 24 08        mov         ecx,dword ptr [esp+8]
+  00602967: 56                 push        esi
+  00602968: 33 F6              xor         esi,esi
+  0060296A: 8B C3              mov         eax,ebx
+  0060296C: 8D 64 24 00        lea         esp,[esp]
+  00602970: 3B C1              cmp         eax,ecx
+  00602972: 74 0E              je          00602982
+  00602974: 46                 inc         esi
+  00602975: 83 C0 0C           add         eax,0Ch
+  00602978: 83 FE 08           cmp         esi,8
+  0060297B: 7C F3              jl          00602970
+  0060297D: 5E                 pop         esi
+  0060297E: 5B                 pop         ebx
+  0060297F: C2 04 00           ret         4
+  00602982: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  00602985: 85 C9              test        ecx,ecx
+  00602987: 57                 push        edi
+  00602988: 8D 78 08           lea         edi,[eax+8]
+  0060298B: C7 40 04 00 00 00  mov         dword ptr [eax+4],0
+            00
+  00602992: 74 0C              je          006029A0
+  00602994: 57                 push        edi
+  00602995: E8 66 F0 F6 FF     call        00571A00
+  0060299A: C7 07 00 00 00 00  mov         dword ptr [edi],0
+  006029A0: 0F BE 83 54 01 00  movsx       eax,byte ptr [ebx+00000154h]
+            00
+  006029A7: 3B C6              cmp         eax,esi
+  006029A9: 5F                 pop         edi
+  006029AA: 75 07              jne         006029B3
+  006029AC: C6 83 54 01 00 00  mov         byte ptr [ebx+00000154h],0FFh
+            FF
+  006029B3: 5E                 pop         esi
+  006029B4: 5B                 pop         ebx
+  006029B5: C2 04 00           ret         4
+  006029B8: 90                 nop
+
+  Summary
+
+      456000 .text

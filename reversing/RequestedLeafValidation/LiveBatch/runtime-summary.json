@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "dffc2d77c115a1fe1740ac67412d5add0ef31f8dc6266a3c9d087da80e3a577f",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 1280,
+  "function_pairs": {
+    "CDecision::From": 512,
+    "CTaskSimpleGangDriveBy::GetTaskType": 768
+  },
+  "restoration": {
+    "candidates_restored": true,
+    "decision_pairs": 512,
+    "entries_restored": true,
+    "event": "complete",
+    "pairs": 1280,
+    "state_restored": true,
+    "tables_restored": true,
+    "type_pairs": 768
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

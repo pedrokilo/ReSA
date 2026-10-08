@@ -1,0 +1,64 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00672600: 56                 push        esi
+  00672601: 8B F1              mov         esi,ecx
+  00672603: 8A 46 30           mov         al,byte ptr [esi+30h]
+  00672606: 84 C0              test        al,al
+  00672608: 57                 push        edi
+  00672609: BF 32 00 00 00     mov         edi,32h
+  0067260E: B2 01              mov         dl,1
+  00672610: 75 0E              jne         00672620
+  00672612: A1 84 CB B7 00     mov         eax,dword ptr ds:[00B7CB84h]
+  00672617: 89 46 28           mov         dword ptr [esi+28h],eax
+  0067261A: 89 7E 2C           mov         dword ptr [esi+2Ch],edi
+  0067261D: 88 56 30           mov         byte ptr [esi+30h],dl
+  00672620: 8B 0D 84 CB B7 00  mov         ecx,dword ptr ds:[00B7CB84h]
+  00672626: 3B 4E 34           cmp         ecx,dword ptr [esi+34h]
+  00672629: 72 58              jb          00672683
+  0067262B: 8A 46 30           mov         al,byte ptr [esi+30h]
+  0067262E: 84 C0              test        al,al
+  00672630: 74 51              je          00672683
+  00672632: 8A 46 31           mov         al,byte ptr [esi+31h]
+  00672635: 84 C0              test        al,al
+  00672637: 74 0D              je          00672646
+  00672639: 89 4E 28           mov         dword ptr [esi+28h],ecx
+  0067263C: C6 46 31 00        mov         byte ptr [esi+31h],0
+  00672640: 8B 0D 84 CB B7 00  mov         ecx,dword ptr ds:[00B7CB84h]
+  00672646: 8B 46 2C           mov         eax,dword ptr [esi+2Ch]
+  00672649: 03 46 28           add         eax,dword ptr [esi+28h]
+  0067264C: 3B C8              cmp         ecx,eax
+  0067264E: 1A C0              sbb         al,al
+  00672650: FE C0              inc         al
+  00672652: 84 C0              test        al,al
+  00672654: 74 2D              je          00672683
+  00672656: 89 7E 2C           mov         dword ptr [esi+2Ch],edi
+  00672659: 8B 7C 24 0C        mov         edi,dword ptr [esp+0Ch]
+  0067265D: 89 4E 28           mov         dword ptr [esi+28h],ecx
+  00672660: 57                 push        edi
+  00672661: 8B CE              mov         ecx,esi
+  00672663: 88 56 30           mov         byte ptr [esi+30h],dl
+  00672666: E8 95 DA FF FF     call        00670100
+  0067266B: 84 C0              test        al,al
+  0067266D: 75 14              jne         00672683
+  0067266F: 57                 push        edi
+  00672670: 8B CE              mov         ecx,esi
+  00672672: E8 29 D7 FF FF     call        0066FDA0
+  00672677: 84 C0              test        al,al
+  00672679: 75 08              jne         00672683
+  0067267B: 57                 push        edi
+  0067267C: 8B CE              mov         ecx,esi
+  0067267E: E8 4D 89 FF FF     call        0066AFD0
+  00672683: 5F                 pop         edi
+  00672684: 5E                 pop         esi
+  00672685: C2 04 00           ret         4
+  00672688: 90                 nop
+
+  Summary
+
+      456000 .text

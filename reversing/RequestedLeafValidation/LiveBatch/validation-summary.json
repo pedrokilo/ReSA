@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "dffc2d77c115a1fe1740ac67412d5add0ef31f8dc6266a3c9d087da80e3a577f",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 1280,
+  "function_pairs": {
+    "CDecision::From": 512,
+    "CTaskSimpleGangDriveBy::GetTaskType": 768
+  },
+  "restoration": {
+    "candidates_restored": true,
+    "decision_pairs": 512,
+    "entries_restored": true,
+    "event": "complete",
+    "pairs": 1280,
+    "state_restored": true,
+    "tables_restored": true,
+    "type_pairs": 768
+  },
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "cbf6d72fd35d49d4a148a8f7a7b200a8833d85af",
+    "tested_sources": {
+      "source/game_sa/DecisionMakers/Decision.cpp": "c4e5a2967a162b5226a34963e97173f1fad54fb7605025b0846ece09468f8474",
+      "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "e5bab0d39861798628d71233106ece0b0582d9c94e729dfcb8b98210a4a94d78",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "4f1121a03a4176a539811d14e439d3d66e0944256121b3e42ef72694d608df2e"
+    },
+    "bank_sources": {
+      "build_probe.py": "2960edfe69c26cfbbd44ce2b1694f900da689bae29833d3a0f8336da3fb5834c",
+      "LiveComparison.hpp": "3440ffe6c03803230231ea0e71027a15ea511c3cc6b4380bcb78598ee0fb39a6"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "fixture_scope": "CDecision: disjoint valid objects and self assignment; no partial object overlap. GetTaskType: direct entry, GTA vtable, compiler virtual dispatch; 256 valid field combinations. No collaborator behavior accreditation.",
+    "compiled_instruments": {
+      "source/app/app_game.cpp": "59fcb9c24b40200a6ef8948a82e20a0d9766ba8ca7940db30f1e48fd8644ab68",
+      "source/dllmain.cpp": "098960ecceec5e85dcc9e0398023a3fb8cd3bbf2126d341a100adc3035eef130"
+    },
+    "asi": "dffc2d77c115a1fe1740ac67412d5add0ef31f8dc6266a3c9d087da80e3a577f",
+    "pdb": "f582489ab653b1721ea1b3c7af243e8cb4d506e554ab09435a5e58d0c50a5abc"
+  },
+  "runner_sha256": "7414f14d8fb81146af83dcf3fbec0851b42057eae3c0e0cd12830a212784c877",
+  "log_sha256": "303f2e7a9bb1b2efbe46222746a8368fade85aa45d0aad860b956ede88a99084",
+  "scope": "CDecision: disjoint valid objects and self assignment; no partial object overlap. GetTaskType: direct entry, GTA vtable, compiler virtual dispatch; 256 valid field combinations. No collaborator behavior accreditation.",
+  "log_path": "reversing/RequestedLeafValidation/LiveBatch/comparisons.jsonl",
+  "static_limitations": [
+    "REA/Ghidra default project did not recognize GetTaskType as a procedure: pseudo/assembly/dossier invalid_request retained. Its entire six-byte body was verified by REA read_bytes and combo/dumpbin.",
+    "No partial CDecision object overlap is in scope. No new dependency-review accreditation."
+  ]
+}

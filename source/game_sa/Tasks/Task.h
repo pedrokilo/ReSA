@@ -36,7 +36,7 @@ public:
     void operator delete(void* object);
 
     CTask() { m_Parent = nullptr; } // 0x61A340
-    virtual ~CTask() = default; // 0x61A660
+    virtual ~CTask(); // 0x61A660
 
     //! @return A clone of this task
     virtual CTask* Clone() const = 0;

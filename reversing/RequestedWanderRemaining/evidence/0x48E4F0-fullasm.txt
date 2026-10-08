@@ -1,0 +1,39 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0048E4F0: A1 B0 FC 86 00     mov         eax,dword ptr ds:[0086FCB0h]
+  0048E4F5: 8B 54 24 08        mov         edx,dword ptr [esp+8]
+  0048E4F9: 56                 push        esi
+  0048E4FA: 50                 push        eax
+  0048E4FB: 8B 44 24 0C        mov         eax,dword ptr [esp+0Ch]
+  0048E4FF: 8B F1              mov         esi,ecx
+  0048E501: 8B 4C 24 14        mov         ecx,dword ptr [esp+14h]
+  0048E505: 51                 push        ecx
+  0048E506: 52                 push        edx
+  0048E507: 50                 push        eax
+  0048E508: 8B CE              mov         ecx,esi
+  0048E50A: E8 41 0F 1E 00     call        0066F450
+  0048E50F: 33 C0              xor         eax,eax
+  0048E511: C7 06 00 A2 85 00  mov         dword ptr [esi],85A200h
+  0048E517: 89 46 28           mov         dword ptr [esi+28h],eax
+  0048E51A: 89 46 2C           mov         dword ptr [esi+2Ch],eax
+  0048E51D: 88 46 30           mov         byte ptr [esi+30h],al
+  0048E520: 88 46 31           mov         byte ptr [esi+31h],al
+  0048E523: 89 46 34           mov         dword ptr [esi+34h],eax
+  0048E526: 8B C6              mov         eax,esi
+  0048E528: 5E                 pop         esi
+  0048E529: C2 0C 00           ret         0Ch
+  0048E52C: 90                 nop
+  0048E52D: 90                 nop
+  0048E52E: 90                 nop
+  0048E52F: 90                 nop
+  0048E530: 6A
+
+  Summary
+
+      456000 .text

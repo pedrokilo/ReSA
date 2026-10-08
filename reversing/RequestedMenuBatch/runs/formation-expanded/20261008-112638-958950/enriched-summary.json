@@ -1,0 +1,64 @@
+{
+  "passed": false,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "450c768f39d410002d00a60cacd901a05da77d62e0053bf9a39055d50c961039",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "error": "Tiempo agotado.",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "cbf6d72fd35d49d4a148a8f7a7b200a8833d85af",
+    "tested_sources": {
+      "source/game_sa/DecisionMakers/Decision.cpp": "c4e5a2967a162b5226a34963e97173f1fad54fb7605025b0846ece09468f8474",
+      "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "e5bab0d39861798628d71233106ece0b0582d9c94e729dfcb8b98210a4a94d78",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "4f1121a03a4176a539811d14e439d3d66e0944256121b3e42ef72694d608df2e",
+      "source/game_sa/PedDamageResponseCalculator.cpp": "8584781f05fa350e083b87338fd7245d520c686be1d39c75f87373c9ab1269f9",
+      "source/game_sa/PedDamageResponseCalculator.h": "171cf52530ce70ddbfe877fd2c82feda5d7094f9677c1e54b0769d74d49f5134",
+      "source/game_sa/InterestingEvents.cpp": "9bbd2b4f9e6e5077bbe1ca0d11c2eb03f1435e4eae942ffbc752324c03154f2d",
+      "source/game_sa/InterestingEvents.h": "a4b35e4b6b9ce1a8077d4c76e4bbdd474c0bf85887efcbde0867a607e6774834",
+      "source/game_sa/Formation.cpp": "ccffff9b791845ade307c1a494d11563df3668e1a18ddfef2bfc9e9644c9c8f9",
+      "source/game_sa/Formation.h": "4f78e323bfa94bd1eb3c537de4f784b75bd839af6b4936b44e77dd16d5df8659",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "f8c4f45478809448d42b62ecada5f6b13022c3482e5cff558626d493523e2ab5",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "01264ffbbe870028e52c75f7ea531ea5848b9a481620f9591c6f7f6a6667228e",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+    },
+    "bank_sources": {
+      "reversing/RequestedMenuBatch/build_probe.py": "83f4325dbb8723270816882cb47e9067f3fc3b2cab0a7bc0dfb75778beb5aa20",
+      "reversing/RequestedMenuBatch/LiveComparison.hpp": "113e58db4ce1312005d7818a9e2a4b6547a6d9613d7c0b908e7a8c3f14d2134f",
+      "reversing/RequestedMenuBatch/run_local.py": "2a204485055e508b494f9b568771ce62fccd5f3e6be52783918c87cdf734fdc1",
+      "reversing/RequestedParallelSmall/build_probe.py": "05462b1faac2267a2b9c94691570d9bb45faa41e93d784f4b880709ac9ff5317",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/RequestedParallelSmall/LiveComparison.hpp": "dfbe1e5cd2e1d6f12b00e32c4185b29e3391f5c8361dc4ca305907aad0abdf5c",
+      "reversing/RequestedParallelSmall/run_local.py": "5ec38bf68b7b94239bafa88152f43b35c0f1c3703f4ba56b3d15eea30c0db238",
+      "reversing/RequestedParallelSmall/FormationCover/build_probe.py": "add31436a9f2fde19ffff744575e951a560ba070c8028beae341939b2723844d",
+      "reversing/RequestedParallelSmall/FormationCover/LiveComparison.hpp": "404f6fad9691ea192dedbec3a4c6be05e5c2af2ec498271abd61b08a7b1857e8",
+      "reversing/RequestedParallelSmall/FormationCover/run_local.py": "c2327f95d8e6a02dc5ef908b0bf3f14334172a5ce7dc0c80de0e41120d480306",
+      "reversing/RequestedParallelSmall/FormationCoverExpanded/build_probe.py": "b1cdf43939e4972e9a9a6f9124d96b5c983dcf9bc822a58f3893bf6bdff02be2",
+      "reversing/RequestedParallelSmall/FormationCoverExpanded/LiveComparison.hpp": "4b00be2b50602375a1e3e35c3b65a9569e6ca3094cba8a4d36bd429cbce8120a",
+      "reversing/RequestedParallelSmall/FormationCoverExpanded/run_local.py": "4b93bcadb29a9f440dff9900a57b0632fafe21accf4a45b0ab20239d1c4ff1d0",
+      "reversing/RequestedParallelSmall/InterestingVisibility/build_probe.py": "4b5efc8197837e30db361c6ade648f3af6ab5b3c9292654dad7a382b46dbbdc6",
+      "reversing/RequestedParallelSmall/InterestingVisibility/LiveComparison.hpp": "8d07591b662445e06dbbf4de8c7419348db2bd8ef7446c2058a0e8538a7d20d6",
+      "reversing/RequestedParallelSmall/InterestingVisibility/run_local.py": "585f5d29e0de52086b10476d209fd9db7102c43057bbf039f258e8331f8ae045",
+      "reversing/RequestedParallelReplay/WanderType/LiveComparison.hpp": "5540917ce05bd3e165b68925eea66b240466fea3b4e249cbc4e7fb5c7dcd183f"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "fixture_scope": "Menu probes: constructor, interesting visibility, formation cover, WanderType; collaborators explicitly mocked in visibility. Historical CDecision: disjoint valid objects and self assignment; no partial object overlap. GetTaskType: direct entry, GTA vtable, compiler virtual dispatch; 256 valid field combinations. No collaborator behavior accreditation.",
+    "compiled_instruments": {
+      "source/app/app_game.cpp": "ed9f655ed6fdb97bdfe622de8108fb2815ec94397cea4619572ddd239c139b84",
+      "source/dllmain.cpp": "8c12d7585fbfb0aa8940c5c1775b311865f8ab7e58ff611c8a7640c4e667b975"
+    },
+    "asi": "450c768f39d410002d00a60cacd901a05da77d62e0053bf9a39055d50c961039",
+    "pdb": "955b45c3f3bde92661e5d8f6c196ef6db9fae614b736f3641b20b55e6dcd5281"
+  },
+  "runner_sha256": "2a204485055e508b494f9b568771ce62fccd5f3e6be52783918c87cdf734fdc1",
+  "log_sha256": null
+}

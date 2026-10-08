@@ -1,0 +1,268 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00699FF0: D9 44 24 10        fld         dword ptr [esp+10h]
+  00699FF4: 83 EC 70           sub         esp,70h
+  00699FF7: 56                 push        esi
+  00699FF8: 8B B4 24 88 00 00  mov         esi,dword ptr [esp+00000088h]
+            00
+  00699FFF: D8 66 38           fsub        dword ptr [esi+38h]
+  0069A002: D8 15 50 8B 85 00  fcom        dword ptr ds:[00858B50h]
+  0069A008: DF E0              fnstsw      ax
+  0069A00A: F6 C4 05           test        ah,5
+  0069A00D: 7A 02              jp          0069A011
+  0069A00F: D9 E0              fchs
+  0069A011: D8 1D 48 8F 85 00  fcomp       dword ptr ds:[00858F48h]
+  0069A017: DF E0              fnstsw      ax
+  0069A019: F6 C4 05           test        ah,5
+  0069A01C: 0F 8A 0C 03 00 00  jp          0069A32E
+  0069A022: 53                 push        ebx
+  0069A023: 55                 push        ebp
+  0069A024: 57                 push        edi
+  0069A025: 8B BC 24 9C 00 00  mov         edi,dword ptr [esp+0000009Ch]
+            00
+  0069A02C: 8B 07              mov         eax,dword ptr [edi]
+  0069A02E: 8B 4F 04           mov         ecx,dword ptr [edi+4]
+  0069A031: 8D 54 24 28        lea         edx,[esp+28h]
+  0069A035: 52                 push        edx
+  0069A036: 89 44 24 2C        mov         dword ptr [esp+2Ch],eax
+  0069A03A: 8D 44 24 38        lea         eax,[esp+38h]
+  0069A03E: 56                 push        esi
+  0069A03F: 50                 push        eax
+  0069A040: 89 4C 24 38        mov         dword ptr [esp+38h],ecx
+  0069A044: C7 44 24 3C 00 00  mov         dword ptr [esp+3Ch],0
+            00 00
+  0069A04C: E8 3F 28 F0 FF     call        0059C890
+  0069A051: 8B 08              mov         ecx,dword ptr [eax]
+  0069A053: 8B 50 04           mov         edx,dword ptr [eax+4]
+  0069A056: 8B 40 08           mov         eax,dword ptr [eax+8]
+  0069A059: 8B 9C 24 AC 00 00  mov         ebx,dword ptr [esp+000000ACh]
+            00
+  0069A060: 89 4C 24 5C        mov         dword ptr [esp+5Ch],ecx
+  0069A064: 8B 0F              mov         ecx,dword ptr [edi]
+  0069A066: 89 44 24 64        mov         dword ptr [esp+64h],eax
+  0069A06A: 8D 44 24 34        lea         eax,[esp+34h]
+  0069A06E: 50                 push        eax
+  0069A06F: 89 4C 24 38        mov         dword ptr [esp+38h],ecx
+  0069A073: 89 54 24 64        mov         dword ptr [esp+64h],edx
+  0069A077: 8B 53 04           mov         edx,dword ptr [ebx+4]
+  0069A07A: 8D 4C 24 44        lea         ecx,[esp+44h]
+  0069A07E: 56                 push        esi
+  0069A07F: 51                 push        ecx
+  0069A080: 89 54 24 44        mov         dword ptr [esp+44h],edx
+  0069A084: C7 44 24 48 00 00  mov         dword ptr [esp+48h],0
+            00 00
+  0069A08C: E8 FF 27 F0 FF     call        0059C890
+  0069A091: 8B 10              mov         edx,dword ptr [eax]
+  0069A093: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  0069A096: 89 54 24 74        mov         dword ptr [esp+74h],edx
+  0069A09A: 8B 50 08           mov         edx,dword ptr [eax+8]
+  0069A09D: 8B 03              mov         eax,dword ptr [ebx]
+  0069A09F: 89 54 24 7C        mov         dword ptr [esp+7Ch],edx
+  0069A0A3: 8D 54 24 40        lea         edx,[esp+40h]
+  0069A0A7: 52                 push        edx
+  0069A0A8: 89 44 24 44        mov         dword ptr [esp+44h],eax
+  0069A0AC: 89 4C 24 7C        mov         dword ptr [esp+7Ch],ecx
+  0069A0B0: 8B 4B 04           mov         ecx,dword ptr [ebx+4]
+  0069A0B3: 8D 44 24 50        lea         eax,[esp+50h]
+  0069A0B7: 56                 push        esi
+  0069A0B8: 50                 push        eax
+  0069A0B9: 89 4C 24 50        mov         dword ptr [esp+50h],ecx
+  0069A0BD: C7 44 24 54 00 00  mov         dword ptr [esp+54h],0
+            00 00
+  0069A0C5: E8 C6 27 F0 FF     call        0059C890
+  0069A0CA: 8B 08              mov         ecx,dword ptr [eax]
+  0069A0CC: 8B 50 04           mov         edx,dword ptr [eax+4]
+  0069A0CF: 8B 40 08           mov         eax,dword ptr [eax+8]
+  0069A0D2: 89 8C 24 8C 00 00  mov         dword ptr [esp+0000008Ch],ecx
+            00
+  0069A0D9: 8B 0B              mov         ecx,dword ptr [ebx]
+  0069A0DB: 89 84 24 94 00 00  mov         dword ptr [esp+00000094h],eax
+            00
+  0069A0E2: 8D 44 24 4C        lea         eax,[esp+4Ch]
+  0069A0E6: 50                 push        eax
+  0069A0E7: 89 4C 24 50        mov         dword ptr [esp+50h],ecx
+  0069A0EB: 89 94 24 94 00 00  mov         dword ptr [esp+00000094h],edx
+            00
+  0069A0F2: 8B 57 04           mov         edx,dword ptr [edi+4]
+  0069A0F5: 8D 4C 24 5C        lea         ecx,[esp+5Ch]
+  0069A0F9: 56                 push        esi
+  0069A0FA: 51                 push        ecx
+  0069A0FB: 89 54 24 5C        mov         dword ptr [esp+5Ch],edx
+  0069A0FF: C7 44 24 60 00 00  mov         dword ptr [esp+60h],0
+            00 00
+  0069A107: E8 84 27 F0 FF     call        0059C890
+  0069A10C: 8B 10              mov         edx,dword ptr [eax]
+  0069A10E: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  0069A111: 89 94 24 A4 00 00  mov         dword ptr [esp+000000A4h],edx
+            00
+  0069A118: 8B 50 08           mov         edx,dword ptr [eax+8]
+  0069A11B: 83 C4 30           add         esp,30h
+  0069A11E: 89 4C 24 78        mov         dword ptr [esp+78h],ecx
+  0069A122: 89 54 24 7C        mov         dword ptr [esp+7Ch],edx
+  0069A126: 33 C0              xor         eax,eax
+  0069A128: 8D 4C 24 50        lea         ecx,[esp+50h]
+  0069A12C: 8D 64 24 00        lea         esp,[esp]
+  0069A130: D9 01              fld         dword ptr [ecx]
+  0069A132: 40                 inc         eax
+  0069A133: D8 A4 24 88 00 00  fsub        dword ptr [esp+00000088h]
+            00
+  0069A13A: 83 C1 0C           add         ecx,0Ch
+  0069A13D: 83 F8 04           cmp         eax,4
+  0069A140: D9 41 F8           fld         dword ptr [ecx-8]
+  0069A143: D8 A4 24 8C 00 00  fsub        dword ptr [esp+0000008Ch]
+            00
+  0069A14A: D9 C0              fld         st(0)
+  0069A14C: D8 C9              fmul        st,st(1)
+  0069A14E: D9 C2              fld         st(2)
+  0069A150: D8 CB              fmul        st,st(3)
+  0069A152: DE C1              faddp       st(1),st
+  0069A154: D9 FA              fsqrt
+  0069A156: DD DA              fstp        st(2)
+  0069A158: DD D8              fstp        st(0)
+  0069A15A: D9 5C 84 3C        fstp        dword ptr [esp+eax*4+3Ch]
+  0069A15E: 7C D0              jl          0069A130
+  0069A160: D9 44 24 40        fld         dword ptr [esp+40h]
+  0069A164: 33 FF              xor         edi,edi
+  0069A166: D9 44 24 44        fld         dword ptr [esp+44h]
+  0069A16A: D8 5C 24 40        fcomp       dword ptr [esp+40h]
+  0069A16E: DF E0              fnstsw      ax
+  0069A170: F6 C4 05           test        ah,5
+  0069A173: 7A 0B              jp          0069A180
+  0069A175: DD D8              fstp        st(0)
+  0069A177: BF 01 00 00 00     mov         edi,1
+  0069A17C: D9 44 24 44        fld         dword ptr [esp+44h]
+  0069A180: D9 44 24 48        fld         dword ptr [esp+48h]
+  0069A184: D8 D9              fcomp       st(1)
+  0069A186: DF E0              fnstsw      ax
+  0069A188: F6 C4 05           test        ah,5
+  0069A18B: 7A 0B              jp          0069A198
+  0069A18D: DD D8              fstp        st(0)
+  0069A18F: BF 02 00 00 00     mov         edi,2
+  0069A194: D9 44 24 48        fld         dword ptr [esp+48h]
+  0069A198: D9 44 24 4C        fld         dword ptr [esp+4Ch]
+  0069A19C: D8 D9              fcomp       st(1)
+  0069A19E: DF E0              fnstsw      ax
+  0069A1A0: DD D8              fstp        st(0)
+  0069A1A2: F6 C4 05           test        ah,5
+  0069A1A5: 7A 05              jp          0069A1AC
+  0069A1A7: BF 03 00 00 00     mov         edi,3
+  0069A1AC: 8B B4 24 84 00 00  mov         esi,dword ptr [esp+00000084h]
+            00
+  0069A1B3: 33 DB              xor         ebx,ebx
+  0069A1B5: 8D 6C 24 50        lea         ebp,[esp+50h]
+  0069A1B9: 8D A4 24 00 00 00  lea         esp,[esp+00000000h]
+            00
+  0069A1C0: 3B DF              cmp         ebx,edi
+  0069A1C2: 0F 84 56 01 00 00  je          0069A31E
+  0069A1C8: 8D 43 FE           lea         eax,[ebx-2]
+  0069A1CB: 83 E0 03           and         eax,3
+  0069A1CE: 3B C7              cmp         eax,edi
+  0069A1D0: 0F 84 48 01 00 00  je          0069A31E
+  0069A1D6: 83 3E 18           cmp         dword ptr [esi],18h
+  0069A1D9: 0F 8D 3F 01 00 00  jge         0069A31E
+  0069A1DF: D9 44 9C 40        fld         dword ptr [esp+ebx*4+40h]
+  0069A1E3: D8 9C 24 A4 00 00  fcomp       dword ptr [esp+000000A4h]
+            00
+  0069A1EA: DF E0              fnstsw      ax
+  0069A1EC: F6 C4 05           test        ah,5
+  0069A1EF: 0F 8A 29 01 00 00  jp          0069A31E
+  0069A1F5: 8B CD              mov         ecx,ebp
+  0069A1F7: 8B 11              mov         edx,dword ptr [ecx]
+  0069A1F9: 8B 41 04           mov         eax,dword ptr [ecx+4]
+  0069A1FC: 8B 49 08           mov         ecx,dword ptr [ecx+8]
+  0069A1FF: 89 44 24 14        mov         dword ptr [esp+14h],eax
+  0069A203: 8D 47 FE           lea         eax,[edi-2]
+  0069A206: 83 E0 03           and         eax,3
+  0069A209: 8D 04 40           lea         eax,[eax+eax*2]
+  0069A20C: D9 44 84 50        fld         dword ptr [esp+eax*4+50h]
+  0069A210: 8D 44 84 50        lea         eax,[esp+eax*4+50h]
+  0069A214: 89 54 24 10        mov         dword ptr [esp+10h],edx
+  0069A218: D8 64 24 10        fsub        dword ptr [esp+10h]
+  0069A21C: 89 4C 24 18        mov         dword ptr [esp+18h],ecx
+  0069A220: 8D 4C 24 1C        lea         ecx,[esp+1Ch]
+  0069A224: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  0069A228: C7 44 24 24 00 00  mov         dword ptr [esp+24h],0
+            00 00
+  0069A230: D9 40 04           fld         dword ptr [eax+4]
+  0069A233: D8 64 24 14        fsub        dword ptr [esp+14h]
+  0069A237: D9 5C 24 20        fstp        dword ptr [esp+20h]
+  0069A23B: E8 D0 26 F0 FF     call        0059C910
+  0069A240: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  0069A244: D8 44 24 10        fadd        dword ptr [esp+10h]
+  0069A248: D9 5C 24 10        fstp        dword ptr [esp+10h]
+  0069A24C: D9 44 24 20        fld         dword ptr [esp+20h]
+  0069A250: D8 44 24 14        fadd        dword ptr [esp+14h]
+  0069A254: D9 5C 24 14        fstp        dword ptr [esp+14h]
+  0069A258: D9 44 24 18        fld         dword ptr [esp+18h]
+  0069A25C: D8 44 24 24        fadd        dword ptr [esp+24h]
+  0069A260: D9 5C 24 18        fstp        dword ptr [esp+18h]
+  0069A264: D9 44 24 10        fld         dword ptr [esp+10h]
+  0069A268: D8 A4 24 88 00 00  fsub        dword ptr [esp+00000088h]
+            00
+  0069A26F: D9 5C 24 28        fstp        dword ptr [esp+28h]
+  0069A273: 8B 54 24 28        mov         edx,dword ptr [esp+28h]
+  0069A277: D9 44 24 14        fld         dword ptr [esp+14h]
+  0069A27B: 89 54 24 1C        mov         dword ptr [esp+1Ch],edx
+  0069A27F: D8 A4 24 8C 00 00  fsub        dword ptr [esp+0000008Ch]
+            00
+  0069A286: D9 5C 24 2C        fstp        dword ptr [esp+2Ch]
+  0069A28A: D9 44 24 18        fld         dword ptr [esp+18h]
+  0069A28E: 8B 44 24 2C        mov         eax,dword ptr [esp+2Ch]
+  0069A292: D8 A4 24 90 00 00  fsub        dword ptr [esp+00000090h]
+            00
+  0069A299: 89 44 24 20        mov         dword ptr [esp+20h],eax
+  0069A29D: D9 5C 24 30        fstp        dword ptr [esp+30h]
+  0069A2A1: 8B 4C 24 30        mov         ecx,dword ptr [esp+30h]
+  0069A2A5: 89 4C 24 24        mov         dword ptr [esp+24h],ecx
+  0069A2A9: 8D 4C 24 1C        lea         ecx,[esp+1Ch]
+  0069A2AD: C7 44 24 24 00 00  mov         dword ptr [esp+24h],0
+            00 00
+  0069A2B5: E8 56 26 F0 FF     call        0059C910
+  0069A2BA: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  0069A2BE: D8 0D 34 8F 85 00  fmul        dword ptr ds:[00858F34h]
+  0069A2C4: 8B 06              mov         eax,dword ptr [esi]
+  0069A2C6: 83 F8 18           cmp         eax,18h
+  0069A2C9: D9 44 24 20        fld         dword ptr [esp+20h]
+  0069A2CD: D8 0D 34 8F 85 00  fmul        dword ptr ds:[00858F34h]
+  0069A2D3: D9 44 24 24        fld         dword ptr [esp+24h]
+  0069A2D7: D8 0D 34 8F 85 00  fmul        dword ptr ds:[00858F34h]
+  0069A2DD: D9 5C 24 3C        fstp        dword ptr [esp+3Ch]
+  0069A2E1: D9 C9              fxch        st(1)
+  0069A2E3: D8 44 24 10        fadd        dword ptr [esp+10h]
+  0069A2E7: D9 5C 24 10        fstp        dword ptr [esp+10h]
+  0069A2EB: D8 44 24 14        fadd        dword ptr [esp+14h]
+  0069A2EF: D9 5C 24 14        fstp        dword ptr [esp+14h]
+  0069A2F3: D9 44 24 3C        fld         dword ptr [esp+3Ch]
+  0069A2F7: D8 44 24 18        fadd        dword ptr [esp+18h]
+  0069A2FB: D9 5C 24 18        fstp        dword ptr [esp+18h]
+  0069A2FF: 7D 1D              jge         0069A31E
+  0069A301: 8B 4C 24 10        mov         ecx,dword ptr [esp+10h]
+  0069A305: 8D 14 40           lea         edx,[eax+eax*2]
+  0069A308: 8D 44 96 04        lea         eax,[esi+edx*4+4]
+  0069A30C: 8B 54 24 14        mov         edx,dword ptr [esp+14h]
+  0069A310: 89 08              mov         dword ptr [eax],ecx
+  0069A312: 8B 4C 24 18        mov         ecx,dword ptr [esp+18h]
+  0069A316: 89 50 04           mov         dword ptr [eax+4],edx
+  0069A319: 89 48 08           mov         dword ptr [eax+8],ecx
+  0069A31C: FF 06              inc         dword ptr [esi]
+  0069A31E: 43                 inc         ebx
+  0069A31F: 83 C5 0C           add         ebp,0Ch
+  0069A322: 83 FB 04           cmp         ebx,4
+  0069A325: 0F 8C 95 FE FF FF  jl          0069A1C0
+  0069A32B: 5F                 pop         edi
+  0069A32C: 5D                 pop         ebp
+  0069A32D: 5B                 pop         ebx
+  0069A32E: 5E                 pop         esi
+  0069A32F: 83 C4 70           add         esp,70h
+  0069A332: C3                 ret
+  0069A333: 90                 nop
+
+  Summary
+
+      456000 .text

@@ -1,0 +1,3 @@
+FALLO: Additional lifetime preflight672
+Preflight harness restoration failure
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-additional-lifetime\20261008-121758-341664

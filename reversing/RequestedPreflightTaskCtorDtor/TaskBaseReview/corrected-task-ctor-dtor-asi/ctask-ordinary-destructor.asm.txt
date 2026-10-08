@@ -1,0 +1,15 @@
+12463D90: 55                       push ebp
+12463D91: 8bec                     mov ebp, esp
+12463D93: 81eccc000000             sub esp, 0xcc
+12463D99: 53                       push ebx
+12463D9A: 56                       push esi
+12463D9B: 57                       push edi
+12463D9C: 894df8                   mov dword ptr [ebp - 8], ecx
+12463D9F: 8b45f8                   mov eax, dword ptr [ebp - 8]
+12463DA2: c700e4a51b13             mov dword ptr [eax], 0x131ba5e4
+12463DA8: 5f                       pop edi
+12463DA9: 5e                       pop esi
+12463DAA: 5b                       pop ebx
+12463DAB: 8be5                     mov esp, ebp
+12463DAD: 5d                       pop ebp
+12463DAE: c3                       ret 

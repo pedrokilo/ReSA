@@ -51,56 +51,177 @@ bool CFormation::ReturnDestinationForPed(CPed* ped, CVector* out) {
     return false;
 }
 
+namespace {
+// Match the executable's x87 operations and float stores at 0x699FF0.
+float CoverSubtract(float a, float b) {
+    float result;
+    __asm {
+        fld a
+        fsub b
+        fstp result
+    }
+    return result;
+}
+float CoverAdd(float a, float b) {
+    float result;
+    __asm {
+        fld a
+        fadd b
+        fstp result
+    }
+    return result;
+}
+CVector CoverCorner(const CMatrix* matrix, float x, float y) {
+    constexpr float z=0.f;
+    CVector result;
+    auto* output=&result;
+    __asm {
+        mov eax,matrix
+        mov ecx,output
+        fld dword ptr [eax+20h]
+        fmul z
+        fld dword ptr [eax+10h]
+        fmul y
+        faddp st(1),st
+        fld dword ptr [eax]
+        fmul x
+        faddp st(1),st
+        fadd dword ptr [eax+30h]
+        fstp dword ptr [ecx]
+        fld dword ptr [eax+24h]
+        fmul z
+        fld dword ptr [eax+4]
+        fmul x
+        faddp st(1),st
+        fld dword ptr [eax+14h]
+        fmul y
+        faddp st(1),st
+        fadd dword ptr [eax+34h]
+        fstp dword ptr [ecx+4]
+        fld dword ptr [eax+28h]
+        fmul z
+        fld dword ptr [eax+8]
+        fmul x
+        faddp st(1),st
+        fld dword ptr [eax+18h]
+        fmul y
+        faddp st(1),st
+        fadd dword ptr [eax+38h]
+        fstp dword ptr [ecx+8]
+    }
+    return result;
+}
+float CoverDistance2D(const CVector& a, const CVector& b) {
+    const float firstX=a.x, firstY=a.y, secondX=b.x, secondY=b.y;
+    float result;
+    __asm {
+        fld firstX
+        fsub secondX
+        fld firstY
+        fsub secondY
+        fld st(0)
+        fmul st, st(1)
+        fld st(2)
+        fmul st, st(3)
+        faddp st(1), st
+        fsqrt
+        fstp st(2)
+        fstp st(0)
+        fstp result
+    }
+    return result;
+}
+void CoverNormalise(CVector& value) {
+    auto* p=&value;
+    __asm {
+        mov ecx, p
+        fld dword ptr [ecx+8]
+        fld dword ptr [ecx+4]
+        fld dword ptr [ecx]
+        fld st(0)
+        fmul st, st(1)
+        fld st(2)
+        fmul st, st(3)
+        faddp st(1), st
+        fld st(3)
+        fmul st, st(4)
+        faddp st(1), st
+        fstp st(3)
+        fstp st(0)
+        fstp st(0)
+        fcom dword ptr ds:[0x858B50]
+        fnstsw ax
+        test ah, 41h
+        jp positive
+        fstp st(0)
+        mov dword ptr [ecx], 3F800000h
+        jmp finished
+    positive:
+        fsqrt
+        fdivr dword ptr ds:[0x858624]
+        fld st(0)
+        fmul dword ptr [ecx]
+        fstp dword ptr [ecx]
+        fld st(0)
+        fmul dword ptr [ecx+4]
+        fstp dword ptr [ecx+4]
+        fmul dword ptr [ecx+8]
+        fstp dword ptr [ecx+8]
+    finished:
+    }
+}
+float CoverOffset(float position, float direction) {
+    constexpr float scale=.75f;
+    float result;
+    __asm {
+        fld direction
+        fmul scale
+        fadd position
+        fstp result
+    }
+    return result;
+}
+}
+
 // 0x699FF0
 void CFormation::FindCoverPointsBehindBox(
-    CPointList*    outPoints,
-    CVector        target,
-    CMatrix*       mat,
-    const CVector& center, //!< Unused
-    const CVector& bbMin,
-    const CVector& bbMax,
-    float          cutoffDist
+    CPointList* outPoints, CVector target, CMatrix* mat,
+    const CVector& center, const CVector& bbMin, const CVector& bbMax, float cutoffDist
 ) {
-    const auto h = std::abs(target.z - mat->GetPosition().z);
-    if (h >= 7.f) {
-        return;
+    const float targetZ=target.z, matrixZ=mat->GetPosition().z;
+    bool withinHeight{};
+    __asm {
+        fld targetZ
+        fsub matrixZ
+        fabs
+        fcomp dword ptr ds:[0x858F48]
+        fnstsw ax
+        test ah,5
+        jp outsideHeight
+        mov withinHeight,1
+    outsideHeight:
     }
-
-    // 0x69A02E - Calculate the 2D position of the corners in world space
-    const auto GetCorner2D = [&](float x, float y) {
-        return mat->TransformPoint(CVector{ x, y, 0.f });
-    };
+    if (!withinHeight) return;
     const CVector corners[4]{
-        GetCorner2D(bbMin.x, bbMin.y), // bottom left
-        GetCorner2D(bbMin.x, bbMax.y), // top left
-        GetCorner2D(bbMax.x, bbMax.y), // top right
-        GetCorner2D(bbMax.x, bbMin.y)  // bottom right
+        CoverCorner(mat,bbMin.x,bbMin.y),
+        CoverCorner(mat,bbMin.x,bbMax.y),
+        CoverCorner(mat,bbMax.x,bbMax.y),
+        CoverCorner(mat,bbMax.x,bbMin.y)
     };
-
-    // 0x69A128 - Calculate side's lengths
-    float sides[4]{}; // left, top, right, bottom
-    for (auto&& [i, corner] : rngv::enumerate(corners)) {
-        sides[i] = CVector2D::DistSqr(corners[i], corners[(i + 1) % 4]);
-    }
-
-    // 0x69A160
-    auto shortestSideIdx = std::distance(sides, rng::min_element(sides));
-
-    // 0x69A325
-    for (auto&& [i, corner] : rngv::enumerate(corners)) {
-        if (i == shortestSideIdx) {
-            continue;
-        }
-        const auto otherCornerIdx = (i - 2) % 4; // The other corner of the side
-        if (otherCornerIdx == shortestSideIdx) {
-            continue;
-        }
-        if (CVector2D::DistSqr(target, corner) > sq(cutoffDist)) {
-            continue;
-        }
-        const auto sideDir = (corners[otherCornerIdx] - corner).Normalized();
-        const auto pt = corner + sideDir;
-        outPoints->AddPoint(pt + (pt - target).Normalized() * 0.75f);
+    float distances[4];
+    for (int32 i=0;i<4;++i) distances[i]=CoverDistance2D(corners[i],target);
+    int32 closest=0;
+    for (int32 i=1;i<4;++i) if (distances[i]<distances[closest]) closest=i;
+    const auto& opposite=corners[(closest-2)&3];
+    for (int32 i=0;i<4;++i) {
+        if (i==closest || ((i-2)&3)==closest || static_cast<int32>(outPoints->m_Count)>=24 || !(distances[i]<cutoffDist)) continue;
+        const auto& corner=corners[i];
+        CVector direction{CoverSubtract(opposite.x,corner.x),CoverSubtract(opposite.y,corner.y),0.f};
+        CoverNormalise(direction);
+        const CVector point{CoverAdd(corner.x,direction.x),CoverAdd(corner.y,direction.y),CoverAdd(corner.z,direction.z)};
+        CVector away{CoverSubtract(point.x,target.x),CoverSubtract(point.y,target.y),0.f};
+        CoverNormalise(away);
+        outPoints->m_Points[outPoints->m_Count++]=CVector{CoverOffset(point.x,away.x),CoverOffset(point.y,away.y),CoverAdd(point.z,away.z*.75f)};
     }
 }
 

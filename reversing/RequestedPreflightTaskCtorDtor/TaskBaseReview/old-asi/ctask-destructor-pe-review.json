@@ -1,0 +1,220 @@
+{
+  "asi_path": "D:\\Original\\gta-reversed-master\\reversing\\RequestedPreflightTaskCtorDtor\\artifacts\\gta_reversed-preflight-task-ctor-dtor.asi",
+  "asi_sha256": "41fe3e63571149f0d0901865b9848ce870537a7ee2afaea345b4130f530d76da",
+  "image_base": "0x10000000",
+  "ctask_vtable_export": "0x131ba5e4",
+  "slot0_entry": "0x1109fce7",
+  "slot0_body": "0x11245240",
+  "slot0_thunks": [
+    {
+      "from": "0x1109fce7",
+      "to": "0x11245240"
+    }
+  ],
+  "procedures": [
+    {
+      "label": "ctask-scalar-deleting",
+      "body": "0x11245240",
+      "stores_exact_ctask_vtable": [],
+      "calls": [
+        {
+          "instruction": "0x11245299",
+          "entry": "0x110593af",
+          "body": "0x12f89250",
+          "thunks": [
+            {
+              "from": "0x110593af",
+              "to": "0x12f89250"
+            }
+          ]
+        },
+        {
+          "instruction": "0x112452bc",
+          "entry": "0x1109d51e",
+          "body": "0x12f89510",
+          "thunks": [
+            {
+              "from": "0x1109d51e",
+              "to": "0x12f89510"
+            }
+          ]
+        },
+        {
+          "instruction": "0x112452cf",
+          "entry": "0x1106c676",
+          "body": "0x11230040",
+          "thunks": [
+            {
+              "from": "0x1106c676",
+              "to": "0x11230040"
+            }
+          ]
+        },
+        {
+          "instruction": "0x112452e9",
+          "entry": "0x1108f85b",
+          "body": "0x12463e00",
+          "thunks": [
+            {
+              "from": "0x1108f85b",
+              "to": "0x12463e00"
+            }
+          ]
+        },
+        {
+          "instruction": "0x112452f9",
+          "entry": "0x110916a1",
+          "body": "0x1125f110",
+          "thunks": [
+            {
+              "from": "0x110916a1",
+              "to": "0x1125f110"
+            }
+          ]
+        },
+        {
+          "instruction": "0x1124531a",
+          "entry": "0x11057c80",
+          "body": "0x12f89ee0",
+          "thunks": [
+            {
+              "from": "0x11057c80",
+              "to": "0x12f89ee0"
+            }
+          ]
+        }
+      ],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x12f89250",
+      "body": "0x12f89250",
+      "stores_exact_ctask_vtable": [],
+      "calls": [
+        {
+          "instruction": "0x12f892df",
+          "entry": "0x12f892e6",
+          "body": "0x12f892e6",
+          "thunks": []
+        },
+        {
+          "instruction": "0x12f892fe",
+          "entry": "0x11060844",
+          "body": "0x12f893b0",
+          "thunks": [
+            {
+              "from": "0x11060844",
+              "to": "0x12f893b0"
+            }
+          ]
+        }
+      ],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x12f89510",
+      "body": "0x12f89510",
+      "stores_exact_ctask_vtable": [],
+      "calls": [
+        {
+          "instruction": "0x12f89517",
+          "entry": "0x1106db89",
+          "body": "0x11a77ef0",
+          "thunks": [
+            {
+              "from": "0x1106db89",
+              "to": "0x11a77ef0"
+            }
+          ]
+        }
+      ],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x11230040",
+      "body": "0x11230040",
+      "stores_exact_ctask_vtable": [],
+      "calls": [],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x12463e00",
+      "body": "0x12463e00",
+      "stores_exact_ctask_vtable": [],
+      "calls": [
+        {
+          "instruction": "0x12463e3a",
+          "entry": "0x110937df",
+          "body": "0x11bfb450",
+          "thunks": [
+            {
+              "from": "0x110937df",
+              "to": "0x11bfb450"
+            }
+          ]
+        },
+        {
+          "instruction": "0x12463e4f",
+          "entry": "0x110a99d1",
+          "body": "0x12463ea0",
+          "thunks": [
+            {
+              "from": "0x110a99d1",
+              "to": "0x12463ea0"
+            }
+          ]
+        },
+        {
+          "instruction": "0x12463e6b",
+          "entry": "0x11057c80",
+          "body": "0x12f89ee0",
+          "thunks": [
+            {
+              "from": "0x11057c80",
+              "to": "0x12f89ee0"
+            }
+          ]
+        }
+      ],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x1125f110",
+      "body": "0x1125f110",
+      "stores_exact_ctask_vtable": [],
+      "calls": [
+        {
+          "instruction": "0x1125f12f",
+          "entry": "0x1108fda1",
+          "body": "0x12f894b0",
+          "thunks": [
+            {
+              "from": "0x1108fda1",
+              "to": "0x12f894b0"
+            }
+          ]
+        },
+        {
+          "instruction": "0x1125f142",
+          "entry": "0x11057c80",
+          "body": "0x12f89ee0",
+          "thunks": [
+            {
+              "from": "0x11057c80",
+              "to": "0x12f89ee0"
+            }
+          ]
+        }
+      ],
+      "linear_disassembly_stops_at_first_ret": true
+    },
+    {
+      "label": "callee-0x12f89ee0",
+      "body": "0x12f89ee0",
+      "stores_exact_ctask_vtable": [],
+      "calls": [],
+      "linear_disassembly_stops_at_first_ret": true
+    }
+  ],
+  "limitation": "Static linear decoding. Store destination and call order must be assessed with this-flow; scalar deleting body includes taskpool-free branch. No runtime or branch replay."
+}

@@ -1,0 +1,80 @@
+// CTaskComplexProstituteSolicit::Destructor @ 0x00661af0 [0x661af0..0x661b7f]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00661af0(void)
+
+{
+  undefined4 *puVar1;
+  int iVar2;
+  undefined4 *in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  puStack_8 = &LAB_00844928;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  *in_ECX = &PTR_FUN_0086fb88;
+  local_4 = 0;
+  iVar2 = FUN_0056e210(0xffffffff);
+  if (iVar2 != 0) {
+    puVar1 = (undefined4 *)(*(int *)(iVar2 + 0x480) + 0xa4);
+    if (*(int *)(*(int *)(iVar2 + 0x480) + 0xa4) != 0) {
+      FUN_00571a00(puVar1);
+      *puVar1 = 0;
+    }
+    if ((*(ushort *)(in_ECX + 0xb) & 0x100) != 0) {
+      *(ushort *)(in_ECX + 0xb) = *(ushort *)(in_ECX + 0xb) & 0xfeff;
+    }
+  }
+  local_4 = 0xffffffff;
+  FUN_0061a3d0();
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00661AF0: push 0FFFFFFFFh
+00661AF2: push 844928h
+00661AF7: mov eax,dword ptr fs:[00000000h]
+00661AFD: push eax
+00661AFE: mov dword ptr fs:[00000000h],esp
+ 00
+00661B05: push ecx
+00661B06: push edi
+00661B07: mov edi,ecx
+00661B09: mov dword ptr [esp+4],edi
+00661B0D: mov dword ptr [edi],86FB88h
+00661B13: push 0FFFFFFFFh
+00661B15: mov dword ptr [esp+14h],0
+00661B1D: call 0056E210
+00661B22: add esp,4
+00661B25: test eax,eax
+00661B27: je 00661B61
+00661B29: mov eax,dword ptr [eax+00000480h]
+00661B2F: mov ecx,dword ptr [eax+000000A4h]
+00661B35: test ecx,ecx
+00661B37: push esi
+00661B38: lea esi,[eax+000000A4h]
+00661B3E: je 00661B4C
+00661B40: push esi
+00661B41: call 00571A00
+00661B46: mov dword ptr [esi],0
+00661B4C: xor eax,eax
+00661B4E: mov ax,word ptr [edi+2Ch]
+00661B52: test ah,1
+00661B55: pop esi
+00661B56: je 00661B61
+00661B58: and eax,0FEFFh
+00661B5D: mov word ptr [edi+2Ch],ax
+00661B61: mov ecx,edi
+00661B63: mov dword ptr [esp+10h],0FFFFFFFFh
+00661B6B: call 0061A3D0
+00661B70: mov ecx,dword ptr [esp+8]
+00661B74: pop edi
+00661B75: mov dword ptr fs:[00000000h],ecx
+ 00
+00661B7C: add esp,10h
+00661B7F: ret
+ 00661B80: 8B

@@ -1,0 +1,106 @@
+{
+  "passed": false,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "231606b1988e1d9a9d5c57fccd04d681fe39a8c344c973ba375d9be64e1969c4",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "error": "Preflight harness restoration failure",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "cbf6d72fd35d49d4a148a8f7a7b200a8833d85af",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "c0a67e40026b09625b817e8f172178ed8a698acb69d5d58200da3511067c9ad3",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp": "5d75866f38c13eb5583c392d974835a5763db944f6f1b36744d830a769653ea3",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h": "e33d4f016d49d437a32ef6ea9d2732dbf146edbe5f85a8b12e1782ca2c1f3fc6",
+      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+      "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+      "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+      "source/game_sa/World.cpp": "b7ff3a0962752810a3e1568ca6d66a53754d69e64491b9b8127c679e793d19ca"
+    },
+    "bank_sources": {
+      "reversing/RequestedPreflightAdditionalLifetimes/LiveComparison.hpp": "b96ab11b75f7fd7c5e5bd892aad512852a777d6d6563b55953454ad877c71935",
+      "reversing/RequestedPreflightAdditionalLifetimes/build_probe.py": "abfd5ffdd8084f17062bf3457c85fce93eacd2a435ea12fd19067e09b38e6115",
+      "reversing/RequestedPreflightAdditionalLifetimes/run_local.py": "1de523510b6ffabfa3c18c80ff81654bedf7de475e30a368c8cbcb07c57c1c53",
+      "reversing/RequestedAdditionalLifetimes/LiveComparison.hpp": "13c915b0c10ace372fd50a984baacf3e522b329bb8eef5e437b6fe117209ee55",
+      "reversing/RequestedParallelTasks/TaskLifetimeComparison.hpp": "bc9766c52f56efc73d4bd5269ce46ca94ac408b84c90d6350c19be746ef5e1d6",
+      "reversing/RequestedParallelTasks/TaskLifetimeExpanded/Expanded.hpp": "86b6b5ac7afc67a99c25cddfcce190af07a43faf24169c6c9753ecc9f6a7d2b8",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "reversing/runtime_runner.py": "e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "expected_pairs": 672,
+    "fixture_scope": "Frozen additional bank before graphics; isolated reference/player ABI fixtures and concrete native child; no WinMain/startup equivalence; mismatches remain failure and are preserved.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "6869e3238c158f04b5f4259c8182c2a3100a187621eb4338e71c1c69da638f05"
+    },
+    "asi": "231606b1988e1d9a9d5c57fccd04d681fe39a8c344c973ba375d9be64e1969c4",
+    "pdb": "a104d114cca83704dbe862d6a8efc77a7491b4ddde8f42fa7cbe547568e76893"
+  },
+  "runner_sha256": "1de523510b6ffabfa3c18c80ff81654bedf7de475e30a368c8cbcb07c57c1c53",
+  "reproduction_diagnostics": {
+    "pairs": 672,
+    "pairs_per_function": {
+      "CTaskSimpleFightingControl::Constructor": 256,
+      "CTaskComplexProstituteSolicit::Constructor": 128,
+      "CTaskSimpleFightingControl::Destructor": 32,
+      "CTaskComplexProstituteSolicit::Destructor": 256
+    },
+    "mismatches": 0,
+    "mismatches_per_function": {},
+    "differing_payload_offsets": {},
+    "terminal_bank_record": {
+      "candidates_restored": true,
+      "collaborator_entries_restored": true,
+      "entries_restored": true,
+      "event": "complete",
+      "flags_restored": true,
+      "pairs": 672,
+      "scope": "reference/player ABI fixtures and native child; isolated contracts, no real game actors",
+      "state_restored": true,
+      "tables_restored": true
+    },
+    "terminal_harness_record": {
+      "crt_assert_report_after": 4,
+      "crt_assert_report_before": 4,
+      "crt_assertion_changed_offsets": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "crt_assertion_restored": false,
+      "crt_error_mode_after": 0,
+      "crt_error_mode_before": 0,
+      "crt_error_report_after": 4,
+      "crt_error_report_before": 4,
+      "crt_restored": false,
+      "entries_restored": true,
+      "event": "error",
+      "flags_restored": true,
+      "return_to_winmain": true,
+      "snapshot_ranges": 16898,
+      "state_restored": false,
+      "tables_restored": true,
+      "vectored_handler_removed": true
+    },
+    "harness_sha256": "38f1733d3fd19e594ce8b452414875b18cd04c4812e62c964c8d05db2bda2d7d"
+  },
+  "observed_process_exit_code": 1
+}

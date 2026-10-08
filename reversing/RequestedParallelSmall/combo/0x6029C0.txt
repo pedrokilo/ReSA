@@ -1,0 +1,113 @@
+// CInterestingEvents::InvalidateNonVisibleEvents @ 0x006029c0 [0x6029c0..0x602a62]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006029c0(void)
+
+{
+  char cVar1;
+  int iVar2;
+  int iVar3;
+  int in_ECX;
+  int *piVar4;
+  undefined4 local_c;
+  undefined4 local_8;
+  undefined4 local_4;
+  
+  iVar2 = (uint)DAT_00b6f081 * 0x238;
+  local_c = *(undefined4 *)(&DAT_00b6f338 + iVar2);
+  local_8 = *(undefined4 *)(&DAT_00b6f33c + iVar2);
+  local_4 = *(undefined4 *)(&DAT_00b6f340 + iVar2);
+  iVar2 = 0;
+  piVar4 = (int *)(in_ECX + 8);
+  do {
+    iVar3 = *piVar4;
+    if (iVar3 != 0) {
+      if (*(int *)(iVar3 + 0x14) == 0) {
+        iVar3 = iVar3 + 4;
+      }
+      else {
+        iVar3 = *(int *)(iVar3 + 0x14) + 0x30;
+      }
+      cVar1 = FUN_0056a490(&local_c,iVar3,1,0,0,0,0,1,0);
+      if (cVar1 == '\0') {
+        piVar4[-1] = 0;
+        if (*piVar4 != 0) {
+          FUN_00571a00(piVar4);
+        }
+        *piVar4 = 0;
+        if (*(char *)(in_ECX + 0x154) == iVar2) {
+          *(undefined1 *)(in_ECX + 0x154) = 0xff;
+        }
+      }
+    }
+    iVar2 = iVar2 + 1;
+    piVar4 = piVar4 + 3;
+  } while (iVar2 < 8);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006029C0: sub esp,0Ch
+006029C3: movzx eax,byte ptr ds:[00B6F081h]
+ 00
+006029CA: imul eax,eax,238h
+006029D0: add eax,0B6F338h
+006029D5: push ebp
+006029D6: mov ebp,ecx
+006029D8: mov ecx,dword ptr [eax]
+006029DA: mov edx,dword ptr [eax+4]
+006029DD: mov eax,dword ptr [eax+8]
+006029E0: push esi
+006029E1: push edi
+006029E2: mov dword ptr [esp+0Ch],ecx
+006029E6: mov dword ptr [esp+10h],edx
+006029EA: mov dword ptr [esp+14h],eax
+006029EE: xor edi,edi
+006029F0: lea esi,[ebp+8]
+006029F3: mov eax,dword ptr [esi]
+006029F5: test eax,eax
+006029F7: je 00602A53
+006029F9: mov ecx,dword ptr [eax+14h]
+006029FC: test ecx,ecx
+006029FE: je 00602A05
+00602A00: lea eax,[ecx+30h]
+00602A03: jmp 00602A08
+00602A05: add eax,4
+00602A08: push 0
+00602A0A: push 1
+00602A0C: push 0
+00602A0E: push 0
+00602A10: push 0
+00602A12: push 0
+00602A14: push 1
+00602A16: push eax
+00602A17: lea ecx,[esp+2Ch]
+00602A1B: push ecx
+00602A1C: call 0056A490
+00602A21: add esp,24h
+00602A24: test al,al
+00602A26: jne 00602A53
+00602A28: mov ecx,dword ptr [esi]
+00602A2A: test ecx,ecx
+00602A2C: mov dword ptr [esi-4],0
+ 00
+00602A33: je 00602A3B
+00602A35: push esi
+00602A36: call 00571A00
+00602A3B: mov dword ptr [esi],0
+00602A41: movsx edx,byte ptr [ebp+00000154h]
+ 00
+00602A48: cmp edx,edi
+00602A4A: jne 00602A53
+00602A4C: mov byte ptr [ebp+00000154h],0FFh
+ FF
+00602A53: inc edi
+00602A54: add esi,0Ch
+00602A57: cmp edi,8
+00602A5A: jl 006029F3
+00602A5C: pop edi
+00602A5D: pop esi
+00602A5E: pop ebp
+00602A5F: add esp,0Ch
+00602A62: ret

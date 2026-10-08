@@ -1,0 +1,11 @@
+{
+  "initial_starts": 2048,
+  "paused": 1391,
+  "minimum_blocked": 1319,
+  "expired": 1239,
+  "waiting": 1538,
+  "gang_only": 617,
+  "chat_last": 310,
+  "cars_last": 312,
+  "wraparound": 1041
+}

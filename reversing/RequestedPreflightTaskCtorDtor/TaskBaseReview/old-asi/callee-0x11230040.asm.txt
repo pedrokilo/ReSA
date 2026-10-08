@@ -1,0 +1,13 @@
+11230040: 55                       push ebp
+11230041: 8bec                     mov ebp, esp
+11230043: 81eccc000000             sub esp, 0xcc
+11230049: 53                       push ebx
+1123004A: 56                       push esi
+1123004B: 57                       push edi
+1123004C: 894df8                   mov dword ptr [ebp - 8], ecx
+1123004F: 5f                       pop edi
+11230050: 5e                       pop esi
+11230051: 5b                       pop ebx
+11230052: 8be5                     mov esp, ebp
+11230054: 5d                       pop ebp
+11230055: c3                       ret 

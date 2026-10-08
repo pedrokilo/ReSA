@@ -1,0 +1,62 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0066F450: 56                 push        esi
+  0066F451: 8B F1              mov         esi,ecx
+  0066F453: E8 58 AF FA FF     call        0061A3B0
+  0066F458: 8B 44 24 08        mov         eax,dword ptr [esp+8]
+  0066F45C: 8A 4C 24 0C        mov         cl,byte ptr [esp+0Ch]
+  0066F460: 8B 54 24 14        mov         edx,dword ptr [esp+14h]
+  0066F464: 89 46 0C           mov         dword ptr [esi+0Ch],eax
+  0066F467: 88 4E 10           mov         byte ptr [esi+10h],cl
+  0066F46A: 8A 4C 24 10        mov         cl,byte ptr [esp+10h]
+  0066F46E: B8 FF FF 00 00     mov         eax,0FFFFh
+  0066F473: C7 06 84 FE 86 00  mov         dword ptr [esi],86FE84h
+  0066F479: 89 56 14           mov         dword ptr [esi+14h],edx
+  0066F47C: 66 89 46 18        mov         word ptr [esi+18h],ax
+  0066F480: 66 89 46 1C        mov         word ptr [esi+1Ch],ax
+  0066F484: 8A 46 24           mov         al,byte ptr [esi+24h]
+  0066F487: 24 F0              and         al,0F0h
+  0066F489: 80 E1 01           and         cl,1
+  0066F48C: 0A C1              or          al,cl
+  0066F48E: 88 46 24           mov         byte ptr [esi+24h],al
+  0066F491: C7 46 20 00 00 00  mov         dword ptr [esi+20h],0
+            00
+  0066F498: 8B C6              mov         eax,esi
+  0066F49A: 5E                 pop         esi
+  0066F49B: C2 10 00           ret         10h
+  0066F49E: 90                 nop
+  0066F49F: 90                 nop
+  0066F4A0: 56                 push        esi
+  0066F4A1: 8B F1              mov         esi,ecx
+  0066F4A3: E8 78 A8 FF FF     call        00669D20
+  0066F4A8: F6 44 24 08 01     test        byte ptr [esp+8],1
+  0066F4AD: 74 09              je          0066F4B8
+  0066F4AF: 56                 push        esi
+  0066F4B0: E8 FB B0 FA FF     call        0061A5B0
+  0066F4B5: 83 C4 04           add         esp,4
+  0066F4B8: 8B C6              mov         eax,esi
+  0066F4BA: 5E                 pop         esi
+  0066F4BB: C2 04 00           ret         4
+  0066F4BE: 90                 nop
+  0066F4BF: 90                 nop
+  0066F4C0: 8B 44 24 08        mov         eax,dword ptr [esp+8]
+  0066F4C4: 85 C0              test        eax,eax
+  0066F4C6: 75 05              jne         0066F4CD
+  0066F4C8: 32 C0              xor         al,al
+  0066F4CA: C2 08 00           ret         8
+  0066F4CD: 0F BF 48 22        movsx       ecx,word ptr [eax+22h]
+  0066F4D1: 8B 14 8D C8 B0 A9  mov         edx,dword ptr [ecx*4+00A9B0C8h]
+            00
+  0066F4D8: 8B 4A 14           mov         ecx,dword ptr [edx+14h]
+  0066F4DB: D9 41 24           fld         dword ptr [ecx+24h]
+  0066F4DE: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+
+  Summary
+
+      456000 .text

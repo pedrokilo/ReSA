@@ -1,0 +1,105 @@
+// CTaskComplexSunbathe::Constructor @ 0x00631f80 [0x631f80..0x632035]
+// Ghidra 12.1.4 vÃ­a REA, gta-sa.exe 1.0 US (sha256 72ae59e4â€¦). PseudocÃ³digo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00631f80(int param_1,undefined1 param_2)
+
+{
+  int *piVar1;
+  undefined4 uVar2;
+  undefined4 *in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_008405f8;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  FUN_0061a3b0();
+  *(undefined1 *)(in_ECX + 3) = param_2;
+  *in_ECX = &PTR_FUN_0086e0ac;
+  *(undefined1 *)((int)in_ECX + 0xd) = 0;
+  *(undefined1 *)((int)in_ECX + 0xe) = 0;
+  *(undefined1 *)((int)in_ECX + 0xf) = 0;
+  *(undefined1 *)(in_ECX + 4) = 0;
+  piVar1 = in_ECX + 0xd;
+  in_ECX[5] = 0;
+  in_ECX[6] = 0;
+  *(undefined1 *)(in_ECX + 7) = 0;
+  *(undefined1 *)((int)in_ECX + 0x1d) = 0;
+  local_4 = 0;
+  *piVar1 = param_1;
+  if (param_1 != 0) {
+    FUN_00571b70(piVar1);
+    *(undefined1 *)(*piVar1 + 0x13c) = 5;
+  }
+  uVar2 = FUN_004d3940("beach");
+  in_ECX[9] = uVar2;
+  uVar2 = FUN_004d3990("beach");
+  in_ECX[0xb] = uVar2;
+  uVar2 = FUN_004d3940("sunbathe");
+  in_ECX[10] = uVar2;
+  uVar2 = FUN_004d3990("sunbathe");
+  in_ECX[0xc] = uVar2;
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00631F80: push 0FFFFFFFFh
+00631F82: push 8405F8h
+00631F87: mov eax,dword ptr fs:[00000000h]
+00631F8D: push eax
+00631F8E: mov dword ptr fs:[00000000h],esp
+ 00
+00631F95: push ecx
+00631F96: push esi
+00631F97: mov esi,ecx
+00631F99: push edi
+00631F9A: mov dword ptr [esp+8],esi
+00631F9E: call 0061A3B0
+00631FA3: mov cl,byte ptr [esp+20h]
+00631FA7: xor eax,eax
+00631FA9: mov byte ptr [esi+0Ch],cl
+00631FAC: mov ecx,dword ptr [esp+1Ch]
+00631FB0: cmp ecx,eax
+00631FB2: mov dword ptr [esi],86E0ACh
+00631FB8: mov byte ptr [esi+0Dh],al
+00631FBB: mov byte ptr [esi+0Eh],al
+00631FBE: mov byte ptr [esi+0Fh],al
+00631FC1: mov byte ptr [esi+10h],al
+00631FC4: lea edi,[esi+34h]
+00631FC7: mov dword ptr [esi+14h],eax
+00631FCA: mov dword ptr [esi+18h],eax
+00631FCD: mov byte ptr [esi+1Ch],al
+00631FD0: mov byte ptr [esi+1Dh],al
+00631FD3: mov dword ptr [esp+14h],eax
+00631FD7: mov dword ptr [edi],ecx
+00631FD9: je 00631FEA
+00631FDB: push edi
+00631FDC: call 00571B70
+00631FE1: mov edx,dword ptr [edi]
+00631FE3: mov byte ptr [edx+0000013Ch],5
+ 05
+00631FEA: push 86E0A4h
+00631FEF: call 004D3940
+00631FF4: push 86E0A4h
+00631FF9: mov dword ptr [esi+24h],eax
+00631FFC: call 004D3990
+00632001: push 86E098h
+00632006: mov dword ptr [esi+2Ch],eax
+00632009: call 004D3940
+0063200E: push 86E098h
+00632013: mov dword ptr [esi+28h],eax
+00632016: call 004D3990
+0063201B: mov ecx,dword ptr [esp+1Ch]
+0063201F: add esp,10h
+00632022: mov dword ptr [esi+30h],eax
+00632025: pop edi
+00632026: mov eax,esi
+00632028: pop esi
+00632029: mov dword ptr fs:[00000000h],ecx
+ 00
+00632030: add esp,10h
+00632033: ret 8

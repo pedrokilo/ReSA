@@ -1,0 +1,103 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file reversing\RequestedPreflightTasks\artifacts\gta_reversed-preflight-tasks.asi
+
+File Type: DLL
+
+  125A5EF0: 55                 push        ebp
+  125A5EF1: 8B EC              mov         ebp,esp
+  125A5EF3: 6A FF              push        0FFFFFFFFh
+  125A5EF5: 68 7D 04 18 13     push        1318047Dh
+  125A5EFA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  125A5F00: 50                 push        eax
+  125A5F01: 81 EC CC 00 00 00  sub         esp,0CCh
+  125A5F07: 53                 push        ebx
+  125A5F08: 56                 push        esi
+  125A5F09: 57                 push        edi
+  125A5F0A: 51                 push        ecx
+  125A5F0B: 8D 7D E8           lea         edi,[ebp-18h]
+  125A5F0E: B9 03 00 00 00     mov         ecx,3
+  125A5F13: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  125A5F18: F3 AB              rep stos    dword ptr es:[edi]
+  125A5F1A: 59                 pop         ecx
+  125A5F1B: A1 40 6A 6D 13     mov         eax,dword ptr ds:[136D6A40h]
+  125A5F20: 33 C5              xor         eax,ebp
+  125A5F22: 50                 push        eax
+  125A5F23: 8D 45 F4           lea         eax,[ebp-0Ch]
+  125A5F26: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  125A5F2C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  125A5F2F: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  125A5F32: E8 1C E1 AE FE     call        11094053
+  125A5F37: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  125A5F3E: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5F41: C7 00 60 D9 27 13  mov         dword ptr [eax],1327D960h
+  125A5F47: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5F4A: 83 C0 18           add         eax,18h
+  125A5F4D: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  125A5F50: 8B 11              mov         edx,dword ptr [ecx]
+  125A5F52: 89 10              mov         dword ptr [eax],edx
+  125A5F54: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  125A5F57: 89 50 04           mov         dword ptr [eax+4],edx
+  125A5F5A: 8B 49 08           mov         ecx,dword ptr [ecx+8]
+  125A5F5D: 89 48 08           mov         dword ptr [eax+8],ecx
+  125A5F60: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5F63: 8A 4D 0C           mov         cl,byte ptr [ebp+0Ch]
+  125A5F66: 88 48 24           mov         byte ptr [eax+24h],cl
+  125A5F69: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5F6C: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  125A5F6F: 89 48 28           mov         dword ptr [eax+28h],ecx
+  125A5F72: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5F75: F3 0F 10 45 10     movss       xmm0,dword ptr [ebp+10h]
+  125A5F7A: F3 0F 11 40 2C     movss       dword ptr [eax+2Ch],xmm0
+  125A5F7F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5F82: C7 40 30 07 00 00  mov         dword ptr [eax+30h],7
+            00
+  125A5F89: 33 C0              xor         eax,eax
+  125A5F8B: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  125A5F8E: 83 C1 34           add         ecx,34h
+  125A5F91: 89 01              mov         dword ptr [ecx],eax
+  125A5F93: 89 41 04           mov         dword ptr [ecx+4],eax
+  125A5F96: 89 41 08           mov         dword ptr [ecx+8],eax
+  125A5F99: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  125A5F9C: 83 C1 34           add         ecx,34h
+  125A5F9F: E8 F4 FD AB FE     call        11065D98
+  125A5FA4: 90                 nop
+  125A5FA5: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5FA8: C6 40 40 00        mov         byte ptr [eax+40h],0
+  125A5FAC: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5FAF: C6 40 41 00        mov         byte ptr [eax+41h],0
+  125A5FB3: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5FB6: 83 78 28 FF        cmp         dword ptr [eax+28h],0FFFFFFFFh
+  125A5FBA: 74 1E              je          125A5FDA
+  125A5FBC: E8 E2 4E AF FE     call        1109AEA3
+  125A5FC1: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  125A5FC4: 89 41 34           mov         dword ptr [ecx+34h],eax
+  125A5FC7: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5FCA: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  125A5FCD: 8B 51 28           mov         edx,dword ptr [ecx+28h]
+  125A5FD0: 89 50 38           mov         dword ptr [eax+38h],edx
+  125A5FD3: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5FD6: C6 40 3C 01        mov         byte ptr [eax+3Ch],1
+  125A5FDA: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  125A5FE1: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  125A5FE4: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  125A5FE7: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  125A5FEE: 59                 pop         ecx
+  125A5FEF: 5F                 pop         edi
+  125A5FF0: 5E                 pop         esi
+  125A5FF1: 5B                 pop         ebx
+  125A5FF2: 81 C4 D8 00 00 00  add         esp,0D8h
+  125A5FF8: 3B EC              cmp         ebp,esp
+  125A5FFA: E8 BD AC AB FE     call        11060CBC
+  125A5FFF: 8B E5              mov         esp,ebp
+  125A6001: 5D                 pop         ebp
+  125A6002: C2
+
+  Summary
+
+     2174000 .text

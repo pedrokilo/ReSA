@@ -1,0 +1,3 @@
+APROBADO: formation-expanded
+Comparacion automatizada completada.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-formation-cover-expanded\20261008-113522-938438

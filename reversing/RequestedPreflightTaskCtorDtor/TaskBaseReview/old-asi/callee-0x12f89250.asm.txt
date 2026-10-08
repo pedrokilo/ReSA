@@ -1,0 +1,61 @@
+12F89250: 55                       push ebp
+12F89251: 8bec                     mov ebp, esp
+12F89253: 6afe                     push -2
+12F89255: 6830f25513               push 0x1355f230
+12F8925A: 680010f912               push 0x12f91000
+12F8925F: 64a100000000             mov eax, dword ptr fs:[0]
+12F89265: 50                       push eax
+12F89266: 83c4e8                   add esp, -0x18
+12F89269: 53                       push ebx
+12F8926A: 56                       push esi
+12F8926B: 57                       push edi
+12F8926C: a1409a6b13               mov eax, dword ptr [0x136b9a40]
+12F89271: 3145f8                   xor dword ptr [ebp - 8], eax
+12F89274: 33c5                     xor eax, ebp
+12F89276: 50                       push eax
+12F89277: 8d45f0                   lea eax, [ebp - 0x10]
+12F8927A: 64a300000000             mov dword ptr fs:[0], eax
+12F89280: c645e700                 mov byte ptr [ebp - 0x19], 0
+12F89284: 8b450c                   mov eax, dword ptr [ebp + 0xc]
+12F89287: 0faf4510                 imul eax, dword ptr [ebp + 0x10]
+12F8928B: 034508                   add eax, dword ptr [ebp + 8]
+12F8928E: 894508                   mov dword ptr [ebp + 8], eax
+12F89291: c745fc00000000           mov dword ptr [ebp - 4], 0
+12F89298: 8b4d10                   mov ecx, dword ptr [ebp + 0x10]
+12F8929B: 894ddc                   mov dword ptr [ebp - 0x24], ecx
+12F8929E: 8b5510                   mov edx, dword ptr [ebp + 0x10]
+12F892A1: 83ea01                   sub edx, 1
+12F892A4: 895510                   mov dword ptr [ebp + 0x10], edx
+12F892A7: 837ddc00                 cmp dword ptr [ebp - 0x24], 0
+12F892AB: 7627                     jbe 0x12f892d4
+12F892AD: 8b4508                   mov eax, dword ptr [ebp + 8]
+12F892B0: 2b450c                   sub eax, dword ptr [ebp + 0xc]
+12F892B3: 894508                   mov dword ptr [ebp + 8], eax
+12F892B6: 8b4d14                   mov ecx, dword ptr [ebp + 0x14]
+12F892B9: 894dd8                   mov dword ptr [ebp - 0x28], ecx
+12F892BC: 8b55d8                   mov edx, dword ptr [ebp - 0x28]
+12F892BF: 8955e0                   mov dword ptr [ebp - 0x20], edx
+12F892C2: 8b4de0                   mov ecx, dword ptr [ebp - 0x20]
+12F892C5: ff1500c07113             call dword ptr [0x1371c000]
+12F892CB: 8b4d08                   mov ecx, dword ptr [ebp + 8]
+12F892CE: ff55e0                   call dword ptr [ebp - 0x20]
+12F892D1: 90                       nop 
+12F892D2: ebc4                     jmp 0x12f89298
+12F892D4: c645e701                 mov byte ptr [ebp - 0x19], 1
+12F892D8: c745fcfeffffff           mov dword ptr [ebp - 4], 0xfffffffe
+12F892DF: e802000000               call 0x12f892e6
+12F892E4: eb1f                     jmp 0x12f89305
+12F892E6: 0fb645e7                 movzx eax, byte ptr [ebp - 0x19]
+12F892EA: 85c0                     test eax, eax
+12F892EC: 7516                     jne 0x12f89304
+12F892EE: 8b4d14                   mov ecx, dword ptr [ebp + 0x14]
+12F892F1: 51                       push ecx
+12F892F2: 8b5510                   mov edx, dword ptr [ebp + 0x10]
+12F892F5: 52                       push edx
+12F892F6: 8b450c                   mov eax, dword ptr [ebp + 0xc]
+12F892F9: 50                       push eax
+12F892FA: 8b4d08                   mov ecx, dword ptr [ebp + 8]
+12F892FD: 51                       push ecx
+12F892FE: e841750dfe               call 0x11060844
+12F89303: 90                       nop 
+12F89304: c3                       ret 

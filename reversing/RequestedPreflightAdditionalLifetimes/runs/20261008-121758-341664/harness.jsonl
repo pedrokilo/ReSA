@@ -1,0 +1,4 @@
+{"bank":"additional-lifetime","event":"preflight_entered","graphics_initialized":false}
+{"event":"before_lifetime_bank","hooks_snapshotted":8449,"vrt_tables":4}
+{"event":"lifetime_bank_returned"}
+{"crt_assert_report_after":4,"crt_assert_report_before":4,"crt_assertion_changed_offsets":[16,17,18,19],"crt_assertion_restored":false,"crt_error_mode_after":0,"crt_error_mode_before":0,"crt_error_report_after":4,"crt_error_report_before":4,"crt_restored":false,"entries_restored":true,"event":"error","flags_restored":true,"return_to_winmain":true,"snapshot_ranges":16898,"state_restored":false,"tables_restored":true,"vectored_handler_removed":true}

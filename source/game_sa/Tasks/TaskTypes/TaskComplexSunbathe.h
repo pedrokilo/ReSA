@@ -28,7 +28,7 @@ public:
     bool           m_bBeachAnimsReferenced{};
     bool           m_bSunbatheAnimsReferenced{};
     bool           m_bAborted{};
-    CTaskTimer     m_BathingTimer{};
+    CTaskTimer     m_BathingTimer;
     eSunbatherType m_SunbatherType;
     CAnimBlock*    m_pBeachAnimBlock{};
     CAnimBlock*    m_pSunbatheAnimBlock{};

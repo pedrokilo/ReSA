@@ -1,0 +1,3 @@
+APROBADO: Tasks preflight lifetime
+Comparacion automatizada completada.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-task-lifetime\20261008-121043-687291

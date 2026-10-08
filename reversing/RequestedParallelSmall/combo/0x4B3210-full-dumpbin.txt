@@ -1,0 +1,148 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  004B3210: 53                 push        ebx
+  004B3211: 55                 push        ebp
+  004B3212: 56                 push        esi
+  004B3213: 8B 74 24 10        mov         esi,dword ptr [esp+10h]
+  004B3217: 8B E9              mov         ebp,ecx
+  004B3219: 8B CE              mov         ecx,esi
+  004B321B: E8 D0 C6 12 00     call        005DF8F0
+  004B3220: 33 DB              xor         ebx,ebx
+  004B3222: 84 C0              test        al,al
+  004B3224: 74 12              je          004B3238
+  004B3226: 38 1D 6D 91 96 00  cmp         byte ptr ds:[0096916Dh],bl
+  004B322C: 74 0A              je          004B3238
+  004B322E: 83 7D 0C 2F        cmp         dword ptr [ebp+0Ch],2Fh
+  004B3232: 0F 8C 64 01 00 00  jl          004B339C
+  004B3238: 8B 86 40 05 00 00  mov         eax,dword ptr [esi+00000540h]
+  004B323E: 57                 push        edi
+  004B323F: 8B 7C 24 18        mov         edi,dword ptr [esp+18h]
+  004B3243: 57                 push        edi
+  004B3244: 56                 push        esi
+  004B3245: 8B CD              mov         ecx,ebp
+  004B3247: 89 44 24 1C        mov         dword ptr [esp+1Ch],eax
+  004B324B: E8 C0 A3 FF FF     call        004AD610
+  004B3250: 88 47 09           mov         byte ptr [edi+9],al
+  004B3253: 38 1D 73 91 96 00  cmp         byte ptr ds:[00969173h],bl
+  004B3259: B9 01 00 00 00     mov         ecx,1
+  004B325E: 74 19              je          004B3279
+  004B3260: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  004B3263: 3B C3              cmp         eax,ebx
+  004B3265: 74 09              je          004B3270
+  004B3267: 3B C1              cmp         eax,ecx
+  004B3269: 74 05              je          004B3270
+  004B326B: 83 F8 2E           cmp         eax,2Eh
+  004B326E: 75 09              jne         004B3279
+  004B3270: 8B 96 40 05 00 00  mov         edx,dword ptr [esi+00000540h]
+  004B3276: 89 55 04           mov         dword ptr [ebp+4],edx
+  004B3279: 38 5F 09           cmp         byte ptr [edi+9],bl
+  004B327C: 0F 85 08 01 00 00  jne         004B338A
+  004B3282: 83 7D 0C 36        cmp         dword ptr [ebp+0Ch],36h
+  004B3286: 75 60              jne         004B32E8
+  004B3288: 38 5D 10           cmp         byte ptr [ebp+10h],bl
+  004B328B: 74 5B              je          004B32E8
+  004B328D: 88 5F 08           mov         byte ptr [edi+8],bl
+  004B3290: D9 86 40 05 00 00  fld         dword ptr [esi+00000540h]
+  004B3296: D8 65 04           fsub        dword ptr [ebp+4]
+  004B3299: D9 05 80 8C 85 00  fld         dword ptr ds:[00858C80h]
+  004B329F: D8 D9              fcomp       st(1)
+  004B32A1: DF E0              fnstsw      ax
+  004B32A3: F6 C4 41           test        ah,41h
+  004B32A6: 75 08              jne         004B32B0
+  004B32A8: DD D8              fstp        st(0)
+  004B32AA: D9 05 80 8C 85 00  fld         dword ptr ds:[00858C80h]
+  004B32B0: 8A 44 24 1C        mov         al,byte ptr [esp+1Ch]
+  004B32B4: D9 96 40 05 00 00  fst         dword ptr [esi+00000540h]
+  004B32BA: 3A C3              cmp         al,bl
+  004B32BC: D9 44 24 14        fld         dword ptr [esp+14h]
+  004B32C0: D8 E1              fsub        st,st(1)
+  004B32C2: D9 1F              fstp        dword ptr [edi]
+  004B32C4: DD D8              fstp        st(0)
+  004B32C6: 0F 84 CF 00 00 00  je          004B339B
+  004B32CC: 53                 push        ebx
+  004B32CD: 53                 push        ebx
+  004B32CE: 53                 push        ebx
+  004B32CF: 68 00 00 80 3F     push        3F800000h
+  004B32D4: 53                 push        ebx
+  004B32D5: 68 59 01 00 00     push        159h
+  004B32DA: 8B CE              mov         ecx,esi
+  004B32DC: E8 FF CC 13 00     call        005EFFE0
+  004B32E1: 5F                 pop         edi
+  004B32E2: 5E                 pop         esi
+  004B32E3: 5D                 pop         ebp
+  004B32E4: 5B                 pop         ebx
+  004B32E5: C2 0C 00           ret         0Ch
+  004B32E8: D9 86 40 05 00 00  fld         dword ptr [esi+00000540h]
+  004B32EE: D8 65 04           fsub        dword ptr [ebp+4]
+  004B32F1: D8 1D 24 86 85 00  fcomp       dword ptr ds:[00858624h]
+  004B32F7: DF E0              fnstsw      ax
+  004B32F9: F6 C4 01           test        ah,1
+  004B32FC: 0F 85 88 00 00 00  jne         004B338A
+  004B3302: 38 5C 24 1C        cmp         byte ptr [esp+1Ch],bl
+  004B3306: 88 5F 08           mov         byte ptr [edi+8],bl
+  004B3309: 8B 4D 04           mov         ecx,dword ptr [ebp+4]
+  004B330C: 89 0F              mov         dword ptr [edi],ecx
+  004B330E: D9 86 40 05 00 00  fld         dword ptr [esi+00000540h]
+  004B3314: D8 65 04           fsub        dword ptr [ebp+4]
+  004B3317: D9 5C 24 14        fstp        dword ptr [esp+14h]
+  004B331B: 8B 54 24 14        mov         edx,dword ptr [esp+14h]
+  004B331F: 89 96 40 05 00 00  mov         dword ptr [esi+00000540h],edx
+  004B3325: 74 74              je          004B339B
+  004B3327: 83 7D 0C 35        cmp         dword ptr [ebp+0Ch],35h
+  004B332B: 75 1C              jne         004B3349
+  004B332D: 53                 push        ebx
+  004B332E: 53                 push        ebx
+  004B332F: 53                 push        ebx
+  004B3330: 68 00 00 80 3F     push        3F800000h
+  004B3335: 53                 push        ebx
+  004B3336: 68 65 01 00 00     push        165h
+  004B333B: 8B CE              mov         ecx,esi
+  004B333D: E8 9E CC 13 00     call        005EFFE0
+  004B3342: 5F                 pop         edi
+  004B3343: 5E                 pop         esi
+  004B3344: 5D                 pop         ebp
+  004B3345: 5B                 pop         ebx
+  004B3346: C2 0C 00           ret         0Ch
+  004B3349: D9 45 04           fld         dword ptr [ebp+4]
+  004B334C: D8 1D 80 8C 85 00  fcomp       dword ptr ds:[00858C80h]
+  004B3352: DF E0              fnstsw      ax
+  004B3354: F6 C4 05           test        ah,5
+  004B3357: 7A 15              jp          004B336E
+  004B3359: D9 44 24 14        fld         dword ptr [esp+14h]
+  004B335D: D8 1D 2C 86 85 00  fcomp       dword ptr ds:[0085862Ch]
+  004B3363: DF E0              fnstsw      ax
+  004B3365: F6 C4 41           test        ah,41h
+  004B3368: 0F 84 5E FF FF FF  je          004B32CC
+  004B336E: 53                 push        ebx
+  004B336F: 53                 push        ebx
+  004B3370: 53                 push        ebx
+  004B3371: 68 00 00 80 3F     push        3F800000h
+  004B3376: 53                 push        ebx
+  004B3377: 68 58 01 00 00     push        158h
+  004B337C: 8B CE              mov         ecx,esi
+  004B337E: E8 5D CC 13 00     call        005EFFE0
+  004B3383: 5F                 pop         edi
+  004B3384: 5E                 pop         esi
+  004B3385: 5D                 pop         ebp
+  004B3386: 5B                 pop         ebx
+  004B3387: C2 0C 00           ret         0Ch
+  004B338A: 88 4F 08           mov         byte ptr [edi+8],cl
+  004B338D: 8B 86 40 05 00 00  mov         eax,dword ptr [esi+00000540h]
+  004B3393: 89 07              mov         dword ptr [edi],eax
+  004B3395: 89 9E 40 05 00 00  mov         dword ptr [esi+00000540h],ebx
+  004B339B: 5F                 pop         edi
+  004B339C: 5E                 pop         esi
+  004B339D: 5D                 pop         ebp
+  004B339E: 5B                 pop         ebx
+  004B339F: C2 0C 00           ret         0Ch
+  004B33A2: 90                 nop
+
+  Summary
+
+      456000 .text

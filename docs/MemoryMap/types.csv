@@ -586,7 +586,7 @@ CFireManager,class,,source/game_sa/FireManager.h,15,source_type_definition
 CFontChar,struct,,source/game_sa/Font.h,17,source_type_definition
 tFontData,struct,,source/game_sa/Font.h,54,source_type_definition
 CFont,class,,source/game_sa/Font.h,86,source_type_definition
-FormationExtended,struct,,source/game_sa/Formation.cpp,241,source_type_definition
+FormationExtended,struct,,source/game_sa/Formation.cpp,362,source_type_definition
 CFormation,class,,source/game_sa/Formation.h,17,source_type_definition
 tMenuScreenItem,struct,,source/game_sa/Frontend/MenuManager_Internal.h,181,source_type_definition
 tMenuScreen,struct,,source/game_sa/Frontend/MenuManager_Internal.h,192,source_type_definition

@@ -132,7 +132,7 @@ CTaskAllocatorKillThreatsBasic,0x00870E90,0x00470E90,6,source/game_sa/Tasks/Allo
 CTaskAllocatorKillThreatsBasicRandomGroup,0x0086C80C,0x0046C80C,6,source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp,81,source_vtable_reference
 CTaskAllocatorKillThreatsDriveby,0x00870EA8,0x00470EA8,6,source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp,117,source_vtable_reference
 CTaskAllocatorPlayerCommandAttack,0x00870E78,0x00470E78,6,source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp,97,source_vtable_reference
-CTask,0x0086D48C,0x0046D48C,7,source/game_sa/Tasks/Task.cpp,67,source_vtable_reference
+CTask,0x0086D48C,0x0046D48C,7,source/game_sa/Tasks/Task.cpp,72,source_vtable_reference
 CTaskComplexSequence,0x0086E200,0x0046E200,11,source/game_sa/Tasks/TaskComplexSequence.cpp,24,source_vtable_reference
 CTaskComplexUseSequence,0x0086E518,0x0046E518,11,source/game_sa/Tasks/TaskComplexUseSequence.cpp,24,source_vtable_reference
 CTaskInteriorBeInHouse,0x008701E8,0x004701E8,11,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInHouse.cpp,29,source_vtable_reference

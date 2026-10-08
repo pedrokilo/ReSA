@@ -1,0 +1,75 @@
+// CTaskSimpleFightingControl::Constructor @ 0x0061dc10 [0x61dc10..0x61dc88]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0061dc10(int param_1,undefined4 param_2,undefined4 param_3)
+
+{
+  undefined4 *in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_0083f398;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  FUN_0061a390();
+  local_4 = 0;
+  *in_ECX = &PTR_FUN_0086d700;
+  *(undefined1 *)(in_ECX + 2) = 0;
+  *(undefined2 *)((int)in_ECX + 10) = 0;
+  in_ECX[3] = param_1;
+  if (param_1 != 0) {
+    FUN_00571b70(in_ECX + 3);
+  }
+  in_ECX[4] = param_2;
+  in_ECX[5] = param_3;
+  in_ECX[7] = 0;
+  in_ECX[8] = 0;
+  in_ECX[6] = 0x3f800000;
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0061DC10: push 0FFFFFFFFh
+0061DC12: push 83F398h
+0061DC17: mov eax,dword ptr fs:[00000000h]
+0061DC1D: push eax
+0061DC1E: mov dword ptr fs:[00000000h],esp
+ 00
+0061DC25: push ecx
+0061DC26: push ebx
+0061DC27: push esi
+0061DC28: mov esi,ecx
+0061DC2A: mov dword ptr [esp+8],esi
+0061DC2E: call 0061A390
+0061DC33: mov ecx,dword ptr [esp+1Ch]
+0061DC37: xor ebx,ebx
+0061DC39: cmp ecx,ebx
+0061DC3B: lea eax,[esi+0Ch]
+0061DC3E: mov dword ptr [esp+14h],ebx
+0061DC42: mov dword ptr [esi],86D700h
+0061DC48: mov byte ptr [esi+8],bl
+0061DC4B: mov word ptr [esi+0Ah],bx
+0061DC4F: mov dword ptr [eax],ecx
+0061DC51: je 0061DC59
+0061DC53: push eax
+0061DC54: call 00571B70
+0061DC59: mov eax,dword ptr [esp+20h]
+0061DC5D: mov ecx,dword ptr [esp+24h]
+0061DC61: mov dword ptr [esi+10h],eax
+0061DC64: mov dword ptr [esi+14h],ecx
+0061DC67: mov ecx,dword ptr [esp+0Ch]
+0061DC6B: mov dword ptr [esi+1Ch],ebx
+0061DC6E: mov dword ptr [esi+20h],ebx
+0061DC71: mov dword ptr [esi+18h],3F800000h
+ 3F
+0061DC78: mov eax,esi
+0061DC7A: pop esi
+0061DC7B: pop ebx
+0061DC7C: mov dword ptr fs:[00000000h],ecx
+ 00
+0061DC83: add esp,10h
+0061DC86: ret 0Ch

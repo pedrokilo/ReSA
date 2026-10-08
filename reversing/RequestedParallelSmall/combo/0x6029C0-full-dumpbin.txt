@@ -1,0 +1,76 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  006029C0: 83 EC 0C           sub         esp,0Ch
+  006029C3: 0F B6 05 81 F0 B6  movzx       eax,byte ptr ds:[00B6F081h]
+            00
+  006029CA: 69 C0 38 02 00 00  imul        eax,eax,238h
+  006029D0: 05 38 F3 B6 00     add         eax,0B6F338h
+  006029D5: 55                 push        ebp
+  006029D6: 8B E9              mov         ebp,ecx
+  006029D8: 8B 08              mov         ecx,dword ptr [eax]
+  006029DA: 8B 50 04           mov         edx,dword ptr [eax+4]
+  006029DD: 8B 40 08           mov         eax,dword ptr [eax+8]
+  006029E0: 56                 push        esi
+  006029E1: 57                 push        edi
+  006029E2: 89 4C 24 0C        mov         dword ptr [esp+0Ch],ecx
+  006029E6: 89 54 24 10        mov         dword ptr [esp+10h],edx
+  006029EA: 89 44 24 14        mov         dword ptr [esp+14h],eax
+  006029EE: 33 FF              xor         edi,edi
+  006029F0: 8D 75 08           lea         esi,[ebp+8]
+  006029F3: 8B 06              mov         eax,dword ptr [esi]
+  006029F5: 85 C0              test        eax,eax
+  006029F7: 74 5A              je          00602A53
+  006029F9: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  006029FC: 85 C9              test        ecx,ecx
+  006029FE: 74 05              je          00602A05
+  00602A00: 8D 41 30           lea         eax,[ecx+30h]
+  00602A03: EB 03              jmp         00602A08
+  00602A05: 83 C0 04           add         eax,4
+  00602A08: 6A 00              push        0
+  00602A0A: 6A 01              push        1
+  00602A0C: 6A 00              push        0
+  00602A0E: 6A 00              push        0
+  00602A10: 6A 00              push        0
+  00602A12: 6A 00              push        0
+  00602A14: 6A 01              push        1
+  00602A16: 50                 push        eax
+  00602A17: 8D 4C 24 2C        lea         ecx,[esp+2Ch]
+  00602A1B: 51                 push        ecx
+  00602A1C: E8 6F 7A F6 FF     call        0056A490
+  00602A21: 83 C4 24           add         esp,24h
+  00602A24: 84 C0              test        al,al
+  00602A26: 75 2B              jne         00602A53
+  00602A28: 8B 0E              mov         ecx,dword ptr [esi]
+  00602A2A: 85 C9              test        ecx,ecx
+  00602A2C: C7 46 FC 00 00 00  mov         dword ptr [esi-4],0
+            00
+  00602A33: 74 06              je          00602A3B
+  00602A35: 56                 push        esi
+  00602A36: E8 C5 EF F6 FF     call        00571A00
+  00602A3B: C7 06 00 00 00 00  mov         dword ptr [esi],0
+  00602A41: 0F BE 95 54 01 00  movsx       edx,byte ptr [ebp+00000154h]
+            00
+  00602A48: 3B D7              cmp         edx,edi
+  00602A4A: 75 07              jne         00602A53
+  00602A4C: C6 85 54 01 00 00  mov         byte ptr [ebp+00000154h],0FFh
+            FF
+  00602A53: 47                 inc         edi
+  00602A54: 83 C6 0C           add         esi,0Ch
+  00602A57: 83 FF 08           cmp         edi,8
+  00602A5A: 7C 97              jl          006029F3
+  00602A5C: 5F                 pop         edi
+  00602A5D: 5E                 pop         esi
+  00602A5E: 5D                 pop         ebp
+  00602A5F: 83 C4 0C           add         esp,0Ch
+  00602A62: C3                 ret
+  00602A63: 90                 nop
+
+  Summary
+
+      456000 .text

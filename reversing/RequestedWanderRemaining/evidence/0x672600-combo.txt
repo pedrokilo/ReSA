@@ -1,0 +1,90 @@
+// CTaskComplexWanderStandard::ScanForStuff @ 0x00672600 [0x672600..0x672687]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00672600(undefined4 param_1)
+
+{
+  uint uVar1;
+  char cVar2;
+  int in_ECX;
+  
+  if (*(char *)(in_ECX + 0x30) == '\0') {
+    *(uint *)(in_ECX + 0x28) = DAT_00b7cb84;
+    *(undefined4 *)(in_ECX + 0x2c) = 0x32;
+    *(undefined1 *)(in_ECX + 0x30) = 1;
+  }
+  if ((*(uint *)(in_ECX + 0x34) <= DAT_00b7cb84) && (*(char *)(in_ECX + 0x30) != '\0')) {
+    if (*(char *)(in_ECX + 0x31) != '\0') {
+      *(uint *)(in_ECX + 0x28) = DAT_00b7cb84;
+      *(undefined1 *)(in_ECX + 0x31) = 0;
+    }
+    uVar1 = DAT_00b7cb84;
+    if ((uint)(*(int *)(in_ECX + 0x2c) + *(int *)(in_ECX + 0x28)) <= DAT_00b7cb84) {
+      *(undefined4 *)(in_ECX + 0x2c) = 0x32;
+      *(uint *)(in_ECX + 0x28) = uVar1;
+      *(undefined1 *)(in_ECX + 0x30) = 1;
+      cVar2 = FUN_00670100(param_1);
+      if (cVar2 == '\0') {
+        cVar2 = FUN_0066fda0(param_1);
+        if (cVar2 == '\0') {
+          FUN_0066afd0(param_1);
+        }
+      }
+    }
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00672600: push esi
+00672601: mov esi,ecx
+00672603: mov al,byte ptr [esi+30h]
+00672606: test al,al
+00672608: push edi
+00672609: mov edi,32h
+0067260E: mov dl,1
+00672610: jne 00672620
+00672612: mov eax,dword ptr ds:[00B7CB84h]
+00672617: mov dword ptr [esi+28h],eax
+0067261A: mov dword ptr [esi+2Ch],edi
+0067261D: mov byte ptr [esi+30h],dl
+00672620: mov ecx,dword ptr ds:[00B7CB84h]
+00672626: cmp ecx,dword ptr [esi+34h]
+00672629: jb 00672683
+0067262B: mov al,byte ptr [esi+30h]
+0067262E: test al,al
+00672630: je 00672683
+00672632: mov al,byte ptr [esi+31h]
+00672635: test al,al
+00672637: je 00672646
+00672639: mov dword ptr [esi+28h],ecx
+0067263C: mov byte ptr [esi+31h],0
+00672640: mov ecx,dword ptr ds:[00B7CB84h]
+00672646: mov eax,dword ptr [esi+2Ch]
+00672649: add eax,dword ptr [esi+28h]
+0067264C: cmp ecx,eax
+0067264E: sbb al,al
+00672650: inc al
+00672652: test al,al
+00672654: je 00672683
+00672656: mov dword ptr [esi+2Ch],edi
+00672659: mov edi,dword ptr [esp+0Ch]
+0067265D: mov dword ptr [esi+28h],ecx
+00672660: push edi
+00672661: mov ecx,esi
+00672663: mov byte ptr [esi+30h],dl
+00672666: call 00670100
+0067266B: test al,al
+0067266D: jne 00672683
+0067266F: push edi
+00672670: mov ecx,esi
+00672672: call 0066FDA0
+00672677: test al,al
+00672679: jne 00672683
+0067267B: push edi
+0067267C: mov ecx,esi
+0067267E: call 0066AFD0
+00672683: pop edi
+00672684: pop esi
+00672685: ret 4

@@ -335,6 +335,7 @@ void CInterestingEvents::InvalidateNonVisibleEvents() {
 
         event.time = 0;
         CEntity::SafeCleanUpRef(event.entity);
+        event.entity = nullptr; // 0x602A3B: clear the slot after unlinking its reference.
         if (m_nInterestingEvent == i) {
             m_nInterestingEvent = -1;
         }

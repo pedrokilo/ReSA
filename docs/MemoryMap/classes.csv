@@ -137,7 +137,7 @@ CDamageManager,class,27,27,0,27,27,0,,,source/game_sa/DamageManager.h:121,catalo
 CDarkel,class,19,19,0,19,19,0,,,source/game_sa/Darkel.h:21,catalogue_class_or_group
 CData,class,2,2,0,2,2,0,,,source/game_sa/Text/Data.h:4,catalogue_class_or_group
 CDebug,class,1,1,0,1,1,0,,,source/game_sa/Debug.h:6,catalogue_class_or_group
-CDecision,class,3,3,0,2,2,0,,,source/game_sa/DecisionMakers/Decision.h:29,catalogue_class_or_group
+CDecision,class,3,3,0,3,3,0,,,source/game_sa/DecisionMakers/Decision.h:29,catalogue_class_or_group
 CDecisionMakerTypesFileLoader,class,7,7,0,7,7,0,,,source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h:7,catalogue_class_or_group
 CDirectory,class,10,10,0,10,10,0,,,source/game_sa/Directory.h:13,catalogue_class_or_group
 CDoor,class,6,6,0,6,6,0,,,source/game_sa/Door.h:45,catalogue_class_or_group
@@ -222,7 +222,7 @@ CFileMgr,class,17,17,0,17,17,0,,,source/game_sa/FileMgr.h:17,catalogue_class_or_
 CFire,class,5,5,0,5,5,0,,,source/game_sa/Fire.h:13,catalogue_class_or_group
 CFireManager,class,24,24,0,24,24,0,,,source/game_sa/FireManager.h:15,catalogue_class_or_group
 CFont,class,36,36,0,4,4,0,,,source/game_sa/Font.h:86,catalogue_class_or_group
-CFormation,class,9,9,8,8,8,0,,,source/game_sa/Formation.h:17,catalogue_class_or_group
+CFormation,class,9,9,8,9,9,0,,,source/game_sa/Formation.h:17,catalogue_class_or_group
 CGame,class,22,22,0,22,22,0,,,source/game_sa/Game.h:15,catalogue_class_or_group
 CGameLogic,class,27,27,0,27,27,0,,,source/game_sa/GameLogic.h:38,catalogue_class_or_group
 CGamma,class,2,2,0,2,2,0,,,source/game_sa/Gamma.h:3,catalogue_class_or_group
@@ -246,7 +246,7 @@ CInformFriendsEventQueue,class,4,4,0,4,4,0,,,source/game_sa/InformFriendsEventQu
 CInformGroupEvent,class,3,3,0,3,3,0,,,source/game_sa/InformGroupEvent.h:8,catalogue_class_or_group
 CInformGroupEventQueue,class,4,4,0,4,4,0,,,source/game_sa/InformGroupEventQueue.h:8,catalogue_class_or_group
 CIniFile,class,1,1,0,1,1,0,,,source/game_sa/IniFile.h:9,catalogue_class_or_group
-CInterestingEvents,class,7,7,5,5,5,0,,,source/game_sa/InterestingEvents.h:13,catalogue_class_or_group
+CInterestingEvents,class,7,7,5,6,6,0,,,source/game_sa/InterestingEvents.h:13,catalogue_class_or_group
 CIplDefPool,class,1,1,0,1,1,0,,public CPool<IplDef>,source/game_sa/Pools/IplDefPool.h:32,catalogue_class_or_group
 CIplStore,class,34,34,0,34,34,0,,,source/game_sa/IplStore.h:16,catalogue_class_or_group
 CKeyArray,class,4,4,0,4,4,0,,,source/game_sa/Text/KeyArray.h:9,catalogue_class_or_group
@@ -292,7 +292,7 @@ CPedAttractorManager,class,14,14,0,14,14,0,,,source/game_sa/PedAttractorManager.
 CPedAttractorPedPlacer,class,1,1,0,1,1,0,,,source/game_sa/Attractors/PedAttractorPedPlacer.h:9,catalogue_class_or_group
 CPedAttractorPool,class,1,1,0,1,1,0,,"public CPool<CPedAttractor, CPedAttractorPoolSlot>",source/game_sa/Pools/PedAttractorPool.h:36,catalogue_class_or_group
 CPedClothesDesc,class,7,7,0,7,7,0,,,source/game_sa/PedClothesDesc.h:13,catalogue_class_or_group
-CPedDamageResponseCalculator,class,6,6,4,4,4,0,,,source/game_sa/PedDamageResponseCalculator.h:9,catalogue_class_or_group
+CPedDamageResponseCalculator,class,6,6,4,5,5,0,,,source/game_sa/PedDamageResponseCalculator.h:9,catalogue_class_or_group
 CPedGeometryAnalyser,class,38,38,29,29,29,0,,,source/game_sa/PedGeometryAnalyser.h:24,catalogue_class_or_group
 CPedGroup,class,12,12,0,12,12,0,,,source/game_sa/PedGroup.h:16,catalogue_class_or_group
 CPedGroupDefaultTaskAllocatorChat,class,2,2,0,2,2,0,0x0086C774,public CPedGroupDefaultTaskAllocator,source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h:33,catalogue_class_or_group
@@ -444,16 +444,16 @@ CTaskComplexFleeEntity,class,8,8,0,8,8,0,0x0086F708,public CTaskComplex,source/g
 CTaskComplexFleePoint,class,11,11,0,11,11,0,0x0086F6CC,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexFleePoint.h:20,catalogue_class_or_group
 CTaskComplexFleeShooting,class,8,8,0,8,8,0,0x0086F7C4,public CTaskComplexSmartFleeEntity,source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.h:11,catalogue_class_or_group
 CTaskComplexFollowLeaderAnyMeans,class,8,8,0,8,8,0,0x00870C68,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.h:11,catalogue_class_or_group
-CTaskComplexFollowLeaderInFormation,class,7,7,6,6,6,0,0x00870C3C,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h:9,catalogue_class_or_group
+CTaskComplexFollowLeaderInFormation,class,7,7,6,7,7,0,0x00870C3C,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h:9,catalogue_class_or_group
 CTaskComplexFollowNodeRoute,class,19,19,0,19,19,0,0x008700A8,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.h:8,catalogue_class_or_group
 CTaskComplexFollowPedFootsteps,class,1,1,0,1,1,0,0x00870CC0,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.h:7,catalogue_class_or_group
 CTaskComplexFollowPointRoute,class,13,13,0,13,13,0,0x00870078,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.h:12,catalogue_class_or_group
 CTaskComplexGangFollower,class,8,8,7,8,8,0,0x0086F938,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h:8,catalogue_class_or_group
-CTaskComplexGangJoinRespond,class,7,7,5,5,5,0,0x0086FB5C,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h:7,catalogue_class_or_group
+CTaskComplexGangJoinRespond,class,7,7,5,7,7,0,0x0086FB5C,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h:7,catalogue_class_or_group
 CTaskComplexGangLeader,class,13,13,0,13,13,0,0x0086F8FC,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.h:11,catalogue_class_or_group
 CTaskComplexGetOnBoatSeat,class,8,8,0,8,8,0,0x0086F044,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGetOnBoatSeat.h:6,catalogue_class_or_group
 CTaskComplexGetUpAndStandStill,class,5,5,0,5,5,0,0x00870404,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h:5,catalogue_class_or_group
-CTaskComplexGoToAttractor,class,5,5,0,3,3,0,0x0086FF3C,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h:5,catalogue_class_or_group
+CTaskComplexGoToAttractor,class,5,5,0,5,5,0,0x0086FF3C,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h:5,catalogue_class_or_group
 CTaskComplexGoToBoatSteeringWheel,class,6,6,0,6,6,0,0x0086F018,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.h:6,catalogue_class_or_group
 CTaskComplexGoToCarDoorAndStandStill,class,11,11,0,11,11,0,0x0086EC4C,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h:8,catalogue_class_or_group
 CTaskComplexGoToPointAiming,class,8,8,0,8,8,0,0x0086FE00,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h:6,catalogue_class_or_group
@@ -464,7 +464,7 @@ CTaskComplexGoToPointAnyMeans,class,7,7,0,7,7,0,0x0086FF68,public CTaskComplex,s
 CTaskComplexGoToPointShooting,class,3,3,0,3,3,0,0x0086FE2C,public CTaskComplexGoToPointAiming,source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.h:7,catalogue_class_or_group
 CTaskComplexGotoDoorAndOpen,class,7,7,0,7,7,0,0x0086FFC0,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.h:9,catalogue_class_or_group
 CTaskComplexHitByGunResponse,class,8,8,0,8,8,0,0x0086E06C,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexHitByGunResponse.h:10,catalogue_class_or_group
-CTaskComplexHitPedWithCar,class,10,10,8,8,8,0,0x0086F294,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h:8,catalogue_class_or_group
+CTaskComplexHitPedWithCar,class,10,10,8,10,10,0,0x0086F294,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h:8,catalogue_class_or_group
 CTaskComplexHitResponse,class,7,7,0,7,7,0,0x0086E040,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexHitResponse.h:10,catalogue_class_or_group
 CTaskComplexInAirAndLand,class,4,4,0,4,4,0,0x008704AC,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexInAirAndLand.h:5,catalogue_class_or_group
 CTaskComplexInWater,class,7,7,0,7,7,0,0x0086E4EC,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h:8,catalogue_class_or_group
@@ -472,7 +472,7 @@ CTaskComplexInvestigateDeadPed,class,9,9,0,9,9,0,0x00870D3C,public CTaskComplex,
 CTaskComplexInvestigateDisturbance,class,8,8,0,8,8,0,0x00870010,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDisturbance.h:11,catalogue_class_or_group
 CTaskComplexJump,class,6,6,0,6,6,0,0x00870570,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexJump.h:11,catalogue_class_or_group
 CTaskComplexKillCriminal,class,11,11,0,2,2,0,0x00870A00,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.h:13,catalogue_class_or_group
-CTaskComplexKillPedFromBoat,class,7,7,5,5,5,0,0x0086DA98,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h:8,catalogue_class_or_group
+CTaskComplexKillPedFromBoat,class,7,7,5,7,7,0,0x0086DA98,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h:8,catalogue_class_or_group
 CTaskComplexKillPedGroupOnFoot,class,9,9,0,9,9,0,0x0086DA48,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.h:12,catalogue_class_or_group
 CTaskComplexKillPedOnFoot,class,1,1,0,1,1,0,0x0086D894,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h:13,catalogue_class_or_group
 CTaskComplexKillPedOnFootArmed,class,11,11,0,2,2,0,0x0086D918,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h:11,catalogue_class_or_group
@@ -499,7 +499,7 @@ CTaskComplexPartnerShove,class,1,1,0,1,1,0,0x00870800,public CTaskComplexPartner
 CTaskComplexPassObject,class,9,9,0,9,9,0,0x0086FB18,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h:12,catalogue_class_or_group
 CTaskComplexPlayHandSignalAnim,class,9,9,6,6,6,0,0x0086D5DC,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h:14,catalogue_class_or_group
 CTaskComplexPolicePursuit,class,13,13,0,13,13,0,0x008709D4,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h:9,catalogue_class_or_group
-CTaskComplexProstituteSolicit,class,11,11,0,4,4,0,0x0086FB88,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h:12,catalogue_class_or_group
+CTaskComplexProstituteSolicit,class,11,11,0,6,6,0,0x0086FB88,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h:12,catalogue_class_or_group
 CTaskComplexReactToGunAimedAt,class,8,8,0,8,8,0,0x00870D78,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.h:10,catalogue_class_or_group
 CTaskComplexRoadRage,class,9,9,0,9,9,0,0x0086D9F0,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h:9,catalogue_class_or_group
 CTaskComplexScreamInCarThenLeave,class,9,9,0,9,9,0,0x0086E8D8,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h:17,catalogue_class_or_group
@@ -514,11 +514,11 @@ CTaskComplexShuffleSeats,class,10,10,0,10,10,0,0x0086EA40,public CTaskComplex,so
 CTaskComplexSignalAtPed,class,7,7,0,7,7,0,0x0086FA8C,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h:7,catalogue_class_or_group
 CTaskComplexSitDownThenIdleThenStandUp,class,9,9,0,9,9,0,0x0086DF60,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h:8,catalogue_class_or_group
 CTaskComplexSmartFleeEntity,class,7,7,0,7,7,0,0x0086F784,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h:9,catalogue_class_or_group
-CTaskComplexSmartFleePoint,class,12,12,10,10,10,0,0x0086F744,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h:12,catalogue_class_or_group
+CTaskComplexSmartFleePoint,class,12,12,10,12,12,0,0x0086F744,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h:12,catalogue_class_or_group
 CTaskComplexStareAtPed,class,7,7,0,7,7,0,0x0086FA2C,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h:10,catalogue_class_or_group
 CTaskComplexStealCar,class,8,8,0,8,8,0,0x0086E7FC,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h:11,catalogue_class_or_group
 CTaskComplexStuckInAir,class,6,6,0,6,6,0,0x00870608,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h:5,catalogue_class_or_group
-CTaskComplexSunbathe,class,8,8,6,6,6,0,0x0086E0AC,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h:24,catalogue_class_or_group
+CTaskComplexSunbathe,class,8,8,6,8,8,0,0x0086E0AC,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h:24,catalogue_class_or_group
 CTaskComplexTrackEntity,class,11,11,0,11,11,0,0x0086F998,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h:8,catalogue_class_or_group
 CTaskComplexTreatAccident,class,7,7,0,7,7,0,0x0086F4EC,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.h:6,catalogue_class_or_group
 CTaskComplexTurnToFaceEntityOrCoord,class,9,9,0,9,9,0,0x0086FF94,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.h:9,catalogue_class_or_group
@@ -553,7 +553,7 @@ CTaskComplexWanderFlee,class,6,6,0,6,6,0,0x0086F690,public CTaskComplexWander,so
 CTaskComplexWanderGang,class,4,4,0,4,4,0,0x008700D4,public CTaskComplexWander,source/game_sa/Tasks/TaskTypes/TaskComplexWanderGang.h:6,catalogue_class_or_group
 CTaskComplexWanderMedic,class,4,4,0,4,4,0,0x0086F48C,public CTaskComplexWander,source/game_sa/Tasks/TaskTypes/TaskComplexWanderMedic.h:6,catalogue_class_or_group
 CTaskComplexWanderProstitute,class,5,5,0,5,5,0,0x00870148,public CTaskComplexWanderStandard,source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h:5,catalogue_class_or_group
-CTaskComplexWanderStandard,class,9,9,6,6,6,0,0x0085A200,public CTaskComplexWander,source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h:7,catalogue_class_or_group
+CTaskComplexWanderStandard,class,9,9,6,9,9,0,0x0085A200,public CTaskComplexWander,source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h:7,catalogue_class_or_group
 CTaskGangHasslePed,class,5,5,0,3,3,0,0x0086FA00,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h:7,catalogue_class_or_group
 CTaskGangHassleVehicle,class,8,8,6,6,6,0,0x0086F9D4,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h:11,catalogue_class_or_group
 CTaskGoToVehicleAndLean,class,7,7,5,5,5,0,0x0086FAC8,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h:6,catalogue_class_or_group
@@ -615,9 +615,9 @@ CTaskSimpleEvasiveDive,class,8,8,0,8,8,0,0x0086F244,public CTaskSimple,source/ga
 CTaskSimpleEvasiveStep,class,8,8,0,8,8,0,0x0086F1F4,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.h:6,catalogue_class_or_group
 CTaskSimpleFacial,class,5,5,0,5,5,0,0x00870AB8,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h:32,catalogue_class_or_group
 CTaskSimpleFall,class,6,6,0,6,6,0,0x00870430,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h:6,catalogue_class_or_group
-CTaskSimpleFightingControl,class,7,7,0,1,1,0,0x0086D700,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h:8,catalogue_class_or_group
+CTaskSimpleFightingControl,class,7,7,0,3,3,0,0x0086D700,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h:8,catalogue_class_or_group
 CTaskSimpleFinishBrain,class,2,2,0,2,2,0,0x00859D20,public CTaskSimpleNone,source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.h:5,catalogue_class_or_group
-CTaskSimpleGangDriveBy,class,4,4,0,3,3,0,0x0086D944,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h:31,catalogue_class_or_group
+CTaskSimpleGangDriveBy,class,4,4,0,4,4,0,0x0086D944,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h:31,catalogue_class_or_group
 CTaskSimpleGetUp,class,5,5,0,5,5,0,0x008703E0,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.h:5,catalogue_class_or_group
 CTaskSimpleGiveCPR,class,6,6,0,6,6,0,0x0086F4C8,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.h:6,catalogue_class_or_group
 CTaskSimpleGoTo,class,4,4,0,4,4,0,0x0086FD1C,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h:7,catalogue_class_or_group

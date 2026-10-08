@@ -1,0 +1,3 @@
+FALLO: TaskCtorDtor preflight1536
+Probe failure; preserve full log
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-task-ctor-dtor\20261008-115720-657111

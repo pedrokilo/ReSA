@@ -1,0 +1,84 @@
+// CTaskComplexSunbathe::Destructor @ 0x00632050 [0x632050..0x6320e2]
+// Ghidra 12.1.4 vÃ­a REA, gta-sa.exe 1.0 US (sha256 72ae59e4â€¦). PseudocÃ³digo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00632050(void)
+
+{
+  undefined4 *in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  puStack_8 = &LAB_00840618;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  *in_ECX = &PTR_FUN_0086e0ac;
+  local_4 = 0;
+  if (in_ECX[0xd] != 0) {
+    FUN_00571a00(in_ECX + 0xd);
+    *(undefined1 *)(in_ECX[0xd] + 0x13c) = 3;
+  }
+  if (*(char *)((int)in_ECX + 0xe) != '\0') {
+    FUN_004d3fd0(in_ECX[0xb]);
+    *(undefined1 *)((int)in_ECX + 0xe) = 0;
+  }
+  if (*(char *)((int)in_ECX + 0xf) != '\0') {
+    FUN_004d3fd0(in_ECX[0xc]);
+    *(undefined1 *)((int)in_ECX + 0xf) = 0;
+  }
+  local_4 = 0xffffffff;
+  FUN_0061a3d0();
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00632050: push 0FFFFFFFFh
+00632052: push 840618h
+00632057: mov eax,dword ptr fs:[00000000h]
+0063205D: push eax
+0063205E: mov dword ptr fs:[00000000h],esp
+ 00
+00632065: push ecx
+00632066: push esi
+00632067: mov esi,ecx
+00632069: push edi
+0063206A: mov dword ptr [esp+8],esi
+0063206E: mov dword ptr [esi],86E0ACh
+00632074: mov ecx,dword ptr [esi+34h]
+00632077: test ecx,ecx
+00632079: lea edi,[esi+34h]
+0063207C: mov dword ptr [esp+14h],0
+00632084: je 00632095
+00632086: push edi
+00632087: call 00571A00
+0063208C: mov eax,dword ptr [edi]
+0063208E: mov byte ptr [eax+0000013Ch],3
+ 03
+00632095: mov al,byte ptr [esi+0Eh]
+00632098: test al,al
+0063209A: je 006320AC
+0063209C: mov ecx,dword ptr [esi+2Ch]
+0063209F: push ecx
+006320A0: call 004D3FD0
+006320A5: add esp,4
+006320A8: mov byte ptr [esi+0Eh],0
+006320AC: mov al,byte ptr [esi+0Fh]
+006320AF: test al,al
+006320B1: je 006320C3
+006320B3: mov edx,dword ptr [esi+30h]
+006320B6: push edx
+006320B7: call 004D3FD0
+006320BC: add esp,4
+006320BF: mov byte ptr [esi+0Fh],0
+006320C3: mov ecx,esi
+006320C5: mov dword ptr [esp+14h],0FFFFFFFFh
+006320CD: call 0061A3D0
+006320D2: mov ecx,dword ptr [esp+0Ch]
+006320D6: pop edi
+006320D7: pop esi
+006320D8: mov dword ptr fs:[00000000h],ecx
+ 00
+006320DF: add esp,10h
+006320E2: ret

@@ -1,0 +1,63 @@
+{
+  "passed": false,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "0b22f64250904b07a4422c297b7f9c8cd4f01a13791500c2a75f24b4b586afbd",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "error": "GTA termino antes de completar (0).",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "cbf6d72fd35d49d4a148a8f7a7b200a8833d85af",
+    "frozen_inputs": {
+      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/RequestedParallelTasks/build_probe.py": "eada4607f1591d0c2dfd4de605ab45281df4a9b642fa05f76a4f839d2de7cedf",
+      "reversing/RequestedParallelTasks/Frontend.hpp": "65f378fa95e1ce74a3324999b17964d674e4b5a111edfc725dbd47ac94d9b6d4",
+      "reversing/RequestedParallelTasks/run_local.py": "45238fb90c2ce5b185259b42d4848eee71ba2926b282384b63eb511e7bcbfa72",
+      "reversing/RequestedParallelTasks/TaskLifetimeComparison.hpp": "bc9766c52f56efc73d4bd5269ce46ca94ac408b84c90d6350c19be746ef5e1d6",
+      "reversing/RequestedParallelTasks/TaskLifetimeExpanded/Expanded.hpp": "86b6b5ac7afc67a99c25cddfcce190af07a43faf24169c6c9753ecc9f6a7d2b8",
+      "reversing/runtime_runner.py": "e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c",
+      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "62e147287b10f34e98f7cc21cd3974d22200c2d3eb618b2ca317763cc3ad6626",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "d7361f1c94baf194fd2e216a6c20ff575827558f2848fe85da1c58987c6e3b5b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "02795115a8baa801bb6932732b6726fc68bd315556860d1ab17e26913c4dcf25",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "abdcc77c0c65af0e4cf521f1a4a36454ebd71a1236e060ad6d73eac468a89a2f",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h": "f6035d323cf5a8dd2569053120dbe2c9462bd4cabedaeb06b581a9256f76f864"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "frontend_entry": "FrontendIdle",
+    "expected_pairs": {
+      "lifetime": 896,
+      "expanded": 192
+    },
+    "fixture_scope": "isolated task lifetime contracts; no FindPlayerPed, no CGame::Process hook, no automatic save load",
+    "compiler_options": {
+      "configuration": "Debug",
+      "_CL_": "/MP6",
+      "parallel": 1
+    },
+    "compiled_instruments": {
+      "source/app/app_game.cpp": "2f7a7d9537fd40cdd7645a41ac33a193b45abeb17b31ebc695b4c0421ea01cc1",
+      "source/dllmain.cpp": "1aa0f2ba1d7a807ca8b83e9ed8378aedc6a652308afd60f8f50cfb428682853d"
+    },
+    "asi": "0b22f64250904b07a4422c297b7f9c8cd4f01a13791500c2a75f24b4b586afbd",
+    "pdb": "0ebbc8637585393aeb538948850bec75a603e35b1ee1c0ff6a60872b4fef1002"
+  },
+  "runner_sha256": "45238fb90c2ce5b185259b42d4848eee71ba2926b282384b63eb511e7bcbfa72"
+}

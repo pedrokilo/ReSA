@@ -26,6 +26,11 @@ END GENERATED HOOK STATUS */
 
 #include "Task.h"
 
+// Keep the base destruction step explicit: the executable installs CTask's
+// vtable after a complex task has released its owned subtask.
+CTask::~CTask() {
+}
+
 // 0x61A5A0
 void* CTask::operator new(size_t size) {
     return GetTaskPool()->New();

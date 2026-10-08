@@ -1,0 +1,3 @@
+APROBADO: Additional lifetime preflight672
+Comparacion automatizada completada.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-additional-lifetime\20261008-124111-185817
