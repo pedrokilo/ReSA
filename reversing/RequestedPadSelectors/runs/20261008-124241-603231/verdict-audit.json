@@ -1,0 +1,20 @@
+{
+  "passed": false,
+  "invalidates_verdict_only": true,
+  "reason": "Shared runner overwrote analyzer explicit passed=false with passed=true; 590 original/candidate differences prohibit approval. Natural exit and restoration diagnostics remain preserved.",
+  "original_summary_path": "reversing/RequestedPadSelectors/runs/20261008-124241-603231/summary.json",
+  "original_summary_sha256": "34acc26053f6861bd6254ccea5dfbba25f6ff8b7576bc742d7a764b56be753fd",
+  "original_enriched_summary_path": "reversing/RequestedPadSelectors/runs/20261008-124241-603231/enriched-summary.json",
+  "original_enriched_summary_sha256": "536dfd194278414b946cb87c6f0793f68795b9b1479f0a2fc2225ad5936044e2",
+  "comparisons": 201552,
+  "differences": 590,
+  "natural_exit": true,
+  "exit_code": 0,
+  "archived_runner_sha256": "e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c",
+  "fixed_runner_sha256": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+  "registry_sha256": "40cd785cf50e7119b689b70acfaf1e4a75a6cf500a4776472c2bd342678259f3",
+  "today_requested_registered_functions": 25,
+  "today_requested_unique_summaries_checked": 9,
+  "registered_evidence_with_nonzero_differences_or_mismatches": [],
+  "tests": "4 unit tests passed: explicit false, true, absent legacy verdict, nonboolean rejected. No GTA launched."
+}

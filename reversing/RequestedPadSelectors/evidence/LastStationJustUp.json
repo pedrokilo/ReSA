@@ -1,0 +1,46 @@
+{
+  "procedure": {
+    "address": "0x5405e0",
+    "name": "FUN_005405e0",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x5405e0",
+          "end": "0x540603"
+        }
+      ],
+      "total_bytes": 36,
+      "span_bytes": 36,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_005405e0()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_005405e0(void)\r\n\r\n{\r\n  uint in_EAX;\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) != 0) {\r\n    return in_EAX & 0xffffff00;\r\n  }\r\n  if ((*(short *)(in_ECX + 0x12) == 0) && (*(short *)(in_ECX + 0x42) != 0)) {\r\n    return 1;\r\n  }\r\n  return 0;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x5405e0: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x5405e8: JZ 0x005405ed",
+    "0x5405ea: XOR AL, AL",
+    "0x5405ec: RET",
+    "0x5405ed: CMP word ptr [ECX + 0x12], 0x0",
+    "0x5405f2: JNZ 0x00540601",
+    "0x5405f4: CMP word ptr [ECX + 0x42], 0x0",
+    "0x5405f9: JZ 0x00540601",
+    "0x5405fb: MOV EAX, 0x1",
+    "0x540600: RET",
+    "0x540601: XOR EAX, EAX",
+    "0x540603: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

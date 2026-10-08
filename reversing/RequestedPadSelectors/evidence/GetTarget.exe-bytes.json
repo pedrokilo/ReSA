@@ -1,0 +1,34 @@
+{
+  "exe": "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "catalogue_address": "0x00540670",
+  "body_ranges_observed_by_rea": true,
+  "bounded_window_only": false,
+  "ranges": [
+    {
+      "start": "0x540670",
+      "end": "0x5406a3",
+      "bytes": "6683b90e0100000075270fb7810a01000085c07c1c83f8027e0e83f803751266837908000f95c0c36683790c000f95c0c332c0c3",
+      "sha256": "b658314b9df4f07489125bd03d1daca35f9884f01da78a9d2dd0dca6057b5d8f",
+      "assembly": [
+        "00540670: 6683b90e01000000 cmp word ptr [ecx + 0x10e], 0",
+        "00540678: 7527 jne 0x5406a1",
+        "0054067A: 0fb7810a010000 movzx eax, word ptr [ecx + 0x10a]",
+        "00540681: 85c0 test eax, eax",
+        "00540683: 7c1c jl 0x5406a1",
+        "00540685: 83f802 cmp eax, 2",
+        "00540688: 7e0e jle 0x540698",
+        "0054068A: 83f803 cmp eax, 3",
+        "0054068D: 7512 jne 0x5406a1",
+        "0054068F: 6683790800 cmp word ptr [ecx + 8], 0",
+        "00540694: 0f95c0 setne al",
+        "00540697: c3 ret ",
+        "00540698: 6683790c00 cmp word ptr [ecx + 0xc], 0",
+        "0054069D: 0f95c0 setne al",
+        "005406A0: c3 ret ",
+        "005406A1: 32c0 xor al, al",
+        "005406A3: c3 ret "
+      ]
+    }
+  ]
+}

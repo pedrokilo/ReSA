@@ -1,0 +1,58 @@
+{
+  "procedure": {
+    "address": "0x540a70",
+    "name": "FUN_00540a70",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540a70",
+          "end": "0x540ac2"
+        }
+      ],
+      "total_bytes": 83,
+      "span_bytes": 83,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540a70()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_00540a70(void)\r\n\r\n{\r\n  uint in_EAX;\r\n  int in_ECX;\r\n  bool bVar1;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) == 0) {\r\n    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);\r\n    switch(in_EAX) {\r\n    case 0:\r\n    case 1:\r\n      if (*(short *)(in_ECX + 8) == 0) {\r\n        return 0;\r\n      }\r\n      bVar1 = *(short *)(in_ECX + 0x38) == 0;\r\n      break;\r\n    case 2:\r\n      if (*(short *)(in_ECX + 0x1e) == 0) {\r\n        return 0;\r\n      }\r\n      bVar1 = *(short *)(in_ECX + 0x4e) == 0;\r\n      break;\r\n    case 3:\r\n      if (*(short *)(in_ECX + 0x22) == 0) {\r\n        return 0;\r\n      }\r\n      bVar1 = *(short *)(in_ECX + 0x52) == 0;\r\n      break;\r\n    default:\r\n      goto switchD_00540a86_default;\r\n    }\r\n    if (!bVar1) {\r\n      return 0;\r\n    }\r\n    return 1;\r\n  }\r\nswitchD_00540a86_default:\r\n  return in_EAX & 0xffffff00;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540a70: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x540a78: JNZ 0x00540ac0",
+    "0x540a7a: MOVZX EAX, word ptr [ECX + 0x10a]",
+    "0x540a81: CMP EAX, 0x3",
+    "0x540a84: JA 0x00540ac0",
+    "0x540a86: JMP dword ptr [EAX*0x4 + 0x540ac4]",
+    "0x540a8d: CMP word ptr [ECX + 0x8], 0x0",
+    "0x540a92: JZ 0x00540abd",
+    "0x540a94: CMP word ptr [ECX + 0x38], 0x0",
+    "0x540a99: JMP 0x00540ab5",
+    "0x540a9b: CMP word ptr [ECX + 0x1e], 0x0",
+    "0x540aa0: JZ 0x00540abd",
+    "0x540aa2: CMP word ptr [ECX + 0x4e], 0x0",
+    "0x540aa7: JMP 0x00540ab5",
+    "0x540aa9: CMP word ptr [ECX + 0x22], 0x0",
+    "0x540aae: JZ 0x00540abd",
+    "0x540ab0: CMP word ptr [ECX + 0x52], 0x0",
+    "0x540ab5: JNZ 0x00540abd",
+    "0x540ab7: MOV EAX, 0x1",
+    "0x540abc: RET",
+    "0x540abd: XOR EAX, EAX",
+    "0x540abf: RET",
+    "0x540ac0: XOR AL, AL",
+    "0x540ac2: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

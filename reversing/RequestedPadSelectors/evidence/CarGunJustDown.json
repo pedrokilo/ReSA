@@ -1,0 +1,88 @@
+{
+  "procedure": {
+    "address": "0x53ffe0",
+    "name": "FUN_0053ffe0",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x53ffe0",
+          "end": "0x54003b"
+        }
+      ],
+      "total_bytes": 92,
+      "span_bytes": 92,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_0053ffe0()",
+    "locals": []
+  },
+  "pseudocode": "\r\nundefined4 FUN_0053ffe0(void)\r\n\r\n{\r\n  char cVar1;\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) == 0) {\r\n    if (*(ushort *)(in_ECX + 0x10a) < 3) {\r\n      if ((*(short *)(in_ECX + 0x22) != 0) && (*(short *)(in_ECX + 0x52) == 0)) {\r\n        return 1;\r\n      }\r\n      if ((*(char *)(in_ECX + 0x11c) == '\\0') && (cVar1 = FUN_0053edc0(), cVar1 != '\\0')) {\r\n        return 2;\r\n      }\r\n    }\r\n    else if (((*(ushort *)(in_ECX + 0x10a) == 3) && (*(short *)(in_ECX + 0xc) != 0)) &&\r\n            (*(short *)(in_ECX + 0x3c) == 0)) {\r\n      return 1;\r\n    }\r\n  }\r\n  return 0;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x53ffe0: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x53ffe8: JNZ 0x00540038",
+    "0x53ffea: MOVZX EAX, word ptr [ECX + 0x10a]",
+    "0x53fff1: TEST EAX, EAX",
+    "0x53fff3: JL 0x00540038",
+    "0x53fff5: CMP EAX, 0x2",
+    "0x53fff8: JLE 0x00540012",
+    "0x53fffa: CMP EAX, 0x3",
+    "0x53fffd: JNZ 0x00540038",
+    "0x53ffff: CMP word ptr [ECX + 0xc], 0x0",
+    "0x540004: JZ 0x00540038",
+    "0x540006: CMP word ptr [ECX + 0x3c], 0x0",
+    "0x54000b: JNZ 0x00540038",
+    "0x54000d: MOV AX, 0x1",
+    "0x540011: RET",
+    "0x540012: CMP word ptr [ECX + 0x22], 0x0",
+    "0x540017: JZ 0x00540020",
+    "0x540019: CMP word ptr [ECX + 0x52], 0x0",
+    "0x54001e: JZ 0x0054000d",
+    "0x540020: MOV AL, byte ptr [ECX + 0x11c]",
+    "0x540026: TEST AL, AL",
+    "0x540028: JNZ 0x00540038",
+    "0x54002a: CALL 0x0053edc0",
+    "0x54002f: TEST AL, AL",
+    "0x540031: JZ 0x00540038",
+    "0x540033: MOV AX, 0x2",
+    "0x540037: RET",
+    "0x540038: XOR AX, AX",
+    "0x54003b: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": [
+    {
+      "address": "0x53edc0",
+      "name": "FUN_0053edc0",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x53edc0",
+            "end": "0x53edd6"
+          }
+        ],
+        "total_bytes": 23,
+        "span_bytes": 23,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    }
+  ]
+}

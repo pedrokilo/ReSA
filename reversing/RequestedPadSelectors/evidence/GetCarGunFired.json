@@ -1,0 +1,58 @@
+{
+  "procedure": {
+    "address": "0x53ff90",
+    "name": "FUN_0053ff90",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x53ff90",
+          "end": "0x53ffdb"
+        }
+      ],
+      "total_bytes": 76,
+      "span_bytes": 76,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_0053ff90()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_0053ff90(void)\r\n\r\n{\r\n  uint in_EAX;\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) == 0) {\r\n    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);\r\n    if (in_EAX < 3) {\r\n      if (*(short *)(in_ECX + 0x22) != 0) {\r\n        return 1;\r\n      }\r\n      in_EAX = 0;\r\n      if ((*(char *)(in_ECX + 0x11c) == '\\0') && (*(short *)(in_ECX + 8) != 0)) {\r\n        return 2;\r\n      }\r\n    }\r\n    else if ((in_EAX == 3) && (*(short *)(in_ECX + 0xc) != 0)) {\r\n      return 1;\r\n    }\r\n  }\r\n  return in_EAX & 0xffff0000;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x53ff90: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x53ff98: JNZ 0x0053ffd8",
+    "0x53ff9a: MOVZX EAX, word ptr [ECX + 0x10a]",
+    "0x53ffa1: TEST EAX, EAX",
+    "0x53ffa3: JL 0x0053ffd8",
+    "0x53ffa5: CMP EAX, 0x2",
+    "0x53ffa8: JLE 0x0053ffbb",
+    "0x53ffaa: CMP EAX, 0x3",
+    "0x53ffad: JNZ 0x0053ffd8",
+    "0x53ffaf: CMP word ptr [ECX + 0xc], 0x0",
+    "0x53ffb4: JZ 0x0053ffd8",
+    "0x53ffb6: MOV AX, 0x1",
+    "0x53ffba: RET",
+    "0x53ffbb: CMP word ptr [ECX + 0x22], 0x0",
+    "0x53ffc0: JNZ 0x0053ffb6",
+    "0x53ffc2: MOV AL, byte ptr [ECX + 0x11c]",
+    "0x53ffc8: TEST AL, AL",
+    "0x53ffca: JNZ 0x0053ffd8",
+    "0x53ffcc: CMP word ptr [ECX + 0x8], 0x0",
+    "0x53ffd1: JZ 0x0053ffd8",
+    "0x53ffd3: MOV AX, 0x2",
+    "0x53ffd7: RET",
+    "0x53ffd8: XOR AX, AX",
+    "0x53ffdb: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

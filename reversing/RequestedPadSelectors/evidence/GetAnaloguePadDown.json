@@ -1,0 +1,45 @@
+{
+  "procedure": {
+    "address": "0x540980",
+    "name": "FUN_00540980",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540980",
+          "end": "0x5409a7"
+        }
+      ],
+      "total_bytes": 40,
+      "span_bytes": 40,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540980()",
+    "locals": []
+  },
+  "pseudocode": "\r\nshort FUN_00540980(void)\r\n\r\n{\r\n  byte bVar1;\r\n  \r\n  bVar1 = (byte)((ushort)DAT_00b73458._2_2_ >> 8);\r\n  if ((0xf < DAT_00b73458._2_2_) && (DAT_00b736f4 < 6)) {\r\n    DAT_00b736f4 = DAT_00b73458._2_2_;\r\n    return CONCAT11(bVar1,1);\r\n  }\r\n  DAT_00b736f4 = DAT_00b73458._2_2_;\r\n  return (ushort)bVar1 << 8;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540980: MOV AX, [0x00b7345a]",
+    "0x540986: CMP AX, 0xf",
+    "0x54098a: JLE 0x0054099f",
+    "0x54098c: CMP word ptr [0x00b736f4], 0x5",
+    "0x540994: JG 0x0054099f",
+    "0x540996: MOV [0x00b736f4], AX",
+    "0x54099c: MOV AL, 0x1",
+    "0x54099e: RET",
+    "0x54099f: MOV [0x00b736f4], AX",
+    "0x5409a5: XOR AL, AL",
+    "0x5409a7: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

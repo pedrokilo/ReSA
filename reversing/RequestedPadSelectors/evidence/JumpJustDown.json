@@ -1,0 +1,49 @@
+{
+  "procedure": {
+    "address": "0x540770",
+    "name": "FUN_00540770",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540770",
+          "end": "0x54079d"
+        }
+      ],
+      "total_bytes": 46,
+      "span_bytes": 46,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540770()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_00540770(void)\r\n\r\n{\r\n  uint in_EAX;\r\n  int in_ECX;\r\n  \r\n  if ((*(short *)(in_ECX + 0x10e) != 0) ||\r\n     (in_EAX = CONCAT31((int3)(in_EAX >> 8),*(char *)(in_ECX + 0x11e)),\r\n     *(char *)(in_ECX + 0x11e) != '\\0')) {\r\n    return in_EAX & 0xffffff00;\r\n  }\r\n  if ((*(short *)(in_ECX + 0x1c) != 0) && (*(short *)(in_ECX + 0x4c) == 0)) {\r\n    return 1;\r\n  }\r\n  return 0;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540770: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x540778: JNZ 0x00540784",
+    "0x54077a: MOV AL, byte ptr [ECX + 0x11e]",
+    "0x540780: TEST AL, AL",
+    "0x540782: JZ 0x00540787",
+    "0x540784: XOR AL, AL",
+    "0x540786: RET",
+    "0x540787: CMP word ptr [ECX + 0x1c], 0x0",
+    "0x54078c: JZ 0x0054079b",
+    "0x54078e: CMP word ptr [ECX + 0x4c], 0x0",
+    "0x540793: JNZ 0x0054079b",
+    "0x540795: MOV EAX, 0x1",
+    "0x54079a: RET",
+    "0x54079b: XOR EAX, EAX",
+    "0x54079d: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

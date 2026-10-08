@@ -1,0 +1,148 @@
+{
+  "procedure": {
+    "address": "0x540180",
+    "name": "FUN_00540180",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540180",
+          "end": "0x54023a"
+        }
+      ],
+      "total_bytes": 187,
+      "span_bytes": 187,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540180()",
+    "locals": []
+  },
+  "pseudocode": "\r\nint FUN_00540180(int param_1)\r\n\r\n{\r\n  bool bVar1;\r\n  int iVar2;\r\n  int *piVar3;\r\n  int in_ECX;\r\n  \r\n  if ((*(short *)(in_ECX + 0x10e) != 0) || (*(char *)(in_ECX + 0x11b) != '\\0')) {\r\n    return 0;\r\n  }\r\n  bVar1 = false;\r\n  if (param_1 == 0) goto LAB_005401f2;\r\n  iVar2 = FUN_00600f70();\r\n  if (iVar2 == 0) {\r\n    iVar2 = FUN_006819d0();\r\n    if (iVar2 != 0) {\r\n      piVar3 = (int *)FUN_006819d0();\r\n      iVar2 = (**(code **)(*piVar3 + 0x10))();\r\n      if (iVar2 == 0x3fe) goto LAB_005401f0;\r\n    }\r\n    if (*(int *)(param_1 + 0xfc) == 0) goto LAB_005401f2;\r\n  }\r\nLAB_005401f0:\r\n  bVar1 = true;\r\nLAB_005401f2:\r\n  if (*(char *)(in_ECX + 0x11c) != '\\0') {\r\n    bVar1 = false;\r\n  }\r\n  iVar2 = 0;\r\n  switch(*(undefined2 *)(in_ECX + 0x10a)) {\r\n  case 0:\r\n  case 1:\r\n    iVar2 = (int)*(short *)(in_ECX + 0x22);\r\n    if (bVar1) {\r\n      return iVar2 + *(short *)(in_ECX + 8);\r\n    }\r\n    break;\r\n  case 2:\r\n    return (int)*(short *)(in_ECX + 0x20);\r\n  case 3:\r\n    iVar2 = (int)*(short *)(in_ECX + 0xc);\r\n  }\r\n  return iVar2;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540180: PUSH ESI",
+    "0x540181: MOV ESI, ECX",
+    "0x540183: CMP word ptr [ESI + 0x10e], 0x0",
+    "0x54018b: JNZ 0x00540197",
+    "0x54018d: MOV AL, byte ptr [ESI + 0x11b]",
+    "0x540193: TEST AL, AL",
+    "0x540195: JZ 0x0054019d",
+    "0x540197: XOR EAX, EAX",
+    "0x540199: POP ESI",
+    "0x54019a: RET 0x4",
+    "0x54019d: PUSH EBX",
+    "0x54019e: PUSH EDI",
+    "0x54019f: MOV EDI, dword ptr [ESP + 0x10]",
+    "0x5401a3: XOR BL, BL",
+    "0x5401a5: TEST EDI, EDI",
+    "0x5401a7: JZ 0x005401f2",
+    "0x5401a9: MOV ECX, dword ptr [EDI + 0x47c]",
+    "0x5401af: CALL 0x00600f70",
+    "0x5401b4: TEST EAX, EAX",
+    "0x5401b6: JNZ 0x005401f0",
+    "0x5401b8: MOV EAX, dword ptr [EDI + 0x47c]",
+    "0x5401be: LEA ECX, [EAX + 0x4]",
+    "0x5401c1: CALL 0x006819d0",
+    "0x5401c6: TEST EAX, EAX",
+    "0x5401c8: JZ 0x005401e6",
+    "0x5401ca: MOV EAX, dword ptr [EDI + 0x47c]",
+    "0x5401d0: LEA ECX, [EAX + 0x4]",
+    "0x5401d3: CALL 0x006819d0",
+    "0x5401d8: MOV EDX, dword ptr [EAX]",
+    "0x5401da: MOV ECX, EAX",
+    "0x5401dc: CALL dword ptr [EDX + 0x10]",
+    "0x5401df: CMP EAX, 0x3fe",
+    "0x5401e4: JZ 0x005401f0",
+    "0x5401e6: MOV EAX, dword ptr [EDI + 0xfc]",
+    "0x5401ec: TEST EAX, EAX",
+    "0x5401ee: JZ 0x005401f2",
+    "0x5401f0: MOV BL, 0x1",
+    "0x5401f2: MOV AL, byte ptr [ESI + 0x11c]",
+    "0x5401f8: TEST AL, AL",
+    "0x5401fa: JZ 0x005401fe",
+    "0x5401fc: XOR BL, BL",
+    "0x5401fe: MOVZX ECX, word ptr [ESI + 0x10a]",
+    "0x540205: XOR EAX, EAX",
+    "0x540207: CMP ECX, 0x3",
+    "0x54020a: JA 0x00540235",
+    "0x54020c: JMP dword ptr [ECX*0x4 + 0x54023c]",
+    "0x540213: TEST BL, BL",
+    "0x540215: MOVSX EAX, word ptr [ESI + 0x22]",
+    "0x540219: JZ 0x00540235",
+    "0x54021b: MOVSX ECX, word ptr [ESI + 0x8]",
+    "0x54021f: POP EDI",
+    "0x540220: POP EBX",
+    "0x540221: ADD EAX, ECX",
+    "0x540223: POP ESI",
+    "0x540224: RET 0x4",
+    "0x540227: MOVSX EAX, word ptr [ESI + 0x20]",
+    "0x54022b: POP EDI",
+    "0x54022c: POP EBX",
+    "0x54022d: POP ESI",
+    "0x54022e: RET 0x4",
+    "0x540231: MOVSX EAX, word ptr [ESI + 0xc]",
+    "0x540235: POP EDI",
+    "0x540236: POP EBX",
+    "0x540237: POP ESI",
+    "0x540238: RET 0x4"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": [
+    {
+      "address": "0x600f70",
+      "name": "FUN_00600f70",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x600f70",
+            "end": "0x600fa6"
+          }
+        ],
+        "total_bytes": 55,
+        "span_bytes": 55,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    },
+    {
+      "address": "0x6819d0",
+      "name": "FUN_006819d0",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x6819d0",
+            "end": "0x6819fc"
+          }
+        ],
+        "total_bytes": 45,
+        "span_bytes": 45,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "procedure": {
+    "address": "0x540bd0",
+    "name": "FUN_00540bd0",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540bd0",
+          "end": "0x540cb9"
+        }
+      ],
+      "total_bytes": 234,
+      "span_bytes": 234,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540bd0()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_00540bd0(int param_1)\r\n\r\n{\r\n  short sVar1;\r\n  uint in_EAX;\r\n  uint uVar2;\r\n  short *in_ECX;\r\n  short sVar3;\r\n  \r\n  if (in_ECX[0x87] != 0) {\r\n    return in_EAX & 0xffff0000;\r\n  }\r\n  if (DAT_008cd782 == '\\0') {\r\n    sVar3 = *in_ECX;\r\n    sVar1 = in_ECX[2];\r\n  }\r\n  else {\r\n    sVar3 = in_ECX[2];\r\n    sVar1 = *in_ECX;\r\n  }\r\n  if ((DAT_00b6ec2e == '\\0') &&\r\n     (((DAT_00b73403 == '\\0' || ((param_1 != 0 && (*(int *)(param_1 + 0xfc) != 0)))) &&\r\n      (ABS((float10)(int)sVar3) < ABS((float10)(int)sVar1))))) {\r\n    sVar3 = sVar1;\r\n  }\r\n  if (35.0 < ABS((float)(int)sVar3)) {\r\n    if ((float)(int)sVar3 <= 0.0) {\r\n      uVar2 = FUN_00821b40();\r\n      return uVar2;\r\n    }\r\n    uVar2 = FUN_00821b40();\r\n    return uVar2;\r\n  }\r\n  return 0;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540bd0: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x540bd8: JZ 0x00540be0",
+    "0x540bda: XOR AX, AX",
+    "0x540bdd: RET 0x4",
+    "0x540be0: MOV AL, [0x008cd782]",
+    "0x540be5: TEST AL, AL",
+    "0x540be7: JZ 0x00540bf2",
+    "0x540be9: MOV DX, word ptr [ECX + 0x4]",
+    "0x540bed: MOV CX, word ptr [ECX]",
+    "0x540bf0: JMP 0x00540bf9",
+    "0x540bf2: MOV DX, word ptr [ECX]",
+    "0x540bf5: MOV CX, word ptr [ECX + 0x4]",
+    "0x540bf9: MOV AL, [0x00b6ec2e]",
+    "0x540bfe: TEST AL, AL",
+    "0x540c00: JNZ 0x00540c62",
+    "0x540c02: MOV AL, [0x00b73403]",
+    "0x540c07: TEST AL, AL",
+    "0x540c09: JZ 0x00540c39",
+    "0x540c0b: MOV EAX, dword ptr [ESP + 0x4]",
+    "0x540c0f: TEST EAX, EAX",
+    "0x540c11: JZ 0x00540c62",
+    "0x540c13: PUSH ESI",
+    "0x540c14: MOV ESI, dword ptr [EAX + 0xfc]",
+    "0x540c1a: TEST ESI, ESI",
+    "0x540c1c: POP ESI",
+    "0x540c1d: JZ 0x00540c62",
+    "0x540c1f: MOVSX EAX, CX",
+    "0x540c22: MOV dword ptr [ESP + 0x4], EAX",
+    "0x540c26: MOVSX EAX, DX",
+    "0x540c29: FILD dword ptr [ESP + 0x4]",
+    "0x540c2d: MOV dword ptr [ESP + 0x4], EAX",
+    "0x540c31: FABS",
+    "0x540c33: FILD dword ptr [ESP + 0x4]",
+    "0x540c37: JMP 0x00540c51",
+    "0x540c39: MOVSX EAX, CX",
+    "0x540c3c: MOV dword ptr [ESP + 0x4], EAX",
+    "0x540c40: MOVSX EAX, DX",
+    "0x540c43: FILD dword ptr [ESP + 0x4]",
+    "0x540c47: MOV dword ptr [ESP + 0x4], EAX",
+    "0x540c4b: FABS",
+    "0x540c4d: FILD dword ptr [ESP + 0x4]",
+    "0x540c51: FABS",
+    "0x540c53: FXCH",
+    "0x540c55: FXCH",
+    "0x540c57: FCOMPP",
+    "0x540c59: FNSTSW AX",
+    "0x540c5b: TEST AH, 0x5",
+    "0x540c5e: JP 0x00540c62",
+    "0x540c60: MOV EDX, ECX",
+    "0x540c62: MOVSX ECX, DX",
+    "0x540c65: MOV dword ptr [ESP + 0x4], ECX",
+    "0x540c69: FILD dword ptr [ESP + 0x4]",
+    "0x540c6d: FLD ST0",
+    "0x540c6f: FABS",
+    "0x540c71: FCOMP float ptr [0x0085f070]",
+    "0x540c77: FNSTSW AX",
+    "0x540c79: TEST AH, 0x41",
+    "0x540c7c: JNZ 0x00540cb3",
+    "0x540c7e: FCOM float ptr [0x00858b50]",
+    "0x540c84: FNSTSW AX",
+    "0x540c86: TEST AH, 0x41",
+    "0x540c89: JNZ 0x00540c9f",
+    "0x540c8b: FSUB float ptr [0x0085f070]",
+    "0x540c91: FMUL float ptr [0x00863b48]",
+    "0x540c97: CALL 0x00821b40",
+    "0x540c9c: RET 0x4",
+    "0x540c9f: FADD float ptr [0x0085f070]",
+    "0x540ca5: FMUL float ptr [0x00863b48]",
+    "0x540cab: CALL 0x00821b40",
+    "0x540cb0: RET 0x4",
+    "0x540cb3: FSTP ST0",
+    "0x540cb5: XOR EAX, EAX",
+    "0x540cb7: RET 0x4"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": [
+    {
+      "address": "0x821b40",
+      "name": "FUN_00821b40",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x821b40",
+            "end": "0x821bb4"
+          }
+        ],
+        "total_bytes": 117,
+        "span_bytes": 117,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "procedure": {
+    "address": "0x540340",
+    "name": "FUN_00540340",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540340",
+          "end": "0x540386"
+        }
+      ],
+      "total_bytes": 71,
+      "span_bytes": 71,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540340()",
+    "locals": []
+  },
+  "pseudocode": "\r\nundefined1 FUN_00540340(char param_1)\r\n\r\n{\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) == 0) {\r\n    if (*(short *)(in_ECX + 0x22) != 0) {\r\n      return 1;\r\n    }\r\n    if (param_1 != '\\0') {\r\n      if (*(short *)(in_ECX + 0x20) != 0) {\r\n        return 2;\r\n      }\r\n      if (*(short *)(in_ECX + 0x1c) != 0) {\r\n        return 3;\r\n      }\r\n      if (*(short *)(in_ECX + 0x1e) != 0) {\r\n        return 4;\r\n      }\r\n    }\r\n  }\r\n  return 0;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540340: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x540348: JNZ 0x00540382",
+    "0x54034a: CMP word ptr [ECX + 0x22], 0x0",
+    "0x54034f: JZ 0x00540356",
+    "0x540351: MOV AL, 0x1",
+    "0x540353: RET 0x4",
+    "0x540356: MOV AL, byte ptr [ESP + 0x4]",
+    "0x54035a: TEST AL, AL",
+    "0x54035c: JZ 0x00540382",
+    "0x54035e: CMP word ptr [ECX + 0x20], 0x0",
+    "0x540363: JZ 0x0054036a",
+    "0x540365: MOV AL, 0x2",
+    "0x540367: RET 0x4",
+    "0x54036a: CMP word ptr [ECX + 0x1c], 0x0",
+    "0x54036f: JZ 0x00540376",
+    "0x540371: MOV AL, 0x3",
+    "0x540373: RET 0x4",
+    "0x540376: CMP word ptr [ECX + 0x1e], 0x0",
+    "0x54037b: JZ 0x00540382",
+    "0x54037d: MOV AL, 0x4",
+    "0x54037f: RET 0x4",
+    "0x540382: XOR AL, AL",
+    "0x540384: RET 0x4"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

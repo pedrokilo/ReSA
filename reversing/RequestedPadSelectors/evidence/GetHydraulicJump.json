@@ -1,0 +1,41 @@
+{
+  "procedure": {
+    "address": "0x53ff70",
+    "name": "FUN_0053ff70",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x53ff70",
+          "end": "0x53ff85"
+        }
+      ],
+      "total_bytes": 22,
+      "span_bytes": 22,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_0053ff70()",
+    "locals": []
+  },
+  "pseudocode": "\r\nbool FUN_0053ff70(void)\r\n\r\n{\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) != 0) {\r\n    return false;\r\n  }\r\n  return *(short *)(in_ECX + 0x26) != 0;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x53ff70: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x53ff78: JZ 0x0053ff7d",
+    "0x53ff7a: XOR AL, AL",
+    "0x53ff7c: RET",
+    "0x53ff7d: CMP word ptr [ECX + 0x26], 0x0",
+    "0x53ff82: SETNZ AL",
+    "0x53ff85: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

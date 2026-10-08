@@ -1,0 +1,79 @@
+{
+  "procedure": {
+    "address": "0x540120",
+    "name": "FUN_00540120",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540120",
+          "end": "0x540165"
+        }
+      ],
+      "total_bytes": 70,
+      "span_bytes": 70,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540120()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_00540120(void)\r\n\r\n{\r\n  uint in_EAX;\r\n  uint uVar1;\r\n  int in_ECX;\r\n  \r\n  if ((*(short *)(in_ECX + 0x10e) == 0) &&\r\n     (in_EAX = CONCAT31((int3)(in_EAX >> 8),*(char *)(in_ECX + 0x119)),\r\n     *(char *)(in_ECX + 0x119) == '\\0')) {\r\n    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);\r\n    switch(in_EAX) {\r\n    case 0:\r\n    case 1:\r\n    case 3:\r\n      if ((*(short *)(in_ECX + 0x1e) != 0) && (*(short *)(in_ECX + 0x4e) == 0)) {\r\n        return 1;\r\n      }\r\n      return 0;\r\n    case 2:\r\n      uVar1 = FUN_0053edc0();\r\n      return uVar1;\r\n    }\r\n  }\r\n  return in_EAX & 0xffffff00;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540120: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x540128: JNZ 0x00540163",
+    "0x54012a: MOV AL, byte ptr [ECX + 0x119]",
+    "0x540130: TEST AL, AL",
+    "0x540132: JNZ 0x00540163",
+    "0x540134: MOVZX EAX, word ptr [ECX + 0x10a]",
+    "0x54013b: CMP EAX, 0x3",
+    "0x54013e: JA 0x00540163",
+    "0x540140: JMP dword ptr [EAX*0x4 + 0x540168]",
+    "0x540147: CMP word ptr [ECX + 0x1e], 0x0",
+    "0x54014c: JZ 0x0054015b",
+    "0x54014e: CMP word ptr [ECX + 0x4e], 0x0",
+    "0x540153: JNZ 0x0054015b",
+    "0x540155: MOV EAX, 0x1",
+    "0x54015a: RET",
+    "0x54015b: XOR EAX, EAX",
+    "0x54015d: RET",
+    "0x54015e: JMP 0x0053edc0",
+    "0x540163: XOR AL, AL",
+    "0x540165: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": [
+    {
+      "address": "0x53edc0",
+      "name": "FUN_0053edc0",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x53edc0",
+            "end": "0x53edd6"
+          }
+        ],
+        "total_bytes": 23,
+        "span_bytes": 23,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    }
+  ]
+}

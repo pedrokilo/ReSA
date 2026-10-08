@@ -1,0 +1,51 @@
+{
+  "exe": "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "catalogue_address": "0x00540440",
+  "body_ranges_observed_by_rea": true,
+  "bounded_window_only": false,
+  "ranges": [
+    {
+      "start": "0x53ed90",
+      "end": "0x53eda6",
+      "bytes": "6683790600740d66837936007506b801000000c333c0c3",
+      "sha256": "dbe9de1681d1c0af9cd806af7875c148a119975f31eab89b6e2b0400e2486a34",
+      "assembly": [
+        "0053ED90: 6683790600 cmp word ptr [ecx + 6], 0",
+        "0053ED95: 740d je 0x53eda4",
+        "0053ED97: 6683793600 cmp word ptr [ecx + 0x36], 0",
+        "0053ED9C: 7506 jne 0x53eda4",
+        "0053ED9E: b801000000 mov eax, 1",
+        "0053EDA3: c3 ret ",
+        "0053EDA4: 33c0 xor eax, eax",
+        "0053EDA6: c3 ret "
+      ]
+    },
+    {
+      "start": "0x540440",
+      "end": "0x540480",
+      "bytes": "6683b90e0100000075340fb7810a01000083f8037728ff2485840454006683792000740d66837950007506b801000000c333c0c3e96755f9ffe912e9ffff32c0c3",
+      "sha256": "bf4bfe1fc7e578d6b3af9c3d86507357c6300740b4f02945283aaac58d535646",
+      "assembly": [
+        "00540440: 6683b90e01000000 cmp word ptr [ecx + 0x10e], 0",
+        "00540448: 7534 jne 0x54047e",
+        "0054044A: 0fb7810a010000 movzx eax, word ptr [ecx + 0x10a]",
+        "00540451: 83f803 cmp eax, 3",
+        "00540454: 7728 ja 0x54047e",
+        "00540456: ff248584045400 jmp dword ptr [eax*4 + 0x540484]",
+        "0054045D: 6683792000 cmp word ptr [ecx + 0x20], 0",
+        "00540462: 740d je 0x540471",
+        "00540464: 6683795000 cmp word ptr [ecx + 0x50], 0",
+        "00540469: 7506 jne 0x540471",
+        "0054046B: b801000000 mov eax, 1",
+        "00540470: c3 ret ",
+        "00540471: 33c0 xor eax, eax",
+        "00540473: c3 ret ",
+        "00540474: e96755f9ff jmp 0x4d59e0",
+        "00540479: e912e9ffff jmp 0x53ed90",
+        "0054047E: 32c0 xor al, al",
+        "00540480: c3 ret "
+      ]
+    }
+  ]
+}

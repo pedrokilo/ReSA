@@ -1,0 +1,46 @@
+{
+  "procedure": {
+    "address": "0x541200",
+    "name": "FUN_00541200",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x541200",
+          "end": "0x541223"
+        }
+      ],
+      "total_bytes": 36,
+      "span_bytes": 36,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00541200()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_00541200(void)\r\n\r\n{\r\n  uint in_EAX;\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) != 0) {\r\n    return in_EAX & 0xffffff00;\r\n  }\r\n  if ((*(short *)(in_ECX + 0x14) != 0) && (*(short *)(in_ECX + 0x44) == 0)) {\r\n    return 1;\r\n  }\r\n  return 0;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x541200: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x541208: JZ 0x0054120d",
+    "0x54120a: XOR AL, AL",
+    "0x54120c: RET",
+    "0x54120d: CMP word ptr [ECX + 0x14], 0x0",
+    "0x541212: JZ 0x00541221",
+    "0x541214: CMP word ptr [ECX + 0x44], 0x0",
+    "0x541219: JNZ 0x00541221",
+    "0x54121b: MOV EAX, 0x1",
+    "0x541220: RET",
+    "0x541221: XOR EAX, EAX",
+    "0x541223: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

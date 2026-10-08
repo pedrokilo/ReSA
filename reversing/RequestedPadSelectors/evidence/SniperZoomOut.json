@@ -1,0 +1,53 @@
+{
+  "procedure": {
+    "address": "0x540b80",
+    "name": "FUN_00540b80",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540b80",
+          "end": "0x540bbf"
+        }
+      ],
+      "total_bytes": 64,
+      "span_bytes": 64,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540b80()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_00540b80(void)\r\n\r\n{\r\n  uint in_EAX;\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) == 0) {\r\n    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);\r\n    switch(in_EAX) {\r\n    case 0:\r\n    case 1:\r\n    case 3:\r\n      if ((*(short *)(in_ECX + 0xe) == 0) && (*(short *)(in_ECX + 0x20) == 0)) {\r\n        return 0;\r\n      }\r\n      return 1;\r\n    case 2:\r\n      return (uint)CONCAT11((char)(*(ushort *)(in_ECX + 0x10a) >> 8),*(short *)(in_ECX + 0x1c) != 0)\r\n      ;\r\n    }\r\n  }\r\n  return in_EAX & 0xffffff00;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540b80: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x540b88: JNZ 0x00540bbd",
+    "0x540b8a: MOVZX EAX, word ptr [ECX + 0x10a]",
+    "0x540b91: CMP EAX, 0x3",
+    "0x540b94: JA 0x00540bbd",
+    "0x540b96: JMP dword ptr [EAX*0x4 + 0x540bc0]",
+    "0x540b9d: CMP word ptr [ECX + 0xe], 0x0",
+    "0x540ba2: JNZ 0x00540bae",
+    "0x540ba4: CMP word ptr [ECX + 0x20], 0x0",
+    "0x540ba9: JNZ 0x00540bae",
+    "0x540bab: XOR EAX, EAX",
+    "0x540bad: RET",
+    "0x540bae: MOV EAX, 0x1",
+    "0x540bb3: RET",
+    "0x540bb4: CMP word ptr [ECX + 0x1c], 0x0",
+    "0x540bb9: SETNZ AL",
+    "0x540bbc: RET",
+    "0x540bbd: XOR AL, AL",
+    "0x540bbf: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

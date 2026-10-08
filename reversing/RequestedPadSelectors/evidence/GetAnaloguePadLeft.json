@@ -1,0 +1,45 @@
+{
+  "procedure": {
+    "address": "0x5409b0",
+    "name": "FUN_005409b0",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x5409b0",
+          "end": "0x5409d6"
+        }
+      ],
+      "total_bytes": 39,
+      "span_bytes": 39,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_005409b0()",
+    "locals": []
+  },
+  "pseudocode": "\r\nint FUN_005409b0(void)\r\n\r\n{\r\n  short sVar1;\r\n  uint3 uVar2;\r\n  \r\n  sVar1 = (short)DAT_00b73458;\r\n  uVar2 = (uint3)((uint)DAT_00b73458 >> 8);\r\n  if ((sVar1 < -0xf) && (-6 < DAT_00b736f8)) {\r\n    DAT_00b736f8 = sVar1;\r\n    return CONCAT31(uVar2,1);\r\n  }\r\n  DAT_00b736f8 = sVar1;\r\n  return (uint)uVar2 << 8;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x5409b0: MOV EAX, [0x00b73458]",
+    "0x5409b5: CMP AX, 0xfff1",
+    "0x5409b9: JGE 0x005409ce",
+    "0x5409bb: CMP word ptr [0x00b736f8], -0x5",
+    "0x5409c3: JL 0x005409ce",
+    "0x5409c5: MOV [0x00b736f8], AX",
+    "0x5409cb: MOV AL, 0x1",
+    "0x5409cd: RET",
+    "0x5409ce: MOV [0x00b736f8], AX",
+    "0x5409d4: XOR AL, AL",
+    "0x5409d6: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

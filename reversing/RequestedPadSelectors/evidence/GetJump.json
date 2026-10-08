@@ -1,0 +1,44 @@
+{
+  "procedure": {
+    "address": "0x540750",
+    "name": "FUN_00540750",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540750",
+          "end": "0x54076f"
+        }
+      ],
+      "total_bytes": 32,
+      "span_bytes": 32,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540750()",
+    "locals": []
+  },
+  "pseudocode": "\r\nbool FUN_00540750(void)\r\n\r\n{\r\n  int in_ECX;\r\n  \r\n  if ((*(short *)(in_ECX + 0x10e) == 0) && (*(char *)(in_ECX + 0x11e) == '\\0')) {\r\n    return *(short *)(in_ECX + 0x1c) != 0;\r\n  }\r\n  return false;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540750: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x540758: JNZ 0x00540764",
+    "0x54075a: MOV AL, byte ptr [ECX + 0x11e]",
+    "0x540760: TEST AL, AL",
+    "0x540762: JZ 0x00540767",
+    "0x540764: XOR AL, AL",
+    "0x540766: RET",
+    "0x540767: CMP word ptr [ECX + 0x1c], 0x0",
+    "0x54076c: SETNZ AL",
+    "0x54076f: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

@@ -1,0 +1,54 @@
+{
+  "procedure": {
+    "address": "0x53fc10",
+    "name": "FUN_0053fc10",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x53fc10",
+          "end": "0x53fc47"
+        }
+      ],
+      "total_bytes": 56,
+      "span_bytes": 56,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_0053fc10()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_0053fc10(void)\r\n\r\n{\r\n  uint in_EAX;\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) == 0) {\r\n    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);\r\n    if (in_EAX < 3) {\r\n      return (uint)*(ushort *)(in_ECX + 6);\r\n    }\r\n    if (in_EAX == 3) {\r\n      return ((int)*(short *)(in_ECX + 0x10) - (int)*(short *)(in_ECX + 0x12)) / 2;\r\n    }\r\n  }\r\n  return in_EAX & 0xffff0000;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x53fc10: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x53fc18: JNZ 0x0053fc44",
+    "0x53fc1a: MOVZX EAX, word ptr [ECX + 0x10a]",
+    "0x53fc21: TEST EAX, EAX",
+    "0x53fc23: JL 0x0053fc44",
+    "0x53fc25: CMP EAX, 0x2",
+    "0x53fc28: JLE 0x0053fc3f",
+    "0x53fc2a: CMP EAX, 0x3",
+    "0x53fc2d: JNZ 0x0053fc44",
+    "0x53fc2f: MOVSX EDX, word ptr [ECX + 0x12]",
+    "0x53fc33: MOVSX EAX, word ptr [ECX + 0x10]",
+    "0x53fc37: SUB EAX, EDX",
+    "0x53fc39: CDQ",
+    "0x53fc3a: SUB EAX, EDX",
+    "0x53fc3c: SAR EAX, 0x1",
+    "0x53fc3e: RET",
+    "0x53fc3f: MOV AX, word ptr [ECX + 0x6]",
+    "0x53fc43: RET",
+    "0x53fc44: XOR AX, AX",
+    "0x53fc47: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

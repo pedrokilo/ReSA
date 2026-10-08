@@ -1,0 +1,89 @@
+{
+  "procedure": {
+    "address": "0x540440",
+    "name": "FUN_00540440",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x53ed90",
+          "end": "0x53eda6"
+        },
+        {
+          "start": "0x540440",
+          "end": "0x540480"
+        }
+      ],
+      "total_bytes": 88,
+      "span_bytes": 5873,
+      "non_contiguous": true,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540440()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_00540440(void)\r\n\r\n{\r\n  uint in_EAX;\r\n  uint uVar1;\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) == 0) {\r\n    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);\r\n    switch(in_EAX) {\r\n    case 0:\r\n    case 2:\r\n      if ((*(short *)(in_ECX + 0x20) != 0) && (*(short *)(in_ECX + 0x50) == 0)) {\r\n        return 1;\r\n      }\r\n      return 0;\r\n    case 1:\r\n      uVar1 = FUN_004d59e0();\r\n      return uVar1;\r\n    case 3:\r\n      if ((*(short *)(in_ECX + 6) != 0) && (*(short *)(in_ECX + 0x36) == 0)) {\r\n        return 1;\r\n      }\r\n      return 0;\r\n    }\r\n  }\r\n  return in_EAX & 0xffffff00;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x53ed90: CMP word ptr [ECX + 0x6], 0x0",
+    "0x53ed95: JZ 0x0053eda4",
+    "0x53ed97: CMP word ptr [ECX + 0x36], 0x0",
+    "0x53ed9c: JNZ 0x0053eda4",
+    "0x53ed9e: MOV EAX, 0x1",
+    "0x53eda3: RET",
+    "0x53eda4: XOR EAX, EAX",
+    "0x53eda6: RET",
+    "0x540440: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x540448: JNZ 0x0054047e",
+    "0x54044a: MOVZX EAX, word ptr [ECX + 0x10a]",
+    "0x540451: CMP EAX, 0x3",
+    "0x540454: JA 0x0054047e",
+    "0x540456: JMP dword ptr [EAX*0x4 + 0x540484]",
+    "0x54045d: CMP word ptr [ECX + 0x20], 0x0",
+    "0x540462: JZ 0x00540471",
+    "0x540464: CMP word ptr [ECX + 0x50], 0x0",
+    "0x540469: JNZ 0x00540471",
+    "0x54046b: MOV EAX, 0x1",
+    "0x540470: RET",
+    "0x540471: XOR EAX, EAX",
+    "0x540473: RET",
+    "0x540474: JMP 0x004d59e0",
+    "0x540479: JMP 0x0053ed90",
+    "0x54047e: XOR AL, AL",
+    "0x540480: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": [
+    {
+      "address": "0x4d59e0",
+      "name": "FUN_004d59e0",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4d59e0",
+            "end": "0x4d59f6"
+          }
+        ],
+        "total_bytes": 23,
+        "span_bytes": 23,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    }
+  ]
+}

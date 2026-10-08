@@ -1,0 +1,106 @@
+{
+  "procedure": {
+    "address": "0x53ff30",
+    "name": "FUN_0053ff30",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x509840",
+          "end": "0x509856"
+        },
+        {
+          "start": "0x53ff30",
+          "end": "0x53ff5e"
+        }
+      ],
+      "total_bytes": 70,
+      "span_bytes": 223007,
+      "non_contiguous": true,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_0053ff30()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_0053ff30(void)\r\n\r\n{\r\n  uint in_EAX;\r\n  uint uVar1;\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) == 0) {\r\n    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);\r\n    switch(in_EAX) {\r\n    case 0:\r\n    case 3:\r\n      if ((*(short *)(in_ECX + 0x24) != 0) && (*(short *)(in_ECX + 0x54) == 0)) {\r\n        return 1;\r\n      }\r\n      return 0;\r\n    case 1:\r\n      uVar1 = FUN_0053edc0();\r\n      return uVar1;\r\n    case 2:\r\n      uVar1 = FUN_0053ee20();\r\n      return uVar1;\r\n    }\r\n  }\r\n  return in_EAX & 0xffffff00;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x509840: CMP word ptr [ECX + 0x24], 0x0",
+    "0x509845: JZ 0x00509854",
+    "0x509847: CMP word ptr [ECX + 0x54], 0x0",
+    "0x50984c: JNZ 0x00509854",
+    "0x50984e: MOV EAX, 0x1",
+    "0x509853: RET",
+    "0x509854: XOR EAX, EAX",
+    "0x509856: RET",
+    "0x53ff30: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x53ff38: JNZ 0x0053ff5c",
+    "0x53ff3a: MOVZX EAX, word ptr [ECX + 0x10a]",
+    "0x53ff41: CMP EAX, 0x3",
+    "0x53ff44: JA 0x0053ff5c",
+    "0x53ff46: JMP dword ptr [EAX*0x4 + 0x53ff60]",
+    "0x53ff4d: JMP 0x00509840",
+    "0x53ff52: JMP 0x0053edc0",
+    "0x53ff57: JMP 0x0053ee20",
+    "0x53ff5c: XOR AL, AL",
+    "0x53ff5e: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": [
+    {
+      "address": "0x53edc0",
+      "name": "FUN_0053edc0",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x53edc0",
+            "end": "0x53edd6"
+          }
+        ],
+        "total_bytes": 23,
+        "span_bytes": 23,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    },
+    {
+      "address": "0x53ee20",
+      "name": "FUN_0053ee20",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x53ee20",
+            "end": "0x53ee36"
+          }
+        ],
+        "total_bytes": 23,
+        "span_bytes": 23,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "exe": "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "catalogue_address": "0x0053FC90",
+  "body_ranges_observed_by_rea": true,
+  "bounded_window_only": false,
+  "ranges": [
+    {
+      "start": "0x53fc90",
+      "end": "0x53fcb4",
+      "bytes": "6683b90e0100000075170fb7810a01000083f803770bff2485b8fc5300668b01c36633c0c3",
+      "sha256": "fd8e0053baa2c7ae86d36ec7d8c69e1a1c99b461782cea78321555efdff7508f",
+      "assembly": [
+        "0053FC90: 6683b90e01000000 cmp word ptr [ecx + 0x10e], 0",
+        "0053FC98: 7517 jne 0x53fcb1",
+        "0053FC9A: 0fb7810a010000 movzx eax, word ptr [ecx + 0x10a]",
+        "0053FCA1: 83f803 cmp eax, 3",
+        "0053FCA4: 770b ja 0x53fcb1",
+        "0053FCA6: ff2485b8fc5300 jmp dword ptr [eax*4 + 0x53fcb8]",
+        "0053FCAD: 668b01 mov ax, word ptr [ecx]",
+        "0053FCB0: c3 ret ",
+        "0053FCB1: 6633c0 xor ax, ax",
+        "0053FCB4: c3 ret "
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "procedure": {
+    "address": "0x541190",
+    "name": "FUN_00541190",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x541190",
+          "end": "0x5411a5"
+        }
+      ],
+      "total_bytes": 22,
+      "span_bytes": 22,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00541190()",
+    "locals": []
+  },
+  "pseudocode": "\r\nbool FUN_00541190(void)\r\n\r\n{\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) != 0) {\r\n    return false;\r\n  }\r\n  return *(short *)(in_ECX + 0x10) != 0;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x541190: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x541198: JZ 0x0054119d",
+    "0x54119a: XOR AL, AL",
+    "0x54119c: RET",
+    "0x54119d: CMP word ptr [ECX + 0x10], 0x0",
+    "0x5411a2: SETNZ AL",
+    "0x5411a5: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

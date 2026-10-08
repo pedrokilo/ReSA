@@ -78,6 +78,11 @@ HUNG_STALL_SECONDS=30    # ...y sin que el registro crezca este tiempo -> aborta
 STALL_SECONDS=120        # el registro del banco no crece durante este tiempo -> abortar
 STARTUP_STALL_SECONDS=240  # margen antes del primer resultado (carga del juego)
 
+def merge_analysis_result(result, evidence):
+    """Keep the analyzer's explicit verdict and diagnostics when finishing a run."""
+    result.update(evidence)
+    result['passed'] = evidence.get('passed', True) is True
+
 def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=False,unhook='Audio,Global/SurfaceInfos_c',wait_for_exit=False):
     exe=GAME/'gta_sa.exe';probe=GAME/f'_baseline/gta_reversed-{prefix}-probe.asi'
     executed_exe_hash=digest(exe);executed_probe_hash=digest(probe)
@@ -121,7 +126,7 @@ def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=Fa
                     code=process.wait(timeout=30)
                     if code!=0:raise RuntimeError(f'Cierre normal fallido: {code}')
                     result.update(natural_exit=True,exit_code=code)
-                result.update(evidence,passed=True);break
+                merge_analysis_result(result,evidence);break
             if process.poll() is not None:raise RuntimeError(f'GTA termino antes de completar ({process.returncode}).')
             # Cualquier cuadro de dialogo bloquea la prueba: se aborta en el acto y se guarda su texto.
             dialog=game_dialog(process.pid)

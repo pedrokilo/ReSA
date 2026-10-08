@@ -1,0 +1,41 @@
+{
+  "exe": "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "catalogue_address": "0x00541230",
+  "body_ranges_observed_by_rea": false,
+  "bounded_window_only": true,
+  "ranges": [
+    {
+      "start": "0x541230",
+      "end": "0x54125f",
+      "bytes": "6683b90e01000000740332c0c36683791000740d66837940007506b801000000c333c0c3909090909090909090909090",
+      "sha256": "430aef4909abac93701731f45e297c986ac09b590d132718900bd2047930a93d",
+      "assembly": [
+        "00541230: 6683b90e01000000 cmp word ptr [ecx + 0x10e], 0",
+        "00541238: 7403 je 0x54123d",
+        "0054123A: 32c0 xor al, al",
+        "0054123C: c3 ret ",
+        "0054123D: 6683791000 cmp word ptr [ecx + 0x10], 0",
+        "00541242: 740d je 0x541251",
+        "00541244: 6683794000 cmp word ptr [ecx + 0x40], 0",
+        "00541249: 7506 jne 0x541251",
+        "0054124B: b801000000 mov eax, 1",
+        "00541250: c3 ret ",
+        "00541251: 33c0 xor eax, eax",
+        "00541253: c3 ret ",
+        "00541254: 90 nop ",
+        "00541255: 90 nop ",
+        "00541256: 90 nop ",
+        "00541257: 90 nop ",
+        "00541258: 90 nop ",
+        "00541259: 90 nop ",
+        "0054125A: 90 nop ",
+        "0054125B: 90 nop ",
+        "0054125C: 90 nop ",
+        "0054125D: 90 nop ",
+        "0054125E: 90 nop ",
+        "0054125F: 90 nop "
+      ]
+    }
+  ]
+}
