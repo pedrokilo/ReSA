@@ -1,0 +1,23 @@
+{
+  "central_approval_rows": 124,
+  "missing_current_links": [],
+  "prefixes": 558,
+  "frozen_markdown_exact": 25,
+  "snapshot": {
+    "historical": 6860,
+    "pending": 1586,
+    "pending_groups": 58,
+    "current": 0,
+    "new_approvals": 124
+  },
+  "MemoryMap": {
+    "approved_evidence": 6860,
+    "current_validation": 0,
+    "source_matches": 976,
+    "source_manifest_sha256": "da02c65a0d379dd8eae1a7f11d3e99a0257cc0f18f91a2cf3cdbd777a555761e",
+    "binary_verified": true,
+    "source_files_changed_during_generation": []
+  },
+  "initial_scope": 1710,
+  "pending_now": 1586
+}

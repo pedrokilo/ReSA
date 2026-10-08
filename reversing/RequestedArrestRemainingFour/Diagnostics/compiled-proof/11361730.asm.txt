@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  11361730: 55                 push        ebp
+  11361731: 8B EC              mov         ebp,esp
+  11361733: 81 EC C0 00 00 00  sub         esp,0C0h
+  11361739: 53                 push        ebx
+  1136173A: 56                 push        esi
+  1136173B: 57                 push        edi
+  1136173C: 8B FD              mov         edi,ebp
+  1136173E: 33 C9              xor         ecx,ecx
+  11361740: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11361745: F3 AB              rep stos    dword ptr es:[edi]
+  11361747: EB 09              jmp         11361752
+  11361749: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136174C: 83 C0 08           add         eax,8
+  1136174F: 89 45 08           mov         dword ptr [ebp+8],eax
+  11361752: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11361755: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  11361758: 74 2A              je          11361784
+  1136175A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136175D: 50                 push        eax
+  1136175E: 8D 4D 14           lea         ecx,[ebp+14h]
+  11361761: 51                 push        ecx
+  11361762: E8 63 CF D0 FF     call        1106E6CA
+  11361767: 83 C4 08           add         esp,8
+  1136176A: 50                 push        eax
+  1136176B: 8D 55 10           lea         edx,[ebp+10h]
+  1136176E: 52                 push        edx
+  1136176F: E8 2F 9D CF FF     call        1105B4A3
+  11361774: 83 C4 08           add         esp,8
+  11361777: 0F B6 C0           movzx       eax,al
+  1136177A: 85 C0              test        eax,eax
+  1136177C: 74 04              je          11361782
+  1136177E: B0 01              mov         al,1
+  11361780: EB 04              jmp         11361786
+  11361782: EB C5              jmp         11361749
+  11361784: 32 C0              xor         al,al
+  11361786: 5F                 pop         edi
+  11361787: 5E                 pop         esi
+  11361788: 5B                 pop         ebx
+  11361789: 81 C4 C0 00 00 00  add         esp,0C0h
+  1136178F: 3B EC              cmp         ebp,esp
+  11361791: E8 3A C5 CF FF     call        1105DCD0
+  11361796: 8B E5              mov         esp,ebp
+  11361798: 5D                 pop         ebp
+  11361799: C3                 ret
+  1136179A: CC                 int         3
+
+  Summary
+
+     216F000 .text

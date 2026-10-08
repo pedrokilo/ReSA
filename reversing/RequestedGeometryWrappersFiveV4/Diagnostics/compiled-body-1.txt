@@ -1,0 +1,78 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
+
+File Type: DLL
+
+  11B4F890: 55                 push        ebp
+  11B4F891: 8B EC              mov         ebp,esp
+  11B4F893: 81 EC FC 00 00 00  sub         esp,0FCh
+  11B4F899: 53                 push        ebx
+  11B4F89A: 56                 push        esi
+  11B4F89B: 57                 push        edi
+  11B4F89C: 8D 7D C4           lea         edi,[ebp-3Ch]
+  11B4F89F: B9 0F 00 00 00     mov         ecx,0Fh
+  11B4F8A4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B4F8A9: F3 AB              rep stos    dword ptr es:[edi]
+  11B4F8AB: A1 40 7A 6C 13     mov         eax,dword ptr ds:[136C7A40h]
+  11B4F8B0: 33 C5              xor         eax,ebp
+  11B4F8B2: 89 45 FC           mov         dword ptr [ebp-4],eax
+  11B4F8B5: 8D 45 C8           lea         eax,[ebp-38h]
+  11B4F8B8: 50                 push        eax
+  11B4F8B9: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11B4F8BC: 51                 push        ecx
+  11B4F8BD: 51                 push        ecx
+  11B4F8BE: F3 0F 10 45 08     movss       xmm0,dword ptr [ebp+8]
+  11B4F8C3: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B4F8C8: E8 50 04 55 FF     call        1109FD1D
+  11B4F8CD: 83 C4 0C           add         esp,0Ch
+  11B4F8D0: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  11B4F8D3: 50                 push        eax
+  11B4F8D4: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B4F8D7: 51                 push        ecx
+  11B4F8D8: 8D 55 C8           lea         edx,[ebp-38h]
+  11B4F8DB: 52                 push        edx
+  11B4F8DC: 51                 push        ecx
+  11B4F8DD: F3 0F 10 45 08     movss       xmm0,dword ptr [ebp+8]
+  11B4F8E2: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B4F8E7: E8 4E 14 55 FF     call        110A0D3A
+  11B4F8EC: 83 C4 10           add         esp,10h
+  11B4F8EF: 52                 push        edx
+  11B4F8F0: 8B CD              mov         ecx,ebp
+  11B4F8F2: 50                 push        eax
+  11B4F8F3: 8D 15 20 F9 B4 11  lea         edx,ds:[11B4F920h]
+  11B4F8F9: E8 92 1C 51 FF     call        11061590
+  11B4F8FE: 58                 pop         eax
+  11B4F8FF: 5A                 pop         edx
+  11B4F900: 5F                 pop         edi
+  11B4F901: 5E                 pop         esi
+  11B4F902: 5B                 pop         ebx
+  11B4F903: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  11B4F906: 33 CD              xor         ecx,ebp
+  11B4F908: E8 FB A9 50 FF     call        1105A308
+  11B4F90D: 81 C4 FC 00 00 00  add         esp,0FCh
+  11B4F913: 3B EC              cmp         ebp,esp
+  11B4F915: E8 7A C3 50 FF     call        1105BC94
+  11B4F91A: 8B E5              mov         esp,ebp
+  11B4F91C: 5D                 pop         ebp
+  11B4F91D: C3                 ret
+  11B4F91E: 66 90              nop
+  11B4F920: 01 00              add         dword ptr [eax],eax
+  11B4F922: 00 00              add         byte ptr [eax],al
+  11B4F924: 28 F9              sub         cl,bh
+  11B4F926: B4 11              mov         ah,11h
+  11B4F928: C8 FF FF FF        enter       0FFFFh,0FFh
+  11B4F92C: 30 00              xor         byte ptr [eax],al
+  11B4F92E: 00 00              add         byte ptr [eax],al
+  11B4F930: 34 F9              xor         al,0F9h
+  11B4F932: B4 11              mov         ah,11h
+  11B4F934: 63 6F 72           arpl        word ptr [edi+72h],bp
+  11B4F937: 6E                 outs        dx,byte ptr [esi]
+  11B4F938: 65 72 73           jb          11B4F9AE
+  11B4F93B: 00 CC              add         ah,cl
+
+  Summary
+
+     216B000 .text

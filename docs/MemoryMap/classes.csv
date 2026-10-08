@@ -21,7 +21,7 @@ CAEDataStream,class,20,20,0,20,20,0,0x0085F0BC,public IStream,source/game_sa/Aud
 CAEDoorAudioEntity,class,6,6,0,6,6,0,0x0085998C,public CAEAudioEntity,source/game_sa/Audio/Entities/AEDoorAudioEntity.h:11,catalogue_class_or_group
 CAEExplosionAudioEntity,class,3,3,0,3,3,0,0x00862E60,public CAEAudioEntity,source/game_sa/Audio/Entities/AEExplosionAudioEntity.h:14,catalogue_class_or_group
 CAEFireAudioEntity,class,7,7,0,7,7,0,0x0085AA94,public CAEAudioEntity,source/game_sa/Audio/Entities/AEFireAudioEntity.h:19,catalogue_class_or_group
-CAEFrontendAudioEntity,class,6,6,0,2,2,0,0x00862E54,public CAEAudioEntity,source/game_sa/Audio/Entities/AEFrontendAudioEntity.h:6,catalogue_class_or_group
+CAEFrontendAudioEntity,class,6,6,0,3,3,0,0x00862E54,public CAEAudioEntity,source/game_sa/Audio/Entities/AEFrontendAudioEntity.h:6,catalogue_class_or_group
 CAEGlobalWeaponAudioEntity,class,6,6,0,6,6,0,0x00862E5C,public CAEWeaponAudioEntity,source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.h:7,catalogue_class_or_group
 CAEMFDecoder,class,10,10,0,10,10,0,0x0085F370,public CAEStreamingDecoder,source/game_sa/Audio/Loaders/AEMFDecoder.h:12,catalogue_class_or_group
 CAEMP3BankLoader,class,13,13,0,13,13,0,,public CAEBankLoader,source/game_sa/Audio/Loaders/AEMP3BankLoader.h:27,catalogue_class_or_group
@@ -293,7 +293,7 @@ CPedAttractorPedPlacer,class,1,1,0,1,1,0,,,source/game_sa/Attractors/PedAttracto
 CPedAttractorPool,class,1,1,0,1,1,0,,"public CPool<CPedAttractor, CPedAttractorPoolSlot>",source/game_sa/Pools/PedAttractorPool.h:36,catalogue_class_or_group
 CPedClothesDesc,class,7,7,0,7,7,0,,,source/game_sa/PedClothesDesc.h:13,catalogue_class_or_group
 CPedDamageResponseCalculator,class,6,6,4,6,6,0,,,source/game_sa/PedDamageResponseCalculator.h:9,catalogue_class_or_group
-CPedGeometryAnalyser,class,38,38,29,31,31,0,,,source/game_sa/PedGeometryAnalyser.h:24,catalogue_class_or_group
+CPedGeometryAnalyser,class,38,38,29,36,36,0,,,source/game_sa/PedGeometryAnalyser.h:24,catalogue_class_or_group
 CPedGroup,class,12,12,0,12,12,0,,,source/game_sa/PedGroup.h:16,catalogue_class_or_group
 CPedGroupDefaultTaskAllocatorChat,class,2,2,0,2,2,0,0x0086C774,public CPedGroupDefaultTaskAllocator,source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h:33,catalogue_class_or_group
 CPedGroupDefaultTaskAllocatorFollowAnyMeans,class,2,2,0,2,2,0,0x0086C75C,public CPedGroupDefaultTaskAllocator,source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h:31,catalogue_class_or_group
@@ -396,7 +396,7 @@ CTaskAllocatorKillThreatsBasicRandomGroup,class,2,2,0,2,2,0,0x0086C80C,public CT
 CTaskAllocatorKillThreatsDriveby,class,5,5,0,5,5,0,0x00870EA8,public CTaskAllocator,source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h:7,catalogue_class_or_group
 CTaskAllocatorPlayerCommandAttack,class,3,3,0,3,3,0,0x00870E78,public CTaskAllocatorAttack,source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.h:6,catalogue_class_or_group
 CTaskAllocatorPool,class,1,1,0,1,1,0,,"public CPool<CTaskAllocator, char[32]>",source/game_sa/Pools/TaskAllocatorPool.h:30,catalogue_class_or_group
-CTaskComplexArrestPed,class,7,7,0,3,3,0,0x008709A8,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h:7,catalogue_class_or_group
+CTaskComplexArrestPed,class,7,7,0,7,7,0,0x008709A8,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h:7,catalogue_class_or_group
 CTaskComplexAttractorPartnerWait,class,5,5,0,5,5,0,0x0086E284,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h:7,catalogue_class_or_group
 CTaskComplexAvoidOtherPedWhileWandering,class,15,15,0,15,15,0,0x0086FEC4,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h:9,catalogue_class_or_group
 CTaskComplexBeCop,class,3,3,0,3,3,0,0x0085A428,public CTaskComplexWanderCop,source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h:5,catalogue_class_or_group
@@ -729,7 +729,7 @@ Common,catalogue_group,9,9,0,9,9,0,,,,catalogue_class_or_group
 FurnitureGroup_c,class,6,6,0,6,6,0,,,source/game_sa/Interior/FurnitureGroup_c.h:17,catalogue_class_or_group
 FurnitureManager_c,class,7,7,0,7,7,0,,,source/game_sa/Interior/FurnitureManager_c.h:17,catalogue_class_or_group
 FurnitureSubGroup_c,class,3,3,0,3,3,0,,public ListItem_c<FurnitureSubGroup_c>,source/game_sa/Interior/FurnitureSubGroup_c.h:15,catalogue_class_or_group
-FxEmitterBP_c,class,9,9,7,7,7,0,0x0085A788,public FxPrimBP_c,source/game_sa/Fx/FxEmitterBP.h:7,catalogue_class_or_group
+FxEmitterBP_c,class,9,9,7,9,9,0,0x0085A788,public FxPrimBP_c,source/game_sa/Fx/FxEmitterBP.h:7,catalogue_class_or_group
 FxEmitterPrt_c,class,1,1,0,1,1,0,,public Particle_c,source/game_sa/Fx/FxEmitterPrt.h:19,catalogue_class_or_group
 FxInfoManager_c,class,4,4,0,4,4,0,,,source/game_sa/Fx/FxInfoManager.h:21,catalogue_class_or_group
 FxManager_c,class,25,25,0,25,25,0,,,source/game_sa/Fx/FxManager.h:28,catalogue_class_or_group

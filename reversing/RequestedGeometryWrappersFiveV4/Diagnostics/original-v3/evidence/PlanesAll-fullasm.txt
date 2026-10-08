@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  005F2B80: 8B 4C 24 08        mov         ecx,dword ptr [esp+8]
+  005F2B84: 83 EC 30           sub         esp,30h
+  005F2B87: 56                 push        esi
+  005F2B88: 8B 74 24 38        mov         esi,dword ptr [esp+38h]
+  005F2B8C: 8D 44 24 04        lea         eax,[esp+4]
+  005F2B90: 50                 push        eax
+  005F2B91: 51                 push        ecx
+  005F2B92: 56                 push        esi
+  005F2B93: E8 08 F4 FF FF     call        005F1FA0
+  005F2B98: 8B 54 24 50        mov         edx,dword ptr [esp+50h]
+  005F2B9C: 8B 44 24 4C        mov         eax,dword ptr [esp+4Ch]
+  005F2BA0: 52                 push        edx
+  005F2BA1: 50                 push        eax
+  005F2BA2: 8D 4C 24 18        lea         ecx,[esp+18h]
+  005F2BA6: 51                 push        ecx
+  005F2BA7: 56                 push        esi
+  005F2BA8: E8 C3 EA FF FF     call        005F1670
+  005F2BAD: 83 C4 1C           add         esp,1Ch
+  005F2BB0: 5E                 pop         esi
+  005F2BB1: 83 C4 30           add         esp,30h
+  005F2BB4: C3                 ret
+  005F2BB5: 90                 nop
+  005F2BB6: 90                 nop
+  005F2BB7: 90                 nop
+  005F2BB8: 90                 nop
+  005F2BB9: 90                 nop
+  005F2BBA: 90                 nop
+  005F2BBB: 90                 nop
+  005F2BBC: 90                 nop
+  005F2BBD: 90                 nop
+  005F2BBE: 90                 nop
+  005F2BBF: 90                 nop
+  005F2BC0: 8B
+
+  Summary
+
+      456000 .text

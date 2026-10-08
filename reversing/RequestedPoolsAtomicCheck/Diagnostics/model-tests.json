@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "synthetic_pairs": 256,
+  "negative_tests_rejected": [
+    "both_wrong_return",
+    "ABI_saved_false",
+    "ABI_stack_false",
+    "gate_false",
+    "globals_corrupted",
+    "guard_corrupted",
+    "FP_corrupted",
+    "duplicate_seed",
+    "terminal_false"
+  ],
+  "game_or_build_executed": false
+}

@@ -1,0 +1,333 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  12F81E20: 55                 push        ebp
+  12F81E21: 8B EC              mov         ebp,esp
+  12F81E23: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  12F81E26: 83 EC 4C           sub         esp,4Ch
+  12F81E29: 33 C9              xor         ecx,ecx
+  12F81E2B: 53                 push        ebx
+  12F81E2C: 56                 push        esi
+  12F81E2D: 8B 75 08           mov         esi,dword ptr [ebp+8]
+  12F81E30: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  12F81E36: 4E                 dec         esi
+  12F81E37: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  12F81E3A: 57                 push        edi
+  12F81E3B: 6A 1C              push        1Ch
+  12F81E3D: 66 89 08           mov         word ptr [eax],cx
+  12F81E40: 8D 45 B4           lea         eax,[ebp-4Ch]
+  12F81E43: 50                 push        eax
+  12F81E44: 56                 push        esi
+  12F81E45: FF 15 0C 94 70 13  call        dword ptr ds:[1370940Ch]
+  12F81E4B: 85 C0              test        eax,eax
+  12F81E4D: 0F 84 4D 03 00 00  je          12F821A0
+  12F81E53: FF 75 1C           push        dword ptr [ebp+1Ch]
+  12F81E56: FF 75 18           push        dword ptr [ebp+18h]
+  12F81E59: FF 75 B8           push        dword ptr [ebp-48h]
+  12F81E5C: E8 00 C8 0E FE     call        1106E661
+  12F81E61: 83 C4 0C           add         esp,0Ch
+  12F81E64: 85 C0              test        eax,eax
+  12F81E66: 0F 84 34 03 00 00  je          12F821A0
+  12F81E6C: 8B 4D B8           mov         ecx,dword ptr [ebp-48h]
+  12F81E6F: B8 4D 5A 00 00     mov         eax,5A4Dh
+  12F81E74: 66 39 01           cmp         word ptr [ecx],ax
+  12F81E77: 0F 85 23 03 00 00  jne         12F821A0
+  12F81E7D: 8B 41 3C           mov         eax,dword ptr [ecx+3Ch]
+  12F81E80: 85 C0              test        eax,eax
+  12F81E82: 0F 8E 18 03 00 00  jle         12F821A0
+  12F81E88: 81 3C 08 50 45 00  cmp         dword ptr [eax+ecx],4550h
+            00
+  12F81E8F: 8D 14 08           lea         edx,[eax+ecx]
+  12F81E92: 0F 85 08 03 00 00  jne         12F821A0
+  12F81E98: 0F B7 42 06        movzx       eax,word ptr [edx+6]
+  12F81E9C: 2B F1              sub         esi,ecx
+  12F81E9E: 0F B7 7A 14        movzx       edi,word ptr [edx+14h]
+  12F81EA2: 33 DB              xor         ebx,ebx
+  12F81EA4: 03 FA              add         edi,edx
+  12F81EA6: 89 45 DC           mov         dword ptr [ebp-24h],eax
+  12F81EA9: C7 45 F4 00 00 00  mov         dword ptr [ebp-0Ch],0
+            00
+  12F81EB0: 85 C0              test        eax,eax
+  12F81EB2: 74 20              je          12F81ED4
+  12F81EB4: 8D 0C 9B           lea         ecx,[ebx+ebx*4]
+  12F81EB7: 8B 54 CF 24        mov         edx,dword ptr [edi+ecx*8+24h]
+  12F81EBB: 3B F2              cmp         esi,edx
+  12F81EBD: 72 10              jb          12F81ECF
+  12F81EBF: 8B C6              mov         eax,esi
+  12F81EC1: 2B C2              sub         eax,edx
+  12F81EC3: 89 45 F4           mov         dword ptr [ebp-0Ch],eax
+  12F81EC6: 3B 74 CF 20        cmp         esi,dword ptr [edi+ecx*8+20h]
+  12F81ECA: 72 10              jb          12F81EDC
+  12F81ECC: 8B 45 DC           mov         eax,dword ptr [ebp-24h]
+  12F81ECF: 43                 inc         ebx
+  12F81ED0: 3B D8              cmp         ebx,eax
+  12F81ED2: 72 E0              jb          12F81EB4
+  12F81ED4: 3B D8              cmp         ebx,eax
+  12F81ED6: 0F 84 C4 02 00 00  je          12F821A0
+  12F81EDC: 43                 inc         ebx
+  12F81EDD: 80 3D 31 6F 70 13  cmp         byte ptr ds:[13706F31h],0
+            00
+  12F81EE4: 75 28              jne         12F81F0E
+  12F81EE6: 83 3D 2C 6F 70 13  cmp         dword ptr ds:[13706F2Ch],0
+            00
+  12F81EED: 0F 85 AD 02 00 00  jne         12F821A0
+  12F81EF3: E8 D8 F9 FF FF     call        12F818D0
+  12F81EF8: A3 2C 6F 70 13     mov         dword ptr ds:[13706F2Ch],eax
+  12F81EFD: 85 C0              test        eax,eax
+  12F81EFF: 0F 84 9B 02 00 00  je          12F821A0
+  12F81F05: C6 05 31 6F 70 13  mov         byte ptr ds:[13706F31h],1
+            01
+  12F81F0C: EB 05              jmp         12F81F13
+  12F81F0E: A1 2C 6F 70 13     mov         eax,dword ptr ds:[13706F2Ch]
+  12F81F13: 68 8C AA 44 13     push        1344AA8Ch
+  12F81F18: 50                 push        eax
+  12F81F19: FF 15 1C 92 70 13  call        dword ptr ds:[1370921Ch]
+  12F81F1F: 8B F0              mov         esi,eax
+  12F81F21: 85 F6              test        esi,esi
+  12F81F23: 0F 84 77 02 00 00  je          12F821A0
+  12F81F29: 8D 45 E8           lea         eax,[ebp-18h]
+  12F81F2C: 8B CE              mov         ecx,esi
+  12F81F2E: 50                 push        eax
+  12F81F2F: 6A 00              push        0
+  12F81F31: 6A 00              push        0
+  12F81F33: 8D 45 D0           lea         eax,[ebp-30h]
+  12F81F36: 50                 push        eax
+  12F81F37: 6A 00              push        0
+  12F81F39: 6A 00              push        0
+  12F81F3B: 6A 00              push        0
+  12F81F3D: FF 75 18           push        dword ptr [ebp+18h]
+  12F81F40: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F81F46: FF D6              call        esi
+  12F81F48: 83 C4 20           add         esp,20h
+  12F81F4B: 85 C0              test        eax,eax
+  12F81F4D: 0F 84 4D 02 00 00  je          12F821A0
+  12F81F53: 8B 7D E8           mov         edi,dword ptr [ebp-18h]
+  12F81F56: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  12F81F5D: C7 45 DC 00 00 00  mov         dword ptr [ebp-24h],0
+            00
+  12F81F64: 8B 07              mov         eax,dword ptr [edi]
+  12F81F66: 8B 30              mov         esi,dword ptr [eax]
+  12F81F68: 8B CE              mov         ecx,esi
+  12F81F6A: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F81F70: 8B CF              mov         ecx,edi
+  12F81F72: FF D6              call        esi
+  12F81F74: 3D 41 91 32 01     cmp         eax,1329141h
+  12F81F79: 0F 85 41 01 00 00  jne         12F820C0
+  12F81F7F: 8B 7D E8           mov         edi,dword ptr [ebp-18h]
+  12F81F82: 8B 07              mov         eax,dword ptr [edi]
+  12F81F84: 8B 70 1C           mov         esi,dword ptr [eax+1Ch]
+  12F81F87: 8D 45 E0           lea         eax,[ebp-20h]
+  12F81F8A: 50                 push        eax
+  12F81F8B: 68 E4 98 1C 13     push        131C98E4h
+  12F81F90: 6A 00              push        0
+  12F81F92: 8B CE              mov         ecx,esi
+  12F81F94: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F81F9A: 8B CF              mov         ecx,edi
+  12F81F9C: FF D6              call        esi
+  12F81F9E: 85 C0              test        eax,eax
+  12F81FA0: 0F 84 1A 01 00 00  je          12F820C0
+  12F81FA6: 8B 7D E0           mov         edi,dword ptr [ebp-20h]
+  12F81FA9: 6A 00              push        0
+  12F81FAB: 6A 00              push        0
+  12F81FAD: 6A 00              push        0
+  12F81FAF: 8B 07              mov         eax,dword ptr [edi]
+  12F81FB1: 8B 70 20           mov         esi,dword ptr [eax+20h]
+  12F81FB4: 8D 45 EC           lea         eax,[ebp-14h]
+  12F81FB7: 50                 push        eax
+  12F81FB8: FF 75 F4           push        dword ptr [ebp-0Ch]
+  12F81FBB: 8B CE              mov         ecx,esi
+  12F81FBD: 53                 push        ebx
+  12F81FBE: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F81FC4: 8B CF              mov         ecx,edi
+  12F81FC6: FF D6              call        esi
+  12F81FC8: 85 C0              test        eax,eax
+  12F81FCA: 0F 84 DC 00 00 00  je          12F820AC
+  12F81FD0: 8B 7D EC           mov         edi,dword ptr [ebp-14h]
+  12F81FD3: 8B 07              mov         eax,dword ptr [edi]
+  12F81FD5: 8B 70 68           mov         esi,dword ptr [eax+68h]
+  12F81FD8: 8D 45 F8           lea         eax,[ebp-8]
+  12F81FDB: 50                 push        eax
+  12F81FDC: 8B CE              mov         ecx,esi
+  12F81FDE: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F81FE4: 8B CF              mov         ecx,edi
+  12F81FE6: FF D6              call        esi
+  12F81FE8: 84 C0              test        al,al
+  12F81FEA: 0F 84 A8 00 00 00  je          12F82098
+  12F81FF0: 8B 7D F8           mov         edi,dword ptr [ebp-8]
+  12F81FF3: 85 FF              test        edi,edi
+  12F81FF5: 0F 84 9D 00 00 00  je          12F82098
+  12F81FFB: 8B 07              mov         eax,dword ptr [edi]
+  12F81FFD: 8B 70 08           mov         esi,dword ptr [eax+8]
+  12F82000: 8B CE              mov         ecx,esi
+  12F82002: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F82008: 8B CF              mov         ecx,edi
+  12F8200A: FF D6              call        esi
+  12F8200C: 85 C0              test        eax,eax
+  12F8200E: 74 63              je          12F82073
+  12F82010: 8B 7D F8           mov         edi,dword ptr [ebp-8]
+  12F82013: 6A 00              push        0
+  12F82015: 8B 07              mov         eax,dword ptr [edi]
+  12F82017: 8B 70 0C           mov         esi,dword ptr [eax+0Ch]
+  12F8201A: 8D 45 F0           lea         eax,[ebp-10h]
+  12F8201D: 50                 push        eax
+  12F8201E: 8D 45 D8           lea         eax,[ebp-28h]
+  12F82021: 8B CE              mov         ecx,esi
+  12F82023: 50                 push        eax
+  12F82024: 8D 45 FC           lea         eax,[ebp-4]
+  12F82027: 50                 push        eax
+  12F82028: 8D 45 E4           lea         eax,[ebp-1Ch]
+  12F8202B: 50                 push        eax
+  12F8202C: 6A 00              push        0
+  12F8202E: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F82034: 8B CF              mov         ecx,edi
+  12F82036: FF D6              call        esi
+  12F82038: 84 C0              test        al,al
+  12F8203A: 74 49              je          12F82085
+  12F8203C: 0F B7 45 FC        movzx       eax,word ptr [ebp-4]
+  12F82040: 3B C3              cmp         eax,ebx
+  12F82042: 75 17              jne         12F8205B
+  12F82044: 8B 55 E4           mov         edx,dword ptr [ebp-1Ch]
+  12F82047: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  12F8204A: 3B D1              cmp         edx,ecx
+  12F8204C: 77 0D              ja          12F8205B
+  12F8204E: 8B 45 D8           mov         eax,dword ptr [ebp-28h]
+  12F82051: 03 C2              add         eax,edx
+  12F82053: 3B C8              cmp         ecx,eax
+  12F82055: 0F 82 83 00 00 00  jb          12F820DE
+  12F8205B: 8B 7D F8           mov         edi,dword ptr [ebp-8]
+  12F8205E: 8B 07              mov         eax,dword ptr [edi]
+  12F82060: 8B 70 08           mov         esi,dword ptr [eax+8]
+  12F82063: 8B CE              mov         ecx,esi
+  12F82065: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F8206B: 8B CF              mov         ecx,edi
+  12F8206D: FF D6              call        esi
+  12F8206F: 85 C0              test        eax,eax
+  12F82071: 75 9D              jne         12F82010
+  12F82073: 33 DB              xor         ebx,ebx
+  12F82075: 53                 push        ebx
+  12F82076: 6A 00              push        0
+  12F82078: FF 15 28 93 70 13  call        dword ptr ds:[13709328h]
+  12F8207E: 50                 push        eax
+  12F8207F: FF 15 24 93 70 13  call        dword ptr ds:[13709324h]
+  12F82085: 8B 7D F8           mov         edi,dword ptr [ebp-8]
+  12F82088: 8B 07              mov         eax,dword ptr [edi]
+  12F8208A: 8B 30              mov         esi,dword ptr [eax]
+  12F8208C: 8B CE              mov         ecx,esi
+  12F8208E: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F82094: 8B CF              mov         ecx,edi
+  12F82096: FF D6              call        esi
+  12F82098: 8B 7D EC           mov         edi,dword ptr [ebp-14h]
+  12F8209B: 8B 07              mov         eax,dword ptr [edi]
+  12F8209D: 8B 70 40           mov         esi,dword ptr [eax+40h]
+  12F820A0: 8B CE              mov         ecx,esi
+  12F820A2: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F820A8: 8B CF              mov         ecx,edi
+  12F820AA: FF D6              call        esi
+  12F820AC: 8B 7D E0           mov         edi,dword ptr [ebp-20h]
+  12F820AF: 8B 07              mov         eax,dword ptr [edi]
+  12F820B1: 8B 70 38           mov         esi,dword ptr [eax+38h]
+  12F820B4: 8B CE              mov         ecx,esi
+  12F820B6: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F820BC: 8B CF              mov         ecx,edi
+  12F820BE: FF D6              call        esi
+  12F820C0: 8B 7D E8           mov         edi,dword ptr [ebp-18h]
+  12F820C3: 8B 17              mov         edx,dword ptr [edi]
+  12F820C5: 8B 72 2C           mov         esi,dword ptr [edx+2Ch]
+  12F820C8: 8B CE              mov         ecx,esi
+  12F820CA: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F820D0: 8B CF              mov         ecx,edi
+  12F820D2: FF D6              call        esi
+  12F820D4: 8B 45 DC           mov         eax,dword ptr [ebp-24h]
+  12F820D7: 5F                 pop         edi
+  12F820D8: 5E                 pop         esi
+  12F820D9: 5B                 pop         ebx
+  12F820DA: 8B E5              mov         esp,ebp
+  12F820DC: 5D                 pop         ebp
+  12F820DD: C3                 ret
+  12F820DE: 8B 75 F0           mov         esi,dword ptr [ebp-10h]
+  12F820E1: 85 F6              test        esi,esi
+  12F820E3: 74 A0              je          12F82085
+  12F820E5: 81 FE FF FF FF 1F  cmp         esi,1FFFFFFFh
+  12F820EB: 73 98              jae         12F82085
+  12F820ED: C1 E6 03           shl         esi,3
+  12F820F0: FF 15 28 93 70 13  call        dword ptr ds:[13709328h]
+  12F820F6: 56                 push        esi
+  12F820F7: 6A 00              push        0
+  12F820F9: 50                 push        eax
+  12F820FA: FF 15 48 93 70 13  call        dword ptr ds:[13709348h]
+  12F82100: 8B D8              mov         ebx,eax
+  12F82102: 85 DB              test        ebx,ebx
+  12F82104: 0F 84 7B FF FF FF  je          12F82085
+  12F8210A: 8B 7D F8           mov         edi,dword ptr [ebp-8]
+  12F8210D: 8D 45 F0           lea         eax,[ebp-10h]
+  12F82110: 53                 push        ebx
+  12F82111: 50                 push        eax
+  12F82112: 6A 00              push        0
+  12F82114: 8B 0F              mov         ecx,dword ptr [edi]
+  12F82116: 8D 45 D4           lea         eax,[ebp-2Ch]
+  12F82119: 6A 00              push        0
+  12F8211B: 6A 00              push        0
+  12F8211D: 50                 push        eax
+  12F8211E: 8B 71 0C           mov         esi,dword ptr [ecx+0Ch]
+  12F82121: 8B CE              mov         ecx,esi
+  12F82123: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F82129: 8B CF              mov         ecx,edi
+  12F8212B: FF D6              call        esi
+  12F8212D: 84 C0              test        al,al
+  12F8212F: 0F 84 40 FF FF FF  je          12F82075
+  12F82135: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  12F82138: 2B 45 E4           sub         eax,dword ptr [ebp-1Ch]
+  12F8213B: 3B 03              cmp         eax,dword ptr [ebx]
+  12F8213D: 0F 82 32 FF FF FF  jb          12F82075
+  12F82143: 8B 55 F0           mov         edx,dword ptr [ebp-10h]
+  12F82146: B9 01 00 00 00     mov         ecx,1
+  12F8214B: 3B D1              cmp         edx,ecx
+  12F8214D: 76 0B              jbe         12F8215A
+  12F8214F: 90                 nop
+  12F82150: 3B 04 CB           cmp         eax,dword ptr [ebx+ecx*8]
+  12F82153: 72 05              jb          12F8215A
+  12F82155: 41                 inc         ecx
+  12F82156: 3B CA              cmp         ecx,edx
+  12F82158: 72 F6              jb          12F82150
+  12F8215A: 8B 44 CB FC        mov         eax,dword ptr [ebx+ecx*8-4]
+  12F8215E: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  12F82161: 25 FF FF FF 00     and         eax,0FFFFFFh
+  12F82166: 8B 7D EC           mov         edi,dword ptr [ebp-14h]
+  12F82169: 6A 00              push        0
+  12F8216B: 6A 00              push        0
+  12F8216D: 89 01              mov         dword ptr [ecx],eax
+  12F8216F: 8B 07              mov         eax,dword ptr [edi]
+  12F82171: 6A 00              push        0
+  12F82173: 8B 70 70           mov         esi,dword ptr [eax+70h]
+  12F82176: 8D 45 10           lea         eax,[ebp+10h]
+  12F82179: 50                 push        eax
+  12F8217A: FF 75 0C           push        dword ptr [ebp+0Ch]
+  12F8217D: 8B CE              mov         ecx,esi
+  12F8217F: FF 75 D4           push        dword ptr [ebp-2Ch]
+  12F82182: FF 15 00 00 71 13  call        dword ptr ds:[13710000h]
+  12F82188: 8B CF              mov         ecx,edi
+  12F8218A: FF D6              call        esi
+  12F8218C: 33 C9              xor         ecx,ecx
+  12F8218E: BA 01 00 00 00     mov         edx,1
+  12F82193: 84 C0              test        al,al
+  12F82195: 0F 45 CA           cmovne      ecx,edx
+  12F82198: 89 4D DC           mov         dword ptr [ebp-24h],ecx
+  12F8219B: E9 D5 FE FF FF     jmp         12F82075
+  12F821A0: 5F                 pop         edi
+  12F821A1: 5E                 pop         esi
+  12F821A2: 33 C0              xor         eax,eax
+  12F821A4: 5B                 pop         ebx
+  12F821A5: 8B E5              mov         esp,ebp
+  12F821A7: 5D                 pop         ebp
+  12F821A8: C3                 ret
+  12F821A9: CC                 int         3
+
+  Summary
+
+     215A000 .text

@@ -1,0 +1,20 @@
+{
+  "artifact_preflight_passed": true,
+  "asi_sha256": "ac4b86f836d2239fc5c371485bb0c9334357913ddc7b098a592f97f9e82d46b5",
+  "pdb_sha256": "e4e4ef5c313e33b69b704013fcd281c7d2b31e55b5222e011887fa95b6e37985",
+  "frozen_inputs": 17,
+  "callchain_proof_sha256": "6532f01a18467a3714de94903aa6026a2f7a6d76bee451bee413db26af08a3a8",
+  "scope": "Isolated wrapper forwarding/payload/pointer identity only; no primitive, constructor, destructor, physics or FP-state accreditation.",
+  "global_ranges_restored": 17692,
+  "timer_unchanged": true,
+  "external_FP_restored": true,
+  "bank_FP_unchanged": true,
+  "harness_sha256": "a4739962fddbfd91b0641a09b70fc0e428b340705c86ab8f1d06ff3b21a19da2",
+  "runtime_passed": true,
+  "pairs": 5120,
+  "differences": 0,
+  "fullarena_model_trace_and_pointer_roles_checked": true,
+  "natural_exit0": true,
+  "run_summary_sha256": "f9b59c414511839b9084a392e760b66f5848636b2f5d764c2893362d291becdf",
+  "log_sha256": "93ac543dca0ec5e14f6ce3a200527ecb3ea34d59b00f7d7d8859ff75d6c12454"
+}

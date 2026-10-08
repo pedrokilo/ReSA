@@ -1,0 +1,56 @@
+{
+  "passed": false,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "b1b8cf068e8e03a51127b5fc8cc43f8d28ca7bda0ce9875e81be2648f1e7e893",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "error": "GTA termino antes de completar (0).",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "ef0654e8e032dc8de779b6ed39282ba956daff0a",
+    "tested_sources": {
+      "source/game_sa/Fx/FxEmitterBP.cpp": "9cf61d9f1a77a6648eda3c1f080a31517bdc12594b4b0b3b4af76a6ecc100913",
+      "source/game_sa/Fx/FxEmitterBP.h": "b1dc281fd3cb409f6ac10af27c338fd7c4b679d61cb2424c9baa49acad9576f2",
+      "source/game_sa/Fx/FxPrimBP.cpp": "e7a2d31660532f7c44f7fd765985edb9041bca52e34e6b9e7142765618e54b7b",
+      "source/game_sa/Fx/FxPrimBP.h": "9ea02baa23d54ffeb2610ac5e8af04ac4af6d8a17034c66514ebbf9fba05a8c4",
+      "source/game_sa/Fx/FxInfoManager.h": "732c9394986e6f778c7d8a0d62a39609352af65d423c0aced391dbf960fce09c",
+      "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9",
+      "source/game_sa/RenderWare/rw/rwcore.cpp": "80ec693bf0adfac83d3b3aa2f07f67beb1352d09cbb34f3eeff9aead64271238",
+      "source/game_sa/RenderWare/rw/rwcore.h": "d5a0707008427e2e44d4aad87a3dea8296980079293b27e61cb23815846d8eec",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0"
+    },
+    "bank_sources": {
+      "reversing/RequestedFxEmitterTwo/LiveComparison.hpp": "7d65c0c1dfc210f65bcd00eec25b15843e61337214acf02d4ce64687bcea839e",
+      "reversing/RequestedFxEmitterTwo/Preflight.hpp": "02a3eb5c73785af8785754175db174f20242cebe0f95cc2c7d2390853617ad38",
+      "reversing/RequestedFxEmitterTwo/VTableRanges.hpp": "df21f8fa7c5d25629430a38edb6d53c9ac4fee1d5ac2a1c1c72a6795583af81c",
+      "reversing/RequestedFxEmitterTwo/build_probe.py": "0e44ff49e93125d003b59f91152934b1d8b2a3d077aa698d927cc4a8601df979",
+      "reversing/RequestedFxEmitterTwo/run_local.py": "70fd627c7e763b0c2782e3b7fb0e01f694064c8be99d4cdfebb2ac1c5de9f984",
+      "reversing/RequestedFxEmitterTwo/model.py": "5428274024a740dbdd5e8d7a7a9ae0e9ac4506dea77b59c118bd98d5433c8ec3",
+      "reversing/RequestedFxEmitterTwo/prepared-freeze.json": "f1948be235c3e84f418662c88817b5ed86f3ccbbc96a39dccb63dc43ed5736b1",
+      "reversing/RequestedFxEmitterTwo/preparation-plan.json": "5b753469c443ad1ec08d1431abe8a34c693b84dc752f5a92a470c8f73a45258f",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "expected_pairs": 5632,
+    "fixture_scope": "512 complete CPU emitter constructors and 5120 texture-load fixtures; no target/base constructor stubs. Names bounded to31chars, real CRT string operations, native/DLL texture reads controlled. Raw vptr role plus full64bytes/guards preserved. No assets, ownership/destructor or renderer accreditation. All mismatches remain failure.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "3ee1beff04d916c279eb8b83f2ebf68ddd463733ac55adcfca24aea12b8ed472"
+    },
+    "asi": "b1b8cf068e8e03a51127b5fc8cc43f8d28ca7bda0ce9875e81be2648f1e7e893",
+    "pdb": "6e591daa65a979aa232adab9d77a64274e98fb420fd92db5c2b3611d8027a29d"
+  },
+  "runner_sha256": "70fd627c7e763b0c2782e3b7fb0e01f694064c8be99d4cdfebb2ac1c5de9f984",
+  "reproduction_diagnostics": {}
+}

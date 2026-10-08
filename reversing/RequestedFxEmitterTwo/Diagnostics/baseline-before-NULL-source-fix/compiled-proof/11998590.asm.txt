@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  11998590: 55                 push        ebp
+  11998591: 8B EC              mov         ebp,esp
+  11998593: 81 EC CC 00 00 00  sub         esp,0CCh
+  11998599: 53                 push        ebx
+  1199859A: 56                 push        esi
+  1199859B: 57                 push        edi
+  1199859C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1199859F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  119985A2: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  119985A8: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  119985AB: C7 40 04 00 00 00  mov         dword ptr [eax+4],0
+            00
+  119985B2: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  119985B5: C7 40 08 00 00 00  mov         dword ptr [eax+8],0
+            00
+  119985BC: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  119985BF: 5F                 pop         edi
+  119985C0: 5E                 pop         esi
+  119985C1: 5B                 pop         ebx
+  119985C2: 8B E5              mov         esp,ebp
+  119985C4: 5D                 pop         ebp
+  119985C5: C3                 ret
+  119985C6: CC                 int         3
+  119985C7: CC                 int         3
+  119985C8: CC                 int         3
+  119985C9: CC                 int         3
+  119985CA: CC                 int         3
+  119985CB: CC                 int         3
+  119985CC: CC                 int         3
+  119985CD: CC                 int         3
+  119985CE: CC                 int         3
+  119985CF: CC                 int         3
+  119985D0: CC                 int         3
+
+  Summary
+
+     2166000 .text

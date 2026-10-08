@@ -1,0 +1,68 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  1121A430: 55                 push        ebp
+  1121A431: 8B EC              mov         ebp,esp
+  1121A433: 6A FF              push        0FFFFFFFFh
+  1121A435: 68 D0 60 0A 13     push        130A60D0h
+  1121A43A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1121A440: 50                 push        eax
+  1121A441: 81 EC D0 00 00 00  sub         esp,0D0h
+  1121A447: 53                 push        ebx
+  1121A448: 56                 push        esi
+  1121A449: 57                 push        edi
+  1121A44A: 51                 push        ecx
+  1121A44B: 8D 7D E4           lea         edi,[ebp-1Ch]
+  1121A44E: B9 04 00 00 00     mov         ecx,4
+  1121A453: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1121A458: F3 AB              rep stos    dword ptr es:[edi]
+  1121A45A: 59                 pop         ecx
+  1121A45B: A1 40 DA 6A 13     mov         eax,dword ptr ds:[136ADA40h]
+  1121A460: 33 C5              xor         eax,ebp
+  1121A462: 50                 push        eax
+  1121A463: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1121A466: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1121A46C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1121A46F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1121A472: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121A475: 89 08              mov         dword ptr [eax],ecx
+  1121A477: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1121A47A: 83 38 00           cmp         dword ptr [eax],0
+  1121A47D: 74 1B              je          1121A49A
+  1121A47F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1121A482: 8B 08              mov         ecx,dword ptr [eax]
+  1121A484: 89 8D 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],ecx
+  1121A48A: 8B 55 EC           mov         edx,dword ptr [ebp-14h]
+  1121A48D: 52                 push        edx
+  1121A48E: 8B 8D 24 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF24h]
+  1121A494: E8 E9 79 E6 FF     call        11081E82
+  1121A499: 90                 nop
+  1121A49A: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1121A49D: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1121A4A0: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1121A4A7: 59                 pop         ecx
+  1121A4A8: 5F                 pop         edi
+  1121A4A9: 5E                 pop         esi
+  1121A4AA: 5B                 pop         ebx
+  1121A4AB: 81 C4 DC 00 00 00  add         esp,0DCh
+  1121A4B1: 3B EC              cmp         ebp,esp
+  1121A4B3: E8 96 97 E3 FF     call        11053C4E
+  1121A4B8: 8B E5              mov         esp,ebp
+  1121A4BA: 5D                 pop         ebp
+  1121A4BB: C2 04 00           ret         4
+  1121A4BE: CC                 int         3
+  1121A4BF: CC                 int         3
+  1121A4C0: CC                 int         3
+  1121A4C1: CC                 int         3
+  1121A4C2: CC                 int         3
+  1121A4C3: CC                 int         3
+
+  Summary
+
+     215A000 .text

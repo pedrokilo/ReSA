@@ -1,0 +1,80 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  1303C6D0: 8B FF              mov         edi,edi
+  1303C6D2: 55                 push        ebp
+  1303C6D3: 8B EC              mov         ebp,esp
+  1303C6D5: 83 EC 10           sub         esp,10h
+  1303C6D8: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1303C6DB: 89 45 FC           mov         dword ptr [ebp-4],eax
+  1303C6DE: 83 7D FC 03        cmp         dword ptr [ebp-4],3
+  1303C6E2: 77 27              ja          1303C70B
+  1303C6E4: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  1303C6E7: FF 24 8D 88 C7 03  jmp         dword ptr [ecx*4+1303C788h]
+            13
+  1303C6EE: 8B 15 2C 7D 70 13  mov         edx,dword ptr ds:[13707D2Ch]
+  1303C6F4: 89 55 F0           mov         dword ptr [ebp-10h],edx
+  1303C6F7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1303C6FA: A3 2C 7D 70 13     mov         dword ptr ds:[13707D2Ch],eax
+  1303C6FF: 8B 45 F0           mov         eax,dword ptr [ebp-10h]
+  1303C702: EB 7D              jmp         1303C781
+  1303C704: A1 2C 7D 70 13     mov         eax,dword ptr ds:[13707D2Ch]
+  1303C709: EB 76              jmp         1303C781
+  1303C70B: 33 C9              xor         ecx,ecx
+  1303C70D: 74 09              je          1303C718
+  1303C70F: C7 45 F8 01 00 00  mov         dword ptr [ebp-8],1
+            00
+  1303C716: EB 07              jmp         1303C71F
+  1303C718: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  1303C71F: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1303C722: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  1303C725: 83 7D F4 00        cmp         dword ptr [ebp-0Ch],0
+  1303C729: 75 23              jne         1303C74E
+  1303C72B: 68 00 A6 46 13     push        1346A600h
+  1303C730: 68 F4 77 44 13     push        134477F4h
+  1303C735: 6A 00              push        0
+  1303C737: 6A 45              push        45h
+  1303C739: 68 40 A6 46 13     push        1346A640h
+  1303C73E: 6A 02              push        2
+  1303C740: E8 17 66 02 FE     call        11062D5C
+  1303C745: 83 C4 18           add         esp,18h
+  1303C748: 83 F8 01           cmp         eax,1
+  1303C74B: 75 01              jne         1303C74E
+  1303C74D: CC                 int         3
+  1303C74E: 83 7D F4 00        cmp         dword ptr [ebp-0Ch],0
+  1303C752: 75 2B              jne         1303C77F
+  1303C754: E8 66 9F 01 FE     call        110566BF
+  1303C759: C7 00 16 00 00 00  mov         dword ptr [eax],16h
+  1303C75F: 6A 00              push        0
+  1303C761: 6A 45              push        45h
+  1303C763: 68 40 A6 46 13     push        1346A640h
+  1303C768: 68 C4 A6 46 13     push        1346A6C4h
+  1303C76D: 68 00 A6 46 13     push        1346A600h
+  1303C772: E8 00 D4 05 FE     call        11099B77
+  1303C777: 83 C4 14           add         esp,14h
+  1303C77A: 83 C8 FF           or          eax,0FFFFFFFFh
+  1303C77D: EB 02              jmp         1303C781
+  1303C77F: 33 C0              xor         eax,eax
+  1303C781: 8B E5              mov         esp,ebp
+  1303C783: 5D                 pop         ebp
+  1303C784: C3                 ret
+  1303C785: 0F 1F 00           nop         dword ptr [eax]
+  1303C788: EE                 out         dx,al
+  1303C789: C6 03 13           mov         byte ptr [ebx],13h
+  1303C78C: EE                 out         dx,al
+  1303C78D: C6 03 13           mov         byte ptr [ebx],13h
+  1303C790: EE                 out         dx,al
+  1303C791: C6 03 13           mov         byte ptr [ebx],13h
+  1303C794: 04 C7              add         al,0C7h
+  1303C796: 03 13              add         edx,dword ptr [ebx]
+  1303C798: CC                 int         3
+
+  Summary
+
+     215A000 .text

@@ -1,0 +1,115 @@
+{
+  "asi_sha256": "84fdfdcaab9141e274717d024e475c81077e6490313d7eb45a368e6f3be8d3e5",
+  "pdb_sha256": "993283ec42cd41439cd19b54b489daedb838d843a25fdc5b27332d58f8ea4b98",
+  "pdb_rsds_match": true,
+  "compiled_header_sha256": "7d65c0c1dfc210f65bcd00eec25b15843e61337214acf02d4ce64687bcea839e",
+  "manifest_sha256": "7edb4ca195a42bbffee7d3df615dae0f917defc8e51d439c6b2b61b02d24740e",
+  "runtime_executed": false,
+  "vtable": {
+    "address": "0x131c7754",
+    "count": 7,
+    "slots": [
+      "0x110ac3b3",
+      "0x1107e931",
+      "0x110a1260",
+      "0x11082bee",
+      "0x110a1aa3",
+      "0x11062eca",
+      "0x110705de"
+    ],
+    "load_body": "0x1198e340"
+  },
+  "raw_return_R2": {
+    "eax_saved": "0x1138913F",
+    "comparison": "0x11389B28",
+    "unequal_branch": "0x11389BD2 stores actual numeric return",
+    "equal_branch": "0x11389B34 stores role16"
+  },
+  "rw_call_paths": [
+    {
+      "site": "0x1198bfab",
+      "bytes": "e8381f6dff",
+      "entry": "0x1105dee8",
+      "body": "0x11c9b130",
+      "e9_chain": [
+        [
+          "0x1105dee8",
+          "0x11c9b130"
+        ]
+      ]
+    },
+    {
+      "site": "0x1198bfd7",
+      "bytes": "e80c1f6dff",
+      "entry": "0x1105dee8",
+      "body": "0x11c9b130",
+      "e9_chain": [
+        [
+          "0x1105dee8",
+          "0x11c9b130"
+        ]
+      ]
+    },
+    {
+      "site": "0x11c9b14f",
+      "bytes": "e889bc3fff",
+      "entry": "0x11096ddd",
+      "body": "0x11c95df0",
+      "e9_chain": [
+        [
+          "0x11096ddd",
+          "0x11c95df0"
+        ]
+      ]
+    }
+  ],
+  "native_rw_call": {
+    "site": "0x11c95e11",
+    "bytes": "bac03a7f00ffd2",
+    "native": "0x007F3AC0"
+  },
+  "real_ctor_base_list_paths": [
+    {
+      "site": "0x112bb193",
+      "bytes": "e8ddebd9ff",
+      "entry": "0x11059d75",
+      "body": "0x1198c970",
+      "e9_chain": [
+        [
+          "0x11059d75",
+          "0x1198c970"
+        ]
+      ]
+    },
+    {
+      "site": "0x1198c993",
+      "bytes": "e819d26eff",
+      "entry": "0x11079bb1",
+      "body": "0x1199fc80",
+      "e9_chain": [
+        [
+          "0x11079bb1",
+          "0x1199fc80"
+        ]
+      ]
+    },
+    {
+      "site": "0x1199fcaf",
+      "bytes": "e8c7756dff",
+      "entry": "0x1107727b",
+      "body": "0x11998530",
+      "e9_chain": [
+        [
+          "0x1107727b",
+          "0x11998530"
+        ]
+      ]
+    }
+  ],
+  "ctor_stubs": false,
+  "ctor_vptr_store": {
+    "site": "0x1198c99c",
+    "raw": "c70054771c13"
+  },
+  "scope": "Static preferred-image addresses with matching PDB; real base/List CPU stores, no target/base ctor stubs. Runtime target/helper gates and restoration remain mandatory."
+}

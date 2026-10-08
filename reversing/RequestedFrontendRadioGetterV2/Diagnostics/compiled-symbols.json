@@ -1,0 +1,72 @@
+{
+  "asi_sha256": "faf7459ac2c4a9d5748fac9c76787de52163aceced0b2bec14ee53a212a0891b",
+  "pdb_sha256": "413d2f79944da85dcae5f9105a8eebabf8cfbc37f8e8f925e3857f81d74c565f",
+  "base": 268435456,
+  "symbols": [
+    {
+      "name": "RequestedFrontendRadioGetterV2Live::ConstructFixture",
+      "address": 288846752,
+      "size": 103
+    },
+    {
+      "name": "CAEFrontendAudioEntity::CAEFrontendAudioEntity",
+      "address": 287430032,
+      "size": 337
+    },
+    {
+      "name": "CAEFrontendAudioEntity::CAEFrontendAudioEntity",
+      "address": 287430464,
+      "size": 337
+    },
+    {
+      "name": "CAEFrontendAudioEntity::CAEFrontendAudioEntity",
+      "address": 287430896,
+      "size": 103
+    },
+    {
+      "name": "CAEAudioEntity::CAEAudioEntity",
+      "address": 287427952,
+      "size": 105
+    },
+    {
+      "name": "CAEAudioEntity::CAEAudioEntity",
+      "address": 287428096,
+      "size": 109
+    },
+    {
+      "name": "CAETwinLoopSoundEntity::CAETwinLoopSoundEntity",
+      "address": 289990384,
+      "size": 361
+    },
+    {
+      "name": "CAETwinLoopSoundEntity::CAETwinLoopSoundEntity",
+      "address": 287435664,
+      "size": 285
+    },
+    {
+      "name": "CAETwinLoopSoundEntity::CAETwinLoopSoundEntity",
+      "address": 287436032,
+      "size": 223
+    },
+    {
+      "name": "CAESound::CAESound",
+      "address": 289515776,
+      "size": 539
+    },
+    {
+      "name": "CAESound::CAESound",
+      "address": 287433840,
+      "size": 1059
+    },
+    {
+      "name": "CAESound::CAESound",
+      "address": 287435168,
+      "size": 390
+    },
+    {
+      "name": "CAEFrontendAudioEntity::IsRadioTuneSoundActive",
+      "address": 289688624,
+      "size": 113
+    }
+  ]
+}

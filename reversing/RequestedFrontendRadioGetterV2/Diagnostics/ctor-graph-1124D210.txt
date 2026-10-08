@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  1124D210: 55                 push        ebp
+  1124D211: 8B EC              mov         ebp,esp
+  1124D213: 81 EC D0 00 00 00  sub         esp,0D0h
+  1124D219: 53                 push        ebx
+  1124D21A: 56                 push        esi
+  1124D21B: 57                 push        edi
+  1124D21C: 51                 push        ecx
+  1124D21D: 8D 7D F0           lea         edi,[ebp-10h]
+  1124D220: B9 04 00 00 00     mov         ecx,4
+  1124D225: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1124D22A: F3 AB              rep stos    dword ptr es:[edi]
+  1124D22C: 59                 pop         ecx
+  1124D22D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1124D230: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1124D233: E8 1D 64 E4 FF     call        11093655
+  1124D238: 0F B6 C0           movzx       eax,al
+  1124D23B: 83 F8 01           cmp         eax,1
+  1124D23E: 75 0C              jne         1124D24C
+  1124D240: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  1124D24A: EB 0A              jmp         1124D256
+  1124D24C: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1124D256: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  1124D25D: 5F                 pop         edi
+  1124D25E: 5E                 pop         esi
+  1124D25F: 5B                 pop         ebx
+  1124D260: 81 C4 D0 00 00 00  add         esp,0D0h
+  1124D266: 3B EC              cmp         ebp,esp
+  1124D268: E8 E1 69 E0 FF     call        11053C4E
+  1124D26D: 8B E5              mov         esp,ebp
+  1124D26F: 5D                 pop         ebp
+  1124D270: C3                 ret
+  1124D271: CC                 int         3
+
+  Summary
+
+     215A000 .text

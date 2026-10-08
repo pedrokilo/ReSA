@@ -1,0 +1,24 @@
+{
+  "global_errors": [
+    "natural exit"
+  ],
+  "bank_passed": false,
+  "functions": {
+    "Constructor": {
+      "comparisons": 512,
+      "differences": 0,
+      "model_mismatches": 0,
+      "gate_failures": 0,
+      "subset_eligible": false
+    },
+    "LoadTextures": {
+      "comparisons": 5120,
+      "differences": 512,
+      "model_mismatches": 512,
+      "gate_failures": 0,
+      "subset_eligible": false
+    }
+  },
+  "scope": "Complete corpus and global restoration required; only exact independently modeled function subsets eligible. No registry writes.",
+  "manifest_sha256": "830d4c9aeaff390bafc67c01bdcb87916a919a2606c25328f9e89a2cdede0078"
+}

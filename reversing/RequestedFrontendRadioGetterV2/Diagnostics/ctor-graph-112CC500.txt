@@ -1,0 +1,39 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  112CC500: 55                 push        ebp
+  112CC501: 8B EC              mov         ebp,esp
+  112CC503: 81 EC D0 00 00 00  sub         esp,0D0h
+  112CC509: 53                 push        ebx
+  112CC50A: 56                 push        esi
+  112CC50B: 57                 push        edi
+  112CC50C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  112CC50F: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  112CC513: 72 17              jb          112CC52C
+  112CC515: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  112CC518: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  112CC51B: 3B 48 08           cmp         ecx,dword ptr [eax+8]
+  112CC51E: 73 0C              jae         112CC52C
+  112CC520: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  112CC52A: EB 0A              jmp         112CC536
+  112CC52C: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  112CC536: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  112CC53D: 5F                 pop         edi
+  112CC53E: 5E                 pop         esi
+  112CC53F: 5B                 pop         ebx
+  112CC540: 8B E5              mov         esp,ebp
+  112CC542: 5D                 pop         ebp
+  112CC543: C2 04 00           ret         4
+  112CC546: CC                 int         3
+
+  Summary
+
+     215A000 .text

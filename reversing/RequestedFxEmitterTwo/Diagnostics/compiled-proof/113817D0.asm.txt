@@ -9,7 +9,7 @@ File Type: DLL
   113817D0: 55                 push        ebp
   113817D1: 8B EC              mov         ebp,esp
   113817D3: 6A FF              push        0FFFFFFFFh
-  113817D5: 68 F0 A8 0C 13     push        130CA8F0h
+  113817D5: 68 10 A8 0C 13     push        130CA810h
   113817DA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
   113817E0: 50                 push        eax
   113817E1: 81 EC 04 01 00 00  sub         esp,104h
@@ -39,7 +39,7 @@ File Type: DLL
   11381825: 8D 95 04 FF FF FF  lea         edx,[ebp+FFFFFF04h]
   1138182B: 52                 push        edx
   1138182C: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
-  1138182F: E8 08 AC D0 FF     call        1108C43C
+  1138182F: E8 03 AC D0 FF     call        1108C437
   11381834: 89 85 F8 FE FF FF  mov         dword ptr [ebp+FFFFFEF8h],eax
   1138183A: 8B 85 F8 FE FF FF  mov         eax,dword ptr [ebp+FFFFFEF8h]
   11381840: 89 85 F4 FE FF FF  mov         dword ptr [ebp+FFFFFEF4h],eax
@@ -51,7 +51,7 @@ File Type: DLL
   1138185F: 52                 push        edx
   11381860: 8B 85 FC FE FF FF  mov         eax,dword ptr [ebp+FFFFFEFCh]
   11381866: 50                 push        eax
-  11381867: E8 D7 68 D0 FF     call        11088143
+  11381867: E8 D2 68 D0 FF     call        1108813E
   1138186C: 83 C4 08           add         esp,8
   1138186F: 6A 0A              push        0Ah
   11381871: 50                 push        eax
@@ -60,11 +60,11 @@ File Type: DLL
   1138187A: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
             FF
   11381881: 8D 8D 04 FF FF FF  lea         ecx,[ebp+FFFFFF04h]
-  11381887: E8 BB 65 CF FF     call        11077E47
+  11381887: E8 B6 65 CF FF     call        11077E42
   1138188C: 90                 nop
   1138188D: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
   11381890: 8B 08              mov         ecx,dword ptr [eax]
-  11381892: E8 DC 43 CF FF     call        11075C73
+  11381892: E8 D7 43 CF FF     call        11075C6E
   11381897: 90                 nop
   11381898: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
   1138189B: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx

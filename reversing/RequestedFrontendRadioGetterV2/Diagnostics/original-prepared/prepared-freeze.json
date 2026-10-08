@@ -1,0 +1,6 @@
+{
+  "reversing/RequestedFrontendRadioGetter/corpus-plan.json": "9b9300fa94f1814b9e9f21a7757311ab3edf6b524c5c641806c1f5a7710ac7aa",
+  "reversing/RequestedFrontendRadioGetter/LiveComparison.hpp": "c5b7a94ed97ad52df586ca9b5b55a11fb47cdb6b57b5aa3c750197577bee40f4",
+  "reversing/RequestedFrontendRadioGetter/evidence/IsRadioTuneSoundActive-fullasm.txt": "14f63084083f00fe7b579c22bedfe5f7586cbbc8c615fd94f70f04ab7be1064d",
+  "reversing/RequestedFrontendRadioGetter/evidence/native-bytes.json": "d881a29796caa9ee738123c6839a32caf6028804038e0e9acdedb20e01b84ec3"
+}

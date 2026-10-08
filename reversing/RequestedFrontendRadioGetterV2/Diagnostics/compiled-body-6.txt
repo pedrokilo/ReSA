@@ -1,0 +1,121 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  1148E6F0: 55                 push        ebp
+  1148E6F1: 8B EC              mov         ebp,esp
+  1148E6F3: 6A FF              push        0FFFFFFFFh
+  1148E6F5: 68 0D A8 0C 13     push        130CA80Dh
+  1148E6FA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1148E700: 50                 push        eax
+  1148E701: 81 EC F4 00 00 00  sub         esp,0F4h
+  1148E707: 53                 push        ebx
+  1148E708: 56                 push        esi
+  1148E709: 57                 push        edi
+  1148E70A: 51                 push        ecx
+  1148E70B: 8D 7D C0           lea         edi,[ebp-40h]
+  1148E70E: B9 0D 00 00 00     mov         ecx,0Dh
+  1148E713: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1148E718: F3 AB              rep stos    dword ptr es:[edi]
+  1148E71A: 59                 pop         ecx
+  1148E71B: A1 40 DA 6A 13     mov         eax,dword ptr ds:[136ADA40h]
+  1148E720: 33 C5              xor         eax,ebp
+  1148E722: 50                 push        eax
+  1148E723: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1148E726: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1148E72C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1148E72F: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1148E732: E8 F3 B2 BE FF     call        11079A2A
+  1148E737: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1148E73E: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1148E741: C7 00 CC E5 1A 13  mov         dword ptr [eax],131AE5CCh
+  1148E747: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1148E74A: 83 C0 7C           add         eax,7Ch
+  1148E74D: 89 85 00 FF FF FF  mov         dword ptr [ebp+FFFFFF00h],eax
+  1148E753: 0F B7 4D 08        movzx       ecx,word ptr [ebp+8]
+  1148E757: 51                 push        ecx
+  1148E758: 8B 8D 00 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF00h]
+  1148E75E: E8 CF 44 C0 FF     call        11092C32
+  1148E763: 90                 nop
+  1148E764: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1148E767: 66 8B 4D 0C        mov         cx,word ptr [ebp+0Ch]
+  1148E76B: 66 89 48 7E        mov         word ptr [eax+7Eh],cx
+  1148E76F: 8B 55 EC           mov         edx,dword ptr [ebp-14h]
+  1148E772: 66 8B 45 10        mov         ax,word ptr [ebp+10h]
+  1148E776: 66 89 82 80 00 00  mov         word ptr [edx+00000080h],ax
+            00
+  1148E77D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1148E780: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  1148E783: 89 88 84 00 00 00  mov         dword ptr [eax+00000084h],ecx
+  1148E789: B8 01 00 00 00     mov         eax,1
+  1148E78E: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1148E791: 66 89 81 88 00 00  mov         word ptr [ecx+00000088h],ax
+            00
+  1148E798: 33 C0              xor         eax,eax
+  1148E79A: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1148E79D: 81 C1 8A 00 00 00  add         ecx,8Ah
+  1148E7A3: 89 01              mov         dword ptr [ecx],eax
+  1148E7A5: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1148E7A8: 66 8B 4D 18        mov         cx,word ptr [ebp+18h]
+  1148E7AC: 66 89 88 8E 00 00  mov         word ptr [eax+0000008Eh],cx
+            00
+  1148E7B3: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1148E7B6: 66 8B 4D 1C        mov         cx,word ptr [ebp+1Ch]
+  1148E7BA: 66 89 88 90 00 00  mov         word ptr [eax+00000090h],cx
+            00
+  1148E7C1: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1148E7C4: C7 80 94 00 00 00  mov         dword ptr [eax+00000094h],0
+            00 00 00 00
+  1148E7CE: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1148E7D1: C6 80 98 00 00 00  mov         byte ptr [eax+00000098h],1
+            01
+  1148E7D8: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1148E7DB: 66 8B 4D 20        mov         cx,word ptr [ebp+20h]
+  1148E7DF: 66 89 88 9A 00 00  mov         word ptr [eax+0000009Ah],cx
+            00
+  1148E7E6: 8B 55 EC           mov         edx,dword ptr [ebp-14h]
+  1148E7E9: 66 8B 45 24        mov         ax,word ptr [ebp+24h]
+  1148E7ED: 66 89 82 9C 00 00  mov         word ptr [edx+0000009Ch],ax
+            00
+  1148E7F4: 33 C0              xor         eax,eax
+  1148E7F6: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1148E7F9: 81 C1 A0 00 00 00  add         ecx,0A0h
+  1148E7FF: 89 01              mov         dword ptr [ecx],eax
+  1148E801: 89 41 04           mov         dword ptr [ecx+4],eax
+  1148E804: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],0FFFFFFFFh
+            FF FF FF FF
+  1148E80E: 8D 85 20 FF FF FF  lea         eax,[ebp+FFFFFF20h]
+  1148E814: 50                 push        eax
+  1148E815: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1148E818: 81 C1 8A 00 00 00  add         ecx,8Ah
+  1148E81E: 51                 push        ecx
+  1148E81F: 8D 95 08 FF FF FF  lea         edx,[ebp+FFFFFF08h]
+  1148E825: 52                 push        edx
+  1148E826: E8 03 C0 C0 FF     call        1109A82E
+  1148E82B: 83 C4 0C           add         esp,0Ch
+  1148E82E: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1148E835: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1148E838: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1148E83B: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1148E842: 59                 pop         ecx
+  1148E843: 5F                 pop         edi
+  1148E844: 5E                 pop         esi
+  1148E845: 5B                 pop         ebx
+  1148E846: 81 C4 00 01 00 00  add         esp,100h
+  1148E84C: 3B EC              cmp         ebp,esp
+  1148E84E: E8 FB 53 BC FF     call        11053C4E
+  1148E853: 8B E5              mov         esp,ebp
+  1148E855: 5D                 pop         ebp
+  1148E856: C2 20 00           ret         20h
+  1148E859: CC                 int         3
+
+  Summary
+
+     215A000 .text

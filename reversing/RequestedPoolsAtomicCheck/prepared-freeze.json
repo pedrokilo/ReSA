@@ -1,0 +1,11 @@
+{
+  "reversing/RequestedPoolsAtomicCheck/LiveComparison.hpp": "1664d77e88d15b98cb34f6c2dfef627d9e7336571a6759b65966af81ceec4e8b",
+  "reversing/RequestedPoolsAtomicCheck/PreflightHarness.hpp": "ec071e626456b7fe941a7e5b136baba1d0d2da2470b1b047f048523da22bd85a",
+  "reversing/RequestedPoolsAtomicCheck/VTableRanges.hpp": "0c585deb0f6762f72005e8cec0903629e097803e8f16c472c4a86e5777c14db6",
+  "reversing/RequestedPoolsAtomicCheck/build_probe.py": "f3c248a49bfb86158edb9ae0a644bdc33721e1fcce48df063d0cff9c2474c944",
+  "reversing/RequestedPoolsAtomicCheck/inspect_compiled.py": "15468c7285c70f3a8475196e52665138b6208e2f6c92a74c440d0ca1d7eedb5d",
+  "reversing/RequestedPoolsAtomicCheck/restore_winmain.py": "83b3d93515d14d5fd72eafbbae58ee916c57e92af0fbbd3a337e6cffe0388cb9",
+  "reversing/RequestedPoolsAtomicCheck/run_local.py": "75d085c9248deb6e73df87a55ae15b0b1dce17698d1ff79eb25ecbb89b115ebf",
+  "reversing/RequestedPoolsAtomicCheck/corpus-plan.json": "0cf461a94d51a7298eacf8dfa8d52346ff87a09574b002a81fd45e5eb7f0e588",
+  "reversing/RequestedPoolsAtomicCheck/evidence/CheckBuildingAtomics-fullasm.txt": "e061e2673b09a218d4cf741619ecbc18536d4a8e492929e2d44b289d6cc357f3"
+}

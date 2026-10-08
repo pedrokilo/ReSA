@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "requested_base": "24adc9887871e167b4b64e981446b265ba1e16df",
-  "inspected_head": "ef0654e8e032dc8de779b6ed39282ba956daff0a",
+  "inspected_head": "77c517277dd11abf97ebed582c249edaa15a2a9e",
   "selection": "Classes requested by user; requested_pending=1 selects initial validated=0 identities. Historical rows are context, not an automatic replay expansion.",
-  "hooks_sha256": "a38d6e0be981be050fec14abbe1e7cd73b1494be5838eb56f53b5b96a05f778b",
-  "registry_sha256": "f184c4949735306f730424a2cb49ac9463c2c0e5f3b04adfc958038c88b07424",
+  "hooks_sha256": "839803086910194c33db825fa61fb923d81e573a2a97e29119da4c11102fa048",
+  "registry_sha256": "8e8f8d301c1ad2b5c199f8e45a2be359bec20390f3c09d54d4b76ea1143327f0",
   "classes": {
     "CAEAudioHardware": {
       "expected_pending": 1,
@@ -200,12 +200,11 @@
     },
     "FxEmitterBP_c": {
       "expected_pending": 2,
-      "unlinked": 2,
+      "historical_linked": 9,
       "total": 9,
       "requested_pending": 2,
-      "pending_now": 2,
-      "pending_with_candidate_summary": 0,
-      "historical_linked": 7
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CCustomBuildingRenderer": {
       "expected_pending": 3,
@@ -234,21 +233,20 @@
     },
     "CAEFrontendAudioEntity": {
       "expected_pending": 4,
-      "historical_linked": 2,
+      "historical_linked": 3,
       "total": 6,
       "requested_pending": 4,
-      "pending_now": 4,
+      "pending_now": 3,
       "pending_with_candidate_summary": 0,
-      "unlinked": 4
+      "unlinked": 3
     },
     "CTaskComplexArrestPed": {
       "expected_pending": 4,
-      "unlinked": 4,
+      "historical_linked": 7,
       "total": 7,
       "requested_pending": 4,
-      "pending_now": 4,
-      "pending_with_candidate_summary": 0,
-      "historical_linked": 3
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CGenericGameStorage": {
       "expected_pending": 5,
@@ -324,12 +322,12 @@
     },
     "CPedGeometryAnalyser": {
       "expected_pending": 9,
-      "historical_linked": 31,
+      "historical_linked": 36,
       "total": 38,
       "requested_pending": 9,
-      "pending_now": 7,
+      "pending_now": 2,
       "pending_with_candidate_summary": 0,
-      "unlinked": 7
+      "unlinked": 2
     },
     "CTaskComplexKillCriminal": {
       "expected_pending": 9,
@@ -676,8 +674,8 @@
     }
   },
   "totals": {
-    "unlinked": 1598,
-    "historical_linked": 712
+    "unlinked": 1586,
+    "historical_linked": 724
   },
   "total_identities": 2310,
   "requested_pending": 1710,
@@ -6331,9 +6329,9 @@
       "address": "0x005F3B40",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedGeometryWrappersFiveV4",
+      "evidence": "reversing/RequestedGeometryWrappersFiveV4/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -6342,9 +6340,9 @@
       "address": "0x005F3650",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedGeometryWrappersFiveV4",
+      "evidence": "reversing/RequestedGeometryWrappersFiveV4/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -6386,9 +6384,9 @@
       "address": "0x005F2B80",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedGeometryWrappersFiveV4",
+      "evidence": "reversing/RequestedGeometryWrappersFiveV4/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -6397,9 +6395,9 @@
       "address": "0x005F36A0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedGeometryWrappersFiveV4",
+      "evidence": "reversing/RequestedGeometryWrappersFiveV4/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -6419,9 +6417,9 @@
       "address": "0x005F2BC0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedGeometryWrappersFiveV4",
+      "evidence": "reversing/RequestedGeometryWrappersFiveV4/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -16550,9 +16548,9 @@
       "address": "0x004A18D0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedFxEmitterTwo",
+      "evidence": "reversing/RequestedFxEmitterTwo/validation-summary-Constructor.json",
       "candidate_banks": ""
     },
     {
@@ -16594,9 +16592,9 @@
       "address": "0x00000000",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedFxEmitterTwo",
+      "evidence": "reversing/RequestedFxEmitterTwo/validation-summary-LoadTextures.json",
       "candidate_banks": ""
     },
     {
@@ -18464,9 +18462,9 @@
       "address": "0x004DD480",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedFrontendRadioGetterV2",
+      "evidence": "reversing/RequestedFrontendRadioGetterV2/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -22061,9 +22059,9 @@
       "address": "0x0068B990",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedArrestRemainingFour",
+      "evidence": "reversing/RequestedArrestRemainingFour/validation-summary-Constructor.json",
       "candidate_banks": ""
     },
     {
@@ -22083,9 +22081,9 @@
       "address": "0x00000000",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedArrestRemainingFour",
+      "evidence": "reversing/RequestedArrestRemainingFour/validation-summary-CreateFirstSubTask.json",
       "candidate_banks": ""
     },
     {
@@ -22116,9 +22114,9 @@
       "address": "0x0068BA00",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedArrestRemainingFour",
+      "evidence": "reversing/RequestedArrestRemainingFour/validation-summary-Destructor.json",
       "candidate_banks": ""
     },
     {
@@ -22127,9 +22125,9 @@
       "address": "0x00000000",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedArrestRemainingFour",
+      "evidence": "reversing/RequestedArrestRemainingFour/validation-summary-MakeAbortable.json",
       "candidate_banks": ""
     },
     {
@@ -26099,5 +26097,5 @@
     "Read-only registry evaluation verifies registered summary/source/dependency hashes; it does not replay GTA or re-hash remote historical logs."
   ],
   "audit_mode": "full_registry_evaluate",
-  "pending_now": 1598
+  "pending_now": 1586
 }

@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "class": "CAEFrontendAudioEntity",
+    "fn_name": "IsRadioTuneSoundActive",
+    "address": "0x004DD480",
+    "type": "S"
+  },
+  "pairs": 2048,
+  "product": "128 guard poison seeds x 2 user pause x 2 code pause x 2 normal active x 2 paused active",
+  "typed_instance": "actual default placement constructor; native getter only reads low byte of two int16 active fields offsets0x124/0x1cc; source returns bool",
+  "valid_active_domain": [
+    0,
+    1
+  ],
+  "raw_return": "AL only, upper EAX unspecified",
+  "model": "(userPause || codePause) ? pausedActive : normalActive",
+  "full_payload_bytes": 524,
+  "globals": "18 bytes B7CB40..B7CB51 including pause bytes48/49",
+  "restoration": "target and candidate52bytes, all registry flags, timer18, inert typed fixture bytes; pregraphics harness must also restore all entries/vtables",
+  "limits": "Getter only, no constructor/destructor/audio assets/timer integration or FP-state accreditation. No helper stubs. No compile/native replay yet.",
+  "revision": "V2 adds complete pregraphics harness, external FP restoration, full perleg FP/model and strict independent truth-table analyzer; original prepared inputs preserved exact under Diagnostics/original-prepared",
+  "log_contract": {
+    "prefix": "requested-frontend-radio-v2",
+    "log": "requested-frontend-radio-v2-runtime.jsonl",
+    "harness": "preflight-frontend-radio-v2-harness.jsonl"
+  }
+}

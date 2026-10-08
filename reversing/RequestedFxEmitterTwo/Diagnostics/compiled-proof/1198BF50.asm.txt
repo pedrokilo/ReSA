@@ -28,7 +28,7 @@ File Type: DLL
   1198BF82: C1 E2 05           shl         edx,5
   1198BF85: 03 11              add         edx,dword ptr [ecx]
   1198BF87: 52                 push        edx
-  1198BF88: 68 50 E0 22 13     push        1322E050h
+  1198BF88: 68 80 E0 22 13     push        1322E080h
   1198BF8D: 8D 45 AC           lea         eax,[ebp-54h]
   1198BF90: 50                 push        eax
   1198BF91: E8 C2 0E 72 FF     call        110ACE58
@@ -41,7 +41,7 @@ File Type: DLL
   1198BFA5: C1 E0 05           shl         eax,5
   1198BFA8: 03 02              add         eax,dword ptr [edx]
   1198BFAA: 50                 push        eax
-  1198BFAB: E8 33 1F 6D FF     call        1105DEE3
+  1198BFAB: E8 38 1F 6D FF     call        1105DEE8
   1198BFB0: 83 C4 08           add         esp,8
   1198BFB3: 89 45 A0           mov         dword ptr [ebp-60h],eax
   1198BFB6: 83 7D A0 00        cmp         dword ptr [ebp-60h],0
@@ -56,7 +56,7 @@ File Type: DLL
   1198BFD1: C1 E0 05           shl         eax,5
   1198BFD4: 03 02              add         eax,dword ptr [edx]
   1198BFD6: 50                 push        eax
-  1198BFD7: E8 07 1F 6D FF     call        1105DEE3
+  1198BFD7: E8 0C 1F 6D FF     call        1105DEE8
   1198BFDC: 83 C4 08           add         esp,8
   1198BFDF: 89 85 D8 FE FF FF  mov         dword ptr [ebp+FFFFFED8h],eax
   1198BFE5: 8B 85 D8 FE FF FF  mov         eax,dword ptr [ebp+FFFFFED8h]
@@ -64,7 +64,7 @@ File Type: DLL
   1198BFEC: 8B CD              mov         ecx,ebp
   1198BFEE: 50                 push        eax
   1198BFEF: 8D 15 1C C0 98 11  lea         edx,ds:[1198C01Ch]
-  1198BFF5: E8 64 35 6D FF     call        1105F55E
+  1198BFF5: E8 69 35 6D FF     call        1105F563
   1198BFFA: 58                 pop         eax
   1198BFFB: 5A                 pop         edx
   1198BFFC: 5F                 pop         edi

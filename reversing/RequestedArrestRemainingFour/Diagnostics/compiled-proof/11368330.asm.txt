@@ -1,0 +1,58 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  11368330: 55                 push        ebp
+  11368331: 8B EC              mov         ebp,esp
+  11368333: 81 EC CC 00 00 00  sub         esp,0CCh
+  11368339: 53                 push        ebx
+  1136833A: 56                 push        esi
+  1136833B: 57                 push        edi
+  1136833C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  11368340: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11368343: 5F                 pop         edi
+  11368344: 5E                 pop         esi
+  11368345: 5B                 pop         ebx
+  11368346: 8B E5              mov         esp,ebp
+  11368348: 5D                 pop         ebp
+  11368349: C3                 ret
+  1136834A: CC                 int         3
+  1136834B: CC                 int         3
+  1136834C: CC                 int         3
+  1136834D: CC                 int         3
+  1136834E: CC                 int         3
+  1136834F: CC                 int         3
+  11368350: 55                 push        ebp
+  11368351: 8B EC              mov         ebp,esp
+  11368353: 81 EC C0 00 00 00  sub         esp,0C0h
+  11368359: 53                 push        ebx
+  1136835A: 56                 push        esi
+  1136835B: 57                 push        edi
+  1136835C: 5F                 pop         edi
+  1136835D: 5E                 pop         esi
+  1136835E: 5B                 pop         ebx
+  1136835F: 8B E5              mov         esp,ebp
+  11368361: 5D                 pop         ebp
+  11368362: C3                 ret
+  11368363: CC                 int         3
+  11368364: CC                 int         3
+  11368365: CC                 int         3
+  11368366: CC                 int         3
+  11368367: CC                 int         3
+  11368368: CC                 int         3
+  11368369: CC                 int         3
+  1136836A: CC                 int         3
+  1136836B: CC                 int         3
+  1136836C: CC                 int         3
+  1136836D: CC                 int         3
+  1136836E: CC                 int         3
+  1136836F: CC                 int         3
+  11368370: 55                 push        ebp
+
+  Summary
+
+     216F000 .text

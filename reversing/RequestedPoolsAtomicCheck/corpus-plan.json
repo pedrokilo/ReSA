@@ -1,0 +1,17 @@
+{
+  "identity": {
+    "class": "CPools",
+    "fn_name": "CheckBuildingAtomics",
+    "address": "0x00550170",
+    "type": "S"
+  },
+  "pairs": 256,
+  "actual_inputs": "No function parameters;256 repeated ABI caller contexts with distinct entryEAX and64byte guard patterns. Not256pool scenarios.",
+  "constant_native_bytes": "83c8ffc3",
+  "expected_uint32_return": 4294967295,
+  "EAX_entry_seed": "seed *0x9E3779B9 modulo2^32",
+  "ABI": "cdecl no args; stackbalanced EBX/ESI/EDI/EBP preserved; caller-saved EFLAGS intentionally not credited",
+  "globals": "68 bytes B74484..B744C7 all pool pointer slots readonly",
+  "fullstate": "guard64, poolglobals68, return32bit, FP round/exceptions/MXCSR; all17692 entries/tables/flags+timer96 externalFP restored",
+  "scope": "Pure constant getter only, no pool/actor allocation/lifetime/serialization/helper/fullclass credit. REA lookup failure preserved; exact native4bytes/fullasm primary evidence. No compile/replay yet."
+}

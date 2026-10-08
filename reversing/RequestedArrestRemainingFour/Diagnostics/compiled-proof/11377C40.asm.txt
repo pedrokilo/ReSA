@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  11377C40: 55                 push        ebp
+  11377C41: 8B EC              mov         ebp,esp
+  11377C43: 81 EC C0 00 00 00  sub         esp,0C0h
+  11377C49: 53                 push        ebx
+  11377C4A: 56                 push        esi
+  11377C4B: 57                 push        edi
+  11377C4C: 8B FD              mov         edi,ebp
+  11377C4E: 33 C9              xor         ecx,ecx
+  11377C50: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11377C55: F3 AB              rep stos    dword ptr es:[edi]
+  11377C57: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11377C5A: 50                 push        eax
+  11377C5B: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11377C5E: E8 83 B9 D2 FF     call        110A35E6
+  11377C63: 90                 nop
+  11377C64: 5F                 pop         edi
+  11377C65: 5E                 pop         esi
+  11377C66: 5B                 pop         ebx
+  11377C67: 81 C4 C0 00 00 00  add         esp,0C0h
+  11377C6D: 3B EC              cmp         ebp,esp
+  11377C6F: E8 5C 60 CE FF     call        1105DCD0
+  11377C74: 8B E5              mov         esp,ebp
+  11377C76: 5D                 pop         ebp
+  11377C77: C3                 ret
+  11377C78: CC                 int         3
+  11377C79: CC                 int         3
+  11377C7A: CC                 int         3
+  11377C7B: CC                 int         3
+  11377C7C: CC                 int         3
+  11377C7D: CC                 int         3
+  11377C7E: CC                 int         3
+  11377C7F: CC                 int         3
+  11377C80: CC                 int         3
+
+  Summary
+
+     216F000 .text

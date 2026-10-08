@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6848 con evidencia histórica, 0 con vigencia acreditada y 1598 pendientes en 60 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6860 con evidencia histórica, 0 con vigencia acreditada y 1586 pendientes en 58 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Prioridades técnicas de reversing
@@ -15,9 +15,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.446 |
 | Reconstruidas | 8.446 |
-| Validadas | 6.848 |
-| Reconstruidas sin validar | 1.598 |
-| De ellas, en esta cola (validables por pares) | 1.594 |
+| Validadas | 6.860 |
+| Reconstruidas sin validar | 1.586 |
+| De ellas, en esta cola (validables por pares) | 1.582 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -26,15 +26,15 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 8 | 29 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 8 | 24 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 9 | 461 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 23 | 539 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 21 | 532 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 16 | 565 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **56** | **1594** | |
+| **Total** | **54** | **1582** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (8 clases, 29 funciones)
+## 🟢 Nivel 1: muy barato (8 clases, 24 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
@@ -42,12 +42,12 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 |--:|---|--:|--:|--:|--:|
 | 1 | CTaskGoToVehicleAndLean | 7 | 2 |  | 19 |
 | 2 | CTaskComplexPlayHandSignalAnim | 9 | 2 |  | 24 |
-| 3 | CTaskGangHasslePed | 5 | 2 |  | 29 |
-| 4 | CTaskGangHassleVehicle | 8 | 2 |  | 32 |
-| 5 | CRealTimeShadowManager | 7 | 4 |  | 30 |
-| 6 | CPad | 75 | 5 |  | 19 |
-| 7 | CMonsterTruck | 11 | 5 |  | 30 |
-| 8 | CPedGeometryAnalyser | 38 | 7 |  | 26 |
+| 3 | CPedGeometryAnalyser | 38 | 2 |  | 26 |
+| 4 | CTaskGangHasslePed | 5 | 2 |  | 29 |
+| 5 | CTaskGangHassleVehicle | 8 | 2 |  | 32 |
+| 6 | CRealTimeShadowManager | 7 | 4 |  | 30 |
+| 7 | CPad | 75 | 5 |  | 19 |
+| 8 | CMonsterTruck | 11 | 5 |  | 30 |
 
 <a id="nivel-2"></a>
 
@@ -69,35 +69,33 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (23 clases, 539 funciones)
+## 🟠 Nivel 3: moderadas (21 clases, 532 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | FxEmitterBP_c | 9 | 2 |  | 42 |
+| 1 | CAEFrontendAudioEntity | 6 | 3 |  | 42 |
 | 2 | CTaskSimpleFightingControl | 7 | 3 |  | 46 |
 | 3 | CTaskComplexProstituteSolicit | 11 | 4 |  | 40 |
-| 4 | CAEFrontendAudioEntity | 6 | 4 |  | 42 |
-| 5 | CTaskComplexArrestPed | 7 | 4 |  | 45 |
-| 6 | CRope | 7 | 5 |  | 42 |
-| 7 | CGenericGameStorage | 19 | 5 |  | 47 |
-| 8 | CIdleCam | 14 | 13 |  | 33 |
-| 9 | CAEPedAudioEntity | 20 | 15 |  | 40 |
-| 10 | CClothesBuilder | 23 | 15 |  | 42 |
-| 11 | CPools | 19 | 16 |  | 26 |
-| 12 | CTrain | 40 | 20 |  | 38 |
-| 13 | CRunningScript | 39 | 24 |  | 33 |
-| 14 | CWaterLevel | 30 | 25 |  | 48 |
-| 15 | CCarEnterExit | 32 | 27 |  | 29 |
-| 16 | CAERadioTrackManager | 43 | 29 |  | 40 |
-| 17 | CGroupEventHandler | 32 | 30 |  | 29 |
-| 18 | CGangWars | 35 | 32 |  | 34 |
-| 19 | CPickups | 37 | 35 |  | 26 |
-| 20 | CPostEffects | 38 | 35 |  | 32 |
-| 21 | CRadar | 63 | 63 |  | 34 |
-| 22 | CPopulation | 66 | 64 |  | 34 |
-| 23 | CTheScripts | 69 | 69 |  | 30 |
+| 4 | CRope | 7 | 5 |  | 42 |
+| 5 | CGenericGameStorage | 19 | 5 |  | 47 |
+| 6 | CIdleCam | 14 | 13 |  | 33 |
+| 7 | CAEPedAudioEntity | 20 | 15 |  | 40 |
+| 8 | CClothesBuilder | 23 | 15 |  | 42 |
+| 9 | CPools | 19 | 16 |  | 26 |
+| 10 | CTrain | 40 | 20 |  | 38 |
+| 11 | CRunningScript | 39 | 24 |  | 33 |
+| 12 | CWaterLevel | 30 | 25 |  | 48 |
+| 13 | CCarEnterExit | 32 | 27 |  | 29 |
+| 14 | CAERadioTrackManager | 43 | 29 |  | 40 |
+| 15 | CGroupEventHandler | 32 | 30 |  | 29 |
+| 16 | CGangWars | 35 | 32 |  | 34 |
+| 17 | CPickups | 37 | 35 |  | 26 |
+| 18 | CPostEffects | 38 | 35 |  | 32 |
+| 19 | CRadar | 63 | 63 |  | 34 |
+| 20 | CPopulation | 66 | 64 |  | 34 |
+| 21 | CTheScripts | 69 | 69 |  | 30 |
 
 <a id="nivel-4"></a>
 

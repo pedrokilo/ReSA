@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1135E3D0: 55                 push        ebp
+  1135E3D1: 8B EC              mov         ebp,esp
+  1135E3D3: 81 EC D0 00 00 00  sub         esp,0D0h
+  1135E3D9: 53                 push        ebx
+  1135E3DA: 56                 push        esi
+  1135E3DB: 57                 push        edi
+  1135E3DC: 51                 push        ecx
+  1135E3DD: 8D 7D F0           lea         edi,[ebp-10h]
+  1135E3E0: B9 04 00 00 00     mov         ecx,4
+  1135E3E5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135E3EA: F3 AB              rep stos    dword ptr es:[edi]
+  1135E3EC: 59                 pop         ecx
+  1135E3ED: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1135E3F0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1135E3F3: E8 5B 61 D0 FF     call        11064553
+  1135E3F8: 8B C8              mov         ecx,eax
+  1135E3FA: E8 CE 02 D3 FF     call        1108E6CD
+  1135E3FF: 83 F8 01           cmp         eax,1
+  1135E402: 75 0C              jne         1135E410
+  1135E404: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  1135E40E: EB 0A              jmp         1135E41A
+  1135E410: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1135E41A: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  1135E421: 5F                 pop         edi
+  1135E422: 5E                 pop         esi
+  1135E423: 5B                 pop         ebx
+  1135E424: 81 C4 D0 00 00 00  add         esp,0D0h
+  1135E42A: 3B EC              cmp         ebp,esp
+  1135E42C: E8 9F F8 CF FF     call        1105DCD0
+  1135E431: 8B E5              mov         esp,ebp
+  1135E433: 5D                 pop         ebp
+  1135E434: C2 04 00           ret         4
+  1135E437: CC                 int         3
+
+  Summary
+
+     216F000 .text

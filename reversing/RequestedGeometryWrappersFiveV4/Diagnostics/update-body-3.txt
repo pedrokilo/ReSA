@@ -1,0 +1,127 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
+
+File Type: DLL
+
+  11372A50: 55                 push        ebp
+  11372A51: 8B EC              mov         ebp,esp
+  11372A53: 6A FF              push        0FFFFFFFFh
+  11372A55: 68 B5 F9 0C 13     push        130CF9B5h
+  11372A5A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  11372A60: 50                 push        eax
+  11372A61: 81 EC E4 00 00 00  sub         esp,0E4h
+  11372A67: 53                 push        ebx
+  11372A68: 56                 push        esi
+  11372A69: 57                 push        edi
+  11372A6A: 8D 7D D0           lea         edi,[ebp-30h]
+  11372A6D: B9 09 00 00 00     mov         ecx,9
+  11372A72: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11372A77: F3 AB              rep stos    dword ptr es:[edi]
+  11372A79: A1 40 7A 6C 13     mov         eax,dword ptr ds:[136C7A40h]
+  11372A7E: 33 C5              xor         eax,ebp
+  11372A80: 50                 push        eax
+  11372A81: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11372A84: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  11372A8A: C7 85 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],0
+            00 00 00 00
+  11372A94: C7 45 FC 01 00 00  mov         dword ptr [ebp-4],1
+            00
+  11372A9B: 8D 45 18           lea         eax,[ebp+18h]
+  11372A9E: 50                 push        eax
+  11372A9F: 8D 4D 0C           lea         ecx,[ebp+0Ch]
+  11372AA2: 51                 push        ecx
+  11372AA3: E8 AC 72 D3 FF     call        110A9D54
+  11372AA8: 83 C4 08           add         esp,8
+  11372AAB: 8D 45 0C           lea         eax,[ebp+0Ch]
+  11372AAE: 50                 push        eax
+  11372AAF: E8 B3 5E CF FF     call        11068967
+  11372AB4: 83 C4 04           add         esp,4
+  11372AB7: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11372ABA: 8D 45 18           lea         eax,[ebp+18h]
+  11372ABD: 50                 push        eax
+  11372ABE: E8 D7 04 D3 FF     call        110A2F9A
+  11372AC3: 83 C4 04           add         esp,4
+  11372AC6: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  11372AC9: EB 09              jmp         11372AD4
+  11372ACB: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11372ACE: 83 C0 08           add         eax,8
+  11372AD1: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11372AD4: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11372AD7: 3B 45 E0           cmp         eax,dword ptr [ebp-20h]
+  11372ADA: 74 17              je          11372AF3
+  11372ADC: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11372ADF: 50                 push        eax
+  11372AE0: 8D 4D 24           lea         ecx,[ebp+24h]
+  11372AE3: E8 96 E6 D0 FF     call        1108117E
+  11372AE8: 0F B6 C8           movzx       ecx,al
+  11372AEB: 85 C9              test        ecx,ecx
+  11372AED: 74 02              je          11372AF1
+  11372AEF: EB 02              jmp         11372AF3
+  11372AF1: EB D8              jmp         11372ACB
+  11372AF3: 8D 45 EC           lea         eax,[ebp-14h]
+  11372AF6: 50                 push        eax
+  11372AF7: 8D 4D 0C           lea         ecx,[ebp+0Ch]
+  11372AFA: 51                 push        ecx
+  11372AFB: E8 61 8C CF FF     call        1106B761
+  11372B00: 83 C4 08           add         esp,8
+  11372B03: 8D 45 0C           lea         eax,[ebp+0Ch]
+  11372B06: 50                 push        eax
+  11372B07: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11372B0A: E8 29 D6 D1 FF     call        11090138
+  11372B0F: 8B 8D 14 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF14h]
+  11372B15: 83 C9 01           or          ecx,1
+  11372B18: 89 8D 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],ecx
+  11372B1E: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  11372B22: 8D 4D 0C           lea         ecx,[ebp+0Ch]
+  11372B25: E8 9C 17 D0 FF     call        110742C6
+  11372B2A: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11372B31: 8D 4D 18           lea         ecx,[ebp+18h]
+  11372B34: E8 8D 17 D0 FF     call        110742C6
+  11372B39: 90                 nop
+  11372B3A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11372B3D: 52                 push        edx
+  11372B3E: 8B CD              mov         ecx,ebp
+  11372B40: 50                 push        eax
+  11372B41: 8D 15 70 2B 37 11  lea         edx,ds:[11372B70h]
+  11372B47: E8 44 EA CE FF     call        11061590
+  11372B4C: 58                 pop         eax
+  11372B4D: 5A                 pop         edx
+  11372B4E: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11372B51: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11372B58: 59                 pop         ecx
+  11372B59: 5F                 pop         edi
+  11372B5A: 5E                 pop         esi
+  11372B5B: 5B                 pop         ebx
+  11372B5C: 81 C4 F0 00 00 00  add         esp,0F0h
+  11372B62: 3B EC              cmp         ebp,esp
+  11372B64: E8 2B 91 CE FF     call        1105BC94
+  11372B69: 8B E5              mov         esp,ebp
+  11372B6B: 5D                 pop         ebp
+  11372B6C: C3                 ret
+  11372B6D: 0F 1F 00           nop         dword ptr [eax]
+  11372B70: 01 00              add         dword ptr [eax],eax
+  11372B72: 00 00              add         byte ptr [eax],al
+  11372B74: 78 2B              js          11372BA1
+  11372B76: 37                 aaa
+  11372B77: 11 EC              adc         esp,ebp
+  11372B79: FF
+  11372B7A: FF
+  11372B7B: FF 04 00           inc         dword ptr [eax+eax]
+  11372B7E: 00 00              add         byte ptr [eax],al
+  11372B80: 84 2B              test        byte ptr [ebx],ch
+  11372B82: 37                 aaa
+  11372B83: 11 5F 55           adc         dword ptr [edi+55h],ebx
+  11372B86: 46                 inc         esi
+  11372B87: 69
+  11372B88: 72 73              jb          11372BFD
+  11372B8A: 74 00              je          11372B8C
+  11372B8C: CC                 int         3
+
+  Summary
+
+     216B000 .text

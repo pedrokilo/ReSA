@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "pairs": 5120,
+  "differences": 0,
+  "functions": {
+    "ComputeEntityBoundingBoxCorners": {
+      "passed": true,
+      "pairs": 1024,
+      "address": "0x005F3650",
+      "type": "S"
+    },
+    "ComputeEntityBoundingBoxCentreUncachedAll": {
+      "passed": true,
+      "pairs": 1024,
+      "address": "0x005F3B40",
+      "type": "S"
+    },
+    "ComputeEntityBoundingBoxPlanesUncachedAll": {
+      "passed": true,
+      "pairs": 1024,
+      "address": "0x005F2B80",
+      "type": "S"
+    },
+    "ComputeEntityBoundingBoxSegmentPlanes": {
+      "passed": true,
+      "pairs": 1024,
+      "address": "0x005F36A0",
+      "type": "S"
+    },
+    "ComputeEntityBoundingBoxSegmentPlanesUncachedAll": {
+      "passed": true,
+      "pairs": 1024,
+      "address": "0x005F2BC0",
+      "type": "S"
+    }
+  },
+  "scope": "1024 finite signed-zero/quarter-step z cases per wrapper, inert typed entity and isolated primitive helpers with explicit canonical native CALL targets plus actual compiled DLL patch-entry CALL proof. Full 160-byte output arena/guards and entity payload immutable; exact helper sequence, z bit patterns, temporary producer/consumer raw pointer identity and All dangling-return identity without dereference. Native and DLL private helper entries and all 17692 hook/table ranges/flags restored; timer immutable and external FP environment restored. Per-target FP outcome not captured; no primitive helper, entity constructor/destructor, audio/physics/actor integration or current dependency accreditation.",
+  "manifest": {
+    "head": "77c517277dd11abf97ebed582c249edaa15a2a9e",
+    "tested_sources": {
+      "source/game_sa/PedGeometryAnalyser.cpp": "77a918d657ab65d3d6bf1b49bf3b6d03c0cb69f6deeaad24425491f1fe9d3783",
+      "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/General.cpp": "808742b15646ca279418ead9bff4e959207bebeb304f5a6918ae5bfdccd0d007",
+      "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff"
+    },
+    "bank_sources": {
+      "reversing/RequestedGeometryWrappersFiveV4/FixtureContracts.hpp": "bae2947308c676bf4d0daaa5e18ca70be9c440df467a3270c575228dc9c4d8f3",
+      "reversing/RequestedGeometryWrappersFiveV4/LiveComparison.hpp": "3237379002a001b3eb4888ebf1f98aeef66aaa11b5c304a4fb811b538f2699bb",
+      "reversing/RequestedGeometryWrappersFiveV4/PreflightHarness.hpp": "3157889240ef547488a1abd990f81a17a2acc4cc49cd8ce7c1f9b2132b77eb68",
+      "reversing/RequestedGeometryWrappersFiveV4/VTableRanges.hpp": "b09b4d5bb0d9ffd5b3b68dd9d10ed5c0bcb586e48b9543110b797526f83d86b1",
+      "reversing/RequestedGeometryWrappersFiveV4/build_probe.py": "3025a7af9c2300539c39cf61d22fb6d665614180414a4068d8d426c9a7887913",
+      "reversing/RequestedGeometryWrappersFiveV4/inspect_compiled.py": "4e9d5f3bbda6e01d7bbf404d6ffa988f811f9d8e109873bbe0462aeda50fa9ac",
+      "reversing/RequestedGeometryWrappersFiveV4/restore_winmain.py": "83b3d93515d14d5fd72eafbbae58ee916c57e92af0fbbd3a337e6cffe0388cb9",
+      "reversing/RequestedGeometryWrappersFiveV4/run_local.py": "c18dce5ab99be2de14dd50941d2b9dc97a4ccdac896912e6b3214d126885b0b1",
+      "reversing/RequestedGeometryWrappersFiveV4/corpus-plan.json": "3ea3a92fe6c7c6814a4367aadd10a60d15f1455aef072d46bff247820550960a",
+      "reversing/RequestedGeometryWrappersFiveV4/revision.json": "ebab4fc1d7f0f4d8bc272a0286e7e12d107c81815ad3185de565336906947650",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/CentreAll-fullasm.txt": "cf6967649752ac1150fd2eeaea2eff84410487ac23eb348b79be94a957ebf233",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/Corners-fullasm.txt": "6a72bc4ab5e78ea8c0145735463e9e52090285c37e8e8be431feb049319989e1",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/native-call-proof.json": "98d2b92a3c1c3d131ddf2fbad6b9c4a443fd76005aebc30a7b1cabe47c0d48a8",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/PlanesAll-fullasm.txt": "a744c6450690914aa91e846544177cc70eedcd223f4f643c27dbbdcf149308e8",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/REA-Corners.json": "029161074fc13f2c05cf65927c62c1975b11e44a94942c1f3762b9c49e8c0694",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/Segment-fullasm.txt": "c1553dcdbfde201cef998ddb091f5502a2b5ffe06a3960bb6950f9bff464fa49",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/SegmentAll-fullasm.txt": "7c7b6374b36c34d693f31abae4c63780bf0b9ab73daaec704886cd25841e929f",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Pregraphics five geometry wrappers1024each, full guarded outputs/inert typed entity, primitive helpers privately controlled native+DLL, dynamic exactlayoutCtorCALLproof sourceGeneralentry/body privatefixed55; pointer roles proven by producer/consumer identity, no dangling reads. No physics or helper/ctor/dtor integration accreditation.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "26434037ce2e5d03bddfd69438792c6e8afa73329bca1fd4c0459a6222b800aa"
+    },
+    "asi": "ac4b86f836d2239fc5c371485bb0c9334357913ddc7b098a592f97f9e82d46b5",
+    "pdb": "e4e4ef5c313e33b69b704013fcd281c7d2b31e55b5222e011887fa95b6e37985"
+  },
+  "run": "reversing/RequestedGeometryWrappersFiveV4/runs/20261008-163315-642133",
+  "run_summary_sha256": "f9b59c414511839b9084a392e760b66f5848636b2f5d764c2893362d291becdf",
+  "audit_path": "reversing/RequestedGeometryWrappersFiveV4/Diagnostics/independent-runtime-audit.json",
+  "audit_sha256": "d09c31f4439c7dd6cf9749831bb389bfbc96aaff795c69d486ca76e8afafa6e0",
+  "harness_sha256": "a4739962fddbfd91b0641a09b70fc0e428b340705c86ab8f1d06ff3b21a19da2",
+  "log_sha256": "93ac543dca0ec5e14f6ce3a200527ecb3ea34d59b00f7d7d8859ff75d6c12454",
+  "compiled_callchain_proof_sha256": "6532f01a18467a3714de94903aa6026a2f7a6d76bee451bee413db26af08a3a8",
+  "historical_only": true,
+  "dependency_review": null,
+  "prior_v3_local_replay": "reversing/RequestedGeometryWrappersFiveV3/runs/20261008-162225-471717",
+  "prior_v3_limit": "No global ranges/vtable harness, not accredited separately."
+}

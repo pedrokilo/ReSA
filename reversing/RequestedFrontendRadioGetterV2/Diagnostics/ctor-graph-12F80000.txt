@@ -1,0 +1,69 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  12F80000: 55                 push        ebp
+  12F80001: 8B EC              mov         ebp,esp
+  12F80003: 81 EC 04 04 00 00  sub         esp,404h
+  12F80009: A1 40 DA 6A 13     mov         eax,dword ptr ds:[136ADA40h]
+  12F8000E: 33 C5              xor         eax,ebp
+  12F80010: 89 45 FC           mov         dword ptr [ebp-4],eax
+  12F80013: 53                 push        ebx
+  12F80014: 8B 5D 08           mov         ebx,dword ptr [ebp+8]
+  12F80017: 56                 push        esi
+  12F80018: 8B 75 0C           mov         esi,dword ptr [ebp+0Ch]
+  12F8001B: 57                 push        edi
+  12F8001C: 8B 3D C8 DA 6A 13  mov         edi,dword ptr ds:[136ADAC8h]
+  12F80022: 83 FF FF           cmp         edi,0FFFFFFFFh
+  12F80025: 74 73              je          12F8009A
+  12F80027: 80 3E 00           cmp         byte ptr [esi],0
+  12F8002A: 74 5C              je          12F80088
+  12F8002C: 56                 push        esi
+  12F8002D: E8 4E 01 00 00     call        12F80180
+  12F80032: 83 C0 2D           add         eax,2Dh
+  12F80035: 83 C4 04           add         esp,4
+  12F80038: 3D 00 04 00 00     cmp         eax,400h
+  12F8003D: 77 49              ja          12F80088
+  12F8003F: 68 E0 A0 44 13     push        1344A0E0h
+  12F80044: 8D 85 FC FB FF FF  lea         eax,[ebp+FFFFFBFCh]
+  12F8004A: 68 00 04 00 00     push        400h
+  12F8004F: 50                 push        eax
+  12F80050: E8 D9 C3 0E FE     call        1106C42E
+  12F80055: 56                 push        esi
+  12F80056: 8D 85 FC FB FF FF  lea         eax,[ebp+FFFFFBFCh]
+  12F8005C: 68 00 04 00 00     push        400h
+  12F80061: 50                 push        eax
+  12F80062: E8 56 6F 10 FE     call        11086FBD
+  12F80067: 68 FC A0 44 13     push        1344A0FCh
+  12F8006C: 8D 85 FC FB FF FF  lea         eax,[ebp+FFFFFBFCh]
+  12F80072: 68 00 04 00 00     push        400h
+  12F80077: 50                 push        eax
+  12F80078: E8 40 6F 10 FE     call        11086FBD
+  12F8007D: 83 C4 24           add         esp,24h
+  12F80080: 8D 85 FC FB FF FF  lea         eax,[ebp+FFFFFBFCh]
+  12F80086: EB 05              jmp         12F8008D
+  12F80088: B8 C0 A5 44 13     mov         eax,1344A5C0h
+  12F8008D: 50                 push        eax
+  12F8008E: 6A 02              push        2
+  12F80090: 57                 push        edi
+  12F80091: 53                 push        ebx
+  12F80092: E8 09 01 00 00     call        12F801A0
+  12F80097: 83 C4 10           add         esp,10h
+  12F8009A: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  12F8009D: 5F                 pop         edi
+  12F8009E: 5E                 pop         esi
+  12F8009F: 33 CD              xor         ecx,ebp
+  12F800A1: 5B                 pop         ebx
+  12F800A2: E8 2A 22 0D FE     call        110522D1
+  12F800A7: 8B E5              mov         esp,ebp
+  12F800A9: 5D                 pop         ebp
+  12F800AA: C3                 ret
+  12F800AB: CC                 int         3
+
+  Summary
+
+     215A000 .text

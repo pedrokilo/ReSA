@@ -1,0 +1,73 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  11389B10: FF
+  11389B11: FF 8B 8D 18 CF FF  dec         dword ptr [ebx+FFCF188Dh]
+  11389B17: FF 89 8D 14 CF FF  dec         dword ptr [ecx+FFCF148Dh]
+  11389B1D: FF E9              jmp         rcx
+  11389B1F: 01 01              add         dword ptr [ecx],eax
+  11389B21: 00 00              add         byte ptr [eax],al
+  11389B23: E8 BB F6 CE FF     call        110791E3
+  11389B28: 39 85 24 F8 FF FF  cmp         dword ptr [ebp+FFFFF824h],eax
+  11389B2E: 0F 85 9E 00 00 00  jne         11389BD2
+  11389B34: 68 20 66 1D 13     push        131D6620h
+  11389B39: 8D 8D D8 DA FF FF  lea         ecx,[ebp+FFFFDAD8h]
+  11389B3F: E8 68 04 D0 FF     call        11089FAC
+  11389B44: C7 45 FC C7 00 00  mov         dword ptr [ebp-4],0C7h
+            00
+  11389B4B: 8B 95 D0 E4 FF FF  mov         edx,dword ptr [ebp+FFFFE4D0h]
+  11389B51: 83 CA 02           or          edx,2
+  11389B54: 89 95 D0 E4 FF FF  mov         dword ptr [ebp+FFFFE4D0h],edx
+  11389B5A: C7 85 18 E8 FF FF  mov         dword ptr [ebp+FFFFE818h],10h
+            10 00 00 00
+  11389B64: 8D 85 18 E8 FF FF  lea         eax,[ebp+FFFFE818h]
+  11389B6A: 50                 push        eax
+  11389B6B: 8D 8D F0 DA FF FF  lea         ecx,[ebp+FFFFDAF0h]
+  11389B71: E8 D4 9F CD FF     call        11063B4A
+  11389B76: 8B 8D D0 E4 FF FF  mov         ecx,dword ptr [ebp+FFFFE4D0h]
+  11389B7C: 83 C9 04           or          ecx,4
+  11389B7F: 89 8D D0 E4 FF FF  mov         dword ptr [ebp+FFFFE4D0h],ecx
+  11389B85: C7 45 FC C8 00 00  mov         dword ptr [ebp-4],0C8h
+            00
+  11389B8C: 8B 95 D0 E4 FF FF  mov         edx,dword ptr [ebp+FFFFE4D0h]
+  11389B92: 83 CA 08           or          edx,8
+  11389B95: 89 95 D0 E4 FF FF  mov         dword ptr [ebp+FFFFE4D0h],edx
+  11389B9B: 8D 85 08 DB FF FF  lea         eax,[ebp+FFFFDB08h]
+  11389BA1: 50                 push        eax
+  11389BA2: 8D 8D D8 DA FF FF  lea         ecx,[ebp+FFFFDAD8h]
+  11389BA8: 51                 push        ecx
+  11389BA9: 8D 8D 08 E8 FF FF  lea         ecx,[ebp+FFFFE808h]
+  11389BAF: E8 E3 B5 CE FF     call        11075197
+  11389BB4: 8B 50 04           mov         edx,dword ptr [eax+4]
+  11389BB7: 52                 push        edx
+  11389BB8: 8B 00              mov         eax,dword ptr [eax]
+  11389BBA: 50                 push        eax
+  11389BBB: 8D 8D F0 E7 FF FF  lea         ecx,[ebp+FFFFE7F0h]
+  11389BC1: 51                 push        ecx
+  11389BC2: E8 94 E8 CD FF     call        1106845B
+  11389BC7: 83 C4 0C           add         esp,0Ch
+  11389BCA: 89 85 10 CF FF FF  mov         dword ptr [ebp+FFFFCF10h],eax
+  11389BD0: EB 18              jmp         11389BEA
+  11389BD2: 8D 95 24 F8 FF FF  lea         edx,[ebp+FFFFF824h]
+  11389BD8: 52                 push        edx
+  11389BD9: 8D 8D F0 E7 FF FF  lea         ecx,[ebp+FFFFE7F0h]
+  11389BDF: E8 2D CE CD FF     call        11066A11
+  11389BE4: 89 85 10 CF FF FF  mov         dword ptr [ebp+FFFFCF10h],eax
+  11389BEA: 8B 85 10 CF FF FF  mov         eax,dword ptr [ebp+FFFFCF10h]
+  11389BF0: 89 85 24 E8 FF FF  mov         dword ptr [ebp+FFFFE824h],eax
+  11389BF6: 8B 8D 24 E8 FF FF  mov         ecx,dword ptr [ebp+FFFFE824h]
+  11389BFC: 89 8D 0C CF FF FF  mov         dword ptr [ebp+FFFFCF0Ch],ecx
+  11389C02: C7 45 FC C9 00 00  mov         dword ptr [ebp-4],0C9h
+            00
+  11389C09: 8B 95 D0 E4 FF FF  mov         edx,dword ptr [ebp+FFFFE4D0h]
+  11389C0F: 83
+  11389C10: CA
+
+  Summary
+
+     2166000 .text

@@ -1,0 +1,55 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
+
+File Type: DLL
+
+  11359420: 55                 push        ebp
+  11359421: 8B EC              mov         ebp,esp
+  11359423: 81 EC D4 00 00 00  sub         esp,0D4h
+  11359429: 53                 push        ebx
+  1135942A: 56                 push        esi
+  1135942B: 57                 push        edi
+  1135942C: 51                 push        ecx
+  1135942D: 8D 7D EC           lea         edi,[ebp-14h]
+  11359430: B9 05 00 00 00     mov         ecx,5
+  11359435: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135943A: F3 AB              rep stos    dword ptr es:[edi]
+  1135943C: 59                 pop         ecx
+  1135943D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11359440: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11359443: 8B 08              mov         ecx,dword ptr [eax]
+  11359445: 89 8D 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],ecx
+  1135944B: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1135944E: 8B 42 04           mov         eax,dword ptr [edx+4]
+  11359451: 8B 08              mov         ecx,dword ptr [eax]
+  11359453: 51                 push        ecx
+  11359454: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  1135945A: E8 45 76 D1 FF     call        11070AA4
+  1135945F: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11359462: 8B 0A              mov         ecx,dword ptr [edx]
+  11359464: 3B 08              cmp         ecx,dword ptr [eax]
+  11359466: 75 0C              jne         11359474
+  11359468: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],1
+            01 00 00 00
+  11359472: EB 0A              jmp         1135947E
+  11359474: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],0
+            00 00 00 00
+  1135947E: 0F B6 85 2C FF FF  movzx       eax,byte ptr [ebp+FFFFFF2Ch]
+            FF
+  11359485: 5F                 pop         edi
+  11359486: 5E                 pop         esi
+  11359487: 5B                 pop         ebx
+  11359488: 81 C4 D4 00 00 00  add         esp,0D4h
+  1135948E: 3B EC              cmp         ebp,esp
+  11359490: E8 FF 27 D0 FF     call        1105BC94
+  11359495: 8B E5              mov         esp,ebp
+  11359497: 5D                 pop         ebp
+  11359498: C2 04 00           ret         4
+  1135949B: CC                 int         3
+
+  Summary
+
+     216B000 .text

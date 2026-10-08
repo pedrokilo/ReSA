@@ -1,0 +1,500 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
+
+File Type: DLL
+
+  1122A170: 55                 push        ebp
+  1122A171: 8B EC              mov         ebp,esp
+  1122A173: 81 EC CC 00 00 00  sub         esp,0CCh
+  1122A179: 53                 push        ebx
+  1122A17A: 56                 push        esi
+  1122A17B: 57                 push        edi
+  1122A17C: 51                 push        ecx
+  1122A17D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1122A180: B9 03 00 00 00     mov         ecx,3
+  1122A185: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1122A18A: F3 AB              rep stos    dword ptr es:[edi]
+  1122A18C: 59                 pop         ecx
+  1122A18D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1122A190: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A193: 50                 push        eax
+  1122A194: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A197: E8 22 D6 E4 FF     call        110777BE
+  1122A19C: 90                 nop
+  1122A19D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A1A0: C7 00 54 73 1C 13  mov         dword ptr [eax],131C7354h
+  1122A1A6: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A1A9: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A1AC: 8B 51 18           mov         edx,dword ptr [ecx+18h]
+  1122A1AF: 89 50 18           mov         dword ptr [eax+18h],edx
+  1122A1B2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A1B5: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1122A1B8: 80 E1 01           and         cl,1
+  1122A1BB: 80 E1 01           and         cl,1
+  1122A1BE: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A1C1: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1122A1C4: 24 FE              and         al,0FEh
+  1122A1C6: 0A C1              or          al,cl
+  1122A1C8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A1CB: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1122A1CE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A1D1: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1122A1D4: D0 E9              shr         cl,1
+  1122A1D6: 80 E1 01           and         cl,1
+  1122A1D9: 80 E1 01           and         cl,1
+  1122A1DC: D0 E1              shl         cl,1
+  1122A1DE: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A1E1: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1122A1E4: 24 FD              and         al,0FDh
+  1122A1E6: 0A C1              or          al,cl
+  1122A1E8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A1EB: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1122A1EE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A1F1: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1122A1F4: C0 E9 02           shr         cl,2
+  1122A1F7: 80 E1 01           and         cl,1
+  1122A1FA: 80 E1 01           and         cl,1
+  1122A1FD: C0 E1 02           shl         cl,2
+  1122A200: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A203: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1122A206: 24 FB              and         al,0FBh
+  1122A208: 0A C1              or          al,cl
+  1122A20A: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A20D: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1122A210: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A213: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1122A216: C0 E9 03           shr         cl,3
+  1122A219: 80 E1 01           and         cl,1
+  1122A21C: 80 E1 01           and         cl,1
+  1122A21F: C0 E1 03           shl         cl,3
+  1122A222: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A225: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1122A228: 24 F7              and         al,0F7h
+  1122A22A: 0A C1              or          al,cl
+  1122A22C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A22F: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1122A232: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A235: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1122A238: C0 E9 04           shr         cl,4
+  1122A23B: 80 E1 01           and         cl,1
+  1122A23E: 80 E1 01           and         cl,1
+  1122A241: C0 E1 04           shl         cl,4
+  1122A244: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A247: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1122A24A: 24 EF              and         al,0EFh
+  1122A24C: 0A C1              or          al,cl
+  1122A24E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A251: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1122A254: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A257: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1122A25A: C0 E9 05           shr         cl,5
+  1122A25D: 80 E1 01           and         cl,1
+  1122A260: 80 E1 01           and         cl,1
+  1122A263: C0 E1 05           shl         cl,5
+  1122A266: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A269: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1122A26C: 24 DF              and         al,0DFh
+  1122A26E: 0A C1              or          al,cl
+  1122A270: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A273: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1122A276: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A279: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1122A27C: C0 E9 06           shr         cl,6
+  1122A27F: 80 E1 01           and         cl,1
+  1122A282: 80 E1 01           and         cl,1
+  1122A285: C0 E1 06           shl         cl,6
+  1122A288: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A28B: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1122A28E: 24 BF              and         al,0BFh
+  1122A290: 0A C1              or          al,cl
+  1122A292: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A295: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1122A298: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A29B: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1122A29E: C0 E9 07           shr         cl,7
+  1122A2A1: 80 E1 01           and         cl,1
+  1122A2A4: 80 E1 01           and         cl,1
+  1122A2A7: C0 E1 07           shl         cl,7
+  1122A2AA: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A2AD: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1122A2B0: 24 7F              and         al,7Fh
+  1122A2B2: 0A C1              or          al,cl
+  1122A2B4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A2B7: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1122A2BA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A2BD: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1122A2C0: 80 E1 01           and         cl,1
+  1122A2C3: 80 E1 01           and         cl,1
+  1122A2C6: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A2C9: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1122A2CC: 24 FE              and         al,0FEh
+  1122A2CE: 0A C1              or          al,cl
+  1122A2D0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A2D3: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1122A2D6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A2D9: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1122A2DC: D0 E9              shr         cl,1
+  1122A2DE: 80 E1 01           and         cl,1
+  1122A2E1: 80 E1 01           and         cl,1
+  1122A2E4: D0 E1              shl         cl,1
+  1122A2E6: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A2E9: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1122A2EC: 24 FD              and         al,0FDh
+  1122A2EE: 0A C1              or          al,cl
+  1122A2F0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A2F3: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1122A2F6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A2F9: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1122A2FC: C0 E9 02           shr         cl,2
+  1122A2FF: 80 E1 01           and         cl,1
+  1122A302: 80 E1 01           and         cl,1
+  1122A305: C0 E1 02           shl         cl,2
+  1122A308: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A30B: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1122A30E: 24 FB              and         al,0FBh
+  1122A310: 0A C1              or          al,cl
+  1122A312: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A315: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1122A318: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A31B: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1122A31E: C0 E9 03           shr         cl,3
+  1122A321: 80 E1 01           and         cl,1
+  1122A324: 80 E1 01           and         cl,1
+  1122A327: C0 E1 03           shl         cl,3
+  1122A32A: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A32D: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1122A330: 24 F7              and         al,0F7h
+  1122A332: 0A C1              or          al,cl
+  1122A334: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A337: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1122A33A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A33D: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1122A340: C0 E9 04           shr         cl,4
+  1122A343: 80 E1 01           and         cl,1
+  1122A346: 80 E1 01           and         cl,1
+  1122A349: C0 E1 04           shl         cl,4
+  1122A34C: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A34F: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1122A352: 24 EF              and         al,0EFh
+  1122A354: 0A C1              or          al,cl
+  1122A356: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A359: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1122A35C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A35F: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1122A362: C0 E9 05           shr         cl,5
+  1122A365: 80 E1 01           and         cl,1
+  1122A368: 80 E1 01           and         cl,1
+  1122A36B: C0 E1 05           shl         cl,5
+  1122A36E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A371: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1122A374: 24 DF              and         al,0DFh
+  1122A376: 0A C1              or          al,cl
+  1122A378: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A37B: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1122A37E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A381: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1122A384: C0 E9 06           shr         cl,6
+  1122A387: 80 E1 01           and         cl,1
+  1122A38A: 80 E1 01           and         cl,1
+  1122A38D: C0 E1 06           shl         cl,6
+  1122A390: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A393: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1122A396: 24 BF              and         al,0BFh
+  1122A398: 0A C1              or          al,cl
+  1122A39A: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A39D: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1122A3A0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A3A3: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1122A3A6: C0 E9 07           shr         cl,7
+  1122A3A9: 80 E1 01           and         cl,1
+  1122A3AC: 80 E1 01           and         cl,1
+  1122A3AF: C0 E1 07           shl         cl,7
+  1122A3B2: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A3B5: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1122A3B8: 24 7F              and         al,7Fh
+  1122A3BA: 0A C1              or          al,cl
+  1122A3BC: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A3BF: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1122A3C2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A3C5: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1122A3C8: 80 E1 01           and         cl,1
+  1122A3CB: 80 E1 01           and         cl,1
+  1122A3CE: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A3D1: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1122A3D4: 24 FE              and         al,0FEh
+  1122A3D6: 0A C1              or          al,cl
+  1122A3D8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A3DB: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1122A3DE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A3E1: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1122A3E4: D0 E9              shr         cl,1
+  1122A3E6: 80 E1 01           and         cl,1
+  1122A3E9: 80 E1 01           and         cl,1
+  1122A3EC: D0 E1              shl         cl,1
+  1122A3EE: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A3F1: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1122A3F4: 24 FD              and         al,0FDh
+  1122A3F6: 0A C1              or          al,cl
+  1122A3F8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A3FB: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1122A3FE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A401: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1122A404: C0 E9 02           shr         cl,2
+  1122A407: 80 E1 01           and         cl,1
+  1122A40A: 80 E1 01           and         cl,1
+  1122A40D: C0 E1 02           shl         cl,2
+  1122A410: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A413: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1122A416: 24 FB              and         al,0FBh
+  1122A418: 0A C1              or          al,cl
+  1122A41A: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A41D: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1122A420: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A423: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1122A426: C0 E9 03           shr         cl,3
+  1122A429: 80 E1 01           and         cl,1
+  1122A42C: 80 E1 01           and         cl,1
+  1122A42F: C0 E1 03           shl         cl,3
+  1122A432: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A435: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1122A438: 24 F7              and         al,0F7h
+  1122A43A: 0A C1              or          al,cl
+  1122A43C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A43F: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1122A442: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A445: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1122A448: C0 E9 04           shr         cl,4
+  1122A44B: 80 E1 01           and         cl,1
+  1122A44E: 80 E1 01           and         cl,1
+  1122A451: C0 E1 04           shl         cl,4
+  1122A454: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A457: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1122A45A: 24 EF              and         al,0EFh
+  1122A45C: 0A C1              or          al,cl
+  1122A45E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A461: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1122A464: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A467: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1122A46A: C0 E9 05           shr         cl,5
+  1122A46D: 80 E1 01           and         cl,1
+  1122A470: 80 E1 01           and         cl,1
+  1122A473: C0 E1 05           shl         cl,5
+  1122A476: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A479: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1122A47C: 24 DF              and         al,0DFh
+  1122A47E: 0A C1              or          al,cl
+  1122A480: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A483: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1122A486: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A489: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1122A48C: C0 E9 06           shr         cl,6
+  1122A48F: 80 E1 01           and         cl,1
+  1122A492: 80 E1 01           and         cl,1
+  1122A495: C0 E1 06           shl         cl,6
+  1122A498: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A49B: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1122A49E: 24 BF              and         al,0BFh
+  1122A4A0: 0A C1              or          al,cl
+  1122A4A2: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A4A5: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1122A4A8: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A4AB: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1122A4AE: C0 E9 07           shr         cl,7
+  1122A4B1: 80 E1 01           and         cl,1
+  1122A4B4: 80 E1 01           and         cl,1
+  1122A4B7: C0 E1 07           shl         cl,7
+  1122A4BA: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A4BD: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1122A4C0: 24 7F              and         al,7Fh
+  1122A4C2: 0A C1              or          al,cl
+  1122A4C4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A4C7: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1122A4CA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A4CD: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1122A4D0: 80 E1 01           and         cl,1
+  1122A4D3: 80 E1 01           and         cl,1
+  1122A4D6: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A4D9: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1122A4DC: 24 FE              and         al,0FEh
+  1122A4DE: 0A C1              or          al,cl
+  1122A4E0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A4E3: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1122A4E6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A4E9: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1122A4EC: D0 E9              shr         cl,1
+  1122A4EE: 80 E1 01           and         cl,1
+  1122A4F1: 80 E1 01           and         cl,1
+  1122A4F4: D0 E1              shl         cl,1
+  1122A4F6: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A4F9: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1122A4FC: 24 FD              and         al,0FDh
+  1122A4FE: 0A C1              or          al,cl
+  1122A500: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A503: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1122A506: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A509: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1122A50C: C0 E9 02           shr         cl,2
+  1122A50F: 80 E1 01           and         cl,1
+  1122A512: 80 E1 01           and         cl,1
+  1122A515: C0 E1 02           shl         cl,2
+  1122A518: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A51B: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1122A51E: 24 FB              and         al,0FBh
+  1122A520: 0A C1              or          al,cl
+  1122A522: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A525: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1122A528: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A52B: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1122A52E: C0 E9 03           shr         cl,3
+  1122A531: 80 E1 01           and         cl,1
+  1122A534: 80 E1 01           and         cl,1
+  1122A537: C0 E1 03           shl         cl,3
+  1122A53A: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A53D: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1122A540: 24 F7              and         al,0F7h
+  1122A542: 0A C1              or          al,cl
+  1122A544: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A547: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1122A54A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A54D: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1122A550: C0 E9 04           shr         cl,4
+  1122A553: 80 E1 01           and         cl,1
+  1122A556: 80 E1 01           and         cl,1
+  1122A559: C0 E1 04           shl         cl,4
+  1122A55C: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A55F: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1122A562: 24 EF              and         al,0EFh
+  1122A564: 0A C1              or          al,cl
+  1122A566: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A569: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1122A56C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A56F: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1122A572: C0 E9 05           shr         cl,5
+  1122A575: 80 E1 01           and         cl,1
+  1122A578: 80 E1 01           and         cl,1
+  1122A57B: C0 E1 05           shl         cl,5
+  1122A57E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A581: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1122A584: 24 DF              and         al,0DFh
+  1122A586: 0A C1              or          al,cl
+  1122A588: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A58B: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1122A58E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A591: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1122A594: C0 E9 06           shr         cl,6
+  1122A597: 80 E1 01           and         cl,1
+  1122A59A: 80 E1 01           and         cl,1
+  1122A59D: C0 E1 06           shl         cl,6
+  1122A5A0: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A5A3: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1122A5A6: 24 BF              and         al,0BFh
+  1122A5A8: 0A C1              or          al,cl
+  1122A5AA: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A5AD: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1122A5B0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A5B3: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1122A5B6: C0 E9 07           shr         cl,7
+  1122A5B9: 80 E1 01           and         cl,1
+  1122A5BC: 80 E1 01           and         cl,1
+  1122A5BF: C0 E1 07           shl         cl,7
+  1122A5C2: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A5C5: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1122A5C8: 24 7F              and         al,7Fh
+  1122A5CA: 0A C1              or          al,cl
+  1122A5CC: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A5CF: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1122A5D2: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A5D5: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A5D8: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  1122A5DB: 89 50 1C           mov         dword ptr [eax+1Ch],edx
+  1122A5DE: B8 FF 00 00 00     mov         eax,0FFh
+  1122A5E3: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A5E6: 66 23 41 20        and         ax,word ptr [ecx+20h]
+  1122A5EA: BA FF 00 00 00     mov         edx,0FFh
+  1122A5EF: 66 23 C2           and         ax,dx
+  1122A5F2: B9 00 FF 00 00     mov         ecx,0FF00h
+  1122A5F7: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A5FA: 66 23 4A 20        and         cx,word ptr [edx+20h]
+  1122A5FE: 66 0B C8           or          cx,ax
+  1122A601: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A604: 66 89 48 20        mov         word ptr [eax+20h],cx
+  1122A608: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A60B: 66 8B 48 20        mov         cx,word ptr [eax+20h]
+  1122A60F: 66 C1 E9 08        shr         cx,8
+  1122A613: BA FF 00 00 00     mov         edx,0FFh
+  1122A618: 66 23 CA           and         cx,dx
+  1122A61B: B8 FF 00 00 00     mov         eax,0FFh
+  1122A620: 66 23 C8           and         cx,ax
+  1122A623: 66 C1 E1 08        shl         cx,8
+  1122A627: BA FF 00 00 00     mov         edx,0FFh
+  1122A62C: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A62F: 66 23 50 20        and         dx,word ptr [eax+20h]
+  1122A633: 66 0B D1           or          dx,cx
+  1122A636: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1122A639: 66 89 51 20        mov         word ptr [ecx+20h],dx
+  1122A63D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A640: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A643: 66 8B 51 20        mov         dx,word ptr [ecx+20h]
+  1122A647: 66 89 50 20        mov         word ptr [eax+20h],dx
+  1122A64B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A64E: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A651: 66 8B 51 22        mov         dx,word ptr [ecx+22h]
+  1122A655: 66 89 50 22        mov         word ptr [eax+22h],dx
+  1122A659: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A65C: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A65F: 8B 51 24           mov         edx,dword ptr [ecx+24h]
+  1122A662: 89 50 24           mov         dword ptr [eax+24h],edx
+  1122A665: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A668: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A66B: 8B 51 28           mov         edx,dword ptr [ecx+28h]
+  1122A66E: 89 50 28           mov         dword ptr [eax+28h],edx
+  1122A671: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A674: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A677: 66 8B 51 2C        mov         dx,word ptr [ecx+2Ch]
+  1122A67B: 66 89 50 2C        mov         word ptr [eax+2Ch],dx
+  1122A67F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A682: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A685: 8A 51 2E           mov         dl,byte ptr [ecx+2Eh]
+  1122A688: 88 50 2E           mov         byte ptr [eax+2Eh],dl
+  1122A68B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A68E: 8A 48 2F           mov         cl,byte ptr [eax+2Fh]
+  1122A691: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A694: 88 4A 2F           mov         byte ptr [edx+2Fh],cl
+  1122A697: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A69A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A69D: 8B 51 30           mov         edx,dword ptr [ecx+30h]
+  1122A6A0: 89 50 30           mov         dword ptr [eax+30h],edx
+  1122A6A3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A6A6: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A6A9: 8B 51 30           mov         edx,dword ptr [ecx+30h]
+  1122A6AC: 89 50 30           mov         dword ptr [eax+30h],edx
+  1122A6AF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A6B2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A6B5: 8A 51 34           mov         dl,byte ptr [ecx+34h]
+  1122A6B8: 88 50 34           mov         byte ptr [eax+34h],dl
+  1122A6BB: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A6BE: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1122A6C1: 8A 51 35           mov         dl,byte ptr [ecx+35h]
+  1122A6C4: 88 50 35           mov         byte ptr [eax+35h],dl
+  1122A6C7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1122A6CA: 8A 48 36           mov         cl,byte ptr [eax+36h]
+  1122A6CD: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1122A6D0: 88 4A 36           mov         byte ptr [edx+36h],cl
+  1122A6D3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1122A6D6: 5F                 pop         edi
+  1122A6D7: 5E                 pop         esi
+  1122A6D8: 5B                 pop         ebx
+  1122A6D9: 81 C4 CC 00 00 00  add         esp,0CCh
+  1122A6DF: 3B EC              cmp         ebp,esp
+  1122A6E1: E8 AE 15 E3 FF     call        1105BC94
+  1122A6E6: 8B E5              mov         esp,ebp
+  1122A6E8: 5D                 pop         ebp
+  1122A6E9: C2 04 00           ret         4
+  1122A6EC: CC                 int         3
+
+  Summary
+
+     216B000 .text

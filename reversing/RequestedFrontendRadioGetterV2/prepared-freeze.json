@@ -1,0 +1,12 @@
+{
+  "reversing/RequestedFrontendRadioGetterV2/LiveComparison.hpp": "b9883c0f04577cd0671147b1e5771afa41724124e30d3b8b88a701ce95e5b7a2",
+  "reversing/RequestedFrontendRadioGetterV2/PreflightHarness.hpp": "f5c97389b0e87742b67b6d57c5f5caa09bea2d4dc21f3ecaebd6df98e81b5e79",
+  "reversing/RequestedFrontendRadioGetterV2/VTableRanges.hpp": "c1410e406a82c68dba57994d550b6f27e69bcabfd7627c4fd938baf3b24c8118",
+  "reversing/RequestedFrontendRadioGetterV2/build_probe.py": "1dc1ef84671078b07542c2f2d47a67b5d36b6df9a3c12765b44d2e32b051fb64",
+  "reversing/RequestedFrontendRadioGetterV2/inspect_compiled.py": "42f8db13a200b8e29252845bd4c7a1bb9fccc388ad3d5de1d8c95720c6ebf64d",
+  "reversing/RequestedFrontendRadioGetterV2/restore_winmain.py": "83b3d93515d14d5fd72eafbbae58ee916c57e92af0fbbd3a337e6cffe0388cb9",
+  "reversing/RequestedFrontendRadioGetterV2/run_local.py": "ba8ef6dbc860dbdafeb7e31b576b2eb0029d9f02d8cc2af656b7df105c38b4e0",
+  "reversing/RequestedFrontendRadioGetterV2/corpus-plan.json": "46929d3696d1d0b8e966aa8b67099a980a2a162742ed3aedee3c2a87c3002996",
+  "reversing/RequestedFrontendRadioGetterV2/evidence/IsRadioTuneSoundActive-fullasm.txt": "14f63084083f00fe7b579c22bedfe5f7586cbbc8c615fd94f70f04ab7be1064d",
+  "reversing/RequestedFrontendRadioGetterV2/evidence/native-bytes.json": "d881a29796caa9ee738123c6839a32caf6028804038e0e9acdedb20e01b84ec3"
+}

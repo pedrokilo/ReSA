@@ -1,0 +1,76 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  1198C070: 55                 push        ebp
+  1198C071: 8B EC              mov         ebp,esp
+  1198C073: 81 EC D8 00 00 00  sub         esp,0D8h
+  1198C079: 53                 push        ebx
+  1198C07A: 56                 push        esi
+  1198C07B: 57                 push        edi
+  1198C07C: 51                 push        ecx
+  1198C07D: 8D 7D E8           lea         edi,[ebp-18h]
+  1198C080: B9 06 00 00 00     mov         ecx,6
+  1198C085: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1198C08A: F3 AB              rep stos    dword ptr es:[edi]
+  1198C08C: 59                 pop         ecx
+  1198C08D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1198C090: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1198C093: 8B 08              mov         ecx,dword ptr [eax]
+  1198C095: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1198C098: C1 E2 05           shl         edx,5
+  1198C09B: 03 11              add         edx,dword ptr [ecx]
+  1198C09D: 75 17              jne         1198C0B6
+  1198C09F: 68 3B 01 00 00     push        13Bh
+  1198C0A4: 68 90 DF 22 13     push        1322DF90h
+  1198C0A9: 68 30 E0 22 13     push        1322E030h
+  1198C0AE: E8 4F A7 6F FF     call        11086802
+  1198C0B3: 83 C4 0C           add         esp,0Ch
+  1198C0B6: 6A 05              push        5
+  1198C0B8: 68 14 65 1D 13     push        131D6514h
+  1198C0BD: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1198C0C0: 8B 08              mov         ecx,dword ptr [eax]
+  1198C0C2: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1198C0C5: C1 E2 05           shl         edx,5
+  1198C0C8: 03 11              add         edx,dword ptr [ecx]
+  1198C0CA: 52                 push        edx
+  1198C0CB: E8 D2 99 6E FF     call        11075AA2
+  1198C0D0: 83 C4 0C           add         esp,0Ch
+  1198C0D3: 85 C0              test        eax,eax
+  1198C0D5: 74 47              je          1198C11E
+  1198C0D7: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1198C0DA: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  1198C0DD: 89 8D 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],ecx
+  1198C0E3: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1198C0E6: 52                 push        edx
+  1198C0E7: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  1198C0ED: E8 5E FE FF FF     call        1198BF50
+  1198C0F2: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  1198C0F8: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1198C0FB: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1198C0FE: 83 C1 0C           add         ecx,0Ch
+  1198C101: 89 8D 28 FF FF FF  mov         dword ptr [ebp+FFFFFF28h],ecx
+  1198C107: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1198C10A: 52                 push        edx
+  1198C10B: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  1198C111: E8 6B B7 71 FF     call        110A7881
+  1198C116: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  1198C11C: 89 08              mov         dword ptr [eax],ecx
+  1198C11E: 5F                 pop         edi
+  1198C11F: 5E                 pop         esi
+  1198C120: 5B                 pop         ebx
+  1198C121: 81 C4 D8 00 00 00  add         esp,0D8h
+  1198C127: 3B EC              cmp         ebp,esp
+  1198C129: E8 6B DB 6C FF     call        11059C99
+  1198C12E: 8B E5              mov         esp,ebp
+  1198C130: 5D                 pop         ebp
+  1198C131: C2 04 00           ret         4
+  1198C134: CC                 int         3
+
+  Summary
+
+     2166000 .text

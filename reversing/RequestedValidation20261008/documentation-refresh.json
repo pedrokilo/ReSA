@@ -561,12 +561,12 @@
     "reversing/Zones21/README.md"
   ],
   "count": 558,
-  "catalog_sha256": "a38d6e0be981be050fec14abbe1e7cd73b1494be5838eb56f53b5b96a05f778b",
+  "catalog_sha256": "839803086910194c33db825fa61fb923d81e573a2a97e29119da4c11102fa048",
   "snapshot": {
-    "historical": 6848,
-    "pending": 1598,
-    "pending_groups": 60,
+    "historical": 6860,
+    "pending": 1586,
+    "pending_groups": 58,
     "current": 0,
-    "new_approvals": 112
+    "new_approvals": 124
   }
 }

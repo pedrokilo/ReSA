@@ -1,0 +1,51 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  1198C840: 55                 push        ebp
+  1198C841: 8B EC              mov         ebp,esp
+  1198C843: 81 EC CC 00 00 00  sub         esp,0CCh
+  1198C849: 53                 push        ebx
+  1198C84A: 56                 push        esi
+  1198C84B: 57                 push        edi
+  1198C84C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1198C84F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1198C852: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1198C855: 89 08              mov         dword ptr [eax],ecx
+  1198C857: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1198C85A: 5F                 pop         edi
+  1198C85B: 5E                 pop         esi
+  1198C85C: 5B                 pop         ebx
+  1198C85D: 8B E5              mov         esp,ebp
+  1198C85F: 5D                 pop         ebp
+  1198C860: C2 04 00           ret         4
+  1198C863: CC                 int         3
+  1198C864: CC                 int         3
+  1198C865: CC                 int         3
+  1198C866: CC                 int         3
+  1198C867: CC                 int         3
+  1198C868: CC                 int         3
+  1198C869: CC                 int         3
+  1198C86A: CC                 int         3
+  1198C86B: CC                 int         3
+  1198C86C: CC                 int         3
+  1198C86D: CC                 int         3
+  1198C86E: CC                 int         3
+  1198C86F: CC                 int         3
+  1198C870: 55                 push        ebp
+  1198C871: 8B EC              mov         ebp,esp
+  1198C873: 81 EC CC 00 00 00  sub         esp,0CCh
+  1198C879: 53                 push        ebx
+  1198C87A: 56                 push        esi
+  1198C87B: 57                 push        edi
+  1198C87C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1198C87F: 8B
+  1198C880: 45                 inc         ebp
+
+  Summary
+
+     2166000 .text

@@ -1,0 +1,10 @@
+{
+  "registry_count": 6853,
+  "registry_sha256": "e56cbd9336b6a4760b234494d3443325d4c1c98c063607d7a0c681969b0a54b9",
+  "source_before_sha256": "9cf61d9f1a77a6648eda3c1f080a31517bdc12594b4b0b3b4af76a6ecc100913",
+  "source_after_sha256": "95a10cb323c12bb4fda943b01c22f3aea003d44ee7f2ec3eb92b6ce172dd11f0",
+  "archived_original_artifacts": "reversing/RequestedFxEmitterTwo/Diagnostics/baseline-before-NULL-source-fix",
+  "applied_patch_proposal_sha256": "24b6bfb07020ead6068c35b52d13c5c92714dcde94715c540fbae814a411383d",
+  "semantic_change": "Optional exactNULL skips slot assignment; all nonNULL load/fallback writes unchanged. New source awaits replay.",
+  "bank_inputs_unchanged": true
+}

@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1137CEC0: 55                 push        ebp
+  1137CEC1: 8B EC              mov         ebp,esp
+  1137CEC3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137CEC9: 53                 push        ebx
+  1137CECA: 56                 push        esi
+  1137CECB: 57                 push        edi
+  1137CECC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137CECF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CED2: 5F                 pop         edi
+  1137CED3: 5E                 pop         esi
+  1137CED4: 5B                 pop         ebx
+  1137CED5: 8B E5              mov         esp,ebp
+  1137CED7: 5D                 pop         ebp
+  1137CED8: C2 04 00           ret         4
+  1137CEDB: CC                 int         3
+  1137CEDC: CC                 int         3
+  1137CEDD: CC                 int         3
+  1137CEDE: CC                 int         3
+  1137CEDF: CC                 int         3
+  1137CEE0: CC                 int         3
+  1137CEE1: CC                 int         3
+  1137CEE2: CC                 int         3
+  1137CEE3: CC                 int         3
+  1137CEE4: CC                 int         3
+  1137CEE5: CC                 int         3
+  1137CEE6: CC                 int         3
+  1137CEE7: CC                 int         3
+  1137CEE8: CC                 int         3
+  1137CEE9: CC                 int         3
+  1137CEEA: CC                 int         3
+  1137CEEB: CC                 int         3
+  1137CEEC: CC                 int         3
+  1137CEED: CC                 int         3
+  1137CEEE: CC                 int         3
+  1137CEEF: CC                 int         3
+  1137CEF0: 55                 push        ebp
+  1137CEF1: 8B EC              mov         ebp,esp
+  1137CEF3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137CEF9: 53                 push        ebx
+  1137CEFA: 56                 push        esi
+  1137CEFB: 57                 push        edi
+  1137CEFC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137CEFF: 8B
+  1137CF00: 45                 inc         ebp
+
+  Summary
+
+     216F000 .text

@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "synthetic_pairs": 2048,
+  "negative_tests_rejected": [
+    "bad_al",
+    "both_wrong_al",
+    "padding_byte",
+    "gate_false",
+    "fp_corrupt",
+    "missing_pair",
+    "duplicate_case",
+    "nonboolean_active",
+    "terminal_restore_false"
+  ],
+  "game_or_build_executed": false
+}

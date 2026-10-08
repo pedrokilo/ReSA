@@ -1,14 +1,14 @@
 # Estado comprobado de ReSA · 8 de octubre de 2026
 
-**Corte documental: 8 de octubre de 2026, después de vincular Context9, GeometryPlanes, seis mutaciones de CPad y PlaceGroup V2, Projectile, ReferenceAnims, Reconcile, Update, StartShake y cuatro despachos CPU, hora de Ciudad de México.** Los contadores corresponden al catálogo sincronizado con 112 aprobaciones nuevas. Las sondas posteriores pendientes no se suman.
+**Corte documental: 8 de octubre de 2026, después de vincular Context9, GeometryPlanes, seis mutaciones de CPad y PlaceGroup V2, Projectile, ReferenceAnims, Reconcile, Update, StartShake y cuatro despachos CPU, ArrestPed, FxEmitter, cinco wrappers de geometría y el getter de radio frontend, hora de Ciudad de México.** Los contadores corresponden al catálogo sincronizado con 124 aprobaciones nuevas. Las sondas posteriores pendientes no se suman.
 
-El catálogo contiene **771 clases, namespaces o grupos / 8446 entradas**, todas marcadas como reconstruidas. Hay **6848 entradas con evidencia histórica vinculada** y **1598 pendientes de validación**, distribuidas en **60 grupos**. El alcance solicitado inicial fue de 77 grupos y 1710 funciones; 112 identidades nuevas quedaron aprobadas para sus fixtures. Reconstrucción no significa validación ni independencia del ejecutable.
+El catálogo contiene **771 clases, namespaces o grupos / 8446 entradas**, todas marcadas como reconstruidas. Hay **6860 entradas con evidencia histórica vinculada** y **1586 pendientes de validación**, distribuidas en **58 grupos**. El alcance solicitado inicial fue de 77 grupos y 1710 funciones; 124 identidades nuevas quedaron aprobadas para sus fixtures. Reconstrucción no significa validación ni independencia del ejecutable.
 
 **Vigencia actual: 0 funciones acreditadas.** Las validaciones nuevas tienen `dependency_review=null`: son evidencia histórica aprobada, con límites explícitos. Las 52 de Interior_c mantienen sus resultados históricos; su huella de dependencias no coincide con el árbol actual. Esta documentación no cambia huellas de evidencia ni acredita dependencias.
 
 El **snapshot de arranque histórico del 8 de octubre de 2026** seleccionó **694 grupos completos / 6136 funciones** y desactivó 2313 hooks del inventario de ejecución (incluye 3 extras NOTSA), sin discrepancias entre selección y estados. El ASI de ese arranque fue `f33a7f5ca0ebdb08f4f77d91c2f8142c4a2776761191c3e683eb352fc3438cae`. Es un snapshot fechado; no identifica la última instalación ni certifica comportamiento conjunto. Las sondas posteriores restauran la instalación que encontraron. La whitelist histórica de ese arranque permanece fija; las nuevas aprobaciones no se añadieron automáticamente. El argumento `--historical-hooks` es explícito y no implica validación vigente. [Registro de arranque y correspondencias](../reversing/RequestedValidation20261008/historical-launch/README.md).
 
-## Ciento doce aprobaciones nuevas, con alcance limitado
+## Ciento veinticuatro aprobaciones nuevas, con alcance limitado
 
 | Función | Pares aprobados | Evidencia conservada | Alcance |
 | --- | ---: | --- | --- |
@@ -98,6 +98,18 @@ El **snapshot de arranque histórico del 8 de octubre de 2026** seleccionó **69
 | CTaskComplexKillPedOnFootArmed::GetTaskType | 1280 | [Resumen](../reversing/RequestedTaskTypeSix/validation-summary.json) | Getter puro; entrada nativa 0x00621240, slots y cinco rutas. No acredita constructor/destructor ni actores. |
 | CTaskComplexKillCriminal::GetTaskType | 1280 | [Resumen](../reversing/RequestedTaskTypeSix/validation-summary.json) | Getter puro; entrada nativa 0x0068BF20, slots y cinco rutas. No acredita constructor/destructor ni actores. |
 | CTaskComplexProstituteSolicit::GetTaskType | 1280 | [Resumen](../reversing/RequestedTaskTypeSix/validation-summary.json) | Getter puro; entrada nativa 0x00661AE0, slots y cinco rutas. No acredita constructor/destructor ni actores. |
+| CTaskComplexArrestPed::Constructor | 128 | [Resumen](../reversing/RequestedArrestRemainingFour/validation-summary-Constructor.json) | Arenas privadas, vptr/retorno exactos y trazas de referencias, child, armas o selección. Sin actores ni helpers acreditados. |
+| CTaskComplexArrestPed::Destructor | 256 | [Resumen](../reversing/RequestedArrestRemainingFour/validation-summary-Destructor.json) | Arenas privadas, vptr/retorno exactos y trazas de referencias, child, armas o selección. Sin actores ni helpers acreditados. |
+| CTaskComplexArrestPed::MakeAbortable | 384 | [Resumen](../reversing/RequestedArrestRemainingFour/validation-summary-MakeAbortable.json) | Arenas privadas, vptr/retorno exactos y trazas de referencias, child, armas o selección. Sin actores ni helpers acreditados. |
+| CTaskComplexArrestPed::CreateFirstSubTask | 2048 | [Resumen](../reversing/RequestedArrestRemainingFour/validation-summary-CreateFirstSubTask.json) | Arenas privadas, vptr/retorno exactos y trazas de referencias, child, armas o selección. Sin actores ni helpers acreditados. |
+| FxEmitterBP_c::Constructor | 512 | [Resumen](../reversing/RequestedFxEmitterTwo/validation-summary-Constructor.json) | Objetos y texturas opacas privados; constructor CPU real o lecturas trazadas; NULL conserva handles. Sin assets, gráficos ni lifecycle de recursos. |
+| CPedGeometryAnalyser::ComputeEntityBoundingBoxCorners | 1024 | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) | Wrappers con helper nativo read-only, fixtures geométricos finitos y traza exacta; sin actors ni acreditación del helper. |
+| CPedGeometryAnalyser::ComputeEntityBoundingBoxCentreUncachedAll | 1024 | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) | Wrappers con helper nativo read-only, fixtures geométricos finitos y traza exacta; sin actors ni acreditación del helper. |
+| CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncachedAll | 1024 | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) | Wrappers con helper nativo read-only, fixtures geométricos finitos y traza exacta; sin actors ni acreditación del helper. |
+| CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanes | 1024 | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) | Wrappers con helper nativo read-only, fixtures geométricos finitos y traza exacta; sin actors ni acreditación del helper. |
+| CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanesUncachedAll | 1024 | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) | Wrappers con helper nativo read-only, fixtures geométricos finitos y traza exacta; sin actors ni acreditación del helper. |
+| CAEFrontendAudioEntity::IsRadioTuneSoundActive | 2048 | [Resumen](../reversing/RequestedFrontendRadioGetterV2/validation-summary.json) | Getter CPU con bytes privados y retorno AL crudo; sin subsistema de radio/sonido acreditado. |
+| FxEmitterBP_c::LoadTextures | 5120 | [Resumen](../reversing/RequestedFxEmitterTwo/validation-summary-LoadTextures.json) | Objetos y texturas opacas privados; constructor CPU real o lecturas trazadas; NULL conserva handles. Sin assets, gráficos ni lifecycle de recursos. |
 
 Los resúmenes incluyen el EXE y DLL ejecutados, fuentes/instrumentos congelados, comparaciones y comprobaciones de restauración. Los errores previos permanecen conservados. La aprobación de una función no acredita el resto de su clase; los bancos preparados o fallidos no suman validaciones. [Inventario por función y vigencia](ValidationInventory.md).
 | CPad::AimWeaponLeftRight | 6048 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
@@ -162,7 +174,9 @@ El objetivo standalone existe en CMake, pero WinMain sólo permite exportar hook
 
 Esta actualización conserva las mediciones históricas de cada banco. Modificar documentación incluida en una revisión de dependencias puede retirar su vigencia sin convertir una prueba histórica en fallida.
 
-StartShake añadió 89600 casos con cero diferencias, incluyendo relojes envueltos y duraciones negativas como caracterización finita; compara arenas completas y FP sin normalizar bytes. Las cuatro funciones de DispatchShadow añadieron 5120 casos CPU privados: Initialise/Shutdown/PluginAttach de CCustomBuildingRenderer y ReturnRealTimeShadow. Son aprobaciones históricas con dependency_review=null; no acreditan gráficos, helpers ni recursos reales. Los bancos posteriores de Arrest/Fx/Distance/Geometry continúan pendientes hasta sus replays y auditorías.
+StartShake añadió 89600 casos con cero diferencias, incluyendo relojes envueltos y duraciones negativas como caracterización finita; compara arenas completas y FP sin normalizar bytes. Las cuatro funciones de DispatchShadow añadieron 5120 casos CPU privados: Initialise/Shutdown/PluginAttach de CCustomBuildingRenderer y ReturnRealTimeShadow. Son aprobaciones históricas con dependency_review=null; no acreditan gráficos, helpers ni recursos reales. Las sondas pendientes se acreditan sólo tras replays y auditorías completos.
+
+ArrestPed aprobó sus cuatro identidades en 2816 pares con salida natural 0 y restauración de 17692 rangos: constructor 128, destructor 256, MakeAbortable 384 y CreateFirstSubTask 2048. FxEmitter aprobó constructor 512 y LoadTextures 5120 en replays de 5632; el baseline conserva 512 diferencias de LoadTextures ante NULL, corregidas sin cambiar corpus ni modelo. El runner inicial observaba un nombre de archivo distinto: se conservan esos rechazos y se usó un adaptador externo con ASI/corpus congelados. Las aprobaciones separan vptr reales declarados, colaboradores aislados y límites de lifecycle. Los cinco wrappers de GeometryV4 añadieron 5120 con harness global completo; V3 no se acreditó por omitirlo. El getter frontend añadió 2048 casos CPU privados en su replay V2. La vigencia permanece 0.
 
 ## Pendientes por clase
 
@@ -179,7 +193,7 @@ El freeze relativo antiguo de TaskCtorDtor corresponde a preparación no ejecuta
 | Clase/grupo | Funciones sin validar |
 | --- | ---: |
 | CAEAudioHardware | 1 |
-| CAEFrontendAudioEntity | 4 |
+| CAEFrontendAudioEntity | 3 |
 | CAEPedAudioEntity | 15 |
 | CAEPoliceScannerAudioEntity | 13 |
 | CAERadioTrackManager | 29 |
@@ -204,7 +218,7 @@ El freeze relativo antiguo de TaskCtorDtor corresponde a preparación no ejecuta
 | CMonsterTruck | 5 |
 | CPad | 5 |
 | CPathFind | 54 |
-| CPedGeometryAnalyser | 7 |
+| CPedGeometryAnalyser | 2 |
 | CPickups | 35 |
 | CPlane | 14 |
 | CPlayerPed | 1 |
@@ -218,7 +232,6 @@ El freeze relativo antiguo de TaskCtorDtor corresponde a preparación no ejecuta
 | CRunningScript | 24 |
 | CShadows | 21 |
 | CStreaming | 94 |
-| CTaskComplexArrestPed | 4 |
 | CTaskComplexKillCriminal | 8 |
 | CTaskComplexKillPedOnFootArmed | 8 |
 | CTaskComplexPlayHandSignalAnim | 2 |
@@ -235,6 +248,5 @@ El freeze relativo antiguo de TaskCtorDtor corresponde a preparación no ejecuta
 | CVisibilityPlugins | 84 |
 | CWaterLevel | 25 |
 | CWeapon | 35 |
-| FxEmitterBP_c | 2 |
 | FxSystem_c | 31 |
 | Win | 1 |

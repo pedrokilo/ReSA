@@ -1,0 +1,68 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  11385490: 55                 push        ebp
+  11385491: 8B EC              mov         ebp,esp
+  11385493: 81 EC C0 00 00 00  sub         esp,0C0h
+  11385499: 53                 push        ebx
+  1138549A: 56                 push        esi
+  1138549B: 57                 push        edi
+  1138549C: 8B FD              mov         edi,ebp
+  1138549E: 33 C9              xor         ecx,ecx
+  113854A0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113854A5: F3 AB              rep stos    dword ptr es:[edi]
+  113854A7: B9 E0 DC 6D 13     mov         ecx,136DDCE0h
+  113854AC: E8 FC 1F D2 FF     call        110A74AD
+  113854B1: 83 C0 10           add         eax,10h
+  113854B4: 5F                 pop         edi
+  113854B5: 5E                 pop         esi
+  113854B6: 5B                 pop         ebx
+  113854B7: 81 C4 C0 00 00 00  add         esp,0C0h
+  113854BD: 3B EC              cmp         ebp,esp
+  113854BF: E8 D5 47 CD FF     call        11059C99
+  113854C4: 8B E5              mov         esp,ebp
+  113854C6: 5D                 pop         ebp
+  113854C7: C3                 ret
+  113854C8: CC                 int         3
+  113854C9: CC                 int         3
+  113854CA: CC                 int         3
+  113854CB: CC                 int         3
+  113854CC: CC                 int         3
+  113854CD: CC                 int         3
+  113854CE: CC                 int         3
+  113854CF: CC                 int         3
+  113854D0: CC                 int         3
+  113854D1: CC                 int         3
+  113854D2: CC                 int         3
+  113854D3: CC                 int         3
+  113854D4: CC                 int         3
+  113854D5: CC                 int         3
+  113854D6: CC                 int         3
+  113854D7: CC                 int         3
+  113854D8: CC                 int         3
+  113854D9: CC                 int         3
+  113854DA: CC                 int         3
+  113854DB: CC                 int         3
+  113854DC: CC                 int         3
+  113854DD: CC                 int         3
+  113854DE: CC                 int         3
+  113854DF: CC                 int         3
+  113854E0: 55                 push        ebp
+  113854E1: 8B EC              mov         ebp,esp
+  113854E3: 81 EC 50 01 00 00  sub         esp,150h
+  113854E9: 53                 push        ebx
+  113854EA: 56                 push        esi
+  113854EB: 57                 push        edi
+  113854EC: 8D
+  113854ED: BD
+  113854EE: 70 FF              jo          113854EF
+  113854F0: FF
+
+  Summary
+
+     2166000 .text

@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  12F7E560: 55                 push        ebp
+  12F7E561: 8B EC              mov         ebp,esp
+  12F7E563: 53                 push        ebx
+  12F7E564: 56                 push        esi
+  12F7E565: 57                 push        edi
+  12F7E566: 8B FA              mov         edi,edx
+  12F7E568: 33 F6              xor         esi,esi
+  12F7E56A: 8B D9              mov         ebx,ecx
+  12F7E56C: 39 37              cmp         dword ptr [edi],esi
+  12F7E56E: 7E 38              jle         12F7E5A8
+  12F7E570: 8B 47 04           mov         eax,dword ptr [edi+4]
+  12F7E573: 8D 0C 76           lea         ecx,[esi+esi*2]
+  12F7E576: 8B 14 88           mov         edx,dword ptr [eax+ecx*4]
+  12F7E579: 8D 0C 88           lea         ecx,[eax+ecx*4]
+  12F7E57C: 81 7C 1A FC CC CC  cmp         dword ptr [edx+ebx-4],0CCCCCCCCh
+            CC CC
+  12F7E584: 75 0E              jne         12F7E594
+  12F7E586: 8B 41 04           mov         eax,dword ptr [ecx+4]
+  12F7E589: 03 C2              add         eax,edx
+  12F7E58B: 81 3C 18 CC CC CC  cmp         dword ptr [eax+ebx],0CCCCCCCCh
+            CC
+  12F7E592: 74 0F              je          12F7E5A3
+  12F7E594: FF 71 08           push        dword ptr [ecx+8]
+  12F7E597: 8B 45 04           mov         eax,dword ptr [ebp+4]
+  12F7E59A: 50                 push        eax
+  12F7E59B: E8 4C 77 0D FE     call        11055CEC
+  12F7E5A0: 83 C4 08           add         esp,8
+  12F7E5A3: 46                 inc         esi
+  12F7E5A4: 3B 37              cmp         esi,dword ptr [edi]
+  12F7E5A6: 7C C8              jl          12F7E570
+  12F7E5A8: 5F                 pop         edi
+  12F7E5A9: 5E                 pop         esi
+  12F7E5AA: 5B                 pop         ebx
+  12F7E5AB: 5D                 pop         ebp
+  12F7E5AC: C3                 ret
+  12F7E5AD: CC                 int         3
+
+  Summary
+
+     215A000 .text

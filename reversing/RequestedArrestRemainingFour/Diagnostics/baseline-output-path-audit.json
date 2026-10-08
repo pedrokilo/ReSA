@@ -1,0 +1,38 @@
+{
+  "global_errors": [
+    "natural exit"
+  ],
+  "bank_passed": false,
+  "functions": {
+    "Constructor": {
+      "comparisons": 128,
+      "differences": 0,
+      "model_mismatches": 0,
+      "gate_failures": 0,
+      "subset_eligible": false
+    },
+    "Destructor": {
+      "comparisons": 256,
+      "differences": 0,
+      "model_mismatches": 0,
+      "gate_failures": 0,
+      "subset_eligible": false
+    },
+    "MakeAbortable": {
+      "comparisons": 384,
+      "differences": 0,
+      "model_mismatches": 0,
+      "gate_failures": 0,
+      "subset_eligible": false
+    },
+    "CreateFirstSubTask": {
+      "comparisons": 2048,
+      "differences": 0,
+      "model_mismatches": 0,
+      "gate_failures": 0,
+      "subset_eligible": false
+    }
+  },
+  "scope": "Complete corpus and global restoration required; only exact independently modeled function subsets eligible. No registry writes.",
+  "manifest_sha256": "51a15a84d31c575d1d76a3c679a59de276a50a4ac72da21fe9cc289058e6fc0b"
+}

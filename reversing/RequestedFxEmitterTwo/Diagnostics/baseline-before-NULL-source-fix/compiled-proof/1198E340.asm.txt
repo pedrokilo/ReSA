@@ -1,0 +1,123 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  1198E340: 55                 push        ebp
+  1198E341: 8B EC              mov         ebp,esp
+  1198E343: 81 EC F4 00 00 00  sub         esp,0F4h
+  1198E349: 53                 push        ebx
+  1198E34A: 56                 push        esi
+  1198E34B: 57                 push        edi
+  1198E34C: 51                 push        ecx
+  1198E34D: 8D 7D CC           lea         edi,[ebp-34h]
+  1198E350: B9 0D 00 00 00     mov         ecx,0Dh
+  1198E355: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1198E35A: F3 AB              rep stos    dword ptr es:[edi]
+  1198E35C: 59                 pop         ecx
+  1198E35D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1198E360: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  1198E364: 75 17              jne         1198E37D
+  1198E366: 68 30 01 00 00     push        130h
+  1198E36B: 68 90 DF 22 13     push        1322DF90h
+  1198E370: 68 60 E0 22 13     push        1322E060h
+  1198E375: E8 88 84 6F FF     call        11086802
+  1198E37A: 83 C4 0C           add         esp,0Ch
+  1198E37D: 8D 45 08           lea         eax,[ebp+8]
+  1198E380: 50                 push        eax
+  1198E381: 8D 4D EC           lea         ecx,[ebp-14h]
+  1198E384: E8 B7 E4 FF FF     call        1198C840
+  1198E389: 90                 nop
+  1198E38A: 8D 45 EC           lea         eax,[ebp-14h]
+  1198E38D: 50                 push        eax
+  1198E38E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1198E391: 51                 push        ecx
+  1198E392: 8D 55 08           lea         edx,[ebp+8]
+  1198E395: 52                 push        edx
+  1198E396: 8D 4D D8           lea         ecx,[ebp-28h]
+  1198E399: E8 D2 E4 FF FF     call        1198C870
+  1198E39E: 90                 nop
+  1198E39F: 6A 00              push        0
+  1198E3A1: 8D 4D EC           lea         ecx,[ebp-14h]
+  1198E3A4: E8 A7 DB FF FF     call        1198BF50
+  1198E3A9: 89 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],eax
+  1198E3AF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1198E3B2: 83 C0 0C           add         eax,0Ch
+  1198E3B5: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  1198E3BB: 6A 00              push        0
+  1198E3BD: 8B 8D 0C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF0Ch]
+  1198E3C3: E8 B9 94 71 FF     call        110A7881
+  1198E3C8: 8B 8D 10 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF10h]
+  1198E3CE: 89 08              mov         dword ptr [eax],ecx
+  1198E3D0: 83 7D 0C 65        cmp         dword ptr [ebp+0Ch],65h
+  1198E3D4: 7E 21              jle         1198E3F7
+  1198E3D6: 6A 01              push        1
+  1198E3D8: 8D 4D D8           lea         ecx,[ebp-28h]
+  1198E3DB: E8 90 DC FF FF     call        1198C070
+  1198E3E0: 90                 nop
+  1198E3E1: 6A 02              push        2
+  1198E3E3: 8D 4D D8           lea         ecx,[ebp-28h]
+  1198E3E6: E8 85 DC FF FF     call        1198C070
+  1198E3EB: 90                 nop
+  1198E3EC: 6A 03              push        3
+  1198E3EE: 8D 4D D8           lea         ecx,[ebp-28h]
+  1198E3F1: E8 7A DC FF FF     call        1198C070
+  1198E3F6: 90                 nop
+  1198E3F7: B0 01              mov         al,1
+  1198E3F9: 52                 push        edx
+  1198E3FA: 8B CD              mov         ecx,ebp
+  1198E3FC: 50                 push        eax
+  1198E3FD: 8D 15 20 E4 98 11  lea         edx,ds:[1198E420h]
+  1198E403: E8 5B 11 6D FF     call        1105F563
+  1198E408: 58                 pop         eax
+  1198E409: 5A                 pop         edx
+  1198E40A: 5F                 pop         edi
+  1198E40B: 5E                 pop         esi
+  1198E40C: 5B                 pop         ebx
+  1198E40D: 81 C4 F4 00 00 00  add         esp,0F4h
+  1198E413: 3B EC              cmp         ebp,esp
+  1198E415: E8 7F B8 6C FF     call        11059C99
+  1198E41A: 8B E5              mov         esp,ebp
+  1198E41C: 5D                 pop         ebp
+  1198E41D: C2 08 00           ret         8
+  1198E420: 02 00              add         al,byte ptr [eax]
+  1198E422: 00 00              add         byte ptr [eax],al
+  1198E424: 28 E4              sub         ah,ah
+  1198E426: 98                 cwde
+  1198E427: 11 EC              adc         esp,ebp
+  1198E429: FF
+  1198E42A: FF
+  1198E42B: FF 04 00           inc         dword ptr [eax+eax]
+  1198E42E: 00 00              add         byte ptr [eax],al
+  1198E430: 54                 push        esp
+  1198E431: E4 98              in          al,98h
+  1198E433: 11 D8              adc         eax,ebx
+  1198E435: FF
+  1198E436: FF
+  1198E437: FF 0C 00           dec         dword ptr [eax+eax]
+  1198E43A: 00 00              add         byte ptr [eax],al
+  1198E43C: 40                 inc         eax
+  1198E43D: E4 98              in          al,98h
+  1198E43F: 11 4C 6F 61        adc         dword ptr [edi+ebp*2+61h],ecx
+  1198E443: 64 54              push        esp
+  1198E445: 65 78 74           js          1198E4BC
+  1198E448: 75 72              jne         1198E4BC
+  1198E44A: 65 49              dec         ecx
+  1198E44C: 66 45              inc         bp
+  1198E44E: 78 69              js          1198E4B9
+  1198E450: 73 74              jae         1198E4C6
+  1198E452: 73 00              jae         1198E454
+  1198E454: 4C                 dec         esp
+  1198E455: 6F                 outs        dx,dword ptr [esi]
+  1198E456: 61                 popad
+  1198E457: 64 54              push        esp
+  1198E459: 65 78 74           js          1198E4D0
+  1198E45C: 75 72              jne         1198E4D0
+  1198E45E: 65 00 CC           add         ah,cl
+
+  Summary
+
+     2166000 .text

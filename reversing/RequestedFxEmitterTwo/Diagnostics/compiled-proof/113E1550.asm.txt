@@ -1,0 +1,60 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  113E1550: 55                 push        ebp
+  113E1551: 8B EC              mov         ebp,esp
+  113E1553: 81 EC CC 00 00 00  sub         esp,0CCh
+  113E1559: 53                 push        ebx
+  113E155A: 56                 push        esi
+  113E155B: 57                 push        edi
+  113E155C: 51                 push        ecx
+  113E155D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  113E1560: B9 03 00 00 00     mov         ecx,3
+  113E1565: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113E156A: F3 AB              rep stos    dword ptr es:[edi]
+  113E156C: 59                 pop         ecx
+  113E156D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113E1570: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  113E1573: 50                 push        eax
+  113E1574: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  113E1577: 51                 push        ecx
+  113E1578: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  113E157B: 8B 42 04           mov         eax,dword ptr [edx+4]
+  113E157E: 50                 push        eax
+  113E157F: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  113E1582: 8B 11              mov         edx,dword ptr [ecx]
+  113E1584: 52                 push        edx
+  113E1585: E8 85 98 C7 FF     call        1105AE0F
+  113E158A: 83 C4 10           add         esp,10h
+  113E158D: 5F                 pop         edi
+  113E158E: 5E                 pop         esi
+  113E158F: 5B                 pop         ebx
+  113E1590: 81 C4 CC 00 00 00  add         esp,0CCh
+  113E1596: 3B EC              cmp         ebp,esp
+  113E1598: E8 FC 86 C7 FF     call        11059C99
+  113E159D: 8B E5              mov         esp,ebp
+  113E159F: 5D                 pop         ebp
+  113E15A0: C2 08 00           ret         8
+  113E15A3: CC                 int         3
+  113E15A4: CC                 int         3
+  113E15A5: CC                 int         3
+  113E15A6: CC                 int         3
+  113E15A7: CC                 int         3
+  113E15A8: CC                 int         3
+  113E15A9: CC                 int         3
+  113E15AA: CC                 int         3
+  113E15AB: CC                 int         3
+  113E15AC: CC                 int         3
+  113E15AD: CC                 int         3
+  113E15AE: CC                 int         3
+  113E15AF: CC                 int         3
+  113E15B0: CC                 int         3
+
+  Summary
+
+     2166000 .text

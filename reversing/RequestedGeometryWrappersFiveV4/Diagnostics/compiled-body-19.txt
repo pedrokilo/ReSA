@@ -1,0 +1,66 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
+
+File Type: DLL
+
+  12827110: 55                 push        ebp
+  12827111: 8B EC              mov         ebp,esp
+  12827113: 81 EC C4 00 00 00  sub         esp,0C4h
+  12827119: 53                 push        ebx
+  1282711A: 56                 push        esi
+  1282711B: 57                 push        edi
+  1282711C: 8D 7D FC           lea         edi,[ebp-4]
+  1282711F: B9 01 00 00 00     mov         ecx,1
+  12827124: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  12827129: F3 AB              rep stos    dword ptr es:[edi]
+  1282712B: 0F B6 45 10        movzx       eax,byte ptr [ebp+10h]
+  1282712F: 85 C0              test        eax,eax
+  12827131: 74 32              je          12827165
+  12827133: 0F B7 4D 0C        movzx       ecx,word ptr [ebp+0Ch]
+  12827137: F3 0F 2A C1        cvtsi2ss    xmm0,ecx
+  1282713B: 51                 push        ecx
+  1282713C: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  12827141: 0F B7 55 08        movzx       edx,word ptr [ebp+8]
+  12827145: F3 0F 2A C2        cvtsi2ss    xmm0,edx
+  12827149: 51                 push        ecx
+  1282714A: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  1282714F: E8 CD 8B 83 FE     call        1105FD21
+  12827154: 83 C4 08           add         esp,8
+  12827157: E8 6F 20 86 FE     call        110891CB
+  1282715C: 66 89 85 3E FF FF  mov         word ptr [ebp+FFFFFF3Eh],ax
+            FF
+  12827163: EB 38              jmp         1282719D
+  12827165: 0F B7 45 0C        movzx       eax,word ptr [ebp+0Ch]
+  12827169: F3 0F 2A C0        cvtsi2ss    xmm0,eax
+  1282716D: F3 0F 5C 05 AC A7  subss       xmm0,dword ptr ds:[131CA7ACh]
+            1C 13
+  12827175: 51                 push        ecx
+  12827176: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  1282717B: 0F B7 4D 08        movzx       ecx,word ptr [ebp+8]
+  1282717F: F3 0F 2A C1        cvtsi2ss    xmm0,ecx
+  12827183: 51                 push        ecx
+  12827184: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  12827189: E8 93 8B 83 FE     call        1105FD21
+  1282718E: 83 C4 08           add         esp,8
+  12827191: E8 35 20 86 FE     call        110891CB
+  12827196: 66 89 85 3E FF FF  mov         word ptr [ebp+FFFFFF3Eh],ax
+            FF
+  1282719D: 0F B7 85 3E FF FF  movzx       eax,word ptr [ebp+FFFFFF3Eh]
+            FF
+  128271A4: 5F                 pop         edi
+  128271A5: 5E                 pop         esi
+  128271A6: 5B                 pop         ebx
+  128271A7: 81 C4 C4 00 00 00  add         esp,0C4h
+  128271AD: 3B EC              cmp         ebp,esp
+  128271AF: E8 E0 4A 83 FE     call        1105BC94
+  128271B4: 8B E5              mov         esp,ebp
+  128271B6: 5D                 pop         ebp
+  128271B7: C3                 ret
+  128271B8: CC                 int         3
+
+  Summary
+
+     216B000 .text

@@ -1,0 +1,38 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  12F7FE10: 55                 push        ebp
+  12F7FE11: 8B EC              mov         ebp,esp
+  12F7FE13: 83 EC 1C           sub         esp,1Ch
+  12F7FE16: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  12F7FE19: 89 45 E8           mov         dword ptr [ebp-18h],eax
+  12F7FE1C: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  12F7FE1F: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  12F7FE22: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  12F7FE25: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  12F7FE28: 8D 45 FF           lea         eax,[ebp-1]
+  12F7FE2B: 89 45 F4           mov         dword ptr [ebp-0Ch],eax
+  12F7FE2E: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  12F7FE31: 89 45 F8           mov         dword ptr [ebp-8],eax
+  12F7FE34: 8D 45 E4           lea         eax,[ebp-1Ch]
+  12F7FE37: 50                 push        eax
+  12F7FE38: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  12F7FE3C: C7 45 E4 02 10 00  mov         dword ptr [ebp-1Ch],1002h
+            00
+  12F7FE43: E8 08 06 00 00     call        12F80450
+  12F7FE48: 83 C4 04           add         esp,4
+  12F7FE4B: 80 7D FF 00        cmp         byte ptr [ebp-1],0
+  12F7FE4F: 0F 95 C0           setne       al
+  12F7FE52: 8B E5              mov         esp,ebp
+  12F7FE54: 5D                 pop         ebp
+  12F7FE55: C3                 ret
+  12F7FE56: CC                 int         3
+
+  Summary
+
+     215A000 .text

@@ -1,0 +1,40 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  11CA0490: 55                 push        ebp
+  11CA0491: 8B EC              mov         ebp,esp
+  11CA0493: 81 EC C0 00 00 00  sub         esp,0C0h
+  11CA0499: 53                 push        ebx
+  11CA049A: 56                 push        esi
+  11CA049B: 57                 push        edi
+  11CA049C: 8B FD              mov         edi,ebp
+  11CA049E: 33 C9              xor         ecx,ecx
+  11CA04A0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11CA04A5: F3 AB              rep stos    dword ptr es:[edi]
+  11CA04A7: 8B F4              mov         esi,esp
+  11CA04A9: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11CA04AC: 50                 push        eax
+  11CA04AD: B9 40 49 73 00     mov         ecx,734940h
+  11CA04B2: FF D1              call        ecx
+  11CA04B4: 83 C4 04           add         esp,4
+  11CA04B7: 3B F4              cmp         esi,esp
+  11CA04B9: E8 DB 97 3B FF     call        11059C99
+  11CA04BE: 5F                 pop         edi
+  11CA04BF: 5E                 pop         esi
+  11CA04C0: 5B                 pop         ebx
+  11CA04C1: 81 C4 C0 00 00 00  add         esp,0C0h
+  11CA04C7: 3B EC              cmp         ebp,esp
+  11CA04C9: E8 CB 97 3B FF     call        11059C99
+  11CA04CE: 8B E5              mov         esp,ebp
+  11CA04D0: 5D                 pop         ebp
+  11CA04D1: C3                 ret
+  11CA04D2: CC                 int         3
+
+  Summary
+
+     2166000 .text

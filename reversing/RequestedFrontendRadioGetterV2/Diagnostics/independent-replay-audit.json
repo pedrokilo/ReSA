@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "pairs": 2048,
+  "differences": 0,
+  "independent_truth_table_counts": [
+    128,
+    128,
+    128,
+    128,
+    128,
+    128,
+    128,
+    128,
+    128,
+    128,
+    128,
+    128,
+    128,
+    128,
+    128,
+    128
+  ],
+  "strict_full524byte_arena_and18byte_timer_model": true,
+  "valid_int16_active_values": [
+    0,
+    1
+  ],
+  "return_contract": "AL only; upper EAX unspecified",
+  "exact_gates": true,
+  "perleg_FP_payload_matched": true,
+  "external_FP_restored": true,
+  "global_ranges_restored": 17692,
+  "natural_exit0": true,
+  "summary_sha256": "b02b215bd50c713e8a99a1280b38464e5383d4166bd205c0b5114cf22faac026",
+  "log_sha256": "23778f511d312d9c3aad8c75bffa3b032b912a512d6a77134b44cd4e215720fa",
+  "harness_sha256": "a4739962fddbfd91b0641a09b70fc0e428b340705c86ab8f1d06ff3b21a19da2",
+  "constructor_proof_sha256": "ad14f6bc7bdfc80cfcdca73ce9088978e676f6125712db9916abbe1a0bf63fdb"
+}

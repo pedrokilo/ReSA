@@ -1,0 +1,36 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsAtomicCheck\artifacts\gta_reversed-pools-atomic-check.asi
+
+File Type: DLL
+
+  11BEC950: 55                 push        ebp
+  11BEC951: 8B EC              mov         ebp,esp
+  11BEC953: 81 EC C0 00 00 00  sub         esp,0C0h
+  11BEC959: 53                 push        ebx
+  11BEC95A: 56                 push        esi
+  11BEC95B: 57                 push        edi
+  11BEC95C: 83 C8 FF           or          eax,0FFFFFFFFh
+  11BEC95F: 5F                 pop         edi
+  11BEC960: 5E                 pop         esi
+  11BEC961: 5B                 pop         ebx
+  11BEC962: 8B E5              mov         esp,ebp
+  11BEC964: 5D                 pop         ebp
+  11BEC965: C3                 ret
+  11BEC966: CC                 int         3
+  11BEC967: CC                 int         3
+  11BEC968: CC                 int         3
+  11BEC969: CC                 int         3
+  11BEC96A: CC                 int         3
+  11BEC96B: CC                 int         3
+  11BEC96C: CC                 int         3
+  11BEC96D: CC                 int         3
+  11BEC96E: CC                 int         3
+  11BEC96F: CC                 int         3
+  11BEC970: 53                 push        ebx
+
+  Summary
+
+     2159000 .text

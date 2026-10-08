@@ -1,0 +1,327 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  1121E470: 55                 push        ebp
+  1121E471: 8B EC              mov         ebp,esp
+  1121E473: 81 EC D0 00 00 00  sub         esp,0D0h
+  1121E479: 53                 push        ebx
+  1121E47A: 56                 push        esi
+  1121E47B: 57                 push        edi
+  1121E47C: 51                 push        ecx
+  1121E47D: 8D 7D F0           lea         edi,[ebp-10h]
+  1121E480: B9 04 00 00 00     mov         ecx,4
+  1121E485: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1121E48A: F3 AB              rep stos    dword ptr es:[edi]
+  1121E48C: 59                 pop         ecx
+  1121E48D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1121E490: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E493: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E496: 66 8B 11           mov         dx,word ptr [ecx]
+  1121E499: 66 89 10           mov         word ptr [eax],dx
+  1121E49C: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E49F: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E4A2: 66 8B 51 02        mov         dx,word ptr [ecx+2]
+  1121E4A6: 66 89 50 02        mov         word ptr [eax+2],dx
+  1121E4AA: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E4AD: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E4B0: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  1121E4B3: 89 50 04           mov         dword ptr [eax+4],edx
+  1121E4B6: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E4B9: 83 C0 08           add         eax,8
+  1121E4BC: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  1121E4C2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E4C5: 83 C1 08           add         ecx,8
+  1121E4C8: 51                 push        ecx
+  1121E4C9: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  1121E4CF: E8 60 E8 E4 FF     call        1106CD34
+  1121E4D4: 90                 nop
+  1121E4D5: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E4D8: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E4DB: 8B 51 0C           mov         edx,dword ptr [ecx+0Ch]
+  1121E4DE: 89 50 0C           mov         dword ptr [eax+0Ch],edx
+  1121E4E1: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E4E4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E4E7: 8B 51 10           mov         edx,dword ptr [ecx+10h]
+  1121E4EA: 89 50 10           mov         dword ptr [eax+10h],edx
+  1121E4ED: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E4F0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E4F3: 8B 51 14           mov         edx,dword ptr [ecx+14h]
+  1121E4F6: 89 50 14           mov         dword ptr [eax+14h],edx
+  1121E4F9: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E4FC: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E4FF: 8B 51 18           mov         edx,dword ptr [ecx+18h]
+  1121E502: 89 50 18           mov         dword ptr [eax+18h],edx
+  1121E505: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E508: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E50B: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  1121E50E: 89 50 1C           mov         dword ptr [eax+1Ch],edx
+  1121E511: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E514: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E517: 8B 51 20           mov         edx,dword ptr [ecx+20h]
+  1121E51A: 89 50 20           mov         dword ptr [eax+20h],edx
+  1121E51D: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E520: 83 C0 24           add         eax,24h
+  1121E523: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E526: 83 C1 24           add         ecx,24h
+  1121E529: 8B 10              mov         edx,dword ptr [eax]
+  1121E52B: 89 11              mov         dword ptr [ecx],edx
+  1121E52D: 8B 50 04           mov         edx,dword ptr [eax+4]
+  1121E530: 89 51 04           mov         dword ptr [ecx+4],edx
+  1121E533: 8B 40 08           mov         eax,dword ptr [eax+8]
+  1121E536: 89 41 08           mov         dword ptr [ecx+8],eax
+  1121E539: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E53C: 83 C0 30           add         eax,30h
+  1121E53F: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E542: 83 C1 30           add         ecx,30h
+  1121E545: 8B 10              mov         edx,dword ptr [eax]
+  1121E547: 89 11              mov         dword ptr [ecx],edx
+  1121E549: 8B 50 04           mov         edx,dword ptr [eax+4]
+  1121E54C: 89 51 04           mov         dword ptr [ecx+4],edx
+  1121E54F: 8B 40 08           mov         eax,dword ptr [eax+8]
+  1121E552: 89 41 08           mov         dword ptr [ecx+8],eax
+  1121E555: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E558: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E55B: 8B 51 3C           mov         edx,dword ptr [ecx+3Ch]
+  1121E55E: 89 50 3C           mov         dword ptr [eax+3Ch],edx
+  1121E561: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E564: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E567: 8B 51 40           mov         edx,dword ptr [ecx+40h]
+  1121E56A: 89 50 40           mov         dword ptr [eax+40h],edx
+  1121E56D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E570: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E573: 8B 51 44           mov         edx,dword ptr [ecx+44h]
+  1121E576: 89 50 44           mov         dword ptr [eax+44h],edx
+  1121E579: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E57C: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E57F: 8B 51 48           mov         edx,dword ptr [ecx+48h]
+  1121E582: 89 50 48           mov         dword ptr [eax+48h],edx
+  1121E585: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E588: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E58B: 8B 51 4C           mov         edx,dword ptr [ecx+4Ch]
+  1121E58E: 89 50 4C           mov         dword ptr [eax+4Ch],edx
+  1121E591: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E594: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E597: 8B 51 50           mov         edx,dword ptr [ecx+50h]
+  1121E59A: 89 50 50           mov         dword ptr [eax+50h],edx
+  1121E59D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E5A0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E5A3: 8A 51 54           mov         dl,byte ptr [ecx+54h]
+  1121E5A6: 88 50 54           mov         byte ptr [eax+54h],dl
+  1121E5A9: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E5AC: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E5AF: 8A 51 55           mov         dl,byte ptr [ecx+55h]
+  1121E5B2: 88 50 55           mov         byte ptr [eax+55h],dl
+  1121E5B5: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E5B8: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E5BB: 66 8B 51 56        mov         dx,word ptr [ecx+56h]
+  1121E5BF: 66 89 50 56        mov         word ptr [eax+56h],dx
+  1121E5C3: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E5C6: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E5CA: 66 83 E1 01        and         cx,1
+  1121E5CE: 66 83 E1 01        and         cx,1
+  1121E5D2: BA FE FF 00 00     mov         edx,0FFFEh
+  1121E5D7: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E5DA: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E5DE: 66 0B D1           or          dx,cx
+  1121E5E1: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E5E4: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E5E8: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E5EB: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E5EF: 66 D1 E9           shr         cx,1
+  1121E5F2: 66 83 E1 01        and         cx,1
+  1121E5F6: 66 83 E1 01        and         cx,1
+  1121E5FA: 66 D1 E1           shl         cx,1
+  1121E5FD: BA FD FF 00 00     mov         edx,0FFFDh
+  1121E602: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E605: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E609: 66 0B D1           or          dx,cx
+  1121E60C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E60F: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E613: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E616: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E61A: 66 C1 E9 02        shr         cx,2
+  1121E61E: 66 83 E1 01        and         cx,1
+  1121E622: 66 83 E1 01        and         cx,1
+  1121E626: 66 C1 E1 02        shl         cx,2
+  1121E62A: BA FB FF 00 00     mov         edx,0FFFBh
+  1121E62F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E632: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E636: 66 0B D1           or          dx,cx
+  1121E639: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E63C: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E640: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E643: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E647: 66 C1 E9 03        shr         cx,3
+  1121E64B: 66 83 E1 01        and         cx,1
+  1121E64F: 66 83 E1 01        and         cx,1
+  1121E653: 66 C1 E1 03        shl         cx,3
+  1121E657: BA F7 FF 00 00     mov         edx,0FFF7h
+  1121E65C: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E65F: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E663: 66 0B D1           or          dx,cx
+  1121E666: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E669: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E66D: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E670: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E674: 66 C1 E9 04        shr         cx,4
+  1121E678: 66 83 E1 01        and         cx,1
+  1121E67C: 66 83 E1 01        and         cx,1
+  1121E680: 66 C1 E1 04        shl         cx,4
+  1121E684: BA EF FF 00 00     mov         edx,0FFEFh
+  1121E689: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E68C: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E690: 66 0B D1           or          dx,cx
+  1121E693: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E696: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E69A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E69D: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E6A1: 66 C1 E9 05        shr         cx,5
+  1121E6A5: 66 83 E1 01        and         cx,1
+  1121E6A9: 66 83 E1 01        and         cx,1
+  1121E6AD: 66 C1 E1 05        shl         cx,5
+  1121E6B1: BA DF FF 00 00     mov         edx,0FFDFh
+  1121E6B6: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E6B9: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E6BD: 66 0B D1           or          dx,cx
+  1121E6C0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E6C3: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E6C7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E6CA: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E6CE: 66 C1 E9 06        shr         cx,6
+  1121E6D2: 66 83 E1 01        and         cx,1
+  1121E6D6: 66 83 E1 01        and         cx,1
+  1121E6DA: 66 C1 E1 06        shl         cx,6
+  1121E6DE: BA BF FF 00 00     mov         edx,0FFBFh
+  1121E6E3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E6E6: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E6EA: 66 0B D1           or          dx,cx
+  1121E6ED: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E6F0: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E6F4: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E6F7: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E6FB: 66 C1 E9 07        shr         cx,7
+  1121E6FF: 66 83 E1 01        and         cx,1
+  1121E703: 66 83 E1 01        and         cx,1
+  1121E707: 66 C1 E1 07        shl         cx,7
+  1121E70B: BA 7F FF 00 00     mov         edx,0FF7Fh
+  1121E710: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E713: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E717: 66 0B D1           or          dx,cx
+  1121E71A: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E71D: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E721: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E724: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E728: 66 C1 E9 08        shr         cx,8
+  1121E72C: 66 83 E1 01        and         cx,1
+  1121E730: 66 83 E1 01        and         cx,1
+  1121E734: 66 C1 E1 08        shl         cx,8
+  1121E738: BA FF FE 00 00     mov         edx,0FEFFh
+  1121E73D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E740: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E744: 66 0B D1           or          dx,cx
+  1121E747: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E74A: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E74E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E751: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E755: 66 C1 E9 09        shr         cx,9
+  1121E759: 66 83 E1 01        and         cx,1
+  1121E75D: 66 83 E1 01        and         cx,1
+  1121E761: 66 C1 E1 09        shl         cx,9
+  1121E765: BA FF FD 00 00     mov         edx,0FDFFh
+  1121E76A: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E76D: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E771: 66 0B D1           or          dx,cx
+  1121E774: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E777: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E77B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E77E: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E782: 66 C1 E9 0A        shr         cx,0Ah
+  1121E786: 66 83 E1 01        and         cx,1
+  1121E78A: 66 83 E1 01        and         cx,1
+  1121E78E: 66 C1 E1 0A        shl         cx,0Ah
+  1121E792: BA FF FB 00 00     mov         edx,0FBFFh
+  1121E797: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E79A: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E79E: 66 0B D1           or          dx,cx
+  1121E7A1: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E7A4: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E7A8: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E7AB: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E7AF: 66 C1 E9 0B        shr         cx,0Bh
+  1121E7B3: 66 83 E1 01        and         cx,1
+  1121E7B7: 66 83 E1 01        and         cx,1
+  1121E7BB: 66 C1 E1 0B        shl         cx,0Bh
+  1121E7BF: BA FF F7 00 00     mov         edx,0F7FFh
+  1121E7C4: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E7C7: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E7CB: 66 0B D1           or          dx,cx
+  1121E7CE: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E7D1: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E7D5: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1121E7D8: 66 8B 48 56        mov         cx,word ptr [eax+56h]
+  1121E7DC: 66 C1 E9 0C        shr         cx,0Ch
+  1121E7E0: 66 83 E1 01        and         cx,1
+  1121E7E4: 66 83 E1 01        and         cx,1
+  1121E7E8: 66 C1 E1 0C        shl         cx,0Ch
+  1121E7EC: BA FF EF 00 00     mov         edx,0EFFFh
+  1121E7F1: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E7F4: 66 23 50 56        and         dx,word ptr [eax+56h]
+  1121E7F8: 66 0B D1           or          dx,cx
+  1121E7FB: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121E7FE: 66 89 51 56        mov         word ptr [ecx+56h],dx
+  1121E802: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E805: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E808: 66 8B 51 58        mov         dx,word ptr [ecx+58h]
+  1121E80C: 66 89 50 58        mov         word ptr [eax+58h],dx
+  1121E810: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E813: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E816: 66 8B 51 5A        mov         dx,word ptr [ecx+5Ah]
+  1121E81A: 66 89 50 5A        mov         word ptr [eax+5Ah],dx
+  1121E81E: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E821: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E824: 66 8B 51 5C        mov         dx,word ptr [ecx+5Ch]
+  1121E828: 66 89 50 5C        mov         word ptr [eax+5Ch],dx
+  1121E82C: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E82F: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E832: 66 8B 51 5E        mov         dx,word ptr [ecx+5Eh]
+  1121E836: 66 89 50 5E        mov         word ptr [eax+5Eh],dx
+  1121E83A: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E83D: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E840: 8B 51 60           mov         edx,dword ptr [ecx+60h]
+  1121E843: 89 50 60           mov         dword ptr [eax+60h],edx
+  1121E846: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E849: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E84C: 8B 51 64           mov         edx,dword ptr [ecx+64h]
+  1121E84F: 89 50 64           mov         dword ptr [eax+64h],edx
+  1121E852: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E855: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E858: 66 8B 51 68        mov         dx,word ptr [ecx+68h]
+  1121E85C: 66 89 50 68        mov         word ptr [eax+68h],dx
+  1121E860: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E863: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E866: 8B 51 6C           mov         edx,dword ptr [ecx+6Ch]
+  1121E869: 89 50 6C           mov         dword ptr [eax+6Ch],edx
+  1121E86C: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E86F: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1121E872: 66 8B 51 70        mov         dx,word ptr [ecx+70h]
+  1121E876: 66 89 50 70        mov         word ptr [eax+70h],dx
+  1121E87A: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121E87D: 5F                 pop         edi
+  1121E87E: 5E                 pop         esi
+  1121E87F: 5B                 pop         ebx
+  1121E880: 81 C4 D0 00 00 00  add         esp,0D0h
+  1121E886: 3B EC              cmp         ebp,esp
+  1121E888: E8 C1 53 E3 FF     call        11053C4E
+  1121E88D: 8B E5              mov         esp,ebp
+  1121E88F: 5D                 pop         ebp
+  1121E890: C2 04 00           ret         4
+  1121E893: CC                 int         3
+
+  Summary
+
+     215A000 .text

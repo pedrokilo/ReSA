@@ -1,0 +1,8 @@
+{
+  "artifact_preflight_passed": true,
+  "asi_sha256": "7310777cdb24a960977bf160fe07f80433df9657b90dd9bafe617b268ed166f7",
+  "pdb_sha256": "587e6e4c14ac990c6cff370b54bfe3ba189ee968eb20eda8a9fd6d3393c7b86f",
+  "frozen_inputs": 14,
+  "callchain_proof_sha256": "9ba550147b3e5427fe778a185a6c5227d6f517d5f3014dea0db5b3ab62c6429b",
+  "scope": "Isolated wrapper forwarding/payload/pointer identity only; no primitive, constructor, destructor, physics or FP-state accreditation."
+}

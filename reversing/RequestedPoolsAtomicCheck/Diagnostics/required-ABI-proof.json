@@ -1,0 +1,13 @@
+{
+  "run_ready": true,
+  "asi_sha256": "3f76feca824b6ff753e29ba555b015787febebfc74a5ff8948b8f94f926e6672",
+  "pdb_sha256": "cc6ddbff28900a093b305223ac7ff93abc129c445d26c1ff18d83d8e577a3495",
+  "cdecl_target_no_args": "113764EF call dword[ebp+0C], no pushes between ESP before/after",
+  "entry_eax_seed": "113764EC mov eax,[ebp+10] immediate before targetcall",
+  "hidden_JSON_sret": "[ebp+8] is helper return pointer, target+0C andseed+10 consistent MSVC x86 hidden sret",
+  "stack_and_saved_registers": "ESP savedbefore/after exact; EBX ESI EDI EBP fourwords compared",
+  "candidate_body": "11BEC950..11BEC965 balancedprologue OR EAX,FFFFFFFF popsret; no CALL/no dataaccess/global writes",
+  "original_body": "00550170 OR EAX,FFFFFFFF;00550173 RET freshEXEassembly",
+  "EFLAGS_scope": "cdecl caller-saved; no EFLAGS claim",
+  "compiled_symbols_sha256": "39cbf7cda4e3fe5f2b6ebb63133a71afcf2f3cabe7a52e7953f34c70df1f3552"
+}

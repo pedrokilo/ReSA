@@ -1,0 +1,69 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  1170CFB0: 55                 push        ebp
+  1170CFB1: 8B EC              mov         ebp,esp
+  1170CFB3: 81 EC F0 00 00 00  sub         esp,0F0h
+  1170CFB9: 53                 push        ebx
+  1170CFBA: 56                 push        esi
+  1170CFBB: 57                 push        edi
+  1170CFBC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1170CFBF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1170CFC2: 83 78 24 00        cmp         dword ptr [eax+24h],0
+  1170CFC6: 75 02              jne         1170CFCA
+  1170CFC8: EB 70              jmp         1170D03A
+  1170CFCA: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1170CFCD: 8B 48 24           mov         ecx,dword ptr [eax+24h]
+  1170CFD0: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1170CFD3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1170CFD6: 83 C0 24           add         eax,24h
+  1170CFD9: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1170CFDC: 83 7D EC 00        cmp         dword ptr [ebp-14h],0
+  1170CFE0: 74 58              je          1170D03A
+  1170CFE2: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1170CFE5: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1170CFE8: 8B 11              mov         edx,dword ptr [ecx]
+  1170CFEA: 3B 55 F8           cmp         edx,dword ptr [ebp-8]
+  1170CFED: 75 10              jne         1170CFFF
+  1170CFEF: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1170CFF2: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1170CFF5: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1170CFF8: 8B 08              mov         ecx,dword ptr [eax]
+  1170CFFA: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1170CFFD: EB 39              jmp         1170D038
+  1170CFFF: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1170D002: 8B 08              mov         ecx,dword ptr [eax]
+  1170D004: 89 4D D4           mov         dword ptr [ebp-2Ch],ecx
+  1170D007: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1170D00A: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1170D00D: 8B 11              mov         edx,dword ptr [ecx]
+  1170D00F: 89 10              mov         dword ptr [eax],edx
+  1170D011: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1170D014: 8B 0D E8 9D 6C 13  mov         ecx,dword ptr ds:[136C9DE8h]
+  1170D01A: 8B 11              mov         edx,dword ptr [ecx]
+  1170D01C: 89 10              mov         dword ptr [eax],edx
+  1170D01E: A1 E8 9D 6C 13     mov         eax,dword ptr ds:[136C9DE8h]
+  1170D023: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1170D026: 89 08              mov         dword ptr [eax],ecx
+  1170D028: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1170D02B: C7 40 04 00 00 00  mov         dword ptr [eax+4],0
+            00
+  1170D032: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1170D035: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1170D038: EB A2              jmp         1170CFDC
+  1170D03A: 5F                 pop         edi
+  1170D03B: 5E                 pop         esi
+  1170D03C: 5B                 pop         ebx
+  1170D03D: 8B E5              mov         esp,ebp
+  1170D03F: 5D                 pop         ebp
+  1170D040: C3                 ret
+  1170D041: CC                 int         3
+
+  Summary
+
+     215A000 .text

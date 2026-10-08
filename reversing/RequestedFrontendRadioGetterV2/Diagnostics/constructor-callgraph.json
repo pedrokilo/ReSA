@@ -1,0 +1,185 @@
+{
+  "asi_sha256": "faf7459ac2c4a9d5748fac9c76787de52163aceced0b2bec14ee53a212a0891b",
+  "pdb_sha256": "413d2f79944da85dcae5f9105a8eebabf8cfbc37f8e8f925e3857f81d74c565f",
+  "graph": [
+    {
+      "address": "0x113773a0",
+      "name": "RequestedFrontendRadioGetterV2Live::ConstructFixture",
+      "size": 103,
+      "calls": [
+        {
+          "call": "0x113773c4",
+          "chain": [
+            "0x1104f928",
+            "0x1122c610"
+          ],
+          "name": "operator new",
+          "size": 22
+        },
+        {
+          "call": "0x113773e0",
+          "chain": [
+            "0x1109310f",
+            "0x12f83eb0"
+          ],
+          "name": "memset",
+          "size": 346
+        },
+        {
+          "call": "0x113773ee",
+          "chain": [
+            "0x11090aea",
+            "0x1121d8f0"
+          ],
+          "name": "CAEFrontendAudioEntity::CAEFrontendAudioEntity",
+          "size": 103
+        },
+        {
+          "call": "0x113773fe",
+          "chain": [
+            "0x11053c4e",
+            "0x12f7e5c0"
+          ],
+          "name": "_RTC_CheckEsp",
+          "size": 37
+        }
+      ]
+    },
+    {
+      "address": "0x1121d8f0",
+      "name": "CAEFrontendAudioEntity::CAEFrontendAudioEntity",
+      "size": 103,
+      "calls": [
+        {
+          "call": "0x1121d913",
+          "chain": [
+            "0x11079a2a",
+            "0x1121cd70"
+          ],
+          "name": "CAEAudioEntity::CAEAudioEntity",
+          "size": 105
+        },
+        {
+          "call": "0x1121d92b",
+          "chain": [
+            "0x1107b4a6",
+            "0x1121ed00"
+          ],
+          "name": "CAETwinLoopSoundEntity::CAETwinLoopSoundEntity",
+          "size": 223
+        },
+        {
+          "call": "0x1121d93a",
+          "chain": [
+            "0x1107b4a6",
+            "0x1121ed00"
+          ],
+          "name": "CAETwinLoopSoundEntity::CAETwinLoopSoundEntity",
+          "size": 223
+        },
+        {
+          "call": "0x1121d94e",
+          "chain": [
+            "0x11053c4e",
+            "0x12f7e5c0"
+          ],
+          "name": "_RTC_CheckEsp",
+          "size": 37
+        }
+      ]
+    },
+    {
+      "address": "0x1121cd70",
+      "name": "CAEAudioEntity::CAEAudioEntity",
+      "size": 105,
+      "calls": [
+        {
+          "call": "0x1121cdae",
+          "chain": [
+            "0x1109310f",
+            "0x12f83eb0"
+          ],
+          "name": "memset",
+          "size": 346
+        },
+        {
+          "call": "0x1121cdbc",
+          "chain": [
+            "0x110a4eb9",
+            "0x1121e9a0"
+          ],
+          "name": "CAESound::CAESound",
+          "size": 390
+        },
+        {
+          "call": "0x1121cdd0",
+          "chain": [
+            "0x11053c4e",
+            "0x12f7e5c0"
+          ],
+          "name": "_RTC_CheckEsp",
+          "size": 37
+        }
+      ]
+    },
+    {
+      "address": "0x1121ed00",
+      "name": "CAETwinLoopSoundEntity::CAETwinLoopSoundEntity",
+      "size": 223,
+      "calls": [
+        {
+          "call": "0x1121ed23",
+          "chain": [
+            "0x11079a2a",
+            "0x1121cd70"
+          ],
+          "name": "CAEAudioEntity::CAEAudioEntity",
+          "size": 105
+        },
+        {
+          "call": "0x1121ed46",
+          "chain": [
+            "0x11092c32",
+            "0x1121ae20"
+          ],
+          "name": "notsa::WEnum<enum eSoundBankSlot,short>::WEnum<enum eSoundBankSlot,short>",
+          "size": 37
+        },
+        {
+          "call": "0x1121edd6",
+          "chain": [
+            "0x11053c4e",
+            "0x12f7e5c0"
+          ],
+          "name": "_RTC_CheckEsp",
+          "size": 37
+        }
+      ]
+    },
+    {
+      "address": "0x1121e9a0",
+      "name": "CAESound::CAESound",
+      "size": 390,
+      "calls": [
+        {
+          "call": "0x1121e9ef",
+          "chain": [
+            "0x11084ea2",
+            "0x1121a430"
+          ],
+          "name": "notsa::EntityRef<CEntity>::EntityRef<CEntity>",
+          "size": 147
+        },
+        {
+          "call": "0x1121eb1d",
+          "chain": [
+            "0x11053c4e",
+            "0x12f7e5c0"
+          ],
+          "name": "_RTC_CheckEsp",
+          "size": 37
+        }
+      ]
+    }
+  ]
+}

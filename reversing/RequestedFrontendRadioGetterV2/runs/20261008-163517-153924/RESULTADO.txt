@@ -1,0 +1,3 @@
+APROBADO: FrontendRadioGetter2048
+Comparacion automatizada completada.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-frontend-radio-v2\20261008-163517-153924

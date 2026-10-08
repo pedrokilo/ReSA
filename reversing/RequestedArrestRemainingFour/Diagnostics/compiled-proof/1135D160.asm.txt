@@ -1,0 +1,75 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1135D160: 55                 push        ebp
+  1135D161: 8B EC              mov         ebp,esp
+  1135D163: 6A FF              push        0FFFFFFFFh
+  1135D165: 68 80 3B 0D 13     push        130D3B80h
+  1135D16A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1135D170: 50                 push        eax
+  1135D171: 81 EC E8 00 00 00  sub         esp,0E8h
+  1135D177: 53                 push        ebx
+  1135D178: 56                 push        esi
+  1135D179: 57                 push        edi
+  1135D17A: 51                 push        ecx
+  1135D17B: 8D 7D CC           lea         edi,[ebp-34h]
+  1135D17E: B9 0A 00 00 00     mov         ecx,0Ah
+  1135D183: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135D188: F3 AB              rep stos    dword ptr es:[edi]
+  1135D18A: 59                 pop         ecx
+  1135D18B: A1 40 DA 6C 13     mov         eax,dword ptr ds:[136CDA40h]
+  1135D190: 33 C5              xor         eax,ebp
+  1135D192: 50                 push        eax
+  1135D193: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1135D196: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1135D19C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1135D19F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1135D1A2: 8B 08              mov         ecx,dword ptr [eax]
+  1135D1A4: 89 8D 18 FF FF FF  mov         dword ptr [ebp+FFFFFF18h],ecx
+  1135D1AA: 8D 55 0C           lea         edx,[ebp+0Ch]
+  1135D1AD: 52                 push        edx
+  1135D1AE: 8D 45 08           lea         eax,[ebp+8]
+  1135D1B1: 50                 push        eax
+  1135D1B2: 8D 8D 20 FF FF FF  lea         ecx,[ebp+FFFFFF20h]
+  1135D1B8: 51                 push        ecx
+  1135D1B9: E8 E7 9A D4 FF     call        110A6CA5
+  1135D1BE: 83 C4 0C           add         esp,0Ch
+  1135D1C1: 89 85 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],eax
+  1135D1C7: 8B 95 14 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF14h]
+  1135D1CD: 89 95 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],edx
+  1135D1D3: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1135D1DA: 8B 85 10 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF10h]
+  1135D1E0: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  1135D1E6: 8B 8D 0C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF0Ch]
+  1135D1EC: 51                 push        ecx
+  1135D1ED: 8B 8D 18 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF18h]
+  1135D1F3: E8 C8 51 D0 FF     call        110623C0
+  1135D1F8: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1135D1FF: 8D 8D 20 FF FF FF  lea         ecx,[ebp+FFFFFF20h]
+  1135D205: E8 FA 50 D3 FF     call        11092304
+  1135D20A: 90                 nop
+  1135D20B: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1135D20E: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1135D215: 59                 pop         ecx
+  1135D216: 5F                 pop         edi
+  1135D217: 5E                 pop         esi
+  1135D218: 5B                 pop         ebx
+  1135D219: 81 C4 F4 00 00 00  add         esp,0F4h
+  1135D21F: 3B EC              cmp         ebp,esp
+  1135D221: E8 AA 0A D0 FF     call        1105DCD0
+  1135D226: 8B E5              mov         esp,ebp
+  1135D228: 5D                 pop         ebp
+  1135D229: C2 08 00           ret         8
+  1135D22C: CC                 int         3
+
+  Summary
+
+     216F000 .text

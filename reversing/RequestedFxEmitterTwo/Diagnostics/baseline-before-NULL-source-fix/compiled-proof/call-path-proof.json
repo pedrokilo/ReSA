@@ -1,0 +1,178 @@
+{
+  "asi_sha256": "b1b8cf068e8e03a51127b5fc8cc43f8d28ca7bda0ce9875e81be2648f1e7e893",
+  "pdb_sha256": "6e591daa65a979aa232adab9d77a64274e98fb420fd92db5c2b3611d8027a29d",
+  "pdb_rsds_match": true,
+  "compiled_header_sha256": "7d65c0c1dfc210f65bcd00eec25b15843e61337214acf02d4ce64687bcea839e",
+  "manifest_sha256": "830d4c9aeaff390bafc67c01bdcb87916a919a2606c25328f9e89a2cdede0078",
+  "runtime_executed": false,
+  "vtable": {
+    "address": "0x131c7754",
+    "count": 7,
+    "slots": [
+      "0x110ac3b3",
+      "0x1107e936",
+      "0x110a1260",
+      "0x11082bf3",
+      "0x110a1aa3",
+      "0x11062ec5",
+      "0x110705de"
+    ],
+    "load_slot": 2,
+    "load_body": "0x1198E310"
+  },
+  "raw_return_proof": {
+    "indirect_call_site": "0x11389132",
+    "eax_saved_site": "0x1138913F",
+    "returned_local": "EBP-0x7DC",
+    "compare_site": "0x11389B28",
+    "compare_bytes": "398524f8ffff0f859e000000",
+    "object_body": "0x11385490",
+    "object_entry_e9_chain": [
+      [
+        "0x110791e8",
+        "0x11385490"
+      ]
+    ],
+    "unequal_branch": "0x11389BD2 numeric JSON of actual returned",
+    "equal_branch": "0x11389B34 storage16 role JSON"
+  },
+  "rw_call_paths": [
+    {
+      "site": "0x1198bfab",
+      "bytes": "e8331f6dff",
+      "entry": "0x1105dee3",
+      "body": "0x11c9b210",
+      "e9_chain": [
+        [
+          "0x1105dee3",
+          "0x11c9b210"
+        ]
+      ]
+    },
+    {
+      "site": "0x1198bfd7",
+      "bytes": "e8071f6dff",
+      "entry": "0x1105dee3",
+      "body": "0x11c9b210",
+      "e9_chain": [
+        [
+          "0x1105dee3",
+          "0x11c9b210"
+        ]
+      ]
+    },
+    {
+      "site": "0x11c9b22f",
+      "bytes": "e8aebb3fff",
+      "entry": "0x11096de2",
+      "body": "0x11c95ed0",
+      "e9_chain": [
+        [
+          "0x11096de2",
+          "0x11c95ed0"
+        ]
+      ]
+    }
+  ],
+  "rw_native_call": {
+    "site": "0x11C95EF1",
+    "bytes": "bac03a7f00ffd2",
+    "meaning": "MOV EDX,0x007F3AC0; CALL EDX; cdecl name/mask forwarded"
+  },
+  "constructor_paths": [
+    {
+      "site": "0x112bb193",
+      "bytes": "e8ddebd9ff",
+      "entry": "0x11059d75",
+      "body": "0x1198c940",
+      "e9_chain": [
+        [
+          "0x11059d75",
+          "0x1198c940"
+        ]
+      ]
+    },
+    {
+      "site": "0x1198c963",
+      "bytes": "e84ed26eff",
+      "entry": "0x11079bb6",
+      "body": "0x1199fce0",
+      "e9_chain": [
+        [
+          "0x11079bb6",
+          "0x1199fce0"
+        ]
+      ]
+    },
+    {
+      "site": "0x1199fd0f",
+      "bytes": "e86c756dff",
+      "entry": "0x11077280",
+      "body": "0x11998590",
+      "e9_chain": [
+        [
+          "0x11077280",
+          "0x11998590"
+        ]
+      ]
+    }
+  ],
+  "constructor_injection": {
+    "site": "0x1198D0C0",
+    "bytes": "68290f081168d0184a00",
+    "our_entry": "0x11080F29",
+    "resolved_body": "0x112bb170",
+    "native_entry": "0x004A18D0"
+  },
+  "cpu_stores": {
+    "emitter": "0x1198C96C vptr;0x1198C975 type0",
+    "list": "0x119985A2/AB/B5 writes head/tail/count0",
+    "textures_fill_entry": "0x1107DAB8",
+    "textures_fill_body": "0x119a0fa0",
+    "native_base_and_list": "evidence/BaseCtor.asm.txt and ListCtor.asm.txt: CPU stores only",
+    "ctor_stubs": "None: only RwTextureRead entries are patched in frozen bank."
+  },
+  "cpu_fill_paths": [
+    {
+      "site": "0x119a0fca",
+      "bytes": "e837bf6cff",
+      "entry": "0x1106cf06",
+      "body": "0x1199f800",
+      "e9_chain": [
+        [
+          "0x1106cf06",
+          "0x1199f800"
+        ]
+      ]
+    }
+  ],
+  "cpu_fill_generic_write": {
+    "site": "0x1199F8B4",
+    "bytes": "8b118910",
+    "meaning": "Read zero value from source; write texture slot; four-count bounded CPU loop"
+  },
+  "cpu_fill_optimized_path": {
+    "entry": "0x110599C4",
+    "body": "0x1199f570",
+    "chain": [
+      [
+        "0x110599c4",
+        "0x1199f570"
+      ]
+    ],
+    "zero_fill_call": {
+      "site": "0x1199f5bd",
+      "bytes": "e8a49e6fff",
+      "entry": "0x11099466",
+      "body": "0x12f94d70",
+      "e9_chain": [
+        [
+          "0x11099466",
+          "0x12f94d70"
+        ]
+      ]
+    },
+    "zero_argument_site": "0x1199F5AE push0",
+    "byte_count_site": "0x1199F5AA count<<2"
+  }
+}

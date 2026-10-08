@@ -1,0 +1,75 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  12FA0120: 8B FF              mov         edi,edi
+  12FA0122: 55                 push        ebp
+  12FA0123: 8B EC              mov         ebp,esp
+  12FA0125: 83 EC 0C           sub         esp,0Ch
+  12FA0128: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  12FA012B: 50                 push        eax
+  12FA012C: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  12FA012F: 51                 push        ecx
+  12FA0130: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  12FA0133: 52                 push        edx
+  12FA0134: E8 17 05 00 00     call        12FA0650
+  12FA0139: 83 C4 0C           add         esp,0Ch
+  12FA013C: 6A 02              push        2
+  12FA013E: E8 C3 3C 10 FE     call        110A3E06
+  12FA0143: 83 C4 04           add         esp,4
+  12FA0146: 50                 push        eax
+  12FA0147: 8D 4D F4           lea         ecx,[ebp-0Ch]
+  12FA014A: E8 F9 BA 0E FE     call        1108BC48
+  12FA014F: 8B C8              mov         ecx,eax
+  12FA0151: E8 94 1D 0F FE     call        11091EEA
+  12FA0156: 0F B6 C0           movzx       eax,al
+  12FA0159: 85 C0              test        eax,eax
+  12FA015B: 75 19              jne         12FA0176
+  12FA015D: 6A 00              push        0
+  12FA015F: 6A 04              push        4
+  12FA0161: 6A 00              push        0
+  12FA0163: 6A 02              push        2
+  12FA0165: E8 9C 3C 10 FE     call        110A3E06
+  12FA016A: 83 C4 04           add         esp,4
+  12FA016D: 50                 push        eax
+  12FA016E: E8 D2 F4 0E FE     call        1108F645
+  12FA0173: 83 C4 10           add         esp,10h
+  12FA0176: 6A 00              push        0
+  12FA0178: E8 03 06 00 00     call        12FA0780
+  12FA017D: 83 C4 04           add         esp,4
+  12FA0180: 89 45 FC           mov         dword ptr [ebp-4],eax
+  12FA0183: 6A 02              push        2
+  12FA0185: E8 7C 3C 10 FE     call        110A3E06
+  12FA018A: 83 C4 04           add         esp,4
+  12FA018D: 89 45 F8           mov         dword ptr [ebp-8],eax
+  12FA0190: 8D 4D 10           lea         ecx,[ebp+10h]
+  12FA0193: 51                 push        ecx
+  12FA0194: 8D 55 0C           lea         edx,[ebp+0Ch]
+  12FA0197: 52                 push        edx
+  12FA0198: 8D 45 08           lea         eax,[ebp+8]
+  12FA019B: 50                 push        eax
+  12FA019C: 8D 4D FC           lea         ecx,[ebp-4]
+  12FA019F: 51                 push        ecx
+  12FA01A0: 8D 55 F8           lea         edx,[ebp-8]
+  12FA01A3: 52                 push        edx
+  12FA01A4: E8 F0 43 0C FE     call        11064599
+  12FA01A9: 83 C4 14           add         esp,14h
+  12FA01AC: 6A 02              push        2
+  12FA01AE: E8 53 3C 10 FE     call        110A3E06
+  12FA01B3: 83 C4 04           add         esp,4
+  12FA01B6: 50                 push        eax
+  12FA01B7: E8 96 F1 0E FE     call        1108F352
+  12FA01BC: 83 C4 04           add         esp,4
+  12FA01BF: E8 6E 5D 0E FE     call        11085F32
+  12FA01C4: 8B E5              mov         esp,ebp
+  12FA01C6: 5D                 pop         ebp
+  12FA01C7: C3                 ret
+  12FA01C8: CC                 int         3
+
+  Summary
+
+     215A000 .text

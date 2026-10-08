@@ -1,0 +1,40 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
+
+File Type: DLL
+
+  11388A10: 55                 push        ebp
+  11388A11: 8B EC              mov         ebp,esp
+  11388A13: 81 EC CC 00 00 00  sub         esp,0CCh
+  11388A19: 53                 push        ebx
+  11388A1A: 56                 push        esi
+  11388A1B: 57                 push        edi
+  11388A1C: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11388A1F: B9 03 00 00 00     mov         ecx,3
+  11388A24: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11388A29: F3 AB              rep stos    dword ptr es:[edi]
+  11388A2B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11388A2E: 50                 push        eax
+  11388A2F: 6A 38              push        38h
+  11388A31: E8 15 EF CC FF     call        1105794B
+  11388A36: 83 C4 08           add         esp,8
+  11388A39: 89 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],eax
+  11388A3F: 8B 8D 38 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF38h]
+  11388A45: E8 86 43 D0 FF     call        1108CDD0
+  11388A4A: 5F                 pop         edi
+  11388A4B: 5E                 pop         esi
+  11388A4C: 5B                 pop         ebx
+  11388A4D: 81 C4 CC 00 00 00  add         esp,0CCh
+  11388A53: 3B EC              cmp         ebp,esp
+  11388A55: E8 3A 32 CD FF     call        1105BC94
+  11388A5A: 8B E5              mov         esp,ebp
+  11388A5C: 5D                 pop         ebp
+  11388A5D: C3                 ret
+  11388A5E: CC                 int         3
+
+  Summary
+
+     216B000 .text

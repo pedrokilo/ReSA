@@ -1,0 +1,163 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  119A0FA0: 55                 push        ebp
+  119A0FA1: 8B EC              mov         ebp,esp
+  119A0FA3: 81 EC CC 00 00 00  sub         esp,0CCh
+  119A0FA9: 53                 push        ebx
+  119A0FAA: 56                 push        esi
+  119A0FAB: 57                 push        edi
+  119A0FAC: 51                 push        ecx
+  119A0FAD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  119A0FB0: B9 03 00 00 00     mov         ecx,3
+  119A0FB5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  119A0FBA: F3 AB              rep stos    dword ptr es:[edi]
+  119A0FBC: 59                 pop         ecx
+  119A0FBD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  119A0FC0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  119A0FC3: 50                 push        eax
+  119A0FC4: 6A 04              push        4
+  119A0FC6: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  119A0FC9: 51                 push        ecx
+  119A0FCA: E8 37 BF 6C FF     call        1106CF06
+  119A0FCF: 83 C4 0C           add         esp,0Ch
+  119A0FD2: 5F                 pop         edi
+  119A0FD3: 5E                 pop         esi
+  119A0FD4: 5B                 pop         ebx
+  119A0FD5: 81 C4 CC 00 00 00  add         esp,0CCh
+  119A0FDB: 3B EC              cmp         ebp,esp
+  119A0FDD: E8 B7 8C 6B FF     call        11059C99
+  119A0FE2: 8B E5              mov         esp,ebp
+  119A0FE4: 5D                 pop         ebp
+  119A0FE5: C2 04 00           ret         4
+  119A0FE8: CC                 int         3
+  119A0FE9: CC                 int         3
+  119A0FEA: CC                 int         3
+  119A0FEB: CC                 int         3
+  119A0FEC: CC                 int         3
+  119A0FED: CC                 int         3
+  119A0FEE: CC                 int         3
+  119A0FEF: CC                 int         3
+  119A0FF0: CC                 int         3
+  119A0FF1: CC                 int         3
+  119A0FF2: CC                 int         3
+  119A0FF3: CC                 int         3
+  119A0FF4: CC                 int         3
+  119A0FF5: CC                 int         3
+  119A0FF6: CC                 int         3
+  119A0FF7: CC                 int         3
+  119A0FF8: CC                 int         3
+  119A0FF9: CC                 int         3
+  119A0FFA: CC                 int         3
+  119A0FFB: CC                 int         3
+  119A0FFC: CC                 int         3
+  119A0FFD: CC                 int         3
+  119A0FFE: CC                 int         3
+  119A0FFF: CC                 int         3
+  119A1000: 55                 push        ebp
+  119A1001: 8B EC              mov         ebp,esp
+  119A1003: 81 EC C0 00 00 00  sub         esp,0C0h
+  119A1009: 53                 push        ebx
+  119A100A: 56                 push        esi
+  119A100B: 57                 push        edi
+  119A100C: B8 02 00 00 00     mov         eax,2
+  119A1011: 5F                 pop         edi
+  119A1012: 5E                 pop         esi
+  119A1013: 5B                 pop         ebx
+  119A1014: 8B E5              mov         esp,ebp
+  119A1016: 5D                 pop         ebp
+  119A1017: C3                 ret
+  119A1018: CC                 int         3
+  119A1019: CC                 int         3
+  119A101A: CC                 int         3
+  119A101B: CC                 int         3
+  119A101C: CC                 int         3
+  119A101D: CC                 int         3
+  119A101E: CC                 int         3
+  119A101F: CC                 int         3
+  119A1020: 55                 push        ebp
+  119A1021: 8B EC              mov         ebp,esp
+  119A1023: 81 EC C0 00 00 00  sub         esp,0C0h
+  119A1029: 53                 push        ebx
+  119A102A: 56                 push        esi
+  119A102B: 57                 push        edi
+  119A102C: B8 02 00 00 00     mov         eax,2
+  119A1031: 5F                 pop         edi
+  119A1032: 5E                 pop         esi
+  119A1033: 5B                 pop         ebx
+  119A1034: 8B E5              mov         esp,ebp
+  119A1036: 5D                 pop         ebp
+  119A1037: C3                 ret
+  119A1038: CC                 int         3
+  119A1039: CC                 int         3
+  119A103A: CC                 int         3
+  119A103B: CC                 int         3
+  119A103C: CC                 int         3
+  119A103D: CC                 int         3
+  119A103E: CC                 int         3
+  119A103F: CC                 int         3
+  119A1040: 55                 push        ebp
+  119A1041: 8B EC              mov         ebp,esp
+  119A1043: 81 EC C0 00 00 00  sub         esp,0C0h
+  119A1049: 53                 push        ebx
+  119A104A: 56                 push        esi
+  119A104B: 57                 push        edi
+  119A104C: B8 F4 BA 22 13     mov         eax,1322BAF4h
+  119A1051: 5F                 pop         edi
+  119A1052: 5E                 pop         esi
+  119A1053: 5B                 pop         ebx
+  119A1054: 8B E5              mov         esp,ebp
+  119A1056: 5D                 pop         ebp
+  119A1057: C3                 ret
+  119A1058: CC                 int         3
+  119A1059: CC                 int         3
+  119A105A: CC                 int         3
+  119A105B: CC                 int         3
+  119A105C: CC                 int         3
+  119A105D: CC                 int         3
+  119A105E: CC                 int         3
+  119A105F: CC                 int         3
+  119A1060: 55                 push        ebp
+  119A1061: 8B EC              mov         ebp,esp
+  119A1063: 81 EC C0 00 00 00  sub         esp,0C0h
+  119A1069: 53                 push        ebx
+  119A106A: 56                 push        esi
+  119A106B: 57                 push        edi
+  119A106C: B8 F4 BA 22 13     mov         eax,1322BAF4h
+  119A1071: 5F                 pop         edi
+  119A1072: 5E                 pop         esi
+  119A1073: 5B                 pop         ebx
+  119A1074: 8B E5              mov         esp,ebp
+  119A1076: 5D                 pop         ebp
+  119A1077: C3                 ret
+  119A1078: CC                 int         3
+  119A1079: CC                 int         3
+  119A107A: CC                 int         3
+  119A107B: CC                 int         3
+  119A107C: CC                 int         3
+  119A107D: CC                 int         3
+  119A107E: CC                 int         3
+  119A107F: CC                 int         3
+  119A1080: 55                 push        ebp
+  119A1081: 8B EC              mov         ebp,esp
+  119A1083: 81 EC CC 00 00 00  sub         esp,0CCh
+  119A1089: 53                 push        ebx
+  119A108A: 56                 push        esi
+  119A108B: 57                 push        edi
+  119A108C: 51                 push        ecx
+  119A108D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  119A1090: B9 03 00 00 00     mov         ecx,3
+  119A1095: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  119A109A: F3 AB              rep stos    dword ptr es:[edi]
+  119A109C: 59                 pop         ecx
+  119A109D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  119A10A0: 51                 push        ecx
+
+  Summary
+
+     2166000 .text

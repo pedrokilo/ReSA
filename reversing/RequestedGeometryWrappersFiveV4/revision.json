@@ -1,0 +1,7 @@
+{
+  "revision": 3,
+  "supersedes": "reversing/RequestedGeometryWrappersFiveV2",
+  "change": "Replace nonexistent randIAT assumption with dynamically source-symbol verified General privatepatch; exactcurrentimage CALLlayoutguards, no absolutebaselineRVA; corpus5120 unchanged",
+  "source_changed": false,
+  "runtime_not_executed": true
+}

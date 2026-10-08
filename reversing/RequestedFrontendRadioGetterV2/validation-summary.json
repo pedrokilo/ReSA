@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "pairs": 2048,
+  "differences": 0,
+  "function": "CAEFrontendAudioEntity::IsRadioTuneSoundActive",
+  "address": "0x004DD480",
+  "type": "S",
+  "scope": "2048 getter pairs: sixteen valid boolean combinations of user/code pause and the two int16 active fields (only0/1), each under128 guard patterns. Native AL contract compared without upper-EAX or invalid active-state demands. Independent truth table, full524-byte guarded typed fixture/18-byte timer model, per-leg FP payload and exact target switching; all17692 hooks/tables/flags, timer and external FP restored. Typed default constructor path PDB reviewed, null EntityRef excludes external registration. No sound assets/manager, audio playback, constructor/destructor or current dependency accreditation.",
+  "dependency_review": null,
+  "manifest": {
+    "head": "77c517277dd11abf97ebed582c249edaa15a2a9e",
+    "tested_sources": {
+      "source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp": "2673454180835fd821d416534b1b11bd5d8925f1a7afd4d6657d2880df1cfc70",
+      "source/game_sa/Audio/Entities/AEFrontendAudioEntity.h": "c06e1461ae7c3a0290ac4c2c5c3382dc0a37f9a3a8d6e231031155c6911359f9",
+      "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
+      "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
+      "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0"
+    },
+    "bank_sources": {
+      "reversing/RequestedFrontendRadioGetterV2/LiveComparison.hpp": "b9883c0f04577cd0671147b1e5771afa41724124e30d3b8b88a701ce95e5b7a2",
+      "reversing/RequestedFrontendRadioGetterV2/PreflightHarness.hpp": "f5c97389b0e87742b67b6d57c5f5caa09bea2d4dc21f3ecaebd6df98e81b5e79",
+      "reversing/RequestedFrontendRadioGetterV2/VTableRanges.hpp": "c1410e406a82c68dba57994d550b6f27e69bcabfd7627c4fd938baf3b24c8118",
+      "reversing/RequestedFrontendRadioGetterV2/build_probe.py": "1dc1ef84671078b07542c2f2d47a67b5d36b6df9a3c12765b44d2e32b051fb64",
+      "reversing/RequestedFrontendRadioGetterV2/inspect_compiled.py": "42f8db13a200b8e29252845bd4c7a1bb9fccc388ad3d5de1d8c95720c6ebf64d",
+      "reversing/RequestedFrontendRadioGetterV2/restore_winmain.py": "83b3d93515d14d5fd72eafbbae58ee916c57e92af0fbbd3a337e6cffe0388cb9",
+      "reversing/RequestedFrontendRadioGetterV2/run_local.py": "ba8ef6dbc860dbdafeb7e31b576b2eb0029d9f02d8cc2af656b7df105c38b4e0",
+      "reversing/RequestedFrontendRadioGetterV2/corpus-plan.json": "46929d3696d1d0b8e966aa8b67099a980a2a162742ed3aedee3c2a87c3002996",
+      "reversing/RequestedFrontendRadioGetterV2/evidence/IsRadioTuneSoundActive-fullasm.txt": "14f63084083f00fe7b579c22bedfe5f7586cbbc8c615fd94f70f04ab7be1064d",
+      "reversing/RequestedFrontendRadioGetterV2/evidence/native-bytes.json": "d881a29796caa9ee738123c6839a32caf6028804038e0e9acdedb20e01b84ec3",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Pregraphics radio getter2048 finite boolean states; typed default placement instance, full guarded object/timer payload, AL-only ABI, no audio assets or helper/lifetime accreditation. Constructor matching PDB must be reviewed before native run.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "a1d12b6a3d1184648d9850dfc18c9e13c300f2ce9bc7d0bbc6425153e0bcf637"
+    },
+    "asi": "faf7459ac2c4a9d5748fac9c76787de52163aceced0b2bec14ee53a212a0891b",
+    "pdb": "413d2f79944da85dcae5f9105a8eebabf8cfbc37f8e8f925e3857f81d74c565f"
+  },
+  "run": "reversing/RequestedFrontendRadioGetterV2/runs/20261008-163517-153924",
+  "audit_path": "reversing/RequestedFrontendRadioGetterV2/Diagnostics/independent-replay-audit.json",
+  "audit_sha256": "a7de75ae4bac2679f8f12f20f8f7562e0e24d4aa8fd8d600e1c39aea2894cc71",
+  "summary_sha256": "b02b215bd50c713e8a99a1280b38464e5383d4166bd205c0b5114cf22faac026",
+  "log_sha256": "23778f511d312d9c3aad8c75bffa3b032b912a512d6a77134b44cd4e215720fa",
+  "harness_sha256": "a4739962fddbfd91b0641a09b70fc0e428b340705c86ab8f1d06ff3b21a19da2",
+  "constructor_proof_sha256": "ad14f6bc7bdfc80cfcdca73ce9088978e676f6125712db9916abbe1a0bf63fdb"
+}

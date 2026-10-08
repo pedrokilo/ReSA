@@ -1,0 +1,58 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  116F4300: 55                 push        ebp
+  116F4301: 8B EC              mov         ebp,esp
+  116F4303: 81 EC E4 00 00 00  sub         esp,0E4h
+  116F4309: 53                 push        ebx
+  116F430A: 56                 push        esi
+  116F430B: 57                 push        edi
+  116F430C: 51                 push        ecx
+  116F430D: 8D 7D DC           lea         edi,[ebp-24h]
+  116F4310: B9 09 00 00 00     mov         ecx,9
+  116F4315: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  116F431A: F3 AB              rep stos    dword ptr es:[edi]
+  116F431C: 59                 pop         ecx
+  116F431D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  116F4320: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  116F4323: E8 95 3D 97 FF     call        110680BD
+  116F4328: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  116F432B: 83 7D EC 00        cmp         dword ptr [ebp-14h],0
+  116F432F: 7E 35              jle         116F4366
+  116F4331: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116F4334: 83 E8 01           sub         eax,1
+  116F4337: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  116F433A: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116F433D: 50                 push        eax
+  116F433E: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  116F4341: E8 F3 50 99 FF     call        11089439
+  116F4346: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  116F4349: 83 7D E0 00        cmp         dword ptr [ebp-20h],0
+  116F434D: 74 15              je          116F4364
+  116F434F: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  116F4352: E8 1F 45 9A FF     call        11098876
+  116F4357: 90                 nop
+  116F4358: A1 E8 9D 6C 13     mov         eax,dword ptr ds:[136C9DE8h]
+  116F435D: 83 38 00           cmp         dword ptr [eax],0
+  116F4360: 74 02              je          116F4364
+  116F4362: EB 02              jmp         116F4366
+  116F4364: EB C5              jmp         116F432B
+  116F4366: 5F                 pop         edi
+  116F4367: 5E                 pop         esi
+  116F4368: 5B                 pop         ebx
+  116F4369: 81 C4 E4 00 00 00  add         esp,0E4h
+  116F436F: 3B EC              cmp         ebp,esp
+  116F4371: E8 D8 F8 95 FF     call        11053C4E
+  116F4376: 8B E5              mov         esp,ebp
+  116F4378: 5D                 pop         ebp
+  116F4379: C2 04 00           ret         4
+  116F437C: CC                 int         3
+
+  Summary
+
+     215A000 .text

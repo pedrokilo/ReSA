@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  1136F300: 55                 push        ebp
+  1136F301: 8B EC              mov         ebp,esp
+  1136F303: 81 EC C0 00 00 00  sub         esp,0C0h
+  1136F309: 53                 push        ebx
+  1136F30A: 56                 push        esi
+  1136F30B: 57                 push        edi
+  1136F30C: 8B FD              mov         edi,ebp
+  1136F30E: 33 C9              xor         ecx,ecx
+  1136F310: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1136F315: F3 AB              rep stos    dword ptr es:[edi]
+  1136F317: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1136F31A: E8 51 22 01 00     call        11381570
+  1136F31F: 90                 nop
+  1136F320: 5F                 pop         edi
+  1136F321: 5E                 pop         esi
+  1136F322: 5B                 pop         ebx
+  1136F323: 81 C4 C0 00 00 00  add         esp,0C0h
+  1136F329: 3B EC              cmp         ebp,esp
+  1136F32B: E8 69 A9 CE FF     call        11059C99
+  1136F330: 8B E5              mov         esp,ebp
+  1136F332: 5D                 pop         ebp
+  1136F333: C3                 ret
+  1136F334: CC                 int         3
+  1136F335: CC                 int         3
+  1136F336: CC                 int         3
+  1136F337: CC                 int         3
+  1136F338: CC                 int         3
+  1136F339: CC                 int         3
+  1136F33A: CC                 int         3
+  1136F33B: CC                 int         3
+  1136F33C: CC                 int         3
+  1136F33D: CC                 int         3
+  1136F33E: CC                 int         3
+  1136F33F: CC                 int         3
+  1136F340: CC                 int         3
+
+  Summary
+
+     2166000 .text

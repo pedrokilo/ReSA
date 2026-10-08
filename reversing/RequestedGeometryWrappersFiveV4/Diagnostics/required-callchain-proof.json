@@ -1,0 +1,114 @@
+{
+  "run_ready": true,
+  "reviewer": true,
+  "asi_sha256": "ac4b86f836d2239fc5c371485bb0c9334357913ddc7b098a592f97f9e82d46b5",
+  "pdb_sha256": "e4e4ef5c313e33b69b704013fcd281c7d2b31e55b5222e011887fa95b6e37985",
+  "symbol_table_sha256": "af08f73079b3809cb80ff374e0f0e1a2293ae22a23deeb2a5e465ea110bfa305",
+  "construct_body": "0x11388a10",
+  "ctor_chain": [
+    "0x1108cdd0",
+    "0x117105e0"
+  ],
+  "general_ctor_call_chain": [
+    "0x110aba73",
+    "0x119e6d70"
+  ],
+  "general_patched_entry": "0x110aba73",
+  "general_body": "0x119e6d70",
+  "readonly_linked_rand_call_chain": [
+    "0x110594bc",
+    "0x130001b0"
+  ],
+  "exact_relative_offsets_and_prefixes_checked": [
+    53,
+    222,
+    23
+  ],
+  "actualDLLhelperpatchentry_from_Update": {
+    "ComputeEntityBoundingBoxCornersUncached": {
+      "patched_entry": "0x1109fd1d",
+      "chain": [
+        "0x1109fd1d",
+        "0x11b4e730"
+      ],
+      "source_symbol": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCornersUncached"
+    },
+    "ComputeEntityBoundingBoxCentreUncached": {
+      "patched_entry": "0x11064fd3",
+      "chain": [
+        "0x11064fd3",
+        "0x11b4e430"
+      ],
+      "source_symbol": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCentreUncached"
+    },
+    "ComputeEntityBoundingBoxPlanesUncached": {
+      "patched_entry": "0x110a0d3a",
+      "chain": [
+        "0x110a0d3a",
+        "0x11b4f720"
+      ],
+      "source_symbol": "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached"
+    },
+    "ComputeEntityBoundingBoxSegmentPlanesUncached": {
+      "patched_entry": "0x1107d506",
+      "chain": [
+        "0x1107d506",
+        "0x11b4f9d0"
+      ],
+      "source_symbol": "CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanesUncached"
+    }
+  },
+  "calls_cross_patched_entry": {
+    "Corners": [
+      {
+        "call": "0x11b4e6fa",
+        "patched_entry": "0x1109fd1d"
+      }
+    ],
+    "CentreAll": [
+      {
+        "call": "0x11b4e628",
+        "patched_entry": "0x1109fd1d"
+      },
+      {
+        "call": "0x11b4e643",
+        "patched_entry": "0x11064fd3"
+      }
+    ],
+    "PlanesAll": [
+      {
+        "call": "0x11b4f8c8",
+        "patched_entry": "0x1109fd1d"
+      },
+      {
+        "call": "0x11b4f8e7",
+        "patched_entry": "0x110a0d3a"
+      }
+    ],
+    "SegmentAll": [
+      {
+        "call": "0x11b4fb88",
+        "patched_entry": "0x1109fd1d"
+      },
+      {
+        "call": "0x11b4fba3",
+        "patched_entry": "0x11064fd3"
+      },
+      {
+        "call": "0x11b4fbbb",
+        "patched_entry": "0x1107d506"
+      }
+    ]
+  },
+  "sourceSegmentToAll_chain": [
+    "0x110862e6",
+    "0x11b4fb50"
+  ],
+  "CEntity_named_export_vptr": {
+    "name": "??_7CEntity@@6B@",
+    "rva": "0x31c7354",
+    "preferred_address": "0x131c7354",
+    "matched": true
+  },
+  "scope": "Actual compiled CALL/patch and fixture ABI proof only; full replay/harness restoration still required."
+}

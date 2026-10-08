@@ -1,0 +1,42 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  11389120: FA                 cli
+  11389121: FF
+  11389122: FF 89 85 44 CF FF  dec         dword ptr [ecx+FFCF4485h]
+  11389128: FF E8              jmp         rax
+  1138912A: B5 00              mov         ch,0
+  1138912C: CF                 iretd
+  1138912D: FF 8B F4 8B C8 FF  dec         dword ptr [ebx+FFC88BF4h]
+  11389133: 95                 xchg        eax,ebp
+  11389134: 44                 inc         esp
+  11389135: CF                 iretd
+  11389136: FF
+  11389137: FF
+  11389138: 3B F4              cmp         esi,esp
+  1138913A: E8 5A 0B CD FF     call        11059C99
+  1138913F: 89 85 48 CF FF FF  mov         dword ptr [ebp+FFFFCF48h],eax
+  11389145: 8B 8D 48 CF FF FF  mov         ecx,dword ptr [ebp+FFFFCF48h]
+  1138914B: 89 8D 24 F8 FF FF  mov         dword ptr [ebp+FFFFF824h],ecx
+  11389151: C6 85 1B F8 FF FF  mov         byte ptr [ebp+FFFFF81Bh],1
+            01
+  11389158: C7 85 0C F8 FF FF  mov         dword ptr [ebp+FFFFF80Ch],0
+            00 00 00 00
+  11389162: EB 0F              jmp         11389173
+  11389164: 8B 85 0C F8 FF FF  mov         eax,dword ptr [ebp+FFFFF80Ch]
+  1138916A: 83 C0 01           add         eax,1
+  1138916D: 89 85 0C F8 FF FF  mov         dword ptr [ebp+FFFFF80Ch],eax
+  11389173: 8D 8D 1C FC FF FF  lea         ecx,[ebp+FFFFFC1Ch]
+  11389179: E8 A7 96 CE FF     call        11072825
+  1138917E: 39
+  1138917F: 85
+  11389180: 0C
+
+  Summary
+
+     2166000 .text

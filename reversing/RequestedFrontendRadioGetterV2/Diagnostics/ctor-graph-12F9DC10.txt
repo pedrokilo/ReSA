@@ -1,0 +1,258 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  12F9DC10: 8B FF              mov         edi,edi
+  12F9DC12: 55                 push        ebp
+  12F9DC13: 8B EC              mov         ebp,esp
+  12F9DC15: 83 EC 44           sub         esp,44h
+  12F9DC18: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  12F9DC1C: 74 0F              je          12F9DC2D
+  12F9DC1E: 83 7D 0C 00        cmp         dword ptr [ebp+0Ch],0
+  12F9DC22: 76 09              jbe         12F9DC2D
+  12F9DC24: C7 45 EC 01 00 00  mov         dword ptr [ebp-14h],1
+            00
+  12F9DC2B: EB 07              jmp         12F9DC34
+  12F9DC2D: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  12F9DC34: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  12F9DC37: 89 45 E8           mov         dword ptr [ebp-18h],eax
+  12F9DC3A: 83 7D E8 00        cmp         dword ptr [ebp-18h],0
+  12F9DC3E: 75 23              jne         12F9DC63
+  12F9DC40: 68 38 CE 44 13     push        1344CE38h
+  12F9DC45: 68 F4 77 44 13     push        134477F4h
+  12F9DC4A: 6A 00              push        0
+  12F9DC4C: 6A 43              push        43h
+  12F9DC4E: 68 B8 CE 44 13     push        1344CEB8h
+  12F9DC53: 6A 02              push        2
+  12F9DC55: E8 02 51 0C FE     call        11062D5C
+  12F9DC5A: 83 C4 18           add         esp,18h
+  12F9DC5D: 83 F8 01           cmp         eax,1
+  12F9DC60: 75 01              jne         12F9DC63
+  12F9DC62: CC                 int         3
+  12F9DC63: 83 7D E8 00        cmp         dword ptr [ebp-18h],0
+  12F9DC67: 75 30              jne         12F9DC99
+  12F9DC69: E8 51 8A 0B FE     call        110566BF
+  12F9DC6E: C7 00 16 00 00 00  mov         dword ptr [eax],16h
+  12F9DC74: 6A 00              push        0
+  12F9DC76: 6A 43              push        43h
+  12F9DC78: 68 B8 CE 44 13     push        1344CEB8h
+  12F9DC7D: 68 48 CF 44 13     push        1344CF48h
+  12F9DC82: 68 38 CE 44 13     push        1344CE38h
+  12F9DC87: E8 EB BE 0F FE     call        11099B77
+  12F9DC8C: 83 C4 14           add         esp,14h
+  12F9DC8F: B8 16 00 00 00     mov         eax,16h
+  12F9DC94: E9 7C 02 00 00     jmp         12F9DF15
+  12F9DC99: 83 7D 10 00        cmp         dword ptr [ebp+10h],0
+  12F9DC9D: 0F 85 D2 00 00 00  jne         12F9DD75
+  12F9DCA3: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  12F9DCA6: C6 02 00           mov         byte ptr [edx],0
+  12F9DCA9: 83 7D 0C FF        cmp         dword ptr [ebp+0Ch],0FFFFFFFFh
+  12F9DCAD: 74 4B              je          12F9DCFA
+  12F9DCAF: 81 7D 0C FF FF FF  cmp         dword ptr [ebp+0Ch],7FFFFFFFh
+            7F
+  12F9DCB6: 74 42              je          12F9DCFA
+  12F9DCB8: 83 7D 0C 01        cmp         dword ptr [ebp+0Ch],1
+  12F9DCBC: 76 3C              jbe         12F9DCFA
+  12F9DCBE: E8 CF 19 0D FE     call        1106F692
+  12F9DCC3: 89 45 E4           mov         dword ptr [ebp-1Ch],eax
+  12F9DCC6: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  12F9DCC9: 83 E8 01           sub         eax,1
+  12F9DCCC: 39 45 E4           cmp         dword ptr [ebp-1Ch],eax
+  12F9DCCF: 73 08              jae         12F9DCD9
+  12F9DCD1: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  12F9DCD4: 89 4D E0           mov         dword ptr [ebp-20h],ecx
+  12F9DCD7: EB 09              jmp         12F9DCE2
+  12F9DCD9: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  12F9DCDC: 83 EA 01           sub         edx,1
+  12F9DCDF: 89 55 E0           mov         dword ptr [ebp-20h],edx
+  12F9DCE2: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  12F9DCE5: 50                 push        eax
+  12F9DCE6: 68 FE 00 00 00     push        0FEh
+  12F9DCEB: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  12F9DCEE: 83 C1 01           add         ecx,1
+  12F9DCF1: 51                 push        ecx
+  12F9DCF2: E8 18 54 0F FE     call        1109310F
+  12F9DCF7: 83 C4 0C           add         esp,0Ch
+  12F9DCFA: 83 7D 10 00        cmp         dword ptr [ebp+10h],0
+  12F9DCFE: 74 09              je          12F9DD09
+  12F9DD00: C7 45 DC 01 00 00  mov         dword ptr [ebp-24h],1
+            00
+  12F9DD07: EB 07              jmp         12F9DD10
+  12F9DD09: C7 45 DC 00 00 00  mov         dword ptr [ebp-24h],0
+            00
+  12F9DD10: 8B 55 DC           mov         edx,dword ptr [ebp-24h]
+  12F9DD13: 89 55 D8           mov         dword ptr [ebp-28h],edx
+  12F9DD16: 83 7D D8 00        cmp         dword ptr [ebp-28h],0
+  12F9DD1A: 75 23              jne         12F9DD3F
+  12F9DD1C: 68 70 CF 44 13     push        1344CF70h
+  12F9DD21: 68 F4 77 44 13     push        134477F4h
+  12F9DD26: 6A 00              push        0
+  12F9DD28: 6A 44              push        44h
+  12F9DD2A: 68 B8 CE 44 13     push        1344CEB8h
+  12F9DD2F: 6A 02              push        2
+  12F9DD31: E8 26 50 0C FE     call        11062D5C
+  12F9DD36: 83 C4 18           add         esp,18h
+  12F9DD39: 83 F8 01           cmp         eax,1
+  12F9DD3C: 75 01              jne         12F9DD3F
+  12F9DD3E: CC                 int         3
+  12F9DD3F: 83 7D D8 00        cmp         dword ptr [ebp-28h],0
+  12F9DD43: 75 30              jne         12F9DD75
+  12F9DD45: E8 75 89 0B FE     call        110566BF
+  12F9DD4A: C7 00 16 00 00 00  mov         dword ptr [eax],16h
+  12F9DD50: 6A 00              push        0
+  12F9DD52: 6A 44              push        44h
+  12F9DD54: 68 B8 CE 44 13     push        1344CEB8h
+  12F9DD59: 68 48 CF 44 13     push        1344CF48h
+  12F9DD5E: 68 70 CF 44 13     push        1344CF70h
+  12F9DD63: E8 0F BE 0F FE     call        11099B77
+  12F9DD68: 83 C4 14           add         esp,14h
+  12F9DD6B: B8 16 00 00 00     mov         eax,16h
+  12F9DD70: E9 A0 01 00 00     jmp         12F9DF15
+  12F9DD75: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  12F9DD78: 89 4D F0           mov         dword ptr [ebp-10h],ecx
+  12F9DD7B: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  12F9DD7E: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  12F9DD81: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  12F9DD84: 89 45 F8           mov         dword ptr [ebp-8],eax
+  12F9DD87: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  12F9DD8A: 8A 11              mov         dl,byte ptr [ecx]
+  12F9DD8C: 88 55 FF           mov         byte ptr [ebp-1],dl
+  12F9DD8F: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  12F9DD92: 83 C0 01           add         eax,1
+  12F9DD95: 89 45 F4           mov         dword ptr [ebp-0Ch],eax
+  12F9DD98: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  12F9DD9B: 8A 55 FF           mov         dl,byte ptr [ebp-1]
+  12F9DD9E: 88 11              mov         byte ptr [ecx],dl
+  12F9DDA0: 0F BE 45 FF        movsx       eax,byte ptr [ebp-1]
+  12F9DDA4: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  12F9DDA7: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  12F9DDAA: 83 C1 01           add         ecx,1
+  12F9DDAD: 89 4D F0           mov         dword ptr [ebp-10h],ecx
+  12F9DDB0: 83 7D BC 00        cmp         dword ptr [ebp-44h],0
+  12F9DDB4: 74 0D              je          12F9DDC3
+  12F9DDB6: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  12F9DDB9: 83 EA 01           sub         edx,1
+  12F9DDBC: 89 55 F8           mov         dword ptr [ebp-8],edx
+  12F9DDBF: 74 02              je          12F9DDC3
+  12F9DDC1: EB C4              jmp         12F9DD87
+  12F9DDC3: 83 7D F8 00        cmp         dword ptr [ebp-8],0
+  12F9DDC7: 0F 85 D6 00 00 00  jne         12F9DEA3
+  12F9DDCD: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  12F9DDD0: C6 00 00           mov         byte ptr [eax],0
+  12F9DDD3: 83 7D 0C FF        cmp         dword ptr [ebp+0Ch],0FFFFFFFFh
+  12F9DDD7: 74 4B              je          12F9DE24
+  12F9DDD9: 81 7D 0C FF FF FF  cmp         dword ptr [ebp+0Ch],7FFFFFFFh
+            7F
+  12F9DDE0: 74 42              je          12F9DE24
+  12F9DDE2: 83 7D 0C 01        cmp         dword ptr [ebp+0Ch],1
+  12F9DDE6: 76 3C              jbe         12F9DE24
+  12F9DDE8: E8 A5 18 0D FE     call        1106F692
+  12F9DDED: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  12F9DDF0: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  12F9DDF3: 83 E9 01           sub         ecx,1
+  12F9DDF6: 39 4D D4           cmp         dword ptr [ebp-2Ch],ecx
+  12F9DDF9: 73 08              jae         12F9DE03
+  12F9DDFB: 8B 55 D4           mov         edx,dword ptr [ebp-2Ch]
+  12F9DDFE: 89 55 D0           mov         dword ptr [ebp-30h],edx
+  12F9DE01: EB 09              jmp         12F9DE0C
+  12F9DE03: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  12F9DE06: 83 E8 01           sub         eax,1
+  12F9DE09: 89 45 D0           mov         dword ptr [ebp-30h],eax
+  12F9DE0C: 8B 4D D0           mov         ecx,dword ptr [ebp-30h]
+  12F9DE0F: 51                 push        ecx
+  12F9DE10: 68 FE 00 00 00     push        0FEh
+  12F9DE15: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  12F9DE18: 83 C2 01           add         edx,1
+  12F9DE1B: 52                 push        edx
+  12F9DE1C: E8 EE 52 0F FE     call        1109310F
+  12F9DE21: 83 C4 0C           add         esp,0Ch
+  12F9DE24: B8 A4 CF 44 13     mov         eax,1344CFA4h
+  12F9DE29: 85 C0              test        eax,eax
+  12F9DE2B: 74 0D              je          12F9DE3A
+  12F9DE2D: 33 C9              xor         ecx,ecx
+  12F9DE2F: 74 09              je          12F9DE3A
+  12F9DE31: C7 45 CC 01 00 00  mov         dword ptr [ebp-34h],1
+            00
+  12F9DE38: EB 07              jmp         12F9DE41
+  12F9DE3A: C7 45 CC 00 00 00  mov         dword ptr [ebp-34h],0
+            00
+  12F9DE41: 8B 55 CC           mov         edx,dword ptr [ebp-34h]
+  12F9DE44: 89 55 C8           mov         dword ptr [ebp-38h],edx
+  12F9DE47: 83 7D C8 00        cmp         dword ptr [ebp-38h],0
+  12F9DE4B: 75 23              jne         12F9DE70
+  12F9DE4D: 68 D4 CF 44 13     push        1344CFD4h
+  12F9DE52: 68 F4 77 44 13     push        134477F4h
+  12F9DE57: 6A 00              push        0
+  12F9DE59: 6A 51              push        51h
+  12F9DE5B: 68 B8 CE 44 13     push        1344CEB8h
+  12F9DE60: 6A 02              push        2
+  12F9DE62: E8 F5 4E 0C FE     call        11062D5C
+  12F9DE67: 83 C4 18           add         esp,18h
+  12F9DE6A: 83 F8 01           cmp         eax,1
+  12F9DE6D: 75 01              jne         12F9DE70
+  12F9DE6F: CC                 int         3
+  12F9DE70: 83 7D C8 00        cmp         dword ptr [ebp-38h],0
+  12F9DE74: 75 2D              jne         12F9DEA3
+  12F9DE76: E8 44 88 0B FE     call        110566BF
+  12F9DE7B: C7 00 22 00 00 00  mov         dword ptr [eax],22h
+  12F9DE81: 6A 00              push        0
+  12F9DE83: 6A 51              push        51h
+  12F9DE85: 68 B8 CE 44 13     push        1344CEB8h
+  12F9DE8A: 68 48 CF 44 13     push        1344CF48h
+  12F9DE8F: 68 D4 CF 44 13     push        1344CFD4h
+  12F9DE94: E8 DE BC 0F FE     call        11099B77
+  12F9DE99: 83 C4 14           add         esp,14h
+  12F9DE9C: B8 22 00 00 00     mov         eax,22h
+  12F9DEA1: EB 72              jmp         12F9DF15
+  12F9DEA3: 83 7D 0C FF        cmp         dword ptr [ebp+0Ch],0FFFFFFFFh
+  12F9DEA7: 74 6A              je          12F9DF13
+  12F9DEA9: 81 7D 0C FF FF FF  cmp         dword ptr [ebp+0Ch],7FFFFFFFh
+            7F
+  12F9DEB0: 74 61              je          12F9DF13
+  12F9DEB2: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  12F9DEB5: 2B 4D F8           sub         ecx,dword ptr [ebp-8]
+  12F9DEB8: 83 C1 01           add         ecx,1
+  12F9DEBB: 3B 4D 0C           cmp         ecx,dword ptr [ebp+0Ch]
+  12F9DEBE: 73 53              jae         12F9DF13
+  12F9DEC0: E8 CD 17 0D FE     call        1106F692
+  12F9DEC5: 89 45 C4           mov         dword ptr [ebp-3Ch],eax
+  12F9DEC8: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  12F9DECB: 2B 55 F8           sub         edx,dword ptr [ebp-8]
+  12F9DECE: 83 C2 01           add         edx,1
+  12F9DED1: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  12F9DED4: 2B C2              sub         eax,edx
+  12F9DED6: 39 45 C4           cmp         dword ptr [ebp-3Ch],eax
+  12F9DED9: 73 08              jae         12F9DEE3
+  12F9DEDB: 8B 4D C4           mov         ecx,dword ptr [ebp-3Ch]
+  12F9DEDE: 89 4D C0           mov         dword ptr [ebp-40h],ecx
+  12F9DEE1: EB 11              jmp         12F9DEF4
+  12F9DEE3: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  12F9DEE6: 2B 55 F8           sub         edx,dword ptr [ebp-8]
+  12F9DEE9: 83 C2 01           add         edx,1
+  12F9DEEC: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  12F9DEEF: 2B C2              sub         eax,edx
+  12F9DEF1: 89 45 C0           mov         dword ptr [ebp-40h],eax
+  12F9DEF4: 8B 4D C0           mov         ecx,dword ptr [ebp-40h]
+  12F9DEF7: 51                 push        ecx
+  12F9DEF8: 68 FE 00 00 00     push        0FEh
+  12F9DEFD: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  12F9DF00: 2B 55 F8           sub         edx,dword ptr [ebp-8]
+  12F9DF03: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  12F9DF06: 8D 4C 10 01        lea         ecx,[eax+edx+1]
+  12F9DF0A: 51                 push        ecx
+  12F9DF0B: E8 FF 51 0F FE     call        1109310F
+  12F9DF10: 83 C4 0C           add         esp,0Ch
+  12F9DF13: 33 C0              xor         eax,eax
+  12F9DF15: 8B E5              mov         esp,ebp
+  12F9DF17: 5D                 pop         ebp
+  12F9DF18: C3                 ret
+  12F9DF19: CC                 int         3
+
+  Summary
+
+     215A000 .text

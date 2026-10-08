@@ -311,17 +311,19 @@ bool FxEmitterBP_c::LoadTextures(FxName32_t* textureNames, int32 version) {
         return texture ? texture : RwTextureRead(textureNames[ind], nullptr);
     };
 
-    const auto LoadTextureIfExists = [=](auto ind) -> RwTexture* {
+    const auto LoadTextureIfExists = [&](auto ind) {
         assert(&textureNames[ind]);
-        return strncmp(textureNames[ind], "NULL", 5u) != 0 ? LoadTexture(ind) : nullptr;
+        if (strncmp(textureNames[ind], "NULL", 5u) != 0) {
+            m_apTextures[ind] = LoadTexture(ind);
+        }
     };
 
     m_apTextures[0] = LoadTexture(0);
 
     if (version > 101) {
-        m_apTextures[1] = LoadTextureIfExists(1);
-        m_apTextures[2] = LoadTextureIfExists(2);
-        m_apTextures[3] = LoadTextureIfExists(3);
+        LoadTextureIfExists(1);
+        LoadTextureIfExists(2);
+        LoadTextureIfExists(3);
     }
 
     return true;

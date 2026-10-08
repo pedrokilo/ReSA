@@ -1,0 +1,52 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  1199FCE0: 55                 push        ebp
+  1199FCE1: 8B EC              mov         ebp,esp
+  1199FCE3: 81 EC DC 00 00 00  sub         esp,0DCh
+  1199FCE9: 53                 push        ebx
+  1199FCEA: 56                 push        esi
+  1199FCEB: 57                 push        edi
+  1199FCEC: 51                 push        ecx
+  1199FCED: 8D 7D E4           lea         edi,[ebp-1Ch]
+  1199FCF0: B9 07 00 00 00     mov         ecx,7
+  1199FCF5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1199FCFA: F3 AB              rep stos    dword ptr es:[edi]
+  1199FCFC: 59                 pop         ecx
+  1199FCFD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1199FD00: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1199FD03: C7 00 08 77 1C 13  mov         dword ptr [eax],131C7708h
+  1199FD09: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1199FD0C: 83 C1 20           add         ecx,20h
+  1199FD0F: E8 6C 75 6D FF     call        11077280
+  1199FD14: 90                 nop
+  1199FD15: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1199FD18: 83 C0 0C           add         eax,0Ch
+  1199FD1B: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  1199FD21: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],0
+            00 00 00 00
+  1199FD2B: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  1199FD31: 51                 push        ecx
+  1199FD32: 8B 8D 24 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF24h]
+  1199FD38: E8 7B DD 6D FF     call        1107DAB8
+  1199FD3D: 90                 nop
+  1199FD3E: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1199FD41: 5F                 pop         edi
+  1199FD42: 5E                 pop         esi
+  1199FD43: 5B                 pop         ebx
+  1199FD44: 81 C4 DC 00 00 00  add         esp,0DCh
+  1199FD4A: 3B EC              cmp         ebp,esp
+  1199FD4C: E8 48 9F 6B FF     call        11059C99
+  1199FD51: 8B E5              mov         esp,ebp
+  1199FD53: 5D                 pop         ebp
+  1199FD54: C3                 ret
+  1199FD55: CC                 int         3
+
+  Summary
+
+     2166000 .text

@@ -1,0 +1,17 @@
+{
+  "asi_sha256": "3f76feca824b6ff753e29ba555b015787febebfc74a5ff8948b8f94f926e6672",
+  "pdb_sha256": "cc6ddbff28900a093b305223ac7ff93abc129c445d26c1ff18d83d8e577a3495",
+  "base": 268435456,
+  "symbols": [
+    {
+      "name": "CPools::CheckBuildingAtomics",
+      "address": 297716048,
+      "size": 22
+    },
+    {
+      "name": "RequestedPoolsAtomicCheckLive::Call",
+      "address": 288842848,
+      "size": 1452
+    }
+  ]
+}

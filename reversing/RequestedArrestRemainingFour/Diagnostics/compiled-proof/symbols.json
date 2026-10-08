@@ -52,6 +52,267 @@
       "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e855f5dbff908b45f85f5e5b81c4cc0000003bece84495d9ff8be55dc3cccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e87777ddff908b45f85f5e5b81"
     },
     {
+      "name": "std::ranges::_Any_of_fn::operator()<std::vector<std::shared_ptr<ReversibleHooks::ReversibleHook::Base>,std::allocator<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> > > &,std::identity,``RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "address": 288737536,
+      "size": 227,
+      "tag": 5,
+      "body": 288737536,
+      "e9_chain": [],
+      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e81de9cfff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e8c35bd4ff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
+    },
+    {
+      "name": "`RequestedArrestRemainingFour::Update'::`2'::<lambda_2>::operator()<enum eWeaponSlot (__fastcall*)(CPed *,void *,enum eWeaponType,unsigned int,bool)>",
+      "address": 288738400,
+      "size": 204,
+      "tag": 5,
+      "body": 288738400,
+      "e9_chain": [],
+      "first128": "558bec6aff68403a0d1364a1000000005081ece8000000535657518d7dccb90a000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b45ec8b08898d18ffffff8d550c528d4508508d8d20ffffff51e83cafd4ff83c40c898514ffffff8b9514ffffff899510ffffffc745fc000000008b8510ffffff"
+    },
+    {
+      "name": "`RequestedArrestRemainingFour::Update'::`2'::<lambda_2>::operator()<CTask * (__fastcall*)(CTaskComplexArrestPed *,void *,enum eTaskType,CPed *)>",
+      "address": 288738656,
+      "size": 204,
+      "tag": 5,
+      "body": 288738656,
+      "e9_chain": [],
+      "first128": "558bec6aff68803a0d1364a1000000005081ece8000000535657518d7dccb90a000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b45ec8b08898d18ffffff8d550c528d4508508d8d20ffffff51e88d19d2ff83c40c898514ffffff8b9514ffffff899510ffffffc745fc000000008b8510ffffff"
+    },
+    {
+      "name": "`RequestedArrestRemainingFour::Update'::`2'::<lambda_2>::operator()<void (__fastcall*)(CEntity *,void *,CEntity * *)>",
+      "address": 288738912,
+      "size": 204,
+      "tag": 5,
+      "body": 288738912,
+      "e9_chain": [],
+      "first128": "558bec6aff68c03a0d1364a1000000005081ece8000000535657518d7dccb90a000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b45ec8b08898d18ffffff8d550c528d4508508d8d20ffffff51e86c7cd0ff83c40c898514ffffff8b9514ffffff899510ffffffc745fc000000008b8510ffffff"
+    },
+    {
+      "name": "`RequestedArrestRemainingFour::Update'::`2'::<lambda_2>::operator()<void (__fastcall*)(CPed *,void *,enum eWeaponType)>",
+      "address": 288739168,
+      "size": 204,
+      "tag": 5,
+      "body": 288739168,
+      "e9_chain": [],
+      "first128": "558bec6aff68003b0d1364a1000000005081ece8000000535657518d7dccb90a000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b45ec8b08898d18ffffff8d550c528d4508508d8d20ffffff51e8566bd3ff83c40c898514ffffff8b9514ffffff899510ffffffc745fc000000008b8510ffffff"
+    },
+    {
+      "name": "`RequestedArrestRemainingFour::Update'::`2'::<lambda_2>::operator()<bool (__fastcall*)(CPed *,void *,enum eWeaponType)>",
+      "address": 288739424,
+      "size": 204,
+      "tag": 5,
+      "body": 288739424,
+      "e9_chain": [],
+      "first128": "558bec6aff68403b0d1364a1000000005081ece8000000535657518d7dccb90a000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b45ec8b08898d18ffffff8d550c528d4508508d8d20ffffff51e899dad4ff83c40c898514ffffff8b9514ffffff899510ffffffc745fc000000008b8510ffffff"
+    },
+    {
+      "name": "`RequestedArrestRemainingFour::Update'::`2'::<lambda_2>::operator()<bool (__fastcall*)(CWeapon *,void *)>",
+      "address": 288739680,
+      "size": 204,
+      "tag": 5,
+      "body": 288739680,
+      "e9_chain": [],
+      "first128": "558bec6aff68803b0d1364a1000000005081ece8000000535657518d7dccb90a000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b45ec8b08898d18ffffff8d550c528d4508508d8d20ffffff51e8e79ad4ff83c40c898514ffffff8b9514ffffff899510ffffffc745fc000000008b8510ffffff"
+    },
+    {
+      "name": "`RequestedArrestRemainingFour::Update'::`2'::<lambda_2>::operator()<bool (__fastcall*)(CVehicle const *,void *)>",
+      "address": 288739936,
+      "size": 204,
+      "tag": 5,
+      "body": 288739936,
+      "e9_chain": [],
+      "first128": "558bec6aff68c03b0d1364a1000000005081ece8000000535657518d7dccb90a000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b45ec8b08898d18ffffff8d550c528d4508508d8d20ffffff51e8f37dd0ff83c40c898514ffffff8b9514ffffff899510ffffffc745fc000000008b8510ffffff"
+    },
+    {
+      "name": "``RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1>::operator()<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> >",
+      "address": 288744400,
+      "size": 103,
+      "tag": 5,
+      "body": 288744400,
+      "e9_chain": [],
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b4d08e85b61d0ff8bc8e8ce02d3ff83f801750cc78530ffffff01000000eb0ac78530ffffff000000000fb68530ffffff5f5e5b81c4d00000003bece89ff8cfff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "`RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>",
+      "address": 288746896,
+      "size": 1107,
+      "tag": 5,
+      "body": 288746896,
+      "e9_chain": [],
+      "first128": "558bec6aff688c3c0d1364a1000000005081ec8c030000535657518dbde8fdffffb983000000b8ccccccccf3ab59a140da6c1333c58945f0508d45f464a300000000894de833c0888517feffff8a8d17feffff888df3fdffff8a950bfeffff8895fffdffff8b4d08e8cd19d3ff89856cfcffff0fb685f3fdffff500fb68dfffd"
+    },
+    {
+      "name": "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_2> &>",
+      "address": 288751312,
+      "size": 232,
+      "tag": 5,
+      "body": 288751312,
+      "e9_chain": [],
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e8ff30d3ff83c4088b45f883c0348945ec8d45e0508b4dece8b41ad1ff908d45d4508b4dece8928bd4ff90eb098d4de0e8e4abd4ff908d45d4508d4de0e809d5d3ff0fb6c885c9751a8d4de0e859e7d0ff8945c88b450850"
+    },
+    {
+      "name": "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_2> >",
+      "address": 288754352,
+      "size": 232,
+      "tag": 5,
+      "body": 288754352,
+      "e9_chain": [],
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e81f25d3ff83c4088b45f883c0348945ec8d45e0508b4dece8d40ed1ff908d45d4508b4dece8b27fd4ff90eb098d4de0e804a0d4ff908d45d4508d4de0e829c9d3ff0fb6c885c9751a8d4de0e879dbd0ff8945c88b450850"
+    },
+    {
+      "name": "std::ranges::_Any_of_fn::_Any_of_unchecked<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> *,std::shared_ptr<ReversibleHooks::ReversibleHook::Base> *,std::identity,``RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "address": 288757552,
+      "size": 106,
+      "tag": 5,
+      "body": 288757552,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0088945088b45083b450c742a8b4508508d4d1451e863cfd0ff83c408508d551052e82f9dcfff83c4080fb6c085c07404b001eb04ebc532c05f5e5b81c4c00000003bece83ac5cfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::_Pass_fn<``RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "address": 288785200,
+      "size": 26,
+      "tag": 5,
+      "body": 288785200,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81ecc00000005356575f5e5b8be55dc3cccccccccccccccccccccccccc558bec6aff688d420d1364a1000000005081ec28010000535657518d7d8cb91a000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b"
+    },
+    {
+      "name": "std::invoke<``RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> &,std::shared_ptr<ReversibleHooks::ReversibleHook::Base> &>",
+      "address": 288847984,
+      "size": 55,
+      "tag": 5,
+      "body": 288847984,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8ed9bd2ff5f5e5b81c4c00000003bece82d64ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e83168d1ff905f5e5b81c4c00000003bece8"
+    },
+    {
+      "name": "std::invoke<`NOTSA_WinMain'::`2'::<lambda_1> &>",
+      "address": 288848800,
+      "size": 52,
+      "tag": 5,
+      "body": 288848800,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b4d08e8f1310100905f5e5b81c4c00000003bece80061ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8dfc9cfff905f5e5b81c4c00000003bece8"
+    },
+    {
+      "name": "std::invoke<`RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_2> &,ReversibleHooks::HookCategory &>",
+      "address": 288848960,
+      "size": 56,
+      "tag": 5,
+      "body": 288848960,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e883b9d2ff905f5e5b81c4c00000003bece85c60ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df832c05f5e5b8be55dc20400cccccccccccc558bec81ecd0000000535657894df883"
+    },
+    {
+      "name": "`RequestedArrestRemainingFour::Update'::`2'::<lambda_1>::<lambda_1>",
+      "address": 288869664,
+      "size": 35,
+      "tag": 5,
+      "body": 288869664,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b45f88b4d0c8b"
+    },
+    {
+      "name": "`RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_1>::<lambda_1>",
+      "address": 288869712,
+      "size": 35,
+      "tag": 5,
+      "body": 288869712,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b45f88b4d0c8b118950048b45f88b4d108a118850088b45f88b4d148b1189500c8b45f88b4d188b118950108b45f85f5e5b8be55dc214"
+    },
+    {
+      "name": "`RequestedArrestRemainingFour::Update'::`2'::<lambda_2>::<lambda_2>",
+      "address": 288869872,
+      "size": 35,
+      "tag": 5,
+      "body": 288869872,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8be55dc20c00cccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "`RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_2>::<lambda_2>",
+      "address": 288869920,
+      "size": 53,
+      "tag": 5,
+      "body": 288869920,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8be55dc20c00cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e8bde2ceff908b45f85f5e5b81"
+    },
+    {
+      "name": "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
+      "address": 288870080,
+      "size": 27,
+      "tag": 5,
+      "body": 288870080,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f85f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f8c74004000000008b45f85f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b"
+    },
+    {
+      "name": "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::~ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
+      "address": 288889664,
+      "size": 111,
+      "tag": 5,
+      "body": 288889664,
+      "e9_chain": [],
+      "first128": "558bec6aff68b0620d1364a1000000005081eccc000000535657518d7de8b903000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b45ec50e81860ffff83c4048b4df464890d00000000595f5e5b81c4d80000003bece82ac1cdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "`NOTSA_WinMain'::`2'::<lambda_1>::operator()",
+      "address": 288927152,
+      "size": 77,
+      "tag": 5,
+      "body": 288927152,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8e8d9f5cdff0fb6c085c0740de874e4ceff8bc8e8beefccff905f5e5b81c4cc0000003bece8d72ecdff8be55dc3cccccccccccccccccccccccccccccccccccccc558bec6aff68516d0d1364a1000000005081eca0010000535657518dbd14ffff"
+    },
+    {
+      "name": "`RequestedArrestRemainingFour::Update'::`2'::<lambda_1>::operator()",
+      "address": 288927760,
+      "size": 243,
+      "tag": 5,
+      "body": 288927760,
+      "e9_chain": [],
+      "first128": "558bec6aff68b06d0d1364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a140da6c1333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e84455d0ff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
+    },
+    {
+      "name": "`RequestedPreflightArrestRemainingFourLive::Update'::`2'::<lambda_1>::operator()",
+      "address": 288928064,
+      "size": 243,
+      "tag": 5,
+      "body": 288928064,
+      "e9_chain": [],
+      "first128": "558bec6aff68006e0d1364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a140da6c1333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e81454d0ff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
+    },
+    {
+      "name": "NOTSA_WinMain",
+      "address": 288946240,
+      "size": 1778,
+      "tag": 5,
+      "body": 288946240,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff687d8c0d1364a100000000505381ec2802000056578dbd88feffffb95a000000b8ccccccccf3aba140da6c1333c58945ec508d45f464a3000000000fb685a7feffff508d4de7e81dd6feffc745fc00000000e88219d2ff90c78598feffff00000000c745fcffffff"
+    },
+    {
+      "name": "RequestedArrestRemainingFour::Update",
+      "address": 288957200,
+      "size": 16662,
+      "tag": 5,
+      "body": 288957200,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff685a9d0d1364a1000000005053b8985a0000e8c3a9cdff56578dbd58abffffb926150000b8ccccccccf3aba140da6c1333c58945ec508d45f464a300000000c785c0b8ffff0000000068040100006a008d85e0feffff50e8eab2d0ff83c40c8bf468040100008d85"
+    },
+    {
+      "name": "RequestedPreflightArrestRemainingFourLive::Update",
+      "address": 288978032,
+      "size": 4859,
+      "tag": 5,
+      "body": 288978032,
+      "e9_chain": [],
+      "first128": "558bec6aff686da40d1364a10000000050b868100000e87758cdff5356578dbd0cf4ffffb9fa020000b8ccccccccf3aba140da6c1333c58945f0508d45f464a30000000068040100006a008d85e8feffff50e8a761d0ff83c40c8bf468040100008d85e8feffff506a00ff15fcb472133bf4e8e967ccff906a008d85e8feffff"
+    },
+    {
       "name": "CEntity::RegisterReference<CEntity>",
       "address": 291223440,
       "size": 74,

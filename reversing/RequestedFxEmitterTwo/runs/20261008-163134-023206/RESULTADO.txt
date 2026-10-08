@@ -1,0 +1,3 @@
+FALLO: FxEmitterTwo5632
+Comparacion automatizada completada.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fx-emitter-two\20261008-163134-023206

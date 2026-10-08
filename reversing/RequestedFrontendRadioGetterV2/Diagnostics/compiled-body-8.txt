@@ -1,0 +1,86 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  1121ED00: 55                 push        ebp
+  1121ED01: 8B EC              mov         ebp,esp
+  1121ED03: 81 EC D0 00 00 00  sub         esp,0D0h
+  1121ED09: 53                 push        ebx
+  1121ED0A: 56                 push        esi
+  1121ED0B: 57                 push        edi
+  1121ED0C: 51                 push        ecx
+  1121ED0D: 8D 7D F0           lea         edi,[ebp-10h]
+  1121ED10: B9 04 00 00 00     mov         ecx,4
+  1121ED15: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1121ED1A: F3 AB              rep stos    dword ptr es:[edi]
+  1121ED1C: 59                 pop         ecx
+  1121ED1D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1121ED20: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121ED23: E8 02 AD E5 FF     call        11079A2A
+  1121ED28: 90                 nop
+  1121ED29: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121ED2C: C7 00 CC E5 1A 13  mov         dword ptr [eax],131AE5CCh
+  1121ED32: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121ED35: 83 C0 7C           add         eax,7Ch
+  1121ED38: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  1121ED3E: 6A 00              push        0
+  1121ED40: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  1121ED46: E8 E7 3E E7 FF     call        11092C32
+  1121ED4B: 90                 nop
+  1121ED4C: 33 C0              xor         eax,eax
+  1121ED4E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121ED51: 83 C1 7E           add         ecx,7Eh
+  1121ED54: 89 01              mov         dword ptr [ecx],eax
+  1121ED56: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121ED59: C7 80 84 00 00 00  mov         dword ptr [eax+00000084h],0
+            00 00 00 00
+  1121ED63: 33 C0              xor         eax,eax
+  1121ED65: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121ED68: 66 89 81 88 00 00  mov         word ptr [ecx+00000088h],ax
+            00
+  1121ED6F: 33 C0              xor         eax,eax
+  1121ED71: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121ED74: 81 C1 8A 00 00 00  add         ecx,8Ah
+  1121ED7A: 89 01              mov         dword ptr [ecx],eax
+  1121ED7C: 33 C0              xor         eax,eax
+  1121ED7E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121ED81: 66 89 81 8E 00 00  mov         word ptr [ecx+0000008Eh],ax
+            00
+  1121ED88: 33 C0              xor         eax,eax
+  1121ED8A: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121ED8D: 66 89 81 90 00 00  mov         word ptr [ecx+00000090h],ax
+            00
+  1121ED94: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121ED97: C7 80 94 00 00 00  mov         dword ptr [eax+00000094h],0
+            00 00 00 00
+  1121EDA1: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121EDA4: C6 80 98 00 00 00  mov         byte ptr [eax+00000098h],0
+            00
+  1121EDAB: 33 C0              xor         eax,eax
+  1121EDAD: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121EDB0: 81 C1 9A 00 00 00  add         ecx,9Ah
+  1121EDB6: 89 01              mov         dword ptr [ecx],eax
+  1121EDB8: 33 C0              xor         eax,eax
+  1121EDBA: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1121EDBD: 81 C1 A0 00 00 00  add         ecx,0A0h
+  1121EDC3: 89 01              mov         dword ptr [ecx],eax
+  1121EDC5: 89 41 04           mov         dword ptr [ecx+4],eax
+  1121EDC8: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1121EDCB: 5F                 pop         edi
+  1121EDCC: 5E                 pop         esi
+  1121EDCD: 5B                 pop         ebx
+  1121EDCE: 81 C4 D0 00 00 00  add         esp,0D0h
+  1121EDD4: 3B EC              cmp         ebp,esp
+  1121EDD6: E8 73 4E E3 FF     call        11053C4E
+  1121EDDB: 8B E5              mov         esp,ebp
+  1121EDDD: 5D                 pop         ebp
+  1121EDDE: C3                 ret
+  1121EDDF: CC                 int         3
+
+  Summary
+
+     215A000 .text

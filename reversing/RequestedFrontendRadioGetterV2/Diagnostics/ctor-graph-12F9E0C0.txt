@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  12F9E0C0: 8B FF              mov         edi,edi
+  12F9E0C2: 55                 push        ebp
+  12F9E0C3: 8B EC              mov         ebp,esp
+  12F9E0C5: 51                 push        ecx
+  12F9E0C6: 6A 03              push        3
+  12F9E0C8: E8 53 B9 0D FE     call        11079A20
+  12F9E0CD: 83 C4 04           add         esp,4
+  12F9E0D0: 89 45 FC           mov         dword ptr [ebp-4],eax
+  12F9E0D3: 83 7D FC 01        cmp         dword ptr [ebp-4],1
+  12F9E0D7: 75 13              jne         12F9E0EC
+  12F9E0D9: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  12F9E0DC: 50                 push        eax
+  12F9E0DD: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  12F9E0E0: 51                 push        ecx
+  12F9E0E1: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  12F9E0E4: 52                 push        edx
+  12F9E0E5: E8 36 20 00 00     call        12FA0120
+  12F9E0EA: EB 3B              jmp         12F9E127
+  12F9E0EC: 83 7D FC 00        cmp         dword ptr [ebp-4],0
+  12F9E0F0: 75 1D              jne         12F9E10F
+  12F9E0F2: E8 8C EE 0B FE     call        1105CF83
+  12F9E0F7: 83 F8 01           cmp         eax,1
+  12F9E0FA: 75 13              jne         12F9E10F
+  12F9E0FC: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  12F9E0FF: 50                 push        eax
+  12F9E100: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  12F9E103: 51                 push        ecx
+  12F9E104: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  12F9E107: 52                 push        edx
+  12F9E108: E8 13 20 00 00     call        12FA0120
+  12F9E10D: EB 18              jmp         12F9E127
+  12F9E10F: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  12F9E112: 50                 push        eax
+  12F9E113: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  12F9E116: 51                 push        ecx
+  12F9E117: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  12F9E11A: 52                 push        edx
+  12F9E11B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  12F9E11E: 50                 push        eax
+  12F9E11F: E8 4C 01 00 00     call        12F9E270
+  12F9E124: 83 C4 10           add         esp,10h
+  12F9E127: 8B E5              mov         esp,ebp
+  12F9E129: 5D                 pop         ebp
+  12F9E12A: C3                 ret
+  12F9E12B: CC                 int         3
+
+  Summary
+
+     215A000 .text

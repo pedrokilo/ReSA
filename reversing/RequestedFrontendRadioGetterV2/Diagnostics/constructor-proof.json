@@ -1,0 +1,42 @@
+{
+  "reviewed": true,
+  "default_constructor_has_no_external_side_effects": true,
+  "asi_sha256": "faf7459ac2c4a9d5748fac9c76787de52163aceced0b2bec14ee53a212a0891b",
+  "pdb_sha256": "413d2f79944da85dcae5f9105a8eebabf8cfbc37f8e8f925e3857f81d74c565f",
+  "constructor_callgraph_sha256": "ff9e23f0ffd32c7042d57f75c05b94329913685e814cacacce3b828f7d8f2bf8",
+  "fixture_root": "0x113773a0",
+  "actual_default_ctor_chain": [
+    "0x11090aea",
+    "0x1121d8f0"
+  ],
+  "typed_entity_offsets": [
+    "0x9c",
+    "0x144"
+  ],
+  "default_base_chain": [
+    "0x11079a2a",
+    "0x1121cd70"
+  ],
+  "default_sound_chain": [
+    "0x110a4eb9",
+    "0x1121e9a0"
+  ],
+  "default_twin_chain": [
+    "0x1107b4a6",
+    "0x1121ed00"
+  ],
+  "allowed_memory_operations": [
+    "placement new1122c610 returns supplied pointer at [ebp+0Ch], no allocation",
+    "memset current linked12f83eb0 zeroes supplied fixture bounded1EC",
+    "default constructors store only owned scalar/pointer/vptr fields",
+    "compiler RTC_CheckEsp diagnostics; no failure route for balanced ABI"
+  ],
+  "entityref_guard": {
+    "caller": "1121E9E7 push0 then ECX fieldthis then call11084EA2",
+    "body": "1121A430",
+    "null_branch": "1121A477 cmp [ownedptr],0 / je1121A49A skips RegisterReference11081E82",
+    "external_registration_executed": false
+  },
+  "lifetime_scope": "Pure getter fixture only; no constructor/destructor/audio asset/controller integration accreditation. Storage retained inert, no owned resource destruction required.",
+  "source_entityref_sha256": "7af67bdfb171c8e4bd8077f0c43bf7922f2064d883c4c034210b2771d1f8409e"
+}

@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  11444C30: 55                 push        ebp
+  11444C31: 8B EC              mov         ebp,esp
+  11444C33: 81 EC D0 00 00 00  sub         esp,0D0h
+  11444C39: 53                 push        ebx
+  11444C3A: 56                 push        esi
+  11444C3B: 57                 push        edi
+  11444C3C: 51                 push        ecx
+  11444C3D: 8D 7D F0           lea         edi,[ebp-10h]
+  11444C40: B9 04 00 00 00     mov         ecx,4
+  11444C45: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11444C4A: F3 AB              rep stos    dword ptr es:[edi]
+  11444C4C: 59                 pop         ecx
+  11444C4D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11444C50: E8 45 4F C5 FF     call        11099B9A
+  11444C55: 0F B6 C0           movzx       eax,al
+  11444C58: 85 C0              test        eax,eax
+  11444C5A: 74 16              je          11444C72
+  11444C5C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11444C5F: 81 C1 44 01 00 00  add         ecx,144h
+  11444C65: E8 5F D7 C2 FF     call        110723C9
+  11444C6A: 88 85 33 FF FF FF  mov         byte ptr [ebp+FFFFFF33h],al
+  11444C70: EB 14              jmp         11444C86
+  11444C72: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11444C75: 81 C1 9C 00 00 00  add         ecx,9Ch
+  11444C7B: E8 49 D7 C2 FF     call        110723C9
+  11444C80: 88 85 33 FF FF FF  mov         byte ptr [ebp+FFFFFF33h],al
+  11444C86: 0F B6 85 33 FF FF  movzx       eax,byte ptr [ebp+FFFFFF33h]
+            FF
+  11444C8D: 5F                 pop         edi
+  11444C8E: 5E                 pop         esi
+  11444C8F: 5B                 pop         ebx
+  11444C90: 81 C4 D0 00 00 00  add         esp,0D0h
+  11444C96: 3B EC              cmp         ebp,esp
+  11444C98: E8 B1 EF C0 FF     call        11053C4E
+  11444C9D: 8B E5              mov         esp,ebp
+  11444C9F: 5D                 pop         ebp
+  11444CA0: C3                 ret
+  11444CA1: CC                 int         3
+
+  Summary
+
+     215A000 .text

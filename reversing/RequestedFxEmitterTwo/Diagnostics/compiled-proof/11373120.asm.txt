@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  11373120: 55                 push        ebp
+  11373121: 8B EC              mov         ebp,esp
+  11373123: 81 EC CC 00 00 00  sub         esp,0CCh
+  11373129: 53                 push        ebx
+  1137312A: 56                 push        esi
+  1137312B: 57                 push        edi
+  1137312C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137312F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11373132: 5F                 pop         edi
+  11373133: 5E                 pop         esi
+  11373134: 5B                 pop         ebx
+  11373135: 8B E5              mov         esp,ebp
+  11373137: 5D                 pop         ebp
+  11373138: C2 04 00           ret         4
+  1137313B: CC                 int         3
+  1137313C: CC                 int         3
+  1137313D: CC                 int         3
+  1137313E: CC                 int         3
+  1137313F: CC                 int         3
+  11373140: CC                 int         3
+  11373141: CC                 int         3
+  11373142: CC                 int         3
+  11373143: CC                 int         3
+  11373144: CC                 int         3
+  11373145: CC                 int         3
+  11373146: CC                 int         3
+  11373147: CC                 int         3
+  11373148: CC                 int         3
+  11373149: CC                 int         3
+  1137314A: CC                 int         3
+  1137314B: CC                 int         3
+  1137314C: CC                 int         3
+  1137314D: CC                 int         3
+  1137314E: CC                 int         3
+  1137314F: CC                 int         3
+  11373150: 55                 push        ebp
+  11373151: 8B EC              mov         ebp,esp
+  11373153: 81 EC CC 00 00 00  sub         esp,0CCh
+  11373159: 53                 push        ebx
+  1137315A: 56                 push        esi
+  1137315B: 57                 push        edi
+  1137315C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137315F: 8B
+  11373160: 45                 inc         ebp
+
+  Summary
+
+     2166000 .text

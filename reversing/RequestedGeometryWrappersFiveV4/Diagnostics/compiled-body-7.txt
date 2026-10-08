@@ -1,0 +1,41 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
+
+File Type: DLL
+
+  11B4E3D0: 55                 push        ebp
+  11B4E3D1: 8B EC              mov         ebp,esp
+  11B4E3D3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11B4E3D9: 53                 push        ebx
+  11B4E3DA: 56                 push        esi
+  11B4E3DB: 57                 push        edi
+  11B4E3DC: 8B FD              mov         edi,ebp
+  11B4E3DE: 33 C9              xor         ecx,ecx
+  11B4E3E0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B4E3E5: F3 AB              rep stos    dword ptr es:[edi]
+  11B4E3E7: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  11B4E3EA: 50                 push        eax
+  11B4E3EB: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11B4E3EE: 51                 push        ecx
+  11B4E3EF: 51                 push        ecx
+  11B4E3F0: F3 0F 10 45 08     movss       xmm0,dword ptr [ebp+8]
+  11B4E3F5: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B4E3FA: E8 20 8D 52 FF     call        1107711F
+  11B4E3FF: 83 C4 0C           add         esp,0Ch
+  11B4E402: 5F                 pop         edi
+  11B4E403: 5E                 pop         esi
+  11B4E404: 5B                 pop         ebx
+  11B4E405: 81 C4 C0 00 00 00  add         esp,0C0h
+  11B4E40B: 3B EC              cmp         ebp,esp
+  11B4E40D: E8 82 D8 50 FF     call        1105BC94
+  11B4E412: 8B E5              mov         esp,ebp
+  11B4E414: 5D                 pop         ebp
+  11B4E415: C3                 ret
+  11B4E416: CC                 int         3
+
+  Summary
+
+     216B000 .text

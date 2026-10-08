@@ -1,0 +1,42 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  11C95DF0: 55                 push        ebp
+  11C95DF1: 8B EC              mov         ebp,esp
+  11C95DF3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11C95DF9: 53                 push        ebx
+  11C95DFA: 56                 push        esi
+  11C95DFB: 57                 push        edi
+  11C95DFC: 8B FD              mov         edi,ebp
+  11C95DFE: 33 C9              xor         ecx,ecx
+  11C95E00: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11C95E05: F3 AB              rep stos    dword ptr es:[edi]
+  11C95E07: 8B F4              mov         esi,esp
+  11C95E09: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11C95E0C: 50                 push        eax
+  11C95E0D: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11C95E10: 51                 push        ecx
+  11C95E11: BA C0 3A 7F 00     mov         edx,7F3AC0h
+  11C95E16: FF D2              call        edx
+  11C95E18: 83 C4 08           add         esp,8
+  11C95E1B: 3B F4              cmp         esi,esp
+  11C95E1D: E8 77 3E 3C FF     call        11059C99
+  11C95E22: 5F                 pop         edi
+  11C95E23: 5E                 pop         esi
+  11C95E24: 5B                 pop         ebx
+  11C95E25: 81 C4 C0 00 00 00  add         esp,0C0h
+  11C95E2B: 3B EC              cmp         ebp,esp
+  11C95E2D: E8 67 3E 3C FF     call        11059C99
+  11C95E32: 8B E5              mov         esp,ebp
+  11C95E34: 5D                 pop         ebp
+  11C95E35: C3                 ret
+  11C95E36: CC                 int         3
+
+  Summary
+
+     2166000 .text

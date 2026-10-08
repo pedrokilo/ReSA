@@ -23,6 +23,16 @@ def audit(bank,run):
     for flag in ('restore_error','runner_cleanup_error'):
         if summary.get(flag):errors.append({flag:summary[flag]})
     raw=run/'comparisons.jsonl';zipped=run/'comparisons.jsonl.gz'
+    if not raw.exists() and not zipped.exists() and (run/'actual-bank.jsonl').exists():raw=run/'actual-bank.jsonl'
+    storage=summary.get('comparison_storage')
+    if storage:
+        if raw.exists() and digest(raw)!=storage['uncompressed_sha256']:errors.append('raw storage SHA')
+        if not zipped.exists() or digest(zipped)!=storage['compressed_sha256']:errors.append('compressed storage SHA')
+        if zipped.exists():
+            decoded=hashlib.sha256()
+            with gzip.open(zipped,'rb') as stream:
+                for block in iter(lambda:stream.read(4*1024*1024),b''):decoded.update(block)
+            if decoded.hexdigest()!=storage['uncompressed_sha256']:errors.append('gzip roundtrip')
     log=gzip.open(zipped,'rt',encoding='utf8') if not raw.exists() else raw.open(encoding='utf8')
     counts=collections.Counter();diffs=collections.Counter();models=collections.Counter();gates=collections.Counter();ids=set();pairs=set();begin=None;terminal=None;globaldiff=0
     arrest=bank.name=='RequestedArrestRemainingFour'
@@ -40,7 +50,10 @@ def audit(bank,run):
                 name=row['function'].split('::')[1];fixture=row['fixture'];key=(name,fixture['index']);pair=row['pair']
                 if key in ids or pair in pairs:errors.append({'duplicate':key})
                 ids.add(key);pairs.add(pair);counts[name]+=1;model.validate_fixture(name,fixture)
-                unequal=row['equal'] is not True;diffs[name]+=unequal;globaldiff+=unequal
+                required=('vptr_role_exact','helper_gates','target_gate','private_immutable') if arrest else ('vptr_role_exact','helper_gates','target_gate','names_immutable','textures_immutable')
+                independently_equal=row['original']['payload']==row['candidate']['payload'] and all(row[leg].get(k) is True for leg in ('original','candidate') for k in required)
+                if row['equal'] is not independently_equal:errors.append({'serialized_equal_disagrees':pair})
+                unequal=not independently_equal;diffs[name]+=unequal;globaldiff+=unequal
                 for leg in ('original','candidate'):
                     value=row[leg];wanted=model.expected(name,fixture,value)
                     models[name]+=any(value['payload'].get(k)!=v for k,v in wanted.items())

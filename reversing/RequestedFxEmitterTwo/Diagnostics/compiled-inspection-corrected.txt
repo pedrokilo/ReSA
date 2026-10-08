@@ -1,0 +1,132 @@
+{
+  "bank": "RequestedFxEmitterTwo",
+  "pdb_match": true,
+  "base": "0x10000000",
+  "symbols": [
+    [
+      "FxEmitterBP_c::FxEmitterBP_c",
+      "0x11276c10",
+      79
+    ],
+    [
+      "FxPrimBP_c::FxPrimBP_c",
+      "0x11276d60",
+      210
+    ],
+    [
+      "FxEmitterBP_c::Constructor",
+      "0x112bb170",
+      64
+    ],
+    [
+      "std::invoke<`NOTSA_WinMain'::`2'::<lambda_1> &>",
+      "0x1136f300",
+      52
+    ],
+    [
+      "`RequestedFxEmitterTwo::Update'::`2'::<lambda_1>::<lambda_1>",
+      "0x11372fb0",
+      35
+    ],
+    [
+      "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
+      "0x11373120",
+      27
+    ],
+    [
+      "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::~ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
+      "0x113782f0",
+      111
+    ],
+    [
+      "`NOTSA_WinMain'::`2'::<lambda_1>::operator()",
+      "0x11381570",
+      77
+    ],
+    [
+      "`RequestedFxEmitterTwo::Update'::`2'::<lambda_1>::operator()",
+      "0x113817d0",
+      243
+    ],
+    [
+      "NOTSA_WinMain",
+      "0x11384b30",
+      1778
+    ],
+    [
+      "RequestedFxEmitterTwo::Update",
+      "0x11386fd0",
+      18362
+    ],
+    [
+      "`FxEmitterBP_c::LoadTextures'::`2'::<lambda_1>::operator()<int>",
+      "0x1198bf50",
+      229
+    ],
+    [
+      "`FxEmitterBP_c::LoadTextures'::`2'::<lambda_2>::operator()<int>",
+      "0x1198c070",
+      196
+    ],
+    [
+      "`FxEmitterBP_c::LoadTextures'::`2'::<lambda_1>::<lambda_1>",
+      "0x1198c840",
+      35
+    ],
+    [
+      "`FxEmitterBP_c::LoadTextures'::`2'::<lambda_2>::<lambda_2>",
+      "0x1198c870",
+      53
+    ],
+    [
+      "FxEmitterBP_c::FxEmitterBP_c",
+      "0x1198c970",
+      80
+    ],
+    [
+      "FxEmitterBP_c::InjectHooks",
+      "0x1198cf60",
+      3484
+    ],
+    [
+      "FxEmitterBP_c::LoadTextures",
+      "0x1198e340",
+      288
+    ],
+    [
+      "TList_c<Particle_c>::TList_c<Particle_c>",
+      "0x11998530",
+      54
+    ],
+    [
+      "FxPrimBP_c::FxPrimBP_c",
+      "0x1199fc80",
+      117
+    ],
+    [
+      "plugin::CallAndReturn<RwTexture *,8338112,char const *,char const *>",
+      "0x11c95df0",
+      70
+    ],
+    [
+      "RwTextureRead",
+      "0x11c9b130",
+      59
+    ],
+    [
+      "plugin::CallAndReturn<RwTexture *,7540320,RwStream *>",
+      "0x11ca03d0",
+      66
+    ],
+    [
+      "plugin::CallAndReturn<RwTexture *,7555376,RwTexture *,void *>",
+      "0x11ca0430",
+      70
+    ],
+    [
+      "plugin::CallAndReturn<RwTexture *,7555392,RwTexDictionary *>",
+      "0x11ca0490",
+      66
+    ]
+  ]
+}

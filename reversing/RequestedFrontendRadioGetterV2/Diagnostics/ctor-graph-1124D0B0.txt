@@ -1,0 +1,28 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  1124D0B0: 55                 push        ebp
+  1124D0B1: 8B EC              mov         ebp,esp
+  1124D0B3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1124D0B9: 53                 push        ebx
+  1124D0BA: 56                 push        esi
+  1124D0BB: 57                 push        edi
+  1124D0BC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1124D0BF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1124D0C2: 0F B6 40 2E        movzx       eax,byte ptr [eax+2Eh]
+  1124D0C6: 5F                 pop         edi
+  1124D0C7: 5E                 pop         esi
+  1124D0C8: 5B                 pop         ebx
+  1124D0C9: 8B E5              mov         esp,ebp
+  1124D0CB: 5D                 pop         ebp
+  1124D0CC: C3                 ret
+  1124D0CD: CC                 int         3
+
+  Summary
+
+     215A000 .text

@@ -1,0 +1,37 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  12F94D70: 8B 4C 24 0C        mov         ecx,dword ptr [esp+0Ch]
+  12F94D74: 0F B6 44 24 08     movzx       eax,byte ptr [esp+8]
+  12F94D79: 8B D7              mov         edx,edi
+  12F94D7B: 8B 7C 24 04        mov         edi,dword ptr [esp+4]
+  12F94D7F: 85 C9              test        ecx,ecx
+  12F94D81: 0F 84 3C 01 00 00  je          12F94EC3
+  12F94D87: 69 C0 01 01 01 01  imul        eax,eax,1010101h
+  12F94D8D: 83 F9 20           cmp         ecx,20h
+  12F94D90: 0F 86 DF 00 00 00  jbe         12F94E75
+  12F94D96: 81 F9 80 00 00 00  cmp         ecx,80h
+  12F94D9C: 0F 82 8B 00 00 00  jb          12F94E2D
+  12F94DA2: 0F BA 25 DC A3 71  bt          dword ptr ds:[1371A3DCh],1
+            13 01
+  12F94DAA: 73 09              jae         12F94DB5
+  12F94DAC: F3 AA              rep stos    byte ptr es:[edi]
+  12F94DAE: 8B 44 24 04        mov         eax,dword ptr [esp+4]
+  12F94DB2: 8B FA              mov         edi,edx
+  12F94DB4: C3                 ret
+  12F94DB5: 0F BA 25 A0 0A 6C  bt          dword ptr ds:[136C0AA0h],1
+            13 01
+  12F94DBD: 0F 83 B2 00 00 00  jae         12F94E75
+  12F94DC3: 66 0F 6E C0        movd        xmm0,eax
+  12F94DC7: 66 0F 70 C0 00     pshufd      xmm0,xmm0,0
+  12F94DCC: 03 CF              add         ecx,edi
+  12F94DCE: 0F 11 07           movups      xmmword ptr [edi],xmm0
+
+  Summary
+
+     2166000 .text

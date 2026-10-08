@@ -1,0 +1,176 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  1141A900: 55                 push        ebp
+  1141A901: 8B EC              mov         ebp,esp
+  1141A903: 6A FF              push        0FFFFFFFFh
+  1141A905: 68 E0 43 0C 13     push        130C43E0h
+  1141A90A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1141A910: 50                 push        eax
+  1141A911: 81 EC D0 00 00 00  sub         esp,0D0h
+  1141A917: 53                 push        ebx
+  1141A918: 56                 push        esi
+  1141A919: 57                 push        edi
+  1141A91A: 51                 push        ecx
+  1141A91B: 8D 7D E4           lea         edi,[ebp-1Ch]
+  1141A91E: B9 04 00 00 00     mov         ecx,4
+  1141A923: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1141A928: F3 AB              rep stos    dword ptr es:[edi]
+  1141A92A: 59                 pop         ecx
+  1141A92B: A1 40 DA 6A 13     mov         eax,dword ptr ds:[136ADA40h]
+  1141A930: 33 C5              xor         eax,ebp
+  1141A932: 50                 push        eax
+  1141A933: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1141A936: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1141A93C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1141A93F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A942: 66 8B 4D 08        mov         cx,word ptr [ebp+8]
+  1141A946: 66 89 08           mov         word ptr [eax],cx
+  1141A949: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A94C: 66 8B 4D 0C        mov         cx,word ptr [ebp+0Ch]
+  1141A950: 66 89 48 02        mov         word ptr [eax+2],cx
+  1141A954: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A957: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  1141A95A: 89 48 04           mov         dword ptr [eax+4],ecx
+  1141A95D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A960: 83 C0 08           add         eax,8
+  1141A963: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  1141A969: 6A 00              push        0
+  1141A96B: 8B 8D 24 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF24h]
+  1141A971: E8 2C A5 C6 FF     call        11084EA2
+  1141A976: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1141A97D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A980: C7 40 0C FF FF FF  mov         dword ptr [eax+0Ch],0FFFFFFFFh
+            FF
+  1141A987: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A98A: F3 0F 10 05 40 18  movss       xmm0,dword ptr ds:[131B1840h]
+            1B 13
+  1141A992: F3 0F 11 40 10     movss       dword ptr [eax+10h],xmm0
+  1141A997: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A99A: F3 0F 10 45 20     movss       xmm0,dword ptr [ebp+20h]
+  1141A99F: F3 0F 11 40 14     movss       dword ptr [eax+14h],xmm0
+  1141A9A4: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A9A7: F3 0F 10 45 24     movss       xmm0,dword ptr [ebp+24h]
+  1141A9AC: F3 0F 11 40 18     movss       dword ptr [eax+18h],xmm0
+  1141A9B1: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A9B4: F3 0F 10 45 28     movss       xmm0,dword ptr [ebp+28h]
+  1141A9B9: F3 0F 11 40 1C     movss       dword ptr [eax+1Ch],xmm0
+  1141A9BE: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A9C1: F3 0F 10 45 38     movss       xmm0,dword ptr [ebp+38h]
+  1141A9C6: F3 0F 11 40 20     movss       dword ptr [eax+20h],xmm0
+  1141A9CB: 33 C0              xor         eax,eax
+  1141A9CD: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1141A9D0: 83 C1 24           add         ecx,24h
+  1141A9D3: 89 01              mov         dword ptr [ecx],eax
+  1141A9D5: 89 41 04           mov         dword ptr [ecx+4],eax
+  1141A9D8: 89 41 08           mov         dword ptr [ecx+8],eax
+  1141A9DB: 33 C0              xor         eax,eax
+  1141A9DD: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1141A9E0: 83 C1 30           add         ecx,30h
+  1141A9E3: 89 01              mov         dword ptr [ecx],eax
+  1141A9E5: 89 41 04           mov         dword ptr [ecx+4],eax
+  1141A9E8: 89 41 08           mov         dword ptr [ecx+8],eax
+  1141A9EB: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A9EE: C7 40 3C 00 00 00  mov         dword ptr [eax+3Ch],0
+            00
+  1141A9F5: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141A9F8: C7 40 40 00 00 00  mov         dword ptr [eax+40h],0
+            00
+  1141A9FF: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141AA02: C7 40 44 00 00 00  mov         dword ptr [eax+44h],0
+            00
+  1141AA09: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141AA0C: 0F 57 C0           xorps       xmm0,xmm0
+  1141AA0F: F3 0F 11 40 48     movss       dword ptr [eax+48h],xmm0
+  1141AA14: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141AA17: 0F 57 C0           xorps       xmm0,xmm0
+  1141AA1A: F3 0F 11 40 4C     movss       dword ptr [eax+4Ch],xmm0
+  1141AA1F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141AA22: F3 0F 10 45 2C     movss       xmm0,dword ptr [ebp+2Ch]
+  1141AA27: F3 0F 11 40 50     movss       dword ptr [eax+50h],xmm0
+  1141AA2C: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141AA2F: 8A 4D 30           mov         cl,byte ptr [ebp+30h]
+  1141AA32: 88 48 54           mov         byte ptr [eax+54h],cl
+  1141AA35: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141AA38: 66 8B 4D 34        mov         cx,word ptr [ebp+34h]
+  1141AA3C: 66 89 48 56        mov         word ptr [eax+56h],cx
+  1141AA40: B8 01 00 00 00     mov         eax,1
+  1141AA45: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1141AA48: 66 89 41 58        mov         word ptr [ecx+58h],ax
+  1141AA4C: 33 C0              xor         eax,eax
+  1141AA4E: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1141AA51: 66 89 41 5A        mov         word ptr [ecx+5Ah],ax
+  1141AA55: 33 C0              xor         eax,eax
+  1141AA57: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1141AA5A: 66 89 41 5C        mov         word ptr [ecx+5Ch],ax
+  1141AA5E: 33 C0              xor         eax,eax
+  1141AA60: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1141AA63: 66 89 41 5E        mov         word ptr [ecx+5Eh],ax
+  1141AA67: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141AA6A: F3 0F 10 05 78 18  movss       xmm0,dword ptr ds:[131B1878h]
+            1B 13
+  1141AA72: F3 0F 11 40 60     movss       dword ptr [eax+60h],xmm0
+  1141AA77: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141AA7A: F3 0F 10 05 8C 17  movss       xmm0,dword ptr ds:[131B178Ch]
+            1B 13
+  1141AA82: F3 0F 11 40 64     movss       dword ptr [eax+64h],xmm0
+  1141AA87: 33 C0              xor         eax,eax
+  1141AA89: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1141AA8C: 66 89 41 68        mov         word ptr [ecx+68h],ax
+  1141AA90: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141AA93: 0F 57 C0           xorps       xmm0,xmm0
+  1141AA96: F3 0F 11 40 6C     movss       dword ptr [eax+6Ch],xmm0
+  1141AA9B: 83 C8 FF           or          eax,0FFFFFFFFh
+  1141AA9E: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1141AAA1: 66 89 41 70        mov         word ptr [ecx+70h],ax
+  1141AAA5: 0F B7 45 34        movzx       eax,word ptr [ebp+34h]
+  1141AAA9: 83 E0 04           and         eax,4
+  1141AAAC: 74 06              je          1141AAB4
+  1141AAAE: 83 7D 10 00        cmp         dword ptr [ebp+10h],0
+  1141AAB2: 74 09              je          1141AABD
+  1141AAB4: B9 A0 04 1D 13     mov         ecx,131D04A0h
+  1141AAB9: 85 C9              test        ecx,ecx
+  1141AABB: 75 14              jne         1141AAD1
+  1141AABD: 6A 55              push        55h
+  1141AABF: 68 F0 04 1D 13     push        131D04F0h
+  1141AAC4: 68 90 05 1D 13     push        131D0590h
+  1141AAC9: E8 B4 5A C6 FF     call        11080582
+  1141AACE: 83 C4 0C           add         esp,0Ch
+  1141AAD1: 83 EC 0C           sub         esp,0Ch
+  1141AAD4: 8B C4              mov         eax,esp
+  1141AAD6: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  1141AAD9: 89 08              mov         dword ptr [eax],ecx
+  1141AADB: 8B 55 18           mov         edx,dword ptr [ebp+18h]
+  1141AADE: 89 50 04           mov         dword ptr [eax+4],edx
+  1141AAE1: 8B 4D 1C           mov         ecx,dword ptr [ebp+1Ch]
+  1141AAE4: 89 48 08           mov         dword ptr [eax+8],ecx
+  1141AAE7: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1141AAEA: E8 DF FC C3 FF     call        1105A7CE
+  1141AAEF: 90                 nop
+  1141AAF0: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1141AAF7: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1141AAFA: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1141AAFD: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1141AB04: 59                 pop         ecx
+  1141AB05: 5F                 pop         edi
+  1141AB06: 5E                 pop         esi
+  1141AB07: 5B                 pop         ebx
+  1141AB08: 81 C4 DC 00 00 00  add         esp,0DCh
+  1141AB0E: 3B EC              cmp         ebp,esp
+  1141AB10: E8 39 91 C3 FF     call        11053C4E
+  1141AB15: 8B E5              mov         esp,ebp
+  1141AB17: 5D                 pop         ebp
+  1141AB18: C2 34 00           ret         34h
+  1141AB1B: CC                 int         3
+
+  Summary
+
+     215A000 .text

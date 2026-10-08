@@ -1,0 +1,108 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  12F83EB0: 8B 4C 24 0C        mov         ecx,dword ptr [esp+0Ch]
+  12F83EB4: 0F B6 44 24 08     movzx       eax,byte ptr [esp+8]
+  12F83EB9: 8B D7              mov         edx,edi
+  12F83EBB: 8B 7C 24 04        mov         edi,dword ptr [esp+4]
+  12F83EBF: 85 C9              test        ecx,ecx
+  12F83EC1: 0F 84 3C 01 00 00  je          12F84003
+  12F83EC7: 69 C0 01 01 01 01  imul        eax,eax,1010101h
+  12F83ECD: 83 F9 20           cmp         ecx,20h
+  12F83ED0: 0F 86 DF 00 00 00  jbe         12F83FB5
+  12F83ED6: 81 F9 80 00 00 00  cmp         ecx,80h
+  12F83EDC: 0F 82 8B 00 00 00  jb          12F83F6D
+  12F83EE2: 0F BA 25 FC 6E 70  bt          dword ptr ds:[13706EFCh],1
+            13 01
+  12F83EEA: 73 09              jae         12F83EF5
+  12F83EEC: F3 AA              rep stos    byte ptr es:[edi]
+  12F83EEE: 8B 44 24 04        mov         eax,dword ptr [esp+4]
+  12F83EF2: 8B FA              mov         edi,edx
+  12F83EF4: C3                 ret
+  12F83EF5: 0F BA 25 A0 DA 6A  bt          dword ptr ds:[136ADAA0h],1
+            13 01
+  12F83EFD: 0F 83 B2 00 00 00  jae         12F83FB5
+  12F83F03: 66 0F 6E C0        movd        xmm0,eax
+  12F83F07: 66 0F 70 C0 00     pshufd      xmm0,xmm0,0
+  12F83F0C: 03 CF              add         ecx,edi
+  12F83F0E: 0F 11 07           movups      xmmword ptr [edi],xmm0
+  12F83F11: 83 C7 10           add         edi,10h
+  12F83F14: 83 E7 F0           and         edi,0FFFFFFF0h
+  12F83F17: 2B CF              sub         ecx,edi
+  12F83F19: 81 F9 80 00 00 00  cmp         ecx,80h
+  12F83F1F: 76 4C              jbe         12F83F6D
+  12F83F21: 8D A4 24 00 00 00  lea         esp,[esp+00000000h]
+            00
+  12F83F28: 8D A4 24 00 00 00  lea         esp,[esp+00000000h]
+            00
+  12F83F2F: 90                 nop
+  12F83F30: 66 0F 7F 07        movdqa      xmmword ptr [edi],xmm0
+  12F83F34: 66 0F 7F 47 10     movdqa      xmmword ptr [edi+10h],xmm0
+  12F83F39: 66 0F 7F 47 20     movdqa      xmmword ptr [edi+20h],xmm0
+  12F83F3E: 66 0F 7F 47 30     movdqa      xmmword ptr [edi+30h],xmm0
+  12F83F43: 66 0F 7F 47 40     movdqa      xmmword ptr [edi+40h],xmm0
+  12F83F48: 66 0F 7F 47 50     movdqa      xmmword ptr [edi+50h],xmm0
+  12F83F4D: 66 0F 7F 47 60     movdqa      xmmword ptr [edi+60h],xmm0
+  12F83F52: 66 0F 7F 47 70     movdqa      xmmword ptr [edi+70h],xmm0
+  12F83F57: 8D BF 80 00 00 00  lea         edi,[edi+00000080h]
+  12F83F5D: 81 E9 80 00 00 00  sub         ecx,80h
+  12F83F63: F7 C1 00 FF FF FF  test        ecx,0FFFFFF00h
+  12F83F69: 75 C5              jne         12F83F30
+  12F83F6B: EB 13              jmp         12F83F80
+  12F83F6D: 0F BA 25 A0 DA 6A  bt          dword ptr ds:[136ADAA0h],1
+            13 01
+  12F83F75: 73 3E              jae         12F83FB5
+  12F83F77: 66 0F 6E C0        movd        xmm0,eax
+  12F83F7B: 66 0F 70 C0 00     pshufd      xmm0,xmm0,0
+  12F83F80: 83 F9 20           cmp         ecx,20h
+  12F83F83: 72 1C              jb          12F83FA1
+  12F83F85: F3 0F 7F 07        movdqu      xmmword ptr [edi],xmm0
+  12F83F89: F3 0F 7F 47 10     movdqu      xmmword ptr [edi+10h],xmm0
+  12F83F8E: 83 C7 20           add         edi,20h
+  12F83F91: 83 E9 20           sub         ecx,20h
+  12F83F94: 83 F9 20           cmp         ecx,20h
+  12F83F97: 73 EC              jae         12F83F85
+  12F83F99: F7 C1 1F 00 00 00  test        ecx,1Fh
+  12F83F9F: 74 62              je          12F84003
+  12F83FA1: 8D 7C 0F E0        lea         edi,[edi+ecx-20h]
+  12F83FA5: F3 0F 7F 07        movdqu      xmmword ptr [edi],xmm0
+  12F83FA9: F3 0F 7F 47 10     movdqu      xmmword ptr [edi+10h],xmm0
+  12F83FAE: 8B 44 24 04        mov         eax,dword ptr [esp+4]
+  12F83FB2: 8B FA              mov         edi,edx
+  12F83FB4: C3                 ret
+  12F83FB5: F7 C1 03 00 00 00  test        ecx,3
+  12F83FBB: 74 0E              je          12F83FCB
+  12F83FBD: 88 07              mov         byte ptr [edi],al
+  12F83FBF: 47                 inc         edi
+  12F83FC0: 83 E9 01           sub         ecx,1
+  12F83FC3: F7 C1 03 00 00 00  test        ecx,3
+  12F83FC9: 75 F2              jne         12F83FBD
+  12F83FCB: F7 C1 04 00 00 00  test        ecx,4
+  12F83FD1: 74 08              je          12F83FDB
+  12F83FD3: 89 07              mov         dword ptr [edi],eax
+  12F83FD5: 83 C7 04           add         edi,4
+  12F83FD8: 83 E9 04           sub         ecx,4
+  12F83FDB: F7 C1 F8 FF FF FF  test        ecx,0FFFFFFF8h
+  12F83FE1: 74 20              je          12F84003
+  12F83FE3: 8D A4 24 00 00 00  lea         esp,[esp+00000000h]
+            00
+  12F83FEA: 8D 9B 00 00 00 00  lea         ebx,[ebx+00000000h]
+  12F83FF0: 89 07              mov         dword ptr [edi],eax
+  12F83FF2: 89 47 04           mov         dword ptr [edi+4],eax
+  12F83FF5: 83 C7 08           add         edi,8
+  12F83FF8: 83 E9 08           sub         ecx,8
+  12F83FFB: F7 C1 F8 FF FF FF  test        ecx,0FFFFFFF8h
+  12F84001: 75 ED              jne         12F83FF0
+  12F84003: 8B 44 24 04        mov         eax,dword ptr [esp+4]
+  12F84007: 8B FA              mov         edi,edx
+  12F84009: C3                 ret
+  12F8400A: CC                 int         3
+
+  Summary
+
+     215A000 .text

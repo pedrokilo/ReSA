@@ -1,0 +1,340 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  13014160: 8B FF              mov         edi,edi
+  13014162: 55                 push        ebp
+  13014163: 8B EC              mov         ebp,esp
+  13014165: 83 EC 54           sub         esp,54h
+  13014168: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  1301416C: 74 0F              je          1301417D
+  1301416E: 83 7D 0C 00        cmp         dword ptr [ebp+0Ch],0
+  13014172: 76 09              jbe         1301417D
+  13014174: C7 45 EC 01 00 00  mov         dword ptr [ebp-14h],1
+            00
+  1301417B: EB 07              jmp         13014184
+  1301417D: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  13014184: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  13014187: 89 45 E8           mov         dword ptr [ebp-18h],eax
+  1301418A: 83 7D E8 00        cmp         dword ptr [ebp-18h],0
+  1301418E: 75 23              jne         130141B3
+  13014190: 68 38 CE 44 13     push        1344CE38h
+  13014195: 68 F4 77 44 13     push        134477F4h
+  1301419A: 6A 00              push        0
+  1301419C: 6A 19              push        19h
+  1301419E: 68 B8 CE 44 13     push        1344CEB8h
+  130141A3: 6A 02              push        2
+  130141A5: E8 B2 EB 04 FE     call        11062D5C
+  130141AA: 83 C4 18           add         esp,18h
+  130141AD: 83 F8 01           cmp         eax,1
+  130141B0: 75 01              jne         130141B3
+  130141B2: CC                 int         3
+  130141B3: 83 7D E8 00        cmp         dword ptr [ebp-18h],0
+  130141B7: 75 30              jne         130141E9
+  130141B9: E8 01 25 04 FE     call        110566BF
+  130141BE: C7 00 16 00 00 00  mov         dword ptr [eax],16h
+  130141C4: 6A 00              push        0
+  130141C6: 6A 19              push        19h
+  130141C8: 68 B8 CE 44 13     push        1344CEB8h
+  130141CD: 68 20 25 46 13     push        13462520h
+  130141D2: 68 38 CE 44 13     push        1344CE38h
+  130141D7: E8 9B 59 08 FE     call        11099B77
+  130141DC: 83 C4 14           add         esp,14h
+  130141DF: B8 16 00 00 00     mov         eax,16h
+  130141E4: E9 83 03 00 00     jmp         1301456C
+  130141E9: 83 7D 10 00        cmp         dword ptr [ebp+10h],0
+  130141ED: 0F 85 D2 00 00 00  jne         130142C5
+  130141F3: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  130141F6: C6 02 00           mov         byte ptr [edx],0
+  130141F9: 83 7D 0C FF        cmp         dword ptr [ebp+0Ch],0FFFFFFFFh
+  130141FD: 74 4B              je          1301424A
+  130141FF: 81 7D 0C FF FF FF  cmp         dword ptr [ebp+0Ch],7FFFFFFFh
+            7F
+  13014206: 74 42              je          1301424A
+  13014208: 83 7D 0C 01        cmp         dword ptr [ebp+0Ch],1
+  1301420C: 76 3C              jbe         1301424A
+  1301420E: E8 7F B4 05 FE     call        1106F692
+  13014213: 89 45 E4           mov         dword ptr [ebp-1Ch],eax
+  13014216: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  13014219: 83 E8 01           sub         eax,1
+  1301421C: 39 45 E4           cmp         dword ptr [ebp-1Ch],eax
+  1301421F: 73 08              jae         13014229
+  13014221: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  13014224: 89 4D E0           mov         dword ptr [ebp-20h],ecx
+  13014227: EB 09              jmp         13014232
+  13014229: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  1301422C: 83 EA 01           sub         edx,1
+  1301422F: 89 55 E0           mov         dword ptr [ebp-20h],edx
+  13014232: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  13014235: 50                 push        eax
+  13014236: 68 FE 00 00 00     push        0FEh
+  1301423B: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1301423E: 83 C1 01           add         ecx,1
+  13014241: 51                 push        ecx
+  13014242: E8 C8 EE 07 FE     call        1109310F
+  13014247: 83 C4 0C           add         esp,0Ch
+  1301424A: 83 7D 10 00        cmp         dword ptr [ebp+10h],0
+  1301424E: 74 09              je          13014259
+  13014250: C7 45 DC 01 00 00  mov         dword ptr [ebp-24h],1
+            00
+  13014257: EB 07              jmp         13014260
+  13014259: C7 45 DC 00 00 00  mov         dword ptr [ebp-24h],0
+            00
+  13014260: 8B 55 DC           mov         edx,dword ptr [ebp-24h]
+  13014263: 89 55 D8           mov         dword ptr [ebp-28h],edx
+  13014266: 83 7D D8 00        cmp         dword ptr [ebp-28h],0
+  1301426A: 75 23              jne         1301428F
+  1301426C: 68 70 CF 44 13     push        1344CF70h
+  13014271: 68 F4 77 44 13     push        134477F4h
+  13014276: 6A 00              push        0
+  13014278: 6A 1A              push        1Ah
+  1301427A: 68 B8 CE 44 13     push        1344CEB8h
+  1301427F: 6A 02              push        2
+  13014281: E8 D6 EA 04 FE     call        11062D5C
+  13014286: 83 C4 18           add         esp,18h
+  13014289: 83 F8 01           cmp         eax,1
+  1301428C: 75 01              jne         1301428F
+  1301428E: CC                 int         3
+  1301428F: 83 7D D8 00        cmp         dword ptr [ebp-28h],0
+  13014293: 75 30              jne         130142C5
+  13014295: E8 25 24 04 FE     call        110566BF
+  1301429A: C7 00 16 00 00 00  mov         dword ptr [eax],16h
+  130142A0: 6A 00              push        0
+  130142A2: 6A 1A              push        1Ah
+  130142A4: 68 B8 CE 44 13     push        1344CEB8h
+  130142A9: 68 20 25 46 13     push        13462520h
+  130142AE: 68 70 CF 44 13     push        1344CF70h
+  130142B3: E8 BF 58 08 FE     call        11099B77
+  130142B8: 83 C4 14           add         esp,14h
+  130142BB: B8 16 00 00 00     mov         eax,16h
+  130142C0: E9 A7 02 00 00     jmp         1301456C
+  130142C5: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  130142C8: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  130142CB: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  130142CE: 89 55 F8           mov         dword ptr [ebp-8],edx
+  130142D1: 83 7D F8 00        cmp         dword ptr [ebp-8],0
+  130142D5: 76 1E              jbe         130142F5
+  130142D7: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  130142DA: 0F BE 08           movsx       ecx,byte ptr [eax]
+  130142DD: 85 C9              test        ecx,ecx
+  130142DF: 74 14              je          130142F5
+  130142E1: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  130142E4: 83 C2 01           add         edx,1
+  130142E7: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  130142EA: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  130142ED: 83 E8 01           sub         eax,1
+  130142F0: 89 45 F8           mov         dword ptr [ebp-8],eax
+  130142F3: EB DC              jmp         130142D1
+  130142F5: 83 7D F8 00        cmp         dword ptr [ebp-8],0
+  130142F9: 0F 85 D9 00 00 00  jne         130143D8
+  130142FF: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  13014302: C6 01 00           mov         byte ptr [ecx],0
+  13014305: 83 7D 0C FF        cmp         dword ptr [ebp+0Ch],0FFFFFFFFh
+  13014309: 74 4B              je          13014356
+  1301430B: 81 7D 0C FF FF FF  cmp         dword ptr [ebp+0Ch],7FFFFFFFh
+            7F
+  13014312: 74 42              je          13014356
+  13014314: 83 7D 0C 01        cmp         dword ptr [ebp+0Ch],1
+  13014318: 76 3C              jbe         13014356
+  1301431A: E8 73 B3 05 FE     call        1106F692
+  1301431F: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  13014322: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  13014325: 83 EA 01           sub         edx,1
+  13014328: 39 55 D4           cmp         dword ptr [ebp-2Ch],edx
+  1301432B: 73 08              jae         13014335
+  1301432D: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  13014330: 89 45 D0           mov         dword ptr [ebp-30h],eax
+  13014333: EB 09              jmp         1301433E
+  13014335: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  13014338: 83 E9 01           sub         ecx,1
+  1301433B: 89 4D D0           mov         dword ptr [ebp-30h],ecx
+  1301433E: 8B 55 D0           mov         edx,dword ptr [ebp-30h]
+  13014341: 52                 push        edx
+  13014342: 68 FE 00 00 00     push        0FEh
+  13014347: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1301434A: 83 C0 01           add         eax,1
+  1301434D: 50                 push        eax
+  1301434E: E8 BC ED 07 FE     call        1109310F
+  13014353: 83 C4 0C           add         esp,0Ch
+  13014356: B9 D4 1E 46 13     mov         ecx,13461ED4h
+  1301435B: 85 C9              test        ecx,ecx
+  1301435D: 74 0D              je          1301436C
+  1301435F: 33 D2              xor         edx,edx
+  13014361: 74 09              je          1301436C
+  13014363: C7 45 CC 01 00 00  mov         dword ptr [ebp-34h],1
+            00
+  1301436A: EB 07              jmp         13014373
+  1301436C: C7 45 CC 00 00 00  mov         dword ptr [ebp-34h],0
+            00
+  13014373: 8B 45 CC           mov         eax,dword ptr [ebp-34h]
+  13014376: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  13014379: 83 7D C8 00        cmp         dword ptr [ebp-38h],0
+  1301437D: 75 23              jne         130143A2
+  1301437F: 68 20 1F 46 13     push        13461F20h
+  13014384: 68 F4 77 44 13     push        134477F4h
+  13014389: 6A 00              push        0
+  1301438B: 6A 27              push        27h
+  1301438D: 68 B8 CE 44 13     push        1344CEB8h
+  13014392: 6A 02              push        2
+  13014394: E8 C3 E9 04 FE     call        11062D5C
+  13014399: 83 C4 18           add         esp,18h
+  1301439C: 83 F8 01           cmp         eax,1
+  1301439F: 75 01              jne         130143A2
+  130143A1: CC                 int         3
+  130143A2: 83 7D C8 00        cmp         dword ptr [ebp-38h],0
+  130143A6: 75 30              jne         130143D8
+  130143A8: E8 12 23 04 FE     call        110566BF
+  130143AD: C7 00 16 00 00 00  mov         dword ptr [eax],16h
+  130143B3: 6A 00              push        0
+  130143B5: 6A 27              push        27h
+  130143B7: 68 B8 CE 44 13     push        1344CEB8h
+  130143BC: 68 20 25 46 13     push        13462520h
+  130143C1: 68 20 1F 46 13     push        13461F20h
+  130143C6: E8 AC 57 08 FE     call        11099B77
+  130143CB: 83 C4 14           add         esp,14h
+  130143CE: B8 16 00 00 00     mov         eax,16h
+  130143D3: E9 94 01 00 00     jmp         1301456C
+  130143D8: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  130143DB: 89 55 F0           mov         dword ptr [ebp-10h],edx
+  130143DE: 8B 45 F0           mov         eax,dword ptr [ebp-10h]
+  130143E1: 8A 08              mov         cl,byte ptr [eax]
+  130143E3: 88 4D FF           mov         byte ptr [ebp-1],cl
+  130143E6: 8B 55 F0           mov         edx,dword ptr [ebp-10h]
+  130143E9: 83 C2 01           add         edx,1
+  130143EC: 89 55 F0           mov         dword ptr [ebp-10h],edx
+  130143EF: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  130143F2: 8A 4D FF           mov         cl,byte ptr [ebp-1]
+  130143F5: 88 08              mov         byte ptr [eax],cl
+  130143F7: 0F BE 55 FF        movsx       edx,byte ptr [ebp-1]
+  130143FB: 89 55 AC           mov         dword ptr [ebp-54h],edx
+  130143FE: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  13014401: 83 C0 01           add         eax,1
+  13014404: 89 45 F4           mov         dword ptr [ebp-0Ch],eax
+  13014407: 83 7D AC 00        cmp         dword ptr [ebp-54h],0
+  1301440B: 74 0D              je          1301441A
+  1301440D: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  13014410: 83 E9 01           sub         ecx,1
+  13014413: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  13014416: 74 02              je          1301441A
+  13014418: EB C4              jmp         130143DE
+  1301441A: 83 7D F8 00        cmp         dword ptr [ebp-8],0
+  1301441E: 0F 85 D6 00 00 00  jne         130144FA
+  13014424: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  13014427: C6 02 00           mov         byte ptr [edx],0
+  1301442A: 83 7D 0C FF        cmp         dword ptr [ebp+0Ch],0FFFFFFFFh
+  1301442E: 74 4B              je          1301447B
+  13014430: 81 7D 0C FF FF FF  cmp         dword ptr [ebp+0Ch],7FFFFFFFh
+            7F
+  13014437: 74 42              je          1301447B
+  13014439: 83 7D 0C 01        cmp         dword ptr [ebp+0Ch],1
+  1301443D: 76 3C              jbe         1301447B
+  1301443F: E8 4E B2 05 FE     call        1106F692
+  13014444: 89 45 C4           mov         dword ptr [ebp-3Ch],eax
+  13014447: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1301444A: 83 E8 01           sub         eax,1
+  1301444D: 39 45 C4           cmp         dword ptr [ebp-3Ch],eax
+  13014450: 73 08              jae         1301445A
+  13014452: 8B 4D C4           mov         ecx,dword ptr [ebp-3Ch]
+  13014455: 89 4D C0           mov         dword ptr [ebp-40h],ecx
+  13014458: EB 09              jmp         13014463
+  1301445A: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  1301445D: 83 EA 01           sub         edx,1
+  13014460: 89 55 C0           mov         dword ptr [ebp-40h],edx
+  13014463: 8B 45 C0           mov         eax,dword ptr [ebp-40h]
+  13014466: 50                 push        eax
+  13014467: 68 FE 00 00 00     push        0FEh
+  1301446C: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1301446F: 83 C1 01           add         ecx,1
+  13014472: 51                 push        ecx
+  13014473: E8 97 EC 07 FE     call        1109310F
+  13014478: 83 C4 0C           add         esp,0Ch
+  1301447B: BA A4 CF 44 13     mov         edx,1344CFA4h
+  13014480: 85 D2              test        edx,edx
+  13014482: 74 0D              je          13014491
+  13014484: 33 C0              xor         eax,eax
+  13014486: 74 09              je          13014491
+  13014488: C7 45 BC 01 00 00  mov         dword ptr [ebp-44h],1
+            00
+  1301448F: EB 07              jmp         13014498
+  13014491: C7 45 BC 00 00 00  mov         dword ptr [ebp-44h],0
+            00
+  13014498: 8B 4D BC           mov         ecx,dword ptr [ebp-44h]
+  1301449B: 89 4D B8           mov         dword ptr [ebp-48h],ecx
+  1301449E: 83 7D B8 00        cmp         dword ptr [ebp-48h],0
+  130144A2: 75 23              jne         130144C7
+  130144A4: 68 D4 CF 44 13     push        1344CFD4h
+  130144A9: 68 F4 77 44 13     push        134477F4h
+  130144AE: 6A 00              push        0
+  130144B0: 6A 32              push        32h
+  130144B2: 68 B8 CE 44 13     push        1344CEB8h
+  130144B7: 6A 02              push        2
+  130144B9: E8 9E E8 04 FE     call        11062D5C
+  130144BE: 83 C4 18           add         esp,18h
+  130144C1: 83 F8 01           cmp         eax,1
+  130144C4: 75 01              jne         130144C7
+  130144C6: CC                 int         3
+  130144C7: 83 7D B8 00        cmp         dword ptr [ebp-48h],0
+  130144CB: 75 2D              jne         130144FA
+  130144CD: E8 ED 21 04 FE     call        110566BF
+  130144D2: C7 00 22 00 00 00  mov         dword ptr [eax],22h
+  130144D8: 6A 00              push        0
+  130144DA: 6A 32              push        32h
+  130144DC: 68 B8 CE 44 13     push        1344CEB8h
+  130144E1: 68 20 25 46 13     push        13462520h
+  130144E6: 68 D4 CF 44 13     push        1344CFD4h
+  130144EB: E8 87 56 08 FE     call        11099B77
+  130144F0: 83 C4 14           add         esp,14h
+  130144F3: B8 22 00 00 00     mov         eax,22h
+  130144F8: EB 72              jmp         1301456C
+  130144FA: 83 7D 0C FF        cmp         dword ptr [ebp+0Ch],0FFFFFFFFh
+  130144FE: 74 6A              je          1301456A
+  13014500: 81 7D 0C FF FF FF  cmp         dword ptr [ebp+0Ch],7FFFFFFFh
+            7F
+  13014507: 74 61              je          1301456A
+  13014509: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1301450C: 2B 45 F8           sub         eax,dword ptr [ebp-8]
+  1301450F: 83 C0 01           add         eax,1
+  13014512: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  13014515: 73 53              jae         1301456A
+  13014517: E8 76 B1 05 FE     call        1106F692
+  1301451C: 89 45 B4           mov         dword ptr [ebp-4Ch],eax
+  1301451F: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  13014522: 2B 4D F8           sub         ecx,dword ptr [ebp-8]
+  13014525: 83 C1 01           add         ecx,1
+  13014528: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  1301452B: 2B D1              sub         edx,ecx
+  1301452D: 39 55 B4           cmp         dword ptr [ebp-4Ch],edx
+  13014530: 73 08              jae         1301453A
+  13014532: 8B 45 B4           mov         eax,dword ptr [ebp-4Ch]
+  13014535: 89 45 B0           mov         dword ptr [ebp-50h],eax
+  13014538: EB 11              jmp         1301454B
+  1301453A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1301453D: 2B 4D F8           sub         ecx,dword ptr [ebp-8]
+  13014540: 83 C1 01           add         ecx,1
+  13014543: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  13014546: 2B D1              sub         edx,ecx
+  13014548: 89 55 B0           mov         dword ptr [ebp-50h],edx
+  1301454B: 8B 45 B0           mov         eax,dword ptr [ebp-50h]
+  1301454E: 50                 push        eax
+  1301454F: 68 FE 00 00 00     push        0FEh
+  13014554: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  13014557: 2B 4D F8           sub         ecx,dword ptr [ebp-8]
+  1301455A: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1301455D: 8D 44 0A 01        lea         eax,[edx+ecx+1]
+  13014561: 50                 push        eax
+  13014562: E8 A8 EB 07 FE     call        1109310F
+  13014567: 83 C4 0C           add         esp,0Ch
+  1301456A: 33 C0              xor         eax,eax
+  1301456C: 8B E5              mov         esp,ebp
+  1301456E: 5D                 pop         ebp
+  1301456F: C3                 ret
+  13014570: CC                 int         3
+
+  Summary
+
+     215A000 .text

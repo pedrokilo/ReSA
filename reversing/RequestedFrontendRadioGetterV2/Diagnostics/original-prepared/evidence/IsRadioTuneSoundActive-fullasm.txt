@@ -1,0 +1,27 @@
+// CAEFrontendAudioEntity::IsRadioTuneSoundActive @ 0x004dd480 [0x4dd480..0x4dd49f]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined1 FUN_004dd480(void)
+
+{
+  int in_ECX;
+  
+  if ((DAT_00b7cb49 == '\0') && (DAT_00b7cb48 == '\0')) {
+    return *(undefined1 *)(in_ECX + 0x124);
+  }
+  return *(undefined1 *)(in_ECX + 0x1cc);
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004DD480: mov al,byte ptr ds:[00B7CB49h]
+004DD485: test al,al
+004DD487: jne 004DD499
+004DD489: mov al,byte ptr ds:[00B7CB48h]
+004DD48E: test al,al
+004DD490: jne 004DD499
+004DD492: mov al,byte ptr [ecx+00000124h]
+004DD498: ret
+004DD499: mov al,byte ptr [ecx+000001CCh]
+004DD49F: ret
+ 004DD4A0: 6A

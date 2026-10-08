@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "function": "CTaskComplexArrestPed::Constructor",
+  "pairs": 128,
+  "differences": 0,
+  "model_mismatches": 0,
+  "scope": "128 cases:64 poison patterns x null/private target references, real constructor/base ctor, returnthis exact. Pregraphics private task36B/ped/vehicle/child arenas; exact all non-vptr bytes, declared raw native/DLL/terminal-vptr roles checked against compiled PE tables without silent vptr normalization; ordered ref/cleanup/weapon/CreateSub traces with strict native+registered candidate entry/body gates. Collaborators and actors are isolated fixtures, not accredited helper bodies, runtime task/actor integration, graphics or resource lifecycle. Natural exit0, FP, all17692 entries/tables/flags/timer ranges and INIs/saves restored. Historical only; dependency_review=null. Wrong-output-path baseline remains rejected and immutable; external adapter changes only analyzer input path, same original frozen ASI.",
+  "dependency_review": null,
+  "native_virtual_address": null,
+  "parent_summary_path": "reversing/RequestedArrestRemainingFour/runs/20261008-162857-422102/enriched-summary.json",
+  "parent_summary_sha256": "87cc53577aff993991e15ba217cd81d4cd7c980fdb5d18c1c0a495a8de890ff7",
+  "comparison_sha256": "fc5e76514e1ad97d8f060b1d7835f0dd17effa8d80c25cea6739a12adadc5761",
+  "harness_sha256": "7f6e5e09eb581d7116132a102f4c4dcb321f46215c5a767f536365bdb8a93a4e",
+  "audit": {
+    "global_errors": [],
+    "bank_passed": true,
+    "functions": {
+      "Constructor": {
+        "comparisons": 128,
+        "differences": 0,
+        "model_mismatches": 0,
+        "gate_failures": 0,
+        "subset_eligible": true
+      },
+      "Destructor": {
+        "comparisons": 256,
+        "differences": 0,
+        "model_mismatches": 0,
+        "gate_failures": 0,
+        "subset_eligible": true
+      },
+      "MakeAbortable": {
+        "comparisons": 384,
+        "differences": 0,
+        "model_mismatches": 0,
+        "gate_failures": 0,
+        "subset_eligible": true
+      },
+      "CreateFirstSubTask": {
+        "comparisons": 2048,
+        "differences": 0,
+        "model_mismatches": 0,
+        "gate_failures": 0,
+        "subset_eligible": true
+      }
+    },
+    "scope": "Complete corpus and global restoration required; only exact independently modeled function subsets eligible. No registry writes.",
+    "manifest_sha256": "51a15a84d31c575d1d76a3c679a59de276a50a4ac72da21fe9cc289058e6fc0b"
+  },
+  "audit_script_path": "reversing/RequestedFxEmitterTwo/Diagnostics/audit_function_subsets.py",
+  "audit_script_sha256": "e67755c1676f19234623fe82badd973a4ff2c5956b73f6767f0feb70393037c7",
+  "registration_script_sha256": "660057921f11352292a20d2c608fdb6f27dd8c2db8435172ce3556bd070601ba",
+  "model_sha256": "9b544b40f27d0784e7099ffed417f777f6dbcf56e1d24de86c56ab927b147e76",
+  "compiled_call_path_proof_sha256": "aba4131c0c8d0dabbb1d117c02e530646a3341b6e7a56f107ab8697940678f88",
+  "manifest": {
+    "head": "ef0654e8e032dc8de779b6ed39282ba956daff0a",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "cb0d2c13b751877950b20367d122e055c31d45f22740b8470cd387ddb35483ea",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "0a0743beed4f90e2a628168d1ac3b401dc77a135ddcebc50724ac35ae905e6b5",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+      "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Entity/Ped/Ped.cpp": "90d80d2d8b15f900cee469afc299eabd3e7494c0d04275699bec1fefe8b3f324",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "fd2839383afe6ba5f5489be146d65dd3a0b9157d8c7660381905123478defe75",
+      "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6",
+      "source/game_sa/Weapon.cpp": "69d27ecf030d88ea0302452ec0fc89cff9351eb97e4a0cfa8c15ed7fc0d61b12",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0"
+    },
+    "bank_sources": {
+      "reversing/RequestedArrestRemainingFour/LiveComparison.hpp": "02308f129734bfbe07174ad56418971e60025cd3536fa5da44e99db4d2a9dd37",
+      "reversing/RequestedArrestRemainingFour/Preflight.hpp": "9b6689f2db68dcfe3c55d7062dd71d29e85157f58c15a39d7ba7762e4d782fb3",
+      "reversing/RequestedArrestRemainingFour/VTableRanges.hpp": "dfc26eef1b41f24281cc4c3ae5fb9bdb4ec96a7738b4ba62522e32fda873befa",
+      "reversing/RequestedArrestRemainingFour/build_probe.py": "ef1c428b5830df35600726da10aca3dcac01d402a4eb966492e1cccc1719cff9",
+      "reversing/RequestedArrestRemainingFour/run_local.py": "e6e3c34b634fd27554f7936f2e010f560f309f9824df74706f5f2360d571ba39",
+      "reversing/RequestedArrestRemainingFour/model.py": "9b544b40f27d0784e7099ffed417f777f6dbcf56e1d24de86c56ab927b147e76",
+      "reversing/RequestedArrestRemainingFour/prepared-freeze.json": "7821913002bbffaf3f4d2990802cdc1bbf9d42110780377ec3022ab74e7009a2",
+      "reversing/RequestedArrestRemainingFour/preparation-plan.json": "26bb8d780382170a76431871f44d80e10a5a16e2c6f2f8be6f95377dc718ea78",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "expected_pairs": 2816,
+    "fixture_scope": "Four ArrestPed pending entries, 2816 paired isolated cases; raw native/DLL vptr role checked, full task/ped/vehicle/private payload and ordered helper traces; no real actors, assets, task delegation or helper accreditation. All mismatches remain failure.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "c96143c40d41bd4f59cf8abb1cd5c324a1a99f8d58d53dfaf311549906ae25ec"
+    },
+    "asi": "39779f785144b5481e7b37944a6cc8035e5ddd35ef94686a43039f542ada758b",
+    "pdb": "051c3f1b90f95f029f813f38acdbe57dc5c9c91defd30056abae62ed71eb76d8"
+  },
+  "natural_exit0": true,
+  "all17692ranges_restored": true
+}

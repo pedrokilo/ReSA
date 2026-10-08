@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFrontendRadioGetterV2\artifacts\gta_reversed-frontend-radio-v2.asi
+
+File Type: DLL
+
+  115CC1B0: 55                 push        ebp
+  115CC1B1: 8B EC              mov         ebp,esp
+  115CC1B3: 81 EC CC 00 00 00  sub         esp,0CCh
+  115CC1B9: 53                 push        ebx
+  115CC1BA: 56                 push        esi
+  115CC1BB: 57                 push        edi
+  115CC1BC: 51                 push        ecx
+  115CC1BD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  115CC1C0: B9 03 00 00 00     mov         ecx,3
+  115CC1C5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115CC1CA: F3 AB              rep stos    dword ptr es:[edi]
+  115CC1CC: 59                 pop         ecx
+  115CC1CD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115CC1D0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115CC1D3: 50                 push        eax
+  115CC1D4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  115CC1D7: E8 6C E4 A8 FF     call        1105A648
+  115CC1DC: 0F B6 C8           movzx       ecx,al
+  115CC1DF: 85 C9              test        ecx,ecx
+  115CC1E1: 75 17              jne         115CC1FA
+  115CC1E3: 68 8D 00 00 00     push        8Dh
+  115CC1E8: 68 40 50 1B 13     push        131B5040h
+  115CC1ED: 68 00 51 1B 13     push        131B5100h
+  115CC1F2: E8 8B 43 AB FF     call        11080582
+  115CC1F7: 83 C4 0C           add         esp,0Ch
+  115CC1FA: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115CC1FD: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  115CC200: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  115CC203: 0F B6 04 11        movzx       eax,byte ptr [ecx+edx]
+  115CC207: C0 E8 07           shr         al,7
+  115CC20A: 24 01              and         al,1
+  115CC20C: 5F                 pop         edi
+  115CC20D: 5E                 pop         esi
+  115CC20E: 5B                 pop         ebx
+  115CC20F: 81 C4 CC 00 00 00  add         esp,0CCh
+  115CC215: 3B EC              cmp         ebp,esp
+  115CC217: E8 32 7A A8 FF     call        11053C4E
+  115CC21C: 8B E5              mov         esp,ebp
+  115CC21E: 5D                 pop         ebp
+  115CC21F: C2 04 00           ret         4
+  115CC222: CC                 int         3
+
+  Summary
+
+     215A000 .text

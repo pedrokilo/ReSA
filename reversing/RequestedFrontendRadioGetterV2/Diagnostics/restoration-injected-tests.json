@@ -1,0 +1,154 @@
+{
+  "cases": [
+    {
+      "case": "three22_success",
+      "passed": true,
+      "writes": 4,
+      "delays": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "attempts": [
+        {
+          "attempt": 1,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "status": "write_or_read_failed",
+          "errno": 22,
+          "error": "[Errno 22] injected",
+          "retry_delay_seconds": 0.25
+        },
+        {
+          "attempt": 2,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "status": "write_or_read_failed",
+          "errno": 22,
+          "error": "[Errno 22] injected",
+          "retry_delay_seconds": 0.25
+        },
+        {
+          "attempt": 3,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "status": "write_or_read_failed",
+          "errno": 22,
+          "error": "[Errno 22] injected",
+          "retry_delay_seconds": 0.25
+        },
+        {
+          "attempt": 4,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "actual_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "byte_equal": true,
+          "status": "restored"
+        }
+      ],
+      "error_propagated": null
+    },
+    {
+      "case": "four22_raises",
+      "passed": true,
+      "writes": 4,
+      "delays": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "attempts": [
+        {
+          "attempt": 1,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "status": "write_or_read_failed",
+          "errno": 22,
+          "error": "[Errno 22] injected",
+          "retry_delay_seconds": 0.25
+        },
+        {
+          "attempt": 2,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "status": "write_or_read_failed",
+          "errno": 22,
+          "error": "[Errno 22] injected",
+          "retry_delay_seconds": 0.25
+        },
+        {
+          "attempt": 3,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "status": "write_or_read_failed",
+          "errno": 22,
+          "error": "[Errno 22] injected",
+          "retry_delay_seconds": 0.25
+        },
+        {
+          "attempt": 4,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "status": "write_or_read_failed",
+          "errno": 22,
+          "error": "[Errno 22] injected"
+        }
+      ],
+      "error_propagated": "OSError"
+    },
+    {
+      "case": "accessdenied_raises",
+      "passed": true,
+      "writes": 1,
+      "delays": [],
+      "attempts": [
+        {
+          "attempt": 1,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "status": "write_or_read_failed",
+          "errno": 13,
+          "error": "[Errno 13] injected"
+        }
+      ],
+      "error_propagated": "PermissionError"
+    },
+    {
+      "case": "byte_mismatch_raises",
+      "passed": true,
+      "writes": 1,
+      "delays": [],
+      "attempts": [
+        {
+          "attempt": 1,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "actual_sha256": "8810ad581e59f2bc3928b261707a71308f7e139eb04820366dc4d5c18d980225",
+          "byte_equal": false,
+          "status": "verification_failed"
+        }
+      ],
+      "error_propagated": "RuntimeError"
+    },
+    {
+      "case": "first_success",
+      "passed": true,
+      "writes": 1,
+      "delays": [],
+      "attempts": [
+        {
+          "attempt": 1,
+          "path": "fake-only-no-real-WinMain",
+          "expected_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "actual_sha256": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5",
+          "byte_equal": true,
+          "status": "restored"
+        }
+      ],
+      "error_propagated": null
+    }
+  ],
+  "helper_sha256": "83b3d93515d14d5fd72eafbbae58ee916c57e92af0fbbd3a337e6cffe0388cb9",
+  "test_sha256": "ae655aee8dacb3ac299fb3b4eb789ca7932adc2acd6730a158aba72440b878fd",
+  "no_real_file_modified": true
+}

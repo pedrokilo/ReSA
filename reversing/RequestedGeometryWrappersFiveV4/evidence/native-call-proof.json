@@ -1,0 +1,36 @@
+{
+  "canonical_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "native_calls": {
+    "0x005F3650": [
+      "0x005F1FA0"
+    ],
+    "0x005F3B40": [
+      "0x005F1FA0",
+      "0x005F1600"
+    ],
+    "0x005F2B80": [
+      "0x005F1FA0",
+      "0x005F1670"
+    ],
+    "0x005F36A0": [
+      "0x005F1FA0",
+      "0x005F1600",
+      "0x005F1750"
+    ],
+    "0x005F2BC0": [
+      "0x005F1FA0",
+      "0x005F1600",
+      "0x005F1750"
+    ]
+  },
+  "source_difference": "SegmentPlanes delegates via Source SegmentUncachedAll; do not stub All; primitive producer-consumer sequence remains three calls",
+  "raw_REA_lookup_scope": "Fresh campaign dossier for Corners copied verbatim; other raw lookups not claimed. Full canonical PE assembly primary support for all five",
+  "compiled_before_runtime_required": [
+    "Current matched PDB verifies ConstructFixture ctorCALL relative35/prefix8B8D38FFFFFF, ctor GeneralCALLrelativeDE followed8B4DEC66894120, General localrandCALLrelative17. Runtime resolves E9chain within currentASInotV2RVA, proves ctorcallee matches &Generalbody, patches Generalentry/body/callee with52restore. Linked randbody readonly; noimport/IATclaim.",
+    "ConstructFixture actual placement ctor and DLL named CEntity vptr, inert nullresources",
+    "Each source wrapper named target calls resolve to exact matching primitive helper entries or via Source SegmentAll, including E9 thunk chains",
+    "Private helper patching at both native canonical addresses and source symbols, not imported guessed CRT thunk"
+  ],
+  "runtime_guards": "Exact sourceGeneral CALLlayout +boundedimage +privateentry/body/ctorcalleejumpgates +callback55 once +all52restore; no linkedCRTstateconsumed.",
+  "limitations": "No 17692-byte global write fixture involved: all wrappers exclusively forward entity/buffers to isolated stubs and rand consumes no CRT state. Full hooked flags/target-helper52/IATneighbor52/CRT52/entity88/output160 tracked. No global/helper/ctor/dtor integration credit."
+}

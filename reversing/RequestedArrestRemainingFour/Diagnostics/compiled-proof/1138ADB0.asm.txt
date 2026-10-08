@@ -1,0 +1,43 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1138ADB0: 55                 push        ebp
+  1138ADB1: 8B EC              mov         ebp,esp
+  1138ADB3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1138ADB9: 53                 push        ebx
+  1138ADBA: 56                 push        esi
+  1138ADBB: 57                 push        edi
+  1138ADBC: 51                 push        ecx
+  1138ADBD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1138ADC0: B9 03 00 00 00     mov         ecx,3
+  1138ADC5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138ADCA: F3 AB              rep stos    dword ptr es:[edi]
+  1138ADCC: 59                 pop         ecx
+  1138ADCD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1138ADD0: E8 D9 F5 CD FF     call        1106A3AE
+  1138ADD5: 0F B6 C0           movzx       eax,al
+  1138ADD8: 85 C0              test        eax,eax
+  1138ADDA: 74 0D              je          1138ADE9
+  1138ADDC: E8 74 E4 CE FF     call        11079255
+  1138ADE1: 8B C8              mov         ecx,eax
+  1138ADE3: E8 BE EF CC FF     call        11059DA6
+  1138ADE8: 90                 nop
+  1138ADE9: 5F                 pop         edi
+  1138ADEA: 5E                 pop         esi
+  1138ADEB: 5B                 pop         ebx
+  1138ADEC: 81 C4 CC 00 00 00  add         esp,0CCh
+  1138ADF2: 3B EC              cmp         ebp,esp
+  1138ADF4: E8 D7 2E CD FF     call        1105DCD0
+  1138ADF9: 8B E5              mov         esp,ebp
+  1138ADFB: 5D                 pop         ebp
+  1138ADFC: C3                 ret
+  1138ADFD: CC                 int         3
+
+  Summary
+
+     216F000 .text

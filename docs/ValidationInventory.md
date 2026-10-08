@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6848 con evidencia histórica, 0 con vigencia acreditada y 1598 pendientes en 60 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6860 con evidencia histórica, 0 con vigencia acreditada y 1586 pendientes en 58 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
@@ -10,10 +10,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 6848 |
+| `validated=1` · evidencia aprobada vinculada | 6860 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 6848 |
-| Sin evidencia aprobada vinculada en este registro | 1598 |
+| Evidencia histórica vinculada; revisión pendiente | 6860 |
+| Sin evidencia aprobada vinculada en este registro | 1586 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -276,6 +276,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEFireAudioEntity | `Terminate` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEFireAudioEntity | `UpdateParameters` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEFrontendAudioEntity | `AddAudioEvent` | [Resumen](../reversing/AudioFrontendPending/validation-summary.json) |
+| CAEFrontendAudioEntity | `IsRadioTuneSoundActive` | [Resumen](../reversing/RequestedFrontendRadioGetterV2/validation-summary.json) |
 | CAEFrontendAudioEntity | `UpdateParameters` | [Resumen](../reversing/AudioFrontendPending/validation-summary.json) |
 | CAEGlobalWeaponAudioEntity | `AddAudioEvent` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAEGlobalWeaponAudioEntity | `Constructor` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
@@ -2884,10 +2885,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedGeometryAnalyser | `ComputeClosestSurfacePoint-posn` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeClosestSurfacePoint-rect` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxCentreUncached` | [Resumen](../reversing/RequestedGeometryCentre/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputeEntityBoundingBoxCentreUncachedAll` | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputeEntityBoundingBoxCorners` | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxCornersUncached` | [Resumen](../reversing/GeometryRoutes355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxPlanes` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxPlanesUncached` | [Resumen](../reversing/RequestedGeometryPlanesV2/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputeEntityBoundingBoxPlanesUncachedAll` | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputeEntityBoundingBoxSegmentPlanes` | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxSegmentPlanesUncached` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputeEntityBoundingBoxSegmentPlanesUncachedAll` | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingSphere` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityDirs` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityHitSide-1` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
@@ -3828,9 +3834,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskAllocatorPlayerCommandAttack | `GetType` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CTaskAllocatorPlayerCommandAttack | `ProcessGroup` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CTaskAllocatorPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CTaskComplexArrestPed | `Constructor` | [Resumen](../reversing/RequestedArrestRemainingFour/validation-summary-Constructor.json) |
 | CTaskComplexArrestPed | `ControlSubTask` | [Resumen](../reversing/ArrestPending/validation-summary.json) |
+| CTaskComplexArrestPed | `CreateFirstSubTask` | [Resumen](../reversing/RequestedArrestRemainingFour/validation-summary-CreateFirstSubTask.json) |
 | CTaskComplexArrestPed | `CreateNextSubTask` | [Resumen](../reversing/ArrestPending/validation-summary.json) |
 | CTaskComplexArrestPed | `CreateSubTask` | [Resumen](../reversing/ArrestPending/validation-summary.json) |
+| CTaskComplexArrestPed | `Destructor` | [Resumen](../reversing/RequestedArrestRemainingFour/validation-summary-Destructor.json) |
+| CTaskComplexArrestPed | `MakeAbortable` | [Resumen](../reversing/RequestedArrestRemainingFour/validation-summary-MakeAbortable.json) |
 | CTaskComplexAttractorPartnerWait | `Clone` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexAttractorPartnerWait | `ControlSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexAttractorPartnerWait | `CreateFirstSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
@@ -6375,9 +6385,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FurnitureSubGroup_c | `AddFurniture` | [Resumen](../reversing/FurnitureSubGroup_c/validation-summary.json) |
 | FurnitureSubGroup_c | `GetFurniture` | [Resumen](../reversing/FurnitureSubGroup_c/validation-summary.json) |
 | FurnitureSubGroup_c | `GetRandomId` | [Resumen](../reversing/FurnitureSubGroup_c/validation-summary.json) |
+| FxEmitterBP_c | `Constructor` | [Resumen](../reversing/RequestedFxEmitterTwo/validation-summary-Constructor.json) |
 | FxEmitterBP_c | `CreateInstance` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
 | FxEmitterBP_c | `FreePrtFromPrim` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
 | FxEmitterBP_c | `Load` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
+| FxEmitterBP_c | `LoadTextures` | [Resumen](../reversing/RequestedFxEmitterTwo/validation-summary-LoadTextures.json) |
 | FxEmitterBP_c | `Render` | [Resumen](../reversing/FxEmitterRender355/validation-summary.json) |
 | FxEmitterBP_c | `RenderHeatHaze` | [Resumen](../reversing/FxEmitterRender355/validation-summary.json) |
 | FxEmitterBP_c | `Update` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
@@ -6901,7 +6913,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEDoorAudioEntity` | 6 | 0 | 6 | 0 |
 | `CAEExplosionAudioEntity` | 3 | 0 | 3 | 0 |
 | `CAEFireAudioEntity` | 7 | 0 | 7 | 0 |
-| `CAEFrontendAudioEntity` | 6 | 0 | 2 | 4 |
+| `CAEFrontendAudioEntity` | 6 | 0 | 3 | 3 |
 | `CAEGlobalWeaponAudioEntity` | 6 | 0 | 6 | 0 |
 | `CAEMFDecoder` | 10 | 0 | 10 | 0 |
 | `CAEMP3BankLoader` | 13 | 0 | 13 | 0 |
@@ -7173,7 +7185,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedAttractorPool` | 1 | 0 | 1 | 0 |
 | `CPedClothesDesc` | 7 | 0 | 7 | 0 |
 | `CPedDamageResponseCalculator` | 6 | 0 | 6 | 0 |
-| `CPedGeometryAnalyser` | 38 | 0 | 31 | 7 |
+| `CPedGeometryAnalyser` | 38 | 0 | 36 | 2 |
 | `CPedGroup` | 12 | 0 | 12 | 0 |
 | `CPedGroupDefaultTaskAllocatorChat` | 2 | 0 | 2 | 0 |
 | `CPedGroupDefaultTaskAllocatorFollowAnyMeans` | 2 | 0 | 2 | 0 |
@@ -7276,7 +7288,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskAllocatorKillThreatsDriveby` | 5 | 0 | 5 | 0 |
 | `CTaskAllocatorPlayerCommandAttack` | 3 | 0 | 3 | 0 |
 | `CTaskAllocatorPool` | 1 | 0 | 1 | 0 |
-| `CTaskComplexArrestPed` | 7 | 0 | 3 | 4 |
+| `CTaskComplexArrestPed` | 7 | 0 | 7 | 0 |
 | `CTaskComplexAttractorPartnerWait` | 5 | 0 | 5 | 0 |
 | `CTaskComplexAvoidOtherPedWhileWandering` | 15 | 0 | 15 | 0 |
 | `CTaskComplexBeCop` | 3 | 0 | 3 | 0 |
@@ -7609,7 +7621,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FurnitureGroup_c` | 6 | 0 | 6 | 0 |
 | `FurnitureManager_c` | 7 | 0 | 7 | 0 |
 | `FurnitureSubGroup_c` | 3 | 0 | 3 | 0 |
-| `FxEmitterBP_c` | 9 | 0 | 7 | 2 |
+| `FxEmitterBP_c` | 9 | 0 | 9 | 0 |
 | `FxEmitterPrt_c` | 1 | 0 | 1 | 0 |
 | `FxInfoManager_c` | 4 | 0 | 4 | 0 |
 | `FxManager_c` | 25 | 0 | 25 | 0 |

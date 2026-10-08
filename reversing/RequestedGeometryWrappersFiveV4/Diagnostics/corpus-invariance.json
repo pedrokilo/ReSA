@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "unchanged_after_only_namespace_and_logprefix_substitution": [
+    "LiveComparison.hpp",
+    "FixtureContracts.hpp"
+  ],
+  "original_complete_replay": "reversing/RequestedGeometryWrappersFiveV3/runs/20261008-162225-471717",
+  "v3_scope": "Local restore only; not globally accredited",
+  "new_scope": "Finite wrapper memory/traces/pointer roles, global hook/table/timer snapshots and external FP restoration; no per-target FP equality claimed."
+}
