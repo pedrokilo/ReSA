@@ -1,0 +1,11 @@
+{
+  "source_before_sha256": "6105832de48d09479bbaccd1d270e07fdf5f876d4fb1c428049b6a32a82ee7d5",
+  "applied": true,
+  "reason": "2048/2048 original dot slots exactly modeled by precision53 x87 with only final float32 store;2048/2048 candidate slots by intermediate-float32 model;1444pair diffs all dots, normals identical. No alias traversal fix justified by this corpus.",
+  "limitations": "Normalise native shared collaborator only; whole-array alias/separate tested, no shifted aliases. Alternate FP modes excluded. Patches await root docscut/source release; no compilation by agent.",
+  "post_docscut_source_before_sha256": "6105832de48d09479bbaccd1d270e07fdf5f876d4fb1c428049b6a32a82ee7d5",
+  "root_release_checkpoint": "9b1fe452",
+  "source_after_sha256": "77a918d657ab65d3d6bf1b49bf3b6d03c0cb69f6deeaad24425491f1fe9d3783",
+  "status_block_bytes_preserved": true,
+  "replay_credit": false
+}

@@ -1,0 +1,27 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGroupPlacerCorrectedV2\artifacts\gta_reversed-group-placer-corrected-v2.asi
+
+File Type: DLL
+
+  11B33D80: 8B 44 24 10        mov         eax,dword ptr [esp+10h]
+  11B33D84: 83 F8 05           cmp         eax,5
+  11B33D87: 77 0A              ja          11B33D93
+  11B33D89: 83 F8 04           cmp         eax,4
+  11B33D8C: 74 05              je          11B33D93
+  11B33D8E: E9 0D 00 00 00     jmp         11B33DA0
+  11B33D93: 8A 44 24 0C        mov         al,byte ptr [esp+0Ch]
+  11B33D97: C2 10 00           ret         10h
+  11B33D9A: CC                 int         3
+  11B33D9B: CC                 int         3
+  11B33D9C: CC                 int         3
+  11B33D9D: CC                 int         3
+  11B33D9E: CC                 int         3
+  11B33D9F: CC                 int         3
+  11B33DA0: 55                 push        ebp
+
+  Summary
+
+     2143000 .text

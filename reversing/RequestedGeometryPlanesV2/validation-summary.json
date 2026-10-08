@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "eca2ad8c2a9b929cbcacdac80a70908874fb03d7d732fb3e02fe129ab834be68",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "14aee4c8e0ec10d5a771f6c1be899b18f8802396e079279257e6abb571608c69",
+  "native_helper_readonly": true,
+  "manual_helper_restored": true,
+  "helper_callsite_proven": true,
+  "callback_traces_checked": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "9b1fe452b3a38ad2207876b538fa3639c9a6c1d7",
+    "tested_sources": {
+      "source/game_sa/PedGeometryAnalyser.cpp": "77a918d657ab65d3d6bf1b49bf3b6d03c0cb69f6deeaad24425491f1fe9d3783",
+      "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
+      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+      "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96"
+    },
+    "bank_sources": {
+      "reversing/RequestedGeometryPlanesV2/LiveComparison.hpp": "551571991451fcefcaf7d17a828affad0b0f7be122f555ead39b1935b14947e6",
+      "reversing/RequestedGeometryPlanesV2/NativeNormaliseBytes.hpp": "897a88bee8c76e6a3ac2aecd77f298f29c215a537270d0339d5d876db71f1e62",
+      "reversing/RequestedGeometryPlanesV2/build_probe.py": "ebd76d1dbc3f77f531622c50250c19fb2695966aeb803d942620419414ac7a42",
+      "reversing/RequestedGeometryPlanesV2/run_local.py": "9b21b46f900357b37f44bdc38c1c252e0ff4bba61793780587666f04348b07ec",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Pregraphics planes2048 V2: strict current CALLsite/E9-chain proof, manual DLL Normalise entry/body thunk redirects to shared readonlyNative59C910 exactPE96bytes. Source callback trace4 vsoriginal0, full buffers/alias/guards and canonicalFP restored. No global CVector hooks activated or Normalise source/integration credit.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "b813c67f9b42fd5d3bb3453ca5adbb6199d569fe011c694e9b23eeb9fb1b965a"
+    },
+    "asi": "eca2ad8c2a9b929cbcacdac80a70908874fb03d7d732fb3e02fe129ab834be68",
+    "pdb": "a6f6ab03c8be3209eb9a548edc3add5680c19920c5f9273b7944f7a4a8f39588"
+  },
+  "runner_sha256": "9b21b46f900357b37f44bdc38c1c252e0ff4bba61793780587666f04348b07ec",
+  "approved_scope": "Historical pregraphics pure geometry buffer function,2048pairs:1024finite planar/sloped/degenerate quadrilaterals x separate normals or exact whole CVector[4] corners alias. Fullarenas/guards/normals/dots exact, source direction traces and8192native-adapter callbacks independently audited; x87PC53 dot model matches both sides, precise named CALLsite/E9 proof checked. Shared originalNormalise59C910 immutable canonicalPE96bytes, DLL entry/body/thunk temporarily redirected with exact jump gates and52byte snapshots/restoration; no global CVector hook activation or Normalise source credit. Readonly globals858B50/858624 and canonical nearest FPcaller environment restored; naturalexit0. No shifted aliases, alternate FPmodes/DAZ/FTZ/NaN/Inf, actors/pools/entity/game integration accreditation. Dependency on original nativehelper remains, no currentdependency review.",
+  "evidence_run": "reversing/RequestedGeometryPlanesV2/runs/20261008-141635-076245",
+  "enriched_summary_sha256": "40cdee2f053d5d00ecd92725d56db000ed935815c31a756be46ec39605fd1873",
+  "independent_audit_path": "reversing/RequestedGeometryPlanesV2/Diagnostics/corrected-replay-audit.json",
+  "independent_audit_sha256": "8f154b376cb488ae618c130476503ba5f6d71062c6a1664de120c8c205598747",
+  "baseline_failure": {
+    "run": "reversing/RequestedGeometryPlanesV2/runs/20261008-140227-969549",
+    "failures": 1444,
+    "cases": 2048,
+    "separate_failures": 680,
+    "whole_alias_failures": 764,
+    "model_script": "reversing/RequestedGeometryPlanesV2/Diagnostics/audit_model.py",
+    "model_freeze": "reversing/RequestedGeometryPlanesV2/Diagnostics/model-freeze.json"
+  },
+  "dependency_review": null
+}

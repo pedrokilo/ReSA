@@ -1,0 +1,44 @@
+{
+  "rejected_baseline": true,
+  "candidate_asi_sha256": "e3159b9a5a549f03b2647af200f5d652b09b4b41b81abe71098ecc3700d76fa4",
+  "runtime": "reversing/RequestedPadContext9/runs/20261008-140510-370045",
+  "raw_sha256": "8d613b20ea79e62db31871fd94e736623013954e2e5300c274fef183ab0965de",
+  "cases_by_function": {
+    "AimWeaponLeftRight": 6048,
+    "AimWeaponUpDown": 6048,
+    "GetPedWalkLeftRight-ped": 6048,
+    "GetPedWalkUpDown-ped": 6048,
+    "LookAroundLeftRight": 6048,
+    "LookAroundUpDown": 6048,
+    "GetDisplayVitalStats": 15480,
+    "GetWeapon": 15480,
+    "WeaponJustDown": 15480
+  },
+  "differences_by_function": {
+    "LookAroundLeftRight": 512,
+    "LookAroundUpDown": 512,
+    "WeaponJustDown": 720
+  },
+  "all_mismatches_return_only": true,
+  "natural_exit0": true,
+  "bank_global_fp_actor_restored": true,
+  "all_entry_vtable_flag_ranges_restored": 17692,
+  "source_baseline_sha256": {
+    "source/game_sa/Pad.cpp": "f96e5776607a1dcc5777b941e9a172c2bb02940a6395fdac91354b2e0437a9eb",
+    "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+    "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+    "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+    "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+    "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+    "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+    "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+    "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+    "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+    "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+    "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+    "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+  },
+  "no_registration": true
+}

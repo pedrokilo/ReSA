@@ -1,14 +1,14 @@
 # Estado comprobado de ReSA · 8 de octubre de 2026
 
-**Corte documental: 8 de octubre de 2026, después del replay V2 de daño de las 13:48 y su auditoría independiente, hora de Ciudad de México.** Los contadores corresponden al catálogo sincronizado con 86 aprobaciones nuevas. Las sondas posteriores pendientes no se suman.
+**Corte documental: 8 de octubre de 2026, después de vincular Context9, GeometryPlanes, seis mutaciones de CPad y PlaceGroup V2, hora de Ciudad de México.** Los contadores corresponden al catálogo sincronizado con 103 aprobaciones nuevas. Las sondas posteriores pendientes no se suman.
 
-El catálogo contiene **771 clases, namespaces o grupos / 8446 entradas**, todas marcadas como reconstruidas. Hay **6822 entradas con evidencia histórica vinculada** y **1624 pendientes de validación**, distribuidas en **64 grupos**. El alcance solicitado inicial fue de 77 grupos y 1710 funciones; 86 identidades nuevas quedaron aprobadas para sus fixtures. Reconstrucción no significa validación ni independencia del ejecutable.
+El catálogo contiene **771 clases, namespaces o grupos / 8446 entradas**, todas marcadas como reconstruidas. Hay **6839 entradas con evidencia histórica vinculada** y **1607 pendientes de validación**, distribuidas en **63 grupos**. El alcance solicitado inicial fue de 77 grupos y 1710 funciones; 103 identidades nuevas quedaron aprobadas para sus fixtures. Reconstrucción no significa validación ni independencia del ejecutable.
 
 **Vigencia actual: 0 funciones acreditadas.** Las validaciones nuevas tienen `dependency_review=null`: son evidencia histórica aprobada, con límites explícitos. Las 52 de Interior_c mantienen sus resultados históricos; su huella de dependencias no coincide con el árbol actual. Esta documentación no cambia huellas de evidencia ni acredita dependencias.
 
 El **snapshot de arranque histórico del 8 de octubre de 2026** seleccionó **694 grupos completos / 6136 funciones** y desactivó 2313 hooks del inventario de ejecución (incluye 3 extras NOTSA), sin discrepancias entre selección y estados. El ASI de ese arranque fue `f33a7f5ca0ebdb08f4f77d91c2f8142c4a2776761191c3e683eb352fc3438cae`. Es un snapshot fechado; no identifica la última instalación ni certifica comportamiento conjunto. Las sondas posteriores restauran la instalación que encontraron. La whitelist histórica de ese arranque permanece fija; las nuevas aprobaciones no se añadieron automáticamente. El argumento `--historical-hooks` es explícito y no implica validación vigente. [Registro de arranque y correspondencias](../reversing/RequestedValidation20261008/historical-launch/README.md).
 
-## Ochenta y seis aprobaciones nuevas, con alcance limitado
+## Ciento tres aprobaciones nuevas, con alcance limitado
 
 | Función | Pares aprobados | Evidencia conservada | Alcance |
 | --- | ---: | --- | --- |
@@ -100,6 +100,23 @@ El **snapshot de arranque histórico del 8 de octubre de 2026** seleccionó **69
 | CTaskComplexProstituteSolicit::GetTaskType | 1280 | [Resumen](../reversing/RequestedTaskTypeSix/validation-summary.json) | Getter puro; entrada nativa 0x00661AE0, slots y cinco rutas. No acredita constructor/destructor ni actores. |
 
 Los resúmenes incluyen el EXE y DLL ejecutados, fuentes/instrumentos congelados, comparaciones y comprobaciones de restauración. Los errores previos permanecen conservados. La aprobación de una función no acredita el resto de su clase; los bancos preparados o fallidos no suman validaciones. [Inventario por función y vigencia](ValidationInventory.md).
+| CPad::AimWeaponLeftRight | 6048 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
+| CPad::AimWeaponUpDown | 6048 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
+| CPad::GetDisplayVitalStats | 15480 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
+| CPad::GetPedWalkLeftRight-ped | 6048 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
+| CPad::GetPedWalkUpDown-ped | 6048 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
+| CPad::GetWeapon | 15480 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
+| CPad::LookAroundLeftRight | 6048 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
+| CPad::LookAroundUpDown | 6048 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
+| CPad::WeaponJustDown | 15480 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
+| CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached | 2048 | [Resumen](../reversing/RequestedGeometryPlanesV2/validation-summary.json) | 1024 figuras finitas por buffers separados o alias completo; bytes, guards, PC53 dot-model y trazas. Normalise nativo compartido como dependencia; no actores ni aliases desplazados. |
+| CPad::StopShaking | 2048 | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) | Pad privado 308 bytes y 2624 globales/guards, con máscaras de escritura originales; sin entrada OS ni arranque del juego. |
+| CPad::SetTouched | 2048 | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) | Pad privado 308 bytes y 2624 globales/guards, con máscaras de escritura originales; sin entrada OS ni arranque del juego. |
+| CPad::ClearMouseHistory | 256 | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) | Pad privado 308 bytes y 2624 globales/guards, con máscaras de escritura originales; sin entrada OS ni arranque del juego. |
+| CPad::ClearKeyBoardHistory | 256 | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) | Pad privado 308 bytes y 2624 globales/guards, con máscaras de escritura originales; sin entrada OS ni arranque del juego. |
+| CPad::Clear | 1024 | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) | Pad privado 308 bytes y 2624 globales/guards, con máscaras de escritura originales; sin entrada OS ni arranque del juego. |
+| CPad::Initialise | 256 | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) | Pad privado 308 bytes y 2624 globales/guards, con máscaras de escritura originales; sin entrada OS ni arranque del juego. |
+| CPedGroupPlacer::PlaceGroup | 1536 | [Resumen](../reversing/RequestedGroupPlacerCorrectedV2/validation-summary.json) | Seis enums válidos, 1536 fixtures y delegates aislados con args/trazas; AL crudo exacto y arena intacta. Sin colocación real, pools ni actores. |
 
 ## CPad: corpus y reparación de la interacción de hombros
 
@@ -115,7 +132,7 @@ Las 51 aprobaciones se compilaban contra la versión de `Pad.cpp` con seis repar
 
 ## Documentos congelados y evidencia preparada
 
-El estado central y los derivados se actualizan con el catálogo. Los documentos que forman parte de manifests o snapshots conservan sus bytes y el alcance de su fecha; una descripción de banco preparado no se convierte en aprobación por actualizar documentación. [Lista de 13 excepciones con hashes y referencias](../reversing/RequestedValidation20261008/documentation-frozen-exceptions.json). Los bancos pendientes y replays aún no vinculados no se suman a este corte. El objetivo inicial sigue siendo 1710 identidades en 77 grupos; quedan 1624 en 64 grupos.
+El estado central y los derivados se actualizan con el catálogo. Los documentos que forman parte de manifests o snapshots conservan sus bytes y el alcance de su fecha; una descripción de banco preparado no se convierte en aprobación por actualizar documentación. [Lista de 15 excepciones con hashes y referencias](../reversing/RequestedValidation20261008/documentation-frozen-exceptions.json). Los bancos pendientes y replays aún no vinculados no se suman a este corte. El objetivo inicial sigue siendo 1710 identidades en 77 grupos; quedan 1607 en 63 grupos.
 
 El banco mixto de eventos y daño completó 9936 pares y restauró entradas, tablas, flags y globales, con salida natural 0. Sólo los 720 de InvalidateEvent fueron aprobados. El primer ComputeWillKillPed tuvo 1560 diferencias: 1536 se explican por el índice de cheat incorrecto 77 frente al 61 nativo; 24 por redondear el remainder de caída antes de calcular daño. El modelo anterior también seguía 77; el diagnóstico lo conserva como error, y el V2 separado añade 61/77 independientes. No se acredita daño por corregir un modelo. [Replay original rechazado](../reversing/RequestedRemainingLeafPair/runs/20261008-131904-293285/enriched-summary.json) y [diagnóstico estático V2](../reversing/RequestedRemainingLeafPairV2/NATIVE_DIAG.md).
 
@@ -139,7 +156,13 @@ Esta actualización conserva las mediciones históricas de cada banco. Modificar
 
 Tabla generada desde `docs/hooks.csv`; cuenta `validated=0`, independientemente del bloqueo del hook.
 
-El V2 de GeometryPlanes terminó 2048 pares con 1444 diferencias y permanece sin aprobación. Se conservaron las restauraciones completas y la salida del replay; este resultado no incrementa el registro histórico. [Replay rechazado](../reversing/RequestedGeometryPlanesV2/runs/20261008-140227-969549/enriched-summary.json).
+El primer V2 de GeometryPlanes tuvo 1444 diferencias/2048 y se conserva rechazado. El replay corregido aprobó 2048 con buffers separados o alias exacto completo, modelo x87 PC53 y 8192 callbacks nativos auditados; Normalise nativo sigue siendo una dependencia, sin acreditación del helper ni de aliases desplazados, NaN/Inf o actores. [Fallo preservado](../reversing/RequestedGeometryPlanesV2/runs/20261008-140227-969549/enriched-summary.json) y [aprobación limitada](../reversing/RequestedGeometryPlanesV2/validation-summary.json).
+
+Context9 conservó su baseline de 1744 diferencias y aprobó 82728 después de corregir la precisión de los dos LookAround y el gate FireWeapon de WeaponJustDown. Sus nueve identidades sólo acreditan campos privados de actor/tarea; los getters de helpers no tienen trazas de cantidad/orden. Las seis mutaciones de CPad añadieron 5888 con máscaras originales de escritura. PlaceGroup V2 añadió 1536 por seis enums válidos; compara AL crudo, incluyendo 128/252, y excluye los 24 bits altos no definidos del retorno. Todos preservaron salida natural 0 y restauración completa.
+
+El banco AnimProjectile agotó 600 segundos tras 57138 filas completas de 60624; no produjo terminal/restauración natural ni aprobación parcial. El intento rechazado permanece intacto. La auditoría posterior de sus 720 casos de ReferenceAnims detectó 48 diferencias: con el flag del bloque de animación en 1, el EXE añade referencia y el candidato pide streaming. La fuente consulta otro global de carga; la corrección está propuesta y esa función sigue pendiente. [Diagnóstico reproducible](../reversing/RequestedAnimProjectilePair/Diagnostics/reference-loadstate-diagnostic.json). El retry mantiene la misma ASI 43c7b635 y los 12 inputs congelados; un wrapper separado amplía sólo timeout a 1200, aún sin aprobación en este corte. [Intento incompleto](../reversing/RequestedAnimProjectilePair/runs/20261008-142758-927336/enriched-summary.json) y [wrapper explícito](../reversing/RequestedAnimProjectilePair/run_extended.py).
+
+El freeze relativo antiguo de TaskCtorDtor corresponde a preparación no ejecutada: su documento 822866 se preserva en un archivo histórico. El documento posterior cf755 no era entrada compilada del banco aprobado y su aviso actual puede actualizarse; ambas épocas quedan separadas en la lista de excepciones.
 
 | Clase/grupo | Funciones sin validar |
 | --- | ---: |
@@ -168,10 +191,9 @@ El V2 de GeometryPlanes terminó 2048 pares con 1444 diferencias y permanece sin
 | CHud | 30 |
 | CIdleCam | 13 |
 | CMonsterTruck | 5 |
-| CPad | 23 |
+| CPad | 8 |
 | CPathFind | 54 |
-| CPedGeometryAnalyser | 8 |
-| CPedGroupPlacer | 1 |
+| CPedGeometryAnalyser | 7 |
 | CPickups | 35 |
 | CPlane | 14 |
 | CPlayerPed | 1 |

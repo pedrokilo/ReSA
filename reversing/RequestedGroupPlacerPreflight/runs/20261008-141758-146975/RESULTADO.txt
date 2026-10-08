@@ -1,0 +1,3 @@
+FALLO: GroupPlacer enum4 baseline fatal
+Cierre normal fallido: 3
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-group-placer-preflight\20261008-141758-146975

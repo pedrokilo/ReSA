@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "pairs": 1536,
+  "six_enum_product": true,
+  "strict_leg_payload_trace_and_AL": {
+    "pairs": 1536,
+    "pairs_per_function": {
+      "CPedGroupPlacer::PlaceGroup": 1536
+    },
+    "all_equal": true,
+    "state_restored": true,
+    "log_sha256": "b2474e812fe69eba08ffe83e09403b6e4ee5b487ca22ca904fd87fa1525b7824",
+    "accepted_and_leg_contracts_checked": true,
+    "six_enum_product_checked": true,
+    "explicit_fixture_payload_and_trace_checked": true
+  },
+  "native_and_DLL_helper_gates_all_pairs": true,
+  "target_helpers52_and_flags_restored": true,
+  "typed_x86_stack_cleanup_bytes": 16,
+  "shim_size": 26,
+  "shim_no_bool_canonicalization": true,
+  "compiled_symbol_proof": "reversing/RequestedGroupPlacerCorrectedV2/Diagnostics/compiled-symbols.json",
+  "compiled_symbol_proof_sha256": "5b7d415c0c46ef83286f170f99157d9dfe962275b7dbb10c35984cad1ee4ac5d",
+  "compiled_body_sha256": [
+    "9d945b23ccc72c30046921c4a4cc93d58409258d84c6553cdf9491365d192aa2",
+    "4f01433c8e7b2d21b2be98ca78968ce35b4fe5b3af0258709a7ccf3731420628"
+  ],
+  "source_sha256": "1136de1961c8de83816033d0edb95e06c2335bdbeb8480bcfa7e1dac9724d4d0",
+  "asi_sha256": "2c002fa78c7908474519a4df82801ebd47c81d5e8c7bf512ac50c5fd11b15c9c",
+  "pdb_sha256": "d5d6e617ce2aabe8521edc5aa3cbdc05cb5061b463153bbc9e543866885cb948",
+  "log_sha256": "b2474e812fe69eba08ffe83e09403b6e4ee5b487ca22ca904fd87fa1525b7824",
+  "natural_exit": true,
+  "exit_code": 0,
+  "scope_limits": "Valid six enum dispatch only; patch collaborators in both native and DLL paths. Enum4 preserves raw noncanonical AL; delegated upperEAX unspecified. No real group creation/pools/actors or collaborator accreditation."
+}

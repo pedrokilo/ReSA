@@ -1,0 +1,7 @@
+{"event":"fixture","iat_original":1947074704,"iat_slot":1925965908,"scope":"valid enum4 dispatcher only; no placement helpers, actor or pool integration"}
+{"allocator":4,"event":"characterization","exact_abi_and_state":true,"expected_raw_eax":0,"origin_low_byte":0,"raw_al":0,"raw_eax":0}
+{"allocator":4,"event":"characterization","exact_abi_and_state":true,"expected_raw_eax":4,"origin_low_byte":4,"raw_al":4,"raw_eax":4}
+{"allocator":4,"event":"characterization","exact_abi_and_state":true,"expected_raw_eax":128,"origin_low_byte":128,"raw_al":128,"raw_eax":128}
+{"allocator":4,"event":"characterization","exact_abi_and_state":true,"expected_raw_eax":252,"origin_low_byte":252,"raw_al":252,"raw_eax":252}
+{"allocator":4,"candidate_gate":true,"event":"before_candidate","expected_raw_al":128,"guard_installed":true}
+{"allocator":4,"candidate_returned":false,"caption":"Unreachable code reached! SEND HALP IMMEDIATELY!","details":"File: game_sa\\PedGroupPlacer.cpp\nIn: CPedGroupPlacer::PlaceGroup:201\n\nDetails:\n<None provided>","event":"error","function":"CPedGroupPlacer::PlaceGroup","iat_restored":true,"messagebox_flags":73746,"reason":"baseline candidate unreachable path captured before modal; fatal specimen, no accreditation","state_restored":true,"unreachable_guard_observed":true}

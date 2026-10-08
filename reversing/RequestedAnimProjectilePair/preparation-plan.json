@@ -1,0 +1,172 @@
+{
+  "prepared_only": true,
+  "compiled": false,
+  "executed": false,
+  "identities": [
+    {
+      "class": "InteriorGroup_c",
+      "fn_name": "ReferenceAnims",
+      "address": "0x005950D0",
+      "type": "S"
+    },
+    {
+      "class": "CProjectileInfo",
+      "fn_name": "IsProjectileInRange",
+      "address": "0x00739860",
+      "type": "S"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "reversing/RequestedAnimProjectilePair/evidence/1510-0x005950D0.json",
+      "sha256": "5eb2dadb1d190062a0e6fbd7673373e3d2884a781385c58a9ab2d31e41429d86",
+      "body_path": "reversing/RequestedAnimProjectilePair/evidence/1510-0x005950D0-body.json"
+    },
+    {
+      "path": "reversing/RequestedAnimProjectilePair/evidence/0313-0x00739860.json",
+      "sha256": "e4ea9eab9462652fae17d73efce665e26c33c8a32cd4242f0411fd6f735c7bf1",
+      "body_path": "reversing/RequestedAnimProjectilePair/evidence/0313-0x00739860-body.json"
+    }
+  ],
+  "reference_anims_product": {
+    "group_type": [
+      0,
+      1,
+      2
+    ],
+    "referenced": [
+      0,
+      1,
+      -1
+    ],
+    "animation_index": [
+      0,
+      1,
+      127,
+      179
+    ],
+    "load_state": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "poison": [
+      0,
+      85,
+      170,
+      255
+    ],
+    "pairs": 720
+  },
+  "projectile_product": {
+    "slot": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "weapon": [
+      0,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      55
+    ],
+    "active": [
+      false,
+      true
+    ],
+    "matrix": [
+      false,
+      true
+    ],
+    "destroy": [
+      false,
+      true
+    ],
+    "fx_nonnull": [
+      false,
+      true
+    ],
+    "position_case": [
+      "center",
+      "xmin",
+      "xmax",
+      "ymin",
+      "ymax",
+      "zmin",
+      "zmax",
+      "below_xmin",
+      "above_xmax",
+      "below_ymin",
+      "above_ymax",
+      "below_zmin",
+      "above_zmax"
+    ],
+    "pairs": 59904
+  },
+  "additional_array_cases": [
+    "none active",
+    "all32 active inrange distinctobjects",
+    "firstandlast inrange + inactive null sentinels",
+    "all32 active excludedweapon",
+    "reversed bounds",
+    "degenerate bounds"
+  ],
+  "required_observations": [
+    "whole InteriorGroupBC bytes",
+    "whole projectileinfo32x24 and pointerarray32x4",
+    "private poolheader and slotstates",
+    "projectilearena/matrix bytes",
+    "trace exact helper order/args/objectidentity",
+    "native and candidate52byte gates",
+    "all hooks flags/vtables/timer globals restored",
+    "FP environment restored",
+    "natural exit0"
+  ],
+  "limits": [
+    "valid InteriorGroup types only; invalid type native uninitialized stack index excluded explicitly",
+    "GetIndex/AddRef/Request/Kill/Radar/World/scalar-delete are traced collaborators, not validated functions",
+    "private projectile arenas carry ABI fields and fake scalar-deletevtable; no genuine actor/object lifecycle",
+    "finite positions and bounds only; NaN/infinity not accredited",
+    "destroy must clear active and Fx ptr, preserve projectile slot pointer as native does; scalar-delete trace flags1 does not deallocate backingarena",
+    "nativepoolGetRef real bounded helper vs candidateinlineGetRef on same private non-owningObjectPool; poolhandle trace independently modeled from slot and rawrefbyte"
+  ],
+  "additional_array_cases_status": "proposed extensions, not implemented in current60624 corpus",
+  "native_pool_helper": "evidence/helper-00465070.json: real signed divide by0x19C and rawrefbyte; private non-owning pool stride matches CCutsceneObject",
+  "expected_pairs": 60624
+}

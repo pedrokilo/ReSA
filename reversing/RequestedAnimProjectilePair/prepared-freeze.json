@@ -1,0 +1,22 @@
+{
+  "prepared_only": true,
+  "compiled": false,
+  "executed": false,
+  "expected_pairs": 60624,
+  "inputs": {
+    "reversing/RequestedAnimProjectilePair/LiveComparison.hpp": "a4913bcb109d6dbec7881c50ee1a441c01078c3c5a39c9cd7f187149dc5813b0",
+    "reversing/RequestedAnimProjectilePair/Preflight.hpp": "801f27ed49284bac3ff834599facfe20c0027b19e69ad0784acbdf294a385d26",
+    "reversing/RequestedAnimProjectilePair/VTableRanges.hpp": "b7f681b3ca57e6ec472d2e330d3f939304c4c712a62b4e2f5ce4768c7483b1d3",
+    "reversing/RequestedAnimProjectilePair/build_probe.py": "4073a2483da157fcd91bae9da48e615a0602eb5c20285171360096abdd47f676",
+    "reversing/RequestedAnimProjectilePair/run_local.py": "8e41633860ff02f2fdcced7d15d3c034ecc3759adaf08018a175a9fd3e9930f3",
+    "reversing/RequestedAnimProjectilePair/preparation-plan.json": "c10b07c94bbf9aef03e79022dc99cea858115670c60832ede4684e3fe6effab8",
+    "reversing/RequestedAnimProjectilePair/evidence/0313-0x00739860-body.json": "6fc9f1a3027aaa4b96cad0ab73a94ea7a143a5f1003d601362d2aa510a016707",
+    "reversing/RequestedAnimProjectilePair/evidence/0313-0x00739860.json": "e4ea9eab9462652fae17d73efce665e26c33c8a32cd4242f0411fd6f735c7bf1",
+    "reversing/RequestedAnimProjectilePair/evidence/1510-0x005950D0-body.json": "157f46a67eb7ff5558820f710bdf46e7d542be2ba8506a26f0179991a99f7376",
+    "reversing/RequestedAnimProjectilePair/evidence/1510-0x005950D0.json": "5eb2dadb1d190062a0e6fbd7673373e3d2884a781385c58a9ab2d31e41429d86",
+    "reversing/RequestedAnimProjectilePair/evidence/helper-00465070.json": "21fcb0647f172dda44861d75f0fa9a44c1f0cd8079bc82e1d39b4e92a97533a1",
+    "reversing/RequestedAnimProjectilePair/evidence/helper-004AA3F0.json": "1f93e4ce49587cea41019a975f2c49d413dccce9350fbd7ffe4699f7f690b5fa"
+  },
+  "scope": "Full32slot selection is exercised one active candidate slot at a time; no simultaneous active32 scenario yet. Both destroy routes included with traced collaborators; real pool handle arithmetic. No real lifecycle or helper accreditation.",
+  "instrumentation_revision": "Explicit syntax repair1 after failed build; corpus60624 and primary evidence unchanged"
+}

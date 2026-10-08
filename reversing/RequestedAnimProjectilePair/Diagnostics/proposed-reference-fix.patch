@@ -1,0 +1,5 @@
+--- a/source/game_sa/Interior/InteriorGroup_c.cpp
++++ b/source/game_sa/Interior/InteriorGroup_c.cpp
+@@
+-    if (CStreaming::IsModelLoaded(IFPToModelId(animBlkIdx))) {
++    if (*reinterpret_cast<const uint8*>(&CAnimManager::ms_aAnimBlocks[animBlkIdx].IsLoaded) == 1) {

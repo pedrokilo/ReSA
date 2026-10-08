@@ -467925,6 +467925,636 @@
       "dependency_review": null,
       "scope": "Historical finite private CPed/calculator/response fixtures only: 3 ped types x64 independent controls (native infinite-health61, irrelevant gang77, mega67, force, member speech and call speech) x8 weapon IDs x12 finite boundaries. All bytes/traces/gates matched independent native-address model; x87 fall sequence exact for this finite corpus (double proof max25 bits). Cleanup, force-death and speech collaborators isolated; no helper/actor integration accreditation. Natural exit0 and full entries/vtables/hooks/timer/cheat/flags/config restoration. Original rejected9936 corpus/model77 preserved. No exhaustive float/NaN/infinity or dependency accreditation.",
       "review_reference": "reversing/RequestedRemainingLeafPairV2/NATIVE_DIAG.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "AimWeaponLeftRight",
+        "address": "0x00541040",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadContext9/validation-summary-context9.json",
+        "sha256": "b2842dd6c77f8c6ef3608f48919cbbb342a9e9147eca269baed1e7dca9e01ce7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 6048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+        "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Retained compiled ASI 8691d8ef0afaa1fd94aec3535218f81b5dd35006b16b2e687f81c6936715a057 with exact source/instrument manifest; independent scoped-case/rawhash/restoration audit. Original1744-difference baseline retained. SharedPad.cpp source epoch changed; earlier historical entries preserved, not re-accredited as current.",
+      "dependency_review": null,
+      "scope": "Historical finite private readonly actor-context CPad selectors: six spatial6048each and three gun15480each. Typed int16/int32/bool-AL returns, compiled wholePad/global outcome comparisons, immutable private ABI actor/task bytes and original/candidate switching exact. Equal rows serialize return bits and predicates, not full payloads; no independent semantic model or helper call-count/order trace. Numeric x87 helper bounded; sourceLook double retains demonstrated normal analog boundary. Private CPed/CVehicle/intelligence are unconstructed field blobs; constructed pure task tags cover noTasks/secondaryUseGun/primaryGang/primaryOther/secondaryOther, no complex chains or primary+secondary combos. Vehicle-null flagged case explicit outside usual invariant. Natural exit0, full allhook/vtable/flag/FP/global/config restoration. No real input, actor lifecycle, arbitrary task virtual side-effect/helper accreditation or dependency validity.",
+      "review_reference": "reversing/RequestedPadContext9/FIXTURES.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "AimWeaponUpDown",
+        "address": "0x005410C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadContext9/validation-summary-context9.json",
+        "sha256": "b2842dd6c77f8c6ef3608f48919cbbb342a9e9147eca269baed1e7dca9e01ce7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 6048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+        "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Retained compiled ASI 8691d8ef0afaa1fd94aec3535218f81b5dd35006b16b2e687f81c6936715a057 with exact source/instrument manifest; independent scoped-case/rawhash/restoration audit. Original1744-difference baseline retained. SharedPad.cpp source epoch changed; earlier historical entries preserved, not re-accredited as current.",
+      "dependency_review": null,
+      "scope": "Historical finite private readonly actor-context CPad selectors: six spatial6048each and three gun15480each. Typed int16/int32/bool-AL returns, compiled wholePad/global outcome comparisons, immutable private ABI actor/task bytes and original/candidate switching exact. Equal rows serialize return bits and predicates, not full payloads; no independent semantic model or helper call-count/order trace. Numeric x87 helper bounded; sourceLook double retains demonstrated normal analog boundary. Private CPed/CVehicle/intelligence are unconstructed field blobs; constructed pure task tags cover noTasks/secondaryUseGun/primaryGang/primaryOther/secondaryOther, no complex chains or primary+secondary combos. Vehicle-null flagged case explicit outside usual invariant. Natural exit0, full allhook/vtable/flag/FP/global/config restoration. No real input, actor lifecycle, arbitrary task virtual side-effect/helper accreditation or dependency validity.",
+      "review_reference": "reversing/RequestedPadContext9/FIXTURES.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "GetDisplayVitalStats",
+        "address": "0x005408B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadContext9/validation-summary-context9.json",
+        "sha256": "b2842dd6c77f8c6ef3608f48919cbbb342a9e9147eca269baed1e7dca9e01ce7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 15480,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+        "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Retained compiled ASI 8691d8ef0afaa1fd94aec3535218f81b5dd35006b16b2e687f81c6936715a057 with exact source/instrument manifest; independent scoped-case/rawhash/restoration audit. Original1744-difference baseline retained. SharedPad.cpp source epoch changed; earlier historical entries preserved, not re-accredited as current.",
+      "dependency_review": null,
+      "scope": "Historical finite private readonly actor-context CPad selectors: six spatial6048each and three gun15480each. Typed int16/int32/bool-AL returns, compiled wholePad/global outcome comparisons, immutable private ABI actor/task bytes and original/candidate switching exact. Equal rows serialize return bits and predicates, not full payloads; no independent semantic model or helper call-count/order trace. Numeric x87 helper bounded; sourceLook double retains demonstrated normal analog boundary. Private CPed/CVehicle/intelligence are unconstructed field blobs; constructed pure task tags cover noTasks/secondaryUseGun/primaryGang/primaryOther/secondaryOther, no complex chains or primary+secondary combos. Vehicle-null flagged case explicit outside usual invariant. Natural exit0, full allhook/vtable/flag/FP/global/config restoration. No real input, actor lifecycle, arbitrary task virtual side-effect/helper accreditation or dependency validity.",
+      "review_reference": "reversing/RequestedPadContext9/FIXTURES.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "GetPedWalkLeftRight-ped",
+        "address": "0x00540DC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadContext9/validation-summary-context9.json",
+        "sha256": "b2842dd6c77f8c6ef3608f48919cbbb342a9e9147eca269baed1e7dca9e01ce7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 6048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+        "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Retained compiled ASI 8691d8ef0afaa1fd94aec3535218f81b5dd35006b16b2e687f81c6936715a057 with exact source/instrument manifest; independent scoped-case/rawhash/restoration audit. Original1744-difference baseline retained. SharedPad.cpp source epoch changed; earlier historical entries preserved, not re-accredited as current.",
+      "dependency_review": null,
+      "scope": "Historical finite private readonly actor-context CPad selectors: six spatial6048each and three gun15480each. Typed int16/int32/bool-AL returns, compiled wholePad/global outcome comparisons, immutable private ABI actor/task bytes and original/candidate switching exact. Equal rows serialize return bits and predicates, not full payloads; no independent semantic model or helper call-count/order trace. Numeric x87 helper bounded; sourceLook double retains demonstrated normal analog boundary. Private CPed/CVehicle/intelligence are unconstructed field blobs; constructed pure task tags cover noTasks/secondaryUseGun/primaryGang/primaryOther/secondaryOther, no complex chains or primary+secondary combos. Vehicle-null flagged case explicit outside usual invariant. Natural exit0, full allhook/vtable/flag/FP/global/config restoration. No real input, actor lifecycle, arbitrary task virtual side-effect/helper accreditation or dependency validity.",
+      "review_reference": "reversing/RequestedPadContext9/FIXTURES.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "GetPedWalkUpDown-ped",
+        "address": "0x00540E20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadContext9/validation-summary-context9.json",
+        "sha256": "b2842dd6c77f8c6ef3608f48919cbbb342a9e9147eca269baed1e7dca9e01ce7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 6048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+        "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Retained compiled ASI 8691d8ef0afaa1fd94aec3535218f81b5dd35006b16b2e687f81c6936715a057 with exact source/instrument manifest; independent scoped-case/rawhash/restoration audit. Original1744-difference baseline retained. SharedPad.cpp source epoch changed; earlier historical entries preserved, not re-accredited as current.",
+      "dependency_review": null,
+      "scope": "Historical finite private readonly actor-context CPad selectors: six spatial6048each and three gun15480each. Typed int16/int32/bool-AL returns, compiled wholePad/global outcome comparisons, immutable private ABI actor/task bytes and original/candidate switching exact. Equal rows serialize return bits and predicates, not full payloads; no independent semantic model or helper call-count/order trace. Numeric x87 helper bounded; sourceLook double retains demonstrated normal analog boundary. Private CPed/CVehicle/intelligence are unconstructed field blobs; constructed pure task tags cover noTasks/secondaryUseGun/primaryGang/primaryOther/secondaryOther, no complex chains or primary+secondary combos. Vehicle-null flagged case explicit outside usual invariant. Natural exit0, full allhook/vtable/flag/FP/global/config restoration. No real input, actor lifecycle, arbitrary task virtual side-effect/helper accreditation or dependency validity.",
+      "review_reference": "reversing/RequestedPadContext9/FIXTURES.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "GetWeapon",
+        "address": "0x00540180",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadContext9/validation-summary-context9.json",
+        "sha256": "b2842dd6c77f8c6ef3608f48919cbbb342a9e9147eca269baed1e7dca9e01ce7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 15480,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+        "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Retained compiled ASI 8691d8ef0afaa1fd94aec3535218f81b5dd35006b16b2e687f81c6936715a057 with exact source/instrument manifest; independent scoped-case/rawhash/restoration audit. Original1744-difference baseline retained. SharedPad.cpp source epoch changed; earlier historical entries preserved, not re-accredited as current.",
+      "dependency_review": null,
+      "scope": "Historical finite private readonly actor-context CPad selectors: six spatial6048each and three gun15480each. Typed int16/int32/bool-AL returns, compiled wholePad/global outcome comparisons, immutable private ABI actor/task bytes and original/candidate switching exact. Equal rows serialize return bits and predicates, not full payloads; no independent semantic model or helper call-count/order trace. Numeric x87 helper bounded; sourceLook double retains demonstrated normal analog boundary. Private CPed/CVehicle/intelligence are unconstructed field blobs; constructed pure task tags cover noTasks/secondaryUseGun/primaryGang/primaryOther/secondaryOther, no complex chains or primary+secondary combos. Vehicle-null flagged case explicit outside usual invariant. Natural exit0, full allhook/vtable/flag/FP/global/config restoration. No real input, actor lifecycle, arbitrary task virtual side-effect/helper accreditation or dependency validity.",
+      "review_reference": "reversing/RequestedPadContext9/FIXTURES.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "LookAroundLeftRight",
+        "address": "0x00540BD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadContext9/validation-summary-context9.json",
+        "sha256": "b2842dd6c77f8c6ef3608f48919cbbb342a9e9147eca269baed1e7dca9e01ce7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 6048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+        "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Retained compiled ASI 8691d8ef0afaa1fd94aec3535218f81b5dd35006b16b2e687f81c6936715a057 with exact source/instrument manifest; independent scoped-case/rawhash/restoration audit. Original1744-difference baseline retained. SharedPad.cpp source epoch changed; earlier historical entries preserved, not re-accredited as current.",
+      "dependency_review": null,
+      "scope": "Historical finite private readonly actor-context CPad selectors: six spatial6048each and three gun15480each. Typed int16/int32/bool-AL returns, compiled wholePad/global outcome comparisons, immutable private ABI actor/task bytes and original/candidate switching exact. Equal rows serialize return bits and predicates, not full payloads; no independent semantic model or helper call-count/order trace. Numeric x87 helper bounded; sourceLook double retains demonstrated normal analog boundary. Private CPed/CVehicle/intelligence are unconstructed field blobs; constructed pure task tags cover noTasks/secondaryUseGun/primaryGang/primaryOther/secondaryOther, no complex chains or primary+secondary combos. Vehicle-null flagged case explicit outside usual invariant. Natural exit0, full allhook/vtable/flag/FP/global/config restoration. No real input, actor lifecycle, arbitrary task virtual side-effect/helper accreditation or dependency validity.",
+      "review_reference": "reversing/RequestedPadContext9/FIXTURES.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "LookAroundUpDown",
+        "address": "0x00540CC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadContext9/validation-summary-context9.json",
+        "sha256": "b2842dd6c77f8c6ef3608f48919cbbb342a9e9147eca269baed1e7dca9e01ce7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 6048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+        "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Retained compiled ASI 8691d8ef0afaa1fd94aec3535218f81b5dd35006b16b2e687f81c6936715a057 with exact source/instrument manifest; independent scoped-case/rawhash/restoration audit. Original1744-difference baseline retained. SharedPad.cpp source epoch changed; earlier historical entries preserved, not re-accredited as current.",
+      "dependency_review": null,
+      "scope": "Historical finite private readonly actor-context CPad selectors: six spatial6048each and three gun15480each. Typed int16/int32/bool-AL returns, compiled wholePad/global outcome comparisons, immutable private ABI actor/task bytes and original/candidate switching exact. Equal rows serialize return bits and predicates, not full payloads; no independent semantic model or helper call-count/order trace. Numeric x87 helper bounded; sourceLook double retains demonstrated normal analog boundary. Private CPed/CVehicle/intelligence are unconstructed field blobs; constructed pure task tags cover noTasks/secondaryUseGun/primaryGang/primaryOther/secondaryOther, no complex chains or primary+secondary combos. Vehicle-null flagged case explicit outside usual invariant. Natural exit0, full allhook/vtable/flag/FP/global/config restoration. No real input, actor lifecycle, arbitrary task virtual side-effect/helper accreditation or dependency validity.",
+      "review_reference": "reversing/RequestedPadContext9/FIXTURES.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "WeaponJustDown",
+        "address": "0x00540250",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadContext9/validation-summary-context9.json",
+        "sha256": "b2842dd6c77f8c6ef3608f48919cbbb342a9e9147eca269baed1e7dca9e01ce7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 15480,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
+        "source/game_sa/PedIntelligence.cpp": "ec66a3ddfd3d058c97f5ddfd81a11b456c5f6ad77a8c737a795745ce01538db7",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Retained compiled ASI 8691d8ef0afaa1fd94aec3535218f81b5dd35006b16b2e687f81c6936715a057 with exact source/instrument manifest; independent scoped-case/rawhash/restoration audit. Original1744-difference baseline retained. SharedPad.cpp source epoch changed; earlier historical entries preserved, not re-accredited as current.",
+      "dependency_review": null,
+      "scope": "Historical finite private readonly actor-context CPad selectors: six spatial6048each and three gun15480each. Typed int16/int32/bool-AL returns, compiled wholePad/global outcome comparisons, immutable private ABI actor/task bytes and original/candidate switching exact. Equal rows serialize return bits and predicates, not full payloads; no independent semantic model or helper call-count/order trace. Numeric x87 helper bounded; sourceLook double retains demonstrated normal analog boundary. Private CPed/CVehicle/intelligence are unconstructed field blobs; constructed pure task tags cover noTasks/secondaryUseGun/primaryGang/primaryOther/secondaryOther, no complex chains or primary+secondary combos. Vehicle-null flagged case explicit outside usual invariant. Natural exit0, full allhook/vtable/flag/FP/global/config restoration. No real input, actor lifecycle, arbitrary task virtual side-effect/helper accreditation or dependency validity.",
+      "review_reference": "reversing/RequestedPadContext9/FIXTURES.md"
+    },
+    {
+      "hook": {
+        "class": "CPedGeometryAnalyser",
+        "fn_name": "ComputeEntityBoundingBoxPlanesUncached",
+        "address": "0x005F1670",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedGeometryPlanesV2/validation-summary.json",
+        "sha256": "67ebb923f0fdf90cd9edca5bf67d3fcf05e93df2d3d39b2ddc23fa406e27b663",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/PedGeometryAnalyser.cpp": "77a918d657ab65d3d6bf1b49bf3b6d03c0cb69f6deeaad24425491f1fe9d3783",
+        "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
+        "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+        "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96"
+      },
+      "source_provenance": "Exact compiled manifest for preserved ASI eca2ad8c2a9b929cbcacdac80a70908874fb03d7d732fb3e02fe129ab834be68 after private x87dot fix; rawlog/enriched/source hashes and independent2048dot models/8192callback traces confirmed. Sourcehelpers/native dependency and failedbaseline explicitly scoped, no extra source/helper accreditation.",
+      "dependency_review": null,
+      "scope": "Historical pregraphics pure geometry buffer function,2048pairs:1024finite planar/sloped/degenerate quadrilaterals x separate normals or exact whole CVector[4] corners alias. Fullarenas/guards/normals/dots exact, source direction traces and8192native-adapter callbacks independently audited; x87PC53 dot model matches both sides, precise named CALLsite/E9 proof checked. Shared originalNormalise59C910 immutable canonicalPE96bytes, DLL entry/body/thunk temporarily redirected with exact jump gates and52byte snapshots/restoration; no global CVector hook activation or Normalise source credit. Readonly globals858B50/858624 and canonical nearest FPcaller environment restored; naturalexit0. No shifted aliases, alternate FPmodes/DAZ/FTZ/NaN/Inf, actors/pools/entity/game integration accreditation. Dependency on original nativehelper remains, no currentdependency review.",
+      "review_reference": "reversing/RequestedGeometryPlanesV2/Diagnostics/corrected-replay-audit.json"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "StopShaking",
+        "address": "0x0053FB50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadMutationNext/validation-summary-six.json",
+        "sha256": "4c90fcaa5a655b86d17d364109bd0fbd682c6723e79e51a7fe7aae65df413fc6",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/KeyboardState.cpp": "1763af39fd0ceeabd3e031d4811476fdc6667eaab443ec0a8d3a3aa13d5f9643",
+        "source/game_sa/KeyboardState.h": "08750ca615338b7d0aba20d6cac05e83c330f99e164a5e9a454e87a424390408",
+        "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
+        "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Exact compiled manifest bound to ASI 5cefe892de72bbec38519579f87d594a731051a63470d119c3e78bafd4c9ddde; preserved lossless raw gzip independently reaudited, full private/global payload and native write masks checked. Native helpers are scope collaborators, no separate validation inferred.",
+      "dependency_review": null,
+      "scope": "Six CPad mutation identities, 5888 cases: StopShaking2048, SetTouched2048, ClearMouseHistory256, ClearKeyBoardHistory256, Clear1024, Initialise256. Exact full308-byte private pad and2624 seeded global bytes incl guards, keyboard enter preserved, mouse floats/padding preserved and all Clear bool combinations. Original-only output masks independently bound to canonical EXE. Pregraphics only; all entries/vtables/flags/globals/FP restored and natural exit0; no helper, OS input or game startup accreditation.",
+      "review_reference": "reversing/RequestedPadMutationNext/FIXTURES-SIX.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "SetTouched",
+        "address": "0x0053F200",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadMutationNext/validation-summary-six.json",
+        "sha256": "4c90fcaa5a655b86d17d364109bd0fbd682c6723e79e51a7fe7aae65df413fc6",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/KeyboardState.cpp": "1763af39fd0ceeabd3e031d4811476fdc6667eaab443ec0a8d3a3aa13d5f9643",
+        "source/game_sa/KeyboardState.h": "08750ca615338b7d0aba20d6cac05e83c330f99e164a5e9a454e87a424390408",
+        "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
+        "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Exact compiled manifest bound to ASI 5cefe892de72bbec38519579f87d594a731051a63470d119c3e78bafd4c9ddde; preserved lossless raw gzip independently reaudited, full private/global payload and native write masks checked. Native helpers are scope collaborators, no separate validation inferred.",
+      "dependency_review": null,
+      "scope": "Six CPad mutation identities, 5888 cases: StopShaking2048, SetTouched2048, ClearMouseHistory256, ClearKeyBoardHistory256, Clear1024, Initialise256. Exact full308-byte private pad and2624 seeded global bytes incl guards, keyboard enter preserved, mouse floats/padding preserved and all Clear bool combinations. Original-only output masks independently bound to canonical EXE. Pregraphics only; all entries/vtables/flags/globals/FP restored and natural exit0; no helper, OS input or game startup accreditation.",
+      "review_reference": "reversing/RequestedPadMutationNext/FIXTURES-SIX.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "ClearMouseHistory",
+        "address": "0x00541BD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadMutationNext/validation-summary-six.json",
+        "sha256": "4c90fcaa5a655b86d17d364109bd0fbd682c6723e79e51a7fe7aae65df413fc6",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/KeyboardState.cpp": "1763af39fd0ceeabd3e031d4811476fdc6667eaab443ec0a8d3a3aa13d5f9643",
+        "source/game_sa/KeyboardState.h": "08750ca615338b7d0aba20d6cac05e83c330f99e164a5e9a454e87a424390408",
+        "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
+        "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Exact compiled manifest bound to ASI 5cefe892de72bbec38519579f87d594a731051a63470d119c3e78bafd4c9ddde; preserved lossless raw gzip independently reaudited, full private/global payload and native write masks checked. Native helpers are scope collaborators, no separate validation inferred.",
+      "dependency_review": null,
+      "scope": "Six CPad mutation identities, 5888 cases: StopShaking2048, SetTouched2048, ClearMouseHistory256, ClearKeyBoardHistory256, Clear1024, Initialise256. Exact full308-byte private pad and2624 seeded global bytes incl guards, keyboard enter preserved, mouse floats/padding preserved and all Clear bool combinations. Original-only output masks independently bound to canonical EXE. Pregraphics only; all entries/vtables/flags/globals/FP restored and natural exit0; no helper, OS input or game startup accreditation.",
+      "review_reference": "reversing/RequestedPadMutationNext/FIXTURES-SIX.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "ClearKeyBoardHistory",
+        "address": "0x0053F1E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadMutationNext/validation-summary-six.json",
+        "sha256": "4c90fcaa5a655b86d17d364109bd0fbd682c6723e79e51a7fe7aae65df413fc6",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/KeyboardState.cpp": "1763af39fd0ceeabd3e031d4811476fdc6667eaab443ec0a8d3a3aa13d5f9643",
+        "source/game_sa/KeyboardState.h": "08750ca615338b7d0aba20d6cac05e83c330f99e164a5e9a454e87a424390408",
+        "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
+        "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Exact compiled manifest bound to ASI 5cefe892de72bbec38519579f87d594a731051a63470d119c3e78bafd4c9ddde; preserved lossless raw gzip independently reaudited, full private/global payload and native write masks checked. Native helpers are scope collaborators, no separate validation inferred.",
+      "dependency_review": null,
+      "scope": "Six CPad mutation identities, 5888 cases: StopShaking2048, SetTouched2048, ClearMouseHistory256, ClearKeyBoardHistory256, Clear1024, Initialise256. Exact full308-byte private pad and2624 seeded global bytes incl guards, keyboard enter preserved, mouse floats/padding preserved and all Clear bool combinations. Original-only output masks independently bound to canonical EXE. Pregraphics only; all entries/vtables/flags/globals/FP restored and natural exit0; no helper, OS input or game startup accreditation.",
+      "review_reference": "reversing/RequestedPadMutationNext/FIXTURES-SIX.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "Clear",
+        "address": "0x00541A70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadMutationNext/validation-summary-six.json",
+        "sha256": "4c90fcaa5a655b86d17d364109bd0fbd682c6723e79e51a7fe7aae65df413fc6",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/KeyboardState.cpp": "1763af39fd0ceeabd3e031d4811476fdc6667eaab443ec0a8d3a3aa13d5f9643",
+        "source/game_sa/KeyboardState.h": "08750ca615338b7d0aba20d6cac05e83c330f99e164a5e9a454e87a424390408",
+        "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
+        "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Exact compiled manifest bound to ASI 5cefe892de72bbec38519579f87d594a731051a63470d119c3e78bafd4c9ddde; preserved lossless raw gzip independently reaudited, full private/global payload and native write masks checked. Native helpers are scope collaborators, no separate validation inferred.",
+      "dependency_review": null,
+      "scope": "Six CPad mutation identities, 5888 cases: StopShaking2048, SetTouched2048, ClearMouseHistory256, ClearKeyBoardHistory256, Clear1024, Initialise256. Exact full308-byte private pad and2624 seeded global bytes incl guards, keyboard enter preserved, mouse floats/padding preserved and all Clear bool combinations. Original-only output masks independently bound to canonical EXE. Pregraphics only; all entries/vtables/flags/globals/FP restored and natural exit0; no helper, OS input or game startup accreditation.",
+      "review_reference": "reversing/RequestedPadMutationNext/FIXTURES-SIX.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "Initialise",
+        "address": "0x00541D90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadMutationNext/validation-summary-six.json",
+        "sha256": "4c90fcaa5a655b86d17d364109bd0fbd682c6723e79e51a7fe7aae65df413fc6",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/KeyboardState.cpp": "1763af39fd0ceeabd3e031d4811476fdc6667eaab443ec0a8d3a3aa13d5f9643",
+        "source/game_sa/KeyboardState.h": "08750ca615338b7d0aba20d6cac05e83c330f99e164a5e9a454e87a424390408",
+        "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
+        "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "source_provenance": "Exact compiled manifest bound to ASI 5cefe892de72bbec38519579f87d594a731051a63470d119c3e78bafd4c9ddde; preserved lossless raw gzip independently reaudited, full private/global payload and native write masks checked. Native helpers are scope collaborators, no separate validation inferred.",
+      "dependency_review": null,
+      "scope": "Six CPad mutation identities, 5888 cases: StopShaking2048, SetTouched2048, ClearMouseHistory256, ClearKeyBoardHistory256, Clear1024, Initialise256. Exact full308-byte private pad and2624 seeded global bytes incl guards, keyboard enter preserved, mouse floats/padding preserved and all Clear bool combinations. Original-only output masks independently bound to canonical EXE. Pregraphics only; all entries/vtables/flags/globals/FP restored and natural exit0; no helper, OS input or game startup accreditation.",
+      "review_reference": "reversing/RequestedPadMutationNext/FIXTURES-SIX.md"
+    },
+    {
+      "hook": {
+        "fn_name": "PlaceGroup",
+        "address": "0x005FD810",
+        "type": "S",
+        "class": "CPedGroupPlacer"
+      },
+      "evidence": {
+        "path": "reversing/RequestedGroupPlacerCorrectedV2/validation-summary.json",
+        "sha256": "7f82e09d2b25c5c870d0ae4865450550edd7ad3be8f003e46e15b7fef491314a",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 1536,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/PedGroupPlacer.cpp": "1136de1961c8de83816033d0edb95e06c2335bdbeb8480bcfa7e1dac9724d4d0",
+        "source/game_sa/PedGroupPlacer.h": "446b8e0181e26701fc2fd52dd9fd8b81a3572616808010b4d40b56d1add22e59",
+        "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorType.h": "c56800d4c3142f2c104fd65cc9ab0b734932834961a78e44a237b2549da7828e",
+        "source/Base.h": "09bd63c8bb483f0f49c4db800fba259ee634a0e7dd4e4c356fbd7050b88d4096"
+      },
+      "source_provenance": "Exact source and bank hashes bound to matching ASI/PDB; full six enum corpus independently audited and compiled naked ABI proof preserved.",
+      "dependency_review": null,
+      "scope": "Historical pregraphics PlaceGroup dispatcher:1536pairs, six valid allocator enums x256 fixtures, 64 aligned origin pointer lowbytes (0..252 step4), primitive ePedType7..16/count1..5 and exact finite CVector inputs. Native+DLL Formation/Chat/Random entries privately patched to identical controlled return0/1 and exact argument traces. Raw AL exact including enum4 values128/252, full512byteorigin arena and placer payload unchanged, strict route/this/args, mode/helper gates and target/helper52bytes plus flags/candados restored; compiled matching-PDB naked shim26bytes preserves default ABI and tail fastcall16bytecleanup, naturalexit0. Delegated EAX upper24 unspecified and excluded. No actual placement/group/pool/actor integration, out-of-domain allocator approval or separate delegate accreditation; no currentdependency review.",
+      "review_reference": "reversing/RequestedGroupPlacerCorrectedV2/Diagnostics/corrected-replay-audit.json"
     }
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "revision": 2,
+  "supersedes": "reversing/RequestedGroupPlacerCorrected",
+  "preserved_original_run": "20261008-142606-803693",
+  "original_exit0_but_runner_failed_unsupported_done": true,
+  "changes": "supported complete terminal and independent strict analyzer; no functional source change",
+  "pairs": 1536
+}

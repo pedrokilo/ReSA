@@ -1,0 +1,7 @@
+{
+  "before_sha256": "ed0efe94bb5b8d45ddc33f456197cdf3dd0cd0885dca28d46d92e170c85a55b8",
+  "after_sha256": "1136de1961c8de83816033d0edb95e06c2335bdbeb8480bcfa7e1dac9724d4d0",
+  "baseline_run": "RequestedGroupPlacerPreflight/runs/20261008-141758-146975",
+  "scope": "MSVC x86 naked member ABI default preserves allocator upper24 and origin pointer low8; typed fastcall tail delegation for enums0,1,2,3,5; delegated upperEAX unspecified and not an equivalence criterion",
+  "compiled_verified": false
+}

@@ -1,0 +1,14 @@
+{
+  "negative_false_contracts_rejected": [
+    "accepted",
+    "switched",
+    "helper_gates",
+    "payload_unchanged",
+    "raw_al_contract",
+    "route_contract"
+  ],
+  "old_raw_log_preserved": true,
+  "adapted_terminal_for_offline_check_only": true,
+  "no_replay_approval": true,
+  "old_log_sha256": "e18819de776d2a5e3712a09c85ff0d202a6d4acaab77fe144e749f555fee90a4"
+}

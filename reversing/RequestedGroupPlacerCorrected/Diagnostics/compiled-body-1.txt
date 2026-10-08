@@ -1,0 +1,109 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGroupPlacerCorrected\artifacts\gta_reversed-group-placer-corrected.asi
+
+File Type: DLL
+
+  11B33DA0: 55                 push        ebp
+  11B33DA1: 8B EC              mov         ebp,esp
+  11B33DA3: 81 EC 00 01 00 00  sub         esp,100h
+  11B33DA9: 53                 push        ebx
+  11B33DAA: 56                 push        esi
+  11B33DAB: 57                 push        edi
+  11B33DAC: 51                 push        ecx
+  11B33DAD: 8D 7D C0           lea         edi,[ebp-40h]
+  11B33DB0: B9 10 00 00 00     mov         ecx,10h
+  11B33DB5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B33DBA: F3 AB              rep stos    dword ptr es:[edi]
+  11B33DBC: 59                 pop         ecx
+  11B33DBD: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  11B33DC0: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11B33DC3: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  11B33DC6: 89 85 00 FF FF FF  mov         dword ptr [ebp+FFFFFF00h],eax
+  11B33DCC: 83 BD 00 FF FF FF  cmp         dword ptr [ebp+FFFFFF00h],5
+            05
+  11B33DD3: 77 5E              ja          11B33E33
+  11B33DD5: 8B 8D 00 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF00h]
+  11B33DDB: FF 24 8D 98 3E B3  jmp         dword ptr [ecx*4+11B33E98h]
+            11
+  11B33DE2: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  11B33DE5: 50                 push        eax
+  11B33DE6: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B33DE9: 51                 push        ecx
+  11B33DEA: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B33DED: 52                 push        edx
+  11B33DEE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11B33DF1: 50                 push        eax
+  11B33DF2: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11B33DF5: E8 0E B3 55 FF     call        1108F108
+  11B33DFA: E9 82 00 00 00     jmp         11B33E81
+  11B33DFF: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  11B33E02: 50                 push        eax
+  11B33E03: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B33E06: 51                 push        ecx
+  11B33E07: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B33E0A: 52                 push        edx
+  11B33E0B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11B33E0E: 50                 push        eax
+  11B33E0F: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11B33E12: E8 F7 E0 53 FF     call        11071F0E
+  11B33E17: EB 68              jmp         11B33E81
+  11B33E19: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  11B33E1C: 50                 push        eax
+  11B33E1D: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B33E20: 51                 push        ecx
+  11B33E21: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B33E24: 52                 push        edx
+  11B33E25: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11B33E28: 50                 push        eax
+  11B33E29: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11B33E2C: E8 28 62 55 FF     call        1108A059
+  11B33E31: EB 4E              jmp         11B33E81
+  11B33E33: 83 EC 1C           sub         esp,1Ch
+  11B33E36: 8B CC              mov         ecx,esp
+  11B33E38: 89 A5 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],esp
+  11B33E3E: 68 20 F4 19 13     push        1319F420h
+  11B33E43: E8 B9 A4 51 FF     call        1104E301
+  11B33E48: 68 CA 00 00 00     push        0CAh
+  11B33E4D: 83 EC 08           sub         esp,8
+  11B33E50: 8B CC              mov         ecx,esp
+  11B33E52: 89 A5 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],esp
+  11B33E58: 68 E8 37 20 13     push        132037E8h
+  11B33E5D: E8 D3 B9 53 FF     call        1106F835
+  11B33E62: 83 EC 08           sub         esp,8
+  11B33E65: 8B CC              mov         ecx,esp
+  11B33E67: 89 A5 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],esp
+  11B33E6D: 68 38 38 20 13     push        13203838h
+  11B33E72: E8 BE B9 53 FF     call        1106F835
+  11B33E77: E8 54 DB FF FF     call        11B319D0
+  11B33E7C: 90                 nop
+  11B33E7D: 33 C0              xor         eax,eax
+  11B33E7F: 75 B2              jne         11B33E33
+  11B33E81: 5F                 pop         edi
+  11B33E82: 5E                 pop         esi
+  11B33E83: 5B                 pop         ebx
+  11B33E84: 81 C4 00 01 00 00  add         esp,100h
+  11B33E8A: 3B EC              cmp         ebp,esp
+  11B33E8C: E8 54 4D 51 FF     call        11048BE5
+  11B33E91: 8B E5              mov         esp,ebp
+  11B33E93: 5D                 pop         ebp
+  11B33E94: C2 10 00           ret         10h
+  11B33E97: 90                 nop
+  11B33E98: E2 3D              loop        11B33ED7
+  11B33E9A: B3 11              mov         bl,11h
+  11B33E9C: E2 3D              loop        11B33EDB
+  11B33E9E: B3 11              mov         bl,11h
+  11B33EA0: FF
+  11B33EA1: 3D B3 11 FF 3D     cmp         eax,3DFF11B3h
+  11B33EA6: B3 11              mov         bl,11h
+  11B33EA8: 33 3E              xor         edi,dword ptr [esi]
+  11B33EAA: B3 11              mov         bl,11h
+  11B33EAC: 19 3E              sbb         dword ptr [esi],edi
+  11B33EAE: B3 11              mov         bl,11h
+  11B33EB0: CC                 int         3
+
+  Summary
+
+     2143000 .text

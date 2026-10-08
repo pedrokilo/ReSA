@@ -1,0 +1,17 @@
+{
+  "asi_sha256": "8127594b3340d2d8a300ad5be0136a34957698fb203e86c33f41a284832f6349",
+  "pdb_sha256": "476f9de56ba82742fb8203ac5fc55f65ef6e32130c925bcf7aae751403036ba7",
+  "base": 268435456,
+  "symbols": [
+    {
+      "name": "CPedGroupPlacer::PlaceGroup",
+      "address": 296959360,
+      "size": 26
+    },
+    {
+      "name": "`anonymous namespace'::PlaceGroupDelegated",
+      "address": 296959392,
+      "size": 272
+    }
+  ]
+}

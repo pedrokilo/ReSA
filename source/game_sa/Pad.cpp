@@ -1127,7 +1127,7 @@ bool CPad::SniperZoomOut() const {
 // todo: Describe our modification
 // 0x540250
 bool CPad::WeaponJustDown(CPed* ped) const {
-    if (DisablePlayerControls || bDisablePlayerDisplayVitalStats)
+    if (DisablePlayerControls || bDisablePlayerFireWeapon)
         return false;
 
     switch (Mode) {
@@ -1243,7 +1243,7 @@ int16 CPad::LookAroundLeftRight(CPed* ped) noexcept {
     }
 
     constexpr auto UNK = 1.3763441f;
-    return static_cast<int16>((static_cast<float>(s1) + (s1 < 0 ? 35.0f : -35.0f)) * UNK);
+    return static_cast<int16>(static_cast<int32>((static_cast<double>(s1) + (s1 < 0 ? 35.0 : -35.0)) * static_cast<double>(UNK)));
 }
 
 // 0x540CC0
@@ -1273,7 +1273,7 @@ int16 CPad::LookAroundUpDown(CPed* ped) noexcept {
     }
 
     constexpr auto UNK = 1.3763441f;
-    return static_cast<int16>((static_cast<float>(s1) + (s1 < 0 ? 35.0f : -35.0f)) * UNK);
+    return static_cast<int16>(static_cast<int32>((static_cast<double>(s1) + (s1 < 0 ? 35.0 : -35.0)) * static_cast<double>(UNK)));
 }
 
 // 0x541290

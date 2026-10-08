@@ -4225,7 +4225,7 @@
   },
   {
     "file": "source/game_sa/Pad.cpp",
-    "sha256": "f96e5776607a1dcc5777b941e9a172c2bb02940a6395fdac91354b2e0437a9eb"
+    "sha256": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56"
   },
   {
     "file": "source/game_sa/Pad.h",
@@ -4285,7 +4285,7 @@
   },
   {
     "file": "source/game_sa/PedGeometryAnalyser.cpp",
-    "sha256": "6105832de48d09479bbaccd1d270e07fdf5f876d4fb1c428049b6a32a82ee7d5"
+    "sha256": "77a918d657ab65d3d6bf1b49bf3b6d03c0cb69f6deeaad24425491f1fe9d3783"
   },
   {
     "file": "source/game_sa/PedGeometryAnalyser.h",
@@ -4317,7 +4317,7 @@
   },
   {
     "file": "source/game_sa/PedGroupPlacer.cpp",
-    "sha256": "ed0efe94bb5b8d45ddc33f456197cdf3dd0cd0885dca28d46d92e170c85a55b8"
+    "sha256": "1136de1961c8de83816033d0edb95e06c2335bdbeb8480bcfa7e1dac9724d4d0"
   },
   {
     "file": "source/game_sa/PedGroupPlacer.h",

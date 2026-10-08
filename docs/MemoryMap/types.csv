@@ -793,8 +793,8 @@ CPedDamageResponse,class,,source/game_sa/PedDamageResponse.h,3,source_type_defin
 CPedDamageResponseCalculator,class,,source/game_sa/PedDamageResponseCalculator.h,9,source_type_definition
 CPedDebugVisualiser,class,,source/game_sa/PedDebugVisualiser.h,7,source_type_definition
 CPedDebugVisualiser::CTextDisplayFlags,class,,source/game_sa/PedDebugVisualiser.h,8,source_type_definition
-GeometryRouteLength355,struct,,source/game_sa/PedGeometryAnalyser.cpp,574,source_type_definition
-RouteTest,struct,,source/game_sa/PedGeometryAnalyser.cpp,714,source_type_definition
+GeometryRouteLength355,struct,,source/game_sa/PedGeometryAnalyser.cpp,596,source_type_definition
+RouteTest,struct,,source/game_sa/PedGeometryAnalyser.cpp,736,source_type_definition
 CPointRoute,class,public notsa::Route<CVector>,source/game_sa/PedGeometryAnalyser.h,17,source_type_definition
 CPedGeometryAnalyser,class,,source/game_sa/PedGeometryAnalyser.h,24,source_type_definition
 CPedGeometryAnalyser::WanderPathClearness,class,uint32,source/game_sa/PedGeometryAnalyser.h,78,source_type_definition

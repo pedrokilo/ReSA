@@ -1,0 +1,40 @@
+--- a/source/game_sa/PedGeometryAnalyser.cpp
++++ b/source/game_sa/PedGeometryAnalyser.cpp
+@@ -352,6 +352,28 @@
+     ComputeEntityBoundingBoxPlanesUncachedAll(zPos, entity, outPlanes, outPlanesDot);
+ }
+ 
++namespace {
++float GeometryPlaneOffset(const CVector* plane, const CVector* previous) {
++    float result;
++    // 0x5F16EC..0x5F171B: retain x87 products/sums until the final float store.
++    __asm {
++        mov ecx, plane
++        mov edx, previous
++        fld dword ptr [edx+8]
++        fmul dword ptr [ecx+8]
++        fld dword ptr [edx+4]
++        fmul dword ptr [ecx+4]
++        faddp st(1), st
++        fld dword ptr [edx]
++        fmul dword ptr [ecx]
++        faddp st(1), st
++        fchs
++        fstp result
++    }
++    return result;
++}
++}
++
+ // 0x5F1670
+ void CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached(float zPos, const CVector* corners, CVector(*outPlanes)[4], float* outPlanesDot) {
+     const CVector* corner2 = &corners[3];
+@@ -366,7 +388,7 @@
+         // point-normal plane equation:
+         // ax + by + cz + d = 0
+         // d = - n . P
+-        outPlanesDot[i] = -DotProduct(plane, *corner2);
++        outPlanesDot[i] = GeometryPlaneOffset(&plane, corner2);
+ 
+         corner2 = &corner;
+     }

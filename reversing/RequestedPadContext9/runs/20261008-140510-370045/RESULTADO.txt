@@ -1,0 +1,3 @@
+FALLO: CPad context nine82728
+Comparacion automatizada completada.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-pad-context9\20261008-140510-370045

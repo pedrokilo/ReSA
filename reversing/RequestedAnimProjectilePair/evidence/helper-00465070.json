@@ -1,0 +1,22 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "address": "0x465070",
+  "bounded_window_bytes": 40,
+  "bytes": "8b018b5424048b49042bd0b8bd2ce213f7eac1fa058bc2c1e81f03d00fb6040ac1e20803c2c20400",
+  "listing": [
+    "0x00465070: mov eax, dword ptr [ecx]",
+    "0x00465072: mov edx, dword ptr [esp + 4]",
+    "0x00465076: mov ecx, dword ptr [ecx + 4]",
+    "0x00465079: sub edx, eax",
+    "0x0046507B: mov eax, 0x13e22cbd",
+    "0x00465080: imul edx",
+    "0x00465082: sar edx, 5",
+    "0x00465085: mov eax, edx",
+    "0x00465087: shr eax, 0x1f",
+    "0x0046508A: add edx, eax",
+    "0x0046508C: movzx eax, byte ptr [edx + ecx]",
+    "0x00465090: shl edx, 8",
+    "0x00465093: add eax, edx",
+    "0x00465095: ret 4"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "counts": {
+    "model_pairs": 2048,
+    "trace_callbacks": 8192,
+    "separate_pairs": 1024,
+    "whole_alias_pairs": 1024
+  },
+  "source_after_sha256": "77a918d657ab65d3d6bf1b49bf3b6d03c0cb69f6deeaad24425491f1fe9d3783",
+  "asi_sha256": "eca2ad8c2a9b929cbcacdac80a70908874fb03d7d732fb3e02fe129ab834be68",
+  "log_sha256": "14aee4c8e0ec10d5a771f6c1be899b18f8802396e079279257e6abb571608c69",
+  "enriched_sha256": "40cdee2f053d5d00ecd92725d56db000ed935815c31a756be46ec39605fd1873",
+  "natural_exit": true,
+  "exit_code": 0,
+  "model_scope": "Reconstruct float32 source direction from original input and after-write wholealias state; recorded native normalization callback output maps byteexactly to both plane normals; PC53 dot model matches every original/candidate dot. Does not independently accredit native Normalise source.",
+  "terminal": {
+    "entries_restored": true,
+    "event": "complete",
+    "fp_environment_restored": true,
+    "globals_restored": true,
+    "manual_helper_entries_restored": true,
+    "native_readonly_unchanged": true,
+    "pairs": 2048,
+    "state_restored": true
+  }
+}

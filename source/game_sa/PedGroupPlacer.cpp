@@ -189,15 +189,34 @@ bool CPedGroupPlacer::PlaceRandomGroup(ePedType type, uint32 numOfPeds, const CV
     return PlaceCircularGroup(type, numOfPeds, origin, true);
 }
 
-// 0x5FD810
-bool CPedGroupPlacer::PlaceGroup(ePedType type, uint32 numOfPeds, const CVector& origin, ePedGroupDefaultTaskAllocatorType allocType) {
+namespace {
+// ECX and the four stack arguments retain the member-call ABI on this tail jump.
+bool __fastcall PlaceGroupDelegated(CPedGroupPlacer* self, void*, ePedType type, uint32 numOfPeds, const CVector& origin, ePedGroupDefaultTaskAllocatorType allocType) {
     using enum ePedGroupDefaultTaskAllocatorType;
     switch (allocType) {
     case FOLLOW_ANY_MEANS:
-    case FOLLOW_LIMITED:   return PlaceFormationGroup(type, numOfPeds, origin, allocType);
+    case FOLLOW_LIMITED: return self->PlaceFormationGroup(type, numOfPeds, origin, allocType);
     case STAND_STILL:
-    case CHAT:             return PlaceChatGroup(type, numOfPeds, origin, allocType);
-    case RANDOM:           return PlaceRandomGroup(type, numOfPeds, origin, allocType);
-    default:               NOTSA_UNREACHABLE();
+    case CHAT: return self->PlaceChatGroup(type, numOfPeds, origin, allocType);
+    case RANDOM: return self->PlaceRandomGroup(type, numOfPeds, origin, allocType);
+    default: NOTSA_UNREACHABLE(); // The entry shim handles the original default route.
+    }
+}
+}
+
+// 0x5FD810
+__declspec(naked) bool CPedGroupPlacer::PlaceGroup(ePedType type, uint32 numOfPeds, const CVector& origin, ePedGroupDefaultTaskAllocatorType allocType) {
+    // The EXE returns the origin pointer byte for allocator 4, including noncanonical
+    // bool representations. A C++ bool conversion would change its raw AL result.
+    __asm {
+        mov eax, [esp + 10h]
+        cmp eax, 5
+        ja originalDefault
+        cmp eax, 4
+        je originalDefault
+        jmp PlaceGroupDelegated
+    originalDefault:
+        mov al, byte ptr [esp + 0Ch]
+        ret 10h
     }
 }

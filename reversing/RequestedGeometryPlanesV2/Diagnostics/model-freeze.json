@@ -1,0 +1,13 @@
+{
+  "status": "fix_applied_uncompiled_by_agent_no_replay_credit",
+  "source_after_sha256": "77a918d657ab65d3d6bf1b49bf3b6d03c0cb69f6deeaad24425491f1fe9d3783",
+  "files": {
+    "reversing/RequestedGeometryPlanesV2/Diagnostics/audit_model.py": "216128aafe24d9dd7fe3416f1a933b4cce03f3ff7cf890a6cb36c1149137c95c",
+    "reversing/RequestedGeometryPlanesV2/Diagnostics/audit-model-results.json": "ec90dee463676a4c70ad938cdde1422251d3c7fb0b59707b8ce6fcbb841bbda7",
+    "reversing/RequestedGeometryPlanesV2/Diagnostics/geometry-plane-offset-proposal.patch": "c08e8f5466b23b12888342aba9cca266b370f4ce13f3e572706fb7eb75d68fd2",
+    "reversing/RequestedGeometryPlanesV2/Diagnostics/proposal-metadata.json": "438c16b112c9f8c735047cb8189c9f4bc83a0cff98bbf9cba90faddb646b6eea",
+    "reversing/RequestedGeometryPlanesV2/Diagnostics/corpus-recommendations.txt": "a66bb688276d5e5fd0f64b9247bfed17267f868db571f9157f8936bae4149a84",
+    "reversing/RequestedGeometryPlanesV2/Diagnostics/PedGeometryAnalyser.pre-fix.cpp.txt": "6105832de48d09479bbaccd1d270e07fdf5f876d4fb1c428049b6a32a82ee7d5",
+    "reversing/RequestedGeometryPlanesV2/Diagnostics/PedGeometryAnalyser.post-docscut-pre-fix.cpp.txt": "6105832de48d09479bbaccd1d270e07fdf5f876d4fb1c428049b6a32a82ee7d5"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "address": "0x4aa3f0",
+  "bounded_window_bytes": 14,
+  "bytes": "568bf1e898ffffffc64651025ec3",
+  "listing": [
+    "0x004AA3F0: push esi",
+    "0x004AA3F1: mov esi, ecx",
+    "0x004AA3F3: call 0x4aa390",
+    "0x004AA3F8: mov byte ptr [esi + 0x51], 2",
+    "0x004AA3FC: pop esi",
+    "0x004AA3FD: ret "
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "status": "wrappers_ready_uncompiled_unexecuted",
+  "files": {
+    "reversing/RequestedGeometryPlanesV2/LiveComparison.hpp": "551571991451fcefcaf7d17a828affad0b0f7be122f555ead39b1935b14947e6",
+    "reversing/RequestedGeometryPlanesV2/NativeNormaliseBytes.hpp": "897a88bee8c76e6a3ac2aecd77f298f29c215a537270d0339d5d876db71f1e62",
+    "reversing/RequestedGeometryPlanesV2/build_probe.py": "ebd76d1dbc3f77f531622c50250c19fb2695966aeb803d942620419414ac7a42",
+    "reversing/RequestedGeometryPlanesV2/run_local.py": "9b21b46f900357b37f44bdc38c1c252e0ff4bba61793780587666f04348b07ec",
+    "reversing/RequestedGeometryPlanesV2/evidence/baseline-preservation-audit.json": "ca1aea808394e5be200a11b001615ef841ee86f0c082f735beac4d9169c52115",
+    "reversing/RequestedGeometryPlanesV2/evidence/baseline-symbols.json": "6c6020467e761d9e1a84488739a811bf4f3fc3e73b45d9356d0ee514c3fecfd5",
+    "reversing/RequestedGeometryPlanesV2/evidence/compiled-callsite-proof.json": "e161f0dcdaa9b55a1f1146d3d6997e76b5dc548a9f96ee1fc13e642330895eb4",
+    "reversing/RequestedGeometryPlanesV2/evidence/compiled-CPedGeometryAnalyser-ComputeEntityBoundingBoxPlanesUncached.asm.txt": "8b1d3813b478437d924c594d8bc0ee727df12c26606ebbfe0819ee2170e3a24b",
+    "reversing/RequestedGeometryPlanesV2/evidence/compiled-CVector-Normalise.asm.txt": "43159173871880f28761bff405dea02d770a623d61b09eccdb19f1bb4d27f764",
+    "reversing/RequestedGeometryPlanesV2/evidence/compiled-CVector-NormaliseAndMag.asm.txt": "b4a724e007f55c8fe260bde063bdf07b57be6adfdbbfad63a9fd9edc493f3e2c",
+    "reversing/RequestedGeometryPlanesV2/README.md": "54cb1efd5524dde6035a08c7baea9004c7405664d490dafc75c629fcd4b93010"
+  },
+  "baseline_asi_sha256": "47cad0300e9cfa1bb40564b9c919150e3a62f640968e8751ae10b0c060efbcc0"
+}

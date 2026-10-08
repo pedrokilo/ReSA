@@ -1,0 +1,3 @@
+FALLO: Geometry planes2048
+Funciones con diferencias: CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached: 1444/2048
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-geometry-planes-v2\20261008-140227-969549

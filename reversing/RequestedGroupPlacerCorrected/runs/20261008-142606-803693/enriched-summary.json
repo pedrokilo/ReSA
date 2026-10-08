@@ -1,0 +1,44 @@
+{
+  "passed": false,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "8127594b3340d2d8a300ad5be0136a34957698fb203e86c33f41a284832f6349",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "error": "GTA termino antes de completar (0).",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "9b1fe452b3a38ad2207876b538fa3639c9a6c1d7",
+    "tested_sources": {
+      "source/game_sa/PedGroupPlacer.cpp": "1136de1961c8de83816033d0edb95e06c2335bdbeb8480bcfa7e1dac9724d4d0",
+      "source/game_sa/PedGroupPlacer.h": "446b8e0181e26701fc2fd52dd9fd8b81a3572616808010b4d40b56d1add22e59",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorType.h": "c56800d4c3142f2c104fd65cc9ab0b734932834961a78e44a237b2549da7828e",
+      "source/Base.h": "09bd63c8bb483f0f49c4db800fba259ee634a0e7dd4e4c356fbd7050b88d4096"
+    },
+    "bank_sources": {
+      "reversing/RequestedGroupPlacerCorrected/LiveComparison.hpp": "01162800bc3a61b4193455b7fd3560664f88383c8c2902d30417b5e44c5ba60f",
+      "reversing/RequestedGroupPlacerCorrected/build_probe.py": "b00894933da47c4eedd7122a3b59efe26c41c02101349f010b7f0dbf4c72d9c3",
+      "reversing/RequestedGroupPlacerCorrected/run_local.py": "4189e0f604ead55926c03b3511015b18dfd3c8986565d82e5a7494219d3f7179",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Pregraphics six valid allocator enums, 256 fixtures each, isolated patched native and DLL Formation/Chat/Random delegates. Raw AL equality and explicit route/arguments/payload gates. Upper EAX on delegated bool routes is unspecified and excluded. No group creation or actor integration.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "f712db027d65a4443ab7323a39f08516b732e399284a8ad35527dcc09047e5b6"
+    },
+    "asi": "8127594b3340d2d8a300ad5be0136a34957698fb203e86c33f41a284832f6349",
+    "pdb": "476f9de56ba82742fb8203ac5fc55f65ef6e32130c925bcf7aae751403036ba7"
+  },
+  "runner_sha256": "4189e0f604ead55926c03b3511015b18dfd3c8986565d82e5a7494219d3f7179"
+}

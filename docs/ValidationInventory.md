@@ -6,10 +6,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 6822 |
+| `validated=1` · evidencia aprobada vinculada | 6839 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 6822 |
-| Sin evidencia aprobada vinculada en este registro | 1624 |
+| Evidencia histórica vinculada; revisión pendiente | 6839 |
+| Sin evidencia aprobada vinculada en este registro | 1607 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -2602,7 +2602,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPPTriPlantBuffer | `IncreaseBufferIndex` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CPPTriPlantBuffer | `SetGrassMaterialCB` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CPPTriPlantBuffer | `SetPlantModelsTab` | [Resumen](../reversing/Data7/validation-summary.json) |
+| CPad | `AimWeaponLeftRight` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
+| CPad | `AimWeaponUpDown` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPad | `CarGunJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `Clear` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
+| CPad | `ClearKeyBoardHistory` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
+| CPad | `ClearMouseHistory` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
 | CPad | `CollectPickupJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `ConversationNoJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `ConversationYesJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
@@ -2620,6 +2625,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `GetCarGunFired` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GetCarGunLeftRight` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GetCarGunUpDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `GetDisplayVitalStats` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPad | `GetDuck` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GetEnterTargeting` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GetExitVehicle` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
@@ -2636,24 +2642,33 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `GetLookRight` | [Resumen](../reversing/RequestedPadShoulderInteraction/validation-summary.json) |
 | CPad | `GetMeleeAttack` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GetPedWalkLeftRight-` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `GetPedWalkLeftRight-ped` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPad | `GetPedWalkUpDown-` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `GetPedWalkUpDown-ped` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPad | `GetSprint` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GetSteeringLeftRight` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GetSteeringUpDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GetTarget` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GetTouchedTimeDelta` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `GetWeapon` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPad | `GroupControlBackJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GroupControlForwardJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `HornJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `Initialise` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
 | CPad | `JumpJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `LastStationJustUp` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `LookAroundLeftRight` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
+| CPad | `LookAroundUpDown` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPad | `MeleeAttackJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `NextStationJustUp` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `SetTouched` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
 | CPad | `ShiftTargetLeftJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `ShiftTargetRightJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `SniperZoomIn` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `SniperZoomOut` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `SprintJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `StopShaking` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
+| CPad | `WeaponJustDown` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPathFind | `ComputeRoute` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
 | CPathFind | `DoPathSearch` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
 | CPathNode | `GetPosition` | [Resumen](../reversing/Pools56/validation-summary.json) |
@@ -2861,6 +2876,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxCentreUncached` | [Resumen](../reversing/RequestedGeometryCentre/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxCornersUncached` | [Resumen](../reversing/GeometryRoutes355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxPlanes` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputeEntityBoundingBoxPlanesUncached` | [Resumen](../reversing/RequestedGeometryPlanesV2/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxSegmentPlanesUncached` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingSphere` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityDirs` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
@@ -2951,6 +2967,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedGroupMembership | `SetLeader` | [Resumen](../reversing/Group18/validation-summary.json) |
 | CPedGroupPlacer | `PlaceChatGroup` | [Resumen](../reversing/GroupPlacerPending/validation-summary.json) |
 | CPedGroupPlacer | `PlaceFormationGroup` | [Resumen](../reversing/GroupPlacerPending/validation-summary.json) |
+| CPedGroupPlacer | `PlaceGroup` | [Resumen](../reversing/RequestedGroupPlacerCorrectedV2/validation-summary.json) |
 | CPedGroupPlacer | `PlaceRandomGroup` | [Resumen](../reversing/GroupPlacerPending/validation-summary.json) |
 | CPedGroups | `Process` | [Resumen](../reversing/Tasks70/validation-summary.json) |
 | CPedGroups | `RemoveGroup` | [Resumen](../reversing/Tasks70/validation-summary.json) |
@@ -7133,7 +7150,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `COnscreenCounterEntry` | 2 | 0 | 2 | 0 |
 | `COnscreenTimer` | 6 | 0 | 6 | 0 |
 | `CPPTriPlantBuffer` | 7 | 0 | 7 | 0 |
-| `CPad` | 75 | 0 | 52 | 23 |
+| `CPad` | 75 | 0 | 67 | 8 |
 | `CPathFind` | 56 | 0 | 2 | 54 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
 | `CPed` | 145 | 0 | 145 | 0 |
@@ -7143,7 +7160,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedAttractorPool` | 1 | 0 | 1 | 0 |
 | `CPedClothesDesc` | 7 | 0 | 7 | 0 |
 | `CPedDamageResponseCalculator` | 6 | 0 | 6 | 0 |
-| `CPedGeometryAnalyser` | 38 | 0 | 30 | 8 |
+| `CPedGeometryAnalyser` | 38 | 0 | 31 | 7 |
 | `CPedGroup` | 12 | 0 | 12 | 0 |
 | `CPedGroupDefaultTaskAllocatorChat` | 2 | 0 | 2 | 0 |
 | `CPedGroupDefaultTaskAllocatorFollowAnyMeans` | 2 | 0 | 2 | 0 |
@@ -7153,7 +7170,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedGroupDefaultTaskAllocatorStandStill` | 2 | 0 | 2 | 0 |
 | `CPedGroupIntelligence` | 26 | 0 | 26 | 0 |
 | `CPedGroupMembership` | 18 | 0 | 18 | 0 |
-| `CPedGroupPlacer` | 4 | 0 | 3 | 1 |
+| `CPedGroupPlacer` | 4 | 0 | 4 | 0 |
 | `CPedGroups` | 2 | 0 | 2 | 0 |
 | `CPedIK` | 9 | 0 | 9 | 0 |
 | `CPedIntelligence` | 52 | 0 | 52 | 0 |

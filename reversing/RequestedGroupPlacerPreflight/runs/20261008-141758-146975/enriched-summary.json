@@ -1,0 +1,53 @@
+{
+  "passed": false,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "816357113fe4ce91bd48de79b8f545ac4d0b2ec19068056446dac706734956e3",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "error": "Cierre normal fallido: 3",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "9b1fe452b3a38ad2207876b538fa3639c9a6c1d7",
+    "tested_sources": {
+      "source/game_sa/PedGroupPlacer.cpp": "ed0efe94bb5b8d45ddc33f456197cdf3dd0cd0885dca28d46d92e170c85a55b8",
+      "source/game_sa/PedGroupPlacer.h": "446b8e0181e26701fc2fd52dd9fd8b81a3572616808010b4d40b56d1add22e59",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorType.h": "c56800d4c3142f2c104fd65cc9ab0b734932834961a78e44a237b2549da7828e",
+      "source/Base.h": "09bd63c8bb483f0f49c4db800fba259ee634a0e7dd4e4c356fbd7050b88d4096"
+    },
+    "bank_sources": {
+      "reversing/RequestedGroupPlacerPreflight/LiveComparison.hpp": "ae1ca4e51afc42b0ae3785b9085e4419ace9024264f726aa1e1543ef2bc1e126",
+      "reversing/RequestedGroupPlacerPreflight/build_probe.py": "fe1619537fc058ef53650d736901b3d45ce8bc4a8667e9e3cc4a43698ab67497",
+      "reversing/RequestedGroupPlacerPreflight/run_local.py": "a1657b11f29dcffcb8804d1f8685e8b65895218a2de407bcc24457d8204fd181",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Pregraphics baseline valid enum4 fatal reproduction. Four native rawEAX characterizations and one candidate specimen. Own ASI MessageBoxA IAT guard logs/restores target/flags/IAT before ExitProcess3, prevents unreachable modal. No placement helpers or actor integration. Not an approval bank.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "88a376afc05d551fb2be84e26a6576809edabad5f34e35e853aabbac543d9b8a"
+    },
+    "asi": "816357113fe4ce91bd48de79b8f545ac4d0b2ec19068056446dac706734956e3",
+    "pdb": "109971f8e65a3010a44d222f6422ee6d5c365d80cbd764142c2e66874304e8b0"
+  },
+  "runner_sha256": "a1657b11f29dcffcb8804d1f8685e8b65895218a2de407bcc24457d8204fd181",
+  "scope": "fatalbaseline notapproval",
+  "expected_exit_code": 3,
+  "baseline_difference_observed": true,
+  "original_characterizations": 4,
+  "state_restored": true,
+  "candidate_returned": false,
+  "log_sha256": "a55f048fd49612fcab288039a05e19424749a4a714ff8d8184deac782ae66384",
+  "reason": "valid enum4 source unreachable; guarded fatal reproduction only",
+  "observed_exit_code": 3
+}

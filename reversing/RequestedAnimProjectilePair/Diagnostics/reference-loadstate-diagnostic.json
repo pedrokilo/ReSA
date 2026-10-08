@@ -1,0 +1,93 @@
+{
+  "passed": false,
+  "diagnostic_only": true,
+  "parent_summary_path": "reversing/RequestedAnimProjectilePair/runs/20261008-142758-927336/enriched-summary.json",
+  "parent_summary_sha256": "a9e0849ec795ecda41d779594925b9a2a404d392f17eced34da1d9bf141a9e15",
+  "function": "InteriorGroup_c::ReferenceAnims",
+  "reference_cases": 720,
+  "reference_differences": 48,
+  "categories": {
+    "loaded1_referenced0": 48
+  },
+  "native_model_equal_all720": true,
+  "first_difference": {
+    "pair": 4,
+    "group": 0,
+    "referenced": 0,
+    "index": 0,
+    "loaded": 1,
+    "poison": 0,
+    "model_trace": [
+      {
+        "event": "anim_index",
+        "index": 0,
+        "name": "int_house",
+        "valid": true
+      },
+      {
+        "event": "anim_ref",
+        "index": 0,
+        "valid": true
+      }
+    ],
+    "original_trace": [
+      {
+        "event": "anim_index",
+        "index": 0,
+        "name": "int_house",
+        "valid": true
+      },
+      {
+        "event": "anim_ref",
+        "index": 0,
+        "valid": true
+      }
+    ],
+    "candidate_trace": [
+      {
+        "event": "anim_index",
+        "index": 0,
+        "name": "int_house",
+        "valid": true
+      },
+      {
+        "event": "request_model",
+        "flags": 8,
+        "model": 25575,
+        "valid": true
+      }
+    ],
+    "byte_differences": [
+      186
+    ]
+  },
+  "native": {
+    "instruction": "0x595123 CMP byte [ECX+0xB5D4B0],1 after ECX=index<<5",
+    "block_array_base": "0xB5D4A0",
+    "block_stride": 32,
+    "IsLoaded_offset": 16,
+    "addresses": [
+      "0xb5d4b0",
+      "0xb5d4d0",
+      "0xb5e490",
+      "0xb5eb10"
+    ]
+  },
+  "candidate_before_fix": {
+    "expression": "CStreaming::IsModelLoaded(IFPToModelId(animBlkIdx))",
+    "info_array_base": "0x8E4CC0",
+    "info_stride": 20,
+    "load_state_offset": 16,
+    "addresses": [
+      "0x961adc",
+      "0x961af0",
+      "0x9624c8",
+      "0x9628d8"
+    ]
+  },
+  "proposed_fix": "Read raw uint8 object representation of CAnimManager::ms_aAnimBlocks[index].IsLoaded and compare exactly1; preserve native noncanonical2/3/4 semantics. No source edit applied.",
+  "limits": "Old mixed attempt timed out; no restored/naturalexit evidence, hence not an approval of any function. Fresh mixed replay remains pending.720diagnosis is complete independent subset, not accreditation.",
+  "source_before_path": "source/game_sa/Interior/InteriorGroup_c.cpp",
+  "source_before_sha256": "ad44c3da6af51047dfa34f68d7f047b258c11d6e681e08ce4cfaf25c772d68e8",
+  "audit_script": "reversing/RequestedAnimProjectilePair/Diagnostics/audit_reference.py"
+}

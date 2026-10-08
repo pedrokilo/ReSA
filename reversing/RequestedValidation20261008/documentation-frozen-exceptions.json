@@ -1,5 +1,5 @@
 {
-  "snapshot": "6822 doc refresh; corpus.inputs and prepared-freeze schemas included",
+  "snapshot": "6839 documentary checkpoint; accepted/live and older preparation archive epochs distinguished",
   "manifests_scanned": 2296,
   "frozen_markdown_exceptions": {
     "reversing/RequestedGeometryCentre/README.md": {
@@ -32,12 +32,6 @@
         "reversing/RequestedPadShoulderInteraction/runs/20261008-131300-139576/enriched-summary.json",
         "reversing/RequestedPadShoulderInteraction/runs/20261008-131626-078538/enriched-summary.json",
         "reversing/RequestedPadShoulderInteraction/validation-summary.json"
-      ]
-    },
-    "reversing/RequestedParallelReplay/TaskCtorDtor/FIXTURES.md": {
-      "sha256": "cf755a7dae602c849a7a6f1a6f3969daf78a0b15ec1550c9514a72a097748521",
-      "referenced_by": [
-        "reversing/RequestedParallelReplay/TaskCtorDtor/bank-freeze.json"
       ]
     },
     "reversing/RequestedTaskTypeSix/README.md": {
@@ -169,6 +163,37 @@
       "referenced_by": [
         "reversing/RequestedPadContext9/corpus-frozen.json"
       ]
+    },
+    "reversing/RequestedPadMutationNext/FIXTURES-SIX.md": {
+      "sha256": "117139709a0148257f777ac46cde9c4968a9f21e7f450d79d630a09d5a03ead9",
+      "referenced_by": [
+        "reversing/RequestedPadMutationNext/corpus-six-frozen.json"
+      ]
+    },
+    "reversing/RequestedPadMutationNext/PROPOSAL.md": {
+      "sha256": "df8f6a317cb1853f867edb42b4f6be198ea609969dfd4c6e443a986ccb67c1ab",
+      "referenced_by": [
+        "reversing/RequestedPadMutationNext/corpus-six-frozen.json"
+      ]
+    },
+    "reversing/RequestedParallelReplay/TaskCtorDtor/preparation-archive/822866cade747081c4ccd16d3eea21d24c237a5459dbc1b7434137c236edfbde/FIXTURES.md": {
+      "sha256": "822866cade747081c4ccd16d3eea21d24c237a5459dbc1b7434137c236edfbde",
+      "referenced_by": [
+        "reversing/RequestedParallelReplay/TaskCtorDtor/bank-freeze.json"
+      ],
+      "original_document_path": "reversing/RequestedParallelReplay/TaskCtorDtor/FIXTURES.md",
+      "epoch": "prepared_not_built_not_executed; old relative freeze bound to preserved archive, not later live document"
+    }
+  },
+  "released_documentary_exceptions": {
+    "reversing/RequestedParallelReplay/TaskCtorDtor/FIXTURES.md": {
+      "previous_document_sha256": "cf755a7dae602c849a7a6f1a6f3969daf78a0b15ec1550c9514a72a097748521",
+      "reason": "No accepted manifest binds later document; current prefix may update. Original prepared822 remains frozen at historical archive.",
+      "preserved_original": {
+        "path": "reversing/RequestedParallelReplay/TaskCtorDtor/bank-freeze.json",
+        "bound_sha256": "822866cade747081c4ccd16d3eea21d24c237a5459dbc1b7434137c236edfbde",
+        "preserved_document_path": "reversing/RequestedParallelReplay/TaskCtorDtor/preparation-archive/822866cade747081c4ccd16d3eea21d24c237a5459dbc1b7434137c236edfbde/FIXTURES.md"
+      }
     }
   }
 }

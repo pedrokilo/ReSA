@@ -1,0 +1,130 @@
+{
+  "static_only": true,
+  "selected": 9,
+  "entries": [
+    {
+      "class": "CPad",
+      "function": "Clear",
+      "catalogue_address": "0x00541A70",
+      "type": "S",
+      "procedure": "0x00541A70",
+      "ok": true,
+      "evidence_id": "ev_ff6a185dc1b2caa107f0dc18d701b6072d0b0652c97407593c2885af7cd865cb",
+      "path": "0533-0x00541A70.json",
+      "evidence_sha256": "dacfb9c003740d44f09664708a6df374506ae759b3314f692712821c946f4413",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/Clear.exe.json"
+    },
+    {
+      "class": "CPad",
+      "function": "ClearKeyBoardHistory",
+      "catalogue_address": "0x0053F1E0",
+      "type": "S",
+      "procedure": "0x0053F1E0",
+      "ok": true,
+      "evidence_id": "ev_fdc2a1b429d789714f8556e2c9a3b74f16ae781ed6ced4f2eef4d5589fe08ebd",
+      "path": "0534-0x0053F1E0.json",
+      "evidence_sha256": "a2d02e9393e64b1df52c96a861367c902829d44214eeb9982b3e5dfc3a47f6f8",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/ClearKeyBoardHistory.exe.json"
+    },
+    {
+      "class": "CPad",
+      "function": "ClearMouseHistory",
+      "catalogue_address": "0x00541BD0",
+      "type": "S",
+      "procedure": "0x00541BD0",
+      "ok": true,
+      "evidence_id": "ev_777b64331673fcd1640d95372dac09d61b30d3f573620cb5e4d1c8e38905605c",
+      "path": "0535-0x00541BD0.json",
+      "evidence_sha256": "3b93ca74b0278b8990ddbd12817f416792392619c474a22026d2e8aac832035f",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/ClearMouseHistory.exe.json"
+    },
+    {
+      "class": "CPad",
+      "function": "Initialise",
+      "catalogue_address": "0x00541D90",
+      "type": "S",
+      "procedure": "0x00541D90",
+      "ok": true,
+      "evidence_id": "ev_622c36b67a2ddc1ee1a549cc8d137207d41dab1ca3d9475db19ea9f0424bc52c",
+      "path": "0582-0x00541D90.json",
+      "evidence_sha256": "a61c6bcc3beb3004fea28fb49d32ada6fce0efce53c8ee37f6d36c1f01cf86ef",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/Initialise.exe.json"
+    },
+    {
+      "class": "CPad",
+      "function": "ReconcileTwoControllersInput",
+      "catalogue_address": "0x0053F530",
+      "type": "S",
+      "procedure": "0x0053F530",
+      "ok": true,
+      "evidence_id": "ev_6234aff4f177648fa86f8713e9398cde701f3b9fa6f0c987b45e7faf382fec22",
+      "path": "0591-0x0053F530.json",
+      "evidence_sha256": "ad3f746ce0146587435e5df1690789cf7b68c7bf216ba831deff849faf3afaa9",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/ReconcileTwoControllersInput.exe.json"
+    },
+    {
+      "class": "CPad",
+      "function": "SetTouched",
+      "catalogue_address": "0x0053F200",
+      "type": "S",
+      "procedure": "0x0053F200",
+      "ok": true,
+      "evidence_id": "ev_4fbc9e068de86424d3334375f6fbcaf5087244c2d1200875e423778131107792",
+      "path": "0592-0x0053F200.json",
+      "evidence_sha256": "28c4a804330e9aba6ddb03a12a231d98dfd885d0a502b89f5f27e3dc24c38ff2",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/SetTouched.exe.json"
+    },
+    {
+      "class": "CPad",
+      "function": "StartShake",
+      "catalogue_address": "0x0053F920",
+      "type": "S",
+      "procedure": "0x0053F920",
+      "ok": true,
+      "evidence_id": "ev_666175cf8c9e7e2579c326edc713825046f23db72e3b2fb38612d818e2f15c9a",
+      "path": "0598-0x0053F920.json",
+      "evidence_sha256": "14cf4a9ade26f210517e9739b84a69f68a31c907d5425817fd7c2abbacadd00f",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/StartShake.exe.json"
+    },
+    {
+      "class": "CPad",
+      "function": "StopShaking",
+      "catalogue_address": "0x0053FB50",
+      "type": "S",
+      "procedure": "0x0053FB50",
+      "ok": true,
+      "evidence_id": "ev_52764b565463fb282b58250c3f3a4f97a10af13f5a6a7d54fd128d0ac990042c",
+      "path": "0601-0x0053FB50.json",
+      "evidence_sha256": "41d2b0cfed578d0d85ba5866ee6e7872b46135e81a167fead8efe71c051d8119",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/StopShaking.exe.json"
+    },
+    {
+      "class": "CPad",
+      "function": "Update",
+      "catalogue_address": "0x00541C40",
+      "type": "S",
+      "procedure": "0x00541C40",
+      "ok": true,
+      "evidence_id": "ev_1a31a88a2f176c451f910da8805a45e73799921203f01d9c047494a7801f17c9",
+      "path": "0602-0x00541C40.json",
+      "evidence_sha256": "0a301e55ac91805f1df13ddd1c6eb415df3eefbd4f28f4396437446aa63ed605",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/Update.exe.json"
+    }
+  ],
+  "sources": {
+    "source/game_sa/Pad.cpp": "f96e5776607a1dcc5777b941e9a172c2bb02940a6395fdac91354b2e0437a9eb",
+    "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+    "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+    "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+    "source/game_sa/KeyboardState.cpp": "1763af39fd0ceeabd3e031d4811476fdc6667eaab443ec0a8d3a3aa13d5f9643",
+    "source/game_sa/KeyboardState.h": "08750ca615338b7d0aba20d6cac05e83c330f99e164a5e9a454e87a424390408",
+    "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
+    "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3",
+    "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+    "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+    "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
+  },
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "compiled": false,
+  "runtime_validated": false
+}

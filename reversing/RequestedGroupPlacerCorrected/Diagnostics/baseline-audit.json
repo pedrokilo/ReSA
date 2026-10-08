@@ -1,0 +1,16 @@
+{
+  "baseline": "reversing/RequestedGroupPlacerPreflight/runs/20261008-141758-146975",
+  "log_sha256": "a55f048fd49612fcab288039a05e19424749a4a714ff8d8184deac782ae66384",
+  "raw_al_observed": [
+    0,
+    4,
+    128,
+    252
+  ],
+  "enum4_valid": true,
+  "candidate_fatal_guard": true,
+  "exit_code": 3,
+  "state_and_iat_restored": true,
+  "bool_abi": "rawAL comparison only on delegating branches; enum4 fullEAX characterization observed; avoid bool canonicalization",
+  "corrected_scope": "1536pairs six enumerators x256 isolated delegatefixtures; no actor/group integration; compiled shim inspection required before replay"
+}

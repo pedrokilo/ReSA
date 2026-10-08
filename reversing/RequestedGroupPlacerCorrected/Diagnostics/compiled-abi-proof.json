@@ -1,0 +1,38 @@
+{
+  "asi_sha256": "8127594b3340d2d8a300ad5be0136a34957698fb203e86c33f41a284832f6349",
+  "pdb_sha256": "476f9de56ba82742fb8203ac5fc55f65ef6e32130c925bcf7aae751403036ba7",
+  "source_sha256": "1136de1961c8de83816033d0edb95e06c2335bdbeb8480bcfa7e1dac9724d4d0",
+  "shim_address": "0x11b33d80",
+  "shim_size": 26,
+  "shim_hex": "8b44241083f805770a83f8047405e90d0000008a44240cc21000",
+  "no_prologue_or_bool_canonicalization": true,
+  "default_rawAL_pointerByte_upperEAX_preserved": true,
+  "ret_stack_bytes": 16,
+  "delegation_tailjump": [
+    "0x11b33d8e",
+    "0x11b33da0"
+  ],
+  "helper_address": "0x11b33da0",
+  "helper_four_stack_args_and_ECX_self": true,
+  "helper_preserves_ebx_esi_edi_ebp": true,
+  "helper_ret_stack_bytes": 16,
+  "delegation_calls": {
+    "formation": [
+      "0x1108f108",
+      "0x11b33560"
+    ],
+    "chat": [
+      "0x11071f0e",
+      "0x11b327e0"
+    ],
+    "random": [
+      "0x1108a059",
+      "0x11b33f00"
+    ]
+  },
+  "body_files_sha256": {
+    "compiled-body-0.txt": "a4f16dee00488c180e990b7e0be94ddcc681af3369c0dd23f078d6683261f089",
+    "compiled-body-1.txt": "041881a8b51e364d414ce79f963f8cac85b1f15582101885f92a04d090633c4f"
+  },
+  "note": "26byte shim, not13; preserves original rawdefault ABI. Typed delegated result compares AL; upperEAX not required."
+}
