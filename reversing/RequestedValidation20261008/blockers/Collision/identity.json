@@ -1,0 +1,16 @@
+{
+  "exe_path": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta_sa.exe",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "start": "0x41A5A0",
+  "end_exclusive": "0x41A811",
+  "size": 625,
+  "function_sha256": "0a875b4a749021293a9b5956f58b406fd00d75a555c766bf1a2d51329d33f1ce",
+  "decoder": "capstone 5.0.7",
+  "source_path": "source/game_sa/Collision/Collision.cpp",
+  "source_sha256": "6152fe2b71b1e83c19fad3e2938ffe5d36f19eef8035cc73c97313274abce5a1",
+  "historical_pseudocode_error": {
+    "cls": "CCollision",
+    "fn": "SphereVsEntity",
+    "error": "{\"code\":\"invalid_request\",\"category\":\"invalid_input\",\"message\":\"Analysis input is invalid. Check the arguments and try again.\",\"retryable\":true,\"remediation\":{\"action\":\"Correct the listed arguments and retry.\"}}"
+  }
+}

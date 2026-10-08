@@ -1,0 +1,66 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"error\":{\"code\":\"provider_unavailable\",\"category\":\"unavailable\",\"message\":\"The selected analysis provider is unavailable. Review the reported local diagnostics or run `rea doctor`, then retry.\",\"retryable\":true,\"remediation\":{\"action\":\"The selected analysis provider is unavailable. Review the reported local diagnostics or run `rea doctor`, then retry.\"},\"details\":{\"operation\":\"analyze_function\",\"selection_reason\":\"provider_unavailable\",\"requested_provider_id\":\"auto\",\"candidate_ids\":[\"ghidra\",\"hopper\",\"ida\"],\"rejections\":[{\"provider_id\":\"ghidra\",\"code\":\"architecture_unsupported\",\"reason\":\"This local REA fork accepts native x86-64 PE applications and the hash-bound ReIV GTAIV x86 reference only.\",\"diagnostics\":{\"host_platform\":\"win32\",\"target_kind\":\"executable\",\"target_format\":\"pe\",\"architecture\":\"x86\",\"available_architectures\":[\"x86\"],\"executable_role\":\"application\",\"managed\":false}},{\"provider_id\":\"hopper\",\"code\":\"unsupported_host\",\"reason\":\"Hopper integration is not supported on win32.\",\"diagnostics\":{\"launcher_path\":\"/Applications/Hopper Disassembler.app/Contents/MacOS/hopper\",\"platform\":\"win32\"}},{\"provider_id\":\"ida\",\"code\":\"not_configured\",\"reason\":\"Set REA_IDA_MCP_CONFIG to an upstream IDA MCP JSON registration; see docs/ida-provider.md.\",\"diagnostics\":{\"configured\":false,\"live_connection_probed\":false}}]}}}"
+    }
+  ],
+  "structuredContent": {
+    "error": {
+      "code": "provider_unavailable",
+      "category": "unavailable",
+      "message": "The selected analysis provider is unavailable. Review the reported local diagnostics or run `rea doctor`, then retry.",
+      "retryable": true,
+      "remediation": {
+        "action": "The selected analysis provider is unavailable. Review the reported local diagnostics or run `rea doctor`, then retry."
+      },
+      "details": {
+        "operation": "analyze_function",
+        "selection_reason": "provider_unavailable",
+        "requested_provider_id": "auto",
+        "candidate_ids": [
+          "ghidra",
+          "hopper",
+          "ida"
+        ],
+        "rejections": [
+          {
+            "provider_id": "ghidra",
+            "code": "architecture_unsupported",
+            "reason": "This local REA fork accepts native x86-64 PE applications and the hash-bound ReIV GTAIV x86 reference only.",
+            "diagnostics": {
+              "host_platform": "win32",
+              "target_kind": "executable",
+              "target_format": "pe",
+              "architecture": "x86",
+              "available_architectures": [
+                "x86"
+              ],
+              "executable_role": "application",
+              "managed": false
+            }
+          },
+          {
+            "provider_id": "hopper",
+            "code": "unsupported_host",
+            "reason": "Hopper integration is not supported on win32.",
+            "diagnostics": {
+              "launcher_path": "/Applications/Hopper Disassembler.app/Contents/MacOS/hopper",
+              "platform": "win32"
+            }
+          },
+          {
+            "provider_id": "ida",
+            "code": "not_configured",
+            "reason": "Set REA_IDA_MCP_CONFIG to an upstream IDA MCP JSON registration; see docs/ida-provider.md.",
+            "diagnostics": {
+              "configured": false,
+              "live_connection_probed": false
+            }
+          }
+        ]
+      }
+    }
+  },
+  "isError": true
+}
