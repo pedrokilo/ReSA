@@ -1,0 +1,39 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV3\artifacts\gta_reversed-geometry-wrappers-five-v3.asi
+
+File Type: DLL
+
+  11B2A370: 55                 push        ebp
+  11B2A371: 8B EC              mov         ebp,esp
+  11B2A373: 81 EC CC 00 00 00  sub         esp,0CCh
+  11B2A379: 53                 push        ebx
+  11B2A37A: 56                 push        esi
+  11B2A37B: 57                 push        edi
+  11B2A37C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11B2A37F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11B2A382: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11B2A385: 89 08              mov         dword ptr [eax],ecx
+  11B2A387: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11B2A38A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11B2A38D: 89 48 04           mov         dword ptr [eax+4],ecx
+  11B2A390: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11B2A393: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2A396: 89 48 08           mov         dword ptr [eax+8],ecx
+  11B2A399: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11B2A39C: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  11B2A39F: 89 48 0C           mov         dword ptr [eax+0Ch],ecx
+  11B2A3A2: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11B2A3A5: 5F                 pop         edi
+  11B2A3A6: 5E                 pop         esi
+  11B2A3A7: 5B                 pop         ebx
+  11B2A3A8: 8B E5              mov         esp,ebp
+  11B2A3AA: 5D                 pop         ebp
+  11B2A3AB: C2 10 00           ret         10h
+  11B2A3AE: CC                 int         3
+
+  Summary
+
+     2153000 .text

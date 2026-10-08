@@ -1,0 +1,3 @@
+APROBADO: ReferenceAnims720
+Comparacion automatizada completada.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-reference-anims-corrected\20261008-151017-318027

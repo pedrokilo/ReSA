@@ -1,0 +1,12 @@
+Versión de MSBuild 18.10.1-1.26427.6+3cd27c13e para .NET Framework
+
+  WinMain.cpp
+D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFive\FixtureContracts.hpp(34,35): error C2593: 'operator =' es ambiguo [D:\Original\gta-reversed-master\build\source\gta_reversed.vcxproj]
+  (compilando archivo de origen "../../source/app/platform/win/WinMain.cpp")
+      D:\Original\gta-reversed-master\source\game_sa\Core\Vector.h(88,14):
+      puede ser 'CVector &CVector::operator =(const CVector &)'
+      D:\Original\gta-reversed-master\source\game_sa\Core\Vector.h(82,14):
+      o       'CVector &CVector::operator =(const RwV3d &)'
+      D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFive\FixtureContracts.hpp(34,35):
+      al hacer coincidir la lista de argumentos '(CVector, initializer list)'
+  

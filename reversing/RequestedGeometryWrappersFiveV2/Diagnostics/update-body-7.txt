@@ -1,0 +1,126 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV2\artifacts\gta_reversed-geometry-wrappers-five-v2.asi
+
+File Type: DLL
+
+  1134D430: 55                 push        ebp
+  1134D431: 8B EC              mov         ebp,esp
+  1134D433: 6A FF              push        0FFFFFFFFh
+  1134D435: 68 25 0C 0A 13     push        130A0C25h
+  1134D43A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1134D440: 50                 push        eax
+  1134D441: 81 EC E4 00 00 00  sub         esp,0E4h
+  1134D447: 53                 push        ebx
+  1134D448: 56                 push        esi
+  1134D449: 57                 push        edi
+  1134D44A: 8D 7D D0           lea         edi,[ebp-30h]
+  1134D44D: B9 09 00 00 00     mov         ecx,9
+  1134D452: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1134D457: F3 AB              rep stos    dword ptr es:[edi]
+  1134D459: A1 40 4A 69 13     mov         eax,dword ptr ds:[13694A40h]
+  1134D45E: 33 C5              xor         eax,ebp
+  1134D460: 50                 push        eax
+  1134D461: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1134D464: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1134D46A: C7 85 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],0
+            00 00 00 00
+  1134D474: C7 45 FC 01 00 00  mov         dword ptr [ebp-4],1
+            00
+  1134D47B: 8D 45 18           lea         eax,[ebp+18h]
+  1134D47E: 50                 push        eax
+  1134D47F: 8D 4D 0C           lea         ecx,[ebp+0Ch]
+  1134D482: 51                 push        ecx
+  1134D483: E8 99 BF D4 FF     call        11099421
+  1134D488: 83 C4 08           add         esp,8
+  1134D48B: 8D 45 0C           lea         eax,[ebp+0Ch]
+  1134D48E: 50                 push        eax
+  1134D48F: E8 AD B2 D0 FF     call        11058741
+  1134D494: 83 C4 04           add         esp,4
+  1134D497: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1134D49A: 8D 45 18           lea         eax,[ebp+18h]
+  1134D49D: 50                 push        eax
+  1134D49E: E8 87 52 D4 FF     call        1109272A
+  1134D4A3: 83 C4 04           add         esp,4
+  1134D4A6: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1134D4A9: EB 09              jmp         1134D4B4
+  1134D4AB: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1134D4AE: 83 C0 08           add         eax,8
+  1134D4B1: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1134D4B4: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1134D4B7: 3B 45 E0           cmp         eax,dword ptr [ebp-20h]
+  1134D4BA: 74 17              je          1134D4D3
+  1134D4BC: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1134D4BF: 50                 push        eax
+  1134D4C0: 8D 4D 24           lea         ecx,[ebp+24h]
+  1134D4C3: E8 3A 5D D3 FF     call        11083202
+  1134D4C8: 0F B6 C8           movzx       ecx,al
+  1134D4CB: 85 C9              test        ecx,ecx
+  1134D4CD: 74 02              je          1134D4D1
+  1134D4CF: EB 02              jmp         1134D4D3
+  1134D4D1: EB D8              jmp         1134D4AB
+  1134D4D3: 8D 45 EC           lea         eax,[ebp-14h]
+  1134D4D6: 50                 push        eax
+  1134D4D7: 8D 4D 0C           lea         ecx,[ebp+0Ch]
+  1134D4DA: 51                 push        ecx
+  1134D4DB: E8 29 E0 D0 FF     call        1105B509
+  1134D4E0: 83 C4 08           add         esp,8
+  1134D4E3: 8D 45 0C           lea         eax,[ebp+0Ch]
+  1134D4E6: 50                 push        eax
+  1134D4E7: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1134D4EA: E8 F5 25 D3 FF     call        1107FAE4
+  1134D4EF: 8B 8D 14 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF14h]
+  1134D4F5: 83 C9 01           or          ecx,1
+  1134D4F8: 89 8D 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],ecx
+  1134D4FE: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  1134D502: 8D 4D 0C           lea         ecx,[ebp+0Ch]
+  1134D505: E8 60 6A D1 FF     call        11063F6A
+  1134D50A: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1134D511: 8D 4D 18           lea         ecx,[ebp+18h]
+  1134D514: E8 51 6A D1 FF     call        11063F6A
+  1134D519: 90                 nop
+  1134D51A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1134D51D: 52                 push        edx
+  1134D51E: 8B CD              mov         ecx,ebp
+  1134D520: 50                 push        eax
+  1134D521: 8D 15 50 D5 34 11  lea         edx,ds:[1134D550h]
+  1134D527: E8 0B 3F D0 FF     call        11051437
+  1134D52C: 58                 pop         eax
+  1134D52D: 5A                 pop         edx
+  1134D52E: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1134D531: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1134D538: 59                 pop         ecx
+  1134D539: 5F                 pop         edi
+  1134D53A: 5E                 pop         esi
+  1134D53B: 5B                 pop         ebx
+  1134D53C: 81 C4 F0 00 00 00  add         esp,0F0h
+  1134D542: 3B EC              cmp         ebp,esp
+  1134D544: E8 A6 E6 CF FF     call        1104BBEF
+  1134D549: 8B E5              mov         esp,ebp
+  1134D54B: 5D                 pop         ebp
+  1134D54C: C3                 ret
+  1134D54D: 0F 1F 00           nop         dword ptr [eax]
+  1134D550: 01 00              add         dword ptr [eax],eax
+  1134D552: 00 00              add         byte ptr [eax],al
+  1134D554: 58                 pop         eax
+  1134D555: D5 34              aadb        34h
+  1134D557: 11 EC              adc         esp,ebp
+  1134D559: FF
+  1134D55A: FF
+  1134D55B: FF 04 00           inc         dword ptr [eax+eax]
+  1134D55E: 00 00              add         byte ptr [eax],al
+  1134D560: 64 D5 34           aadb        34h
+  1134D563: 11 5F 55           adc         dword ptr [edi+55h],ebx
+  1134D566: 46                 inc         esi
+  1134D567: 69
+  1134D568: 72 73              jb          1134D5DD
+  1134D56A: 74 00              je          1134D56C
+  1134D56C: CC                 int         3
+
+  Summary
+
+     214A000 .text

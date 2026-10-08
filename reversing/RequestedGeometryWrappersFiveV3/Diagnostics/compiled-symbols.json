@@ -1,0 +1,137 @@
+{
+  "asi_sha256": "7310777cdb24a960977bf160fe07f80433df9657b90dd9bafe617b268ed166f7",
+  "pdb_sha256": "587e6e4c14ac990c6cff370b54bfe3ba189ee968eb20eda8a9fd6d3393c7b86f",
+  "base": 268435456,
+  "symbols": [
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanesUncachedAll",
+      "address": 296935664,
+      "size": 211
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncachedAll",
+      "address": 296934960,
+      "size": 172
+    },
+    {
+      "name": "`CPedGeometryAnalyser::ComputeEntityBoundingBoxCornersUncached'::`10'::<lambda_1>::<lambda_1>",
+      "address": 296919920,
+      "size": 62
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanesUncached",
+      "address": 296935280,
+      "size": 298
+    },
+    {
+      "name": "`CPedGeometryAnalyser::ComputeEntityBoundingBoxCornersUncached'::`10'::<lambda_1>::operator()",
+      "address": 296921952,
+      "size": 800
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCentreUncachedAll",
+      "address": 296930192,
+      "size": 168
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanes",
+      "address": 296935184,
+      "size": 74
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCentre",
+      "address": 296929648,
+      "size": 70
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCentreUncached",
+      "address": 296929744,
+      "size": 354
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCorners",
+      "address": 296930416,
+      "size": 70
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanes",
+      "address": 296934496,
+      "size": 74
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCornersUncached",
+      "address": 296930512,
+      "size": 3183
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached",
+      "address": 296934592,
+      "size": 286
+    },
+    {
+      "name": "CEntity::CEntity",
+      "address": 292481792,
+      "size": 322
+    },
+    {
+      "name": "CEntity::CEntity",
+      "address": 287390224,
+      "size": 1404
+    },
+    {
+      "name": "CGeneral::GetRandomNumberInRange<unsigned int>",
+      "address": 289344432,
+      "size": 59
+    },
+    {
+      "name": "CGeneral::GetRandomNumberInRange<unsigned int>",
+      "address": 289344512,
+      "size": 344
+    },
+    {
+      "name": "CGeneral::GetRandomNumber",
+      "address": 295457424,
+      "size": 48
+    },
+    {
+      "name": "CGeneral::GetRandomNumberInRange<short>",
+      "address": 310400464,
+      "size": 168
+    },
+    {
+      "name": "CGeneral::GetRandomNumberInRange<unsigned short>",
+      "address": 310400688,
+      "size": 168
+    },
+    {
+      "name": "CGeneral::GetRandomNumberInRange<char>",
+      "address": 292261968,
+      "size": 166
+    },
+    {
+      "name": "CGeneral::GetRandomNumberInRange<float>",
+      "address": 295454704,
+      "size": 37
+    },
+    {
+      "name": "CGeneral::GetRandomNumberInRange<int>",
+      "address": 291401808,
+      "size": 153
+    },
+    {
+      "name": "CGeneral::GetRandomNumberInRange<unsigned char>",
+      "address": 298503712,
+      "size": 60
+    },
+    {
+      "name": "CGeneral::GetRandomNumberInRange<unsigned char>",
+      "address": 298503792,
+      "size": 166
+    },
+    {
+      "name": "RequestedGeometryWrappersFiveV3Live::ConstructFixture",
+      "address": 288793104,
+      "size": 78
+    }
+  ]
+}

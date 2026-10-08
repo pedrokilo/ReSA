@@ -1,0 +1,42 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file reversing\RequestedGeometryWrappersFiveV2\artifacts\gta_reversed-geometry-wrappers-five-v2.asi
+
+File Type: DLL
+
+  12FD21A0: 8B FF              mov         edi,edi
+  12FD21A2: 55                 push        ebp
+  12FD21A3: 8B EC              mov         ebp,esp
+  12FD21A5: 51                 push        ecx
+  12FD21A6: E8 97 29 0C FE     call        11094B42
+  12FD21AB: 89 45 FC           mov         dword ptr [ebp-4],eax
+  12FD21AE: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  12FD21B1: 69 48 18 FD 43 03  imul        ecx,dword ptr [eax+18h],343FDh
+            00
+  12FD21B8: 81 C1 C3 9E 26 00  add         ecx,269EC3h
+  12FD21BE: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  12FD21C1: 89 4A 18           mov         dword ptr [edx+18h],ecx
+  12FD21C4: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  12FD21C7: 8B 40 18           mov         eax,dword ptr [eax+18h]
+  12FD21CA: C1 E8 10           shr         eax,10h
+  12FD21CD: 25 FF 7F 00 00     and         eax,7FFFh
+  12FD21D2: 8B E5              mov         esp,ebp
+  12FD21D4: 5D                 pop         ebp
+  12FD21D5: C3                 ret
+  12FD21D6: CC                 int         3
+  12FD21D7: CC                 int         3
+  12FD21D8: CC                 int         3
+  12FD21D9: CC                 int         3
+  12FD21DA: CC                 int         3
+  12FD21DB: CC                 int         3
+  12FD21DC: CC                 int         3
+  12FD21DD: CC                 int         3
+  12FD21DE: CC                 int         3
+  12FD21DF: CC                 int         3
+  12FD21E0: CC                 int         3
+
+  Summary
+
+     214A000 .text

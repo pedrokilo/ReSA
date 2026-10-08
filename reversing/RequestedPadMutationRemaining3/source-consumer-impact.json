@@ -1,0 +1,27 @@
+{
+  "static_only": true,
+  "field": "CPad::NoShakeBeforeThis",
+  "current_type": "float",
+  "native_type": "uint32 at offset0x12C",
+  "proposed_type": "uint32 (no layout-size change)",
+  "other_field": "NoShakeFreq char vs native unsignedbyte at0x130; proposeduint8",
+  "consumers": {
+    "Pad.cpp": [
+      197,
+      198,
+      536,
+      541,
+      542
+    ],
+    "Pad.h": [
+      98,
+      99
+    ]
+  },
+  "bounded_impact": "Only Clear zero assignment and StartShake comparisons/assignment use these named fields in repository source; no additional named consumers found by whole-source search. Raw memory/third-party code outside repo is not inspected.",
+  "required_baseline": "Independent deadlinebitpattern/frequencyhighbit/durationthreshold repro before source changes; all header/source hashes preserved and fresh dependent manifests afterwards",
+  "sources": {
+    "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+    "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56"
+  }
+}

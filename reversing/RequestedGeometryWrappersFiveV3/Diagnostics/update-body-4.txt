@@ -1,0 +1,30 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV3\artifacts\gta_reversed-geometry-wrappers-five-v3.asi
+
+File Type: DLL
+
+  1135A660: 55                 push        ebp
+  1135A661: 8B EC              mov         ebp,esp
+  1135A663: 81 EC CC 00 00 00  sub         esp,0CCh
+  1135A669: 53                 push        ebx
+  1135A66A: 56                 push        esi
+  1135A66B: 57                 push        edi
+  1135A66C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1135A66F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1135A672: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1135A675: 89 08              mov         dword ptr [eax],ecx
+  1135A677: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1135A67A: 5F                 pop         edi
+  1135A67B: 5E                 pop         esi
+  1135A67C: 5B                 pop         ebx
+  1135A67D: 8B E5              mov         esp,ebp
+  1135A67F: 5D                 pop         ebp
+  1135A680: C2 04 00           ret         4
+  1135A683: CC                 int         3
+
+  Summary
+
+     2153000 .text

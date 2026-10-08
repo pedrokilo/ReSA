@@ -1,0 +1,115 @@
+{
+  "run_ready": true,
+  "asi_sha256": "7310777cdb24a960977bf160fe07f80433df9657b90dd9bafe617b268ed166f7",
+  "pdb_sha256": "587e6e4c14ac990c6cff370b54bfe3ba189ee968eb20eda8a9fd6d3393c7b86f",
+  "symbol_table_sha256": "14fee5c6cd7761f37d5807cad9aba5c93a2a8f2c22d598aecf6625ebba1f34b2",
+  "construct_body": "0x1136a210",
+  "ctor_chain": [
+    "0x11080a65",
+    "0x116eeb00"
+  ],
+  "general_ctor_call_chain": [
+    "0x1109f532",
+    "0x119c5290"
+  ],
+  "general_patched_entry": "0x1109f532",
+  "general_body": "0x119c5290",
+  "readonly_linked_rand_call_chain": [
+    "0x1104d47b",
+    "0x12fdea10"
+  ],
+  "exact_relative_offsets_and_prefixes_checked": [
+    53,
+    222,
+    23
+  ],
+  "actualDLLhelperpatchentry_from_Update": {
+    "ComputeEntityBoundingBoxCornersUncached": {
+      "patched_entry": "0x110938a9",
+      "chain": [
+        "0x110938a9",
+        "0x11b2ccd0"
+      ],
+      "source_symbol": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCornersUncached"
+    },
+    "ComputeEntityBoundingBoxCentreUncached": {
+      "patched_entry": "0x11058ecf",
+      "chain": [
+        "0x11058ecf",
+        "0x11b2c9d0"
+      ],
+      "source_symbol": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCentreUncached"
+    },
+    "ComputeEntityBoundingBoxPlanesUncached": {
+      "patched_entry": "0x110948b7",
+      "chain": [
+        "0x110948b7",
+        "0x11b2dcc0"
+      ],
+      "source_symbol": "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached"
+    },
+    "ComputeEntityBoundingBoxSegmentPlanesUncached": {
+      "patched_entry": "0x11071295",
+      "chain": [
+        "0x11071295",
+        "0x11b2df70"
+      ],
+      "source_symbol": "CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanesUncached"
+    }
+  },
+  "calls_cross_patched_entry": {
+    "Corners": [
+      {
+        "call": "0x11b2cc9a",
+        "patched_entry": "0x110938a9"
+      }
+    ],
+    "CentreAll": [
+      {
+        "call": "0x11b2cbc8",
+        "patched_entry": "0x110938a9"
+      },
+      {
+        "call": "0x11b2cbe3",
+        "patched_entry": "0x11058ecf"
+      }
+    ],
+    "PlanesAll": [
+      {
+        "call": "0x11b2de68",
+        "patched_entry": "0x110938a9"
+      },
+      {
+        "call": "0x11b2de87",
+        "patched_entry": "0x110948b7"
+      }
+    ],
+    "SegmentAll": [
+      {
+        "call": "0x11b2e128",
+        "patched_entry": "0x110938a9"
+      },
+      {
+        "call": "0x11b2e143",
+        "patched_entry": "0x11058ecf"
+      },
+      {
+        "call": "0x11b2e15b",
+        "patched_entry": "0x11071295"
+      }
+    ]
+  },
+  "sourceSegmentToAll_chain": [
+    "0x11079fe4",
+    "0x11b2e0f0"
+  ],
+  "statement": "Actual CALL operands equal patched sourceentry addresses; not merely samefinalbody. Current ctorCalltarget equals patched Generalentry; Generalbody additional patch covers source-pointer/body paths. Exactprefix/runtime layoutguards apply before constructor, no CRTrealcall permitted and single55callback required.",
+  "scope": "Calls/ABI proof only; actual runtime and restore require replay.",
+  "CEntity_named_export_vptr": {
+    "name": "??_7CEntity@@6B@",
+    "rva": "0x031A3334",
+    "preferred_address": "0x131A3334",
+    "ctor_store_instruction": "116EEB51 C70034331A13",
+    "matched": true
+  }
+}

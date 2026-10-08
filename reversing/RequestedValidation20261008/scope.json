@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "requested_base": "24adc9887871e167b4b64e981446b265ba1e16df",
-  "inspected_head": "626f2d8d4fbe9208140d831b498ec17a6a0bec34",
+  "inspected_head": "65fcf1bf7f3f55818144cb1f8b7e5028bfd64d17",
   "selection": "Classes requested by user; requested_pending=1 selects initial validated=0 identities. Historical rows are context, not an automatic replay expansion.",
-  "hooks_sha256": "2c5f881e94c1450e98ee391ba2f3c0b34e9c2c61017e4661e5fc521a9d6949e9",
-  "registry_sha256": "f3d14eff6f64fdb074e08af1db396aab70e12dc0cd525917e54e40ca1bc6cc6e",
+  "hooks_sha256": "326a4b96d738f00f673a489944583d1713274b5879eb9e7ff47df03b9da5c079",
+  "registry_sha256": "88831a8bbe6f9a2c00cd018e16a56d1923205ead8f103c0099167ab5525aa621",
   "classes": {
     "CAEAudioHardware": {
       "expected_pending": 1,
@@ -42,12 +42,11 @@
     },
     "CPedGroupPlacer": {
       "expected_pending": 1,
-      "historical_linked": 3,
+      "historical_linked": 4,
       "total": 4,
       "requested_pending": 1,
-      "pending_now": 1,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 1
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CPlayerPed": {
       "expected_pending": 1,
@@ -60,12 +59,11 @@
     },
     "CProjectileInfo": {
       "expected_pending": 1,
-      "historical_linked": 11,
+      "historical_linked": 12,
       "total": 12,
       "requested_pending": 1,
-      "pending_now": 1,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 1
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CTaskComplexFollowLeaderInFormation": {
       "expected_pending": 1,
@@ -85,12 +83,11 @@
     },
     "InteriorGroup_c": {
       "expected_pending": 1,
-      "historical_linked": 23,
+      "historical_linked": 24,
       "total": 24,
       "requested_pending": 1,
-      "pending_now": 1,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 1
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "Win": {
       "expected_pending": 1,
@@ -328,12 +325,12 @@
     },
     "CPedGeometryAnalyser": {
       "expected_pending": 9,
-      "historical_linked": 30,
+      "historical_linked": 31,
       "total": 38,
       "requested_pending": 9,
-      "pending_now": 8,
+      "pending_now": 7,
       "pending_with_candidate_summary": 0,
-      "unlinked": 8
+      "unlinked": 7
     },
     "CTaskComplexKillCriminal": {
       "expected_pending": 9,
@@ -613,12 +610,12 @@
     },
     "CPad": {
       "expected_pending": 75,
-      "unlinked": 23,
+      "historical_linked": 69,
       "total": 75,
       "requested_pending": 75,
-      "pending_now": 23,
+      "pending_now": 6,
       "pending_with_candidate_summary": 0,
-      "historical_linked": 52
+      "unlinked": 6
     },
     "CVehicleModelInfo": {
       "expected_pending": 75,
@@ -680,8 +677,8 @@
     }
   },
   "totals": {
-    "unlinked": 1624,
-    "historical_linked": 686
+    "unlinked": 1603,
+    "historical_linked": 707
   },
   "total_identities": 2310,
   "requested_pending": 1710,
@@ -4322,9 +4319,9 @@
       "address": "0x00739860",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedAnimProjectilePair",
+      "evidence": "reversing/RequestedAnimProjectilePair/validation-summary-projectile59904.json",
       "candidate_banks": ""
     },
     {
@@ -6203,10 +6200,10 @@
       "address": "0x005FD810",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedGroupPlacerCorrectedV2",
+      "evidence": "reversing/RequestedGroupPlacerCorrectedV2/validation-summary.json",
+      "candidate_banks": "RequestedGroupPlacerCorrectedV2"
     },
     {
       "class": "CPedGroupPlacer",
@@ -6379,10 +6376,10 @@
       "address": "0x005F1670",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedGeometryPlanesV2",
+      "evidence": "reversing/RequestedGeometryPlanesV2/validation-summary.json",
+      "candidate_banks": "RequestedGeometryPlanesV2"
     },
     {
       "class": "CPedGeometryAnalyser",
@@ -7325,9 +7322,9 @@
       "address": "0x00541040",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadContext9",
+      "evidence": "reversing/RequestedPadContext9/validation-summary-context9.json",
       "candidate_banks": ""
     },
     {
@@ -7336,9 +7333,9 @@
       "address": "0x005410C0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadContext9",
+      "evidence": "reversing/RequestedPadContext9/validation-summary-context9.json",
       "candidate_banks": ""
     },
     {
@@ -7358,9 +7355,9 @@
       "address": "0x00541A70",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadMutationNext",
+      "evidence": "reversing/RequestedPadMutationNext/validation-summary-six.json",
       "candidate_banks": ""
     },
     {
@@ -7369,9 +7366,9 @@
       "address": "0x0053F1E0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadMutationNext",
+      "evidence": "reversing/RequestedPadMutationNext/validation-summary-six.json",
       "candidate_banks": ""
     },
     {
@@ -7380,9 +7377,9 @@
       "address": "0x00541BD0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadMutationNext",
+      "evidence": "reversing/RequestedPadMutationNext/validation-summary-six.json",
       "candidate_banks": ""
     },
     {
@@ -7578,9 +7575,9 @@
       "address": "0x005408B0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadContext9",
+      "evidence": "reversing/RequestedPadContext9/validation-summary-context9.json",
       "candidate_banks": ""
     },
     {
@@ -7765,9 +7762,9 @@
       "address": "0x00540DC0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadContext9",
+      "evidence": "reversing/RequestedPadContext9/validation-summary-context9.json",
       "candidate_banks": ""
     },
     {
@@ -7787,9 +7784,9 @@
       "address": "0x00540E20",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadContext9",
+      "evidence": "reversing/RequestedPadContext9/validation-summary-context9.json",
       "candidate_banks": ""
     },
     {
@@ -7853,9 +7850,9 @@
       "address": "0x00540180",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadContext9",
+      "evidence": "reversing/RequestedPadContext9/validation-summary-context9.json",
       "candidate_banks": ""
     },
     {
@@ -7897,9 +7894,9 @@
       "address": "0x00541D90",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadMutationNext",
+      "evidence": "reversing/RequestedPadMutationNext/validation-summary-six.json",
       "candidate_banks": ""
     },
     {
@@ -7930,9 +7927,9 @@
       "address": "0x00540BD0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadContext9",
+      "evidence": "reversing/RequestedPadContext9/validation-summary-context9.json",
       "candidate_banks": ""
     },
     {
@@ -7941,9 +7938,9 @@
       "address": "0x00540CC0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadContext9",
+      "evidence": "reversing/RequestedPadContext9/validation-summary-context9.json",
       "candidate_banks": ""
     },
     {
@@ -7996,9 +7993,9 @@
       "address": "0x0053F530",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadMutationRemaining3",
+      "evidence": "reversing/RequestedPadMutationRemaining3/validation-summary-reconcile.json",
       "candidate_banks": ""
     },
     {
@@ -8007,9 +8004,9 @@
       "address": "0x0053F200",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadMutationNext",
+      "evidence": "reversing/RequestedPadMutationNext/validation-summary-six.json",
       "candidate_banks": ""
     },
     {
@@ -8106,9 +8103,9 @@
       "address": "0x0053FB50",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadMutationNext",
+      "evidence": "reversing/RequestedPadMutationNext/validation-summary-six.json",
       "candidate_banks": ""
     },
     {
@@ -8117,9 +8114,9 @@
       "address": "0x00541C40",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadMutationRemaining3",
+      "evidence": "reversing/RequestedPadMutationRemaining3/validation-summary-update.json",
       "candidate_banks": ""
     },
     {
@@ -8139,9 +8136,9 @@
       "address": "0x00540250",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadContext9",
+      "evidence": "reversing/RequestedPadContext9/validation-summary-context9.json",
       "candidate_banks": ""
     },
     {
@@ -22846,9 +22843,9 @@
       "address": "0x005950D0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedReferenceAnimsCorrected",
+      "evidence": "reversing/RequestedReferenceAnimsCorrected/validation-summary-reference720.json",
       "candidate_banks": ""
     },
     {
@@ -26103,5 +26100,5 @@
     "Read-only registry evaluation verifies registered summary/source/dependency hashes; it does not replay GTA or re-hash remote historical logs."
   ],
   "audit_mode": "selection_only_current_unverified",
-  "pending_now": 1624
+  "pending_now": 1603
 }

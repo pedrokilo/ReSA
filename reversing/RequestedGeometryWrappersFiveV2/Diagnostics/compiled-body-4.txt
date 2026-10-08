@@ -1,0 +1,259 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV2\artifacts\gta_reversed-geometry-wrappers-five-v2.asi
+
+File Type: DLL
+
+  11B1CCD0: 55                 push        ebp
+  11B1CCD1: 8B EC              mov         ebp,esp
+  11B1CCD3: 81 EC FC 00 00 00  sub         esp,0FCh
+  11B1CCD9: 53                 push        ebx
+  11B1CCDA: 56                 push        esi
+  11B1CCDB: 57                 push        edi
+  11B1CCDC: 51                 push        ecx
+  11B1CCDD: 8D 7D C4           lea         edi,[ebp-3Ch]
+  11B1CCE0: B9 0F 00 00 00     mov         ecx,0Fh
+  11B1CCE5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B1CCEA: F3 AB              rep stos    dword ptr es:[edi]
+  11B1CCEC: 59                 pop         ecx
+  11B1CCED: A1 40 4A 69 13     mov         eax,dword ptr ds:[13694A40h]
+  11B1CCF2: 33 C5              xor         eax,ebp
+  11B1CCF4: 89 45 FC           mov         dword ptr [ebp-4],eax
+  11B1CCF7: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  11B1CCFA: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CCFD: 8B 08              mov         ecx,dword ptr [eax]
+  11B1CCFF: 89 8D 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],ecx
+  11B1CD05: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11B1CD08: 83 EC 0C           sub         esp,0Ch
+  11B1CD0B: 8B C4              mov         eax,esp
+  11B1CD0D: 8B 0A              mov         ecx,dword ptr [edx]
+  11B1CD0F: 89 08              mov         dword ptr [eax],ecx
+  11B1CD11: 8B 4A 04           mov         ecx,dword ptr [edx+4]
+  11B1CD14: 89 48 04           mov         dword ptr [eax+4],ecx
+  11B1CD17: 8B 52 08           mov         edx,dword ptr [edx+8]
+  11B1CD1A: 89 50 08           mov         dword ptr [eax+8],edx
+  11B1CD1D: 8D 45 E0           lea         eax,[ebp-20h]
+  11B1CD20: 50                 push        eax
+  11B1CD21: 8B 8D 04 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF04h]
+  11B1CD27: E8 10 06 58 FF     call        1109D33C
+  11B1CD2C: 90                 nop
+  11B1CD2D: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CD30: 8B 08              mov         ecx,dword ptr [eax]
+  11B1CD32: 89 8D 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],ecx
+  11B1CD38: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B1CD3B: 83 EC 0C           sub         esp,0Ch
+  11B1CD3E: 8B C4              mov         eax,esp
+  11B1CD40: 8B 0A              mov         ecx,dword ptr [edx]
+  11B1CD42: 89 08              mov         dword ptr [eax],ecx
+  11B1CD44: 8B 4A 04           mov         ecx,dword ptr [edx+4]
+  11B1CD47: 89 48 04           mov         dword ptr [eax+4],ecx
+  11B1CD4A: 8B 52 08           mov         edx,dword ptr [edx+8]
+  11B1CD4D: 89 50 08           mov         dword ptr [eax+8],edx
+  11B1CD50: 8D 45 CC           lea         eax,[ebp-34h]
+  11B1CD53: 50                 push        eax
+  11B1CD54: 8B 8D 04 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF04h]
+  11B1CD5A: E8 DD 05 58 FF     call        1109D33C
+  11B1CD5F: 90                 nop
+  11B1CD60: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CD63: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11B1CD66: F3 0F 10 01        movss       xmm0,dword ptr [ecx]
+  11B1CD6A: F3 0F 5C 05 8C 97  subss       xmm0,dword ptr ds:[1319978Ch]
+            19 13
+  11B1CD72: F3 0F 10 4D E8     movss       xmm1,dword ptr [ebp-18h]
+  11B1CD77: 0F 2F C8           comiss      xmm1,xmm0
+  11B1CD7A: 73 20              jae         11B1CD9C
+  11B1CD7C: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CD7F: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11B1CD82: F3 0F 10 01        movss       xmm0,dword ptr [ecx]
+  11B1CD86: F3 0F 5C 05 8C 97  subss       xmm0,dword ptr ds:[1319978Ch]
+            19 13
+  11B1CD8E: F3 0F 10 4D D4     movss       xmm1,dword ptr [ebp-2Ch]
+  11B1CD93: 0F 2F C8           comiss      xmm1,xmm0
+  11B1CD96: 0F 82 F2 01 00 00  jb          11B1CF8E
+  11B1CD9C: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CD9F: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11B1CDA2: F3 0F 10 01        movss       xmm0,dword ptr [ecx]
+  11B1CDA6: F3 0F 58 05 8C 97  addss       xmm0,dword ptr ds:[1319978Ch]
+            19 13
+  11B1CDAE: 0F 2F 45 E8        comiss      xmm0,dword ptr [ebp-18h]
+  11B1CDB2: 73 1C              jae         11B1CDD0
+  11B1CDB4: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CDB7: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11B1CDBA: F3 0F 10 01        movss       xmm0,dword ptr [ecx]
+  11B1CDBE: F3 0F 58 05 8C 97  addss       xmm0,dword ptr ds:[1319978Ch]
+            19 13
+  11B1CDC6: 0F 2F 45 D4        comiss      xmm0,dword ptr [ebp-2Ch]
+  11B1CDCA: 0F 82 BE 01 00 00  jb          11B1CF8E
+  11B1CDD0: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CDD3: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11B1CDD6: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11B1CDD9: F3 0F 10 02        movss       xmm0,dword ptr [edx]
+  11B1CDDD: 0F 2F 01           comiss      xmm0,dword ptr [ecx]
+  11B1CDE0: 76 14              jbe         11B1CDF6
+  11B1CDE2: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CDE5: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11B1CDE8: F3 0F 10 01        movss       xmm0,dword ptr [ecx]
+  11B1CDEC: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CDF4: EB 0F              jmp         11B1CE05
+  11B1CDF6: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11B1CDF9: F3 0F 10 02        movss       xmm0,dword ptr [edx]
+  11B1CDFD: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CE05: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CE08: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11B1CE0B: F3 0F 10 85 04 FF  movss       xmm0,dword ptr [ebp+FFFFFF04h]
+            FF FF
+  11B1CE13: F3 0F 11 01        movss       dword ptr [ecx],xmm0
+  11B1CE17: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CE1A: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11B1CE1D: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11B1CE20: F3 0F 10 42 04     movss       xmm0,dword ptr [edx+4]
+  11B1CE25: 0F 2F 41 04        comiss      xmm0,dword ptr [ecx+4]
+  11B1CE29: 76 15              jbe         11B1CE40
+  11B1CE2B: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CE2E: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11B1CE31: F3 0F 10 41 04     movss       xmm0,dword ptr [ecx+4]
+  11B1CE36: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CE3E: EB 10              jmp         11B1CE50
+  11B1CE40: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11B1CE43: F3 0F 10 42 04     movss       xmm0,dword ptr [edx+4]
+  11B1CE48: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CE50: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CE53: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11B1CE56: F3 0F 10 85 04 FF  movss       xmm0,dword ptr [ebp+FFFFFF04h]
+            FF FF
+  11B1CE5E: F3 0F 11 41 04     movss       dword ptr [ecx+4],xmm0
+  11B1CE63: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CE66: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11B1CE69: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11B1CE6C: F3 0F 10 42 08     movss       xmm0,dword ptr [edx+8]
+  11B1CE71: 0F 2F 41 08        comiss      xmm0,dword ptr [ecx+8]
+  11B1CE75: 76 15              jbe         11B1CE8C
+  11B1CE77: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CE7A: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11B1CE7D: F3 0F 10 41 08     movss       xmm0,dword ptr [ecx+8]
+  11B1CE82: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CE8A: EB 10              jmp         11B1CE9C
+  11B1CE8C: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11B1CE8F: F3 0F 10 42 08     movss       xmm0,dword ptr [edx+8]
+  11B1CE94: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CE9C: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CE9F: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11B1CEA2: F3 0F 10 85 04 FF  movss       xmm0,dword ptr [ebp+FFFFFF04h]
+            FF FF
+  11B1CEAA: F3 0F 11 41 08     movss       dword ptr [ecx+8],xmm0
+  11B1CEAF: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CEB2: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  11B1CEB5: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B1CEB8: F3 0F 10 01        movss       xmm0,dword ptr [ecx]
+  11B1CEBC: 0F 2F 02           comiss      xmm0,dword ptr [edx]
+  11B1CEBF: 76 14              jbe         11B1CED5
+  11B1CEC1: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CEC4: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  11B1CEC7: F3 0F 10 01        movss       xmm0,dword ptr [ecx]
+  11B1CECB: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CED3: EB 0F              jmp         11B1CEE4
+  11B1CED5: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B1CED8: F3 0F 10 02        movss       xmm0,dword ptr [edx]
+  11B1CEDC: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CEE4: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CEE7: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  11B1CEEA: F3 0F 10 85 04 FF  movss       xmm0,dword ptr [ebp+FFFFFF04h]
+            FF FF
+  11B1CEF2: F3 0F 11 01        movss       dword ptr [ecx],xmm0
+  11B1CEF6: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CEF9: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  11B1CEFC: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B1CEFF: F3 0F 10 41 04     movss       xmm0,dword ptr [ecx+4]
+  11B1CF04: 0F 2F 42 04        comiss      xmm0,dword ptr [edx+4]
+  11B1CF08: 76 15              jbe         11B1CF1F
+  11B1CF0A: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CF0D: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  11B1CF10: F3 0F 10 41 04     movss       xmm0,dword ptr [ecx+4]
+  11B1CF15: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CF1D: EB 10              jmp         11B1CF2F
+  11B1CF1F: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B1CF22: F3 0F 10 42 04     movss       xmm0,dword ptr [edx+4]
+  11B1CF27: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CF2F: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CF32: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  11B1CF35: F3 0F 10 85 04 FF  movss       xmm0,dword ptr [ebp+FFFFFF04h]
+            FF FF
+  11B1CF3D: F3 0F 11 41 04     movss       dword ptr [ecx+4],xmm0
+  11B1CF42: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CF45: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  11B1CF48: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B1CF4B: F3 0F 10 41 08     movss       xmm0,dword ptr [ecx+8]
+  11B1CF50: 0F 2F 42 08        comiss      xmm0,dword ptr [edx+8]
+  11B1CF54: 76 15              jbe         11B1CF6B
+  11B1CF56: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CF59: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  11B1CF5C: F3 0F 10 41 08     movss       xmm0,dword ptr [ecx+8]
+  11B1CF61: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CF69: EB 10              jmp         11B1CF7B
+  11B1CF6B: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B1CF6E: F3 0F 10 42 08     movss       xmm0,dword ptr [edx+8]
+  11B1CF73: F3 0F 11 85 04 FF  movss       dword ptr [ebp+FFFFFF04h],xmm0
+            FF FF
+  11B1CF7B: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B1CF7E: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  11B1CF81: F3 0F 10 85 04 FF  movss       xmm0,dword ptr [ebp+FFFFFF04h]
+            FF FF
+  11B1CF89: F3 0F 11 41 08     movss       dword ptr [ecx+8],xmm0
+  11B1CF8E: 52                 push        edx
+  11B1CF8F: 8B CD              mov         ecx,ebp
+  11B1CF91: 50                 push        eax
+  11B1CF92: 8D 15 C0 CF B1 11  lea         edx,ds:[11B1CFC0h]
+  11B1CF98: E8 9A 44 53 FF     call        11051437
+  11B1CF9D: 58                 pop         eax
+  11B1CF9E: 5A                 pop         edx
+  11B1CF9F: 5F                 pop         edi
+  11B1CFA0: 5E                 pop         esi
+  11B1CFA1: 5B                 pop         ebx
+  11B1CFA2: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  11B1CFA5: 33 CD              xor         ecx,ebp
+  11B1CFA7: E8 D5 D2 52 FF     call        1104A281
+  11B1CFAC: 81 C4 FC 00 00 00  add         esp,0FCh
+  11B1CFB2: 3B EC              cmp         ebp,esp
+  11B1CFB4: E8 36 EC 52 FF     call        1104BBEF
+  11B1CFB9: 8B E5              mov         esp,ebp
+  11B1CFBB: 5D                 pop         ebp
+  11B1CFBC: C2 08 00           ret         8
+  11B1CFBF: 90                 nop
+  11B1CFC0: 02 00              add         al,byte ptr [eax]
+  11B1CFC2: 00 00              add         byte ptr [eax],al
+  11B1CFC4: C8 CF B1 11        enter       0B1CFh,11h
+  11B1CFC8: E0 FF              loopne      11B1CFC9
+  11B1CFCA: FF
+  11B1CFCB: FF 0C 00           dec         dword ptr [eax+eax]
+  11B1CFCE: 00 00              add         byte ptr [eax],al
+  11B1CFD0: E8 CF B1 11 CC     call        DDC381A4
+  11B1CFD5: FF
+  11B1CFD6: FF
+  11B1CFD7: FF 0C 00           dec         dword ptr [eax+eax]
+  11B1CFDA: 00 00              add         byte ptr [eax],al
+  11B1CFDC: E0 CF              loopne      11B1CFAD
+  11B1CFDE: B1 11              mov         cl,11h
+  11B1CFE0: 77 6F              ja          11B1D051
+  11B1CFE2: 72 6C              jb          11B1D050
+  11B1CFE4: 64 48              dec         eax
+  11B1CFE6: 69 00 77 6F 72 6C  imul        eax,dword ptr [eax],6C726F77h
+  11B1CFEC: 64 4C              dec         esp
+  11B1CFEE: 6F                 outs        dx,dword ptr [esi]
+  11B1CFEF: 00 CC              add         ah,cl
+
+  Summary
+
+     214A000 .text

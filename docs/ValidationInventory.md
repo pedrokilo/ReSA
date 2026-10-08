@@ -6,10 +6,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 6839 |
+| `validated=1` · evidencia aprobada vinculada | 6843 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 6839 |
-| Sin evidencia aprobada vinculada en este registro | 1607 |
+| Evidencia histórica vinculada; revisión pendiente | 6843 |
+| Sin evidencia aprobada vinculada en este registro | 1603 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -2661,6 +2661,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `LookAroundUpDown` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPad | `MeleeAttackJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `NextStationJustUp` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `ReconcileTwoControllersInput` | [Resumen](../reversing/RequestedPadMutationRemaining3/validation-summary-reconcile.json) |
 | CPad | `SetTouched` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
 | CPad | `ShiftTargetLeftJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `ShiftTargetRightJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
@@ -2668,6 +2669,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `SniperZoomOut` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `SprintJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `StopShaking` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
+| CPad | `Update` | [Resumen](../reversing/RequestedPadMutationRemaining3/validation-summary-update.json) |
 | CPad | `WeaponJustDown` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPathFind | `ComputeRoute` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
 | CPathFind | `DoPathSearch` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
@@ -3338,6 +3340,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CProjectileInfo | `AddProjectile` | [Resumen](../reversing/ProjectileAdd355/validation-summary.json) |
 | CProjectileInfo | `GetProjectileInfo` | [Resumen](../reversing/ProjectileCore355/validation-summary.json) |
 | CProjectileInfo | `Initialise` | [Resumen](../reversing/ProjectileCore355/validation-summary.json) |
+| CProjectileInfo | `IsProjectileInRange` | [Resumen](../reversing/RequestedAnimProjectilePair/validation-summary-projectile59904.json) |
 | CProjectileInfo | `RemoveAllProjectiles` | [Resumen](../reversing/ProjectileRemove355/validation-summary.json) |
 | CProjectileInfo | `RemoveDetonatorProjectiles` | [Resumen](../reversing/ProjectileCore355/validation-summary.json) |
 | CProjectileInfo | `RemoveFXSystem` | [Resumen](../reversing/ProjectileCore355/validation-summary.json) |
@@ -6500,6 +6503,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | InteriorGroup_c | `GetPed` | [Resumen](../reversing/InteriorCore355/validation-summary.json) |
 | InteriorGroup_c | `GetRandomInterior` | [Resumen](../reversing/InteriorCore355/validation-summary.json) |
 | InteriorGroup_c | `Init` | [Resumen](../reversing/InteriorCore355/validation-summary.json) |
+| InteriorGroup_c | `ReferenceAnims` | [Resumen](../reversing/RequestedReferenceAnimsCorrected/validation-summary-reference720.json) |
 | InteriorGroup_c | `RemovePed` | [Resumen](../reversing/InteriorControl355/validation-summary.json) |
 | InteriorGroup_c | `Setup` | [Resumen](../reversing/InteriorCore355/validation-summary.json) |
 | InteriorGroup_c | `SetupHousePeds` | [Resumen](../reversing/InteriorSpawn355/validation-summary.json) |
@@ -7150,7 +7154,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `COnscreenCounterEntry` | 2 | 0 | 2 | 0 |
 | `COnscreenTimer` | 6 | 0 | 6 | 0 |
 | `CPPTriPlantBuffer` | 7 | 0 | 7 | 0 |
-| `CPad` | 75 | 0 | 67 | 8 |
+| `CPad` | 75 | 0 | 69 | 6 |
 | `CPathFind` | 56 | 0 | 2 | 54 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
 | `CPed` | 145 | 0 | 145 | 0 |
@@ -7207,7 +7211,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPopCycle` | 15 | 0 | 15 | 0 |
 | `CPopulation` | 66 | 0 | 2 | 64 |
 | `CPostEffects` | 38 | 0 | 3 | 35 |
-| `CProjectileInfo` | 12 | 0 | 11 | 1 |
+| `CProjectileInfo` | 12 | 0 | 12 | 0 |
 | `CPtrNodeDoubleLinkPool` | 1 | 0 | 1 | 0 |
 | `CPtrNodeSingleLinkPool` | 1 | 0 | 1 | 0 |
 | `CQuadBike` | 12 | 0 | 12 | 0 |
@@ -7610,7 +7614,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |
 | `Input` | 5 | 0 | 5 | 0 |
-| `InteriorGroup_c` | 24 | 0 | 23 | 1 |
+| `InteriorGroup_c` | 24 | 0 | 24 | 0 |
 | `InteriorManager_c` | 21 | 0 | 21 | 0 |
 | `Interior_c` | 52 | 0 | 52 | 0 |
 | `JPegPlugin` | 5 | 0 | 5 | 0 |

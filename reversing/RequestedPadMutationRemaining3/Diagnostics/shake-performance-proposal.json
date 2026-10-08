@@ -1,0 +1,54 @@
+{
+  "observed_rate_pairs_per_second": 60,
+  "cases": 89600,
+  "projected_seconds_at_observed_rate": 1493.3333333333333,
+  "original_timeout_seconds": 1200,
+  "extended_timeout_seconds": 2400,
+  "min_rate_to_finish1200": 74.66666666666667,
+  "min_rate_to_finish2400": 37.333333333333336,
+  "timing_statement": "Projection only, no measured attribution/profiling. Existing runtime remains untouched.",
+  "likely_costs": [
+    {
+      "cause": "Find helper address scans entire RootHookCategory for each of3helpers perleg in StartShake",
+      "count": 537600,
+      "evidence": "ScratchProof.hpp14 +LiveComparison helper loop",
+      "fix_proposal": "Resolve three stable Simple pointers once before case loop. Each leg still validates !Hooked and ExactSwitch for each helper; no gate weakened."
+    },
+    {
+      "cause": "Alternating State false/true for everypair",
+      "switches_upper_bound": 179200,
+      "virtualcopy_upper_bound": 358400,
+      "virtualprotect_upper_bound": 716800,
+      "evidence": "Base::State idempotent, Simple::Switch twoVirtualCopy each, VirtualCopy twoVirtualProtect each; ExactSwitch itself only memcmp/metadata no protection change.",
+      "fix_proposal": "Optional new revision chunk1024 originals then1024candidates, atmost176 phase switches. Keep byte gates perleg and restore all finalstate."
+    },
+    {
+      "cause": "Debug JSON construction/fullcase logging",
+      "evidence": "2physicalpayloads percase with340pad+240controllers+82globals+160scratch plusFP, metadata, repeatedJSON conversion; bufferedflush128",
+      "fix_proposal": "Use compact fixed original payload records for phased comparison; emit exact same percase raw JSON/model to preserve evidence."
+    }
+  ],
+  "bounded32bit_phased_design": {
+    "chunk_pairs": 1024,
+    "original_payload_bytes_approx": 834,
+    "buffer_budget_bytes": 1048576,
+    "full_original_corpus_contiguous_memory_bytes_approx": 76160000,
+    "recommended": "Chunked <=1MiB originalrecords plus existing JSON temporaries, not89,600jsonobjects; fullcorpus record85MB possible but unnecessary32bitpressure.",
+    "state_equivalence_conditions": [
+      "Case inputs deterministic fromseed; everyleg resets exactly same readonly globals/scratch/FP/private pad/controllers as originalbank",
+      "Store complete unnormalized original outcome rawbytes +allperleg gates +FP semanticfields; separately copyphysical scratch originalrole",
+      "Candidate comparison uses same payload_contract and independent Python model/metadata, not hashonly or selectively masked fields",
+      "Preserve alloriginal/candidatefullcase traces, everyseed ID and domain tags; complete89600 required; sourceartifact/proof bindings regenerate",
+      "Cache helperpointers only: perleg Hooked/ExactSwitch +targetExactSwitch and guards/inactive/global invariants remain",
+      "Save originalstate beforephase and restoreallbytes/flags/tables/globals/FP at endharness unchanged; anycasefailed remainsfailed",
+      "Firstdo comparative smallknownprefix repeated with old/new harness before relying on full revised run; no currentapprovalfrompartialprefix"
+    ]
+  },
+  "recommendation": "For exact currentASI retry2400 timeoutonly wrapper islowestchange and expected1500sec fits margin. If another fullreplay needed, cachehelperlookupsfirst; chunkphaseoptionalrequiresnewASI/proof/freeze/runtime and does not speed activeprocess. No claimed speedup without measurement.",
+  "files_unchanged": {
+    "reversing/RequestedPadMutationRemaining3/LiveComparison.hpp": "ac0907b72eafe2af302a6016d9f364b941eb45513eff9c0903f40fda012e7d50",
+    "reversing/RequestedPadMutationRemaining3/ScratchProof.hpp": "57ef4cdaedfe19faca87ec07dc4dbe3990192bd40ae856e5590f8493d68727fc",
+    "reversing/RequestedPadMutationRemaining3/run_local.py": "bcf277a7a836752544370b3dad046ba37a8a403f5304bc5e93f7dd8ae0644fcf",
+    "reversing/RequestedPadMutationRemaining3/corpus-frozen.json": "b0ae2252e8a1a4287acc33eb075cd03b8af416c02e8c8ac6174460259bad1f2e"
+  }
+}

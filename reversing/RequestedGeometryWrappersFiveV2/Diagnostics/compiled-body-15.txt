@@ -1,0 +1,38 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV2\artifacts\gta_reversed-geometry-wrappers-five-v2.asi
+
+File Type: DLL
+
+  113E2A10: 55                 push        ebp
+  113E2A11: 8B EC              mov         ebp,esp
+  113E2A13: 81 EC C0 00 00 00  sub         esp,0C0h
+  113E2A19: 53                 push        ebx
+  113E2A1A: 56                 push        esi
+  113E2A1B: 57                 push        edi
+  113E2A1C: 8B FD              mov         edi,ebp
+  113E2A1E: 33 C9              xor         ecx,ecx
+  113E2A20: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113E2A25: F3 AB              rep stos    dword ptr es:[edi]
+  113E2A27: 6A 00              push        0
+  113E2A29: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113E2A2C: 50                 push        eax
+  113E2A2D: 6A 00              push        0
+  113E2A2F: E8 D2 0C CB FF     call        11093706
+  113E2A34: 83 C4 0C           add         esp,0Ch
+  113E2A37: 5F                 pop         edi
+  113E2A38: 5E                 pop         esi
+  113E2A39: 5B                 pop         ebx
+  113E2A3A: 81 C4 C0 00 00 00  add         esp,0C0h
+  113E2A40: 3B EC              cmp         ebp,esp
+  113E2A42: E8 A8 91 C6 FF     call        1104BBEF
+  113E2A47: 8B E5              mov         esp,ebp
+  113E2A49: 5D                 pop         ebp
+  113E2A4A: C3                 ret
+  113E2A4B: CC                 int         3
+
+  Summary
+
+     214A000 .text

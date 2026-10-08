@@ -1,0 +1,10 @@
+{
+  "reported_by_root": "Shake build session15805 failed postcompile bank_sources assertion; finally raised WinMain restoration error. Root independently restored WinMain and verified baseline. Exact exception traceback was not supplied to this agent.",
+  "cause": "Dynamic glob captured mutable audit/result files; the captured mismatching path is unavailable because manifest was not written before assertion.",
+  "original_freeze_sha256": "c8b1fb4dddef404cc08829572d4969a78651d358967c37c78b331380a31f6f5c",
+  "archive_files": {
+    "build_probe.py": "6964c3e5ed1ac773bb634f3932225c60dbf31a4a230ed13f99b2bb4337f10b2b",
+    "corpus-frozen.json": "c8b1fb4dddef404cc08829572d4969a78651d358967c37c78b331380a31f6f5c",
+    "failed-shake-build.log": "71ed80d660a867eee61a729e079ba0a97b0008571e1bf06875bec9f93af261f4"
+  }
+}

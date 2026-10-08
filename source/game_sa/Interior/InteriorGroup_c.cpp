@@ -349,7 +349,7 @@ void InteriorGroup_c::ReferenceAnims() {
         return;
     }
     const auto animBlkIdx = CAnimManager::GetAnimationBlockIndex(GetAnimBlockName());
-    if (CStreaming::IsModelLoaded(IFPToModelId(animBlkIdx))) {
+    if (*reinterpret_cast<const uint8*>(&CAnimManager::GetAnimBlocks().data()[animBlkIdx].IsLoaded) == 1) {
         CAnimManager::AddAnimBlockRef(animBlkIdx);
         m_animBlockReferenced = true;
     } else {

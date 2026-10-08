@@ -1,0 +1,38 @@
+{
+  "prepared_only": true,
+  "revision": 1,
+  "total_comparisons": 95052,
+  "subbanks": {
+    "reconcile": 2892,
+    "update": 2560,
+    "shake": 89600
+  },
+  "inputs": {
+    "reversing/RequestedPadMutationRemaining3/archive_log.py": "6276c74428dcaf7a6625bf8a5e4f4419af4a81e05c9a79dc7cacaf9928bbee34",
+    "reversing/RequestedPadMutationRemaining3/build_probe.py": "6964c3e5ed1ac773bb634f3932225c60dbf31a4a230ed13f99b2bb4337f10b2b",
+    "reversing/RequestedPadMutationRemaining3/DESIGN.md": "6c33c9071dac3b648c9958813b35932c0039cb8291cbb5bfa4083e10cca85962",
+    "reversing/RequestedPadMutationRemaining3/evidence/0591-0x0053F530.json": "ad3f746ce0146587435e5df1690789cf7b68c7bf216ba831deff849faf3afaa9",
+    "reversing/RequestedPadMutationRemaining3/evidence/0598-0x0053F920.json": "14cf4a9ade26f210517e9739b84a69f68a31c907d5425817fd7c2abbacadd00f",
+    "reversing/RequestedPadMutationRemaining3/evidence/0602-0x00541C40.json": "0a301e55ac91805f1df13ddd1c6eb415df3eefbd4f28f4396437446aa63ed605",
+    "reversing/RequestedPadMutationRemaining3/evidence/candidate-reconcile-fullbody.json": "9840adcb991024cf180b18b3a30eab619d14589e8a9e75f928ca641c5a8f2c10",
+    "reversing/RequestedPadMutationRemaining3/evidence/candidate-scratch-current-artifact-proof.json": "5c0d547b1eb379e77302085c7df26e0472fe7b6401410faa7e113d6db7e10bdc",
+    "reversing/RequestedPadMutationRemaining3/evidence/candidate-scratch-dia.json": "f056b5c9d134c213db19e823259a3f45d9607ca2813116540541c6c98e616e2f",
+    "reversing/RequestedPadMutationRemaining3/evidence/candidate-scratch-symbol.json": "2d961166b5a527f9c810b9cb571a8ebcbebb8a0f7f99f84fbe68e5e0ef513199",
+    "reversing/RequestedPadMutationRemaining3/evidence/helper-ControllerCheckForInput.json": "a79a0fa4931f8094a234f86e93fa26bf94c27ec4a11af989e9c4fff3fe4589e6",
+    "reversing/RequestedPadMutationRemaining3/evidence/helper-ControllerClear.json": "79018f7378deec8085e360161d1181bb1a21b6e2d462284544679c34f1f28bcf",
+    "reversing/RequestedPadMutationRemaining3/evidence/ReconcileTwoControllersInput.exe.json": "6e761a00de3cb10142ffe093bba5c502bb736c3d75df301d5b6a962912e88084",
+    "reversing/RequestedPadMutationRemaining3/evidence/StartShake.exe.json": "2973e38bf434f8f8382d9bab134665d51b56b1fa52a2ae0c273c9a4df7049105",
+    "reversing/RequestedPadMutationRemaining3/evidence/Update.exe.json": "0c50516593fe3b0fbd1455be13947476c82159c9d8bb3d1f1389e694ea8d37dd",
+    "reversing/RequestedPadMutationRemaining3/Fixtures.hpp": "2a5231a0615413217a1ae5081a1dee34f8f8aa0e214d696f3d90ee9cca48ca4a",
+    "reversing/RequestedPadMutationRemaining3/LiveComparison.hpp": "ac0907b72eafe2af302a6016d9f364b941eb45513eff9c0903f40fda012e7d50",
+    "reversing/RequestedPadMutationRemaining3/locate_scratch.py": "548f2dc76f38939eb49a74845b3c200d161804ea33d861a12798e37fb348926a",
+    "reversing/RequestedPadMutationRemaining3/PreflightHarness.hpp": "b28854ce2b387aeda4e2a2b15bfd78da6b165e8d1cfa888619eafc710c8d5630",
+    "reversing/RequestedPadMutationRemaining3/run_local.py": "bcf277a7a836752544370b3dad046ba37a8a403f5304bc5e93f7dd8ae0644fcf",
+    "reversing/RequestedPadMutationRemaining3/scope.json": "aee21c738690fd10c2346055c1014c3060dc8894ccd5ebd998062696a499c550",
+    "reversing/RequestedPadMutationRemaining3/ScratchProof.hpp": "57ef4cdaedfe19faca87ec07dc4dbe3990192bd40ae856e5590f8493d68727fc",
+    "reversing/RequestedPadMutationRemaining3/source-consumer-impact.json": "dca0c83192a2c82c0684106ffffeff68473713259b0857aad7cc1ccf6c6c87e4",
+    "reversing/RequestedPadMutationRemaining3/VTableRanges.hpp": "5aecf0f51610f79663c97854daae1f3c282a52ed1acc8222bac2dd484bf3ae76"
+  },
+  "native_validation": false,
+  "proof_generation": "Each final compiled artifact gets an independent postcompileDIA layout; old evidenceproof is static illustration only"
+}

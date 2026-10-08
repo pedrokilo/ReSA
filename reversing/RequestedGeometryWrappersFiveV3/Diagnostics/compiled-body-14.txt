@@ -1,0 +1,500 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV3\artifacts\gta_reversed-geometry-wrappers-five-v3.asi
+
+File Type: DLL
+
+  11213A10: 55                 push        ebp
+  11213A11: 8B EC              mov         ebp,esp
+  11213A13: 81 EC CC 00 00 00  sub         esp,0CCh
+  11213A19: 53                 push        ebx
+  11213A1A: 56                 push        esi
+  11213A1B: 57                 push        edi
+  11213A1C: 51                 push        ecx
+  11213A1D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11213A20: B9 03 00 00 00     mov         ecx,3
+  11213A25: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11213A2A: F3 AB              rep stos    dword ptr es:[edi]
+  11213A2C: 59                 pop         ecx
+  11213A2D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11213A30: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213A33: 50                 push        eax
+  11213A34: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213A37: E8 7A 7B E5 FF     call        1106B5B6
+  11213A3C: 90                 nop
+  11213A3D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213A40: C7 00 34 33 1A 13  mov         dword ptr [eax],131A3334h
+  11213A46: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213A49: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213A4C: 8B 51 18           mov         edx,dword ptr [ecx+18h]
+  11213A4F: 89 50 18           mov         dword ptr [eax+18h],edx
+  11213A52: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213A55: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  11213A58: 80 E1 01           and         cl,1
+  11213A5B: 80 E1 01           and         cl,1
+  11213A5E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213A61: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  11213A64: 24 FE              and         al,0FEh
+  11213A66: 0A C1              or          al,cl
+  11213A68: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213A6B: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  11213A6E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213A71: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  11213A74: D0 E9              shr         cl,1
+  11213A76: 80 E1 01           and         cl,1
+  11213A79: 80 E1 01           and         cl,1
+  11213A7C: D0 E1              shl         cl,1
+  11213A7E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213A81: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  11213A84: 24 FD              and         al,0FDh
+  11213A86: 0A C1              or          al,cl
+  11213A88: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213A8B: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  11213A8E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213A91: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  11213A94: C0 E9 02           shr         cl,2
+  11213A97: 80 E1 01           and         cl,1
+  11213A9A: 80 E1 01           and         cl,1
+  11213A9D: C0 E1 02           shl         cl,2
+  11213AA0: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213AA3: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  11213AA6: 24 FB              and         al,0FBh
+  11213AA8: 0A C1              or          al,cl
+  11213AAA: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213AAD: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  11213AB0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213AB3: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  11213AB6: C0 E9 03           shr         cl,3
+  11213AB9: 80 E1 01           and         cl,1
+  11213ABC: 80 E1 01           and         cl,1
+  11213ABF: C0 E1 03           shl         cl,3
+  11213AC2: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213AC5: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  11213AC8: 24 F7              and         al,0F7h
+  11213ACA: 0A C1              or          al,cl
+  11213ACC: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213ACF: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  11213AD2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213AD5: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  11213AD8: C0 E9 04           shr         cl,4
+  11213ADB: 80 E1 01           and         cl,1
+  11213ADE: 80 E1 01           and         cl,1
+  11213AE1: C0 E1 04           shl         cl,4
+  11213AE4: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213AE7: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  11213AEA: 24 EF              and         al,0EFh
+  11213AEC: 0A C1              or          al,cl
+  11213AEE: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213AF1: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  11213AF4: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213AF7: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  11213AFA: C0 E9 05           shr         cl,5
+  11213AFD: 80 E1 01           and         cl,1
+  11213B00: 80 E1 01           and         cl,1
+  11213B03: C0 E1 05           shl         cl,5
+  11213B06: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213B09: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  11213B0C: 24 DF              and         al,0DFh
+  11213B0E: 0A C1              or          al,cl
+  11213B10: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213B13: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  11213B16: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213B19: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  11213B1C: C0 E9 06           shr         cl,6
+  11213B1F: 80 E1 01           and         cl,1
+  11213B22: 80 E1 01           and         cl,1
+  11213B25: C0 E1 06           shl         cl,6
+  11213B28: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213B2B: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  11213B2E: 24 BF              and         al,0BFh
+  11213B30: 0A C1              or          al,cl
+  11213B32: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213B35: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  11213B38: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213B3B: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  11213B3E: C0 E9 07           shr         cl,7
+  11213B41: 80 E1 01           and         cl,1
+  11213B44: 80 E1 01           and         cl,1
+  11213B47: C0 E1 07           shl         cl,7
+  11213B4A: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213B4D: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  11213B50: 24 7F              and         al,7Fh
+  11213B52: 0A C1              or          al,cl
+  11213B54: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213B57: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  11213B5A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213B5D: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  11213B60: 80 E1 01           and         cl,1
+  11213B63: 80 E1 01           and         cl,1
+  11213B66: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213B69: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  11213B6C: 24 FE              and         al,0FEh
+  11213B6E: 0A C1              or          al,cl
+  11213B70: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213B73: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  11213B76: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213B79: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  11213B7C: D0 E9              shr         cl,1
+  11213B7E: 80 E1 01           and         cl,1
+  11213B81: 80 E1 01           and         cl,1
+  11213B84: D0 E1              shl         cl,1
+  11213B86: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213B89: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  11213B8C: 24 FD              and         al,0FDh
+  11213B8E: 0A C1              or          al,cl
+  11213B90: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213B93: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  11213B96: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213B99: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  11213B9C: C0 E9 02           shr         cl,2
+  11213B9F: 80 E1 01           and         cl,1
+  11213BA2: 80 E1 01           and         cl,1
+  11213BA5: C0 E1 02           shl         cl,2
+  11213BA8: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213BAB: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  11213BAE: 24 FB              and         al,0FBh
+  11213BB0: 0A C1              or          al,cl
+  11213BB2: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213BB5: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  11213BB8: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213BBB: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  11213BBE: C0 E9 03           shr         cl,3
+  11213BC1: 80 E1 01           and         cl,1
+  11213BC4: 80 E1 01           and         cl,1
+  11213BC7: C0 E1 03           shl         cl,3
+  11213BCA: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213BCD: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  11213BD0: 24 F7              and         al,0F7h
+  11213BD2: 0A C1              or          al,cl
+  11213BD4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213BD7: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  11213BDA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213BDD: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  11213BE0: C0 E9 04           shr         cl,4
+  11213BE3: 80 E1 01           and         cl,1
+  11213BE6: 80 E1 01           and         cl,1
+  11213BE9: C0 E1 04           shl         cl,4
+  11213BEC: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213BEF: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  11213BF2: 24 EF              and         al,0EFh
+  11213BF4: 0A C1              or          al,cl
+  11213BF6: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213BF9: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  11213BFC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213BFF: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  11213C02: C0 E9 05           shr         cl,5
+  11213C05: 80 E1 01           and         cl,1
+  11213C08: 80 E1 01           and         cl,1
+  11213C0B: C0 E1 05           shl         cl,5
+  11213C0E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213C11: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  11213C14: 24 DF              and         al,0DFh
+  11213C16: 0A C1              or          al,cl
+  11213C18: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213C1B: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  11213C1E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213C21: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  11213C24: C0 E9 06           shr         cl,6
+  11213C27: 80 E1 01           and         cl,1
+  11213C2A: 80 E1 01           and         cl,1
+  11213C2D: C0 E1 06           shl         cl,6
+  11213C30: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213C33: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  11213C36: 24 BF              and         al,0BFh
+  11213C38: 0A C1              or          al,cl
+  11213C3A: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213C3D: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  11213C40: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213C43: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  11213C46: C0 E9 07           shr         cl,7
+  11213C49: 80 E1 01           and         cl,1
+  11213C4C: 80 E1 01           and         cl,1
+  11213C4F: C0 E1 07           shl         cl,7
+  11213C52: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213C55: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  11213C58: 24 7F              and         al,7Fh
+  11213C5A: 0A C1              or          al,cl
+  11213C5C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213C5F: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  11213C62: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213C65: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  11213C68: 80 E1 01           and         cl,1
+  11213C6B: 80 E1 01           and         cl,1
+  11213C6E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213C71: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  11213C74: 24 FE              and         al,0FEh
+  11213C76: 0A C1              or          al,cl
+  11213C78: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213C7B: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  11213C7E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213C81: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  11213C84: D0 E9              shr         cl,1
+  11213C86: 80 E1 01           and         cl,1
+  11213C89: 80 E1 01           and         cl,1
+  11213C8C: D0 E1              shl         cl,1
+  11213C8E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213C91: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  11213C94: 24 FD              and         al,0FDh
+  11213C96: 0A C1              or          al,cl
+  11213C98: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213C9B: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  11213C9E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213CA1: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  11213CA4: C0 E9 02           shr         cl,2
+  11213CA7: 80 E1 01           and         cl,1
+  11213CAA: 80 E1 01           and         cl,1
+  11213CAD: C0 E1 02           shl         cl,2
+  11213CB0: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213CB3: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  11213CB6: 24 FB              and         al,0FBh
+  11213CB8: 0A C1              or          al,cl
+  11213CBA: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213CBD: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  11213CC0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213CC3: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  11213CC6: C0 E9 03           shr         cl,3
+  11213CC9: 80 E1 01           and         cl,1
+  11213CCC: 80 E1 01           and         cl,1
+  11213CCF: C0 E1 03           shl         cl,3
+  11213CD2: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213CD5: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  11213CD8: 24 F7              and         al,0F7h
+  11213CDA: 0A C1              or          al,cl
+  11213CDC: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213CDF: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  11213CE2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213CE5: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  11213CE8: C0 E9 04           shr         cl,4
+  11213CEB: 80 E1 01           and         cl,1
+  11213CEE: 80 E1 01           and         cl,1
+  11213CF1: C0 E1 04           shl         cl,4
+  11213CF4: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213CF7: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  11213CFA: 24 EF              and         al,0EFh
+  11213CFC: 0A C1              or          al,cl
+  11213CFE: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213D01: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  11213D04: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213D07: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  11213D0A: C0 E9 05           shr         cl,5
+  11213D0D: 80 E1 01           and         cl,1
+  11213D10: 80 E1 01           and         cl,1
+  11213D13: C0 E1 05           shl         cl,5
+  11213D16: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213D19: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  11213D1C: 24 DF              and         al,0DFh
+  11213D1E: 0A C1              or          al,cl
+  11213D20: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213D23: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  11213D26: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213D29: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  11213D2C: C0 E9 06           shr         cl,6
+  11213D2F: 80 E1 01           and         cl,1
+  11213D32: 80 E1 01           and         cl,1
+  11213D35: C0 E1 06           shl         cl,6
+  11213D38: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213D3B: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  11213D3E: 24 BF              and         al,0BFh
+  11213D40: 0A C1              or          al,cl
+  11213D42: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213D45: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  11213D48: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213D4B: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  11213D4E: C0 E9 07           shr         cl,7
+  11213D51: 80 E1 01           and         cl,1
+  11213D54: 80 E1 01           and         cl,1
+  11213D57: C0 E1 07           shl         cl,7
+  11213D5A: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213D5D: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  11213D60: 24 7F              and         al,7Fh
+  11213D62: 0A C1              or          al,cl
+  11213D64: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213D67: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  11213D6A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213D6D: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  11213D70: 80 E1 01           and         cl,1
+  11213D73: 80 E1 01           and         cl,1
+  11213D76: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213D79: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  11213D7C: 24 FE              and         al,0FEh
+  11213D7E: 0A C1              or          al,cl
+  11213D80: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213D83: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  11213D86: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213D89: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  11213D8C: D0 E9              shr         cl,1
+  11213D8E: 80 E1 01           and         cl,1
+  11213D91: 80 E1 01           and         cl,1
+  11213D94: D0 E1              shl         cl,1
+  11213D96: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213D99: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  11213D9C: 24 FD              and         al,0FDh
+  11213D9E: 0A C1              or          al,cl
+  11213DA0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213DA3: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  11213DA6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213DA9: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  11213DAC: C0 E9 02           shr         cl,2
+  11213DAF: 80 E1 01           and         cl,1
+  11213DB2: 80 E1 01           and         cl,1
+  11213DB5: C0 E1 02           shl         cl,2
+  11213DB8: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213DBB: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  11213DBE: 24 FB              and         al,0FBh
+  11213DC0: 0A C1              or          al,cl
+  11213DC2: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213DC5: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  11213DC8: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213DCB: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  11213DCE: C0 E9 03           shr         cl,3
+  11213DD1: 80 E1 01           and         cl,1
+  11213DD4: 80 E1 01           and         cl,1
+  11213DD7: C0 E1 03           shl         cl,3
+  11213DDA: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213DDD: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  11213DE0: 24 F7              and         al,0F7h
+  11213DE2: 0A C1              or          al,cl
+  11213DE4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213DE7: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  11213DEA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213DED: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  11213DF0: C0 E9 04           shr         cl,4
+  11213DF3: 80 E1 01           and         cl,1
+  11213DF6: 80 E1 01           and         cl,1
+  11213DF9: C0 E1 04           shl         cl,4
+  11213DFC: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213DFF: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  11213E02: 24 EF              and         al,0EFh
+  11213E04: 0A C1              or          al,cl
+  11213E06: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213E09: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  11213E0C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213E0F: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  11213E12: C0 E9 05           shr         cl,5
+  11213E15: 80 E1 01           and         cl,1
+  11213E18: 80 E1 01           and         cl,1
+  11213E1B: C0 E1 05           shl         cl,5
+  11213E1E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213E21: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  11213E24: 24 DF              and         al,0DFh
+  11213E26: 0A C1              or          al,cl
+  11213E28: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213E2B: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  11213E2E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213E31: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  11213E34: C0 E9 06           shr         cl,6
+  11213E37: 80 E1 01           and         cl,1
+  11213E3A: 80 E1 01           and         cl,1
+  11213E3D: C0 E1 06           shl         cl,6
+  11213E40: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213E43: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  11213E46: 24 BF              and         al,0BFh
+  11213E48: 0A C1              or          al,cl
+  11213E4A: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213E4D: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  11213E50: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213E53: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  11213E56: C0 E9 07           shr         cl,7
+  11213E59: 80 E1 01           and         cl,1
+  11213E5C: 80 E1 01           and         cl,1
+  11213E5F: C0 E1 07           shl         cl,7
+  11213E62: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213E65: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  11213E68: 24 7F              and         al,7Fh
+  11213E6A: 0A C1              or          al,cl
+  11213E6C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213E6F: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  11213E72: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213E75: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213E78: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11213E7B: 89 50 1C           mov         dword ptr [eax+1Ch],edx
+  11213E7E: B8 FF 00 00 00     mov         eax,0FFh
+  11213E83: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213E86: 66 23 41 20        and         ax,word ptr [ecx+20h]
+  11213E8A: BA FF 00 00 00     mov         edx,0FFh
+  11213E8F: 66 23 C2           and         ax,dx
+  11213E92: B9 00 FF 00 00     mov         ecx,0FF00h
+  11213E97: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213E9A: 66 23 4A 20        and         cx,word ptr [edx+20h]
+  11213E9E: 66 0B C8           or          cx,ax
+  11213EA1: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213EA4: 66 89 48 20        mov         word ptr [eax+20h],cx
+  11213EA8: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213EAB: 66 8B 48 20        mov         cx,word ptr [eax+20h]
+  11213EAF: 66 C1 E9 08        shr         cx,8
+  11213EB3: BA FF 00 00 00     mov         edx,0FFh
+  11213EB8: 66 23 CA           and         cx,dx
+  11213EBB: B8 FF 00 00 00     mov         eax,0FFh
+  11213EC0: 66 23 C8           and         cx,ax
+  11213EC3: 66 C1 E1 08        shl         cx,8
+  11213EC7: BA FF 00 00 00     mov         edx,0FFh
+  11213ECC: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213ECF: 66 23 50 20        and         dx,word ptr [eax+20h]
+  11213ED3: 66 0B D1           or          dx,cx
+  11213ED6: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11213ED9: 66 89 51 20        mov         word ptr [ecx+20h],dx
+  11213EDD: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213EE0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213EE3: 66 8B 51 20        mov         dx,word ptr [ecx+20h]
+  11213EE7: 66 89 50 20        mov         word ptr [eax+20h],dx
+  11213EEB: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213EEE: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213EF1: 66 8B 51 22        mov         dx,word ptr [ecx+22h]
+  11213EF5: 66 89 50 22        mov         word ptr [eax+22h],dx
+  11213EF9: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213EFC: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213EFF: 8B 51 24           mov         edx,dword ptr [ecx+24h]
+  11213F02: 89 50 24           mov         dword ptr [eax+24h],edx
+  11213F05: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213F08: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213F0B: 8B 51 28           mov         edx,dword ptr [ecx+28h]
+  11213F0E: 89 50 28           mov         dword ptr [eax+28h],edx
+  11213F11: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213F14: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213F17: 66 8B 51 2C        mov         dx,word ptr [ecx+2Ch]
+  11213F1B: 66 89 50 2C        mov         word ptr [eax+2Ch],dx
+  11213F1F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213F22: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213F25: 8A 51 2E           mov         dl,byte ptr [ecx+2Eh]
+  11213F28: 88 50 2E           mov         byte ptr [eax+2Eh],dl
+  11213F2B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213F2E: 8A 48 2F           mov         cl,byte ptr [eax+2Fh]
+  11213F31: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213F34: 88 4A 2F           mov         byte ptr [edx+2Fh],cl
+  11213F37: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213F3A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213F3D: 8B 51 30           mov         edx,dword ptr [ecx+30h]
+  11213F40: 89 50 30           mov         dword ptr [eax+30h],edx
+  11213F43: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213F46: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213F49: 8B 51 30           mov         edx,dword ptr [ecx+30h]
+  11213F4C: 89 50 30           mov         dword ptr [eax+30h],edx
+  11213F4F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213F52: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213F55: 8A 51 34           mov         dl,byte ptr [ecx+34h]
+  11213F58: 88 50 34           mov         byte ptr [eax+34h],dl
+  11213F5B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213F5E: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11213F61: 8A 51 35           mov         dl,byte ptr [ecx+35h]
+  11213F64: 88 50 35           mov         byte ptr [eax+35h],dl
+  11213F67: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11213F6A: 8A 48 36           mov         cl,byte ptr [eax+36h]
+  11213F6D: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11213F70: 88 4A 36           mov         byte ptr [edx+36h],cl
+  11213F73: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11213F76: 5F                 pop         edi
+  11213F77: 5E                 pop         esi
+  11213F78: 5B                 pop         ebx
+  11213F79: 81 C4 CC 00 00 00  add         esp,0CCh
+  11213F7F: 3B EC              cmp         ebp,esp
+  11213F81: E8 96 BC E3 FF     call        1104FC1C
+  11213F86: 8B E5              mov         esp,ebp
+  11213F88: 5D                 pop         ebp
+  11213F89: C2 04 00           ret         4
+  11213F8C: CC                 int         3
+
+  Summary
+
+     2153000 .text

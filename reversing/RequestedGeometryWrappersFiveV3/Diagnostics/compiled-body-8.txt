@@ -1,0 +1,116 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV3\artifacts\gta_reversed-geometry-wrappers-five-v3.asi
+
+File Type: DLL
+
+  11B2C9D0: 55                 push        ebp
+  11B2C9D1: 8B EC              mov         ebp,esp
+  11B2C9D3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11B2C9D9: 53                 push        ebx
+  11B2C9DA: 56                 push        esi
+  11B2C9DB: 57                 push        edi
+  11B2C9DC: 8B FD              mov         edi,ebp
+  11B2C9DE: 33 C9              xor         ecx,ecx
+  11B2C9E0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B2C9E5: F3 AB              rep stos    dword ptr es:[edi]
+  11B2C9E7: 51                 push        ecx
+  11B2C9E8: F3 0F 10 45 08     movss       xmm0,dword ptr [ebp+8]
+  11B2C9ED: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B2C9F2: 51                 push        ecx
+  11B2C9F3: 0F 57 C0           xorps       xmm0,xmm0
+  11B2C9F6: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B2C9FB: 51                 push        ecx
+  11B2C9FC: 0F 57 C0           xorps       xmm0,xmm0
+  11B2C9FF: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B2CA04: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2CA07: E8 AE 64 54 FF     call        11072EBA
+  11B2CA0C: 90                 nop
+  11B2CA0D: B8 0C 00 00 00     mov         eax,0Ch
+  11B2CA12: 6B C8 00           imul        ecx,eax,0
+  11B2CA15: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  11B2CA18: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11B2CA1B: 8B 0C 08           mov         ecx,dword ptr [eax+ecx]
+  11B2CA1E: 89 0A              mov         dword ptr [edx],ecx
+  11B2CA20: B8 0C 00 00 00     mov         eax,0Ch
+  11B2CA25: 6B C8 00           imul        ecx,eax,0
+  11B2CA28: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  11B2CA2B: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11B2CA2E: 8B 4C 08 04        mov         ecx,dword ptr [eax+ecx+4]
+  11B2CA32: 89 4A 04           mov         dword ptr [edx+4],ecx
+  11B2CA35: B8 0C 00 00 00     mov         eax,0Ch
+  11B2CA3A: C1 E0 00           shl         eax,0
+  11B2CA3D: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2CA40: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B2CA43: F3 0F 10 01        movss       xmm0,dword ptr [ecx]
+  11B2CA47: F3 0F 58 04 02     addss       xmm0,dword ptr [edx+eax]
+  11B2CA4C: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  11B2CA4F: F3 0F 11 00        movss       dword ptr [eax],xmm0
+  11B2CA53: B8 0C 00 00 00     mov         eax,0Ch
+  11B2CA58: C1 E0 00           shl         eax,0
+  11B2CA5B: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2CA5E: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B2CA61: F3 0F 10 41 04     movss       xmm0,dword ptr [ecx+4]
+  11B2CA66: F3 0F 58 44 02 04  addss       xmm0,dword ptr [edx+eax+4]
+  11B2CA6C: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  11B2CA6F: F3 0F 11 40 04     movss       dword ptr [eax+4],xmm0
+  11B2CA74: B8 0C 00 00 00     mov         eax,0Ch
+  11B2CA79: D1 E0              shl         eax,1
+  11B2CA7B: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2CA7E: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B2CA81: F3 0F 10 01        movss       xmm0,dword ptr [ecx]
+  11B2CA85: F3 0F 58 04 02     addss       xmm0,dword ptr [edx+eax]
+  11B2CA8A: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  11B2CA8D: F3 0F 11 00        movss       dword ptr [eax],xmm0
+  11B2CA91: B8 0C 00 00 00     mov         eax,0Ch
+  11B2CA96: D1 E0              shl         eax,1
+  11B2CA98: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2CA9B: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B2CA9E: F3 0F 10 41 04     movss       xmm0,dword ptr [ecx+4]
+  11B2CAA3: F3 0F 58 44 02 04  addss       xmm0,dword ptr [edx+eax+4]
+  11B2CAA9: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  11B2CAAC: F3 0F 11 40 04     movss       dword ptr [eax+4],xmm0
+  11B2CAB1: B8 0C 00 00 00     mov         eax,0Ch
+  11B2CAB6: 6B C8 03           imul        ecx,eax,3
+  11B2CAB9: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  11B2CABC: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11B2CABF: F3 0F 10 02        movss       xmm0,dword ptr [edx]
+  11B2CAC3: F3 0F 58 04 08     addss       xmm0,dword ptr [eax+ecx]
+  11B2CAC8: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2CACB: F3 0F 11 01        movss       dword ptr [ecx],xmm0
+  11B2CACF: B8 0C 00 00 00     mov         eax,0Ch
+  11B2CAD4: 6B C8 03           imul        ecx,eax,3
+  11B2CAD7: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  11B2CADA: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11B2CADD: F3 0F 10 42 04     movss       xmm0,dword ptr [edx+4]
+  11B2CAE2: F3 0F 58 44 08 04  addss       xmm0,dword ptr [eax+ecx+4]
+  11B2CAE8: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2CAEB: F3 0F 11 41 04     movss       dword ptr [ecx+4],xmm0
+  11B2CAF0: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  11B2CAF3: F3 0F 10 00        movss       xmm0,dword ptr [eax]
+  11B2CAF7: F3 0F 59 05 50 67  mulss       xmm0,dword ptr ds:[131A6750h]
+            1A 13
+  11B2CAFF: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2CB02: F3 0F 11 01        movss       dword ptr [ecx],xmm0
+  11B2CB06: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  11B2CB09: F3 0F 10 40 04     movss       xmm0,dword ptr [eax+4]
+  11B2CB0E: F3 0F 59 05 50 67  mulss       xmm0,dword ptr ds:[131A6750h]
+            1A 13
+  11B2CB16: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2CB19: F3 0F 11 41 04     movss       dword ptr [ecx+4],xmm0
+  11B2CB1E: 5F                 pop         edi
+  11B2CB1F: 5E                 pop         esi
+  11B2CB20: 5B                 pop         ebx
+  11B2CB21: 81 C4 C0 00 00 00  add         esp,0C0h
+  11B2CB27: 3B EC              cmp         ebp,esp
+  11B2CB29: E8 EE 30 52 FF     call        1104FC1C
+  11B2CB2E: 8B E5              mov         esp,ebp
+  11B2CB30: 5D                 pop         ebp
+  11B2CB31: C3                 ret
+  11B2CB32: CC                 int         3
+
+  Summary
+
+     2153000 .text

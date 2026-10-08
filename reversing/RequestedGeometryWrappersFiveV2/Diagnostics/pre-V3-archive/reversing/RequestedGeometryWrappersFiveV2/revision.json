@@ -1,0 +1,9 @@
+{
+  "revision": 2,
+  "supersedes": "reversing/RequestedGeometryWrappersFive",
+  "preserved_failure": "reversing/RequestedGeometryWrappersFive/Diagnostics/compile-failure-r1",
+  "change": "Explicit CVector assignment in deterministic stub avoids ambiguous operator=(RwV3d/CVector); instrumentation only",
+  "corpus_unchanged_pairs": 5120,
+  "functional_source_changed": false,
+  "compiled_verified": false
+}

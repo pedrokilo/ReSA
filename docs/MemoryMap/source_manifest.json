@@ -3821,7 +3821,7 @@
   },
   {
     "file": "source/game_sa/Interior/InteriorGroup_c.cpp",
-    "sha256": "ad44c3da6af51047dfa34f68d7f047b258c11d6e681e08ce4cfaf25c772d68e8"
+    "sha256": "6c55e17625a1f0b826b9b3e07b9a40c63c655134f90f4c92a19db113375d5078"
   },
   {
     "file": "source/game_sa/Interior/InteriorGroup_c.h",
@@ -4225,7 +4225,7 @@
   },
   {
     "file": "source/game_sa/Pad.cpp",
-    "sha256": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56"
+    "sha256": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db"
   },
   {
     "file": "source/game_sa/Pad.h",

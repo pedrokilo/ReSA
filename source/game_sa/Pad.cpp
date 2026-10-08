@@ -218,9 +218,9 @@ void CPad::Update(int32 pad) {
     bHornHistory[iCurrHornHistory] = GetHorn();
 
     // Shift right by 1
-    std::rotate(
+    std::copy_backward(
         std::begin(SteeringLeftRightBuffer),
-        std::begin(SteeringLeftRightBuffer) + 1,
+        std::end(SteeringLeftRightBuffer) - 1,
         std::end(SteeringLeftRightBuffer)
     );
 

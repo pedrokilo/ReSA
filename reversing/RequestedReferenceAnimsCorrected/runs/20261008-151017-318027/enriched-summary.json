@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a4e19e6e2225d753c6a4f373777203829362a644fa787185f3bc39b40909187a",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "all_equal": true,
+  "state_restored": true,
+  "harness_restored": true,
+  "pairs": 720,
+  "pairs_per_function": {
+    "InteriorGroup_c::ReferenceAnims": 720
+  },
+  "differences": 0,
+  "model_mismatches": 0,
+  "validation_errors": [],
+  "terminal_bank_record": {
+    "differences": 0,
+    "event": "complete",
+    "pairs": 720,
+    "scope": "720 identical original-reference fixtures; raw byte flag0..4, isolated index/ref/request traces, no streaming/model lifecycle accreditation",
+    "state_restored": true
+  },
+  "terminal_harness_record": {
+    "changed_ranges": [],
+    "entries_restored": true,
+    "event": "complete",
+    "flags_restored": true,
+    "snapshot_ranges": 17692,
+    "state_restored": true,
+    "tables_restored": true,
+    "timer_restored": true
+  },
+  "log_sha256": "3d06ab8dfb280c4b1d0aaac4be62bce4055f9762cefeb93a8dc667b91f617e99",
+  "harness_sha256": "7f6e5e09eb581d7116132a102f4c4dcb321f46215c5a767f536365bdb8a93a4e",
+  "scope": "Identical original720 private reference fixtures and isolated lookup/ref/request traces; raw loaded byte ==1. No actual assets or helper lifecycle/dependency accreditation",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "65fcf1bf7f3f55818144cb1f8b7e5028bfd64d17",
+    "tested_sources": {
+      "source/game_sa/Interior/InteriorGroup_c.cpp": "6c55e17625a1f0b826b9b3e07b9a40c63c655134f90f4c92a19db113375d5078",
+      "source/game_sa/Interior/InteriorGroup_c.h": "80ad6d255a9d4aa13013bb714b3f2afd9eda5bd6029270db143ce1f811fc14db",
+      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+      "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+      "source/game_sa/Streaming.h": "7b5c70a1f45fb905831e5e0b8c27b5a44aa35c04192eb9b59a1224df0f35c1c3",
+      "source/game_sa/StreamingInfo.h": "2c0ebf455d8000cd8252ccc6ca3bd77b2f40afc111c2f30dd8323b0b74851e29",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+    },
+    "bank_sources": {
+      "reversing/RequestedReferenceAnimsCorrected/LiveComparison.hpp": "597159bbe00eb4357e334f2ef54b9445aaa8af1a9ead0bc84fb212d902ed0faa",
+      "reversing/RequestedReferenceAnimsCorrected/Preflight.hpp": "3487e047a5c72c772cb653094acc98e22d6b1b1431488a4f2edf28d1381754a8",
+      "reversing/RequestedReferenceAnimsCorrected/VTableRanges.hpp": "27ebeba0a3971f2dd474ca6c5b6883baf2ffa47f8f45591116424a07a99c1d9b",
+      "reversing/RequestedReferenceAnimsCorrected/build_probe.py": "0d1d794d2c479931d2908ad19e6a424e701d4e16787dff6f1d3dbf7bef5b6751",
+      "reversing/RequestedReferenceAnimsCorrected/run_local.py": "70ed0c026d9fd6008fe9a3c8b7b82575d72c0514b691dc95ced58107d86de909",
+      "reversing/RequestedReferenceAnimsCorrected/prepared-freeze.json": "93c42588e7ba374f152bb9a9df99ac2d1d522e20147f68a054dfa05ceb2c05b1",
+      "reversing/RequestedReferenceAnimsCorrected/preparation-plan.json": "002de6946a5bb624bb4c89d3dcc358c9a7ba2a1a2f658acfbb3f802ff98a10d5",
+      "reversing/RequestedReferenceAnimsCorrected/evidence/1510-0x005950D0-body.json": "157f46a67eb7ff5558820f710bdf46e7d542be2ba8506a26f0179991a99f7376",
+      "reversing/RequestedReferenceAnimsCorrected/evidence/1510-0x005950D0.json": "5eb2dadb1d190062a0e6fbd7673373e3d2884a781385c58a9ab2d31e41429d86",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "expected_pairs": 720,
+    "fixture_scope": "720 identical original ReferenceAnims fixtures; raw blockloadbyte0..4, isolated lookup/ref/request traces and fullbytes. No actual asset/ref/helper integration accreditation. All mismatches remain failure.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "7c45d28e479007b31c7be46037b562828050dc1bc233080e275b2a12c61e6885"
+    },
+    "asi": "a4e19e6e2225d753c6a4f373777203829362a644fa787185f3bc39b40909187a",
+    "pdb": "c1d753398c1eaf245738fdb06a1c788cd2e70d91be7f422a82b38da3f20d1b26"
+  },
+  "runner_sha256": "70ed0c026d9fd6008fe9a3c8b7b82575d72c0514b691dc95ced58107d86de909",
+  "reproduction_diagnostics": {
+    "pairs": 720,
+    "pairs_per_function": {
+      "InteriorGroup_c::ReferenceAnims": 720
+    },
+    "differences": 0,
+    "model_mismatches": 0,
+    "validation_errors": [],
+    "terminal_bank_record": {
+      "differences": 0,
+      "event": "complete",
+      "pairs": 720,
+      "scope": "720 identical original-reference fixtures; raw byte flag0..4, isolated index/ref/request traces, no streaming/model lifecycle accreditation",
+      "state_restored": true
+    },
+    "terminal_harness_record": {
+      "changed_ranges": [],
+      "entries_restored": true,
+      "event": "complete",
+      "flags_restored": true,
+      "snapshot_ranges": 17692,
+      "state_restored": true,
+      "tables_restored": true,
+      "timer_restored": true
+    }
+  }
+}

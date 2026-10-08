@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a4e19e6e2225d753c6a4f373777203829362a644fa787185f3bc39b40909187a",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "all_equal": true,
+  "state_restored": true,
+  "harness_restored": true,
+  "pairs": 720,
+  "pairs_per_function": {
+    "InteriorGroup_c::ReferenceAnims": 720
+  },
+  "differences": 0,
+  "model_mismatches": 0,
+  "validation_errors": [],
+  "terminal_bank_record": {
+    "differences": 0,
+    "event": "complete",
+    "pairs": 720,
+    "scope": "720 identical original-reference fixtures; raw byte flag0..4, isolated index/ref/request traces, no streaming/model lifecycle accreditation",
+    "state_restored": true
+  },
+  "terminal_harness_record": {
+    "changed_ranges": [],
+    "entries_restored": true,
+    "event": "complete",
+    "flags_restored": true,
+    "snapshot_ranges": 17692,
+    "state_restored": true,
+    "tables_restored": true,
+    "timer_restored": true
+  },
+  "log_sha256": "3d06ab8dfb280c4b1d0aaac4be62bce4055f9762cefeb93a8dc667b91f617e99",
+  "harness_sha256": "7f6e5e09eb581d7116132a102f4c4dcb321f46215c5a767f536365bdb8a93a4e",
+  "scope": "Identical original720 private reference fixtures and isolated lookup/ref/request traces; raw loaded byte ==1. No actual assets or helper lifecycle/dependency accreditation",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

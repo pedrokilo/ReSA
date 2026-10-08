@@ -1,0 +1,35 @@
+{
+  "hook": {
+    "class": "CPad",
+    "fn_name": "ReconcileTwoControllersInput",
+    "address": "0x0053F530",
+    "type": "S"
+  },
+  "evidence": {
+    "path": "reversing/RequestedPadMutationRemaining3/validation-summary-reconcile.json",
+    "sha256": "12b8c2ca490658d1c5efbcbf2c15901f164575c790b642c6e4ede464fdd1652f",
+    "passed_path": [
+      "passed"
+    ],
+    "pairs": 2892,
+    "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+  },
+  "tested_sources": {
+    "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+    "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+    "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+    "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+    "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+    "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+    "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+    "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+    "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+    "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911"
+  },
+  "source_provenance": "Exact compiled manifest and independently reaudited preserved raw payload; canonical EXE output oracle verified all cases. Current mapped fullbody/scratch operands verified.",
+  "dependency_review": null,
+  "scope": "2892 declared private controller cases: four signed axes, twenty buttons, left-axis/D-pad conflicts, combined patterns and out/A/B aliases; exact full payload, scratch active-role mapping only, inactive scratch/guards unchanged. Independent canonical-EXE output oracle verifies both legs. Native helpers remain uncredited. No real input/game startup/general dependency accreditation.",
+  "review_reference": "reversing/RequestedPadMutationRemaining3/DESIGN.md"
+}

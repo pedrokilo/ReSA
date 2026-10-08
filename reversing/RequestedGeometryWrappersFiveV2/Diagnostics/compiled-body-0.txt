@@ -1,0 +1,95 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV2\artifacts\gta_reversed-geometry-wrappers-five-v2.asi
+
+File Type: DLL
+
+  11B20260: 55                 push        ebp
+  11B20261: 8B EC              mov         ebp,esp
+  11B20263: 81 EC 10 01 00 00  sub         esp,110h
+  11B20269: 53                 push        ebx
+  11B2026A: 56                 push        esi
+  11B2026B: 57                 push        edi
+  11B2026C: 8D 7D B0           lea         edi,[ebp-50h]
+  11B2026F: B9 14 00 00 00     mov         ecx,14h
+  11B20274: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B20279: F3 AB              rep stos    dword ptr es:[edi]
+  11B2027B: A1 40 4A 69 13     mov         eax,dword ptr ds:[13694A40h]
+  11B20280: 33 C5              xor         eax,ebp
+  11B20282: 89 45 FC           mov         dword ptr [ebp-4],eax
+  11B20285: 8D 45 C8           lea         eax,[ebp-38h]
+  11B20288: 50                 push        eax
+  11B20289: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11B2028C: 51                 push        ecx
+  11B2028D: 51                 push        ecx
+  11B2028E: F3 0F 10 45 08     movss       xmm0,dword ptr [ebp+8]
+  11B20293: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B20298: E8 65 F2 56 FF     call        1108F502
+  11B2029D: 83 C4 0C           add         esp,0Ch
+  11B202A0: 8D 45 B4           lea         eax,[ebp-4Ch]
+  11B202A3: 50                 push        eax
+  11B202A4: 8D 4D C8           lea         ecx,[ebp-38h]
+  11B202A7: 51                 push        ecx
+  11B202A8: 51                 push        ecx
+  11B202A9: F3 0F 10 45 08     movss       xmm0,dword ptr [ebp+8]
+  11B202AE: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B202B3: E8 54 4B 53 FF     call        11054E0C
+  11B202B8: 83 C4 0C           add         esp,0Ch
+  11B202BB: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  11B202BE: 50                 push        eax
+  11B202BF: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B202C2: 51                 push        ecx
+  11B202C3: 8D 55 B4           lea         edx,[ebp-4Ch]
+  11B202C6: 52                 push        edx
+  11B202C7: 8D 45 C8           lea         eax,[ebp-38h]
+  11B202CA: 50                 push        eax
+  11B202CB: E8 D6 CD 54 FF     call        1106D0A6
+  11B202D0: 83 C4 10           add         esp,10h
+  11B202D3: 52                 push        edx
+  11B202D4: 8B CD              mov         ecx,ebp
+  11B202D6: 50                 push        eax
+  11B202D7: 8D 15 04 03 B2 11  lea         edx,ds:[11B20304h]
+  11B202DD: E8 55 11 53 FF     call        11051437
+  11B202E2: 58                 pop         eax
+  11B202E3: 5A                 pop         edx
+  11B202E4: 5F                 pop         edi
+  11B202E5: 5E                 pop         esi
+  11B202E6: 5B                 pop         ebx
+  11B202E7: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  11B202EA: 33 CD              xor         ecx,ebp
+  11B202EC: E8 90 9F 52 FF     call        1104A281
+  11B202F1: 81 C4 10 01 00 00  add         esp,110h
+  11B202F7: 3B EC              cmp         ebp,esp
+  11B202F9: E8 F1 B8 52 FF     call        1104BBEF
+  11B202FE: 8B E5              mov         esp,ebp
+  11B20300: 5D                 pop         ebp
+  11B20301: C3                 ret
+  11B20302: 66 90              nop
+  11B20304: 02 00              add         al,byte ptr [eax]
+  11B20306: 00 00              add         byte ptr [eax],al
+  11B20308: 0C 03              or          al,3
+  11B2030A: B2 11              mov         dl,11h
+  11B2030C: C8 FF FF FF        enter       0FFFFh,0FFh
+  11B20310: 30 00              xor         byte ptr [eax],al
+  11B20312: 00 00              add         byte ptr [eax],al
+  11B20314: 2B 03              sub         eax,dword ptr [ebx]
+  11B20316: B2 11              mov         dl,11h
+  11B20318: B4 FF              mov         ah,0FFh
+  11B2031A: FF
+  11B2031B: FF 0C 00           dec         dword ptr [eax+eax]
+  11B2031E: 00 00              add         byte ptr [eax],al
+  11B20320: 24 03              and         al,3
+  11B20322: B2 11              mov         dl,11h
+  11B20324: 63 65 6E           arpl        word ptr [ebp+6Eh],sp
+  11B20327: 74 65              je          11B2038E
+  11B20329: 72 00              jb          11B2032B
+  11B2032B: 63 6F 72           arpl        word ptr [edi+72h],bp
+  11B2032E: 6E                 outs        dx,byte ptr [esi]
+  11B2032F: 65 72 73           jb          11B203A5
+  11B20332: 00 CC              add         ah,cl
+
+  Summary
+
+     214A000 .text

@@ -1153,7 +1153,7 @@ CRadar,TransformRealWorldPointToRadarSpace,0x00583530,1,0,0,S
 CProjectileInfo,AddProjectile,0x00737C80,1,1,1,S
 CProjectileInfo,GetProjectileInfo,0x00737BF0,1,1,1,S
 CProjectileInfo,Initialise,0x00737B40,1,1,1,S
-CProjectileInfo,IsProjectileInRange,0x00739860,1,0,0,S
+CProjectileInfo,IsProjectileInRange,0x00739860,1,0,1,S
 CProjectileInfo,RemoveAllProjectiles,0x007399B0,1,1,1,S
 CProjectileInfo,RemoveDetonatorProjectiles,0x00738860,1,1,1,S
 CProjectileInfo,RemoveFXSystem,0x00737B80,1,1,1,S
@@ -1725,7 +1725,7 @@ CPad,MeleeAttackJustDown,0x00540390,1,0,1,S
 CPad,NextStationJustUp,0x005405B0,1,0,1,S
 CPad,ProcessPCSpecificStuff,0x0053FB40,1,0,0,S
 CPad,ProcessPad,0x00746A10,1,0,0,S
-CPad,ReconcileTwoControllersInput,0x0053F530,1,0,0,S
+CPad,ReconcileTwoControllersInput,0x0053F530,1,0,1,S
 CPad,SetTouched,0x0053F200,1,0,1,S
 CPad,ShiftTargetLeftJustDown,0x00540850,1,0,1,S
 CPad,ShiftTargetRightJustDown,0x00540880,1,0,1,S
@@ -1736,7 +1736,7 @@ CPad,StartShake,0x0053F920,1,0,0,S
 CPad,StartShake_Distance,0x0053F9A0,1,0,0,S
 CPad,StartShake_Train,0x0053FA70,1,0,0,S
 CPad,StopShaking,0x0053FB50,1,0,1,S
-CPad,Update,0x00541C40,1,0,0,S
+CPad,Update,0x00541C40,1,0,1,S
 CPad,UpdateMouse,0x0053F3C0,1,0,0,S
 CPad,WeaponJustDown,0x00540250,1,0,1,S
 COnscreenTimer,AddClock,0x0044CD50,1,0,1,S
@@ -7530,7 +7530,7 @@ InteriorGroup_c,GetNumInteriorInfos,0x00594920,1,1,1,S
 InteriorGroup_c,GetPed,0x00594B90,1,1,1,S
 InteriorGroup_c,GetRandomInterior,0x005948C0,1,1,1,S
 InteriorGroup_c,Init,0x005947E0,1,1,1,S
-InteriorGroup_c,ReferenceAnims,0x005950D0,1,0,0,S
+InteriorGroup_c,ReferenceAnims,0x005950D0,1,0,1,S
 InteriorGroup_c,RemovePed,0x00594E30,1,1,1,S
 InteriorGroup_c,Setup,0x00595320,1,1,1,S
 InteriorGroup_c,SetupHousePeds,0x005965E0,1,1,1,S

@@ -1,0 +1,40 @@
+{
+  "prepared_freeze_exact": 13,
+  "python_ast_valid": true,
+  "oracle_independence": "Python reconstructs exact full160-byte arena and deterministic helpertrace from seed+wrapper independent of equality flags; both sides must match expected values and explicit gates/contracts. Counter+fixture seed verifies private rand consumed exactly once. It validates wrapper forwarding/control flow only, not helper arithmetic.",
+  "normalization": "No general pointer normalization: raw producer and every consumer must agree within same leg; only known corners/centre roles omit numeric address from equality. Raw addresses separately retained, SegmentAll return must equal original producer pointer; no dangling read. External output addresses verified by exact runtime equality against arena pointers; fullguard bytes independently modeled.",
+  "contamination_detection": [
+    "Entity88-byte guarded arena unchanged perleg and end",
+    "Output160 arena all bytes modeled including unused outputs andguards",
+    "Participating target+DLL52 and eighthelper52 exact restore; activehelperbuffers checked eachleg; all hookflags/candados unchanged",
+    "Named own-ASI rand IAT52 neighborhood restore and originalCRT52 readonly; stub55 exactonecallback excludes RNG consumption",
+    "Natural process exit0 must be supplied by runtime runner, independently of terminal complete"
+  ],
+  "required_postbuild_checks": [
+    {
+      "check": "Matching PDB/ASI",
+      "pass": "Artifact hash equalsmanifest/executedhash; symbol addresses bounded own image and copied disasm stored withSHA"
+    },
+    {
+      "check": "Five typed signatures",
+      "pass": "Static cdecl float/entityref/vectorpointer outputs; Centre pointer/refsameABI; Segment void ignoresEAX; All returnsrawEAXpointer; expected stackargs12 or16bytes"
+    },
+    {
+      "check": "Fixture constructor",
+      "pass": "ConstructFixture calls actual CEntity ctor, then CPlaceablector/inert fields; source CEntity\u2192CGeneralGetRandomNumber\u2192same ASI named rand IATslot. NamedDLLCEntityVT is installed; nullresources constructor path; no originalgameCRT RNG bypass"
+    },
+    {
+      "check": "Four primitive patches",
+      "pass": "For every source CALL resolve full E9 chain and show it crosses the actual runtime-patched source-address entry, not merely same finalbody. Native targets exact5F1FA0/5F1600/5F1670/5F1750. If a body or distinctthunk bypasses patch do not run; new instrumentation revision must patchproofidentified additionalentry/body with52restoration"
+    },
+    {
+      "check": "Wrapper callgraphs",
+      "pass": "Corners\u2192Corners; CentreAll\u2192Corners/Centre; PlanesAll\u2192Corners/Planes; Segment native\u2192Corners/Centre/Segment versus source\u2192All\u2192sameprimitives; All\u2192Corners/Centre/Segment. All isneverstubbed"
+    },
+    {
+      "check": "Temporary storage",
+      "pass": "Compiled locals provide4 complete CVector slots plusCentre; lifetimescoverhelperconsumers, no outputalias/entityoverwrite; rawsource/native pointeridentitieschecked separately; no dereference danglingreturnedpointer"
+    }
+  ],
+  "unresolved_before_compile": "Callsite/ILT identity and actual named constructor\u2192General\u2192IAT proofs cannot be established from sources alone. Current bank patches function-pointer sourceentry only; same-body but distinct bypass thunks require revision, not approval."
+}

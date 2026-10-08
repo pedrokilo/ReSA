@@ -1,0 +1,67 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV3\artifacts\gta_reversed-geometry-wrappers-five-v3.asi
+
+File Type: DLL
+
+  1134A5F0: 55                 push        ebp
+  1134A5F1: 8B EC              mov         ebp,esp
+  1134A5F3: 81 EC D8 00 00 00  sub         esp,0D8h
+  1134A5F9: 53                 push        ebx
+  1134A5FA: 56                 push        esi
+  1134A5FB: 57                 push        edi
+  1134A5FC: 8D 7D E8           lea         edi,[ebp-18h]
+  1134A5FF: B9 06 00 00 00     mov         ecx,6
+  1134A604: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1134A609: F3 AB              rep stos    dword ptr es:[edi]
+  1134A60B: 8D 45 18           lea         eax,[ebp+18h]
+  1134A60E: 50                 push        eax
+  1134A60F: 8D 4D 08           lea         ecx,[ebp+8]
+  1134A612: 51                 push        ecx
+  1134A613: E8 B3 22 D2 FF     call        1106C8CB
+  1134A618: 83 C4 08           add         esp,8
+  1134A61B: 8D 45 08           lea         eax,[ebp+8]
+  1134A61E: 50                 push        eax
+  1134A61F: E8 1F 2C D3 FF     call        1107D243
+  1134A624: 83 C4 04           add         esp,4
+  1134A627: 89 45 F8           mov         dword ptr [ebp-8],eax
+  1134A62A: 8D 45 18           lea         eax,[ebp+18h]
+  1134A62D: 50                 push        eax
+  1134A62E: E8 10 2C D3 FF     call        1107D243
+  1134A633: 83 C4 04           add         esp,4
+  1134A636: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1134A639: EB 09              jmp         1134A644
+  1134A63B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1134A63E: 83 C0 04           add         eax,4
+  1134A641: 89 45 F8           mov         dword ptr [ebp-8],eax
+  1134A644: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1134A647: 3B 45 EC           cmp         eax,dword ptr [ebp-14h]
+  1134A64A: 74 1B              je          1134A667
+  1134A64C: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1134A64F: 8B 08              mov         ecx,dword ptr [eax]
+  1134A651: 51                 push        ecx
+  1134A652: 8D 4D 28           lea         ecx,[ebp+28h]
+  1134A655: E8 F8 D7 D1 FF     call        11067E52
+  1134A65A: 0F B6 D0           movzx       edx,al
+  1134A65D: 85 D2              test        edx,edx
+  1134A65F: 74 04              je          1134A665
+  1134A661: B0 01              mov         al,1
+  1134A663: EB 04              jmp         1134A669
+  1134A665: EB D4              jmp         1134A63B
+  1134A667: 32 C0              xor         al,al
+  1134A669: 5F                 pop         edi
+  1134A66A: 5E                 pop         esi
+  1134A66B: 5B                 pop         ebx
+  1134A66C: 81 C4 D8 00 00 00  add         esp,0D8h
+  1134A672: 3B EC              cmp         ebp,esp
+  1134A674: E8 A3 55 D0 FF     call        1104FC1C
+  1134A679: 8B E5              mov         esp,ebp
+  1134A67B: 5D                 pop         ebp
+  1134A67C: C3                 ret
+  1134A67D: CC                 int         3
+
+  Summary
+
+     2153000 .text

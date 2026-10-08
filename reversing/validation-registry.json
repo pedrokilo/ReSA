@@ -468555,6 +468555,157 @@
       "dependency_review": null,
       "scope": "Historical pregraphics PlaceGroup dispatcher:1536pairs, six valid allocator enums x256 fixtures, 64 aligned origin pointer lowbytes (0..252 step4), primitive ePedType7..16/count1..5 and exact finite CVector inputs. Native+DLL Formation/Chat/Random entries privately patched to identical controlled return0/1 and exact argument traces. Raw AL exact including enum4 values128/252, full512byteorigin arena and placer payload unchanged, strict route/this/args, mode/helper gates and target/helper52bytes plus flags/candados restored; compiled matching-PDB naked shim26bytes preserves default ABI and tail fastcall16bytecleanup, naturalexit0. Delegated EAX upper24 unspecified and excluded. No actual placement/group/pool/actor integration, out-of-domain allocator approval or separate delegate accreditation; no currentdependency review.",
       "review_reference": "reversing/RequestedGroupPlacerCorrectedV2/Diagnostics/corrected-replay-audit.json"
+    },
+    {
+      "hook": {
+        "class": "CProjectileInfo",
+        "fn_name": "IsProjectileInRange",
+        "address": "0x00739860",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedAnimProjectilePair/validation-summary-projectile59904.json",
+        "sha256": "6ae981d0a01a5154acb261cbfe6fb0d57a25c644bbc133cd82eb3a816c7f9359",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 59904,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/ProjectileInfo.cpp": "45934803d7471f625edb6518248e251aba2414e308a4b912434e6a3ce7af8b09",
+        "source/game_sa/ProjectileInfo.h": "bad9fe0cb797165eb2040d9d6d804bfd0d8753efcbe5beceaae8443105b3e76f",
+        "source/game_sa/Entity/Object/Projectile.h": "fef9579dc5db403a3f83406cd16bf1979ce4ee368270b5a535c2086713952e5e",
+        "source/game_sa/Entity/Object/Object.h": "f03b35af984aea8002242d44d264f4e959b1b4a0fe2bf0dff5e5d1e833fc3750",
+        "source/game_sa/Entity/Object/CutsceneObject.h": "b0e369e0cfa2c6efa6b340e7ce8de4f4cdbf46a1da65136d7d945d92bd5c7328",
+        "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Collision/Box.cpp": "e9ee21cfd40133ce8db58bcb94db507c2139421a2b9c57850b0101d18a8b75c2",
+        "source/game_sa/Collision/Box.h": "de8666b92f1147803a99aec34e3463546d891697b324e432c4a6a616b8f4dc23",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+        "source/game_sa/Pools/ObjectPool.h": "833e700558e62963f6716def8201758504b89c2f94d02e460acc5e35f0cb58cd",
+        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
+        "source/game_sa/Pools.cpp": "bcb6131d7e43c1ed38a7af1276d8b8ee508b93525c311154f796d57724c871d3",
+        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Radar.h": "1e98274eadab24414eace5d450724179a425f06503129c58b079ecfdc5507c76",
+        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+        "source/game_sa/Enums/eWeaponType.h": "0a245360d64947392a192b571637f47063068b1fd891d1d9cf23b23692a13269",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+      },
+      "source_provenance": "Exact compiled mixedmanifest retained in summary, full testedsource+instrument hashes verified before laterReference-only patch. Registration sources scoped to Projectile and relevant field/pool/hook collaborators; Interior/Anim/Streaming are siblingbank sources retained as buildprovenance, not Projectile dependencies. ASI43c7b63599ffc4046a9ac1a0db3c96a10a9fe9bd40ce837227dbb1262f8fe4d8 unchanged; runtime wrapper onlytimeout600→1200.",
+      "dependency_review": null,
+      "scope": "Historical finite32-slot projectile selection, one activecandidate slot perfixture:32slots x9weapon IDs xactive xmatrix/placement xdestroy xFXnonnull x13closed-box/in-out positions =59904. Entire32info/pointer arrays, active arena412bytes, matrix72bytes, privatepool20bytes/states32 and exact helpertrace/args/identity matched EXE/candidate/independent field model. Strict target and each helper5byte redirect gates plus private whole arena immutability checked; original465070poolhandle math executes over non-owning storage stride0x19C and independently modeled slotref. Destroytrue clears active/FX and traces FXKill/Radar/World/scalar-deleteflags1; fake scalar-delete never deallocates arena and slotpointer remains as native. Helpers isolated, no actual object/FX/world/pool-delete lifecycle accreditation. One slot active at a time, finite coordinates; no multiactive/aliased slots, reversed/degenerate bounds or NaN/Inf accreditation. Parentmixedbank rejects48ReferenceAnims cases explicitly. Naturalexit0/allentry-vtable-flags-timer-FP-globals/config restored. No currentdependency review.",
+      "review_reference": "reversing/RequestedAnimProjectilePair/preparation-plan.json"
+    },
+    {
+      "hook": {
+        "class": "InteriorGroup_c",
+        "fn_name": "ReferenceAnims",
+        "address": "0x005950D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedReferenceAnimsCorrected/validation-summary-reference720.json",
+        "sha256": "c153e19bf46c2137d746c100b9f052e467bf9a201f62213906a3eb7c4cf0c020",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 720,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorGroup_c.cpp": "6c55e17625a1f0b826b9b3e07b9a40c63c655134f90f4c92a19db113375d5078",
+        "source/game_sa/Interior/InteriorGroup_c.h": "80ad6d255a9d4aa13013bb714b3f2afd9eda5bd6029270db143ce1f811fc14db",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+        "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+        "source/game_sa/Streaming.h": "7b5c70a1f45fb905831e5e0b8c27b5a44aa35c04192eb9b59a1224df0f35c1c3",
+        "source/game_sa/StreamingInfo.h": "2c0ebf455d8000cd8252ccc6ca3bd77b2f40afc111c2f30dd8323b0b74851e29",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+      },
+      "source_provenance": "Exact compiled source6c55e176/testedmanifest and8frozeninstrument/evidence hashes audited; independentfullbyte/trace reconstruction. OldmixedASI43c7 and48Referencefail preserved; private-arrayaccess failedsource9c4/buildlog archived; publicdata getter fix does not normalize raw2..4 bytes. ASIa4e19e6e2225d753c6a4f373777203829362a644fa787185f3bc39b40909187a",
+      "dependency_review": null,
+      "scope": "Historical720 finite valid-group private reference fixtures:3types xreferenced0/1/-1 x4indices0/1/127/179 xrawloadedbyte0..4 x4poisons. Independent188byte arena and exact lookup240/ref48/request192 traces match original/candidate, strict target/helper entry gates. Reads animationblock rawbyte exactly1 via public contiguous underlying180array pointer even takeviewcount0; modelstreamingglobal is not substituted. Lookup/ref/request are isolated collaborators, no real assets/refcount/helper or invalidenum/indices/currentdependency accreditation. Naturalexit0/all17692entry-vtable/hooks/flags/timer/FP/blockloadbytes/configs restored; previousmixed48fail and initialtimeout retained.",
+      "review_reference": "reversing/RequestedAnimProjectilePair/Diagnostics/reference-loadstate-diagnostic.json"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "ReconcileTwoControllersInput",
+        "address": "0x0053F530",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadMutationRemaining3/validation-summary-reconcile.json",
+        "sha256": "12b8c2ca490658d1c5efbcbf2c15901f164575c790b642c6e4ede464fdd1652f",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2892,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911"
+      },
+      "source_provenance": "Exact compiled manifest and independently reaudited preserved raw payload; canonical EXE output oracle verified all cases. Current mapped fullbody/scratch operands verified.",
+      "dependency_review": null,
+      "scope": "2892 declared private controller cases: four signed axes, twenty buttons, left-axis/D-pad conflicts, combined patterns and out/A/B aliases; exact full payload, scratch active-role mapping only, inactive scratch/guards unchanged. Independent canonical-EXE output oracle verifies both legs. Native helpers remain uncredited. No real input/game startup/general dependency accreditation.",
+      "review_reference": "reversing/RequestedPadMutationRemaining3/DESIGN.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "Update",
+        "address": "0x00541C40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RequestedPadMutationRemaining3/validation-summary-update.json",
+        "sha256": "7e645601e99d6d7ea50c678bde22637af3808cf01191c0fb4e76b6c427fa7583",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2560,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pad.cpp": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db",
+        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911"
+      },
+      "source_provenance": "Exact compiled manifest and independently reaudited preserved full payload, current mapped scratch/body proof; canonical EXE descending-history oracle verifies both legs.",
+      "dependency_review": null,
+      "scope": "2560 private Update cases: four modes, control disable toggle, five horn positions, four frontend byte counters and sixteen input patterns. Full pad/controllers/globals/physical scratch exact; independent canonical-EXE descending-history oracle verifies both legs. Native Reconcile/Clear/CheckForInput helpers remain uncredited. Pregraphics only; no OS input/game startup/general dependency accreditation.",
+      "review_reference": "reversing/RequestedPadMutationRemaining3/DESIGN.md"
     }
   ]
 }

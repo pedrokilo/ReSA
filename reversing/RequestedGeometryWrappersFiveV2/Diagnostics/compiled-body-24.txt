@@ -1,0 +1,64 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV2\artifacts\gta_reversed-geometry-wrappers-five-v2.asi
+
+File Type: DLL
+
+  11C9F000: 55                 push        ebp
+  11C9F001: 8B EC              mov         ebp,esp
+  11C9F003: 81 EC C4 00 00 00  sub         esp,0C4h
+  11C9F009: 53                 push        ebx
+  11C9F00A: 56                 push        esi
+  11C9F00B: 57                 push        edi
+  11C9F00C: 8D 7D FC           lea         edi,[ebp-4]
+  11C9F00F: B9 01 00 00 00     mov         ecx,1
+  11C9F014: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11C9F019: F3 AB              rep stos    dword ptr es:[edi]
+  11C9F01B: 0F B6 45 10        movzx       eax,byte ptr [ebp+10h]
+  11C9F01F: 85 C0              test        eax,eax
+  11C9F021: 74 31              je          11C9F054
+  11C9F023: 0F B6 4D 0C        movzx       ecx,byte ptr [ebp+0Ch]
+  11C9F027: F3 0F 2A C1        cvtsi2ss    xmm0,ecx
+  11C9F02B: 51                 push        ecx
+  11C9F02C: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11C9F031: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  11C9F035: F3 0F 2A C2        cvtsi2ss    xmm0,edx
+  11C9F039: 51                 push        ecx
+  11C9F03A: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11C9F03F: E8 B1 0B 3B FF     call        1104FBF5
+  11C9F044: 83 C4 08           add         esp,8
+  11C9F047: E8 EE 9B 3D FF     call        11078C3A
+  11C9F04C: 88 85 3F FF FF FF  mov         byte ptr [ebp+FFFFFF3Fh],al
+  11C9F052: EB 37              jmp         11C9F08B
+  11C9F054: 0F B6 45 0C        movzx       eax,byte ptr [ebp+0Ch]
+  11C9F058: F3 0F 2A C0        cvtsi2ss    xmm0,eax
+  11C9F05C: F3 0F 5C 05 8C 97  subss       xmm0,dword ptr ds:[1319978Ch]
+            19 13
+  11C9F064: 51                 push        ecx
+  11C9F065: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11C9F06A: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  11C9F06E: F3 0F 2A C1        cvtsi2ss    xmm0,ecx
+  11C9F072: 51                 push        ecx
+  11C9F073: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11C9F078: E8 78 0B 3B FF     call        1104FBF5
+  11C9F07D: 83 C4 08           add         esp,8
+  11C9F080: E8 B5 9B 3D FF     call        11078C3A
+  11C9F085: 88 85 3F FF FF FF  mov         byte ptr [ebp+FFFFFF3Fh],al
+  11C9F08B: 0F B6 85 3F FF FF  movzx       eax,byte ptr [ebp+FFFFFF3Fh]
+            FF
+  11C9F092: 5F                 pop         edi
+  11C9F093: 5E                 pop         esi
+  11C9F094: 5B                 pop         ebx
+  11C9F095: 81 C4 C4 00 00 00  add         esp,0C4h
+  11C9F09B: 3B EC              cmp         ebp,esp
+  11C9F09D: E8 4D CB 3A FF     call        1104BBEF
+  11C9F0A2: 8B E5              mov         esp,ebp
+  11C9F0A4: 5D                 pop         ebp
+  11C9F0A5: C3                 ret
+  11C9F0A6: CC                 int         3
+
+  Summary
+
+     214A000 .text

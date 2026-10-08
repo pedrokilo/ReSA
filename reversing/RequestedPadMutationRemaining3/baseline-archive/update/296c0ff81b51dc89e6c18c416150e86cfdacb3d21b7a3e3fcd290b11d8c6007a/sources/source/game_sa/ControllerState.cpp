@@ -1,0 +1,83 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CControllerState
+ * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/2 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
+#include "StdInc.h"
+
+#include "ControllerState.h"
+
+void CControllerState::InjectHooks() {
+    RH_ScopedClass(CControllerState);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(Clear, 0x53EF80);
+    RH_ScopedInstall(CheckForInput, 0x53EFF0);
+}
+
+// 0x53EF80
+void CControllerState::Clear() {
+    RightStickY = 0;
+    RightStickX = 0;
+    LeftStickY = 0;
+    LeftStickX = 0;
+    RightShoulder2 = 0;
+    RightShoulder1 = 0;
+    LeftShoulder2 = 0;
+    LeftShoulder1 = 0;
+    DPadRight = 0;
+    DPadLeft = 0;
+    DPadDown = 0;
+    DPadUp = 0;
+    Select = 0;
+    Start = 0;
+    ButtonCircle = 0;
+    ButtonCross = 0;
+    ButtonTriangle = 0;
+    ButtonSquare = 0;
+    ShockButtonR = 0;
+    ShockButtonL = 0;
+    m_bChatIndicated = 0;
+    m_bPedWalk = 0;
+    m_bVehicleMouseLook = 0;
+    m_bRadioTrackSkip = 0;
+}
+
+// 0x53EFF0
+bool CControllerState::CheckForInput() {
+    return (
+        RightStickX
+        || RightStickY
+        || LeftStickX
+        || LeftStickY
+        || DPadUp
+        || DPadDown
+        || DPadLeft
+        || DPadRight
+        || ButtonTriangle
+        || ButtonCross
+        || ButtonCircle
+        || ButtonSquare
+        || Start
+        || Select
+        || LeftShoulder1
+        || LeftShoulder2
+        || RightShoulder1
+        || RightShoulder2
+        || ShockButtonL
+        || ShockButtonR
+    );
+}

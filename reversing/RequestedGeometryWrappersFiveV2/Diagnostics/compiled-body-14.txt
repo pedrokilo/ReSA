@@ -1,0 +1,500 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV2\artifacts\gta_reversed-geometry-wrappers-five-v2.asi
+
+File Type: DLL
+
+  1120F470: 55                 push        ebp
+  1120F471: 8B EC              mov         ebp,esp
+  1120F473: 81 EC CC 00 00 00  sub         esp,0CCh
+  1120F479: 53                 push        ebx
+  1120F47A: 56                 push        esi
+  1120F47B: 57                 push        edi
+  1120F47C: 51                 push        ecx
+  1120F47D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1120F480: B9 03 00 00 00     mov         ecx,3
+  1120F485: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1120F48A: F3 AB              rep stos    dword ptr es:[edi]
+  1120F48C: 59                 pop         ecx
+  1120F48D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1120F490: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F493: 50                 push        eax
+  1120F494: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F497: E8 76 7F E5 FF     call        11067412
+  1120F49C: 90                 nop
+  1120F49D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F4A0: C7 00 34 63 19 13  mov         dword ptr [eax],13196334h
+  1120F4A6: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F4A9: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F4AC: 8B 51 18           mov         edx,dword ptr [ecx+18h]
+  1120F4AF: 89 50 18           mov         dword ptr [eax+18h],edx
+  1120F4B2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F4B5: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1120F4B8: 80 E1 01           and         cl,1
+  1120F4BB: 80 E1 01           and         cl,1
+  1120F4BE: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F4C1: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1120F4C4: 24 FE              and         al,0FEh
+  1120F4C6: 0A C1              or          al,cl
+  1120F4C8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F4CB: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1120F4CE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F4D1: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1120F4D4: D0 E9              shr         cl,1
+  1120F4D6: 80 E1 01           and         cl,1
+  1120F4D9: 80 E1 01           and         cl,1
+  1120F4DC: D0 E1              shl         cl,1
+  1120F4DE: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F4E1: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1120F4E4: 24 FD              and         al,0FDh
+  1120F4E6: 0A C1              or          al,cl
+  1120F4E8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F4EB: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1120F4EE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F4F1: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1120F4F4: C0 E9 02           shr         cl,2
+  1120F4F7: 80 E1 01           and         cl,1
+  1120F4FA: 80 E1 01           and         cl,1
+  1120F4FD: C0 E1 02           shl         cl,2
+  1120F500: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F503: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1120F506: 24 FB              and         al,0FBh
+  1120F508: 0A C1              or          al,cl
+  1120F50A: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F50D: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1120F510: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F513: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1120F516: C0 E9 03           shr         cl,3
+  1120F519: 80 E1 01           and         cl,1
+  1120F51C: 80 E1 01           and         cl,1
+  1120F51F: C0 E1 03           shl         cl,3
+  1120F522: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F525: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1120F528: 24 F7              and         al,0F7h
+  1120F52A: 0A C1              or          al,cl
+  1120F52C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F52F: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1120F532: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F535: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1120F538: C0 E9 04           shr         cl,4
+  1120F53B: 80 E1 01           and         cl,1
+  1120F53E: 80 E1 01           and         cl,1
+  1120F541: C0 E1 04           shl         cl,4
+  1120F544: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F547: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1120F54A: 24 EF              and         al,0EFh
+  1120F54C: 0A C1              or          al,cl
+  1120F54E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F551: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1120F554: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F557: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1120F55A: C0 E9 05           shr         cl,5
+  1120F55D: 80 E1 01           and         cl,1
+  1120F560: 80 E1 01           and         cl,1
+  1120F563: C0 E1 05           shl         cl,5
+  1120F566: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F569: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1120F56C: 24 DF              and         al,0DFh
+  1120F56E: 0A C1              or          al,cl
+  1120F570: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F573: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1120F576: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F579: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1120F57C: C0 E9 06           shr         cl,6
+  1120F57F: 80 E1 01           and         cl,1
+  1120F582: 80 E1 01           and         cl,1
+  1120F585: C0 E1 06           shl         cl,6
+  1120F588: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F58B: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1120F58E: 24 BF              and         al,0BFh
+  1120F590: 0A C1              or          al,cl
+  1120F592: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F595: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1120F598: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F59B: 8A 48 1C           mov         cl,byte ptr [eax+1Ch]
+  1120F59E: C0 E9 07           shr         cl,7
+  1120F5A1: 80 E1 01           and         cl,1
+  1120F5A4: 80 E1 01           and         cl,1
+  1120F5A7: C0 E1 07           shl         cl,7
+  1120F5AA: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F5AD: 8A 42 1C           mov         al,byte ptr [edx+1Ch]
+  1120F5B0: 24 7F              and         al,7Fh
+  1120F5B2: 0A C1              or          al,cl
+  1120F5B4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F5B7: 88 41 1C           mov         byte ptr [ecx+1Ch],al
+  1120F5BA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F5BD: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1120F5C0: 80 E1 01           and         cl,1
+  1120F5C3: 80 E1 01           and         cl,1
+  1120F5C6: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F5C9: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1120F5CC: 24 FE              and         al,0FEh
+  1120F5CE: 0A C1              or          al,cl
+  1120F5D0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F5D3: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1120F5D6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F5D9: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1120F5DC: D0 E9              shr         cl,1
+  1120F5DE: 80 E1 01           and         cl,1
+  1120F5E1: 80 E1 01           and         cl,1
+  1120F5E4: D0 E1              shl         cl,1
+  1120F5E6: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F5E9: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1120F5EC: 24 FD              and         al,0FDh
+  1120F5EE: 0A C1              or          al,cl
+  1120F5F0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F5F3: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1120F5F6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F5F9: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1120F5FC: C0 E9 02           shr         cl,2
+  1120F5FF: 80 E1 01           and         cl,1
+  1120F602: 80 E1 01           and         cl,1
+  1120F605: C0 E1 02           shl         cl,2
+  1120F608: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F60B: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1120F60E: 24 FB              and         al,0FBh
+  1120F610: 0A C1              or          al,cl
+  1120F612: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F615: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1120F618: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F61B: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1120F61E: C0 E9 03           shr         cl,3
+  1120F621: 80 E1 01           and         cl,1
+  1120F624: 80 E1 01           and         cl,1
+  1120F627: C0 E1 03           shl         cl,3
+  1120F62A: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F62D: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1120F630: 24 F7              and         al,0F7h
+  1120F632: 0A C1              or          al,cl
+  1120F634: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F637: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1120F63A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F63D: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1120F640: C0 E9 04           shr         cl,4
+  1120F643: 80 E1 01           and         cl,1
+  1120F646: 80 E1 01           and         cl,1
+  1120F649: C0 E1 04           shl         cl,4
+  1120F64C: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F64F: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1120F652: 24 EF              and         al,0EFh
+  1120F654: 0A C1              or          al,cl
+  1120F656: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F659: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1120F65C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F65F: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1120F662: C0 E9 05           shr         cl,5
+  1120F665: 80 E1 01           and         cl,1
+  1120F668: 80 E1 01           and         cl,1
+  1120F66B: C0 E1 05           shl         cl,5
+  1120F66E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F671: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1120F674: 24 DF              and         al,0DFh
+  1120F676: 0A C1              or          al,cl
+  1120F678: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F67B: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1120F67E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F681: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1120F684: C0 E9 06           shr         cl,6
+  1120F687: 80 E1 01           and         cl,1
+  1120F68A: 80 E1 01           and         cl,1
+  1120F68D: C0 E1 06           shl         cl,6
+  1120F690: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F693: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1120F696: 24 BF              and         al,0BFh
+  1120F698: 0A C1              or          al,cl
+  1120F69A: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F69D: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1120F6A0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F6A3: 8A 48 1D           mov         cl,byte ptr [eax+1Dh]
+  1120F6A6: C0 E9 07           shr         cl,7
+  1120F6A9: 80 E1 01           and         cl,1
+  1120F6AC: 80 E1 01           and         cl,1
+  1120F6AF: C0 E1 07           shl         cl,7
+  1120F6B2: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F6B5: 8A 42 1D           mov         al,byte ptr [edx+1Dh]
+  1120F6B8: 24 7F              and         al,7Fh
+  1120F6BA: 0A C1              or          al,cl
+  1120F6BC: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F6BF: 88 41 1D           mov         byte ptr [ecx+1Dh],al
+  1120F6C2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F6C5: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1120F6C8: 80 E1 01           and         cl,1
+  1120F6CB: 80 E1 01           and         cl,1
+  1120F6CE: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F6D1: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1120F6D4: 24 FE              and         al,0FEh
+  1120F6D6: 0A C1              or          al,cl
+  1120F6D8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F6DB: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1120F6DE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F6E1: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1120F6E4: D0 E9              shr         cl,1
+  1120F6E6: 80 E1 01           and         cl,1
+  1120F6E9: 80 E1 01           and         cl,1
+  1120F6EC: D0 E1              shl         cl,1
+  1120F6EE: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F6F1: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1120F6F4: 24 FD              and         al,0FDh
+  1120F6F6: 0A C1              or          al,cl
+  1120F6F8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F6FB: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1120F6FE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F701: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1120F704: C0 E9 02           shr         cl,2
+  1120F707: 80 E1 01           and         cl,1
+  1120F70A: 80 E1 01           and         cl,1
+  1120F70D: C0 E1 02           shl         cl,2
+  1120F710: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F713: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1120F716: 24 FB              and         al,0FBh
+  1120F718: 0A C1              or          al,cl
+  1120F71A: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F71D: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1120F720: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F723: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1120F726: C0 E9 03           shr         cl,3
+  1120F729: 80 E1 01           and         cl,1
+  1120F72C: 80 E1 01           and         cl,1
+  1120F72F: C0 E1 03           shl         cl,3
+  1120F732: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F735: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1120F738: 24 F7              and         al,0F7h
+  1120F73A: 0A C1              or          al,cl
+  1120F73C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F73F: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1120F742: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F745: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1120F748: C0 E9 04           shr         cl,4
+  1120F74B: 80 E1 01           and         cl,1
+  1120F74E: 80 E1 01           and         cl,1
+  1120F751: C0 E1 04           shl         cl,4
+  1120F754: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F757: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1120F75A: 24 EF              and         al,0EFh
+  1120F75C: 0A C1              or          al,cl
+  1120F75E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F761: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1120F764: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F767: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1120F76A: C0 E9 05           shr         cl,5
+  1120F76D: 80 E1 01           and         cl,1
+  1120F770: 80 E1 01           and         cl,1
+  1120F773: C0 E1 05           shl         cl,5
+  1120F776: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F779: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1120F77C: 24 DF              and         al,0DFh
+  1120F77E: 0A C1              or          al,cl
+  1120F780: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F783: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1120F786: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F789: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1120F78C: C0 E9 06           shr         cl,6
+  1120F78F: 80 E1 01           and         cl,1
+  1120F792: 80 E1 01           and         cl,1
+  1120F795: C0 E1 06           shl         cl,6
+  1120F798: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F79B: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1120F79E: 24 BF              and         al,0BFh
+  1120F7A0: 0A C1              or          al,cl
+  1120F7A2: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F7A5: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1120F7A8: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F7AB: 8A 48 1E           mov         cl,byte ptr [eax+1Eh]
+  1120F7AE: C0 E9 07           shr         cl,7
+  1120F7B1: 80 E1 01           and         cl,1
+  1120F7B4: 80 E1 01           and         cl,1
+  1120F7B7: C0 E1 07           shl         cl,7
+  1120F7BA: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F7BD: 8A 42 1E           mov         al,byte ptr [edx+1Eh]
+  1120F7C0: 24 7F              and         al,7Fh
+  1120F7C2: 0A C1              or          al,cl
+  1120F7C4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F7C7: 88 41 1E           mov         byte ptr [ecx+1Eh],al
+  1120F7CA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F7CD: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1120F7D0: 80 E1 01           and         cl,1
+  1120F7D3: 80 E1 01           and         cl,1
+  1120F7D6: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F7D9: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1120F7DC: 24 FE              and         al,0FEh
+  1120F7DE: 0A C1              or          al,cl
+  1120F7E0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F7E3: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1120F7E6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F7E9: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1120F7EC: D0 E9              shr         cl,1
+  1120F7EE: 80 E1 01           and         cl,1
+  1120F7F1: 80 E1 01           and         cl,1
+  1120F7F4: D0 E1              shl         cl,1
+  1120F7F6: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F7F9: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1120F7FC: 24 FD              and         al,0FDh
+  1120F7FE: 0A C1              or          al,cl
+  1120F800: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F803: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1120F806: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F809: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1120F80C: C0 E9 02           shr         cl,2
+  1120F80F: 80 E1 01           and         cl,1
+  1120F812: 80 E1 01           and         cl,1
+  1120F815: C0 E1 02           shl         cl,2
+  1120F818: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F81B: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1120F81E: 24 FB              and         al,0FBh
+  1120F820: 0A C1              or          al,cl
+  1120F822: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F825: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1120F828: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F82B: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1120F82E: C0 E9 03           shr         cl,3
+  1120F831: 80 E1 01           and         cl,1
+  1120F834: 80 E1 01           and         cl,1
+  1120F837: C0 E1 03           shl         cl,3
+  1120F83A: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F83D: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1120F840: 24 F7              and         al,0F7h
+  1120F842: 0A C1              or          al,cl
+  1120F844: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F847: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1120F84A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F84D: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1120F850: C0 E9 04           shr         cl,4
+  1120F853: 80 E1 01           and         cl,1
+  1120F856: 80 E1 01           and         cl,1
+  1120F859: C0 E1 04           shl         cl,4
+  1120F85C: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F85F: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1120F862: 24 EF              and         al,0EFh
+  1120F864: 0A C1              or          al,cl
+  1120F866: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F869: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1120F86C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F86F: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1120F872: C0 E9 05           shr         cl,5
+  1120F875: 80 E1 01           and         cl,1
+  1120F878: 80 E1 01           and         cl,1
+  1120F87B: C0 E1 05           shl         cl,5
+  1120F87E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F881: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1120F884: 24 DF              and         al,0DFh
+  1120F886: 0A C1              or          al,cl
+  1120F888: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F88B: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1120F88E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F891: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1120F894: C0 E9 06           shr         cl,6
+  1120F897: 80 E1 01           and         cl,1
+  1120F89A: 80 E1 01           and         cl,1
+  1120F89D: C0 E1 06           shl         cl,6
+  1120F8A0: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F8A3: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1120F8A6: 24 BF              and         al,0BFh
+  1120F8A8: 0A C1              or          al,cl
+  1120F8AA: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F8AD: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1120F8B0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F8B3: 8A 48 1F           mov         cl,byte ptr [eax+1Fh]
+  1120F8B6: C0 E9 07           shr         cl,7
+  1120F8B9: 80 E1 01           and         cl,1
+  1120F8BC: 80 E1 01           and         cl,1
+  1120F8BF: C0 E1 07           shl         cl,7
+  1120F8C2: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F8C5: 8A 42 1F           mov         al,byte ptr [edx+1Fh]
+  1120F8C8: 24 7F              and         al,7Fh
+  1120F8CA: 0A C1              or          al,cl
+  1120F8CC: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F8CF: 88 41 1F           mov         byte ptr [ecx+1Fh],al
+  1120F8D2: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F8D5: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F8D8: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  1120F8DB: 89 50 1C           mov         dword ptr [eax+1Ch],edx
+  1120F8DE: B8 FF 00 00 00     mov         eax,0FFh
+  1120F8E3: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F8E6: 66 23 41 20        and         ax,word ptr [ecx+20h]
+  1120F8EA: BA FF 00 00 00     mov         edx,0FFh
+  1120F8EF: 66 23 C2           and         ax,dx
+  1120F8F2: B9 00 FF 00 00     mov         ecx,0FF00h
+  1120F8F7: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F8FA: 66 23 4A 20        and         cx,word ptr [edx+20h]
+  1120F8FE: 66 0B C8           or          cx,ax
+  1120F901: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F904: 66 89 48 20        mov         word ptr [eax+20h],cx
+  1120F908: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F90B: 66 8B 48 20        mov         cx,word ptr [eax+20h]
+  1120F90F: 66 C1 E9 08        shr         cx,8
+  1120F913: BA FF 00 00 00     mov         edx,0FFh
+  1120F918: 66 23 CA           and         cx,dx
+  1120F91B: B8 FF 00 00 00     mov         eax,0FFh
+  1120F920: 66 23 C8           and         cx,ax
+  1120F923: 66 C1 E1 08        shl         cx,8
+  1120F927: BA FF 00 00 00     mov         edx,0FFh
+  1120F92C: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F92F: 66 23 50 20        and         dx,word ptr [eax+20h]
+  1120F933: 66 0B D1           or          dx,cx
+  1120F936: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1120F939: 66 89 51 20        mov         word ptr [ecx+20h],dx
+  1120F93D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F940: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F943: 66 8B 51 20        mov         dx,word ptr [ecx+20h]
+  1120F947: 66 89 50 20        mov         word ptr [eax+20h],dx
+  1120F94B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F94E: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F951: 66 8B 51 22        mov         dx,word ptr [ecx+22h]
+  1120F955: 66 89 50 22        mov         word ptr [eax+22h],dx
+  1120F959: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F95C: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F95F: 8B 51 24           mov         edx,dword ptr [ecx+24h]
+  1120F962: 89 50 24           mov         dword ptr [eax+24h],edx
+  1120F965: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F968: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F96B: 8B 51 28           mov         edx,dword ptr [ecx+28h]
+  1120F96E: 89 50 28           mov         dword ptr [eax+28h],edx
+  1120F971: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F974: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F977: 66 8B 51 2C        mov         dx,word ptr [ecx+2Ch]
+  1120F97B: 66 89 50 2C        mov         word ptr [eax+2Ch],dx
+  1120F97F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F982: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F985: 8A 51 2E           mov         dl,byte ptr [ecx+2Eh]
+  1120F988: 88 50 2E           mov         byte ptr [eax+2Eh],dl
+  1120F98B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F98E: 8A 48 2F           mov         cl,byte ptr [eax+2Fh]
+  1120F991: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F994: 88 4A 2F           mov         byte ptr [edx+2Fh],cl
+  1120F997: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F99A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F99D: 8B 51 30           mov         edx,dword ptr [ecx+30h]
+  1120F9A0: 89 50 30           mov         dword ptr [eax+30h],edx
+  1120F9A3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F9A6: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F9A9: 8B 51 30           mov         edx,dword ptr [ecx+30h]
+  1120F9AC: 89 50 30           mov         dword ptr [eax+30h],edx
+  1120F9AF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F9B2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F9B5: 8A 51 34           mov         dl,byte ptr [ecx+34h]
+  1120F9B8: 88 50 34           mov         byte ptr [eax+34h],dl
+  1120F9BB: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F9BE: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1120F9C1: 8A 51 35           mov         dl,byte ptr [ecx+35h]
+  1120F9C4: 88 50 35           mov         byte ptr [eax+35h],dl
+  1120F9C7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1120F9CA: 8A 48 36           mov         cl,byte ptr [eax+36h]
+  1120F9CD: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1120F9D0: 88 4A 36           mov         byte ptr [edx+36h],cl
+  1120F9D3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1120F9D6: 5F                 pop         edi
+  1120F9D7: 5E                 pop         esi
+  1120F9D8: 5B                 pop         ebx
+  1120F9D9: 81 C4 CC 00 00 00  add         esp,0CCh
+  1120F9DF: 3B EC              cmp         ebp,esp
+  1120F9E1: E8 09 C2 E3 FF     call        1104BBEF
+  1120F9E6: 8B E5              mov         esp,ebp
+  1120F9E8: 5D                 pop         ebp
+  1120F9E9: C2 04 00           ret         4
+  1120F9EC: CC                 int         3
+
+  Summary
+
+     214A000 .text

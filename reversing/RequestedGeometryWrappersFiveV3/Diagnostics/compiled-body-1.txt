@@ -1,0 +1,77 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV3\artifacts\gta_reversed-geometry-wrappers-five-v3.asi
+
+File Type: DLL
+
+  11B2DE30: 55                 push        ebp
+  11B2DE31: 8B EC              mov         ebp,esp
+  11B2DE33: 81 EC FC 00 00 00  sub         esp,0FCh
+  11B2DE39: 53                 push        ebx
+  11B2DE3A: 56                 push        esi
+  11B2DE3B: 57                 push        edi
+  11B2DE3C: 8D 7D C4           lea         edi,[ebp-3Ch]
+  11B2DE3F: B9 0F 00 00 00     mov         ecx,0Fh
+  11B2DE44: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B2DE49: F3 AB              rep stos    dword ptr es:[edi]
+  11B2DE4B: A1 40 1A 6A 13     mov         eax,dword ptr ds:[136A1A40h]
+  11B2DE50: 33 C5              xor         eax,ebp
+  11B2DE52: 89 45 FC           mov         dword ptr [ebp-4],eax
+  11B2DE55: 8D 45 C8           lea         eax,[ebp-38h]
+  11B2DE58: 50                 push        eax
+  11B2DE59: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11B2DE5C: 51                 push        ecx
+  11B2DE5D: 51                 push        ecx
+  11B2DE5E: F3 0F 10 45 08     movss       xmm0,dword ptr [ebp+8]
+  11B2DE63: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B2DE68: E8 3C 5A 56 FF     call        110938A9
+  11B2DE6D: 83 C4 0C           add         esp,0Ch
+  11B2DE70: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  11B2DE73: 50                 push        eax
+  11B2DE74: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B2DE77: 51                 push        ecx
+  11B2DE78: 8D 55 C8           lea         edx,[ebp-38h]
+  11B2DE7B: 52                 push        edx
+  11B2DE7C: 51                 push        ecx
+  11B2DE7D: F3 0F 10 45 08     movss       xmm0,dword ptr [ebp+8]
+  11B2DE82: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B2DE87: E8 2B 6A 56 FF     call        110948B7
+  11B2DE8C: 83 C4 10           add         esp,10h
+  11B2DE8F: 52                 push        edx
+  11B2DE90: 8B CD              mov         ecx,ebp
+  11B2DE92: 50                 push        eax
+  11B2DE93: 8D 15 C0 DE B2 11  lea         edx,ds:[11B2DEC0h]
+  11B2DE99: E8 0C 76 52 FF     call        110554AA
+  11B2DE9E: 58                 pop         eax
+  11B2DE9F: 5A                 pop         edx
+  11B2DEA0: 5F                 pop         edi
+  11B2DEA1: 5E                 pop         esi
+  11B2DEA2: 5B                 pop         ebx
+  11B2DEA3: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  11B2DEA6: 33 CD              xor         ecx,ebp
+  11B2DEA8: E8 06 04 52 FF     call        1104E2B3
+  11B2DEAD: 81 C4 FC 00 00 00  add         esp,0FCh
+  11B2DEB3: 3B EC              cmp         ebp,esp
+  11B2DEB5: E8 62 1D 52 FF     call        1104FC1C
+  11B2DEBA: 8B E5              mov         esp,ebp
+  11B2DEBC: 5D                 pop         ebp
+  11B2DEBD: C3                 ret
+  11B2DEBE: 66 90              nop
+  11B2DEC0: 01 00              add         dword ptr [eax],eax
+  11B2DEC2: 00 00              add         byte ptr [eax],al
+  11B2DEC4: C8 DE B2 11        enter       0B2DEh,11h
+  11B2DEC8: C8 FF FF FF        enter       0FFFFh,0FFh
+  11B2DECC: 30 00              xor         byte ptr [eax],al
+  11B2DECE: 00 00              add         byte ptr [eax],al
+  11B2DED0: D4 DE              aamb        0DEh
+  11B2DED2: B2 11              mov         dl,11h
+  11B2DED4: 63 6F 72           arpl        word ptr [edi+72h],bp
+  11B2DED7: 6E                 outs        dx,byte ptr [esi]
+  11B2DED8: 65 72 73           jb          11B2DF4E
+  11B2DEDB: 00 CC              add         ah,cl
+
+  Summary
+
+     2153000 .text

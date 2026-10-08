@@ -1,0 +1,155 @@
+{
+  "procedure": {
+    "address": "0x5950d0",
+    "name": "FUN_005950d0",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x5950d0",
+          "end": "0x595151"
+        }
+      ],
+      "total_bytes": 130,
+      "span_bytes": 130,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_005950d0()",
+    "locals": [
+      {
+        "description": "undefined4 local_4 @ Stack[-0x4]:4",
+        "provenance": "ghidra-function-database"
+      }
+    ]
+  },
+  "pseudocode": "\r\nvoid FUN_005950d0(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  int in_ECX;\r\n  \r\n  if (*(char *)(in_ECX + 0xba) == '\\0') {\r\n    cVar1 = *(char *)(in_ECX + 0xe);\r\n    if (cVar1 == '\\0') {\r\n      iVar2 = FUN_004d3990(\"int_house\");\r\n    }\r\n    else if (cVar1 == '\\x01') {\r\n      iVar2 = FUN_004d3990(\"int_shop\");\r\n    }\r\n    else {\r\n      iVar2 = in_ECX;\r\n      if (cVar1 == '\\x02') {\r\n        iVar2 = FUN_004d3990(\"int_office\");\r\n      }\r\n    }\r\n    if ((&DAT_00b5d4b0)[iVar2 * 0x20] != '\\x01') {\r\n      FUN_004087e0(iVar2 + 0x63e7,8);\r\n      return;\r\n    }\r\n    FUN_004d3fb0(iVar2);\r\n    *(undefined1 *)(in_ECX + 0xba) = 1;\r\n  }\r\n  return;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x5950d0: PUSH ECX",
+    "0x5950d1: PUSH ESI",
+    "0x5950d2: MOV ESI, ECX",
+    "0x5950d4: MOV AL, byte ptr [ESI + 0xba]",
+    "0x5950da: TEST AL, AL",
+    "0x5950dc: JNZ 0x0059514f",
+    "0x5950de: MOV AL, byte ptr [ESI + 0xe]",
+    "0x5950e1: TEST AL, AL",
+    "0x5950e3: JNZ 0x005950f4",
+    "0x5950e5: PUSH 0x866d40",
+    "0x5950ea: CALL 0x004d3990",
+    "0x5950ef: ADD ESP, 0x4",
+    "0x5950f2: JMP 0x0059511e",
+    "0x5950f4: CMP AL, 0x1",
+    "0x5950f6: JNZ 0x00595107",
+    "0x5950f8: PUSH 0x866d34",
+    "0x5950fd: CALL 0x004d3990",
+    "0x595102: ADD ESP, 0x4",
+    "0x595105: JMP 0x0059511e",
+    "0x595107: CMP AL, 0x2",
+    "0x595109: JNZ 0x0059511a",
+    "0x59510b: PUSH 0x866d28",
+    "0x595110: CALL 0x004d3990",
+    "0x595115: ADD ESP, 0x4",
+    "0x595118: JMP 0x0059511e",
+    "0x59511a: MOV EAX, dword ptr [ESP + 0x4]",
+    "0x59511e: MOV ECX, EAX",
+    "0x595120: SHL ECX, 0x5",
+    "0x595123: CMP byte ptr [ECX + 0xb5d4b0], 0x1",
+    "0x59512a: JZ 0x0059513f",
+    "0x59512c: ADD EAX, 0x63e7",
+    "0x595131: PUSH 0x8",
+    "0x595133: PUSH EAX",
+    "0x595134: CALL 0x004087e0",
+    "0x595139: ADD ESP, 0x8",
+    "0x59513c: POP ESI",
+    "0x59513d: POP ECX",
+    "0x59513e: RET",
+    "0x59513f: PUSH EAX",
+    "0x595140: CALL 0x004d3fb0",
+    "0x595145: ADD ESP, 0x4",
+    "0x595148: MOV byte ptr [ESI + 0xba], 0x1",
+    "0x59514f: POP ESI",
+    "0x595150: POP ECX",
+    "0x595151: RET"
+  ],
+  "callees": [
+    {
+      "address": "0x4087e0",
+      "name": "FUN_004087e0",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4087e0",
+            "end": "0x408994"
+          }
+        ],
+        "total_bytes": 437,
+        "span_bytes": 437,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    },
+    {
+      "address": "0x4d3990",
+      "name": "FUN_004d3990",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4d3990",
+            "end": "0x4d39ad"
+          }
+        ],
+        "total_bytes": 30,
+        "span_bytes": 30,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    },
+    {
+      "address": "0x4d3fb0",
+      "name": "FUN_004d3fb0",
+      "classification": {
+        "external": false,
+        "thunk": false,
+        "thunk_target": null,
+        "provenance": "ghidra-function-manager"
+      },
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4d3fb0",
+            "end": "0x4d3fc0"
+          }
+        ],
+        "total_bytes": 17,
+        "span_bytes": 17,
+        "non_contiguous": false,
+        "contains_entry": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{"event":"preflight_entered","graphics_initialized":false}
+{"event":"before_task_bank","hooks_snapshotted":8449}
+{"event":"task_bank_returned"}
+{"changed_ranges":[],"entries_restored":true,"event":"complete","flags_restored":true,"snapshot_ranges":17692,"state_restored":true,"tables_restored":true,"timer_restored":true}

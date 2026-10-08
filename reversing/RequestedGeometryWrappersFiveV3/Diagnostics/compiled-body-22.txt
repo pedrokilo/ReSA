@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV3\artifacts\gta_reversed-geometry-wrappers-five-v3.asi
+
+File Type: DLL
+
+  115E7050: 55                 push        ebp
+  115E7051: 8B EC              mov         ebp,esp
+  115E7053: 81 EC C4 00 00 00  sub         esp,0C4h
+  115E7059: 53                 push        ebx
+  115E705A: 56                 push        esi
+  115E705B: 57                 push        edi
+  115E705C: 8D 7D FC           lea         edi,[ebp-4]
+  115E705F: B9 01 00 00 00     mov         ecx,1
+  115E7064: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115E7069: F3 AB              rep stos    dword ptr es:[edi]
+  115E706B: 0F B6 45 10        movzx       eax,byte ptr [ebp+10h]
+  115E706F: 85 C0              test        eax,eax
+  115E7071: 74 2B              je          115E709E
+  115E7073: F3 0F 2A 45 0C     cvtsi2ss    xmm0,dword ptr [ebp+0Ch]
+  115E7078: 51                 push        ecx
+  115E7079: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  115E707E: F3 0F 2A 45 08     cvtsi2ss    xmm0,dword ptr [ebp+8]
+  115E7083: 51                 push        ecx
+  115E7084: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  115E7089: E8 C1 CB A6 FF     call        11053C4F
+  115E708E: 83 C4 08           add         esp,8
+  115E7091: E8 57 8A A9 FF     call        1107FAED
+  115E7096: 89 85 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],eax
+  115E709C: EB 31              jmp         115E70CF
+  115E709E: F3 0F 2A 45 0C     cvtsi2ss    xmm0,dword ptr [ebp+0Ch]
+  115E70A3: F3 0F 5C 05 8C 67  subss       xmm0,dword ptr ds:[131A678Ch]
+            1A 13
+  115E70AB: 51                 push        ecx
+  115E70AC: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  115E70B1: F3 0F 2A 45 08     cvtsi2ss    xmm0,dword ptr [ebp+8]
+  115E70B6: 51                 push        ecx
+  115E70B7: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  115E70BC: E8 8E CB A6 FF     call        11053C4F
+  115E70C1: 83 C4 08           add         esp,8
+  115E70C4: E8 24 8A A9 FF     call        1107FAED
+  115E70C9: 89 85 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],eax
+  115E70CF: 8B 85 3C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF3Ch]
+  115E70D5: 5F                 pop         edi
+  115E70D6: 5E                 pop         esi
+  115E70D7: 5B                 pop         ebx
+  115E70D8: 81 C4 C4 00 00 00  add         esp,0C4h
+  115E70DE: 3B EC              cmp         ebp,esp
+  115E70E0: E8 37 8B A6 FF     call        1104FC1C
+  115E70E5: 8B E5              mov         esp,ebp
+  115E70E7: 5D                 pop         ebp
+  115E70E8: C3                 ret
+  115E70E9: CC                 int         3
+
+  Summary
+
+     2153000 .text

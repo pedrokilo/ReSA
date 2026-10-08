@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  005F36A0: 8B 4C 24 08        mov         ecx,dword ptr [esp+8]
+  005F36A4: 83 EC 3C           sub         esp,3Ch
+  005F36A7: 56                 push        esi
+  005F36A8: 8B 74 24 44        mov         esi,dword ptr [esp+44h]
+  005F36AC: 8D 44 24 10        lea         eax,[esp+10h]
+  005F36B0: 50                 push        eax
+  005F36B1: 51                 push        ecx
+  005F36B2: 56                 push        esi
+  005F36B3: E8 E8 E8 FF FF     call        005F1FA0
+  005F36B8: 8D 54 24 10        lea         edx,[esp+10h]
+  005F36BC: 52                 push        edx
+  005F36BD: 8D 44 24 20        lea         eax,[esp+20h]
+  005F36C1: 50                 push        eax
+  005F36C2: 56                 push        esi
+  005F36C3: E8 38 DF FF FF     call        005F1600
+  005F36C8: 8B 4C 24 68        mov         ecx,dword ptr [esp+68h]
+  005F36CC: 8B 54 24 64        mov         edx,dword ptr [esp+64h]
+  005F36D0: 51                 push        ecx
+  005F36D1: 52                 push        edx
+  005F36D2: 8D 44 24 24        lea         eax,[esp+24h]
+  005F36D6: 50                 push        eax
+  005F36D7: 8D 4C 24 34        lea         ecx,[esp+34h]
+  005F36DB: 51                 push        ecx
+  005F36DC: E8 6F E0 FF FF     call        005F1750
+  005F36E1: 83 C4 28           add         esp,28h
+  005F36E4: 5E                 pop         esi
+  005F36E5: 83 C4 3C           add         esp,3Ch
+  005F36E8: C3                 ret
+  005F36E9: 90                 nop
+  005F36EA: 90                 nop
+  005F36EB: 90                 nop
+  005F36EC: 90                 nop
+  005F36ED: 90                 nop
+  005F36EE: 90                 nop
+  005F36EF: 90                 nop
+  005F36F0: 8B
+
+  Summary
+
+      456000 .text

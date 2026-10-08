@@ -1,0 +1,10 @@
+{
+  "source_path": "source/game_sa/Interior/InteriorGroup_c.cpp",
+  "before_sha256": "ad44c3da6af51047dfa34f68d7f047b258c11d6e681e08ce4cfaf25c772d68e8",
+  "after_sha256": "9c4eea373de9ba74b7927d9829bde39f064704ccad39ec87507ebafcd22a3d0d",
+  "old_compiled_asi": "43c7b63599ffc4046a9ac1a0db3c96a10a9fe9bd40ce837227dbb1262f8fe4d8",
+  "preserved_archive": "reversing/RequestedAnimProjectilePair/artifacts/immutable-before-reference-fix/43c7b63599ffc4046a9ac1a0db3c96a10a9fe9bd40ce837227dbb1262f8fe4d8",
+  "changes": "Exactly one condition: streamingmodel state replaced by raw animationblock IsLoaded byte ==1; original generatedstatus/comments/newlines unchanged",
+  "primary_evidence": "0x595123 CMP byte [blockBase+index*32+0x10],1",
+  "replay_720_pending": true
+}

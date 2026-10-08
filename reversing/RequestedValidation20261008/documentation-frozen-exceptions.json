@@ -1,5 +1,5 @@
 {
-  "snapshot": "6839 documentary checkpoint; accepted/live and older preparation archive epochs distinguished",
+  "snapshot": "6843 documentary checkpoint; frozen inputs and bank_sources plus archived preparation epochs",
   "manifests_scanned": 2296,
   "frozen_markdown_exceptions": {
     "reversing/RequestedGeometryCentre/README.md": {
@@ -11,14 +11,13 @@
     "reversing/RequestedGeometryPlanes/README.md": {
       "sha256": "0faaeca595f404fb3ec3289804945b0857d37f2502d1cddb885df35ac3ccaad7",
       "referenced_by": [
-        "reversing/RequestedGeometryPlanes/prepared-freeze.json"
+        "reversing/RequestedGeometryPlanes/prepared-freeze.json",
+        "reversing/RequestedGeometryPlanesV2/baseline-47cad0300e9cfa1bb40564b9c919150e3a62f640968e8751ae10b0c060efbcc0/prepared-freeze.json"
       ]
     },
     "reversing/RequestedPadSelectors/FIXTURES.md": {
       "sha256": "56bd1a730d919c8d4c3c0d7b77a4872f9120dbae6c04efa2d679617fe846be24",
       "referenced_by": [
-        "reversing/RequestedPadSelectors/artifacts/archive/86a08a5d6a701319269dee7ce2defcee86790574a78b6bd1030b9778bef8e2ff/manifest.json",
-        "reversing/RequestedPadSelectors/artifacts/manifest.json",
         "reversing/RequestedPadSelectors/runs/20261008-124241-603231/enriched-summary.json",
         "reversing/RequestedPadSelectors/runs/20261008-130252-828987/enriched-summary.json",
         "reversing/RequestedPadSelectors/validation-summary-51.json"
@@ -27,8 +26,6 @@
     "reversing/RequestedPadShoulderInteraction/FIXTURES.md": {
       "sha256": "4a0a7a93bbb55adbac5d9c77253d1a2c20dd6aa1747897063049960e44d2ad0c",
       "referenced_by": [
-        "reversing/RequestedPadShoulderInteraction/artifacts/archive/ce8a92a44a100d41daec85aa73ee59bfdc0948001b71b781168df0da24ca8007/manifest.json",
-        "reversing/RequestedPadShoulderInteraction/artifacts/manifest.json",
         "reversing/RequestedPadShoulderInteraction/runs/20261008-131300-139576/enriched-summary.json",
         "reversing/RequestedPadShoulderInteraction/runs/20261008-131626-078538/enriched-summary.json",
         "reversing/RequestedPadShoulderInteraction/validation-summary.json"
@@ -43,7 +40,6 @@
     "reversing/RequestedWanderRemaining/README.md": {
       "sha256": "1eadcd3fde1f1e2c13525addd9649172522c3aab59e67468a3ab2de5cb1fba71",
       "referenced_by": [
-        "coordinator explicit frozen-doc instruction",
         "reversing/RequestedWanderRemaining/prepared-freeze.json"
       ]
     },
@@ -149,6 +145,7 @@
     "reversing/RequestedGeometryPlanesV2/README.md": {
       "sha256": "54cb1efd5524dde6035a08c7baea9004c7405664d490dafc75c629fcd4b93010",
       "referenced_by": [
+        "reversing/RequestedGeometryPlanesV2/baseline-92742d86f26a418ebc147c497e8252cca5530ff42f9fd41d3097189a930a824d/prepared-freeze.json",
         "reversing/RequestedGeometryPlanesV2/prepared-freeze.json"
       ]
     },
@@ -161,13 +158,19 @@
     "reversing/RequestedPadContext9/FIXTURES.md": {
       "sha256": "e9c66b3709189f18fd55bc42ae00c7dbfe6809391c71f1e4e4136e6bb0eb3a63",
       "referenced_by": [
-        "reversing/RequestedPadContext9/corpus-frozen.json"
+        "reversing/RequestedPadContext9/corpus-frozen.json",
+        "reversing/RequestedPadContext9/instrumentation-archive/25588b0802de01214d9188eb855a8daebfc91ffbb3dc9b2168a5a3ef070bb7a6/corpus-frozen.json",
+        "reversing/RequestedPadContext9/runs/20261008-140510-370045/enriched-summary.json",
+        "reversing/RequestedPadContext9/runs/20261008-141110-364651/enriched-summary.json",
+        "reversing/RequestedPadContext9/validation-summary-context9.json"
       ]
     },
     "reversing/RequestedPadMutationNext/FIXTURES-SIX.md": {
       "sha256": "117139709a0148257f777ac46cde9c4968a9f21e7f450d79d630a09d5a03ead9",
       "referenced_by": [
-        "reversing/RequestedPadMutationNext/corpus-six-frozen.json"
+        "reversing/RequestedPadMutationNext/corpus-six-frozen.json",
+        "reversing/RequestedPadMutationNext/runs/20261008-142018-565169/enriched-summary.json",
+        "reversing/RequestedPadMutationNext/validation-summary-six.json"
       ]
     },
     "reversing/RequestedPadMutationNext/PROPOSAL.md": {
@@ -183,6 +186,20 @@
       ],
       "original_document_path": "reversing/RequestedParallelReplay/TaskCtorDtor/FIXTURES.md",
       "epoch": "prepared_not_built_not_executed; old relative freeze bound to preserved archive, not later live document"
+    },
+    "reversing/RequestedPadMutationRemaining3/DESIGN.md": {
+      "sha256": "6c33c9071dac3b648c9958813b35932c0039cb8291cbb5bfa4083e10cca85962",
+      "referenced_by": [
+        "reversing/RequestedPadMutationRemaining3/baseline-archive/update/296c0ff81b51dc89e6c18c416150e86cfdacb3d21b7a3e3fcd290b11d8c6007a/enriched-summary.json",
+        "reversing/RequestedPadMutationRemaining3/baseline-archive/update/296c0ff81b51dc89e6c18c416150e86cfdacb3d21b7a3e3fcd290b11d8c6007a/manifest.json",
+        "reversing/RequestedPadMutationRemaining3/corpus-frozen.json",
+        "reversing/RequestedPadMutationRemaining3/instrumentation-archive/c8b1fb4dddef404cc08829572d4969a78651d358967c37c78b331380a31f6f5c/corpus-frozen.json",
+        "reversing/RequestedPadMutationRemaining3/runs/reconcile/20261008-151115-198747/enriched-summary.json",
+        "reversing/RequestedPadMutationRemaining3/runs/update/20261008-151219-621228/enriched-summary.json",
+        "reversing/RequestedPadMutationRemaining3/runs/update/20261008-151627-333706/enriched-summary.json",
+        "reversing/RequestedPadMutationRemaining3/validation-summary-reconcile.json",
+        "reversing/RequestedPadMutationRemaining3/validation-summary-update.json"
+      ]
     }
   },
   "released_documentary_exceptions": {

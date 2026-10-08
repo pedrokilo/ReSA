@@ -1,0 +1,14 @@
+{
+  "builder_exit_success": false,
+  "manual_restoration_independently_verified": true,
+  "winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+  "expected_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+  "baseline_asi_sha256": "90b2d48573646fd93fe01171939aa00ef6ba8007059db4c20456545e07d5dc37",
+  "baseline_pdb_sha256": "def3979c2b292de260d7aa45cd9165e6d6484e8c006fdc4d60c300147107547b",
+  "current_asi_sha256": "90b2d48573646fd93fe01171939aa00ef6ba8007059db4c20456545e07d5dc37",
+  "current_pdb_sha256": "def3979c2b292de260d7aa45cd9165e6d6484e8c006fdc4d60c300147107547b",
+  "captured_asi_exact": true,
+  "layout_exact": true,
+  "manual_report_sha256": "8df304fc68e7509637c3618b82c204efd5c4c89cd07234f94aba8a87c9fae6c9",
+  "runtime_approval": false
+}

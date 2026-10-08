@@ -1,0 +1,37 @@
+{
+  "run_ready": false,
+  "asi_sha256": "7a32d3212e697d3c1eb32d7395e7a4bd7f6b305a676090cf304cc89624db5bca",
+  "pdb_sha256": "9b3c6a5b18b384476dac7b7ccead0c40d18a9c18a58340a907d74ac4249b65d5",
+  "primitive_patch_entries": {
+    "corners": "0x1108F502",
+    "centre": "0x11054E0C",
+    "planes": "0x11090510",
+    "segment": "0x1106D0A6"
+  },
+  "compiled_update_immediates_match_patched_call_entries": true,
+  "actual_source_call_paths": {
+    "Corners": "11B1EDEE ->1108F502 ->11B1EE40",
+    "CentreAll": [
+      "11B1ED38 ->1108F502 ->11B1EE40",
+      "11B1ED53 ->11054E0C ->11B1EB40"
+    ],
+    "PlanesAll": [
+      "11B1FFD8 ->1108F502 ->11B1EE40",
+      "11B1FFF7 ->11090510 ->11B1FE30"
+    ],
+    "Segment": "11B200AE ->11075D96 ->All11B20260 then three primitives",
+    "SegmentAll": [
+      "11B20298 ->1108F502 ->11B1EE40",
+      "11B202B3 ->11054E0C ->11B1EB40",
+      "11B202CB ->1106D0A6 ->11B200E0"
+    ]
+  },
+  "ctor_chain": [
+    "ConstructFixture1135F335 CALL1107C7D6 ->CEntity116E09F0",
+    "CEntity116E0ACE CALL1109B0F0 ->CGeneral119B7180",
+    "CGeneral119B7197 CALL11049458 ->localrand12FD21A0"
+  ],
+  "blocker": "No named rand import exists. Current namedIATguard returns safely before constructing fixture and comparing. Local statically linked CRT rand consumes internal state if allowed, so cannot run this constructor unguarded.",
+  "required_revision": "Private runtime source CGeneralGetRandomNumber functionptr E9 chain validated against ctor CALLpath, patch exact sourceentry/body with52snap/restores to return55; do not guess unrelated CRTglobalentry. Preserve old V2inputs/ASI/PDB/proof before instrument revision.",
+  "corners_full_disasm": "reversing/RequestedGeometryWrappersFiveV2/Diagnostics/compiled-body-9.txt"
+}

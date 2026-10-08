@@ -1,0 +1,67 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV2\artifacts\gta_reversed-geometry-wrappers-five-v2.asi
+
+File Type: DLL
+
+  11342DC0: 55                 push        ebp
+  11342DC1: 8B EC              mov         ebp,esp
+  11342DC3: 81 EC D8 00 00 00  sub         esp,0D8h
+  11342DC9: 53                 push        ebx
+  11342DCA: 56                 push        esi
+  11342DCB: 57                 push        edi
+  11342DCC: 8D 7D E8           lea         edi,[ebp-18h]
+  11342DCF: B9 06 00 00 00     mov         ecx,6
+  11342DD4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11342DD9: F3 AB              rep stos    dword ptr es:[edi]
+  11342DDB: 8D 45 18           lea         eax,[ebp+18h]
+  11342DDE: 50                 push        eax
+  11342DDF: 8D 4D 08           lea         ecx,[ebp+8]
+  11342DE2: 51                 push        ecx
+  11342DE3: E8 26 59 D2 FF     call        1106870E
+  11342DE8: 83 C4 08           add         esp,8
+  11342DEB: 8D 45 08           lea         eax,[ebp+8]
+  11342DEE: 50                 push        eax
+  11342DEF: E8 E3 61 D3 FF     call        11078FD7
+  11342DF4: 83 C4 04           add         esp,4
+  11342DF7: 89 45 F8           mov         dword ptr [ebp-8],eax
+  11342DFA: 8D 45 18           lea         eax,[ebp+18h]
+  11342DFD: 50                 push        eax
+  11342DFE: E8 D4 61 D3 FF     call        11078FD7
+  11342E03: 83 C4 04           add         esp,4
+  11342E06: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11342E09: EB 09              jmp         11342E14
+  11342E0B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11342E0E: 83 C0 04           add         eax,4
+  11342E11: 89 45 F8           mov         dword ptr [ebp-8],eax
+  11342E14: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11342E17: 3B 45 EC           cmp         eax,dword ptr [ebp-14h]
+  11342E1A: 74 1B              je          11342E37
+  11342E1C: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11342E1F: 8B 08              mov         ecx,dword ptr [eax]
+  11342E21: 51                 push        ecx
+  11342E22: 8D 4D 28           lea         ecx,[ebp+28h]
+  11342E25: E8 7D 44 D0 FF     call        110472A7
+  11342E2A: 0F B6 D0           movzx       edx,al
+  11342E2D: 85 D2              test        edx,edx
+  11342E2F: 74 04              je          11342E35
+  11342E31: B0 01              mov         al,1
+  11342E33: EB 04              jmp         11342E39
+  11342E35: EB D4              jmp         11342E0B
+  11342E37: 32 C0              xor         al,al
+  11342E39: 5F                 pop         edi
+  11342E3A: 5E                 pop         esi
+  11342E3B: 5B                 pop         ebx
+  11342E3C: 81 C4 D8 00 00 00  add         esp,0D8h
+  11342E42: 3B EC              cmp         ebp,esp
+  11342E44: E8 A6 8D D0 FF     call        1104BBEF
+  11342E49: 8B E5              mov         esp,ebp
+  11342E4B: 5D                 pop         ebp
+  11342E4C: C3                 ret
+  11342E4D: CC                 int         3
+
+  Summary
+
+     214A000 .text

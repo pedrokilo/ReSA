@@ -1,0 +1,99 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV3\artifacts\gta_reversed-geometry-wrappers-five-v3.asi
+
+File Type: DLL
+
+  11B2DF70: 55                 push        ebp
+  11B2DF71: 8B EC              mov         ebp,esp
+  11B2DF73: 81 EC E4 00 00 00  sub         esp,0E4h
+  11B2DF79: 53                 push        ebx
+  11B2DF7A: 56                 push        esi
+  11B2DF7B: 57                 push        edi
+  11B2DF7C: 8D 7D DC           lea         edi,[ebp-24h]
+  11B2DF7F: B9 09 00 00 00     mov         ecx,9
+  11B2DF84: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B2DF89: F3 AB              rep stos    dword ptr es:[edi]
+  11B2DF8B: A1 40 1A 6A 13     mov         eax,dword ptr ds:[136A1A40h]
+  11B2DF90: 33 C5              xor         eax,ebp
+  11B2DF92: 89 45 FC           mov         dword ptr [ebp-4],eax
+  11B2DF95: C7 45 F4 00 00 00  mov         dword ptr [ebp-0Ch],0
+            00
+  11B2DF9C: EB 09              jmp         11B2DFA7
+  11B2DF9E: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B2DFA1: 83 C0 01           add         eax,1
+  11B2DFA4: 89 45 F4           mov         dword ptr [ebp-0Ch],eax
+  11B2DFA7: 83 7D F4 04        cmp         dword ptr [ebp-0Ch],4
+  11B2DFAB: 0F 8D C8 00 00 00  jge         11B2E079
+  11B2DFB1: 6B 45 F4 0C        imul        eax,dword ptr [ebp-0Ch],0Ch
+  11B2DFB5: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11B2DFB8: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B2DFBB: F3 0F 10 44 01 04  movss       xmm0,dword ptr [ecx+eax+4]
+  11B2DFC1: F3 0F 5C 42 04     subss       xmm0,dword ptr [edx+4]
+  11B2DFC6: 0F 57 05 90 5B 1B  xorps       xmm0,xmmword ptr ds:[131B5B90h]
+            13
+  11B2DFCD: 6B 45 F4 0C        imul        eax,dword ptr [ebp-0Ch],0Ch
+  11B2DFD1: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11B2DFD4: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11B2DFD7: F3 0F 10 0C 01     movss       xmm1,dword ptr [ecx+eax]
+  11B2DFDC: F3 0F 5C 0A        subss       xmm1,dword ptr [edx]
+  11B2DFE0: 51                 push        ecx
+  11B2DFE1: 0F 57 D2           xorps       xmm2,xmm2
+  11B2DFE4: F3 0F 11 14 24     movss       dword ptr [esp],xmm2
+  11B2DFE9: 51                 push        ecx
+  11B2DFEA: F3 0F 11 0C 24     movss       dword ptr [esp],xmm1
+  11B2DFEF: 51                 push        ecx
+  11B2DFF0: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B2DFF5: 8D 8D 20 FF FF FF  lea         ecx,[ebp+FFFFFF20h]
+  11B2DFFB: E8 52 60 55 FF     call        11084052
+  11B2E000: 50                 push        eax
+  11B2E001: 6B 4D F4 0C        imul        ecx,dword ptr [ebp-0Ch],0Ch
+  11B2E005: 03 4D 10           add         ecx,dword ptr [ebp+10h]
+  11B2E008: E8 87 A1 54 FF     call        11078194
+  11B2E00D: 90                 nop
+  11B2E00E: 6B 45 F4 0C        imul        eax,dword ptr [ebp-0Ch],0Ch
+  11B2E012: 6B 4D F4 0C        imul        ecx,dword ptr [ebp-0Ch],0Ch
+  11B2E016: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  11B2E019: 8B 75 08           mov         esi,dword ptr [ebp+8]
+  11B2E01C: F3 0F 10 44 02 08  movss       xmm0,dword ptr [edx+eax+8]
+  11B2E022: F3 0F 59 44 0E 08  mulss       xmm0,dword ptr [esi+ecx+8]
+  11B2E028: 6B 45 F4 0C        imul        eax,dword ptr [ebp-0Ch],0Ch
+  11B2E02C: 6B 4D F4 0C        imul        ecx,dword ptr [ebp-0Ch],0Ch
+  11B2E030: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  11B2E033: 8B 75 08           mov         esi,dword ptr [ebp+8]
+  11B2E036: F3 0F 10 4C 02 04  movss       xmm1,dword ptr [edx+eax+4]
+  11B2E03C: F3 0F 59 4C 0E 04  mulss       xmm1,dword ptr [esi+ecx+4]
+  11B2E042: F3 0F 58 C1        addss       xmm0,xmm1
+  11B2E046: 6B 45 F4 0C        imul        eax,dword ptr [ebp-0Ch],0Ch
+  11B2E04A: 6B 4D F4 0C        imul        ecx,dword ptr [ebp-0Ch],0Ch
+  11B2E04E: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  11B2E051: 8B 75 08           mov         esi,dword ptr [ebp+8]
+  11B2E054: F3 0F 10 0C 02     movss       xmm1,dword ptr [edx+eax]
+  11B2E059: F3 0F 59 0C 0E     mulss       xmm1,dword ptr [esi+ecx]
+  11B2E05E: F3 0F 58 C1        addss       xmm0,xmm1
+  11B2E062: 0F 57 05 90 5B 1B  xorps       xmm0,xmmword ptr ds:[131B5B90h]
+            13
+  11B2E069: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  11B2E06C: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  11B2E06F: F3 0F 11 04 81     movss       dword ptr [ecx+eax*4],xmm0
+  11B2E074: E9 25 FF FF FF     jmp         11B2DF9E
+  11B2E079: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11B2E07C: 5F                 pop         edi
+  11B2E07D: 5E                 pop         esi
+  11B2E07E: 5B                 pop         ebx
+  11B2E07F: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  11B2E082: 33 CD              xor         ecx,ebp
+  11B2E084: E8 2A 02 52 FF     call        1104E2B3
+  11B2E089: 81 C4 E4 00 00 00  add         esp,0E4h
+  11B2E08F: 3B EC              cmp         ebp,esp
+  11B2E091: E8 86 1B 52 FF     call        1104FC1C
+  11B2E096: 8B E5              mov         esp,ebp
+  11B2E098: 5D                 pop         ebp
+  11B2E099: C3                 ret
+  11B2E09A: CC                 int         3
+
+  Summary
+
+     2153000 .text

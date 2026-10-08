@@ -1,0 +1,47 @@
+{
+  "asi_sha256": "7a32d3212e697d3c1eb32d7395e7a4bd7f6b305a676090cf304cc89624db5bca",
+  "pdb_sha256": "9b3c6a5b18b384476dac7b7ccead0c40d18a9c18a58340a907d74ac4249b65d5",
+  "base": 268435456,
+  "symbols": [
+    {
+      "name": "`RequestedGeometryWrappersFiveV2Live::Update'::`1'::<lambda_2>::operator()<ReversibleHooks::ReversibleHook::Simple>",
+      "address": 288598304,
+      "size": 59
+    },
+    {
+      "name": "`RequestedGeometryWrappersFiveV2Live::Update'::`2'::<lambda_1>::operator()",
+      "address": 288740560,
+      "size": 243
+    },
+    {
+      "name": "RequestedGeometryWrappersFiveV2Live::Update",
+      "address": 288766976,
+      "size": 13958
+    },
+    {
+      "name": "std::any_of<std::_Array_iterator<ReversibleHooks::ReversibleHook::Simple *,5>,`RequestedGeometryWrappersFiveV2Live::Update'::`1'::<lambda_2> >",
+      "address": 288632256,
+      "size": 141
+    },
+    {
+      "name": "`RequestedGeometryWrappersFiveV2Live::Update'::`45'::<lambda_3>::<lambda_3>",
+      "address": 288691328,
+      "size": 44
+    },
+    {
+      "name": "`RequestedGeometryWrappersFiveV2Live::Update'::`2'::<lambda_1>::<lambda_1>",
+      "address": 288691168,
+      "size": 35
+    },
+    {
+      "name": "`RequestedGeometryWrappersFiveV2Live::Update'::`45'::<lambda_3>::operator()<SmallPendingSupport::HookSnapshot>",
+      "address": 288598144,
+      "size": 123
+    },
+    {
+      "name": "std::find_if<std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<SmallPendingSupport::HookSnapshot> > >,`RequestedGeometryWrappersFiveV2Live::Update'::`45'::<lambda_3> >",
+      "address": 288674864,
+      "size": 316
+    }
+  ]
+}

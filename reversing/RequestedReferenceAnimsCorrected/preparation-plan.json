@@ -1,0 +1,43 @@
+{
+  "prepared_only": true,
+  "compiled": false,
+  "executed": false,
+  "expected_pairs": 720,
+  "original_corpus": "reversing/RequestedAnimProjectilePair/preparation-plan.json",
+  "target": "InteriorGroup_c::ReferenceAnims S0x005950D0",
+  "dimensions": {
+    "group": [
+      0,
+      1,
+      2
+    ],
+    "referenced": [
+      0,
+      1,
+      -1
+    ],
+    "index": [
+      0,
+      1,
+      127,
+      179
+    ],
+    "loaded": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "poison": [
+      0,
+      85,
+      170,
+      255
+    ]
+  },
+  "no_input_change": "Exact original720 reference fixture-loop bytes retained; namespace/header/scoped wrapper changed only",
+  "source_after_sha256": "9c4eea373de9ba74b7927d9829bde39f064704ccad39ec87507ebafcd22a3d0d",
+  "original_failure": "reversing/RequestedAnimProjectilePair/Diagnostics/reference-loadstate-diagnostic.json",
+  "scope": "Isolated traced lookup/ref/request; validgroup0..2, raw block bool representation0..4 comparedbyteexact1; excludes invalid enums/actual asset loading/ref effects/streaming integration/currentdependencies"
+}

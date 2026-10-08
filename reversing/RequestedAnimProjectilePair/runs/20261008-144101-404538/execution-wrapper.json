@@ -1,0 +1,37 @@
+{
+  "execution_wrapper_path": "reversing/RequestedAnimProjectilePair/run_extended.py",
+  "execution_wrapper_sha256": "16bec10f074a20bd485408c3c8827fa68895e507d479ac710da494c54425e292",
+  "base_runner_path": "reversing/RequestedAnimProjectilePair/run_local.py",
+  "base_runner_sha256": "8e41633860ff02f2fdcced7d15d3c034ecc3759adaf08018a175a9fd3e9930f3",
+  "base_manifest_sha256": "b2faf4912c3fddfcf45d3c2ed5ba73b9cc4d4c5871ad6093b4a24ce0058a7a0d",
+  "effective_timeout_seconds": 1200,
+  "original_timeout_seconds": 600,
+  "overrides": [
+    {
+      "original_timeout_seconds": 600,
+      "effective_timeout_seconds": 1200,
+      "only_changed_argument": "timeout",
+      "original_kwargs": {
+        "timeout": 600,
+        "stop_before_analysis": false,
+        "unhook": "",
+        "wait_for_exit": true
+      },
+      "effective_kwargs": {
+        "timeout": 1200,
+        "stop_before_analysis": false,
+        "unhook": "",
+        "wait_for_exit": true
+      },
+      "same_positional_arguments": true,
+      "same_original_analyzer": true,
+      "same_asi_sha256": "43c7b63599ffc4046a9ac1a0db3c96a10a9fe9bd40ce837227dbb1262f8fe4d8"
+    }
+  ],
+  "environment_unchanged": true,
+  "frozen_inputs_unchanged": true,
+  "base_manifest_unchanged": true,
+  "wrapper_status": 1,
+  "wrapper_exception": null,
+  "previous_rejected_run": "reversing/RequestedAnimProjectilePair/runs/20261008-142758-927336/enriched-summary.json"
+}

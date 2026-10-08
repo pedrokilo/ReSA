@@ -1,0 +1,103 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV2\artifacts\gta_reversed-geometry-wrappers-five-v2.asi
+
+File Type: DLL
+
+  113E2A60: 55                 push        ebp
+  113E2A61: 8B EC              mov         ebp,esp
+  113E2A63: 81 EC F4 00 00 00  sub         esp,0F4h
+  113E2A69: 53                 push        ebx
+  113E2A6A: 56                 push        esi
+  113E2A6B: 57                 push        edi
+  113E2A6C: 8D 7D CC           lea         edi,[ebp-34h]
+  113E2A6F: B9 0D 00 00 00     mov         ecx,0Dh
+  113E2A74: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113E2A79: F3 AB              rep stos    dword ptr es:[edi]
+  113E2A7B: 0F B6 45 10        movzx       eax,byte ptr [ebp+10h]
+  113E2A7F: 85 C0              test        eax,eax
+  113E2A81: 0F 84 8A 00 00 00  je          113E2B11
+  113E2A87: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  113E2A8A: 89 8D 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],ecx
+  113E2A90: F2 0F 2A 85 3C FF  cvtsi2sd    xmm0,dword ptr [ebp+FFFFFF3Ch]
+            FF FF
+  113E2A98: 8B 95 3C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF3Ch]
+  113E2A9E: C1 EA 1F           shr         edx,1Fh
+  113E2AA1: F2 0F 58 04 D5 80  addsd       xmm0,mmword ptr [edx*8+13199880h]
+            98 19 13
+  113E2AAA: F2 0F 11 85 34 FF  movsd       mmword ptr [ebp+FFFFFF34h],xmm0
+            FF FF
+  113E2AB2: F2 0F 5A 85 34 FF  cvtsd2ss    xmm0,mmword ptr [ebp+FFFFFF34h]
+            FF FF
+  113E2ABA: 51                 push        ecx
+  113E2ABB: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  113E2AC0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113E2AC3: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  113E2AC9: F2 0F 2A 85 30 FF  cvtsi2sd    xmm0,dword ptr [ebp+FFFFFF30h]
+            FF FF
+  113E2AD1: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  113E2AD7: C1 E9 1F           shr         ecx,1Fh
+  113E2ADA: F2 0F 58 04 CD 80  addsd       xmm0,mmword ptr [ecx*8+13199880h]
+            98 19 13
+  113E2AE3: F2 0F 11 85 28 FF  movsd       mmword ptr [ebp+FFFFFF28h],xmm0
+            FF FF
+  113E2AEB: F2 0F 5A 85 28 FF  cvtsd2ss    xmm0,mmword ptr [ebp+FFFFFF28h]
+            FF FF
+  113E2AF3: 51                 push        ecx
+  113E2AF4: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  113E2AF9: E8 F7 D0 C6 FF     call        1104FBF5
+  113E2AFE: 83 C4 08           add         esp,8
+  113E2B01: E8 34 61 C9 FF     call        11078C3A
+  113E2B06: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  113E2B0C: E9 8D 00 00 00     jmp         113E2B9E
+  113E2B11: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  113E2B14: 89 95 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],edx
+  113E2B1A: F2 0F 2A 85 20 FF  cvtsi2sd    xmm0,dword ptr [ebp+FFFFFF20h]
+            FF FF
+  113E2B22: 8B 85 20 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF20h]
+  113E2B28: C1 E8 1F           shr         eax,1Fh
+  113E2B2B: F2 0F 58 04 C5 80  addsd       xmm0,mmword ptr [eax*8+13199880h]
+            98 19 13
+  113E2B34: F2 0F 11 85 18 FF  movsd       mmword ptr [ebp+FFFFFF18h],xmm0
+            FF FF
+  113E2B3C: F2 0F 5A 85 18 FF  cvtsd2ss    xmm0,mmword ptr [ebp+FFFFFF18h]
+            FF FF
+  113E2B44: F3 0F 5C 05 8C 97  subss       xmm0,dword ptr ds:[1319978Ch]
+            19 13
+  113E2B4C: 51                 push        ecx
+  113E2B4D: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  113E2B52: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  113E2B55: 89 8D 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],ecx
+  113E2B5B: F2 0F 2A 85 14 FF  cvtsi2sd    xmm0,dword ptr [ebp+FFFFFF14h]
+            FF FF
+  113E2B63: 8B 95 14 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF14h]
+  113E2B69: C1 EA 1F           shr         edx,1Fh
+  113E2B6C: F2 0F 58 04 D5 80  addsd       xmm0,mmword ptr [edx*8+13199880h]
+            98 19 13
+  113E2B75: F2 0F 11 85 0C FF  movsd       mmword ptr [ebp+FFFFFF0Ch],xmm0
+            FF FF
+  113E2B7D: F2 0F 5A 85 0C FF  cvtsd2ss    xmm0,mmword ptr [ebp+FFFFFF0Ch]
+            FF FF
+  113E2B85: 51                 push        ecx
+  113E2B86: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  113E2B8B: E8 65 D0 C6 FF     call        1104FBF5
+  113E2B90: 83 C4 08           add         esp,8
+  113E2B93: E8 A2 60 C9 FF     call        11078C3A
+  113E2B98: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  113E2B9E: 8B 85 24 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF24h]
+  113E2BA4: 5F                 pop         edi
+  113E2BA5: 5E                 pop         esi
+  113E2BA6: 5B                 pop         ebx
+  113E2BA7: 81 C4 F4 00 00 00  add         esp,0F4h
+  113E2BAD: 3B EC              cmp         ebp,esp
+  113E2BAF: E8 3B 90 C6 FF     call        1104BBEF
+  113E2BB4: 8B E5              mov         esp,ebp
+  113E2BB6: 5D                 pop         ebp
+  113E2BB7: C3                 ret
+  113E2BB8: CC                 int         3
+
+  Summary
+
+     214A000 .text

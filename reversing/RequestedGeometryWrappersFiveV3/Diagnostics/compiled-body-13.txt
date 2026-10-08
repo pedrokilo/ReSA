@@ -1,0 +1,119 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV3\artifacts\gta_reversed-geometry-wrappers-five-v3.asi
+
+File Type: DLL
+
+  116EEB00: 55                 push        ebp
+  116EEB01: 8B EC              mov         ebp,esp
+  116EEB03: 6A FF              push        0FFFFFFFFh
+  116EEB05: 68 1D C7 0D 13     push        130DC71Dh
+  116EEB0A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  116EEB10: 50                 push        eax
+  116EEB11: 81 EC D0 00 00 00  sub         esp,0D0h
+  116EEB17: 53                 push        ebx
+  116EEB18: 56                 push        esi
+  116EEB19: 57                 push        edi
+  116EEB1A: 51                 push        ecx
+  116EEB1B: 8D 7D E4           lea         edi,[ebp-1Ch]
+  116EEB1E: B9 04 00 00 00     mov         ecx,4
+  116EEB23: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  116EEB28: F3 AB              rep stos    dword ptr es:[edi]
+  116EEB2A: 59                 pop         ecx
+  116EEB2B: A1 40 1A 6A 13     mov         eax,dword ptr ds:[136A1A40h]
+  116EEB30: 33 C5              xor         eax,ebp
+  116EEB32: 50                 push        eax
+  116EEB33: 8D 45 F4           lea         eax,[ebp-0Ch]
+  116EEB36: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  116EEB3C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  116EEB3F: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEB42: E8 D2 1B 98 FF     call        11070719
+  116EEB47: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  116EEB4E: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116EEB51: C7 00 34 33 1A 13  mov         dword ptr [eax],131A3334h
+  116EEB57: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116EEB5A: 83 C0 2F           add         eax,2Fh
+  116EEB5D: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  116EEB63: 6A 00              push        0
+  116EEB65: 8B 8D 24 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF24h]
+  116EEB6B: E8 40 09 96 FF     call        1104F4B0
+  116EEB70: 90                 nop
+  116EEB71: 6A 04              push        4
+  116EEB73: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEB76: E8 C9 42 9B FF     call        110A2E44
+  116EEB7B: 90                 nop
+  116EEB7C: 6A 00              push        0
+  116EEB7E: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEB81: E8 4B 13 98 FF     call        1106FED1
+  116EEB86: 90                 nop
+  116EEB87: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116EEB8A: C7 40 1C 00 00 00  mov         dword ptr [eax+1Ch],0
+            00
+  116EEB91: 6A 01              push        1
+  116EEB93: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEB96: E8 F0 B0 9A FF     call        11099C8B
+  116EEB9B: 90                 nop
+  116EEB9C: 6A 01              push        1
+  116EEB9E: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEBA1: E8 A1 11 97 FF     call        1105FD47
+  116EEBA6: 90                 nop
+  116EEBA7: 6A 00              push        0
+  116EEBA9: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEBAC: E8 FB 72 99 FF     call        11085EAC
+  116EEBB1: 90                 nop
+  116EEBB2: 6A 00              push        0
+  116EEBB4: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEBB7: E8 4C 6C 99 FF     call        11085808
+  116EEBBC: 90                 nop
+  116EEBBD: B8 FF FF 00 00     mov         eax,0FFFFh
+  116EEBC2: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEBC5: 66 89 41 22        mov         word ptr [ecx+22h],ax
+  116EEBC9: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116EEBCC: C7 40 18 00 00 00  mov         dword ptr [eax+18h],0
+            00
+  116EEBD3: 6A 00              push        0
+  116EEBD5: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEBD8: E8 C6 FE 98 FF     call        1107EAA3
+  116EEBDD: 90                 nop
+  116EEBDE: E8 4F 09 9B FF     call        1109F532
+  116EEBE3: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEBE6: 66 89 41 20        mov         word ptr [ecx+20h],ax
+  116EEBEA: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116EEBED: C7 40 24 00 00 00  mov         dword ptr [eax+24h],0
+            00
+  116EEBF4: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116EEBF7: C7 40 28 00 00 00  mov         dword ptr [eax+28h],0
+            00
+  116EEBFE: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116EEC01: C6 40 34 00        mov         byte ptr [eax+34h],0
+  116EEC05: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEC08: E8 6F 16 99 FF     call        1108027C
+  116EEC0D: 90                 nop
+  116EEC0E: 6A 00              push        0
+  116EEC10: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116EEC13: E8 F3 02 96 FF     call        1104EF0B
+  116EEC18: 90                 nop
+  116EEC19: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  116EEC20: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116EEC23: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  116EEC26: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  116EEC2D: 59                 pop         ecx
+  116EEC2E: 5F                 pop         edi
+  116EEC2F: 5E                 pop         esi
+  116EEC30: 5B                 pop         ebx
+  116EEC31: 81 C4 DC 00 00 00  add         esp,0DCh
+  116EEC37: 3B EC              cmp         ebp,esp
+  116EEC39: E8 DE 0F 96 FF     call        1104FC1C
+  116EEC3E: 8B E5              mov         esp,ebp
+  116EEC40: 5D                 pop         ebp
+  116EEC41: C3                 ret
+  116EEC42: CC                 int         3
+
+  Summary
+
+     2153000 .text

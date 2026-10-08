@@ -1,0 +1,64 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV2\artifacts\gta_reversed-geometry-wrappers-five-v2.asi
+
+File Type: DLL
+
+  116AAF40: 55                 push        ebp
+  116AAF41: 8B EC              mov         ebp,esp
+  116AAF43: 81 EC C4 00 00 00  sub         esp,0C4h
+  116AAF49: 53                 push        ebx
+  116AAF4A: 56                 push        esi
+  116AAF4B: 57                 push        edi
+  116AAF4C: 8D 7D FC           lea         edi,[ebp-4]
+  116AAF4F: B9 01 00 00 00     mov         ecx,1
+  116AAF54: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  116AAF59: F3 AB              rep stos    dword ptr es:[edi]
+  116AAF5B: 0F B6 45 10        movzx       eax,byte ptr [ebp+10h]
+  116AAF5F: 85 C0              test        eax,eax
+  116AAF61: 74 31              je          116AAF94
+  116AAF63: 0F BE 4D 0C        movsx       ecx,byte ptr [ebp+0Ch]
+  116AAF67: F3 0F 2A C1        cvtsi2ss    xmm0,ecx
+  116AAF6B: 51                 push        ecx
+  116AAF6C: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  116AAF71: 0F BE 55 08        movsx       edx,byte ptr [ebp+8]
+  116AAF75: F3 0F 2A C2        cvtsi2ss    xmm0,edx
+  116AAF79: 51                 push        ecx
+  116AAF7A: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  116AAF7F: E8 71 4C 9A FF     call        1104FBF5
+  116AAF84: 83 C4 08           add         esp,8
+  116AAF87: E8 E1 08 9D FF     call        1107B86D
+  116AAF8C: 88 85 3F FF FF FF  mov         byte ptr [ebp+FFFFFF3Fh],al
+  116AAF92: EB 37              jmp         116AAFCB
+  116AAF94: 0F BE 45 0C        movsx       eax,byte ptr [ebp+0Ch]
+  116AAF98: F3 0F 2A C0        cvtsi2ss    xmm0,eax
+  116AAF9C: F3 0F 5C 05 8C 97  subss       xmm0,dword ptr ds:[1319978Ch]
+            19 13
+  116AAFA4: 51                 push        ecx
+  116AAFA5: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  116AAFAA: 0F BE 4D 08        movsx       ecx,byte ptr [ebp+8]
+  116AAFAE: F3 0F 2A C1        cvtsi2ss    xmm0,ecx
+  116AAFB2: 51                 push        ecx
+  116AAFB3: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  116AAFB8: E8 38 4C 9A FF     call        1104FBF5
+  116AAFBD: 83 C4 08           add         esp,8
+  116AAFC0: E8 A8 08 9D FF     call        1107B86D
+  116AAFC5: 88 85 3F FF FF FF  mov         byte ptr [ebp+FFFFFF3Fh],al
+  116AAFCB: 0F B6 85 3F FF FF  movzx       eax,byte ptr [ebp+FFFFFF3Fh]
+            FF
+  116AAFD2: 5F                 pop         edi
+  116AAFD3: 5E                 pop         esi
+  116AAFD4: 5B                 pop         ebx
+  116AAFD5: 81 C4 C4 00 00 00  add         esp,0C4h
+  116AAFDB: 3B EC              cmp         ebp,esp
+  116AAFDD: E8 0D 0C 9A FF     call        1104BBEF
+  116AAFE2: 8B E5              mov         esp,ebp
+  116AAFE4: 5D                 pop         ebp
+  116AAFE5: C3                 ret
+  116AAFE6: CC                 int         3
+
+  Summary
+
+     214A000 .text

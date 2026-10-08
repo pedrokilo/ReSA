@@ -1,0 +1,17 @@
+{
+  "prepared_only": true,
+  "compiled": false,
+  "executed": false,
+  "expected_pairs": 720,
+  "inputs": {
+    "reversing/RequestedReferenceAnimsCorrected/LiveComparison.hpp": "597159bbe00eb4357e334f2ef54b9445aaa8af1a9ead0bc84fb212d902ed0faa",
+    "reversing/RequestedReferenceAnimsCorrected/Preflight.hpp": "3487e047a5c72c772cb653094acc98e22d6b1b1431488a4f2edf28d1381754a8",
+    "reversing/RequestedReferenceAnimsCorrected/VTableRanges.hpp": "27ebeba0a3971f2dd474ca6c5b6883baf2ffa47f8f45591116424a07a99c1d9b",
+    "reversing/RequestedReferenceAnimsCorrected/build_probe.py": "0d1d794d2c479931d2908ad19e6a424e701d4e16787dff6f1d3dbf7bef5b6751",
+    "reversing/RequestedReferenceAnimsCorrected/run_local.py": "70ed0c026d9fd6008fe9a3c8b7b82575d72c0514b691dc95ced58107d86de909",
+    "reversing/RequestedReferenceAnimsCorrected/preparation-plan.json": "002de6946a5bb624bb4c89d3dcc358c9a7ba2a1a2f658acfbb3f802ff98a10d5",
+    "reversing/RequestedReferenceAnimsCorrected/evidence/1510-0x005950D0-body.json": "157f46a67eb7ff5558820f710bdf46e7d542be2ba8506a26f0179991a99f7376",
+    "reversing/RequestedReferenceAnimsCorrected/evidence/1510-0x005950D0.json": "5eb2dadb1d190062a0e6fbd7673373e3d2884a781385c58a9ab2d31e41429d86"
+  },
+  "revision": "Separate Reference-only correctedsource; original mixedbank12 inputs unchanged. Reference720 fixture-loop byteidentical to original; scoped independent analyzer recomposes every expected byte/trace."
+}

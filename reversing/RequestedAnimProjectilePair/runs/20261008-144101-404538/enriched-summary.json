@@ -1,0 +1,184 @@
+{
+  "passed": false,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "43c7b63599ffc4046a9ac1a0db3c96a10a9fe9bd40ce837227dbb1262f8fe4d8",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "all_equal": false,
+  "pairs": 60624,
+  "pairs_per_function": {
+    "InteriorGroup_c::ReferenceAnims": 720,
+    "CProjectileInfo::IsProjectileInRange": 59904
+  },
+  "differences": 48,
+  "model_mismatches": 48,
+  "validation_errors": [
+    "Nonzero differential/model mismatch"
+  ],
+  "terminal_bank_record": {
+    "differences": 48,
+    "event": "complete",
+    "pairs": 60624,
+    "scope": "finite private projectile/animation fields and traced isolated collaborators; no real object lifecycle",
+    "state_restored": true
+  },
+  "terminal_harness_record": {
+    "changed_ranges": [],
+    "entries_restored": true,
+    "event": "complete",
+    "flags_restored": true,
+    "snapshot_ranges": 17692,
+    "state_restored": true,
+    "tables_restored": true,
+    "timer_restored": true
+  },
+  "log_sha256": "fe1b2cdb2cae5f5d14fea6e9a401d2bbdaf2349884d4c12f88e1e2b4cde88da7",
+  "harness_sha256": "7f6e5e09eb581d7116132a102f4c4dcb321f46215c5a767f536365bdb8a93a4e",
+  "scope": "Finite private animation/projectile ABI fields, isolated traced collaborators; no real object lifecycle/helper accreditation",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "9b1fe452b3a38ad2207876b538fa3639c9a6c1d7",
+    "tested_sources": {
+      "source/game_sa/Interior/InteriorGroup_c.cpp": "ad44c3da6af51047dfa34f68d7f047b258c11d6e681e08ce4cfaf25c772d68e8",
+      "source/game_sa/Interior/InteriorGroup_c.h": "80ad6d255a9d4aa13013bb714b3f2afd9eda5bd6029270db143ce1f811fc14db",
+      "source/game_sa/ProjectileInfo.cpp": "45934803d7471f625edb6518248e251aba2414e308a4b912434e6a3ce7af8b09",
+      "source/game_sa/ProjectileInfo.h": "bad9fe0cb797165eb2040d9d6d804bfd0d8753efcbe5beceaae8443105b3e76f",
+      "source/game_sa/Entity/Object/Projectile.h": "fef9579dc5db403a3f83406cd16bf1979ce4ee368270b5a535c2086713952e5e",
+      "source/game_sa/Entity/Object/Object.h": "f03b35af984aea8002242d44d264f4e959b1b4a0fe2bf0dff5e5d1e833fc3750",
+      "source/game_sa/Entity/Object/CutsceneObject.h": "b0e369e0cfa2c6efa6b340e7ce8de4f4cdbf46a1da65136d7d945d92bd5c7328",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Collision/Box.cpp": "e9ee21cfd40133ce8db58bcb94db507c2139421a2b9c57850b0101d18a8b75c2",
+      "source/game_sa/Collision/Box.h": "de8666b92f1147803a99aec34e3463546d891697b324e432c4a6a616b8f4dc23",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/Pools/ObjectPool.h": "833e700558e62963f6716def8201758504b89c2f94d02e460acc5e35f0cb58cd",
+      "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
+      "source/game_sa/Pools.cpp": "bcb6131d7e43c1ed38a7af1276d8b8ee508b93525c311154f796d57724c871d3",
+      "source/game_sa/Streaming.h": "7b5c70a1f45fb905831e5e0b8c27b5a44aa35c04192eb9b59a1224df0f35c1c3",
+      "source/game_sa/StreamingInfo.h": "2c0ebf455d8000cd8252ccc6ca3bd77b2f40afc111c2f30dd8323b0b74851e29",
+      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+      "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+      "source/game_sa/Radar.h": "1e98274eadab24414eace5d450724179a425f06503129c58b079ecfdc5507c76",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+      "source/game_sa/Enums/eWeaponType.h": "0a245360d64947392a192b571637f47063068b1fd891d1d9cf23b23692a13269",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+    },
+    "bank_sources": {
+      "reversing/RequestedAnimProjectilePair/LiveComparison.hpp": "a4913bcb109d6dbec7881c50ee1a441c01078c3c5a39c9cd7f187149dc5813b0",
+      "reversing/RequestedAnimProjectilePair/Preflight.hpp": "801f27ed49284bac3ff834599facfe20c0027b19e69ad0784acbdf294a385d26",
+      "reversing/RequestedAnimProjectilePair/VTableRanges.hpp": "b7f681b3ca57e6ec472d2e330d3f939304c4c712a62b4e2f5ce4768c7483b1d3",
+      "reversing/RequestedAnimProjectilePair/build_probe.py": "4073a2483da157fcd91bae9da48e615a0602eb5c20285171360096abdd47f676",
+      "reversing/RequestedAnimProjectilePair/run_local.py": "8e41633860ff02f2fdcced7d15d3c034ecc3759adaf08018a175a9fd3e9930f3",
+      "reversing/RequestedAnimProjectilePair/prepared-freeze.json": "8409dee64219011bf4d2a9113ed226b88245d6ea183928f6fb8ff658e9ee957b",
+      "reversing/RequestedAnimProjectilePair/preparation-plan.json": "c10b07c94bbf9aef03e79022dc99cea858115670c60832ede4684e3fe6effab8",
+      "reversing/RequestedAnimProjectilePair/evidence/0313-0x00739860-body.json": "6fc9f1a3027aaa4b96cad0ab73a94ea7a143a5f1003d601362d2aa510a016707",
+      "reversing/RequestedAnimProjectilePair/evidence/0313-0x00739860.json": "e4ea9eab9462652fae17d73efce665e26c33c8a32cd4242f0411fd6f735c7bf1",
+      "reversing/RequestedAnimProjectilePair/evidence/1510-0x005950D0-body.json": "157f46a67eb7ff5558820f710bdf46e7d542be2ba8506a26f0179991a99f7376",
+      "reversing/RequestedAnimProjectilePair/evidence/1510-0x005950D0.json": "5eb2dadb1d190062a0e6fbd7673373e3d2884a781385c58a9ab2d31e41429d86",
+      "reversing/RequestedAnimProjectilePair/evidence/helper-00465070.json": "21fcb0647f172dda44861d75f0fa9a44c1f0cd8079bc82e1d39b4e92a97533a1",
+      "reversing/RequestedAnimProjectilePair/evidence/helper-004AA3F0.json": "1f93e4ce49587cea41019a975f2c49d413dccce9350fbd7ffe4699f7f690b5fa",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "expected_pairs": 60624,
+    "fixture_scope": "Animation/projectile private ABI fields; trace animation refs/requests, FX/radar/world/scalar-delete; private poolGetRef real. No real lifecycle or helper accreditation. All mismatches remain failure.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "f96ef2041c5349142a0d803bce036cee1143953d31aa9932bec0d71cf395c294"
+    },
+    "asi": "43c7b63599ffc4046a9ac1a0db3c96a10a9fe9bd40ce837227dbb1262f8fe4d8",
+    "pdb": "75156794b5f4a50995dd0140b970109b937f88cdf80b55ee61515eebf79aff88"
+  },
+  "runner_sha256": "8e41633860ff02f2fdcced7d15d3c034ecc3759adaf08018a175a9fd3e9930f3",
+  "reproduction_diagnostics": {
+    "pairs": 60624,
+    "pairs_per_function": {
+      "InteriorGroup_c::ReferenceAnims": 720,
+      "CProjectileInfo::IsProjectileInRange": 59904
+    },
+    "differences": 48,
+    "model_mismatches": 48,
+    "validation_errors": [
+      "Nonzero differential/model mismatch"
+    ],
+    "terminal_bank_record": {
+      "differences": 48,
+      "event": "complete",
+      "pairs": 60624,
+      "scope": "finite private projectile/animation fields and traced isolated collaborators; no real object lifecycle",
+      "state_restored": true
+    },
+    "terminal_harness_record": {
+      "changed_ranges": [],
+      "entries_restored": true,
+      "event": "complete",
+      "flags_restored": true,
+      "snapshot_ranges": 17692,
+      "state_restored": true,
+      "tables_restored": true,
+      "timer_restored": true
+    }
+  },
+  "comparison_storage": {
+    "uncompressed_path": "reversing/RequestedAnimProjectilePair/runs/20261008-144101-404538/comparisons.jsonl",
+    "uncompressed_sha256": "fe1b2cdb2cae5f5d14fea6e9a401d2bbdaf2349884d4c12f88e1e2b4cde88da7",
+    "uncompressed_bytes": 629739806,
+    "compressed_path": "reversing/RequestedAnimProjectilePair/runs/20261008-144101-404538/comparisons.jsonl.gz",
+    "compressed_sha256": "39e8cafbd9acc9fffe597f070c2c0ac2434901e11db2a9a0ce51848fac2fd661",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "fe1b2cdb2cae5f5d14fea6e9a401d2bbdaf2349884d4c12f88e1e2b4cde88da7"
+  },
+  "execution_wrapper_path": "reversing/RequestedAnimProjectilePair/run_extended.py",
+  "execution_wrapper_sha256": "16bec10f074a20bd485408c3c8827fa68895e507d479ac710da494c54425e292",
+  "base_runner_path": "reversing/RequestedAnimProjectilePair/run_local.py",
+  "base_runner_sha256": "8e41633860ff02f2fdcced7d15d3c034ecc3759adaf08018a175a9fd3e9930f3",
+  "base_manifest_sha256": "b2faf4912c3fddfcf45d3c2ed5ba73b9cc4d4c5871ad6093b4a24ce0058a7a0d",
+  "effective_timeout_seconds": 1200,
+  "original_timeout_seconds": 600,
+  "overrides": [
+    {
+      "original_timeout_seconds": 600,
+      "effective_timeout_seconds": 1200,
+      "only_changed_argument": "timeout",
+      "original_kwargs": {
+        "timeout": 600,
+        "stop_before_analysis": false,
+        "unhook": "",
+        "wait_for_exit": true
+      },
+      "effective_kwargs": {
+        "timeout": 1200,
+        "stop_before_analysis": false,
+        "unhook": "",
+        "wait_for_exit": true
+      },
+      "same_positional_arguments": true,
+      "same_original_analyzer": true,
+      "same_asi_sha256": "43c7b63599ffc4046a9ac1a0db3c96a10a9fe9bd40ce837227dbb1262f8fe4d8"
+    }
+  ],
+  "environment_unchanged": true,
+  "frozen_inputs_unchanged": true,
+  "base_manifest_unchanged": true,
+  "wrapper_status": 1,
+  "wrapper_exception": null,
+  "previous_rejected_run": "reversing/RequestedAnimProjectilePair/runs/20261008-142758-927336/enriched-summary.json"
+}
