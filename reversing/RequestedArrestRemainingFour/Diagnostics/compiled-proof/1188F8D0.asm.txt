@@ -1,0 +1,51 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1188F8D0: 55                 push        ebp
+  1188F8D1: 8B EC              mov         ebp,esp
+  1188F8D3: 81 EC D0 00 00 00  sub         esp,0D0h
+  1188F8D9: 53                 push        ebx
+  1188F8DA: 56                 push        esi
+  1188F8DB: 57                 push        edi
+  1188F8DC: 51                 push        ecx
+  1188F8DD: 8D 7D F0           lea         edi,[ebp-10h]
+  1188F8E0: B9 04 00 00 00     mov         ecx,4
+  1188F8E5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1188F8EA: F3 AB              rep stos    dword ptr es:[edi]
+  1188F8EC: 59                 pop         ecx
+  1188F8ED: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1188F8F0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1188F8F3: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  1188F8F6: 51                 push        ecx
+  1188F8F7: E8 72 8D 80 FF     call        1109866E
+  1188F8FC: 83 C4 04           add         esp,4
+  1188F8FF: F3 0F 10 05 F4 19  movss       xmm0,dword ptr ds:[132219F4h]
+            22 13
+  1188F907: 0F 2F 40 08        comiss      xmm0,dword ptr [eax+8]
+  1188F90B: 72 0C              jb          1188F919
+  1188F90D: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  1188F917: EB 0A              jmp         1188F923
+  1188F919: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1188F923: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  1188F92A: 5F                 pop         edi
+  1188F92B: 5E                 pop         esi
+  1188F92C: 5B                 pop         ebx
+  1188F92D: 81 C4 D0 00 00 00  add         esp,0D0h
+  1188F933: 3B EC              cmp         ebp,esp
+  1188F935: E8 96 E3 7C FF     call        1105DCD0
+  1188F93A: 8B E5              mov         esp,ebp
+  1188F93C: 5D                 pop         ebp
+  1188F93D: C3                 ret
+  1188F93E: CC                 int         3
+
+  Summary
+
+     216F000 .text

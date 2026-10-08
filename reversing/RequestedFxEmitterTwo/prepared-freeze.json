@@ -1,0 +1,28 @@
+{
+  "prepared_only": true,
+  "compiled": false,
+  "executed": false,
+  "expected_pairs": 5632,
+  "inputs": {
+    "reversing/RequestedFxEmitterTwo/build_probe.py": "0e44ff49e93125d003b59f91152934b1d8b2a3d077aa698d927cc4a8601df979",
+    "reversing/RequestedFxEmitterTwo/DESIGN.md": "4bbe1e0a8ecb942039ccdaa93c8d4e2138409ea7d1246542f5903fa438268e00",
+    "reversing/RequestedFxEmitterTwo/evidence/1174-0x004A18D0.json": "05f2d0446d00b8a968ce91c3c322185556a9100c0491cf2da30ee4b35ca22841",
+    "reversing/RequestedFxEmitterTwo/evidence/1175-0x005C0A30.json": "f7a4688d023a18475caed937431f3a0092a36ec743a770ef70113072b54edd1f",
+    "reversing/RequestedFxEmitterTwo/evidence/BaseCtor.asm.txt": "8f2e21b2fb0031bc62c0393f8905f5b5819518b85ed754bb8cc2a53fbb341938",
+    "reversing/RequestedFxEmitterTwo/evidence/canonical-pe.json": "6973d424d1688b791551b16c439f3dd51194cd2afdf83c5e0d4a30d4ed199ef3",
+    "reversing/RequestedFxEmitterTwo/evidence/Constructor.asm.txt": "d71a4bd089e47cb659265fc9c2141c262b96462fdfe78195b25469f44014418e",
+    "reversing/RequestedFxEmitterTwo/evidence/fresh-LoadTextures-dossier.json": "9a40130af56e08329a9c50a051670337592bf42b0a08c31a900eda3dad485512",
+    "reversing/RequestedFxEmitterTwo/evidence/ListCtor.asm.txt": "bb0e221347beda7237ea013b6b2af94d533a35e881798656f08e356e01264f10",
+    "reversing/RequestedFxEmitterTwo/evidence/LoadTextures.asm.txt": "f026a2c6b9579e5e5cb8fa130aa0e4de46ea8937b4724f5904139a43909dead5",
+    "reversing/RequestedFxEmitterTwo/evidence/RwTextureRead.asm.txt": "8ffb4bc6b6d70991fb638499ae213adc2364972ffe11c8284dcaa80c6a21fbc5",
+    "reversing/RequestedFxEmitterTwo/LiveComparison.hpp": "7d65c0c1dfc210f65bcd00eec25b15843e61337214acf02d4ce64687bcea839e",
+    "reversing/RequestedFxEmitterTwo/model.py": "5428274024a740dbdd5e8d7a7a9ae0e9ac4506dea77b59c118bd98d5433c8ec3",
+    "reversing/RequestedFxEmitterTwo/Preflight.hpp": "02a3eb5c73785af8785754175db174f20242cebe0f95cc2c7d2390853617ad38",
+    "reversing/RequestedFxEmitterTwo/preparation-plan.json": "5b753469c443ad1ec08d1431abe8a34c693b84dc752f5a92a470c8f73a45258f",
+    "reversing/RequestedFxEmitterTwo/run_local.py": "70fd627c7e763b0c2782e3b7fb0e01f694064c8be99d4cdfebb2ac1c5de9f984",
+    "reversing/RequestedFxEmitterTwo/VTableRanges.hpp": "df21f8fa7c5d25629430a38edb6d53c9ac4fee1d5ac2a1c1c72a6795583af81c"
+  },
+  "revision": 2,
+  "revision_reason": "Record actual constructor ABI return and normalize only after equality with the real private object address; wrong return remains model mismatch. Revision1 prepared-only header/freeze archived exact.",
+  "previous_freeze_sha256": "142703b83ccf44792ef66f786e2d1ebcb1048c57f759db966eaa899760459846"
+}

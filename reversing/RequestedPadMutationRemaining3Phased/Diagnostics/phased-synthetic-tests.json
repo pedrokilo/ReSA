@@ -1,0 +1,34 @@
+{
+  "full_corpus_checks": [
+    {
+      "bank": "reconcile",
+      "pairs": 2892,
+      "legacy_sha256": "4bf85f0f13aa924d6444702f6245c0f5b3c879ae28ab2bfc51a8c29cd9260426",
+      "phased_sha256": "4bf85f0f13aa924d6444702f6245c0f5b3c879ae28ab2bfc51a8c29cd9260426",
+      "comparison_bytes_identical": true
+    },
+    {
+      "bank": "update",
+      "pairs": 2560,
+      "legacy_sha256": "3999bc41b8f5db4feb30ff693f545d1e7a143dac328c353e6b8a61d26379c3ce",
+      "phased_sha256": "3999bc41b8f5db4feb30ff693f545d1e7a143dac328c353e6b8a61d26379c3ce",
+      "comparison_bytes_identical": true
+    },
+    {
+      "bank": "shake",
+      "pairs": 89600,
+      "legacy_sha256": "0eac7d41424baf62092ae58e6a0c479ab44f83f3bb24a62b67dd15ae78bfe7a1",
+      "phased_sha256": "0eac7d41424baf62092ae58e6a0c479ab44f83f3bb24a62b67dd15ae78bfe7a1",
+      "comparison_bytes_identical": true
+    }
+  ],
+  "negative_cases": {
+    "missing_original": "rejected_exception",
+    "chunk_duplicate": "rejected_exception",
+    "seed_mapping": "rejected_exception",
+    "not_restored": "rejected_exception",
+    "gate_false": "rejected_exception",
+    "native_equal_false": "rejected_passed_false"
+  },
+  "synthetic_only_no_native_execution": true
+}

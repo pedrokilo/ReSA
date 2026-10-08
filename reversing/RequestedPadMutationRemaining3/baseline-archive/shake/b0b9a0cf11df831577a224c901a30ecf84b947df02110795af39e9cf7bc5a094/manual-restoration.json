@@ -1,0 +1,8 @@
+{
+  "build_completed": true,
+  "builder_exit": 1,
+  "failure": "OSError22 finally win.write_bytes; actual original hash verified before manual restore",
+  "winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+  "original_asi_and_pdb_restored": true,
+  "no_runtime_yet": true
+}

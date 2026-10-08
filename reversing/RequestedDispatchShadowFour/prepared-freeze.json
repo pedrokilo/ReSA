@@ -1,0 +1,27 @@
+{
+  "status": "prepared_only_no_compilation_no_runtime_approval",
+  "expected_pairs": 5120,
+  "canonical_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "instruments": {
+    "reversing/RequestedDispatchShadowFour/LiveComparison.hpp": "e5a6019aaa4402b665144ff349c61b144c100342424b810c34b35f52a4d633ff",
+    "reversing/RequestedDispatchShadowFour/Preflight.hpp": "9ad768c9a6331c1facae062088dd594d914cd3628203e9d59fcc9716c995054c",
+    "reversing/RequestedDispatchShadowFour/VTableRanges.hpp": "a8d98093055b901b308c1679cf690226737f1f89a16a3526216d136d894df8d4",
+    "reversing/RequestedDispatchShadowFour/build_probe.py": "4895e3f93aad1bc7f2fcaca7c55f4d5aa19212d30a45a1f85f7f5e837e5964ef",
+    "reversing/RequestedDispatchShadowFour/oracle.py": "d5446ab143fb8ca3ee57d972ed89af99fe4bb7459477f5a241069f6b2639604c",
+    "reversing/RequestedDispatchShadowFour/run_local.py": "1b3487a6d54846f2246aec146a3b7ecc3ec6ae1b7ddaab82353f9632c0e99456",
+    "reversing/RequestedDispatchShadowFour/evidence/CreatePipeDN.combo.txt": "e428828bcc785083154f18e56cfc0c717916076204e5403ff10dd5ae650805c7",
+    "reversing/RequestedDispatchShadowFour/evidence/CreatePipeNormal.combo.txt": "f5fc74bddc27d5df90ec4077ffdc3c332b8bcd06c43822a21d97a4fd6da5c8c7",
+    "reversing/RequestedDispatchShadowFour/evidence/custom-building-init.txt": "60218905c187d0d34358fbb4d514eabdb94446b79d05b1e193320e814f434d3d",
+    "reversing/RequestedDispatchShadowFour/evidence/custom-building-plugin.txt": "93f719ac95e29e63e20ddade04ef00130943f0150a884ca4626863873334cb31",
+    "reversing/RequestedDispatchShadowFour/evidence/custom-building-shutdown.txt": "8ebe4ce2cbdd47cea986a222db5a2d1d565941d835d97c48bdf3a05dad4edbb3",
+    "reversing/RequestedDispatchShadowFour/evidence/ExtraPlugin.combo.txt": "fbc182d41b2099fe6aa32495a0a1f78aead902f0faa883170ed686bf96e3e9f7",
+    "reversing/RequestedDispatchShadowFour/evidence/return-shadow.txt": "9f553a928edf141787d9e78a588616279983b64b59afae8d2eaa0a40ef31689c",
+    "reversing/RequestedDispatchShadowFour/scope.json": "13bf4efb792a39680bde7fc8f803c4962d15c4d3a60466481e4c0078cbea72df",
+    "reversing/RequestedDispatchShadowFour/README.md": "16fe5f78ad4b855115d19deb503d4ba57b4ac42547561582c330447e7be3f272",
+    "reversing/RequestedDispatchShadowFour/prepare-checks.json": "26832c77561b9a5fcce2fba12f2ba6a6229abb9a5fc02d1e63ac6d55baebecf3",
+    "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+    "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+    "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+  },
+  "source_freeze": "Source tree freeze intentionally deferred to coordinator serial build after pending source changes; build manifest captures complete CPP/header inventory."
+}

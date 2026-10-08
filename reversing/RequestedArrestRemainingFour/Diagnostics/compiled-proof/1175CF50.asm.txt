@@ -1,0 +1,89 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1175CF50: 55                 push        ebp
+  1175CF51: 8B EC              mov         ebp,esp
+  1175CF53: 81 EC CC 00 00 00  sub         esp,0CCh
+  1175CF59: 53                 push        ebx
+  1175CF5A: 56                 push        esi
+  1175CF5B: 57                 push        edi
+  1175CF5C: 51                 push        ecx
+  1175CF5D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1175CF60: B9 03 00 00 00     mov         ecx,3
+  1175CF65: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1175CF6A: F3 AB              rep stos    dword ptr es:[edi]
+  1175CF6C: 59                 pop         ecx
+  1175CF6D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1175CF70: 6A 01              push        1
+  1175CF72: 6A 00              push        0
+  1175CF74: 6A 04              push        4
+  1175CF76: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CF79: E8 FC BA 92 FF     call        11088A7A
+  1175CF7E: 90                 nop
+  1175CF7F: 6A 01              push        1
+  1175CF81: 6A 0A              push        0Ah
+  1175CF83: 6A 10              push        10h
+  1175CF85: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CF88: E8 ED BA 92 FF     call        11088A7A
+  1175CF8D: 90                 nop
+  1175CF8E: 6A 01              push        1
+  1175CF90: 6A 28              push        28h
+  1175CF92: 6A 18              push        18h
+  1175CF94: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CF97: E8 DE BA 92 FF     call        11088A7A
+  1175CF9C: 90                 nop
+  1175CF9D: 6A 01              push        1
+  1175CF9F: 6A 28              push        28h
+  1175CFA1: 6A 1A              push        1Ah
+  1175CFA3: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CFA6: E8 CF BA 92 FF     call        11088A7A
+  1175CFAB: 90                 nop
+  1175CFAC: 6A 01              push        1
+  1175CFAE: 68 96 00 00 00     push        96h
+  1175CFB3: 6A 20              push        20h
+  1175CFB5: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CFB8: E8 BD BA 92 FF     call        11088A7A
+  1175CFBD: 90                 nop
+  1175CFBE: 6A 01              push        1
+  1175CFC0: 68 96 00 00 00     push        96h
+  1175CFC5: 6A 1F              push        1Fh
+  1175CFC7: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CFCA: E8 AB BA 92 FF     call        11088A7A
+  1175CFCF: 90                 nop
+  1175CFD0: 6A 01              push        1
+  1175CFD2: 6A 15              push        15h
+  1175CFD4: 6A 22              push        22h
+  1175CFD6: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CFD9: E8 9C BA 92 FF     call        11088A7A
+  1175CFDE: 90                 nop
+  1175CFDF: 6A 01              push        1
+  1175CFE1: 68 F4 01 00 00     push        1F4h
+  1175CFE6: 6A 25              push        25h
+  1175CFE8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CFEB: E8 8A BA 92 FF     call        11088A7A
+  1175CFF0: 90                 nop
+  1175CFF1: 6A 01              push        1
+  1175CFF3: 68 C8 00 00 00     push        0C8h
+  1175CFF8: 6A 2A              push        2Ah
+  1175CFFA: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CFFD: E8 78 BA 92 FF     call        11088A7A
+  1175D002: 90                 nop
+  1175D003: 5F                 pop         edi
+  1175D004: 5E                 pop         esi
+  1175D005: 5B                 pop         ebx
+  1175D006: 81 C4 CC 00 00 00  add         esp,0CCh
+  1175D00C: 3B EC              cmp         ebp,esp
+  1175D00E: E8 BD 0C 90 FF     call        1105DCD0
+  1175D013: 8B E5              mov         esp,ebp
+  1175D015: 5D                 pop         ebp
+  1175D016: C3                 ret
+  1175D017: CC                 int         3
+
+  Summary
+
+     216F000 .text

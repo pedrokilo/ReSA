@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "meaning": "Transport baseline audit only, function remains failed",
+  "pairs": 89600,
+  "differences": 17800,
+  "all_comparison_payloads_and_metadata_identical": true,
+  "failed_seed_set_exact": true,
+  "failures_sha256": "61ba8e393a0c954999cf2db27e0924835b8a5131029eb731091bd0b8cf68eee8",
+  "wire_sha256": "6d7e6b11b14a29f595cfd3eb17fb19e14e49f7d42657ae7675d2e0b33c2b4f52",
+  "phase_raw_sha256": "b34424474d3a9a4643a109aed794d1da68576713ca39033d09e4292e409be4de",
+  "hex_canonical_sha256": "1e2d0a2729ce14665a668ff85e815ce69a192578675128a6f6959e07745ceef2",
+  "comparison_canonical_sha256": "7851c6abfe2ac5209868876d953bcab6654dfd8387b34c7a84fc044080f799e0",
+  "all_17692_ranges_flags_restored": true,
+  "natural_exit0_both": true,
+  "peak_retained_estimates": [
+    16957440,
+    5308416
+  ],
+  "source_compiled_sha256": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db",
+  "enriched_summary_hashes": [
+    "c6b2dc2e02238b2fc6bc9cbbdad78f29f202ee0cf02ba14079db4376a8320d86",
+    "d2ad1196dcd99de714935b2a22f8fdb40e8789c877c1f86f770528e791caf558"
+  ]
+}

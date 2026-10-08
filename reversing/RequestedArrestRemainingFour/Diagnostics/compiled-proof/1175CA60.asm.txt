@@ -1,0 +1,169 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1175CA60: 55                 push        ebp
+  1175CA61: 8B EC              mov         ebp,esp
+  1175CA63: 81 EC 00 01 00 00  sub         esp,100h
+  1175CA69: 53                 push        ebx
+  1175CA6A: 56                 push        esi
+  1175CA6B: 57                 push        edi
+  1175CA6C: 51                 push        ecx
+  1175CA6D: 8D 7D C0           lea         edi,[ebp-40h]
+  1175CA70: B9 10 00 00 00     mov         ecx,10h
+  1175CA75: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1175CA7A: F3 AB              rep stos    dword ptr es:[edi]
+  1175CA7C: 59                 pop         ecx
+  1175CA7D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1175CA80: 6A 01              push        1
+  1175CA82: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1175CA85: 50                 push        eax
+  1175CA86: E8 AC 18 91 FF     call        1106E337
+  1175CA8B: 83 C4 08           add         esp,8
+  1175CA8E: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1175CA91: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1175CA94: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  1175CA97: 51                 push        ecx
+  1175CA98: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CA9B: E8 8F 59 94 FF     call        110A242F
+  1175CAA0: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1175CAA3: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1175CAA6: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  1175CAA9: 89 4D D4           mov         dword ptr [ebp-2Ch],ecx
+  1175CAAC: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1175CAAF: 8B 08              mov         ecx,dword ptr [eax]
+  1175CAB1: 3B 4D 08           cmp         ecx,dword ptr [ebp+8]
+  1175CAB4: 0F 84 D8 00 00 00  je          1175CB92
+  1175CABA: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1175CABD: 83 38 00           cmp         dword ptr [eax],0
+  1175CAC0: 74 72              je          1175CB34
+  1175CAC2: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1175CAC5: 89 85 00 FF FF FF  mov         dword ptr [ebp+FFFFFF00h],eax
+  1175CACB: 83 BD 00 FF FF FF  cmp         dword ptr [ebp+FFFFFF00h],3
+            03
+  1175CAD2: 74 14              je          1175CAE8
+  1175CAD4: 83 BD 00 FF FF FF  cmp         dword ptr [ebp+FFFFFF00h],4
+            04
+  1175CADB: 74 0B              je          1175CAE8
+  1175CADD: 83 BD 00 FF FF FF  cmp         dword ptr [ebp+FFFFFF00h],5
+            05
+  1175CAE4: 74 02              je          1175CAE8
+  1175CAE6: EB 0C              jmp         1175CAF4
+  1175CAE8: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1175CAEB: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1175CAEE: 03 48 0C           add         ecx,dword ptr [eax+0Ch]
+  1175CAF1: 89 4D 0C           mov         dword ptr [ebp+0Ch],ecx
+  1175CAF4: 6A 00              push        0
+  1175CAF6: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1175CAF9: E8 CB 83 93 FF     call        11094EC9
+  1175CAFE: 8B 40 0C           mov         eax,dword ptr [eax+0Ch]
+  1175CB01: 50                 push        eax
+  1175CB02: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CB05: E8 A7 FF 93 FF     call        1109CAB1
+  1175CB0A: 90                 nop
+  1175CB0B: 6A 01              push        1
+  1175CB0D: 6A 2D              push        2Dh
+  1175CB0F: E8 23 18 91 FF     call        1106E337
+  1175CB14: 83 C4 08           add         esp,8
+  1175CB17: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1175CB1A: 8B 51 14           mov         edx,dword ptr [ecx+14h]
+  1175CB1D: 3B 50 14           cmp         edx,dword ptr [eax+14h]
+  1175CB20: 75 09              jne         1175CB2B
+  1175CB22: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CB25: E8 64 EE 90 FF     call        1106B98E
+  1175CB2A: 90                 nop
+  1175CB2B: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1175CB2E: E8 91 80 91 FF     call        11074BC4
+  1175CB33: 90                 nop
+  1175CB34: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1175CB37: 50                 push        eax
+  1175CB38: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1175CB3B: 51                 push        ecx
+  1175CB3C: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1175CB3F: 52                 push        edx
+  1175CB40: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1175CB43: E8 25 49 93 FF     call        1109146D
+  1175CB48: 90                 nop
+  1175CB49: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1175CB4C: 0F B6 88 18 07 00  movzx       ecx,byte ptr [eax+00000718h]
+            00
+  1175CB53: 8B 55 EC           mov         edx,dword ptr [ebp-14h]
+  1175CB56: 39 4A 14           cmp         dword ptr [edx+14h],ecx
+  1175CB59: 75 35              jne         1175CB90
+  1175CB5B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1175CB5E: 8A 88 6D 04 00 00  mov         cl,byte ptr [eax+0000046Dh]
+  1175CB64: 80 E1 01           and         cl,1
+  1175CB67: 0F B6 D1           movzx       edx,cl
+  1175CB6A: 85 D2              test        edx,edx
+  1175CB6C: 75 22              jne         1175CB90
+  1175CB6E: 6A 01              push        1
+  1175CB70: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CB73: E8 0C 93 91 FF     call        11075E84
+  1175CB78: 8B 00              mov         eax,dword ptr [eax]
+  1175CB7A: 50                 push        eax
+  1175CB7B: E8 B7 17 91 FF     call        1106E337
+  1175CB80: 83 C4 08           add         esp,8
+  1175CB83: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  1175CB86: 51                 push        ecx
+  1175CB87: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CB8A: E8 5E D7 93 FF     call        1109A2ED
+  1175CB8F: 90                 nop
+  1175CB90: EB 6C              jmp         1175CBFE
+  1175CB92: 83 7D D4 0A        cmp         dword ptr [ebp-2Ch],0Ah
+  1175CB96: 75 07              jne         1175CB9F
+  1175CB98: B8 0A 00 00 00     mov         eax,0Ah
+  1175CB9D: EB 75              jmp         1175CC14
+  1175CB9F: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1175CBA2: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  1175CBA5: 03 4D 0C           add         ecx,dword ptr [ebp+0Ch]
+  1175CBA8: 89 4D C8           mov         dword ptr [ebp-38h],ecx
+  1175CBAB: 81 7D C8 9F 86 01  cmp         dword ptr [ebp-38h],1869Fh
+            00
+  1175CBB2: 7D 0B              jge         1175CBBF
+  1175CBB4: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  1175CBB7: 89 85 00 FF FF FF  mov         dword ptr [ebp+FFFFFF00h],eax
+  1175CBBD: EB 0A              jmp         1175CBC9
+  1175CBBF: C7 85 00 FF FF FF  mov         dword ptr [ebp+FFFFFF00h],1869Fh
+            9F 86 01 00
+  1175CBC9: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1175CBCC: 8B 95 00 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF00h]
+  1175CBD2: 89 51 0C           mov         dword ptr [ecx+0Ch],edx
+  1175CBD5: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1175CBD8: 50                 push        eax
+  1175CBD9: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1175CBDC: E8 D9 69 93 FF     call        110935BA
+  1175CBE1: 90                 nop
+  1175CBE2: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1175CBE5: 83 78 04 03        cmp         dword ptr [eax+4],3
+  1175CBE9: 75 13              jne         1175CBFE
+  1175CBEB: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1175CBEE: 83 78 0C 00        cmp         dword ptr [eax+0Ch],0
+  1175CBF2: 7E 0A              jle         1175CBFE
+  1175CBF4: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1175CBF7: C7 40 04 00 00 00  mov         dword ptr [eax+4],0
+            00
+  1175CBFE: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1175CC01: 83 78 04 03        cmp         dword ptr [eax+4],3
+  1175CC05: 74 0A              je          1175CC11
+  1175CC07: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1175CC0A: C7 40 04 00 00 00  mov         dword ptr [eax+4],0
+            00
+  1175CC11: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1175CC14: 5F                 pop         edi
+  1175CC15: 5E                 pop         esi
+  1175CC16: 5B                 pop         ebx
+  1175CC17: 81 C4 00 01 00 00  add         esp,100h
+  1175CC1D: 3B EC              cmp         ebp,esp
+  1175CC1F: E8 AC 10 90 FF     call        1105DCD0
+  1175CC24: 8B E5              mov         esp,ebp
+  1175CC26: 5D                 pop         ebp
+  1175CC27: C2 0C 00           ret         0Ch
+  1175CC2A: CC                 int         3
+
+  Summary
+
+     216F000 .text

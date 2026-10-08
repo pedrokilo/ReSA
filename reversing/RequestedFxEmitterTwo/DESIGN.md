@@ -1,0 +1,19 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6843 con evidencia histórica, 0 con vigencia acreditada y 1603 pendientes en 61 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# FxEmitterBP: constructor y carga de texturas
+
+Preparado; ninguna ejecución ni acreditación. 5632 pares: constructor 512 y LoadTextures 5120. La identidad virtual CSV 0 permanece intacta; PE fija tabla 0x85A788, siete slots, LoadTextures en slot 2 = 0x5C0A30. Constructor = 0x4A18D0. EXE SHA-256 72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b.
+
+Constructor cruza 256 poisons con dos patrones de bytes (uniforme y progresión por posición). Se ejecutan completos FxEmitterBP, FxPrimBP y List CPU. El EXE sólo escribe vptr, tipo 0, texturas 0 y tres campos de lista 0: no hay allocation ni stub de constructor/base. FxInfoManager y los otros campos conservan el poison. Ambos vptr crudos se registran y verifican contra tablas propias declaradas; los restantes 60 bytes y guardias de 16 bytes se comparan con un modelo de stores nativos. No se acredita equivalencia global de las siete virtuales.
+
+LoadTextures cruza ocho perfiles de cuatro nombres, versiones 100/101/102/-1/INT_MAX, 16 máscaras independientes de éxito de lectura con máscara, cuatro máscaras de fallback (0/15/5/10) y dos estados previos de slots (null/handles privados): 5120. Perfiles cubren NULL exacto, NULLX, vacío, smoke y dos nombres finitos de 31 caracteres, incluyendo combinaciones mixtas. Cada FxName32_t tiene NUL y los bytes restantes preservan el poison. sprintf y strncmp reales trabajan sobre buffers válidos; una máscara de 31 caracteres más m ocupa 33 bytes con NUL, menor que 64.
+
+Cada load establece primero el constructor CPU completo de su propia leg. Los handles preexistentes y retornados son ocho RwTexture privados opacos y no poseen raster/asset. No se ejecuta destructor del blueprint: la fuente base destruye texturas y ese ownership queda fuera de alcance. La reutilización de arenas de almacenamiento no acredita el destructor ni un ciclo de vida con assets reales.
+
+RwTextureRead 0x7F3AC0 y la entrada DLL &RwTextureRead, con resolución explícita de E9, se interceptan en cinco bytes; las entradas y cuerpo resuelto conservan snapshots de 52 bytes. El log conserva cadena y 128 bytes previos del cuerpo para revisión del CALL propio en el artefacto compilado. Antes de GTA, la raíz debe comprobar con PE/PDB/disassembly que el wrapper propio conecta al 0x7F3AC0 canónico; la fuente rwcore.cpp utiliza CallAndReturn de esa dirección. No se acredita la lectura de assets ni la implementación del helper.
+
+El modelo reconstruye nombres, masks, orden/ordinal de llamadas, fallback, versión signed >101, punteros de slots, retorno true, todos los campos y guardias. Importante: el original salta un slot opcional cuyo nombre es exactamente NULL sin escribirlo; la fuente actual asigna nullptr. El corpus conserva el preestado no nulo para reproducir esta diferencia; no se corrige fuente ni modelo para ocultarla. NULL del primer slot siempre se carga.
+
+Restauración de arenas privadas, controles, FP, gates de helper, flags, 17692 rangos de tablas/entradas y timer; runner exige salida natural 0 e instalación/configuración/saves restaurados. No nombres sin NUL, aliases/desplazamientos externos, otros estados de fallback combinados, assets, streaming, materiales, rendering o destructor. Cualquier mismatch conserva fallo. dependency_review queda null hasta evidencia adicional.

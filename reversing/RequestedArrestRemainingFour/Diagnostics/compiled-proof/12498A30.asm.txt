@@ -1,0 +1,73 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  12498A30: 55                 push        ebp
+  12498A31: 8B EC              mov         ebp,esp
+  12498A33: 6A FF              push        0FFFFFFFFh
+  12498A35: 68 BD 2B 16 13     push        13162BBDh
+  12498A3A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  12498A40: 50                 push        eax
+  12498A41: 81 EC CC 00 00 00  sub         esp,0CCh
+  12498A47: 53                 push        ebx
+  12498A48: 56                 push        esi
+  12498A49: 57                 push        edi
+  12498A4A: 51                 push        ecx
+  12498A4B: 8D 7D E8           lea         edi,[ebp-18h]
+  12498A4E: B9 03 00 00 00     mov         ecx,3
+  12498A53: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  12498A58: F3 AB              rep stos    dword ptr es:[edi]
+  12498A5A: 59                 pop         ecx
+  12498A5B: A1 40 DA 6C 13     mov         eax,dword ptr ds:[136CDA40h]
+  12498A60: 33 C5              xor         eax,ebp
+  12498A62: 50                 push        eax
+  12498A63: 8D 45 F4           lea         eax,[ebp-0Ch]
+  12498A66: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  12498A6C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  12498A6F: 33 C0              xor         eax,eax
+  12498A71: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  12498A74: 89 01              mov         dword ptr [ecx],eax
+  12498A76: 89 41 04           mov         dword ptr [ecx+4],eax
+  12498A79: 89 41 08           mov         dword ptr [ecx+8],eax
+  12498A7C: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  12498A7F: E8 B2 84 BF FE     call        11090F36
+  12498A84: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  12498A8B: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  12498A8E: C7 00 C4 63 1D 13  mov         dword ptr [eax],131D63C4h
+  12498A94: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  12498A97: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  12498A9A: 89 48 10           mov         dword ptr [eax+10h],ecx
+  12498A9D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  12498AA0: C7 40 20 00 00 00  mov         dword ptr [eax+20h],0
+            00
+  12498AA7: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  12498AAA: 83 C0 10           add         eax,10h
+  12498AAD: 50                 push        eax
+  12498AAE: E8 0B CC BD FE     call        110756BE
+  12498AB3: 83 C4 04           add         esp,4
+  12498AB6: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  12498ABD: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  12498AC0: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  12498AC3: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  12498ACA: 59                 pop         ecx
+  12498ACB: 5F                 pop         edi
+  12498ACC: 5E                 pop         esi
+  12498ACD: 5B                 pop         ebx
+  12498ACE: 81 C4 D8 00 00 00  add         esp,0D8h
+  12498AD4: 3B EC              cmp         ebp,esp
+  12498AD6: E8 F5 51 BC FE     call        1105DCD0
+  12498ADB: 8B E5              mov         esp,ebp
+  12498ADD: 5D                 pop         ebp
+  12498ADE: C2 04 00           ret         4
+  12498AE1: CC                 int         3
+
+  Summary
+
+     216F000 .text

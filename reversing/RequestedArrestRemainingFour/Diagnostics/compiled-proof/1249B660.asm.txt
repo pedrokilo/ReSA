@@ -1,0 +1,54 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1249B660: 55                 push        ebp
+  1249B661: 8B EC              mov         ebp,esp
+  1249B663: 81 EC D4 00 00 00  sub         esp,0D4h
+  1249B669: 53                 push        ebx
+  1249B66A: 56                 push        esi
+  1249B66B: 57                 push        edi
+  1249B66C: 51                 push        ecx
+  1249B66D: 8D 7D EC           lea         edi,[ebp-14h]
+  1249B670: B9 05 00 00 00     mov         ecx,5
+  1249B675: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1249B67A: F3 AB              rep stos    dword ptr es:[edi]
+  1249B67C: 59                 pop         ecx
+  1249B67D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1249B680: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1249B683: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  1249B686: 89 8D 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],ecx
+  1249B68C: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1249B68F: 8B 42 08           mov         eax,dword ptr [edx+8]
+  1249B692: 8B 08              mov         ecx,dword ptr [eax]
+  1249B694: 8B 51 18           mov         edx,dword ptr [ecx+18h]
+  1249B697: 89 95 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],edx
+  1249B69D: 8B F4              mov         esi,esp
+  1249B69F: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  1249B6A2: 50                 push        eax
+  1249B6A3: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1249B6A6: 51                 push        ecx
+  1249B6A7: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1249B6AA: 52                 push        edx
+  1249B6AB: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  1249B6B1: FF 95 2C FF FF FF  call        dword ptr [ebp+FFFFFF2Ch]
+  1249B6B7: 3B F4              cmp         esi,esp
+  1249B6B9: E8 12 26 BC FE     call        1105DCD0
+  1249B6BE: 5F                 pop         edi
+  1249B6BF: 5E                 pop         esi
+  1249B6C0: 5B                 pop         ebx
+  1249B6C1: 81 C4 D4 00 00 00  add         esp,0D4h
+  1249B6C7: 3B EC              cmp         ebp,esp
+  1249B6C9: E8 02 26 BC FE     call        1105DCD0
+  1249B6CE: 8B E5              mov         esp,ebp
+  1249B6D0: 5D                 pop         ebp
+  1249B6D1: C2 0C 00           ret         0Ch
+  1249B6D4: CC                 int         3
+
+  Summary
+
+     216F000 .text

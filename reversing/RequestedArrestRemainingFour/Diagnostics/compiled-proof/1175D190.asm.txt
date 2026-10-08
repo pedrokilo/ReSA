@@ -1,0 +1,99 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1175D190: 55                 push        ebp
+  1175D191: 8B EC              mov         ebp,esp
+  1175D193: 81 EC D8 00 00 00  sub         esp,0D8h
+  1175D199: 53                 push        ebx
+  1175D19A: 56                 push        esi
+  1175D19B: 57                 push        edi
+  1175D19C: 51                 push        ecx
+  1175D19D: 8D 7D E8           lea         edi,[ebp-18h]
+  1175D1A0: B9 06 00 00 00     mov         ecx,6
+  1175D1A5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1175D1AA: F3 AB              rep stos    dword ptr es:[edi]
+  1175D1AC: 59                 pop         ecx
+  1175D1AD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1175D1B0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D1B3: E8 CC 8C 91 FF     call        11075E84
+  1175D1B8: 83 38 00           cmp         dword ptr [eax],0
+  1175D1BB: 0F 85 B4 00 00 00  jne         1175D275
+  1175D1C1: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1175D1C4: 83 B8 10 07 00 00  cmp         dword ptr [eax+00000710h],37h
+            37
+  1175D1CB: 0F 85 A4 00 00 00  jne         1175D275
+  1175D1D1: 6A 4D              push        4Dh
+  1175D1D3: E8 E9 41 95 FF     call        110B13C1
+  1175D1D8: 83 C4 04           add         esp,4
+  1175D1DB: 0F B6 C0           movzx       eax,al
+  1175D1DE: 85 C0              test        eax,eax
+  1175D1E0: 74 2B              je          1175D20D
+  1175D1E2: 68 C8 00 00 00     push        0C8h
+  1175D1E7: 6A 1E              push        1Eh
+  1175D1E9: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D1EC: E8 E5 AF 8F FF     call        110581D6
+  1175D1F1: 90                 nop
+  1175D1F2: 6A 01              push        1
+  1175D1F4: 6A 1E              push        1Eh
+  1175D1F6: E8 3C 11 91 FF     call        1106E337
+  1175D1FB: 83 C4 08           add         esp,8
+  1175D1FE: 8B 40 14           mov         eax,dword ptr [eax+14h]
+  1175D201: 50                 push        eax
+  1175D202: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D205: E8 83 9A 93 FF     call        11096C8D
+  1175D20A: 90                 nop
+  1175D20B: EB 68              jmp         1175D275
+  1175D20D: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  1175D214: 6A 4E              push        4Eh
+  1175D216: E8 A6 41 95 FF     call        110B13C1
+  1175D21B: 83 C4 04           add         esp,4
+  1175D21E: 0F B6 C0           movzx       eax,al
+  1175D221: 85 C0              test        eax,eax
+  1175D223: 74 21              je          1175D246
+  1175D225: 68 C8 00 00 00     push        0C8h
+  1175D22A: 6A 23              push        23h
+  1175D22C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D22F: E8 A2 AF 8F FF     call        110581D6
+  1175D234: 90                 nop
+  1175D235: 6A 01              push        1
+  1175D237: 6A 23              push        23h
+  1175D239: E8 F9 10 91 FF     call        1106E337
+  1175D23E: 83 C4 08           add         esp,8
+  1175D241: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1175D244: EB 1F              jmp         1175D265
+  1175D246: 68 C8 00 00 00     push        0C8h
+  1175D24B: 6A 16              push        16h
+  1175D24D: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D250: E8 81 AF 8F FF     call        110581D6
+  1175D255: 90                 nop
+  1175D256: 6A 01              push        1
+  1175D258: 6A 16              push        16h
+  1175D25A: E8 D8 10 91 FF     call        1106E337
+  1175D25F: 83 C4 08           add         esp,8
+  1175D262: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1175D265: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1175D268: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  1175D26B: 51                 push        ecx
+  1175D26C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D26F: E8 19 9A 93 FF     call        11096C8D
+  1175D274: 90                 nop
+  1175D275: 5F                 pop         edi
+  1175D276: 5E                 pop         esi
+  1175D277: 5B                 pop         ebx
+  1175D278: 81 C4 D8 00 00 00  add         esp,0D8h
+  1175D27E: 3B EC              cmp         ebp,esp
+  1175D280: E8 4B 0A 90 FF     call        1105DCD0
+  1175D285: 8B E5              mov         esp,ebp
+  1175D287: 5D                 pop         ebp
+  1175D288: C3                 ret
+  1175D289: CC                 int         3
+
+  Summary
+
+     216F000 .text

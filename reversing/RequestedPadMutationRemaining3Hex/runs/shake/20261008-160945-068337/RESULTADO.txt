@@ -1,0 +1,3 @@
+APROBADO: CPad StartShake 89600
+Comparacion automatizada completada.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-pad-remaining3-hex-shake\20261008-160945-068337

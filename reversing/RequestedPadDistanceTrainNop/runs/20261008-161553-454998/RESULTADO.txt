@@ -1,0 +1,3 @@
+FALLO: Pad distance/train/NOP13952
+Tiempo agotado.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pad-distance-train-nop\20261008-161553-454998

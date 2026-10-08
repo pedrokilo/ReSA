@@ -1,0 +1,8 @@
+{
+  "owned_process_id": 37548,
+  "parent_runner_id": 78416,
+  "reason": "Replace repeated537600registry scans with equivalent cached helper lookups; preserve partial as REJECTED",
+  "approved": false,
+  "original_asi_restored": true,
+  "no_restore_error": true
+}

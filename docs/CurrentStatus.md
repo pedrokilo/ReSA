@@ -1,14 +1,14 @@
 # Estado comprobado de ReSA · 8 de octubre de 2026
 
-**Corte documental: 8 de octubre de 2026, después de vincular Context9, GeometryPlanes, seis mutaciones de CPad y PlaceGroup V2, Projectile, ReferenceAnims, Reconcile y Update, hora de Ciudad de México.** Los contadores corresponden al catálogo sincronizado con 107 aprobaciones nuevas. Las sondas posteriores pendientes no se suman.
+**Corte documental: 8 de octubre de 2026, después de vincular Context9, GeometryPlanes, seis mutaciones de CPad y PlaceGroup V2, Projectile, ReferenceAnims, Reconcile, Update, StartShake y cuatro despachos CPU, hora de Ciudad de México.** Los contadores corresponden al catálogo sincronizado con 112 aprobaciones nuevas. Las sondas posteriores pendientes no se suman.
 
-El catálogo contiene **771 clases, namespaces o grupos / 8446 entradas**, todas marcadas como reconstruidas. Hay **6843 entradas con evidencia histórica vinculada** y **1603 pendientes de validación**, distribuidas en **61 grupos**. El alcance solicitado inicial fue de 77 grupos y 1710 funciones; 107 identidades nuevas quedaron aprobadas para sus fixtures. Reconstrucción no significa validación ni independencia del ejecutable.
+El catálogo contiene **771 clases, namespaces o grupos / 8446 entradas**, todas marcadas como reconstruidas. Hay **6848 entradas con evidencia histórica vinculada** y **1598 pendientes de validación**, distribuidas en **60 grupos**. El alcance solicitado inicial fue de 77 grupos y 1710 funciones; 112 identidades nuevas quedaron aprobadas para sus fixtures. Reconstrucción no significa validación ni independencia del ejecutable.
 
 **Vigencia actual: 0 funciones acreditadas.** Las validaciones nuevas tienen `dependency_review=null`: son evidencia histórica aprobada, con límites explícitos. Las 52 de Interior_c mantienen sus resultados históricos; su huella de dependencias no coincide con el árbol actual. Esta documentación no cambia huellas de evidencia ni acredita dependencias.
 
 El **snapshot de arranque histórico del 8 de octubre de 2026** seleccionó **694 grupos completos / 6136 funciones** y desactivó 2313 hooks del inventario de ejecución (incluye 3 extras NOTSA), sin discrepancias entre selección y estados. El ASI de ese arranque fue `f33a7f5ca0ebdb08f4f77d91c2f8142c4a2776761191c3e683eb352fc3438cae`. Es un snapshot fechado; no identifica la última instalación ni certifica comportamiento conjunto. Las sondas posteriores restauran la instalación que encontraron. La whitelist histórica de ese arranque permanece fija; las nuevas aprobaciones no se añadieron automáticamente. El argumento `--historical-hooks` es explícito y no implica validación vigente. [Registro de arranque y correspondencias](../reversing/RequestedValidation20261008/historical-launch/README.md).
 
-## Ciento siete aprobaciones nuevas, con alcance limitado
+## Ciento doce aprobaciones nuevas, con alcance limitado
 
 | Función | Pares aprobados | Evidencia conservada | Alcance |
 | --- | ---: | --- | --- |
@@ -122,6 +122,12 @@ Los resúmenes incluyen el EXE y DLL ejecutados, fuentes/instrumentos congelados
 | CPad::ReconcileTwoControllersInput | 2892 | [Resumen](../reversing/RequestedPadMutationRemaining3/validation-summary-reconcile.json) | Corpus privado del banco Reconcile, comparación y restauración completas; sin integración con dispositivos reales. |
 | CPad::Update | 2560 | [Resumen](../reversing/RequestedPadMutationRemaining3/validation-summary-update.json) | Historial de dirección privado: baseline 2560 diferencias preservado; copy_backward corrigió el desplazamiento y el replay aprobó con restauración completa, sin dispositivos reales. |
 
+| CPad::StartShake | 89600 | [Resumen](../reversing/RequestedPadMutationRemaining3Hex/validation-summary-shake.json) | Estados privados, relojes uint32 y duraciones signed; gates frontend/cutscene. Sin controlador real ni vibración del sistema. |
+| CCustomBuildingRenderer::Initialise | 1024 | [Resumen](../reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/Initialise-validation-summary.json) | Despacho CPU privado, orden/trazas y bytes/retorno definidos. Sin implementación de colaboradores, gráficos ni ciclo de vida de recursos. |
+| CCustomBuildingRenderer::Shutdown | 1024 | [Resumen](../reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/Shutdown-validation-summary.json) | Despacho CPU privado, orden/trazas y bytes/retorno definidos. Sin implementación de colaboradores, gráficos ni ciclo de vida de recursos. |
+| CCustomBuildingRenderer::PluginAttach | 1024 | [Resumen](../reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/PluginAttach-validation-summary.json) | Despacho CPU privado, orden/trazas y bytes/retorno definidos. Sin implementación de colaboradores, gráficos ni ciclo de vida de recursos. |
+| CRealTimeShadowManager::ReturnRealTimeShadow | 2048 | [Resumen](../reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/ReturnRealTimeShadow-validation-summary.json) | Despacho CPU privado, orden/trazas y bytes/retorno definidos. Sin implementación de colaboradores, gráficos ni ciclo de vida de recursos. |
+
 ## CPad: corpus y reparación de la interacción de hombros
 
 Se vincularon **51 selectores × 3876 fixtures = 197676 pares**, con payload privado, globales, ABI declarado y restauración de entradas/tablas/flags. La comparación de bool usa el valor declarado en AL; los bits superiores indefinidos de EAX no se interpretan como diferencias. El corpus cubre modos 0..3, presiones y transiciones aisladas, sin acreditar combinaciones exhaustivas ni integración con dispositivos. [Resumen de 51 identidades](../reversing/RequestedPadSelectors/validation-summary-51.json).
@@ -156,6 +162,8 @@ El objetivo standalone existe en CMake, pero WinMain sólo permite exportar hook
 
 Esta actualización conserva las mediciones históricas de cada banco. Modificar documentación incluida en una revisión de dependencias puede retirar su vigencia sin convertir una prueba histórica en fallida.
 
+StartShake añadió 89600 casos con cero diferencias, incluyendo relojes envueltos y duraciones negativas como caracterización finita; compara arenas completas y FP sin normalizar bytes. Las cuatro funciones de DispatchShadow añadieron 5120 casos CPU privados: Initialise/Shutdown/PluginAttach de CCustomBuildingRenderer y ReturnRealTimeShadow. Son aprobaciones históricas con dependency_review=null; no acreditan gráficos, helpers ni recursos reales. Los bancos posteriores de Arrest/Fx/Distance/Geometry continúan pendientes hasta sus replays y auditorías.
+
 ## Pendientes por clase
 
 Tabla generada desde `docs/hooks.csv`; cuenta `validated=0`, independientemente del bloqueo del hook.
@@ -187,7 +195,6 @@ El freeze relativo antiguo de TaskCtorDtor corresponde a preparación no ejecuta
 | CCheat | 72 |
 | CClothesBuilder | 15 |
 | CCollision | 1 |
-| CCustomBuildingRenderer | 3 |
 | CFont | 32 |
 | CGangWars | 32 |
 | CGenericGameStorage | 5 |
@@ -195,7 +202,7 @@ El freeze relativo antiguo de TaskCtorDtor corresponde a preparación no ejecuta
 | CHud | 30 |
 | CIdleCam | 13 |
 | CMonsterTruck | 5 |
-| CPad | 6 |
+| CPad | 5 |
 | CPathFind | 54 |
 | CPedGeometryAnalyser | 7 |
 | CPickups | 35 |
@@ -205,7 +212,7 @@ El freeze relativo antiguo de TaskCtorDtor corresponde a preparación no ejecuta
 | CPopulation | 64 |
 | CPostEffects | 35 |
 | CRadar | 63 |
-| CRealTimeShadowManager | 5 |
+| CRealTimeShadowManager | 4 |
 | CRoadBlocks | 7 |
 | CRope | 5 |
 | CRunningScript | 24 |

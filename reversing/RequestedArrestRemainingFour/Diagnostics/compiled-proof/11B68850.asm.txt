@@ -1,0 +1,40 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  11B68850: 55                 push        ebp
+  11B68851: 8B EC              mov         ebp,esp
+  11B68853: 81 EC C4 00 00 00  sub         esp,0C4h
+  11B68859: 53                 push        ebx
+  11B6885A: 56                 push        esi
+  11B6885B: 57                 push        edi
+  11B6885C: 8D 7D FC           lea         edi,[ebp-4]
+  11B6885F: B9 01 00 00 00     mov         ecx,1
+  11B68864: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B68869: F3 AB              rep stos    dword ptr es:[edi]
+  11B6886B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11B6886E: 8B 08              mov         ecx,dword ptr [eax]
+  11B68870: 89 8D 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],ecx
+  11B68876: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11B68879: 52                 push        edx
+  11B6887A: 8B 8D 3C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF3Ch]
+  11B68880: E8 96 E9 50 FF     call        1107721B
+  11B68885: 90                 nop
+  11B68886: 5F                 pop         edi
+  11B68887: 5E                 pop         esi
+  11B68888: 5B                 pop         ebx
+  11B68889: 81 C4 C4 00 00 00  add         esp,0C4h
+  11B6888F: 3B EC              cmp         ebp,esp
+  11B68891: E8 3A 54 4F FF     call        1105DCD0
+  11B68896: 8B E5              mov         esp,ebp
+  11B68898: 5D                 pop         ebp
+  11B68899: C3                 ret
+  11B6889A: CC                 int         3
+
+  Summary
+
+     216F000 .text

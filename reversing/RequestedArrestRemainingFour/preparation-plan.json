@@ -1,0 +1,51 @@
+{
+  "prepared_only": true,
+  "executed": false,
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "functions": [
+    {
+      "name": "Constructor",
+      "csv_address": "0x0068B990",
+      "type": "S",
+      "native_address": "0x0068B990",
+      "pairs": 128
+    },
+    {
+      "name": "Destructor",
+      "csv_address": "0x0068BA00",
+      "type": "S",
+      "native_address": "0x0068BA00",
+      "pairs": 256
+    },
+    {
+      "name": "MakeAbortable",
+      "csv_address": "0x00000000",
+      "type": "V",
+      "native_address": "0x0068BA60",
+      "slot": 6,
+      "pairs": 384
+    },
+    {
+      "name": "CreateFirstSubTask",
+      "csv_address": "0x00000000",
+      "type": "V",
+      "native_address": "0x006907A0",
+      "slot": 9,
+      "pairs": 2048
+    }
+  ],
+  "total_pairs": 2816,
+  "native_vtable": "0x008709A8",
+  "table_entries": 11,
+  "limitations": [
+    "Isolated raw task/ped/vehicle storage and controlled helpers. No actor integration, subtask construction or helper accreditation. Native/DLL raw vptr retained with separate exact role checks; no whole-vtable behavioral equivalence claim.",
+    "Fresh REA virtual dossiers unavailable invalid_request; canonical PE and dumpbin evidence, no invented pseudo."
+  ],
+  "source_observations": {
+    "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "cb0d2c13b751877950b20367d122e055c31d45f22740b8470cd387ddb35483ea",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "0a0743beed4f90e2a628168d1ac3b401dc77a135ddcebc50724ac35ae905e6b5",
+    "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+    "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+    "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f"
+  }
+}

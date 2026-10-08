@@ -1,0 +1,10 @@
+{
+  "synthetic_only": true,
+  "no_runtime_approval": true,
+  "wrapper_contract_checks": [
+    "clean baseline remains failed",
+    "incomplete remains pending",
+    "restored negative returns failed evidence",
+    "bad restoration raises"
+  ]
+}

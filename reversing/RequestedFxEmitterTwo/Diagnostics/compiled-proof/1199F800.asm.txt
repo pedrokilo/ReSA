@@ -1,0 +1,165 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  1199F800: 55                 push        ebp
+  1199F801: 8B EC              mov         ebp,esp
+  1199F803: 81 EC E4 00 00 00  sub         esp,0E4h
+  1199F809: 53                 push        ebx
+  1199F80A: 56                 push        esi
+  1199F80B: 57                 push        edi
+  1199F80C: 8D 7D DC           lea         edi,[ebp-24h]
+  1199F80F: B9 09 00 00 00     mov         ecx,9
+  1199F814: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1199F819: F3 AB              rep stos    dword ptr es:[edi]
+  1199F81B: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1199F81E: 89 45 F8           mov         dword ptr [ebp-8],eax
+  1199F821: 83 7D F8 00        cmp         dword ptr [ebp-8],0
+  1199F825: 0F 86 9F 00 00 00  jbe         1199F8CA
+  1199F82B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1199F82E: 50                 push        eax
+  1199F82F: 8D 4D 08           lea         ecx,[ebp+8]
+  1199F832: 51                 push        ecx
+  1199F833: E8 F1 5F 70 FF     call        110A5829
+  1199F838: 83 C4 08           add         esp,8
+  1199F83B: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1199F83E: E8 63 66 6F FF     call        11095EA6
+  1199F843: 0F B6 C0           movzx       eax,al
+  1199F846: 85 C0              test        eax,eax
+  1199F848: 75 4A              jne         1199F894
+  1199F84A: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  1199F84D: 50                 push        eax
+  1199F84E: E8 7F FF 6D FF     call        1107F7D2
+  1199F853: 83 C4 04           add         esp,4
+  1199F856: 0F B6 C8           movzx       ecx,al
+  1199F859: 85 C9              test        ecx,ecx
+  1199F85B: 74 37              je          1199F894
+  1199F85D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1199F860: 50                 push        eax
+  1199F861: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1199F864: 51                 push        ecx
+  1199F865: E8 5A A1 6B FF     call        110599C4
+  1199F86A: 83 C4 08           add         esp,8
+  1199F86D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1199F870: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1199F873: 8D 14 81           lea         edx,[ecx+eax*4]
+  1199F876: 89 95 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],edx
+  1199F87C: 8D 85 20 FF FF FF  lea         eax,[ebp+FFFFFF20h]
+  1199F882: 50                 push        eax
+  1199F883: 8D 4D 08           lea         ecx,[ebp+8]
+  1199F886: 51                 push        ecx
+  1199F887: E8 A5 F3 6F FF     call        1109EC31
+  1199F88C: 83 C4 08           add         esp,8
+  1199F88F: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1199F892: EB 39              jmp         1199F8CD
+  1199F894: EB 12              jmp         1199F8A8
+  1199F896: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1199F899: 83 E8 01           sub         eax,1
+  1199F89C: 89 45 F8           mov         dword ptr [ebp-8],eax
+  1199F89F: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1199F8A2: 83 C1 04           add         ecx,4
+  1199F8A5: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1199F8A8: 83 7D F8 00        cmp         dword ptr [ebp-8],0
+  1199F8AC: 76 0C              jbe         1199F8BA
+  1199F8AE: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1199F8B1: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  1199F8B4: 8B 11              mov         edx,dword ptr [ecx]
+  1199F8B6: 89 10              mov         dword ptr [eax],edx
+  1199F8B8: EB DC              jmp         1199F896
+  1199F8BA: 8D 45 EC           lea         eax,[ebp-14h]
+  1199F8BD: 50                 push        eax
+  1199F8BE: 8D 4D 08           lea         ecx,[ebp+8]
+  1199F8C1: 51                 push        ecx
+  1199F8C2: E8 DD 88 6C FF     call        110681A4
+  1199F8C7: 83 C4 08           add         esp,8
+  1199F8CA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1199F8CD: 52                 push        edx
+  1199F8CE: 8B CD              mov         ecx,ebp
+  1199F8D0: 50                 push        eax
+  1199F8D1: 8D 15 F4 F8 99 11  lea         edx,ds:[1199F8F4h]
+  1199F8D7: E8 82 FC 6B FF     call        1105F55E
+  1199F8DC: 58                 pop         eax
+  1199F8DD: 5A                 pop         edx
+  1199F8DE: 5F                 pop         edi
+  1199F8DF: 5E                 pop         esi
+  1199F8E0: 5B                 pop         ebx
+  1199F8E1: 81 C4 E4 00 00 00  add         esp,0E4h
+  1199F8E7: 3B EC              cmp         ebp,esp
+  1199F8E9: E8 AB A3 6B FF     call        11059C99
+  1199F8EE: 8B E5              mov         esp,ebp
+  1199F8F0: 5D                 pop         ebp
+  1199F8F1: C3                 ret
+  1199F8F2: 66 90              nop
+  1199F8F4: 01 00              add         dword ptr [eax],eax
+  1199F8F6: 00 00              add         byte ptr [eax],al
+  1199F8F8: FC                 cld
+  1199F8F9: F8                 clc
+  1199F8FA: 99                 cdq
+  1199F8FB: 11 EC              adc         esp,ebp
+  1199F8FD: FF
+  1199F8FE: FF
+  1199F8FF: FF 04 00           inc         dword ptr [eax+eax]
+  1199F902: 00 00              add         byte ptr [eax],al
+  1199F904: 08 F9              or          cl,bh
+  1199F906: 99                 cdq
+  1199F907: 11 5F 55           adc         dword ptr [edi+55h],ebx
+  1199F90A: 44                 inc         esp
+  1199F90B: 65 73 74           jae         1199F982
+  1199F90E: 00 CC              add         ah,cl
+  1199F910: CC                 int         3
+  1199F911: CC                 int         3
+  1199F912: CC                 int         3
+  1199F913: CC                 int         3
+  1199F914: CC                 int         3
+  1199F915: CC                 int         3
+  1199F916: CC                 int         3
+  1199F917: CC                 int         3
+  1199F918: CC                 int         3
+  1199F919: CC                 int         3
+  1199F91A: CC                 int         3
+  1199F91B: CC                 int         3
+  1199F91C: CC                 int         3
+  1199F91D: CC                 int         3
+  1199F91E: CC                 int         3
+  1199F91F: CC                 int         3
+  1199F920: CC                 int         3
+  1199F921: CC                 int         3
+  1199F922: CC                 int         3
+  1199F923: CC                 int         3
+  1199F924: CC                 int         3
+  1199F925: CC                 int         3
+  1199F926: CC                 int         3
+  1199F927: CC                 int         3
+  1199F928: CC                 int         3
+  1199F929: CC                 int         3
+  1199F92A: CC                 int         3
+  1199F92B: CC                 int         3
+  1199F92C: CC                 int         3
+  1199F92D: CC                 int         3
+  1199F92E: CC                 int         3
+  1199F92F: CC                 int         3
+  1199F930: CC                 int         3
+  1199F931: CC                 int         3
+  1199F932: CC                 int         3
+  1199F933: CC                 int         3
+  1199F934: CC                 int         3
+  1199F935: CC                 int         3
+  1199F936: CC                 int         3
+  1199F937: CC                 int         3
+  1199F938: CC                 int         3
+  1199F939: CC                 int         3
+  1199F93A: CC                 int         3
+  1199F93B: CC                 int         3
+  1199F93C: CC                 int         3
+  1199F93D: CC                 int         3
+  1199F93E: CC                 int         3
+  1199F93F: CC                 int         3
+  1199F940: CC                 int         3
+
+  Summary
+
+     2166000 .text

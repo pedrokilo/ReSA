@@ -1,0 +1,124 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\JUEGOS\GTA San Andreas - CVehicle Test\gta_sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  005C0A30: 83 EC 40           sub         esp,40h
+  005C0A33: 53                 push        ebx
+  005C0A34: 55                 push        ebp
+  005C0A35: 8B 6C 24 4C        mov         ebp,dword ptr [esp+4Ch]
+  005C0A39: 55                 push        ebp
+  005C0A3A: 8D 44 24 0C        lea         eax,[esp+0Ch]
+  005C0A3E: 68 C0 AF 86 00     push        86AFC0h
+  005C0A43: 50                 push        eax
+  005C0A44: 8B D9              mov         ebx,ecx
+  005C0A46: E8 6A 11 26 00     call        00821BB5
+  005C0A4B: 8D 4C 24 14        lea         ecx,[esp+14h]
+  005C0A4F: 51                 push        ecx
+  005C0A50: 55                 push        ebp
+  005C0A51: E8 6A 30 23 00     call        007F3AC0
+  005C0A56: 83 C4 14           add         esp,14h
+  005C0A59: 85 C0              test        eax,eax
+  005C0A5B: 89 43 0C           mov         dword ptr [ebx+0Ch],eax
+  005C0A5E: 75 0D              jne         005C0A6D
+  005C0A60: 50                 push        eax
+  005C0A61: 55                 push        ebp
+  005C0A62: E8 59 30 23 00     call        007F3AC0
+  005C0A67: 83 C4 08           add         esp,8
+  005C0A6A: 89 43 0C           mov         dword ptr [ebx+0Ch],eax
+  005C0A6D: 83 7C 24 50 65     cmp         dword ptr [esp+50h],65h
+  005C0A72: 0F 8E E1 00 00 00  jle         005C0B59
+  005C0A78: 56                 push        esi
+  005C0A79: 83 C5 20           add         ebp,20h
+  005C0A7C: 57                 push        edi
+  005C0A7D: BF 24 9E 85 00     mov         edi,859E24h
+  005C0A82: 8B F5              mov         esi,ebp
+  005C0A84: B9 05 00 00 00     mov         ecx,5
+  005C0A89: 33 D2              xor         edx,edx
+  005C0A8B: F3 A6              repe cmps   byte ptr [esi],byte ptr es:[edi]
+  005C0A8D: 74 32              je          005C0AC1
+  005C0A8F: 55                 push        ebp
+  005C0A90: 8D 44 24 14        lea         eax,[esp+14h]
+  005C0A94: 68 C0 AF 86 00     push        86AFC0h
+  005C0A99: 50                 push        eax
+  005C0A9A: E8 16 11 26 00     call        00821BB5
+  005C0A9F: 8D 4C 24 1C        lea         ecx,[esp+1Ch]
+  005C0AA3: 51                 push        ecx
+  005C0AA4: 55                 push        ebp
+  005C0AA5: E8 16 30 23 00     call        007F3AC0
+  005C0AAA: 83 C4 14           add         esp,14h
+  005C0AAD: 85 C0              test        eax,eax
+  005C0AAF: 89 43 10           mov         dword ptr [ebx+10h],eax
+  005C0AB2: 75 0D              jne         005C0AC1
+  005C0AB4: 50                 push        eax
+  005C0AB5: 55                 push        ebp
+  005C0AB6: E8 05 30 23 00     call        007F3AC0
+  005C0ABB: 83 C4 08           add         esp,8
+  005C0ABE: 89 43 10           mov         dword ptr [ebx+10h],eax
+  005C0AC1: 8B 6C 24 54        mov         ebp,dword ptr [esp+54h]
+  005C0AC5: 83 C5 40           add         ebp,40h
+  005C0AC8: BF 24 9E 85 00     mov         edi,859E24h
+  005C0ACD: 8B F5              mov         esi,ebp
+  005C0ACF: B9 05 00 00 00     mov         ecx,5
+  005C0AD4: 33 D2              xor         edx,edx
+  005C0AD6: F3 A6              repe cmps   byte ptr [esi],byte ptr es:[edi]
+  005C0AD8: 74 32              je          005C0B0C
+  005C0ADA: 55                 push        ebp
+  005C0ADB: 8D 44 24 14        lea         eax,[esp+14h]
+  005C0ADF: 68 C0 AF 86 00     push        86AFC0h
+  005C0AE4: 50                 push        eax
+  005C0AE5: E8 CB 10 26 00     call        00821BB5
+  005C0AEA: 8D 4C 24 1C        lea         ecx,[esp+1Ch]
+  005C0AEE: 51                 push        ecx
+  005C0AEF: 55                 push        ebp
+  005C0AF0: E8 CB 2F 23 00     call        007F3AC0
+  005C0AF5: 83 C4 14           add         esp,14h
+  005C0AF8: 85 C0              test        eax,eax
+  005C0AFA: 89 43 14           mov         dword ptr [ebx+14h],eax
+  005C0AFD: 75 0D              jne         005C0B0C
+  005C0AFF: 50                 push        eax
+  005C0B00: 55                 push        ebp
+  005C0B01: E8 BA 2F 23 00     call        007F3AC0
+  005C0B06: 83 C4 08           add         esp,8
+  005C0B09: 89 43 14           mov         dword ptr [ebx+14h],eax
+  005C0B0C: 8B 6C 24 54        mov         ebp,dword ptr [esp+54h]
+  005C0B10: 83 C5 60           add         ebp,60h
+  005C0B13: BF 24 9E 85 00     mov         edi,859E24h
+  005C0B18: 8B F5              mov         esi,ebp
+  005C0B1A: B9 05 00 00 00     mov         ecx,5
+  005C0B1F: 33 D2              xor         edx,edx
+  005C0B21: F3 A6              repe cmps   byte ptr [esi],byte ptr es:[edi]
+  005C0B23: 5F                 pop         edi
+  005C0B24: 5E                 pop         esi
+  005C0B25: 74 32              je          005C0B59
+  005C0B27: 55                 push        ebp
+  005C0B28: 8D 44 24 0C        lea         eax,[esp+0Ch]
+  005C0B2C: 68 C0 AF 86 00     push        86AFC0h
+  005C0B31: 50                 push        eax
+  005C0B32: E8 7E 10 26 00     call        00821BB5
+  005C0B37: 8D 4C 24 14        lea         ecx,[esp+14h]
+  005C0B3B: 51                 push        ecx
+  005C0B3C: 55                 push        ebp
+  005C0B3D: E8 7E 2F 23 00     call        007F3AC0
+  005C0B42: 83 C4 14           add         esp,14h
+  005C0B45: 85 C0              test        eax,eax
+  005C0B47: 89 43 18           mov         dword ptr [ebx+18h],eax
+  005C0B4A: 75 0D              jne         005C0B59
+  005C0B4C: 50                 push        eax
+  005C0B4D: 55                 push        ebp
+  005C0B4E: E8 6D 2F 23 00     call        007F3AC0
+  005C0B53: 83 C4 08           add         esp,8
+  005C0B56: 89 43 18           mov         dword ptr [ebx+18h],eax
+  005C0B59: 5D                 pop         ebp
+  005C0B5A: B0 01              mov         al,1
+  005C0B5C: 5B                 pop         ebx
+  005C0B5D: 83 C4 40           add         esp,40h
+  005C0B60: C2 08 00           ret         8
+  005C0B63: 90                 nop
+
+  Summary
+
+      456000 .text

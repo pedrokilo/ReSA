@@ -1,0 +1,41 @@
+{
+  "status": "prepared_ABI_source_fixed_instrument_revision2_not_compiled",
+  "no_runtime_approval": true,
+  "counts": [
+    1024,
+    10240,
+    2688
+  ],
+  "pairs": 13952,
+  "files": {
+    "build_probe.py": "459690a33501d31cc59b104f0f74ee300851e7761fde57a60b7571a1697d4e85",
+    "check_train_abi.py": "b0e1d6a0dbfa3beb89ebcf3eb836c2c97c2b7aa354441a945ad016fbe4bbf947",
+    "Fixtures.hpp": "b0779a8c09b6f87799f64d2049ed4a4ed9c576036a1c9b5fa840f6cb4c1e6f24",
+    "LiveComparison.hpp": "1def2d6c60f5b34e758094ef8f3817beac67e723b89d5398df39ffa4994754c9",
+    "oracle.py": "48bd00ed721e3a7883392ea4fafa8e449fa129f874d9bcf72ff32860f39227c1",
+    "Preflight.hpp": "d2902cba125cb6cb69b55377e4de3fb3027e794a5615b3dabd40521f63763645",
+    "prepare-checks.json": "f072f9e4de2ea65d00f8dd0614430dcc1b6b3b4b497000245d91dd6525ff5b55",
+    "prepare_check.py": "14eef100951e1fec87749bc00ebcc63ab87d1f0259b41b799fb9a5d085d8913b",
+    "README.md": "cdf96987aa7508deb1ac952ad950c5b5fd6c1f95ad3ca0fad8d44d0897bc597f",
+    "run_local.py": "840c4a827c420dd870bba0bcd192c0f51d4e52f6e53411201bc08fad50aaa64a",
+    "scope.json": "8bfab2ef91598c3299f1d05c096aff733e53da90233b9d3bbf8aff27dcfcf326",
+    "VTableRanges.hpp": "7e6eb0df97752e3248ec72931016e8c6b6a94dc575222aadda834373a0da435d",
+    "evidence/Distance.bytes.bin": "cd18f904ceebd7a02ef798b2269bd9f341d659c7e8b19da760432f57ca911c56",
+    "evidence/Distance.complete.asm.txt": "9794257331b22f2559eb435dd3c462b65ec6400eedffeb927c0a0b855bb89d96",
+    "evidence/ftol-tail.asm.txt": "be3bef88b27f03f3860afea7bfad73a082b521e9dd8a71083a4f5d706a8d92fd",
+    "evidence/identity.json": "b36dfb3bce0350be7cd590204aa560822b48d77ab023acb97b862ccafb2942b4",
+    "evidence/native-float-constants.json": "7cd339bcccecccb8a23570991baaebe05cf75ed0f3127e0f5f2d7e9fdfa4bf36",
+    "evidence/Nop.bytes.bin": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+    "evidence/Nop.complete.asm.txt": "cb85c9375f3c9792f23ffae4e79dec4d8bdc7e1349a5ed515f2394dde4d6a9a0",
+    "evidence/Pad.cpp.before-ABI.txt": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db",
+    "evidence/Pad.h.before-ABI.txt": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+    "evidence/ProcessPCSpecificStuff.combo.txt": "38fcba8fa413eac9c7b897d90e8eaddec0552547b577669cb822d721254f8988",
+    "evidence/StartShake_Distance.combo.txt": "e7ed3d66273dedcecde1a35c0ad6b690e6e0f90cce61b975178535c16101df45",
+    "evidence/StartShake_Train.combo.txt": "6e00ed563e1d624d750e18a8ed726c46618f993a5c1e3cfe1ada4eae1d564b8c",
+    "evidence/Train.bytes.bin": "f03ffbce3385d98c767cac73e93ef2a779fe6b79f8483203690a422bfff2b847",
+    "evidence/Train.complete.asm.txt": "c0680cb8286e42e46923d3e113311f40e5526b99a3f5a78561ebcd6a95c52ae6"
+  },
+  "runtime_runner_sha256": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+  "previous_prepared_archive": "reversing/RequestedValidation20261008/instrument-repairs/PadDistanceTrainNop-original-20261008",
+  "revision_reason": "MSVC CX register token collision and ambiguous CVector/RwV3d brace assignment only; no corpus/model changes"
+}

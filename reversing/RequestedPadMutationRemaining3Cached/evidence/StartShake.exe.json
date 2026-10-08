@@ -1,0 +1,45 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "ranges": [
+    {
+      "start": 5503264,
+      "end": 5503384,
+      "hex": "a06867ba0033d23ac2746b381551f8b50075638a4424083ac275106689910c010000889110010000c20c008b1584cbb700563b912c01000073083a81300100007633668b542408663b910c0100007e0d6689910c0100008881100100008b3584cbb7008b54241003f289b12c0100008881300100005ec20c00",
+      "sha256": "4e97273703b3677a1e5ad5ef45f64bd1c824d2f5dea9973c544855b404c48735"
+    }
+  ],
+  "assembly": [
+    "0x53f920: MOV AL, [0x00ba6768]",
+    "0x53f925: XOR EDX, EDX",
+    "0x53f927: CMP AL, DL",
+    "0x53f929: JZ 0x0053f996",
+    "0x53f92b: CMP byte ptr [0x00b5f851], DL",
+    "0x53f931: JNZ 0x0053f996",
+    "0x53f933: MOV AL, byte ptr [ESP + 0x8]",
+    "0x53f937: CMP AL, DL",
+    "0x53f939: JNZ 0x0053f94b",
+    "0x53f93b: MOV word ptr [ECX + 0x10c], DX",
+    "0x53f942: MOV byte ptr [ECX + 0x110], DL",
+    "0x53f948: RET 0xc",
+    "0x53f94b: MOV EDX, dword ptr [0x00b7cb84]",
+    "0x53f951: PUSH ESI",
+    "0x53f952: CMP EDX, dword ptr [ECX + 0x12c]",
+    "0x53f958: JNC 0x0053f962",
+    "0x53f95a: CMP AL, byte ptr [ECX + 0x130]",
+    "0x53f960: JBE 0x0053f995",
+    "0x53f962: MOV DX, word ptr [ESP + 0x8]",
+    "0x53f967: CMP DX, word ptr [ECX + 0x10c]",
+    "0x53f96e: JLE 0x0053f97d",
+    "0x53f970: MOV word ptr [ECX + 0x10c], DX",
+    "0x53f977: MOV byte ptr [ECX + 0x110], AL",
+    "0x53f97d: MOV ESI, dword ptr [0x00b7cb84]",
+    "0x53f983: MOV EDX, dword ptr [ESP + 0x10]",
+    "0x53f987: ADD ESI, EDX",
+    "0x53f989: MOV dword ptr [ECX + 0x12c], ESI",
+    "0x53f98f: MOV byte ptr [ECX + 0x130], AL",
+    "0x53f995: POP ESI",
+    "0x53f996: RET 0xc"
+  ],
+  "pseudocode": "\r\nvoid FUN_0053f920(short param_1,byte param_2,int param_3)\r\n\r\n{\r\n  int in_ECX;\r\n  \r\n  if ((DAT_00ba6768 != '\\0') && (DAT_00b5f851 == '\\0')) {\r\n    if (param_2 == 0) {\r\n      *(undefined2 *)(in_ECX + 0x10c) = 0;\r\n      *(undefined1 *)(in_ECX + 0x110) = 0;\r\n      return;\r\n    }\r\n    if ((*(uint *)(in_ECX + 300) <= DAT_00b7cb84) || (*(byte *)(in_ECX + 0x130) < param_2)) {\r\n      if (*(short *)(in_ECX + 0x10c) < param_1) {\r\n        *(short *)(in_ECX + 0x10c) = param_1;\r\n        *(byte *)(in_ECX + 0x110) = param_2;\r\n      }\r\n      *(uint *)(in_ECX + 300) = DAT_00b7cb84 + param_3;\r\n      *(byte *)(in_ECX + 0x130) = param_2;\r\n    }\r\n  }\r\n  return;\r\n}\r\n\r\n",
+  "callee_addresses": []
+}

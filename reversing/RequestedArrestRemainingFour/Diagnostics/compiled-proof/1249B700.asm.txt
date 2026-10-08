@@ -1,0 +1,67 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1249B700: 55                 push        ebp
+  1249B701: 8B EC              mov         ebp,esp
+  1249B703: 81 EC C0 00 00 00  sub         esp,0C0h
+  1249B709: 53                 push        ebx
+  1249B70A: 56                 push        esi
+  1249B70B: 57                 push        edi
+  1249B70C: 8B FD              mov         edi,ebp
+  1249B70E: 33 C9              xor         ecx,ecx
+  1249B710: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1249B715: F3 AB              rep stos    dword ptr es:[edi]
+  1249B717: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1249B71A: E8 65 A7 BD FE     call        11075E84
+  1249B71F: 8B C8              mov         ecx,eax
+  1249B721: E8 58 32 C0 FE     call        1109E97E
+  1249B726: 0F B6 C0           movzx       eax,al
+  1249B729: 85 C0              test        eax,eax
+  1249B72B: 75 02              jne         1249B72F
+  1249B72D: EB 49              jmp         1249B778
+  1249B72F: 6A 19              push        19h
+  1249B731: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1249B734: E8 49 54 BD FE     call        11070B82
+  1249B739: 0F B6 C0           movzx       eax,al
+  1249B73C: 85 C0              test        eax,eax
+  1249B73E: 74 0D              je          1249B74D
+  1249B740: 6A 19              push        19h
+  1249B742: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1249B745: E8 6B A7 BE FE     call        11085EB5
+  1249B74A: 90                 nop
+  1249B74B: EB 2B              jmp         1249B778
+  1249B74D: 6A 16              push        16h
+  1249B74F: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1249B752: E8 2B 54 BD FE     call        11070B82
+  1249B757: 0F B6 C0           movzx       eax,al
+  1249B75A: 85 C0              test        eax,eax
+  1249B75C: 75 0F              jne         1249B76D
+  1249B75E: 6A 00              push        0
+  1249B760: 6A 0A              push        0Ah
+  1249B762: 6A 16              push        16h
+  1249B764: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1249B767: E8 0E D3 BE FE     call        11088A7A
+  1249B76C: 90                 nop
+  1249B76D: 6A 16              push        16h
+  1249B76F: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1249B772: E8 3E A7 BE FE     call        11085EB5
+  1249B777: 90                 nop
+  1249B778: 5F                 pop         edi
+  1249B779: 5E                 pop         esi
+  1249B77A: 5B                 pop         ebx
+  1249B77B: 81 C4 C0 00 00 00  add         esp,0C0h
+  1249B781: 3B EC              cmp         ebp,esp
+  1249B783: E8 48 25 BC FE     call        1105DCD0
+  1249B788: 8B E5              mov         esp,ebp
+  1249B78A: 5D                 pop         ebp
+  1249B78B: C3                 ret
+  1249B78C: CC                 int         3
+
+  Summary
+
+     216F000 .text

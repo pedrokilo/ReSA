@@ -1,0 +1,35 @@
+{
+  "kind": "synthetic_parser_only_no_runtime_validation",
+  "checks": [
+    {
+      "check": "full5120 independent product",
+      "expected_acceptance": true,
+      "observed_acceptance": true
+    },
+    {
+      "check": "equal routes and forged model reject noncanonical AL",
+      "expected_acceptance": false,
+      "observed_acceptance": false
+    },
+    {
+      "check": "equal routes and forged model reject collateral byte write",
+      "expected_acceptance": false,
+      "observed_acceptance": false
+    },
+    {
+      "check": "equal routes and forged model reject reversed destroy order",
+      "expected_acceptance": false,
+      "observed_acceptance": false
+    },
+    {
+      "check": "restore failure rejects",
+      "expected_acceptance": false,
+      "observed_acceptance": false
+    },
+    {
+      "check": "missing pair rejects",
+      "expected_acceptance": false,
+      "observed_acceptance": false
+    }
+  ]
+}

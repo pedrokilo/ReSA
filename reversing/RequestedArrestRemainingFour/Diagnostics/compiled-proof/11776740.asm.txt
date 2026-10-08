@@ -1,0 +1,88 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  11776740: 55                 push        ebp
+  11776741: 8B EC              mov         ebp,esp
+  11776743: 81 EC F4 00 00 00  sub         esp,0F4h
+  11776749: 53                 push        ebx
+  1177674A: 56                 push        esi
+  1177674B: 57                 push        edi
+  1177674C: 51                 push        ecx
+  1177674D: 8D 7D CC           lea         edi,[ebp-34h]
+  11776750: B9 0D 00 00 00     mov         ecx,0Dh
+  11776755: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1177675A: F3 AB              rep stos    dword ptr es:[edi]
+  1177675C: 59                 pop         ecx
+  1177675D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11776760: 83 7D 08 FF        cmp         dword ptr [ebp+8],0FFFFFFFFh
+  11776764: 75 05              jne         1177676B
+  11776766: E9 9E 00 00 00     jmp         11776809
+  1177676B: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1177676E: E8 11 F7 8F FF     call        11075E84
+  11776773: 8B 00              mov         eax,dword ptr [eax]
+  11776775: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11776778: 83 7D EC 00        cmp         dword ptr [ebp-14h],0
+  1177677C: 74 1B              je          11776799
+  1177677E: 6A 01              push        1
+  11776780: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11776783: 50                 push        eax
+  11776784: E8 AE 7B 8F FF     call        1106E337
+  11776789: 83 C4 08           add         esp,8
+  1177678C: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  1177678F: 51                 push        ecx
+  11776790: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11776793: E8 19 63 92 FF     call        1109CAB1
+  11776798: 90                 nop
+  11776799: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1177679C: 8A 4D 08           mov         cl,byte ptr [ebp+8]
+  1177679F: 88 88 18 07 00 00  mov         byte ptr [eax+00000718h],cl
+  117767A5: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  117767A8: E8 0E 3E 8F FF     call        1106A5BB
+  117767AD: 8B C8              mov         ecx,eax
+  117767AF: E8 F6 9A 93 FF     call        110B02AA
+  117767B4: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  117767B7: 83 7D E0 00        cmp         dword ptr [ebp-20h],0
+  117767BB: 74 09              je          117767C6
+  117767BD: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  117767C0: 8A 4D 08           mov         cl,byte ptr [ebp+8]
+  117767C3: 88 48 20           mov         byte ptr [eax+20h],cl
+  117767C6: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  117767C9: 05 A0 05 00 00     add         eax,5A0h
+  117767CE: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  117767D4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  117767D7: 51                 push        ecx
+  117767D8: 8B 8D 0C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF0Ch]
+  117767DE: E8 DC 85 8E FF     call        1105EDBF
+  117767E3: 8B 10              mov         edx,dword ptr [eax]
+  117767E5: 89 55 D4           mov         dword ptr [ebp-2Ch],edx
+  117767E8: 83 7D D4 00        cmp         dword ptr [ebp-2Ch],0
+  117767EC: 74 1B              je          11776809
+  117767EE: 6A 01              push        1
+  117767F0: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  117767F3: 50                 push        eax
+  117767F4: E8 3E 7B 8F FF     call        1106E337
+  117767F9: 83 C4 08           add         esp,8
+  117767FC: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  117767FF: 51                 push        ecx
+  11776800: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11776803: E8 E5 3A 92 FF     call        1109A2ED
+  11776808: 90                 nop
+  11776809: 5F                 pop         edi
+  1177680A: 5E                 pop         esi
+  1177680B: 5B                 pop         ebx
+  1177680C: 81 C4 F4 00 00 00  add         esp,0F4h
+  11776812: 3B EC              cmp         ebp,esp
+  11776814: E8 B7 74 8E FF     call        1105DCD0
+  11776819: 8B E5              mov         esp,ebp
+  1177681B: 5D                 pop         ebp
+  1177681C: C2 04 00           ret         4
+  1177681F: CC                 int         3
+
+  Summary
+
+     216F000 .text

@@ -1,0 +1,24 @@
+// CRealTimeShadowManager::ReturnRealTimeShadow @ 0x00705b30 [0x705b30..0x705b4d]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00705b30(int *param_1)
+
+{
+  char *in_ECX;
+  
+  if (*in_ECX != '\0') {
+    *(undefined4 *)(*param_1 + 0x134) = 0;
+    *param_1 = 0;
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00705B30: cmp byte ptr [ecx],0
+00705B33: je 00705B4B
+00705B35: mov eax,dword ptr [esp+4]
+00705B39: mov ecx,dword ptr [eax]
+00705B3B: mov dword ptr [ecx+00000134h],0
+00705B45: mov dword ptr [eax],0
+00705B4B: ret 4

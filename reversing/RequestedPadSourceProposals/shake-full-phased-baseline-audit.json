@@ -1,0 +1,233 @@
+{
+  "diagnostic_only": true,
+  "runtime_approved": false,
+  "native_oracle_cases": 89600,
+  "complete_event": true,
+  "complete_corpus": true,
+  "differences": 17800,
+  "domains": {
+    "normal": 7680,
+    "signed-duration-stress": 10120
+  },
+  "difference_offsets": {
+    "268": 10144,
+    "272": 12437,
+    "300": 13958,
+    "302": 11844,
+    "303": 15337,
+    "301": 6713,
+    "304": 2464,
+    "269": 5840
+  },
+  "other_payload_differences": {
+    "fp": 15120
+  },
+  "samples": [
+    {
+      "seed": 23040,
+      "offsets": [
+        268,
+        272
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 4294967295,
+      "delay": 0,
+      "gates": 1
+    },
+    {
+      "seed": 23041,
+      "offsets": [
+        268,
+        272,
+        300,
+        302,
+        303
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 4294967295,
+      "delay": 1,
+      "gates": 1
+    },
+    {
+      "seed": 23042,
+      "offsets": [
+        268,
+        272,
+        300,
+        302,
+        303
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 4294967295,
+      "delay": 100,
+      "gates": 1
+    },
+    {
+      "seed": 23043,
+      "offsets": [
+        268,
+        272,
+        300,
+        301,
+        302,
+        303
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 4294967295,
+      "delay": 4294967295,
+      "gates": 1
+    },
+    {
+      "seed": 23044,
+      "offsets": [
+        268,
+        272
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 0,
+      "delay": 0,
+      "gates": 1
+    },
+    {
+      "seed": 23045,
+      "offsets": [
+        268,
+        272,
+        300,
+        302,
+        303
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 0,
+      "delay": 1,
+      "gates": 1
+    },
+    {
+      "seed": 23046,
+      "offsets": [
+        268,
+        272,
+        300,
+        302,
+        303
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 0,
+      "delay": 100,
+      "gates": 1
+    },
+    {
+      "seed": 23047,
+      "offsets": [
+        268,
+        272,
+        300,
+        301,
+        302,
+        303
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 0,
+      "delay": 4294967295,
+      "gates": 1
+    },
+    {
+      "seed": 23048,
+      "offsets": [
+        268,
+        272
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 1,
+      "delay": 0,
+      "gates": 1
+    },
+    {
+      "seed": 23049,
+      "offsets": [
+        268,
+        272,
+        300,
+        302,
+        303
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 1,
+      "delay": 1,
+      "gates": 1
+    },
+    {
+      "seed": 23050,
+      "offsets": [
+        268,
+        272,
+        300,
+        302,
+        303
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 1,
+      "delay": 100,
+      "gates": 1
+    },
+    {
+      "seed": 23051,
+      "offsets": [
+        268,
+        272,
+        300,
+        301,
+        302,
+        303
+      ],
+      "duration": 100,
+      "frequency": 1,
+      "stored_frequency": 0,
+      "clock": 0,
+      "deadline": 1,
+      "delay": 4294967295,
+      "gates": 1
+    }
+  ],
+  "native_evidence_sha256": "2973e38bf434f8f8382d9bab134665d51b56b1fa52a2ae0c273c9a4df7049105",
+  "proposed_source_changes": [
+    "NoShakeBeforeThis float -> uint32",
+    "NoShakeFreq char -> uint8",
+    "if(ShakeDur) -> if(time > ShakeDur)",
+    "remove float cast from uint32 clock+delay assignment"
+  ],
+  "source_edited": false
+}

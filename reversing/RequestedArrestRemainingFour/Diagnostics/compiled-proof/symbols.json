@@ -1,0 +1,375 @@
+{
+  "asi_sha256": "39779f785144b5481e7b37944a6cc8035e5ddd35ef94686a43039f542ada758b",
+  "pdb_sha256": "051c3f1b90f95f029f813f38acdbe57dc5c9c91defd30056abae62ed71eb76d8",
+  "pdb_rsds_match": true,
+  "pdb_guid_raw": "c77be937b65eb0419b8fb6e599cb79e0",
+  "pdb_age": 2431,
+  "base": 268435456,
+  "symbols": [
+    {
+      "name": "CTaskComplex::~CTaskComplex",
+      "address": 287532480,
+      "size": 158,
+      "tag": 5,
+      "body": 287532480,
+      "e9_chain": [],
+      "first128": "558bec81ece0000000535657518d7de0b908000000b8ccccccccf3ab59894df88b45f8c700f4d61c138b45f88b4808898d2cffffff83bd2cffffff00742f8b952cffffff8b028b08898d24ffffff8bf46a018b8d2cffffffff9524ffffff3bf4e8ab76e2ff898520ffffffeb0ac78520ffffff000000008b45f8c74008000000"
+    },
+    {
+      "name": "CPed::GiveWeapon",
+      "address": 287680192,
+      "size": 80,
+      "tag": 5,
+      "body": 287680192,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df80fb6450c508b4d088b510c528b45088b08518b4df8e880e3e2ff5f5e5b81c4cc0000003bece8c635e0ff8be55dc20800cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecd0000000535657894df88b"
+    },
+    {
+      "name": "CTaskComplexArrestPed::CTaskComplexArrestPed",
+      "address": 287778592,
+      "size": 151,
+      "tag": 5,
+      "body": 287778592,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4508508b4df8e8763ce3ff908b45f8c700c4631d138b45f88b4d088a510c88500c8b45f88b4d088b51108950108b45f88b4d088b51148950148b45f88b4d088b51188950188b45f88b4d088b511c89501c8b45f88b4d088b51208950208b45"
+    },
+    {
+      "name": "CTaskComplexArrestPed::Constructor",
+      "address": 288069184,
+      "size": 70,
+      "tag": 5,
+      "body": 288069184,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4508508b4df8e8bd99ddff908b45f85f5e5b81c4cc0000003bece85046daff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "CTaskComplexArrestPed::Destructor",
+      "address": 288114512,
+      "size": 64,
+      "tag": 5,
+      "body": 288114512,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e855f5dbff908b45f85f5e5b81c4cc0000003bece84495d9ff8be55dc3cccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e87777ddff908b45f85f5e5b81"
+    },
+    {
+      "name": "CEntity::RegisterReference<CEntity>",
+      "address": 291223440,
+      "size": 74,
+      "tag": 5,
+      "body": 291223440,
+      "e9_chain": [],
+      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab8b45088b08898d3cffffff8b5508528b8d3cffffffe8910aadff905f5e5b81c4c40000003bece8fa24aaff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc"
+    },
+    {
+      "name": "CEntity::RegisterReference<CPed>",
+      "address": 292152480,
+      "size": 74,
+      "tag": 5,
+      "body": 292152480,
+      "e9_chain": [],
+      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab8b45088b08898d3cffffff8b5508528b8d3cffffffe881dd9eff905f5e5b81c4c40000003bece8eaf79bff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "CEntity::RegisterReference<CVehicle>",
+      "address": 292160848,
+      "size": 74,
+      "tag": 5,
+      "body": 292160848,
+      "e9_chain": [],
+      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab8b45088b08898d3cffffff8b5508528b8d3cffffffe8d1bc9eff905f5e5b81c4c40000003bece83ad79bff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b45f85f5e5b8b"
+    },
+    {
+      "name": "`CEntity::RegisterReference'::`13'::<lambda_1>::operator()<CObjectPool>",
+      "address": 292621024,
+      "size": 124,
+      "tag": 5,
+      "body": 292621024,
+      "e9_chain": [],
+      "first128": "558bec81ece4000000535657518d7ddcb909000000b8ccccccccf3ab59894df88b4d08e85ca398ff8945ec837dec007e358b45ec83e8018945ec8b45ec508b4d08e88dbb95ff8945e0837de00074158b4de0e81b2399ff90a1e89d6e138338007402eb02ebc55f5e5b81c4e40000003bece87ad194ff8be55dc20400cccccccc"
+    },
+    {
+      "name": "`CEntity::RegisterReference'::`13'::<lambda_1>::operator()<CPedPool>",
+      "address": 292621184,
+      "size": 124,
+      "tag": 5,
+      "body": 292621184,
+      "e9_chain": [],
+      "first128": "558bec81ece4000000535657518d7ddcb909000000b8ccccccccf3ab59894df88b4d08e8be1696ff8945ec837dec007e358b45ec83e8018945ec8b45ec508b4d08e8232d98ff8945e0837de00074158b4de0e87b2299ff90a1e89d6e138338007402eb02ebc55f5e5b81c4e40000003bece8dad094ff8be55dc20400cccccccc"
+    },
+    {
+      "name": "`CEntity::RegisterReference'::`13'::<lambda_1>::operator()<CVehiclePool>",
+      "address": 292621344,
+      "size": 124,
+      "tag": 5,
+      "body": 292621344,
+      "e9_chain": [],
+      "first128": "558bec81ece4000000535657518d7ddcb909000000b8ccccccccf3ab59894df88b4d08e8479598ff8945ec837dec007e358b45ec83e8018945ec8b45ec508b4d08e831a297ff8945e0837de00074158b4de0e8db2199ff90a1e89d6e138338007402eb02ebc55f5e5b81c4e40000003bece83ad094ff8be55dc20400cccccccc"
+    },
+    {
+      "name": "CEntity::CleanUpOldReference",
+      "address": 292654592,
+      "size": 122,
+      "tag": 5,
+      "body": 292654592,
+      "e9_chain": [],
+      "first128": "558bec81ece4000000535657894df88b45f883c0248945ec8b45f88b4824894de0eb088b45e08b08894de0837de00074408b45e08b48043b4d08752d8b45ec8b4de08b1189108b45e08b0de89d6e138b118910a1e89d6e138b4de089088b45e0c7400400000000eb088b45e08945ecebb25f5e5b8be55dc20400cccccccccccc"
+    },
+    {
+      "name": "CEntity::RegisterReference",
+      "address": 292722928,
+      "size": 360,
+      "tag": 5,
+      "body": 292722928,
+      "e9_chain": [],
+      "first128": "558bec81ecf0000000535657518d7dd0b90c000000b8ccccccccf3ab59894df88b4df8e87c1198ff0fb6c085c0743a8b45f88a481ec0e90680e1010fb6d185d275278b45f88a481fc0e90280e1010fb6d185d275148b4df8e8e7e997ff0fb6c085c07505e9b30000008b45f88b4824894deceb088b45ec8b08894dec837dec00"
+    },
+    {
+      "name": "`CPed::GiveWeaponAtStartOfFight'::`5'::<lambda_1>::<lambda_1>",
+      "address": 292890848,
+      "size": 35,
+      "tag": 5,
+      "body": 292890848,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f85f5e5b8be55dc20800cccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b"
+    },
+    {
+      "name": "`CPed::GiveWeaponAtStartOfFight'::`5'::<lambda_1>::operator()",
+      "address": 292901792,
+      "size": 196,
+      "tag": 5,
+      "body": 292901792,
+      "e9_chain": [],
+      "first128": "558bec81ecd8000000535657518d7de8b906000000b8ccccccccf3ab59894df88b45f88b080fb7512081e2ff03008079084a81ca00fcffff420fb7450c3bd07c02eb6b8b45f88b0883b910070000377402eb5b8b45f88b08898d30ffffff6a328b5508528b8d30ffffffe8c72d90ff908b45f88b08898d30ffffff8b55f88b02"
+    },
+    {
+      "name": "CPed::DoWeHaveWeaponAvailable",
+      "address": 292923488,
+      "size": 123,
+      "tag": 5,
+      "body": 292923488,
+      "e9_chain": [],
+      "first128": "558bec81ecdc000000535657518d7de4b907000000b8ccccccccf3ab59894df88b4508508b4df8e80c1592ff8945ec837decff741f8b45ec508b4df8e88e7b94ff8b083b4d08750cc78524ffffff01000000eb0ac78524ffffff000000000fb68524ffffff5f5e5b81c4dc0000003bece8fb3390ff8be55dc20400cccccccccc"
+    },
+    {
+      "name": "CPed::GiveWeapon",
+      "address": 292932192,
+      "size": 458,
+      "tag": 5,
+      "body": 292932192,
+      "e9_chain": [],
+      "first128": "558bec81ec00010000535657518d7dc0b910000000b8ccccccccf3ab59894df86a018b450850e8ac1891ff83c4088945ec8b45ec8b4814518b4df8e88f5994ff8945e08b45ec8b4814894dd48b45e08b083b4d080f84d80000008b45e083380074728b45d4898500ffffff83bd00ffffff03741483bd00ffffff04740b83bd00"
+    },
+    {
+      "name": "CPed::GiveWeaponAtStartOfFight",
+      "address": 292932768,
+      "size": 328,
+      "tag": 5,
+      "body": 292932768,
+      "e9_chain": [],
+      "first128": "558bec81ecdc000000535657518d7de4b907000000b8ccccccccf3ab59894df88b4df8e8a30190ff0fb6c083f8020f84800000008b4df8e8a89191ff83380075738b45f8508d4dece8f35bffff908b45f88b8898050000898d24ffffff8b9524ffffff83ea07899524ffffff83bd24ffffff0f773f8b8524ffffffff2485a8cd"
+    },
+    {
+      "name": "CPed::GiveWeaponSet1",
+      "address": 292933184,
+      "size": 211,
+      "tag": 5,
+      "body": 292933184,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df86a016a016a018b4df8e80cbc92ff906a016a016a058b4df8e8fdbb92ff906a016a0a6a128b4df8e8eebb92ff906a016a646a168b4df8e8dfbb92ff906a016a326a198b4df8e8d0bb92ff906a0168960000006a1c8b4df8e8bebb92ff906a016a"
+    },
+    {
+      "name": "CPed::GiveWeaponSet2",
+      "address": 292933456,
+      "size": 199,
+      "tag": 5,
+      "body": 292933456,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df86a016a006a048b4df8e8fcba92ff906a016a0a6a108b4df8e8edba92ff906a016a286a188b4df8e8deba92ff906a016a286a1a8b4df8e8cfba92ff906a0168960000006a208b4df8e8bdba92ff906a0168960000006a1f8b4df8e8abba92ff90"
+    },
+    {
+      "name": "CPed::GiveWeaponSet3",
+      "address": 292933712,
+      "size": 163,
+      "tag": 5,
+      "body": 292933712,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df86a016a006a098b4df8e8fcb992ff906a016a056a278b4df8e8edb992ff906a016a286a178b4df8e8deb992ff906a016a1e6a1b8b4df8e8cfb992ff906a016a646a1d8b4df8e8c0b992ff906a0168960000006a1f8b4df8e8aeb992ff906a0168"
+    },
+    {
+      "name": "CPed::GiveWeaponSet4",
+      "address": 292933920,
+      "size": 85,
+      "tag": 5,
+      "body": 292933920,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df86a0168f40100006a268b4df8e829b992ff906a016a006a0b8b4df8e81ab992ff905f5e5b81c4cc0000003bece85f0b90ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecd8000000535657518d7de8"
+    },
+    {
+      "name": "CPed::GiveWeaponWhenJoiningGang",
+      "address": 292934032,
+      "size": 249,
+      "tag": 5,
+      "body": 292934032,
+      "e9_chain": [],
+      "first128": "558bec81ecd8000000535657518d7de8b906000000b8ccccccccf3ab59894df88b4df8e8cc8c91ff8338000f85b40000008b45f883b810070000370f85a40000006a4de8e94195ff83c4040fb6c085c0742b68c80000006a1e8b4df8e8e5af8fff906a016a1ee83c1191ff83c4088b4014508b4df8e8839a93ff90eb68c745ec"
+    },
+    {
+      "name": "CPed::SetCurrentWeapon",
+      "address": 293037888,
+      "size": 223,
+      "tag": 5,
+      "body": 293037888,
+      "e9_chain": [],
+      "first128": "558bec81ecf4000000535657518d7dccb90d000000b8ccccccccf3ab59894df8837d08ff7505e99e0000008b4df8e811f78fff8b008945ec837dec00741b6a018b45ec50e8ae7b8fff83c4088b480c518b4df8e8196392ff908b45f88a4d088888180700008b4df8e80e3e8fff8bc8e8f69a93ff8945e0837de00074098b45e0"
+    },
+    {
+      "name": "CPed::SetCurrentWeapon",
+      "address": 293038176,
+      "size": 76,
+      "tag": 5,
+      "body": 293038176,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4508508b4df8e80c5590ff508b4df8e8f80392ff905f5e5b81c4cc0000003bece82a748eff8be55dc20400cccccccccccccccccccccccccccccccccccccccc558bec81ec0c010000535657518d7db4b913000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "CVehicle::IsOnItsSide",
+      "address": 294187856,
+      "size": 139,
+      "tag": 5,
+      "body": 294187856,
+      "e9_chain": [],
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b45f88b481451e89e2182ff83c404f30f1040080f2f0598071d1373298b55f88b421450e8812182ff83c404f30f1005b42c22130f2f4008730cc78530ffffff00000000eb0ac78530ffffff010000000fb68530ffffff5f5e5b81c4d0000000"
+    },
+    {
+      "name": "CVehicle::IsUpsideDown",
+      "address": 294189264,
+      "size": 110,
+      "tag": 5,
+      "body": 294189264,
+      "e9_chain": [],
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b45f88b481451e8728d80ff83c404f30f1005f41922130f2f4008720cc78530ffffff01000000eb0ac78530ffffff000000000fb68530ffffff5f5e5b81c4d00000003bece896e37cff8be55dc3cccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "CEntity::CleanUpOldReference<CPed>",
+      "address": 297175120,
+      "size": 74,
+      "tag": 5,
+      "body": 297175120,
+      "e9_chain": [],
+      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab8b45088b08898d3cffffff8b5508528b8d3cffffffe896e950ff905f5e5b81c4c40000003bece83a544fff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578d7df4b903000000b8ccccccccf3ab8b45088945"
+    },
+    {
+      "name": "CEntity::RegisterReference<CObject>",
+      "address": 297352928,
+      "size": 74,
+      "tag": 5,
+      "body": 297352928,
+      "e9_chain": [],
+      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab8b45088b08898d3cffffff8b5508528b8d3cffffffe841834fff905f5e5b81c4c40000003bece8aa9d4cff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55d"
+    },
+    {
+      "name": "CTask::~CTask",
+      "address": 306663104,
+      "size": 31,
+      "tag": 5,
+      "body": 306663104,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f8c70004d61c135f5e5b8be55dc3cccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3abe81c4bc2fe8bc8e86851c3fe5f5e5b81c4c00000003bece8ad8dbefe8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "CTaskComplexArrestPed::CTaskComplexArrestPed",
+      "address": 306809392,
+      "size": 177,
+      "tag": 5,
+      "body": 306809392,
+      "e9_chain": [],
+      "first128": "558bec6aff68bd2b161364a1000000005081eccc000000535657518d7de8b903000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec33c08b4dec89018941048941088b4dece8b284bffec745fc000000008b45ecc700c4631d138b45ec8b4d088948108b45ecc74020000000008b45ec83c01050e80b"
+    },
+    {
+      "name": "CTaskComplexArrestPed::~CTaskComplexArrestPed",
+      "address": 306809616,
+      "size": 132,
+      "tag": 5,
+      "body": 306809616,
+      "e9_chain": [],
+      "first128": "558bec6aff68f02b161364a1000000005081eccc000000535657518d7de8b903000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b45ecc700c4631d138b45ec83c01050e81c93c0fe83c4048b4dece8f26fc1fe908b4df464890d00000000595f5e5b81c4d80000003bece84551bcfe8be55dc3cc"
+    },
+    {
+      "name": "CTaskComplexArrestPed::CreateFirstSubTask",
+      "address": 306812912,
+      "size": 332,
+      "tag": 5,
+      "body": 306812912,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b45f883781000750733c0e9060100008b45f8c6400c008b45f88b48108a916d04000080e2010fb6c285c075168b45085068e80300008b4df8e80859bdfee9d30000008b45f88b48108b898c050000e8129ebcfe0fb6d085d275188b45f88b48"
+    },
+    {
+      "name": "CTaskComplexArrestPed::CreateSubTask",
+      "address": 306815264,
+      "size": 1595,
+      "tag": 5,
+      "body": 306815264,
+      "e9_chain": [],
+      "first128": "558bec6aff68952c161364a1000000005081ecd0010000535657518dbde4feffffb944000000b8ccccccccf3ab59a140da6c1333c58945f0508d45f464a300000000894de88b4508898534feffff81bd34feffff8b0300007f4381bd34feffff8b0300000f84250200008b8d34feffff81e9bf020000898d34feffff83bd34fe"
+    },
+    {
+      "name": "CTaskComplexArrestPed::InjectHooks",
+      "address": 306817264,
+      "size": 2740,
+      "tag": 5,
+      "body": 306817264,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff689f2d161364a100000000505381ecd006000056578dbd60fbffffb924010000b8ccccccccf3aba140da6c1333c58945ec508d45f464a3000000006890341e138d4dcce8828bbcfe90c745fc00000000c745c0a809870083ec088bcc89a538fdffff6890341e13e8"
+    },
+    {
+      "name": "CTaskComplexArrestPed::MakeAbortable",
+      "address": 306820704,
+      "size": 116,
+      "tag": 5,
+      "body": 306820704,
+      "e9_chain": [],
+      "first128": "558bec81ecd4000000535657518d7decb905000000b8ccccccccf3ab59894df88b45f88b4808898d30ffffff8b55f88b42088b088b511889952cffffff8bf48b4510508b4d0c518b5508528b8d30ffffffff952cffffff3bf4e81226bcfe5f5e5b81c4d40000003bece80226bcfe8be55dc20c00cccccccccccccccccccccccc"
+    },
+    {
+      "name": "MakeSurePedHasWeaponInHand",
+      "address": 306820864,
+      "size": 140,
+      "tag": 5,
+      "body": 306820864,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b4d08e865a7bdfe8bc8e85832c0fe0fb6c085c07502eb496a198b4d08e84954bdfe0fb6c085c0740d6a198b4d08e86ba7befe90eb2b6a168b4d08e82b54bdfe0fb6c085c0750f6a006a0a6a168b4d08e80ed3befe906a168b4d08e83ea7befe905f5e5b81c4c00000"
+    },
+    {
+      "name": "CEntity::CleanUpOldReference<CEntity>",
+      "address": 307928976,
+      "size": 74,
+      "tag": 5,
+      "body": 307928976,
+      "e9_chain": [],
+      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab8b45088b08898d3cffffff8b5508528b8d3cffffffe856d2acfe905f5e5b81c4c40000003bece8fa3cabfe8be55dc3cccccccccccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578d7df4b903000000b8ccccccccf3ab8b45088945"
+    },
+    {
+      "name": "CEntity::RegisterReference<CCopPed>",
+      "address": 308247616,
+      "size": 74,
+      "tag": 5,
+      "body": 308247616,
+      "e9_chain": [],
+      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab8b45088b08898d3cffffff8b5508528b8d3cffffffe8e145a9fe905f5e5b81c4c40000003bece84a60a6fe8be55dc3cccccccccccccccccccccccccccccccccccccccccccc558bec6aff68fdec171364a1000000005081eccc000000535657518d7de8b903"
+    },
+    {
+      "name": "CWeapon::IsTypeMelee",
+      "address": 309799776,
+      "size": 96,
+      "tag": 5,
+      "body": 309799776,
+      "e9_chain": [],
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df86a008b4df8e83f2392fe833800750cc78530ffffff01000000eb0ac78530ffffff000000000fb68530ffffff5f5e5b81c4d00000003bece814b18efe8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    }
+  ],
+  "manifest_sha256": "51a15a84d31c575d1d76a3c679a59de276a50a4ac72da21fe9cc289058e6fc0b",
+  "compiled_header_sha256": "02308f129734bfbe07174ad56418971e60025cd3536fa5da44e99db4d2a9dd37",
+  "limitations": [
+    "Static PE/PDB and disassembly only. No runtime, helper behavior or approval. Human inspection required for call-path/return-branch proof."
+  ]
+}

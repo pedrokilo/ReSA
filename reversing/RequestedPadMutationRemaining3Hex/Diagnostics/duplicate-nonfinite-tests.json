@@ -1,0 +1,6 @@
+{
+  "duplicate_keys_rejected": true,
+  "NaN_rejected": true,
+  "Infinity_rejected": true,
+  "strict_wire_module_sha256": "025279a040bccf43cca09325098e4357683160496da4c30e0a8e4a057f112037"
+}

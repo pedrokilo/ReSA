@@ -1,0 +1,51 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  1198C850: 55                 push        ebp
+  1198C851: 8B EC              mov         ebp,esp
+  1198C853: 81 EC CC 00 00 00  sub         esp,0CCh
+  1198C859: 53                 push        ebx
+  1198C85A: 56                 push        esi
+  1198C85B: 57                 push        edi
+  1198C85C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1198C85F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1198C862: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1198C865: 8B 11              mov         edx,dword ptr [ecx]
+  1198C867: 89 10              mov         dword ptr [eax],edx
+  1198C869: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1198C86C: 8B 08              mov         ecx,dword ptr [eax]
+  1198C86E: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1198C871: 89 4A 04           mov         dword ptr [edx+4],ecx
+  1198C874: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1198C877: 5F                 pop         edi
+  1198C878: 5E                 pop         esi
+  1198C879: 5B                 pop         ebx
+  1198C87A: 8B E5              mov         esp,ebp
+  1198C87C: 5D                 pop         ebp
+  1198C87D: C2 08 00           ret         8
+  1198C880: CC                 int         3
+  1198C881: CC                 int         3
+  1198C882: CC                 int         3
+  1198C883: CC                 int         3
+  1198C884: CC                 int         3
+  1198C885: CC                 int         3
+  1198C886: CC                 int         3
+  1198C887: CC                 int         3
+  1198C888: CC                 int         3
+  1198C889: CC                 int         3
+  1198C88A: CC                 int         3
+  1198C88B: CC                 int         3
+  1198C88C: CC                 int         3
+  1198C88D: CC                 int         3
+  1198C88E: CC                 int         3
+  1198C88F: CC                 int         3
+  1198C890: 55                 push        ebp
+
+  Summary
+
+     2166000 .text

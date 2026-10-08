@@ -1,0 +1,145 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  117C3F40: 55                 push        ebp
+  117C3F41: 8B EC              mov         ebp,esp
+  117C3F43: 81 EC C4 00 00 00  sub         esp,0C4h
+  117C3F49: 53                 push        ebx
+  117C3F4A: 56                 push        esi
+  117C3F4B: 57                 push        edi
+  117C3F4C: 8D 7D FC           lea         edi,[ebp-4]
+  117C3F4F: B9 01 00 00 00     mov         ecx,1
+  117C3F54: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  117C3F59: F3 AB              rep stos    dword ptr es:[edi]
+  117C3F5B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  117C3F5E: 83 38 00           cmp         dword ptr [eax],0
+  117C3F61: 74 1B              je          117C3F7E
+  117C3F63: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  117C3F66: 8B 08              mov         ecx,dword ptr [eax]
+  117C3F68: 89 8D 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],ecx
+  117C3F6E: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  117C3F71: 52                 push        edx
+  117C3F72: 8B 8D 3C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF3Ch]
+  117C3F78: E8 D9 82 8C FF     call        1108C256
+  117C3F7D: 90                 nop
+  117C3F7E: 5F                 pop         edi
+  117C3F7F: 5E                 pop         esi
+  117C3F80: 5B                 pop         ebx
+  117C3F81: 81 C4 C4 00 00 00  add         esp,0C4h
+  117C3F87: 3B EC              cmp         ebp,esp
+  117C3F89: E8 42 9D 89 FF     call        1105DCD0
+  117C3F8E: 8B E5              mov         esp,ebp
+  117C3F90: 5D                 pop         ebp
+  117C3F91: C3                 ret
+  117C3F92: CC                 int         3
+  117C3F93: CC                 int         3
+  117C3F94: CC                 int         3
+  117C3F95: CC                 int         3
+  117C3F96: CC                 int         3
+  117C3F97: CC                 int         3
+  117C3F98: CC                 int         3
+  117C3F99: CC                 int         3
+  117C3F9A: CC                 int         3
+  117C3F9B: CC                 int         3
+  117C3F9C: CC                 int         3
+  117C3F9D: CC                 int         3
+  117C3F9E: CC                 int         3
+  117C3F9F: CC                 int         3
+  117C3FA0: CC                 int         3
+  117C3FA1: CC                 int         3
+  117C3FA2: CC                 int         3
+  117C3FA3: CC                 int         3
+  117C3FA4: CC                 int         3
+  117C3FA5: CC                 int         3
+  117C3FA6: CC                 int         3
+  117C3FA7: CC                 int         3
+  117C3FA8: CC                 int         3
+  117C3FA9: CC                 int         3
+  117C3FAA: CC                 int         3
+  117C3FAB: CC                 int         3
+  117C3FAC: CC                 int         3
+  117C3FAD: CC                 int         3
+  117C3FAE: CC                 int         3
+  117C3FAF: CC                 int         3
+  117C3FB0: 55                 push        ebp
+  117C3FB1: 8B EC              mov         ebp,esp
+  117C3FB3: 81 EC C0 00 00 00  sub         esp,0C0h
+  117C3FB9: 53                 push        ebx
+  117C3FBA: 56                 push        esi
+  117C3FBB: 57                 push        edi
+  117C3FBC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  117C3FBF: 5F                 pop         edi
+  117C3FC0: 5E                 pop         esi
+  117C3FC1: 5B                 pop         ebx
+  117C3FC2: 8B E5              mov         esp,ebp
+  117C3FC4: 5D                 pop         ebp
+  117C3FC5: C3                 ret
+  117C3FC6: CC                 int         3
+  117C3FC7: CC                 int         3
+  117C3FC8: CC                 int         3
+  117C3FC9: CC                 int         3
+  117C3FCA: CC                 int         3
+  117C3FCB: CC                 int         3
+  117C3FCC: CC                 int         3
+  117C3FCD: CC                 int         3
+  117C3FCE: CC                 int         3
+  117C3FCF: CC                 int         3
+  117C3FD0: 55                 push        ebp
+  117C3FD1: 8B EC              mov         ebp,esp
+  117C3FD3: 81 EC C0 00 00 00  sub         esp,0C0h
+  117C3FD9: 53                 push        ebx
+  117C3FDA: 56                 push        esi
+  117C3FDB: 57                 push        edi
+  117C3FDC: 8B FD              mov         edi,ebp
+  117C3FDE: 33 C9              xor         ecx,ecx
+  117C3FE0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  117C3FE5: F3 AB              rep stos    dword ptr es:[edi]
+  117C3FE7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  117C3FEA: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  117C3FED: 8B 10              mov         edx,dword ptr [eax]
+  117C3FEF: 3B 11              cmp         edx,dword ptr [ecx]
+  117C3FF1: 76 2D              jbe         117C4020
+  117C3FF3: 68 C4 CC 1C 13     push        131CCCC4h
+  117C3FF8: 68 7C CB 1C 13     push        131CCB7Ch
+  117C3FFD: 6A 00              push        0
+  117C3FFF: 68 10 06 00 00     push        610h
+  117C4004: 68 E8 CC 1C 13     push        131CCCE8h
+  117C4009: 6A 02              push        2
+  117C400B: E8 77 9D 8B FF     call        1107DD87
+  117C4010: 83 C4 18           add         esp,18h
+  117C4013: 83 F8 01           cmp         eax,1
+  117C4016: 75 01              jne         117C4019
+  117C4018: CC                 int         3
+  117C4019: B9 05 00 00 00     mov         ecx,5
+  117C401E: CD 29              int         29h
+  117C4020: 5F                 pop         edi
+  117C4021: 5E                 pop         esi
+  117C4022: 5B                 pop         ebx
+  117C4023: 81 C4 C0 00 00 00  add         esp,0C0h
+  117C4029: 3B EC              cmp         ebp,esp
+  117C402B: E8 A0 9C 89 FF     call        1105DCD0
+  117C4030: 8B E5              mov         esp,ebp
+  117C4032: 5D                 pop         ebp
+  117C4033: C3                 ret
+  117C4034: CC                 int         3
+  117C4035: CC                 int         3
+  117C4036: CC                 int         3
+  117C4037: CC                 int         3
+  117C4038: CC                 int         3
+  117C4039: CC                 int         3
+  117C403A: CC                 int         3
+  117C403B: CC                 int         3
+  117C403C: CC                 int         3
+  117C403D: CC                 int         3
+  117C403E: CC                 int         3
+  117C403F: CC                 int         3
+  117C4040: CC                 int         3
+
+  Summary
+
+     216F000 .text

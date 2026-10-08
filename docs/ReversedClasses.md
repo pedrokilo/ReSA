@@ -1,8 +1,12 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6848 con evidencia histórica, 0 con vigencia acreditada y 1598 pendientes en 60 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Progreso del reversing
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-08 21:21 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-08 22:20 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -11,9 +15,9 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
 | Clases completas | `████████████████████` | 771/771 · 100.00% |
-| Clases validadas (de las completas) | `██████████████████░░` | 710/771 · 92.09% |
+| Clases validadas (de las completas) | `██████████████████░░` | 711/771 · 92.22% |
 | Funciones reconstruidas | `████████████████████` | 8,446/8,446 · 100.00% |
-| Funciones validadas (de las reconstruidas) | `████████████████░░░░` | 6,843/8,446 · 81.02% |
+| Funciones validadas (de las reconstruidas) | `████████████████░░░░` | 6,848/8,446 · 81.08% |
 
 Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL.
 
@@ -25,17 +29,17 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0/6,843 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
+| Validaciones vigentes para el árbol actual | 0/6,848 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | No medido | Auditar, para cada función reconstruida, las llamadas directas y transitivas que todavía saltan a código del EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
 
-**Validación consolidada parcialmente:** 6843 funciones con evidencia aprobada vinculada, 965 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 6848 funciones con evidencia aprobada vinculada, 969 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 ## Vista general
 
 | Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |
 | :---: | :---: | :---: | :---: | :---: |
-| **710 / 771** | **61 / 771** | **6,843 / 8,446** | **1,603 / 8,446** | **0 / 8,446** |
-| 92.09% | 7.91% | 81.02% | 18.98% | 0.00% |
+| **711 / 771** | **60 / 771** | **6,848 / 8,446** | **1,598 / 8,446** | **0 / 8,446** |
+| 92.22% | 7.78% | 81.08% | 18.92% | 0.00% |
 
 Reconstrucción por clases: 771 completas, 0 parciales y 0 sin revertir de 771.
 
@@ -85,7 +89,7 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 | [CAEMFDecoder](../source/game_sa/Audio/Loaders/AEMFDecoder.cpp) (10) ✅ 10 | [Common](../source/game_sa/common.cpp) (9) ✅ 9 | [CTaskComplexUseWaterCannon](../source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp) (5) ✅ 5 |
 | [CAEMP3BankLoader](../source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp) (13) ✅ 13 | [COnscreenCounterEntry](../source/game_sa/OnscreenCounterEntry.cpp) (2) ✅ 2 | [CTaskComplexWaitAtAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitAtAttractor.cpp) (7) ✅ 7 |
 | [CAEMP3TrackLoader](../source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp) (7) ✅ 7 | [COnscreenTimer](../source/game_sa/OnscreenTimer.cpp) (6) ✅ 6 | [CTaskComplexWaitForBackup](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBackup.cpp) (8) ✅ 8 |
-| [CAEPedAudioEntity](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) (20) ✅ 5 | [CPad](../source/game_sa/Pad.cpp) (75) ✅ 69 | [CTaskComplexWaitForBus](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp) (7) ✅ 7 |
+| [CAEPedAudioEntity](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) (20) ✅ 5 | [CPad](../source/game_sa/Pad.cpp) (75) ✅ 70 | [CTaskComplexWaitForBus](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp) (7) ✅ 7 |
 | [CAEPedlessSpeechAudioEntity](../source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp) (11) ✅ 11 | [CPathFind](../source/game_sa/PathFind.cpp) (56) ✅ 2 | [CTaskComplexWaitForDryWeather](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForDryWeather.cpp) (7) ✅ 7 |
 | [CAEPedSpeechAudioEntity](../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp) (58) ✅ 58 | [CPathNode](../source/game_sa/PathFind.cpp) (1) ✅ 1 | [CTaskComplexWalkAlongsidePed](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkAlongsidePed.cpp) (9) ✅ 9 |
 | [CAEPedWeaponAudioEntity](../source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp) (5) ✅ 5 | [CPed](../source/game_sa/Entity/Ped/Ped.cpp) (145) ✅ 145 | [CTaskComplexWalkRoundBuildingAttempt](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp) (12) ✅ 12 |
@@ -150,7 +154,7 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 | [CCivilianPed](../source/game_sa/Entity/Ped/CivilianPed.cpp) (3) ✅ 3 | [CQuadTreeNode&lt;T&gt;](../source/game_sa/Core/QuadTreeNode.h) (12) ✅ 12 | [CTaskSimpleCower](../source/game_sa/Tasks/TaskTypes/TaskSimpleCower.cpp) (4) ✅ 4 |
 | [CClock](../source/game_sa/Clock.cpp) (9) ✅ 9 | [CRadar](../source/game_sa/Radar.cpp) (63) | [CTaskSimpleCreateCarAndGetIn](../source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp) (6) ✅ 6 |
 | [CClothes](../source/game_sa/Clothes.cpp) (11) ✅ 11 | [CRealTimeShadow](../source/game_sa/RealTimeShadow.cpp) (8) ✅ 8 | [CTaskSimpleDead](../source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp) (6) ✅ 6 |
-| [CClothesBuilder](../source/game_sa/ClothesBuilder.cpp) (23) ✅ 8 🔒 8 | [CRealTimeShadowManager](../source/game_sa/RealTimeShadowManager.cpp) (7) ✅ 2 | [CTaskSimpleDie](../source/game_sa/Tasks/TaskTypes/TaskSimpleDie.cpp) (7) ✅ 7 |
+| [CClothesBuilder](../source/game_sa/ClothesBuilder.cpp) (23) ✅ 8 🔒 8 | [CRealTimeShadowManager](../source/game_sa/RealTimeShadowManager.cpp) (7) ✅ 3 | [CTaskSimpleDie](../source/game_sa/Tasks/TaskTypes/TaskSimpleDie.cpp) (7) ✅ 7 |
 | [CClouds](../source/game_sa/Clouds.cpp) (21) ✅ 21 | [CRect](../source/game_sa/Core/Rect.cpp) (8) ✅ 8 | [CTaskSimpleDieInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleDieInCar.cpp) (5) ✅ 5 |
 | [CClumpModelInfo](../source/game_sa/Models/ClumpModelInfo.cpp) (24) ✅ 24 | [CReferences](../source/game_sa/References.cpp) (4) ✅ 4 | [CTaskSimpleDoHandSignal](../source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp) (6) ✅ 6 |
 | [CColAccel](../source/game_sa/Collision/ColAccel.cpp) (11) ✅ 11 | [CRegisteredCorona](../source/game_sa/RegisteredCorona.cpp) (1) ✅ 1 | [CTaskSimpleDrown](../source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp) (1) ✅ 1 |
@@ -183,7 +187,7 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 | [CCurves](../source/game_sa/Curves.cpp) (6) ✅ 6 | [CStaticShadow](../source/game_sa/Shadows.cpp) (1) ✅ 1 | [CTaskSimpleHitHead](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitHead.cpp) (4) ✅ 4 |
 | [CCustomBuildingDNPipeline](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp) (14) ✅ 14 | [CStats](../source/game_sa/Stats.cpp) (32) ✅ 32 | [CTaskSimpleHitWall](../source/game_sa/Tasks/TaskTypes/TaskSimpleHitWall.cpp) (3) ✅ 3 |
 | [CCustomBuildingPipeline](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp) (7) ✅ 7 | [CStencilShadowObject](../source/game_sa/StencilShadowObject.cpp) (3) ✅ 3 | [CTaskSimpleHoldEntity](../source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp) (14) ✅ 14 |
-| [CCustomBuildingRenderer](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp) (7) ✅ 4 | [CStencilShadows](../source/game_sa/StencilShadows.cpp) (13) ✅ 13 | [CTaskSimpleHurtPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleHurtPedWithCar.cpp) (6) ✅ 6 |
+| [CCustomBuildingRenderer](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp) (7) ✅ 7 | [CStencilShadows](../source/game_sa/StencilShadows.cpp) (13) ✅ 13 | [CTaskSimpleHurtPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleHurtPedWithCar.cpp) (6) ✅ 6 |
 | [CCustomCarEnvMapPipeline](../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp) (37) ✅ 37 | [CStreamedScripts](../source/game_sa/StreamedScripts.cpp) (12) ✅ 12 | [CTaskSimpleIKChain](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp) (9) ✅ 9 |
 | [CCustomCarPlateMgr](../source/game_sa/CustomCarPlateMgr.cpp) (14) ✅ 14 | [CStreaming](../source/game_sa/Streaming.cpp) (94) | [CTaskSimpleIKLookAt](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKLookAt.cpp) (8) ✅ 8 |
 | [CCustomRoadsignMgr](../source/game_sa/CustomRoadsignMgr.cpp) (9) ✅ 9 | [CStreamingInfo](../source/game_sa/StreamingInfo.cpp) (7) ✅ 7 | [CTaskSimpleIKManager](../source/game_sa/Tasks/TaskTypes/TaskSimpleIKManager.cpp) (8) ✅ 8 |

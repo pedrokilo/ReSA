@@ -1,0 +1,15 @@
+{
+  "synthetic_only": true,
+  "no_runtime_approval": true,
+  "accepted_fixture_rows": 13952,
+  "rejected_mutations": [
+    "equal_routes_wrong_pad",
+    "wrong_native_trace_count",
+    "wrong_float_boundary_bits",
+    "readonly_camera_changed",
+    "wrong_FP_precision",
+    "missing_patch_proof",
+    "damaged_guard"
+  ],
+  "python_syntax_checked": true
+}

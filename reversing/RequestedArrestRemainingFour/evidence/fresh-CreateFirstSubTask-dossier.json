@@ -1,0 +1,20 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"error\":{\"code\":\"invalid_request\",\"category\":\"invalid_input\",\"message\":\"Analysis input is invalid. Check the arguments and try again.\",\"retryable\":true,\"remediation\":{\"action\":\"Correct the listed arguments and retry.\"}}}"
+    }
+  ],
+  "structuredContent": {
+    "error": {
+      "code": "invalid_request",
+      "category": "invalid_input",
+      "message": "Analysis input is invalid. Check the arguments and try again.",
+      "retryable": true,
+      "remediation": {
+        "action": "Correct the listed arguments and retry."
+      }
+    }
+  },
+  "isError": true
+}

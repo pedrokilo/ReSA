@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6848 con evidencia histórica, 0 con vigencia acreditada y 1598 pendientes en 60 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Inventario de validación de funciones reconstruidas
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
@@ -6,10 +10,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 6843 |
+| `validated=1` · evidencia aprobada vinculada | 6848 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 6843 |
-| Sin evidencia aprobada vinculada en este registro | 1603 |
+| Evidencia histórica vinculada; revisión pendiente | 6848 |
+| Sin evidencia aprobada vinculada en este registro | 1598 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -1356,7 +1360,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCustomBuildingPipeline | `CustomPipeRenderCB` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CCustomBuildingPipeline | `DestroyPipe` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CCustomBuildingRenderer | `AtomicSetup` | [Resumen](../reversing/RendererPending/validation-summary.json) |
+| CCustomBuildingRenderer | `Initialise` | [Resumen](../reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/Initialise-validation-summary.json) |
 | CCustomBuildingRenderer | `IsCBPCPipelineAttached` | [Resumen](../reversing/RendererPending/validation-summary.json) |
+| CCustomBuildingRenderer | `PluginAttach` | [Resumen](../reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/PluginAttach-validation-summary.json) |
+| CCustomBuildingRenderer | `Shutdown` | [Resumen](../reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/Shutdown-validation-summary.json) |
 | CCustomBuildingRenderer | `Update` | [Resumen](../reversing/RendererPending/validation-summary.json) |
 | CCustomBuildingRenderer | `UpdateDayNightBalanceParam` | [Resumen](../reversing/RendererPending/validation-summary.json) |
 | CCustomCarEnvMapPipeline | `AllocEnvMapPipeAtomicData` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
@@ -2668,6 +2675,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `SniperZoomIn` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `SniperZoomOut` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `SprintJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `StartShake` | [Resumen](../reversing/RequestedPadMutationRemaining3Hex/validation-summary-shake.json) |
 | CPad | `StopShaking` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
 | CPad | `Update` | [Resumen](../reversing/RequestedPadMutationRemaining3/validation-summary-update.json) |
 | CPad | `WeaponJustDown` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
@@ -3385,6 +3393,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CRealTimeShadow | `Update` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CRealTimeShadowManager | `GetRealTimeShadow` | [Resumen](../reversing/ShadowManagerPending/validation-summary.json) |
 | CRealTimeShadowManager | `ReInit` | [Resumen](../reversing/ShadowManagerPending/validation-summary.json) |
+| CRealTimeShadowManager | `ReturnRealTimeShadow` | [Resumen](../reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/ReturnRealTimeShadow-validation-summary.json) |
 | CRect | `GetCenter-` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CRect | `IsFlipped` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CRect | `IsPointInside-` | [Resumen](../reversing/Data8b/validation-summary.json) |
@@ -6997,7 +7006,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCurves` | 6 | 0 | 6 | 0 |
 | `CCustomBuildingDNPipeline` | 14 | 0 | 14 | 0 |
 | `CCustomBuildingPipeline` | 7 | 0 | 7 | 0 |
-| `CCustomBuildingRenderer` | 7 | 0 | 4 | 3 |
+| `CCustomBuildingRenderer` | 7 | 0 | 7 | 0 |
 | `CCustomCarEnvMapPipeline` | 37 | 0 | 37 | 0 |
 | `CCustomCarPlateMgr` | 14 | 0 | 14 | 0 |
 | `CCustomRoadsignMgr` | 9 | 0 | 9 | 0 |
@@ -7154,7 +7163,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `COnscreenCounterEntry` | 2 | 0 | 2 | 0 |
 | `COnscreenTimer` | 6 | 0 | 6 | 0 |
 | `CPPTriPlantBuffer` | 7 | 0 | 7 | 0 |
-| `CPad` | 75 | 0 | 69 | 6 |
+| `CPad` | 75 | 0 | 70 | 5 |
 | `CPathFind` | 56 | 0 | 2 | 54 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
 | `CPed` | 145 | 0 | 145 | 0 |
@@ -7218,7 +7227,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CQuadTreeNode<T>` | 12 | 0 | 12 | 0 |
 | `CRadar` | 63 | 0 | 0 | 63 |
 | `CRealTimeShadow` | 8 | 0 | 8 | 0 |
-| `CRealTimeShadowManager` | 7 | 0 | 2 | 5 |
+| `CRealTimeShadowManager` | 7 | 0 | 3 | 4 |
 | `CRect` | 8 | 0 | 8 | 0 |
 | `CReferences` | 4 | 0 | 4 | 0 |
 | `CRegisteredCorona` | 1 | 0 | 1 | 0 |

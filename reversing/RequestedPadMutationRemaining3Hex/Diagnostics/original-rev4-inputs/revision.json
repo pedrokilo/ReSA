@@ -1,0 +1,19 @@
+{
+  "revision": 4,
+  "previous_freeze_sha256": "c005a0d1480b81dbbc9dab88871973e3bfc1d323c450288c8dcdfaf7c6aeb172",
+  "change": "Chunk1024 original legs then candidate legs; current hook->State(candidate) and bytegate remain perleg. Cache original physicalJSON only, no duplicate contracts. All primitive resets/call/postcallFP/check statements retained exactly; recompute deterministicFixture eachleg and metadatajoin. Comparisons stayseedorder with exactrawpayloadformat/model. No further optimization or sourcefix.",
+  "record_limit": 1024,
+  "buffer_estimate_policy_bytes": 33554432,
+  "memory_note": "Conservative retainedJSONcapacity/mapentry/string estimate, maxrecordlimit1024, failclosedandrestore if estimate>32MiB; notRSS or allocatorpeakmeasurement. Expected ~16-30MiB including overhead onx86, no1MiBclaim.",
+  "state_switch_bound_shake": 176,
+  "corpus": 95052,
+  "subbanks": {
+    "reconcile": 2892,
+    "update": 2560,
+    "shake": 89600
+  },
+  "sourcesPad_sha256": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db",
+  "phased_ordering": "captureoriginals[chunkstart..end) first, then eachcandidate same seed +join original.seed==candidate.seed==row.seed. Missing/mapped seed fails switchgate. Complete89600 required forShake.",
+  "tests": "95052synthetic comparison bytes/metadata identicallegacy-vsphased; six strictnegativecases missingoriginal/duplicate/seedmapping/nonrestore/gatefalse/native_equal_false rejected; native phases still require actualreplay",
+  "no_native_execution": true
+}

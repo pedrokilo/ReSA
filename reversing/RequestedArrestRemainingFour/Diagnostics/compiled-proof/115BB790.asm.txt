@@ -1,0 +1,40 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  115BB790: 55                 push        ebp
+  115BB791: 8B EC              mov         ebp,esp
+  115BB793: 81 EC C4 00 00 00  sub         esp,0C4h
+  115BB799: 53                 push        ebx
+  115BB79A: 56                 push        esi
+  115BB79B: 57                 push        edi
+  115BB79C: 8D 7D FC           lea         edi,[ebp-4]
+  115BB79F: B9 01 00 00 00     mov         ecx,1
+  115BB7A4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115BB7A9: F3 AB              rep stos    dword ptr es:[edi]
+  115BB7AB: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115BB7AE: 8B 08              mov         ecx,dword ptr [eax]
+  115BB7B0: 89 8D 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],ecx
+  115BB7B6: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  115BB7B9: 52                 push        edx
+  115BB7BA: 8B 8D 3C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF3Ch]
+  115BB7C0: E8 91 0A AD FF     call        1108C256
+  115BB7C5: 90                 nop
+  115BB7C6: 5F                 pop         edi
+  115BB7C7: 5E                 pop         esi
+  115BB7C8: 5B                 pop         ebx
+  115BB7C9: 81 C4 C4 00 00 00  add         esp,0C4h
+  115BB7CF: 3B EC              cmp         ebp,esp
+  115BB7D1: E8 FA 24 AA FF     call        1105DCD0
+  115BB7D6: 8B E5              mov         esp,ebp
+  115BB7D8: 5D                 pop         ebp
+  115BB7D9: C3                 ret
+  115BB7DA: CC                 int         3
+
+  Summary
+
+     216F000 .text

@@ -1,0 +1,35 @@
+{
+  "prepared_only": true,
+  "applied": false,
+  "baseline_sources": {
+    "source/game_sa/Pad.cpp": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db",
+    "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25"
+  },
+  "native_offsets": {
+    "NoShakeBeforeThis": {
+      "offset": 300,
+      "bytes": 4,
+      "current_type": "float",
+      "proposed": "uint32"
+    },
+    "NoShakeFreq": {
+      "offset": 304,
+      "bytes": 1,
+      "current_type": "char",
+      "proposed": "uint8"
+    },
+    "CPad_bytes": 308
+  },
+  "layout_argument": "uint32 and float both4-byte/4-alignment; uint8 and char both1-byte/1-alignment; preserves following _pad131[3] and CPad0x134. Existing bank static_asserts bind offsets/sizes, postchange must recompile them.",
+  "named_deadline_frequency_consumers": [
+    "CPad::Clear zero writes",
+    "CPad::StartShake comparisons/assignment"
+  ],
+  "Train_named_sites": [
+    "Pad.h declaration",
+    "Pad.cpp definition",
+    "Pad.cpp RH_ScopedInstall"
+  ],
+  "Train_scope": "Signature-only constref to value CVector2D; train logic remains byte-for-byte unchanged for its separate negative baseline. Native evidence/replay required for resulting ABI; no Train approval.",
+  "Shake_scope": "Change uint32 deadline and unsignedbyte frequency semantics; signed time>ShakeDur; uint32 modular addition. Requires complete original baseline and identical89500+100=89600 corrected corpus."
+}

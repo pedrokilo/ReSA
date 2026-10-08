@@ -1,0 +1,26 @@
+{
+  "reader": "VisualStudioDIA140 metadata only",
+  "asi_sha256": "5cefe892de72bbec38519579f87d594a731051a63470d119c3e78bafd4c9ddde",
+  "pdb_sha256": "63e27fceda80a4127376cb343a7baed7f31052a772aa93e786e023953fe8eb57",
+  "functions": [
+    {
+      "name": "CPad::ReconcileTwoControllersInput",
+      "rva": 28184400,
+      "length": 1499
+    }
+  ],
+  "scratch": [
+    {
+      "name": "reconciledState",
+      "rva": 57498972,
+      "length": 48,
+      "tag": 7,
+      "locationType": 1,
+      "parent": {
+        "name": "CPad::ReconcileTwoControllersInput",
+        "rva": 28184400,
+        "length": 1499
+      }
+    }
+  ]
+}

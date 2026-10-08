@@ -534,11 +534,11 @@ void CPad::StartShake(int16 time, uint8 freq, uint32 shakeDelayMs) {
 
     if (freq) {
         if (CTimer::GetTimeInMS() >= NoShakeBeforeThis || freq > NoShakeFreq) {
-            if (ShakeDur) {
+            if (time > ShakeDur) {
                 ShakeDur = time;
                 ShakeFreq = freq;
             }
-            NoShakeBeforeThis = (float)(shakeDelayMs + CTimer::GetTimeInMS());
+            NoShakeBeforeThis = shakeDelayMs + CTimer::GetTimeInMS();
             NoShakeFreq = freq;
         }
     } else {
@@ -567,7 +567,7 @@ void CPad::StartShake_Distance(int16 time, uint8 freq, CVector pos) {
 }
 
 // 0x53FA70
-void CPad::StartShake_Train(const CVector2D& point) {
+void CPad::StartShake_Train(CVector2D point) {
     if (!FrontEndMenuManager.m_PrefsUseVibration || CCutsceneMgr::ms_running) {
         return;
     }

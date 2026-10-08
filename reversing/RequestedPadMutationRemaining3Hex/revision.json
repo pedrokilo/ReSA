@@ -1,0 +1,38 @@
+{
+  "revision": 5,
+  "previous_freeze_sha256": "632d2ed21ecbbb6b5058e90ba7c321fab33971fb7f6a3da32a2d4a80ec13b0cf",
+  "change": "Lossless lowercase hex string transport only for every declaredbyte span. Decode exact shapes/lengths/hex into identicallegacy canonical dictionaries before unchanged payload_contract/oracle. Independent rawwire/canonical SHA256 streamed; rejectextra/duplicateJSONfields, nonfiniteconstants, badtypes includingboolintegers. Samephase1024, case/reset/target/guards/FP/restores. PostcallFP capture explicitly before integer-only hexallocation; no target FPmode change.",
+  "fields": {
+    "pad": 340,
+    "controllers": [
+      80,
+      80,
+      80
+    ],
+    "globals": [
+      16,
+      33,
+      33
+    ],
+    "scratch_physical": [
+      80,
+      80
+    ],
+    "scratch_seed_bytes": [
+      48,
+      48
+    ]
+  },
+  "no_extra_normalization": "Everybyte decoded exactly; onlypreexistingReconcile scratchactiverole contract unchanged. SourceCPP contract substring32,96 exactly bytes16:64. No rounding/fieldmasking/pointernormalization introduced.",
+  "corpus": 95052,
+  "subbanks": {
+    "reconcile": 2892,
+    "update": 2560,
+    "shake": 89600
+  },
+  "original_record_limit": 1024,
+  "retained_estimate_budget_bytes": 33554432,
+  "RAM_note": "JSON capacity+map/string conservative retained estimate remains checked; HEXstrings remove JSONnode-perbyte expansion; expectsingle-digitMiB originals, actualestimate logged at runtime, noRSS/speedclaim.",
+  "sourcePad_sha256": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db",
+  "native_execution": false
+}

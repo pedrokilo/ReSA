@@ -1,0 +1,60 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1188F350: 55                 push        ebp
+  1188F351: 8B EC              mov         ebp,esp
+  1188F353: 81 EC D0 00 00 00  sub         esp,0D0h
+  1188F359: 53                 push        ebx
+  1188F35A: 56                 push        esi
+  1188F35B: 57                 push        edi
+  1188F35C: 51                 push        ecx
+  1188F35D: 8D 7D F0           lea         edi,[ebp-10h]
+  1188F360: B9 04 00 00 00     mov         ecx,4
+  1188F365: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1188F36A: F3 AB              rep stos    dword ptr es:[edi]
+  1188F36C: 59                 pop         ecx
+  1188F36D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1188F370: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1188F373: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  1188F376: 51                 push        ecx
+  1188F377: E8 9E 21 82 FF     call        110B151A
+  1188F37C: 83 C4 04           add         esp,4
+  1188F37F: F3 0F 10 40 08     movss       xmm0,dword ptr [eax+8]
+  1188F384: 0F 2F 05 98 07 1D  comiss      xmm0,dword ptr ds:[131D0798h]
+            13
+  1188F38B: 73 29              jae         1188F3B6
+  1188F38D: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1188F390: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  1188F393: 50                 push        eax
+  1188F394: E8 81 21 82 FF     call        110B151A
+  1188F399: 83 C4 04           add         esp,4
+  1188F39C: F3 0F 10 05 B4 2C  movss       xmm0,dword ptr ds:[13222CB4h]
+            22 13
+  1188F3A4: 0F 2F 40 08        comiss      xmm0,dword ptr [eax+8]
+  1188F3A8: 73 0C              jae         1188F3B6
+  1188F3AA: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1188F3B4: EB 0A              jmp         1188F3C0
+  1188F3B6: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  1188F3C0: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  1188F3C7: 5F                 pop         edi
+  1188F3C8: 5E                 pop         esi
+  1188F3C9: 5B                 pop         ebx
+  1188F3CA: 81 C4 D0 00 00 00  add         esp,0D0h
+  1188F3D0: 3B EC              cmp         ebp,esp
+  1188F3D2: E8 F9 E8 7C FF     call        1105DCD0
+  1188F3D7: 8B E5              mov         esp,ebp
+  1188F3D9: 5D                 pop         ebp
+  1188F3DA: C3                 ret
+  1188F3DB: CC                 int         3
+
+  Summary
+
+     216F000 .text

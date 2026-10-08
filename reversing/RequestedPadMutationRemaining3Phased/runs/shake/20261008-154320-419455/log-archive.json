@@ -1,0 +1,7 @@
+{
+  "raw_sha256": "b34424474d3a9a4643a109aed794d1da68576713ca39033d09e4292e409be4de",
+  "raw_bytes": 560793197,
+  "gzip_file": "comparisons.jsonl.gz",
+  "gzip_sha256": "673a08b0a3e55a7fba6c06bf782b78aae0af90a6c7d4bb2047ab5daee688c521",
+  "lossless_verified": true
+}

@@ -1,0 +1,195 @@
+{
+  "asi_sha256": "b1b8cf068e8e03a51127b5fc8cc43f8d28ca7bda0ce9875e81be2648f1e7e893",
+  "pdb_sha256": "6e591daa65a979aa232adab9d77a64274e98fb420fd92db5c2b3611d8027a29d",
+  "pdb_rsds_match": true,
+  "pdb_guid_raw": "c77be937b65eb0419b8fb6e599cb79e0",
+  "pdb_age": 2431,
+  "base": 268435456,
+  "symbols": [
+    {
+      "name": "FxEmitterBP_c::FxEmitterBP_c",
+      "address": 287796240,
+      "size": 79,
+      "tag": 5,
+      "body": 287796240,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4508508b4df8e861ffddff908b45f8c70054771c138b45f85f5e5b81c4cc0000003bece84030deff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4"
+    },
+    {
+      "name": "FxPrimBP_c::FxPrimBP_c",
+      "address": 287796576,
+      "size": 210,
+      "tag": 5,
+      "body": 287796576,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f8c70008771c138b45f88b4d088a51048850048b45f88b4d088a51058850058b45f88b4d088a51068850068b45f88b4d088a51078850078b45f88b4d088b51088950088b450883c00c8b4df883c10c8b1089118b50048951048b50088951088b400c89410c8b45f88b4d088b511c89"
+    },
+    {
+      "name": "FxEmitterBP_c::Constructor",
+      "address": 288076144,
+      "size": 64,
+      "tag": 5,
+      "body": 288076144,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e8ddebd9ff908b45f85f5e5b81c4cc0000003bece8edead9ff8be55dc3cccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df86a018b4508508b4df8e8717cdcff908b"
+    },
+    {
+      "name": "`RequestedFxEmitterTwo::Update'::`2'::<lambda_1>::<lambda_1>",
+      "address": 288829360,
+      "size": 35,
+      "tag": 5,
+      "body": 288829360,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b45f88b4d0c8b"
+    },
+    {
+      "name": "`RequestedFxEmitterTwo::Update'::`2'::<lambda_1>::operator()",
+      "address": 288888784,
+      "size": 243,
+      "tag": 5,
+      "body": 288888784,
+      "e9_chain": [],
+      "first128": "558bec6aff68f0a80c1364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a1400a6c1333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e808acd0ff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
+    },
+    {
+      "name": "RequestedFxEmitterTwo::Update",
+      "address": 288911312,
+      "size": 18362,
+      "tag": 5,
+      "body": 288911312,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff6833d50c1364a1000000005053b800310000e8b81cceff56578dbdf0d4ffffb9c00a0000b8ccccccccf3aba1400a6c1333c58945ec508d45f464a300000000c785d0e4ffff0000000068040100006a008d85e0feffff50e82224d1ff83c40c8bf468040100008d85"
+    },
+    {
+      "name": "`FxEmitterBP_c::LoadTextures'::`2'::<lambda_1>::operator()<int>",
+      "address": 295223120,
+      "size": 229,
+      "tag": 5,
+      "body": 295223120,
+      "e9_chain": [],
+      "first128": "558bec81ec28010000535657518d7d98b91a000000b8ccccccccf3ab59a1400a6c1333c58945fc894df48b45f48b088b5508c1e2050311526850e022138d45ac50e8c20e72ff83c40c8d45ac508b4df48b118b4508c1e005030250e8331f6dff83c4088945a0837da000740b8b45a08985d8feffffeb1e6a008b4df48b118b45"
+    },
+    {
+      "name": "`FxEmitterBP_c::LoadTextures'::`2'::<lambda_2>::operator()<int>",
+      "address": 295223408,
+      "size": 172,
+      "tag": 5,
+      "body": 295223408,
+      "e9_chain": [],
+      "first128": "558bec81ecd4000000535657518d7decb905000000b8ccccccccf3ab59894df88b4508c1e0058b4df803017517683b0100006890df22136854e02213e856a76fff83c40c6a056814651d138b4508c1e0058b4df8030150e8db996eff83c40c85c074238b55f883c204899530ffffff8b4508508b8d30ffffffe862feffff8985"
+    },
+    {
+      "name": "`FxEmitterBP_c::LoadTextures'::`2'::<lambda_1>::<lambda_1>",
+      "address": 295225376,
+      "size": 35,
+      "tag": 5,
+      "body": 295225376,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b450c8b088b55f8894a048b45f85f5e5b8be55dc20800cccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4"
+    },
+    {
+      "name": "`FxEmitterBP_c::LoadTextures'::`2'::<lambda_2>::<lambda_2>",
+      "address": 295225424,
+      "size": 48,
+      "tag": 5,
+      "body": 295225424,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d088b1189108b450c8b088b55f8894a048b45f85f5e5b8be55dc20800cccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b45f88b4d0889088b45f88b4d0c8948048b45f8817804ffffff3f762d682035"
+    },
+    {
+      "name": "FxEmitterBP_c::FxEmitterBP_c",
+      "address": 295225664,
+      "size": 80,
+      "tag": 5,
+      "body": 295225664,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e84ed26eff908b45f8c70054771c138b45f8c64004008b45f85f5e5b81c4cc0000003bece80dd36cff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4"
+    },
+    {
+      "name": "FxEmitterBP_c::InjectHooks",
+      "address": 295227184,
+      "size": 3484,
+      "tag": 5,
+      "body": 295227184,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff689ba0111364a100000000505381ec0008000056578dbd30faffffb970010000b8ccccccccf3aba1400a6c1333c58945ec508d45f464a3000000006834641d138d4dcce8f2246dff90c745fc00000000c745c088a7850083ec088bcc89a538fdffff6834641d13e8"
+    },
+    {
+      "name": "FxEmitterBP_c::LoadTextures",
+      "address": 295232272,
+      "size": 404,
+      "tag": 5,
+      "body": 295232272,
+      "e9_chain": [],
+      "first128": "558bec81ecf0000000535657518d7dd0b90c000000b8ccccccccf3ab59894df8837d0800751768300100006890df22136830e02213e8bd846fff83c40c8d4508508d4dece8c7e4ffff908d45ec508d4d08518d4ddce8e6e4ffff906a008d4dece8dbdbffff898514ffffff8b45f883c00c898510ffffff6a008b8d10ffffffe8"
+    },
+    {
+      "name": "TList_c<Particle_c>::TList_c<Particle_c>",
+      "address": 295273872,
+      "size": 54,
+      "tag": 5,
+      "body": 295273872,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f8c700000000008b45f8c74004000000008b45f8c74008000000008b45f85f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f8c700000000008b45f8c74004000000008b45f8c74008000000008b45f85f"
+    },
+    {
+      "name": "FxPrimBP_c::FxPrimBP_c",
+      "address": 295304416,
+      "size": 117,
+      "tag": 5,
+      "body": 295304416,
+      "e9_chain": [],
+      "first128": "558bec81ecdc000000535657518d7de4b907000000b8ccccccccf3ab59894df88b45f8c70008771c138b4df883c120e86c756dff908b45f883c00c898524ffffffc7852cffffff000000008d8d2cffffff518b8d24ffffffe87bdd6dff908b45f85f5e5b81c4dc0000003bece8489f6bff8be55dc3cccccccccccccccccccccc"
+    },
+    {
+      "name": "plugin::CallAndReturn<RwTexture *,8338112,char const *,char const *>",
+      "address": 298409680,
+      "size": 70,
+      "tag": 5,
+      "body": 298409680,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8bf48b450c508b4d0851bac03a7f00ffd283c4083bf4e8973d3cff5f5e5b81c4c00000003bece8873d3cff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8bf48b4514508b4d10"
+    },
+    {
+      "name": "RwTextureRead",
+      "address": 298430992,
+      "size": 59,
+      "tag": 5,
+      "body": 298430992,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d0851e8aebb3fff83c4085f5e5b81c4c00000003bece852ea3bff8be55dc3cccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8bf48b4518508b4d14518b5510528b450c508b4d0851bab03b"
+    },
+    {
+      "name": "plugin::CallAndReturn<RwTexture *,7540320,RwStream *>",
+      "address": 298452144,
+      "size": 66,
+      "tag": 5,
+      "body": 298452144,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8bf48b450850b9600e7300ffd183c4043bf4e8bb973bff5f5e5b81c4c00000003bece8ab973bff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8bf48b450c508b4d08"
+    },
+    {
+      "name": "plugin::CallAndReturn<RwTexture *,7555376,RwTexture *,void *>",
+      "address": 298452240,
+      "size": 70,
+      "tag": 5,
+      "body": 298452240,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8bf48b450c508b4d0851ba30497300ffd283c4083bf4e857973bff5f5e5b81c4c00000003bece847973bff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8bf48b450850b94049"
+    },
+    {
+      "name": "plugin::CallAndReturn<RwTexture *,7555392,RwTexDictionary *>",
+      "address": 298452336,
+      "size": 66,
+      "tag": 5,
+      "body": 298452336,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8bf48b450850b940497300ffd183c4043bf4e8fb963bff5f5e5b81c4c00000003bece8eb963bff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8bf48b450850b970e5"
+    }
+  ],
+  "manifest_sha256": "830d4c9aeaff390bafc67c01bdcb87916a919a2606c25328f9e89a2cdede0078",
+  "compiled_header_sha256": "7d65c0c1dfc210f65bcd00eec25b15843e61337214acf02d4ce64687bcea839e",
+  "limitations": [
+    "Static PE/PDB and disassembly only. No runtime, helper behavior or approval. Human inspection required for call-path/return-branch proof."
+  ]
+}

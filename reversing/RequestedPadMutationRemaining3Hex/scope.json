@@ -1,0 +1,64 @@
+{
+  "prepared_only": true,
+  "entries": [
+    {
+      "class": "CPad",
+      "function": "ReconcileTwoControllersInput",
+      "catalogue_address": "0x0053F530",
+      "type": "S",
+      "procedure": "0x0053F530",
+      "ok": true,
+      "evidence_id": "ev_6234aff4f177648fa86f8713e9398cde701f3b9fa6f0c987b45e7faf382fec22",
+      "path": "0591-0x0053F530.json",
+      "evidence_sha256": "ad3f746ce0146587435e5df1690789cf7b68c7bf216ba831deff849faf3afaa9",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/ReconcileTwoControllersInput.exe.json"
+    },
+    {
+      "class": "CPad",
+      "function": "StartShake",
+      "catalogue_address": "0x0053F920",
+      "type": "S",
+      "procedure": "0x0053F920",
+      "ok": true,
+      "evidence_id": "ev_666175cf8c9e7e2579c326edc713825046f23db72e3b2fb38612d818e2f15c9a",
+      "path": "0598-0x0053F920.json",
+      "evidence_sha256": "14cf4a9ade26f210517e9739b84a69f68a31c907d5425817fd7c2abbacadd00f",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/StartShake.exe.json"
+    },
+    {
+      "class": "CPad",
+      "function": "Update",
+      "catalogue_address": "0x00541C40",
+      "type": "S",
+      "procedure": "0x00541C40",
+      "ok": true,
+      "evidence_id": "ev_1a31a88a2f176c451f910da8805a45e73799921203f01d9c047494a7801f17c9",
+      "path": "0602-0x00541C40.json",
+      "evidence_sha256": "0a301e55ac91805f1df13ddd1c6eb415df3eefbd4f28f4396437446aa63ed605",
+      "primary_body": "reversing/RequestedPadMutationNext/evidence/Update.exe.json"
+    }
+  ],
+  "compiled": false,
+  "runtime_validated": false,
+  "no_functional_source_edit": true,
+  "scratch_pending": "NativeB736C0 full48bytes; candidatefunction-localstatic48-byte storage requires exact PDBsymbol or compiled-bodyaddress proof before any runtime bank",
+  "source_impact": "source-consumer-impact.json",
+  "sources": {
+    "source/game_sa/Pad.cpp": "fd2bb27704b9b233f5041232e1052dcfd7941088d2947823653d18a3d1c62f56",
+    "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+    "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+    "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+    "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+    "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+    "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+    "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+  },
+  "subbanks": {
+    "reconcile": 2892,
+    "update": 2560,
+    "shake": 89600
+  },
+  "comparisons": 95052,
+  "runtime_proof": "FinalcurrentASI/PDB DIA metadata + exact mappedbody/HIGHLOW operands, no old RVA"
+}

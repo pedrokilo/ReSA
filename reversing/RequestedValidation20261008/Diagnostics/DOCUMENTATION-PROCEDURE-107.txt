@@ -1,0 +1,8 @@
+Reference cut: ef0654e8; 6843 historical, 107 new,1603 pending,61groups,current0. Planning only; no approval anticipated.
+1. Wait for root builds/runtime/source inventory to release; verify actual hooks.csv and registry count.
+2. Run prepare_documentation_inventory.py. Exclude matching frozen Markdown from all SHA maps (inputs/instruments/bank_sources); retain historical archived epochs separately and resolve any mismatches before writes. Exclude dependencies/builds/artifacts/backups/archive/run evidence.
+3. Refresh CurrentStatus exact rows/counts/scopes and relative links; startup whitelist snapshot694/6136 fixed. Prefix eligible current Markdown with relative CurrentStatus link and dated actual count. Preserve frozen historical prefixes.
+4. python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md (never --update-source-status).
+5. python contrib/validation_inventory.py; python contrib/build-memory-map.py; python reversing/RequestedValidation20261008/build_inventory.py --full-audit. Verify tool defaults/output first. Preserve MemoryMap original EXE datasets and source comments.
+6. Inventory audit: every eligible current Markdown updated; every exact frozen SHA unchanged; derived counters/catalog agree; scope initial1710 remains fixed; current0; relative links exist; source hashes coherent. Stop on frozen conflict, never refresh hashes silently.
+7. Root alone stages/reviews/commits/pushes coherent approved cut.

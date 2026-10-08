@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1125A6C0: 55                 push        ebp
+  1125A6C1: 8B EC              mov         ebp,esp
+  1125A6C3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1125A6C9: 53                 push        ebx
+  1125A6CA: 56                 push        esi
+  1125A6CB: 57                 push        edi
+  1125A6CC: 51                 push        ecx
+  1125A6CD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1125A6D0: B9 03 00 00 00     mov         ecx,3
+  1125A6D5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1125A6DA: F3 AB              rep stos    dword ptr es:[edi]
+  1125A6DC: 59                 pop         ecx
+  1125A6DD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1125A6E0: 0F B6 45 0C        movzx       eax,byte ptr [ebp+0Ch]
+  1125A6E4: 50                 push        eax
+  1125A6E5: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1125A6E8: 8B 51 0C           mov         edx,dword ptr [ecx+0Ch]
+  1125A6EB: 52                 push        edx
+  1125A6EC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1125A6EF: 8B 08              mov         ecx,dword ptr [eax]
+  1125A6F1: 51                 push        ecx
+  1125A6F2: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1125A6F5: E8 80 E3 E2 FF     call        11088A7A
+  1125A6FA: 5F                 pop         edi
+  1125A6FB: 5E                 pop         esi
+  1125A6FC: 5B                 pop         ebx
+  1125A6FD: 81 C4 CC 00 00 00  add         esp,0CCh
+  1125A703: 3B EC              cmp         ebp,esp
+  1125A705: E8 C6 35 E0 FF     call        1105DCD0
+  1125A70A: 8B E5              mov         esp,ebp
+  1125A70C: 5D                 pop         ebp
+  1125A70D: C2 08 00           ret         8
+  1125A710: CC                 int         3
+
+  Summary
+
+     216F000 .text

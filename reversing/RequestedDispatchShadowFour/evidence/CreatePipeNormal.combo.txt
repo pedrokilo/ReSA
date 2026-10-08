@@ -1,0 +1,19 @@
+// CCustomBuildingPipeline::CreatePipe @ 0x005d7d90 [0x5d7d90..0x5d7da3]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+bool FUN_005d7d90(void)
+
+{
+  DAT_00c02c68 = FUN_005d7aa0();
+  return DAT_00c02c68 != 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D7D90: call 005D7AA0
+005D7D95: xor ecx,ecx
+005D7D97: test eax,eax
+005D7D99: setne cl
+005D7D9C: mov dword ptr ds:[00C02C68h],eax
+005D7DA1: mov eax,ecx
+005D7DA3: ret

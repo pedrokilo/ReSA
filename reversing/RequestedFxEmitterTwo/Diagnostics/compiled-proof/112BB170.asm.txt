@@ -1,0 +1,39 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  112BB170: 55                 push        ebp
+  112BB171: 8B EC              mov         ebp,esp
+  112BB173: 81 EC CC 00 00 00  sub         esp,0CCh
+  112BB179: 53                 push        ebx
+  112BB17A: 56                 push        esi
+  112BB17B: 57                 push        edi
+  112BB17C: 51                 push        ecx
+  112BB17D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  112BB180: B9 03 00 00 00     mov         ecx,3
+  112BB185: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  112BB18A: F3 AB              rep stos    dword ptr es:[edi]
+  112BB18C: 59                 pop         ecx
+  112BB18D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  112BB190: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  112BB193: E8 DD EB D9 FF     call        11059D75
+  112BB198: 90                 nop
+  112BB199: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  112BB19C: 5F                 pop         edi
+  112BB19D: 5E                 pop         esi
+  112BB19E: 5B                 pop         ebx
+  112BB19F: 81 C4 CC 00 00 00  add         esp,0CCh
+  112BB1A5: 3B EC              cmp         ebp,esp
+  112BB1A7: E8 ED EA D9 FF     call        11059C99
+  112BB1AC: 8B E5              mov         esp,ebp
+  112BB1AE: 5D                 pop         ebp
+  112BB1AF: C3                 ret
+  112BB1B0: CC                 int         3
+
+  Summary
+
+     2166000 .text

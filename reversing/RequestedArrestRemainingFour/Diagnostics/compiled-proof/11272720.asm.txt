@@ -1,0 +1,67 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  11272720: 55                 push        ebp
+  11272721: 8B EC              mov         ebp,esp
+  11272723: 81 EC CC 00 00 00  sub         esp,0CCh
+  11272729: 53                 push        ebx
+  1127272A: 56                 push        esi
+  1127272B: 57                 push        edi
+  1127272C: 51                 push        ecx
+  1127272D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11272730: B9 03 00 00 00     mov         ecx,3
+  11272735: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1127273A: F3 AB              rep stos    dword ptr es:[edi]
+  1127273C: 59                 pop         ecx
+  1127273D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11272740: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11272743: 50                 push        eax
+  11272744: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11272747: E8 76 3C E3 FF     call        110A63C2
+  1127274C: 90                 nop
+  1127274D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11272750: C7 00 C4 63 1D 13  mov         dword ptr [eax],131D63C4h
+  11272756: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11272759: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1127275C: 8A 51 0C           mov         dl,byte ptr [ecx+0Ch]
+  1127275F: 88 50 0C           mov         byte ptr [eax+0Ch],dl
+  11272762: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11272765: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11272768: 8B 51 10           mov         edx,dword ptr [ecx+10h]
+  1127276B: 89 50 10           mov         dword ptr [eax+10h],edx
+  1127276E: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11272771: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11272774: 8B 51 14           mov         edx,dword ptr [ecx+14h]
+  11272777: 89 50 14           mov         dword ptr [eax+14h],edx
+  1127277A: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1127277D: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11272780: 8B 51 18           mov         edx,dword ptr [ecx+18h]
+  11272783: 89 50 18           mov         dword ptr [eax+18h],edx
+  11272786: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11272789: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1127278C: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  1127278F: 89 50 1C           mov         dword ptr [eax+1Ch],edx
+  11272792: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11272795: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11272798: 8B 51 20           mov         edx,dword ptr [ecx+20h]
+  1127279B: 89 50 20           mov         dword ptr [eax+20h],edx
+  1127279E: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  112727A1: 5F                 pop         edi
+  112727A2: 5E                 pop         esi
+  112727A3: 5B                 pop         ebx
+  112727A4: 81 C4 CC 00 00 00  add         esp,0CCh
+  112727AA: 3B EC              cmp         ebp,esp
+  112727AC: E8 1F B5 DE FF     call        1105DCD0
+  112727B1: 8B E5              mov         esp,ebp
+  112727B3: 5D                 pop         ebp
+  112727B4: C2 04 00           ret         4
+  112727B7: CC                 int         3
+
+  Summary
+
+     216F000 .text

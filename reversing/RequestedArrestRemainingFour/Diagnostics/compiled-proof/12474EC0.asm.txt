@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  12474EC0: 55                 push        ebp
+  12474EC1: 8B EC              mov         ebp,esp
+  12474EC3: 81 EC CC 00 00 00  sub         esp,0CCh
+  12474EC9: 53                 push        ebx
+  12474ECA: 56                 push        esi
+  12474ECB: 57                 push        edi
+  12474ECC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  12474ECF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  12474ED2: C7 00 04 D6 1C 13  mov         dword ptr [eax],131CD604h
+  12474ED8: 5F                 pop         edi
+  12474ED9: 5E                 pop         esi
+  12474EDA: 5B                 pop         ebx
+  12474EDB: 8B E5              mov         esp,ebp
+  12474EDD: 5D                 pop         ebp
+  12474EDE: C3                 ret
+  12474EDF: CC                 int         3
+  12474EE0: CC                 int         3
+  12474EE1: CC                 int         3
+  12474EE2: CC                 int         3
+  12474EE3: CC                 int         3
+  12474EE4: CC                 int         3
+  12474EE5: CC                 int         3
+  12474EE6: CC                 int         3
+  12474EE7: CC                 int         3
+  12474EE8: CC                 int         3
+  12474EE9: CC                 int         3
+  12474EEA: CC                 int         3
+  12474EEB: CC                 int         3
+  12474EEC: CC                 int         3
+  12474EED: CC                 int         3
+  12474EEE: CC                 int         3
+  12474EEF: CC                 int         3
+  12474EF0: 55                 push        ebp
+  12474EF1: 8B EC              mov         ebp,esp
+  12474EF3: 81 EC C0 00 00 00  sub         esp,0C0h
+  12474EF9: 53                 push        ebx
+  12474EFA: 56                 push        esi
+  12474EFB: 57                 push        edi
+  12474EFC: 8B FD              mov         edi,ebp
+  12474EFE: 33 C9              xor         ecx,ecx
+  12474F00: B8
+
+  Summary
+
+     216F000 .text

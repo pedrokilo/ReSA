@@ -1,0 +1,51 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  117528E0: 55                 push        ebp
+  117528E1: 8B EC              mov         ebp,esp
+  117528E3: 81 EC CC 00 00 00  sub         esp,0CCh
+  117528E9: 53                 push        ebx
+  117528EA: 56                 push        esi
+  117528EB: 57                 push        edi
+  117528EC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  117528EF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  117528F2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  117528F5: 89 08              mov         dword ptr [eax],ecx
+  117528F7: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  117528FA: 5F                 pop         edi
+  117528FB: 5E                 pop         esi
+  117528FC: 5B                 pop         ebx
+  117528FD: 8B E5              mov         esp,ebp
+  117528FF: 5D                 pop         ebp
+  11752900: C2 04 00           ret         4
+  11752903: CC                 int         3
+  11752904: CC                 int         3
+  11752905: CC                 int         3
+  11752906: CC                 int         3
+  11752907: CC                 int         3
+  11752908: CC                 int         3
+  11752909: CC                 int         3
+  1175290A: CC                 int         3
+  1175290B: CC                 int         3
+  1175290C: CC                 int         3
+  1175290D: CC                 int         3
+  1175290E: CC                 int         3
+  1175290F: CC                 int         3
+  11752910: 55                 push        ebp
+  11752911: 8B EC              mov         ebp,esp
+  11752913: 81 EC CC 00 00 00  sub         esp,0CCh
+  11752919: 53                 push        ebx
+  1175291A: 56                 push        esi
+  1175291B: 57                 push        edi
+  1175291C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1175291F: 8B
+  11752920: 45                 inc         ebp
+
+  Summary
+
+     216F000 .text

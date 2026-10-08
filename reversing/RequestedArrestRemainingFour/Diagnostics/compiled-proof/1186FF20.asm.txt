@@ -1,0 +1,161 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1186FF20: 55                 push        ebp
+  1186FF21: 8B EC              mov         ebp,esp
+  1186FF23: 81 EC C4 00 00 00  sub         esp,0C4h
+  1186FF29: 53                 push        ebx
+  1186FF2A: 56                 push        esi
+  1186FF2B: 57                 push        edi
+  1186FF2C: 8D 7D FC           lea         edi,[ebp-4]
+  1186FF2F: B9 01 00 00 00     mov         ecx,1
+  1186FF34: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1186FF39: F3 AB              rep stos    dword ptr es:[edi]
+  1186FF3B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1186FF3E: 83 38 00           cmp         dword ptr [eax],0
+  1186FF41: 74 1B              je          1186FF5E
+  1186FF43: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1186FF46: 8B 08              mov         ecx,dword ptr [eax]
+  1186FF48: 89 8D 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],ecx
+  1186FF4E: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1186FF51: 52                 push        edx
+  1186FF52: 8B 8D 3C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF3Ch]
+  1186FF58: E8 BE 72 80 FF     call        1107721B
+  1186FF5D: 90                 nop
+  1186FF5E: 5F                 pop         edi
+  1186FF5F: 5E                 pop         esi
+  1186FF60: 5B                 pop         ebx
+  1186FF61: 81 C4 C4 00 00 00  add         esp,0C4h
+  1186FF67: 3B EC              cmp         ebp,esp
+  1186FF69: E8 62 DD 7E FF     call        1105DCD0
+  1186FF6E: 8B E5              mov         esp,ebp
+  1186FF70: 5D                 pop         ebp
+  1186FF71: C3                 ret
+  1186FF72: CC                 int         3
+  1186FF73: CC                 int         3
+  1186FF74: CC                 int         3
+  1186FF75: CC                 int         3
+  1186FF76: CC                 int         3
+  1186FF77: CC                 int         3
+  1186FF78: CC                 int         3
+  1186FF79: CC                 int         3
+  1186FF7A: CC                 int         3
+  1186FF7B: CC                 int         3
+  1186FF7C: CC                 int         3
+  1186FF7D: CC                 int         3
+  1186FF7E: CC                 int         3
+  1186FF7F: CC                 int         3
+  1186FF80: CC                 int         3
+  1186FF81: CC                 int         3
+  1186FF82: CC                 int         3
+  1186FF83: CC                 int         3
+  1186FF84: CC                 int         3
+  1186FF85: CC                 int         3
+  1186FF86: CC                 int         3
+  1186FF87: CC                 int         3
+  1186FF88: CC                 int         3
+  1186FF89: CC                 int         3
+  1186FF8A: CC                 int         3
+  1186FF8B: CC                 int         3
+  1186FF8C: CC                 int         3
+  1186FF8D: CC                 int         3
+  1186FF8E: CC                 int         3
+  1186FF8F: CC                 int         3
+  1186FF90: 55                 push        ebp
+  1186FF91: 8B EC              mov         ebp,esp
+  1186FF93: 81 EC C0 00 00 00  sub         esp,0C0h
+  1186FF99: 53                 push        ebx
+  1186FF9A: 56                 push        esi
+  1186FF9B: 57                 push        edi
+  1186FF9C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1186FF9F: 5F                 pop         edi
+  1186FFA0: 5E                 pop         esi
+  1186FFA1: 5B                 pop         ebx
+  1186FFA2: 8B E5              mov         esp,ebp
+  1186FFA4: 5D                 pop         ebp
+  1186FFA5: C3                 ret
+  1186FFA6: CC                 int         3
+  1186FFA7: CC                 int         3
+  1186FFA8: CC                 int         3
+  1186FFA9: CC                 int         3
+  1186FFAA: CC                 int         3
+  1186FFAB: CC                 int         3
+  1186FFAC: CC                 int         3
+  1186FFAD: CC                 int         3
+  1186FFAE: CC                 int         3
+  1186FFAF: CC                 int         3
+  1186FFB0: 55                 push        ebp
+  1186FFB1: 8B EC              mov         ebp,esp
+  1186FFB3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1186FFB9: 53                 push        ebx
+  1186FFBA: 56                 push        esi
+  1186FFBB: 57                 push        edi
+  1186FFBC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1186FFBF: 5F                 pop         edi
+  1186FFC0: 5E                 pop         esi
+  1186FFC1: 5B                 pop         ebx
+  1186FFC2: 8B E5              mov         esp,ebp
+  1186FFC4: 5D                 pop         ebp
+  1186FFC5: C3                 ret
+  1186FFC6: CC                 int         3
+  1186FFC7: CC                 int         3
+  1186FFC8: CC                 int         3
+  1186FFC9: CC                 int         3
+  1186FFCA: CC                 int         3
+  1186FFCB: CC                 int         3
+  1186FFCC: CC                 int         3
+  1186FFCD: CC                 int         3
+  1186FFCE: CC                 int         3
+  1186FFCF: CC                 int         3
+  1186FFD0: 55                 push        ebp
+  1186FFD1: 8B EC              mov         ebp,esp
+  1186FFD3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1186FFD9: 53                 push        ebx
+  1186FFDA: 56                 push        esi
+  1186FFDB: 57                 push        edi
+  1186FFDC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1186FFDF: 5F                 pop         edi
+  1186FFE0: 5E                 pop         esi
+  1186FFE1: 5B                 pop         ebx
+  1186FFE2: 8B E5              mov         esp,ebp
+  1186FFE4: 5D                 pop         ebp
+  1186FFE5: C3                 ret
+  1186FFE6: CC                 int         3
+  1186FFE7: CC                 int         3
+  1186FFE8: CC                 int         3
+  1186FFE9: CC                 int         3
+  1186FFEA: CC                 int         3
+  1186FFEB: CC                 int         3
+  1186FFEC: CC                 int         3
+  1186FFED: CC                 int         3
+  1186FFEE: CC                 int         3
+  1186FFEF: CC                 int         3
+  1186FFF0: 55                 push        ebp
+  1186FFF1: 8B EC              mov         ebp,esp
+  1186FFF3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1186FFF9: 53                 push        ebx
+  1186FFFA: 56                 push        esi
+  1186FFFB: 57                 push        edi
+  1186FFFC: 8B FD              mov         edi,ebp
+  1186FFFE: 33 C9              xor         ecx,ecx
+  11870000: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11870005: F3 AB              rep stos    dword ptr es:[edi]
+  11870007: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1187000A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1187000D: 8B 10              mov         edx,dword ptr [eax]
+  1187000F: 3B 11              cmp         edx,dword ptr [ecx]
+  11870011: 76 2D              jbe         11870040
+  11870013: 68 C4 CC 1C 13     push        131CCCC4h
+  11870018: 68 7C CB 1C 13     push        131CCB7Ch
+  1187001D: 6A 00              push        0
+  1187001F: 68
+  11870020: 10
+
+  Summary
+
+     216F000 .text

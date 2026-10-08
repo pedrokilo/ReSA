@@ -1,0 +1,15 @@
+{
+  "ready": true,
+  "inputs": 26,
+  "freeze_sha256": "c005a0d1480b81dbbc9dab88871973e3bfc1d323c450288c8dcdfaf7c6aeb172",
+  "live_sha256": "92c0270aa088959750eff3148a2ea7f0dc8755da765a5f2f556c662cd5ca87d7",
+  "builder_sha256": "b46fa6a95d46db907294b081311391d558843c1c91d81dcf67203a0ca9d56139",
+  "restoration_helper_sha256": "d7011373e0f088604c2f964ca1db31a8d080cffda500f904f4b1cfb3c71428bc",
+  "sourcesPad_sha256": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db",
+  "seed_loop_after_cache_substitution_otherwise_exact": true,
+  "oracle_fixtures_Fp_states_restore_unchanged": true,
+  "null_helpers_fail_before_lock_or_cases": true,
+  "original24inputs_preserved": true,
+  "injected_tests_passed": 5,
+  "no_build_GTA": true
+}

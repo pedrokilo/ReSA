@@ -95,8 +95,8 @@ public:
     uint32   LastTimeTouched;
     int32    AverageWeapon;
     int32    AverageEntries;
-    float    NoShakeBeforeThis;
-    char     NoShakeFreq;
+    uint32   NoShakeBeforeThis;
+    uint8    NoShakeFreq;
     char    _pad131[3];
 
 public:
@@ -150,7 +150,7 @@ public:
 
     void StartShake(int16 time, uint8 frequency, uint32 arg2);
     void StartShake_Distance(int16 time, uint8 frequency, CVector pos);
-    void StartShake_Train(const CVector2D& point);
+    void StartShake_Train(CVector2D point);
     static void StopPadsShaking();
     void StopShaking(int16 pad);
 

@@ -1,0 +1,19 @@
+// CCustomBuildingRenderer::PluginAttach @ 0x005d7ef0 [0x5d7ef0..0x5d7efb]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+bool FUN_005d7ef0(void)
+
+{
+  int iVar1;
+  
+  iVar1 = FUN_005d72e0();
+  return iVar1 != 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D7EF0: call 005D72E0
+005D7EF5: neg eax
+005D7EF7: sbb eax,eax
+005D7EF9: neg eax
+005D7EFB: ret

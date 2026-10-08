@@ -1,0 +1,74 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\JUEGOS\GTA San Andreas - CVehicle Test\gta_sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  007F3AC0: A1 24 7B C9 00     mov         eax,dword ptr ds:[00C97B24h]
+  007F3AC5: 8B 0D 4C 7B C9 00  mov         ecx,dword ptr ds:[00C97B4Ch]
+  007F3ACB: 83 EC 08           sub         esp,8
+  007F3ACE: 56                 push        esi
+  007F3ACF: 8B 74 24 10        mov         esi,dword ptr [esp+10h]
+  007F3AD3: 57                 push        edi
+  007F3AD4: 56                 push        esi
+  007F3AD5: FF 54 01 18        call        dword ptr [ecx+eax+18h]
+  007F3AD9: 83 C4 04           add         esp,4
+  007F3ADC: 85 C0              test        eax,eax
+  007F3ADE: 74 0D              je          007F3AED
+  007F3AE0: 8B 48 54           mov         ecx,dword ptr [eax+54h]
+  007F3AE3: 5F                 pop         edi
+  007F3AE4: 41                 inc         ecx
+  007F3AE5: 5E                 pop         esi
+  007F3AE6: 89 48 54           mov         dword ptr [eax+54h],ecx
+  007F3AE9: 83 C4 08           add         esp,8
+  007F3AEC: C3                 ret
+  007F3AED: 8B 7C 24 18        mov         edi,dword ptr [esp+18h]
+  007F3AF1: 8B 15 24 7B C9 00  mov         edx,dword ptr ds:[00C97B24h]
+  007F3AF7: A1 4C 7B C9 00     mov         eax,dword ptr ds:[00C97B4Ch]
+  007F3AFC: 57                 push        edi
+  007F3AFD: 56                 push        esi
+  007F3AFE: FF 54 10 14        call        dword ptr [eax+edx+14h]
+  007F3B02: 83 C4 08           add         esp,8
+  007F3B05: 85 C0              test        eax,eax
+  007F3B07: 75 54              jne         007F3B5D
+  007F3B09: 85 FF              test        edi,edi
+  007F3B0B: C7 44 24 08 01 00  mov         dword ptr [esp+8],1
+            00 00
+  007F3B13: 74 22              je          007F3B37
+  007F3B15: 57                 push        edi
+  007F3B16: 56                 push        esi
+  007F3B17: 6A 16              push        16h
+  007F3B19: E8 B2 4D 01 00     call        008088D0
+  007F3B1E: 8D 4C 24 14        lea         ecx,[esp+14h]
+  007F3B22: 89 44 24 18        mov         dword ptr [esp+18h],eax
+  007F3B26: 51                 push        ecx
+  007F3B27: E8 F4 4C 01 00     call        00808820
+  007F3B2C: 83 C4 10           add         esp,10h
+  007F3B2F: 33 C0              xor         eax,eax
+  007F3B31: 5F                 pop         edi
+  007F3B32: 5E                 pop         esi
+  007F3B33: 83 C4 08           add         esp,8
+  007F3B36: C3                 ret
+  007F3B37: 68 0C 24 8E 00     push        8E240Ch
+  007F3B3C: 56                 push        esi
+  007F3B3D: 6A 16              push        16h
+  007F3B3F: E8 8C 4D 01 00     call        008088D0
+  007F3B44: 8D 54 24 14        lea         edx,[esp+14h]
+  007F3B48: 89 44 24 18        mov         dword ptr [esp+18h],eax
+  007F3B4C: 52                 push        edx
+  007F3B4D: E8 CE 4C 01 00     call        00808820
+  007F3B52: 83 C4 10           add         esp,10h
+  007F3B55: 33 C0              xor         eax,eax
+  007F3B57: 5F                 pop         edi
+  007F3B58: 5E                 pop         esi
+  007F3B59: 83 C4 08           add         esp,8
+  007F3B5C: C3                 ret
+  007F3B5D: 8B
+  007F3B5E: 0D
+  007F3B5F: 24 7B              and         al,7Bh
+
+  Summary
+
+      456000 .text

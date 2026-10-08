@@ -1,0 +1,14 @@
+{
+  "revision": 3,
+  "change": "Cachethree stable owned Simple* before case loop; keep perleg !Hooked+ExactSwitch unchanged; failclosedmissinghelper. Builder narrowly retries errno22 WinMain restoration initial+3x250ms and records each attempt with exactbyteverification. No phasing, case/payload/FP/oracle changes",
+  "previous_freeze_sha256": "b0ae2252e8a1a4287acc33eb075cd03b8af416c02e8c8ac6174460259bad1f2e",
+  "registry_lifetime": "Rootcategory owns hookunique_ptr; registration complete before pregraphics harness; no InjectHooks/register/delete/categorymutation or messagepump inside synchronousbank; cachedobjects live through all cases",
+  "corpus": 95052,
+  "subbanks": {
+    "reconcile": 2892,
+    "update": 2560,
+    "shake": 89600
+  },
+  "sourcePad_sha256": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db",
+  "no_build_GTA": true
+}

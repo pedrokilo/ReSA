@@ -1,0 +1,26 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\JUEGOS\GTA San Andreas - CVehicle Test\gta_sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  004A9CF0: 56                 push        esi
+  004A9CF1: 8B F1              mov         esi,ecx
+  004A9CF3: 8D 4E 20           lea         ecx,[esi+20h]
+  004A9CF6: C7 06 C4 A9 85 00  mov         dword ptr [esi],85A9C4h
+  004A9CFC: E8 CF F0 FF FF     call        004A8DD0
+  004A9D01: 33 C0              xor         eax,eax
+  004A9D03: 89 46 0C           mov         dword ptr [esi+0Ch],eax
+  004A9D06: 89 46 10           mov         dword ptr [esi+10h],eax
+  004A9D09: 89 46 14           mov         dword ptr [esi+14h],eax
+  004A9D0C: 89 46 18           mov         dword ptr [esi+18h],eax
+  004A9D0F: 8B C6              mov         eax,esi
+  004A9D11: 5E                 pop         esi
+  004A9D12: C3                 ret
+  004A9D13: 90                 nop
+
+  Summary
+
+      456000 .text

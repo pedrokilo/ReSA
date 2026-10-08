@@ -4225,11 +4225,11 @@
   },
   {
     "file": "source/game_sa/Pad.cpp",
-    "sha256": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db"
+    "sha256": "b0902674db3e303e58c1bb9b875439a1e3ec02eaa8fa0acb8a619ab6774adaf2"
   },
   {
     "file": "source/game_sa/Pad.h",
-    "sha256": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25"
+    "sha256": "d18adb99148fe3fbdde2447a44699451f3afce97f29994bdf3bd29a3829889e2"
   },
   {
     "file": "source/game_sa/Pad_SDL.cpp",

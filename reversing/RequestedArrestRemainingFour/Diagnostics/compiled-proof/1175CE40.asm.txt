@@ -1,0 +1,95 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1175CE40: 55                 push        ebp
+  1175CE41: 8B EC              mov         ebp,esp
+  1175CE43: 81 EC CC 00 00 00  sub         esp,0CCh
+  1175CE49: 53                 push        ebx
+  1175CE4A: 56                 push        esi
+  1175CE4B: 57                 push        edi
+  1175CE4C: 51                 push        ecx
+  1175CE4D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1175CE50: B9 03 00 00 00     mov         ecx,3
+  1175CE55: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1175CE5A: F3 AB              rep stos    dword ptr es:[edi]
+  1175CE5C: 59                 pop         ecx
+  1175CE5D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1175CE60: 6A 01              push        1
+  1175CE62: 6A 01              push        1
+  1175CE64: 6A 01              push        1
+  1175CE66: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CE69: E8 0C BC 92 FF     call        11088A7A
+  1175CE6E: 90                 nop
+  1175CE6F: 6A 01              push        1
+  1175CE71: 6A 01              push        1
+  1175CE73: 6A 05              push        5
+  1175CE75: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CE78: E8 FD BB 92 FF     call        11088A7A
+  1175CE7D: 90                 nop
+  1175CE7E: 6A 01              push        1
+  1175CE80: 6A 0A              push        0Ah
+  1175CE82: 6A 12              push        12h
+  1175CE84: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CE87: E8 EE BB 92 FF     call        11088A7A
+  1175CE8C: 90                 nop
+  1175CE8D: 6A 01              push        1
+  1175CE8F: 6A 64              push        64h
+  1175CE91: 6A 16              push        16h
+  1175CE93: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CE96: E8 DF BB 92 FF     call        11088A7A
+  1175CE9B: 90                 nop
+  1175CE9C: 6A 01              push        1
+  1175CE9E: 6A 32              push        32h
+  1175CEA0: 6A 19              push        19h
+  1175CEA2: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CEA5: E8 D0 BB 92 FF     call        11088A7A
+  1175CEAA: 90                 nop
+  1175CEAB: 6A 01              push        1
+  1175CEAD: 68 96 00 00 00     push        96h
+  1175CEB2: 6A 1C              push        1Ch
+  1175CEB4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CEB7: E8 BE BB 92 FF     call        11088A7A
+  1175CEBC: 90                 nop
+  1175CEBD: 6A 01              push        1
+  1175CEBF: 6A 78              push        78h
+  1175CEC1: 6A 1E              push        1Eh
+  1175CEC3: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CEC6: E8 AF BB 92 FF     call        11088A7A
+  1175CECB: 90                 nop
+  1175CECC: 6A 01              push        1
+  1175CECE: 6A 19              push        19h
+  1175CED0: 6A 21              push        21h
+  1175CED2: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CED5: E8 A0 BB 92 FF     call        11088A7A
+  1175CEDA: 90                 nop
+  1175CEDB: 6A 01              push        1
+  1175CEDD: 68 C8 00 00 00     push        0C8h
+  1175CEE2: 6A 23              push        23h
+  1175CEE4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CEE7: E8 8E BB 92 FF     call        11088A7A
+  1175CEEC: 90                 nop
+  1175CEED: 6A 01              push        1
+  1175CEEF: 68 C8 00 00 00     push        0C8h
+  1175CEF4: 6A 29              push        29h
+  1175CEF6: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175CEF9: E8 7C BB 92 FF     call        11088A7A
+  1175CEFE: 90                 nop
+  1175CEFF: 5F                 pop         edi
+  1175CF00: 5E                 pop         esi
+  1175CF01: 5B                 pop         ebx
+  1175CF02: 81 C4 CC 00 00 00  add         esp,0CCh
+  1175CF08: 3B EC              cmp         ebp,esp
+  1175CF0A: E8 C1 0D 90 FF     call        1105DCD0
+  1175CF0F: 8B E5              mov         esp,ebp
+  1175CF11: 5D                 pop         ebp
+  1175CF12: C3                 ret
+  1175CF13: CC                 int         3
+
+  Summary
+
+     216F000 .text

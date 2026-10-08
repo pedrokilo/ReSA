@@ -1,0 +1,78 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  117553A0: 55                 push        ebp
+  117553A1: 8B EC              mov         ebp,esp
+  117553A3: 81 EC D8 00 00 00  sub         esp,0D8h
+  117553A9: 53                 push        ebx
+  117553AA: 56                 push        esi
+  117553AB: 57                 push        edi
+  117553AC: 51                 push        ecx
+  117553AD: 8D 7D E8           lea         edi,[ebp-18h]
+  117553B0: B9 06 00 00 00     mov         ecx,6
+  117553B5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  117553BA: F3 AB              rep stos    dword ptr es:[edi]
+  117553BC: 59                 pop         ecx
+  117553BD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  117553C0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  117553C3: 8B 08              mov         ecx,dword ptr [eax]
+  117553C5: 0F B7 51 20        movzx       edx,word ptr [ecx+20h]
+  117553C9: 81 E2 FF 03 00 80  and         edx,800003FFh
+  117553CF: 79 08              jns         117553D9
+  117553D1: 4A                 dec         edx
+  117553D2: 81 CA 00 FC FF FF  or          edx,0FFFFFC00h
+  117553D8: 42                 inc         edx
+  117553D9: 0F B7 45 0C        movzx       eax,word ptr [ebp+0Ch]
+  117553DD: 3B D0              cmp         edx,eax
+  117553DF: 7C 02              jl          117553E3
+  117553E1: EB 6B              jmp         1175544E
+  117553E3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  117553E6: 8B 08              mov         ecx,dword ptr [eax]
+  117553E8: 83 B9 10 07 00 00  cmp         dword ptr [ecx+00000710h],37h
+            37
+  117553EF: 74 02              je          117553F3
+  117553F1: EB 5B              jmp         1175544E
+  117553F3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  117553F6: 8B 08              mov         ecx,dword ptr [eax]
+  117553F8: 89 8D 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],ecx
+  117553FE: 6A 32              push        32h
+  11755400: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11755403: 52                 push        edx
+  11755404: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  1175540A: E8 C7 2D 90 FF     call        110581D6
+  1175540F: 90                 nop
+  11755410: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11755413: 8B 08              mov         ecx,dword ptr [eax]
+  11755415: 89 8D 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],ecx
+  1175541B: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1175541E: 8B 02              mov         eax,dword ptr [edx]
+  11755420: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  11755426: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11755429: 51                 push        ecx
+  1175542A: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  11755430: E8 63 69 92 FF     call        1107BD98
+  11755435: 89 85 28 FF FF FF  mov         dword ptr [ebp+FFFFFF28h],eax
+  1175543B: 8B 95 28 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF28h]
+  11755441: 52                 push        edx
+  11755442: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  11755448: E8 40 18 94 FF     call        11096C8D
+  1175544D: 90                 nop
+  1175544E: 5F                 pop         edi
+  1175544F: 5E                 pop         esi
+  11755450: 5B                 pop         ebx
+  11755451: 81 C4 D8 00 00 00  add         esp,0D8h
+  11755457: 3B EC              cmp         ebp,esp
+  11755459: E8 72 88 90 FF     call        1105DCD0
+  1175545E: 8B E5              mov         esp,ebp
+  11755460: 5D                 pop         ebp
+  11755461: C2 08 00           ret         8
+  11755464: CC                 int         3
+
+  Summary
+
+     216F000 .text

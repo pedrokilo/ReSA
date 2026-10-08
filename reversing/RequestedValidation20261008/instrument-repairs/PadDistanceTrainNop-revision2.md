@@ -1,0 +1,24 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6848 con evidencia histórica, 0 con vigencia acreditada y 1598 pendientes en 60 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Instrument revision 2
+
+The complete failed preparation was copied and byte-verified before editing: `PadDistanceTrainNop-original-20261008`, 30 files plus archive-integrity.json. This includes the original freeze and failed build.log. The original six compiler errors are preserved: two C2415 and four C2593.
+
+C2415 lines 28/43 used `fld cx`: MSVC recognizes CX as a register token instead of the float local named cx. Renaming that local to cameraX keeps identical arithmetic and instruction order. C2593 resulted from brace assignment being ambiguous between CVector and RwV3d overloads; adding explicit CVector construction to the point and three basis assignments keeps identical component values. Only LiveComparison.hpp and Fixtures.hpp have code changes. `PadDistanceTrainNop-instrument.diff` preserves the exact changes.
+
+No corpus, duration/geometry/gates/role domains, oracle operation, candidate/game source, runtime runner, or Dispatch bank was modified. Independent preparation checks again accepted 13,952 rows and rejected the same seven mutations; all Python files parse. Compilation remains a coordinator action, not performed here.
+
+New prepared freeze SHA256: `6020b9f4b3523ccdfcf82fd006330c17f2228dd51a13b0d81726cc6d0b332852`.
+
+The separately prepared `../run_pad_negative_baseline.py` has SHA256 `b8bba42ff656f5abae729b4d0a90ca1c3852ebe9186d731422a15ba394c0f5a2`. It always preserves failed status, including unexpectedly clean negative baselines. Only a strict negative result with exact count, terminal records, complete stage sequence, and measured restoration is returned as failed evidence so shared runner can measure natural process exit. Unrestored, incomplete or unrelated errors still raise. Its four synthetic contract checks are in negative-wrapper-checks.json; no GTA process was invoked.
+
+Coordinator sequence after the active replay finishes and sources remain stable:
+
+```powershell
+python -B reversing/RequestedPadDistanceTrainNop/build_probe.py
+python -B reversing/RequestedValidation20261008/run_pad_negative_baseline.py
+```
+
+Preserve failed attempt, closure evidence and discrepancies before any Train logic correction. Then rebuild and use the frozen bank's ordinary run_local.py for the corrected positive replay. No negative launch grants runtime approval.

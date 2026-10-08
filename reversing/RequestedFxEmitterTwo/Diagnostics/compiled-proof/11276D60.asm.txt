@@ -1,0 +1,89 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedFxEmitterTwo\artifacts\gta_reversed-fx-emitter-two.asi
+
+File Type: DLL
+
+  11276D60: 55                 push        ebp
+  11276D61: 8B EC              mov         ebp,esp
+  11276D63: 81 EC CC 00 00 00  sub         esp,0CCh
+  11276D69: 53                 push        ebx
+  11276D6A: 56                 push        esi
+  11276D6B: 57                 push        edi
+  11276D6C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11276D6F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11276D72: C7 00 08 77 1C 13  mov         dword ptr [eax],131C7708h
+  11276D78: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11276D7B: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11276D7E: 8A 51 04           mov         dl,byte ptr [ecx+4]
+  11276D81: 88 50 04           mov         byte ptr [eax+4],dl
+  11276D84: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11276D87: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11276D8A: 8A 51 05           mov         dl,byte ptr [ecx+5]
+  11276D8D: 88 50 05           mov         byte ptr [eax+5],dl
+  11276D90: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11276D93: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11276D96: 8A 51 06           mov         dl,byte ptr [ecx+6]
+  11276D99: 88 50 06           mov         byte ptr [eax+6],dl
+  11276D9C: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11276D9F: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11276DA2: 8A 51 07           mov         dl,byte ptr [ecx+7]
+  11276DA5: 88 50 07           mov         byte ptr [eax+7],dl
+  11276DA8: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11276DAB: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11276DAE: 8B 51 08           mov         edx,dword ptr [ecx+8]
+  11276DB1: 89 50 08           mov         dword ptr [eax+8],edx
+  11276DB4: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11276DB7: 83 C0 0C           add         eax,0Ch
+  11276DBA: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11276DBD: 83 C1 0C           add         ecx,0Ch
+  11276DC0: 8B 10              mov         edx,dword ptr [eax]
+  11276DC2: 89 11              mov         dword ptr [ecx],edx
+  11276DC4: 8B 50 04           mov         edx,dword ptr [eax+4]
+  11276DC7: 89 51 04           mov         dword ptr [ecx+4],edx
+  11276DCA: 8B 50 08           mov         edx,dword ptr [eax+8]
+  11276DCD: 89 51 08           mov         dword ptr [ecx+8],edx
+  11276DD0: 8B 40 0C           mov         eax,dword ptr [eax+0Ch]
+  11276DD3: 89 41 0C           mov         dword ptr [ecx+0Ch],eax
+  11276DD6: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11276DD9: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11276DDC: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11276DDF: 89 50 1C           mov         dword ptr [eax+1Ch],edx
+  11276DE2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11276DE5: 83 C0 20           add         eax,20h
+  11276DE8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11276DEB: 83 C1 20           add         ecx,20h
+  11276DEE: 8B 10              mov         edx,dword ptr [eax]
+  11276DF0: 89 11              mov         dword ptr [ecx],edx
+  11276DF2: 8B 50 04           mov         edx,dword ptr [eax+4]
+  11276DF5: 89 51 04           mov         dword ptr [ecx+4],edx
+  11276DF8: 8B 40 08           mov         eax,dword ptr [eax+8]
+  11276DFB: 89 41 08           mov         dword ptr [ecx+8],eax
+  11276DFE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11276E01: 83 C0 2C           add         eax,2Ch
+  11276E04: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11276E07: 83 C1 2C           add         ecx,2Ch
+  11276E0A: 8B 10              mov         edx,dword ptr [eax]
+  11276E0C: 89 11              mov         dword ptr [ecx],edx
+  11276E0E: 8B 50 04           mov         edx,dword ptr [eax+4]
+  11276E11: 89 51 04           mov         dword ptr [ecx+4],edx
+  11276E14: 8B 50 08           mov         edx,dword ptr [eax+8]
+  11276E17: 89 51 08           mov         dword ptr [ecx+8],edx
+  11276E1A: 8B 50 0C           mov         edx,dword ptr [eax+0Ch]
+  11276E1D: 89 51 0C           mov         dword ptr [ecx+0Ch],edx
+  11276E20: 8B 40 10           mov         eax,dword ptr [eax+10h]
+  11276E23: 89 41 10           mov         dword ptr [ecx+10h],eax
+  11276E26: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11276E29: 5F                 pop         edi
+  11276E2A: 5E                 pop         esi
+  11276E2B: 5B                 pop         ebx
+  11276E2C: 8B E5              mov         esp,ebp
+  11276E2E: 5D                 pop         ebp
+  11276E2F: C2 04 00           ret         4
+  11276E32: CC                 int         3
+
+  Summary
+
+     2166000 .text

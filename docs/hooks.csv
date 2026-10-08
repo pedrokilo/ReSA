@@ -1732,7 +1732,7 @@ CPad,ShiftTargetRightJustDown,0x00540880,1,0,1,S
 CPad,SniperZoomIn,0x00540B30,1,0,1,S
 CPad,SniperZoomOut,0x00540B80,1,0,1,S
 CPad,SprintJustDown,0x005407F0,1,0,1,S
-CPad,StartShake,0x0053F920,1,0,0,S
+CPad,StartShake,0x0053F920,1,0,1,S
 CPad,StartShake_Distance,0x0053F9A0,1,0,0,S
 CPad,StartShake_Train,0x0053FA70,1,0,0,S
 CPad,StopShaking,0x0053FB50,1,0,1,S
@@ -2493,10 +2493,10 @@ CCustomCarPlateMgr,SetupMaterialPlateTexture,0x006FE020,1,0,1,S
 CCustomCarPlateMgr,SetupMaterialPlatebackTexture,0x006FDE50,1,0,1,S
 CCustomCarPlateMgr,Shutdown,0x006FD720,1,0,1,S
 CCustomBuildingRenderer,AtomicSetup,0x005D7F00,1,0,1,S
-CCustomBuildingRenderer,Initialise,0x005D7EC0,1,0,0,S
+CCustomBuildingRenderer,Initialise,0x005D7EC0,1,0,1,S
 CCustomBuildingRenderer,IsCBPCPipelineAttached,0x005D7F40,1,0,1,S
-CCustomBuildingRenderer,PluginAttach,0x005D7EF0,1,0,0,S
-CCustomBuildingRenderer,Shutdown,0x005D7EE0,1,0,0,S
+CCustomBuildingRenderer,PluginAttach,0x005D7EF0,1,0,1,S
+CCustomBuildingRenderer,Shutdown,0x005D7EE0,1,0,1,S
 CCustomBuildingRenderer,Update,0x005D8050,1,0,1,S
 CCustomBuildingRenderer,UpdateDayNightBalanceParam,0x005D7F80,1,0,1,S
 CCustomBuildingPipeline,CreateCustomObjPipe,0x005D7AA0,1,0,1,S
@@ -7613,7 +7613,7 @@ CRealTimeShadowManager,Exit,0x00706A60,1,0,0,S
 CRealTimeShadowManager,GetRealTimeShadow,0x00706970,1,0,1,S
 CRealTimeShadowManager,Init,0x007067C0,1,0,0,S
 CRealTimeShadowManager,ReInit,0x00706870,1,0,1,S
-CRealTimeShadowManager,ReturnRealTimeShadow,0x00705B30,1,0,0,S
+CRealTimeShadowManager,ReturnRealTimeShadow,0x00705B30,1,0,1,S
 CRealTimeShadowManager,Update,0x00706AB0,1,0,0,S
 CRealTimeShadow,Constructor,0x00706410,1,0,1,S
 CRealTimeShadow,Create,0x00706460,1,0,1,S

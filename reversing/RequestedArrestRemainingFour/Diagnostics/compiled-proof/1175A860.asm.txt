@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1175A860: 55                 push        ebp
+  1175A861: 8B EC              mov         ebp,esp
+  1175A863: 81 EC DC 00 00 00  sub         esp,0DCh
+  1175A869: 53                 push        ebx
+  1175A86A: 56                 push        esi
+  1175A86B: 57                 push        edi
+  1175A86C: 51                 push        ecx
+  1175A86D: 8D 7D E4           lea         edi,[ebp-1Ch]
+  1175A870: B9 07 00 00 00     mov         ecx,7
+  1175A875: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1175A87A: F3 AB              rep stos    dword ptr es:[edi]
+  1175A87C: 59                 pop         ecx
+  1175A87D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1175A880: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1175A883: 50                 push        eax
+  1175A884: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175A887: E8 0C 15 92 FF     call        1107BD98
+  1175A88C: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1175A88F: 83 7D EC FF        cmp         dword ptr [ebp-14h],0FFFFFFFFh
+  1175A893: 74 1F              je          1175A8B4
+  1175A895: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1175A898: 50                 push        eax
+  1175A899: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175A89C: E8 8E 7B 94 FF     call        110A242F
+  1175A8A1: 8B 08              mov         ecx,dword ptr [eax]
+  1175A8A3: 3B 4D 08           cmp         ecx,dword ptr [ebp+8]
+  1175A8A6: 75 0C              jne         1175A8B4
+  1175A8A8: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],1
+            01 00 00 00
+  1175A8B2: EB 0A              jmp         1175A8BE
+  1175A8B4: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  1175A8BE: 0F B6 85 24 FF FF  movzx       eax,byte ptr [ebp+FFFFFF24h]
+            FF
+  1175A8C5: 5F                 pop         edi
+  1175A8C6: 5E                 pop         esi
+  1175A8C7: 5B                 pop         ebx
+  1175A8C8: 81 C4 DC 00 00 00  add         esp,0DCh
+  1175A8CE: 3B EC              cmp         ebp,esp
+  1175A8D0: E8 FB 33 90 FF     call        1105DCD0
+  1175A8D5: 8B E5              mov         esp,ebp
+  1175A8D7: 5D                 pop         ebp
+  1175A8D8: C2 04 00           ret         4
+  1175A8DB: CC                 int         3
+
+  Summary
+
+     216F000 .text

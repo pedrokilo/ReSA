@@ -1,0 +1,40 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  125F7C40: 55                 push        ebp
+  125F7C41: 8B EC              mov         ebp,esp
+  125F7C43: 81 EC C4 00 00 00  sub         esp,0C4h
+  125F7C49: 53                 push        ebx
+  125F7C4A: 56                 push        esi
+  125F7C4B: 57                 push        edi
+  125F7C4C: 8D 7D FC           lea         edi,[ebp-4]
+  125F7C4F: B9 01 00 00 00     mov         ecx,1
+  125F7C54: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  125F7C59: F3 AB              rep stos    dword ptr es:[edi]
+  125F7C5B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  125F7C5E: 8B 08              mov         ecx,dword ptr [eax]
+  125F7C60: 89 8D 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],ecx
+  125F7C66: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  125F7C69: 52                 push        edx
+  125F7C6A: 8B 8D 3C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF3Ch]
+  125F7C70: E8 E1 45 A9 FE     call        1108C256
+  125F7C75: 90                 nop
+  125F7C76: 5F                 pop         edi
+  125F7C77: 5E                 pop         esi
+  125F7C78: 5B                 pop         ebx
+  125F7C79: 81 C4 C4 00 00 00  add         esp,0C4h
+  125F7C7F: 3B EC              cmp         ebp,esp
+  125F7C81: E8 4A 60 A6 FE     call        1105DCD0
+  125F7C86: 8B E5              mov         esp,ebp
+  125F7C88: 5D                 pop         ebp
+  125F7C89: C3                 ret
+  125F7C8A: CC                 int         3
+
+  Summary
+
+     216F000 .text

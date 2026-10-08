@@ -1,0 +1,7 @@
+{
+  "reader": "WindowsDbgHelp readonly symbol metadata; no module code load/call",
+  "loaded_symbol_base": 268435456,
+  "symbols": [],
+  "enum_ok": true,
+  "last_error": 0
+}

@@ -1,0 +1,25 @@
+{
+  "applied": true,
+  "changes": {
+    "source/game_sa/Pad.cpp": {
+      "old_sha256": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db",
+      "new_sha256": "b0902674db3e303e58c1bb9b875439a1e3ec02eaa8fa0acb8a619ab6774adaf2"
+    },
+    "source/game_sa/Pad.h": {
+      "old_sha256": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+      "new_sha256": "d18adb99148fe3fbdde2447a44699451f3afce97f29994bdf3bd29a3829889e2"
+    }
+  },
+  "approved_after_baseline": "Hex89,600/17,800/natural0 and fullPhaseparity; original nativeoracle89,600exact",
+  "Clear_consumer": "Assignments zero remain exactzero bytes under uint32/uint8; sameoffsetsize/alignment. Allnamedotherconsumers restrictedStartShake.",
+  "Train_logic_unchanged": true,
+  "fresh_compilation_required_static_asserts": [
+    "sizeof(CPad)==0x134",
+    "offsetof(NoShakeBeforeThis)==0x12C",
+    "sizeof(NoShakeBeforeThis)==4",
+    "offsetof(NoShakeFreq)==0x130",
+    "sizeof(NoShakeFreq)==1"
+  ],
+  "registry_written": false,
+  "built": false
+}

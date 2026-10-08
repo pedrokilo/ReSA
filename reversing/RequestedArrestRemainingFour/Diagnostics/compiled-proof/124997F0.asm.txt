@@ -1,0 +1,118 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  124997F0: 55                 push        ebp
+  124997F1: 8B EC              mov         ebp,esp
+  124997F3: 81 EC CC 00 00 00  sub         esp,0CCh
+  124997F9: 53                 push        ebx
+  124997FA: 56                 push        esi
+  124997FB: 57                 push        edi
+  124997FC: 51                 push        ecx
+  124997FD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  12499800: B9 03 00 00 00     mov         ecx,3
+  12499805: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1249980A: F3 AB              rep stos    dword ptr es:[edi]
+  1249980C: 59                 pop         ecx
+  1249980D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  12499810: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  12499813: 83 78 10 00        cmp         dword ptr [eax+10h],0
+  12499817: 75 07              jne         12499820
+  12499819: 33 C0              xor         eax,eax
+  1249981B: E9 06 01 00 00     jmp         12499926
+  12499820: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  12499823: C6 40 0C 00        mov         byte ptr [eax+0Ch],0
+  12499827: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1249982A: 8B 48 10           mov         ecx,dword ptr [eax+10h]
+  1249982D: 8A 91 6D 04 00 00  mov         dl,byte ptr [ecx+0000046Dh]
+  12499833: 80 E2 01           and         dl,1
+  12499836: 0F B6 C2           movzx       eax,dl
+  12499839: 85 C0              test        eax,eax
+  1249983B: 75 16              jne         12499853
+  1249983D: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  12499840: 50                 push        eax
+  12499841: 68 E8 03 00 00     push        3E8h
+  12499846: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  12499849: E8 08 59 BD FE     call        1106F156
+  1249984E: E9 D3 00 00 00     jmp         12499926
+  12499853: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  12499856: 8B 48 10           mov         ecx,dword ptr [eax+10h]
+  12499859: 8B 89 8C 05 00 00  mov         ecx,dword ptr [ecx+0000058Ch]
+  1249985F: E8 12 9E BC FE     call        11063676
+  12499864: 0F B6 D0           movzx       edx,al
+  12499867: 85 D2              test        edx,edx
+  12499869: 75 18              jne         12499883
+  1249986B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1249986E: 8B 48 10           mov         ecx,dword ptr [eax+10h]
+  12499871: 8B 89 8C 05 00 00  mov         ecx,dword ptr [ecx+0000058Ch]
+  12499877: E8 A0 23 BE FE     call        1107BC1C
+  1249987C: 0F B6 D0           movzx       edx,al
+  1249987F: 85 D2              test        edx,edx
+  12499881: 74 16              je          12499899
+  12499883: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  12499886: 50                 push        eax
+  12499887: 68 BF 02 00 00     push        2BFh
+  1249988C: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1249988F: E8 C2 58 BD FE     call        1106F156
+  12499894: E9 8D 00 00 00     jmp         12499926
+  12499899: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1249989C: 8B 48 10           mov         ecx,dword ptr [eax+10h]
+  1249989F: 8B 89 8C 05 00 00  mov         ecx,dword ptr [ecx+0000058Ch]
+  124998A5: E8 62 65 BE FE     call        1107FE0C
+  124998AA: 0F B6 D0           movzx       edx,al
+  124998AD: 85 D2              test        edx,edx
+  124998AF: 74 21              je          124998D2
+  124998B1: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  124998B4: 50                 push        eax
+  124998B5: E8 C7 0B BC FE     call        1105A481
+  124998BA: 83 C4 04           add         esp,4
+  124998BD: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  124998C0: 50                 push        eax
+  124998C1: 68 EB 03 00 00     push        3EBh
+  124998C6: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  124998C9: E8 88 58 BD FE     call        1106F156
+  124998CE: EB 56              jmp         12499926
+  124998D0: EB 54              jmp         12499926
+  124998D2: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  124998D5: 8B 48 10           mov         ecx,dword ptr [eax+10h]
+  124998D8: 8B 89 8C 05 00 00  mov         ecx,dword ptr [ecx+0000058Ch]
+  124998DE: E8 4A 19 C1 FE     call        110AB22D
+  124998E3: 0F B6 D0           movzx       edx,al
+  124998E6: 85 D2              test        edx,edx
+  124998E8: 75 18              jne         12499902
+  124998EA: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  124998ED: 8B 48 10           mov         ecx,dword ptr [eax+10h]
+  124998F0: 8B 89 8C 05 00 00  mov         ecx,dword ptr [ecx+0000058Ch]
+  124998F6: E8 02 26 C1 FE     call        110ABEFD
+  124998FB: 0F B6 D0           movzx       edx,al
+  124998FE: 85 D2              test        edx,edx
+  12499900: 74 13              je          12499915
+  12499902: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  12499905: 50                 push        eax
+  12499906: 68 EB 03 00 00     push        3EBh
+  1249990B: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1249990E: E8 43 58 BD FE     call        1106F156
+  12499913: EB 11              jmp         12499926
+  12499915: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  12499918: 50                 push        eax
+  12499919: 68 D2 02 00 00     push        2D2h
+  1249991E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  12499921: E8 30 58 BD FE     call        1106F156
+  12499926: 5F                 pop         edi
+  12499927: 5E                 pop         esi
+  12499928: 5B                 pop         ebx
+  12499929: 81 C4 CC 00 00 00  add         esp,0CCh
+  1249992F: 3B EC              cmp         ebp,esp
+  12499931: E8 9A 43 BC FE     call        1105DCD0
+  12499936: 8B E5              mov         esp,ebp
+  12499938: 5D                 pop         ebp
+  12499939: C2 04 00           ret         4
+  1249993C: CC                 int         3
+
+  Summary
+
+     216F000 .text

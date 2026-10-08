@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "requested_base": "24adc9887871e167b4b64e981446b265ba1e16df",
-  "inspected_head": "65fcf1bf7f3f55818144cb1f8b7e5028bfd64d17",
+  "inspected_head": "ef0654e8e032dc8de779b6ed39282ba956daff0a",
   "selection": "Classes requested by user; requested_pending=1 selects initial validated=0 identities. Historical rows are context, not an automatic replay expansion.",
-  "hooks_sha256": "326a4b96d738f00f673a489944583d1713274b5879eb9e7ff47df03b9da5c079",
-  "registry_sha256": "88831a8bbe6f9a2c00cd018e16a56d1923205ead8f103c0099167ab5525aa621",
+  "hooks_sha256": "a38d6e0be981be050fec14abbe1e7cd73b1494be5838eb56f53b5b96a05f778b",
+  "registry_sha256": "f184c4949735306f730424a2cb49ac9463c2c0e5f3b04adfc958038c88b07424",
   "classes": {
     "CAEAudioHardware": {
       "expected_pending": 1,
@@ -209,12 +209,11 @@
     },
     "CCustomBuildingRenderer": {
       "expected_pending": 3,
-      "historical_linked": 4,
+      "historical_linked": 7,
       "total": 7,
       "requested_pending": 3,
-      "pending_now": 3,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 3
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CTaskComplexPlayHandSignalAnim": {
       "expected_pending": 3,
@@ -271,12 +270,12 @@
     },
     "CRealTimeShadowManager": {
       "expected_pending": 5,
-      "unlinked": 5,
+      "unlinked": 4,
       "total": 7,
       "requested_pending": 5,
-      "pending_now": 5,
+      "pending_now": 4,
       "pending_with_candidate_summary": 0,
-      "historical_linked": 2
+      "historical_linked": 3
     },
     "CRope": {
       "expected_pending": 5,
@@ -610,12 +609,12 @@
     },
     "CPad": {
       "expected_pending": 75,
-      "historical_linked": 69,
+      "historical_linked": 70,
       "total": 75,
       "requested_pending": 75,
-      "pending_now": 6,
+      "pending_now": 5,
       "pending_with_candidate_summary": 0,
-      "unlinked": 6
+      "unlinked": 5
     },
     "CVehicleModelInfo": {
       "expected_pending": 75,
@@ -677,8 +676,8 @@
     }
   },
   "totals": {
-    "unlinked": 1603,
-    "historical_linked": 707
+    "unlinked": 1598,
+    "historical_linked": 712
   },
   "total_identities": 2310,
   "requested_pending": 1710,
@@ -8070,9 +8069,9 @@
       "address": "0x0053F920",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadMutationRemaining3Hex",
+      "evidence": "reversing/RequestedPadMutationRemaining3Hex/validation-summary-shake.json",
       "candidate_banks": ""
     },
     {
@@ -9324,9 +9323,9 @@
       "address": "0x005D7EC0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-161430-711388",
+      "evidence": "reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/Initialise-validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -9346,9 +9345,9 @@
       "address": "0x005D7EF0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-161430-711388",
+      "evidence": "reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/PluginAttach-validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -9357,9 +9356,9 @@
       "address": "0x005D7EE0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-161430-711388",
+      "evidence": "reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/Shutdown-validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -23360,9 +23359,9 @@
       "address": "0x00705B30",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "20261008-161430-711388",
+      "evidence": "reversing/RequestedValidation20261008/dispatch-audits/20261008-161430-711388/ReturnRealTimeShadow-validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -26099,6 +26098,6 @@
     "Candidate summary passed=true does not accredit current sources or dependencies.",
     "Read-only registry evaluation verifies registered summary/source/dependency hashes; it does not replay GTA or re-hash remote historical logs."
   ],
-  "audit_mode": "selection_only_current_unverified",
-  "pending_now": 1603
+  "audit_mode": "full_registry_evaluate",
+  "pending_now": 1598
 }

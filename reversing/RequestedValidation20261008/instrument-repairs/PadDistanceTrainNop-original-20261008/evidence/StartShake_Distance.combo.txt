@@ -1,0 +1,101 @@
+// CPad::StartShake_Distance @ 0x0053f9a0 [0x53f9a0..0x53fa62]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0053f9a0(short param_1,char param_2,float param_3,float param_4,float param_5)
+
+{
+  float *pfVar1;
+  int in_ECX;
+  
+  if ((DAT_00ba6768 != '\0') && (DAT_00b5f851 == '\0')) {
+    if (DAT_00b6f03c == 0) {
+      pfVar1 = (float *)&DAT_00b6f02c;
+    }
+    else {
+      pfVar1 = (float *)(DAT_00b6f03c + 0x30);
+    }
+    if (SQRT((*pfVar1 - param_3) * (*pfVar1 - param_3) +
+             (pfVar1[1] - param_4) * (pfVar1[1] - param_4) +
+             (pfVar1[2] - param_5) * (pfVar1[2] - param_5)) < 70.0) {
+      if (param_2 == '\0') {
+        *(undefined2 *)(in_ECX + 0x10c) = 0;
+        *(undefined1 *)(in_ECX + 0x110) = 0;
+        return;
+      }
+      if (*(short *)(in_ECX + 0x10c) < param_1) {
+        *(short *)(in_ECX + 0x10c) = param_1;
+        *(char *)(in_ECX + 0x110) = param_2;
+      }
+    }
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0053F9A0: mov al,byte ptr ds:[00BA6768h]
+0053F9A5: test al,al
+0053F9A7: je 0053FA60
+0053F9AD: mov al,byte ptr ds:[00B5F851h]
+0053F9B2: test al,al
+0053F9B4: jne 0053FA60
+0053F9BA: mov eax,dword ptr ds:[00B6F03Ch]
+0053F9BF: test eax,eax
+0053F9C1: push ebx
+0053F9C2: push ebp
+0053F9C3: push esi
+0053F9C4: push edi
+0053F9C5: je 0053F9D6
+0053F9C7: add eax,30h
+0053F9CA: mov ebp,eax
+0053F9CC: mov ebx,eax
+0053F9CE: mov edi,eax
+0053F9D0: mov esi,eax
+0053F9D2: mov edx,eax
+0053F9D4: jmp 0053F9E5
+0053F9D6: mov eax,0B6F02Ch
+0053F9DB: mov ebp,eax
+0053F9DD: mov ebx,eax
+0053F9DF: mov edi,eax
+0053F9E1: mov esi,eax
+0053F9E3: mov edx,eax
+0053F9E5: fld dword ptr [edx+8]
+0053F9E8: fsub dword ptr [esp+24h]
+0053F9EC: fld dword ptr [esi+8]
+0053F9EF: fsub dword ptr [esp+24h]
+0053F9F3: fmulp st(1),st
+0053F9F5: fld dword ptr [edi+4]
+0053F9F8: pop edi
+0053F9F9: fsub dword ptr [esp+1Ch]
+0053F9FD: pop esi
+0053F9FE: fld dword ptr [ebx+4]
+0053FA01: fsub dword ptr [esp+18h]
+0053FA05: fmulp st(1),st
+0053FA07: faddp st(1),st
+0053FA09: fld dword ptr [ebp]
+0053FA0C: pop ebp
+0053FA0D: fsub dword ptr [esp+10h]
+0053FA11: pop ebx
+0053FA12: fld dword ptr [eax]
+0053FA14: fsub dword ptr [esp+0Ch]
+0053FA18: fmulp st(1),st
+0053FA1A: faddp st(1),st
+0053FA1C: fsqrt
+0053FA1E: fcomp dword ptr ds:[00858CE0h]
+0053FA24: fnstsw ax
+0053FA26: test ah,5
+0053FA29: jp 0053FA60
+0053FA2B: mov dl,byte ptr [esp+8]
+0053FA2F: test dl,dl
+0053FA31: jne 0053FA45
+0053FA33: mov word ptr [ecx+0000010Ch],0
+0053FA3C: mov byte ptr [ecx+00000110h],dl
+0053FA42: ret 14h
+0053FA45: mov ax,word ptr [esp+4]
+0053FA4A: cmp ax,word ptr [ecx+0000010Ch]
+ 00
+0053FA51: jle 0053FA60
+0053FA53: mov word ptr [ecx+0000010Ch],ax
+ 00
+0053FA5A: mov byte ptr [ecx+00000110h],dl
+0053FA60: ret 14h

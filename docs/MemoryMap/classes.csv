@@ -126,7 +126,7 @@ CCurrentVehicle,class,2,2,0,2,2,0,,,source/game_sa/CurrentVehicle.h:5,catalogue_
 CCurves,class,6,6,0,6,6,0,,,source/game_sa/Curves.h:7,catalogue_class_or_group
 CCustomBuildingDNPipeline,class,14,14,0,14,14,0,,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h:22,catalogue_class_or_group
 CCustomBuildingPipeline,class,7,7,0,7,7,0,,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h:3,catalogue_class_or_group
-CCustomBuildingRenderer,class,7,7,0,4,4,0,,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.h:5,catalogue_class_or_group
+CCustomBuildingRenderer,class,7,7,0,7,7,0,,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.h:5,catalogue_class_or_group
 CCustomCarEnvMapPipeline,class,37,37,0,37,37,0,,,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:133,catalogue_class_or_group
 CCustomCarPlateMgr,class,14,14,0,14,14,0,,,source/game_sa/CustomCarPlateMgr.h:19,catalogue_class_or_group
 CCustomRoadsignMgr,class,9,9,0,9,9,0,,,source/game_sa/CustomRoadsignMgr.h:9,catalogue_class_or_group
@@ -283,7 +283,7 @@ COcclusion,class,5,5,0,5,5,0,,,source/game_sa/Occlusion.h:9,catalogue_class_or_g
 COnscreenCounterEntry,class,2,2,0,2,2,0,,,source/game_sa/OnscreenCounterEntry.h:12,catalogue_class_or_group
 COnscreenTimer,class,6,6,0,6,6,0,,,source/game_sa/OnscreenTimer.h:15,catalogue_class_or_group
 CPPTriPlantBuffer,class,7,7,0,7,7,0,,,source/game_sa/PPTriPlantBuffer.h:34,catalogue_class_or_group
-CPad,class,75,75,0,69,69,0,,,source/game_sa/Pad.h:54,catalogue_class_or_group
+CPad,class,75,75,0,70,70,0,,,source/game_sa/Pad.h:54,catalogue_class_or_group
 CPathFind,class,56,56,0,2,2,0,,,source/game_sa/PathFind.h:182,catalogue_class_or_group
 CPathNode,class,1,1,0,1,1,0,,,source/game_sa/PathFind.h:120,catalogue_class_or_group
 CPed,class,145,145,0,145,145,0,0x0086C358,public CPhysical,source/game_sa/Entity/Ped/Ped.h:113,catalogue_class_or_group
@@ -347,7 +347,7 @@ CQuadBike,class,12,12,0,12,12,0,0x00871AE8,public CAutomobile,source/game_sa/Ent
 CQuadTreeNode<T>,catalogue_group,12,12,0,12,12,0,,,,catalogue_class_or_group
 CRadar,class,63,63,0,0,0,0,,,source/game_sa/Radar.h:201,catalogue_class_or_group
 CRealTimeShadow,class,8,8,0,8,8,0,,,source/game_sa/RealTimeShadow.h:16,catalogue_class_or_group
-CRealTimeShadowManager,class,7,7,0,2,2,0,,,source/game_sa/RealTimeShadowManager.h:7,catalogue_class_or_group
+CRealTimeShadowManager,class,7,7,0,3,3,0,,,source/game_sa/RealTimeShadowManager.h:7,catalogue_class_or_group
 CRect,class,8,8,0,8,8,0,,,source/game_sa/Core/Rect.h:26,catalogue_class_or_group
 CReferences,class,4,4,0,4,4,0,,,source/game_sa/References.h:13,catalogue_class_or_group
 CRegisteredCorona,class,1,1,0,1,1,0,,,source/game_sa/RegisteredCorona.h:52,catalogue_class_or_group

@@ -1,0 +1,42 @@
+{
+  "prepared_only": true,
+  "revision": 4,
+  "total_comparisons": 95052,
+  "subbanks": {
+    "reconcile": 2892,
+    "update": 2560,
+    "shake": 89600
+  },
+  "inputs": {
+    "reversing/RequestedPadMutationRemaining3Phased/archive_log.py": "703c73b744dd7db219755fd2313ca2fbd1b8aeebc51882a9d9a778125265699e",
+    "reversing/RequestedPadMutationRemaining3Phased/build_probe.py": "90acb824508ec8532238afcfacfcff03e13fa8ab960309e6793c5ea7bfd4bc31",
+    "reversing/RequestedPadMutationRemaining3Phased/DESIGN.md": "6c33c9071dac3b648c9958813b35932c0039cb8291cbb5bfa4083e10cca85962",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/0591-0x0053F530.json": "e71b7903d1084bd6fedc0a27f9476227ccb12385b5fc4ea67d62397be1642ad4",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/0598-0x0053F920.json": "44e9f6e6f1e310210f218b0561f01139568d1c0f7a93be056c624c5fddddf54d",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/0602-0x00541C40.json": "adfde8ef25d45c783c0e663428c77ce86ae2411d643bbc68754055e2939bead8",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/candidate-reconcile-fullbody.json": "9840adcb991024cf180b18b3a30eab619d14589e8a9e75f928ca641c5a8f2c10",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/candidate-scratch-current-artifact-proof.json": "5c0d547b1eb379e77302085c7df26e0472fe7b6401410faa7e113d6db7e10bdc",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/candidate-scratch-dia.json": "f056b5c9d134c213db19e823259a3f45d9607ca2813116540541c6c98e616e2f",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/candidate-scratch-symbol.json": "2d961166b5a527f9c810b9cb571a8ebcbebb8a0f7f99f84fbe68e5e0ef513199",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/helper-ControllerCheckForInput.json": "a79a0fa4931f8094a234f86e93fa26bf94c27ec4a11af989e9c4fff3fe4589e6",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/helper-ControllerClear.json": "79018f7378deec8085e360161d1181bb1a21b6e2d462284544679c34f1f28bcf",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/ReconcileTwoControllersInput.exe.json": "6e761a00de3cb10142ffe093bba5c502bb736c3d75df301d5b6a962912e88084",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/StartShake.exe.json": "2973e38bf434f8f8382d9bab134665d51b56b1fa52a2ae0c273c9a4df7049105",
+    "reversing/RequestedPadMutationRemaining3Phased/evidence/Update.exe.json": "0c50516593fe3b0fbd1455be13947476c82159c9d8bb3d1f1389e694ea8d37dd",
+    "reversing/RequestedPadMutationRemaining3Phased/Fixtures.hpp": "285893875e4cc713c035c276af416e125a87411f8212277935a5a973358fdcf8",
+    "reversing/RequestedPadMutationRemaining3Phased/LiveComparison.hpp": "26ec301e4fc70541fa39b40e758451511f43696bba8089cf323ba2a6c6326727",
+    "reversing/RequestedPadMutationRemaining3Phased/locate_scratch.py": "548f2dc76f38939eb49a74845b3c200d161804ea33d861a12798e37fb348926a",
+    "reversing/RequestedPadMutationRemaining3Phased/PreflightHarness.hpp": "a66234da660f6ed2cff229d29ad993024a7d602125d9d21f3c314671ea6b2216",
+    "reversing/RequestedPadMutationRemaining3Phased/run_local.py": "414721a0c601dd330b5c1ab365ba09358d13afac0947128b52dc4e7872ece83b",
+    "reversing/RequestedPadMutationRemaining3Phased/scope.json": "aee21c738690fd10c2346055c1014c3060dc8894ccd5ebd998062696a499c550",
+    "reversing/RequestedPadMutationRemaining3Phased/ScratchProof.hpp": "57a9b7210a03d7401dcfb5b9a780ba23d2166c7f2f5dfcdf82a2d47cf8a1354f",
+    "reversing/RequestedPadMutationRemaining3Phased/source-consumer-impact.json": "dca0c83192a2c82c0684106ffffeff68473713259b0857aad7cc1ccf6c6c87e4",
+    "reversing/RequestedPadMutationRemaining3Phased/VTableRanges.hpp": "8d898a83e4b965884953fad913b3c76d102d5b539d0ac672ce4acb65c38f7519",
+    "reversing/RequestedPadMutationRemaining3Phased/restore_winmain.py": "83b3d93515d14d5fd72eafbbae58ee916c57e92af0fbbd3a337e6cffe0388cb9",
+    "reversing/RequestedPadMutationRemaining3Phased/revision.json": "eed681ac36a6e52ae8f92e32d300705ee60548c567a6e77d71b8367675daed19"
+  },
+  "native_validation": false,
+  "proof_generation": "Each final compiled artifact gets an independent postcompileDIA layout; old evidenceproof is static illustration only",
+  "instrumentation_revision_reason": "Phasedchunk1024 legs, exact perleg contract preserved, same95052corpus/model, bounded originalphysicalJSON cache; native proof regeneration required",
+  "previous_freeze_sha256": "c005a0d1480b81dbbc9dab88871973e3bfc1d323c450288c8dcdfaf7c6aeb172"
+}

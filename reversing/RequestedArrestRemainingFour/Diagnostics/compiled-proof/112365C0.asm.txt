@@ -1,0 +1,63 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  112365C0: 55                 push        ebp
+  112365C1: 8B EC              mov         ebp,esp
+  112365C3: 81 EC E0 00 00 00  sub         esp,0E0h
+  112365C9: 53                 push        ebx
+  112365CA: 56                 push        esi
+  112365CB: 57                 push        edi
+  112365CC: 51                 push        ecx
+  112365CD: 8D 7D E0           lea         edi,[ebp-20h]
+  112365D0: B9 08 00 00 00     mov         ecx,8
+  112365D5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  112365DA: F3 AB              rep stos    dword ptr es:[edi]
+  112365DC: 59                 pop         ecx
+  112365DD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  112365E0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  112365E3: C7 00 F4 D6 1C 13  mov         dword ptr [eax],131CD6F4h
+  112365E9: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  112365EC: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  112365EF: 89 8D 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],ecx
+  112365F5: 83 BD 2C FF FF FF  cmp         dword ptr [ebp+FFFFFF2Ch],0
+            00
+  112365FC: 74 2F              je          1123662D
+  112365FE: 8B 95 2C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF2Ch]
+  11236604: 8B 02              mov         eax,dword ptr [edx]
+  11236606: 8B 08              mov         ecx,dword ptr [eax]
+  11236608: 89 8D 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],ecx
+  1123660E: 8B F4              mov         esi,esp
+  11236610: 6A 01              push        1
+  11236612: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  11236618: FF 95 24 FF FF FF  call        dword ptr [ebp+FFFFFF24h]
+  1123661E: 3B F4              cmp         esi,esp
+  11236620: E8 AB 76 E2 FF     call        1105DCD0
+  11236625: 89 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],eax
+  1123662B: EB 0A              jmp         11236637
+  1123662D: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],0
+            00 00 00 00
+  11236637: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1123663A: C7 40 08 00 00 00  mov         dword ptr [eax+8],0
+            00
+  11236641: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11236644: E8 F5 C0 E3 FF     call        1107273E
+  11236649: 90                 nop
+  1123664A: 5F                 pop         edi
+  1123664B: 5E                 pop         esi
+  1123664C: 5B                 pop         ebx
+  1123664D: 81 C4 E0 00 00 00  add         esp,0E0h
+  11236653: 3B EC              cmp         ebp,esp
+  11236655: E8 76 76 E2 FF     call        1105DCD0
+  1123665A: 8B E5              mov         esp,ebp
+  1123665C: 5D                 pop         ebp
+  1123665D: C3                 ret
+  1123665E: CC                 int         3
+
+  Summary
+
+     216F000 .text

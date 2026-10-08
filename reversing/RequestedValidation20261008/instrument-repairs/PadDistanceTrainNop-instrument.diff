@@ -1,0 +1,40 @@
+--- original/LiveComparison.hpp
++++ repaired/LiveComparison.hpp
+@@ -20,12 +20,12 @@
+ inline void TestFP(){_clearfp();unsigned control{};_controlfp_s(&control,_PC_24|_RC_NEAR|_MCW_EM,_MCW_PC|_MCW_RC|_MCW_EM);_mm_setcsr(0x1F80);}
+ // Independent arithmetic model transcribed from native x87 order (z+y+x or y+x), not CVector code.
+ __declspec(noinline) inline std::pair<float,float> Measure(CVector camera,CVector point,bool two){
+- float cx=camera.x,cy=camera.y,cz=camera.z,px=point.x,py=point.y,pz=point.z,sum,mag;
++ float cameraX=camera.x,cy=camera.y,cz=camera.z,px=point.x,py=point.y,pz=point.z,sum,mag;
+  if(two){__asm {
+   fld cy
+   fsub py
+   fmul st(0),st(0)
+-  fld cx
++  fld cameraX
+   fsub px
+   fmul st(0),st(0)
+   faddp st(1),st(0)
+@@ -40,7 +40,7 @@
+   fsub py
+   fmul st(0),st(0)
+   faddp st(1),st(0)
+-  fld cx
++  fld cameraX
+   fsub px
+   fmul st(0),st(0)
+   faddp st(1),st(0)
+--- original/Fixtures.hpp
++++ repaired/Fixtures.hpp
+@@ -25,9 +25,9 @@
+  f.geometry=n%16;n/=16;f.mode=n%2;n/=2;f.gates=n%4;n/=4;
+  if(bank==1){f.requestFrequency=frequencies[n%5];n/=5;f.durationRole=n;f.oldDuration=durations[n].first;f.requestDuration=durations[n].second;}
+  else{f.vehicle=n%3;n/=3;f.durationRole=n;f.oldDuration=trainDurations[n];}
+- f.camera=Origin(f.durationRole);const auto d=Delta(f.geometry);f.point={float(f.camera.x+d.x),float(f.camera.y+d.y),float(f.camera.z+d.z)};return f;}
++ f.camera=Origin(f.durationRole);const auto d=Delta(f.geometry);f.point=CVector{float(f.camera.x+d.x),float(f.camera.y+d.y),float(f.camera.z+d.z)};return f;}
+ inline CPad PadSeed(int bank,size_t seed,int16 oldDuration){auto pad=CPad::Pads[0];auto* b=reinterpret_cast<uint8*>(&pad);const auto s=bank*50000+seed;for(size_t k=0;k<sizeof(pad);++k)b[k]=uint8(s*73+k*29+(k>>3));for(size_t k=0x118;k<=0x11F;++k)b[k]&=1;pad.ShakeDur=oldDuration;b[0x110]=uint8(seed*17+3);return pad;}
+ struct GuardedPad {std::array<uint8,16> before;CPad value;std::array<uint8,16> after;explicit GuardedPad(const CPad& p):value(p){before.fill(0xA5);after.fill(0x5A);}bool Guards()const{return std::ranges::all_of(before,[](uint8 b){return b==0xA5;})&&std::ranges::all_of(after,[](uint8 b){return b==0x5A;});}};
+-struct GuardedMatrix {std::array<uint8,16> before;CMatrixLink value;std::array<uint8,16> after;GuardedMatrix(){before.fill(0xA5);after.fill(0x5A);std::memset(&value,0,sizeof(value));value.GetRight()={1,0,0};value.GetForward()={0,1,0};value.GetUp()={0,0,1};}bool Guards()const{return std::ranges::all_of(before,[](uint8 b){return b==0xA5;})&&std::ranges::all_of(after,[](uint8 b){return b==0x5A;});}};
++struct GuardedMatrix {std::array<uint8,16> before;CMatrixLink value;std::array<uint8,16> after;GuardedMatrix(){before.fill(0xA5);after.fill(0x5A);std::memset(&value,0,sizeof(value));value.GetRight()=CVector{1,0,0};value.GetForward()=CVector{0,1,0};value.GetUp()=CVector{0,0,1};}bool Guards()const{return std::ranges::all_of(before,[](uint8 b){return b==0xA5;})&&std::ranges::all_of(after,[](uint8 b){return b==0x5A;});}};
+ struct VehicleImage {std::array<uint8,16> before;alignas(CVehicle)std::array<uint8,sizeof(CVehicle)> bytes;std::array<uint8,16> after;void Fill(uint8 value,int32 type){before.fill(0xA5);bytes.fill(value);after.fill(0x5A);std::memcpy(bytes.data()+0x590,&type,4);}CVehicle* Get(){return reinterpret_cast<CVehicle*>(bytes.data());}bool Guards()const{return std::ranges::all_of(before,[](uint8 b){return b==0xA5;})&&std::ranges::all_of(after,[](uint8 b){return b==0x5A;});}};
+ }

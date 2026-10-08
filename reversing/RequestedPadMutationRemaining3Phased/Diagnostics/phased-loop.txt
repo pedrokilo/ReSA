@@ -1,0 +1,33 @@
+ struct Leg {size_t seed;json physical;bool switched,guarded,inactive,refs,globalsReadonly,helpersOriginal;};
+ auto scratchFor=[](size_t seed){json result=json::array();for(size_t role=0;role<2;++role){std::vector<uint8_t> data(48);for(size_t i=0;i<48;++i)data[i]=uint8_t(seed*73+i*29+role*101);result.push_back(data);}return result;};
+ auto capture=[&](size_t seed,bool candidate)->Leg {
+  const auto fixture=Case(bank,seed);const auto scratchSeeds=scratchFor(seed);bool switched=true,guarded=true,inactive=true,refs=true,globalsReadonly=true,helpersOriginal=true;
+   GuardedPad pad(fixture.pad);GuardedController a(fixture.a),b(fixture.b),out(fixture.out);CControllerState* output=fixture.alias==1?&a.value:fixture.alias==2?&b.value:&out.value;
+   for(const auto& range:globals)std::memcpy(range.ptr,range.data.data(),range.data.size());for(size_t role=0;role<2;++role){const auto& range=scratch[role];std::memcpy(range.ptr,range.data.data(),range.data.size());const auto data=scratchSeeds[role].get<std::vector<uint8_t>>();std::memcpy(static_cast<uint8_t*>(range.ptr)+16,data.data(),48);}
+   std::memcpy(reinterpret_cast<void*>(0xB7CB84),&fixture.clock,4);*reinterpret_cast<uint8_t*>(0xBA6768)=(fixture.gates&1)!=0;*reinterpret_cast<int8_t*>(0xB5F851)=(fixture.gates&2)!=0;
+   json seededGlobals=json::array();for(const auto& range:globals)seededGlobals.push_back(ReversingProbe::Bytes(range.ptr,range.data.size()));
+   std::fesetenv(&originalFP);_mm_setcsr(originalMXCSR);hook->State(candidate);switched&=SmallPendingSupport::ExactSwitch(*hook,candidate);for(size_t helperIndex=0;helperIndex<helperAddresses.size();++helperIndex){if(helperAddresses[helperIndex]==addresses[bank])continue;auto* helper=cachedHelpers[helperIndex];helpersOriginal&=helper&&!helper->Hooked()&&SmallPendingSupport::ExactSwitch(*helper,false);}
+   void* entry=candidate?hook->GetHookOurAddress():hook->GetHookGTAAddress();bool returned=true;
+   if constexpr(bank==0){returned=reinterpret_cast<CControllerState*(__thiscall*)(CPad*,CControllerState*,const CControllerState*,const CControllerState*)>(entry)(&pad.value,output,&a.value,&b.value)==output;}
+   else if constexpr(bank==1){reinterpret_cast<void(__thiscall*)(CPad*,int32_t)>(entry)(&pad.value,fixture.padId);}
+   else{reinterpret_cast<void(__thiscall*)(CPad*,int16_t,uint8_t,uint32_t)>(entry)(&pad.value,fixture.duration,fixture.frequency,fixture.delay);}
+   json currentGlobals=json::array(),currentScratch=json::array();for(const auto& range:globals)currentGlobals.push_back(ReversingProbe::Bytes(range.ptr,range.data.size()));for(const auto& range:scratch)currentScratch.push_back(ReversingProbe::Bytes(range.ptr,range.data.size()));
+   bool guardLeg=PrivateGuards(pad,a,b,out);for(size_t role=0;role<2;++role){const auto bytes=currentScratch[role].get<std::vector<uint8_t>>();guardLeg&=std::equal(bytes.begin(),bytes.begin()+16,scratch[role].data.begin())&&std::equal(bytes.begin()+64,bytes.end(),scratch[role].data.begin()+64);}
+   bool inactiveLeg=true;for(size_t role=0;role<2;++role){const bool active=bank==0?role==size_t(candidate):bank==1?role==0:false;if(!active)inactiveLeg&=currentScratch[role].get<std::vector<uint8_t>>()==[&]{auto bytes=scratch[role].data;const auto data=scratchSeeds[role].get<std::vector<uint8_t>>();std::copy(data.begin(),data.end(),bytes.begin()+16);return bytes;}();}
+   guarded&=guardLeg;inactive&=inactiveLeg;refs&=returned;globalsReadonly&=currentGlobals==seededGlobals;json state={{"pad",ReversingProbe::Bytes(&pad,sizeof(pad))},{"controllers",json::array({ReversingProbe::Bytes(&a,sizeof(a)),ReversingProbe::Bytes(&b,sizeof(b)),ReversingProbe::Bytes(&out,sizeof(out))})},{"globals",currentGlobals},{"return_reference_exact",returned},{"fp",FP()}};
+   json trace=state;trace["scratch_physical"]=currentScratch;trace["scratch_guards_unchanged"]=guardLeg;trace["inactive_scratch_unchanged"]=inactiveLeg;return Leg{seed,std::move(trace),switched,guarded,inactive,refs,globalsReadonly,helpersOriginal};
+
+ };
+ auto contractFor=[](const Leg& leg,bool candidate){const auto& value=leg.physical;json state;for(const char* key:{"pad","controllers","globals","return_reference_exact","fp"})state[key]=value[key];if constexpr(bank==0){const auto bytes=value["scratch_physical"][size_t(candidate)].get<std::vector<uint8_t>>();state["scratch_active_role"]=std::vector<uint8_t>(bytes.begin()+16,bytes.begin()+64);}else state["scratch_physical"]=value["scratch_physical"];return state;};
+ constexpr size_t chunkSize=1024;
+ for(size_t chunkStart=0;chunkStart<counts[bank];chunkStart+=chunkSize){const size_t chunkEnd=std::min(counts[bank],chunkStart+chunkSize);std::vector<Leg> originals;originals.reserve(chunkEnd-chunkStart);
+  for(size_t seed=chunkStart;seed<chunkEnd;++seed)originals.push_back(capture(seed,false));
+  for(size_t seed=chunkStart;seed<chunkEnd;++seed){const auto fixture=Case(bank,seed);auto candidate=capture(seed,true);auto& original=originals[seed-chunkStart];
+   const bool mappingExact=originals.size()==chunkEnd-chunkStart&&original.seed==seed&&candidate.seed==seed;
+   const bool switched=mappingExact&&original.switched&&candidate.switched,guarded=original.guarded&&candidate.guarded,inactive=original.inactive&&candidate.inactive,refs=original.refs&&candidate.refs,globalsReadonly=original.globalsReadonly&&candidate.globalsReadonly,helpersOriginal=original.helpersOriginal&&candidate.helpersOriginal;
+   const json contracts=json::array({contractFor(original,false),contractFor(candidate,true)});const json physical=json::array({original.physical,candidate.physical});const auto scratchSeeds=scratchFor(seed);
+  ++executed;allSwitches&=switched;allGuards&=guarded;allInactive&=inactive;allRefs&=refs;allGlobals&=globalsReadonly;allHelpers&=helpersOriginal;
+  write({{"event","comparison"},{"function",names[bank]},{"address",addresses[bank]},{"seed",seed},{"domain",fixture.domain},{"alias",fixture.alias},{"clock",fixture.clock},{"deadline",fixture.deadline},{"delay",fixture.delay},{"duration",fixture.duration},{"frequency",fixture.frequency},{"stored_frequency",fixture.storedFrequency},{"gates",fixture.gates},{"pad_id",fixture.padId},{"switch_exact",switched},{"guards_unchanged",guarded},{"inactive_scratch_unchanged",inactive},{"return_reference_exact",refs},{"globals_unchanged",globalsReadonly},{"helper_entries_original",helpersOriginal},{"equal",contracts[0]==contracts[1]},{"original",physical[0]},{"candidate",physical[1]},{"scratch_seed_bytes",scratchSeeds}});if(seed%128==127)log.flush();
+
+  }
+ }

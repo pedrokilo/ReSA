@@ -1,0 +1,217 @@
+{
+  "asi_sha256": "39779f785144b5481e7b37944a6cc8035e5ddd35ef94686a43039f542ada758b",
+  "pdb_sha256": "051c3f1b90f95f029f813f38acdbe57dc5c9c91defd30056abae62ed71eb76d8",
+  "pdb_rsds_match": true,
+  "compiled_header_sha256": "02308f129734bfbe07174ad56418971e60025cd3536fa5da44e99db4d2a9dd37",
+  "manifest_sha256": "51a15a84d31c575d1d76a3c679a59de276a50a4ac72da21fe9cc289058e6fc0b",
+  "runtime_executed": false,
+  "injection_mapping": [
+    {
+      "site": "0x1249aa80",
+      "own_entry": "0x11076a28",
+      "own_body": "0x112b9640",
+      "native": "0x68b990",
+      "bytes": "68286a07116890b96800"
+    },
+    {
+      "site": "0x1249abbc",
+      "own_entry": "0x11074e0d",
+      "own_body": "0x112c4750",
+      "native": "0x68ba00",
+      "bytes": "680d4e07116800ba6800"
+    },
+    {
+      "site": "0x1249b2c4",
+      "own_entry": "0x1106f156",
+      "own_body": "0x1249a120",
+      "native": "0x68cf80",
+      "bytes": "6856f106116880cf6800"
+    }
+  ],
+  "registered_reference_paths": [
+    {
+      "site": "0x117c3f78",
+      "bytes": "e8d9828cff",
+      "entry": "0x1108c256",
+      "body": "0x117298f0",
+      "e9_chain": [
+        [
+          "0x1108c256",
+          "0x117298f0"
+        ]
+      ]
+    },
+    {
+      "site": "0x1186ff58",
+      "bytes": "e8be7280ff",
+      "entry": "0x1107721b",
+      "body": "0x11718e00",
+      "e9_chain": [
+        [
+          "0x1107721b",
+          "0x11718e00"
+        ]
+      ]
+    }
+  ],
+  "base_terminal_call": {
+    "site": "0x11236644",
+    "bytes": "e8f5c0e3ff",
+    "entry": "0x1107273e",
+    "body": "0x12474ec0",
+    "e9_chain": [
+      [
+        "0x1107273e",
+        "0x12474ec0"
+      ]
+    ]
+  },
+  "boat_helper_paths": [
+    {
+      "site": "0x1249b721",
+      "bytes": "e85832c0fe",
+      "entry": "0x1109e97e",
+      "body": "0x12772b60",
+      "e9_chain": [
+        [
+          "0x1109e97e",
+          "0x12772b60"
+        ]
+      ]
+    },
+    {
+      "site": "0x1249b734",
+      "bytes": "e84954bdfe",
+      "entry": "0x11070b82",
+      "body": "0x1175a860",
+      "e9_chain": [
+        [
+          "0x11070b82",
+          "0x1175a860"
+        ]
+      ]
+    },
+    {
+      "site": "0x1249b752",
+      "bytes": "e82b54bdfe",
+      "entry": "0x11070b82",
+      "body": "0x1175a860",
+      "e9_chain": [
+        [
+          "0x11070b82",
+          "0x1175a860"
+        ]
+      ]
+    },
+    {
+      "site": "0x1249b767",
+      "bytes": "e80ed3befe",
+      "entry": "0x11088a7a",
+      "body": "0x1175ca60",
+      "e9_chain": [
+        [
+          "0x11088a7a",
+          "0x1175ca60"
+        ]
+      ]
+    },
+    {
+      "site": "0x1249b772",
+      "bytes": "e83ea7befe",
+      "entry": "0x11085eb5",
+      "body": "0x11776860",
+      "e9_chain": [
+        [
+          "0x11085eb5",
+          "0x11776860"
+        ]
+      ]
+    }
+  ],
+  "vtable": {
+    "address": "0x131d63c4",
+    "count": 11,
+    "slots": [
+      "0x1107db4d",
+      "0x11079b38",
+      "0x11088d72",
+      "0x110a9004",
+      "0x110a858c",
+      "0x110a57b0",
+      "0x11076abe",
+      "0x1108e448",
+      "0x110a676e",
+      "0x11088f57",
+      "0x1109b88c"
+    ],
+    "abort_slot": 6,
+    "first_slot": 9,
+    "task_terminal": "0x131cd604",
+    "complex_intermediate": "0x131cd6f4"
+  },
+  "constructor_vptr_store": {
+    "address": "0x12498A8E",
+    "bytes": "c700c4631d13"
+  },
+  "destructor_vptr_store": {
+    "address": "0x12498B52",
+    "bytes": "c700c4631d13"
+  },
+  "base_task_terminal_store": {
+    "address": "0x12474ED2",
+    "bytes": "c70004d61c13"
+  },
+  "helper_paths": [
+    {
+      "site": "0x12498aae",
+      "bytes": "e80bccbdfe",
+      "entry": "0x110756be",
+      "body": "0x117c3f40",
+      "e9_chain": [
+        [
+          "0x110756be",
+          "0x117c3f40"
+        ]
+      ]
+    },
+    {
+      "site": "0x12498b5f",
+      "bytes": "e81c93c0fe",
+      "entry": "0x110a1e80",
+      "body": "0x1186ff20",
+      "e9_chain": [
+        [
+          "0x110a1e80",
+          "0x1186ff20"
+        ]
+      ]
+    },
+    {
+      "site": "0x12499849",
+      "bytes": "e80859bdfe",
+      "entry": "0x1106f156",
+      "body": "0x1249a120",
+      "e9_chain": [
+        [
+          "0x1106f156",
+          "0x1249a120"
+        ]
+      ]
+    }
+  ],
+  "base_destructor_path": {
+    "site": "0x12498b6a",
+    "bytes": "e8f26fc1fe",
+    "entry": "0x110afb61",
+    "body": "0x112365c0",
+    "e9_chain": [
+      [
+        "0x110afb61",
+        "0x112365c0"
+      ]
+    ]
+  },
+  "limitations": [
+    "Private actor storage/child vtable and controlled refs; no actors/delegates/helpers accredited. Three helper call paths followed through SafeRef bodies to registered ref/cleanup bodies and CreateSubTask; boat weapon helper paths resolved to registered bodies."
+  ]
+}

@@ -1,0 +1,39 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  112C4750: 55                 push        ebp
+  112C4751: 8B EC              mov         ebp,esp
+  112C4753: 81 EC CC 00 00 00  sub         esp,0CCh
+  112C4759: 53                 push        ebx
+  112C475A: 56                 push        esi
+  112C475B: 57                 push        edi
+  112C475C: 51                 push        ecx
+  112C475D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  112C4760: B9 03 00 00 00     mov         ecx,3
+  112C4765: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  112C476A: F3 AB              rep stos    dword ptr es:[edi]
+  112C476C: 59                 pop         ecx
+  112C476D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  112C4770: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  112C4773: E8 55 F5 DB FF     call        11083CCD
+  112C4778: 90                 nop
+  112C4779: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  112C477C: 5F                 pop         edi
+  112C477D: 5E                 pop         esi
+  112C477E: 5B                 pop         ebx
+  112C477F: 81 C4 CC 00 00 00  add         esp,0CCh
+  112C4785: 3B EC              cmp         ebp,esp
+  112C4787: E8 44 95 D9 FF     call        1105DCD0
+  112C478C: 8B E5              mov         esp,ebp
+  112C478E: 5D                 pop         ebp
+  112C478F: C3                 ret
+  112C4790: CC                 int         3
+
+  Summary
+
+     216F000 .text

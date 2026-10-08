@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\JUEGOS\GTA San Andreas - CVehicle Test\gta_sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0061A3B0: 8B C1              mov         eax,ecx
+  0061A3B2: 33 C9              xor         ecx,ecx
+  0061A3B4: 89 48 04           mov         dword ptr [eax+4],ecx
+  0061A3B7: C7 00 CC D4 86 00  mov         dword ptr [eax],86D4CCh
+  0061A3BD: 89 48 08           mov         dword ptr [eax+8],ecx
+  0061A3C0: C3                 ret
+  0061A3C1: 90                 nop
+  0061A3C2: 90                 nop
+  0061A3C3: 90                 nop
+  0061A3C4: 90                 nop
+  0061A3C5: 90                 nop
+  0061A3C6: 90                 nop
+  0061A3C7: 90                 nop
+  0061A3C8: 90                 nop
+  0061A3C9: 90                 nop
+  0061A3CA: 90                 nop
+  0061A3CB: 90                 nop
+  0061A3CC: 90                 nop
+  0061A3CD: 90                 nop
+  0061A3CE: 90                 nop
+  0061A3CF: 90                 nop
+  0061A3D0: 6A FF              push        0FFFFFFFFh
+  0061A3D2: 68 E8 F0 83 00     push        83F0E8h
+  0061A3D7: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  0061A3DD: 50                 push        eax
+  0061A3DE: 64 89 25 00 00 00  mov         dword ptr fs:[00000000h],esp
+            00
+  0061A3E5: 51                 push        ecx
+  0061A3E6: 56                 push        esi
+  0061A3E7: 8B F1              mov         esi,ecx
+  0061A3E9: 89 74 24 04        mov         dword ptr [esp+4],esi
+  0061A3ED: C7 06 CC D4 86 00  mov         dword ptr [esi],86D4CCh
+  0061A3F3: 8B 4E 08           mov         ecx,dword ptr [esi+8]
+  0061A3F6: 85 C9              test        ecx,ecx
+  0061A3F8: C7 44 24 10 00 00  mov         dword ptr [esp+10h],0
+            00 00
+  0061A400: 74 06              je          0061A408
+  0061A402: 8B 01              mov         eax,dword ptr [ecx]
+  0061A404: 6A 01              push        1
+  0061A406: FF 10              call        dword ptr [eax]
+  0061A408: 8B 4C 24 08        mov         ecx,dword ptr [esp+8]
+  0061A40C: C7 46 08 00 00 00  mov         dword ptr [esi+8],0
+            00
+  0061A413: C7 06 8C D4 86 00  mov         dword ptr [esi],86D48Ch
+  0061A419: 5E                 pop         esi
+  0061A41A: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+
+  Summary
+
+      456000 .text

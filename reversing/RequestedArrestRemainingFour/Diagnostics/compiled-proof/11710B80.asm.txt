@@ -1,0 +1,58 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  11710B80: 55                 push        ebp
+  11710B81: 8B EC              mov         ebp,esp
+  11710B83: 81 EC E4 00 00 00  sub         esp,0E4h
+  11710B89: 53                 push        ebx
+  11710B8A: 56                 push        esi
+  11710B8B: 57                 push        edi
+  11710B8C: 51                 push        ecx
+  11710B8D: 8D 7D DC           lea         edi,[ebp-24h]
+  11710B90: B9 09 00 00 00     mov         ecx,9
+  11710B95: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11710B9A: F3 AB              rep stos    dword ptr es:[edi]
+  11710B9C: 59                 pop         ecx
+  11710B9D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11710BA0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11710BA3: E8 BE 16 96 FF     call        11072266
+  11710BA8: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11710BAB: 83 7D EC 00        cmp         dword ptr [ebp-14h],0
+  11710BAF: 7E 35              jle         11710BE6
+  11710BB1: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11710BB4: 83 E8 01           sub         eax,1
+  11710BB7: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11710BBA: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11710BBD: 50                 push        eax
+  11710BBE: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11710BC1: E8 23 2D 98 FF     call        110938E9
+  11710BC6: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  11710BC9: 83 7D E0 00        cmp         dword ptr [ebp-20h],0
+  11710BCD: 74 15              je          11710BE4
+  11710BCF: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  11710BD2: E8 7B 22 99 FF     call        110A2E52
+  11710BD7: 90                 nop
+  11710BD8: A1 E8 9D 6E 13     mov         eax,dword ptr ds:[136E9DE8h]
+  11710BDD: 83 38 00           cmp         dword ptr [eax],0
+  11710BE0: 74 02              je          11710BE4
+  11710BE2: EB 02              jmp         11710BE6
+  11710BE4: EB C5              jmp         11710BAB
+  11710BE6: 5F                 pop         edi
+  11710BE7: 5E                 pop         esi
+  11710BE8: 5B                 pop         ebx
+  11710BE9: 81 C4 E4 00 00 00  add         esp,0E4h
+  11710BEF: 3B EC              cmp         ebp,esp
+  11710BF1: E8 DA D0 94 FF     call        1105DCD0
+  11710BF6: 8B E5              mov         esp,ebp
+  11710BF8: 5D                 pop         ebp
+  11710BF9: C2 04 00           ret         4
+  11710BFC: CC                 int         3
+
+  Summary
+
+     216F000 .text

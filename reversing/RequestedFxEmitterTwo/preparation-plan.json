@@ -1,0 +1,43 @@
+{
+  "prepared_only": true,
+  "compiled": false,
+  "executed": false,
+  "expected_pairs": 5632,
+  "targets": [
+    {
+      "name": "Constructor",
+      "type": "S",
+      "csv_address": "0x004A18D0",
+      "native_address": "0x004A18D0",
+      "pairs": 512
+    },
+    {
+      "name": "LoadTextures",
+      "type": "V",
+      "csv_address": "0x00000000",
+      "native_address": "0x005C0A30",
+      "vtable": "0x0085A788",
+      "slot": 2,
+      "pairs": 5120
+    }
+  ],
+  "fixture_products": {
+    "constructor": "256 poison values x2 uniform/progression patterns",
+    "load": "8profiles x5versions x16success masks x4fallback masks x2prior slots"
+  },
+  "helper_review_required_before_runtime": "Inspect compiled PE/PDB own RwTextureRead wrapper and E9 chain/body128bytes connects to canonical7F3AC0; source wrapper CallAndReturn proof and primary canonical bytes supplied. Helper is not accredited.",
+  "static_risks": [
+    "Optional exact NULL preserves previous native texture slot; candidate currently writes nullptr. Expected finite seeded-case mismatch, not a source fix or approval.",
+    "Fresh LoadTextures REA request invalid_request preserved; original full campaign dossier and PE ASM remain primary.",
+    "Constructors are executed completely, no stub/noalloc. Storage lifetimes do not call the ownership destructor; private texture handles have no assets."
+  ],
+  "source_observations": {
+    "source/game_sa/Fx/FxEmitterBP.cpp": "9cf61d9f1a77a6648eda3c1f080a31517bdc12594b4b0b3b4af76a6ecc100913",
+    "source/game_sa/Fx/FxEmitterBP.h": "b1dc281fd3cb409f6ac10af27c338fd7c4b679d61cb2424c9baa49acad9576f2",
+    "source/game_sa/Fx/FxPrimBP.cpp": "e7a2d31660532f7c44f7fd765985edb9041bca52e34e6b9e7142765618e54b7b",
+    "source/game_sa/Fx/FxPrimBP.h": "9ea02baa23d54ffeb2610ac5e8af04ac4af6d8a17034c66514ebbf9fba05a8c4",
+    "source/game_sa/Fx/FxInfoManager.h": "732c9394986e6f778c7d8a0d62a39609352af65d423c0aced391dbf960fce09c",
+    "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9",
+    "source/game_sa/RenderWare/rw/rwcore.cpp": "80ec693bf0adfac83d3b3aa2f07f67beb1352d09cbb34f3eeff9aead64271238"
+  }
+}

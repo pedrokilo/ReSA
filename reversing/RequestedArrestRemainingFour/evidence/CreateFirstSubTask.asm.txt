@@ -1,0 +1,107 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\JUEGOS\GTA San Andreas - CVehicle Test\gta_sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  006907A0: 57                 push        edi
+  006907A1: 8B F9              mov         edi,ecx
+  006907A3: 8B 47 10           mov         eax,dword ptr [edi+10h]
+  006907A6: 85 C0              test        eax,eax
+  006907A8: 75 04              jne         006907AE
+  006907AA: 5F                 pop         edi
+  006907AB: C2 04 00           ret         4
+  006907AE: C6 47 0C 00        mov         byte ptr [edi+0Ch],0
+  006907B2: 8B 88 6C 04 00 00  mov         ecx,dword ptr [eax+0000046Ch]
+  006907B8: F6 C5 01           test        ch,1
+  006907BB: 0F 84 E8 00 00 00  je          006908A9
+  006907C1: 8B 80 8C 05 00 00  mov         eax,dword ptr [eax+0000058Ch]
+  006907C7: 83 B8 90 05 00 00  cmp         dword ptr [eax+00000590h],9
+            09
+  006907CE: 0F 84 C0 00 00 00  je          00690894
+  006907D4: 8B 88 94 05 00 00  mov         ecx,dword ptr [eax+00000594h]
+  006907DA: 83 F9 02           cmp         ecx,2
+  006907DD: 0F 84 B1 00 00 00  je          00690894
+  006907E3: 83 F9 05           cmp         ecx,5
+  006907E6: 75 65              jne         0069084D
+  006907E8: 56                 push        esi
+  006907E9: 8B 74 24 0C        mov         esi,dword ptr [esp+0Ch]
+  006907ED: 0F BE 86 18 07 00  movsx       eax,byte ptr [esi+00000718h]
+            00
+  006907F4: 6B C0 1C           imul        eax,eax,1Ch
+  006907F7: 8D 8C 30 A0 05 00  lea         ecx,[eax+esi+000005A0h]
+            00
+  006907FE: E8 BD A9 0A 00     call        0073B1C0
+  00690803: 84 C0              test        al,al
+  00690805: 74 34              je          0069083B
+  00690807: 6A 19              push        19h
+  00690809: 8B CE              mov         ecx,esi
+  0069080B: E8 F0 EA F4 FF     call        005DF300
+  00690810: 84 C0              test        al,al
+  00690812: 8B CE              mov         ecx,esi
+  00690814: 74 04              je          0069081A
+  00690816: 6A 19              push        19h
+  00690818: EB 1C              jmp         00690836
+  0069081A: 6A 16              push        16h
+  0069081C: E8 DF EA F4 FF     call        005DF300
+  00690821: 84 C0              test        al,al
+  00690823: 75 0D              jne         00690832
+  00690825: 6A 00              push        0
+  00690827: 6A 0A              push        0Ah
+  00690829: 6A 16              push        16h
+  0069082B: 8B CE              mov         ecx,esi
+  0069082D: E8 4E 58 F5 FF     call        005E6080
+  00690832: 6A 16              push        16h
+  00690834: 8B CE              mov         ecx,esi
+  00690836: E8 45 5A F5 FF     call        005E6280
+  0069083B: 56                 push        esi
+  0069083C: 68 EB 03 00 00     push        3EBh
+  00690841: 8B CF              mov         ecx,edi
+  00690843: E8 38 C7 FF FF     call        0068CF80
+  00690848: 5E                 pop         esi
+  00690849: 5F                 pop         edi
+  0069084A: C2 04 00           ret         4
+  0069084D: 8B C8              mov         ecx,eax
+  0069084F: E8 3C 15 04 00     call        006D1D90
+  00690854: 84 C0              test        al,al
+  00690856: 75 27              jne         0069087F
+  00690858: 8B 4F 10           mov         ecx,dword ptr [edi+10h]
+  0069085B: 8B 89 8C 05 00 00  mov         ecx,dword ptr [ecx+0000058Ch]
+  00690861: E8 6A 15 04 00     call        006D1DD0
+  00690866: 84 C0              test        al,al
+  00690868: 75 15              jne         0069087F
+  0069086A: 8B 54 24 08        mov         edx,dword ptr [esp+8]
+  0069086E: 52                 push        edx
+  0069086F: 68 D2 02 00 00     push        2D2h
+  00690874: 8B CF              mov         ecx,edi
+  00690876: E8 05 C7 FF FF     call        0068CF80
+  0069087B: 5F                 pop         edi
+  0069087C: C2 04 00           ret         4
+  0069087F: 8B 44 24 08        mov         eax,dword ptr [esp+8]
+  00690883: 50                 push        eax
+  00690884: 68 EB 03 00 00     push        3EBh
+  00690889: 8B CF              mov         ecx,edi
+  0069088B: E8 F0 C6 FF FF     call        0068CF80
+  00690890: 5F                 pop         edi
+  00690891: C2 04 00           ret         4
+  00690894: 8B 4C 24 08        mov         ecx,dword ptr [esp+8]
+  00690898: 51                 push        ecx
+  00690899: 68 BF 02 00 00     push        2BFh
+  0069089E: 8B CF              mov         ecx,edi
+  006908A0: E8 DB C6 FF FF     call        0068CF80
+  006908A5: 5F                 pop         edi
+  006908A6: C2 04 00           ret         4
+  006908A9: 8B 54 24 08        mov         edx,dword ptr [esp+8]
+  006908AD: 52                 push        edx
+  006908AE: 68 E8 03 00 00     push        3E8h
+  006908B3: 8B CF              mov         ecx,edi
+  006908B5: E8 C6 C6 FF FF     call        0068CF80
+  006908BA: 5F                 pop         edi
+  006908BB: C2 04 00           ret         4
+  006908BE: 90                 nop
+
+  Summary
+
+      456000 .text

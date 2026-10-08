@@ -1,0 +1,77 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedArrestRemainingFour\artifacts\gta_reversed-arrest-remaining-four.asi
+
+File Type: DLL
+
+  1175D050: 55                 push        ebp
+  1175D051: 8B EC              mov         ebp,esp
+  1175D053: 81 EC CC 00 00 00  sub         esp,0CCh
+  1175D059: 53                 push        ebx
+  1175D05A: 56                 push        esi
+  1175D05B: 57                 push        edi
+  1175D05C: 51                 push        ecx
+  1175D05D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1175D060: B9 03 00 00 00     mov         ecx,3
+  1175D065: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1175D06A: F3 AB              rep stos    dword ptr es:[edi]
+  1175D06C: 59                 pop         ecx
+  1175D06D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1175D070: 6A 01              push        1
+  1175D072: 6A 00              push        0
+  1175D074: 6A 09              push        9
+  1175D076: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D079: E8 FC B9 92 FF     call        11088A7A
+  1175D07E: 90                 nop
+  1175D07F: 6A 01              push        1
+  1175D081: 6A 05              push        5
+  1175D083: 6A 27              push        27h
+  1175D085: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D088: E8 ED B9 92 FF     call        11088A7A
+  1175D08D: 90                 nop
+  1175D08E: 6A 01              push        1
+  1175D090: 6A 28              push        28h
+  1175D092: 6A 17              push        17h
+  1175D094: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D097: E8 DE B9 92 FF     call        11088A7A
+  1175D09C: 90                 nop
+  1175D09D: 6A 01              push        1
+  1175D09F: 6A 1E              push        1Eh
+  1175D0A1: 6A 1B              push        1Bh
+  1175D0A3: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D0A6: E8 CF B9 92 FF     call        11088A7A
+  1175D0AB: 90                 nop
+  1175D0AC: 6A 01              push        1
+  1175D0AE: 6A 64              push        64h
+  1175D0B0: 6A 1D              push        1Dh
+  1175D0B2: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D0B5: E8 C0 B9 92 FF     call        11088A7A
+  1175D0BA: 90                 nop
+  1175D0BB: 6A 01              push        1
+  1175D0BD: 68 96 00 00 00     push        96h
+  1175D0C2: 6A 1F              push        1Fh
+  1175D0C4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D0C7: E8 AE B9 92 FF     call        11088A7A
+  1175D0CC: 90                 nop
+  1175D0CD: 6A 01              push        1
+  1175D0CF: 68 C8 00 00 00     push        0C8h
+  1175D0D4: 6A 24              push        24h
+  1175D0D6: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1175D0D9: E8 9C B9 92 FF     call        11088A7A
+  1175D0DE: 90                 nop
+  1175D0DF: 5F                 pop         edi
+  1175D0E0: 5E                 pop         esi
+  1175D0E1: 5B                 pop         ebx
+  1175D0E2: 81 C4 CC 00 00 00  add         esp,0CCh
+  1175D0E8: 3B EC              cmp         ebp,esp
+  1175D0EA: E8 E1 0B 90 FF     call        1105DCD0
+  1175D0EF: 8B E5              mov         esp,ebp
+  1175D0F1: 5D                 pop         ebp
+  1175D0F2: C3                 ret
+  1175D0F3: CC                 int         3
+
+  Summary
+
+     216F000 .text

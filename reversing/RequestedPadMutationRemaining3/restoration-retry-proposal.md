@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6848 con evidencia histórica, 0 con vigencia acreditada y 1598 pendientes en 60 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Proposed instrumental revision 3, not applied
 
 Observed twice: `OSError(22)` at `win.write_bytes(saved)` in builder `finally`. Second build completed artifact capture and DIA before failing. Root restored manually. Independent inspection verifies original WinMain SHA `d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be`, both baseline binaries byte equal to `before.*`, and captured ASI/layout SHA equal to manifest. This establishes current restoration; it does not turn builder exit 1 into a successful builder execution.
