@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Voz de peatón: CAEPedSpeechAudioEntity (lista de 34)
 
 Banco escrito el 04/10/2026: **21.760 pares original/candidato** previstos dentro de GTA para las 58 funciones de `CAEPedSpeechAudioEntity` (50 hooks normales y 8 virtuales de la vtable `0x85F310`, entradas 0..7 comprobadas con el volcado de la vtable). Pendiente de compilar y ejecutar.

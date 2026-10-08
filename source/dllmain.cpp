@@ -7,6 +7,10 @@
 #include "extensions/debug.hpp"
 #include "extensions/Configuration.hpp"
 #include "reversiblehooks/RootHookCategory.h"
+#include "reversiblehooks/ReversibleHook/Simple.h"
+#include "reversiblehooks/ReversibleHook/Virtual.h"
+#include <fstream>
+#include <unordered_set>
 
 void InjectHooksMain(HMODULE hThisDLL);
 
@@ -66,6 +70,61 @@ static void ApplyCommandLineHookSettings() {
     }
 }
 
+// Opt-in historical catalog selection; unknown functions are disabled.
+static void ApplyHistoricalHookSettings() {
+    const char* selection = nullptr;
+    for (int i = 1; i < __argc; ++i) {
+        const std::string_view arg{__argv[i]};
+        if (arg.starts_with("--historical-hooks=")) {
+            selection = __argv[i] + sizeof("--historical-hooks=") - 1;
+        }
+    }
+    if (!selection) {
+        return;
+    }
+    std::ifstream input{selection};
+    std::unordered_set<std::string> allowed;
+    for (std::string line; std::getline(input, line);) {
+        if (!line.empty() && line.back() == '\r') line.pop_back();
+        if (!line.empty()) allowed.insert(std::move(line));
+    }
+    std::ofstream report{std::string{selection} + ".runtime.tsv"};
+    bool valid = !allowed.empty() && report.good();
+    size_t matched = 0;
+    report << "class\tfunction\taddress\ttype\tselected\thooked\tlocked_before\n";
+    ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& cat) {
+        using namespace ReversibleHooks::ReversibleHook;
+        for (auto& item : cat.Items()) {
+            uintptr_t address = 0;
+            if (item->Type() == Base::HookType::Simple) {
+                address = reinterpret_cast<uintptr_t>(std::static_pointer_cast<Simple>(item)->GetHookGTAAddress());
+            } else if (item->Type() == Base::HookType::Virtual) {
+                address = reinterpret_cast<uintptr_t>(std::static_pointer_cast<Virtual>(item)->GetHookGTAAddress());
+            }
+            const auto key = std::format("{}\t{}\t{:08X}\t{}", cat.Name(), item->Name(), address, item->Symbol());
+            // Historical catalogs use zero as the virtual-function address sentinel.
+            const auto catalogKey = item->Type() == Base::HookType::Virtual
+                ? std::format("{}\t{}\t00000000\t{}", cat.Name(), item->Name(), item->Symbol())
+                : key;
+            const bool selected = allowed.contains(key) || allowed.contains(catalogKey);
+            const bool locked = item->Locked();
+            item->LockState(false);
+            cat.SetItemEnabled(item, selected);
+            // Keep the chosen profile fixed for this session.
+            item->LockState(true);
+            valid = valid && item->Hooked() == selected;
+            matched += selected;
+            report << key << '\t' << selected << '\t' << item->Hooked() << '\t' << locked << '\n';
+        }
+    });
+    report.flush();
+    valid = valid && report.good() && matched == allowed.size();
+    if (!valid) {
+        MessageBoxA(nullptr, "Historical hook selection failed. See the runtime report.", "GTA reversed", MB_ICONERROR);
+        ExitProcess(1);
+    }
+}
+
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
     switch (ul_reason_for_call) {
     case DLL_PROCESS_ATTACH: {
@@ -87,6 +146,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 
         InjectHooksMain(hModule);
         ApplyCommandLineHookSettings();
+        ApplyHistoricalHookSettings();
         break;
     }
     case DLL_THREAD_ATTACH:

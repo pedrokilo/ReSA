@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Estado de todas las listas solicitadas
 
 Las listas anteriores se detuvieron por instrucción del usuario el 08/10/2026. Sus cifras de replay describen ese cierre histórico. Una solicitud posterior abrió `Interior_c`; sus cambios modifican el árbol de fuentes y exigen renovar las comprobaciones de dependencias del lote anterior. El nuevo trabajo se registra por separado en [InteriorValidation.md](InteriorValidation.md).

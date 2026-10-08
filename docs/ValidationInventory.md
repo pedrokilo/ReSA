@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica, 0 con vigencia acreditada y 1710 pendientes en 77 grupos. [Estado actual y alcance](CurrentStatus.md).
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Inventario de validación de funciones reconstruidas
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
@@ -7,8 +11,8 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 | Estado | Entradas |
 | --- | ---: |
 | `validated=1` · evidencia aprobada vinculada | 6736 |
-| Vigencia acreditada para su alcance | 52 |
-| Evidencia histórica vinculada; revisión pendiente | 6684 |
+| Vigencia acreditada para su alcance | 0 |
+| Evidencia histórica vinculada; revisión pendiente | 6736 |
 | Sin evidencia aprobada vinculada en este registro | 1710 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -6428,6 +6432,58 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | InteriorManager_c | `SetEntryExitPtr` | [Resumen](../reversing/Interior21/validation-summary.json) |
 | InteriorManager_c | `SetStealableObjectStolen` | [Resumen](../reversing/Interior21/validation-summary.json) |
 | InteriorManager_c | `Update` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| Interior_c | `AddGotoPt` | [Resumen](../reversing/InteriorLifecycleCore/validation-summary.json) |
+| Interior_c | `AddInteriorInfo` | [Resumen](../reversing/InteriorLifecycleCore/validation-summary.json) |
+| Interior_c | `AddPickups` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary.json) |
+| Interior_c | `Bedroom_AddTableItem` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
+| Interior_c | `CalcExitPts` | [Resumen](../reversing/InteriorLifecycleCore/validation-summary.json) |
+| Interior_c | `CalcMatrix` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
+| Interior_c | `CheckTilesEmpty` | [Resumen](../reversing/InteriorBase/validation-summary.json) |
+| Interior_c | `Exit` | [Resumen](../reversing/InteriorLifecycleCore/validation-summary.json) |
+| Interior_c | `FindBoundingBox` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
+| Interior_c | `FindEmptyTiles` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
+| Interior_c | `Furnish` | [Resumen](../reversing/InteriorLifecycleCore/validation-summary.json) |
+| Interior_c | `FurnishBedroom` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
+| Interior_c | `FurnishKitchen` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
+| Interior_c | `FurnishLounge` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
+| Interior_c | `FurnishOffice` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `FurnishShop` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `GetBoundingBox` | [Resumen](../reversing/InteriorLifecycleCore/validation-summary.json) |
+| Interior_c | `GetFurnitureEntity` | [Resumen](../reversing/InteriorBase/validation-summary.json) |
+| Interior_c | `GetNumEmptyTiles` | [Resumen](../reversing/InteriorBase/validation-summary.json) |
+| Interior_c | `GetRandomTile` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
+| Interior_c | `GetTileCentre` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
+| Interior_c | `GetTileStatus` | [Resumen](../reversing/InteriorBase/validation-summary.json) |
+| Interior_c | `Init` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary.json) |
+| Interior_c | `IsPtInside` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
+| Interior_c | `IsVisible` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary.json) |
+| Interior_c | `Kitchen_FurnishEdges` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
+| Interior_c | `Lounge_AddChairInfo` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
+| Interior_c | `Lounge_AddHifi` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
+| Interior_c | `Lounge_AddSofaInfo` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
+| Interior_c | `Lounge_AddTV` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
+| Interior_c | `Office_FurnishCenter` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Office_FurnishEdges` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Office_PlaceDesk` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Office_PlaceDeskQuad` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Office_PlaceEdgeDesks` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Office_PlaceEdgeFillers` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `PlaceFurniture` | [Resumen](../reversing/InteriorPlacement/validation-summary.json) |
+| Interior_c | `PlaceFurnitureInCorner` | [Resumen](../reversing/InteriorPlacement/validation-summary.json) |
+| Interior_c | `PlaceFurnitureOnWall` | [Resumen](../reversing/InteriorPlacement/validation-summary.json) |
+| Interior_c | `PlaceObject` | [Resumen](../reversing/InteriorPlacement/validation-summary.json) |
+| Interior_c | `ResetTiles` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
+| Interior_c | `SetCornerTiles` | [Resumen](../reversing/InteriorBase/validation-summary.json) |
+| Interior_c | `SetTilesStatus` | [Resumen](../reversing/InteriorBase/validation-summary.json) |
+| Interior_c | `Shop_AddShelfInfo` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Shop_FurnishAisles` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Shop_FurnishCeiling` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Shop_FurnishEdges` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Shop_Place3PieceUnit` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Shop_PlaceCounter` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Shop_PlaceEdgeUnits` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Shop_PlaceFixedUnits` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
+| Interior_c | `Unfurnish` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary.json) |
 | JPegPlugin | `JPegCompressScreen` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | JPegPlugin | `JPegCompressScreenToBuffer` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | JPegPlugin | `JPegCompressScreenToFile` | [Resumen](../reversing/Fx43/validation-summary.json) |
@@ -7457,7 +7513,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `Input` | 5 | 0 | 5 | 0 |
 | `InteriorGroup_c` | 24 | 0 | 23 | 1 |
 | `InteriorManager_c` | 21 | 0 | 21 | 0 |
-| `Interior_c` | 52 | 52 | 0 | 0 |
+| `Interior_c` | 52 | 0 | 52 | 0 |
 | `JPegPlugin` | 5 | 0 | 5 | 0 |
 | `Light` | 27 | 0 | 27 | 0 |
 | `ModelIndices` | 2 | 0 | 2 | 0 |

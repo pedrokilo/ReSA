@@ -745,7 +745,7 @@ IKChain_c,class,20,20,0,20,20,0,,public ListItem_c<IKChain_c>,source/game_sa/Rag
 Input,catalogue_group,5,5,0,5,5,0,,,,catalogue_class_or_group
 InteriorGroup_c,class,24,24,22,23,23,0,,public ListItem_c<InteriorGroup_c>,source/game_sa/Interior/InteriorGroup_c.h:19,catalogue_class_or_group
 InteriorManager_c,class,21,21,0,21,21,0,,,source/game_sa/Interior/InteriorManager_c.h:16,catalogue_class_or_group
-Interior_c,class,52,52,0,52,52,52,,public ListItem_c<Interior_c>,source/game_sa/Interior/Interior_c.h:19,catalogue_class_or_group
+Interior_c,class,52,52,0,52,52,0,,public ListItem_c<Interior_c>,source/game_sa/Interior/Interior_c.h:19,catalogue_class_or_group
 JPegPlugin,catalogue_group,5,5,0,5,5,0,,,,catalogue_class_or_group
 Light,catalogue_group,27,27,0,27,27,0,,,,catalogue_class_or_group
 ModelIndices,catalogue_group,2,2,0,2,2,0,,,,catalogue_class_or_group

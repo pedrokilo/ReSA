@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Marcadores 3D: C3dMarker y C3dMarkers
 
 Validadas el 02/10/2026 con **17.056 pares original/candidato dentro de GTA**, todos exactos: las 6 funciones de `C3dMarker` y las 20 de `C3dMarkers` (26) con `validated=1`. Primera tanda: 5 funciones de `C3dMarker` (`AddMarker`, `DeleteMarkerObject`, `IsZCoordinateUpToDate`, `SetZCoordinateIfNotUpToDate`, `UpdateZCoordinate`) y 15 de `C3dMarkers` (flechas de dirección, marcadores de usuario, `Load/SaveUser3dMarkers`, `ForceRender`, `Update`, `User3dMarkerAtomicCB`, `PlaceMarker`, `PlaceMarkerSet`, `PlaceMarkerCone`) con `validated=1`.

@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # CPhysical (lista de 34)
 
 Banco preparado el 04/10/2026 y ampliado el 05/10/2026 con **23.808 pares original/candidato dentro de GTA** (las 56 funciones de `CPhysical` con casos propios; `Add` y `RemoveAndAdd` añadidas el 05/10 con 512 y 1.024 casos). Las 54 anteriores ya se corrieron y aprobaron (22.272 pares); las cifras nuevas están pendientes de compilar y correr.

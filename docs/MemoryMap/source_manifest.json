@@ -153,7 +153,7 @@
   },
   {
     "file": "source/dllmain.cpp",
-    "sha256": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+    "sha256": "c08fff10148b181f59468361e10b4579e18c05ab8fc7c7f4563e37cf446a3c6a"
   },
   {
     "file": "source/extensions/Casting.hpp",
@@ -165,7 +165,7 @@
   },
   {
     "file": "source/extensions/CommandLine.cpp",
-    "sha256": "a19dbf8656e00ec8fc9c6505333a9d1cf16c622783de3d090f4717f5e00bff57"
+    "sha256": "8bc87bb50710b0b8e21b7775ee811881f85ed46af04ec32b162bc615cebbc6a3"
   },
   {
     "file": "source/extensions/CommandLine.h",

@@ -1,1 +1,5 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 CPlane::VehicleDamage (0x6CC4B0): accepted explosive to smoke has an indeterminate EXE stack factor. Collision initializes [esp+14h] at 0x6CC57F; explosive does not. Instructions 0x6CC915 fld [esp+14h], 0x6CC919 fmul [esp+58h], 0x6CC923 store read this factor with zero explosive intensity. Native C++ supplies defined +0 particle force, avoiding undefined behavior. This is a limited deviation, not complete equivalence of that branch. A deterministic bank must exclude accepted explosive to smoke while exercising accepted explosive to BlowUpCar and collision to smoke. See plane-damage-validationlimitations.json. Runtime bank remains pending.

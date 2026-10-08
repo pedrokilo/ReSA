@@ -1,0 +1,72 @@
+[
+  {
+    "catalog": "CAEWMADecoder\tFillBuffer\t005027D0\tS",
+    "runtime": "CAEWMADecoder\tFillBuffer\t00000000\tV",
+    "verified_address": "005027D0"
+  },
+  {
+    "catalog": "CAEWMADecoder\tGetSampleRate\t00502AB0\tS",
+    "runtime": "CAEWMADecoder\tGetSampleRate\t00000000\tV",
+    "verified_address": "00502AB0"
+  },
+  {
+    "catalog": "CAEWMADecoder\tGetStreamID\t00502750\tS",
+    "runtime": "CAEWMADecoder\tGetStreamID\t00000000\tV",
+    "verified_address": "00502750"
+  },
+  {
+    "catalog": "CAEWMADecoder\tGetStreamLengthMs\t00502AD0\tS",
+    "runtime": "CAEWMADecoder\tGetStreamLengthMs\t00000000\tV",
+    "verified_address": "00502AD0"
+  },
+  {
+    "catalog": "CAEWMADecoder\tGetStreamPlayTimeMs\t00502AF0\tS",
+    "runtime": "CAEWMADecoder\tGetStreamPlayTimeMs\t00000000\tV",
+    "verified_address": "00502AF0"
+  },
+  {
+    "catalog": "CAEWMADecoder\tInitialise\t00502C60\tS",
+    "runtime": "CAEWMADecoder\tInitialise\t00000000\tV",
+    "verified_address": "00502C60"
+  },
+  {
+    "catalog": "CAEWMADecoder\tSetCursor\t00502B50\tS",
+    "runtime": "CAEWMADecoder\tSetCursor\t00000000\tV",
+    "verified_address": "00502B50"
+  },
+  {
+    "catalog": "CPedAttractor\tBroadcastDeparture\t005EF160\tS",
+    "runtime": "CPedAttractor\tBroadcastDeparture\t00000000\tV",
+    "verified_address": "005EF160"
+  },
+  {
+    "catalog": "CPedAttractor\tComputeAttractHeading-v\t005EA1C0\tS",
+    "runtime": "CPedAttractor\tComputeAttractHeading-v\t00000000\tV",
+    "verified_address": "005EA1C0"
+  },
+  {
+    "catalog": "CPedAttractor\tComputeAttractPos-v\t005EA110\tS",
+    "runtime": "CPedAttractor\tComputeAttractPos-v\t00000000\tV",
+    "verified_address": "005EA110"
+  },
+  {
+    "catalog": "CPedAttractor\tIsAtHeadOfQueue\t005EB530\tS",
+    "runtime": "CPedAttractor\tIsAtHeadOfQueue\t00000000\tV",
+    "verified_address": "005EB530"
+  },
+  {
+    "catalog": "CTaskAllocatorKillThreatsBasicRandomGroup\tAllocateTasks\t0069D460\tS",
+    "runtime": "CTaskAllocatorKillThreatsBasicRandomGroup\tAllocateTasks\t00000000\tV",
+    "verified_address": "0069D460"
+  },
+  {
+    "catalog": "CTaskAllocatorKillThreatsBasicRandomGroup\tGetType\t005F68F0\tS",
+    "runtime": "CTaskAllocatorKillThreatsBasicRandomGroup\tGetType\t00000000\tV",
+    "verified_address": "005F68F0"
+  },
+  {
+    "catalog": "CTaskInteriorLieInBed\tFinishAnimCB\t00000000\tV",
+    "runtime": "CTaskInteriorLieInBed\tFinishAnimCB\t00675FC0\tS",
+    "source": "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp: RH_ScopedInstall(FinishAnimCB, 0x675FC0); static callback"
+  }
+]

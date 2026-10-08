@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # CObject (lista 34, 48 funciones)
 
 Banco preparado el 04/10/2026: **18.368 pares original/candidato dentro de GTA** sobre las 48 funciones de `CObject` (38 por dirección del EXE y 10 por la vtable del EXE 0x866F60). Pendiente de compilar y ejecutar.

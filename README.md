@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 <img src="docs/images/resa-logo.png" alt="reSA logo" width="400">
 
 # ESOS WEYES DEL REVERSE SE DEMORAN UN CHINGO, SUS CLASES REVERTIDAS NI ESTÁN VALIDADAS Y ESO QUE SON UN MONTÓN DE GENTE PTM
@@ -24,16 +28,16 @@ El objetivo es preservar el comportamiento original. Cada reconstrucción se con
 
 ### Abrir el juego desde el inicio
 
-**Corrección instalada:** [impactos de bala sobre BMX](reversing/CollisionBulletHit/README.md). Se evita consultar la tabla de 179 superficies con el identificador especial de audio 188. Banco aprobado: 8.234 comparaciones con el original, 256 identificadores y cuatro casos de `ReportBulletHit`. ASI normal instalado: `d8b39a395abfed3acae54a480df9db7368dbdbbaff94caeed817dcc121f903ec`; configuración y partidas conservadas.
+**Instalación actual de pruebas (8 de octubre de 2026):** ASI normal con selector histórico explícito; 694 grupos / 6136 funciones habilitadas, 2313 hooks desactivados y cero discrepancias de estado en el informe de arranque. SHA-256 `f33a7f5ca0ebdb08f4f77d91c2f8142c4a2776761191c3e683eb352fc3438cae`. [Configuración, respaldo y evidencia](reversing/RequestedValidation20261008/historical-launch/README.md). Esto no sustituye una prueba de comportamiento de todas las funciones juntas.
 
 La copia de pruebas tiene `FastLoader.Enable = false` y `SaveGameToLoad = -2`. Muestra las pantallas de inicio y el menú; el usuario elige **Nueva partida** o **Cargar partida**.
 
 ```powershell
 Set-Location 'D:\JUEGOS\GTA San Andreas - CVehicle Test'
-& '.\gta_sa.exe'
+& '.\gta_sa.exe' '--historical-hooks=D:\JUEGOS\GTA San Andreas - CVehicle Test\historical-hooks.txt'
 ```
 
-Este arranque carga el ASI normal con los hooks habilitados de la compilación, sin exclusiones por argumentos. Los bancos automáticos activan temporalmente la carga rápida solicitando la ranura 2 y restauran los dos INI originales al terminar, incluso si la prueba falla.
+Este arranque aplica el perfil histórico: sólo clases/grupos con todas sus entradas catalogadas marcadas validated=1. Sin el argumento de selección se conserva el comportamiento normal de la compilación. Los bancos automáticos activan temporalmente la carga rápida solicitando la ranura 2 y restauran los dos INI originales al terminar, incluso si la prueba falla.
 
 En las últimas pruebas, la versión del guardado de esa ranura no coincidió y el juego inició partida nueva; no se forzó la carga ni se modificó el guardado.
 

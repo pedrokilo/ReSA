@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # CConversationForPed — 2/2
 
 `IsPlayerInPositionForConversation` (`0x43AC40`) y `Update` (`0x43C190`) reconstruidas y habilitadas el 30/09/2026. Las dos entradas quedan sin bloqueo. `Clear` ya estaba implementada y no se modifica.

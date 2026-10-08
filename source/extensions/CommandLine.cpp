@@ -58,6 +58,8 @@ void ProcessArgument(std::string_view arg) {
         } else {
             NOTSA_LOG_WARN("Invalid argument '{}', expected format --dump-hooks-to=path", arg);
         }
+    } else if (arg.starts_with("--historical-hooks=")) {
+        // Applied after normal command-line hook settings in DllMain.
     } else {
         NOTSA_LOG_WARN("Unknown argument '{}'", arg);
     }

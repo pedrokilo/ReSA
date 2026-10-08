@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Colisión de mundo y cámara (lista de 59)
 
 Banco preparado el 05/10/2026: **13.568 pares original/candidato dentro de GTA** para 20 funciones de `CCollision` (pendiente de compilar y ejecutar). La función 21 de la lista, `SphereVsEntity` (0x41A5A0), queda fuera (ver más abajo).

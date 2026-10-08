@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Registro de validación por función
 
 La lista separa **haber pasado una prueba** de **tener confirmada su vigencia para el código actual**. `hooks.csv` incorpora ahora `validated`: `1` significa evidencia aprobada vinculada y `0` significa que todavía no existe esa vinculación. La vigencia actual sigue siendo una dimensión separada.

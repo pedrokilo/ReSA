@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # CVehicle, grupo D: dibujo, luces y partículas (26 funciones)
 
 Banco de validación por pares (EXE gta_sa 1.0 US frente a DLL) de: `PreRender`, `PreRenderDriverAndPassengers`, `Render`, `RenderDriverAndPassengers`, `ResetAfterRender`, `SetupRender`, `SetupLighting`, `RemoveLighting`, `SetCollisionLighting`, `CalculateLightingFromCollision`, `UpdateLightingFromStoredPolys`, `DoHeadLightBeam`, `DoHeadLightReflection`, `DoHeadLightReflectionSingle`, `DoHeadLightReflectionTwin`, `AddDamagedVehicleParticles`, `AddExhaustParticles`, `AddWaterSplashParticles`, `AddWheelDirtAndWater`, `DoBoatSplashes`, `GetVehicleLightsStatus`, `DoPlaneGunFireFX`, `ProcessDrivingAnims`, `ProcessOpenDoor`, `ProcessWheel` y `ProcessWheelRotation`.

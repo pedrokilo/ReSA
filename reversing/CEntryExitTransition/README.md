@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6736 con evidencia histórica y 1710 pendientes en 77 grupos. Perfil histórico: 694 grupos / 6136 funciones. REA admite GTA SA x86; standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores de este documento conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # CEntryExit: TransitionFinished
 
 > CEntryExit ya figuraba 11/11 y `TransitionFinished` ya estaba marcada `reversed=1` en `docs/hooks.csv` antes de esta tarea. Este informe aporta la comparación dentro del motor que faltaba, exigida por `MEJORAS_DEL_PROCESO.md` antes de confiar en ese indicador. No se encontraron diferencias de comportamiento en el alcance probado; no fue necesario corregir `source/game_sa/EntryExit.cpp`.

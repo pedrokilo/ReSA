@@ -2,6 +2,7 @@
 import csv
 import hashlib
 import json
+from collections import Counter
 from pathlib import Path
 
 
@@ -32,6 +33,7 @@ def evaluate(root, hooks_path, registry_path=None):
     with Path(hooks_path).open(encoding='utf-8-sig', newline='') as stream:
         rows = list(csv.DictReader(stream))
     keys = [tuple(row[k] for k in KEY) for row in rows]
+    key_counts = Counter(keys)
 
     def local(path):
         candidate = (root / path).resolve()
@@ -62,17 +64,19 @@ def evaluate(root, hooks_path, registry_path=None):
                                                         separators=(',', ':')).encode()).hexdigest()
         return tree_cache[path]
 
-    seen, results = set(), []
+    seen, results, summary_cache = set(), [], {}
     for record in data['functions']:
         key = tuple(record['hook'][k] for k in KEY)
-        if key in seen or keys.count(key) != 1:
+        if key in seen or key_counts[key] != 1:
             raise ValueError(f'Duplicate or ambiguous hook identity: {key}')
         seen.add(key)
         evidence = record['evidence']
         path = local(evidence['path'])
         evidence_ok = path.is_file() and invocation_digest(path) == evidence['sha256']
         if evidence_ok:
-            summary = json.loads(path.read_text(encoding='utf-8'))
+            if path not in summary_cache:
+                summary_cache[path] = json.loads(path.read_text(encoding='utf-8'))
+            summary = summary_cache[path]
             for part in evidence['passed_path']:
                 summary = summary[part]
             evidence_ok = summary is True
