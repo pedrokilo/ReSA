@@ -1,0 +1,60 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0059C910: D9 41 08           fld         dword ptr [ecx+8]
+  0059C913: D9 41 04           fld         dword ptr [ecx+4]
+  0059C916: D9 01              fld         dword ptr [ecx]
+  0059C918: D9 C0              fld         st(0)
+  0059C91A: D8 C9              fmul        st,st(1)
+  0059C91C: D9 C2              fld         st(2)
+  0059C91E: D8 CB              fmul        st,st(3)
+  0059C920: DE C1              faddp       st(1),st
+  0059C922: D9 C3              fld         st(3)
+  0059C924: D8 CC              fmul        st,st(4)
+  0059C926: DE C1              faddp       st(1),st
+  0059C928: DD DB              fstp        st(3)
+  0059C92A: DD D8              fstp        st(0)
+  0059C92C: DD D8              fstp        st(0)
+  0059C92E: D8 15 50 8B 85 00  fcom        dword ptr ds:[00858B50h]
+  0059C934: DF E0              fnstsw      ax
+  0059C936: F6 C4 41           test        ah,41h
+  0059C939: 7A 09              jp          0059C944
+  0059C93B: DD D8              fstp        st(0)
+  0059C93D: C7 01 00 00 80 3F  mov         dword ptr [ecx],3F800000h
+  0059C943: C3                 ret
+  0059C944: D9 FA              fsqrt
+  0059C946: D8 3D 24 86 85 00  fdivr       dword ptr ds:[00858624h]
+  0059C94C: D9 C0              fld         st(0)
+  0059C94E: D8 09              fmul        dword ptr [ecx]
+  0059C950: D9 19              fstp        dword ptr [ecx]
+  0059C952: D9 C0              fld         st(0)
+  0059C954: D8 49 04           fmul        dword ptr [ecx+4]
+  0059C957: D9 59 04           fstp        dword ptr [ecx+4]
+  0059C95A: D8 49 08           fmul        dword ptr [ecx+8]
+  0059C95D: D9 59 08           fstp        dword ptr [ecx+8]
+  0059C960: C3                 ret
+  0059C961: 90                 nop
+  0059C962: 90                 nop
+  0059C963: 90                 nop
+  0059C964: 90                 nop
+  0059C965: 90                 nop
+  0059C966: 90                 nop
+  0059C967: 90                 nop
+  0059C968: 90                 nop
+  0059C969: 90                 nop
+  0059C96A: 90                 nop
+  0059C96B: 90                 nop
+  0059C96C: 90                 nop
+  0059C96D: 90                 nop
+  0059C96E: 90                 nop
+  0059C96F: 90                 nop
+  0059C970: D9
+
+  Summary
+
+      456000 .text

@@ -1,0 +1,76 @@
+{
+  "procedure": {
+    "address": "0x541040",
+    "name": "FUN_00541040",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x541040",
+          "end": "0x5410bf"
+        }
+      ],
+      "total_bytes": 128,
+      "span_bytes": 128,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00541040()",
+    "locals": []
+  },
+  "pseudocode": "\r\nshort FUN_00541040(int param_1)\r\n\r\n{\r\n  short *in_ECX;\r\n  short sVar1;\r\n  \r\n  if (in_ECX[0x87] != 0) {\r\n    return 0;\r\n  }\r\n  sVar1 = in_ECX[2];\r\n  if (((DAT_00b6ec2e == '\\0') && (param_1 != 0)) &&\r\n     ((*(int *)(param_1 + 0xfc) != 0 ||\r\n      ((((*(uint *)(param_1 + 0x46c) & 0x100) != 0 && (*(int *)(param_1 + 0x58c) != 0)) &&\r\n       (*(int *)(*(int *)(param_1 + 0x58c) + 0x460) != param_1)))))) {\r\n    if (ABS((float10)(int)sVar1) < ABS((float10)(int)*in_ECX)) {\r\n      sVar1 = *in_ECX;\r\n    }\r\n  }\r\n  return sVar1;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x541040: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x541048: JZ 0x00541050",
+    "0x54104a: XOR AX, AX",
+    "0x54104d: RET 0x4",
+    "0x541050: MOV AL, [0x00b6ec2e]",
+    "0x541055: TEST AL, AL",
+    "0x541057: PUSH ESI",
+    "0x541058: MOV SI, word ptr [ECX + 0x4]",
+    "0x54105c: MOV CX, word ptr [ECX]",
+    "0x54105f: JNZ 0x005410b9",
+    "0x541061: MOV EAX, dword ptr [ESP + 0x8]",
+    "0x541065: TEST EAX, EAX",
+    "0x541067: JZ 0x005410b9",
+    "0x541069: MOV EDX, dword ptr [EAX + 0xfc]",
+    "0x54106f: TEST EDX, EDX",
+    "0x541071: JNZ 0x00541090",
+    "0x541073: MOV EDX, dword ptr [EAX + 0x46c]",
+    "0x541079: TEST DH, 0x1",
+    "0x54107c: JZ 0x005410b9",
+    "0x54107e: MOV EDX, dword ptr [EAX + 0x58c]",
+    "0x541084: TEST EDX, EDX",
+    "0x541086: JZ 0x005410b9",
+    "0x541088: CMP dword ptr [EDX + 0x460], EAX",
+    "0x54108e: JZ 0x005410b9",
+    "0x541090: MOVSX EAX, CX",
+    "0x541093: MOV dword ptr [ESP + 0x8], EAX",
+    "0x541097: MOVSX EDX, SI",
+    "0x54109a: FILD dword ptr [ESP + 0x8]",
+    "0x54109e: MOV dword ptr [ESP + 0x8], EDX",
+    "0x5410a2: FABS",
+    "0x5410a4: FILD dword ptr [ESP + 0x8]",
+    "0x5410a8: FABS",
+    "0x5410aa: FXCH",
+    "0x5410ac: FXCH",
+    "0x5410ae: FCOMPP",
+    "0x5410b0: FNSTSW AX",
+    "0x5410b2: TEST AH, 0x5",
+    "0x5410b5: JP 0x005410b9",
+    "0x5410b7: MOV ESI, ECX",
+    "0x5410b9: MOV AX, SI",
+    "0x5410bc: POP ESI",
+    "0x5410bd: RET 0x4"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

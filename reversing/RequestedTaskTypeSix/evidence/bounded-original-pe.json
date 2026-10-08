@@ -1,0 +1,68 @@
+[
+  {
+    "address": "0x006857C0",
+    "file_offset": 2640832,
+    "bounded_raw16": "33c0c390909090909090909090909090",
+    "rea_found": true,
+    "rea_evidence_id": null,
+    "rea_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1453-0x006857C0.json",
+    "rea_lookup_failed": true,
+    "rea_error_code": "invalid_request",
+    "evidence_status": "raw PE constant-return bytes; no successful REA dossier"
+  },
+  {
+    "address": "0x0061DC90",
+    "file_offset": 2216080,
+    "bounded_raw16": "b8fb030000c390909090909090909090",
+    "rea_found": true,
+    "rea_evidence_id": null,
+    "rea_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1465-0x0061DC90.json",
+    "rea_lookup_failed": true,
+    "rea_error_code": "invalid_request",
+    "evidence_status": "raw PE constant-return bytes; no successful REA dossier"
+  },
+  {
+    "address": "0x0061B2E0",
+    "file_offset": 2205408,
+    "bounded_raw16": "b8aa010000c390909090909090909090",
+    "rea_found": true,
+    "rea_evidence_id": null,
+    "rea_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1479-0x0061B2E0.json",
+    "rea_lookup_failed": true,
+    "rea_error_code": "invalid_request",
+    "evidence_status": "raw PE constant-return bytes; no successful REA dossier"
+  },
+  {
+    "address": "0x00621240",
+    "file_offset": 2229824,
+    "bounded_raw16": "b8ea030000c390909090909090909090",
+    "rea_found": true,
+    "rea_evidence_id": null,
+    "rea_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1485-0x00621240.json",
+    "rea_lookup_failed": true,
+    "rea_error_code": "invalid_request",
+    "evidence_status": "raw PE constant-return bytes; no successful REA dossier"
+  },
+  {
+    "address": "0x0068BF20",
+    "file_offset": 2667296,
+    "bounded_raw16": "b851040000c390909090909090909090",
+    "rea_found": true,
+    "rea_evidence_id": null,
+    "rea_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1498-0x0068BF20.json",
+    "rea_lookup_failed": true,
+    "rea_error_code": "invalid_request",
+    "evidence_status": "raw PE constant-return bytes; no successful REA dossier"
+  },
+  {
+    "address": "0x00661AE0",
+    "file_offset": 2494176,
+    "bounded_raw16": "b81d050000c390909090909090909090",
+    "rea_found": true,
+    "rea_evidence_id": null,
+    "rea_path": "reversing/RequestedValidation20261008/artifacts/rea-campaign/2026-10-08T17-00-41-571Z/1651-0x00661AE0.json",
+    "rea_lookup_failed": true,
+    "rea_error_code": "invalid_request",
+    "evidence_status": "raw PE constant-return bytes; no successful REA dossier"
+  }
+]

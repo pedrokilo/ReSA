@@ -1,0 +1,32 @@
+{
+  "baseline_asi_sha256": "47cad0300e9cfa1bb40564b9c919150e3a62f640968e8751ae10b0c060efbcc0",
+  "plane_body": "0x11b173b0",
+  "call_offset": 122,
+  "instruction_prefix": "8d4dbce8",
+  "call_raw": "e89efd52ff",
+  "call_target": "0x110471cd",
+  "normalise_resolved_body": "0x1167a980",
+  "normalise_chain": [
+    {
+      "address": "0x110471cd",
+      "raw5": "e9ae376300"
+    },
+    {
+      "address": "0x1167a980",
+      "raw5": "558bec81ec"
+    }
+  ],
+  "normalise_body_call_to_NormaliseAndMag": "0x1167a9a3",
+  "normaliseAndMag_chain": [
+    {
+      "address": "0x11047c27",
+      "raw5": "e9a42d6300"
+    },
+    {
+      "address": "0x1167a9d0",
+      "raw5": "558bec81ec"
+    }
+  ],
+  "normaliseAndMag_resolved_body": "0x1167a9d0",
+  "conclusion": "Plane source directly CALLs Normalise via ILT; NormaliseAndMag is behind that body. Patch Normalise resolved body plus address thunk to shared native adapter; no extra NormaliseAndMag patch needed when this exact callsite proof passes."
+}

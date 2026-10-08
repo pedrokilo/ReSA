@@ -1,0 +1,17 @@
+# GetLookRight shoulder interaction — 512 pairs
+
+Exact target: `CPad::GetLookRight`, simple hook `0x0053FE10`. The original body is `0x53FE10–0x53FE4E`; fresh REA pseudocode and full assembly plus independently extracted PE bytes are retained beside this bank. No validation has been granted by preparation.
+
+The fixture Cartesian product is four valid controller modes, enabled/disabled player controls, pressures 0/1/128/255, and all 16 truth combinations for NewLeftShoulder2, OldLeftShoulder2, NewRightShoulder2 and OldRightShoulder2. Truth-mask bits are in that order. Pressure zero deliberately tests the degenerate all-zero input for every mask. The other pressures preserve the same logical transitions with distinct valid input magnitudes.
+
+The important previously uncovered case is truth mask 14: left released (new0, oldnonzero), right held (newnonzero, oldnonzero). Original instructions at 0x53FE2A–0x53FE37 test left release and return false. Current source's second condition tests right release and returns true in this case. Static prediction is 12 mismatches (three nonzero pressures × four modes with controls enabled). Runtime must reproduce it before a source fix.
+
+Each original/candidate call receives a separate complete private CPad copy; no constructor, Clear, engine, input, actors, RW, pools or collaborators execute. The native bool ABI compares declared AL truth values and complete private bytes. The test verifies both real target entry layouts for every switch, target bytes/flags after restoration, and global Pads/history/clock snapshots. The outer pregraphics WinMain harness disables all other hooks after capturing all hook entries and native/DLL vtables, and restores all flags and bytes before returning naturally. Only the instrumented entry currently executing remains active. This is an isolated selector test, not game startup accreditation.
+
+# Review of the other 51 pure selectors
+
+The compact original pseudocode and complete body ASM are retained in OTHER_SELECTORS_REVIEW.txt. Field offsets, mode dispatch, press/release comparisons, magnitude arithmetic and bool/short return widths were compared with Pad.cpp/Pad.h. No further source mismatch was identified beyond the six first-replay defects already corrected. CarGunJustDown's 0x53EDC0 call belongs to modes0–2 and matches LeftShoulder1; its mode3 reads RightShoulder1 directly, correcting the earlier static suspicion. GetLookLeft uses the opposite shoulder's release consistently in both versions.
+
+The review also accounts for external tail jumps that a CALL-only inventory missed: GetAccelerateJustDown mode1 reaches 0x4D59E0 (CrossPressed), HornJustDown mode2 reaches 0x53EE20 (RightShoulder1Pressed), and ExitVehicleJustDown mode2/HornJustDown mode1 reach 0x53EDC0 (LeftShoulder1Pressed). Bounded primary PE listings show their complete reachable bodies read only the corresponding private new/old state words and return; they do not invoke the engine or OS. These helpers remain original and are not counted as validated targets. The two GroupControl*JustDown entries still have REA lookup failures; their primary ASM windows are retained in the parent bank with explicit provenance limits.
+
+The first 3,876-fixture corpus is useful bounded evidence, not an exhaustive proof of combined control interactions. This extension preserves it intact and adds the missing shoulder interaction separately.

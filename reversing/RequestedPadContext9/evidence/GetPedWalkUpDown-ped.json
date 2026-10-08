@@ -1,0 +1,60 @@
+{
+  "procedure": {
+    "address": "0x540e20",
+    "name": "FUN_00540e20",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540e20",
+          "end": "0x540e73"
+        }
+      ],
+      "total_bytes": 84,
+      "span_bytes": 84,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540e20()",
+    "locals": []
+  },
+  "pseudocode": "\r\nundefined2 FUN_00540e20(int param_1)\r\n\r\n{\r\n  undefined2 uVar1;\r\n  int in_ECX;\r\n  \r\n  if (*(short *)(in_ECX + 0x10e) != 0) {\r\n    return 0;\r\n  }\r\n  uVar1 = 0;\r\n  if ((DAT_00b73403 != '\\0') || (DAT_00b6ec2e != '\\0')) {\r\n    if ((param_1 != 0) && (*(int *)(param_1 + 0xfc) != 0)) {\r\n      return 0;\r\n    }\r\n    if (DAT_008cd782 != '\\0') {\r\n      return *(undefined2 *)(in_ECX + 2);\r\n    }\r\n    uVar1 = *(undefined2 *)(in_ECX + 6);\r\n  }\r\n  return uVar1;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540e20: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x540e28: JZ 0x00540e30",
+    "0x540e2a: XOR AX, AX",
+    "0x540e2d: RET 0x4",
+    "0x540e30: MOV DL, byte ptr [0x00b73403]",
+    "0x540e36: XOR EAX, EAX",
+    "0x540e38: TEST DL, DL",
+    "0x540e3a: JNZ 0x00540e46",
+    "0x540e3c: MOV DL, byte ptr [0x00b6ec2e]",
+    "0x540e42: TEST DL, DL",
+    "0x540e44: JZ 0x00540e71",
+    "0x540e46: MOV EAX, dword ptr [ESP + 0x4]",
+    "0x540e4a: TEST EAX, EAX",
+    "0x540e4c: JZ 0x00540e5d",
+    "0x540e4e: MOV EDX, dword ptr [EAX + 0xfc]",
+    "0x540e54: TEST EDX, EDX",
+    "0x540e56: JZ 0x00540e5d",
+    "0x540e58: XOR EAX, EAX",
+    "0x540e5a: RET 0x4",
+    "0x540e5d: MOV AL, [0x008cd782]",
+    "0x540e62: TEST AL, AL",
+    "0x540e64: JZ 0x00540e6d",
+    "0x540e66: MOV AX, word ptr [ECX + 0x2]",
+    "0x540e6a: RET 0x4",
+    "0x540e6d: MOV AX, word ptr [ECX + 0x6]",
+    "0x540e71: RET 0x4"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

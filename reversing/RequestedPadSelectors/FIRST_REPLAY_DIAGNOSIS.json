@@ -1,0 +1,256 @@
+{
+  "accepted": false,
+  "reason": "590 original/candidate return mismatches; baseline generic runner overwrote false verdict. Original summary preserved.",
+  "comparisons": 201552,
+  "differences": 590,
+  "normal_domain_differences": 584,
+  "signed_short_stress_differences": 6,
+  "natural_exit": true,
+  "exit_code": 0,
+  "restoration": {
+    "changed_ranges": [],
+    "entries_restored": true,
+    "event": "complete",
+    "flags_restored": true,
+    "snapshot_ranges": 17692,
+    "state_restored": true
+  },
+  "enriched_summary_sha256": "536dfd194278414b946cb87c6f0793f68795b9b1479f0a2fc2225ad5936044e2",
+  "comparison_log_sha256": "583a385dbfb3822e467180c17c9e02f2d0834abd58f51936661d4030dbddc9b9",
+  "failures_by_function": {
+    "GetAccelerate": 3,
+    "GetBrake": 3,
+    "GetCarGunFired": 520,
+    "GetJump": 8,
+    "GetMeleeAttack": 48,
+    "JumpJustDown": 8
+  },
+  "fixture_domains": {
+    "GetAccelerate": {
+      "signed_short_stress": 3
+    },
+    "GetBrake": {
+      "signed_short_stress": 3
+    },
+    "GetCarGunFired": {
+      "pressure": 508,
+      "onehot": 4,
+      "flags": 8
+    },
+    "GetJump": {
+      "flags": 8
+    },
+    "GetMeleeAttack": {
+      "onehot": 48
+    },
+    "JumpJustDown": {
+      "flags": 8
+    }
+  },
+  "examples": {
+    "GetAccelerate": [
+      {
+        "seed": 3869,
+        "original_bits": 65534,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 3874,
+        "original_bits": 0,
+        "candidate_bits": 4
+      },
+      {
+        "seed": 3875,
+        "original_bits": 0,
+        "candidate_bits": 2
+      }
+    ],
+    "GetBrake": [
+      {
+        "seed": 3869,
+        "original_bits": 0,
+        "candidate_bits": 2
+      },
+      {
+        "seed": 3874,
+        "original_bits": 65532,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 3875,
+        "original_bits": 65534,
+        "candidate_bits": 0
+      }
+    ],
+    "GetCarGunFired": [
+      {
+        "seed": 1540,
+        "original_bits": 1,
+        "candidate_bits": 2
+      },
+      {
+        "seed": 1541,
+        "original_bits": 1,
+        "candidate_bits": 2
+      },
+      {
+        "seed": 1542,
+        "original_bits": 1,
+        "candidate_bits": 3
+      },
+      {
+        "seed": 1543,
+        "original_bits": 1,
+        "candidate_bits": 3
+      },
+      {
+        "seed": 1544,
+        "original_bits": 1,
+        "candidate_bits": 4
+      },
+      {
+        "seed": 1545,
+        "original_bits": 1,
+        "candidate_bits": 4
+      },
+      {
+        "seed": 1546,
+        "original_bits": 1,
+        "candidate_bits": 5
+      },
+      {
+        "seed": 1547,
+        "original_bits": 1,
+        "candidate_bits": 5
+      }
+    ],
+    "GetJump": [
+      {
+        "seed": 3345,
+        "original_bits": 1,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 3349,
+        "original_bits": 0,
+        "candidate_bits": 1
+      },
+      {
+        "seed": 3369,
+        "original_bits": 1,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 3373,
+        "original_bits": 0,
+        "candidate_bits": 1
+      },
+      {
+        "seed": 3393,
+        "original_bits": 1,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 3397,
+        "original_bits": 0,
+        "candidate_bits": 1
+      },
+      {
+        "seed": 3417,
+        "original_bits": 1,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 3421,
+        "original_bits": 0,
+        "candidate_bits": 1
+      }
+    ],
+    "GetMeleeAttack": [
+      {
+        "seed": 2212,
+        "original_bits": 0,
+        "candidate_bits": 3
+      },
+      {
+        "seed": 2213,
+        "original_bits": 3,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 2220,
+        "original_bits": 0,
+        "candidate_bits": 3
+      },
+      {
+        "seed": 2221,
+        "original_bits": 3,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 2228,
+        "original_bits": 0,
+        "candidate_bits": 4
+      },
+      {
+        "seed": 2229,
+        "original_bits": 4,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 2236,
+        "original_bits": 0,
+        "candidate_bits": 4
+      },
+      {
+        "seed": 2237,
+        "original_bits": 4,
+        "candidate_bits": 0
+      }
+    ],
+    "JumpJustDown": [
+      {
+        "seed": 3345,
+        "original_bits": 1,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 3349,
+        "original_bits": 0,
+        "candidate_bits": 1
+      },
+      {
+        "seed": 3369,
+        "original_bits": 1,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 3373,
+        "original_bits": 0,
+        "candidate_bits": 1
+      },
+      {
+        "seed": 3393,
+        "original_bits": 1,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 3397,
+        "original_bits": 0,
+        "candidate_bits": 1
+      },
+      {
+        "seed": 3417,
+        "original_bits": 1,
+        "candidate_bits": 0
+      },
+      {
+        "seed": 3421,
+        "original_bits": 0,
+        "candidate_bits": 1
+      }
+    ]
+  },
+  "baseline_runner_source": "reversing/RequestedPadSelectors/sources-archive/run_local-first-replay.py",
+  "baseline_runner_sha256": "a6a07db438d154904a2ca355cbad9db84a3fbf57c5c64258b7f44dcb6ecec973"
+}

@@ -1,0 +1,83 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  005F1670: 83 EC 24           sub         esp,24h
+  005F1673: 8B 44 24 2C        mov         eax,dword ptr [esp+2Ch]
+  005F1677: 53                 push        ebx
+  005F1678: 55                 push        ebp
+  005F1679: 8D 48 24           lea         ecx,[eax+24h]
+  005F167C: 8B 11              mov         edx,dword ptr [ecx]
+  005F167E: 56                 push        esi
+  005F167F: 57                 push        edi
+  005F1680: 8B 7C 24 40        mov         edi,dword ptr [esp+40h]
+  005F1684: 89 54 24 10        mov         dword ptr [esp+10h],edx
+  005F1688: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  005F168B: 8B 49 08           mov         ecx,dword ptr [ecx+8]
+  005F168E: 33 DB              xor         ebx,ebx
+  005F1690: 8B EF              mov         ebp,edi
+  005F1692: 89 54 24 14        mov         dword ptr [esp+14h],edx
+  005F1696: 89 4C 24 18        mov         dword ptr [esp+18h],ecx
+  005F169A: 89 5C 24 30        mov         dword ptr [esp+30h],ebx
+  005F169E: 8D 70 08           lea         esi,[eax+8]
+  005F16A1: 2B E8              sub         ebp,eax
+  005F16A3: D9 46 F8           fld         dword ptr [esi-8]
+  005F16A6: 8D 4C 24 1C        lea         ecx,[esp+1Ch]
+  005F16AA: D8 64 24 10        fsub        dword ptr [esp+10h]
+  005F16AE: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  005F16B2: D9 46 FC           fld         dword ptr [esi-4]
+  005F16B5: D8 64 24 14        fsub        dword ptr [esp+14h]
+  005F16B9: D9 5C 24 20        fstp        dword ptr [esp+20h]
+  005F16BD: D9 06              fld         dword ptr [esi]
+  005F16BF: D8 64 24 18        fsub        dword ptr [esp+18h]
+  005F16C3: D9 5C 24 24        fstp        dword ptr [esp+24h]
+  005F16C7: E8 44 B2 FA FF     call        0059C910
+  005F16CC: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  005F16D0: 8B 54 24 20        mov         edx,dword ptr [esp+20h]
+  005F16D4: D9 E0              fchs
+  005F16D6: 8B CA              mov         ecx,edx
+  005F16D8: 89 54 24 28        mov         dword ptr [esp+28h],edx
+  005F16DC: 8B C7              mov         eax,edi
+  005F16DE: 89 08              mov         dword ptr [eax],ecx
+  005F16E0: 8B 4C 24 30        mov         ecx,dword ptr [esp+30h]
+  005F16E4: D9 5C 24 2C        fstp        dword ptr [esp+2Ch]
+  005F16E8: 8B 54 24 2C        mov         edx,dword ptr [esp+2Ch]
+  005F16EC: D9 44 24 18        fld         dword ptr [esp+18h]
+  005F16F0: 89 50 04           mov         dword ptr [eax+4],edx
+  005F16F3: 8B 54 24 44        mov         edx,dword ptr [esp+44h]
+  005F16F7: 89 48 08           mov         dword ptr [eax+8],ecx
+  005F16FA: D8 0C 2E           fmul        dword ptr [esi+ebp]
+  005F16FD: D9 44 24 14        fld         dword ptr [esp+14h]
+  005F1701: 43                 inc         ebx
+  005F1702: D8 4F 04           fmul        dword ptr [edi+4]
+  005F1705: 83 C6 0C           add         esi,0Ch
+  005F1708: 83 C7 0C           add         edi,0Ch
+  005F170B: 83 FB 04           cmp         ebx,4
+  005F170E: DE C1              faddp       st(1),st
+  005F1710: D9 44 24 10        fld         dword ptr [esp+10h]
+  005F1714: D8 4F F4           fmul        dword ptr [edi-0Ch]
+  005F1717: DE C1              faddp       st(1),st
+  005F1719: D9 E0              fchs
+  005F171B: D9 5C 9A FC        fstp        dword ptr [edx+ebx*4-4]
+  005F171F: 8B 46 EC           mov         eax,dword ptr [esi-14h]
+  005F1722: 8B 4E F0           mov         ecx,dword ptr [esi-10h]
+  005F1725: 8B 56 F4           mov         edx,dword ptr [esi-0Ch]
+  005F1728: 89 44 24 10        mov         dword ptr [esp+10h],eax
+  005F172C: 89 4C 24 14        mov         dword ptr [esp+14h],ecx
+  005F1730: 89 54 24 18        mov         dword ptr [esp+18h],edx
+  005F1734: 0F 8C 69 FF FF FF  jl          005F16A3
+  005F173A: 5F                 pop         edi
+  005F173B: 5E                 pop         esi
+  005F173C: 5D                 pop         ebp
+  005F173D: 5B                 pop         ebx
+  005F173E: 83 C4 24           add         esp,24h
+  005F1741: C3                 ret
+  005F1742: 90                 nop
+
+  Summary
+
+      456000 .text

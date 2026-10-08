@@ -1,0 +1,38 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "ranges": [
+    {
+      "start": 5512144,
+      "end": 5512251,
+      "hex": "32c0a20434b700a20534b700a20634b700a20734b700a20834b700a20934b700a20a34b700a21834b700a21934b700a21a34b700a21b34b700a21c34b700a21d34b700a21e34b700a22c34b700a22d34b700a22e34b700a22f34b700a23034b700a23134b700a23234b700c3",
+      "sha256": "28bf7d06c5319bc1f0c403c144aee81b396a9ba02f10bbd187c574e23e13b407"
+    }
+  ],
+  "assembly": [
+    "0x541bd0: XOR AL, AL",
+    "0x541bd2: MOV [0x00b73404], AL",
+    "0x541bd7: MOV [0x00b73405], AL",
+    "0x541bdc: MOV [0x00b73406], AL",
+    "0x541be1: MOV [0x00b73407], AL",
+    "0x541be6: MOV [0x00b73408], AL",
+    "0x541beb: MOV [0x00b73409], AL",
+    "0x541bf0: MOV [0x00b7340a], AL",
+    "0x541bf5: MOV [0x00b73418], AL",
+    "0x541bfa: MOV [0x00b73419], AL",
+    "0x541bff: MOV [0x00b7341a], AL",
+    "0x541c04: MOV [0x00b7341b], AL",
+    "0x541c09: MOV [0x00b7341c], AL",
+    "0x541c0e: MOV [0x00b7341d], AL",
+    "0x541c13: MOV [0x00b7341e], AL",
+    "0x541c18: MOV [0x00b7342c], AL",
+    "0x541c1d: MOV [0x00b7342d], AL",
+    "0x541c22: MOV [0x00b7342e], AL",
+    "0x541c27: MOV [0x00b7342f], AL",
+    "0x541c2c: MOV [0x00b73430], AL",
+    "0x541c31: MOV [0x00b73431], AL",
+    "0x541c36: MOV [0x00b73432], AL",
+    "0x541c3b: RET"
+  ],
+  "pseudocode": "\r\nvoid FUN_00541bd0(void)\r\n\r\n{\r\n  DAT_00b73404._0_1_ = 0;\r\n  DAT_00b73404._1_1_ = 0;\r\n  DAT_00b73404._2_1_ = 0;\r\n  DAT_00b73404._3_1_ = 0;\r\n  DAT_00b73408._0_1_ = 0;\r\n  DAT_00b73408._1_1_ = 0;\r\n  DAT_00b73408._2_1_ = 0;\r\n  DAT_00b73418 = 0;\r\n  DAT_00b73419 = 0;\r\n  DAT_00b7341a = 0;\r\n  DAT_00b7341b = 0;\r\n  DAT_00b7341c = 0;\r\n  DAT_00b7341d = 0;\r\n  DAT_00b7341e = 0;\r\n  DAT_00b7342c = 0;\r\n  DAT_00b7342d = 0;\r\n  DAT_00b7342e = 0;\r\n  DAT_00b7342f = 0;\r\n  DAT_00b73430 = 0;\r\n  DAT_00b73431 = 0;\r\n  DAT_00b73432 = 0;\r\n  return;\r\n}\r\n\r\n",
+  "callee_addresses": []
+}

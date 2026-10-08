@@ -210,8 +210,8 @@ public:
     [[nodiscard]] bool GetHydraulicJump() const noexcept                    { return !DisablePlayerControls && BUTTON_IS_DOWN(ShockButtonR); }                               // 0x53FF70
     [[nodiscard]] bool GetDuck() const noexcept                             { return !DisablePlayerControls && !bDisablePlayerDuck && BUTTON_IS_DOWN(ShockButtonL); }        // 0x540700
     [[nodiscard]] bool DuckJustDown() const noexcept                        { return !DisablePlayerControls && !bDisablePlayerDuck && IsLeftShockPressed(); }                // 0x540720
-    [[nodiscard]] bool GetJump() const noexcept                             { return !DisablePlayerControls && !bDisablePlayerDuck && BUTTON_IS_DOWN(ButtonSquare); }        // 0x540750
-    [[nodiscard]] bool JumpJustDown() const noexcept                        { return !DisablePlayerControls && !bDisablePlayerDuck && IsSquarePressed(); }                   // 0x540770
+    [[nodiscard]] bool GetJump() const noexcept                             { return !DisablePlayerControls && !bDisablePlayerJump && BUTTON_IS_DOWN(ButtonSquare); }        // 0x540750
+    [[nodiscard]] bool JumpJustDown() const noexcept                        { return !DisablePlayerControls && !bDisablePlayerJump && IsSquarePressed(); }                   // 0x540770
     [[nodiscard]] bool ShiftTargetLeftJustDown() const noexcept             { return !DisablePlayerControls && IsLeftShoulder2Pressed(); }                                   // 0x540850
     [[nodiscard]] bool ShiftTargetRightJustDown() const noexcept            { return !DisablePlayerControls && IsRightShoulder2Pressed(); }                                  // 0x540880
     [[nodiscard]] bool GetGroupControlForward() const noexcept              { return !DisablePlayerControls && BUTTON_IS_DOWN(DPadUp); }                                     // 0x541190

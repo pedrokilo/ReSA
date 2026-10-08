@@ -1,0 +1,24 @@
+{
+  "address": "0x4d59e0",
+  "bounded_window": true,
+  "bytes": "6683792000740d66837950007506b801000000c333c0c3909090909090909090",
+  "assembly": [
+    "004D59E0: 6683792000 cmp word ptr [ecx + 0x20], 0",
+    "004D59E5: 740d je 0x4d59f4",
+    "004D59E7: 6683795000 cmp word ptr [ecx + 0x50], 0",
+    "004D59EC: 7506 jne 0x4d59f4",
+    "004D59EE: b801000000 mov eax, 1",
+    "004D59F3: c3 ret ",
+    "004D59F4: 33c0 xor eax, eax",
+    "004D59F6: c3 ret ",
+    "004D59F7: 90 nop ",
+    "004D59F8: 90 nop ",
+    "004D59F9: 90 nop ",
+    "004D59FA: 90 nop ",
+    "004D59FB: 90 nop ",
+    "004D59FC: 90 nop ",
+    "004D59FD: 90 nop ",
+    "004D59FE: 90 nop ",
+    "004D59FF: 90 nop "
+  ]
+}

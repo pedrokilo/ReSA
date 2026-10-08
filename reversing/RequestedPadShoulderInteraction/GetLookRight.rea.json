@@ -1,0 +1,56 @@
+{
+  "procedure": {
+    "address": "0x53fe10",
+    "name": "FUN_0053fe10",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x53fe10",
+          "end": "0x53fe4e"
+        }
+      ],
+      "total_bytes": 63,
+      "span_bytes": 63,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_0053fe10()",
+    "locals": []
+  },
+  "pseudocode": "\r\nuint FUN_0053fe10(void)\r\n\r\n{\r\n  short sVar1;\r\n  uint in_EAX;\r\n  int in_ECX;\r\n  \r\n  if ((*(short *)(in_ECX + 0x10e) == 0) &&\r\n     ((*(short *)(in_ECX + 0xe) == 0 || (*(short *)(in_ECX + 0x3e) != 0)))) {\r\n    sVar1 = *(short *)(in_ECX + 10);\r\n    in_EAX = CONCAT22((short)(in_EAX >> 0x10),sVar1);\r\n    if ((sVar1 != 0) || (*(short *)(in_ECX + 0x3a) == 0)) {\r\n      if ((*(short *)(in_ECX + 0xe) != 0) && (sVar1 == 0)) {\r\n        return 1;\r\n      }\r\n      return 0;\r\n    }\r\n  }\r\n  return in_EAX & 0xffffff00;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x53fe10: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x53fe18: JNZ 0x0053fe39",
+    "0x53fe1a: MOV DX, word ptr [ECX + 0xe]",
+    "0x53fe1e: TEST DX, DX",
+    "0x53fe21: JZ 0x0053fe2a",
+    "0x53fe23: CMP word ptr [ECX + 0x3e], 0x0",
+    "0x53fe28: JZ 0x0053fe39",
+    "0x53fe2a: MOV AX, word ptr [ECX + 0xa]",
+    "0x53fe2e: TEST AX, AX",
+    "0x53fe31: JNZ 0x0053fe3c",
+    "0x53fe33: CMP word ptr [ECX + 0x3a], AX",
+    "0x53fe37: JZ 0x0053fe3c",
+    "0x53fe39: XOR AL, AL",
+    "0x53fe3b: RET",
+    "0x53fe3c: TEST DX, DX",
+    "0x53fe3f: JZ 0x0053fe4c",
+    "0x53fe41: TEST AX, AX",
+    "0x53fe44: JNZ 0x0053fe4c",
+    "0x53fe46: MOV EAX, 0x1",
+    "0x53fe4b: RET",
+    "0x53fe4c: XOR EAX, EAX",
+    "0x53fe4e: RET"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

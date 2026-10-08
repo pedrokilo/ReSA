@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "2749c39b217ca47ea848c71df054e83e3ccad0cf58c02a89656cbac59bf4f9aa",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "comparisons": 512,
+  "functions": 1,
+  "function": "CPad::GetLookRight",
+  "address": "0x0053FE10",
+  "fixtures_per_function": 512,
+  "differences": 0,
+  "failure_seeds": [],
+  "bank_restored": true,
+  "all_equal": true,
+  "harness_restored": true,
+  "harness_sha256": "86e8c6f57f7ab2c8c11c3e580fb5796a7bbfab05fece371cd90a0f3c039a064b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "626f2d8d4fbe9208140d831b498ec17a6a0bec34",
+    "tested_sources": {
+      "source/game_sa/Pad.cpp": "f96e5776607a1dcc5777b941e9a172c2bb02940a6395fdac91354b2e0437a9eb",
+      "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+      "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    },
+    "bank_sources": {
+      "reversing/RequestedPadShoulderInteraction/LiveComparison.hpp": "f7051ba96e5a0d88f7705f06f73be07bf591061c4488d08f3933b86f09dea07f",
+      "reversing/RequestedPadShoulderInteraction/PadBank.hpp": "6f78178824fdbd6b6f4ff97f676b084b16f1ae39b86a415a8f6bae83a903465c",
+      "reversing/RequestedPadShoulderInteraction/VTableRanges.hpp": "0cb3d75e6bc473f16ccabbf37ccfe33144af84220dfecff72e986fb32fd120a3",
+      "reversing/RequestedPadShoulderInteraction/build_probe.py": "b67ef4ff2bac37c19a8a5fa18ce6f598fc2a27baad4fca739df0b2c2b1f685d2",
+      "reversing/RequestedPadShoulderInteraction/run_local.py": "15cd6f99d6c4e477e00af8052963246ab526cf9d2ef6fa6675720310c6397571",
+      "reversing/RequestedPadShoulderInteraction/scope.json": "ee77f8ec7beb47ceb456fb19be66e3957953236d8eb4bb9c8e1b170b889ef48f",
+      "reversing/RequestedPadShoulderInteraction/FIXTURES.md": "4a0a7a93bbb55adbac5d9c77253d1a2c20dd6aa1747897063049960e44d2ad0c",
+      "reversing/RequestedPadShoulderInteraction/GetLookRight.exe-bytes.json": "de28cb63aa2600d9c8e4055db87e6ea16874b0f9061e76e19df874930bb4cfe1",
+      "reversing/RequestedPadShoulderInteraction/GetLookRight.rea.json": "6708b7f40767b1545a9434574b20a9a29a52530820369c97464734dc490f75af",
+      "reversing/RequestedPadShoulderInteraction/tail-helper-004D59E0.json": "2ca5693a71f1c5ee9723267fe31b900c208c2318f3692c5380698b0c2a96d65b",
+      "reversing/RequestedPadShoulderInteraction/tail-helper-0053EDC0.json": "26e3aa6d0b9546e7b179d7d0f5b679f67c89fb4a9ffefac442a6d5976b5c224f",
+      "reversing/RequestedPadShoulderInteraction/tail-helper-0053EE20.json": "b429f42ca70bce314997541f584625060bced6b761799294bea0d964f2ca1a34",
+      "reversing/RequestedPadShoulderInteraction/OTHER_SELECTORS_REVIEW.txt": "86ec72c7031c123c1030f3e548f880fea32a38e5f3858581a129fba0cb9e3363",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Preflight CPad GetLookRight shoulder interaction512 only. No actor, pool, RW, real input or external collaborator fixtures. NOTSA_WinMain enters after logging shutdown guard and before SystemParametersInfo/RW/graphics/input. Original WinMain not compared. All other hooks temporarily original, restored after frozen PadSelectors bank. No game startup accreditation.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "39250ef08113e540881d55900b2b6f46f0df42697fcefd8463bd57db6c385fbf"
+    },
+    "asi": "2749c39b217ca47ea848c71df054e83e3ccad0cf58c02a89656cbac59bf4f9aa",
+    "pdb": "419bb3d831526ab1fd677b42ccce468132542a9421ecd0f03aa4e35bda424aef"
+  },
+  "runner_sha256": "15cd6f99d6c4e477e00af8052963246ab526cf9d2ef6fa6675720310c6397571"
+}

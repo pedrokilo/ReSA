@@ -1,0 +1,16 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "ranges": [
+    {
+      "start": 5503824,
+      "end": 5503826,
+      "hex": "c20400",
+      "sha256": "e598d0c3ba86d917b177d7adde0556aa99bc355543c57aee0a3e50b684dd7e99"
+    }
+  ],
+  "assembly": [
+    "0x53fb50: RET 0x4"
+  ],
+  "pseudocode": "\r\nvoid FUN_0053fb50(void)\r\n\r\n{\r\n  return;\r\n}\r\n\r\n",
+  "callee_addresses": []
+}

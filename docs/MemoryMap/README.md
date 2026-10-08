@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6761 con evidencia histórica, 0 con vigencia acreditada y 1685 pendientes en 66 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6822 con evidencia histórica, 0 con vigencia acreditada y 1624 pendientes en 64 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Mapa de código y direcciones de ReSA
@@ -46,9 +46,9 @@ Binario analizado: `D:\Grand Theft Auto San Andreas\gta-sa.exe`, 5.189.632 bytes
 | Clases. namespaces o grupos del catálogo | 771 |
 | Entradas registradas como reconstruidas | 8.446 |
 | Pendientes de reconstrucción | 0 |
-| Evidencias aprobadas vinculadas. verificadas por el auditor | 6.761 |
+| Evidencias aprobadas vinculadas. verificadas por el auditor | 6.822 |
 | Validaciones con vigencia acreditada para su alcance | 0 |
-| Registros con evidencia y coincidencia de fuentes probadas. sin acreditar dependencias | 956 |
+| Registros con evidencia y coincidencia de fuentes probadas. sin acreditar dependencias | 965 |
 | Definiciones de class/struct en source. con repeticiones | 1.949 |
 | Nombres distintos de tipos captados | 1.936 |
 | Declaraciones y cuerpos candidatos de función. con repeticiones | 27.469 |

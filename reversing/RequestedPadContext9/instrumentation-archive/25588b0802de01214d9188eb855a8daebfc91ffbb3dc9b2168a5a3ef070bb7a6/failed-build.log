@@ -1,0 +1,16 @@
+Versión de MSBuild 18.10.1-1.26427.6+3cd27c13e para .NET Framework
+
+  WinMain.cpp
+D:\Original\gta-reversed-master\reversing\RequestedPadContext9\ActorLayout.hpp(24,53): error C2248: 'CPed::m_pIntelligence': no se puede obtener acceso al miembro protected miembro declarado en la clase 'CPed' [D:\Original\gta-reversed-master\build\source\gta_reversed.vcxproj]
+  (compilando archivo de origen "../../source/app/platform/win/WinMain.cpp")
+      D:\Original\gta-reversed-master\source\game_sa\Entity\Ped\Ped.h(269,25):
+      vea la declaración de 'CPed::m_pIntelligence'
+      D:\Original\gta-reversed-master\source\game_sa\Entity\Ped\Ped.h(113,27):
+      vea la declaración de 'CPed'
+  
+D:\Original\gta-reversed-master\reversing\RequestedPadContext9\PreflightHarness.hpp(19,85): error C2061: error de sintaxis: identificador 'Virtual' [D:\Original\gta-reversed-master\build\source\gta_reversed.vcxproj]
+  (compilando archivo de origen "../../source/app/platform/win/WinMain.cpp")
+  
+D:\Original\gta-reversed-master\reversing\RequestedPadContext9\PreflightHarness.hpp(19,111): error C3536: 'hook': no se puede usar antes de inicializarse [D:\Original\gta-reversed-master\build\source\gta_reversed.vcxproj]
+  (compilando archivo de origen "../../source/app/platform/win/WinMain.cpp")
+  

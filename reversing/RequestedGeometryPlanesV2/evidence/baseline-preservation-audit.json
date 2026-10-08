@@ -1,0 +1,9 @@
+{
+  "old_prepared_freeze_sha256": "a7f26c9eade83c6c09b75b36ba4b795951273ec3a27f4b3e73a98c7c83614c1e",
+  "baseline_asi_sha256": "47cad0300e9cfa1bb40564b9c919150e3a62f640968e8751ae10b0c060efbcc0",
+  "baseline_pdb_sha256": "9cb9d81a7d292d2da0d3d529b5b691f6429516718f8233d325521e6d70e97d25",
+  "archived_compiled_header_sha256": "76200e366907dc9d40b3e0fa7a3a90914c81609b716c5656d49139bd6beab536",
+  "compiled_manifest_header_sha256": "76200e366907dc9d40b3e0fa7a3a90914c81609b716c5656d49139bd6beab536",
+  "old_prepared_header_sha256": "76200e366907dc9d40b3e0fa7a3a90914c81609b716c5656d49139bd6beab536",
+  "note": "Old prepared freeze preserved byte-for-byte; it describes earlier prebuild preparation and is not silently rehashed to compiled instrumentation. Compiled manifest hashes define actual baseline ASI evidence."
+}

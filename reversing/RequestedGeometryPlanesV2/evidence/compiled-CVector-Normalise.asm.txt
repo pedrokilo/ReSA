@@ -1,0 +1,39 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file reversing\RequestedGeometryPlanesV2\baseline-47cad0300e9cfa1bb40564b9c919150e3a62f640968e8751ae10b0c060efbcc0\gta_reversed-geometry-planes.asi
+
+File Type: DLL
+
+  1167A980: 55                 push        ebp
+  1167A981: 8B EC              mov         ebp,esp
+  1167A983: 81 EC CC 00 00 00  sub         esp,0CCh
+  1167A989: 53                 push        ebx
+  1167A98A: 56                 push        esi
+  1167A98B: 57                 push        edi
+  1167A98C: 51                 push        ecx
+  1167A98D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1167A990: B9 03 00 00 00     mov         ecx,3
+  1167A995: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1167A99A: F3 AB              rep stos    dword ptr es:[edi]
+  1167A99C: 59                 pop         ecx
+  1167A99D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1167A9A0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1167A9A3: E8 7F D2 9C FF     call        11047C27
+  1167A9A8: DD D8              fstp        st(0)
+  1167A9AA: 90                 nop
+  1167A9AB: 5F                 pop         edi
+  1167A9AC: 5E                 pop         esi
+  1167A9AD: 5B                 pop         ebx
+  1167A9AE: 81 C4 CC 00 00 00  add         esp,0CCh
+  1167A9B4: 3B EC              cmp         ebp,esp
+  1167A9B6: E8 16 E2 9C FF     call        11048BD1
+  1167A9BB: 8B E5              mov         esp,ebp
+  1167A9BD: 5D                 pop         ebp
+  1167A9BE: C3                 ret
+  1167A9BF: CC                 int         3
+
+  Summary
+
+     2143000 .text

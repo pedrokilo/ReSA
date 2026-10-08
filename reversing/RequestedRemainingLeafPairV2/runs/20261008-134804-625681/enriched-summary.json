@@ -1,0 +1,116 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "c7f0f48d4f886706c44572698d5d4207ffc082cc7b5063bb5d7c527bf0eac200",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 19152,
+  "pairs_per_function": {
+    "CInterestingEvents::InvalidateEvent": 720,
+    "CPedDamageResponseCalculator::ComputeWillKillPed": 18432
+  },
+  "differences": 0,
+  "model_mismatches": 0,
+  "validation_errors": [],
+  "all_equal": true,
+  "state_restored": true,
+  "harness_restored": true,
+  "log_sha256": "90cde680f7e7679676bb51b7bd46e9d50e93ffa4f4ea71b301890191c71b1eeb",
+  "harness_sha256": "7f6e5e09eb581d7116132a102f4c4dcb321f46215c5a767f536365bdb8a93a4e",
+  "scope": "finite private fixtures; references, force-death and speech isolated; no real-actor integration",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "626f2d8d4fbe9208140d831b498ec17a6a0bec34",
+    "tested_sources": {
+      "source/game_sa/InterestingEvents.cpp": "9bbd2b4f9e6e5077bbe1ca0d11c2eb03f1435e4eae942ffbc752324c03154f2d",
+      "source/game_sa/InterestingEvents.h": "a4b35e4b6b9ce1a8077d4c76e4bbdd474c0bf85887efcbde0867a607e6774834",
+      "source/game_sa/PedDamageResponseCalculator.cpp": "9c2fbe5da98d2050db03a4a0b525a3173d526a4fc45e0657adafe6d17bad8119",
+      "source/game_sa/PedDamageResponseCalculator.h": "171cf52530ce70ddbfe877fd2c82feda5d7094f9677c1e54b0769d74d49f5134",
+      "source/game_sa/PedDamageResponse.h": "b8d633254cf96a2b99ffefbc71901d9a49d73f5da3c56d37554bd2fce675f46f",
+      "source/game_sa/Entity/Ped/Ped.cpp": "90d80d2d8b15f900cee469afc299eabd3e7494c0d04275699bec1fefe8b3f324",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e",
+      "source/game_sa/Enums/eCheats.h": "a4a7f216bc256263bfe815475d10039fe22e491a303f47ffbfc05b6f7cae4fd0",
+      "source/game_sa/Enums/eWeaponType.h": "0a245360d64947392a192b571637f47063068b1fd891d1d9cf23b23692a13269",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+    },
+    "bank_sources": {
+      "reversing/RequestedRemainingLeafPairV2/LiveComparison.hpp": "dcfd0caa9df39b52fc06d0e11ffb243ae02c2b950d212fa3cee2b09dc86ebf6e",
+      "reversing/RequestedRemainingLeafPairV2/Preflight.hpp": "de19f4245b94948c8b749081acd7510b62dd8f2065a680745732576f18cf540b",
+      "reversing/RequestedRemainingLeafPairV2/VTableRanges.hpp": "00450c689d86de75208b768e6d4ac41e0d5e90c7b41719271ddfaf8e88e76c64",
+      "reversing/RequestedRemainingLeafPairV2/build_probe.py": "8da6d1a338c6dcf6e5a8f31d03f163e94b9736727ff51ff5e3e7df5433408786",
+      "reversing/RequestedRemainingLeafPairV2/run_local.py": "938336e42193ddf2ca3bf74205adcb2761da04d4274e523ae9e720c472d35fe0",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "expected_pairs": 19152,
+    "fixture_scope": "Remaining leaf pair before graphics; finite event/ref and damage/player ABI fixtures, force and speech stubbed; no WinMain/startup or actual actors equivalence. All mismatches remain failure.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "a8298b23c93ea4f13229028e0b29cd5b03d6c87e11d5a7459da5bb6cf5e6e408"
+    },
+    "asi": "c7f0f48d4f886706c44572698d5d4207ffc082cc7b5063bb5d7c527bf0eac200",
+    "pdb": "e5cb1a7af2b5953dadb96eea6e259cb64d4e39b50d1169d1f21d63f0c403e262"
+  },
+  "runner_sha256": "938336e42193ddf2ca3bf74205adcb2761da04d4274e523ae9e720c472d35fe0",
+  "reproduction_diagnostics": {
+    "pairs": 19152,
+    "pairs_per_function": {
+      "CInterestingEvents::InvalidateEvent": 720,
+      "CPedDamageResponseCalculator::ComputeWillKillPed": 18432
+    },
+    "differences": 0,
+    "model_mismatches": 0,
+    "validation_errors": [],
+    "terminal_bank_record": {
+      "cheats_restored": true,
+      "collaborator_entries_restored": true,
+      "differences": 0,
+      "entries_restored": true,
+      "event": "complete",
+      "flags_restored": true,
+      "pairs": 19152,
+      "scope": "finite private fixtures; references, force-death and speech isolated; no real-actor integration",
+      "state_restored": true
+    },
+    "terminal_harness_record": {
+      "changed_ranges": [],
+      "entries_restored": true,
+      "event": "complete",
+      "flags_restored": true,
+      "snapshot_ranges": 17692,
+      "state_restored": true,
+      "tables_restored": true,
+      "timer_restored": true
+    }
+  },
+  "comparison_storage": {
+    "uncompressed_path": "reversing/RequestedRemainingLeafPairV2/runs/20261008-134804-625681/comparisons.jsonl",
+    "uncompressed_sha256": "90cde680f7e7679676bb51b7bd46e9d50e93ffa4f4ea71b301890191c71b1eeb",
+    "uncompressed_bytes": 235655228,
+    "compressed_path": "reversing/RequestedRemainingLeafPairV2/runs/20261008-134804-625681/comparisons.jsonl.gz",
+    "compressed_sha256": "5990f809ef509a841b95055584298671de04a3a8f38959471b02ac36844bb3f8",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "90cde680f7e7679676bb51b7bd46e9d50e93ffa4f4ea71b301890191c71b1eeb"
+  }
+}

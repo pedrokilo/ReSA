@@ -4225,11 +4225,11 @@
   },
   {
     "file": "source/game_sa/Pad.cpp",
-    "sha256": "788db8e78a4908133a3dff0f72a817c03a4ef1d9a4f4e1a42e36b30d1142190a"
+    "sha256": "f96e5776607a1dcc5777b941e9a172c2bb02940a6395fdac91354b2e0437a9eb"
   },
   {
     "file": "source/game_sa/Pad.h",
-    "sha256": "478c06acc86628c09d9ba3140519ae92b5eb6b4fcbedaaa7d8e9fcf7edacc64e"
+    "sha256": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25"
   },
   {
     "file": "source/game_sa/Pad_SDL.cpp",
@@ -4269,7 +4269,7 @@
   },
   {
     "file": "source/game_sa/PedDamageResponseCalculator.cpp",
-    "sha256": "8584781f05fa350e083b87338fd7245d520c686be1d39c75f87373c9ab1269f9"
+    "sha256": "9c2fbe5da98d2050db03a4a0b525a3173d526a4fc45e0657adafe6d17bad8119"
   },
   {
     "file": "source/game_sa/PedDamageResponseCalculator.h",

@@ -1,0 +1,91 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file reversing\RequestedGeometryPlanesV2\baseline-47cad0300e9cfa1bb40564b9c919150e3a62f640968e8751ae10b0c060efbcc0\gta_reversed-geometry-planes.asi
+
+File Type: DLL
+
+  1167A9D0: 55                 push        ebp
+  1167A9D1: 8B EC              mov         ebp,esp
+  1167A9D3: 81 EC E8 00 00 00  sub         esp,0E8h
+  1167A9D9: 53                 push        ebx
+  1167A9DA: 56                 push        esi
+  1167A9DB: 57                 push        edi
+  1167A9DC: 51                 push        ecx
+  1167A9DD: 8D 7D D8           lea         edi,[ebp-28h]
+  1167A9E0: B9 0A 00 00 00     mov         ecx,0Ah
+  1167A9E5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1167A9EA: F3 AB              rep stos    dword ptr es:[edi]
+  1167A9EC: 59                 pop         ecx
+  1167A9ED: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1167A9F0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1167A9F3: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1167A9F6: F3 0F 10 00        movss       xmm0,dword ptr [eax]
+  1167A9FA: F3 0F 59 01        mulss       xmm0,dword ptr [ecx]
+  1167A9FE: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1167AA01: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1167AA04: F3 0F 10 4A 04     movss       xmm1,dword ptr [edx+4]
+  1167AA09: F3 0F 59 48 04     mulss       xmm1,dword ptr [eax+4]
+  1167AA0E: F3 0F 58 C1        addss       xmm0,xmm1
+  1167AA12: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1167AA15: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1167AA18: F3 0F 10 49 08     movss       xmm1,dword ptr [ecx+8]
+  1167AA1D: F3 0F 59 4A 08     mulss       xmm1,dword ptr [edx+8]
+  1167AA22: F3 0F 58 C1        addss       xmm0,xmm1
+  1167AA26: F3 0F 11 45 EC     movss       dword ptr [ebp-14h],xmm0
+  1167AA2B: 0F 57 C0           xorps       xmm0,xmm0
+  1167AA2E: 0F 2F 45 EC        comiss      xmm0,dword ptr [ebp-14h]
+  1167AA32: 72 16              jb          1167AA4A
+  1167AA34: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1167AA37: F3 0F 10 05 8C F7  movss       xmm0,dword ptr ds:[1318F78Ch]
+            18 13
+  1167AA3F: F3 0F 11 00        movss       dword ptr [eax],xmm0
+  1167AA43: D9 E8              fld1
+  1167AA45: E9 86 00 00 00     jmp         1167AAD0
+  1167AA4A: 51                 push        ecx
+  1167AA4B: F3 0F 10 45 EC     movss       xmm0,dword ptr [ebp-14h]
+  1167AA50: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  1167AA55: E8 E5 FF 9C FF     call        1104AA3F
+  1167AA5A: 83 C4 04           add         esp,4
+  1167AA5D: D9 9D 18 FF FF FF  fstp        dword ptr [ebp+FFFFFF18h]
+  1167AA63: F3 0F 10 05 8C F7  movss       xmm0,dword ptr ds:[1318F78Ch]
+            18 13
+  1167AA6B: F3 0F 5E 85 18 FF  divss       xmm0,dword ptr [ebp+FFFFFF18h]
+            FF FF
+  1167AA73: F3 0F 11 45 E0     movss       dword ptr [ebp-20h],xmm0
+  1167AA78: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1167AA7B: F3 0F 10 00        movss       xmm0,dword ptr [eax]
+  1167AA7F: F3 0F 59 45 E0     mulss       xmm0,dword ptr [ebp-20h]
+  1167AA84: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1167AA87: F3 0F 11 01        movss       dword ptr [ecx],xmm0
+  1167AA8B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1167AA8E: F3 0F 10 40 04     movss       xmm0,dword ptr [eax+4]
+  1167AA93: F3 0F 59 45 E0     mulss       xmm0,dword ptr [ebp-20h]
+  1167AA98: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1167AA9B: F3 0F 11 41 04     movss       dword ptr [ecx+4],xmm0
+  1167AAA0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1167AAA3: F3 0F 10 40 08     movss       xmm0,dword ptr [eax+8]
+  1167AAA8: F3 0F 59 45 E0     mulss       xmm0,dword ptr [ebp-20h]
+  1167AAAD: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1167AAB0: F3 0F 11 41 08     movss       dword ptr [ecx+8],xmm0
+  1167AAB5: F3 0F 10 05 8C F7  movss       xmm0,dword ptr ds:[1318F78Ch]
+            18 13
+  1167AABD: F3 0F 5E 45 E0     divss       xmm0,dword ptr [ebp-20h]
+  1167AAC2: F3 0F 11 85 18 FF  movss       dword ptr [ebp+FFFFFF18h],xmm0
+            FF FF
+  1167AACA: D9 85 18 FF FF FF  fld         dword ptr [ebp+FFFFFF18h]
+  1167AAD0: 5F                 pop         edi
+  1167AAD1: 5E                 pop         esi
+  1167AAD2: 5B                 pop         ebx
+  1167AAD3: 81 C4 E8 00 00 00  add         esp,0E8h
+  1167AAD9: 3B EC              cmp         ebp,esp
+  1167AADB: E8 F1 E0 9C FF     call        11048BD1
+  1167AAE0: 8B E5              mov         esp,ebp
+  1167AAE2: 5D                 pop         ebp
+  1167AAE3: C3                 ret
+  1167AAE4: CC                 int         3
+
+  Summary
+
+     2143000 .text

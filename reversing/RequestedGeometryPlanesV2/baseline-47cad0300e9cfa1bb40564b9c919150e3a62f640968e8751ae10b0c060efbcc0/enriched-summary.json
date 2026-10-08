@@ -1,0 +1,44 @@
+{
+  "passed": false,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "47cad0300e9cfa1bb40564b9c919150e3a62f640968e8751ae10b0c060efbcc0",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "error": "Error dentro de GTA; consultar comparisons.jsonl.",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "626f2d8d4fbe9208140d831b498ec17a6a0bec34",
+    "tested_sources": {
+      "source/game_sa/PedGeometryAnalyser.cpp": "6105832de48d09479bbaccd1d270e07fdf5f876d4fb1c428049b6a32a82ee7d5",
+      "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
+      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+      "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96"
+    },
+    "bank_sources": {
+      "reversing/RequestedGeometryPlanes/LiveComparison.hpp": "76200e366907dc9d40b3e0fa7a3a90914c81609b716c5656d49139bd6beab536",
+      "reversing/RequestedGeometryPlanes/build_probe.py": "53892bcfb7a85442057287dc28134ac171c7aa609c3351585c38d2817a9e483a",
+      "reversing/RequestedGeometryPlanes/run_local.py": "f9446f3c0a01a8c9568d356e19ed3dfa8006e19cb8fb4c8c47572f361c57091a",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Pregraphics pure arithmetic planes2048: finite CVector corners, complete-element alias modes, raw bytes and canonical masked nearest FP; caller FP state restored. Native Normalise59C910 shared collaborator; readonly constants captured, no independent helper or actor integration accreditation.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "704b230d06f04a71850ab1b91481f411bbb4795e560733c67a2bc7123a29fe25"
+    },
+    "asi": "47cad0300e9cfa1bb40564b9c919150e3a62f640968e8751ae10b0c060efbcc0",
+    "pdb": "9cb9d81a7d292d2da0d3d529b5b691f6429516718f8233d325521e6d70e97d25"
+  },
+  "runner_sha256": "f9446f3c0a01a8c9568d356e19ed3dfa8006e19cb8fb4c8c47572f361c57091a"
+}

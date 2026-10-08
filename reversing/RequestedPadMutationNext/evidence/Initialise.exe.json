@@ -1,0 +1,31 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "ranges": [
+    {
+      "start": 5512592,
+      "end": 5512647,
+      "hex": "56be6235b7006a016a018d8ef6feffffe8cbfcffff66c706000081c63401000081feca37b7007cdec6050034b70000c6050134b700005ec3",
+      "sha256": "2ab7e81fdf464f01a3d81f1d72d02f58461f29abdccef3d255c813a4fccbb2be"
+    }
+  ],
+  "assembly": [
+    "0x541d90: PUSH ESI",
+    "0x541d91: MOV ESI, 0xb73562",
+    "0x541d96: PUSH 0x1",
+    "0x541d98: PUSH 0x1",
+    "0x541d9a: LEA ECX, [ESI + 0xfffffef6]",
+    "0x541da0: CALL 0x00541a70",
+    "0x541da5: MOV word ptr [ESI], 0x0",
+    "0x541daa: ADD ESI, 0x134",
+    "0x541db0: CMP ESI, 0xb737ca",
+    "0x541db6: JL 0x00541d96",
+    "0x541db8: MOV byte ptr [0x00b73400], 0x0",
+    "0x541dbf: MOV byte ptr [0x00b73401], 0x0",
+    "0x541dc6: POP ESI",
+    "0x541dc7: RET"
+  ],
+  "pseudocode": "\r\nvoid FUN_00541d90(void)\r\n\r\n{\r\n  undefined2 *puVar1;\r\n  \r\n  puVar1 = &DAT_00b73562;\r\n  do {\r\n    FUN_00541a70(1,1);\r\n    *puVar1 = 0;\r\n    puVar1 = puVar1 + 0x9a;\r\n  } while ((int)puVar1 < 0xb737ca);\r\n  DAT_00b73400 = 0;\r\n  DAT_00b73401 = 0;\r\n  return;\r\n}\r\n\r\n",
+  "callee_addresses": [
+    "0x541a70"
+  ]
+}

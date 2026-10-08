@@ -1,0 +1,3 @@
+FALLO: Geometry planes2048
+Error dentro de GTA; consultar comparisons.jsonl.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-geometry-planes\20261008-134023-058953

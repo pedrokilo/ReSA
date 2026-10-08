@@ -1,0 +1,60 @@
+// CPedGeometryAnalyser::ComputeEntityBoundingBoxCentreUncached @ 0x005f1600 [0x5f1600..0x5f166c]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005f1600(float param_1,float *param_2,float *param_3)
+
+{
+  param_3[1] = 0.0;
+  *param_3 = 0.0;
+  param_3[2] = param_1;
+  *param_3 = *param_2;
+  param_3[1] = param_2[1];
+  *param_3 = param_2[3] + *param_3;
+  param_3[1] = param_2[4] + param_3[1];
+  *param_3 = param_2[6] + *param_3;
+  param_3[1] = param_2[7] + param_3[1];
+  *param_3 = param_2[9] + *param_3;
+  param_3[1] = param_2[10] + param_3[1];
+  *param_3 = *param_3 * 0.25;
+  param_3[1] = param_3[1] * 0.25;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005F1600: mov eax,dword ptr [esp+0Ch]
+005F1604: mov ecx,dword ptr [esp+4]
+005F1608: mov dword ptr [eax+4],0
+ 00
+005F160F: mov dword ptr [eax],0
+005F1615: mov dword ptr [eax+8],ecx
+005F1618: mov ecx,dword ptr [esp+8]
+005F161C: mov edx,dword ptr [ecx]
+005F161E: mov dword ptr [eax],edx
+005F1620: mov edx,dword ptr [ecx+4]
+005F1623: mov dword ptr [eax+4],edx
+005F1626: fld dword ptr [ecx+0Ch]
+005F1629: fadd dword ptr [eax]
+005F162B: fstp dword ptr [eax]
+005F162D: fld dword ptr [ecx+10h]
+005F1630: fadd dword ptr [eax+4]
+005F1633: fstp dword ptr [eax+4]
+005F1636: fld dword ptr [ecx+18h]
+005F1639: fadd dword ptr [eax]
+005F163B: fstp dword ptr [eax]
+005F163D: fld dword ptr [ecx+1Ch]
+005F1640: fadd dword ptr [eax+4]
+005F1643: fstp dword ptr [eax+4]
+005F1646: fld dword ptr [ecx+24h]
+005F1649: fadd dword ptr [eax]
+005F164B: fstp dword ptr [eax]
+005F164D: fld dword ptr [ecx+28h]
+005F1650: fadd dword ptr [eax+4]
+005F1653: fstp dword ptr [eax+4]
+005F1656: fld dword ptr [eax]
+005F1658: fmul dword ptr ds:[00858C84h]
+005F165E: fstp dword ptr [eax]
+005F1660: fld dword ptr [eax+4]
+005F1663: fmul dword ptr ds:[00858C84h]
+005F1669: fstp dword ptr [eax+4]
+005F166C: ret

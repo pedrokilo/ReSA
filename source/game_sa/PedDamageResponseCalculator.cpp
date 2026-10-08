@@ -209,7 +209,7 @@ bool CPedDamageResponseCalculator::ComputeWillForceDeath(CPed* ped, CPedDamageRe
  */
 void CPedDamageResponseCalculator::ComputeWillKillPed(CPed* ped, CPedDamageResponse& rsp, bool bSpeak) {
     if (ped->IsPlayer()) {
-        if (CCheat::IsActive(CHEAT_NO_ONE_CAN_STOP_US) && m_weaponType < WEAPON_LAST_WEAPON) {
+        if (CCheat::IsActive(CHEAT_INFINITE_HEALTH) && m_weaponType < WEAPON_LAST_WEAPON) {
             return;
         }
     }
@@ -223,10 +223,33 @@ void CPedDamageResponseCalculator::ComputeWillKillPed(CPed* ped, CPedDamageRespo
     }
 
     if (!rsp.m_bForceDeath && m_weaponType == WEAPON_FALL && m_bSpeak) {
-        const auto prevHP   = ped->m_fHealth;
-        ped->m_fHealth      = std::max(prevHP - m_fDamageFactor, 5.0f);
+        const auto prevHP = ped->m_fHealth;
+        const auto factor = m_fDamageFactor;
+        const float minimumHP = 5.0f;
+        float remainingHealth{};
+        float damageHealth{};
+        // 0x4B3290..0x4B32C4: retain the x87 remainder after storing health.
+        // Damage uses that unrounded remainder, not the float health in memory.
+        __asm {
+            fld prevHP
+            fsub factor
+            fld minimumHP
+            fcomp
+            fnstsw ax
+            test ah, 0x41
+            jnz keepRemainingForKillPed
+            fstp st(0)
+            fld minimumHP
+        keepRemainingForKillPed:
+            fst remainingHealth
+            fld prevHP
+            fsub st(0), st(1)
+            fstp damageHealth
+            fstp st(0)
+        }
+        ped->m_fHealth      = remainingHealth;
         rsp.m_bHealthZero   = false;
-        rsp.m_fDamageHealth = prevHP - ped->m_fHealth;
+        rsp.m_fDamageHealth = damageHealth;
         if (bSpeak) {
             ped->Say(CTX_GLOBAL_PAIN_LOW, 0, 1.0, 0, 0, 0);
         }

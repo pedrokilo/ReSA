@@ -1,0 +1,23 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "ranges": [
+    {
+      "start": 5501408,
+      "end": 5501437,
+      "hex": "b99031b700e8a6feffffb9202fb700e89cfeffffb9b02cb700e992feffff",
+      "sha256": "5b004b3bbd978f3c68c7a8866d89771e3e692f78adbb656377a0da58636fcd97"
+    }
+  ],
+  "assembly": [
+    "0x53f1e0: MOV ECX, 0xb73190",
+    "0x53f1e5: CALL 0x0053f090",
+    "0x53f1ea: MOV ECX, 0xb72f20",
+    "0x53f1ef: CALL 0x0053f090",
+    "0x53f1f4: MOV ECX, 0xb72cb0",
+    "0x53f1f9: JMP 0x0053f090"
+  ],
+  "pseudocode": "\r\nvoid FUN_0053f1e0(void)\r\n\r\n{\r\n  FUN_0053f090();\r\n  FUN_0053f090();\r\n  FUN_0053f090();\r\n  return;\r\n}\r\n\r\n",
+  "callee_addresses": [
+    "0x53f090"
+  ]
+}

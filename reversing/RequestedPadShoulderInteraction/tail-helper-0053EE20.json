@@ -1,0 +1,24 @@
+{
+  "address": "0x53ee20",
+  "bounded_window": true,
+  "bytes": "6683790c00740d6683793c007506b801000000c333c0c3909090909090909090",
+  "assembly": [
+    "0053EE20: 6683790c00 cmp word ptr [ecx + 0xc], 0",
+    "0053EE25: 740d je 0x53ee34",
+    "0053EE27: 6683793c00 cmp word ptr [ecx + 0x3c], 0",
+    "0053EE2C: 7506 jne 0x53ee34",
+    "0053EE2E: b801000000 mov eax, 1",
+    "0053EE33: c3 ret ",
+    "0053EE34: 33c0 xor eax, eax",
+    "0053EE36: c3 ret ",
+    "0053EE37: 90 nop ",
+    "0053EE38: 90 nop ",
+    "0053EE39: 90 nop ",
+    "0053EE3A: 90 nop ",
+    "0053EE3B: 90 nop ",
+    "0053EE3C: 90 nop ",
+    "0053EE3D: 90 nop ",
+    "0053EE3E: 90 nop ",
+    "0053EE3F: 90 nop "
+  ]
+}

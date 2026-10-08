@@ -1,0 +1,18 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "ranges": [
+    {
+      "start": 5501440,
+      "end": 5501451,
+      "hex": "a184cbb700898120010000c3",
+      "sha256": "28139ce8bd0bd991de8d0b7758d7d15c4919487e86a1c99ae8265db57fe9b5d1"
+    }
+  ],
+  "assembly": [
+    "0x53f200: MOV EAX, [0x00b7cb84]",
+    "0x53f205: MOV dword ptr [ECX + 0x120], EAX",
+    "0x53f20b: RET"
+  ],
+  "pseudocode": "\r\nvoid FUN_0053f200(void)\r\n\r\n{\r\n  int in_ECX;\r\n  \r\n  *(undefined4 *)(in_ECX + 0x120) = DAT_00b7cb84;\r\n  return;\r\n}\r\n\r\n",
+  "callee_addresses": []
+}

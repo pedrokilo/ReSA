@@ -1,0 +1,60 @@
+{
+  "procedure": {
+    "address": "0x540dc0",
+    "name": "FUN_00540dc0",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x540dc0",
+          "end": "0x540e12"
+        }
+      ],
+      "total_bytes": 83,
+      "span_bytes": 83,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00540dc0()",
+    "locals": []
+  },
+  "pseudocode": "\r\nundefined2 FUN_00540dc0(int param_1)\r\n\r\n{\r\n  undefined2 uVar1;\r\n  undefined2 *in_ECX;\r\n  \r\n  if (in_ECX[0x87] != 0) {\r\n    return 0;\r\n  }\r\n  uVar1 = 0;\r\n  if ((DAT_00b73403 != '\\0') || (DAT_00b6ec2e != '\\0')) {\r\n    if ((param_1 != 0) && (*(int *)(param_1 + 0xfc) != 0)) {\r\n      return 0;\r\n    }\r\n    if (DAT_008cd782 != '\\0') {\r\n      return *in_ECX;\r\n    }\r\n    uVar1 = in_ECX[2];\r\n  }\r\n  return uVar1;\r\n}\r\n\r\n",
+  "assembly": [
+    "0x540dc0: CMP word ptr [ECX + 0x10e], 0x0",
+    "0x540dc8: JZ 0x00540dd0",
+    "0x540dca: XOR AX, AX",
+    "0x540dcd: RET 0x4",
+    "0x540dd0: MOV DL, byte ptr [0x00b73403]",
+    "0x540dd6: XOR EAX, EAX",
+    "0x540dd8: TEST DL, DL",
+    "0x540dda: JNZ 0x00540de6",
+    "0x540ddc: MOV DL, byte ptr [0x00b6ec2e]",
+    "0x540de2: TEST DL, DL",
+    "0x540de4: JZ 0x00540e10",
+    "0x540de6: MOV EAX, dword ptr [ESP + 0x4]",
+    "0x540dea: TEST EAX, EAX",
+    "0x540dec: JZ 0x00540dfd",
+    "0x540dee: MOV EDX, dword ptr [EAX + 0xfc]",
+    "0x540df4: TEST EDX, EDX",
+    "0x540df6: JZ 0x00540dfd",
+    "0x540df8: XOR EAX, EAX",
+    "0x540dfa: RET 0x4",
+    "0x540dfd: MOV AL, [0x008cd782]",
+    "0x540e02: TEST AL, AL",
+    "0x540e04: JZ 0x00540e0c",
+    "0x540e06: MOV AX, word ptr [ECX]",
+    "0x540e09: RET 0x4",
+    "0x540e0c: MOV AX, word ptr [ECX + 0x4]",
+    "0x540e10: RET 0x4"
+  ],
+  "jump_tables": null,
+  "references": null,
+  "callees": []
+}

@@ -1,0 +1,35 @@
+{
+  "preferred_base": 268435456,
+  "symbols": [
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncachedAll",
+      "address": 296842560,
+      "rva": 28407104,
+      "size": 172
+    },
+    {
+      "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached",
+      "address": 296842160,
+      "rva": 28406704,
+      "size": 310
+    },
+    {
+      "name": "CVector::NormaliseAndMag",
+      "address": 292006352,
+      "rva": 23570896,
+      "size": 276
+    },
+    {
+      "name": "CVector2D::Normalise",
+      "address": 292009680,
+      "rva": 23574224,
+      "size": 172
+    },
+    {
+      "name": "CVector::Normalise",
+      "address": 292006272,
+      "rva": 23570816,
+      "size": 63
+    }
+  ]
+}

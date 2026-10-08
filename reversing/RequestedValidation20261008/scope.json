@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "requested_base": "24adc9887871e167b4b64e981446b265ba1e16df",
-  "inspected_head": "cbf6d72fd35d49d4a148a8f7a7b200a8833d85af",
+  "inspected_head": "626f2d8d4fbe9208140d831b498ec17a6a0bec34",
   "selection": "Classes requested by user; requested_pending=1 selects initial validated=0 identities. Historical rows are context, not an automatic replay expansion.",
-  "hooks_sha256": "a5bd5b69149265cc55c4eafe8b96884d6ecc0c894733635663f2f307974b4c9b",
-  "registry_sha256": "40cd785cf50e7119b689b70acfaf1e4a75a6cf500a4776472c2bd342678259f3",
+  "hooks_sha256": "2c5f881e94c1450e98ee391ba2f3c0b34e9c2c61017e4661e5fc521a9d6949e9",
+  "registry_sha256": "f3d14eff6f64fdb074e08af1db396aab70e12dc0cd525917e54e40ca1bc6cc6e",
   "classes": {
     "CAEAudioHardware": {
       "expected_pending": 1,
@@ -103,21 +103,19 @@
     },
     "CInterestingEvents": {
       "expected_pending": 2,
-      "historical_linked": 6,
+      "historical_linked": 7,
       "total": 7,
       "requested_pending": 2,
-      "pending_now": 1,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 1
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CPedDamageResponseCalculator": {
       "expected_pending": 2,
-      "historical_linked": 5,
+      "historical_linked": 6,
       "total": 6,
       "requested_pending": 2,
-      "pending_now": 1,
-      "pending_with_candidate_summary": 0,
-      "unlinked": 1
+      "pending_now": 0,
+      "pending_with_candidate_summary": 0
     },
     "CTaskComplexGangJoinRespond": {
       "expected_pending": 2,
@@ -223,12 +221,12 @@
     },
     "CTaskComplexPlayHandSignalAnim": {
       "expected_pending": 3,
-      "historical_linked": 6,
+      "historical_linked": 7,
       "total": 9,
       "requested_pending": 3,
-      "pending_now": 3,
+      "pending_now": 2,
       "pending_with_candidate_summary": 0,
-      "unlinked": 3
+      "unlinked": 2
     },
     "CTaskComplexWanderStandard": {
       "expected_pending": 3,
@@ -294,12 +292,12 @@
     },
     "CTaskSimpleFightingControl": {
       "expected_pending": 6,
-      "unlinked": 4,
+      "unlinked": 3,
       "total": 7,
       "requested_pending": 6,
-      "pending_now": 4,
+      "pending_now": 3,
       "pending_with_candidate_summary": 0,
-      "historical_linked": 3
+      "historical_linked": 4
     },
     "CRoadBlocks": {
       "expected_pending": 7,
@@ -312,12 +310,12 @@
     },
     "CTaskComplexProstituteSolicit": {
       "expected_pending": 7,
-      "unlinked": 5,
+      "unlinked": 4,
       "total": 11,
       "requested_pending": 7,
-      "pending_now": 5,
+      "pending_now": 4,
       "pending_with_candidate_summary": 0,
-      "historical_linked": 6
+      "historical_linked": 7
     },
     "CAEScriptAudioEntity": {
       "expected_pending": 8,
@@ -330,39 +328,39 @@
     },
     "CPedGeometryAnalyser": {
       "expected_pending": 9,
-      "historical_linked": 29,
+      "historical_linked": 30,
       "total": 38,
       "requested_pending": 9,
-      "pending_now": 9,
+      "pending_now": 8,
       "pending_with_candidate_summary": 0,
-      "unlinked": 9
+      "unlinked": 8
     },
     "CTaskComplexKillCriminal": {
       "expected_pending": 9,
-      "unlinked": 9,
+      "unlinked": 8,
       "total": 11,
       "requested_pending": 9,
-      "pending_now": 9,
+      "pending_now": 8,
       "pending_with_candidate_summary": 0,
-      "historical_linked": 2
+      "historical_linked": 3
     },
     "CTaskComplexKillPedOnFootArmed": {
       "expected_pending": 9,
-      "unlinked": 9,
+      "unlinked": 8,
       "total": 11,
       "requested_pending": 9,
-      "pending_now": 9,
+      "pending_now": 8,
       "pending_with_candidate_summary": 0,
-      "historical_linked": 2
+      "historical_linked": 3
     },
     "CTaskSimplePlayerOnFoot": {
       "expected_pending": 11,
-      "unlinked": 11,
+      "unlinked": 10,
       "total": 12,
       "requested_pending": 11,
-      "pending_now": 11,
+      "pending_now": 10,
       "pending_with_candidate_summary": 0,
-      "historical_linked": 1
+      "historical_linked": 2
     },
     "CAEPoliceScannerAudioEntity": {
       "expected_pending": 13,
@@ -615,11 +613,12 @@
     },
     "CPad": {
       "expected_pending": 75,
-      "unlinked": 75,
+      "unlinked": 23,
       "total": 75,
       "requested_pending": 75,
-      "pending_now": 75,
-      "pending_with_candidate_summary": 0
+      "pending_now": 23,
+      "pending_with_candidate_summary": 0,
+      "historical_linked": 52
     },
     "CVehicleModelInfo": {
       "expected_pending": 75,
@@ -681,8 +680,8 @@
     }
   },
   "totals": {
-    "unlinked": 1685,
-    "historical_linked": 625
+    "unlinked": 1624,
+    "historical_linked": 686
   },
   "total_identities": 2310,
   "requested_pending": 1710,
@@ -6325,10 +6324,10 @@
       "address": "0x005F1600",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedGeometryCentre",
+      "evidence": "reversing/RequestedGeometryCentre/validation-summary.json",
+      "candidate_banks": "RequestedGeometryCentre"
     },
     {
       "class": "CPedGeometryAnalyser",
@@ -6688,9 +6687,9 @@
       "address": "0x004B3210",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedRemainingLeafPairV2",
+      "evidence": "reversing/RequestedRemainingLeafPairV2/validation-summary-damage18432.json",
       "candidate_banks": ""
     },
     {
@@ -7348,9 +7347,9 @@
       "address": "0x0053FFE0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7392,9 +7391,9 @@
       "address": "0x00540A70",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7403,9 +7402,9 @@
       "address": "0x00541200",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7414,9 +7413,9 @@
       "address": "0x005411D0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7425,9 +7424,9 @@
       "address": "0x00540610",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7436,9 +7435,9 @@
       "address": "0x00540640",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7447,9 +7446,9 @@
       "address": "0x00540720",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7458,9 +7457,9 @@
       "address": "0x00540120",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7469,9 +7468,9 @@
       "address": "0x005403F0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7480,9 +7479,9 @@
       "address": "0x00540440",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7491,9 +7490,9 @@
       "address": "0x00540980",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7502,9 +7501,9 @@
       "address": "0x005409B0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7513,9 +7512,9 @@
       "address": "0x005409E0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7524,9 +7523,9 @@
       "address": "0x00540950",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7535,9 +7534,9 @@
       "address": "0x00540080",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7546,9 +7545,9 @@
       "address": "0x0053FF90",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7557,9 +7556,9 @@
       "address": "0x0053FC50",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7568,9 +7567,9 @@
       "address": "0x0053FC10",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7590,9 +7589,9 @@
       "address": "0x00540700",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7601,9 +7600,9 @@
       "address": "0x005406B0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7612,9 +7611,9 @@
       "address": "0x005400D0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7623,9 +7622,9 @@
       "address": "0x00540AE0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7634,9 +7633,9 @@
       "address": "0x005411B0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7645,9 +7644,9 @@
       "address": "0x00541190",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7656,9 +7655,9 @@
       "address": "0x00540040",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7667,9 +7666,9 @@
       "address": "0x0053FEE0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7678,9 +7677,9 @@
       "address": "0x0053FF70",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7689,9 +7688,9 @@
       "address": "0x00540750",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7700,9 +7699,9 @@
       "address": "0x0053FE70",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7711,9 +7710,9 @@
       "address": "0x0053FEC0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7722,9 +7721,9 @@
       "address": "0x0053FDD0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7733,9 +7732,9 @@
       "address": "0x0053FE10",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadShoulderInteraction",
+      "evidence": "reversing/RequestedPadShoulderInteraction/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -7744,9 +7743,9 @@
       "address": "0x00540340",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7755,9 +7754,9 @@
       "address": "0x0053FC90",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7777,9 +7776,9 @@
       "address": "0x0053FD30",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7799,9 +7798,9 @@
       "address": "0x005407A0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7810,9 +7809,9 @@
       "address": "0x0053FB80",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7821,9 +7820,9 @@
       "address": "0x0053FBD0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7832,9 +7831,9 @@
       "address": "0x00540670",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7843,9 +7842,9 @@
       "address": "0x0053F210",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7865,9 +7864,9 @@
       "address": "0x00541260",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7876,9 +7875,9 @@
       "address": "0x00541230",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7887,9 +7886,9 @@
       "address": "0x0053FF30",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7909,9 +7908,9 @@
       "address": "0x00540770",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7920,9 +7919,9 @@
       "address": "0x005405E0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7953,9 +7952,9 @@
       "address": "0x00540390",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -7964,9 +7963,9 @@
       "address": "0x005405B0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -8019,9 +8018,9 @@
       "address": "0x00540850",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -8030,9 +8029,9 @@
       "address": "0x00540880",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -8041,9 +8040,9 @@
       "address": "0x00540B30",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -8052,9 +8051,9 @@
       "address": "0x00540B80",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -8063,9 +8062,9 @@
       "address": "0x005407F0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadSelectors",
+      "evidence": "reversing/RequestedPadSelectors/validation-summary-51.json",
       "candidate_banks": ""
     },
     {
@@ -8195,9 +8194,9 @@
       "address": "0x00602960",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedRemainingLeafPair",
+      "evidence": "reversing/RequestedRemainingLeafPair/validation-summary-event720.json",
       "candidate_banks": ""
     },
     {
@@ -20823,10 +20822,10 @@
       "address": "0x00000000",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedTaskTypeSix",
+      "evidence": "reversing/RequestedTaskTypeSix/validation-summary.json",
+      "candidate_banks": "RequestedTaskTypeSix"
     },
     {
       "class": "CTaskSimplePlayerOnFoot",
@@ -20966,10 +20965,10 @@
       "address": "0x00000000",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedTaskTypeSix",
+      "evidence": "reversing/RequestedTaskTypeSix/validation-summary.json",
+      "candidate_banks": "RequestedTaskTypeSix"
     },
     {
       "class": "CTaskSimpleFightingControl",
@@ -21527,10 +21526,10 @@
       "address": "0x00000000",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedTaskTypeSix",
+      "evidence": "reversing/RequestedTaskTypeSix/validation-summary.json",
+      "candidate_banks": "RequestedTaskTypeSix"
     },
     {
       "class": "CTaskComplexKillPedOnFootArmed",
@@ -21615,10 +21614,10 @@
       "address": "0x00000000",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedTaskTypeSix",
+      "evidence": "reversing/RequestedTaskTypeSix/validation-summary.json",
+      "candidate_banks": "RequestedTaskTypeSix"
     },
     {
       "class": "CTaskComplexKillPedOnFootArmed",
@@ -21835,10 +21834,10 @@
       "address": "0x00000000",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedTaskTypeSix",
+      "evidence": "reversing/RequestedTaskTypeSix/validation-summary.json",
+      "candidate_banks": "RequestedTaskTypeSix"
     },
     {
       "class": "CTaskComplexKillCriminal",
@@ -25322,10 +25321,10 @@
       "address": "0x00661AE0",
       "type": "V",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
-      "candidate_banks": ""
+      "validation_state": "historical_linked",
+      "bank": "RequestedTaskTypeSix",
+      "evidence": "reversing/RequestedTaskTypeSix/validation-summary.json",
+      "candidate_banks": "RequestedTaskTypeSix"
     },
     {
       "class": "CTaskComplexProstituteSolicit",
@@ -26104,5 +26103,5 @@
     "Read-only registry evaluation verifies registered summary/source/dependency hashes; it does not replay GTA or re-hash remote historical logs."
   ],
   "audit_mode": "selection_only_current_unverified",
-  "pending_now": 1685
+  "pending_now": 1624
 }

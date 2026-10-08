@@ -1,0 +1,11 @@
+# GroupPlacer enum4: prepared fatal baseline, no approval
+
+Valid enum SIT_IN_LEADER_CAR=4 routes original5FD810 to5FD83F: EAX initially allocator4; movAL,[esp+0C],ret10h gives origin pointer byte unchanged. Four native specimens at aligned512-byte arena offsets0,4,128,252 verify rawEAX/AL, exact mode gate and untouchedorigin/placer. No placement helper needed onenum4. Candidate specimenoffset128 should enter source NOTSA_UNREACHABLE. Static disagreement already proved; replay not yet performed by this bank.
+
+Before candidate call, only own ASI MessageBoxA importslot is temporarily replaced. Guard requires caption unreachable/textPlaceGroup, logs exact call details and restores target GTA/DLLentry52bytes/flags/candados/IAT, then ExitProcess3 without modal and without returning into restored candidate code. Normal-return/setupfailure paths also restore. If own import unavailable, candidate is NOT called. It deliberately instruments fatal handling; confirms reaching unreachable, not real uninstrumented termination timing or full process cleanup. Other exceptions before MessageBoxA may bypass guard and must remain failed/incomplete; external runner restores installation.
+
+Safety/design limit: pregraphics only, no game startup/peds/pools/helpers; bounded timeout60. No getter/dispatching general approval. Analyzer always passed:false, records baseline_difference_observed only after native proof +guardrestore; expectedexit3. Failure log preserved, never register this baseline. Candidate unexpectedly returning yields error requiring review before any corrected bank. Do not silently treat fatal as success.
+
+ABI shim risks: normal C++bool cannot retain noncanonical AL. A future naked x86 entry would need exact signature16bytes stack, preserve original fullEAX default and tail delegate otherenums to typed body; check actual compiled assembly/thunks, stack cleanup/nonvolatile preservation. Enum>5 optional characterization separate from validenum4. Baseline artifacts immutable before fix. Source/Base.h debugguard differs Release unreachable intrinsic, so this Debug fixture does not establish Release error semantics. No source fix or frozen old bank mutation here.
+
+No WinMain edit/build/GTA executed in preparation; optional builder merely staged, requires root order. Instrumentation is confined new directory.

@@ -1,0 +1,56 @@
+{
+  "counts": {
+    "pairs": 2048,
+    "failed": 1444,
+    "normals_match": 2048,
+    "x87model_original": 2048,
+    "ssemodel_candidate": 2048,
+    "all_gates": 2048
+  },
+  "examples": [
+    {
+      "seed": 0,
+      "alias": 0,
+      "original_dot_bits": "0a611d40eb7d1dc02ae061c040bfdf3f",
+      "candidate_dot_bits": "0a611d40eb7d1dc02ae061c03ebfdf3f",
+      "x87model_bits": "0a611d40eb7d1dc02ae061c040bfdf3f",
+      "ssemodel_bits": "0a611d40eb7d1dc02ae061c03ebfdf3f"
+    },
+    {
+      "seed": 1,
+      "alias": 0,
+      "original_dot_bits": "c0291d40357613c06a0363c0488cc83f",
+      "candidate_dot_bits": "bf291d40357613c06a0363c0468cc83f",
+      "x87model_bits": "c0291d40357613c06a0363c0488cc83f",
+      "ssemodel_bits": "bf291d40357613c06a0363c0468cc83f"
+    },
+    {
+      "seed": 1,
+      "alias": 1,
+      "original_dot_bits": "c0291d40635e033f938353bf4ac466bf",
+      "candidate_dot_bits": "bf291d40635e033f928353bf4ac466bf",
+      "x87model_bits": "c0291d40635e033f938353bf4ac466bf",
+      "ssemodel_bits": "bf291d40635e033f928353bf4ac466bf"
+    },
+    {
+      "seed": 2,
+      "alias": 0,
+      "original_dot_bits": "53be1540cdcc04c0f2ca58c09999a93f",
+      "candidate_dot_bits": "52be1540cdcc04c0f2ca58c09a99a93f",
+      "x87model_bits": "53be1540cdcc04c0f2ca58c09999a93f",
+      "ssemodel_bits": "52be1540cdcc04c0f2ca58c09a99a93f"
+    }
+  ],
+  "terminal": {
+    "entries_restored": true,
+    "event": "error",
+    "fp_environment_restored": true,
+    "globals_restored": true,
+    "manual_helper_entries_restored": true,
+    "native_readonly_unchanged": true,
+    "pairs": 2048,
+    "state_restored": true
+  },
+  "log_sha256": "62198023608f297081ab9efff64c9bc61798a83db4a236b54444b1182a596928",
+  "model_scope": "Each input/multiplicand is float32; Python IEEE64 models original x87 precision53 in controlled fixture, one final float32 store. Candidate model rounds every multiply/add tofloat32. Prev corner copied after current iteration stores; normal arrays byte-identical for all2048, so no normalization/alias divergence observed."
+}

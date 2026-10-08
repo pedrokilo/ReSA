@@ -1,0 +1,48 @@
+{
+  "prepared_only": true,
+  "compiled": false,
+  "runtime_approved": false,
+  "targets": [
+    {
+      "class": "CInterestingEvents",
+      "fn_name": "InvalidateEvent",
+      "address": "0x00602960",
+      "type": "S",
+      "planned_pairs": 720
+    },
+    {
+      "class": "CPedDamageResponseCalculator",
+      "fn_name": "ComputeWillKillPed",
+      "address": "0x004B3210",
+      "type": "S",
+      "planned_pairs": 9216
+    }
+  ],
+  "planned_total_pairs": 9936,
+  "header_sha256": "3eb27620f1750e0b938caff7a69e170b782b48ab24a4c12afa08cf4d30f2ce39",
+  "rea_dossiers": {
+    "0474-0x004B3210.json": "583bbac2b3ce3b72d36332d71652cf4e714c01950981649fd7731374cfb5f9dd",
+    "0605-0x00602960.json": "feefb2344181b2e1978ed09de5a07340f59e67878745e5ad219328ec4b1cf3f4"
+  },
+  "source_observation_not_build_provenance": {
+    "source/game_sa/InterestingEvents.cpp": "9bbd2b4f9e6e5077bbe1ca0d11c2eb03f1435e4eae942ffbc752324c03154f2d",
+    "source/game_sa/InterestingEvents.h": "a4b35e4b6b9ce1a8077d4c76e4bbdd474c0bf85887efcbde0867a607e6774834",
+    "source/game_sa/PedDamageResponseCalculator.cpp": "8584781f05fa350e083b87338fd7245d520c686be1d39c75f87373c9ab1269f9",
+    "source/game_sa/PedDamageResponseCalculator.h": "171cf52530ce70ddbfe877fd2c82feda5d7094f9677c1e54b0769d74d49f5134",
+    "source/game_sa/PedDamageResponse.h": "b8d633254cf96a2b99ffefbc71901d9a49d73f5da3c56d37554bd2fce675f46f",
+    "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+    "source/game_sa/Entity/Ped/Ped.cpp": "90d80d2d8b15f900cee469afc299eabd3e7494c0d04275699bec1fefe8b3f324",
+    "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+    "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+    "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e"
+  },
+  "prepared_instruments": {
+    "LiveComparison.hpp": "3eb27620f1750e0b938caff7a69e170b782b48ab24a4c12afa08cf4d30f2ce39",
+    "Preflight.hpp": "af5cf2eff219b0b4465ffadda1cdf8ef7da2c0d094809dd5af2e093a6b91f89b",
+    "VTableRanges.hpp": "24ff067ab99e708d83948d11a3df7fdd42ab921c722ada2282e416a473b143c4",
+    "build_probe.py": "177d4049ca4e1a2f77e61e8b9c4b96f04fed96da609477d0a8d9be53781ac8cb",
+    "run_local.py": "1814c2197e7923847a515df5ea3a7c18c0808f4c560eb07bc7cfeb4110b7b302"
+  },
+  "compile_command_for_coordinator": "python reversing/RequestedRemainingLeafPair/build_probe.py",
+  "runtime_command_for_coordinator": "python reversing/RequestedRemainingLeafPair/run_local.py"
+}

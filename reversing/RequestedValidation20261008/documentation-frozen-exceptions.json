@@ -1,0 +1,174 @@
+{
+  "snapshot": "6822 doc refresh; corpus.inputs and prepared-freeze schemas included",
+  "manifests_scanned": 2296,
+  "frozen_markdown_exceptions": {
+    "reversing/RequestedGeometryCentre/README.md": {
+      "sha256": "0ebbe20071c3f9608b611535024e621948acaa36c07108673beae9866c1ab689",
+      "referenced_by": [
+        "reversing/RequestedGeometryCentre/prepared-freeze.json"
+      ]
+    },
+    "reversing/RequestedGeometryPlanes/README.md": {
+      "sha256": "0faaeca595f404fb3ec3289804945b0857d37f2502d1cddb885df35ac3ccaad7",
+      "referenced_by": [
+        "reversing/RequestedGeometryPlanes/prepared-freeze.json"
+      ]
+    },
+    "reversing/RequestedPadSelectors/FIXTURES.md": {
+      "sha256": "56bd1a730d919c8d4c3c0d7b77a4872f9120dbae6c04efa2d679617fe846be24",
+      "referenced_by": [
+        "reversing/RequestedPadSelectors/artifacts/archive/86a08a5d6a701319269dee7ce2defcee86790574a78b6bd1030b9778bef8e2ff/manifest.json",
+        "reversing/RequestedPadSelectors/artifacts/manifest.json",
+        "reversing/RequestedPadSelectors/runs/20261008-124241-603231/enriched-summary.json",
+        "reversing/RequestedPadSelectors/runs/20261008-130252-828987/enriched-summary.json",
+        "reversing/RequestedPadSelectors/validation-summary-51.json"
+      ]
+    },
+    "reversing/RequestedPadShoulderInteraction/FIXTURES.md": {
+      "sha256": "4a0a7a93bbb55adbac5d9c77253d1a2c20dd6aa1747897063049960e44d2ad0c",
+      "referenced_by": [
+        "reversing/RequestedPadShoulderInteraction/artifacts/archive/ce8a92a44a100d41daec85aa73ee59bfdc0948001b71b781168df0da24ca8007/manifest.json",
+        "reversing/RequestedPadShoulderInteraction/artifacts/manifest.json",
+        "reversing/RequestedPadShoulderInteraction/runs/20261008-131300-139576/enriched-summary.json",
+        "reversing/RequestedPadShoulderInteraction/runs/20261008-131626-078538/enriched-summary.json",
+        "reversing/RequestedPadShoulderInteraction/validation-summary.json"
+      ]
+    },
+    "reversing/RequestedParallelReplay/TaskCtorDtor/FIXTURES.md": {
+      "sha256": "cf755a7dae602c849a7a6f1a6f3969daf78a0b15ec1550c9514a72a097748521",
+      "referenced_by": [
+        "reversing/RequestedParallelReplay/TaskCtorDtor/bank-freeze.json"
+      ]
+    },
+    "reversing/RequestedTaskTypeSix/README.md": {
+      "sha256": "2e367acfb70a35fd820e405561e2ad9887a1eff317cd6d27329eef6be107ff9e",
+      "referenced_by": [
+        "reversing/RequestedTaskTypeSix/prepared-freeze.json"
+      ]
+    },
+    "reversing/RequestedWanderRemaining/README.md": {
+      "sha256": "1eadcd3fde1f1e2c13525addd9649172522c3aab59e67468a3ab2de5cb1fba71",
+      "referenced_by": [
+        "coordinator explicit frozen-doc instruction",
+        "reversing/RequestedWanderRemaining/prepared-freeze.json"
+      ]
+    },
+    "source/GUIA_DE_CARPETAS.md": {
+      "sha256": "4b08627885a2d598458279d9ddc28f5cf35552e459ba441c81f613791d04ab9a",
+      "referenced_by": [
+        "reversing/AudioCompletion/artifacts/20261001-211500-517302/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-211733-158826/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-211928-630915/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-212155-352577/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-213013-266202/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-213209-083831/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-213616-927978/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-214110-736180/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-215651-959678/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-220721-744302/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-215636-198098/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-215705-821938/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-215750-168531/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-220033-182765/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-220248-730894/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-225250/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-225645/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-225808/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-230540/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-231051/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20261002-163256/manifest.json",
+        "reversing/ShutdownLists/artifacts/isolated-normal/manifest.json",
+        "reversing/ShutdownLists/artifacts/isolated-probe/manifest.json",
+        "reversing/ShutdownLists/artifacts/pre-logging-fix/manifest.json"
+      ]
+    },
+    "source/game_sa/Animation/README.md": {
+      "sha256": "4897278963a4e6b7144fcd02275cbbfd6135148cbca3fcb6c0ccf8f5b8a66f8d",
+      "referenced_by": [
+        "reversing/AudioCompletion/artifacts/20261001-211500-517302/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-211733-158826/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-211928-630915/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-212155-352577/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-213013-266202/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-213209-083831/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-213616-927978/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-214110-736180/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-215651-959678/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-220721-744302/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-215636-198098/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-215705-821938/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-215750-168531/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-220033-182765/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-220248-730894/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-225250/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-225645/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-225808/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-230540/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-231051/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20261002-163256/manifest.json",
+        "reversing/ShutdownLists/artifacts/isolated-normal/manifest.json",
+        "reversing/ShutdownLists/artifacts/isolated-probe/manifest.json",
+        "reversing/ShutdownLists/artifacts/pre-logging-fix/manifest.json",
+        "reversing/Unlocks/validation-summary.json",
+        "reversing/_handoff/summaries_backup/Unlocks/validation-summary.json",
+        "reversing/_handoff/summaries_backup_0210/Unlocks/validation-summary.json",
+        "reversing/_handoff/summaries_backup_0410b/Unlocks/validation-summary.json",
+        "reversing/_handoff/summaries_backup_0510b/Unlocks/validation-summary.json",
+        "reversing/_handoff/summaries_backup_0610post/Unlocks/validation-summary.json"
+      ]
+    },
+    "source/toolsmenu/DebugModules/!README.md": {
+      "sha256": "b1c8b0d1bf33561130b3351d45e372b52d083f4fb3e29150bc04d45b3e87622f",
+      "referenced_by": [
+        "reversing/AudioCompletion/artifacts/20261001-211500-517302/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-211733-158826/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-211928-630915/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-212155-352577/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-213013-266202/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-213209-083831/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-213616-927978/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-214110-736180/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-215651-959678/manifest.json",
+        "reversing/AudioCompletion/artifacts/20261001-220721-744302/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-215636-198098/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-215705-821938/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-215750-168531/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-220033-182765/manifest.json",
+        "reversing/ConversationForPed/artifacts/20260930-220248-730894/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-225250/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-225645/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-225808/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-230540/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20260927-231051/manifest.json",
+        "reversing/PedToPlayerConversations/artifacts/20261002-163256/manifest.json",
+        "reversing/ShutdownLists/artifacts/isolated-normal/manifest.json",
+        "reversing/ShutdownLists/artifacts/isolated-probe/manifest.json",
+        "reversing/ShutdownLists/artifacts/pre-logging-fix/manifest.json",
+        "reversing/Unlocks/validation-summary.json",
+        "reversing/_handoff/summaries_backup/Unlocks/validation-summary.json",
+        "reversing/_handoff/summaries_backup_0210/Unlocks/validation-summary.json",
+        "reversing/_handoff/summaries_backup_0410b/Unlocks/validation-summary.json",
+        "reversing/_handoff/summaries_backup_0510b/Unlocks/validation-summary.json",
+        "reversing/_handoff/summaries_backup_0610post/Unlocks/validation-summary.json"
+      ]
+    },
+    "reversing/RequestedGeometryPlanesV2/README.md": {
+      "sha256": "54cb1efd5524dde6035a08c7baea9004c7405664d490dafc75c629fcd4b93010",
+      "referenced_by": [
+        "reversing/RequestedGeometryPlanesV2/prepared-freeze.json"
+      ]
+    },
+    "reversing/RequestedGroupPlacerPreflight/README.md": {
+      "sha256": "825cb939c6e053a9127111246db6cc0df02bb0512b8f3f20603c288af4ab0c4f",
+      "referenced_by": [
+        "reversing/RequestedGroupPlacerPreflight/prepared-freeze.json"
+      ]
+    },
+    "reversing/RequestedPadContext9/FIXTURES.md": {
+      "sha256": "e9c66b3709189f18fd55bc42ae00c7dbfe6809391c71f1e4e4136e6bb0eb3a63",
+      "referenced_by": [
+        "reversing/RequestedPadContext9/corpus-frozen.json"
+      ]
+    }
+  }
+}

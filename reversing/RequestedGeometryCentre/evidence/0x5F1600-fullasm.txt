@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  005F1600: 8B 44 24 0C        mov         eax,dword ptr [esp+0Ch]
+  005F1604: 8B 4C 24 04        mov         ecx,dword ptr [esp+4]
+  005F1608: C7 40 04 00 00 00  mov         dword ptr [eax+4],0
+            00
+  005F160F: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  005F1615: 89 48 08           mov         dword ptr [eax+8],ecx
+  005F1618: 8B 4C 24 08        mov         ecx,dword ptr [esp+8]
+  005F161C: 8B 11              mov         edx,dword ptr [ecx]
+  005F161E: 89 10              mov         dword ptr [eax],edx
+  005F1620: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  005F1623: 89 50 04           mov         dword ptr [eax+4],edx
+  005F1626: D9 41 0C           fld         dword ptr [ecx+0Ch]
+  005F1629: D8 00              fadd        dword ptr [eax]
+  005F162B: D9 18              fstp        dword ptr [eax]
+  005F162D: D9 41 10           fld         dword ptr [ecx+10h]
+  005F1630: D8 40 04           fadd        dword ptr [eax+4]
+  005F1633: D9 58 04           fstp        dword ptr [eax+4]
+  005F1636: D9 41 18           fld         dword ptr [ecx+18h]
+  005F1639: D8 00              fadd        dword ptr [eax]
+  005F163B: D9 18              fstp        dword ptr [eax]
+  005F163D: D9 41 1C           fld         dword ptr [ecx+1Ch]
+  005F1640: D8 40 04           fadd        dword ptr [eax+4]
+  005F1643: D9 58 04           fstp        dword ptr [eax+4]
+  005F1646: D9 41 24           fld         dword ptr [ecx+24h]
+  005F1649: D8 00              fadd        dword ptr [eax]
+  005F164B: D9 18              fstp        dword ptr [eax]
+  005F164D: D9 41 28           fld         dword ptr [ecx+28h]
+  005F1650: D8 40 04           fadd        dword ptr [eax+4]
+  005F1653: D9 58 04           fstp        dword ptr [eax+4]
+  005F1656: D9 00              fld         dword ptr [eax]
+  005F1658: D8 0D 84 8C 85 00  fmul        dword ptr ds:[00858C84h]
+  005F165E: D9 18              fstp        dword ptr [eax]
+  005F1660: D9 40 04           fld         dword ptr [eax+4]
+  005F1663: D8 0D 84 8C 85 00  fmul        dword ptr ds:[00858C84h]
+  005F1669: D9 58 04           fstp        dword ptr [eax+4]
+  005F166C: C3                 ret
+  005F166D: 90                 nop
+
+  Summary
+
+      456000 .text

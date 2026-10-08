@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a93e471fc37258138beba2922ee61dc0a7806943e51cb0e68f831dad2ea290eb",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 7680,
+  "pairs_per_function": {
+    "CTaskSimplePlayerOnFoot::GetTaskType": 1280,
+    "CTaskSimpleFightingControl::GetTaskType": 1280,
+    "CTaskComplexPlayHandSignalAnim::GetTaskType": 1280,
+    "CTaskComplexKillPedOnFootArmed::GetTaskType": 1280,
+    "CTaskComplexKillCriminal::GetTaskType": 1280,
+    "CTaskComplexProstituteSolicit::GetTaskType": 1280
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "0f177938d9d3a6dbbe87941422cb6b67d10bce27d80e4cbb01caf1a6de7d36f6",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "626f2d8d4fbe9208140d831b498ec17a6a0bec34",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "b78a9646d7470cefbb419368e777f788dd618f69ec10fc40369f397a8cca18ea",
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "c0a67e40026b09625b817e8f172178ed8a698acb69d5d58200da3511067c9ad3",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "ba3b7c1a658dfd3d99ca7328c19ca5f6502059b537c336845a3c467054b2033d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "25c7cd7581b4c0404c857e703f4333d75949f961fba6a34dcbb29c57ff432e45",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "c720074564508aa652b0c440a93e5dddc86015bd7844324198ca8e6a108fc4cf",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "2c2ad674a91c8c10497d6fcdf3e938b93ca0e682b09f3da3566b045814e183cb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp": "b906e022672074ce60bab5111d71f43d4707252847076b0de5166c376744b6d8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.h": "5628ca13f255802d44c3d522f684e61b0400fddff75da8add6d5a881b7068da8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp": "5d75866f38c13eb5583c392d974835a5763db944f6f1b36744d830a769653ea3",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h": "e33d4f016d49d437a32ef6ea9d2732dbf146edbe5f85a8b12e1782ca2c1f3fc6",
+      "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+      "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/Enums/eTaskType.h": "e22db84f679db22dee787a4825b8aa7490e90b034c7d37b01ab0f757f74e1d3a"
+    },
+    "bank_sources": {
+      "reversing/RequestedTaskTypeSix/LiveComparison.hpp": "d54c199536ddfe8dfb9fc2f33f2451cc22126cdd52eacaa0b7535d7db52473de",
+      "reversing/RequestedTaskTypeSix/build_probe.py": "5cfe201db4230d4a370c5e0818fb3c55689c9908d04a126daf86cb69ab393bf6",
+      "reversing/RequestedTaskTypeSix/run_local.py": "97140eb92f0d6d01b3b77d96c38e24cf605e92ba777f66fc4bc5910adeca632a",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Six pure getters,7680pairs:256 source-constructed manual arenas each x5actualentry/vtable/base-dispatch routes. Animation index and entity reference collaborators stubbed only during constructor fixture. No actor/pool/resource cleanup integration or constructor/destructor accreditation. Typed catalogue virtual addresses remain0 for five entries.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "e7599959c15a7d5d5297f10a61cbffb5aa06b8b4ac2a7d0adf8f64ff6e576a58"
+    },
+    "asi": "a93e471fc37258138beba2922ee61dc0a7806943e51cb0e68f831dad2ea290eb",
+    "pdb": "fccfb53841884e4f7bcedef6bc28e267f48bd62add2d3c07084025364405ae0c"
+  },
+  "runner_sha256": "97140eb92f0d6d01b3b77d96c38e24cf605e92ba777f66fc4bc5910adeca632a"
+}

@@ -25,6 +25,7 @@ def analyze(log):
     if len(comparisons)!=52*count or seen!={(f,seed) for f in expected for seed in range(count)}:raise RuntimeError('Missing CPad fixture coverage')
     failures=[r for r in comparisons if not r['equal']]
     result={'comparisons':len(comparisons),'functions':52,'fixtures_per_function':count,'differences':len(failures),'failures_by_function':{f:sum(r['function']==f for r in failures) for f in expected},'passed':not failures,'bank_restored':True}
+    result['all_equal']=not failures
     harness=runner.GAME/'preflight-pad-selectors-harness.jsonl'
     if not runner.terminal_event(harness):return None
     rows=[json.loads(line) for line in harness.read_text(encoding='utf8').splitlines()]
@@ -54,6 +55,8 @@ def main():
         if (run/filename).exists():shutil.copy2(run/filename,destination/filename)
     if previous.exists():shutil.copy2(previous,destination/'harness.jsonl')
     report=json.loads((run/'summary.json').read_text());report.update(manifest=manifest,runner_sha256=runner.digest(Path(__file__)))
+    if report.get('passed') and (report.get('differences',1)!=0 or report.get('all_equal') is not True):
+        report['passed']=False;report['error']='Invalid approval: explicit zero differences and all_equal required';status=1
     (destination/'enriched-summary.json').write_text(json.dumps(report,indent=2))
     print('Preserved',destination,'passed',report['passed'])
     return status

@@ -1,0 +1,14 @@
+PlaceGroup enum4 ABI proposal; not applied or compiled.
+
+Original5FD810 first loads full allocatorDWORD into EAX, then switch. For enum4 (valid SIT_IN_LEADER_CAR), jumps5FD83F: mov al,byte ptr[esp+0C]; ret10h. Thus raw AL equals low byte of origin pointer, and EAX upper24bits retain allocator upper24bits. Enumerators0/1 tail delegateFormation,2/3Chat,5Random. Candidate source default NOTSA_UNREACHABLE terminates; this disagreement is proved statically, no replay difference claimed.
+
+A C++ `return bool(uint8(uintptr_t(&origin)))` is NOT faithful because it canonicalizes nonzero AL to1. Reading invalid bool representation also cannot be used as a portable/defined corrective implementation.
+
+Minimal faithful x86 design for future review:
+1. Preserve existing typed member public bool signature and hook identity.
+2. Implement an explicit MSVCx86 naked entry shim only for dispatcher. It reads allocator[esp+10h] intoEAX. For allocator4 or unsigned allocator>5: mov al,[esp+0Ch], ret10h. Exact raw AL and stack cleanup, original ECX unchanged. For other enums tail jump a named __fastcall body receiving ECX=this, EDX=ignored and same four stack args. This body retains typed Formation/Chat/Random calls; it cannot see default.
+3. Retain __fastcall body's canonical bool outputs only on delegated paths; delegated callers are independently limited by their contracts. Register/hook the typed shim entry, not the auxiliary body. Source and compiled manifest must include helper and naked body. Verify emitted shim from actual ASI before any approval: four stack args16bytes, no prologue or bool-normalization instruction, exact AL default, preserved callee-saved registers, and native/DLL entry restoration.
+
+Bank expansion required BEFORE source change: copy old bank into a distinct preflight folder, remove player/graphics gate only from instrumental copy; test valid enum4 original+candidate with raw-AL inline assembly caller, pointer-low0/4/128/252 inside aligned512-byte origin arena and valid complete CVector. Current candidate exits3 before terminal comparison on4, so separate process replay per specimen or preserve first fatal specimen; do not treat terminalabsence as pairpass. Keep baseline failure artifacts immutable, then patched bank must compare raw AL (and optional fullEAX), exact traces, untouched origin/placer bytes, mode gates and all helper entry restoration. Never approve dispatch helpers or group/pool integration from these isolated specimens.
+
+Out-of-domain allocators>5 are only characterization and not needed for valid enum approval. Root should decide whether shim implementation scope includes matching original default for those values. No functional source, frozen old bank, flags or registry changed by this proposal.

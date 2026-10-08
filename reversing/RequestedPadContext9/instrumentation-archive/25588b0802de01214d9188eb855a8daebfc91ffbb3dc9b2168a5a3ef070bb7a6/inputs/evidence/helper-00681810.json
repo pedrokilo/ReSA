@@ -1,0 +1,31 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "address": "0x681810",
+  "bounded_window_bytes": 48,
+  "bounded_listing_includes_all_internal_jump_destinations_to_review": true,
+  "not_rea_function_body_claim": true,
+  "bytes": "8b4424048b448114c204009090909090568b74240832c033d283c1148d6424003b31740d4283c10483fa067cf35ec204",
+  "assembly": [
+    "00681810: 8b442404 mov eax, dword ptr [esp + 4]",
+    "00681814: 8b448114 mov eax, dword ptr [ecx + eax*4 + 0x14]",
+    "00681818: c20400 ret 4",
+    "0068181B: 90 nop ",
+    "0068181C: 90 nop ",
+    "0068181D: 90 nop ",
+    "0068181E: 90 nop ",
+    "0068181F: 90 nop ",
+    "00681820: 56 push esi",
+    "00681821: 8b742408 mov esi, dword ptr [esp + 8]",
+    "00681825: 32c0 xor al, al",
+    "00681827: 33d2 xor edx, edx",
+    "00681829: 83c114 add ecx, 0x14",
+    "0068182C: 8d642400 lea esp, [esp]",
+    "00681830: 3b31 cmp esi, dword ptr [ecx]",
+    "00681832: 740d je 0x681841",
+    "00681834: 42 inc edx",
+    "00681835: 83c104 add ecx, 4",
+    "00681838: 83fa06 cmp edx, 6",
+    "0068183B: 7cf3 jl 0x681830",
+    "0068183D: 5e pop esi"
+  ]
+}

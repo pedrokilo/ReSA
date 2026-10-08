@@ -1,0 +1,24 @@
+{
+  "prepared_only": true,
+  "compiled": false,
+  "runtime_approved": false,
+  "planned_pairs": 19152,
+  "pairs_per_function": {
+    "CInterestingEvents::InvalidateEvent": 720,
+    "CPedDamageResponseCalculator::ComputeWillKillPed": 18432
+  },
+  "original_corpus_preserved": "reversing/RequestedRemainingLeafPair/runs/20261008-131904-293285",
+  "original_baseline_archive": "reversing/RequestedRemainingLeafPair/artifacts/immutable-baseline/e33e53711bbb8f8fdac18146baa22993c3009ec6537538701887f72792b412bc",
+  "functional_fix_applied_not_approved": true,
+  "source_observation_not_build_provenance": {
+    "source/game_sa/PedDamageResponseCalculator.cpp": "9c2fbe5da98d2050db03a4a0b525a3173d526a4fc45e0657adafe6d17bad8119"
+  },
+  "prepared_instruments": {
+    "LiveComparison.hpp": "dcfd0caa9df39b52fc06d0e11ffb243ae02c2b950d212fa3cee2b09dc86ebf6e",
+    "Preflight.hpp": "de19f4245b94948c8b749081acd7510b62dd8f2065a680745732576f18cf540b",
+    "VTableRanges.hpp": "00450c689d86de75208b768e6d4ac41e0d5e90c7b41719271ddfaf8e88e76c64",
+    "build_probe.py": "8da6d1a338c6dcf6e5a8f31d03f163e94b9736727ff51ff5e3e7df5433408786",
+    "run_local.py": "938336e42193ddf2ca3bf74205adcb2761da04d4274e523ae9e720c472d35fe0"
+  },
+  "float_proof_sha256": "890a63abcca0bbbd66d928626853e5c4cdba0ae4d0ce379fbb4d0d061de52c5c"
+}

@@ -662,7 +662,7 @@ int16 CPad::GetCarGunFired() const {
         break;
     }
     case 3:
-        return NewState.RightShoulder1;
+        return NewState.RightShoulder1 != 0;
     }
     return false;
 }
@@ -793,7 +793,7 @@ bool CPad::GetLookRight() const {
     if (IsRightShoulder2Pressed())
         return false;
 
-    if (IsRightShoulder2JustUp())
+    if (IsLeftShoulder2JustUp())
         return false;
 
     return NewState.RightShoulder2 && !NewState.LeftShoulder2;
@@ -868,7 +868,7 @@ int16 CPad::GetBrake() const {
     case 2:
         return NewState.ButtonSquare;
     case 3:
-        int16 axis = 2 * GetRightStickY();
+        int32 axis = 2 * GetRightStickY();
         return axis < 0 ? 0 : axis;
     }
     return 0;
@@ -914,7 +914,7 @@ uint8 CPad::GetMeleeAttack(bool bCheckButtonCircleStateOnly) const {
     if (NewState.ButtonCircle)
         return 1;
 
-    if (!bCheckButtonCircleStateOnly) {
+    if (bCheckButtonCircleStateOnly) {
         if (NewState.ButtonCross)
             return 2;
 
@@ -962,7 +962,7 @@ int16 CPad::GetAccelerate() const {
     case 2:
         return NewState.ButtonCross;
     case 3: {
-        int16 axis = -2 * GetRightStickY();
+        int32 axis = -2 * GetRightStickY();
         return axis < 0 ? 0 : axis;
     }
     }

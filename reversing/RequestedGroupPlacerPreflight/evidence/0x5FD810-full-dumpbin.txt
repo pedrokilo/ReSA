@@ -1,0 +1,27 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  005FD810: 8B 44 24 10        mov         eax,dword ptr [esp+10h]
+  005FD814: 83 F8 05           cmp         eax,5
+  005FD817: 77 26              ja          005FD83F
+  005FD819: FF 24 85 48 D8 5F  jmp         dword ptr [eax*4+005FD848h]
+            00
+  005FD820: 89 44 24 10        mov         dword ptr [esp+10h],eax
+  005FD824: E9 87 F1 FF FF     jmp         005FC9B0
+  005FD829: 89 44 24 10        mov         dword ptr [esp+10h],eax
+  005FD82D: E9 4E F6 FF FF     jmp         005FCE80
+  005FD832: C7 44 24 10 05 00  mov         dword ptr [esp+10h],5
+            00 00
+  005FD83A: E9 F1 FA FF FF     jmp         005FD330
+  005FD83F: 8A 44 24 0C        mov         al,byte ptr [esp+0Ch]
+  005FD843: C2 10 00           ret         10h
+  005FD846: 8B
+
+  Summary
+
+      456000 .text

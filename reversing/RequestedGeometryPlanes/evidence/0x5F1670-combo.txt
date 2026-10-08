@@ -1,0 +1,113 @@
+// CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached @ 0x005f1670 [0x5f1670..0x5f1741]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005f1670(undefined4 param_1,int param_2,float *param_3,int param_4)
+
+{
+  float fVar1;
+  float fVar2;
+  int iVar3;
+  float *pfVar4;
+  float *pfVar5;
+  float local_24;
+  float local_20;
+  float local_1c;
+  
+  local_24 = *(float *)(param_2 + 0x24);
+  local_20 = *(float *)(param_2 + 0x28);
+  local_1c = *(float *)(param_2 + 0x2c);
+  iVar3 = 0;
+  pfVar4 = (float *)(param_2 + 8);
+  pfVar5 = param_3;
+  do {
+    fVar1 = pfVar4[-2];
+    fVar2 = pfVar4[-1];
+    FUN_0059c910();
+    *pfVar5 = fVar2 - local_20;
+    pfVar5[1] = -(fVar1 - local_24);
+    pfVar5[2] = 0.0;
+    iVar3 = iVar3 + 1;
+    *(float *)(param_4 + -4 + iVar3 * 4) =
+         -(local_24 * *pfVar5 +
+          local_20 * pfVar5[1] + local_1c * *(float *)((int)pfVar4 + ((int)param_3 - param_2)));
+    local_24 = pfVar4[-2];
+    local_20 = pfVar4[-1];
+    local_1c = *pfVar4;
+    pfVar4 = pfVar4 + 3;
+    pfVar5 = pfVar5 + 3;
+  } while (iVar3 < 4);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005F1670: sub esp,24h
+005F1673: mov eax,dword ptr [esp+2Ch]
+005F1677: push ebx
+005F1678: push ebp
+005F1679: lea ecx,[eax+24h]
+005F167C: mov edx,dword ptr [ecx]
+005F167E: push esi
+005F167F: push edi
+005F1680: mov edi,dword ptr [esp+40h]
+005F1684: mov dword ptr [esp+10h],edx
+005F1688: mov edx,dword ptr [ecx+4]
+005F168B: mov ecx,dword ptr [ecx+8]
+005F168E: xor ebx,ebx
+005F1690: mov ebp,edi
+005F1692: mov dword ptr [esp+14h],edx
+005F1696: mov dword ptr [esp+18h],ecx
+005F169A: mov dword ptr [esp+30h],ebx
+005F169E: lea esi,[eax+8]
+005F16A1: sub ebp,eax
+005F16A3: fld dword ptr [esi-8]
+005F16A6: lea ecx,[esp+1Ch]
+005F16AA: fsub dword ptr [esp+10h]
+005F16AE: fstp dword ptr [esp+1Ch]
+005F16B2: fld dword ptr [esi-4]
+005F16B5: fsub dword ptr [esp+14h]
+005F16B9: fstp dword ptr [esp+20h]
+005F16BD: fld dword ptr [esi]
+005F16BF: fsub dword ptr [esp+18h]
+005F16C3: fstp dword ptr [esp+24h]
+005F16C7: call 0059C910
+005F16CC: fld dword ptr [esp+1Ch]
+005F16D0: mov edx,dword ptr [esp+20h]
+005F16D4: fchs
+005F16D6: mov ecx,edx
+005F16D8: mov dword ptr [esp+28h],edx
+005F16DC: mov eax,edi
+005F16DE: mov dword ptr [eax],ecx
+005F16E0: mov ecx,dword ptr [esp+30h]
+005F16E4: fstp dword ptr [esp+2Ch]
+005F16E8: mov edx,dword ptr [esp+2Ch]
+005F16EC: fld dword ptr [esp+18h]
+005F16F0: mov dword ptr [eax+4],edx
+005F16F3: mov edx,dword ptr [esp+44h]
+005F16F7: mov dword ptr [eax+8],ecx
+005F16FA: fmul dword ptr [esi+ebp]
+005F16FD: fld dword ptr [esp+14h]
+005F1701: inc ebx
+005F1702: fmul dword ptr [edi+4]
+005F1705: add esi,0Ch
+005F1708: add edi,0Ch
+005F170B: cmp ebx,4
+005F170E: faddp st(1),st
+005F1710: fld dword ptr [esp+10h]
+005F1714: fmul dword ptr [edi-0Ch]
+005F1717: faddp st(1),st
+005F1719: fchs
+005F171B: fstp dword ptr [edx+ebx*4-4]
+005F171F: mov eax,dword ptr [esi-14h]
+005F1722: mov ecx,dword ptr [esi-10h]
+005F1725: mov edx,dword ptr [esi-0Ch]
+005F1728: mov dword ptr [esp+10h],eax
+005F172C: mov dword ptr [esp+14h],ecx
+005F1730: mov dword ptr [esp+18h],edx
+005F1734: jl 005F16A3
+005F173A: pop edi
+005F173B: pop esi
+005F173C: pop ebp
+005F173D: pop ebx
+005F173E: add esp,24h
+005F1741: ret

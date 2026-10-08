@@ -1,0 +1,1935 @@
+
+### CarGunJustDown 0x0053FFE0
+
+undefined4 FUN_0053ffe0(void)
+
+{
+  char cVar1;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    if (*(ushort *)(in_ECX + 0x10a) < 3) {
+      if ((*(short *)(in_ECX + 0x22) != 0) && (*(short *)(in_ECX + 0x52) == 0)) {
+        return 1;
+      }
+      if ((*(char *)(in_ECX + 0x11c) == '\0') && (cVar1 = FUN_0053edc0(), cVar1 != '\0')) {
+        return 2;
+      }
+    }
+    else if (((*(ushort *)(in_ECX + 0x10a) == 3) && (*(short *)(in_ECX + 0xc) != 0)) &&
+            (*(short *)(in_ECX + 0x3c) == 0)) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+
+0x53ffe0: CMP word ptr [ECX + 0x10e], 0x0
+0x53ffe8: JNZ 0x00540038
+0x53ffea: MOVZX EAX, word ptr [ECX + 0x10a]
+0x53fff1: TEST EAX, EAX
+0x53fff3: JL 0x00540038
+0x53fff5: CMP EAX, 0x2
+0x53fff8: JLE 0x00540012
+0x53fffa: CMP EAX, 0x3
+0x53fffd: JNZ 0x00540038
+0x53ffff: CMP word ptr [ECX + 0xc], 0x0
+0x540004: JZ 0x00540038
+0x540006: CMP word ptr [ECX + 0x3c], 0x0
+0x54000b: JNZ 0x00540038
+0x54000d: MOV AX, 0x1
+0x540011: RET
+0x540012: CMP word ptr [ECX + 0x22], 0x0
+0x540017: JZ 0x00540020
+0x540019: CMP word ptr [ECX + 0x52], 0x0
+0x54001e: JZ 0x0054000d
+0x540020: MOV AL, byte ptr [ECX + 0x11c]
+0x540026: TEST AL, AL
+0x540028: JNZ 0x00540038
+0x54002a: CALL 0x0053edc0
+0x54002f: TEST AL, AL
+0x540031: JZ 0x00540038
+0x540033: MOV AX, 0x2
+0x540037: RET
+0x540038: XOR AX, AX
+0x54003b: RET
+
+### CollectPickupJustDown 0x00540A70
+
+uint FUN_00540a70(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  bool bVar1;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+      if (*(short *)(in_ECX + 8) == 0) {
+        return 0;
+      }
+      bVar1 = *(short *)(in_ECX + 0x38) == 0;
+      break;
+    case 2:
+      if (*(short *)(in_ECX + 0x1e) == 0) {
+        return 0;
+      }
+      bVar1 = *(short *)(in_ECX + 0x4e) == 0;
+      break;
+    case 3:
+      if (*(short *)(in_ECX + 0x22) == 0) {
+        return 0;
+      }
+      bVar1 = *(short *)(in_ECX + 0x52) == 0;
+      break;
+    default:
+      goto switchD_00540a86_default;
+    }
+    if (!bVar1) {
+      return 0;
+    }
+    return 1;
+  }
+switchD_00540a86_default:
+  return in_EAX & 0xffffff00;
+}
+
+
+0x540a70: CMP word ptr [ECX + 0x10e], 0x0
+0x540a78: JNZ 0x00540ac0
+0x540a7a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x540a81: CMP EAX, 0x3
+0x540a84: JA 0x00540ac0
+0x540a86: JMP dword ptr [EAX*0x4 + 0x540ac4]
+0x540a8d: CMP word ptr [ECX + 0x8], 0x0
+0x540a92: JZ 0x00540abd
+0x540a94: CMP word ptr [ECX + 0x38], 0x0
+0x540a99: JMP 0x00540ab5
+0x540a9b: CMP word ptr [ECX + 0x1e], 0x0
+0x540aa0: JZ 0x00540abd
+0x540aa2: CMP word ptr [ECX + 0x4e], 0x0
+0x540aa7: JMP 0x00540ab5
+0x540aa9: CMP word ptr [ECX + 0x22], 0x0
+0x540aae: JZ 0x00540abd
+0x540ab0: CMP word ptr [ECX + 0x52], 0x0
+0x540ab5: JNZ 0x00540abd
+0x540ab7: MOV EAX, 0x1
+0x540abc: RET
+0x540abd: XOR EAX, EAX
+0x540abf: RET
+0x540ac0: XOR AL, AL
+0x540ac2: RET
+
+### ConversationNoJustDown 0x00541200
+
+uint FUN_00541200(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 0x14) != 0) && (*(short *)(in_ECX + 0x44) == 0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x541200: CMP word ptr [ECX + 0x10e], 0x0
+0x541208: JZ 0x0054120d
+0x54120a: XOR AL, AL
+0x54120c: RET
+0x54120d: CMP word ptr [ECX + 0x14], 0x0
+0x541212: JZ 0x00541221
+0x541214: CMP word ptr [ECX + 0x44], 0x0
+0x541219: JNZ 0x00541221
+0x54121b: MOV EAX, 0x1
+0x541220: RET
+0x541221: XOR EAX, EAX
+0x541223: RET
+
+### ConversationYesJustDown 0x005411D0
+
+uint FUN_005411d0(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 0x16) != 0) && (*(short *)(in_ECX + 0x46) == 0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x5411d0: CMP word ptr [ECX + 0x10e], 0x0
+0x5411d8: JZ 0x005411dd
+0x5411da: XOR AL, AL
+0x5411dc: RET
+0x5411dd: CMP word ptr [ECX + 0x16], 0x0
+0x5411e2: JZ 0x005411f1
+0x5411e4: CMP word ptr [ECX + 0x46], 0x0
+0x5411e9: JNZ 0x005411f1
+0x5411eb: MOV EAX, 0x1
+0x5411f0: RET
+0x5411f1: XOR EAX, EAX
+0x5411f3: RET
+
+### CycleWeaponLeftJustDown 0x00540610
+
+uint FUN_00540610(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if ((*(short *)(in_ECX + 0x10e) != 0) ||
+     (in_EAX = CONCAT31((int3)(in_EAX >> 8),*(char *)(in_ECX + 0x11d)),
+     *(char *)(in_ECX + 0x11d) != '\0')) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 10) != 0) && (*(short *)(in_ECX + 0x3a) == 0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x540610: CMP word ptr [ECX + 0x10e], 0x0
+0x540618: JNZ 0x00540624
+0x54061a: MOV AL, byte ptr [ECX + 0x11d]
+0x540620: TEST AL, AL
+0x540622: JZ 0x00540627
+0x540624: XOR AL, AL
+0x540626: RET
+0x540627: CMP word ptr [ECX + 0xa], 0x0
+0x54062c: JZ 0x0054063b
+0x54062e: CMP word ptr [ECX + 0x3a], 0x0
+0x540633: JNZ 0x0054063b
+0x540635: MOV EAX, 0x1
+0x54063a: RET
+0x54063b: XOR EAX, EAX
+0x54063d: RET
+
+### CycleWeaponRightJustDown 0x00540640
+
+uint FUN_00540640(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if ((*(short *)(in_ECX + 0x10e) != 0) ||
+     (in_EAX = CONCAT31((int3)(in_EAX >> 8),*(char *)(in_ECX + 0x11d)),
+     *(char *)(in_ECX + 0x11d) != '\0')) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 0xe) != 0) && (*(short *)(in_ECX + 0x3e) == 0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x540640: CMP word ptr [ECX + 0x10e], 0x0
+0x540648: JNZ 0x00540654
+0x54064a: MOV AL, byte ptr [ECX + 0x11d]
+0x540650: TEST AL, AL
+0x540652: JZ 0x00540657
+0x540654: XOR AL, AL
+0x540656: RET
+0x540657: CMP word ptr [ECX + 0xe], 0x0
+0x54065c: JZ 0x0054066b
+0x54065e: CMP word ptr [ECX + 0x3e], 0x0
+0x540663: JNZ 0x0054066b
+0x540665: MOV EAX, 0x1
+0x54066a: RET
+0x54066b: XOR EAX, EAX
+0x54066d: RET
+
+### DuckJustDown 0x00540720
+
+uint FUN_00540720(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if ((*(short *)(in_ECX + 0x10e) != 0) ||
+     (in_EAX = CONCAT31((int3)(in_EAX >> 8),*(char *)(in_ECX + 0x11a)),
+     *(char *)(in_ECX + 0x11a) != '\0')) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 0x24) != 0) && (*(short *)(in_ECX + 0x54) == 0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x540720: CMP word ptr [ECX + 0x10e], 0x0
+0x540728: JNZ 0x00540734
+0x54072a: MOV AL, byte ptr [ECX + 0x11a]
+0x540730: TEST AL, AL
+0x540732: JZ 0x00540737
+0x540734: XOR AL, AL
+0x540736: RET
+0x540737: CMP word ptr [ECX + 0x24], 0x0
+0x54073c: JZ 0x0054074b
+0x54073e: CMP word ptr [ECX + 0x54], 0x0
+0x540743: JNZ 0x0054074b
+0x540745: MOV EAX, 0x1
+0x54074a: RET
+0x54074b: XOR EAX, EAX
+0x54074d: RET
+
+### ExitVehicleJustDown 0x00540120
+
+uint FUN_00540120(void)
+
+{
+  uint in_EAX;
+  uint uVar1;
+  int in_ECX;
+  
+  if ((*(short *)(in_ECX + 0x10e) == 0) &&
+     (in_EAX = CONCAT31((int3)(in_EAX >> 8),*(char *)(in_ECX + 0x119)),
+     *(char *)(in_ECX + 0x119) == '\0')) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 3:
+      if ((*(short *)(in_ECX + 0x1e) != 0) && (*(short *)(in_ECX + 0x4e) == 0)) {
+        return 1;
+      }
+      return 0;
+    case 2:
+      uVar1 = FUN_0053edc0();
+      return uVar1;
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x540120: CMP word ptr [ECX + 0x10e], 0x0
+0x540128: JNZ 0x00540163
+0x54012a: MOV AL, byte ptr [ECX + 0x119]
+0x540130: TEST AL, AL
+0x540132: JNZ 0x00540163
+0x540134: MOVZX EAX, word ptr [ECX + 0x10a]
+0x54013b: CMP EAX, 0x3
+0x54013e: JA 0x00540163
+0x540140: JMP dword ptr [EAX*0x4 + 0x540168]
+0x540147: CMP word ptr [ECX + 0x1e], 0x0
+0x54014c: JZ 0x0054015b
+0x54014e: CMP word ptr [ECX + 0x4e], 0x0
+0x540153: JNZ 0x0054015b
+0x540155: MOV EAX, 0x1
+0x54015a: RET
+0x54015b: XOR EAX, EAX
+0x54015d: RET
+0x54015e: JMP 0x0053edc0
+0x540163: XOR AL, AL
+0x540165: RET
+
+### GetAccelerate 0x005403F0
+
+uint FUN_005403f0(void)
+
+{
+  uint in_EAX;
+  uint uVar1;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 2:
+      return (uint)*(ushort *)(in_ECX + 0x20);
+    case 3:
+      uVar1 = *(short *)(in_ECX + 6) * -2;
+      return uVar1 & ((int)uVar1 < 0) - 1;
+    }
+  }
+  return in_EAX & 0xffff0000;
+}
+
+
+0x5403f0: CMP word ptr [ECX + 0x10e], 0x0
+0x5403f8: JNZ 0x00540425
+0x5403fa: MOVZX EAX, word ptr [ECX + 0x10a]
+0x540401: CMP EAX, 0x3
+0x540404: JA 0x00540425
+0x540406: JMP dword ptr [EAX*0x4 + 0x54042c]
+0x54040d: MOV AX, word ptr [ECX + 0x20]
+0x540411: RET
+0x540412: MOVSX EAX, word ptr [ECX + 0x6]
+0x540416: NEG EAX
+0x540418: SHL EAX, 0x1
+0x54041a: XOR ECX, ECX
+0x54041c: TEST EAX, EAX
+0x54041e: SETL CL
+0x540421: DEC ECX
+0x540422: AND EAX, ECX
+0x540424: RET
+0x540425: XOR AX, AX
+0x540428: RET
+
+### GetAccelerateJustDown 0x00540440
+
+uint FUN_00540440(void)
+
+{
+  uint in_EAX;
+  uint uVar1;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 2:
+      if ((*(short *)(in_ECX + 0x20) != 0) && (*(short *)(in_ECX + 0x50) == 0)) {
+        return 1;
+      }
+      return 0;
+    case 1:
+      uVar1 = FUN_004d59e0();
+      return uVar1;
+    case 3:
+      if ((*(short *)(in_ECX + 6) != 0) && (*(short *)(in_ECX + 0x36) == 0)) {
+        return 1;
+      }
+      return 0;
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x53ed90: CMP word ptr [ECX + 0x6], 0x0
+0x53ed95: JZ 0x0053eda4
+0x53ed97: CMP word ptr [ECX + 0x36], 0x0
+0x53ed9c: JNZ 0x0053eda4
+0x53ed9e: MOV EAX, 0x1
+0x53eda3: RET
+0x53eda4: XOR EAX, EAX
+0x53eda6: RET
+0x540440: CMP word ptr [ECX + 0x10e], 0x0
+0x540448: JNZ 0x0054047e
+0x54044a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x540451: CMP EAX, 0x3
+0x540454: JA 0x0054047e
+0x540456: JMP dword ptr [EAX*0x4 + 0x540484]
+0x54045d: CMP word ptr [ECX + 0x20], 0x0
+0x540462: JZ 0x00540471
+0x540464: CMP word ptr [ECX + 0x50], 0x0
+0x540469: JNZ 0x00540471
+0x54046b: MOV EAX, 0x1
+0x540470: RET
+0x540471: XOR EAX, EAX
+0x540473: RET
+0x540474: JMP 0x004d59e0
+0x540479: JMP 0x0053ed90
+0x54047e: XOR AL, AL
+0x540480: RET
+
+### GetAnaloguePadDown 0x00540980
+
+short FUN_00540980(void)
+
+{
+  byte bVar1;
+  
+  bVar1 = (byte)((ushort)DAT_00b73458._2_2_ >> 8);
+  if ((0xf < DAT_00b73458._2_2_) && (DAT_00b736f4 < 6)) {
+    DAT_00b736f4 = DAT_00b73458._2_2_;
+    return CONCAT11(bVar1,1);
+  }
+  DAT_00b736f4 = DAT_00b73458._2_2_;
+  return (ushort)bVar1 << 8;
+}
+
+
+0x540980: MOV AX, [0x00b7345a]
+0x540986: CMP AX, 0xf
+0x54098a: JLE 0x0054099f
+0x54098c: CMP word ptr [0x00b736f4], 0x5
+0x540994: JG 0x0054099f
+0x540996: MOV [0x00b736f4], AX
+0x54099c: MOV AL, 0x1
+0x54099e: RET
+0x54099f: MOV [0x00b736f4], AX
+0x5409a5: XOR AL, AL
+0x5409a7: RET
+
+### GetAnaloguePadLeft 0x005409B0
+
+int FUN_005409b0(void)
+
+{
+  short sVar1;
+  uint3 uVar2;
+  
+  sVar1 = (short)DAT_00b73458;
+  uVar2 = (uint3)((uint)DAT_00b73458 >> 8);
+  if ((sVar1 < -0xf) && (-6 < DAT_00b736f8)) {
+    DAT_00b736f8 = sVar1;
+    return CONCAT31(uVar2,1);
+  }
+  DAT_00b736f8 = sVar1;
+  return (uint)uVar2 << 8;
+}
+
+
+0x5409b0: MOV EAX, [0x00b73458]
+0x5409b5: CMP AX, 0xfff1
+0x5409b9: JGE 0x005409ce
+0x5409bb: CMP word ptr [0x00b736f8], -0x5
+0x5409c3: JL 0x005409ce
+0x5409c5: MOV [0x00b736f8], AX
+0x5409cb: MOV AL, 0x1
+0x5409cd: RET
+0x5409ce: MOV [0x00b736f8], AX
+0x5409d4: XOR AL, AL
+0x5409d6: RET
+
+### GetAnaloguePadRight 0x005409E0
+
+int FUN_005409e0(void)
+
+{
+  short sVar1;
+  uint3 uVar2;
+  
+  sVar1 = (short)DAT_00b73458;
+  uVar2 = (uint3)((uint)DAT_00b73458 >> 8);
+  if ((0xf < sVar1) && (DAT_00b736fc < 6)) {
+    DAT_00b736fc = sVar1;
+    return CONCAT31(uVar2,1);
+  }
+  DAT_00b736fc = sVar1;
+  return (uint)uVar2 << 8;
+}
+
+
+0x5409e0: MOV EAX, [0x00b73458]
+0x5409e5: CMP AX, 0xf
+0x5409e9: JLE 0x005409fe
+0x5409eb: CMP word ptr [0x00b736fc], 0x5
+0x5409f3: JG 0x005409fe
+0x5409f5: MOV [0x00b736fc], AX
+0x5409fb: MOV AL, 0x1
+0x5409fd: RET
+0x5409fe: MOV [0x00b736fc], AX
+0x540a04: XOR AL, AL
+0x540a06: RET
+
+### GetAnaloguePadUp 0x00540950
+
+short FUN_00540950(void)
+
+{
+  byte bVar1;
+  
+  bVar1 = (byte)((ushort)DAT_00b73458._2_2_ >> 8);
+  if ((DAT_00b73458._2_2_ < -0xf) && (-6 < DAT_00b736f0)) {
+    DAT_00b736f0 = DAT_00b73458._2_2_;
+    return CONCAT11(bVar1,1);
+  }
+  DAT_00b736f0 = DAT_00b73458._2_2_;
+  return (ushort)bVar1 << 8;
+}
+
+
+0x540950: MOV AX, [0x00b7345a]
+0x540956: CMP AX, 0xfff1
+0x54095a: JGE 0x0054096f
+0x54095c: CMP word ptr [0x00b736f0], -0x5
+0x540964: JL 0x0054096f
+0x540966: MOV [0x00b736f0], AX
+0x54096c: MOV AL, 0x1
+0x54096e: RET
+0x54096f: MOV [0x00b736f0], AX
+0x540975: XOR AL, AL
+0x540977: RET
+
+### GetBrake 0x00540080
+
+uint FUN_00540080(void)
+
+{
+  uint in_EAX;
+  uint uVar1;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 2:
+      return (uint)*(ushort *)(in_ECX + 0x1c);
+    case 3:
+      uVar1 = (int)*(short *)(in_ECX + 6) << 1;
+      return uVar1 & ((int)uVar1 < 0) - 1;
+    }
+  }
+  return in_EAX & 0xffff0000;
+}
+
+
+0x540080: CMP word ptr [ECX + 0x10e], 0x0
+0x540088: JNZ 0x005400b3
+0x54008a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x540091: CMP EAX, 0x3
+0x540094: JA 0x005400b3
+0x540096: JMP dword ptr [EAX*0x4 + 0x5400b8]
+0x54009d: MOV AX, word ptr [ECX + 0x1c]
+0x5400a1: RET
+0x5400a2: MOVSX EAX, word ptr [ECX + 0x6]
+0x5400a6: SHL EAX, 0x1
+0x5400a8: XOR ECX, ECX
+0x5400aa: TEST EAX, EAX
+0x5400ac: SETL CL
+0x5400af: DEC ECX
+0x5400b0: AND EAX, ECX
+0x5400b2: RET
+0x5400b3: XOR AX, AX
+0x5400b6: RET
+
+### GetCarGunFired 0x0053FF90
+
+uint FUN_0053ff90(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    if (in_EAX < 3) {
+      if (*(short *)(in_ECX + 0x22) != 0) {
+        return 1;
+      }
+      in_EAX = 0;
+      if ((*(char *)(in_ECX + 0x11c) == '\0') && (*(short *)(in_ECX + 8) != 0)) {
+        return 2;
+      }
+    }
+    else if ((in_EAX == 3) && (*(short *)(in_ECX + 0xc) != 0)) {
+      return 1;
+    }
+  }
+  return in_EAX & 0xffff0000;
+}
+
+
+0x53ff90: CMP word ptr [ECX + 0x10e], 0x0
+0x53ff98: JNZ 0x0053ffd8
+0x53ff9a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x53ffa1: TEST EAX, EAX
+0x53ffa3: JL 0x0053ffd8
+0x53ffa5: CMP EAX, 0x2
+0x53ffa8: JLE 0x0053ffbb
+0x53ffaa: CMP EAX, 0x3
+0x53ffad: JNZ 0x0053ffd8
+0x53ffaf: CMP word ptr [ECX + 0xc], 0x0
+0x53ffb4: JZ 0x0053ffd8
+0x53ffb6: MOV AX, 0x1
+0x53ffba: RET
+0x53ffbb: CMP word ptr [ECX + 0x22], 0x0
+0x53ffc0: JNZ 0x0053ffb6
+0x53ffc2: MOV AL, byte ptr [ECX + 0x11c]
+0x53ffc8: TEST AL, AL
+0x53ffca: JNZ 0x0053ffd8
+0x53ffcc: CMP word ptr [ECX + 0x8], 0x0
+0x53ffd1: JZ 0x0053ffd8
+0x53ffd3: MOV AX, 0x2
+0x53ffd7: RET
+0x53ffd8: XOR AX, AX
+0x53ffdb: RET
+
+### GetCarGunLeftRight 0x0053FC50
+
+uint FUN_0053fc50(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    if (in_EAX < 3) {
+      return (uint)*(ushort *)(in_ECX + 4);
+    }
+    if (in_EAX == 3) {
+      return ((int)*(short *)(in_ECX + 0x16) - (int)*(short *)(in_ECX + 0x14)) / 2;
+    }
+  }
+  return in_EAX & 0xffff0000;
+}
+
+
+0x53fc50: CMP word ptr [ECX + 0x10e], 0x0
+0x53fc58: JNZ 0x0053fc84
+0x53fc5a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x53fc61: TEST EAX, EAX
+0x53fc63: JL 0x0053fc84
+0x53fc65: CMP EAX, 0x2
+0x53fc68: JLE 0x0053fc7f
+0x53fc6a: CMP EAX, 0x3
+0x53fc6d: JNZ 0x0053fc84
+0x53fc6f: MOVSX EAX, word ptr [ECX + 0x16]
+0x53fc73: MOVSX ECX, word ptr [ECX + 0x14]
+0x53fc77: SUB EAX, ECX
+0x53fc79: CDQ
+0x53fc7a: SUB EAX, EDX
+0x53fc7c: SAR EAX, 0x1
+0x53fc7e: RET
+0x53fc7f: MOV AX, word ptr [ECX + 0x4]
+0x53fc83: RET
+0x53fc84: XOR AX, AX
+0x53fc87: RET
+
+### GetCarGunUpDown 0x0053FC10
+
+uint FUN_0053fc10(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    if (in_EAX < 3) {
+      return (uint)*(ushort *)(in_ECX + 6);
+    }
+    if (in_EAX == 3) {
+      return ((int)*(short *)(in_ECX + 0x10) - (int)*(short *)(in_ECX + 0x12)) / 2;
+    }
+  }
+  return in_EAX & 0xffff0000;
+}
+
+
+0x53fc10: CMP word ptr [ECX + 0x10e], 0x0
+0x53fc18: JNZ 0x0053fc44
+0x53fc1a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x53fc21: TEST EAX, EAX
+0x53fc23: JL 0x0053fc44
+0x53fc25: CMP EAX, 0x2
+0x53fc28: JLE 0x0053fc3f
+0x53fc2a: CMP EAX, 0x3
+0x53fc2d: JNZ 0x0053fc44
+0x53fc2f: MOVSX EDX, word ptr [ECX + 0x12]
+0x53fc33: MOVSX EAX, word ptr [ECX + 0x10]
+0x53fc37: SUB EAX, EDX
+0x53fc39: CDQ
+0x53fc3a: SUB EAX, EDX
+0x53fc3c: SAR EAX, 0x1
+0x53fc3e: RET
+0x53fc3f: MOV AX, word ptr [ECX + 0x6]
+0x53fc43: RET
+0x53fc44: XOR AX, AX
+0x53fc47: RET
+
+### GetDuck 0x00540700
+
+bool FUN_00540700(void)
+
+{
+  int in_ECX;
+  
+  if ((*(short *)(in_ECX + 0x10e) == 0) && (*(char *)(in_ECX + 0x11a) == '\0')) {
+    return *(short *)(in_ECX + 0x24) != 0;
+  }
+  return false;
+}
+
+
+0x540700: CMP word ptr [ECX + 0x10e], 0x0
+0x540708: JNZ 0x00540714
+0x54070a: MOV AL, byte ptr [ECX + 0x11a]
+0x540710: TEST AL, AL
+0x540712: JZ 0x00540717
+0x540714: XOR AL, AL
+0x540716: RET
+0x540717: CMP word ptr [ECX + 0x24], 0x0
+0x54071c: SETNZ AL
+0x54071f: RET
+
+### GetEnterTargeting 0x005406B0
+
+uint FUN_005406b0(void)
+
+{
+  short sVar1;
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    if (in_EAX < 3) {
+      if (*(short *)(in_ECX + 0xc) == 0) {
+        return 0;
+      }
+      sVar1 = *(short *)(in_ECX + 0x3c);
+    }
+    else {
+      if (in_EAX != 3) goto LAB_005406f4;
+      if (*(short *)(in_ECX + 8) == 0) {
+        return 0;
+      }
+      sVar1 = *(short *)(in_ECX + 0x38);
+    }
+    if (sVar1 != 0) {
+      return 0;
+    }
+    return 1;
+  }
+LAB_005406f4:
+  return in_EAX & 0xffffff00;
+}
+
+
+0x5406b0: CMP word ptr [ECX + 0x10e], 0x0
+0x5406b8: JNZ 0x005406f4
+0x5406ba: MOVZX EAX, word ptr [ECX + 0x10a]
+0x5406c1: TEST EAX, EAX
+0x5406c3: JL 0x005406f4
+0x5406c5: CMP EAX, 0x2
+0x5406c8: JLE 0x005406e0
+0x5406ca: CMP EAX, 0x3
+0x5406cd: JNZ 0x005406f4
+0x5406cf: CMP word ptr [ECX + 0x8], 0x0
+0x5406d4: JZ 0x005406dd
+0x5406d6: CMP word ptr [ECX + 0x38], 0x0
+0x5406db: JZ 0x005406ee
+0x5406dd: XOR EAX, EAX
+0x5406df: RET
+0x5406e0: CMP word ptr [ECX + 0xc], 0x0
+0x5406e5: JZ 0x005406dd
+0x5406e7: CMP word ptr [ECX + 0x3c], 0x0
+0x5406ec: JNZ 0x005406dd
+0x5406ee: MOV EAX, 0x1
+0x5406f3: RET
+0x5406f4: XOR AL, AL
+0x5406f6: RET
+
+### GetExitVehicle 0x005400D0
+
+uint FUN_005400d0(void)
+
+{
+  undefined1 uVar1;
+  uint in_EAX;
+  int in_ECX;
+  
+  if ((*(short *)(in_ECX + 0x10e) == 0) &&
+     (in_EAX = CONCAT31((int3)(in_EAX >> 8),*(char *)(in_ECX + 0x119)),
+     *(char *)(in_ECX + 0x119) == '\0')) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    uVar1 = (undefined1)(*(ushort *)(in_ECX + 0x10a) >> 8);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 3:
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 0x1e) != 0);
+    case 2:
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 8) != 0);
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x5400d0: CMP word ptr [ECX + 0x10e], 0x0
+0x5400d8: JNZ 0x00540109
+0x5400da: MOV AL, byte ptr [ECX + 0x119]
+0x5400e0: TEST AL, AL
+0x5400e2: JNZ 0x00540109
+0x5400e4: MOVZX EAX, word ptr [ECX + 0x10a]
+0x5400eb: CMP EAX, 0x3
+0x5400ee: JA 0x00540109
+0x5400f0: JMP dword ptr [EAX*0x4 + 0x54010c]
+0x5400f7: CMP word ptr [ECX + 0x1e], 0x0
+0x5400fc: SETNZ AL
+0x5400ff: RET
+0x540100: CMP word ptr [ECX + 0x8], 0x0
+0x540105: SETNZ AL
+0x540108: RET
+0x540109: XOR AL, AL
+0x54010b: RET
+
+### GetForceCameraBehindPlayer 0x00540AE0
+
+uint FUN_00540ae0(void)
+
+{
+  undefined1 uVar1;
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    uVar1 = (undefined1)(*(ushort *)(in_ECX + 0x10a) >> 8);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 8) != 0);
+    case 2:
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 0x1e) != 0);
+    case 3:
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 0x22) != 0);
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x540ae0: CMP word ptr [ECX + 0x10e], 0x0
+0x540ae8: JNZ 0x00540b18
+0x540aea: MOVZX EAX, word ptr [ECX + 0x10a]
+0x540af1: CMP EAX, 0x3
+0x540af4: JA 0x00540b18
+0x540af6: JMP dword ptr [EAX*0x4 + 0x540b1c]
+0x540afd: CMP word ptr [ECX + 0x8], 0x0
+0x540b02: SETNZ AL
+0x540b05: RET
+0x540b06: CMP word ptr [ECX + 0x1e], 0x0
+0x540b0b: SETNZ AL
+0x540b0e: RET
+0x540b0f: CMP word ptr [ECX + 0x22], 0x0
+0x540b14: SETNZ AL
+0x540b17: RET
+0x540b18: XOR AL, AL
+0x540b1a: RET
+
+### GetGroupControlBack 0x005411B0
+
+bool FUN_005411b0(void)
+
+{
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return false;
+  }
+  return *(short *)(in_ECX + 0x12) != 0;
+}
+
+
+0x5411b0: CMP word ptr [ECX + 0x10e], 0x0
+0x5411b8: JZ 0x005411bd
+0x5411ba: XOR AL, AL
+0x5411bc: RET
+0x5411bd: CMP word ptr [ECX + 0x12], 0x0
+0x5411c2: SETNZ AL
+0x5411c5: RET
+
+### GetGroupControlForward 0x00541190
+
+bool FUN_00541190(void)
+
+{
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return false;
+  }
+  return *(short *)(in_ECX + 0x10) != 0;
+}
+
+
+0x541190: CMP word ptr [ECX + 0x10e], 0x0
+0x541198: JZ 0x0054119d
+0x54119a: XOR AL, AL
+0x54119c: RET
+0x54119d: CMP word ptr [ECX + 0x10], 0x0
+0x5411a2: SETNZ AL
+0x5411a5: RET
+
+### GetHandBrake 0x00540040
+
+uint FUN_00540040(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+      return (uint)*(ushort *)(in_ECX + 0xc);
+    case 2:
+      return (uint)*(ushort *)(in_ECX + 0x1e);
+    case 3:
+      return (uint)*(ushort *)(in_ECX + 8);
+    }
+  }
+  return in_EAX & 0xffff0000;
+}
+
+
+0x540040: CMP word ptr [ECX + 0x10e], 0x0
+0x540048: JNZ 0x0054006c
+0x54004a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x540051: CMP EAX, 0x3
+0x540054: JA 0x0054006c
+0x540056: JMP dword ptr [EAX*0x4 + 0x540070]
+0x54005d: MOV AX, word ptr [ECX + 0xc]
+0x540061: RET
+0x540062: MOV AX, word ptr [ECX + 0x1e]
+0x540066: RET
+0x540067: MOV AX, word ptr [ECX + 0x8]
+0x54006b: RET
+0x54006c: XOR AX, AX
+0x54006f: RET
+
+### GetHorn 0x0053FEE0
+
+uint FUN_0053fee0(void)
+
+{
+  undefined1 uVar1;
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    uVar1 = (undefined1)(*(ushort *)(in_ECX + 0x10a) >> 8);
+    switch(in_EAX) {
+    case 0:
+    case 3:
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 0x24) != 0);
+    case 1:
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 8) != 0);
+    case 2:
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 0xc) != 0);
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x53fee0: CMP word ptr [ECX + 0x10e], 0x0
+0x53fee8: JNZ 0x0053ff18
+0x53feea: MOVZX EAX, word ptr [ECX + 0x10a]
+0x53fef1: CMP EAX, 0x3
+0x53fef4: JA 0x0053ff18
+0x53fef6: JMP dword ptr [EAX*0x4 + 0x53ff1c]
+0x53fefd: CMP word ptr [ECX + 0x24], 0x0
+0x53ff02: SETNZ AL
+0x53ff05: RET
+0x53ff06: CMP word ptr [ECX + 0x8], 0x0
+0x53ff0b: SETNZ AL
+0x53ff0e: RET
+0x53ff0f: CMP word ptr [ECX + 0xc], 0x0
+0x53ff14: SETNZ AL
+0x53ff17: RET
+0x53ff18: XOR AL, AL
+0x53ff1a: RET
+
+### GetHydraulicJump 0x0053FF70
+
+bool FUN_0053ff70(void)
+
+{
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return false;
+  }
+  return *(short *)(in_ECX + 0x26) != 0;
+}
+
+
+0x53ff70: CMP word ptr [ECX + 0x10e], 0x0
+0x53ff78: JZ 0x0053ff7d
+0x53ff7a: XOR AL, AL
+0x53ff7c: RET
+0x53ff7d: CMP word ptr [ECX + 0x26], 0x0
+0x53ff82: SETNZ AL
+0x53ff85: RET
+
+### GetJump 0x00540750
+
+bool FUN_00540750(void)
+
+{
+  int in_ECX;
+  
+  if ((*(short *)(in_ECX + 0x10e) == 0) && (*(char *)(in_ECX + 0x11e) == '\0')) {
+    return *(short *)(in_ECX + 0x1c) != 0;
+  }
+  return false;
+}
+
+
+0x540750: CMP word ptr [ECX + 0x10e], 0x0
+0x540758: JNZ 0x00540764
+0x54075a: MOV AL, byte ptr [ECX + 0x11e]
+0x540760: TEST AL, AL
+0x540762: JZ 0x00540767
+0x540764: XOR AL, AL
+0x540766: RET
+0x540767: CMP word ptr [ECX + 0x1c], 0x0
+0x54076c: SETNZ AL
+0x54076f: RET
+
+### GetLookBehindForCar 0x0053FE70
+
+uint FUN_0053fe70(void)
+
+{
+  bool bVar1;
+  bool bVar2;
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 10) == 0) && (*(short *)(in_ECX + 0x3a) == 0)) {
+    bVar1 = false;
+  }
+  else {
+    bVar1 = true;
+  }
+  if ((*(short *)(in_ECX + 0xe) == 0) && (*(short *)(in_ECX + 0x3e) == 0)) {
+    bVar2 = false;
+  }
+  else {
+    bVar2 = true;
+  }
+  if ((bVar1) && (bVar2)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x53fe70: CMP word ptr [ECX + 0x10e], 0x0
+0x53fe78: JZ 0x0053fe7d
+0x53fe7a: XOR AL, AL
+0x53fe7c: RET
+0x53fe7d: CMP word ptr [ECX + 0xa], 0x0
+0x53fe82: JNZ 0x0053fe8f
+0x53fe84: CMP word ptr [ECX + 0x3a], 0x0
+0x53fe89: JNZ 0x0053fe8f
+0x53fe8b: XOR DL, DL
+0x53fe8d: JMP 0x0053fe91
+0x53fe8f: MOV DL, 0x1
+0x53fe91: CMP word ptr [ECX + 0xe], 0x0
+0x53fe96: JNZ 0x0053fea3
+0x53fe98: CMP word ptr [ECX + 0x3e], 0x0
+0x53fe9d: JNZ 0x0053fea3
+0x53fe9f: XOR AL, AL
+0x53fea1: JMP 0x0053fea5
+0x53fea3: MOV AL, 0x1
+0x53fea5: TEST DL, DL
+0x53fea7: JZ 0x0053feb3
+0x53fea9: TEST AL, AL
+0x53feab: JZ 0x0053feb3
+0x53fead: MOV EAX, 0x1
+0x53feb2: RET
+0x53feb3: XOR EAX, EAX
+0x53feb5: RET
+
+### GetLookBehindForPed 0x0053FEC0
+
+bool FUN_0053fec0(void)
+
+{
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return false;
+  }
+  return *(short *)(in_ECX + 0x26) != 0;
+}
+
+
+0x53fec0: CMP word ptr [ECX + 0x10e], 0x0
+0x53fec8: JZ 0x0053fecd
+0x53feca: XOR AL, AL
+0x53fecc: RET
+0x53fecd: CMP word ptr [ECX + 0x26], 0x0
+0x53fed2: SETNZ AL
+0x53fed5: RET
+
+### GetLookLeft 0x0053FDD0
+
+uint FUN_0053fdd0(void)
+
+{
+  short sVar1;
+  uint in_EAX;
+  int in_ECX;
+  
+  if ((*(short *)(in_ECX + 0x10e) == 0) &&
+     ((*(short *)(in_ECX + 10) == 0 || (*(short *)(in_ECX + 0x3a) != 0)))) {
+    sVar1 = *(short *)(in_ECX + 0xe);
+    in_EAX = CONCAT22((short)(in_EAX >> 0x10),sVar1);
+    if ((sVar1 != 0) || (*(short *)(in_ECX + 0x3e) == 0)) {
+      if ((*(short *)(in_ECX + 10) != 0) && (sVar1 == 0)) {
+        return 1;
+      }
+      return 0;
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x53fdd0: CMP word ptr [ECX + 0x10e], 0x0
+0x53fdd8: JNZ 0x0053fdf9
+0x53fdda: MOV DX, word ptr [ECX + 0xa]
+0x53fdde: TEST DX, DX
+0x53fde1: JZ 0x0053fdea
+0x53fde3: CMP word ptr [ECX + 0x3a], 0x0
+0x53fde8: JZ 0x0053fdf9
+0x53fdea: MOV AX, word ptr [ECX + 0xe]
+0x53fdee: TEST AX, AX
+0x53fdf1: JNZ 0x0053fdfc
+0x53fdf3: CMP word ptr [ECX + 0x3e], AX
+0x53fdf7: JZ 0x0053fdfc
+0x53fdf9: XOR AL, AL
+0x53fdfb: RET
+0x53fdfc: TEST DX, DX
+0x53fdff: JZ 0x0053fe0c
+0x53fe01: TEST AX, AX
+0x53fe04: JNZ 0x0053fe0c
+0x53fe06: MOV EAX, 0x1
+0x53fe0b: RET
+0x53fe0c: XOR EAX, EAX
+0x53fe0e: RET
+
+### GetMeleeAttack 0x00540340
+
+undefined1 FUN_00540340(char param_1)
+
+{
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    if (*(short *)(in_ECX + 0x22) != 0) {
+      return 1;
+    }
+    if (param_1 != '\0') {
+      if (*(short *)(in_ECX + 0x20) != 0) {
+        return 2;
+      }
+      if (*(short *)(in_ECX + 0x1c) != 0) {
+        return 3;
+      }
+      if (*(short *)(in_ECX + 0x1e) != 0) {
+        return 4;
+      }
+    }
+  }
+  return 0;
+}
+
+
+0x540340: CMP word ptr [ECX + 0x10e], 0x0
+0x540348: JNZ 0x00540382
+0x54034a: CMP word ptr [ECX + 0x22], 0x0
+0x54034f: JZ 0x00540356
+0x540351: MOV AL, 0x1
+0x540353: RET 0x4
+0x540356: MOV AL, byte ptr [ESP + 0x4]
+0x54035a: TEST AL, AL
+0x54035c: JZ 0x00540382
+0x54035e: CMP word ptr [ECX + 0x20], 0x0
+0x540363: JZ 0x0054036a
+0x540365: MOV AL, 0x2
+0x540367: RET 0x4
+0x54036a: CMP word ptr [ECX + 0x1c], 0x0
+0x54036f: JZ 0x00540376
+0x540371: MOV AL, 0x3
+0x540373: RET 0x4
+0x540376: CMP word ptr [ECX + 0x1e], 0x0
+0x54037b: JZ 0x00540382
+0x54037d: MOV AL, 0x4
+0x54037f: RET 0x4
+0x540382: XOR AL, AL
+0x540384: RET 0x4
+
+### GetPedWalkLeftRight- 0x0053FC90
+
+uint FUN_0053fc90(void)
+
+{
+  uint in_EAX;
+  ushort *in_ECX;
+  
+  if (in_ECX[0x87] == 0) {
+    in_EAX = (uint)in_ECX[0x85];
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return (uint)*in_ECX;
+    }
+  }
+  return in_EAX & 0xffff0000;
+}
+
+
+0x53fc90: CMP word ptr [ECX + 0x10e], 0x0
+0x53fc98: JNZ 0x0053fcb1
+0x53fc9a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x53fca1: CMP EAX, 0x3
+0x53fca4: JA 0x0053fcb1
+0x53fca6: JMP dword ptr [EAX*0x4 + 0x53fcb8]
+0x53fcad: MOV AX, word ptr [ECX]
+0x53fcb0: RET
+0x53fcb1: XOR AX, AX
+0x53fcb4: RET
+
+### GetPedWalkUpDown- 0x0053FD30
+
+uint FUN_0053fd30(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return (uint)*(ushort *)(in_ECX + 2);
+    }
+  }
+  return in_EAX & 0xffff0000;
+}
+
+
+0x53fd30: CMP word ptr [ECX + 0x10e], 0x0
+0x53fd38: JNZ 0x0053fd52
+0x53fd3a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x53fd41: CMP EAX, 0x3
+0x53fd44: JA 0x0053fd52
+0x53fd46: JMP dword ptr [EAX*0x4 + 0x53fd58]
+0x53fd4d: MOV AX, word ptr [ECX + 0x2]
+0x53fd51: RET
+0x53fd52: XOR AX, AX
+0x53fd55: RET
+
+### GetSprint 0x005407A0
+
+uint FUN_005407a0(void)
+
+{
+  undefined1 uVar1;
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    uVar1 = (undefined1)(*(ushort *)(in_ECX + 0x10a) >> 8);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 3:
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 0x20) != 0);
+    case 2:
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 0x22) != 0);
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x5407a0: CMP word ptr [ECX + 0x10e], 0x0
+0x5407a8: JNZ 0x005407cf
+0x5407aa: MOVZX EAX, word ptr [ECX + 0x10a]
+0x5407b1: CMP EAX, 0x3
+0x5407b4: JA 0x005407cf
+0x5407b6: JMP dword ptr [EAX*0x4 + 0x5407d4]
+0x5407bd: CMP word ptr [ECX + 0x20], 0x0
+0x5407c2: SETNZ AL
+0x5407c5: RET
+0x5407c6: CMP word ptr [ECX + 0x22], 0x0
+0x5407cb: SETNZ AL
+0x5407ce: RET
+0x5407cf: XOR AL, AL
+0x5407d1: RET
+
+### GetSteeringLeftRight 0x0053FB80
+
+uint FUN_0053fb80(void)
+
+{
+  uint in_EAX;
+  undefined2 *in_ECX;
+  
+  if (in_ECX[0x87] == 0) {
+    in_EAX = (uint)(ushort)in_ECX[0x85];
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      in_ECX[0x30] = *in_ECX;
+      return (uint)(ushort)in_ECX[*(int *)(in_ECX + 0x3a) + 0x30];
+    }
+  }
+  return in_EAX & 0xffff0000;
+}
+
+
+0x53fb80: CMP word ptr [ECX + 0x10e], 0x0
+0x53fb88: JNZ 0x0053fbad
+0x53fb8a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x53fb91: CMP EAX, 0x3
+0x53fb94: JA 0x0053fbad
+0x53fb96: JMP dword ptr [EAX*0x4 + 0x53fbb4]
+0x53fb9d: MOV AX, word ptr [ECX]
+0x53fba0: MOV EDX, dword ptr [ECX + 0x74]
+0x53fba3: MOV word ptr [ECX + 0x60], AX
+0x53fba7: MOV AX, word ptr [ECX + EDX*0x2 + 0x60]
+0x53fbac: RET
+0x53fbad: XOR AX, AX
+0x53fbb0: RET
+
+### GetSteeringUpDown 0x0053FBD0
+
+uint FUN_0053fbd0(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return (uint)*(ushort *)(in_ECX + 2);
+    }
+  }
+  return in_EAX & 0xffff0000;
+}
+
+
+0x53fbd0: CMP word ptr [ECX + 0x10e], 0x0
+0x53fbd8: JNZ 0x0053fbf2
+0x53fbda: MOVZX EAX, word ptr [ECX + 0x10a]
+0x53fbe1: CMP EAX, 0x3
+0x53fbe4: JA 0x0053fbf2
+0x53fbe6: JMP dword ptr [EAX*0x4 + 0x53fbf8]
+0x53fbed: MOV AX, word ptr [ECX + 0x2]
+0x53fbf1: RET
+0x53fbf2: XOR AX, AX
+0x53fbf5: RET
+
+### GetTarget 0x00540670
+
+uint FUN_00540670(void)
+
+{
+  undefined1 uVar1;
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    uVar1 = (undefined1)(*(ushort *)(in_ECX + 0x10a) >> 8);
+    if (in_EAX < 3) {
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 0xc) != 0);
+    }
+    if (in_EAX == 3) {
+      return (uint)CONCAT11(uVar1,*(short *)(in_ECX + 8) != 0);
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x540670: CMP word ptr [ECX + 0x10e], 0x0
+0x540678: JNZ 0x005406a1
+0x54067a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x540681: TEST EAX, EAX
+0x540683: JL 0x005406a1
+0x540685: CMP EAX, 0x2
+0x540688: JLE 0x00540698
+0x54068a: CMP EAX, 0x3
+0x54068d: JNZ 0x005406a1
+0x54068f: CMP word ptr [ECX + 0x8], 0x0
+0x540694: SETNZ AL
+0x540697: RET
+0x540698: CMP word ptr [ECX + 0xc], 0x0
+0x54069d: SETNZ AL
+0x5406a0: RET
+0x5406a1: XOR AL, AL
+0x5406a3: RET
+
+### GetTouchedTimeDelta 0x0053F210
+
+int FUN_0053f210(void)
+
+{
+  int in_ECX;
+  
+  return DAT_00b7cb84 - *(int *)(in_ECX + 0x120);
+}
+
+
+0x53f210: MOV EAX, [0x00b7cb84]
+0x53f215: SUB EAX, dword ptr [ECX + 0x120]
+0x53f21b: RET
+
+### GroupControlBackJustDown 0x00541260
+REA lookup failed; inspect primary PE bounded window.
+
+### GroupControlForwardJustDown 0x00541230
+REA lookup failed; inspect primary PE bounded window.
+
+### HornJustDown 0x0053FF30
+
+uint FUN_0053ff30(void)
+
+{
+  uint in_EAX;
+  uint uVar1;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 3:
+      if ((*(short *)(in_ECX + 0x24) != 0) && (*(short *)(in_ECX + 0x54) == 0)) {
+        return 1;
+      }
+      return 0;
+    case 1:
+      uVar1 = FUN_0053edc0();
+      return uVar1;
+    case 2:
+      uVar1 = FUN_0053ee20();
+      return uVar1;
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x509840: CMP word ptr [ECX + 0x24], 0x0
+0x509845: JZ 0x00509854
+0x509847: CMP word ptr [ECX + 0x54], 0x0
+0x50984c: JNZ 0x00509854
+0x50984e: MOV EAX, 0x1
+0x509853: RET
+0x509854: XOR EAX, EAX
+0x509856: RET
+0x53ff30: CMP word ptr [ECX + 0x10e], 0x0
+0x53ff38: JNZ 0x0053ff5c
+0x53ff3a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x53ff41: CMP EAX, 0x3
+0x53ff44: JA 0x0053ff5c
+0x53ff46: JMP dword ptr [EAX*0x4 + 0x53ff60]
+0x53ff4d: JMP 0x00509840
+0x53ff52: JMP 0x0053edc0
+0x53ff57: JMP 0x0053ee20
+0x53ff5c: XOR AL, AL
+0x53ff5e: RET
+
+### JumpJustDown 0x00540770
+
+uint FUN_00540770(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if ((*(short *)(in_ECX + 0x10e) != 0) ||
+     (in_EAX = CONCAT31((int3)(in_EAX >> 8),*(char *)(in_ECX + 0x11e)),
+     *(char *)(in_ECX + 0x11e) != '\0')) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 0x1c) != 0) && (*(short *)(in_ECX + 0x4c) == 0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x540770: CMP word ptr [ECX + 0x10e], 0x0
+0x540778: JNZ 0x00540784
+0x54077a: MOV AL, byte ptr [ECX + 0x11e]
+0x540780: TEST AL, AL
+0x540782: JZ 0x00540787
+0x540784: XOR AL, AL
+0x540786: RET
+0x540787: CMP word ptr [ECX + 0x1c], 0x0
+0x54078c: JZ 0x0054079b
+0x54078e: CMP word ptr [ECX + 0x4c], 0x0
+0x540793: JNZ 0x0054079b
+0x540795: MOV EAX, 0x1
+0x54079a: RET
+0x54079b: XOR EAX, EAX
+0x54079d: RET
+
+### LastStationJustUp 0x005405E0
+
+uint FUN_005405e0(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 0x12) == 0) && (*(short *)(in_ECX + 0x42) != 0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x5405e0: CMP word ptr [ECX + 0x10e], 0x0
+0x5405e8: JZ 0x005405ed
+0x5405ea: XOR AL, AL
+0x5405ec: RET
+0x5405ed: CMP word ptr [ECX + 0x12], 0x0
+0x5405f2: JNZ 0x00540601
+0x5405f4: CMP word ptr [ECX + 0x42], 0x0
+0x5405f9: JZ 0x00540601
+0x5405fb: MOV EAX, 0x1
+0x540600: RET
+0x540601: XOR EAX, EAX
+0x540603: RET
+
+### MeleeAttackJustDown 0x00540390
+
+undefined1 FUN_00540390(char param_1)
+
+{
+  char cVar1;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    if ((*(short *)(in_ECX + 0x22) != 0) && (*(short *)(in_ECX + 0x52) == 0)) {
+      return 1;
+    }
+    if (param_1 != '\0') {
+      if ((*(short *)(in_ECX + 0x20) != 0) && (*(short *)(in_ECX + 0x50) == 0)) {
+        return 2;
+      }
+      if (*(short *)(in_ECX + 0x1c) != 0) {
+        return 3;
+      }
+      cVar1 = FUN_0053ef40();
+      if (cVar1 != '\0') {
+        return 4;
+      }
+    }
+  }
+  return 0;
+}
+
+
+0x540390: CMP word ptr [ECX + 0x10e], 0x0
+0x540398: JNZ 0x005403e2
+0x54039a: CMP word ptr [ECX + 0x22], 0x0
+0x54039f: JZ 0x005403ad
+0x5403a1: CMP word ptr [ECX + 0x52], 0x0
+0x5403a6: JNZ 0x005403ad
+0x5403a8: MOV AL, 0x1
+0x5403aa: RET 0x4
+0x5403ad: MOV AL, byte ptr [ESP + 0x4]
+0x5403b1: TEST AL, AL
+0x5403b3: JZ 0x005403e2
+0x5403b5: CMP word ptr [ECX + 0x20], 0x0
+0x5403ba: JZ 0x005403c8
+0x5403bc: CMP word ptr [ECX + 0x50], 0x0
+0x5403c1: JNZ 0x005403c8
+0x5403c3: MOV AL, 0x2
+0x5403c5: RET 0x4
+0x5403c8: CMP word ptr [ECX + 0x1c], 0x0
+0x5403cd: JZ 0x005403d4
+0x5403cf: MOV AL, 0x3
+0x5403d1: RET 0x4
+0x5403d4: CALL 0x0053ef40
+0x5403d9: TEST AL, AL
+0x5403db: JZ 0x005403e2
+0x5403dd: MOV AL, 0x4
+0x5403df: RET 0x4
+0x5403e2: XOR AL, AL
+0x5403e4: RET 0x4
+
+### NextStationJustUp 0x005405B0
+
+uint FUN_005405b0(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 0x10) == 0) && (*(short *)(in_ECX + 0x40) != 0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x5405b0: CMP word ptr [ECX + 0x10e], 0x0
+0x5405b8: JZ 0x005405bd
+0x5405ba: XOR AL, AL
+0x5405bc: RET
+0x5405bd: CMP word ptr [ECX + 0x10], 0x0
+0x5405c2: JNZ 0x005405d1
+0x5405c4: CMP word ptr [ECX + 0x40], 0x0
+0x5405c9: JZ 0x005405d1
+0x5405cb: MOV EAX, 0x1
+0x5405d0: RET
+0x5405d1: XOR EAX, EAX
+0x5405d3: RET
+
+### ShiftTargetLeftJustDown 0x00540850
+
+uint FUN_00540850(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 10) != 0) && (*(short *)(in_ECX + 0x3a) == 0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x540850: CMP word ptr [ECX + 0x10e], 0x0
+0x540858: JZ 0x0054085d
+0x54085a: XOR AL, AL
+0x54085c: RET
+0x54085d: CMP word ptr [ECX + 0xa], 0x0
+0x540862: JZ 0x00540871
+0x540864: CMP word ptr [ECX + 0x3a], 0x0
+0x540869: JNZ 0x00540871
+0x54086b: MOV EAX, 0x1
+0x540870: RET
+0x540871: XOR EAX, EAX
+0x540873: RET
+
+### ShiftTargetRightJustDown 0x00540880
+
+uint FUN_00540880(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) != 0) {
+    return in_EAX & 0xffffff00;
+  }
+  if ((*(short *)(in_ECX + 0xe) != 0) && (*(short *)(in_ECX + 0x3e) == 0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+0x540880: CMP word ptr [ECX + 0x10e], 0x0
+0x540888: JZ 0x0054088d
+0x54088a: XOR AL, AL
+0x54088c: RET
+0x54088d: CMP word ptr [ECX + 0xe], 0x0
+0x540892: JZ 0x005408a1
+0x540894: CMP word ptr [ECX + 0x3e], 0x0
+0x540899: JNZ 0x005408a1
+0x54089b: MOV EAX, 0x1
+0x5408a0: RET
+0x5408a1: XOR EAX, EAX
+0x5408a3: RET
+
+### SniperZoomIn 0x00540B30
+
+uint FUN_00540b30(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 3:
+      if ((*(short *)(in_ECX + 10) == 0) && (*(short *)(in_ECX + 0x1c) == 0)) {
+        return 0;
+      }
+      return 1;
+    case 2:
+      return (uint)CONCAT11((char)(*(ushort *)(in_ECX + 0x10a) >> 8),*(short *)(in_ECX + 0x1e) != 0)
+      ;
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x540b30: CMP word ptr [ECX + 0x10e], 0x0
+0x540b38: JNZ 0x00540b6d
+0x540b3a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x540b41: CMP EAX, 0x3
+0x540b44: JA 0x00540b6d
+0x540b46: JMP dword ptr [EAX*0x4 + 0x540b70]
+0x540b4d: CMP word ptr [ECX + 0xa], 0x0
+0x540b52: JNZ 0x00540b5e
+0x540b54: CMP word ptr [ECX + 0x1c], 0x0
+0x540b59: JNZ 0x00540b5e
+0x540b5b: XOR EAX, EAX
+0x540b5d: RET
+0x540b5e: MOV EAX, 0x1
+0x540b63: RET
+0x540b64: CMP word ptr [ECX + 0x1e], 0x0
+0x540b69: SETNZ AL
+0x540b6c: RET
+0x540b6d: XOR AL, AL
+0x540b6f: RET
+
+### SniperZoomOut 0x00540B80
+
+uint FUN_00540b80(void)
+
+{
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 3:
+      if ((*(short *)(in_ECX + 0xe) == 0) && (*(short *)(in_ECX + 0x20) == 0)) {
+        return 0;
+      }
+      return 1;
+    case 2:
+      return (uint)CONCAT11((char)(*(ushort *)(in_ECX + 0x10a) >> 8),*(short *)(in_ECX + 0x1c) != 0)
+      ;
+    }
+  }
+  return in_EAX & 0xffffff00;
+}
+
+
+0x540b80: CMP word ptr [ECX + 0x10e], 0x0
+0x540b88: JNZ 0x00540bbd
+0x540b8a: MOVZX EAX, word ptr [ECX + 0x10a]
+0x540b91: CMP EAX, 0x3
+0x540b94: JA 0x00540bbd
+0x540b96: JMP dword ptr [EAX*0x4 + 0x540bc0]
+0x540b9d: CMP word ptr [ECX + 0xe], 0x0
+0x540ba2: JNZ 0x00540bae
+0x540ba4: CMP word ptr [ECX + 0x20], 0x0
+0x540ba9: JNZ 0x00540bae
+0x540bab: XOR EAX, EAX
+0x540bad: RET
+0x540bae: MOV EAX, 0x1
+0x540bb3: RET
+0x540bb4: CMP word ptr [ECX + 0x1c], 0x0
+0x540bb9: SETNZ AL
+0x540bbc: RET
+0x540bbd: XOR AL, AL
+0x540bbf: RET
+
+### SprintJustDown 0x005407F0
+
+uint FUN_005407f0(void)
+
+{
+  short sVar1;
+  uint in_EAX;
+  int in_ECX;
+  
+  if (*(short *)(in_ECX + 0x10e) == 0) {
+    in_EAX = (uint)*(ushort *)(in_ECX + 0x10a);
+    switch(in_EAX) {
+    case 0:
+    case 1:
+    case 3:
+      if (*(short *)(in_ECX + 0x20) == 0) {
+        return 0;
+      }
+      sVar1 = *(short *)(in_ECX + 0x50);
+      break;
+    case 2:
+      if (*(short *)(in_ECX + 0x22) == 0) {
+        return 0;
+      }
+      sVar1 = *(short *)(in_ECX + 0x52);
+      break;
+    default:
+      goto switchD_00540806_default;
+    }
+    if (sVar1 != 0) {
+      return 0;
+    }
+    return 1;
+  }
+switchD_00540806_default:
+  return in_EAX & 0xffffff00;
+}
+
+
+0x5407f0: CMP word ptr [ECX + 0x10e], 0x0
+0x5407f8: JNZ 0x00540832
+0x5407fa: MOVZX EAX, word ptr [ECX + 0x10a]
+0x540801: CMP EAX, 0x3
+0x540804: JA 0x00540832
+0x540806: JMP dword ptr [EAX*0x4 + 0x540838]
+0x54080d: CMP word ptr [ECX + 0x20], 0x0
+0x540812: JZ 0x0054082f
+0x540814: CMP word ptr [ECX + 0x50], 0x0
+0x540819: JMP 0x00540827
+0x54081b: CMP word ptr [ECX + 0x22], 0x0
+0x540820: JZ 0x0054082f
+0x540822: CMP word ptr [ECX + 0x52], 0x0
+0x540827: JNZ 0x0054082f
+0x540829: MOV EAX, 0x1
+0x54082e: RET
+0x54082f: XOR EAX, EAX
+0x540831: RET
+0x540832: XOR AL, AL
+0x540834: RET
