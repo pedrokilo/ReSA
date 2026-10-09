@@ -45,7 +45,7 @@ void CTaskGoToVehicleAndLean::InjectHooks() {
 }
 
 // 0x660E60
-CTaskGoToVehicleAndLean::CTaskGoToVehicleAndLean(CVehicle* vehicle, int32 leanAnimDurationInMs) : CTaskComplex() {
+CTaskGoToVehicleAndLean::CTaskGoToVehicleAndLean(CVehicle* vehicle, int32 leanAnimDurationInMs) {
     m_Vehicle = vehicle;
     m_LeanAnimDurationInMs = leanAnimDurationInMs;
     m_LeanOnVehicle = false;

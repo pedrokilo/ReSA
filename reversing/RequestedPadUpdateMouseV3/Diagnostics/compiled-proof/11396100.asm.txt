@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11396100: 55                 push        ebp
+  11396101: 8B EC              mov         ebp,esp
+  11396103: 81 EC C0 00 00 00  sub         esp,0C0h
+  11396109: 53                 push        ebx
+  1139610A: 56                 push        esi
+  1139610B: 57                 push        edi
+  1139610C: 8B FD              mov         edi,ebp
+  1139610E: 33 C9              xor         ecx,ecx
+  11396110: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11396115: F3 AB              rep stos    dword ptr es:[edi]
+  11396117: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1139611A: 50                 push        eax
+  1139611B: E8 57 67 CC FF     call        1105C877
+  11396120: 83 C4 04           add         esp,4
+  11396123: 5F                 pop         edi
+  11396124: 5E                 pop         esi
+  11396125: 5B                 pop         ebx
+  11396126: 81 C4 C0 00 00 00  add         esp,0C0h
+  1139612C: 3B EC              cmp         ebp,esp
+  1139612E: E8 CA 8B CC FF     call        1105ECFD
+  11396133: 8B E5              mov         esp,ebp
+  11396135: 5D                 pop         ebp
+  11396136: C3                 ret
+  11396137: CC                 int         3
+  11396138: CC                 int         3
+  11396139: CC                 int         3
+  1139613A: CC                 int         3
+  1139613B: CC                 int         3
+  1139613C: CC                 int         3
+  1139613D: CC                 int         3
+  1139613E: CC                 int         3
+  1139613F: CC                 int         3
+  11396140: CC                 int         3
+
+  Summary
+
+     2171000 .text

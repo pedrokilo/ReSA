@@ -1,0 +1,82 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138FAD0: 55                 push        ebp
+  1138FAD1: 8B EC              mov         ebp,esp
+  1138FAD3: 81 EC FC 00 00 00  sub         esp,0FCh
+  1138FAD9: 53                 push        ebx
+  1138FADA: 56                 push        esi
+  1138FADB: 57                 push        edi
+  1138FADC: 8D 7D C4           lea         edi,[ebp-3Ch]
+  1138FADF: B9 0F 00 00 00     mov         ecx,0Fh
+  1138FAE4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138FAE9: F3 AB              rep stos    dword ptr es:[edi]
+  1138FAEB: 33 C0              xor         eax,eax
+  1138FAED: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1138FAF0: 89 01              mov         dword ptr [ecx],eax
+  1138FAF2: 89 41 04           mov         dword ptr [ecx+4],eax
+  1138FAF5: 89 41 08           mov         dword ptr [ecx+8],eax
+  1138FAF8: 89 41 0C           mov         dword ptr [ecx+0Ch],eax
+  1138FAFB: 89 41 10           mov         dword ptr [ecx+10h],eax
+  1138FAFE: 89 41 14           mov         dword ptr [ecx+14h],eax
+  1138FB01: 89 41 18           mov         dword ptr [ecx+18h],eax
+  1138FB04: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1138FB07: E8 6E C1 CE FF     call        1107BC7A
+  1138FB0C: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1138FB0F: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1138FB12: D9 30              fnstenv     [eax]
+  1138FB14: D9 20              fldenv      [eax]
+  1138FB16: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1138FB19: 52                 push        edx
+  1138FB1A: 8B CD              mov         ecx,ebp
+  1138FB1C: 50                 push        eax
+  1138FB1D: 8D 15 40 FB 38 11  lea         edx,ds:[1138FB40h]
+  1138FB23: E8 B3 2A CD FF     call        110625DB
+  1138FB28: 58                 pop         eax
+  1138FB29: 5A                 pop         edx
+  1138FB2A: 5F                 pop         edi
+  1138FB2B: 5E                 pop         esi
+  1138FB2C: 5B                 pop         ebx
+  1138FB2D: 81 C4 FC 00 00 00  add         esp,0FCh
+  1138FB33: 3B EC              cmp         ebp,esp
+  1138FB35: E8 9B D1 CC FF     call        1105CCD5
+  1138FB3A: 8B E5              mov         esp,ebp
+  1138FB3C: 5D                 pop         ebp
+  1138FB3D: C3                 ret
+  1138FB3E: 66 90              nop
+  1138FB40: 02 00              add         al,byte ptr [eax]
+  1138FB42: 00 00              add         byte ptr [eax],al
+  1138FB44: 48                 dec         eax
+  1138FB45: FB                 sti
+  1138FB46: 38 11              cmp         byte ptr [ecx],dl
+  1138FB48: E0 FF              loopne      1138FB49
+  1138FB4A: FF
+  1138FB4B: FF 1C 00           call        fword ptr [eax+eax]
+  1138FB4E: 00 00              add         byte ptr [eax],al
+  1138FB50: 6B FB 38           imul        edi,ebx,38h
+  1138FB53: 11 C8              adc         eax,ecx
+  1138FB55: FF
+  1138FB56: FF
+  1138FB57: FF 04 00           inc         dword ptr [eax+eax]
+  1138FB5A: 00 00              add         byte ptr [eax],al
+  1138FB5C: 60                 pushad
+  1138FB5D: FB                 sti
+  1138FB5E: 38 11              cmp         byte ptr [ecx],dl
+  1138FB60: 5F                 pop         edi
+  1138FB61: 24 41              and         al,41h
+  1138FB63: 72 72              jb          1138FBD7
+  1138FB65: 61                 popad
+  1138FB66: 79 50              jns         1138FBB8
+  1138FB68: 61                 popad
+  1138FB69: 64 00 69 6D        add         byte ptr fs:[ecx+6Dh],ch
+  1138FB6D: 61                 popad
+  1138FB6E: 67 65 00 CC        add         ah,cl
+
+  Summary
+
+     216D000 .text

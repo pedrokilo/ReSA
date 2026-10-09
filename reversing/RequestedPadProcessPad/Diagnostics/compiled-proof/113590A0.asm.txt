@@ -1,0 +1,77 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113590A0: 55                 push        ebp
+  113590A1: 8B EC              mov         ebp,esp
+  113590A3: 81 EC 28 01 00 00  sub         esp,128h
+  113590A9: 53                 push        ebx
+  113590AA: 56                 push        esi
+  113590AB: 57                 push        edi
+  113590AC: 8D 7D 98           lea         edi,[ebp-68h]
+  113590AF: B9 1A 00 00 00     mov         ecx,1Ah
+  113590B4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113590B9: F3 AB              rep stos    dword ptr es:[edi]
+  113590BB: 8D 45 10           lea         eax,[ebp+10h]
+  113590BE: 50                 push        eax
+  113590BF: E8 CD 11 D0 FF     call        1105A291
+  113590C4: 83 C4 04           add         esp,4
+  113590C7: 88 85 3B FF FF FF  mov         byte ptr [ebp+FFFFFF3Bh],al
+  113590CD: 8A 8D 3B FF FF FF  mov         cl,byte ptr [ebp+FFFFFF3Bh]
+  113590D3: 88 8D 17 FF FF FF  mov         byte ptr [ebp+FFFFFF17h],cl
+  113590D9: 8A 95 17 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF17h]
+  113590DF: 88 95 FF FE FF FF  mov         byte ptr [ebp+FFFFFEFFh],dl
+  113590E5: 8A 85 FF FE FF FF  mov         al,byte ptr [ebp+FFFFFEFFh]
+  113590EB: 88 85 E7 FE FF FF  mov         byte ptr [ebp+FFFFFEE7h],al
+  113590F1: 8D 4D 0C           lea         ecx,[ebp+0Ch]
+  113590F4: 51                 push        ecx
+  113590F5: 8D 95 2F FF FF FF  lea         edx,[ebp+FFFFFF2Fh]
+  113590FB: 52                 push        edx
+  113590FC: E8 D9 76 D1 FF     call        110707DA
+  11359101: 83 C4 08           add         esp,8
+  11359104: 0F B6 00           movzx       eax,byte ptr [eax]
+  11359107: 88 85 23 FF FF FF  mov         byte ptr [ebp+FFFFFF23h],al
+  1135910D: 8A 8D 23 FF FF FF  mov         cl,byte ptr [ebp+FFFFFF23h]
+  11359113: 88 8D 0B FF FF FF  mov         byte ptr [ebp+FFFFFF0Bh],cl
+  11359119: 8A 95 0B FF FF FF  mov         dl,byte ptr [ebp+FFFFFF0Bh]
+  1135911F: 88 95 F3 FE FF FF  mov         byte ptr [ebp+FFFFFEF3h],dl
+  11359125: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11359128: 50                 push        eax
+  11359129: E8 1E 06 D5 FF     call        110A974C
+  1135912E: 83 C4 04           add         esp,4
+  11359131: 89 85 DC FE FF FF  mov         dword ptr [ebp+FFFFFEDCh],eax
+  11359137: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1135913A: 51                 push        ecx
+  1135913B: E8 45 0D D1 FF     call        11069E85
+  11359140: 83 C4 04           add         esp,4
+  11359143: 89 85 D8 FE FF FF  mov         dword ptr [ebp+FFFFFED8h],eax
+  11359149: 0F B6 95 E7 FE FF  movzx       edx,byte ptr [ebp+FFFFFEE7h]
+            FF
+  11359150: 52                 push        edx
+  11359151: 0F B6 85 F3 FE FF  movzx       eax,byte ptr [ebp+FFFFFEF3h]
+            FF
+  11359158: 50                 push        eax
+  11359159: 8B 8D DC FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEDCh]
+  1135915F: 51                 push        ecx
+  11359160: 8B 95 D8 FE FF FF  mov         edx,dword ptr [ebp+FFFFFED8h]
+  11359166: 52                 push        edx
+  11359167: E8 70 10 D1 FF     call        1106A1DC
+  1135916C: 83 C4 10           add         esp,10h
+  1135916F: 5F                 pop         edi
+  11359170: 5E                 pop         esi
+  11359171: 5B                 pop         ebx
+  11359172: 81 C4 28 01 00 00  add         esp,128h
+  11359178: 3B EC              cmp         ebp,esp
+  1135917A: E8 56 3B D0 FF     call        1105CCD5
+  1135917F: 8B E5              mov         esp,ebp
+  11359181: 5D                 pop         ebp
+  11359182: C3                 ret
+  11359183: CC                 int         3
+
+  Summary
+
+     216D000 .text

@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1135FA60: 55                 push        ebp
+  1135FA61: 8B EC              mov         ebp,esp
+  1135FA63: 81 EC C0 00 00 00  sub         esp,0C0h
+  1135FA69: 53                 push        ebx
+  1135FA6A: 56                 push        esi
+  1135FA6B: 57                 push        edi
+  1135FA6C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135FA6F: 5F                 pop         edi
+  1135FA70: 5E                 pop         esi
+  1135FA71: 5B                 pop         ebx
+  1135FA72: 8B E5              mov         esp,ebp
+  1135FA74: 5D                 pop         ebp
+  1135FA75: C3                 ret
+  1135FA76: CC                 int         3
+  1135FA77: CC                 int         3
+  1135FA78: CC                 int         3
+  1135FA79: CC                 int         3
+  1135FA7A: CC                 int         3
+  1135FA7B: CC                 int         3
+  1135FA7C: CC                 int         3
+  1135FA7D: CC                 int         3
+  1135FA7E: CC                 int         3
+  1135FA7F: CC                 int         3
+  1135FA80: 55                 push        ebp
+  1135FA81: 8B EC              mov         ebp,esp
+  1135FA83: 81 EC C0 00 00 00  sub         esp,0C0h
+  1135FA89: 53                 push        ebx
+  1135FA8A: 56                 push        esi
+  1135FA8B: 57                 push        edi
+  1135FA8C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135FA8F: 5F                 pop         edi
+  1135FA90: 5E                 pop         esi
+  1135FA91: 5B                 pop         ebx
+  1135FA92: 8B E5              mov         esp,ebp
+  1135FA94: 5D                 pop         ebp
+  1135FA95: C3                 ret
+  1135FA96: CC                 int         3
+  1135FA97: CC                 int         3
+  1135FA98: CC                 int         3
+  1135FA99: CC                 int         3
+  1135FA9A: CC                 int         3
+  1135FA9B: CC                 int         3
+  1135FA9C: CC                 int         3
+  1135FA9D: CC                 int         3
+  1135FA9E: CC                 int         3
+  1135FA9F: CC                 int         3
+  1135FAA0: 55                 push        ebp
+
+  Summary
+
+     2170000 .text

@@ -1,0 +1,160 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11AF5820: 55                 push        ebp
+  11AF5821: 8B EC              mov         ebp,esp
+  11AF5823: 81 EC F8 00 00 00  sub         esp,0F8h
+  11AF5829: 53                 push        ebx
+  11AF582A: 56                 push        esi
+  11AF582B: 57                 push        edi
+  11AF582C: 51                 push        ecx
+  11AF582D: 8D 7D C8           lea         edi,[ebp-38h]
+  11AF5830: B9 0E 00 00 00     mov         ecx,0Eh
+  11AF5835: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11AF583A: F3 AB              rep stos    dword ptr es:[edi]
+  11AF583C: 59                 pop         ecx
+  11AF583D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11AF5840: A1 18 41 6F 13     mov         eax,dword ptr ds:[136F4118h]
+  11AF5845: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11AF5848: 83 79 1C 00        cmp         dword ptr [ecx+1Ch],0
+  11AF584C: 75 0A              jne         11AF5858
+  11AF584E: B8 01 00 00 00     mov         eax,1
+  11AF5853: E9 A2 01 00 00     jmp         11AF59FA
+  11AF5858: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11AF585B: C7 40 08 00 00 00  mov         dword ptr [eax+8],0
+            00
+  11AF5862: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11AF5865: C7 41 04 00 00 00  mov         dword ptr [ecx+4],0
+            00
+  11AF586C: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11AF586F: C7 02 00 00 00 00  mov         dword ptr [edx],0
+  11AF5875: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],0
+            00 00 00 00
+  11AF587F: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11AF5882: 83 C0 0C           add         eax,0Ch
+  11AF5885: 50                 push        eax
+  11AF5886: E8 77 C4 57 FF     call        11071D02
+  11AF588B: 83 C4 04           add         esp,4
+  11AF588E: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11AF5894: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11AF5897: 83 C1 0C           add         ecx,0Ch
+  11AF589A: 51                 push        ecx
+  11AF589B: E8 B5 EE 57 FF     call        11074755
+  11AF58A0: 83 C4 04           add         esp,4
+  11AF58A3: 89 85 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],eax
+  11AF58A9: 8D 95 20 FF FF FF  lea         edx,[ebp+FFFFFF20h]
+  11AF58AF: 52                 push        edx
+  11AF58B0: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11AF58B6: 50                 push        eax
+  11AF58B7: 8B 8D 08 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF08h]
+  11AF58BD: 51                 push        ecx
+  11AF58BE: E8 DE 36 5A FF     call        11098FA1
+  11AF58C3: 83 C4 0C           add         esp,0Ch
+  11AF58C6: A1 18 41 6F 13     mov         eax,dword ptr ds:[136F4118h]
+  11AF58CB: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11AF58CE: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11AF58D1: 89 95 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],edx
+  11AF58D7: A1 18 41 6F 13     mov         eax,dword ptr ds:[136F4118h]
+  11AF58DC: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11AF58DF: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11AF58E2: 8B 02              mov         eax,dword ptr [edx]
+  11AF58E4: 8B 48 24           mov         ecx,dword ptr [eax+24h]
+  11AF58E7: 89 8D 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],ecx
+  11AF58ED: 8B F4              mov         esi,esp
+  11AF58EF: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11AF58F2: 52                 push        edx
+  11AF58F3: 6A 14              push        14h
+  11AF58F5: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11AF58FB: 50                 push        eax
+  11AF58FC: FF 95 08 FF FF FF  call        dword ptr [ebp+FFFFFF08h]
+  11AF5902: 3B F4              cmp         esi,esp
+  11AF5904: E8 E0 83 56 FF     call        1105DCE9
+  11AF5909: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11AF590C: 83 7D EC 00        cmp         dword ptr [ebp-14h],0
+  11AF5910: 7C 07              jl          11AF5919
+  11AF5912: 33 C0              xor         eax,eax
+  11AF5914: E9 E1 00 00 00     jmp         11AF59FA
+  11AF5919: A1 18 41 6F 13     mov         eax,dword ptr ds:[136F4118h]
+  11AF591E: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11AF5921: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11AF5924: A1 18 41 6F 13     mov         eax,dword ptr ds:[136F4118h]
+  11AF5929: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11AF592C: 8B 41 1C           mov         eax,dword ptr [ecx+1Ch]
+  11AF592F: 8B 0A              mov         ecx,dword ptr [edx]
+  11AF5931: 8B F4              mov         esi,esp
+  11AF5933: 50                 push        eax
+  11AF5934: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11AF5937: FF D2              call        edx
+  11AF5939: 3B F4              cmp         esi,esp
+  11AF593B: E8 A9 83 56 FF     call        1105DCE9
+  11AF5940: 3D 1E 00 07 80     cmp         eax,8007001Eh
+  11AF5945: 75 02              jne         11AF5949
+  11AF5947: EB D0              jmp         11AF5919
+  11AF5949: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11AF594C: C7 40 08 00 00 00  mov         dword ptr [eax+8],0
+            00
+  11AF5953: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11AF5956: C7 41 04 00 00 00  mov         dword ptr [ecx+4],0
+            00
+  11AF595D: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11AF5960: C7 02 00 00 00 00  mov         dword ptr [edx],0
+  11AF5966: C7 85 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],0
+            00 00 00 00
+  11AF5970: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11AF5973: 83 C0 0C           add         eax,0Ch
+  11AF5976: 50                 push        eax
+  11AF5977: E8 86 C3 57 FF     call        11071D02
+  11AF597C: 83 C4 04           add         esp,4
+  11AF597F: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11AF5985: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11AF5988: 83 C1 0C           add         ecx,0Ch
+  11AF598B: 51                 push        ecx
+  11AF598C: E8 C4 ED 57 FF     call        11074755
+  11AF5991: 83 C4 04           add         esp,4
+  11AF5994: 89 85 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],eax
+  11AF599A: 8D 95 14 FF FF FF  lea         edx,[ebp+FFFFFF14h]
+  11AF59A0: 52                 push        edx
+  11AF59A1: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11AF59A7: 50                 push        eax
+  11AF59A8: 8B 8D 08 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF08h]
+  11AF59AE: 51                 push        ecx
+  11AF59AF: E8 ED 35 5A FF     call        11098FA1
+  11AF59B4: 83 C4 0C           add         esp,0Ch
+  11AF59B7: A1 18 41 6F 13     mov         eax,dword ptr ds:[136F4118h]
+  11AF59BC: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11AF59BF: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11AF59C2: 89 95 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],edx
+  11AF59C8: A1 18 41 6F 13     mov         eax,dword ptr ds:[136F4118h]
+  11AF59CD: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11AF59D0: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11AF59D3: 8B 02              mov         eax,dword ptr [edx]
+  11AF59D5: 8B 48 24           mov         ecx,dword ptr [eax+24h]
+  11AF59D8: 89 8D 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],ecx
+  11AF59DE: 8B F4              mov         esi,esp
+  11AF59E0: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11AF59E3: 52                 push        edx
+  11AF59E4: 6A 14              push        14h
+  11AF59E6: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11AF59EC: 50                 push        eax
+  11AF59ED: FF 95 08 FF FF FF  call        dword ptr [ebp+FFFFFF08h]
+  11AF59F3: 3B F4              cmp         esi,esp
+  11AF59F5: E8 EF 82 56 FF     call        1105DCE9
+  11AF59FA: 5F                 pop         edi
+  11AF59FB: 5E                 pop         esi
+  11AF59FC: 5B                 pop         ebx
+  11AF59FD: 81 C4 F8 00 00 00  add         esp,0F8h
+  11AF5A03: 3B EC              cmp         ebp,esp
+  11AF5A05: E8 DF 82 56 FF     call        1105DCE9
+  11AF5A0A: 8B E5              mov         esp,ebp
+  11AF5A0C: 5D                 pop         ebp
+  11AF5A0D: C2 04 00           ret         4
+  11AF5A10: CC                 int         3
+
+  Summary
+
+     216F000 .text

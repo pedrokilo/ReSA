@@ -1,0 +1,218 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11B09D10: 55                 push        ebp
+  11B09D11: 8B EC              mov         ebp,esp
+  11B09D13: 81 EC 34 01 00 00  sub         esp,134h
+  11B09D19: 53                 push        ebx
+  11B09D1A: 56                 push        esi
+  11B09D1B: 57                 push        edi
+  11B09D1C: 51                 push        ecx
+  11B09D1D: 8D 7D 8C           lea         edi,[ebp-74h]
+  11B09D20: B9 1D 00 00 00     mov         ecx,1Dh
+  11B09D25: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B09D2A: F3 AB              rep stos    dword ptr es:[edi]
+  11B09D2C: 59                 pop         ecx
+  11B09D2D: A1 40 4A 6D 13     mov         eax,dword ptr ds:[136D4A40h]
+  11B09D32: 33 C5              xor         eax,ebp
+  11B09D34: 89 45 FC           mov         dword ptr [ebp-4],eax
+  11B09D37: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  11B09D3A: E8 8F 03 59 FF     call        1109A0CE
+  11B09D3F: 0F B6 C0           movzx       eax,al
+  11B09D42: 85 C0              test        eax,eax
+  11B09D44: 75 05              jne         11B09D4B
+  11B09D46: E9 5A 02 00 00     jmp         11B09FA5
+  11B09D4B: A1 18 B1 6F 13     mov         eax,dword ptr ds:[136FB118h]
+  11B09D50: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11B09D53: 83 79 1C 00        cmp         dword ptr [ecx+1Ch],0
+  11B09D57: 75 39              jne         11B09D92
+  11B09D59: A1 30 AB 6F 13     mov         eax,dword ptr ds:[136FAB30h]
+  11B09D5E: 0F B6 48 5C        movzx       ecx,byte ptr [eax+5Ch]
+  11B09D62: 85 C9              test        ecx,ecx
+  11B09D64: 75 15              jne         11B09D7B
+  11B09D66: E8 05 53 58 FF     call        1108F070
+  11B09D6B: 0F B6 D0           movzx       edx,al
+  11B09D6E: 85 D2              test        edx,edx
+  11B09D70: 74 09              je          11B09D7B
+  11B09D72: C6 85 CF FE FF FF  mov         byte ptr [ebp+FFFFFECFh],1
+            01
+  11B09D79: EB 07              jmp         11B09D82
+  11B09D7B: C6 85 CF FE FF FF  mov         byte ptr [ebp+FFFFFECFh],0
+            00
+  11B09D82: 0F B6 85 CF FE FF  movzx       eax,byte ptr [ebp+FFFFFECFh]
+            FF
+  11B09D89: 50                 push        eax
+  11B09D8A: E8 20 CD 58 FF     call        11096AAF
+  11B09D8F: 83 C4 04           add         esp,4
+  11B09D92: A1 18 B1 6F 13     mov         eax,dword ptr ds:[136FB118h]
+  11B09D97: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11B09D9A: 83 79 1C 00        cmp         dword ptr [ecx+1Ch],0
+  11B09D9E: 74 10              je          11B09DB0
+  11B09DA0: 8D 45 D8           lea         eax,[ebp-28h]
+  11B09DA3: 50                 push        eax
+  11B09DA4: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11B09DA7: E8 F4 D7 57 FF     call        110875A0
+  11B09DAC: 85 C0              test        eax,eax
+  11B09DAE: 7D 05              jge         11B09DB5
+  11B09DB0: E9 F0 01 00 00     jmp         11B09FA5
+  11B09DB5: A1 30 AB 6F 13     mov         eax,dword ptr ds:[136FAB30h]
+  11B09DBA: 0F B6 48 5C        movzx       ecx,byte ptr [eax+5Ch]
+  11B09DBE: 85 C9              test        ecx,ecx
+  11B09DC0: 75 19              jne         11B09DDB
+  11B09DC2: 8B 15 38 0C 6F 13  mov         edx,dword ptr ds:[136F0C38h]
+  11B09DC8: 0F B6 02           movzx       eax,byte ptr [edx]
+  11B09DCB: 85 C0              test        eax,eax
+  11B09DCD: 74 0C              je          11B09DDB
+  11B09DCF: C7 85 CC FE FF FF  mov         dword ptr [ebp+FFFFFECCh],0FFFFFFFFh
+            FF FF FF FF
+  11B09DD9: EB 0A              jmp         11B09DE5
+  11B09DDB: C7 85 CC FE FF FF  mov         dword ptr [ebp+FFFFFECCh],1
+            01 00 00 00
+  11B09DE5: 8B 8D CC FE FF FF  mov         ecx,dword ptr [ebp+FFFFFECCh]
+  11B09DEB: 89 4D CC           mov         dword ptr [ebp-34h],ecx
+  11B09DEE: A1 30 AB 6F 13     mov         eax,dword ptr ds:[136FAB30h]
+  11B09DF3: 0F B6 48 5C        movzx       ecx,byte ptr [eax+5Ch]
+  11B09DF7: 85 C9              test        ecx,ecx
+  11B09DF9: 75 19              jne         11B09E14
+  11B09DFB: 8B 15 3C 0C 6F 13  mov         edx,dword ptr ds:[136F0C3Ch]
+  11B09E01: 0F B6 02           movzx       eax,byte ptr [edx]
+  11B09E04: 85 C0              test        eax,eax
+  11B09E06: 74 0C              je          11B09E14
+  11B09E08: C7 85 CC FE FF FF  mov         dword ptr [ebp+FFFFFECCh],0FFFFFFFFh
+            FF FF FF FF
+  11B09E12: EB 0A              jmp         11B09E1E
+  11B09E14: C7 85 CC FE FF FF  mov         dword ptr [ebp+FFFFFECCh],1
+            01 00 00 00
+  11B09E1E: 8B 8D CC FE FF FF  mov         ecx,dword ptr [ebp+FFFFFECCh]
+  11B09E24: 89 4D C0           mov         dword ptr [ebp-40h],ecx
+  11B09E27: 8B 45 CC           mov         eax,dword ptr [ebp-34h]
+  11B09E2A: 0F AF 45 D8        imul        eax,dword ptr [ebp-28h]
+  11B09E2E: F3 0F 2A C0        cvtsi2ss    xmm0,eax
+  11B09E32: 8B 4D C0           mov         ecx,dword ptr [ebp-40h]
+  11B09E35: 0F AF 4D DC        imul        ecx,dword ptr [ebp-24h]
+  11B09E39: F3 0F 2A C9        cvtsi2ss    xmm1,ecx
+  11B09E3D: 51                 push        ecx
+  11B09E3E: F3 0F 11 0C 24     movss       dword ptr [esp],xmm1
+  11B09E43: 51                 push        ecx
+  11B09E44: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B09E49: 8D 8D F0 FE FF FF  lea         ecx,[ebp+FFFFFEF0h]
+  11B09E4F: E8 73 EC 57 FF     call        11088AC7
+  11B09E54: 8D 95 F0 FE FF FF  lea         edx,[ebp+FFFFFEF0h]
+  11B09E5A: 52                 push        edx
+  11B09E5B: 8B 0D 78 0C 6F 13  mov         ecx,dword ptr ds:[136F0C78h]
+  11B09E61: 83 C1 0C           add         ecx,0Ch
+  11B09E64: E8 C0 5A 55 FF     call        1105F929
+  11B09E69: 90                 nop
+  11B09E6A: F3 0F 2A 45 E0     cvtsi2ss    xmm0,dword ptr [ebp-20h]
+  11B09E6F: A1 78 0C 6F 13     mov         eax,dword ptr ds:[136F0C78h]
+  11B09E74: F3 0F 11 40 08     movss       dword ptr [eax+8],xmm0
+  11B09E79: 83 7D E0 00        cmp         dword ptr [ebp-20h],0
+  11B09E7D: 7E 0C              jle         11B09E8B
+  11B09E7F: C7 85 CC FE FF FF  mov         dword ptr [ebp+FFFFFECCh],1
+            01 00 00 00
+  11B09E89: EB 0A              jmp         11B09E95
+  11B09E8B: C7 85 CC FE FF FF  mov         dword ptr [ebp+FFFFFECCh],0
+            00 00 00 00
+  11B09E95: A1 78 0C 6F 13     mov         eax,dword ptr ds:[136F0C78h]
+  11B09E9A: 8A 8D CC FE FF FF  mov         cl,byte ptr [ebp+FFFFFECCh]
+  11B09EA0: 88 48 03           mov         byte ptr [eax+3],cl
+  11B09EA3: 83 7D E0 00        cmp         dword ptr [ebp-20h],0
+  11B09EA7: 7D 0C              jge         11B09EB5
+  11B09EA9: C7 85 CC FE FF FF  mov         dword ptr [ebp+FFFFFECCh],1
+            01 00 00 00
+  11B09EB3: EB 0A              jmp         11B09EBF
+  11B09EB5: C7 85 CC FE FF FF  mov         dword ptr [ebp+FFFFFECCh],0
+            00 00 00 00
+  11B09EBF: A1 78 0C 6F 13     mov         eax,dword ptr ds:[136F0C78h]
+  11B09EC4: 8A 8D CC FE FF FF  mov         cl,byte ptr [ebp+FFFFFECCh]
+  11B09ECA: 88 48 04           mov         byte ptr [eax+4],cl
+  11B09ECD: B8 01 00 00 00     mov         eax,1
+  11B09ED2: 6B C8 00           imul        ecx,eax,0
+  11B09ED5: 0F B6 54 0D E4     movzx       edx,byte ptr [ebp+ecx-1Ch]
+  11B09EDA: 81 E2 80 00 00 00  and         edx,80h
+  11B09EE0: A1 78 0C 6F 13     mov         eax,dword ptr ds:[136F0C78h]
+  11B09EE5: 88 10              mov         byte ptr [eax],dl
+  11B09EE7: B8 01 00 00 00     mov         eax,1
+  11B09EEC: C1 E0 00           shl         eax,0
+  11B09EEF: 0F B6 4C 05 E4     movzx       ecx,byte ptr [ebp+eax-1Ch]
+  11B09EF4: 81 E1 80 00 00 00  and         ecx,80h
+  11B09EFA: 8B 15 78 0C 6F 13  mov         edx,dword ptr ds:[136F0C78h]
+  11B09F00: 88 4A 01           mov         byte ptr [edx+1],cl
+  11B09F03: B8 01 00 00 00     mov         eax,1
+  11B09F08: D1 E0              shl         eax,1
+  11B09F0A: 0F B6 4C 05 E4     movzx       ecx,byte ptr [ebp+eax-1Ch]
+  11B09F0F: 81 E1 80 00 00 00  and         ecx,80h
+  11B09F15: 8B 15 78 0C 6F 13  mov         edx,dword ptr ds:[136F0C78h]
+  11B09F1B: 88 4A 02           mov         byte ptr [edx+2],cl
+  11B09F1E: B8 01 00 00 00     mov         eax,1
+  11B09F23: 6B C8 03           imul        ecx,eax,3
+  11B09F26: 0F B6 54 0D E4     movzx       edx,byte ptr [ebp+ecx-1Ch]
+  11B09F2B: 81 E2 80 00 00 00  and         edx,80h
+  11B09F31: A1 78 0C 6F 13     mov         eax,dword ptr ds:[136F0C78h]
+  11B09F36: 88 50 05           mov         byte ptr [eax+5],dl
+  11B09F39: B8 01 00 00 00     mov         eax,1
+  11B09F3E: C1 E0 02           shl         eax,2
+  11B09F41: 0F B6 4C 05 E4     movzx       ecx,byte ptr [ebp+eax-1Ch]
+  11B09F46: 81 E1 80 00 00 00  and         ecx,80h
+  11B09F4C: 8B 15 78 0C 6F 13  mov         edx,dword ptr ds:[136F0C78h]
+  11B09F52: 88 4A 06           mov         byte ptr [edx+6],cl
+  11B09F55: A1 78 0C 6F 13     mov         eax,dword ptr ds:[136F0C78h]
+  11B09F5A: 50                 push        eax
+  11B09F5B: 8B 0D 7C 0C 6F 13  mov         ecx,dword ptr ds:[136F0C7Ch]
+  11B09F61: 51                 push        ecx
+  11B09F62: 8D 95 D4 FE FF FF  lea         edx,[ebp+FFFFFED4h]
+  11B09F68: 52                 push        edx
+  11B09F69: E8 7F 21 56 FF     call        1106C0ED
+  11B09F6E: 83 C4 0C           add         esp,0Ch
+  11B09F71: 89 85 CC FE FF FF  mov         dword ptr [ebp+FFFFFECCh],eax
+  11B09F77: 8B 85 CC FE FF FF  mov         eax,dword ptr [ebp+FFFFFECCh]
+  11B09F7D: 50                 push        eax
+  11B09F7E: 8B 0D 80 0C 6F 13  mov         ecx,dword ptr ds:[136F0C80h]
+  11B09F84: E8 E6 43 57 FF     call        1107E36F
+  11B09F89: 90                 nop
+  11B09F8A: 8B 0D 7C 0C 6F 13  mov         ecx,dword ptr ds:[136F0C7Ch]
+  11B09F90: E8 77 39 56 FF     call        1106D90C
+  11B09F95: 0F B6 C0           movzx       eax,al
+  11B09F98: 85 C0              test        eax,eax
+  11B09F9A: 74 09              je          11B09FA5
+  11B09F9C: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11B09F9F: E8 44 1F 58 FF     call        1108BEE8
+  11B09FA4: 90                 nop
+  11B09FA5: 52                 push        edx
+  11B09FA6: 8B CD              mov         ecx,ebp
+  11B09FA8: 50                 push        eax
+  11B09FA9: 8D 15 D4 9F B0 11  lea         edx,ds:[11B09FD4h]
+  11B09FAF: E8 81 B6 55 FF     call        11065635
+  11B09FB4: 58                 pop         eax
+  11B09FB5: 5A                 pop         edx
+  11B09FB6: 5F                 pop         edi
+  11B09FB7: 5E                 pop         esi
+  11B09FB8: 5B                 pop         ebx
+  11B09FB9: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  11B09FBC: 33 CD              xor         ecx,ebp
+  11B09FBE: E8 95 43 55 FF     call        1105E358
+  11B09FC3: 81 C4 34 01 00 00  add         esp,134h
+  11B09FC9: 3B EC              cmp         ebp,esp
+  11B09FCB: E8 2D 5D 55 FF     call        1105FCFD
+  11B09FD0: 8B E5              mov         esp,ebp
+  11B09FD2: 5D                 pop         ebp
+  11B09FD3: C3                 ret
+  11B09FD4: 01 00              add         dword ptr [eax],eax
+  11B09FD6: 00 00              add         byte ptr [eax],al
+  11B09FD8: DC 9F B0 11 D8 FF  fcomp       qword ptr [edi+FFD811B0h]
+  11B09FDE: FF
+  11B09FDF: FF 14 00           call        dword ptr [eax+eax]
+  11B09FE2: 00 00              add         byte ptr [eax],al
+  11B09FE4: E8 9F B0 11 73     call        84C25088
+  11B09FE9: 74 61              je          11B0A04C
+  11B09FEB: 74 65              je          11B0A052
+  11B09FED: 00 CC              add         ah,cl
+
+  Summary
+
+     2174000 .text

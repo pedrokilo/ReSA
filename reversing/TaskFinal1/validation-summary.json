@@ -1,0 +1,122 @@
+{
+  "passed": true,
+  "pairs": 3200,
+  "differences": 0,
+  "functions": {
+    "CTaskUtilityLineUpPedWithCar::Constructor": 512,
+    "CTaskUtilityLineUpPedWithCar::Destructor": 128,
+    "CTaskGoToVehicleAndLean::Constructor": 256,
+    "CTaskGoToVehicleAndLean::Destructor": 256,
+    "CTaskGangHassleVehicle::Constructor": 256,
+    "CTaskGangHassleVehicle::Destructor": 512,
+    "CTaskGangHasslePed::Constructor": 256,
+    "CTaskGangHasslePed::Destructor": 256,
+    "CTaskComplexPlayHandSignalAnim::Constructor": 256,
+    "CTaskComplexPlayHandSignalAnim::Destructor": 512
+  },
+  "covered_functions": {
+    "CTaskUtilityLineUpPedWithCar::Constructor": true,
+    "CTaskUtilityLineUpPedWithCar::Destructor": true,
+    "CTaskGoToVehicleAndLean::Constructor": true,
+    "CTaskGoToVehicleAndLean::Destructor": true,
+    "CTaskGangHassleVehicle::Constructor": true,
+    "CTaskGangHassleVehicle::Destructor": true,
+    "CTaskGangHasslePed::Constructor": true,
+    "CTaskGangHasslePed::Destructor": true,
+    "CTaskComplexPlayHandSignalAnim::Constructor": true,
+    "CTaskComplexPlayHandSignalAnim::Destructor": true
+  },
+  "scope": "Simple pair bench inside the full game (original with the hook off vs candidate with the hook on), 3200 isolated CPU pairs for the 10 constructors/destructors, zero differences, natural completion event with state_restored, saves unchanged, configs restored. Objects live in a private 0x80-byte buffer pre-filled with 0xCD between 16-byte guards (the task pool is never used: its occupancy is compared and restored); constructors are called at the EXE address, destructors in place at the EXE address on objects with random field contents. Compared per pair: the whole object word by word (pointers into the fixtures normalised to names), the guards, the constructor return value (this), the task type through GetTaskType instead of the vtable pointer, the reference lists of the fake ped and vehicle, hashes of the fake ped and vehicle (m_pReferences masked), the fake subtask contents, the 155 animation blocks (hash before and after), the four hand model reference counts, CTaskComplexPlayHandSignalAnim::ms_animBlock, the game clock and the call trace. Traced stubs, patched at the EXE address, at the DLL entry and at the DLL body, so these helpers get NO credit: CBaseModelInfo::RemoveRef (decrements the counter at +8; the TXD counter is not touched) and CStreaming::RemoveModel. Not stubbed (run for real, though not validated here): CAnimManager::RemoveAnimBlockRef, GetAnimationBlockIndex(\"gangs\"), CVehicle::SetHasslePosId, RegisterReference/CleanUpOldReference and the base class constructors/destructors. Limits: word 0 (vptr) of the task objects is excluded from the compared state (constructors compare GetTaskType instead; destructors receive the EXE vtable and the vptr rewritten by the destructor is not compared); the destructor return value is not compared (undefined in the EXE); the deleting-destructor/operator delete path is not exercised (destructors are called in place); the fake subtask has a traced slot-0 destructor and trapped other slots; float arguments include 0, -0, +-Inf, quiet NaN, a denormal and large values but never a signalling NaN; entities are zeroed fake CPed/CAutomobile buffers (vehicle byte 0x51B random); no real peds, vehicles, pools or files. Source corrected to what the EXE does before this run: CTaskUtilityLineUpPedWithCar constructor stores m_fTime = current time + time (0x64FBCD); CTaskComplexPlayHandSignalAnim destructor removes a hand reference only if its bit is set (bit 0 left, bit 1 right, byte 0x14), the LEFT/RIGHT enum indices were fixed and the constructor does and byte [esi+14h],0F8h; redundant base initialisers removed in CTaskGoToVehicleAndLean and CTaskGangHassleVehicle (no behaviour change; CTaskGangHasslePed has no source change). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CTaskUtilityLineUpPedWithCar::Constructor": "Corpus 512: position vector from finite values and special floats (0, -0, +-Inf, quiet NaN, 1.0, a denormal, FLT_MAX), time from {0,1,-1,600,INT_MAX,INT_MIN,-600} or random, two more ints (0..7 and 0..23 in 75% of cases, else random), clock from special values or random; checks m_fTime = clock + time. Not a CTask (no vptr): the whole object is compared.",
+    "CTaskUtilityLineUpPedWithCar::Destructor": "Corpus 128: random bytes in the whole 0x1C object; no collaborators.",
+    "CTaskGoToVehicleAndLean::Constructor": "Corpus 256: fake vehicle (80%) or null, int from 0..99999 or random.",
+    "CTaskGoToVehicleAndLean::Destructor": "Corpus 256: random fields, vehicle reference registered (75% of the non-null cases) or not, byte at 0x14 random, gangs animation block reference count 0, 0xFFFF or 1..4, fake subtask present (75%) or null.",
+    "CTaskGangHassleVehicle::Constructor": "Corpus 256: fake vehicle (80%) or null, random int, raw byte argument, two floats from specials/finite; vehicle byte 0x51B (harassment positions) random.",
+    "CTaskGangHassleVehicle::Destructor": "Corpus 512: vehicle reference (80%), harassment position id from {-1,-2,INT_MIN,0..8,15,31}, second reference null/ped/vehicle, flag byte 0x30, gangs block count 1..4, fake subtask.",
+    "CTaskGangHasslePed::Constructor": "Corpus 256: fake ped (80%) or null and three ints (0..99 in half of the cases, else random).",
+    "CTaskGangHasslePed::Destructor": "Corpus 256: ped reference (80%, registered 75%), flag byte 0x1C, gangs block count 1..4, fake subtask.",
+    "CTaskComplexPlayHandSignalAnim::Constructor": "Corpus 256: animation ids from {-1,0,1,0x140..0x144,INT_MAX,INT_MIN} (50%) or 0..999 and a float from specials/finite; byte 0x14 must end with bits 0..2 cleared (source corrected).",
+    "CTaskComplexPlayHandSignalAnim::Destructor": "Corpus 512: byte 0x14 random (bits 0/1 select the hands), ms_animBlock -1 (25%) or a valid block, block reference count in {0,1,2,3,0xFFFF}, the four hand model counters all non-zero (33%) or from {0,1,2,3,0xFFFF}; hand reference removal conditional on the bits (source corrected)."
+  },
+  "dependency_review": null,
+  "run": "reversing/TaskFinal1/runs/20261009-005855-477249",
+  "summary_sha256": "80a8d986944b919559743db6c0dff9ec9f6ecc79c0b7ccba1947e4336ff5cebc",
+  "result_txt_sha256": "a9c4f293a28112c5878a1a96a845272ebeb4e0f130215cc9ef57a7ce860c0937",
+  "log_sha256": "674b5e483858d838f42d4b4386710657952012bd52a3f78e242e490819e54d51",
+  "comparison_storage": {
+    "uncompressed_sha256": "674b5e483858d838f42d4b4386710657952012bd52a3f78e242e490819e54d51",
+    "uncompressed_bytes": 1043203,
+    "compressed_path": "reversing/TaskFinal1/runs/20261009-005855-477249/comparisons.jsonl.gz",
+    "compressed_sha256": "64a0a7bc04fd51fa8daa7333c13e27fcb61fc0a8b87bdbcc11681908c09987f4",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "674b5e483858d838f42d4b4386710657952012bd52a3f78e242e490819e54d51",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-taskfinal1\\20261009-005855-477249\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "74c089e6b5c008d005bf3243d6b2d2f12a17b5a9e7ce50e7fc1e434b0c92cb52",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9df4f1d47430c971817667e1d726520addc01ab4",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 3200,
+    "asi": "74c089e6b5c008d005bf3243d6b2d2f12a17b5a9e7ce50e7fc1e434b0c92cb52",
+    "pdb": "ebc3c66f9c52a7f2570208e10938a59ce598abe7e68e8307f95d46fd5a191a0c",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-taskfinal1-probe.pdb (1.2 GB, not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea",
+      "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
+      "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "31a923f93b12dafca5d53aee9040cfe257d5c81130dc9b6a2eb3af97f408c42e",
+      "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "a0b22fc604e1b96e82a3c4db5e4becee560c598102b51ab11023fde840684136",
+      "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "9d38258ae36abcb201f6f8348ca64bca1cd05acef02307c589237aefde4fb8dc",
+      "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "833452e952be24fb8b408a94350abb8f06a4660261c5f756eda7eae591b03cdc",
+      "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
+      "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "f05e60aabbeca7acd320cfd0236f1243aa20e9f8570e4183e71e067cbf98cfd6",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "81be17f8d5cc6fa9d8a0c8b2dd431f80db14e9304fa995a3a1e31a65c04d1079",
+      "build_probe.py": "12326523bccda2fbd81d651b8b4d8b15240a57b92fbcc07e9730d0b5fa079299",
+      "run_local.py": "3c7c07820956d86416226b2a5a89ee9f3b361a4edac6a19a76a80bd7be49b0cb"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "constructor m_fTime = CTimer time + time (0x64FBCD)",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "destructor per-hand bit test, LEFT/RIGHT indices, constructor and byte 0x14",
+      "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "redundant base initialiser removed (no behaviour change)",
+      "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "redundant base initialiser removed (no behaviour change)"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 3200,
+    "complete_events": 1,
+    "begin_events": 1,
+    "function_summaries": 10,
+    "unequal": 0,
+    "distinct_cases": 3200,
+    "per_function": {
+      "CTaskUtilityLineUpPedWithCar::Constructor": 512,
+      "CTaskUtilityLineUpPedWithCar::Destructor": 128,
+      "CTaskGoToVehicleAndLean::Constructor": 256,
+      "CTaskGoToVehicleAndLean::Destructor": 256,
+      "CTaskGangHassleVehicle::Constructor": 256,
+      "CTaskGangHassleVehicle::Destructor": 512,
+      "CTaskGangHasslePed::Constructor": 256,
+      "CTaskGangHasslePed::Destructor": 256,
+      "CTaskComplexPlayHandSignalAnim::Constructor": 256,
+      "CTaskComplexPlayHandSignalAnim::Destructor": 512
+    }
+  },
+  "source_corrections_before_run": {
+    "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "constructor m_fTime = CTimer time + time (0x64FBCD)",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "destructor per-hand bit test, LEFT/RIGHT indices, constructor and byte 0x14",
+    "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "redundant base initialiser removed (no behaviour change)",
+    "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "redundant base initialiser removed (no behaviour change)"
+  },
+  "readme_discrepancies": "reversing/TaskFinal1/README.md announced 3072 pairs, \"not yet compiled or run\", and a source-neutral change in CTaskGangHasslePed; the executed bank has 3200 pairs (sum of the per-function corpus) and git shows no change in TaskGangHasslePed.cpp/.h. README header corrected at registration."
+}

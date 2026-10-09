@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11399000: 55                 push        ebp
+  11399001: 8B EC              mov         ebp,esp
+  11399003: 81 EC E0 00 00 00  sub         esp,0E0h
+  11399009: 53                 push        ebx
+  1139900A: 56                 push        esi
+  1139900B: 57                 push        edi
+  1139900C: 51                 push        ecx
+  1139900D: 8D 7D E0           lea         edi,[ebp-20h]
+  11399010: B9 08 00 00 00     mov         ecx,8
+  11399015: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1139901A: F3 AB              rep stos    dword ptr es:[edi]
+  1139901C: 59                 pop         ecx
+  1139901D: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  11399020: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11399023: 0F B6 05 31 E0 62  movzx       eax,byte ptr ds:[1362E031h]
+            13
+  1139902A: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  11399030: 8B 0D 70 20 6F 13  mov         ecx,dword ptr ds:[136F2070h]
+  11399036: 51                 push        ecx
+  11399037: E8 67 91 CF FF     call        110921A3
+  1139903C: 83 C4 04           add         esp,4
+  1139903F: 39 45 F8           cmp         dword ptr [ebp-8],eax
+  11399042: 75 0C              jne         11399050
+  11399044: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],1
+            01 00 00 00
+  1139904E: EB 0A              jmp         1139905A
+  11399050: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],0
+            00 00 00 00
+  1139905A: 8B 95 24 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF24h]
+  11399060: 23 95 20 FF FF FF  and         edx,dword ptr [ebp+FFFFFF20h]
+  11399066: 88 15 31 E0 62 13  mov         byte ptr ds:[1362E031h],dl
+  1139906C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1139906F: 50                 push        eax
+  11399070: E8 FD 47 CC FF     call        1105D872
+  11399075: 83 C4 04           add         esp,4
+  11399078: 5F                 pop         edi
+  11399079: 5E                 pop         esi
+  1139907A: 5B                 pop         ebx
+  1139907B: 81 C4 E0 00 00 00  add         esp,0E0h
+  11399081: 3B EC              cmp         ebp,esp
+  11399083: E8 75 6C CC FF     call        1105FCFD
+  11399088: 8B E5              mov         esp,ebp
+  1139908A: 5D                 pop         ebp
+  1139908B: C2 04 00           ret         4
+  1139908E: CC                 int         3
+
+  Summary
+
+     2174000 .text

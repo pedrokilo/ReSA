@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1137C4A0: 55                 push        ebp
+  1137C4A1: 8B EC              mov         ebp,esp
+  1137C4A3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137C4A9: 53                 push        ebx
+  1137C4AA: 56                 push        esi
+  1137C4AB: 57                 push        edi
+  1137C4AC: 51                 push        ecx
+  1137C4AD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1137C4B0: B9 03 00 00 00     mov         ecx,3
+  1137C4B5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1137C4BA: F3 AB              rep stos    dword ptr es:[edi]
+  1137C4BC: 59                 pop         ecx
+  1137C4BD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137C4C0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1137C4C3: E8 2B 61 CF FF     call        110725F3
+  1137C4C8: 90                 nop
+  1137C4C9: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137C4CC: C7 40 04 00 00 00  mov         dword ptr [eax+4],0
+            00
+  1137C4D3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137C4D6: C7 40 08 00 00 00  mov         dword ptr [eax+8],0
+            00
+  1137C4DD: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137C4E0: C7 40 0C 00 00 00  mov         dword ptr [eax+0Ch],0
+            00
+  1137C4E7: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137C4EA: 5F                 pop         edi
+  1137C4EB: 5E                 pop         esi
+  1137C4EC: 5B                 pop         ebx
+  1137C4ED: 81 C4 CC 00 00 00  add         esp,0CCh
+  1137C4F3: 3B EC              cmp         ebp,esp
+  1137C4F5: E8 DB 07 CE FF     call        1105CCD5
+  1137C4FA: 8B E5              mov         esp,ebp
+  1137C4FC: 5D                 pop         ebp
+  1137C4FD: C3                 ret
+  1137C4FE: CC                 int         3
+
+  Summary
+
+     216D000 .text

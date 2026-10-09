@@ -1,0 +1,55 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113AAFC0: 55                 push        ebp
+  113AAFC1: 8B EC              mov         ebp,esp
+  113AAFC3: 81 EC C0 00 00 00  sub         esp,0C0h
+  113AAFC9: 53                 push        ebx
+  113AAFCA: 56                 push        esi
+  113AAFCB: 57                 push        edi
+  113AAFCC: B8 FF FF FF 3F     mov         eax,3FFFFFFFh
+  113AAFD1: 5F                 pop         edi
+  113AAFD2: 5E                 pop         esi
+  113AAFD3: 5B                 pop         ebx
+  113AAFD4: 8B E5              mov         esp,ebp
+  113AAFD6: 5D                 pop         ebp
+  113AAFD7: C3                 ret
+  113AAFD8: CC                 int         3
+  113AAFD9: CC                 int         3
+  113AAFDA: CC                 int         3
+  113AAFDB: CC                 int         3
+  113AAFDC: CC                 int         3
+  113AAFDD: CC                 int         3
+  113AAFDE: CC                 int         3
+  113AAFDF: CC                 int         3
+  113AAFE0: 55                 push        ebp
+  113AAFE1: 8B EC              mov         ebp,esp
+  113AAFE3: 81 EC C0 00 00 00  sub         esp,0C0h
+  113AAFE9: 53                 push        ebx
+  113AAFEA: 56                 push        esi
+  113AAFEB: 57                 push        edi
+  113AAFEC: B8 FF FF FF 0F     mov         eax,0FFFFFFFh
+  113AAFF1: 5F                 pop         edi
+  113AAFF2: 5E                 pop         esi
+  113AAFF3: 5B                 pop         ebx
+  113AAFF4: 8B E5              mov         esp,ebp
+  113AAFF6: 5D                 pop         ebp
+  113AAFF7: C3                 ret
+  113AAFF8: CC                 int         3
+  113AAFF9: CC                 int         3
+  113AAFFA: CC                 int         3
+  113AAFFB: CC                 int         3
+  113AAFFC: CC                 int         3
+  113AAFFD: CC                 int         3
+  113AAFFE: CC                 int         3
+  113AAFFF: CC                 int         3
+  113AB000: 55                 push        ebp
+
+  Summary
+
+     216D000 .text

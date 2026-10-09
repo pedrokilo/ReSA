@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11323130: 55                 push        ebp
+  11323131: 8B EC              mov         ebp,esp
+  11323133: 81 EC C0 00 00 00  sub         esp,0C0h
+  11323139: 53                 push        ebx
+  1132313A: 56                 push        esi
+  1132313B: 57                 push        edi
+  1132313C: 69 45 08 34 01 00  imul        eax,dword ptr [ebp+8],134h
+            00
+  11323143: 03 05 90 CC 78 13  add         eax,dword ptr ds:[1378CC90h]
+  11323149: 5F                 pop         edi
+  1132314A: 5E                 pop         esi
+  1132314B: 5B                 pop         ebx
+  1132314C: 8B E5              mov         esp,ebp
+  1132314E: 5D                 pop         ebp
+  1132314F: C3                 ret
+  11323150: CC                 int         3
+  11323151: CC                 int         3
+  11323152: CC                 int         3
+  11323153: CC                 int         3
+  11323154: CC                 int         3
+  11323155: CC                 int         3
+  11323156: CC                 int         3
+  11323157: CC                 int         3
+  11323158: CC                 int         3
+  11323159: CC                 int         3
+  1132315A: CC                 int         3
+  1132315B: CC                 int         3
+  1132315C: CC                 int         3
+  1132315D: CC                 int         3
+  1132315E: CC                 int         3
+  1132315F: CC                 int         3
+  11323160: 55                 push        ebp
+  11323161: 8B EC              mov         ebp,esp
+  11323163: 81 EC C0 00 00 00  sub         esp,0C0h
+  11323169: 53                 push        ebx
+  1132316A: 56                 push        esi
+  1132316B: 57                 push        edi
+  1132316C: A1 00 D0 78 13     mov         eax,dword ptr ds:[1378D000h]
+
+  Summary
+
+     2170000 .text

@@ -1,0 +1,55 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1137C740: 55                 push        ebp
+  1137C741: 8B EC              mov         ebp,esp
+  1137C743: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137C749: 53                 push        ebx
+  1137C74A: 56                 push        esi
+  1137C74B: 57                 push        edi
+  1137C74C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137C74F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137C752: 5F                 pop         edi
+  1137C753: 5E                 pop         esi
+  1137C754: 5B                 pop         ebx
+  1137C755: 8B E5              mov         esp,ebp
+  1137C757: 5D                 pop         ebp
+  1137C758: C3                 ret
+  1137C759: CC                 int         3
+  1137C75A: CC                 int         3
+  1137C75B: CC                 int         3
+  1137C75C: CC                 int         3
+  1137C75D: CC                 int         3
+  1137C75E: CC                 int         3
+  1137C75F: CC                 int         3
+  1137C760: 55                 push        ebp
+  1137C761: 8B EC              mov         ebp,esp
+  1137C763: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137C769: 53                 push        ebx
+  1137C76A: 56                 push        esi
+  1137C76B: 57                 push        edi
+  1137C76C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137C76F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137C772: 5F                 pop         edi
+  1137C773: 5E                 pop         esi
+  1137C774: 5B                 pop         ebx
+  1137C775: 8B E5              mov         esp,ebp
+  1137C777: 5D                 pop         ebp
+  1137C778: C3                 ret
+  1137C779: CC                 int         3
+  1137C77A: CC                 int         3
+  1137C77B: CC                 int         3
+  1137C77C: CC                 int         3
+  1137C77D: CC                 int         3
+  1137C77E: CC                 int         3
+  1137C77F: CC                 int         3
+  1137C780: 55                 push        ebp
+
+  Summary
+
+     216D000 .text

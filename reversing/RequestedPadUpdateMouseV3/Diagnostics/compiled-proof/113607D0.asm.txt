@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  113607D0: 55                 push        ebp
+  113607D1: 8B EC              mov         ebp,esp
+  113607D3: 81 EC C0 00 00 00  sub         esp,0C0h
+  113607D9: 53                 push        ebx
+  113607DA: 56                 push        esi
+  113607DB: 57                 push        edi
+  113607DC: 8B FD              mov         edi,ebp
+  113607DE: 33 C9              xor         ecx,ecx
+  113607E0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113607E5: F3 AB              rep stos    dword ptr es:[edi]
+  113607E7: EB 09              jmp         113607F2
+  113607E9: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113607EC: 83 C0 08           add         eax,8
+  113607EF: 89 45 08           mov         dword ptr [ebp+8],eax
+  113607F2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113607F5: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  113607F8: 74 2A              je          11360824
+  113607FA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113607FD: 50                 push        eax
+  113607FE: 8D 4D 14           lea         ecx,[ebp+14h]
+  11360801: 51                 push        ecx
+  11360802: E8 C2 EF D0 FF     call        1106F7C9
+  11360807: 83 C4 08           add         esp,8
+  1136080A: 50                 push        eax
+  1136080B: 8D 55 10           lea         edx,[ebp+10h]
+  1136080E: 52                 push        edx
+  1136080F: E8 29 AD D1 FF     call        1107B53D
+  11360814: 83 C4 08           add         esp,8
+  11360817: 0F B6 C0           movzx       eax,al
+  1136081A: 85 C0              test        eax,eax
+  1136081C: 74 04              je          11360822
+  1136081E: B0 01              mov         al,1
+  11360820: EB 04              jmp         11360826
+  11360822: EB C5              jmp         113607E9
+  11360824: 32 C0              xor         al,al
+  11360826: 5F                 pop         edi
+  11360827: 5E                 pop         esi
+  11360828: 5B                 pop         ebx
+  11360829: 81 C4 C0 00 00 00  add         esp,0C0h
+  1136082F: 3B EC              cmp         ebp,esp
+  11360831: E8 C7 E4 CF FF     call        1105ECFD
+  11360836: 8B E5              mov         esp,ebp
+  11360838: 5D                 pop         ebp
+  11360839: C3                 ret
+  1136083A: CC                 int         3
+
+  Summary
+
+     2171000 .text

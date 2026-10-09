@@ -84,7 +84,8 @@ int32 CMonsterTruck::ProcessEntityCollision(CEntity* entity, CColPoint* colPoint
             const auto  thisWheelTouchDistNow = wheelColPtsTouchDists[i];
             const auto& thisWheelColPtNow = m_wheelColPoint[i];
 
-            if (thisWheelTouchDistNow <= m_wheelPosition[i]) {
+            // Como el original (0x6C8BDC): fcomp + test ah,41h + jne salta tambien con NaN
+            if (!(thisWheelTouchDistNow > m_wheelPosition[i])) {
                 continue;
             }
 
@@ -104,7 +105,8 @@ int32 CMonsterTruck::ProcessEntityCollision(CEntity* entity, CColPoint* colPoint
             switch (entity->GetType()) {
             case ENTITY_TYPE_VEHICLE:
             case ENTITY_TYPE_OBJECT: {
-                CEntity::ChangeEntityReference(m_apWheelCollisionEntity[i], entity->AsPhysical());
+                // Como el original (0x6C8C2D): guarda y registra la referencia sin limpiar la anterior
+                CEntity::SetEntityReference(m_apWheelCollisionEntity[i], entity->AsPhysical());
 
                 m_vWheelCollisionPos[i] = thisWheelColPtNow.m_vecPoint - entity->GetPosition();
                 if (entity->GetIsTypeVehicle()) {

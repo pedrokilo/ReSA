@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "pairs": 4608,
+  "differences": 0,
+  "functions": {
+    "CCollision::SphereVsEntity": 1024,
+    "CPlayerPed::SetupPlayerPed": 128,
+    "CPedGeometryAnalyser::CanPedTargetPed": 1024,
+    "CPedGeometryAnalyser::ComputeClosestSurfacePoint-ped": 512,
+    "CRealTimeShadowManager::DoShadowThisFrame": 512,
+    "CRealTimeShadowManager::Exit": 256,
+    "CRealTimeShadowManager::Init": 128,
+    "CRealTimeShadowManager::Update": 1024
+  },
+  "covered_functions": {
+    "CCollision::SphereVsEntity": true,
+    "CPlayerPed::SetupPlayerPed": true,
+    "CPedGeometryAnalyser::CanPedTargetPed": true,
+    "CPedGeometryAnalyser::ComputeClosestSurfacePoint-ped": true,
+    "CRealTimeShadowManager::DoShadowThisFrame": true,
+    "CRealTimeShadowManager::Exit": true,
+    "CRealTimeShadowManager::Init": true,
+    "CRealTimeShadowManager::Update": true
+  },
+  "scope": "Simple pair bench inside the full game (original with hook off vs candidate with hook on, hooked in CGame::Process), 4608 isolated CPU pairs for the 8 functions, zero differences, natural completion event with state_restored, saves unchanged, configs restored. Fake objects with 16-byte guards on each side (compared whole); the return value (AL only; high EAX bytes are stack garbage in the EXE), the ordered trace of outgoing calls with raw arguments, the x87 control word (24-bit precision during the call) and every fixture byte are compared; the hook jump state (JumpsToDll) is checked after State(candidate). Only real globals touched: CWorld::Players (0x320 bytes), PlayerInFocus and the six CTimeCycle shadow arrays (+ index); saved at start, restored after each run and rechecked at the end. Traced stubs, patched at the EXE address, at the DLL symbol and at the DLL body (bodies computed before patching), so these helpers get NO credit: CCamera::IsExtraEntityToIgnore, CEntity::GetColModel, CPlaceable::AllocateMatrix, CSimpleTransform::UpdateMatrix, CCollision::CalculateTrianglePlanes/TestSphereBox/TestSphereTriangle (scripted results), CPed::operator new, CPlayerPed::CPlayerPed, CPlaceable::SetOrientation, CWorld::Add, CPedGeometryAnalyser::CanPedTargetPoint, ComputeEntityBoundingBoxCornersUncached and ComputeClosestSurfacePoint (rect), CRealTimeShadowManager::ReInit and GetRealTimeShadow, CRealTimeShadow::Create/Destroy/Update, CShadowCamera::Create/Destroy/MakeGradientRaster, CShadows::StoreRealTimeShadow and Fx_c::GetFxQuality; the game operator new/delete (0x82119A/0x8214BD) are replaced only during Init and Exit. Only the own part of each function is validated. Floats: no signalling NaN, magnitudes <= 3e14 (x87 keeps the extended exponent in sums of squares, SSE does not). Bench-own bug fixed before the approved run: the EntryPatch loop computed bodies after patching (stub patched with a jump to itself); bodies are now computed first. Excluded: SetupPlayerPed with playerId = -1 (the EXE indexes Players[-1], foreign memory), only ids 0 and 1 with PlayerInFocus 0/1. Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CCollision::SphereVsEntity": "Corpus 1024: the EXE ignores its sphere parameter and tests an uninitialised local CColSphere, i.e. 16 stack bytes at [S-0x68, S-0x59]; a naked bridge (CallSve) writes a 16-byte seed there (finite/NaN/infinite) while the real sphere argument is a NaN decoy that must be ignored; the source captures the same 16 bytes in a naked bridge before any push. Entity using collision / IsExtraEntityToIgnore, matrix present or created via AllocateMatrix+UpdateMatrix, model with and without data, 0..3 spheres/boxes, 0..4 triangles with and without face groups, negative counters (0xFFFF, 0x8000, 0xFFFFFFFF); TestSphere* and CalculateTrianglePlanes are scripted traced stubs.",
+    "CPlayerPed::SetupPlayerPed": "Corpus 128: ids 0 and 1 with PlayerInFocus 0/1, fake 0x7A4-byte ped; CPed::operator new, the CPlayerPed constructor (DLL call located as the first call after operator new), SetOrientation and CWorld::Add are traced stubs; source uses CWorld::Players[playerId] directly. playerId = -1 not tested.",
+    "CPedGeometryAnalyser::CanPedTargetPed": "Corpus 1024: fake peds with and without matrix, fake intelligence (the DUCK secondary task is really read), CanPedTargetPoint stubbed and traced; source rounding corrected (z + 0.75f then -1.0f when crouching).",
+    "CPedGeometryAnalyser::ComputeClosestSurfacePoint-ped": "Corpus 512: fake peds with and without matrix; ComputeEntityBoundingBoxCornersUncached and the rect overload of ComputeClosestSurfacePoint are stubs tracing vector, direction bool, corner pointer, point and ped position.",
+    "CRealTimeShadowManager::DoShadowThisFrame": "Corpus 512: fake manager (0x54), 16 fake shadows (0x4C) and 16 fake owners (0x140); two Fx_c::GetFxQuality calls counted; source corrected to the EXE.",
+    "CRealTimeShadowManager::Exit": "Corpus 256: destroys each non-null shadow without looking at owners; game operator delete replaced only during the call; source corrected to the EXE.",
+    "CRealTimeShadowManager::Init": "Corpus 128: arena for the allocations (operator new/delete of the EXE replaced during the call); CRealTimeShadow, CShadowCamera Create/Destroy/MakeGradientRaster, ReInit stubbed.",
+    "CRealTimeShadowManager::Update": "Corpus 1024: signed intensity (test values with bit 7: 128, 129, 200, 253, 255 to exercise the movsx), CRealTimeShadow::Update and CShadows::StoreRealTimeShadow stubbed; source corrected to the EXE (signed intensity)."
+  },
+  "dependency_review": null,
+  "run": "reversing/GeoFinal1/runs/20261009-010416-836844",
+  "summary_sha256": "36d3cdc104a0d15e5969d837e8acbd1c58f8837c89bb158403c7da5a4931b0dc",
+  "result_txt_sha256": "2e8b1ad7ae73100ce1e4e6feae947e92f1686577033735041ede1eeef6f0700c",
+  "log_sha256": "192308e71beae8b63b5bd00cb6f5e1cddb66e4654deacc6036c229e0da22125a",
+  "comparison_storage": {
+    "uncompressed_sha256": "192308e71beae8b63b5bd00cb6f5e1cddb66e4654deacc6036c229e0da22125a",
+    "uncompressed_bytes": 3527626,
+    "compressed_path": "reversing/GeoFinal1/runs/20261009-010416-836844/comparisons.jsonl.gz",
+    "compressed_sha256": "c8cd9653f3fac27f1df8768f8102034363aa668d07227b00ad3d410694a6aa4a",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "192308e71beae8b63b5bd00cb6f5e1cddb66e4654deacc6036c229e0da22125a",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-geofinal1\\20261009-010416-836844\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "cd1b98417e691fc8f39e760e8db45961d149c5356cbe0e5a1267802b8617343a",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9df4f1d47430c971817667e1d726520addc01ab4",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 4608,
+    "asi": "cd1b98417e691fc8f39e760e8db45961d149c5356cbe0e5a1267802b8617343a",
+    "pdb": "bf3b1531fcdad452817b5dcc7051171aa161446d4e0f15c81a9a371e7855ebef",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-geofinal1-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Collision/Collision.cpp": "afb6fd337305b02ee19af94e8e3de752853125118861a45dcb39d4206268cf94",
+      "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "6e884f6ba9c7aa2dbe3e6ec905134960c9d1a5dc5e9066952d1fb8e8c31e2866",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "source/game_sa/PedGeometryAnalyser.cpp": "6182475a742b4ade9680c09bd62abeb00b7bdf26f2ee8bfba13e624973b10ea4",
+      "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
+      "source/game_sa/RealTimeShadowManager.cpp": "e3ed2a70b0edf0bdc73ee734cc83417bf0078c81fe1ee13eb2582450d5e4e130",
+      "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "0b9311826fa8c4b9a45d0063a9f311a653d0635ae70157287eb3dfc82a8ec0fa",
+      "build_probe.py": "fcb482ce25d5ba214c0b0b72fdaaabdde7ecef2ec56f1c704a59f282caea842c",
+      "run_local.py": "63cdb3223e71bfb3323b1b61c6cffc0213bfa46f7ce1edeb432053affa2b8fa1"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Collision/Collision.cpp": "SphereVsEntity implemented from the EXE body with a naked bridge copying 16 uninitialised stack bytes (was NOTSA_UNREACHABLE)",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "SetupPlayerPed indexes CWorld::Players[playerId] directly",
+      "source/game_sa/PedGeometryAnalyser.cpp": "CanPedTargetPed rounding (z+0.75f, then -1.0f when crouching)",
+      "source/game_sa/RealTimeShadowManager.cpp": "Exit, Update and DoShadowThisFrame corrected to the EXE"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 4608,
+    "complete_events": 1,
+    "function_summaries": 8,
+    "unequal": 0,
+    "distinct_cases": 4608,
+    "per_function": {
+      "CCollision::SphereVsEntity": 1024,
+      "CPlayerPed::SetupPlayerPed": 128,
+      "CPedGeometryAnalyser::CanPedTargetPed": 1024,
+      "CPedGeometryAnalyser::ComputeClosestSurfacePoint-ped": 512,
+      "CRealTimeShadowManager::DoShadowThisFrame": 512,
+      "CRealTimeShadowManager::Exit": 256,
+      "CRealTimeShadowManager::Init": 128,
+      "CRealTimeShadowManager::Update": 1024
+    }
+  },
+  "source_corrections_before_run": {
+    "source/game_sa/Collision/Collision.cpp": "SphereVsEntity implemented from the EXE body with a naked bridge copying 16 uninitialised stack bytes (was NOTSA_UNREACHABLE)",
+    "source/game_sa/Entity/Ped/PlayerPed.cpp": "SetupPlayerPed indexes CWorld::Players[playerId] directly",
+    "source/game_sa/PedGeometryAnalyser.cpp": "CanPedTargetPed rounding (z+0.75f, then -1.0f when crouching)",
+    "source/game_sa/RealTimeShadowManager.cpp": "Exit, Update and DoShadowThisFrame corrected to the EXE"
+  }
+}

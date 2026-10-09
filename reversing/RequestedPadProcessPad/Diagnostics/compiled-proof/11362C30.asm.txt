@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11362C30: 55                 push        ebp
+  11362C31: 8B EC              mov         ebp,esp
+  11362C33: 81 EC D4 00 00 00  sub         esp,0D4h
+  11362C39: 53                 push        ebx
+  11362C3A: 56                 push        esi
+  11362C3B: 57                 push        edi
+  11362C3C: 51                 push        ecx
+  11362C3D: 8D 7D EC           lea         edi,[ebp-14h]
+  11362C40: B9 05 00 00 00     mov         ecx,5
+  11362C45: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11362C4A: F3 AB              rep stos    dword ptr es:[edi]
+  11362C4C: 59                 pop         ecx
+  11362C4D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11362C50: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11362C53: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11362C56: 51                 push        ecx
+  11362C57: E8 6A C8 CF FF     call        1105F4C6
+  11362C5C: 83 C4 04           add         esp,4
+  11362C5F: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  11362C65: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11362C68: 8B 42 08           mov         eax,dword ptr [edx+8]
+  11362C6B: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  11362C71: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11362C74: 51                 push        ecx
+  11362C75: 8B 95 30 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF30h]
+  11362C7B: 52                 push        edx
+  11362C7C: 8B 85 2C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF2Ch]
+  11362C82: 50                 push        eax
+  11362C83: E8 BD E7 D1 FF     call        11081445
+  11362C88: 83 C4 0C           add         esp,0Ch
+  11362C8B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11362C8E: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11362C91: 83 C1 04           add         ecx,4
+  11362C94: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11362C97: 89 4A 04           mov         dword ptr [edx+4],ecx
+  11362C9A: 5F                 pop         edi
+  11362C9B: 5E                 pop         esi
+  11362C9C: 5B                 pop         ebx
+  11362C9D: 81 C4 D4 00 00 00  add         esp,0D4h
+  11362CA3: 3B EC              cmp         ebp,esp
+  11362CA5: E8 2B A0 CF FF     call        1105CCD5
+  11362CAA: 8B E5              mov         esp,ebp
+  11362CAC: 5D                 pop         ebp
+  11362CAD: C2 04 00           ret         4
+  11362CB0: CC                 int         3
+
+  Summary
+
+     216D000 .text

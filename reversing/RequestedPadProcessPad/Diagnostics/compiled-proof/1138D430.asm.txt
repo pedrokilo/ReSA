@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138D430: 55                 push        ebp
+  1138D431: 8B EC              mov         ebp,esp
+  1138D433: 81 EC CC 00 00 00  sub         esp,0CCh
+  1138D439: 53                 push        ebx
+  1138D43A: 56                 push        esi
+  1138D43B: 57                 push        edi
+  1138D43C: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1138D43F: B9 03 00 00 00     mov         ecx,3
+  1138D444: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138D449: F3 AB              rep stos    dword ptr es:[edi]
+  1138D44B: C7 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],0
+            00 00 00 00
+  1138D455: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1138D458: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1138D45B: 51                 push        ecx
+  1138D45C: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  1138D45F: 8B 02              mov         eax,dword ptr [edx]
+  1138D461: 50                 push        eax
+  1138D462: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1138D465: 51                 push        ecx
+  1138D466: E8 38 F0 CF FF     call        1108C4A3
+  1138D46B: 83 C4 0C           add         esp,0Ch
+  1138D46E: 8B 95 38 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF38h]
+  1138D474: 83 CA 01           or          edx,1
+  1138D477: 89 95 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],edx
+  1138D47D: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1138D480: 5F                 pop         edi
+  1138D481: 5E                 pop         esi
+  1138D482: 5B                 pop         ebx
+  1138D483: 81 C4 CC 00 00 00  add         esp,0CCh
+  1138D489: 3B EC              cmp         ebp,esp
+  1138D48B: E8 45 F8 CC FF     call        1105CCD5
+  1138D490: 8B E5              mov         esp,ebp
+  1138D492: 5D                 pop         ebp
+  1138D493: C3                 ret
+  1138D494: CC                 int         3
+
+  Summary
+
+     216D000 .text

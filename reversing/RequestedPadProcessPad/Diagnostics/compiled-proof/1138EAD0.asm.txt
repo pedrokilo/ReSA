@@ -1,0 +1,58 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138EAD0: 55                 push        ebp
+  1138EAD1: 8B EC              mov         ebp,esp
+  1138EAD3: 81 EC F4 00 00 00  sub         esp,0F4h
+  1138EAD9: 53                 push        ebx
+  1138EADA: 56                 push        esi
+  1138EADB: 57                 push        edi
+  1138EADC: 8D 7D CC           lea         edi,[ebp-34h]
+  1138EADF: B9 0D 00 00 00     mov         ecx,0Dh
+  1138EAE4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138EAE9: F3 AB              rep stos    dword ptr es:[edi]
+  1138EAEB: E8 2D 5A D1 FF     call        110A451D
+  1138EAF0: 89 45 F8           mov         dword ptr [ebp-8],eax
+  1138EAF3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1138EAF6: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  1138EAF9: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1138EAFC: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1138EAFF: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1138EB02: 89 4D E0           mov         dword ptr [ebp-20h],ecx
+  1138EB05: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1138EB08: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1138EB0B: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  1138EB0F: 74 1F              je          1138EB30
+  1138EB11: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1138EB14: 3B 45 EC           cmp         eax,dword ptr [ebp-14h]
+  1138EB17: 72 17              jb          1138EB30
+  1138EB19: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1138EB1C: 2B 4D 0C           sub         ecx,dword ptr [ebp+0Ch]
+  1138EB1F: 39 4D D4           cmp         dword ptr [ebp-2Ch],ecx
+  1138EB22: 77 0C              ja          1138EB30
+  1138EB24: C7 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],1
+            01 00 00 00
+  1138EB2E: EB 0A              jmp         1138EB3A
+  1138EB30: C7 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],0
+            00 00 00 00
+  1138EB3A: 0F B6 85 0C FF FF  movzx       eax,byte ptr [ebp+FFFFFF0Ch]
+            FF
+  1138EB41: 5F                 pop         edi
+  1138EB42: 5E                 pop         esi
+  1138EB43: 5B                 pop         ebx
+  1138EB44: 81 C4 F4 00 00 00  add         esp,0F4h
+  1138EB4A: 3B EC              cmp         ebp,esp
+  1138EB4C: E8 84 F1 CC FF     call        1105DCD5
+  1138EB51: 8B E5              mov         esp,ebp
+  1138EB53: 5D                 pop         ebp
+  1138EB54: C3                 ret
+  1138EB55: CC                 int         3
+
+  Summary
+
+     2170000 .text

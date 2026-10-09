@@ -1,0 +1,3 @@
+APROBADO: CPad::UpdateMouse (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-padmouse1\20261009-001153-051520

@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "pairs": 10368,
+  "differences": 0,
+  "functions": {
+    "CRope::CreateHookObjectForRope": 768,
+    "CRope::PickUpObject": 1536,
+    "CRope::ReleasePickedUpObject": 384,
+    "CRope::Remove": 640,
+    "CRope::Render": 1536,
+    "CMonsterTruck::Constructor": 512,
+    "CMonsterTruck::BurstTyre": 256,
+    "CMonsterTruck::PreRender": 1536,
+    "CMonsterTruck::ProcessEntityCollision": 3072,
+    "CMonsterTruck::SetUpWheelColModel": 128
+  },
+  "covered_functions": {
+    "CRope::CreateHookObjectForRope": true,
+    "CRope::PickUpObject": true,
+    "CRope::ReleasePickedUpObject": true,
+    "CRope::Remove": true,
+    "CRope::Render": true,
+    "CMonsterTruck::Constructor": true,
+    "CMonsterTruck::BurstTyre": true,
+    "CMonsterTruck::PreRender": true,
+    "CMonsterTruck::ProcessEntityCollision": true,
+    "CMonsterTruck::SetUpWheelColModel": true
+  },
+  "scope": "Simple pair bench (original with hook off vs candidate with hook on), 10368 isolated CPU pairs for the 10 functions, zero differences, natural completion event with state_restored and layout_ok, saves unchanged, configs restored. Fake objects with 32-byte guards (rope 0x328 bytes, truck 0x99C bytes, 5 entities of 0xA40 bytes with a fake vtable, 6 matrices, 3 fake model infos/colmodels/collision data); full content (rope and truck byte by byte, the rest by hash), guards, return value, x87 control word and the outgoing call trace with arguments are compared. Traced stubs, patched at the EXE address and at the DLL body, so these helpers get NO credit: CEntity::RegisterReference, CPhysical::AddToMovingList, CWorld::Add/Remove, CObject::operator new (fixed buffer) and CObject(int32,bool), DefinedState, CCamera::IsSphereVisible, RwRenderStateSet, RwIm3DTransform/RenderIndexedPrimitive/End, CAutomobile::CAutomobile, CMonsterTruck::SetupSuspensionLines, CAutomobile::PreRender, CVehicleModelInfo::GetWheelPosn, CVehicle::SetTransmissionRotation/SetComponentRotation, CCollision::ProcessColModels and CPhysical::AddCollisionRecord (only the own part of each function is validated). Entities always carry a non-null matrix (a null one would allocate from the pool); fixture NaNs are quiet and floats copied with x87 are finite (no signalling NaN); no pool, file or real operator new/delete is touched. Excluded: CObject pool full (operator new returns null, EXE and DLL both dereference it); Remove and ReleasePickedUpObject with null m_pAttachedEntity and an attached object (the EXE dereferences null); CreateHookObjectForRope with m_pAttachedEntity != null is only tested as an early exit. Source corrected to what the EXE does before this run: CRope::PickUpObject (RegisterReference on &m_pRopeAttachObject and position through operator* 0x59C890), CRope::CreateHookObjectForRope (types 0 and >=8 return without creating), CRope::Render (NaN in distance and the table at 0x8CD818), CMonsterTruck::ProcessEntityCollision (jump on NaN and SetEntityReference without clearing the previous one). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CRope::CreateHookObjectForRope": "Corpus 768: rope types 0..9 and 255, attached entity null (12% non-null for the early exit), new object storing its position in the placement or in a matrix, finite segment-31 coordinates; source change: types 0 and >=8 exit without creating (jump table 0x556194).",
+    "CRope::PickUpObject": "Corpus 1536: target kinds vehicle/object/ped/other, status and flag combinations, prior attached object null/other/same, attached entity with and without matrix, random model height; source change: RegisterReference on &m_pRopeAttachObject and position through operator* (0x59C890).",
+    "CRope::ReleasePickedUpObject": "Corpus 384: random entity types/status, attached object present (70%) or null; attached entity never null.",
+    "CRope::Remove": "Corpus 640: attached object present/absent, attached entity null only when there is no attached object.",
+    "CRope::Render": "Corpus 1536: rope types, distance kinds including a quiet NaN, camera visibility script (first sphere, mirror only, none), m_bMirrorActive 0/1, random TempBufferVertices; source changes: NaN in distance and index table 0x8CD818 (62 and 2 indices). RwIm3D*/RwRenderStateSet are traced stubs.",
+    "CMonsterTruck::Constructor": "Corpus 512: model ids 444,406,0,1,19991,-1,0x7FFF x 5 created-by values; CAutomobile constructor and SetupSuspensionLines are stubs; vtable pointer checked as EXE vtable 0x8717D8 or DLL address, then normalised to 0.",
+    "CMonsterTruck::BurstTyre": "Corpus 256 via virtual slot 44 (vtable 0x8717D8, 0x6C7D30); random component and physical flag.",
+    "CMonsterTruck::PreRender": "Corpus 1536 via virtual slot 17 (0x6C7DE0): truck/dumper model, random car nodes, misc component angle, wheel positions; CAutomobile::PreRender, GetWheelPosn, SetTransmissionRotation and SetComponentRotation are stubs.",
+    "CMonsterTruck::ProcessEntityCollision": "Corpus 3072 via virtual slot 22 (0x6C8AE0): entity types, physical/entity flags, collision data with 0/1/2/4/255 lines, ProcessColModels stub returning -2..32 with scripted touch distances incl. NaN and wheel positions incl. NaN/Inf; source changes: jump on NaN and SetEntityReference without clearing the previous reference.",
+    "CMonsterTruck::SetUpWheelColModel": "Corpus 128 via virtual slot 43 (0x6C7D20); random collision model pointer."
+  },
+  "dependency_review": null,
+  "run": "reversing/WorldFinal1/runs/20261009-005433-453152",
+  "summary_sha256": "c5c19d9fbd2d6bc2ae5556fb65496615646e0ea336ea4e37fd911bddb795ba9a",
+  "result_txt_sha256": "02a63611511e6961ff0bcf24e248b7c9471cb3910545b0e86da225f355799e86",
+  "log_sha256": "fae37e7878d85856680c86af2ad13e63ce4efae6bee6d2c0d4d9bb0c600b9cf7",
+  "comparison_storage": {
+    "uncompressed_sha256": "fae37e7878d85856680c86af2ad13e63ce4efae6bee6d2c0d4d9bb0c600b9cf7",
+    "uncompressed_bytes": 2842014,
+    "compressed_path": "reversing/WorldFinal1/runs/20261009-005433-453152/comparisons.jsonl.gz",
+    "compressed_sha256": "1f38c41e12c204df04db08ce8983d89f9e771f6d71b716f030f5af3816cecca3",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "fae37e7878d85856680c86af2ad13e63ce4efae6bee6d2c0d4d9bb0c600b9cf7",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-worldfinal1\\20261009-005433-453152\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "29f52f71d008cdb20b8bdffe0662de2b4663464aac333fe631ef53879225e6b1",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9df4f1d47430c971817667e1d726520addc01ab4",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 10368,
+    "asi": "29f52f71d008cdb20b8bdffe0662de2b4663464aac333fe631ef53879225e6b1",
+    "pdb": "1c49ad238a1c61f8316bb89b3befb9cc0c4352f48777504738a0b189c5348393",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-worldfinal1-probe.pdb (1.2 GB, not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Rope.cpp": "edc25a5030bc44c6683e50675156f16cb2c2dfb06bc9e5a77f516429ca87439e",
+      "source/game_sa/Rope.h": "21862741e1609c8457bd7b66c18fd06c85126d600cf1fcc26fac1763c1e21fd1",
+      "source/game_sa/Entity/Vehicle/MonsterTruck.cpp": "7dff139c9bc4946b05968d28b03f983abc30f558434ca7348585397dfc264956",
+      "source/game_sa/Entity/Vehicle/MonsterTruck.h": "17d298117fc2c4077c0a5a26dd6cb5b5199f3be1d5b17227feae005f2cd59946"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "627549ba9a8d6e185f0448009a051fd69863047b8f339fa946f3cd832d86b5c2",
+      "build_probe.py": "bcc578e6151237c80468f1e5647aadb3190d5dd5c7c8f2cd33b56e39f7689f73",
+      "run_local.py": "c60983a0d23dc2238bfa36630b940c978242279e4c9bf8c9fe60f152e6e8e61a"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Rope.cpp": "PickUpObject, CreateHookObjectForRope and Render corrected to the EXE (see scope)",
+      "source/game_sa/Entity/Vehicle/MonsterTruck.cpp": "ProcessEntityCollision corrected to the EXE (see scope)"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 10368,
+    "complete_events": 1,
+    "function_summaries": 10,
+    "unequal": 0,
+    "distinct_cases": 10368,
+    "per_function": {
+      "CRope::CreateHookObjectForRope": 768,
+      "CRope::PickUpObject": 1536,
+      "CRope::ReleasePickedUpObject": 384,
+      "CRope::Remove": 640,
+      "CRope::Render": 1536,
+      "CMonsterTruck::Constructor": 512,
+      "CMonsterTruck::BurstTyre": 256,
+      "CMonsterTruck::PreRender": 1536,
+      "CMonsterTruck::ProcessEntityCollision": 3072,
+      "CMonsterTruck::SetUpWheelColModel": 128
+    }
+  },
+  "source_corrections_before_run": {
+    "source/game_sa/Rope.cpp": "PickUpObject, CreateHookObjectForRope and Render corrected to the EXE (see scope)",
+    "source/game_sa/Entity/Vehicle/MonsterTruck.cpp": "ProcessEntityCollision corrected to the EXE (see scope)"
+  }
+}

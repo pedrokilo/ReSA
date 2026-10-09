@@ -134,11 +134,14 @@ bool CPedGeometryAnalyser::CanPedJumpObstacle(const CPed& ped, const CEntity& en
 
 // 0x5F1C40
 bool CPedGeometryAnalyser::CanPedTargetPed(CPed& ped, CPed& targetPed, bool checkDirection) {
-    return CanPedTargetPoint(
-        ped,
-        targetPed.GetPosition() + CVector{ 0.f, 0.f, targetPed.GetTaskManager().GetTaskSecondary(TASK_SECONDARY_DUCK) ? -0.25f : 0.75f }, // 0.75f - 1.f = -0.25f
-        checkDirection
-    );
+    // Como el original (0x5F1C4E-0x5F1C77): x e y se copian tal cual y z se calcula como (z + 0.75f) redondeado a float;
+    // si el objetivo esta agachado se resta 1.0f DESPUES (no se suma -0.25f de golpe: el redondeo puede diferir).
+    const auto& posn = targetPed.GetPosition();
+    CVector target{ posn.x, posn.y, posn.z + 0.75f };
+    if (targetPed.GetTaskManager().GetTaskSecondary(TASK_SECONDARY_DUCK)) {
+        target.z -= 1.0f;
+    }
+    return CanPedTargetPoint(ped, target, checkDirection);
 }
 
 // 0x5F1B70

@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1135A170: 55                 push        ebp
+  1135A171: 8B EC              mov         ebp,esp
+  1135A173: 81 EC D0 00 00 00  sub         esp,0D0h
+  1135A179: 53                 push        ebx
+  1135A17A: 56                 push        esi
+  1135A17B: 57                 push        edi
+  1135A17C: 51                 push        ecx
+  1135A17D: 8D 7D F0           lea         edi,[ebp-10h]
+  1135A180: B9 04 00 00 00     mov         ecx,4
+  1135A185: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135A18A: F3 AB              rep stos    dword ptr es:[edi]
+  1135A18C: 59                 pop         ecx
+  1135A18D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1135A190: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1135A193: E8 01 94 D0 FF     call        11063599
+  1135A198: 8B C8              mov         ecx,eax
+  1135A19A: E8 00 36 D3 FF     call        1108D79F
+  1135A19F: 83 F8 01           cmp         eax,1
+  1135A1A2: 75 0C              jne         1135A1B0
+  1135A1A4: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  1135A1AE: EB 0A              jmp         1135A1BA
+  1135A1B0: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1135A1BA: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  1135A1C1: 5F                 pop         edi
+  1135A1C2: 5E                 pop         esi
+  1135A1C3: 5B                 pop         ebx
+  1135A1C4: 81 C4 D0 00 00 00  add         esp,0D0h
+  1135A1CA: 3B EC              cmp         ebp,esp
+  1135A1CC: E8 04 2B D0 FF     call        1105CCD5
+  1135A1D1: 8B E5              mov         esp,ebp
+  1135A1D3: 5D                 pop         ebp
+  1135A1D4: C2 04 00           ret         4
+  1135A1D7: CC                 int         3
+
+  Summary
+
+     216D000 .text

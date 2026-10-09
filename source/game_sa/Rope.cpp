@@ -65,7 +65,9 @@ void CRope::CreateHookObjectForRope() {
 
     using namespace ModelIndices;
 
-    const auto modelIndex = [&]() -> ModelIndex {
+    // Como el original (0x556070, tabla de saltos 0x556194): los tipos 1..7 eligen el modelo (incluso si vale 0xFFFF);
+    // el tipo 0 y los >= 8 (SWAT incluido) salen sin crear nada.
+    const auto modelIndexOpt = [&]() -> std::optional<ModelIndex> {
         switch (m_nType) {
         case eRopeType::CRANE_MAGNET1:
         case eRopeType::CRANE_MAGNO:
@@ -78,15 +80,14 @@ void CRope::CreateHookObjectForRope() {
             return MI_MINI_MAGNET;
         case eRopeType::WRECKING_BALL:
             return MI_WRECKING_BALL;
-        case eRopeType::SWAT:
-            return MODEL_INVALID; // Just so the assert below wont be hit.
         default:
-            NOTSA_UNREACHABLE(); //assert(0);
+            return std::nullopt;
         }
     }();
-    if (modelIndex == ModelIndex{ MODEL_INVALID }) { // Must do it like this because `ModelIndex` is u16, `MODEL_ID` is i32, and u16 -1 casted to int32 is 0xffff...
+    if (!modelIndexOpt) {
         return;
     }
+    const ModelIndex modelIndex = *modelIndexOpt;
 
     auto* obj = new CObject(modelIndex, true);
     m_pAttachedEntity = obj;
@@ -150,7 +151,8 @@ void CRope::Render() {
     if (!TheCamera.IsSphereVisible(m_aSegments[NUM_ROPE_SEGMENTS / 2], 20.0f))
         return;
 
-    if ((TheCamera.GetPosition() - m_aSegments[0]).Magnitude2D() >= 120.0f)
+    // Como el original (0x55687A): fcomp + test ah,5 + jp sale si dist >= 120 o NaN
+    if (!((TheCamera.GetPosition() - m_aSegments[0]).Magnitude2D() < 120.0f))
         return;
 
     DefinedState();
@@ -173,29 +175,20 @@ void CRope::Render() {
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(FALSE));
 
     if (RwIm3DTransform(TempBufferVertices.m_3d, NUM_ROPE_SEGMENTS, nullptr, 0)) {
-        RxVertexIndex indices[] = { // *(RxVertexIndex(*)[64])0x8CD818
-            0,  1,  1,  2,  2,  3,  3,  4,
-            4,  5,  5,  6,  6,  7,  7,  8,
-            8,  9,  9,  10, 10, 11, 11, 12,
-            12, 13, 13, 14, 14, 15, 15, 16,
-            16, 17, 17, 18, 18, 19, 19, 20,
-            20, 21, 21, 22, 22, 23, 23, 24,
-            24, 25, 25, 26, 26, 27, 27, 28,
-            28, 29, 29, 30, 30, 31, 31, 32
-        };
-        RwIm3DRenderIndexedPrimitive(rwPRIMTYPELINELIST, indices, std::size(indices) - 2); // the last two indexes are not used
+        // Como el original (0x556923): usa la tabla del EXE *(RxVertexIndex(*)[64])0x8CD818 con 62 indices (los dos ultimos no se usan)
+        RwIm3DRenderIndexedPrimitive(rwPRIMTYPELINELIST, reinterpret_cast<RxVertexIndex*>(0x8CD818), 62);
         RwIm3DEnd();
     }
 
     if (m_nType == eRopeType::QUARRY_CRANE_ARM) {
-        const CVector pos[] = { m_aSegments[0], { 709.32f, 916.20f, 53.0f } }; // Hunter Quarry
+        const CVector pos[] = { m_aSegments[0], { 709.32f, 916.20f, 53.0f } }; // Hunter Quarry (0x4431547B, 0x44650CCD, 0x42540000)
         for (auto i = 0u; i < std::size(pos); i++) {
             RxObjSpace3DVertexSetPreLitColor(GetVertex(i), &color);
             RxObjSpace3DVertexSetPos(GetVertex(i), &pos[i]);
         }
         if (RwIm3DTransform(TempBufferVertices.m_3d, std::size(pos), nullptr, 0)) {
-            RxVertexIndex indices[] = { 0, 1 };
-            RwIm3DRenderIndexedPrimitive(rwPRIMTYPELINELIST, indices, std::size(indices));
+            // Como el original (0x55699D): los dos primeros indices de la misma tabla del EXE
+            RwIm3DRenderIndexedPrimitive(rwPRIMTYPELINELIST, reinterpret_cast<RxVertexIndex*>(0x8CD818), 2);
             RwIm3DEnd();
         }
     }
@@ -209,13 +202,19 @@ void CRope::PickUpObject(CEntity* obj) {
     if (m_pRopeAttachObject)
         ReleasePickedUpObject();
 
-    obj->RegisterReference(&m_pAttachedEntity);
+    // Como el original (0x5569E9): se registra &m_pRopeAttachObject (0x318), no &m_pAttachedEntity
     m_pRopeAttachObject = obj;
+    obj->RegisterReference(&m_pRopeAttachObject);
 
-    // TODO: Move model => world space translation into CEntity
-    // MultiplyMatrixWithVector should be used here
-    CVector height = { {}, {}, CRopes::FindPickupHeight(obj) };
-    m_pAttachedEntity->SetPosn(obj->GetPosition() + obj->GetMatrix().TransformVector(height));
+    // Como el original (0x59C890, operator*(CMatrix, CVector) con el vector (0, 0, altura)): se suma en este orden, en precision float x87,
+    // y por ultimo la traslacion. Offsets de la matriz: derecha 0x00, adelante 0x10, arriba 0x20, posicion 0x30.
+    const float height = CRopes::FindPickupHeight(obj);
+    const auto& m = obj->GetMatrix();
+    CVector world;
+    world.x = ((m.GetUp().x * height + m.GetForward().x * 0.f) + m.GetRight().x * 0.f) + m.GetPosition().x;
+    world.y = ((m.GetUp().y * height + m.GetRight().y * 0.f) + m.GetForward().y * 0.f) + m.GetPosition().y;
+    world.z = ((m.GetUp().z * height + m.GetRight().z * 0.f) + m.GetForward().z * 0.f) + m.GetPosition().z;
+    m_pAttachedEntity->SetPosn(world);
     m_pAttachedEntity->SetUsesCollision(false);
 
     obj->AsPhysical()->physicalFlags.bAttachedToEntity = true;

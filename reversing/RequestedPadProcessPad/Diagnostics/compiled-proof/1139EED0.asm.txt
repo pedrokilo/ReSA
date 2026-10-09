@@ -1,0 +1,83 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1139EED0: 55                 push        ebp
+  1139EED1: 8B EC              mov         ebp,esp
+  1139EED3: 81 EC 08 01 00 00  sub         esp,108h
+  1139EED9: 53                 push        ebx
+  1139EEDA: 56                 push        esi
+  1139EEDB: 57                 push        edi
+  1139EEDC: 51                 push        ecx
+  1139EEDD: 8D 7D B8           lea         edi,[ebp-48h]
+  1139EEE0: B9 12 00 00 00     mov         ecx,12h
+  1139EEE5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1139EEEA: F3 AB              rep stos    dword ptr es:[edi]
+  1139EEEC: 59                 pop         ecx
+  1139EEED: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1139EEF0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1139EEF3: E8 A5 BA CC FF     call        1106A99D
+  1139EEF8: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1139EEFB: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1139EEFE: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1139EF01: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1139EF04: 83 C0 04           add         eax,4
+  1139EF07: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1139EF0A: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1139EF0D: 83 C0 08           add         eax,8
+  1139EF10: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  1139EF13: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1139EF16: 83 C0 0C           add         eax,0Ch
+  1139EF19: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  1139EF1C: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1139EF1F: E8 C4 79 CC FF     call        110668E8
+  1139EF24: 90                 nop
+  1139EF25: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1139EF28: 83 38 00           cmp         dword ptr [eax],0
+  1139EF2B: 74 50              je          1139EF7D
+  1139EF2D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1139EF30: 50                 push        eax
+  1139EF31: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  1139EF34: 8B 11              mov         edx,dword ptr [ecx]
+  1139EF36: 52                 push        edx
+  1139EF37: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1139EF3A: 8B 08              mov         ecx,dword ptr [eax]
+  1139EF3C: 51                 push        ecx
+  1139EF3D: E8 4E 5E CC FF     call        11064D90
+  1139EF42: 83 C4 0C           add         esp,0Ch
+  1139EF45: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  1139EF48: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  1139EF4B: 8B 10              mov         edx,dword ptr [eax]
+  1139EF4D: 2B 11              sub         edx,dword ptr [ecx]
+  1139EF4F: C1 FA 02           sar         edx,2
+  1139EF52: 52                 push        edx
+  1139EF53: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1139EF56: 8B 08              mov         ecx,dword ptr [eax]
+  1139EF58: 51                 push        ecx
+  1139EF59: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1139EF5C: E8 E7 8F CE FF     call        11087F48
+  1139EF61: 90                 nop
+  1139EF62: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1139EF65: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  1139EF6B: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  1139EF6E: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  1139EF74: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  1139EF77: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  1139EF7D: 5F                 pop         edi
+  1139EF7E: 5E                 pop         esi
+  1139EF7F: 5B                 pop         ebx
+  1139EF80: 81 C4 08 01 00 00  add         esp,108h
+  1139EF86: 3B EC              cmp         ebp,esp
+  1139EF88: E8 48 DD CB FF     call        1105CCD5
+  1139EF8D: 8B E5              mov         esp,ebp
+  1139EF8F: 5D                 pop         ebp
+  1139EF90: C3                 ret
+  1139EF91: CC                 int         3
+
+  Summary
+
+     216D000 .text

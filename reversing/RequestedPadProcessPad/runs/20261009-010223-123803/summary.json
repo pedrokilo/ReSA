@@ -1,0 +1,28 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "484f184e92cc3438ec14002504d05273914e4a43bd7018314528581391bb335a",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "comparisons": 17256,
+  "differences": 622,
+  "model_mismatches": 622,
+  "sincos_one_ulp_tolerated_legs": 0,
+  "return_eax_model_mismatches_original": 0,
+  "return_eax_differences_informational": 16392,
+  "x87_env_status_differences_informational": 15816,
+  "errors": [],
+  "comparison_sha256": "e64d6bfb6f9fd2dbf32541782b711e8d1bcb2b5e7cf4237472e9e1e583c7472f",
+  "harness_sha256": "7f6e5e09eb581d7116132a102f4c4dcb321f46215c5a767f536365bdb8a93a4e",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

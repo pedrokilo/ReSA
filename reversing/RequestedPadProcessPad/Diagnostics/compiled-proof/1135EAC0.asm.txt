@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1135EAC0: 55                 push        ebp
+  1135EAC1: 8B EC              mov         ebp,esp
+  1135EAC3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1135EAC9: 53                 push        ebx
+  1135EACA: 56                 push        esi
+  1135EACB: 57                 push        edi
+  1135EACC: 8B FD              mov         edi,ebp
+  1135EACE: 33 C9              xor         ecx,ecx
+  1135EAD0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135EAD5: F3 AB              rep stos    dword ptr es:[edi]
+  1135EAD7: EB 09              jmp         1135EAE2
+  1135EAD9: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135EADC: 83 C0 04           add         eax,4
+  1135EADF: 89 45 08           mov         dword ptr [ebp+8],eax
+  1135EAE2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135EAE5: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  1135EAE8: 74 2A              je          1135EB14
+  1135EAEA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135EAED: 50                 push        eax
+  1135EAEE: 8D 4D 14           lea         ecx,[ebp+14h]
+  1135EAF1: 51                 push        ecx
+  1135EAF2: E8 3D 3B D1 FF     call        11072634
+  1135EAF7: 83 C4 08           add         esp,8
+  1135EAFA: 50                 push        eax
+  1135EAFB: 8D 55 10           lea         edx,[ebp+10h]
+  1135EAFE: 52                 push        edx
+  1135EAFF: E8 0B D9 D0 FF     call        1106C40F
+  1135EB04: 83 C4 08           add         esp,8
+  1135EB07: 0F B6 C0           movzx       eax,al
+  1135EB0A: 85 C0              test        eax,eax
+  1135EB0C: 75 04              jne         1135EB12
+  1135EB0E: 32 C0              xor         al,al
+  1135EB10: EB 04              jmp         1135EB16
+  1135EB12: EB C5              jmp         1135EAD9
+  1135EB14: B0 01              mov         al,1
+  1135EB16: 5F                 pop         edi
+  1135EB17: 5E                 pop         esi
+  1135EB18: 5B                 pop         ebx
+  1135EB19: 81 C4 C0 00 00 00  add         esp,0C0h
+  1135EB1F: 3B EC              cmp         ebp,esp
+  1135EB21: E8 AF E1 CF FF     call        1105CCD5
+  1135EB26: 8B E5              mov         esp,ebp
+  1135EB28: 5D                 pop         ebp
+  1135EB29: C3                 ret
+  1135EB2A: CC                 int         3
+
+  Summary
+
+     216D000 .text

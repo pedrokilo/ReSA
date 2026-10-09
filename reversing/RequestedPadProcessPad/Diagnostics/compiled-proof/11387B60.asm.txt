@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11387B60: 55                 push        ebp
+  11387B61: 8B EC              mov         ebp,esp
+  11387B63: 81 EC CC 00 00 00  sub         esp,0CCh
+  11387B69: 53                 push        ebx
+  11387B6A: 56                 push        esi
+  11387B6B: 57                 push        edi
+  11387B6C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11387B6F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11387B72: 8B 00              mov         eax,dword ptr [eax]
+  11387B74: 5F                 pop         edi
+  11387B75: 5E                 pop         esi
+  11387B76: 5B                 pop         ebx
+  11387B77: 8B E5              mov         esp,ebp
+  11387B79: 5D                 pop         ebp
+  11387B7A: C3                 ret
+  11387B7B: CC                 int         3
+  11387B7C: CC                 int         3
+  11387B7D: CC                 int         3
+  11387B7E: CC                 int         3
+  11387B7F: CC                 int         3
+  11387B80: CC                 int         3
+  11387B81: CC                 int         3
+  11387B82: CC                 int         3
+  11387B83: CC                 int         3
+  11387B84: CC                 int         3
+  11387B85: CC                 int         3
+  11387B86: CC                 int         3
+  11387B87: CC                 int         3
+  11387B88: CC                 int         3
+  11387B89: CC                 int         3
+  11387B8A: CC                 int         3
+  11387B8B: CC                 int         3
+  11387B8C: CC                 int         3
+  11387B8D: CC                 int         3
+  11387B8E: CC                 int         3
+  11387B8F: CC                 int         3
+  11387B90: 55                 push        ebp
+  11387B91: 8B EC              mov         ebp,esp
+  11387B93: 81 EC CC 00 00 00  sub         esp,0CCh
+  11387B99: 53                 push        ebx
+  11387B9A: 56                 push        esi
+  11387B9B: 57                 push        edi
+  11387B9C: 51                 push        ecx
+  11387B9D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11387BA0: B9
+
+  Summary
+
+     216D000 .text

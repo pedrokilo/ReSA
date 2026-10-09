@@ -1,0 +1,102 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1135F4D0: 55                 push        ebp
+  1135F4D1: 8B EC              mov         ebp,esp
+  1135F4D3: 81 EC FC 00 00 00  sub         esp,0FCh
+  1135F4D9: 53                 push        ebx
+  1135F4DA: 56                 push        esi
+  1135F4DB: 57                 push        edi
+  1135F4DC: 51                 push        ecx
+  1135F4DD: 8D 7D C4           lea         edi,[ebp-3Ch]
+  1135F4E0: B9 0F 00 00 00     mov         ecx,0Fh
+  1135F4E5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135F4EA: F3 AB              rep stos    dword ptr es:[edi]
+  1135F4EC: 59                 pop         ecx
+  1135F4ED: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1135F4F0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1135F4F3: 50                 push        eax
+  1135F4F4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1135F4F7: 51                 push        ecx
+  1135F4F8: E8 F1 E5 D2 FF     call        1108DAEE
+  1135F4FD: 83 C4 08           add         esp,8
+  1135F500: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1135F503: 83 C0 34           add         eax,34h
+  1135F506: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1135F509: 8D 45 E0           lea         eax,[ebp-20h]
+  1135F50C: 50                 push        eax
+  1135F50D: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1135F510: E8 D6 35 D1 FF     call        11072AEB
+  1135F515: 90                 nop
+  1135F516: 8D 45 D4           lea         eax,[ebp-2Ch]
+  1135F519: 50                 push        eax
+  1135F51A: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1135F51D: E8 4F A7 D4 FF     call        110A9C71
+  1135F522: 90                 nop
+  1135F523: EB 09              jmp         1135F52E
+  1135F525: 8D 4D E0           lea         ecx,[ebp-20h]
+  1135F528: E8 A1 C7 D4 FF     call        110ABCCE
+  1135F52D: 90                 nop
+  1135F52E: 8D 45 D4           lea         eax,[ebp-2Ch]
+  1135F531: 50                 push        eax
+  1135F532: 8D 4D E0           lea         ecx,[ebp-20h]
+  1135F535: E8 7B F0 D3 FF     call        1109E5B5
+  1135F53A: 0F B6 C8           movzx       ecx,al
+  1135F53D: 85 C9              test        ecx,ecx
+  1135F53F: 75 1A              jne         1135F55B
+  1135F541: 8D 4D E0           lea         ecx,[ebp-20h]
+  1135F544: E8 58 02 D1 FF     call        1106F7A1
+  1135F549: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  1135F54C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135F54F: 50                 push        eax
+  1135F550: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  1135F553: E8 98 3B D0 FF     call        110630F0
+  1135F558: 90                 nop
+  1135F559: EB CA              jmp         1135F525
+  1135F55B: 52                 push        edx
+  1135F55C: 8B CD              mov         ecx,ebp
+  1135F55E: 50                 push        eax
+  1135F55F: 8D 15 84 F5 35 11  lea         edx,ds:[1135F584h]
+  1135F565: E8 C6 50 D0 FF     call        11064630
+  1135F56A: 58                 pop         eax
+  1135F56B: 5A                 pop         edx
+  1135F56C: 5F                 pop         edi
+  1135F56D: 5E                 pop         esi
+  1135F56E: 5B                 pop         ebx
+  1135F56F: 81 C4 FC 00 00 00  add         esp,0FCh
+  1135F575: 3B EC              cmp         ebp,esp
+  1135F577: E8 81 F7 CF FF     call        1105ECFD
+  1135F57C: 8B E5              mov         esp,ebp
+  1135F57E: 5D                 pop         ebp
+  1135F57F: C2 04 00           ret         4
+  1135F582: 66 90              nop
+  1135F584: 02 00              add         al,byte ptr [eax]
+  1135F586: 00 00              add         byte ptr [eax],al
+  1135F588: 8C F5              mov         ebp,st(-2)
+  1135F58A: 35 11 E0 FF FF     xor         eax,0FFFFE011h
+  1135F58F: FF 04 00           inc         dword ptr [eax+eax]
+  1135F592: 00 00              add         byte ptr [eax],al
+  1135F594: AD                 lods        dword ptr [esi]
+  1135F595: F5                 cmc
+  1135F596: 35 11 D4 FF FF     xor         eax,0FFFFD411h
+  1135F59B: FF 04 00           inc         dword ptr [eax+eax]
+  1135F59E: 00 00              add         byte ptr [eax],al
+  1135F5A0: A4                 movs        byte ptr es:[edi],byte ptr [esi]
+  1135F5A1: F5                 cmc
+  1135F5A2: 35 11 3C 65 6E     xor         eax,6E653C11h
+  1135F5A7: 64
+  1135F5A8: 3E 24 4C           and         al,4Ch
+  1135F5AB: 30 00              xor         byte ptr [eax],al
+  1135F5AD: 3C 62              cmp         al,62h
+  1135F5AF: 65 67 69 6E 3E 24  imul        ebp,dword ptr gs:[bp+3Eh],304C24h
+            4C 30 00
+  1135F5B8: CC                 int         3
+
+  Summary
+
+     2171000 .text

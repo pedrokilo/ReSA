@@ -1,0 +1,54 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1139CF00: 55                 push        ebp
+  1139CF01: 8B EC              mov         ebp,esp
+  1139CF03: 81 EC CC 00 00 00  sub         esp,0CCh
+  1139CF09: 53                 push        ebx
+  1139CF0A: 56                 push        esi
+  1139CF0B: 57                 push        edi
+  1139CF0C: 51                 push        ecx
+  1139CF0D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1139CF10: B9 03 00 00 00     mov         ecx,3
+  1139CF15: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1139CF1A: F3 AB              rep stos    dword ptr es:[edi]
+  1139CF1C: 59                 pop         ecx
+  1139CF1D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1139CF20: E8 29 C2 CF FF     call        1109914E
+  1139CF25: 0F B6 C0           movzx       eax,al
+  1139CF28: 85 C0              test        eax,eax
+  1139CF2A: 74 13              je          1139CF3F
+  1139CF2C: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1139CF2F: 50                 push        eax
+  1139CF30: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1139CF33: 51                 push        ecx
+  1139CF34: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1139CF37: E8 4F B2 CF FF     call        1109818B
+  1139CF3C: 90                 nop
+  1139CF3D: EB 11              jmp         1139CF50
+  1139CF3F: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1139CF42: 50                 push        eax
+  1139CF43: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1139CF46: 51                 push        ecx
+  1139CF47: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1139CF4A: E8 97 AB D0 FF     call        110A7AE6
+  1139CF4F: 90                 nop
+  1139CF50: 5F                 pop         edi
+  1139CF51: 5E                 pop         esi
+  1139CF52: 5B                 pop         ebx
+  1139CF53: 81 C4 CC 00 00 00  add         esp,0CCh
+  1139CF59: 3B EC              cmp         ebp,esp
+  1139CF5B: E8 75 FD CB FF     call        1105CCD5
+  1139CF60: 8B E5              mov         esp,ebp
+  1139CF62: 5D                 pop         ebp
+  1139CF63: C2 08 00           ret         8
+  1139CF66: CC                 int         3
+
+  Summary
+
+     216D000 .text

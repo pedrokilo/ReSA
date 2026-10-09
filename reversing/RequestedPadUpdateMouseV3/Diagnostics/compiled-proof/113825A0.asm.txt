@@ -1,0 +1,51 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  113825A0: 55                 push        ebp
+  113825A1: 8B EC              mov         ebp,esp
+  113825A3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113825A9: 53                 push        ebx
+  113825AA: 56                 push        esi
+  113825AB: 57                 push        edi
+  113825AC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113825AF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113825B2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  113825B5: 89 08              mov         dword ptr [eax],ecx
+  113825B7: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113825BA: 5F                 pop         edi
+  113825BB: 5E                 pop         esi
+  113825BC: 5B                 pop         ebx
+  113825BD: 8B E5              mov         esp,ebp
+  113825BF: 5D                 pop         ebp
+  113825C0: C2 04 00           ret         4
+  113825C3: CC                 int         3
+  113825C4: CC                 int         3
+  113825C5: CC                 int         3
+  113825C6: CC                 int         3
+  113825C7: CC                 int         3
+  113825C8: CC                 int         3
+  113825C9: CC                 int         3
+  113825CA: CC                 int         3
+  113825CB: CC                 int         3
+  113825CC: CC                 int         3
+  113825CD: CC                 int         3
+  113825CE: CC                 int         3
+  113825CF: CC                 int         3
+  113825D0: 55                 push        ebp
+  113825D1: 8B EC              mov         ebp,esp
+  113825D3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113825D9: 53                 push        ebx
+  113825DA: 56                 push        esi
+  113825DB: 57                 push        edi
+  113825DC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113825DF: 8B
+  113825E0: 45                 inc         ebp
+
+  Summary
+
+     2174000 .text

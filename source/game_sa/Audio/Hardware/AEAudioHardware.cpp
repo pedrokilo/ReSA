@@ -114,7 +114,9 @@ CAEAudioHardware::CAEAudioHardware() {
 
 // 0x4D9930
 bool CAEAudioHardware::Initialise() {
-    m_pMP3BankLoader  = new CAEMP3BankLoader;
+    // Como el original (0x4D9950..0x4D9968): operator new(0x6E4) + 0x4DFB10, que solo escribe m_IsInitialised y m_StreamingChannel.
+    // `new CAEMP3BankLoader` pondria a cero el resto por los inicializadores de miembro de CAEBankLoader.
+    m_pMP3BankLoader  = static_cast<CAEMP3BankLoader*>(operator new(sizeof(CAEMP3BankLoader)))->Constructor();
     m_pMP3TrackLoader = new CAEMP3TrackLoader;
     if (!m_pMP3BankLoader->Initialise() || !m_pMP3TrackLoader->Initialise()) {
         NOTSA_LOG_ERR("Failed initializing MP3 module!");

@@ -1,0 +1,95 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1135E180: 55                 push        ebp
+  1135E181: 8B EC              mov         ebp,esp
+  1135E183: 6A FF              push        0FFFFFFFFh
+  1135E185: 68 C1 46 0D 13     push        130D46C1h
+  1135E18A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1135E190: 50                 push        eax
+  1135E191: 81 EC 34 01 00 00  sub         esp,134h
+  1135E197: 53                 push        ebx
+  1135E198: 56                 push        esi
+  1135E199: 57                 push        edi
+  1135E19A: 8D 7D 80           lea         edi,[ebp-80h]
+  1135E19D: B9 1D 00 00 00     mov         ecx,1Dh
+  1135E1A2: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135E1A7: F3 AB              rep stos    dword ptr es:[edi]
+  1135E1A9: A1 40 0A 77 13     mov         eax,dword ptr ds:[13770A40h]
+  1135E1AE: 33 C5              xor         eax,ebp
+  1135E1B0: 50                 push        eax
+  1135E1B1: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1135E1B4: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1135E1BA: C6 05 38 A0 6C 13  mov         byte ptr ds:[136CA038h],0
+            00
+  1135E1C1: 68 D8 9E 28 13     push        13289ED8h
+  1135E1C6: 8D 8D CC FE FF FF  lea         ecx,[ebp+FFFFFECCh]
+  1135E1CC: E8 8E 47 D1 FF     call        1107295F
+  1135E1D1: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1135E1D8: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],1Dh
+            1D 00 00 00
+  1135E1E2: 8D 85 2C FF FF FF  lea         eax,[ebp+FFFFFF2Ch]
+  1135E1E8: 50                 push        eax
+  1135E1E9: 8D 8D E4 FE FF FF  lea         ecx,[ebp+FFFFFEE4h]
+  1135E1EF: E8 B2 BD D2 FF     call        11089FA6
+  1135E1F4: C7 45 FC 01 00 00  mov         dword ptr [ebp-4],1
+            00
+  1135E1FB: 8D 8D FC FE FF FF  lea         ecx,[ebp+FFFFFEFCh]
+  1135E201: 51                 push        ecx
+  1135E202: 8D 95 CC FE FF FF  lea         edx,[ebp+FFFFFECCh]
+  1135E208: 52                 push        edx
+  1135E209: 8D 8D 1C FF FF FF  lea         ecx,[ebp+FFFFFF1Ch]
+  1135E20F: E8 C3 B0 D1 FF     call        110792D7
+  1135E214: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1135E217: 51                 push        ecx
+  1135E218: 8B 10              mov         edx,dword ptr [eax]
+  1135E21A: 52                 push        edx
+  1135E21B: 8D 85 04 FF FF FF  lea         eax,[ebp+FFFFFF04h]
+  1135E221: 50                 push        eax
+  1135E222: E8 B6 E2 D0 FF     call        1106C4DD
+  1135E227: 83 C4 0C           add         esp,0Ch
+  1135E22A: 89 85 C4 FE FF FF  mov         dword ptr [ebp+FFFFFEC4h],eax
+  1135E230: 8B 8D C4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEC4h]
+  1135E236: 89 8D C0 FE FF FF  mov         dword ptr [ebp+FFFFFEC0h],ecx
+  1135E23C: C6 45 FC 02        mov         byte ptr [ebp-4],2
+  1135E240: 8B 95 C0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEC0h]
+  1135E246: 52                 push        edx
+  1135E247: B9 30 DF 78 13     mov         ecx,1378DF30h
+  1135E24C: E8 02 80 D1 FF     call        11076253
+  1135E251: C6 45 FC 01        mov         byte ptr [ebp-4],1
+  1135E255: 8D 8D 04 FF FF FF  lea         ecx,[ebp+FFFFFF04h]
+  1135E25B: E8 4D EC D3 FF     call        1109CEAD
+  1135E260: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1135E267: 68 FE B0 08 11     push        1108B0FEh
+  1135E26C: 6A 02              push        2
+  1135E26E: 6A 18              push        18h
+  1135E270: 8D 85 CC FE FF FF  lea         eax,[ebp+FFFFFECCh]
+  1135E276: 50                 push        eax
+  1135E277: E8 9C 11 D0 FF     call        1105F418
+  1135E27C: 90                 nop
+  1135E27D: B8 05 40 00 80     mov         eax,80004005h
+  1135E282: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1135E285: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1135E28C: 59                 pop         ecx
+  1135E28D: 5F                 pop         edi
+  1135E28E: 5E                 pop         esi
+  1135E28F: 5B                 pop         ebx
+  1135E290: 81 C4 40 01 00 00  add         esp,140h
+  1135E296: 3B EC              cmp         ebp,esp
+  1135E298: E8 38 FA CF FF     call        1105DCD5
+  1135E29D: 8B E5              mov         esp,ebp
+  1135E29F: 5D                 pop         ebp
+  1135E2A0: C2 04 00           ret         4
+  1135E2A3: CC                 int         3
+
+  Summary
+
+     2170000 .text

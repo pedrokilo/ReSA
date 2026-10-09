@@ -1,0 +1,34 @@
+{
+  "status": "prepared_frozen_not_compiled_not_executed",
+  "expected_pairs": 17256,
+  "scope": "17256 finite isolated ProcessPad cases; private scripted DirectInput device, traced RsPadEventHandler, native GetPad/FTOL; real global CPad/ControlsManager/stick/joy-table/menu bytes compared with guards; PC24 and PC53; padID 0/1 only. No DirectInput/COM/RsPadEventHandler/GetPad/FTOL/integration credit. Matching PE/PDB and call paths must be reviewed after the coordinator build.",
+  "inputs": {
+    "reversing/RequestedPadProcessPad/LiveComparison.hpp": "9c8d682245984ef97c7816d392857587880bf30f7a622b2b7de7fbb83483799a",
+    "reversing/RequestedPadProcessPad/Preflight.hpp": "b672d27ccf72f7781aa912db869737164e53980c96d444fe99bf9d63ad73105c",
+    "reversing/RequestedPadProcessPad/VTableRanges.hpp": "994b5faf28cfd82f8fa024b257440cfaffff003b5249aa89c065f4deca88d77f",
+    "reversing/RequestedPadProcessPad/Fixtures.hpp": "ae35e1ebf93c0b35588bbf8244cc4e8bd884147ab2b7e81a22b0a9ed7b26ccb3",
+    "reversing/RequestedPadProcessPad/fixtures.json": "21f80e34738ab469695b279ec1d46db44bba7457974e404c227a6dc80c348d33",
+    "reversing/RequestedPadProcessPad/generate_fixtures.py": "ce929c5f576adfe883933d2adb82e701d03a61936299da6952aba2153392035a",
+    "reversing/RequestedPadProcessPad/model.py": "e135d38f759fa457f835c17f92a210b01202ab730e16a52a3355d3089e83610d",
+    "reversing/RequestedPadProcessPad/build_probe.py": "cfe71080f05b32e041b9f4abd0dbada8d35f987c8b063c4c26bc2b088c8d491c",
+    "reversing/RequestedPadProcessPad/run_local.py": "2b2e10bde96abe885dcb3c3545cf2277fc480d336b4c10b8886411779745bad4",
+    "reversing/RequestedPadProcessPad/inspect_compiled.py": "e97d170bbeece5beb69197b66449a07eefb510e7a818c100824840c88235bb44",
+    "reversing/RequestedPadProcessPad/make_freeze.py": "0abce614994e9d4b040b96d77ecf2e464183748e169dd9fbd8db887edc2a859f",
+    "reversing/RequestedPadProcessPad/corpus-plan.json": "2891bb5318195d7fe3ae6e265e338586761e8f5ff962566dea02b0fa9a33e81f",
+    "reversing/RequestedPadProcessPad/scope.json": "b901633670dd3c8ff993f63cac800ef151ef8c7c552f4701ab043139d7627cb9",
+    "reversing/RequestedPadProcessPad/README.md": "6a0ed316177a7b10729a003e540b564088cd9f890cbdf44e688cf297606465eb",
+    "reversing/RequestedPadProcessPad/evidence/ProcessPad-fresh-combo.txt": "7f49ed0dd15705cd18e454dccd03fc4898c3c90f776c4fe974588dadbfcf88b9",
+    "reversing/RequestedPadProcessPad/evidence/ProcessPad.dumpbin.asm.txt": "55a1d5aaa0a0e550dcce2b252c0496f784b3cd4d8a16d763119d09f4674a6919",
+    "reversing/RequestedPadProcessPad/evidence/ProcessPad.bytes.bin": "9924038ebe8e60e4e4cbdbd4b00d329a8d2e6c77a2f20aa50baeeb9600aa9a92",
+    "reversing/RequestedPadProcessPad/evidence/ProcessPad-constants.json": "dec10c67bf40e91f5fbf34dddd7df2284c3443eac92dc2bddd5cbcbb52ca958f",
+    "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+    "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+    "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+    "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+  },
+  "source_before_sha256": {
+    "source/game_sa/Pad.cpp": "8e61e4281377593c27ec1427e04a8f2bb0dc3483d113bb40dfe85e74c8656be4",
+    "source/game_sa/Pad.h": "d18adb99148fe3fbdde2447a44699451f3afce97f29994bdf3bd29a3829889e2"
+  },
+  "revision": 1
+}

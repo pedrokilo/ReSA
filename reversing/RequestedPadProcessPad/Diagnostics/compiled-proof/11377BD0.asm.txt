@@ -1,0 +1,84 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11377BD0: 55                 push        ebp
+  11377BD1: 8B EC              mov         ebp,esp
+  11377BD3: 6A FF              push        0FFFFFFFFh
+  11377BD5: 68 D7 36 0D 13     push        130D36D7h
+  11377BDA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  11377BE0: 50                 push        eax
+  11377BE1: 81 EC E8 00 00 00  sub         esp,0E8h
+  11377BE7: 53                 push        ebx
+  11377BE8: 56                 push        esi
+  11377BE9: 57                 push        edi
+  11377BEA: 8D 7D CC           lea         edi,[ebp-34h]
+  11377BED: B9 0A 00 00 00     mov         ecx,0Ah
+  11377BF2: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11377BF7: F3 AB              rep stos    dword ptr es:[edi]
+  11377BF9: A1 40 CA 76 13     mov         eax,dword ptr ds:[1376CA40h]
+  11377BFE: 33 C5              xor         eax,ebp
+  11377C00: 50                 push        eax
+  11377C01: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11377C04: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  11377C0A: C7 85 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],0
+            00 00 00 00
+  11377C14: 6A 34              push        34h
+  11377C16: E8 83 E0 CF FF     call        11075C9E
+  11377C1B: 83 C4 04           add         esp,4
+  11377C1E: 89 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],eax
+  11377C24: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  11377C2B: 83 BD 20 FF FF FF  cmp         dword ptr [ebp+FFFFFF20h],0
+            00
+  11377C32: 74 27              je          11377C5B
+  11377C34: 8B 45 18           mov         eax,dword ptr [ebp+18h]
+  11377C37: 50                 push        eax
+  11377C38: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  11377C3B: 51                 push        ecx
+  11377C3C: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  11377C3F: 8B 02              mov         eax,dword ptr [edx]
+  11377C41: 50                 push        eax
+  11377C42: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11377C45: 8B 11              mov         edx,dword ptr [ecx]
+  11377C47: 52                 push        edx
+  11377C48: 8B 8D 20 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF20h]
+  11377C4E: E8 F5 84 D1 FF     call        11090148
+  11377C53: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11377C59: EB 0A              jmp         11377C65
+  11377C5B: C7 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],0
+            00 00 00 00
+  11377C65: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11377C6B: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  11377C71: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11377C78: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  11377C7E: 51                 push        ecx
+  11377C7F: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11377C82: E8 C2 65 D1 FF     call        1108E249
+  11377C87: 8B 95 14 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF14h]
+  11377C8D: 83 CA 01           or          edx,1
+  11377C90: 89 95 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],edx
+  11377C96: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11377C99: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11377C9C: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11377CA3: 59                 pop         ecx
+  11377CA4: 5F                 pop         edi
+  11377CA5: 5E                 pop         esi
+  11377CA6: 5B                 pop         ebx
+  11377CA7: 81 C4 F4 00 00 00  add         esp,0F4h
+  11377CAD: 3B EC              cmp         ebp,esp
+  11377CAF: E8 21 50 CE FF     call        1105CCD5
+  11377CB4: 8B E5              mov         esp,ebp
+  11377CB6: 5D                 pop         ebp
+  11377CB7: C3                 ret
+  11377CB8: CC                 int         3
+
+  Summary
+
+     216D000 .text

@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "comparisons": 17256,
+  "differences": 0,
+  "model_mismatches": 0,
+  "sincos_one_ulp_tolerated_legs": 0,
+  "return_eax_model_mismatches_original": 0,
+  "return_eax_differences_informational": 16392,
+  "x87_env_status_differences_informational": 15816,
+  "errors": [],
+  "comparison_sha256": "89d5d428789d30bc19316b32404c4989316db0d97603424f7e7321ac5c60391f",
+  "harness_sha256": "7f6e5e09eb581d7116132a102f4c4dcb321f46215c5a767f536365bdb8a93a4e",
+  "summary_sha256": "dccf2b05acb5f2e0772f59565b6f8063525ce8b0cd515e5edfb3b11fa2b2ba72",
+  "manifest_head": "9df4f1d47430c971817667e1d726520addc01ab4",
+  "asi_sha256": "d8807e7d05b4f5685253c636bdc9599574fbe62ca08b29f962e3f1e37beef240",
+  "pdb_sha256": "2b9bb0a2422420238895ef844200b53486d96972213d1bf40c794adf9612a10f",
+  "compiled_runtime_proof_sha256": "a2fb2c1e49324af7f3134e8a0abf6b4863bd2be6bdc7409a5ec03a734140ac02",
+  "natural_exit": true,
+  "exit_code": 0,
+  "snapshot_ranges": 17692,
+  "independent_oracle": "model.py (independent rational model, frozen in the manifest) re-executed offline over the preserved full payload",
+  "rejected_attempts": {
+    "reversing/RequestedPadProcessPad/runs/20261009-010223-123803/enriched-summary.json": "4a26677d8c1fd8ec0dd77c32609385530660cfcb4d26cfd75373c0da265cbf8d"
+  }
+}

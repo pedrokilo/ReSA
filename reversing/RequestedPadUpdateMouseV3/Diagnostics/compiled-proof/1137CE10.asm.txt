@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1137CE10: 55                 push        ebp
+  1137CE11: 8B EC              mov         ebp,esp
+  1137CE13: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137CE19: 53                 push        ebx
+  1137CE1A: 56                 push        esi
+  1137CE1B: 57                 push        edi
+  1137CE1C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137CE1F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CE22: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1137CE25: 89 08              mov         dword ptr [eax],ecx
+  1137CE27: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CE2A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1137CE2D: 89 48 04           mov         dword ptr [eax+4],ecx
+  1137CE30: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CE33: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  1137CE36: 89 48 08           mov         dword ptr [eax+8],ecx
+  1137CE39: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CE3C: 5F                 pop         edi
+  1137CE3D: 5E                 pop         esi
+  1137CE3E: 5B                 pop         ebx
+  1137CE3F: 8B E5              mov         esp,ebp
+  1137CE41: 5D                 pop         ebp
+  1137CE42: C2 0C 00           ret         0Ch
+  1137CE45: CC                 int         3
+  1137CE46: CC                 int         3
+  1137CE47: CC                 int         3
+  1137CE48: CC                 int         3
+  1137CE49: CC                 int         3
+  1137CE4A: CC                 int         3
+  1137CE4B: CC                 int         3
+  1137CE4C: CC                 int         3
+  1137CE4D: CC                 int         3
+  1137CE4E: CC                 int         3
+  1137CE4F: CC                 int         3
+  1137CE50: CC                 int         3
+
+  Summary
+
+     216F000 .text

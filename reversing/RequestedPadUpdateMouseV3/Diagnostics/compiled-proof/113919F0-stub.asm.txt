@@ -1,0 +1,139 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  113919F0: 55                 push        ebp
+  113919F1: 8B EC              mov         ebp,esp
+  113919F3: 81 EC E0 00 00 00  sub         esp,0E0h
+  113919F9: 53                 push        ebx
+  113919FA: 56                 push        esi
+  113919FB: 57                 push        edi
+  113919FC: 51                 push        ecx
+  113919FD: 8D 7D E0           lea         edi,[ebp-20h]
+  11391A00: B9 08 00 00 00     mov         ecx,8
+  11391A05: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11391A0A: F3 AB              rep stos    dword ptr es:[edi]
+  11391A0C: 59                 pop         ecx
+  11391A0D: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  11391A10: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11391A13: 0F B6 05 31 70 62  movzx       eax,byte ptr ds:[13627031h]
+            13
+  11391A1A: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  11391A20: 8B 0D 70 B0 6E 13  mov         ecx,dword ptr ds:[136EB070h]
+  11391A26: 51                 push        ecx
+  11391A27: E8 64 E6 CF FF     call        11090090
+  11391A2C: 83 C4 04           add         esp,4
+  11391A2F: 39 45 F8           cmp         dword ptr [ebp-8],eax
+  11391A32: 75 0C              jne         11391A40
+  11391A34: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],1
+            01 00 00 00
+  11391A3E: EB 0A              jmp         11391A4A
+  11391A40: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],0
+            00 00 00 00
+  11391A4A: 8B 95 24 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF24h]
+  11391A50: 23 95 20 FF FF FF  and         edx,dword ptr [ebp+FFFFFF20h]
+  11391A56: 88 15 31 70 62 13  mov         byte ptr ds:[13627031h],dl
+  11391A5C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11391A5F: 50                 push        eax
+  11391A60: E8 03 9E CC FF     call        1105B868
+  11391A65: 83 C4 04           add         esp,4
+  11391A68: 5F                 pop         edi
+  11391A69: 5E                 pop         esi
+  11391A6A: 5B                 pop         ebx
+  11391A6B: 81 C4 E0 00 00 00  add         esp,0E0h
+  11391A71: 3B EC              cmp         ebp,esp
+  11391A73: E8 71 C2 CC FF     call        1105DCE9
+  11391A78: 8B E5              mov         esp,ebp
+  11391A7A: 5D                 pop         ebp
+  11391A7B: C2 04 00           ret         4
+  11391A7E: CC                 int         3
+  11391A7F: CC                 int         3
+  11391A80: CC                 int         3
+  11391A81: CC                 int         3
+  11391A82: CC                 int         3
+  11391A83: CC                 int         3
+  11391A84: CC                 int         3
+  11391A85: CC                 int         3
+  11391A86: CC                 int         3
+  11391A87: CC                 int         3
+  11391A88: CC                 int         3
+  11391A89: CC                 int         3
+  11391A8A: CC                 int         3
+  11391A8B: CC                 int         3
+  11391A8C: CC                 int         3
+  11391A8D: CC                 int         3
+  11391A8E: CC                 int         3
+  11391A8F: CC                 int         3
+  11391A90: CC                 int         3
+  11391A91: CC                 int         3
+  11391A92: CC                 int         3
+  11391A93: CC                 int         3
+  11391A94: CC                 int         3
+  11391A95: CC                 int         3
+  11391A96: CC                 int         3
+  11391A97: CC                 int         3
+  11391A98: CC                 int         3
+  11391A99: CC                 int         3
+  11391A9A: CC                 int         3
+  11391A9B: CC                 int         3
+  11391A9C: CC                 int         3
+  11391A9D: CC                 int         3
+  11391A9E: CC                 int         3
+  11391A9F: CC                 int         3
+  11391AA0: CC                 int         3
+  11391AA1: CC                 int         3
+  11391AA2: CC                 int         3
+  11391AA3: CC                 int         3
+  11391AA4: CC                 int         3
+  11391AA5: CC                 int         3
+  11391AA6: CC                 int         3
+  11391AA7: CC                 int         3
+  11391AA8: CC                 int         3
+  11391AA9: CC                 int         3
+  11391AAA: CC                 int         3
+  11391AAB: CC                 int         3
+  11391AAC: CC                 int         3
+  11391AAD: CC                 int         3
+  11391AAE: CC                 int         3
+  11391AAF: CC                 int         3
+  11391AB0: 55                 push        ebp
+  11391AB1: 8B EC              mov         ebp,esp
+  11391AB3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11391AB9: 53                 push        ebx
+  11391ABA: 56                 push        esi
+  11391ABB: 57                 push        edi
+  11391ABC: 8B FD              mov         edi,ebp
+  11391ABE: 33 C9              xor         ecx,ecx
+  11391AC0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11391AC5: F3 AB              rep stos    dword ptr es:[edi]
+  11391AC7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11391ACA: 50                 push        eax
+  11391ACB: E8 98 9D CC FF     call        1105B868
+  11391AD0: 83 C4 04           add         esp,4
+  11391AD3: 5F                 pop         edi
+  11391AD4: 5E                 pop         esi
+  11391AD5: 5B                 pop         ebx
+  11391AD6: 81 C4 C0 00 00 00  add         esp,0C0h
+  11391ADC: 3B EC              cmp         ebp,esp
+  11391ADE: E8 06 C2 CC FF     call        1105DCE9
+  11391AE3: 8B E5              mov         esp,ebp
+  11391AE5: 5D                 pop         ebp
+  11391AE6: C3                 ret
+  11391AE7: CC                 int         3
+  11391AE8: CC                 int         3
+  11391AE9: CC                 int         3
+  11391AEA: CC                 int         3
+  11391AEB: CC                 int         3
+  11391AEC: CC                 int         3
+  11391AED: CC                 int         3
+  11391AEE: CC                 int         3
+  11391AEF: CC                 int         3
+  11391AF0: CC                 int         3
+
+  Summary
+
+     216F000 .text

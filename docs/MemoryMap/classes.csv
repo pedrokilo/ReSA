@@ -283,7 +283,7 @@ COcclusion,class,5,5,0,5,5,0,,,source/game_sa/Occlusion.h:9,catalogue_class_or_g
 COnscreenCounterEntry,class,2,2,0,2,2,0,,,source/game_sa/OnscreenCounterEntry.h:12,catalogue_class_or_group
 COnscreenTimer,class,6,6,0,6,6,0,,,source/game_sa/OnscreenTimer.h:15,catalogue_class_or_group
 CPPTriPlantBuffer,class,7,7,0,7,7,0,,,source/game_sa/PPTriPlantBuffer.h:34,catalogue_class_or_group
-CPad,class,75,75,0,70,70,0,,,source/game_sa/Pad.h:54,catalogue_class_or_group
+CPad,class,75,75,0,74,74,0,,,source/game_sa/Pad.h:54,catalogue_class_or_group
 CPathFind,class,56,56,0,2,2,0,,,source/game_sa/PathFind.h:182,catalogue_class_or_group
 CPathNode,class,1,1,0,1,1,0,,,source/game_sa/PathFind.h:120,catalogue_class_or_group
 CPed,class,145,145,0,145,145,0,0x0086C358,public CPhysical,source/game_sa/Entity/Ped/Ped.h:113,catalogue_class_or_group

@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  113884E0: 55                 push        ebp
+  113884E1: 8B EC              mov         ebp,esp
+  113884E3: 6A FF              push        0FFFFFFFFh
+  113884E5: 68 50 D9 0D 13     push        130DD950h
+  113884EA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  113884F0: 50                 push        eax
+  113884F1: 81 EC CC 00 00 00  sub         esp,0CCh
+  113884F7: 53                 push        ebx
+  113884F8: 56                 push        esi
+  113884F9: 57                 push        edi
+  113884FA: 51                 push        ecx
+  113884FB: 8D 7D E8           lea         edi,[ebp-18h]
+  113884FE: B9 03 00 00 00     mov         ecx,3
+  11388503: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11388508: F3 AB              rep stos    dword ptr es:[edi]
+  1138850A: 59                 pop         ecx
+  1138850B: A1 40 4A 6D 13     mov         eax,dword ptr ds:[136D4A40h]
+  11388510: 33 C5              xor         eax,ebp
+  11388512: 50                 push        eax
+  11388513: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11388516: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1138851C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1138851F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11388522: 50                 push        eax
+  11388523: E8 C8 55 FF FF     call        1137DAF0
+  11388528: 83 C4 04           add         esp,4
+  1138852B: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1138852E: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11388535: 59                 pop         ecx
+  11388536: 5F                 pop         edi
+  11388537: 5E                 pop         esi
+  11388538: 5B                 pop         ebx
+  11388539: 81 C4 D8 00 00 00  add         esp,0D8h
+  1138853F: 3B EC              cmp         ebp,esp
+  11388541: E8 B7 77 CD FF     call        1105FCFD
+  11388546: 8B E5              mov         esp,ebp
+  11388548: 5D                 pop         ebp
+  11388549: C3                 ret
+  1138854A: CC                 int         3
+  1138854B: CC                 int         3
+  1138854C: CC                 int         3
+  1138854D: CC                 int         3
+  1138854E: CC                 int         3
+  1138854F: CC                 int         3
+
+  Summary
+
+     2174000 .text

@@ -1,0 +1,17 @@
+{
+  "status": "prepared_not_compiled_not_executed",
+  "expected_pairs": 17256,
+  "canonical_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "target": {"class": "CPad", "fn_name": "ProcessPad", "address": "0x00746A10", "length": 872, "ret": "0x00746D77", "convention": "cdecl, caller cleans"},
+  "native_collaborators": {
+    "traced_scripted": ["IDirectInputDevice8::Poll vtbl+0x64", "::Acquire vtbl+0x1C", "::GetDeviceState vtbl+0x24 (cb=0x110)", "RsPadEventHandler 0x6195A0 (events 0x20, 0x20, 0x1F)"],
+    "native_cpu_real": ["GetPad 0x53FB70 (EXE call; candidate inline &Pads[n])", "FTOL 0x821B40", "x87 fsin/fcos"]
+  },
+  "globals": ["RsGlobal.ps C17054 (temporarily pointed at a private 72-byte psGlobal arena)", "ControlsManager B70198..B703BB", "sticks C8CFB0..C8CFBF", "Pads B73458 (616)", "AllValidWinJoys C92144 (32)", "menu BA67F9..BA67FE", "padNumber B73400"],
+  "fp_domain": "x87 PC24 and PC53, RC nearest, exceptions masked; finite stick floats; sin/cos model within one float ulp tolerated only for POV-active rows and reported",
+  "credit": "Finite isolated ProcessPad CPU/ABI/trace behaviour for the listed domain only. No credit for DirectInput, COM, RsPadEventHandler, GetPad, FTOL, ControlsManager methods, input integration, gameplay or current dependencies.",
+  "known_domain_exclusions": ["padID not 0/1 (EXE crashes at 746A3A)", "bJoyJustInitialised not 0/1", "NaN/inf stick values", "return value eax compared only informationally"],
+  "preconditions_before_run": ["coordinator serial build", "Diagnostics/compiled-runtime-proof.json (matching ASI/PDB, event_call_paths_verified, inline_getpad_and_float_paths_reviewed)", "no GTA process, no other bank running"],
+  "no_runtime_approval": true,
+  "source_before": {"Pad.cpp": "89badf36b91db868c0a9d41408db7b595bc116ce941a7864cd697af8a4bbaa4d", "Pad.h": "d18adb99148fe3fbdde2447a44699451f3afce97f29994bdf3bd29a3829889e2"}
+}

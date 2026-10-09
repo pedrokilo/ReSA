@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1139F5B0: 55                 push        ebp
+  1139F5B1: 8B EC              mov         ebp,esp
+  1139F5B3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1139F5B9: 53                 push        ebx
+  1139F5BA: 56                 push        esi
+  1139F5BB: 57                 push        edi
+  1139F5BC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1139F5BF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1139F5C2: 83 C0 68           add         eax,68h
+  1139F5C5: 5F                 pop         edi
+  1139F5C6: 5E                 pop         esi
+  1139F5C7: 5B                 pop         ebx
+  1139F5C8: 8B E5              mov         esp,ebp
+  1139F5CA: 5D                 pop         ebp
+  1139F5CB: C3                 ret
+  1139F5CC: CC                 int         3
+  1139F5CD: CC                 int         3
+  1139F5CE: CC                 int         3
+  1139F5CF: CC                 int         3
+  1139F5D0: CC                 int         3
+  1139F5D1: CC                 int         3
+  1139F5D2: CC                 int         3
+  1139F5D3: CC                 int         3
+  1139F5D4: CC                 int         3
+  1139F5D5: CC                 int         3
+  1139F5D6: CC                 int         3
+  1139F5D7: CC                 int         3
+  1139F5D8: CC                 int         3
+  1139F5D9: CC                 int         3
+  1139F5DA: CC                 int         3
+  1139F5DB: CC                 int         3
+  1139F5DC: CC                 int         3
+  1139F5DD: CC                 int         3
+  1139F5DE: CC                 int         3
+  1139F5DF: CC                 int         3
+  1139F5E0: 55                 push        ebp
+  1139F5E1: 8B EC              mov         ebp,esp
+  1139F5E3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1139F5E9: 53                 push        ebx
+  1139F5EA: 56                 push        esi
+  1139F5EB: 57                 push        edi
+  1139F5EC: 51                 push        ecx
+  1139F5ED: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1139F5F0: B9
+
+  Summary
+
+     216D000 .text

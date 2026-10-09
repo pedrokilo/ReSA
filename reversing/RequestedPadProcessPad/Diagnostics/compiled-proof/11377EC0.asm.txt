@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11377EC0: 55                 push        ebp
+  11377EC1: 8B EC              mov         ebp,esp
+  11377EC3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11377EC9: 53                 push        ebx
+  11377ECA: 56                 push        esi
+  11377ECB: 57                 push        edi
+  11377ECC: 8B FD              mov         edi,ebp
+  11377ECE: 33 C9              xor         ecx,ecx
+  11377ED0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11377ED5: F3 AB              rep stos    dword ptr es:[edi]
+  11377ED7: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11377EDA: E8 01 35 01 00     call        1138B3E0
+  11377EDF: 90                 nop
+  11377EE0: 5F                 pop         edi
+  11377EE1: 5E                 pop         esi
+  11377EE2: 5B                 pop         ebx
+  11377EE3: 81 C4 C0 00 00 00  add         esp,0C0h
+  11377EE9: 3B EC              cmp         ebp,esp
+  11377EEB: E8 E5 5D CE FF     call        1105DCD5
+  11377EF0: 8B E5              mov         esp,ebp
+  11377EF2: 5D                 pop         ebp
+  11377EF3: C3                 ret
+  11377EF4: CC                 int         3
+  11377EF5: CC                 int         3
+  11377EF6: CC                 int         3
+  11377EF7: CC                 int         3
+  11377EF8: CC                 int         3
+  11377EF9: CC                 int         3
+  11377EFA: CC                 int         3
+  11377EFB: CC                 int         3
+  11377EFC: CC                 int         3
+  11377EFD: CC                 int         3
+  11377EFE: CC                 int         3
+  11377EFF: CC                 int         3
+  11377F00: CC                 int         3
+
+  Summary
+
+     2170000 .text

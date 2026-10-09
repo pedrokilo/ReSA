@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11321D60: 55                 push        ebp
+  11321D61: 8B EC              mov         ebp,esp
+  11321D63: 81 EC C0 00 00 00  sub         esp,0C0h
+  11321D69: 53                 push        ebx
+  11321D6A: 56                 push        esi
+  11321D6B: 57                 push        edi
+  11321D6C: 69 45 08 34 01 00  imul        eax,dword ptr [ebp+8],134h
+            00
+  11321D73: 03 05 D0 86 78 13  add         eax,dword ptr ds:[137886D0h]
+  11321D79: 5F                 pop         edi
+  11321D7A: 5E                 pop         esi
+  11321D7B: 5B                 pop         ebx
+  11321D7C: 8B E5              mov         esp,ebp
+  11321D7E: 5D                 pop         ebp
+  11321D7F: C3                 ret
+  11321D80: CC                 int         3
+  11321D81: CC                 int         3
+  11321D82: CC                 int         3
+  11321D83: CC                 int         3
+  11321D84: CC                 int         3
+  11321D85: CC                 int         3
+  11321D86: CC                 int         3
+  11321D87: CC                 int         3
+  11321D88: CC                 int         3
+  11321D89: CC                 int         3
+  11321D8A: CC                 int         3
+  11321D8B: CC                 int         3
+  11321D8C: CC                 int         3
+  11321D8D: CC                 int         3
+  11321D8E: CC                 int         3
+  11321D8F: CC                 int         3
+  11321D90: 55                 push        ebp
+  11321D91: 8B EC              mov         ebp,esp
+  11321D93: 81 EC C0 00 00 00  sub         esp,0C0h
+  11321D99: 53                 push        ebx
+  11321D9A: 56                 push        esi
+  11321D9B: 57                 push        edi
+  11321D9C: A1 40 8A 78 13     mov         eax,dword ptr ds:[13788A40h]
+
+  Summary
+
+     216D000 .text

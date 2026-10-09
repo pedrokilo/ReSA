@@ -1,0 +1,38 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1112CE70: 55                 push        ebp
+  1112CE71: 8B EC              mov         ebp,esp
+  1112CE73: 81 EC C0 00 00 00  sub         esp,0C0h
+  1112CE79: 53                 push        ebx
+  1112CE7A: 56                 push        esi
+  1112CE7B: 57                 push        edi
+  1112CE7C: 8B FD              mov         edi,ebp
+  1112CE7E: 33 C9              xor         ecx,ecx
+  1112CE80: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1112CE85: F3 AB              rep stos    dword ptr es:[edi]
+  1112CE87: B9 B4 99 78 13     mov         ecx,137899B4h
+  1112CE8C: E8 E0 FC F3 FF     call        1106CB71
+  1112CE91: 90                 nop
+  1112CE92: 68 50 DD 1B 13     push        131BDD50h
+  1112CE97: E8 87 1B F6 FF     call        1108EA23
+  1112CE9C: 83 C4 04           add         esp,4
+  1112CE9F: 5F                 pop         edi
+  1112CEA0: 5E                 pop         esi
+  1112CEA1: 5B                 pop         ebx
+  1112CEA2: 81 C4 C0 00 00 00  add         esp,0C0h
+  1112CEA8: 3B EC              cmp         ebp,esp
+  1112CEAA: E8 26 FE F2 FF     call        1105CCD5
+  1112CEAF: 8B E5              mov         esp,ebp
+  1112CEB1: 5D                 pop         ebp
+  1112CEB2: C3                 ret
+  1112CEB3: CC                 int         3
+
+  Summary
+
+     216D000 .text

@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1135FA80: 55                 push        ebp
+  1135FA81: 8B EC              mov         ebp,esp
+  1135FA83: 81 EC C0 00 00 00  sub         esp,0C0h
+  1135FA89: 53                 push        ebx
+  1135FA8A: 56                 push        esi
+  1135FA8B: 57                 push        edi
+  1135FA8C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135FA8F: 5F                 pop         edi
+  1135FA90: 5E                 pop         esi
+  1135FA91: 5B                 pop         ebx
+  1135FA92: 8B E5              mov         esp,ebp
+  1135FA94: 5D                 pop         ebp
+  1135FA95: C3                 ret
+  1135FA96: CC                 int         3
+  1135FA97: CC                 int         3
+  1135FA98: CC                 int         3
+  1135FA99: CC                 int         3
+  1135FA9A: CC                 int         3
+  1135FA9B: CC                 int         3
+  1135FA9C: CC                 int         3
+  1135FA9D: CC                 int         3
+  1135FA9E: CC                 int         3
+  1135FA9F: CC                 int         3
+  1135FAA0: 55                 push        ebp
+  1135FAA1: 8B EC              mov         ebp,esp
+  1135FAA3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1135FAA9: 53                 push        ebx
+  1135FAAA: 56                 push        esi
+  1135FAAB: 57                 push        edi
+  1135FAAC: 8B FD              mov         edi,ebp
+  1135FAAE: 33 C9              xor         ecx,ecx
+  1135FAB0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135FAB5: F3 AB              rep stos    dword ptr es:[edi]
+  1135FAB7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135FABA: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1135FABD: 8B 10              mov         edx,dword ptr [eax]
+  1135FABF: 3B 11              cmp         edx,dword ptr [ecx]
+
+  Summary
+
+     2170000 .text

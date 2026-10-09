@@ -1,0 +1,27 @@
+{
+  "status": "prepared_frozen_not_compiled_not_executed",
+  "expected_pairs": 9216,
+  "scope": "9216 finite isolated UpdateMouse CPU cases; real unmodified native CheckForInput used by both legs, helpers identity/ABI traced. FullprivatePad+mouse/guard/device/preferences/timer byte comparison; strict rawFP/control gates and all17692globalharness restoration. No devices/COM/realinput/helpers/actorintegration/dependencies accredited. MatchingPE/PDB calls/ABI must be reviewed after coordinator build.",
+  "inputs": {
+    "reversing/RequestedPadUpdateMouseV3/LiveComparison.hpp": "44a83eeaf40640d3d4ad585bc311e1cf3f05c758db1cd3238054937a6439242f",
+    "reversing/RequestedPadUpdateMouseV3/Preflight.hpp": "ca2db626beb80f2c97c5d3fd150f260849ea43c47758df478464a76c8ffcba3b",
+    "reversing/RequestedPadUpdateMouseV3/VTableRanges.hpp": "e50dc6b6af760e1a094f28d3158cd51ca1ddada0c6a471aecf8dea3aed4e01c8",
+    "reversing/RequestedPadUpdateMouseV3/model.py": "ea7e5b27fb3c349f0cae8e79e958902a0873abcec66238d86b26305ef536af6c",
+    "reversing/RequestedPadUpdateMouseV3/build_probe.py": "336055ec566ebae217f895af72e88310873b1933e75d83d5684eef682c7adbc9",
+    "reversing/RequestedPadUpdateMouseV3/run_local.py": "64eb94a76f3535da36118459e6d2b33fe4e14213f8dfbdf1281dfb0dad858a74",
+    "reversing/RequestedPadUpdateMouseV3/inspect_compiled.py": "1fd339e0cc3f61c75e6cd7d68a3a607c6238c1a164c91cc8ff7a08d858d32daf",
+    "reversing/RequestedPadUpdateMouseV3/preparation-plan.json": "b27e852292d74ea71888f28c975be1d34fe19823c873f5440f9610ac64030053",
+    "reversing/RequestedPadUpdateMouseV3/DESIGN.md": "4b2a55a33c4a103b2c8456c07201d178f936a1d24350e5f7d22ff5ad6e39861f",
+    "reversing/RequestedPadUpdateMouseV3/evidence/UpdateMouse-fresh-combo.txt": "49e57d6ebf6e4851aac95d2c4822b98519d650b4d629be04692a4bdb99db2c21",
+    "reversing/RequestedPadUpdateMouseV3/evidence/NativeCheckForInput.asm.txt": "49d204995cbc747885aa10080ef5cab78df34f1f2577ca1aa12e2de5ada92ed6",
+    "reversing/RequestedPadUpdateMouseV3/evidence/NativeGetMouseState.asm.txt": "db0b7920f2e7b624782fc65e5e54dd0c2279a9f28dd866439736ea58c5ababb0",
+    "reversing/RequestedPadUpdateMouseV3/evidence/native-constant-zero.json": "de7e1f0ea93ea4555a3bea55696f2dfca5bc02643a423222832c4075a9973cd7",
+    "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+    "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+    "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+    "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+  },
+  "source_before_sha256": "b0902674db3e303e58c1bb9b875439a1e3ec02eaa8fa0acb8a619ab6774adaf2",
+  "revision": 3,
+  "revision_reason": "V3 corrige dos defectos del arnes del V2 rechazado en LiveComparison.hpp (checkOwn/checkBody antes de desenganchar; checkHookedNative para restauracion). Corpus de 9216 casos y model.py sin cambios."
+}

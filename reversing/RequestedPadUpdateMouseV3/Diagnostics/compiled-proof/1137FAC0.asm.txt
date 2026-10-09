@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1137FAC0: 55                 push        ebp
+  1137FAC1: 8B EC              mov         ebp,esp
+  1137FAC3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137FAC9: 53                 push        ebx
+  1137FACA: 56                 push        esi
+  1137FACB: 57                 push        edi
+  1137FACC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137FACF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137FAD2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1137FAD5: 89 08              mov         dword ptr [eax],ecx
+  1137FAD7: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137FADA: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1137FADD: 89 48 04           mov         dword ptr [eax+4],ecx
+  1137FAE0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137FAE3: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  1137FAE6: 89 48 08           mov         dword ptr [eax+8],ecx
+  1137FAE9: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137FAEC: 5F                 pop         edi
+  1137FAED: 5E                 pop         esi
+  1137FAEE: 5B                 pop         ebx
+  1137FAEF: 8B E5              mov         esp,ebp
+  1137FAF1: 5D                 pop         ebp
+  1137FAF2: C2 0C 00           ret         0Ch
+  1137FAF5: CC                 int         3
+  1137FAF6: CC                 int         3
+  1137FAF7: CC                 int         3
+  1137FAF8: CC                 int         3
+  1137FAF9: CC                 int         3
+  1137FAFA: CC                 int         3
+  1137FAFB: CC                 int         3
+  1137FAFC: CC                 int         3
+  1137FAFD: CC                 int         3
+  1137FAFE: CC                 int         3
+  1137FAFF: CC                 int         3
+  1137FB00: CC                 int         3
+
+  Summary
+
+     2171000 .text

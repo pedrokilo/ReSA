@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1136C280: 55                 push        ebp
+  1136C281: 8B EC              mov         ebp,esp
+  1136C283: 81 EC CC 00 00 00  sub         esp,0CCh
+  1136C289: 53                 push        ebx
+  1136C28A: 56                 push        esi
+  1136C28B: 57                 push        edi
+  1136C28C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  1136C290: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136C293: 5F                 pop         edi
+  1136C294: 5E                 pop         esi
+  1136C295: 5B                 pop         ebx
+  1136C296: 8B E5              mov         esp,ebp
+  1136C298: 5D                 pop         ebp
+  1136C299: C3                 ret
+  1136C29A: CC                 int         3
+  1136C29B: CC                 int         3
+  1136C29C: CC                 int         3
+  1136C29D: CC                 int         3
+  1136C29E: CC                 int         3
+  1136C29F: CC                 int         3
+  1136C2A0: 55                 push        ebp
+  1136C2A1: 8B EC              mov         ebp,esp
+  1136C2A3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1136C2A9: 53                 push        ebx
+  1136C2AA: 56                 push        esi
+  1136C2AB: 57                 push        edi
+  1136C2AC: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  1136C2B0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136C2B3: 5F                 pop         edi
+  1136C2B4: 5E                 pop         esi
+  1136C2B5: 5B                 pop         ebx
+  1136C2B6: 8B E5              mov         esp,ebp
+  1136C2B8: 5D                 pop         ebp
+  1136C2B9: C3                 ret
+  1136C2BA: CC                 int         3
+  1136C2BB: CC                 int         3
+  1136C2BC: CC                 int         3
+  1136C2BD: CC                 int         3
+  1136C2BE: CC                 int         3
+  1136C2BF: CC                 int         3
+  1136C2C0: 55                 push        ebp
+
+  Summary
+
+     2174000 .text

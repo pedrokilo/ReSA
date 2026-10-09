@@ -1,0 +1,101 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1135DC40: 55                 push        ebp
+  1135DC41: 8B EC              mov         ebp,esp
+  1135DC43: 81 EC FC 00 00 00  sub         esp,0FCh
+  1135DC49: 53                 push        ebx
+  1135DC4A: 56                 push        esi
+  1135DC4B: 57                 push        edi
+  1135DC4C: 51                 push        ecx
+  1135DC4D: 8D 7D C4           lea         edi,[ebp-3Ch]
+  1135DC50: B9 0F 00 00 00     mov         ecx,0Fh
+  1135DC55: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135DC5A: F3 AB              rep stos    dword ptr es:[edi]
+  1135DC5C: 59                 pop         ecx
+  1135DC5D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1135DC60: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1135DC63: 50                 push        eax
+  1135DC64: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1135DC67: 51                 push        ecx
+  1135DC68: E8 4C 1B D5 FF     call        110AF7B9
+  1135DC6D: 83 C4 08           add         esp,8
+  1135DC70: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1135DC73: 83 C0 34           add         eax,34h
+  1135DC76: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1135DC79: 8D 45 E0           lea         eax,[ebp-20h]
+  1135DC7C: 50                 push        eax
+  1135DC7D: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1135DC80: E8 D5 2D D1 FF     call        11070A5A
+  1135DC85: 90                 nop
+  1135DC86: 8D 45 D4           lea         eax,[ebp-2Ch]
+  1135DC89: 50                 push        eax
+  1135DC8A: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1135DC8D: E8 90 9E D4 FF     call        110A7B22
+  1135DC92: 90                 nop
+  1135DC93: EB 09              jmp         1135DC9E
+  1135DC95: 8D 4D E0           lea         ecx,[ebp-20h]
+  1135DC98: E8 E2 BE D4 FF     call        110A9B7F
+  1135DC9D: 90                 nop
+  1135DC9E: 8D 45 D4           lea         eax,[ebp-2Ch]
+  1135DCA1: 50                 push        eax
+  1135DCA2: 8D 4D E0           lea         ecx,[ebp-20h]
+  1135DCA5: E8 34 E8 D3 FF     call        1109C4DE
+  1135DCAA: 0F B6 C8           movzx       ecx,al
+  1135DCAD: 85 C9              test        ecx,ecx
+  1135DCAF: 75 1A              jne         1135DCCB
+  1135DCB1: 8D 4D E0           lea         ecx,[ebp-20h]
+  1135DCB4: E8 3E FA D0 FF     call        1106D6F7
+  1135DCB9: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  1135DCBC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135DCBF: 50                 push        eax
+  1135DCC0: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  1135DCC3: E8 0B B1 CF FF     call        11058DD3
+  1135DCC8: 90                 nop
+  1135DCC9: EB CA              jmp         1135DC95
+  1135DCCB: 52                 push        edx
+  1135DCCC: 8B CD              mov         ecx,ebp
+  1135DCCE: 50                 push        eax
+  1135DCCF: 8D 15 F4 DC 35 11  lea         edx,ds:[1135DCF4h]
+  1135DCD5: E8 01 49 D0 FF     call        110625DB
+  1135DCDA: 58                 pop         eax
+  1135DCDB: 5A                 pop         edx
+  1135DCDC: 5F                 pop         edi
+  1135DCDD: 5E                 pop         esi
+  1135DCDE: 5B                 pop         ebx
+  1135DCDF: 81 C4 FC 00 00 00  add         esp,0FCh
+  1135DCE5: 3B EC              cmp         ebp,esp
+  1135DCE7: E8 E9 EF CF FF     call        1105CCD5
+  1135DCEC: 8B E5              mov         esp,ebp
+  1135DCEE: 5D                 pop         ebp
+  1135DCEF: C2 04 00           ret         4
+  1135DCF2: 66 90              nop
+  1135DCF4: 02 00              add         al,byte ptr [eax]
+  1135DCF6: 00 00              add         byte ptr [eax],al
+  1135DCF8: FC                 cld
+  1135DCF9: DC 35 11 E0 FF FF  fdiv        qword ptr ds:[FFFFE011h]
+  1135DCFF: FF 04 00           inc         dword ptr [eax+eax]
+  1135DD02: 00 00              add         byte ptr [eax],al
+  1135DD04: 1D DD 35 11 D4     sbb         eax,0D41135DDh
+  1135DD09: FF
+  1135DD0A: FF
+  1135DD0B: FF 04 00           inc         dword ptr [eax+eax]
+  1135DD0E: 00 00              add         byte ptr [eax],al
+  1135DD10: 14 DD              adc         al,0DDh
+  1135DD12: 35 11 3C 65 6E     xor         eax,6E653C11h
+  1135DD17: 64
+  1135DD18: 3E 24 4C           and         al,4Ch
+  1135DD1B: 30 00              xor         byte ptr [eax],al
+  1135DD1D: 3C 62              cmp         al,62h
+  1135DD1F: 65 67 69 6E 3E 24  imul        ebp,dword ptr gs:[bp+3Eh],304C24h
+            4C 30 00
+  1135DD28: CC                 int         3
+
+  Summary
+
+     216D000 .text

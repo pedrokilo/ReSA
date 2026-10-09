@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11376140: 55                 push        ebp
+  11376141: 8B EC              mov         ebp,esp
+  11376143: 81 EC CC 00 00 00  sub         esp,0CCh
+  11376149: 53                 push        ebx
+  1137614A: 56                 push        esi
+  1137614B: 57                 push        edi
+  1137614C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1137614F: 8B 08              mov         ecx,dword ptr [eax]
+  11376151: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11376154: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11376157: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1137615A: 8B 11              mov         edx,dword ptr [ecx]
+  1137615C: 89 10              mov         dword ptr [eax],edx
+  1137615E: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11376161: 5F                 pop         edi
+  11376162: 5E                 pop         esi
+  11376163: 5B                 pop         ebx
+  11376164: 8B E5              mov         esp,ebp
+  11376166: 5D                 pop         ebp
+  11376167: C3                 ret
+  11376168: CC                 int         3
+  11376169: CC                 int         3
+  1137616A: CC                 int         3
+  1137616B: CC                 int         3
+  1137616C: CC                 int         3
+  1137616D: CC                 int         3
+  1137616E: CC                 int         3
+  1137616F: CC                 int         3
+  11376170: CC                 int         3
+  11376171: CC                 int         3
+  11376172: CC                 int         3
+  11376173: CC                 int         3
+  11376174: CC                 int         3
+  11376175: CC                 int         3
+  11376176: CC                 int         3
+  11376177: CC                 int         3
+  11376178: CC                 int         3
+  11376179: CC                 int         3
+  1137617A: CC                 int         3
+  1137617B: CC                 int         3
+  1137617C: CC                 int         3
+  1137617D: CC                 int         3
+  1137617E: CC                 int         3
+  1137617F: CC                 int         3
+  11376180: 55                 push        ebp
+
+  Summary
+
+     216D000 .text

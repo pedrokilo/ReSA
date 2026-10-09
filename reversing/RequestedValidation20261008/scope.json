@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "requested_base": "24adc9887871e167b4b64e981446b265ba1e16df",
-  "inspected_head": "c62854efedeb7dfff52527be9bb6f37d6a4b6f4a",
+  "inspected_head": "9df4f1d47430c971817667e1d726520addc01ab4",
   "selection": "Classes requested by user; requested_pending=1 selects initial validated=0 identities. Historical rows are context, not an automatic replay expansion.",
-  "hooks_sha256": "a038f07a0d31f0904cbc3811c3c7cc6314608f1508ed9f8812a9696e7a200d8f",
-  "registry_sha256": "e8f190a8fae7c57afffc021d1a4260e22338b771f1d4d0d34b226d00a8079892",
+  "hooks_sha256": "bcb44e667eaadf02be188307ebf210954a90eaa9993c0c8900db891d2580d0bf",
+  "registry_sha256": "ed2962daf4d353edfff83d387907abb304bc30f632ef90da5056180a5fbf581e",
   "classes": {
     "CAEAudioHardware": {
       "expected_pending": 1,
@@ -607,12 +607,12 @@
     },
     "CPad": {
       "expected_pending": 75,
-      "historical_linked": 70,
+      "historical_linked": 73,
       "total": 75,
       "requested_pending": 75,
-      "pending_now": 5,
+      "pending_now": 2,
       "pending_with_candidate_summary": 0,
-      "unlinked": 5
+      "unlinked": 2
     },
     "CVehicleModelInfo": {
       "expected_pending": 75,
@@ -674,8 +674,8 @@
     }
   },
   "totals": {
-    "unlinked": 1579,
-    "historical_linked": 731
+    "unlinked": 1576,
+    "historical_linked": 734
   },
   "total_identities": 2310,
   "requested_pending": 1710,
@@ -7968,9 +7968,9 @@
       "address": "0x0053FB40",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadDistanceTrainNopHexV2",
+      "evidence": "reversing/RequestedPadDistanceTrainNopHexV2/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -8078,9 +8078,9 @@
       "address": "0x0053F9A0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadDistanceTrainNopHexV2",
+      "evidence": "reversing/RequestedPadDistanceTrainNopHexV2/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -8089,9 +8089,9 @@
       "address": "0x0053FA70",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPadDistanceTrainNopHexV2",
+      "evidence": "reversing/RequestedPadDistanceTrainNopHexV2/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -26096,6 +26096,6 @@
     "Candidate summary passed=true does not accredit current sources or dependencies.",
     "Read-only registry evaluation verifies registered summary/source/dependency hashes; it does not replay GTA or re-hash remote historical logs."
   ],
-  "audit_mode": "selection_only_current_unverified",
-  "pending_now": 1579
+  "audit_mode": "full_registry_evaluate",
+  "pending_now": 1576
 }

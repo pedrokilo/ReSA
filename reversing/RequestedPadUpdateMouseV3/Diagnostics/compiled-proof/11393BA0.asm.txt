@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11393BA0: 55                 push        ebp
+  11393BA1: 8B EC              mov         ebp,esp
+  11393BA3: 81 EC D0 00 00 00  sub         esp,0D0h
+  11393BA9: 53                 push        ebx
+  11393BAA: 56                 push        esi
+  11393BAB: 57                 push        edi
+  11393BAC: 51                 push        ecx
+  11393BAD: 8D 7D F0           lea         edi,[ebp-10h]
+  11393BB0: B9 04 00 00 00     mov         ecx,4
+  11393BB5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11393BBA: F3 AB              rep stos    dword ptr es:[edi]
+  11393BBC: 59                 pop         ecx
+  11393BBD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11393BC0: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  11393BC4: 74 1D              je          11393BE3
+  11393BC6: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11393BC9: E8 D1 A9 CE FF     call        1107E59F
+  11393BCE: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  11393BD1: 75 10              jne         11393BE3
+  11393BD3: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11393BD6: E8 3F FC CE FF     call        1108381A
+  11393BDB: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  11393BE1: EB 0A              jmp         11393BED
+  11393BE3: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  11393BED: 8B 85 30 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF30h]
+  11393BF3: 5F                 pop         edi
+  11393BF4: 5E                 pop         esi
+  11393BF5: 5B                 pop         ebx
+  11393BF6: 81 C4 D0 00 00 00  add         esp,0D0h
+  11393BFC: 3B EC              cmp         ebp,esp
+  11393BFE: E8 FA C0 CC FF     call        1105FCFD
+  11393C03: 8B E5              mov         esp,ebp
+  11393C05: 5D                 pop         ebp
+  11393C06: C2 08 00           ret         8
+  11393C09: CC                 int         3
+
+  Summary
+
+     2174000 .text

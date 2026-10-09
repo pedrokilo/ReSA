@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11366D30: 55                 push        ebp
+  11366D31: 8B EC              mov         ebp,esp
+  11366D33: 81 EC C0 00 00 00  sub         esp,0C0h
+  11366D39: 53                 push        ebx
+  11366D3A: 56                 push        esi
+  11366D3B: 57                 push        edi
+  11366D3C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11366D3F: 8B 00              mov         eax,dword ptr [eax]
+  11366D41: 5F                 pop         edi
+  11366D42: 5E                 pop         esi
+  11366D43: 5B                 pop         ebx
+  11366D44: 8B E5              mov         esp,ebp
+  11366D46: 5D                 pop         ebp
+  11366D47: C3                 ret
+  11366D48: CC                 int         3
+  11366D49: CC                 int         3
+  11366D4A: CC                 int         3
+  11366D4B: CC                 int         3
+  11366D4C: CC                 int         3
+  11366D4D: CC                 int         3
+  11366D4E: CC                 int         3
+  11366D4F: CC                 int         3
+  11366D50: 55                 push        ebp
+  11366D51: 8B EC              mov         ebp,esp
+  11366D53: 81 EC C0 00 00 00  sub         esp,0C0h
+  11366D59: 53                 push        ebx
+  11366D5A: 56                 push        esi
+  11366D5B: 57                 push        edi
+  11366D5C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11366D5F: 8B 00              mov         eax,dword ptr [eax]
+  11366D61: 5F                 pop         edi
+  11366D62: 5E                 pop         esi
+  11366D63: 5B                 pop         ebx
+  11366D64: 8B E5              mov         esp,ebp
+  11366D66: 5D                 pop         ebp
+  11366D67: C3                 ret
+  11366D68: CC                 int         3
+  11366D69: CC                 int         3
+  11366D6A: CC                 int         3
+  11366D6B: CC                 int         3
+  11366D6C: CC                 int         3
+  11366D6D: CC                 int         3
+  11366D6E: CC                 int         3
+  11366D6F: CC                 int         3
+  11366D70: 55                 push        ebp
+
+  Summary
+
+     216D000 .text

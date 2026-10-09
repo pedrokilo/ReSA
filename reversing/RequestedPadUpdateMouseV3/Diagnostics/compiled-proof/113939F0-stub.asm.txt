@@ -1,0 +1,94 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  113939F0: 55                 push        ebp
+  113939F1: 8B EC              mov         ebp,esp
+  113939F3: 6A FF              push        0FFFFFFFFh
+  113939F5: 68 A6 C3 0D 13     push        130DC3A6h
+  113939FA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  11393A00: 50                 push        eax
+  11393A01: 81 EC 0C 01 00 00  sub         esp,10Ch
+  11393A07: 53                 push        ebx
+  11393A08: 56                 push        esi
+  11393A09: 57                 push        edi
+  11393A0A: 8D 7D A8           lea         edi,[ebp-58h]
+  11393A0D: B9 13 00 00 00     mov         ecx,13h
+  11393A12: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11393A17: F3 AB              rep stos    dword ptr es:[edi]
+  11393A19: A1 40 0A 6D 13     mov         eax,dword ptr ds:[136D0A40h]
+  11393A1E: 33 C5              xor         eax,ebp
+  11393A20: 50                 push        eax
+  11393A21: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11393A24: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  11393A2A: 68 24 66 1E 13     push        131E6624h
+  11393A2F: 8D 8D F0 FE FF FF  lea         ecx,[ebp+FFFFFEF0h]
+  11393A35: E8 71 0F D1 FF     call        110A49AB
+  11393A3A: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  11393A41: 8D 45 08           lea         eax,[ebp+8]
+  11393A44: 50                 push        eax
+  11393A45: 8D 8D 08 FF FF FF  lea         ecx,[ebp+FFFFFF08h]
+  11393A4B: E8 8D E0 CD FF     call        11071ADD
+  11393A50: C7 45 FC 01 00 00  mov         dword ptr [ebp-4],1
+            00
+  11393A57: 8D 8D 20 FF FF FF  lea         ecx,[ebp+FFFFFF20h]
+  11393A5D: 51                 push        ecx
+  11393A5E: 8D 95 F0 FE FF FF  lea         edx,[ebp+FFFFFEF0h]
+  11393A64: 52                 push        edx
+  11393A65: 8D 8D 28 FF FF FF  lea         ecx,[ebp+FFFFFF28h]
+  11393A6B: E8 20 69 CE FF     call        1107A390
+  11393A70: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11393A73: 51                 push        ecx
+  11393A74: 8B 10              mov         edx,dword ptr [eax]
+  11393A76: 52                 push        edx
+  11393A77: B9 50 E0 6E 13     mov         ecx,136EE050h
+  11393A7C: E8 21 DC D0 FF     call        110A16A2
+  11393A81: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11393A88: 68 CB C1 08 11     push        1108C1CBh
+  11393A8D: 6A 02              push        2
+  11393A8F: 6A 18              push        18h
+  11393A91: 8D 85 F0 FE FF FF  lea         eax,[ebp+FFFFFEF0h]
+  11393A97: 50                 push        eax
+  11393A98: E8 9E C9 CC FF     call        1106043B
+  11393A9D: 90                 nop
+  11393A9E: 83 3D 64 E0 6E 13  cmp         dword ptr ds:[136EE064h],1
+            01
+  11393AA5: 75 0C              jne         11393AB3
+  11393AA7: C7 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],0
+            00 00 00 00
+  11393AB1: EB 0B              jmp         11393ABE
+  11393AB3: E8 58 AB CF FF     call        1108E610
+  11393AB8: 89 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],eax
+  11393ABE: E8 24 37 D1 FF     call        110A71E7
+  11393AC3: 8B 8D E8 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEE8h]
+  11393AC9: 89 08              mov         dword ptr [eax],ecx
+  11393ACB: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11393ACE: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11393AD5: 59                 pop         ecx
+  11393AD6: 5F                 pop         edi
+  11393AD7: 5E                 pop         esi
+  11393AD8: 5B                 pop         ebx
+  11393AD9: 81 C4 18 01 00 00  add         esp,118h
+  11393ADF: 3B EC              cmp         ebp,esp
+  11393AE1: E8 17 B2 CC FF     call        1105ECFD
+  11393AE6: 8B E5              mov         esp,ebp
+  11393AE8: 5D                 pop         ebp
+  11393AE9: C3                 ret
+  11393AEA: CC                 int         3
+  11393AEB: CC                 int         3
+  11393AEC: CC                 int         3
+  11393AED: CC                 int         3
+  11393AEE: CC                 int         3
+  11393AEF: CC                 int         3
+  11393AF0: CC                 int         3
+
+  Summary
+
+     2171000 .text

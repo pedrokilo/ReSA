@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1139A100: 55                 push        ebp
+  1139A101: 8B EC              mov         ebp,esp
+  1139A103: 81 EC F0 00 00 00  sub         esp,0F0h
+  1139A109: 53                 push        ebx
+  1139A10A: 56                 push        esi
+  1139A10B: 57                 push        edi
+  1139A10C: 51                 push        ecx
+  1139A10D: 8D 7D D0           lea         edi,[ebp-30h]
+  1139A110: B9 0C 00 00 00     mov         ecx,0Ch
+  1139A115: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1139A11A: F3 AB              rep stos    dword ptr es:[edi]
+  1139A11C: 59                 pop         ecx
+  1139A11D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1139A120: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1139A123: E8 8D 0E CE FF     call        1107AFB5
+  1139A128: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1139A12B: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1139A12E: E8 75 F1 CF FF     call        110992A8
+  1139A133: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1139A136: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1139A139: D1 E8              shr         eax,1
+  1139A13B: B9 FF FF FF 3F     mov         ecx,3FFFFFFFh
+  1139A140: 2B C8              sub         ecx,eax
+  1139A142: 39 4D EC           cmp         dword ptr [ebp-14h],ecx
+  1139A145: 76 07              jbe         1139A14E
+  1139A147: B8 FF FF FF 3F     mov         eax,3FFFFFFFh
+  1139A14C: EB 1B              jmp         1139A169
+  1139A14E: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1139A151: D1 E8              shr         eax,1
+  1139A153: 03 45 EC           add         eax,dword ptr [ebp-14h]
+  1139A156: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1139A159: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1139A15C: 3B 45 08           cmp         eax,dword ptr [ebp+8]
+  1139A15F: 73 05              jae         1139A166
+  1139A161: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1139A164: EB 03              jmp         1139A169
+  1139A166: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1139A169: 5F                 pop         edi
+  1139A16A: 5E                 pop         esi
+  1139A16B: 5B                 pop         ebx
+  1139A16C: 81 C4 F0 00 00 00  add         esp,0F0h
+  1139A172: 3B EC              cmp         ebp,esp
+  1139A174: E8 5C 3B CC FF     call        1105DCD5
+  1139A179: 8B E5              mov         esp,ebp
+  1139A17B: 5D                 pop         ebp
+  1139A17C: C2 04 00           ret         4
+  1139A17F: CC                 int         3
+
+  Summary
+
+     2170000 .text

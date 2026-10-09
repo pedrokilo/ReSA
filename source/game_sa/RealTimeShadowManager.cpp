@@ -61,11 +61,13 @@ void CRealTimeShadowManager::Exit() { // AKA `Shutdown`
         return;
     }
 
+    // Como el original (0x706A74-0x706A90): cada sombra NO nula se destruye (0x706440) y se libera (0x8214BD) y la casilla
+    // queda a nullptr; no se mira el propietario ni se libera nada mas (antes se borraba tambien el owner, que el EXE no hace).
     for (auto& shdw : m_apShadows) {
-        if (const auto owner = shdw->m_pOwner) {
-            delete shdw; // `shdw->m_pOwner` nulled out by this
-            delete owner; // Why?
+        if (shdw) {
+            delete shdw;
         }
+        shdw = nullptr;
     }
 
     // Nice hack
@@ -117,14 +119,17 @@ void CRealTimeShadowManager::Update() {
             continue;
         }
 
-        assert(shdw->m_pOwner->m_pShadowData == shdw);
-
-        // 0x305eed - 0x305f0f: Update intensity
-        constexpr auto INTENSITY_STEP = 3u;
+        // Como el original (0x706AED-0x706B0F): la intensidad se lee con movsx (byte CON SIGNO); al subir se suma 3 y se
+        // acota por arriba a 100 (jl, con signo); al bajar se resta 3 y se acota por abajo a 0 (setle, con signo).
+        // El EXE no comprueba que owner->m_pShadowData == shdw.
+        constexpr int32 INTENSITY_STEP = 3;
+        const int32 intensity = static_cast<int8>(shdw->m_nIntensity);
         if (shdw->m_bKeepAlive) {
-            shdw->m_nIntensity = std::min<uint8>(100u, shdw->m_nIntensity + INTENSITY_STEP);
+            const int32 up = intensity + INTENSITY_STEP;
+            shdw->m_nIntensity = static_cast<uint8>(up < 100 ? up : 100);
         } else { // Fade out
-            shdw->m_nIntensity = std::max<uint8>(shdw->m_nIntensity, INTENSITY_STEP) - INTENSITY_STEP; // Avoids underflow
+            const int32 down = intensity - INTENSITY_STEP;
+            shdw->m_nIntensity = static_cast<uint8>(down <= 0 ? 0 : down);
         }
 
         if (shdw->m_nIntensity) {
@@ -184,19 +189,13 @@ CRealTimeShadow* CRealTimeShadowManager::GetRealTimeShadow(CPhysical* physical) 
 
 // 0x706BA0
 void CRealTimeShadowManager::DoShadowThisFrame(CPhysical* physical) {
-    switch (g_fx.GetFxQuality()) {
-    case FX_QUALITY_VERY_HIGH: // Always render
-        break;
-    case FX_QUALITY_HIGH: { // Only draw for main player
-        if (physical->GetIsTypePed()) {
-            if (physical->AsPed()->m_nPedType == PED_TYPE_PLAYER1) {
-                break;
-            }
+    // Como el original (0x706BA6-0x706BE1): se calcula antes "es el PED_TYPE_PLAYER1" (tipo de entidad & 7 == 3 y
+    // m_nPedType == 0) y GetFxQuality se llama UNA vez, y una segunda solo si no era VERY_HIGH.
+    const bool isPlayer1 = physical->GetIsTypePed() && physical->AsPed()->m_nPedType == PED_TYPE_PLAYER1;
+    if (g_fx.GetFxQuality() != FX_QUALITY_VERY_HIGH) {
+        if (g_fx.GetFxQuality() != FX_QUALITY_HIGH || !isPlayer1) {
+            return;
         }
-        return;
-    }
-    default: // For any other quality: skip
-        return;
     }
 
     if (const auto shdw = physical->m_pShadowData) {

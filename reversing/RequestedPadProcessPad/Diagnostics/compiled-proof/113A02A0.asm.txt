@@ -1,0 +1,83 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113A02A0: 55                 push        ebp
+  113A02A1: 8B EC              mov         ebp,esp
+  113A02A3: 81 EC 08 01 00 00  sub         esp,108h
+  113A02A9: 53                 push        ebx
+  113A02AA: 56                 push        esi
+  113A02AB: 57                 push        edi
+  113A02AC: 51                 push        ecx
+  113A02AD: 8D 7D B8           lea         edi,[ebp-48h]
+  113A02B0: B9 12 00 00 00     mov         ecx,12h
+  113A02B5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113A02BA: F3 AB              rep stos    dword ptr es:[edi]
+  113A02BC: 59                 pop         ecx
+  113A02BD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113A02C0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  113A02C3: E8 D5 B6 CC FF     call        1106B99D
+  113A02C8: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  113A02CB: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113A02CE: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  113A02D1: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  113A02D4: 83 C0 04           add         eax,4
+  113A02D7: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  113A02DA: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  113A02DD: 83 C0 08           add         eax,8
+  113A02E0: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  113A02E3: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  113A02E6: 83 C0 0C           add         eax,0Ch
+  113A02E9: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  113A02EC: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  113A02EF: E8 F4 75 CC FF     call        110678E8
+  113A02F4: 90                 nop
+  113A02F5: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  113A02F8: 83 38 00           cmp         dword ptr [eax],0
+  113A02FB: 74 50              je          113A034D
+  113A02FD: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  113A0300: 50                 push        eax
+  113A0301: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  113A0304: 8B 11              mov         edx,dword ptr [ecx]
+  113A0306: 52                 push        edx
+  113A0307: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  113A030A: 8B 08              mov         ecx,dword ptr [eax]
+  113A030C: 51                 push        ecx
+  113A030D: E8 7E 5A CC FF     call        11065D90
+  113A0312: 83 C4 0C           add         esp,0Ch
+  113A0315: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  113A0318: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  113A031B: 8B 10              mov         edx,dword ptr [eax]
+  113A031D: 2B 11              sub         edx,dword ptr [ecx]
+  113A031F: C1 FA 02           sar         edx,2
+  113A0322: 52                 push        edx
+  113A0323: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  113A0326: 8B 08              mov         ecx,dword ptr [eax]
+  113A0328: 51                 push        ecx
+  113A0329: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  113A032C: E8 08 8C CE FF     call        11088F39
+  113A0331: 90                 nop
+  113A0332: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  113A0335: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  113A033B: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  113A033E: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  113A0344: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  113A0347: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  113A034D: 5F                 pop         edi
+  113A034E: 5E                 pop         esi
+  113A034F: 5B                 pop         ebx
+  113A0350: 81 C4 08 01 00 00  add         esp,108h
+  113A0356: 3B EC              cmp         ebp,esp
+  113A0358: E8 78 D9 CB FF     call        1105DCD5
+  113A035D: 8B E5              mov         esp,ebp
+  113A035F: 5D                 pop         ebp
+  113A0360: C3                 ret
+  113A0361: CC                 int         3
+
+  Summary
+
+     2170000 .text

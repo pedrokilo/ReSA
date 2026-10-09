@@ -40,7 +40,7 @@ void CTaskUtilityLineUpPedWithCar::InjectHooks() {
 CTaskUtilityLineUpPedWithCar::CTaskUtilityLineUpPedWithCar(const CVector& offset, int32 time, int32 doorOpenPosType, int32 doorIdx) {
     m_Offset = offset;
     m_fDoorOpenPosZ = -999.99f;
-    m_fTime = time;
+    m_fTime = int32(CTimer::GetTimeInMS()) + time; // Como el original: 0xB7CB84 (m_snTimeInMilliseconds) + time
     m_nDoorOpenPosType = doorOpenPosType;
     m_nDoorIdx = doorIdx;
 }

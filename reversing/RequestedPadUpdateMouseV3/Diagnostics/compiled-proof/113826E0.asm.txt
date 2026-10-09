@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  113826E0: 55                 push        ebp
+  113826E1: 8B EC              mov         ebp,esp
+  113826E3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113826E9: 53                 push        ebx
+  113826EA: 56                 push        esi
+  113826EB: 57                 push        edi
+  113826EC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113826EF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113826F2: 5F                 pop         edi
+  113826F3: 5E                 pop         esi
+  113826F4: 5B                 pop         ebx
+  113826F5: 8B E5              mov         esp,ebp
+  113826F7: 5D                 pop         ebp
+  113826F8: C2 04 00           ret         4
+  113826FB: CC                 int         3
+  113826FC: CC                 int         3
+  113826FD: CC                 int         3
+  113826FE: CC                 int         3
+  113826FF: CC                 int         3
+  11382700: CC                 int         3
+  11382701: CC                 int         3
+  11382702: CC                 int         3
+  11382703: CC                 int         3
+  11382704: CC                 int         3
+  11382705: CC                 int         3
+  11382706: CC                 int         3
+  11382707: CC                 int         3
+  11382708: CC                 int         3
+  11382709: CC                 int         3
+  1138270A: CC                 int         3
+  1138270B: CC                 int         3
+  1138270C: CC                 int         3
+  1138270D: CC                 int         3
+  1138270E: CC                 int         3
+  1138270F: CC                 int         3
+  11382710: 55                 push        ebp
+  11382711: 8B EC              mov         ebp,esp
+  11382713: 81 EC CC 00 00 00  sub         esp,0CCh
+  11382719: 53                 push        ebx
+  1138271A: 56                 push        esi
+  1138271B: 57                 push        edi
+  1138271C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1138271F: 8B
+  11382720: 45                 inc         ebp
+
+  Summary
+
+     2174000 .text

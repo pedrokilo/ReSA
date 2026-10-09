@@ -1,0 +1,55 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1139ACF0: 55                 push        ebp
+  1139ACF1: 8B EC              mov         ebp,esp
+  1139ACF3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1139ACF9: 53                 push        ebx
+  1139ACFA: 56                 push        esi
+  1139ACFB: 57                 push        edi
+  1139ACFC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1139ACFF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1139AD02: 5F                 pop         edi
+  1139AD03: 5E                 pop         esi
+  1139AD04: 5B                 pop         ebx
+  1139AD05: 8B E5              mov         esp,ebp
+  1139AD07: 5D                 pop         ebp
+  1139AD08: C3                 ret
+  1139AD09: CC                 int         3
+  1139AD0A: CC                 int         3
+  1139AD0B: CC                 int         3
+  1139AD0C: CC                 int         3
+  1139AD0D: CC                 int         3
+  1139AD0E: CC                 int         3
+  1139AD0F: CC                 int         3
+  1139AD10: 55                 push        ebp
+  1139AD11: 8B EC              mov         ebp,esp
+  1139AD13: 81 EC CC 00 00 00  sub         esp,0CCh
+  1139AD19: 53                 push        ebx
+  1139AD1A: 56                 push        esi
+  1139AD1B: 57                 push        edi
+  1139AD1C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1139AD1F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1139AD22: 5F                 pop         edi
+  1139AD23: 5E                 pop         esi
+  1139AD24: 5B                 pop         ebx
+  1139AD25: 8B E5              mov         esp,ebp
+  1139AD27: 5D                 pop         ebp
+  1139AD28: C3                 ret
+  1139AD29: CC                 int         3
+  1139AD2A: CC                 int         3
+  1139AD2B: CC                 int         3
+  1139AD2C: CC                 int         3
+  1139AD2D: CC                 int         3
+  1139AD2E: CC                 int         3
+  1139AD2F: CC                 int         3
+  1139AD30: 55                 push        ebp
+
+  Summary
+
+     216D000 .text

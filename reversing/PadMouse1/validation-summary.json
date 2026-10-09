@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "pairs": 9216,
+  "differences": 0,
+  "functions": {
+    "CPad::UpdateMouse": 9216
+  },
+  "scope": "9216 isolated CPU pairs for CPad::UpdateMouse (EXE 0x0053F3C0), simple pair bench: original (hook off) vs candidate; zero differences, natural completion event with state_restored, saves unchanged, configs restored. Corpus: 6 paths (no foreground; init leaving the device null; read E_FAIL; read 0; positive HRESULT 1; E_ACCESSDENIED) x 12 DIMOUSESTATE2 states x 8 menu/invert-X/invert-Y combinations x 4 seed patterns x previous device yes/no x 2 clocks. Limits: no NaN/Inf/INT_MIN; no real COM (device is an opaque token); diMouseInit, GetMouseState, IsForegroundApp and IsVideoModeExclusive are stubbed and traced (calls and arguments only), so those helpers get no credit; CheckForInput and SetTouched run for real; padding bytes 7/27/47 of CMouseControllerState are NOT compared (MouseBytes() zeroes them: the EXE propagates byte 7 with rep movs, the compiler copies member by member); stubs ignore foreign threads (audio threads call IsForegroundApp); x87 forced to 24-bit precision. An earlier run (20261009-000614-797633) showed 579 differences in 1752 pairs plus an access violation; all of it was bench noise (padding byte and foreign-thread traces), fixed in LiveComparison.hpp, not a source/EXE difference. Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "dependency_review": null,
+  "run": "reversing/PadMouse1/runs/20261009-001153-051520",
+  "summary_sha256": "e758b49e190ad2a60b2f1b61dfa924ae3ff072ec4948ab4a5502ee9259b5d0c8",
+  "result_txt_sha256": "c3022495cbeafd4f0cf44c8a8c758204652c5f374c919894ef0c72d1c35b8540",
+  "log_sha256": "68a56e7754631510760839cd24297dd9b22b3749effc354d473251ac04c645ea",
+  "comparison_storage": {
+    "uncompressed_sha256": "68a56e7754631510760839cd24297dd9b22b3749effc354d473251ac04c645ea",
+    "uncompressed_bytes": 3653360,
+    "compressed_path": "reversing/PadMouse1/runs/20261009-001153-051520/comparisons.jsonl.gz",
+    "compressed_sha256": "2b687af2d304518f77285a239f912a1b3599a2c7170b0e35818fc15870d180d1",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "68a56e7754631510760839cd24297dd9b22b3749effc354d473251ac04c645ea",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-padmouse1\\20261009-001153-051520\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "90b4665ce626f046dc9402a60017022add4ab6eaf596fed3288f572c82fa3d8d",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9df4f1d47430c971817667e1d726520addc01ab4",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 9216,
+    "asi": "90b4665ce626f046dc9402a60017022add4ab6eaf596fed3288f572c82fa3d8d",
+    "pdb": "01ab9a5699ee29756bd56d86a7e3221026fbd5ee243ac4601831f35bafe54c84",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-padmouse1-probe.pdb (1.2 GB, not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Pad.cpp": "89badf36b91db868c0a9d41408db7b595bc116ce941a7864cd697af8a4bbaa4d",
+      "source/game_sa/Pad.h": "d18adb99148fe3fbdde2447a44699451f3afce97f29994bdf3bd29a3829889e2",
+      "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
+      "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "1f45258f59aff0fcccf5c9a7188cdbfca923e1ef56d3b99271b6ba1a3b9771c3",
+      "build_probe.py": "1465578036141863526d5e6fc9d928dccb60e6139b4a1ec43cd09e9d6690b7f5",
+      "run_local.py": "9acb203ebacf0a76ed8b0590295823e64cebcc1d96f846348170970b2972a1f6"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 9216,
+    "complete_events": 1,
+    "unequal": 0,
+    "distinct_cases": 9216
+  },
+  "rejected_attempts": {
+    "20261009-000614-797633": "579 differences in 1752 pairs + access violation; bench noise (padding byte 7, foreign audio thread); log not preserved in repository",
+    "previous.jsonl": "586bbb9b3834c258802260ca86b735740001e19c666a7c28f9441a107901c1b5"
+  }
+}

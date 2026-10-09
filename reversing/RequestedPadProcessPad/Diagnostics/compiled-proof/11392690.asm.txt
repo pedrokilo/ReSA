@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11392690: 55                 push        ebp
+  11392691: 8B EC              mov         ebp,esp
+  11392693: 81 EC CC 00 00 00  sub         esp,0CCh
+  11392699: 53                 push        ebx
+  1139269A: 56                 push        esi
+  1139269B: 57                 push        edi
+  1139269C: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1139269F: B9 03 00 00 00     mov         ecx,3
+  113926A4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113926A9: F3 AB              rep stos    dword ptr es:[edi]
+  113926AB: C7 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],0
+            00 00 00 00
+  113926B5: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  113926B8: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  113926BB: 51                 push        ecx
+  113926BC: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  113926BF: 8B 02              mov         eax,dword ptr [edx]
+  113926C1: 50                 push        eax
+  113926C2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  113926C5: 51                 push        ecx
+  113926C6: E8 03 C6 CD FF     call        1106ECCE
+  113926CB: 83 C4 0C           add         esp,0Ch
+  113926CE: 8B 95 38 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF38h]
+  113926D4: 83 CA 01           or          edx,1
+  113926D7: 89 95 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],edx
+  113926DD: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113926E0: 5F                 pop         edi
+  113926E1: 5E                 pop         esi
+  113926E2: 5B                 pop         ebx
+  113926E3: 81 C4 CC 00 00 00  add         esp,0CCh
+  113926E9: 3B EC              cmp         ebp,esp
+  113926EB: E8 E5 B5 CC FF     call        1105DCD5
+  113926F0: 8B E5              mov         esp,ebp
+  113926F2: 5D                 pop         ebp
+  113926F3: C3                 ret
+  113926F4: CC                 int         3
+
+  Summary
+
+     2170000 .text

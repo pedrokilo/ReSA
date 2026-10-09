@@ -375,11 +375,17 @@ void CPad::ProcessPad(ePadID padID) {
         
         // Handle POV
         if (LOWORD(joyState.rgdwPOV[0]) != 0xFFFF) {
-            const double pov = joyState.rgdwPOV[0];
+            // Como el original (0x746B32): fild con signo y, si es negativo, fadd de 2^32 (float) con la precision x87 del juego.
+            const LONG povSigned = static_cast<LONG>(joyState.rgdwPOV[0]);
+            const float twoPow32 = 4294967296.0F;
             const float hundredth = 0.01F, degreesToRadians = 0.01745329238474369F;
             float horizontal, vertical;
             __asm {
-                fld pov
+                fild povSigned
+                cmp povSigned, 0
+                jge povNonNegative
+                fadd twoPow32
+            povNonNegative:
                 fmul hundredth
                 fmul degreesToRadians
                 fld st(0)
@@ -397,30 +403,31 @@ void CPad::ProcessPad(ePadID padID) {
             rightStickPos.x = NormalizePadAxis(joyState.lZ);
             rightStickPos.y = NormalizePadAxis(joyState.lRz);
         }
-
-        padID = padNumber ? PAD2 : PAD1;
-        RsPadEventHandler(RsEvent::rsPADBUTTONUP, &padID);
-        RsPadEventHandler(RsEvent::rsPADBUTTONDOWN, &padID);
-        CPad& pPad = *CPad::GetPad(padNumber ? PAD2 : PAD1);
-
-        const auto UpdateJoyStickPosition = [&](float& pos, int16& outSwapped, int16& outNormal, bool isInverted, bool isSwapped) {
-            if (std::fabs(pos) <= 0.3F) {
-                return;
-            }
-            if (isInverted) {
-                pos *= -1.0f;
-            }
-            (isSwapped ? outSwapped : outNormal) = static_cast<int16>(pos * 128.0f);
-        };
-
-        // Left stick
-        UpdateJoyStickPosition(leftStickPos.x, pPad.PCTempJoyState.LeftStickY, pPad.PCTempJoyState.LeftStickX, FrontEndMenuManager.m_bInvertPadX1, FrontEndMenuManager.m_bSwapPadAxis1);
-        UpdateJoyStickPosition(leftStickPos.y, pPad.PCTempJoyState.LeftStickX, pPad.PCTempJoyState.LeftStickY, FrontEndMenuManager.m_bInvertPadY1, FrontEndMenuManager.m_bSwapPadAxis1);
-
-        // Right stick
-        UpdateJoyStickPosition(rightStickPos.x, pPad.PCTempJoyState.RightStickY, pPad.PCTempJoyState.RightStickX, FrontEndMenuManager.m_bInvertPadX2, FrontEndMenuManager.m_bSwapPadAxis2);
-        UpdateJoyStickPosition(rightStickPos.y, pPad.PCTempJoyState.RightStickX, pPad.PCTempJoyState.RightStickY, FrontEndMenuManager.m_bInvertPadY2, FrontEndMenuManager.m_bSwapPadAxis2);
     }
+
+    // Como el original (0x746B00: je 0x746BA6): con el dispositivo nulo solo se salta el bloque de sticks (POV y Z/RZ); eventos y ejes siguen siempre.
+    padID = padNumber ? PAD2 : PAD1;
+    RsPadEventHandler(RsEvent::rsPADBUTTONUP, &padID);
+    RsPadEventHandler(RsEvent::rsPADBUTTONDOWN, &padID);
+    CPad& pPad = *CPad::GetPad(padNumber ? PAD2 : PAD1);
+
+    const auto UpdateJoyStickPosition = [&](float& pos, int16& outSwapped, int16& outNormal, bool isInverted, bool isSwapped) {
+        if (std::fabs(pos) <= 0.3F) {
+            return;
+        }
+        if (isInverted) {
+            pos *= -1.0f;
+        }
+        (isSwapped ? outSwapped : outNormal) = static_cast<int16>(pos * 128.0f);
+    };
+
+    // Left stick
+    UpdateJoyStickPosition(leftStickPos.x, pPad.PCTempJoyState.LeftStickY, pPad.PCTempJoyState.LeftStickX, FrontEndMenuManager.m_bInvertPadX1, FrontEndMenuManager.m_bSwapPadAxis1);
+    UpdateJoyStickPosition(leftStickPos.y, pPad.PCTempJoyState.LeftStickX, pPad.PCTempJoyState.LeftStickY, FrontEndMenuManager.m_bInvertPadY1, FrontEndMenuManager.m_bSwapPadAxis1);
+
+    // Right stick
+    UpdateJoyStickPosition(rightStickPos.x, pPad.PCTempJoyState.RightStickY, pPad.PCTempJoyState.RightStickX, FrontEndMenuManager.m_bInvertPadX2, FrontEndMenuManager.m_bSwapPadAxis2);
+    UpdateJoyStickPosition(rightStickPos.y, pPad.PCTempJoyState.RightStickX, pPad.PCTempJoyState.RightStickY, FrontEndMenuManager.m_bInvertPadY2, FrontEndMenuManager.m_bSwapPadAxis2);
 }
 
 // 0x53FB40

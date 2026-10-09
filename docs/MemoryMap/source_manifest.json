@@ -557,7 +557,7 @@
   },
   {
     "file": "source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp",
-    "sha256": "2673454180835fd821d416534b1b11bd5d8925f1a7afd4d6657d2880df1cfc70"
+    "sha256": "7546ad441150a2d6ff312c37d80c2e6a7bacb5bcc36fb74db54f728356843709"
   },
   {
     "file": "source/game_sa/Audio/Entities/AEFrontendAudioEntity.h",
@@ -7017,7 +7017,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp",
-    "sha256": "ba3b7c1a658dfd3d99ca7328c19ca5f6502059b537c336845a3c467054b2033d"
+    "sha256": "1e698c5dc04c2204b48ba4fcd3ede70b26018da8d7c9853e2c932eb3fd15bded"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h",
@@ -8561,7 +8561,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp",
-    "sha256": "f5ef260d0fdea390dd1404301e2b44f8229e1d6fe2bc5653320d43153a90d958"
+    "sha256": "f96997f958df2178f546ef33a72ff97920569f37e14875ca2ff1998f86be5aea"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h",

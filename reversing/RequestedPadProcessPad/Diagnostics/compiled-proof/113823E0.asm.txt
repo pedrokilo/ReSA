@@ -1,0 +1,46 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113823E0: 55                 push        ebp
+  113823E1: 8B EC              mov         ebp,esp
+  113823E3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113823E9: 53                 push        ebx
+  113823EA: 56                 push        esi
+  113823EB: 57                 push        edi
+  113823EC: 51                 push        ecx
+  113823ED: 8D 7D F4           lea         edi,[ebp-0Ch]
+  113823F0: B9 03 00 00 00     mov         ecx,3
+  113823F5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113823FA: F3 AB              rep stos    dword ptr es:[edi]
+  113823FC: 59                 pop         ecx
+  113823FD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11382400: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11382403: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11382406: 51                 push        ecx
+  11382407: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1138240A: 8B 42 04           mov         eax,dword ptr [edx+4]
+  1138240D: 50                 push        eax
+  1138240E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11382411: 8B 11              mov         edx,dword ptr [ecx]
+  11382413: 52                 push        edx
+  11382414: E8 77 39 CE FF     call        11065D90
+  11382419: 83 C4 0C           add         esp,0Ch
+  1138241C: 5F                 pop         edi
+  1138241D: 5E                 pop         esi
+  1138241E: 5B                 pop         ebx
+  1138241F: 81 C4 CC 00 00 00  add         esp,0CCh
+  11382425: 3B EC              cmp         ebp,esp
+  11382427: E8 A9 B8 CD FF     call        1105DCD5
+  1138242C: 8B E5              mov         esp,ebp
+  1138242E: 5D                 pop         ebp
+  1138242F: C3                 ret
+  11382430: CC                 int         3
+
+  Summary
+
+     2170000 .text

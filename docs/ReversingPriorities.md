@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6867 con evidencia histórica, 0 con vigencia acreditada y 1579 pendientes en 58 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6916 con evidencia histórica, 0 con vigencia acreditada y 1530 pendientes en 41 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Prioridades técnicas de reversing
@@ -7,7 +7,7 @@
 [Inicio](../README.md) · [Progreso registrado](ReversedClasses.md) · [Proceso y continuidad](../reversing/MEJORAS_DEL_PROCESO.md)
 <!-- Documento generado por contrib/validation_queue.py (lo llama contrib/sync_docs.py). No editar a mano. -->
 
-> **Corte 08/10/2026.** Esta guía ordena **qué validar primero**: las funciones ya reconstruidas (`reversed=1`) que todavía no tienen evidencia aprobada (`validated=0`) en [`hooks.csv`](hooks.csv).
+> **Corte 09/10/2026.** Esta guía ordena **qué validar primero**: las funciones ya reconstruidas (`reversed=1`) que todavía no tienen evidencia aprobada (`validated=0`) en [`hooks.csv`](hooks.csv).
 
 **Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). `validated=1` indica evidencia aprobada vinculada y no acredita por sí sola que siga vigente para el árbol actual.
 
@@ -15,9 +15,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.446 |
 | Reconstruidas | 8.446 |
-| Validadas | 6.860 |
-| Reconstruidas sin validar | 1.586 |
-| De ellas, en esta cola (validables por pares) | 1.582 |
+| Validadas | 6.881 |
+| Reconstruidas sin validar | 1.565 |
+| De ellas, en esta cola (validables por pares) | 1.561 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -28,9 +28,9 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 | --- | :---: | :---: | --- |
 | [🟢 Nivel 1: muy barato](#nivel-1) | 8 | 24 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 9 | 461 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 21 | 532 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 19 | 511 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 16 | 565 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **54** | **1582** | |
+| **Total** | **52** | **1561** | |
 
 <a id="nivel-1"></a>
 
@@ -40,14 +40,14 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CTaskGoToVehicleAndLean | 7 | 2 |  | 19 |
-| 2 | CTaskComplexPlayHandSignalAnim | 9 | 2 |  | 24 |
-| 3 | CPedGeometryAnalyser | 38 | 2 |  | 26 |
-| 4 | CTaskGangHasslePed | 5 | 2 |  | 29 |
-| 5 | CTaskGangHassleVehicle | 8 | 2 |  | 32 |
-| 6 | CRealTimeShadowManager | 7 | 4 |  | 30 |
-| 7 | CPad | 75 | 5 |  | 19 |
-| 8 | CMonsterTruck | 11 | 5 |  | 30 |
+| 1 | CPad | 75 | 1 |  | 21 |
+| 2 | CTaskGoToVehicleAndLean | 7 | 2 |  | 19 |
+| 3 | CTaskComplexPlayHandSignalAnim | 9 | 2 |  | 24 |
+| 4 | CPedGeometryAnalyser | 38 | 2 |  | 26 |
+| 5 | CTaskGangHasslePed | 5 | 2 |  | 29 |
+| 6 | CTaskGangHassleVehicle | 8 | 2 |  | 32 |
+| 7 | CRealTimeShadowManager | 7 | 4 |  | 30 |
+| 8 | CPools | 19 | 9 |  | 26 |
 
 <a id="nivel-2"></a>
 
@@ -69,33 +69,31 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (21 clases, 532 funciones)
+## 🟠 Nivel 3: moderadas (19 clases, 511 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CAEFrontendAudioEntity | 6 | 3 |  | 42 |
-| 2 | CTaskSimpleFightingControl | 7 | 3 |  | 46 |
+| 1 | CAEFrontendAudioEntity | 6 | 3 |  | 44 |
+| 2 | CTaskSimpleFightingControl | 7 | 3 |  | 50 |
 | 3 | CTaskComplexProstituteSolicit | 11 | 4 |  | 40 |
-| 4 | CRope | 7 | 5 |  | 42 |
-| 5 | CGenericGameStorage | 19 | 5 |  | 47 |
-| 6 | CIdleCam | 14 | 13 |  | 33 |
-| 7 | CAEPedAudioEntity | 20 | 15 |  | 40 |
-| 8 | CClothesBuilder | 23 | 15 |  | 42 |
-| 9 | CPools | 19 | 16 |  | 26 |
-| 10 | CTrain | 40 | 20 |  | 38 |
-| 11 | CRunningScript | 39 | 24 |  | 33 |
-| 12 | CWaterLevel | 30 | 25 |  | 48 |
-| 13 | CCarEnterExit | 32 | 27 |  | 29 |
-| 14 | CAERadioTrackManager | 43 | 29 |  | 40 |
-| 15 | CGroupEventHandler | 32 | 30 |  | 29 |
-| 16 | CGangWars | 35 | 32 |  | 34 |
-| 17 | CPickups | 37 | 35 |  | 26 |
-| 18 | CPostEffects | 38 | 35 |  | 32 |
-| 19 | CRadar | 63 | 63 |  | 34 |
-| 20 | CPopulation | 66 | 64 |  | 34 |
-| 21 | CTheScripts | 69 | 69 |  | 30 |
+| 4 | CGenericGameStorage | 19 | 5 |  | 48 |
+| 5 | CIdleCam | 14 | 13 |  | 33 |
+| 6 | CAEPedAudioEntity | 20 | 15 |  | 40 |
+| 7 | CClothesBuilder | 23 | 15 |  | 42 |
+| 8 | CTrain | 40 | 20 |  | 38 |
+| 9 | CRunningScript | 39 | 24 |  | 33 |
+| 10 | CWaterLevel | 30 | 25 |  | 48 |
+| 11 | CCarEnterExit | 32 | 27 |  | 29 |
+| 12 | CAERadioTrackManager | 43 | 29 |  | 40 |
+| 13 | CGroupEventHandler | 32 | 30 |  | 29 |
+| 14 | CGangWars | 35 | 32 |  | 34 |
+| 15 | CPickups | 37 | 35 |  | 26 |
+| 16 | CPostEffects | 38 | 35 |  | 32 |
+| 17 | CRadar | 63 | 63 |  | 34 |
+| 18 | CPopulation | 66 | 64 |  | 34 |
+| 19 | CTheScripts | 69 | 69 |  | 30 |
 
 <a id="nivel-4"></a>
 

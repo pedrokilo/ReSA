@@ -1090,7 +1090,9 @@ bool CPlayerPed::PlayerHasJustAttackedSomeone() {
 // 0x60D790
 void CPlayerPed::SetupPlayerPed(int32 playerId) {
     auto ped = new CPlayerPed(playerId, false);
-    auto& playerInfo = FindPlayerInfo(playerId);
+    // Como el original (0x60D7D9): playerId * 0x190 indexa directamente CWorld::Players (sin la sustitucion por
+    // PlayerInFocus de FindPlayerInfo cuando playerId < 0)
+    auto& playerInfo = CWorld::Players[playerId];
     playerInfo.m_pPed = ped;
 
     if (playerId == 1)

@@ -1,0 +1,77 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1135ED20: 55                 push        ebp
+  1135ED21: 8B EC              mov         ebp,esp
+  1135ED23: 81 EC 28 01 00 00  sub         esp,128h
+  1135ED29: 53                 push        ebx
+  1135ED2A: 56                 push        esi
+  1135ED2B: 57                 push        edi
+  1135ED2C: 8D 7D 98           lea         edi,[ebp-68h]
+  1135ED2F: B9 1A 00 00 00     mov         ecx,1Ah
+  1135ED34: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135ED39: F3 AB              rep stos    dword ptr es:[edi]
+  1135ED3B: 8D 45 10           lea         eax,[ebp+10h]
+  1135ED3E: 50                 push        eax
+  1135ED3F: E8 4D E5 CF FF     call        1105D291
+  1135ED44: 83 C4 04           add         esp,4
+  1135ED47: 88 85 3B FF FF FF  mov         byte ptr [ebp+FFFFFF3Bh],al
+  1135ED4D: 8A 8D 3B FF FF FF  mov         cl,byte ptr [ebp+FFFFFF3Bh]
+  1135ED53: 88 8D 17 FF FF FF  mov         byte ptr [ebp+FFFFFF17h],cl
+  1135ED59: 8A 95 17 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF17h]
+  1135ED5F: 88 95 FF FE FF FF  mov         byte ptr [ebp+FFFFFEFFh],dl
+  1135ED65: 8A 85 FF FE FF FF  mov         al,byte ptr [ebp+FFFFFEFFh]
+  1135ED6B: 88 85 E7 FE FF FF  mov         byte ptr [ebp+FFFFFEE7h],al
+  1135ED71: 8D 4D 0C           lea         ecx,[ebp+0Ch]
+  1135ED74: 51                 push        ecx
+  1135ED75: 8D 95 2F FF FF FF  lea         edx,[ebp+FFFFFF2Fh]
+  1135ED7B: 52                 push        edx
+  1135ED7C: E8 0B 71 D0 FF     call        11065E8C
+  1135ED81: 83 C4 08           add         esp,8
+  1135ED84: 0F B6 00           movzx       eax,byte ptr [eax]
+  1135ED87: 88 85 23 FF FF FF  mov         byte ptr [ebp+FFFFFF23h],al
+  1135ED8D: 8A 8D 23 FF FF FF  mov         cl,byte ptr [ebp+FFFFFF23h]
+  1135ED93: 88 8D 0B FF FF FF  mov         byte ptr [ebp+FFFFFF0Bh],cl
+  1135ED99: 8A 95 0B FF FF FF  mov         dl,byte ptr [ebp+FFFFFF0Bh]
+  1135ED9F: 88 95 F3 FE FF FF  mov         byte ptr [ebp+FFFFFEF3h],dl
+  1135EDA5: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135EDA8: 50                 push        eax
+  1135EDA9: E8 D4 84 D0 FF     call        11067282
+  1135EDAE: 83 C4 04           add         esp,4
+  1135EDB1: 89 85 DC FE FF FF  mov         dword ptr [ebp+FFFFFEDCh],eax
+  1135EDB7: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1135EDBA: 51                 push        ecx
+  1135EDBB: E8 58 7A D1 FF     call        11076818
+  1135EDC0: 83 C4 04           add         esp,4
+  1135EDC3: 89 85 D8 FE FF FF  mov         dword ptr [ebp+FFFFFED8h],eax
+  1135EDC9: 0F B6 95 E7 FE FF  movzx       edx,byte ptr [ebp+FFFFFEE7h]
+            FF
+  1135EDD0: 52                 push        edx
+  1135EDD1: 0F B6 85 F3 FE FF  movzx       eax,byte ptr [ebp+FFFFFEF3h]
+            FF
+  1135EDD8: 50                 push        eax
+  1135EDD9: 8B 8D DC FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEDCh]
+  1135EDDF: 51                 push        ecx
+  1135EDE0: 8B 95 D8 FE FF FF  mov         edx,dword ptr [ebp+FFFFFED8h]
+  1135EDE6: 52                 push        edx
+  1135EDE7: E8 65 46 D1 FF     call        11073451
+  1135EDEC: 83 C4 10           add         esp,10h
+  1135EDEF: 5F                 pop         edi
+  1135EDF0: 5E                 pop         esi
+  1135EDF1: 5B                 pop         ebx
+  1135EDF2: 81 C4 28 01 00 00  add         esp,128h
+  1135EDF8: 3B EC              cmp         ebp,esp
+  1135EDFA: E8 FE 0E D0 FF     call        1105FCFD
+  1135EDFF: 8B E5              mov         esp,ebp
+  1135EE01: 5D                 pop         ebp
+  1135EE02: C3                 ret
+  1135EE03: CC                 int         3
+
+  Summary
+
+     2174000 .text

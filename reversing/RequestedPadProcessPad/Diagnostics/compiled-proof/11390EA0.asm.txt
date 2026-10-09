@@ -1,0 +1,79 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11390EA0: 55                 push        ebp
+  11390EA1: 8B EC              mov         ebp,esp
+  11390EA3: 81 EC FC 00 00 00  sub         esp,0FCh
+  11390EA9: 53                 push        ebx
+  11390EAA: 56                 push        esi
+  11390EAB: 57                 push        edi
+  11390EAC: 8D 7D C4           lea         edi,[ebp-3Ch]
+  11390EAF: B9 0F 00 00 00     mov         ecx,0Fh
+  11390EB4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11390EB9: F3 AB              rep stos    dword ptr es:[edi]
+  11390EBB: 33 C0              xor         eax,eax
+  11390EBD: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11390EC0: 89 01              mov         dword ptr [ecx],eax
+  11390EC2: 89 41 04           mov         dword ptr [ecx+4],eax
+  11390EC5: 89 41 08           mov         dword ptr [ecx+8],eax
+  11390EC8: 89 41 0C           mov         dword ptr [ecx+0Ch],eax
+  11390ECB: 89 41 10           mov         dword ptr [ecx+10h],eax
+  11390ECE: 89 41 14           mov         dword ptr [ecx+14h],eax
+  11390ED1: 89 41 18           mov         dword ptr [ecx+18h],eax
+  11390ED4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11390ED7: E8 99 BD CE FF     call        1107CC75
+  11390EDC: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  11390EDF: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11390EE2: D9 30              fnstenv     [eax]
+  11390EE4: D9 20              fldenv      [eax]
+  11390EE6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11390EE9: 52                 push        edx
+  11390EEA: 8B CD              mov         ecx,ebp
+  11390EEC: 50                 push        eax
+  11390EED: 8D 15 10 0F 39 11  lea         edx,ds:[11390F10h]
+  11390EF3: E8 E3 26 CD FF     call        110635DB
+  11390EF8: 58                 pop         eax
+  11390EF9: 5A                 pop         edx
+  11390EFA: 5F                 pop         edi
+  11390EFB: 5E                 pop         esi
+  11390EFC: 5B                 pop         ebx
+  11390EFD: 81 C4 FC 00 00 00  add         esp,0FCh
+  11390F03: 3B EC              cmp         ebp,esp
+  11390F05: E8 CB CD CC FF     call        1105DCD5
+  11390F0A: 8B E5              mov         esp,ebp
+  11390F0C: 5D                 pop         ebp
+  11390F0D: C3                 ret
+  11390F0E: 66 90              nop
+  11390F10: 02 00              add         al,byte ptr [eax]
+  11390F12: 00 00              add         byte ptr [eax],al
+  11390F14: 18 0F              sbb         byte ptr [edi],cl
+  11390F16: 39 11              cmp         dword ptr [ecx],edx
+  11390F18: E0 FF              loopne      11390F19
+  11390F1A: FF
+  11390F1B: FF 1C 00           call        fword ptr [eax+eax]
+  11390F1E: 00 00              add         byte ptr [eax],al
+  11390F20: 3B 0F              cmp         ecx,dword ptr [edi]
+  11390F22: 39 11              cmp         dword ptr [ecx],edx
+  11390F24: C8 FF FF FF        enter       0FFFFh,0FFh
+  11390F28: 04 00              add         al,0
+  11390F2A: 00 00              add         byte ptr [eax],al
+  11390F2C: 30 0F              xor         byte ptr [edi],cl
+  11390F2E: 39 11              cmp         dword ptr [ecx],edx
+  11390F30: 5F                 pop         edi
+  11390F31: 24 41              and         al,41h
+  11390F33: 72 72              jb          11390FA7
+  11390F35: 61                 popad
+  11390F36: 79 50              jns         11390F88
+  11390F38: 61                 popad
+  11390F39: 64 00 69 6D        add         byte ptr fs:[ecx+6Dh],ch
+  11390F3D: 61                 popad
+  11390F3E: 67 65 00 CC        add         ah,cl
+
+  Summary
+
+     2170000 .text

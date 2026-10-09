@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11360240: 55                 push        ebp
+  11360241: 8B EC              mov         ebp,esp
+  11360243: 81 EC C0 00 00 00  sub         esp,0C0h
+  11360249: 53                 push        ebx
+  1136024A: 56                 push        esi
+  1136024B: 57                 push        edi
+  1136024C: 8B FD              mov         edi,ebp
+  1136024E: 33 C9              xor         ecx,ecx
+  11360250: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11360255: F3 AB              rep stos    dword ptr es:[edi]
+  11360257: EB 09              jmp         11360262
+  11360259: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136025C: 83 C0 08           add         eax,8
+  1136025F: 89 45 08           mov         dword ptr [ebp+8],eax
+  11360262: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11360265: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  11360268: 74 2A              je          11360294
+  1136026A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136026D: 50                 push        eax
+  1136026E: 8D 4D 14           lea         ecx,[ebp+14h]
+  11360271: 51                 push        ecx
+  11360272: E8 A3 E4 D0 FF     call        1106E71A
+  11360277: 83 C4 08           add         esp,8
+  1136027A: 50                 push        eax
+  1136027B: 8D 55 10           lea         edx,[ebp+10h]
+  1136027E: 52                 push        edx
+  1136027F: E8 12 18 D1 FF     call        11071A96
+  11360284: 83 C4 08           add         esp,8
+  11360287: 0F B6 C0           movzx       eax,al
+  1136028A: 85 C0              test        eax,eax
+  1136028C: 74 04              je          11360292
+  1136028E: B0 01              mov         al,1
+  11360290: EB 04              jmp         11360296
+  11360292: EB C5              jmp         11360259
+  11360294: 32 C0              xor         al,al
+  11360296: 5F                 pop         edi
+  11360297: 5E                 pop         esi
+  11360298: 5B                 pop         ebx
+  11360299: 81 C4 C0 00 00 00  add         esp,0C0h
+  1136029F: 3B EC              cmp         ebp,esp
+  113602A1: E8 2F DA CF FF     call        1105DCD5
+  113602A6: 8B E5              mov         esp,ebp
+  113602A8: 5D                 pop         ebp
+  113602A9: C3                 ret
+  113602AA: CC                 int         3
+
+  Summary
+
+     2170000 .text

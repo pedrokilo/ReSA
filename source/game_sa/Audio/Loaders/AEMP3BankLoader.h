@@ -52,6 +52,7 @@ private:
     void AddRequest(eSoundBank bank, eSoundBankSlot slot, eSoundID sound);
 
 private:
+    friend class CAEAudioHardware; // Initialise reserva el bloque y llama a Constructor (el EXE no pone a cero el resto).
     // 0x4DFB10
     // Como el original: el constructor solo escribe m_IsInitialised y m_StreamingChannel (el resto queda sin tocar).
     CAEMP3BankLoader* Constructor() {

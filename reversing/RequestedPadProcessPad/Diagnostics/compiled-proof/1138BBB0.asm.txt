@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138BBB0: 55                 push        ebp
+  1138BBB1: 8B EC              mov         ebp,esp
+  1138BBB3: 81 EC DC 00 00 00  sub         esp,0DCh
+  1138BBB9: 53                 push        ebx
+  1138BBBA: 56                 push        esi
+  1138BBBB: 57                 push        edi
+  1138BBBC: 51                 push        ecx
+  1138BBBD: 8D 7D E4           lea         edi,[ebp-1Ch]
+  1138BBC0: B9 07 00 00 00     mov         ecx,7
+  1138BBC5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138BBCA: F3 AB              rep stos    dword ptr es:[edi]
+  1138BBCC: 59                 pop         ecx
+  1138BBCD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1138BBD0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1138BBD3: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  1138BBD9: 83 BD 2C FF FF FF  cmp         dword ptr [ebp+FFFFFF2Ch],0
+            00
+  1138BBE0: 74 15              je          1138BBF7
+  1138BBE2: 6A 01              push        1
+  1138BBE4: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  1138BBEA: E8 5F 09 D0 FF     call        1108C54E
+  1138BBEF: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  1138BBF5: EB 0A              jmp         1138BC01
+  1138BBF7: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  1138BC01: 5F                 pop         edi
+  1138BC02: 5E                 pop         esi
+  1138BC03: 5B                 pop         ebx
+  1138BC04: 81 C4 DC 00 00 00  add         esp,0DCh
+  1138BC0A: 3B EC              cmp         ebp,esp
+  1138BC0C: E8 C4 20 CD FF     call        1105DCD5
+  1138BC11: 8B E5              mov         esp,ebp
+  1138BC13: 5D                 pop         ebp
+  1138BC14: C2 04 00           ret         4
+  1138BC17: CC                 int         3
+
+  Summary
+
+     2170000 .text

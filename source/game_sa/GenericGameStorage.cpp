@@ -118,20 +118,24 @@ void CGenericGameStorage::InjectHooks() {
 
 // 0x5D08C0
 void CGenericGameStorage::ReportError(eBlocks nBlock, eSaveLoadError nError) {
-    char       buffer[256]{};
-    const auto GetErrorString = [nError] {
-        switch (nError) {
-        case eSaveLoadError::LOADING:
-            return "Loading error: %s";
-        case eSaveLoadError::SAVING:
-            return "Saving error: %s";
-        case eSaveLoadError::SYNC:
-            return "Loading sync error: %s";
-        default:
-            return "Unknown error: %s";
-        }
-    };
-    sprintf_s(buffer, GetErrorString(), GetBlockName(nBlock));
+    // Como el original (0x5D0C46..0x5D0C9C): solo los codigos 0..2 formatean un mensaje (0x86B970, 0x86B988, 0x86B99C);
+    // con cualquier otro codigo no se hace nada.
+    const char* format{};
+    switch (nError) {
+    case eSaveLoadError::SYNC:
+        format = "Loading sync error: %s";
+        break;
+    case eSaveLoadError::LOADING:
+        format = "Loading error: %s";
+        break;
+    case eSaveLoadError::SAVING:
+        format = "Saving error: %s";
+        break;
+    default:
+        return;
+    }
+    char buffer[256];
+    sprintf_s(buffer, format, GetBlockName(nBlock));
 
     // Yes, they don't do anything with `buffer`
     NOTSA_LOG_ERR(buffer);
@@ -283,7 +287,8 @@ bool CGenericGameStorage::GenericLoad(bool& out_bVariablesLoaded) {
 
         if (std::string_view{ header } != ms_BlockTagName) {
             if (block != 0) {
-                ReportError((eBlocks)(block - 1), eSaveLoadError::LOADING);
+                // Como el original (0x5D1A6E: push 2): el codigo es 2 ("Saving error"), no LOADING
+                ReportError((eBlocks)(block - 1), eSaveLoadError::SAVING);
                 if (block == 1) {
                     uint32 version{};
                     varsBackup.Extract(version); // Restore state
@@ -588,17 +593,18 @@ bool CGenericGameStorage::GenericSave() {
         }
     }
     LOG_SAVE("SAVE - END");
-    while (ms_WorkBufferPos + ms_FilePos < SIZE_OF_ONE_GAME_IN_BYTES && (SIZE_OF_ONE_GAME_IN_BYTES - ms_FilePos) >= BUFFER_SIZE) {
+    // Como el original (0x5D15C2..0x5D1626): rellena hasta SIZE_OF_ONE_GAME_IN_BYTES (aritmetica de 32 bits sin signo)
+    while (uint32(ms_WorkBufferPos) + ms_FilePos < SIZE_OF_ONE_GAME_IN_BYTES) {
+        const uint32 remaining = SIZE_OF_ONE_GAME_IN_BYTES - uint32(ms_WorkBufferPos) - ms_FilePos;
+        if (uint32(ms_WorkBufferPos) + remaining < BUFFER_SIZE) { // jb 0x5D1698
+            ms_WorkBufferPos += remaining;
+            break;
+        }
         ms_WorkBufferPos = BUFFER_SIZE;
         if (!SaveWorkBuffer(false)) {
             CloseFile();
             return false;
         }
-
-        if (ms_WorkBufferPos + ms_FilePos >= SIZE_OF_ONE_GAME_IN_BYTES) {
-            break;
-        }
-        ms_WorkBufferPos = SIZE_OF_ONE_GAME_IN_BYTES - ms_FilePos;
     }
 
     if (!SaveWorkBuffer(true)) {
@@ -606,12 +612,15 @@ bool CGenericGameStorage::GenericSave() {
         return false;
 	}
 
-    strncpy_s(ms_SaveFileNameJustSaved, ms_SaveFileName, std::size(ms_SaveFileNameJustSaved) - 1);
-    if (CloseFile()) {
-        CPad::UpdatePads();
-        return true;
+    // Como el original (0x5D16F3..0x5D171F): primero se cierra, luego strncpy(0xC16030, 0xC16DB8, 0x103) siempre
+    // (strncpy_s rellenaria con 0xFE en depuracion) y solo despues se mira el resultado del cierre.
+    const bool closed = CloseFile();
+    std::strncpy(ms_SaveFileNameJustSaved, ms_SaveFileName, 259);
+    if (!closed) {
+        return false;
     }
-    return false;
+    CPad::UpdatePads();
+    return true;
 }
 
 // 0x5D1380
@@ -643,7 +652,8 @@ bool CGenericGameStorage::LoadDataFromWorkBuffer(void* data, int32 size) {
     }
 
     if (static_cast<uint32>(ms_WorkBufferPos + size) > ms_WorkBufferSize) {
-        const auto buffSizeRemaining = ms_WorkBufferSize - ms_WorkBufferPos;
+        // Como el original (0x5D132D): el resto se calcula con el 0xC800 fijo, no con ms_WorkBufferSize
+        const auto buffSizeRemaining = int32(BUFFER_SIZE) - ms_WorkBufferPos;
         if (!LoadDataFromWorkBuffer(data, buffSizeRemaining)) {
             return false;
         }
@@ -677,10 +687,11 @@ bool CGenericGameStorage::SaveDataToWorkBuffer(void* data, int32 size) {
         return true;
     }
 
-    if (static_cast<uint32>(ms_WorkBufferPos + size) > ms_WorkBufferSize) {
+    // Como el original (0x5D1293): el umbral de Save es el 0xC800 fijo (a diferencia de Load, que usa ms_WorkBufferSize)
+    if (static_cast<uint32>(ms_WorkBufferPos + size) > BUFFER_SIZE) {
         // Make space for data
 
-        const auto buffSizeRemaining = ms_WorkBufferSize - ms_WorkBufferPos;
+        const auto buffSizeRemaining = int32(BUFFER_SIZE) - ms_WorkBufferPos; // 0x5D129B
         if (!SaveDataToWorkBuffer(data, buffSizeRemaining)) { // Try writing what we have space for
             return false;
         }

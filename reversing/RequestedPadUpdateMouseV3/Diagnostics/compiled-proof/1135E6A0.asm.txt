@@ -1,0 +1,38 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1135E6A0: 55                 push        ebp
+  1135E6A1: 8B EC              mov         ebp,esp
+  1135E6A3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1135E6A9: 53                 push        ebx
+  1135E6AA: 56                 push        esi
+  1135E6AB: 57                 push        edi
+  1135E6AC: 51                 push        ecx
+  1135E6AD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1135E6B0: B9 03 00 00 00     mov         ecx,3
+  1135E6B5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135E6BA: F3 AB              rep stos    dword ptr es:[edi]
+  1135E6BC: 59                 pop         ecx
+  1135E6BD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1135E6C0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1135E6C3: E8 5A D0 D1 FF     call        1107B722
+  1135E6C8: 0F B6 40 30        movzx       eax,byte ptr [eax+30h]
+  1135E6CC: 5F                 pop         edi
+  1135E6CD: 5E                 pop         esi
+  1135E6CE: 5B                 pop         ebx
+  1135E6CF: 81 C4 CC 00 00 00  add         esp,0CCh
+  1135E6D5: 3B EC              cmp         ebp,esp
+  1135E6D7: E8 21 06 D0 FF     call        1105ECFD
+  1135E6DC: 8B E5              mov         esp,ebp
+  1135E6DE: 5D                 pop         ebp
+  1135E6DF: C2 04 00           ret         4
+  1135E6E2: CC                 int         3
+
+  Summary
+
+     2171000 .text

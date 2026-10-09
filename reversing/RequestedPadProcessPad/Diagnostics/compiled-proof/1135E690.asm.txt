@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1135E690: 55                 push        ebp
+  1135E691: 8B EC              mov         ebp,esp
+  1135E693: 81 EC C0 00 00 00  sub         esp,0C0h
+  1135E699: 53                 push        ebx
+  1135E69A: 56                 push        esi
+  1135E69B: 57                 push        edi
+  1135E69C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135E69F: 5F                 pop         edi
+  1135E6A0: 5E                 pop         esi
+  1135E6A1: 5B                 pop         ebx
+  1135E6A2: 8B E5              mov         esp,ebp
+  1135E6A4: 5D                 pop         ebp
+  1135E6A5: C3                 ret
+  1135E6A6: CC                 int         3
+  1135E6A7: CC                 int         3
+  1135E6A8: CC                 int         3
+  1135E6A9: CC                 int         3
+  1135E6AA: CC                 int         3
+  1135E6AB: CC                 int         3
+  1135E6AC: CC                 int         3
+  1135E6AD: CC                 int         3
+  1135E6AE: CC                 int         3
+  1135E6AF: CC                 int         3
+  1135E6B0: 55                 push        ebp
+  1135E6B1: 8B EC              mov         ebp,esp
+  1135E6B3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1135E6B9: 53                 push        ebx
+  1135E6BA: 56                 push        esi
+  1135E6BB: 57                 push        edi
+  1135E6BC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135E6BF: 5F                 pop         edi
+  1135E6C0: 5E                 pop         esi
+  1135E6C1: 5B                 pop         ebx
+  1135E6C2: 8B E5              mov         esp,ebp
+  1135E6C4: 5D                 pop         ebp
+  1135E6C5: C3                 ret
+  1135E6C6: CC                 int         3
+  1135E6C7: CC                 int         3
+  1135E6C8: CC                 int         3
+  1135E6C9: CC                 int         3
+  1135E6CA: CC                 int         3
+  1135E6CB: CC                 int         3
+  1135E6CC: CC                 int         3
+  1135E6CD: CC                 int         3
+  1135E6CE: CC                 int         3
+  1135E6CF: CC                 int         3
+  1135E6D0: 55                 push        ebp
+
+  Summary
+
+     216D000 .text

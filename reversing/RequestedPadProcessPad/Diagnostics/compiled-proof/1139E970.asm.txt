@@ -1,0 +1,87 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1139E970: 55                 push        ebp
+  1139E971: 8B EC              mov         ebp,esp
+  1139E973: 6A FF              push        0FFFFFFFFh
+  1139E975: 68 DD B1 0D 13     push        130DB1DDh
+  1139E97A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1139E980: 50                 push        eax
+  1139E981: 81 EC D8 00 00 00  sub         esp,0D8h
+  1139E987: 53                 push        ebx
+  1139E988: 56                 push        esi
+  1139E989: 57                 push        edi
+  1139E98A: 51                 push        ecx
+  1139E98B: 8D 7D DC           lea         edi,[ebp-24h]
+  1139E98E: B9 06 00 00 00     mov         ecx,6
+  1139E993: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1139E998: F3 AB              rep stos    dword ptr es:[edi]
+  1139E99A: 59                 pop         ecx
+  1139E99B: A1 40 0A 77 13     mov         eax,dword ptr ds:[13770A40h]
+  1139E9A0: 33 C5              xor         eax,ebp
+  1139E9A2: 50                 push        eax
+  1139E9A3: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1139E9A6: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1139E9AC: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1139E9AF: 6A 03              push        3
+  1139E9B1: 8D 4D E0           lea         ecx,[ebp-20h]
+  1139E9B4: E8 E9 A2 CC FF     call        11068CA2
+  1139E9B9: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1139E9C0: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1139E9C3: 50                 push        eax
+  1139E9C4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1139E9C7: 51                 push        ecx
+  1139E9C8: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1139E9CB: E8 A7 A7 CF FF     call        11099177
+  1139E9D0: 90                 nop
+  1139E9D1: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1139E9D8: 8D 4D E0           lea         ecx,[ebp-20h]
+  1139E9DB: E8 12 53 CC FF     call        11063CF2
+  1139E9E0: 90                 nop
+  1139E9E1: 52                 push        edx
+  1139E9E2: 8B CD              mov         ecx,ebp
+  1139E9E4: 50                 push        eax
+  1139E9E5: 8D 15 14 EA 39 11  lea         edx,ds:[1139EA14h]
+  1139E9EB: E8 EB 4B CC FF     call        110635DB
+  1139E9F0: 58                 pop         eax
+  1139E9F1: 5A                 pop         edx
+  1139E9F2: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1139E9F5: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1139E9FC: 59                 pop         ecx
+  1139E9FD: 5F                 pop         edi
+  1139E9FE: 5E                 pop         esi
+  1139E9FF: 5B                 pop         ebx
+  1139EA00: 81 C4 E4 00 00 00  add         esp,0E4h
+  1139EA06: 3B EC              cmp         ebp,esp
+  1139EA08: E8 C8 F2 CB FF     call        1105DCD5
+  1139EA0D: 8B E5              mov         esp,ebp
+  1139EA0F: 5D                 pop         ebp
+  1139EA10: C2 08 00           ret         8
+  1139EA13: 90                 nop
+  1139EA14: 01 00              add         dword ptr [eax],eax
+  1139EA16: 00 00              add         byte ptr [eax],al
+  1139EA18: 1C EA              sbb         al,0EAh
+  1139EA1A: 39 11              cmp         dword ptr [ecx],edx
+  1139EA1C: E0 FF              loopne      1139EA1D
+  1139EA1E: FF
+  1139EA1F: FF 04 00           inc         dword ptr [eax+eax]
+  1139EA22: 00 00              add         byte ptr [eax],al
+  1139EA24: 28 EA              sub         dl,ch
+  1139EA26: 39 11              cmp         dword ptr [ecx],edx
+  1139EA28: 5F                 pop         edi
+  1139EA29: 4C                 dec         esp
+  1139EA2A: 6F                 outs        dx,dword ptr [esi]
+  1139EA2B: 63 6B 00           arpl        word ptr [ebx],bp
+  1139EA2E: CC                 int         3
+
+  Summary
+
+     2170000 .text

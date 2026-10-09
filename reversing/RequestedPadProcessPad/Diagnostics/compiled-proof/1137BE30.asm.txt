@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1137BE30: 55                 push        ebp
+  1137BE31: 8B EC              mov         ebp,esp
+  1137BE33: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137BE39: 53                 push        ebx
+  1137BE3A: 56                 push        esi
+  1137BE3B: 57                 push        edi
+  1137BE3C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137BE3F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137BE42: 5F                 pop         edi
+  1137BE43: 5E                 pop         esi
+  1137BE44: 5B                 pop         ebx
+  1137BE45: 8B E5              mov         esp,ebp
+  1137BE47: 5D                 pop         ebp
+  1137BE48: C2 04 00           ret         4
+  1137BE4B: CC                 int         3
+  1137BE4C: CC                 int         3
+  1137BE4D: CC                 int         3
+  1137BE4E: CC                 int         3
+  1137BE4F: CC                 int         3
+  1137BE50: CC                 int         3
+  1137BE51: CC                 int         3
+  1137BE52: CC                 int         3
+  1137BE53: CC                 int         3
+  1137BE54: CC                 int         3
+  1137BE55: CC                 int         3
+  1137BE56: CC                 int         3
+  1137BE57: CC                 int         3
+  1137BE58: CC                 int         3
+  1137BE59: CC                 int         3
+  1137BE5A: CC                 int         3
+  1137BE5B: CC                 int         3
+  1137BE5C: CC                 int         3
+  1137BE5D: CC                 int         3
+  1137BE5E: CC                 int         3
+  1137BE5F: CC                 int         3
+  1137BE60: 55                 push        ebp
+  1137BE61: 8B EC              mov         ebp,esp
+  1137BE63: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137BE69: 53                 push        ebx
+  1137BE6A: 56                 push        esi
+  1137BE6B: 57                 push        edi
+  1137BE6C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137BE6F: 8B
+  1137BE70: 45                 inc         ebp
+
+  Summary
+
+     2170000 .text

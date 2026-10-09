@@ -1,0 +1,91 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1138CA50: 55                 push        ebp
+  1138CA51: 8B EC              mov         ebp,esp
+  1138CA53: 81 EC 00 01 00 00  sub         esp,100h
+  1138CA59: 53                 push        ebx
+  1138CA5A: 56                 push        esi
+  1138CA5B: 57                 push        edi
+  1138CA5C: 51                 push        ecx
+  1138CA5D: 8D 7D C0           lea         edi,[ebp-40h]
+  1138CA60: B9 10 00 00 00     mov         ecx,10h
+  1138CA65: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138CA6A: F3 AB              rep stos    dword ptr es:[edi]
+  1138CA6C: 59                 pop         ecx
+  1138CA6D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1138CA70: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  1138CA77: C7 45 E0 00 00 00  mov         dword ptr [ebp-20h],0
+            00
+  1138CA7E: E8 B2 DD CE FF     call        1107A835
+  1138CA83: 89 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],eax
+  1138CA89: 8D 45 E0           lea         eax,[ebp-20h]
+  1138CA8C: 50                 push        eax
+  1138CA8D: 8D 4D EC           lea         ecx,[ebp-14h]
+  1138CA90: 51                 push        ecx
+  1138CA91: 8D 55 08           lea         edx,[ebp+8]
+  1138CA94: 52                 push        edx
+  1138CA95: 8D 8D 0C FF FF FF  lea         ecx,[ebp+FFFFFF0Ch]
+  1138CA9B: E8 70 D7 CC FF     call        1105A210
+  1138CAA0: 89 85 00 FF FF FF  mov         dword ptr [ebp+FFFFFF00h],eax
+  1138CAA6: 8B 85 00 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF00h]
+  1138CAAC: 50                 push        eax
+  1138CAAD: 8B 8D 04 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF04h]
+  1138CAB3: E8 0E 55 D0 FF     call        11091FC6
+  1138CAB8: 90                 nop
+  1138CAB9: 83 7D E0 01        cmp         dword ptr [ebp-20h],1
+  1138CABD: 75 0B              jne         1138CACA
+  1138CABF: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1138CAC2: 89 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],eax
+  1138CAC8: EB 0A              jmp         1138CAD4
+  1138CACA: C7 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],0
+            00 00 00 00
+  1138CAD4: 8B 85 04 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF04h]
+  1138CADA: 52                 push        edx
+  1138CADB: 8B CD              mov         ecx,ebp
+  1138CADD: 50                 push        eax
+  1138CADE: 8D 15 04 CB 38 11  lea         edx,ds:[1138CB04h]
+  1138CAE4: E8 29 6B CD FF     call        11063612
+  1138CAE9: 58                 pop         eax
+  1138CAEA: 5A                 pop         edx
+  1138CAEB: 5F                 pop         edi
+  1138CAEC: 5E                 pop         esi
+  1138CAED: 5B                 pop         ebx
+  1138CAEE: 81 C4 00 01 00 00  add         esp,100h
+  1138CAF4: 3B EC              cmp         ebp,esp
+  1138CAF6: E8 EE 11 CD FF     call        1105DCE9
+  1138CAFB: 8B E5              mov         esp,ebp
+  1138CAFD: 5D                 pop         ebp
+  1138CAFE: C2 04 00           ret         4
+  1138CB01: 0F 1F 00           nop         dword ptr [eax]
+  1138CB04: 02 00              add         al,byte ptr [eax]
+  1138CB06: 00 00              add         byte ptr [eax],al
+  1138CB08: 0C CB              or          al,0CBh
+  1138CB0A: 38 11              cmp         byte ptr [ecx],dl
+  1138CB0C: EC                 in          al,dx
+  1138CB0D: FF
+  1138CB0E: FF
+  1138CB0F: FF 04 00           inc         dword ptr [eax+eax]
+  1138CB12: 00 00              add         byte ptr [eax],al
+  1138CB14: 29 CB              sub         ebx,ecx
+  1138CB16: 38 11              cmp         byte ptr [ecx],dl
+  1138CB18: E0 FF              loopne      1138CB19
+  1138CB1A: FF
+  1138CB1B: FF 04 00           inc         dword ptr [eax+eax]
+  1138CB1E: 00 00              add         byte ptr [eax],al
+  1138CB20: 24 CB              and         al,0CBh
+  1138CB22: 38 11              cmp         byte ptr [ecx],dl
+  1138CB24: 68 69 74 73 00     push        737469h
+  1138CB29: 66 6F              outs        dx,word ptr [esi]
+  1138CB2B: 75 6E              jne         1138CB9B
+  1138CB2D: 64 00 CC           add         ah,cl
+
+  Summary
+
+     216F000 .text

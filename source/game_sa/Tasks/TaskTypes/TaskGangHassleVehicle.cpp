@@ -53,7 +53,7 @@ void CTaskGangHassleVehicle::InjectHooks() {
 }
 
 // 0x65FAC0
-CTaskGangHassleVehicle::CTaskGangHassleVehicle(CVehicle* vehicle, int32 a3, uint8 a4, float a5, float a6) : CTaskComplex() {
+CTaskGangHassleVehicle::CTaskGangHassleVehicle(CVehicle* vehicle, int32 a3, uint8 a4, float a5, float a6) {
     m_nTime = 0;
     dword3C = 0;
     byte40 = 0;

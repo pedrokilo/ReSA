@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6867 con evidencia histórica, 0 con vigencia acreditada y 1579 pendientes en 58 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6916 con evidencia histórica, 0 con vigencia acreditada y 1530 pendientes en 41 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
@@ -10,10 +10,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 6867 |
+| `validated=1` · evidencia aprobada vinculada | 6881 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 6867 |
-| Sin evidencia aprobada vinculada en este registro | 1579 |
+| Evidencia histórica vinculada; revisión pendiente | 6881 |
+| Sin evidencia aprobada vinculada en este registro | 1565 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -2512,11 +2512,16 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CModelInfo | `IsVehicleModelType` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CModelInfo | `ReInit2dEffects` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CModelInfo | `ShutDown` | [Resumen](../reversing/Small2/validation-summary.json) |
+| CMonsterTruck | `BurstTyre` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
+| CMonsterTruck | `Constructor` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
 | CMonsterTruck | `ExtendSuspension` | [Resumen](../reversing/MonsterControl355/validation-summary.json) |
+| CMonsterTruck | `PreRender` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
 | CMonsterTruck | `ProcessControl` | [Resumen](../reversing/MonsterControl355/validation-summary.json) |
 | CMonsterTruck | `ProcessControlCollisionCheck` | [Resumen](../reversing/MonsterControl355/validation-summary.json) |
+| CMonsterTruck | `ProcessEntityCollision` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
 | CMonsterTruck | `ProcessSuspension` | [Resumen](../reversing/MonsterSuspension355/validation-summary.json) |
 | CMonsterTruck | `ResetSuspension` | [Resumen](../reversing/MonsterControl355/validation-summary.json) |
+| CMonsterTruck | `SetUpWheelColModel` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
 | CMonsterTruck | `SetupSuspensionLines` | [Resumen](../reversing/MonsterSetup355/validation-summary.json) |
 | CMotionBlurStreaks | `Init` | [Resumen](../reversing/Render23/validation-summary.json) |
 | CMotionBlurStreaks | `RegisterStreak` | [Resumen](../reversing/Render23/validation-summary.json) |
@@ -2669,6 +2674,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `LookAroundUpDown` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPad | `MeleeAttackJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `NextStationJustUp` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `ProcessPCSpecificStuff` | [Resumen](../reversing/RequestedPadDistanceTrainNopHexV2/validation-summary.json) |
 | CPad | `ReconcileTwoControllersInput` | [Resumen](../reversing/RequestedPadMutationRemaining3/validation-summary-reconcile.json) |
 | CPad | `SetTouched` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
 | CPad | `ShiftTargetLeftJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
@@ -2677,8 +2683,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `SniperZoomOut` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `SprintJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `StartShake` | [Resumen](../reversing/RequestedPadMutationRemaining3Hex/validation-summary-shake.json) |
+| CPad | `StartShake_Distance` | [Resumen](../reversing/RequestedPadDistanceTrainNopHexV2/validation-summary.json) |
+| CPad | `StartShake_Train` | [Resumen](../reversing/RequestedPadDistanceTrainNopHexV2/validation-summary.json) |
 | CPad | `StopShaking` | [Resumen](../reversing/RequestedPadMutationNext/validation-summary-six.json) |
 | CPad | `Update` | [Resumen](../reversing/RequestedPadMutationRemaining3/validation-summary-update.json) |
+| CPad | `UpdateMouse` | [Resumen](../reversing/PadMouse1/validation-summary.json) |
 | CPad | `WeaponJustDown` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
 | CPathFind | `ComputeRoute` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
 | CPathFind | `DoPathSearch` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
@@ -3514,6 +3523,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CRestart | `Save` | [Resumen](../reversing/World11/validation-summary.json) |
 | CRestart | `SetRespawnPointForDurationOfMission` | [Resumen](../reversing/World11/validation-summary.json) |
 | CRoadBlocks | `CreateRoadBlockBetween2Points` | [Resumen](../reversing/RoadBlockPending/validation-summary.json) |
+| CRope | `CreateHookObjectForRope` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
+| CRope | `PickUpObject` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
+| CRope | `ReleasePickedUpObject` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
+| CRope | `Remove` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
+| CRope | `Render` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
 | CRope | `Update` | [Resumen](../reversing/RopePending/validation-summary.json) |
 | CRope | `UpdateWeightInRope` | [Resumen](../reversing/RopePending/validation-summary.json) |
 | CRopes | `CreateRopeForSwatPed` | [Resumen](../reversing/Misc61a/validation-summary.json) |
@@ -7167,7 +7181,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CMirrors` | 8 | 0 | 8 | 0 |
 | `CMissionTextOffsets` | 1 | 0 | 1 | 0 |
 | `CModelInfo` | 28 | 0 | 28 | 0 |
-| `CMonsterTruck` | 11 | 0 | 6 | 5 |
+| `CMonsterTruck` | 11 | 0 | 11 | 0 |
 | `CMotionBlurStreaks` | 4 | 0 | 4 | 0 |
 | `CMouseControllerState` | 3 | 0 | 3 | 0 |
 | `CMovingThings` | 5 | 0 | 5 | 0 |
@@ -7182,7 +7196,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `COnscreenCounterEntry` | 2 | 0 | 2 | 0 |
 | `COnscreenTimer` | 6 | 0 | 6 | 0 |
 | `CPPTriPlantBuffer` | 7 | 0 | 7 | 0 |
-| `CPad` | 75 | 0 | 70 | 5 |
+| `CPad` | 75 | 0 | 74 | 1 |
 | `CPathFind` | 56 | 0 | 2 | 54 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
 | `CPed` | 145 | 0 | 145 | 0 |
@@ -7255,7 +7269,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CReplay` | 47 | 0 | 47 | 0 |
 | `CRestart` | 11 | 0 | 11 | 0 |
 | `CRoadBlocks` | 8 | 0 | 1 | 7 |
-| `CRope` | 7 | 0 | 2 | 5 |
+| `CRope` | 7 | 0 | 7 | 0 |
 | `CRopes` | 11 | 0 | 11 | 0 |
 | `CRunningScript` | 39 | 0 | 15 | 24 |
 | `CScriptResourceManager` | 4 | 0 | 4 | 0 |

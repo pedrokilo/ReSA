@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138F1D0: 55                 push        ebp
+  1138F1D1: 8B EC              mov         ebp,esp
+  1138F1D3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1138F1D9: 53                 push        ebx
+  1138F1DA: 56                 push        esi
+  1138F1DB: 57                 push        edi
+  1138F1DC: 6B 45 0C 07        imul        eax,dword ptr [ebp+0Ch],7
+  1138F1E0: 03 45 08           add         eax,dword ptr [ebp+8]
+  1138F1E3: 5F                 pop         edi
+  1138F1E4: 5E                 pop         esi
+  1138F1E5: 5B                 pop         ebx
+  1138F1E6: 8B E5              mov         esp,ebp
+  1138F1E8: 5D                 pop         ebp
+  1138F1E9: C3                 ret
+  1138F1EA: CC                 int         3
+  1138F1EB: CC                 int         3
+  1138F1EC: CC                 int         3
+  1138F1ED: CC                 int         3
+  1138F1EE: CC                 int         3
+  1138F1EF: CC                 int         3
+  1138F1F0: 55                 push        ebp
+  1138F1F1: 8B EC              mov         ebp,esp
+  1138F1F3: 81 EC 50 01 00 00  sub         esp,150h
+  1138F1F9: 53                 push        ebx
+  1138F1FA: 56                 push        esi
+  1138F1FB: 57                 push        edi
+  1138F1FC: 8D BD 70 FF FF FF  lea         edi,[ebp+FFFFFF70h]
+  1138F202: B9 24 00 00 00     mov         ecx,24h
+  1138F207: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138F20C: F3 AB              rep stos    dword ptr es:[edi]
+  1138F20E: A1
+  1138F20F: 40                 inc         eax
+  1138F210: CA
+
+  Summary
+
+     216D000 .text

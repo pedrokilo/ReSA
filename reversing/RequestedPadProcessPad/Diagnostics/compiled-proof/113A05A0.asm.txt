@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113A05A0: 55                 push        ebp
+  113A05A1: 8B EC              mov         ebp,esp
+  113A05A3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113A05A9: 53                 push        ebx
+  113A05AA: 56                 push        esi
+  113A05AB: 57                 push        edi
+  113A05AC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113A05AF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113A05B2: 5F                 pop         edi
+  113A05B3: 5E                 pop         esi
+  113A05B4: 5B                 pop         ebx
+  113A05B5: 8B E5              mov         esp,ebp
+  113A05B7: 5D                 pop         ebp
+  113A05B8: C3                 ret
+  113A05B9: CC                 int         3
+  113A05BA: CC                 int         3
+  113A05BB: CC                 int         3
+  113A05BC: CC                 int         3
+  113A05BD: CC                 int         3
+  113A05BE: CC                 int         3
+  113A05BF: CC                 int         3
+  113A05C0: 55                 push        ebp
+  113A05C1: 8B EC              mov         ebp,esp
+  113A05C3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113A05C9: 53                 push        ebx
+  113A05CA: 56                 push        esi
+  113A05CB: 57                 push        edi
+  113A05CC: 51                 push        ecx
+  113A05CD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  113A05D0: B9 03 00 00 00     mov         ecx,3
+  113A05D5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113A05DA: F3 AB              rep stos    dword ptr es:[edi]
+  113A05DC: 59                 pop         ecx
+  113A05DD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113A05E0: 6A
+
+  Summary
+
+     2170000 .text

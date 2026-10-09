@@ -1,0 +1,75 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1137F010: 55                 push        ebp
+  1137F011: 8B EC              mov         ebp,esp
+  1137F013: 6A FF              push        0FFFFFFFFh
+  1137F015: 68 D0 3E 0D 13     push        130D3ED0h
+  1137F01A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1137F020: 50                 push        eax
+  1137F021: 81 EC E8 00 00 00  sub         esp,0E8h
+  1137F027: 53                 push        ebx
+  1137F028: 56                 push        esi
+  1137F029: 57                 push        edi
+  1137F02A: 51                 push        ecx
+  1137F02B: 8D 7D CC           lea         edi,[ebp-34h]
+  1137F02E: B9 0A 00 00 00     mov         ecx,0Ah
+  1137F033: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1137F038: F3 AB              rep stos    dword ptr es:[edi]
+  1137F03A: 59                 pop         ecx
+  1137F03B: A1 40 CA 76 13     mov         eax,dword ptr ds:[1376CA40h]
+  1137F040: 33 C5              xor         eax,ebp
+  1137F042: 50                 push        eax
+  1137F043: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1137F046: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1137F04C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1137F04F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1137F052: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  1137F058: 0F B6 8D 23 FF FF  movzx       ecx,byte ptr [ebp+FFFFFF23h]
+            FF
+  1137F05F: 51                 push        ecx
+  1137F060: 8B 8D 0C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF0Ch]
+  1137F066: E8 DB 2F D2 FF     call        110A2046
+  1137F06B: 90                 nop
+  1137F06C: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1137F06F: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  1137F075: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1137F078: E8 20 B9 CE FF     call        1106A99D
+  1137F07D: 50                 push        eax
+  1137F07E: 8D 8D 17 FF FF FF  lea         ecx,[ebp+FFFFFF17h]
+  1137F084: 51                 push        ecx
+  1137F085: E8 94 65 CE FF     call        1106561E
+  1137F08A: 83 C4 08           add         esp,8
+  1137F08D: 50                 push        eax
+  1137F08E: 8B 8D 0C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF0Ch]
+  1137F094: E8 35 B3 D0 FF     call        1108A3CE
+  1137F099: 90                 nop
+  1137F09A: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1137F09D: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1137F0A0: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1137F0A7: 59                 pop         ecx
+  1137F0A8: 5F                 pop         edi
+  1137F0A9: 5E                 pop         esi
+  1137F0AA: 5B                 pop         ebx
+  1137F0AB: 81 C4 F4 00 00 00  add         esp,0F4h
+  1137F0B1: 3B EC              cmp         ebp,esp
+  1137F0B3: E8 1D DC CD FF     call        1105CCD5
+  1137F0B8: 8B E5              mov         esp,ebp
+  1137F0BA: 5D                 pop         ebp
+  1137F0BB: C3                 ret
+  1137F0BC: CC                 int         3
+  1137F0BD: CC                 int         3
+  1137F0BE: CC                 int         3
+  1137F0BF: CC                 int         3
+  1137F0C0: CC                 int         3
+  1137F0C1: CC                 int         3
+
+  Summary
+
+     216D000 .text

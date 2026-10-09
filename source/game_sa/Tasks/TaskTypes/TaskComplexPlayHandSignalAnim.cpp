@@ -52,13 +52,16 @@ CTaskComplexPlayHandSignalAnim::CTaskComplexPlayHandSignalAnim(AnimationId anima
     m_animationId{animationId},
     m_AnimBlenDelta{blendFactor}
 {
+    // Como el original (0x61B2C3: and byte ptr [esi+14h],0F8h): solo se ponen a 0 los bits 0-2; el resto del byte queda sin escribir.
+    *(reinterpret_cast<uint8*>(this) + 0x14) &= 0xF8;
 }
 
 // 0x61BDF0
 CTaskComplexPlayHandSignalAnim::~CTaskComplexPlayHandSignalAnim() {
+    // Como el original: indice 0 = izquierda (A9B6F0/F8), 1 = derecha (A9B6F4/FC).
     enum {
-        RIGHT,
         LEFT,
+        RIGHT,
     };
     enum {
         NONFAT,
@@ -70,9 +73,12 @@ CTaskComplexPlayHandSignalAnim::~CTaskComplexPlayHandSignalAnim() {
         { MODEL_SHANDR, MODEL_FHANDR }  // right
     };
 
-    // Remove hand model refs
-    for (const auto i : { LEFT, RIGHT }) {
-        CModelInfo::GetModelInfo(handModels[i][m_DoUseFatHands ? FAT : NONFAT])->RemoveRef();
+    // Como el original (0x61BE13-0x61BE4E): solo quita la referencia de cada mano si el bit 0 (izquierda) / bit 1 (derecha) esta activo.
+    if (m_bLeftHandLoaded) {
+        CModelInfo::GetModelInfo(handModels[LEFT][m_DoUseFatHands ? FAT : NONFAT])->RemoveRef();
+    }
+    if (m_bRightHandLoaded) {
+        CModelInfo::GetModelInfo(handModels[RIGHT][m_DoUseFatHands ? FAT : NONFAT])->RemoveRef();
     }
 
     // Deal with anim

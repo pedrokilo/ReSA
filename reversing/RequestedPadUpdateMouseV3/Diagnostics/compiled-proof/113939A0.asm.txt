@@ -1,0 +1,91 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  113939A0: 55                 push        ebp
+  113939A1: 8B EC              mov         ebp,esp
+  113939A3: 81 EC 00 01 00 00  sub         esp,100h
+  113939A9: 53                 push        ebx
+  113939AA: 56                 push        esi
+  113939AB: 57                 push        edi
+  113939AC: 51                 push        ecx
+  113939AD: 8D 7D C0           lea         edi,[ebp-40h]
+  113939B0: B9 10 00 00 00     mov         ecx,10h
+  113939B5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113939BA: F3 AB              rep stos    dword ptr es:[edi]
+  113939BC: 59                 pop         ecx
+  113939BD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113939C0: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  113939C7: C7 45 E0 00 00 00  mov         dword ptr [ebp-20h],0
+            00
+  113939CE: E8 16 8F CE FF     call        1107C8E9
+  113939D3: 89 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],eax
+  113939D9: 8D 45 E0           lea         eax,[ebp-20h]
+  113939DC: 50                 push        eax
+  113939DD: 8D 4D EC           lea         ecx,[ebp-14h]
+  113939E0: 51                 push        ecx
+  113939E1: 8D 55 08           lea         edx,[ebp+8]
+  113939E4: 52                 push        edx
+  113939E5: 8D 8D 0C FF FF FF  lea         ecx,[ebp+FFFFFF0Ch]
+  113939EB: E8 25 88 CC FF     call        1105C215
+  113939F0: 89 85 00 FF FF FF  mov         dword ptr [ebp+FFFFFF00h],eax
+  113939F6: 8B 85 00 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF00h]
+  113939FC: 50                 push        eax
+  113939FD: 8B 8D 04 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF04h]
+  11393A03: E8 D6 06 D0 FF     call        110940DE
+  11393A08: 90                 nop
+  11393A09: 83 7D E0 01        cmp         dword ptr [ebp-20h],1
+  11393A0D: 75 0B              jne         11393A1A
+  11393A0F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11393A12: 89 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],eax
+  11393A18: EB 0A              jmp         11393A24
+  11393A1A: C7 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],0
+            00 00 00 00
+  11393A24: 8B 85 04 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF04h]
+  11393A2A: 52                 push        edx
+  11393A2B: 8B CD              mov         ecx,ebp
+  11393A2D: 50                 push        eax
+  11393A2E: 8D 15 54 3A 39 11  lea         edx,ds:[11393A54h]
+  11393A34: E8 FC 1B CD FF     call        11065635
+  11393A39: 58                 pop         eax
+  11393A3A: 5A                 pop         edx
+  11393A3B: 5F                 pop         edi
+  11393A3C: 5E                 pop         esi
+  11393A3D: 5B                 pop         ebx
+  11393A3E: 81 C4 00 01 00 00  add         esp,100h
+  11393A44: 3B EC              cmp         ebp,esp
+  11393A46: E8 B2 C2 CC FF     call        1105FCFD
+  11393A4B: 8B E5              mov         esp,ebp
+  11393A4D: 5D                 pop         ebp
+  11393A4E: C2 04 00           ret         4
+  11393A51: 0F 1F 00           nop         dword ptr [eax]
+  11393A54: 02 00              add         al,byte ptr [eax]
+  11393A56: 00 00              add         byte ptr [eax],al
+  11393A58: 5C                 pop         esp
+  11393A59: 3A 39              cmp         bh,byte ptr [ecx]
+  11393A5B: 11 EC              adc         esp,ebp
+  11393A5D: FF
+  11393A5E: FF
+  11393A5F: FF 04 00           inc         dword ptr [eax+eax]
+  11393A62: 00 00              add         byte ptr [eax],al
+  11393A64: 79 3A              jns         11393AA0
+  11393A66: 39 11              cmp         dword ptr [ecx],edx
+  11393A68: E0 FF              loopne      11393A69
+  11393A6A: FF
+  11393A6B: FF 04 00           inc         dword ptr [eax+eax]
+  11393A6E: 00 00              add         byte ptr [eax],al
+  11393A70: 74 3A              je          11393AAC
+  11393A72: 39 11              cmp         dword ptr [ecx],edx
+  11393A74: 68 69 74 73 00     push        737469h
+  11393A79: 66 6F              outs        dx,word ptr [esi]
+  11393A7B: 75 6E              jne         11393AEB
+  11393A7D: 64 00 CC           add         ah,cl
+
+  Summary
+
+     2174000 .text

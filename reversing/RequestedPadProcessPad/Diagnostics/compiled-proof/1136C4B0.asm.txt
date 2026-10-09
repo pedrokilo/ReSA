@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1136C4B0: 55                 push        ebp
+  1136C4B1: 8B EC              mov         ebp,esp
+  1136C4B3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1136C4B9: 53                 push        ebx
+  1136C4BA: 56                 push        esi
+  1136C4BB: 57                 push        edi
+  1136C4BC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136C4BF: 5F                 pop         edi
+  1136C4C0: 5E                 pop         esi
+  1136C4C1: 5B                 pop         ebx
+  1136C4C2: 8B E5              mov         esp,ebp
+  1136C4C4: 5D                 pop         ebp
+  1136C4C5: C3                 ret
+  1136C4C6: CC                 int         3
+  1136C4C7: CC                 int         3
+  1136C4C8: CC                 int         3
+  1136C4C9: CC                 int         3
+  1136C4CA: CC                 int         3
+  1136C4CB: CC                 int         3
+  1136C4CC: CC                 int         3
+  1136C4CD: CC                 int         3
+  1136C4CE: CC                 int         3
+  1136C4CF: CC                 int         3
+  1136C4D0: 55                 push        ebp
+  1136C4D1: 8B EC              mov         ebp,esp
+  1136C4D3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1136C4D9: 53                 push        ebx
+  1136C4DA: 56                 push        esi
+  1136C4DB: 57                 push        edi
+  1136C4DC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136C4DF: 5F                 pop         edi
+  1136C4E0: 5E                 pop         esi
+  1136C4E1: 5B                 pop         ebx
+  1136C4E2: 8B E5              mov         esp,ebp
+  1136C4E4: 5D                 pop         ebp
+  1136C4E5: C3                 ret
+  1136C4E6: CC                 int         3
+  1136C4E7: CC                 int         3
+  1136C4E8: CC                 int         3
+  1136C4E9: CC                 int         3
+  1136C4EA: CC                 int         3
+  1136C4EB: CC                 int         3
+  1136C4EC: CC                 int         3
+  1136C4ED: CC                 int         3
+  1136C4EE: CC                 int         3
+  1136C4EF: CC                 int         3
+  1136C4F0: 55                 push        ebp
+
+  Summary
+
+     2170000 .text

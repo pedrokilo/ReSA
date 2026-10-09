@@ -1,0 +1,89 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138A3A0: 55                 push        ebp
+  1138A3A1: 8B EC              mov         ebp,esp
+  1138A3A3: 6A FF              push        0FFFFFFFFh
+  1138A3A5: 68 30 4B 0D 13     push        130D4B30h
+  1138A3AA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1138A3B0: 50                 push        eax
+  1138A3B1: 81 EC 04 01 00 00  sub         esp,104h
+  1138A3B7: 53                 push        ebx
+  1138A3B8: 56                 push        esi
+  1138A3B9: 57                 push        edi
+  1138A3BA: 51                 push        ecx
+  1138A3BB: 8D 7D B0           lea         edi,[ebp-50h]
+  1138A3BE: B9 11 00 00 00     mov         ecx,11h
+  1138A3C3: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138A3C8: F3 AB              rep stos    dword ptr es:[edi]
+  1138A3CA: 59                 pop         ecx
+  1138A3CB: A1 40 CA 76 13     mov         eax,dword ptr ds:[1376CA40h]
+  1138A3D0: 33 C5              xor         eax,ebp
+  1138A3D2: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  1138A3D5: 50                 push        eax
+  1138A3D6: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1138A3D9: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1138A3DF: 89 4D E8           mov         dword ptr [ebp-18h],ecx
+  1138A3E2: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  1138A3E5: 8B 08              mov         ecx,dword ptr [eax]
+  1138A3E7: 89 8D FC FE FF FF  mov         dword ptr [ebp+FFFFFEFCh],ecx
+  1138A3ED: 6A 00              push        0
+  1138A3EF: 6A 00              push        0
+  1138A3F1: 6A 20              push        20h
+  1138A3F3: 6A FF              push        0FFFFFFFFh
+  1138A3F5: 8D 95 04 FF FF FF  lea         edx,[ebp+FFFFFF04h]
+  1138A3FB: 52                 push        edx
+  1138A3FC: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1138A3FF: E8 90 52 D0 FF     call        1108F694
+  1138A404: 89 85 F8 FE FF FF  mov         dword ptr [ebp+FFFFFEF8h],eax
+  1138A40A: 8B 85 F8 FE FF FF  mov         eax,dword ptr [ebp+FFFFFEF8h]
+  1138A410: 89 85 F4 FE FF FF  mov         dword ptr [ebp+FFFFFEF4h],eax
+  1138A416: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1138A41D: 8B 8D F4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEF4h]
+  1138A423: 89 8D F0 FE FF FF  mov         dword ptr [ebp+FFFFFEF0h],ecx
+  1138A429: 8B 95 F0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEF0h]
+  1138A42F: 52                 push        edx
+  1138A430: 8B 85 FC FE FF FF  mov         eax,dword ptr [ebp+FFFFFEFCh]
+  1138A436: 50                 push        eax
+  1138A437: E8 14 0F D0 FF     call        1108B350
+  1138A43C: 83 C4 08           add         esp,8
+  1138A43F: 6A 0A              push        0Ah
+  1138A441: 50                 push        eax
+  1138A442: E8 4B 20 CD FF     call        1105C492
+  1138A447: 83 C4 08           add         esp,8
+  1138A44A: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1138A451: 8D 8D 04 FF FF FF  lea         ecx,[ebp+FFFFFF04h]
+  1138A457: E8 3F 0B CF FF     call        1107AF9B
+  1138A45C: 90                 nop
+  1138A45D: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  1138A460: 8B 08              mov         ecx,dword ptr [eax]
+  1138A462: E8 4C E9 CE FF     call        11078DB3
+  1138A467: 90                 nop
+  1138A468: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1138A46B: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1138A472: 59                 pop         ecx
+  1138A473: 5F                 pop         edi
+  1138A474: 5E                 pop         esi
+  1138A475: 5B                 pop         ebx
+  1138A476: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  1138A479: 33 CD              xor         ecx,ebp
+  1138A47B: E8 BA 0E CD FF     call        1105B33A
+  1138A480: 81 C4 10 01 00 00  add         esp,110h
+  1138A486: 3B EC              cmp         ebp,esp
+  1138A488: E8 48 28 CD FF     call        1105CCD5
+  1138A48D: 8B E5              mov         esp,ebp
+  1138A48F: 5D                 pop         ebp
+  1138A490: C2 04 00           ret         4
+  1138A493: CC                 int         3
+
+  Summary
+
+     216D000 .text

@@ -4172,11 +4172,104 @@ bool CCollision::CameraConeCastVsWorldCollision(
     return true;
 }
 
-// 0x41A5A0
-bool CCollision::SphereVsEntity(CColSphere* sphere, CEntity* entity) {
-    ZoneScoped;
+// Como el original: el EXE NO lee el parametro `sphere`. Prueba una CColSphere LOCAL sin inicializar: los 16 bytes
+// (x, y, z, radio) que quedan en la pila en [ESP_entrada - 0x68 .. - 0x59] (0x41A665/6B/72/79, ninguna escritura previa
+// los toca). El puente desnudo de abajo los copia al entrar, antes de cualquier push o llamada, y el cuerpo C++ los usa.
+static uint32 gSphereVsEntityStackSphere[4];
 
-    NOTSA_UNREACHABLE(); /* unused */
+static bool __cdecl SphereVsEntityBody(CColSphere* /*sphere: ignorada, como en el EXE*/, CEntity* entity) {
+    // Como el original (0x41A5C0): bit 0 de +0x1C (m_bUsesCollision) y despues CCamera::IsExtraEntityToIgnore (0x50CE80)
+    if (!entity->m_bUsesCollision || TheCamera.IsExtraEntityToIgnore(entity)) {
+        return false;
+    }
+
+    // Como el original: la matriz se crea si falta (0x54F560 + 0x54F1B0) y se invierte (0x59B920) a una temporal
+    // que se descarta (0x59ACD0); todo ANTES de mirar si hay datos de colision.
+    CMatrix inv;
+    Invert(entity->GetMatrix(), inv);
+
+    const auto cm = entity->GetColModel();
+    const auto cd = cm->m_pColData;
+    if (!cd) {
+        return false;
+    }
+
+    CColSphere sph;
+    std::memcpy(&sph, gSphereVsEntityStackSphere, sizeof(gSphereVsEntityStackSphere));
+    const float sx = sph.m_vecCenter.x, sy = sph.m_vecCenter.y, sz = sph.m_vecCenter.z, sr = sph.m_fRadius;
+
+    // Como el original (0x41A656): contador int16, de la ultima a la primera; distancia^2 sumada en orden z, y, x
+    // y contacto solo si (r1 + r2)^2 > dist^2 (fcompp + test ah,41h: con NaN no hay contacto).
+    for (int32 i = (int16)cd->m_nNumSpheres - 1; i >= 0; i--) {
+        const auto& cs = cd->m_pSpheres[i];
+        const float dx = sx - cs.m_vecCenter.x;
+        const float dy = sy - cs.m_vecCenter.y;
+        const float dz = sz - cs.m_vecCenter.z;
+        const float r  = sr + cs.m_fRadius;
+        const float d2 = (dz * dz + dy * dy) + dx * dx;
+        if (r * r > d2) {
+            return true;
+        }
+    }
+
+    // Como el original (0x41A6B1): cajas, de la ultima a la primera
+    for (int32 i = (int16)cd->m_nNumBoxes - 1; i >= 0; i--) {
+        if (CCollision::TestSphereBox(sph, cd->m_pBoxes[i])) {
+            return true;
+        }
+    }
+
+    // Como el original (0x41A6E0): siempre se calculan los planos (0x416330)
+    CCollision::CalculateTrianglePlanes(cd);
+
+    const auto verts = cd->m_pVertices;
+    const auto tris  = cd->m_pTriangles;
+    const auto plns  = cd->m_pTrianglePlanes;
+    if ((int16)cd->m_nNumTriangles == 0) {
+        return false;
+    }
+
+    if (cd->bHasFaceGroups) {
+        // Como el original (0x41A720): el contador de grupos (int32 con signo) esta en tris - 4 y el grupo g en tris - 0x20 - g * 0x1C
+        const int32 numGroups = *reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(tris) - 4);
+        for (int32 g = 0; g < numGroups; g++) {
+            const auto& group = *reinterpret_cast<const ColHelpers::TFaceGroup*>(reinterpret_cast<const uint8*>(tris) - 0x20 - g * 0x1C);
+            if (!CCollision::TestSphereBox(sph, group.bb)) {
+                continue;
+            }
+            for (int32 t = (int16)group.first; t <= (int16)group.last; t++) {
+                if (CCollision::TestSphereTriangle(sph, verts, tris[t], plns[t])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Como el original (0x41A7C4): sin grupos, de la ultima a la primera
+    for (int32 t = (int16)cd->m_nNumTriangles - 1; t >= 0; t--) {
+        if (CCollision::TestSphereTriangle(sph, verts, tris[t], plns[t])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// 0x41A5A0
+bool __declspec(naked) CCollision::SphereVsEntity(CColSphere* sphere, CEntity* entity) {
+    // Al entrar [esp] = retorno, [esp+4] = sphere, [esp+8] = entity (cdecl). Los 16 bytes de basura de pila de
+    // [esp-0x68] se capturan sin tocar la pila y se salta al cuerpo con los argumentos intactos.
+    __asm {
+        mov eax, dword ptr [esp-0x68]
+        mov dword ptr [gSphereVsEntityStackSphere+0], eax
+        mov eax, dword ptr [esp-0x64]
+        mov dword ptr [gSphereVsEntityStackSphere+4], eax
+        mov eax, dword ptr [esp-0x60]
+        mov dword ptr [gSphereVsEntityStackSphere+8], eax
+        mov eax, dword ptr [esp-0x5C]
+        mov dword ptr [gSphereVsEntityStackSphere+12], eax
+        jmp SphereVsEntityBody
+    }
 }
 
 void CCollision::InjectHooks() {

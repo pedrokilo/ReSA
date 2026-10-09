@@ -1,0 +1,55 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1137DB10: 55                 push        ebp
+  1137DB11: 8B EC              mov         ebp,esp
+  1137DB13: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137DB19: 53                 push        ebx
+  1137DB1A: 56                 push        esi
+  1137DB1B: 57                 push        edi
+  1137DB1C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137DB1F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137DB22: 5F                 pop         edi
+  1137DB23: 5E                 pop         esi
+  1137DB24: 5B                 pop         ebx
+  1137DB25: 8B E5              mov         esp,ebp
+  1137DB27: 5D                 pop         ebp
+  1137DB28: C3                 ret
+  1137DB29: CC                 int         3
+  1137DB2A: CC                 int         3
+  1137DB2B: CC                 int         3
+  1137DB2C: CC                 int         3
+  1137DB2D: CC                 int         3
+  1137DB2E: CC                 int         3
+  1137DB2F: CC                 int         3
+  1137DB30: 55                 push        ebp
+  1137DB31: 8B EC              mov         ebp,esp
+  1137DB33: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137DB39: 53                 push        ebx
+  1137DB3A: 56                 push        esi
+  1137DB3B: 57                 push        edi
+  1137DB3C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137DB3F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137DB42: 5F                 pop         edi
+  1137DB43: 5E                 pop         esi
+  1137DB44: 5B                 pop         ebx
+  1137DB45: 8B E5              mov         esp,ebp
+  1137DB47: 5D                 pop         ebp
+  1137DB48: C3                 ret
+  1137DB49: CC                 int         3
+  1137DB4A: CC                 int         3
+  1137DB4B: CC                 int         3
+  1137DB4C: CC                 int         3
+  1137DB4D: CC                 int         3
+  1137DB4E: CC                 int         3
+  1137DB4F: CC                 int         3
+  1137DB50: 55                 push        ebp
+
+  Summary
+
+     2170000 .text

@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11385FA0: 55                 push        ebp
+  11385FA1: 8B EC              mov         ebp,esp
+  11385FA3: 81 EC CC 00 00 00  sub         esp,0CCh
+  11385FA9: 53                 push        ebx
+  11385FAA: 56                 push        esi
+  11385FAB: 57                 push        edi
+  11385FAC: 51                 push        ecx
+  11385FAD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11385FB0: B9 03 00 00 00     mov         ecx,3
+  11385FB5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11385FBA: F3 AB              rep stos    dword ptr es:[edi]
+  11385FBC: 59                 pop         ecx
+  11385FBD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11385FC0: 83 7D 08 0D        cmp         dword ptr [ebp+8],0Dh
+  11385FC4: 72 2D              jb          11385FF3
+  11385FC6: 68 D8 D2 1C 13     push        131CD2D8h
+  11385FCB: 68 5C 9B 1C 13     push        131C9B5Ch
+  11385FD0: 6A 00              push        0
+  11385FD2: 68 16 02 00 00     push        216h
+  11385FD7: 68 00 D3 1C 13     push        131CD300h
+  11385FDC: 6A 02              push        2
+  11385FDE: E8 4E 6E CF FF     call        1107CE31
+  11385FE3: 83 C4 18           add         esp,18h
+  11385FE6: 83 F8 01           cmp         eax,1
+  11385FE9: 75 01              jne         11385FEC
+  11385FEB: CC                 int         3
+  11385FEC: B9 05 00 00 00     mov         ecx,5
+  11385FF1: CD 29              int         29h
+  11385FF3: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11385FF6: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11385FF9: 8D 04 C1           lea         eax,[ecx+eax*8]
+  11385FFC: 5F                 pop         edi
+  11385FFD: 5E                 pop         esi
+  11385FFE: 5B                 pop         ebx
+  11385FFF: 81 C4 CC 00 00 00  add         esp,0CCh
+  11386005: 3B EC              cmp         ebp,esp
+  11386007: E8 C9 6C CD FF     call        1105CCD5
+  1138600C: 8B E5              mov         esp,ebp
+  1138600E: 5D                 pop         ebp
+  1138600F: C2 04 00           ret         4
+  11386012: CC                 int         3
+
+  Summary
+
+     216D000 .text

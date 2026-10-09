@@ -1,0 +1,144 @@
+{
+  "passed": true,
+  "pairs": 2304,
+  "differences": 0,
+  "functions": {
+    "CAEAudioHardware::Initialise": 1536,
+    "CAEFrontendAudioEntity::Initialise": 512,
+    "CAEFrontendAudioEntity::IsLoadingTuneActive": 128,
+    "CAEFrontendAudioEntity::Reset": 128
+  },
+  "covered_functions": {
+    "CAEAudioHardware::Initialise": true,
+    "CAEFrontendAudioEntity::Initialise": true,
+    "CAEFrontendAudioEntity::IsLoadingTuneActive": true,
+    "CAEFrontendAudioEntity::Reset": true
+  },
+  "scope": "Simple pair bench inside the full game (original with the hook off vs candidate with the hook on), 2304 isolated CPU pairs for 4 functions, zero differences, natural completion event with state_restored, saves unchanged, configs restored, per-function coverage thresholds met. CAEAudioHardware::Initialise runs on a FAKE 0x1100-byte CAEAudioHardware (pseudo-random fill per case, identical in both passes); the real AEAudioHardware is never touched. DirectSoundCreate (EXE IAT 0x85801C target) and DirectSoundCreate8 (DLL import) are patched in dsound.dll only during the call and return a fake COM device (QueryInterface/AddRef/Release, GetCaps, SetCooperativeLevel and GetSpeakerConfig with scripted HRESULTs and capabilities); the real device is never opened. operator new (EXE 0x82119A, to which the DLL one forwards) is patched only during the call and hands out blocks of a 1 MiB arena pre-filled with 0xCD (other threads are forwarded to the original), so the REAL constructors of the loaders and channels run (EXE vs DLL) and are compared block by block (offset, size, FNV hash; the vtable pointer, dword 0, of the channel blocks of size 0x90 and 0x60098 is masked). Compared for CAEAudioHardware::Initialise: return value (AL), hash of the whole fake object, arena blocks, arena bytes used, the fade-thread buffer count (0xB610E8), the user-track scan state (0xB6B988) and the trace of every stubbed call with normalised arguments. Traced stubs, patched at the EXE address and at the DLL body, so these helpers get NO credit: CAEAudioHardware::InitDirectSoundListener, CAEMP3BankLoader::Initialise, CAEMP3TrackLoader::Initialise, CAEStreamingChannel::Initialise, CAEAudioChannel::SetVolume, CAEUserRadioTrackManager::ScanUserTracks and Initialise, CAESmoothFadeThread::Initialise and Start, CAEStreamThread::Initialise and Start, CAEAudioHardware::LoadSoundBank and LoadSound, CAEAudioUtility::GetRandomNumberInRange<int>, CAESoundManager::AreSoundsOfThisEventPlayingForThisEntity and CancelSoundsOfThisEventPlayingForThisEntity; IsForegroundApp parks the real streaming thread during the bench. No audio thread is created or started. Declared limits: (1) after a stubbed MP3 bank or track loader Initialise returns false the DLL writes an NOTSA_LOG_ERR message (spdlog allocates through operator new) that the EXE does not have; from that point the trace, the block list and the arena usage are frozen (Freeze()), so allocations or stubbed calls made by the DLL after that failure are not detected through those channels, only through the object hash, the return value and the compared globals; (2) the path with m_nUserTracksScanState == IN_PROGRESS (Sleep(100) loop) is not tested, scan states used are OFF, COMPLETE, ERROR, 4, -1 and INT_MAX; (3) DirectSoundCreate is replaced by a fake COM device, so the real DirectSound behaviour is not exercised; (4) the constructors of channels and loaders run for real (EXE vs DLL) but are not validated here and are only compared as a side effect. Source corrected to what the EXE does before this run: CAEAudioHardware::Initialise uses operator new(0x6E4) plus Constructor() for CAEMP3BankLoader (the EXE only writes 0x14 and 0x66A, 0x4DFB10); CAEFrontendAudioEntity::Initialise writes the fields that were missing (0x80, 0x82=0x1C, 0x7E=-1, 0x84..0x94) and LoadSound takes a signed byte id (movsx). An earlier run (20261009-005347-353159, probe 17c9d956...) failed with 341 differences in 1536 CAEAudioHardware::Initialise pairs, all of them only in arena_used, blocks and recs (the NOTSA log allocations of limit 1); it is kept rejected as hashes only. Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CAEAudioHardware::Initialise": "Corpus 1536: DirectSoundCreate HRESULT E_FAIL (1/8), S_FALSE (about 1/7) or S_OK; SetCooperativeLevel HRESULT 0x88780078 (1/8), S_FALSE or S_OK; GetCaps E_FAIL (1/4) or S_OK with random DSCAPS; random speaker config; dwFreeHw3DAllBuffers cycling {0,1,0x17,0x18,0x19,0x1F,0x30,0x3F,0x40,0x41,0x1000,0xFFFFFFFF} around the 0x18/0x40 thresholds; listener, bank loader and track loader initialise success 7/8 each; auto-scan byte 0, 0x80 or 1; scan state {0,2,3,4,-1,INT_MAX}; random initial fade count. Coverage in the approved run: 777 cases reach CAEStreamThread::Start (759 stop earlier), 573 with hardware mixing (>= 0x18) and 204 without, ScanUserTracks reached in 529.",
+    "CAEFrontendAudioEntity::Initialise": "Corpus 512: fake 0x1EC-byte entity with pseudo-random content and 16 guard bytes (0xCD) after it; LoadSoundBank, LoadSound and GetRandomNumberInRange<int> are traced stubs; the stubbed random value cycles {0,1,2,3,126,127,128,129,200,255,256,300,-1,0x1234}, 182 of 512 with a byte >= 128 (signed LoadSound id). Return value is void and not compared.",
+    "CAEFrontendAudioEntity::IsLoadingTuneActive": "Corpus 128: fake entity, AreSoundsOfThisEventPlayingForThisEntity stub returns 0 or non-zero (67 of 128 non-zero); return value (AL) and the whole object are compared.",
+    "CAEFrontendAudioEntity::Reset": "Corpus 128: fake entity with pseudo-random content, CancelSoundsOfThisEventPlayingForThisEntity is a traced stub; void, the object and the trace are compared."
+  },
+  "dependency_review": null,
+  "run": "reversing/AudioFinal1/runs/20261009-010133-465573",
+  "summary_sha256": "dc184bf2171d078c1f2ceff52f89b9ae5d80a2905367055c01b800cbb889dfa2",
+  "result_txt_sha256": "0f2fc8175c52ba84bd0b33206abd57609dbd59421751870ca907a172e9f44e13",
+  "log_sha256": "c90da9b33e18cc53a95c5847a64e33528d9d0584c726f138b2ba3c9164ae3b82",
+  "comparison_storage": {
+    "uncompressed_sha256": "c90da9b33e18cc53a95c5847a64e33528d9d0584c726f138b2ba3c9164ae3b82",
+    "uncompressed_bytes": 5080104,
+    "compressed_path": "reversing/AudioFinal1/runs/20261009-010133-465573/comparisons.jsonl.gz",
+    "compressed_sha256": "6341740081f1d7ff0d13a1f4a0d978ff46ec17101f6371c9c3466fddbd57640e",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "c90da9b33e18cc53a95c5847a64e33528d9d0584c726f138b2ba3c9164ae3b82",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audiofinal1\\20261009-010133-465573\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "3442924dbbfb9e123e7c918d700ff43072c64659376586ce82670f8de4744b97",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9df4f1d47430c971817667e1d726520addc01ab4",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 2304,
+    "asi": "3442924dbbfb9e123e7c918d700ff43072c64659376586ce82670f8de4744b97",
+    "pdb": "bb069f4379dbfb92f7c9e5375d918e44ac53822347c26024eccca6b2d9fb5cbc",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-audiofinal1-probe.pdb (1.2 GB, not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Audio/Hardware/AEAudioHardware.cpp": "322c335ee99d19aaaea2ddb2af6da34e65f147707092c48129c304bef81ac15d",
+      "source/game_sa/Audio/Hardware/AEAudioHardware.h": "e09c4152ef905e510e374162f1e08eb318ba64eb85672d2ffb5f02d5d4ec7ae5",
+      "source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp": "9c86e5f2ada5fc3653bb126ac03fbea011b1deac2c752b61e00bab0dba6cbdc7",
+      "source/game_sa/Audio/Entities/AEFrontendAudioEntity.h": "c06e1461ae7c3a0290ac4c2c5c3382dc0a37f9a3a8d6e231031155c6911359f9",
+      "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "199b64ebf65960360f0ef983e5012d878f5635fe3ef3c2768206b219997d8a9b"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "1d765b28d9ad0275ebbc7e16775cab3d4a8d5d38797854c4e061d916c2e490b2",
+      "build_probe.py": "37220eead4fdeb6d6b176ef445b55235f00687f129cf756eab2efb7c4ff3a8ca",
+      "run_local.py": "ee558c4750171c5a6d2317fd3a2aa5cc749a73d8ae453cad0e0c9c5341067ccf"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Audio/Hardware/AEAudioHardware.cpp": "Initialise: operator new(0x6E4) + Constructor() for CAEMP3BankLoader",
+      "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "friend class CAEAudioHardware so Initialise can reserve the block and call Constructor()",
+      "source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp": "Initialise writes the missing fields; LoadSound id is signed"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 2304,
+    "complete_events": 1,
+    "function_summaries": 4,
+    "unequal": 0,
+    "distinct_cases": 2304,
+    "per_function": {
+      "CAEAudioHardware::Initialise": 1536,
+      "CAEFrontendAudioEntity::Initialise": 512,
+      "CAEFrontendAudioEntity::IsLoadingTuneActive": 128,
+      "CAEFrontendAudioEntity::Reset": 128
+    },
+    "coverage": {
+      "CAEAudioHardware::Initialise": {
+        "accepted": true,
+        "fail_paths": 759,
+        "hardware_mix": 573,
+        "ok_paths": 777,
+        "playing": 0,
+        "scans": 529,
+        "seed_ge_128": 0,
+        "software_mix": 204
+      },
+      "CAEFrontendAudioEntity::Initialise": {
+        "accepted": true,
+        "fail_paths": 0,
+        "hardware_mix": 0,
+        "ok_paths": 0,
+        "playing": 0,
+        "scans": 0,
+        "seed_ge_128": 182,
+        "software_mix": 0
+      },
+      "CAEFrontendAudioEntity::IsLoadingTuneActive": {
+        "accepted": true,
+        "fail_paths": 0,
+        "hardware_mix": 0,
+        "ok_paths": 0,
+        "playing": 67,
+        "scans": 0,
+        "seed_ge_128": 0,
+        "software_mix": 0
+      },
+      "CAEFrontendAudioEntity::Reset": {
+        "accepted": true,
+        "fail_paths": 0,
+        "hardware_mix": 0,
+        "ok_paths": 0,
+        "playing": 0,
+        "scans": 0,
+        "seed_ge_128": 0,
+        "software_mix": 0
+      }
+    }
+  },
+  "source_corrections_before_run": {
+    "source/game_sa/Audio/Hardware/AEAudioHardware.cpp": "Initialise: operator new(0x6E4) + Constructor() for CAEMP3BankLoader",
+    "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "friend class CAEAudioHardware so Initialise can reserve the block and call Constructor()",
+    "source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp": "Initialise writes the missing fields; LoadSound id is signed"
+  },
+  "rejected_attempts": {
+    "20261009-005347-353159": {
+      "error": "Funciones con diferencias: CAEAudioHardware::Initialise: 341/1536",
+      "executed_probe_sha256": "17c9d956573f43858121ebe634d3c54d007875eef135e082a00fdfa9ea6c12d5",
+      "log_sha256": "3301674513f36cbb42ab3c1f04056ea34dfc4cfb14084d7cf123c0451dd5f597",
+      "differs_only_in": [
+        "arena_used",
+        "blocks",
+        "recs"
+      ],
+      "cause": "NOTSA_LOG_ERR allocations in the DLL after a failed stubbed MP3 loader Initialise; fixed in LiveComparison.hpp by freezing the trace/arena at that point; log not copied to the repository"
+    }
+  }
+}

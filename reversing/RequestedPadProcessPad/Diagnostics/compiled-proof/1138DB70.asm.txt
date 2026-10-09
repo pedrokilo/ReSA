@@ -1,0 +1,166 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138DB70: 55                 push        ebp
+  1138DB71: 8B EC              mov         ebp,esp
+  1138DB73: 6A FF              push        0FFFFFFFFh
+  1138DB75: 68 FC 92 0D 13     push        130D92FCh
+  1138DB7A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1138DB80: 50                 push        eax
+  1138DB81: 81 EC 68 01 00 00  sub         esp,168h
+  1138DB87: 53                 push        ebx
+  1138DB88: 56                 push        esi
+  1138DB89: 57                 push        edi
+  1138DB8A: 8D BD 4C FF FF FF  lea         edi,[ebp+FFFFFF4Ch]
+  1138DB90: B9 2A 00 00 00     mov         ecx,2Ah
+  1138DB95: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138DB9A: F3 AB              rep stos    dword ptr es:[edi]
+  1138DB9C: A1 40 0A 77 13     mov         eax,dword ptr ds:[13770A40h]
+  1138DBA1: 33 C5              xor         eax,ebp
+  1138DBA3: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  1138DBA6: 50                 push        eax
+  1138DBA7: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1138DBAA: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1138DBB0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1138DBB3: 50                 push        eax
+  1138DBB4: E8 38 52 CE FF     call        11072DF1
+  1138DBB9: 83 C4 04           add         esp,4
+  1138DBBC: 89 45 E8           mov         dword ptr [ebp-18h],eax
+  1138DBBF: 81 7D 0C 10 01 00  cmp         dword ptr [ebp+0Ch],110h
+            00
+  1138DBC6: 75 21              jne         1138DBE9
+  1138DBC8: 68 10 01 00 00     push        110h
+  1138DBCD: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  1138DBD0: 50                 push        eax
+  1138DBD1: E8 EE CA CD FF     call        1106A6C4
+  1138DBD6: 83 C4 08           add         esp,8
+  1138DBD9: 0F B6 C8           movzx       ecx,al
+  1138DBDC: 85 C9              test        ecx,ecx
+  1138DBDE: 74 09              je          1138DBE9
+  1138DBE0: C6 85 93 FE FF FF  mov         byte ptr [ebp+FFFFFE93h],1
+            01
+  1138DBE7: EB 07              jmp         1138DBF0
+  1138DBE9: C6 85 93 FE FF FF  mov         byte ptr [ebp+FFFFFE93h],0
+            00
+  1138DBF0: 8A 95 93 FE FF FF  mov         dl,byte ptr [ebp+FFFFFE93h]
+  1138DBF6: 88 55 DF           mov         byte ptr [ebp-21h],dl
+  1138DBF9: 0F B6 05 38 A0 6C  movzx       eax,byte ptr ds:[136CA038h]
+            13
+  1138DC00: 0F B6 4D DF        movzx       ecx,byte ptr [ebp-21h]
+  1138DC04: 23 C1              and         eax,ecx
+  1138DC06: A2 38 A0 6C 13     mov         byte ptr ds:[136CA038h],al
+  1138DC0B: 0F B6 45 DF        movzx       eax,byte ptr [ebp-21h]
+  1138DC0F: 85 C0              test        eax,eax
+  1138DC11: 74 25              je          1138DC38
+  1138DC13: 83 3D A4 DF 78 13  cmp         dword ptr ds:[1378DFA4h],0
+            00
+  1138DC1A: 7C 1C              jl          1138DC38
+  1138DC1C: 68 10 01 00 00     push        110h
+  1138DC21: B9 E8 DD 78 13     mov         ecx,1378DDE8h
+  1138DC26: E8 BE E4 CF FF     call        1108C0E9
+  1138DC2B: 50                 push        eax
+  1138DC2C: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  1138DC2F: 50                 push        eax
+  1138DC30: E8 62 96 CF FF     call        11087297
+  1138DC35: 83 C4 0C           add         esp,0Ch
+  1138DC38: 68 EC 60 28 13     push        132860ECh
+  1138DC3D: 8D 8D 98 FE FF FF  lea         ecx,[ebp+FFFFFE98h]
+  1138DC43: E8 2D FC CC FF     call        1105D875
+  1138DC48: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1138DC4F: 8D 45 E8           lea         eax,[ebp-18h]
+  1138DC52: 50                 push        eax
+  1138DC53: 8D 8D B0 FE FF FF  lea         ecx,[ebp+FFFFFEB0h]
+  1138DC59: E8 8C E1 D1 FF     call        110ABDEA
+  1138DC5E: C6 45 FC 01        mov         byte ptr [ebp-4],1
+  1138DC62: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1138DC65: 89 8D 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],ecx
+  1138DC6B: 8D 95 10 FF FF FF  lea         edx,[ebp+FFFFFF10h]
+  1138DC71: 52                 push        edx
+  1138DC72: 8D 8D C8 FE FF FF  lea         ecx,[ebp+FFFFFEC8h]
+  1138DC78: E8 29 C3 CF FF     call        11089FA6
+  1138DC7D: C7 45 FC 02 00 00  mov         dword ptr [ebp-4],2
+            00
+  1138DC84: 8D 85 E0 FE FF FF  lea         eax,[ebp+FFFFFEE0h]
+  1138DC8A: 50                 push        eax
+  1138DC8B: 8D 8D 98 FE FF FF  lea         ecx,[ebp+FFFFFE98h]
+  1138DC91: 51                 push        ecx
+  1138DC92: 8D 8D 00 FF FF FF  lea         ecx,[ebp+FFFFFF00h]
+  1138DC98: E8 3A B6 CE FF     call        110792D7
+  1138DC9D: 8B 50 04           mov         edx,dword ptr [eax+4]
+  1138DCA0: 52                 push        edx
+  1138DCA1: 8B 00              mov         eax,dword ptr [eax]
+  1138DCA3: 50                 push        eax
+  1138DCA4: 8D 8D E8 FE FF FF  lea         ecx,[ebp+FFFFFEE8h]
+  1138DCAA: 51                 push        ecx
+  1138DCAB: E8 2D E8 CD FF     call        1106C4DD
+  1138DCB0: 83 C4 0C           add         esp,0Ch
+  1138DCB3: 89 85 90 FE FF FF  mov         dword ptr [ebp+FFFFFE90h],eax
+  1138DCB9: 8B 95 90 FE FF FF  mov         edx,dword ptr [ebp+FFFFFE90h]
+  1138DCBF: 89 95 8C FE FF FF  mov         dword ptr [ebp+FFFFFE8Ch],edx
+  1138DCC5: C6 45 FC 03        mov         byte ptr [ebp-4],3
+  1138DCC9: 8B 85 8C FE FF FF  mov         eax,dword ptr [ebp+FFFFFE8Ch]
+  1138DCCF: 50                 push        eax
+  1138DCD0: B9 30 DF 78 13     mov         ecx,1378DF30h
+  1138DCD5: E8 79 85 CE FF     call        11076253
+  1138DCDA: C6 45 FC 02        mov         byte ptr [ebp-4],2
+  1138DCDE: 8D 8D E8 FE FF FF  lea         ecx,[ebp+FFFFFEE8h]
+  1138DCE4: E8 C4 F1 D0 FF     call        1109CEAD
+  1138DCE9: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1138DCF0: 68 FE B0 08 11     push        1108B0FEh
+  1138DCF5: 6A 03              push        3
+  1138DCF7: 6A 18              push        18h
+  1138DCF9: 8D 8D 98 FE FF FF  lea         ecx,[ebp+FFFFFE98h]
+  1138DCFF: 51                 push        ecx
+  1138DD00: E8 13 17 CD FF     call        1105F418
+  1138DD05: 90                 nop
+  1138DD06: A1 A4 DF 78 13     mov         eax,dword ptr ds:[1378DFA4h]
+  1138DD0B: 52                 push        edx
+  1138DD0C: 8B CD              mov         ecx,ebp
+  1138DD0E: 50                 push        eax
+  1138DD0F: 8D 15 48 DD 38 11  lea         edx,ds:[1138DD48h]
+  1138DD15: E8 C1 58 CD FF     call        110635DB
+  1138DD1A: 58                 pop         eax
+  1138DD1B: 5A                 pop         edx
+  1138DD1C: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1138DD1F: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1138DD26: 59                 pop         ecx
+  1138DD27: 5F                 pop         edi
+  1138DD28: 5E                 pop         esi
+  1138DD29: 5B                 pop         ebx
+  1138DD2A: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  1138DD2D: 33 CD              xor         ecx,ebp
+  1138DD2F: E8 06 E6 CC FF     call        1105C33A
+  1138DD34: 81 C4 74 01 00 00  add         esp,174h
+  1138DD3A: 3B EC              cmp         ebp,esp
+  1138DD3C: E8 94 FF CC FF     call        1105DCD5
+  1138DD41: 8B E5              mov         esp,ebp
+  1138DD43: 5D                 pop         ebp
+  1138DD44: C2 0C 00           ret         0Ch
+  1138DD47: 90                 nop
+  1138DD48: 01 00              add         dword ptr [eax],eax
+  1138DD4A: 00 00              add         byte ptr [eax],al
+  1138DD4C: 50                 push        eax
+  1138DD4D: DD 38              fnstsw      word ptr [eax]
+  1138DD4F: 11 E8              adc         eax,ebp
+  1138DD51: FF
+  1138DD52: FF
+  1138DD53: FF 04 00           inc         dword ptr [eax+eax]
+  1138DD56: 00 00              add         byte ptr [eax],al
+  1138DD58: 5C                 pop         esp
+  1138DD59: DD 38              fnstsw      word ptr [eax]
+  1138DD5B: 11 69 6E           adc         dword ptr [ecx+6Eh],ebp
+  1138DD5E: 64
+  1138DD5F: 65 78 00           js          1138DD62
+  1138DD62: CC                 int         3
+
+  Summary
+
+     2170000 .text

@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1136A880: 55                 push        ebp
+  1136A881: 8B EC              mov         ebp,esp
+  1136A883: 81 EC C0 00 00 00  sub         esp,0C0h
+  1136A889: 53                 push        ebx
+  1136A88A: 56                 push        esi
+  1136A88B: 57                 push        edi
+  1136A88C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136A88F: 5F                 pop         edi
+  1136A890: 5E                 pop         esi
+  1136A891: 5B                 pop         ebx
+  1136A892: 8B E5              mov         esp,ebp
+  1136A894: 5D                 pop         ebp
+  1136A895: C3                 ret
+  1136A896: CC                 int         3
+  1136A897: CC                 int         3
+  1136A898: CC                 int         3
+  1136A899: CC                 int         3
+  1136A89A: CC                 int         3
+  1136A89B: CC                 int         3
+  1136A89C: CC                 int         3
+  1136A89D: CC                 int         3
+  1136A89E: CC                 int         3
+  1136A89F: CC                 int         3
+  1136A8A0: 55                 push        ebp
+  1136A8A1: 8B EC              mov         ebp,esp
+  1136A8A3: 81 EC C4 00 00 00  sub         esp,0C4h
+  1136A8A9: 53                 push        ebx
+  1136A8AA: 56                 push        esi
+  1136A8AB: 57                 push        edi
+  1136A8AC: 8D 7D FC           lea         edi,[ebp-4]
+  1136A8AF: B9 01 00 00 00     mov         ecx,1
+  1136A8B4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1136A8B9: F3 AB              rep stos    dword ptr es:[edi]
+  1136A8BB: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1136A8BE: 50                 push        eax
+  1136A8BF: 8B
+  1136A8C0: 4D                 dec         ebp
+
+  Summary
+
+     2170000 .text

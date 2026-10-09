@@ -25,7 +25,6 @@ END GENERATED HOOK STATUS */
 #include "EventObjectCollision.h"
 #include "EventBuildingCollision.h"
 
-constexpr auto FIGHT_CTRL_MAX_ATTACK_ANGLE_RAD = DegreesToRadians(15);
 constexpr auto FIGHT_CTRL_FIGHT_IDLE_TIME = 60000.f;
 
 static auto& FightControlAttackInterval = StaticRef<uint32>(0x8D2E4C);
@@ -113,54 +112,95 @@ int16 CTaskSimpleFightingControl::CalcMoveCommand(CPed* ped) {
     const auto& targetPos = m_target->GetPosition();
     const auto& pedPos    = ped->GetPosition();
 
-    const auto segmentPedToTarget = targetPos - pedPos;
+    // Como el original (0x624B89): resta objetivo - peaton y magnitud sumando z*z + x*x y luego + y*y.
+    const float deltaX = targetPos.x - pedPos.x;
+    const float deltaY = targetPos.y - pedPos.y;
+    const float deltaZ = targetPos.z - pedPos.z;
+    const float magnitude = std::sqrt((deltaZ * deltaZ + deltaX * deltaX) + deltaY * deltaY);
 
-    // Check if target is outside of the attacking angle
-    if (std::abs(CGeneral::LimitRadianAngle(segmentPedToTarget.Heading()) - ped->m_fCurrentRotation) >= FIGHT_CTRL_MAX_ATTACK_ANGLE_RAD) {
-        m_nextAttackTime += (uint32)CTimer::GetTimeStepInMS();
+    // Como el original (0x624BAF): rumbo atan2(-x, y) con fpatan (precision completa), se resta la rotacion actual,
+    // se envuelve UNA sola vez (> pi: -2pi; < -pi: +2pi) y se compara |angulo| con 0x8D2E60 (estricto).
+    const float rotation = ped->m_fCurrentRotation;
+    const float piValue = std::bit_cast<float>(0x40490FDBu), minusPiValue = std::bit_cast<float>(0xC0490FDBu), twoPiValue = std::bit_cast<float>(0x40C90FDBu);
+    const float attackAngle = std::bit_cast<float>(0x3E860A92u);
+    bool outsideAngle;
+    __asm {
+        fld deltaX
+        fchs
+        fld deltaY
+        fpatan
+        fsub rotation
+        fcom piValue
+        fnstsw ax
+        test ah, 41h
+        jne check_lower
+        fsub twoPiValue
+        jmp wrapped
+    check_lower:
+        fcom minusPiValue
+        fnstsw ax
+        test ah, 5
+        jp wrapped
+        fadd twoPiValue
+    wrapped:
+        fabs
+        fcomp attackAngle
+        fnstsw ax
+        test ah, 41h
+        setz outsideAngle
+    }
+    if (outsideAngle) {
+        // Como el original (0x624BF4): paso * 0.02 * 1000 truncado por _ftol2 y sumado a la hora del proximo ataque.
+        m_nextAttackTime += FightControlElapsed(CTimer::GetTimeStep());
         return 0;
     }
 
     switch (m_target->GetType()) {
     case ENTITY_TYPE_PED: {
-        const auto range = segmentPedToTarget.Magnitude() - m_maxAttackRange;
+        // Como el original (0x624C2B): rand() del EXE se consume SIEMPRE antes de comparar la distancia.
+        const int32 random = plugin::CallAndReturn<int32, 0x821B1E>();
+        const bool lucky = (random & 0xF) == 0;
+        const float range = magnitude - m_maxAttackRange;
         if (range > 0.1f) {
             return 3;
         }
 
-        const auto rnd = rand();
-
-        if (range > -0.1f) { // Inverted
-            return (rnd % 16 == 0) ? 7 : -1;
+        if (range > -0.1f) {
+            return lucky ? 7 : -1;
         }
 
-        if (range >= 0.8f) {
-            if (rand() % 64 == 0) {
+        // Como el original (0x624C7E): aqui se compara la magnitud (no el rango) con 0.8.
+        if (!(magnitude < 0.8f)) {
+            if ((plugin::CallAndReturn<int32, 0x821B1E>() & 0x3F) == 0) {
                 return 8;
             }
-            if (rand() % 64 == 0) {
+            if ((plugin::CallAndReturn<int32, 0x821B1E>() & 0x3F) == 0) {
                 return 10;
             }
-        } else if (rnd % 16 == 0) {
+        } else if (lucky) {
             return 9;
         }
-     
+
         break;
     }
     case ENTITY_TYPE_VEHICLE: {
-        CVector planes[4]{};
-        float planesDot[4]{};
-        CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncachedAll(targetPos.z, *m_target, &planes, planesDot);
+        CVector planes[4];
+        float planesDot[4];
+        // Como el original (0x624D09): llama a la version con cache 0x5F3660.
+        CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanes(targetPos.z, *m_target, &planes, planesDot);
 
         const auto hitSide = CPedGeometryAnalyser::ComputeEntityHitSide(pedPos, *m_target);
-        if ((DotProduct(planes[hitSide], pedPos) + planesDot[hitSide]) >= 0.7f) {
+        // Como el original (0x624D43): (z*z + y*y) + x*x, luego + plano, comparacion estricta con 0.7.
+        const auto& plane = planes[hitSide];
+        const float distance = ((plane.z * pedPos.z + plane.y * pedPos.y) + plane.x * pedPos.x) + planesDot[hitSide];
+        if (distance > 0.7f) {
             return 3;
         }
 
         break;
     }
     default: {
-        if (segmentPedToTarget.Magnitude() - m_maxAttackRange > 0.3f) {
+        if (magnitude - m_maxAttackRange > 0.3f) {
             return 3;
         }
         break;
@@ -171,64 +211,52 @@ int16 CTaskSimpleFightingControl::CalcMoveCommand(CPed* ped) {
 }
 
 // 0x61DD00
-bool CTaskSimpleFightingControl::MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) {
-    switch (priority) {
-    case ABORT_PRIORITY_LEISURE:
+bool CTaskSimpleFightingControl::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+    if (priority == ABORT_PRIORITY_LEISURE) {
         return false;
-    case ABORT_PRIORITY_IMMEDIATE:
-        return true;
-    case ABORT_PRIORITY_URGENT: {
-        if (event) {
-            if (event->GetEventPriority() < 22) {
-                return false;
-            }
-
-            switch (event->GetEventType()) {
-            case EVENT_PED_COLLISION_WITH_PED:
-            case EVENT_PED_COLLISION_WITH_PLAYER:
-            case EVENT_PLAYER_COLLISION_WITH_PED: {
-                return false;
-            }
-            case EVENT_VEHICLE_COLLISION:
-            case EVENT_OBJECT_COLLISION:
-            case EVENT_BUILDING_COLLISION: {
-                if (!m_target) {
-                    return true;
-                }
-
-                // This is not how they did it, but I'd like to avoid using blackmagic.
-                // Once we reverse all stuff related to these events we should make a common base class
-                // like `CEventEntityCollision` or something similar.
-                const auto impactNormal = [event] {
-                    switch (event->GetEventType()) {
-                    case EVENT_VEHICLE_COLLISION:
-                        return static_cast<const CEventVehicleCollision*>(event)->m_impactNormal;
-                    case EVENT_OBJECT_COLLISION:
-                        return static_cast<const CEventObjectCollision*>(event)->m_impactNormal;
-                    case EVENT_BUILDING_COLLISION:
-                        return static_cast<const CEventBuildingCollision*>(event)->m_impactNormal;
-                    default:
-                        NOTSA_UNREACHABLE();
-                    }
-                }();
-
-                // Check if vector are opposing each other with 45deg tolerance
-                if (-DotProduct(Normalized(m_target->GetPosition() - ped->GetPosition()), impactNormal) < SQRT_2 / 2) {
-                    return false; // They aren't
-                }
-            }
-            }
-        }
-
-        if (ped->GetIntelligence()->GetTaskFighting()) {
-            return ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK)->MakeAbortable(ped, priority, event);
-        }
-
+    }
+    if (priority == ABORT_PRIORITY_IMMEDIATE) {
         return true;
     }
-    default:
-        NOTSA_UNREACHABLE();
+
+    // Como el original: cualquier otro valor (URGENT sin evento o prioridades fuera de rango) cae al final.
+    if (priority == ABORT_PRIORITY_URGENT && event) {
+        if (event->GetEventPriority() < 22) {
+            return false;
+        }
+
+        // Como el original (0x61DD53): GetEventType se vuelve a llamar por cada comparacion.
+        if (event->GetEventType() == EVENT_PED_COLLISION_WITH_PED
+            || event->GetEventType() == EVENT_PED_COLLISION_WITH_PLAYER
+            || event->GetEventType() == EVENT_PLAYER_COLLISION_WITH_PED) {
+            return false;
+        }
+
+        if (event->GetEventType() == EVENT_VEHICLE_COLLISION
+            || event->GetEventType() == EVENT_OBJECT_COLLISION
+            || event->GetEventType() == EVENT_BUILDING_COLLISION) {
+            if (!m_target) {
+                return true;
+            }
+
+            // Como el original: la normal de impacto de los tres eventos esta en +0x18.
+            const auto& impactNormal = *reinterpret_cast<const CVector*>(reinterpret_cast<const uint8*>(event) + 0x18);
+            CVector direction = m_target->GetPosition() - ped->GetPosition();
+            direction.Normalise();
+
+            // Como el original (0x61DDE2): y*ny + z*nz, luego + x*nx; se niega y se compara con 0.707 (0x863C1C).
+            const float dot = (direction.y * impactNormal.y + direction.z * impactNormal.z) + direction.x * impactNormal.x;
+            if (-dot < std::bit_cast<float>(0x3F34FDF4u)) { // NaN no entra, igual que el jp del original
+                return false;
+            }
+        }
     }
+
+    if (ped->GetIntelligence()->GetTaskFighting()) {
+        return ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK)->MakeAbortable(ped, priority, event);
+    }
+
+    return true;
 }
 
 // 0x62A0A0

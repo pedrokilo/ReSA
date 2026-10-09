@@ -1,5 +1,5 @@
 {
-  "snapshot": "6867 stopped validation documentary checkpoint",
+  "snapshot": "6870 documentary checkpoint after Pad Distance/Train/NOP Hex V2",
   "frozen_markdown_exceptions": {
     "reversing/RequestedPadShoulderInteraction/FIXTURES.md": {
       "sha256": "4a0a7a93bbb55adbac5d9c77253d1a2c20dd6aa1747897063049960e44d2ad0c",

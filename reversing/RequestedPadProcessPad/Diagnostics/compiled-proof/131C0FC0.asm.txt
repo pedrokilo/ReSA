@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  131C0FC0: 55                 push        ebp
+  131C0FC1: 8B EC              mov         ebp,esp
+  131C0FC3: 81 EC C0 00 00 00  sub         esp,0C0h
+  131C0FC9: 53                 push        ebx
+  131C0FCA: 56                 push        esi
+  131C0FCB: 57                 push        edi
+  131C0FCC: 8B FD              mov         edi,ebp
+  131C0FCE: 33 C9              xor         ecx,ecx
+  131C0FD0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  131C0FD5: F3 AB              rep stos    dword ptr es:[edi]
+  131C0FD7: B9 30 DF 78 13     mov         ecx,1378DF30h
+  131C0FDC: E8 CC BE ED FD     call        1109CEAD
+  131C0FE1: 90                 nop
+  131C0FE2: 5F                 pop         edi
+  131C0FE3: 5E                 pop         esi
+  131C0FE4: 5B                 pop         ebx
+  131C0FE5: 81 C4 C0 00 00 00  add         esp,0C0h
+  131C0FEB: 3B EC              cmp         ebp,esp
+  131C0FED: E8 E3 CC E9 FD     call        1105DCD5
+  131C0FF2: 8B E5              mov         esp,ebp
+  131C0FF4: 5D                 pop         ebp
+  131C0FF5: C3                 ret
+  131C0FF6: CC                 int         3
+  131C0FF7: CC                 int         3
+  131C0FF8: CC                 int         3
+  131C0FF9: CC                 int         3
+  131C0FFA: CC                 int         3
+  131C0FFB: CC                 int         3
+  131C0FFC: CC                 int         3
+  131C0FFD: CC                 int         3
+  131C0FFE: CC                 int         3
+  131C0FFF: CC                 int         3
+  131C1000: CC                 int         3
+
+  Summary
+
+     2170000 .text

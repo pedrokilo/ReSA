@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1135A0C0: 55                 push        ebp
+  1135A0C1: 8B EC              mov         ebp,esp
+  1135A0C3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1135A0C9: 53                 push        ebx
+  1135A0CA: 56                 push        esi
+  1135A0CB: 57                 push        edi
+  1135A0CC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1135A0CF: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135A0D2: 5F                 pop         edi
+  1135A0D3: 5E                 pop         esi
+  1135A0D4: 5B                 pop         ebx
+  1135A0D5: 8B E5              mov         esp,ebp
+  1135A0D7: 5D                 pop         ebp
+  1135A0D8: C2 04 00           ret         4
+  1135A0DB: CC                 int         3
+  1135A0DC: CC                 int         3
+  1135A0DD: CC                 int         3
+  1135A0DE: CC                 int         3
+  1135A0DF: CC                 int         3
+  1135A0E0: CC                 int         3
+  1135A0E1: CC                 int         3
+  1135A0E2: CC                 int         3
+  1135A0E3: CC                 int         3
+  1135A0E4: CC                 int         3
+  1135A0E5: CC                 int         3
+  1135A0E6: CC                 int         3
+  1135A0E7: CC                 int         3
+  1135A0E8: CC                 int         3
+  1135A0E9: CC                 int         3
+  1135A0EA: CC                 int         3
+  1135A0EB: CC                 int         3
+  1135A0EC: CC                 int         3
+  1135A0ED: CC                 int         3
+  1135A0EE: CC                 int         3
+  1135A0EF: CC                 int         3
+  1135A0F0: 55                 push        ebp
+  1135A0F1: 8B EC              mov         ebp,esp
+  1135A0F3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1135A0F9: 53                 push        ebx
+  1135A0FA: 56                 push        esi
+  1135A0FB: 57                 push        edi
+  1135A0FC: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1135A0FF: B9
+  1135A100: 03
+
+  Summary
+
+     2170000 .text

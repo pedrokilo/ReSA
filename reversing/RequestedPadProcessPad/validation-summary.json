@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "pairs": 17256,
+  "differences": 0,
+  "model_mismatches": 0,
+  "functions": {
+    "CPad::ProcessPad": 17256
+  },
+  "scope": "17256 isolated CPU pairs for CPad::ProcessPad (EXE 0x00746A10, cdecl), simple preflight-style pair bank (original with hook off vs candidate with hook on) plus an independent model; zero differences, zero model mismatches, errors [], natural exit 0, saves unchanged, configs restored, harness/state/entries/flags/tables restored (17692 snapshot ranges, no changed ranges). Corpus (scope.json, corpus-plan.json): 11 device routes, 4 side-effect flips, x87 PC24 and PC53, 64 menu combinations, 4 joystick masks, 12 curated vectors, 22 boundary values per axis (599/600/601, INT_MIN...), 41 POV values and 1536 pseudo-random vectors (documented LCG); 17280 rows minus 24 exact duplicates. Limits: private scripted DirectInput device (Poll, Acquire with the INPUTLOST retry, GetDeviceState 272 bytes), no real DirectInput/COM; RsPadEventHandler is traced (events 0x20, 0x20, 0x1F with the value of *param); GetPad and FTOL are native on the EXE leg, and in the compiled candidate GetPad is a real call to the DLL CPad::GetPad (not inlined) and the float to int conversion is an inline cvttss2si, so there is no credit for GetPad, FTOL, RsPadEventHandler, DirectInput/COM, ControlsManager, input integration, gameplay or current dependencies; finite stick floats only (no NaN; the compiled comiss deadzone test proceeds on NaN where the EXE skips, unreachable because sticks come from fild*0.0005); x87 PC24 and PC53, round-nearest, exceptions masked; padID other than 0/1 is outside the corpus (the EXE dereferences NULL at 0x746A3A while the source returns); bJoyJustInitialised only 0/1; menu bytes and flags canonical booleans. The EXE returns 0 or the failing HRESULT and the source is void: the EAX difference (16392 pairs) and the x87 status-word differences (15816 pairs) are informational and are not counted as differences; the original EAX matched the model in all pairs. Source corrections in Pad.cpp made before this run: (1) POV: signed fild + cmp/jge + fadd of the 2^32 float before the two fmul, as the EXE (0x746B32..0x746B44), verified in the compiled ASI (Diagnostics/compiled-runtime-proof.json passed=true); (2) the if (*pDiDevice) now wraps only the stick block (POV and Z/RZ): events 0x20/0x1F, GetPad and axis processing are unconditional as in the EXE (0x746B00 je 0x746BA6). A first run (20261009-010223-123803) found 622 differences (all with the device nulled) before correction (2) and is rejected, referenced by hash. The current Pad.cpp (SHA-256 8e61e4281377593c27ec1427e04a8f2bb0dc3483d113bb40dfe85e74c8656be4) differs from the one tested in the earlier CPad records (StartShake_Distance/Train, ProcessPCSpecificStuff, UpdateMouse: 89badf36...) because of these ProcessPad corrections; the behaviour of those functions does not change and their records are untouched. The prepared manifest still says expected_pairs 17000 (stale label); the real corpus and the analyzer use 17256. Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "dependency_review": null,
+  "run": "reversing/RequestedPadProcessPad/runs/20261009-011023-884156",
+  "audit_path": "reversing/RequestedPadProcessPad/Diagnostics/independent-replay-audit.json",
+  "audit_sha256": "3cef88b308df7bc48dc878690bce0b65a2950ac47983fe77c7d77849c3257907",
+  "manifest": {
+    "head": "9df4f1d47430c971817667e1d726520addc01ab4",
+    "tested_sources": {
+      "source/game_sa/Pad.cpp": "8e61e4281377593c27ec1427e04a8f2bb0dc3483d113bb40dfe85e74c8656be4",
+      "source/game_sa/Pad.h": "d18adb99148fe3fbdde2447a44699451f3afce97f29994bdf3bd29a3829889e2",
+      "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9",
+      "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+      "source/app/platform/platform.cpp": "6e559d663c0a0c4e3a4a8f405578ba1e33b38db75e3969a04154587200cada75",
+      "source/app/platform/platform.h": "d3574feb9078a4cffe6ed970524619cd11efbcae684404831523834e433409c7",
+      "source/game_sa/RenderWare/rw/skeleton.h": "71b122ab04bb543ecd1b8487a455af048f41782e61e5983e1afeb325c5192961",
+      "source/game_sa/RenderWare/RenderWare.h": "b1c989af4fccd7ac2b20236abc72f6740df2348ee26bd3e23065d1b94b6fb630"
+    },
+    "bank_sources": {
+      "reversing/RequestedPadProcessPad/LiveComparison.hpp": "9c8d682245984ef97c7816d392857587880bf30f7a622b2b7de7fbb83483799a",
+      "reversing/RequestedPadProcessPad/Preflight.hpp": "b672d27ccf72f7781aa912db869737164e53980c96d444fe99bf9d63ad73105c",
+      "reversing/RequestedPadProcessPad/VTableRanges.hpp": "994b5faf28cfd82f8fa024b257440cfaffff003b5249aa89c065f4deca88d77f",
+      "reversing/RequestedPadProcessPad/Fixtures.hpp": "ae35e1ebf93c0b35588bbf8244cc4e8bd884147ab2b7e81a22b0a9ed7b26ccb3",
+      "reversing/RequestedPadProcessPad/fixtures.json": "21f80e34738ab469695b279ec1d46db44bba7457974e404c227a6dc80c348d33",
+      "reversing/RequestedPadProcessPad/generate_fixtures.py": "ce929c5f576adfe883933d2adb82e701d03a61936299da6952aba2153392035a",
+      "reversing/RequestedPadProcessPad/model.py": "e135d38f759fa457f835c17f92a210b01202ab730e16a52a3355d3089e83610d",
+      "reversing/RequestedPadProcessPad/build_probe.py": "cfe71080f05b32e041b9f4abd0dbada8d35f987c8b063c4c26bc2b088c8d491c",
+      "reversing/RequestedPadProcessPad/run_local.py": "2b2e10bde96abe885dcb3c3545cf2277fc480d336b4c10b8886411779745bad4",
+      "reversing/RequestedPadProcessPad/inspect_compiled.py": "e97d170bbeece5beb69197b66449a07eefb510e7a818c100824840c88235bb44",
+      "reversing/RequestedPadProcessPad/make_freeze.py": "0abce614994e9d4b040b96d77ecf2e464183748e169dd9fbd8db887edc2a859f",
+      "reversing/RequestedPadProcessPad/corpus-plan.json": "2891bb5318195d7fe3ae6e265e338586761e8f5ff962566dea02b0fa9a33e81f",
+      "reversing/RequestedPadProcessPad/scope.json": "b901633670dd3c8ff993f63cac800ef151ef8c7c552f4701ab043139d7627cb9",
+      "reversing/RequestedPadProcessPad/README.md": "6a0ed316177a7b10729a003e540b564088cd9f890cbdf44e688cf297606465eb",
+      "reversing/RequestedPadProcessPad/evidence/ProcessPad-fresh-combo.txt": "7f49ed0dd15705cd18e454dccd03fc4898c3c90f776c4fe974588dadbfcf88b9",
+      "reversing/RequestedPadProcessPad/evidence/ProcessPad.dumpbin.asm.txt": "55a1d5aaa0a0e550dcce2b252c0496f784b3cd4d8a16d763119d09f4674a6919",
+      "reversing/RequestedPadProcessPad/evidence/ProcessPad.bytes.bin": "9924038ebe8e60e4e4cbdbd4b00d329a8d2e6c77a2f20aa50baeeb9600aa9a92",
+      "reversing/RequestedPadProcessPad/evidence/ProcessPad-constants.json": "dec10c67bf40e91f5fbf34dddd7df2284c3443eac92dc2bddd5cbcbb52ca958f",
+      "reversing/RequestedPadProcessPad/prepared-freeze.json": "f0f6f1cd8886f6d9fc9bda3aff5287fd779fd12bdb0c114b25143fab72c6756f",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "expected_pairs": 17000,
+    "fixture_scope": "17256 finite isolated ProcessPad cases; private scripted DirectInput device, traced RsPadEventHandler, native GetPad/FTOL; real global CPad/ControlsManager/stick/joy-table/menu bytes compared with guards; PC24 and PC53; padID 0/1 only. No DirectInput/COM/RsPadEventHandler/GetPad/FTOL/integration credit. Matching PE/PDB and call paths must be reviewed after the coordinator build.",
+    "compiled_callpath_review_required": true,
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "72465897f552cc1e90aa9c8e072baa1999b9c0f3db92c40480e04f09473b053e"
+    },
+    "asi": "d8807e7d05b4f5685253c636bdc9599574fbe62ca08b29f962e3f1e37beef240",
+    "pdb": "2b9bb0a2422420238895ef844200b53486d96972213d1bf40c794adf9612a10f"
+  },
+  "summary_sha256": "28d1382351b1f85c3baa62ee8948345f26a0d6a293c0d0929a138ff0fc6408dd",
+  "enriched_summary_sha256": "dccf2b05acb5f2e0772f59565b6f8063525ce8b0cd515e5edfb3b11fa2b2ba72",
+  "result_txt_sha256": "af7062204f0e9a60fb8603e3be42625ddd4fcae1bc714578ed67e1c03a396733",
+  "harness_sha256": "7f6e5e09eb581d7116132a102f4c4dcb321f46215c5a767f536365bdb8a93a4e",
+  "log_sha256": "89d5d428789d30bc19316b32404c4989316db0d97603424f7e7321ac5c60391f",
+  "comparison_storage": {
+    "uncompressed_path": "reversing/RequestedPadProcessPad/runs/20261009-011023-884156/comparisons.jsonl",
+    "uncompressed_sha256": "89d5d428789d30bc19316b32404c4989316db0d97603424f7e7321ac5c60391f",
+    "uncompressed_bytes": 113188423,
+    "compressed_path": "reversing/RequestedPadProcessPad/runs/20261009-011023-884156/comparisons.jsonl.gz",
+    "compressed_sha256": "a51cc278f0c60204a348535f8d789931630c2a222189263d405672c5c84e0d2c",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "89d5d428789d30bc19316b32404c4989316db0d97603424f7e7321ac5c60391f"
+  },
+  "compiled_runtime_proof": "reversing/RequestedPadProcessPad/Diagnostics/compiled-runtime-proof.json",
+  "compiled_runtime_proof_sha256": "a2fb2c1e49324af7f3134e8a0abf6b4863bd2be6bdc7409a5ec03a734140ac02",
+  "natural_exit": true,
+  "exit_code": 0,
+  "informational": {
+    "return_eax_differences": 16392,
+    "x87_env_status_differences": 15816
+  },
+  "pad_cpp_sha256": "8e61e4281377593c27ec1427e04a8f2bb0dc3483d113bb40dfe85e74c8656be4",
+  "pad_cpp_note": "la fuente actual de Pad.cpp difiere de la probada en las corridas anteriores de CPad por las correcciones de ProcessPad (POV y puerta *pDiDevice); el comportamiento de esas funciones no cambia",
+  "source_corrections_before_run": [
+    "POV: signed fild + cmp/jge + fadd 2^32 float before both fmul (0x746B32..0x746B44), verified in the compiled ASI",
+    "if (*pDiDevice) wraps only the stick block; events 0x20/0x1F, GetPad and axis processing unconditional (0x746B00 je 0x746BA6)"
+  ],
+  "rejected_attempts": {
+    "reversing/RequestedPadProcessPad/runs/20261009-010223-123803/enriched-summary.json": "4a26677d8c1fd8ec0dd77c32609385530660cfcb4d26cfd75373c0da265cbf8d"
+  }
+}

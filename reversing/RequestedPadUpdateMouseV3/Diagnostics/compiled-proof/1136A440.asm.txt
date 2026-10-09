@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1136A440: 55                 push        ebp
+  1136A441: 8B EC              mov         ebp,esp
+  1136A443: 81 EC CC 00 00 00  sub         esp,0CCh
+  1136A449: 53                 push        ebx
+  1136A44A: 56                 push        esi
+  1136A44B: 57                 push        edi
+  1136A44C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  1136A450: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136A453: 5F                 pop         edi
+  1136A454: 5E                 pop         esi
+  1136A455: 5B                 pop         ebx
+  1136A456: 8B E5              mov         esp,ebp
+  1136A458: 5D                 pop         ebp
+  1136A459: C3                 ret
+  1136A45A: CC                 int         3
+  1136A45B: CC                 int         3
+  1136A45C: CC                 int         3
+  1136A45D: CC                 int         3
+  1136A45E: CC                 int         3
+  1136A45F: CC                 int         3
+  1136A460: 55                 push        ebp
+  1136A461: 8B EC              mov         ebp,esp
+  1136A463: 81 EC CC 00 00 00  sub         esp,0CCh
+  1136A469: 53                 push        ebx
+  1136A46A: 56                 push        esi
+  1136A46B: 57                 push        edi
+  1136A46C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  1136A470: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1136A473: 5F                 pop         edi
+  1136A474: 5E                 pop         esi
+  1136A475: 5B                 pop         ebx
+  1136A476: 8B E5              mov         esp,ebp
+  1136A478: 5D                 pop         ebp
+  1136A479: C3                 ret
+  1136A47A: CC                 int         3
+  1136A47B: CC                 int         3
+  1136A47C: CC                 int         3
+  1136A47D: CC                 int         3
+  1136A47E: CC                 int         3
+  1136A47F: CC                 int         3
+  1136A480: 55                 push        ebp
+
+  Summary
+
+     2171000 .text

@@ -1,0 +1,35 @@
+{
+  "prepared_only": true,
+  "no_compilation_or_runtime": true,
+  "hook": {"class": "CPad", "fn_name": "ProcessPad", "address": "0x00746A10", "type": "S", "abi": "cdecl(int padID), plain ret; EXE eax = 0 or failing HRESULT, candidate void (informational)"},
+  "expected_pairs": 17256,
+  "source": "generate_fixtures.py -> fixtures.json (+ Fixtures.hpp); one source of truth for model.py and LiveComparison.hpp; 17280 generated rows, 24 exact duplicates removed",
+  "fields": ["route", "pad", "padnum", "justinit", "flip", "pc", "joymask", "menu", "poison", "lx", "ly", "lz", "lrz", "pov"],
+  "routes": {
+    "0": "selected diDevice slot is NULL -> immediate return 0, no events",
+    "1": "Poll 0, GetDeviceState 0",
+    "2": "Poll S_FALSE(1), GetDeviceState S_FALSE(1) (positive HRESULT is success: jge/jl)",
+    "3": "Poll NOTACQUIRED -> Acquire 0 -> Poll 0 -> state",
+    "4": "Poll fail -> Acquire INPUTLOST, 0 -> Poll 0",
+    "5": "Poll fail -> Acquire INPUTLOST x3, 0 (loop at 746A60)",
+    "6": "Poll fail -> Acquire E_FAIL -> return hr",
+    "7": "Poll fail -> Acquire INPUTLOST, ACCESSDENIED -> return hr",
+    "8": "Poll fail -> Acquire 0 -> second Poll fail -> return hr",
+    "9": "Poll 0 -> GetDeviceState NOTACQUIRED -> return hr (no state copy, no events)",
+    "10": "Poll fail -> Acquire S_FALSE(1) -> Poll 0 -> state"
+  },
+  "flip": {"0": "none", "1": "RsPadEventHandler call 2 toggles CPad::padNumber (GetPad must re-read)", "2": "call 3 toggles padNumber", "3": "call 1 rewrites the caller's padID slot (JoyStickNum index must re-read it)", "4": "call 1 clears the selected device slot (if(*pDiDevice) must re-read)"},
+  "pc": {"0": "x87 PC24 (game state)", "1": "x87 PC53 (CRT default); RC nearest, exceptions masked, MXCSR from the process"},
+  "parts": [
+    {"name": "P1 route sweep", "rows_before_dedupe": 3168, "product": "11 routes x2 pads x3 padNumber{0,1,255} x2 justinit x2 pc x2 poison x3 stick profiles x2 joymask{3,0}"},
+    {"name": "P2 side effects", "rows_before_dedupe": 1536, "product": "flip 1..4 x2 pads x2 padnum x2 justinit x2 pc x4 joymask x2 stick profiles x3 menu"},
+    {"name": "P3 stick matrix", "rows_before_dedupe": 6912, "product": "64 menu flag combos x4 joymask x12 curated vectors x2 pads (PC24) + 8 menus x4 x12 x2 (PC53)"},
+    {"name": "P4 axis boundaries", "rows_before_dedupe": 2816, "product": "4 axes x22 values (0,+-1,299,300,599,600,601,+-700,+-1000,+-2000,65535,-65536,2^24+1,INT_MAX,INT_MIN) x4 menus x2 joymask x2 pads x2 pc"},
+    {"name": "P5 POV", "rows_before_dedupe": 1312, "product": "41 POV values (36 active incl. >=2^31 and 8 with PC24 fadd-rounding sine changes; 5 skipped by low word 0xFFFF) x2 bases x4 menus x2 pads x2 pc"},
+    {"name": "P6 pseudo-random", "rows_before_dedupe": 1536, "product": "LCG state 0x1F2E3D4C, x=(x*1103515245+12345)&0x7FFFFFFF; axes/POV/flags/flip/poison"}
+  ],
+  "seeds": "pat(base,j)=(base+7j)&0xFF; controls pat(poison+0x11) with byte0=justinit; pads pat(poison+0x22); joy table pat(poison+0x33) then +5/+6 flags (selected pad = mask, other = ~mask); psGlobal arena pat(poison+0x44) between 0xC7 guards; joystate pat(poison+0x77) with lX,lY,lZ,lRz,POV[0] overridden; stick sentinels finite per poison//85",
+  "payload_compared": "ControlsManager 548 bytes (flag+Old+New), 4 stick floats, both global CPad (616), AllValidWinJoys (32), menu bytes BA67F0..BA6807, padNumber, psGlobal arena (72), full ordered trace of Poll/Acquire/GetDeviceState/RsPadEventHandler(event,*param); immutable guards; x87 control, tag word empty, MXCSR control bits",
+  "informational_only": ["return value eax (EXE) vs candidate void", "x87/MXCSR sticky status flags"],
+  "excluded": ["padID outside {0,1} (EXE dereferences NULL at 746A3A)", "justinit other than 0/1", "NaN or infinite stick floats (EXE skips unordered at 746C09, candidate <= comparison would not)", "real DirectInput/COM", "real RsPadEventHandler/input handlers", "gameplay"]
+}

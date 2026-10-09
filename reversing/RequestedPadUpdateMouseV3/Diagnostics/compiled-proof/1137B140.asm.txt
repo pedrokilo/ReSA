@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1137B140: 55                 push        ebp
+  1137B141: 8B EC              mov         ebp,esp
+  1137B143: 81 EC C0 00 00 00  sub         esp,0C0h
+  1137B149: 53                 push        ebx
+  1137B14A: 56                 push        esi
+  1137B14B: 57                 push        edi
+  1137B14C: 8B FD              mov         edi,ebp
+  1137B14E: 33 C9              xor         ecx,ecx
+  1137B150: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1137B155: F3 AB              rep stos    dword ptr es:[edi]
+  1137B157: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1137B15A: 50                 push        eax
+  1137B15B: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1137B15E: E8 1D D5 CF FF     call        11078680
+  1137B163: 5F                 pop         edi
+  1137B164: 5E                 pop         esi
+  1137B165: 5B                 pop         ebx
+  1137B166: 81 C4 C0 00 00 00  add         esp,0C0h
+  1137B16C: 3B EC              cmp         ebp,esp
+  1137B16E: E8 8A 3B CE FF     call        1105ECFD
+  1137B173: 8B E5              mov         esp,ebp
+  1137B175: 5D                 pop         ebp
+  1137B176: C3                 ret
+  1137B177: CC                 int         3
+  1137B178: CC                 int         3
+  1137B179: CC                 int         3
+  1137B17A: CC                 int         3
+  1137B17B: CC                 int         3
+  1137B17C: CC                 int         3
+  1137B17D: CC                 int         3
+  1137B17E: CC                 int         3
+  1137B17F: CC                 int         3
+  1137B180: CC                 int         3
+
+  Summary
+
+     2171000 .text

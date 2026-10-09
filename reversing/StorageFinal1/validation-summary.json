@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "pairs": 4984,
+  "differences": 0,
+  "functions": {
+    "CGenericGameStorage::SaveDataToWorkBuffer-org": 1620,
+    "CGenericGameStorage::LoadDataFromWorkBuffer-org": 1620,
+    "CGenericGameStorage::ReportError": 208,
+    "CGenericGameStorage::GenericSave": 768,
+    "CGenericGameStorage::GenericLoad": 768
+  },
+  "covered_functions": {
+    "CGenericGameStorage::SaveDataToWorkBuffer-org": true,
+    "CGenericGameStorage::LoadDataFromWorkBuffer-org": true,
+    "CGenericGameStorage::ReportError": true,
+    "CGenericGameStorage::GenericSave": true,
+    "CGenericGameStorage::GenericLoad": true
+  },
+  "scope": "Simple pair bench inside the full game (original with hook off vs candidate with hook on), 4984 isolated CPU pairs for the 5 CGenericGameStorage functions, zero differences, natural completion event with state_restored, saves unchanged (hashes of the real saves checked before and after), configs restored. NO real I/O: GenericSave/GenericLoad run with everything touching files or the world replaced by traced doubles (patched at the EXE address and at the DLL body; the bench aborts with an error event before patching if a DLL body is not found or two overlap): OpenFileForWriting (0x5D0DD0), OpenFileForReading (0x5D0D20), SaveWorkBuffer (0x5D0F80) and LoadWorkBuffer (0x5D10B0) with scripted flush/reload outcomes (success, failure with and without ms_bFailed, virtual file for GenericLoad), CFileMgr::CloseFile (0x5389D0), CPad::UpdatePads (0x541E50), CCheat::ResetCheats (0x438450), CSimpleVariablesSaveStructure::Construct (0x5D1B80) and Extract (0x5D1EA0), ReportError (inside GenericLoad), DoGameSpecificStuffAfterSucessLoad (0x618E90), the 24 block saves and 24 block loads (CTheScripts::Save ... C3dMarkers::LoadUser3dMarkers) and DoScriptSetupAfterPoolsHaveLoaded (0x5D3390); CPools::Load is scripted false/true. These helpers get NO credit; only the own logic of each function is validated. The 'file' is a std::vector and the 'FILE*' an opaque token; the work buffer is allocated by the open double with the game operator new[] and freed by the function under test (otherwise by the bench after noting work_null). The returned value, ordered trace of outgoing calls with raw arguments, x87 control word and all fixture bytes are compared. Excluded/limits: ReportError blocks 25, 26 and >= 28 (the EXE uses an uninitialised buffer); ms_WorkBufferSize kept at 0xC800 in GenericLoad (with a smaller value the EXE reads past the 5-byte header), its effect covered only in LoadDataFromWorkBuffer-org; work-buffer sizes below 0xC800 are sanitised to pos = kBuf to avoid the EXE's own infinite recursion; the NOTSA branch of GenericLoad (save-version check) is not exercised because the Extract double returns the current version, and the NOTSA block 25/26 names in ReportError are left as deviations. In ReportError the EXE formats with sprintf (0x821BB5, replaced) into a local buffer while the DLL emits the same text through spdlog (captured with a temporary logger sink). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CGenericGameStorage::SaveDataToWorkBuffer-org": "Corpus 1620: 9 sizes (-1..40000) x 10 positions (0..51200, including those crossing 0xC800) x prior failure x 3 flush modes (success / failure / failure with ms_bFailed) x 3 ms_WorkBufferSize; source corrected: fixed 0xC800 threshold and remainder 0xC800-pos.",
+    "CGenericGameStorage::LoadDataFromWorkBuffer-org": "Corpus 1620: same grid with simulated reload; ms_WorkBufferSize in {0xC800, 51000, 40000} to tell the variable threshold from the fixed 0xC800-pos remainder; source corrected: threshold ms_WorkBufferSize and remainder 0xC800-pos.",
+    "CGenericGameStorage::ReportError": "Corpus 208: 26 blocks x 8 codes (0,1,2,3,4,255,-1,INT_MAX); no message for codes > 2; blocks 25, 26 and >= 28 excluded.",
+    "CGenericGameStorage::GenericSave": "Corpus 768: data totals 0..230000 bytes (crossing several buffers and the padding up to 0x317FC = 202748), headers split at the buffer boundary, open/flush/block/close failures; source corrected: padding loop up to 0x317FC and strncpy of 0x103.",
+    "CGenericGameStorage::GenericLoad": "Corpus 768: virtual 28-block file with optional corrupt header, reloads with failure (with and without ms_bFailed), block failure, CPools::Load false/true, close failure; source corrected: calls ReportError(block-1, 2)."
+  },
+  "dependency_review": null,
+  "run": "reversing/StorageFinal1/runs/20261009-010650-155833",
+  "summary_sha256": "2285e2fcefeb964ead69dfff9af61f085ea83fb7bedb69b78cdd0b1b9568b963",
+  "result_txt_sha256": "81b2afc81a34c37a270942ffff6d37f27010a936f2aacec545f11dfce5f21704",
+  "log_sha256": "2a248047b52c12fd05bdfa9e1128590ff22da691435f85fd7250ce2f0aca7c77",
+  "comparison_storage": {
+    "uncompressed_sha256": "2a248047b52c12fd05bdfa9e1128590ff22da691435f85fd7250ce2f0aca7c77",
+    "uncompressed_bytes": 1519053,
+    "compressed_path": "reversing/StorageFinal1/runs/20261009-010650-155833/comparisons.jsonl.gz",
+    "compressed_sha256": "a60071aa969f63708dc2d4719753e9a8a7066458cd387b8a167a6af0f6c34fea",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "2a248047b52c12fd05bdfa9e1128590ff22da691435f85fd7250ce2f0aca7c77",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-storagefinal1\\20261009-010650-155833\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "f84a7e7cd46b19d8d918c05320e392353a39d58e28cff30a57b5abe86b2f67fd",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9df4f1d47430c971817667e1d726520addc01ab4",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 4984,
+    "asi": "f84a7e7cd46b19d8d918c05320e392353a39d58e28cff30a57b5abe86b2f67fd",
+    "pdb": "04cb5254c294327bb73d16c9f754ae4802142e47aa065259fb16cc2753639323",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-storagefinal1-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/GenericGameStorage.cpp": "1d86b6788ea98d74ed10a19be8bea935498d9e0baaaadbd6c91352de9bff9997",
+      "source/game_sa/GenericGameStorage.h": "01b1ede214c3871cac34a38c30fcc4578b85487f140c8b3e3ae95b7c230662d0"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "288fff2540cbb306b54688e2091560b0ae225c560ee6e9ac56ae5ee5a4fdfe33",
+      "build_probe.py": "2ad187b5b6bbfbe69f97beeb12ab96854de72d34442164165190cc43a2d4d2e0",
+      "run_local.py": "6cfe13efdea626cd3acc5b224ef10e3fbf0d524c66cbdb0041c9c98164fd466b"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/GenericGameStorage.cpp": "SaveDataToWorkBuffer/LoadDataFromWorkBuffer thresholds and remainders, GenericLoad ReportError(block-1,2), GenericSave padding loop (0x317FC) and strncpy 0x103, ReportError no message for codes > 2"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 4984,
+    "complete_events": 1,
+    "function_summaries": 5,
+    "unequal": 0,
+    "distinct_cases": 4984,
+    "per_function": {
+      "CGenericGameStorage::SaveDataToWorkBuffer-org": 1620,
+      "CGenericGameStorage::LoadDataFromWorkBuffer-org": 1620,
+      "CGenericGameStorage::ReportError": 208,
+      "CGenericGameStorage::GenericSave": 768,
+      "CGenericGameStorage::GenericLoad": 768
+    }
+  },
+  "source_corrections_before_run": {
+    "source/game_sa/GenericGameStorage.cpp": "SaveDataToWorkBuffer/LoadDataFromWorkBuffer thresholds and remainders, GenericLoad ReportError(block-1,2), GenericSave padding loop (0x317FC) and strncpy 0x103, ReportError no message for codes > 2"
+  }
+}

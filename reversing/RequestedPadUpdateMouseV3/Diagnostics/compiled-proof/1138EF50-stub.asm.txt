@@ -1,0 +1,92 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1138EF50: 55                 push        ebp
+  1138EF51: 8B EC              mov         ebp,esp
+  1138EF53: 6A FF              push        0FFFFFFFFh
+  1138EF55: 68 06 97 0D 13     push        130D9706h
+  1138EF5A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1138EF60: 50                 push        eax
+  1138EF61: 81 EC 18 01 00 00  sub         esp,118h
+  1138EF67: 53                 push        ebx
+  1138EF68: 56                 push        esi
+  1138EF69: 57                 push        edi
+  1138EF6A: 8D 7D 9C           lea         edi,[ebp-64h]
+  1138EF6D: B9 16 00 00 00     mov         ecx,16h
+  1138EF72: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138EF77: F3 AB              rep stos    dword ptr es:[edi]
+  1138EF79: A1 40 DA 6C 13     mov         eax,dword ptr ds:[136CDA40h]
+  1138EF7E: 33 C5              xor         eax,ebp
+  1138EF80: 50                 push        eax
+  1138EF81: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1138EF84: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1138EF8A: 83 3D 64 B0 6E 13  cmp         dword ptr ds:[136EB064h],0
+            00
+  1138EF91: 74 09              je          1138EF9C
+  1138EF93: C6 85 DF FE FF FF  mov         byte ptr [ebp+FFFFFEDFh],1
+            01
+  1138EF9A: EB 07              jmp         1138EFA3
+  1138EF9C: C6 85 DF FE FF FF  mov         byte ptr [ebp+FFFFFEDFh],0
+            00
+  1138EFA3: 8A 85 DF FE FF FF  mov         al,byte ptr [ebp+FFFFFEDFh]
+  1138EFA9: 88 45 EF           mov         byte ptr [ebp-11h],al
+  1138EFAC: 68 40 33 1E 13     push        131E3340h
+  1138EFB1: 8D 8D E4 FE FF FF  lea         ecx,[ebp+FFFFFEE4h]
+  1138EFB7: E8 0C 3A CE FF     call        110729C8
+  1138EFBC: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1138EFC3: 8D 45 EF           lea         eax,[ebp-11h]
+  1138EFC6: 50                 push        eax
+  1138EFC7: 8D 8D FC FE FF FF  lea         ecx,[ebp+FFFFFEFCh]
+  1138EFCD: E8 DA 87 CE FF     call        110777AC
+  1138EFD2: C7 45 FC 01 00 00  mov         dword ptr [ebp-4],1
+            00
+  1138EFD9: 8D 8D 14 FF FF FF  lea         ecx,[ebp+FFFFFF14h]
+  1138EFDF: 51                 push        ecx
+  1138EFE0: 8D 95 E4 FE FF FF  lea         edx,[ebp+FFFFFEE4h]
+  1138EFE6: 52                 push        edx
+  1138EFE7: 8D 8D 1C FF FF FF  lea         ecx,[ebp+FFFFFF1Ch]
+  1138EFED: E8 58 A3 CE FF     call        1107934A
+  1138EFF2: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1138EFF5: 51                 push        ecx
+  1138EFF6: 8B 10              mov         edx,dword ptr [eax]
+  1138EFF8: 52                 push        edx
+  1138EFF9: B9 50 B0 6E 13     mov         ecx,136EB050h
+  1138EFFE: E8 36 16 D1 FF     call        110A0639
+  1138F003: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1138F00A: 68 80 B1 08 11     push        1108B180h
+  1138F00F: 6A 02              push        2
+  1138F011: 6A 18              push        18h
+  1138F013: 8D 85 E4 FE FF FF  lea         eax,[ebp+FFFFFEE4h]
+  1138F019: 50                 push        eax
+  1138F01A: E8 03 04 CD FF     call        1105F422
+  1138F01F: 90                 nop
+  1138F020: 0F B6 45 EF        movzx       eax,byte ptr [ebp-11h]
+  1138F024: 52                 push        edx
+  1138F025: 8B CD              mov         ecx,ebp
+  1138F027: 50                 push        eax
+  1138F028: 8D 15 54 F0 38 11  lea         edx,ds:[1138F054h]
+  1138F02E: E8 DF 45 CD FF     call        11063612
+  1138F033: 58                 pop         eax
+  1138F034: 5A                 pop         edx
+  1138F035: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1138F038: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1138F03F: 59                 pop         ecx
+  1138F040: 5F                 pop         edi
+  1138F041: 5E                 pop         esi
+  1138F042: 5B                 pop         ebx
+  1138F043: 81 C4 24 01 00 00  add         esp,124h
+  1138F049: 3B EC              cmp         ebp,esp
+  1138F04B: E8 99 EC CC FF     call        1105DCE9
+  1138F050: 8B
+
+  Summary
+
+     216F000 .text

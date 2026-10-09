@@ -1,0 +1,80 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11360290: 55                 push        ebp
+  11360291: 8B EC              mov         ebp,esp
+  11360293: 81 EC 08 01 00 00  sub         esp,108h
+  11360299: 53                 push        ebx
+  1136029A: 56                 push        esi
+  1136029B: 57                 push        edi
+  1136029C: 51                 push        ecx
+  1136029D: 8D 7D B8           lea         edi,[ebp-48h]
+  113602A0: B9 12 00 00 00     mov         ecx,12h
+  113602A5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113602AA: F3 AB              rep stos    dword ptr es:[edi]
+  113602AC: 59                 pop         ecx
+  113602AD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113602B0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  113602B3: E8 65 27 D3 FF     call        11092A1D
+  113602B8: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  113602BB: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  113602BE: E8 F1 AD D3 FF     call        1109B0B4
+  113602C3: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  113602C6: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  113602C9: E8 C7 A8 CF FF     call        1105AB95
+  113602CE: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  113602D1: EB 09              jmp         113602DC
+  113602D3: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  113602D6: 83 C0 08           add         eax,8
+  113602D9: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  113602DC: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  113602DF: 3B 45 D4           cmp         eax,dword ptr [ebp-2Ch]
+  113602E2: 74 55              je          11360339
+  113602E4: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  113602E7: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  113602EA: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  113602ED: E8 01 63 D0 FF     call        110665F3
+  113602F2: 8B C8              mov         ecx,eax
+  113602F4: E8 1D 06 D3 FF     call        11090916
+  113602F9: 85 C0              test        eax,eax
+  113602FB: 75 3A              jne         11360337
+  113602FD: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  11360300: E8 70 C2 D0 FF     call        1106C575
+  11360305: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  11360308: 8B 4D BC           mov         ecx,dword ptr [ebp-44h]
+  1136030B: E8 8F E2 D1 FF     call        1107E59F
+  11360310: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11360313: 8B 11              mov         edx,dword ptr [ecx]
+  11360315: 3B 02              cmp         eax,dword ptr [edx]
+  11360317: 75 1E              jne         11360337
+  11360319: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1136031C: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1136031F: 8B 55 BC           mov         edx,dword ptr [ebp-44h]
+  11360322: 89 11              mov         dword ptr [ecx],edx
+  11360324: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11360327: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  1136032A: 8B 11              mov         edx,dword ptr [ecx]
+  1136032C: 83 C2 01           add         edx,1
+  1136032F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11360332: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11360335: 89 11              mov         dword ptr [ecx],edx
+  11360337: EB 9A              jmp         113602D3
+  11360339: 5F                 pop         edi
+  1136033A: 5E                 pop         esi
+  1136033B: 5B                 pop         ebx
+  1136033C: 81 C4 08 01 00 00  add         esp,108h
+  11360342: 3B EC              cmp         ebp,esp
+  11360344: E8 B4 F9 CF FF     call        1105FCFD
+  11360349: 8B E5              mov         esp,ebp
+  1136034B: 5D                 pop         ebp
+  1136034C: C2 04 00           ret         4
+  1136034F: CC                 int         3
+
+  Summary
+
+     2174000 .text

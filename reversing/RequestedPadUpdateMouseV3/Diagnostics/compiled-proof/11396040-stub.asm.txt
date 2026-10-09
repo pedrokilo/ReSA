@@ -1,0 +1,139 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11396040: 55                 push        ebp
+  11396041: 8B EC              mov         ebp,esp
+  11396043: 81 EC E0 00 00 00  sub         esp,0E0h
+  11396049: 53                 push        ebx
+  1139604A: 56                 push        esi
+  1139604B: 57                 push        edi
+  1139604C: 51                 push        ecx
+  1139604D: 8D 7D E0           lea         edi,[ebp-20h]
+  11396050: B9 08 00 00 00     mov         ecx,8
+  11396055: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1139605A: F3 AB              rep stos    dword ptr es:[edi]
+  1139605C: 59                 pop         ecx
+  1139605D: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  11396060: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11396063: 0F B6 05 31 A0 62  movzx       eax,byte ptr ds:[1362A031h]
+            13
+  1139606A: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  11396070: 8B 0D 70 E0 6E 13  mov         ecx,dword ptr ds:[136EE070h]
+  11396076: 51                 push        ecx
+  11396077: E8 5A B0 CF FF     call        110910D6
+  1139607C: 83 C4 04           add         esp,4
+  1139607F: 39 45 F8           cmp         dword ptr [ebp-8],eax
+  11396082: 75 0C              jne         11396090
+  11396084: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],1
+            01 00 00 00
+  1139608E: EB 0A              jmp         1139609A
+  11396090: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],0
+            00 00 00 00
+  1139609A: 8B 95 24 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF24h]
+  113960A0: 23 95 20 FF FF FF  and         edx,dword ptr [ebp+FFFFFF20h]
+  113960A6: 88 15 31 A0 62 13  mov         byte ptr ds:[1362A031h],dl
+  113960AC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113960AF: 50                 push        eax
+  113960B0: E8 C2 67 CC FF     call        1105C877
+  113960B5: 83 C4 04           add         esp,4
+  113960B8: 5F                 pop         edi
+  113960B9: 5E                 pop         esi
+  113960BA: 5B                 pop         ebx
+  113960BB: 81 C4 E0 00 00 00  add         esp,0E0h
+  113960C1: 3B EC              cmp         ebp,esp
+  113960C3: E8 35 8C CC FF     call        1105ECFD
+  113960C8: 8B E5              mov         esp,ebp
+  113960CA: 5D                 pop         ebp
+  113960CB: C2 04 00           ret         4
+  113960CE: CC                 int         3
+  113960CF: CC                 int         3
+  113960D0: CC                 int         3
+  113960D1: CC                 int         3
+  113960D2: CC                 int         3
+  113960D3: CC                 int         3
+  113960D4: CC                 int         3
+  113960D5: CC                 int         3
+  113960D6: CC                 int         3
+  113960D7: CC                 int         3
+  113960D8: CC                 int         3
+  113960D9: CC                 int         3
+  113960DA: CC                 int         3
+  113960DB: CC                 int         3
+  113960DC: CC                 int         3
+  113960DD: CC                 int         3
+  113960DE: CC                 int         3
+  113960DF: CC                 int         3
+  113960E0: CC                 int         3
+  113960E1: CC                 int         3
+  113960E2: CC                 int         3
+  113960E3: CC                 int         3
+  113960E4: CC                 int         3
+  113960E5: CC                 int         3
+  113960E6: CC                 int         3
+  113960E7: CC                 int         3
+  113960E8: CC                 int         3
+  113960E9: CC                 int         3
+  113960EA: CC                 int         3
+  113960EB: CC                 int         3
+  113960EC: CC                 int         3
+  113960ED: CC                 int         3
+  113960EE: CC                 int         3
+  113960EF: CC                 int         3
+  113960F0: CC                 int         3
+  113960F1: CC                 int         3
+  113960F2: CC                 int         3
+  113960F3: CC                 int         3
+  113960F4: CC                 int         3
+  113960F5: CC                 int         3
+  113960F6: CC                 int         3
+  113960F7: CC                 int         3
+  113960F8: CC                 int         3
+  113960F9: CC                 int         3
+  113960FA: CC                 int         3
+  113960FB: CC                 int         3
+  113960FC: CC                 int         3
+  113960FD: CC                 int         3
+  113960FE: CC                 int         3
+  113960FF: CC                 int         3
+  11396100: 55                 push        ebp
+  11396101: 8B EC              mov         ebp,esp
+  11396103: 81 EC C0 00 00 00  sub         esp,0C0h
+  11396109: 53                 push        ebx
+  1139610A: 56                 push        esi
+  1139610B: 57                 push        edi
+  1139610C: 8B FD              mov         edi,ebp
+  1139610E: 33 C9              xor         ecx,ecx
+  11396110: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11396115: F3 AB              rep stos    dword ptr es:[edi]
+  11396117: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1139611A: 50                 push        eax
+  1139611B: E8 57 67 CC FF     call        1105C877
+  11396120: 83 C4 04           add         esp,4
+  11396123: 5F                 pop         edi
+  11396124: 5E                 pop         esi
+  11396125: 5B                 pop         ebx
+  11396126: 81 C4 C0 00 00 00  add         esp,0C0h
+  1139612C: 3B EC              cmp         ebp,esp
+  1139612E: E8 CA 8B CC FF     call        1105ECFD
+  11396133: 8B E5              mov         esp,ebp
+  11396135: 5D                 pop         ebp
+  11396136: C3                 ret
+  11396137: CC                 int         3
+  11396138: CC                 int         3
+  11396139: CC                 int         3
+  1139613A: CC                 int         3
+  1139613B: CC                 int         3
+  1139613C: CC                 int         3
+  1139613D: CC                 int         3
+  1139613E: CC                 int         3
+  1139613F: CC                 int         3
+  11396140: CC                 int         3
+
+  Summary
+
+     2171000 .text

@@ -28,16 +28,27 @@ END GENERATED HOOK STATUS */
 
 // 0x5B9AB0
 void CAEFrontendAudioEntity::Initialise() {
-    m_bAmplifierWakeUp = false;
-    m_pAmplifierWakeUp = nullptr;
+    // Como el original (0x5B9AB1..0x5B9AF6): se escriben todos los campos en este orden.
+    m_nLastFrameGeneral_or_nFrameCount = 0;  // 0x84
+    m_nLastFrameMissionComplete        = 0;  // 0x88
+    m_nLastFrameBulletPass             = 0;  // 0x8C
+    m_BulletPassCount                  = 0;  // 0x80 (word)
+    m_BulletPassBank                   = SND_BANK_GENRL_BULLET_PASS_1; // 0x82 (word 0x1C)
+    m_f7E                              = -1; // 0x7E
+    m_nLastTimeCarRespray              = 0;  // 0x90
+    m_nLatestTimerCount                = 0;  // 0x94
+    m_bAmplifierWakeUp                 = false; // 0x7C
+    m_pAmplifierWakeUp                 = nullptr; // 0x98
 
     AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_FRONTEND_MENU, SND_BANK_SLOT_FRONTEND_MENU);
     AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_FRONTEND_GAME, SND_BANK_SLOT_FRONTEND_GAME);
     AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_BULLET_PASS_1, SND_BANK_SLOT_BULLET_PASS);
 
     m_nbLoadingTuneSeed = CAEAudioUtility::GetRandomNumberInRange(0, 3);
-    AEAudioHardware.LoadSound(SND_BANK_GENRL_LOADING, 2 * m_nbLoadingTuneSeed + 0, SND_BANK_SLOT_COLLISIONS);
-    AEAudioHardware.LoadSound(SND_BANK_GENRL_LOADING, 2 * m_nbLoadingTuneSeed + 1, SND_BANK_SLOT_WEAPON_GEN);
+    // Como el original (0x5B9B24..0x5B9B52): el byte se extiende con signo (movsx) y el id se trunca a 16 bits.
+    const auto seed = static_cast<int16>(static_cast<int8>(m_nbLoadingTuneSeed));
+    AEAudioHardware.LoadSound(SND_BANK_GENRL_LOADING, static_cast<eSoundID>(static_cast<int16>(2 * seed + 0)), SND_BANK_SLOT_COLLISIONS);
+    AEAudioHardware.LoadSound(SND_BANK_GENRL_LOADING, static_cast<eSoundID>(static_cast<int16>(2 * seed + 1)), SND_BANK_SLOT_WEAPON_GEN);
 }
 
 // 0x4DD440

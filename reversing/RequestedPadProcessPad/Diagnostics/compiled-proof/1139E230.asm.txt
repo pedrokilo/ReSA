@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1139E230: 55                 push        ebp
+  1139E231: 8B EC              mov         ebp,esp
+  1139E233: 81 EC CC 00 00 00  sub         esp,0CCh
+  1139E239: 53                 push        ebx
+  1139E23A: 56                 push        esi
+  1139E23B: 57                 push        edi
+  1139E23C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1139E23F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1139E242: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1139E245: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  1139E248: 89 10              mov         dword ptr [eax],edx
+  1139E24A: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1139E24D: 8B 40 04           mov         eax,dword ptr [eax+4]
+  1139E250: 5F                 pop         edi
+  1139E251: 5E                 pop         esi
+  1139E252: 5B                 pop         ebx
+  1139E253: 8B E5              mov         esp,ebp
+  1139E255: 5D                 pop         ebp
+  1139E256: C3                 ret
+  1139E257: CC                 int         3
+  1139E258: CC                 int         3
+  1139E259: CC                 int         3
+  1139E25A: CC                 int         3
+  1139E25B: CC                 int         3
+  1139E25C: CC                 int         3
+  1139E25D: CC                 int         3
+  1139E25E: CC                 int         3
+  1139E25F: CC                 int         3
+  1139E260: 55                 push        ebp
+  1139E261: 8B EC              mov         ebp,esp
+  1139E263: 81 EC CC 00 00 00  sub         esp,0CCh
+  1139E269: 53                 push        ebx
+  1139E26A: 56                 push        esi
+  1139E26B: 57                 push        edi
+  1139E26C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1139E26F: 8B
+  1139E270: 45                 inc         ebp
+
+  Summary
+
+     216D000 .text

@@ -7,7 +7,7 @@ CAECollisionAudioEntity,0x00862E64,0x00462E64,1,source/game_sa/Audio/Entities/AE
 CAEDoorAudioEntity,0x0085998C,0x0045998C,1,source/game_sa/Audio/Entities/AEDoorAudioEntity.cpp,210,source_vtable_reference
 CAEExplosionAudioEntity,0x00862E60,0x00462E60,1,source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp,118,source_vtable_reference
 CAEFireAudioEntity,0x0085AA94,0x0045AA94,1,source/game_sa/Audio/Entities/AEFireAudioEntity.cpp,195,source_vtable_reference
-CAEFrontendAudioEntity,0x00862E54,0x00462E54,1,source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp,240,source_vtable_reference
+CAEFrontendAudioEntity,0x00862E54,0x00462E54,1,source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp,249,source_vtable_reference
 CAEGlobalWeaponAudioEntity,0x00862E5C,0x00462E5C,1,source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,372,source_vtable_reference
 CAEPedAudioEntity,0x0086C2A8,0x0046C2A8,1,source/game_sa/Audio/Entities/AEPedAudioEntity.cpp,27,source_vtable_reference
 CAEPedlessSpeechAudioEntity,0x0085F330,0x0045F330,8,source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp,28,source_vtable_reference

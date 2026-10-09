@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113A0980: 55                 push        ebp
+  113A0981: 8B EC              mov         ebp,esp
+  113A0983: 81 EC CC 00 00 00  sub         esp,0CCh
+  113A0989: 53                 push        ebx
+  113A098A: 56                 push        esi
+  113A098B: 57                 push        edi
+  113A098C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113A098F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113A0992: 83 C0 68           add         eax,68h
+  113A0995: 5F                 pop         edi
+  113A0996: 5E                 pop         esi
+  113A0997: 5B                 pop         ebx
+  113A0998: 8B E5              mov         esp,ebp
+  113A099A: 5D                 pop         ebp
+  113A099B: C3                 ret
+  113A099C: CC                 int         3
+  113A099D: CC                 int         3
+  113A099E: CC                 int         3
+  113A099F: CC                 int         3
+  113A09A0: CC                 int         3
+  113A09A1: CC                 int         3
+  113A09A2: CC                 int         3
+  113A09A3: CC                 int         3
+  113A09A4: CC                 int         3
+  113A09A5: CC                 int         3
+  113A09A6: CC                 int         3
+  113A09A7: CC                 int         3
+  113A09A8: CC                 int         3
+  113A09A9: CC                 int         3
+  113A09AA: CC                 int         3
+  113A09AB: CC                 int         3
+  113A09AC: CC                 int         3
+  113A09AD: CC                 int         3
+  113A09AE: CC                 int         3
+  113A09AF: CC                 int         3
+  113A09B0: 55                 push        ebp
+  113A09B1: 8B EC              mov         ebp,esp
+  113A09B3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113A09B9: 53                 push        ebx
+  113A09BA: 56                 push        esi
+  113A09BB: 57                 push        edi
+  113A09BC: 51                 push        ecx
+  113A09BD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  113A09C0: B9
+
+  Summary
+
+     2170000 .text

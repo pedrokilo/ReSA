@@ -1,0 +1,3 @@
+APROBADO: CAEAudioHardware::Initialise y CAEFrontendAudioEntity (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-audiofinal1\20261009-010133-465573

@@ -1,0 +1,46 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11381010: 55                 push        ebp
+  11381011: 8B EC              mov         ebp,esp
+  11381013: 81 EC CC 00 00 00  sub         esp,0CCh
+  11381019: 53                 push        ebx
+  1138101A: 56                 push        esi
+  1138101B: 57                 push        edi
+  1138101C: 51                 push        ecx
+  1138101D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11381020: B9 03 00 00 00     mov         ecx,3
+  11381025: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138102A: F3 AB              rep stos    dword ptr es:[edi]
+  1138102C: 59                 pop         ecx
+  1138102D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11381030: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11381033: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11381036: 51                 push        ecx
+  11381037: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1138103A: 8B 42 04           mov         eax,dword ptr [edx+4]
+  1138103D: 50                 push        eax
+  1138103E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11381041: 8B 11              mov         edx,dword ptr [ecx]
+  11381043: 52                 push        edx
+  11381044: E8 47 3D CE FF     call        11064D90
+  11381049: 83 C4 0C           add         esp,0Ch
+  1138104C: 5F                 pop         edi
+  1138104D: 5E                 pop         esi
+  1138104E: 5B                 pop         ebx
+  1138104F: 81 C4 CC 00 00 00  add         esp,0CCh
+  11381055: 3B EC              cmp         ebp,esp
+  11381057: E8 79 BC CD FF     call        1105CCD5
+  1138105C: 8B E5              mov         esp,ebp
+  1138105E: 5D                 pop         ebp
+  1138105F: C3                 ret
+  11381060: CC                 int         3
+
+  Summary
+
+     216D000 .text

@@ -1,0 +1,39 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1135A250: 55                 push        ebp
+  1135A251: 8B EC              mov         ebp,esp
+  1135A253: 81 EC CC 00 00 00  sub         esp,0CCh
+  1135A259: 53                 push        ebx
+  1135A25A: 56                 push        esi
+  1135A25B: 57                 push        edi
+  1135A25C: 51                 push        ecx
+  1135A25D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1135A260: B9 03 00 00 00     mov         ecx,3
+  1135A265: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135A26A: F3 AB              rep stos    dword ptr es:[edi]
+  1135A26C: 59                 pop         ecx
+  1135A26D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1135A270: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1135A273: E8 8A 8F D4 FF     call        110A3202
+  1135A278: 8B C8              mov         ecx,eax
+  1135A27A: E8 55 A8 D0 FF     call        11064AD4
+  1135A27F: 5F                 pop         edi
+  1135A280: 5E                 pop         esi
+  1135A281: 5B                 pop         ebx
+  1135A282: 81 C4 CC 00 00 00  add         esp,0CCh
+  1135A288: 3B EC              cmp         ebp,esp
+  1135A28A: E8 46 2A D0 FF     call        1105CCD5
+  1135A28F: 8B E5              mov         esp,ebp
+  1135A291: 5D                 pop         ebp
+  1135A292: C2 04 00           ret         4
+  1135A295: CC                 int         3
+
+  Summary
+
+     216D000 .text

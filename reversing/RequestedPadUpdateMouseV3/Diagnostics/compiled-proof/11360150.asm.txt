@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11360150: 55                 push        ebp
+  11360151: 8B EC              mov         ebp,esp
+  11360153: 81 EC D0 00 00 00  sub         esp,0D0h
+  11360159: 53                 push        ebx
+  1136015A: 56                 push        esi
+  1136015B: 57                 push        edi
+  1136015C: 51                 push        ecx
+  1136015D: 8D 7D F0           lea         edi,[ebp-10h]
+  11360160: B9 04 00 00 00     mov         ecx,4
+  11360165: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1136016A: F3 AB              rep stos    dword ptr es:[edi]
+  1136016C: 59                 pop         ecx
+  1136016D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11360170: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11360173: E8 7B 64 D0 FF     call        110665F3
+  11360178: 8B C8              mov         ecx,eax
+  1136017A: E8 97 07 D3 FF     call        11090916
+  1136017F: 83 F8 01           cmp         eax,1
+  11360182: 75 0C              jne         11360190
+  11360184: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  1136018E: EB 0A              jmp         1136019A
+  11360190: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1136019A: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  113601A1: 5F                 pop         edi
+  113601A2: 5E                 pop         esi
+  113601A3: 5B                 pop         ebx
+  113601A4: 81 C4 D0 00 00 00  add         esp,0D0h
+  113601AA: 3B EC              cmp         ebp,esp
+  113601AC: E8 4C FB CF FF     call        1105FCFD
+  113601B1: 8B E5              mov         esp,ebp
+  113601B3: 5D                 pop         ebp
+  113601B4: C2 04 00           ret         4
+  113601B7: CC                 int         3
+
+  Summary
+
+     2174000 .text

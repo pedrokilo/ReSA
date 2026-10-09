@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1137CEA0: 55                 push        ebp
+  1137CEA1: 8B EC              mov         ebp,esp
+  1137CEA3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137CEA9: 53                 push        ebx
+  1137CEAA: 56                 push        esi
+  1137CEAB: 57                 push        edi
+  1137CEAC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137CEAF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CEB2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1137CEB5: 89 08              mov         dword ptr [eax],ecx
+  1137CEB7: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CEBA: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1137CEBD: 89 48 04           mov         dword ptr [eax+4],ecx
+  1137CEC0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CEC3: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1137CEC6: 89 48 08           mov         dword ptr [eax+8],ecx
+  1137CEC9: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CECC: 5F                 pop         edi
+  1137CECD: 5E                 pop         esi
+  1137CECE: 5B                 pop         ebx
+  1137CECF: 8B E5              mov         esp,ebp
+  1137CED1: 5D                 pop         ebp
+  1137CED2: C2 08 00           ret         8
+  1137CED5: CC                 int         3
+  1137CED6: CC                 int         3
+  1137CED7: CC                 int         3
+  1137CED8: CC                 int         3
+  1137CED9: CC                 int         3
+  1137CEDA: CC                 int         3
+  1137CEDB: CC                 int         3
+  1137CEDC: CC                 int         3
+  1137CEDD: CC                 int         3
+  1137CEDE: CC                 int         3
+  1137CEDF: CC                 int         3
+  1137CEE0: CC                 int         3
+
+  Summary
+
+     2170000 .text

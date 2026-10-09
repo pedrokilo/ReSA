@@ -1,0 +1,272 @@
+{
+  "prepared_only": true,
+  "no_compilation_or_runtime": true,
+  "hook": {
+    "class": "CPad",
+    "fn_name": "UpdateMouse",
+    "address": "0x0053F3C0",
+    "type": "S"
+  },
+  "expected_pairs": 9216,
+  "product": "6 route classes x12 state profiles x8 canonical menu/invert flags x4 poisons x2 receivers x2 clock values",
+  "routes": [
+    {
+      "foreground": false,
+      "initial_mouse": "profile parity null/private",
+      "result": "early return"
+    },
+    {
+      "foreground": true,
+      "initial_mouse": "null",
+      "init_mouse": "null",
+      "result": "early return"
+    },
+    {
+      "foreground": true,
+      "initial_mouse": "private",
+      "HRESULT": -2147467259,
+      "result": "read fail"
+    },
+    {
+      "foreground": true,
+      "initial_mouse": "private",
+      "HRESULT": 0,
+      "result": "read success"
+    },
+    {
+      "foreground": true,
+      "initial_mouse": "null",
+      "init_mouse": "private",
+      "HRESULT": 1,
+      "result": "read success HRESULT S_FALSE characterisation"
+    },
+    {
+      "foreground": true,
+      "initial_mouse": "null",
+      "init_mouse": "private",
+      "HRESULT": -2147024891,
+      "result": "read fail"
+    }
+  ],
+  "clock_values": [
+    0,
+    4294967295
+  ],
+  "profiles": [
+    [
+      0,
+      0,
+      0,
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      1,
+      -1,
+      0,
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      -1,
+      1,
+      0,
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      0,
+      0,
+      1,
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      0,
+      0,
+      -1,
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      0,
+      0,
+      0,
+      [
+        128,
+        0,
+        0,
+        0,
+        0,
+        1,
+        127,
+        255
+      ]
+    ],
+    [
+      0,
+      0,
+      0,
+      [
+        0,
+        255,
+        0,
+        0,
+        0,
+        128,
+        0,
+        0
+      ]
+    ],
+    [
+      0,
+      0,
+      0,
+      [
+        0,
+        0,
+        129,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      0,
+      0,
+      0,
+      [
+        0,
+        0,
+        0,
+        128,
+        255,
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      2147483647,
+      -2147483647,
+      0,
+      [
+        1,
+        127,
+        128,
+        129,
+        255,
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      16777217,
+      -16777217,
+      2147483647,
+      [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    [
+      -16777219,
+      16777219,
+      -2147483648,
+      [
+        127,
+        127,
+        127,
+        127,
+        127,
+        127,
+        127,
+        127
+      ]
+    ]
+  ],
+  "helper_ABI": {
+    "0x00746060": "IsForegroundApp boolcdecl()",
+    "0x007469A0": "diMouseInit voidcdecl(bool), native only low byte defined; upper parameter bits excluded",
+    "0x00745CA0": "IsVideoModeExclusive boolcdecl()",
+    "0x00746ED0": "Nativecdecl(buffer) and DLLthiscall(self,buffer) separate adapters; buffer bounded by NT_TIB current-thread stack and sizeof20; candidate self exact private receiver."
+  },
+  "pure_dependency": "Native53F270 CheckForInput remains unmodified; candidate CheckForInput entry/body explicitly redirects to native pure CPU original, snapshots52 restored. No helper credit. NativeSetTouched writes private receiver+0x120 from B7CB84; own real SetTouched CPU body permitted and verified compile path later.",
+  "snapshots": {
+    "mouse_states": [
+      "0x00B73404 temp20",
+      "0x00B73418 new20",
+      "0x00B7342C old20"
+    ],
+    "private_receivers": "2x340 guarded arenas (308B CPad +32 guards)",
+    "globals": [
+      "diMouse C8CFA4 pointer4",
+      "menu BA67A4 byte1",
+      "invert BA6744/45 bytes2",
+      "timer B7CB7C span12"
+    ],
+    "harness": "all17692 global hook-entry/table/flags/timer plusFP restore exact, naturalexit0",
+    "mouse_guards": "16bytes prefix +60mouse states +24suffix; complete100bytes restore"
+  },
+  "model_contract": "All20bytes preserve temp padding+7; int32\u2192float IEEE round-to-nearest (x87/P53 rawoutput), button0..4 raw &0x80, wheel flags canonical. Old becomes priorNew20, New becomes finalTemp20; private308B receiver touched+0x120 only iff resulting boolbuttons/wheel/x/y has input. Floatwheel magnitude excluded from pure CheckForInput except wheel flags. DiMouse pointer/helper state transition exact, full ordered foreground/exclusive/init/read traces.",
+  "domain_limits": [
+    "signed inverted coordinates exclude INT_MIN (source signed-overflow UB); lZ INT_MIN allowed (no inversion)",
+    "existing wheel boolbytes canonical0/1 and finite mouse floats; other button bytes uint8 masks allowed",
+    "Opaque private mouse pointer never dereferenced by COM; DI helper status+20byte output fixtures are isolated collaborators; no devices/COM/inputintegration/helper bodies accredited"
+  ],
+  "source_before_sha256": "b0902674db3e303e58c1bb9b875439a1e3ec02eaa8fa0acb8a619ab6774adaf2",
+  "fresh_combo_sha256": "49e57d6ebf6e4851aac95d2c4822b98519d650b4d629be04692a4bdb99db2c21",
+  "output_filename": "pad-update-mouse-v3-runtime.jsonl",
+  "freeze_status": "Prepared frozen; no compile/runtime/approval. Matching compiled call/ABI proof mandatory before execution.",
+  "instrumentation_complete": true,
+  "FP_policy": "Raw MXCSR and complete control x87 must remain exactly the saved values per leg; status differences explicitly reject fp_exact and remain visible. Fullraw restoration performed afterward, no normalization."
+}

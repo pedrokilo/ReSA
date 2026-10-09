@@ -1,0 +1,1590 @@
+{
+  "asi_sha256": "d8807e7d05b4f5685253c636bdc9599574fbe62ca08b29f962e3f1e37beef240",
+  "pdb_sha256": "2b9bb0a2422420238895ef844200b53486d96972213d1bf40c794adf9612a10f",
+  "pdb_rsds_match": true,
+  "pdb_guid_raw": "c77be937b65eb0419b8fb6e599cb79e0",
+  "pdb_age": 2445,
+  "base": 268435456,
+  "symbols": [
+    {
+      "name": "RequestedPadProcessPad::`dynamic initializer for 'acqSeq''",
+      "address": 286444160,
+      "size": 67,
+      "tag": 5,
+      "body": 286444160,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abb9c8997813e8d000f4ff906860dc1b13e8771ff6ff83c4045f5e5b81c4c00000003bece81602f3ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab68fc7fc800e81b9df7"
+    },
+    {
+      "name": "RequestedPadProcessPad::`dynamic initializer for 'pollSeq''",
+      "address": 286445168,
+      "size": 67,
+      "tag": 5,
+      "body": 286445168,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abb9b4997813e8e0fcf3ff906850dd1b13e8871bf6ff83c4045f5e5b81c4c00000003bece826fef2ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6868cfc800e896ecf7"
+    },
+    {
+      "name": "RequestedPadProcessPad::`dynamic initializer for 'trace''",
+      "address": 286445424,
+      "size": 69,
+      "tag": 5,
+      "body": 286445424,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6a00b970997813e87925f3ff9068f0dd1b13e8851af6ff83c4045f5e5b81c4c00000003bece824fdf2ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec6aff68555f0d1364a10000000050b8e48c0000e84eedf3ff5356578dbd"
+    },
+    {
+      "name": "CPad::GetPad",
+      "address": 288496992,
+      "size": 32,
+      "tag": 5,
+      "body": 288496992,
+      "e9_chain": [],
+      "first128": "558bec81ecc0000000535657694508340100000305d08678135f5e5b8be55dc3cccccccccccccccccccccccccccccccc558bec81ecc0000000535657a1408a78130fb7402e5f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccc558bec81ecc0000000535657a1408a78130fb7402c5f5e5b8be55dc3cccccccc"
+    },
+    {
+      "name": "RsPadEventHandler",
+      "address": 288560128,
+      "size": 105,
+      "tag": 5,
+      "body": 288560128,
+      "e9_chain": [],
+      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3aba1fc94781383783400742aa1fc9478138b4838898d3cffffff8bf48b550c528b450850ff953cffffff83c4083bf4e887b8d2ffeb05b8020000005f5e5b81c4c40000003bece870b8d2ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::_Compressed_pair<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >,std::_Vector_val<std::_Simple_types<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >,1>::_Compressed_pair<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >,std::_Vector_val<std::_Simple_types<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >,1><>",
+      "address": 288681024,
+      "size": 75,
+      "tag": 5,
+      "body": 288681024,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e86ca2d3ff908b4df8e802d4d5ff908b45f85f5e5b81c4cc0000003bece850e0d0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "std::_Compressed_pair<std::default_delete<RequestedPadProcessPad::Gate>,RequestedPadProcessPad::Gate *,1>::_Compressed_pair<std::default_delete<RequestedPadProcessPad::Gate>,RequestedPadProcessPad::Gate *,1><RequestedPadProcessPad::Gate * &>",
+      "address": 288682464,
+      "size": 37,
+      "tag": 5,
+      "body": 288682464,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0c8b1189108b45f85f5e5b8be55dc20800cccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0c8b1189108b45f85f5e5b8be55dc20800cccccccccccccccccccccc558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "RequestedPadProcessPad::Gate::Gate<int (__cdecl*)(int,void *),int (__cdecl*)(int,void *)>",
+      "address": 288702368,
+      "size": 1089,
+      "tag": 5,
+      "body": 288702368,
+      "e9_chain": [],
+      "first128": "558bec6aff68ff0a0d1364a1000000005081ec1c020000535657518dbd98feffffb957000000b8ccccccccf3ab59a140ca761333c5508d45f464a300000000894dec8b4dece896d9d3ffc745fc000000008b4dec83c110e8727ed2ffc645fc018b4dec83c120e8523cd0ffc645fc028b45ecc6403001837d0c0074198b4d0ce8"
+    },
+    {
+      "name": "std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> ><std::default_delete<RequestedPadProcessPad::Gate>,0>",
+      "address": 288705344,
+      "size": 140,
+      "tag": 5,
+      "body": 288705344,
+      "e9_chain": [],
+      "first128": "558bec81ecf8000000535657518d7dc8b90e000000b8ccccccccf3ab59894df88b45f889850cffffff8b4d08e8d0f1d0ff89852cffffff8b4d08e8abb8d0ff898508ffffff8a8d23ffffff888d17ffffff8d952cffffff528b8508ffffff500fb68d17ffffff518b8d0cffffffe897fcd1ff908b45f85f5e5b81c4f80000003b"
+    },
+    {
+      "name": "std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> ><std::default_delete<RequestedPadProcessPad::Gate>,0>",
+      "address": 288705520,
+      "size": 90,
+      "tag": 5,
+      "body": 288705520,
+      "e9_chain": [],
+      "first128": "558bec81ecdc000000535657518d7de4b907000000b8ccccccccf3ab59894df88b45f8898524ffffff8d4d08510fb6952fffffff528b8d24ffffffe87686d1ff908b45f85f5e5b81c4dc0000003bece89180d0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b"
+    },
+    {
+      "name": "std::_Compressed_pair<std::default_delete<RequestedPadProcessPad::Gate>,RequestedPadProcessPad::Gate *,1>::_Compressed_pair<std::default_delete<RequestedPadProcessPad::Gate>,RequestedPadProcessPad::Gate *,1><std::default_delete<RequestedPadProcessPad::Gate>,RequestedPadProcessPad::Gate *>",
+      "address": 288705632,
+      "size": 37,
+      "tag": 5,
+      "body": 288705632,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d108b1189108b45f85f5e5b8be55dc20c00cccccccccccccccccccccc558bec81ecdc000000535657518d7de4b907000000b8ccccccccf3ab59894df88b45f8898524ffffff8d4d08510fb6952fffffff528b8d24ffffffe835f3d2ff908b45f85f5e5b81c4dc0000003bece8"
+    },
+    {
+      "name": "std::allocator<std::_Container_proxy>::allocator<std::_Container_proxy><std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288713712,
+      "size": 27,
+      "tag": 5,
+      "body": 288713712,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f85f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccccccc558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "std::identity::operator()<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > &>",
+      "address": 288722160,
+      "size": 27,
+      "tag": 5,
+      "body": 288722160,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45085f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578d7df4b903000000b8ccccccccf3abc745f8010000008b4d08e8dff1d3ff5f5e5b81c4cc0000003bece87b3fd0ff8be55dc3cccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::ranges::_Any_of_fn::operator()<std::vector<std::shared_ptr<ReversibleHooks::ReversibleHook::Base>,std::allocator<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> > > &,std::identity,``RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "address": 288722368,
+      "size": 227,
+      "tag": 5,
+      "body": 288722368,
+      "e9_chain": [],
+      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e8ad14d0ff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e8b419d2ff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
+    },
+    {
+      "name": "std::ranges::_Unchecked_begin::_Cpo::operator()<std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > > &>",
+      "address": 288722656,
+      "size": 62,
+      "tag": 5,
+      "body": 288722656,
+      "e9_chain": [],
+      "first128": "558bec81eccc0000005356578d7df4b903000000b8ccccccccf3abc745f8010000008b4d08e8cea3d0ff5f5e5b81c4cc0000003bece8bb3dd0ff8be55dc3cccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578d7df4b903000000b8ccccccccf3abc745f8010000008b4d08e8849fd3ff5f5e5b81c4cc"
+    },
+    {
+      "name": "std::ranges::_Unchecked_end::_Cpo::operator()<std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > > &>",
+      "address": 288722736,
+      "size": 62,
+      "tag": 5,
+      "body": 288722736,
+      "e9_chain": [],
+      "first128": "558bec81eccc0000005356578d7df4b903000000b8ccccccccf3abc745f8010000008b4d08e8849fd3ff5f5e5b81c4cc0000003bece86b3dd0ff8be55dc3cccccccccccccccccccccccccccccccccccc558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e8ed12d0ff83c40488853bffffff8a8d3b"
+    },
+    {
+      "name": "std::ranges::_All_of_fn::operator()<std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > > &,std::identity,`RequestedPadProcessPad::Update'::`2'::<lambda_2> >",
+      "address": 288722816,
+      "size": 227,
+      "tag": 5,
+      "body": 288722816,
+      "e9_chain": [],
+      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e8ed12d0ff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e8dc13d5ff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
+    },
+    {
+      "name": "std::ranges::_All_of_fn::operator()<std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > > &,std::identity,`RequestedPadProcessPad::Update'::`14'::<lambda_3> >",
+      "address": 288723104,
+      "size": 227,
+      "tag": 5,
+      "body": 288723104,
+      "e9_chain": [],
+      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e8cd11d0ff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e8d976d1ff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
+    },
+    {
+      "name": "``RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1>::operator()<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> >",
+      "address": 288727408,
+      "size": 103,
+      "tag": 5,
+      "body": 288727408,
+      "e9_chain": [],
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b4d08e80194d0ff8bc8e80036d3ff83f801750cc78530ffffff01000000eb0ac78530ffffff000000000fb68530ffffff5f5e5b81c4d00000003bece8042bd0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "`RequestedPadProcessPad::Update'::`2'::<lambda_2>::operator()<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288727536,
+      "size": 66,
+      "tag": 5,
+      "body": 288727536,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4d08e8ea8fd4ff0fb640305f5e5b81c4cc0000003bece8a92ad0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "`RequestedPadProcessPad::Update'::`14'::<lambda_3>::operator()<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288727632,
+      "size": 69,
+      "tag": 5,
+      "body": 288727632,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4d08e88a8fd4ff8bc8e855a8d0ff5f5e5b81c4cc0000003bece8462ad0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ec08010000535657518d7db8b912000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "`RequestedPadProcessPad::ByNative'::`2'::<lambda_1>::operator()<ReversibleHooks::HookCategory>",
+      "address": 288727728,
+      "size": 191,
+      "tag": 5,
+      "body": 288727728,
+      "e9_chain": [],
+      "first128": "558bec81ec08010000535657518d7db8b912000000b8ccccccccf3ab59894df88b4d08e8d355d3ff8945ec8b4dece846dcd3ff8945e08b4dece88ed8cfff8945d4eb098b45e083c0088945e08b45e03b45d474558b45e08945c88b4dc8e88792d0ff8bc8e88634d3ff85c0753a8b4dc8e874f1d0ff8945bc8b4dbce82511d2ff"
+    },
+    {
+      "name": "`RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>",
+      "address": 288728224,
+      "size": 1108,
+      "tag": 5,
+      "body": 288728224,
+      "e9_chain": [],
+      "first128": "558bec6aff682c0e0d1364a1000000005081ec8c030000535657518dbde8fdffffb983000000b8ccccccccf3ab59a140ca761333c58945f0508d45f464a300000000894de833c0888517feffff8a8d17feffff888df3fdffff8a950bfeffff8895fffdffff8b4d08e89e53d3ff89856cfcffff0fb685f3fdffff500fb68dfffd"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<1>",
+      "address": 288729904,
+      "size": 291,
+      "tag": 5,
+      "body": 288729904,
+      "e9_chain": [],
+      "first128": "558bec6aff68c10e0d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8e86dd1ffc745fc00000000c7852cffffff010000008d852cffffff508d8de4feffffe80ce4d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<2>",
+      "address": 288730272,
+      "size": 291,
+      "tag": 5,
+      "body": 288730272,
+      "e9_chain": [],
+      "first128": "558bec6aff68310f0d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8786cd1ffc745fc00000000c7852cffffff020000008d852cffffff508d8de4feffffe89ce2d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<3>",
+      "address": 288730640,
+      "size": 291,
+      "tag": 5,
+      "body": 288730640,
+      "e9_chain": [],
+      "first128": "558bec6aff68a10f0d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8086bd1ffc745fc00000000c7852cffffff030000008d852cffffff508d8de4feffffe82ce1d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<4>",
+      "address": 288731008,
+      "size": 291,
+      "tag": 5,
+      "body": 288731008,
+      "e9_chain": [],
+      "first128": "558bec6aff6811100d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe89869d1ffc745fc00000000c7852cffffff040000008d852cffffff508d8de4feffffe8bcdfd2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<5>",
+      "address": 288731376,
+      "size": 291,
+      "tag": 5,
+      "body": 288731376,
+      "e9_chain": [],
+      "first128": "558bec6aff6881100d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe82868d1ffc745fc00000000c7852cffffff050000008d852cffffff508d8de4feffffe84cded2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<6>",
+      "address": 288731744,
+      "size": 291,
+      "tag": 5,
+      "body": 288731744,
+      "e9_chain": [],
+      "first128": "558bec6aff68f1100d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8b866d1ffc745fc00000000c7852cffffff060000008d852cffffff508d8de4feffffe8dcdcd2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<7>",
+      "address": 288732112,
+      "size": 291,
+      "tag": 5,
+      "body": 288732112,
+      "e9_chain": [],
+      "first128": "558bec6aff6861110d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe84865d1ffc745fc00000000c7852cffffff070000008d852cffffff508d8de4feffffe86cdbd2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<8>",
+      "address": 288732480,
+      "size": 291,
+      "tag": 5,
+      "body": 288732480,
+      "e9_chain": [],
+      "first128": "558bec6aff68d1110d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8d863d1ffc745fc00000000c7852cffffff080000008d852cffffff508d8de4feffffe8fcd9d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<9>",
+      "address": 288732848,
+      "size": 291,
+      "tag": 5,
+      "body": 288732848,
+      "e9_chain": [],
+      "first128": "558bec6aff6841120d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe86862d1ffc745fc00000000c7852cffffff090000008d852cffffff508d8de4feffffe88cd8d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<10>",
+      "address": 288733216,
+      "size": 291,
+      "tag": 5,
+      "body": 288733216,
+      "e9_chain": [],
+      "first128": "558bec6aff68b1120d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8f860d1ffc745fc00000000c7852cffffff0a0000008d852cffffff508d8de4feffffe81cd7d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<0>",
+      "address": 288733584,
+      "size": 291,
+      "tag": 5,
+      "body": 288733584,
+      "e9_chain": [],
+      "first128": "558bec6aff6821130d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8885fd1ffc745fc00000000c7852cffffff000000008d852cffffff508d8de4feffffe8acd5d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<16>",
+      "address": 288733952,
+      "size": 291,
+      "tag": 5,
+      "body": 288733952,
+      "e9_chain": [],
+      "first128": "558bec6aff6891130d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8185ed1ffc745fc00000000c7852cffffff100000008d852cffffff508d8de4feffffe83cd4d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<17>",
+      "address": 288734320,
+      "size": 291,
+      "tag": 5,
+      "body": 288734320,
+      "e9_chain": [],
+      "first128": "558bec6aff6801140d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8a85cd1ffc745fc00000000c7852cffffff110000008d852cffffff508d8de4feffffe8ccd2d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<18>",
+      "address": 288734688,
+      "size": 291,
+      "tag": 5,
+      "body": 288734688,
+      "e9_chain": [],
+      "first128": "558bec6aff6871140d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8385bd1ffc745fc00000000c7852cffffff120000008d852cffffff508d8de4feffffe85cd1d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<19>",
+      "address": 288735056,
+      "size": 291,
+      "tag": 5,
+      "body": 288735056,
+      "e9_chain": [],
+      "first128": "558bec6aff68e1140d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8c859d1ffc745fc00000000c7852cffffff130000008d852cffffff508d8de4feffffe8eccfd2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<20>",
+      "address": 288735424,
+      "size": 291,
+      "tag": 5,
+      "body": 288735424,
+      "e9_chain": [],
+      "first128": "558bec6aff6851150d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe85858d1ffc745fc00000000c7852cffffff140000008d852cffffff508d8de4feffffe87cced2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<21>",
+      "address": 288735792,
+      "size": 291,
+      "tag": 5,
+      "body": 288735792,
+      "e9_chain": [],
+      "first128": "558bec6aff68c1150d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8e856d1ffc745fc00000000c7852cffffff150000008d852cffffff508d8de4feffffe80ccdd2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<22>",
+      "address": 288736160,
+      "size": 291,
+      "tag": 5,
+      "body": 288736160,
+      "e9_chain": [],
+      "first128": "558bec6aff6831160d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe87855d1ffc745fc00000000c7852cffffff160000008d852cffffff508d8de4feffffe89ccbd2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<23>",
+      "address": 288736528,
+      "size": 291,
+      "tag": 5,
+      "body": 288736528,
+      "e9_chain": [],
+      "first128": "558bec6aff68a1160d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe80854d1ffc745fc00000000c7852cffffff170000008d852cffffff508d8de4feffffe82ccad2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<24>",
+      "address": 288736896,
+      "size": 291,
+      "tag": 5,
+      "body": 288736896,
+      "e9_chain": [],
+      "first128": "558bec6aff6811170d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe89852d1ffc745fc00000000c7852cffffff180000008d852cffffff508d8de4feffffe8bcc8d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<25>",
+      "address": 288737264,
+      "size": 291,
+      "tag": 5,
+      "body": 288737264,
+      "e9_chain": [],
+      "first128": "558bec6aff6881170d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe82851d1ffc745fc00000000c7852cffffff190000008d852cffffff508d8de4feffffe84cc7d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<26>",
+      "address": 288737632,
+      "size": 291,
+      "tag": 5,
+      "body": 288737632,
+      "e9_chain": [],
+      "first128": "558bec6aff68f1170d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8b84fd1ffc745fc00000000c7852cffffff1a0000008d852cffffff508d8de4feffffe8dcc5d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<27>",
+      "address": 288738000,
+      "size": 291,
+      "tag": 5,
+      "body": 288738000,
+      "e9_chain": [],
+      "first128": "558bec6aff6861180d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8484ed1ffc745fc00000000c7852cffffff1b0000008d852cffffff508d8de4feffffe86cc4d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<28>",
+      "address": 288738368,
+      "size": 291,
+      "tag": 5,
+      "body": 288738368,
+      "e9_chain": [],
+      "first128": "558bec6aff68d1180d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8d84cd1ffc745fc00000000c7852cffffff1c0000008d852cffffff508d8de4feffffe8fcc2d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<29>",
+      "address": 288738736,
+      "size": 291,
+      "tag": 5,
+      "body": 288738736,
+      "e9_chain": [],
+      "first128": "558bec6aff6841190d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8684bd1ffc745fc00000000c7852cffffff1d0000008d852cffffff508d8de4feffffe88cc1d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<30>",
+      "address": 288739104,
+      "size": 291,
+      "tag": 5,
+      "body": 288739104,
+      "e9_chain": [],
+      "first128": "558bec6aff68b1190d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8f849d1ffc745fc00000000c7852cffffff1e0000008d852cffffff508d8de4feffffe81cc0d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<31>",
+      "address": 288739472,
+      "size": 291,
+      "tag": 5,
+      "body": 288739472,
+      "e9_chain": [],
+      "first128": "558bec6aff68211a0d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe88848d1ffc745fc00000000c7852cffffff1f0000008d852cffffff508d8de4feffffe8acbed2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<11>",
+      "address": 288739840,
+      "size": 291,
+      "tag": 5,
+      "body": 288739840,
+      "e9_chain": [],
+      "first128": "558bec6aff68911a0d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe81847d1ffc745fc00000000c7852cffffff0b0000008d852cffffff508d8de4feffffe83cbdd2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<12>",
+      "address": 288740208,
+      "size": 291,
+      "tag": 5,
+      "body": 288740208,
+      "e9_chain": [],
+      "first128": "558bec6aff68011b0d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8a845d1ffc745fc00000000c7852cffffff0c0000008d852cffffff508d8de4feffffe8ccbbd2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<13>",
+      "address": 288740576,
+      "size": 291,
+      "tag": 5,
+      "body": 288740576,
+      "e9_chain": [],
+      "first128": "558bec6aff68711b0d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe83844d1ffc745fc00000000c7852cffffff0d0000008d852cffffff508d8de4feffffe85cbad2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<14>",
+      "address": 288740944,
+      "size": 291,
+      "tag": 5,
+      "body": 288740944,
+      "e9_chain": [],
+      "first128": "558bec6aff68e11b0d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe8c842d1ffc745fc00000000c7852cffffff0e0000008d852cffffff508d8de4feffffe8ecb8d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevUnexpected<15>",
+      "address": 288741312,
+      "size": 291,
+      "tag": 5,
+      "body": 288741312,
+      "e9_chain": [],
+      "first128": "558bec6aff68511c0d1364a1000000005081ec340100005356578d7d80b91d000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c60538606c130068b85e28138d8dccfeffffe85841d1ffc745fc00000000c7852cffffff0f0000008d852cffffff508d8de4feffffe87cb7d2ffc745fc010000008d8dfcfeff"
+    },
+    {
+      "name": "RequestedPadProcessPad::FillUnexpected<0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31>",
+      "address": 288741680,
+      "size": 619,
+      "tag": 5,
+      "body": 288741680,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6a00b920977813e85848d2ffc700c1dd08116a01b920977813e84648d2ffc70057f807116a02b920977813e83448d2ffc700742b08116a03b920977813e82248d2ffc7006bd106116a04b920977813e81048d2ffc700962c08116a05b920977813e8fe47d2ffc70045"
+    },
+    {
+      "name": "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPadProcessPad::ByNative'::`2'::<lambda_1> &>",
+      "address": 288742464,
+      "size": 232,
+      "tag": 5,
+      "body": 288742464,
+      "e9_chain": [],
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e84c1bd5ff83c4088b45f883c0348945ec8d45e0508b4dece8d52dd1ff908d45d4508b4dece8909ed4ff90eb098d4de0e8e2bed4ff908d45d4508d4de0e834e8d3ff0fb6c885c9751a8d4de0e83efad0ff8945c88b450850"
+    },
+    {
+      "name": "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_2> &>",
+      "address": 288743072,
+      "size": 232,
+      "tag": 5,
+      "body": 288743072,
+      "e9_chain": [],
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e80a2ad3ff83c4088b45f883c0348945ec8d45e0508b4dece8752bd1ff908d45d4508b4dece8309cd4ff90eb098d4de0e882bcd4ff908d45d4508d4de0e8d4e5d3ff0fb6c885c9751a8d4de0e8def7d0ff8945c88b450850"
+    },
+    {
+      "name": "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPadProcessPad::ByNative'::`2'::<lambda_1> >",
+      "address": 288743376,
+      "size": 232,
+      "tag": 5,
+      "body": 288743376,
+      "e9_chain": [],
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e8bc17d5ff83c4088b45f883c0348945ec8d45e0508b4dece8452ad1ff908d45d4508b4dece8009bd4ff90eb098d4de0e852bbd4ff908d45d4508d4de0e8a4e4d3ff0fb6c885c9751a8d4de0e8aef6d0ff8945c88b450850"
+    },
+    {
+      "name": "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_2> >",
+      "address": 288743984,
+      "size": 232,
+      "tag": 5,
+      "body": 288743984,
+      "e9_chain": [],
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e87a26d3ff83c4088b45f883c0348945ec8d45e0508b4dece8e527d1ff908d45d4508b4dece8a098d4ff90eb098d4de0e8f2b8d4ff908d45d4508d4de0e844e2d3ff0fb6c885c9751a8d4de0e84ef4d0ff8945c88b450850"
+    },
+    {
+      "name": "RequestedPadProcessPad::Mem<unsigned char>",
+      "address": 288745072,
+      "size": 22,
+      "tag": 5,
+      "body": 288745072,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b45088b4d0c8b103b"
+    },
+    {
+      "name": "RequestedPadProcessPad::Mem<unsigned int>",
+      "address": 288745104,
+      "size": 22,
+      "tag": 5,
+      "body": 288745104,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b45088b4d0c8b103b11762d68a49c1c13685c9b1c136a00681006000068c89c1c136a02e821e7d1ff"
+    },
+    {
+      "name": "RequestedPadProcessPad::Mem<float>",
+      "address": 288745136,
+      "size": 22,
+      "tag": 5,
+      "body": 288745136,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b45088b4d0c8b103b11762d68a49c1c13685c9b1c136a00681006000068c89c1c136a02e821e7d1ff83c41883f8017501ccb905000000cd295f5e5b81c4c00000003bece8a5e5cfff"
+    },
+    {
+      "name": "std::ranges::_All_of_fn::_All_of_unchecked<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > *,std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > *,std::identity,`RequestedPadProcessPad::Update'::`2'::<lambda_2> >",
+      "address": 288746032,
+      "size": 106,
+      "tag": 5,
+      "body": 288746032,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0048945088b45083b450c742a8b4508508d4d1451e8cd3bd1ff83c408508d551052e893e7cfff83c4080fb6c085c0750432c0eb04ebc5b0015f5e5b81c4c00000003bece83fe2cfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::ranges::_All_of_fn::_All_of_unchecked<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > *,std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > *,std::identity,`RequestedPadProcessPad::Update'::`14'::<lambda_3> >",
+      "address": 288746176,
+      "size": 106,
+      "tag": 5,
+      "body": 288746176,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0048945088b45083b450c742a8b4508508d4d1451e83d3bd1ff83c408508d551052e80bd9d0ff83c4080fb6c085c0750432c0eb04ebc5b0015f5e5b81c4c00000003bece8afe1cfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::_Allocate_at_least_helper<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >",
+      "address": 288746960,
+      "size": 57,
+      "tag": 5,
+      "body": 288746960,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c8b08518b4d08e86af5d4ff5f5e5b81c4c00000003bece8d0decfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c8b08518b4d08e81880d3ff5f5e5b81c4c00000003bec"
+    },
+    {
+      "name": "std::ranges::_Any_of_fn::_Any_of_unchecked<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> *,std::shared_ptr<ReversibleHooks::ReversibleHook::Base> *,std::identity,``RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "address": 288747120,
+      "size": 106,
+      "tag": 5,
+      "body": 288747120,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0088945088b45083b450c742a8b4508508d4d1451e878e8d0ff83c408508d551052e8e71bd1ff83c4080fb6c085c07404b001eb04ebc532c05f5e5b81c4c00000003bece8ffddcfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::_Construct_in_place<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288752064,
+      "size": 131,
+      "tag": 5,
+      "body": 288752064,
+      "e9_chain": [],
+      "first128": "558bec81eccc0000005356578d7df4b903000000b8ccccccccf3abe86e8fd3ff0fb6c085c0741b8b450c508b4d0851e8e495d4ff83c40450e86921d4ff83c408eb2d8b450850e8cd95d4ff83c404506a04e83587cfff83c408898538ffffff8b4d0c518b8d38ffffffe8b693d4ff905f5e5b81c4cc0000003bece896cacfff8b"
+    },
+    {
+      "name": "std::_Destroy_range<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >",
+      "address": 288759504,
+      "size": 137,
+      "tag": 5,
+      "body": 288759504,
+      "e9_chain": [],
+      "first128": "558bec6aff68b0200d1364a1000000005081ecc00000005356578d7df433c9b8ccccccccf3aba140ca761333c5508d45f464a300000000eb098b450883c0048945088b45083b450c741b8b450850e8a3d5cfff83c404508b4d1051e86ee2d1ff83c408ebd48b4df464890d00000000595f5e5b81c4cc0000003bece885adcfff"
+    },
+    {
+      "name": "std::_Uninitialized_backout_al<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Emplace_back<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288762928,
+      "size": 128,
+      "tag": 5,
+      "body": 288762928,
+      "e9_chain": [],
+      "first128": "558bec81ecd4000000535657518d7decb905000000b8ccccccccf3ab59894df88b45f88b480451e86ac8cfff83c404898530ffffff8b55f88b420889852cffffff8b4d08518b9530ffffff528b852cffffff50e8bde7d1ff83c40c8b45f88b480483c1048b55f8894a045f5e5b81c4d40000003bece82ba0cfff8be55dc20400"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Emplace_back_with_unused_capacity<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288764304,
+      "size": 132,
+      "tag": 5,
+      "body": 288764304,
+      "e9_chain": [],
+      "first128": "558bec81ecf0000000535657518d7dd0b90c000000b8ccccccccf3ab59894df88b45f88945ec8b45ec83c0088945e08b4508508b4de08b1152e82a55cfff83c4088b45e08b08518b55e08b02508b4df8e85eb8d0ff908b45e08b08894dd48b45e08b0883c1048b55e0890a8b45d45f5e5b81c4f00000003bece8c79acfff8be5"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Emplace_one_at_back<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288765888,
+      "size": 114,
+      "tag": 5,
+      "body": 288765888,
+      "e9_chain": [],
+      "first128": "558bec81ece4000000535657518d7ddcb909000000b8ccccccccf3ab59894df88b45f88945ec8b45ec83c0088945e08b45e08b4dec8b103b510c740e8b4508508b4df8e80437d3ffeb128b4508508b4de08b11528b4df8e86ef9d3ff5f5e5b81c4e40000003bece8a994cfff8be55dc20400cccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Emplace_reallocate<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288770880,
+      "size": 616,
+      "tag": 5,
+      "body": 288770880,
+      "e9_chain": [],
+      "first128": "558bec6aff68a0220d1364a1000000005081ec78010000535657518dbd3cffffffb92e000000b8ccccccccf3ab59a140ca761333c5508d45f464a300000000894dec8b4dece8135ed0ff8945e08b45ec8945d48b45d483c0048945c88b45d483c0088945bc8b45c88b4d082b08c1f902894db08b45bc8b4dc88b102b11c1fa02"
+    },
+    {
+      "name": "std::_Get_proxy_allocator<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >",
+      "address": 288778176,
+      "size": 59,
+      "tag": 5,
+      "body": 288778176,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8cdfdd3ff908b45085f5e5b81c4c00000003bece8de64cfff8be55dc3cccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8ead3d1ff908b45085f5e5b81c4c0000000"
+    },
+    {
+      "name": "std::_Get_unwrapped<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > * const &>",
+      "address": 288779568,
+      "size": 24,
+      "tag": 5,
+      "body": 288779568,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578b45088b005f5e5b8be55dc3cccccccccccccccc558bec81ecc00000005356578b45088b005f5e5b8be55dc3cccccccccccccccc558bec81ecc00000005356578b45088b005f5e5b8be55dc3cccccccccccccccc558bec81ecc00000005356578b45088b005f5e5b8be55dc3cccccccccccccccc"
+    },
+    {
+      "name": "std::_Pass_fn<``RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "address": 288785424,
+      "size": 26,
+      "tag": 5,
+      "body": 288785424,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81ecc00000005356575f5e5b8be55dc3cccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::_Pass_fn<`RequestedPadProcessPad::Update'::`2'::<lambda_2> >",
+      "address": 288785456,
+      "size": 26,
+      "tag": 5,
+      "body": 288785456,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81ecc00000005356575f5e5b8be55dc3cccccccccccccccccccccccccc558bec6aff68bd230d1364a1000000005081ec28010000535657518d7d8cb91a"
+    },
+    {
+      "name": "std::_Pass_fn<`RequestedPadProcessPad::Update'::`14'::<lambda_3> >",
+      "address": 288785488,
+      "size": 26,
+      "tag": 5,
+      "body": 288785488,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81ecc00000005356575f5e5b8be55dc3cccccccccccccccccccccccccc558bec6aff68bd230d1364a1000000005081ec28010000535657518d7d8cb91a000000b8ccccccccf3ab59a140ca761333c5508d45f464a300000000894dec8b"
+    },
+    {
+      "name": "std::_Unfancy<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288789392,
+      "size": 22,
+      "tag": 5,
+      "body": 288789392,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc"
+    },
+    {
+      "name": "std::_Unfancy_maybe_null<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288789680,
+      "size": 22,
+      "tag": 5,
+      "body": 288789680,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab8b450c508b4d080fb61152e84797d0ff83c40883f8ff740cc7853cffffff01000000eb0ac7853cffffff000000000fb6853cffffff5f5e5b81c4c40000003bece8a537cfff"
+    },
+    {
+      "name": "std::_Uninitialized_move<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > *,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >",
+      "address": 288795040,
+      "size": 257,
+      "tag": 5,
+      "body": 288795040,
+      "e9_chain": [],
+      "first128": "558bec6aff683d270d1364a1000000005081ecf80000005356578d7dbcb90e000000b8ccccccccf3aba140ca761333c5508d45f464a3000000008d450850e8f0e8ceff83c4048945ec8d450c50e8e1e8ceff83c4048945e08b4514508b4d10518d4dcce80178d2ffc745fc00000000eb098b45ec83c0048945ec8b45ec3b45e0"
+    },
+    {
+      "name": "std::addressof<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288796896,
+      "size": 22,
+      "tag": 5,
+      "body": 288796896,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecc00000005356578b45085f5e5b8be55dc3cccccccccccccccccccc558bec81ecd80000005356578d7de8b906000000b8ccccccccf3ab8b450c508b"
+    },
+    {
+      "name": "std::_Default_allocator_traits<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::construct<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288812032,
+      "size": 59,
+      "tag": 5,
+      "body": 288812032,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b4510508b4d0c51e84237d3ff83c4085f5e5b81c4c00000003bece89ee0ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b4510508b4d0c51e8106ad2ff83c4085f5e5b81c4c0000000"
+    },
+    {
+      "name": "std::construct_at<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288818160,
+      "size": 82,
+      "tag": 5,
+      "body": 288818160,
+      "e9_chain": [],
+      "first128": "558bec81eccc0000005356578d7df4b903000000b8ccccccccf3ab8b4508506a04e83585ceff83c408898538ffffff8b4d0c518b8d38ffffffe8b691d3ff5f5e5b81c4cc0000003bece897c8ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578d7df4b9"
+    },
+    {
+      "name": "std::_Default_allocator_traits<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::destroy<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288834944,
+      "size": 55,
+      "tag": 5,
+      "body": 288834944,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c50e8abe9d2ff83c4045f5e5b81c4c00000003bece82287ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c50e83733d0ff83c4045f5e5b81c4c00000003bece8d2"
+    },
+    {
+      "name": "std::destroy_at<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288835904,
+      "size": 54,
+      "tag": 5,
+      "body": 288835904,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6a008b4d08e819bdd1ff905f5e5b81c4c00000003bece86383ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6a008b4d08e8f96ad0ff905f5e5b81c4c00000003bece81383"
+    },
+    {
+      "name": "std::exchange<RequestedPadProcessPad::Gate *,std::nullptr_t>",
+      "address": 288842048,
+      "size": 40,
+      "tag": 5,
+      "body": 288842048,
+      "e9_chain": [],
+      "first128": "558bec81eccc0000005356578b45088b08894df88b45088b4d0c8b1189108b45f85f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578b45088b08894df88b45088b4d0c8b1189108b45f85f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::invoke<std::identity &,std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > &>",
+      "address": 288844192,
+      "size": 55,
+      "tag": 5,
+      "body": 288844192,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e852a1d2ff5f5e5b81c4c00000003bece80263ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e80a2dd0ff5f5e5b81c4c00000003bece8b2"
+    },
+    {
+      "name": "std::invoke<``RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> &,std::shared_ptr<ReversibleHooks::ReversibleHook::Base> &>",
+      "address": 288844272,
+      "size": 55,
+      "tag": 5,
+      "body": 288844272,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e80a2dd0ff5f5e5b81c4c00000003bece8b262ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578d7df4b903000000b8ccccccccf3ab83ec088bcc89a538ffffff8b450c50e85f25d1ff8b"
+    },
+    {
+      "name": "std::invoke<`RequestedPadProcessPad::ByNative'::`2'::<lambda_1> &,ReversibleHooks::HookCategory &>",
+      "address": 288844448,
+      "size": 56,
+      "tag": 5,
+      "body": 288844448,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8af0ed0ff905f5e5b81c4c00000003bece80162ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b4d08e801350100905f5e5b81c4c00000003bece8b561ceff"
+    },
+    {
+      "name": "std::invoke<`NOTSA_WinMain'::`2'::<lambda_1> &>",
+      "address": 288844528,
+      "size": 52,
+      "tag": 5,
+      "body": 288844528,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b4d08e801350100905f5e5b81c4c00000003bece8b561ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e802cbcfff905f5e5b81c4c00000003bece8"
+    },
+    {
+      "name": "std::invoke<`RequestedPadProcessPad::Update'::`2'::<lambda_2> &,std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > &>",
+      "address": 288844688,
+      "size": 55,
+      "tag": 5,
+      "body": 288844688,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e80927d1ff5f5e5b81c4c00000003bece81261ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e83e30cfff905f5e5b81c4c00000003bece8"
+    },
+    {
+      "name": "std::invoke<`RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_2> &,ReversibleHooks::HookCategory &>",
+      "address": 288844768,
+      "size": 56,
+      "tag": 5,
+      "body": 288844768,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e83e30cfff905f5e5b81c4c00000003bece8c160ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e88a20cfff5f5e5b81c4c00000003bece872"
+    },
+    {
+      "name": "std::invoke<`RequestedPadProcessPad::Update'::`14'::<lambda_3> &,std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > &>",
+      "address": 288844848,
+      "size": 55,
+      "tag": 5,
+      "body": 288844848,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e88a20cfff5f5e5b81c4c00000003bece87260ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df832c05f5e5b8be55dc20400cccccccccccc558bec81ecd0000000535657894df883"
+    },
+    {
+      "name": "std::make_unique<RequestedPadProcessPad::Gate,int,ReversibleHooks::ReversibleHook::Simple * &,int (__cdecl&)(int,void *),int (__cdecl&)(int,void *),0>",
+      "address": 288848848,
+      "size": 232,
+      "tag": 5,
+      "body": 288848848,
+      "e9_chain": [],
+      "first128": "558bec6aff68d7360d1364a1000000005081ece80000005356578d7dccb90a000000b8ccccccccf3aba140ca761333c5508d45f464a300000000c78514ffffff000000006a34e883e0cfff83c404898520ffffffc745fc0000000083bd20ffffff0074278b4518508b4d14518b55108b02508b4d0c8b11528b8d20ffffffe8f5"
+    },
+    {
+      "name": "`RequestedPadProcessPad::ByNative'::`2'::<lambda_1>::<lambda_1>",
+      "address": 288860272,
+      "size": 53,
+      "tag": 5,
+      "body": 288860272,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8be55dc20c00cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc"
+    },
+    {
+      "name": "`RequestedPadProcessPad::Update'::`2'::<lambda_1>::<lambda_1>",
+      "address": 288860400,
+      "size": 35,
+      "tag": 5,
+      "body": 288860400,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b45f88b4d0c8b"
+    },
+    {
+      "name": "`RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_1>::<lambda_1>",
+      "address": 288860448,
+      "size": 35,
+      "tag": 5,
+      "body": 288860448,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b45f88b4d0c8b118950048b45f88b4d108a118850088b45f88b4d148b1189500c8b45f88b4d188b118950108b45f85f5e5b8be55dc214"
+    },
+    {
+      "name": "`RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_2>::<lambda_2>",
+      "address": 288860608,
+      "size": 53,
+      "tag": 5,
+      "body": 288860608,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8be55dc20c00cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e85ef7ceff908b45f85f5e5b81"
+    },
+    {
+      "name": "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
+      "address": 288860768,
+      "size": 27,
+      "tag": 5,
+      "body": 288860768,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f85f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f8c74004000000008b45f85f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b"
+    },
+    {
+      "name": "std::_Uninitialized_backout_al<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Uninitialized_backout_al<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >",
+      "address": 288864976,
+      "size": 53,
+      "tag": 5,
+      "body": 288864976,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d088948048b45f88b4d0c8948088b45f85f5e5b8be55dc20800cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d088948048b45f88b4d0c8948088b45f85f5e5b8b"
+    },
+    {
+      "name": "std::_Vector_val<std::_Simple_types<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Vector_val<std::_Simple_types<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >",
+      "address": 288867488,
+      "size": 94,
+      "tag": 5,
+      "body": 288867488,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e82b61cfff908b45f8c74004000000008b45f8c74008000000008b45f8c7400c000000008b45f85f5e5b81c4cc0000003bece8db07ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >",
+      "address": 288868160,
+      "size": 25,
+      "tag": 5,
+      "body": 288868160,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >",
+      "address": 288878608,
+      "size": 177,
+      "tag": 5,
+      "body": 288878608,
+      "e9_chain": [],
+      "first128": "558bec6aff68d03e0d1364a1000000005081ece8000000535657518d7dccb90a000000b8ccccccccf3ab59a140ca761333c5508d45f464a300000000894dec8b45ec89850cffffff0fb68d23ffffff518b8d0cffffffe8db2fd2ff908b45ec89850cffffff8b4dece820b9ceff508d8d17ffffff51e89465ceff83c408508b8d"
+    },
+    {
+      "name": "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::~ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
+      "address": 288883152,
+      "size": 111,
+      "tag": 5,
+      "body": 288883152,
+      "e9_chain": [],
+      "first128": "558bec6aff6850400d1364a1000000005081eccc000000535657518d7de8b903000000b8ccccccccf3ab59a140ca761333c5508d45f464a300000000894dec8b45ec50e8d868ffff83c4048b4df464890d00000000595f5e5b81c4d80000003bece89fcacdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::_Uninitialized_backout_al<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::~_Uninitialized_backout_al<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >",
+      "address": 288886800,
+      "size": 80,
+      "tag": 5,
+      "body": 288886800,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b45f88b4808518b55f88b4204508b4df88b1152e8473dceff83c40c5f5e5b81c4cc0000003bece879bccdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4"
+    },
+    {
+      "name": "std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >::~unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >",
+      "address": 288890176,
+      "size": 104,
+      "tag": 5,
+      "body": 288890176,
+      "e9_chain": [],
+      "first128": "558bec81ecd4000000535657518d7decb905000000b8ccccccccf3ab59894df88b45f8833800742c8b4df8e8c211d2ff898530ffffff8b45f88b08898d2cffffff8b952cffffff528b8d30ffffffe85774d0ff905f5e5b81c4d40000003bece831afcdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::~vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >",
+      "address": 288898256,
+      "size": 173,
+      "tag": 5,
+      "body": 288898256,
+      "e9_chain": [],
+      "first128": "558bec81ece4000000535657518d7ddcb909000000b8ccccccccf3ab59894df88b4df8e84533d1ff908b4df8e89c6cceff508d45ef50e81319ceff83c408c78520ffffff000000008d8520ffffff508b4df851e8f5cbd0ff83c408508d55ef52e8a4b8cdff83c408528bcd508d15603d3811e894e8cdff585a5f5e5b81c4e400"
+    },
+    {
+      "name": "RequestedPadProcessPad::Gate::~Gate",
+      "address": 288898848,
+      "size": 83,
+      "tag": 5,
+      "body": 288898848,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df883c120e87b12d0ff8b4df883c110e8739bd0ff8b4df8e8a1c0cfff905f5e5b81c4cc0000003bece8668dcdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Reallocation_guard2::~_Reallocation_guard2",
+      "address": 288900080,
+      "size": 126,
+      "tag": 5,
+      "body": 288900080,
+      "e9_chain": [],
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b45f88378040074418b45f88b08518b55f88b4210508b4df88b510c52e85e09ceff83c40c8b45f88b08898d30ffffff8b55f88b4208508b4df88b5104528b8d30ffffffe8ef3ad0ff905f5e5b81c4d00000003bece86b88cdff8be55dc3cccc"
+    },
+    {
+      "name": "std::array<RequestedPadProcessPad::FakeDevice,2>::operator[]",
+      "address": 288907024,
+      "size": 114,
+      "tag": 5,
+      "body": 288907024,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8837d0802722d68d8d21c13685c9b1c136a00680d0200006800d31c136a02e8de6ecfff83c41883f8017501ccb905000000cd298b45088b4df88d04c15f5e5b81c4cc0000003bece8596dcdff8be55dc20400cccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::array<RequestedPadProcessPad::Region,13>::operator[]",
+      "address": 288907168,
+      "size": 114,
+      "tag": 5,
+      "body": 288907168,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8837d080d722d68d8d21c13685c9b1c136a0068160200006800d31c136a02e84e6ecfff83c41883f8017501ccb905000000cd298b45088b4df88d04c15f5e5b81c4cc0000003bece8c96ccdff8be55dc20400cccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >::operator->",
+      "address": 288914272,
+      "size": 27,
+      "tag": 5,
+      "body": 288914272,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b005f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e8c56fcfff5f5e5b81c4cc0000003bece80d51cdff8be55dc3cccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "`NOTSA_WinMain'::`2'::<lambda_1>::operator()",
+      "address": 288923664,
+      "size": 77,
+      "tag": 5,
+      "body": 288923664,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8e8a6f3cdff0fb6c085c0740de896e2ceff8bc8e87cedccff905f5e5b81c4cc0000003bece87c2ccdff8be55dc3cccccccccccccccccccccccccccccccccccccc558bec6aff68814a0d1364a1000000005081eca0010000535657518dbd14ffff"
+    },
+    {
+      "name": "`RequestedPadProcessPad::Update'::`2'::<lambda_1>::operator()",
+      "address": 288924272,
+      "size": 243,
+      "tag": 5,
+      "body": 288924272,
+      "e9_chain": [],
+      "first128": "558bec6aff68e04a0d1364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a140ca761333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e8c053d0ff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
+    },
+    {
+      "name": "`RequestedPreflightPadProcessPadLive::Update'::`2'::<lambda_1>::operator()",
+      "address": 288924576,
+      "size": 243,
+      "tag": 5,
+      "body": 288924576,
+      "e9_chain": [],
+      "first128": "558bec6aff68304b0d1364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a140ca761333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e89052d0ff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
+    },
+    {
+      "name": "std::default_delete<RequestedPadProcessPad::Gate>::operator()",
+      "address": 288925664,
+      "size": 103,
+      "tag": 5,
+      "body": 288925664,
+      "e9_chain": [],
+      "first128": "558bec81ecdc000000535657518d7de4b907000000b8ccccccccf3ab59894df88b450889852cffffff83bd2cffffff0074156a018b8d2cffffffe8390dd0ff898524ffffffeb0ac78524ffffff000000005f5e5b81c4dc0000003bece89424cdff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >::`scalar deleting destructor'",
+      "address": 288929024,
+      "size": 88,
+      "tag": 5,
+      "body": 288929024,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e88f49d2ff908b450883e001740e6a048b45f850e8129bd0ff83c4088b45f85f5e5b81c4cc0000003bece88317cdff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4"
+    },
+    {
+      "name": "RequestedPadProcessPad::Gate::`scalar deleting destructor'",
+      "address": 288929472,
+      "size": 88,
+      "tag": 5,
+      "body": 288929472,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e83045ceff908b450883e001740e6a348b45f850e85299d0ff83c4088b45f85f5e5b81c4cc0000003bece8c315cdff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4"
+    },
+    {
+      "name": "RequestedPadProcessPad::Gate::Active",
+      "address": 288931104,
+      "size": 794,
+      "tag": 5,
+      "body": 288931104,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff688b640d1364a100000000505381ece80100005657518dbdc8feffffb94a000000b8ccccccccf3ab59a140ca761333c5508d45f464a300000000894de88b45e80fb6483085c9750732c0e99f020000c745dc00000000eb098b45dc83c0018945dc8b4de8e8a19bce"
+    },
+    {
+      "name": "RequestedPadProcessPad::Body",
+      "address": 288932096,
+      "size": 78,
+      "tag": 5,
+      "body": 288932096,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657c745f800000000eb098b45f883c0018945f8837df8107d208b45080fb60881f9e900000075128b45088b48018b55088d440a05894508ebd18b45085f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecd00000005356578d7df0b9"
+    },
+    {
+      "name": "RequestedPadProcessPad::BuildJoyState",
+      "address": 288932208,
+      "size": 277,
+      "tag": 5,
+      "body": 288932208,
+      "e9_chain": [],
+      "first128": "558bec81ecd00000005356578d7df0b904000000b8ccccccccf3abc745f800000000eb098b45f883c0018945f8817df81001000073358b45f8508b4d080fb6510883c27752e81199d0ff83c408888533ffffff8b45f850b928987813e8db31cfff8a8d33ffffff8808ebb96a048b450883c00c506a00b928987813e8bc31cfff"
+    },
+    {
+      "name": "RequestedPadProcessPad::ByNative",
+      "address": 288932560,
+      "size": 215,
+      "tag": 5,
+      "body": 288932560,
+      "e9_chain": [],
+      "first128": "558bec81ecf40000005356578d7dccb90d000000b8ccccccccf3abc745f800000000c745ec00000000e8abd4ceff898510ffffff8d45ec508d4df8518d5508528d8d18ffffffe8eb58cfff89850cffffff8b850cffffff508b8d10ffffffe85d0ad0ff90837dec01750b8b45f8898510ffffffeb0ac78510ffffff000000008b"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevAcquire",
+      "address": 288933152,
+      "size": 506,
+      "tag": 5,
+      "body": 288933152,
+      "e9_chain": [],
+      "first128": "558bec6aff68fc640d1364a1000000005081ec680100005356578dbd4cffffffb92a000000b8ccccccccf3aba140ca761333c58945f0508d45f464a3000000008b450850e89258ceff83c4048945e8a1b099781383c001a3b0997813833db0997813407611c60538606c1300b805400080e92b010000b9c8997813e8ae94d0ff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevGetState",
+      "address": 288933792,
+      "size": 498,
+      "tag": 5,
+      "body": 288933792,
+      "e9_chain": [],
+      "first128": "558bec6aff687c650d1364a1000000005081ec680100005356578dbd4cffffffb92a000000b8ccccccccf3aba140ca761333c58945f0508d45f464a3000000008b450850e81256ceff83c4048945e8817d0c10010000752168100100008b451050e8bececdff83c4080fb6c885c97409c68593feffff01eb07c68593feffff00"
+    },
+    {
+      "name": "RequestedPadProcessPad::DevPoll",
+      "address": 288934416,
+      "size": 506,
+      "tag": 5,
+      "body": 288934416,
+      "e9_chain": [],
+      "first128": "558bec6aff68fc650d1364a1000000005081ec680100005356578dbd4cffffffb92a000000b8ccccccccf3aba140ca761333c58945f0508d45f464a3000000008b450850e8a253ceff83c4048945e8a1b099781383c001a3b0997813833db0997813407611c60538606c1300b805400080e92b010000b9b4997813e8be8fd0ff"
+    },
+    {
+      "name": "RequestedPadProcessPad::DeviceIndex",
+      "address": 288935056,
+      "size": 204,
+      "tag": 5,
+      "body": 288935056,
+      "e9_chain": [],
+      "first128": "558bec81ecd40000005356578d7decb905000000b8ccccccccf3ab6a00b9bc977813e8fde6cfff394508750cc78530ffffff00000000eb336a01b9bc977813e8e0e6cfff394508750cc7852cffffff01000000eb0ac7852cffffffffffffff8b852cffffff898530ffffff8b8d30ffffff894df80fb60538606c13898530ffff"
+    },
+    {
+      "name": "RequestedPadProcessPad::Event",
+      "address": 288935712,
+      "size": 622,
+      "tag": 5,
+      "body": 288935712,
+      "e9_chain": [],
+      "first128": "558bec6aff687c660d1364a1000000005081ec680100005356578dbd4cffffffb92a000000b8ccccccccf3aba140ca761333c58945f0508d45f464a300000000a1ac99781383c001a3ac9978136a048b450c50e84cc7cdff83c4088845eb0fb60538606c130fb64deb23c1a238606c130fb645eb85c0740d8b4d0c8b11899590"
+    },
+    {
+      "name": "RequestedPadProcessPad::Hex",
+      "address": 288937008,
+      "size": 100,
+      "tag": 5,
+      "body": 288937008,
+      "e9_chain": [],
+      "first128": "558bec81eccc0000005356578d7df4b903000000b8ccccccccf3abc78538ffffff000000008b450c8b4804518b550c8b02508b4d0851e838f0cfff83c40c8b9538ffffff83ca01899538ffffff8b45085f5e5b81c4cc0000003bece845f8ccff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "RequestedPadProcessPad::Hex",
+      "address": 288937136,
+      "size": 291,
+      "tag": 5,
+      "body": 288937136,
+      "e9_chain": [],
+      "first128": "558bec81ec180100005356578d7da8b916000000b8ccccccccf3abc785f0feffff000000006a308b4510d1e0508b4d08e825a4cdff8985e8feffff8b8df0feffff83c901898df0feffffc745d400000000eb098b45d483c0018945d48b45d43b451073678b450c0345d48a08884dcb0fb645cbc1f8048b0d34606c138a140188"
+    },
+    {
+      "name": "RequestedPadProcessPad::InStack",
+      "address": 288937728,
+      "size": 133,
+      "tag": 5,
+      "body": 288937728,
+      "e9_chain": [],
+      "first128": "558bec81ecf40000005356578d7dccb90d000000b8ccccccccf3abe8115ed1ff8945f88b45f88b4808894dec8b45f88b4804894de08b45088945d4837d0800741f8b45d43b45ec72178b4de02b4d0c394dd4770cc7850cffffff01000000eb0ac7850cffffff000000000fb6850cffffff5f5e5b81c4f40000003bece854f5cc"
+    },
+    {
+      "name": "RequestedPadProcessPad::InitDevices",
+      "address": 288937904,
+      "size": 238,
+      "tag": 5,
+      "body": 288937904,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec81ec0001000056578d7dc0b910000000b8ccccccccf3ab33c088852fffffff0fb68d2fffffff51e8c6add1ff83c4046a07b920977813e8aa49cfffc700d1990a116a09b920977813e89849cfffc7000c3606116a19b920977813e88649cfffc700df900511c745f80000"
+    },
+    {
+      "name": "NOTSA_WinMain",
+      "address": 288942272,
+      "size": 1778,
+      "tag": 5,
+      "body": 288942272,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff688d670d1364a100000000505381ec2802000056578dbd88feffffb95a000000b8ccccccccf3aba140ca761333c58945ec508d45f464a3000000000fb685a7feffff508d4de7e83dc1feffc745fc00000000e8f6c5d1ff90c78598feffff00000000c745fcffffff"
+    },
+    {
+      "name": "RequestedPadProcessPad::Pat",
+      "address": 288944592,
+      "size": 26,
+      "tag": 5,
+      "body": 288944592,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356576b450c070345085f5e5b8be55dc3cccccccccccc558bec81ec500100005356578dbd70ffffffb924000000b8ccccccccf3aba140ca761333c58945fca14896781383781000750da1402679130fb6485d85c9740732c0e994050000e84a0ecfff9033c0742da1289378130fb60885c97408a12893"
+    },
+    {
+      "name": "RequestedPadProcessPad::ReadX87Environment",
+      "address": 288946896,
+      "size": 161,
+      "tag": 5,
+      "body": 288946896,
+      "e9_chain": [],
+      "first128": "558bec81ecfc0000005356578d7dc4b90f000000b8ccccccccf3ab33c08b4d08890189410489410889410c8941108941148941188b4d08e86ec1ceff8945d48b45d4d930d9208b4508528bcd508d1540fb3811e8b32acdff585a5f5e5b81c4fc0000003bece89bd1ccff8be55dc366900200000048fb3811e0ffffff1c000000"
+    },
+    {
+      "name": "RequestedPadProcessPad::Gate::Restore",
+      "address": 288947104,
+      "size": 337,
+      "tag": 5,
+      "body": 288947104,
+      "e9_chain": [],
+      "first128": "558bec6aff68e0670d1364a1000000005081ec3c010000535657518dbd78ffffffb91f000000b8ccccccccf3ab59a140ca761333c5508d45f464a300000000894dec8b4dec83c120e85971cfff908b45ec83c0108945e08b4de0e80372d1ff8945d48b4de0e80ca4ccff8945c8eb098b45d483c0148945d48b45d43b45c80f84"
+    },
+    {
+      "name": "RequestedPadProcessPad::RestoreX87Environment",
+      "address": 288947536,
+      "size": 63,
+      "tag": 5,
+      "body": 288947536,
+      "e9_chain": [],
+      "first128": "558bec81eccc0000005356578d7df4b903000000b8ccccccccf3ab8b4d08e859edd0ff8945f88b45f8d9205f5e5b81c4cc0000003bece84acfccff8be55dc3cccccccccccccccccccccccccccccccccc538bdc83ec0883e4f883c404558b6b04896c24048bec6aff68c6680d1364a100000000505381ece809000056578dbd08"
+    },
+    {
+      "name": "RequestedPadProcessPad::Seed",
+      "address": 288947616,
+      "size": 4174,
+      "tag": 5,
+      "body": 288947616,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff68c6680d1364a100000000505381ece809000056578dbd08f9ffffb9ba010000b8ccccccccf3aba140ca761333c58945ec508d45f464a3000000008b43080fb64808894de48b45e433d2b955000000f7f18945d8c745cc00000000eb098b45cc83c0018945cc8b45"
+    },
+    {
+      "name": "RequestedPadProcessPad::Slot",
+      "address": 288952944,
+      "size": 60,
+      "tag": 5,
+      "body": 288952944,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abb9d0977813e8be8bccff8b4d088d4488305f5e5b81c4c00000003bece82dbaccff8be55dc3cccccccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578d7df4b903000000b8ccccccccf3abc78538ffffff000000008b450c8b4804518b550c8b"
+    },
+    {
+      "name": "RequestedPadProcessPad::Snap",
+      "address": 288953024,
+      "size": 100,
+      "tag": 5,
+      "body": 288953024,
+      "e9_chain": [],
+      "first128": "558bec81eccc0000005356578d7df4b903000000b8ccccccccf3abc78538ffffff000000008b450c8b4804518b550c8b02508b4d0851e8d8c9cdff83c40c8b9538ffffff83ca01899538ffffff8b45085f5e5b81c4cc0000003bece8b5b9ccff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "RequestedPadProcessPad::Update",
+      "address": 288955088,
+      "size": 15510,
+      "tag": 5,
+      "body": 288955088,
+      "e9_chain": [],
+      "first128": "558bec6aff6858780d1364a10000000050b8a42b0000e84ea2cdff5356578dbd50daffffb969090000b8ccccccccf3aba140ca761333c58945f0508d45f464a300000000c78520ebffff0000000068040100006a008d85e8feffff50e8d8abd0ff83c40c8bf468040100008d85e8feffff506a00ff15f8847c133bf4e884b1cc"
+    },
+    {
+      "name": "RequestedPreflightPadProcessPadLive::Update",
+      "address": 288974480,
+      "size": 4859,
+      "tag": 5,
+      "body": 288974480,
+      "e9_chain": [],
+      "first128": "558bec6aff680d800d1364a10000000050b868100000e88e56cdff5356578dbd0cf4ffffb9fa020000b8ccccccccf3aba140ca761333c58945f0508d45f464a30000000068040100006a008d85e8feffff50e82260d0ff83c40c8bf468040100008d85e8feffff506a00ff15f8847c133bf4e8ce65ccff906a008d85e8feffff"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Calculate_growth",
+      "address": 288984368,
+      "size": 127,
+      "tag": 5,
+      "body": 288984368,
+      "e9_chain": [],
+      "first128": "558bec81ecf0000000535657518d7dd0b90c000000b8ccccccccf3ab59894df88b4df8e86212ceff8945ec8b4df8e859f5cfff8945e08b45ecd1e8b9ffffff3f2bc8394dec7607b8ffffff3feb1b8b45ecd1e80345ec8945d48b45d43b450873058b4508eb038b45d45f5e5b81c4f00000003bece82c3fccff8be55dc20400cc"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Change_array",
+      "address": 288986224,
+      "size": 204,
+      "tag": 5,
+      "body": 288986224,
+      "e9_chain": [],
+      "first128": "558bec81ec08010000535657518d7db8b912000000b8ccccccccf3ab59894df88b4df8e80515cdff8945ec8b45f88945e08b45e083c0048945d48b45e083c0088945c88b45e083c00c8945bc8b4de0e824d4ccff908b45d483380074358b45ec508b4dc88b11528b45d48b0851e8aeb8ccff83c40c8b45bc8b4dd48b102b11c1"
+    },
+    {
+      "name": "std::_Compressed_pair<std::default_delete<RequestedPadProcessPad::Gate>,RequestedPadProcessPad::Gate *,1>::_Get_first",
+      "address": 288990736,
+      "size": 25,
+      "tag": 5,
+      "body": 288990736,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc"
+    },
+    {
+      "name": "std::_Compressed_pair<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >,std::_Vector_val<std::_Simple_types<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >,1>::_Get_first",
+      "address": 288992496,
+      "size": 25,
+      "tag": 5,
+      "body": 288992496,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc"
+    },
+    {
+      "name": "std::_Compressed_pair<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >,std::_Vector_val<std::_Simple_types<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >,1>::_Get_first",
+      "address": 288992528,
+      "size": 25,
+      "tag": 5,
+      "body": 288992528,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Getal",
+      "address": 288994640,
+      "size": 60,
+      "tag": 5,
+      "body": 288994640,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e80754d1ff5f5e5b81c4cc0000003bece84d17ccff8be55dc3cccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e8ce48cfff5f5e5b81c4cc0000"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Getal",
+      "address": 288994720,
+      "size": 60,
+      "tag": 5,
+      "body": 288994720,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e8ce48cfff5f5e5b81c4cc0000003bece8fd16ccff8be55dc3cccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e8e9c2d0ff5f5e5b81c4cc0000"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Orphan_range",
+      "address": 289001216,
+      "size": 102,
+      "tag": 5,
+      "body": 289001216,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8e829c2cfff0fb6c085c074138b450c508b4d08518b4df8e84fb2cfff90eb118b450c508b4d08518b4df8e897abd0ff905f5e5b81c4cc0000003bece875fdcbff8be55dc20800cccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Orphan_range_locked",
+      "address": 289002912,
+      "size": 190,
+      "tag": 5,
+      "body": 289002912,
+      "e9_chain": [],
+      "first128": "558bec6aff685d840d1364a1000000005081ecd8000000535657518d7ddcb906000000b8ccccccccf3ab59a140ca761333c5508d45f464a300000000894dec6a038d4de0e8b9a6ccffc745fc000000008b450c508b4d08518b4dece88babcfff90c745fcffffffff8d4de0e8e256ccff90528bcd508d1544d63911e8bb4fccff"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Orphan_range_unlocked",
+      "address": 289004256,
+      "size": 111,
+      "tag": 5,
+      "body": 289004256,
+      "e9_chain": [],
+      "first128": "558bec81ecf0000000535657894df88b45f88b0883c104894dec8b45ec83380074448b45ec8b088b51088955e08b45ec8b08894dd48b45e03b450872088b450c3b45e0730b8b45d483c0048945eceb148b45d4c700000000008b45ec8b4dd48b51048910ebb45f5e5b8be55dc20800cccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::_Uninitialized_backout_al<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Release",
+      "address": 289006128,
+      "size": 39,
+      "tag": 5,
+      "body": 289006128,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4df88b510489108b45f88b40045f5e5b8be55dc3cccccccccccccccccc558bec81eccc000000535657894df88b45f88b4df88b510489108b45f88b40045f5e5b8be55dc3cccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Tidy",
+      "address": 289009360,
+      "size": 193,
+      "tag": 5,
+      "body": 289009360,
+      "e9_chain": [],
+      "first128": "558bec81ec08010000535657518d7db8b912000000b8ccccccccf3ab59894df88b4df8e8a5baccff8945ec8b45f88945e08b45e083c0048945d48b45e083c0088945c88b45e083c00c8945bc8b4de0e8c479ccff908b45d483380074508b45ec508b4dc88b11528b45d48b0851e84e5eccff83c40c8b45bc8b4dd48b102b11c1"
+    },
+    {
+      "name": "std::array<RequestedPadProcessPad::Region,13>::_Unchecked_begin",
+      "address": 289010128,
+      "size": 25,
+      "tag": 5,
+      "body": 289010128,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f85f5e5b8be55dc3cccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df86a008b45f88b48048b11528b4d08e88510cdff908b45085f5e5b81c4cc0000003bece89edacbff8be55dc20400cccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Unchecked_begin",
+      "address": 289010928,
+      "size": 67,
+      "tag": 5,
+      "body": 289010928,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b45f88b480451e8bba8cbff83c4045f5e5b81c4cc0000003bece8a6d7cbff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df833c08b4d0888018b45085f5e5b8be55dc2"
+    },
+    {
+      "name": "std::array<RequestedPadProcessPad::Region,13>::_Unchecked_end",
+      "address": 289011120,
+      "size": 28,
+      "tag": 5,
+      "body": 289011120,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f883c0685f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df86a008b45f88b4804518b4d08e8970ccdff908b45085f5e5b81c4cc0000003bece8b0d6cbff8be55dc20400cccccccccc"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Unchecked_end",
+      "address": 289011936,
+      "size": 67,
+      "tag": 5,
+      "body": 289011936,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b45f88b480851e8cba4cbff83c4045f5e5b81c4cc0000003bece8b6d3cbff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::_Xlength",
+      "address": 289015408,
+      "size": 54,
+      "tag": 5,
+      "body": 289015408,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6814c31d13e856ebcbff905f5e5b81c4c00000003bece833c6cbff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6814c31d13e806ebcbff905f5e5b81c4c00000003bece8e3c5"
+    },
+    {
+      "name": "std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >::allocate",
+      "address": 289017328,
+      "size": 75,
+      "tag": 5,
+      "body": 289017328,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b450850e8f629ccff83c40450e884a2d0ff83c4045f5e5b81c4cc0000003bece8a0becbff8be55dc20400cccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::capacity",
+      "address": 289021072,
+      "size": 43,
+      "tag": 5,
+      "body": 289021072,
+      "e9_chain": [],
+      "first128": "558bec81ecd8000000535657894df88b45f88945ec8b45ec8b4dec8b400c2b4104c1f8025f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccccc558bec81ecd8000000535657894df88b45f88945ec8b45ec8b4dec8b400c2b4104c1f8045f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > >::deallocate",
+      "address": 289027456,
+      "size": 130,
+      "tag": 5,
+      "body": 289027456,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8837d08007533837d0c00742d686cd51c13685c9b1c136a0068db03000068609b1c136a02e86898cdff83c41883f8017501ccb905000000cd298b450cc1e002508b4d0851e87f63d0ff83c4085f5e5b81c4cc0000003bece8d996cbff8be55dc2"
+    },
+    {
+      "name": "std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >::get_deleter",
+      "address": 289053088,
+      "size": 60,
+      "tag": 5,
+      "body": 289053088,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e86a95cfff5f5e5b81c4cc0000003bece8fd32cbff8be55dc3cccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b45f88b4834518b4d08e89f25ccff90"
+    },
+    {
+      "name": "std::_Default_allocator_traits<std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::max_size",
+      "address": 289058752,
+      "size": 24,
+      "tag": 5,
+      "body": 289058752,
+      "e9_chain": [],
+      "first128": "558bec81ecc0000000535657b8ffffff3f5f5e5b8be55dc3cccccccccccccccc558bec81ecc0000000535657b8ffffff0f5f5e5b8be55dc3cccccccccccccccc558bec81ece4000000535657518d7ddcb909000000b8ccccccccf3ab59894df88b4df8e82e02ceff50e8104cceff83c40489852cffffffe8ae16d0ff898520ff"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::max_size",
+      "address": 289060256,
+      "size": 110,
+      "tag": 5,
+      "body": 289060256,
+      "e9_chain": [],
+      "first128": "558bec81ece4000000535657518d7ddcb909000000b8ccccccccf3ab59894df88b4df8e8800dcbff50e8294fcbff83c40489852cffffffe80e11d0ff898520ffffff8d852cffffff508d8d20ffffff51e8b71bccff83c4088b005f5e5b81c4e40000003bece8cb16cbff8be55dc3cccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::vector<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >,std::allocator<std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> > > >::push_back",
+      "address": 289066544,
+      "size": 67,
+      "tag": 5,
+      "body": 289066544,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4508508b4df8e8126dcdff905f5e5b81c4cc0000003bece868fecaff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "std::unique_ptr<RequestedPadProcessPad::Gate,std::default_delete<RequestedPadProcessPad::Gate> >::release",
+      "address": 289066944,
+      "size": 81,
+      "tag": 5,
+      "body": 289066944,
+      "e9_chain": [],
+      "first128": "558bec81ecd8000000535657518d7de8b906000000b8ccccccccf3ab59894df8c7852cffffff000000008d852cffffff508b4df851e8bfd9cdff83c4085f5e5b81c4d80000003bece8c8fccaff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecd8000000535657518d7de8"
+    },
+    {
+      "name": "std::array<RequestedPadProcessPad::Region,13>::size",
+      "address": 289073136,
+      "size": 27,
+      "tag": 5,
+      "body": 289073136,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df8b80d0000005f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df8b84f0000005f5e5b8be55dc3cccccccccccccccccccccccccccccccccccccccccc558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "`CPad::ProcessPad'::`2'::<lambda_1>::operator()",
+      "address": 296685920,
+      "size": 212,
+      "tag": 5,
+      "body": 296685920,
+      "e9_chain": [],
+      "first128": "558bec81ece0000000535657518d7de0b908000000b8ccccccccf3ab59894df88b450851f30f1000f30f110424e8205f58ff83c404d99d24fffffff30f1005186d28130f2f8524ffffff7202eb700fb6451485c074168b4508f30f1000f30f590540d81c138b4d08f30f11018b4508f30f1000f30f590504d81c13f30f2cc866"
+    },
+    {
+      "name": "`anonymous namespace'::NormalizePadAxis",
+      "address": 296730816,
+      "size": 72,
+      "tag": 5,
+      "body": 296730816,
+      "e9_chain": [],
+      "first128": "558bec81ecd80000005356578d7de8b906000000b8ccccccccf3abf30f10053c072c13f30f1145f8db4508d84df8d95decd945ec5f5e5b81c4d80000003bece8d10b56ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec83ec2083e4f0d9c0d9542418df7c2410df6c24108b5424188b44241085"
+    },
+    {
+      "name": "CPad::ProcessPad",
+      "address": 296731104,
+      "size": 1744,
+      "tag": 5,
+      "body": 296731104,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec81ecc806000056578dbd78fbffffb922010000b8ccccccccf3aba140ca761333c58945fcc745f40000000068b8cfc800e876b557ff83c4048985ccfeffff68b0cfc800e863b557ff83c4048985c0feffff837b08007510a1282c79138b481483c120894df4eb1b837b08"
+    },
+    {
+      "name": "RequestedPadProcessPad::`dynamic atexit destructor for 'acqSeq''",
+      "address": 320592992,
+      "size": 54,
+      "tag": 5,
+      "body": 320592992,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abb9c8997813e80980ebfd905f5e5b81c4c00000003bece843f0e9fd8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3abb9f8967813e884dcebfd905f5e5b81c4c00000003bece8f3ef"
+    },
+    {
+      "name": "RequestedPadProcessPad::`dynamic atexit destructor for 'pollSeq''",
+      "address": 320593232,
+      "size": 54,
+      "tag": 5,
+      "body": 320593232,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abb9b4997813e8197febfd905f5e5b81c4c00000003bece853efe9fd8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3abb9e8997813e8778beafd905f5e5b81c4c00000003bece803ef"
+    },
+    {
+      "name": "`RequestedPadProcessPad::Seed'::`2'::`dynamic atexit destructor for 'scripts''",
+      "address": 320593312,
+      "size": 54,
+      "tag": 5,
+      "body": 320593312,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abb9e8997813e8778beafd905f5e5b81c4c00000003bece803efe9fd8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3abb970997813e8b0e0edfd905f5e5b81c4c00000003bece8b3ee"
+    },
+    {
+      "name": "RequestedPadProcessPad::`dynamic atexit destructor for 'trace''",
+      "address": 320593392,
+      "size": 54,
+      "tag": 5,
+      "body": 320593392,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abb970997813e8b0e0edfd905f5e5b81c4c00000003bece8b3eee9fd8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3abb9949b7813e8ff6deefd905f5e5b81c4c00000003bece863ee"
+    }
+  ],
+  "manifest_sha256": "d0da2e75843747e68ac553659cd7644c133a27a35efd087971b856d213e5a58c",
+  "compiled_header_sha256": "9c8d682245984ef97c7816d392857587880bf30f7a622b2b7de7fbb83483799a",
+  "limitations": [
+    "Static PE/PDB and disassembly only. No runtime, helper behavior or approval. Human inspection required for call-path/return-branch proof."
+  ]
+}

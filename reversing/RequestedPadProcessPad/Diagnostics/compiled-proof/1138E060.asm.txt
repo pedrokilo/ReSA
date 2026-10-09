@@ -1,0 +1,70 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138E060: 55                 push        ebp
+  1138E061: 8B EC              mov         ebp,esp
+  1138E063: 81 EC D4 00 00 00  sub         esp,0D4h
+  1138E069: 53                 push        ebx
+  1138E06A: 56                 push        esi
+  1138E06B: 57                 push        edi
+  1138E06C: 8D 7D EC           lea         edi,[ebp-14h]
+  1138E06F: B9 05 00 00 00     mov         ecx,5
+  1138E074: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138E079: F3 AB              rep stos    dword ptr es:[edi]
+  1138E07B: 6A 00              push        0
+  1138E07D: B9 7C DD 78 13     mov         ecx,1378DD7Ch
+  1138E082: E8 23 E3 CF FF     call        1108C3AA
+  1138E087: 39 45 08           cmp         dword ptr [ebp+8],eax
+  1138E08A: 75 0C              jne         1138E098
+  1138E08C: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1138E096: EB 33              jmp         1138E0CB
+  1138E098: 6A 01              push        1
+  1138E09A: B9 7C DD 78 13     mov         ecx,1378DD7Ch
+  1138E09F: E8 06 E3 CF FF     call        1108C3AA
+  1138E0A4: 39 45 08           cmp         dword ptr [ebp+8],eax
+  1138E0A7: 75 0C              jne         1138E0B5
+  1138E0A9: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],1
+            01 00 00 00
+  1138E0B3: EB 0A              jmp         1138E0BF
+  1138E0B5: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],0FFFFFFFFh
+            FF FF FF FF
+  1138E0BF: 8B 85 2C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF2Ch]
+  1138E0C5: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  1138E0CB: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  1138E0D1: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1138E0D4: 0F B6 05 38 A0 6C  movzx       eax,byte ptr ds:[136CA038h]
+            13
+  1138E0DB: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  1138E0E1: 0F B6 0D 45 DF 78  movzx       ecx,byte ptr ds:[1378DF45h]
+            13
+  1138E0E8: 39 4D F8           cmp         dword ptr [ebp-8],ecx
+  1138E0EB: 75 0C              jne         1138E0F9
+  1138E0ED: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],1
+            01 00 00 00
+  1138E0F7: EB 0A              jmp         1138E103
+  1138E0F9: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],0
+            00 00 00 00
+  1138E103: 8B 95 30 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF30h]
+  1138E109: 23 95 2C FF FF FF  and         edx,dword ptr [ebp+FFFFFF2Ch]
+  1138E10F: 88 15 38 A0 6C 13  mov         byte ptr ds:[136CA038h],dl
+  1138E115: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1138E118: 5F                 pop         edi
+  1138E119: 5E                 pop         esi
+  1138E11A: 5B                 pop         ebx
+  1138E11B: 81 C4 D4 00 00 00  add         esp,0D4h
+  1138E121: 3B EC              cmp         ebp,esp
+  1138E123: E8 AD FB CC FF     call        1105DCD5
+  1138E128: 8B E5              mov         esp,ebp
+  1138E12A: 5D                 pop         ebp
+  1138E12B: C3                 ret
+  1138E12C: CC                 int         3
+
+  Summary
+
+     2170000 .text

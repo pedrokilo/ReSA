@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138A7E0: 55                 push        ebp
+  1138A7E1: 8B EC              mov         ebp,esp
+  1138A7E3: 81 EC DC 00 00 00  sub         esp,0DCh
+  1138A7E9: 53                 push        ebx
+  1138A7EA: 56                 push        esi
+  1138A7EB: 57                 push        edi
+  1138A7EC: 51                 push        ecx
+  1138A7ED: 8D 7D E4           lea         edi,[ebp-1Ch]
+  1138A7F0: B9 07 00 00 00     mov         ecx,7
+  1138A7F5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138A7FA: F3 AB              rep stos    dword ptr es:[edi]
+  1138A7FC: 59                 pop         ecx
+  1138A7FD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1138A800: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1138A803: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  1138A809: 83 BD 2C FF FF FF  cmp         dword ptr [ebp+FFFFFF2Ch],0
+            00
+  1138A810: 74 15              je          1138A827
+  1138A812: 6A 01              push        1
+  1138A814: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  1138A81A: E8 39 0D D0 FF     call        1108B558
+  1138A81F: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  1138A825: EB 0A              jmp         1138A831
+  1138A827: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  1138A831: 5F                 pop         edi
+  1138A832: 5E                 pop         esi
+  1138A833: 5B                 pop         ebx
+  1138A834: 81 C4 DC 00 00 00  add         esp,0DCh
+  1138A83A: 3B EC              cmp         ebp,esp
+  1138A83C: E8 94 24 CD FF     call        1105CCD5
+  1138A841: 8B E5              mov         esp,ebp
+  1138A843: 5D                 pop         ebp
+  1138A844: C2 04 00           ret         4
+  1138A847: CC                 int         3
+
+  Summary
+
+     216D000 .text

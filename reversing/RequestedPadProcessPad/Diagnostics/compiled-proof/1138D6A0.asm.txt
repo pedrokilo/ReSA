@@ -1,0 +1,91 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138D6A0: 55                 push        ebp
+  1138D6A1: 8B EC              mov         ebp,esp
+  1138D6A3: 81 EC F4 00 00 00  sub         esp,0F4h
+  1138D6A9: 53                 push        ebx
+  1138D6AA: 56                 push        esi
+  1138D6AB: 57                 push        edi
+  1138D6AC: 8D 7D CC           lea         edi,[ebp-34h]
+  1138D6AF: B9 0D 00 00 00     mov         ecx,0Dh
+  1138D6B4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138D6B9: F3 AB              rep stos    dword ptr es:[edi]
+  1138D6BB: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  1138D6C2: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  1138D6C9: E8 D6 D0 CE FF     call        1107A7A4
+  1138D6CE: 89 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],eax
+  1138D6D4: 8D 45 EC           lea         eax,[ebp-14h]
+  1138D6D7: 50                 push        eax
+  1138D6D8: 8D 4D F8           lea         ecx,[ebp-8]
+  1138D6DB: 51                 push        ecx
+  1138D6DC: 8D 55 08           lea         edx,[ebp+8]
+  1138D6DF: 52                 push        edx
+  1138D6E0: 8D 8D 18 FF FF FF  lea         ecx,[ebp+FFFFFF18h]
+  1138D6E6: E8 11 55 CF FF     call        11082BFC
+  1138D6EB: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  1138D6F1: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  1138D6F7: 50                 push        eax
+  1138D6F8: 8B 8D 10 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF10h]
+  1138D6FE: E8 83 06 D0 FF     call        1108DD86
+  1138D703: 90                 nop
+  1138D704: 83 7D EC 01        cmp         dword ptr [ebp-14h],1
+  1138D708: 75 0B              jne         1138D715
+  1138D70A: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1138D70D: 89 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],eax
+  1138D713: EB 0A              jmp         1138D71F
+  1138D715: C7 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],0
+            00 00 00 00
+  1138D71F: 8B 85 10 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF10h]
+  1138D725: 52                 push        edx
+  1138D726: 8B CD              mov         ecx,ebp
+  1138D728: 50                 push        eax
+  1138D729: 8D 15 4C D7 38 11  lea         edx,ds:[1138D74Ch]
+  1138D72F: E8 A7 5E CD FF     call        110635DB
+  1138D734: 58                 pop         eax
+  1138D735: 5A                 pop         edx
+  1138D736: 5F                 pop         edi
+  1138D737: 5E                 pop         esi
+  1138D738: 5B                 pop         ebx
+  1138D739: 81 C4 F4 00 00 00  add         esp,0F4h
+  1138D73F: 3B EC              cmp         ebp,esp
+  1138D741: E8 8F 05 CD FF     call        1105DCD5
+  1138D746: 8B E5              mov         esp,ebp
+  1138D748: 5D                 pop         ebp
+  1138D749: C3                 ret
+  1138D74A: 66 90              nop
+  1138D74C: 02 00              add         al,byte ptr [eax]
+  1138D74E: 00 00              add         byte ptr [eax],al
+  1138D750: 54                 push        esp
+  1138D751: D7                 xlat        byte ptr [ebx]
+  1138D752: 38 11              cmp         byte ptr [ecx],dl
+  1138D754: F8                 clc
+  1138D755: FF
+  1138D756: FF
+  1138D757: FF 04 00           inc         dword ptr [eax+eax]
+  1138D75A: 00 00              add         byte ptr [eax],al
+  1138D75C: 71 D7              jno         1138D735
+  1138D75E: 38 11              cmp         byte ptr [ecx],dl
+  1138D760: EC                 in          al,dx
+  1138D761: FF
+  1138D762: FF
+  1138D763: FF 04 00           inc         dword ptr [eax+eax]
+  1138D766: 00 00              add         byte ptr [eax],al
+  1138D768: 6C                 ins         byte ptr es:[edi],dx
+  1138D769: D7                 xlat        byte ptr [ebx]
+  1138D76A: 38 11              cmp         byte ptr [ecx],dl
+  1138D76C: 68 69 74 73 00     push        737469h
+  1138D771: 66 6F              outs        dx,word ptr [esi]
+  1138D773: 75 6E              jne         1138D7E3
+  1138D775: 64 00 CC           add         ah,cl
+
+  Summary
+
+     2170000 .text

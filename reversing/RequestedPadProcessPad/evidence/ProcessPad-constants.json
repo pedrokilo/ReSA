@@ -1,0 +1,46 @@
+{
+  "function": "0x00746A10",
+  "length": 872,
+  "ret": "0x00746D77 ret (cdecl, caller cleans)",
+  "callers": [
+    "0x00541DDE CPad::UpdatePads; eax ignored (add esp,4 follows)"
+  ],
+  "constants": {
+    "0x859978": {
+      "type": "float32",
+      "hex": "6f12033a",
+      "value": 0.0005000000237487257
+    },
+    "0x858c54": {
+      "type": "float32",
+      "hex": "0000804f",
+      "value": 4294967296.0
+    },
+    "0x858c58": {
+      "type": "float32",
+      "hex": "0ad7233c",
+      "value": 0.009999999776482582
+    },
+    "0x8595ec": {
+      "type": "float32",
+      "hex": "35fa8e3c",
+      "value": 0.01745329238474369
+    },
+    "0x858c1c": {
+      "type": "float32",
+      "hex": "000080bf",
+      "value": -1.0
+    },
+    "0x858bf4": {
+      "type": "float32",
+      "hex": "00000043",
+      "value": 128.0
+    },
+    "0x874af8": {
+      "type": "float64",
+      "hex": "000000403333d33f",
+      "value": 0.30000001192092896
+    },
+    "note": "874AF8 is double(float32 0.3F) exactly = 0.30000001192092896; source comparison with 0.3F is equivalent."
+  }
+}

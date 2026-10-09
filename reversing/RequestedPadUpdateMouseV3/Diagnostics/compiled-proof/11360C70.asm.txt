@@ -1,0 +1,104 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11360C70: 55                 push        ebp
+  11360C71: 8B EC              mov         ebp,esp
+  11360C73: 81 EC FC 00 00 00  sub         esp,0FCh
+  11360C79: 53                 push        ebx
+  11360C7A: 56                 push        esi
+  11360C7B: 57                 push        edi
+  11360C7C: 51                 push        ecx
+  11360C7D: 8D 7D C4           lea         edi,[ebp-3Ch]
+  11360C80: B9 0F 00 00 00     mov         ecx,0Fh
+  11360C85: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11360C8A: F3 AB              rep stos    dword ptr es:[edi]
+  11360C8C: 59                 pop         ecx
+  11360C8D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11360C90: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11360C93: 50                 push        eax
+  11360C94: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11360C97: 51                 push        ecx
+  11360C98: E8 AD D0 CF FF     call        1105DD4A
+  11360C9D: 83 C4 08           add         esp,8
+  11360CA0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11360CA3: 83 C0 34           add         eax,34h
+  11360CA6: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11360CA9: 8D 45 E0           lea         eax,[ebp-20h]
+  11360CAC: 50                 push        eax
+  11360CAD: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11360CB0: E8 95 2E D1 FF     call        11073B4A
+  11360CB5: 90                 nop
+  11360CB6: 8D 45 D4           lea         eax,[ebp-2Ch]
+  11360CB9: 50                 push        eax
+  11360CBA: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11360CBD: E8 C2 A0 D4 FF     call        110AAD84
+  11360CC2: 90                 nop
+  11360CC3: EB 09              jmp         11360CCE
+  11360CC5: 8D 4D E0           lea         ecx,[ebp-20h]
+  11360CC8: E8 14 C1 D4 FF     call        110ACDE1
+  11360CCD: 90                 nop
+  11360CCE: 8D 45 D4           lea         eax,[ebp-2Ch]
+  11360CD1: 50                 push        eax
+  11360CD2: 8D 4D E0           lea         ecx,[ebp-20h]
+  11360CD5: E8 BC E9 D3 FF     call        1109F696
+  11360CDA: 0F B6 C8           movzx       ecx,al
+  11360CDD: 85 C9              test        ecx,ecx
+  11360CDF: 75 1A              jne         11360CFB
+  11360CE1: 8D 4D E0           lea         ecx,[ebp-20h]
+  11360CE4: E8 03 FB D0 FF     call        110707EC
+  11360CE9: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  11360CEC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11360CEF: 50                 push        eax
+  11360CF0: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  11360CF3: E8 6C E3 D4 FF     call        110AF064
+  11360CF8: 90                 nop
+  11360CF9: EB CA              jmp         11360CC5
+  11360CFB: 52                 push        edx
+  11360CFC: 8B CD              mov         ecx,ebp
+  11360CFE: 50                 push        eax
+  11360CFF: 8D 15 24 0D 36 11  lea         edx,ds:[11360D24h]
+  11360D05: E8 2B 49 D0 FF     call        11065635
+  11360D0A: 58                 pop         eax
+  11360D0B: 5A                 pop         edx
+  11360D0C: 5F                 pop         edi
+  11360D0D: 5E                 pop         esi
+  11360D0E: 5B                 pop         ebx
+  11360D0F: 81 C4 FC 00 00 00  add         esp,0FCh
+  11360D15: 3B EC              cmp         ebp,esp
+  11360D17: E8 E1 EF CF FF     call        1105FCFD
+  11360D1C: 8B E5              mov         esp,ebp
+  11360D1E: 5D                 pop         ebp
+  11360D1F: C2 04 00           ret         4
+  11360D22: 66 90              nop
+  11360D24: 02 00              add         al,byte ptr [eax]
+  11360D26: 00 00              add         byte ptr [eax],al
+  11360D28: 2C 0D              sub         al,0Dh
+  11360D2A: 36 11 E0           adc         eax,esp
+  11360D2D: FF
+  11360D2E: FF
+  11360D2F: FF 04 00           inc         dword ptr [eax+eax]
+  11360D32: 00 00              add         byte ptr [eax],al
+  11360D34: 4D                 dec         ebp
+  11360D35: 0D 36 11 D4 FF     or          eax,0FFD41136h
+  11360D3A: FF
+  11360D3B: FF 04 00           inc         dword ptr [eax+eax]
+  11360D3E: 00 00              add         byte ptr [eax],al
+  11360D40: 44                 inc         esp
+  11360D41: 0D 36 11 3C 65     or          eax,653C1136h
+  11360D46: 6E                 outs        dx,byte ptr [esi]
+  11360D47: 64
+  11360D48: 3E 24 4C           and         al,4Ch
+  11360D4B: 30 00              xor         byte ptr [eax],al
+  11360D4D: 3C 62              cmp         al,62h
+  11360D4F: 65 67 69 6E 3E 24  imul        ebp,dword ptr gs:[bp+3Eh],304C24h
+            4C 30 00
+  11360D58: CC                 int         3
+
+  Summary
+
+     2174000 .text

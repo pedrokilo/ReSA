@@ -1,0 +1,80 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1135D1A0: 55                 push        ebp
+  1135D1A1: 8B EC              mov         ebp,esp
+  1135D1A3: 81 EC 08 01 00 00  sub         esp,108h
+  1135D1A9: 53                 push        ebx
+  1135D1AA: 56                 push        esi
+  1135D1AB: 57                 push        edi
+  1135D1AC: 51                 push        ecx
+  1135D1AD: 8D 7D B8           lea         edi,[ebp-48h]
+  1135D1B0: B9 12 00 00 00     mov         ecx,12h
+  1135D1B5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1135D1BA: F3 AB              rep stos    dword ptr es:[edi]
+  1135D1BC: 59                 pop         ecx
+  1135D1BD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1135D1C0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1135D1C3: E8 42 37 D3 FF     call        1109090A
+  1135D1C8: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1135D1CB: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1135D1CE: E8 B5 BD D3 FF     call        11098F88
+  1135D1D3: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1135D1D6: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1135D1D9: E8 B2 B9 CF FF     call        11058B90
+  1135D1DE: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1135D1E1: EB 09              jmp         1135D1EC
+  1135D1E3: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1135D1E6: 83 C0 08           add         eax,8
+  1135D1E9: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1135D1EC: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1135D1EF: 3B 45 D4           cmp         eax,dword ptr [ebp-2Ch]
+  1135D1F2: 74 55              je          1135D249
+  1135D1F4: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1135D1F7: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  1135D1FA: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  1135D1FD: E8 C9 73 D0 FF     call        110645CB
+  1135D202: 8B C8              mov         ecx,eax
+  1135D204: E8 0E 16 D3 FF     call        1108E817
+  1135D209: 85 C0              test        eax,eax
+  1135D20B: 75 3A              jne         1135D247
+  1135D20D: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  1135D210: E8 FC D2 D0 FF     call        1106A511
+  1135D215: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  1135D218: 8B 4D BC           mov         ecx,dword ptr [ebp-44h]
+  1135D21B: E8 CB F2 D1 FF     call        1107C4EB
+  1135D220: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1135D223: 8B 11              mov         edx,dword ptr [ecx]
+  1135D225: 3B 02              cmp         eax,dword ptr [edx]
+  1135D227: 75 1E              jne         1135D247
+  1135D229: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1135D22C: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1135D22F: 8B 55 BC           mov         edx,dword ptr [ebp-44h]
+  1135D232: 89 11              mov         dword ptr [ecx],edx
+  1135D234: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1135D237: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  1135D23A: 8B 11              mov         edx,dword ptr [ecx]
+  1135D23C: 83 C2 01           add         edx,1
+  1135D23F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1135D242: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  1135D245: 89 11              mov         dword ptr [ecx],edx
+  1135D247: EB 9A              jmp         1135D1E3
+  1135D249: 5F                 pop         edi
+  1135D24A: 5E                 pop         esi
+  1135D24B: 5B                 pop         ebx
+  1135D24C: 81 C4 08 01 00 00  add         esp,108h
+  1135D252: 3B EC              cmp         ebp,esp
+  1135D254: E8 90 0A D0 FF     call        1105DCE9
+  1135D259: 8B E5              mov         esp,ebp
+  1135D25B: 5D                 pop         ebp
+  1135D25C: C2 04 00           ret         4
+  1135D25F: CC                 int         3
+
+  Summary
+
+     216F000 .text

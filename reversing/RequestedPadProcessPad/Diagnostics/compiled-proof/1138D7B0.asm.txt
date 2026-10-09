@@ -1,0 +1,81 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1138D7B0: 53                 push        ebx
+  1138D7B1: 8B DC              mov         ebx,esp
+  1138D7B3: 83 EC 08           sub         esp,8
+  1138D7B6: 83 E4 F8           and         esp,0FFFFFFF8h
+  1138D7B9: 83 C4 04           add         esp,4
+  1138D7BC: 55                 push        ebp
+  1138D7BD: 8B 6B 04           mov         ebp,dword ptr [ebx+4]
+  1138D7C0: 89 6C 24 04        mov         dword ptr [esp+4],ebp
+  1138D7C4: 8B EC              mov         ebp,esp
+  1138D7C6: 81 EC 00 01 00 00  sub         esp,100h
+  1138D7CC: 56                 push        esi
+  1138D7CD: 57                 push        edi
+  1138D7CE: 8D 7D C0           lea         edi,[ebp-40h]
+  1138D7D1: B9 10 00 00 00     mov         ecx,10h
+  1138D7D6: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138D7DB: F3 AB              rep stos    dword ptr es:[edi]
+  1138D7DD: 33 C0              xor         eax,eax
+  1138D7DF: 88 85 2F FF FF FF  mov         byte ptr [ebp+FFFFFF2Fh],al
+  1138D7E5: 0F B6 8D 2F FF FF  movzx       ecx,byte ptr [ebp+FFFFFF2Fh]
+            FF
+  1138D7EC: 51                 push        ecx
+  1138D7ED: E8 C6 AD D1 FF     call        110A85B8
+  1138D7F2: 83 C4 04           add         esp,4
+  1138D7F5: 6A 07              push        7
+  1138D7F7: B9 20 97 78 13     mov         ecx,13789720h
+  1138D7FC: E8 AA 49 CF FF     call        110821AB
+  1138D801: C7 00 D1 99 0A 11  mov         dword ptr [eax],110A99D1h
+  1138D807: 6A 09              push        9
+  1138D809: B9 20 97 78 13     mov         ecx,13789720h
+  1138D80E: E8 98 49 CF FF     call        110821AB
+  1138D813: C7 00 0C 36 06 11  mov         dword ptr [eax],1106360Ch
+  1138D819: 6A 19              push        19h
+  1138D81B: B9 20 97 78 13     mov         ecx,13789720h
+  1138D820: E8 86 49 CF FF     call        110821AB
+  1138D825: C7 00 DF 90 05 11  mov         dword ptr [eax],110590DFh
+  1138D82B: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  1138D832: EB 09              jmp         1138D83D
+  1138D834: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1138D837: 83 C0 01           add         eax,1
+  1138D83A: 89 45 F8           mov         dword ptr [ebp-8],eax
+  1138D83D: 83 7D F8 02        cmp         dword ptr [ebp-8],2
+  1138D841: 73 52              jae         1138D895
+  1138D843: B9 20 97 78 13     mov         ecx,13789720h
+  1138D848: E8 1A 93 CE FF     call        11076B67
+  1138D84D: 89 85 1C FF FF FF  mov         dword ptr [ebp+FFFFFF1Ch],eax
+  1138D853: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1138D856: 89 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],eax
+  1138D85C: 8B 8D 1C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF1Ch]
+  1138D862: 8B 95 20 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF20h]
+  1138D868: 89 8D 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],ecx
+  1138D86E: 89 95 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],edx
+  1138D874: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1138D877: 50                 push        eax
+  1138D878: B9 BC 97 78 13     mov         ecx,137897BCh
+  1138D87D: E8 32 DB CF FF     call        1108B3B4
+  1138D882: 8B 8D 08 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF08h]
+  1138D888: 8B 95 0C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF0Ch]
+  1138D88E: 89 08              mov         dword ptr [eax],ecx
+  1138D890: 89 50 04           mov         dword ptr [eax+4],edx
+  1138D893: EB 9F              jmp         1138D834
+  1138D895: 5F                 pop         edi
+  1138D896: 5E                 pop         esi
+  1138D897: 8B E5              mov         esp,ebp
+  1138D899: 5D                 pop         ebp
+  1138D89A: 8B E3              mov         esp,ebx
+  1138D89C: 5B                 pop         ebx
+  1138D89D: C3                 ret
+  1138D89E: CC                 int         3
+
+  Summary
+
+     216D000 .text
