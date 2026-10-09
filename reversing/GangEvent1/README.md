@@ -1,0 +1,26 @@
+# GangEvent1 - banco de CGroupEventHandler (30 fns) y CGangWars (32 fns)
+
+Banco "estilo viejo" (como PadMouse1): se engancha en `CGame::Process` y, por funcion, ejecuta el original del EXE (hook con `State(false)`, llamada a la direccion del EXE) frente al candidato de la DLL (`State(true)`). Se compara traza de colaboradores, valor devuelto y estado tocado. x87 a 24 bits.
+
+## Corpus (17792 pares)
+Grupo: IsKillTask 256, Walk 256, Stare 384, VehicleDamage 384, ShotFired 256, SexyPed 384, SeenCop 256, PlayerCommand 256, PedThreat 384, PedFriend 384, NewGangMember 256, LeaderExitedCar 512, LeaderEnterExit 256, GunAimedAt 384, Gather 192, DraggedOutCar 384, Danger 192, Damage 384, MemberResponses 384, LeanOnVehicle 192, KillThreatsBasic 256, KillPlayerBasic 256, HassleThreat 384, HassleSexyPed 256, HandSignal 192, Greet 512, Flee 384, Driveby 128, EventResponseTasks 768, DoDeal 512.
+GangWars: 32 funciones (Init 64 ... UpdateTerritory 384, PickZone 512, CreateDefending 512, StartOffensive 512); ver la tabla `fns` en `LiveComparison.hpp`.
+
+## Mundo simulado
+- Peds, inteligencias, matrices, vehiculos y grupos falsos en buffers propios; pool de peds/vehiculos falso (se intercambian 0xB74490/0xB74494 solo durante la llamada).
+- Colaboradores con stub y traza: FindPlayerPed, SetTask, FindTaskByType/FindActive, rand (EXE y DLL), LookAt, EventGroup::Add, ComputeEventResponseTask, ComputeResponseTaskType, radar, stats, mensajes, poblacion, E/S de guardado.
+- Tareas/eventos reservados en arenas rellenas con 0xCD (operator new/delete de CTask y asignadores); el relleno no escrito se ignora. SetTask describe un clon de la tarea (el relleno de pila del temporal difiere).
+- Estaticos de CGangWars (0x96AB28..0x96ABD8), zonas (0xBA3794, 0xBA1DE8), poblacion/streaming y reloj 0xB7CB84 se guardan y restauran (`state_restored`).
+
+## Exclusiones
+- LeaderEnterExit: solo camino ProcessPed==true (el otro llega a CAnimManager::BlendAnimation con peaton falso).
+- CGangWarsSaveStructure::Construct corregido en la fuente (0x5D2671 pone GangWarNavigationZoneIndex=-1 siempre y su bucle depende de pZoneToFightOver); ya no se enmascara.
+- Los asignadores devueltos NO se borran con delete: el destructor deleting del EXE (0x69DB00) libera inline en el pool real 0xB744BC; se llama solo al destructor (flag 0).
+
+## Uso
+`bash reversing/_handoff/bench.sh GangEvent1 3`  (filtro: `gangevent1-only.txt`; salida `gangevent1-runtime.jsonl`).
+No compilado todavia: revisar firmas/ABI de stubs, overloads de simbolos DLL, zancadas de pools (0x7C4/0xA18) y sizeof de tareas.
+
+## Aprobación (09/10/2026)
+
+Corrida `20261009-162300-336352`: passed=true, 17792 pares, 62 funciones con 0 fallos (30 de CGroupEventHandler y 32 de CGangWars), evento complete (state_restored), saves y configuraciones intactos. Registrada con `register_gangevent1.py` (evidencia en `runs/`, `validation-summary.json`). Con esto CGroupEventHandler y CGangWars quedan COMPLETAS. Límites: `ComputeResponseLeaderEnterExit` solo con ProcessPed==true; peds, grupos y vehículos falsos con pools falsos temporales; objetos devueltos sin `delete` (solo destructor); colaboradores doblados sin crédito.

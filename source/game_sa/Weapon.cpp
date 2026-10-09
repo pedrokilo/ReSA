@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 41/41 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 6.
- * Validación registrada: 6/41 entradas.
+ * Validación registrada: 32/41 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -96,7 +96,8 @@ void CWeapon::InjectHooks() {
 // 0x73B430
 CWeapon::CWeapon(eWeaponType weaponType, uint32 ammo) :
     m_Type{ weaponType },
-    m_TotalAmmo{ std::min<uint32>(ammo, 99'999) }
+    // Como el original: 0x73B43E/0x73B44B "cmp eax,1869Fh; jle" es una comparacion CON signo (un uint32 con el bit alto no se recorta)
+    m_TotalAmmo{ (int32)ammo > 99'999 ? 99'999u : ammo }
 {
     Reload();
 }
@@ -166,10 +167,21 @@ void CWeapon::AddGunshell(CEntity* creator, CVector& position, const CVector2D& 
         return;
     }
 
-    // originally squared
-    if ((creator->GetPosition() - TheCamera.GetPosition()).SquaredMagnitude() > sq(10.0f)) {
-        return;
+    // Como el original (0x73A422..0x73A453): distancia al cuadrado sumada como (dz*dz + dx*dx) + dy*dy; sale si es > 100.
+    {
+        const CVector& creatorPos = creator->GetPosition();
+        const CVector& cameraPos = TheCamera.GetPosition();
+        const float dx = cameraPos.x - creatorPos.x, dy = cameraPos.y - creatorPos.y, dz = cameraPos.z - creatorPos.z;
+        if (((dz * dz + dx * dx) + dy * dy) > 100.0f) {
+            return;
+        }
     }
+
+    // Como el original (0x73A476..0x73A49F): z = rand() * 0x858C7C * 0x859934 * 20 + 0x862D50 (constantes leidas del EXE, no son
+    // 1/32767, 0.06 ni 0.4 redondeados) y despues una segunda consulta 0x407180(-20, 20) cuyo resultado se descarta pero consume rand().
+    const float z = (((float)CGeneral::GetRandomNumber() * std::bit_cast<float>(0x38000100u)) * std::bit_cast<float>(0x3D75C28Fu)) * 20.0f + std::bit_cast<float>(0x3ECCCCCCu);
+    (void)CGeneral::GetRandomIntInRange(-20, 20);
+    const CVector velocity{ direction.x * 1.0f, direction.y * 1.0f, z };
 
     // Add gunshell fx particle
     FxPrtMult_c fxprt(0.5f, 0.5f, 0.5f, 1.0f, size, 1.0f, 1.0f);
@@ -178,7 +190,7 @@ void CWeapon::AddGunshell(CEntity* creator, CVector& position, const CVector2D& 
     case eWeaponType::WEAPON_SHOTGUN:
         fxprt.SetColor(0.6f, 0.1f, 0.1f);
     }
-    g_fx.m_GunShell->AddParticle(position, { direction.x, direction.y, CGeneral::GetRandomNumberInRange(0.4f, 1.6f) }, 0.0f, fxprt);
+    g_fx.m_GunShell->AddParticle(position, velocity, 0.0f, fxprt);
 }
 
 // 0x73A530
@@ -201,9 +213,11 @@ bool CWeapon::GenerateDamageEvent(CPed* victim, CEntity* creator, eWeaponType we
         victim->bInVehicle
     };
 
+    // Como el original (0x73A5C7..0x73A60E): sale de la rama si GetSimplestActiveTask() devuelve nulo (se consulta dos veces)
     if (   victim->m_fHealth <= 0.f
         && CLocalisation::Blood()
         && CLocalisation::KickingWhenDown()
+        && victim->GetTaskManager().GetSimplestActiveTask()
         && victim->GetTaskManager().GetSimplestActiveTask()->GetTaskType() == TASK_SIMPLE_DEAD
     ) {
         const auto floorHitAnim = CAnimManager::BlendAnimation(
@@ -214,8 +228,10 @@ bool CWeapon::GenerateDamageEvent(CPed* victim, CEntity* creator, eWeaponType we
                 : ANIM_ID_FLOOR_HIT
         );
         if (floorHitAnim) {
-            floorHitAnim->SetFlag(ANIMATION_IS_FINISH_AUTO_REMOVE, false);
+            // Como el original (0x73A653..0x73A66A): primero Start(0) y despues flags = (flags & 0xFFF7) | 1
             floorHitAnim->Start();
+            floorHitAnim->SetFlag(ANIMATION_IS_FINISH_AUTO_REMOVE, false);
+            floorHitAnim->SetFlag(ANIMATION_IS_PLAYING, true);
         }
         return true;
     }
@@ -261,6 +277,7 @@ bool CWeapon::GenerateDamageEvent(CPed* victim, CEntity* creator, eWeaponType we
             anim->m_BlendDelta = eventDmg.m_fAnimBlend;
             anim->m_Speed = eventDmg.m_fAnimSpeed;
             anim->Start();
+            eventDmg.m_bAnimAdded = true; // Como el original: 0x73A7A9 or byte ptr [esp+4Dh],4 (bit 2 del byte 0x25 del evento)
             break;
         }
         case ANIM_ID_NO_ANIMATION_SET:
@@ -276,20 +293,30 @@ bool CWeapon::GenerateDamageEvent(CPed* victim, CEntity* creator, eWeaponType we
                 eventDmg.m_fAnimBlend
             );
             a->m_Speed = eventDmg.m_fAnimSpeed;
-            a->SetFlag(ANIMATION_IS_PLAYING);
+            eventDmg.m_bAnimAdded = true; // Como el original: 0x73A7E0 or al,4 (y no modifica los flags de la animacion)
             break;
         }
         }
     }
 
     // 0x73A828
-    eventDmg.m_bStealthMode =
-           creator
-        && creator->GetIsTypePed()
-        && (weaponType == WEAPON_PISTOL_SILENCED || creator->AsPed()->GetTaskManager().GetActiveTask()->GetTaskType() == TASK_SIMPLE_STEALTH_KILL);
+    // Como el original (0x73A7ED..0x73A828): primero la tarea activa del creador (con comprobacion de nulo) y despues el arma
+    {
+        bool stealth = false;
+        if (creator && creator->GetIsTypePed()) {
+            const auto* const activeTask = creator->AsPed()->GetTaskManager().GetActiveTask();
+            if (activeTask && activeTask->GetTaskType() == TASK_SIMPLE_STEALTH_KILL) {
+                stealth = true;
+            } else if (weaponType == WEAPON_PISTOL_SILENCED) {
+                stealth = true;
+            }
+        }
+        eventDmg.m_bStealthMode = stealth;
+    }
 
-    if (!victim->bInVehicle || victim->m_fHealth <= 0.f || !victim->GetTaskManager().GetActiveTask() || victim->GetTaskManager().GetActiveTask()->GetTaskType() != TASK_SIMPLE_GANG_DRIVEBY) {
-        victim->GetEventGroup().Add(eventDmg);
+    // Como el original (0x73A83C..0x73A895): "jne" con salud <= 0 o NaN anade el evento; se anade con Add(&evento, false)
+    if (!victim->bInVehicle || !(victim->m_fHealth > 0.f) || !victim->GetTaskManager().GetActiveTask() || victim->GetTaskManager().GetActiveTask()->GetTaskType() != TASK_SIMPLE_GANG_DRIVEBY) {
+        victim->GetEventGroup().Add(&eventDmg, false);
     }
 
     return ret;
@@ -298,8 +325,61 @@ bool CWeapon::GenerateDamageEvent(CPed* victim, CEntity* creator, eWeaponType we
 
 // 0x73A8D0
 bool CWeapon::LaserScopeDot(CVector* outCoord, float* outSize) {
-    /* UNUSED */
-    NOTSA_UNREACHABLE();
+    // Como el original (0x73A8D0..0x73AAB9): la funcion existe en el EXE (sin llamadas conocidas, pero es codigo real). Traza el rayo
+    // desde la camara activa: inicio = origen + frente * 0.5; fin = inicio + frente_normalizado * alcance; si golpea algo y el punto se
+    // proyecta en pantalla devuelve las coordenadas, el tamano (ancho * 0.05) y registra una corona roja.
+    const auto wi = CWeaponInfo::GetWeaponInfo(m_Type, eWeaponSkill::STD);
+    const float range = wi->m_fWeaponRange;
+    const auto& cam = TheCamera.GetActiveCam();
+
+    const CVector start{
+        cam.m_vecFront.x * 0.5f + cam.m_vecSource.x,
+        cam.m_vecFront.y * 0.5f + cam.m_vecSource.y,
+        cam.m_vecFront.z * 0.5f + cam.m_vecSource.z
+    };
+    CVector unitFront = cam.m_vecFront;
+    unitFront.Normalise(); // 0x73A981 (0x59C910)
+    const CVector end{
+        start.x + unitFront.x * range,
+        start.y + unitFront.y * range,
+        start.z + unitFront.z * range
+    };
+
+    CColPoint colPoint;
+    CEntity*  hitEntity{};
+    if (!CWorld::ProcessLineOfSight(start, end, colPoint, hitEntity, true, true, true, true, false, false, false, false)) { // 0x73A9EA
+        return false;
+    }
+
+    CVector screen = colPoint.m_vecPoint; // 0x73AA08: la salida se inicializa con el punto de impacto
+    float width, height;
+    if (!CSprite::CalcScreenCoors(colPoint.m_vecPoint, &screen, &width, &height, true, true)) { // 0x73AA2A
+        return false;
+    }
+
+    *outCoord = screen;
+    *outSize  = width * std::bit_cast<float>(0x3D4CCCCDu); // 0x73AA58: fmul [0x858C28] (0.05f)
+    CCoronas::RegisterCorona(
+        (uint32)(uintptr_t)this + 7, // 0x73AA9E: add esi,7
+        nullptr,
+        0x80, 0, 0, 0xFF,
+        colPoint.m_vecPoint,
+        1.2f,  // 0x3F99999A
+        50.0f, // 0x42480000
+        (eCoronaType)0,
+        FLARETYPE_NONE,
+        CORREFL_SIMPLE,
+        LOSCHECK_OFF,
+        TRAIL_ON,
+        0.0f,
+        false,
+        1.5f,
+        false,
+        15.0f,
+        false,
+        false
+    );
+    return true;
 }
 
 // 0x73AAC0
@@ -324,20 +404,25 @@ bool CWeapon::FireSniper(CPed* shooter, CEntity* victim, CVector* target) {
     }
 
     // todo: make sense of literals.
-    float vecFrontZ_Y = activeCam.m_vecFront.z * 0.145f - activeCam.m_vecFront.y * 0.98940003f;
+    // Como el original (0x73AB63..0x73AB9E): (z * 0.145 - y * 0.9894) + x * 0.0 (0x858B50), en ese orden
+    float vecFrontZ_Y = (activeCam.m_vecFront.z * 0.145f - activeCam.m_vecFront.y * 0.98940003f) + activeCam.m_vecFront.x * 0.0f;
 
     if (vecFrontZ_Y > 0.99699998f)
         CCoronas::MoonSize = (CCoronas::MoonSize + 1) % 8;
 
-    CVector velocity = activeCam.m_vecFront;
-    velocity.Normalise();
-    velocity *= 16.0f;
+    // Como el original (0x73ABE1..0x73AC4B): el vector normalizado se conserva SIN multiplicar; a AddBullet solo se le pasa una copia * 16
+    CVector direction = activeCam.m_vecFront;
+    direction.Normalise();
 
-    CBulletInfo::AddBullet(shooter, m_Type, activeCam.m_vecSource, velocity);
+    CBulletInfo::AddBullet(shooter, m_Type, activeCam.m_vecSource, CVector{ direction.x * 16.0f, direction.y * 16.0f, direction.z * 16.0f });
 
     // recoil effect for players
     if (shooter->IsPlayer()) {
-        CVector creatorPos = FindPlayerCoors();
+        // Como el original (0x73AC66..0x73ACD3): tres consultas a FindPlayerPed(-1): z de la primera, y de la segunda, x de la tercera
+        const float creatorZ = FindPlayerPed()->GetPosition().z;
+        const float creatorY = FindPlayerPed()->GetPosition().y;
+        const float creatorX = FindPlayerPed()->GetPosition().x;
+        CVector creatorPos{ creatorX, creatorY, creatorZ };
         CPad* creatorPad = CPad::GetPad(shooter->m_nPedType);
 
         creatorPad->StartShake_Distance(240, 128, creatorPos);
@@ -350,15 +435,18 @@ bool CWeapon::FireSniper(CPed* shooter, CEntity* victim, CVector* target) {
         CCrime::ReportCrime(CRIME_FIRE_WEAPON, shooter, shooter->m_roadRageWith);
     }
 
-    CVector targetPoint = velocity * 40.0f + activeCam.m_vecSource;
+    // Como el original (0x73AD23..0x73AE59): punto = direccion normalizada * 40 + origen; el vector se normaliza OTRA VEZ
+    // (0x73ADC7) antes del segundo evento, que usa su propio punto.
     bool hasNoSound = m_Type == eWeaponType::WEAPON_PISTOL_SILENCED || m_Type == eWeaponType::WEAPON_TEARGAS;
-    CEventGroup* eventGroup = GetEventGlobalGroup();
 
+    const CVector targetPoint = direction * 40.0f + activeCam.m_vecSource;
     CEventGunShot gs(shooter, activeCam.m_vecSource, targetPoint, hasNoSound);
-    eventGroup->Add(static_cast<CEvent*>(&gs), false);
+    GetEventGlobalGroup()->Add(static_cast<CEvent*>(&gs), false);
 
-    CEventGunShotWhizzedBy gsw(shooter, activeCam.m_vecSource, targetPoint, hasNoSound);
-    eventGroup->Add(static_cast<CEvent*>(&gsw), false);
+    direction.Normalise();
+    const CVector targetPoint2 = direction * 40.0f + activeCam.m_vecSource;
+    CEventGunShotWhizzedBy gsw(shooter, activeCam.m_vecSource, targetPoint2, hasNoSound);
+    GetEventGlobalGroup()->Add(static_cast<CEvent*>(&gsw), false);
 
     g_InterestingEvents.Add(CInterestingEvents::EType::INTERESTING_EVENT_22, shooter);
 
@@ -371,7 +459,8 @@ void CWeapon::Reload(CPed* owner) {
         return;
     }
 
-    uint32 ammo = GetWeaponInfo(owner).m_nAmmoClip;
+    // Como el original: 0x73AEDA "movsx eax,word ptr [eax+20h]" (el tamano del cargador se extiende con signo)
+    const uint32 ammo = (uint32)(int32)(int16)GetWeaponInfo(owner).m_nAmmoClip;
     m_AmmoInClip = std::min(ammo, m_TotalAmmo);
 }
 
@@ -511,7 +600,9 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
         ? firedByPed->AsPlayer()
         : nullptr;
 
-    const auto wi = &GetWeaponInfo(firedByPed);
+    // Como el original (0x73B59B): el nivel de habilidad sale de CPed::GetWeaponSkill() sin argumentos (0x5E6580, arma ACTIVA del
+    // tirador), no de GetWeaponSkill(m_Type) (0x5E3B60).
+    const auto wi = CWeaponInfo::GetWeaponInfo(m_Type, firedByPed ? firedByPed->GetWeaponSkill() : eWeaponSkill::STD);
 
     if (firedByPed && firedByPed->IsPlayer()) {
         CCrime::ReportCrime(CRIME_FIRE_WEAPON, victim, firedByPed);
@@ -551,10 +642,10 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
                     CStats::IncrementStat(STAT_BULLETS_THAT_HIT);
                 }
             }
-            if (CWeaponInfo::TypeHasSkillStats(GetType())) { // 0x73B738
+            if (firedByPed && CWeaponInfo::TypeHasSkillStats(GetType())) { // 0x73B738 (0x73B731 exige que el tirador sea un ped)
                 // Redundant `if` check here was removed
                 if ([&]{
-                    const auto victimEntity = notsa::coalesce(firedByPlayer->m_pTargetedObject, victim);
+                    const auto victimEntity = notsa::coalesce(firedByPed->m_pTargetedObject, victim);
 
                     // NOTE: The code is written upside down to make the controlflow easier
 
@@ -642,7 +733,8 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
                             }
                         }();
                         victimVeh->ApplyForce(
-                            hitCP.m_vecNormal * (wepForceMult * std::min(1.f, victimVeh->m_fMass / 1000.f)),
+                            // Como el original (0x73BF72..0x73BF8C): masa * 0x858CDC (0.001f) y min(1.0, x) = (1.0 < x) ? 1.0 : x (0x404330)
+                            hitCP.m_vecNormal * (wepForceMult * [&]{ const float x = victimVeh->m_fMass * 0.001f; return (1.0f < x) ? 1.0f : x; }()),
                             hitCP.m_vecPoint - victimVeh->GetPosition(),
                             true
                         );
@@ -692,6 +784,8 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
                             );
                         }
                     }
+                    // Como el original (0x73BD0C): con ColDamageEffect < 200 SIEMPRE se llama a ObjectDamage(50.0, ...) al final
+                    victimObj->ObjectDamage(50.0f, &hitCP.m_vecPoint, &hitCP.m_vecNormal, firedBy, GetType());
                 } else { // 0x73BB94
                     victimObj->ObjectDamage(
                         [&]{
@@ -712,7 +806,9 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
             }
             }
             DoBulletHitFx();
-        } else if (victim != firedBy) {
+        } else if (victim == firedBy) {
+            return; // Como el original: 0x73B89F "cmp esi,ebp; je 0x73C1BB" salta tambien la sacudida del mando
+        } else {
             const auto victimPed = victim->AsPed();
             if (   !firedByPed
                 || firedByPed->m_nPedType != victimPed->m_nPedType
@@ -720,8 +816,8 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
                 || firedByPlayer
             ) {
                 const auto bAddBloodFx = [&]{
-                    if (incrementalHit > 0) { // 0x73B8B8
-                        return false;
+                    if (incrementalHit > 0) { // 0x73B8B0: mov byte ptr [esp+8Ch],1 ; jg 0x73BA5F -> el flag queda en TRUE (como el original)
+                        return true;
                     }
                     DoBulletHitFx();
                     return GenerateDamageEvent(
@@ -730,7 +826,7 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
                         GetType(),
                         [&] {
                             if (firedByPlayer
-                                && (victim->GetPosition() - startPoint).SquaredMagnitude() <= 1.f
+                                && (victim->GetPosition() - startPoint).Magnitude() < 1.0f // 0x73B9F8: Magnitude() (4082C0) y "mag < 1.0"
                                 && !victimPed->bNoCriticalHits
                                 && !notsa::contains({ WEAPON_SHOTGUN, WEAPON_SPAS12_SHOTGUN }, GetType())
                             ) {
@@ -752,7 +848,7 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
                         hitCP.m_vecPoint,
                         hitCP.m_vecNormal,
                         hitCP.m_nPieceTypeB == ePedPieceTypes::PED_PIECE_HEAD
-                                ? victimPed->m_fHealth <= 0.f ? 32 : 16
+                                ? victimPed->m_fHealth < 0.f ? 32 : 16 // 0x73BABA: test ah,5 + jp -> 0x20 solo con salud < 0 estricta
                                 : incrementalHit ? 4 : 8,
                         victimPed->m_fContactSurfaceBrightness
                     );
@@ -765,10 +861,14 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
 
     // 0x73C11B [Moved down here]
     if (firedByPed && firedByPed->IsPlayer()) { // 0x73C14B
+        // Como el original (0x73C149..0x73C1B6): tres consultas a FindPlayerPed(-1) (z de la primera, y de la segunda, x de la tercera)
+        const float shakeZ = FindPlayerPed()->GetPosition().z;
+        const float shakeY = FindPlayerPed()->GetPosition().y;
+        const float shakeX = FindPlayerPed()->GetPosition().x;
         firedByPed->AsPlayer()->GetPadFromPlayer()->StartShake_Distance(
             240,
             128,
-            FindPlayerPed()->GetPosition()
+            CVector{ shakeX, shakeY, shakeZ }
         );
     }
 }
@@ -792,36 +892,41 @@ bool CWeapon::TakePhotograph(CEntity* owner, const CVector* point) {
     ms_bTakePhoto = true;
     CStats::IncrementStat(STAT_PHOTOGRAPHS_TAKEN, 1.0f);
 
-    // NOTSA - Optimization
-    const auto& camMat = TheCamera.GetMatrix();
-    const auto& camPos = camMat.GetPosition();
-
+    // Como el original (0x73C2A1..0x73C2EC y 0x73C54C..0x73C599): distancia entidad - camara con (dz*dz + dy*dy) + dx*dx y fsqrt;
+    // solo se procesa la entidad si distancia < 125 (0x865038). El EXE recorre los pools del ultimo indice al primero.
+    const CVector camPos = TheCamera.GetPosition();
     const auto IsPosInRange = [&](const CVector& worldPos) {
-        return (camPos - worldPos).SquaredMagnitude() >= sq(125.f); // NOTSA: Using squared mag.
+        const float dx = worldPos.x - camPos.x, dy = worldPos.y - camPos.y, dz = worldPos.z - camPos.z;
+        return std::sqrt((dz * dz + dy * dy) + dx * dx) < 125.0f;
     };
 
     // Check is in position in camera's frame
+    // Como el original (0x73C32D..0x73C39F): todas las comparaciones son "ordenadas" (con NaN se descarta); el ancho/alto salen del
+    // entero RsGlobal.maximumWidth/Height convertido a float.
     const auto IsPosInCamFrame = [](const CVector& worldPos) {
-        CVector pedHeadPos_Screen;
-        if (float _w, _h; !CSprite::CalcScreenCoors(worldPos, &pedHeadPos_Screen, &_w, &_h, false, true)) {
+        CVector screen;
+        float w, h;
+        if (!CSprite::CalcScreenCoors(worldPos, &screen, &w, &h, false, true)) {
             return false;
         }
 
-        // TODO/BUG: Possibly buggy on bigger screens, because the border becomes too big (because of the relative multiplier) maybe?
-        if (   (SCREEN_WIDTH * 0.1f >= pedHeadPos_Screen.x || pedHeadPos_Screen.x >= SCREEN_WIDTH * 0.9f)
-            || (SCREEN_HEIGHT * 0.1f >= pedHeadPos_Screen.y || pedHeadPos_Screen.y >= SCREEN_HEIGHT * 0.9f)
-        ) {
-            return false;
-        }
-
+        const float width = (float)RsGlobal.maximumWidth, height = (float)RsGlobal.maximumHeight;
+        if (!(width * 0.1f < screen.x)) return false;
+        if (!(screen.x < width * 0.9f)) return false;
+        if (!(height * 0.1f < screen.y)) return false;
+        if (!(screen.y < height * 0.9f)) return false;
         return true;
     };
 
-    const auto CheckIsLOSBlocked = [&, camFwd = camMat.GetForward()](const CVector& target, CEntity* ignore) {
+    // Como el original (0x73C443..0x73C4C8): el origen es camara + 2 * (frente de m_mCameraMatrix, 0xB6F9AC..0xB6F9B4), no el de
+    // la matriz del placeable; "2 *" se hace como x + x.
+    const CVector camFwd = TheCamera.m_mCameraMatrix.GetForward();
+    const CVector losStart{ (camFwd.x + camFwd.x) + camPos.x, (camFwd.y + camFwd.y) + camPos.y, (camFwd.z + camFwd.z) + camPos.z };
+    const auto CheckIsLOSBlocked = [&](const CVector& target, CEntity* ignore) {
         CColPoint _cp; // Unused
         CEntity* hitEntity{};
         if (!CWorld::ProcessLineOfSight(
-            camPos + camFwd * 2.f,
+            losStart,
             target,
             _cp,
             hitEntity,
@@ -839,8 +944,14 @@ bool CWeapon::TakePhotograph(CEntity* owner, const CVector* point) {
         return true;
     };
 
-    for (auto& ped : GetPedPool()->GetAllValid()) {
-        if (IsPosInRange(ped.GetPosition())) {
+    auto* const pedPool = GetPedPool();
+    for (size_t i = pedPool->GetSize(); i-- > 0;) {
+        auto* const pedPtr = pedPool->GetAt(i);
+        if (!pedPtr) {
+            continue;
+        }
+        auto& ped = *pedPtr;
+        if (!IsPosInRange(ped.GetPosition())) {
             continue;
         }
 
@@ -850,17 +961,30 @@ bool CWeapon::TakePhotograph(CEntity* owner, const CVector* point) {
             continue;
         }
 
-        if (!CheckIsLOSBlocked(
-            pedHeadPos + Normalized(camPos - pedHeadPos) * 1.5f, // Point from ped's head towards camera
-            &ped
-        )) {
+        // Como el original (0x73C3A5..0x73C43F): camara - cabeza normalizado (0x59C910) * 1.5 (0x858CE8) + cabeza
+        CVector towardsCamera{ camPos.x - pedHeadPos.x, camPos.y - pedHeadPos.y, camPos.z - pedHeadPos.z };
+        towardsCamera.Normalise();
+        const CVector target{
+            pedHeadPos.x + towardsCamera.x * 1.5f,
+            pedHeadPos.y + towardsCamera.y * 1.5f,
+            pedHeadPos.z + towardsCamera.z * 1.5f
+        };
+        if (!CheckIsLOSBlocked(target, &ped)) {
             ped.bHasBeenPhotographed = true;
         }
     }
 
-    for (auto& obj : GetObjectPool()->GetAllValid()) {
-        const auto& objPos = obj.GetPosition();
+    auto* const objPool = GetObjectPool();
+    for (size_t i = objPool->GetSize(); i-- > 0;) {
+        auto* const objPtr = objPool->GetAt(i);
+        if (!objPtr) {
+            continue;
+        }
+        auto& obj = *objPtr;
+        const CVector objPos = obj.GetPosition();
 
+        // Como el original (0x73C599..0x73C5A4): los objetos tambien se procesan SOLO si estan a menos de 125 (la version anterior
+        // los descartaba dentro del rango).
         if (!IsPosInRange(objPos) || !IsPosInCamFrame(objPos)) {
             continue;
         }
@@ -887,78 +1011,95 @@ void CWeapon::SetUpPelletCol(int32 numPellets, CEntity* owner, CEntity* victim, 
     }
     auto* const cd = ms_PelletTestCol.GetData();
 
-    auto hitDir = (colPoint.m_vecPoint - point);
-    const float depth = hitDir.NormaliseAndMag() * CWorld::fWeaponSpreadRate * 1.3f;
+    // Como el original (0x73C77E..0x73C7E8): hitDir = punto - origen; |hitDir| = sqrt((y*y + x*x) + z*z); depth = (|hitDir| * spread) * 1.3
+    CVector hitDir{ colPoint.m_vecPoint.x - point.x, colPoint.m_vecPoint.y - point.y, colPoint.m_vecPoint.z - point.z };
+    const float depth = (std::sqrt((hitDir.y * hitDir.y + hitDir.x * hitDir.x) + hitDir.z * hitDir.z) * CWorld::fWeaponSpreadRate) * 1.3f;
 
     //> 0x73C806 - Create pellet lines
-    cd->m_nNumLines = (uint8)numPellets;
-    const auto lines = cd->GetLines();
+    CColLine* const lines = cd->m_pLines; // Como el original: puntero directo (GetLines() es un span con m_nNumLines, que el EXE escribe DESPUES de rellenar las lineas: indexar el span vacio hace fail-fast 0xC0000409)
     lines[0].Set(
         { 0.f, -depth, 0.f },
         { 0.f,  depth, 0.f }
     );
+    // Como el original (0x73C835..0x73C904): minimo = depth * 0.2 (0x858CC4), rango = depth - minimo, y = depth * -2.0 (0x858B18),
+    // angulo = rand * 0x858C7C * 6.2831855 - 3.1415927 (0x858CBC/0x858CB8) y radio = rand * 0x858C7C * rango + minimo; seno/coseno x87.
+    const float minSpread = depth * 0.2f;
+    const float spreadRange = depth - minSpread;
+    const float lineY = depth * -2.0f;
+    const float lineY2 = depth + depth;
+    const float randScale = std::bit_cast<float>(0x38000100u);
+    const float twoPi = std::bit_cast<float>(0x40C90FDBu), onePi = std::bit_cast<float>(0x40490FDBu);
     for (int32 i = 1; i < numPellets; i++) {
-        const auto angle  = CGeneral::GetRandomNumberInRange(-PI, PI);
-        const auto spread = CGeneral::GetRandomNumberInRange(0.f, depth * 0.8f);
+        const int32 randomAngle = CGeneral::GetRandomNumber();
+        const float angle = ((float)randomAngle * randScale) * twoPi - onePi;
+        const int32 randomSpread = CGeneral::GetRandomNumber();
+        const float spread = (((float)randomSpread * randScale) * spreadRange) + minSpread;
 
-        const auto oX = std::cos(angle) * spread;
-        const auto oZ = std::sin(angle) * spread;
+        float oX, oZ;
+        __asm {
+            fld angle
+            fcos
+            fmul spread
+            fstp oX
+            fld angle
+            fsin
+            fmul spread
+            fstp oZ
+        }
 
         lines[i].Set(
-            { oX, -depth * 2.f, oZ },
-            { oX,  depth * 2.f, oZ }
+            { oX, lineY, oZ },
+            { oX, lineY2, oZ }
         );
     }
+
+    //> 0x73C91C - Como el original, el numero de lineas se escribe despues de generarlas
+    cd->m_nNumLines = (uint8)numPellets;
 
     //> 0x73C923 -  Calculate bounding volumes
     cm->GetBoundingBox().Set(
-        { -depth, -depth * 2.f, -depth },
-        {  depth,  depth * 2.f,  depth }
+        { -depth, lineY, -depth },
+        {  depth, lineY2,  depth }
     );
-    cm->GetBoundingSphere().Set(
-        depth * 2.5f,
-        {0.f, 0.f, 0.f}
-    );
+    cm->GetBoundingSphere().m_fRadius = depth * 2.5f; // 0x73C923: solo se escribe el radio (el centro queda como esta)
 
-    const auto CalculateMatrixRotation = [&](CVector fwd, CVector zaxis) {
-        const auto r = zaxis.Cross(fwd).Normalized();
-        outMat.GetForward() = fwd;
-        outMat.GetRight()   = r;
-        outMat.GetUp()      = r.Cross(fwd);
-    };
-
+    // Como el original (0x73C98E..0x73CAFF): el orden de los factores del producto vectorial depende de la rama:
+    // edificio: normal x ayudante; hitDir z <= 0.9: hitDir x (0,0,1); sin ped: hitDir x (1,0,0); ped: frente-del-propietario x hitDir.
+    CVector forward, right;
     if (victim->GetIsTypeBuilding()) { // 0x73C98E
         const auto& n = colPoint.m_vecNormal;
-        CalculateMatrixRotation(
-            -n,
-            std::abs(n.z) >= 0.9f
-                ? CVector{0.f, 1.f, 0.f}
-                : CVector{1.f, 0.f, 0.f}
-        );
-
-    } else  if (std::abs(hitDir.z) <= 0.9f) { // 0x73CA4C
-        CalculateMatrixRotation(
-            hitDir,
-            {0.f, 0.f, 1.f}
-        );
-    } else if (!owner->GetIsTypePed()) { // 0x73CA59
-        CalculateMatrixRotation(
-            hitDir,
-            {1.f, 0.f, 0.f}
-        );
-    } else { // 0x73CA5B
-        CalculateMatrixRotation(
-            hitDir,
-            owner->GetForward()
-        );
+        forward = CVector{ -n.x, -n.y, -n.z };
+        // 0x73C9CF: se examina |normal.x| (no z): < 0.9 -> (1,0,0); si no (o NaN) -> (0,1,0)
+        const CVector helper = (std::abs(n.x) < 0.9f) ? CVector{ 1.f, 0.f, 0.f } : CVector{ 0.f, 1.f, 0.f };
+        right = n.Cross(helper);
+    } else {
+        hitDir.Normalise(); // 0x73CA19 (0x59C910)
+        forward = hitDir;
+        if (!(std::abs(hitDir.z) > 0.9f)) { // 0x73CA4C: test ah,41h + jne
+            right = hitDir.Cross(CVector{ 0.f, 0.f, 1.f });
+        } else if (!owner->GetIsTypePed()) { // 0x73CA59
+            right = hitDir.Cross(CVector{ 1.f, 0.f, 0.f });
+        } else { // 0x73CA5B (si el propietario no tiene matriz, el EXE la crea: 0x54F560 + 0x54F1B0)
+            right = owner->GetMatrix().GetForward().Cross(hitDir);
+        }
     }
+    right.Normalise(); // 0x73CADB (0x59C910)
+    outMat.GetForward() = forward;
+    outMat.GetRight()   = right;
+    outMat.GetUp()      = right.Cross(forward);
 
     // 0x73CAFF
     outMat.GetPosition() = colPoint.m_vecPoint;
 
-    // 0x73CB1A
+    // Como el original (0x73CB28..0x73CB86): dot = (nz*fz + ny*fy) + nx*fx; pos += ((-depth * f) * dot)
     if (!victim->GetIsTypeBuilding()) {
-        outMat.GetPosition() -= colPoint.m_vecNormal.ProjectOnToNormal(outMat.GetForward()) * depth;
+        const CVector& f = outMat.GetForward();
+        const CVector& n = colPoint.m_vecNormal;
+        const float negDepth = -depth;
+        const float dot = (n.z * f.z + n.y * f.y) + n.x * f.x;
+        outMat.GetPosition().x += (negDepth * f.x) * dot;
+        outMat.GetPosition().y += (negDepth * f.y) * dot;
+        outMat.GetPosition().z += (negDepth * f.z) * dot;
     }
 }
 
@@ -966,12 +1107,14 @@ void CWeapon::SetUpPelletCol(int32 numPellets, CEntity* owner, CEntity* victim, 
 void CWeapon::FireInstantHitFromCar2(CVector startPoint, CVector endPoint, CVehicle* vehicle, CEntity* owner) {
     CCrime::ReportCrime(CRIME_FIRE_WEAPON, FindPlayerPed(), FindPlayerPed());
 
-    GetEventGlobalGroup()->Add(CEventGunShot{
+    // Como el original (0x73CC5D..0x73CC7F): evento construido una vez y anadido con Add(&evento, false)
+    CEventGunShot gunShotEvent{
         notsa::coalesce<CEntity*>(owner, vehicle),
         startPoint,
         endPoint,
         notsa::contains({WEAPON_PISTOL_SILENCED, WEAPON_TEARGAS}, GetType())
-    });
+    };
+    GetEventGlobalGroup()->Add(&gunShotEvent, false);
     g_InterestingEvents.Add(CInterestingEvents::EType::INTERESTING_EVENT_22, owner);
 
     CPointLights::AddLight(PLTYPE_POINTLIGHT, startPoint, {}, 3.0f, 0.25f, 0.22f, 0.0f, 0, false, nullptr);
@@ -981,7 +1124,7 @@ void CWeapon::FireInstantHitFromCar2(CVector startPoint, CVector endPoint, CVehi
     CShadows::GunShotSetsOilOnFire(startPoint, endPoint);
 
     CEntity* victim{};
-    CColPoint cpImpact{};
+    CColPoint cpImpact; // Como el original: sin inicializar (el EXE solo lo escribe si el rayo golpea algo)
     CWorld::ProcessLineOfSight(startPoint, endPoint, cpImpact, victim, true, true, true, true, true, false, false, true);
     CWorld::ResetLineTestOptions();
     DoBulletImpact(owner, victim, startPoint, endPoint, cpImpact, 0);
@@ -991,12 +1134,17 @@ void CWeapon::FireInstantHitFromCar2(CVector startPoint, CVector endPoint, CVehi
 void CWeapon::DoDoomAiming(CEntity* owner, CVector* start, CVector* end) {
     int16 inRangeCount{};
     std::array<CEntity*, 16> objInRange{};
-    CWorld::FindObjectsInRange(*start, (*start - *end).Magnitude(), true, &inRangeCount, (int16)objInRange.size(), objInRange.data(), false, true, true, false, false);
+    // Como el original (0x73CDD0..0x73CE1A): radio = |end - start| sumado como (dz*dz + dy*dy) + dx*dx; el maximo de objetos es 15 (push 0Fh)
+    const float rangeDX = end->x - start->x, rangeDY = end->y - start->y, rangeDZ = end->z - start->z;
+    const float searchRadius = std::sqrt((rangeDZ * rangeDZ + rangeDY * rangeDY) + rangeDX * rangeDX);
+    CWorld::FindObjectsInRange(*start, searchRadius, true, &inRangeCount, 15, objInRange.data(), false, true, true, false, false);
 
     CEntity* closestEntity{};
     float    closestDist{ 10'000 };
-    for (auto entity : std::span{ objInRange.begin(), (size_t)inRangeCount }) {
-        if (entity == owner || owner->AsPed()->CanSeeEntity(entity, PI / 8.f)) { // todo: add check owner->GetIsTypePed() NOTSA
+    for (auto entity : std::span{ objInRange.begin(), (size_t)std::max<int16>(inRangeCount, 0) }) {
+        // Como el original (0x73CE58..0x73CE67): "call 5E0730; test al,al; je" -> solo se consideran las entidades que el propietario VE
+        // dentro de +-0x3EC90FDB (pi/8 exacto), no las que no ve.
+        if (entity == owner || !owner->AsPed()->CanSeeEntity(entity, std::bit_cast<float>(0x3EC90FDBu))) { // todo: add check owner->GetIsTypePed() NOTSA
             continue;
         }
 
@@ -1007,9 +1155,14 @@ void CWeapon::DoDoomAiming(CEntity* owner, CVector* start, CVector* end) {
             continue;
         }
 
-        const auto dir = entity->GetPosition() - owner->GetPosition();
-        if (const auto dist2D = dir.Magnitude2D(); std::abs(dir.z) * 1.5f < dist2D) {
-            const auto dist3D = std::hypot(dist2D, dir.z);
+        // Como el original (0x73CF92..0x73D091): dx, dy con la matriz (owner - entidad), dist2D = sqrt(dx*dx + dy*dy),
+        // |dz| = fchs de (owner.z - entidad.z) si es < 0, y dist3D = sqrt(dz*dz + dist2D*dist2D) (no std::hypot).
+        const float ex = owner->GetPosition().x - entity->GetPosition().x, ey = owner->GetPosition().y - entity->GetPosition().y;
+        const float dist2D = std::sqrt(ex * ex + ey * ey);
+        const float dzSigned = owner->GetPosition().z - entity->GetPosition().z;
+        const float absDz = (dzSigned < 0.f) ? -dzSigned : dzSigned; // jp: dz >= 0 o NaN conservan el signo
+        if (1.5f * absDz < dist2D) {
+            const float dist3D = std::sqrt(absDz * absDz + dist2D * dist2D);
             if (dist3D < closestDist) {
                 closestEntity = entity;
                 closestDist = dist3D;
@@ -1139,8 +1292,9 @@ void CWeapon::Update(CPed* owner) {
                 owner->GetWeaponAE().AddAudioEvent(ae);
             }
         };
-        ProcessOne(owner->bIsDucking ? ao->CrouchRLoadA : ao->RLoadA, AE_WEAPON_RELOAD_A);
-        ProcessOne(owner->bIsDucking ? ao->CrouchRLoadB : ao->RLoadB, AE_WEAPON_RELOAD_B);
+        // Como el original (0x73A280/0x73A2B0): el retraso se lee como palabra SIN signo (mov ax / movzx), no como int16 con signo
+        ProcessOne((uint16)(owner->bIsDucking ? ao->CrouchRLoadA : ao->RLoadA), AE_WEAPON_RELOAD_A);
+        ProcessOne((uint16)(owner->bIsDucking ? ao->CrouchRLoadB : ao->RLoadB), AE_WEAPON_RELOAD_B);
     };
 
     switch (m_State) {
@@ -1168,6 +1322,9 @@ void CWeapon::Update(CPed* owner) {
                     &,
                     shootDelta = m_TimeForNextShotMs - wi->GetWeaponReloadTime()
                 ](uint32 rload, eAudioEvents ae) {
+                    if (!rload) { // Como el original: 0x73DE2C "test ax,ax; jbe" (retraso 0 -> sin evento)
+                        return false;
+                    }
                     const auto audioTimeMs = rload + shootDelta;
                     return CTimer::GetPreviousTimeInMS() < audioTimeMs && CTimer::GetTimeInMS() >= audioTimeMs;
                 });
@@ -1180,9 +1337,11 @@ void CWeapon::Update(CPed* owner) {
                 if (!animRLoad) {
                     animRLoad = RpAnimBlendClumpGetAssociation(owner->GetRpClump(), wi->GetCrouchReloadAnimationID());
                 }
+                // Como el original (0x73DCF2..0x73DCF8): GetTaskUseGun se consulta SIEMPRE tras buscar la animacion, aunque exista
+                const auto useGunTask = owner->GetIntelligence()->GetTaskUseGun();
                 if (animRLoad) { // 0x73DD30
                     ProcessReloadAudioIf([&](uint32 rloadMs, eAudioEvents ae) {
-                        const auto rloadS = (float)rloadMs / 1000.f;
+                        const auto rloadS = (float)rloadMs * 0.001f; // Como el original: 0x73DD30 fmul [0x858CDC] (0.001f), no una division
                         return rloadS <= animRLoad->m_CurrentTime && animRLoad->m_CurrentTime - animRLoad->m_TimeStep < rloadS;
                     });
                     if (CTimer::GetTimeInMS() > m_TimeForNextShotMs) {
@@ -1190,7 +1349,7 @@ void CWeapon::Update(CPed* owner) {
                             m_TimeForNextShotMs = CTimer::GetTimeInMS();
                         }
                     }
-                } else if (owner->GetIntelligence()->GetTaskUseGun()) { // 0x73DDF9
+                } else if (useGunTask) { // 0x73DDF9
                     if (CTimer::GetTimeInMS() > m_TimeForNextShotMs) {
                         m_TimeForNextShotMs = CTimer::GetTimeInMS();
                     }
@@ -1288,12 +1447,17 @@ auto CWeapon::GetProjectileType() {
 
 // 0x73E560
 float CWeapon::EvaluateTargetForHeatSeekingMissile(CEntity* potentialTarget, const CVector& origin, const CVector& aimingDir, float tolerance, bool arePlanesPriority, CEntity* preferredExistingTarget) {
-    const auto potentialTargetDist = (origin - potentialTarget->GetPosition()).Magnitude();
+    // Como el original (0x73E575..0x73E5A7): distancia = sqrt((dz*dz + dy*dy) + dx*dx) con dx = objetivo - origen
+    const CVector targetPos = potentialTarget->GetPosition();
+    const float dx = targetPos.x - origin.x, dy = targetPos.y - origin.y, dz = targetPos.z - origin.z;
+    const float potentialTargetDist = std::sqrt((dz * dz + dy * dy) + dx * dx);
 
     const auto potentialTargetDistToLine = CCollision::DistToLine(origin, origin + aimingDir * 250.f, potentialTarget->GetPosition());
-    auto ret = std::sqrt(potentialTargetDist) / 10.f + potentialTargetDistToLine / potentialTargetDist;
+    // Como el original (0x73E61C): sqrt(dist) * 0x858B1C (0.1f), no una division entre 10
+    auto ret = std::sqrt(potentialTargetDist) * 0.1f + potentialTargetDistToLine / potentialTargetDist;
 
-    if (potentialTargetDistToLine * tolerance >= potentialTargetDist) {
+    // Como el original (0x73E634..0x73E63D): fcomp + test ah,5 + jp -> -1 salvo que "dist_linea * tolerancia < dist" (con NaN tambien -1)
+    if (!(potentialTargetDistToLine * tolerance < potentialTargetDist)) {
         return -1.f;
     }
 
@@ -1345,54 +1509,86 @@ void CWeapon::DoWeaponEffect(CVector origin, CVector dir) {
 // 0x73E800
 bool CWeapon::FireAreaEffect(CEntity* firingEntity, const CVector& origin, CEntity* targetEntity, CVector* target) {
     const auto wi = &GetWeaponInfo(); // TODO/NOTE: Why not `GetWeaponInfo(firingEntity)`?
-    const auto [shotDir, shotPt] = [&]() -> std::pair<CVector, CVector> {
-        if (!targetEntity && !target) {
-            if (firingEntity == FindPlayerPed() && TheCamera.m_aCams[0].Using3rdPersonMouseCam()) {
-                CVector camPos, camTargetPos;
-                TheCamera.Find3rdPersonCamTargetVector(wi->m_fWeaponRange, origin, camPos, camTargetPos);
-                return {
-                    (camTargetPos - camPos) / wi->m_fWeaponRange, // Scale to a unit vector
-                    camTargetPos
-                }; 
-            } else {
-                // NOTE: Moved here from `0x73E83F`
-                // NOTE: Original code used degs instead of radians
-                //       and then converted back to radians... So we're gonna stick to radians only ;)
-                const auto heading = [&] { // 0x73E83F
-                    if (targetEntity) {
-                        return (targetEntity->GetPosition() - origin).Heading();
-                    }
-                    if (target) {
-                        return (*target - origin).Heading();
-                    }
-                    return firingEntity->GetHeading();
-                }();
-                CVector dir{
-                    -std::sin(heading),
-                    std::cos(heading),
-                    0.f
-                };
-                if (firingEntity->GetIsTypePed()) {
-                    if (const auto pd = firingEntity->AsPed()->GetPlayerData()) {
-                        dir.z = -std::tan(pd->m_fLookPitch);
-                    }
-                }
-                return { dir, origin + dir };
-            }
+    CVector shotDir, shotPt;
+    if (targetEntity || target) { // 0x73EA1E
+        // Como el original (0x73EA68..0x73EAA4): con un ped se llama a la variante con puntero de salida (0x5E4280: out, bone 3, false)
+        CVector ptTarget;
+        if (target) {
+            ptTarget = *target;
+        } else if (targetEntity->GetIsTypePed()) {
+            targetEntity->AsPed()->GetBonePosition(&ptTarget, BONE_SPINE1, false);
         } else {
-            const auto ptTarget = target
-                ? *target
-                : targetEntity->GetIsTypePed()
-                    ? targetEntity->AsPed()->GetBonePosition(BONE_SPINE1)
-                    : targetEntity->GetPosition();
-            return { (ptTarget - origin).Normalized(), ptTarget };
+            ptTarget = targetEntity->GetPosition();
         }
-    }();
+        shotPt  = ptTarget;
+        shotDir = CVector{ ptTarget.x - origin.x, ptTarget.y - origin.y, ptTarget.z - origin.z };
+        shotDir.Normalise(); // 0x73EAE8 (0x59C910)
+    } else if (firingEntity == FindPlayerPed() && TheCamera.m_aCams[0].Using3rdPersonMouseCam()) { // 0x73E892
+        CVector camPos, camTargetPos;
+        TheCamera.Find3rdPersonCamTargetVector(wi->m_fWeaponRange, origin, camPos, camTargetPos);
+        // Como el original (0x73E921 -> 0x4119D0): v * (1.0 / rango), no v / rango; el punto es camTargetPos
+        const float inverseRange = 1.0f / wi->m_fWeaponRange;
+        shotDir = CVector{ (camTargetPos.x - camPos.x) * inverseRange, (camTargetPos.y - camPos.y) * inverseRange, (camTargetPos.z - camPos.z) * inverseRange };
+        shotPt  = camTargetPos;
+    } else { // 0x73E95A
+        // Como el original: el rumbo se calcula en GRADOS (fpatan * 0x859878) y se vuelve a radianes con 0x872C60 (0.017453216f,
+        // que NO es pi/180); el seno/coseno son de x87 a precision completa.
+        float headingDegrees;
+        if (firingEntity->m_matrix) { // 0x73E965: atan2(-fwd.x, fwd.y)
+            const float forwardX = firingEntity->m_matrix->GetForward().x, forwardY = firingEntity->m_matrix->GetForward().y;
+            const float degreesScale = std::bit_cast<float>(0x42652EE0u);
+            __asm {
+                fld forwardX
+                fchs
+                fld forwardY
+                fpatan
+                fmul degreesScale
+                fstp headingDegrees
+            }
+        } else { // 0x73E97E: heading del placeable (esi+0x10)
+            headingDegrees = firingEntity->m_placement.m_fHeading * std::bit_cast<float>(0x42652EE0u);
+        }
+
+        const float headingRadians = headingDegrees * std::bit_cast<float>(0x3C8EFA0Cu); // 0x73E997 fmul [0x872C60] (leido del EXE)
+        float sinValue, cosValue;
+        __asm {
+            fld headingRadians
+            fsin
+            fchs
+            fstp sinValue
+            fld headingRadians
+            fcos
+            fstp cosValue
+        }
+        shotDir = CVector{ sinValue, cosValue, 0.f };
+        if (firingEntity->GetIsTypePed()) {
+            if (const auto pd = firingEntity->AsPed()->GetPlayerData()) {
+                const float pitch = pd->m_fLookPitch;
+                float negTan;
+                __asm {
+                    fld pitch
+                    fptan
+                    fstp st(0)
+                    fchs
+                    fstp negTan
+                }
+                shotDir.z = negTan;
+                shotDir.Normalise(); // 0x73E9D8 (0x59C910): solo se normaliza dentro de esta rama
+            }
+        }
+        shotPt = CVector{ shotDir.x + origin.x, shotDir.y + origin.y, shotDir.z + origin.z };
+    }
     CShotInfo::AddShot(firingEntity, m_Type, origin, shotPt);
     DoWeaponEffect(origin, shotDir);
-    if (m_Type == WEAPON_FLAMETHROWER && CGeneral::RandomBool(1.f / 3.f * 100.f)) {
+    // Como el original (0x73EB52..0x73EBFE): flamethrower y (rand() & 3) == 2; escala = rand * 0x858C7C * 2.5 + 3.5 (UN escalar, no un
+    // vector aleatorio); posicion = dir * escala + origen, y despues z + 0.5
+    if (m_Type == WEAPON_FLAMETHROWER && (CGeneral::GetRandomNumber() & 3) == 2) {
+        const float scale = ((float)CGeneral::GetRandomNumber() * std::bit_cast<float>(0x38000100u)) * 2.5f + 3.5f;
+        const float x = shotDir.x * scale + origin.x;
+        const float y = shotDir.y * scale + origin.y;
+        const float z = shotDir.z * scale + origin.z;
         if (CCreepingFire::TryToStartFireAtCoors(
-            shotDir * CVector::Random(3.5f, 6.f) + origin + CVector{0.f, 0.f, 0.5f},
+            CVector{ x, y, z + 0.5f },
             0,
             true,
             false,
@@ -1526,21 +1722,30 @@ void CWeapon::CheckForShootingVehicleOccupant(CEntity** pCarEntity, CColPoint* c
 
 // 0x73F910
 CEntity* CWeapon::PickTargetForHeatSeekingMissile(CVector origin, CVector direction, float distanceMultiplier, CEntity* ignoreEntity, bool arePlanesPriority, CEntity* preferredExistingTarget) {
-    float minRating  = FLT_MAX;
+    // Como el original: el minimo inicial es 0x47C34FF3 (~99999.9), no FLT_MAX (0x73F93F); el EXE recorre el pool del ultimo al primero
+    float minRating  = std::bit_cast<float>(0x47C34FF3u);
     CEntity* minRated{};
     const auto point = origin + direction * 5.f;
-    for (auto& veh : GetVehiclePool()->GetAllValid()) {
+    auto* const vehiclePool = GetVehiclePool();
+    for (size_t i = vehiclePool->GetSize(); i-- > 0;) {
+        auto* const vehPtr = vehiclePool->GetAt(i);
+        if (!vehPtr) {
+            continue;
+        }
+        auto& veh = *vehPtr;
         if (&veh == ignoreEntity) {
             continue;
         }
         if (!veh.vehicleFlags.bVehicleCanBeTargettedByHS) {
             continue;
         }
-        if (veh.m_fHealth <= 0.f) {
+        // 0x73F9B0: fcomp + test ah,41h + jne -> se descarta con salud <= 0 o NaN
+        if (!(veh.m_fHealth > 0.f)) {
             continue;
         }
         const auto rating = EvaluateTargetForHeatSeekingMissile(&veh, point, direction, distanceMultiplier, arePlanesPriority, preferredExistingTarget);
-        if (rating >= 0.f && rating <= minRating) {
+        // 0x73F9DC..0x73F9F5: rating >= 0 (test ah,1) y rating < minRating ESTRICTO (test ah,5 + jp)
+        if (!(rating < 0.f) && rating < minRating) {
             minRating = rating;
             minRated  = &veh;
         }
@@ -1550,20 +1755,21 @@ CEntity* CWeapon::PickTargetForHeatSeekingMissile(CVector origin, CVector direct
 
 // 0x73FA20
 bool CWeapon::FireFromCar(CVehicle* vehicle, bool leftSide, bool rightSide) {
-    if (m_State != WEAPONSTATE_READY || m_AmmoInClip <= 0) {
+    // Como el original (0x73FA23..0x73FA39): el estado debe ser READY (0) o FIRING (1); la municion del cargador se compara con signo
+    if ((m_State != WEAPONSTATE_READY && m_State != WEAPONSTATE_FIRING) || (int32)m_AmmoInClip <= 0) {
         return false;
     }
     if (!CWeapon::FireInstantHitFromCar(vehicle, leftSide, rightSide)) {
-        return notsa::IsFixBugs() ? false : true;
+        return true; // Como el original (0x73FB01/0x73FB02): mov al,1 aunque FireInstantHitFromCar falle
     }
     if (const auto d = vehicle->m_pDriver) {
         d->GetWeaponAE().AddAudioEvent(AE_WEAPON_FIRE);
     }
     if (!CCheat::IsActive(CHEAT_INFINITE_AMMO)) {
-        if (m_AmmoInClip) { // NOTE: I'm pretty sure this is redundant
+        if ((int32)m_AmmoInClip > 0) { // 0x73FA7E: test + jle (con signo)
             m_AmmoInClip--;
         }
-        if (  m_TotalAmmo < 25'000 && m_TotalAmmo > 0
+        if (  (int32)m_TotalAmmo < 25'000 && (int32)m_TotalAmmo > 0 // 0x73FA89: cmp 61A8h + jge / jle (con signo)
             && (vehicle->GetStatus() != STATUS_PLAYER || CStats::GetPercentageProgress() < 100.f)
         ) {
             m_TotalAmmo--;
@@ -1913,14 +2119,20 @@ bool CWeapon::FireInstantHit(CEntity* firingEntity, CVector* origin, CVector* mu
 bool CWeapon::FireProjectile(CEntity* firedBy, const CVector& origin, CEntity* targetEntity, const CVector* targetPos, float force) {
     assert(firedBy);
 
+    // Como el original: el EXE modifica `origin` EN EL SITIO (edi = puntero del llamador: 0x741434, 0x741665, 0x74169D...), asi que
+    // el vector del llamador queda desplazado. Todas las lecturas posteriores usan el valor ya modificado.
+    CVector& projOrigin = const_cast<CVector&>(origin);
+
     const auto firedByPed = firedBy->GetIsTypePed()
         ? firedBy->AsPed()
         : nullptr;
-    auto projOrigin     = origin;
-    auto losCheckTarget = origin;
-    auto losCheckOrigin = origin;
-    auto projType = GetProjectileType();
+    CVector losCheckTarget;
+    CVector losCheckOrigin;
+    // Como el original (0x741601): proyectil = 0x13 (ROCKET) + (tipo == 0x24); el resto de armas conserva su tipo
+    auto projType = GetType();
     if (notsa::contains({ WEAPON_RLAUNCHER, WEAPON_RLAUNCHER_HS }, GetType())) {
+        projType = (GetType() == WEAPON_RLAUNCHER_HS) ? WEAPON_ROCKET_HS : WEAPON_ROCKET;
+        losCheckOrigin = projOrigin; // 0x7415DF: copia del origen ANTES de modificarlo ([esp+14h])
         if (firedByPed && firedByPed->IsPlayer()) {
             switch (TheCamera.GetActiveCam().m_nMode) {
             case MODE_M16_1STPERSON:
@@ -1935,44 +2147,59 @@ bool CWeapon::FireProjectile(CEntity* firedBy, const CVector& origin, CEntity* t
             default:
                 return false;
             }
-            projOrigin = origin + TheCamera.GetActiveCam().m_vecFront;
+            const auto& front = TheCamera.GetActiveCam().m_vecFront;
+            projOrigin.x = projOrigin.x + front.x;
+            projOrigin.y = front.y + projOrigin.y;
+            projOrigin.z = front.z + projOrigin.z;
         } else {
-            projOrigin = origin + firedBy->GetForward();
+            const CVector forward = firedBy->GetMatrix().GetForward(); // 0x741683: crea la matriz si no existe
+            projOrigin.x = projOrigin.x + forward.x;
+            projOrigin.y = forward.y + projOrigin.y;
+            projOrigin.z = forward.z + projOrigin.z;
         }
         if (firedByPed) {
             if (firedByPed->IsPlayer()) { // 0x7416DC
+                const auto pd = firedByPed->GetPlayerData();
+                // Como el original (0x7416D9..0x7417BB): el objetivo HS solo se conserva si es el mismo que el ultimo y lleva > 1500 ms
+                // pulsado; en cualquier otro caso se dispara un cohete normal (WEAPON_ROCKET) sin objetivo.
                 CEntity* hsMissleTarget{};
-                if (GetType() == WEAPON_RLAUNCHER_HS && CWeaponEffects::IsLockedOn(WEAPONEFFECTS_LOCK_ON)) {
-                    const auto pd = firedByPed->GetPlayerData();
-                    if (pd->m_nFireHSMissilePressedTime) {
-                        hsMissleTarget = PickTargetForHeatSeekingMissile(
-                            firedBy->GetPosition(),
-                            firedBy->GetForward(),
-                            1.2f,
-                            firedBy,
-                            false,
-                            pd->m_LastHSMissileTarget
-                        );
-                        if (hsMissleTarget == pd->m_LastHSMissileTarget && CTimer::GetTimeInMS() - pd->m_nFireHSMissilePressedTime > 1500) { // 0x74178B
-                            const auto ch = &gCrossHair[0];
-                            ch->m_color                 = { 255, 0, 0, 255 };
-                            ch->m_fRotation             = 1.f;
-                            ch->m_nTimeWhenToDeactivate = 0;
-                        }
+                if (GetType() == WEAPON_RLAUNCHER_HS && CWeaponEffects::IsLockedOn(WEAPONEFFECTS_LOCK_ON) && pd->m_nFireHSMissilePressedTime) {
+                    const auto picked = PickTargetForHeatSeekingMissile(
+                        firedBy->GetPosition(),
+                        firedBy->GetMatrix().GetForward(),
+                        1.2f,
+                        firedBy,
+                        false,
+                        pd->m_LastHSMissileTarget
+                    );
+                    if (picked && picked == pd->m_LastHSMissileTarget && CTimer::GetTimeInMS() - pd->m_nFireHSMissilePressedTime > 1500) { // 0x74178B
+                        const auto ch = &gCrossHair[0];
+                        // Como el original (0x74178B..0x7417AA): solo se escriben R, G y B (el alfa no se toca)
+                        ch->m_color.r               = 255;
+                        ch->m_color.g               = 0;
+                        ch->m_color.b               = 0;
+                        ch->m_fRotation             = 1.f;
+                        ch->m_nTimeWhenToDeactivate = 0;
+                        hsMissleTarget = picked;
                     }
                 }
-                if (hsMissleTarget) { // 0x7417BB
+                if (hsMissleTarget) { // 0x7417B4
                     targetEntity = hsMissleTarget;
-                } else {
+                } else {              // 0x7417BB
                     targetEntity = nullptr;
                     projType     = WEAPON_ROCKET;
                 }
-            } else { // 0x7418A3
+            } else { // 0x7417C7
                 if (targetEntity || targetPos) {
+                    // Como el original (0x7417E5..0x74188E): la direccion y el rayo parten del origen SIN desplazar (losCheckOrigin)
+                    const CVector aimed = targetEntity ? targetEntity->GetPosition() : *targetPos;
+                    CVector aimDir{ aimed.x - losCheckOrigin.x, aimed.y - losCheckOrigin.y, aimed.z - losCheckOrigin.z };
+                    aimDir.Normalise();
+                    const CVector rayEnd{ aimDir.x * 8.0f + losCheckOrigin.x, aimDir.y * 8.0f + losCheckOrigin.y, aimDir.z * 8.0f + losCheckOrigin.z };
                     CWorld::pIgnoreEntity = firedBy;
                     const auto losClear = CWorld::GetIsLineOfSightClear(
-                        projOrigin,
-                        projOrigin + ((targetEntity ? targetEntity->GetPosition() : *targetPos) - projOrigin).Normalized() * 8.f,
+                        losCheckOrigin,
+                        rayEnd,
                         true,
                         false,
                         false,
@@ -1985,15 +2212,31 @@ bool CWeapon::FireProjectile(CEntity* firedBy, const CVector& origin, CEntity* t
                 }
             }
         }
+        losCheckTarget = projOrigin; // 0x7418C1: copia del origen YA modificado
     } else { // 0x74139B
-        if (const auto t = (origin - firedBy->GetPosition()).Dot(firedBy->GetForward()); t < 0.3f) { // 0x7413FC
-            projOrigin += (0.3f - t) * firedBy->GetForward();
+        const CVector forward = firedBy->GetMatrix().GetForward();
+        const CVector pos = firedBy->GetPosition();
+        // Como el original (0x7413C9..0x7413EA): t = (dy*fy + dz*fz) + dx*fx
+        const float t = ((projOrigin.y - pos.y) * forward.y + (projOrigin.z - pos.z) * forward.z) + (projOrigin.x - pos.x) * forward.x;
+        if (t < 0.3f) { // 0x7413F1: fcomp + test ah,5 + jp
+            const float s = 0.3f - t;
+            projOrigin.x = s * forward.x + projOrigin.x;
+            projOrigin.y = s * forward.y + projOrigin.y;
+            projOrigin.z = s * forward.z + projOrigin.z;
         }
         losCheckTarget = projOrigin;
-        if (projOrigin.z - firedBy->GetPosition().z > 0.f) {
-            losCheckTarget += firedBy->GetForward() * 0.6f;
+        if (projOrigin.z - firedBy->GetPosition().z > 0.f) { // 0x74146F: fcomp + test ah,41h + jne
+            losCheckTarget.x = forward.x * 0.6f + losCheckTarget.x;
+            losCheckTarget.y = losCheckTarget.y + forward.y * 0.6f;
+            losCheckTarget.z = losCheckTarget.z + forward.z * 0.6f;
         }
-        losCheckOrigin = projOrigin - (projOrigin - firedBy->GetPosition()).ProjectOnToNormal(firedBy->GetForward()); // 0x7415A2
+        // Como el original (0x7414D8..0x7415A6): v = origen - pos; d = (vz*fz + vy*fy) + vx*fx; origen_rayo = origen - f * d
+        const CVector fwd2 = firedBy->GetMatrix().GetForward();
+        const CVector pos2 = firedBy->GetPosition();
+        const float vx = projOrigin.x - pos2.x, vy = projOrigin.y - pos2.y, vz = projOrigin.z - pos2.z;
+        const float d = (vz * fwd2.z + vy * fwd2.y) + vx * fwd2.x;
+        losCheckOrigin = CVector{ projOrigin.x - fwd2.x * d, projOrigin.y - fwd2.y * d, projOrigin.z - fwd2.z * d };
+        // 0x741585: el objetivo es el parametro tal cual
     }
 
     // 0x7418F5
@@ -2006,11 +2249,13 @@ bool CWeapon::FireProjectile(CEntity* firedBy, const CVector& origin, CEntity* t
         false,
         true
     )) {
-        if (projType == WEAPON_ROCKET && targetEntity && targetPos) {
+        // Como el original (0x741A1B..0x741A91): con ROCKET (no HS) y objetivo OR posicion -> cohete dirigido (no AND)
+        if (projType == WEAPON_ROCKET && (targetEntity || targetPos)) {
             const auto projTargetPos = targetEntity
                 ? targetEntity->GetPosition()
                 : *targetPos;
-            const auto projDir = (projTargetPos - losCheckOrigin).Normalized();
+            CVector projDir{ projTargetPos.x - losCheckOrigin.x, projTargetPos.y - losCheckOrigin.y, projTargetPos.z - losCheckOrigin.z };
+            projDir.Normalise();
             CProjectileInfo::AddProjectile( // 0x741AF9
                 firedBy,
                 WEAPON_ROCKET,
@@ -2030,19 +2275,30 @@ bool CWeapon::FireProjectile(CEntity* firedBy, const CVector& origin, CEntity* t
             );
         }
 
-    } else if (notsa::contains({ WEAPON_GRENADE, WEAPON_REMOTE_SATCHEL_CHARGE }, GetType()) && firedBy->GetIsTypePed()) { // 0x74193B
-        const auto thorwableProjOrigin = firedBy->GetPosition() - firedBy->GetForward() - CVector{0.f, 0.f, 0.4f};
-        if (CWorld::TestSphereAgainstWorld(thorwableProjOrigin, 0.3f, nullptr, false, false, true, false, false, false)) { // 0x7419CE
-            CProjectileInfo::AddProjectile(
-                firedBy,
-                projType,
-                thorwableProjOrigin,
-                force,
-                nullptr,
-                targetEntity
-            );
-        } else {
-            CProjectileInfo::RemoveNotAdd(firedBy, projType, projOrigin);
+    } else if (projType == WEAPON_GRENADE || projType == WEAPON_REMOTE_SATCHEL_CHARGE) { // 0x741905
+        // Como el original: si el tirador NO es un ped no se hace nada (ni RemoveNotAdd) -> 0x74193B "jne 0x741A5B"
+        if (firedBy->GetIsTypePed()) {
+            const CVector firedByForward = firedBy->GetMatrix().GetForward();
+            const CVector firedByPos = firedBy->GetPosition();
+            const CVector thorwableProjOrigin{
+                firedByPos.x - firedByForward.x,
+                firedByPos.y - firedByForward.y,
+                (firedByPos.z - firedByForward.z) - 0.4f
+            };
+            // Como el original (0x7419CE..0x7419F8): si la esfera NO choca (resultado nulo) se anade el proyectil con fuerza 0 (eax == 0);
+            // si choca, RemoveNotAdd. La version anterior lo tenia invertido y pasaba `force`.
+            if (!CWorld::TestSphereAgainstWorld(thorwableProjOrigin, 0.3f, nullptr, false, false, true, false, false, false)) {
+                CProjectileInfo::AddProjectile(
+                    firedBy,
+                    projType,
+                    thorwableProjOrigin,
+                    0.0f,
+                    nullptr,
+                    targetEntity
+                );
+            } else {
+                CProjectileInfo::RemoveNotAdd(firedBy, projType, projOrigin);
+            }
         }
     } else {
         CProjectileInfo::RemoveNotAdd(firedBy, projType, projOrigin);
@@ -2059,18 +2315,18 @@ bool CWeapon::FireProjectile(CEntity* firedBy, const CVector& origin, CEntity* t
         }
     }
 
-    GetEventGlobalGroup()->Add(
-        CEventGunShot{
-            firedBy,
-            projOrigin,
-            targetEntity
-                ? targetEntity->GetPosition()
-                : targetPos
-                    ? *targetPos
-                    : projOrigin,
-            notsa::contains({WEAPON_PISTOL_SILENCED, WEAPON_TEARGAS}, GetType())
-        }
-    );
+    // Como el original (0x741B2B..0x741BC6): evento construido una vez y anadido con Add(&evento, false)
+    CEventGunShot gunShotEvent{
+        firedBy,
+        projOrigin,
+        targetEntity
+            ? targetEntity->GetPosition()
+            : targetPos
+                ? *targetPos
+                : projOrigin,
+        notsa::contains({WEAPON_PISTOL_SILENCED, WEAPON_TEARGAS}, GetType())
+    };
+    GetEventGlobalGroup()->Add(&gunShotEvent, false);
 
     return true;
 }
@@ -2100,9 +2356,13 @@ bool CWeapon::FireM16_1stPerson(CPed* owner) {
     CWorld::bIncludeDeadPeds = true;
     CWorld::bIncludeCarTyres = true;
     CWorld::bIncludeBikers   = true;
+    CWorld::pIgnoreEntity    = owner; // Como el original: 0x741CC7 mov [0xB7CD68],edi
 
+    // Como el original (0x741C9D..0x741D3B): destino = origen + (frente * 3.0) * alcance del arma (no solo frente * 3)
     const auto camOriginPos = cam->m_vecSource;
-    const auto camTargetPos = camOriginPos + cam->m_vecFront * 3.f;
+    const float range = wi->m_fWeaponRange;
+    const float frontX3 = cam->m_vecFront.x * 3.0f, frontY3 = cam->m_vecFront.y * 3.0f, frontZ3 = cam->m_vecFront.z * 3.0f;
+    const CVector camTargetPos{ frontX3 * range + camOriginPos.x, camOriginPos.y + frontY3 * range, camOriginPos.z + frontZ3 * range };
 
     CBirds::HandleGunShot(&camOriginPos, &camTargetPos);
     CShadows::GunShotSetsOilOnFire(camOriginPos, camTargetPos);
@@ -2119,8 +2379,11 @@ bool CWeapon::FireM16_1stPerson(CPed* owner) {
     CWorld::pIgnoreEntity    = nullptr;
 
     //> 0x741DC4 - Check if hit entity is within range
+    // Como el original (0x741DC6..0x741E16): distancia 2D = sqrt(dy*dy + dx*dx); se descarta la entidad si multiplicador*alcance < distancia
     if (shotHitEntity) {
-        if (TargetWeaponRangeMultiplier(shotHitEntity, owner) * wi->m_fWeaponRange >= (camOriginPos - shotCP.m_vecPoint).SquaredMagnitude2D()) {
+        const float dx = shotCP.m_vecPoint.x - camOriginPos.x, dy = shotCP.m_vecPoint.y - camOriginPos.y;
+        const float dist2D = std::sqrt(dy * dy + dx * dx);
+        if (TargetWeaponRangeMultiplier(shotHitEntity, owner) * range < dist2D) {
             shotHitEntity = nullptr;
         }
     }
@@ -2144,11 +2407,22 @@ bool CWeapon::FireM16_1stPerson(CPed* owner) {
         }
 
         // Move the camera around a little
-        cam->m_fHorizontalAngle += (float)CGeneral::GetRandomNumberInRange(-64, 64) * intensity;
-        cam->m_fVerticalAngle += (float)CGeneral::GetRandomNumberInRange(-64, 64) * intensity;
+        // Como el original (0x741EA9..0x741F03): (rand() & 0x7F) - 0x40 como entero, no GetRandomNumberInRange(-64, 64)
+        cam->m_fHorizontalAngle += (float)((int32)(CGeneral::GetRandomNumber() & 0x7F) - 0x40) * intensity;
+        cam->m_fVerticalAngle += (float)((int32)(CGeneral::GetRandomNumber() & 0x7F) - 0x40) * intensity;
 
         // Do pad shaking
-        const auto shakeFreq = (uint8)lerp(130.f, 210.f, std::clamp((20.f - (wi->m_fAnimLoopEnd - wi->m_fAnimLoopStart) * 900.f) / 80.f, 0.f, 1.f));
+        // Como el original (0x741F05..0x741F8A): (fin - inicio) * 900 se trunca a ENTERO (_ftol2); t = (20 - n) * 0.0125 con x87 a 24 bits
+        // (cada operacion se redondea a float), limitado a [0,1]; frecuencia = (uint8)_ftol2(t * 80 + 130).
+        const int32 loopLength = (int32)(int64)((wi->m_fAnimLoopEnd - wi->m_fAnimLoopStart) * 900.0f);
+        float t = (float)((double)(float)(20 - loopLength) * 0.0125);
+        if (t < 0.0f) {
+            t = 0.0f;
+        } else if (1.0f < t) {
+            t = 1.0f;
+        }
+        const float scaled = (float)((double)t * 80.0);
+        const uint8 shakeFreq = (uint8)(int64)(float)((double)scaled + 130.0);
         CPad::GetPad(owner->GetPadNumber())->StartShake(
             (int16)(CTimer::GetTimeStep() * 20'000.f / (float)shakeFreq),
             shakeFreq,
@@ -2182,9 +2456,43 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
     if (m_IsFirstPersonWeaponModeSelected) {
         const auto r = 0.15f;
 
-        const auto h = firedBy->GetHeading();
-        fxPos->x -= std::sin(h) * r;
-        fxPos->y += std::cos(h) * r;
+        // Como el original (0x7423CD..0x74240F): el rumbo sale de atan2(-fwd.x, fwd.y) (fpatan) o del heading del placeable, se
+        // multiplica por 57.2957764 (0x859878) y luego por 0.017453216 (0x872C60) y el seno/coseno son de x87 a precision completa.
+        float angle;
+        const float degreesScale = std::bit_cast<float>(0x42652EE0u), radiansScale = std::bit_cast<float>(0x3C8EFA0Cu);
+        if (firedBy->m_matrix) {
+            const float forwardX = firedBy->m_matrix->GetForward().x, forwardY = firedBy->m_matrix->GetForward().y;
+            __asm {
+                fld forwardX
+                fchs
+                fld forwardY
+                fpatan
+                fmul degreesScale
+                fmul radiansScale
+                fstp angle
+            }
+        } else {
+            const float heading = firedBy->m_placement.m_fHeading;
+            __asm {
+                fld heading
+                fmul degreesScale
+                fmul radiansScale
+                fstp angle
+            }
+        }
+        float sinPart, cosPart;
+        __asm {
+            fld angle
+            fsin
+            fmul r
+            fstp sinPart
+            fld angle
+            fcos
+            fmul r
+            fstp cosPart
+        }
+        fxPos->x = fxPos->x - sinPart;
+        fxPos->y = cosPart + fxPos->y;
     }
 
     switch (m_State) {
@@ -2195,11 +2503,14 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
         return false;
     }
 
-    if (!m_AmmoInClip) {
-        if (!m_TotalAmmo) {
+    // Como el original (0x742429..0x742459): comparaciones CON signo, el tamano del cargador sale de GetWeaponInfo(tipo, STD) (nivel 1,
+    // no el nivel del tirador) y se extiende con signo (movsx)
+    if ((int32)m_AmmoInClip <= 0) {
+        if ((int32)m_TotalAmmo <= 0) {
             return false;
         }
-        m_AmmoInClip = std::min<uint32>(m_TotalAmmo, wi->m_nAmmoClip);
+        const uint32 stdAmmoClip = (uint32)(int32)(int16)CWeaponInfo::GetWeaponInfo(m_Type, eWeaponSkill::STD)->m_nAmmoClip;
+        m_AmmoInClip = std::min<uint32>(m_TotalAmmo, stdAmmoClip);
     }
 
     const auto [hasFired, delayNextShot] = [&]() -> std::pair<bool, bool> {
@@ -2209,13 +2520,23 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
         case WEAPON_MOLOTOV:
         case WEAPON_REMOTE_SATCHEL_CHARGE: { // 0x74268B
             if (targetPosn) {
+                // Como el original (0x7426AD..0x7426F6): (|objetivo - tirador| - 10) * 0.1 (0x858B1C, no una division), limitado a [0.2, 1.0]
+                const CVector shooterPos = firedBy->GetPosition();
+                const CVector toTarget{ targetPosn->x - shooterPos.x, targetPosn->y - shooterPos.y, targetPosn->z - shooterPos.z };
+                const float distance = toTarget.Magnitude();
+                float force = (distance - 10.0f) * 0.1f;
+                if (force < 0.2f) {
+                    force = 0.2f;
+                } else if (1.0f < force) {
+                    force = 1.0f;
+                }
                 return {
                     FireProjectile( // 0x742705
                         firedBy,
                         *shotOrigin,
                         targetEnt,
                         targetPosn,
-                        std::clamp(((firedBy->GetPosition() - *targetPosn).Magnitude() - 10.f) / 10.f, 0.2f, 1.f)
+                        force
                     ),
                     true
                 };
@@ -2263,8 +2584,10 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
                 if (!firedByPed->bInVehicle) {
                     return { fired, false };
                 }
-                if (const auto t = firedByPed->GetTaskManager().GetActiveTask()) {
-                    return { fired, t->GetTaskType() == TASK_SIMPLE_GANG_DRIVEBY };
+                // Como el original (0x742571..0x74259C): se consulta GetActiveTask DOS veces; si el tipo es GANG_DRIVEBY (0x3FE)
+                // se anula el retardo (0x7425A2 mov [esp+13h],0), si no (o sin tarea) el retardo se mantiene
+                if (firedByPed->GetTaskManager().GetActiveTask()) {
+                    return { fired, firedByPed->GetTaskManager().GetActiveTask()->GetTaskType() != TASK_SIMPLE_GANG_DRIVEBY };
                 }
             }
             return { fired, true };
@@ -2290,7 +2613,7 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
                 return {
                     FireSniper(firedByPed, targetEnt, targetPosn),
                     true
-                }; 
+                };
             }
             return {
                 FireInstantHit(
@@ -2308,14 +2631,33 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
         }
         case WEAPON_RLAUNCHER:
         case WEAPON_RLAUNCHER_HS: { // 0x7425B3
-            if (firedByPed) {
-                const auto CanFire = [&](CVector origin, CVector end) {
-                    return (origin - end).SquaredMagnitude() <= sq(8.f) && !firedBy->GetIsTypePed();
-                };
-                if (   targetEnt  && !CanFire(firedBy->GetPosition(), targetEnt->GetPosition())
-                    || targetPosn && !CanFire(firedBy->GetPosition(), *targetPosn)
-                ) {
-                    return { false, true };
+            // Como el original (0x7425AC..0x742667): un ped con objetivo solo dispara si |objetivo - tirador| > 8 (0x859000) o es el
+            // jugador; si no, no dispara ni ejecuta el procesado posterior (salta a 0x7429F2).
+            if (firedBy->GetIsTypePed()) {
+                const CVector* targetPoint = nullptr;
+                CVector targetEntPos;
+                if (targetEnt) {
+                    targetEntPos = targetEnt->GetPosition();
+                    targetPoint = &targetEntPos;
+                } else if (targetPosn) {
+                    targetPoint = targetPosn;
+                }
+                if (targetPoint) {
+                    const CVector shooterPos = firedBy->GetPosition();
+                    const CVector toTarget{ targetPoint->x - shooterPos.x, targetPoint->y - shooterPos.y, targetPoint->z - shooterPos.z };
+                    const float distance = toTarget.Magnitude();
+                    if (!(distance > 8.0f) && !firedBy->AsPed()->IsPlayer()) {
+                        return { false, true };
+                    }
+                    return {
+                        FireProjectile(
+                            firedBy,
+                            *shotOrigin,
+                            targetEnt,
+                            targetPosn
+                        ),
+                        true
+                    };
                 }
             }
             return {
@@ -2338,7 +2680,7 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
                     targetEnt,
                     targetPosn
                 ),
-                true
+                false // Como el original: 0x742768 mov byte ptr [esp+13h],0 (sin retraso para el siguiente disparo)
             };
         case WEAPON_DETONATOR: {
             assert(firedByPed);
@@ -2352,7 +2694,8 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
                 true
             };
         default:
-            NOTSA_UNREACHABLE();
+            // Como el original (0x742794): "mov bl,byte ptr [esp+60h]" -> dispara si el byte bajo del puntero targetPosn no es 0
+            return { (reinterpret_cast<uintptr_t>(targetPosn) & 0xFF) != 0, true };
         }
     }();
 
@@ -2373,7 +2716,7 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
         // 0x74282C
         if (m_Type == WEAPON_REMOTE_SATCHEL_CHARGE) {
             firedByPed->GiveWeapon(WEAPON_DETONATOR, true, true);
-            if (firedByPed->GetWeapon(WEAPON_REMOTE_SATCHEL_CHARGE).m_TotalAmmo <= 1) {
+            if ((int32)firedByPed->GetWeapon(WEAPON_REMOTE_SATCHEL_CHARGE).m_TotalAmmo <= 1) { // 0x74283D: cmp ,1 + jg (con signo)
                 firedByPed->GetWeapon(WEAPON_DETONATOR).m_State = eWeaponState::WEAPONSTATE_READY;
                 firedByPed->SetCurrentWeapon(WEAPON_DETONATOR);
             }
@@ -2415,15 +2758,21 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
 
         // 0x7428A6
         if (!CCheat::IsActive(CHEAT_INFINITE_AMMO)) {
-            if (m_AmmoInClip) {
+            if ((int32)m_AmmoInClip > 0) {
                 m_AmmoInClip--;
             }
-            if (m_TotalAmmo > 0) {
-                if (isPlayerFiring
-                        ? m_Type == WEAPON_DETONATOR || CStats::GetPercentageProgress() < 100.f
-                        : m_TotalAmmo < 25'000
-                ) {
-                    m_TotalAmmo--;    
+            if ((int32)m_TotalAmmo > 0) {
+                // Como el original (0x7428BA..0x7428E6): para el jugador se consulta primero el progreso (GetPercentageProgress) y despues
+                // el detonador; para el resto basta con total < 25000
+                bool decrement;
+                if (isPlayerFiring) {
+                    const bool progressBelow100 = CStats::GetPercentageProgress() < 100.f;
+                    decrement = progressBelow100 || m_Type == WEAPON_DETONATOR;
+                } else {
+                    decrement = (int32)m_TotalAmmo < 25'000;
+                }
+                if (decrement) {
+                    m_TotalAmmo--;
                 }
             }
         }
@@ -2436,7 +2785,7 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
                 m_TimeForNextShotMs = s_DebugSettings.NoShotDelay
                     ? 0
                     : firedBy == FindPlayerPed() && FindPlayerInfo().m_bFastReload
-                        ? wi->GetWeaponReloadTime() / 4
+                        ? (uint32)((int32)wi->GetWeaponReloadTime() / 4)
                         : wi->GetWeaponReloadTime();
                 m_TimeForNextShotMs += CTimer::GetTimeInMS();
             } else if (TheCamera.GetActiveCam().m_nMode == MODE_CAMERA) {
@@ -2445,12 +2794,13 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
             return true;
         }
 
+        // Como el original (0x7429AB..0x7429E7): tiempo = ahora - _ftol2((fin - inicio) * -900.0) (0x86C2FC), 1100 para la camara
         m_TimeForNextShotMs = s_DebugSettings.NoShotDelay
             ? 0
             : delayNextShot
                 ? m_Type == WEAPON_CAMERA
                     ? 1100
-                    : (uint32)((wi->m_fAnimLoopEnd - wi->m_fAnimLoopStart) * 900.f)
+                    : (uint32)(0 - (uint32)(int64)((wi->m_fAnimLoopEnd - wi->m_fAnimLoopStart) * -900.0f))
                 : 0;
         m_TimeForNextShotMs += CTimer::GetTimeInMS();
     }
@@ -2513,11 +2863,14 @@ void FireOneInstantHitRound(const CVector& startPoint, const CVector& endPoint, 
 
             if (!notsa::contains({ PEDSTATE_DIE, PEDSTATE_DEAD }, hitPed->GetPedState())) {
                 const auto pedHitDir = hitPed->GetLocalDirection(startPoint - hitPed->GetPosition2D());
-                CAnimManager::AddAnimation(
+                auto* const hitAnim = CAnimManager::AddAnimation(
                     hitPed->GetRpClump(),
                     ANIM_GROUP_DEFAULT,
-                    std::to_array({ANIM_ID_SHOT_PARTIAL, ANIM_ID_SHOT_LEFTP, ANIM_ID_SHOT_PARTIAL_B, ANIM_ID_SHOT_RIGHTP})[pedHitDir]
+                    (AnimationId)(ANIM_ID_SHOT_PARTIAL + pedHitDir) // Como el original: 0x73B04D lea eax,[edi+1Ch]
                 );
+                // Como el original (0x73B055..0x73B05C): BlendAmount = 0 y BlendDelta = 8.0 (41000000h)
+                hitAnim->m_BlendAmount = 0.f;
+                hitAnim->m_BlendDelta = 8.0f;
                 CWeapon::GenerateDamageEvent(
                     hitPed,
                     nullptr,
@@ -2542,13 +2895,17 @@ void FireOneInstantHitRound(const CVector& startPoint, const CVector& endPoint, 
         }
         }
 
-        const auto angleOfIncidenceCos = (endPoint - startPoint).Normalized().Dot(hitCP.m_vecNormal); // 0x73B0CC
+        // Como el original (0x73B0C4..0x73B143): end - start normalizado (0x59C910) y producto escalar sumado en orden z, y, x;
+        // asin con el CRT de precision completa (0x821E70) y multiplicado por 57.29578 (0x859878 = 0x42652EE0).
+        CVector incidence = endPoint - startPoint;
+        incidence.Normalise();
+        const float angleOfIncidenceCos = (hitCP.m_vecNormal.z * incidence.z + hitCP.m_vecNormal.y * incidence.y) + hitCP.m_vecNormal.x * incidence.x;
         if (angleOfIncidenceCos < 0.f) {
             AudioEngine.ReportBulletHit(
                 hitEntity,
                 hitCP.m_nSurfaceTypeB,
                 hitCP.m_vecPoint,
-                RWRAD2DEG(std::asin(-angleOfIncidenceCos)) // Really should've used `acos + PI / 2` here to make this cleaner
+                (float)(std::asin((double)(-angleOfIncidenceCos)) * (double)std::bit_cast<float>(0x42652EE0u))
             );
         }
     } else { // no hit entity

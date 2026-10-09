@@ -16,7 +16,11 @@ void CGangWarsSaveStructure::Construct() {
                 break;
             }
         }
+    }
 
+    // Como el original (0x5D2671): el indice de zona de navegacion se pone a -1 siempre, y su bucle depende de pZoneToFightOver (0x96AB88), no de pZoneInfoToFightOver.
+    GangWarNavigationZoneIndex = (uint32)-1;
+    if (CGangWars::pZoneToFightOver) {
         for (auto i = 0; i < CTheZones::TotalNumberOfNavigationZones; i++) {
             if (CGangWars::pZoneToFightOver == &CTheZones::NavigationZoneArray[i]) {
                 GangWarNavigationZoneIndex = i;

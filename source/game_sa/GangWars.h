@@ -79,6 +79,8 @@ public:
     static inline auto& bIsPlayerOnAMission = StaticRef<bool>(0x96ABA0);
     static inline auto& CoorsOfPlayerAtStartOfWar = StaticRef<CVector>(0x96ABBC);
     static inline auto& PointOfAttack = StaticRef<CVector>(0x96ABC8);
+    // Cursor de PickStreamedInPedForThisGang (0x443A44/0x443A63/0x443A96); no tiene nombre en el EXE
+    static inline auto& PedPickCursor = StaticRef<int32>(0x96ABD4);
 
 public:
     static void InjectHooks();

@@ -78,8 +78,14 @@ public:
     static void Update();
     static void UpdateMoneyPerDay(tPickupReference pickupRef, uint16 money);
     static eWeaponType WeaponForModel(int32 modelId);
-    static void Load();
-    static void Save();
+    static bool Load();
+    static bool Save();
+
+    // Envoltorios con la ABI del EXE: las funciones que devuelven tPickupReference (struct con constructores) la devuelven en
+    // EAX en el EXE, pero MSVC las devolveria por puntero oculto en la DLL. Estos son los que se enganchan.
+    static int32 GetUniquePickupIndex_ExeAbi(int32 pickupIndex);
+    static int32 GetNewUniquePickupIndex_ExeAbi(int32 pickupIndex);
+    static int32 GenerateNewOne_WeaponType_ExeAbi(CVector coors, eWeaponType weaponType, ePickupType pickupType, uint32 ammo, bool isEmpty, char* message);
 
     // Helpers NOTSA
 

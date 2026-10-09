@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 36/36 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/36 entradas.
+ * Validación registrada: 36/36 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -87,7 +87,8 @@ void CFont::LoadFontValues() {
     char attrib[32];
 
     uint32 totalFonts = 0;
-    uint32 fontId = 0;
+    // Como el original: 0x7187CA guarda el id en BL (xor bl,bl) y lo usa como byte (movzx edx,bl; imul edx,edx,0D2h).
+    uint8 fontId = 0;
 
     for (auto line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
         if (*line == '\0' || *line == '#')
@@ -104,14 +105,18 @@ void CFont::LoadFontValues() {
         else if (!memcmp(attrib, "[FONT_ID]", 10)) {
             auto nextLine = CFileLoader::LoadLine(file);
 
-            VERIFY(sscanf_s(nextLine, "%d", &fontId) == 1);
+            // Como el original: 0x718877 mov bl,byte [esp+20h]: sscanf escribe un int y BL guarda su byte bajo.
+            int32 fontIdValue{};
+            VERIFY(sscanf_s(nextLine, "%d", &fontIdValue) == 1);
+            fontId = uint8(fontIdValue);
         }
         else if (!memcmp(attrib, "[REPLACEMENT_SPACE_CHAR]", 25)) {
             auto nextLine = CFileLoader::LoadLine(file);
-            uint8 spaceValue;
+            // Como el original: 0x718897..0x7188BD hace sscanf("%d") sobre un int y guarda su byte bajo (mov al,[esp+20h]).
+            int32 spaceValue{};
 
-            VERIFY(sscanf_s(nextLine, "%hhu", &spaceValue) == 1);
-            gFontData[fontId].m_spaceValue = spaceValue;
+            VERIFY(sscanf_s(nextLine, "%d", &spaceValue) == 1);
+            gFontData.data()[fontId].m_spaceValue = uint8(spaceValue);
         }
         else if (!memcmp(attrib, "[PROP]", 7)) {
             for (int32 i = 0; i < 26; i++) {
@@ -124,7 +129,7 @@ void CFont::LoadFontValues() {
                 ) == 8);
 
                 for (auto j = 0u; j < std::size(propValues); j++) {
-                    gFontData[fontId].m_propValues[i * 8 + j] = propValues[j];
+                    gFontData.data()[fontId].m_propValues.data()[i * 8 + j] = uint8(propValues[j]);
                 }
             }
         }
@@ -133,7 +138,7 @@ void CFont::LoadFontValues() {
             uint32 unpropValue;
 
             VERIFY(sscanf_s(nextLine, "%d", &unpropValue) == 1);
-            gFontData[fontId].m_unpropValue = unpropValue;
+            gFontData.data()[fontId].m_unpropValue = uint8(unpropValue);
         }
     }
 
@@ -191,7 +196,8 @@ void CFont::Initialise() {
 void CFont::Shutdown() {
     std::ranges::for_each(Sprite, [](CSprite2d& sprite) { sprite.Delete(); });
     CTxdStore::SafeRemoveTxdSlot("fonts"); // FIX_BUGS: Added check for is slot exists
-    std::ranges::for_each(ButtonSprite, [](CSprite2d& sprite) { sprite.Delete(); });
+    // Como el original: 0x7189D9..0x7189EE borra solo ButtonSprite[1..4] (esi=0xC71ADC, edi=4), no los 15.
+    for (size_t i = 1; i <= 4; i++) ButtonSprite[i].Delete();
     CTxdStore::SafeRemoveTxdSlot("ps2btns"); // FIX_BUGS: Added check for is slot exists
 }
 
@@ -374,7 +380,8 @@ char* CFont::ParseToken(char* text, CRGBA& color, bool isBlip, char* tag) {
 
     if (*next != '~') {
         // skip text to the next '~' character.
-        for(; *next && *next != '~'; next++);
+        // Como el original: 0x719176..0x71917C (mov al,[edi+1]; inc edi; cmp al,7Eh; jne) no comprueba el NUL.
+        for(; *next != '~'; next++);
     }
 
     if (*next)
@@ -421,8 +428,10 @@ void CFont::SetSlant(float value) {
 void CFont::SetColor(CRGBA color) {
     m_Color = color;
 
-    if (m_fFontAlpha < 255.0f) {
-        m_Color.a = (uint8)(float(color.a) * m_fFontAlpha / 255.0f);
+    // Como el original: 0x71943A fcomp 255.0 + 0x71945E test ah,5 + jp: entra si alpha < 255 O si es NaN.
+    // 0x719474 fmul [859A3C] = 0x3B808081 (1/255 como float): multiplica, no divide. 0x71947A _ftol2 (trunca a 64 bits).
+    if (m_fFontAlpha < 255.0f) { // fcomp + test ah,5 + jp: con NaN el EXE salta
+        m_Color.a = (uint8)(int64)(float(color.a) * m_fFontAlpha * std::bit_cast<float>(0x3B808081u));
     }
 }
 
@@ -472,8 +481,10 @@ void CFont::SetAlphaFade(float alpha) {
 void CFont::SetDropColor(CRGBA color) {
     m_FontDropColor = color;
 
-    if (m_fFontAlpha < 255.0f) {
-        m_FontDropColor.a = (uint8)(float(m_Color.a) * m_fFontAlpha);
+    // Como el original: 0x71951A fcomp 255.0 + 0x71953B test ah,5 + jp: entra si alpha < 255 o NaN.
+    // 0x71954F..0x71955B: m_Color.a * m_fFontAlpha * [859A3C] (=0x3B808081) y _ftol2; el fuente omitia el factor 1/255.
+    if (m_fFontAlpha < 255.0f) { // fcomp + test ah,5 + jp: con NaN el EXE salta
+        m_FontDropColor.a = (uint8)(int64)(float(m_Color.a) * m_fFontAlpha * std::bit_cast<float>(0x3B808081u));
     }
 }
 
@@ -519,8 +530,24 @@ void CFont::SetJustify(bool on) {
 
 // 0x719610
 void CFont::SetOrientation(eFontAlignment alignment) {
-    m_bFontCentreAlign = alignment == eFontAlignment::ALIGN_CENTER;
-    m_bFontRightAlign = alignment == eFontAlignment::ALIGN_RIGHT;
+    // Como el original: 0x719610..0x719649 es un switch sobre el byte (0 centro, 1 izquierda, 2 derecha);
+    // cualquier otro valor (p. ej. -1 = ALIGN_UNDEFINED) NO escribe nada (jne 0x719649).
+    switch (static_cast<uint8>(alignment)) {
+    case 0: // ALIGN_CENTER
+        m_bFontCentreAlign = true;
+        m_bFontRightAlign = false;
+        break;
+    case 1: // ALIGN_LEFT
+        m_bFontCentreAlign = false;
+        m_bFontRightAlign = false;
+        break;
+    case 2: // ALIGN_RIGHT
+        m_bFontCentreAlign = false;
+        m_bFontRightAlign = true;
+        break;
+    default:
+        break;
+    }
 }
 
 // Need to call this each frame
@@ -528,12 +555,14 @@ void CFont::SetOrientation(eFontAlignment alignment) {
 void CFont::InitPerFrame() {
     ZoneScoped;
 
+    // Como el original: 0x719802 [C71A9B]=0 (m_nFontOutlineSize), 0x719807 [C71A9C]=0, 0x71980C [C71A96]=0,
+    // 0x71981B word [C71ACC]=0FFFFh (el fuente ponia 0 y no tocaba C71A9B).
+    m_nFontOutlineSize = 0;
     m_nFontOutline = 0;
-    m_nFontOutlineOrShadow = 0;
     m_nFontShadow = 0;
     m_bNewLine = false;
     PS2Symbol = EXSYMBOL_NONE;
-    RenderState.m_wFontTexture = 0; // todo: -1
+    RenderState.m_wFontTexture = 0xFFFF;
     pEmptyChar = &FontRenderStateBuf[0]; // FontRenderStatePointer.pRenderState
 
     CSprite::InitSpriteBuffer();
@@ -603,10 +632,15 @@ void CFont::RenderFontBuffer() {
 
 // 0x71A0E0
 float CFont::GetStringWidth(const GxtChar* string, bool full, bool scriptText) {
-    size_t len = CMessages::GetStringLength(string);
-    GxtChar data[400] = { 0 };
-
-    strncpy_s((char*)data, sizeof(data), AsciiFromGxtChar(string), len);
+    // Como el original: 0x71A104 movzx edx,ax (longitud de 16 bits); 0x71A112..0x71A138 copia min(len,0x18F)
+    // bytes y pone el terminador (sin strncpy_s, que en depuracion rellena con 0xFE y falla si len >= 400).
+    const size_t len = static_cast<uint16>(CMessages::GetStringLength(string));
+    GxtChar data[400];
+    {
+        const size_t n = std::min<size_t>(len, 0x18F);
+        for (size_t i = 0; i < n; i++) data[i] = string[i];
+        data[n] = 0;
+    }
     CMessages::InsertPlayerControlKeysInString(data);
 
     float width = 0.0f;
@@ -625,8 +659,9 @@ float CFont::GetStringWidth(const GxtChar* string, bool full, bool scriptText) {
 
             auto* next = pStr + 1;
 
+            // Como el original: 0x71A190..0x71A196 busca '~' sin comprobar el NUL.
             if (*next != '~') {
-                for (; *next && *next != '~'; next++);
+                for (; *next != '~'; next++);
             }
 
             pStr = next + 1;
@@ -751,21 +786,28 @@ int16 CFont::ProcessStringToDisplay(float x, float y, const GxtChar* text) {
 
 // 0x71A620
 void CFont::GetTextRect(CRect* rect, float x, float y, const GxtChar* text) {
+    // Como el original: 0x71A62F call 0x71A220 (ProcessCurrentString) antes de leer la alineacion.
+    const int16 lines = GetNumberLines(x, y, text);
+
     if (m_bFontCentreAlign) {
-        rect->left = x - (m_fFontCentreSize / 2.0f + 4.0f);
-        rect->right = m_fFontCentreSize / 2.0f + x + 4.0f;
+        // Como el original: 0x71A643..0x71A675: ((centro*0.5)+4) se resta de x y se suma a x: ((c*0.5)+4)+x.
+        rect->left = x - (m_fFontCentreSize * 0.5f + 4.0f);
+        rect->right = (m_fFontCentreSize * 0.5f + 4.0f) + x;
     }
     else if (m_bFontRightAlign) {
         rect->left = m_fRightJustifyWrap - 4.0f;
-        rect->right = x;
+        // Como el original: 0x71A693 fld [esp+8] (x); 0x71A6AB fadd [858B90] (4.0); 0x71A6B1 fstp [ecx+8]: right = x + 4.
+        rect->right = x + 4.0f;
     }
     else {
         rect->left = x - 4.0f;
         rect->right = m_fWrapx + 4.0f;
     }
 
+    // Como el original: 0x71A6B4 movzx eax,al: solo cuenta el byte bajo del numero de lineas (sin signo);
+    // 0x71A6E4..0x71A6EC: ((alto * lineas) + y) + 4.0.
     rect->top = y - 4.0f;
-    rect->bottom = y + 4.0f + GetHeight() * (float)GetNumberLines(x, y, text);
+    rect->bottom = (GetHeight() * (float)(uint8)lines) + y + 4.0f;
 }
 
 // 0x71A700
@@ -776,7 +818,10 @@ void CFont::PrintString(float x, float y, const GxtChar* text) {
     if (m_bFontBackground) {
         CRect rt;
 
-        RenderState.m_color = m_Color;
+        // Como el original: 0x71A744/0x71A74F/0x71A755 copia solo r,g,b (bytes C71AB4..C71AB6); el alfa no se toca.
+        RenderState.m_color.r = m_Color.r;
+        RenderState.m_color.g = m_Color.g;
+        RenderState.m_color.b = m_Color.b;
         GetTextRect(&rt, x, y, text);
 
         if (m_bEnlargeBackgroundBox) {
@@ -821,10 +866,12 @@ float CFont::GetCharacterSize(uint8 letterId) {
     else if (propValueIdx > 155)
         propValueIdx = 0;
 
+    // Como el original: 0x7197AA/0x7197CF movsx ecx,byte [C71A9B]: el borde es CON signo; 0x7197A2 indexa los bytes sin
+    // comprobar el rango (FindSubFontCharacter puede devolver 208 = m_spaceValue), de ahi .data().
     if (m_bFontPropOn) {
-        return ((float)gFontData[m_FontTextureId].m_propValues[propValueIdx] + (float)m_nFontOutlineSize) * m_Scale.x;
+        return ((float)gFontData.data()[m_FontTextureId].m_propValues.data()[propValueIdx] + (float)(int8)m_nFontOutlineSize) * m_Scale.x;
     } else {
-        return ((float)gFontData[m_FontTextureId].m_unpropValue + (float)m_nFontOutlineSize) * m_Scale.x;
+        return ((float)gFontData.data()[m_FontTextureId].m_unpropValue + (float)(int8)m_nFontOutlineSize) * m_Scale.x;
     }
 }
 
@@ -832,7 +879,8 @@ float CFont::GetCharacterSize(uint8 letterId) {
 float CFont::GetHeight(bool a1) {
     assert(a1 == false && "NOT IMPLEMENTED");
     const float y = a1 ? 0.0f : m_Scale.y;
-    return y * 32.0f / 2.0f + y + y;
+    // Como el original (0x71A6C8..0x71A6E2 y 0x71A839..0x71A85D): (y*32)*0.5 + (y+y); el fuente sumaba ((y*32/2)+y)+y.
+    return (y * 32.0f) * 0.5f + (y + y);
 }
 
 // 0x719670, original name unknown
@@ -875,8 +923,11 @@ float GetLetterIdPropValue(uint8 letterId) {
     if (letterId == '?')
         id = 0;
 
-    if (CFont::RenderState.m_bPropOn)
-        return gFontData[CFont::RenderState.m_wFontTexture].m_propValues[id];
+    // Como el original: 0x71877A cmp byte [C71ACA],1 (solo el valor 1 es proporcional); 0x718781 movsx ecx,word [C71ACC]
+    // (indice con signo; InitPerFrame lo deja en -1) y acceso sin comprobar rango.
+    const auto* data = gFontData.data() + static_cast<int16>(CFont::RenderState.m_wFontTexture);
+    if (*reinterpret_cast<const uint8*>(&CFont::RenderState.m_bPropOn) == 1)
+        return data->m_propValues.data()[id];
     else
-        return gFontData[CFont::RenderState.m_wFontTexture].m_unpropValue;
+        return data->m_unpropValue;
 }

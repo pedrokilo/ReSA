@@ -1,0 +1,3 @@
+APROBADO: CAERadioTrackManager (29) y CFont (32) (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-radiofont1\20261009-161801-628784

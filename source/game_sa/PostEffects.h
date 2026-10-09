@@ -155,6 +155,7 @@ public:
     static inline auto& m_bRadiosityBypassTimeCycleIntensityLimit = StaticRef<bool>(0xC402CE);
     static inline auto& m_RadiosityPixelsX = StaticRef<int32>(0xC40314);  // SCREEN_WIDTH
     static inline auto& m_RadiosityPixelsY = StaticRef<int32>(0xC40318);  // SCREEN_HEIGHT
+    // Nota: Render() (0x704F8F..0x704FB3) pasa 0x8D510C como 2.o argumento de Radiosity y 0x8D5110 como 3.o; los nombres de estos dos globales vienen de la nomenclatura previa.
     static inline auto& m_RadiosityFilterPasses = StaticRef<uint32>(0x8D5110); // 1
     static inline auto& m_RadiosityRenderPasses = StaticRef<uint32>(0x8D510C); // 2
 

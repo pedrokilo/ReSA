@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 35/35 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 3/35 entradas.
+ * Validación registrada: 35/35 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -89,7 +89,7 @@ bool CGangWars::Load() {
 
 // 0x5D5530
 bool CGangWars::Save() {
-    CGangWarsSaveStructure data{};
+    CGangWarsSaveStructure data; // Como el original (0x5D5530): sin inicializar (el relleno y lo que Construct no escribe se guardan tal cual)
     data.Construct();
     CGenericGameStorage::SaveDataToWorkBuffer(sizeof(CGangWarsSaveStructure));
     CGenericGameStorage::SaveDataToWorkBuffer(data);
@@ -130,19 +130,22 @@ void CGangWars::AddKillToProvocation(ePedType pedType) {
 bool CGangWars::AttackWaveOvercome() {
     auto pedsNearPlayer = 0u, pedsLiving = 0u;
 
-    for (auto& ped : GetPedPool()->GetAllValid()) {
-        if (!ped.bPartOfAttackWave)
+    // Como el original (0x445B60..0x445C01): recorre el pool de peatones del ultimo al primero
+    auto* const pool = GetPedPool();
+    for (auto i = pool->GetSize(); i-- > 0;) {
+        auto* const ped = pool->GetAt(i);
+        if (!ped || !ped->bPartOfAttackWave)
             continue;
 
-        if (ped.IsStateDying()) {
-            ped.bDonePositionOutOfCollision = false;
-            ped.bPartOfAttackWave = false;
-            ped.SetCharCreatedBy(PED_GAME);
+        if (ped->IsStateDying()) {
+            // Como el original (0x445BED): solo se quita bPartOfAttackWave (and eax,0FFFFEFFFh); bDonePositionOutOfCollision no se toca
+            ped->bPartOfAttackWave = false;
+            ped->SetCharCreatedBy(PED_GAME);
             continue;
         }
 
         pedsLiving++;
-        if (DistanceBetweenPoints2D(ped.GetPosition2D(), FindPlayerCoors()) < 45.0f) {
+        if (DistanceBetweenPoints2D(ped->GetPosition2D(), FindPlayerCoors()) < 45.0f) {
             pedsNearPlayer++;
         }
     }
@@ -175,14 +178,18 @@ uint32 CGangWars::CalculateTimeTillNextAttack() {
 
 // 0x443F80
 bool CGangWars::CanPlayerStartAGangWarHere(CZoneInfo* zoneInfo) {
+    // Como el original (0x443F8A..0x443F9D): ZoneInfoArray + indice*0x11 sin comprobar el rango del indice
     if (bTrainingMission)
-        return zoneInfo == &CTheZones::ZoneInfoArray[ZoneInfoForTraining];
+        return zoneInfo == CTheZones::ZoneInfoArray.data() + ZoneInfoForTraining;
 
     if (NumSpecificZones == 0)
         return true;
 
-    for (const auto zone : GetSpecificZones()) {
-        if (zoneInfo == CTheZones::GetZoneInfo(CTheZones::GetNavigationZone(zone))) {
+    // Como el original (0x443FAC..0x443FD9): compara con ZoneInfoArray[zona.m_ZoneInfoIndex] (incluido el indice 0, que
+    // GetZoneInfo(CZone*) convertiria en nullptr) mientras i < NumSpecificZones (con signo)
+    for (int32 i = 0; i < NumSpecificZones; ++i) {
+        const auto& zone = CTheZones::NavigationZoneArray.data()[aSpecificZones.data()[i]];
+        if (zoneInfo == CTheZones::ZoneInfoArray.data() + static_cast<uint16>(zone.m_ZoneInfoIndex)) {
             return true;
         }
     }
@@ -200,11 +207,13 @@ void CGangWars::CheerVictory() {
         return;
     }
 
-    static const auto mapping = notsa::make_mapping<notsa::ci_string_view, eGlobalSpeechContext>({
+    // Como el original (0x444080..0x4442C1): _stricmp (0x8229B6) del INICIO de la zona (CZone::m_InfoLabel, +0; el puntero
+    // que se pasa es la propia zona), en este orden, y sin coincidencia no dice nada. La etiqueta de East LS es "ELS" (0x8598E4).
+    static constexpr std::pair<const char*, eGlobalSpeechContext> mapping[]{
         {"CHC",  CTX_GLOBAL_TAKE_TURF_LAS_COLINAS      },
         {"LFL",  CTX_GLOBAL_TAKE_TURF_LOS_FLORES       },
         {"EBE",  CTX_GLOBAL_TAKE_TURF_EAST_BEACH       },
-        {"ELF",  CTX_GLOBAL_TAKE_TURF_EAST_LS          },
+        {"ELS",  CTX_GLOBAL_TAKE_TURF_EAST_LS          },
         {"JEF",  CTX_GLOBAL_TAKE_TURF_JEFFERSON        },
         {"GLN",  CTX_GLOBAL_TAKE_TURF_GLEN_PARK        },
         {"IWD",  CTX_GLOBAL_TAKE_TURF_IDLEWOOD         },
@@ -213,8 +222,13 @@ void CGangWars::CheerVictory() {
         {"LIND", CTX_GLOBAL_TAKE_TURF_WILLOWFIELD      },
         {"PLS",  CTX_GLOBAL_TAKE_TURF_PLAYA_DEL_SEVILLE},
         {"SUN",  CTX_GLOBAL_TAKE_TURF_TEMPLE           },
-    });
-    nearestMember->Say(notsa::find_value(mapping, pZoneToFightOver->m_TextLabel));
+    };
+    for (const auto& [label, context] : mapping) {
+        if (_stricmp(pZoneToFightOver->m_InfoLabel, label) == 0) {
+            nearestMember->Say(context);
+            return;
+        }
+    }
 }
 
 // 0x443FF0
@@ -225,11 +239,14 @@ void CGangWars::ClearSpecificZonesToTriggerGangWar() {
 
 // 0x4444B0
 void CGangWars::ClearTheStreets() {
-    for (auto& ped : GetPedPool()->GetAllValid()) {
-        if (ped.IsPlayer() || !ped.IsCivilian())
+    // Como el original (0x4444B8..0x444522): pool de peatones del ultimo al primero
+    auto* const pool = GetPedPool();
+    for (auto i = pool->GetSize(); i-- > 0;) {
+        auto* const ped = pool->GetAt(i);
+        if (!ped || ped->IsPlayer() || !ped->IsCivilian())
             continue;
 
-        if (auto task = ped.GetTaskManager().Find<CTaskComplexWander>()) {
+        if (auto task = ped->GetTaskManager().Find<CTaskComplexWander>()) {
             task->m_nMoveState = PEDMOVE_SPRINT;
         }
     }
@@ -425,10 +442,57 @@ bool CGangWars::CreateAttackWave(int32 warFerocity, int32 waveID) {
 }
 
 // 0x4453D0
+namespace {
+// Como el original (0x44553B..0x4455E8): posicion de cada defensor. Se usa el x87 a precision completa para fsin/fcos
+// y el orden exacto de operaciones: sin(a) * (r1 * unidad * 3.0 + 2.0) + x (el 2.0 va DENTRO del factor, no al final).
+void GangDefenderOffset(int32 pedIndex, int32 pedTotal, int32 random1, int32 random2, float baseX, float baseY, float& outAngle, float& outX, float& outY) {
+    const float twoPiValue = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+    const float unitValue = std::bit_cast<float>(0x38000100u);  // 0x858C7C
+    const float radiusScale = 3.0f;                              // 0x858B3C
+    const float radiusBias = 2.0f;                               // 0x858CA0
+    float angleValue, xValue, yValue;
+    __asm {
+        fild random1
+        fmul unitValue
+        fild pedIndex
+        fmul twoPiValue
+        fidiv pedTotal
+        fst angleValue
+        fsin
+        fxch st(1)
+        fmul radiusScale
+        fadd radiusBias
+        fmulp st(1), st
+        fadd baseX
+        fstp xValue
+        fild random2
+        fmul unitValue
+        fld angleValue
+        fcos
+        fxch st(1)
+        fmul radiusScale
+        fadd radiusBias
+        fmulp st(1), st
+        fadd baseY
+        fstp yValue
+    }
+    outAngle = angleValue;
+    outX = xValue;
+    outY = yValue;
+}
+float GangPickupOffset(int32 random, float base) {
+    // Como el original (0x445A4D..0x445A70): ((r * unidad) * 4.0 + base) - 2.0
+    const float unitValue = std::bit_cast<float>(0x38000100u); // 0x858C7C
+    return ((static_cast<float>(random) * unitValue) * 4.0f + base) - 2.0f;
+}
+}
+
 bool CGangWars::CreateDefendingGroup(int32 unused) {
     if (!PedStreamedInForThisGang(static_cast<eGangID>(Gang1))) {
-        auto group = CPopulation::GetGangGroupId(static_cast<eGangID>(Gang1));
-        CStreaming::RequestModel(CPopulation::GetPedGroupModelId(group, 0), STREAMING_KEEP_IN_MEMORY);
+        // Como el original (0x4453FF..0x445416): primer modelo del grupo (movzx word [grupo*0x2A + 0xC0F358]), sin comprobar el numero de peatones
+        const int32 group = *reinterpret_cast<int32*>(0x8D2618 + int32(Gang1) * 12);
+        const uint16 model = *reinterpret_cast<uint16*>(0xC0F358 + group * 42);
+        CStreaming::RequestModel(model, STREAMING_KEEP_IN_MEMORY);
 
         return false;
     }
@@ -442,26 +506,30 @@ bool CGangWars::CreateDefendingGroup(int32 unused) {
 
     auto nodePos = ThePaths.GetPathNode(node)->GetPosition();
     auto playerPos = FindPlayerCoors();
-    if (DistanceBetweenPoints2D(playerPos, nodePos) <= 40.0f)
+    // Como el original (0x4454F8..0x445503): sale si dist <= 40.0f o NaN (test ah,41h + jne)
+    if (!(DistanceBetweenPoints2D(playerPos, nodePos) > 40.0f))
         return false;
 
-    auto pedCount = static_cast<uint32>(10.0f * (0.4f * Difficulty + 0.6f));
+    // Como el original (0x445509..0x445534): ((Difficulty * 0.4 + 0.6) * 10) truncado; el bucle usa el valor CON signo
+    const int32 pedCount = static_cast<int32>(10.0f * (0.4f * Difficulty + 0.6f));
 
     int32 outPedId;
-    for (auto i = 0u; i < pedCount; i++) {
+    for (int32 i = 0; i < pedCount; i++) {
         if (!PickStreamedInPedForThisGang(static_cast<eGangID>(Gang1), outPedId))
             continue;
 
-        auto angle = (float)i * TWO_PI / (float)pedCount;
+        const int32 random1 = CGeneral::GetRandomNumber();
+        const int32 random2 = CGeneral::GetRandomNumber();
+        float angle, pedX, pedY;
+        GangDefenderOffset(i, pedCount, random1, random2, nodePos.x, nodePos.y, angle, pedX, pedY);
 
-        auto pedPos = CVector{
-            nodePos.x + std::sin(angle) * CGeneral::GetRandomNumberInRange(0.0f, 3.0f) + 2.0f,
-            nodePos.y + std::cos(angle) * CGeneral::GetRandomNumberInRange(0.0f, 3.0f) + 2.0f,
-            nodePos.z + 2.0f
-        };
-        pedPos.z = CWorld::FindGroundZFor3DCoord(pedPos, nullptr, nullptr);
+        auto pedPos = CVector{ pedX, pedY, nodePos.z + 2.0f };
+        pedPos.z = CWorld::FindGroundZFor3DCoord(pedPos, nullptr, nullptr) + 1.0f; // Como el original (0x445604): fadd 1.0f
 
-        auto ped = new CCivilianPed(static_cast<ePedType>(Gang1 + 7), outPedId);
+        // Como el original (0x44560A..0x44563D) y como CreateAttackWave: CPed::operator new(0x79C) (0x5E4720) y el constructor del
+        // EXE 0x5DDB70 (CCivilianPed::CCivilianPed(tipo, modelo)); si no hay memoria el EXE sigue usando el puntero nulo
+        auto* const pedMemory = CPed::operator new(0x79C);
+        auto* const ped = pedMemory ? plugin::CallMethodAndReturn<CCivilianPed*, 0x5DDB70>(static_cast<CCivilianPed*>(pedMemory), Gang1 + 7, outPedId) : nullptr;
         ped->SetPosn(pedPos);
         ped->m_fAimingRotation = angle;
         ped->m_fCurrentRotation = angle;
@@ -473,7 +541,7 @@ bool CGangWars::CreateDefendingGroup(int32 unused) {
         CEventScriptCommand event(TASK_PRIMARY_PRIMARY, task, false);
         ped->GetEventGroup().Add(&event);
 
-        ped->SetWeaponAccuracy(static_cast<uint8_t>(90.0f - Difficulty * 60.0f));
+        ped->SetWeaponAccuracy(static_cast<uint8>(static_cast<int32>(90.0f - Difficulty * 60.0f)));
         ped->GetAcquaintance().SetAsAcquaintance(ACQUAINTANCE_HATE, CPedType::GetPedFlag(PED_TYPE_PLAYER1));
 
         eWeaponType weaponToGive = [&i]{
@@ -497,17 +565,20 @@ bool CGangWars::CreateDefendingGroup(int32 unused) {
         CRadar::ChangeBlipColour(blip, color);
     }
 
-    for (auto i = 0; i < 3; i++) { // todo: magic number
+    // Como el original (0x445866..0x445A2F): el indice del n-esimo nodo es 1, 2, 3 (inc edi antes de empujarlo) y la posicion
+    // del jugador se vuelve a pedir en cada vuelta
+    for (int32 i = 1; i <= 3; i++) { // todo: magic number
         auto carNode = ThePaths.FindNthNodeClosestToCoors(PointOfAttack, 0, 100.0f, false, false, i, false, true, nullptr);
         auto carNodePos = ThePaths.GetPathNode(carNode)->GetPosition();
 
-        if (DistanceBetweenPoints2D(carNodePos, playerPos) <= 25.0f)
+        if (!(DistanceBetweenPoints2D(carNodePos, FindPlayerCoors()) > 25.0f)) // sale si <= 25.0f o NaN
             continue;
 
         auto gangCarModel = CPopulation::PickGangCar(Gang1);
-        if (gangCarModel != MODEL_INVALID && CStreaming::GetInfo(gangCarModel).IsLoaded()) {
-            auto fwd = carNodePos - nodePos;
-            fwd.z = 0.0f;
+        if (static_cast<int32>(gangCarModel) >= 0 && CStreaming::GetInfo(gangCarModel).IsLoaded()) {
+            // Como el original (0x44596F..0x445A25): el vector es perpendicular a (carNode - node): (dy, -dx, 0) normalizado
+            // es el "forward" y (v.y, -v.x, 0) el "right"
+            auto fwd = CVector{ carNodePos.y - nodePos.y, nodePos.x - carNodePos.x, 0.0f };
             fwd.Normalise();
 
             auto car = CCarCtrl::CreateCarForScript(gangCarModel, carNodePos, false);
@@ -521,19 +592,18 @@ bool CGangWars::CreateDefendingGroup(int32 unused) {
         }
     }
 
-    auto pickupCoors = CVector{
-        CGeneral::GetRandomNumberInRange(0.0f, 4.0f) + nodePos.x - 2.0f,
-        CGeneral::GetRandomNumberInRange(0.0f, 4.0f) + nodePos.y - 2.0f,
-        nodePos.z + 1.0f
-    };
+    // Como el original (0x445A35..0x445AFD): rand directos (r * unidad * 4.0 + base - 2.0), z = suelo(x, y, nodo.z + 1.0) + 0.75
+    // y el modelo sale de rand() & 1 (1 = salud, 0 = chaleco)
+    const int32 pickupRandomX = CGeneral::GetRandomNumber();
+    const float pickupX = GangPickupOffset(pickupRandomX, nodePos.x);
+    const int32 pickupRandomY = CGeneral::GetRandomNumber();
+    const float pickupY = GangPickupOffset(pickupRandomY, nodePos.y);
+    auto pickupCoors = CVector{ pickupX, pickupY, nodePos.z + 1.0f };
     pickupCoors.z = CWorld::FindGroundZFor3DCoord(pickupCoors, nullptr, nullptr) + 0.75f;
 
-    ModelIndex pickupModel = ModelIndices::MI_PICKUP_BODYARMOUR;
-    if (CGeneral::GetRandomNumberInRange(0, 2) == 1) {
-        pickupModel = ModelIndices::MI_PICKUP_HEALTH;
-    }
+    const ModelIndex pickupModel = (CGeneral::GetRandomNumber() & 1) ? ModelIndices::MI_PICKUP_HEALTH : ModelIndices::MI_PICKUP_BODYARMOUR;
 
-    CPickups::GenerateNewOne(pickupCoors, pickupModel, PICKUP_ONCE_TIMEOUT_SLOW, 0, 0, false, nullptr);
+    CPickups::GenerateNewOne(pickupCoors, pickupModel.get_underlying(), PICKUP_ONCE_TIMEOUT_SLOW, 0, 0, false, nullptr);
     return true;
 }
 
@@ -550,7 +620,10 @@ void CGangWars::DoStuffWhenPlayerVictorious() {
     CStats::IncrementStat(STAT_RESPECT, 45.0f);
     CTheZones::FillZonesWithGangColours(false);
 
-    TimeTillNextAttack = std::min(TimeTillNextAttack - 240'000.0f, 30'000.0f);
+    // Como el original (0x446488..0x4464B2): (T - 240000) y si NO es mayor que 30000 (fcom + test ah,41h + jne, tambien con NaN)
+    // se guarda 30000.0f (0x46EA6000); es decir, un MAXIMO, no un minimo
+    const float remaining = TimeTillNextAttack - 240'000.0f;
+    TimeTillNextAttack = remaining > 30'000.0f ? remaining : 30'000.0f;
 }
 
 // 0x443AE0
@@ -569,7 +642,7 @@ bool CGangWars::DontCreateCivilians() {
 void CGangWars::EndGangWar(bool end) {
     State = NOT_IN_WAR;
 
-    if (State2 == WAR_NOTIFIED) {
+    if (State2 != NO_ATTACK) { // Como el original (0x4464C6): test eax,eax / je; cualquier valor distinto de 0, no solo WAR_NOTIFIED
         State2 = NO_ATTACK;
         TimeTillNextAttack = static_cast<float>(CalculateTimeTillNextAttack());
 
@@ -590,24 +663,26 @@ bool CGangWars::GangWarFightingGoingOn() {
 
 // 0x443AA0
 bool CGangWars::GangWarGoingOn() {
-    return State != NOT_IN_WAR || State2 == WAR_NOTIFIED;
+    return State != NOT_IN_WAR || State2 != NO_ATTACK; // Como el original (0x443AA9): State2 distinto de 0, no solo WAR_NOTIFIED
 }
 
 // 0x445FD0
 void CGangWars::MakeEnemyGainInfluenceInZone(int32 gangId, int32 density) {
-    if (!pZoneInfoToFightOver)
-        return;
+    auto* const info = pZoneInfoToFightOver;
+    // Como el original (0x445FD5..0x446001): el control previo se calcula antes de sumar y gana ESE valor para decidir el contador
+    const bool controlledBefore = info->GangStrength[GANG_GROVE] != 0 && info->GangStrength[GANG_GROVE] >= info->GangStrength[GANG_VAGOS] + info->GangStrength[GANG_BALLAS];
 
-    auto totalGangDensity = pZoneInfoToFightOver->GangStrength[GANG_BALLAS]
-        + pZoneInfoToFightOver->GangStrength[GANG_GROVE]
-        + pZoneInfoToFightOver->GangStrength[GANG_VAGOS];
+    auto totalGangDensity = info->GangStrength[GANG_BALLAS]
+        + info->GangStrength[GANG_GROVE]
+        + info->GangStrength[GANG_VAGOS];
 
     if (!totalGangDensity)
         return;
 
-    pZoneInfoToFightOver->GangStrength[gangId] += density;
+    info->GangStrength[gangId] += density;
 
-    if (!DoesPlayerControlThisZone(pZoneInfoToFightOver)) {
+    // Como el original (0x44600D..0x446048): solo cuenta como territorio perdido si ANTES lo controlaba y ahora no
+    if (controlledBefore && !DoesPlayerControlThisZone(info)) {
         CStats::IncrementStat(STAT_TERRITORIES_LOST, 1.0f);
     }
 }
@@ -615,9 +690,9 @@ void CGangWars::MakeEnemyGainInfluenceInZone(int32 gangId, int32 density) {
 // 0x445E80
 bool CGangWars::MakePlayerGainInfluenceInZone(float removeMult) {
     bool controlledBefore = DoesPlayerControlThisZone(pZoneInfoToFightOver);
-    uint8 totalEnemyDensity = 0u;
+    uint32 totalEnemyDensity = 0u; // Como el original (ebp): se acumula en 32 bits, no en un uint8 que daria la vuelta
 
-    // for all gangs except grove
+    // for all gangs except grove (esi = 0..9, salta el 1)
     static constexpr eGangID gangs[] = {
         GANG_BALLAS, GANG_VAGOS, GANG_RIFA, GANG_DANANGBOYS, GANG_MAFIA, GANG_TRIAD, GANG_AZTECAS,
         GANG_UNUSED1, GANG_UNUSED2
@@ -626,7 +701,8 @@ bool CGangWars::MakePlayerGainInfluenceInZone(float removeMult) {
         auto& density = pZoneInfoToFightOver->GangStrength[gang];
         auto densityInitial = density;
 
-        density = static_cast<uint8>((1.0f - removeMult) * (float)density);
+        // Como el original (0x445EB9..0x445ED0): (1.0f - removeMult) * densidad truncado con _ftol2; se guarda el byte bajo
+        density = static_cast<uint8>(static_cast<int32>((1.0f - removeMult) * static_cast<float>(density)));
         if (density < 4u) {
             density = 0u;
         }
@@ -653,73 +729,76 @@ bool CGangWars::PedStreamedInForThisGang(eGangID gangId) {
 
 // 0x443A20
 bool CGangWars::PickStreamedInPedForThisGang(eGangID gangId, int32& outPedId) {
-    auto groupId = CPopulation::GetGangGroupId(gangId);
-    auto numPeds = CPopulation::GetNumPedsInGroup(groupId);
-    if (groupId <= 0)
+    // Como el original (0x443A20..0x443A9F): sin comprobar el grupo (solo el numero de peatones con signo, movsx word),
+    // el cursor es la variable del EXE 0x96ABD4 (no CGarages::aCarsInSafeHouse, que esta en 0x96ABD8), el modelo es movzx word
+    // y el cursor se guarda tambien al fallar.
+    const auto groupId = *reinterpret_cast<int32*>(0x8D2618 + int32(gangId) * 12);
+    auto numPeds = static_cast<int32>(*reinterpret_cast<int16*>(0xC0ECC0 + groupId * 2));
+    if (numPeds <= 0)
         return false;
 
-    auto& x = *reinterpret_cast<int32*>(&CGarages::aCarsInSafeHouse[0][0].m_vPosn.x); // ?
+    int32 cursor = PedPickCursor;
     for (auto i = 0; i < numPeds; i++) {
-        x = (x + 1) % numPeds;
-        outPedId = CPopulation::GetPedGroupModelId(groupId, x);
+        cursor = (cursor + 1) % numPeds;
+        outPedId = *reinterpret_cast<uint16*>(0xC0F358 + (groupId * 21 + cursor) * 2);
 
-        if (CStreaming::IsModelLoaded(outPedId))
+        if (*reinterpret_cast<uint8*>(0x8E4CD0 + outPedId * 20) == 1) { // CStreaming::ms_aInfoForModel[model].m_LoadState == LOADED
+            PedPickCursor = cursor;
             return true;
+        }
+        numPeds = static_cast<int32>(*reinterpret_cast<int16*>(0xC0ECC0 + *reinterpret_cast<int32*>(0x8D2618 + int32(gangId) * 12) * 2));
     }
 
+    PedPickCursor = cursor;
     return false;
 }
 
 // 0x443B00
 bool CGangWars::PickZoneToAttack() {
-    CCarCtrl::InitSequence(CTheZones::TotalNumberOfNavigationZones);
-    CZone* enemyGangZone = nullptr;
+    const auto totalZones = static_cast<int32>(static_cast<uint16>(CTheZones::TotalNumberOfNavigationZones)); // movzx word
+    CCarCtrl::InitSequence(totalZones);
 
-    // choose a territory that is controlled by enemy gangs
-    for (auto i = 0; i < CTheZones::TotalNumberOfNavigationZones; i++) {
-        auto zone = CTheZones::GetNavigationZone(CCarCtrl::FindSequenceElement(i));
-        auto zoneInfo = CTheZones::GetZoneInfo(zone);
-
-        if (!zoneInfo)
+    // Como el original (0x443B30..0x443D38): los dos bucles estan ANIDADOS. Por cada zona enemiga (en orden de secuencia) se recorre
+    // TODA la lista de zonas EN ORDEN DE ARRAY buscando una zona del jugador cercana; si no hay ninguna se sigue con la siguiente
+    // zona enemiga (antes se tomaba solo la primera y el segundo bucle recorria tambien en orden de secuencia).
+    for (int32 i = 0; i < totalZones; i++) {
+        auto enemyGangZone = &CTheZones::NavigationZoneArray.data()[CCarCtrl::FindSequenceElement(i)];
+        const auto enemyInfoIndex = static_cast<uint16>(enemyGangZone->m_ZoneInfoIndex);
+        if (!enemyInfoIndex)
             continue;
 
-        if (zoneInfo->GangStrength[GANG_BALLAS] + zoneInfo->GangStrength[GANG_VAGOS] >= 20) {
-            enemyGangZone = zone;
-            break;
-        }
-    }
-
-    if (!enemyGangZone) [[unlikely]]
-        return false;
-
-    // find a close territory that is controlled by the gsf
-    for (auto i = 0; i < CTheZones::TotalNumberOfNavigationZones; i++) {
-        auto zone = CTheZones::GetNavigationZone(CCarCtrl::FindSequenceElement(i));
-        auto zoneInfo = CTheZones::GetZoneInfo(zone);
-
-        if (!zoneInfo)
+        auto enemyGangZoneInfo = &CTheZones::ZoneInfoArray.data()[enemyInfoIndex];
+        if (enemyGangZoneInfo->GangStrength[GANG_VAGOS] + enemyGangZoneInfo->GangStrength[GANG_BALLAS] < 20)
             continue;
 
-        if ((float)zone->m_fX1 <= 2500.0f && (float)zone->m_fX2 >= 2500.0f && (float)zone->m_fY1 <= -1666.0f && (float)zone->m_fY2 >= -1666.0f) // todo:
-            continue;
+        // find a close territory that is controlled by the gsf
+        for (int32 j = 0; j < totalZones; j++) {
+            auto zone = &CTheZones::NavigationZoneArray.data()[j];
+            const auto zoneInfoIndex = static_cast<uint16>(zone->m_ZoneInfoIndex);
+            if (!zoneInfoIndex)
+                continue;
 
-        if (zoneInfo->GangStrength[GANG_GROVE] <= 15)
-            continue;
+            if ((float)zone->m_fX1 <= 2500.0f && (float)zone->m_fX2 >= 2500.0f && (float)zone->m_fY1 <= -1666.0f && (float)zone->m_fY2 >= -1666.0f) // todo:
+                continue;
 
-        if (CTheZones::Calc2DDistanceBetween2Zones(enemyGangZone, zone) < 10.0f) {
-            pZoneToFightOver = zone;
-            pZoneInfoToFightOver = zoneInfo;
-            PointOfAttack = CVector{
-                (float)(zone->m_fX1 + zone->m_fX2) / 2.0f,
-                (float)(zone->m_fY1 + zone->m_fY2) / 2.0f,
-                10.0f
-            };
+            auto zoneInfo = &CTheZones::ZoneInfoArray.data()[zoneInfoIndex];
+            if (zoneInfo->GangStrength[GANG_GROVE] <= 15)
+                continue;
 
-            auto enemyGangZoneInfo = CTheZones::GetZoneInfo(enemyGangZone);
-            Gang1 = (enemyGangZoneInfo->GangStrength[GANG_BALLAS] > enemyGangZoneInfo->GangStrength[GANG_VAGOS]) ? GANG_BALLAS : GANG_VAGOS;
+            if (CTheZones::Calc2DDistanceBetween2Zones(enemyGangZone, zone) < 10.0f) {
+                pZoneToFightOver = zone;
+                pZoneInfoToFightOver = zoneInfo;
+                // Como el original: Ballas solo si Vagos < Ballas (cmp + sbb), si no Vagos
+                Gang1 = (enemyGangZoneInfo->GangStrength[GANG_VAGOS] < enemyGangZoneInfo->GangStrength[GANG_BALLAS]) ? GANG_BALLAS : GANG_VAGOS;
+                PointOfAttack = CVector{
+                    (float)(zone->m_fX1 + zone->m_fX2) / 2.0f,
+                    (float)(zone->m_fY1 + zone->m_fY2) / 2.0f,
+                    10.0f
+                };
 
-            if (DistanceBetweenPoints2D(FindPlayerCoors(), PointOfAttack) > 60.0f)
-                return true;
+                if (DistanceBetweenPoints2D(FindPlayerCoors(), PointOfAttack) > 60.0f)
+                    return true;
+            }
         }
     }
 
@@ -728,10 +807,13 @@ bool CGangWars::PickZoneToAttack() {
 
 // 0x445E20
 void CGangWars::ReleaseCarsInAttackWave() {
-    for (auto& vehicle : GetVehiclePool()->GetAllValid()) {
-        if (vehicle.vehicleFlags.bPartOfAttackWave) {
-            vehicle.vehicleFlags.bPartOfAttackWave = false;
-            vehicle.SetVehicleCreatedBy(eVehicleCreatedBy::RANDOM_VEHICLE);
+    // Como el original (0x445E21..0x445E6D): pool de vehiculos del ultimo al primero
+    auto* const pool = GetVehiclePool();
+    for (auto i = pool->GetSize(); i-- > 0;) {
+        auto* const vehicle = pool->GetAt(i);
+        if (vehicle && vehicle->vehicleFlags.bPartOfAttackWave) {
+            vehicle->vehicleFlags.bPartOfAttackWave = false;
+            vehicle->SetVehicleCreatedBy(eVehicleCreatedBy::RANDOM_VEHICLE);
         }
     }
 }
@@ -741,25 +823,32 @@ void CGangWars::ReleaseCarsInAttackWave() {
 uint32 CGangWars::ReleasePedsInAttackWave(bool isEndOfWar, bool restoreGangPedsAcquaintance) {
     auto numReleasedPeds = 0u;
 
-    for (auto&& [i, ped] : GetPedPool()->GetAllValidWithIndex()) {
-        if (ped.bPartOfAttackWave) {
-            ped.bPartOfAttackWave = false;
-            ped.SetCharCreatedBy(PED_GAME);
+    // Como el original (0x445C45..0x445E0B): pool de peatones del ultimo al primero y los blips se limpian con la REFERENCIA
+    // del peaton ((indice << 8) + estado), no con el indice del pool
+    auto* const pool = GetPedPool();
+    for (auto i = pool->GetSize(); i-- > 0;) {
+        auto* const ped = pool->GetAt(i);
+        if (!ped)
+            continue;
+
+        if (ped->bPartOfAttackWave) {
+            ped->bPartOfAttackWave = false;
+            ped->SetCharCreatedBy(PED_GAME);
             numReleasedPeds++;
-            CRadar::ClearBlipForEntity(BLIP_CHAR, i);
-            ped.bClearRadarBlipOnDeath = false;
+            CRadar::ClearBlipForEntity(BLIP_CHAR, CPools::GetPedRef(ped));
+            ped->bClearRadarBlipOnDeath = false;
 
             if (restoreGangPedsAcquaintance) {
-                auto taskWander = CTaskComplexWander::GetWanderTaskByPedType(&ped);
+                auto taskWander = CTaskComplexWander::GetWanderTaskByPedType(ped);
                 CEventScriptCommand event(TASK_PRIMARY_PRIMARY, taskWander, false);
-                ped.GetEventGroup().Add(&event);
-                ped.m_acquaintance = CPedType::GetPedTypeAcquaintances(ped.m_nPedType);
+                ped->GetEventGroup().Add(&event);
+                ped->m_acquaintance = CPedType::GetPedTypeAcquaintances(ped->m_nPedType);
             }
         }
 
-        if (isEndOfWar && ped.bClearRadarBlipOnDeath) {
-            CRadar::ClearBlipForEntity(BLIP_CHAR, i);
-            ped.bClearRadarBlipOnDeath = false;
+        if (isEndOfWar && ped->bClearRadarBlipOnDeath) {
+            CRadar::ClearBlipForEntity(BLIP_CHAR, CPools::GetPedRef(ped));
+            ped->bClearRadarBlipOnDeath = false;
         }
     }
 
@@ -780,7 +869,7 @@ void CGangWars::SetGangWarsActive(bool active) {
 
 // 0x444010
 void CGangWars::SetSpecificZoneToTriggerGangWar(int32 zoneId) {
-    aSpecificZones[NumSpecificZones] = zoneId;
+    aSpecificZones.data()[NumSpecificZones] = zoneId; // Como el original: sin comprobar el rango del indice
     NumSpecificZones++;
     CTheZones::FillZonesWithGangColours(false);
 }
@@ -828,38 +917,56 @@ void CGangWars::StartOffensiveGangWar() {
         return;
     }
 
-    // NOTSA
-    Gang1 = (eGangID)(std::ranges::max_element(zoneInfo->GangStrength) - zoneInfo->GangStrength);
-    auto gang1Density = zoneInfo->GangStrength[Gang1];
-    zoneInfo->GangStrength[Gang1] = 0; // to find the second biggest
-
-    Gang2 = std::ranges::max_element(zoneInfo->GangStrength) - zoneInfo->GangStrength;
-    auto gang2Density = zoneInfo->GangStrength[Gang2];
-    zoneInfo->GangStrength[Gang1] = gang1Density; // to restore
+    // Como el original (0x4460B0..0x446260): los dos mayores se buscan en los indices 0 y 2..9 (se salta Grove, indice 1) con
+    // los mismos registros que el EXE: Gang1 solo se escribe cuando aparece un nuevo maximo y Gang2 recibe el valor ANTERIOR del
+    // registro de Gang1 (que, si el indice 0 no tiene fuerza, es el Gang1 que ya hubiera en memoria). La suma tambien salta Grove.
+    int32 gang1Reg = static_cast<int32>(Gang1); // eax
+    int32 gang1Density = 0;                      // esi
+    int32 gang2Density = 0;                      // ebp
+    int32 densitySum = zoneInfo->GangStrength[0]; // ebx
+    if (densitySum > 0) {
+        Gang2 = Gang1;
+        Gang1 = static_cast<eGangID>(0);
+        gang1Reg = 0;
+        gang1Density = zoneInfo->GangStrength[0];
+    }
+    for (int32 gang = 2; gang < 10; ++gang) {
+        const int32 density = zoneInfo->GangStrength[gang];
+        densitySum += density;
+        if (density > gang1Density) {
+            Gang2 = gang1Reg;
+            gang1Reg = gang;
+            gang2Density = gang1Density;
+            Gang1 = static_cast<eGangID>(gang1Reg);
+            gang1Density = density;
+        } else if (density > gang2Density) {
+            gang2Density = density;
+            Gang2 = gang;
+        }
+    }
 
     Provocation = 0.0f;
-    auto densitySum = std::accumulate(std::begin(zoneInfo->GangStrength), std::end(zoneInfo->GangStrength), 0);
-    if (densitySum && (Gang1 == GANG_BALLAS || Gang1 == GANG_VAGOS)) {
+    if (densitySum > 0 && (gang1Reg == GANG_BALLAS || gang1Reg == GANG_VAGOS)) {
         if (State2 != NO_ATTACK)
             return;
 
-        auto provText = TheText.Get("GW_PROV");
-        CMessages::AddMessageQ(provText, 4500, 1, true);
-        CMessages::AddToPreviousBriefArray(provText);
+        // Como el original (0x44628C..0x4462D1): TheText.Get("GW_PROV") se pide dos veces (una por mensaje)
+        CMessages::AddMessageQ(TheText.Get("GW_PROV"), 4500, 1, true);
+        CMessages::AddToPreviousBriefArray(TheText.Get("GW_PROV"));
         TimeStarted = CTimer::GetTimeInMS();
         State = PRE_FIRST_WAVE;
         ClearTheStreets();
         WarFerocity = std::min(densitySum / 15, 2);
 
         if (CStats::GetStatValue(STAT_CITY_UNLOCKED) < 0.0f) {
-            if (TerritoryUnderControlPercentage > 0.4f) {
-                if (TerritoryUnderControlPercentage > 0.5f)
-                    WarFerocity = 5;
-                else
-                    WarFerocity = 0;
+            // Como el original (0x44632F..0x446367): <= 0.4f -> 0; >= 0.5f -> 5; entre medias no cambia
+            if (TerritoryUnderControlPercentage <= 0.4f) {
+                WarFerocity = 0;
+            } else if (TerritoryUnderControlPercentage >= 0.5f) {
+                WarFerocity = 5;
             }
         }
-        if (bIsPlayerOnAMission)
+        if (bTrainingMission) // Como el original (0x446367): byte 0x96AB91, no bIsPlayerOnAMission
             WarFerocity = 0;
 
         if (gang1Density > gang2Density / 3)
@@ -895,7 +1002,13 @@ void CGangWars::SwitchGangWarsActive() {
 void CGangWars::TellGangMembersTo(bool isGangWarEnding) {
     // return plugin::Call<0x444530, bool>(isGangWarEnding);
 
-    for (auto& ped : GetPedPool()->GetAllValid()) {
+    // Como el original (0x444548..0x4447F7): pool de peatones del ultimo al primero
+    auto* const pool = GetPedPool();
+    for (auto i = pool->GetSize(); i-- > 0;) {
+        auto* const pedPtr = pool->GetAt(i);
+        if (!pedPtr)
+            continue;
+        auto& ped = *pedPtr;
         if (ped.IsPlayer())
             continue;
 
@@ -911,6 +1024,8 @@ void CGangWars::TellGangMembersTo(bool isGangWarEnding) {
             continue;
         }
 
+        // Como el original (0x4445E1..0x4446EC): un ocupante de vehiculo recibe SOLO la tarea del vehiculo; el paseo de pandilla
+        // (0x4446F1) es la rama alternativa, no un paso posterior (antes se daban las dos)
         if (ped.IsInVehicle()) {
             CTask* task;
             if (!ped.IsInVehicleAsPassenger()) {
@@ -920,9 +1035,10 @@ void CGangWars::TellGangMembersTo(bool isGangWarEnding) {
             }
             CEventScriptCommand event(TASK_PRIMARY_PRIMARY, task, false);
             ped.GetEventGroup().Add(&event);
+            continue;
         }
 
-        auto task = new CTaskComplexWanderGang(PEDMOVE_WALK, CGeneral::GetRandomNumberInRange(0, 8), 5000, true, 0.5f);
+        auto task = new CTaskComplexWanderGang(PEDMOVE_WALK, CGeneral::GetRandomIntInRange(0, 8), 5000, true, 0.5f); // 0x407180
         CEventScriptCommand event(TASK_PRIMARY_PRIMARY, task, false);
         ped.GetEventGroup().Add(&event);
     }
@@ -1107,63 +1223,78 @@ void CGangWars::Update() {
     }
 }
 
-// todo (Izzotop): make more original
 // 0x443DE0
 void CGangWars::UpdateTerritoryUnderControlPercentage() {
-    auto ballasZones = 0, groveZones = 0, vagosZones = 0;
-    if (CTheZones::TotalNumberOfNavigationZones) {
-        for (auto& zone : CTheZones::NavigationZoneArray) {
-            auto zoneInfo = CTheZones::GetZoneInfo(&zone);
-            if (!zoneInfo)
-                continue;
+    // Como el original (0x443DE0..0x443F7C): solo las zonas de navegacion activas (el contador, sin signo), cada zona con
+    // ZoneInfoIndex != 0 cuenta para UNA sola pandilla: Grove si (Ballas + Vagos) <= Grove (se ignoran las zonas con las tres a 0),
+    // y si no Vagos cuando Ballas <= Vagos, y Ballas en el resto de casos (el orden y los empates son los del EXE).
+    int32 ballasZones = 0, groveZones = 0, vagosZones = 0;
+    const auto totalZones = static_cast<int32>(static_cast<uint16>(CTheZones::TotalNumberOfNavigationZones));
+    for (int32 i = 0; i < totalZones; i++) {
+        const auto infoIndex = static_cast<uint16>(CTheZones::NavigationZoneArray.data()[i].m_ZoneInfoIndex);
+        if (!infoIndex)
+            continue;
 
-            auto ballasDensity = zoneInfo->GangStrength[GANG_BALLAS],
-                 groveDensity = zoneInfo->GangStrength[GANG_GROVE],
-                 vagosDensity = zoneInfo->GangStrength[GANG_VAGOS];
+        const auto& zoneInfo = CTheZones::ZoneInfoArray.data()[infoIndex];
+        const uint8 ballasDensity = zoneInfo.GangStrength[GANG_BALLAS],
+                    groveDensity  = zoneInfo.GangStrength[GANG_GROVE],
+                    vagosDensity  = zoneInfo.GangStrength[GANG_VAGOS];
+        const int32 enemyDensity = ballasDensity + vagosDensity;
+        if (enemyDensity == 0 && groveDensity == 0)
+            continue;
 
-            // there should be one liner solution for this, no?
-            if (groveDensity > ballasDensity + vagosDensity) {
-                groveZones++;
-            } else if (ballasDensity > vagosDensity) {
-                ballasZones++;
-            } else if (vagosDensity > ballasDensity) {
-                vagosZones++;
-            }
+        if (enemyDensity <= groveDensity) {
+            groveZones++;
+        } else if (ballasDensity <= vagosDensity) {
+            vagosZones++;
+        } else {
+            ballasZones++;
         }
     }
 
-    CStats::SetStatValue(STAT_TERRITORIES_HELD, static_cast<float>(groveZones));
-    CStats::SetNewRecordStat(STAT_HIGHEST_NUMBER_OF_TERRITORIES_HELD, static_cast<float>(groveZones));
-
-    auto allGangZones = groveZones + ballasZones + vagosZones;
-    if (allGangZones) {
-        GangRatings[GANG_GROVE] = 0;
-        GangRatings[GANG_BALLAS] = 1;
-        GangRatings[GANG_VAGOS] = 2;
-
-        GangRatingStrength[0] = groveZones;
-        GangRatingStrength[1] = ballasZones;
-        GangRatingStrength[2] = vagosZones;
-
-        TerritoryUnderControlPercentage = static_cast<float>(groveZones) / static_cast<float>(allGangZones);
-
-        // NOTSA code
-        struct GangRanking {
-            eGangID gang;
-            int32 controlled;
-        } ranking[3] = {
-            { GANG_BALLAS, ballasZones },
-            { GANG_GROVE,  groveZones  },
-            { GANG_VAGOS,  vagosZones  }
-        };
-        std::sort(ranking, ranking + 3, [&](GangRanking a, GangRanking b) { return a.controlled > b.controlled; });
-
-        for (auto&& [i, e] : rngv::enumerate(ranking)) {
-            GangRatings[e.gang] = i;
-            GangRatingStrength[i] = e.controlled;
-        }
+    // Como el original (0x443E6E..0x443EB5): SetStatValue(TERRITORIES_HELD) y el "record" en linea (no SetNewRecordStat):
+    // si el record actual es MENOR que el nuevo se usa el nuevo; si no se vuelve a leer el record y se escribe igual.
+    const float held = static_cast<float>(groveZones);
+    CStats::SetStatValue(STAT_TERRITORIES_HELD, held);
+    float record;
+    if (CStats::GetStatValue(STAT_HIGHEST_NUMBER_OF_TERRITORIES_HELD) < held) {
+        record = held;
     } else {
+        record = CStats::GetStatValue(STAT_HIGHEST_NUMBER_OF_TERRITORIES_HELD);
+    }
+    CStats::SetStatValue(STAT_HIGHEST_NUMBER_OF_TERRITORIES_HELD, record);
+
+    const int32 allGangZones = ballasZones + vagosZones + groveZones; // lea eax,[ebx+ebp]; add eax,esi
+    if (!allGangZones) {
         TerritoryUnderControlPercentage = 0.0f;
+        return;
+    }
+
+    TerritoryUnderControlPercentage = held / static_cast<float>(allGangZones);
+
+    // Como el original (0x443EE4..0x443F7C): GangRatings[rango] = pandilla y GangRatingStrength[rango] = zonas, ordenado de mayor a
+    // menor con las permutaciones del EXE; empieza en (Grove, Ballas, Vagos) y los empates no se intercambian
+    // (a diferencia de GangRatings[pandilla] = rango del std::sort anterior).
+    int32 ids[3]       = { GANG_GROVE, GANG_BALLAS, GANG_VAGOS };
+    int32 strengths[3] = { groveZones, ballasZones, vagosZones };
+    for (;;) {
+        bool swapped = false;
+        if (strengths[0] < strengths[1]) {
+            std::swap(strengths[0], strengths[1]);
+            std::swap(ids[0], ids[1]);
+            swapped = true;
+        }
+        if (strengths[1] < strengths[2]) {
+            std::swap(strengths[1], strengths[2]);
+            std::swap(ids[1], ids[2]);
+            continue;
+        }
+        if (!swapped)
+            break;
+    }
+    for (int32 i = 0; i < 3; i++) {
+        GangRatings.data()[i]        = ids[i];
+        GangRatingStrength.data()[i] = strengths[i];
     }
 }
 

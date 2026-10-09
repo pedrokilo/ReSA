@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.446 |
 | Reconstruidas | 8.446 |
-| Validadas | 7.193 |
-| Reconstruidas sin validar | 1.253 |
-| De ellas, en esta cola (validables por pares) | 1.252 |
+| Validadas | 7.478 |
+| Reconstruidas sin validar | 968 |
+| De ellas, en esta cola (validables por pares) | 967 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,65 +22,59 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 0 | 0 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 7 | 430 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 8 | 357 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 7 | 465 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **22** | **1252** | |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 1 | 1 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 5 | 367 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 3 | 196 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🔴 Nivel 4: caras](#nivel-4) | 7 | 403 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **16** | **967** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (0 clases, 0 funciones)
+## 🟢 Nivel 1: muy barato (1 clases, 1 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
+| 1 | CPickups | 37 | 1 |  | 30 |
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (7 clases, 430 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (5 clases, 367 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | FxSystem_c | 35 | 31 |  | 15 |
-| 2 | CFont | 36 | 32 |  | 25 |
-| 3 | CPathFind | 56 | 54 |  | 23 |
-| 4 | CCheat | 72 | 72 |  | 17 |
-| 5 | CVehicleModelInfo | 75 | 75 |  | 22 |
-| 6 | CAudioEngine | 82 | 82 |  | 10 |
-| 7 | CVisibilityPlugins | 84 | 84 |  | 14 |
+| 1 | CPathFind | 56 | 54 |  | 23 |
+| 2 | CCheat | 72 | 72 |  | 17 |
+| 3 | CVehicleModelInfo | 75 | 75 |  | 22 |
+| 4 | CAudioEngine | 82 | 82 |  | 10 |
+| 5 | CVisibilityPlugins | 84 | 84 |  | 14 |
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (8 clases, 357 funciones)
+## 🟠 Nivel 3: moderadas (3 clases, 196 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CAERadioTrackManager | 43 | 29 |  | 40 |
-| 2 | CGroupEventHandler | 32 | 30 |  | 29 |
-| 3 | CGangWars | 35 | 32 |  | 34 |
-| 4 | CPickups | 37 | 35 |  | 26 |
-| 5 | CPostEffects | 38 | 35 |  | 32 |
-| 6 | CRadar | 63 | 63 |  | 34 |
-| 7 | CPopulation | 66 | 64 |  | 34 |
-| 8 | CTheScripts | 69 | 69 |  | 30 |
+| 1 | CRadar | 63 | 63 |  | 34 |
+| 2 | CPopulation | 66 | 64 |  | 34 |
+| 3 | CTheScripts | 69 | 69 |  | 30 |
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (7 clases, 465 funciones)
+## 🔴 Nivel 4: caras (7 clases, 403 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CCam | 44 | 14 |  | 138 |
-| 2 | CHud | 38 | 30 |  | 52 |
-| 3 | CWeapon | 41 | 35 |  | 63 |
+| 1 | CCam | 44 | 2 |  | 144 |
+| 2 | CHud | 38 | 6 |  | 58 |
+| 3 | CWeapon | 41 | 9 |  | 71 |
 | 4 | CCamera | 110 | 91 |  | 37 |
 | 5 | CStreaming | 94 | 94 |  | 40 |
 | 6 | CAutomobile | 99 | 99 |  | 65 |

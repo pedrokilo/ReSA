@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 37/37 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 2/37 entradas.
+ * Validación registrada: 36/37 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -34,6 +34,15 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleJetPack.h"
 
 using namespace ModelIndices;
+
+// Como el original (0x4555D7..0x455636, 0x4563BB..0x45641A, 0x456460..0x4564C3): distancia pickup -> punto con x87 a 24 bits,
+// restas pickup - punto, suma (dz*dz + dy*dy) + dx*dx y fsqrt. No usa IsPointInSphere (compara cuadrados con <=).
+static float PickupDistanceTo(const CPickup& pickup, const CVector& point) {
+    const CVector p = pickup.GetPosn();
+    const float dx = p.x - point.x, dy = p.y - point.y, dz = p.z - point.z;
+    return std::sqrt((dz * dz + dy * dy) + dx * dx);
+}
+
 void CPickups::InjectHooks() {
     RH_ScopedClass(CPickups);
     RH_ScopedCategoryGlobal();
@@ -53,10 +62,10 @@ void CPickups::InjectHooks() {
     // Cannot be hooked at all for now due to ABI fuckery, the return value is 32 bit, but causes the function to assume the calling convention of of T* Function(T*, ...)
     //RH_ScopedInstall(GenerateNewOne, 0x456F20, { .reversed = false });
 
-    RH_ScopedInstall(GenerateNewOne_WeaponType, 0x457380);
+    RH_ScopedNamedInstall(GenerateNewOne_WeaponType_ExeAbi, "GenerateNewOne_WeaponType", 0x457380);
     RH_ScopedInstall(GetActualPickupIndex, 0x4552A0);
-    RH_ScopedInstall(GetNewUniquePickupIndex, 0x456A30);
-    RH_ScopedInstall(GetUniquePickupIndex, 0x455280);
+    RH_ScopedNamedInstall(GetNewUniquePickupIndex_ExeAbi, "GetNewUniquePickupIndex", 0x456A30);
+    RH_ScopedNamedInstall(GetUniquePickupIndex_ExeAbi, "GetUniquePickupIndex", 0x455280);
     RH_ScopedInstall(GivePlayerGoodiesWithPickUpMI, 0x4564F0);
     RH_ScopedInstall(IsPickUpPickedUp, 0x454B40);
     RH_ScopedInstall(ModelForWeapon, 0x454AC0);
@@ -99,6 +108,7 @@ void CPickups::Init() {
 
 // 0x456E60
 void CPickups::ReInit() {
+    NumMessages = 0; // Como el original: 0x456E65 pone a cero NumMessages antes de recorrer los pickups
     rng::for_each(GetAllActivePickups(), [](auto& pickup) { pickup.Remove(); });
     Init();
 }
@@ -171,12 +181,35 @@ void CPickups::CreateSomeMoney(CVector coors, int32 amount) {
 
     for (auto i = 0; i < wads; i++) {
         bool result;
-        coors.x += std::sinf(CGeneral::GetRandomNumberInRange(0.f, TWO_PI)) * 1.5f;
-        coors.y += std::cosf(CGeneral::GetRandomNumberInRange(0.f, TWO_PI)) * 1.5f;
+        // Como el original (0x4589B0..0x458A08): el angulo es (rand() & 0xFF) * 0x859BBC (2*pi/256) y el seno/coseno se
+        // calcula con fsin/fcos x87 a precision completa; luego * 1.5 + coordenada, cada paso redondeado a float.
+        const float angleStep = std::bit_cast<float>(0x3CC90FDBu), radius = 1.5f;
+        const int32 randomX = CGeneral::GetRandomNumber() & 0xFF;
+        float x = coors.x;
+        __asm {
+            fild randomX
+            fmul angleStep
+            fsin
+            fmul radius
+            fadd x
+            fstp x
+        }
+        coors.x = x;
+        const int32 randomY = CGeneral::GetRandomNumber() & 0xFF;
+        float y = coors.y;
+        __asm {
+            fild randomY
+            fmul angleStep
+            fcos
+            fmul radius
+            fadd y
+            fstp y
+        }
+        coors.y = y;
         coors.z = CWorld::FindGroundZFor3DCoord(coors, &result, nullptr) + 0.5f;
 
         if (result) {
-            GenerateNewOne(coors, MI_MONEY, PICKUP_MONEY, perWad + (CGeneral::GetRandomNumber() % 4));
+            GenerateNewOne(coors, (uint16)MI_MONEY, PICKUP_MONEY, perWad + (CGeneral::GetRandomNumber() & 3));
         }
     }
 }
@@ -190,13 +223,35 @@ void CPickups::DetonateMinesHitByGunShot(const CVector& shotOrigin, const CVecto
     }
 }
 
+// Como el original (0x455E8D..0x455EE5 y 0x4560E0..0x4561A5): distancia (dz*dz + dy*dy) + dx*dx con fsqrt, y el brillo
+// t = ((sin(a) + 1) * 0.5 * (radio - d)) * (1/radio) * escala truncado con _ftol2 (el EXE multiplica por la reciproca
+// y NO divide); fsin a precision completa, redondeado a float solo por el fadd.
+static uint8 PickupGlowByte(CEntity* entity, float distance, uint32 mask, float angleStep, float radius, float inverseRadius, float scale) {
+    const int32 ticks = (int32)((CTimer::GetTimeInMS() + (uint32)(uintptr_t)entity) & mask);
+    const float one = 1.0f, half = 0.5f;
+    float wave;
+    __asm {
+        fild ticks
+        fmul angleStep
+        fsin
+        fadd one
+        fmul half
+        fstp wave
+    }
+    const float value = ((wave * (radius - distance)) * inverseRadius) * scale;
+    return (uint8)(int64)value; // _ftol2 y se usa el byte bajo (mov bl,al)
+}
+
 // 0x455E20
 void CPickups::DoCollectableEffects(CEntity* entity) {
-    const auto& entityPos = entity->GetPosition();
+    const CVector entityPos = entity->GetPosition(); // Como el original: copia local que se pasa a las llamadas
+    const CVector& camera = TheCamera.GetPosition();
+    const float dx = camera.x - entityPos.x, dy = camera.y - entityPos.y, dz = camera.z - entityPos.z;
+    const float d = std::sqrt((dz * dz + dy * dy) + dx * dx);
 
-    if (const auto d = DistanceBetweenPoints(TheCamera.GetPosition(), entityPos); d < 14.0f) {
+    if (d < 14.0f) {
         // shade of gray
-        const auto t = (uint8)((std::sinf((float)(((uint16)std::bit_cast<uintptr_t>(entity) + (uint16)CTimer::GetTimeInMS()) % 2048) * 0.0030664064f) + 1.0f) / 2.0f * ((14.0f - d) / 14.0f) * 255.0f);
+        const uint8 t = PickupGlowByte(entity, d, 0x7FFu, std::bit_cast<float>(0x3B48F5C3u), 14.0f, std::bit_cast<float>(0x3D924925u), 255.0f);
 
         CShadows::StoreStaticShadow(
             (uint32)entity,
@@ -242,16 +297,19 @@ void CPickups::DoCollectableEffects(CEntity* entity) {
         );
     }
 
-    entity->GetMatrix().SetRotateZOnly(static_cast<float>(CTimer::GetTimeInMS() % 4096) * 0.0015283204f);
+    entity->GetMatrix().SetRotateZOnly(static_cast<float>(CTimer::GetTimeInMS() % 4096) * std::bit_cast<float>(0x3AC851ECu));
 }
 
 // 0x4560E0
 void CPickups::DoMineEffects(CEntity* entity) {
-    const auto& entityPos = entity->GetPosition();
+    const CVector entityPos = entity->GetPosition(); // Como el original: copia local que se pasa a las llamadas
+    const CVector& camera = TheCamera.GetPosition();
+    const float dx = camera.x - entityPos.x, dy = camera.y - entityPos.y, dz = camera.z - entityPos.z;
+    const float d = std::sqrt((dz * dz + dy * dy) + dx * dx);
 
-    if (const auto d = DistanceBetweenPoints(TheCamera.GetPosition(), entityPos); d < 20.0f) {
+    if (d < 20.0f) {
         // shade of red
-        const auto t = (uint8)((std::sinf((float)(((uint16)std::bit_cast<uintptr_t>(entity) + (uint16)CTimer::GetTimeInMS()) % 512) * 0.012265625f) + 1.0f) / 2.0f * ((20.0f - d) / 20.0f) * 64.0f);
+        const uint8 t = PickupGlowByte(entity, d, 0x1FFu, std::bit_cast<float>(0x3C48F5C3u), 20.0f, std::bit_cast<float>(0x3D4CCCCDu), 64.0f);
 
         CShadows::StoreStaticShadow(
             (uint32)entity,
@@ -281,7 +339,7 @@ void CPickups::DoMineEffects(CEntity* entity) {
             255,
             entityPos,
             0.6f,
-            40.0f,
+            60.0f, // 0x4561FD: push 42700000h (60.0f), no 40.0f
             CORONATYPE_TORUS,
             FLARETYPE_NONE,
             eCoronaReflType::CORREFL_NONE,
@@ -297,7 +355,7 @@ void CPickups::DoMineEffects(CEntity* entity) {
         );
     }
 
-    entity->GetMatrix().SetRotateZOnly(static_cast<float>(CTimer::GetTimeInMS() % 1024) * 0.0061132815f);
+    entity->GetMatrix().SetRotateZOnly(static_cast<float>(CTimer::GetTimeInMS() % 1024) * std::bit_cast<float>(0x3BC851ECu));
 }
 
 // 0x454E80
@@ -474,16 +532,31 @@ int32 CPickups::GetActualPickupIndex(tPickupReference pickupRef) {
     if (pickupRef.num == -1)
         return -1;
 
-    if (pickupRef.refIndex != aPickUps.at(pickupRef.index).m_nReferenceIndex)
+    // Como el original (0x4552AB..0x4552BF): el indice es la mitad baja SIN signo (and eax,0FFFFh) y no se comprueba el rango.
+    const uint32 index = (uint32)pickupRef.num & 0xFFFFu;
+    if (pickupRef.refIndex != aPickUps.data()[index].m_nReferenceIndex)
         return -1;
 
-    return pickupRef.index;
+    return (int32)index;
+}
+
+int32 CPickups::GenerateNewOne_WeaponType_ExeAbi(CVector coors, eWeaponType weaponType, ePickupType pickupType, uint32 ammo, bool isEmpty, char* message) {
+    return GenerateNewOne_WeaponType(coors, weaponType, pickupType, ammo, isEmpty, message).num;
+}
+
+int32 CPickups::GetNewUniquePickupIndex_ExeAbi(int32 pickupIndex) {
+    return GetNewUniquePickupIndex(pickupIndex).num;
+}
+
+int32 CPickups::GetUniquePickupIndex_ExeAbi(int32 pickupIndex) {
+    return GetUniquePickupIndex(pickupIndex).num;
 }
 
 // 0x456A30
 tPickupReference CPickups::GetNewUniquePickupIndex(int32 pickupIndex) {
-    auto& refIdx = aPickUps[pickupIndex].m_nReferenceIndex;
-    refIdx = (refIdx == -1) ? 1 : refIdx + 1;
+    // Como el original: 0x456A44 "cmp cx,0FFFEh; jae" sobre el valor sin signo -> 0xFFFE y 0xFFFF vuelven a 1.
+    auto& refIdx = aPickUps.data()[pickupIndex].m_nReferenceIndex;
+    refIdx = ((uint16)refIdx >= 0xFFFEu) ? (int16)1 : (int16)(refIdx + 1);
 
     return GetUniquePickupIndex(pickupIndex);
 }
@@ -491,13 +564,17 @@ tPickupReference CPickups::GetNewUniquePickupIndex(int32 pickupIndex) {
 // returns pickup handle
 // 0x455280
 tPickupReference CPickups::GetUniquePickupIndex(int32 pickupIndex) {
-    return tPickupReference(pickupIndex, aPickUps.at(pickupIndex).m_nReferenceIndex);
+    // Como el original (0x455286): (referencia << 16) | indice, sin comprobar el rango
+    return tPickupReference((int16)pickupIndex, aPickUps.data()[pickupIndex].m_nReferenceIndex);
 }
 
 // returns TRUE if player got goodies
 // 0x4564F0
 bool CPickups::GivePlayerGoodiesWithPickUpMI(uint16 modelId, int32 playerId) {
-    auto* ped = FindPlayerPed(playerId);
+    // Como el original (0x456510..0x456535): playerId > 0 -> Players[playerId]; si no, el jugador en foco (byte 0xB7CD74).
+    // Los accesos a la maxima salud/armadura usan el playerId SIN corregir (imul eax,eax,190h en 0x456514/0x456596/0x4565F3).
+    auto* ped = CWorld::Players[playerId > 0 ? playerId : (int32)CWorld::PlayerInFocus].m_pPed;
+    const auto& rawInfo = (&CWorld::Players[0])[playerId];
 
     if (modelId == MI_PICKUP_ADRENALINE) {
         ped->GetPlayerData()->m_bAdrenaline = true;
@@ -508,7 +585,7 @@ bool CPickups::GivePlayerGoodiesWithPickUpMI(uint16 modelId, int32 playerId) {
     }
 
     if (modelId == MI_PICKUP_BODYARMOUR) {
-        ped->m_fArmour = (float)FindPlayerInfo(playerId).m_nMaxArmour;
+        ped->m_fArmour = (float)rawInfo.m_nMaxArmour;
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_PICKUP_BODY_ARMOUR);
         return true;
     }
@@ -519,8 +596,9 @@ bool CPickups::GivePlayerGoodiesWithPickUpMI(uint16 modelId, int32 playerId) {
     }
 
     if (modelId == MI_PICKUP_HEALTH) {
-        auto maxHealth = FindPlayerInfo(playerId).m_nMaxHealth;
-        CStats::UpdateStatsAddToHealth((uint32)((float)maxHealth - ped->m_fHealth));
+        auto maxHealth = rawInfo.m_nMaxHealth;
+        // Como el original: 0x45660A _ftol2 (truncado a 64 bits) y se pasa el dword bajo.
+        CStats::UpdateStatsAddToHealth((uint32)(int64)((float)maxHealth - ped->m_fHealth));
         ped->m_fHealth = (float)maxHealth;
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_PICKUP_HEALTH);
         return true;
@@ -532,7 +610,12 @@ bool CPickups::GivePlayerGoodiesWithPickUpMI(uint16 modelId, int32 playerId) {
     }
 
     if (modelId == MI_PICKUP_BRIBE) {
-        auto wantedLevel = std::max(+eWantedLevel::WANTED_CLEAN, +FindPlayerPed()->GetWantedLevel() - +eWantedLevel::WANTED_LEVEL_1);
+        // Como el original (0x456661..0x456698): si wanted-1 < 0 -> 0; si no, vuelve a consultar el nivel (segunda llamada).
+        int32 wantedLevel = (int32)FindPlayerPed()->GetWantedLevel() - 1;
+        if (wantedLevel < 0)
+            wantedLevel = 0;
+        else
+            wantedLevel = (int32)FindPlayerPed()->GetWantedLevel() - 1;
         FindPlayerPed(0)->SetWantedLevel((eWantedLevel)wantedLevel);
         CStats::IncrementStat(STAT_NUMBER_OF_POLICE_BRIBES, 1.0f);
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_PICKUP_INFO);
@@ -612,15 +695,18 @@ void CPickups::PickedUpHorseShoe() {
     CStats::IncrementStat(STAT_HORSESHOES_COLLECTED);
     CStats::IncrementStat(STAT_LUCK, 1000.f / CStats::GetStatValue(STAT_TOTAL_HORSESHOES)); // TODO: Is this some inlined stuff? (The division part)
 
-    FindPlayerInfo().m_nMoney += 100; // originally rewarded to the player 1.
+    CWorld::Players[0].m_nMoney += 100; // Como el original: 0xB7CE50 (Players[0]) absoluto
 
     const auto collected = CStats::GetStatValue(STAT_HORSESHOES_COLLECTED);
     const auto total = CStats::GetStatValue(STAT_TOTAL_HORSESHOES);
     if (collected == total) {
         CGarages::TriggerMessage("HO_ALL");
-        FindPlayerInfo().m_nMoney += 100'000; // originally rewarded to the player 1.
+        CWorld::Players[0].m_nMoney += 100'000; // Como el original: 0xB7CE50 (Players[0]) absoluto
     } else {
-        CGarages::TriggerMessage("HO_ONE", static_cast<int16>(collected), 5000u, static_cast<int16>(total));
+        // Como el original (0x45535C..0x455379): las estadisticas se leen DE NUEVO (total y luego recogidas) para los argumentos
+        const auto totalArg = static_cast<int16>(static_cast<int32>(CStats::GetStatValue(STAT_TOTAL_HORSESHOES)));
+        const auto collectedArg = static_cast<int16>(static_cast<int32>(CStats::GetStatValue(STAT_HORSESHOES_COLLECTED)));
+        CGarages::TriggerMessage("HO_ONE", collectedArg, 5000u, totalArg);
     }
 }
 
@@ -629,45 +715,61 @@ void CPickups::PickedUpOyster() {
     AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_PICKUP_COLLECTABLE1);
 
     CStats::IncrementStat(STAT_OYSTERS_COLLECTED);
-    FindPlayerInfo().m_nMoney += 100; // originally rewarded to the player 1.
+    CWorld::Players[0].m_nMoney += 100; // Como el original: 0xB7CE50 (Players[0]) absoluto
 
     const auto collected = CStats::GetStatValue(STAT_OYSTERS_COLLECTED);
     const auto total = CStats::GetStatValue(STAT_TOTAL_OYSTERS);
     if (collected == total) {
         CGarages::TriggerMessage("OY_ALL");
-        FindPlayerInfo().m_nMoney += 100'000; // originally rewarded to the player 1.
+        CWorld::Players[0].m_nMoney += 100'000; // Como el original: 0xB7CE50 (Players[0]) absoluto
     } else {
-        CGarages::TriggerMessage("OY_ONE", static_cast<int16>(collected), 5000u, static_cast<int16>(total));
+        // Como el original (0x45535C..0x455379): las estadisticas se leen DE NUEVO (total y luego recogidas) para los argumentos
+        const auto totalArg = static_cast<int16>(static_cast<int32>(CStats::GetStatValue(STAT_TOTAL_OYSTERS)));
+        const auto collectedArg = static_cast<int16>(static_cast<int32>(CStats::GetStatValue(STAT_OYSTERS_COLLECTED)));
+        CGarages::TriggerMessage("OY_ONE", collectedArg, 5000u, totalArg);
     }
 }
 
 // 0x456A70
 void CPickups::PictureTaken() {
-    std::optional<size_t> capturedPickup{};
-    auto lastFoundDist = 999'999.88f; // maybe FLT_MAX
+    int32 capturedPickup = -1;                                       // edi
+    float lastFoundDist = std::bit_cast<float>(0x497423FEu);          // 0x456A79 (999999.875f)
 
-    for (auto&& [i, pickup] : rngv::enumerate(aPickUps)) {
+    for (int32 i = 0; i < (int32)MAX_NUM_PICKUPS; ++i) {
+        const auto& pickup = aPickUps.data()[i];
         if (pickup.m_nPickupType != PICKUP_SNAPSHOT)
             continue;
 
-        const auto pupPos = pickup.GetPosn();
-        const auto dist = DistanceBetweenPoints(TheCamera.GetPosition(), pupPos);
+        const CVector pupPos = pickup.GetPosn();
+        // Como el original (0x456AED..0x456B17): restas pickup - camara, suma (dz*dz + dy*dy) + dx*dx y fsqrt.
+        const float dist = PickupDistanceTo(pickup, TheCamera.GetPosition());
 
-        if (90.0f / TheCamera.FindCamFOV() * 20.0f > dist && dist < lastFoundDist) {
-            CVector origin = pupPos;
-            if (TheCamera.IsSphereVisible(pupPos, 0.2f) || TheCamera.IsSphereVisibleInMirror(pupPos, 0.2f)) {
-                capturedPickup = i;
-                lastFoundDist = dist;
-            }
+        // 0x456B26: (90 / fov) * 20 > dist
+        if (!(90.0f / TheCamera.FindCamFOV() * 20.0f > dist))
+            continue;
+
+        // Como el original (0x456B90..0x456BBD): la visibilidad se evalua ANTES de comparar con la distancia mas cercana, con la
+        // matriz 0xB6FA74 y, si el espejo esta activo (byte 0xB6F998), con la matriz 0xB6FABC. No usa la sobrecarga de dos argumentos.
+        bool visible = TheCamera.IsSphereVisible(pupPos, 0.2f, reinterpret_cast<RwMatrix*>(0xB6FA74));
+        if (!visible && *reinterpret_cast<uint8*>(0xB6F998))
+            visible = TheCamera.IsSphereVisible(pupPos, 0.2f, reinterpret_cast<RwMatrix*>(0xB6FABC));
+        if (!visible)
+            continue;
+
+        // 0x456BBF: fcomp + test ah,5 + jp -> solo si dist < lastFoundDist
+        if (dist < lastFoundDist) {
+            capturedPickup = i;
+            lastFoundDist = dist;
         }
     }
 
-    if (!capturedPickup.has_value())
+    if (capturedPickup < 0)
         return;
 
-    aPickUps[*capturedPickup].Remove();
+    aPickUps.data()[capturedPickup].Remove();
 
-    FindPlayerInfo().m_nMoney += 100'000; // originally rewarded to the player 1.
+    // Como el original (0x456C48..0x456C68): +100 (add edi,64h), no 100000.
+    CWorld::Players[0].m_nMoney += 100;
 
     AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_PICKUP_COLLECTABLE1);
     CStats::IncrementStat(STAT_SNAPSHOTS_TAKEN, 1.0f);
@@ -676,9 +778,12 @@ void CPickups::PictureTaken() {
     const auto total = CStats::GetStatValue(STAT_TOTAL_SNAPSHOTS);
     if (taken == total) {
         CGarages::TriggerMessage("SN_ALL");
-        FindPlayerInfo().m_nMoney += 100'000;
+        FindPlayerInfo().m_nMoney += 100'000; // 0x456CBB: Players[PlayerInFocus]
     } else {
-        CGarages::TriggerMessage("SN_ONE", static_cast<int16>(taken), 5000u, static_cast<int16>(total));
+        // Como el original (0x456CE6..0x456D0F): las estadisticas se leen DE NUEVO (total y luego tomadas) para los argumentos
+        const auto totalArg = static_cast<int16>(static_cast<int32>(CStats::GetStatValue(STAT_TOTAL_SNAPSHOTS)));
+        const auto takenArg = static_cast<int16>(static_cast<int32>(CStats::GetStatValue(STAT_SNAPSHOTS_TAKEN)));
+        CGarages::TriggerMessage("SN_ONE", takenArg, 5000u, totalArg);
     }
 }
 
@@ -743,7 +848,8 @@ void CPickups::RemoveUnnecessaryPickups(const CVector& posn, float radius) {
         switch (pickup.m_nPickupType) {
         case PICKUP_ONCE_TIMEOUT:
         case PICKUP_MONEY: {
-            if (IsPointInSphere(pickup.GetPosn(), posn, radius)) {
+            // Como el original: 0x456420 "dist < radius" con la formula x87 del EXE (no IsPointInSphere).
+            if (PickupDistanceTo(pickup, posn) < radius) {
                 pickup.Remove();
             }
             break;
@@ -754,31 +860,43 @@ void CPickups::RemoveUnnecessaryPickups(const CVector& posn, float radius) {
 
 // 0x455000
 void CPickups::RenderPickUpText() {
-    GxtChar msgText[352]{};
-    for (const auto& message : std::span{ aMessages.data(), NumMessages }) {
-        if (message.price == 0u) {
-            if (!message.text)
-                continue;
-
-            if (message.flags & 2) {
-                CMessages::InsertNumberInString(message.text, 0, 0, 0, 0, 0, 0, msgText);
-            }
+    // Como el original: el texto se arma en los buffers globales gString (0xB71670) y gGxtString (0xC1B100) y,
+    // si el mensaje no lleva numeros (flags & 2 == 0), se imprime directamente message.text (0x4550B5..0x455058).
+    for (int32 i = 0; i < (int32)NumMessages; ++i) {
+        const auto& message = aMessages.data()[i];
+        const GxtChar* text;
+        if (message.price != 0u) {
+            std::sprintf(gString, "$%d", (int32)message.price); // 0x455041 (sprintf)
+            AsciiToGxtChar(gString, gGxtString);               // 0x455050
+            text = gGxtString;
         } else {
-            AsciiToGxtChar(std::format("${:d}", message.price).c_str(), msgText);
+            text = message.text;
+            if (!text)
+                continue;
+            if (message.flags & 2) {
+                CMessages::InsertNumberInString(text, 0, 0, 0, 0, 0, 0, gGxtString); // 0x4550D3
+                text = gGxtString;
+            }
         }
-
-        // TODO: scaled wrong in windowed mode, but it's fine in fullscreen.
-        auto scaleX = std::min(SCREEN_STRETCH_X(1.0f), message.width / 30.0f);
-        auto scaleY = std::min(SCREEN_STRETCH_X(1.0f), message.height / 30.0f);
 
         CFont::SetProportional(true);
         CFont::SetBackground(false, false);
+
+        // Como el original (0x455073..0x4550FE): SCREEN_STRETCH_X(1) es una division ENTERA (imul 66666667h, sar 8) convertida
+        // a float, y width/height se multiplican por 0x858F10 (= 0x3D088889, no una division entre 30). La seleccion es
+        // "S < v ? S : v" (fcomp + test ah,5 + jp): con NaN devuelve v, a diferencia de std::min.
+        const float stretch = (float)((int32)RsGlobal.maximumWidth / 640);
+        const float k = std::bit_cast<float>(0x3D088889u);
+        const float hv = message.height * k;
+        const float scaleY = (stretch < hv) ? stretch : hv;
+        const float wv = message.width * k;
+        const float scaleX = (stretch < wv) ? stretch : wv;
         CFont::SetScale(scaleX, scaleY);
         CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
-        CFont::SetCentreSize(SCREEN_WIDTH);
+        CFont::SetCentreSize((float)RsGlobal.maximumWidth);
         CFont::SetColor(message.color);
         CFont::SetFontStyle(eFontStyle::FONT_PRICEDOWN);
-        CFont::PrintString(message.pos.x, message.pos.y, msgText);
+        CFont::PrintString(message.pos.x, message.pos.y, text);
     }
     NumMessages = 0;
 }
@@ -787,8 +905,9 @@ void CPickups::RenderPickUpText() {
 // 0x456450
 bool CPickups::TestForPickupsInBubble(const CVector posn, float radius) {
     // NOTE: (Possible bug) - They dont check if the pickup is active (eg: type != NONE)
-    return rng::any_of(aPickUps, [sp = CSphere{ posn, radius }](const CPickup& p) {
-        return sp.IsPointWithin(p.GetPosn()); // They obviously didn't use `CSphere` here, but it's nicer.
+    // Como el original (0x4564C9): "dist < radius" con la formula x87 del EXE.
+    return rng::any_of(aPickUps, [&](const CPickup& p) {
+        return PickupDistanceTo(p, posn) < radius;
     });
 }
 
@@ -798,7 +917,9 @@ bool CPickups::TryToMerge_WeaponType(CVector posn, eWeaponType weaponType, ePick
     const auto mi = CWeaponInfo::GetWeaponInfo(weaponType)->m_nModelId1;
 
     for (auto& pickup : aPickUps) {
-        if (mi == pickup.m_nModelIndex && pickup.m_nPickupType == pickupType && IsPointInSphere(pickup.GetPosn(), posn, 5.0f)) {
+        // Como el original: 0x4555C2 compara el tipo; 0x4555C7 hace movzx del modelo (uint16, sin signo) frente a modelId1 (dword);
+        // 0x455638 compara la distancia con 5.5 (0x859B4C) con "dist < 5.5" (fcomp + test ah,5 + jnp).
+        if (pickup.m_nPickupType == pickupType && (uint32)(uint16)pickup.m_nModelIndex == (uint32)mi && PickupDistanceTo(pickup, posn) < 5.5f) {
             pickup.m_nAmmo += ammo;
 
             return true;
@@ -837,20 +958,31 @@ void CPickups::Update() {
     const auto pad = CPad::GetPad();
     if (pad->CollectPickupJustDown()) {
         CollectPickupBuffer = 6;
-    } else if (CollectPickupBuffer) {
-        CollectPickupBuffer--;
+    } else {
+        // Como el original: 0x458ECB..0x458EDB resta 1 y fija el minimo en 0 (tambien para valores negativos)
+        CollectPickupBuffer = std::max(CollectPickupBuffer - 1, 0);
     }
 
     if (PlayerOnWeaponPickup) {
-        PlayerOnWeaponPickup--;
+        PlayerOnWeaponPickup = std::max(PlayerOnWeaponPickup - 1, 0); // 0x458EE1..0x458EF5
     }
 
     if (pad->GetTarget()) {
         CollectPickupBuffer = 0;
     }
 
-    const auto player1 = FindPlayerPed(PED_TYPE_PLAYER1);
-    const auto p1Busy = player1->GetIntelligence()->FindTaskByType(TASK_COMPLEX_ENTER_CAR_AS_DRIVER) || player1->GetIntelligence()->FindTaskByType(TASK_COMPLEX_USE_MOBILE_PHONE);
+    // Como el original (0x458F1A..0x458F9B): ambos indicadores consultan las tareas del jugador 1 (Players[0].m_pPed, no
+    // FindPlayerPed); el del jugador 2 solo se evalua si existe Players[1].m_pPed. Como "player2Allowed" implica "!p1Busy",
+    // la rama del jugador 2 del bucle no se ejecuta nunca en el EXE.
+    const auto isPlayer1Busy = [] {
+        auto* intelligence = CWorld::Players[0].m_pPed->GetIntelligence();
+        return intelligence->FindTaskByType(TASK_COMPLEX_ENTER_CAR_AS_DRIVER) || intelligence->FindTaskByType(TASK_COMPLEX_USE_MOBILE_PHONE);
+    };
+    const bool p1NotBusy = !isPlayer1Busy();
+    bool p2Allowed = false;
+    if (CWorld::Players[1].m_pPed) {
+        p2Allowed = !isPlayer1Busy();
+    }
 
     start = 620 * (CTimer::GetFrameCounter() % 6) / 6;
     end   = 620 * (CTimer::GetFrameCounter() % 6 + 1) / 6;
@@ -860,11 +992,11 @@ void CPickups::Update() {
         if (pickup.m_nPickupType == PICKUP_NONE || !pickup.m_nFlags.bVisible)
             continue;
 
-        if (!p1Busy) {
+        if (p1NotBusy) {
             if (pickup.Update(FindPlayerPed(), FindPlayerVehicle(), CWorld::PlayerInFocus)) {
                 AddToCollectedPickupsArray(i);
             }
-        } else if (FindPlayerPed(PED_TYPE_PLAYER2)) {
+        } else if (p2Allowed) {
             if (pickup.Update(FindPlayerPed(1), FindPlayerVehicle(1), PED_TYPE_PLAYER2)) {
                 AddToCollectedPickupsArray(i);
             }
@@ -907,7 +1039,7 @@ eWeaponType CPickups::WeaponForModel(int32 modelId) {
 }
 
 // 0x5D35A0
-void CPickups::Load() {
+bool CPickups::Load() {
     for (auto& pickup : aPickUps) {
         CGenericGameStorage::LoadDataFromWorkBuffer(pickup);
         if (pickup.m_nPickupType != PICKUP_NONE && pickup.m_pObject) {
@@ -922,9 +1054,10 @@ void CPickups::Load() {
     for (auto& collected : aPickUpsCollected) {
         CGenericGameStorage::LoadDataFromWorkBuffer(collected);
     }
+    return true; // Como el original: 0x5D361A mov al,1
 }
 // 0x5D3540
-void CPickups::Save() {
+bool CPickups::Save() {
     for (auto& pickup : aPickUps) {
         CGenericGameStorage::SaveDataToWorkBuffer(pickup);
     }
@@ -934,13 +1067,15 @@ void CPickups::Save() {
     for (auto& collected : aPickUpsCollected) {
         CGenericGameStorage::SaveDataToWorkBuffer(collected);
     }
+    return true; // Como el original: 0x5D3594 mov al,1
 }
 
 // 0x454B70
 void ModifyStringLabelForControlSetting(char* stringLabel) {
     const auto len = strlen(stringLabel);
 
-    if (len < 2 || stringLabel[len - 2] != '_')
+    // Como el original: 0x454B8B "cmp esi,2; jle" -> con longitud 2 o menos no hace nada
+    if (len <= 2 || stringLabel[len - 2] != '_')
         return;
 
     switch (CPad::GetPad(0)->Mode) {

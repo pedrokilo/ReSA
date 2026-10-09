@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7478 con evidencia histórica, 0 con vigencia acreditada y 968 pendientes en 17 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # CarEnterWave4: banco por pares de las 5 funciones pendientes de CCarEnterExit
 
 Banco nuevo (estilo `Small2`/`PadMouse1`/`MiscWave2`, un solo banco, prefijo `carenterwave4`, espacio de nombres `CarEnterWave4Live`) para dejar COMPLETA la clase `CCarEnterExit` del EXE GTA SA 1.0 US: las cinco funciones que `MiscWave2` dejo fuera por falta de colaboradores doblados. Las otras 27 entradas de la clase ya estaban validadas (`MiscWave2` y anteriores).

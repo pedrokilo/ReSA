@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 44/44 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 30.
- * Validación registrada: 30/44 entradas.
+ * Validación registrada: 42/44 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -82,33 +82,85 @@ static inline auto& DWCineyCamLastFwd = StaticRef<CVector>(0xB6FEB0);
 static inline auto& DWCineyCamLastNearClip = StaticRef<float>(0xB6EC08);
 static inline auto& DWCineyCamLastFov = StaticRef<float>(0xB6EC0C);
 
+// Constantes float leidas del EXE (algunas no son el float mas cercano al literal decimal).
+static inline float CamExeFloat(uintptr_t address) {
+    return std::bit_cast<float>(*reinterpret_cast<const uint32*>(address));
+}
+
+// Como el EXE: fsin/fcos del x87 (precision completa; el resultado se redondea a float al guardarlo).
+static float CamExeSin(float angle) {
+    float result;
+    __asm {
+        fld  dword ptr [angle]
+        fsin
+        fstp dword ptr [result]
+    }
+    return result;
+}
+static float CamExeCos(float angle) {
+    float result;
+    __asm {
+        fld  dword ptr [angle]
+        fcos
+        fstp dword ptr [result]
+    }
+    return result;
+}
+
+// 0x59C790 (Multiply3x3 matriz * vector) con el orden de sumas del EXE: ((up * z) + (otro * ...)) + ...
+static CVector CamMultiplyMatrixVector(const CMatrix& m, const CVector& v) {
+    return CVector{
+        (m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x,
+        (m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y,
+        (m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y
+    };
+}
+
+// 0x59C810 (Multiply3x3 vector * matriz) con el orden de sumas del EXE
+static CVector CamMultiplyVectorMatrix(const CVector& v, const CMatrix& m) {
+    return CVector{
+        (m.GetRight().y * v.y + m.GetRight().z * v.z) + v.x * m.GetRight().x,
+        (m.GetForward().y * v.y + m.GetForward().x * v.x) + m.GetForward().z * v.z,
+        (m.GetUp().y * v.y + m.GetUp().x * v.x) + m.GetUp().z * v.z
+    };
+}
+
 // 0x509AE0
 static void WellBufferMe(float target, float& valueToChange, float& speedSoFar, float topSpeed, float speedStep, bool isAnAngle) {
-    const auto valueToTargetDiff = [&] {
-        auto d = target - valueToChange;
-        if (isAnAngle) {
-            for (; d >= DegreesToRadians(180.0f); d -= DegreesToRadians(360.0f)) {
-                ;
-            }
-            for (; d < DegreesToRadians(-180.0f); d += DegreesToRadians(360.0f)) {
-                ;
-            }
+    // Como el original: constantes pi, 2pi y -pi leidas del EXE (0x858CB8, 0x858CBC, 0x858CC0).
+    const float pi    = CamExeFloat(0x858CB8);
+    const float twoPi = CamExeFloat(0x858CBC);
+    const float negPi = CamExeFloat(0x858CC0);
+
+    float diff = target - valueToChange;
+    if (isAnAngle) { // cmp al,1 (0x509AEE)
+        for (; diff >= pi; diff -= twoPi) {
+            ;
         }
-        return d;
-    }();
+        for (; diff < negPi; diff += twoPi) {
+            ;
+        }
+    }
 
-    const auto fullSpeedStep = valueToTargetDiff * topSpeed;
-    speedSoFar += std::abs(std::abs(fullSpeedStep - speedSoFar) * CTimer::GetTimeStep() * speedStep);
+    const float fullSpeedStep = diff * topSpeed;
+    // Como el original (0x509B4D..0x509B6E): el cambio suma si (fullSpeedStep - speedSoFar) > 0 y resta si no
+    const float speedDelta = fullSpeedStep - speedSoFar;
+    const float change = std::abs(speedDelta) * CTimer::GetTimeStep() * speedStep;
+    speedSoFar = speedDelta > 0.0f ? speedSoFar + change : speedSoFar - change;
 
-    if (fullSpeedStep >= 0.0f || fullSpeedStep <= speedSoFar) {
-        if (fullSpeedStep > 0.0f && fullSpeedStep < speedSoFar) {
+    // 0x509B70..0x509BA4: si fullSpeedStep < 0 y fullSpeedStep > speedSoFar -> speedSoFar = fullSpeedStep;
+    // si no, si fullSpeedStep > 0 y fullSpeedStep < speedSoFar -> speedSoFar = fullSpeedStep.
+    if (fullSpeedStep < 0.0f) {
+        if (fullSpeedStep > speedSoFar) {
             speedSoFar = fullSpeedStep;
         }
-    } else {
+    } else if (fullSpeedStep > 0.0f && fullSpeedStep < speedSoFar) {
         speedSoFar = fullSpeedStep;
     }
 
-    valueToChange += std::min(CTimer::GetTimeStep(), 10.0f) * speedSoFar;
+    // 0x509BA6..0x509BD2: fld 10.0; fcomp ts; jp => si 10.0 < ts usa 10.0, si no usa ts
+    const float step = CamExeFloat(0x85862C) < CTimer::GetTimeStep() ? CamExeFloat(0x85862C) : CTimer::GetTimeStep();
+    valueToChange = step * speedSoFar + valueToChange;
 }
 
 void CCam::InjectHooks() {
@@ -169,6 +221,8 @@ CCam::CCam() {
 
 // 0x50E490
 void CCam::Init() {
+    // Como el original (0x50E49E..0x50E4A4): primero reinicia la camara de inactividad (CIdleCam::Reset(true) sobre 0xB6FDA0).
+    gIdleCam.Reset(true);
     m_vecFront = CVector(0, 0, -1);
     m_vecUp = CVector(0, 0, 1);
     m_nMode = eCamMode::MODE_FOLLOWPED;
@@ -181,7 +235,7 @@ void CCam::Init() {
     m_fBetaSpeed = 0.0f;
     m_fAlphaSpeed = 0.0f;
     m_fCameraHeightMultiplier = 0.75;
-    m_fMaxRoleAngle = DegreesToRadians(20.0f);
+    m_fMaxRoleAngle = std::bit_cast<float>(0x3D0EFA35u); // 0x50E547: 2 grados en radianes (no 20)
     m_fDistance = 30.0f;
     m_fDistanceSpeed = 0.0f;
     m_pLastCarEntered = nullptr;
@@ -196,7 +250,7 @@ void CCam::Init() {
     m_bLookingBehind = false;
     m_bLookingLeft = false;
     m_bLookingRight = false;
-    m_fPlayerInFrontSyphonAngleOffSet = DegreesToRadians(20.0f);
+    m_fPlayerInFrontSyphonAngleOffSet = std::bit_cast<float>(0x3EB2B8C3u); // 0x50E597: 20 grados leidos como inmediato
     m_fSyphonModeTargetZOffSet = 0.5f;
     m_fRadiusForDead = 1.5f;
     m_nDirectionWasLooking = 3; // TODO: enum
@@ -229,7 +283,7 @@ void CCam::Init() {
     gPlayerPedVisible = true;
     gbCineyCamMessageDisplayed = 2; // TODO: enum
     gCameraDirection = 3; // TODO: enum
-    gCameraMode = (eCamMode)-1;
+    *reinterpret_cast<uint32*>(&gCameraMode) = 0xFFFFFFFFu; // 0x50E672: 'mov dword ptr [8CC388h],0FFFFFFFFh' (escribe un dword, no la palabra de eCamMode)
     gLastTime2PlayerCameraWasOK = 0;
     gLastTime2PlayerCameraCollided = 0;
     TheCamera.m_bCinemaCamera = false;
@@ -257,10 +311,11 @@ void CCam::Finalise_DW_CineyCams(const CVector& src, const CVector& dest, float 
     m_vecFront  = (dest - src).Normalized();
     m_vecSource = src;
 
-    // What is this thing?
+    // Como el original: el vector "arriba" provisional (sin(roll), 0, cos(roll)) se escribe en m_vecUp (fsin/fcos del x87).
     {
-        auto rightDir = m_vecFront.Cross({ std::sin(roll), 0.0f, std::cos(roll) }).Normalized();
-        m_vecUp       = rightDir.Cross(m_vecFront);
+        m_vecUp = CVector{ CamExeSin(roll), 0.0f, CamExeCos(roll) };
+        auto rightDir = CrossProduct(m_vecFront, m_vecUp).Normalized();
+        m_vecUp       = CrossProduct(rightDir, m_vecFront);
         if (m_vecFront.x == 0.0f && m_vecFront.y == 0.0f) {
             m_vecFront.x = m_vecFront.y = 0.0001f;
         }
@@ -274,17 +329,21 @@ void CCam::Finalise_DW_CineyCams(const CVector& src, const CVector& dest, float 
     gLastFrameProcessedDWCineyCam = CTimer::GetFrameCounter();
 
     gHandShaker[0].Process(shakeDegree);
-    m_vecFront = gHandShaker[0].m_resultMat.TransformVector(m_vecFront);
+    // Como el original (0x50DF0C..0x50DF21): el roll del segundo bloque pasa a ser m_ang.z * shakeDegree (fld 0xB6ECA8; fmul [esp+4Ch]; fstp [roll]).
+    roll = gHandShaker[0].m_ang.z * shakeDegree;
+    // Como el original (0x50DF25): Multiply3x3 vector * matriz (0x59C810), no la transformacion matriz * vector.
+    m_vecFront = CamMultiplyVectorMatrix(m_vecFront, gHandShaker[0].m_resultMat);
     m_vecFront.Normalise();
 
     {
-        auto rightDir = m_vecFront.Cross({ std::sin(roll), 0.0f, std::cos(roll) }).Normalized();
-        m_vecUp       = rightDir.Cross(m_vecFront);
+        m_vecUp = CVector{ CamExeSin(roll), 0.0f, CamExeCos(roll) };
+        auto rightDir = CrossProduct(m_vecFront, m_vecUp).Normalized();
+        m_vecUp       = CrossProduct(rightDir, m_vecFront);
         if (m_vecFront.x == 0.0f && m_vecFront.y == 0.0f) {
             m_vecFront.x = m_vecFront.y = 0.0001f;
         }
-        rightDir = m_vecFront.Cross(m_vecUp).Normalized();
-        m_vecUp  = rightDir.Cross(m_vecFront);
+        rightDir = CrossProduct(m_vecFront, m_vecUp).Normalized();
+        m_vecUp  = CrossProduct(rightDir, m_vecFront);
     }
 }
 
@@ -307,9 +366,17 @@ void CCam::GetCoreDataForDWCineyCamMode(
     vehicle        = entity->AsVehicle();
     dest           = entity->GetPosition();
     src            = DWCineyCamLastPos;
-    targetUp       = entity->GetUpVector();
-    targetRight    = entity->GetRightVector();
-    targetFwd      = entity->GetForwardVector();
+    // Como el original (0x517187..0x517255): si la entidad no tiene matriz, los ejes salen del rumbo con fsin/fcos del x87.
+    if (const auto* matrix = entity->m_matrix) {
+        targetUp    = matrix->GetUp();
+        targetRight = matrix->GetRight();
+        targetFwd   = matrix->GetForward();
+    } else {
+        const float heading = entity->m_placement.m_fHeading;
+        targetUp    = CVector{ 0.0f, 0.0f, 1.0f };
+        targetRight = CVector{ CamExeCos(heading), CamExeSin(heading), 0.0f };
+        targetFwd   = CVector{ -CamExeSin(heading), CamExeCos(heading), 0.0f };
+    }
     targetVel      = entity->AsPhysical()->GetMoveSpeed();
     targetSpeed    = targetVel.Magnitude();
     targetAngVel   = entity->AsPhysical()->GetTurnSpeed();
@@ -361,33 +428,52 @@ void CCam::GetVectorsReadyForRW() {
     m_vecUp = CrossProduct(a, m_vecFront);
 }
 
-// 0x513E40 -- not tested
-void CCam::Get_TwoPlayer_AimVector(CVector& out) {
-    const auto player = [&] {
-        auto* p1 = FindPlayerPed(PED_TYPE_PLAYER1);
-        if (p1->m_pVehicle && !p1->m_pVehicle->IsDriver(p1)) {
-            return FindPlayerPed(PED_TYPE_PLAYER2);
-        }
-        return p1;
-    }();
+// 0x513E40
+CEntity* CCam::Get_TwoPlayer_AimVector(CVector& out) {
+    // Como el original (0x513E47..0x513E61): jugador 1, o el 2 si el 1 va en un vehiculo del que no es conductor.
+    CPlayerPed* player = CWorld::Players[0].m_pPed;
+    if (player->m_pVehicle && player->m_pVehicle->m_pDriver != player) {
+        player = CWorld::Players[1].m_pPed;
+    }
 
-    const auto weaponInfo = player->GetActiveWeapon().GetWeaponInfo(player);
+    const auto* weaponInfo = CWeaponInfo::GetWeaponInfo(player->GetActiveWeapon().m_Type, player->GetWeaponSkill()); // 0x513E7A..0x513E81
     const auto nearestTargetEntityInScreen = CWeapon::FindNearestTargetEntityWithScreenCoors(
         m_fX_Targetting,
         m_fY_Targetting,
-        2 * weaponInfo.m_fWeaponRange,
+        weaponInfo->m_fWeaponRange + weaponInfo->m_fWeaponRange, // fadd st(0),st (0x513E9F)
         player->GetPosition()
     );
 
     if (nearestTargetEntityInScreen) {
-        out = nearestTargetEntityInScreen->GetPosition() - m_vecSource;
+        const auto& pos = nearestTargetEntityInScreen->GetPosition();
+        out = CVector{ pos.x - m_vecSource.x, pos.y - m_vecSource.y, pos.z - m_vecSource.z };
     } else {
-        const auto right  = CrossProduct(m_vecFront, m_vecUp);
-        const auto tanFov = std::tan(m_fFOV * PI / 360.0f);
-
-        out = m_fX_Targetting * m_fY_Targetting * tanFov * right + m_vecFront - tanFov / CDraw::ms_fAspectRatio * m_vecUp;
+        // Como el original (0x513F10..0x513FD9): tan(fov * 0x8631D4) con fptan (x87). La tangente queda en precision
+        // extendida para dividirla por la relacion de aspecto y se redondea a float para el otro termino.
+        const auto  right    = CrossProduct(m_vecFront, m_vecUp);
+        const float fov      = m_fFOV;
+        const float fovScale = CamExeFloat(0x8631D4);
+        const float aspect   = CDraw::ms_fAspectRatio;
+        float tanRounded, tanOverAspect;
+        __asm {
+            fld   dword ptr [fov]
+            fmul  dword ptr [fovScale]
+            fptan
+            fstp  st(0)
+            fld   dword ptr [aspect]
+            fdivr st(0), st(1)
+            fstp  dword ptr [tanOverAspect]
+            fstp  dword ptr [tanRounded]
+        }
+        const float scaledY = tanOverAspect * m_fY_Targetting;
+        const float upX = scaledY * m_vecUp.x, upY = scaledY * m_vecUp.y, upZ = scaledY * m_vecUp.z;
+        const float rightX = (right.x * m_fX_Targetting) * tanRounded;
+        const float rightY = (right.y * m_fX_Targetting) * tanRounded;
+        const float rightZ = (right.z * m_fX_Targetting) * tanRounded;
+        out = CVector{ (rightX + m_vecFront.x) - upX, (rightY + m_vecFront.y) - upY, (rightZ + m_vecFront.z) - upZ };
     }
     out.Normalise();
+    return nearestTargetEntityInScreen;
 }
 
 // 0x517400
@@ -634,19 +720,21 @@ bool CCam::GetWeaponFirstPersonOn() {
 
 // inlined -- alpha = vertical angle
 void CCam::ClipAlpha() {
-    m_fVerticalAngle = std::clamp(
-        m_fVerticalAngle,
-        DegreesToRadians(-85.5f),
-        DegreesToRadians(+60.0f)
-    );
+    // Como el original en linea (p. ej. 0x511DB5..0x511E27): maximo 0x8630F8 (60 grados), minimo 0x8630F4 (-1.5620698)
+    if (m_fVerticalAngle > CamExeFloat(0x8630F8)) {
+        m_fVerticalAngle = std::bit_cast<float>(0x3F860A92u);
+    } else if (m_fVerticalAngle < CamExeFloat(0x8630F4)) {
+        m_fVerticalAngle = std::bit_cast<float>(0xBFC7F1E7u);
+    }
 }
 
 // 0x509C50 -- beta = horizontal angle
 void CCam::ClipBeta() {
-    if (m_fHorizontalAngle < DegreesToRadians(-180.0f)) {
-        m_fHorizontalAngle += DegreesToRadians(360.0f);
-    } else {
-        m_fHorizontalAngle -= DegreesToRadians(360.0f);
+    // Como el original (0x509C50..0x509C95): si beta > pi resta 2pi; si no, si beta < -pi suma 2pi (constantes 0x858CB8/BC/C0).
+    if (m_fHorizontalAngle > CamExeFloat(0x858CB8)) {
+        m_fHorizontalAngle -= CamExeFloat(0x858CBC);
+    } else if (m_fHorizontalAngle < CamExeFloat(0x858CC0)) {
+        m_fHorizontalAngle += CamExeFloat(0x858CBC);
     }
 }
 
@@ -1177,15 +1265,16 @@ void CCam::Process_1stPerson(const CVector& target, float orientation, float spe
     }
 
     if (m_bResetStatics) {
-        m_fVerticalAngle   = 0.0f;
-        m_fHorizontalAngle = [&] {
-            if (m_pCamTargetEntity->GetIsTypePed()) {
-                return m_pCamTargetEntity->AsPed()->m_fCurrentRotation + DegreesToRadians(90.0f);
-            } else {
-                return orientation;
-            }
-        }();
-        m_fInitialPlayerOrientation = m_fHorizontalAngle;
+        // Como el original (0x517ED2..0x517F29): primero orientation y luego, para un ped, rumbo + pi/2 (0x858FE4)
+        m_fHorizontalAngle          = orientation;
+        m_fVerticalAngle            = 0.0f;
+        m_fInitialPlayerOrientation = orientation;
+        if (m_pCamTargetEntity->GetIsTypePed()) {
+            const float heading = m_pCamTargetEntity->AsPed()->m_fCurrentRotation + CamExeFloat(0x858FE4);
+            m_fVerticalAngle            = 0.0f;
+            m_fHorizontalAngle          = heading;
+            m_fInitialPlayerOrientation = heading;
+        }
 
         s_GroundFaultProtection                 = 0.0f;
         TheCamera.m_fAvoidTheGeometryProbsTimer = 0.0f;
@@ -1196,102 +1285,133 @@ void CCam::Process_1stPerson(const CVector& target, float orientation, float spe
         return;
     }
 
-    const auto wheelieTime = static_cast<float>(CTimer::GetTimeInMS());
+    auto* const targetVeh = static_cast<CVehicle*>(m_pCamTargetEntity);
+    // El EXE lee el byte 0x614 del vehiculo (bit 7 = bWheelieForCamera de las motos) sea cual sea el tipo (0x517FA7, 0x51802C).
+    auto& wheelieFlags = *(reinterpret_cast<uint8*>(targetVeh) + 0x614);
+
+    // 0x517F49..0x517F5E: fild del tiempo (con signo) y fadd 2^32 si es negativo
+    const int32 timeSigned = static_cast<int32>(CTimer::GetTimeInMS());
+    float wheelieTime = static_cast<float>(timeSigned);
+    if (timeSigned < 0) {
+        wheelieTime += CamExeFloat(0x858C54);
+    }
     if (s_LastWheelieTime > wheelieTime) {
         s_LastWheelieTime = 0.0f;
     }
 
-    auto* targetVeh = m_pCamTargetEntity->AsVehicle();
-    if (targetVeh->IsBike() && targetVeh->AsBike()->bikeFlags.bWheelieForCamera || TheCamera.m_fAvoidTheGeometryProbsTimer > 0.0f) {
-        if (wheelieTime - s_LastWheelieTime >= 3000.0f) {
-            s_LastWheelieTime = static_cast<float>(CTimer::GetTimeInMS());
+    // Como el original (0x517F7D..0x517FE1): con diferencia < 3000 (0x8CCD10) siempre entra; si no, solo una moto con
+    // bWheelieForCamera o con el temporizador de TheCamera > 0 (y entonces refresca el tiempo).
+    const float wheelieDiff = wheelieTime - s_LastWheelieTime;
+    bool enterWheelieBlock;
+    if (wheelieDiff < CamExeFloat(0x8CCD10)) {
+        enterWheelieBlock = true;
+    } else if (targetVeh->m_nVehicleType != VEHICLE_TYPE_BIKE) {
+        enterWheelieBlock = false;
+    } else if (!(wheelieFlags & 0x80) && !(TheCamera.m_fAvoidTheGeometryProbsTimer > 0.0f)) {
+        enterWheelieBlock = false;
+    } else {
+        if (wheelieDiff >= CamExeFloat(0x8CCD10)) {
+            s_LastWheelieTime = wheelieTime;
         }
+        enterWheelieBlock = true;
+    }
 
-        const auto pad1 = CPad::GetPad();
-        if (!pad1->NewState.LeftShoulder2 && !pad1->NewState.RightShoulder2) {
-            auto* targetBike = targetVeh->AsBike();
+    if (enterWheelieBlock) {
+        if (!CPad::GetPad(0)->NewState.LeftShoulder2 && !CPad::GetPad(0)->NewState.RightShoulder2) {
             if (Process_WheelCam(target, orientation, speedVar, speedVarWanted)) {
-                if (targetBike->bikeFlags.bWheelieForCamera) {
+                if (wheelieFlags & 0x80) {
                     TheCamera.m_fAvoidTheGeometryProbsTimer = 50.0f;
-                } else {
-                    TheCamera.m_fAvoidTheGeometryProbsTimer -= CTimer::GetTimeStep();
-                    targetBike->bikeFlags.bWheelieForCamera = true;
+                    return;
                 }
+                TheCamera.m_fAvoidTheGeometryProbsTimer = TheCamera.m_fAvoidTheGeometryProbsTimer - CTimer::GetTimeStep();
+                wheelieFlags |= 0x80;
                 return;
             }
             TheCamera.m_fAvoidTheGeometryProbsTimer = 0.0f;
-            targetBike->bikeFlags.bWheelieForCamera = false;
-
+            wheelieFlags &= 0x7F;
             s_LastWheelieTime = 0.0f;
         }
     }
 
-    const auto& entityWorldMat = [&] {
-        if (auto* t = targetVeh->AsBike(); t->IsBike()) {
-            t->CalculateLeanMatrix();
-            return t->m_mLeanMatrix;
-        } else {
-            return targetVeh->GetMatrix();
-        }
-    }();
+    // Como el original (0x51809F..0x5180FF): si el vehiculo no tiene matriz se la reserva y se rellena desde la transformacion simple
+    if (!targetVeh->m_matrix) {
+        targetVeh->AllocateMatrix();
+        targetVeh->m_placement.UpdateMatrix(targetVeh->m_matrix);
+    }
+    const CMatrix* entityWorldMat = targetVeh->m_matrix;
+    if (targetVeh->m_nVehicleType == VEHICLE_TYPE_BIKE) {
+        auto* bike = targetVeh->AsBike();
+        bike->CalculateLeanMatrix();
+        entityWorldMat = &bike->m_mLeanMatrix;
+    }
 
-    const auto dummyPos = [&] {
-        const auto* vehStruct = targetVeh->GetVehicleModelInfo()->GetVehicleStruct();
-        return vehStruct->m_avDummyPos[targetVeh->IsBoat() ? DUMMY_LIGHT_FRONT_MAIN : DUMMY_SEAT_FRONT] * CVector{0.0f, 1.0f, 1.0f}; // ignore x
-    }() + CVector{ 0.0f, 0.08f, 0.62f };
+    // 0x5180EB..0x518145: el EXE mira el tipo del modelo (+0x3C); barca => dummy 0 (luz delantera), si no el 4 (asiento delantero)
+    auto* const modelInfo = CModelInfo::GetModelInfo(targetVeh->m_nModelIndex);
+    const bool  boatModel = *reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(modelInfo) + 0x3C) == 5;
+    const CVector& dummy  = targetVeh->GetVehicleModelInfo()->GetVehicleStruct()->m_avDummyPos[boatModel ? DUMMY_LIGHT_FRONT_MAIN : DUMMY_SEAT_FRONT];
+    const CVector  localPosition{ 0.0f, dummy.y + CamExeFloat(0x859018), dummy.z + CamExeFloat(0x8631EC) }; // x se pone a 0 (0x518139)
 
     m_fFOV = 60.0f;
-    m_vecSource = entityWorldMat.TransformVector(dummyPos);
-    m_vecSource += targetVeh->GetPosition();
+    // 0x59C790 con su orden de sumas, luego se suma la posicion del vehiculo
+    m_vecSource = CamMultiplyMatrixVector(*entityWorldMat, localPosition);
+    {
+        const CVector& vehiclePosition = targetVeh->GetPosition();
+        m_vecSource.x = m_vecSource.x + vehiclePosition.x;
+        m_vecSource.y = vehiclePosition.y + m_vecSource.y;
+        m_vecSource.z = vehiclePosition.z + m_vecSource.z;
+    }
 
-    if (targetVeh->IsBike() && targetVeh->m_pDriver) {
-        auto*   targetBike = targetVeh->AsBike();
+    if (targetVeh->m_nVehicleType == VEHICLE_TYPE_BOAT) {
+        m_vecSource.z = m_vecSource.z + CamExeFloat(0x858B8C);
+    } else if (targetVeh->m_nVehicleType == VEHICLE_TYPE_BIKE && targetVeh->m_pDriver) {
         CVector neckPos{};
+        targetVeh->m_pDriver->GetBonePosition(&neckPos, BONE_NECK, true); // 0x5E4280 (no GetTransformedBonePosition)
+        const CVector& moveSpeed = targetVeh->GetMoveSpeed();
+        const float timeStep = CTimer::GetTimeStep();
+        neckPos.x = neckPos.x + timeStep * moveSpeed.x; // 0x40FEC0 (v * f) y 0x411A00 (+=)
+        neckPos.y = neckPos.y + timeStep * moveSpeed.y;
+        neckPos.z = neckPos.z + timeStep * moveSpeed.z;
 
-        targetVeh->m_pDriver->GetTransformedBonePosition(neckPos, BONE_NECK, true);
-        neckPos += targetBike->GetMoveSpeed() * CTimer::GetTimeStep();
+        m_vecSource.z = neckPos.z + CamExeFloat(0x8CC7B4); // 0.15
 
-        constexpr auto BIKE_1ST_PERSON_ZOFFSET = 0.15f; // 0x8CC7B4
-        m_vecSource.z = neckPos.z + BIKE_1ST_PERSON_ZOFFSET;
+        auto right = CrossProduct(m_vecFront, m_vecUp);
+        right.x = right.x * CamExeFloat(0x8CCD0C); // 0x40FEF0: right *= 1.0
+        right.y = right.y * CamExeFloat(0x8CCD0C);
+        right.z = right.z * CamExeFloat(0x8CCD0C);
 
-        const auto right = CrossProduct(m_vecFront, m_vecUp);
-        // right *= flt_8CCD0C; (=1.0f)
-
-        if (!CWorld::GetIsLineOfSightClear(
-            CrossProduct(m_vecSource, m_vecSource + right),
-            CrossProduct(m_vecSource, m_vecSource - right),
-            true,
-            false,
-            false,
-            false
-        )) {
-            m_vecSource = targetBike->GetPosition();
-            m_vecSource.z = neckPos.z + BIKE_1ST_PERSON_ZOFFSET + 0.62f;
+        // 0x40FE30 (a + b) y 0x40FE60 (a - b) sobre la fuente y el vector derecho
+        const CVector rayStart{ m_vecSource.x + right.x, m_vecSource.y + right.y, m_vecSource.z + right.z };
+        const CVector rayEnd{ m_vecSource.x - right.x, m_vecSource.y - right.y, m_vecSource.z - right.z };
+        if (!CWorld::GetIsLineOfSightClear(rayStart, rayEnd, true, false, false, false)) {
+            m_vecSource = targetVeh->GetPosition();
+            m_vecSource.z = (neckPos.z + CamExeFloat(0x8CC7B4)) + CamExeFloat(0x8631EC);
         }
-    } else if (targetVeh->IsBoat()) {
-        m_vecSource.z += 0.5f;
     }
 
     // todo: refactor
     if (targetVeh->IsUpsideDown()) {
-        if (s_GroundFaultProtection >= 0.5f) {
-            s_GroundFaultProtection = 0.5f;
+        if (!(s_GroundFaultProtection < CamExeFloat(0x858B8C))) { // jp: >= 0.5 o NaN
+            s_GroundFaultProtection = std::bit_cast<float>(0x3F000000u);
         } else {
-            s_GroundFaultProtection += 0.03f;
+            s_GroundFaultProtection = s_GroundFaultProtection + CamExeFloat(0x858B10);
         }
-    } else if (s_GroundFaultProtection >= 0.0f) {
+    } else if (!(s_GroundFaultProtection < CamExeFloat(0x858B50))) { // jp: >= 0 o NaN
         s_GroundFaultProtection = 0.0f;
     } else {
-        s_GroundFaultProtection -= 0.03f;
+        s_GroundFaultProtection = s_GroundFaultProtection - CamExeFloat(0x858B10);
     }
-    m_vecSource.z += s_GroundFaultProtection;
+    m_vecSource.z = s_GroundFaultProtection + m_vecSource.z;
 
-    m_vecFront = entityWorldMat.GetForward().Normalized();
-    m_vecUp    = entityWorldMat.GetUp().Normalized();
+    // 0x518372..0x518404: front y up se copian de la matriz (ejes 0x10 y 0x20) y se normalizan
+    m_vecFront = entityWorldMat->GetForward();
+    m_vecFront.Normalise();
+    m_vecUp = entityWorldMat->GetUp();
+    m_vecUp.Normalise();
     const auto a = CrossProduct(m_vecFront, m_vecUp).Normalized();
-    m_vecUp = CrossProduct(a, m_vecFront).Normalized();
+    m_vecUp = CrossProduct(a, m_vecFront);
+    m_vecUp.Normalise();
 
-    if (float wl{}; CWaterLevel::GetWaterLevel(m_vecSource, wl, true) && m_vecSource.z < wl - 0.3f) {
+    if (float wl{}; CWaterLevel::GetWaterLevel(m_vecSource, wl, true) && m_vecSource.z < wl - CamExeFloat(0x858C24)) {
         ApplyUnderwaterMotionBlur();
     }
     m_bResetStatics = false;
@@ -2565,31 +2685,64 @@ void CCam::Process_Cam_TwoPlayer_Separate_Cars() {
 // 0x513BE0
 void CCam::Process_Cam_TwoPlayer_Separate_Cars_TopDown() {
     m_fFOV = 80.0f;
-    const auto p1 = FindPlayerEntity(PED_TYPE_PLAYER1), p2 = FindPlayerEntity(PED_TYPE_PLAYER2);
 
-    const auto p1p2Centroid = (p1->GetPosition() + p2->GetPosition()) / 2.0f;
-    const auto p1p2Distance = DistanceBetweenPoints(p1->GetPosition(), p2->GetPosition());
+    // Como el original (0x513BEE..0x513C1B): lee ped->m_pVehicle (+0x58C) en bruto, sin comprobar bInVehicle.
+    CPlayerPed* ped1 = CWorld::Players[0].m_pPed;
+    CPlayerPed* ped2 = CWorld::Players[1].m_pPed;
+    CVehicle* vehicle1 = ped1->m_pVehicle;
+    CVehicle* vehicle2 = ped2->m_pVehicle;
+    CEntity*  entity1  = vehicle1 ? static_cast<CEntity*>(vehicle1) : static_cast<CEntity*>(ped1);
+    CEntity*  entity2  = vehicle2 ? static_cast<CEntity*>(vehicle2) : static_cast<CEntity*>(ped2);
+    const CVector& pos1 = entity1->GetPosition();
+    const CVector& pos2 = entity2->GetPosition();
 
-    auto camHeightMult = std::abs([&] {
-        if (FindPlayerVehicle(PED_TYPE_PLAYER1)) {
-            return FindPlayerVehicle(PED_TYPE_PLAYER2) ? 1.0f : 0.75f;
-        }
-        return FindPlayerVehicle(PED_TYPE_PLAYER2) ? 0.75f : 0.45f;
-    }() - m_fCameraHeightMultiplier);
+    // 0x513C35..0x513C60: centro = (suma) * 0.5; la suma de x es pos2.x + pos1.x
+    const float half = CamExeFloat(0x858B8C);
+    const float sumX = pos2.x + pos1.x;
+    const float sumY = pos1.y + pos2.y;
+    const float sumZ = pos1.z + pos2.z;
+    const float centerX = sumX * half, centerY = sumY * half, centerZ = sumZ * half;
 
-    if (const auto s = CTimer::GetTimeStep() / 200.0f; camHeightMult >= s) {
-        camHeightMult = (camHeightMult >= 0.0f ? s : -s) + m_fCameraHeightMultiplier;
+    // 0x513C79..0x513CA7: distancia con la suma de cuadrados en el orden z, y, x
+    const float dx = pos1.x - pos2.x, dy = pos1.y - pos2.y, dz = pos1.z - pos2.z;
+    const float distance = std::sqrt((dz * dz + dy * dy) + dx * dx);
+
+    // 0x513CA7..0x513CD3: ambos en vehiculo 1.0; solo uno 0x858F34 (0.75); ninguno 0x8631D0 (0.45)
+    float wanted;
+    if (vehicle1) {
+        wanted = vehicle2 ? CamExeFloat(0x858624) : CamExeFloat(0x858F34);
+    } else {
+        wanted = vehicle2 ? CamExeFloat(0x858F34) : CamExeFloat(0x8631D0);
     }
-    m_fCameraHeightMultiplier = camHeightMult;
 
-    const auto v21 = std::max(p1p2Distance + 10.0f, 30.0f);
-    m_vecSource.Set(
-        p1p2Centroid.x,
-        p1p2Centroid.y - v21 * std::sin(0.4f),
-        p1p2Centroid.z - v21 * -std::cos(0.4f)
-    );
-    m_vecFront.Set(0.0f, std::sin(0.4f), -std::cos(0.4f));
-    m_vecUp.Set(0.0f, m_vecSource.y, std::sin(0.4f));
+    // 0x513CD3..0x513D32: la multiplicacion se acerca al deseado a razon de ts * 0.005 (0x858B4C)
+    const float difference = wanted - m_fCameraHeightMultiplier;
+    const float maxStep = CTimer::GetTimeStep() * CamExeFloat(0x858B4C);
+    const float magnitude = difference < 0.0f ? -difference : difference; // fcom 0 + test ah,5 + fchs
+    if (magnitude < maxStep) {
+        m_fCameraHeightMultiplier = wanted;
+    } else if (difference >= 0.0f || difference != difference) { // jp: >= 0 o NaN
+        m_fCameraHeightMultiplier = maxStep + m_fCameraHeightMultiplier;
+    } else {
+        m_fCameraHeightMultiplier = m_fCameraHeightMultiplier - maxStep;
+    }
+
+    // 0x513D38..0x513D5B: max(distancia + 10.0, 30.0) * multiplicador (ya actualizado)
+    float height = distance + CamExeFloat(0x85862C);
+    if (CamExeFloat(0x858CA4) > height) { // fld 30.0; fcomp st(1); test ah,41h; jne (un NaN se queda como esta)
+        height = CamExeFloat(0x858CA4);
+    }
+    height *= m_fCameraHeightMultiplier;
+
+    // 0x513D61..0x513E2F: angulo de inclinacion 0x8CCCB8 (0.4) con fsin/fcos del x87
+    const float angle = CamExeFloat(0x8CCCB8);
+    const float sinA = CamExeSin(angle);
+    const float negCosA = -CamExeCos(angle);
+    const float zero = CamExeFloat(0x858B50);
+    const float sourceX = centerX - zero * height;
+    m_vecSource = CVector{ sourceX, centerY - sinA * height, centerZ - negCosA * height };
+    m_vecFront  = CVector{ 0.0f, sinA, negCosA };
+    m_vecUp     = CVector{ 0.0f, -negCosA, sinA };
     m_vecTargetCoorsForFudgeInter = m_vecSource;
 }
 
@@ -3322,55 +3475,91 @@ void CCam::Process_Editor(const CVector& target, float orientation, float speedV
     static auto& s_DoRenderShadows = StaticRef<bool>(0xB7295A);
 
     if (m_bResetStatics) {
-        m_vecSource.Set(796.0f, -937.0f, 40.0f);
-        CEntity::SafeCleanUpRef(m_pCamTargetEntity);
+        m_vecSource = CVector{ 796.0f, -937.0f, 40.0f }; // 0x44470000, 0xC46A4000, 0x42200000
+        if (m_pCamTargetEntity) {
+            CEntity::SafeCleanUpRef(m_pCamTargetEntity); // 0x571A00
+        }
         m_pCamTargetEntity = nullptr;
-        m_bResetStatics    = false;
     }
+    m_bResetStatics = false; // 0x50F453 (fuera del if)
     RwCameraSetNearClipPlane(Scene.m_pRwCamera, 0.3f);
     m_fFOV = 70.0f;
 
-    static constexpr float _90DEG_PER_HOUR_IN_RAD_PER_MIN = 0.02617994f;
-    const auto* pad = CPad::GetPad(1);
-    m_fHorizontalAngle += pad->GetLeftStickX() * _90DEG_PER_HOUR_IN_RAD_PER_MIN / 19.0f;
-    m_fVerticalAngle   += DegreesToRadians(static_cast<float>(pad->GetLeftStickY())) / 50.0f;
+    // Como el original (0x50F468..0x50F4CF): inclinacion += (stickY * 0x8595EC) * 0.02; giro += (stickX * 0x8631A8) * 0x8631A4
+    const int16 stickX = CPad::GetPad(1)->GetLeftStickX();
+    const int16 stickY = CPad::GetPad(1)->GetLeftStickY();
+    m_fVerticalAngle   = ((float)stickY * CamExeFloat(0x8595EC)) * CamExeFloat(0x858B38) + m_fVerticalAngle;
+    m_fHorizontalAngle = ((float)stickX * CamExeFloat(0x8631A8)) * CamExeFloat(0x8631A4) + m_fHorizontalAngle;
 
-    m_fVerticalAngle = std::max(m_fVerticalAngle, DegreesToRadians(85.0f));
-    if (m_fVerticalAngle >= DegreesToRadians(-85.0f)) {
-        if (pad->IsSquareDown()) {
-            s_LookAtAngle += 0.1f;
-        } else if (pad->IsCrossDown()) {
-            s_LookAtAngle -= 0.1f;
+    // 0x50F4D5..0x50F514: posicion de la entidad objetivo o, sin ella, la propia fuente
+    const CVector lookAt = m_pCamTargetEntity ? m_pCamTargetEntity->GetPosition() : m_vecSource;
+
+    // 0x50F518..0x50F5E6: limites +-1.5620698 (0x8631A0, 0x8630F4); la logica del pad solo corre si no se pasa del limite inferior
+    if (m_fVerticalAngle > CamExeFloat(0x8631A0)) {
+        m_fVerticalAngle = std::bit_cast<float>(0x3FC7F1E7u);
+    }
+    if (m_fVerticalAngle < CamExeFloat(0x8630F4)) {
+        m_fVerticalAngle = std::bit_cast<float>(0xBFC7F1E7u);
+    } else {
+        if (CPad::GetPad(1)->IsSquareDown()) {
+            s_LookAtAngle = s_LookAtAngle + CamExeFloat(0x858B1C);
+        } else if (CPad::GetPad(1)->IsCrossDown()) {
+            s_LookAtAngle = s_LookAtAngle - CamExeFloat(0x858B1C);
         } else {
             s_LookAtAngle = 0.0f;
         }
-    } else {
-        m_fVerticalAngle = DegreesToRadians(-85.0f);
     }
-    s_LookAtAngle = std::clamp(s_LookAtAngle, -70.0f, 70.0f);
-
-    m_vecFront = (m_pCamTargetEntity ? m_pCamTargetEntity->GetPosition() : m_vecSource - m_vecSource).Normalized();
-    m_vecSource += s_LookAtAngle * m_vecFront;
-    m_vecSource.z = std::min(m_vecSource.z, -450.0f);
-
-    if (pad->IsRightShoulder2Pressed()) {
-        FindPlayerEntity()->Teleport(m_vecSource, false);
+    // 0x50F57F..0x50F5E6: limite +-70.0 (0x858CE0, 0x86319C)
+    if (s_LookAtAngle > CamExeFloat(0x858CE0)) {
+        s_LookAtAngle = std::bit_cast<float>(0x428C0000u);
+    } else if (s_LookAtAngle < CamExeFloat(0x86319C)) {
+        s_LookAtAngle = std::bit_cast<float>(0xC28C0000u);
     }
 
-    const auto ClampByLoop = [](float& value, float min, float max) {
-        while (value > max) {
-            value -= 1.0f;
+    // 0x50F5E6..0x50F660: front = (lookAt - source) normalizado; source += lookAtAngle * front
+    m_vecFront = CVector{ lookAt.x - m_vecSource.x, lookAt.y - m_vecSource.y, lookAt.z - m_vecSource.z };
+    m_vecFront.Normalise();
+    m_vecSource.x = s_LookAtAngle * m_vecFront.x + m_vecSource.x;
+    m_vecSource.y = s_LookAtAngle * m_vecFront.y + m_vecSource.y;
+    m_vecSource.z = s_LookAtAngle * m_vecFront.z + m_vecSource.z;
+    if (m_vecSource.z < CamExeFloat(0x863198)) { // -450.0: fcomp + test ah,5 + jp
+        m_vecSource.z = std::bit_cast<float>(0xC3E10000u);
+    }
+
+    // 0x50F680..0x50F720: boton R2 pulsado => lleva al vehiculo del jugador (Teleport virtual) o escribe la posicion en el jugador
+    if (CPad::GetPad(1)->IsRightShoulder2Pressed()) {
+        if (auto* vehicle = FindPlayerVehicle(-1, false)) {
+            vehicle->Teleport(m_vecSource, false);
+        } else {
+            auto* player = CWorld::Players[CWorld::PlayerInFocus].m_pPed;
+            CVector& position = player->m_matrix ? player->m_matrix->GetPosition() : player->m_placement.m_vPosn;
+            position.x = m_vecSource.x;
+            position.y = m_vecSource.y;
+            position.z = m_vecSource.z;
         }
-        while (value < min) {
-            value += 1.0f;
+    }
+
+    // 0x50F720..0x50F847: envuelve x e y de la fuente cuando (v * 0.02 + 60.0) sale de [5.0, 115.0]
+    const auto wrapSource = [](float& value) {
+        const auto scaled = [&] { return value * CamExeFloat(0x858B38) + CamExeFloat(0x858B34); };
+        if (scaled() > CamExeFloat(0x863194)) {
+            do {
+                value = value - CamExeFloat(0x858624);
+            } while (scaled() > CamExeFloat(0x863194));
+        }
+        if (scaled() < CamExeFloat(0x858C80)) {
+            do {
+                value = value + CamExeFloat(0x858624);
+            } while (scaled() < CamExeFloat(0x858C80));
         }
     };
-    ClampByLoop(m_vecSource.x, 5.0f, 115.0f);
-    ClampByLoop(m_vecSource.y, 5.0f, 115.0f);
+    wrapSource(m_vecSource.x);
+    wrapSource(m_vecSource.y);
 
     GetVectorsReadyForRW();
 
-    if (!pad->IsLeftShockPressed() && s_DoRenderShadows) {
+    // Como el original (0x50F858..0x50F8B2): sombra salvo que se pulse el stick izquierdo (pulsacion nueva)
+    if (!CPad::GetPad(1)->IsLeftShockPressed() && s_DoRenderShadows) {
         CShadows::StoreShadowToBeRendered(
             eShadowType::SHADOW_ADDITIVE,
             gpShadowExplosionTex,
@@ -3389,11 +3578,34 @@ void CCam::Process_Editor(const CVector& target, float orientation, float speedV
         );
     }
 
-    if (CHud::m_Wants_To_Draw_Hud) {
-        NOTSA_LOG_DEBUG("CamX: {:0.3f} CamY: {:0.3f}  CamZ:  {:0.3f}", m_vecSource.x, m_vecSource.y, m_vecSource.z);
-        NOTSA_LOG_DEBUG("Frontx: {:0.3f}, Fronty: {:0.3f}, Frontz: {:0.3f} ", m_vecFront.x, m_vecFront.y, m_vecFront.z);
-        NOTSA_LOG_DEBUG("LookAT: {:0.3f}, LookAT: {:0.3f}, LookAT: {:0.3f} ", m_vecSource.x + m_vecFront.x, m_vecSource.y + m_vecFront.y, m_vecSource.z + m_vecFront.z);
+    // Como el original (0x50F8B2..0x50F954): con m_Wants_To_Draw_Hud el EXE solo formatea con sprintf tres textos
+    // de depuracion en un buffer local (nunca se muestran); el NOTSA_LOG_DEBUG de la DLL se elimina.
+}
+
+// Como el original (0x51D610..0x51D6D9): la mezcla submarina que Process_Fixed lleva en linea escribe directamente los
+// dwords de TheCamera (0xB6F0B4 rojo, 0xB6F0B0 verde, 0xB6F0AC azul, 0xB6F0C8 valor, 0xB6F0B8 tipo), sin llamar a SetMotionBlur.
+static void CamApplyUnderwaterBlurInlined() {
+    const float waterRed   = CamExeFloat(0xB7C508);
+    const float waterGreen = CamExeFloat(0xB7C50C);
+    const float waterBlue  = CamExeFloat(0xB7C510);
+    const float limit      = CamExeFloat(0x8CC7A8);
+    const float magnitude  = std::sqrt((waterBlue * waterBlue + waterGreen * waterGreen) + waterRed * waterRed);
+    int32 red, green, blue;
+    if (magnitude > limit) { // fcom + test ah,41h + jne
+        const float scale = limit / magnitude;
+        red   = (int32)(int64)(waterRed * scale);
+        green = (int32)(int64)(waterGreen * scale);
+        blue  = (int32)(int64)(waterBlue * scale);
+    } else {
+        red   = (int32)(int64)waterRed;
+        green = (int32)(int64)waterGreen;
+        blue  = (int32)(int64)waterBlue;
     }
+    StaticRef<int32>(0xB6F0B4) = red;
+    StaticRef<int32>(0xB6F0B0) = green;
+    StaticRef<int32>(0xB6F0AC) = blue;
+    StaticRef<int32>(0xB6F0C8) = *reinterpret_cast<const int32*>(0x8CC7A4);
+    StaticRef<int32>(0xB6F0B8) = 2;
 }
 
 // 0x51D470
@@ -3403,23 +3615,28 @@ void CCam::Process_Fixed(const CVector& target, float orientation, float speedVa
     }
 
     m_vecSource = m_vecCamFixedModeSource;
-    m_vecFront = (target - m_vecSource).Normalized();
+    m_vecFront  = CVector{ target.x - m_vecSource.x, target.y - m_vecSource.y, target.z - m_vecSource.z };
+    m_vecFront.Normalise();
     m_vecTargetCoorsForFudgeInter = target;
     GetVectorsReadyForRW();
 
-    // inlined?
-    const auto a = CrossProduct(
-        m_vecFront,
-        (m_vecCamFixedModeUpOffSet + CVector{ 0.0f, 0.0f, 1.0f }).Normalized()
-    ).Normalized();
-    m_vecUp = CrossProduct(
-        a,
-        m_vecFront
-    );
+    // Como el original (0x51D507..0x51D5A8): el "arriba" provisional se construye en m_vecUp
+    m_vecUp = CVector{ 0.0f, 0.0f, 1.0f };
+    m_vecUp.x = m_vecUp.x + m_vecCamFixedModeUpOffSet.x;
+    m_vecUp.y = m_vecCamFixedModeUpOffSet.y + m_vecUp.y;
+    m_vecUp.z = m_vecCamFixedModeUpOffSet.z + m_vecUp.z;
+    m_vecUp.Normalise();
+    const auto a = CrossProduct(m_vecFront, m_vecUp).Normalized();
+    m_vecUp = CrossProduct(a, m_vecFront);
+
     m_fFOV = 70.0f;
+    // Como el original (0x51D5B5..0x51D5C9): si el byte 0xB6F05E vale 1, el FOV es el float de 0xB6F158
+    if (StaticRef<uint8>(0xB6F05E) == 1) {
+        m_fFOV = StaticRef<float>(0xB6F158);
+    }
 
     if (float wl{}; CWaterLevel::GetWaterLevel(m_vecSource, wl, true) && m_vecSource.z < wl) {
-        ApplyUnderwaterMotionBlur();
+        CamApplyUnderwaterBlurInlined();
     }
 
     if (gAllowScriptedFixedCameraCollision) {
@@ -3429,8 +3646,7 @@ void CCam::Process_Fixed(const CVector& target, float orientation, float speedVa
         CVector out{};
         float   outDist{1.0f};
         if (TheCamera.ConeCastCollisionResolve(m_vecSource, target, out, 2.0f, 0.1f, outDist)) {
-            m_vecSource.y = out.y;
-            m_vecSource.z = out.z;
+            m_vecSource = out; // 0x51D73E..0x51D74F: se copian x, y y z
         }
 
         CWorld::pIgnoreEntity = savedIgnoreEntity;
@@ -5676,130 +5892,175 @@ void CCam::Process_Rocket(const CVector& target, float orientation, float speedV
     static auto& dword_B6FFFC = StaticRef<uint32>(0xB6FFFC);
     static auto& byte_B70000  = StaticRef<bool>(0xB70000);
 
-    if (!m_pCamTargetEntity->GetIsTypePed()) {
-        return;
-    }
-
-    auto* targetPed = m_pCamTargetEntity->AsPed();
-    m_fFOV = 70.0f;
-    if (m_bResetStatics) {
-        if (!CCamera::m_bUseMouse3rdPerson || targetPed->m_pTargetedObject) {
-            m_fVerticalAngle = 0.0f;
-            m_fHorizontalAngle = targetPed->m_fCurrentRotation - DegreesToRadians(90.0f);
+    // Como el original (0x511B58..0x511B66): si el objetivo no es un ped se salta directamente al final (que fija el plano cercano)
+    if (m_pCamTargetEntity->GetIsTypePed()) {
+        auto* targetPed = m_pCamTargetEntity->AsPed();
+        m_fFOV = 70.0f;
+        if (m_bResetStatics) {
+            if (!CCamera::m_bUseMouse3rdPerson || targetPed->m_pTargetedObject) {
+                m_fVerticalAngle = 0.0f;
+                m_fHorizontalAngle = targetPed->m_fCurrentRotation - CamExeFloat(0x858FE4);
+            }
+            m_fInitialPlayerOrientation = m_fHorizontalAngle;
+            m_bResetStatics             = false;
+            byte_B70000                 = false;
+            dword_B6FFFC                = 0;
+            dword_B6FFF8                = 0;
+            m_bCollisionChecksOn        = true;
         }
-        m_fInitialPlayerOrientation = m_fHorizontalAngle;
-        m_bResetStatics             = 0;
-        m_bCollisionChecksOn        = true;
-        byte_B70000                 = 0;
-        dword_B6FFFC                = 0;
-        dword_B6FFF8                = 0;
-    }
-    m_pCamTargetEntity->UpdateRwMatrix();
-    m_pCamTargetEntity->UpdateRwFrame();
-    CVector headPosition{};
-    targetPed->GetTransformedBonePosition(headPosition, eBoneTag::BONE_HEAD, true);
-    m_vecSource = headPosition + CVector{0.0f, 0.0f, 0.1f};
+        // Como el original: UpdateRwMatrix en linea, UpdateRwFrame (0x532B00) y UpdateRpHAnim (0x532B20)
+        m_pCamTargetEntity->UpdateRwMatrix();
+        m_pCamTargetEntity->UpdateRwFrame();
+        m_pCamTargetEntity->UpdateRpHAnim();
+        CVector headPosition;
+        targetPed->GetBonePosition(&headPosition, BONE_HEAD, true); // 0x5E4280 (no GetTransformedBonePosition)
+        m_vecSource = headPosition;
+        m_vecSource.z = m_vecSource.z + CamExeFloat(0x858B1C); // fadd 0.1
 
-    auto*      pad1   = CPad::GetPad(0);
-    const auto fov    = m_fFOV / 80.0f;
-    const auto amountMouseMoved = pad1->NewMouseControllerState.GetAmountMouseMoved();
-
-    if (!amountMouseMoved.IsZero()) {
-        m_fHorizontalAngle += -3.0f * amountMouseMoved.x * fov * CCamera::m_fMouseAccelHorzntl;
-        m_fVerticalAngle += +4.0f * amountMouseMoved.y * fov * CCamera::m_fMouseAccelVertical;
-    } else {
-        const auto hv  = (float)-pad1->LookAroundLeftRight(targetPed);
-        const auto vv  = (float)pad1->LookAroundUpDown(targetPed);
-
-        m_fHorizontalAngle += sq(hv) / 10000.0f * fov / 17.5f * CTimer::GetTimeStep() * (hv < 0.0f ? -1.0f : 1.0f);
-        m_fVerticalAngle   += sq(vv) / 22500.0f * fov / 14.0f * CTimer::GetTimeStep() * (vv < 0.0f ? -1.0f : 1.0f);
-    }
-    ClipBeta();
-    ClipAlpha();
-
-    m_vecFront.Set(
-        -(std::cos(m_fHorizontalAngle) * std::cos(m_fVerticalAngle)),
-        -(std::sin(m_fHorizontalAngle) * std::cos(m_fVerticalAngle)),
-        std::sin(m_fVerticalAngle)
-    );
-    GetVectorsReadyForRW();
-
-    const auto heading = CGeneral::GetATanOfXY(m_vecFront.x, m_vecFront.y) - DegreesToRadians(90.0f);
-    TheCamera.m_pTargetEntity->AsPed()->m_fCurrentRotation = heading;
-    TheCamera.m_pTargetEntity->AsPed()->m_fAimingRotation  = heading;
-
-    if (isHeatSeeking) {
-        auto* player     = FindPlayerPed();
-        auto* playerData = player->GetPlayerData();
-        if (!playerData->m_nFireHSMissilePressedTime) {
-            playerData->m_nFireHSMissilePressedTime = CTimer::GetTimeInMS();
+        const float mouseX = CPad::NewMouseControllerState.m_AmountMoved.x;
+        const float mouseY = CPad::NewMouseControllerState.m_AmountMoved.y;
+        float horizontalDelta, verticalDelta;
+        if (mouseX != 0.0f || mouseY != 0.0f) {
+            // 0x511DD4..0x511E12
+            const float fovFactor = m_fFOV * CamExeFloat(0x85A5C4);
+            horizontalDelta = (mouseX * CamExeFloat(0x859024)) * (fovFactor * CCamera::m_fMouseAccelHorzntl);
+            verticalDelta   = (fovFactor * CCamera::m_fMouseAccelVertical) * (mouseY * CamExeFloat(0x858B90));
+        } else {
+            // 0x511CAE..0x511D90
+            const float horizontalInput = (float)(-(int32)CPad::GetPad(0)->LookAroundLeftRight(targetPed));
+            const float verticalInput   = (float)(int32)CPad::GetPad(0)->LookAroundUpDown(targetPed);
+            const float horizontalSign  = horizontalInput < 0.0f ? CamExeFloat(0x858C1C) : CamExeFloat(0x858624);
+            const float verticalSign    = verticalInput < 0.0f ? -1.0f : 1.0f;
+            const float fovFactor       = m_fFOV * CamExeFloat(0x85A5C4);
+            horizontalDelta = horizontalSign * ((((horizontalInput * horizontalInput) * CamExeFloat(0x858FC4)) * (fovFactor * CamExeFloat(0x863100))) * CTimer::GetTimeStep());
+            verticalDelta   = (((verticalInput * verticalInput) * CamExeFloat(0x8630FC)) * (fovFactor * CamExeFloat(0x859B50))) * CTimer::GetTimeStep() * verticalSign;
+        }
+        m_fHorizontalAngle = horizontalDelta + m_fHorizontalAngle;
+        m_fVerticalAngle   = verticalDelta + m_fVerticalAngle;
+        ClipBeta();
+        // 0x511DB5..0x511E27: limites inferior/superior fijos (60 grados arriba: 0x8630F8, -1.5620698 abajo: 0x8630F4)
+        if (m_fVerticalAngle > CamExeFloat(0x8630F8)) {
+            m_fVerticalAngle = std::bit_cast<float>(0x3F860A92u);
+        } else if (m_fVerticalAngle < CamExeFloat(0x8630F4)) {
+            m_fVerticalAngle = std::bit_cast<float>(0xBFC7F1E7u);
         }
 
-        const auto hsTarget = CWeapon::PickTargetForHeatSeekingMissile(
-            m_vecSource,
-            m_vecFront,
-            1.2f,
-            player,
-            false,
-            playerData->m_LastHSMissileTarget
-        );
+        // 0x511E31..0x511E80: cos(vertical) se mantiene en precision extendida en el x87 para los dos productos
+        const float verticalAngle   = m_fVerticalAngle;
+        const float horizontalAngle = m_fHorizontalAngle;
+        float frontX, frontY, frontZ;
+        __asm {
+            fld  dword ptr [verticalAngle]
+            fcos
+            fld  dword ptr [horizontalAngle]
+            fcos
+            fmul st(0), st(1)
+            fchs
+            fstp dword ptr [frontX]
+            fld  dword ptr [horizontalAngle]
+            fsin
+            fmul st(0), st(1)
+            fchs
+            fstp dword ptr [frontY]
+            fstp st(0)
+            fld  dword ptr [verticalAngle]
+            fsin
+            fstp dword ptr [frontZ]
+        }
+        m_vecFront = CVector{ frontX, frontY, frontZ };
+        GetVectorsReadyForRW();
 
-        // NOTE: not sure about the second one
-        if (hsTarget && CTimer::GetTimeInMS() - playerData->m_nLastHSMissileLOSTime > 1'000) {
-            playerData->m_nLastHSMissileLOSTime = CTimer::GetTimeInMS();
+        // 0x511E8A..0x511EBC: rumbo = atan2 del front menos pi/2 en el ped objetivo de TheCamera
+        const float heading = CGeneral::GetATanOfXY(m_vecFront.x, m_vecFront.y) - CamExeFloat(0x858FE4);
+        auto* cameraTargetPed = StaticRef<CPed*>(0xB6F980);
+        cameraTargetPed->m_fCurrentRotation = heading;
+        cameraTargetPed->m_fAimingRotation  = heading;
 
-            const auto targetUsesCollision = hsTarget->GetUsesCollision();
-            const auto playerUsesCollision = player->GetUsesCollision();
-            hsTarget->SetUsesCollision(false);
-            player->SetUsesCollision(false);
+        if (isHeatSeeking) {
+            auto* player = FindPlayerPed(-1);
+            auto* const playerData = reinterpret_cast<uint8*>(player->GetPlayerData());
+            // Offsets del EXE (0x511ED1..): +0x94 tiempo de pulsacion, +0x98 ultimo objetivo, +0xA0 tiempo LOS (31 bits) | LOS (bit 31)
+            uint32& pressedTime = *reinterpret_cast<uint32*>(playerData + 0x94);
+            CEntity*& lastTarget = *reinterpret_cast<CEntity**>(playerData + 0x98);
+            uint32& losWord = *reinterpret_cast<uint32*>(playerData + 0xA0);
 
-            const auto isClear = CWorld::GetIsLineOfSightClear(
-                player->GetPosition(),
-                hsTarget->GetPosition(),
-                true,
-                true,
+            if (pressedTime == 0) {
+                pressedTime = CTimer::GetTimeInMS();
+            }
+
+            CEntity* hsTarget = CWeapon::PickTargetForHeatSeekingMissile(
+                m_vecSource,
+                m_vecFront,
+                1.2f,
+                player,
                 false,
-                true,
-                false,
-                true
+                lastTarget
             );
-            player->SetUsesCollision(playerUsesCollision);
-            hsTarget->SetUsesCollision(targetUsesCollision);
-            playerData->m_bLastHSMissileLOS = isClear;
-        }
 
-        if (!playerData->m_bLastHSMissileLOS || !hsTarget || hsTarget != playerData->m_LastHSMissileTarget) {
-            playerData->m_nFireHSMissilePressedTime = CTimer::GetTimeInMS();
-        }
+            const uint32 now = CTimer::GetTimeInMS();
+            bool lineOfSight;
+            // 0x511F3C..0x512028: la resta usa (campo de 31 bits == 0 ? 1 : 0) y no el tiempo; el campo se guarda como (ahora > 1)
+            if (hsTarget && (now - ((losWord & 0x7FFFFFFFu) == 0 ? 1u : 0u)) > 1000u) {
+                losWord = (losWord & 0x80000000u) | (1u < now ? 1u : 0u);
 
-        if (hsTarget) {
-            CWeaponEffects::MarkTarget(
-                CrossHairId(0),
-                hsTarget->GetPosition(),
+                const bool targetUsesCollision = hsTarget->GetUsesCollision();
+                const bool playerUsesCollision = player->GetUsesCollision();
+                player->SetUsesCollision(false);
+                hsTarget->SetUsesCollision(false);
+
+                lineOfSight = CWorld::GetIsLineOfSightClear(
+                    player->GetPosition(),
+                    hsTarget->GetPosition(),
+                    true,
+                    true,
+                    false,
+                    true,
+                    false,
+                    true
+                );
+                player->SetUsesCollision(playerUsesCollision);
+                hsTarget->SetUsesCollision(targetUsesCollision);
+                losWord = (losWord & 0x7FFFFFFFu) | ((uint32)(uint8)lineOfSight << 31);
+            } else {
+                lineOfSight = ((losWord >> 31) & 1u) != 0;
+            }
+
+            // 0x51202A..0x51203E: sin linea de vision el objetivo se descarta antes de comparar con el ultimo
+            if (!lineOfSight) {
+                hsTarget = nullptr;
+            }
+            if (!hsTarget || hsTarget != lastTarget) {
+                pressedTime = CTimer::GetTimeInMS();
+            }
+
+            if (hsTarget) {
+                CWeaponEffects::MarkTarget(
+                    CrossHairId(0),
+                    hsTarget->GetPosition(),
+                    255,
+                    255,
+                    255,
+                    100,
+                    1.3f,
+                    true
+                );
+            }
+
+            auto& crosshair = gCrossHair[CrossHairId(0)];
+            const uint32 time = CTimer::GetTimeInMS() - pressedTime;
+
+            crosshair.m_nTimeWhenToDeactivate = 0;
+            crosshair.m_color.Set(
                 255,
-                255,
-                255,
-                100,
-                1.3f,
-                true
+                time <= 1'500 ? 255 : 0,
+                time <= 1'500 ? 255 : 0
             );
+            crosshair.m_fRotation = time <= 1'500 ? 0.0f : 1.0f;
+            lastTarget = hsTarget;
         }
-
-        auto& crosshair = gCrossHair[CrossHairId(0)];
-        const auto time = CTimer::GetTimeInMS() - playerData->m_nFireHSMissilePressedTime;
-
-        crosshair.m_nTimeWhenToDeactivate = 0;
-        crosshair.m_color.Set(
-            255,
-            time <= 1'500 ? 255 : 0,
-            time <= 1'500 ? 255 : 0
-        );
-        crosshair.m_fRotation = time <= 1'500 ? 0.0f : 1.0f;
-        playerData->m_LastHSMissileTarget = hsTarget;
     }
 
-    constexpr auto ROCKET_CAM_NEARCLIP_PLANE = 0.15f; // 0x8CCC9C
-    RwCameraSetNearClipPlane(Scene.m_pRwCamera, ROCKET_CAM_NEARCLIP_PLANE);
+    RwCameraSetNearClipPlane(Scene.m_pRwCamera, CamExeFloat(0x8CCC9C)); // 0.15f
 }
 
 // 0x517500
@@ -6001,10 +6262,10 @@ void CCam::ApplyUnderwaterMotionBlur() {
     static constexpr uint32 UNDERWATER_CAM_BLUR      = 20;    // 0x8CC7A4
     static constexpr float  UNDERWATER_CAM_MAG_LIMIT = 10.0f; // 0x8CC7A8
 
+    // Como el original (0x51845C..0x51847C): la suma de cuadrados va en el orden z, y, x ((z*z + y*y) + x*x).
     const auto colorMag = std::sqrt(
-        sq(CTimeCycle::GetWaterRed()) +
-        sq(CTimeCycle::GetWaterGreen()) +
-        sq(CTimeCycle::GetWaterBlue())
+        (CTimeCycle::GetWaterBlue() * CTimeCycle::GetWaterBlue() + CTimeCycle::GetWaterGreen() * CTimeCycle::GetWaterGreen()) +
+        CTimeCycle::GetWaterRed() * CTimeCycle::GetWaterRed()
     );
 
     const auto factor = (colorMag <= UNDERWATER_CAM_MAG_LIMIT) ? 1.0f : UNDERWATER_CAM_MAG_LIMIT / colorMag;

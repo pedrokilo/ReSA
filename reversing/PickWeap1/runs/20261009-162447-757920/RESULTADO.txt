@@ -1,0 +1,3 @@
+APROBADO: CPickups + CWeapon (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pickweap1\20261009-162447-757920

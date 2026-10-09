@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 43/43 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 14.
- * Validación registrada: 14/43 entradas.
+ * Validación registrada: 43/43 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -112,9 +112,81 @@ CAERadioTrackManager::CAERadioTrackManager(int32 hwClientHandle) :
     m_RequestedSettings = m_ActiveSettings = tRadioSettings{CAEAudioUtility::GetRandomRadioStation()};
 }
 
+// Cuerpo comun de Reset (0x4E7F80) e Initialise (0x5B9390): ambas escriben exactamente los mismos campos
+// (sin tocar los que el EXE no toca: BassGain pedido, relleno de tRadioSettings, m_HwClientHandle en Reset...).
+static void ResetCommon(CAERadioTrackManager& self) {
+    // Como el original: 0x4E7F8B [ebp]=0, [ebp+1]=0
+    self.m_bInitialised = false;
+    self.m_bDisplayStationName = false;
+    // Como el original: 0x4E7F91 call 0x558F90 + rep movsd (14 dwords) a [ebp+18h]
+    rng::copy(CStats::GetFullFavoriteRadioStationList(), self.m_aListenTimes.begin());
+
+    // Como el original: 0x4E7FD0..0x4E806D (bucle de 14 emisoras): historiales a -1, estado de radio y m_nTracksInARow=0
+    for (auto i = 0u; i < RADIO_COUNT; i++) {
+        CAERadioTrackManager::m_nMusicTrackIndexHistory[i].Reset();
+        CAERadioTrackManager::m_nIdentIndexHistory[i].Reset();
+        CAERadioTrackManager::m_nAdvertIndexHistory[i].Reset();
+        CAERadioTrackManager::m_nDJBanterIndexHistory[i].Reset();
+        self.m_aRadioState[i].Reset();
+        self.m_nTracksInARow[i] = 0;
+    }
+
+    // Como el original: 0x4E8073 call 0x4D9C10 (GetRandomNumberInRange(1, 13)) -> [ebp+0ADh]; 0x4E808B/0x4E8091/0x4E80A5...
+    // Solo se escriben los campos del EXE sobre m_RequestedSettings (el BassGain pedido y el relleno quedan como estaban) ...
+    auto& rs = self.m_RequestedSettings;
+    rs.StationID = CAEAudioUtility::GetRandomRadioStation();
+    rs.BassSetting = eBassSetting::NORMAL;
+    rs.TrackFlags = 2;
+    for (size_t k = 0; k < tRadioSettings::NUM_TRACKS; k++) {
+        rs.TrackQueue.data()[k] = -1;
+        rs.TrackTypes.data()[k] = TYPE_NONE;
+        rs.TrackIndices.data()[k] = -1;
+    }
+    rs.CurrTrackID = -1;     // 0x4E80B5
+    rs.PrevTrackID = -1;     // 0x4E80BB
+    rs.PlayTime = 0;         // 0x4E80C1
+    rs.TrackLengthMs = 0;    // 0x4E80C7
+    rs.CurrTrackType = TYPE_NONE; // 0x4E80CD
+    rs.CurrTrackIdx = -1;    // 0x4E80D4
+    rs.PrevTrackType = TYPE_NONE; // 0x4E80DB
+    rs.PrevTrackIdx = -1;    // 0x4E80E2
+
+    self.m_nStationsListed = 0;          // 0x4E80E9
+    self.m_nStationsListDown = 0;        // 0x4E80EC
+    self.m_nTimeRadioStationRetuned = 0; // 0x4E80EF
+    self.m_nTimeToDisplayRadioName = 0;  // 0x4E80F2
+    self.m_nSavedTimeMs = 0;             // 0x4E80F5 (mov [ebp+58h],ebx): el fuente no lo ponia a 0
+    self.m_prev = 0;                     // 0x4E80F8
+    self.field_60 = 0;                   // 0x4E80FB
+    self.m_nRetuneStartedTime = 0;       // 0x4E80FE
+    self.m_bEnabledInPauseMode = false;  // 0x4E8101
+    self.m_nSavedGameClockDays = 0xFF;   // 0x4E8104
+    self.m_nSavedGameClockHours = 0xFF;  // 0x4E8108
+    self.m_bRadioAutoSelect = true;      // 0x4E810C
+    self.m_bBassEnhance = true;          // 0x4E8110
+    // Como el original: 0x4E8114..0x4E811F rep movsd de 15 dwords: ActiveSettings = copia COMPLETA (con relleno) de RequestedSettings
+    std::memcpy(&self.m_ActiveSettings, &self.m_RequestedSettings, sizeof(tRadioSettings));
+    self.m_nSavedRadioStationId = -1;       // 0x4E8124
+    self.m_iRadioStationMenuRequest = -1;   // 0x4E8127
+    self.m_iRadioStationScriptRequest = -1; // 0x4E812A
+    CAERadioTrackManager::m_nSpecialDJBanterPending = 3;     // 0x4E812E
+    CAERadioTrackManager::m_nSpecialDJBanterIndex = 0xFF;    // 0x4E8135
+    self.m_bPauseMode = false;       // 0x4E813C
+    self.m_bRetuneJustStarted = false; // 0x4E813F
+    self.m_f80 = 0.0f;               // 0x4E8142
+    self.m_f84 = 0.0f;               // 0x4E8148
+    CAERadioTrackManager::ResetStatistics(); // 0x4E8150..0x4E81E8 (inline en el EXE)
+}
+
 // 0x5B9390
+// Como el original: NO es "*this = CAERadioTrackManager{}". Es el cuerpo del constructor (guarda el handle, modo 7 = STOPPED,
+// mismos campos que Reset, field_368 = 0 y el modo de reproduccion de pistas de usuario).
 bool CAERadioTrackManager::Initialise(int32 channelId) {
-    *this = CAERadioTrackManager{};
+    m_HwClientHandle = channelId;                      // 0x5B939F
+    m_nMode = eRadioTrackMode::RADIO_STOPPED;          // 0x5B93A2
+    ResetCommon(*this);
+    field_368 = 0;                                     // 0x5B9611
+    m_nUserTrackPlayMode = AEUserRadioTrackManager.GetUserTrackPlayMode(); // 0x5B960C call 0x4F3330 -> [ebp+36Ch]
     return true;
 }
 
@@ -125,30 +197,7 @@ void CAERadioTrackManager::InitialiseRadioStationID(eRadioID id) {
 
 // 0x4E7F80
 void CAERadioTrackManager::Reset() {
-    m_bInitialised = false;
-    m_bDisplayStationName = false;
-    rng::copy(CStats::GetFullFavoriteRadioStationList(), m_aListenTimes.begin());
-
-    rng::for_each(m_nDJBanterIndexHistory, &DJBanterIndexHistory::Reset);
-    rng::for_each(m_nAdvertIndexHistory, &AdvertIndexHistory::Reset);
-    rng::for_each(m_nIdentIndexHistory, &IdentIndexHistory::Reset);
-    rng::for_each(m_nMusicTrackIndexHistory, &MusicTrackHistory::Reset);
-    rng::for_each(m_aRadioState, [](auto& s) { s.Reset(); });
-
-    m_RequestedSettings = m_ActiveSettings = tRadioSettings{CAEAudioUtility::GetRandomRadioStation()};
-    m_nStationsListed = m_nStationsListDown = 0;
-    m_nTimeRadioStationRetuned = m_nTimeToDisplayRadioName = 0;
-    m_prev = field_60 = 0;
-    m_nRetuneStartedTime = 0;
-    m_bEnabledInPauseMode = false;
-    m_nSavedGameClockDays = m_nSavedGameClockHours = -1;
-    m_bRadioAutoSelect = m_bBassEnhance = true;
-    m_nSavedRadioStationId = m_iRadioStationMenuRequest = m_iRadioStationScriptRequest = RADIO_INVALID;
-    m_nSpecialDJBanterPending = 3; // todo: enum
-    m_nSpecialDJBanterIndex = -1;
-    m_bPauseMode = m_bRetuneJustStarted = false;
-    m_f80 = m_f84 = 0.0f;
-    ResetStatistics();
+    ResetCommon(*this);
 }
 
 // 0x4E8200
@@ -198,7 +247,8 @@ int32* CAERadioTrackManager::GetRadioStationListenTimes() {
 
 // 0x4E83F0
 eRadioID CAERadioTrackManager::GetCurrentRadioStationID() const {
-    return m_RequestedSettings.StationID == RADIO_INVALID ? RADIO_OFF : m_RequestedSettings.StationID;
+    // Como el original: 0x4E83F0 mov al,[ecx+0E9h] -> es m_ActiveSettings.StationID (0xC4+0x25), NO el pedido (0xAD).
+    return m_ActiveSettings.StationID == RADIO_INVALID ? RADIO_OFF : m_ActiveSettings.StationID;
 }
 
 // 0x4E82E0
@@ -273,17 +323,28 @@ void CAERadioTrackManager::DisplayRadioStationName() {
                 station += RADIO_COUNT - 1;
             }
 
+            // Como el original: 0x4E9EF3 GetRadioStationName se llama ANTES de los CFont::Set*.
+            const auto* const name = GetRadioStationName((eRadioID)station);
+
+            // Como el original: 0x4E9F11..0x4E9F3C: escala = (alto * K448) * 0.9 y (ancho * K640) * 0.6 con K448 = 0x3B124925 y
+            // K640 = 0x3ACCCCCD (constantes [859524]/[859520]); no usa SCREEN_SCALE_X/Y (division ni factor de aspecto).
+            const float kHeight = std::bit_cast<float>(0x3B124925u);
+            const float kWidth = std::bit_cast<float>(0x3ACCCCCDu);
+            const float scaleY = (float(RsGlobal.maximumHeight) * kHeight) * 0.9f;
+            const float scaleX = (float(RsGlobal.maximumWidth) * kWidth) * 0.6f;
+
             CFont::SetFontStyle(eFontStyle::FONT_MENU);
             CFont::SetJustify(false);
             CFont::SetBackground(false, false);
-            CFont::SetScale(SCREEN_SCALE_X(0.6f), SCREEN_SCALE_Y(0.9f));
+            CFont::SetScale(scaleX, scaleY);
             CFont::SetProportional(true);
             CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
             CFont::SetRightJustifyWrap(0.0f);
             CFont::SetEdge(1);
             CFont::SetDropColor(CRGBA(0, 0, 0, 255));
             CFont::SetColor(HudColour.GetRGB(m_nStationsListed || m_nStationsListDown ? HUD_COLOUR_DARK_GRAY : HUD_COLOUR_GOLD));
-            CFont::PrintString(SCREEN_WIDTH / 2, SCREEN_SCALE_Y(22.0f), GetRadioStationName((eRadioID)station));
+            // Como el original: 0x4E9FBF..0x4E9FF6: x = float(ancho / 2) (division ENTERA: cdq/sub/sar), y = (alto * K448) * 22.0.
+            CFont::PrintString(float(RsGlobal.maximumWidth / 2), (float(RsGlobal.maximumHeight) * kHeight) * 22.0f, name);
             CFont::DrawFonts();
         }
     }
@@ -291,8 +352,8 @@ void CAERadioTrackManager::DisplayRadioStationName() {
 
 // 0x4E9E10
 const GxtChar* CAERadioTrackManager::GetRadioStationName(eRadioID id) {
+    // Como el original: 0x4E9E17..0x4E9E19 test al,al / jle -> xor eax,eax (devuelve NULL, no aborta).
     if (id <= 0) {
-        NOTSA_UNREACHABLE();
         return nullptr;
     }
 
@@ -334,36 +395,47 @@ bool CAERadioTrackManager::IsVehicleRadioActive() {
 
 // 0x4E8410
 void CAERadioTrackManager::CheckForMissionStatsChanges() {
+    // Como el original: los indicadores (B62C58..B62C73) se leen con movsx/movzx exactos y las estadisticas se comparan
+    // como float (fild + fcompp + test ah,5 + jp) y se convierten con _ftol2 (truncado de 64 bits, byte bajo).
     if (m_nSpecialDJBanterPending != 3) {
-        int32 days = CClock::GetGameClockDays() - m_nStatsLastHitGameClockDays;
+        // 0x4E841A..0x4E8443: movzx dias_actuales - movsx m_nStatsLastHitGameClockDays
+        int32 days = int32(CClock::GetGameClockDays()) - int32(int8(m_nStatsLastHitGameClockDays));
         if (days < 0) {
-            auto month = CClock::GetGameClockMonth() - 1;
+            // 0x4E842C..0x4E8441: dec al (byte) / jns / add al,0Ch; movsx; movzx [daysInMonth + mes]
+            int8 month = int8(uint8(CClock::GetGameClockMonth()) - 1);
             if (month < 0) {
-                month += 12;
+                month = int8(month + 12);
             }
-            days += CClock::daysInMonth[month];
+            days += StaticRef<uint8>(0x8CCF24 + size_t(int32(month)));
         }
-        if (CClock::GetGameClockHours() + 24 * days - m_nStatsLastHitGameClockHours >= m_nStatsLastHitTimeOutHours) {
+        // 0x4E8443..0x4E8464: horas = dias*24 - movsx(horas guardadas) + movzx(horas actuales); jl con signo contra movzx(limite)
+        if (days * 24 - int32(int8(m_nStatsLastHitGameClockHours)) + int32(CClock::GetGameClockHours()) >= int32(m_nStatsLastHitTimeOutHours)) {
             m_nSpecialDJBanterPending = 3;
         }
     }
 
-    const auto statsCitiesPassed = CStats::GetStatValue<uint8>(STAT_CITY_UNLOCKED);
-    if (m_nStatsCitiesPassed < statsCitiesPassed) {
-        m_nStatsCitiesPassed = statsCitiesPassed;
-        if (statsCitiesPassed == 1 || statsCitiesPassed == 2) {
-            m_nStatsLastHitGameClockDays = CClock::GetGameClockDays();
-            m_nStatsLastHitGameClockHours = CClock::GetGameClockHours();
-            m_nStatsLastHitTimeOutHours = 24;
-            m_nSpecialDJBanterPending = 1;
-            m_nSpecialDJBanterIndex = m_nStatsCitiesPassed - 1;
+    // 0x4E846D..0x4E84DE: ciudades. El EXE llama dos veces a CStats::GetStatValue (0x558E40) cuando entra.
+    {
+        const float value = CStats::GetStatValue(STAT_CITY_UNLOCKED);
+        // 0x4E8489..0x4E8490: fcompp + test ah,5 + jp salta con NaN (desordenado) o guardado >= valor: solo entra si guardado < valor
+        if (float(int8(m_nStatsCitiesPassed)) < value) {
+            const uint8 passed = uint8(int64(CStats::GetStatValue(STAT_CITY_UNLOCKED)));
+            m_nStatsCitiesPassed = passed;
+            if (passed == 1 || passed == 2) {
+                m_nStatsLastHitGameClockDays = CClock::GetGameClockDays();
+                m_nStatsLastHitGameClockHours = CClock::GetGameClockHours();
+                m_nStatsLastHitTimeOutHours = 24;
+                m_nSpecialDJBanterPending = 1;
+                m_nSpecialDJBanterIndex = uint8(passed - 1);
+            }
         }
     }
 
-    const auto Update = [](uint8& inputStat, const eStats stat, const auto specialDJBanterIndex) {
-        const auto statValue = CStats::GetStatValue<uint8>(stat);
-        if (inputStat < statValue) {
-            inputStat = statValue;
+    const auto Update = [](uint8& inputStat, const eStats stat, const uint8 specialDJBanterIndex) {
+        const float value = CStats::GetStatValue(stat);
+        // fcompp + test ah,5 + jp: con NaN el EXE salta (no entra)
+        if (float(int8(inputStat)) < value) {
+            inputStat = uint8(int64(CStats::GetStatValue(stat)));
             if (inputStat == 1) {
                 m_nStatsLastHitGameClockDays = CClock::GetGameClockDays();
                 m_nStatsLastHitGameClockHours = CClock::GetGameClockHours();
@@ -629,17 +701,22 @@ void CAERadioTrackManager::StartRadio(const tVehicleAudioSettings& settings) {
        if (CTimer::GetTimeInMS() > m_nSavedTimeMs + 60'000)
            return false;
 
-       const auto savedHours = m_nSavedGameClockHours;
-       auto savedDays = m_nSavedGameClockDays;
+       // Como el original: 0x4EB5CF..0x4EB618: horas y dias guardados se leen como int8 (test + jl, movsx) y la diferencia es
+       // (dia_actual - dia_guardado) [+ dias del mes anterior si es negativa] * 24 - horas_guardadas + hora_actual > 5.
+       const auto savedHours = int8(m_nSavedGameClockHours);
+       const auto savedDays = int8(m_nSavedGameClockDays);
        if (savedHours < 0 || savedDays < 0)
            return false;
 
-       if (savedDays > CClock::GetGameClockDays()) {
-           const auto month = CClock::GetGameClockMonth();
-           savedDays += CClock::daysInMonth[month == 0 ? 11 : month - 1]; // prev month
+       int32 days = int32(CClock::GetGameClockDays()) - int32(savedDays);
+       if (days < 0) {
+           int8 month = int8(uint8(CClock::GetGameClockMonth()) - 1);
+           if (month < 0)
+               month = int8(month + 12);
+           days += StaticRef<uint8>(0x8CCF24 + size_t(int32(month)));
        }
 
-       if (CClock::GetGameClockHours() + 24 * savedDays - savedHours > 5)
+       if (days * 24 - int32(savedHours) + int32(CClock::GetGameClockHours()) > 5)
            return false;
 
        return true;
@@ -679,7 +756,13 @@ void CAERadioTrackManager::StartRadio(eRadioID id, eBassSetting bassSetting, flo
     rs->BassSetting             = bassSetting;
     rs->BassGain            = bassGain;
     if (id == RADIO_OFF) {
-        rs->Reset();
+        // Como el original: 0x4EB498..0x4EB4C3 solo vacia la cola, los tipos y los indices; NO restablece el resto
+        // (BassSetting/BassGain recien escritos, PlayTime...) como hacia rs->Reset() (*this = {}).
+        for (size_t k = 0; k < tRadioSettings::NUM_TRACKS; k++) {
+            rs->TrackQueue.data()[k] = -1;
+            rs->TrackTypes.data()[k] = TYPE_NONE;
+            rs->TrackIndices.data()[k] = -1;
+        }
     } else if (m_aRadioState[id].m_iTimeInMs < 0 || !TrackRadioStation(id, skipTrack)) {
         ChooseTracksForStation(rs->StationID);
         rs->PlayTime = CAEAudioUtility::GetRandomNumberInRange(0, 300'000);
@@ -1171,7 +1254,9 @@ void CAERadioTrackManager::ChooseTracksForStation(eRadioID id) {
     }
 
     QueueUpTracksForStation(id, &trackCount, TYPE_OUTRO, m_RequestedSettings);
-    AddMusicTrackIndexToHistory(id, m_RequestedSettings.TrackIndices[trackCount - 1]);
+    // Como el original: 0x4EB2AE..0x4EB2C0 lee el byte en Requested+0x32+trackCount (con trackCount = 0 lee PrevTrackType);
+    // TrackIndices[-1] abortaria en depuracion, de ahi .data().
+    AddMusicTrackIndexToHistory(id, m_RequestedSettings.TrackIndices.data()[trackCount - 1]);
 
     if (id == RADIO_EMERGENCY_AA) {
         QueueUpTracksForStation(id, &trackCount, TYPE_DJ_BANTER, m_RequestedSettings);
@@ -1440,13 +1525,15 @@ void CAERadioTrackManager::AddMusicTrackIndexToHistory(eRadioID id, int8 trackIn
 }
 
 // 0x4E9720
-void CAERadioTrackManager::AddIdentIndexToHistory(eRadioID id, int8 trackIndex) {
+void CAERadioTrackManager::AddIdentIndexToHistory(eRadioID id, int32 trackIndex) {
+    // Como el original: 0x4E972F mov esi,[esp+0Ch] / 0x4E9733 cmp eax,esi: el indice es un dword (no un int8).
     if (m_nIdentIndexHistory[id].indices[0] != trackIndex)
         m_nIdentIndexHistory[id].PutAtFirst(trackIndex);
 }
 
 // 0x4E9760
-void CAERadioTrackManager::AddAdvertIndexToHistory(eRadioID id, int8 trackIndex) {
+void CAERadioTrackManager::AddAdvertIndexToHistory(eRadioID id, int32 trackIndex) {
+    // Como el original: 0x4E9761 mov ebx,[esp+0Ch] / 0x4E9771 cmp [..],ebx: el indice es un dword (no un int8).
     if (m_nAdvertIndexHistory[id].indices[0] != trackIndex) {
         m_nAdvertIndexHistory[id].PutAtFirst(trackIndex);
         m_nTracksInARow[id] = 0;
@@ -1454,7 +1541,8 @@ void CAERadioTrackManager::AddAdvertIndexToHistory(eRadioID id, int8 trackIndex)
 }
 
 // 0x4E97B0
-void CAERadioTrackManager::AddDJBanterIndexToHistory(eRadioID id, int8 trackIndex) {
+void CAERadioTrackManager::AddDJBanterIndexToHistory(eRadioID id, int32 trackIndex) {
+    // Como el original: 0x4E97B1 mov ebx,[esp+0Ch] / 0x4E97C0 cmp [..],ebx: el indice es un dword (no un int8).
     if (m_nDJBanterIndexHistory[id].indices[0] != trackIndex) {
         m_nDJBanterIndexHistory[id].PutAtFirst(trackIndex);
         m_nTracksInARow[id] = 0;

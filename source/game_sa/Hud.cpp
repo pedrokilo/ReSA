@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 8.
- * Validación registrada: 8/38 entradas.
+ * Validación registrada: 32/38 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -42,6 +42,16 @@ END GENERATED HOOK STATUS */
 #include "EntryExitManager.h"
 #include "TaskSimpleUseGun.h"
 #include "eHud.h"
+
+namespace {
+// Constantes float leidas del EXE (algunas no son el float mas cercano al literal decimal).
+inline float ExeFloat(uintptr_t address) {
+    return std::bit_cast<float>(*reinterpret_cast<const uint32*>(address));
+}
+// fild maximumWidth/Height * 0x859520/0x859524 (x87 a 24 bits); el EXE multiplica despues por la constante de cada elemento.
+inline float StretchBaseX() { return (float)RsGlobal.maximumWidth * ExeFloat(0x859520); }
+inline float StretchBaseY() { return (float)RsGlobal.maximumHeight * ExeFloat(0x859524); }
+}
 
 void CHud::InjectHooks() {
     RH_ScopedClass(CHud);
@@ -176,7 +186,8 @@ void CHud::ReInitialise() {
     m_WeaponTimer                   = 0;
     m_WeaponFadeTimer               = 0;
     m_WeaponState                   = 5;
-    bDrawClock                      = true;
+    // Como el original (0x588A3B): 'mov dword ptr [0BAA400h],1' escribe un dword, no un byte.
+    *reinterpret_cast<uint32*>(&bDrawClock) = 1;
     m_LastBreathTime                = 0;
 }
 
@@ -188,9 +199,13 @@ void CHud::Shutdown() {
 
 // 0x588B60
 float CHud::GetYPosBasedOnHealth(uint8 playerId, float pos, int8 offset) {
-    return (float)FindPlayerInfo(playerId).m_nMaxHealth < 101.0f
-               ? pos - SCREEN_SCALE_Y((float)offset)
-               : pos;
+    // Como el original (0x588B7A..0x588BA2): fcomp 101.0 (0x866BB4) y despues
+    // fild maximumHeight (0xC17048) * 0x859524 * offset (movsx) y fsubr pos, todo a 24 bits.
+    if (!((float)FindPlayerInfo(playerId).m_nMaxHealth < 101.0f)) {
+        return pos;
+    }
+    const float scale = (float)RsGlobal.maximumHeight * std::bit_cast<float>(*reinterpret_cast<const uint32*>(0x859524));
+    return pos - scale * (float)(int32)offset;
 }
 
 // 0x588B50
@@ -200,35 +215,68 @@ bool CHud::HelpMessageDisplayed() {
 
 // 0x588F60
 void CHud::SetMessage(const GxtChar* message) {
-    if (message) {
-        strncpy_s((char*)m_Message, sizeof(m_Message), AsciiFromGxtChar(message), sizeof(m_Message));
-    } else {
-        m_Message[0] = '\0';
+    auto* const dst = reinterpret_cast<GxtChar*>(m_Message);
+    if (!message) {
+        dst[0] = '\0';
+        return;
     }
+    // Como el original: copia byte a byte hasta el NUL o hasta 0x190 caracteres; en este ultimo caso el
+    // terminador se escribe en m_Message[0x190] (0x588F8B), es decir, en el byte bajo de m_ZoneToPrint (0xBAB1D0).
+    uint16 i = 0;
+    for (;;) {
+        const GxtChar c = message[i];
+        if (!c) {
+            dst[i] = '\0';
+            return;
+        }
+        dst[i] = c;
+        if (++i >= 0x190) {
+            break;
+        }
+    }
+    dst[i] = '\0';
 }
 
-// little bit different from OG
 // 0x588FC0
 void CHud::SetBigMessage(GxtChar* message, eMessageStyle style) {
-    if (BigMessageX[style] != 0.0f) {
+    // Como el original (0x588FC9..0x588FDB): fcomp 0.0 + test ah,44h + jp: solo continua si BigMessageX[style] == 0 (NaN no).
+    if (BigMessageX[(uint16)style] != 0.0f) {
         return;
     }
 
-    strncpy_s((char*)m_BigMessage[style], sizeof(m_BigMessage[style]), AsciiFromGxtChar(message), sizeof(m_BigMessage[style]));
+    auto* const big  = reinterpret_cast<GxtChar*>(m_BigMessage) + size_t(style) * BIG_MESSAGE_SIZE;
+    auto* const last = reinterpret_cast<GxtChar*>(LastBigMessage) + size_t(style) * BIG_MESSAGE_SIZE;
+    uint16 i = 0;
 
-    switch (style) {
-    case STYLE_WHITE_MIDDLE_SMALLER: {
-        if (strcmp(AsciiFromGxtChar(message), AsciiFromGxtChar(LastBigMessage[STYLE_WHITE_MIDDLE_SMALLER])) != 0) {
-            OddJob2OffTimer = 0.0f;
-            OddJob2On = 0;
-        }
-        strncpy_s((char*)LastBigMessage[style], sizeof(LastBigMessage[style]), AsciiFromGxtChar(message), sizeof(LastBigMessage[style]));
-        break;
-    }
-    default: {
+    if ((uint16)style == STYLE_WHITE_MIDDLE_SMALLER) { // cmp cx,5 (0x588FE6)
+        // Como el original: se compara y copia caracter a caracter hasta el NUL (o 0x80); si un caracter difiere
+        // de LastBigMessage[5] se reinician OddJob2OffTimer y OddJob2On. El mensaje de entrada no se modifica.
+        do {
+            const GxtChar c = message[i];
+            if (!c) {
+                break;
+            }
+            if (c != last[i]) {
+                OddJob2OffTimer = 0.0f;
+                OddJob2On       = 0;
+            }
+            big[i]  = message[i];
+            last[i] = message[i];
+        } while (++i < 0x80);
+    } else {
+        // Como el original (0x589034..0x589052): copia a m_BigMessage[style] y pone message[0] = 0.
+        do {
+            const GxtChar c = message[i];
+            if (!c) {
+                break;
+            }
+            big[i] = c;
+        } while (++i < 0x80);
         message[0] = '\0';
     }
-    }
+    // 0x58905E/0x589064: ambos buffers reciben el NUL en la posicion final (puede ser 0x80, la fila siguiente).
+    big[i]  = '\0';
+    last[i] = '\0';
 }
 
 // 0x588BE0
@@ -289,8 +337,9 @@ void CHud::SetHelpMessageStatUpdate(eStatUpdateState state, uint16 statId, float
     m_bHelpMessagePermanent = false;
     m_nHelpMessageStatId = statId;
     m_fHelpMessageStatUpdateValue = diff;
-    m_nHelpMessageMaxStatValue = (uint32)max;
-    sprintf_s(gString, state == STAT_UPDATE_INCREASE ? "+" : "-");
+    m_nHelpMessageMaxStatValue = (uint16)(int64)max; // _ftol2 (0x588DF5) y se guarda la palabra baja
+    // Como el original (0x588E15..0x588E19): escribe una palabra '+'/'-' + NUL en gString (sin el relleno 0xFE de sprintf_s).
+    *reinterpret_cast<uint16*>(gString) = state ? '+' : '-';
     AsciiToGxtChar(gString, m_pHelpMessage);
 }
 
@@ -484,11 +533,16 @@ void CHud::DrawAreaName() {
     if (!m_ZoneState)
         return;
 
+    // Como el original: ms = _ftol2(ms_fTimeStep * 0x858B38 * 1000.0 | -1000.0) y alfa = fade * 0x858CDC (0.001) * 255.0.
+    const auto stepMs    = [] { return (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C)); };
+    const auto stepMsNeg = [] { return (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x859948)); };
+    const auto fadeAlpha = [] { return (float)(int32)m_ZoneFadeTimer * ExeFloat(0x858CDC) * ExeFloat(0x859AAC); };
+
     float alpha = 255.0f;
     switch (m_ZoneState) {
     case NAME_SHOW:
         m_ZoneFadeTimer = 1000;
-        if (m_ZoneNameTimer > 3000) {
+        if ((float)(int32)m_ZoneNameTimer > ExeFloat(0x859A94)) { // fild + fcomp 3000.0 (0x58AC7A..0x58AC9E)
             m_ZoneState = NAME_FADE_OUT;
             m_ZoneFadeTimer = 1000;
         }
@@ -496,16 +550,16 @@ void CHud::DrawAreaName() {
 
     case NAME_FADE_IN:
         if (!TheCamera.GetFading() && TheCamera.GetScreenFadeStatus() != NAME_FADE_IN) {
-            m_ZoneFadeTimer += (int32)CTimer::GetTimeStepInMS();
+            m_ZoneFadeTimer += stepMs();
         }
 
-        if (m_ZoneFadeTimer > 1000) {
+        if (!((float)m_ZoneFadeTimer <= ExeFloat(0x858C4C))) {
             m_ZoneFadeTimer = 1000;
             m_ZoneState = NAME_SHOW;
         }
 
         if (TheCamera.GetScreenFadeStatus() != NAME_FADE_IN) {
-            alpha = (float)m_ZoneFadeTimer / 1000.0f * 255.0f;
+            alpha = fadeAlpha();
             break;
         }
         m_ZoneState = NAME_FADE_OUT;
@@ -514,29 +568,29 @@ void CHud::DrawAreaName() {
 
     case NAME_FADE_OUT:
         if (!TheCamera.GetFading() && TheCamera.GetScreenFadeStatus() != NAME_FADE_IN) {
-            m_ZoneFadeTimer -= (int32)CTimer::GetTimeStepInMS();
+            m_ZoneFadeTimer += stepMsNeg();
         }
 
-        if (m_ZoneFadeTimer < 0) {
+        if ((float)m_ZoneFadeTimer < 0.0f) {
             m_ZoneFadeTimer = 0;
             m_ZoneState = NAME_DONT_SHOW;
         }
 
         if (TheCamera.GetScreenFadeStatus() != NAME_FADE_IN) {
-            alpha = (float)m_ZoneFadeTimer / 1000.0f * 255.0f;
+            alpha = fadeAlpha();
             break;
         }
         m_ZoneFadeTimer = 1000;
         break;
 
     case NAME_SWITCH:
-        m_ZoneFadeTimer -= (int32)CTimer::GetTimeStepInMS();
-        if (m_ZoneFadeTimer < 0) {
+        m_ZoneFadeTimer += stepMsNeg();
+        if ((float)m_ZoneFadeTimer < 0.0f) {
             m_ZoneFadeTimer = 0;
             m_ZoneState = NAME_FADE_IN;
             m_ZoneToPrint = m_pLastZoneName;
         }
-        alpha = (float)m_ZoneFadeTimer / 1000.0f * 255.0f;
+        alpha = fadeAlpha();
         break;
 
     default:
@@ -548,25 +602,30 @@ void CHud::DrawAreaName() {
         return;
     }
 
-    m_ZoneNameTimer += (uint32)CTimer::GetTimeStepInMS();
+    m_ZoneNameTimer += stepMs();
     CFont::SetProportional(true);
     CFont::SetBackground(false, false);
-    CFont::SetScaleForCurrentLanguage(SCREEN_STRETCH_X(1.2f), SCREEN_SCALE_Y(1.9f));
+    CFont::SetScaleForCurrentLanguage(StretchBaseX() * ExeFloat(0x858F08),
+                                      StretchBaseY() * ExeFloat(0x866C0C));
     CFont::SetEdge(2);
     CFont::SetOrientation(eFontAlignment::ALIGN_RIGHT);
-    CFont::SetRightJustifyWrap(SCREEN_STRETCH_X(180.0f));
-    CFont::SetDropColor({ 0, 0, 0, (uint8)alpha });
+    CFont::SetRightJustifyWrap((float)RsGlobal.maximumWidth * ExeFloat(0x859520) * ExeFloat(0x85A994));
+    const uint8 alphaByte = (uint8)(int64)alpha; // _ftol2 + movzx bl,al (0x58AD80..0x58AD87)
+    CFont::SetDropColor({ 0, 0, 0, alphaByte });
     CFont::SetFontStyle(FONT_GOTHIC);
 
     const CZoneInfo* info = CPopCycle::m_pCurrZoneInfo;
-    const auto& color = info->ZoneColor; // Cppcheck: (warning) nullPointerRedundantCheck: Either the condition 'info' is redundant or there is possible null pointer dereference: info.
-    if (CGangWars::bGangWarsActive && info && color.r && color.g && color.b) {
-        CFont::SetColor({ color.r, color.g, color.b, (uint8)alpha});
+    if (CGangWars::bGangWarsActive && info && info->ZoneColor.r && info->ZoneColor.g && info->ZoneColor.b) {
+        CFont::SetColor({ info->ZoneColor.r, info->ZoneColor.g, info->ZoneColor.b, alphaByte });
     } else {
-        CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_LIGHT_BLUE, (uint8)alpha));
+        CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_LIGHT_BLUE, alphaByte));
     }
 
-    CFont::PrintStringFromBottom(SCREEN_STRETCH_FROM_RIGHT(32.0f), SCREEN_SCALE_FROM_BOTTOM(104.0f) + SCREEN_SCALE_Y(76.0f), m_ZoneToPrint);
+    // Como el original (0x58AE07..0x58AE5A): y = (H - sy*104) + sy*76 con sy = c524*H; x = W - (W*c520)*32.
+    const float sy = ExeFloat(0x859524) * (float)RsGlobal.maximumHeight;
+    const float y = ((float)RsGlobal.maximumHeight - ExeFloat(0x866B70) * sy) + sy * ExeFloat(0x866B74);
+    const float x = (float)RsGlobal.maximumWidth - (float)RsGlobal.maximumWidth * ExeFloat(0x859520) * ExeFloat(0x85950C);
+    CFont::PrintStringFromBottom(x, y, m_ZoneToPrint);
     CFont::SetSlant(0.0f);
 }
 
@@ -576,9 +635,24 @@ void CHud::DrawBustedWastedMessage() {
     auto& messageX     = BigMessageX[STYLE_WHITE_MIDDLE];
     auto& messageAlpha = BigMessageAlpha[STYLE_WHITE_MIDDLE];
 
+    // Como el original: 'posY' es una variable estatica local del EXE (0xBAB220) con su bandera de inicializacion
+    // (bit 0 de 0xBAB224, "test byte ptr [0BAB224h],1" en 0x58CA5E).
+    static auto& posY  = StaticRef<float>(0xBAB220);
+    static auto& guard = StaticRef<uint32>(0xBAB224);
+
     if (!message[0]) {
-        messageX = '\0';
+        messageX = 0.0f;
         return;
+    }
+
+    // 0x58CA74..0x58CA97: (float)(maximumHeight / 2) - (fild maximumHeight * 0x859524) * 30.0
+    const auto computePosY = [] {
+        return (float)(RsGlobal.maximumHeight / 2) - StretchBaseY() * ExeFloat(0x858CA4);
+    };
+
+    if (!(guard & 1)) {
+        guard |= 1;
+        posY = computePosY();
     }
 
     if (messageX == 0.0f) {
@@ -591,22 +665,32 @@ void CHud::DrawBustedWastedMessage() {
         if (m_ZoneState) {
             m_ZoneState = NAME_DONT_SHOW;
         }
+        posY = computePosY(); // 0x58CB1A / 0x58CB42
         return;
     }
 
-    messageAlpha += CTimer::GetTimeStepInMS() * 0.4f;
-    messageAlpha = std::min(messageAlpha, 255.0f);
+    // 0x58CB4A..0x58CB92: ms = _ftol2(ts * 0x858B38 * 1000.0), tratado como dword sin signo (fadd 2^32 si es negativo)
+    const int32 ms = (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C));
+    float msFloat = (float)ms;
+    if (ms < 0) {
+        msFloat += ExeFloat(0x858C54);
+    }
+    messageAlpha = msFloat * ExeFloat(0x858EE8) + messageAlpha;
+    if (messageAlpha > ExeFloat(0x859AAC)) {
+        messageAlpha = ExeFloat(0x859AAC);
+    }
 
     CFont::SetBackground(false, false);
-    CFont::SetScale(SCREEN_STRETCH_X(2.1f), SCREEN_SCALE_Y(2.1f));
+    CFont::SetScale(StretchBaseX() * ExeFloat(0x859974), StretchBaseY() * ExeFloat(0x859974));
     CFont::SetProportional(true);
     CFont::SetJustify(false);
     CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
     CFont::SetFontStyle(FONT_GOTHIC);
     CFont::SetEdge(3);
-    CFont::SetDropColor({ 0, 0, 0, (uint8)messageAlpha });
-    CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_LIGHT_GRAY, (uint8)messageAlpha));
-    CFont::PrintStringFromBottom(SCREEN_WIDTH / 2.0f, static_cast<float>(RsGlobal.maximumHeight / 2) - SCREEN_SCALE_Y(30.0f), message); // OG: posY static allocated var
+    const uint8 alphaByte = (uint8)(int64)messageAlpha; // _ftol2 (0x58CC01)
+    CFont::SetDropColor({ 0, 0, 0, alphaByte });
+    CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_LIGHT_GRAY, alphaByte));
+    CFont::PrintStringFromBottom((float)(RsGlobal.maximumWidth / 2), posY, message);
 }
 
 // 0x589070
@@ -684,44 +768,44 @@ void CHud::DrawCrossHairs() {
 
 // 0x58D580
 float CHud::DrawFadeState(DRAW_FADE_STATE fadingElement, int32 forceFadingIn) {
-    uint32 state, timer, fadeTimer;
+    // Como el original: todos los temporizadores se tratan con signo (fild + fcomp) y se guardan como dword.
+    int32 state, timer, fadeTimer;
     switch (fadingElement) {
     case WANTED_STATE:
-        fadeTimer = m_WantedFadeTimer;
-        state = m_WantedState;
-        timer = m_WantedTimer;
+        fadeTimer = (int32)m_WantedFadeTimer;
+        state = (int32)m_WantedState;
+        timer = (int32)m_WantedTimer;
         break;
     case ENERGY_LOST_STATE:
-        fadeTimer = m_EnergyLostFadeTimer;
-        state = m_EnergyLostState;
-        timer = m_EnergyLostTimer;
+        fadeTimer = (int32)m_EnergyLostFadeTimer;
+        state = (int32)m_EnergyLostState;
+        timer = (int32)m_EnergyLostTimer;
         break;
     case DISPLAY_SCORE_STATE:
-        fadeTimer = m_DisplayScoreFadeTimer;
-        state = m_DisplayScoreState;
-        timer = m_DisplayScoreTimer;
+        fadeTimer = (int32)m_DisplayScoreFadeTimer;
+        state = (int32)m_DisplayScoreState;
+        timer = (int32)m_DisplayScoreTimer;
         break;
     case WEAPON_STATE:
-        fadeTimer = m_WeaponFadeTimer;
-        state = m_WeaponState;
-        timer = m_WeaponTimer;
+        fadeTimer = (int32)m_WeaponFadeTimer;
+        state = (int32)m_WeaponState;
+        timer = (int32)m_WeaponTimer;
         break;
     default:
-        state = fadingElement;
-        timer = fadingElement;
-        fadeTimer = fadingElement;
+        state = timer = fadeTimer = (int32)fadingElement;
         break;
     }
 
+    // Como el original (0x58D60A..0x58D61B): con forceFadingIn, estado 0 => fadeTimer = 0; estados 0, 1 y 3 => timer = 5, estado = 2.
     if (forceFadingIn) {
         switch (state) {
-        case NAME_DONT_SHOW:
+        case 0:
             fadeTimer = 0;
-            break;
-        case NAME_SWITCH:
-        case NAME_FADE_OUT:
+            [[fallthrough]];
+        case 1:
+        case 3:
             timer = 5;
-            state = NAME_FADE_IN;
+            state = 2;
             break;
         default:
             break;
@@ -729,35 +813,38 @@ float CHud::DrawFadeState(DRAW_FADE_STATE fadingElement, int32 forceFadingIn) {
     }
 
     float alpha = 255.0f;
-    if (state != NAME_DONT_SHOW) {
+    // Como el original (0x58D61D..0x58D628): los estados 0 y 5 saltan directamente a guardar (no suman al temporizador).
+    if (state != 0 && state != 5) {
+        // 0x58D701: _ftol2(ms_fTimeStep * 0x858B38 * 1000.0)
+        const int32 ms = (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C));
         switch (state) {
-        case NAME_SHOW:
+        case 1: // 0x58D6D9
             fadeTimer = 1000;
-            if (timer > 10'000) {
+            if ((float)timer > ExeFloat(0x859AA4)) { // 10000.0
+                state = 3;
                 fadeTimer = 3000;
-                state = NAME_FADE_OUT;
             }
             break;
-        case NAME_FADE_IN:
-            fadeTimer += (uint32)CTimer::GetTimeStepInMS();
-            if (fadeTimer > 1000) {
-                state = NAME_SHOW;  
+        case 2: // 0x58D69D
+            fadeTimer += ms;
+            if (!((float)fadeTimer <= ExeFloat(0x858C4C))) {
                 fadeTimer = 1000;
+                state = 1;
             }
-            alpha = float(fadeTimer) / 1000.0f * 255.0f;
+            alpha = (float)fadeTimer * ExeFloat(0x858CDC) * ExeFloat(0x859AAC);
             break;
-        case NAME_FADE_OUT:
-            fadeTimer -= (uint32)CTimer::GetTimeStepInMS();
-            if (fadeTimer < 0) {
+        case 3: // 0x58D641: se suma _ftol2(ms_fTimeStep * 0x858B38 * -1000.0)
+            fadeTimer += (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x859948));
+            if ((float)fadeTimer < 0.0f) {
                 fadeTimer = 0;
-                state = NAME_DONT_SHOW;
+                state = 0;
             }
-            alpha = float(fadeTimer) / 1000.0f * 255.0f;
+            alpha = (float)fadeTimer * ExeFloat(0x858CDC) * ExeFloat(0x859AAC);
             break;
         default:
             break;
         }
-        timer += (uint32)CTimer::GetTimeStepInMS();
+        timer += ms;
     }
 
     switch (fadingElement) {
@@ -785,7 +872,14 @@ float CHud::DrawFadeState(DRAW_FADE_STATE fadingElement, int32 forceFadingIn) {
         break;
     }
 
-    return std::clamp(alpha, 0.0f, 255.0f);
+    // Como el original (0x58D774..0x58D7A3): fcom 0.0 / fcom 255.0 sin std::clamp (un NaN pasa tal cual).
+    if (alpha < 0.0f) {
+        return 0.0f;
+    }
+    if (alpha > ExeFloat(0x859AAC)) {
+        return ExeFloat(0x859AAC);
+    }
+    return alpha;
 }
 
 // 0x58B6E0
@@ -938,48 +1032,68 @@ void CHud::DrawMissionTitle() {
     CFont::SetRightJustifyWrap(0.0f);
     CFont::SetOrientation(eFontAlignment::ALIGN_RIGHT);
     CFont::SetFontStyle(FONT_PRICEDOWN);
-    CFont::SetScale(SCREEN_STRETCH_X(1.0f), SCREEN_SCALE_Y(1.3f));
+    CFont::SetScale(StretchBaseX(), StretchBaseY() * ExeFloat(0x859918));
 
-    if (messageInUse >= SCREEN_WIDTH - 20.0f) { // magic shit
-        messageX += CTimer::GetTimeStep();
-        if (messageX >= 120.0f) {
-            messageX = 120.0f;
-            messageAlpha -= CTimer::GetTimeStepInMS();
+    // Como el original (0x58D30F..0x58D348): ms = _ftol2(ms_fTimeStep * 0x858B38 * 1000.0) como dword sin signo (fadd 2^32 si es negativo).
+    const auto stepMsFloat = [] {
+        const int32 ms = (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C));
+        float msFloat = (float)ms;
+        if (ms < 0) {
+            msFloat += ExeFloat(0x858C54);
         }
-        if (messageAlpha <= 0.0f) {
+        return msFloat;
+    };
+
+    // 0x58D2E9..0x58D30D: fild (maximumWidth - 20) comparado con messageInUse, jne si (W - 20) <= messageInUse (o NaN)
+    if (!((float)(RsGlobal.maximumWidth - 20) > messageInUse)) {
+        messageX = CTimer::GetTimeStep() + messageX;
+        if (messageX >= ExeFloat(0x858BB0)) { // fcomp 120.0 + test ah,1 + jne (un NaN no entra)
+            messageX = 120.0f;
+            messageAlpha = messageAlpha - stepMsFloat();
+        }
+        if (!(messageAlpha > 0.0f)) { // fcomp 0.0 + test ah,41h + jp (0x58D3B1..0x58D3BC)
             messageAlpha = 0.0f;
             message[0] = '\0';
             messageX = 0.0f;
         }
     } else {
         messageAlpha = 255.0f;
-        messageInUse += CTimer::GetTimeStepInMS() * 0.3f;
+        messageInUse = stepMsFloat() * ExeFloat(0x858C24) + messageInUse;
     }
 
     CFont::SetEdge(2);
-    CFont::SetDropColor({ 0, 0, 0, uint8(messageAlpha) });
-    CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_GOLD, (uint8)messageAlpha));
-    CFont::PrintStringFromBottom(SCREEN_SCALE_FROM_RIGHT(20.0f), SCREEN_SCALE_FROM_BOTTOM(115.0f), message);
+    const uint8 alphaByte = (uint8)(int64)messageAlpha; // _ftol2 (0x58D3E9, 0x58D40F)
+    CFont::SetDropColor({ 0, 0, 0, alphaByte });
+    CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_GOLD, alphaByte));
+    // 0x58D42E..0x58D470: x = W - (W * c520) * 20.0, y = H - (H * c524) * 115.0
+    CFont::PrintStringFromBottom(
+        (float)RsGlobal.maximumWidth - StretchBaseX() * ExeFloat(0x858BA4),
+        (float)RsGlobal.maximumHeight - StretchBaseY() * ExeFloat(0x863194),
+        message
+    );
     CFont::SetEdge(0);
 }
 
-// It looks like the original, but needs to be recheck
 // 0x58CC80
 void CHud::DrawOddJobMessage(bool displayImmediately) {
+    // Como el original: cada coordenada es (fild maximumWidth/Height * 0x859520/0x859524) * valor; las posiciones X de
+    // texto son float(maximumWidth / 2) con division entera con signo (cdq/sub/sar 0x58CD6E..0x58CD88).
+    const auto halfWidth = [] { return (float)(RsGlobal.maximumWidth / 2); };
+
     const auto& m1 = m_BigMessage[STYLE_BOTTOM_RIGHT];
     const auto& m4 = m_BigMessage[STYLE_MIDDLE_SMALLER_HIGHER];
     if (displayImmediately == CTheScripts::bDrawOddJobTitleBeforeFade && !m1[0] && m4[0]) {
         CFont::SetBackground(false, false);
         CFont::SetJustify(false);
-        CFont::SetScaleForCurrentLanguage(SCREEN_STRETCH_X(0.6f), SCREEN_SCALE_Y(1.35f));
+        CFont::SetScaleForCurrentLanguage(StretchBaseX() * ExeFloat(0x858CC8), StretchBaseY() * ExeFloat(0x866C48));
         CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
         CFont::SetProportional(true);
-        CFont::SetCentreSize(SCREEN_STRETCH_X(350.0f));
+        CFont::SetCentreSize(StretchBaseX() * ExeFloat(0x858A4C));
         CFont::SetFontStyle(FONT_MENU);
         CFont::SetEdge(2);
         CFont::SetDropColor({ 0, 0, 0, 255 });
         CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_GOLD));
-        CFont::PrintStringFromBottom(static_cast<float>(RsGlobal.maximumWidth / 2), SCREEN_STRETCH_Y(140.0f), m4);
+        CFont::PrintStringFromBottom(halfWidth(), StretchBaseY() * ExeFloat(0x865374), m4);
     }
 
     if (!displayImmediately)
@@ -989,88 +1103,116 @@ void CHud::DrawOddJobMessage(bool displayImmediately) {
     if (m6[0]) {
         CFont::SetBackground(false, false);
         CFont::SetJustify(false);
-        CFont::SetScaleForCurrentLanguage(SCREEN_STRETCH_X(1.0f), SCREEN_SCALE_Y(1.8f));
+        CFont::SetScaleForCurrentLanguage(StretchBaseX(), StretchBaseY() * ExeFloat(0x859BB4));
         CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
         CFont::SetProportional(true);
-        CFont::SetCentreSize(SCREEN_STRETCH_X(500.0f));
+        CFont::SetCentreSize(StretchBaseX() * ExeFloat(0x858B58));
         CFont::SetFontStyle(FONT_PRICEDOWN);
         CFont::SetEdge(2);
         CFont::SetDropColor({ 0, 0, 0, 255 });
         CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_LIGHT_BLUE));
-        CFont::PrintString(static_cast<float>(RsGlobal.maximumWidth / 2), SCREEN_STRETCH_Y(60.0f), m6);
+        CFont::PrintString(halfWidth(), StretchBaseY() * ExeFloat(0x858B34), m6);
     }
 
     const auto& m3 = m_BigMessage[STYLE_MIDDLE_SMALLER];
     if (m3[0]) {
         CFont::SetBackground(false, false);
         CFont::SetJustify(false);
-        CFont::SetScaleForCurrentLanguage(SCREEN_STRETCH_X(0.6f), SCREEN_SCALE_Y(1.35f));
+        CFont::SetScaleForCurrentLanguage(StretchBaseX() * ExeFloat(0x858CC8), StretchBaseY() * ExeFloat(0x866C48));
         CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
         CFont::SetProportional(true);
-        CFont::SetCentreSize(SCREEN_STRETCH_X(500.0f));
+        CFont::SetCentreSize(StretchBaseX() * ExeFloat(0x858B58));
         CFont::SetFontStyle(FONT_MENU);
         CFont::SetEdge(2);
         CFont::SetDropColor({ 0, 0, 0, 255 });
         CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_GOLD));
-        CFont::PrintString(static_cast<float>(RsGlobal.maximumWidth / 2), SCREEN_STRETCH_Y(155.0f), m3);
+        CFont::PrintString(halfWidth(), StretchBaseY() * ExeFloat(0x859990), m3);
     }
 
-    if (OddJob2OffTimer > 0.0f) {
-        OddJob2OffTimer -= CTimer::GetTimeStepInMS();
+    // Como el original: ms = _ftol2(ms_fTimeStep * 0x858B38 * 1000.0); como dword sin signo para el temporizador flotante (fadd 2^32 si es negativo).
+    const auto stepMs = [] { return (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C)); };
+
+    // 0x58CFA8..0x58CFEA: fcomp 0.0 + test ah,41h + jne
+    if (OddJob2OffTimer > ExeFloat(0x858B50)) {
+        const int32 ms = stepMs();
+        float msFloat = (float)ms;
+        if (ms < 0) {
+            msFloat += ExeFloat(0x858C54);
+        }
+        OddJob2OffTimer = OddJob2OffTimer - msFloat;
     }
 
     const auto& m5 = m_BigMessage[STYLE_WHITE_MIDDLE_SMALLER];
     if (!m5[0])
         return;
 
-    if (OddJob2OffTimer > 0.0f)
+    // 0x58CFFD..0x58D00E: jp => sale con el temporizador > 0 o NaN
+    if (!(OddJob2OffTimer <= ExeFloat(0x858B50)))
         return;
 
-    switch (OddJob2On) {
+    switch ((int32)(int16)OddJob2On) {
     case 0:
-        OddJob2XOffset = 380.0f;
+        OddJob2XOffset = 380.0f; // mov dword ptr [0BAA39Ch],43BE0000h
         OddJob2On = 1;
         break;
     case 1:
-        if (OddJob2XOffset <= 2.0f) {
+        if (!(OddJob2XOffset > ExeFloat(0x858CA0))) { // fcomp 2.0 + test ah,41h + jne
             OddJob2On = 2;
             OddJob2Timer = 0;
         } else {
-            OddJob2XOffset -= std::min(OddJob2XOffset / 6.0f, 40.0f);
+            float step = OddJob2XOffset * ExeFloat(0x85F0A0); // 0x58D05C: * 0.16666667
+            if (step > ExeFloat(0x858A10)) {                  // fcom 40.0
+                step = ExeFloat(0x858A10);
+            }
+            OddJob2XOffset = OddJob2XOffset - step;
         }
         break;
     case 2:
-        OddJob2Timer += (uint16)CTimer::GetTimeStepInMS();
-        if (OddJob2Timer > 1500) {
+        OddJob2Timer = (uint16)(OddJob2Timer + (uint16)stepMs());
+        if ((int16)OddJob2Timer > 1500) { // cmp cx,5DCh + jle (con signo)
             OddJob2On = 3;
         }
         break;
-    case 3:
-        OddJob2XOffset -= std::max(OddJob2XOffset / 5.0f, 30.0f);
-        if (OddJob2XOffset < -380.0f) {
+    case 3: {
+        float step = OddJob2XOffset * ExeFloat(0x858CC4); // 0x58D0E3: * 0.2
+        if (step < ExeFloat(0x858CA4)) {                  // fcom 30.0 + test ah,5
+            step = ExeFloat(0x858CA4);
+        }
+        OddJob2XOffset = OddJob2XOffset - step;
+        if (OddJob2XOffset < ExeFloat(0x866C44)) {        // -380.0
             OddJob2On = 0;
-            OddJob2OffTimer = 5000.0f;
+            OddJob2OffTimer = 5000.0f; // mov dword ptr [0BAA398h],459C4000h
         }
         break;
+    }
     default:
         break;
     }
 
     if (!m1[0]) {
         CFont::SetBackground(false, false);
-        CFont::SetScaleForCurrentLanguage(SCREEN_STRETCH_X(0.6f), SCREEN_SCALE_Y(1.35f));
+        CFont::SetScaleForCurrentLanguage(StretchBaseX() * ExeFloat(0x858CC8), StretchBaseY() * ExeFloat(0x866C48));
         CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
         CFont::SetProportional(true);
-        CFont::SetCentreSize(SCREEN_STRETCH_X(500.0f));
+        CFont::SetCentreSize(StretchBaseX() * ExeFloat(0x858B58));
         CFont::SetFontStyle(FONT_MENU);
         CFont::SetEdge(2);
         CFont::SetDropColor({ 0, 0, 0, 255 });
         CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_LIGHT_GRAY));
-        CFont::PrintString(static_cast<float>(RsGlobal.maximumWidth / 2), SCREEN_STRETCH_Y(217.0f), m5);
+        CFont::PrintString(halfWidth(), StretchBaseY() * ExeFloat(0x866C40), m5);
     }
 }
 
 // 0x58A330
+// Como el original (0x58A782..0x58AA25): el EXE rellena el CRect con stores directos (+0 left, +4 bottom = Y mayor, +8 right,
+// +0xC top = Y menor) sin comprobar nada; el constructor de la DLL hace assert(!IsFlipped()) y los discos 2 y 4 (left > right)
+// y 3 y 4 (bottom > top) estan invertidos a proposito (espejo), asi que se rellenan los campos directamente.
+static CRect HudRawRect(float left, float bottom, float right, float top) {
+    CRect result;
+    result.left = left; result.bottom = bottom; result.right = right; result.top = top;
+    return result;
+}
+
 void CHud::DrawRadar() {
     if (CEntryExitManager::ms_exitEnterState == EXIT_ENTER_STATE_1 ||
         CEntryExitManager::ms_exitEnterState == EXIT_ENTER_STATE_2 ||
@@ -1090,64 +1232,103 @@ void CHud::DrawRadar() {
         return;
     }
 
-    CVehicle* vehicle = FindPlayerVehicle();
-    CRect rect;
-    if (vehicle && vehicle->IsSubPlane() && vehicle->m_nModelIndex != MODEL_VORTEX) {
-        float angle = PI - std::atan2(-vehicle->m_matrix->GetRight().z, vehicle->m_matrix->GetUp().z);
-        CRadar::DrawRotatingRadarSprite(
-            Sprites[SPRITE_RADAR_RING_PLANE],
-            SCREEN_STRETCH_X(87.0f),
-            SCREEN_STRETCH_FROM_BOTTOM(66.0f),
-            angle,
-            (uint32)SCREEN_STRETCH_X(78.0f),
-            (uint32)SCREEN_STRETCH_Y(59.0f),
-            CRGBA(255, 255, 255, 255)
-        );
+    // Como el original: todas las coordenadas salen de sx = fild maximumWidth * 0x859520 y sy = fild maximumHeight * 0x859524
+    // con el orden exacto de multiplicaciones/sumas del EXE (x87 a 24 bits); las constantes se leen del EXE.
+    const float sx = StretchBaseX();
+    const float sy = StretchBaseY();
+    const float sx40 = ExeFloat(0x858A10) * sx; // 40.0 * sx
+    const float baseY = (float)RsGlobal.maximumHeight - sy * ExeFloat(0x866B70); // H - sy * 104.0
+
+    CVehicle* vehicle = FindPlayerVehicle(-1, false);
+    if (vehicle && vehicle->m_nVehicleSubType == VEHICLE_TYPE_PLANE && vehicle->m_nModelIndex != MODEL_VORTEX) {
+        // Anillo del avion (0x58A3E3..0x58A551): el EXE lo expande en linea (cuatro esquinas girando alrededor del centro)
+        // y lo dibuja con CSprite2d::Draw(x1..y4, color) (0x728520), no con CRadar::DrawRotatingRadarSprite.
+        const auto& matrix = *vehicle->m_matrix;
+        const float negRightZ = -matrix.GetRight().z;
+        const float upZ       = matrix.GetUp().z;
+        const float quarterPi = ExeFloat(0x859AB0);
+        float baseAngle;
+        __asm {
+            fld  dword ptr [negRightZ]
+            fld  dword ptr [upZ]
+            fpatan
+            fchs
+            fsub dword ptr [quarterPi]
+            fstp dword ptr [baseAngle]
+        }
+        const float p1      = ExeFloat(0x866B78) * sx;              // 94.0 * sx
+        const float radiusX = p1 - sx * ExeFloat(0x859008);         // p1 - 18.0 * sx
+        const float centerX = p1 * ExeFloat(0x858B8C);              // p1 * 0.5
+        const float q       = ExeFloat(0x866B74) * sy;              // 76.0 * sy
+        const float radiusY = q - ExeFloat(0x859008) * sy;          // q - 18.0 * sy
+        const float centerY = q * ExeFloat(0x858B8C);               // q * 0.5
+        const float zero    = ExeFloat(0x858B50);                   // 0.0 (el EXE multiplica por el, no lo elimina)
+        const float halfPi  = ExeFloat(0x858FE4);
+        float xs[4], ys[4];
+        for (int32 k = 0; k < 4; ++k) {
+            const float angle = (float)k * halfPi + baseAngle;
+            float sinA, cosA;
+            __asm {
+                fld  dword ptr [angle]
+                fld  st(0)
+                fsin
+                fxch st(1)
+                fcos
+                fstp dword ptr [cosA]
+                fstp dword ptr [sinA]
+            }
+            xs[k] = ((zero * cosA + sinA) * radiusX + sx40) + centerX;
+            ys[k] = (((cosA - zero * sinA) * radiusY) + centerY) + baseY;
+        }
+        // Orden de argumentos del EXE (0x58A52B..0x58A551): (e1, e0, e2, e3)
+        Sprites[SPRITE_RADAR_RING_PLANE].Draw(xs[1], ys[1], xs[0], ys[0], xs[2], ys[2], xs[3], ys[3], CRGBA(255, 255, 255, 255));
     }
 
-    CPlayerPed* player = FindPlayerPed();
-    // Draws Altimeter on Planes And Helis or when parachuting down
-    if (vehicle && (vehicle->IsSubPlane() || vehicle->IsSubHeli() && vehicle->m_nModelIndex != MODEL_VORTEX)
-        || player->GetActiveWeapon().m_Type == WEAPON_PARACHUTE
-    ) {
-        rect.left   = SCREEN_STRETCH_X(40.0f) - SCREEN_STRETCH_X(20.0f);
-        rect.bottom    = SCREEN_STRETCH_FROM_BOTTOM(104.0f);
-        rect.right  = SCREEN_STRETCH_X(40.0f) - SCREEN_STRETCH_X(10.0f);
-        rect.top = SCREEN_STRETCH_Y(76.0f) + SCREEN_STRETCH_FROM_BOTTOM(104.0f);
-        CSprite2d::DrawRect(rect, { 10, 10, 10, 100 }); // rectangle
+    // Altimetro en aviones y helicopteros (no el Vortex) o con paracaidas (0x58A556..0x58A5CC, 0x58A5A8..0x58A5C6)
+    CVehicle* vehicle2 = FindPlayerVehicle(-1, false);
+    const bool flyingVehicle = vehicle2 && (vehicle2->m_nVehicleSubType == VEHICLE_TYPE_PLANE || vehicle2->m_nVehicleSubType == VEHICLE_TYPE_HELI)
+                               && vehicle2->m_nModelIndex != MODEL_VORTEX;
+    if (flyingVehicle || FindPlayerPed(-1)->GetActiveWeapon().m_Type == WEAPON_PARACHUTE) {
+        // CRect(left, bottom, right, top): +0xC = Y menor, +4 = Y mayor
+        const CRect altimeter = HudRawRect( sx40 - sx * ExeFloat(0x858BA4), baseY, sx40 - sx * ExeFloat(0x85862C), ExeFloat(0x866B74) * sy + baseY );
+        CSprite2d::DrawRect(altimeter, CRGBA(10, 10, 10, 100)); // rectangulo
 
-        const CVector& pos = vehicle ? vehicle->GetPosition() : player->GetPosition();
-        auto lineY = 950.0f;
-        if (pos.z <= 200.0f) {
-            lineY = 200.0f;
-        };
+        const CVehicle* v = FindPlayerVehicle(-1, false);
+        const CVector* pos;
+        if (v) {
+            pos = v->m_matrix ? &v->m_matrix->GetPosition() : &v->m_placement.m_vPosn;
+        } else {
+            const CPed* ped = FindPlayerPed(-1);
+            pos = ped->m_matrix ? &ped->m_matrix->GetPosition() : &ped->m_placement.m_vPosn;
+        }
+        // 0x58A68F..0x58A6C6: fcom 200.0 + test ah,41h + jne => z <= 200 (o NaN) usa 0x858B4C; si no, 0x866C08.
+        const float z = pos->z;
+        const float seventySixSy = ExeFloat(0x866B74) * sy;
+        const float factor = z > ExeFloat(0x858A48) ? ExeFloat(0x866C08) : ExeFloat(0x858B4C);
+        const float product = seventySixSy * (z * factor);
         RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
 
-        rect.left   = SCREEN_STRETCH_X(40.0f) - SCREEN_STRETCH_X(25.0f);
-        rect.bottom    = SCREEN_STRETCH_FROM_BOTTOM(104.0f) + SCREEN_STRETCH_Y(76.0f) - std::min(SCREEN_STRETCH_Y(76.0f), SCREEN_STRETCH_Y(76.0f) * pos.z / lineY);
-        rect.right  = SCREEN_STRETCH_X(40.0f) - 5.0f;
-        rect.top = rect.bottom + 2.0f;
-        CSprite2d::DrawRect(rect, { 200, 200, 200, 200 }); // horizontal line (current height)
+        // min() del EXE (0x404330): (a < b) ? a : b
+        const float minimum = seventySixSy < product ? seventySixSy : product;
+        const float lineY = (baseY + seventySixSy) - minimum; // 0x58A722..0x58A734
+        const CRect line = HudRawRect( sx40 - sx * ExeFloat(0x858FE8), lineY, sx40 - ExeFloat(0x858C80), lineY + ExeFloat(0x858CA0) );
+        CSprite2d::DrawRect(line, CRGBA(200, 200, 200, 200)); // linea horizontal (altura actual)
     }
 
-    // NOTSA: rects are optimized
+    // Discos del radar (0x58A782..0x58AA25). El EXE los calcula uno a uno (no reutiliza un CRect) y los pasa a
+    // CSprite2d::Draw(CRect, CRGBA) de la ranura RADAR_DISC; el 2.o y el 4.o tienen left > right (espejo horizontal).
     const auto black = CRGBA(0, 0, 0, 255);
+    const float discRight = ExeFloat(0x866B78) * sx * ExeFloat(0x858B8C) + sx40;          // (94*sx)*0.5 + 40*sx
+    const float discBottomTop = (ExeFloat(0x866B74) * sy) * ExeFloat(0x858B8C) + baseY;    // (76*sy)*0.5 + baseY
+    const float fourSy = sy * ExeFloat(0x858B90);                                          // 4.0 * sy
+    const float discLeft1 = sx40 - sx * ExeFloat(0x858B90);                                // 40*sx - 4*sx
+    const float discLeft2 = (sx * ExeFloat(0x858B90) + sx40) + ExeFloat(0x866B78) * sx;    // (4*sx + 40*sx) + 94*sx
+    const float lower = (fourSy + baseY) + ExeFloat(0x866B74) * sy;                        // (4*sy + baseY) + 76*sy
 
-    rect.left   = SCREEN_STRETCH_X(36.0f);
-    rect.bottom    = SCREEN_STRETCH_FROM_BOTTOM(108.0f);
-    rect.right  = SCREEN_STRETCH_X(87.0f);
-    rect.top = SCREEN_STRETCH_FROM_BOTTOM(66.0f);
-    Sprites[SPRITE_RADAR_DISC].Draw(rect, black); // top left
-
-    rect.bottom = SCREEN_STRETCH_FROM_BOTTOM(24.0f);
-    Sprites[SPRITE_RADAR_DISC].Draw(rect, black); // bottom left
-
-    rect.left = SCREEN_STRETCH_X(138.0f);
-    rect.bottom  = SCREEN_STRETCH_FROM_BOTTOM(108.0f);
-    Sprites[SPRITE_RADAR_DISC].Draw(rect, black); // top right
-
-    rect.bottom = SCREEN_STRETCH_FROM_BOTTOM(24.0f);
-    Sprites[SPRITE_RADAR_DISC].Draw(rect, black); // bottom right
+    Sprites[SPRITE_RADAR_DISC].Draw(HudRawRect( discLeft1, baseY - fourSy, discRight, discBottomTop ), black); // arriba izquierda
+    Sprites[SPRITE_RADAR_DISC].Draw(HudRawRect( discLeft2, baseY - fourSy, discRight, discBottomTop ), black); // arriba derecha
+    Sprites[SPRITE_RADAR_DISC].Draw(HudRawRect( discLeft1, lower, discRight, discBottomTop ), black);          // abajo izquierda
+    Sprites[SPRITE_RADAR_DISC].Draw(HudRawRect( discLeft2, lower, discRight, discBottomTop ), black);          // abajo derecha
 
     CRadar::DrawBlips();
 }
@@ -1157,14 +1338,16 @@ void CHud::DrawScriptText(bool isBeforeFade) {
     CTheScripts::DrawScriptSpritesAndRectangles(isBeforeFade);
 
     for (auto& t : CTheScripts::IntroTextLines) {
-        if (!t.GXTKey[0]) { /* empty key? */
+        if (!t.GXTKey[0]) {
             continue;
         }
         if (t.IsDrawBeforeFade != isBeforeFade) {
             continue;
         }
 
-        CFont::SetScale(SCREEN_SCALE_X(t.Scale.x), SCREEN_SCALE_Y(t.Scale.y / 2.0f));
+        // Como el original (0x58C0BB..0x58C14B): sin correccion de relacion de aspecto; todo es
+        // (fild maximumWidth/Height * 0x859520/0x859524) * valor, y la altura de la escala se multiplica por 0.5 al final.
+        CFont::SetScale(StretchBaseX() * t.Scale.x, StretchBaseY() * t.Scale.y * ExeFloat(0x858B8C));
         CFont::SetColor(t.Color);
         CFont::SetJustify(t.Justify);
         if (t.HasRightJustify) {
@@ -1172,18 +1355,18 @@ void CHud::DrawScriptText(bool isBeforeFade) {
         } else {
             CFont::SetOrientation(t.IsCentered ? eFontAlignment::ALIGN_CENTER : eFontAlignment::ALIGN_LEFT);
         }
-        CFont::SetWrapx(SCREEN_SCALE_X(t.WrapX));
-        CFont::SetCentreSize(SCREEN_SCALE_X(t.CentreSize));
+        CFont::SetWrapx(StretchBaseX() * t.WrapX);
+        CFont::SetCentreSize(StretchBaseX() * t.CentreSize);
         CFont::SetBackground(t.HasBg, false);
         CFont::SetBackgroundColor(t.BgColor);
         CFont::SetProportional(t.IsProportional);
         CFont::SetDropColor(t.DropShadowColor);
         if (t.TextEdge) {
-            CFont::SetEdge(t.TextEdge);
+            CFont::SetEdge(t.TextEdge); // movzx eax,byte [esi+1Eh] (el DLL recibe int8)
         } else {
-            CFont::SetDropShadowPosition(t.DropShadow);
+            CFont::SetDropShadowPosition((int16)(uint8)t.DropShadow); // movzx eax,byte [esi+1Dh]
         }
-        CFont::SetFontStyle((eFontStyle)t.FontStyle);
+        CFont::SetFontStyle((eFontStyle)(uint8)t.FontStyle);
 
         GxtChar text[400];
         CMessages::InsertNumberInString(
@@ -1197,11 +1380,10 @@ void CHud::DrawScriptText(bool isBeforeFade) {
             text
         );
         CMessages::InsertPlayerControlKeysInString(text);
-        // todo: Replace DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT
-        // The first letter doesn't look good in window mode, but it looks fine in full-screen mode
+        // Como el original (0x58C1DD..0x58C225): x = W - (640.0 - Pos.x) * (W * c520), y = H - (448.0 - Pos.y) * (H * c524)
         CFont::PrintString(
-            SCREEN_SCALE_FROM_RIGHT(DEFAULT_SCREEN_WIDTH - t.Pos.x),
-            SCREEN_SCALE_FROM_BOTTOM(DEFAULT_SCREEN_HEIGHT - t.Pos.y),
+            (float)RsGlobal.maximumWidth - (ExeFloat(0x85951C) - t.Pos.x) * StretchBaseX(),
+            (float)RsGlobal.maximumHeight - (ExeFloat(0x8652B0) - t.Pos.y) * StretchBaseY(),
             text
         );
         CFont::SetEdge(0);
@@ -1417,60 +1599,69 @@ void CHud::DrawVehicleName() {
     if (!m_VehicleState)
         return;
 
+    // Como el original: ms = _ftol2(ms_fTimeStep * 0x858B38 * 1000.0 | -1000.0) y alfa = fade * 0x858CDC (0.001) * 255.0.
+    const auto stepMs    = [] { return (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C)); };
+    const auto stepMsNeg = [] { return (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x859948)); };
+    const auto fadeAlpha = [] { return (float)m_VehicleFadeTimer * ExeFloat(0x858CDC) * ExeFloat(0x859AAC); };
+
+    // En el EXE el alfa queda SIN inicializar si el estado no esta en 1..4 (0x58AF3D..0x58AF40 salta a 0x58B040): el 0 es solo un valor definido.
     float alpha = 0.0f;
     switch (m_VehicleState) {
     case NAME_SHOW:
-        if (m_VehicleNameTimer > 3000) {
+        if ((float)(int32)m_VehicleNameTimer > ExeFloat(0x859A94)) { // fild + fcomp 3000.0
             m_VehicleState = NAME_FADE_OUT;
             m_VehicleFadeTimer = 1000;
         }
-        alpha = 255.0f;
+        alpha = ExeFloat(0x859AAC);
         break;
     case NAME_FADE_IN:
-        m_VehicleFadeTimer += (int32)CTimer::GetTimeStepInMS();
-        if (m_VehicleFadeTimer > 1000) {
+        m_VehicleFadeTimer += stepMs();
+        if (!((float)m_VehicleFadeTimer <= ExeFloat(0x858C4C))) {
             m_VehicleFadeTimer = 1000;
             m_VehicleState = NAME_SHOW;
         }
-        alpha = float(m_VehicleFadeTimer) / 1000.0f * 255.0f;
+        alpha = fadeAlpha();
         break;
     case NAME_FADE_OUT:
-        m_VehicleFadeTimer -= (int32)CTimer::GetTimeStepInMS();
+        m_VehicleFadeTimer += stepMsNeg();
         if (m_VehicleFadeTimer < 0) {
             m_VehicleState = NAME_DONT_SHOW;
             m_VehicleFadeTimer = 0;
         }
-        alpha = float(m_VehicleFadeTimer) / 1000.0f * 255.0f;
+        alpha = fadeAlpha();
         break;
     case NAME_SWITCH:
-        m_VehicleFadeTimer -= (int32)CTimer::GetTimeStepInMS();
+        m_VehicleFadeTimer += stepMsNeg();
         if (m_VehicleFadeTimer < 0) {
             m_VehicleNameTimer = 0;
             m_VehicleState = NAME_FADE_IN;
             m_VehicleFadeTimer = 0;
             m_pVehicleNameToPrint = m_pLastVehicleName;
         }
-        alpha = float(m_VehicleFadeTimer) / 1000.0f * 255.0f;
+        alpha = fadeAlpha();
         break;
     default:
         break;
     }
 
     if (!m_Message[0]) {
-        m_VehicleNameTimer += (int32)CTimer::GetTimeStepInMS();
+        m_VehicleNameTimer += stepMs();
         CFont::SetProportional(true);
         CFont::SetBackground(false, false);
-        CFont::SetScaleForCurrentLanguage(SCREEN_STRETCH_X(1.0f), SCREEN_SCALE_Y(1.5f));
+        // Como el original (0x58B080..0x58B0A5): x = fild W * c520, y = (fild H * c524) * 1.5 (0x858CE8)
+        CFont::SetScaleForCurrentLanguage(StretchBaseX(), StretchBaseY() * ExeFloat(0x858CE8));
         CFont::SetOrientation(eFontAlignment::ALIGN_RIGHT);
         CFont::SetRightJustifyWrap(0.0f);
         CFont::SetFontStyle(eFontStyle::FONT_MENU);
         CFont::SetEdge(2);
-        CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_GREEN, (uint8)alpha));
-        CFont::SetDropColor({ 0, 0, 0, (uint8)alpha });
+        const uint8 alphaByte = (uint8)(int64)alpha; // 0x58B0CF..0x58B0D6
+        CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_GREEN, alphaByte));
+        CFont::SetDropColor({ 0, 0, 0, alphaByte });
         if (CTheScripts::bDisplayHud) {
+            // 0x58B116..0x58B156: x = W - (W * c520) * 32.0, y = H - (H * c524) * 104.0
             CFont::PrintString(
-                SCREEN_STRETCH_FROM_RIGHT(32.0f),
-                SCREEN_STRETCH_FROM_BOTTOM(104.0f),
+                (float)RsGlobal.maximumWidth - StretchBaseX() * ExeFloat(0x85950C),
+                (float)RsGlobal.maximumHeight - StretchBaseY() * ExeFloat(0x866B70),
                 m_pVehicleNameToPrint
             );
         }
@@ -1493,7 +1684,7 @@ void CHud::DrawVitalStats() {
     const bool hasSkill = player->GetIntelligence()->GetTaskSwim() || (int(weapon) >= 22 && int(weapon) <= 32);
     const float top = float(RsGlobal.maximumHeight) - sy * f(0x865374);
     const float panelTop = hasSkill ? top : top + sy * f(0x858B48);
-    FrontEndMenuManager.DrawWindow(CRect(40.f, panelTop, sx * f(0x858F98) + 40.f, top + sy * f(0x86532C)), "FEH_STA", 0, CRGBA(0, 0, 0, 190), false, true);
+    FrontEndMenuManager.DrawWindow(HudRawRect(40.f, panelTop, sx * f(0x858F98) + 40.f, top + sy * f(0x86532C)), "FEH_STA", 0, CRGBA(0, 0, 0, 190), false, true);
     int16 labelY = int16(int32(top + (hasSkill ? sy * f(0x858B48) : (sy * f(0x858B48)) + (sy * f(0x858B48)))));
     CFont::SetFontStyle(static_cast<eFontStyle>(1)); CFont::SetOrientation(static_cast<eFontAlignment>(1)); CFont::SetScale(sx * f(0x858F9C), sy * f(0x858C20)); CFont::SetColor(CRGBA(225, 225, 225, 255)); CFont::SetEdge(0);
     const auto bar = [&](float value) {
@@ -1562,12 +1753,10 @@ void CHud::GetRidOfAllHudMessages(bool arg0) {
         if (BigMessageX[i] != 0.0f)
             continue;
 
-        if (arg0) {
-            if (BigMessageX[i] == BigMessageX[STYLE_BOTTOM_RIGHT] ||
-                BigMessageX[i] == BigMessageX[STYLE_MIDDLE_SMALLER_HIGHER]
-            ) {
-                continue;
-            }
+        // Como el original (0x588B0F..0x588B23): con arg0 se saltan los estilos 1 y 4 comparando la DIRECCION
+        // del elemento (cmp edx,0BAA3E0h / cmp edx,0BAA3ECh), no el valor del float.
+        if (arg0 && (i == STYLE_BOTTOM_RIGHT || i == STYLE_MIDDLE_SMALLER_HIGHER)) {
+            continue;
         }
         std::ranges::fill(m_BigMessage[i], '\0');
     }
@@ -1575,49 +1764,41 @@ void CHud::GetRidOfAllHudMessages(bool arg0) {
 
 // 0x5893B0
 void CHud::DrawAmmo(CPed* ped, int32 x, int32 y, float alpha) {
-    const auto MAX_CLIP = 9999;
+    constexpr int32 MAX_CLIP = 9999;
 
     const auto& weapon = ped->GetActiveWeapon();
-    const auto& totalAmmo = weapon.m_TotalAmmo;
-    const auto& ammoInClip = weapon.m_AmmoInClip;
-    const auto& ammoClip = CWeaponInfo::GetWeaponInfo(weapon.m_Type, ped->GetWeaponSkill())->m_nAmmoClip;
+    // Como el original: toda la aritmetica de municion es con signo de 32 bits (imul 66666667h, cmp/jg, cmp/jle).
+    const int32 totalAmmo  = (int32)weapon.m_TotalAmmo;
+    const int32 ammoInClip = (int32)weapon.m_AmmoInClip;
+    const int32 ammoClip   = (int16)CWeaponInfo::GetWeaponInfo(weapon.m_Type, ped->GetWeaponSkill())->m_nAmmoClip; // movsx eax,word [eax+20h]
+    const int32 remaining  = (int32)((uint32)totalAmmo - (uint32)ammoInClip); // 0x588... sub
 
+    // Como el original: sprintf (0x821BB5) sin el relleno 0xFE de sprintf_s.
     if (ammoClip <= 1 || ammoClip >= 1000) {
-        sprintf_s(gString, "%d", totalAmmo);
+        std::sprintf(gString, "%d", totalAmmo);
+    } else if (weapon.m_Type == WEAPON_FLAMETHROWER) {
+        const int32 total = std::min(remaining / 10, MAX_CLIP);
+        std::sprintf(gString, "%d-%d", total, ammoInClip / 10);
     } else {
-        uint32 total, current;
-
-        if (weapon.m_Type == WEAPON_FLAMETHROWER ) {
-            uint32 out = MAX_CLIP;
-            if ((totalAmmo - ammoInClip) / 10 <= MAX_CLIP) {
-                out = (totalAmmo - ammoInClip) / 10u;
-            }
-            total = out;
-
-            current = ammoInClip / 10;
-        } else {
-            auto out = totalAmmo - ammoInClip;
-            if (totalAmmo - ammoInClip > MAX_CLIP) {
-                out = MAX_CLIP;
-            }
-            total = out;
-
-            current = ammoInClip;
-        }
-        sprintf_s(gString, "%d-%d", total, current);
+        const int32 total = remaining > MAX_CLIP ? MAX_CLIP : remaining;
+        std::sprintf(gString, "%d-%d", total, ammoInClip);
     }
     AsciiToGxtChar(gString, gGxtString);
 
+    // Como el original (0x5894A6..0x58952A): anchura = fild maximumWidth * 0x859520 * k; altura = fild maximumHeight * 0x859524 * k.
+    const float stretchX = (float)RsGlobal.maximumWidth  * ExeFloat(0x859520);
+    const float stretchY = (float)RsGlobal.maximumHeight * ExeFloat(0x859524);
     CFont::SetBackground(false, false);
-    CFont::SetScale(SCREEN_STRETCH_X(0.3f), SCREEN_STRETCH_Y(0.7f));
+    CFont::SetScale(stretchX * ExeFloat(0x858C24), stretchY * ExeFloat(0x858CB0));
     CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
-    CFont::SetCentreSize(SCREEN_STRETCH_Y(640.0f));
+    CFont::SetCentreSize(stretchX * ExeFloat(0x85951C)); // OJO: el EXE usa maximumWidth (0xC17044), no la altura
     CFont::SetProportional(true);
     CFont::SetEdge(1);
     CFont::SetDropColor({ 0, 0, 0, 255 });
     CFont::SetFontStyle(eFontStyle::FONT_SUBTITLES);
 
-    if (   totalAmmo - weapon.m_AmmoInClip >= MAX_CLIP
+    // Como el original (0x58954D..0x58963E): fcomp 9999.0 con test ah,5 y test ah,44h => se omite con restante >= 9999.
+    if (   remaining >= MAX_CLIP
         || CDarkel::FrenzyOnGoing()
         || weapon.m_Type == WEAPON_UNARMED
         || weapon.m_Type == WEAPON_DETONATOR
@@ -1628,14 +1809,14 @@ void CHud::DrawAmmo(CPed* ped, int32 x, int32 y, float alpha) {
         || weapon.m_Type == WEAPON_FLOWERS
         || weapon.m_Type == WEAPON_CANE
         || weapon.m_Type == WEAPON_PARACHUTE
-        || CWeaponInfo::GetWeaponInfo(weapon.m_Type)->m_nWeaponFire == WEAPON_FIRE_USE
-        || CWeaponInfo::GetWeaponInfo(weapon.m_Type)->m_nSlot <= 1
+        || CWeaponInfo::GetWeaponInfo(weapon.m_Type, eWeaponSkill::STD)->m_nWeaponFire == WEAPON_FIRE_USE
+        || CWeaponInfo::GetWeaponInfo(weapon.m_Type, eWeaponSkill::STD)->m_nSlot <= 1
     ) {
         CFont::SetEdge(0);
         return;
     }
 
-    CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_LIGHT_BLUE, (uint8)alpha));
+    CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_LIGHT_BLUE, (uint8)(int64)alpha));
     CFont::PrintString((float)x, (float)y, gGxtString);
     CFont::SetEdge(0);
 }
@@ -1790,28 +1971,32 @@ inline void CHud::DrawWeapon(CPlayerPed* ped0, CPlayerPed* ped1) {
 
 // 0x58A160
 void CHud::DrawTripSkip() {
-    CRect rect{
-        SCREEN_STRETCH_X(54.0f),
-        SCREEN_STRETCH_FROM_BOTTOM(189.0f),
-        SCREEN_STRETCH_X(118.0f),
-        SCREEN_STRETCH_FROM_BOTTOM(125.0f)
-    };
+    // Como el original (0x58A163..0x58A1DB): todo en x87 a 24 bits, con este orden exacto de operaciones.
+    const float sx = StretchBaseX();                                    // fild maximumWidth * 0x859520
+    const float left = ExeFloat(0x858C94) * sx;                         // 54.0 * sx
+    const float sy = ExeFloat(0x859524) * (float)RsGlobal.maximumHeight;
+    const float top = ((float)RsGlobal.maximumHeight - sy * ExeFloat(0x866B70)) - sy * ExeFloat(0x85989C); // (H - sy*104) - sy*85
+    // CRect(left, bottom, right, top): la Y menor va en +0xC (0x58A1CB = top) y la mayor en +4 (0x58A1DF = sy*64 + top).
+    const CRect rect = HudRawRect(left, top, sx * ExeFloat(0x859A44) + left, sy * ExeFloat(0x859A44) + top);
     Sprites[SPRITE_SKIP_ICON].Draw(rect, CRGBA(255, 255, 255, 255));
 
     CFont::SetBackground(false, false);
-    CFont::SetScale(SCREEN_STRETCH_X(0.3f), SCREEN_SCALE_Y(0.7f));
+    CFont::SetScale(StretchBaseX() * ExeFloat(0x858C24), StretchBaseY() * ExeFloat(0x858CB0));
     CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
-    CFont::SetCentreSize(SCREEN_WIDTH);
+    CFont::SetCentreSize((float)RsGlobal.maximumWidth);
     CFont::SetProportional(true);
     CFont::SetEdge(1);
     CFont::SetDropColor({ 0, 0, 0, 255 });
     CFont::SetFontStyle(eFontStyle::FONT_MENU);
     CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_LIGHT_GRAY));
-    CFont::PrintString(
-        SCREEN_STRETCH_X(64.0f) / 2.0f + SCREEN_STRETCH_X(54.0f),
-        SCREEN_STRETCH_FROM_BOTTOM(127.0f),
-        TheText.Get("FEC_TSK") // TRIP SKIP
-    );
+
+    // Como el original (0x58A299..0x58A324): la cadena se obtiene al final, justo antes de imprimir.
+    const float sx2 = StretchBaseX();
+    const float sy2 = StretchBaseY();
+    const GxtChar* text = TheText.Get("FEC_TSK"); // TRIP SKIP
+    const float y = (((float)RsGlobal.maximumHeight - sy2 * ExeFloat(0x866B70)) - sy2 * ExeFloat(0x85989C) + sy2 * ExeFloat(0x859A44)) - (sy2 + sy2);
+    const float x = sx2 * ExeFloat(0x859A44) * ExeFloat(0x858B8C) + sx2 * ExeFloat(0x858C94);
+    CFont::PrintString(x, y, text);
 }
 
 // 0x58D9A0
@@ -1874,24 +2059,28 @@ void CHud::DrawWanted() {
 
 // 0x58D7D0
 void CHud::DrawWeaponIcon(CPed* ped, int32 x, int32 y, float alpha) {
-    const auto x0 = (float)x;
-    const auto y0 = (float)y;
-    const float width  = SCREEN_STRETCH_X(47.0f);
-    const float height = SCREEN_STRETCH_Y(58.0f);
-    const float halfWidth  = width / 2.0f;
-    const float halfHeight = height / 2.0f;
+    // Como el original (0x58D7D5..0x58D7DD): primero el filtro de textura lineal.
+    RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, RWRSTATE(rwFILTERLINEAR));
 
-    RwRenderStateSet(rwRENDERSTATETEXTUREFILTER,     RWRSTATE(rwFILTERLINEAR));
-
-    auto modelId = ped->GetActiveWeapon().GetWeaponInfo().m_nModelId1;
+    const auto modelId = ped->GetActiveWeapon().GetWeaponInfo().m_nModelId1;
     if (modelId <= 0) {
-        Sprites[SPRITE_FIST].Draw({ x0, y0, width + x0, height + y0 }, CRGBA(255, 255, 255, (uint8)alpha));
+        // Como el original (0x58D917..0x58D988): rectangulo con
+        // ancho = (fild maximumWidth * 0x859520) * 47.0 y alto = (fild maximumHeight * 0x859524) * 58.0; alfa por _ftol2.
+        const float width  = (float)RsGlobal.maximumWidth  * ExeFloat(0x859520) * ExeFloat(0x866C4C);
+        const float height = (float)RsGlobal.maximumHeight * ExeFloat(0x859524) * ExeFloat(0x866C50);
+        const float x0 = (float)x;
+        const float y0 = (float)y;
+        // CRect(left, bottom, right, top): el EXE escribe {x, alto + y, x + ancho, y} (offsets 0, 4, 8, 0xC).
+        const CRect rect = HudRawRect(x0, y0, width + x0, height + y0);
+        Sprites[SPRITE_FIST].Draw(rect, CRGBA(255, 255, 255, (uint8)(int64)alpha));
         return;
     }
 
+    // Como el original (0x58D80B..0x58D857): la ranura del TXD se lee con el byte de "libre" (bit 7) y el diccionario
+    // RW (primer dword del objeto) se comprueba antes de buscar la textura.
     auto mi = CModelInfo::GetModelInfo(modelId);
     auto txd = CTxdStore::ms_pTxdPool->GetAt(mi->m_nTxdIndex);
-    if (!txd)
+    if (!txd || !txd->m_pRwDictionary)
         return;
 
     auto texture = RwTexDictionaryFindHashNamedTexture(txd->m_pRwDictionary, CKeyGen::AppendStringToKey(mi->m_nKey, "ICON"));
@@ -1900,8 +2089,11 @@ void CHud::DrawWeaponIcon(CPed* ped, int32 x, int32 y, float alpha) {
 
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE,   RWRSTATE(NULL));
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(texture)));
+    // Como el original (0x58D877..0x58D8FA): mitades = ((fild max * const) * 47.0|58.0) * 0.5, centro = coordenada + mitad.
+    const float halfHeight = (float)RsGlobal.maximumHeight * ExeFloat(0x859524) * ExeFloat(0x866C50) * ExeFloat(0x858B8C);
+    const float halfWidth  = (float)RsGlobal.maximumWidth  * ExeFloat(0x859520) * ExeFloat(0x866C4C) * ExeFloat(0x858B8C);
     CSprite::RenderOneXLUSprite(
-        { x0 + halfWidth, y0 + halfHeight, 1.0f },
+        { (float)x + halfWidth, (float)y + halfHeight, 1.0f },
         { halfWidth, halfHeight },
         255u, 255u, 255u, 255,
         1.0f,
@@ -1913,17 +2105,25 @@ void CHud::DrawWeaponIcon(CPed* ped, int32 x, int32 y, float alpha) {
 
 // 0x5890A0
 void CHud::RenderArmorBar(int32 playerId, int32 x, int32 y) {
-    auto* player = FindPlayerPed(playerId);
-    if ((m_ItemToFlash == ITEM_ARMOUR && EachFrames(8)) || player->m_fArmour <= 1.0f)
+    if (m_ItemToFlash == ITEM_ARMOUR && EachFrames(8)) // 0x5890A3..0x5890B4
         return;
 
-    const auto info = player->GetPlayerInfoForThisPlayerPed();
+    auto* player = FindPlayerPed(playerId);
+    // Como el original (0x5890D1..0x5890DC): fcomp 1.0 + test ah,41h + jne: sale con armadura <= 1.0 y con NaN.
+    if (!(player->m_fArmour > 1.0f))
+        return;
+
+    // Como el original: el maximo sale de Players[playerId] (0x589110, [esi+0B7CEE8h]) y la anchura/altura son
+    // fild maximumWidth/Height * 0x859520/0x859524 * 62.0/9.0 (x87 a 24 bits), truncadas con _ftol2.
+    const auto& info = FindPlayerInfo(playerId);
+    const float width  = (float)RsGlobal.maximumWidth  * ExeFloat(0x859520) * ExeFloat(0x86503C);
+    const float height = (float)RsGlobal.maximumHeight * ExeFloat(0x859524) * ExeFloat(0x85EED4);
     CSprite2d::DrawBarChart(
         (float)x,
         (float)y,
-        (uint16)SCREEN_STRETCH_X(62.0f),
-        (uint8)SCREEN_STRETCH_Y(9.0f),
-        player->m_fArmour / (float)info->m_nMaxArmour * 100.0f,
+        (uint16)(int64)width,
+        (uint8)(int64)height,
+        player->m_fArmour / (float)info.m_nMaxArmour * 100.0f,
         false,
         false,
         true,
@@ -1934,15 +2134,17 @@ void CHud::RenderArmorBar(int32 playerId, int32 x, int32 y) {
 
 // 0x589190
 void CHud::RenderBreathBar(int32 playerId, int32 x, int32 y) {
-    if (m_ItemToFlash == ITEM_BREATH && EachFrames(8))
+    if (m_ItemToFlash == ITEM_BREATH && EachFrames(8)) // 0x589193..0x5891A4
         return;
 
     auto* player = FindPlayerPed(playerId);
+    const float width  = (float)RsGlobal.maximumWidth  * ExeFloat(0x859520) * ExeFloat(0x86503C);
+    const float height = (float)RsGlobal.maximumHeight * ExeFloat(0x859524) * ExeFloat(0x85EED4);
     CSprite2d::DrawBarChart(
         (float)x,
         (float)y,
-        (uint16)SCREEN_STRETCH_X(62.0f),
-        (uint8)SCREEN_STRETCH_Y(9.0f),
+        (uint16)(int64)width,
+        (uint8)(int64)height,
         player->GetPlayerData()->m_fBreath / CStats::GetFatAndMuscleModifier(STAT_MOD_AIR_IN_LUNG) * 100.0f,
         false,
         false,
@@ -1954,23 +2156,28 @@ void CHud::RenderBreathBar(int32 playerId, int32 x, int32 y) {
 
 // 0x589270
 void CHud::RenderHealthBar(int32 playerId, int32 x, int32 y) {
-    if (m_ItemToFlash == ITEM_HEALTH && EachFrames(8))
+    if (m_ItemToFlash == ITEM_HEALTH && EachFrames(8)) // 0x589273..0x589287
         return;
 
     auto* player = FindPlayerPed(playerId);
-    if ((int)player->m_fHealth < 10 && EachFrames(8))
+    // Como el original (0x5892A4..0x5892AF): _ftol2 y cmp ax,0Ah / jge: se compara solo la palabra baja con signo.
+    if ((int16)(int64)player->m_fHealth < 10 && EachFrames(8))
         return;
 
-    const float x109 = SCREEN_STRETCH_X(109.0f);
-    const auto info = player->GetPlayerInfoForThisPlayerPed();
-    const auto totalWidth = uint16(x109 * (float)info->m_nMaxHealth / CStats::GetFatAndMuscleModifier(STAT_MOD_10));
+    // Como el original (0x5892B8..0x5892EC): (fild maximumWidth * 0x859520) * maxHealth * 109.0 (0x866BB8) / modificador(10), _ftol2.
+    const auto& info = FindPlayerInfo(playerId);
+    const float x109 = (float)RsGlobal.maximumWidth * ExeFloat(0x859520) * (float)(int32)info.m_nMaxHealth * ExeFloat(0x866BB8);
+    const auto totalWidth = (uint16)(int64)(x109 / CStats::GetFatAndMuscleModifier(STAT_MOD_10));
+    const float height = (float)RsGlobal.maximumHeight * ExeFloat(0x859524) * ExeFloat(0x85EED4);
+    // 0x58933C..0x58939A: X = (fild maximumWidth * 0x859520 * 109.0) - totalWidth + x
+    const float x109b = (float)RsGlobal.maximumWidth * ExeFloat(0x859520) * ExeFloat(0x866BB8);
 
     CSprite2d::DrawBarChart(
-        x109 - (float)totalWidth + (float)x,
+        x109b - (float)totalWidth + (float)x,
         (float)y,
         totalWidth,
-        (uint8)SCREEN_STRETCH_Y(9.0f),
-        player->m_fHealth * 100.0f / (float)info->m_nMaxHealth,
+        (uint8)(int64)height,
+        player->m_fHealth * 100.0f / (float)info.m_nMaxHealth,
         false,
         false,
         true,

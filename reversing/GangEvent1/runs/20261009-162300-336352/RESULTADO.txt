@@ -1,0 +1,3 @@
+APROBADO: CGroupEventHandler + CGangWars (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-gangevent1\20261009-162300-336352

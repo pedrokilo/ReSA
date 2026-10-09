@@ -344,7 +344,8 @@ enum class ScriptSavedObjectType : uint32 {
 static constexpr uint32 SCRIPT_VAR_TIMERA = 32, SCRIPT_VAR_TIMERB = 33;
 static constexpr uint32 MISSION_SCRIPT_SIZE = 69000;
 
-static inline bool gAllowScriptedFixedCameraCollision = false;
+// Como el original: es la variable del EXE (byte en 0xB6EC2C; la leen 0x51D6D9 y los comandos de camara), no una estatica de la DLL.
+static inline bool& gAllowScriptedFixedCameraCollision = *reinterpret_cast<bool*>(0xB6EC2C);
 
 class CTheScripts {
 public:

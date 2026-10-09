@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 35/35 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/35 entradas.
+ * Validación registrada: 35/35 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -74,6 +74,7 @@ FxSystem_c::FxSystem_c() : ListItem_c() {
     m_SystemBP        = nullptr;
     m_BoundingSphere  = nullptr;
     m_MustCreateParticles = false;
+    m_FireAE.m_FxSystem = nullptr; // Como el original: 0x4AAF10 mov [esi+100h],eax (FireAE+0x84 = m_FxSystem = 0)
 }
 
 // 0x4AA260
@@ -100,6 +101,8 @@ bool FxSystem_c::Init(FxSystemBP_c* systemBP, const RwMatrix& local, RwMatrix* p
     m_nRateMult    = 1000;
     m_nTimeMult    = 1000;
     m_VelAdd       = CVector();
+    m_allocatedParentMat = false; // Como el original: 0x4AA774 (and cl,0FCh) limpia los bits 0 y 1 del byte 0x62 y 0x4AA77F (or cl,4) activa el bit 2
+    m_createLocal  = false;
     m_useZTest     = true;
 
     m_BoundingSphere = nullptr;
@@ -108,7 +111,8 @@ bool FxSystem_c::Init(FxSystemBP_c* systemBP, const RwMatrix& local, RwMatrix* p
     }
 
     m_Prims = new FxPrim_c * [m_SystemBP->m_nNumPrims];
-    for (auto i = 0; i < m_SystemBP->m_nNumPrims; i++) {
+    // Como el original: el contador es un byte con signo (0x4AA7D8 movsx; 0x4AA7F0 jle; 0x4AA81B cmp/jl) y se relee de la plantilla en cada vuelta
+    for (int32 i = 0; i < static_cast<int8>(m_SystemBP->m_nNumPrims); i++) {
         m_Prims[i] = m_SystemBP->m_Prims[i]->CreateInstance();
         m_Prims[i]->Init(m_SystemBP->m_Prims[i], this);
     }
@@ -119,8 +123,9 @@ bool FxSystem_c::Init(FxSystemBP_c* systemBP, const RwMatrix& local, RwMatrix* p
 
 // 0x4AA840
 void FxSystem_c::Exit() {
-    for (auto& prim : GetPrims()) {
-        delete prim;
+    // Como el original: bucle con contador de byte con signo (0x4AA84E jle / 0x4AA86A jl); delete de un puntero nulo no hace nada (0x4AA856 test)
+    for (int32 i = 0; i < static_cast<int8>(m_SystemBP->m_nNumPrims); i++) {
+        delete m_Prims[i];
     }
     delete[] m_Prims;
     m_FireAE.Terminate();
@@ -130,8 +135,8 @@ void FxSystem_c::Exit() {
 void FxSystem_c::Play() {
     if (m_nPlayStatus != eFxSystemPlayStatus::T2) {
         m_fCurrentTime = 0;
-        for (auto& prim : GetPrims()) {
-            prim->Reset();
+        for (int32 i = 0; i < static_cast<int8>(m_SystemBP->m_nNumPrims); i++) { // Como el original: byte con signo (0x4AA30C jle / 0x4AA325 jl)
+            m_Prims[i]->Reset();
         }
     }
 
@@ -141,7 +146,8 @@ void FxSystem_c::Play() {
     m_stopParticleCreation = false;
     m_prevCulled = false;
 
-    m_LoopInterval = (float)(CGeneral::GetRandomNumber() % 10'000) / 10'000.0f * (m_SystemBP->m_fLoopLength - m_SystemBP->m_fLoopIntervalMin) + m_SystemBP->m_fLoopIntervalMin;
+    // Como el original: 0x4AA34C fmul [0x858FC4] (0.0001f = 0x38D1B717), no una division entre 10000 (0x4AA33D idiv ecx,2710h sobre rand 0x821B1E)
+    m_LoopInterval = (float)(CGeneral::GetRandomNumber() % 10'000) * std::bit_cast<float>(0x38D1B717u) * (m_SystemBP->m_fLoopLength - m_SystemBP->m_fLoopIntervalMin) + m_SystemBP->m_fLoopIntervalMin;
 }
 
 // 0x4AA370
@@ -161,8 +167,8 @@ void FxSystem_c::Stop() {
     m_nPlayStatus = eFxSystemPlayStatus::FX_STOPPED;
     m_fCurrentTime = 0;
 
-    for (auto& prim : GetPrims()) {
-        prim->Reset();
+    for (int32 i = 0; i < static_cast<int8>(m_SystemBP->m_nNumPrims); i++) { // Como el original: byte con signo (0x4AA3A9 jle / 0x4AA3C5 jl)
+        m_Prims[i]->Reset();
     }
 }
 
@@ -184,7 +190,12 @@ void FxSystem_c::Kill() {
 
 // 0x4AA400
 void FxSystem_c::AttachToBone(CEntity* entity, eBoneTag boneId) {
-    VERIFY(m_ParentMatrix = entity->GetBoneMatrix(boneId));
+    // Como el original: 0x4AA40D call 0x734A40 (GetAnimHierarchyFromSkinClump sobre [entity+0x18]), 0x4AA41A call 0x7C51A0 (RpHAnimIDGetIndex),
+    // 0x4AA422 call 0x7C5120 (RpHAnimHierarchyGetMatrixArray) y 0x4AA42A shl esi,6 + add: matriz = array + indice * 64.
+    // No es CEntity::GetBoneMatrix (que busca la jerarquia por el marco del clump, comprueba el rango y puede devolver nullptr).
+    auto* const hierarchy = GetAnimHierarchyFromSkinClump(reinterpret_cast<RpClump*>(entity->GetRwObject()));
+    const auto index = RpHAnimIDGetIndex(hierarchy, static_cast<RwInt32>(boneId));
+    m_ParentMatrix = RpHAnimHierarchyGetMatrixArray(hierarchy) + index;
 }
 
 static bool CanAddParticle() {
@@ -249,17 +260,17 @@ void FxSystem_c::AddOffsetPos(const CVector& pos) {
 // 0x4AA6C0
 void FxSystem_c::SetConstTime(bool on, float time) {
     m_UseConstTime = on;
-    m_nConstTime   = (uint16)(time * 256.0f);
+    m_nConstTime   = (uint16)(int64)(time * 256.0f); // Como el original: _ftol2 (0x4AA6D4 call 0x821B40) trunca a 64 bits y se guarda ax
 }
 
 // 0x4AA6F0
 void FxSystem_c::SetRateMult(float mult) {
-    m_nRateMult = (uint16)(mult * 1000.0f);
+    m_nRateMult = (uint16)(int64)(mult * 1000.0f); // Como el original: _ftol2 (0x4AA6FD) y mov [esi+5Eh],ax
 }
 
 // 0x4AA710
 void FxSystem_c::SetTimeMult(float mult) {
-    m_nTimeMult = (uint16)(mult * 1000.0f);
+    m_nTimeMult = (uint16)(int64)(mult * 1000.0f); // Como el original: _ftol2 (0x4AA71D) y mov [esi+60h],ax
 }
 
 // 0x4AA730
@@ -308,9 +319,12 @@ eFxSystemPlayStatus FxSystem_c::GetPlayStatus() const {
 uint32 FxSystem_c::ForAllParticles(void(*callback)(Particle_c*, int32, FxBox_c**), FxBox_c* data) {
     auto count = 0;
 
-    for (auto& prim : m_SystemBP->GetPrims()) {
+    // Como el original: byte con signo (0x4AA93F jle / 0x4AA987 jl) y la plantilla se relee en cada vuelta (0x4AA951)
+    for (int32 i = 0; i < static_cast<int8>(m_SystemBP->m_nNumPrims); i++) {
+        auto* prim = m_SystemBP->m_Prims[i];
         for (auto* particle = prim->m_Particles.GetHead(); particle; particle = prim->m_Particles.GetNext(particle)) {
-            if (prim->m_Type && this == particle->m_System) {
+            // Como el original: 0x4AA95D test al,al ; jne 0x4AA976 -> solo se llama cuando el tipo es 0 (no distinto de 0)
+            if (!prim->m_Type && this == particle->m_System) {
                 callback(particle, 0, &data);
                 count++;
             }
@@ -384,9 +398,9 @@ void FxSystem_c::SetBoundingSphere(FxSphere_c* sphere) {
     if (sphere) {
         if (!m_BoundingSphere) {
             m_BoundingSphere = new (true) FxSphere_c();
-            return;
         }
-        m_BoundingSphere = sphere;
+        // Como el original: 0x4AABB4 / 0x4AABC8 rep movsd (5 dwords) copia el contenido; no adopta el puntero ni sale sin copiar
+        std::memcpy(m_BoundingSphere, sphere, sizeof(FxSphere_c));
     } else if (m_BoundingSphere) {
         CMemoryMgr::Free(m_BoundingSphere);
         m_BoundingSphere = nullptr;
@@ -399,7 +413,8 @@ void FxSystem_c::ResetBoundingSphere() {
         if (!m_BoundingSphere) {
             m_BoundingSphere = new (true) FxSphere_c();
         }
-        m_BoundingSphere = m_SystemBP->m_BoundingSphere;
+        // Como el original: 0x4AAC27 rep movsd (5 dwords) copia la esfera de la plantilla al bloque propio (no se comparte el puntero)
+        std::memcpy(m_BoundingSphere, m_SystemBP->m_BoundingSphere, sizeof(FxSphere_c));
     } else if (m_BoundingSphere) {
         CMemoryMgr::Free(m_BoundingSphere);
         m_BoundingSphere = nullptr;
