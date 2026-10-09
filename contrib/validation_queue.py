@@ -31,6 +31,9 @@ NO_VALIDABLES = {
     'CCollision': ('SphereVsEntity', 'el EXE no la llama y lee una esfera local sin inicializar'),
 }
 
+# Estado real de cada funcion de NO_VALIDABLES (la rellena load_stats): True si sigue pendiente.
+NO_VALIDADA_AUN = {}
+
 DEF_RE = re.compile(r'^[\w][^;=\n]*?\b([A-Za-z_]\w*(?:<\w+>)?)::~?\w+\s*\(', re.M)
 
 TITLES = {
@@ -55,6 +58,8 @@ def load_stats():
             total[c] += 1
             rec[c] += row['reversed'] == '1'
             val[c] += row['validated'] == '1'
+            if c in NO_VALIDABLES and row['fn_name'] == NO_VALIDABLES[c][0]:
+                NO_VALIDADA_AUN[c] = row['reversed'] == '1' and row['validated'] != '1'
     return total, rec, val
 
 
@@ -98,7 +103,7 @@ def build_document():
     items = []
     for cls in total:
         pending = rec[cls] - val[cls]
-        if cls in NO_VALIDABLES and pending > 0:
+        if NO_VALIDADA_AUN.get(cls) and pending > 0:
             pending -= 1
         if pending <= 0:
             continue
@@ -161,9 +166,15 @@ def build_document():
     out += ['<a id="fuera-de-la-cola"></a>', '', '## Fuera de la cola (no validables por pares)', '',
             '| Clase | Función | Motivo |', '|---|---|---|']
     for cls, (fn, reason) in NO_VALIDABLES.items():
-        out.append(f'| {cls} | `{fn}` | {reason} |')
+        if NO_VALIDADA_AUN.get(cls):
+            out.append(f'| {cls} | `{fn}` | {reason} |')
+    ya = [f'{c}::{f}' for c, (f, _) in NO_VALIDABLES.items() if not NO_VALIDADA_AUN.get(c)]
     out += [
         '', 'Se comprueban de forma indirecta arrancando el juego o con una prueba en partida.', '',
+    ]
+    if ya:
+        out += ['Estaban en esta lista y ya se validaron después con bancos de dobles: ' + ', '.join(f'`{x}`' for x in ya) + '.', '']
+    out += [
         '<a id="como-se-ordena"></a>', '', '## Cómo se ordena', '',
         'Los niveles salen de una regla fija, no de una opinión:', '',
     ]

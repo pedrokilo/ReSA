@@ -92,12 +92,11 @@ Criterio: 90 o más funciones, o más de 50 líneas por función.
 
 | Clase | Función | Motivo |
 |---|---|---|
-| CAEAudioHardware | `Initialise` | crea canales y cargadores reales, llama a DirectSoundCreate8 y arranca hilos |
-| CPlayerPed | `SetupPlayerPed` | construye un CPlayerPed real con pools, audio, inteligencia y grupos |
 | Win | `NOTSA_WinMain` | punto de entrada del juego: no vuelve hasta cerrar |
-| CCollision | `SphereVsEntity` | el EXE no la llama y lee una esfera local sin inicializar |
 
 Se comprueban de forma indirecta arrancando el juego o con una prueba en partida.
+
+Estaban en esta lista y ya se validaron después con bancos de dobles: `CAEAudioHardware::Initialise`, `CPlayerPed::SetupPlayerPed`, `CCollision::SphereVsEntity`.
 
 <a id="como-se-ordena"></a>
 
