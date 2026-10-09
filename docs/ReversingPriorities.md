@@ -1,7 +1,3 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6916 con evidencia histórica, 0 con vigencia acreditada y 1530 pendientes en 41 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Prioridades técnicas de reversing
 
 [Inicio](../README.md) · [Progreso registrado](ReversedClasses.md) · [Proceso y continuidad](../reversing/MEJORAS_DEL_PROCESO.md)
@@ -15,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.446 |
 | Reconstruidas | 8.446 |
-| Validadas | 6.881 |
-| Reconstruidas sin validar | 1.565 |
-| De ellas, en esta cola (validables por pares) | 1.561 |
+| Validadas | 6.916 |
+| Reconstruidas sin validar | 1.530 |
+| De ellas, en esta cola (validables por pares) | 1.529 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -26,28 +22,21 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 8 | 24 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 1 | 9 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 9 | 461 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 19 | 511 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 16 | 565 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **52** | **1561** | |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 15 | 496 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🔴 Nivel 4: caras](#nivel-4) | 15 | 563 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **40** | **1529** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (8 clases, 24 funciones)
+## 🟢 Nivel 1: muy barato (1 clases, 9 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CPad | 75 | 1 |  | 21 |
-| 2 | CTaskGoToVehicleAndLean | 7 | 2 |  | 19 |
-| 3 | CTaskComplexPlayHandSignalAnim | 9 | 2 |  | 24 |
-| 4 | CPedGeometryAnalyser | 38 | 2 |  | 26 |
-| 5 | CTaskGangHasslePed | 5 | 2 |  | 29 |
-| 6 | CTaskGangHassleVehicle | 8 | 2 |  | 32 |
-| 7 | CRealTimeShadowManager | 7 | 4 |  | 30 |
-| 8 | CPools | 19 | 9 |  | 26 |
+| 1 | CPools | 19 | 9 |  | 26 |
 
 <a id="nivel-2"></a>
 
@@ -69,56 +58,51 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (19 clases, 511 funciones)
+## 🟠 Nivel 3: moderadas (15 clases, 496 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CAEFrontendAudioEntity | 6 | 3 |  | 44 |
-| 2 | CTaskSimpleFightingControl | 7 | 3 |  | 50 |
-| 3 | CTaskComplexProstituteSolicit | 11 | 4 |  | 40 |
-| 4 | CGenericGameStorage | 19 | 5 |  | 48 |
-| 5 | CIdleCam | 14 | 13 |  | 33 |
-| 6 | CAEPedAudioEntity | 20 | 15 |  | 40 |
-| 7 | CClothesBuilder | 23 | 15 |  | 42 |
-| 8 | CTrain | 40 | 20 |  | 38 |
-| 9 | CRunningScript | 39 | 24 |  | 33 |
-| 10 | CWaterLevel | 30 | 25 |  | 48 |
-| 11 | CCarEnterExit | 32 | 27 |  | 29 |
-| 12 | CAERadioTrackManager | 43 | 29 |  | 40 |
-| 13 | CGroupEventHandler | 32 | 30 |  | 29 |
-| 14 | CGangWars | 35 | 32 |  | 34 |
-| 15 | CPickups | 37 | 35 |  | 26 |
-| 16 | CPostEffects | 38 | 35 |  | 32 |
-| 17 | CRadar | 63 | 63 |  | 34 |
-| 18 | CPopulation | 66 | 64 |  | 34 |
-| 19 | CTheScripts | 69 | 69 |  | 30 |
+| 1 | CIdleCam | 14 | 13 |  | 33 |
+| 2 | CAEPedAudioEntity | 20 | 15 |  | 40 |
+| 3 | CClothesBuilder | 23 | 15 |  | 42 |
+| 4 | CTrain | 40 | 20 |  | 38 |
+| 5 | CRunningScript | 39 | 24 |  | 33 |
+| 6 | CWaterLevel | 30 | 25 |  | 48 |
+| 7 | CCarEnterExit | 32 | 27 |  | 29 |
+| 8 | CAERadioTrackManager | 43 | 29 |  | 40 |
+| 9 | CGroupEventHandler | 32 | 30 |  | 29 |
+| 10 | CGangWars | 35 | 32 |  | 34 |
+| 11 | CPickups | 37 | 35 |  | 26 |
+| 12 | CPostEffects | 38 | 35 |  | 32 |
+| 13 | CRadar | 63 | 63 |  | 34 |
+| 14 | CPopulation | 66 | 64 |  | 34 |
+| 15 | CTheScripts | 69 | 69 |  | 30 |
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (16 clases, 565 funciones)
+## 🔴 Nivel 4: caras (15 clases, 563 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CTaskUtilityLineUpPedWithCar | 5 | 2 |  | 60 |
-| 2 | CRoadBlocks | 8 | 7 |  | 70 |
-| 3 | CAEScriptAudioEntity | 19 | 8 |  | 54 |
-| 4 | CTaskComplexKillPedOnFootArmed | 11 | 8 |  | 62 |
-| 5 | CTaskComplexKillCriminal | 11 | 8 |  | 64 |
-| 6 | CTaskSimplePlayerOnFoot | 12 | 10 |  | 100 |
-| 7 | CCam | 44 | 14 |  | 138 |
-| 8 | CPlane | 23 | 14 |  | 142 |
-| 9 | CShadows | 31 | 21 |  | 56 |
-| 10 | CBike | 40 | 22 |  | 151 |
-| 11 | CHud | 38 | 30 |  | 52 |
-| 12 | CWeapon | 41 | 35 |  | 63 |
-| 13 | CCamera | 110 | 91 |  | 37 |
-| 14 | CStreaming | 94 | 94 |  | 40 |
-| 15 | CAutomobile | 99 | 99 |  | 65 |
-| 16 | CAEVehicleAudioEntity | 106 | 102 |  | 47 |
+| 1 | CRoadBlocks | 8 | 7 |  | 70 |
+| 2 | CAEScriptAudioEntity | 19 | 8 |  | 54 |
+| 3 | CTaskComplexKillPedOnFootArmed | 11 | 8 |  | 62 |
+| 4 | CTaskComplexKillCriminal | 11 | 8 |  | 64 |
+| 5 | CTaskSimplePlayerOnFoot | 12 | 10 |  | 100 |
+| 6 | CCam | 44 | 14 |  | 138 |
+| 7 | CPlane | 23 | 14 |  | 142 |
+| 8 | CShadows | 31 | 21 |  | 56 |
+| 9 | CBike | 40 | 22 |  | 151 |
+| 10 | CHud | 38 | 30 |  | 52 |
+| 11 | CWeapon | 41 | 35 |  | 63 |
+| 12 | CCamera | 110 | 91 |  | 37 |
+| 13 | CStreaming | 94 | 94 |  | 40 |
+| 14 | CAutomobile | 99 | 99 |  | 65 |
+| 15 | CAEVehicleAudioEntity | 106 | 102 |  | 47 |
 
 <a id="fuera-de-la-cola"></a>
 
