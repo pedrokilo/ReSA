@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 23/23 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 8.
- * Validación registrada: 22/23 entradas.
+ * Validación registrada: 23/23 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -935,9 +935,10 @@ RpClump* CClothesBuilder::CreateSkinnedClump(RpClump* bones, RwTexDictionary* di
         ms[i++] = [&]() -> RpMaterial* {
             if (const auto tex = RwTexDictionaryFindNamedTexture(dict, name)) {
                 const auto mat = RpMaterialCreate();
-                RpMaterialSetTexture(mat, tex);
+                // Como el original (0x5A6B51-0x5A6B77): primero el color en linea (mov [eax+4],ecx) y despues RpMaterialSetTexture
                 const auto clr = RwRGBA(0xFF, 0xFF, 0xFF, 0xFF);
                 RpMaterialSetColor(mat, &clr);
+                RpMaterialSetTexture(mat, tex);
                 return mat;
             }
             return nullptr;
@@ -965,14 +966,18 @@ RpClump* CClothesBuilder::CreateSkinnedClump(RpClump* bones, RwTexDictionary* di
         gs,
         ms
     );
+    // Como el original (0x5A6CAD..0x5A6CD0): RpSkinGetNumBones (0x7C77E0) se llama antes que RpSkinGetSkinToBoneMatrices (0x7C7810),
+    // y ambos antes de RpSkinCreate (0x7C75B0); el orden de evaluacion de los argumentos de C++ no esta garantizado
+    const auto numBones = RpSkinGetNumBones(boneSkin);
+    const auto boneMatrices = const_cast<RwMatrix*>(RpSkinGetSkinToBoneMatrices(boneSkin)); // TODO
     RpSkinGeometrySetSkin(
         tmpGeo,
         RpSkinCreate(
             RpGeometryGetNumVertices(tmpGeo),
-            RpSkinGetNumBones(boneSkin),
+            numBones,
             boneWeights,
             boneIdxs,
-            const_cast<RwMatrix*>(RpSkinGetSkinToBoneMatrices(boneSkin)) // TODO
+            boneMatrices
         )
     );
     DestroySkinArrays(boneWeights, boneIdxs);

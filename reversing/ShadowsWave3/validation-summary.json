@@ -1,0 +1,97 @@
+{
+  "passed": false,
+  "partial_per_function_approval": true,
+  "pairs": 1536,
+  "differences": 318,
+  "registered_pairs": 1024,
+  "registered_functions": 1,
+  "functions": {
+    "CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>": 1024
+  },
+  "covered_functions": {
+    "CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>": true
+  },
+  "rejected_functions": {
+    "CShadows::RenderStoredShadows": {
+      "pairs": 512,
+      "failures": 318,
+      "equal": 194,
+      "reason": "differences against the EXE in the run; not registered, no credit (another agent is correcting the source)"
+    }
+  },
+  "scope": "PARTIAL, per-function approval. Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 1536 isolated CPU pairs for 2 functions of CShadows. Only CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>> (0x70A470, 1024 pairs) is registered, with ALL pairs equal and the pair count equal to the bank table. The run as a whole has passed=false because CShadows::RenderStoredShadows (318/512) differs: it is REJECTED, not registered and gets no credit. The run has no natural \"complete\" event: the bench writes \"complete\" only when passed, otherwise a terminal \"error\" event (pairs=1536, state_restored=true, no reason, i.e. the run finished normally); saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the collaborator trace with raw arguments (nineteen arguments of CastShadowEntityXY), the hash of the CShadows state block (0xC403A8-0xC4B6B0), the RenderBuffer temporary, the scan code, the x87 control word (24 bits) and that the hook switches (JumpsToDll); foreign threads ignored. Fixtures: 1-6 fake entities with a fake vtable (slot 9 = GetBoundRect, the rest trap), fake models 19900..19907 in ms_modelInfoPtrs (only m_pColModel and its min/max box), own matrix per entity (at.z in {1, 0.97f, 0.97f+-ulp, 0.98, 0.5, -1, 0, NaN}), bUsesCollision/bDontCastShadowsOn flags, scan code equal or different from the current one, area equal/13/other (CGame::currArea), rectangles on an integer grid with exact equalities against the caller rectangle (and NaN), z of the box and zDistance that provoke equalities; list of 0-8 nodes (with repeated items) built in a LOCAL NODE POOL that temporarily replaces POOLS[0] (0xB74484). Limits: the branch with a null matrix (0x70A4F2, CPlaceable::GetMatrix -> AllocateMatrix, touches the real matrix pool) and scan code 0xFFFF (ResetScanCodes walks the real world) are OUT of the bench; fake entities with a fake vtable and a local node pool replace POOLS[0]; CastShadowEntityXY (0x7086B0) is doubled with a trace and gets NO credit; notsa::PoolOf<CPhysical> does not exist so IsItemValid consults no entity pool. Only the own part of the function is validated. Source tested == current working tree at registration (both CShadows sources match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>": "Corpus 1024; source corrected (EXE 0x70A470): template instance (CSector::Buildings is CPtrListSingleLink<CBuilding*>; the EXE calls the CPtrListSingleLink<CPhysical*> instance, so the callers use reinterpret_cast to <CPhysical*>); 0x70A57F movsx edx,word [esi+22h] (model index with sign, int32(int16(...)) instead of uint16). MATCH verified line by line without change: loop flags and order (0x70A4A0-0x70A4E9: scan code, +1Ch bit 0, +1Eh bit 0, area 0x0D), GetMatrix (0x411990), fcomp [0x872724] + test ah,41h (up.z > 0.97), rectangle comparisons on CRect +8/+0/+4/+0xC, collision box (+8 min z, +14h max z, fcompp), 19 arguments to 0x7086B0."
+  },
+  "dependency_review": null,
+  "run": "reversing/ShadowsWave3/runs/20261009-105057-302560",
+  "summary_sha256": "669bd6f5f4591625f7c03bdd64750b31f555e1a155766cfc1c1e183133da0390",
+  "result_txt_sha256": "cf4761b180a0d7e8d6a02fbeae3e0cbab67a15649574fb4d6432bab2bed00906",
+  "log_sha256": "196fae3813b48c9a8730ae7d597adbf67440575dc8200d52ec3774f0f36419c6",
+  "comparison_storage": {
+    "uncompressed_sha256": "196fae3813b48c9a8730ae7d597adbf67440575dc8200d52ec3774f0f36419c6",
+    "uncompressed_bytes": 659437,
+    "compressed_path": "reversing/ShadowsWave3/runs/20261009-105057-302560/comparisons.jsonl.gz",
+    "compressed_sha256": "da5a1b99768da94814bf574e3ebe8e5ebf1daf95bcd5a0f42849d26c9e318799",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "196fae3813b48c9a8730ae7d597adbf67440575dc8200d52ec3774f0f36419c6",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadowswave3\\20261009-105057-302560\\comparisons.jsonl"
+  },
+  "all_equal": false,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "c2225e9c2665e61d9ac6d2d52ab05ee19c52b2fa01c9a39f2c59954afecca93f",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "8cdf9b67973ad7b188772645a669ef1ac8d49bbf",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 1536,
+    "registered_pairs": 1024,
+    "asi": "c2225e9c2665e61d9ac6d2d52ab05ee19c52b2fa01c9a39f2c59954afecca93f",
+    "pdb": "4069a42ab11b72c4654dd9dc99afa8db85740f8536e1bc2e7abf4d12ff350d45",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-shadowswave3-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Shadows.cpp": "01bc3a332d97f31162fcf53c91f747bcace46d90eb2def37c79c4ccb0b1918c6",
+      "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "06d689ae7412b03de35cd000f519c457929b2cb1f54f099dcb52a5041cbd4f78",
+      "SwCommon.hpp": "42265e80c50041bf16f52276a7cf98bbfbc88422ac5a75bf66c943f9016a098f",
+      "build_probe.py": "3e9d88b905015ade8de2dffed60f8c38c8c3d63fede07c4293b0d97d083183bd",
+      "run_local.py": "9b0413cab360840449e769d8b425878aa12a90b206a9a5a59d9eb6ba1862040b"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Shadows.cpp (+ .h)": "CastPlayerShadowSectorList: template instance (reinterpret_cast to CPtrListSingleLink<CPhysical*> in the callers) and signed model index (0x70A57F movsx). The same file also holds the RenderStoredShadows corrections (floor/ceil with _ftol2 truncation, water UV, batch render-mode gate), which belong to the REJECTED function and get no credit."
+    }
+  },
+  "reaudit": {
+    "comparison_events": 1536,
+    "complete_events": 0,
+    "terminal_error_events": 1,
+    "terminal_error_event": {
+      "event": "error",
+      "pairs": 1536,
+      "state_restored": true
+    },
+    "begin_events": 1,
+    "waiting_for_player_events": 1,
+    "function_summaries": 2,
+    "functions_with_zero_failures": 1,
+    "unequal_pairs": 318,
+    "unequal_by_function": {
+      "CShadows::RenderStoredShadows": 318
+    },
+    "distinct_cases": 1536,
+    "per_function": {
+      "CShadows::RenderStoredShadows": 512,
+      "CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>": 1024
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/Shadows.cpp (+ .h)": "CastPlayerShadowSectorList: template instance (reinterpret_cast to CPtrListSingleLink<CPhysical*> in the callers) and signed model index (0x70A57F movsx). The same file also holds the RenderStoredShadows corrections (floor/ceil with _ftol2 truncation, water UV, batch render-mode gate), which belong to the REJECTED function and get no credit."
+  },
+  "notes": "CShadows::RenderStoredShadows (318/512 differences) is REJECTED and gets no registry entry. Shadows.cpp tested hash is registered; later edits by other agents on RenderStoredShadows are not validated here. CShadows keeps RenderStoredShadows pending in docs/hooks.csv."
+}

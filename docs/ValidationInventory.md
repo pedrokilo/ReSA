@@ -6,10 +6,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 7155 |
+| `validated=1` · evidencia aprobada vinculada | 7163 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 7155 |
-| Sin evidencia aprobada vinculada en este registro | 1291 |
+| Evidencia histórica vinculada; revisión pendiente | 7163 |
+| Sin evidencia aprobada vinculada en este registro | 1283 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -1113,6 +1113,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CClothesBuilder | `ConstructTextures` | [Resumen](../reversing/ClothesTextures355/validation-summary.json) |
 | CClothesBuilder | `CopyGeometry` | [Resumen](../reversing/ClothesGeometry355/validation-summary.json) |
 | CClothesBuilder | `CopyTexture` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `CreateSkinnedClump` | [Resumen](../reversing/ClothesWave3/validation-summary.json) |
 | CClothesBuilder | `DestroySkinArrays` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CClothesBuilder | `GetAtomicWithName` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CClothesBuilder | `GetTextureFromTxdAndLoadNextTxd` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
@@ -3671,8 +3672,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CRoadBlocks | `ClearScriptRoadBlocks` | [Resumen](../reversing/WorldWave2/validation-summary.json) |
 | CRoadBlocks | `ClearSpaceForRoadBlockObject` | [Resumen](../reversing/WorldWave2/validation-summary.json) |
 | CRoadBlocks | `CreateRoadBlockBetween2Points` | [Resumen](../reversing/RoadBlockPending/validation-summary.json) |
+| CRoadBlocks | `GenerateRoadBlockPedsForCar` | [Resumen](../reversing/RoadScriptWave3/validation-summary.json) |
 | CRoadBlocks | `GenerateRoadBlocks` | [Resumen](../reversing/WorldWave2/validation-summary.json) |
 | CRoadBlocks | `GetRoadBlockNodeInfo` | [Resumen](../reversing/WorldWave2/validation-summary.json) |
+| CRoadBlocks | `Init` | [Resumen](../reversing/RoadScriptWave3/validation-summary.json) |
 | CRoadBlocks | `RegisterScriptRoadBlock` | [Resumen](../reversing/WorldWave2/validation-summary.json) |
 | CRope | `CreateHookObjectForRope` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
 | CRope | `PickUpObject` | [Resumen](../reversing/WorldFinal1/validation-summary.json) |
@@ -3706,6 +3709,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CRunningScript | `GetPointerToLocalArrayElement` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CRunningScript | `GetPointerToLocalVariable` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CRunningScript | `GetPointerToScriptVariable` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
+| CRunningScript | `GivePedScriptedTask-OG` | [Resumen](../reversing/RoadScriptWave3/validation-summary.json) |
 | CRunningScript | `Init` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CRunningScript | `IsPedDead` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CRunningScript | `LocateCarCommand` | [Resumen](../reversing/ScriptLocate355/validation-summary.json) |
@@ -3724,6 +3728,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CRunningScript | `ReadTextLabelFromScript` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CRunningScript | `RemoveScriptFromList` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CRunningScript | `ScriptTaskPickUpObject` | [Resumen](../reversing/ScriptPickup355/validation-summary.json) |
+| CRunningScript | `SetCharCoordinates` | [Resumen](../reversing/RoadScriptWave3/validation-summary-b.json) |
 | CRunningScript | `ShutdownThisScript` | [Resumen](../reversing/ScriptShutdown355/validation-summary.json) |
 | CRunningScript | `StoreParameters` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CRunningScript | `ThisIsAValidRandomPed` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
@@ -3779,6 +3784,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CShadows | `AddPermanentShadow` | [Resumen](../reversing/ShadowPermanent355/validation-summary.json) |
 | CShadows | `AffectColourWithLighting` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CShadows | `CalcPedShadowValues` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>` | [Resumen](../reversing/ShadowsWave3/validation-summary.json) |
 | CShadows | `CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>>` | [Resumen](../reversing/ShadowSectors355/validation-summary.json) |
 | CShadows | `CastShadowEntityXY` | [Resumen](../reversing/ShadowXY355/validation-summary.json) |
 | CShadows | `CastShadowEntityXYZ` | [Resumen](../reversing/ShadowXYZ355/validation-summary.json) |
@@ -3791,6 +3797,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CShadows | `RenderExtraPlayerShadows` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CShadows | `RenderIndicatorShadow` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CShadows | `RenderStaticShadows` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `RenderStoredShadows` | [Resumen](../reversing/ShadowsWave3/validation-summary-b.json) |
 | CShadows | `SetRenderModeForShadowType` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CShadows | `ShadowRenderTriangleCB` | [Resumen](../reversing/ShadowTriangle355/validation-summary.json) |
 | CShadows | `Shutdown` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
@@ -6198,6 +6205,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTrain | `MarkSurroundingEntitiesForCollisionWithTrain` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `OpenTrainDoor` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `PlayAnnouncement` | [Resumen](../reversing/VehWave2/validation-summary.json) |
+| CTrain | `ProcessControl` | [Resumen](../reversing/TrainWave3/validation-summary.json) |
 | CTrain | `ProcessTrainAnnouncements` | [Resumen](../reversing/VehWave2/validation-summary.json) |
 | CTrain | `ReadAndInterpretTrackFile` | [Resumen](../reversing/TrainRead355/validation-summary.json) |
 | CTrain | `ReleaseMissionTrains` | [Resumen](../reversing/VehWave2/validation-summary.json) |
@@ -7276,7 +7284,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCivilianPed` | 3 | 0 | 3 | 0 |
 | `CClock` | 9 | 0 | 9 | 0 |
 | `CClothes` | 11 | 0 | 11 | 0 |
-| `CClothesBuilder` | 23 | 0 | 22 | 1 |
+| `CClothesBuilder` | 23 | 0 | 23 | 0 |
 | `CClouds` | 21 | 0 | 21 | 0 |
 | `CClumpModelInfo` | 24 | 0 | 24 | 0 |
 | `CColAccel` | 11 | 0 | 11 | 0 |
@@ -7538,10 +7546,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CRenderer` | 33 | 0 | 33 | 0 |
 | `CReplay` | 47 | 0 | 47 | 0 |
 | `CRestart` | 11 | 0 | 11 | 0 |
-| `CRoadBlocks` | 8 | 0 | 6 | 2 |
+| `CRoadBlocks` | 8 | 0 | 8 | 0 |
 | `CRope` | 7 | 0 | 7 | 0 |
 | `CRopes` | 11 | 0 | 11 | 0 |
-| `CRunningScript` | 39 | 0 | 37 | 2 |
+| `CRunningScript` | 39 | 0 | 39 | 0 |
 | `CScriptResourceManager` | 4 | 0 | 4 | 0 |
 | `CScripted2dEffects` | 5 | 0 | 5 | 0 |
 | `CScriptedBrainTaskEntry` | 1 | 0 | 1 | 0 |
@@ -7550,7 +7558,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CSetPiece` | 3 | 0 | 3 | 0 |
 | `CSetPieces` | 5 | 0 | 5 | 0 |
 | `CShadowCamera` | 19 | 0 | 19 | 0 |
-| `CShadows` | 31 | 0 | 29 | 2 |
+| `CShadows` | 31 | 0 | 31 | 0 |
 | `CShinyTexts` | 4 | 0 | 4 | 0 |
 | `CShopping` | 30 | 0 | 30 | 0 |
 | `CShotInfo` | 5 | 0 | 5 | 0 |
@@ -7883,7 +7891,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTimer` | 13 | 0 | 13 | 0 |
 | `CTrafficLights` | 12 | 0 | 12 | 0 |
 | `CTrailer` | 13 | 0 | 13 | 0 |
-| `CTrain` | 40 | 0 | 39 | 1 |
+| `CTrain` | 40 | 0 | 40 | 0 |
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |

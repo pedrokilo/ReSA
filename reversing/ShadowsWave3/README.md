@@ -1,0 +1,50 @@
+# ShadowsWave3: banco por pares de CShadows::RenderStoredShadows y CShadows::CastPlayerShadowSectorList
+
+Banco simple (flujo `GfxWave2`/`Small2`/`PadMouse1`, dentro del juego completo, enganchado en `CGame::Process`). Cierra las dos funciones que dejaban la clase `CShadows` INCOMPLETA tras `GfxWave2` (19/21 validadas allí).
+Estado: **sin compilar ni ejecutar** (lo hace el coordinador). Uso: `bash reversing/_handoff/bench.sh ShadowsWave3 3`. Filtro opcional: `shadowswave3-only.txt` en la carpeta del juego con `Clase::funcion`.
+`build_probe.py` y `run_local.py` redirigen `runtime_runner.GAME` a `E:/JUEGOS/GTA San Andreas - CVehicle Test` (en memoria, como `GfxWave2`).
+
+## Corpus (original = hook desactivado = código del EXE; candidato = hook activo = DLL)
+| Función | Dirección | Casos | Pares |
+|---|---|---|---|
+| `CShadows::RenderStoredShadows` | 0x70A960 | 512 | 512 |
+| `CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>` | 0x70A470 | 1024 | 1024 |
+
+Total 1536 pares. Cada par compara: traza de colaboradores con argumentos crudos, hash de todo el bloque de estado de `CShadows` (0xC403A8-0xC4B6B0), buffer temporal de `RenderBuffer` (contadores, índices, vértices con UV/color), scan code, palabra de control FP (24 bits) y que el hook conmute (`JumpsToDll`).
+
+## Archivos
+`LiveComparison.hpp` (tabla, fixtures, stubs, bucle principal), `SwCommon.hpp` (utilidades copiadas de `GfxWave2/GfxCommon.hpp`; el registro de trazas pasa de 2048 a 20000 registros y las trazas largas se resumen con hash FNV + 160 primeros registros), `build_probe.py`, `run_local.py`. Los parches (EntryPatch en la dirección del EXE y en el símbolo de la DLL, con todos los `Body()` calculados antes) de cada función solo están activos mientras corre esa función (RenderStoredShadows parchea 0x70A470, que en la otra parte es la función probada).
+
+## RenderStoredShadows (0x70A960)
+Fixtures: 0-10 sombras almacenadas (0xC40430, 0x34 bytes) con tipos/texturas compartidos (lotes), posiciones sobre la rejilla de sectores (bordes del recorte [0,119], fuera de rango, 1e7, NaN/inf), vectores front/side pequeños o grandes (con ceros: 1/|v|² = inf), RT shadow, flags de agua/edificios al azar (bit 1 "ya dibujada" también), intensidad con signo. Un caso de cada 64 fuerza una sola sombra de agua con 24+24 m de extensión (>512 casillas) para provocar el vaciado a mitad de pasada del buffer de 0x800 vértices. Scan code lejos de 0xFFFF (así `AdvanceCurrentScanCode` no llama a `ResetScanCodes`, que recorre el mundo real).
+Doblados (en la dirección del EXE y en el símbolo de la DLL): `RwRenderStateSet` (puntero del motor, 0xC97B24+0x20), `RwIm3DTransform/RenderIndexedPrimitive/End` (traza con hash de vértices e índices), `CastShadowSectorList` 0x70A630, `CastRealTimeShadowSectorList` 0x70A7E0, `CastPlayerShadowSectorList` 0x70A470 (traza: índice de sector, rectángulo, posición, front/side, intensidad, rgb, zDist, escala, punteros y tipo; la posición se lee por valor porque el EXE pasa una copia en la pila), `CWaterLevel::GetWaterLevelNoWaves` 0x6E8580 (resultados controlados por llamada) y `CalculateWavesOnlyForCoordinate2` (0x6E8550 es un envoltorio del EXE sobre 0x6E7210; el stub devuelve una altura determinista que depende de x, y, nivel y amplitudes). Las listas de sectores reales NUNCA se tocan (solo se traza su dirección), por eso no hacen falta nodos ni pool de entidades en esta función.
+
+## CastPlayerShadowSectorList (0x70A470)
+Fixtures: 1-6 entidades falsas (vtable falsa: ranura 9 = `GetBoundRect`, el resto atrapa llamadas), modelos falsos 19900..19907 en `ms_modelInfoPtrs` (solo `m_pColModel` y su caja min/max), matriz propia por entidad (at.z en {1, 0.97f, 0.97f±ulp, 0.98, 0.5, -1, 0, NaN}), banderas `bUsesCollision`/`bDontCastShadowsOn`, scan code igual o distinto del actual, área igual/13/otra (`CGame::currArea`), rectángulos sobre rejilla entera con igualdades exactas contra el rectángulo del llamador (y NaN), z de la caja y `zDistance` que provocan igualdades. Lista de 0-8 nodos (con items repetidos) construidos en un POOL DE NODOS LOCAL que sustituye temporalmente a `POOLS[0]` (0xB74484): la DLL de depuración valida cada nodo contra el pool de nodos. Los items son `CPhysical*`, para el que `notsa::PoolOf<CPhysical>` no existe, así que `IsItemValid` no consulta ningún pool de entidades: no hace falta pool de entidades falso. Doblado: `CastShadowEntityXY` 0x7086B0 (traza con las 19 argumentos).
+
+## Correcciones de fuente (source/game_sa/Shadows.cpp), evidencia asm
+- **RenderStoredShadows 0x70AA10-0x70AA3C**: `test al,2` + `jne 0x70AE5B` salta, para sombras ya dibujadas en un lote, `call 0x707460` (SetRenderModeForShadowType) y `call [engine+20h]` con estado 1 (TEXTURERASTER). La fuente los hacía siempre: movidos dentro de `if (!m_bAlreadyRenderedInBatch)`.
+- **Agua, UV (0x70AFD5-0x70AFF0, 0x70B185-0x70B214 y análogos de los otros 3 vértices)**: el EXE calcula 1/|v|² una vez (`fld [858624]; fdiv [esp+44h]/[esp+80h]`, con |v|² = v.y² + v.x²) y MULTIPLICA (`fmul [esp+50h]`/`[esp+48h]`), añade al producto escalar el término `(-pos.z)*0.0f` (`fld [esi-1Ch]; fchs; fmul [858B50]; faddp`), y U = ((dot·invS)+1.0f)·0.5f (`fadd [858624]`, `fmul [858B8C]` -> [vértice+1Ch]) pero V = 0.5f − (dot·invF)·0.5f (`fmul [858B8C]; fsubr [858B8C]` -> [vértice+20h]). La fuente dividía y usaba (dot/|v|²+1)·0.5 para ambas (V invertida, sin el término z·0.0).
+- **Agua, límites (0x70AEE5/0x70AF03/0x70AF23/0x70AF4B)** y **índices de sector (0x70AAFD, 0x70AB4D, 0x70ABA2, 0x70ABF3 y 0x70B7D3.. de GeneratePolysForStaticShadow)**: `call 0x8219F0 (floor)/0x823820 (ceil)` + `call 0x821B40 (_ftol2)` = truncamiento de 64 bits y palabra baja (fuera de rango/NaN -> 0), con recorte por comparaciones de ENTEROS (`jle 0`, `cmp eax,77h; jge`). Nuevo `ShadowFtol` y `ShadowSectorIndex` reescrito (antes comparaba el double y usaba `(int32)` directo: NaN/fuera de rango daban INT_MIN).
+- **Instancia de plantilla (0x70ACB2/0x70AD0C/0x70AD6F/0x70ADB8)**: el EXE llama a las funciones de 0x70A470/0x70A630/0x70A7E0; `CSector::Buildings` es `CPtrListSingleLink<CBuilding*>` y la fuente instanciaba OTRA plantilla (no la enganchada). Ahora `reinterpret_cast<CPtrListSingleLink<CPhysical*>&>` (igual que GeneratePolysForStaticShadow).
+- **CastPlayerShadowSectorList 0x70A57F**: `movsx edx,word ptr [esi+22h]` -> índice de modelo con signo (`int32(int16(...))`); antes uint16 sin signo.
+- **Tercera ronda (resultado 318/512 fallos, clasificados con el hash de vértices reproducido a mano desde la traza)**: (1) agua: el lambda de vértice no avanzaba `vtxIt`, los 4 vértices de cada casilla se escribían en el primero (el EXE usa edi+0/+24h/+48h/+6Ch; hash del candidato reproducido exactamente con ese modelo); ahora `vtxIt++`. (2) `CastRealTimeShadowSectorList`: el último argumento (pDayNight) es un puntero a un byte de pila no nulo en el EXE (0x70ACB9 `lea edx,[esp+23h]`, 0x70ACBF/0x70AD0D); la fuente pasaba nullptr. (3) GetWaterLevelNoWaves recibe la posición de la ÚLTIMA sombra recorrida por el bucle de lote (copia en la pila 0x70AA89-0x70AAB4, leída en 0x70AE6A-0x70AE7C), no la de la sombra externa; variable `batchPos`. El banco ahora vuelca además los 16 primeros vértices del búfer (`vtx_head`).
+- MATCH verificado línea a línea sin cambios: flags/orden del bucle (0x70A4A0-0x70A4E9: scan code, `+1Ch` bit 0, `+1Eh` bit 0, área 0x0D), `GetMatrix` (0x411990), `fcomp [0x872724]`+`test ah,41h` (up.z > 0.97), rectángulo con `fcomp`/`test ah,5|41h` sobre +8/+0/+4/+0xC del CRect (right/left/top/bottom en memoria), caja de colisión (+8 min z, +14h max z, `fcompp`), 19 argumentos a 0x7086B0; RenderStoredShadows: estados de render inicial/final, bit 1 limpiado al empezar, rectángulo simétrico, lote por tipo+textura, orden y argumentos de las 3 llamadas de sector, bucles Y exterior/X interior de sectores, AdvanceCurrentScanCode por sombra, vaciado del buffer (7EF450/7EF550/7EF520), agua `!(nivel<z)`, alfa int16·0.6 (`_ftol2`), x+2 / y+2 y z = ola + 0.06 (0x859934), índices {0,1,2,1,3,2}.
+
+## Fuera del banco (con evidencia)
+- Rama `CPlaceable::GetMatrix -> AllocateMatrix` de CastPlayer (entidad sin matriz, 0x70A4EC `call 0x54F560`): toca el pool de matrices REAL (`gMatrixList`); las entidades falsas siempre llevan matriz. La función `GetMatrix` ya está validada aparte (0x411990).
+- Las listas de sectores REALES de `CWorld` y los pools de entidades reales: no se operan (RenderStoredShadows solo traza la dirección del sector).
+- `ResetScanCodes` (0x563470, scan code = 0xFFFF): recorre todo el mundo real; el fixture evita ese valor.
+- Colaboradores sustituidos y por tanto no ejercitados aquí: CastShadowSectorList/CastRealTime/CastShadowEntityXY (validados en GfxWave2/otras olas), `GetWaterLevelNoWaves` y `CalculateWavesOnlyForCoordinate2` (0x6E7210).
+
+## Supuestos a revisar al compilar
+- Nombre del hook de la segunda función: `CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>` (el de docs/hooks.csv); si `FindHook` no lo encuentra el banco escribe `hook not found`.
+- Las direcciones de plantilla `&CShadows::Cast*SectorList<CPtrListSingleLink<CPhysical*>>` se toman en `Game.cpp` sin la definición visible: el enlazado usa la instancia emitida en `Shadows.cpp` (está referenciada por `RH_ScopedInstall`).
+- `GetWaterLevelNoWaves(CVector, ...)`: el stub recibe tres floats (mismo diseño de pila que un `CVector` por valor).
+- `CRect` devuelto por valor desde la vtable falsa: ranura 9 con `__fastcall` (this en ECX, puntero oculto en la pila, el llamado limpia 4).
+- `notsa::PoolOf<CPhysical>` no existe (si existiera, `IsItemValid` exigiría un pool de entidades falso).
+- NaN con carga distinta en una misma operación x87/SSE podrían dar bits distintos: los fixtures solo meten NaN +0x7FC00000 de una en una por operación.
+
+## Segunda aprobacion (09/10/2026)
+
+Corrida `20261009-110523-344796`: passed=true, 1536 pares, 2 funciones con 0 fallos, evento complete. Se registra solo CShadows::RenderStoredShadows (512 pares) con `register_shadowswave3_b.py` (`validation-summary-b.json`); CastPlayerShadowSectorList ya estaba registrada. CShadows queda completa.

@@ -494213,6 +494213,214 @@
       "dependency_review": null,
       "scope": "PARTIAL, per-function approval (second increment of GfxWave2; the first 52 functions are registered by validation-summary.json, run 20261009-095105-342457). Simple pair bench inside the full game with a loaded save (original with the class hooks off vs candidate with the hooks on), 27616 isolated CPU pairs for 55 functions of CClothesBuilder (14), CShadows (19) and CWaterLevel (22). Only CWaterLevel::RenderFlatWaterRectangle (1024) and CWaterLevel::SplitWaterTriangleAlongXLine (512) are registered here, with ALL pairs equal and the pair count equal to the bank table; the other 52 functions also have all pairs equal in this run but are registered by the earlier summary and are not duplicated. The run as a whole has passed=false because CWaterLevel::AddWaterLevelQuad (254/1024) differs: it is REJECTED, not registered and gets no credit. The run has no natural \"complete\" event: the bench writes \"complete\" only when passed, otherwise a terminal \"error\" event (pairs=27616, state_restored=true, no reason, i.e. the run finished normally); saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (fake objects; drawing replaced by traces of RwIm3D*/RwRaster*/etc. with raw arguments, nothing is drawn) and compares return value, collaborator traces, the bytes of the real fields of the fixtures (padding masked), and the restored globals; x87 at 24 bits, no signalling NaN, foreign threads ignored (Mine()). Traced stubs and out-of-bench pieces get NO credit (e.g. RwIm3D*, LittleTest, GetWaterLevelNoWaves, FindPlayerCoors, CanSeeWaterFromCurrArea, HandleBeachToysStuff and, per case, sibling CWaterLevel drawing functions). Masked/controlled noise: CWaterVertex padding, CRenPar 2-byte padding, structure padding. Only the own part of each function is validated. Source tested == current working tree at registration (all six class sources match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 512; source corrected (EXE 0x6ECF00): X1==X3 branch (0x6ECF5D..0x6ED2DB) interpolates from P3 with B=lerp(P3,P1,t), H=lerp(P3,P2,t) and calls Bottom(B,H,P3), rect(P1,P12,B,H), Right(P12,P2,H); X2==X3 branch calls Bottom (0x6ED094), then the rectangle (0x6ED5D9) with (P12,P2,P13,P23) and finally Left (0x6ED6B8). Sibling drawing functions are traced/isolated and get no credit.",
       "review_reference": "reversing/GfxWave2/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClothesBuilder",
+        "fn_name": "CreateSkinnedClump",
+        "address": "0x005A69D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ClothesWave3/validation-summary.json",
+        "sha256": "6206df98b6082bf2708cf3951f1e70469328d8dac0aca1c2df090e7ad972e108",
+        "passed_path": [
+          "covered_functions",
+          "CClothesBuilder::CreateSkinnedClump"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/ClothesBuilder.cpp": "7202f115152daecef787adcaa233ad8f93753f56fe3750d33209fb8b5a47caed",
+        "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e"
+      },
+      "source_provenance": "Exact compiled ClothesWave3 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest and equal to the working tree at registration; full 256-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the class hook off vs candidate with the hook on), 256 isolated CPU pairs for CClothesBuilder::CreateSkinnedClump (0x5A69D0), zero differences, natural completion event with state_restored, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (fake old/new CPedClothesDesc, fake textures/geometries/skins/frames/atomics/clump, drawing and RenderWare replaced by traces) and compares the return value, the order and raw arguments of all collaborator calls, the new descriptor after the default SetModel calls, flags 0x8D0AA4..AA6 and 0xBC1288, the color of the fake materials (written inline), flags|=2 of the temporary geometry, the parent of the fake clump, the deletes (weights first, indices after) and the hash of the descriptor bytes; x87 at 24 bits, foreign threads ignored (Mine()). Limits: 34 collaborators are replaced by traced doubles WITHOUT credit (RenderWare, streaming, clothes pools: CDirectory::Init/ReadDirFile, CStats::GetStatValue, PreprocessClothesDesc, RwTexDictionaryForAllTextures, RwTexDictionaryRemoveTexture/RwTextureDestroy, RwTexDictionaryFindNamedTexture, RpMaterialCreate/SetTexture/Destroy, GetFirstAtomic, RpSkin*, RpHAnim*, RwFrame*, RpAtomic*, RpClump*, RpGeometryDestroy, RwTexDictionarySetCurrent, operator delete during the call). ConstructTextures, ConstructGeometryArray and ConstructGeometryAndSkinArrays are NOT executed in this bench (doubled; they are covered by their earlier validations in GfxWave2). CPedClothesDesc::SetModel and CKeyGen::GetUppercaseKey run for real. The callback address of RwTexDictionaryForAllTextures is not compared, only its behaviour. Only the own part of the function is validated. Source corrected to what the EXE does before the approved run (uncommitted at the time; see reversing/ClothesWave3/README.md). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 256; source corrected: (1) 0x5A6B65-0x5A6B77 the material colour is written inline BEFORE RpMaterialSetTexture; (2) 0x5A6CAD-0x5A6CD0 RpSkinGetNumBones and RpSkinGetSkinToBoneMatrices are called before RpSkinCreate (explicit locals). Domain: old descriptor null or equal (early exit nullptr) or different in fat/muscle/model/texture/NaN/several, default models already applied or to fill, bCutscenePlayer 25%, random texture/geometry masks, muscle and fat stats 0/negative/>1/inf/NaN.",
+      "review_reference": "reversing/ClothesWave3/README.md"
+    },
+    {
+      "hook": {
+        "class": "CRoadBlocks",
+        "fn_name": "Init",
+        "address": "0x00461100",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RoadScriptWave3/validation-summary.json",
+        "sha256": "5fb787f6fe9d2169d2e1f7fd2d64c362dce6f0547f301ed9c0a0240c15013cbf",
+        "passed_path": [
+          "covered_functions",
+          "CRoadBlocks::Init"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RoadBlocks.cpp": "0b217cc43bbfc4b6aeb74f5357fd1b6057c8010deecea1ee13749b47da711570",
+        "source/game_sa/RoadBlocks.h": "2574b9f0525b4cb7ea2b60ac7411c1f724e00b6e53b28e8960db5f8a2fbc58c0"
+      },
+      "source_provenance": "Exact compiled RoadScriptWave3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3200-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal.",
+      "dependency_review": null,
+      "scope": "PARTIAL, per-function approval. Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3200 isolated CPU pairs for 4 functions of CRoadBlocks (2) and CRunningScript (2). Only CRoadBlocks::Init (128), CRoadBlocks::GenerateRoadBlockPedsForCar (1024) and CRunningScript::GivePedScriptedTask-OG (1024) are registered, with ALL pairs equal and the pair count equal to the bank table. The run as a whole has passed=false because CRunningScript::SetCharCoordinates (109/1024) differs: it is REJECTED, not registered and gets no credit. The run has no natural \"complete\" event: the bench writes \"complete\" only when passed, otherwise a terminal \"error\" event (pairs=3200, layout_ok=true, state_restored=true, no reason, i.e. the run finished normally); saves unchanged, configs restored; the \"layout\" event (bits and offsets of the DLL vs the EXE) is ok. Each case rebuilds the same deterministic fixture in both legs (fake buffers) and compares the hash of the fake buffers, the x87 control word (24 bits) and the full trace of collaborators with raw arguments; foreign threads ignored. Traced stubs and out-of-bench pieces get NO credit. Init: CFileMgr::OpenFile/Read/CloseFile are doubled with an in-memory file (counts 0, 1, 2, 17, 100, 300, 324, 325 and random); the open-failure branch is NOT tested (DLL aborts, EXE dereferences NULL). GenerateRoadBlockPedsForCar: only pedType COP or GANG1..10 (the other types read the gang table out of range), positions 0..2, 0..2 peds; doubled: CPed::operator new, CCopPed and CCivilianPed constructors, CTask::operator new, CTaskManager::SetTask, CEventGroup::Add, CEntity::GetColModel, GetDefaultCopCarModel, ChooseGangPedModel, CMatrix::SetRotate, CWorld::ProcessVerticalLine/Add, SetClumpAlpha, RegisterReference, GiveDelayedWeapon, SetCurrentWeapon (type/slot), FindPlayerPed, rand and CGeneral::GetRandomNumber; CTaskComplexWanderCop/StandStill/KillPedOnFoot constructors, CEventScriptCommand, CPedPlacement::FindZCoorForPed and GetWeaponInfo run for real; tasks compared without their vptr. CMatrix::SetRotate is doubled. GivePedScriptedTask-OG: fake script of 0x400 bytes, fake ped pool of 6 slots, fake tasks with traced vtable, fake group; doubled: GetPedsGroup, IsPlayer, CScriptedBrainTaskStore::SetTask, GetVacantSlot, CPedScriptedTaskRecordData::Set/SetAsGroupTask/SetAsAttractorScriptTask, CPedGroupIntelligence::SetScriptCommandTask/GetTaskScriptCommand, CTaskComplexSequence::AddTask, CEventGroup::Add; CEventScriptCommand real; handle -1, ped with script brain, external types 0/2/3/5/other, group/no group, player. The EXE calls FindPlayerVehicle twice (0x4612E2/0x4612F0) and discards the result; it is pure and is not reproduced. Only the own part of each function is validated. Source tested == current working tree at registration for RoadBlocks.cpp/.h and RunningScript.h; RunningScript.cpp was edited after the run only inside SetCharCoordinates (rejected function), see source_changed_after_run. Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 128; MATCH, no source change (rep stos 0x51 dwords + 1 byte, OpenFile \"rb\", Read 4 and 0x514 bytes, CloseFile, IsActive loop 0xA43AD0..0xA43C90); only the NOTSA open-failure branch differs and is out of the domain; in-memory file doubles.",
+      "review_reference": "reversing/RoadScriptWave3/README.md"
+    },
+    {
+      "hook": {
+        "class": "CRoadBlocks",
+        "fn_name": "GenerateRoadBlockPedsForCar",
+        "address": "0x00461170",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RoadScriptWave3/validation-summary.json",
+        "sha256": "5fb787f6fe9d2169d2e1f7fd2d64c362dce6f0547f301ed9c0a0240c15013cbf",
+        "passed_path": [
+          "covered_functions",
+          "CRoadBlocks::GenerateRoadBlockPedsForCar"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RoadBlocks.cpp": "0b217cc43bbfc4b6aeb74f5357fd1b6057c8010deecea1ee13749b47da711570",
+        "source/game_sa/RoadBlocks.h": "2574b9f0525b4cb7ea2b60ac7411c1f724e00b6e53b28e8960db5f8a2fbc58c0"
+      },
+      "source_provenance": "Exact compiled RoadScriptWave3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3200-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal.",
+      "dependency_review": null,
+      "scope": "PARTIAL, per-function approval. Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3200 isolated CPU pairs for 4 functions of CRoadBlocks (2) and CRunningScript (2). Only CRoadBlocks::Init (128), CRoadBlocks::GenerateRoadBlockPedsForCar (1024) and CRunningScript::GivePedScriptedTask-OG (1024) are registered, with ALL pairs equal and the pair count equal to the bank table. The run as a whole has passed=false because CRunningScript::SetCharCoordinates (109/1024) differs: it is REJECTED, not registered and gets no credit. The run has no natural \"complete\" event: the bench writes \"complete\" only when passed, otherwise a terminal \"error\" event (pairs=3200, layout_ok=true, state_restored=true, no reason, i.e. the run finished normally); saves unchanged, configs restored; the \"layout\" event (bits and offsets of the DLL vs the EXE) is ok. Each case rebuilds the same deterministic fixture in both legs (fake buffers) and compares the hash of the fake buffers, the x87 control word (24 bits) and the full trace of collaborators with raw arguments; foreign threads ignored. Traced stubs and out-of-bench pieces get NO credit. Init: CFileMgr::OpenFile/Read/CloseFile are doubled with an in-memory file (counts 0, 1, 2, 17, 100, 300, 324, 325 and random); the open-failure branch is NOT tested (DLL aborts, EXE dereferences NULL). GenerateRoadBlockPedsForCar: only pedType COP or GANG1..10 (the other types read the gang table out of range), positions 0..2, 0..2 peds; doubled: CPed::operator new, CCopPed and CCivilianPed constructors, CTask::operator new, CTaskManager::SetTask, CEventGroup::Add, CEntity::GetColModel, GetDefaultCopCarModel, ChooseGangPedModel, CMatrix::SetRotate, CWorld::ProcessVerticalLine/Add, SetClumpAlpha, RegisterReference, GiveDelayedWeapon, SetCurrentWeapon (type/slot), FindPlayerPed, rand and CGeneral::GetRandomNumber; CTaskComplexWanderCop/StandStill/KillPedOnFoot constructors, CEventScriptCommand, CPedPlacement::FindZCoorForPed and GetWeaponInfo run for real; tasks compared without their vptr. CMatrix::SetRotate is doubled. GivePedScriptedTask-OG: fake script of 0x400 bytes, fake ped pool of 6 slots, fake tasks with traced vtable, fake group; doubled: GetPedsGroup, IsPlayer, CScriptedBrainTaskStore::SetTask, GetVacantSlot, CPedScriptedTaskRecordData::Set/SetAsGroupTask/SetAsAttractorScriptTask, CPedGroupIntelligence::SetScriptCommandTask/GetTaskScriptCommand, CTaskComplexSequence::AddTask, CEventGroup::Add; CEventScriptCommand real; handle -1, ped with script brain, external types 0/2/3/5/other, group/no group, player. The EXE calls FindPlayerVehicle twice (0x4612E2/0x4612F0) and discards the result; it is pure and is not reproduced. Only the own part of each function is validated. Source tested == current working tree at registration for RoadBlocks.cpp/.h and RunningScript.h; RunningScript.cpp was edited after the run only inside SetCharCoordinates (rejected function), see source_changed_after_run. Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): 0x461592 SetCurrentWeapon(PISTOL) also for civilians and gangs (the DLL did it only for CITYCOP); 0x461637 CCopPed::m_bDontPursuit = true before allocating the cop task; 0x46168D..0x4616B4 no timer assignments (the EXE writes only the WanderCop fields that the constructor already zeroes); 0x46180B gang weapon with SetCurrentWeapon(slot) (GetWeaponInfo(weapon,STD)->m_nSlot) instead of the by-type overload; 0x4613F8 order GetColModel of the vehicle then GetDefaultCopCarModel; 0x4617C1 CGangs::Gang.data()[...] unchecked. Domain: pedType COP or GANG1..10 only.",
+      "review_reference": "reversing/RoadScriptWave3/README.md"
+    },
+    {
+      "hook": {
+        "class": "CRunningScript",
+        "fn_name": "GivePedScriptedTask-OG",
+        "address": "0x00465C20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RoadScriptWave3/validation-summary.json",
+        "sha256": "5fb787f6fe9d2169d2e1f7fd2d64c362dce6f0547f301ed9c0a0240c15013cbf",
+        "passed_path": [
+          "covered_functions",
+          "CRunningScript::GivePedScriptedTask-OG"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Scripts/RunningScript.cpp": "12f507eefef7a9fc3650ab95039ca04452054a671d9c6276a8c564fcfd592e80",
+        "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
+      },
+      "source_provenance": "Exact compiled RoadScriptWave3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3200-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal.",
+      "dependency_review": null,
+      "scope": "PARTIAL, per-function approval. Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3200 isolated CPU pairs for 4 functions of CRoadBlocks (2) and CRunningScript (2). Only CRoadBlocks::Init (128), CRoadBlocks::GenerateRoadBlockPedsForCar (1024) and CRunningScript::GivePedScriptedTask-OG (1024) are registered, with ALL pairs equal and the pair count equal to the bank table. The run as a whole has passed=false because CRunningScript::SetCharCoordinates (109/1024) differs: it is REJECTED, not registered and gets no credit. The run has no natural \"complete\" event: the bench writes \"complete\" only when passed, otherwise a terminal \"error\" event (pairs=3200, layout_ok=true, state_restored=true, no reason, i.e. the run finished normally); saves unchanged, configs restored; the \"layout\" event (bits and offsets of the DLL vs the EXE) is ok. Each case rebuilds the same deterministic fixture in both legs (fake buffers) and compares the hash of the fake buffers, the x87 control word (24 bits) and the full trace of collaborators with raw arguments; foreign threads ignored. Traced stubs and out-of-bench pieces get NO credit. Init: CFileMgr::OpenFile/Read/CloseFile are doubled with an in-memory file (counts 0, 1, 2, 17, 100, 300, 324, 325 and random); the open-failure branch is NOT tested (DLL aborts, EXE dereferences NULL). GenerateRoadBlockPedsForCar: only pedType COP or GANG1..10 (the other types read the gang table out of range), positions 0..2, 0..2 peds; doubled: CPed::operator new, CCopPed and CCivilianPed constructors, CTask::operator new, CTaskManager::SetTask, CEventGroup::Add, CEntity::GetColModel, GetDefaultCopCarModel, ChooseGangPedModel, CMatrix::SetRotate, CWorld::ProcessVerticalLine/Add, SetClumpAlpha, RegisterReference, GiveDelayedWeapon, SetCurrentWeapon (type/slot), FindPlayerPed, rand and CGeneral::GetRandomNumber; CTaskComplexWanderCop/StandStill/KillPedOnFoot constructors, CEventScriptCommand, CPedPlacement::FindZCoorForPed and GetWeaponInfo run for real; tasks compared without their vptr. CMatrix::SetRotate is doubled. GivePedScriptedTask-OG: fake script of 0x400 bytes, fake ped pool of 6 slots, fake tasks with traced vtable, fake group; doubled: GetPedsGroup, IsPlayer, CScriptedBrainTaskStore::SetTask, GetVacantSlot, CPedScriptedTaskRecordData::Set/SetAsGroupTask/SetAsAttractorScriptTask, CPedGroupIntelligence::SetScriptCommandTask/GetTaskScriptCommand, CTaskComplexSequence::AddTask, CEventGroup::Add; CEventScriptCommand real; handle -1, ped with script brain, external types 0/2/3/5/other, group/no group, player. The EXE calls FindPlayerVehicle twice (0x4612E2/0x4612F0) and discards the result; it is pure and is not reproduced. Only the own part of each function is validated. Source tested == current working tree at registration for RoadBlocks.cpp/.h and RunningScript.h; RunningScript.cpp was edited after the run only inside SetCharCoordinates (rejected function), see source_changed_after_run. Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; MATCH, no source change (EXE 0x465C20: branches -1 / script brain / event / group with the same calls and order).",
+      "review_reference": "reversing/RoadScriptWave3/README.md"
+    },
+    {
+      "hook": {
+        "class": "CShadows",
+        "fn_name": "CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>",
+        "address": "0x0070A470",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ShadowsWave3/validation-summary.json",
+        "sha256": "05bcf5adf40e471c42b09ac3c6674a553e9dfd0cb28e6e6a4194ab9b58021a80",
+        "passed_path": [
+          "covered_functions",
+          "CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Shadows.cpp": "01bc3a332d97f31162fcf53c91f747bcace46d90eb2def37c79c4ccb0b1918c6",
+        "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce"
+      },
+      "source_provenance": "Exact compiled ShadowsWave3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 1536-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal.",
+      "dependency_review": null,
+      "scope": "PARTIAL, per-function approval. Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 1536 isolated CPU pairs for 2 functions of CShadows. Only CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>> (0x70A470, 1024 pairs) is registered, with ALL pairs equal and the pair count equal to the bank table. The run as a whole has passed=false because CShadows::RenderStoredShadows (318/512) differs: it is REJECTED, not registered and gets no credit. The run has no natural \"complete\" event: the bench writes \"complete\" only when passed, otherwise a terminal \"error\" event (pairs=1536, state_restored=true, no reason, i.e. the run finished normally); saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the collaborator trace with raw arguments (nineteen arguments of CastShadowEntityXY), the hash of the CShadows state block (0xC403A8-0xC4B6B0), the RenderBuffer temporary, the scan code, the x87 control word (24 bits) and that the hook switches (JumpsToDll); foreign threads ignored. Fixtures: 1-6 fake entities with a fake vtable (slot 9 = GetBoundRect, the rest trap), fake models 19900..19907 in ms_modelInfoPtrs (only m_pColModel and its min/max box), own matrix per entity (at.z in {1, 0.97f, 0.97f+-ulp, 0.98, 0.5, -1, 0, NaN}), bUsesCollision/bDontCastShadowsOn flags, scan code equal or different from the current one, area equal/13/other (CGame::currArea), rectangles on an integer grid with exact equalities against the caller rectangle (and NaN), z of the box and zDistance that provoke equalities; list of 0-8 nodes (with repeated items) built in a LOCAL NODE POOL that temporarily replaces POOLS[0] (0xB74484). Limits: the branch with a null matrix (0x70A4F2, CPlaceable::GetMatrix -> AllocateMatrix, touches the real matrix pool) and scan code 0xFFFF (ResetScanCodes walks the real world) are OUT of the bench; fake entities with a fake vtable and a local node pool replace POOLS[0]; CastShadowEntityXY (0x7086B0) is doubled with a trace and gets NO credit; notsa::PoolOf<CPhysical> does not exist so IsItemValid consults no entity pool. Only the own part of the function is validated. Source tested == current working tree at registration (both CShadows sources match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE 0x70A470): template instance (CSector::Buildings is CPtrListSingleLink<CBuilding*>; the EXE calls the CPtrListSingleLink<CPhysical*> instance, so the callers use reinterpret_cast to <CPhysical*>); 0x70A57F movsx edx,word [esi+22h] (model index with sign, int32(int16(...)) instead of uint16). MATCH verified line by line without change: loop flags and order (0x70A4A0-0x70A4E9: scan code, +1Ch bit 0, +1Eh bit 0, area 0x0D), GetMatrix (0x411990), fcomp [0x872724] + test ah,41h (up.z > 0.97), rectangle comparisons on CRect +8/+0/+4/+0xC, collision box (+8 min z, +14h max z, fcompp), 19 arguments to 0x7086B0.",
+      "review_reference": "reversing/ShadowsWave3/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTrain",
+        "fn_name": "ProcessControl",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/TrainWave3/validation-summary.json",
+        "sha256": "df0b8228f293e10c23dfe8a7e1abaa1d67d9f502e09ca469197ffcf1d3cb1b02",
+        "passed_path": [
+          "covered_functions",
+          "CTrain::ProcessControl"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Train.cpp": "3b54ec5a3ebd555778249f07af99e0d367f38f0cc7ffe5e636e42a6382fc9f6a",
+        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37"
+      },
+      "source_provenance": "Exact compiled TrainWave3 probe (ASI/PDB hashes in build-manifest.json); Train.cpp/.h hashed from the probe build manifest and equal to the working tree at registration; full 1024-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the virtual hook off, EXE body 0x6F86A0 = vtable 0x872370 slot 10, vs candidate with the vtable hook on), 1024 isolated CPU pairs for CTrain::ProcessControl (hooks.csv row with address 0x00000000, virtual), zero differences, natural completion event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (fake train of 0x6C0 bytes with fake vtable and guards, chain of 1 to 4 fake carriages, fake closed track of 6 to 72 nodes with strictly increasing cumulative distances and the global track tables 0xC38024/0xC38014/0xC37FEC, fake model info with CColModel and fake handling) and compares the full hash of the 8 fake vehicles and the guard, the subject matrix, the track, the touched globals, the x87 control word (24 bits) and the whole trace of outgoing calls with raw arguments (floats as bit patterns); foreign threads ignored (Mine()). Scenes: gbModelViewer 3%, rear carriage with predecessor 22%, rear carriage without predecessor 6%, head on autopilot 25%, head driven by the player 18%, off-rail (bNotOnARailRoad) 26%; exact edge values of the rail position. Limits: about 25 collaborators are replaced by traced doubles WITHOUT credit (CAEVehicleAudioEntity::Service/AddAudioEvent, CPad::GetAccelerate/GetBrake/StartShake, CPed::IsPlayer, CPlayerPed::GetPadFromPlayer, CTrain::FindNumCarriagesPulled/FindMaximumSpeedToStopAtStations/IsInTunnel/RemoveRandomPassenger/AddNearbyPedAsRandomPassenger, CGameLogic::CalcDistanceToForbiddenTrainCrossing, CCamera::CamShake, rand and CGeneral::GetRandomNumber, FindPlayerPed, CCarCtrl::ScanForPedDanger, CPhysical::ProcessControl/ApplyMoveSpeed/SkipPhysics/ApplyMoveForce/ApplyTurnForce/RemoveAndAdd, CEntity::UpdateRwFrame, cBuoyancy::ProcessBuoyancy, MarkSurroundingEntitiesForCollisionWithTrain, CTrainNode::GetLightingFromCollision, tColLighting::GetCurrentLighting). OUT of the bench: carriage with a null m_matrix in the on-rail branch (the EXE writes through it unchecked), real m_pRwObject (null in the bench), GetLightingFromCollision without found lighting (real CWorld::ProcessVerticalLine), out-of-domain values (rail distance < -total or >= 2*total, node index outside the track) and NaN/inf. The GetLightingFromCollision stub has a different version for the DLL (hidden return pointer) than for the EXE. Only the own part of the function is validated. Source corrected to what the EXE does before the approved run (uncommitted at the time; see reversing/TrainWave3/README.md). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE addresses): (1) 0x6F88D0/0x6F8910/0x6F8940 or/and [eax+5B8h] stopped-at-station and passengers flags written on each carriage, not on this; (2) 0x6F8DF0 bNotOnARailRoad on each carriage; (3) 0x6F8991 fmul 0.02f stop speed; (4) 0x6F8BF2, 0x6F8E49, 0x6F9D1B EXE pow 0x822130 with double base and no float rounding; (5) 0x6F8D93 node dot product in z,x,y order; (6) 0x6F9626 fpatan minus old heading with the EXE pi constants (0x858CB8/BC/C0); (7) 0x6F9910 m_fMovingSpeed = sqrt((dz^2+dy^2)+dx^2); (8) 0x6F9CA6..0x6F9DA2 buoyancy with the force returned by ProcessBuoyancy; (9) 0x6F8EAD and 0x6F8F13 FindPlayerPed(-1) only in passenger states 0 and 2; (10) node distance uint16*0.33333334f (0x859040) inlined in the EXE and also fixed in CTrainNode::GetDistanceFromStart (TrainNode.cpp, 0x6F54B0).",
+      "review_reference": "reversing/TrainWave3/README.md"
+    },
+    {
+      "hook": {
+        "class": "CRunningScript",
+        "fn_name": "SetCharCoordinates",
+        "address": "0x00464DC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RoadScriptWave3/validation-summary-b.json",
+        "sha256": "e094b014f45426a3e273306db2bdd30586398e174d57bc732692e0643a8ecb01",
+        "passed_path": [
+          "covered_functions",
+          "CRunningScript::SetCharCoordinates"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Scripts/RunningScript.cpp": "8cc8375514260036c8b00455ebf7fa28580cd084db5abca34119182eeb2ad6c0",
+        "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
+      },
+      "source_provenance": "Exact compiled RoadScriptWave3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3200-row log reaudited offline in streaming and preserved gzipped with the original hash. Second increment: only the function not registered by the first summary.",
+      "dependency_review": null,
+      "scope": "Second increment of RoadScriptWave3 (the first 3 functions are registered by validation-summary.json, run 20261009-104926-137526, and are not duplicated). Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3200 isolated CPU pairs for 4 functions of CRoadBlocks (2) and CRunningScript (2); this run has passed=true globally, the 4 functions have 0 failures, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Only CRunningScript::SetCharCoordinates (0x464DC0, 1024 pairs, all equal, pair count equal to the bank table) is registered here. Each case rebuilds the same deterministic fixture in both legs (fake script, fake ped/vehicle buffers) and compares the hash of the fake buffers, the x87 control word (24 bits) and the full trace of collaborators with raw arguments; foreign threads ignored. Traced stubs and out-of-bench pieces get NO credit. CMatrix::SetRotate is doubled. Only the own part of the function is validated. Source tested == current working tree at registration (RunningScript.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): 0x464DE2..0x464DED fcomp -100.0 / test ah,41h / jp: with z NaN FindGroundZForCoord is NOT called (condition posn.z <= MAP_Z_LOW_LIMIT; a previous agent had it reversed); 0x464E80 adds the distance only if offset. CMatrix::SetRotate doubled. The previous run (20261009-104926-137526) rejected this function with 109/1024 differences; it passes with the corrected source.",
+      "review_reference": "reversing/RoadScriptWave3/README.md"
+    },
+    {
+      "hook": {
+        "class": "CShadows",
+        "fn_name": "RenderStoredShadows",
+        "address": "0x0070A960",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ShadowsWave3/validation-summary-b.json",
+        "sha256": "d8d5fcfd7c26abd08f7bf73acb4cc67a2e02df4011effca360a25a8f34334b6f",
+        "passed_path": [
+          "covered_functions",
+          "CShadows::RenderStoredShadows"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Shadows.cpp": "71f537a6403a1281d8e197f1417a41677525cbdee4b637efea43a09cc590c7ef",
+        "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce"
+      },
+      "source_provenance": "Exact compiled ShadowsWave3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 1536-row log reaudited offline in streaming and preserved gzipped with the original hash. Second increment: only the function not registered by the first summary.",
+      "dependency_review": null,
+      "scope": "Second increment of ShadowsWave3 (CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>> is registered by validation-summary.json, run 20261009-105057-302560, and is not duplicated). Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 1536 isolated CPU pairs for 2 functions of CShadows; this run has passed=true globally, both functions have 0 failures, natural \"complete\" event with state_restored, saves unchanged, configs restored. Only CShadows::RenderStoredShadows (0x70A960, 512 pairs, all equal, pair count equal to the bank table) is registered here. Each case rebuilds the same deterministic fixture in both legs and compares the collaborator trace with raw arguments, the hash of the CShadows state block, the x87 control word (24 bits) and that the hook switches; foreign threads ignored. Limits: RwIm3D* drawing functions and the sector lists are doubled with traces (WITHOUT credit); there are no real sector lists. Only the own part of the function is validated. Source tested == current working tree at registration (Shadows.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 512; source corrected (EXE): 0x70AA16 test al,2 / jne 0x70AE5B (skips the texture setup when already drawn in the batch); water UV 0x70AFD5 and 0x70B185-0x70B214 with precomputed 1/|v|^2, (-pos.z)*0.0f and V=0.5-dot*inv*0.5; truncations with floor/ceil + _ftol2 and ShadowSectorIndex (0x70AEE5, 0x70AF03, 0x70AF23, 0x70AF4B, 0x70AAFD-0x70ABF3); ProcessOneVertex advances vtxIt (the 4 vertices of each cell); CastRealTimeShadowSectorList receives a non-null pointer to a stack byte as pDayNight (0x70ACB9, 0x70AD0D); GetWaterLevelNoWaves receives the position of the last shadow of the batch (batchPos, 0x70AA89-0x70AAB4 / 0x70AE6A-0x70AE7C). The previous run (20261009-105057-302560) rejected this function with 318/512 differences; it passes with the corrected source.",
+      "review_reference": "reversing/ShadowsWave3/README.md"
     }
   ]
 }

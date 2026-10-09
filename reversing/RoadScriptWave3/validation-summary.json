@@ -1,0 +1,117 @@
+{
+  "source_changed_after_run": {
+    "source/game_sa/Scripts/RunningScript.cpp": {
+      "tested_sha256": "12f507eefef7a9fc3650ab95039ca04452054a671d9c6276a8c564fcfd592e80",
+      "current_sha256": "6db1e076933414b827f0db6fddeebc7112d21adfa8554653024963e724a50097"
+    }
+  },
+  "passed": false,
+  "partial_per_function_approval": true,
+  "pairs": 3200,
+  "differences": 109,
+  "registered_pairs": 2176,
+  "registered_functions": 3,
+  "functions": {
+    "CRoadBlocks::Init": 128,
+    "CRoadBlocks::GenerateRoadBlockPedsForCar": 1024,
+    "CRunningScript::GivePedScriptedTask-OG": 1024
+  },
+  "covered_functions": {
+    "CRoadBlocks::Init": true,
+    "CRoadBlocks::GenerateRoadBlockPedsForCar": true,
+    "CRunningScript::GivePedScriptedTask-OG": true
+  },
+  "rejected_functions": {
+    "CRunningScript::SetCharCoordinates": {
+      "pairs": 1024,
+      "failures": 109,
+      "equal": 915,
+      "reason": "differences against the EXE in the run; not registered, no credit (another agent is correcting the source)"
+    }
+  },
+  "scope": "PARTIAL, per-function approval. Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3200 isolated CPU pairs for 4 functions of CRoadBlocks (2) and CRunningScript (2). Only CRoadBlocks::Init (128), CRoadBlocks::GenerateRoadBlockPedsForCar (1024) and CRunningScript::GivePedScriptedTask-OG (1024) are registered, with ALL pairs equal and the pair count equal to the bank table. The run as a whole has passed=false because CRunningScript::SetCharCoordinates (109/1024) differs: it is REJECTED, not registered and gets no credit. The run has no natural \"complete\" event: the bench writes \"complete\" only when passed, otherwise a terminal \"error\" event (pairs=3200, layout_ok=true, state_restored=true, no reason, i.e. the run finished normally); saves unchanged, configs restored; the \"layout\" event (bits and offsets of the DLL vs the EXE) is ok. Each case rebuilds the same deterministic fixture in both legs (fake buffers) and compares the hash of the fake buffers, the x87 control word (24 bits) and the full trace of collaborators with raw arguments; foreign threads ignored. Traced stubs and out-of-bench pieces get NO credit. Init: CFileMgr::OpenFile/Read/CloseFile are doubled with an in-memory file (counts 0, 1, 2, 17, 100, 300, 324, 325 and random); the open-failure branch is NOT tested (DLL aborts, EXE dereferences NULL). GenerateRoadBlockPedsForCar: only pedType COP or GANG1..10 (the other types read the gang table out of range), positions 0..2, 0..2 peds; doubled: CPed::operator new, CCopPed and CCivilianPed constructors, CTask::operator new, CTaskManager::SetTask, CEventGroup::Add, CEntity::GetColModel, GetDefaultCopCarModel, ChooseGangPedModel, CMatrix::SetRotate, CWorld::ProcessVerticalLine/Add, SetClumpAlpha, RegisterReference, GiveDelayedWeapon, SetCurrentWeapon (type/slot), FindPlayerPed, rand and CGeneral::GetRandomNumber; CTaskComplexWanderCop/StandStill/KillPedOnFoot constructors, CEventScriptCommand, CPedPlacement::FindZCoorForPed and GetWeaponInfo run for real; tasks compared without their vptr. CMatrix::SetRotate is doubled. GivePedScriptedTask-OG: fake script of 0x400 bytes, fake ped pool of 6 slots, fake tasks with traced vtable, fake group; doubled: GetPedsGroup, IsPlayer, CScriptedBrainTaskStore::SetTask, GetVacantSlot, CPedScriptedTaskRecordData::Set/SetAsGroupTask/SetAsAttractorScriptTask, CPedGroupIntelligence::SetScriptCommandTask/GetTaskScriptCommand, CTaskComplexSequence::AddTask, CEventGroup::Add; CEventScriptCommand real; handle -1, ped with script brain, external types 0/2/3/5/other, group/no group, player. The EXE calls FindPlayerVehicle twice (0x4612E2/0x4612F0) and discards the result; it is pure and is not reproduced. Only the own part of each function is validated. Source tested == current working tree at registration for RoadBlocks.cpp/.h and RunningScript.h; RunningScript.cpp was edited after the run only inside SetCharCoordinates (rejected function), see source_changed_after_run. Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CRoadBlocks::Init": "Corpus 128; MATCH, no source change (rep stos 0x51 dwords + 1 byte, OpenFile \"rb\", Read 4 and 0x514 bytes, CloseFile, IsActive loop 0xA43AD0..0xA43C90); only the NOTSA open-failure branch differs and is out of the domain; in-memory file doubles.",
+    "CRoadBlocks::GenerateRoadBlockPedsForCar": "Corpus 1024; source corrected (EXE): 0x461592 SetCurrentWeapon(PISTOL) also for civilians and gangs (the DLL did it only for CITYCOP); 0x461637 CCopPed::m_bDontPursuit = true before allocating the cop task; 0x46168D..0x4616B4 no timer assignments (the EXE writes only the WanderCop fields that the constructor already zeroes); 0x46180B gang weapon with SetCurrentWeapon(slot) (GetWeaponInfo(weapon,STD)->m_nSlot) instead of the by-type overload; 0x4613F8 order GetColModel of the vehicle then GetDefaultCopCarModel; 0x4617C1 CGangs::Gang.data()[...] unchecked. Domain: pedType COP or GANG1..10 only.",
+    "CRunningScript::GivePedScriptedTask-OG": "Corpus 1024; MATCH, no source change (EXE 0x465C20: branches -1 / script brain / event / group with the same calls and order)."
+  },
+  "dependency_review": null,
+  "run": "reversing/RoadScriptWave3/runs/20261009-104926-137526",
+  "summary_sha256": "2c04b606d209119d5f83c2e075f6bf699feb54627f6cea6fd011ab21966228f4",
+  "result_txt_sha256": "c87ad28dfe7c148d31a11c781a53db5c7b76779acb40356c741f98ad774b23f3",
+  "log_sha256": "693f537fa7711f6b4dd2cb7769a5a04c0e32b84c6f4a2457539de10bc80a0aa3",
+  "comparison_storage": {
+    "uncompressed_sha256": "693f537fa7711f6b4dd2cb7769a5a04c0e32b84c6f4a2457539de10bc80a0aa3",
+    "uncompressed_bytes": 945906,
+    "compressed_path": "reversing/RoadScriptWave3/runs/20261009-104926-137526/comparisons.jsonl.gz",
+    "compressed_sha256": "8d188ee0962ad91727104a560020230a6ccfc18bac9d9c9058ffbe84a2a2cf7d",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "693f537fa7711f6b4dd2cb7769a5a04c0e32b84c6f4a2457539de10bc80a0aa3",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-roadscriptwave3\\20261009-104926-137526\\comparisons.jsonl"
+  },
+  "all_equal": false,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "b66d7da202ab906f2a97bd1a1d239448670218a721ce532675fdca9b47b3b67a",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "8cdf9b67973ad7b188772645a669ef1ac8d49bbf",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 3200,
+    "registered_pairs": 2176,
+    "asi": "b66d7da202ab906f2a97bd1a1d239448670218a721ce532675fdca9b47b3b67a",
+    "pdb": "e9a3a75d7db3a697c885d18be2af2991f932ab201f5ca9da32017fc2c4e7e816",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-roadscriptwave3-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/RoadBlocks.cpp": "0b217cc43bbfc4b6aeb74f5357fd1b6057c8010deecea1ee13749b47da711570",
+      "source/game_sa/RoadBlocks.h": "2574b9f0525b4cb7ea2b60ac7411c1f724e00b6e53b28e8960db5f8a2fbc58c0",
+      "source/game_sa/Scripts/RunningScript.cpp": "12f507eefef7a9fc3650ab95039ca04452054a671d9c6276a8c564fcfd592e80",
+      "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "9487f6509f27b0c02baed3e00d82b334b8cec078255250906fe77cb4d3d3c3b5",
+      "build_probe.py": "f7ae7f2ec925003ea61188e71c5cfa6f2633ad8b28d3dabda930cd4b198ac36c",
+      "run_local.py": "e8f00dc070f9f529f6cfdba476188a913fa60a2cb255d87302cb5d8367c391af"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/RoadBlocks.cpp": "GenerateRoadBlockPedsForCar: SetCurrentWeapon(PISTOL) also for civilians and gangs (0x461592); CCopPed::m_bDontPursuit = true (0x461637); no timer assignments (0x46168D..0x4616B4); gang weapon with SetCurrentWeapon(slot) (0x46180B); GetColModel then GetDefaultCopCarModel order (0x4613F8); CGangs::Gang.data() unchecked (0x4617C1)",
+      "source/game_sa/Scripts/RunningScript.cpp": "SetCharCoordinates only (NaN z calls FindGroundZForCoord, 0x464DE2; distance added only if offset, 0x464E80): belongs to the REJECTED function; GivePedScriptedTask-OG has no change"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 3200,
+    "complete_events": 0,
+    "terminal_error_events": 1,
+    "terminal_error_event": {
+      "event": "error",
+      "layout_ok": true,
+      "pairs": 3200,
+      "state_restored": true
+    },
+    "layout_events": 1,
+    "layout_ok": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 3200,
+    "function_summaries": 4,
+    "functions_with_zero_failures": 3,
+    "unequal_pairs": 109,
+    "unequal_by_function": {
+      "CRunningScript::SetCharCoordinates": 109
+    },
+    "distinct_cases": 3200,
+    "per_function": {
+      "CRoadBlocks::Init": 128,
+      "CRoadBlocks::GenerateRoadBlockPedsForCar": 1024,
+      "CRunningScript::GivePedScriptedTask-OG": 1024,
+      "CRunningScript::SetCharCoordinates": 1024
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/RoadBlocks.cpp": "GenerateRoadBlockPedsForCar: SetCurrentWeapon(PISTOL) also for civilians and gangs (0x461592); CCopPed::m_bDontPursuit = true (0x461637); no timer assignments (0x46168D..0x4616B4); gang weapon with SetCurrentWeapon(slot) (0x46180B); GetColModel then GetDefaultCopCarModel order (0x4613F8); CGangs::Gang.data() unchecked (0x4617C1)",
+    "source/game_sa/Scripts/RunningScript.cpp": "SetCharCoordinates only (NaN z calls FindGroundZForCoord, 0x464DE2; distance added only if offset, 0x464E80): belongs to the REJECTED function; GivePedScriptedTask-OG has no change"
+  },
+  "notes": "CRunningScript::SetCharCoordinates (109/1024 differences) is REJECTED and gets no registry entry. The RunningScript.cpp hash registered for GivePedScriptedTask-OG is the TESTED one (the file was edited after the run by another agent; see source_changed_after_run; the diff against HEAD touches only the SetCharCoordinates hunks, so the GivePedScriptedTask-OG text is identical to HEAD, but the tested file itself was not preserved, so this is inferred, not byte-proven); later edits of SetCharCoordinates by other agents are not validated here. With the registration of Init and GenerateRoadBlockPedsForCar, CRoadBlocks has no pending entries in docs/hooks.csv; CRunningScript keeps SetCharCoordinates pending."
+}

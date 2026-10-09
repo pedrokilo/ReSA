@@ -984,10 +984,10 @@ CRope,UpdateWeightInRope,0x005561B0,1,0,1,S
 CRoadBlocks,ClearScriptRoadBlocks,0x00460EC0,1,0,1,S
 CRoadBlocks,ClearSpaceForRoadBlockObject,0x00461020,1,0,1,S
 CRoadBlocks,CreateRoadBlockBetween2Points,0x004619C0,1,0,1,S
-CRoadBlocks,GenerateRoadBlockPedsForCar,0x00461170,1,0,0,S
+CRoadBlocks,GenerateRoadBlockPedsForCar,0x00461170,1,0,1,S
 CRoadBlocks,GenerateRoadBlocks,0x004629E0,1,0,1,S
 CRoadBlocks,GetRoadBlockNodeInfo,0x00460EE0,1,0,1,S
-CRoadBlocks,Init,0x00461100,1,0,0,S
+CRoadBlocks,Init,0x00461100,1,0,1,S
 CRoadBlocks,RegisterScriptRoadBlock,0x00460DF0,1,0,1,S
 CRestart,AddHospitalRestartPoint,0x00460730,1,0,1,S
 CRestart,AddPoliceRestartPoint,0x00460780,1,0,1,S
@@ -2728,7 +2728,7 @@ CClothesBuilder,ConstructGeometryArray,0x005A55A0,1,1,1,S
 CClothesBuilder,ConstructTextures,0x005A6040,1,1,1,S
 CClothesBuilder,CopyGeometry,0x005A5340,1,1,1,S
 CClothesBuilder,CopyTexture,0x005A5730,1,0,1,S
-CClothesBuilder,CreateSkinnedClump,0x005A69D0,1,0,0,S
+CClothesBuilder,CreateSkinnedClump,0x005A69D0,1,0,1,S
 CClothesBuilder,DestroySkinArrays,0x005A56C0,1,0,1,S
 CClothesBuilder,GetAtomicWithName,0x005A4810,1,0,1,S
 CClothesBuilder,GetTextureFromTxdAndLoadNextTxd,0x005A5F70,1,0,1,S
@@ -3785,7 +3785,7 @@ CTrain,IsNextStationAllowed,0x006F7260,1,1,1,S
 CTrain,MarkSurroundingEntitiesForCollisionWithTrain,0x006F6640,1,0,1,S
 CTrain,OpenTrainDoor,0x006F5D80,1,0,1,S
 CTrain,PlayAnnouncement,0x006F5920,1,0,1,S
-CTrain,ProcessControl,0x00000000,1,0,0,V
+CTrain,ProcessControl,0x00000000,1,0,1,V
 CTrain,ProcessTrainAnnouncements,0x006F5910,1,0,1,S
 CTrain,ReadAndInterpretTrackFile,0x006F55D0,1,1,1,S
 CTrain,ReleaseMissionTrains,0x006F6B60,1,0,1,S
@@ -7561,7 +7561,7 @@ CStaticShadow,Free,0x00707670,1,0,1,S
 CShadows,AddPermanentShadow,0x00706F60,1,1,1,S
 CShadows,AffectColourWithLighting,0x00707850,1,0,1,S
 CShadows,CalcPedShadowValues,0x007076C0,1,0,1,S
-CShadows,CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>,0x0070A470,1,0,0,S
+CShadows,CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>,0x0070A470,1,0,1,S
 CShadows,CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>>,0x0070A7E0,1,1,1,S
 CShadows,CastShadowEntityXY,0x007086B0,1,1,1,S
 CShadows,CastShadowEntityXYZ,0x0070A040,1,1,1,S
@@ -7574,7 +7574,7 @@ CShadows,RemoveOilInArea,0x007074F0,1,0,1,S
 CShadows,RenderExtraPlayerShadows,0x00707FA0,1,0,1,S
 CShadows,RenderIndicatorShadow,0x0070CCB0,1,0,1,S
 CShadows,RenderStaticShadows,0x00708300,1,0,1,S
-CShadows,RenderStoredShadows,0x0070A960,1,0,0,S
+CShadows,RenderStoredShadows,0x0070A960,1,0,1,S
 CShadows,SetRenderModeForShadowType,0x00707460,1,0,1,S
 CShadows,ShadowRenderTriangleCB,0x00709CF0,1,1,1,S
 CShadows,Shutdown,0x00706ED0,1,0,1,S
@@ -7727,7 +7727,7 @@ CRunningScript,GetPadState,0x00485B10,1,0,1,S
 CRunningScript,GetPointerToLocalArrayElement,0x00463CC0,1,0,1,S
 CRunningScript,GetPointerToLocalVariable,0x00463CA0,1,0,1,S
 CRunningScript,GetPointerToScriptVariable,0x00464790,1,0,1,S
-CRunningScript,GivePedScriptedTask-OG,0x00465C20,1,0,0,S
+CRunningScript,GivePedScriptedTask-OG,0x00465C20,1,0,1,S
 CRunningScript,Init,0x004648E0,1,0,1,S
 CRunningScript,IsPedDead,0x00464D70,1,0,1,S
 CRunningScript,LocateCarCommand,0x00487A20,1,1,1,S
@@ -7746,7 +7746,7 @@ CRunningScript,ReadParametersForNewlyStartedScript,0x00464500,1,0,1,S
 CRunningScript,ReadTextLabelFromScript,0x00463D50,1,0,1,S
 CRunningScript,RemoveScriptFromList,0x00464BD0,1,0,1,S
 CRunningScript,ScriptTaskPickUpObject,0x0046AF50,1,1,1,S
-CRunningScript,SetCharCoordinates,0x00464DC0,1,0,0,S
+CRunningScript,SetCharCoordinates,0x00464DC0,1,0,1,S
 CRunningScript,ShutdownThisScript,0x00465AA0,1,1,1,S
 CRunningScript,StoreParameters,0x00464370,1,0,1,S
 CRunningScript,ThisIsAValidRandomPed,0x00489490,1,0,1,S

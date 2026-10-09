@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "increment": 2,
+  "previous_summary": "reversing/RoadScriptWave3/validation-summary.json",
+  "pairs": 3200,
+  "differences": 0,
+  "registered_pairs": 1024,
+  "registered_functions": 1,
+  "functions": {
+    "CRunningScript::SetCharCoordinates": 1024
+  },
+  "covered_functions": {
+    "CRunningScript::SetCharCoordinates": true
+  },
+  "already_registered_by_previous_summary": [
+    "CRoadBlocks::Init",
+    "CRoadBlocks::GenerateRoadBlockPedsForCar",
+    "CRunningScript::GivePedScriptedTask-OG"
+  ],
+  "scope": "Second increment of RoadScriptWave3 (the first 3 functions are registered by validation-summary.json, run 20261009-104926-137526, and are not duplicated). Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3200 isolated CPU pairs for 4 functions of CRoadBlocks (2) and CRunningScript (2); this run has passed=true globally, the 4 functions have 0 failures, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Only CRunningScript::SetCharCoordinates (0x464DC0, 1024 pairs, all equal, pair count equal to the bank table) is registered here. Each case rebuilds the same deterministic fixture in both legs (fake script, fake ped/vehicle buffers) and compares the hash of the fake buffers, the x87 control word (24 bits) and the full trace of collaborators with raw arguments; foreign threads ignored. Traced stubs and out-of-bench pieces get NO credit. CMatrix::SetRotate is doubled. Only the own part of the function is validated. Source tested == current working tree at registration (RunningScript.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CRunningScript::SetCharCoordinates": "Corpus 1024; source corrected (EXE): 0x464DE2..0x464DED fcomp -100.0 / test ah,41h / jp: with z NaN FindGroundZForCoord is NOT called (condition posn.z <= MAP_Z_LOW_LIMIT; a previous agent had it reversed); 0x464E80 adds the distance only if offset. CMatrix::SetRotate doubled. The previous run (20261009-104926-137526) rejected this function with 109/1024 differences; it passes with the corrected source."
+  },
+  "dependency_review": null,
+  "run": "reversing/RoadScriptWave3/runs/20261009-110441-788318",
+  "summary_sha256": "01ed7babdd4b6cfe74149ae3722ca040c38d9d19755d7e04bc2b195b73bc0038",
+  "result_txt_sha256": "edc767aa35d4b89bda63858afdb162ac7fe2ff6d8bb01613892d65a058e22303",
+  "log_sha256": "557f78aea73d290c1e68ef1fb94d7d77fc635cd47be34600c34eb82757f13464",
+  "comparison_storage": {
+    "uncompressed_sha256": "557f78aea73d290c1e68ef1fb94d7d77fc635cd47be34600c34eb82757f13464",
+    "uncompressed_bytes": 944355,
+    "compressed_path": "reversing/RoadScriptWave3/runs/20261009-110441-788318/comparisons.jsonl.gz",
+    "compressed_sha256": "6291abcd5bbfb7fa439a8ae7705f8f813116bd1c68c4dcd505d53f7ec83fad84",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "557f78aea73d290c1e68ef1fb94d7d77fc635cd47be34600c34eb82757f13464",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-roadscriptwave3\\20261009-110441-788318\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "e80681e2c5615ed9f20493aca3e68758272f5ff6c5e22ad9e897d5df5489f43a",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "8cdf9b67973ad7b188772645a669ef1ac8d49bbf",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 3200,
+    "registered_pairs": 1024,
+    "asi": "e80681e2c5615ed9f20493aca3e68758272f5ff6c5e22ad9e897d5df5489f43a",
+    "pdb": "63371049c0cb1ee4d9b802f8519b1d4a06c655ecb4f421679c50b0fb33d65bfe",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-roadscriptwave3-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/RoadBlocks.cpp": "7d4c7bf2e87cd31ad05769ecfcd4afbd64c0529bdf74cd283a7c36ced507f1b1",
+      "source/game_sa/RoadBlocks.h": "2574b9f0525b4cb7ea2b60ac7411c1f724e00b6e53b28e8960db5f8a2fbc58c0",
+      "source/game_sa/Scripts/RunningScript.cpp": "8cc8375514260036c8b00455ebf7fa28580cd084db5abca34119182eeb2ad6c0",
+      "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "9487f6509f27b0c02baed3e00d82b334b8cec078255250906fe77cb4d3d3c3b5",
+      "build_probe.py": "f7ae7f2ec925003ea61188e71c5cfa6f2633ad8b28d3dabda930cd4b198ac36c",
+      "run_local.py": "e8f00dc070f9f529f6cfdba476188a913fa60a2cb255d87302cb5d8367c391af"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Scripts/RunningScript.cpp": "SetCharCoordinates: z NaN does not call FindGroundZForCoord (0x464DE2..0x464DED, fcomp -100.0 / test ah,41h / jp, condition posn.z <= MAP_Z_LOW_LIMIT); distance added only if offset (0x464E80)"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 3200,
+    "complete_events": 1,
+    "layout_events": 1,
+    "layout_ok": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 3200,
+    "function_summaries": 4,
+    "functions_with_zero_failures": 4,
+    "unequal_pairs": 0,
+    "distinct_cases": 3200,
+    "per_function": {
+      "CRoadBlocks::Init": 128,
+      "CRoadBlocks::GenerateRoadBlockPedsForCar": 1024,
+      "CRunningScript::GivePedScriptedTask-OG": 1024,
+      "CRunningScript::SetCharCoordinates": 1024
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/Scripts/RunningScript.cpp": "SetCharCoordinates: z NaN does not call FindGroundZForCoord (0x464DE2..0x464DED, fcomp -100.0 / test ah,41h / jp, condition posn.z <= MAP_Z_LOW_LIMIT); distance added only if offset (0x464E80)"
+  },
+  "notes": "With this function CRunningScript has no pending entries in docs/hooks.csv (the other CRunningScript rows were registered earlier, GivePedScriptedTask-OG by validation-summary.json). The 3 functions already registered are not duplicated."
+}

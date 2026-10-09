@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "increment": 2,
+  "previous_summary": "reversing/ShadowsWave3/validation-summary.json",
+  "pairs": 1536,
+  "differences": 0,
+  "registered_pairs": 512,
+  "registered_functions": 1,
+  "functions": {
+    "CShadows::RenderStoredShadows": 512
+  },
+  "covered_functions": {
+    "CShadows::RenderStoredShadows": true
+  },
+  "already_registered_by_previous_summary": [
+    "CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>"
+  ],
+  "scope": "Second increment of ShadowsWave3 (CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>> is registered by validation-summary.json, run 20261009-105057-302560, and is not duplicated). Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 1536 isolated CPU pairs for 2 functions of CShadows; this run has passed=true globally, both functions have 0 failures, natural \"complete\" event with state_restored, saves unchanged, configs restored. Only CShadows::RenderStoredShadows (0x70A960, 512 pairs, all equal, pair count equal to the bank table) is registered here. Each case rebuilds the same deterministic fixture in both legs and compares the collaborator trace with raw arguments, the hash of the CShadows state block, the x87 control word (24 bits) and that the hook switches; foreign threads ignored. Limits: RwIm3D* drawing functions and the sector lists are doubled with traces (WITHOUT credit); there are no real sector lists. Only the own part of the function is validated. Source tested == current working tree at registration (Shadows.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CShadows::RenderStoredShadows": "Corpus 512; source corrected (EXE): 0x70AA16 test al,2 / jne 0x70AE5B (skips the texture setup when already drawn in the batch); water UV 0x70AFD5 and 0x70B185-0x70B214 with precomputed 1/|v|^2, (-pos.z)*0.0f and V=0.5-dot*inv*0.5; truncations with floor/ceil + _ftol2 and ShadowSectorIndex (0x70AEE5, 0x70AF03, 0x70AF23, 0x70AF4B, 0x70AAFD-0x70ABF3); ProcessOneVertex advances vtxIt (the 4 vertices of each cell); CastRealTimeShadowSectorList receives a non-null pointer to a stack byte as pDayNight (0x70ACB9, 0x70AD0D); GetWaterLevelNoWaves receives the position of the last shadow of the batch (batchPos, 0x70AA89-0x70AAB4 / 0x70AE6A-0x70AE7C). The previous run (20261009-105057-302560) rejected this function with 318/512 differences; it passes with the corrected source."
+  },
+  "dependency_review": null,
+  "run": "reversing/ShadowsWave3/runs/20261009-110523-344796",
+  "summary_sha256": "d398503ec4f733b073c909a06c4ebd1ba6edd8582cf240252efc86cac1c0e103",
+  "result_txt_sha256": "1fb17683ee6b9846e73076de80a8e35423b1935c854ebd4bf7c23d5ea132d34d",
+  "log_sha256": "2a2022701176e2faf9898f053ab607a647be9906951cd7f93260e25cdf7c16df",
+  "comparison_storage": {
+    "uncompressed_sha256": "2a2022701176e2faf9898f053ab607a647be9906951cd7f93260e25cdf7c16df",
+    "uncompressed_bytes": 4289329,
+    "compressed_path": "reversing/ShadowsWave3/runs/20261009-110523-344796/comparisons.jsonl.gz",
+    "compressed_sha256": "d6c9b9e2487528030aad4adf6442b010294a66f5d59bffbc4f4b70b4c9323b42",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "2a2022701176e2faf9898f053ab607a647be9906951cd7f93260e25cdf7c16df",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadowswave3\\20261009-110523-344796\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "4d9449737b1ae9cf3876f8f7858b548f48251530a4d8f9e0ab9ee39822e15750",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "8cdf9b67973ad7b188772645a669ef1ac8d49bbf",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 1536,
+    "registered_pairs": 512,
+    "asi": "4d9449737b1ae9cf3876f8f7858b548f48251530a4d8f9e0ab9ee39822e15750",
+    "pdb": "a6f28b85e103b7749a4ca959de4845799395443a928a34b7e64a2940e72dd928",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-shadowswave3-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Shadows.cpp": "71f537a6403a1281d8e197f1417a41677525cbdee4b637efea43a09cc590c7ef",
+      "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "9fc32642a2cfdc8edd430457535605ed95a0fd974db9728158b8bfc89ce88bd6",
+      "SwCommon.hpp": "42265e80c50041bf16f52276a7cf98bbfbc88422ac5a75bf66c943f9016a098f",
+      "build_probe.py": "3e9d88b905015ade8de2dffed60f8c38c8c3d63fede07c4293b0d97d083183bd",
+      "run_local.py": "9b0413cab360840449e769d8b425878aa12a90b206a9a5a59d9eb6ba1862040b"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Shadows.cpp": "RenderStoredShadows: batch render-mode gate test al,2 / jne (0x70AA16); water UV with precomputed 1/|v|^2 (0x70AFD5, 0x70B185-0x70B214); floor/ceil+_ftol2 truncations and ShadowSectorIndex (0x70AEE5, 0x70AF03, 0x70AF23, 0x70AF4B, 0x70AAFD-0x70ABF3); ProcessOneVertex advances vtxIt; non-null stack byte as pDayNight (0x70ACB9, 0x70AD0D); GetWaterLevelNoWaves with batchPos (0x70AA89-0x70AAB4, 0x70AE6A-0x70AE7C)"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 1536,
+    "complete_events": 1,
+    "begin_events": 1,
+    "waiting_for_player_events": 1,
+    "function_summaries": 2,
+    "functions_with_zero_failures": 2,
+    "unequal_pairs": 0,
+    "distinct_cases": 1536,
+    "per_function": {
+      "CShadows::RenderStoredShadows": 512,
+      "CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>": 1024
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/Shadows.cpp": "RenderStoredShadows: batch render-mode gate test al,2 / jne (0x70AA16); water UV with precomputed 1/|v|^2 (0x70AFD5, 0x70B185-0x70B214); floor/ceil+_ftol2 truncations and ShadowSectorIndex (0x70AEE5, 0x70AF03, 0x70AF23, 0x70AF4B, 0x70AAFD-0x70ABF3); ProcessOneVertex advances vtxIt; non-null stack byte as pDayNight (0x70ACB9, 0x70AD0D); GetWaterLevelNoWaves with batchPos (0x70AA89-0x70AAB4, 0x70AE6A-0x70AE7C)"
+  },
+  "notes": "With this function CShadows has no pending entries in docs/hooks.csv. CastPlayerShadowSectorList (a template instance row) is already registered and is not duplicated."
+}

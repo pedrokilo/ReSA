@@ -1,0 +1,3 @@
+FALLO: ShadowsWave3 (CShadows: RenderStoredShadows, CastPlayerShadowSectorList)
+Funciones con diferencias: CShadows::RenderStoredShadows: 318/512
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-shadowswave3\20261009-105057-302560

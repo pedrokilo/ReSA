@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "pairs": 256,
+  "differences": 0,
+  "functions": {
+    "CClothesBuilder::CreateSkinnedClump": 256
+  },
+  "covered_functions": {
+    "CClothesBuilder::CreateSkinnedClump": true
+  },
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the class hook off vs candidate with the hook on), 256 isolated CPU pairs for CClothesBuilder::CreateSkinnedClump (0x5A69D0), zero differences, natural completion event with state_restored, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (fake old/new CPedClothesDesc, fake textures/geometries/skins/frames/atomics/clump, drawing and RenderWare replaced by traces) and compares the return value, the order and raw arguments of all collaborator calls, the new descriptor after the default SetModel calls, flags 0x8D0AA4..AA6 and 0xBC1288, the color of the fake materials (written inline), flags|=2 of the temporary geometry, the parent of the fake clump, the deletes (weights first, indices after) and the hash of the descriptor bytes; x87 at 24 bits, foreign threads ignored (Mine()). Limits: 34 collaborators are replaced by traced doubles WITHOUT credit (RenderWare, streaming, clothes pools: CDirectory::Init/ReadDirFile, CStats::GetStatValue, PreprocessClothesDesc, RwTexDictionaryForAllTextures, RwTexDictionaryRemoveTexture/RwTextureDestroy, RwTexDictionaryFindNamedTexture, RpMaterialCreate/SetTexture/Destroy, GetFirstAtomic, RpSkin*, RpHAnim*, RwFrame*, RpAtomic*, RpClump*, RpGeometryDestroy, RwTexDictionarySetCurrent, operator delete during the call). ConstructTextures, ConstructGeometryArray and ConstructGeometryAndSkinArrays are NOT executed in this bench (doubled; they are covered by their earlier validations in GfxWave2). CPedClothesDesc::SetModel and CKeyGen::GetUppercaseKey run for real. The callback address of RwTexDictionaryForAllTextures is not compared, only its behaviour. Only the own part of the function is validated. Source corrected to what the EXE does before the approved run (uncommitted at the time; see reversing/ClothesWave3/README.md). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CClothesBuilder::CreateSkinnedClump": "Corpus 256; source corrected: (1) 0x5A6B65-0x5A6B77 the material colour is written inline BEFORE RpMaterialSetTexture; (2) 0x5A6CAD-0x5A6CD0 RpSkinGetNumBones and RpSkinGetSkinToBoneMatrices are called before RpSkinCreate (explicit locals). Domain: old descriptor null or equal (early exit nullptr) or different in fat/muscle/model/texture/NaN/several, default models already applied or to fill, bCutscenePlayer 25%, random texture/geometry masks, muscle and fat stats 0/negative/>1/inf/NaN."
+  },
+  "dependency_review": null,
+  "run": "reversing/ClothesWave3/runs/20261009-105013-683422",
+  "summary_sha256": "d8bf284f0c4e9f32ca311c178ca2137c6067a863f549cfe6de3fe1b750054efb",
+  "result_txt_sha256": "dfed530439829cec185c412737aba675643052d06c10fb09ca2c5e37b548c92b",
+  "log_sha256": "a17d5cf23765d539bda5c37c35c5b9834d7725ebfbc9ed3f3ac7661907f65da2",
+  "comparison_storage": {
+    "uncompressed_sha256": "a17d5cf23765d539bda5c37c35c5b9834d7725ebfbc9ed3f3ac7661907f65da2",
+    "uncompressed_bytes": 769701,
+    "compressed_path": "reversing/ClothesWave3/runs/20261009-105013-683422/comparisons.jsonl.gz",
+    "compressed_sha256": "03641f295c81614a0e1e365e7cc71928d0ca80fc06b617725c6dbe81a2c91211",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "a17d5cf23765d539bda5c37c35c5b9834d7725ebfbc9ed3f3ac7661907f65da2",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clotheswave3\\20261009-105013-683422\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "298065747d30b4eb60ec99bc430713fcb7823800239c8fc06e4574e69d082d3c",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "8cdf9b67973ad7b188772645a669ef1ac8d49bbf",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 256,
+    "asi": "298065747d30b4eb60ec99bc430713fcb7823800239c8fc06e4574e69d082d3c",
+    "pdb": "6b0467d873e312d8bf9daf224b660d09d2c6302c9e9777043c711ae6c55dc2ae",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-clotheswave3-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/ClothesBuilder.cpp": "7202f115152daecef787adcaa233ad8f93753f56fe3750d33209fb8b5a47caed",
+      "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "ClothesPart.hpp": "094f008ab1e76cab2aec228c851184c5be3863c46d3d914153d50fffbdb0562a",
+      "LiveComparison.hpp": "a9b3e0c4ed578174d8e3cfc374d6adc3b1339bfaed39bbb33c382da345f7a83b",
+      "WaveCommon.hpp": "a3209bd603aca821f9240ca8f3c82e5af46902b216bef133e617fbdcba80b67c",
+      "build_probe.py": "383c474bb4a9b61b309234016f2aedfa0e5a964254f0e0ddb3cf8b46838672ca",
+      "run_local.py": "89d9997aad0c86c022fe6373b35fda9ccb21cf225834a6bcb94fbab539232410"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/ClothesBuilder.cpp": "CreateSkinnedClump: material colour written inline before RpMaterialSetTexture (0x5A6B65-0x5A6B77); RpSkinGetNumBones and RpSkinGetSkinToBoneMatrices before RpSkinCreate with explicit locals (0x5A6CAD-0x5A6CD0)"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 256,
+    "complete_events": 1,
+    "begin_events": 1,
+    "waiting_for_player_events": 1,
+    "function_summaries": 1,
+    "unequal": 0,
+    "distinct_cases": 256,
+    "per_function": {
+      "CClothesBuilder::CreateSkinnedClump": 256
+    }
+  },
+  "source_corrections_before_run": {
+    "source/game_sa/ClothesBuilder.cpp": "CreateSkinnedClump: material colour written inline before RpMaterialSetTexture (0x5A6B65-0x5A6B77); RpSkinGetNumBones and RpSkinGetSkinToBoneMatrices before RpSkinCreate with explicit locals (0x5A6CAD-0x5A6CD0)"
+  },
+  "out_of_bench_not_credited": [
+    "ConstructTextures",
+    "ConstructGeometryArray",
+    "ConstructGeometryAndSkinArrays"
+  ],
+  "notes": "With this function CClothesBuilder has no pending entries in docs/hooks.csv (the other 30 were registered earlier, 14 of them by GfxWave2)."
+}

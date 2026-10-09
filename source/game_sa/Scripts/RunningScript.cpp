@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 39/39 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 15.
- * Validación registrada: 37/39 entradas.
+ * Validación registrada: 39/39 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -794,7 +794,11 @@ void CRunningScript::ScriptTaskPickUpObject(int32 commandId) {
 
 // 0x464DC0
 void CRunningScript::SetCharCoordinates(CPed& ped, CVector posn, bool warpGang, bool offset) {
-    CWorld::PutToGroundIfTooLow(posn);
+    // Como el original (0x464DDE..0x464DED): fcomp contra -100.0 y test ah,41h/jp: se llama a FindGroundZForCoord solo si z <= -100.0
+    // (C3 o C0); con z NaN (C3=C2=C0=1 -> ah&41h = 41h, paridad par) se salta la llamada y z sigue siendo NaN.
+    if (posn.z <= MAP_Z_LOW_LIMIT) {
+        posn.z = CWorld::FindGroundZForCoord(posn.x, posn.y);
+    }
 
     CVehicle* vehicle = ped.GetVehicleIfInOne();
     if (vehicle) {
@@ -802,7 +806,10 @@ void CRunningScript::SetCharCoordinates(CPed& ped, CVector posn, bool warpGang, 
         vehicle->Teleport(posn, false);
         CTheScripts::ClearSpaceForMissionEntity(posn, vehicle);
     } else {
-        posn.z += offset ? ped.GetDistanceFromCentreOfMassToBaseOfModel() : 0.0f;
+        // Como el original (0x464E80..0x464E93): solo suma la distancia si offset (sumar 0.0f convertiria -0.0 en +0.0).
+        if (offset) {
+            posn.z += ped.GetDistanceFromCentreOfMassToBaseOfModel();
+        }
         CTheScripts::ClearSpaceForMissionEntity(posn, &ped);
         auto* group = CPedGroups::GetPedsGroup(&ped);
         if (group && group->GetMembership().IsLeader(&ped) && warpGang) {

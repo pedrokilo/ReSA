@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7155 con evidencia histórica, 0 con vigencia acreditada y 1291 pendientes en 34 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7163 con evidencia histórica, 0 con vigencia acreditada y 1283 pendientes en 29 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # ReSA: reconstrucción, validación e independencia
@@ -19,9 +19,9 @@ Corte del 8 de octubre de 2026. Clases y reconstrucciones se calculan sobre `hoo
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
 | Clases completas en el catálogo | `████████████████████` | 771/771 · 100,00% |
-| Clases validadas de las completas | `███████████████████░` | 737/771 · 95,59% |
+| Clases validadas de las completas | `███████████████████░` | 742/771 · 96,24% |
 | Funciones registradas como reconstruidas | `████████████████████` | 8.446/8.446 · 100,00% |
-| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `█████████████████░░░` | **7.155/8.446 · 84,71%** |
+| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `█████████████████░░░` | **7.163/8.446 · 84,81%** |
 
 **Siguientes mediciones** (todavía sin porcentaje útil):
 

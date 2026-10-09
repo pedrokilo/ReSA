@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 31/31 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 10.
- * Validación registrada: 29/31 entradas.
+ * Validación registrada: 31/31 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -1132,7 +1132,8 @@ void CShadows::CastPlayerShadowSectorList(
         // Quick Z height check of the bounding box
         // Como el original (0x70A57F-0x70A5BB): la colision sale del model info (no CEntity::GetColModel, que mira la especial del vehiculo)
         // y las comparaciones con NaN descartan.
-        const auto* cm         = CModelInfo::GetModelInfo(entity->m_nModelIndex)->GetColModel();
+        // Como el original (0x70A57F movsx edx,word ptr [esi+22h]): el indice de modelo se extiende con signo.
+        const auto* cm         = CModelInfo::GetModelInfo(int32(int16(entity->m_nModelIndex)))->GetColModel();
         const auto  entityPosZ = entity->GetPosition().z;
         if (!((cm->m_boundBox.m_vecMax.z + entityPosZ) > (posn->z - zDistance))) {
             continue;
@@ -1223,6 +1224,7 @@ void CShadows::CastRealTimeShadowSectorList(PtrListType& ptrList, float conrerAX
 // 0x70A960
 static float ShadowRectangleEdge(float position, float front, float side, bool maximum);
 static int32 ShadowSectorIndex(float coordinate, bool maximum);
+static int32 ShadowFtol(double value);
 void CShadows::RenderStoredShadows() {
     // Como el original (0x70A960-0x70A9E0): los render states y el buffer se preparan aunque no haya sombras guardadas
     // (antes habia un return anticipado que omitia esas llamadas).
@@ -1252,17 +1254,23 @@ void CShadows::RenderStoredShadows() {
         };
     };
 
+    // Como el original (0x70AA89-0x70AAB4 copia la posicion de la sombra del lote en [esp+58h..60h] y 0x70AE65-0x70AE83 la pasa a GetWaterLevelNoWaves):
+    // la consulta de agua usa la posicion de la ULTIMA sombra recorrida por el bucle de lote (no la de la sombra externa), valor que persiste entre iteraciones.
+    CVector batchPos{};
+
     for (auto o = 0; o < ShadowsStoredToBeRendered; o++) {
         auto& oshdw = asShadowsStored[o];
-
-        // Setup additional render states for this shadow (and others in the batch below)
-        SetRenderModeForShadowType(oshdw.m_nType);
-        RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(oshdw.m_pTexture)));
 
         //
         // Render onto ground (If not already)
         //
         if (!oshdw.m_bAlreadyRenderedInBatch) {
+            // Como el original (0x70AA10-0x70AA3C): si la sombra ya se dibujo en un lote (bit 2 de 0x70AA16 -> jne 0x70AE5B) se salta
+            // tanto SetRenderModeForShadowType como el RwRenderStateSet de la textura (antes se hacian siempre).
+            // Setup additional render states for this shadow (and others in the batch below)
+            SetRenderModeForShadowType(oshdw.m_nType);
+            RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(oshdw.m_pTexture)));
+
             // We do a batched rendering here:
             // All shadows of the same type and texture are rendered together to save on drawcalls
 
@@ -1278,6 +1286,8 @@ void CShadows::RenderStoredShadows() {
                     }
                 }
 
+                batchPos = ishdw.m_vecPosn;
+
                 CWorld::AdvanceCurrentScanCode();
 
                 const auto ishdwRect = GetShadowRect(ishdw);
@@ -1288,10 +1298,15 @@ void CShadows::RenderStoredShadows() {
                 const auto castInSector =
                     [&] (int32 x, int32 y) -> bool {
                         auto& sector = CWorld::GetSector(x, y);
+                        // Como el original (0x70ACB2: lista = 0xB7D0B8 + indice*8): se usa la instancia de plantilla <CPhysical*> (la de 0x70A470/0x70A630/0x70A7E0),
+                        // igual que GeneratePolysForStaticShadow; <CBuilding*> era otra instancia distinta de la enganchada.
+                        auto& buildings = reinterpret_cast<CPtrListSingleLink<CPhysical*>&>(sector.Buildings);
 
+                        // Como el original (0x70ACB9 lea edx,[esp+23h]): el ultimo argumento (pDayNight) de las TRES funciones es un puntero no nulo a un byte de pila.
+                        uint8 unused{};
                         if (const auto rtshdw = ishdw.m_pRTShadow) {
                             CastRealTimeShadowSectorList(
-                                sector.Buildings,
+                                buildings,
                                 ishdwRect.minX, ishdwRect.minY,
                                 ishdwRect.maxX, ishdwRect.maxY,
                                 &ishdw.m_vecPosn,
@@ -1303,13 +1318,12 @@ void CShadows::RenderStoredShadows() {
                                 ishdw.m_fScale,
                                 nullptr,
                                 rtshdw,
-                                nullptr // Unused
+                                &unused
                             );
                         } else {
-                            uint8 unused{};
                             if (ishdw.m_bDrawOnBuildings) {
                                 CastShadowSectorList(
-                                    sector.Buildings,
+                                    buildings,
                                     ishdwRect.minX, ishdwRect.minY,
                                     ishdwRect.maxX, ishdwRect.maxY,
                                     &ishdw.m_vecPosn,
@@ -1325,7 +1339,7 @@ void CShadows::RenderStoredShadows() {
                                 );
                             } else {
                                 CastPlayerShadowSectorList(
-                                    sector.Buildings,
+                                    buildings,
                                     ishdwRect.minX, ishdwRect.minY,
                                     ishdwRect.maxX, ishdwRect.maxY,
                                     &ishdw.m_vecPosn,
@@ -1364,7 +1378,7 @@ void CShadows::RenderStoredShadows() {
         // Render onto water (If needed)
         if (oshdw.m_bDrawOnWater) {  
             float waterLevelZ{}, bigWavesZ{}, smallWavesZ{};
-            if (!CWaterLevel::GetWaterLevelNoWaves(oshdw.m_vecPosn, &waterLevelZ, &bigWavesZ, &smallWavesZ)) {
+            if (!CWaterLevel::GetWaterLevelNoWaves(batchPos, &waterLevelZ, &bigWavesZ, &smallWavesZ)) {
                 continue;
             }
 
@@ -1381,17 +1395,20 @@ void CShadows::RenderStoredShadows() {
             // This value basically represents the side of a square that is projected onto the 
             const auto STEP_SIZE = 2;
 
-            const auto shdwSideMagSq = oshdw.m_Side.SquaredMagnitude();
-            const auto shdwFrontMagSq = oshdw.m_Front.SquaredMagnitude();
+            // Como el original (0x70AF4F-0x70AFE3): |v|^2 = v.y*v.y + v.x*v.x en float y recíprocos 1.0f / |v|^2 (0x858624) precalculados;
+            // las coordenadas UV MULTIPLICAN por el recíproco (no dividen).
+            const auto shdwSideMagSq = oshdw.m_Side.y * oshdw.m_Side.y + oshdw.m_Side.x * oshdw.m_Side.x;
+            const auto shdwFrontMagSq = oshdw.m_Front.y * oshdw.m_Front.y + oshdw.m_Front.x * oshdw.m_Front.x;
+            const float shdwSideRecip = 1.0f / shdwSideMagSq, shdwFrontRecip = 1.0f / shdwFrontMagSq;
 
             const auto oshdwRect = GetShadowRect(oshdw);
 
-            // Como el original (0x70AEA5-0x70AF4B): limites = floor/ceil((pos -/+ extension) * 0.5) * 2 (floor/ceil en doble precision) y
+            // Como el original (0x70AEA5-0x70AF4B, floor 0x8219F0 / ceil 0x823820 + _ftol2 0x821B40: 64 bits, palabra baja): limites = floor/ceil((pos -/+ extension) * 0.5) * 2 (floor/ceil en doble precision) y
             // el bucle exterior recorre X y el interior Y, de 2 en 2 (antes: IterateSectors con y exterior y rectangulo asimetrico).
-            const int32 waterMinX = (int32)std::floor((double)(oshdwRect.minX * 0.5f));
-            const int32 waterMinY = (int32)std::floor((double)(oshdwRect.minY * 0.5f));
-            const int32 waterMaxX = (int32)std::ceil((double)(oshdwRect.maxX * 0.5f));
-            const int32 waterMaxY = (int32)std::ceil((double)(oshdwRect.maxY * 0.5f));
+            const int32 waterMinX = ShadowFtol(std::floor((double)(oshdwRect.minX * 0.5f)));
+            const int32 waterMinY = ShadowFtol(std::floor((double)(oshdwRect.minY * 0.5f)));
+            const int32 waterMaxX = ShadowFtol(std::ceil((double)(oshdwRect.maxX * 0.5f)));
+            const int32 waterMaxY = ShadowFtol(std::ceil((double)(oshdwRect.maxY * 0.5f)));
             const auto waterQuad =
                 [&](int32 ox, int32 oy) {
                     // 0x70B000 - 0x70B0DA: Start storing 
@@ -1411,13 +1428,18 @@ void CShadows::RenderStoredShadows() {
                         RwIm3DVertexSetRGBA(vtxIt, oshdw.m_nRed, oshdw.m_nGreen, oshdw.m_nBlue, (uint8)(int32)((float)(int16)oshdw.m_nIntensity * 0.6f));
 
                         // Set texture coords (UV)
-                        const auto CalcTexCoord  = [
-                            currPosToShdw = CVector2D{ currPos - oshdw.m_vecPosn }
-                        ](CVector2D v, float vmagsq) {
-                            return (currPosToShdw.Dot(v) / vmagsq + 1.f) * 0.5f;
-                        };
-                        RwIm3DVertexSetU(vtxIt, CalcTexCoord(oshdw.m_Side, shdwSideMagSq));
-                        RwIm3DVertexSetV(vtxIt, CalcTexCoord(oshdw.m_Front, shdwFrontMagSq));
+                        // Como el original (0x70B147-0x70B214 y analogos de los otros 3 vertices): d = (x,y) - pos (float); el producto escalar es
+                        // (d.x*v.x + d.y*v.y) + (-pos.z)*0.0f (0x858B50; fld pos.z/fchs/fmul/faddp) y
+                        //   U = ((dot(side) * 1/|side|^2) + 1.0f) * 0.5f          (fmul, fadd 0x858624, fmul 0x858B8C -> [vertice+0x1C])
+                        //   V = 0.5f - ((dot(front) * 1/|front|^2) * 0.5f)        (fmul, fmul 0x858B8C, fsubr 0x858B8C -> [vertice+0x20])
+                        // (antes: (dot / |v|^2 + 1) * 0.5 para ambos, sin el termino z*0.0 y con V sin invertir).
+                        const float dx = (float)x - oshdw.m_vecPosn.x;
+                        const float dy = (float)y - oshdw.m_vecPosn.y;
+                        const float zTerm = (-oshdw.m_vecPosn.z) * 0.0f;
+                        const float dotSide  = (dx * oshdw.m_Side.x  + dy * oshdw.m_Side.y)  + zTerm;
+                        const float dotFront = (dx * oshdw.m_Front.x + dy * oshdw.m_Front.y) + zTerm;
+                        RwIm3DVertexSetU(vtxIt, ((dotSide * shdwSideRecip) + 1.0f) * 0.5f);
+                        RwIm3DVertexSetV(vtxIt, 0.5f - ((dotFront * shdwFrontRecip) * 0.5f));
 
                         // Set position
                         RwIm3DVertexSetPos(
@@ -1426,6 +1448,8 @@ void CShadows::RenderStoredShadows() {
                             currPos.y,
                             CWaterLevel::CalculateWavesOnlyForCoordinate2_Direct(x, y, waterLevelZ, bigWavesZ, smallWavesZ) + 0.06f // Z pos of the wave at the given coord
                         );
+                        // Como el original (0x70B1AD/0x70B2ED/0x70B43E/0x70B5B8: vertices en edi+0, +24h, +48h, +6Ch): cada vertice va a su hueco (antes faltaba el avance y los 4 se escribian en el primero).
+                        vtxIt++;
                     };
 
                     // Process 4 vertices of this square
@@ -1478,20 +1502,24 @@ static float ShadowRectangleEdge(float position, float front, float side, bool m
     __asm { fstp result }
     return result;
 }
+static int32 ShadowFtol(double value) {
+    // Como el original (_ftol2 0x821B40): truncamiento a 64 bits y se usa la palabra baja (fuera de rango / NaN -> 0x8000000000000000 -> 0)
+    return static_cast<int32>(static_cast<int64>(value));
+}
 static int32 ShadowSectorIndex(float coordinate, bool maximum) {
     const float multiplier = 0.02f, bias = 60.0f;
     float saved;
-    double extended;
     __asm {
         fld coordinate
         fmul multiplier
         fadd bias
-        fst saved
-        fstp extended
+        fstp saved
     }
-    const double first = std::floor(extended);
-    if (maximum ? first >= 119.0 : first <= 0.0) return maximum ? 119 : 0;
-    return int32(std::floor(double(saved)));
+    // Como el original (0x70AAE2-0x70ABF3 y 0x70B7B4-0x70B8E8): floor (0x8219F0) + _ftol2 (0x821B40) y recorte con compares de enteros
+    // (jle 0 / jge 0x77); si no recorta se repite floor+_ftol2 sobre el mismo float (mismo valor).
+    const int32 value = ShadowFtol(std::floor(double(saved)));
+    if (maximum ? value >= 119 : value <= 0) return maximum ? 119 : 0;
+    return value;
 }
 void CShadows::GeneratePolysForStaticShadow(int16 staticShadowIndex) {
     auto& shadow = aStaticShadows[staticShadowIndex];

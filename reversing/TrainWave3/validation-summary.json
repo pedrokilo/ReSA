@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "pairs": 1024,
+  "differences": 0,
+  "functions": {
+    "CTrain::ProcessControl": 1024
+  },
+  "covered_functions": {
+    "CTrain::ProcessControl": true
+  },
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the virtual hook off, EXE body 0x6F86A0 = vtable 0x872370 slot 10, vs candidate with the vtable hook on), 1024 isolated CPU pairs for CTrain::ProcessControl (hooks.csv row with address 0x00000000, virtual), zero differences, natural completion event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (fake train of 0x6C0 bytes with fake vtable and guards, chain of 1 to 4 fake carriages, fake closed track of 6 to 72 nodes with strictly increasing cumulative distances and the global track tables 0xC38024/0xC38014/0xC37FEC, fake model info with CColModel and fake handling) and compares the full hash of the 8 fake vehicles and the guard, the subject matrix, the track, the touched globals, the x87 control word (24 bits) and the whole trace of outgoing calls with raw arguments (floats as bit patterns); foreign threads ignored (Mine()). Scenes: gbModelViewer 3%, rear carriage with predecessor 22%, rear carriage without predecessor 6%, head on autopilot 25%, head driven by the player 18%, off-rail (bNotOnARailRoad) 26%; exact edge values of the rail position. Limits: about 25 collaborators are replaced by traced doubles WITHOUT credit (CAEVehicleAudioEntity::Service/AddAudioEvent, CPad::GetAccelerate/GetBrake/StartShake, CPed::IsPlayer, CPlayerPed::GetPadFromPlayer, CTrain::FindNumCarriagesPulled/FindMaximumSpeedToStopAtStations/IsInTunnel/RemoveRandomPassenger/AddNearbyPedAsRandomPassenger, CGameLogic::CalcDistanceToForbiddenTrainCrossing, CCamera::CamShake, rand and CGeneral::GetRandomNumber, FindPlayerPed, CCarCtrl::ScanForPedDanger, CPhysical::ProcessControl/ApplyMoveSpeed/SkipPhysics/ApplyMoveForce/ApplyTurnForce/RemoveAndAdd, CEntity::UpdateRwFrame, cBuoyancy::ProcessBuoyancy, MarkSurroundingEntitiesForCollisionWithTrain, CTrainNode::GetLightingFromCollision, tColLighting::GetCurrentLighting). OUT of the bench: carriage with a null m_matrix in the on-rail branch (the EXE writes through it unchecked), real m_pRwObject (null in the bench), GetLightingFromCollision without found lighting (real CWorld::ProcessVerticalLine), out-of-domain values (rail distance < -total or >= 2*total, node index outside the track) and NaN/inf. The GetLightingFromCollision stub has a different version for the DLL (hidden return pointer) than for the EXE. Only the own part of the function is validated. Source corrected to what the EXE does before the approved run (uncommitted at the time; see reversing/TrainWave3/README.md). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CTrain::ProcessControl": "Corpus 1024; source corrected (EXE addresses): (1) 0x6F88D0/0x6F8910/0x6F8940 or/and [eax+5B8h] stopped-at-station and passengers flags written on each carriage, not on this; (2) 0x6F8DF0 bNotOnARailRoad on each carriage; (3) 0x6F8991 fmul 0.02f stop speed; (4) 0x6F8BF2, 0x6F8E49, 0x6F9D1B EXE pow 0x822130 with double base and no float rounding; (5) 0x6F8D93 node dot product in z,x,y order; (6) 0x6F9626 fpatan minus old heading with the EXE pi constants (0x858CB8/BC/C0); (7) 0x6F9910 m_fMovingSpeed = sqrt((dz^2+dy^2)+dx^2); (8) 0x6F9CA6..0x6F9DA2 buoyancy with the force returned by ProcessBuoyancy; (9) 0x6F8EAD and 0x6F8F13 FindPlayerPed(-1) only in passenger states 0 and 2; (10) node distance uint16*0.33333334f (0x859040) inlined in the EXE and also fixed in CTrainNode::GetDistanceFromStart (TrainNode.cpp, 0x6F54B0)."
+  },
+  "dependency_review": null,
+  "run": "reversing/TrainWave3/runs/20261009-110357-858237",
+  "summary_sha256": "60f6fc55b94021cccedefacc596052ef6fce62752f15c59ca8029de31d0826ad",
+  "result_txt_sha256": "e9c3efa721567724cc388a91adaa218941412277f37332c12b2d08ea3b489fd6",
+  "log_sha256": "1dd07123228f21a7d9268ce6aa15652cbc485283361f0d184f1bf3bbfafbdae0",
+  "comparison_storage": {
+    "uncompressed_sha256": "1dd07123228f21a7d9268ce6aa15652cbc485283361f0d184f1bf3bbfafbdae0",
+    "uncompressed_bytes": 273058,
+    "compressed_path": "reversing/TrainWave3/runs/20261009-110357-858237/comparisons.jsonl.gz",
+    "compressed_sha256": "dca2118e5f4aa4fb5afb3027fec1f9ab0630d9794b5c8a887d41945e932ea5ce",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "1dd07123228f21a7d9268ce6aa15652cbc485283361f0d184f1bf3bbfafbdae0",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-trainwave3\\20261009-110357-858237\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "1d1240d8d56e725eab9d93bc03ee488abc1b0bbcca5ea58bc11276baeb4ff4b5",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "8cdf9b67973ad7b188772645a669ef1ac8d49bbf",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 1024,
+    "asi": "1d1240d8d56e725eab9d93bc03ee488abc1b0bbcca5ea58bc11276baeb4ff4b5",
+    "pdb": "eb9ce061e3cc63a41034b9ad4cf8f210fa1c5cce3b853005572ca848b59d2874",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-trainwave3-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Entity/Vehicle/Train.cpp": "3b54ec5a3ebd555778249f07af99e0d367f38f0cc7ffe5e636e42a6382fc9f6a",
+      "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37"
+    },
+    "extra_sources_not_in_manifest": {
+      "source/game_sa/TrainNode.cpp": {
+        "current_sha256": "b9719d0bcab9557b4a4be2e7bae53c0c8d356d62e6b0f84753278e98f515bef5",
+        "mtime": "2026-10-09T10:55:35",
+        "probe_asi_mtime": "2026-10-09T11:03:49"
+      }
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "6f02a25b85d13db27ddab57a55fa07c4c41bf91c3cc2b70f2774b10e0e3c1d57",
+      "build_probe.py": "56056de6ea928b937f73f42f78e496907f1d1e712f47e4ceb4c664f8dd646e84",
+      "run_local.py": "1977898e3ed72d567b7846b083a9f669b3f2432696cef703792ad60349179ff5"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Entity/Vehicle/Train.cpp": "ProcessControl: per-carriage flags (0x6F88D0, 0x6F8910, 0x6F8940), per-carriage bNotOnARailRoad (0x6F8DF0), stop speed *0.02f (0x6F8991), EXE pow 0x822130 (0x6F8BF2, 0x6F8E49, 0x6F9D1B), node dot product z,x,y (0x6F8D93), heading with fpatan and EXE pi (0x6F9626), moving speed sqrt((dz2+dy2)+dx2) (0x6F9910), buoyancy with the returned force (0x6F9CA6..0x6F9DA2), FindPlayerPed(-1) only in states 0 and 2 (0x6F8EAD, 0x6F8F13), node distance uint16*0.33333334f (0x859040)",
+      "source/game_sa/TrainNode.cpp": "GetDistanceFromStart: uint16 * 0.33333334f as the EXE 0x6F54B0 (not hashed by the probe build manifest; mtime before the probe build)"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 1024,
+    "complete_events": 1,
+    "layout_events": 1,
+    "layout_ok": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 1024,
+    "function_summaries": 1,
+    "unequal": 0,
+    "distinct_cases": 1024,
+    "per_function": {
+      "CTrain::ProcessControl": 1024
+    }
+  },
+  "source_corrections_before_run": {
+    "source/game_sa/Entity/Vehicle/Train.cpp": "ProcessControl: per-carriage flags (0x6F88D0, 0x6F8910, 0x6F8940), per-carriage bNotOnARailRoad (0x6F8DF0), stop speed *0.02f (0x6F8991), EXE pow 0x822130 (0x6F8BF2, 0x6F8E49, 0x6F9D1B), node dot product z,x,y (0x6F8D93), heading with fpatan and EXE pi (0x6F9626), moving speed sqrt((dz2+dy2)+dx2) (0x6F9910), buoyancy with the returned force (0x6F9CA6..0x6F9DA2), FindPlayerPed(-1) only in states 0 and 2 (0x6F8EAD, 0x6F8F13), node distance uint16*0.33333334f (0x859040)",
+    "source/game_sa/TrainNode.cpp": "GetDistanceFromStart: uint16 * 0.33333334f as the EXE 0x6F54B0 (not hashed by the probe build manifest; mtime before the probe build)"
+  },
+  "out_of_bench_not_credited": [
+    "null m_matrix on-rail branch",
+    "real m_pRwObject",
+    "GetLightingFromCollision without found lighting",
+    "out-of-domain rail values",
+    "NaN/inf"
+  ],
+  "notes": "With this function CTrain has no pending entries in docs/hooks.csv (it was the only one). docs/hooks.csv keeps address 0x00000000 for this virtual; the mapping was done by class + name (unique row) and the EXE body 0x6F86A0 = vtable 0x872370 slot 10 (README). TrainNode.cpp (CTrainNode::GetDistanceFromStart fix) is not in the probe build manifest; its current hash is recorded in manifest.extra_sources_not_in_manifest and the equality with the tested build is inferred from mtimes."
+}

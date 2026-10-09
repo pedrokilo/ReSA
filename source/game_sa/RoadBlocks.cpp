@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 6/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -312,8 +312,11 @@ void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPosit
         });
 
         const auto placementIdx = 2 * pedsPositionsType;
-        const auto radiusRatio  = vehicle->GetColModel()->GetBoundingSphere().m_fRadius
-            / CModelInfo::GetModelInfo(CStreaming::GetDefaultCopCarModel(false))->GetColModel()->GetBoundingSphere().m_fRadius;
+        // Como el original (0x4613E9..0x419): primero GetColModel del vehiculo (0x535300) y luego GetDefaultCopCarModel (0x407C50);
+        // C++ no fija el orden de evaluacion de los dos operandos de la division.
+        const float vehicleRadius = vehicle->GetColModel()->GetBoundingSphere().m_fRadius;
+        const float copCarRadius  = CModelInfo::GetModelInfo(CStreaming::GetDefaultCopCarModel(false))->GetColModel()->GetBoundingSphere().m_fRadius;
+        const auto  radiusRatio   = vehicleRadius / copCarRadius;
 
         for (auto i = 0u; i < vehicle->m_nNumPedsForRoadBlock; i++) {
             const auto offset = (isSpecialCop ? SPECIAL_COP_PLACEMENTS : PLACEMENTS)[placementIdx + i] * radiusRatio;
@@ -327,7 +330,11 @@ void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPosit
 
             auto* ped = [&]() -> CPed* {
                 if (pedType != PED_TYPE_COP) { // 0x461560
-                    return new CCivilianPed(pedType, pedModel);
+                    // Como el original (0x461580..0x461596): el camino de civiles/pandillas cae en 0x461592 y tambien llama a
+                    // CPed::SetCurrentWeapon(WEAPON_PISTOL = 0x16) (0x5E6280) antes de seguir.
+                    auto* p = new CCivilianPed(pedType, pedModel);
+                    p->SetCurrentWeapon(WEAPON_PISTOL);
+                    return p;
                 } else {
                     // Como el original (0x4614E1..0x461596): solo mira si el modelo esta cargado cuando copType != CITYCOP, y la pistola
                     // se da siempre que el tipo realmente creado sea CITYCOP (tambien cuando se cae a CITYCOP por modelo no cargado).
@@ -356,9 +363,11 @@ void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPosit
             }
 
             if (pedType == PED_TYPE_COP) {
+                // Como el original (0x461637): mov byte ptr [esi+79Ch],1 (CCopPed::m_bDontPursuit) antes de reservar la tarea.
+                static_cast<CCopPed*>(ped)->m_bDontPursuit = true;
+                // Como el original (0x46168D..0x4616B4): el EXE solo pone a cero los campos de la tarea que el constructor de la DLL ya
+                // inicializa (NSDMI); las asignaciones `= {}` de los temporizadores copiaban ademas el relleno, que el EXE no escribe.
                 auto* t = new CTaskComplexWanderCop(PEDMOVE_STILL, uint8(CGeneral::GetRandomIntInRange(0, 8)));
-                t->m_nSubTaskCreatedTimer = {};
-                t->m_nScanForStuffTimer   = {};
                 ped->GetTaskManager().SetTask(t, TASK_PRIMARY_PRIMARY);
             }
             ped->GetTaskManager().SetTask(new CTaskSimpleStandStill(0, true), TASK_PRIMARY_DEFAULT);
@@ -373,7 +382,7 @@ void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPosit
 
             if (pedType != PED_TYPE_COP) {
                 // Como el original (0x4617A6..0x4617F8): un solo rand()*(1/32768)*100 truncado; el reparto depende de si hay 2 o 3 armas.
-                const auto& gang = CGangs::Gang[pedType - PED_TYPE_GANG1];
+                const auto& gang = CGangs::Gang.data()[pedType - PED_TYPE_GANG1]; // Como el original: sin comprobar el rango (lee [ecx*16+0xC091F4])
                 const auto roll = CGeneral::GetRandomIntInRange(0, 100);
                 auto weapon = gang.m_nGangWeapons[2];
                 if (weapon != WEAPON_UNARMED) {
@@ -385,7 +394,8 @@ void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPosit
                 }
                 if (weapon != WEAPON_UNARMED) {
                     ped->GiveDelayedWeapon(weapon, 25'001);
-                    ped->SetCurrentWeapon(weapon);
+                    // Como el original (0x46180B..0x46181A): GetWeaponInfo(arma, 1)->m_nSlot (+0x14) y SetCurrentWeapon(ranura) (0x5E61F0).
+                    ped->SetCurrentWeapon(int32(CWeaponInfo::GetWeaponInfo(weapon, eWeaponSkill::STD)->m_nSlot));
                 }
             }
             CWorld::Add(ped);

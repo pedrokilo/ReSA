@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 40/40 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 20.
- * Validación registrada: 39/40 entradas.
+ * Validación registrada: 40/40 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -1017,6 +1017,73 @@ void CTrain::AddNearbyPedAsRandomPassenger() {
 }
 
 
+
+// Como el original: pow del EXE (0x822130, base en st1 y exponente en st0, precision completa). El producto con *value se redondea a
+// float solo al guardar (fmul + fstp); std::pow<float> redondearia antes el resultado.
+static void ScaleByExePow(float* value, double base, float exponent) {
+    const uintptr_t powAddress = 0x822130;
+    __asm {
+        fld qword ptr [base]
+        fld dword ptr [exponent]
+        mov eax, powAddress
+        call eax
+        mov eax, value
+        fmul dword ptr [eax]
+        fstp dword ptr [eax]
+    }
+}
+
+// Como el original (0x6F9D1B..0x6F9D66): el mismo pow (base float en st1) multiplica en orden las seis componentes
+// m_vecMoveSpeed.xyz y m_vecTurnSpeed.xyz (contiguas desde +0x44).
+static void ScaleSixByExePow(float* values, float base, float exponent) {
+    const uintptr_t powAddress = 0x822130;
+    __asm {
+        fld dword ptr [base]
+        fld dword ptr [exponent]
+        mov eax, powAddress
+        call eax
+        mov eax, values
+        fld st(0)
+        fmul dword ptr [eax]
+        fstp dword ptr [eax]
+        fld st(0)
+        fmul dword ptr [eax+4]
+        fstp dword ptr [eax+4]
+        fld st(0)
+        fmul dword ptr [eax+8]
+        fstp dword ptr [eax+8]
+        fld st(0)
+        fmul dword ptr [eax+0Ch]
+        fstp dword ptr [eax+0Ch]
+        fld st(0)
+        fmul dword ptr [eax+10h]
+        fstp dword ptr [eax+10h]
+        fmul dword ptr [eax+14h]
+        fstp dword ptr [eax+14h]
+    }
+}
+
+// Como el original (0x6F95B7..0x6F9626): rumbo nuevo = fpatan(-adelante.x, adelante.y) en precision completa; la resta con el rumbo
+// viejo (float) es lo que se redondea (fsub dword ptr [esp+24h]).
+static float HeadingMinusOld(const CMatrix* matrix, float oldHeading) {
+    float result;
+    __asm {
+        mov eax, matrix
+        fld dword ptr [eax+10h]
+        fchs
+        fld dword ptr [eax+14h]
+        fpatan
+        fsub dword ptr [oldHeading]
+        fstp dword ptr [result]
+    }
+    return result;
+}
+
+// Como el original: el EXE inlinea CTrainNode::GetDistanceFromStart (0x6F54B0) como uint16 * 0.3333333432674408 (0x859040), no / 3.0f.
+static float NodeDistanceFromStart(const CTrainNode& node) {
+    return static_cast<float>(node.m_nDistanceFromStart) * std::bit_cast<float>(0x3EAAAAABu);
+}
+
 // 0x6F86A0
 void CTrain::ProcessControl() {
     vehicleFlags.bWarnedPeds = 0;
@@ -1038,14 +1105,15 @@ void CTrain::ProcessControl() {
                 m_fTrainSpeed = m_pPrevCarriage->m_fTrainSpeed;
                 m_fCurrentRailDistance = m_pPrevCarriage->m_fCurrentRailDistance + m_fLength;
             } else {
-                m_fTrainSpeed *= std::pow(0.9900000095367432f, CTimer::GetTimeStep());
+                // Como el original (0x6F8E49..0x6F8E72): pow del EXE (0x822130) con base double 0.99f (0x872500) y producto sin redondear antes de guardar
+                ScaleByExePow(&m_fTrainSpeed, 0.9900000095367432, CTimer::GetTimeStep());
                 m_fCurrentRailDistance += m_fTrainSpeed * CTimer::GetTimeStep();
             }
 
             if (trainFlags.b01 && trainFlags.bStoppedAtStation && m_nModelIndex == MODEL_STREAKC && !trainFlags.bMissionTrain) {
-                CPlayerPed* localPlayer = FindPlayerPed();
+                // Como el original: FindPlayerPed(-1) solo se llama dentro de los estados 0 (0x6F8EAD) y 2 (0x6F8F13)
                 if (m_nPassengersGenerationState == TRAIN_PASSENGERS_QUERY_NUM_PASSENGERS_TO_LEAVE) {
-                    if (localPlayer->m_pVehicle == this) {
+                    if (FindPlayerPed(-1)->m_pVehicle == this) {
                         m_nNumPassengersToLeave = 0;
                     } else {
                         m_nNumPassengersToLeave = (CGeneral::GetRandomNumber() & 3) + 1; // [1, 4]
@@ -1061,7 +1129,7 @@ void CTrain::ProcessControl() {
                 }
 
                 if (m_nPassengersGenerationState == TRAIN_PASSENGERS_QUERY_NUM_PASSENGERS_TO_ENTER) {
-                    if (localPlayer->m_pVehicle == this) {
+                    if (FindPlayerPed(-1)->m_pVehicle == this) {
                         m_nNumPassengersToEnter = 0;
                     } else {
                         m_nNumPassengersToEnter = CGeneral::GetRandomNumber() % 4 + 1; // rand(1, 4)
@@ -1111,7 +1179,8 @@ void CTrain::ProcessControl() {
                         } else if (trainFlags.bStoppedAtStation) {
                             CTrain* trainCarriage = this;
                             do {
-                                trainFlags.bStoppedAtStation = false;
+                                // Como el original (0x6F8940): "and [eax+5B8h],0FDh" sobre cada vagon (eax = vagon), no sobre this
+                                trainCarriage->trainFlags.bStoppedAtStation = false;
                                 trainCarriage->m_nPassengersGenerationState = TRAIN_PASSENGERS_GENERATION_FINISHED;
                                 trainCarriage = trainCarriage->m_pNextCarriage;
                             } while (trainCarriage);
@@ -1121,7 +1190,8 @@ void CTrain::ProcessControl() {
                         if (trainFlags.bStoppedAtStation) {
                             CTrain* trainCarriage = this;
                             do {
-                                trainFlags.bPassengersCanEnterAndLeave = false;
+                                // Como el original (0x6F8910): "and [eax+5B8h],0FBh" sobre cada vagon
+                                trainCarriage->trainFlags.bPassengersCanEnterAndLeave = false;
                                 trainCarriage->m_nPassengersGenerationState = TRAIN_PASSENGERS_GENERATION_FINISHED;
                                 trainCarriage = trainCarriage->m_pNextCarriage;
                             } while (trainCarriage);
@@ -1132,15 +1202,16 @@ void CTrain::ProcessControl() {
                     if (!trainFlags.bStoppedAtStation) {
                         CTrain* trainCarriage = this;
                         do {
-                            trainFlags.bStoppedAtStation = true;
-                            trainFlags.bPassengersCanEnterAndLeave = true;
+                            // Como el original (0x6F88D0): "or [eax+5B8h],6" sobre cada vagon
+                            trainCarriage->trainFlags.bStoppedAtStation = true;
+                            trainCarriage->trainFlags.bPassengersCanEnterAndLeave = true;
                             trainCarriage->m_nPassengersGenerationState = TRAIN_PASSENGERS_QUERY_NUM_PASSENGERS_TO_LEAVE;
                             trainCarriage = trainCarriage->m_pNextCarriage;
                         } while (trainCarriage);
                     }
                 }
 
-                fStopAtStationSpeed = fStopAtStationSpeed / 50.0f - m_fTrainSpeed;
+                fStopAtStationSpeed = fStopAtStationSpeed * 0.02f - m_fTrainSpeed; // Como el original (0x6F8991): fmul [858B38] (0.02f), no / 50
                 if (fStopAtStationSpeed > 0.0f) {
                     m_fTrainGas = fStopAtStationSpeed * 30.0f;
                     if (m_fTrainGas >= 1.0f) {
@@ -1214,7 +1285,8 @@ void CTrain::ProcessControl() {
                 }
             }
 
-            m_fTrainSpeed *= pow(0.999750018119812f, CTimer::GetTimeStep());
+            // Como el original (0x6F8BF2..0x6F8C10): pow del EXE con base double 0.99975 (0x872508), producto sin redondear
+            ScaleByExePow(&m_fTrainSpeed, 0.999750018119812, CTimer::GetTimeStep());
             if (!trainFlags.bClockwiseDirection) {
                 m_fTrainSpeed = -m_fTrainSpeed;
             }
@@ -1258,7 +1330,9 @@ void CTrain::ProcessControl() {
                     vecDifference1.Normalise();
                     vecDifference2.Normalise();
 
-                    if (DotProduct(vecDifference1, vecDifference2) < 0.996f) {
+                    // Como el original (0x6F8D93..0x6F8DAF): producto escalar (z*z + x*x) + y*y (no el orden z, y, x de DotProduct)
+                    const float fDot = (vecDifference1.z * vecDifference2.z + vecDifference1.x * vecDifference2.x) + vecDifference1.y * vecDifference2.y;
+                    if (fDot < 0.996f) {
                         CTrain* carriage = this;
                         bool bIsInTunnel = false;
                         while (!bIsInTunnel) {
@@ -1268,7 +1342,8 @@ void CTrain::ProcessControl() {
                                 if (!bIsInTunnel) {
                                     CTrain* theTrainCarriage = this;
                                     do {
-                                        trainFlags.bNotOnARailRoad = true;
+                                        // Como el original (0x6F8DF0): "or [edi+5B9h],1" sobre cada vagon (edi)
+                                        theTrainCarriage->trainFlags.bNotOnARailRoad = true;
                                         theTrainCarriage->physicalFlags.bDisableCollisionForce = false;
                                         theTrainCarriage->physicalFlags.bDisableSimpleCollision = false;
                                         theTrainCarriage->SetIsStatic(false);
@@ -1301,14 +1376,14 @@ void CTrain::ProcessControl() {
         int32 nextNodeIndex = m_nNodeIndex + 1;
         if (nextNodeIndex < numTrackNodes) {
             CTrainNode* nextTrainNode = &trainNodes[nextNodeIndex];
-            fNextNodeTrackLength = nextTrainNode->GetDistanceFromStart();
+            fNextNodeTrackLength = NodeDistanceFromStart(*nextTrainNode);
         } else {
             fNextNodeTrackLength = fTotalTrackLength;
             nextNodeIndex = 0;
         }
 
         CTrainNode* theTrainNode = &trainNodes[m_nNodeIndex];
-        float fCurrentNodeTrackLength = theTrainNode->GetDistanceFromStart();
+        float fCurrentNodeTrackLength = NodeDistanceFromStart(*theTrainNode);
         while (m_fCurrentRailDistance < fCurrentNodeTrackLength || fNextNodeTrackLength < m_fCurrentRailDistance) {
             int32 newNodeIndex = m_nNodeIndex - 1; // previous node
             if (fCurrentNodeTrackLength <= m_fCurrentRailDistance) {
@@ -1318,12 +1393,12 @@ void CTrain::ProcessControl() {
             m_vehicleAudio.AddAudioEvent(AE_TRAIN_CLACK, 0.0f);
 
             theTrainNode = &trainNodes[m_nNodeIndex];
-            fCurrentNodeTrackLength = theTrainNode->GetDistanceFromStart();
+            fCurrentNodeTrackLength = NodeDistanceFromStart(*theTrainNode);
 
             nextNodeIndex = m_nNodeIndex + 1;
             if (nextNodeIndex < numTrackNodes) {
                 CTrainNode* nextTrainNode = &trainNodes[nextNodeIndex];
-                fNextNodeTrackLength = nextTrainNode->GetDistanceFromStart();
+                fNextNodeTrackLength = NodeDistanceFromStart(*nextTrainNode);
             } else {
                 fNextNodeTrackLength = fTotalTrackLength;
                 nextNodeIndex = 0;
@@ -1331,7 +1406,7 @@ void CTrain::ProcessControl() {
         }
 
         CTrainNode* nextTrainNode = &trainNodes[nextNodeIndex];
-        fNextNodeTrackLength = nextTrainNode->GetDistanceFromStart();
+        fNextNodeTrackLength = NodeDistanceFromStart(*nextTrainNode);
 
         float fTrackNodeDifference = fNextNodeTrackLength - fCurrentNodeTrackLength;
         if (fTrackNodeDifference < 0.0f) {
@@ -1350,7 +1425,7 @@ void CTrain::ProcessControl() {
 
         nextNodeIndex = m_nNodeIndex + 1;
         if (nextNodeIndex < numTrackNodes) {
-            fNextNodeTrackLength = trainNodes[nextNodeIndex].GetDistanceFromStart();
+            fNextNodeTrackLength = NodeDistanceFromStart(trainNodes[nextNodeIndex]);
         } else {
             fNextNodeTrackLength = fTotalTrackLength;
             nextNodeIndex = 0;
@@ -1361,18 +1436,18 @@ void CTrain::ProcessControl() {
             trainNodeIndex = (trainNodeIndex + 1) % numTrackNodes;
 
             theTrainNode = &trainNodes[trainNodeIndex];
-            fCurrentNodeTrackLength = theTrainNode->GetDistanceFromStart();
+            fCurrentNodeTrackLength = NodeDistanceFromStart(*theTrainNode);
 
             nextNodeIndex = trainNodeIndex + 1;
             if (nextNodeIndex < numTrackNodes) {
-                fNextNodeTrackLength = trainNodes[nextNodeIndex].GetDistanceFromStart();
+                fNextNodeTrackLength = NodeDistanceFromStart(trainNodes[nextNodeIndex]);
             } else {
                 fNextNodeTrackLength = fTotalTrackLength;
                 nextNodeIndex = 0;
             }
         }
 
-        fNextNodeTrackLength = trainNodes[nextNodeIndex].GetDistanceFromStart();
+        fNextNodeTrackLength = NodeDistanceFromStart(trainNodes[nextNodeIndex]);
 
         fTrackNodeDifference = fNextNodeTrackLength - fCurrentNodeTrackLength;
         if (fTrackNodeDifference < 0.0f) {
@@ -1406,14 +1481,15 @@ void CTrain::ProcessControl() {
         m_fContactSurfaceBrightness = fTrainNodeLighting;
         m_vecMoveSpeed = (1.0f / CTimer::GetTimeStep()) * (GetPosition() - vecOldTrainPosition);
 
-        float fNewTrainHeading = GetHeading();
-        float fHeading = fNewTrainHeading - fOldTrainHeading;
-        if (fHeading <= PI) {
-            if (fHeading < -PI) {
-                fHeading += TWO_PI;
+        // Como el original (0x6F9626..0x6F964C): rumbo nuevo en precision completa menos el viejo; constantes pi / 2*pi del EXE
+        // (0x858CB8 = 0x40490FDB, 0x858CBC = 0x40C90FDB, 0x858CC0 = 0xC0490FDB), no el PI = 3.14159f de common.h
+        float fHeading = m_matrix ? HeadingMinusOld(m_matrix, fOldTrainHeading) : m_placement.m_fHeading - fOldTrainHeading;
+        if (fHeading <= std::bit_cast<float>(0x40490FDBu)) {
+            if (fHeading < std::bit_cast<float>(0xC0490FDBu)) {
+                fHeading += std::bit_cast<float>(0x40C90FDBu);
             }
         } else {
-            fHeading -= TWO_PI;
+            fHeading -= std::bit_cast<float>(0x40C90FDBu);
         }
 
         m_vecTurnSpeed = CVector(0.0f, 0.0f, fHeading / CTimer::GetTimeStep());
@@ -1446,7 +1522,11 @@ void CTrain::ProcessControl() {
         SetWasPostponed(false);
         SetIsInSafePosition(true);
 
-        m_fMovingSpeed = DistanceBetweenPoints(GetPosition(), vecOldTrainPosition);
+        {
+            // Como el original (0x6F9910..0x6F9939): (dz*dz + dy*dy) + dx*dx y fsqrt (DistanceBetweenPoints suma en orden x, y, z)
+            const CVector vecDelta = vecOldTrainPosition - GetPosition();
+            m_fMovingSpeed = std::sqrt((vecDelta.z * vecDelta.z + vecDelta.y * vecDelta.y) + vecDelta.x * vecDelta.x);
+        }
 
         if (trainFlags.bIsFrontCarriage || trainFlags.bIsLastCarriage) {
             CVector vecPoint = bbox.m_vecMax.y * GetForward();
@@ -1501,8 +1581,11 @@ void CTrain::ProcessControl() {
 
         CPhysical::ProcessControl();
 
-        CVector vecMoveForce{}, vecTurnForce{};
-        if (mod_Buoyancy.ProcessBuoyancy(this, m_fBuoyancyConstant, &vecMoveForce, &vecTurnForce)) {
+        // Como el original (0x6F9CA6..0x6F9CB7): sin inicializar; ProcessBuoyancy(this, constante, &puntoDeGiro [esp+68h], &fuerza [esp+44h]).
+        // La fuerza reutiliza el espacio de vecOldTrainPosition en el EXE: todo lo que sigue (cociente, ApplyMoveForce y ApplyTurnForce)
+        // lee la fuerza devuelta (0x6F9D05 fdivr [esp+4Ch]; 0x6F9D25/0x6F9D6E), no la posicion antigua del tren.
+        CVector vecBuoyancyTurnPoint, vecBuoyancyForce;
+        if (mod_Buoyancy.ProcessBuoyancy(this, m_fBuoyancyConstant, &vecBuoyancyTurnPoint, &vecBuoyancyForce)) {
             physicalFlags.bTouchingWater = true;
 
             float fTimeStep = 0.01f;
@@ -1510,13 +1593,11 @@ void CTrain::ProcessControl() {
                 fTimeStep = CTimer::GetTimeStep();
             }
 
-            float fSpeedFactor = 1.0f - vecOldTrainPosition.z / (fTimeStep * m_fMass * 0.008f) * 0.05f;
-            fSpeedFactor = std::pow(fSpeedFactor, CTimer::GetTimeStep());
-
-            m_vecMoveSpeed *= fSpeedFactor;
-            m_vecTurnSpeed *= fSpeedFactor;
-            ApplyMoveForce(vecOldTrainPosition.x, vecOldTrainPosition.y, vecOldTrainPosition.z);
-            ApplyTurnForce(vecTurnForce, vecMoveForce);
+            float fSpeedFactor = 1.0f - vecBuoyancyForce.z / (fTimeStep * m_fMass * 0.008f) * 0.05f;
+            // Como el original (0x6F9D1B..0x6F9D66): pow del EXE sin redondear a float; multiplica m_vecMoveSpeed y m_vecTurnSpeed (+0x44..+0x58)
+            ScaleSixByExePow(&m_vecMoveSpeed.x, fSpeedFactor, CTimer::GetTimeStep());
+            ApplyMoveForce(vecBuoyancyForce.x, vecBuoyancyForce.y, vecBuoyancyForce.z);
+            ApplyTurnForce(vecBuoyancyForce, vecBuoyancyTurnPoint);
         }
     }
 }

@@ -1,0 +1,3 @@
+APROBADO: ClothesWave3 (CClothesBuilder::CreateSkinnedClump)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clotheswave3\20261009-105013-683422
