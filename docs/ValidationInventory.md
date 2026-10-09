@@ -6,10 +6,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 7047 |
+| `validated=1` · evidencia aprobada vinculada | 7155 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 7047 |
-| Sin evidencia aprobada vinculada en este registro | 1399 |
+| Evidencia histórica vinculada; revisión pendiente | 7155 |
+| Sin evidencia aprobada vinculada en este registro | 1291 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -314,10 +314,25 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEMP3TrackLoader | `IsCurrentAudioStreamAvailable` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEMP3TrackLoader | `LoadStreamPackTable` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEMP3TrackLoader | `LoadTrackLookupTable` | [Resumen](../reversing/Audio7/validation-summary.json) |
+| CAEPedAudioEntity | `AddAudioEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `HandleFootstepEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `HandleLandingEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEPedAudioEntity | `HandlePedHit` | [Resumen](../reversing/AudioPedPending/validation-summary.json) |
 | CAEPedAudioEntity | `HandlePedJacked` | [Resumen](../reversing/AudioPedPending/validation-summary.json) |
 | CAEPedAudioEntity | `HandlePedSwing` | [Resumen](../reversing/AudioPedPending/validation-summary.json) |
+| CAEPedAudioEntity | `HandleSkateEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `HandleSwimSplash` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `HandleSwimWake` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `Initialise` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `PlayShirtFlap` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `PlayWindRush` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEPedAudioEntity | `Service` | [Resumen](../reversing/AudioPedPending/validation-summary.json) |
+| CAEPedAudioEntity | `StaticInitialise` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `StopJetPackSound` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `Terminate` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `TurnOffJetPack` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `TurnOnJetPack` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `UpdateJetPack` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEPedAudioEntity | `UpdateParameters` | [Resumen](../reversing/FixAudio/validation-summary.json) |
 | CAEPedSpeechAudioEntity | `AddSayEvent` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
 | CAEPedSpeechAudioEntity | `AddScriptSayEvent` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
@@ -394,9 +409,22 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEPedlessSpeechAudioEntity | `UpdateParameters` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CAEPedlessSpeechAudioEntity | `WillPedChatAboutTopic` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CAEPoliceScannerAudioEntity | `AddAudioEvent` | [Resumen](../reversing/AudioScannerPending/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `CanWePlayNewScannerDialogue` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `Constructor` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `Destructor` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `DisableScanner` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `EnableScanner` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `FinishedPlayingScannerDialogue` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEPoliceScannerAudioEntity | `LoadSlots` | [Resumen](../reversing/AudioScannerPending/validation-summary.json) |
 | CAEPoliceScannerAudioEntity | `PlayLoadedDialogue` | [Resumen](../reversing/AudioScannerPending/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `PlayPoliceScannerDialogue` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `PopulateScannerDialogueLists` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `PrepSlots` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `Reset` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEPoliceScannerAudioEntity | `Service` | [Resumen](../reversing/AudioScannerPending/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `StaticInitialise` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `StopScanner` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPoliceScannerAudioEntity | `UpdateParameters` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAERadioTrackManager | `CheckForStationRetune` | [Resumen](../reversing/RadioRetune355/validation-summary.json) |
 | CAERadioTrackManager | `CheckForTrackConcatenation` | [Resumen](../reversing/RadioConcat355/validation-summary.json) |
 | CAERadioTrackManager | `ChooseAdvertIndex` | [Resumen](../reversing/RadioSelection355/validation-summary.json) |
@@ -413,13 +441,21 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAERadioTrackManager | `UpdateRadioVolumes` | [Resumen](../reversing/RadioVolumes355/validation-summary.json) |
 | CAEScriptAudioEntity | `AttachMissionAudioToPhysical` | [Resumen](../reversing/ScriptLinks355/validation-summary.json) |
 | CAEScriptAudioEntity | `ClearMissionAudio` | [Resumen](../reversing/ScriptLinks355/validation-summary.json) |
+| CAEScriptAudioEntity | `Constructor` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEScriptAudioEntity | `GetMissionAudioEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEScriptAudioEntity | `GetMissionAudioLoadingStatus` | [Resumen](../reversing/ScriptLinks355/validation-summary.json) |
 | CAEScriptAudioEntity | `GetMissionAudioPosition` | [Resumen](../reversing/ScriptLinks355/validation-summary.json) |
+| CAEScriptAudioEntity | `Initialise` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEScriptAudioEntity | `IsMissionAudioSampleFinished` | [Resumen](../reversing/ScriptLinks355/validation-summary.json) |
 | CAEScriptAudioEntity | `PlayLoadedMissionAudio` | [Resumen](../reversing/ScriptLoaded355/validation-summary.json) |
 | CAEScriptAudioEntity | `PlayMissionBankSound` | [Resumen](../reversing/ScriptBank355/validation-summary.json) |
+| CAEScriptAudioEntity | `PlayResidentSoundEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEScriptAudioEntity | `PreloadMissionAudio` | [Resumen](../reversing/ScriptPreload355/validation-summary.json) |
 | CAEScriptAudioEntity | `ProcessMissionAudioEvent` | [Resumen](../reversing/ScriptEvents355/validation-summary.json) |
+| CAEScriptAudioEntity | `ReportMissionAudioEvent-1` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEScriptAudioEntity | `ReportMissionAudioEvent-2` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEScriptAudioEntity | `Reset` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEScriptAudioEntity | `Service` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEScriptAudioEntity | `SetMissionAudioPosition` | [Resumen](../reversing/ScriptLinks355/validation-summary.json) |
 | CAEScriptAudioEntity | `UpdateParameters` | [Resumen](../reversing/ScriptUpdate355/validation-summary.json) |
 | CAESmoothFadeThread | `CancelFade` | [Resumen](../reversing/Sys10/validation-summary.json) |
@@ -488,12 +524,30 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEStreamThread | `WaitForExit` | [Resumen](../reversing/Audio14/validation-summary.json) |
 | CAEStreamTransformer | `Initialise` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CAEStreamTransformer | `TransformBuffer` | [Resumen](../reversing/Misc70/validation-summary.json) |
+| CAEStreamingChannel | `AddFX` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEStreamingChannel | `Constructor` | [Resumen](../reversing/AudioStreamingPending/validation-summary.json) |
+| CAEStreamingChannel | `Destructor` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `FillBuffer` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `GetActiveTrackID` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEStreamingChannel | `GetLength` | [Resumen](../reversing/FixAudio/validation-summary.json) |
 | CAEStreamingChannel | `GetPlayTime` | [Resumen](../reversing/FixAudio/validation-summary.json) |
+| CAEStreamingChannel | `GetPlayingTrackID` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `Initialise` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `InitialiseSilence` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `IsSoundPlaying` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `Pause` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `Play` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEStreamingChannel | `PrepareStream` | [Resumen](../reversing/AudioStreamingPending/validation-summary.json) |
+| CAEStreamingChannel | `RemoveFX` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEStreamingChannel | `Service` | [Resumen](../reversing/AudioStreamingPending/validation-summary.json) |
+| CAEStreamingChannel | `SetBassEQ` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `SetFrequencyScalingFactor` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `SetNextStream` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `SetReady` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `Stop-class` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEStreamingChannel | `Stop-virtual` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEStreamingChannel | `SynchPlayback` | [Resumen](../reversing/FixHooks/validation-summary.json) |
+| CAEStreamingChannel | `UpdatePlayTime` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEStreamingDecoder | `Constructor` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CAEStreamingDecoder | `Destructor` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CAETrackLoader | `GetDataStream` | [Resumen](../reversing/Misc56/validation-summary.json) |
@@ -1047,14 +1101,28 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CClothes | `RebuildPlayer` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CClothes | `RebuildPlayerIfNeeded` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CClothes | `RequestMotionGroupAnims` | [Resumen](../reversing/Audio11/validation-summary.json) |
+| CClothesBuilder | `AddWeightToBoneVertex` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CClothesBuilder | `BlendGeometry-2` | [Resumen](../reversing/ClothesGeometry355/validation-summary.json) |
 | CClothesBuilder | `BlendGeometry-3` | [Resumen](../reversing/ClothesGeometry355/validation-summary.json) |
+| CClothesBuilder | `BlendTextures-Dst-Src` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `BlendTextures-Dst-Src1-Src2` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `BlendTextures-Dst-Src1-Src2-Tat` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `BuildBoneIndexConversionTable` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CClothesBuilder | `ConstructGeometryAndSkinArrays` | [Resumen](../reversing/ClothesSkin355/validation-summary.json) |
 | CClothesBuilder | `ConstructGeometryArray` | [Resumen](../reversing/ClothesArray355/validation-summary.json) |
 | CClothesBuilder | `ConstructTextures` | [Resumen](../reversing/ClothesTextures355/validation-summary.json) |
 | CClothesBuilder | `CopyGeometry` | [Resumen](../reversing/ClothesGeometry355/validation-summary.json) |
+| CClothesBuilder | `CopyTexture` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `DestroySkinArrays` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `GetAtomicWithName` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `GetTextureFromTxdAndLoadNextTxd` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `LoadCdDirectory` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `PlaceTextureOnTopOfTexture` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CClothesBuilder | `PreprocessClothesDesc` | [Resumen](../reversing/ClothesRules355/validation-summary.json) |
 | CClothesBuilder | `ReleaseGeometry` | [Resumen](../reversing/ClothesRules355/validation-summary.json) |
+| CClothesBuilder | `RequestGeometry` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `RequestTexture` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CClothesBuilder | `StoreBoneArray` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CClouds | `Init` | [Resumen](../reversing/Clouds21/validation-summary.json) |
 | CClouds | `MovingFogInit` | [Resumen](../reversing/Clouds21/validation-summary.json) |
 | CClouds | `MovingFogRender` | [Resumen](../reversing/Clouds21/validation-summary.json) |
@@ -3709,15 +3777,34 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CShadowCamera | `Update-Clump` | [Resumen](../reversing/Render19/validation-summary.json) |
 | CShadowCamera | `atomicQuickRender` | [Resumen](../reversing/Render19/validation-summary.json) |
 | CShadows | `AddPermanentShadow` | [Resumen](../reversing/ShadowPermanent355/validation-summary.json) |
+| CShadows | `AffectColourWithLighting` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `CalcPedShadowValues` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CShadows | `CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>>` | [Resumen](../reversing/ShadowSectors355/validation-summary.json) |
 | CShadows | `CastShadowEntityXY` | [Resumen](../reversing/ShadowXY355/validation-summary.json) |
 | CShadows | `CastShadowEntityXYZ` | [Resumen](../reversing/ShadowXYZ355/validation-summary.json) |
 | CShadows | `CastShadowSectorList<CPtrListSingleLink<CPhysical*>>` | [Resumen](../reversing/ShadowSectors355/validation-summary.json) |
 | CShadows | `GeneratePolysForStaticShadow` | [Resumen](../reversing/ShadowGenerate355/validation-summary.json) |
+| CShadows | `GunShotSetsOilOnFire` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `Init` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `PrintDebugPoly` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `RemoveOilInArea` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `RenderExtraPlayerShadows` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `RenderIndicatorShadow` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `RenderStaticShadows` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `SetRenderModeForShadowType` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CShadows | `ShadowRenderTriangleCB` | [Resumen](../reversing/ShadowTriangle355/validation-summary.json) |
+| CShadows | `Shutdown` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `StoreCarLightShadow` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `StoreRealTimeShadow` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `StoreShadowForPedObject` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `StoreShadowForPole` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CShadows | `StoreShadowForVehicle` | [Resumen](../reversing/ShadowVehicle355/validation-summary.json) |
+| CShadows | `StoreShadowToBeRendered-Texture` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CShadows | `StoreShadowToBeRendered-Type` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CShadows | `StoreStaticShadow` | [Resumen](../reversing/ShadowStatic355/validation-summary.json) |
+| CShadows | `TidyUpShadows` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CShadows | `UpdatePermanentShadows` | [Resumen](../reversing/ShadowPermanent355/validation-summary.json) |
+| CShadows | `UpdateStaticShadows` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CShinyTexts | `Init` | [Resumen](../reversing/Render23/validation-summary.json) |
 | CShinyTexts | `RegisterOne` | [Resumen](../reversing/Render23/validation-summary.json) |
 | CShinyTexts | `Render` | [Resumen](../reversing/Render23/validation-summary.json) |
@@ -6386,11 +6473,32 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterCannons | `Render` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | CWaterCannons | `Update` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | CWaterCannons | `UpdateOne` | [Resumen](../reversing/Misc8/validation-summary.json) |
+| CWaterLevel | `AddWaterLevelTriangle` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `AddWaterLevelVertex` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `AddWaveToResult` | [Resumen](../reversing/WaterQuery355/validation-summary.json) |
+| CWaterLevel | `BlockHit` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `CalculateWavesOnlyForCoordinate` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `FindNearestWaterAndItsFlow` | [Resumen](../reversing/WaterNearest355/validation-summary.json) |
+| CWaterLevel | `GetWaterLevel-` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `GetWaterLevelNoWaves` | [Resumen](../reversing/WaterQuery355/validation-summary.json) |
+| CWaterLevel | `MarkQuadsAndPolysToBeRendered` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `PreRenderWater` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `RenderFlatWaterRectangle` | [Resumen](../reversing/GfxWave2/validation-summary-b.json) |
+| CWaterLevel | `RenderFlatWaterRectangle_OneLayer` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `RenderFlatWaterTriangle` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `RenderFlatWaterTriangle_OneLayer` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `RenderWakeSegment` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `RenderWater` | [Resumen](../reversing/WaterRender355/validation-summary.json) |
 | CWaterLevel | `RenderWaterFog` | [Resumen](../reversing/WaterFog355/validation-summary.json) |
+| CWaterLevel | `RenderWaterRectangle` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `RenderWaterTriangle` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `ScanThroughBlocks` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `SetCameraRange` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `SetUpWaterFog` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `Shutdown` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `SplitWaterRectangleAlongXLine` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `SplitWaterRectangleAlongYLine` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `SplitWaterTriangleAlongXLine` | [Resumen](../reversing/GfxWave2/validation-summary-b.json) |
 | CWeapon | `CheckForShootingVehicleOccupant` | [Resumen](../reversing/WeaponOccupant355/validation-summary.json) |
 | CWeapon | `DoDriveByAutoAiming` | [Resumen](../reversing/WeaponDrive355/validation-summary.json) |
 | CWeapon | `DoTankDoomAiming` | [Resumen](../reversing/WeaponTank355/validation-summary.json) |
@@ -7101,20 +7209,20 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEMFDecoder` | 10 | 0 | 10 | 0 |
 | `CAEMP3BankLoader` | 13 | 0 | 13 | 0 |
 | `CAEMP3TrackLoader` | 7 | 0 | 7 | 0 |
-| `CAEPedAudioEntity` | 20 | 0 | 5 | 15 |
+| `CAEPedAudioEntity` | 20 | 0 | 20 | 0 |
 | `CAEPedSpeechAudioEntity` | 58 | 0 | 58 | 0 |
 | `CAEPedWeaponAudioEntity` | 5 | 0 | 5 | 0 |
 | `CAEPedlessSpeechAudioEntity` | 11 | 0 | 11 | 0 |
-| `CAEPoliceScannerAudioEntity` | 17 | 0 | 4 | 13 |
+| `CAEPoliceScannerAudioEntity` | 17 | 0 | 17 | 0 |
 | `CAERadioTrackManager` | 43 | 0 | 14 | 29 |
-| `CAEScriptAudioEntity` | 19 | 0 | 11 | 8 |
+| `CAEScriptAudioEntity` | 19 | 0 | 19 | 0 |
 | `CAESmoothFadeThread` | 10 | 0 | 10 | 0 |
 | `CAESound` | 18 | 0 | 18 | 0 |
 | `CAESoundManager` | 14 | 0 | 14 | 0 |
 | `CAEStaticChannel` | 8 | 0 | 8 | 0 |
 | `CAEStreamThread` | 14 | 0 | 14 | 0 |
 | `CAEStreamTransformer` | 2 | 0 | 2 | 0 |
-| `CAEStreamingChannel` | 24 | 0 | 6 | 18 |
+| `CAEStreamingChannel` | 24 | 0 | 24 | 0 |
 | `CAEStreamingDecoder` | 2 | 0 | 2 | 0 |
 | `CAETrackLoader` | 1 | 0 | 1 | 0 |
 | `CAETwinLoopSoundEntity` | 7 | 0 | 7 | 0 |
@@ -7168,7 +7276,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCivilianPed` | 3 | 0 | 3 | 0 |
 | `CClock` | 9 | 0 | 9 | 0 |
 | `CClothes` | 11 | 0 | 11 | 0 |
-| `CClothesBuilder` | 23 | 0 | 8 | 15 |
+| `CClothesBuilder` | 23 | 0 | 22 | 1 |
 | `CClouds` | 21 | 0 | 21 | 0 |
 | `CClumpModelInfo` | 24 | 0 | 24 | 0 |
 | `CColAccel` | 11 | 0 | 11 | 0 |
@@ -7442,7 +7550,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CSetPiece` | 3 | 0 | 3 | 0 |
 | `CSetPieces` | 5 | 0 | 5 | 0 |
 | `CShadowCamera` | 19 | 0 | 19 | 0 |
-| `CShadows` | 31 | 0 | 10 | 21 |
+| `CShadows` | 31 | 0 | 29 | 2 |
 | `CShinyTexts` | 4 | 0 | 4 | 0 |
 | `CShopping` | 30 | 0 | 30 | 0 |
 | `CShotInfo` | 5 | 0 | 5 | 0 |
@@ -7790,7 +7898,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWanted` | 33 | 0 | 33 | 0 |
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
 | `CWaterCannons` | 4 | 0 | 4 | 0 |
-| `CWaterLevel` | 30 | 0 | 5 | 25 |
+| `CWaterLevel` | 30 | 0 | 26 | 4 |
 | `CWeapon` | 41 | 0 | 6 | 35 |
 | `CWeaponEffects` | 9 | 0 | 9 | 0 |
 | `CWeaponInfo` | 10 | 0 | 10 | 0 |

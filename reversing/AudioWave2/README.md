@@ -1,6 +1,10 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7155 con evidencia histórica, 0 con vigencia acreditada y 1291 pendientes en 34 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # AudioWave2 (CAEScriptAudioEntity, CAEPoliceScannerAudioEntity, CAEPedAudioEntity, CAEStreamingChannel)
 
-Banco simple (estilo Small2/PadMouse1/AudioFinal1) **preparado el 09/10/2026, SIN compilar ni ejecutar** (pendiente de `bash reversing/_handoff/bench.sh AudioWave2 3`).
+Banco simple (estilo Small2/PadMouse1/AudioFinal1) compilado y ejecutado: aprobado el 09/10/2026 (ver "Aprobacion" al final).
 54 funciones (las `reversed=1, validated=0` de `docs/hooks.csv` de las cuatro clases), 18 496 pares original (EXE, hook desactivado) / candidato (DLL, hook activado).
 
 | Clase | Funciones (casos) |
@@ -66,3 +70,11 @@ MATCH (sin cambios): Script Initialise, Service, ReportMissionAudioEvent-1/-2; S
 - Punteros de offsets: CAESound `m_Length` +0x70, flags +0x56; `CPed` flags +0x46C, `m_nContactSurface` +0xBA; gemelo `m_IsInUse` +0x88 del twin-loop (+0x130 del ped).
 
 Repetir: `bash reversing/_handoff/bench.sh AudioWave2 3`
+
+## Aprobacion (09/10/2026)
+
+Corrida aprobada `20261009-094655-013393`: 18496 pares, 0 diferencias, 54 funciones, state_restored, saves y configuraciones intactos; sonda 63570679... (ASI de `artifacts/`). Las ejecuciones anteriores (fallos de AddAudioEvent 16/1024 hasta activar x87 a 24 bits, y errores dentro de GTA por fixtures de CAEStreamingChannel fuera de dominio) no se conservan. Evidencia en `runs/20261009-094655-013393/` (jsonl en .gz con hash verificado), resumen en `validation-summary.json`, registro con `register_audiowave2.py` (54 funciones, respaldo `reversing/validation-registry.backup-before-audio-wave2.json`) y documentacion con `refresh_documentation_cut365.py`. Segun hooks.csv las cuatro clases (CAEScriptAudioEntity, CAEPoliceScannerAudioEntity, CAEPedAudioEntity, CAEStreamingChannel) quedan COMPLETAS.
+
+Correcciones de fuente adicionales no listadas arriba: `AddAudioEvent` deja `m_ClientVariable = -1` en CRUNCH y usa el literal `0x3D75C290` como SpeedVariance en CRUNCH y KNOCK_DOWN; `AddFX` usa un unico `fxParamEq` local compartido fuera del bucle y un puntero de resultados no nulo.
+
+Limites declarados: constructores/destructores con vptr y tramo base de CAEAudioEntity enmascarados; SoundDigest enmascara relleno/basura de pila (+0x55, +0x40..0x4F, +0x5A..+0x5B, +0x6A..+0x6B, +0x72..+0x73); `InitialiseSilence` con `CreateSoundBuffer` fallido no probado (NOTSA_LOG_WARN); `CoInitialize` solo durante `Streaming::Initialise`; Destructor de Streaming con `m_pDirectSoundBuffer` siempre no nulo (el EXE no comprueba nulo); fixture `eqFail` solo en la 2.a iteracion de AddFX (si fallase la 1.a el EXE usa un local sin inicializar); todo sobre COM de DirectSound falso y dobles trazados sin credito.

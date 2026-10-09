@@ -1,0 +1,170 @@
+{
+  "bank_changed_after_run": {
+    "WaterPart.hpp": {
+      "tested_sha256": "bae02352bfa2f6acb2f82160c451bc320bf64e6370ec01c42a58af9791c04710",
+      "current_sha256": "c34e783ed8e71ffca584a5b7eb5ce92414496e38d6d50a947a0cdd640eafc673"
+    }
+  },
+  "passed": false,
+  "partial_per_function_approval": true,
+  "increment": 2,
+  "previous_summary": "reversing/GfxWave2/validation-summary.json",
+  "pairs": 27616,
+  "differences": 254,
+  "registered_pairs": 1536,
+  "registered_functions": 2,
+  "functions": {
+    "CWaterLevel::RenderFlatWaterRectangle": 1024,
+    "CWaterLevel::SplitWaterTriangleAlongXLine": 512
+  },
+  "covered_functions": {
+    "CWaterLevel::RenderFlatWaterRectangle": true,
+    "CWaterLevel::SplitWaterTriangleAlongXLine": true
+  },
+  "rejected_functions": {
+    "CWaterLevel::AddWaterLevelQuad": {
+      "pairs": 1024,
+      "failures": 254,
+      "equal": 770,
+      "reason": "differences against the EXE in the approved run; not registered, no credit"
+    }
+  },
+  "scope": "PARTIAL, per-function approval (second increment of GfxWave2; the first 52 functions are registered by validation-summary.json, run 20261009-095105-342457). Simple pair bench inside the full game with a loaded save (original with the class hooks off vs candidate with the hooks on), 27616 isolated CPU pairs for 55 functions of CClothesBuilder (14), CShadows (19) and CWaterLevel (22). Only CWaterLevel::RenderFlatWaterRectangle (1024) and CWaterLevel::SplitWaterTriangleAlongXLine (512) are registered here, with ALL pairs equal and the pair count equal to the bank table; the other 52 functions also have all pairs equal in this run but are registered by the earlier summary and are not duplicated. The run as a whole has passed=false because CWaterLevel::AddWaterLevelQuad (254/1024) differs: it is REJECTED, not registered and gets no credit. The run has no natural \"complete\" event: the bench writes \"complete\" only when passed, otherwise a terminal \"error\" event (pairs=27616, state_restored=true, no reason, i.e. the run finished normally); saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (fake objects; drawing replaced by traces of RwIm3D*/RwRaster*/etc. with raw arguments, nothing is drawn) and compares return value, collaborator traces, the bytes of the real fields of the fixtures (padding masked), and the restored globals; x87 at 24 bits, no signalling NaN, foreign threads ignored (Mine()). Traced stubs and out-of-bench pieces get NO credit (e.g. RwIm3D*, LittleTest, GetWaterLevelNoWaves, FindPlayerCoors, CanSeeWaterFromCurrArea, HandleBeachToysStuff and, per case, sibling CWaterLevel drawing functions). Masked/controlled noise: CWaterVertex padding, CRenPar 2-byte padding, structure padding. Only the own part of each function is validated. Source tested == current working tree at registration (all six class sources match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CWaterLevel::RenderFlatWaterRectangle": "Corpus 1024; source corrected (EXE 0x6EBEC0): in the lower half of the Y split the EXE (0x6EC3F1) passes P2 as the third CRenPar, (P13,P24,P2,P4), which looks like an EXE bug and is replicated; CRenPar lerp of the EXE 0x6E5280 = (1-t)*a + t*b; halves are painted recursively by this function with t=0.5f. Sibling drawing functions are traced/isolated and get no credit.",
+    "CWaterLevel::SplitWaterTriangleAlongXLine": "Corpus 512; source corrected (EXE 0x6ECF00): X1==X3 branch (0x6ECF5D..0x6ED2DB) interpolates from P3 with B=lerp(P3,P1,t), H=lerp(P3,P2,t) and calls Bottom(B,H,P3), rect(P1,P12,B,H), Right(P12,P2,H); X2==X3 branch calls Bottom (0x6ED094), then the rectangle (0x6ED5D9) with (P12,P2,P13,P23) and finally Left (0x6ED6B8). Sibling drawing functions are traced/isolated and get no credit."
+  },
+  "dependency_review": null,
+  "run": "reversing/GfxWave2/runs/20261009-100807-276064",
+  "summary_sha256": "8fd316c55dbbb512b50e5f0784c721fb19e87693912dbf14552b3271bcbdbb3a",
+  "result_txt_sha256": "4f1485c455f553a3d29b5ce6374fd523c2f725320c5407b619b93055ad0b529b",
+  "log_sha256": "f8fcbf337539b9f76463f8213968eecadf34fd18b333712f7db5c33d940c85cb",
+  "comparison_storage": {
+    "uncompressed_sha256": "f8fcbf337539b9f76463f8213968eecadf34fd18b333712f7db5c33d940c85cb",
+    "uncompressed_bytes": 12250717,
+    "compressed_path": "reversing/GfxWave2/runs/20261009-100807-276064/comparisons.jsonl.gz",
+    "compressed_sha256": "aa39c9a99206c6c661b8a088983ac08dce30842715c2a0b3982819a58fe03002",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "f8fcbf337539b9f76463f8213968eecadf34fd18b333712f7db5c33d940c85cb",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gfxwave2\\20261009-100807-276064\\comparisons.jsonl"
+  },
+  "all_equal": false,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "69537e6032358a7fbbdc7486b98954edf19dab886848a63e87d30a04274defd2",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "637c4691078828b2be27281f948840f9765f0cad",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 27616,
+    "registered_pairs": 1536,
+    "asi": "69537e6032358a7fbbdc7486b98954edf19dab886848a63e87d30a04274defd2",
+    "pdb": "6f2b5e788cd0e20cb35f263d31f7dc1bef6d0d3d748070241e8f56cb9c9f7906",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-gfxwave2-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/ClothesBuilder.cpp": "8cec96254b62f3549652d63d8d7d0939de18ffbcdc91f2bf0e7d08b07527a75e",
+      "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
+      "source/game_sa/Shadows.cpp": "38c60b0c6370898640bf82a6574051ba5acefccc96acc8fa87fc5411aca395ed",
+      "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
+      "source/game_sa/WaterLevel.cpp": "4a51b63b982541366590cb18ab90c1fcc53e5c8222cd3c361ad58f04c59fb3d4",
+      "source/game_sa/WaterLevel.h": "34f5e67773100875cb2309582f08d580f2c16a5c746d0a8a637161c43c2d257a"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "ClothesPart.hpp": "4fdd45131499f96984e235d14dea521f87f32d22f0af45b1ac7758e4cd04b61f",
+      "GfxCommon.hpp": "8e4281fd63354b6a7c488a27a50d00bccd56b628ac0579b87ad16b4ae3c667f8",
+      "LiveComparison.hpp": "6ccda3f15ba762cc2b9d7de6941a2f727f6dc5daf121589853d84545e352f52f",
+      "ShadowsPart.hpp": "13d14b287e540fbd0168f590008b80e13e529e652644beb10505ae268e2beba3",
+      "WaterPart.hpp": "bae02352bfa2f6acb2f82160c451bc320bf64e6370ec01c42a58af9791c04710",
+      "build_probe.py": "b65975de0b531e43b5fa5775e8e769f02d26ebc0c932d31d24d4fa495dda0e93",
+      "refresh_documentation_cut417.py": "8bf300c76b87f18c48b619b9ba60831d9b729356ade81ae54e2ba29ca0cbb654",
+      "register_gfxwave2.py": "3830a26df9a0bb6621356b43276614abce4a49ca8e6381f9e33095ffaed52ce4",
+      "run_local.py": "7e36fe4a865323a1bb7e5e6ed03440b5684e8abbe740b3f113f073d23aae686c"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/WaterLevel.cpp (+ .h)": "RenderFlatWaterRectangle (P2 as third CRenPar in the lower Y half as the EXE; lerp(CRenPar) = (1-t)*a + t*b) and SplitWaterTriangleAlongXLine (X1==X3 branch from P3 with B,H lerps; X2==X3 call order Bottom, rect(P12,P2,P13,P23), Left)"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 27616,
+    "complete_events": 0,
+    "terminal_error_events": 1,
+    "terminal_error_event": {
+      "event": "error",
+      "pairs": 27616,
+      "state_restored": true
+    },
+    "begin_events": 1,
+    "waiting_for_player_events": 1,
+    "function_summaries": 55,
+    "functions_with_zero_failures": 54,
+    "unequal_pairs": 254,
+    "unequal_by_function": {
+      "CWaterLevel::AddWaterLevelQuad": 254
+    },
+    "distinct_cases": 27616,
+    "per_function": {
+      "CClothesBuilder::AddWeightToBoneVertex": 512,
+      "CClothesBuilder::BlendTextures-Dst-Src": 256,
+      "CClothesBuilder::BlendTextures-Dst-Src1-Src2": 256,
+      "CClothesBuilder::BlendTextures-Dst-Src1-Src2-Tat": 256,
+      "CClothesBuilder::BuildBoneIndexConversionTable": 256,
+      "CClothesBuilder::CopyTexture": 128,
+      "CClothesBuilder::DestroySkinArrays": 64,
+      "CClothesBuilder::GetAtomicWithName": 512,
+      "CClothesBuilder::GetTextureFromTxdAndLoadNextTxd": 512,
+      "CClothesBuilder::LoadCdDirectory": 64,
+      "CClothesBuilder::PlaceTextureOnTopOfTexture": 256,
+      "CClothesBuilder::RequestGeometry": 256,
+      "CClothesBuilder::RequestTexture": 256,
+      "CClothesBuilder::StoreBoneArray": 512,
+      "CShadows::Init": 64,
+      "CShadows::Shutdown": 64,
+      "CShadows::TidyUpShadows": 64,
+      "CShadows::StoreShadowToBeRendered-Texture": 512,
+      "CShadows::StoreShadowToBeRendered-Type": 384,
+      "CShadows::SetRenderModeForShadowType": 96,
+      "CShadows::RemoveOilInArea": 384,
+      "CShadows::GunShotSetsOilOnFire": 384,
+      "CShadows::PrintDebugPoly": 64,
+      "CShadows::CalcPedShadowValues": 512,
+      "CShadows::AffectColourWithLighting": 768,
+      "CShadows::StoreShadowForPedObject": 512,
+      "CShadows::StoreRealTimeShadow": 512,
+      "CShadows::UpdateStaticShadows": 256,
+      "CShadows::RenderExtraPlayerShadows": 384,
+      "CShadows::RenderStaticShadows": 192,
+      "CShadows::RenderIndicatorShadow": 256,
+      "CShadows::StoreCarLightShadow": 512,
+      "CShadows::StoreShadowForPole": 384,
+      "CWaterLevel::Shutdown": 64,
+      "CWaterLevel::AddWaterLevelVertex": 1024,
+      "CWaterLevel::AddWaterLevelTriangle": 1024,
+      "CWaterLevel::AddWaterLevelQuad": 1024,
+      "CWaterLevel::BlockHit": 512,
+      "CWaterLevel::CalculateWavesOnlyForCoordinate": 1024,
+      "CWaterLevel::GetWaterLevel-": 1024,
+      "CWaterLevel::MarkQuadsAndPolysToBeRendered": 1024,
+      "CWaterLevel::PreRenderWater": 512,
+      "CWaterLevel::RenderFlatWaterRectangle": 1024,
+      "CWaterLevel::RenderFlatWaterRectangle_OneLayer": 1024,
+      "CWaterLevel::RenderFlatWaterTriangle": 512,
+      "CWaterLevel::RenderFlatWaterTriangle_OneLayer": 1024,
+      "CWaterLevel::RenderWakeSegment": 1024,
+      "CWaterLevel::RenderWaterRectangle": 1024,
+      "CWaterLevel::RenderWaterTriangle": 1024,
+      "CWaterLevel::ScanThroughBlocks": 256,
+      "CWaterLevel::SetCameraRange": 512,
+      "CWaterLevel::SetUpWaterFog": 1024,
+      "CWaterLevel::SplitWaterRectangleAlongXLine": 512,
+      "CWaterLevel::SplitWaterRectangleAlongYLine": 512,
+      "CWaterLevel::SplitWaterTriangleAlongXLine": 512
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/WaterLevel.cpp (+ .h)": "RenderFlatWaterRectangle (P2 as third CRenPar in the lower Y half as the EXE; lerp(CRenPar) = (1-t)*a + t*b) and SplitWaterTriangleAlongXLine (X1==X3 branch from P3 with B,H lerps; X2==X3 call order Bottom, rect(P12,P2,P13,P23), Left)"
+  },
+  "notes": "Previous run 20261009-095105-342457 rejected these two functions (472/1024 and 258/512); both pass in this run after the source corrections above. The bank files in this manifest are the ones that ran; WaterPart.hpp was edited in the working tree after the run by another agent (AddWaterLevelQuad work), see bank_changed_after_run: the registry keeps the TESTED hash (the later edit is not validated here). The 19 earlier CWaterLevel registry entries keep the hash of WaterLevel.cpp tested in the earlier run."
+}

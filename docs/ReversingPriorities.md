@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.446 |
 | Reconstruidas | 8.446 |
-| Validadas | 7.047 |
-| Reconstruidas sin validar | 1.399 |
-| De ellas, en esta cola (validables por pares) | 1.398 |
+| Validadas | 7.155 |
+| Reconstruidas sin validar | 1.291 |
+| De ellas, en esta cola (validables por pares) | 1.290 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -23,10 +23,10 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
 | [🟢 Nivel 1: muy barato](#nivel-1) | 4 | 19 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 8 | 443 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 12 | 406 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 13 | 530 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **37** | **1398** | |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 7 | 430 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 10 | 359 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🔴 Nivel 4: caras](#nivel-4) | 12 | 482 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **33** | **1290** | |
 
 <a id="nivel-1"></a>
 
@@ -43,63 +43,59 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (8 clases, 443 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (7 clases, 430 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CAEPoliceScannerAudioEntity | 17 | 13 |  | 25 |
-| 2 | FxSystem_c | 35 | 31 |  | 15 |
-| 3 | CFont | 36 | 32 |  | 25 |
-| 4 | CPathFind | 56 | 54 |  | 23 |
-| 5 | CCheat | 72 | 72 |  | 17 |
-| 6 | CVehicleModelInfo | 75 | 75 |  | 22 |
-| 7 | CAudioEngine | 82 | 82 |  | 10 |
-| 8 | CVisibilityPlugins | 84 | 84 |  | 14 |
+| 1 | FxSystem_c | 35 | 31 |  | 15 |
+| 2 | CFont | 36 | 32 |  | 25 |
+| 3 | CPathFind | 56 | 54 |  | 23 |
+| 4 | CCheat | 72 | 72 |  | 17 |
+| 5 | CVehicleModelInfo | 75 | 75 |  | 22 |
+| 6 | CAudioEngine | 82 | 82 |  | 10 |
+| 7 | CVisibilityPlugins | 84 | 84 |  | 14 |
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (12 clases, 406 funciones)
+## 🟠 Nivel 3: moderadas (10 clases, 359 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
 | 1 | CTrain | 40 | 1 |  | 38 |
-| 2 | CAEPedAudioEntity | 20 | 15 |  | 41 |
-| 3 | CClothesBuilder | 23 | 15 |  | 44 |
-| 4 | CAEStreamingChannel | 24 | 18 |  | 26 |
-| 5 | CAERadioTrackManager | 43 | 29 |  | 40 |
-| 6 | CGroupEventHandler | 32 | 30 |  | 29 |
-| 7 | CGangWars | 35 | 32 |  | 34 |
-| 8 | CPickups | 37 | 35 |  | 26 |
-| 9 | CPostEffects | 38 | 35 |  | 32 |
-| 10 | CRadar | 63 | 63 |  | 34 |
-| 11 | CPopulation | 66 | 64 |  | 34 |
-| 12 | CTheScripts | 69 | 69 |  | 30 |
+| 2 | CClothesBuilder | 23 | 1 |  | 44 |
+| 3 | CAERadioTrackManager | 43 | 29 |  | 40 |
+| 4 | CGroupEventHandler | 32 | 30 |  | 29 |
+| 5 | CGangWars | 35 | 32 |  | 34 |
+| 6 | CPickups | 37 | 35 |  | 26 |
+| 7 | CPostEffects | 38 | 35 |  | 32 |
+| 8 | CRadar | 63 | 63 |  | 34 |
+| 9 | CPopulation | 66 | 64 |  | 34 |
+| 10 | CTheScripts | 69 | 69 |  | 30 |
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (13 clases, 530 funciones)
+## 🔴 Nivel 4: caras (12 clases, 482 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CRoadBlocks | 8 | 2 |  | 76 |
-| 2 | CBike | 40 | 4 |  | 152 |
-| 3 | CTaskSimplePlayerOnFoot | 12 | 5 |  | 100 |
-| 4 | CAEScriptAudioEntity | 19 | 8 |  | 54 |
-| 5 | CCam | 44 | 14 |  | 138 |
-| 6 | CShadows | 31 | 21 |  | 59 |
-| 7 | CWaterLevel | 30 | 25 |  | 54 |
-| 8 | CHud | 38 | 30 |  | 52 |
-| 9 | CWeapon | 41 | 35 |  | 63 |
-| 10 | CCamera | 110 | 91 |  | 37 |
-| 11 | CStreaming | 94 | 94 |  | 40 |
-| 12 | CAutomobile | 99 | 99 |  | 65 |
-| 13 | CAEVehicleAudioEntity | 106 | 102 |  | 47 |
+| 1 | CShadows | 31 | 2 |  | 59 |
+| 2 | CRoadBlocks | 8 | 2 |  | 76 |
+| 3 | CWaterLevel | 30 | 4 |  | 54 |
+| 4 | CBike | 40 | 4 |  | 152 |
+| 5 | CTaskSimplePlayerOnFoot | 12 | 5 |  | 100 |
+| 6 | CCam | 44 | 14 |  | 138 |
+| 7 | CHud | 38 | 30 |  | 52 |
+| 8 | CWeapon | 41 | 35 |  | 63 |
+| 9 | CCamera | 110 | 91 |  | 37 |
+| 10 | CStreaming | 94 | 94 |  | 40 |
+| 11 | CAutomobile | 99 | 99 |  | 65 |
+| 12 | CAEVehicleAudioEntity | 106 | 102 |  | 47 |
 
 <a id="fuera-de-la-cola"></a>
 

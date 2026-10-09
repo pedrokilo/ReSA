@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 30/30 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 5.
- * Validación registrada: 5/30 entradas.
+ * Validación registrada: 26/30 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -513,10 +513,15 @@ void CWaterLevel::SplitWaterTriangleAlongXLine(int32 splitAtX, int32 X1, int32 Y
     if (X1 == X3) { // Vertex 3 => (bottom left)
         const auto YS = CalcSplitPosY(Y3, Y1);
 
+        // Como el original (0x6ECF5D..0x6ED2DB): en esta rama el EXE interpola desde P3 (peso 1-t) hacia P1 / P2 (peso t):
+        // B = (X1,YS) = (1-t)*P3 + t*P1 ; H = (XS,YS) = (1-t)*P3 + t*P2 (la fuente usaba lerp(P1,P3) / lerp(P2,P3), direccion invertida).
+        const auto PB = lerp(P3, P1, t);
+        const auto PH = lerp(P3, P2, t);
+
         // Bottom
         RenderWaterTriangle(
-            X1, YS, P12,
-            XS, YS, P13,
+            X1, YS, PB,
+            XS, YS, PH,
             X3, Y3, P3
         );
 
@@ -524,37 +529,38 @@ void CWaterLevel::SplitWaterTriangleAlongXLine(int32 splitAtX, int32 X1, int32 Y
         RenderWaterRectangle(
             X1, XS,
             Y1, YS,
-            P1, P12, P23, P13
+            P1, P12, PB, PH
         );
 
         // Right
         RenderWaterTriangle(
             XS, Y1, P12,
             X2, Y1, P2,
-            XS, YS, P23
+            XS, YS, PH
         );
     } else if (X2 == X3) { // Vertex 3 => (bottom right)
         const auto YS = CalcSplitPosY(Y1, Y3);
 
-        // Left
+        // Como el original (0x6ED094 / 0x6ED5D9 / 0x6ED6B8): orden Bottom, rectangulo, Left
+        // Bottom
         RenderWaterTriangle(
-            X1, Y1, P1,
-            XS, Y1, P12,
-            XS, YS, P13
+            XS, YS, P13,
+            X2, YS, P23,
+            X3, Y3, P3
         );
 
         // Right
         RenderWaterRectangle(
             XS, X2,
             Y1, YS,
-            P12, P2, P13, P23 // Geometria: TL=P12, TR=P2, BL=(XS,YS)=P13, BR=(X2,YS)=P23; el EXE (0x6ED5AC-0x6ED5D9) construye 4 CRenPar distintos (antes P23, P12): pendiente de confirmar con el banco
+            P12, P2, P13, P23 // Confirmado en el EXE (0x6ED506-0x6ED5AC): P4=P23, P3=P13, P2=P2, P1=P12
         );
 
-        // Bottom
+        // Left
         RenderWaterTriangle(
-            XS, YS, P13,
-            X2, YS, P23,
-            X3, Y3, P3
+            X1, Y1, P1,
+            XS, Y1, P12,
+            XS, YS, P13
         );
     } else {
         NOTSA_UNREACHABLE("Triangle has no 90deg corner => Very bad");
@@ -617,7 +623,8 @@ void CWaterLevel::RenderFlatWaterRectangle(int32 minX, int32 maxX, int32 Y1, int
             const int32 mid = (Y1 + Y2) / 2;
             const CRenPar P13 = lerp(P1, P3, 0.5f), P24 = lerp(P2, P4, 0.5f);
             RenderFlatWaterRectangle(minX, maxX, Y1, mid, P1, P2, P13, P24);
-            RenderFlatWaterRectangle(minX, maxX, mid, Y2, P13, P24, P3, P4);
+            // Como el original (0x6EC3F1, bug del EXE): la mitad inferior recibe P2 (no P3) como tercer CRenPar: (P13, P24, P2, P4)
+            RenderFlatWaterRectangle(minX, maxX, mid, Y2, P13, P24, P2, P4);
             return;
         }
     }

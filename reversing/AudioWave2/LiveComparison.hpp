@@ -530,7 +530,7 @@ inline json Exec(const std::string& full, uint32 I, uintptr_t address, size_t& o
         else if (is("CAEStreamingChannel::Initialise")) { Fill(obj.data(), obj.size(), 0xCD); *reinterpret_cast<uintptr_t*>(obj.data()) = 0x85F3F0; ch->m_pDirectSound = reinterpret_cast<IDirectSound*>(&devObject);
                                                                  ret = Th<bool>(address, self); masks = { {0, 4} }; }
         else if (is("CAEStreamingChannel::InitialiseSilence")) { lockSize = 0x8000 + (I % 3) * 4; createCount = 1; Th(address, self); }
-        else if (is("CAEStreamingChannel::Destructor")) { masks = { {0, 4} }; ch->m_pDirectSoundBuffer = (I % 13 == 0) ? nullptr : reinterpret_cast<IDirectSoundBuffer*>(&comObject); Th(address, self); }
+        else if (is("CAEStreamingChannel::Destructor")) { masks = { {0, 4} }; ch->m_pDirectSoundBuffer = reinterpret_cast<IDirectSoundBuffer*>(&comObject); /* el EXE (0x4F2245) desreferencia [esi+8] sin comprobar nulo si 0x4EEAA0 devuelve 0: nunca nulo */ Th(address, self); }
         else if (is("CAEStreamingChannel::Pause")) Th(address, self);
         else if (is("CAEStreamingChannel::Stop-class")) { needBuffer(); Th(address, self, int32(I % 2)); }
         else if (is("CAEStreamingChannel::Stop-virtual")) { needBuffer(); Th(address, self); }

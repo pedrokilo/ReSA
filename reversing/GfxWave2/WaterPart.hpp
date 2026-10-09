@@ -306,7 +306,14 @@ inline json CaseAddQuad(unsigned i, bool cand, Hook* hook, uintptr_t addr) {
     }
     for (int k = 3; k > 0; --k) { const int j = int(Rnd(s) % uint32(k + 1)); std::swap(x[k], x[j]); std::swap(y[k], y[j]); }
     CRenPar p[4]{ RandPar(s), RandPar(s), RandPar(s), RandPar(s) };
-    if (n > 0 && Rnd(s) % 3 == 0) { const auto& v = CWaterLevel::m_aVertices[0]; x[1] = v.x; y[1] = v.y; p[1].z = v.rp.z; }
+    if (n > 0 && Rnd(s) % 3 == 0) {
+        /* Reutilizar el vertice 0 (deduplicacion) solo si la Y minima sigue apareciendo en exactamente 2 vertices (o el quad se descarta por Y/X iguales): si no, el EXE lee la pila sin inicializar (listas A/B de 1 o 3 elementos). */
+        const auto& v = CWaterLevel::m_aVertices[0];
+        int32 ty[4]{ y[0], v.y, y[2], y[3] };
+        const int32 mn = std::min(std::min(ty[0], ty[1]), std::min(ty[2], ty[3]));
+        const int cnt = (ty[0] == mn) + (ty[1] == mn) + (ty[2] == mn) + (ty[3] == mn);
+        if (cnt == 2 || cnt == 4) { x[1] = v.x; y[1] = v.y; p[1].z = v.rp.z; }
+    }
     const uint32 flags = Rnd(s) % 8;
     c.Switch();
     reinterpret_cast<void(__cdecl*)(int32, int32, CRenPar, int32, int32, CRenPar, int32, int32, CRenPar, int32, int32, CRenPar, uint32)>(addr)(x[0], y[0], p[0], x[1], y[1], p[1], x[2], y[2], p[2], x[3], y[3], p[3], flags);
