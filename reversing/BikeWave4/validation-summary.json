@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "pairs": 2816,
+  "differences": 0,
+  "registered_pairs": 2816,
+  "registered_functions": 4,
+  "functions": {
+    "CBike::Constructor": 512,
+    "CBike::Destructor": 256,
+    "CBike::DamageKnockOffRider": 1024,
+    "CBike::ProcessEntityCollision": 1024
+  },
+  "covered_functions": {
+    "CBike::Constructor": true,
+    "CBike::Destructor": true,
+    "CBike::DamageKnockOffRider": true,
+    "CBike::ProcessEntityCollision": true
+  },
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2816 isolated CPU pairs for the 4 pending functions of CBike, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: no NaN in matrices or velocity, handlingId 0..209, entities with non-null matrix and collision; CEventKnockOffBike and CEventGroup::Add are fakes (traced). The bank EvId lookup was fixed to search from the last to the first match (the DLL reuses the stack slot for the driver/passenger events) and it keeps up to 8 failures with raw trace. Only the own part of each function is validated. Source tested == current working tree at registration (Bike.cpp and Bike.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CBike::Constructor": "Corpus 512; source corrected (EXE): handling index uses only the low byte (0x6BF520 movzx eax,dl); m_fSteerAngleTan via x87 fptan on the float product (0x6BF59E..0x6BF5BD); wheel loops write only the fields the EXE writes (suspension heights/orig heights, col points, suspension and line lengths are not initialised; ratio history = 1.0, 0x6BF6E0..0x6BF714); lines[1].m_vecStart.z = 99999.99 (0x6BF75D, not .x); and al,0F0h also clears bIsBus (0x6BF79A); two dword stores at +0x60C/+0x610 (0x6BF468/0x6BF46E).",
+    "CBike::Destructor": "Corpus 256; MATCH with no source change; the comparison masks m_pAttachMatrix (the DLL CMatrix::~CMatrix nulls it, the EXE one at 0x59ACD0 does not) (EXE 0x6B57A0).",
+    "CBike::DamageKnockOffRider": "Corpus 1024; source corrected (EXE): task type is TASK_SIMPLE_GANG_DRIVEBY (cmp eax,3FEh at 0x6B5B03; CTaskSimpleGangDriveBy::GetTaskType 3FEh at 0x6218B0, TASK_SIMPLE_BE_HIT is 3F0h at 0x620800), then pedType == cop.",
+    "CBike::ProcessEntityCollision": "Corpus 1024 (virtual, vtable 0x871360 slot 22 = 0x6BDEA0); source corrected (EXE): driver matrix = vehicle matrix copy + driver seat dummy rotated with Multiply3x3 (0x59C790, no translation; dummy 0 for boats else 4) (0x6BDFF8..0x6BE08C); static 32-element ped colpoint array; only with result > 0 (0x6BE0D9); loop exits at numColPts >= 31, skips piece type 0, copies with the EXE CColPoint operator= (0x40FC80, 0x6BE110..0x6BE144); wheel ratio test with NaN semantics (0x6BE190..0x6BE1B6); SetEntityReference without clearing the old reference (0x6BE1DC..0x6BE1E1)."
+  },
+  "dependency_review": null,
+  "run": "reversing/BikeWave4/runs/20261009-124045-743237",
+  "summary_sha256": "4f92462710d8c0e1f000b0ba1959b3aaf8ab4fc3d0274c516ee103143ce41403",
+  "result_txt_sha256": "7cf1d7ce951ef9f3e53ae5b5781fad6690b426c6e86001d9b24d9638ca829647",
+  "log_sha256": "0b04a965e50df57364992e0d9e0e019ca2ab63d423e30a5b01c494d8ef676821",
+  "comparison_storage": {
+    "uncompressed_sha256": "0b04a965e50df57364992e0d9e0e019ca2ab63d423e30a5b01c494d8ef676821",
+    "uncompressed_bytes": 766816,
+    "compressed_path": "reversing/BikeWave4/runs/20261009-124045-743237/comparisons.jsonl.gz",
+    "compressed_sha256": "31fd1cf71358d65e38f9234fca2105c26069aa04a2f538fcd30d315101a67efd",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "0b04a965e50df57364992e0d9e0e019ca2ab63d423e30a5b01c494d8ef676821",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-bikewave4\\20261009-124045-743237\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "0a37a16e2317464ae822f4ec02abfeba532cccc1bd4e7e0b8d7797e8a0ffa2a1",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9dee409c407a6a001d0cbdf88625d2ac97da1fea",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 2816,
+    "registered_pairs": 2816,
+    "asi": "0a37a16e2317464ae822f4ec02abfeba532cccc1bd4e7e0b8d7797e8a0ffa2a1",
+    "pdb": "01a675748817bf8dd5fa32da5a54d5afb1ce6ea1ac5aadfdacdfeaeb5dfd50aa",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-bikewave4-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Entity/Vehicle/Bike.cpp": "8f20220f90ba49775e5a86dfea4cd6fb18cd559b8f6d4e453c0c9e26af82c610",
+      "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "3c41ad001c003638373171694c14e61a6e4120c88ef58a68f7ae412f35a16235",
+      "build_probe.py": "fa870c893b60e34b92a5587d8d80b17a2352307e3f397a2e139a45b93258839c",
+      "run_local.py": "860ceb1c841b3c73a9c9492f54670bcf51e5f3af9ddbe7ff522eaf91373f0194"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Entity/Vehicle/Bike.cpp": "Constructor: handling low byte, fptan tangent, wheel array init as the EXE, lines[1].m_vecStart.z, bIsBus cleared, dword stores at +0x60C/+0x610; DamageKnockOffRider: TASK_SIMPLE_GANG_DRIVEBY (0x6B5B03); ProcessEntityCollision: Multiply3x3 seat, static colpoint array, >0, 31 limit, EXE CColPoint copy, NaN ratio test, SetEntityReference"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 2816,
+    "complete_events": 1,
+    "terminal_error_events": 0,
+    "terminal_event": {
+      "event": "complete",
+      "layout_ok": true,
+      "pairs": 2816,
+      "state_restored": true
+    },
+    "layout_events": 1,
+    "layout_ok": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 2816,
+    "function_summaries": 4,
+    "functions_with_zero_failures": 4,
+    "unequal_pairs": 0,
+    "unequal_by_function": {},
+    "distinct_cases": 2816,
+    "per_function": {
+      "CBike::Constructor": 512,
+      "CBike::Destructor": 256,
+      "CBike::DamageKnockOffRider": 1024,
+      "CBike::ProcessEntityCollision": 1024
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/Entity/Vehicle/Bike.cpp": "Constructor: handling low byte, fptan tangent, wheel array init as the EXE, lines[1].m_vecStart.z, bIsBus cleared, dword stores at +0x60C/+0x610; DamageKnockOffRider: TASK_SIMPLE_GANG_DRIVEBY (0x6B5B03); ProcessEntityCollision: Multiply3x3 seat, static colpoint array, >0, 31 limit, EXE CColPoint copy, NaN ratio test, SetEntityReference"
+  },
+  "notes": "With these four functions CBike has no pending entries in docs/hooks.csv."
+}

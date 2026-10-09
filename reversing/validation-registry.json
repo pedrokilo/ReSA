@@ -494421,6 +494421,786 @@
       "dependency_review": null,
       "scope": "Second increment of ShadowsWave3 (CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>> is registered by validation-summary.json, run 20261009-105057-302560, and is not duplicated). Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 1536 isolated CPU pairs for 2 functions of CShadows; this run has passed=true globally, both functions have 0 failures, natural \"complete\" event with state_restored, saves unchanged, configs restored. Only CShadows::RenderStoredShadows (0x70A960, 512 pairs, all equal, pair count equal to the bank table) is registered here. Each case rebuilds the same deterministic fixture in both legs and compares the collaborator trace with raw arguments, the hash of the CShadows state block, the x87 control word (24 bits) and that the hook switches; foreign threads ignored. Limits: RwIm3D* drawing functions and the sector lists are doubled with traces (WITHOUT credit); there are no real sector lists. Only the own part of the function is validated. Source tested == current working tree at registration (Shadows.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 512; source corrected (EXE): 0x70AA16 test al,2 / jne 0x70AE5B (skips the texture setup when already drawn in the batch); water UV 0x70AFD5 and 0x70B185-0x70B214 with precomputed 1/|v|^2, (-pos.z)*0.0f and V=0.5-dot*inv*0.5; truncations with floor/ceil + _ftol2 and ShadowSectorIndex (0x70AEE5, 0x70AF03, 0x70AF23, 0x70AF4B, 0x70AAFD-0x70ABF3); ProcessOneVertex advances vtxIt (the 4 vertices of each cell); CastRealTimeShadowSectorList receives a non-null pointer to a stack byte as pDayNight (0x70ACB9, 0x70AD0D); GetWaterLevelNoWaves receives the position of the last shadow of the batch (batchPos, 0x70AA89-0x70AAB4 / 0x70AE6A-0x70AE7C). The previous run (20261009-105057-302560) rejected this function with 318/512 differences; it passes with the corrected source.",
       "review_reference": "reversing/ShadowsWave3/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimplePlayerOnFoot",
+        "fn_name": "PlayIdleAnimations",
+        "address": "0x006872C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FootWave4/validation-summary.json",
+        "sha256": "0f0e37a36f06c40a71519a73d6de33a513e637a2a7147320b3d011738c8f8b6f",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimplePlayerOnFoot::PlayIdleAnimations"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
+      },
+      "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 5120 isolated CPU pairs for the 5 pending functions of CTaskSimplePlayerOnFoot, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (full CPlayerPed buffer with raw EXE offsets, target ped, other ped, vehicle, fake intelligences, CPlayerPedData, full CPad, fake group, fake clump, fake animation associations/groups/blocks, camera state) and compares return value, memory of the tested object and its padding, new pool tasks (type + fields set by the constructor), fake task memory, fingerprint of all buffers, the whole trace of doubled collaborators with raw arguments (including random reads), fingerprint of touched globals, the x87 control word (24 bits) and an empty x87 stack; foreign threads ignored. NaN cases use quiet NaN only. Limits: about 75 collaborators are doubled with traces WITHOUT credit (CPad queries, CCamera, CPed/CPlayerPed members, animation, CGameLogic, intelligence and task functions, groups, events, crimes, audio, IK, rand and GetRandomNumber). Constructors/destructors of stack objects (CPedDamageResponseCalculator 0x4AD3F0/0x4AD420, CEventDamage 0x4AD830/0x4AD960, CEventGunAimedAt 0x4B0700/0x4B07B0, CEventGroupEvent 0x4ADFD0/0x4AE070) and constructors of really new tasks (CTaskSimpleUseGun, CTaskSimpleFight, CTaskSimpleStealthKill, CTaskSimpleThrowProjectile, CTaskComplexJump, CTaskComplexUseGoggles) run for real and are only summarised. The two static functions (PlayerControlZeldaWeapon, PlayerControlDucked) are `ret 4` in the EXE and cdecl in the DLL (not changed): the original is entered by EXE address with stdcall and the candidate calls the DLL function directly with cdecl; the hook is only safe because its only EXE caller is the hooked ProcessPed. Real globals touched for microseconds and restored after EACH run: CWorld::Players[1].m_pPed, gLastTouchTimeDelta, gLastRandomNumberForIdleAnimationID, gbUnknown_8D2FE8, gDuckAnimBlendData, TheCamera fields and four ms_aAnimBlocks entries. Only the own part of each function is validated. Source tested == current working tree at registration (TaskSimplePlayerOnFoot.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): 0x6872CE GetPadFromPlayer before the cooperative-mode check (0x6872D5..0x6872E5); 0x687300 test byte [ebp+478h],2 is bUsingMobilePhone (not bCrouchWhenShooting); 0x687323/0x687393/0x687424 signed comparisons (jg/jle); 0x68740D test byte [ebp+46Ch],0Ch / jne: it is enough that ONE of bIsLooking/bIsRestoringLook is set; 0x6873BD..0x687406 animation index tested first <= idx < first + num (exclusive upper end) via RpAnimBlendClumpGetFirstAssociation/GetNextAssociation; 0x687430 CGeneral::GetRandomIntInRange(0,4).",
+      "review_reference": "reversing/FootWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimplePlayerOnFoot",
+        "fn_name": "PlayerControlZeldaWeapon",
+        "address": "0x00687C20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FootWave4/validation-summary.json",
+        "sha256": "0f0e37a36f06c40a71519a73d6de33a513e637a2a7147320b3d011738c8f8b6f",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimplePlayerOnFoot::PlayerControlZeldaWeapon"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
+      },
+      "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 5120 isolated CPU pairs for the 5 pending functions of CTaskSimplePlayerOnFoot, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (full CPlayerPed buffer with raw EXE offsets, target ped, other ped, vehicle, fake intelligences, CPlayerPedData, full CPad, fake group, fake clump, fake animation associations/groups/blocks, camera state) and compares return value, memory of the tested object and its padding, new pool tasks (type + fields set by the constructor), fake task memory, fingerprint of all buffers, the whole trace of doubled collaborators with raw arguments (including random reads), fingerprint of touched globals, the x87 control word (24 bits) and an empty x87 stack; foreign threads ignored. NaN cases use quiet NaN only. Limits: about 75 collaborators are doubled with traces WITHOUT credit (CPad queries, CCamera, CPed/CPlayerPed members, animation, CGameLogic, intelligence and task functions, groups, events, crimes, audio, IK, rand and GetRandomNumber). Constructors/destructors of stack objects (CPedDamageResponseCalculator 0x4AD3F0/0x4AD420, CEventDamage 0x4AD830/0x4AD960, CEventGunAimedAt 0x4B0700/0x4B07B0, CEventGroupEvent 0x4ADFD0/0x4AE070) and constructors of really new tasks (CTaskSimpleUseGun, CTaskSimpleFight, CTaskSimpleStealthKill, CTaskSimpleThrowProjectile, CTaskComplexJump, CTaskComplexUseGoggles) run for real and are only summarised. The two static functions (PlayerControlZeldaWeapon, PlayerControlDucked) are `ret 4` in the EXE and cdecl in the DLL (not changed): the original is entered by EXE address with stdcall and the candidate calls the DLL function directly with cdecl; the hook is only safe because its only EXE caller is the hooked ProcessPed. Real globals touched for microseconds and restored after EACH run: CWorld::Players[1].m_pPed, gLastTouchTimeDelta, gLastRandomNumberForIdleAnimationID, gbUnknown_8D2FE8, gDuckAnimBlendData, TheCamera fields and four ms_aAnimBlocks entries. Only the own part of each function is validated. Source tested == current working tree at registration (TaskSimplePlayerOnFoot.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): 0x687D73 fsin, 0x687D99 fcos and 0x687EA9 fpatan with full x87 precision (std::sin/cos/atan2 differed in the last bit); rest MATCH. Static function: ret 4 in the EXE, cdecl in the DLL (not changed).",
+      "review_reference": "reversing/FootWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimplePlayerOnFoot",
+        "fn_name": "PlayerControlDucked",
+        "address": "0x00687F30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FootWave4/validation-summary.json",
+        "sha256": "0f0e37a36f06c40a71519a73d6de33a513e637a2a7147320b3d011738c8f8b6f",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimplePlayerOnFoot::PlayerControlDucked"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
+      },
+      "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 5120 isolated CPU pairs for the 5 pending functions of CTaskSimplePlayerOnFoot, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (full CPlayerPed buffer with raw EXE offsets, target ped, other ped, vehicle, fake intelligences, CPlayerPedData, full CPad, fake group, fake clump, fake animation associations/groups/blocks, camera state) and compares return value, memory of the tested object and its padding, new pool tasks (type + fields set by the constructor), fake task memory, fingerprint of all buffers, the whole trace of doubled collaborators with raw arguments (including random reads), fingerprint of touched globals, the x87 control word (24 bits) and an empty x87 stack; foreign threads ignored. NaN cases use quiet NaN only. Limits: about 75 collaborators are doubled with traces WITHOUT credit (CPad queries, CCamera, CPed/CPlayerPed members, animation, CGameLogic, intelligence and task functions, groups, events, crimes, audio, IK, rand and GetRandomNumber). Constructors/destructors of stack objects (CPedDamageResponseCalculator 0x4AD3F0/0x4AD420, CEventDamage 0x4AD830/0x4AD960, CEventGunAimedAt 0x4B0700/0x4B07B0, CEventGroupEvent 0x4ADFD0/0x4AE070) and constructors of really new tasks (CTaskSimpleUseGun, CTaskSimpleFight, CTaskSimpleStealthKill, CTaskSimpleThrowProjectile, CTaskComplexJump, CTaskComplexUseGoggles) run for real and are only summarised. The two static functions (PlayerControlZeldaWeapon, PlayerControlDucked) are `ret 4` in the EXE and cdecl in the DLL (not changed): the original is entered by EXE address with stdcall and the candidate calls the DLL function directly with cdecl; the hook is only safe because its only EXE caller is the hooked ProcessPed. Real globals touched for microseconds and restored after EACH run: CWorld::Players[1].m_pPed, gLastTouchTimeDelta, gLastRandomNumberForIdleAnimationID, gbUnknown_8D2FE8, gDuckAnimBlendData, TheCamera fields and four ms_aAnimBlocks entries. Only the own part of each function is validated. Source tested == current working tree at registration (TaskSimplePlayerOnFoot.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): 0x687F5F/0x687F75 UD then LR pad reads and 0x687FE2/0x687FED BEFORE checking finished/aborting; 0x6880C8..0x6880E9 and 0x68821D..0x68823A direction (-sin, cos, 0) passed to IsPlayerAllowedToGoInThisDirection; 0x6882C9/0x688343 fcomp 0.5 / test ah,41h / jne (NaN); two GetTaskUseGun calls (0x68829B/0x6882A8); fsin/fcos/fpatan x87. Static function: ret 4 in the EXE, cdecl in the DLL (not changed).",
+      "review_reference": "reversing/FootWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimplePlayerOnFoot",
+        "fn_name": "PlayerControlZelda",
+        "address": "0x006883D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FootWave4/validation-summary.json",
+        "sha256": "0f0e37a36f06c40a71519a73d6de33a513e637a2a7147320b3d011738c8f8b6f",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimplePlayerOnFoot::PlayerControlZelda"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
+      },
+      "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 5120 isolated CPU pairs for the 5 pending functions of CTaskSimplePlayerOnFoot, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (full CPlayerPed buffer with raw EXE offsets, target ped, other ped, vehicle, fake intelligences, CPlayerPedData, full CPad, fake group, fake clump, fake animation associations/groups/blocks, camera state) and compares return value, memory of the tested object and its padding, new pool tasks (type + fields set by the constructor), fake task memory, fingerprint of all buffers, the whole trace of doubled collaborators with raw arguments (including random reads), fingerprint of touched globals, the x87 control word (24 bits) and an empty x87 stack; foreign threads ignored. NaN cases use quiet NaN only. Limits: about 75 collaborators are doubled with traces WITHOUT credit (CPad queries, CCamera, CPed/CPlayerPed members, animation, CGameLogic, intelligence and task functions, groups, events, crimes, audio, IK, rand and GetRandomNumber). Constructors/destructors of stack objects (CPedDamageResponseCalculator 0x4AD3F0/0x4AD420, CEventDamage 0x4AD830/0x4AD960, CEventGunAimedAt 0x4B0700/0x4B07B0, CEventGroupEvent 0x4ADFD0/0x4AE070) and constructors of really new tasks (CTaskSimpleUseGun, CTaskSimpleFight, CTaskSimpleStealthKill, CTaskSimpleThrowProjectile, CTaskComplexJump, CTaskComplexUseGoggles) run for real and are only summarised. The two static functions (PlayerControlZeldaWeapon, PlayerControlDucked) are `ret 4` in the EXE and cdecl in the DLL (not changed): the original is entered by EXE address with stdcall and the candidate calls the DLL function directly with cdecl; the hook is only safe because its only EXE caller is the hooked ProcessPed. Real globals touched for microseconds and restored after EACH run: CWorld::Players[1].m_pPed, gLastTouchTimeDelta, gLastRandomNumberForIdleAnimationID, gbUnknown_8D2FE8, gDuckAnimBlendData, TheCamera fields and four ms_aAnimBlocks entries. Only the own part of each function is validated. Source tested == current working tree at registration (TaskSimplePlayerOnFoot.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): 0x688491 !(ratio > 0) with NaN; 0x68849C..0x6884C4 angle computed only in the update branch; 0x68852D/0x68854B NaN-aware clamps; 0x6885A7..0x6885B0 standing-on entity checked with the PHYSICAL flags (+0x40) bit 2 set and bit 3 clear; 0x688687..0x6886CB DuckJustDown and CanPedDuck always queried (bAvoidJumpingAndDucking only skips SetTaskDuckSecondary(0) and the jump block); 0x6884D1..0x688508 (-sin, cos, 0) with x87 fsin/fcos.",
+      "review_reference": "reversing/FootWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimplePlayerOnFoot",
+        "fn_name": "ProcessPlayerWeapon",
+        "address": "0x006859A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FootWave4/validation-summary.json",
+        "sha256": "0f0e37a36f06c40a71519a73d6de33a513e637a2a7147320b3d011738c8f8b6f",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimplePlayerOnFoot::ProcessPlayerWeapon"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
+      },
+      "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 5120 isolated CPU pairs for the 5 pending functions of CTaskSimplePlayerOnFoot, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (full CPlayerPed buffer with raw EXE offsets, target ped, other ped, vehicle, fake intelligences, CPlayerPedData, full CPad, fake group, fake clump, fake animation associations/groups/blocks, camera state) and compares return value, memory of the tested object and its padding, new pool tasks (type + fields set by the constructor), fake task memory, fingerprint of all buffers, the whole trace of doubled collaborators with raw arguments (including random reads), fingerprint of touched globals, the x87 control word (24 bits) and an empty x87 stack; foreign threads ignored. NaN cases use quiet NaN only. Limits: about 75 collaborators are doubled with traces WITHOUT credit (CPad queries, CCamera, CPed/CPlayerPed members, animation, CGameLogic, intelligence and task functions, groups, events, crimes, audio, IK, rand and GetRandomNumber). Constructors/destructors of stack objects (CPedDamageResponseCalculator 0x4AD3F0/0x4AD420, CEventDamage 0x4AD830/0x4AD960, CEventGunAimedAt 0x4B0700/0x4B07B0, CEventGroupEvent 0x4ADFD0/0x4AE070) and constructors of really new tasks (CTaskSimpleUseGun, CTaskSimpleFight, CTaskSimpleStealthKill, CTaskSimpleThrowProjectile, CTaskComplexJump, CTaskComplexUseGoggles) run for real and are only summarised. The two static functions (PlayerControlZeldaWeapon, PlayerControlDucked) are `ret 4` in the EXE and cdecl in the DLL (not changed): the original is entered by EXE address with stdcall and the candidate calls the DLL function directly with cdecl; the hook is only safe because its only EXE caller is the hooked ProcessPed. Real globals touched for microseconds and restored after EACH run: CWorld::Players[1].m_pPed, gLastTouchTimeDelta, gLastRandomNumberForIdleAnimationID, gbUnknown_8D2FE8, gDuckAnimBlendData, TheCamera fields and four ms_aAnimBlocks entries. Only the own part of each function is validated. Source tested == current working tree at registration (TaskSimplePlayerOnFoot.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): 0x6862F4..0x68632D in weapon state 2 the command is AIM only if GetTarget or a target exists or m_bFreeAiming, otherwise the whole weapon control is skipped (je 0x6860AD); 0x686AF9..0x686B0D IsInSeeingRange/GetActivePrimaryTask asked to the TARGET intelligence; 0x686BE4..0x686C08 CEventGunAimedAt added to the TARGET event group; 0x6871F0 !(dot > 0) with NaN; 0x686F90 fightMovement.y < -0.5 -> 16 else 15 (NaN included); 0x686DB5 unrounded fsin + z and 0x6870A9 fpatan; 0x68674C CMatrix MultiplyMatrixWithVector 0x59C890 summation order; weapon slot indexed with movsx and no range check.",
+      "review_reference": "reversing/FootWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "Initialise",
+        "address": "0x00550F10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PoolsWave4/validation-summary.json",
+        "sha256": "2311f3cead3d0af1d2d65447db4dce8d61f6c6234f46bfc88ca2261b526e6ce0",
+        "passed_path": [
+          "covered_functions",
+          "CPools::Initialise"
+        ],
+        "pairs": 144,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pools.cpp": "db72465f520e6a16769a1182aa2d70ffa9bccf3df100fb1b5182f94a37cdbef8",
+        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+      },
+      "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2320 isolated CPU pairs for the 7 pending functions of CPools, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers/pools, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: operator new, operator delete and printf are doubled ONLY during the call, with a static arena (no credit); failure of new[] is NOT covered; Initialise and ShutDown touch the 17 real pool globals for microseconds with restoration after each run. Pools/PatrolRoutePool.h still declares CPool<void*> (not edited; the EXE uses 0x1A4 bytes per element, so the DLL pool object type is not tested beyond the element stride in Initialise). Only the own part of each function is validated. Source tested == current working tree at registration (Pools.cpp and Pools.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 144; source corrected (EXE): CPool created without the 0xFD fill; patrol-route pool with 0x1A4 bytes per element (0x550B08 imul eax,eax,1A4h; the DLL used CPool<void*>); byte +0x11; null operator new branch (0x550F3E).",
+      "review_reference": "reversing/PoolsWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "ShutDown",
+        "address": "0x005519F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PoolsWave4/validation-summary.json",
+        "sha256": "2311f3cead3d0af1d2d65447db4dce8d61f6c6234f46bfc88ca2261b526e6ce0",
+        "passed_path": [
+          "covered_functions",
+          "CPools::ShutDown"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pools.cpp": "db72465f520e6a16769a1182aa2d70ffa9bccf3df100fb1b5182f94a37cdbef8",
+        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+      },
+      "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2320 isolated CPU pairs for the 7 pending functions of CPools, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers/pools, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: operator new, operator delete and printf are doubled ONLY during the call, with a static arena (no credit); failure of new[] is NOT covered; Initialise and ShutDown touch the 17 real pool globals for microseconds with restoration after each run. Pools/PatrolRoutePool.h still declares CPool<void*> (not edited; the EXE uses 0x1A4 bytes per element, so the DLL pool object type is not tested beyond the element stride in Initialise). Only the own part of each function is validated. Source tested == current working tree at registration (Pools.cpp and Pools.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 256; source corrected (EXE): no 0xFD fill and no -1 write; signed size > 0 test; messages with printf 0x821982.",
+      "review_reference": "reversing/PoolsWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "Save",
+        "address": "0x005D0880",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PoolsWave4/validation-summary.json",
+        "sha256": "2311f3cead3d0af1d2d65447db4dce8d61f6c6234f46bfc88ca2261b526e6ce0",
+        "passed_path": [
+          "covered_functions",
+          "CPools::Save"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pools.cpp": "db72465f520e6a16769a1182aa2d70ffa9bccf3df100fb1b5182f94a37cdbef8",
+        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+      },
+      "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2320 isolated CPU pairs for the 7 pending functions of CPools, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers/pools, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: operator new, operator delete and printf are doubled ONLY during the call, with a static arena (no credit); failure of new[] is NOT covered; Initialise and ShutDown touch the 17 real pool globals for microseconds with restoration after each run. Pools/PatrolRoutePool.h still declares CPool<void*> (not edited; the EXE uses 0x1A4 bytes per element, so the DLL pool object type is not tested beyond the element stride in Initialise). Only the own part of each function is validated. Source tested == current working tree at registration (Pools.cpp and Pools.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 64; MATCH, no source change (EXE 0x5D0880).",
+      "review_reference": "reversing/PoolsWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "Load",
+        "address": "0x005D0890",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PoolsWave4/validation-summary.json",
+        "sha256": "2311f3cead3d0af1d2d65447db4dce8d61f6c6234f46bfc88ca2261b526e6ce0",
+        "passed_path": [
+          "covered_functions",
+          "CPools::Load"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pools.cpp": "db72465f520e6a16769a1182aa2d70ffa9bccf3df100fb1b5182f94a37cdbef8",
+        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+      },
+      "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2320 isolated CPU pairs for the 7 pending functions of CPools, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers/pools, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: operator new, operator delete and printf are doubled ONLY during the call, with a static arena (no credit); failure of new[] is NOT covered; Initialise and ShutDown touch the 17 real pool globals for microseconds with restoration after each run. Pools/PatrolRoutePool.h still declares CPool<void*> (not edited; the EXE uses 0x1A4 bytes per element, so the DLL pool object type is not tested beyond the element stride in Initialise). Only the own part of each function is validated. Source tested == current working tree at registration (Pools.cpp and Pools.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 64; MATCH, no source change (EXE 0x5D0890).",
+      "review_reference": "reversing/PoolsWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "LoadObjectPool",
+        "address": "0x005D4A40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PoolsWave4/validation-summary.json",
+        "sha256": "2311f3cead3d0af1d2d65447db4dce8d61f6c6234f46bfc88ca2261b526e6ce0",
+        "passed_path": [
+          "covered_functions",
+          "CPools::LoadObjectPool"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pools.cpp": "db72465f520e6a16769a1182aa2d70ffa9bccf3df100fb1b5182f94a37cdbef8",
+        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+      },
+      "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2320 isolated CPU pairs for the 7 pending functions of CPools, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers/pools, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: operator new, operator delete and printf are doubled ONLY during the call, with a static arena (no credit); failure of new[] is NOT covered; Initialise and ShutDown touch the 17 real pool globals for microseconds with restoration after each run. Pools/PatrolRoutePool.h still declares CPool<void*> (not edited; the EXE uses 0x1A4 bytes per element, so the DLL pool object type is not tested beyond the element stride in Initialise). Only the own part of each function is validated. Source tested == current working tree at registration (Pools.cpp and Pools.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 512; MATCH, no source change (EXE 0x5D4A40).",
+      "review_reference": "reversing/PoolsWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "LoadPedPool",
+        "address": "0x005D2D70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PoolsWave4/validation-summary.json",
+        "sha256": "2311f3cead3d0af1d2d65447db4dce8d61f6c6234f46bfc88ca2261b526e6ce0",
+        "passed_path": [
+          "covered_functions",
+          "CPools::LoadPedPool"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pools.cpp": "db72465f520e6a16769a1182aa2d70ffa9bccf3df100fb1b5182f94a37cdbef8",
+        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+      },
+      "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2320 isolated CPU pairs for the 7 pending functions of CPools, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers/pools, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: operator new, operator delete and printf are doubled ONLY during the call, with a static arena (no credit); failure of new[] is NOT covered; Initialise and ShutDown touch the 17 real pool globals for microseconds with restoration after each run. Pools/PatrolRoutePool.h still declares CPool<void*> (not edited; the EXE uses 0x1A4 bytes per element, so the DLL pool object type is not tested beyond the element stride in Initialise). Only the own part of each function is validated. Source tested == current working tree at registration (Pools.cpp and Pools.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 512; MATCH, no source change (EXE 0x5D2D70).",
+      "review_reference": "reversing/PoolsWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "LoadVehiclePool",
+        "address": "0x005D2A20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PoolsWave4/validation-summary.json",
+        "sha256": "2311f3cead3d0af1d2d65447db4dce8d61f6c6234f46bfc88ca2261b526e6ce0",
+        "passed_path": [
+          "covered_functions",
+          "CPools::LoadVehiclePool"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Pools.cpp": "db72465f520e6a16769a1182aa2d70ffa9bccf3df100fb1b5182f94a37cdbef8",
+        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+      },
+      "source_provenance": "Exact compiled PoolsWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2320-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2320 isolated CPU pairs for the 7 pending functions of CPools, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers/pools, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: operator new, operator delete and printf are doubled ONLY during the call, with a static arena (no credit); failure of new[] is NOT covered; Initialise and ShutDown touch the 17 real pool globals for microseconds with restoration after each run. Pools/PatrolRoutePool.h still declares CPool<void*> (not edited; the EXE uses 0x1A4 bytes per element, so the DLL pool object type is not tested beyond the element stride in Initialise). Only the own part of each function is validated. Source tested == current working tree at registration (Pools.cpp and Pools.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 768; MATCH, no source change (EXE 0x5D2A20).",
+      "review_reference": "reversing/PoolsWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "AddWaterLevelQuad",
+        "address": "0x006E7EF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/WaterWave4/validation-summary.json",
+        "sha256": "60080981b9a4664ea605cd54a5b17ec82489f6ed91e1145ef078f46b573ea2a8",
+        "passed_path": [
+          "covered_functions",
+          "CWaterLevel::AddWaterLevelQuad"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/WaterLevel.cpp": "d557b1f8044fafde4f3e6e407e7601fe0df3221a6ab25da1ef4c63e417690c7b",
+        "source/game_sa/WaterLevel.h": "34f5e67773100875cb2309582f08d580f2c16a5c746d0a8a637161c43c2d257a"
+      },
+      "source_provenance": "Exact compiled WaterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2816 isolated CPU pairs for the 4 pending functions of CWaterLevel, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. AddWaterLevelQuad is also listed in the GfxWave2 bank as REJECTED (never registered there); it is registered here from WaterWave4 (its fixture counted the minimum Y with the input Y instead of the Y clamped to -3000; fixture fixed, source MATCH). Limits: water.dat is read from memory with the real sscanf; boats, CColModel and matrices are fake; domain excluded because of uninitialised stack in the EXE (minimum Y 1 or 3, config other than 0/1, malformed lines, boat without matrix). Traced doubles get NO credit. Only the own part of each function is validated. Source tested == current working tree at registration (WaterLevel.cpp and WaterLevel.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; MATCH, no source change (the GfxWave2 rejection came from the fixture, which counted the minimum Y with the input Y instead of the Y clamped to -3000).",
+      "review_reference": "reversing/WaterWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "RenderBoatWakes",
+        "address": "0x006ED9A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/WaterWave4/validation-summary.json",
+        "sha256": "60080981b9a4664ea605cd54a5b17ec82489f6ed91e1145ef078f46b573ea2a8",
+        "passed_path": [
+          "covered_functions",
+          "CWaterLevel::RenderBoatWakes"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/WaterLevel.cpp": "d557b1f8044fafde4f3e6e407e7601fe0df3221a6ab25da1ef4c63e417690c7b",
+        "source/game_sa/WaterLevel.h": "34f5e67773100875cb2309582f08d580f2c16a5c746d0a8a637161c43c2d257a"
+      },
+      "source_provenance": "Exact compiled WaterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2816 isolated CPU pairs for the 4 pending functions of CWaterLevel, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. AddWaterLevelQuad is also listed in the GfxWave2 bank as REJECTED (never registered there); it is registered here from WaterWave4 (its fixture counted the minimum Y with the input Y instead of the Y clamped to -3000; fixture fixed, source MATCH). Limits: water.dat is read from memory with the real sscanf; boats, CColModel and matrices are fake; domain excluded because of uninitialised stack in the EXE (minimum Y 1 or 3, config other than 0/1, malformed lines, boat without matrix). Traced doubles get NO credit. Only the own part of each function is validated. Source tested == current working tree at registration (WaterLevel.cpp and WaterLevel.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 512; source rewritten (EXE): transcription of the inlined pass (raster [0xC228B8], list 0xC27994, widths 0.65/0.4, distances 50/80).",
+      "review_reference": "reversing/WaterWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "SplitWaterTriangleAlongYLine",
+        "address": "0x006EE5A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/WaterWave4/validation-summary.json",
+        "sha256": "60080981b9a4664ea605cd54a5b17ec82489f6ed91e1145ef078f46b573ea2a8",
+        "passed_path": [
+          "covered_functions",
+          "CWaterLevel::SplitWaterTriangleAlongYLine"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/WaterLevel.cpp": "d557b1f8044fafde4f3e6e407e7601fe0df3221a6ab25da1ef4c63e417690c7b",
+        "source/game_sa/WaterLevel.h": "34f5e67773100875cb2309582f08d580f2c16a5c746d0a8a637161c43c2d257a"
+      },
+      "source_provenance": "Exact compiled WaterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2816 isolated CPU pairs for the 4 pending functions of CWaterLevel, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. AddWaterLevelQuad is also listed in the GfxWave2 bank as REJECTED (never registered there); it is registered here from WaterWave4 (its fixture counted the minimum Y with the input Y instead of the Y clamped to -3000; fixture fixed, source MATCH). Limits: water.dat is read from memory with the real sscanf; boats, CColModel and matrices are fake; domain excluded because of uninitialised stack in the EXE (minimum Y 1 or 3, config other than 0/1, malformed lines, boat without matrix). Traced doubles get NO credit. Only the own part of each function is validated. Source tested == current working tree at registration (WaterLevel.cpp and WaterLevel.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source rewritten with the 4 branches of the EXE (jge 0x6EE5D7, jne 0x6EE5DF/0x6EED74); branch D keeps an EXE bug (0x6EF3E1/0x6EF445: lerp(P1,P3) twice).",
+      "review_reference": "reversing/WaterWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "WaterLevelInitialise",
+        "address": "0x006EAE80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/WaterWave4/validation-summary.json",
+        "sha256": "60080981b9a4664ea605cd54a5b17ec82489f6ed91e1145ef078f46b573ea2a8",
+        "passed_path": [
+          "covered_functions",
+          "CWaterLevel::WaterLevelInitialise"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/WaterLevel.cpp": "d557b1f8044fafde4f3e6e407e7601fe0df3221a6ab25da1ef4c63e417690c7b",
+        "source/game_sa/WaterLevel.h": "34f5e67773100875cb2309582f08d580f2c16a5c746d0a8a637161c43c2d257a"
+      },
+      "source_provenance": "Exact compiled WaterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2816 isolated CPU pairs for the 4 pending functions of CWaterLevel, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. AddWaterLevelQuad is also listed in the GfxWave2 bank as REJECTED (never registered there); it is registered here from WaterWave4 (its fixture counted the minimum Y with the input Y instead of the Y clamped to -3000; fixture fixed, source MATCH). Limits: water.dat is read from memory with the real sscanf; boats, CColModel and matrices are fake; domain excluded because of uninitialised stack in the EXE (minimum Y 1 or 3, config other than 0/1, malformed lines, boat without matrix). Traced doubles get NO credit. Only the own part of each function is validated. Source tested == current working tree at registration (WaterLevel.cpp and WaterLevel.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 256; source corrected (EXE): rb open mode, DATA\\water.dat (0x6EAF47), flags = 1 by default (0x6EB069), lines starting with ; \\0 * p ignored, sscanf 29/28/22 unchecked, EXE bug: flowY of vertex 1 = the one of vertex 2 in quads.",
+      "review_reference": "reversing/WaterWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "Constructor",
+        "address": "0x006BF430",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/BikeWave4/validation-summary.json",
+        "sha256": "46f9955286699446b83aa75fcc89c7cbab47430da6c014c67d4be624ac9b6a05",
+        "passed_path": [
+          "covered_functions",
+          "CBike::Constructor"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "8f20220f90ba49775e5a86dfea4cd6fb18cd559b8f6d4e453c0c9e26af82c610",
+        "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
+      },
+      "source_provenance": "Exact compiled BikeWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2816 isolated CPU pairs for the 4 pending functions of CBike, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: no NaN in matrices or velocity, handlingId 0..209, entities with non-null matrix and collision; CEventKnockOffBike and CEventGroup::Add are fakes (traced). The bank EvId lookup was fixed to search from the last to the first match (the DLL reuses the stack slot for the driver/passenger events) and it keeps up to 8 failures with raw trace. Only the own part of each function is validated. Source tested == current working tree at registration (Bike.cpp and Bike.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 512; source corrected (EXE): handling index uses only the low byte (0x6BF520 movzx eax,dl); m_fSteerAngleTan via x87 fptan on the float product (0x6BF59E..0x6BF5BD); wheel loops write only the fields the EXE writes (suspension heights/orig heights, col points, suspension and line lengths are not initialised; ratio history = 1.0, 0x6BF6E0..0x6BF714); lines[1].m_vecStart.z = 99999.99 (0x6BF75D, not .x); and al,0F0h also clears bIsBus (0x6BF79A); two dword stores at +0x60C/+0x610 (0x6BF468/0x6BF46E).",
+      "review_reference": "reversing/BikeWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "Destructor",
+        "address": "0x006B57A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/BikeWave4/validation-summary.json",
+        "sha256": "46f9955286699446b83aa75fcc89c7cbab47430da6c014c67d4be624ac9b6a05",
+        "passed_path": [
+          "covered_functions",
+          "CBike::Destructor"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "8f20220f90ba49775e5a86dfea4cd6fb18cd559b8f6d4e453c0c9e26af82c610",
+        "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
+      },
+      "source_provenance": "Exact compiled BikeWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2816 isolated CPU pairs for the 4 pending functions of CBike, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: no NaN in matrices or velocity, handlingId 0..209, entities with non-null matrix and collision; CEventKnockOffBike and CEventGroup::Add are fakes (traced). The bank EvId lookup was fixed to search from the last to the first match (the DLL reuses the stack slot for the driver/passenger events) and it keeps up to 8 failures with raw trace. Only the own part of each function is validated. Source tested == current working tree at registration (Bike.cpp and Bike.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 256; MATCH with no source change; the comparison masks m_pAttachMatrix (the DLL CMatrix::~CMatrix nulls it, the EXE one at 0x59ACD0 does not) (EXE 0x6B57A0).",
+      "review_reference": "reversing/BikeWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "DamageKnockOffRider",
+        "address": "0x006B5A10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/BikeWave4/validation-summary.json",
+        "sha256": "46f9955286699446b83aa75fcc89c7cbab47430da6c014c67d4be624ac9b6a05",
+        "passed_path": [
+          "covered_functions",
+          "CBike::DamageKnockOffRider"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "8f20220f90ba49775e5a86dfea4cd6fb18cd559b8f6d4e453c0c9e26af82c610",
+        "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
+      },
+      "source_provenance": "Exact compiled BikeWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2816 isolated CPU pairs for the 4 pending functions of CBike, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: no NaN in matrices or velocity, handlingId 0..209, entities with non-null matrix and collision; CEventKnockOffBike and CEventGroup::Add are fakes (traced). The bank EvId lookup was fixed to search from the last to the first match (the DLL reuses the stack slot for the driver/passenger events) and it keeps up to 8 failures with raw trace. Only the own part of each function is validated. Source tested == current working tree at registration (Bike.cpp and Bike.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): task type is TASK_SIMPLE_GANG_DRIVEBY (cmp eax,3FEh at 0x6B5B03; CTaskSimpleGangDriveBy::GetTaskType 3FEh at 0x6218B0, TASK_SIMPLE_BE_HIT is 3F0h at 0x620800), then pedType == cop.",
+      "review_reference": "reversing/BikeWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "ProcessEntityCollision",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/BikeWave4/validation-summary.json",
+        "sha256": "46f9955286699446b83aa75fcc89c7cbab47430da6c014c67d4be624ac9b6a05",
+        "passed_path": [
+          "covered_functions",
+          "CBike::ProcessEntityCollision"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "8f20220f90ba49775e5a86dfea4cd6fb18cd559b8f6d4e453c0c9e26af82c610",
+        "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
+      },
+      "source_provenance": "Exact compiled BikeWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 2816-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2816 isolated CPU pairs for the 4 pending functions of CBike, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: no NaN in matrices or velocity, handlingId 0..209, entities with non-null matrix and collision; CEventKnockOffBike and CEventGroup::Add are fakes (traced). The bank EvId lookup was fixed to search from the last to the first match (the DLL reuses the stack slot for the driver/passenger events) and it keeps up to 8 failures with raw trace. Only the own part of each function is validated. Source tested == current working tree at registration (Bike.cpp and Bike.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024 (virtual, vtable 0x871360 slot 22 = 0x6BDEA0); source corrected (EXE): driver matrix = vehicle matrix copy + driver seat dummy rotated with Multiply3x3 (0x59C790, no translation; dummy 0 for boats else 4) (0x6BDFF8..0x6BE08C); static 32-element ped colpoint array; only with result > 0 (0x6BE0D9); loop exits at numColPts >= 31, skips piece type 0, copies with the EXE CColPoint operator= (0x40FC80, 0x6BE110..0x6BE144); wheel ratio test with NaN semantics (0x6BE190..0x6BE1B6); SetEntityReference without clearing the old reference (0x6BE1DC..0x6BE1E1).",
+      "review_reference": "reversing/BikeWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarEnterExit",
+        "fn_name": "GetNearestCarDoor",
+        "address": "0x006528F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarEnterWave4/validation-summary.json",
+        "sha256": "1b15a83fa364b15755046a8f10935de704df88da2cbf30049c886c12f4080233",
+        "passed_path": [
+          "covered_functions",
+          "CCarEnterExit::GetNearestCarDoor"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+        "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
+      },
+      "source_provenance": "Exact compiled CarEnterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3840 isolated CPU pairs for the 5 pending functions of CCarEnterExit, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: 5 collaborators are doubled with raw-argument trace (no credit for them). ComputePassengerIndexFromCarDoor is hooked through a naked cdecl wrapper that preserves EDX (ComputePassengerIndexFromCarDoor_KeepEdx) because the EXE caller SetPedInCarDirect keeps doorId in EDX across the call. Only the own part of each function is validated. Source tested == current working tree at registration (CarEnterExit.cpp and CarEnterExit.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): ForceDoorCheck branch with only the RF node present returns doorId=8 but copies the position at [esp+24h] (LF), not [esp+30h] (RF) (0x652C25..0x652C69).",
+      "review_reference": "reversing/CarEnterWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarEnterExit",
+        "fn_name": "IsVehicleStealable",
+        "address": "0x006510D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarEnterWave4/validation-summary.json",
+        "sha256": "1b15a83fa364b15755046a8f10935de704df88da2cbf30049c886c12f4080233",
+        "passed_path": [
+          "covered_functions",
+          "CCarEnterExit::IsVehicleStealable"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+        "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
+      },
+      "source_provenance": "Exact compiled CarEnterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3840 isolated CPU pairs for the 5 pending functions of CCarEnterExit, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: 5 collaborators are doubled with raw-argument trace (no credit for them). ComputePassengerIndexFromCarDoor is hooked through a naked cdecl wrapper that preserves EDX (ComputePassengerIndexFromCarDoor_KeepEdx) because the EXE caller SetPedInCarDirect keeps doorId in EDX across the call. Only the own part of each function is validated. Source tested == current working tree at registration (CarEnterExit.cpp and CarEnterExit.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; first-round bank result, no function-specific source change recorded (EXE 0x6510D0).",
+      "review_reference": "reversing/CarEnterWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarEnterExit",
+        "fn_name": "MakeUndraggedDriverPedLeaveCar",
+        "address": "0x0064F600",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarEnterWave4/validation-summary.json",
+        "sha256": "1b15a83fa364b15755046a8f10935de704df88da2cbf30049c886c12f4080233",
+        "passed_path": [
+          "covered_functions",
+          "CCarEnterExit::MakeUndraggedDriverPedLeaveCar"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+        "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
+      },
+      "source_provenance": "Exact compiled CarEnterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3840 isolated CPU pairs for the 5 pending functions of CCarEnterExit, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: 5 collaborators are doubled with raw-argument trace (no credit for them). ComputePassengerIndexFromCarDoor is hooked through a naked cdecl wrapper that preserves EDX (ComputePassengerIndexFromCarDoor_KeepEdx) because the EXE caller SetPedInCarDirect keeps doorId in EDX across the call. Only the own part of each function is validated. Source tested == current working tree at registration (CarEnterExit.cpp and CarEnterExit.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 256; source corrected (EXE): pointers instead of references because the EXE accepts a null ped (0x4AD291 test ecx,ecx).",
+      "review_reference": "reversing/CarEnterWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarEnterExit",
+        "fn_name": "SetAnimOffsetForEnterOrExitVehicle",
+        "address": "0x0064F860",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarEnterWave4/validation-summary.json",
+        "sha256": "1b15a83fa364b15755046a8f10935de704df88da2cbf30049c886c12f4080233",
+        "passed_path": [
+          "covered_functions",
+          "CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+        "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
+      },
+      "source_provenance": "Exact compiled CarEnterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3840 isolated CPU pairs for the 5 pending functions of CCarEnterExit, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: 5 collaborators are doubled with raw-argument trace (no credit for them). ComputePassengerIndexFromCarDoor is hooked through a naked cdecl wrapper that preserves EDX (ComputePassengerIndexFromCarDoor_KeepEdx) because the EXE caller SetPedInCarDirect keeps doorId in EDX across the call. Only the own part of each function is validated. Source tested == current working tree at registration (CarEnterExit.cpp and CarEnterExit.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 512; first-round bank result, no function-specific source change recorded (EXE 0x64F860).",
+      "review_reference": "reversing/CarEnterWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarEnterExit",
+        "fn_name": "SetPedInCarDirect",
+        "address": "0x00650280",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarEnterWave4/validation-summary.json",
+        "sha256": "1b15a83fa364b15755046a8f10935de704df88da2cbf30049c886c12f4080233",
+        "passed_path": [
+          "covered_functions",
+          "CCarEnterExit::SetPedInCarDirect"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+        "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
+      },
+      "source_provenance": "Exact compiled CarEnterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3840 isolated CPU pairs for the 5 pending functions of CCarEnterExit, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: 5 collaborators are doubled with raw-argument trace (no credit for them). ComputePassengerIndexFromCarDoor is hooked through a naked cdecl wrapper that preserves EDX (ComputePassengerIndexFromCarDoor_KeepEdx) because the EXE caller SetPedInCarDirect keeps doorId in EDX across the call. Only the own part of each function is validated. Source tested == current working tree at registration (CarEnterExit.cpp and CarEnterExit.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): ComputePassengerIndexFromCarDoor evaluated BEFORE building the local task (0x65034F..0x65035E, via the EDX-preserving wrapper); local CTaskSimpleCarSetPedInAsPassenger lives until the end of the function (ctor 0x646FE0 at 0x650362, dtor 0x647080 at 0x6504A7); acquaintance loop uses .data()[] (no range check, as the EXE).",
+      "review_reference": "reversing/CarEnterWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CIdleCam",
+        "fn_name": "FinaliseIdleCamera",
+        "address": "0x0050E760",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/IdleCamWave4/validation-summary.json",
+        "sha256": "05fd2ac0845c9b3eac9e39dfe0a32f0a0c9c8425f7357162a294447e33645ca7",
+        "passed_path": [
+          "covered_functions",
+          "CIdleCam::FinaliseIdleCamera"
+        ],
+        "pairs": 640,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/IdleCam.cpp": "5ad8569e768d1eeec9ddfe138f600182c3b6f017bb4fb1d2180d82f35aa3ce3f",
+        "source/game_sa/IdleCam.h": "730c34b9f5e7b7fe299038971dbe5d45fa5a257de22b183ef1a48408de339de4"
+      },
+      "source_provenance": "Exact compiled IdleCamWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3584-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3584 isolated CPU pairs for the 5 pending functions of CIdleCam, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: x87 PC24 environment verified per bank; collaborators doubled with raw-argument trace (no credit for them); the other 13 CIdleCam hooks were disabled during the run. Only the own part of each function is validated. Source tested == current working tree at registration (IdleCam.cpp and IdleCam.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 640; source corrected (EXE): x87 FCOS/FSIN full precision (0x50E763..0x50E7B1, 0x50E87D..0x50E8B2), shake passed already multiplied by m_DegreeShakeIdleCam (0x50E80B..0x50E825), vector*matrix Multiply3x3 (0x59C810, 0x50E855), explicit Normalise, 0.0001f constant (0x50E949), GetVectorsReadyForRW inline body (0x50E9D0..0x50EAD7).",
+      "review_reference": "reversing/IdleCamWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CIdleCam",
+        "fn_name": "Process",
+        "address": "0x00522C80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/IdleCamWave4/validation-summary.json",
+        "sha256": "05fd2ac0845c9b3eac9e39dfe0a32f0a0c9c8425f7357162a294447e33645ca7",
+        "passed_path": [
+          "covered_functions",
+          "CIdleCam::Process"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/IdleCam.cpp": "5ad8569e768d1eeec9ddfe138f600182c3b6f017bb4fb1d2180d82f35aa3ce3f",
+        "source/game_sa/IdleCam.h": "730c34b9f5e7b7fe299038971dbe5d45fa5a257de22b183ef1a48408de339de4"
+      },
+      "source_provenance": "Exact compiled IdleCamWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3584-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3584 isolated CPU pairs for the 5 pending functions of CIdleCam, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: x87 PC24 environment verified per bank; collaborators doubled with raw-argument trace (no credit for them); the other 13 CIdleCam hooks were disabled during the run. Only the own part of each function is validated. Source tested == current working tree at registration (IdleCam.cpp and IdleCam.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 512; first-round bank result, no function-specific source change recorded (EXE 0x522C80).",
+      "review_reference": "reversing/IdleCamWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CIdleCam",
+        "fn_name": "ProcessSlerp",
+        "address": "0x005179E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/IdleCamWave4/validation-summary.json",
+        "sha256": "05fd2ac0845c9b3eac9e39dfe0a32f0a0c9c8425f7357162a294447e33645ca7",
+        "passed_path": [
+          "covered_functions",
+          "CIdleCam::ProcessSlerp"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/IdleCam.cpp": "5ad8569e768d1eeec9ddfe138f600182c3b6f017bb4fb1d2180d82f35aa3ce3f",
+        "source/game_sa/IdleCam.h": "730c34b9f5e7b7fe299038971dbe5d45fa5a257de22b183ef1a48408de339de4"
+      },
+      "source_provenance": "Exact compiled IdleCamWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3584-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3584 isolated CPU pairs for the 5 pending functions of CIdleCam, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: x87 PC24 environment verified per bank; collaborators doubled with raw-argument trace (no credit for them); the other 13 CIdleCam hooks were disabled during the run. Only the own part of each function is validated. Source tested == current working tree at registration (IdleCam.cpp and IdleCam.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): x87 transcription of 0x517A2D..0x517BD5 (GetATanOfXY 0x53CC70 unrounded, FSIN, constants from the EXE), GetLookAtPositionOnTarget always called (0x517A09), time as float with a single rounding.",
+      "review_reference": "reversing/IdleCamWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CIdleCam",
+        "fn_name": "ProcessTargetSelection",
+        "address": "0x00517870",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/IdleCamWave4/validation-summary.json",
+        "sha256": "05fd2ac0845c9b3eac9e39dfe0a32f0a0c9c8425f7357162a294447e33645ca7",
+        "passed_path": [
+          "covered_functions",
+          "CIdleCam::ProcessTargetSelection"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/IdleCam.cpp": "5ad8569e768d1eeec9ddfe138f600182c3b6f017bb4fb1d2180d82f35aa3ce3f",
+        "source/game_sa/IdleCam.h": "730c34b9f5e7b7fe299038971dbe5d45fa5a257de22b183ef1a48408de339de4"
+      },
+      "source_provenance": "Exact compiled IdleCamWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3584-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3584 isolated CPU pairs for the 5 pending functions of CIdleCam, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: x87 PC24 environment verified per bank; collaborators doubled with raw-argument trace (no credit for them); the other 13 CIdleCam hooks were disabled during the run. Only the own part of each function is validated. Source tested == current working tree at registration (IdleCam.cpp and IdleCam.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 1024; source corrected (EXE): FILD of now (exact integer) and FSUB with a single 24-bit rounding; the source did float(now)-T with double rounding (edge of the 5000 threshold with now > 2^24); now if now < 2^31: float(double(now)-double(T)), if now >= 2^31: float(now)-T; null m_Target stores the cached player directly (0x517952) and calls SetTarget (0x517989); FindPlayerPed called once (0x517876).",
+      "review_reference": "reversing/IdleCamWave4/README.md"
+    },
+    {
+      "hook": {
+        "class": "CIdleCam",
+        "fn_name": "Run",
+        "address": "0x0051D3E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/IdleCamWave4/validation-summary.json",
+        "sha256": "05fd2ac0845c9b3eac9e39dfe0a32f0a0c9c8425f7357162a294447e33645ca7",
+        "passed_path": [
+          "covered_functions",
+          "CIdleCam::Run"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/IdleCam.cpp": "5ad8569e768d1eeec9ddfe138f600182c3b6f017bb4fb1d2180d82f35aa3ce3f",
+        "source/game_sa/IdleCam.h": "730c34b9f5e7b7fe299038971dbe5d45fa5a257de22b183ef1a48408de339de4"
+      },
+      "source_provenance": "Exact compiled IdleCamWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3584-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "dependency_review": null,
+      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3584 isolated CPU pairs for the 5 pending functions of CIdleCam, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: x87 PC24 environment verified per bank; collaborators doubled with raw-argument trace (no credit for them); the other 13 CIdleCam hooks were disabled during the run. Only the own part of each function is validated. Source tested == current working tree at registration (IdleCam.cpp and IdleCam.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Function-specific: Corpus 384; first-round bank result, no function-specific source change recorded (EXE 0x51D3E0).",
+      "review_reference": "reversing/IdleCamWave4/README.md"
     }
   ]
 }

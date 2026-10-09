@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 32/32 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 5.
- * Validación registrada: 27/32 entradas.
+ * Validación registrada: 32/32 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -34,6 +34,22 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexDriveWander.h"
 #include "TaskSimpleCarSetPedInAsPassenger.h"
 
+// Como el original: 0x64F1E0 es cdecl (vehicle, doorId) y solo usa EAX/ECX; su llamador SetPedInCarDirect (0x650356) guarda
+// doorId en EDX antes de la llamada y lo vuelve a empujar tras ella (0x650360 `push edx`). Un hook normal deja EDX libre para
+// el compilador y, con el hook de SetPedInCarDirect desactivado, el EXE construiria la tarea con una puerta basura: esta
+// envoltura recibe los argumentos cdecl y conserva EDX.
+static int32 __declspec(naked) __cdecl ComputePassengerIndexFromCarDoor_KeepEdx(const CVehicle* vehicle, int32 doorId) {
+    __asm {
+        push edx
+        push dword ptr [esp + 0Ch]
+        push dword ptr [esp + 0Ch]
+        call CCarEnterExit::ComputePassengerIndexFromCarDoor
+        add  esp, 8
+        pop  edx
+        ret
+    }
+}
+
 void CCarEnterExit::InjectHooks() {
     RH_ScopedClass(CCarEnterExit);
     RH_ScopedCategoryGlobal();
@@ -45,7 +61,7 @@ void CCarEnterExit::InjectHooks() {
     RH_ScopedInstall(CarHasPartiallyOpenDoor, 0x64EE70);
     RH_ScopedInstall(ComputeDoorFlag, 0x64E550);
     RH_ScopedInstall(ComputeOppositeDoorFlag, 0x64E610);
-    RH_ScopedInstall(ComputePassengerIndexFromCarDoor, 0x64F1E0);
+    RH_ScopedNamedGlobalInstall(ComputePassengerIndexFromCarDoor_KeepEdx, "ComputePassengerIndexFromCarDoor", 0x64F1E0);
     RH_ScopedInstall(ComputeSlowJackedPed, 0x64F070);
     RH_ScopedInstall(ComputeTargetDoorToEnterAsPassenger, 0x64F190);
     RH_ScopedInstall(ComputeTargetDoorToExit, 0x64F110);
@@ -384,7 +400,9 @@ bool CCarEnterExit::GetNearestCarDoor(const CPed* ped, const CVehicle* vehicle, 
             }
             if (hasRF && IsRoomForPedToLeaveCar(vehicle, CAR_DOOR_RF, driverDraggedOutOffset)) {
                 doorId = CAR_DOOR_RF;
-                outPos = posDoorFRight;
+                // Como el original (0x652C47..0x652C69): con solo la puerta RF, doorId = 8 pero la posicion copiada
+                // es la de la puerta LF ([esp+24h]/[esp+28h]/[esp+2Ch]), no la de RF ([esp+30h])
+                outPos = posDoorFLeft;
                 return true;
             }
             return false;
@@ -813,12 +831,13 @@ bool CCarEnterExit::IsVehicleStealable(const CVehicle* vehicle, const CPed* ped)
 
 // 0x64F600
 void CCarEnterExit::MakeUndraggedDriverPedLeaveCar(const CVehicle* vehicle, const CPed* pedGettingIn) {
-    auto& veh = const_cast<CVehicle&>(*vehicle); // TODO: Fix
-    auto& ped = const_cast<CPed&>(*pedGettingIn); // TODO: Fix
+    auto* veh = const_cast<CVehicle*>(vehicle); // TODO: Fix
+    auto* ped = const_cast<CPed*>(pedGettingIn); // TODO: Fix
     // Como el original (0x64F62F..0x64F64C): evento local construido una vez (0x4AD250) y Add(&evento, false) (0x4AB420);
-    // la plantilla Add(T) lo copiaba antes, registrando referencias de mas.
-    CEventDraggedOutCar event{ &veh, &ped, true };
-    veh.m_pDriver->GetEventGroup().Add(&event, false);
+    // la plantilla Add(T) lo copiaba antes, registrando referencias de mas. El EXE acepta un ped nulo (0x4AD291 `test ecx,ecx`):
+    // se usan punteros, no referencias, para no formar una referencia nula.
+    CEventDraggedOutCar event{ veh, ped, true };
+    veh->m_pDriver->GetEventGroup().Add(&event, false);
 }
 
 // 0x64F540
@@ -980,12 +999,15 @@ bool CCarEnterExit::SetPedInCarDirect(CPed* ped, CVehicle* vehicle, int32 doorId
         return true;
     }
 
+    // Como el original (0x65034F..0x65035E): ComputePassengerIndexFromCarDoor (ebx) se evalua ANTES de construir la tarea local.
+    const auto psgrIdx = ComputePassengerIndexFromCarDoor(vehicle, doorId);
+
+    // Como el original (0x646FE0 en 0x650362, destructor 0x647080 en 0x6504A7): la tarea local vive hasta el final de la
+    // funcion, despues de la tarea de moto y del bucle de conocidos. La DLL la destruia justo despues de ProcessPed.
     // Warp ped into vehicle
-    {
-        CTaskSimpleCarSetPedInAsPassenger task{ vehicle, (eTargetDoor)doorId };
-        task.m_bWarpingInToCar = true;
-        task.ProcessPed(ped);
-    }
+    CTaskSimpleCarSetPedInAsPassenger task{ vehicle, (eTargetDoor)doorId };
+    task.m_bWarpingInToCar = true;
+    task.ProcessPed(ped);
 
     if (vehicle->IsBike()) {
         ped->GetTaskManager().SetTask(new CTaskComplexCarDrive{ vehicle, false }, TASK_PRIMARY_PRIMARY);
@@ -1010,11 +1032,11 @@ bool CCarEnterExit::SetPedInCarDirect(CPed* ped, CVehicle* vehicle, int32 doorId
     SetMutalAcquaintanceWith(vehicle->m_pDriver);
 
     // Como el original (0x650436: `test ebx,ebx / jle`): con indice <= 0 (p. ej. -1) no se recorre ninguno, y se recorren
-    // exactamente psgrIdx plazas desde m_apPassengers[0] sin limitar por m_nMaxPassengers.
-    const auto psgrIdx = ComputePassengerIndexFromCarDoor(vehicle, doorId);
+    // exactamente psgrIdx plazas desde m_apPassengers[0] sin limitar por m_nMaxPassengers (el EXE no comprueba el rango:
+    // .data()[] evita el abort de std::array en depuracion).
     for (int32 i = 0; i < psgrIdx; ++i) {
-        SetMutalAcquaintanceWith(vehicle->m_apPassengers[i]); // Set with all other passengers up to the ped's seat
+        SetMutalAcquaintanceWith(vehicle->m_apPassengers.data()[i]); // Set with all other passengers up to the ped's seat
     }
 
-    return true;
+    return true; // Como el original (0x6504A7): aqui se destruye la tarea local (0x647080)
 }

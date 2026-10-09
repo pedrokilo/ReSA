@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7193 con evidencia histórica, 0 con vigencia acreditada y 1253 pendientes en 23 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # TrainWave3: banco por pares de CTrain::ProcessControl
 
 Banco simple (flujo viejo, copiado de `VehWave2`/`PadMouse1`) para la unica funcion pendiente de CTrain: `CTrain::ProcessControl` (virtual, hueco 10 de la vtable 0x872370, cuerpo del EXE en 0x6F86A0; `RH_ScopedVirtualClass(CTrain, 0x872370, 66)` verificado con `rd.py i872370`: hueco 10 = 0x6F86A0). Uso: `bash reversing/_handoff/bench.sh TrainWave3 3`. Filtro opcional: `trainwave3-only.txt` en la carpeta del juego con `CTrain::ProcessControl`. Corpus: 1024 pares. NO se ha compilado ni ejecutado (encargo sin compilar): los supuestos a comprobar estan al final.

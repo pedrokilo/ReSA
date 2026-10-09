@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "pairs": 3840,
+  "differences": 0,
+  "registered_pairs": 3840,
+  "registered_functions": 5,
+  "functions": {
+    "CCarEnterExit::GetNearestCarDoor": 1024,
+    "CCarEnterExit::IsVehicleStealable": 1024,
+    "CCarEnterExit::MakeUndraggedDriverPedLeaveCar": 256,
+    "CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle": 512,
+    "CCarEnterExit::SetPedInCarDirect": 1024
+  },
+  "covered_functions": {
+    "CCarEnterExit::GetNearestCarDoor": true,
+    "CCarEnterExit::IsVehicleStealable": true,
+    "CCarEnterExit::MakeUndraggedDriverPedLeaveCar": true,
+    "CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle": true,
+    "CCarEnterExit::SetPedInCarDirect": true
+  },
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3840 isolated CPU pairs for the 5 pending functions of CCarEnterExit, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: 5 collaborators are doubled with raw-argument trace (no credit for them). ComputePassengerIndexFromCarDoor is hooked through a naked cdecl wrapper that preserves EDX (ComputePassengerIndexFromCarDoor_KeepEdx) because the EXE caller SetPedInCarDirect keeps doorId in EDX across the call. Only the own part of each function is validated. Source tested == current working tree at registration (CarEnterExit.cpp and CarEnterExit.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CCarEnterExit::GetNearestCarDoor": "Corpus 1024; source corrected (EXE): ForceDoorCheck branch with only the RF node present returns doorId=8 but copies the position at [esp+24h] (LF), not [esp+30h] (RF) (0x652C25..0x652C69).",
+    "CCarEnterExit::IsVehicleStealable": "Corpus 1024; first-round bank result, no function-specific source change recorded (EXE 0x6510D0).",
+    "CCarEnterExit::MakeUndraggedDriverPedLeaveCar": "Corpus 256; source corrected (EXE): pointers instead of references because the EXE accepts a null ped (0x4AD291 test ecx,ecx).",
+    "CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle": "Corpus 512; first-round bank result, no function-specific source change recorded (EXE 0x64F860).",
+    "CCarEnterExit::SetPedInCarDirect": "Corpus 1024; source corrected (EXE): ComputePassengerIndexFromCarDoor evaluated BEFORE building the local task (0x65034F..0x65035E, via the EDX-preserving wrapper); local CTaskSimpleCarSetPedInAsPassenger lives until the end of the function (ctor 0x646FE0 at 0x650362, dtor 0x647080 at 0x6504A7); acquaintance loop uses .data()[] (no range check, as the EXE)."
+  },
+  "dependency_review": null,
+  "run": "reversing/CarEnterWave4/runs/20261009-124128-464472",
+  "summary_sha256": "8fc6b28e355201cc2db2a5274fa8e802ee24f3cd504f496a3fa94413b27505b9",
+  "result_txt_sha256": "e5e5a8dd8f5692c04de04ef282565907fb1ef7bad9c323a06be4b21b492c3bd3",
+  "log_sha256": "6047f5ff5cc7926c25c5ec822b58da177e48e620e9486af84c36b0c1e8949d8a",
+  "comparison_storage": {
+    "uncompressed_sha256": "6047f5ff5cc7926c25c5ec822b58da177e48e620e9486af84c36b0c1e8949d8a",
+    "uncompressed_bytes": 940360,
+    "compressed_path": "reversing/CarEnterWave4/runs/20261009-124128-464472/comparisons.jsonl.gz",
+    "compressed_sha256": "1fd3a08a0ee4fc1dc4fa9f9b1bc0381b0ee457a33015c7cda2678f7d83b8c7ed",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "6047f5ff5cc7926c25c5ec822b58da177e48e620e9486af84c36b0c1e8949d8a",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-carenterwave4\\20261009-124128-464472\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "a6d7e3e146caf9e345832809d2278a6a0e1f881ad3b26f6455780239ceb3e39b",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9dee409c407a6a001d0cbdf88625d2ac97da1fea",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 3840,
+    "registered_pairs": 3840,
+    "asi": "a6d7e3e146caf9e345832809d2278a6a0e1f881ad3b26f6455780239ceb3e39b",
+    "pdb": "bd4ccaca1b3a3ebf7b3bcf03ab116ee2ef84f1b1b51764dd7e553893f97358f9",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-carenterwave4-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+      "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "645e2b53ee9d02961db9f2c05296322a3f5a520f2ad5d4b7d15514854ab5efbb",
+      "build_probe.py": "fef37598b1df0a843a758db9a8a3e5e89d48faa1ba26cc9c239b61e8616a3dfe",
+      "run_local.py": "8cb62e9ac1d8e2389e90c4963111fd0f09da14c81e0d3ab79a28393f12a43303"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/CarEnterExit.cpp": "GetNearestCarDoor: RF-only branch copies the LF position (0x652C47..0x652C69); MakeUndraggedDriverPedLeaveCar: pointers (null ped); SetPedInCarDirect: passenger index before the task, task lifetime to function end, .data()[]; ComputePassengerIndexFromCarDoor hooked via the EDX-preserving naked wrapper"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 3840,
+    "complete_events": 1,
+    "terminal_error_events": 0,
+    "terminal_event": {
+      "event": "complete",
+      "layout_ok": true,
+      "pairs": 3840,
+      "state_restored": true
+    },
+    "layout_events": 1,
+    "layout_ok": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 0,
+    "function_summaries": 5,
+    "functions_with_zero_failures": 5,
+    "unequal_pairs": 0,
+    "unequal_by_function": {},
+    "distinct_cases": 3840,
+    "per_function": {
+      "CCarEnterExit::GetNearestCarDoor": 1024,
+      "CCarEnterExit::IsVehicleStealable": 1024,
+      "CCarEnterExit::MakeUndraggedDriverPedLeaveCar": 256,
+      "CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle": 512,
+      "CCarEnterExit::SetPedInCarDirect": 1024
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/CarEnterExit.cpp": "GetNearestCarDoor: RF-only branch copies the LF position (0x652C47..0x652C69); MakeUndraggedDriverPedLeaveCar: pointers (null ped); SetPedInCarDirect: passenger index before the task, task lifetime to function end, .data()[]; ComputePassengerIndexFromCarDoor hooked via the EDX-preserving naked wrapper"
+  },
+  "notes": "With these five functions CCarEnterExit has no pending entries in docs/hooks.csv."
+}

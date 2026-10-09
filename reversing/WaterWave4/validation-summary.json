@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "pairs": 2816,
+  "differences": 0,
+  "registered_pairs": 2816,
+  "registered_functions": 4,
+  "functions": {
+    "CWaterLevel::AddWaterLevelQuad": 1024,
+    "CWaterLevel::RenderBoatWakes": 512,
+    "CWaterLevel::SplitWaterTriangleAlongYLine": 1024,
+    "CWaterLevel::WaterLevelInitialise": 256
+  },
+  "covered_functions": {
+    "CWaterLevel::AddWaterLevelQuad": true,
+    "CWaterLevel::RenderBoatWakes": true,
+    "CWaterLevel::SplitWaterTriangleAlongYLine": true,
+    "CWaterLevel::WaterLevelInitialise": true
+  },
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2816 isolated CPU pairs for the 4 pending functions of CWaterLevel, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. AddWaterLevelQuad is also listed in the GfxWave2 bank as REJECTED (never registered there); it is registered here from WaterWave4 (its fixture counted the minimum Y with the input Y instead of the Y clamped to -3000; fixture fixed, source MATCH). Limits: water.dat is read from memory with the real sscanf; boats, CColModel and matrices are fake; domain excluded because of uninitialised stack in the EXE (minimum Y 1 or 3, config other than 0/1, malformed lines, boat without matrix). Traced doubles get NO credit. Only the own part of each function is validated. Source tested == current working tree at registration (WaterLevel.cpp and WaterLevel.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CWaterLevel::AddWaterLevelQuad": "Corpus 1024; MATCH, no source change (the GfxWave2 rejection came from the fixture, which counted the minimum Y with the input Y instead of the Y clamped to -3000).",
+    "CWaterLevel::RenderBoatWakes": "Corpus 512; source rewritten (EXE): transcription of the inlined pass (raster [0xC228B8], list 0xC27994, widths 0.65/0.4, distances 50/80).",
+    "CWaterLevel::SplitWaterTriangleAlongYLine": "Corpus 1024; source rewritten with the 4 branches of the EXE (jge 0x6EE5D7, jne 0x6EE5DF/0x6EED74); branch D keeps an EXE bug (0x6EF3E1/0x6EF445: lerp(P1,P3) twice).",
+    "CWaterLevel::WaterLevelInitialise": "Corpus 256; source corrected (EXE): rb open mode, DATA\\water.dat (0x6EAF47), flags = 1 by default (0x6EB069), lines starting with ; \\0 * p ignored, sscanf 29/28/22 unchecked, EXE bug: flowY of vertex 1 = the one of vertex 2 in quads."
+  },
+  "dependency_review": null,
+  "run": "reversing/WaterWave4/runs/20261009-123543-732613",
+  "summary_sha256": "5128ee6e747bb8d0b1493d5f430aa08ec257c28757b5d9c367c0dda5b11235be",
+  "result_txt_sha256": "92b073f3d398fee24a6254e62dd0fca083bf269ed9731acf5733236a46829a6e",
+  "log_sha256": "aea30195a067f73c50c05b073f15c59ffdccead15e4891b7ee4a09fdd4d7f4ee",
+  "comparison_storage": {
+    "uncompressed_sha256": "aea30195a067f73c50c05b073f15c59ffdccead15e4891b7ee4a09fdd4d7f4ee",
+    "uncompressed_bytes": 4427221,
+    "compressed_path": "reversing/WaterWave4/runs/20261009-123543-732613/comparisons.jsonl.gz",
+    "compressed_sha256": "63cb1ce902a16f4467c583c0a2f55578eeb79f01251784e2cdfff4cbb4527f5c",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "aea30195a067f73c50c05b073f15c59ffdccead15e4891b7ee4a09fdd4d7f4ee",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-waterwave4\\20261009-123543-732613\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "17cb204fbdf3ad9f0fe3eba8da5ca96b98d42856f8475e820f79427a9c4ca1b1",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9dee409c407a6a001d0cbdf88625d2ac97da1fea",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 2816,
+    "registered_pairs": 2816,
+    "asi": "17cb204fbdf3ad9f0fe3eba8da5ca96b98d42856f8475e820f79427a9c4ca1b1",
+    "pdb": "7f3aa981dc67900df6d305b8ec4ae4102fec865c91c1a2ca1b25890f4f373caf",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-waterwave4-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/WaterLevel.cpp": "d557b1f8044fafde4f3e6e407e7601fe0df3221a6ab25da1ef4c63e417690c7b",
+      "source/game_sa/WaterLevel.h": "34f5e67773100875cb2309582f08d580f2c16a5c746d0a8a637161c43c2d257a"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "ffb6d663cd3217656d129ce6a886a196ac6e083837d7cdf3a68a9847191a5ad7",
+      "WaterCommon.hpp": "883fe6bca8f0084d172bb5e3c4a11ab67169c7faab312b6eabb870dfe6480d9a",
+      "WaterPart.hpp": "8f44ffb5e0188fd83f5d6c59c4807ad25cccb49e95e21471b1de62d717a476dc",
+      "build_probe.py": "c87deaeb18752b9cc840584cfedf5859281d23cea4189ce7ca526052a1d9bbb5",
+      "run_local.py": "cc7cc7c7a18b9d1fd1fd4ec4f4dfd1228cb33ba78ff468b5793b40dac7519584"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/WaterLevel.cpp": "SplitWaterTriangleAlongYLine rewritten with the 4 EXE branches (0x6EE5D7, 0x6EE5DF, 0x6EED74; EXE bug kept 0x6EF3E1/0x6EF445); RenderBoatWakes transcribes the inlined pass (raster 0xC228B8, list 0xC27994, widths 0.65/0.4, distances 50/80); WaterLevelInitialise (rb, DATA\\water.dat 0x6EAF47, default flags 1 0x6EB069, ignored lines, unchecked sscanf, EXE flowY bug); AddWaterLevelQuad without changes"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 2816,
+    "complete_events": 1,
+    "terminal_error_events": 0,
+    "terminal_event": {
+      "event": "complete",
+      "layout_ok": true,
+      "pairs": 2816,
+      "state_restored": true
+    },
+    "layout_events": 1,
+    "layout_ok": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 0,
+    "function_summaries": 4,
+    "functions_with_zero_failures": 4,
+    "unequal_pairs": 0,
+    "unequal_by_function": {},
+    "distinct_cases": 2816,
+    "per_function": {
+      "CWaterLevel::AddWaterLevelQuad": 1024,
+      "CWaterLevel::RenderBoatWakes": 512,
+      "CWaterLevel::SplitWaterTriangleAlongYLine": 1024,
+      "CWaterLevel::WaterLevelInitialise": 256
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/WaterLevel.cpp": "SplitWaterTriangleAlongYLine rewritten with the 4 EXE branches (0x6EE5D7, 0x6EE5DF, 0x6EED74; EXE bug kept 0x6EF3E1/0x6EF445); RenderBoatWakes transcribes the inlined pass (raster 0xC228B8, list 0xC27994, widths 0.65/0.4, distances 50/80); WaterLevelInitialise (rb, DATA\\water.dat 0x6EAF47, default flags 1 0x6EB069, ignored lines, unchecked sscanf, EXE flowY bug); AddWaterLevelQuad without changes"
+  },
+  "notes": "With these four functions CWaterLevel has no pending entries in docs/hooks.csv. CWaterLevel::AddWaterLevelQuad was REJECTED in GfxWave2 (fixture error) and is registered only from here."
+}

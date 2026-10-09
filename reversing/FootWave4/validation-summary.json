@@ -1,0 +1,102 @@
+{
+  "passed": true,
+  "pairs": 5120,
+  "differences": 0,
+  "registered_pairs": 5120,
+  "registered_functions": 5,
+  "functions": {
+    "CTaskSimplePlayerOnFoot::PlayIdleAnimations": 1024,
+    "CTaskSimplePlayerOnFoot::PlayerControlZeldaWeapon": 1024,
+    "CTaskSimplePlayerOnFoot::PlayerControlDucked": 1024,
+    "CTaskSimplePlayerOnFoot::PlayerControlZelda": 1024,
+    "CTaskSimplePlayerOnFoot::ProcessPlayerWeapon": 1024
+  },
+  "covered_functions": {
+    "CTaskSimplePlayerOnFoot::PlayIdleAnimations": true,
+    "CTaskSimplePlayerOnFoot::PlayerControlZeldaWeapon": true,
+    "CTaskSimplePlayerOnFoot::PlayerControlDucked": true,
+    "CTaskSimplePlayerOnFoot::PlayerControlZelda": true,
+    "CTaskSimplePlayerOnFoot::ProcessPlayerWeapon": true
+  },
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 5120 isolated CPU pairs for the 5 pending functions of CTaskSimplePlayerOnFoot, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (full CPlayerPed buffer with raw EXE offsets, target ped, other ped, vehicle, fake intelligences, CPlayerPedData, full CPad, fake group, fake clump, fake animation associations/groups/blocks, camera state) and compares return value, memory of the tested object and its padding, new pool tasks (type + fields set by the constructor), fake task memory, fingerprint of all buffers, the whole trace of doubled collaborators with raw arguments (including random reads), fingerprint of touched globals, the x87 control word (24 bits) and an empty x87 stack; foreign threads ignored. NaN cases use quiet NaN only. Limits: about 75 collaborators are doubled with traces WITHOUT credit (CPad queries, CCamera, CPed/CPlayerPed members, animation, CGameLogic, intelligence and task functions, groups, events, crimes, audio, IK, rand and GetRandomNumber). Constructors/destructors of stack objects (CPedDamageResponseCalculator 0x4AD3F0/0x4AD420, CEventDamage 0x4AD830/0x4AD960, CEventGunAimedAt 0x4B0700/0x4B07B0, CEventGroupEvent 0x4ADFD0/0x4AE070) and constructors of really new tasks (CTaskSimpleUseGun, CTaskSimpleFight, CTaskSimpleStealthKill, CTaskSimpleThrowProjectile, CTaskComplexJump, CTaskComplexUseGoggles) run for real and are only summarised. The two static functions (PlayerControlZeldaWeapon, PlayerControlDucked) are `ret 4` in the EXE and cdecl in the DLL (not changed): the original is entered by EXE address with stdcall and the candidate calls the DLL function directly with cdecl; the hook is only safe because its only EXE caller is the hooked ProcessPed. Real globals touched for microseconds and restored after EACH run: CWorld::Players[1].m_pPed, gLastTouchTimeDelta, gLastRandomNumberForIdleAnimationID, gbUnknown_8D2FE8, gDuckAnimBlendData, TheCamera fields and four ms_aAnimBlocks entries. Only the own part of each function is validated. Source tested == current working tree at registration (TaskSimplePlayerOnFoot.cpp/.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CTaskSimplePlayerOnFoot::PlayIdleAnimations": "Corpus 1024; source corrected (EXE): 0x6872CE GetPadFromPlayer before the cooperative-mode check (0x6872D5..0x6872E5); 0x687300 test byte [ebp+478h],2 is bUsingMobilePhone (not bCrouchWhenShooting); 0x687323/0x687393/0x687424 signed comparisons (jg/jle); 0x68740D test byte [ebp+46Ch],0Ch / jne: it is enough that ONE of bIsLooking/bIsRestoringLook is set; 0x6873BD..0x687406 animation index tested first <= idx < first + num (exclusive upper end) via RpAnimBlendClumpGetFirstAssociation/GetNextAssociation; 0x687430 CGeneral::GetRandomIntInRange(0,4).",
+    "CTaskSimplePlayerOnFoot::PlayerControlZeldaWeapon": "Corpus 1024; source corrected (EXE): 0x687D73 fsin, 0x687D99 fcos and 0x687EA9 fpatan with full x87 precision (std::sin/cos/atan2 differed in the last bit); rest MATCH. Static function: ret 4 in the EXE, cdecl in the DLL (not changed).",
+    "CTaskSimplePlayerOnFoot::PlayerControlDucked": "Corpus 1024; source corrected (EXE): 0x687F5F/0x687F75 UD then LR pad reads and 0x687FE2/0x687FED BEFORE checking finished/aborting; 0x6880C8..0x6880E9 and 0x68821D..0x68823A direction (-sin, cos, 0) passed to IsPlayerAllowedToGoInThisDirection; 0x6882C9/0x688343 fcomp 0.5 / test ah,41h / jne (NaN); two GetTaskUseGun calls (0x68829B/0x6882A8); fsin/fcos/fpatan x87. Static function: ret 4 in the EXE, cdecl in the DLL (not changed).",
+    "CTaskSimplePlayerOnFoot::PlayerControlZelda": "Corpus 1024; source corrected (EXE): 0x688491 !(ratio > 0) with NaN; 0x68849C..0x6884C4 angle computed only in the update branch; 0x68852D/0x68854B NaN-aware clamps; 0x6885A7..0x6885B0 standing-on entity checked with the PHYSICAL flags (+0x40) bit 2 set and bit 3 clear; 0x688687..0x6886CB DuckJustDown and CanPedDuck always queried (bAvoidJumpingAndDucking only skips SetTaskDuckSecondary(0) and the jump block); 0x6884D1..0x688508 (-sin, cos, 0) with x87 fsin/fcos.",
+    "CTaskSimplePlayerOnFoot::ProcessPlayerWeapon": "Corpus 1024; source corrected (EXE): 0x6862F4..0x68632D in weapon state 2 the command is AIM only if GetTarget or a target exists or m_bFreeAiming, otherwise the whole weapon control is skipped (je 0x6860AD); 0x686AF9..0x686B0D IsInSeeingRange/GetActivePrimaryTask asked to the TARGET intelligence; 0x686BE4..0x686C08 CEventGunAimedAt added to the TARGET event group; 0x6871F0 !(dot > 0) with NaN; 0x686F90 fightMovement.y < -0.5 -> 16 else 15 (NaN included); 0x686DB5 unrounded fsin + z and 0x6870A9 fpatan; 0x68674C CMatrix MultiplyMatrixWithVector 0x59C890 summation order; weapon slot indexed with movsx and no range check."
+  },
+  "dependency_review": null,
+  "run": "reversing/FootWave4/runs/20261009-123357-157735",
+  "summary_sha256": "8d2536e918d8108f17f6e6f0e34b51d353f9f8d3578ae1f8cc3550875f96da53",
+  "result_txt_sha256": "b6a6b556ada6fb9ae5f53fe17f1cc5d75321321e4524b070e4af0dbe39806e24",
+  "log_sha256": "3e7db118f564454ed9adaec4486ddfe460bb0023f2604023713dd13a9036ed07",
+  "comparison_storage": {
+    "uncompressed_sha256": "3e7db118f564454ed9adaec4486ddfe460bb0023f2604023713dd13a9036ed07",
+    "uncompressed_bytes": 4475646,
+    "compressed_path": "reversing/FootWave4/runs/20261009-123357-157735/comparisons.jsonl.gz",
+    "compressed_sha256": "c3515972b160b4715fe172d2bb6fda320f42e56574a8ad3e2be6a3579d57e416",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "3e7db118f564454ed9adaec4486ddfe460bb0023f2604023713dd13a9036ed07",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-footwave4\\20261009-123357-157735\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "a9334da858168c76bfe1cbcc4b9f3ebb31f442d2089996373c64fc7dd3ad7eac",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9dee409c407a6a001d0cbdf88625d2ac97da1fea",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 5120,
+    "registered_pairs": 5120,
+    "asi": "a9334da858168c76bfe1cbcc4b9f3ebb31f442d2089996373c64fc7dd3ad7eac",
+    "pdb": "c7db231fa699974f0d0b1718f60bde47be6a278845b68dfdb3b696d28de7d291",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-footwave4-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "99ceb5d1bb1e7123bfceec662a285e4a8bf4da80352ea6839a05bfba636ebe4a",
+      "build_probe.py": "f3828e0dc4aae80b6a7d02e49d05015a23f128d465c11f2ef7181f55c53af010",
+      "run_local.py": "370cae5fd0570b8cd74920cdc73a114175602a55793ce80535419f6e99256782"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "PlayIdleAnimations (0x6872CE, 0x687300, 0x687323, 0x687393, 0x687424, 0x68740D, 0x6873BD..0x687406, 0x687430), PlayerControlZeldaWeapon (0x687D73, 0x687D99, 0x687EA9 x87), PlayerControlDucked (0x687F5F..0x687FED, 0x6880C8..0x6880E9, 0x68821D..0x68823A, 0x6882C9, 0x688343, 0x68829B/0x6882A8), PlayerControlZelda (0x688491..0x68854B, 0x6885A7..0x6885B0, 0x688687..0x6886CB), ProcessPlayerWeapon (0x6862F4..0x68632D, 0x686AF9..0x686C08, 0x6871F0, 0x686F90, 0x686DB5, 0x6870A9, 0x68674C)"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 5120,
+    "complete_events": 1,
+    "terminal_error_events": 0,
+    "terminal_event": {
+      "event": "complete",
+      "pairs": 5120,
+      "state_restored": true
+    },
+    "layout_events": 1,
+    "layout_ok": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 0,
+    "function_summaries": 5,
+    "functions_with_zero_failures": 5,
+    "unequal_pairs": 0,
+    "unequal_by_function": {},
+    "distinct_cases": 5120,
+    "per_function": {
+      "CTaskSimplePlayerOnFoot::PlayIdleAnimations": 1024,
+      "CTaskSimplePlayerOnFoot::PlayerControlZeldaWeapon": 1024,
+      "CTaskSimplePlayerOnFoot::PlayerControlDucked": 1024,
+      "CTaskSimplePlayerOnFoot::PlayerControlZelda": 1024,
+      "CTaskSimplePlayerOnFoot::ProcessPlayerWeapon": 1024
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "PlayIdleAnimations (0x6872CE, 0x687300, 0x687323, 0x687393, 0x687424, 0x68740D, 0x6873BD..0x687406, 0x687430), PlayerControlZeldaWeapon (0x687D73, 0x687D99, 0x687EA9 x87), PlayerControlDucked (0x687F5F..0x687FED, 0x6880C8..0x6880E9, 0x68821D..0x68823A, 0x6882C9, 0x688343, 0x68829B/0x6882A8), PlayerControlZelda (0x688491..0x68854B, 0x6885A7..0x6885B0, 0x688687..0x6886CB), ProcessPlayerWeapon (0x6862F4..0x68632D, 0x686AF9..0x686C08, 0x6871F0, 0x686F90, 0x686DB5, 0x6870A9, 0x68674C)"
+  },
+  "notes": "With these five functions CTaskSimplePlayerOnFoot has no pending entries in docs/hooks.csv (the others, including PlayerControlFighter, were registered by earlier banks). The two static functions keep the cdecl hook against the ret 4 of the EXE (not changed)."
+}

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 9/14 entradas.
+ * Validación registrada: 14/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -24,6 +24,27 @@ END GENERATED HOOK STATUS */
 
 auto& gIdleCam = StaticRef<CIdleCam>(0xB6FDA0);
 auto& gbCineyCamProcessedOnFrame = StaticRef<uint32>(0xB6EC40);
+
+namespace {
+// Como el original: constantes exactas del EXE (no las de common.h)
+const float kIdlePi       = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
+const float kIdleTwoPi    = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+const float kIdleMinusPi  = std::bit_cast<float>(0xC0490FDBu); // 0x858CC0
+const float kIdleOne      = 1.0f;                              // 0x858624
+const float kIdleHalf     = 0.5f;                              // 0x858B8C
+const float kIdle180      = 180.0f;                            // 0x85A994
+const float kIdle270      = 270.0f;                            // 0x859070
+const float kIdleDegToRad = std::bit_cast<float>(0x3C8EFA35u); // 0x8595EC
+
+// Como el original (0x59C810): vector por matriz (producto escalar con las filas), sin posicion y con el orden de sumas del EXE
+CVector IdleMultiply3x3_VM(const CVector& v, const CMatrix& m) {
+    return {
+        m.GetRight().y * v.y + m.GetRight().z * v.z + v.x * m.GetRight().x,
+        m.GetForward().y * v.y + m.GetForward().x * v.x + m.GetForward().z * v.z,
+        m.GetUp().y * v.y + m.GetUp().x * v.x + m.GetUp().z * v.z,
+    };
+}
+} // namespace
 
 void CIdleCam::InjectHooks() {
     RH_ScopedClass(CIdleCam);
@@ -322,7 +343,14 @@ void CIdleCam::SetTargetPlayer() {
 
 // 0x517870
 void CIdleCam::ProcessTargetSelection() {
-    auto timeDelta = static_cast<float>(CTimer::GetTimeInMS()) - m_TimeLastTargetSelected;
+    // Como el original (0x517876): FindPlayerPed(-1) se llama una vez al empezar y el resultado (EDI) se reutiliza en las comparaciones
+    auto* const player = FindPlayerPed();
+    // Como el original (0x51787F..0x5178A1): FILD carga el entero exacto (80 bits) y FSUB redondea una sola vez a 24 bits;
+    // solo si es negativo como int32 hay un FADD 2^32 intermedio que ya redondea a float
+    const uint32 nowMs = CTimer::GetTimeInMS();
+    float timeDelta = (nowMs < 0x80000000u)
+        ? static_cast<float>(static_cast<double>(nowMs) - static_cast<double>(m_TimeLastTargetSelected))
+        : static_cast<float>(nowMs) - m_TimeLastTargetSelected;
     if (m_ZoomState != eIdleCamZoomState::UNK_3 && m_TargetLOSCounter <= 0) {
         timeDelta /= m_IncreaseMinimumTimeFactorForZoomedIn;
     }
@@ -344,7 +372,8 @@ void CIdleCam::ProcessTargetSelection() {
             } else if (!IsTargetValid(eventEntity)) {
                 g_InterestingEvents.InvalidateEvent(event);
             }
-        } else if (!m_Target || !IsTargetValid(m_Target) && m_Target != FindPlayerPed()) {
+        } else if (!(m_Target && IsTargetValid(m_Target)) && m_Target != player) {
+            // Como el original (0x5178E2..0x517905): sin objetivo valido, solo si el objetivo actual no es ya el jugador (el cacheado)
             if (m_ZoomState == eIdleCamZoomState::UNK_3) {
                 SetTargetPlayer();
             } else {
@@ -354,54 +383,150 @@ void CIdleCam::ProcessTargetSelection() {
     }
 
     if (!m_Target) {
-        SetTargetPlayer();
+        // Como el original (0x517944..0x517964): guarda el jugador directamente en m_Target (sin registrar referencia) antes de SetTarget,
+        // de modo que SetTarget ve un objetivo previo (copia m_LastIdlePos y limpia la referencia) en vez de partir de source + front
+        m_nForceAZoomOut = true;
+        m_Target         = player;
+        SetTarget(FindPlayerPed());
+        m_nForceAZoomOut = true;
     }
 
     if (!IsTargetValid(m_Target) && timeDelta > m_TimeMinimumToLookAtSomething) {
+        // Como el original (0x517983..0x5179B7): SetTarget solo si ZoomState == 3; el contador se lee DESPUES (SetTarget lo pone a 0)
+        if (m_ZoomState == eIdleCamZoomState::UNK_3) {
+            SetTarget(FindPlayerPed());
+        }
         m_nForceAZoomOut = true;
-        if (m_ZoomState == eIdleCamZoomState::UNK_3 || m_TargetLOSCounter > 0) {
-            SetTargetPlayer();
+        if (m_TargetLOSCounter > 0) {
+            SetTarget(FindPlayerPed());
+            m_nForceAZoomOut = true;
         }
     }
 
     if (m_TargetLOSCounter > m_TargetLOSFramestoReject) {
-        SetTargetPlayer();
+        SetTarget(FindPlayerPed());
+        m_nForceAZoomOut = true;
     }
 }
 
 // 0x5179E0
 float CIdleCam::ProcessSlerp(float& outX, float& outZ) {
-    const auto beginTime = CTimer::GetTimeInMS();
+    // Como el original: ms como float (FILD con signo + 2^32 si es negativo; redondeo unico a float)
+    const float beginTime = static_cast<float>(CTimer::GetTimeInMS());
 
-    CVector lookAtPos{};
+    // Como el original (0x517A09): se llama SIEMPRE y luego, si el contador alcanza el limite, se sobrescribe con m_LastIdlePos
+    CVector lookAtPos;
+    GetLookAtPositionOnTarget(m_Target, lookAtPos);
     if (m_TargetLOSCounter >= m_TargetLOSFramestoReject) {
         lookAtPos = m_LastIdlePos;
-    } else {
-        GetLookAtPositionOnTarget(m_Target, lookAtPos);
     }
 
-    auto [slerpAtan, slerpDistAtan]   = VectorToAnglesRotXRotZ(m_PositionToSlerpFrom - m_Cam->m_vecSource);
-    auto [lookAtAtan, lookAtDistAtan] = VectorToAnglesRotXRotZ(lookAtPos - m_Cam->m_vecSource);
+    // Como el original (0x517A2D..0x517A8A): diferencias respecto a la fuente de la camara
+    const CCam* const cam = m_Cam;
+    const float d1x = m_PositionToSlerpFrom.x - cam->m_vecSource.x;
+    const float d1y = m_PositionToSlerpFrom.y - cam->m_vecSource.y;
+    const float d1z = m_PositionToSlerpFrom.z - cam->m_vecSource.z;
+    const float d2x = lookAtPos.x - cam->m_vecSource.x;
+    const float d2y = lookAtPos.y - cam->m_vecSource.y;
+    const float d2z = lookAtPos.z - cam->m_vecSource.z;
+    // Como el original: raiz de x*x + y*y (float por operacion; el x87 va a 24 bits)
+    const float mag1 = std::sqrt(d1x * d1x + d1y * d1y);
+    const float mag2 = std::sqrt(d2y * d2y + d2x * d2x);
 
-    const auto ClampAngle = [](float& angle, float compare) {
-        // TODO: simplify
-        if (compare <= DegreesToRadians(180.0f)) {
-            if (compare < -DegreesToRadians(180.0f)) {
-                angle += DegreesToRadians(360.0f);
-            }
-        } else {
-            angle -= DegreesToRadians(360.0f);
-        }
-    };
-
-    ClampAngle(lookAtDistAtan, lookAtDistAtan - slerpDistAtan);
-    ClampAngle(lookAtAtan, lookAtAtan - slerpAtan);
-
-    const auto slerpT = std::min((beginTime - m_TimeLastTargetSelected) / m_SlerpDuration, 1.0f);
-    const auto lerpT  = (std::sin(DegreesToRadians(270.0f - 180.0f * slerpT)) + 1.0f) / 2.0f;
-
-    outX = lerp(slerpDistAtan, lookAtDistAtan - slerpDistAtan, lerpT);
-    outZ = lerp(slerpAtan, lookAtAtan - slerpAtan, lerpT);
+    const uintptr_t atanFn = 0x53CC70; // CGeneral::GetATanOfXY: devuelve ST0 con precision completa y el original la usa sin redondear
+    const float timeLast = m_TimeLastTargetSelected, slerpDuration = m_SlerpDuration;
+    float slerpAtan{}, slerpDist{}, lookAtAtan{}, slerpT{}, resX{}, resZ{};
+    // Como el original: 0x517A8E..0x517BD5, transcripcion x87. lookAtDistAtan (4a llamada) se queda en la pila sin redondear a float.
+    __asm {
+        push d1y
+        push d1x
+        call atanFn
+        add esp, 8
+        fadd dword ptr [kIdlePi]
+        fstp slerpAtan
+        push d1z
+        push mag1
+        call atanFn
+        add esp, 8
+        fstp slerpDist
+        push d2y
+        push d2x
+        call atanFn
+        add esp, 8
+        fadd dword ptr [kIdlePi]
+        fstp lookAtAtan
+        push d2z
+        push mag2
+        call atanFn
+        add esp, 8
+        // ajuste de lookAtDistAtan: si (look - slerp) > PI resta 2PI; si no, si < -PI suma 2PI (con NaN no cambia)
+        fld slerpDist
+        fsubr st, st(1)
+        fcom dword ptr [kIdlePi]
+        fnstsw ax
+        test ah, 41h
+        jne L_dist_else
+        fstp st(0)
+        fsub dword ptr [kIdleTwoPi]
+        jmp L_dist_done
+    L_dist_else:
+        fcomp dword ptr [kIdleMinusPi]
+        fnstsw ax
+        test ah, 5
+        jp L_dist_done
+        fadd dword ptr [kIdleTwoPi]
+    L_dist_done:
+        // lo mismo para lookAtAtan
+        fld lookAtAtan
+        fld slerpAtan
+        fsubr st, st(1)
+        fcom dword ptr [kIdlePi]
+        fnstsw ax
+        test ah, 41h
+        jne L_atan_else
+        fstp st(0)
+        fsub dword ptr [kIdleTwoPi]
+        jmp L_atan_done
+    L_atan_else:
+        fcomp dword ptr [kIdleMinusPi]
+        fnstsw ax
+        test ah, 5
+        jp L_atan_done
+        fadd dword ptr [kIdleTwoPi]
+    L_atan_done:
+        // t = min((ahora - inicio) / duracion, 1.0): solo se limita si t > 1.0 (con NaN se queda)
+        fld beginTime
+        fsub timeLast
+        fdiv slerpDuration
+        fst slerpT
+        fcomp dword ptr [kIdleOne]
+        fnstsw ax
+        test ah, 41h
+        jne L_t_done
+        mov dword ptr [slerpT], 3F800000h
+    L_t_done:
+        // lerpT = (sin((270 - t * 180) * (PI / 180)) + 1) * 0.5 con FSIN
+        fld slerpT
+        fmul dword ptr [kIdle180]
+        fsubr dword ptr [kIdle270]
+        fmul dword ptr [kIdleDegToRad]
+        fsin
+        fadd dword ptr [kIdleOne]
+        fmul dword ptr [kIdleHalf]
+        // out = desde + (hasta - desde) * lerpT
+        fxch st(2)
+        fsub slerpDist
+        fmul st, st(2)
+        fadd slerpDist
+        fstp resX
+        fsub slerpAtan
+        fmul st, st(1)
+        fadd slerpAtan
+        fstp resZ
+        fstp st(0)
+    }
+    outX = resX;
+    outZ = resZ;
     return slerpT;
 }
 
@@ -410,27 +535,58 @@ void CIdleCam::FinaliseIdleCamera(float curAngleX, float curAngleY, float shakeD
     // Como el original: vecUp es una referencia al vector arriba de la camara (antes era una copia: `auto&a=x, b=y` solo hace referencia a la primera)
     auto &vecFwd = m_Cam->m_vecFront, &vecUp = m_Cam->m_vecUp;
 
-    vecFwd = CVector{
-        -(std::cos(curAngleY) * std::cos(curAngleX)),
-        -(std::sin(curAngleY) * std::cos(curAngleX)),
-        std::sin(curAngleX)
-    }.Normalized();
+    // Como el original (0x50E763..0x50E7B1): FCOS/FSIN del x87 (precision completa), cada componente se guarda como float
+    float frontX{}, frontY{}, frontZ{};
+    __asm {
+        fld curAngleX
+        fcos
+        fld curAngleY
+        fcos
+        fmul st, st(1)
+        fchs
+        fstp frontX
+        fld curAngleY
+        fsin
+        fmul st, st(1)
+        fchs
+        fstp frontY
+        fstp st(0)
+        fld curAngleX
+        fsin
+        fstp frontZ
+    }
+    vecFwd = CVector{ frontX, frontY, frontZ };
+    vecFwd.Normalise(); // 0x50E7C0
     m_LastIdlePos = vecFwd + m_Cam->m_vecSource;
 
+    // Como el original (0x50E80B..0x50E825): el temblor se pasa ya multiplicado por m_DegreeShakeIdleCam (antes se pasaba solo shakeDegree)
     auto& hs = gHandShaker[0];
-    hs.Process(shakeDegree);
-    const auto angle = hs.m_ang.z * m_DegreeShakeIdleCam * shakeDegree;
-    vecFwd = hs.m_resultMat.TransformPoint(vecFwd);
+    hs.Process(shakeDegree * m_DegreeShakeIdleCam);
+    const float angle = hs.m_ang.z * m_DegreeShakeIdleCam * shakeDegree;
+    // Como el original (0x50E855): Multiply3x3 vector * matriz (0x59C810: producto con las filas, sin posicion); antes TransformPoint (columnas + posicion)
+    vecFwd = IdleMultiply3x3_VM(vecFwd, hs.m_resultMat);
 
-    vecUp.Set(std::sin(angle), 0.0f, std::cos(angle));
-    auto rightDir = CrossProduct(vecFwd, vecUp).Normalized();
-    vecUp         = CrossProduct(rightDir, vecFwd);
-    if (vecFwd.x == 0 && vecFwd.y == 0.0f) {
-        vecFwd.x = vecFwd.y = 0.0001f;
+    // Como el original (0x50E87D..0x50E8B2): sin/cos del x87 con precision completa
+    float angleSin{}, angleCos{};
+    __asm {
+        fld angle
+        fsin
+        fstp angleSin
+        fld angle
+        fcos
+        fstp angleCos
     }
-    rightDir = CrossProduct(vecFwd, vecUp).Normalized();
-    vecUp    = CrossProduct(rightDir, vecFwd);
-    m_Cam->GetVectorsReadyForRW();
+    vecUp.Set(angleSin, 0.0f, angleCos);
+    auto rightDir = CrossProduct(vecFwd, vecUp);
+    rightDir.Normalise();
+    vecUp = CrossProduct(rightDir, vecFwd);
+    if (vecFwd.x == 0 && vecFwd.y == 0.0f) {
+        vecFwd.x = vecFwd.y = std::bit_cast<float>(0x38D1B717u); // 0.0001f: 0x50E949
+    }
+    rightDir = CrossProduct(vecFwd, vecUp);
+    rightDir.Normalise();
+    vecUp = CrossProduct(rightDir, vecFwd);
+    m_Cam->GetVectorsReadyForRW(); // 0x50E9D0..0x50EAD7: cuerpo de CCam::GetVectorsReadyForRW (0x509CE0) en linea
 }
 
 // 0x51D3E0

@@ -1,0 +1,3 @@
+APROBADO: CPools pendientes: Initialise, ShutDown, Save, Load, LoadObjectPool, LoadPedPool y LoadVehiclePool (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-poolswave4\20261009-123502-353564

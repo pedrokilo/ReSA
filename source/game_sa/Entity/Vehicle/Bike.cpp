@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 40/40 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 18.
- * Validación registrada: 36/40 entradas.
+ * Validación registrada: 40/40 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -101,6 +101,20 @@ void CBike::InjectHooks() {
     RH_ScopedVMTInstall(ProcessOpenDoor, 0x6B58D0);
 }
 
+// Como el original (0x6BF59E..0x6BF5BD): fld [mi+58h]; fmul [8595ECh] (0.017453292f = 0x3C8EFA35); fptan; fstp st(0); fstp [this+7A4h].
+// La tangente sale de fptan del x87 (precision completa) sobre el producto redondeado a float; std::tan (tanf del CRT) puede diferir en el ultimo bit.
+static float BikeSteerAngleTanExe(float degrees) {
+    const float radians = degrees * std::bit_cast<float>(0x3C8EFA35u);
+    float       result;
+    __asm {
+        fld     radians
+        fptan
+        fstp    st(0)
+        fstp    result
+    }
+    return result;
+}
+
 // 0x6BF430
 CBike::CBike(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(createdBy) {
     auto mi = CModelInfo::GetModelInfo(modelIndex)->AsVehicleModelInfoPtr();
@@ -120,7 +134,7 @@ CBike::CBike(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(createdBy
     nBikeFlags = 0;
     SetModelIndex(modelIndex);
 
-    m_pHandlingData = gHandlingDataMgr.GetVehiclePointer(mi->m_nHandlingId);
+    m_pHandlingData = gHandlingDataMgr.GetVehiclePointer(static_cast<uint8>(mi->m_nHandlingId)); // 0x6BF520: movzx eax,dl (solo el byte bajo)
     m_BikeHandling = gHandlingDataMgr.GetBikeHandlingPointer(mi->m_nHandlingId);
     m_nHandlingFlagsIntValue = m_pHandlingData->m_nHandlingFlags;
     m_pFlyingHandlingData = gHandlingDataMgr.GetFlyingPointer(static_cast<uint8>(mi->m_nHandlingId));
@@ -131,7 +145,7 @@ CBike::CBike(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(createdBy
     m_fForkZOffset = 0.0f;
     m_nFixLeftHand = false;
     m_nFixRightHand = false;
-    m_fSteerAngleTan = std::tan(DegreesToRadians(mi->m_fBikeSteerAngle));
+    m_fSteerAngleTan = BikeSteerAngleTanExe(mi->m_fBikeSteerAngle); // 0x6BF59E..0x6BF5BD
     m_fMass = m_pHandlingData->m_fMass;
     m_fTurnMass = m_pHandlingData->m_fTurnMass;
     m_vecCentreOfMass = m_pHandlingData->m_vecCentreOfMass;
@@ -149,6 +163,9 @@ CBike::CBike(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(createdBy
     m_fBrakingSlide = 0.0f;
     m_PrevSpeed = 0.0f;
 
+    // Como el original (0x6BF690..0x6BF6AD): el bucle de 2 iteraciones solo escribe m_nWheelStatus (0x65C), m_aWheelSkidmarkType (0x744),
+    // m_bWheelBloody (0x74C), m_bMoreSkidMarks (0x74E), m_aWheelPitchAngles (0x750), m_aWheelAngularVelocity (0x758) y m_WheelStates (0x80C);
+    // m_aWheelSuspensionHeights (0x760) y m_aWheelOrigHeights (0x768) NO se inicializan (los rellena SetupSuspensionLines)
     for (auto i = 0; i < 2; ++i) {
         m_nWheelStatus[i] = 0;
         m_aWheelSkidmarkType[i] = eSkidmarkType::DEFAULT;
@@ -156,18 +173,16 @@ CBike::CBike(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(createdBy
         m_bMoreSkidMarks[i] = false;
         m_aWheelPitchAngles[i] = 0.0f;
         m_aWheelAngularVelocity[i] = 0.0f;
-        m_aWheelSuspensionHeights[i] = 0.0f;
-        m_aWheelOrigHeights[i] = 0.0f;
         m_WheelStates[i] = WHEEL_STATE_NORMAL;
     }
 
+    // Como el original (0x6BF6E0..0x6BF714): el bucle de 4 iteraciones escribe m_aGroundOffsets (0x7D0, vector cero), m_aGroundPhysicalPtrs (0x7C0),
+    // m_aWheelRatios (0x710) = 1.0, m_aRatioHistory (0x720) = 1.0 (mov [eax+10h],edx con edx = 3F800000h) y m_WheelCounts (0x730) = 0;
+    // m_aWheelColPoints (0x660), m_fSuspensionLength (0x770) y m_fLineLength (0x780) NO se inicializan
     for (auto i = 0; i < 4; ++i) {
-        m_aWheelColPoints[i] = {};
         m_aWheelRatios[i] = 1.0f;
-        m_aRatioHistory[i] = 0.0f;
+        m_aRatioHistory[i] = 1.0f;
         m_WheelCounts[i] = 0.0f;
-        m_fSuspensionLength[i] = 0.0f;
-        m_fLineLength[i] = 0.0f;
         m_aGroundPhysicalPtrs[i] = nullptr;
         m_aGroundOffsets[i] = CVector{};
     }
@@ -181,7 +196,8 @@ CBike::CBike(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(createdBy
     if (!mi->m_pColModel->m_pColData->m_pLines) {
         mi->m_pColModel->m_pColData->m_nNumLines = 4;
         mi->m_pColModel->m_pColData->m_pLines = static_cast<CColLine*>(CMemoryMgr::Malloc(4 * sizeof(CColLine)));
-        mi->m_pColModel->m_pColData->m_pLines[1].m_vecStart.x = 99'999.99f; // todo: explain this
+        // Como el original (0x6BF75D): mov [eax+28h],ebp (47C34FFFh) -> lines[1].m_vecStart.z (stride 0x20 + 8), no .x
+        mi->m_pColModel->m_pColData->m_pLines[1].m_vecStart.z = 99'999.99f; // todo: explain this
     }
     mi->m_pColModel->m_pColData->m_pLines[0].m_vecStart.z = 99'999.99f;
     CBike::SetupSuspensionLines();
@@ -192,11 +208,16 @@ CBike::CBike(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(createdBy
 
     SetStatus(STATUS_SIMPLE);
     m_nNumPassengers = 0;
+    // Como el original (0x6BF79A..0x6BF7B5): and al,0F0h sobre el byte 0x429 = bIsVan, bIsBus, bIsBig y bLowVehicle (la fuente olvidaba bIsBus)
     vehicleFlags.bLowVehicle = false;
     vehicleFlags.bIsBig = false;
+    vehicleFlags.bIsBus = false;
     vehicleFlags.bIsVan = false;
 
     m_bLeanMatrixCalculated = false;
+    // Como el original (0x6BF468 y 0x6BF46E): mov [esi+60Ch],ebx / mov [esi+610h],ebx = dos stores de dword (puntero RW y bandera de propiedad con su
+    // relleno de 3 bytes); el constructor por defecto de la DLL solo escribe el puntero y el bool
+    std::memset(reinterpret_cast<uint8*>(&m_mLeanMatrix) + 0x40, 0, 8);
     m_mLeanMatrix = *m_matrix;
     m_vecOldSpeedForPlayback = CVector{};
     m_vehicleAudio.Initialise(this);
@@ -238,9 +259,11 @@ bool CBike::DamageKnockOffRider(CVehicle* vehicle, float damageIntensity, uint16
         return false;
     }
 
-    // A ped already reacting to a hit isn't also knocked off (cops are exempt)
+    // A ped doing a gang drive-by isn't knocked off either (cops are exempt)
+    // Como el original (0x6B5AD6..0x6B5B17): GetActiveTask y luego GetTaskType (vtable +10h) contra 3FEh = 1022 = TASK_SIMPLE_GANG_DRIVEBY
+    // (CTaskSimpleGangDriveBy::GetTaskType = 0x6218B0 devuelve 3FEh; TASK_SIMPLE_BE_HIT es 3F0h) y despues pedType == 6 (cop) en [driver+598h]
     if (const auto task = driver->GetIntelligence()->GetTaskManager().GetActiveTask()) {
-        if (task->GetTaskType() == TASK_SIMPLE_BE_HIT && !driver->IsCop()) {
+        if (task->GetTaskType() == TASK_SIMPLE_GANG_DRIVEBY && !driver->IsCop()) {
             return false;
         }
     }
@@ -984,6 +1007,28 @@ void CBike::ProcessControlInputs(uint8 playerNum) {
     }
 }
 
+namespace {
+// Como el original (0x40FC80): CColPoint::operator= del EXE copia campo a campo sin los rellenos 0xC, 0x1C y 0x26..0x27
+void BikeCopyColPointExe(CColPoint& dst, const CColPoint& src) {
+    auto*       d = reinterpret_cast<uint8*>(&dst);
+    const auto* s = reinterpret_cast<const uint8*>(&src);
+    std::memcpy(d + 0x00, s + 0x00, 0xC);
+    std::memcpy(d + 0x10, s + 0x10, 0xC);
+    std::memcpy(d + 0x20, s + 0x20, 6);
+    std::memcpy(d + 0x28, s + 0x28, 4);
+}
+
+// Como el original (0x59C790, Multiply3x3): orden de sumas del EXE; x = (up.x*z + fwd.x*y) + right.x*x, y = (up.y*z + right.y*x) + fwd.y*y,
+// z = (up.z*z + right.z*x) + fwd.z*y; sin traslacion
+CVector BikeMultiply3x3Exe(const CMatrix& m, const CVector& v) {
+    return {
+        (m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x,
+        (m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y,
+        (m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y
+    };
+}
+}
+
 // 0x6BDEA0
 int32 CBike::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints) {
     if (GetStatus() != STATUS_SIMPLE) {
@@ -1018,12 +1063,21 @@ int32 CBike::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints) {
     if (m_pDriver && m_nTestPedCollision) {
         const auto pcd = m_pDriver->GetColData();
         if (!pcd->m_nNumLines) {
-            std::array<CColPoint, 32> pedCPs{};
-
+            // Como el original (0x6BDFF8..0x6BE08C): copia de la matriz del vehiculo (CMatrix::CMatrix(const CMatrix&) 0x59BCF0) y su posicion
+            // se suma el asiento del conductor rotado con Multiply3x3 (0x59C790, SIN traslacion; la fuente sumaba TransformPoint, que
+            // duplicaba la posicion del vehiculo). El asiento es el dummy 0 si el model info es un barco (+3Ch == 5) y el 4 en otro caso.
             CMatrix driverMat = GetMatrix();
-            driverMat.GetPosition() += GetDriverSeatDummyPositionWS();
+            {
+                const auto* const mi = CModelInfo::GetModelInfo(static_cast<int16>(m_nModelIndex))->AsVehicleModelInfoPtr(); // 0x6BE005: movsx eax,word ptr [esi+22h]
+                const CVector seatOS = mi->m_pVehicleStruct->m_avDummyPos[mi->m_nVehicleType == VEHICLE_TYPE_BOAT ? 0 : 4];
+                const CVector seatWS = BikeMultiply3x3Exe(GetMatrix(), seatOS);
+                driverMat.GetPosition().x += seatWS.x;
+                driverMat.GetPosition().y += seatWS.y;
+                driverMat.GetPosition().z += seatWS.z;
+            }
 
-            std::array<CColPoint, 32> pedEntityColPts{};
+            // Como el original (0x6BE0A9..0x6BE0D6): el EXE escribe en un array estatico de 32 CColPoint (0xC1C280); aqui es un local
+            std::array<CColPoint, 32> pedEntityColPts;
             const auto numPedEntityColPts = CCollision::ProcessColModels(
                 driverMat, *m_pDriver->GetColModel(),
                 entity->GetMatrix(), *entity->GetColModel(),
@@ -1033,16 +1087,19 @@ int32 CBike::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints) {
                 false
             );
 
-            if (numPedEntityColPts) {
+            // Como el original (0x6BE0D9..0x6BE0DF): jle -> solo con resultado positivo
+            if (numPedEntityColPts > 0) {
                 if (m_nTestPedCollision == 1) {
                     m_nTestPedCollision = 0;
                 } else {
-                    for (auto i = 0; i < numPedEntityColPts && numColPts < 32; i++) {
-                        const auto& pedEntityCP = pedCPs[i];
+                    // Como el original (0x6BE110..0x6BE144): sale cuando numColPts >= 31 (cmp [esp+18h],1Fh / jge), omite las piezas con
+                    // m_nPieceTypeA == 0 (PED_COL_SPHERE_LEG: test cl,cl / jbe) y copia con CColPoint::operator= del EXE (0x40FC80)
+                    for (auto i = 0; i < numPedEntityColPts && numColPts < 31; i++) {
+                        const auto& pedEntityCP = pedEntityColPts[i];
                         if (pedEntityCP.m_nPieceTypeA == PED_COL_SPHERE_LEG) {
                             continue;
                         }
-                        outColPoints[numColPts++] = pedEntityCP;
+                        BikeCopyColPointExe(outColPoints[numColPts++], pedEntityCP);
                     }
                 }
             }
@@ -1056,7 +1113,8 @@ int32 CBike::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints) {
             const auto& cp = m_aWheelColPoints[i];
 
             const auto wheelColPtsTouchDist = m_aWheelRatios[i];
-            if (wheelColPtsTouchDist >= 1.f || wheelColPtsTouchDist >= ogWheelRatios[i]) {
+            // Como el original (0x6BE190..0x6BE1B6): fcomp + test ah,5 + jp salta con ratio >= 1.0, ratio >= anterior y NaN
+            if (!(wheelColPtsTouchDist < 1.f) || !(wheelColPtsTouchDist < ogWheelRatios[i])) {
                 continue;
             }
 
@@ -1068,7 +1126,8 @@ int32 CBike::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints) {
             switch (entity->GetType()) {
             case ENTITY_TYPE_VEHICLE:
             case ENTITY_TYPE_OBJECT: {
-                CEntity::ChangeEntityReference(m_aGroundPhysicalPtrs[i], entity->AsPhysical());
+                // Como el original (0x6BE1DC..0x6BE1E1): mov [ecx],edi + CEntity::RegisterReference (0x571B70), sin limpiar la referencia anterior
+                CEntity::SetEntityReference(m_aGroundPhysicalPtrs[i], entity->AsPhysical());
 
                 m_aGroundOffsets[i] = cp.m_vecPoint - entity->GetPosition();
                 if (entity->GetIsTypeVehicle()) {

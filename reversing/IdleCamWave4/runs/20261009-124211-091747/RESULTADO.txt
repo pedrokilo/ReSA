@@ -1,0 +1,3 @@
+APROBADO: CIdleCam: FinaliseIdleCamera, Process, ProcessSlerp, ProcessTargetSelection y Run (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-idlecamwave4\20261009-124211-091747

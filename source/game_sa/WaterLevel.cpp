@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 30/30 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 5.
- * Validación registrada: 26/30 entradas.
+ * Validación registrada: 30/30 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,99 +76,74 @@ void CWaterLevel::InjectHooks() {
     RH_ScopedGlobalInstall(SetCameraRange, 0x6E9C80);
 }
 
-// NOTSA
+// NOTSA (codigo de 0x6EAEB9..0x6EB5E9). Transcripcion de la lectura de water.dat del EXE, que usa el sscanf del CRT del EXE (0x8220AD).
 bool CWaterLevel::LoadDataFile() {
-    const auto file = CFileMgr::OpenFile(m_nWaterConfiguration == 1 ? "DATA//water1.dat" : "DATA//water.dat", "r");
-
-    const notsa::ScopeGuard autoCloser{ [&] { CFileMgr::CloseFile(file); } };
-
-    uint32 nline{}, ntri{}, nquad{};
-    for (;; nline++) {
-        const auto line = CFileLoader::LoadLine(file);
-        if (!line) {
-            break;
-        }
-        std::stringstream liness{ line };
-
-        auto nvertices{0u};
-
-        struct {
-            CVector   pos{};
-            CVector2D flow{};
-            float     bigWaves{}, smallWaves{};
-        } vertices[4]{};
-
-        // Helper function to read a vertex from the stream
-        const auto ReadNextVertex = [&]() {
-            const auto orgpos = liness.tellg();
-
-            auto& vtx = vertices[nvertices];
-            liness
-                >> vtx.pos.x
-                >> vtx.pos.y
-                >> vtx.pos.z
-                >> vtx.flow.x
-                >> vtx.flow.y
-                >> vtx.bigWaves
-                >> vtx.smallWaves;
-
-            if (liness.good()) {
-                nvertices++;
-                return true;
-            } else {
-                liness.clear(); // reset error flags
-                liness.seekg(orgpos); // go back to before
-                return false;
-            }
-
-        };
-
-        // If can't read first vertex just ignore line
-        if (!ReadNextVertex()) {
-            continue;
-        }
-
-        // Read 2/3 more vertices
-        while (ReadNextVertex() && nvertices < 4);
-
-        // Check if we have enough vertices
-        if (nvertices < 3) {
-            NOTSA_LOG_DEBUG("[Warning]: Not enough vertices, got {}, expected 3 or 4. [Line: {}]", nvertices, nline);
-            continue;
-            //return false; // Just stop here, this parser is way too primitive to be able to recover from errors
-        }
-
-        // Optional flag after vertices
-        uint32 flags{};
-        liness >> flags;
-
-        // I'm sorry, but don't blame me I HAD NO OTHER CHOICE!
-        #define VertexUnpack(n) \
-            (int32)vertices[n].pos.x, (int32)vertices[n].pos.y, \
-            CRenPar{vertices[n].pos.z, vertices[n].bigWaves, vertices[n].smallWaves, (int8)(vertices[n].flow.x * 64.f), (int8)(vertices[n].flow.y * 64.f)}
-
-        // Add quad/triangle
-        if (nvertices == 4) {
-            CWaterLevel::AddWaterLevelQuad(
-                VertexUnpack(0),
-                VertexUnpack(1),
-                VertexUnpack(2),
-                VertexUnpack(3),
-                flags
-            );
-            nquad++;
-        } else {
-            CWaterLevel::AddWaterLevelTriangle(
-                VertexUnpack(0),
-                VertexUnpack(1),
-                VertexUnpack(2),
-                flags
-            );
-            ntri++;
-        }
-        #undef ArgUnpack
+    // Como el original (0x6EAEB9..0x6EAF38): ruta "DATA\\water.dat" (config 0, 15 bytes de 0x872148) o "DATA\\water1.dat" (config 1, 16 bytes de 0x872158);
+    // con cualquier otro valor el EXE usa el buffer de pila sin inicializar.
+    char path[16];
+    if (m_nWaterConfiguration == 0) {
+        std::memcpy(path, "DATA\\water.dat", 15);
+    } else if (m_nWaterConfiguration == 1) {
+        std::memcpy(path, "DATA\\water1.dat", 16);
     }
-    NOTSA_LOG_DEBUG("Successfully loaded! [Quads: {}; Tris: {}]", nquad, ntri);
+
+    // Como el original (0x6EAF40..0x6EAF59): OpenFile(ruta, "rb") (0x859C6C) se repite mientras el valor devuelto sea negativo (jl).
+    FILESTREAM file;
+    do {
+        file = CFileMgr::OpenFile(path, "rb");
+    } while (int32(reinterpret_cast<intptr_t>(file)) < 0);
+
+    // Como el original (0x6EAF5C..0x6EAF68): los contadores se ponen a cero otra vez tras abrir
+    NumWaterTriangles = 0;
+    NumWaterQuads     = 0;
+    NumWaterVertices  = 0;
+
+    // Como el original: 4 vertices de 7 floats (x y z flowX flowY bigWaves smallWaves) en locales de pila que se conservan entre lineas
+    struct { float x, y, z, flowX, flowY, bigWaves, smallWaves; } v[4];
+    const auto Sscanf = reinterpret_cast<int(__cdecl*)(const char*, const char*, ...)>(0x8220AD); // sscanf del CRT del EXE
+    // Como el original: float -> int con _ftol2 (truncacion de 64 bits, se queda con el dword bajo); el byte de flujo es el byte bajo de (flow * 64.0f, 0x859A44)
+    const auto Ftol  = [](float f) { return int32(int64(f)); };
+    const auto Flow  = [&](float f) { return int8(Ftol(f * 64.0f)); };
+    const auto Par   = [&](int i, int8 flowY) { return CRenPar{ v[i].z, v[i].bigWaves, v[i].smallWaves, Flow(v[i].flowX), flowY }; };
+
+    #define WATER_V(i) &v[i].x, &v[i].y, &v[i].z, &v[i].flowX, &v[i].flowY, &v[i].bigWaves, &v[i].smallWaves
+    #define WATER_FMT7 "%f %f %f %f %f %f %f"
+    for (char* line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
+        // Como el original (0x6EAF80..0x6EAF9C): se ignoran las lineas que empiezan por ';', fin de cadena, '*' o 'p'
+        const char c = *line;
+        if (c == ';' || c == '\0' || c == '*' || c == 'p') {
+            continue;
+        }
+
+        // Como el original (0x6EB069): flags = 1 por defecto, antes del primer sscanf de cada linea
+        int32 flags = 1;
+        int   nRead = Sscanf(line, WATER_FMT7 " " WATER_FMT7 " " WATER_FMT7 " " WATER_FMT7 " %d", WATER_V(0), WATER_V(1), WATER_V(2), WATER_V(3), &flags); // 0x6EB074, formato 0x8720F0
+        if (nRead == 29 || (nRead = Sscanf(line, WATER_FMT7 " " WATER_FMT7 " " WATER_FMT7 " " WATER_FMT7, WATER_V(0), WATER_V(1), WATER_V(2), WATER_V(3)), nRead == 28)) { // 0x6EB07C / 0x6EB14C, formato 0x872098
+            // Como el original (0x6EB39F..0x6EB5CE): cuadrilatero. Bug del EXE: el flowY del primer vertice es el del SEGUNDO (el byte alto del
+            // CRenPar del vertice 1 se rellena con el resultado de _ftol2 de v[1].flowY que quedo en BL: 0x6EB491 mov bl,al / 0x6EB4F1 mov [esp+0F5h],bl).
+            const int8 flowY1 = Flow(v[1].flowY);
+            AddWaterLevelQuad(
+                Ftol(v[0].x), Ftol(v[0].y), Par(0, flowY1),
+                Ftol(v[1].x), Ftol(v[1].y), Par(1, Flow(v[1].flowY)),
+                Ftol(v[2].x), Ftol(v[2].y), Par(2, Flow(v[2].flowY)),
+                Ftol(v[3].x), Ftol(v[3].y), Par(3, Flow(v[3].flowY)),
+                uint32(flags)
+            );
+        } else {
+            // Como el original (0x6EB155..0x6EB397): triangulo, formato 0x872050 (3 vertices + flags); sin comprobar el resultado
+            Sscanf(line, WATER_FMT7 " " WATER_FMT7 " " WATER_FMT7 " %d", WATER_V(0), WATER_V(1), WATER_V(2), &flags);
+            AddWaterLevelTriangle(
+                Ftol(v[0].x), Ftol(v[0].y), Par(0, Flow(v[0].flowY)),
+                Ftol(v[1].x), Ftol(v[1].y), Par(1, Flow(v[1].flowY)),
+                Ftol(v[2].x), Ftol(v[2].y), Par(2, Flow(v[2].flowY)),
+                uint32(flags)
+            );
+        }
+    }
+    #undef WATER_V
+    #undef WATER_FMT7
+
+    CFileMgr::CloseFile(file); // 0x6EB5EA
     return true;
 }
 
@@ -198,11 +173,11 @@ void CWaterLevel::WaterLevelInitialise() {
     NumWaterQuads = 0;
     NumWaterVertices = 0;
     NumWaterZonePolys = 0;
-    
-    (void)LoadDataFile();
-    FillQuadsAndTrianglesList();
 
-    LoadTextures();
+    (void)LoadDataFile();           // 0x6EAEB9..0x6EB5EA
+    FillQuadsAndTrianglesList();    // 0x6EB5EF call 0x6E7B30
+
+    LoadTextures();                 // 0x6EB5F4..0x6EB681
 }
 
 // 0x6E59E0
@@ -479,9 +454,126 @@ void CWaterLevel::RenderWakeSegment(
     }
 }
 
-// 0x6ED9A0
+// 0x6ED9A0 - Transcripcion de la pasada que el EXE tiene inlineada sobre la lista de barcos 0xC27994 (x87 a 24 bits == float):
+// las constantes son las del EXE (0.65f 0x858F50, 0.4f 0x858EE8, 0.04f 0x858CEC, 0.5f 0x858B8C, 150.0f 0x8D3940, 0.01f 0x858C58,
+// 0.0f 0x858B50, 50.0f 0x858B40, 80.0f 0x858A14, 0.033333335f 0x858F10, 9.0f 0x85EED4, 13.0f 0x858CE4, 160.0f 0x858970,
+// 0.33333334f 0x859040, 0.15f 0x858FCC, -0.03f 0xBCF5C28F).
 void CWaterLevel::RenderBoatWakes() {
-    CBoat::RenderAllWakePointBoats();
+    // 0x6ED9AE..0x6ED9BB: RwRenderStateSet(rwRENDERSTATETEXTURERASTER, [0xC228B8]) y luego CBoat::FillBoatList (0x6F2710)
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, waterwakeRaster);
+    CBoat::FillBoatList();
+
+    constexpr float WAKE_Z = std::bit_cast<float>(0xBCF5C28Fu); // [esp+34h]; las referencias widthA y wakeZ apuntan a este mismo float
+    for (int16 b = 0; b < 4; ++b) { // 0x6ED9E0: movsx edx,bx / cmp bx,4
+        CBoat* const boat = CBoat::apFrameWakeGeneratingBoats.data()[b];
+        if (!boat) { // 0x6ED9EA cmp esi,ebp / je 0x6EDD46
+            break;
+        }
+
+        // 0x6ED9F2..0x6ED9FF: direccion "forward" de la matriz ([m+0x10], [m+0x14]); el EXE no comprueba que la matriz exista aqui
+        float prevDirX = boat->m_matrix->GetForward().x;
+        float prevDirY = boat->m_matrix->GetForward().y;
+
+        // 0x6EDA07..0x6EDA2B: ancho base = max.x del ColModel * 0.65f (x0.4f si es un Skimmer 0x1CC)
+        float baseWidth = boat->GetColModel()->GetBoundingBox().m_vecMax.x * 0.65f;
+        if (boat->m_nModelIndex == 0x1CC) {
+            baseWidth = baseWidth * 0.4f;
+        }
+
+        // 0x6EDA2F..0x6EDA74: anchura del primer punto (velocidad0, contador0) que queda en la pila x87
+        const float speed0 = float(boat->m_WakeBoatSpeed.data()[0]);
+        float prevWidth = (150.0f - boat->m_WakePtCounters.data()[0]) * ((speed0 * 0.04f + 0.5f) / 150.0f);
+        prevWidth = prevWidth * baseWidth;
+        prevWidth = prevWidth + baseWidth;
+        // 0x6EDA78..0x6EDA88: alfa del primer punto = velocidad0 * 0.01f * 0.0f
+        float prevAlpha = speed0 * 0.01f;
+        prevAlpha = prevAlpha * 0.0f;
+
+        // 0x6EDA3A..0x6EDAB8: distancia 2D barco-camara (matriz de la camara +0x30 o 0xB6F02C; barco: matriz +0x30 o entidad +4)
+        const CVector& camPos  = TheCamera.GetPosition();
+        const CVector& boatPos = boat->m_matrix ? boat->m_matrix->GetPosition() : boat->m_placement.m_vPosn;
+        const float ddx = boatPos.x - camPos.x;
+        const float ddy = boatPos.y - camPos.y;
+        const float dist = std::sqrt(ddy * ddy + ddx * ddx);
+        if (50.0f < dist) { // 0x6EDAC0 fcomp 50.0 / test ah,41h / jne
+            prevAlpha = (80.0f - dist) * 0.033333335f * prevAlpha;
+        }
+
+        // 0x6EDAE5: if (N <= 1) saltar el bucle (jle con signo sobre el word sin signo ampliado)
+        uint16 count = boat->m_NumWakeCoords;
+        if (int32(count) > 1) {
+            int16 i = 1;
+            do {
+                const CVector2D& prev = boat->m_WakeCoords.data()[i - 1]; // [esi+ecx*8+0x640 / 0x644]
+                const CVector2D& cur  = boat->m_WakeCoords.data()[i];     // [esi+ecx*8+0x648 / 0x64C]
+
+                // 0x6EDB10..0x6EDB82: direccion hacia el punto anterior, normalizada si |d|^2 > 9; no se dibuja si |d| > 13
+                float dirX = prev.x - cur.x;
+                float dirY = prev.y - cur.y;
+                bool draw = true;
+                const float sumSq = dirY * dirY + dirX * dirX;
+                if (9.0f < sumSq) { // fcom 9.0 / test ah,41h / jne 0x6EDB88
+                    const float len = std::sqrt(sumSq);
+                    const float inv = 1.0f / len;
+                    dirX = inv * dirX;
+                    dirY = inv * dirY;
+                    if (13.0f < len) { // fcomp 13.0 / test ah,41h / jne -> xor bl,bl
+                        draw = false;
+                    }
+                }
+
+                // 0x6EDB8A..0x6EDBCF: anchura de este punto
+                const float speed = float(boat->m_WakeBoatSpeed.data()[i]);
+                float curWidth = (150.0f - boat->m_WakePtCounters.data()[i]) * ((speed * 0.04f + 0.5f) / 150.0f);
+                curWidth = curWidth * baseWidth;
+                curWidth = curWidth + baseWidth;
+
+                // 0x6EDBD3..0x6EDC4F: esquinas A,B (punto anterior, ancho anterior) y C,D (punto actual, ancho actual)
+                const float off1 = prevDirY * prevWidth;
+                const float off2 = prevWidth * prevDirX;
+                CVector2D A{ prev.x - off1, off2 + prev.y };
+                CVector2D B{ off1 + prev.x, prev.y - off2 };
+                const float t1 = curWidth * dirY;
+                const float t2 = curWidth * dirX;
+                CVector2D C{ t1 + cur.x, cur.y - t2 };
+                CVector2D D{ cur.x - t1, t2 + cur.y };
+
+                // 0x6EDC55..0x6EDCBA: alfa = (1 - i/N) * 160 (x i x 0.33333334f si i < 3, jge sobre cmp di,3 con signo)
+                float alpha = (1.0f - float(i) / float(int32(count))) * 160.0f;
+                if (i < 3) {
+                    alpha = alpha * float(i);
+                    alpha = alpha * 0.33333334f;
+                }
+                alpha = (speed * 0.01f + 0.15f) * alpha;
+                if (50.0f < dist) {
+                    alpha = (80.0f - dist) * 0.033333335f * alpha;
+                }
+
+                if (draw) { // test bl,bl / je
+                    RenderWakeSegment(A, B, C, D, WAKE_Z, curWidth, prevAlpha, alpha, WAKE_Z);
+                }
+
+                // 0x6EDCFA..0x6EDD2B
+                prevDirX  = dirX;
+                prevDirY  = dirY;
+                prevAlpha = alpha;
+                prevWidth = curWidth;
+                ++i;
+                count = boat->m_NumWakeCoords;
+            } while (int32(i) < int32(count));
+        }
+    }
+
+    // 0x6EDD46..0x6EDD96: vaciado inline del buffer temporal (LittleTest, RwIm3DTransform con rwIM3D_VERTEXUV, indices, RwIm3DEnd)
+    if (uiTempBufferVerticesStored != 0) {
+        LittleTest();
+        if (RwIm3DTransform(TempBufferVertices.m_3d, uiTempBufferVerticesStored, nullptr, rwIM3D_VERTEXUV)) {
+            RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, uiTempBufferIndicesStored);
+            RwIm3DEnd();
+        }
+    }
+    uiTempBufferVerticesStored = 0;
+    uiTempBufferIndicesStored  = 0;
 }
 
 // 0x6ECF00
@@ -569,24 +661,44 @@ void CWaterLevel::SplitWaterTriangleAlongXLine(int32 splitAtX, int32 X1, int32 Y
 
 // 0x6EE5A0
 void CWaterLevel::SplitWaterTriangleAlongYLine(int32 splitAtY, int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3) {
-    if (DontRenderYSplitTri) { // NOTSA
+    if (DontRenderYSplitTri) { // NOTSA (el EXE no tiene esta comprobacion; false por defecto)
         return;
     }
 
-    const auto [minY, maxY] = std::minmax(Y1, Y3);
-    const auto height = maxY - minY;
-    const auto width  = X2 - X1;
-    
-    // Calulcate the X position where the Y line intersects the hypot
-    // and using that we split the triangle. 
-    // Same result as original code, but much easier.
+    // Como el original (0x6EE5B3..0x6EE5D3): dS = splitAtY - Y1 y dH = Y3 - Y1 (enteros con signo) y t = (float)(fild dS / fidiv dH)
+    // guardado como float (fstp dword [esp+4Ch]). Las cuatro ramas del EXE usan el mismo t y calculan XS con idiv (truncado a cero).
+    const int32 dS = splitAtY - Y1;
+    const int32 dH = Y3 - Y1;
+    const float t  = (float)dS / (float)dH;
 
-    SplitWaterTriangleAlongXLine(
-        X1 + (maxY - splitAtY) * width / height,
-        X1, Y1, P1,
-        X2, Y2, P2,
-        X3, Y3, P3
-    );
+    // Como el original (0x6EE5C1 `cmp esi,edi; jge 0x6EED72`): Y1 < Y3 -> ramas A/B; si no C/D.
+    // Segundo salto (0x6EE5DD `cmp ebp,eax; jne 0x6EEA48` / 0x6EED72 `cmp ebp,eax; jne 0x6EF1D7`): X1 == X3 -> A/C; si no B/D.
+    if (Y1 < Y3) {
+        if (X1 == X3) { // Rama A (0x6EE5E5): XS = (X1 - X2) * dS / dH + X2; hipotenusa V2-V3
+            const int32 XS = (X1 - X2) * dS / dH + X2;
+            RenderWaterTriangle(XS, Y1, lerp(P2, P1, t), X2, Y2, P2, XS, splitAtY, lerp(P2, P3, t));
+            RenderWaterRectangle(X1, XS, Y1, splitAtY, P1, lerp(P2, P1, t), lerp(P1, P3, t), lerp(P2, P3, t));
+            RenderWaterTriangle(X1, splitAtY, lerp(P1, P3, t), XS, splitAtY, lerp(P2, P3, t), X3, Y3, P3);
+        } else {        // Rama B (0x6EEA48): XS = (X2 - X1) * dS / dH + X1; hipotenusa V1-V3
+            const int32 XS = (X2 - X1) * dS / dH + X1;
+            RenderWaterTriangle(X1, Y1, P1, XS, Y1, lerp(P1, P2, t), XS, splitAtY, lerp(P1, P3, t));
+            RenderWaterRectangle(XS, X2, Y1, splitAtY, lerp(P1, P2, t), P2, lerp(P1, P3, t), lerp(P2, P3, t));
+            RenderWaterTriangle(XS, splitAtY, lerp(P1, P3, t), X2, splitAtY, lerp(P2, P3, t), X3, Y3, P3);
+        }
+    } else {
+        if (X1 == X3) { // Rama C (0x6EED7A): como A pero el rectangulo va de splitAtY a Y1 y sus parametros son (P13, P23, P1, P21)
+            const int32 XS = (X1 - X2) * dS / dH + X2;
+            RenderWaterTriangle(XS, Y1, lerp(P2, P1, t), X2, Y2, P2, XS, splitAtY, lerp(P2, P3, t));
+            RenderWaterRectangle(X1, XS, splitAtY, Y1, lerp(P1, P3, t), lerp(P2, P3, t), P1, lerp(P2, P1, t));
+            RenderWaterTriangle(X1, splitAtY, lerp(P1, P3, t), XS, splitAtY, lerp(P2, P3, t), X3, Y3, P3);
+        } else {        // Rama D (0x6EF1D7): como B pero el rectangulo va de splitAtY a Y1
+            const int32 XS = (X2 - X1) * dS / dH + X1;
+            RenderWaterTriangle(X1, Y1, P1, XS, Y1, lerp(P1, P2, t), XS, splitAtY, lerp(P1, P3, t));
+            // Como el original (0x6EF3E1 y 0x6EF445, bug del EXE): las dos primeras esquinas reciben lerp(P1,P3,t) (la segunda deberia ser lerp(P2,P3,t)).
+            RenderWaterRectangle(XS, X2, splitAtY, Y1, lerp(P1, P3, t), lerp(P1, P3, t), lerp(P1, P2, t), P2);
+            RenderWaterTriangle(XS, splitAtY, lerp(P1, P3, t), X2, splitAtY, lerp(P2, P3, t), X3, Y3, P3);
+        }
+    }
 }
 
 // 0x6EC5D0

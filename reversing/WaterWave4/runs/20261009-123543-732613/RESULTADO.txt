@@ -1,0 +1,3 @@
+APROBADO: WaterWave4 (CWaterLevel: AddWaterLevelQuad, RenderBoatWakes, SplitWaterTriangleAlongYLine, WaterLevelInitialise)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-waterwave4\20261009-123543-732613

@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.446 |
 | Reconstruidas | 8.446 |
-| Validadas | 7.163 |
-| Reconstruidas sin validar | 1.283 |
-| De ellas, en esta cola (validables por pares) | 1.282 |
+| Validadas | 7.193 |
+| Reconstruidas sin validar | 1.253 |
+| De ellas, en esta cola (validables por pares) | 1.252 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,23 +22,20 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 3 | 17 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 0 | 0 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 7 | 430 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
 | [🟠 Nivel 3: moderadas](#nivel-3) | 8 | 357 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 10 | 478 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **28** | **1282** | |
+| [🔴 Nivel 4: caras](#nivel-4) | 7 | 465 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **22** | **1252** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (3 clases, 17 funciones)
+## 🟢 Nivel 1: muy barato (0 clases, 0 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CCarEnterExit | 32 | 5 |  | 32 |
-| 2 | CIdleCam | 14 | 5 |  | 34 |
-| 3 | CPools | 19 | 7 |  | 26 |
 
 <a id="nivel-2"></a>
 
@@ -75,22 +72,19 @@ Criterio: el resto.
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (10 clases, 478 funciones)
+## 🔴 Nivel 4: caras (7 clases, 465 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CWaterLevel | 30 | 4 |  | 54 |
-| 2 | CBike | 40 | 4 |  | 152 |
-| 3 | CTaskSimplePlayerOnFoot | 12 | 5 |  | 100 |
-| 4 | CCam | 44 | 14 |  | 138 |
-| 5 | CHud | 38 | 30 |  | 52 |
-| 6 | CWeapon | 41 | 35 |  | 63 |
-| 7 | CCamera | 110 | 91 |  | 37 |
-| 8 | CStreaming | 94 | 94 |  | 40 |
-| 9 | CAutomobile | 99 | 99 |  | 65 |
-| 10 | CAEVehicleAudioEntity | 106 | 102 |  | 47 |
+| 1 | CCam | 44 | 14 |  | 138 |
+| 2 | CHud | 38 | 30 |  | 52 |
+| 3 | CWeapon | 41 | 35 |  | 63 |
+| 4 | CCamera | 110 | 91 |  | 37 |
+| 5 | CStreaming | 94 | 94 |  | 40 |
+| 6 | CAutomobile | 99 | 99 |  | 65 |
+| 7 | CAEVehicleAudioEntity | 106 | 102 |  | 47 |
 
 <a id="fuera-de-la-cola"></a>
 

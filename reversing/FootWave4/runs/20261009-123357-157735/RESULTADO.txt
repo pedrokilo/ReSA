@@ -1,0 +1,3 @@
+APROBADO: CTaskSimplePlayerOnFoot (PlayIdleAnimations, PlayerControlZeldaWeapon, PlayerControlDucked, PlayerControlZelda, ProcessPlayerWeapon)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-footwave4\20261009-123357-157735

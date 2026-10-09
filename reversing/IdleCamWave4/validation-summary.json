@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "pairs": 3584,
+  "differences": 0,
+  "registered_pairs": 3584,
+  "registered_functions": 5,
+  "functions": {
+    "CIdleCam::FinaliseIdleCamera": 640,
+    "CIdleCam::Process": 512,
+    "CIdleCam::ProcessSlerp": 1024,
+    "CIdleCam::ProcessTargetSelection": 1024,
+    "CIdleCam::Run": 384
+  },
+  "covered_functions": {
+    "CIdleCam::FinaliseIdleCamera": true,
+    "CIdleCam::Process": true,
+    "CIdleCam::ProcessSlerp": true,
+    "CIdleCam::ProcessTargetSelection": true,
+    "CIdleCam::Run": true
+  },
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 3584 isolated CPU pairs for the 5 pending functions of CIdleCam, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the resulting state, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: x87 PC24 environment verified per bank; collaborators doubled with raw-argument trace (no credit for them); the other 13 CIdleCam hooks were disabled during the run. Only the own part of each function is validated. Source tested == current working tree at registration (IdleCam.cpp and IdleCam.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "function_scope": {
+    "CIdleCam::FinaliseIdleCamera": "Corpus 640; source corrected (EXE): x87 FCOS/FSIN full precision (0x50E763..0x50E7B1, 0x50E87D..0x50E8B2), shake passed already multiplied by m_DegreeShakeIdleCam (0x50E80B..0x50E825), vector*matrix Multiply3x3 (0x59C810, 0x50E855), explicit Normalise, 0.0001f constant (0x50E949), GetVectorsReadyForRW inline body (0x50E9D0..0x50EAD7).",
+    "CIdleCam::Process": "Corpus 512; first-round bank result, no function-specific source change recorded (EXE 0x522C80).",
+    "CIdleCam::ProcessSlerp": "Corpus 1024; source corrected (EXE): x87 transcription of 0x517A2D..0x517BD5 (GetATanOfXY 0x53CC70 unrounded, FSIN, constants from the EXE), GetLookAtPositionOnTarget always called (0x517A09), time as float with a single rounding.",
+    "CIdleCam::ProcessTargetSelection": "Corpus 1024; source corrected (EXE): FILD of now (exact integer) and FSUB with a single 24-bit rounding; the source did float(now)-T with double rounding (edge of the 5000 threshold with now > 2^24); now if now < 2^31: float(double(now)-double(T)), if now >= 2^31: float(now)-T; null m_Target stores the cached player directly (0x517952) and calls SetTarget (0x517989); FindPlayerPed called once (0x517876).",
+    "CIdleCam::Run": "Corpus 384; first-round bank result, no function-specific source change recorded (EXE 0x51D3E0)."
+  },
+  "dependency_review": null,
+  "run": "reversing/IdleCamWave4/runs/20261009-124211-091747",
+  "summary_sha256": "1f51cc169b6decf54bd4a6d8085850b7d49d58e4cf4af4d15c96541a00413ce3",
+  "result_txt_sha256": "8a403f798af657d9bcafe30a1cc53850cf48d674dda7a5bc0891c95ae3f89fb6",
+  "log_sha256": "09ef91f871fbfe71cbed7fab896501e521e481e0118c72ab47376f9cdffac896",
+  "comparison_storage": {
+    "uncompressed_sha256": "09ef91f871fbfe71cbed7fab896501e521e481e0118c72ab47376f9cdffac896",
+    "uncompressed_bytes": 968819,
+    "compressed_path": "reversing/IdleCamWave4/runs/20261009-124211-091747/comparisons.jsonl.gz",
+    "compressed_sha256": "e801d634798fbdbc729f15d2c0296a414bda3f04b1dace6dbb3d4fed4401e973",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "09ef91f871fbfe71cbed7fab896501e521e481e0118c72ab47376f9cdffac896",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-idlecamwave4\\20261009-124211-091747\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "70eea3e8cb3b4c891c02c781f2f4e20ca3aa54aeea093cea3c0f850ec5076a6f",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "9dee409c407a6a001d0cbdf88625d2ac97da1fea",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 3584,
+    "registered_pairs": 3584,
+    "asi": "70eea3e8cb3b4c891c02c781f2f4e20ca3aa54aeea093cea3c0f850ec5076a6f",
+    "pdb": "3c10add6a9dc95a6b42fc973dba99b69fbf8d75e7457715cb05b70516d84f5eb",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-idlecamwave4-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/IdleCam.cpp": "5ad8569e768d1eeec9ddfe138f600182c3b6f017bb4fb1d2180d82f35aa3ce3f",
+      "source/game_sa/IdleCam.h": "730c34b9f5e7b7fe299038971dbe5d45fa5a257de22b183ef1a48408de339de4"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "28360fa9064c4a40835e53cfe788ccae47931aae3ce114a38f9b30f065fdab67",
+      "build_probe.py": "eef9b74b540d3eebd3a50887f3ccc811d9c087a578cefcf3666ebd805b577b61",
+      "run_local.py": "b263f849de7c93ab25582e124d51a01c86f49cf3f39954954313d7c3a74a8650"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/IdleCam.cpp": "ProcessTargetSelection: single-rounding time delta, cached player, direct m_Target store + SetTarget; ProcessSlerp: x87 transcription; FinaliseIdleCamera: x87 sin/cos, shake factor, Multiply3x3 vector*matrix, inline GetVectorsReadyForRW"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 3584,
+    "complete_events": 1,
+    "terminal_error_events": 0,
+    "terminal_event": {
+      "event": "complete",
+      "layout_ok": true,
+      "pairs": 3584,
+      "state_restored": true
+    },
+    "layout_events": 1,
+    "layout_ok": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 3584,
+    "function_summaries": 5,
+    "functions_with_zero_failures": 5,
+    "unequal_pairs": 0,
+    "unequal_by_function": {},
+    "distinct_cases": 3584,
+    "per_function": {
+      "CIdleCam::FinaliseIdleCamera": 640,
+      "CIdleCam::Process": 512,
+      "CIdleCam::ProcessSlerp": 1024,
+      "CIdleCam::ProcessTargetSelection": 1024,
+      "CIdleCam::Run": 384
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/IdleCam.cpp": "ProcessTargetSelection: single-rounding time delta, cached player, direct m_Target store + SetTarget; ProcessSlerp: x87 transcription; FinaliseIdleCamera: x87 sin/cos, shake factor, Multiply3x3 vector*matrix, inline GetVectorsReadyForRW"
+  },
+  "notes": "With these five functions CIdleCam has no pending entries in docs/hooks.csv."
+}

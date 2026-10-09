@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 12/19 entradas.
+ * Validación registrada: 19/19 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -85,51 +85,121 @@ void CPools::InjectHooks() {
     RH_ScopedInstall(SaveVehiclePool, 0x5D4800);
 }
 
+namespace {
+// Tamanos de elemento de cada pool tomados del EXE (imul/shl del constructor de CPool de cada tipo: 0x550180..0x550E40).
+// Las comprobaciones solo se hacen sobre los tipos cuyo tamano ya valida su propia cabecera con VALIDATE_SIZE.
+static_assert(sizeof(CCopPed) == 0x7C4);                 // 0x5503F8: imul eax,eax,7C4h
+static_assert(sizeof(CHeli) == 0xA18);                   // 0x5504C8: imul eax,eax,0A18h
+static_assert(sizeof(CBuilding) == 0x38);                // 0x550578: imul eax,eax,38h
+static_assert(sizeof(CCutsceneObject) == 0x19C);         // 0x550648: imul eax,eax,19Ch
+static_assert(sizeof(CDummy) == 0x38);                   // 0x5506F8: imul eax,eax,38h
+static_assert(sizeof(CColModel) == 0x30);                // 0x5507C9: lea eax,[edi+edi*2] / shl eax,4
+static_assert(sizeof(CTaskSimpleSlideToCoord) == 0x80);  // 0x550898: shl eax,7
+static_assert(sizeof(CEventDamage) == 0x44);             // 0x550968: imul eax,eax,44h
+static_assert(sizeof(CPointRoute) == 0x64);              // 0x550A38: imul eax,eax,64h
+static_assert(sizeof(CNodeRoute) == 0x24);               // 0x550BD6: lea eax,[edi+edi*8] / shl eax,2
+static_assert(sizeof(CPedIntelligence) == 0x294);        // 0x550D78: imul eax,eax,294h
+static_assert(sizeof(CEntryInfoNode) == 0x14);           // 0x550326: lea eax,[edi+edi*4] / shl eax,2
+static_assert(sizeof(CPedAttractorPoolSlot) == 0xC4);    // 0x550E48: imul eax,eax,0C4h
+
+// Como el original: constructor de CPool del EXE (0x550180 y sus gemelos 0x550250..0x550E40, uno por tipo de pool).
+// Reserva el objeto del pool (operator new de 0x14 bytes, 0x82119A), el almacenamiento (n * tamano) y el vector de
+// estados (n bytes) con operator new[] (0x821195), en ese orden, y escribe SOLO +0 almacenamiento, +4 estados, +8 tamano,
+// +0xC ultima ranura libre (-1), +0x10 propietario (1) y 0x80 en cada estado (ranura libre, ID 0). No rellena el
+// almacenamiento (el CPool de la DLL lo rellena con 0xFD) ni toca +0x11..+0x13 (basura de operator new). El nombre del pool
+// que reciben los constructores no se guarda en ningun sitio. Si operator new devuelve null el EXE no construye el pool
+// (0x550F3E: je) y deja el puntero global a 0.
+template<class PoolT>
+PoolT* ConstructPool(int32 capacity, uint32 elementSize) {
+    auto* const pool = static_cast<uint8*>(::operator new(0x14));
+    if (!pool) {
+        return nullptr;
+    }
+    auto* const storage = static_cast<uint8*>(::operator new[](size_t(capacity) * elementSize));
+    auto* const states  = static_cast<uint8*>(::operator new[](size_t(capacity)));
+    *reinterpret_cast<uint8**>(pool + 0x0) = storage;
+    *reinterpret_cast<uint8**>(pool + 0x4) = states;
+    *reinterpret_cast<int32*>(pool + 0x8)  = capacity;
+    *reinterpret_cast<int32*>(pool + 0xC)  = -1;
+    *(pool + 0x10)                         = 1;
+    for (int32 i = 0; i < capacity; ++i) {
+        states[i] = 0x80;
+    }
+    return reinterpret_cast<PoolT*>(pool);
+}
+
+// Como el original: destructor de CPool + operator delete del EXE (p. ej. 0x551A07..0x551A40, repetido para cada pool).
+// Si el puntero es null no hace nada; si el tamano (con signo) es > 0: libera con delete[] (0x8213AE) el almacenamiento
+// y luego los estados SOLO si el byte +0x10 (propietario) no es cero, y pone a 0 +0, +4, +8 y +0xC; en todos los casos
+// termina con operator delete escalar (0x8214BD) sobre el objeto. El puntero global NO se pone a cero.
+void DestroyPool(void* poolPtr) {
+    auto* const pool = static_cast<uint8*>(poolPtr);
+    if (!pool) {
+        return;
+    }
+    if (*reinterpret_cast<int32*>(pool + 0x8) > 0) {
+        if (*(pool + 0x10) != 0) {
+            ::operator delete[](*reinterpret_cast<void**>(pool + 0x0));
+            ::operator delete[](*reinterpret_cast<void**>(pool + 0x4));
+        }
+        *reinterpret_cast<void**>(pool + 0x0) = nullptr;
+        *reinterpret_cast<void**>(pool + 0x4) = nullptr;
+        *reinterpret_cast<int32*>(pool + 0x8) = 0;
+        *reinterpret_cast<int32*>(pool + 0xC) = 0;
+    }
+    ::operator delete(pool);
+}
+} // namespace
+
 // 0x550F10
 void CPools::Initialise() {
     ZoneScoped;
 
-    ms_pPtrNodeSingleLinkPool = new CPtrNodeSingleLinkPool(70000, "PtrNode Single");
-    ms_pPtrNodeDoubleLinkPool = new CPtrNodeDoubleLinkPool(3200, "PtrNode Double");
-    ms_pEntryInfoNodePool     = new CEntryInfoNodePool(500, "EntryInfoNode");
-    ms_pPedPool               = new CPedPool(140, "Peds");
-    ms_pVehiclePool           = new CVehiclePool(110, "Vehicles");
-    ms_pBuildingPool          = new CBuildingPool(13000, "Buildings");
-    ms_pObjectPool            = new CObjectPool(350, "Objects");
-    ms_pDummyPool             = new CDummyPool(2500, "Dummys");
-    ms_pColModelPool          = new CColModelPool(10150, "ColModel");
-    ms_pTaskPool              = new CTaskPool(500, "Task");
-    ms_pEventPool             = new CEventPool(200, "Event");
-    ms_pPointRoutePool        = new CPointRoutePool(64, "PointRoute");
-    ms_pPatrolRoutePool       = new CPatrolRoutePool(32, "PatrolRoute");
-    ms_pNodeRoutePool         = new CNodeRoutePool(64, "NodeRoute");;
-    ms_pTaskAllocatorPool     = new CTaskAllocatorPool(16, "TaskAllocator");
-    ms_pPedIntelligencePool   = new CPedIntelligencePool(140, "PedIntelligence");
-    ms_pPedAttractorPool      = new CPedAttractorPool(64, "PedAttractors");
+    // Como el original (0x550F10..0x5512D7): 17 pools en este orden. Los tamanos de elemento son los del EXE; el pool de
+    // rutas de patrulla usa 0x1A4 bytes por elemento (0x550B08: imul eax,eax,1A4h), no el void* de CPatrolRoutePool.
+    ms_pPtrNodeSingleLinkPool = ConstructPool<CPtrNodeSingleLinkPool>(70000, 8);    // 0x550186: lea eax,[edi*8+0]
+    ms_pPtrNodeDoubleLinkPool = ConstructPool<CPtrNodeDoubleLinkPool>(3200, 12);    // 0x550256: lea eax,[edi+edi*2] / shl eax,2
+    ms_pEntryInfoNodePool     = ConstructPool<CEntryInfoNodePool>(500, 0x14);
+    ms_pPedPool               = ConstructPool<CPedPool>(140, 0x7C4);
+    ms_pVehiclePool           = ConstructPool<CVehiclePool>(110, 0xA18);
+    ms_pBuildingPool          = ConstructPool<CBuildingPool>(13000, 0x38);
+    ms_pObjectPool            = ConstructPool<CObjectPool>(350, 0x19C);
+    ms_pDummyPool             = ConstructPool<CDummyPool>(2500, 0x38);
+    ms_pColModelPool          = ConstructPool<CColModelPool>(10150, 0x30);
+    ms_pTaskPool              = ConstructPool<CTaskPool>(500, 0x80);
+    ms_pEventPool             = ConstructPool<CEventPool>(200, 0x44);
+    ms_pPointRoutePool        = ConstructPool<CPointRoutePool>(64, 0x64);
+    ms_pPatrolRoutePool       = ConstructPool<CPatrolRoutePool>(32, 0x1A4);
+    ms_pNodeRoutePool         = ConstructPool<CNodeRoutePool>(64, 0x24);
+    ms_pTaskAllocatorPool     = ConstructPool<CTaskAllocatorPool>(16, 0x20);
+    ms_pPedIntelligencePool   = ConstructPool<CPedIntelligencePool>(140, 0x294);
+    ms_pPedAttractorPool      = ConstructPool<CPedAttractorPool>(64, 0xC4);
 }
 
 // 0x5519F0
 void CPools::ShutDown() {
-    // Como el original (0x5519F0..0x551E53): libera cada pool pero NO pone a cero el puntero global (queda colgante hasta Initialise).
-    NOTSA_LOG_DEBUG("Shutdown pool started");
-    delete ms_pPtrNodeSingleLinkPool;
-    delete ms_pPtrNodeDoubleLinkPool;
-    delete ms_pEntryInfoNodePool;
-    delete ms_pPedPool;
-    delete ms_pVehiclePool;
-    delete ms_pBuildingPool;
-    delete ms_pObjectPool;
-    delete ms_pDummyPool;
-    delete ms_pColModelPool;
-    delete ms_pTaskPool;
-    delete ms_pEventPool;
-    delete ms_pPointRoutePool;
-    delete ms_pPatrolRoutePool;
-    delete ms_pNodeRoutePool;
-    delete ms_pTaskAllocatorPool;
-    delete ms_pPedIntelligencePool;
-    delete ms_pPedAttractorPool;
-    NOTSA_LOG_DEBUG("Shutdown pool done");
+    // Como el original (0x5519F3..0x551E58): printf del CRT del EXE (0x821982) al empezar y al terminar; libera cada pool
+    // con DestroyPool y NO pone a cero el puntero global (queda colgante hasta Initialise).
+    const auto exePrintf = reinterpret_cast<int(__cdecl*)(const char*, ...)>(0x821982);
+    exePrintf("Shutdown pool started\n");
+    DestroyPool(ms_pPtrNodeSingleLinkPool);
+    DestroyPool(ms_pPtrNodeDoubleLinkPool);
+    DestroyPool(ms_pEntryInfoNodePool);
+    DestroyPool(ms_pPedPool);
+    DestroyPool(ms_pVehiclePool);
+    DestroyPool(ms_pBuildingPool);
+    DestroyPool(ms_pObjectPool);
+    DestroyPool(ms_pDummyPool);
+    DestroyPool(ms_pColModelPool);
+    DestroyPool(ms_pTaskPool);
+    DestroyPool(ms_pEventPool);
+    DestroyPool(ms_pPointRoutePool);
+    DestroyPool(ms_pPatrolRoutePool);
+    DestroyPool(ms_pNodeRoutePool);
+    DestroyPool(ms_pTaskAllocatorPool);
+    DestroyPool(ms_pPedIntelligencePool);
+    DestroyPool(ms_pPedAttractorPool);
+    exePrintf("Shutdown pool done\n");
 }
 
 // 0x550170
