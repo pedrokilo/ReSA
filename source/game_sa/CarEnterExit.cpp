@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 32/32 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 5.
- * Validación registrada: 5/32 entradas.
+ * Validación registrada: 27/32 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,10 +76,14 @@ void CCarEnterExit::InjectHooks() {
 void CCarEnterExit::AddInCarAnim(const CVehicle* vehicle, CPed* ped, bool bAsDriver) {
     const auto [grpId, animId] = [&]() -> std::pair<AssocGroupId, AnimationId> {
         if (bAsDriver) { // Inverted
-            if (const auto data = const_cast<CVehicle*>(vehicle)->GetRideAnimData()) {
+            // Como el original (0x64F733..0x64F749 y 0x64F7D5..0x64F7E9): llama dos veces a GetRideAnimData (slot 47, +0xBC)
+            if (const_cast<CVehicle*>(vehicle)->GetRideAnimData()) {
+                const auto data = const_cast<CVehicle*>(vehicle)->GetRideAnimData();
                 return { data->AnimGroup, ANIM_ID_BIKE_RIDE };
             } else if (vehicle->IsBoat()) {
-                if (vehicle->m_pHandlingData->m_bSitInBoat) {
+                // Como el original (0x64F769..0x64F7BB): `test ah,4` sobre las banderas del modelo (bit 10, SitInBoat);
+                // con la bandera activa -> CAR_SIT (0x3C), sin ella -> DRIVE_BOAT (0x51). La DLL lo tenia invertido.
+                if (!vehicle->m_pHandlingData->m_bSitInBoat) {
                     return { ANIM_GROUP_DEFAULT, ANIM_ID_DRIVE_BOAT };
                 }
             } else if (vehicle->vehicleFlags.bLowVehicle) {
@@ -88,7 +92,9 @@ void CCarEnterExit::AddInCarAnim(const CVehicle* vehicle, CPed* ped, bool bAsDri
 
             return { ANIM_GROUP_DEFAULT, ANIM_ID_CAR_SIT };
         } else {
-            if (const auto data = const_cast<CVehicle*>(vehicle)->GetRideAnimData()) {
+            // Como el original (0x64F733..0x64F749 y 0x64F7D5..0x64F7E9): llama dos veces a GetRideAnimData (slot 47, +0xBC)
+            if (const_cast<CVehicle*>(vehicle)->GetRideAnimData()) {
+                const auto data = const_cast<CVehicle*>(vehicle)->GetRideAnimData();
                 return { data->AnimGroup, ANIM_ID_BIKE_RIDE };
             } else if (vehicle->vehicleFlags.bLowVehicle) {
                 return { ANIM_GROUP_DEFAULT, ANIM_ID_CAR_SITPLO };
@@ -135,7 +141,7 @@ int32 CCarEnterExit::ComputeDoorFlag(const CVehicle* vehicle, int32 doorId, bool
         case 18: return 5;
         case 9:
         case 11: return 10;
-        default: NOTSA_UNREACHABLE(); // Originally `return 0`
+        default: return 0; // Como el original (0x64E5D2: eax=0 antes del salto)
         }
     } else {
         switch (doorId) {
@@ -144,7 +150,7 @@ int32 CCarEnterExit::ComputeDoorFlag(const CVehicle* vehicle, int32 doorId, bool
         case 10:
         case 18: return 1;
         case 11: return 2;
-        default: NOTSA_UNREACHABLE(); // Originally `return 0`
+        default: return 0; // Como el original (0x64E5D2: eax=0 antes del salto)
         }
     }
 }
@@ -158,7 +164,7 @@ int32 CCarEnterExit::ComputeOppositeDoorFlag(const CVehicle* vehicle, int32 door
         case 18: return 5;
         case 9:
         case 11: return 10;
-        default: NOTSA_UNREACHABLE(); // Originally `return 0`
+        default: return 0; // Como el original (0x64E5D2: eax=0 antes del salto)
         }
     } else {
         switch (doorId) {
@@ -167,7 +173,7 @@ int32 CCarEnterExit::ComputeOppositeDoorFlag(const CVehicle* vehicle, int32 door
         case 10:
         case 18: return 4;
         case 11: return 8;
-        default: NOTSA_UNREACHABLE(); // Originally `return 0`
+        default: return 0; // Como el original (0x64E5D2: eax=0 antes del salto)
         }
     }
 }
@@ -274,23 +280,64 @@ int32 CCarEnterExit::ComputeTargetDoorToExit(const CVehicle* vehicle, const CPed
 
 // 0x6528F0
 bool CCarEnterExit::GetNearestCarDoor(const CPed* ped, const CVehicle* vehicle, CVector& outPos, int32& doorId) {
+    // Como el original (0x6528FD..0x652923): los dos desplazamientos de arrastre salen de m_pDriver y m_apPassengers[0]
     auto driverDraggedOutOffset = vehicle->m_pDriver ? &ms_vecPedQuickDraggedOutCarAnimOffset : nullptr;
     auto psgrDraggedOutOffset   = vehicle->HasPassengerAtSeat(0) ? &ms_vecPedQuickDraggedOutCarAnimOffset : nullptr;
+
+    // Como el original (0x652923..0x652935): ambas posiciones se calculan siempre, puerta 10 (LF) y luego puerta 8 (RF)
+    const auto posDoorFLeft  = GetPositionToOpenCarDoor(vehicle, CAR_DOOR_LF);
+    const auto posDoorFRight = GetPositionToOpenCarDoor(vehicle, CAR_DOOR_RF);
 
     if ((vehicle->IsBike() && !vehicle->IsSubBMX()) || vehicle->IsSubQuad()) {
         driverDraggedOutOffset = nullptr;
         psgrDraggedOutOffset = nullptr;
 
         if (ped->GetTaskManager().GetActiveTask()->GetTaskType() != TASK_COMPLEX_ENTER_CAR_AS_PASSENGER) {
-            if (std::abs(vehicle->GetRight().z) < 0.1f) { // Isn't on it's side
-                // Check if ped is 30 degrees to the left of the vehicle
-                // Original code used atan and whatnot, but this achieves the same result
-                if (DotProduct2D(vehicle->GetRight(), ped->GetForward()) > 0 // On the left
-                 && DotProduct2D(vehicle->GetForward(), ped->GetForward()) > std::cos(PI / 6.f)
-                ) {
-                    if ((ped->IsPlayer() && ped->GetPlayerData()->m_fMoveBlendRatio > 1.5f && doorId == 0) 
-                    || (!ped->IsPlayer() && ped->m_nPedType != PED_TYPE_COP && ped->m_nMoveState == PEDMOVE_RUN && ped->m_pStats->m_nTemper > 65 && doorId == 0)
-                    ) {
+            // Como el original (0x652981..0x652A0F): |right.z| < 0.1 (0x858B1C)
+            if (std::abs(vehicle->GetRight().z) < 0.1f) {
+                // Como el original (0x6529A4..0x652A02): angulo del vehiculo al peaton menos el rumbo del vehiculo,
+                // envuelto a (-PI, PI]. fpatan es de precision completa y la resta se redondea a 24 bits en x87:
+                // se replica con __asm. Sin matriz el rumbo es el campo de la entidad (+0x10).
+                const auto& vehPos = vehicle->GetPosition();
+                const auto& pedPos = ped->GetPosition();
+                const float pdx = pedPos.x - vehPos.x, pdy = pedPos.y - vehPos.y;
+                const float negPdx = -pdx;
+                const bool hasMatrix = vehicle->m_matrix != nullptr;
+                const float negFwdX = hasMatrix ? -vehicle->GetForward().x : 0.f, fwdY = hasMatrix ? vehicle->GetForward().y : 0.f;
+                const float heading = vehicle->m_placement.m_fHeading;
+                const int hasMatrixInt = hasMatrix ? 1 : 0;
+                float angle = 0.f;
+                __asm {
+                    fld negPdx
+                    fld pdy
+                    fpatan
+                    cmp hasMatrixInt, 0
+                    je NearestDoorUseHeading
+                    fld negFwdX
+                    fld fwdY
+                    fpatan
+                    jmp NearestDoorSub
+                NearestDoorUseHeading:
+                    fld heading
+                NearestDoorSub:
+                    fsubp st(1), st
+                    fstp angle
+                }
+                if (angle > std::bit_cast<float>(0x40490FDBu)) {            // 0x858CB8
+                    angle -= std::bit_cast<float>(0x40C90FDBu);             // 0x858CBC
+                } else if (angle < std::bit_cast<float>(0xC0490FDBu)) {     // 0x858CC0
+                    angle += std::bit_cast<float>(0x40C90FDBu);
+                }
+                if (std::abs(angle) < std::bit_cast<float>(0x3F060A92u)) {  // 0x858F20 (PI/6)
+                    // Como el original (0x652A15..0x652A76): jugador (ratio > 1.5 y doorId 0), no jugador (no policia,
+                    // corriendo, temperamento con signo > 0x41 y doorId 0) o doorId ya igual a 18
+                    bool ok = false;
+                    if (ped->IsPlayer()) {
+                        ok = ped->GetPlayerData()->m_fMoveBlendRatio > 1.5f && doorId == 0;
+                    } else {
+                        ok = ped->m_nPedType != PED_TYPE_COP && ped->m_nMoveState == PEDMOVE_RUN && int8(ped->m_pStats->m_nTemper) > 0x41 && doorId == 0;
+                    }
+                    if (ok || doorId == 18) {
                         // 18 here is probably either from eBikeNodes or eQuadNodes, not sure?
                         if (IsRoomForPedToLeaveCar(vehicle, 18)) {
                             doorId = 18;
@@ -302,47 +349,46 @@ bool CCarEnterExit::GetNearestCarDoor(const CPed* ped, const CVehicle* vehicle, 
             }
         }
     } else if (vehicle->vehicleFlags.bIsBus || vehicle->vehicleFlags.bLowVehicle) {
+        // Como el original (0x652AC8: `test byte [esi+429h],0Ah`)
         driverDraggedOutOffset = nullptr;
         psgrDraggedOutOffset = nullptr;
     }
 
-
-    const auto posDoorFLeft = GetPositionToOpenCarDoor(vehicle, CAR_DOOR_LF);
-    const auto posDoorFRight = GetPositionToOpenCarDoor(vehicle, CAR_DOOR_RF);
-
     CVector2D pedPos2D = ped->GetPosition();
     CVector2D dir2DToDoorFLeft = posDoorFLeft - pedPos2D, dir2DToDoorFRight = posDoorFRight - pedPos2D;
 
+    // Como el original (0x652B21..0x652BA3): se evalua el lado MAS CERCANO con el vehiculo remolcado (+0x4C8) como
+    // 'vehicle' del test; si esta bloqueado, esa distancia pasa a 999.9
     if (vehicle->m_pVehicleBeingTowed) {
         if (dir2DToDoorFLeft.SquaredMagnitude() < dir2DToDoorFRight.SquaredMagnitude()) {
-            if (IsPathToDoorBlockedByVehicleCollisionModel(ped, vehicle, posDoorFRight)) {
-                dir2DToDoorFRight = { 999.90002f, 999.90002f };
-            } else if (IsPathToDoorBlockedByVehicleCollisionModel(ped, vehicle, posDoorFLeft)) {
+            if (IsPathToDoorBlockedByVehicleCollisionModel(ped, vehicle->m_pVehicleBeingTowed, posDoorFLeft)) {
                 dir2DToDoorFLeft = { 999.90002f, 999.90002f };
+            }
+        } else {
+            if (IsPathToDoorBlockedByVehicleCollisionModel(ped, vehicle->m_pVehicleBeingTowed, posDoorFRight)) {
+                dir2DToDoorFRight = { 999.90002f, 999.90002f };
             }
         }
     }
 
     if (vehicle->m_pHandlingData->m_bForceDoorCheck && vehicle->IsAutomobile()) {
         const auto aut = static_cast<const CAutomobile*>(vehicle);
-
-        if (aut->m_aCarNodes[CAR_DOOR_RF]) { // Inverted
-            if (!aut->m_aCarNodes[CAR_DOOR_LF]) {
-                if (IsRoomForPedToLeaveCar(vehicle, CAR_DOOR_RF, driverDraggedOutOffset)) {
-                    doorId = CAR_DOOR_RF;
-                    outPos = posDoorFRight;
-                    return true;
-                }
-            }
-        } else {
-            if (IsRoomForPedToLeaveCar(vehicle, CAR_DOOR_LF, driverDraggedOutOffset)) {
+        const bool hasLF = aut->m_aCarNodes[CAR_DOOR_LF] != nullptr, hasRF = aut->m_aCarNodes[CAR_DOOR_RF] != nullptr;
+        // Como el original (0x652BCD..0x652C73): con las dos puertas presentes sigue el camino general (0x652C73);
+        // si no, solo se prueba la puerta que existe, con el desplazamiento del conductor, y si no hay sitio -> false.
+        if (!(hasLF && hasRF)) {
+            if (hasLF && IsRoomForPedToLeaveCar(vehicle, CAR_DOOR_LF, driverDraggedOutOffset)) {
                 doorId = CAR_DOOR_LF;
                 outPos = posDoorFLeft;
                 return true;
             }
+            if (hasRF && IsRoomForPedToLeaveCar(vehicle, CAR_DOOR_RF, driverDraggedOutOffset)) {
+                doorId = CAR_DOOR_RF;
+                outPos = posDoorFRight;
+                return true;
+            }
+            return false;
         }
-
-        return false;
     }
 
     if (doorId != CAR_NODE_NONE && IsRoomForPedToLeaveCar(vehicle, doorId, driverDraggedOutOffset)) {
@@ -362,8 +408,9 @@ bool CCarEnterExit::GetNearestCarDoor(const CPed* ped, const CVehicle* vehicle, 
         }
     }
 
+    // Como el original (0x652CE4): AreInSameGroup(conductor, ped) con ese orden de argumentos
     if (!vehicle->m_pDriver
-    || (!CPedGroups::AreInSameGroup(ped, vehicle->m_pDriver) && !vehicle->m_pDriver->bDontDragMeOutCar)
+    || (!CPedGroups::AreInSameGroup(vehicle->m_pDriver, ped) && !vehicle->m_pDriver->bDontDragMeOutCar)
     ) {
         if (vehicle->vehicleFlags.bIsBus
          || dir2DToDoorFRight.SquaredMagnitude() > dir2DToDoorFLeft.SquaredMagnitude()
@@ -373,13 +420,14 @@ bool CCarEnterExit::GetNearestCarDoor(const CPed* ped, const CVehicle* vehicle, 
                 outPos = posDoorFLeft;
                 return true;
             }
-            if (IsRoomForPedToLeaveCar(vehicle, CAR_DOOR_RF, driverDraggedOutOffset)) {
+            // Como el original (0x652E89: `push ebp`): la puerta RF usa el desplazamiento del PASAJERO
+            if (IsRoomForPedToLeaveCar(vehicle, CAR_DOOR_RF, psgrDraggedOutOffset)) {
                 doorId = CAR_DOOR_RF;
                 outPos = posDoorFRight;
                 return true;
             }
         } else {
-            if (IsRoomForPedToLeaveCar(vehicle, CAR_DOOR_RF, driverDraggedOutOffset)) {
+            if (IsRoomForPedToLeaveCar(vehicle, CAR_DOOR_RF, psgrDraggedOutOffset)) { // 0x652D54: `push ebp`
                 if ((
                         vehicle->HasPassengerAtSeat(0)
                         && !vehicle->IsBike()
@@ -553,11 +601,15 @@ bool CCarEnterExit::IsCarSlowJackRequired(const CVehicle* vehicle, int32 doorId)
 
 // 0x6509B0
 bool CCarEnterExit::IsClearToDriveAway(const CVehicle* vehicle) {
+    // Como el original (0x6509B8..0x650A5C): usa la ColModel del modelo (modelinfo+0x14), no la de la entidad;
+    // distancia = (max.y - min.y) * 0.5f (0x858B8C) + 1.5f (0x858CE8) (la DLL usaba solo max.y - min.y).
     const auto& vehPos = vehicle->GetPosition();
-    const auto  bbSizeY = vehicle->GetColModel()->GetBoundingBox().GetSize().y;
+    auto* col = CModelInfo::GetModelInfo(int16(vehicle->GetModelIndex()))->GetColModel();
+    const float size = col->GetBoundingBox().GetSize().y;
+    const float distance = size * 0.5f + 1.5f;
     CEntity* hitEntity{};
     CColPoint hitCP{};
-    return !CWorld::ProcessLineOfSight(vehPos + vehicle->GetForward() * bbSizeY, vehPos, hitCP, hitEntity, true, true, false, false, false, true, true, false) || hitEntity == vehicle;
+    return !CWorld::ProcessLineOfSight(vehPos + vehicle->GetForward() * distance, vehPos, hitCP, hitEntity, true, true, false, false, false, true, true, false) || hitEntity == vehicle;
 }
 
 // 0x651210
@@ -566,19 +618,28 @@ bool CCarEnterExit::IsPathToDoorBlockedByVehicleCollisionModel(const CPed* ped, 
         return false;
     }
 
+    // Como el original (0x651243..0x6512EE): el segmento va del peaton a `pos` en coordenadas locales del vehiculo y se
+    // aplana: end.z = start.z (0x6512EE `mov [esp+50h],ecx`).
     const auto vehMatInv = Invert(*vehicle->m_matrix);
-    const CColLine line{
+    CColLine line{
         vehMatInv.TransformPoint(ped->GetPosition()),
         vehMatInv.TransformPoint(pos)
     };
+    line.m_vecEnd.z = line.m_vecStart.z;
 
-    for (const auto& sp : vehicle->GetColModel()->GetData()->GetSpheres()) {
+    // Como el original (0x6512F2..0x651351): contador con signo (movsx word), y la esfera tambien se aplana
+    // (center.z = start.z, 0x65131D). Devuelve TRUE si ALGUNA esfera corta el segmento (la DLL lo tenia invertido).
+    const auto spheres = vehicle->GetColModel()->GetData()->GetSpheres();
+    const int16 numSpheres = int16(spheres.size());
+    int32 i = 0;
+    for (; i < numSpheres; ++i) {
+        CColSphere sp = spheres[size_t(i)];
+        sp.m_vecCenter.z = line.m_vecStart.z;
         if (CCollision::TestLineSphere(line, sp)) {
-            return false;
+            break;
         }
     }
-
-    return true;
+    return i != numSpheres;
 }
 
 // 0x64EEE0
@@ -734,7 +795,8 @@ bool CCarEnterExit::IsVehicleStealable(const CVehicle* vehicle, const CPed* ped)
         return false;
     }
 
-    if (vehicle->m_fHealth <= 600.f) {
+    // Como el original (0x6511C3: fcomp + `test ah,41h / jne`): con NaN tambien devuelve false.
+    if (!(vehicle->m_fHealth > 600.f)) {
         return false;
     }
 
@@ -753,7 +815,10 @@ bool CCarEnterExit::IsVehicleStealable(const CVehicle* vehicle, const CPed* ped)
 void CCarEnterExit::MakeUndraggedDriverPedLeaveCar(const CVehicle* vehicle, const CPed* pedGettingIn) {
     auto& veh = const_cast<CVehicle&>(*vehicle); // TODO: Fix
     auto& ped = const_cast<CPed&>(*pedGettingIn); // TODO: Fix
-    veh.m_pDriver->GetEventGroup().Add(CEventDraggedOutCar{ &veh, &ped, true });
+    // Como el original (0x64F62F..0x64F64C): evento local construido una vez (0x4AD250) y Add(&evento, false) (0x4AB420);
+    // la plantilla Add(T) lo copiaba antes, registrando referencias de mas.
+    CEventDraggedOutCar event{ &veh, &ped, true };
+    veh.m_pDriver->GetEventGroup().Add(&event, false);
 }
 
 // 0x64F540
@@ -780,40 +845,47 @@ void CCarEnterExit::QuitEnteringCar(CPed* ped, CVehicle* vehicle, int32 doorId, 
         CAnimManager::BlendAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_IDLE, 1000.0f);
     }
 
+    // Como el original (0x650172: `and byte [esi+42Ah],0F7h`): LIMPIA bIsBeingCarJacked (la DLL lo ponia a true).
     if (bCarWasBeingJacked) {
-        vehicle->vehicleFlags.bIsBeingCarJacked = true;
+        vehicle->vehicleFlags.bIsBeingCarJacked = false;
     }
-    vehicle->m_nNumGettingIn--;
+    // Como el original (0x650185: `test al,al / jbe / dec al`): solo decrementa si es > 0.
+    if (vehicle->m_nNumGettingIn > 0) {
+        vehicle->m_nNumGettingIn--;
+    }
 
+    // Como el original (0x650197..0x65025D): las banderas se LIMPIAN con ClearGettingInFlags (0x6D3040), no se ponen.
     if (vehicle->IsBike() || vehicle->m_pHandlingData->m_bTandemSeats) {
         switch (doorId) {
         case 8:
         case 10:
-            vehicle->SetGettingInFlags(5);
+            vehicle->ClearGettingInFlags(5);
             break;
         case 9:
         case 11:
-            vehicle->SetGettingInFlags(10);
+            vehicle->ClearGettingInFlags(10);
             break;
         }
-        vehicle->vehicleFlags.bIsBig = false;
+        // Como el original (0x650256: `and byte [esi+614h],0F7h`): el byte 0x614 (bit 3), no vehicleFlags.bIsBig.
+        *(reinterpret_cast<uint8*>(vehicle) + 0x614) &= 0xF7;
     } else {
         switch (doorId) {
         case 8:
-            vehicle->SetGettingInFlags(4);
+            vehicle->ClearGettingInFlags(4);
             break;
         case 9:
-            vehicle->SetGettingInFlags(8);
+            vehicle->ClearGettingInFlags(8);
             break;
         case 10:
-            vehicle->SetGettingInFlags(vehicle->m_nMaxPassengers ? 1 : 3);
+            vehicle->ClearGettingInFlags(vehicle->m_nMaxPassengers ? 1 : 3);
             break;
         case 11:
-            vehicle->SetGettingInFlags(vehicle->m_nMaxPassengers ? 2 : 3);
+            vehicle->ClearGettingInFlags(vehicle->m_nMaxPassengers ? 2 : 3);
             break;
         }
     }
-    ped->SetUsesCollision(false);
+    // Como el original (0x65025D: `or dword [edi+1Ch],1`): activa bUsesCollision (la DLL lo desactivaba).
+    ped->SetUsesCollision(true);
 }
 
 // 0x64F680
@@ -839,28 +911,31 @@ void CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle() {
         return;
     }
 
-    const auto animBlockIdxs = {
-        CAnimManager::GetAnimationBlockIndex("int_house"),
-        CAnimManager::GetAnimationBlockIndex("int_office")
-    };
+    // Como el original (0x64F873..0x64F8B5): primero int_house (edi) y luego int_office (ebx); se piden y se referencian
+    // en orden office -> house (RequestModel 0x4087E0 ebx, edi; AddAnimBlockRef 0x4D3FB0 ebx, edi) y se liberan
+    // house -> office (0x4D3FD0 edi, ebx). La DLL recorria siempre house -> office.
+    const auto houseIdx  = CAnimManager::GetAnimationBlockIndex("int_house");
+    const auto officeIdx = CAnimManager::GetAnimationBlockIndex("int_office");
 
-    for (const auto idx : animBlockIdxs) {
-        CStreaming::RequestModel(IFPToModelId(idx), STREAMING_KEEP_IN_MEMORY);
-    }
+    CStreaming::RequestModel(IFPToModelId(officeIdx), STREAMING_KEEP_IN_MEMORY);
+    CStreaming::RequestModel(IFPToModelId(houseIdx), STREAMING_KEEP_IN_MEMORY);
     CStreaming::LoadAllRequestedModels(false);
 
-    for (const auto idx : animBlockIdxs) {
-        CAnimManager::AddAnimBlockRef(idx);
-    }
+    CAnimManager::AddAnimBlockRef(officeIdx);
+    CAnimManager::AddAnimBlockRef(houseIdx);
 
     {
         const auto anim = CAnimManager::GetAnimAssociation(ANIM_GROUP_DEFAULT, ANIM_ID_GETUP_0);
         CAnimManager::UncompressAnimation(anim->m_BlendHier);
         const auto& seq = anim->m_BlendHier->GetSequences()[0];
-        ms_vecPedGetUpAnimOffset = seq.m_FramesNum ? seq.GetUKeyFrame(0)->Trans : CVector{};
+        // Como el original (0x64F8D2: `cmp word [esi+6],0 / jle`): con 0 fotogramas (o negativo) NO se escribe el destino
+        if (int16(seq.m_FramesNum) > 0) {
+            ms_vecPedGetUpAnimOffset = seq.GetUKeyFrame(0)->Trans;
+        }
     }
 
-    ms_vecPedQuickDraggedOutCarAnimOffset = CVector{ -1.841797f, -0.3261719f, -0.01269531f };
+    // Como el original (0x64F8FD..0x64F933): constantes exactas en bits (0xBFEBC001, 0xBEA70001, 0xBC4FFFFD)
+    ms_vecPedQuickDraggedOutCarAnimOffset = CVector{ std::bit_cast<float>(0xBFEBC001u), std::bit_cast<float>(0xBEA70001u), std::bit_cast<float>(0xBC4FFFFDu) };
 
     const std::tuple<AssocGroupId, AnimationId, CVector*> toProcess[]{
         {ANIM_GROUP_INT_HOUSE,  ANIM_ID_BED_IN_L,   &ms_vecPedBedLAnimOffset  },
@@ -870,20 +945,23 @@ void CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle() {
     };
     for (const auto [grpId, animId, out] : toProcess) {
         // Calculate translation delta between first and last sequence frames
-        *out = [grpId, animId] {
-            const auto anim = CAnimManager::GetAnimAssociation(grpId, animId);
-            CAnimManager::UncompressAnimation(anim->m_BlendHier);
-            const auto& seq = anim->m_BlendHier->GetSequences()[0];
-            if (seq.m_FramesNum > 0) {
-                return seq.GetUKeyFrame(seq.m_FramesNum - 1)->Trans - seq.GetUKeyFrame(0)->Trans;
-            }
-            return CVector{};
-        }();
+        const auto anim = CAnimManager::GetAnimAssociation(grpId, animId);
+        CAnimManager::UncompressAnimation(anim->m_BlendHier);
+        const auto& seq = anim->m_BlendHier->GetSequences()[0];
+        // Como el original (0x64F951 `test ax,ax / jle`): con 0 fotogramas el destino queda intacto
+        if (int16(seq.m_FramesNum) > 0) {
+            // Como el original: ultimo = Trans del ultimo fotograma, se resta Trans del primero componente a componente
+            CVector last = seq.GetUKeyFrame(size_t(int16(seq.m_FramesNum)) - 1)->Trans;
+            const CVector first = seq.GetUKeyFrame(0)->Trans;
+            last.x -= first.x;
+            last.y -= first.y;
+            last.z -= first.z;
+            *out = last;
+        }
     }
 
-    for (const auto idx : animBlockIdxs) {
-        CAnimManager::RemoveAnimBlockRef(idx);
-    }
+    CAnimManager::RemoveAnimBlockRef(houseIdx);
+    CAnimManager::RemoveAnimBlockRef(officeIdx);
 
     ms_bPedOffsetsCalculated = true;
 }
@@ -931,9 +1009,12 @@ bool CCarEnterExit::SetPedInCarDirect(CPed* ped, CVehicle* vehicle, int32 doorId
 
     SetMutalAcquaintanceWith(vehicle->m_pDriver);
 
+    // Como el original (0x650436: `test ebx,ebx / jle`): con indice <= 0 (p. ej. -1) no se recorre ninguno, y se recorren
+    // exactamente psgrIdx plazas desde m_apPassengers[0] sin limitar por m_nMaxPassengers.
     const auto psgrIdx = ComputePassengerIndexFromCarDoor(vehicle, doorId);
-    assert(psgrIdx != -1); // I really doubt this can happen, if it does, an `if` has to be added
-    rng::for_each(vehicle->GetPassengers() | rng::views::take((size_t)psgrIdx), SetMutalAcquaintanceWith); // Set with all other passengers up to the ped's seat
+    for (int32 i = 0; i < psgrIdx; ++i) {
+        SetMutalAcquaintanceWith(vehicle->m_apPassengers[i]); // Set with all other passengers up to the ped's seat
+    }
 
     return true;
 }

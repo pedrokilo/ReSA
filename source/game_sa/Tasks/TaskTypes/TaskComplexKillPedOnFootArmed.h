@@ -30,7 +30,7 @@ public:
 
     uint32     m_lastStrafeTime{}; 
     int8       m_competence{}; 
-    eStrafeDir m_strafeDir{}; 
+    eStrafeDir m_strafeDir; // Como el original: el constructor (0x621190) no escribe +0x31
     bool       m_bStrafeBack{}; 
     bool       m_bShotFiredByPlayer{}; 
     bool       m_newTarget{}; 

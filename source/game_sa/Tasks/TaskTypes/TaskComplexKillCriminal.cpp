@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 3/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -57,15 +57,19 @@ bool NoPedOrNoHp(CPed* ped) {
 
 // 0x68BE70
 CTaskComplexKillCriminal::CTaskComplexKillCriminal(CPed* criminal, bool randomize) :
-    m_Randomize{randomize},
-    m_Criminal{criminal}
+    m_Randomize{randomize}
 {
-    if (   !m_Criminal
-        || m_Criminal->IsPlayer()
-        || m_Criminal->IsCreatedByMission()
-        || notsa::contains({ PED_TYPE_COP, PED_TYPE_MEDIC, PED_TYPE_FIREMAN, PED_TYPE_MISSION1 }, m_Criminal->m_nPedType)
+    // Como el original (0x68BE70): el EXE guarda el puntero y solo registra la referencia si pasa todos los filtros
+    // (IsPlayer 0x5DF8F0, tipos 6/0x12/0x13, tipo >= 0x18 (cualquier MISSIONn) y creado por mision [+0x484] == 2)
+    if (   criminal
+        && !criminal->IsPlayer()
+        && criminal->m_nPedType != PED_TYPE_COP
+        && criminal->m_nPedType != PED_TYPE_MEDIC
+        && criminal->m_nPedType != PED_TYPE_FIREMAN
+        && (int32)criminal->m_nPedType < (int32)PED_TYPE_MISSION1
+        && !criminal->IsCreatedByMission()
     ) {
-        m_Criminal = nullptr;
+        m_Criminal = criminal;
     }
 }
 
@@ -94,7 +98,7 @@ CTaskComplexKillCriminal::~CTaskComplexKillCriminal() {
                 }
                 veh->vehicleFlags.bSirenOrAlarm = false;
             }
-            veh->vehicleFlags.bSirenOrAlarm = false;
+            // Como el original: 0x68BF30 solo limpia la sirena (and byte [veh+42Dh],7Fh) dentro de la rama del conductor
         }
     }
 }
@@ -107,8 +111,10 @@ CTask* CTaskComplexKillCriminal::CreateSubTask(eTaskType tt, CPed* ped, bool for
 
     switch (tt) {
     case TASK_COMPLEX_KILL_PED_ON_FOOT: {
+        // Como el original: 0x68C361 construye primero y 0x68C36E (SetCurrentWeapon(22)) llega despues
+        const auto task = new CTaskComplexKillPedOnFoot{ m_Criminal };
         ped->SetCurrentWeapon(WEAPON_PISTOL);
-        return new CTaskComplexKillPedOnFoot{ m_Criminal };
+        return task;
     }
     case TASK_FINISHED: {
         if (m_Criminal) {
@@ -116,8 +122,9 @@ CTask* CTaskComplexKillCriminal::CreateSubTask(eTaskType tt, CPed* ped, bool for
         }
         return nullptr;
     }
-    case TASK_SIMPLE_GANG_DRIVEBY:
-        return new CTaskSimpleGangDriveBy{
+    case TASK_SIMPLE_GANG_DRIVEBY: {
+        // Como el original: 0x68C308 comparte el final 0x68C36A con KILL_PED_ON_FOOT: SetCurrentWeapon(22) tras construir
+        const auto task = new CTaskSimpleGangDriveBy{
             m_Criminal,
             nullptr,
             70.f,
@@ -125,6 +132,9 @@ CTask* CTaskComplexKillCriminal::CreateSubTask(eTaskType tt, CPed* ped, bool for
             eDrivebyStyle::AI_ALL_DIRN,
             false
         };
+        ped->SetCurrentWeapon(WEAPON_PISTOL);
+        return task;
+    }
     case TASK_COMPLEX_ENTER_CAR_AS_PASSENGER:
         return new CTaskComplexEnterCarAsPassenger{ ped->m_pVehicle };
     case TASK_COMPLEX_ENTER_CAR_AS_DRIVER:
@@ -162,21 +172,42 @@ CTask* CTaskComplexKillCriminal::CreateSubTask(eTaskType tt, CPed* ped, bool for
         }
     }
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr; // Como el original: 0x68C09F/0x68C0BA/0x68C2EE devuelven 0 para tipos sin caso
     }
 }
 
 // 0x68C3C0
 CPed* CTaskComplexKillCriminal::FindNextCriminalToKill(CPed* ped, bool any) {
-    const auto [closest, distSq] = notsa::SpatialQuery(
-        m_Cop->m_apCriminalsToKill | rng::views::filter(notsa::Not(NoPedOrNoHp)),
-        m_Cop->GetPosition(),
-        m_Criminal.Get(),
-        !any && NoPedOrNoHp(m_Criminal)
-            ? m_Criminal.Get()
-            : nullptr
-    );
-    return closest;
+    // Como el original (0x68C3C0): no es una busqueda del mas cercano. [esp+0Ch] = distancia^2 de referencia
+    // (la del criminal actual si !any y esta vivo, si no 0.0f) y NO se actualiza; gana el ULTIMO candidato
+    // valido (distinto del criminal actual) con d < referencia, o cualquiera si la referencia es 0.0f.
+    // d^2 se suma en el orden del EXE: (dz*dz + dy*dy) + dx*dx.
+    const auto DistSq = [ped](CPed* other) {
+        const CVector& a = other->GetPosition();
+        const CVector& b = ped->GetPosition();
+        const float dx = a.x - b.x;
+        const float dy = a.y - b.y;
+        const float dz = a.z - b.z;
+        return (dz * dz + dy * dy) + dx * dx;
+    };
+    const auto Alive = [](CPed* p) { return p->m_fHealth > 0.f; }; // fcomp 0.0 + test ah,41h: vivo solo si health > 0
+
+    float refDistSq = 0.f;
+    CPed* best      = nullptr;
+    if (!any && m_Criminal && Alive(m_Criminal)) {
+        refDistSq = DistSq(m_Criminal);
+    }
+    for (int32 i = 0; i < 5; i++) { // +0x7AC..+0x7BC
+        CPed* const c = m_Cop->m_apCriminalsToKill[i];
+        if (!c || !Alive(c) || c == m_Criminal.Get()) {
+            continue;
+        }
+        const float d = DistSq(c);
+        if (d < refDistSq || refDistSq == 0.f) {
+            best = c;
+        }
+    }
+    return best;
 }
 
 // 0x68C6E0
@@ -197,8 +228,18 @@ bool CTaskComplexKillCriminal::ChangeTarget(CPed* newTarget) { // TODO: Figure o
         return false;
     }
 
-    if (!notsa::contains(m_Cop->m_apCriminalsToKill, newTarget)) { // 0x68c760
-        return false;
+    { // 0x68C760: el objetivo debe estar en la lista Y vivo (fcomp 0.0 + test ah,41h + je)
+        bool found = false;
+        for (int32 i = 0; i < 5; i++) {
+            const auto c = m_Cop->m_apCriminalsToKill[i];
+            if (c == newTarget && c->m_fHealth > 0.f) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            return false;
+        }
     }
 
     m_Criminal = newTarget;
@@ -206,8 +247,9 @@ bool CTaskComplexKillCriminal::ChangeTarget(CPed* newTarget) { // TODO: Figure o
     // Propagate change to partner
     if (const auto partner = m_Cop->m_pCopPartner) {
         if (partner->bInVehicle) {
-            if (const auto partnersTask = partner->GetTaskManager().Find<CTaskComplexKillCriminal>(false)) {
-                notsa::cast<CTaskComplexKillCriminal>(partnersTask)->ChangeTarget(newTarget);
+            // Como el original: 0x68C7C6 CPedIntelligence::FindTaskByType(0x451) (0x600EE0) y se llama a ChangeTarget sin mas comprobaciones
+            if (const auto partnersTask = partner->GetIntelligence()->FindTaskByType(TASK_COMPLEX_KILL_CRIMINAL)) {
+                static_cast<CTaskComplexKillCriminal*>(partnersTask)->ChangeTarget(newTarget);
             }
         }
     }
@@ -219,48 +261,41 @@ bool CTaskComplexKillCriminal::ChangeTarget(CPed* newTarget) { // TODO: Figure o
 
 // 0x68DAD0
 bool CTaskComplexKillCriminal::MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) {
-    if ([&, this]{
-        if (!event) {
-            return true;
-        }
-
-        // Code @ 0x68DB32 has been inlined into the stuff below
-
-        switch (const auto evType = event->GetEventType()) {
-        case EVENT_ACQUAINTANCE_PED_HATE:
-        case EVENT_VEHICLE_DAMAGE_COLLISION: // Ignore these
-            return false;
-
-        case EVENT_DAMAGE:
-        case EVENT_VEHICLE_DAMAGE_WEAPON:
-        case EVENT_GUN_AIMED_AT:
-        case EVENT_SHOT_FIRED: {
-            const auto evSrc  = event->GetSourceEntity();
-            if (m_Criminal && evSrc == m_Criminal) {
-                return false; // As per 0x68DB32
-            }
-            if (!evSrc || !evSrc->GetIsTypePed() || evSrc->AsPed()->IsPlayer()) {
+    // Como el original (0x68DAD0): GetEventType (slot 1) una vez y GetSourceEntity (slot 10) se vuelve a llamar en cada uso
+    if (event) {
+        const auto evType = event->GetEventType();
+        const auto IsTypeIn = [&](std::initializer_list<eEventType> types) { return notsa::contains(types, evType); };
+        const auto Tick = [&] { const_cast<CEvent*>(event)->m_nTimeActive++; };
+        if (event->GetSourceEntity() == m_Criminal.Get() && m_Criminal) {
+            if (IsTypeIn({ EVENT_DAMAGE, EVENT_ACQUAINTANCE_PED_HATE, EVENT_VEHICLE_DAMAGE_WEAPON, EVENT_VEHICLE_DAMAGE_COLLISION, EVENT_GUN_AIMED_AT, EVENT_SHOT_FIRED })) { // 0x68DB00
+                Tick();
                 return false;
             }
-            const auto evSrcPed = evSrc->AsPed();
-            if (!m_Cop || m_Cop->AddCriminalToKill(evSrcPed) == (notsa::IsFixBugs() ? -1 : 0)) {
+        } else { // 0x68DB35
+            if (IsTypeIn({ EVENT_ACQUAINTANCE_PED_HATE, EVENT_VEHICLE_DAMAGE_COLLISION })) {
+                Tick();
                 return false;
             }
-            if (notsa::contains({ EVENT_DAMAGE, EVENT_VEHICLE_DAMAGE_WEAPON }, evType)) { // Change target immediately
-                if (!m_Criminal || (m_Criminal->GetPosition() - ped->GetPosition()).SquaredMagnitude() <= sq(25.f)) {
-                    ChangeTarget(evSrcPed);
+            if (IsTypeIn({ EVENT_DAMAGE, EVENT_VEHICLE_DAMAGE_WEAPON, EVENT_GUN_AIMED_AT, EVENT_SHOT_FIRED })) { // 0x68DB5F
+                if (   event->GetSourceEntity()
+                    && event->GetSourceEntity()->GetIsTypePed()
+                    && !event->GetSourceEntity()->AsPed()->IsPlayer()
+                    && m_Cop
+                    && m_Cop->AddCriminalToKill(event->GetSourceEntity()->AsPed()) != 0 // Como el original: 0x68DBB3 test eax,eax / je (el -1 de fallo cuenta como exito)
+                ) {
+                    if (IsTypeIn({ EVENT_DAMAGE, EVENT_VEHICLE_DAMAGE_WEAPON })) { // Change target immediately
+                        // Como el original: 0x68DC02 fcomp 625.0 + test ah,5 + jp => estrictamente menor
+                        if (!m_Criminal || (m_Criminal->GetPosition() - ped->GetPosition()).SquaredMagnitude() < sq(25.f)) {
+                            ChangeTarget(event->GetSourceEntity()->AsPed());
+                        }
+                    }
                 }
+                Tick();
+                return false;
             }
-            return false;
         }
-        }
-        return true;
-    }()) {
-        return m_pSubTask->MakeAbortable(ped, priority, event);
-    } else {
-        const_cast<CEvent*>(event)->m_nTimeActive++; // ???????
-        return false;
     }
+    return m_pSubTask->MakeAbortable(ped, priority, event);
 }
 
 // 0x68E4F0
@@ -300,6 +335,7 @@ CTask* CTaskComplexKillCriminal::CreateNextSubTask(CPed* ped) {
     }
     case TASK_COMPLEX_ENTER_CAR_AS_DRIVER: { // 0x68E533
         if (!ped->bInVehicle) {
+            m_CantGetInCar = true; // Como el original: 0x68E547 mov byte [esi+1Ah],1
             return CreateSubTask(
                 m_HasFinished || NoPedOrNoHp(m_Criminal)
                     ? TASK_FINISHED
@@ -308,9 +344,14 @@ CTask* CTaskComplexKillCriminal::CreateNextSubTask(CPed* ped) {
             );
         }
         const auto copPartnerNoneOrInVeh = NoPedOrNoHp(m_Cop->m_pCopPartner) || m_Cop->m_pCopPartner->bInVehicle;
-        if (!m_HasFinished && !NoPedOrNoHp(m_Criminal) && !m_Criminal->IsInVehicle()) {
+        if (!m_HasFinished && !NoPedOrNoHp(m_Criminal)) {
+            // Como el original: 0x68E5D8 si el criminal esta en un vehiculo va directo a 0x68E635 (perseguir en coche);
+            // a pie: sin vehiculo propio o d^2 <= 625 => a pie, si no perseguir
+            const bool onFoot = m_Criminal->IsInVehicle()
+                ? false
+                : (!ped->m_pVehicle || m_Criminal->IsEntityInRange(ped->m_pVehicle, 25.f));
             return CreateSubTask(
-                !ped->m_pVehicle || m_Criminal->IsEntityInRange(ped->m_pVehicle, 25.f) // 0x68E5D8
+                onFoot
                     ? TASK_COMPLEX_KILL_PED_ON_FOOT
                     : copPartnerNoneOrInVeh // otherwise if criminal is too far chase them with the car
                         ? TASK_COMPLEX_CAR_DRIVE_MISSION
@@ -344,13 +385,13 @@ CTask* CTaskComplexKillCriminal::CreateNextSubTask(CPed* ped) {
     }
     case TASK_COMPLEX_LEAVE_CAR: // 0x68E77F
         return CreateSubTask(
-            !ped->bInVehicle || m_CantGetInCar || (!m_HasFinished && !NoPedOrNoHp(m_Criminal) && !m_Criminal->IsInVehicle() && m_Criminal->IsEntityInRange(ped, 25.f))
+            !ped->m_pVehicle || m_CantGetInCar || (!m_HasFinished && !NoPedOrNoHp(m_Criminal) && !m_Criminal->IsInVehicle() && m_Criminal->IsEntityInRange(ped, 25.f))
                 ? TASK_COMPLEX_KILL_PED_ON_FOOT     // Criminal can be killed on foot
                 : TASK_COMPLEX_ENTER_CAR_AS_DRIVER, // We have to chase the criminal with a vehicle
             ped
         );
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr; // Como el original: 0x68E936 devuelve 0 para subtareas sin caso
     }
 }
 

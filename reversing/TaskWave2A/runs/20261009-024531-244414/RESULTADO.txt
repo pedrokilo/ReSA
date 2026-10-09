@@ -1,0 +1,3 @@
+APROBADO: CTaskComplexKillCriminal, CTaskComplexKillPedOnFootArmed y CTaskSimplePlayerOnFoot (parcial)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-taskwave2a\20261009-024531-244414

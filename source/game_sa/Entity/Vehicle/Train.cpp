@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 40/40 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 20.
- * Validación registrada: 20/40 entradas.
+ * Validación registrada: 39/40 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -221,8 +221,11 @@ void CTrain::ReadAndInterpretTrackFile(const char* filename, CTrainNode** nodes,
 
 // 0x6F58D0
 void CTrain::Shutdown() {
-    for (auto node : pTrackNodes) {
-        delete node;
+    // Como el original (0x6F58D0): delete[] (0x8213AE) sobre cada puntero no nulo y se pone a cero la entrada de la tabla global (0xC38024..0xC38034)
+    for (auto& node : pTrackNodes) {
+        if (node) {
+            delete[] node;
+        }
         node = nullptr;
     }
 }
@@ -346,7 +349,8 @@ void CTrain::ReleaseOneMissionTrain(CTrain* train) {
 
 // 0x6F5E20
 void CTrain::SetTrainSpeed(CTrain* train, float speed) {
-    train->m_fTrainSpeed = speed / 50.0f;
+    // Como el original (0x6F5E20): fmul por la constante 0x858B38 (0.02f), no una division entre 50
+    train->m_fTrainSpeed = speed * 0.02f;
     if (!train->trainFlags.bClockwiseDirection) {
         train->m_fTrainSpeed = -train->m_fTrainSpeed;
     }
@@ -354,7 +358,8 @@ void CTrain::SetTrainSpeed(CTrain* train, float speed) {
 
 // 0x6F5E50
 void CTrain::SetTrainCruiseSpeed(CTrain* train, float speed) {
-    train->m_autoPilot.SetCruiseSpeed((uint8)speed);
+    // Como el original (0x6F5E50): _ftol2 (truncado a 64 bits) y se guarda el byte bajo (mov [ecx+3D0h],al)
+    train->m_autoPilot.SetCruiseSpeed(uint8(int64(speed)));
 }
 
 // 0x6F5E70
@@ -417,17 +422,20 @@ void CTrain::FindNextStationPositionInDirection(bool clockwiseDirection, float d
 // 0x6F6320
 bool CTrain::IsInTunnel() const {
     const auto& pos = GetPosition();
-    CColPoint colPoint{};
-    CEntity* colEntity{};
+    // Como el original (0x6F6320): colPoint y colEntity quedan sin inicializar (el EXE no los pone a cero)
+    CColPoint colPoint;
+    CEntity* colEntity;
     return CWorld::ProcessVerticalLine(pos, pos.z + 100.0f, colPoint, colEntity, true);
 }
 
 // 0x6F6640
 void MarkSurroundingEntitiesForCollisionWithTrain(CVector pos, float radius, CEntity* entity, bool bOnlyVehicles) {
-    int32 startSectorX = std::max(CWorld::GetSectorX(pos.x - radius), 0);
-    int32 startSectorY = std::max(CWorld::GetSectorY(pos.y - radius), 0);
-    int32 endSectorX   = std::min(CWorld::GetSectorX(pos.x + radius), MAX_SECTORS_X - 1);
-    int32 endSectorY   = std::min(CWorld::GetSectorY(pos.y + radius), MAX_SECTORS_Y - 1);
+    // Como el original (0x6F6640): el sector se calcula con fmul por 0x858B38 (0.02f) y fadd 0x858B34 (60.0f), no con una division entre 50
+    const auto Sector = [](float v) { return int32(std::floor(v * 0.02f + 60.0f)); };
+    int32 startSectorX = std::max(Sector(pos.x - radius), 0);
+    int32 startSectorY = std::max(Sector(pos.y - radius), 0);
+    int32 endSectorX   = std::min(Sector(pos.x + radius), MAX_SECTORS_X - 1);
+    int32 endSectorY   = std::min(Sector(pos.y + radius), MAX_SECTORS_Y - 1);
 
     CWorld::AdvanceCurrentScanCode();
 
@@ -495,13 +503,16 @@ void CTrain::RemoveRandomPassenger() {
 
 // 0x6F6A20
 void CTrain::RemoveMissionTrains() {
-    for (auto& vehicle : GetVehiclePool()->GetAllValid()) {
-        if (vehicle.IsTrain() &&
-            &vehicle != FindPlayerVehicle() &&
-            vehicle.AsTrain()->trainFlags.bMissionTrain
+    // Como el original (0x6F6A20): recorre el pool de vehiculos de la ultima ranura a la primera
+    auto* pool = GetVehiclePool();
+    for (int32 i = int32(pool->GetSize()); i > 0; ) {
+        auto* vehicle = pool->GetAt(--i);
+        if (vehicle && vehicle->IsTrain() &&
+            vehicle != FindPlayerVehicle(-1, false) &&
+            vehicle->AsTrain()->trainFlags.bMissionTrain
         ) {
-            CWorld::Remove(&vehicle);
-            delete &vehicle;
+            CWorld::Remove(vehicle);
+            delete vehicle;
         }
     }
 }
@@ -529,9 +540,12 @@ void CTrain::RemoveAllTrains() {
 
 // 0x6F6B60
 void CTrain::ReleaseMissionTrains() {
-    for (auto& vehicle : GetVehiclePool()->GetAllValid()) {
-        if (vehicle.IsTrain() && &vehicle != FindPlayerVehicle()) {
-            vehicle.AsTrain()->trainFlags.bMissionTrain = false;
+    // Como el original (0x6F6B60): recorre el pool de vehiculos de la ultima ranura a la primera (and byte [esi+5B8h],0DFh)
+    auto* pool = GetVehiclePool();
+    for (int32 i = int32(pool->GetSize()); i > 0; ) {
+        auto* vehicle = pool->GetAt(--i);
+        if (vehicle && vehicle->IsTrain() && vehicle != FindPlayerVehicle(-1, false)) {
+            vehicle->AsTrain()->trainFlags.bMissionTrain = false;
         }
     }
 }

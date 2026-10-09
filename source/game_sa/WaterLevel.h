@@ -16,12 +16,12 @@ struct CRenPar {
 
 // 0x6E5280
 static CRenPar lerp(CRenPar rp1, CRenPar rp2, float t) {
-    return {
-        lerp(rp1.z, rp2.z, t),
-        lerp(rp1.bigWaves, rp2.bigWaves, t),
-        lerp(rp1.smallWaves, rp2.smallWaves, t),
-        0, 0
-    };
+    // Como el original (0x6E5280): (1 - t) * a + t * b en float (x87 a 24 bits); std::lerp usaba a + t*(b-a) y daba otros redondeos.
+    const float omt = 1.0f - t;
+    const float z  = rp1.z * omt + rp2.z * t;
+    const float bw = rp1.bigWaves * omt + rp2.bigWaves * t;
+    const float sw = rp1.smallWaves * omt + rp2.smallWaves * t;
+    return { z, bw, sw, 0, 0 };
 }
 
 struct CWaterVertex {

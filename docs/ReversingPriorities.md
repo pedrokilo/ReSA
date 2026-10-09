@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.446 |
 | Reconstruidas | 8.446 |
-| Validadas | 6.916 |
-| Reconstruidas sin validar | 1.530 |
-| De ellas, en esta cola (validables por pares) | 1.529 |
+| Validadas | 7.047 |
+| Reconstruidas sin validar | 1.399 |
+| De ellas, en esta cola (validables por pares) | 1.398 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -22,87 +22,84 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 1 | 9 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 9 | 461 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 15 | 496 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 15 | 563 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **40** | **1529** | |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 4 | 19 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 8 | 443 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 12 | 406 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🔴 Nivel 4: caras](#nivel-4) | 13 | 530 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **37** | **1398** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (1 clases, 9 funciones)
+## 🟢 Nivel 1: muy barato (4 clases, 19 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CPools | 19 | 9 |  | 26 |
+| 1 | CRunningScript | 39 | 2 |  | 34 |
+| 2 | CCarEnterExit | 32 | 5 |  | 32 |
+| 3 | CIdleCam | 14 | 5 |  | 34 |
+| 4 | CPools | 19 | 7 |  | 26 |
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (9 clases, 461 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (8 clases, 443 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
 | 1 | CAEPoliceScannerAudioEntity | 17 | 13 |  | 25 |
-| 2 | CAEStreamingChannel | 24 | 18 |  | 25 |
-| 3 | FxSystem_c | 35 | 31 |  | 15 |
-| 4 | CFont | 36 | 32 |  | 25 |
-| 5 | CPathFind | 56 | 54 |  | 23 |
-| 6 | CCheat | 72 | 72 |  | 17 |
-| 7 | CVehicleModelInfo | 75 | 75 |  | 22 |
-| 8 | CAudioEngine | 82 | 82 |  | 10 |
-| 9 | CVisibilityPlugins | 84 | 84 |  | 14 |
+| 2 | FxSystem_c | 35 | 31 |  | 15 |
+| 3 | CFont | 36 | 32 |  | 25 |
+| 4 | CPathFind | 56 | 54 |  | 23 |
+| 5 | CCheat | 72 | 72 |  | 17 |
+| 6 | CVehicleModelInfo | 75 | 75 |  | 22 |
+| 7 | CAudioEngine | 82 | 82 |  | 10 |
+| 8 | CVisibilityPlugins | 84 | 84 |  | 14 |
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (15 clases, 496 funciones)
+## 🟠 Nivel 3: moderadas (12 clases, 406 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CIdleCam | 14 | 13 |  | 33 |
-| 2 | CAEPedAudioEntity | 20 | 15 |  | 40 |
-| 3 | CClothesBuilder | 23 | 15 |  | 42 |
-| 4 | CTrain | 40 | 20 |  | 38 |
-| 5 | CRunningScript | 39 | 24 |  | 33 |
-| 6 | CWaterLevel | 30 | 25 |  | 48 |
-| 7 | CCarEnterExit | 32 | 27 |  | 29 |
-| 8 | CAERadioTrackManager | 43 | 29 |  | 40 |
-| 9 | CGroupEventHandler | 32 | 30 |  | 29 |
-| 10 | CGangWars | 35 | 32 |  | 34 |
-| 11 | CPickups | 37 | 35 |  | 26 |
-| 12 | CPostEffects | 38 | 35 |  | 32 |
-| 13 | CRadar | 63 | 63 |  | 34 |
-| 14 | CPopulation | 66 | 64 |  | 34 |
-| 15 | CTheScripts | 69 | 69 |  | 30 |
+| 1 | CTrain | 40 | 1 |  | 38 |
+| 2 | CAEPedAudioEntity | 20 | 15 |  | 41 |
+| 3 | CClothesBuilder | 23 | 15 |  | 44 |
+| 4 | CAEStreamingChannel | 24 | 18 |  | 26 |
+| 5 | CAERadioTrackManager | 43 | 29 |  | 40 |
+| 6 | CGroupEventHandler | 32 | 30 |  | 29 |
+| 7 | CGangWars | 35 | 32 |  | 34 |
+| 8 | CPickups | 37 | 35 |  | 26 |
+| 9 | CPostEffects | 38 | 35 |  | 32 |
+| 10 | CRadar | 63 | 63 |  | 34 |
+| 11 | CPopulation | 66 | 64 |  | 34 |
+| 12 | CTheScripts | 69 | 69 |  | 30 |
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (15 clases, 563 funciones)
+## 🔴 Nivel 4: caras (13 clases, 530 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CRoadBlocks | 8 | 7 |  | 70 |
-| 2 | CAEScriptAudioEntity | 19 | 8 |  | 54 |
-| 3 | CTaskComplexKillPedOnFootArmed | 11 | 8 |  | 62 |
-| 4 | CTaskComplexKillCriminal | 11 | 8 |  | 64 |
-| 5 | CTaskSimplePlayerOnFoot | 12 | 10 |  | 100 |
-| 6 | CCam | 44 | 14 |  | 138 |
-| 7 | CPlane | 23 | 14 |  | 142 |
-| 8 | CShadows | 31 | 21 |  | 56 |
-| 9 | CBike | 40 | 22 |  | 151 |
-| 10 | CHud | 38 | 30 |  | 52 |
-| 11 | CWeapon | 41 | 35 |  | 63 |
-| 12 | CCamera | 110 | 91 |  | 37 |
-| 13 | CStreaming | 94 | 94 |  | 40 |
-| 14 | CAutomobile | 99 | 99 |  | 65 |
-| 15 | CAEVehicleAudioEntity | 106 | 102 |  | 47 |
+| 1 | CRoadBlocks | 8 | 2 |  | 76 |
+| 2 | CBike | 40 | 4 |  | 152 |
+| 3 | CTaskSimplePlayerOnFoot | 12 | 5 |  | 100 |
+| 4 | CAEScriptAudioEntity | 19 | 8 |  | 54 |
+| 5 | CCam | 44 | 14 |  | 138 |
+| 6 | CShadows | 31 | 21 |  | 59 |
+| 7 | CWaterLevel | 30 | 25 |  | 54 |
+| 8 | CHud | 38 | 30 |  | 52 |
+| 9 | CWeapon | 41 | 35 |  | 63 |
+| 10 | CCamera | 110 | 91 |  | 37 |
+| 11 | CStreaming | 94 | 94 |  | 40 |
+| 12 | CAutomobile | 99 | 99 |  | 65 |
+| 13 | CAEVehicleAudioEntity | 106 | 102 |  | 47 |
 
 <a id="fuera-de-la-cola"></a>
 

@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7047 con evidencia histórica, 0 con vigencia acreditada y 1399 pendientes en 38 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # TaskFinal1: constructores y destructores de las 5 clases finales
 
 Banco por pares (estilo Small2/PadMouse1, dentro del juego completo) para: CTaskUtilityLineUpPedWithCar (0x64FBB0 / 0x64FC00), CTaskGoToVehicleAndLean (0x660E60 / 0x660EE0), CTaskGangHassleVehicle (0x65FAC0 / 0x65FB60), CTaskGangHasslePed (0x65FED0 / 0x65FF60) y CTaskComplexPlayHandSignalAnim (0x61B2B0 / 0x61BDF0). **Compilado y ejecutado; aprobado en la corrida 20261009-005855-477249 (3200 pares, 0 diferencias) y registrado en `validation-summary.json` (historico, `dependency_review=null`).**

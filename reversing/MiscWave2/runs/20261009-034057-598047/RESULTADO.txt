@@ -1,0 +1,3 @@
+APROBADO: CCarEnterExit + CRunningScript (banco por pares)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-miscwave2\20261009-034057-598047

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/14 entradas.
+ * Validación registrada: 9/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -100,7 +100,10 @@ void CIdleCam::Reset(bool resetControls) {
 // 0x50A200
 void CIdleCam::ProcessIdleCamTicker() {
     if (m_LastTimePadTouched == CPad::GetPad(0)->LastTimeTouched) {
-        m_IdleTickerFrames += static_cast<uint32>(CTimer::ms_fTimeStep * 20.0f);
+        // Como el original (0x50A21D..0x50A234): (ms_fTimeStep * 0.02f) * 1000.0f, dos multiplicaciones a float, y _ftol2 (truncado a 64 bits)
+        const float scaledStep = CTimer::ms_fTimeStep * 0.02f;
+        const float ticks      = scaledStep * 1000.0f;
+        m_IdleTickerFrames += static_cast<int32>(static_cast<int64>(ticks));
     } else {
         m_LastTimePadTouched = CPad::GetPad(0)->LastTimeTouched;
         m_IdleTickerFrames   = 0;
@@ -261,7 +264,9 @@ bool CIdleCam::IsTargetValid(CEntity* target) {
     CVector lookAtPos{};
     GetLookAtPositionOnTarget(target, lookAtPos);
 
-    const auto dist = DistanceBetweenPoints(m_Cam->m_vecSource, lookAtPos);
+    // Como el original (0x5177A4..0x5177D1): diferencias source - lookAt y suma de cuadrados en orden z, y, x
+    const auto dx = m_Cam->m_vecSource.x - lookAtPos.x, dy = m_Cam->m_vecSource.y - lookAtPos.y, dz = m_Cam->m_vecSource.z - lookAtPos.z;
+    const float dist = std::sqrt((dz * dz + dy * dy) + dx * dx);
     if (dist < m_DistTooClose || dist > m_DistTooFar) {
         return false;
     }
@@ -288,7 +293,8 @@ bool CIdleCam::IsTargetValid(CEntity* target) {
         return true;
     }
 
-    return m_TargetLOSCounter++ < m_TargetLOSFramestoReject;
+    // Como el original (0x517849..0x517855): compara el valor anterior con jg -> falso solo si anterior > limite, es decir <=
+    return m_TargetLOSCounter++ <= m_TargetLOSFramestoReject;
 }
 
 // 0x50A280
@@ -401,7 +407,8 @@ float CIdleCam::ProcessSlerp(float& outX, float& outZ) {
 
 // 0x50E760
 void CIdleCam::FinaliseIdleCamera(float curAngleX, float curAngleY, float shakeDegree) {
-    auto &vecFwd = m_Cam->m_vecFront, vecUp = m_Cam->m_vecUp;
+    // Como el original: vecUp es una referencia al vector arriba de la camara (antes era una copia: `auto&a=x, b=y` solo hace referencia a la primera)
+    auto &vecFwd = m_Cam->m_vecFront, &vecUp = m_Cam->m_vecUp;
 
     vecFwd = CVector{
         -(std::cos(curAngleY) * std::cos(curAngleX)),

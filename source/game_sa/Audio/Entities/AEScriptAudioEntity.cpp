@@ -45,6 +45,7 @@ CAEScriptAudioEntity::CAEScriptAudioEntity() : CAEAudioEntity() {
     m_Speed = 1.0f;
     field_7D = 0;
     field_8C = 0.0f;
+    m_Physical = nullptr; // Como el original: mov [this+110h],0 (0x507531)
 }
 
 // 0x5B9B60
@@ -60,7 +61,7 @@ void CAEScriptAudioEntity::Reset() {
         ClearMissionAudio(i);
     }
     field_7C = 0;
-    m_Entity = nullptr;
+    m_Physical = nullptr; // Como el original: mov dword ptr [edi+110h],0 (0x4EC168); NO toca m_Entity (+4)
     field_7D = 0;
     field_8C = 2.0f;
 }
@@ -120,7 +121,7 @@ int8 CAEScriptAudioEntity::GetMissionAudioLoadingStatus(uint8 sampleId) {
 
 // 0x4EC020
 int32 CAEScriptAudioEntity::GetMissionAudioEvent(uint8 sampleId) {
-    return wavLinks[sampleId].m_nAudioEvent;
+    return wavLinks.data()[sampleId].m_nAudioEvent; // Como el original: sin comprobar rango (movzx/shl 5)
 }
 
 // 0x4EC0C0
@@ -187,35 +188,31 @@ void CAEScriptAudioEntity::PlayResidentSoundEvent(eSoundBankSlot slot, eSoundBan
         return;
     }
 
+    // Como el original (0x4EC57A..0x4EC6B3): usa el miembro m_tempSound (no un CAESound local), el evento se toma
+    // como word (movzx) para la tabla de volumenes y se escribe como dword zero-extendido.
     bool bFrontend = false;
-    const auto volume = GetDefaultVolume(static_cast<eAudioEvents>(event)) + vol;
-    CVector pos = [&] {
-        if (physical) {
-            return physical->GetPosition();
-        } else if (posn == -1000.0f || posn.IsZero()) {
-            bFrontend = true;
-            return CVector{0.0f, 1.0f, 0.0f};
-        } else {
-            return posn;
-        }
-    }();
+    const float volume = GetDefaultVolume(static_cast<eAudioEvents>(uint16(event))) + vol;
+    CVector pos;
+    if (physical) {
+        pos = physical->GetPosition();
+    } else if (std::bit_cast<uint32>(posn.x) == 0xC47A0000u && std::bit_cast<uint32>(posn.y) == 0xC47A0000u && std::bit_cast<uint32>(posn.z) == 0xC47A0000u
+        || (posn.x == 0.f && posn.y == 0.f && posn.z == 0.f)) { // 0x4DC670: fcomp x3 contra 0
+        pos = CVector{0.0f, 1.0f, 0.0f};
+        bFrontend = true;
+    } else {
+        pos = posn;
+    }
 
-    AESoundManager.PlaySound({
-        .BankSlotID         = slot,
-        .SoundID            = sfx,
-        .AudioEntity        = this,
-        .Pos                = pos,
-        .Volume             = volume,
-        .RollOffFactor      = maxDistance,
-        .Speed              = speed,
-        .Doppler            = 1.0f,
-        .FrameDelay         = 0,
-        .Flags              = SOUND_START_PERCENTAGE | SOUND_REQUEST_UPDATES | SOUND_IS_CANCELLABLE | (bFrontend ? SOUND_FRONT_END : 0u),
-        .FrequencyVariance  = 0.0f,
-        .PlayTime           = playPosn,
-        .RegisterWithEntity = physical,
-        .EventID            = (eAudioEvents)(event),
-    });
+    m_tempSound.Initialise(slot, sfx, this, pos, volume, maxDistance, speed, 1.0f, 0, 0, 0.0f, 0); // 0x4EFE50
+    m_tempSound.m_PlayTime = playPosn;  // mov word ptr [edi+64h],dx
+    m_tempSound.m_Flags    = 0x26;      // mov word ptr [edi+5Eh],26h
+    m_tempSound.SetFlags(SOUND_FRONT_END, bFrontend);
+    if (physical) {
+        m_tempSound.SetFlags(SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY, 1);
+        m_tempSound.RegisterWithPhysicalEntity(physical);
+    }
+    m_tempSound.m_Event = int32(uint16(event)); // mov [edi+14h],eax (movzx)
+    AESoundManager.RequestNewSound(&m_tempSound);
 }
 
 // 0x4EC270

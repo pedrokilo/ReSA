@@ -377,7 +377,6 @@ void CShadows::SetRenderModeForShadowType(eShadowType type) {
 
 // 0x7074F0
 void CShadows::RemoveOilInArea(float minX, float maxX, float minY, float maxY) {
-    CRect rect{ {minX, minY}, {maxX, maxY} };
     for (auto& shadow : aPermanentShadows) {
         switch (shadow.m_nType) {
         case SHADOW_OIL_1:
@@ -386,7 +385,8 @@ void CShadows::RemoveOilInArea(float minX, float maxX, float minY, float maxY) {
         default:
             continue;
         }
-        if (rect.IsPointInside(shadow.m_vecPosn)) {
+        // Como el original (0x707502-0x707538): comparaciones estrictas (fcomp + test ah,41h / test ah,5), un NaN cuenta como fuera.
+        if (shadow.m_vecPosn.x > minX && shadow.m_vecPosn.x < maxX && shadow.m_vecPosn.y > minY && shadow.m_vecPosn.y < maxY) {
             shadow.m_nType = SHADOW_NONE;
         }
     }
@@ -444,7 +444,8 @@ void CShadows::CalcPedShadowValues(
     frontX = -sunPosn.x * mult / 2.0f;
     frontY = -sunPosn.y * mult / 2.0f;
 
-    sideX = -sunPosn.y * recip / 2.0f;
+    // Como el original (0x707719-0x707721): primero y * recip y despues fchs, asi el signo del NaN (0 * inf) queda positivo.
+    sideX = -(sunPosn.y * recip) / 2.0f;
     sideY = +sunPosn.x * recip / 2.0f;
 
     displacementX = -sunPosn.x / 2.0f;
@@ -459,14 +460,17 @@ void CShadows::AffectColourWithLighting(
     uint8& outR, uint8& outG, uint8& outB
 ) {
     if (shadowType != SHADOW_ADDITIVE) {
-        const auto mult = std::min(
-            0.4f + 0.6f * (1.f - CCustomBuildingDNPipeline::m_fDNBalanceParam),
-            0.3f + 0.7f * lerp(
-                (float)(dayNightIntensity >> 0 & 0b1111) / 30.f,
-                (float)(dayNightIntensity >> 4 & 0b1111) / 30.f,
-                CCustomBuildingDNPipeline::m_fDNBalanceParam
-            )
+        // Como el original (0x70785E-0x7078D1): los nibbles se multiplican por la constante 1/30 (0x858F10 = 0x3D088889), no se dividen,
+        // y el minimo es (A < B) ? A : B (fcom + test ah,5 + jnp), que con NaN devuelve B.
+        constexpr float ONE_THIRTIETH = std::bit_cast<float>(0x3D088889u);
+        const float t = CCustomBuildingDNPipeline::m_fDNBalanceParam;
+        const float A = 0.4f + 0.6f * (1.f - t);
+        const float B = 0.3f + 0.7f * lerp(
+            (float)(dayNightIntensity >> 0 & 0b1111) * ONE_THIRTIETH,
+            (float)(dayNightIntensity >> 4 & 0b1111) * ONE_THIRTIETH,
+            t
         );
+        const float mult = (A < B) ? A : B;
         outR = (uint8)((float)r * mult);
         outG = (uint8)((float)g * mult);
         outB = (uint8)((float)b * mult);
@@ -478,12 +482,13 @@ void CShadows::AffectColourWithLighting(
 }
 
 // NOTSA
-uint16 CalculateShadowStrength(float currDist, float maxDist, uint16 maxStrength) {
+// Como el original (0x707C0D-0x707C31, 0x70809A-0x7080F0): maxStrength es un entero con signo (movsx word) y la mitad es 0.5*maxDist.
+uint16 CalculateShadowStrength(float currDist, float maxDist, int32 maxStrength) {
     assert(maxDist >= currDist); // Otherwise integer underflow will occur
 
     const auto halfMaxDist = maxDist / 2.f;
     if (currDist >= halfMaxDist) { // Anything further than half the distance is faded out
-        return (uint16)((1.f - (currDist - halfMaxDist) / halfMaxDist) * maxStrength);
+        return (uint16)(int32)((1.f - (currDist - halfMaxDist) / halfMaxDist) * (float)maxStrength);
     } else { // Anything closer than half the max distance is full strength
         return (uint16)maxStrength;
     }
@@ -501,12 +506,15 @@ void CShadows::StoreShadowForPedObject(CPed* ped, float displacementX, float dis
     // But we really should fix this in a sensible way in the future.
     assert(ped->GetIsTypePed() || ped->GetIsTypeObject());
 
-    const auto  bonePos           = ped->GetBonePosition(BONE_ROOT);
+    // Como el original (0x707B54): llama a la sobrecarga con puntero de salida (0x5E4280), no a la que devuelve por valor.
+    CVector bonePos;
+    ped->GetBonePosition(&bonePos, BONE_ROOT, false);
     const auto& camPos            = TheCamera.GetPosition();
     const auto  boneToCamDist2DSq = (bonePos - camPos).SquaredMagnitude2D();
 
     // Check if ped is close enough
-    if (boneToCamDist2DSq >= MAX_DISTANCE_PED_SHADOWS_SQR) {
+    // Como el original (0x707B9C-0x707BA7): fcomp + test ah,5 + jp -> solo sigue si dist < max (un NaN o la igualdad salen).
+    if (!(boneToCamDist2DSq < MAX_DISTANCE_PED_SHADOWS_SQR)) {
         return;
     }
 
@@ -519,16 +527,17 @@ void CShadows::StoreShadowForPedObject(CPed* ped, float displacementX, float dis
         }
     }
 
-    // Now store a shadow to be rendered
-    const auto strength = (uint8)CalculateShadowStrength(std::sqrt(boneToCamDist2DSq), MAX_DISTANCE_PED_SHADOWS, CTimeCycle::m_CurrentColours.m_nShadowStrength);
+    // Como el original: la fuerza es el valor completo (intensidad = 16 bits bajos, r/g/b = 8 bits bajos), no se trunca antes a uint8.
+    const auto strength = CalculateShadowStrength(std::sqrt(boneToCamDist2DSq), MAX_DISTANCE_PED_SHADOWS, CTimeCycle::m_CurrentColours.m_nShadowStrength);
+    // Como el original (0x707C3C-0x707C65): z queda tal cual (sin sumar 0.0f, que cambiaria un -0.0).
     StoreShadowToBeRendered(
         SHADOW_DEFAULT,
         gpShadowPedTex,
-        bonePos + CVector{displacementX, displacementY, 0.f},
+        CVector{bonePos.x + displacementX, bonePos.y + displacementY, bonePos.z},
         frontX, frontY,
         sideX, sideY,
-        strength,
-        strength, strength, strength,
+        (int16)strength,
+        (uint8)strength, (uint8)strength, (uint8)strength,
         4.f,
         false,
         1.f,
@@ -544,13 +553,18 @@ void CShadows::StoreRealTimeShadow(CPhysical* physical, float displacementX, flo
         return;
     }
     const auto& camPos = TheCamera.GetPosition();
-    const auto  shdwPos = physical->GetIsTypePed()
-        ? physical->AsPed()->GetBonePosition(BONE_ROOT)
-        : physical->GetPosition();
+    // Como el original (0x707CF1): sobrecarga con puntero de salida (0x5E4280).
+    CVector shdwPos;
+    if (physical->GetIsTypePed()) {
+        physical->AsPed()->GetBonePosition(&shdwPos, BONE_ROOT, false);
+    } else {
+        shdwPos = physical->GetPosition();
+    }
     const auto shdwToCamDist2DSq = (shdwPos - camPos).SquaredMagnitude2D();
 
     // Check distance to camera
-    if (shdwToCamDist2DSq > MAX_DISTANCE_PED_SHADOWS_SQR) {
+    // Como el original (0x707D35-0x707D44): sale si !(dist < max) (igualdad y NaN incluidos).
+    if (!(shdwToCamDist2DSq < MAX_DISTANCE_PED_SHADOWS_SQR)) {
         return;
     }
 
@@ -561,29 +575,57 @@ void CShadows::StoreRealTimeShadow(CPhysical* physical, float displacementX, flo
         }
     }
 
-    const auto strength = (float)CalculateShadowStrength(std::sqrt(shdwToCamDist2DSq), MAX_DISTANCE_PED_SHADOWS, CTimeCycle::m_CurrentColours.m_nShadowStrength);
-    const auto cc       = (uint8)((float)rtshdw->m_nIntensity / 100.f * strength);
+    // Como el original (0x707DBA-0x707DD9): intensidad con signo (movsx byte), la constante 0.01 se multiplica (no se divide),
+    // la fuerza es un int16 con signo (movsx ax) y el entero resultante (_ftol2) no se trunca a uint8 antes de usarlo.
+    const auto strength = (int16)CalculateShadowStrength(std::sqrt(shdwToCamDist2DSq), MAX_DISTANCE_PED_SHADOWS, CTimeCycle::m_CurrentColours.m_nShadowStrength);
+    const auto cc       = (int32)((float)(int8)rtshdw->m_nIntensity * 0.01f * (float)strength);
 
+    // Como el original (0x707DDE-0x707E04): textura y borde negro opaco (0x705A00) antes de calcular la luz.
+    const auto tex = rtshdw->GetShadowRwTexture();
+    rtshdw->DrawBorderAroundTexture(RwRGBA{0, 0, 0, 255});
+
+    // Como el original (0x707E09-0x707E4C): fpatan x87 a precision completa; elevacion = -deg(atan2(-y, -z)) (no usa x).
     const auto& vecToSun = CTimeCycle::m_VectorToSun[CTimeCycle::m_CurrentStoredValue];
-    const auto lightFrame = rtshdw->SetLightProperties(
-        RWRAD2DEG(+std::atan2(-vecToSun.x, -vecToSun.y)),
-        RWRAD2DEG(-std::atan2(+vecToSun.x, -vecToSun.z)),
-        true
-    );
+    float azimuth, elevation;
+    {
+        float vx = vecToSun.x, vy = vecToSun.y, vz = vecToSun.z;
+        __asm {
+            fld vx
+            fchs
+            fld vy
+            fchs
+            fld vz
+            fchs
+            fld st(1)
+            fxch st(1)
+            fpatan
+            fmul dword ptr ds:[0x859878]
+            fchs
+            fstp elevation
+            fpatan
+            fmul dword ptr ds:[0x859878]
+            fstp azimuth
+        }
+    }
+    const auto lightFrame = rtshdw->SetLightProperties(azimuth, elevation, true);
+    // Como el original (0x707E54-0x707E6F): el vector "at" del frame se normaliza (CVector::Normalise 0x59C910) antes de CalcPedShadowValues.
+    CVector sunDir = *RwMatrixGetAt(RwFrameGetMatrix(lightFrame));
+    sunDir.Normalise();
+    // Como el original (0x707E74-0x707EAB): orden de argumentos (front, side, displacement).
     CalcPedShadowValues(
-        *RwMatrixGetAt(RwFrameGetMatrix(lightFrame)),
-        displacementX, displacementY,
+        sunDir,
         frontX, frontY,
-        sideX, sideY
+        sideX, sideY,
+        displacementX, displacementY
     );
     StoreShadowToBeRendered(
         SHADOW_INVCOLOR,
-        rtshdw->GetShadowRwTexture(),
-        shdwPos - CVector{ displacementX, displacementY, 0.f } * 2.5f,
+        tex,
+        CVector{ shdwPos.x - displacementX * 2.5f, shdwPos.y - displacementY * 2.5f, shdwPos.z },
         frontX * 1.5f, frontY * 1.5f,
         sideX * 1.5f, sideY * 1.5f,
-        cc,
-        cc, cc, cc,
+        (int16)cc,
+        (uint8)cc, (uint8)cc, (uint8)cc,
         4.f,
         false,
         1.f,
@@ -613,7 +655,8 @@ void CShadows::UpdateStaticShadows() {
 
 // 0x707FA0
 void CShadows::RenderExtraPlayerShadows() {
-    if (!CTimeCycle::m_CurrentColours.m_nShadowStrength) {
+    // Como el original (0x707FA3): lee 0xB7C4EA = m_nLightShadowStrength (no m_nShadowStrength, que es 0xB7C4E8).
+    if (!CTimeCycle::m_CurrentColours.m_nLightShadowStrength) {
         return;
     }
 
@@ -637,8 +680,6 @@ void CShadows::RenderExtraPlayerShadows() {
         return;
     }
 
-    const auto  plyrPos    = FindPlayerCoors();
-    const auto& plyrVehPos = plyrVeh->GetPosition();
     const auto& plyVehMat  = plyrVeh->GetMatrix();
     for (auto& ptl : CPointLights::GetActiveLights()) {
         if (ptl.m_nType != ePointLightType::PLTYPE_POINTLIGHT) {
@@ -651,30 +692,54 @@ void CShadows::RenderExtraPlayerShadows() {
             continue;
         }
 
+        // Como el original (0x70806B-0x708072): FindPlayerCoors se llama por luz, tras los filtros.
+        const auto plyrPos = FindPlayerCoors();
         const auto lightToPlyr{ ptl.m_vecPosn - plyrPos };
         const auto lightToPlyrDist = lightToPlyr.Magnitude();
-        if (lightToPlyrDist >= ptl.m_fRadius || lightToPlyrDist == 0.f) { // NOTSA: Zero check to prevent (possible) division-by-zero
+        // Como el original (0x708092-0x70809A): fcom + test ah,5 + jp -> sigue solo si dist < radio (NaN fuera).
+        if (!(lightToPlyrDist < ptl.m_fRadius) || lightToPlyrDist == 0.f) { // NOTSA: Zero check to prevent (possible) division-by-zero
             continue;
         }
 
-        const auto lightToPlyrDir  = lightToPlyr / lightToPlyrDist; // Normalize vector
+        // Como el original (0x7080F2-0x708104): la direccion se multiplica por 1/dist (CVector::operator*= 0x40FEF0), no se divide.
+        const float invDist = 1.0f / lightToPlyrDist;
+        const CVector lightToPlyrDir{ lightToPlyr.x * invDist, lightToPlyr.y * invDist, lightToPlyr.z * invDist };
 
+        // Como el original (0x70810D-0x708196): FindPlayerVehicle de nuevo (posicion) y GetColModel 5 veces (max.y, min.y, max.x, min.x, max.y).
+        const auto& plyrVehPos = FindPlayerVehicle()->GetPosition();
         const auto& plyrVehBB = plyrVeh->GetColModel()->GetBoundingBox();
-        const auto  shdwSize  = CVector2D{ plyrVehBB.GetSize() } / 2.f;
+        (void)plyrVeh->GetColModel(); (void)plyrVeh->GetColModel();
+        (void)plyrVeh->GetColModel(); (void)plyrVeh->GetColModel();
+        // Como el original (0x70816C-0x7081C4): tamano = max - min y mitades con * 0.5.
+        const float sizeY = plyrVehBB.m_vecMax.y - plyrVehBB.m_vecMin.y;
+        const float sizeX = plyrVehBB.m_vecMax.x - plyrVehBB.m_vecMin.x;
+        const float halfY = sizeY * 0.5f;
+        const float halfX = sizeX * 0.5f;
+        const float centerOffset = halfY - plyrVehBB.m_vecMax.y;
+
+        // Como el original (0x7080F2-0x7081D6): (pos - dir*1.2) - centerOffset*forward (antes se SUMABA el termino de forward).
+        const float px = (plyrVehPos.x - lightToPlyrDir.x * 1.2f) - centerOffset * plyVehMat.GetForward().x;
+        const float py = (plyrVehPos.y - lightToPlyrDir.y * 1.2f) - centerOffset * plyVehMat.GetForward().y;
+
+        // Como el original (0x7081DA-0x7081F7): up.z > 0 (igualdad y NaN voltean el vector right).
+        const bool flipped = !(plyVehMat.GetUp().z > 0.f);
+        float sideX = halfX * plyVehMat.GetRight().x;
+        float sideY = halfX * plyVehMat.GetRight().y;
+        if (flipped) { sideX = -sideX; sideY = -sideY; }
+
+        // Como el original (0x7080B2-0x7080C9): 5*fuerza/8 con signo (cdq/and 7/add/sar 3), no con divisor sin signo.
+        const int32 maxStrength = 5 * (int32)CTimeCycle::m_CurrentColours.m_nLightShadowStrength / 8;
 
         StoreShadowToBeRendered(
             SHADOW_DEFAULT,
             gpShadowCarTex,
-            plyrVehPos - CVector{
-                  CVector2D{ lightToPlyr / lightToPlyrDist } * 1.2f // Compensate for elvation of the light
-                - CVector2D{ plyVehMat.GetForward() } * (shdwSize.y - plyrVehBB.m_vecMax.y) // Move point to center (as the shadow's position is it's center)
-            },
-            CVector2D{ plyVehMat.GetForward() } * shdwSize.y,
-            CVector2D{ plyVehMat.GetRight() } * (plyVehMat.GetUp().z >= 0.f ? shdwSize.x : -shdwSize.x), // If vehicle is flipped, we gotta flip the `right` vector back
-            CalculateShadowStrength( // 0x70809A
+            CVector{ px, py, plyrVehPos.z },
+            plyVehMat.GetForward().x * halfY, plyVehMat.GetForward().y * halfY,
+            sideX, sideY,
+            (int16)CalculateShadowStrength( // 0x70809A
                 lightToPlyrDist,
                 ptl.m_fRadius,
-                5 * CTimeCycle::m_CurrentColours.m_nShadowStrength / 8u // Same as mult by `0.625` and then casting to int
+                maxStrength
             ),
             0, 0, 0,
             4.5f,
@@ -713,7 +778,9 @@ void CShadows::RenderStaticShadows() {
         RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(oshdw.m_pTexture)));
          
         // Batch all other shadows with the same texture and type into the buffer
-        for (auto& ishdw : aStaticShadows) {
+        // Como el original (0x7083C8-0x70861E): el bucle interno empieza en la sombra actual (no en la primera) y llega hasta el final.
+        for (auto ip = &oshdw; ip != aStaticShadows.data() + aStaticShadows.size(); ++ip) {
+            auto& ishdw = *ip;
             if (!ishdw.m_pPolyBunch) {
                 continue;
             }
@@ -748,13 +815,14 @@ void CShadows::RenderStaticShadows() {
                 );
 
                 // 0x70851D: Write vertices (`if` not necessary, it's part of the loop condition)
-                const auto a = (uint8)((float)ishdw.m_nIntensity * (1.f - CWeather::Foggyness * 0.5f));
+                // Como el original (0x7084D6-0x708518): intensidad con signo (movsx word) y 1.0 - niebla*0.5; _ftol2 y se usa el byte bajo.
+                const auto a = (uint8)(int32)((1.f - CWeather::Foggyness * 0.5f) * (float)(int16)ishdw.m_nIntensity);
                 for (auto i{ 0 }; i < poly->m_wNumVerts; i++, vtxIt++) {
                     const auto& pos = poly->m_avecPosn[i];
                     RwIm3DVertexSetPos(vtxIt, pos.x, pos.y, pos.z + 0.06f);
                     RwIm3DVertexSetRGBA(vtxIt, r, g, b, a);
-                    RwIm3DVertexSetU(vtxIt, (float)poly->m_aU[i] / 200.f);
-                    RwIm3DVertexSetV(vtxIt, (float)poly->m_aV[i] / 200.f);
+                    RwIm3DVertexSetU(vtxIt, (float)poly->m_aU[i] * 0.005f); // Como el original: fmul por la constante 0x858B4C (no divide por 200)
+                    RwIm3DVertexSetV(vtxIt, (float)poly->m_aV[i] * 0.005f);
                 }
 
                 // 0x7085BC: Write indices  (`if` not necessary, it's part of the loop condition)
@@ -764,10 +832,9 @@ void CShadows::RenderStaticShadows() {
                 
                 // Finish storing 
                 RenderBuffer::StopStoring();
-
-                // Mark this as rendered
-                ishdw.m_bRendered = true;
             }
+            // Mark this as rendered (Como el original, 0x70860D: una vez tras recorrer todos los poligonos)
+            ishdw.m_bRendered = true;
         }
 
         // Render out this batch
@@ -1025,10 +1092,6 @@ void CShadows::CastPlayerShadowSectorList(
     uint8* pDayNightIntensity,
     int32 shadowType
 ) {
-    const CRect shadowRect{
-        cornerAX, cornerAY,
-        cornerBX, cornerBY
-    };
     for (auto* const entity : ptrList) {
         if (entity->IsScanCodeCurrent()) {
             continue;
@@ -1044,22 +1107,37 @@ void CShadows::CastPlayerShadowSectorList(
         }
 
         // If slightly tilted, ignore
-        if (entity->GetMatrix().GetUp().z <= 0.97f) {
+        // Como el original (0x70A506-0x70A514): fcomp + test ah,41h + jne -> se salta con up.z <= 0.97 o NaN.
+        if (!(entity->GetMatrix().GetUp().z > 0.97f)) {
             continue;
         }
 
         // 0x70A526
-        if (!entity->GetBoundRect().OverlapsWith(shadowRect)) {
+        // Como el original (0x70A526-0x70A56C): comparaciones estrictas contra los campos de memoria del CRect
+        // (+0 left, +4 top, +8 right, +0xC bottom); un NaN descarta la entidad.
+        const CRect boundRect = entity->GetBoundRect();
+        if (!(cornerAX < boundRect.right)) {
+            continue;
+        }
+        if (!(cornerBX > boundRect.left)) {
+            continue;
+        }
+        if (!(cornerAY < boundRect.top)) {
+            continue;
+        }
+        if (!(cornerBY > boundRect.bottom)) {
             continue;
         }
 
         // Quick Z height check of the bounding box
-        const auto& cm         = entity->GetColModel();
+        // Como el original (0x70A57F-0x70A5BB): la colision sale del model info (no CEntity::GetColModel, que mira la especial del vehiculo)
+        // y las comparaciones con NaN descartan.
+        const auto* cm         = CModelInfo::GetModelInfo(entity->m_nModelIndex)->GetColModel();
         const auto  entityPosZ = entity->GetPosition().z;
-        if (cm->m_boundBox.m_vecMax.z + entityPosZ <= posn->z - zDistance) {
+        if (!((cm->m_boundBox.m_vecMax.z + entityPosZ) > (posn->z - zDistance))) {
             continue;
         }
-        if (cm->m_boundBox.m_vecMin.z + entityPosZ >= posn->z) {
+        if (!((cm->m_boundBox.m_vecMin.z + entityPosZ) < posn->z)) {
             continue;
         }
 
@@ -1143,13 +1221,11 @@ void CShadows::CastRealTimeShadowSectorList(PtrListType& ptrList, float conrerAX
 }
 
 // 0x70A960
+static float ShadowRectangleEdge(float position, float front, float side, bool maximum);
+static int32 ShadowSectorIndex(float coordinate, bool maximum);
 void CShadows::RenderStoredShadows() {
-    // Originally renderstates are still set even though there are no shadows to be rendered
-    // I don't think this is necessary, so we early-out here
-    if (!CShadows::ShadowsStoredToBeRendered) {
-        return;
-    }
-
+    // Como el original (0x70A960-0x70A9E0): los render states y el buffer se preparan aunque no haya sombras guardadas
+    // (antes habia un return anticipado que omitia esas llamadas).
     RenderBuffer::ClearRenderBuffer();
 
     for (auto i = 0; i < ShadowsStoredToBeRendered; i++) {
@@ -1165,10 +1241,14 @@ void CShadows::RenderStoredShadows() {
     RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTIONREF, RWRSTATE(NULL));
     RwRenderStateSet(rwRENDERSTATETEXTUREFILTER,        RWRSTATE(rwFILTERLINEAR));
 
+    // Como el original (0x70AA76-0x70AAD6): rectangulo SIMETRICO posicion -/+ (|side| + |front|) (antes era posicion .. posicion + extension).
+    struct ShadowRect { float minX, minY, maxX, maxY; };
     const auto GetShadowRect = [](CRegisteredShadow& shdw) {
-        return CRect{
-            shdw.m_vecPosn,
-            shdw.m_vecPosn + abs(shdw.m_Side) + abs(shdw.m_Front)
+        return ShadowRect{
+            ShadowRectangleEdge(shdw.m_vecPosn.x, shdw.m_Front.x, shdw.m_Side.x, false),
+            ShadowRectangleEdge(shdw.m_vecPosn.y, shdw.m_Front.y, shdw.m_Side.y, false),
+            ShadowRectangleEdge(shdw.m_vecPosn.x, shdw.m_Front.x, shdw.m_Side.x, true),
+            ShadowRectangleEdge(shdw.m_vecPosn.y, shdw.m_Front.y, shdw.m_Side.y, true)
         };
     };
 
@@ -1203,16 +1283,17 @@ void CShadows::RenderStoredShadows() {
                 const auto ishdwRect = GetShadowRect(ishdw);
 
                 // Do shadow casting
-                CWorld::IterateSectorsOverlappedByRect(
-                    ishdwRect,
+                // Como el original (0x70AAE2-0x70ACA8): indices de sector floor(v*0.02+60) con las mismas ramas de recorte que
+                // GeneratePolysForStaticShadow; y exterior, x interior.
+                const auto castInSector =
                     [&] (int32 x, int32 y) -> bool {
                         auto& sector = CWorld::GetSector(x, y);
 
                         if (const auto rtshdw = ishdw.m_pRTShadow) {
                             CastRealTimeShadowSectorList(
                                 sector.Buildings,
-                                ishdwRect.left, ishdwRect.bottom,
-                                ishdwRect.right, ishdwRect.top,
+                                ishdwRect.minX, ishdwRect.minY,
+                                ishdwRect.maxX, ishdwRect.maxY,
                                 &ishdw.m_vecPosn,
                                 ishdw.m_Front.x, ishdw.m_Front.y,
                                 ishdw.m_Side.x, ishdw.m_Side.y,
@@ -1229,8 +1310,8 @@ void CShadows::RenderStoredShadows() {
                             if (ishdw.m_bDrawOnBuildings) {
                                 CastShadowSectorList(
                                     sector.Buildings,
-                                    ishdwRect.left, ishdwRect.bottom,
-                                    ishdwRect.right, ishdwRect.top,
+                                    ishdwRect.minX, ishdwRect.minY,
+                                    ishdwRect.maxX, ishdwRect.maxY,
                                     &ishdw.m_vecPosn,
                                     ishdw.m_Front.x, ishdw.m_Front.y,
                                     ishdw.m_Side.x, ishdw.m_Side.y,
@@ -1245,8 +1326,8 @@ void CShadows::RenderStoredShadows() {
                             } else {
                                 CastPlayerShadowSectorList(
                                     sector.Buildings,
-                                    ishdwRect.left, ishdwRect.bottom,
-                                    ishdwRect.right, ishdwRect.top,
+                                    ishdwRect.minX, ishdwRect.minY,
+                                    ishdwRect.maxX, ishdwRect.maxY,
                                     &ishdw.m_vecPosn,
                                     ishdw.m_Front.x, ishdw.m_Front.y,
                                     ishdw.m_Side.x, ishdw.m_Side.y,
@@ -1261,8 +1342,16 @@ void CShadows::RenderStoredShadows() {
                             }
                         }
                         return true; // Inisde lambda -> Continue sector loop
+                    };
+                {
+                    const int32 firstX = ShadowSectorIndex(ishdwRect.minX, false), firstY = ShadowSectorIndex(ishdwRect.minY, false);
+                    const int32 lastX = ShadowSectorIndex(ishdwRect.maxX, true), lastY = ShadowSectorIndex(ishdwRect.maxY, true);
+                    for (int32 y = firstY; y <= lastY; ++y) {
+                        for (int32 x = firstX; x <= lastX; ++x) {
+                            castInSector(x, y);
+                        }
                     }
-                );
+                }
 
                 // Mark this as rendered
                 ishdw.m_bAlreadyRenderedInBatch = true;
@@ -1280,7 +1369,8 @@ void CShadows::RenderStoredShadows() {
             }
 
             // Shadow under water?
-            if (waterLevelZ >= oshdw.m_vecPosn.z) {
+            // Como el original (0x70AE93-0x70AE9F): fcomp + test ah,5 + jp -> sigue solo si agua < z (NaN fuera).
+            if (!(waterLevelZ < oshdw.m_vecPosn.z)) {
                 continue;
             }
 
@@ -1296,12 +1386,13 @@ void CShadows::RenderStoredShadows() {
 
             const auto oshdwRect = GetShadowRect(oshdw);
 
-            // Iterate shadow sectors (Using `CWorld::IterateSectors` for convenience)
-            CWorld::IterateSectors(
-                (int32)(std::floor(oshdwRect.left / (float)STEP_SIZE)),
-                (int32)(std::floor(oshdwRect.top / (float)STEP_SIZE)),
-                (int32)(std::ceil(oshdwRect.right / (float)STEP_SIZE)),
-                (int32)(std::ceil(oshdwRect.bottom / (float)STEP_SIZE)),
+            // Como el original (0x70AEA5-0x70AF4B): limites = floor/ceil((pos -/+ extension) * 0.5) * 2 (floor/ceil en doble precision) y
+            // el bucle exterior recorre X y el interior Y, de 2 en 2 (antes: IterateSectors con y exterior y rectangulo asimetrico).
+            const int32 waterMinX = (int32)std::floor((double)(oshdwRect.minX * 0.5f));
+            const int32 waterMinY = (int32)std::floor((double)(oshdwRect.minY * 0.5f));
+            const int32 waterMaxX = (int32)std::ceil((double)(oshdwRect.maxX * 0.5f));
+            const int32 waterMaxY = (int32)std::ceil((double)(oshdwRect.maxY * 0.5f));
+            const auto waterQuad =
                 [&](int32 ox, int32 oy) {
                     // 0x70B000 - 0x70B0DA: Start storing 
                     RwIm3DVertex* vtxIt{};
@@ -1317,7 +1408,7 @@ void CShadows::RenderStoredShadows() {
                         const auto currPos = CVector2D{ (float)x, (float)y };
 
                         // Set color
-                        RwIm3DVertexSetRGBA(vtxIt, oshdw.m_nRed, oshdw.m_nGreen, oshdw.m_nBlue, (uint8)((float)oshdw.m_nIntensity * 0.6f));
+                        RwIm3DVertexSetRGBA(vtxIt, oshdw.m_nRed, oshdw.m_nGreen, oshdw.m_nBlue, (uint8)(int32)((float)(int16)oshdw.m_nIntensity * 0.6f));
 
                         // Set texture coords (UV)
                         const auto CalcTexCoord  = [
@@ -1351,8 +1442,12 @@ void CShadows::RenderStoredShadows() {
 
                     // Continue iteration...
                     return true;
+                };
+            for (int32 wx = waterMinX; wx <= waterMaxX; ++wx) {
+                for (int32 wy = waterMinY; wy <= waterMaxY; ++wy) {
+                    waterQuad(wx, wy);
                 }
-            );
+            }
 
             // Render it all
             RenderBuffer::RenderStuffInBuffer();
@@ -1646,29 +1741,36 @@ void CShadows::StoreCarLightShadow(CVehicle* vehicle, int32 id, RwTexture* textu
 
         return !CCutsceneMgr::IsRunning();
     }()) {
-        const auto shdwToCam2D       = CVector2D{ TheCamera.GetPosition() - posn };
-        const auto shdwToCamDist2DSq = shdwToCam2D.SquaredMagnitude();
+        // Como el original (0x70C526-0x70C5D2): el vector es posicion - camara (antes camara - posicion), las comparaciones son
+        // negadas (un NaN sale) y el producto escalar se compara contra -maxViewAngleCosine con '>' estricto.
+        const auto camPos            = TheCamera.GetPosition();
+        const auto shdwToCam2D       = CVector2D{ posn.x - camPos.x, posn.y - camPos.y };
+        const auto shdwToCamDist2DSq = shdwToCam2D.y * shdwToCam2D.y + shdwToCam2D.x * shdwToCam2D.x;
 
-        if (shdwToCamDist2DSq >= sq(MAX_CAM_TO_LIGHT_DIST)) {
+        if (!(shdwToCamDist2DSq < sq(MAX_CAM_TO_LIGHT_DIST))) {
             return;
         }
 
         // Check if the camera is facing the lights closely (in which case the camera can't see the shadow)
-        if (shdwToCam2D.Dot(TheCamera.GetFrontNormal2D()) > maxViewAngleCosine) {
+        const auto camFront = TheCamera.GetFrontNormal2D();
+        if (!((shdwToCam2D.y * camFront.y + shdwToCam2D.x * camFront.x) > -maxViewAngleCosine)) {
             return;
         }
 
         // If far enough from the camera, start fading out
-        if (const auto dist = std::sqrt(shdwToCamDist2DSq); dist >= MAX_CAM_TO_LIGHT_DIST * 0.75f) {
-            const auto t = 1.f - invLerp(MAX_CAM_TO_LIGHT_DIST * (2.f / 3.f), MAX_CAM_TO_LIGHT_DIST, dist);
+        // Como el original (0x70C5D8-0x70C64F): '!(dist < 20.25)' y (dist - 18) * 0.11111111 (constante 0x872740, no se divide por 9).
+        if (const auto dist = std::sqrt(shdwToCamDist2DSq); !(dist < MAX_CAM_TO_LIGHT_DIST * 0.75f)) {
+            const auto t = 1.f - (dist - 18.0f) * 0.11111111f;
             red   = (uint8)((float)red * t);
             green = (uint8)((float)green * t);
             blue  = (uint8)((float)blue * t);
         }
     }
 
-    const auto isPlyrVeh = FindPlayerVehicle() == vehicle;
-    if (isPlyrVeh || vehicle->GetMoveSpeed().Magnitude() * CTimer::GetTimeStep() >= 0.4f) {
+    // Como el original (0x70C653-0x70C6F4): primero la velocidad (> 0.4 estricto), luego FindPlayerVehicle (otra vez dentro de la rama de
+    // StoreShadowToBeRendered para el flag de edificios).
+    if (vehicle->GetMoveSpeed().Magnitude() * CTimer::GetTimeStep() > 0.4f || FindPlayerVehicle() == vehicle) {
+        const auto isPlyrVeh = FindPlayerVehicle() == vehicle;
         StoreShadowToBeRendered(
             SHADOW_ADDITIVE,
             texture,
@@ -1714,23 +1816,25 @@ void CShadows::StoreShadowForPole(CEntity* entity, float offsetX, float offsetY,
         return;
     }
 
-    const auto intensity = 2.f * (mat.GetUp().z - 0.5f) * CTimeCycle::m_CurrentColours.m_nPoleShadowStrength;
+    // Como el original (0x70C7B5-0x70C7C4): ((up.z - 0.5) * fuerza) duplicado, _ftol2 a int32 completo; luego 2*int/3 con signo.
+    const int32 intensity = (int32)(((mat.GetUp().z - 0.5f) * (float)CTimeCycle::m_CurrentColours.m_nPoleShadowStrength) * 2.f);
 
     const auto front     = CVector2D{ CTimeCycle::GetVectorToSun() } * (-poleHeight / 2.f);
     const auto right     = CVector2D{ CTimeCycle::GetShadowSide() } * poleWidth;
 
+    // Como el original (0x70C81C-0x70C8EB): offset = (offsetY*fwd + offsetX*right) + pos, y DESPUES se suma front (antes: (pos + front) + offset);
+    // el id es entity + localId + 0x33 (lea, sin leer m_pLod).
+    const CVector& matPos = mat.GetPosition();
+    const float posX = front.x + ((offsetY * mat.GetForward().x + offsetX * mat.GetRight().x) + matPos.x); // Simplified matrix transform (Ignoring the Z axis)
+    const float posY = front.y + ((offsetX * mat.GetRight().y + offsetY * mat.GetForward().y) + matPos.y);
     StoreStaticShadow(
-        reinterpret_cast<uint32>(entity->GetLod()) + localId + 3,
+        reinterpret_cast<uint32>(entity) + localId + 0x33,
         SHADOW_DEFAULT,
         gpPostShadowTex,
-        mat.GetPosition() + CVector{ front, 0.f } + CVector{
-            offsetX * mat.GetRight().x + offsetY * mat.GetForward().x, // Simplified matrix transform (Ignoring the Z axis)
-            offsetX * mat.GetRight().y + offsetY * mat.GetForward().y, // >^^^
-            offsetZ
-        },
+        CVector{ posX, posY, matPos.z + offsetZ },
         front.x, front.y,
         right.x, right.y,
-        2 * (int16)intensity / 3,
+        (int16)(2 * intensity / 3),
         0, 0, 0,
         9.f,
         1.f,
@@ -1750,7 +1854,8 @@ void CShadows::RenderIndicatorShadow(
     float sideX, float sideY,
     int16 /*intensity*/
 ) {
-    const auto size = std::max(frontX, -sideX);
+    // Como el original (0x70CCB3-0x70CCEA): fld [esp+2Ch] = sideY, fchs; compara frontX con -sideY (NO sideX): (frontX > -sideY) ? frontX : -sideY.
+    const float size = (frontX > -sideY) ? frontX : -sideY;
     for (auto mult : { 0.8f, 0.9f, 1.0f }) {
         CVector markerPos = posn;
         C3dMarkers::PlaceMarkerSet(id, MARKER3D_CYLINDER, markerPos, size * mult, 255, 0, 0, 255u, 2048, 0.2f, 0);

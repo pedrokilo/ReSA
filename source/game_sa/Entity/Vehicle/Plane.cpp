@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 23/23 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 9.
- * Validación registrada: 9/23 entradas.
+ * Validación registrada: 23/23 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -114,16 +114,16 @@ CPlane::CPlane(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(mode
     case MODEL_RUSTLER:
     case MODEL_CROPDUST:
         m_damageManager.SetDoorStatus(DOOR_LEFT_FRONT, DAMSTATE_OK);
-        leftDoor.Init((3.0f * PI) / 5.0f, 0.0f, DOOR_AXIS_NEG_X, DOOR_AXIS_Y, DOOR_EXTRA_BASED);
+        leftDoor.Init(std::bit_cast<float>(0x3FF1463Bu), 0.0f, DOOR_AXIS_NEG_X, DOOR_AXIS_Y, DOOR_EXTRA_BASED); // Como el original (0x6C9053/0x6C9010): mov [esi+5E8h],3FF1463Bh (no 3*PI/5 con PI=3.14159f)
         break;
     case MODEL_SHAMAL:
         m_damageManager.SetDoorStatus(DOOR_LEFT_FRONT, DAMSTATE_OK);
-        leftDoor.Init(-((3.0f * PI) / 4.0f), 0.0f, DOOR_AXIS_Z, DOOR_AXIS_Y, DOOR_EXTRA_BASED);
+        leftDoor.Init(std::bit_cast<float>(0xC016CBE4u), 0.0f, DOOR_AXIS_Z, DOOR_AXIS_Y, DOOR_EXTRA_BASED); // Como el original (0x6C8F5F): mov [esi+5E8h],0C016CBE4h
         rwObjectSetFlags(GetFirstObject(m_aCarNodes[PLANE_WHEEL_LF]), 0);
         break;
     case MODEL_NEVADA:
         m_damageManager.SetDoorStatus(DOOR_LEFT_FRONT, DAMSTATE_OK);
-        leftDoor.Init(-TWO_PI / 5.0f, 0.0f, DOOR_AXIS_NEG_Y, DOOR_AXIS_Z, DOOR_EXTRA_BASED);
+        leftDoor.Init(std::bit_cast<float>(0xBFA0D97Cu), 0.0f, DOOR_AXIS_NEG_Y, DOOR_AXIS_Z, DOOR_EXTRA_BASED); // Como el original (0x6C8FAC): mov [esi+5E8h],0BFA0D97Ch
         break;
     case MODEL_VORTEX:
         if (m_panels[FRONT_LEFT_PANEL].m_nFrameId == (uint16)-1)
@@ -131,7 +131,7 @@ CPlane::CPlane(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(mode
         break;
     case MODEL_STUNT:
         m_damageManager.SetDoorStatus(DOOR_LEFT_FRONT, DAMSTATE_OK);
-        leftDoor.Init((3.0f * PI) / 5.0f, 0.0f, DOOR_AXIS_NEG_X, DOOR_AXIS_Y, DOOR_EXTRA_BASED);
+        leftDoor.Init(std::bit_cast<float>(0x3FF1463Bu), 0.0f, DOOR_AXIS_NEG_X, DOOR_AXIS_Y, DOOR_EXTRA_BASED); // Como el original (0x6C9053/0x6C9010): mov [esi+5E8h],3FF1463Bh (no 3*PI/5 con PI=3.14159f)
         rwObjectSetFlags(GetFirstObject(m_aCarNodes[PLANE_WHEEL_LB]), 0);
         rwObjectSetFlags(GetFirstObject(m_aCarNodes[PLANE_WHEEL_RB]), 0);
         break;
@@ -483,9 +483,11 @@ uint32 CPlane::CountPlanesAndHelis() {
 // 0x6CCAA0
 bool CPlane::AreWeInNoPlaneZone() {
     const auto& camPos = TheCamera.GetPosition();
-    constexpr CVector vec1 = { -1073.0f, -675.0f, 50.0f };
+    // Como el original (0x6CCAA0): la distancia se suma como (dz*dz + dy*dy) + dx*dx (fld/fmul/faddp en 0x6CCAE8..0x6CCAF6), no x*x + y*y + z*z
+    const float dx = camPos.x - (-1073.0f), dy = camPos.y - (-675.0f), dz = camPos.z - 50.0f;
+    const float distance = std::sqrt((dz * dz + dy * dy) + dx * dx);
 
-    return DistanceBetweenPoints(vec1, camPos) < 200.0f ||
+    return distance < 200.0f ||
            camPos.x > -2743.0f && camPos.x < -2626.0f && camPos.y > 1300.0f && camPos.y < 2200.0f || // todo: Is point inside
            camPos.x > -1668.0f && camPos.x < -1122.0f && camPos.y > 541.0f && camPos.y < 1118.0f;
 }

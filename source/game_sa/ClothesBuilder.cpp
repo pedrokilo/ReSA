@@ -191,10 +191,11 @@ RpAtomic* GetAtomicWithName(RpClump* clump, const char* name) {
         notsa::ci_string_view name{};
         RpAtomic*             atomic{};
     } c{name};
-    RpClumpForAllAtomics(clump, [](RpAtomic* a, void* data) { // 0x5A47E0
+    RpClumpForAllAtomics(clump, [](RpAtomic* a, void* data) -> RpAtomic* { // 0x5A47E0
         auto& ctx = *static_cast<Context*>(data);
         if (ctx.name == GetFrameNodeName(RpAtomicGetFrame(a))) {
             ctx.atomic = a;
+            return nullptr; // Como el original (0x5A4801 jne no tomado -> eax=0): detiene la iteracion en la PRIMERA coincidencia
         }
         return a;
     }, &c);
@@ -208,9 +209,9 @@ void CClothesBuilder::AddWeightToBoneVertex(float (&weights)[8], uint8(&boneVert
     }
     for (auto i = 0; i < 8; i++) {
         if (weights[i] == 0.f) { // Weight not yet used?
-            boneVertexIdxs[i] = targetVertexIdx; // Add to list
-            weights[i]        = weightToAdd;
-            weights[i + 1]    = 0.f;             // Mark next as unused [Though this step in our case is not necessary as the whole weights array is already zero-inited]
+            boneVertexIdxs[i] = (uint8)targetVertexIdx; // Add to list
+            (&weights[0])[i + 1] = 0.f;                 // Como el original (0x5A488F): marca el siguiente como libre (escribe weights[8] si i==7)
+            weights[i] += weightToAdd;                  // Como el original (0x5A489C fadd [edx+ecx*4])
             return;
         }
         if (boneVertexIdxs[i] == targetVertexIdx) { // Already in the list, use that
@@ -218,7 +219,8 @@ void CClothesBuilder::AddWeightToBoneVertex(float (&weights)[8], uint8(&boneVert
             return;
         }
     }
-    NOTSA_UNREACHABLE(); // OG code had UB in this case
+    // Como el original (0x5A487F-0x5A4888): si las 8 ranuras estan ocupadas con otros indices, suma a weights[8] (fuera de rango)
+    (&weights[0])[8] += weightToAdd;
 }
 
 // 0x5A48B0
@@ -229,9 +231,14 @@ void CClothesBuilder::StoreBoneArray(RpClump* clump, int32 idx) {
     const auto h = RpSkinAtomicGetHAnimHierarchy(a);
     assert(h);
     
-    rng::fill(gBoneIndices[idx], -1);
-    for (auto i = h->numNodes; i-- > 0;) {
-        gBoneIndices[idx][i] = static_cast<int16>(h->pNodeInfo[i].nodeID);
+    // Como el original (0x5A48EF-0x5A4923): copia hacia delante sin limite, y solo escribe UN -1 de cierre si i < 64 (no rellena la fila)
+    auto* row = reinterpret_cast<int16*>(0xBBC8C8) + idx * 64;
+    int32 i = 0;
+    for (; i < h->numNodes; ++i) {
+        row[i] = static_cast<int16>(h->pNodeInfo[i].nodeID);
+    }
+    if (i < 64) {
+        row[i] = -1;
     }
 }
 
@@ -478,7 +485,7 @@ void CClothesBuilder::BuildBoneIndexConversionTable(uint8* pTable, RpHAnimHierar
         if (boneId == -1) {
             break;
         }
-        const auto idx = RpHAnimIDGetIndex(hier, boneId);
+        const auto idx = (uint8)RpHAnimIDGetIndex(hier, boneId); // Como el original (0x5A5712 cmp al,0FFh): compara solo el byte bajo (-1 -> 0)
         pTable[tableIdx] = idx == 0xFF ? 0 : idx;
     }
 }
@@ -504,7 +511,7 @@ RwTexture* CClothesBuilder::CopyTexture(RwTexture* srcTex) {
         RwRasterGetWidth(srcRaster),
         RwRasterGetHeight(srcRaster),
         RwRasterGetDepth(srcRaster),
-        (RwRasterGetFormat(srcRaster) & rwRASTERFORMATPIXELFORMATMASK) | 4 // TODO
+        (RwRasterGetFormat(srcRaster) & 0x6F00) | 4 // Como el original (0x5A5742 and eax,0FFFFFF6Fh ; shl 8 ; or 4)
     );
     
     // Copy data from the src raster to this one
@@ -535,42 +542,57 @@ void CClothesBuilder::PlaceTextureOnTopOfTexture(RwTexture* dstTex, RwTexture* s
     const auto dstRaster = RwTextureGetRaster(dstTex);
     const auto srcRaster = RwTextureGetRaster(srcTex);
 
-    auto dstIt = (RwUInt32*)RwRasterLock(dstRaster, 0, rwRASTERLOCKREADWRITE);
+    // Como el original (0x5A57C4/0x5A57D0): primero se bloquea el ORIGEN y luego el destino, ambos con modo 3
     auto srcIt = (RwUInt32*)RwRasterLock(srcRaster, 0, rwRASTERLOCKREADWRITE);
+    auto dstIt = (RwUInt32*)RwRasterLock(dstRaster, 0, rwRASTERLOCKREADWRITE);
 
-    // NOTE: They don't skip the stride, but it's fine [This way vectorization should be easier for the compiler]
-    for (auto i = RwRasterGetHeight(dstRaster) * RwRasterGetWidth(dstRaster); i-- > 0; dstIt++, srcIt++) {
+    // Como el original (0x5A57D5): el numero de pixeles sale del raster ORIGEN
+    for (auto i = RwRasterGetHeight(srcRaster) * RwRasterGetWidth(srcRaster); i-- > 0; dstIt++, srcIt++) {
         if (*srcIt & 0xFF000000) { // Check alpha != 0
             *dstIt = *srcIt;
         }
     }
 
-    RwRasterUnlock(dstRaster);
+    // Como el original (0x5A5804): se desbloquea primero el origen
     RwRasterUnlock(srcRaster);
+    RwRasterUnlock(dstRaster);
+}
+
+// Como el original (_ftol2 0x821B40 + 0x5A58C5 cmp al,0FFh ; ja): al nunca supera 0xFF, asi que el resultado es el byte bajo del entero de 64 bits (sin saturar)
+static RwUInt8 ClothesBlendByte(float v) {
+    return (RwUInt8)(int64)v;
 }
 
 // 0x5A5820
 void CClothesBuilder::BlendTextures(RwTexture* dst, RwTexture* src, float r1, float r2, int32 numColors) {
     ZoneScoped;
 
-    AssertTextureLayouts({ dst, src });
-
-    const auto dstRaster = RwTextureGetRaster(dst);
+    // Como el original (0x5A582D-0x5A5830): ebp = raster del ORIGEN, esi = raster del destino
     const auto srcRaster = RwTextureGetRaster(src);
+    const auto dstRaster = RwTextureGetRaster(dst);
 
     CTimer::Suspend();
 
-    auto srcIt = RwRasterLock(srcRaster, 0, rwRASTERLOCKREAD);
-    auto dstIt = RwRasterLock(dstRaster, 0, rwRASTERLOCKREADWRITE);
+    auto srcIt = RwRasterLock(srcRaster, 0, rwRASTERLOCKREAD);      // 0x5A583B-0x5A5840
+    auto dstIt = RwRasterLock(dstRaster, 0, rwRASTERLOCKREADWRITE); // 0x5A5845-0x5A584C
 
-    for (auto i = RwRasterGetHeight(dstRaster) * RwRasterGetWidth(dstRaster); i-- > 0; dstIt++, srcIt++) {
-        for (auto c = 3; i-- > 0; dstIt++, srcIt++) { // Copy RGB, alpha stays the same
-            *dstIt = multiply_weighted<RwUInt8>({ { *dstIt, r1 }, { *srcIt, r2 } });
-        }
+    // Como el original: el numero de pixeles sale del raster ORIGEN (0x5A5851); el alfa del destino se reescribe tal cual
+    // Como el original (0x5A5880): ecx se recarga desde [esp+18h] = puntero BASE del destino, no el actual; el alfa que se escribe
+    // en cada pixel es siempre el del primer pixel del destino (tomado antes del bucle; el pixel 0 solo reescribe el mismo valor).
+    const auto dstBase = dstIt;
+    for (RwInt32 n = 0; n < RwRasterGetWidth(srcRaster) * RwRasterGetHeight(srcRaster); ++n, srcIt += 4, dstIt += 4) {
+        const RwUInt8 a  = dstBase[3];
+        const RwUInt8 c0 = ClothesBlendByte((float)srcIt[0] * r2 + (float)dstIt[0] * r1);
+        const RwUInt8 c1 = ClothesBlendByte((float)srcIt[1] * r2 + (float)dstIt[1] * r1);
+        const RwUInt8 c2 = ClothesBlendByte((float)srcIt[2] * r2 + (float)dstIt[2] * r1);
+        dstIt[0] = c0;
+        dstIt[2] = c2;
+        dstIt[1] = c1;
+        dstIt[3] = a;
     }
 
-    RwRasterUnlock(dstRaster);
-    RwRasterUnlock(srcRaster);
+    RwRasterUnlock(srcRaster); // 0x5A59A2
+    RwRasterUnlock(dstRaster); // 0x5A59A8
 
     CTimer::Resume();
 }
@@ -579,27 +601,29 @@ void CClothesBuilder::BlendTextures(RwTexture* dst, RwTexture* src, float r1, fl
 void CClothesBuilder::BlendTextures(RwTexture* dst, RwTexture* src1, RwTexture* src2, float r1, float r2, float r3, int32) {
     ZoneScoped;
 
-    AssertTextureLayouts({ dst, src1, src2 });
-
-    const auto dstRaster  = RwTextureGetRaster(dst);
     const auto src1Raster = RwTextureGetRaster(src1);
     const auto src2Raster = RwTextureGetRaster(src2);
+    const auto dstRaster  = RwTextureGetRaster(dst);
 
     CTimer::Suspend();
 
-    auto src1It = RwRasterLock(src1Raster, 0, rwRASTERLOCKREAD);
-    auto src2It = RwRasterLock(src2Raster, 0, rwRASTERLOCKREAD);
-    auto dstIt  = RwRasterLock(dstRaster, 0, rwRASTERLOCKREADWRITE);
+    auto src1It = RwRasterLock(src1Raster, 0, rwRASTERLOCKREAD);      // 0x5A59E6
+    auto src2It = RwRasterLock(src2Raster, 0, rwRASTERLOCKREAD);      // 0x5A59F7
+    auto dstIt  = RwRasterLock(dstRaster, 0, rwRASTERLOCKREADWRITE);  // 0x5A5A09
 
-    for (auto i = RwRasterGetHeight(dstRaster) * RwRasterGetWidth(dstRaster); i-- > 0; dstIt++, src1It++, src2It++) {
-        for (auto c = 3; i-- > 0; dstIt++, src1It++, src2It++) { // Copy RGB, alpha doesn't change
-            *dstIt = multiply_weighted<RwUInt8>({ { *dstIt, r1 }, { *src1It, r2 }, { *src2It, r3 } });
-        }
+    // Como el original: pixeles = ancho*alto del raster src1 (0x5A5A10); el alfa no se toca; suma: src2*r3 + src1*r2 + dst*r1
+    for (RwInt32 n = 0; n < RwRasterGetWidth(src1Raster) * RwRasterGetHeight(src1Raster); ++n, src1It += 4, src2It += 4, dstIt += 4) {
+        const RwUInt8 c0 = ClothesBlendByte((float)src2It[0] * r3 + (float)src1It[0] * r2 + (float)dstIt[0] * r1);
+        const RwUInt8 c1 = ClothesBlendByte((float)src2It[1] * r3 + (float)src1It[1] * r2 + (float)dstIt[1] * r1);
+        const RwUInt8 c2 = ClothesBlendByte((float)src2It[2] * r3 + (float)src1It[2] * r2 + (float)dstIt[2] * r1);
+        dstIt[0] = c0;
+        dstIt[2] = c2;
+        dstIt[1] = c1;
     }
 
-    RwRasterUnlock(dstRaster);
-    RwRasterUnlock(src1Raster);
-    RwRasterUnlock(src2Raster);
+    RwRasterUnlock(src1Raster); // 0x5A5B94
+    RwRasterUnlock(src2Raster); // 0x5A5B9A
+    RwRasterUnlock(dstRaster);  // 0x5A5BA4
 
     CTimer::Resume();
 }
@@ -608,31 +632,38 @@ void CClothesBuilder::BlendTextures(RwTexture* dst, RwTexture* src1, RwTexture* 
 void CClothesBuilder::BlendTextures(RwTexture* dst, RwTexture* src1, RwTexture* src2, float r1, float r2, float r3, int32 numColors, RwTexture* tattoos) {
     ZoneScoped;
 
-    AssertTextureLayouts({ dst, src1, src2, tattoos });
-
-    const auto dstRaster  = RwTextureGetRaster(dst);
     const auto src1Raster = RwTextureGetRaster(src1);
     const auto src2Raster = RwTextureGetRaster(src2);
+    const auto dstRaster  = RwTextureGetRaster(dst);
     const auto tatRaster  = RwTextureGetRaster(tattoos);
 
     CTimer::Suspend();
 
-    auto src1It = RwRasterLock(src1Raster, 0, rwRASTERLOCKREAD);
-    auto src2It = RwRasterLock(src2Raster, 0, rwRASTERLOCKREAD);
-    auto tatIt  = RwRasterLock(tatRaster, 0, rwRASTERLOCKREAD);
-    auto dstIt  = RwRasterLock(dstRaster, 0, rwRASTERLOCKREADWRITE);
+    auto src1It = RwRasterLock(src1Raster, 0, rwRASTERLOCKREAD);     // 0x5A5BF9
+    auto src2It = RwRasterLock(src2Raster, 0, rwRASTERLOCKREAD);     // 0x5A5C05
+    auto dstIt  = RwRasterLock(dstRaster, 0, rwRASTERLOCKREADWRITE); // 0x5A5C13
+    auto tatIt  = RwRasterLock(tatRaster, 0, rwRASTERLOCKREAD);      // 0x5A5C23
 
-    for (auto i = RwRasterGetHeight(dstRaster) * RwRasterGetWidth(dstRaster); i-- > 0; dstIt++, src1It++, src2It++, tatIt++) {
-        const auto tatAlphaT = (float)tatIt[3] / 255.f;
-        for (auto c = 3; i-- > 0; dstIt++, src1It++, src2It++, tatIt++) { // Copy RGB, alpha doesn't change
-            *dstIt = (RwUInt8)lerp(multiply_weighted<RwUInt8>({ { *dstIt, r1 }, { *src1It, r2 }, { *src2It, r3 } }), *tatIt, tatAlphaT);
-        }
+    // Como el original: pixeles = ancho*alto del raster src1 (0x5A5C2A); alfa del tatuaje en tat[3]
+    const float k255 = std::bit_cast<float>(0x3B808081u); // 0x859A3C
+    for (RwInt32 n = 0; n < RwRasterGetWidth(src1Raster) * RwRasterGetHeight(src1Raster); ++n, src1It += 4, src2It += 4, dstIt += 4, tatIt += 4) {
+        const RwUInt8 a  = tatIt[3];
+        const RwUInt8 v0 = ClothesBlendByte((float)src2It[0] * r3 + (float)src1It[0] * r2 + (float)dstIt[0] * r1);
+        const RwUInt8 v1 = ClothesBlendByte((float)src2It[1] * r3 + (float)src1It[1] * r2 + (float)dstIt[1] * r1);
+        const RwUInt8 v2 = ClothesBlendByte((float)src2It[2] * r3 + (float)src1It[2] * r2 + (float)dstIt[2] * r1);
+        // Como el original (0x5A5DAF-0x5A5E30): fild((tat-v)*alfa) * (1/255) + v -> _ftol2 (byte bajo)
+        const RwUInt8 o0 = ClothesBlendByte((float)(((int32)tatIt[0] - (int32)v0) * (int32)a) * k255 + (float)(int32)v0);
+        const RwUInt8 o1 = ClothesBlendByte((float)(((int32)tatIt[1] - (int32)v1) * (int32)a) * k255 + (float)(int32)v1);
+        const RwUInt8 o2 = ClothesBlendByte((float)(((int32)tatIt[2] - (int32)v2) * (int32)a) * k255 + (float)(int32)v2);
+        dstIt[0] = o0;
+        dstIt[1] = o1;
+        dstIt[2] = o2;
     }
 
-    RwRasterUnlock(dstRaster);
-    RwRasterUnlock(src1Raster);
-    RwRasterUnlock(src2Raster);
-    RwRasterUnlock(tatRaster);
+    RwRasterUnlock(src1Raster); // 0x5A5E71
+    RwRasterUnlock(src2Raster); // 0x5A5E7B
+    RwRasterUnlock(dstRaster);  // 0x5A5E85
+    RwRasterUnlock(tatRaster);  // 0x5A5E8F
 
     CTimer::Resume();
 }
@@ -827,17 +858,23 @@ RpClump* CClothesBuilder::CreateSkinnedClump(RpClump* bones, RwTexDictionary* di
         }
     }
 
+    StaticRef<const CPedClothesDesc*>(0xBC1288) = odscr; // Como el original (0x5A6A85 mov [0BC1288h],edx)
     if (odscr) {
+        // Como el original (0x5A6B84-0x5A6C2E)
         ms_geometryHasChanged = false;
-        ms_ratiosHaveChanged  = false;
-        if (odscr->m_fFatStat != ndscr.m_fFatStat || odscr->m_fMuscleStat != ndscr.m_fMuscleStat) {
-            ms_textureHasChanged = true;
+        ms_textureHasChanged  = false;
+        if (!(ndscr.m_fFatStat == odscr->m_fFatStat) || !(ndscr.m_fMuscleStat == odscr->m_fMuscleStat)) { // fcompp + test ah,44h ; jp (NaN = distinto)
+            ms_ratiosHaveChanged  = true;
             ms_geometryHasChanged = true;
         } else {
+            ms_ratiosHaveChanged = false;
+        }
+        if (!rng::equal(ndscr.m_anModelKeys, odscr->m_anModelKeys)) {
+            ms_geometryHasChanged = true;
+        }
+        if (!rng::equal(ndscr.m_anTextureKeys, odscr->m_anTextureKeys)) {
             ms_textureHasChanged = true;
         }
-        ms_geometryHasChanged = !rng::equal(ndscr.m_anModelKeys, odscr->m_anModelKeys);
-        ms_ratiosHaveChanged  = !rng::equal(ndscr.m_anTextureKeys, odscr->m_anTextureKeys);
         if (!ms_ratiosHaveChanged && !ms_geometryHasChanged && !ms_textureHasChanged) {
             return nullptr;
         }
@@ -850,13 +887,20 @@ RpClump* CClothesBuilder::CreateSkinnedClump(RpClump* bones, RwTexDictionary* di
     //> 0x5A42B0 - Calculate blend ratios
     float rNormal, rFatness, rMuscle;
     {
-        rMuscle  = std::clamp(CStats::GetStatValue(STAT_MUSCLE) / 1000.f, 0.f, 1.f);
-        rFatness = std::clamp((dscr.m_fFatStat - 200.f) / 800.f, 0.f, 1.f);
-        rNormal  = 1.f - rMuscle - rFatness;
-        if (rNormal <= 0.f) {
-            const auto t = 1.f / (rFatness + rMuscle);
-            rMuscle  *= t;
+        // Como el original (0x5A42B0): multiplica por constantes (no divide), x87 a 24 bits
+        float m = CStats::GetStatValue(STAT_MUSCLE);
+        float f = dscr.m_fFatStat - 200.f; // 0x858A48
+        if (m < 0.f) m = 0.f;
+        if (f < 0.f) f = 0.f;
+        rFatness = f * std::bit_cast<float>(0x3AA3D70Au); // 0x865354
+        rMuscle  = m * std::bit_cast<float>(0x3A83126Fu); // 0x858CDC
+        if (rFatness > 1.f) rFatness = 1.f;
+        if (rMuscle  > 1.f) rMuscle  = 1.f;
+        rNormal = 1.f - (rFatness + rMuscle);
+        if (rFatness + rMuscle > 1.f) {
+            const float t = 1.f / (rFatness + rMuscle);
             rFatness *= t;
+            rMuscle  *= t;
             rNormal   = 0.f;
         }
     }
@@ -958,6 +1002,7 @@ RpClump* CClothesBuilder::CreateSkinnedClump(RpClump* bones, RwTexDictionary* di
     // Free memory
     {
         RpGeometryDestroy(tmpGeo);
+        tmpGeo->flags |= 2; // Como el original (0x5A6D5A or dword ptr [esi+8],2)
 
         RwTexDictionarySetCurrent(dict);
         for (auto i = 0; i < NO_BODY_PARTS; i++) {

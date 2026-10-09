@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 39/39 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 15.
- * Validación registrada: 15/39 entradas.
+ * Validación registrada: 37/39 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -193,7 +193,8 @@ void CRunningScript::InjectCustomCommandHooks() {
 
 // 0x4648E0
 void CRunningScript::Init() {
-    SetName("noname");
+    // Como el original (0x4648E2..0x464902): copia exactamente 7 bytes ("noname" + NUL: dword+word+byte) y no toca el octavo
+    std::memcpy(m_szName, "noname", 7);
     rng::fill(m_IPStack, nullptr);
     rng::fill(m_LocalVars, tScriptParam{ 0 });
     m_BaseIP                          = nullptr;
@@ -679,9 +680,15 @@ void CRunningScript::DoDeathArrestCheck() {
         return;
     }
 
+    // Como el original (0x485ABA..0x485ADB): la pila se colapsa a 1 (si era > 1), se decrementa (palabra) y la IP pasa a
+    // m_IPStack[profundidad] (es decir, la primera direccion de retorno); NO se vacia la pila.
+    if (m_StackDepth > 1) {
+        m_StackDepth = 1;
+    }
+    --m_StackDepth;
+    m_IP = m_IPStack.data()[m_StackDepth];
     CMessages::ClearSmallMessagesOnly();
     memset(&CTheScripts::ScriptSpace[CTheScripts::OnAMissionFlag], 0, sizeof(uint32));
-    ResetIP();
 
     m_DoneDeathArrest = true;
     m_WakeTime        = 0;
@@ -808,7 +815,10 @@ void CRunningScript::SetCharCoordinates(CPed& ped, CVector posn, bool warpGang, 
 
 // 0x463CA0
 tScriptParam* CRunningScript::GetPointerToLocalVariable(int32 loc) {
-    return &GetLocal<tScriptParam>(loc);
+    // Como el original (0x463CA0): aritmetica de punteros de 32 bits sin comprobar rangos ni truncar a 16 bits
+    return m_ThisMustBeTheOnlyMissionRunning
+        ? &CTheScripts::LocalVariablesForCurrentMission.data()[loc]
+        : &m_LocalVars.data()[loc];
 }
 
 /*!
@@ -820,7 +830,8 @@ tScriptParam* CRunningScript::GetPointerToLocalVariable(int32 loc) {
  * @param arrayEntriesSizeAsParams Size of 1 variable in the array (In terms of `tScriptParam`'s - So for a regular `int` (or float, etc) variable this will be `1`, for long strings it's `4` and for short one's it's `2`)
  */
 tScriptParam* CRunningScript::GetPointerToLocalArrayElement(int32 arrayBaseOffset, uint16 index, uint8 arrayEntriesSizeAsParams) {
-    return &GetArrayLocal<tScriptParam>(arrayBaseOffset, index, arrayEntriesSizeAsParams);
+    // Como el original (0x463CC0): base + index * size en 32 bits (index y size sin signo), sin truncar a 16 bits
+    return GetPointerToLocalVariable(arrayBaseOffset + int32(index) * int32(arrayEntriesSizeAsParams));
 }
 
 /*!
@@ -873,7 +884,7 @@ tScriptParam* CRunningScript::GetPointerToScriptVariable(eScriptVariableType) {
         return GetPointerToLocalArrayElement(arrVarOffset, arrElemIdx, arrElemSize);
 
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr; // Como el original (0x4648A7: `xor eax,eax`)
     }
 }
 
@@ -1024,8 +1035,8 @@ void CRunningScript::StoreParameters(int16 count) {
 void CRunningScript::ReadArrayInformation(int32 updateIP, uint16* outArrayBase, int32* outArrayIndex) {
     const auto op = GetAtIPAs<scm::ArrayAccess>(updateIP);
     *outArrayIndex = op.IdxVarIsGlobal
-        ? GetGlobal<int32>(op.IdxVarLoc)
-        : GetLocal<int32>(op.IdxVarLoc);
+        ? *reinterpret_cast<int32*>(&CTheScripts::ScriptSpace.data()[op.IdxVarLoc])
+        : GetPointerToLocalVariable(op.IdxVarLoc)->iParam;
     *outArrayBase = op.ArrayBase;
 }
 
@@ -1079,8 +1090,17 @@ void CRunningScript::ReadParametersForNewlyStartedScript(CRunningScript* newScri
 // Collects string parameter
 // 0x463D50
 void CRunningScript::ReadTextLabelFromScript(char* buffer, uint8 nBufferLength) {
+    // Como el original (0x463D50): TODAS las copias desde variables/arrays usan strncpy del CRT (0x821F40): copian hasta
+    // N caracteres, paran en NUL y rellenan con ceros hasta N, sin terminar la cadena ni validar el tamano del destino
+    // (la DLL usaba strncpy_s, que rellena con 0xFE en depuracion y falla con cadenas de 8/16 caracteres).
     uint16 arrVarOffset;
     int32  arrElemIdx;
+#pragma warning(push)
+#pragma warning(disable : 4996)
+    const auto copy = [&](const void* src, size_t n) { std::strncpy(buffer, static_cast<const char*>(src), n); };
+#pragma warning(pop)
+    // 0x463E20 / 0x463F34 / 0x463FB8: el recuento largo es min(nBufferLength, 16) sin signo
+    const size_t longCount = std::min<uint8>(nBufferLength, LONG_STRING_SIZE);
 
     int8 type = CTheScripts::Read1ByteFromScript(m_IP);
     switch (type) {
@@ -1092,14 +1112,14 @@ void CRunningScript::ReadTextLabelFromScript(char* buffer, uint8 nBufferLength) 
     case SCRIPT_PARAM_GLOBAL_SHORT_STRING_VARIABLE:
     {
         uint16 index = CTheScripts::Read2BytesFromScript(m_IP);
-        strncpy_s(buffer, SHORT_STRING_SIZE, (char*)&CTheScripts::ScriptSpace[index], SHORT_STRING_SIZE);
+        copy(&CTheScripts::ScriptSpace[index], SHORT_STRING_SIZE);
         break;
     }
 
     case SCRIPT_PARAM_LOCAL_SHORT_STRING_VARIABLE:
     {
         uint16 index = CTheScripts::Read2BytesFromScript(m_IP);
-        strncpy_s(buffer, SHORT_STRING_SIZE, (char*) GetPointerToLocalVariable(index), SHORT_STRING_SIZE);
+        copy(GetPointerToLocalVariable(index), SHORT_STRING_SIZE);
         break;
     }
 
@@ -1107,51 +1127,52 @@ void CRunningScript::ReadTextLabelFromScript(char* buffer, uint8 nBufferLength) 
     case SCRIPT_PARAM_GLOBAL_LONG_STRING_ARRAY:
         ReadArrayInformation(true, &arrVarOffset, &arrElemIdx);
         if (type == SCRIPT_PARAM_GLOBAL_SHORT_STRING_ARRAY)
-            strncpy_s(buffer, SHORT_STRING_SIZE, (char*) & CTheScripts::ScriptSpace[SHORT_STRING_SIZE * arrElemIdx + arrVarOffset], SHORT_STRING_SIZE);
+            copy(&CTheScripts::ScriptSpace[SHORT_STRING_SIZE * arrElemIdx + arrVarOffset], SHORT_STRING_SIZE);
         else
-            strncpy_s(buffer, SHORT_STRING_SIZE, (char*) & CTheScripts::ScriptSpace[LONG_STRING_SIZE * arrElemIdx + arrVarOffset], std::min<uint8>(nBufferLength, LONG_STRING_SIZE));
+            copy(&CTheScripts::ScriptSpace[LONG_STRING_SIZE * arrElemIdx + arrVarOffset], longCount);
         break;
 
     case SCRIPT_PARAM_LOCAL_SHORT_STRING_ARRAY:
     case SCRIPT_PARAM_LOCAL_LONG_STRING_ARRAY:
         ReadArrayInformation(true, &arrVarOffset, &arrElemIdx);
         if (type == SCRIPT_PARAM_LOCAL_SHORT_STRING_ARRAY)
-            strncpy_s(buffer, SHORT_STRING_SIZE, (char*) GetPointerToLocalArrayElement(arrVarOffset, arrElemIdx, 2), SHORT_STRING_SIZE);
-        else {
-            const auto bufferLength = std::min<uint8>(nBufferLength, LONG_STRING_SIZE);
-            strncpy_s(buffer, bufferLength, (char*)GetPointerToLocalArrayElement(arrVarOffset, arrElemIdx, 4), bufferLength);
-        }
+            copy(GetPointerToLocalArrayElement(arrVarOffset, arrElemIdx, 2), SHORT_STRING_SIZE);
+        else
+            copy(GetPointerToLocalArrayElement(arrVarOffset, arrElemIdx, 4), longCount);
         break;
 
     case SCRIPT_PARAM_STATIC_PASCAL_STRING:
     {
         int16 nStringLen = CTheScripts::Read1ByteFromScript(m_IP); // sign extension. max size = 127, not 255
         for (auto i = 0; i < nStringLen; i++)
-            buffer[i] = CTheScripts::Read1ByteFromScript(m_IP);
+            buffer[uint8(i)] = CTheScripts::Read1ByteFromScript(m_IP);
 
-        if (nStringLen < nBufferLength)
-            memset(&buffer[(uint8)nStringLen], 0, (uint8)(nBufferLength - nStringLen));
+        // Como el original (0x463EFD: `cmp al,cl / jae`): la comparacion es SIN signo sobre el byte bajo de la longitud
+        // (con una longitud negativa no se rellena nada).
+        if (uint8(nStringLen) < nBufferLength)
+            memset(&buffer[uint8(nStringLen)], 0, uint8(nBufferLength - uint8(nStringLen)));
         break;
     }
 
     case SCRIPT_PARAM_STATIC_LONG_STRING:
-        // slightly changed code: original code is a bit messy and calls Read1ByteFromScript
-        // in a loop and does some additional checks to ensure that buffer can hold the data
-        strncpy_s(buffer, LONG_STRING_SIZE, (char*)m_IP, std::min<uint8>(nBufferLength, LONG_STRING_SIZE));
+        // Como el original (0x463F30): copia en bruto min(nBufferLength, 16) bytes (sin parar en NUL ni terminar) y
+        // avanza siempre 16 bytes.
+        for (size_t i = 0; i < longCount; ++i)
+            buffer[i] = static_cast<char>(m_IP[i]);
         m_IP += LONG_STRING_SIZE;
         break;
 
     case SCRIPT_PARAM_GLOBAL_LONG_STRING_VARIABLE:
     {
         uint16 index = CTheScripts::Read2BytesFromScript(m_IP);
-        strncpy_s(buffer, LONG_STRING_SIZE, (char*) & CTheScripts::ScriptSpace[index], std::min<uint8>(nBufferLength, LONG_STRING_SIZE));
+        copy(&CTheScripts::ScriptSpace[index], longCount);
         break;
     }
 
     case SCRIPT_PARAM_LOCAL_LONG_STRING_VARIABLE:
     {
         uint16 index = CTheScripts::Read2BytesFromScript(m_IP);
-        strncpy_s(buffer, LONG_STRING_SIZE, (char*) GetPointerToLocalVariable(index), std::min<uint8>(nBufferLength, LONG_STRING_SIZE));
+        copy(GetPointerToLocalVariable(index), longCount);
         break;
     }
 
@@ -1278,8 +1299,9 @@ notsa::script::CommandHandlerFunction& CRunningScript::CustomCommandHandlerOf(eS
 }
 
 void CRunningScript::ResetIP() {
+    // Como el original (0x469F77..0x469F9A, solo con profundidad >= 1): la pila se vacia a 0 y la IP pasa a la primera
+    // direccion de retorno (m_IPStack[0]). La version anterior usaba m_IPStack[profundidad] y llegaba hasta [1].
     assert(m_StackDepth > 0); // Original bug...
-    do {
-        m_IP = std::exchange(m_IPStack[m_StackDepth--], nullptr); // NOTSA: Also clear the stack, we don't need it anymore
-    } while (m_StackDepth);
+    m_StackDepth = 0;
+    m_IP         = m_IPStack[0];
 }

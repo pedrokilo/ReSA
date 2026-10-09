@@ -54,8 +54,8 @@ private:
     bool                      m_Randomize{};
     bool                      m_HasFinished{};
     bool                      m_CantGetInCar{};
-    int8                      m_OrigDrivingMode{};
-    int8                      m_OrigMission{};
-    uint8                     m_OrigCruiseSpeed{};
+    int8                      m_OrigDrivingMode; // Como el original: el constructor (0x68BE70) no escribe +0x1B
+    int8                      m_OrigMission;     // Como el original: sin escribir (+0x1C)
+    uint8                     m_OrigCruiseSpeed; // Como el original: sin escribir (+0x1D)
     bool                      m_IsSetUp{};
 };

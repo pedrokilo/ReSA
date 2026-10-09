@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7047 con evidencia histórica, 0 con vigencia acreditada y 1399 pendientes en 38 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # CPad::ProcessPad (0x00746A10): banco por pares preparado
 
 Estado: preparado, sin compilar y sin ejecutar GTA. No se aprueba ni registra nada. No se ha modificado `source/game_sa/Pad.cpp` (SHA-256 `89badf36b91db868c0a9d41408db7b595bc116ce941a7864cd697af8a4bbaa4d`) ni `Pad.h` (`d18adb99...9889e2`), ni `runtime_runner.py`.

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 3/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -86,53 +86,66 @@ CTaskComplexKillPedOnFootArmed::~CTaskComplexKillPedOnFootArmed() {
 
 // 0x621500
 bool CTaskComplexKillPedOnFootArmed::LineOfSightClearForAttack(CPed* ped) { // ped is the task owner ped
-    /*
-    * TODO:
-    * here's some code to calculate the values to use (based on some variables)
-    * nothing special, but it's messy, and it's late, so I won't bother
-    */
-    const auto reqDistDeltaSq = sq(2.f);
-    const auto reqTimeDelta   = 5000;
+    // Como el original: 0x62151B-0x621527 llama CWeaponInfo::GetWeaponInfo(tipo, habilidad) y descarta el resultado (sin efectos)
+
+    //> 0x62152C Umbrales dinamicos (el EXE no usa constantes fijas)
+    uint32 reqTimeDelta   = 10000; // ebp = 0x2710
+    float  reqDistDeltaSq = 9.f;   // [esp+2Ch] = 0x41100000
+    if (   (int32)ped->GetAreaCode() != 0 // byte [ped+2Fh] (esta en un interior)
+        || (m_target && m_target->IsPlayer() && ((int32)CGame::currArea != 0 /* 0x621558 [0xB72914] */ || ped->IsCreatedByMission() /* 0x621561 [ped+484h] == 2 */))
+    ) {
+        reqTimeDelta = 5000; // 0x621569 mov ebp,1388h
+        if (StaticRef<int32>(0xB7298C) < 2) { // CLoadMonitor::m_eProcLevel (HIGH = 2), 0x62156F cmp/jge
+            reqDistDeltaSq = 4.f;             // 0x40800000
+        }
+    }
+
+    // Como el original: (dz*dz + dy*dy) + dx*dx con diferencia (a - b) (0x6215BB..0x6215DA)
+    const auto DistSqZYX = [](const CVector& a, const CVector& b) {
+        const float dx = a.x - b.x;
+        const float dy = a.y - b.y;
+        const float dz = a.z - b.z;
+        return (dz * dz + dy * dy) + dx * dx;
+    };
+
+    const auto now = CTimer::GetTimeInMS();
 
     //> If the LOS was recently clear, let's consider it still is
-    if (CTimer::GetTimeInMS() - m_losClearTime < reqTimeDelta) {
+    if (now - m_losClearTime < reqTimeDelta) { // 0x62158A cmp ecx,ebp / jae
         return true;
     }
 
     //> Perhaps check if the entities are still kinda around the same position as the last time the LOS was blocked...
-    if (CTimer::GetTimeInMS() - m_losBlockedTime < reqTimeDelta) {
-        if (reqDistDeltaSq >= (m_target->GetPosition() - m_losBlockedTargetPos).SquaredMagnitude()) {
-            if (reqDistDeltaSq >= (ped->GetPosition() - m_losBlockedOurPos).SquaredMagnitude()) {
-                return false;
-            }
+    if (now - m_losBlockedTime <= reqTimeDelta) { // 0x62159D cmp eax,ebp / ja => solo se vuelve a comprobar si paso MAS que el umbral
+        const bool targetMoved = m_target && DistSqZYX(m_target->GetPosition(), m_losBlockedTargetPos) > reqDistDeltaSq; // 0x6215E6 test ah,41h / je
+        if (!targetMoved && !(DistSqZYX(ped->GetPosition(), m_losBlockedOurPos) > reqDistDeltaSq)) { // 0x62162A
+            return false;
         }
     }
 
-    //> 0x6216DD
-    // Temporarily disable the target ped vehicle's collision (To ignore it)
-    // Perhaps, `CWorld::pIgnoreEntity` could be used?
-    const auto targetVeh = m_target->GetVehicleIfInOne();
-    const notsa::ScopeGuard restore{[targetVeh, had = targetVeh && targetVeh->GetUsesCollision()] {
-        if (targetVeh) {
-            targetVeh->SetUsesCollision(had);
-        }
-    }};
+    //> 0x62163A
+    CVector startPos{ 0.1f, 0.f, 0.f };
+    if (ped->bIsDucking) { // test [ped+46Ch],4000000h: agachado => posicion + 0.25 en z
+        const auto& pedPos = ped->GetPosition();
+        startPos = CVector{ pedPos.x, pedPos.y, pedPos.z + 0.25f }; // fadd [858C84h]
+    } else { // de pie => hueso de la cabeza (5E01C0, hueso 5)
+        ped->GetTransformedBonePosition(startPos, BONE_HEAD);
+    }
+    CVector endPos{ 0.1f, 0.f, 0.f };
+    m_target->GetTransformedBonePosition(endPos, BONE_HEAD); // Always use head position
 
-    if (targetVeh) {
-        targetVeh->SetUsesCollision(false);
+    // Como el original: 0x6216DD primero se calculan las posiciones y despues se desactiva la colision del vehiculo del objetivo
+    CVehicle* targetVeh{};
+    bool      hadCollision{};
+    if (m_target->bInVehicle && m_target->m_pVehicle) {
+        targetVeh    = m_target->m_pVehicle;
+        hadCollision = targetVeh->m_bUsesCollision;
+        targetVeh->m_bUsesCollision = false;
     }
 
-    const auto GetPedHeadPos = [](CPed* headOf) {
-        CVector inout{ 0.1f, 0.f, 0.f };
-        headOf->GetTransformedBonePosition(inout, BONE_HEAD);
-        return inout;
-    };
-
-    if (CWorld::GetIsLineOfSightClear(
-        ped->bIsDucking
-            ? GetPedHeadPos(ped)
-            : ped->GetPosition() + CVector{0.f, 0.f, 0.25f},
-        GetPedHeadPos(m_target), // Always use head position
+    const bool losClear = CWorld::GetIsLineOfSightClear(
+        startPos,
+        endPos,
         true,
         true,
         false,
@@ -140,17 +153,22 @@ bool CTaskComplexKillPedOnFootArmed::LineOfSightClearForAttack(CPed* ped) { // p
         false,
         true,
         false
-    )) {
+    );
+
+    if (losClear) {
         m_losClearTime   = CTimer::GetTimeInMS();
         m_losBlockedTime = 0;
-        return true;
     } else {
-        m_losBlockedTime      = CTimer::GetTimeInMS();
         m_losClearTime        = 0;
-        m_losBlockedOurPos    = ped->GetPosition();
+        m_losBlockedTime      = CTimer::GetTimeInMS();
         m_losBlockedTargetPos = m_target->GetPosition();
-        return false;
+        m_losBlockedOurPos    = ped->GetPosition();
     }
+
+    if (targetVeh) { // 0x62179B restaura el bit 0 de [vehiculo+1Ch]
+        targetVeh->m_bUsesCollision = hadCollision;
+    }
+    return losClear;
 }
 
 // 0x621300
@@ -169,37 +187,52 @@ bool CTaskComplexKillPedOnFootArmed::IsPedInLeaderFiringLine(CPed* ped) {
         return false;
     }
 
-    const auto &leaderPos2D      = grpLeaderPlyr->GetPosition2D();
-    const auto &leaderPos        = grpLeaderPlyr->GetPosition();
-    const auto leaderToPed       = ped->GetPosition() - leaderPos, // 0x6213BD
-               leaderToTargetDir = (grpLeaderPlyr->m_pTargetedObject->GetPosition() - leaderPos).Normalized(); // 0x621394
+    const auto& leaderPos = grpLeaderPlyr->GetPosition();
+    const auto  targetPos = grpLeaderPlyr->m_pTargetedObject->GetPosition();
+    const auto& pedPos    = ped->GetPosition();
+
+    //> 0x621394: direccion lider->objetivo con z = 0 y normalizada (40FE00 resta, mov [esp+18h],0 y 59C910 Normalise)
+    CVector leaderToTargetDir = targetPos - leaderPos;
+    leaderToTargetDir.z       = 0.f;
+    leaderToTargetDir.Normalise();
+
+    //> 0x6213BD
+    const CVector leaderToPed = pedPos - leaderPos;
 
     /* clang-format off
      * --[projPointOnLeaderToTargetRay2D]-->[leaderPos]---[leaderToTargetDir]-->[Target]
      *                                          /
      *                                         /
-     *                                        /
-     *                                       /
-     *                                 [leaderToPed]
+     *                                [leaderToPed]
      *                                     /
-     *                                    /
-     *                                  \|/
-     *                                [Ped]
+     *                                   [Ped]
      * clang-format on */
 
-    //> 0x6213AE
-    const auto projPointOnLeaderToTargetRay2D = leaderPos + CVector2D{ leaderToPed }.ProjectOnToNormal(leaderToTargetDir);
-    if ((projPointOnLeaderToTargetRay2D - ped->GetPosition2D()).SquaredMagnitude() >= sq(2.f)) {
+    //> 0x6213C6: producto escalar (y + z) + x en el orden del EXE; luego dir * dot (40FEF0) y + posicion del lider (411A00)
+    const float proj = (leaderToTargetDir.y * leaderToPed.y + leaderToTargetDir.z * leaderToPed.z) + leaderToTargetDir.x * leaderToPed.x;
+    CVector projPointOnLeaderToTargetRay2D = leaderToTargetDir;
+    projPointOnLeaderToTargetRay2D.x *= proj;
+    projPointOnLeaderToTargetRay2D.y *= proj;
+    projPointOnLeaderToTargetRay2D.z *= proj;
+    projPointOnLeaderToTargetRay2D.x = leaderPos.x + projPointOnLeaderToTargetRay2D.x;
+    projPointOnLeaderToTargetRay2D.y = leaderPos.y + projPointOnLeaderToTargetRay2D.y;
+    projPointOnLeaderToTargetRay2D.z = leaderPos.z + projPointOnLeaderToTargetRay2D.z;
+
+    //> 0x62141B: (x, y) de la proyeccion menos la posicion del peaton con z = 0; 406DA0 y fcomp 4.0 con jp => estrictamente menor
+    const CVector projToPed{ projPointOnLeaderToTargetRay2D.x - pedPos.x, projPointOnLeaderToTargetRay2D.y - pedPos.y, 0.f };
+    if (!(projToPed.SquaredMagnitude() < 4.f)) {
         return false;
     }
 
-    //> 0x0621482
-    if (leaderToTargetDir.Dot(leaderToPed) <= 0.f) { // Ped is "behind" leader (Like on the ASCII art above)
+    //> 0x621482: producto escalar SIN normalizar (peaton - lider) . (objetivo - lider), orden (z + y) + x; fcomp 0.0 con test 41h
+    const CVector leaderToTarget = targetPos - leaderPos;
+    const float   dotToTarget    = (leaderToPed.z * leaderToTarget.z + leaderToPed.y * leaderToTarget.y) + leaderToPed.x * leaderToTarget.x;
+    if (!(dotToTarget > 0.f)) { // Ped is "behind" leader (Like on the ASCII art above)
         return false;
     }
 
-    //> 0x6214CD
-    if (leaderToPed.SquaredMagnitude() >= sq(10.f)) {
+    //> 0x6214CD: 406DA0 y fcomp 100.0 con jp => estrictamente menor
+    if (!((pedPos - leaderPos).SquaredMagnitude() < 100.f)) {
         return false;
     }
 
@@ -460,6 +493,9 @@ CTask* CTaskComplexKillPedOnFootArmed::CreateNextSubTask(CPed* ped) {
 
 // 0x62BF00
 CTask* CTaskComplexKillPedOnFootArmed::CreateFirstSubTask(CPed* ped) {
+    m_newTarget = false; // Como el original: 0x62BF22 mov byte ptr [edi+34h],0 (antes de comprobar el objetivo)
+
+    // Como el original: 0x62BF26-0x62BF47 CWeaponInfo::GetWeaponInfo(tipo, habilidad) (el resultado se usa mas abajo)
     if (!m_target) {
         return nullptr;
     }
@@ -467,32 +503,37 @@ CTask* CTaskComplexKillPedOnFootArmed::CreateFirstSubTask(CPed* ped) {
     const auto &ourPos    = ped->GetPosition(),
                &targetPos = m_target->GetPosition();
 
-    const auto targetToOurPedDistSq = (ourPos - targetPos).SquaredMagnitude();
+    // Como el original: 0x62BF78 d = objetivo - peaton, distSq = (dx*dx + dy*dy) + dz*dz, dist = fsqrt(distSq) (24 bits)
+    const float dx = targetPos.x - ourPos.x;
+    const float dy = targetPos.y - ourPos.y;
+    const float dz = targetPos.z - ourPos.z;
+    const float targetToOurPedDistSq = (dx * dx + dy * dy) + dz * dz;
+    const float targetToOurPedDist   = std::sqrt(targetToOurPedDistSq);
+    const bool  targetArmed          = !m_target->GetActiveWeapon().IsTypeMelee(); // 0x62BFB9 (73B1C0)
 
     if (   !ped->bStayInSamePlace
-        && CGeneral::RandomBool(50)
+        && (plugin::CallAndReturn<int32, 0x821B1E>() & 1) // Como el original: 0x62BFD7 rand() & 1 (no CGeneral::RandomBool)
         && m_competence > 0
-        && (targetToOurPedDistSq >= sq(30.f) || targetToOurPedDistSq >= sq(6.f) && !m_target->GetActiveWeapon().IsTypeMelee()) 
+        && (targetToOurPedDist > 30.f || (targetToOurPedDist > 6.f && targetArmed)) // 0x62BFEF fcomp 30.0 / 6.0 con la distancia (no al cuadrado)
     ) {
         ped->ReleaseCoverPoint();
         if (ped->m_pCoverPoint = CCover::FindAndReserveCoverPoint(ped, targetPos, false)) {
             CVector coverPos{};
-            if (!notsa::IsFixBugs() || CCover::FindCoordinatesCoverPoint(*ped->m_pCoverPoint, ped, targetPos, coverPos)) {
-                if (CWorld::GetIsLineOfSightClear(coverPos, ourPos, true, true, false, false, false, false, false)) {
-                    ped->GetIntelligence()->SetTaskDuckSecondary(6000);
-                    if (const auto task = new CTaskSimpleGoToPoint{
-                        PEDMOVE_RUN,
-                        coverPos,
-                        0.5f,
-                        true
-                    }) { // I can't believe my eyes.... error handling?
-                        return task;
-                    }
-                } else {
-                    ped->ReleaseCoverPoint();
+            // Como el original: 0x62C06A siempre llama a FindCoordinatesCoverPoint (ignora el resultado)
+            (void)CCover::FindCoordinatesCoverPoint(*ped->m_pCoverPoint, ped, targetPos, coverPos); // el EXE deja coverPos sin inicializar si falla
+            coverPos.z += 1.f; // 0x62C06F fadd [858624h] (1.0)
+            if (CWorld::GetIsLineOfSightClear(coverPos, ourPos, true, true, false, false, false, false, false)) {
+                ped->GetIntelligence()->SetTaskDuckSecondary(6000);
+                if (const auto task = new CTaskSimpleGoToPoint{
+                    PEDMOVE_RUN,
+                    coverPos,
+                    0.5f,
+                    true
+                }) { // I can't believe my eyes.... error handling?
+                    return task;
                 }
             } else {
-                NOTSA_LOG_WARN("Can't find cover point's coordinates!"); // Originally the game has left `coverPos` uninitialized in this case
+                ped->ReleaseCoverPoint();
             }
         }
     }
@@ -500,7 +541,8 @@ CTask* CTaskComplexKillPedOnFootArmed::CreateFirstSubTask(CPed* ped) {
     return CreateSubTask([&, this] {
         const auto& ourActiveWep = ped->GetActiveWeapon().GetWeaponInfo(ped);
 
-        if (targetToOurPedDistSq <= sq(ourActiveWep.m_fTargetRange / 4.f) && LineOfSightClearForAttack(ped)) {
+        // Como el original: 0x62C104 distSq <= (rango * rango) * 0.25 (fmul [858C84h]); antes era (rango / 4)^2
+        if (targetToOurPedDistSq <= sq(ourActiveWep.m_fTargetRange) * 0.25f && LineOfSightClearForAttack(ped)) {
             return TASK_SIMPLE_GUN_CTRL;
         }
 
@@ -518,6 +560,10 @@ CTask* CTaskComplexKillPedOnFootArmed::CreateFirstSubTask(CPed* ped) {
 
 // 0x62CCE0
 CTask* CTaskComplexKillPedOnFootArmed::ControlSubTask(CPed* ped) {
+    const auto ogSubTask = m_pSubTask; // 0x62CCFE
+    // Como el original: 0x62CD0E CWeaponInfo::GetWeaponInfo(tipo, habilidad) se obtiene al principio
+    const auto& ourwi = ped->GetActiveWeapon().GetWeaponInfo(ped);
+
     if (m_newTarget) {
         return CreateFirstSubTask(ped);
     }
@@ -525,34 +571,27 @@ CTask* CTaskComplexKillPedOnFootArmed::ControlSubTask(CPed* ped) {
     if (!m_target || m_target->m_fHealth <= 0.f) {
         return nullptr;
     }
-    const auto ogSubTask = m_pSubTask;
-
-    const auto &ourPos    = ped->GetPosition(),
-               &targetPos = m_target->GetPosition();
-
-    const auto targetToOurPedDistSq = (ourPos - targetPos).SquaredMagnitude();
 
     //> 0x62CD55
     if (   (m_duckingConditions & 4) == 0
         || CTimer::GetTimeInMS() <= m_lastDuckTime + m_lengthOfDuck + 2000
         || ped->bIsDucking
     ) {
+        // Como el original: 0x62CDFB GetRandomNumberInRange(0, 100) (407180) < probabilidad, sin signo (jae)
         if (   m_duckingConditions & 1
             && m_bShotFiredByPlayer
-            && CGeneral::RandomBool((float)m_duckChancePerc)
+            && (uint32)CGeneral::GetRandomIntInRange(0, 100) < m_duckChancePerc
         ) {
             if (const auto quack = ped->GetIntelligence()->GetTaskDuck()) {
                 quack->SetDuckTimer((uint16)m_lengthOfDuck);
             } else {
-                ped->GetIntelligence()->SetTaskDuckSecondary((uint16)m_lengthOfDuck);
-#ifdef FIX_BUGS
-                m_lastDuckTime = CTimer::GetTimeInMS(); // Not actually sure if this is necessary tbh
-#endif
+                ped->GetIntelligence()->SetTaskDuckSecondary((uint16)m_lengthOfDuck); // Como el original: sin tocar m_lastDuckTime en 0x62CE3C
             }
         }
     } else {
-        if (CGeneral::RandomBool((float)m_duckChancePerc)) {
-            if (targetToOurPedDistSq <= sq(20.f)) {
+        // Como el original: 0x62CDB3 primero la distancia^2 (< 400.0, estricta) y SOLO entonces el aleatorio (407180)
+        if ((m_target->GetPosition() - ped->GetPosition()).SquaredMagnitude() < 400.f) {
+            if ((uint32)CGeneral::GetRandomIntInRange(0, 100) < m_duckChancePerc) {
                 ped->GetIntelligence()->SetTaskDuckSecondary((uint16)m_lengthOfDuck);
             }
         }
@@ -570,40 +609,43 @@ CTask* CTaskComplexKillPedOnFootArmed::ControlSubTask(CPed* ped) {
         return ogSubTask;
     }
 
-    const auto& ourwi = ped->GetActiveWeapon().GetWeaponInfo(ped);
-    switch (m_pSubTask->GetTaskType()) { //> 0x62CE7E
-    case TASK_COMPLEX_SEEK_ENTITY: {
-        if ([&, this]{
-            if (IsPedInLeaderFiringLine(ped)) {
-                return true;
-            }
-            if (m_target->physicalFlags.bSubmergedInWater && LineOfSightClearForAttack(ped)) {
-                return true;
-            }
-            if (ped->bStayInSamePlace) {
-                return LineOfSightClearForAttack(ped);
-            } else if (sq(ourwi.m_fTargetRange / 2.f) >= targetToOurPedDistSq) {
-                if (CTimer::GetTimeInMS() - m_lastAttackTime >= 2000 || m_target->GetMoveSpeed().Dot(ped->GetForward()) < 0.f) {
-                    return LineOfSightClearForAttack(ped);
+    switch (m_pSubTask->GetTaskType()) { //> 0x62CE74
+    case TASK_COMPLEX_SEEK_ENTITY: { //> 0x62D12D
+        bool closeAndFacing = false;
+        if (!ped->bStayInSamePlace) {
+            const float dist = (m_target->GetPosition() - ped->GetPosition()).Magnitude(); // 4082C0
+            if (ourwi.m_fTargetRange * 0.5f > dist) { // 0x62D180 fcompp + test 41h / jne
+                if (   DotProduct(m_target->GetMoveSpeed(), ped->GetForward()) < 0.f // 0x62D191 (40FDB0) + test ah,5 / jnp
+                    || CTimer::GetTimeInMS() - m_lastAttackTime > 2000                // 0x62D1AF cmp ecx,7D0h / jbe
+                ) {
+                    closeAndFacing = true;
                 }
             }
-            return false;
-        }()) {
+        }
+        // Como el original: 0x62D1BC lider -> (cerca/quieto y LOS) -> (sumergido y LOS), con hasta dos llamadas a LOS
+        if (   IsPedInLeaderFiringLine(ped)
+            || ((closeAndFacing || ped->bStayInSamePlace) && LineOfSightClearForAttack(ped))
+            || (m_target->physicalFlags.bSubmergedInWater && LineOfSightClearForAttack(ped))
+        ) {
             return CreateSubTask(TASK_SIMPLE_GUN_CTRL, ped);
-        } else {
-            if (ped->GetGroup()) {
-                ped->Say(CTX_GLOBAL_COVER_ME);
-            }
+        }
+        if (ped->GetGroup()) { // 0x62D21A
+            ped->Say(CTX_GLOBAL_COVER_ME);
         }
         break;
     }
-    case TASK_SIMPLE_GUN_CTRL: { //> 0x62CE87
-        if (   targetToOurPedDistSq >= sq(ourwi.m_fTargetRange)
-            || targetToOurPedDistSq >= sq(ourwi.m_fTargetRange / 2.f) && !ped->bStayInSamePlace && CTimer::GetTimeInMS() - m_lastAttackTime >= 2000
-            || targetToOurPedDistSq >= sq(4.f) && !ped->bStayInSamePlace && CTimer::GetTimeInMS() >= m_shootTimer
+    case TASK_SIMPLE_GUN_CTRL: { //> 0x62CE8D
+        const float dist  = (m_target->GetPosition() - ped->GetPosition()).Magnitude(); // 4082C0 (raiz, no al cuadrado)
+        const float range = ourwi.m_fTargetRange;
+        const bool  stay  = ped->bStayInSamePlace;
+        // Como el original: 0x62CED7 dist > rango; 0x62CEE8 rango*0.5 < dist && !stay && ahora > ultimoAtaque + 2500 (9C4h);
+        // 0x62CF0C dist > 4.0 && !stay && ahora > shootTimer; si no, !LOS
+        if (   dist > range
+            || (range * 0.5f < dist && !stay && CTimer::GetTimeInMS() > m_lastAttackTime + 2500)
+            || (dist > 4.f && !stay && CTimer::GetTimeInMS() > m_shootTimer)
             || !LineOfSightClearForAttack(ped)
         ) {
-            const auto gctrl = notsa::cast<CTaskSimpleGunControl>(m_pSubTask);
+            const auto gctrl = static_cast<CTaskSimpleGunControl*>(m_pSubTask);
             if (gctrl->m_firingTask != eGunCommand::END_LEISURE) {
                 gctrl->m_nextAtkTimeMs = 0;
                 gctrl->m_firingTask    = eGunCommand::END_LEISURE;
@@ -619,54 +661,49 @@ CTask* CTaskComplexKillPedOnFootArmed::ControlSubTask(CPed* ped) {
             ped->Say(CTX_GLOBAL_SURROUNDED);
         }
 
-        //> 0x62CF88
+        //> 0x62CF7F
         const auto actionDir = [&, this]() -> CVector2D {
             if (m_target->physicalFlags.bSubmergedInWater) {
                 return { 0.f, 0.f };
             }
-            if (CTimer::GetTimeInMS() >= m_lastStrafeTime || !ped->bStayInSamePlace) {
-                if (targetToOurPedDistSq <= sq(4.f) && ped->bStayInSamePlace) {
-                    return { 0.f, 1.f }; // Forwards
-                }
-                if (m_bStrafeBack) {
-                    m_bStrafeBack    = false;
-                    m_lastStrafeTime = CTimer::GetTimeInMS() + 2500;
-                    m_strafeDir      = [&, this] { // Strafe back to where we came from the last time
-                        switch (m_strafeDir)
-                        {
-                        case eStrafeDir::LEFT:    return eStrafeDir::RIGHT;
-                        case eStrafeDir::RIGHT:   return eStrafeDir::LEFT;
-                        case eStrafeDir::FORWARD: return eStrafeDir::BACK;
-                        case eStrafeDir::BACK:    return eStrafeDir::FORWARD;
-                        default:                  NOTSA_UNREACHABLE();
-                        }
-                    }();
-                }
-                return { 0.f, 0.f };
-            } else {
-                switch (m_strafeDir)
-                {
+            if (CTimer::GetTimeInMS() < m_lastStrafeTime && !ped->bStayInSamePlace) { // 0x62CFB5 / 0x62CFBA
+                switch (m_strafeDir) {
                 case eStrafeDir::LEFT:    return { -1.f,  0.f };
                 case eStrafeDir::RIGHT:   return {  1.f,  0.f };
                 case eStrafeDir::FORWARD: return {  0.f, -1.f };
                 case eStrafeDir::BACK:    return {  0.f,  1.f };
-                default:                  NOTSA_UNREACHABLE();
+                default:                  return {  0.f,  0.f }; // Como el original: 0x62CFC9 ja => sin movimiento
                 }
             }
+            if (dist < 4.f && !ped->bStayInSamePlace) { // 0x62D019 fcomp 4.0 + test ah,5 / jp; test stay / jne
+                return { 0.f, 1.f }; // Forwards
+            }
+            if (m_bStrafeBack) { // 0x62D03A
+                switch (m_strafeDir) { // Strafe back to where we came from the last time
+                case eStrafeDir::LEFT:    m_strafeDir = eStrafeDir::RIGHT;   break;
+                case eStrafeDir::RIGHT:   m_strafeDir = eStrafeDir::LEFT;    break;
+                case eStrafeDir::FORWARD: m_strafeDir = eStrafeDir::BACK;    break;
+                case eStrafeDir::BACK:    m_strafeDir = eStrafeDir::FORWARD; break;
+                default:                  break; // Como el original: 0x62D048 ja => sin cambio
+                }
+                m_bStrafeBack    = false;
+                m_lastStrafeTime = CTimer::GetTimeInMS() + 2500;
+            }
+            return { 0.f, 0.f };
         }();
 
-        //> 0x62D080
+        //> 0x62D07A
         if (quack) {
-            quack->ControlDuckMove([&, this] {
-                if (notsa::contains(std::to_array({ eStrafeDir::LEFT, eStrafeDir::RIGHT }), m_strafeDir)) {
-                    if (m_lastRollTime + 3000 >= CTimer::GetTimeInMS()) {
-                        return CVector2D{ 0.f, 0.f };
-                    } else {
-                        m_lastRollTime = CTimer::GetTimeInMS();
-                    }
+            if (m_strafeDir == eStrafeDir::LEFT || m_strafeDir == eStrafeDir::RIGHT) { // 0x62D086
+                if (CTimer::GetTimeInMS() > m_lastRollTime + 3000) { // 0x62D0B7 add eax,0BB8h / jbe
+                    quack->ControlDuckMove(actionDir);
+                    m_lastRollTime = CTimer::GetTimeInMS();
+                } else {
+                    quack->ControlDuckMove(CVector2D{ 0.f, 0.f });
                 }
-                return actionDir;
-            }());
+            } else {
+                quack->ControlDuckMove(actionDir);
+            }
         } else {
             ugun->ControlGunMove(actionDir);
         }
@@ -675,5 +712,5 @@ CTask* CTaskComplexKillPedOnFootArmed::ControlSubTask(CPed* ped) {
     }
     }
 
-    return m_pSubTask;
+    return ogSubTask; // Como el original: 0x62D253 devuelve la subtarea del principio
 }

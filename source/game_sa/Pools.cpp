@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 10/19 entradas.
+ * Validación registrada: 12/19 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include <Pools/Pools.h>
 #include "CarCtrl.h"
 #include "ObjectSaveStructure.h"
+#include "ProjectileInfo.h"
 
 #include <Pools/IplDefPool.h>
 #include <Pools/PedPool.h>
@@ -109,24 +110,25 @@ void CPools::Initialise() {
 
 // 0x5519F0
 void CPools::ShutDown() {
+    // Como el original (0x5519F0..0x551E53): libera cada pool pero NO pone a cero el puntero global (queda colgante hasta Initialise).
     NOTSA_LOG_DEBUG("Shutdown pool started");
-    delete std::exchange(ms_pPtrNodeSingleLinkPool, nullptr);
-    delete std::exchange(ms_pPtrNodeDoubleLinkPool, nullptr);
-    delete std::exchange(ms_pEntryInfoNodePool, nullptr);
-    delete std::exchange(ms_pPedPool, nullptr);
-    delete std::exchange(ms_pVehiclePool, nullptr);
-    delete std::exchange(ms_pBuildingPool, nullptr);
-    delete std::exchange(ms_pObjectPool, nullptr);
-    delete std::exchange(ms_pDummyPool, nullptr);
-    delete std::exchange(ms_pColModelPool, nullptr);
-    delete std::exchange(ms_pTaskPool, nullptr);
-    delete std::exchange(ms_pEventPool, nullptr);
-    delete std::exchange(ms_pPointRoutePool, nullptr);
-    delete std::exchange(ms_pPatrolRoutePool, nullptr);
-    delete std::exchange(ms_pNodeRoutePool, nullptr);
-    delete std::exchange(ms_pTaskAllocatorPool, nullptr);
-    delete std::exchange(ms_pPedIntelligencePool, nullptr);
-    delete std::exchange(ms_pPedAttractorPool, nullptr);
+    delete ms_pPtrNodeSingleLinkPool;
+    delete ms_pPtrNodeDoubleLinkPool;
+    delete ms_pEntryInfoNodePool;
+    delete ms_pPedPool;
+    delete ms_pVehiclePool;
+    delete ms_pBuildingPool;
+    delete ms_pObjectPool;
+    delete ms_pDummyPool;
+    delete ms_pColModelPool;
+    delete ms_pTaskPool;
+    delete ms_pEventPool;
+    delete ms_pPointRoutePool;
+    delete ms_pPatrolRoutePool;
+    delete ms_pNodeRoutePool;
+    delete ms_pTaskAllocatorPool;
+    delete ms_pPedIntelligencePool;
+    delete ms_pPedAttractorPool;
     NOTSA_LOG_DEBUG("Shutdown pool done");
 }
 
@@ -199,7 +201,11 @@ bool CPools::LoadObjectPool() {
             CPopulation::ConvertToDummyObject(objInPool);
 
         auto* newObj = new(iPoolRef) CObject(iModelId, false);
-        newObj->Load();
+        // Como el original (0x5D4AFC..0x5D4B1D): lee el tamano (4 bytes, sin comprobarlo), luego 0x30 bytes y llama a Extract (0x5D2220);
+        // no pasa por CObject::Load (0x5D2870), que en la DLL tiene un assert que el EXE no tiene.
+        [[maybe_unused]] const auto structSize = CGenericGameStorage::LoadDataFromWorkBuffer<int32>();
+        auto data = CGenericGameStorage::LoadDataFromWorkBuffer<CObjectSaveStructure>();
+        data.Extract(newObj);
         CWorld::Add(newObj);
     }
 
@@ -209,12 +215,13 @@ bool CPools::LoadObjectPool() {
 // 0x5D2D70
 bool CPools::LoadPedPool() {
     const auto pedCount = CGenericGameStorage::LoadDataFromWorkBuffer<int32>();
+    // Como el original (0x5D2D93): el puntero al ped (esi) se pone a 0 una vez antes del bucle y se conserva entre vueltas
+    CPlayerPed* playerPed = nullptr;
     for (auto i = 0; i < pedCount; i++) {
         const auto poolRef = CGenericGameStorage::LoadDataFromWorkBuffer<int32>();
         const auto model   = CGenericGameStorage::LoadDataFromWorkBuffer<int32>();
         const auto pedType = CGenericGameStorage::LoadDataFromWorkBuffer<int32>();
 
-        CPlayerPed* playerPed = nullptr;
         if (pedType == PED_TYPE_PLAYER1) {
             playerPed = new(poolRef) CPlayerPed(0, false);
             playerPed->SetWeaponAccuracy(100);
@@ -234,9 +241,10 @@ bool CPools::LoadVehiclePool() {
     int32 count;
     CGenericGameStorage::LoadDataFromWorkBuffer(&count, 4);
     for (auto i = 0; i < count; i++) {
-        int32 modelId, createdBy;
+        // Como el original (0x5D2A3C..0x5D2A4E): el primer valor es la referencia de pool (se usa con operator new(size, ref) = NewAt)
+        int32 modelId, poolRef;
 
-        CGenericGameStorage::LoadDataFromWorkBuffer(&createdBy, 4);
+        CGenericGameStorage::LoadDataFromWorkBuffer(&poolRef, 4);
         CGenericGameStorage::LoadDataFromWorkBuffer(&modelId, 4);
 
         CStreaming::RequestModel(modelId, STREAMING_KEEP_IN_MEMORY);
@@ -245,36 +253,36 @@ bool CPools::LoadVehiclePool() {
         CVehicle* vehicle = nullptr;
         switch (CModelInfo::GetModelInfo(modelId)->AsVehicleModelInfoPtr()->m_nVehicleType) {
         case VEHICLE_TYPE_MTRUCK:
-            vehicle = new CMonsterTruck(modelId, RANDOM_VEHICLE);
+            vehicle = new(poolRef) CMonsterTruck(modelId, RANDOM_VEHICLE);
             break;
         case VEHICLE_TYPE_QUAD:
-            vehicle = new CQuadBike(modelId, RANDOM_VEHICLE);
+            vehicle = new(poolRef) CQuadBike(modelId, RANDOM_VEHICLE);
             break;
         case VEHICLE_TYPE_HELI:
-            vehicle = new CHeli(modelId, RANDOM_VEHICLE);
+            vehicle = new(poolRef) CHeli(modelId, RANDOM_VEHICLE);
             break;
         case VEHICLE_TYPE_PLANE:
-            vehicle = new CPlane(modelId, RANDOM_VEHICLE);
+            vehicle = new(poolRef) CPlane(modelId, RANDOM_VEHICLE);
             break;
         case VEHICLE_TYPE_BOAT:
-            vehicle = new CBoat(modelId, RANDOM_VEHICLE);
+            vehicle = new(poolRef) CBoat(modelId, RANDOM_VEHICLE);
             break;
         case VEHICLE_TYPE_TRAIN:
-            vehicle = new CTrain(modelId, RANDOM_VEHICLE);
+            vehicle = new(poolRef) CTrain(modelId, RANDOM_VEHICLE);
             break;
         case VEHICLE_TYPE_BIKE:
-            vehicle = new CBike(modelId, RANDOM_VEHICLE);
+            vehicle = new(poolRef) CBike(modelId, RANDOM_VEHICLE);
             vehicle->AsBike()->bikeFlags.bOnSideStand = true;
             break;
         case VEHICLE_TYPE_BMX:
-            vehicle = new CBmx(modelId, RANDOM_VEHICLE);
+            vehicle = new(poolRef) CBmx(modelId, RANDOM_VEHICLE);
             vehicle->AsBike()->bikeFlags.bOnSideStand = true;
             break;
         case VEHICLE_TYPE_TRAILER:
-            vehicle = new CTrailer(modelId, RANDOM_VEHICLE);
+            vehicle = new(poolRef) CTrailer(modelId, RANDOM_VEHICLE);
             break;
         default:
-            vehicle = new CAutomobile(modelId, RANDOM_VEHICLE, true);
+            vehicle = new(poolRef) CAutomobile(modelId, RANDOM_VEHICLE, true);
             break;
         }
         assert(vehicle);
@@ -288,29 +296,32 @@ bool CPools::LoadVehiclePool() {
 
 // 0x550080
 void CPools::MakeSureSlotInObjectPoolIsEmpty(int32 slot) {
-    // All code paths to this function are unreachable
-    // The only caller is `CPickup::GiveUsAPickUpObject`, 
-    // but all calls of it pass `-1` as the slot, so this function is never actually used.
-    // The implementation is messy, as it acceses `m_pRwObject` of the Entity, which is no good.
-    NOTSA_UNREACHABLE();
-    //if (GetObjectPool()->IsFreeSlotAtIndex(slot))
-    //    return;
-    //
-    //auto* obj = GetObjectPool()->GetAt(slot);
-    //if (obj->IsTemporary()) {
-    //    CWorld::Remove(obj);
-    //    delete obj;
-    //} else if (CProjectileInfo::RemoveIfThisIsAProjectile(obj)) {
-    //    auto newObj = new CObject(obj->m_nModelIndex, false);
-    //    CWorld::Remove(obj);
-    //    *newObj = *obj;
-    //    CWorld::Add(newObj);
-    //
-    //    obj->m_pRwObject = nullptr;
-    //    delete obj;
-    //
-    //    newObj->m_pReferences = nullptr;
-    //}
+    // Como el original (0x550080): si la ranura esta libre (bit 7 del byte de estado) no hace nada.
+    auto* const pool = GetObjectPool();
+    if (pool->IsFreeSlotAtIndex(slot)) {
+        return;
+    }
+    auto* const obj = pool->GetAt(slot);
+
+    // Objeto temporal (m_nObjectType == 3, +0x13C): CWorld::Remove (0x563280) y destructor virtual con borrado.
+    if (obj->m_nObjectType == OBJECT_TEMPORARY) {
+        CWorld::Remove(obj);
+        delete obj;
+        return;
+    }
+
+    // Como el original (0x5500E8): RemoveIfThisIsAProjectile (0x739A40) borra el proyectil y devuelve true -> fin.
+    // Solo si NO era un proyectil se sustituye el objeto por una copia (la version anterior tenia la condicion invertida).
+    if (CProjectileInfo::RemoveIfThisIsAProjectile(obj)) {
+        return;
+    }
+    auto* const newObj = new CObject(static_cast<int16>(obj->m_nModelIndex), false); // operator new 0x5A1EE0 + ctor 0x5A1D70 (movsx de +0x22)
+    CWorld::Remove(obj);
+    std::memcpy(static_cast<void*>(newObj), static_cast<const void*>(obj), 0x19C);   // rep movs dword x 0x67
+    CWorld::Add(newObj);
+    obj->ClearRwObjectPointer();
+    delete obj;
+    newObj->m_pReferences = nullptr;
 }
 
 // 0x5D0880

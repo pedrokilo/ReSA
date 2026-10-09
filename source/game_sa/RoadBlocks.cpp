@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/8 entradas.
+ * Validación registrada: 6/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -104,14 +104,15 @@ bool CRoadBlocks::ClearSpaceForRoadBlockObject(CVector cornerA, CVector cornerB)
             }
             break;
         case ENTITY_TYPE_OBJECT:
-            if (auto* o = entity->AsObject(); o->CanBeDeleted() && o->m_nObjectType != OBJECT_GAME) {
+            // Como el original (0x4610B7): primero m_nObjectType (cmp [esi+13Ch],1), luego CanBeDeleted (0x59F120).
+            if (auto* o = entity->AsObject(); o->m_nObjectType != OBJECT_GAME && o->CanBeDeleted()) {
                 Remove(o);
             } else {
                 return false;
             }
             break;
         default:
-            NOTSA_UNREACHABLE();
+            return false; // Como el original (0x4610EC): cualquier otro tipo devuelve false
         }
     }
 
@@ -290,7 +291,8 @@ void CRoadBlocks::CreateRoadBlockBetween2Points(CVector a, CVector b, bool isGan
 
 // 0x461170
 void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPositionsType, ePedType pedType) {
-    const auto Generate = [&](eModelID pedModel = MODEL_INVALID, eCopType copType = COP_TYPE_CITYCOP, bool isSpecialCop = false) {
+    // Como el original (0x461190): el modelo de ped inicial es 0, no -1 (el EXE solo lo cambia en las ramas de SWAT/ejercito/FBI/pandillas).
+    const auto Generate = [&](eModelID pedModel = MODEL_PLAYER, eCopType copType = COP_TYPE_CITYCOP, bool isSpecialCop = false) {
         static constexpr auto PLACEMENTS = std::to_array<CVector>({
             { -1.5f, +1.9f, 0.0f },
             { -1.5f, -2.6f, 0.0f },
@@ -315,14 +317,23 @@ void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPosit
 
         for (auto i = 0u; i < vehicle->m_nNumPedsForRoadBlock; i++) {
             const auto offset = (isSpecialCop ? SPECIAL_COP_PLACEMENTS : PLACEMENTS)[placementIdx + i] * radiusRatio;
-            const auto pos = vehicle->GetMatrix().TransformPoint(offset);
+            // Como el original (0x59C890): suma z, luego y, luego x y al final la posicion; TransformPoint de la DLL suma x, y, z.
+            const auto& vm = vehicle->GetMatrix();
+            const CVector pos{
+                ((vm.GetUp().x * offset.z + vm.GetForward().x * offset.y) + vm.GetRight().x * offset.x) + vm.GetPosition().x,
+                ((vm.GetUp().y * offset.z + vm.GetRight().y * offset.x) + vm.GetForward().y * offset.y) + vm.GetPosition().y,
+                ((vm.GetUp().z * offset.z + vm.GetRight().z * offset.x) + vm.GetForward().z * offset.y) + vm.GetPosition().z,
+            };
 
             auto* ped = [&]() -> CPed* {
                 if (pedType != PED_TYPE_COP) { // 0x461560
                     return new CCivilianPed(pedType, pedModel);
                 } else {
-                    auto* p = new CCopPed(CStreaming::IsModelLoaded(pedModel) ? copType : COP_TYPE_CITYCOP);
-                    if (copType == COP_TYPE_CITYCOP) {
+                    // Como el original (0x4614E1..0x461596): solo mira si el modelo esta cargado cuando copType != CITYCOP, y la pistola
+                    // se da siempre que el tipo realmente creado sea CITYCOP (tambien cuando se cae a CITYCOP por modelo no cargado).
+                    const auto actualType = (copType != COP_TYPE_CITYCOP && CStreaming::IsModelLoaded(pedModel)) ? copType : COP_TYPE_CITYCOP;
+                    auto* p = new CCopPed(actualType);
+                    if (actualType == COP_TYPE_CITYCOP) {
                         p->SetCurrentWeapon(WEAPON_PISTOL);
                     }
                     return p;
@@ -330,10 +341,22 @@ void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPosit
             }();
 
             ped->SetPosn(std::get<CVector>(CPedPlacement::FindZCoorForPed(pos)));
-            ped->GetMatrix().SetRotateKeepPos({ 0.0f, 0.0f, -HALF_PI });
+            // Como el original (0x4615D5..0x461627): -pi/2 exacto (0xBFC90FDB); SetRotate (0x59B120) y luego suma la posicion
+            // guardada; sin matriz solo escribe el heading en m_placement (la DLL no debe reservar una matriz).
+            constexpr float NEG_HALF_PI = std::bit_cast<float>(0xBFC90FDBu);
+            if (ped->m_matrix) {
+                auto& m = ped->GetMatrix();
+                const CVector saved = m.GetPosition();
+                m.SetRotate(0.0f, 0.0f, NEG_HALF_PI);
+                m.GetPosition().x += saved.x;
+                m.GetPosition().y += saved.y;
+                m.GetPosition().z += saved.z;
+            } else {
+                ped->m_placement.m_fHeading = NEG_HALF_PI;
+            }
 
             if (pedType == PED_TYPE_COP) {
-                auto* t = new CTaskComplexWanderCop(PEDMOVE_STILL, CGeneral::GetRandomNumberInRange(8ui8));
+                auto* t = new CTaskComplexWanderCop(PEDMOVE_STILL, uint8(CGeneral::GetRandomIntInRange(0, 8)));
                 t->m_nSubTaskCreatedTimer = {};
                 t->m_nScanForStuffTimer   = {};
                 ped->GetTaskManager().SetTask(t, TASK_PRIMARY_PRIMARY);
@@ -349,7 +372,17 @@ void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPosit
             CVisibilityPlugins::SetClumpAlpha(ped->GetRpClump(), 0);
 
             if (pedType != PED_TYPE_COP) {
-                const auto weapon = CGangs::Gang[pedType - PED_TYPE_GANG1].GetRandomWeapon(false);
+                // Como el original (0x4617A6..0x4617F8): un solo rand()*(1/32768)*100 truncado; el reparto depende de si hay 2 o 3 armas.
+                const auto& gang = CGangs::Gang[pedType - PED_TYPE_GANG1];
+                const auto roll = CGeneral::GetRandomIntInRange(0, 100);
+                auto weapon = gang.m_nGangWeapons[2];
+                if (weapon != WEAPON_UNARMED) {
+                    if (roll < 33) weapon = gang.m_nGangWeapons[0];
+                    else if (roll < 66) weapon = gang.m_nGangWeapons[1];
+                } else {
+                    weapon = gang.m_nGangWeapons[1];
+                    if (weapon == WEAPON_UNARMED || roll < 50) weapon = gang.m_nGangWeapons[0];
+                }
                 if (weapon != WEAPON_UNARMED) {
                     ped->GiveDelayedWeapon(weapon, 25'001);
                     ped->SetCurrentWeapon(weapon);
@@ -395,13 +428,16 @@ void CRoadBlocks::GenerateRoadBlocks() {
             GenerateDynamicRoadBlocks = true;
         }
 
-        const auto counter1      = MAX_ROADBLOCKS * (CTimer::GetFrameCounter() % 16 + 1);
-        const auto rbsToGenerate = std::min((uint32)NumRoadBlocks, ((counter1 % 16) + counter1) / 16);
-        auto       counter2      = MAX_ROADBLOCKS * (CTimer::GetFrameCounter() % 16) / 16;
+        // Como el original (0x462A6E..0x462AB7): primero = (325*(frame&15))/16 y ultimo = (325*(frame&15)+325)/16 (sar con signo),
+        // el limite es min(NumRoadBlocks, ultimo) con comparacion con signo y se reevalua en cada vuelta.
+        const int32 firstBase = int32(MAX_ROADBLOCKS) * int32(CTimer::GetFrameCounter() & 0xF);
+        const int32 firstIdx  = firstBase >> 4;
+        const int32 lastIdx   = (firstBase + int32(MAX_ROADBLOCKS)) >> 4;
+        const int32 rbsToGenerate = std::min<int32>(NumRoadBlocks, lastIdx);
 
-        for (; counter2 < rbsToGenerate; counter2++) {
+        for (int32 counter2 = firstIdx; counter2 < rbsToGenerate; counter2++) {
             const auto& mrbNode = RoadBlockNodes[counter2];
-            if (!ThePaths.IsAreaLoaded(mrbNode)) {
+            if (!ThePaths.IsAreaLoaded(mrbNode.m_wAreaId)) { // Como el original (0x462AC4): area = palabra baja; pasar el CNodeAddress lo convertia a bool (area 0 o 1)
                 continue;
             }
             const auto& mainNode = ThePaths.GetPathNode(mrbNode);
@@ -419,7 +455,8 @@ void CRoadBlocks::GenerateRoadBlocks() {
             }
             InOrOut[counter2] = true;
 
-            if (CGeneral::GetRandomNumberInRange(128u) >= FindPlayerWanted()->m_ChanceOnRoadBlock) {
+            // Como el original (0x462BE4): rand() & 0x7F (no la plantilla de rango) y comparacion con signo contra la palabra +0x1C
+            if (int32(CGeneral::GetRandomNumber() & 0x7F) >= int32(FindPlayerWanted()->m_ChanceOnRoadBlock)) {
                 continue;
             }
 
@@ -444,7 +481,10 @@ void CRoadBlocks::GenerateRoadBlocks() {
                 continue;
             }
 
-            for (auto&& [i, nodeAddr] : rngv::enumerate(RoadBlockNodes)) {
+            // Como el original (0x462EBC): solo hasta NumRoadBlocks (la DLL recorria las 325 entradas del array)
+            bool createdWithOther = false;
+            for (int32 i = 0; i < NumRoadBlocks; i++) {
+                const auto nodeAddr = RoadBlockNodes[i];
                 if (counter2 == i || InOrOut[i] || !ThePaths.IsAreaLoaded(nodeAddr.m_wAreaId)) {
                     continue;
                 }
@@ -462,7 +502,9 @@ void CRoadBlocks::GenerateRoadBlocks() {
                     continue;
                 }
 
-                if (mrbWidth != width || dir.Dot(mrbDir) <= 0.7f) {
+                // Como el original (0x462FD0..0x462FF9): fabs(producto escalar) <= 0.7 (orden x, z, y; z es 0)
+                const float dirDot = (dir.x * mrbDir.x + dir.z * mrbDir.z) + dir.y * mrbDir.y;
+                if (mrbWidth != width || !(std::fabs(dirDot) > 0.7f)) { // incluye NaN, como fcomp + test ah,41h
                     continue;
                 }
 
@@ -492,15 +534,19 @@ void CRoadBlocks::GenerateRoadBlocks() {
                     false
                 );
                 InOrOut[i] = true;
+                // Como el original (0x4631EC -> 0x4631F7): tras crear una barricada se pasa al siguiente nodo principal
+                createdWithOther = true;
+                break;
+            }
 
-                if (i == NumRoadBlocks) {
-                    CreateRoadBlockBetween2Points(
-                        mainNode->GetPosition() - dirFromMain * (mrbWidth / 2.0f),
-                        mainNode->GetPosition() + dirFromMain * (mrbWidth / 2.0f),
-                        false
-                    );
-                    break;
-                }
+            // Como el original (0x4631F7..0x4632AE): si el bucle termino sin encontrar pareja (indice == NumRoadBlocks) se crea la
+            // barricada del propio nodo con la direccion mrbDir (el hueco de pila de la direccion solo se pisa al encontrar pareja).
+            if (!createdWithOther) {
+                CreateRoadBlockBetween2Points(
+                    mainNode->GetPosition() + mrbDir * (mrbWidth * 0.5f),
+                    mainNode->GetPosition() - mrbDir * (mrbWidth * 0.5f),
+                    false
+                );
             }
         }
     } else {

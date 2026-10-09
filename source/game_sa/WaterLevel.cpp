@@ -192,6 +192,8 @@ void CWaterLevel::LoadTextures() {
 
 // 0x6EAE80
 void CWaterLevel::WaterLevelInitialise() {
+    // Como el original (0x6EAE8E: rep stos, 0x48 dwords en 0xC21B70): se pone a cero m_BlockPolyInfo (12x12 uint16).
+    std::memset(&m_BlockPolyInfo, 0, sizeof(m_BlockPolyInfo));
     NumWaterTriangles = 0;
     NumWaterQuads = 0;
     NumWaterVertices = 0;
@@ -290,9 +292,9 @@ void CWaterLevel::RenderWaterTriangle(int32 X1, int32 Y1, CRenPar P1, int32 X2, 
     if (minX >= CameraRangeMaxX || maxX <= CameraRangeMinX || minY >= CameraRangeMaxY || maxY <= CameraRangeMinY) { // Lies outside (of camera) fully
         RenderFlatWaterTriangle(TRIANGLE_ARGS_OUT);
     } else if (minX < CameraRangeMinX || maxX > CameraRangeMaxX) { // Lies inside on X 
-        SplitWaterTriangleAlongXLine(minX < CameraRangeMinX ? CameraRangeMinX : CameraRangeMaxX, TRIANGLE_ARGS_OUT);
+        SplitWaterTriangleAlongXLine(maxX > CameraRangeMaxX ? CameraRangeMaxX : CameraRangeMinX, TRIANGLE_ARGS_OUT); // Como el original (0x6EE29E..0x6EE2AC): maxX > rango maximo -> maximo; si no, minimo
     } else if (minY < CameraRangeMinY || maxY > CameraRangeMaxY) { // Lies inside of Y
-        SplitWaterTriangleAlongYLine(minY < CameraRangeMinY ? CameraRangeMinY : CameraRangeMaxY, TRIANGLE_ARGS_OUT);
+        SplitWaterTriangleAlongYLine(maxY > CameraRangeMaxY ? CameraRangeMaxY : CameraRangeMinY, TRIANGLE_ARGS_OUT); // Como el original (0x6EE331 / 0x6EE3AE): maxY > rango maximo -> maximo; si no, minimo
     } else { // Lies inside of camera fully
         RenderHighDetailWaterTriangle(TRIANGLE_ARGS_OUT);
     }
@@ -301,8 +303,10 @@ void CWaterLevel::RenderWaterTriangle(int32 X1, int32 Y1, CRenPar P1, int32 X2, 
 // NOTSA
 auto CWaterLevel::GetWaterLayerTexInfo(int32 layer) -> WaterLayerTexInfo {
     switch (layer) {
-    case 0: return { { TextureShiftFirstU,  TextureShiftFirstV  }, 25.0f };
-    case 1: return { { TextureShiftSecondU, TextureShiftSecondV }, 12.5f };
+    // Como el original (0x6E9974 / 0x6E8F00): capa 0 = escala 0.08 (1/12.5) con desplazamiento "Second" (0xC21184/0xC21180);
+    // capa 1 = escala 0.04 (1/25) con desplazamiento "First" (0xC2117C/0xC21178).
+    case 0: return { { TextureShiftSecondU, TextureShiftSecondV }, 12.5f };
+    case 1: return { { TextureShiftFirstU,  TextureShiftFirstV  }, 25.0f };
     default: NOTSA_UNREACHABLE();
     }
 }
@@ -337,31 +341,60 @@ auto CWaterLevel::GetTextureUV(int32 X1, int32 Y1, int32 Y3, int32 WaterLayer) -
     };
 }
 
+namespace {
+struct WaterLayerParams { float scale, shiftU, shiftV; uint8 alpha; };
+// Como el original (0x6E8F00..0x6E8FF3 / 0x6E9974..): constantes float 0.08f/0.04f (multiplicacion, no division) y alfa de capa.
+WaterLayerParams GetWaterLayerParams(int32 layer) {
+    if (layer == 0) {
+        return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };
+    }
+    return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };
+}
+// Como el original: fild + fmul 0.577f (0x872004) + _ftol2, solo el byte bajo; alfa de la capa en el byte alto.
+uint32 WaterVertexColor(const CRGBA& c, uint8 alpha) {
+    const auto Scale = [](uint8 v) { return uint32(uint8(int32(float(v) * 0.577f))); };
+    return (uint32(alpha) << 24) | (Scale(c.r) << 16) | (Scale(c.g) << 8) | Scale(c.b);
+}
+// Como el original: textura base = (fracc(p) - 7) o (+7 segun el signo de dY); p = X * escala + desplazamiento.
+void WaterBaseUV(int32 x, int32 y, int32 dy, const WaterLayerParams& l, float& baseU, float& baseV) {
+    const float pu = float(x) * l.scale + l.shiftU;
+    const float pv = float(y) * l.scale + l.shiftV;
+    const float fracU = float(double(pu) - std::floor(double(pu)));
+    const float fracV = float(double(pv) - std::floor(double(pv)));
+    baseU = fracU - 7.0f;
+    baseV = dy > 0 ? fracV - 7.0f : fracV + 7.0f;
+}
+void WaterSetVertex(int32 idx, float x, float y, float z, uint32 color, float u, float v) {
+    auto* vtx = &TempBufferVertices.m_3d[idx];
+    vtx->objVertex.x = x; vtx->objVertex.y = y; vtx->objVertex.z = z;
+    std::memcpy(&vtx->color, &color, sizeof(color));
+    vtx->u = u; vtx->v = v;
+}
+uint32 WaterDebugColor(const CRGBA& c) { return (uint32(c.a) << 24) | (uint32(c.r) << 16) | (uint32(c.g) << 8) | uint32(c.b); }
+}
+
 // 0x6E8ED0
 void CWaterLevel::RenderFlatWaterTriangle_OneLayer(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3, int32 WaterLayer) {
-    RenderBuffer::RenderIfDoesntFit(5, 3);
-
-    // First(!) push indices
-    RenderBuffer::PushIndices({ 0, 1, 2 }, true);
-
-    // And push vertices into the buffer
-    const auto PushVertex = [
-        &,
-        tex       = GetTextureUV(X1, Y1, Y3, WaterLayer),
-        pos2DVtx1 = CVector2D{ (float)X1, (float)Y2 },
-        color     = GetWaterColorForRendering(WaterColorTriangle, DebugWaterColors[DebugWaterColor::TRI], WaterLayer)
-    ](int32 x, int32 y, CRenPar p) {
-        const auto pos2DThis = CVector2D{ (float)x, (float)y };
-        RenderBuffer::PushVertex(
-            CVector{ pos2DThis, p.z },
-            (pos2DThis - pos2DVtx1) / tex.size + tex.baseShift,
-            color
-        );
-    };
-
-    PushVertex(X1, Y1, P1);
-    PushVertex(X2, Y2, P2);
-    PushVertex(X3, Y3, P3);
+    auto& nVtx = StaticRef<int32>(0xC4B950);
+    auto& nIdx = StaticRef<int32>(0xC4B954);
+    // Como el original: umbrales 0xFFD / 0x7FD y vaciado con la funcion 0x6E7680 (con LittleTest).
+    if (nIdx >= 0xFFD || nVtx >= 0x7FD) {
+        plugin::Call<0x6E7680>();
+    }
+    const int32 base = nVtx;
+    const auto layer = GetWaterLayerParams(WaterLayer);
+    float baseU, baseV;
+    WaterBaseUV(X1, Y1, Y3 - Y1, layer, baseU, baseV);
+    const auto& debug = DebugWaterColors[DebugWaterColor::TRI];
+    const uint32 color = debug.active ? WaterDebugColor(debug.color) : WaterVertexColor(WaterColorTriangle, layer.alpha);
+    WaterSetVertex(base + 0, float(X1), float(Y1), P1.z + 0.0f, color, baseU, baseV);
+    WaterSetVertex(base + 1, float(X2), float(Y2), P2.z + 0.0f, color, float(X2 - X1) * layer.scale + baseU, float(Y2 - Y1) * layer.scale + baseV);
+    WaterSetVertex(base + 2, float(X3), float(Y3), P3.z + 0.0f, color, float(X3 - X1) * layer.scale + baseU, float(Y3 - Y1) * layer.scale + baseV);
+    aTempBufferIndices[nIdx + 0] = RxVertexIndex(base + 0);
+    aTempBufferIndices[nIdx + 1] = RxVertexIndex(base + 1);
+    aTempBufferIndices[nIdx + 2] = RxVertexIndex(base + 2);
+    nVtx = base + 3;
+    nIdx += 3;
 }
 
 // 0x6EE080
@@ -374,7 +407,8 @@ void CWaterLevel::RenderFlatWaterTriangle(int32 X1, int32 Y1, CRenPar P1, int32 
     }
 }
 
-// 0x6EA260
+// 0x6EA260 - Transcripcion del EXE: esquinas = (1-t)*A + t*B / (1-t)*D + t*C, UV con desplazamiento 0xC228D4/0xC228D8,
+// color blanco con alfa = alfa * 0x8D390C[], z = fsin completo (x87) * radio de viento.
 void CWaterLevel::RenderWakeSegment(
     const CVector2D& vecA, const CVector2D& vecB,
     const CVector2D& vecC, const CVector2D& vecD,
@@ -382,60 +416,66 @@ void CWaterLevel::RenderWakeSegment(
     const float& alphaA, const float& alphaB,
     const float& wakeZ
 ) {
-    constexpr auto  NUM_PARTS = 4;
-    constexpr float ALPHA_MULTS[]{ 0.4f, 1.f, 0.2f, 1.f, 0.4f }; // 0x8D390C
+    auto& nVtx = StaticRef<int32>(0xC4B950);
+    auto& nIdx = StaticRef<int32>(0xC4B954);
+    const float angle = float(CTimer::GetTimeInMS() & 0xFFFu) * StaticRef<float>(0x872028);
+    const float* mults = &StaticRef<float>(0x8D390C); // 5 floats consecutivos (0x8D390C..0x8D391C)
+    const float windRadius = CWeather::WindClipped * 0.4f + 0.2f; // 0x858EE8 / 0x858CC4
+    const float uvShiftX = StaticRef<float>(0xC228D4), uvShiftY = StaticRef<float>(0xC228D8);
 
-    const auto angle      = (float)(CTimer::GetTimeInMS() % 4096) / (4096.f / (2.f * PI));
-    const auto windRadius = CWeather::WindClipped * 0.4f + 0.2f;
-
-    for (auto partIdx = 0; partIdx < NUM_PARTS; partIdx++) {
-        RenderBuffer::RenderIfDoesntFit(6, 4);
-
-        RenderBuffer::PushIndices({ 0, 2, 1, 0, 3, 2 }, true);
-
-        const CVector2D corners[]{
-            lerp(vecB, vecA, (float)(partIdx + 0) / (float)(NUM_PARTS)),
-            lerp(vecB, vecA, (float)(partIdx + 1) / (float)(NUM_PARTS)),
-            lerp(vecC, vecD, (float)(partIdx + 1) / (float)(NUM_PARTS)),
-            lerp(vecC, vecD, (float)(partIdx + 0) / (float)(NUM_PARTS)),
-        };
-
-        CVector2D uvs[4]{};
-        rng::transform(corners, uvs, [](const CVector2D& pos) -> CVector2D {
-            return { pos.x / (float)(NUM_PARTS), pos.y / (float)(NUM_PARTS) };
-        });
-        rng::transform(uvs, uvs, // Isn't it beautiful?
-            [
-                minUV = CVector2D{
-                    std::floor(rng::min(uvs, {}, &CVector2D::x).x),
-                    std::floor(rng::min(uvs, {}, &CVector2D::y).y)
-                }
-            ](auto& uv) {
-                return uv - minUV;
-            }
-        );
-
-        const float alphas[]{
-            alphaA * ALPHA_MULTS[partIdx + 0],
-            alphaA * ALPHA_MULTS[partIdx + 1],
-            alphaB * ALPHA_MULTS[partIdx + 1],
-            alphaB * ALPHA_MULTS[partIdx + 0],
-        };
-
-        for (auto i = 0; i < 4; i++) {
-            const auto CalcAngleOfPos = [&](float p) {
-                p += 3072.f; // TODO: Magic number, but I think it's meaningless (as the integer part is discarded below)
-                p /= 32.f;   // TODO: Magic number (maybe meaningful this time) 
-                return p - std::floor(p); // Extract fractional part
-            };
-            const auto  z   = wakeZ + std::sin((CalcAngleOfPos(corners[i].x) + CalcAngleOfPos(corners[i].y)) * PI * 2.f + angle) * windRadius;
-            const auto& rgb = WakeSegmentPartColors[i];
-            RenderBuffer::PushVertex(
-                CVector{ corners[i], z },
-                uvs[i],
-                { (uint8)(rgb.r * 255.f), (uint8)(rgb.g * 255.f), (uint8)(rgb.b * 255.f), (uint8)(alphas[i]) }
-            );
+    for (int32 part = 0; part < 4; ++part) {
+        if (nIdx >= 0xFFA || nVtx >= 0x7FC) {
+            plugin::Call<0x6E7680>();
         }
+        const int32 base = nVtx;
+        const float ta = float(part) * 0.25f, tb = float(part + 1) * 0.25f;
+        const float oa = 1.0f - ta, ob = 1.0f - tb;
+        const float cx[4]{ oa * vecA.x + ta * vecB.x, ob * vecA.x + tb * vecB.x, tb * vecC.x + ob * vecD.x, ta * vecC.x + oa * vecD.x };
+        const float cy[4]{ oa * vecA.y + ta * vecB.y, ob * vecA.y + tb * vecB.y, tb * vecC.y + ob * vecD.y, ta * vecC.y + oa * vecD.y };
+        float u[4], v[4];
+        for (int k = 0; k < 4; ++k) {
+            u[k] = cx[k] * 0.25f + uvShiftX;
+            v[k] = cy[k] * 0.25f + uvShiftY;
+        }
+        // Como el original: minimos con comparaciones estrictas en el orden 3/2, 1, 0 (fcomp + test ah,5)
+        float minU = (u[2] < u[3]) ? u[2] : u[3];
+        if (u[1] < minU) minU = u[1];
+        if (u[0] < minU) minU = u[0];
+        const float floorU = float(std::floor(double(minU)));
+        float minV = (v[2] < v[3]) ? v[2] : v[3];
+        if (v[1] < minV) minV = v[1];
+        if (v[0] < minV) minV = v[0];
+        const double floorV = std::floor(double(minV));
+
+        const float alphas[4]{ alphaA * mults[part], alphaA * mults[part + 1], alphaB * mults[part + 1], alphaB * mults[part] };
+        for (int k = 0; k < 4; ++k) {
+            const float px = (cx[k] + 3072.0f) * 0.03125f;
+            const float fx = float(double(px) - std::floor(double(px)));
+            const float py = (cy[k] + 3072.0f) * 0.03125f;
+            const float sum = float(double(py) - std::floor(double(py))) + fx;
+            float phase = sum * 6.2831855f; // 0x858CBC
+            phase = phase + angle;
+            const float wz = wakeZ;
+            float z;
+            __asm {
+                fld phase
+                fsin
+                fld windRadius
+                fmulp st(1), st
+                fadd wz
+                fstp z
+            }
+            auto* vtx = &TempBufferVertices.m_3d[base + k];
+            vtx->objVertex.x = cx[k]; vtx->objVertex.y = cy[k]; vtx->objVertex.z = z;
+            const uint32 color = (uint32(uint8(int32(alphas[k]))) << 24) | 0xFFFFFFu;
+            std::memcpy(&vtx->color, &color, sizeof(color));
+            vtx->u = u[k] - floorU;
+            vtx->v = float(double(v[k]) - floorV);
+        }
+        static constexpr int32 IDX[6]{ 0, 2, 1, 0, 3, 2 };
+        for (int k = 0; k < 6; ++k) aTempBufferIndices[nIdx + k] = RxVertexIndex(base + IDX[k]);
+        nVtx = base + 4;
+        nIdx += 6;
     }
 }
 
@@ -507,7 +547,7 @@ void CWaterLevel::SplitWaterTriangleAlongXLine(int32 splitAtX, int32 X1, int32 Y
         RenderWaterRectangle(
             XS, X2,
             Y1, YS,
-            P12, P2, P23, P12
+            P12, P2, P13, P23 // Geometria: TL=P12, TR=P2, BL=(XS,YS)=P13, BR=(X2,YS)=P23; el EXE (0x6ED5AC-0x6ED5D9) construye 4 CRenPar distintos (antes P23, P12): pendiente de confirmar con el banco
         );
 
         // Bottom
@@ -546,10 +586,15 @@ void CWaterLevel::SplitWaterTriangleAlongYLine(int32 splitAtY, int32 X1, int32 Y
 // 0x6EC5D0
 void CWaterLevel::RenderWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4) {
     const auto [minY, maxY] = std::minmax(Y1, Y2);
-    if (minX >= CameraRangeMaxX || maxX <= CameraRangeMinX || minY >= CameraRangeMaxY || maxY <= CameraRangeMinY) { // Lies outside (of camera) fully
+    if (minX >= CameraRangeMaxX || maxX <= CameraRangeMinX) { // Lies outside (of camera) fully on X
         RenderFlatWaterRectangle(minX, maxX, Y1, Y2, P1, P2, P3, P4);
+        SetUpWaterFog(minX, minY, maxX, maxY); // Como el original (0x6ECE2C): el EXE ordena Y1/Y2 en sus ranuras (Y1'=max, Y2'=min, 0x6EC5DE-0x6EC5F1) y pasa (minX, Y2', maxX, Y1') = (minX, minY, maxX, maxY)
+    } else if (minY >= CameraRangeMaxY || maxY <= CameraRangeMinY) { // Lies outside on Y
+        RenderFlatWaterRectangle(minX, maxX, Y1, Y2, P1, P2, P3, P4);
+        SetUpWaterFog(minX, minY, maxX, maxY); // Como el original (0x6ECEEF): igual que arriba
     } else if (minX < CameraRangeMinX || maxX > CameraRangeMaxX) { // Lies inside on X
-        SplitWaterRectangleAlongXLine(minX < CameraRangeMinX ? CameraRangeMinX : CameraRangeMaxX, minX, maxX, Y1, Y2, P1, P2, P3, P4);
+        // Como el original (0x6EC634..0x6EC646): maxX > rango maximo -> maximo; si no, minimo.
+        SplitWaterRectangleAlongXLine(maxX > CameraRangeMaxX ? CameraRangeMaxX : CameraRangeMinX, minX, maxX, Y1, Y2, P1, P2, P3, P4);
     } else if (minY < CameraRangeMinY || maxY > CameraRangeMaxY) { // Lies inside of Y
         SplitWaterRectangleAlongYLine(minY < CameraRangeMinY ? CameraRangeMinY : CameraRangeMaxY, minX, maxX, Y1, Y2, P1, P2, P3, P4);
     } else { // Lies inside of camera fully
@@ -559,46 +604,54 @@ void CWaterLevel::RenderWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y
 
 // 0x6EBEC0
 void CWaterLevel::RenderFlatWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4) {
-    if (bSplitBigPolys && maxX - minX > BigPolySize) {
-        SplitWaterRectangleAlongXLine((minX + maxX) / 2,  minX, maxX, Y1, Y2, P1, P2, P3, P4);
-#ifdef FIX_BUGS
-    } else if (const auto [minY, maxY] = std::minmax(Y1, Y2); bSplitBigPolys && (maxY - minY) > BigPolySize) {
-#else
-    } else if (bSplitBigPolys && Y2 - Y1 > BigPolySize) {
-#endif
-        SplitWaterRectangleAlongYLine((Y2 + Y1) / 2, minX, maxX, Y1, Y2, P1, P2, P3, P4);
-    } else {
-        for (int32 lyr = 0; lyr < 2; lyr++) {
-            RenderFlatWaterRectangle_OneLayer(minX, maxX, Y1, Y2, P1, P2, P3, P4, lyr);
+    // Como el original: las mitades se pintan recursivamente con esta misma funcion (t = 0.5f), no con Split*/RenderWaterRectangle.
+    if (bSplitBigPolys) {
+        if (maxX - minX > BigPolySize) {
+            const int32 mid = (minX + maxX) / 2;
+            const CRenPar P12 = lerp(P1, P2, 0.5f), P34 = lerp(P3, P4, 0.5f);
+            RenderFlatWaterRectangle(minX, mid, Y1, Y2, P1, P12, P3, P34);
+            RenderFlatWaterRectangle(mid, maxX, Y1, Y2, P12, P2, P34, P4);
+            return;
         }
+        if (Y2 - Y1 > BigPolySize) {
+            const int32 mid = (Y1 + Y2) / 2;
+            const CRenPar P13 = lerp(P1, P3, 0.5f), P24 = lerp(P2, P4, 0.5f);
+            RenderFlatWaterRectangle(minX, maxX, Y1, mid, P1, P2, P13, P24);
+            RenderFlatWaterRectangle(minX, maxX, mid, Y2, P13, P24, P3, P4);
+            return;
+        }
+    }
+    for (int32 lyr = 0; lyr < 2; lyr++) {
+        RenderFlatWaterRectangle_OneLayer(minX, maxX, Y1, Y2, P1, P2, P3, P4, lyr);
     }
 }
 
 // 0x6E9940
 void CWaterLevel::RenderFlatWaterRectangle_OneLayer(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4, int32 WaterLayer) {
-    RenderBuffer::RenderIfDoesntFit(6, 4);
-
-    // First(!) push indices
-    RenderBuffer::PushIndices({ 0, 1, 2, 2, 3, 0 }, true);
-
-    // Get texture UV stuff
-    const auto texuv = GetTextureUV(minX, Y1, Y2, WaterLayer);
-
-    const auto PushVertex = [
-        &,
-        color = GetWaterColorForRendering(WaterColor, DebugWaterColors[DebugWaterColor::RECT], WaterLayer)
-    ](int32 x, int32 y, const CRenPar& p, CVector2D vtxUVOffset) {
-        RenderBuffer::PushVertex({ (float)x, (float)y, p.z }, texuv.baseShift + vtxUVOffset, color);
-    };
-
-    // Bottom right corner position on texture (In UV coords)
-    const auto bruv{ CVector2D{ (float)(maxX - minX), (float)(Y2 - Y1) } / texuv.size };
-
-    PushVertex(minX, Y1, P1, { 0.f,    0.f }); // Top Left
-    PushVertex(maxX, Y1, P2, { bruv.x, 0.f    }); // Top Right
-    PushVertex(maxX, Y2, P3, { bruv.x, bruv.y }); // Bottom Right
-    PushVertex(minX, Y2, P4, { 0.f,    bruv.y }); // Bottom Left
-} 
+    auto& nVtx = StaticRef<int32>(0xC4B950);
+    auto& nIdx = StaticRef<int32>(0xC4B954);
+    // Como el original: umbrales 0xFFA / 0x7FC y vaciado con la funcion 0x6E7680 (con LittleTest).
+    if (nIdx >= 0xFFA || nVtx >= 0x7FC) {
+        plugin::Call<0x6E7680>();
+    }
+    const int32 base = nVtx;
+    const auto layer = GetWaterLayerParams(WaterLayer);
+    float baseU, baseV;
+    WaterBaseUV(minX, Y1, Y2 - Y1, layer, baseU, baseV);
+    const auto& debug = DebugWaterColors[DebugWaterColor::RECT];
+    const uint32 color = debug.active ? WaterDebugColor(debug.color) : WaterVertexColor(WaterColor, layer.alpha);
+    // Como el original el orden de los vertices es TL, TR, BL, BR (P1, P2, P3, P4) e indices {0,1,2,3,1,2}.
+    const float u1 = float(maxX - minX) * layer.scale + baseU;
+    const float v2 = float(Y2 - Y1) * layer.scale + baseV;
+    WaterSetVertex(base + 0, float(minX), float(Y1), P1.z + 0.0f, color, baseU, baseV);
+    WaterSetVertex(base + 1, float(maxX), float(Y1), P2.z + 0.0f, color, u1,    baseV);
+    WaterSetVertex(base + 2, float(minX), float(Y2), P3.z + 0.0f, color, baseU, v2);
+    WaterSetVertex(base + 3, float(maxX), float(Y2), P4.z + 0.0f, color, u1,    v2);
+    static constexpr int32 IDX[6]{ 0, 1, 2, 3, 1, 2 };
+    for (int k = 0; k < 6; ++k) aTempBufferIndices[nIdx + k] = RxVertexIndex(base + IDX[k]);
+    nVtx = base + 4;
+    nIdx += 6;
+}
 
 void CWaterLevel::RenderHighDetailWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4) {
     plugin::Call<0x6EB810>(minX, maxX, Y1, Y2, P1, P2, P3, P4);
@@ -628,9 +681,8 @@ void CWaterLevel::SplitWaterRectangleAlongXLine(int32 splitAtX, int32 minX, int3
 
 // 0x6ED6D0 - Though fully inlined into `RenderWaterRectangle`
 void CWaterLevel::SplitWaterRectangleAlongYLine(int32 splitAtY, int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4) {
-    const auto [minY, maxY] = std::minmax(Y1, Y2);
-
-    const auto t = (float)(splitAtY - minY) / (float)(maxY - minY);
+    // Como el original (0x6ED6D0 / inline 0x6EC713): t = (splitAtY - Y1) / (Y2 - Y1) con Y1/Y2 tal cual (fild + fidiv), sin min/max.
+    const auto t = (float)(splitAtY - Y1) / (float)(Y2 - Y1);
 
     const auto P13 = lerp(P1, P3, t);
     const auto P24 = lerp(P2, P4, t);
@@ -667,13 +719,17 @@ void CWaterLevel::UpdateFlow() {
         CWaterLevel::FindNearestWaterAndItsFlow();
     }
 
+    // Como el original (0x6EB733..): el paso es TimeStep * 0.001f (constante float 0x858CDC, no una division entre 1000);
+    // |d| < paso -> valor deseado; si no, se resta/suma el paso segun d < 0 (fcom + test ah,5).
     const auto CalculateFlowOnAxis = [
-        step = CTimer::GetTimeStep() / 1000.f
+        step = CTimer::GetTimeStep() * 0.001f
     ](float desired, float curr) {
-        const auto delta = desired - curr;
-        return std::abs(delta) < step
-            ? desired
-            : curr + std::copysign(step, delta);
+        const float delta = desired - curr;
+        const float absDelta = delta < 0.f ? -delta : delta;
+        if (absDelta < step) {
+            return desired;
+        }
+        return delta < 0.f ? curr - step : curr + step;
     };
 
     m_CurrentFlow = {
@@ -705,17 +761,25 @@ void CWaterLevel::SetUpWaterFog(int32 minX, int32 minY, int32 maxX, int32 maxY) 
         return;
     }
 
-    const auto fogZ = [&] {
-        if (float waterLvl, bigWaves, smallWaves; GetWaterLevelNoWaves({(float)minX, (float)minY, 0.f}, & waterLvl, & bigWaves, & smallWaves)) {
-            if (bigWaves != 0.f || smallWaves != 0.f) {
-                return waterLvl;
-            }
-        }
-        return 0.f;
-    }();
-
+    // Como el original (0x6EAA0D-0x6EAA14): FindPlayerCoors se llama ANTES de GetWaterLevelNoWaves (aunque despues se salga).
     const auto plyrPos = FindPlayerCoors();
-    gbPlayerIsInsideWaterFog = m_fWaterFogHeight + fogZ > plyrPos.z && CRect{ (float)minX, (float)minY, (float)maxX, (float)maxY }.IsPointInside(plyrPos);
+
+    // Como el original (0x6EAA58..0x6EAA78): si GetWaterLevelNoWaves acierta y big == 0 && small == 0 la funcion termina sin registrar nada.
+    float fogZ = 0.f;
+    {
+        float waterLvl, bigWaves, smallWaves;
+        if (GetWaterLevelNoWaves({(float)minX, (float)minY, 0.f}, &waterLvl, &bigWaves, &smallWaves)) {
+            if (bigWaves == 0.f && smallWaves == 0.f) {
+                return;
+            }
+            fogZ = waterLvl;
+        }
+    }
+
+    // Como el original (0x6EAAF1): solo se pone a true (nunca se borra aqui).
+    if (m_fWaterFogHeight + fogZ > plyrPos.z && CRect{ (float)minX, (float)minY, (float)maxX, (float)maxY }.IsPointInside(plyrPos)) {
+        gbPlayerIsInsideWaterFog = true;
+    }
 
     const auto idx = gWaterFogIndex++;
     ms_WaterFog.minX[idx] = minX;
@@ -910,7 +974,7 @@ void CWaterLevel::RenderWaterFog() {
     CPostEffects::ImmediateModeRenderStatesReStore();
 }
 
-// 0x6E6EF0
+// 0x6E6EF0 - Transcripcion exacta del EXE (x87, tabla de senos 0xBB3E00 indexada por _ftol2 & 0xFF, constantes de .rdata).
 void CWaterLevel::CalculateWavesOnlyForCoordinate(
     int32 x, int32 y,
     float bigWavesAmplitude,
@@ -921,55 +985,233 @@ void CWaterLevel::CalculateWavesOnlyForCoordinate(
     CVector& vecNormal
 )
 {
-    x = std::abs(x);
-    y = std::abs(y);
-    vecNormal = CVector(0.f, 0.f, 1.f);
-
-    const float waveMult = faWaveMultipliersX[(x / 2) % 8] * faWaveMultipliersY[(y / 2) % 8] * CWeather::Wavyness;
-    float fX = (float)x, fY = (float)y;
-
-    // literal AIDS code
-    const auto CalculateWave = [&](int32 offset, float angularFreqX, float angularFreqY, float amplitude) {
-        const float freqOffsetMult = TWO_PI / static_cast<float>(offset);
-        const CVector2D waveVector{ TWO_PI * angularFreqX, TWO_PI * angularFreqY }; // w = angular frequency
-
-        const auto step  = (CTimer::GetTimeInMS() - m_nWaterTimeOffset) % offset;
-        const auto wavePhase = step * freqOffsetMult + fX * waveVector.x + fY * waveVector.y;
-
-        const auto sinPhase = CMaths::GetSinFast(wavePhase);
-        const auto cosPhase = CMaths::GetCosFast(wavePhase);
-        outWave += sinPhase * waveMult * amplitude;
-
-        // Wave normal calculation - seems broken but maybe R* just knows something that we don't :D
-        // Normal generation is completely skipped on later releases of the game (android / definitive)
-        switch (offset) {
-        case 5000: {
-            const auto normalDerivative = -cosPhase * waveMult * amplitude * waveVector.x;
-            vecNormal += { normalDerivative, normalDerivative, 0.0f };
-            break;
-        }
-        case 3500: {
-            const auto normalDerivative = cosPhase * waveMult * amplitude * waveVector.x;
-            vecNormal += { normalDerivative, normalDerivative, 0.0f };
-            break;
-        }
-        case 3000: {
-            const auto normalDerivative = cosPhase * waveMult * amplitude * (PI / 10.0f);
-            vecNormal += { normalDerivative, 0.0f, 0.0f };
-            break;
-        }
-        }
-    };
-
-    CalculateWave(5000, 1.f / 64.0f, 1.f / 64.0f, 2.0f * bigWavesAmplitude);
-    CalculateWave(3500, 1.f / 26.0f, 1.f / 52.0f, 1.0f * smallWavesAmplitude);
-    CalculateWave(3000, 0.0f,        1.f / 20.0f, 0.5f * smallWavesAmplitude);
-
-    vecNormal.Normalise();
-    const auto glareLevel = (vecNormal.x + vecNormal.y + vecNormal.z) * E_CONST;
-
-    colorMult = std::max(glareLevel, 0.0f) * 0.65f + 0.27f;
-    glare = std::clamp(8.0f * glareLevel - 5.0f, 0.0f, 0.99f) * CWeather::SunGlare;
+    int32 ix = x, iy = y, tmp = 0;
+    float fbig = bigWavesAmplitude, fsmall = smallWavesAmplitude;
+    float* pOut = &outWave; float* pColor = &colorMult; float* pGlare = &glare; CVector* pNormal = &vecNormal;
+    float t1 = 0.f, t2 = 0.f, t3 = 1.f;
+    __asm {
+        mov eax, ix
+        test eax, eax
+        jge posX
+        neg eax
+        mov ix, eax
+    posX:
+        mov ecx, iy
+        test ecx, ecx
+        jge posY
+        neg ecx
+        mov iy, ecx
+    posY:
+        cdq
+        sub eax, edx
+        mov esi, eax
+        mov eax, ecx
+        mov ecx, dword ptr ds:[0xC228A4]
+        cdq
+        sub eax, edx
+        sar eax, 1
+        sar esi, 1
+        and eax, 7
+        and esi, 7
+        xor edx, edx
+        fld dword ptr [esi*4+0x8D38C8]
+        fmul dword ptr [eax*4+0x8D38E8]
+        mov eax, dword ptr ds:[0xB7CB84]
+        sub eax, ecx
+        mov ecx, 0x1388
+        div ecx
+        fmul dword ptr ds:[0xC812E8]
+        fild dword ptr ix
+        fild dword ptr iy
+        test edx, edx
+        mov tmp, edx
+        fild dword ptr tmp
+        jge w1a
+        fadd dword ptr ds:[0x858C54]
+    w1a:
+        fmul dword ptr ds:[0x872020]
+        fld st(1)
+        fadd st, st(3)
+        fmul dword ptr ds:[0x87201C]
+        faddp st(1), st
+        fmul dword ptr ds:[0x85A778]
+        fld st(0)
+        mov eax, 0x821B40
+        call eax
+        mov edi, pOut
+        and eax, 0xFF
+        fld dword ptr [eax*4+0xBB3E00]
+        fmul dword ptr ds:[0x871FF8]
+        fmul st, st(4)
+        fmul fbig
+        fadd dword ptr [edi]
+        fstp dword ptr [edi]
+        fadd dword ptr ds:[0x859A44]
+        mov eax, 0x821B40
+        call eax
+        mov esi, pNormal
+        and eax, 0xFF
+        fld dword ptr [eax*4+0xBB3E00]
+        mov edx, esi
+        fmul dword ptr ds:[0x871FF8]
+        mov dword ptr t3, 0x3F800000
+        fmul st, st(3)
+        fmul fbig
+        fmul dword ptr ds:[0x87201C]
+        fchs
+        fst dword ptr t1
+        mov eax, t1
+        mov dword ptr [edx], eax
+        fstp dword ptr t2
+        mov ecx, t2
+        mov eax, t3
+        mov dword ptr [edx+4], ecx
+        mov dword ptr [edx+8], eax
+        mov edx, dword ptr ds:[0xC228A4]
+        mov eax, dword ptr ds:[0xB7CB84]
+        sub eax, edx
+        xor edx, edx
+        mov ecx, 0xDAC
+        div ecx
+        test edx, edx
+        mov tmp, edx
+        fild dword ptr tmp
+        jge w2a
+        fadd dword ptr ds:[0x858C54]
+    w2a:
+        fmul dword ptr ds:[0x872018]
+        fld st(1)
+        fmul dword ptr ds:[0x872014]
+        faddp st(1), st
+        fld st(2)
+        fmul dword ptr ds:[0x872010]
+        faddp st(1), st
+        fmul dword ptr ds:[0x85A778]
+        fld st(0)
+        mov eax, 0x821B40
+        call eax
+        and eax, 0xFF
+        fld dword ptr [eax*4+0xBB3E00]
+        fmul dword ptr ds:[0x871FFC]
+        fmul st, st(4)
+        fmul fsmall
+        fadd dword ptr [edi]
+        fstp dword ptr [edi]
+        fadd dword ptr ds:[0x859A44]
+        mov eax, 0x821B40
+        call eax
+        and eax, 0xFF
+        fld dword ptr [eax*4+0xBB3E00]
+        fmul dword ptr ds:[0x871FFC]
+        xor edx, edx
+        fmul st, st(3)
+        fmul fsmall
+        fmul dword ptr ds:[0x872010]
+        fld st(0)
+        fadd dword ptr [esi]
+        fstp dword ptr [esi]
+        fadd dword ptr [esi+4]
+        fstp dword ptr [esi+4]
+        mov ecx, dword ptr ds:[0xC228A4]
+        mov eax, dword ptr ds:[0xB7CB84]
+        sub eax, ecx
+        mov ecx, 0xBB8
+        div ecx
+        test edx, edx
+        mov tmp, edx
+        fild dword ptr tmp
+        jge w3a
+        fadd dword ptr ds:[0x858C54]
+    w3a:
+        fmul dword ptr ds:[0x87200C]
+        fxch st(1)
+        fmul dword ptr ds:[0x872008]
+        faddp st(1), st
+        fstp st(1)
+        fmul dword ptr ds:[0x85A778]
+        fld st(0)
+        mov eax, 0x821B40
+        call eax
+        and eax, 0xFF
+        fld dword ptr [eax*4+0xBB3E00]
+        fmul dword ptr ds:[0x872000]
+        fmul st, st(2)
+        fmul fsmall
+        fadd dword ptr [edi]
+        fstp dword ptr [edi]
+        fadd dword ptr ds:[0x859A44]
+        mov eax, 0x821B40
+        call eax
+        and eax, 0xFF
+        fld dword ptr [eax*4+0xBB3E00]
+        fmul dword ptr ds:[0x872000]
+        mov ecx, esi
+        fmulp st(1), st
+        fmul fsmall
+        fmul dword ptr ds:[0x872008]
+        fadd dword ptr [esi]
+        fstp dword ptr [esi]
+        mov eax, 0x59C910
+        call eax
+        fld dword ptr [esi+8]
+        fadd dword ptr [esi+4]
+        fadd dword ptr [esi]
+        fmul dword ptr ds:[0x872004]
+        fld dword ptr ds:[0x858B50]
+        fcomp st(1)
+        fnstsw ax
+        test ah, 0x41
+        jne cm1
+        fstp st(0)
+        fld dword ptr ds:[0x858B50]
+    cm1:
+        fmul dword ptr ds:[0x8D3924]
+        mov ecx, pColor
+        fadd dword ptr ds:[0x8D3920]
+        fstp dword ptr [ecx]
+        mov ecx, pGlare
+        fld dword ptr [esi+8]
+        fmul dword ptr ds:[0x872004]
+        fld dword ptr [esi+4]
+        fmul dword ptr ds:[0x872004]
+        faddp st(1), st
+        fld dword ptr ds:[0x872004]
+        fmul dword ptr [esi]
+        faddp st(1), st
+        fld st(0)
+        fstp dword ptr [ecx]
+        fmul dword ptr ds:[0x859000]
+        fsub dword ptr ds:[0x858C80]
+        fld dword ptr ds:[0x862CD0]
+        fcomp st(1)
+        fnstsw ax
+        test ah, 5
+        jnp gl2
+        fld st(0)
+        fld dword ptr ds:[0x858B50]
+        fcomp st(1)
+        fnstsw ax
+        fstp st(0)
+        test ah, 0x41
+        jne gl2
+        fstp st(0)
+        fld dword ptr ds:[0x858B50]
+        fmul dword ptr ds:[0xC812E0]
+        fstp dword ptr [ecx]
+        jmp done
+    gl2:
+        fld dword ptr ds:[0x862CD0]
+        fcomp st(1)
+        fnstsw ax
+        test ah, 5
+        jp gl3
+        fstp st(0)
+        fld dword ptr ds:[0x862CD0]
+    gl3:
+        fmul dword ptr ds:[0xC812E0]
+        fstp dword ptr [ecx]
+    done:
+    }
 }
 
 // 0x6E5810
@@ -1039,7 +1281,8 @@ void CWaterLevel::ScanThroughBlocks() {
     const auto frustumPts = TheCamera.GetFrustumPoints();
     CVector2D scanPts[5]{};
     for (auto i = 0; i < 5; i++) {
-        scanPts[i] = CVector2D{ frustumPts[i] } / (float)WATER_BLOCK_SIZE + CVector2D{6.f, 6.f};
+        // Como el original (0x6E6DBC..): x87 multiplica por la constante float 0.002f (0x858F44) y suma 6.0f (0x858B44); no divide entre 500.
+        scanPts[i] = CVector2D{ frustumPts[i].x * 0.002f + 6.f, frustumPts[i].y * 0.002f + 6.f };
     }
     CWorldScan::ScanWorld(scanPts, 5, BlockHit);
 }
@@ -1287,13 +1530,13 @@ bool CWaterLevel::GetWaterLevel(const CVector& pos, float& outWaterLevel, bool t
 
 // 0x6E5A40
 uint32 CWaterLevel::AddWaterLevelVertex(int32 X, int32 Y, CRenPar P) {
-    // Make sure point is inside world bounds
-    if (CVector2D pt{ (float)X, (float)Y }; WORLD_BOUNDS.DoConstrainPoint(pt)) {
-        X = (int32)pt.x;
-        Y = (int32)pt.y;
-
-        P = {};
-    }
+    // Como el original (0x6E5A40): cada coordenada <= -3000 o >= 3000 (igualdad incluida) se fija en el limite y los
+    // parametros pasan a {z=0, bigWaves=1.0f, smallWaves=0, flow=0} (mov [esp+1Ch],3F800000h tras fcomp 0x859A90/0x859A94).
+    constexpr CRenPar CLAMPED{ 0.0f, 1.0f, 0.0f, 0, 0 };
+    if (X <= -3000) { X = -3000; P = CLAMPED; }
+    if (X >= 3000)  { X = 3000;  P = CLAMPED; }
+    if (Y <= -3000) { Y = -3000; P = CLAMPED; }
+    if (Y >= 3000)  { Y = 3000;  P = CLAMPED; }
 
     // Try finding a vertex with the same coords, and use that
     for (auto&& [id, vtx] : rngv::enumerate(m_aVertices | rng::views::take(NumWaterVertices))) {
@@ -1307,61 +1550,41 @@ uint32 CWaterLevel::AddWaterLevelVertex(int32 X, int32 Y, CRenPar P) {
     return idx;
 }
 
-struct SortableVtx {
-    SortableVtx(int32 x, int32 y, const CRenPar& rp) :
-        idx{ CWaterLevel::AddWaterLevelVertex(x, y, rp) },
-        x{ CWaterLevel::m_aVertices[idx].x },
-        y{ CWaterLevel::m_aVertices[idx].y }
-    {
-    }
-
-    uint32 idx;
-    int32  x, y;
-};
-
-//! NOTSA
-//! Sort vertices in clockwise order (With a few assumptions)
-template<size_t N>
-auto DoVtxSortAndGetRange(SortableVtx (&verts)[N]) {
-    const auto VertexComparator = [&](SortableVtx& a, SortableVtx& b) {
-        if (a.y == b.y) {
-            return a.x < b.x; // Sort by x if y is the same
-        }
-        return a.y < b.y; // Otherwise, sort by y
-    };
-
-    rng::sort(verts, VertexComparator);
-
-    // Return a range of vertex indices that can be passed to the constructor of `CWaterPolygon`
-    return verts | rng::views::transform([](auto& vtx) {
-        return vtx.idx;
-    });
-}
-
 // 0x6E7EF0
 void CWaterLevel::AddWaterLevelQuad(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3, int32 X4, int32 Y4, CRenPar P4, uint32 Flags) {
     if ((X1 == X2 && X1 == X3 && X1 == X4) || (Y1 == Y2 && Y1 == Y3 && Y1 == Y4)) {
         return;
     }
 
-    // Seemingly only axis aligned rectangles can be used as quads
-    // NOTSA: to verify the above.
-    assert(X1 == X2 || X1 == X3 || X1 == X4 || X2 == X3 || X2 == X4 || X3 == X4);
-    assert(Y1 == Y2 || Y1 == Y3 || Y1 == Y4 || Y2 == Y3 || Y2 == Y4 || Y3 == Y4);
-
-    SortableVtx verts[]{
-        {X1,  Y1, P1},
-        { X2, Y2, P2},
-        { X3, Y3, P3},
-        { X4, Y4, P4},
+    // Como el original: los vertices se anaden en orden 1..4 y no hay asserts (el EXE tolera cuadrilateros no alineados).
+    const uint32 v[4]{
+        AddWaterLevelVertex(X1, Y1, P1),
+        AddWaterLevelVertex(X2, Y2, P2),
+        AddWaterLevelVertex(X3, Y3, P3),
+        AddWaterLevelVertex(X4, Y4, P4),
     };
 
-    // Now actually create the quad
-    WaterQuads[NumWaterQuads++] = CWaterQuad{
-        (Flags & 1) == 0,
-        (Flags & 2) != 0,
-        DoVtxSortAndGetRange(verts)
-    };
+    // Como el original (0x6E7F... - 0x6E8165): los vertices con la Y minima van a la lista A y el resto a la B (en la pila
+    // B sigue a A: lst[0..1] / lst[2..3]); cada pareja se ordena por X ascendente (cmp/jle con int16 con signo).
+    const auto Y = [&](uint32 idx) { return m_aVertices[idx].y; };
+    const auto X = [&](uint32 idx) { return m_aVertices[idx].x; };
+    const int16 minY = std::min<int16>(std::min<int16>(Y(v[0]), Y(v[1])), std::min<int16>(Y(v[2]), Y(v[3])));
+    uint32 lst[8]{};
+    int ia = 0, ib = 2;
+    for (const auto idx : v) {
+        if (Y(idx) == minY) lst[ia++] = idx;
+        else                lst[ib++] = idx;
+    }
+    if (X(lst[0]) > X(lst[1])) std::swap(lst[0], lst[1]);
+    if (X(lst[2]) > X(lst[3])) std::swap(lst[2], lst[3]);
+
+    // Como el original: solo se escriben los 4 indices y los 3 bits de flags (el resto de la palabra se conserva).
+    auto& quad = WaterQuads[NumWaterQuads];
+    for (int k = 0; k < 4; ++k) quad.verts[k] = uint16(lst[k]);
+    quad.bToBeRendered = false;
+    quad.bInvisible    = (Flags & 1) == 0;
+    quad.bLimitedDepth = (Flags & 2) != 0;
+    NumWaterQuads++;
 }
 
 // 0x6E7D40
@@ -1370,54 +1593,30 @@ void CWaterLevel::AddWaterLevelTriangle(int32 X1, int32 Y1, CRenPar P1, int32 X2
         return;
     }
 
-    // Sorting seemingly always cares about only 2 of 3 vertices, looking at water.dat, in every single case 2 of 3 vertices have the same y coordinate,
-    // I assume that's a limitation, and at least 2 of 3 vertices need to fall on the same x/y axis.
-    // NOTSA: to verify the above.
-    assert(X1 == X2 || X1 == X3 || X2 == X3);
-    assert(Y1 == Y2 || Y1 == Y3 || Y2 == Y3);
+    // Como el original: sin asserts; los vertices se anaden en orden 1..3 y las coordenadas se leen del array.
+    const uint32 v0 = AddWaterLevelVertex(X1, Y1, P1);
+    const uint32 v1 = AddWaterLevelVertex(X2, Y2, P2);
+    const uint32 v2 = AddWaterLevelVertex(X3, Y3, P3);
+    const auto& a = m_aVertices[v0]; const auto& b = m_aVertices[v1]; const auto& c = m_aVertices[v2];
 
-    SortableVtx verts[]{
-        {X1,  Y1, P1},
-        { X2, Y2, P2},
-        { X3, Y3, P3},
-    };
-
-    int16_t indices[3];
-    if (verts[0].y == verts[1].y) {
-        if (verts[0].x < verts[1].x) {
-            indices[0] = verts[0].idx;
-            indices[1] = verts[1].idx;
-        } else {
-            indices[0] = verts[1].idx;
-            indices[1] = verts[0].idx;
-        }
-        indices[2] = verts[2].idx;
-    } else if (verts[0].y == verts[2].y) {
-        if (verts[0].x >= verts[2].x) {
-            indices[0] = verts[2].idx;
-            indices[1] = verts[0].idx;
-        } else {
-            indices[0] = verts[0].idx;
-            indices[1] = verts[2].idx;
-        }
-        indices[2] = verts[1].idx;
+    uint32 i0, i1, i2;
+    if (a.y == b.y) {
+        if (a.x < b.x) { i0 = v0; i1 = v1; } else { i0 = v1; i1 = v0; }
+        i2 = v2;
+    } else if (a.y == c.y) {
+        if (a.x < c.x) { i0 = v0; i1 = v2; } else { i0 = v2; i1 = v0; }
+        i2 = v1;
     } else {
-        if (verts[1].x >= verts[2].x) {
-            indices[0] = verts[2].idx;
-            indices[1] = verts[1].idx;
-        } else {
-            indices[0] = verts[1].idx;
-            indices[1] = verts[2].idx;
-        }
-        indices[2] = verts[0].idx;
+        if (b.x < c.x) { i0 = v1; i1 = v2; } else { i0 = v2; i1 = v1; }
+        i2 = v0;
     }
 
-    // Now actually create the triangle
-    WaterTriangles[NumWaterTriangles++] = CWaterTriangle{
-        (Flags & 1) == 0,
-        (Flags & 2) != 0,
-        indices | rng::views::all
-    };
+    auto& tri = WaterTriangles[NumWaterTriangles];
+    tri.verts[0] = uint16(i0); tri.verts[1] = uint16(i1); tri.verts[2] = uint16(i2);
+    tri.bToBeRendered = false;
+    tri.bInvisible    = (Flags & 1) == 0;
+    tri.bLimitedDepth = (Flags & 2) != 0;
+    NumWaterTriangles++;
 }
 
 void CWaterLevel::FillQuadsAndTrianglesList() {

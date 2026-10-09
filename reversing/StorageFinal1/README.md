@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7047 con evidencia histórica, 0 con vigencia acreditada y 1399 pendientes en 38 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # StorageFinal1: banco por pares de CGenericGameStorage (funciones pendientes)
 
 Banco simple (flujo viejo) para `SaveDataToWorkBuffer-org` (0x5D1270), `LoadDataFromWorkBuffer-org` (0x5D1300), `ReportError` (0x5D08C0), `GenericSave` (0x5D13E0) y `GenericLoad` (0x5D17B0). **Escrito, sin compilar ni ejecutar.** Sustituye y amplía el análisis de `RequestedStorageWorkBuffer` (que no cruzaba el umbral de capacidad).

@@ -115,6 +115,9 @@ void CAEPoliceScannerAudioEntity::AddAudioEvent(eAudioEvents event, eCrimeType c
 
 // 0x4E6BC0
 void CAEPoliceScannerAudioEntity::PrepSlots() {
+    if (!s_pCurrentSlots) { // Como el original: test eax,eax / je (0x4E6BC7)
+        return;
+    }
     for (auto i = 0; i < NUM_POLICE_SCANNER_SLOTS; i++) {
         s_SlotState[i] = s_pCurrentSlots[i].IsActive();
     }
@@ -192,11 +195,12 @@ void CAEPoliceScannerAudioEntity::FinishedPlayingScannerDialogue() {
     s_pPSControlling             = nullptr;
     s_pCurrentSlots              = nullptr;
     s_bStoppingScanner           = false;
-    s_NextNewScannerDialogueTime = s_NextNewScannerDialogueTime + CTimer::GetTimeInMS();
+    // Como el original (0x4E6C45..0x4E6C5D): tiempo actual + dword de 0x8C8140 (10000); NO se suma el valor previo.
+    s_NextNewScannerDialogueTime = CTimer::GetTimeInMS() + StaticRef<uint32>(0x8C8140);
     s_fVolumeOffset              = 0.0f;
 
-    std::ranges::fill(s_SlotState, -1);
-    s_SlotState[4] = 1;
+    // Como el original: mov [B61D14],10001h / [B61D18],10001h / word [B61D1C],1 -> los cinco estados valen 1
+    std::ranges::fill(s_SlotState, 1);
 
     rng::fill(s_ScannerSlotFirst, tScannerSlot{});
     rng::fill(s_ScannerSlotSecond, tScannerSlot{});
@@ -300,8 +304,10 @@ void CAEPoliceScannerAudioEntity::PlayPoliceScannerDialogue(tScannerSlot* first,
         s_pCurrentSlots = s_ScannerSlotFirst;
         PrepSlots();
         s_nScannerPlaybackState = TWO;
-        s_nPlaybackStartTime = CTimer::GetTimeInMS() + 2000; // todo: gSpeechContextLookup[365][6]
-        s_nAbortPlaybackTime = CTimer::GetTimeInMS() + 5000; // todo: gSpeechContextLookup[366][0]
+        // Como el original (0x4E6F31..0x4E6F50): una sola lectura del reloj y los retardos salen de 0x8C8144/0x8C8148
+        const auto now = CTimer::GetTimeInMS();
+        s_nPlaybackStartTime = now + StaticRef<uint32>(0x8C8144);
+        s_nAbortPlaybackTime = now + StaticRef<uint32>(0x8C8148);
     }
 }
 
@@ -321,11 +327,11 @@ void CAEPoliceScannerAudioEntity::UpdateParameters(CAESound* sound, int16 curPla
     }
 
     if (s_bStoppingScanner) {
-        sound->m_Volume = sound->m_Volume - 6.0f; // todo: *(float*)&gSpeechContextLookup[366][4]
+        sound->m_Volume = sound->m_Volume - StaticRef<float>(0x8C8150); // Como el original: fsub [8C8150h]
         return;
     }
 
-    if (sound->m_Length > 0 && curPlayPos > sound->m_Length - 40 && sound->m_BankSlot != 37) { // todo: -40 should be replaced with by gSpeechContextLookup[366][2]
+    if (sound->m_Length > 0 && curPlayPos > sound->m_Length - int32(StaticRef<int16>(0x8C814C)) && sound->m_BankSlot != 37) { // todo: -40 should be replaced with by gSpeechContextLookup[366][2]
         sound->SetFlags(eSoundEnvironment::SOUND_REQUEST_UPDATES, false);
         s_pSound = nullptr;
         PlayLoadedDialogue();

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 40/40 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 18.
- * Validación registrada: 18/40 entradas.
+ * Validación registrada: 36/40 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -233,7 +233,8 @@ bool CBike::DamageKnockOffRider(CVehicle* vehicle, float damageIntensity, uint16
     }
 
     // Only an actual driver gets knocked off
-    if (!driver || !driver->IsStateDriving() || force <= 10.0f) {
+    // Como el original (0x6B5AC1..0x6B5AD0): fcomp + test ah,41h/jne -> tambien falla con NaN, por eso !(force > 10)
+    if (!driver || !driver->IsStateDriving() || !(force > 10.0f)) {
         return false;
     }
 
@@ -244,15 +245,19 @@ bool CBike::DamageKnockOffRider(CVehicle* vehicle, float damageIntensity, uint16
         }
     }
 
-    const auto impactFwdMag   = vehicle->GetForward().Dot(collisionImpactVelocity);
-    const auto impactUpMag    = vehicle->GetUp().Dot(collisionImpactVelocity);
-    const auto impactRightMag = vehicle->GetRight().Dot(collisionImpactVelocity);
+    // Como el original (0x6B5B27..0x6B5D15): cada producto escalar se suma como (y*vy + z*vz) + x*vx, no x*vx + y*vy + z*vz
+    const auto Dot3 = [&](const CVector& axis) { return (axis.y * collisionImpactVelocity.y + axis.z * collisionImpactVelocity.z) + axis.x * collisionImpactVelocity.x; };
+    const auto impactFwdMag   = Dot3(vehicle->GetForward());
+    const auto impactUpMag    = Dot3(vehicle->GetUp());
+    const auto impactRightMag = Dot3(vehicle->GetRight());
 
     // Per-axis weighting of the impact
     auto fwdWeight = 0.6f;
     if (std::abs(impactFwdMag) > 0.85f) {
-        const auto vertical = collisionImpactVelocity.z < 0.85f ? 0.0f : collisionImpactVelocity.z;
-        fwdWeight = 7.0f * sq(vertical) + 0.6f;
+        // Como el original (0x6B5B4B..0x6B5B8D): vertical = (vy + vx) * 0 + vz; el peso es (7 * vertical) * vertical + 0.6 (no 7 * (vertical*vertical))
+        const auto z = (collisionImpactVelocity.y + collisionImpactVelocity.x) * 0.0f + collisionImpactVelocity.z;
+        const auto vertical = z < 0.85f ? 0.0f : z;
+        fwdWeight = (7.0f * vertical) * vertical + 0.6f;
     }
     if (vehicle->GetUp().z < 0.0f) { // bike lying on its side / upside down
         fwdWeight = 5.0f;
@@ -284,7 +289,7 @@ bool CBike::DamageKnockOffRider(CVehicle* vehicle, float damageIntensity, uint16
     }
 
     // ALWAYS_HARD peds come off at a much lower force threshold
-    if (force <= (driver->CantBeKnockedOffBike == CANT_BE_KNOCKED_OFF_ALWAYS_HARD ? 20.0f : 75.0f)) {
+    if (!(force > (driver->CantBeKnockedOffBike == CANT_BE_KNOCKED_OFF_ALWAYS_HARD ? 20.0f : 75.0f))) {
         return false;
     }
 
@@ -348,27 +353,62 @@ void CBike::ProcessBuoyancy() {
     ApplyMoveForce(vecBuoyancyForce);
     ApplyTurnForce(vecBuoyancyForce, vecBuoyancyTurnPoint);
 
-    auto fTimeStep = std::max(0.01F, CTimer::GetTimeStep());
-    auto fUsedMass = m_fMass / 125.0F;
-    auto fBuoyancyForceZ = vecBuoyancyForce.z / (fTimeStep * fUsedMass);
+    // Como el original (0x6B6061..0x6B6143): timestep minimo 0.01; fuerza Z = force.z / ((timestep * masa) * 0.008) (no masa/125);
+    // si masaUsada (= masa * 0.008) > constante de flotabilidad: fuerza = ((masaUsada / constante) * fuerza) * 1.05; masa doble: * 1.5;
+    // multiplicador = max(0.5, 1 - fuerza * 0.05) (no /20); pow del EXE (0x822130, precision completa) multiplica sin redondear a float.
+    const float timeStep = CTimer::GetTimeStep();
+    // 0x6B605B..0x6B606C: fcomp + test ah,41h + jne -> usa timeStep salvo que 0.01 > timeStep (con NaN usa timeStep)
+    const float fTimeStep = (0.01F > timeStep) ? 0.01F : timeStep;
+    const float fUsedMass = m_fMass * 0.008F;
+    float fBuoyancyForceZ = vecBuoyancyForce.z / ((fTimeStep * m_fMass) * 0.008F);
 
     if (fUsedMass > m_fBuoyancyConstant)
-        fBuoyancyForceZ *= 1.05F * fUsedMass / m_fBuoyancyConstant;
+        fBuoyancyForceZ = ((fUsedMass / m_fBuoyancyConstant) * fBuoyancyForceZ) * 1.05F;
 
     if (physicalFlags.bMakeMassTwiceAsBig)
         fBuoyancyForceZ *= 1.5F;
 
-    auto fBuoyancyForceMult = std::max(0.5F, 1.0F - fBuoyancyForceZ / 20.0F);
-    auto fSpeedMult = std::pow(fBuoyancyForceMult, CTimer::GetTimeStep());
-    m_vecMoveSpeed *= fSpeedMult;
-    m_vecTurnSpeed *= fSpeedMult;
+    const float fMultCandidate = 1.0F - fBuoyancyForceZ * 0.05F;
+    // 0x6B60E5..0x6B60F2: usa 0.5 solo si 0.5 > candidato (con NaN el EXE conserva el candidato)
+    const float fBuoyancyForceMult = (0.5F > fMultCandidate) ? 0.5F : fMultCandidate;
+    {
+        float* moveSpeedPtr = &m_vecMoveSpeed.x;
+        float* turnSpeedPtr = &m_vecTurnSpeed.x;
+        __asm {
+            fld fBuoyancyForceMult
+            fld timeStep
+            mov eax, 0x822130
+            call eax
+            mov ecx, moveSpeedPtr
+            fld st(0)
+            fmul dword ptr [ecx]
+            fstp dword ptr [ecx]
+            fld st(0)
+            fmul dword ptr [ecx+4]
+            fstp dword ptr [ecx+4]
+            fld st(0)
+            fmul dword ptr [ecx+8]
+            fstp dword ptr [ecx+8]
+            mov ecx, turnSpeedPtr
+            fld st(0)
+            fmul dword ptr [ecx]
+            fstp dword ptr [ecx]
+            fld st(0)
+            fmul dword ptr [ecx+4]
+            fstp dword ptr [ecx+4]
+            fmul dword ptr [ecx+8]
+            fstp dword ptr [ecx+8]
+        }
+    }
 
     // 0x6B6443
     if (fBuoyancyForceZ > 0.8F || (fBuoyancyForceZ > 0.4F && IsAnyWheelNotMakingContactWithGround())) {
         vehicleFlags.bIsDrowning = true;
         physicalFlags.bSubmergedInWater = true;
 
-        m_vecMoveSpeed.z = std::max(-0.1F, m_vecMoveSpeed.z);
+        // 0x6B61D6..0x6B61FA: fcomp + test ah,5 + jp -> solo asigna si z < -0.1 (NaN se conserva)
+        if (m_vecMoveSpeed.z < -0.1F)
+            m_vecMoveSpeed.z = -0.1F;
 
         if (m_pDriver) {
             ProcessPedInVehicleBuoyancy(m_pDriver->AsPed(), true);
@@ -501,7 +541,8 @@ bool CBike::ProcessAI(uint32& extraHandlingFlags) {
 
 // 0x6BF400
 void CBike::ProcessDrivingAnims(CPed* driver, bool blend) {
-    if (m_bOffscreen && GetStatus() == STATUS_PLAYER)
+    // Como el original (0x6BF400): test [ecx+1Ch],20000h + test byte [ecx+36h],0F8h / jne -> sale si esta fuera de pantalla y el estado NO es STATUS_PLAYER
+    if (m_bOffscreen && GetStatus() != STATUS_PLAYER)
         return;
 
     ProcessRiderAnims(driver, this, &m_RideAnimData, m_BikeHandling, 0);
@@ -5144,7 +5185,8 @@ void CBike::ResetSuspension() {
 
 // 0x6B6790
 bool CBike::GetAllWheelsOffGround() const {
-    return m_nNoOfContactWheels == 0;
+    // Como el original (0x6B6790): lee el byte +0x805 (m_NumDriveWheelsOnGround), no +0x804 (m_nNoOfContactWheels): mov al,[ecx+805h] / test al,al / sete al.
+    return m_NumDriveWheelsOnGround == 0;
 }
 
 // 0x6B67A0
@@ -5205,7 +5247,25 @@ void CBike::CalculateLeanMatrix() {
     m_mLeanMatrix = GetMatrix();
     m_mLeanMatrix = m_mLeanMatrix * mat;
     // place wheel back on ground
-    m_mLeanMatrix.GetPosition() += GetUp() * (1.0f - cos(m_RideAnimData.LeanAngle)) * GetColModel()->GetBoundingBox().m_vecMin.z;
+    // Como el original (0x6B71E1..0x6B7253): (minZ * eje) se redondea primero a float, despues se multiplica por (1 - fcos(angulo)) (fcos x87 de precision completa,
+    // fsubr redondeado a 24 bits) y se suma a la posicion de la matriz de inclinacion en el orden x, y, z. La DLL multiplicaba al reves ((eje * (1-cos)) * minZ).
+    const float leanAngle = m_RideAnimData.LeanAngle;
+    const float minZ = GetColModel()->GetBoundingBox().m_vecMin.z;
+    const auto& axis = GetMatrix().GetUp();
+    const float partZ = minZ * axis.z;
+    const float partY = minZ * axis.y;
+    const float partX = minZ * axis.x;
+    float oneMinusCos;
+    __asm {
+        fld leanAngle
+        fcos
+        fld1
+        fsubrp st(1), st(0)
+        fstp oneMinusCos
+    }
+    m_mLeanMatrix.GetPosition().x += partX * oneMinusCos;
+    m_mLeanMatrix.GetPosition().y += partY * oneMinusCos;
+    m_mLeanMatrix.GetPosition().z += partZ * oneMinusCos;
     m_bLeanMatrixCalculated = true;
 }
 
@@ -5878,7 +5938,8 @@ void CBike::SetModelIndex(uint32 index) {
 // 0x6B5960
 void CBike::SetupModelNodes() {
     std::ranges::fill(m_aBikeNodes, nullptr);
-    CClumpModelInfo::FillFrameArray(GetRpClump(), m_aBikeNodes.data());
+    // Como el original (0x6B5975): pasa [this+0x18] tal cual a FillFrameArray, sin comprobar el tipo del objeto RW (GetRpClump() haria assert/lectura)
+    CClumpModelInfo::FillFrameArray(reinterpret_cast<RpClump*>(GetRwObject()), m_aBikeNodes.data());
 }
 
 // 0x6B7080

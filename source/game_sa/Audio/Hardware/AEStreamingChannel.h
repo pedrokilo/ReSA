@@ -52,7 +52,7 @@ public:
     void   Stop() override;
     void   SetFrequencyScalingFactor(float factor) override;
 
-    void  Initialise();
+    bool  Initialise(); // Como el original: devuelve bl (1 si CreateSoundBuffer tuvo exito)
     void  InitialiseSilence();
 
     bool AddFX();

@@ -316,6 +316,7 @@ public:
     RwMatrix* GetBoneMatrix(RwUInt32 nodeID) const;
 
     RwObject* GetRwObject() const noexcept { return m_pRwObject; }
+    void ClearRwObjectPointer() noexcept { m_pRwObject = nullptr; } // NOTSA: puesta a cero sin liberar (el original lo hace antes del delete)
     RpClump*  GetRpClump()  const noexcept { assert(!m_pRwObject || RwObjectGetType(m_pRwObject) == rpCLUMP); return reinterpret_cast<RpClump*>(m_pRwObject); }
     RpAtomic* GetRpAtomic() const noexcept { assert(!m_pRwObject || RwObjectGetType(m_pRwObject) == rpATOMIC); return reinterpret_cast<RpAtomic*>(m_pRwObject); }
     RpAtomic* GetRpAtomicOrFirstAtomicOfClump() const noexcept;

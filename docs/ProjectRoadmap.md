@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6916 con evidencia histórica, 0 con vigencia acreditada y 1530 pendientes en 41 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7047 con evidencia histórica, 0 con vigencia acreditada y 1399 pendientes en 38 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # ReSA: reconstrucción, validación e independencia
@@ -19,9 +19,9 @@ Corte del 8 de octubre de 2026. Clases y reconstrucciones se calculan sobre `hoo
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
 | Clases completas en el catálogo | `████████████████████` | 771/771 · 100,00% |
-| Clases validadas de las completas | `███████████████████░` | 730/771 · 94,68% |
+| Clases validadas de las completas | `███████████████████░` | 733/771 · 95,07% |
 | Funciones registradas como reconstruidas | `████████████████████` | 8.446/8.446 · 100,00% |
-| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████░░░░` | **6.916/8.446 · 81,88%** |
+| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `█████████████████░░░` | **7.047/8.446 · 83,44%** |
 
 **Siguientes mediciones** (todavía sin porcentaje útil):
 

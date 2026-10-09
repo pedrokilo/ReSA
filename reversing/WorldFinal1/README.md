@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7047 con evidencia histórica, 0 con vigencia acreditada y 1399 pendientes en 38 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # WorldFinal1: banco por pares de CRope y CMonsterTruck (funciones pendientes)
 
 Banco simple (flujo viejo, copiado de `Small2`/`PadMouse1`/`VehCtor62`) para las 10 funciones pendientes de `CRope` y `CMonsterTruck`. **Compilado y ejecutado; aprobado en la corrida 20261009-005433-453152 (10368 pares, 0 diferencias). Registro: `register_world_final1.py`, `validation-summary.json` y `runs/`. Antes de la corrida se corrigieron `Rope.cpp` y `MonsterTruck.cpp` a lo que hace el EXE (ver el resumen).**
