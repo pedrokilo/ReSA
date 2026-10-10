@@ -15,7 +15,7 @@ CAEPedSpeechAudioEntity,0x0085F310,0x0045F310,8,source/game_sa/Audio/Entities/AE
 CAEPoliceScannerAudioEntity,0x0085F368,0x0045F368,1,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp,396,source_vtable_reference
 CAEScriptAudioEntity,0x00862E58,0x00462E58,1,source/game_sa/Audio/Entities/AEScriptAudioEntity.cpp,988,source_vtable_reference
 CAETwinLoopSoundEntity,0x0085F438,0x0045F438,1,source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp,225,source_vtable_reference
-CAEVehicleAudioEntity,0x00862CEC,0x00462CEC,1,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,5564,source_vtable_reference
+CAEVehicleAudioEntity,0x00862CEC,0x00462CEC,1,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,5560,source_vtable_reference
 CAEWaterCannonAudioEntity,0x00872A60,0x00472A60,1,source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp,156,source_vtable_reference
 CAEWeaponAudioEntity,0x00862E68,0x00462E68,1,source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp,61,source_vtable_reference
 CAEWeatherAudioEntity,0x00872A74,0x00472A74,1,source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,487,source_vtable_reference

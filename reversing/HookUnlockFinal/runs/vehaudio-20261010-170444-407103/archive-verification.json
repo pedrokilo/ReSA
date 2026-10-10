@@ -1,0 +1,17 @@
+{
+  "run": "20261010-170444-407103",
+  "functions": 102,
+  "pairs": 20024,
+  "differences": 0,
+  "null_passing_records": 0,
+  "complete_records": 1,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "first_chance_av_records": 0,
+  "executed_probe_matches_manifest": true,
+  "source_hashes_verified": 3,
+  "instrumentation_hashes_verified": 14,
+  "archive_matches_raw_log": true,
+  "game_cpp_snapshot_recovered_from_git_HEAD": true
+}

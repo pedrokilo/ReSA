@@ -9,3 +9,8 @@ reversing/**/*.py whitespace=-blank-at-eof
 reversing/**/*.txt whitespace=-trailing-space,-blank-at-eof
 reversing/**/*-snapshot.cpp whitespace=-blank-at-eof
 reversing/**/*-snapshot.h whitespace=-blank-at-eof
+
+# Keep archived hook-unlock evidence byte-for-byte identical to its build manifests.
+reversing/HookUnlockAudio/runs/** -text whitespace=-trailing-space,-blank-at-eof
+reversing/HookUnlockGame/runs/** -text whitespace=-trailing-space,-blank-at-eof
+reversing/HookUnlockFinal/runs/** -text whitespace=-trailing-space,-blank-at-eof

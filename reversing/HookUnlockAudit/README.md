@@ -46,3 +46,7 @@ Los seis bloqueos conservados son:
 | Game | FrontendIdle | Bucle de menú, transiciones y punto seguro de conmutación |
 
 La sonda confirmó que estos seis siguen bloqueados y que su API rechaza conmutarlos. No se intentó forzar su desactivación ni se acredita que OFF sea seguro. El [CSV de decisiones](lock-decisions.csv) distingue el resultado de cada una de las 421 filas revisadas. Los registros completos están comprimidos en `runs/<corrida>/comparisons.jsonl.gz`; se conservan sus bytes originales y la huella del registro sin comprimir.
+
+<!-- RESA-HOOK-UNLOCK-SUPERSEDED -->
+
+**Actualización posterior:** los seis locks conservados en este informe histórico se probaron y retiraron posteriormente. Consultar [estado actual](../../docs/CurrentStatus.md), [Audio](../HookUnlockAudio/README.md) y [Game](../HookUnlockGame/README.md). Las cifras y resultados del cuerpo mantienen su fecha y alcance.

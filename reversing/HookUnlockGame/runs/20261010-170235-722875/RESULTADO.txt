@@ -1,0 +1,3 @@
+APROBADO: Conmutación Game desde dispatcher real
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-hookunlockgame\20261010-170235-722875

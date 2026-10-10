@@ -44,7 +44,7 @@ CAEStreamingDecoder,class,2,2,0,2,2,0,,,source/game_sa/Audio/Loaders/AEStreaming
 CAETrackLoader,class,1,1,0,1,1,0,,,source/game_sa/Audio/Loaders/AETrackLoader.h:43,catalogue_class_or_group
 CAETwinLoopSoundEntity,class,7,7,0,7,7,0,0x0085F438,public CAEAudioEntity,source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h:25,catalogue_class_or_group
 CAEUserRadioTrackManager,class,15,15,0,15,15,0,,,source/game_sa/Audio/Managers/AEUserRadioTrackManager.h:40,catalogue_class_or_group
-CAEVehicleAudioEntity,class,106,106,3,106,106,0,0x00862CEC,public CAEAudioEntity,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h:42,catalogue_class_or_group
+CAEVehicleAudioEntity,class,106,106,0,106,106,0,0x00862CEC,public CAEAudioEntity,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h:42,catalogue_class_or_group
 CAEVorbisDecoder,class,13,13,0,13,13,0,0x00862D70,public CAEStreamingDecoder,source/game_sa/Audio/Loaders/AEVorbisDecoder.h:13,catalogue_class_or_group
 CAEWMADecoder,class,11,11,0,11,11,0,0x00862D90,public CAEStreamingDecoder,source/game_sa/Audio/Loaders/AEWMADecoder.h:15,catalogue_class_or_group
 CAEWaterCannonAudioEntity,class,7,7,0,7,7,0,0x00872A60,public CAEAudioEntity,source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h:14,catalogue_class_or_group
@@ -739,7 +739,7 @@ FxSphere_c,class,4,4,0,4,4,0,,public CSphere,source/game_sa/Fx/FxSphere.h:12,cat
 FxSystemBP_c,class,10,10,0,10,10,0,,public ListItem_c<FxSystemBP_c>,source/game_sa/Fx/FxSystemBP.h:21,catalogue_class_or_group
 FxSystem_c,class,35,35,0,35,35,0,,public ListItem_c<FxSystem_c>,source/game_sa/Fx/FxSystem.h:39,catalogue_class_or_group
 Fx_c,class,8,8,0,8,8,0,,,source/game_sa/Fx/Fx.h:47,catalogue_class_or_group
-Game,catalogue_group,12,12,3,12,12,0,,,,catalogue_class_or_group
+Game,catalogue_group,12,12,0,12,12,0,,,,catalogue_class_or_group
 IKChainManager_c,class,17,17,0,17,17,0,,,source/game_sa/Ragdoll/IKChainManager.h:12,catalogue_class_or_group
 IKChain_c,class,20,20,0,20,20,0,,public ListItem_c<IKChain_c>,source/game_sa/Ragdoll/IKChain.h:18,catalogue_class_or_group
 Input,catalogue_group,5,5,0,5,5,0,,,,catalogue_class_or_group

@@ -1,0 +1,9 @@
+{
+  "run": "20261010-165406-602582",
+  "original_log_sha256": "b851efbb137cc10f27c6139311fbebc7053ddd3b5b3494bcb0509f618e73cb35",
+  "gzip_sha256": "bcd35a74a1e85b65b16f8f8d04daabc3db195cc68f88f379a90cd23086570f6b",
+  "original_log_bytes": 17887735,
+  "build_manifest_available": false,
+  "executed_probe_sha256": "485d9e9aa449dd395fcfd59e3f14658e72b9eb0d0df425aaadde69f1ebb2f22f",
+  "manifest_limitation": "El manifiesto de aquella compilacion fue sobrescrito. No se reconstruye ni se atribuye el manifiesto posterior al fallo."
+}

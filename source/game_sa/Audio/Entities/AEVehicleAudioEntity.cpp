@@ -8,15 +8,11 @@
  * ESTADO: CAEVehicleAudioEntity
  * Reconstrucción: COMPLETA — 106/106 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 3.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 106/106 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   ProcessPlayerVehicleEngine | 0x004FBB10 | S
- *   ProcessVehicle | 0x00501E10 | S
- *   Service | 0x00502280 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -5615,7 +5611,8 @@ void CAEVehicleAudioEntity::InjectHooks() {
     RH_ScopedInstall(JustFinishedAccelerationLoop, 0x4F5E50);
     RH_ScopedInstall(IsAccInhibited, 0x4F4F70);
     RH_ScopedInstall(IsAccInhibitedBackwards, 0x4F4FC0);
-    RH_ScopedInstall(IsAccInhibitedForLowSpeed, 0x4F4FF0);
+    // Como el original: 0x4FC29B y 0x4FC2A9 lo llaman dos veces sin recargar ECX; 0x4F4FF0 conserva this y hace ret 4.
+    RH_ScopedInstall(IsAccInhibitedForLowSpeed, 0x4F4FF0, { .stackArguments = 1 });
     RH_ScopedInstall(IsAccInhibitedForTime, 0x4F5020);
     RH_ScopedInstall(InhibitAccForTime, 0x4F5030);
 
@@ -5709,10 +5706,10 @@ void CAEVehicleAudioEntity::InjectHooks() {
     RH_ScopedInstall(ProcessDummyVehicleEngine, 0x501480);
     RH_ScopedInstall(ProcessSpecialVehicle, 0x501AB0);
 
-    // Keep these hooked at all times:
-    RH_ScopedInstall(ProcessPlayerVehicleEngine, 0x4FBB10, { .locked = true }); // Un-hooking this causes random crashes...
-    RH_ScopedInstall(ProcessVehicle, 0x501E10, { .locked = true }); // -||-
-    RH_ScopedInstall(Service, 0x502280, { .locked = true }); // -||-
+    // Conmutacion individual y combinada probada en reversing/HookUnlockAudio, con audio y vehiculos reales.
+    RH_ScopedInstall(ProcessPlayerVehicleEngine, 0x4FBB10);
+    RH_ScopedInstall(ProcessVehicle, 0x501E10);
+    RH_ScopedInstall(Service, 0x502280);
 
     RH_ScopedOverloadedInstall(AddAudioEvent, "0", 0x4F6420, void(CAEVehicleAudioEntity::*)(eAudioEvents, float));
     RH_ScopedOverloadedInstall(AddAudioEvent, "1", 0x4F7580, void(CAEVehicleAudioEntity::*)(eAudioEvents, CPhysical*));

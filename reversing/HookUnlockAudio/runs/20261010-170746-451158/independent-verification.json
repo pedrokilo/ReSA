@@ -1,0 +1,485 @@
+{
+  "run": "20261010-170746-451158",
+  "audio_profile": "active_audio",
+  "executed_probe_sha256": "8aff36215902de50cd7f251414c394afd59217a3ce2ccb0c64ef3198a3e7a077",
+  "log_sha256": "b08689ff842dffc9ff3fc8c13cb692901db9885a5e3df14f601ac64743d22254",
+  "gzip_sha256": "827f303534d7f1cf1c18c848d55fb11557d001fe9d48f7ad01dccbbd42277846",
+  "manifest_sha256": "d6ac2bd78890866412d44022d8ae2ddbb23162634b52f6386ee42ef74346b64b",
+  "source_snapshots": 3,
+  "instrumentation_snapshots": 13,
+  "functions": 3,
+  "pairs": 19840,
+  "differences": 0,
+  "passing_null_records": 0,
+  "live_frames": 960,
+  "live_calls": 2240,
+  "contexts": [
+    {
+      "vehicle_kind": 0,
+      "mask": 0,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 26
+    },
+    {
+      "vehicle_kind": 0,
+      "mask": 1,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 0,
+      "mask": 2,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 0,
+      "mask": 3,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 0,
+      "mask": 4,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 0,
+      "mask": 5,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 0,
+      "mask": 6,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 0,
+      "mask": 7,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 1,
+      "mask": 0,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 26
+    },
+    {
+      "vehicle_kind": 1,
+      "mask": 1,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 1,
+      "mask": 2,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 1,
+      "mask": 3,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 1,
+      "mask": 4,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 1,
+      "mask": 5,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 1,
+      "mask": 6,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 1,
+      "mask": 7,
+      "frames": 30,
+      "calls": [
+        20,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [
+        0,
+        128,
+        254,
+        255
+      ],
+      "real_engine_sounds_when_loaded": 33
+    },
+    {
+      "vehicle_kind": 2,
+      "mask": 0,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 2,
+      "mask": 1,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 2,
+      "mask": 2,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 2,
+      "mask": 3,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 2,
+      "mask": 4,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 2,
+      "mask": 5,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 2,
+      "mask": 6,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 2,
+      "mask": 7,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 3,
+      "mask": 0,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 3,
+      "mask": 1,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 3,
+      "mask": 2,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 3,
+      "mask": 3,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 3,
+      "mask": 4,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 3,
+      "mask": 5,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 3,
+      "mask": 6,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    },
+    {
+      "vehicle_kind": 3,
+      "mask": 7,
+      "frames": 30,
+      "calls": [
+        0,
+        30,
+        30
+      ],
+      "loaded_accelerator_values": [],
+      "real_engine_sounds_when_loaded": 0
+    }
+  ],
+  "state_restored": true,
+  "fixture_cleanup": true,
+  "first_chance_av_records": 0
+}

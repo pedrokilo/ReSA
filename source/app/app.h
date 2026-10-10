@@ -28,6 +28,7 @@ static inline auto& gColourBottom = StaticRef<RwRGBA>(0xB72CA4);
 static inline auto& gHorZ = StaticRef<float>(0xB72C6C);
 
 extern RsEventStatus AppEventHandler(RsEvent event, void* param);
+bool ShouldPauseOriginalIdleInBackground();
 extern bool PluginAttach();
 extern bool Initialise3D(void* param);
 extern void Terminate3D();

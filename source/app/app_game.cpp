@@ -8,15 +8,11 @@
  * ESTADO: Game
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 3.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   FrontendIdle | 0x0053E770 | S
- *   Idle | 0x0053E920 | S
- *   Render2dStuff | 0x0053E230 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -62,13 +58,12 @@ void AppGameInjectHooks() {
     RH_ScopedGlobalInstall(RenderEffects, 0x53E170);
     RH_ScopedGlobalInstall(RenderScene, 0x53DF40);
     RH_ScopedGlobalInstall(RenderMenus, 0x53E530);
-    RH_ScopedGlobalInstall(Render2dStuff, 0x53E230, { .locked = true }); // Must be hooked at all times otherwise game locks!
+    RH_ScopedGlobalInstall(Render2dStuff, 0x53E230);
     RH_ScopedGlobalInstall(RenderDebugShit, 0x53E160);
 
-    // Bloqueados: el cuerpo es el del EXE (validado en reversing/GameIdle). El menú ImGui (F7) ya no existe, así que
-    // nada permite conmutarlos en juego; la versión de la DLL conserva además la guarda NOTSA de ForegroundApp de Idle.
-    RH_ScopedGlobalInstall(Idle, 0x53E920, { .locked = true });
-    RH_ScopedGlobalInstall(FrontendIdle, 0x53E770, { .locked = true });
+    // Conmutación probada en reversing/HookUnlockGame; el dispatcher y WinMain protegen el Idle original en segundo plano.
+    RH_ScopedGlobalInstall(Idle, 0x53E920);
+    RH_ScopedGlobalInstall(FrontendIdle, 0x53E770);
 }
 
 // 0x5BF3B0

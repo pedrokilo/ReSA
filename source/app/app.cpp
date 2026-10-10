@@ -22,6 +22,8 @@ END GENERATED HOOK STATUS */
 #include "app_input.h"
 #include "app_game.h"
 #include "platform.h"
+#include <reversiblehooks/RootHookCategory.h>
+#include <reversiblehooks/ReversibleHook/Base.h>
 
 #include "Clouds.h"
 #include "CarFXRenderer.h"
@@ -109,6 +111,27 @@ void DoRWStuffEndOfFrame() {
     RsCameraShowRaster(Scene.m_pRwCamera);
 }
 
+// Política del bucle NOTSA cuando se selecciona el Idle original.
+bool ShouldPauseOriginalIdleInBackground() {
+    if (StaticRef<uint32>(0x8D621C) != 0) {
+        return false;
+    }
+    static auto* idleHook = [] {
+        ReversibleHooks::ReversibleHook::Base* result{};
+        ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& category) {
+            if (category.Name() == "Game") {
+                for (auto& hook : category.Items()) {
+                    if (hook->Name() == "Idle") {
+                        result = hook.get();
+                    }
+                }
+            }
+        });
+        return result;
+    }();
+    return idleHook && !idleHook->Hooked();
+}
+
 // 0x53EC10
 RsEventStatus AppEventHandler(RsEvent event, void* param) {
     switch (event) {
@@ -133,6 +156,11 @@ RsEventStatus AppEventHandler(RsEvent event, void* param) {
         CGame::FinalShutdown();
         break;
     case rsIDLE:
+        // El Idle del EXE centra el cursor sin comprobar ForegroundApp. El bucle NOTSA continúa en segundo
+        // plano: si se conmuta a ese cuerpo, conservar aquí la pausa del EXE y no mover el cursor de otra app.
+        if (ShouldPauseOriginalIdleInBackground()) {
+            break;
+        }
         Idle(param);
         break;
     case rsFRONTENDIDLE:

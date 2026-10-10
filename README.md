@@ -2,6 +2,24 @@
 > **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica y 1 pendiente de validación en 1 grupo. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. La única pendiente es Win::NOTSA_WinMain (punto de entrada, excepción documentada). [Estado actual y alcance](docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
+<!-- RESA-HOOK-UNLOCK-FINAL:BEGIN -->
+**Bloqueos reales pendientes: 0.** Los seis locks restantes del corte anterior se retiraron después de pruebas dentro del juego y reparación del ABI. Los dos desbloqueos anteriores de CEntryExit/CPostEffects siguen acreditados en su banco. Los 413 indicadores históricos obsoletos no se presentan como desbloqueos nuevos.
+
+| Clase | Hook | Bloqueado | Evidencia de conmutación |
+| --- | --- | --- | --- |
+| CAEVehicleAudioEntity | ProcessPlayerVehicleEngine | 0 | [Resumen](reversing/HookUnlockAudio/runs/20261010-170746-451158/summary.json) |
+| CAEVehicleAudioEntity | ProcessVehicle | 0 | [Resumen](reversing/HookUnlockAudio/runs/20261010-170746-451158/summary.json) |
+| CAEVehicleAudioEntity | Service | 0 | [Resumen](reversing/HookUnlockAudio/runs/20261010-170746-451158/summary.json) |
+| Game | FrontendIdle | 0 | [Resumen](reversing/HookUnlockGame/runs/20261010-170235-722875/summary.json) |
+| Game | Idle | 0 | [Resumen](reversing/HookUnlockGame/runs/20261010-170235-722875/summary.json) |
+| Game | Render2dStuff | 0 | [Resumen](reversing/HookUnlockGame/runs/20261010-170235-722875/summary.json) |
+
+Audio: 19.840 pares aislados, cero diferencias, 960 frames, 2.240 llamadas reales y 32 contextos. Se reprodujo un crash real por ECX: el caller EXE 0x4FC2A9 reutiliza ECX tras 0x4FC29B; el hook de IsAccInhibitedForLowSpeed conserva ahora ese registro mediante stackArguments=1. Game: 2.560 pares, 320 frames y 160 frames de render real; se conserva y prueba la guarda de background de Idle y se elimina el segundo parche no conmutable de Render2dStuff.
+Se exige también la repetición completa de las 102 funciones (20.024 pares) y la misma campaña de audio con el perfil original del subsistema; ambos perfiles se ejecutan con los flags finales retirados. [Archivo y alcance de los cuatro bancos](reversing/HookUnlockFinal/README.md).
+
+Se comprobaron restauración de hooks, configuración y partidas. La sesión de audio se descarta sin guardar; no se afirma restauración exacta de tareas, estadísticas o streaming ni estabilidad universal, todos los modelos o todos los controladores. Desbloqueo no significa independencia del EXE. El corte 453 sigue en 8.445/8.446 funciones validadas; Win::NOTSA_WinMain permanece pendiente.
+<!-- RESA-HOOK-UNLOCK-FINAL:END -->
+
 <img src="docs/images/resa-logo.png" alt="reSA logo" width="400">
 
 # ESOS WEYES DEL REVERSE SE DEMORAN UN CHINGO, SUS CLASES REVERTIDAS NI ESTÁN VALIDADAS Y ESO QUE SON UN MONTÓN DE GENTE PTM
@@ -128,7 +146,7 @@ Todavía no tienen un porcentaje útil; la tabla explica qué falta hacer para p
 | Validaciones vigentes para el árbol actual | 0/8.445 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | No medido | Auditar, por cada función reconstruida, las llamadas directas y transitivas que aún saltan al EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
 
-Quedan 0 entradas pendientes de reconstrucción, 0 clases incompletas y 6 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 8.440 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
+Quedan 0 entradas pendientes, 0 clases incompletas y 0 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 8.440 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
 
 La [auditoría de bloqueos](reversing/HookUnlockAudit/README.md) distingue dos desbloqueos reales probados dentro del juego de 413 indicadores históricos que ya no correspondían a un bloqueo en la fuente ni en la DLL. Permanecen bloqueados tres hooks de audio y tres del bucle/render del juego.
 

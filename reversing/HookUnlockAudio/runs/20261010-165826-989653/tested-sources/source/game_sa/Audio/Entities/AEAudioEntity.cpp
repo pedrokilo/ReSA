@@ -1,0 +1,73 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CAEAudioEntity
+ * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/2 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
+/*
+    Plugin-SDK file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
+
+#include "StdInc.h"
+#include "AEAudioEntity.h"
+
+constexpr auto EVENT_VOLUMES_BUFFER_SIZE = 45401;
+
+auto& m_pAudioEventVolumes = StaticRef<int8*>(0xBD00F8); // Use `GetDefaultVolume` to access!
+
+void CAEAudioEntity::InjectHooks() {
+    // Vtable propia de la clase base: una sola entrada (UpdateParameters, 0x4D7E30,
+    // un `retn 8` vacío). La escribe el destructor 0x5DE9E0 antes de destruir m_tempSound.
+    RH_ScopedVirtualClass(CAEAudioEntity, 0x859988, 1);
+    RH_ScopedCategory("Audio/Entities");
+
+    // 0x5DE9E0: restaura la vtable 0x859988 y salta a ~CAESound (0x4EF660) sobre
+    // m_tempSound (+0x8). Solo lo llaman funclets de desenrollado de excepciones.
+    RH_ScopedInstall(Destructor, 0x5DE9E0);
+    RH_ScopedVMTInstall(UpdateParameters, 0x4D7E30);
+
+    // StaticInitialise y Shutdown están inlineadas en el original (NOTSA) y
+    // GetDefaultVolume no tiene dirección conocida: no se hookean.
+}
+
+// NOTSA | INLINED | REFACTORED
+bool CAEAudioEntity::StaticInitialise() {
+    m_pAudioEventVolumes = new int8[EVENT_VOLUMES_BUFFER_SIZE];
+    auto file = CFileMgr::OpenFile("AUDIO\\CONFIG\\EVENTVOL.DAT", "r");
+    if (!file) {
+        // Como el original (0x5B9D7C `cmp edi,ebx / je 0x5B9DA5`): sin fichero no se llama a CloseFile (0x5389D0).
+        NOTSA_LOG_WARN("[AudioEngine] Failed to open EVENTVOL.DAT");
+        return false;
+    }
+    if (CFileMgr::Read(file, m_pAudioEventVolumes, EVENT_VOLUMES_BUFFER_SIZE) != EVENT_VOLUMES_BUFFER_SIZE) {
+        NOTSA_LOG_WARN("[AudioEngine] Failed to read EVENTVOL.DAT");
+        CFileMgr::CloseFile(file);
+        return false;
+    }
+    CFileMgr::CloseFile(file);
+    return true;
+}
+
+// NOTSA | INLINED | REFACTORED
+void CAEAudioEntity::Shutdown() {
+    delete[] std::exchange(m_pAudioEventVolumes, nullptr);
+}
+
+float CAEAudioEntity::GetDefaultVolume(eAudioEvents event) {
+    return static_cast<float>(m_pAudioEventVolumes[event]);
+}

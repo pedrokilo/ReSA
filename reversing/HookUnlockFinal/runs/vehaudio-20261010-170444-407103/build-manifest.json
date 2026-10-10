@@ -1,0 +1,28 @@
+{
+  "binaries": {
+    "asi": "51310a7d94ecad09e6f9bd30af1e6970c8c9b05bf85082fc1e7e82a194c30ccc",
+    "pdb": "8a5c7ff11ed904845d62abe0bdac2996e4f2b20b42f72b99f9b7eb3661dcefc0"
+  },
+  "sources": {
+    "source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp": "0f84dc197f5ddc9220965ae2f42042904d7ac25ad314ae894ff2e67044329920",
+    "source/game_sa/Audio/Entities/AEVehicleAudioEntity.h": "537ba09ad513febe240e0da6a85d84c9e123e1858a7b353b701f744f0ddc8d76",
+    "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "cce41d98cbf00de29ee39aa72fcd62b03ff9fd8d5402978f00afc761896e112e"
+  },
+  "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+  "instrumentation": {
+    "CasesG1.hpp": "aefb7c63fd242c366096a804079337e6f405f3bb4b0c0dfcfcfb0458a957c600",
+    "CasesG2.hpp": "a655901f95bc394db551f1fcc0c2bac79fa1c495eb93ce244ac037192b71c633",
+    "CasesG3.hpp": "d3c016669b9fe8f3966c20d6743582f16545119c58df38c2cb64445631ffb028",
+    "CasesG4.hpp": "f42e680e978ccf6770e2d1dd2f22a8fd1f39835c2bd76647f72adbe2516f2a6e",
+    "CasesG5.hpp": "c02a8cbdac489b52a80948d0a01f148b512d3b98775eddeaa21b56861698704a",
+    "CasesG6.hpp": "cf68aedb13456b18898eee0a2116376a08b620ad02b2be71f03ffbb00fd059c4",
+    "Ctx.hpp": "8c2c8302ca8b6f118274e1f0769cb8c575864a8db287227c572beeab5b73d03f",
+    "LiveComparison.hpp": "12f9daa37597a6e5ed91c2b476d88b7f573c766181319fcdee3e21ff14f71518",
+    "Support.hpp": "a3c292ccbe9423a5d6adfdb9ebead2cf86dbab186c8ce644f8f401a0fa6d3ae6",
+    "audit_run.py": "bcb7591ff6783e4b3190b9d665b15dcfa4ecfe3fe548f1e881864f9d597f5006",
+    "build_probe.py": "ce56b14dbf63dc607e373abc6c7bc3ce1f20b39171b27e817974d7770bd24500",
+    "refresh_documentation_cut453.py": "dc2c1a1bcac651d45f0ef02fc3fde1e19da3f3cbd8f5bd551e14b9caadd30330",
+    "register_vehaudiofinal4.py": "f31537d411d6399ffa7eb2937d6c517374f4d1de506dca890d109c0d5cb0ea94",
+    "run_local.py": "51a62bd26010b2db7dee08338264c141e6ec24dcf73364d5f03e9434b323f017"
+  }
+}

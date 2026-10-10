@@ -1,11 +1,11 @@
 [
   {
     "file": "source/app/app.cpp",
-    "sha256": "ef27bf46086d7f5d9262b317e8701d8ff1174a888cda143d298fd7ae36a593d8"
+    "sha256": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16"
   },
   {
     "file": "source/app/app.h",
-    "sha256": "f996c14003fe805d6e9a0a5c8083bbe538d9a41dddd59ff27905fa1430a5d1c1"
+    "sha256": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd"
   },
   {
     "file": "source/app/app_camera.cpp",
@@ -21,7 +21,7 @@
   },
   {
     "file": "source/app/app_game.cpp",
-    "sha256": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+    "sha256": "e926842bfa6790d55646014306aee23a7159db560664274d4f9a9579b60938c2"
   },
   {
     "file": "source/app/app_game.h",
@@ -109,7 +109,7 @@
   },
   {
     "file": "source/app/platform/win/WinMain.cpp",
-    "sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be"
+    "sha256": "8e592aeef6356bc4208731ed4a9de4556b15b706ecaaec664cf6ef1bfbd95154"
   },
   {
     "file": "source/app/platform/win/WinMain.h",
@@ -629,7 +629,7 @@
   },
   {
     "file": "source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp",
-    "sha256": "5422b9d6b3adb0bd3972db2c8da3362ea1e3ce822cbff036c869b539a5cdf9cf"
+    "sha256": "dce3ddc49f1279dfc9aa33623678ead58bdae64012d2b277109712bb1ed797fe"
   },
   {
     "file": "source/game_sa/Audio/Entities/AEVehicleAudioEntity.h",
@@ -8881,7 +8881,7 @@
   },
   {
     "file": "source/InjectHooksMain.cpp",
-    "sha256": "f46a6d40a83bd9108542bcd55360bb2bd021a538df007dbeff03e1b58f36a158"
+    "sha256": "3c8a89794ae2c70da04c1a56a22c7494de71ee46856475bfaa74c053b017319d"
   },
   {
     "file": "source/InjectHooksMain.h",

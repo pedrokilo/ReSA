@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-10",
+  "status": "APROBADO",
+  "validation_cut": 453,
+  "new_validation_cut": false,
+  "validated_functions": 8445,
+  "total_functions": 8446,
+  "remaining_validation": "Win::NOTSA_WinMain",
+  "locked_hooks": 0,
+  "new_locks_removed": 6,
+  "sync": {
+    "csv_rows_changed": 6,
+    "protected_files_intact": 112,
+    "strict_catalog_audit": "passed",
+    "normal_debug_build": "passed",
+    "normal_debug_asi_sha256": "b88d63c69de138a093dac74dbd97c3195e0a123e2c4eed004a3d24b50cbefeaa",
+    "audit_command": "python -B contrib/audit_hook_catalog.py --strict"
+  },
+  "runs": [
+    {
+      "profile": "game",
+      "path": "reversing/HookUnlockGame/runs/20261010-170235-722875",
+      "passed": true,
+      "pairs": 2560,
+      "all_equal": true,
+      "state_restored": true,
+      "saves_unchanged": true,
+      "configs_restored": true,
+      "executed_probe_sha256": "4c88137d7719f9f568b7b25a25b61ce64fbccc723097d40a588664e97dabee2e",
+      "log_sha256": "291b9516bc6c0bfc2e933d26a921a110cb5515c86578f4aea29d8b89b40fc807",
+      "real_render_frames": 160,
+      "native_message_pump_tested": false,
+      "native_focus_reactivation_tested": false,
+      "sdl_focus_event_queue_tested": true
+    },
+    {
+      "profile": "active_audio",
+      "path": "reversing/HookUnlockAudio/runs/20261010-170746-451158",
+      "passed": true,
+      "pairs": 19840,
+      "all_equal": true,
+      "state_restored": true,
+      "saves_unchanged": true,
+      "configs_restored": true,
+      "executed_probe_sha256": "8aff36215902de50cd7f251414c394afd59217a3ce2ccb0c64ef3198a3e7a077",
+      "log_sha256": "b08689ff842dffc9ff3fc8c13cb692901db9885a5e3df14f601ac64743d22254",
+      "live_frames": 960,
+      "live_explicit_calls": 2240,
+      "live_mixed_contexts": 32
+    },
+    {
+      "profile": "original_audio",
+      "path": "reversing/HookUnlockAudio/runs/20261010-171052-497326",
+      "passed": true,
+      "pairs": 19840,
+      "all_equal": true,
+      "state_restored": true,
+      "saves_unchanged": true,
+      "configs_restored": true,
+      "executed_probe_sha256": "8aff36215902de50cd7f251414c394afd59217a3ce2ccb0c64ef3198a3e7a077",
+      "log_sha256": "5887dd76c6449285541ee2ea095c4b76eec0bf697fe3166ec25128af60a93105",
+      "live_frames": 960,
+      "live_explicit_calls": 2240,
+      "live_mixed_contexts": 32
+    },
+    {
+      "profile": "full_102",
+      "path": "reversing/HookUnlockFinal/runs/vehaudio-20261010-170444-407103",
+      "passed": true,
+      "pairs": 20024,
+      "all_equal": true,
+      "state_restored": true,
+      "saves_unchanged": true,
+      "configs_restored": true,
+      "executed_probe_sha256": "51310a7d94ecad09e6f9bd30af1e6970c8c9b05bf85082fc1e7e82a194c30ccc",
+      "log_sha256": "58b8bec4ac0fbde77d93a794ed7b3bda8f0b45a14e5b80137d591b529af89f3a"
+    }
+  ],
+  "gates": {
+    "four_approved_archived_runs": true,
+    "paired_records_equal_and_non_null": true,
+    "runtime_restore_verified": true,
+    "both_audio_profiles_same_binary": true,
+    "source_and_instrumentation_snapshots_preserved": true,
+    "git_preserves_archived_bytes_without_line_ending_normalization": true
+  },
+  "scope_limits": [
+    "Audio pairs are isolated with stubbed collaborators; actual mixtures are evidenced separately by live frames.",
+    "Audio live tests use a disposable session; task/stat/radio/streaming state is not claimed to restore exactly.",
+    "Native Alt-Tab, minimize and focus reactivation campaign is not proven.",
+    "Evidence is bounded to the original GTA SA 1.0 US executable and the tested runtime environment."
+  ]
+}

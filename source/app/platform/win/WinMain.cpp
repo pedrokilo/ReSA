@@ -169,8 +169,9 @@ bool ProcessGameLogic(INT nCmdShow) {
     }
 #endif
 
-    // Game is in background
-    if (!NO_FOREGROUND_PAUSE && !ForegroundApp) {
+    // Procesar mensajes antes de pausar permite recuperar el foco. La ruta original de Idle necesita
+    // esta pausa también cuando AppEventHandler está desactivado y se ejecuta el dispatcher del EXE.
+    if ((!NO_FOREGROUND_PAUSE && !ForegroundApp) || ShouldPauseOriginalIdleInBackground()) {
         if (isForeground) {
             isForeground = false;
         }

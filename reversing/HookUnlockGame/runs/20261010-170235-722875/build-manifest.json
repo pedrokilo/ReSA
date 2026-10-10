@@ -1,0 +1,27 @@
+{
+  "binaries": {
+    "asi": "4c88137d7719f9f568b7b25a25b61ce64fbccc723097d40a588664e97dabee2e",
+    "pdb": "b8b4d92704f306e2ef70226b9dab933ee2fd4f884f9a5f5de4d61e2119c98533"
+  },
+  "sources": {
+    "source/app/app_game.cpp": "afe544c4136e8c910283380f8656b8ccf3d7beb64a5da7a5a2d25cdf9188431c",
+    "source/app/platform/win/WinMain.cpp": "8e592aeef6356bc4208731ed4a9de4556b15b706ecaaec664cf6ef1bfbd95154",
+    "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
+    "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
+    "source/InjectHooksMain.cpp": "3c8a89794ae2c70da04c1a56a22c7494de71ee46856475bfaa74c053b017319d",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+    "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+  },
+  "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+  "instrumentation": {
+    "IdlePairs.hpp": "b5bca4e54c5713dc6776ec3b9337ec862faf72ab15a8d7cec3f11074f939518c",
+    "LiveComparison.hpp": "08ad8dae8425edb960dde699cc314df1cd35f4ca812f48684ec3617949d0f059",
+    "RenderPairs.hpp": "2aa3cf7b202c2848995445cee6cb8a7463fa7ead6efc22cc1afc8580dd7ac75c",
+    "build_probe.py": "fe3c8d2a8f8311ff9b6c6e3370c6e9b9fe1a50b20113cc198c0665a3cf7213c8",
+    "prepare_bank.py": "276977754327a807d51f7717199b6160567c5d5795159c78c9fa28372c260db5",
+    "run_local.py": "4a9dda0ebee677a176d265cbf6b6b9c7ef210f274c6d4e068db7e999863651ec"
+  },
+  "app_cpp_original_sha256": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
+  "dispatcher_instrumented_sha256": "1f4b9154a0566f6a55063d9537f10130f70c3a4e2031a47df223d62b757abecc",
+  "render_callsite_instrumented_sha256": "cf91c629c0cdc1d0e21c4616b801a3f5ec374bdbc1c62031522250ef4647f724"
+}

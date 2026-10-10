@@ -1,0 +1,39 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica y 1 pendiente de validación en 1 grupo. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. La única pendiente es Win::NOTSA_WinMain (punto de entrada, excepción documentada). [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Banco de desbloqueo de Game
+
+Corrida final aprobada el 10/10/2026: **`20261010-170235-722875`**, con los tres locks de Game retirados en la fuente. **2.560 pares, cero diferencias, cero registros pasantes nulos; 320 frames y 160 frames con render real observado; 56 comprobaciones background y 56 de cola SDL; restauración verificada y ninguna AV registrada.** Saves intactos y configuraciones restauradas. Evidencia exacta: [summary.json](runs/20261010-170235-722875/summary.json), [comparisons.jsonl.gz](runs/20261010-170235-722875/comparisons.jsonl.gz), [verificación independiente](runs/20261010-170235-722875/archive-verification.json).
+
+Se archivaron siete fuentes probadas y seis archivos de instrumentación, todos con hashes iguales al manifiesto del build ejecutado; el hash de la ASI observada coincide con el manifiesto. El gzip tiene mtime cero y al descomprimir reproduce exactamente el hash y los bytes del log original. Estos snapshots preservan el estado probado aunque una sincronización posterior cambie los comentarios generados de las fuentes.
+
+Primera corrida aprobada: `20261010-165036-955022`, antes de retirar los locks. Su archivo histórico permanece intacto. La revisión posterior detectó una omisión del banco: `ProcessGameLogic` cambia `isForeground` (byte `0xC920EC`) al simular segundo plano; aquella instrumentación restauraba ForegroundApp, hooks, bytes, loading y quit, pero omitía ese byte. La **corrida final** captura/restaura y comprueba también `isForeground`, con valores antes/después en cada comprobación y exigencia explícita del analizador. No se atribuye esta cobertura nueva a la primera corrida.
+
+## Causas y correcciones
+
+- `Render2dStuff`: `InjectHooksMain.cpp` instalaba un segundo hook permanente en `0x53E230` además del reversible. Este último guardaba como original el salto permanente; OFF redirigía DLL→EXE mientras EXE seguía DLL, produciendo bucle. Se retiró únicamente el registro permanente de Render2dStuff. El de Pad no se modifica. El supuesto histórico de Sys12 no se cambia ni se presenta como evidencia actual.
+- `Idle`: el EXE `0x53E9F1 call 0x6194A0` centra el cursor sin guarda foreground. `WinMain.cpp` tiene `NO_FOREGROUND_PAUSE=true`; la DLL puede ejecutar Idle en segundo plano, por eso cambiar a original altera el cursor de otra aplicación. La guarda nueva compartida `ShouldPauseOriginalIdleInBackground()` omite la llamada con ForegroundApp dword 0 y hook Idle apagado: tanto desde el dispatcher rsIDLE como desde ProcessGameLogic, después de procesar mensajes para permitir recuperar foco, incluso AppEventHandler OFF. Cachea el puntero al hook una sola vez. DLL activa conserva su comportamiento de segundo plano; la ruta EXE mantiene su dominio original.
+- `FrontendIdle`: el comentario del lock mencionaba el menú ImGui retirado. No tiene justificación técnica actual suficiente; necesita frames reales con menú, pads/audio/render y vecinos híbridos, además de pares.
+
+## Cobertura del banco
+
+2.560 pares actuales: Idle 1.024, FrontendIdle 1.024 y Render2dStuff 512. La instrumentación de Idle/Frontend se deriva en archivo nuevo de GameIdle, conserva sus fixtures y doubles, y guarda los resultados completos no nulos. Render2dStuff usa API real ON/OFF y compara traza de dependencias, estados de render, cajas zoom, cámaras/modos, wide screen, armas y resoluciones pares/impares. No repone manualmente bytes EXE para esconder un hook duplicado.
+
+Después se ejecutan 320 frames completos desde AppEventHandler, antes/después de las llamadas, fuera de los cuerpos auditados. Ocho máscaras de los tres hooks, cuarenta frames cubiertos por máscara: veinte Idle con Render2dStuff efectivamente invocado y veinte FrontendIdle con menú activo. Se restauran flags del menú/loading/quit y bytes/estado/locks al retornar cada frame. La simulación real del mundo continúa; no se exige restaurar el tiempo/mundo de cada frame (sí las modificaciones del banco). No hay doubles durante esos frames.
+
+El contador de render rodea únicamente los callsites: temporalmente en la fuente Idle y en el `E8` original `0x53EB12`. Ambos encaminan al Render2dStuff real según su hook, preservando flags en el contador; no sustituye el objetivo ni sus colaboradores. Se verifica el opcode y destino original antes de parchear y se restaura el callsite al acabar el frame. Frames Idle sin dibujo, por fade/start-frame, se registran como espera y no cuentan cobertura.
+
+Se prueba también la guarda bg en las ocho máscaras con param nulo/no nulo y AppEventHandler ON/OFF (32 combinaciones): ProcessGameLogic real y, con App ON, dispatcher real, ForegroundApp=0 temporal, Idle OFF, cursor y framecounter sin cambios. No se invoca el Idle original fuera de su dominio ni se fuerza la pérdida real de foco del escritorio. Esto demuestra la guarda programática, no una campaña de Alt-Tab/minimizar/recuperar foco con mensajes OS reales; esa prueba adicional debe verificarse para comunicar compatibilidad completa.
+
+La corrida final registró 56 comprobaciones background: las 32 combinaciones únicas más repeticiones mientras se esperaba dibujo real. Utilizó SDL3 (`native_message_pump_tested=false`): no demuestra la prueba específica de WM_APP/PeekMessage del backend Win32. Sí demostró que `ProcessGameLogic` procesa la cola SDL mientras está pausado: eventos `SDL_EVENT_WINDOW_FOCUS_LOST/GAINED` con el ID de la ventana actual, presentes antes y consumidos después del pump, conservando ForegroundApp=0 y el framecounter inmóvil. SDLWrapper descarta estos tipos; no los convierte en WM_ACTIVATE ni actualiza ForegroundApp. Por tanto `sdl_focus_event_queue_tested=true` acredita **consumo de cola durante pausa**, mientras `native_focus_reactivation_tested=false` deja explícitamente fuera la recuperación real del foco, audio y controles Windows.
+
+El estado simulado/restaurado incluye `ForegroundApp` dword, `isForeground` byte, los flags loading/quit y los estados/locks/bytes EXE y DLL de los hooks Game y App utilizados. No se afirma restaurar eventos externos del escritorio ni todo el mundo real, que sigue avanzando durante los frames sin doubles. Alt-Tab/minimización/reactivación OS, backend Win32 sin SDL y una campaña integral de juego siguen fuera de esta evidencia.
+
+## Ejecución y restauración
+
+`CMAKE_BUILD_PARALLEL_LEVEL=2 _CL_=-MP2 bash reversing/_handoff/bench.sh HookUnlockGame 3`
+
+El builder instrumenta temporalmente app.cpp/app_game.cpp y, mediante probe_build, Game.cpp; los tres se restauran incluso si falla. Las fuentes originales y la instrumentación temporal tienen hashes separados en el manifiesto. Runner apunta en memoria a la copia CVehicle Test; runtime_runner.py y la instalación personal no se tocan.
+
+Revisar comparisons.jsonl: 2.560 pares, tres resúmenes, cero diferencias, 320 frames/8 máscaras, 160 entradas render observadas, todas las guardas bg pasantes, retorno de dispatcher, bytes restaurados y complete final. Un crash/hang/refusal/layout o cobertura incompleta conserva el lock y se muestra en tabla.
