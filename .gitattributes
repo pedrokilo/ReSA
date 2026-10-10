@@ -1,5 +1,8 @@
 * text=auto eol=lf
 
+# Preserve the exact bytes referenced by the vehicle-audio validation registry.
+reversing/VehAudioFinal4/validation-summary.json -text whitespace=cr-at-eol
+
 # Preserve extracted evidence and tested fixture bytes; do not reformat to remove EOF blanks.
 reversing/**/LiveComparison.hpp whitespace=-blank-at-eof
 reversing/**/*.py whitespace=-blank-at-eof

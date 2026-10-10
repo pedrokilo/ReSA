@@ -8,41 +8,11 @@
  * ESTADO: CPedGeometryAnalyser
  * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 29.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 38/38 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   CanPedJumpObstacle- | 0x005F1B00 | S
- *   CanPedJumpObstacle-contacted | 0x005F32D0 | S
- *   CanPedTargetPoint | 0x005F1B70 | S
- *   ComputeBuildingHitPoints | 0x005F1E30 | S
- *   ComputeClearTarget | 0x005F5D80 | S
- *   ComputeClosestSurfacePoint-posn | 0x005F36F0 | S
- *   ComputeClosestSurfacePoint-rect | 0x005F2C10 | S
- *   ComputeEntityBoundingBoxCornersUncached | 0x005F1FA0 | S
- *   ComputeEntityBoundingBoxPlanes | 0x005F3660 | S
- *   ComputeEntityBoundingBoxSegmentPlanesUncached | 0x005F1750 | S
- *   ComputeEntityBoundingSphere | 0x005F3C20 | S
- *   ComputeEntityDirs | 0x005F1500 | S
- *   ComputeEntityHitSide-1 | 0x005F3BC0 | S
- *   ComputeEntityHitSide-2 | 0x005F1450 | S
- *   ComputeEntityHitSide-3 | 0x005F3AC0 | S
- *   ComputeMoveDirToAvoidEntity | 0x005F3730 | S
- *   ComputePedHitSide-physical | 0x005F3640 | S
- *   ComputePedHitSide-posn | 0x005F1E70 | S
- *   ComputePedShotSide | 0x005F13F0 | S
- *   ComputeRouteRoundEntityBoundingBox-1 | 0x005F6110 | S
- *   ComputeRouteRoundEntityBoundingBox-2 | 0x005F3DD0 | S
- *   ComputeRouteRoundSphere | 0x005F1890 | S
- *   GetIsLineOfSightClear-ped | 0x005F5A30 | S
- *   GetIsLineOfSightClear-v3d | 0x005F2F00 | S
- *   GetNearestPed | 0x005F3590 | S
- *   IsEntityBlockingTarget | 0x005F3970 | S
- *   IsInAir | 0x005F1CB0 | S
- *   IsWanderPathClear | 0x005F2F70 | S
- *   LiesInsideBoundingBox | 0x005F3880 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

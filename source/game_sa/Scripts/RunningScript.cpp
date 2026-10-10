@@ -8,27 +8,11 @@
  * ESTADO: CRunningScript
  * Reconstrucción: COMPLETA — 39/39 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 15.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 39/39 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   CarInAreaCheckCommand | 0x00488EC0 | S
- *   CharInAngledAreaCheckCommand | 0x00487F60 | S
- *   CharInAreaCheckCommand | 0x00488B50 | S
- *   FlameInAngledAreaCheckCommand | 0x00488780 | S
- *   LocateCarCommand | 0x00487A20 | S
- *   LocateCharCarCommand | 0x00487420 | S
- *   LocateCharCharCommand | 0x004870F0 | S
- *   LocateCharCommand | 0x00486D80 | S
- *   LocateCharObjectCommand | 0x00487720 | S
- *   LocateObjectCommand | 0x00487D10 | S
- *   ObjectInAngledAreaCheckCommand | 0x004883F0 | S
- *   ObjectInAreaCheckCommand | 0x00489150 | S
- *   PlayAnimScriptCommand | 0x00470150 | S
- *   ScriptTaskPickUpObject | 0x0046AF50 | S
- *   ShutdownThisScript | 0x00465AA0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

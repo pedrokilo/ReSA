@@ -8,23 +8,11 @@
  * ESTADO: CProjectileInfo
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 11.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   AddProjectile | 0x00737C80 | S
- *   GetProjectileInfo | 0x00737BF0 | S
- *   Initialise | 0x00737B40 | S
- *   RemoveAllProjectiles | 0x007399B0 | S
- *   RemoveDetonatorProjectiles | 0x00738860 | S
- *   RemoveFXSystem | 0x00737B80 | S
- *   RemoveIfThisIsAProjectile | 0x00739A40 | S
- *   RemoveNotAdd | 0x00737C00 | S
- *   RemoveProjectile | 0x007388F0 | S
- *   Shutdown | 0x00737BC0 | S
- *   Update | 0x00738B20 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

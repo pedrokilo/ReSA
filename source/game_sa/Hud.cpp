@@ -8,20 +8,11 @@
  * ESTADO: CHud
  * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 8.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 38/38 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   DrawCrossHairs | 0x0058E020 | S
- *   DrawHelpText | 0x0058B6E0 | S
- *   DrawMissionTimers | 0x0058B180 | S
- *   DrawPlayerInfo | 0x0058EAF0 | S
- *   DrawSubtitles | 0x0058C250 | S
- *   DrawSuccessFailedMessage | 0x0058C6A0 | S
- *   DrawVitalStats | 0x00589650 | S
- *   DrawWanted | 0x0058D9A0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

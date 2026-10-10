@@ -8,18 +8,11 @@
  * ESTADO: CMonsterTruck
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 6.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   ExtendSuspension | 0x006C7D80 | S
- *   ProcessControl | 0x00000000 | V
- *   ProcessControlCollisionCheck | 0x00000000 | V
- *   ProcessSuspension | 0x00000000 | V
- *   ResetSuspension | 0x00000000 | V
- *   SetupSuspensionLines | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

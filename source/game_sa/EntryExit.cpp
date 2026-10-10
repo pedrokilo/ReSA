@@ -8,13 +8,11 @@
  * ESTADO: CEntryExit
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 1.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   GetPositionRelativeToOutsideWorld | 0x0043EA00 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -58,7 +56,8 @@ void CEntryExit::InjectHooks() {
     RH_ScopedInstall(GetEntryExitToDisplayNameOf, 0x43E650);
     RH_ScopedInstall(FindValidTeleportPoint, 0x43EAF0);
     RH_ScopedInstall(IsInArea, 0x43E460);
-    RH_ScopedNamedGlobalInstall(EntryExitGetPositionRelativeToOutsideWorldKeepEdx, "GetPositionRelativeToOutsideWorld", 0x43EA00, {.locked = true});
+    // Conmutación EXE/DLL con EDX y pila conservados: reversing/HookUnlockAudit.
+    RH_ScopedNamedGlobalInstall(EntryExitGetPositionRelativeToOutsideWorldKeepEdx, "GetPositionRelativeToOutsideWorld", 0x43EA00);
     RH_ScopedInstall(TransitionStarted, 0x43FFD0);
     RH_ScopedInstall(TransitionFinished, 0x4404A0);
     RH_ScopedInstall(RequestObjectsInFrustum, 0x43E690);

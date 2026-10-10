@@ -8,13 +8,11 @@
  * ESTADO: CPostEffects
  * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 1.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 38/38 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   ImmediateModeRenderStatesStore | 0x00700CC0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -197,7 +195,8 @@ void CPostEffects::InjectHooks() {
     RH_ScopedInstall(FilterFX_RestoreDayNightBalance, 0x7034D0);
     RH_ScopedInstall(ImmediateModeFilterStuffInitialize, 0x703CC0);
     RH_ScopedInstall(ImmediateModeRenderStatesSet, 0x700D70);
-    RH_ScopedInstall(ImmediateModeRenderStatesStore, 0x700CC0, {.locked = true}); // EAX is overriden when unhooked for some reason
+    // Conmutación probada con el controlador RW real; EAX no se conserva en el EXE.
+    RH_ScopedInstall(ImmediateModeRenderStatesStore, 0x700CC0);
     RH_ScopedInstall(ImmediateModeRenderStatesReStore, 0x700E00);
     RH_ScopedInstall(ScriptCCTVSwitch, 0x7011B0);
     RH_ScopedInstall(ScriptDarknessFilterSwitch, 0x701170);

@@ -8,17 +8,11 @@
  * ESTADO: CInterestingEvents
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 5.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Add | 0x00602590 | S
- *   Constructor | 0x006023A0 | S
- *   Destructor | 0x00856880 | S
- *   GetInterestingEvent | 0x006028A0 | S
- *   ScanForNearbyEntities | 0x00605A30 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

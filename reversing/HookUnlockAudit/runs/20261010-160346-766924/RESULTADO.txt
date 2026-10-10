@@ -1,0 +1,3 @@
+APROBADO: AuditorÃ­a de bloqueos y conmutaciÃ³n CEntryExit
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-hookunlock\20261010-160346-766924

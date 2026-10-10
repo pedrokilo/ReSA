@@ -8,18 +8,11 @@
  * ESTADO: CWeapon
  * Reconstrucción: COMPLETA — 41/41 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 6.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 41/41 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   CheckForShootingVehicleOccupant | 0x0073F480 | S
- *   DoDriveByAutoAiming | 0x0073D720 | S
- *   DoTankDoomAiming | 0x0073D1E0 | S
- *   FindNearestTargetEntityWithScreenCoors | 0x0073E240 | S
- *   FireInstantHit | 0x0073FB10 | S
- *   FireInstantHitFromCar | 0x0073EC40 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

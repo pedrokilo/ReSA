@@ -8,16 +8,11 @@
  * ESTADO: CPedDamageResponseCalculator
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 4.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   AccountForPedArmour | 0x004AD550 | S
- *   AccountForPedDamageStats | 0x004AD430 | S
- *   ComputeDamageResponse | 0x004B5AC0 | S
- *   ComputeWillForceDeath | 0x004AD610 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

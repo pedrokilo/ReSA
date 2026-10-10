@@ -8,42 +8,11 @@
  * ESTADO: CCam
  * Reconstrucción: COMPLETA — 44/44 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 30.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 44/44 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   GetLookFromLampPostPos | 0x005161A0 | S
- *   IsTimeToExitThisDWCineyCamMode | 0x00517400 | S
- *   KeepTrackOfTheSpeed | 0x00509DF0 | S
- *   LookBehind | 0x00520690 | S
- *   LookRight | 0x00520E40 | S
- *   Process | 0x00526FC0 | S
- *   ProcessArrestCamOne | 0x00518500 | S
- *   ProcessPedsDeadBaby | 0x00519250 | S
- *   Process_1rstPersonPedOnPC | 0x0050EB70 | S
- *   Process_AimWeapon | 0x00521500 | S
- *   Process_AttachedCam | 0x00512B10 | S
- *   Process_Cam_TwoPlayer | 0x00525E50 | S
- *   Process_Cam_TwoPlayer_InCarAndShooting | 0x00519810 | S
- *   Process_Cam_TwoPlayer_Separate_Cars | 0x00513510 | S
- *   Process_DW_BirdyCam | 0x0051B850 | S
- *   Process_DW_CamManCam | 0x0051B120 | S
- *   Process_DW_HeliChaseCam | 0x0051A740 | S
- *   Process_DW_PlaneCam1 | 0x0051C760 | S
- *   Process_DW_PlaneCam2 | 0x0051CC30 | S
- *   Process_DW_PlaneCam3 | 0x0051D100 | S
- *   Process_DW_PlaneSpotterCam | 0x0051C250 | S
- *   Process_FlyBy | 0x005B25F0 | S
- *   Process_FollowCar_SA | 0x005245B0 | S
- *   Process_FollowPedWithMouse | 0x0050F970 | S
- *   Process_FollowPed_SA | 0x00522D40 | S
- *   Process_M16_1stPerson | 0x005105C0 | S
- *   Process_SpecialFixedForSyphon | 0x00517500 | S
- *   Process_WheelCam | 0x00512110 | S
- *   RotCamIfInFrontCar | 0x0050A4F0 | S
- *   Using3rdPersonMouseCam | 0x0050A850 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

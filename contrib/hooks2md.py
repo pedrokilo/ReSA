@@ -103,7 +103,7 @@ def generate(input_path, output_path, update_source_status=False):
     if repo and sha and sha != "unknown":
         lines += [f"Generación de CI: [{sha[:12]}]({repo}/commit/{sha}).", ""]
     lines += ['<a id="completas"></a>', f"## 🟢 Completas · {len(full)} clases", "",
-              "Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 señala bloqueos.", "",
+              "Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 indica hooks cuya conmutación sigue bloqueada. Los bloqueos no son pendientes de validación.", "",
               "<details>", "<summary>Mostrar catálogo de clases completas</summary>", "",
               "| Clase (funciones) | Clase (funciones) | Clase (funciones) |", "| --- | --- | --- |"]
     height = (len(full) + 2) // 3

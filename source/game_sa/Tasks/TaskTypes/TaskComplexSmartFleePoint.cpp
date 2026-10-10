@@ -8,22 +8,11 @@
  * ESTADO: CTaskComplexSmartFleePoint
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 10.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x00000000 | V
- *   ComputeFleeDir | 0x0065BE40 | S
- *   ControlSubTask | 0x00000000 | V
- *   CreateFirstSubTask | 0x00000000 | V
- *   CreateNextSubTask | 0x00000000 | V
- *   CreateSubTask | 0x0065BE80 | S
- *   GetTaskType | 0x00000000 | V
- *   MakeAbortable | 0x00000000 | V
- *   SetDefaultTaskWanderDir | 0x0065BE00 | S
- *   SetFleePosition | 0x0065C3C0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

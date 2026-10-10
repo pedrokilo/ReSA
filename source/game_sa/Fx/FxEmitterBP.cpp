@@ -8,19 +8,11 @@
  * ESTADO: FxEmitterBP_c
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 7.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   CreateInstance | 0x00000000 | V
- *   FreePrtFromPrim | 0x00000000 | V
- *   Load | 0x00000000 | V
- *   Render | 0x00000000 | V
- *   RenderHeatHaze | 0x004A1940 | S
- *   Update | 0x00000000 | V
- *   UpdateParticle | 0x004A21D0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

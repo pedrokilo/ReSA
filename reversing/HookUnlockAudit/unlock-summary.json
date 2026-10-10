@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "real_unlocks": [
+    "CEntryExit::GetPositionRelativeToOutsideWorld",
+    "CPostEffects::ImmediateModeRenderStatesStore"
+  ],
+  "stale_catalog_flags_corrected": 413,
+  "remaining_locked": [
+    "CAEVehicleAudioEntity::ProcessPlayerVehicleEngine",
+    "CAEVehicleAudioEntity::ProcessVehicle",
+    "CAEVehicleAudioEntity::Service",
+    "Game::FrontendIdle",
+    "Game::Idle",
+    "Game::Render2dStuff"
+  ],
+  "runs": [
+    {
+      "run": "20261010-160346-766924",
+      "pairs": 2048,
+      "differences": 0,
+      "live_frames": 240,
+      "posteffects_samples": 1446,
+      "reviewed_locks": 421,
+      "runtime_locked": 8,
+      "log_sha256": "2ede76c9d6871bbdfcf6c08b720dffc814745fc4e7caa0c6167cc4b32f5dcdff",
+      "state_restored": true,
+      "saves_unchanged": true,
+      "configs_restored": true,
+      "probe_sha256": "bdc17371c1d25bb6777fe7f5f607f015e2b86fd81862155066e0be330e532d01"
+    },
+    {
+      "run": "20261010-160759-574448",
+      "pairs": 2048,
+      "differences": 0,
+      "live_frames": 240,
+      "posteffects_samples": 1446,
+      "reviewed_locks": 421,
+      "runtime_locked": 6,
+      "log_sha256": "54788c29cf8fcbefcb0ae88e6676378df6ef2abcecddbc980d84a25f3645b351",
+      "state_restored": true,
+      "saves_unchanged": true,
+      "configs_restored": true,
+      "probe_sha256": "8a30c40651a7a7bc67a9b757072801637f77d9eba8e36579be130ccdea3e0b16"
+    }
+  ],
+  "final_source_hashes": {
+    "source/game_sa/EntryExit.cpp": "a36d65a6ca9ed30f1fa27f318ca5e61ccf968f2b42f92965bb0dba3abd1ce153",
+    "source/game_sa/EntryExitManager.cpp": "8b32308daffd6fdb776eb56c847fcfcac89c16dd0e8ea1eb53385c02e3c8ac1b",
+    "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+    "source/game_sa/PostEffects.cpp": "d2846d0fdc363ef6751ff04069b4370b84008f6edbe83ac8f6565c0b0560f46e",
+    "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302",
+    "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+  },
+  "scope": "Contrato de interiores, diez estados del driver RW vivo y 240 fotogramas por corrida. No certifica concurrencia de audio, todos los interiores, menÃºs/foreground ni todos los drivers.",
+  "normal_build": {
+    "passed": true,
+    "configuration": "Debug",
+    "probe_instrumentation": false,
+    "asi_sha256": "b985ed29dc0f87674c70ca6def90da771a3d08d47a05e494ce6d3cd0b9f84efa"
+  },
+  "analyzer_hardening": {
+    "tested_analyzer_sha256": "5b590c1b2d8c8b4da73a724c7a665afbbb5895e6d8874bf8256eb33dccd52cff",
+    "current_analyzer_sha256": "71c48b17580b95a2cea315f3af1a824a70f1ad2abd19672d63de236f3835b1d9",
+    "change": "Reject any failed or incomplete post-effects checks; preserves passing verdicts of both saved runs",
+    "tested_snapshot": "runs/20261010-160759-574448/tested-instrumentation/run_local.py"
+  }
+}

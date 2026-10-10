@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BLOCK = re.compile(r'<!-- RESA-CURRENT-STATUS:BEGIN -->.*?<!-- RESA-CURRENT-STATUS:END -->\s*', re.S)
-EXCLUDED = {'artifacts', 'build', 'thirdparty', 'third-party', 'runs', 'preparation-archive',
+EXCLUDED = {'artifacts', 'build', 'thirdparty', 'third-party', 'runs', 'evidence', 'preparation-archive',
             'baseline-v1', 'archive', 'build-history', '.git', '__pycache__'}
 
 def main():

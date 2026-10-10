@@ -8,17 +8,11 @@
  * ESTADO: CCarEnterExit
  * Reconstrucción: COMPLETA — 32/32 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 5.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 32/32 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   GetNearestCarPassengerDoor | 0x00650BB0 | S
- *   GetPositionToOpenCarDoor | 0x0064E740 | S
- *   IsPlayerToQuitCarEnter | 0x0064F240 | S
- *   IsRoomForPedToLeaveCar | 0x006504C0 | S
- *   MakeUndraggedPassengerPedsLeaveCar | 0x0064F540 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

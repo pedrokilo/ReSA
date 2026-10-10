@@ -8,31 +8,11 @@
  * ESTADO: CCamera
  * Reconstrucción: COMPLETA — 110/110 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 19.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 110/110 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   CalculateDerivedValues | 0x005150E0 | S
- *   CalculateFrustumPlanes | 0x00514D60 | S
- *   CamControl | 0x00527FA0 | S
- *   CameraColDetAndReact | 0x00520190 | S
- *   CopyCameraMatrixToRWCam | 0x0050AFA0 | S
- *   HandleCameraMotionForDucking | 0x0050CFA0 | S
- *   HandleCameraMotionForDuckingDuringAim | 0x0050D090 | S
- *   ImproveNearClip | 0x00516B20 | S
- *   LoadPathSplines | 0x005B24D0 | S
- *   Process | 0x0052B730 | S
- *   ProcessFOVLerp-0 | 0x0050D510 | S
- *   ProcessVectorMoveLinear-0 | 0x0050D430 | S
- *   ProcessVectorMoveLinear-1 | 0x005164A0 | S
- *   ProcessVectorTrackLinear-0 | 0x0050D350 | S
- *   ProcessVectorTrackLinear-1 | 0x00516440 | S
- *   SetNearClipBasedOnPedCollision | 0x0050CB90 | S
- *   TryToStartNewCamMode | 0x0051E560 | S
- *   VectorMoveLinear | 0x0050D160 | S
- *   VectorTrackLinear | 0x0050D1D0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

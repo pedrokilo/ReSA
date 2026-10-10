@@ -8,20 +8,11 @@
  * ESTADO: CTaskComplexHitPedWithCar
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 8.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x006559B0 | V
- *   ComputeEvasiveStepMoveDir | 0x00653B40 | S
- *   ControlSubTask | 0x00653A90 | V
- *   CreateFirstSubTask | 0x00656300 | V
- *   CreateNextSubTask | 0x00657AF0 | V
- *   CreateSubTask | 0x006560E0 | S
- *   GetTaskType | 0x00653A20 | V
- *   HitHurtsPed | 0x00653AE0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

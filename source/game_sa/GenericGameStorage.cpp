@@ -8,26 +8,11 @@
  * ESTADO: CGenericGameStorage
  * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 14.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 19/19 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   CheckDataNotCorrupt | 0x005D1170 | S
- *   CheckSlotDataValid | 0x005D1380 | S
- *   CloseFile | 0x005D0E30 | S
- *   DoGameSpecificStuffAfterSucessLoad | 0x00618E90 | S
- *   DoGameSpecificStuffBeforeSave | 0x00618F50 | S
- *   GetCurrentVersionNumber | 0x005D0F50 | S
- *   GetSavedGameDateAndTime | 0x00618D00 | S
- *   InitRadioStationPositionList | 0x00618E70 | S
- *   LoadWorkBuffer | 0x005D10B0 | S
- *   MakeValidSaveName | 0x005D0E90 | S
- *   OpenFileForReading | 0x005D0D20 | S
- *   OpenFileForWriting | 0x005D0DD0 | S
- *   RestoreForStartLoad | 0x00619000 | S
- *   SaveWorkBuffer | 0x005D0F80 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

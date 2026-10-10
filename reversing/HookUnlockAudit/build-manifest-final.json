@@ -1,0 +1,26 @@
+{
+  "binaries": {
+    "asi": "8a30c40651a7a7bc67a9b757072801637f77d9eba8e36579be130ccdea3e0b16",
+    "pdb": "f11a6b2bba2b4c9be54623a1199e6a7cc71152c55f3fd6a9a33fca6f374acec6"
+  },
+  "sources": {
+    "source/game_sa/EntryExit.cpp": "a36d65a6ca9ed30f1fa27f318ca5e61ccf968f2b42f92965bb0dba3abd1ce153",
+    "source/game_sa/EntryExitManager.cpp": "8b32308daffd6fdb776eb56c847fcfcac89c16dd0e8ea1eb53385c02e3c8ac1b",
+    "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+    "source/game_sa/PostEffects.cpp": "d2846d0fdc363ef6751ff04069b4370b84008f6edbe83ac8f6565c0b0560f46e",
+    "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302",
+    "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+  },
+  "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+  "instrumentation": {
+    "LiveComparison.hpp": "18f0a035d82e240febfd02e84bd79e1d08381785875bfd9b70648024b93d0ef8",
+    "PostEffectsChecks.hpp": "ecab4b39e0d16b568502a705bf81531050c1c15b2e838a355c5e7119c881ae2f",
+    "Targets.hpp": "a489cc84d2ead01d21cc007a99183e44efe5d932a91927cbb69f67910a011471",
+    "build_probe.py": "aa8129c71bc55f33268616b4b8a627950f23fb823287dc1edd143a3c4c07f258",
+    "build_vehicle_engine_review.py": "b69932134b0864a18be54bc5de8585fc50ed7a0d0ac9a8a5262d5f246fdd2a6d",
+    "prepare_inventory.py": "2e945fce8efa6a16ded908a0f045e82761ac1f0bc06428458438c3c5ee1b82db",
+    "run_local.py": "5b590c1b2d8c8b4da73a724c7a665afbbb5895e6d8874bf8256eb33dccd52cff",
+    "sync_catalog_locks.py": "2fd8f07a7276dc9909761d64bc1a9b7f4e0a42f7db8e084f51ca1031bd77717d"
+  }
+}

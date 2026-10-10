@@ -8,20 +8,11 @@
  * ESTADO: CFormation
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 8.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   DistributeDestinations | 0x0069B240 | S
- *   DistributeDestinations_CoverPoints | 0x0069B5B0 | S
- *   DistributeDestinations_PedsToAttack | 0x0069B700 | S
- *   FindCoverPoints | 0x0069B860 | S
- *   GenerateGatherDestinations | 0x0069A620 | S
- *   GenerateGatherDestinations_AroundCar | 0x0069A770 | S
- *   ReturnDestinationForPed | 0x00699FA0 | S
- *   ReturnTargetPedForPed | 0x00699F50 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

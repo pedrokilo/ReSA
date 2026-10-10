@@ -8,23 +8,11 @@
  * ESTADO: CAEScriptAudioEntity
  * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 11.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 19/19 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   AttachMissionAudioToPhysical | 0x004EC100 | S
- *   ClearMissionAudio | 0x004EC040 | S
- *   GetMissionAudioLoadingStatus | 0x004EBF60 | S
- *   GetMissionAudioPosition | 0x004EC4D0 | S
- *   IsMissionAudioSampleFinished | 0x004EBFE0 | S
- *   PlayLoadedMissionAudio | 0x004EC270 | S
- *   PlayMissionBankSound | 0x004EC6D0 | S
- *   PreloadMissionAudio | 0x004EC190 | S
- *   ProcessMissionAudioEvent | 0x004ECCF0 | S
- *   SetMissionAudioPosition | 0x004EC0C0 | S
- *   UpdateParameters | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

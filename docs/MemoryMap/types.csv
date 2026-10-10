@@ -263,8 +263,8 @@ CCheckpoint,class,,source/game_sa/Checkpoint.h,34,source_type_definition
 CCheckpoints,class,,source/game_sa/Checkpoints.h,9,source_type_definition
 CClock,class,,source/game_sa/Clock.h,9,source_type_definition
 CClothes,class,,source/game_sa/Clothes.h,16,source_type_definition
-Context,struct,,source/game_sa/ClothesBuilder.cpp,190,source_type_definition
-GeoBlendData,struct,,source/game_sa/ClothesBuilder.cpp,311,source_type_definition
+Context,struct,,source/game_sa/ClothesBuilder.cpp,181,source_type_definition
+GeoBlendData,struct,,source/game_sa/ClothesBuilder.cpp,302,source_type_definition
 CClothesBuilder,class,,source/game_sa/ClothesBuilder.h,14,source_type_definition
 tMovingFog,struct,,source/game_sa/Clouds.h,23,source_type_definition
 tVolumetricClouds,struct,,source/game_sa/Clouds.h,35,source_type_definition
@@ -296,9 +296,9 @@ ColHelpers::V2::Header,struct,,source/game_sa/Collision/ColHelpers.h,190,source_
 ColHelpers::V3::Header,struct,V2::Header,source/game_sa/Collision/ColHelpers.h,217,source_type_definition
 ColHelpers::V4::Header,struct,V3::Header,source/game_sa/Collision/ColHelpers.h,246,source_type_definition
 CColLine,class,,source/game_sa/Collision/ColLine.h,18,source_type_definition
-ClosestCorner,class,,source/game_sa/Collision/Collision.cpp,348,source_type_definition
-CColCacheEntry,struct,,source/game_sa/Collision/Collision.cpp,3502,source_type_definition
-CColCacheEntry::eType,class,uint8,source/game_sa/Collision/Collision.cpp,3503,source_type_definition
+ClosestCorner,class,,source/game_sa/Collision/Collision.cpp,288,source_type_definition
+CColCacheEntry,struct,,source/game_sa/Collision/Collision.cpp,3442,source_type_definition
+CColCacheEntry::eType,class,uint8,source/game_sa/Collision/Collision.cpp,3443,source_type_definition
 CCollision,class,,source/game_sa/Collision/Collision.h,20,source_type_definition
 CCollision::DebugSettings,struct,,source/game_sa/Collision/Collision.h,32,source_type_definition
 CCollision::DebugSettings::ShapeShapeCollision,struct,,source/game_sa/Collision/Collision.h,33,source_type_definition
@@ -438,8 +438,8 @@ CPhysical,class,public CEntity,source/game_sa/Entity/Physical.h,71,source_type_d
 CPlaceable,class,,source/game_sa/Entity/Placeable.h,22,source_type_definition
 Act,class,,source/game_sa/Entity/Vehicle/Automobile.cpp,2321,source_type_definition
 CAutomobile,class,public CVehicle,source/game_sa/Entity/Vehicle/Automobile.h,42,source_type_definition
-BikeControl355UnwindEntry,struct,,source/game_sa/Entity/Vehicle/Bike.cpp,1180,source_type_definition
-BikeControl355FuncInfo,struct,,source/game_sa/Entity/Vehicle/Bike.cpp,1182,source_type_definition
+BikeControl355UnwindEntry,struct,,source/game_sa/Entity/Vehicle/Bike.cpp,1161,source_type_definition
+BikeControl355FuncInfo,struct,,source/game_sa/Entity/Vehicle/Bike.cpp,1163,source_type_definition
 CBike,class,public CVehicle,source/game_sa/Entity/Vehicle/Bike.h,29,source_type_definition
 CBmx,class,public CBike,source/game_sa/Entity/Vehicle/Bmx.h,27,source_type_definition
 CBoat,class,public CVehicle,source/game_sa/Entity/Vehicle/Boat.h,30,source_type_definition
@@ -447,8 +447,8 @@ CBoat::CBoatFlags,struct,,source/game_sa/Entity/Vehicle/Boat.h,36,source_type_de
 tHeliLight,struct,,source/game_sa/Entity/Vehicle/Heli.h,38,source_type_definition
 CHeli,class,public CAutomobile,source/game_sa/Entity/Vehicle/Heli.h,62,source_type_definition
 CMonsterTruck,class,public CAutomobile,source/game_sa/Entity/Vehicle/MonsterTruck.h,39,source_type_definition
-PlanePreRender355UnwindEntry,struct,,source/game_sa/Entity/Vehicle/Plane.cpp,754,source_type_definition
-PlanePreRender355FuncInfo,struct,,source/game_sa/Entity/Vehicle/Plane.cpp,762,source_type_definition
+PlanePreRender355UnwindEntry,struct,,source/game_sa/Entity/Vehicle/Plane.cpp,744,source_type_definition
+PlanePreRender355FuncInfo,struct,,source/game_sa/Entity/Vehicle/Plane.cpp,752,source_type_definition
 CPlane,class,public CAutomobile,source/game_sa/Entity/Vehicle/Plane.h,40,source_type_definition
 CQuadBike,class,public CAutomobile,source/game_sa/Entity/Vehicle/QuadBike.h,37,source_type_definition
 CTrailer,class,public CAutomobile,source/game_sa/Entity/Vehicle/Trailer.h,41,source_type_definition
@@ -587,7 +587,7 @@ CFireManager,class,,source/game_sa/FireManager.h,15,source_type_definition
 CFontChar,struct,,source/game_sa/Font.h,17,source_type_definition
 tFontData,struct,,source/game_sa/Font.h,54,source_type_definition
 CFont,class,,source/game_sa/Font.h,86,source_type_definition
-FormationExtended,struct,,source/game_sa/Formation.cpp,362,source_type_definition
+FormationExtended,struct,,source/game_sa/Formation.cpp,353,source_type_definition
 CFormation,class,,source/game_sa/Formation.h,17,source_type_definition
 tMenuScreenItem,struct,,source/game_sa/Frontend/MenuManager_Internal.h,181,source_type_definition
 tMenuScreen,struct,,source/game_sa/Frontend/MenuManager_Internal.h,192,source_type_definition
@@ -793,8 +793,8 @@ CPedDamageResponse,class,,source/game_sa/PedDamageResponse.h,3,source_type_defin
 CPedDamageResponseCalculator,class,,source/game_sa/PedDamageResponseCalculator.h,9,source_type_definition
 CPedDebugVisualiser,class,,source/game_sa/PedDebugVisualiser.h,7,source_type_definition
 CPedDebugVisualiser::CTextDisplayFlags,class,,source/game_sa/PedDebugVisualiser.h,8,source_type_definition
-GeometryRouteLength355,struct,,source/game_sa/PedGeometryAnalyser.cpp,599,source_type_definition
-RouteTest,struct,,source/game_sa/PedGeometryAnalyser.cpp,739,source_type_definition
+GeometryRouteLength355,struct,,source/game_sa/PedGeometryAnalyser.cpp,569,source_type_definition
+RouteTest,struct,,source/game_sa/PedGeometryAnalyser.cpp,709,source_type_definition
 CPointRoute,class,public notsa::Route<CVector>,source/game_sa/PedGeometryAnalyser.h,17,source_type_definition
 CPedGeometryAnalyser,class,,source/game_sa/PedGeometryAnalyser.h,24,source_type_definition
 CPedGeometryAnalyser::WanderPathClearness,class,uint32,source/game_sa/PedGeometryAnalyser.h,78,source_type_definition
@@ -1324,7 +1324,7 @@ CommandHandler,struct,std::false_type,source/game_sa/Scripts/CommandParser/Parse
 notsa::script::detail::StrongAlias,struct,,source/game_sa/Scripts/CommandParser/ReadArg.hpp,21,source_type_definition
 notsa::script::ScriptEntity,struct,,source/game_sa/Scripts/CommandParser/ReadArg.hpp,100,source_type_definition
 notsa::script::CompareFlagUpdate,struct,,source/game_sa/Scripts/CommandParser/Utility.hpp,31,source_type_definition
-ScriptAngledBox,struct,,source/game_sa/Scripts/RunningScript.cpp,509,source_type_definition
+ScriptAngledBox,struct,,source/game_sa/Scripts/RunningScript.cpp,493,source_type_definition
 scm::StringRef,struct,,source/game_sa/Scripts/RunningScript.h,106,source_type_definition
 scm::ArrayAccess,struct,,source/game_sa/Scripts/RunningScript.h,142,source_type_definition
 scm::ArrayAccess::ElementType,class,uint8,source/game_sa/Scripts/RunningScript.h,143,source_type_definition
@@ -1371,7 +1371,7 @@ CSector,class,,source/game_sa/Sector.h,11,source_type_definition
 CSetPiece,class,,source/game_sa/SetPiece.h,21,source_type_definition
 CSetPieces,class,,source/game_sa/SetPieces.h,7,source_type_definition
 CShadowCamera,class,,source/game_sa/ShadowCamera.h,12,source_type_definition
-ShadowRect,struct,,source/game_sa/Shadows.cpp,1247,source_type_definition
+ShadowRect,struct,,source/game_sa/Shadows.cpp,1236,source_type_definition
 CRegisteredShadow,class,,source/game_sa/Shadows.h,69,source_type_definition
 CPermanentShadow,class,,source/game_sa/Shadows.h,90,source_type_definition
 CStaticShadow,class,,source/game_sa/Shadows.h,118,source_type_definition
@@ -1849,7 +1849,7 @@ CWaterCannons,class,,source/game_sa/WaterCannons.h,7,source_type_definition
 WaterCreature_c,class,public ListItem_c<WaterCreature_c>,source/game_sa/WaterCreature_c.h,21,source_type_definition
 tWaterCreatureInfo,struct,,source/game_sa/WaterCreatureManager_c.h,6,source_type_definition
 WaterCreatureManager_c,class,,source/game_sa/WaterCreatureManager_c.h,28,source_type_definition
-WaterLayerParams,struct,,source/game_sa/WaterLevel.cpp,320,source_type_definition
+WaterLayerParams,struct,,source/game_sa/WaterLevel.cpp,314,source_type_definition
 CRenPar,struct,,source/game_sa/WaterLevel.h,11,source_type_definition
 CWaterVertex,struct,,source/game_sa/WaterLevel.h,27,source_type_definition
 CWaterPolygon,struct,,source/game_sa/WaterLevel.h,34,source_type_definition

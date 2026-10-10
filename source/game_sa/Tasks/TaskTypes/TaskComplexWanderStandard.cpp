@@ -8,18 +8,11 @@
  * ESTADO: CTaskComplexWanderStandard
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 6.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x0048E530 | V
- *   LookForChatPartners | 0x0066FDA0 | S
- *   LookForGangMembers | 0x00670100 | S
- *   LookForSexyCars | 0x0066AFD0 | S
- *   SetNextMinScanTime | 0x0066AF60 | S
- *   WillChat | 0x0066AED0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

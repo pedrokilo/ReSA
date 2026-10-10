@@ -8,21 +8,11 @@
  * ESTADO: CPlane
  * Reconstrucción: COMPLETA — 23/23 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 9.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 23/23 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   BlowUpCar | 0x00000000 | V
- *   DoPlaneGenerationAndRemoval | 0x006CD2F0 | S
- *   FindPlaneCreationCoors | 0x006CD090 | S
- *   PreRender | 0x00000000 | V
- *   ProcessControl | 0x00000000 | V
- *   ProcessControlInputs | 0x00000000 | V
- *   ProcessFlyingCarStuff | 0x00000000 | V
- *   SwitchAmbientPlanes | 0x006CCC50 | S
- *   VehicleDamage | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

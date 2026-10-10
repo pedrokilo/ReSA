@@ -8,17 +8,11 @@
  * ESTADO: CWaterLevel
  * Reconstrucción: COMPLETA — 30/30 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 5.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 30/30 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   AddWaveToResult | 0x006E81E0 | S
- *   FindNearestWaterAndItsFlow | 0x006E9D70 | S
- *   GetWaterLevelNoWaves | 0x006E8580 | S
- *   RenderWater | 0x006EF650 | S
- *   RenderWaterFog | 0x006E7760 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

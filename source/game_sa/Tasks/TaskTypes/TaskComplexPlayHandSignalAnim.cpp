@@ -8,18 +8,11 @@
  * ESTADO: CTaskComplexPlayHandSignalAnim
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 6.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x00000000 | V
- *   ControlSubTask | 0x00000000 | V
- *   CreateFirstSubTask | 0x00000000 | V
- *   CreateNextSubTask | 0x00000000 | V
- *   CreateSubTask | 0x0061B2F0 | S
- *   GetAnimIdForPed | 0x0061B460 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

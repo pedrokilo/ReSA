@@ -8,32 +8,11 @@
  * ESTADO: CTrain
  * Reconstrucción: COMPLETA — 40/40 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 20.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 40/40 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   AddNearbyPedAsRandomPassenger | 0x006F8170 | S
- *   Constructor | 0x006F6030 | S
- *   CreateMissionTrain | 0x006F7550 | S
- *   DoTrainGenerationAndRemoval | 0x006F7900 | S
- *   FindCaboose | 0x006F5E70 | S
- *   FindCarriage | 0x006F5EB0 | S
- *   FindClosestTrackNode | 0x006F6BD0 | S
- *   FindCoorsFromPositionOnTrack | 0x006F59E0 | S
- *   FindEngine | 0x006F5E90 | S
- *   FindMaximumSpeedToStopAtStations | 0x006F5BA0 | S
- *   FindNearestTrain | 0x006F7090 | S
- *   FindNextStationPositionInDirection | 0x006F5F00 | S
- *   FindPositionOnTrackFromCoors | 0x006F6CC0 | S
- *   InitTrains | 0x006F7440 | S
- *   IsNextStationAllowed | 0x006F7260 | S
- *   ReadAndInterpretTrackFile | 0x006F55D0 | S
- *   RemoveAllTrains | 0x006F6AA0 | S
- *   RemoveRandomPassenger | 0x006F6850 | S
- *   SkipToNextAllowedStation | 0x006F72F0 | S
- *   TrainHitStuff<CPtrListSingleLink<CPhysical*>> | 0x006F5CF0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

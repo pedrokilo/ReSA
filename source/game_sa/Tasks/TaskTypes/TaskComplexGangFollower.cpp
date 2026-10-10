@@ -8,19 +8,11 @@
  * ESTADO: CTaskComplexGangFollower
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 7.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x00000000 | V
- *   Constructor | 0x0065EAA0 | S
- *   ControlSubTask | 0x00000000 | V
- *   CreateFirstSubTask | 0x00000000 | V
- *   CreateNextSubTask | 0x00000000 | V
- *   Destructor | 0x0065EBB0 | S
- *   MakeAbortable | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
