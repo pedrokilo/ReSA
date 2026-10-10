@@ -31,6 +31,8 @@ def main():
                   if any((r['class'], r['fn_name']) == ('Win', 'NOTSA_WinMain') for r in extras) else '')
     from validation_registry import evaluate
     current = evaluate(ROOT, ROOT/'docs/hooks.csv')['current']
+    coverage_path = ROOT/'reversing/BinaryCoverageAudit/summary.json'
+    coverage = json.loads(coverage_path.read_text(encoding='utf-8')) if coverage_path.exists() else None
     frozen = json.loads((ROOT/'reversing/RequestedValidation20261008/documentation-frozen-exceptions.json').read_text(encoding='utf-8'))['frozen_markdown_exceptions']
     def check_frozen():
         for name, info in frozen.items():
@@ -53,6 +55,14 @@ def main():
         except UnicodeDecodeError:
             text = raw.decode('cp1252')
         link = posixpath.relpath('docs/CurrentStatus.md', posixpath.dirname(name) or '.')
+        coverage_link = posixpath.relpath('docs/BinaryCoverageAudit.md', posixpath.dirname(name) or '.')
+        coverage_note = (
+            f"El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: "
+            f"{coverage['entries_without_catalogue_names']} entradas binarias sin nombre catalogado; "
+            f"{coverage['explicit_original_targets_without_catalogue_name']} destinos originales explícitos fuera del catálogo, "
+            f"{coverage['explicit_targets_referenced_from_catalogued_entries']} referenciados desde entradas catalogadas. "
+            f"Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. "
+            f"[Cobertura fuera del catálogo]({coverage_link}). " if coverage else '')
         prefix = (
             '<!-- RESA-CURRENT-STATUS:BEGIN -->\n'
             f'> **Estado al {date} (Ciudad de México):** {len(groups)} grupos / {len(rows)} funciones reconstruidas; '
@@ -60,6 +70,7 @@ def main():
             'CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). '
             f'Vigencia acreditada: {current}; la evidencia histórica no acredita dependencias ni independencia del EXE. '
             f'{notsa_note}'
+            f'{coverage_note}'
             f'[Estado actual y alcance]({link}). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.\n'
             '<!-- RESA-CURRENT-STATUS:END -->\n\n'
         )

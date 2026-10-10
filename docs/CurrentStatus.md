@@ -1,5 +1,7 @@
 # Estado comprobado de ReSA · 10 de octubre de 2026
 
+**Alcance del 100%:** corresponde a las entradas del catálogo principal. La [auditoría de cobertura fuera del catálogo](BinaryCoverageAudit.md) identifica funciones del juego sin registro y wrappers que siguen llamando al EXE, incluidos control de ped, renderizado de automóvil y tareas. No están acreditados todos los métodos de cada clase ni la independencia del ejecutable original.
+
 <!-- RESA-HOOK-UNLOCK-FINAL:BEGIN -->
 **Bloqueos reales pendientes: 0.** Los seis locks restantes del corte anterior se retiraron después de pruebas dentro del juego y reparación del ABI. Los dos desbloqueos anteriores de CEntryExit/CPostEffects siguen acreditados en su banco. Los 413 indicadores históricos obsoletos no se presentan como desbloqueos nuevos.
 

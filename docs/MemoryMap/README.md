@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8445 funciones reconstruidas; 8445 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8445 funciones reconstruidas; 8445 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9328 entradas binarias sin nombre catalogado; 924 destinos originales explícitos fuera del catálogo, 499 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Mapa de código y direcciones de ReSA
@@ -15,8 +15,8 @@ La vista inicial **Funciones del EXE** incluye el código detectado aunque no fi
 | Resultado del análisis binario | Cantidad |
 | --- | ---: |
 | Entradas de función detectadas | **17.765** |
-| Entradas con nombres cruzados del catálogo o sus registros fuente | 8.438 |
-| Entradas sin nombre del catálogo | 9.327 |
+| Entradas con nombres cruzados del catálogo o sus registros fuente | 8.437 |
+| Entradas sin nombre del catálogo | 9.328 |
 | Dirección candidata dentro de un cuerpo existente, sin entrada propia | 1 |
 | Direcciones de código en el inventario combinado | 17.766 |
 | Tablas fuente leídas del EXE | 445 |
@@ -30,7 +30,7 @@ La vista inicial **Funciones del EXE** incluye el código detectado aunque no fi
 | Bytes ejecutables sin cuerpo de función asignado | 823.025 |
 | Rangos de bytes sin cuerpo asignado | 15.639 |
 
-**8.446 es el tamaño del catálogo de ReSA, no el número de funciones del EXE.** El análisis abarca todas las secciones del binario; el mapa conserva cada rango de bytes ejecutables no asignado a un cuerpo en «Huecos por revisar». Esos huecos pueden incluir alineación, tablas de datos, instrucciones sueltas y código pendiente de identificar. No se suman como nuevas funciones.
+**8.445 es el tamaño del catálogo de ReSA, no el número de funciones del EXE.** El análisis abarca todas las secciones del binario; el mapa conserva cada rango de bytes ejecutables no asignado a un cuerpo en «Huecos por revisar». Esos huecos pueden incluir alineación, tablas de datos, instrucciones sueltas y código pendiente de identificar. No se suman como nuevas funciones.
 
 El análisis automático global se completó, pero **17.765 sigue siendo un número de entradas detectadas, no un total semántico exacto demostrado**. Puede haber límites imperfectos, thunks, cuerpos compartidos, saltos indirectos o funciones no reconocidas. La revisión de las cuatro entradas pendientes delimitó tres funciones adicionales. La cuarta, 0x007487CF, está dentro de la función 0x00748710: no se cuenta como una función nueva.
 
@@ -42,21 +42,21 @@ Binario analizado: `D:\Grand Theft Auto San Andreas\gta-sa.exe`, 5.189.632 bytes
 
 | Inventario | Cantidad |
 | --- | ---: |
-| Entradas de `docs/hooks.csv` | 8.446 |
+| Entradas de `docs/hooks.csv` | 8.445 |
 | Clases. namespaces o grupos del catálogo | 771 |
-| Entradas registradas como reconstruidas | 8.446 |
+| Entradas registradas como reconstruidas | 8.445 |
 | Pendientes de reconstrucción | 0 |
 | Evidencias aprobadas vinculadas. verificadas por el auditor | 8.445 |
 | Validaciones con vigencia acreditada para su alcance | 0 |
-| Registros con evidencia y coincidencia de fuentes probadas. sin acreditar dependencias | 835 |
+| Registros con evidencia y coincidencia de fuentes probadas. sin acreditar dependencias | 790 |
 | Definiciones de class/struct en source. con repeticiones | 1.950 |
 | Nombres distintos de tipos captados | 1.937 |
-| Declaraciones y cuerpos candidatos de función. con repeticiones | 27.558 |
+| Declaraciones y cuerpos candidatos de función. con repeticiones | 27.560 |
 | Referencias de vtable declaradas en el código | 445 |
-| Referencias de globales StaticRef/StaticArray | 3.884 |
+| Referencias de globales StaticRef/StaticArray | 3.885 |
 | Registros explícitos de hooks captados | 8.446 |
 | Archivos fuente examinados | 2.332 |
-| Extras NOTSA. fuera del catálogo principal | 3 |
+| Extras NOTSA. fuera del catálogo principal | 4 |
 
 El auditor estricto del catálogo devolvió **OK** durante esta generación. Sus 772 owners incluyen el grupo de los extras NOTSA; los 771 de este mapa corresponden sólo al catálogo principal. Los totales describen lo captado, no el total de funciones o clases presentes en gta_sa.exe.
 
@@ -72,7 +72,7 @@ El inventario no atribuye independencia del EXE por no tener locks. Una clase ca
 
 ## Direcciones y tablas
 
-Se conserva la VA del catálogo. **6.988 entradas tienen dirección distinta de cero y 1.458 tienen dirección cero**, principalmente hooks virtuales. Los ceros no se sustituyen ni se confunden con la base del módulo.
+Se conserva la VA del catálogo. **6.987 entradas tienen dirección distinta de cero y 1.458 tienen dirección cero**, principalmente hooks virtuales. Los ceros no se sustituyen ni se confunden con la base del módulo.
 
 Las direcciones candidatas del registro fuente se guardan en otra columna. El cruce requiere el mismo owner y nombre de entrada, incluyendo etiquetas de sobrecargas. No se inventan fuentes cuando el parser no consigue enlazarlas: 175 entradas del catálogo quedaron sin localización directa de registro por este criterio.
 
@@ -89,7 +89,7 @@ La RVA se calcula respecto a `0x00400000`, base comprobada en la cabecera PE. El
 | [vtables.csv](vtables.csv) | Referencias explícitas de tablas virtuales |
 | [globals.csv](globals.csv) | Referencias StaticRef/StaticArray del código |
 | [registrations.csv](registrations.csv) | Registros explícitos RH_Scoped*Install |
-| [notsa.csv](notsa.csv) | Extras propios sin equivalente en el EXE |
+| [notsa.csv](notsa.csv) | Adaptaciones NOTSA fuera del catálogo principal |
 | [summary.json](summary.json) | Recuentos y hashes de las fuentes del inventario |
 | [source_manifest.json](source_manifest.json) | SHA-256 de cada archivo fuente examinado |
 | [binary_functions.csv](binary_functions.csv) | Todas las entradas de función detectadas en el EXE, nombres cruzados y referencias virtuales |
@@ -124,3 +124,7 @@ powershell -ExecutionPolicy Bypass -File reversing/MemoryMap/export-binary.ps1 -
 ```
 
 Si el proyecto no existe, importa y analiza el EXE completo. `-Reanalyze` solicita repetir su análisis. Se requiere JDK compatible y Python; las exportaciones de trabajo se guardan en `build/binary-map`. `contrib/build-binary-map.py` exige el hash canónico y un log de análisis global terminado antes de publicar el inventario. Regenerar sólo la vista fuente preserva las vistas binarias existentes; no actualiza su corte automáticamente.
+
+## Cobertura fuera del catálogo
+
+[Auditoría de cobertura fuera del catálogo](../BinaryCoverageAudit.md): funciones, slots y tipos sin registro, con ejemplos contrastados contra el EXE. Estas listas no son automáticamente funciones pendientes de reconstrucción.
