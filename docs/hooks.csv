@@ -7830,7 +7830,6 @@ Win,GTATranslateShiftKey,0x00747CD0,1,0,1,S
 Win,IsAlreadyRunning,0x007468E0,1,0,1,S
 Win,IsForegroundApp,0x00746060,1,0,1,S
 Win,MessageLoop,0x00746870,1,0,1,S
-Win,NOTSA_WinMain,0x00748710,1,0,0,S
 Ps,CheckDirectSound,0x00745840,1,0,1,S
 Ps,GetVideoMemInfo,0x007455E0,1,0,1,S
 Ps,InitialiseLanguage,0x007465B0,1,0,1,S

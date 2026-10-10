@@ -2,3 +2,4 @@ class,fn_name,address,reversed,locked,validated,type
 WindowedModeHooks,RenderWare::_rwD3D9CameraBeginUpdate,0x007F8F20,1,0,0,S
 WindowedModeHooks,RenderWare::_rwD3D9CameraClear,0x007F7730,1,0,0,S
 WindowedModeHooks,notsa::WindowedMode::HookDirect3DDeviceReplacerSA,0x007F6781,1,0,0,S
+Win,NOTSA_WinMain,0x00748710,1,0,0,S

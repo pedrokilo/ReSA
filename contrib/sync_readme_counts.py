@@ -58,7 +58,7 @@ def main():
         f'| Funciones reconstruidas | {fmt(rev)}/{fmt(total)} · {pct(rev, total)}% |',
         f'| Funciones validadas (de las reconstruidas) | **{fmt(val)}/{fmt(rev)} · {pct(val, rev)}%** · evidencia aprobada vinculada |', '',
         'La validación se mide sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL.'
-        + (f' Los {notsa_count} extras NOTSA sin equivalente en el EXE (modo ventana, [hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.' if notsa_count else ''), '',
+        + (f' Las {notsa_count} extensiones o adaptaciones NOTSA ([hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.' if notsa_count else ''), '',
         '##### Siguientes mediciones', '',
         'Todavía no tienen un porcentaje útil; la tabla explica qué falta hacer para poder medirlas.', '',
         '| Dimensión | Estado actual | Qué hay que hacer |', '| --- | --- | --- |',

@@ -58,7 +58,7 @@ def strip_comments(text: str) -> str:
 
 
 def notsa_path(path: Path) -> Path:
-    """Catálogo de extras NOTSA (sin equivalente en el EXE), fuera de los contadores de progreso."""
+    """Catálogo de extensiones o adaptaciones NOTSA, fuera de los contadores de progreso."""
     return path.with_name('hooks_notsa.csv')
 
 

@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica y 1 pendiente de validación en 1 grupo. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. La única pendiente es Win::NOTSA_WinMain (punto de entrada, excepción documentada). [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8445 funciones reconstruidas; 8445 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # ReSA: reconstrucción, validación e independencia
@@ -19,9 +19,9 @@ Corte del 8 de octubre de 2026. Clases y reconstrucciones se calculan sobre `hoo
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
 | Clases completas en el catálogo | `████████████████████` | 771/771 · 100,00% |
-| Clases validadas de las completas | `████████████████████` | 770/771 · 99,87% |
-| Funciones registradas como reconstruidas | `████████████████████` | 8.446/8.446 · 100,00% |
-| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████████` | **8.445/8.446 · 99,99%** |
+| Clases validadas de las completas | `████████████████████` | 771/771 · 100,00% |
+| Funciones registradas como reconstruidas | `████████████████████` | 8.445/8.445 · 100,00% |
+| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████████` | **8.445/8.445 · 100,00%** |
 
 **Siguientes mediciones** (todavía sin porcentaje útil):
 
@@ -32,7 +32,7 @@ Corte del 8 de octubre de 2026. Clases y reconstrucciones se calculan sobre `hoo
 
 Los extras NOTSA sin equivalente en el EXE (modo ventana) están en [hooks_notsa.csv](hooks_notsa.csv) y quedan fuera de la cuenta.
 
-El catálogo contiene 8.446 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 0 entradas pendientes y 0 clases incompletas. De las entradas registradas, 0 tienen `locked=1` y 8.446 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
+El catálogo contiene 8.446 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 0 entradas pendientes y 0 clases incompletas. De las entradas registradas, 0 tienen `locked=1` y 8.445 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
 
 `reversed`, `validated`, vigencia de validación, `locked` y dependencia del original son dimensiones distintas. `validated=1` conserva que la función pasó una evidencia aprobada; la vigencia se calcula aparte con hashes y revisión de dependencias. Un cuerpo C++ puede seguir pendiente de validación; una función validada puede llamar a otras implementaciones originales. El [registro separado de validaciones](../reversing/ValidationRegistry/README.md) vincula 6.736 funciones con evidencia aprobada; 52 tienen vigencia acreditada para sus fixtures en el árbol actual y 6.684 conservan evidencia histórica por revisar. El [inventario completo](ValidationInventory.md) clasifica las 8.446 entradas reconstruidas. El panel calcula la vigencia mediante evidencia, hashes y revisión de dependencias; no la deduce del flag de reconstrucción.
 

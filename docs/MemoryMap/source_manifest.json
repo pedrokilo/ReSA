@@ -109,7 +109,7 @@
   },
   {
     "file": "source/app/platform/win/WinMain.cpp",
-    "sha256": "8e592aeef6356bc4208731ed4a9de4556b15b706ecaaec664cf6ef1bfbd95154"
+    "sha256": "34a36e1070cfd8f29cdde997e8a86e4bdc1a3164fd21c800b5e4219336c0b961"
   },
   {
     "file": "source/app/platform/win/WinMain.h",
@@ -117,7 +117,7 @@
   },
   {
     "file": "source/app/platform/win/WinPlatform.cpp",
-    "sha256": "f9fbd87f4c756a06bc57a01dc20eff469d1f00f24629691f0454be29fe140662"
+    "sha256": "65a57230f8a38a098036b66f5cdbb3342134979f2e67693690ca4d7dfdec4e26"
   },
   {
     "file": "source/app/platform/win/WinPlatform.h",
@@ -129,7 +129,7 @@
   },
   {
     "file": "source/app/platform/win/WndProc.cpp",
-    "sha256": "a568ef6002c4b82d8e0c3e3d91005fb296348e68d25f9cd5c7d62221e36196c9"
+    "sha256": "524a67e496b0f1faef9653c6f95b4a174d76ec8f805b9b4e30e97efadf2964c3"
   },
   {
     "file": "source/app/platform/win/WndProc.h",

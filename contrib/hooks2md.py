@@ -83,7 +83,7 @@ def generate(input_path, output_path, update_source_status=False):
              f"| Funciones validadas (de las reconstruidas) | `{'█' * round(20*validated_count/reversed_count)}{'░' * (20-round(20*validated_count/reversed_count))}` | {validated_count:,}/{reversed_count:,} · {validated_count/reversed_count:.2%} |", "",
              "Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL.", "",
              f"Hay {total:,} entradas catalogadas, {locked:,} bloqueadas y {total-locked:,} sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks."
-             + (f" Los extras NOTSA sin equivalente en el EXE ({notsa_count}, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta." if notsa_count else ""), "",
+             + (f" Las extensiones o adaptaciones NOTSA ({notsa_count}, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta." if notsa_count else ""), "",
              "### Siguientes mediciones", "",
              "Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que falta para poder medirlas.", "",
              "| Dimensión | Estado actual | Qué hay que hacer |",

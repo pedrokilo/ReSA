@@ -6,6 +6,7 @@ import json
 import posixpath
 import re
 import subprocess
+import time
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -24,6 +25,10 @@ def main():
     groups = {r['class'] for r in rows}
     pending = Counter(r['class'] for r in rows if r['validated'] == '0')
     valid = sum(r['validated'] == '1' for r in rows)
+    extras_path = ROOT/'docs/hooks_notsa.csv'
+    extras = list(csv.DictReader(extras_path.open(encoding='utf-8-sig'))) if extras_path.exists() else []
+    notsa_note = ('Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. '
+                  if any((r['class'], r['fn_name']) == ('Win', 'NOTSA_WinMain') for r in extras) else '')
     from validation_registry import evaluate
     current = evaluate(ROOT, ROOT/'docs/hooks.csv')['current']
     frozen = json.loads((ROOT/'reversing/RequestedValidation20261008/documentation-frozen-exceptions.json').read_text(encoding='utf-8'))['frozen_markdown_exceptions']
@@ -35,7 +40,7 @@ def main():
     changed = 0
     for name in sorted(set(files)):
         parts = Path(name).parts
-        if not name.endswith('.md') or name in frozen or name == 'docs/CurrentStatus.md':
+        if not name.endswith('.md') or name in frozen or name == 'docs/CurrentStatus.md' or name.startswith('docs/Reorganizacion/'):
             continue
         if any(p in EXCLUDED or 'archive' in p or p.startswith('baseline-before') for p in parts):
             continue
@@ -51,16 +56,23 @@ def main():
         prefix = (
             '<!-- RESA-CURRENT-STATUS:BEGIN -->\n'
             f'> **Estado al {date} (Ciudad de México):** {len(groups)} grupos / {len(rows)} funciones reconstruidas; '
-            f'{valid} con evidencia histórica y {sum(pending.values())} pendiente de validación en {len(pending)} grupo. '
+            f'{valid} con evidencia histórica y {sum(pending.values())} pendientes de validación en {len(pending)} grupos. '
             'CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). '
             f'Vigencia acreditada: {current}; la evidencia histórica no acredita dependencias ni independencia del EXE. '
-            'La única pendiente es Win::NOTSA_WinMain (punto de entrada, excepción documentada). '
+            f'{notsa_note}'
             f'[Estado actual y alcance]({link}). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.\n'
             '<!-- RESA-CURRENT-STATUS:END -->\n\n'
         )
         result = (prefix + BLOCK.sub('', text)).replace('\r\n', '\n').encode('utf-8')
         if result != raw:
-            path.write_bytes(result)
+            for attempt in range(5):
+                try:
+                    path.write_bytes(result)
+                    break
+                except OSError:
+                    if attempt == 4:
+                        raise
+                    time.sleep(0.1 * (attempt + 1))
             changed += 1
     check_frozen()
     print(json.dumps({'markdown_updated': changed, 'frozen_intact': len(frozen), 'validated': valid, 'pending': dict(pending)}))

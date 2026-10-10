@@ -11706,7 +11706,7 @@ rva,va,name,body_bytes,thunk,calling_convention,source,section,executable_sectio
 0x00347eb0,0x00747eb0,FUN_00747eb0,1458,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,59,0
 0x003485c0,0x007485c0,FUN_007485c0,214,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,5,1
 0x003486a0,0x007486a0,FUN_007486a0,99,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,3,1
-0x00348710,0x00748710,FUN_00748710,1947,false,unknown,DEFAULT,.text,True,Win::NOTSA_WinMain,,unlinked,ghidra_function_entry,106,1
+0x00348710,0x00748710,FUN_00748710,1947,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,106,1
 0x00348f20,0x00748f20,FUN_00748f20,9,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,1,1
 0x00348f30,0x00748f30,FUN_00748f30,25,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,0,1
 0x00348f50,0x00748f50,FUN_00748f50,21,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,0,1

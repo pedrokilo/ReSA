@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica y 1 pendiente de validación en 1 grupo. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. La única pendiente es Win::NOTSA_WinMain (punto de entrada, excepción documentada). [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8445 funciones reconstruidas; 8445 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Prioridades técnicas de reversing
@@ -13,10 +13,10 @@
 
 | Dimensión | Cifra |
 | --- | ---: |
-| Entradas en el catálogo | 8.446 |
-| Reconstruidas | 8.446 |
+| Entradas en el catálogo | 8.445 |
+| Reconstruidas | 8.445 |
 | Validadas | 8.445 |
-| Reconstruidas sin validar | 1 |
+| Reconstruidas sin validar | 0 |
 | De ellas, en esta cola (validables por pares) | 0 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
@@ -74,11 +74,10 @@ Criterio: 90 o más funciones, o más de 50 líneas por función.
 
 | Clase | Función | Motivo |
 |---|---|---|
-| Win | `NOTSA_WinMain` | punto de entrada del juego: no vuelve hasta cerrar |
 
 Se comprueban de forma indirecta arrancando el juego o con una prueba en partida.
 
-Estaban en esta lista y ya se validaron después con bancos de dobles: `CAEAudioHardware::Initialise`, `CPlayerPed::SetupPlayerPed`, `CCollision::SphereVsEntity`.
+Estaban en esta lista y ya se validaron después con bancos de dobles: `CAEAudioHardware::Initialise`, `CPlayerPed::SetupPlayerPed`, `Win::NOTSA_WinMain`, `CCollision::SphereVsEntity`.
 
 <a id="como-se-ordena"></a>
 

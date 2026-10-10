@@ -101,6 +101,9 @@ def protected_hashes():
 
 def evidence_block(relative_prefix, rows):
     locked = [r for r in rows if r['locked'] == '1']
+    validated = sum(r['validated'] == '1' for r in rows)
+    groups = {r['class'] for r in rows}
+    pending_groups = {r['class'] for r in rows if r['validated'] == '0'}
     lines = [
         '<!-- RESA-HOOK-UNLOCK-FINAL:BEGIN -->',
         '**Bloqueos reales pendientes: '+str(len(locked))+'.** Los seis locks restantes del corte anterior se retiraron después de pruebas dentro del juego y reparación del ABI. Los dos desbloqueos anteriores de CEntryExit/CPostEffects siguen acreditados en su banco. Los 413 indicadores históricos obsoletos no se presentan como desbloqueos nuevos.',
@@ -117,7 +120,7 @@ def evidence_block(relative_prefix, rows):
         'Audio: 19.840 pares aislados, cero diferencias, 960 frames, 2.240 llamadas reales y 32 contextos. Se reprodujo un crash real por ECX: el caller EXE 0x4FC2A9 reutiliza ECX tras 0x4FC29B; el hook de IsAccInhibitedForLowSpeed conserva ahora ese registro mediante stackArguments=1. Game: 2.560 pares, 320 frames y 160 frames de render real; se conserva y prueba la guarda de background de Idle y se elimina el segundo parche no conmutable de Render2dStuff.',
         'Se exige también la repetición completa de las 102 funciones (20.024 pares) y la misma campaña de audio con el perfil original del subsistema; ambos perfiles se ejecutan con los flags finales retirados. [Archivo y alcance de los cuatro bancos]('+relative_prefix+'reversing/HookUnlockFinal/README.md).',
         '',
-        'Se comprobaron restauración de hooks, configuración y partidas. La sesión de audio se descarta sin guardar; no se afirma restauración exacta de tareas, estadísticas o streaming ni estabilidad universal, todos los modelos o todos los controladores. Desbloqueo no significa independencia del EXE. El corte 453 sigue en 8.445/8.446 funciones validadas; Win::NOTSA_WinMain permanece pendiente.',
+        'Se comprobaron restauración de hooks, configuración y partidas. La sesión de audio se descarta sin guardar; no se afirma restauración exacta de tareas, estadísticas o streaming ni estabilidad universal, todos los modelos o todos los controladores. Desbloqueo no significa independencia del EXE. El corte 453 conserva sus evidencias; el catálogo de progreso tiene '+str(validated)+'/'+str(len(rows))+' funciones con evidencia histórica y '+str(len(groups)-len(pending_groups))+'/'+str(len(groups))+' grupos completos. Win::NOTSA_WinMain se registra aparte como adaptación NOTSA con validated=0 y hook conservado en 0x748710; su exclusión no acredita una validación nueva. [Clasificación NOTSA]('+relative_prefix+'docs/HooksNOTSA.md).',
         '<!-- RESA-HOOK-UNLOCK-FINAL:END -->', '',
     ]
     return '\n'.join(lines)

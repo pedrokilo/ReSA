@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica y 1 pendiente de validación en 1 grupo. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. La única pendiente es Win::NOTSA_WinMain (punto de entrada, excepción documentada). [Estado actual y alcance](docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8445 funciones reconstruidas; 8445 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. [Estado actual y alcance](docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 <!-- RESA-HOOK-UNLOCK-FINAL:BEGIN -->
@@ -17,7 +17,7 @@
 Audio: 19.840 pares aislados, cero diferencias, 960 frames, 2.240 llamadas reales y 32 contextos. Se reprodujo un crash real por ECX: el caller EXE 0x4FC2A9 reutiliza ECX tras 0x4FC29B; el hook de IsAccInhibitedForLowSpeed conserva ahora ese registro mediante stackArguments=1. Game: 2.560 pares, 320 frames y 160 frames de render real; se conserva y prueba la guarda de background de Idle y se elimina el segundo parche no conmutable de Render2dStuff.
 Se exige también la repetición completa de las 102 funciones (20.024 pares) y la misma campaña de audio con el perfil original del subsistema; ambos perfiles se ejecutan con los flags finales retirados. [Archivo y alcance de los cuatro bancos](reversing/HookUnlockFinal/README.md).
 
-Se comprobaron restauración de hooks, configuración y partidas. La sesión de audio se descarta sin guardar; no se afirma restauración exacta de tareas, estadísticas o streaming ni estabilidad universal, todos los modelos o todos los controladores. Desbloqueo no significa independencia del EXE. El corte 453 sigue en 8.445/8.446 funciones validadas; Win::NOTSA_WinMain permanece pendiente.
+Se comprobaron restauración de hooks, configuración y partidas. La sesión de audio se descarta sin guardar; no se afirma restauración exacta de tareas, estadísticas o streaming ni estabilidad universal, todos los modelos o todos los controladores. Desbloqueo no significa independencia del EXE. El corte 453 conserva sus evidencias; el catálogo de progreso tiene 8445/8445 funciones con evidencia histórica y 771/771 grupos completos. Win::NOTSA_WinMain se registra aparte como adaptación NOTSA con validated=0 y hook conservado en 0x748710; su exclusión no acredita una validación nueva. [Clasificación NOTSA](docs/HooksNOTSA.md).
 <!-- RESA-HOOK-UNLOCK-FINAL:END -->
 
 <img src="docs/images/resa-logo.png" alt="reSA logo" width="400">
@@ -131,11 +131,11 @@ La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado
 | Dimensión | Estado |
 | --- | --- |
 | Clases completas | 771/771 · 100,00% |
-| Clases validadas (de las completas) | 770/771 · 99,87% |
-| Funciones reconstruidas | 8.446/8.446 · 100,00% |
-| Funciones validadas (de las reconstruidas) | **8.445/8.446 · 99,99%** · evidencia aprobada vinculada |
+| Clases validadas (de las completas) | 771/771 · 100,00% |
+| Funciones reconstruidas | 8.445/8.445 · 100,00% |
+| Funciones validadas (de las reconstruidas) | **8.445/8.445 · 100,00%** · evidencia aprobada vinculada |
 
-La validación se mide sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. Los 3 extras NOTSA sin equivalente en el EXE (modo ventana, [hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.
+La validación se mide sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. Las 4 extensiones o adaptaciones NOTSA ([hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.
 
 ##### Siguientes mediciones
 

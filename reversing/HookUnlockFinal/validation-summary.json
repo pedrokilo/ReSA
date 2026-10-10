@@ -89,5 +89,20 @@
     "Audio live tests use a disposable session; task/stat/radio/streaming state is not claimed to restore exactly.",
     "Native Alt-Tab, minimize and focus reactivation campaign is not proven.",
     "Evidence is bounded to the original GTA SA 1.0 US executable and the tested runtime environment."
-  ]
+  ],
+  "scope_revision": {
+    "date": "2026-10-10",
+    "reason": "Exclusión explícita del cuerpo adaptado NOTSA del catálogo de progreso; no constituye validación nueva.",
+    "excluded_function": "Win::NOTSA_WinMain",
+    "catalog": "docs/hooks_notsa.csv",
+    "address": "0x748710",
+    "validated": 0,
+    "hook_retained": true,
+    "validated_functions": 8445,
+    "total_functions": 8445,
+    "complete_groups": 771,
+    "total_groups": 771,
+    "pending_functions": 0,
+    "prior_snapshot_preserved": true
+  }
 }

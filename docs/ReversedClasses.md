@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica y 1 pendiente de validación en 1 grupo. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. La única pendiente es Win::NOTSA_WinMain (punto de entrada, excepción documentada). [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8445 funciones reconstruidas; 8445 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Progreso del reversing
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-10 23:14 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-10 23:22 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -15,13 +15,13 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
 | Clases completas | `████████████████████` | 771/771 · 100.00% |
-| Clases validadas (de las completas) | `████████████████████` | 770/771 · 99.87% |
-| Funciones reconstruidas | `████████████████████` | 8,446/8,446 · 100.00% |
-| Funciones validadas (de las reconstruidas) | `████████████████████` | 8,445/8,446 · 99.99% |
+| Clases validadas (de las completas) | `████████████████████` | 771/771 · 100.00% |
+| Funciones reconstruidas | `████████████████████` | 8,445/8,445 · 100.00% |
+| Funciones validadas (de las reconstruidas) | `████████████████████` | 8,445/8,445 · 100.00% |
 
 Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL.
 
-Hay 8,446 entradas catalogadas, 0 bloqueadas y 8,446 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Los extras NOTSA sin equivalente en el EXE (3, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
+Hay 8,445 entradas catalogadas, 0 bloqueadas y 8,445 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
 
 ### Siguientes mediciones
 
@@ -38,8 +38,8 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 
 | Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |
 | :---: | :---: | :---: | :---: | :---: |
-| **770 / 771** | **1 / 771** | **8,445 / 8,446** | **1 / 8,446** | **0 / 8,446** |
-| 99.87% | 0.13% | 99.99% | 0.01% | 0.00% |
+| **771 / 771** | **0 / 771** | **8,445 / 8,445** | **0 / 8,445** | **0 / 8,445** |
+| 100.00% | 0.00% | 100.00% | 0.00% | 0.00% |
 
 Reconstrucción por clases: 771 completas, 0 parciales y 0 sin revertir de 771.
 
@@ -314,7 +314,7 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 | [CIplStore](../source/game_sa/IplStore.cpp) (34) ✅ 34 | [CTaskComplexSeekEntity&lt;CEntitySeekPosCalculatorXYOffset&gt;](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h) (9) ✅ 9 | [VideoPlayer](../source/app/platform/win/VideoPlayer/VideoPlayer.cpp) (6) ✅ 6 |
 | [CKeyArray](../source/game_sa/Text/Text.cpp) (4) ✅ 4 | [CTaskComplexSeekEntityAiming](../source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp) (7) ✅ 7 | [WaterCreature_c](../source/game_sa/WaterCreature_c.cpp) (3) ✅ 3 |
 | [CKeyboardState](../source/game_sa/KeyboardState.cpp) (1) ✅ 1 | [CTaskComplexSeekEntityAnyMeansXYOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.cpp) (5) ✅ 5 | [WaterCreatureManager_c](../source/game_sa/WaterCreatureManager_c.cpp) (7) ✅ 7 |
-| [CKeyGen](../source/game_sa/Core/KeyGen.cpp) (4) ✅ 4 | [CTaskComplexSeekEntityRadiusAngleOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp) (9) ✅ 9 | [Win](../source/app/platform/win/WinMain.cpp) · [archivo 2](../source/app/platform/win/WinPlatform.cpp) · [archivo 3](../source/app/platform/win/WndProc.cpp) (6) ✅ 5 |
+| [CKeyGen](../source/game_sa/Core/KeyGen.cpp) (4) ✅ 4 | [CTaskComplexSeekEntityRadiusAngleOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp) (9) ✅ 9 | [Win](../source/app/platform/win/WinMain.cpp) · [archivo 2](../source/app/platform/win/WinPlatform.cpp) · [archivo 3](../source/app/platform/win/WndProc.cpp) (5) ✅ 5 |
 
 </details>
 
