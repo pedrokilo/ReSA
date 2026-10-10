@@ -6,6 +6,7 @@
 */
 #pragma once
 
+#include <bit>
 #include <extensions/FixedFloat.hpp>
 
 #include "AEAudioEntity.h"
@@ -50,7 +51,7 @@ protected: // Config:
         float IdRollOffFactor               = 2.f; // 0x8CBC2C
         float RevRollOffFactor              = 2.f; // 0x8CBC30
         float RoadNoiseSoundRollOffFactor   = 3.f; // 0x8CBD14
-        float FlatTireSoundRollOffFactor    = 3.f; // 0x8CBD20
+        float FlatTireSoundRollOffFactor    = 2.f; // 0x8CBD20 (el valor del EXE es 2.0)
         float ReverseGearSoundRollOffFactor = 1.f; // 0xNONE
 
         float VolOffsetOnGround             = 1.5f; // 0x8CBD50
@@ -249,8 +250,8 @@ protected: // Config:
 
             float FrqEngineRollFactor{ 0.1f };    // 0x8CBED4
             float FrqEngineBase{ 0.6f };          // 0xNONE
-            float FrqEngineOnWaterFactor{ 0.4f }; // 0xNONE
-            float FrqEngineInAirFactor{ 0.7f };   // 0xB6BA74
+            float FrqEngineOnWaterFactor{ std::bit_cast<float>(0x3ECCCCCCu) }; // 0x862D50 (no es el float mas cercano a 0.4)
+            float FrqEngineInAirFactor{ std::bit_cast<float>(0x3F333332u) };   // 0xB6BA74 = 0x8CBED0 (1.3) - 0x858CC8 (0.6) calculado al arrancar: 0.69999993
 
             float VolBase{ -3.f }; // 0xNONE
             float VolEngineSpeedFactor{3.f}; // 0xNONE
@@ -350,17 +351,17 @@ protected: // Config:
         } Heli;
 
         struct {
-            float RotorFreqStepUp{1.f / 187.5f}, RotorFreqStepDown{1.f / 187.5f}; // 0xNONE
+            float RotorFreqStepUp{std::bit_cast<float>(0x3BAEC33Cu)}, RotorFreqStepDown{std::bit_cast<float>(0x3BAEC33Cu)}; // 0x862D04 (no es el float mas cercano a 1/187.5)
             float RotorVolBase{0.f}; // 0xB6BA04
         } DummyRCPlane{};
 
         struct {
-            float RotorFreqStepUp{1.f / 187.5f}, RotorFreqStepDown{1.f / 187.5f}; // 0xNONE
+            float RotorFreqStepUp{std::bit_cast<float>(0x3BAEC33Cu)}, RotorFreqStepDown{std::bit_cast<float>(0x3BAEC33Cu)}; // 0x862D04 (no es el float mas cercano a 1/187.5)
             float TiltDownStep{ 0.07f };     // 0x8CBF6C
             float VolBase{ -6.0f };          // 0x8CBF68
             float FrqTiltDownFactor{ 0.2f }; // 0xNONE
             float FrqBase{ 0.8f };           // 0xNONE
-            float FrqSpeedFactor{ 0.2f };    // 0xNONE
+            float FrqSpeedFactor{ std::bit_cast<float>(0x3E4CCCCCu) }; // 0x862D00 (no es el float mas cercano a 0.2)
         } DummyRCHeli{};
 
         struct {
@@ -432,7 +433,7 @@ protected: // Config:
 
             struct {
                 float FrqMin{ 0.85f }, FrqMax{ 1.5f };  // 0x8CBC70, 0x8CBC74
-                float VolMin{ -3.5f }, VolMax{ -1.5f }; // 0x8CBC78, 0x8CBC7C
+                float VolMin{ -3.f }, VolMax{ -1.5f }; // 0x8CBC78, 0x8CBC7C (el valor del EXE en 0x8CBC78 es -3.0)
             } ID; // CAR_ID    
 
             struct {
@@ -601,7 +602,8 @@ public:
     static inline auto& s_pPlayerDriver                 = StaticRef<CPed*>(0xB6B990);
     static inline auto& s_HelicoptorsDisabled           = StaticRef<bool>(0xB6B994);
     static inline auto& s_NextDummyEngineSlot           = StaticRef<int16>(0xB6B998);
-    static inline auto& s_pVehicleAudioSettingsForRadio = StaticRef<tVehicleAudioSettings*>(0xB6B98C);
+    // Como el original: el EXE guarda el puntero a los ajustes de radio en 0xB6B99C (4F5B35 mov [B6B99C],edx; 4F4ED0 mov eax,[B6B99C]); 0xB6B98C es s_pPlayerAttachedForRadio.
+    static inline auto& s_pVehicleAudioSettingsForRadio = StaticRef<tVehicleAudioSettings*>(0xB6B99C);
     static inline auto& s_DummyEngineSlots              = StaticRef<std::array<tDummyEngineSlot, SND_BANK_SLOT_DUMMY_END - SND_BANK_SLOT_DUMMY_FIRST>>(0xB6B9A0);
 
 public:
@@ -752,7 +754,7 @@ public:
     auto GetVehicle() const { return m_Entity->AsVehicle(); }
 
 private:
-    void ProcessPropOrJetStall(const CPlane* plane, float& outVolume, float& outFreq);
+    void ProcessPropOrJetStall(const CPlane* plane, float& outVolume, float& outFreq, bool isPlayerProp = false);
     bool EnsureHasDummySlot() noexcept;
     bool EnsureSoundBankIsLoaded(bool isDummy, bool turnOffIfNotLoaded = true);
     auto GetEngineSound(eVehicleEngineSoundType st) const noexcept { return m_EngineSounds[st].Sound; }
@@ -841,8 +843,37 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CAEVehicleAudioEntity* Constructor() { this->CAEVehicleAudioEntity::CAEVehicleAudioEntity(); return this; }
-    CAEVehicleAudioEntity* Destructor() { this->CAEVehicleAudioEntity::~CAEVehicleAudioEntity(); return this; }
+    // Como el original (0x4F63E0): el constructor del EXE solo escribe estos campos (vptr, m_Entity, m_IsInitialized, el
+    // constructor en linea de CAETwinLoopSoundEntity en +0x184 y un campo de m_tempSound en +0x10); el resto de la
+    // memoria queda sin tocar. El constructor de C++ (valor-inicializa todo) lo usa el codigo de la DLL.
+    CAEVehicleAudioEntity* Constructor() {
+        auto* const b = reinterpret_cast<uint8*>(this);
+        *reinterpret_cast<uint32*>(b + 0x10) = 0;
+        *reinterpret_cast<uint32*>(b + 0x00) = 0x862CEC;
+        *reinterpret_cast<uint32*>(b + 0x194) = 0;
+        *reinterpret_cast<uint32*>(b + 0x184) = 0x85F438;
+        *reinterpret_cast<uint16*>(b + 0x20C) = 0;
+        *reinterpret_cast<uint32*>(b + 0x224) = 0;
+        *reinterpret_cast<uint32*>(b + 0x228) = 0;
+        *reinterpret_cast<uint8*>(b + 0xA4) = 0;
+        *reinterpret_cast<uint32*>(b + 0x04) = 0;
+        return this;
+    }
+    // Como el original (0x6D0A10): vptr propio, Terminate si estaba inicializada, destructor de m_SkidSound (0x4F2B80),
+    // vptr base 0x859988 y destructor de m_tempSound (0x4EF660).
+    CAEVehicleAudioEntity* Destructor() {
+        *reinterpret_cast<uint32*>(this) = 0x862CEC;
+        if (m_IsInitialized) {
+            Terminate();
+        }
+        m_SkidSound.~CAETwinLoopSoundEntity();
+        // Como el original (0x4F2B80 mov [esi],859988h): el destructor en linea de m_SkidSound deja el vptr base del EXE en +0x184
+        // (el destructor de C++ de la DLL escribe un vptr propio de la DLL).
+        *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(this) + 0x184) = 0x859988;
+        *reinterpret_cast<uint32*>(this) = 0x859988;
+        m_tempSound.~CAESound();
+        return this;
+    }
 };
 VALIDATE_SIZE(CAEVehicleAudioEntity, 0x24C);
 

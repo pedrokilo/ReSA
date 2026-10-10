@@ -1,0 +1,95 @@
+ENCARGO COMUN PARA LOS AGENTES DE GRUPO DE VehAudioFinal4 (CAEVehicleAudioEntity)
+Repo: D:\Original\gta-reversed-master (siempre D:, nunca E:). Responde y comenta SIEMPRE en espanol. Sin emojis.
+
+OBJETIVO
+Validar por pares (EXE original frente a la fuente de la DLL) las 102 funciones pendientes de CAEVehicleAudioEntity (docs/hooks.csv, class=CAEVehicleAudioEntity,
+validated=0; direccion 0 = virtual por VMT). El trabajo se reparte en 6 grupos. Cada agente, para SU grupo:
+ (1) REVISA cada funcion de la fuente contra el EXE y la CORRIGE para que sea fiel (con direccion + instruccion de evidencia en un comentario "// Como el original (0x...)").
+ (2) ESCRIBE su fichero de casos reversing/VehAudioFinal4/CasesG<n>.hpp (tabla de funciones + falsos propios + fixtures + ejecucion de cada funcion) para el banco comun.
+
+REGLAS DURAS
+ - NO compiles (ni cl, ni cmake, ni bench.sh), NO ejecutes GTA, NO hagas commit/stash/checkout/restore de git, NO borres nada. Otro agente (o el principal) compilara despues.
+   Por eso el codigo debe COMPILAR A LA PRIMERA: comprueba con Grep que cada identificador/miembro/firma que uses existe (cabeceras en source/game_sa), tipos exactos,
+   includes y nombres duplicados (greps antes de crear helpers).
+ - El proyecto compila con /W3 y COMPILE_WARNING_AS_ERROR: cualquier aviso de nivel 3 es un ERROR. Vigila: C4244 (conversion float->int/int16/uint8, int->int16, double->float),
+   C4305/C4309 (truncacion de constante), C4018 (comparacion con y sin signo), C4267 (size_t->int), C4101 (variable local sin usar), C4146, C4838, C4552/C4553. Usa static_cast explicitos
+   y literales con sufijo f. Los literales float del EXE a veces NO son el float mas cercano al literal decimal: lee el inmediato/.rdata (python reversing/_handoff/rd.py f<hex>)
+   y usa std::bit_cast<float>(0x........u).
+ - Edita SOLO: (a) source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp y .h, SOLO las funciones de tu grupo (y los helpers que ellas usan); (b) tu reversing/VehAudioFinal4/CasesG<n>.hpp.
+   NO edites Support.hpp, Ctx.hpp, LiveComparison.hpp, build_probe.py, run_local.py (los gestiona el principal; si necesitas algo de ellos, defines tu propio helper en tu CasesG<n>.hpp
+   con nombre prefijado G<n>_ o lo anotas como "NECESITO:" en el informe). NO toques Automobile.cpp, Camera.cpp, runtime_runner.py ni nada de otros bancos.
+ - CONCURRENCIA: hay otros 5 agentes editando AEVehicleAudioEntity.cpp/.h a la vez. Usa SIEMPRE Edit con old_string corto y unico (nunca reescribas el fichero entero con scripts ni
+   con Write). Tras cada tanda de ediciones relee con Grep/Read el trozo editado para confirmar que sigue ahi (otro agente pudo pisarlo) y, al terminar, verifica TODAS tus ediciones.
+   Un helper nuevo (en el namespace anonimo del principio del .cpp o justo antes de su primer uso) debe tener nombre unico: haz Grep del nombre antes. Prefija helpers con tu grupo
+   (p. ej. G3Foo) si hay duda. No muevas ni reformatees codigo ajeno.
+ - Si hay FIX_BUGS/NOTSA en tus funciones, iguala el EXE (la validacion es contra el EXE). Si algo es "notsa" y no existe en el EXE (p. ej. ProcessDummyOrPlayerProp, que fusiona dos
+   funciones del EXE), garantiza que el comportamiento es identico al de cada funcion del EXE por separado.
+ - Lee antes: reversing/_handoff/BRIEF.md y reversing/_handoff/WAVE_FINAL.md (27 lecciones), y el banco modelo reversing/VehModelInfoFinal4 (Support.hpp, LiveComparison.hpp, CasesA.hpp)
+   y reversing/Audio20/LiveComparison.hpp (entidad de audio falsa + falsos de RequestNewSound...). Lee tambien, en esta carpeta, Support.hpp, Ctx.hpp y LiveComparison.hpp.
+
+HERRAMIENTAS (Git Bash)
+ - Ensamblador del EXE original (D:\Grand Theft Auto San Andreas\gta-sa.exe): `bash reversing/_handoff/dis.sh 0xINI 0xFIN` (tope de 2000 lineas) o
+   `bash reversing/VehAudioFinal4/dis_full.sh 0xINI 0xFIN` (sin tope). TODO el rango de la clase ya esta volcado en reversing/VehAudioFinal4/evidence/exe_4F4D10_502300.asm
+   (lineas "DIRECCION: instruccion"): usa Grep/Read con offset sobre ese fichero para leer las funciones; los limites de cada funcion vienen en docs/hooks.csv (direccion de inicio).
+ - Datos del EXE: `python reversing/_handoff/rd.py f<hex>|d<hex>|i<hex>|s<hex>` (f=float, d=double, i=12 dwords, s=cadena).
+ - Pseudocodigo orientativo (si existe): `bash reversing/_handoff/combo.sh 0xDIR`; tambien hay herramientas mcp__rea__* (pueden estar diferidas: cargalas con ToolSearch) con el EXE canonico.
+   La fidelidad se decide SIEMPRE con el ensamblador exacto (dis.sh).
+ - Hook y direcciones: docs/hooks.csv; InjectHooks() al final de AEVehicleAudioEntity.cpp (ahi estan los RH_ScopedInstall/RH_ScopedVMTInstall con su direccion).
+
+REVISION DE FUENTE: que mirar (BRIEF.md + WAVE_FINAL.md, resumido)
+ - x87 a 24 bits: + - * / fsqrt redondean a float (equivalente a float SSE). fsin/fcos/fpatan/fyl2x/pow son de precision completa -> __asm. Orden de sumas como el EXE.
+   float->int via _ftol2 = truncacion a 64 bits (0x821B40). Comparaciones: fcomp + fnstsw + test ah,5/41h/1 + jp/jne: con NaN NO equivalen a < o > de C++; escribe la condicion como el asm.
+ - Con signo (movsx, jl/jg) frente a sin signo (movzx, jb/ja); byte frente a dword; ancho de escrituras (word/dword); orden de llamadas; limites de bucle; operandos de cmp.
+ - Valor-inicializacion de la DLL (`{}`, `: Base()`, `T x{}`) pone a cero bytes que el EXE no escribe: eliminala donde el EXE no escriba. Padding no se copia miembro a miembro.
+ - Funciones del EXE que SOLO usan EAX/ECX/ESI (preservan EDX) cuyos llamadores del EXE siguen usando EDX: el hook debe ser un wrapper naked que haga push/pop edx. Comprueba el `ret N`
+   y la convencion (thiscall; argumentos en registros; retorno float en ST0) de cada funcion; un wrapper/hook con firma distinta es un bug real.
+ - Si el EXE inlinea una funcion de la DLL (p. ej. interpolaciones, GetTimeInMS, GetPosition de camara), el comportamiento debe ser el mismo sin las llamadas que el EXE no hace.
+ - Tablas de configuracion (Config s_Config, tablas de bocinas, etc.): comprueba CADA valor contra .data/.rdata del EXE (rd.py), no solo la direccion.
+ - Ojo con funciones que en el EXE reciben tVehicleParams& y modifican campos (GetAccelAndBrake...), con campos de 16 bits (FixedFloat<int16,255>) y con 'tVehicleParams' sin inicializar.
+ - Cada funcion de tu lista debe terminar con una conclusion MATCH (sin cambios) o FIXED (corregida) con una linea de evidencia (direccion + instruccion). Revisa tambien los helpers
+   (no hookeados) de la DLL que tus funciones usan: forman parte del comportamiento.
+
+BANCO (CasesG<n>.hpp). Contrato (ya hay una PLANTILLA vacia que debes SOBREESCRIBIR con Write; leela primero):
+   inline const std::vector<Fn> kFnsG<n>{ {"CAEVehicleAudioEntity","<nombre exacto del hook>",0x<DIR>,0,-1,<casos>}, ... };   // virtual: {"CAEVehicleAudioEntity","UpdateParameters",0,0x862CEC,0,<casos>}
+   inline void SavesG<n>();   // Save(dir,bytes) de CADA global que toque tu grupo (se restauran tras cada ejecucion)
+   inline void StubsG<n>();   // AddStub(G_X<n>, dirEXE, dirDLL, FnPtr(&falso)) para falsos propios (usa bit_cast<uintptr_t>(&Clase::Metodo) o AddHookStub(...) para simbolos de la DLL)
+   inline bool RunG<n>(Ctx& c);   // if(c.nm=="X"){ ...; return true; } ... return false;  (c.a = direccion a llamar; c.i = numero de caso; c.out/c.ret = resultados)
+ - Formato EXACTO de cada fila de la tabla (run_local.py las lee con una regex): {"CAEVehicleAudioEntity","Nombre",0xHEXMAYUSCULAS,0,-1,CASOS}   (direccion 0 y vtable 0x.. para virtuales).
+   Los nombres son los de docs/hooks.csv (p. ej. "GetHornState-", "AddAudioEvent-0", "AddAudioEvent-1"). Tu fichero debe contener TODAS las funciones de tu grupo (ni mas ni menos).
+ - Casos: 64-128 para funciones triviales, 192-256 medianas, 384-512 grandes; objetivo del conjunto de TU grupo: 2000-3500 pares. Fixtures en el dominio real del EXE (no entradas que hagan
+   reventar al EXE: locales sin inicializar, punteros nulos que el EXE no comprueba, NaN/sNaN, indices fuera de tabla). Cada rama de la funcion debe alcanzarse en algun caso.
+ - Modelo de ejecucion de un caso (ya montado por LiveComparison.hpp): memset(&w,0), c.ResetFakes() (falsos aleatorios deterministas), hooks fijados (original = hooks de la clase
+   desactivados; candidato = activados), tu RunG<n> llama a la funcion en c.a, y el motor compara c.out/c.ret + trazas + hash del mundo falso + peticiones de sonido + globales guardados.
+ - En RunG<n>: crea los parches con `auto P = MakePatches(G_STD | G_PAD | G_RADIO | G_X<n>);` (solo las mascaras que necesites; G_STD = gestor de sonidos + hardware + azar + entorno + referencias;
+   G_PAD = CPad::GetBrake/GetAccelerate; G_RADIO = CAudioEngine::StartRadio/StopRadio) DESPUES de que los hooks esten fijados (ya lo estan al entrar) y destruyelos (fin de ambito) ANTES de
+   volver (sin Write ni json pesado mientras estan puestos; los EntryPatch viven en almacenamiento estatico). Llama a la funcion con CallThis<R>(c.a, self, args...) (thiscall) o la
+   convencion que tenga el EXE.
+ - El mundo falso es estatico (w.ent[k] entidades de audio de 0x24C, w.veh[k] vehiculos de 0x1000, w.mat, w.tr (cTransmission), w.ped, w.snd (sonidos), w.settings, w.params, w.wheel, w.gas, w.misc).
+   Ctx::FillEntity(k,veh) rellena una entidad de audio con estado plausible; Ctx::FreshPool() inicializa los sonidos (c.Pre(k) = sonido preexistente de la entidad); ajusta tras ello lo que tu funcion
+   necesite. El vehiculo (w.veh) lo rellenas tu con offsets reales (lee del EXE que campos lee la funcion; coherencia: matriz en +0x14 -> w.mat, handling, modelo en +0x22, tipo, flags,
+   danos, ruedas, conductor/pasajeros -> w.ped...). Si una funcion llama a funciones REALES del EXE sobre el vehiculo falso (UsesSiren 0x6D8470, GetWheelStatus 0x6C21B0, CPed::IsAlive 0x5E0170,
+   DoExtraAirResistanceForPlayer 0x72DDD0, GetPadFromPlayer 0x609560, CPad::GetPad, FindPlayerPed/FindPlayerVehicle, CWeather, TheCamera...) o sobre globales, rellena el estado real que lean (con Save()
+   del global y restauracion) o paralas con un falso trazado (exe + simbolo DLL) segun convenga. Nunca operes sobre singletons reales sin guardarlos/restaurarlos.
+ - Falsos estandar (Support.hpp, ya listos): CAESoundManager::RequestNewSound (copia el sonido pedido a una ranura falsa de w.snd; c.out recibe las peticiones via nreq/req_fnv automaticamente),
+   AreSoundsOfThisEventPlayingForThisEntity, AreSoundsPlayingInBankSlot, CancelSoundsInBankSlot, CancelSoundsOwnedByAudioEntity, CAEAudioHardware::IsSoundBankLoaded/LoadSoundBank,
+   rand 0x821B1E + CGeneral::GetRandomNumber, CPad::GetBrake/GetAccelerate, GetPositionRelativeToCamera_Placeable, GetDistanceAttenuation, CEntity::RegisterReference/CleanUpOldReference,
+   CAudioEngine::StartRadio/StopRadio. Controla sus resultados con el struct `fk` (bankMode/bankBits, evSeq, slotSeq, reqFail, padAccel/padBrake, rel, attenScale...).
+   El tiempo del juego (CTimer::m_snTimeInMilliseconds 0xB7CB84) se fija con c.SetTime() y se guarda/restaura ya. AudioLog10, GetPiecewiseLinear, etc. NO se paran (son puros y estan validados).
+ - m_tempSound de la entidad (offset 8..0x7C) NO se compara (el EXE lo usa como escritorio; la DLL puede usar un temporal): documentalo. Los campos de CAESound que Initialise no escribe
+   (relleno, tiempos, distancias, m_IsAudioHardwareAware) se ponen a cero en la copia que ve RequestNewSound.
+ - Tipos de traza propios: usa Push(T_GROUP+<n>*16+k, ...) (T_GROUP=100). Funciones del mismo grupo/otras de la propia clase pueden dejarse REALES (se comparan en cadena) salvo que su fixture
+   sea dificil: entonces parchea su direccion EXE + hook DLL con AddHookStub(G_X<n>, dirEXE, "CAEVehicleAudioEntity","NombreHook", FnPtr(&Falso)) (el falso respeta thiscall/ret N).
+ - Para datos devueltos: c.ret = valor (floats como F(valor) = bits, para comparar exactamente), c.out["campo"]=... con lo que la funcion modifica (entidad, vp, vehiculo...). Los float se
+   comparan por bits (usa F()). Enmascara relleno y bytes que el EXE no escribe (Hex(...) de rangos concretos en vez de la entidad entera cuando haga falta; el mundo entero ya se compara por hash).
+   OJO: el hash del mundo incluye TODO w (menos m_tempSound): no dejes en w bytes que el EXE y la DLL escriban distinto de forma legitima (padding de tVehicleParams, basura de pila...).
+ - Cuidado con structs devueltos por valor (CVector, tVehicleAudioSettings): la DLL (MSVC) los devuelve por puntero oculto y el EXE por EAX/registros/stack segun el caso: llama con la
+   firma que el ensamblador muestre.
+ - Resultados que dependan de memoria sin inicializar del EXE, hilos ajenos, E/S real: fuera de dominio; si una funcion no se puede probar con seguridad hazle primero una segunda ronda con
+   dobles trazados; solo si es imposible, dejala FUERA y dilo en el informe con direccion+instruccion exactas.
+
+INFORME FINAL (<= 400 palabras, en espanol), para el agente principal:
+ 1) Por funcion: MATCH o FIXED + una linea de evidencia (direccion+instruccion del EXE) y, si FIXED, que se cambio.
+ 2) Tabla de pares por funcion (casos) y total del grupo.
+ 3) Lo que quedo fuera y por que (direccion+instruccion exactas).
+ 4) Supuestos a revisar al compilar y cualquier "NECESITO:" para Support.hpp/Ctx.hpp/LiveComparison.hpp; helpers nuevos que hayas anadido al .cpp/.h (nombre).
+ 5) Desviaciones FIX_BUGS/NOTSA encontradas.
