@@ -127,6 +127,7 @@ public:
             uint32 m_bUseMaxspLimit : 1;
             uint32 m_bLowRider : 1;
             uint32 m_bStreetRacer : 1;
+            uint32 : 1; // Como el original: el bit 27 no se usa; SWINGING_CHASSIS es 0x10000000 (bit 28)
             uint32 m_bSwingingChassis : 1;
         };
     };

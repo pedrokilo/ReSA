@@ -13,11 +13,13 @@ class  CBouncingPanel {
     static inline auto& BOUNCE_HANGING_RETURN_MULT = StaticRef<float>(0x8D3964); // 0.02
 
 public:
+    // Como el original (CAutomobile::CAutomobile 0x6B0AF2): el constructor solo pone m_nFrameId a -1 (mov word ptr [eax],0FFFFh);
+    // el resto no se inicializa (SetPanel lo rellena), asi que no se usa inicializacion por valor.
     uint16 m_nFrameId{(uint16)-1};
-    uint16 m_nAxis{};
-    float    m_fAngleLimit{};
-    CVector  m_vecRotation{};
-    CVector  m_vecPos{};
+    uint16 m_nAxis;
+    float    m_fAngleLimit;
+    CVector  m_vecRotation;
+    CVector  m_vecPos;
 
 public:
     CBouncingPanel() = default;

@@ -6,10 +6,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 7893 |
+| `validated=1` · evidencia aprobada vinculada | 8343 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 7893 |
-| Sin evidencia aprobada vinculada en este registro | 553 |
+| Evidencia histórica vinculada; revisión pendiente | 8343 |
+| Sin evidencia aprobada vinculada en este registro | 103 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -818,11 +818,192 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAtomicModelInfo | `SetAtomic` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CAtomicModelInfo | `SetAtomicModelInfoFlags` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CAtomicModelInfo | `SetupVehicleUpgradeFlags` | [Resumen](../reversing/Models9/validation-summary.json) |
+| CAudioEngine | `AttachMissionAudioToObject` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `AttachMissionAudioToPed` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `AttachMissionAudioToPhysical` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ClearMissionAudio` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `Constructor` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `Destructor` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `DisableEffectsLoading` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `DisplayRadioStationName` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `DoesAmbienceTrackOverrideRadio` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `EnableEffectsLoading` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `GetBeatInfo` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `GetBeatTrackStatus` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `GetCurrentRadioStationID` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `GetCutsceneTrackStatus` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `GetMissionAudioEvent` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `GetMissionAudioLoadingStatus` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `GetMissionAudioPosition` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `GetRadioStationListenTimes` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `GetRadioStationName` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `GetRadioStationNameKey` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `HasRadioRetuneJustStarted` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `Initialise` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `InitialisePostLoading` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `InitialiseRadioStationID` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `IsAmbienceRadioActive` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `IsAmbienceTrackActive` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `IsBeatInfoPresent` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `IsCutsceneTrackActive` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `IsLoadingTuneActive` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `IsMissionAudioSampleFinished` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `IsRadioOn` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `IsRadioRetuneInProgress` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `IsVehicleRadioActive` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `PauseAllSounds` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `PauseBeatTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `PlayLoadedMissionAudio` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `PlayPreloadedBeatTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `PlayPreloadedCutsceneTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `PreloadBeatTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `PreloadCutsceneTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `PreloadMissionAudio` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportBulletHit` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportCollision` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportDoorMovement` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportFrontendAudioEvent` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportGlassCollisionEvent` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportMissionAudioEvent-obj` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportMissionAudioEvent-ped` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportMissionAudioEvent-phs` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportMissionAudioEvent-vec` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportMissionAudioEvent-veh` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportObjectDestruction` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportWaterSplash-phs` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportWaterSplash-vec` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ReportWeaponEvent` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `Reset` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ResetSoundEffects` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ResetStatistics` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `Restart` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ResumeAllSounds` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `RetuneRadio` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SayPedless` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `Service` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `ServiceLoadingTune` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SetBassEnhanceOnOff` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SetEffectsFaderScalingFactor` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SetEffectsMasterVolume` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SetMissionAudioPosition` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SetMusicFaderScalingFactor` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SetMusicMasterVolume` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SetNonStreamFaderScalingFactor` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SetRadioAutoRetuneOnOff` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SetRadioBassSetting` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `SetStreamFaderScalingFactor` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `Shutdown` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `StartLoadingTune` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `StartRadio-` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `StartRadio-1` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `StopAmbienceTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `StopBeatTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `StopCutsceneTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `StopRadio` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
 | CAudioZones | `Init` | [Resumen](../reversing/World43/validation-summary.json) |
 | CAudioZones | `RegisterAudioBox` | [Resumen](../reversing/World43/validation-summary.json) |
 | CAudioZones | `RegisterAudioSphere` | [Resumen](../reversing/World43/validation-summary.json) |
 | CAudioZones | `SwitchAudioZone` | [Resumen](../reversing/World43/validation-summary.json) |
 | CAudioZones | `Update` | [Resumen](../reversing/World43/validation-summary.json) |
+| CAutomobile | `AddMovingCollisionSpeed` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `BlowUpCar` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `BlowUpCarCutSceneNoExtras` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `BlowUpCarsInPath` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `BoostJumpControl` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `BreakTowLink` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ClearHeliOrientation` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `CloseAllDoors` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `CloseBoot` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `Constructor` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `CustomCarPlate_AfterRenderingStop` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `CustomCarPlate_BeforeRenderingStart` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `Destructor` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `DoBurstAndSoftGroundRatios` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `DoHoverSuspensionRatios` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `DoSoftGroundResistance` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `FindWheelWidth` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `FireTruckControl` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `Fix` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `FixDoor` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `FixPanel` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `FixTyre` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetAllWheelsOffGround` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetCarPitch` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetCarRoll` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetComponentWorldPosition` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetDooorAngleOpenRatio` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetDooorAngleOpenRatioU32` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetHeightAboveRoad` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetMovingCollisionOffset` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetNumContactWheels` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetTowBarPos` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `GetTowHitchPos` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `HydraulicControl` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsComponentPresent` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsDoorClosed` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsDoorClosedU32` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsDoorFullyOpen` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsDoorFullyOpenU32` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsDoorMissing` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsDoorMissingU32` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsDoorReady` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsDoorReadyU32` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsInAir` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsOpenTopCar` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `IsRoomForPedToLeaveCar` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `KnockPedOutCar` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `Load` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `NitrousControl` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `OpenDoor` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `PlaceOnRoadProperly` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `PlayCarHorn` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `PlayHornIfNecessary` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `PopBoot` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `PopBootUsingPhysics` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `PopDoor` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `PopPanel` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessAI` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessAutoBusDoors` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessBuoyancy` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessCarOnFireAndExplode` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessCarWheelPair` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessControl` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessControlCollisionCheck` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessControlInputs` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessEntityCollision` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessFlyingCarStuff` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessHarvester` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessSuspension` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ProcessSwingingDoor` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `RcbanditCheck1CarWheels` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `RcbanditCheckHitWheels` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ReduceHornCounter` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `RemoveBonnetInPedCollision` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ResetSuspension` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `Save` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `ScanForCrimes` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetAllTaxiLights` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetBumperDamage` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetBusDoorTimer` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetDoorDamage` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetHeliOrientation` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetPanelDamage` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetTaxiLight` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetTotalDamage` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetTowLink` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetupDamageAfterLoad` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetupModelNodes` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SetupSuspensionLines` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `SpawnFlyingComponent` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `StopNitroEffect` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `TankControl` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `Teleport` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `TellHeliToGoToCoors` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `TellPlaneToGoToCoors` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `TowTruckControl` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `UpdateMovingCollision` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `VehicleDamage` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
+| CAutomobile | `dmgDrawCarCollidingParticles` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
 | CBaseModelInfo | `Add2dEffect` | [Resumen](../reversing/Model34/validation-summary.json) |
 | CBaseModelInfo | `AddRef` | [Resumen](../reversing/Model34/validation-summary.json) |
 | CBaseModelInfo | `AddTexDictionaryRef` | [Resumen](../reversing/Model34/validation-summary.json) |
@@ -1005,23 +1186,114 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCam | `RotCamIfInFrontCar` | [Resumen](../reversing/CamRotate355/validation-summary.json) |
 | CCam | `Using3rdPersonMouseCam` | [Resumen](../reversing/CamCore355/validation-summary.json) |
 | CCam | `WellBufferMe` | [Resumen](../reversing/CamHud1/validation-summary.json) |
+| CCamera | `AddShakeSimple` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `AllowShootingWith2PlayersInCar` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `ApplyVehicleCameraTweaks` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `CalculateDerivedValues` | [Resumen](../reversing/CameraDerived355/validation-summary.json) |
 | CCamera | `CalculateFrustumPlanes` | [Resumen](../reversing/CameraFrustum355/validation-summary.json) |
+| CCamera | `CalculateGroundHeight` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `CalculateMirroredMatrix` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `CamControl` | [Resumen](../reversing/CamControl355/validation-summary.json) |
+| CCamera | `CamShake` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `CamShakeNoPos` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `CameraColDetAndReact` | [Resumen](../reversing/CameraCollision355/validation-summary.json) |
+| CCamera | `CameraGenericModeSpecialCases` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `CameraPedAimModeSpecialCases` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `CameraPedModeSpecialCases` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `CameraVehicleModeSpecialCases` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `ClearPlayerWeaponMode` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `ConeCastCollisionResolve` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `ConsiderPedAsDucking` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `Constructor` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `CopyCameraMatrixToRWCam` | [Resumen](../reversing/CameraRwCopy355/validation-summary.json) |
+| CCamera | `DealWithMirrorBeforeConstructRenderList` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `DeleteCutSceneCamDataMemory` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `DontProcessObbeCinemaCamera` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `DrawBordersForWideScreen` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `Enable1rstPersonCamCntrlsScript` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `Enable1rstPersonWeaponsCamera` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `Fade` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `Find3rdPersonCamTargetVector` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `Find3rdPersonQuickAimPitch` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `FindCamFOV` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `FinishCutscene` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetArrPosForVehicleType` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetCutSceneFinishTime` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetFading` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetFadingDirection` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetGameCamPosition` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetLookDirection` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetLookingForwardFirstPerson` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetLookingLRBFirstPerson` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetPositionAlongSpline` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetRoughDistanceToGround` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetScreenFadeStatus` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `GetScreenRect` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `Get_Just_Switched_Status` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `HandleCameraMotionForDucking` | [Resumen](../reversing/CameraDuck355/validation-summary.json) |
 | CCamera | `HandleCameraMotionForDuckingDuringAim` | [Resumen](../reversing/CameraDuck355/validation-summary.json) |
 | CCamera | `ImproveNearClip` | [Resumen](../reversing/CameraImprove355/validation-summary.json) |
+| CCamera | `Init` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `InitCameraVehicleTweaks` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `InitialiseCameraForDebugMode` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `InitialiseScriptableComponents` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `IsExtraEntityToIgnore` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `LerpFOV` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `LoadPathSplines` | [Resumen](../reversing/CameraPath355/validation-summary.json) |
 | CCamera | `Process` | [Resumen](../reversing/CameraProcess355/validation-summary.json) |
 | CCamera | `ProcessFOVLerp-0` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
+| CCamera | `ProcessFOVLerp-1` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `ProcessFade` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `ProcessMusicFade` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `ProcessObbeCinemaCameraPed` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `ProcessScriptedCommands` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `ProcessVectorMoveLinear-0` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
 | CCamera | `ProcessVectorMoveLinear-1` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
 | CCamera | `ProcessVectorTrackLinear-0` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
 | CCamera | `ProcessVectorTrackLinear-1` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
+| CCamera | `ProcessWideScreenOn` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `RenderMotionBlur` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `ResetDuckingSystem` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `Restore` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `RestoreCameraAfterMirror` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `RestoreWithJumpCut` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetCamCollisionVarDataSet` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetCamCutSceneOffSet` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetCamPositionForFixedMode` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetCameraDirectlyBehindForFollowPed_CamOnAString` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetCameraDirectlyBehindForFollowPed_ForAPed_CamOnAString` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetCameraDirectlyInFrontForFollowPed_CamOnAString` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetCameraDirectlyInFrontForFollowPed_ForAPed_CamOnAString` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetCameraUpForMirror` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetColVarsAimWeapon` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetColVarsPed` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetColVarsVehicle` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetFadeColour` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetMotionBlur` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetMotionBlurAlpha` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `SetNearClipBasedOnPedCollision` | [Resumen](../reversing/CameraNear355/validation-summary.json) |
+| CCamera | `SetNearClipScript` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetNewPlayerWeaponMode` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetParametersForScriptInterpolation` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetPercentAlongCutScene` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetRwCamera` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetWideScreenOff` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetWideScreenOn` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetZoomValueCamStringScript` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `SetZoomValueFollowPedScript` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `StartCooperativeCamMode` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `StartTransition` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `StartTransitionWhenNotFinishedInter` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `StopCooperativeCamMode` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `StoreValuesDuringInterPol` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `TakeControl` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `TakeControlAttachToEntity` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `TakeControlNoEntity` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `TakeControlWithSpline` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `TryToStartNewCamMode` | [Resumen](../reversing/CameraNewMode355/validation-summary.json) |
+| CCamera | `UpdateAimingCoors` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `UpdateTargetEntity` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `Using1stPersonWeaponMode` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `VectorMoveLinear` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
 | CCamera | `VectorTrackLinear` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
 | CCarAI | `AddAmbulanceOccupants` | [Resumen](../reversing/CarAI25/validation-summary.json) |
@@ -4491,6 +4763,100 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CStreamedScripts | `RegisterScript` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CStreamedScripts | `RemoveStreamedScriptFromMemory` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CStreamedScripts | `StartNewStreamedScript` | [Resumen](../reversing/Sys12/validation-summary.json) |
+| CStreaming | `AddEntity` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `AddImageToList` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `AddLodsToRequestList` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `AddModelsToRequestList` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `AddToLoadedVehiclesList` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `AreAnimsUsedByRequestedModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `AreTexturesUsedByRequestedModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `ClearFlagForAll` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `ClearSlots` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `ConvertBufferToObject` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `DeleteAllRwObjects` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `DeleteLeastUsedEntityRwObject` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `DeleteRwObjectsAfterDeath` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `DeleteRwObjectsBehindCamera` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `DeleteRwObjectsBehindCameraInSectorList<CPtrListSingleLink<CEntity*>>` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `DeleteRwObjectsInSectorList<CPtrListSingleLink<CEntity*>>` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `DeleteRwObjectsNotInFrustumInSectorList<CPtrListSingleLink<CEntity*>>` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `DisableCopBikes` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `FindMIPedSlotForInterior` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `FinishLoadingLargeFile` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `FlushChannels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `FlushRequestList` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `GetDefaultCabDriverModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `GetDefaultCopCarModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `GetDefaultCopModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `GetDefaultFiremanModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `GetDefaultMedicModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `GetNextFileOnCd` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `HasSpecialCharLoaded` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `HasVehicleUpgradeLoaded` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `Init2` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `InitImageList` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `InstanceLoadedModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `IsCarModelNeededInCurrentZone` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `IsVeryBusy` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `Load` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `LoadAllRequestedModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `LoadCdDirectory-char` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `LoadCdDirectory-void` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `LoadInitialPeds` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `LoadInitialWeapons` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `LoadRequestedModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `LoadScene` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `LoadSceneCollision` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `LoadZoneVehicle` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `MakeSpaceFor` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `PossiblyStreamCarOutAfterCreation` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `ProcessEntitiesInSectorList<CPtrListSingleLink<CEntity*>>-` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `ProcessLoadingChannel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `PurgeRequestList` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `ReInit` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `ReadIniFile` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `ReclassifyLoadedCars` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveAllUnusedModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveBigBuildings` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveBuildingsNotInArea` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveCarModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveCurrentZonesModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveDodgyPedsFromRandomSlots` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveEntity` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveInappropriatePedModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveLeastUsedModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveLoadedVehicle` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveLoadedZoneModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveReferencedTxds` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RemoveTxdModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RenderEntity` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RequestBigBuildings` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RequestFile` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RequestFilesInChannel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RequestModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RequestModelStream` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RequestSpecialChar` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RequestSpecialModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RequestTxdModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RequestVehicleUpgrade` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `RetryLoadFile` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `Save` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `SetMissionDoesntRequireModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `SetModelIsDeletable` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `Shutdown` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `StreamAmbulanceAndMedic` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `StreamCopModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `StreamFireEngineAndFireman` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `StreamOneNewCar` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `StreamPedsForInterior` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `StreamPedsIntoRandomSlots` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `StreamVehiclesAndPeds` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `StreamVehiclesAndPeds_Always` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `StreamZoneModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `StreamZoneModels_Gangs` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `Update` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `WeAreTryingToPhaseVehicleOut` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
 | CStreamingInfo | `AddToList` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CStreamingInfo | `GetCdPosn` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CStreamingInfo | `GetCdPosnAndSize` | [Resumen](../reversing/Data7/validation-summary.json) |
@@ -7099,6 +7465,90 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicleRecording | `UnpausePlaybackRecordedCar` | [Resumen](../reversing/VehRec29/validation-summary.json) |
 | CVehicleSaveStructure | `Construct` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CVehicleSaveStructure | `Extract` | [Resumen](../reversing/Core70/validation-summary.json) |
+| CVisibilityPlugins | `AddWeaponPedForPC` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `AtomicCopyConstructor` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `AtomicDestructor` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `CalculateFadingAtomicAlpha` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `ClearAtomicFlag` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `ClearClumpForAllAtomicsFlag` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `ClumpConstructor` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `ClumpCopyConstructor` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `ClumpDestructor` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `DefaultVisibilityCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `FrameConstructor` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `FrameCopyConstructor` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `FrameDestructor` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `FrustumSphereCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `GetAtomicId` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `GetClumpAlpha` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `GetClumpModelInfo` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `GetDistanceSquaredFromCamera-Frame` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `GetDistanceSquaredFromCamera-RwV3d` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `GetDotProductWithCameraVector` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `GetFrameHierarchyId` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `GetModelInfo` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `GetModelInfoIndex` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `GetUserValue` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `InitAlphaAtomicList` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `InitAlphaEntityList` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `Initialise` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `InsertAtomicIntoReallyDrawLastList` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `InsertEntityIntoReallyDrawLastList` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `InsertEntityIntoSortedList` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `InsertEntityIntoUnderwaterList` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `InsertObjectIntoSortedList` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `IsAtomicVisible` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `IsClumpVisible` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `PluginAttach` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderAlphaAtomics` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderAtomicWithAlpha` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderAtomicWithAlphaCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderBoatAlphaAtomics` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderEntity` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderFadingAtomic` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderFadingClump` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderFadingClumpCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderFadingEntities` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderFadingUnderwaterEntities` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderHeliRotorAlphaCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderHeliTailRotorAlphaCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderObjNormalAtomic` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderOrderedList` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderPedCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderPlayerCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderReallyDrawLastObjects` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderTrainHiDetailAlphaCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderTrainHiDetailCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderVehicleHiDetailAlphaCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderVehicleHiDetailAlphaCB_BigVehicle` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderVehicleHiDetailAlphaCB_Boat` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderVehicleHiDetailCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderVehicleHiDetailCB_BigVehicle` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderVehicleHiDetailCB_Boat` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderVehicleLoDetailCB_Boat` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderVehicleReallyLowDetailCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderVehicleReallyLowDetailCB_BigVehicle` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderWeaponCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderWeaponPedsForPC` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `RenderWheelAtomicCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetAlphaCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetAtomicFlag` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetAtomicId` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetAtomicRenderCallback` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetClumpAlpha` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetClumpForAllAtomicsFlag` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetClumpModelInfo` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetFrameHierarchyId` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetModelInfoIndex` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetRenderWareCamera` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetTextureCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetUserValue` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `SetupVehicleVariables` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `Shutdown` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `VehicleVisibilityCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `VehicleVisibilityCB_BigVehicle` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `clearClumpForAllAtomicsFlagCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
+| CVisibilityPlugins | `setClumpForAllAtomicsFlagCB` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
 | CWanted | `AddCrimeToQ` | [Resumen](../reversing/Wanted33/validation-summary.json) |
 | CWanted | `AreArmyRequired` | [Resumen](../reversing/Wanted33/validation-summary.json) |
 | CWanted | `AreFbiRequired` | [Resumen](../reversing/Wanted33/validation-summary.json) |
@@ -7985,9 +8435,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAnimManager` | 31 | 0 | 31 | 0 |
 | `CAnimatedBuilding` | 3 | 0 | 3 | 0 |
 | `CAtomicModelInfo` | 9 | 0 | 9 | 0 |
-| `CAudioEngine` | 82 | 0 | 0 | 82 |
+| `CAudioEngine` | 82 | 0 | 82 | 0 |
 | `CAudioZones` | 5 | 0 | 5 | 0 |
-| `CAutomobile` | 99 | 0 | 0 | 99 |
+| `CAutomobile` | 99 | 0 | 99 | 0 |
 | `CBaseModelInfo` | 34 | 0 | 34 | 0 |
 | `CBike` | 40 | 0 | 40 | 0 |
 | `CBirds` | 6 | 0 | 6 | 0 |
@@ -8002,7 +8452,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
 | `CCam` | 44 | 0 | 44 | 0 |
-| `CCamera` | 110 | 0 | 19 | 91 |
+| `CCamera` | 110 | 0 | 110 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
 | `CCarCtrl` | 22 | 0 | 22 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
@@ -8303,7 +8753,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CStencilShadowObject` | 3 | 0 | 3 | 0 |
 | `CStencilShadows` | 13 | 0 | 13 | 0 |
 | `CStreamedScripts` | 12 | 0 | 12 | 0 |
-| `CStreaming` | 94 | 0 | 0 | 94 |
+| `CStreaming` | 94 | 0 | 94 | 0 |
 | `CStreamingInfo` | 7 | 0 | 7 | 0 |
 | `CStuckCarCheck` | 8 | 0 | 8 | 0 |
 | `CStuntJumpManager` | 7 | 0 | 7 | 0 |
@@ -8632,7 +9082,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CVehiclePool` | 1 | 0 | 1 | 0 |
 | `CVehicleRecording` | 29 | 0 | 29 | 0 |
 | `CVehicleSaveStructure` | 2 | 0 | 2 | 0 |
-| `CVisibilityPlugins` | 84 | 0 | 0 | 84 |
+| `CVisibilityPlugins` | 84 | 0 | 84 | 0 |
 | `CWanted` | 33 | 0 | 33 | 0 |
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
 | `CWaterCannons` | 4 | 0 | 4 | 0 |

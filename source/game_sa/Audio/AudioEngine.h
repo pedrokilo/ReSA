@@ -157,16 +157,10 @@ public:
 #endif
 private: // Wrappers for hooks
 
-    // 0x507670
-    CAudioEngine* Constructor() {
-        this->CAudioEngine::CAudioEngine();
-        return this;
-    }
-    // 0x506CD0
-    CAudioEngine* Destructor() {
-        this->CAudioEngine::~CAudioEngine();
-        return this;
-    }
+    // 0x507670: construye en el sitio escribiendo solo lo que escribe el EXE (definido en AudioEngine.cpp)
+    CAudioEngine* Constructor();
+    // 0x506CD0: destruye en el sitio como el EXE (definido en AudioEngine.cpp)
+    CAudioEngine* Destructor();
 };
 
 VALIDATE_SIZE(CAudioEngine, 0x1FD8);

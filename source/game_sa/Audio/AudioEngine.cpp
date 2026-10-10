@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 82/82 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/82 entradas.
+ * Validación registrada: 82/82 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,6 +29,18 @@ END GENERATED HOOK STATUS */
 #include "LoadingScreen.h"
 
 auto& AudioEngine = StaticRef<CAudioEngine>(0xB6BC90);
+
+namespace {
+// Los metodos del manager de radio reciben eRadioID / eBassSetting (int8): MSVC los pasa sin extender el signo, pero el EXE
+// reenvia el dword de la pila tal cual (jmp puro, p. ej. 0x507000 -> 0x4E9E10 usa `mov eax,[esp+4]` completo). Se llama al
+// metodo (hookeado o no) por su direccion con un parametro int32 extendido con signo.
+template<class E> int32 SExt(E v) { return static_cast<int32>(static_cast<int8>(v)); }
+template<class R, class M, class... A>
+R CallMgr(M method, A... args) {
+    using Raw = R(__thiscall*)(CAERadioTrackManager*, std::conditional_t<std::is_same_v<A, float> || std::is_pointer_v<A> || std::is_same_v<A, bool>, A, int32>...);
+    return reinterpret_cast<Raw>(std::bit_cast<uintptr_t>(method))(&AERadioTrackManager, args...);
+}
+}
 
 /**
  * Registra la interfaz de alto nivel que conecta eventos de gameplay con los subsistemas de audio.
@@ -122,19 +134,141 @@ void CAudioEngine::InjectHooks() {
     RH_ScopedInstall(IsRadioRetuneInProgress, 0x506FF0);
 }
 
+// 0x507670
+/**
+ * Construye el motor en el sitio escribiendo exactamente los campos que escribe el EXE (0x507670..0x507746) y nada mas.
+ *
+ * Los constructores de C++ de los miembros inicializan por valor lo que el EXE deja sin tocar (el motor real vive en
+ * memoria a cero) y ademas ponen otros valores: CAEPedSpeechAudioEntity usa PED_TYPE_UNK y marca m_IsInitialized,
+ * CAECollisionAudioEntity pone 255 / -1 / TOTAL_NUM_COLLISION_SURFACE_TYPES en su historial y su lista. Por eso se
+ * transcriben las escrituras del EXE, con las vtables del EXE (como hacen los envoltorios de CAEPedSpeechAudioEntity
+ * y CAEPedlessSpeechAudioEntity).
+ */
+CAudioEngine* CAudioEngine::Constructor() {
+    auto* const b = reinterpret_cast<uint8*>(this);
+    const auto w32 = [b](size_t off, uint32 v) { *reinterpret_cast<uint32*>(b + off) = v; };
+    const auto w16 = [b](size_t off, uint16 v) { *reinterpret_cast<uint16*>(b + off) = v; };
+    const auto w8  = [b](size_t off, uint8 v)  { b[off] = v; };
+
+    // CAEFrontendAudioEntity (0xB4), 0x507450 inlinado: 0x507692..0x5076DD y 0x507716..0x507735
+    w32(0xC4, 0);                // m_tempSound.m_PhysicalEntity
+    w32(0xB4, 0x862E54);         // vtable
+    w32(0x160, 0);
+    w16(0x1D8, 0);
+    w32(0x1F0, 0);
+    w32(0x1F4, 0);
+    w32(0x150, 0x85F438);        // vtable de m_objRetune (CAETwinLoopSoundEntity, +0x9C)
+    w32(0x208, 0);
+    w32(0x1F8, 0x85F438);        // vtable de m_objRetunePaused (+0x144)
+    w16(0x280, 0);
+    w32(0x298, 0);
+    w32(0x29C, 0);
+
+    // CAEScriptAudioEntity (0x2A0), 0x5074D0
+    w32(0x2A0 + 0x10, 0);
+    w32(0x2A0, 0x862E58);
+    w32(0x2A0 + 0x124, 0);
+    w32(0x2A0 + 0x114, 0x85998C); // vtable de m_GarageAudio
+    w32(0x2A0 + 0x190, 0);
+    w32(0x2A0 + 0x194, 0);
+    w32(0x2A0 + 0x198, 0);
+    w32(0x2A0 + 0x1AC, 0);
+    w32(0x2A0 + 0x19C, 0x862E60); // vtable de m_ExplosionAudio
+    w8 (0x2A0 + 0x218, 0);
+    w32(0x2A0 + 0x80, 0);
+    w8 (0x2A0 + 0x7E, 0);
+    w8 (0x2A0 + 0x7C, 0);
+    w32(0x2A0 + 0x84, 0);
+    w32(0x2A0 + 0x88, 0x3F800000); // m_Speed = 1.0f
+    w32(0x2A0 + 0x110, 0);         // m_Physical
+    w8 (0x2A0 + 0x7D, 0);
+    w32(0x2A0 + 0x8C, 0);
+
+    // CAECollisionAudioEntity (0x4BC), 0x507550 inlinado: 0x5076F2..0x5076FC
+    w32(0x4CC, 0);
+    w32(0x4BC, 0x862E64);
+
+    // CAEPedlessSpeechAudioEntity (0x1E38), 0x4E6070 -> 0x4E4F10
+    w32(0x1E38 + 0x10, 0);
+    w8 (0x1E38 + 0x90, 0);
+    w16(0x1E38 + 0x92, 0);
+    w8 (0x1E38 + 0x98, 0);
+    w8 (0x1E38 + 0x99, 0);
+    w8 (0x1E38 + 0x9A, 0);
+    w32(0x1E38 + 0x4, 0);
+    w32(0x1E38 + 0xA0, 0);
+    w16(0x1E38 + 0xA4, 0xFFFF);
+    w16(0x1E38 + 0xA6, 0xFFFF);
+    w16(0x1E38 + 0xA8, 0xFFFF);
+    w32(0x1E38 + 0xAC, 0xC2C80000); // -100.0f
+    w16(0x1E38 + 0xB0, 0xFFFF);
+    w32(0x1E38, 0x85F330);          // vtable (0x4E6077)
+
+    // CAEDoorAudioEntity (0x1F50), 0x50771C..0x50772E
+    w32(0x1F60, 0);
+    w32(0x1FCC, 0);
+    w32(0x1FD0, 0);
+    w32(0x1FD4, 0);
+    w32(0x1F50, 0x85998C);
+    return this;
+}
+
+// 0x506CD0
+/**
+ * Destruye el motor como el EXE (0x506CD0..0x506D70): cada subobjeto termina con la vtable base 0x859988 de CAEAudioEntity
+ * y libera la referencia de m_tempSound (+8, 0x4EF660 = CEntity::CleanUpOldReference + puesta a cero). Los destructores
+ * de C++ dejarian la vtable de cada clase derivada y limpiarian campos que el EXE no toca (p. ej. m_AttachedTo de Pedless).
+ */
+CAudioEngine* CAudioEngine::Destructor() {
+    auto* const b = reinterpret_cast<uint8*>(this);
+    const auto vt  = [b](size_t off, uint32 v) { *reinterpret_cast<uint32*>(b + off) = v; };
+    const auto ref = [b](size_t off) { CEntity::ClearReference(*reinterpret_cast<CEntity**>(b + off)); }; // 0x4EF660
+    // CAETwinLoopSoundEntity::~ (0x4F2B80)
+    const auto twin = [&](size_t base) {
+        vt(base, 0x85F438);
+        if (*reinterpret_cast<uint16*>(b + base + 0x88) != 0) {
+            for (const size_t o : { size_t(0xA0), size_t(0xA4) }) {
+                auto*& snd = *reinterpret_cast<CAESound**>(b + base + o);
+                if (snd) {
+                    snd->StopSoundAndForget();
+                    snd = nullptr;
+                }
+            }
+            *reinterpret_cast<uint16*>(b + base + 0x88) = 0;
+        }
+        vt(base, 0x859988);
+        ref(base + 8);
+    };
+
+    // Puerta (0x1F50), Pedless (0x1E38) y Colision (0x4BC): vtable base + referencia de +8
+    vt(0x1F50, 0x859988); ref(0x1F58);
+    vt(0x1E38, 0x859988); ref(0x1E40);
+    vt(0x4BC, 0x859988);  ref(0x4C4);
+    // CAEScriptAudioEntity (0x2A0), 0x506BA0: primero ExplosionAudio (+0x19C), luego GarageAudio (+0x114), luego la base
+    vt(0x2A0, 0x862E58);
+    vt(0x2A0 + 0x19C, 0x859988); ref(0x2A0 + 0x1A4);
+    vt(0x2A0 + 0x114, 0x859988); ref(0x2A0 + 0x11C);
+    vt(0x2A0, 0x859988);         ref(0x2A0 + 0x8);
+    // CAEFrontendAudioEntity (0xB4), 0x506B20: m_objRetunePaused (+0x144), m_objRetune (+0x9C), base
+    vt(0xB4, 0x862E54);
+    twin(0xB4 + 0x144);
+    twin(0xB4 + 0x9C);
+    vt(0xB4, 0x859988); ref(0xB4 + 0x8);
+    return this;
+}
+
 // 0x5B9C60
 /**
  * Inicializa el hardware y, en orden de dependencia, managers de tracks, SoundManager
  * y las entidades globales que producen eventos.
  *
- * CAEAudioUtility se inicializa antes del hardware para que el reloj relativo esté
- * disponible durante cualquier cálculo temporal de la fase de arranque.
+ * Como el original (0x5B9C60..0x5B9E27): CAEAudioUtility::StaticInitialise (0x5B97F0) es la primera de las nueve
+ * inicializaciones estaticas, DESPUES del hardware y de los managers (antes habia una llamada NOTSA previa al
+ * hardware, y una de CAEWaterCannonAudioEntity::StaticInitialise que el EXE no hace). Si el arranque de la DLL
+ * volviera a fallar por el reloj relativo (division por cero en GetCurrentTimeInMS), reponer la llamada NOTSA.
  */
 bool CAudioEngine::Initialise() {
     CLoadingScreen::Pause();
-
-    // NOTSA: Initialize AudioUtility before `AEAudioHardware` to avoid crash (Division by zero in `GetCurrentTimeInMS`)
-    CAEAudioUtility::StaticInitialise();
 
     if (!AEAudioHardware.Initialise()) {
         NOTSA_LOG_ERR("Failed to initialise Audio Hardware");
@@ -169,16 +303,16 @@ bool CAudioEngine::Initialise() {
 
     m_FrontendAE.Initialise();
     CAudioEngine::SetEffectsFaderScalingFactor(0.0f);
-    //CAEAudioUtility::StaticInitialise(); // Initialized above
-    CAEPedAudioEntity::StaticInitialise();
-    CAEPedSpeechAudioEntity::StaticInitialise();
-    CAEVehicleAudioEntity::StaticInitialise();
-    CAEExplosionAudioEntity::StaticInitialise();
-    CAEWeatherAudioEntity::StaticInitialise();
-    CAEDoorAudioEntity::StaticInitialise();
-    CAEFireAudioEntity::StaticInitialise();
-    CAEWaterCannonAudioEntity::StaticInitialise();
-    CAEPoliceScannerAudioEntity::StaticInitialise();
+    // Como el original (0x5B9DC6..0x5B9DEE): nueve llamadas sin argumentos, en este orden.
+    CAEAudioUtility::StaticInitialise();               // 0x5B97F0
+    CAEPedAudioEntity::StaticInitialise();             // 0x5B98A0
+    CAEPedSpeechAudioEntity::StaticInitialise();       // 0x5B98C0
+    CAEVehicleAudioEntity::StaticInitialise();         // 0x5B99F0
+    CAEExplosionAudioEntity::StaticInitialise();       // 0x5B9A60
+    CAEWeatherAudioEntity::StaticInitialise();         // 0x5B9A70
+    CAEDoorAudioEntity::StaticInitialise();            // 0x5B9A80
+    CAEFireAudioEntity::StaticInitialise();            // 0x5B9A90
+    CAEPoliceScannerAudioEntity::StaticInitialise();   // 0x5B9C30 (CAEWaterCannonAudioEntity::StaticInitialise es un NOP y el EXE no lo llama)
     m_ScriptAE.Initialise();
     m_PedlessSpeechAE.Initialise();
     m_CollisionAE.Initialise();
@@ -280,8 +414,9 @@ bool CAudioEngine::IsCutsceneTrackActive() {
 
 // 0x507E10
 void CAudioEngine::RetuneRadio(eRadioID radioId) {
+    // Como el original (0x507E10 `jmp 0x4E8290`): el dword de la pila viaja con signo; MSVC pasaria el eRadioID (int8) sin extender.
     if (!GetBeatTrackStatus())
-        AERadioTrackManager.RetuneRadio(radioId);
+        CallMgr<void>(&CAERadioTrackManager::RetuneRadio, SExt(radioId));
 }
 
 // 0x5072A0
@@ -323,6 +458,7 @@ void CAudioEngine::PauseBeatTrack(bool pause) {
     AECutsceneTrackManager.PauseTrack(pause);
 }
 
+// 0x506D90
 bool CAudioEngine::IsLoadingTuneActive() {
     return m_FrontendAE.IsLoadingTuneActive();
 }
@@ -352,6 +488,7 @@ void CAudioEngine::SetMusicFaderScalingFactor(float factor) {
     AEAudioHardware.SetMusicFaderScalingFactor(factor);
 }
 
+// 0x506E50
 void CAudioEngine::SetEffectsFaderScalingFactor(float factor) {
     AEAudioHardware.SetEffectsFaderScalingFactor(factor);
 }
@@ -646,7 +783,9 @@ void CAudioEngine::Service() {
         m_FrontendAE.AddAudioEvent(AE_FRONTEND_RADIO_RETUNE_STOP_PAUSED);
 
     int32 trackPlayTime = AEAudioHardware.GetTrackPlayTime();
-    //AEAudioHardware.GetChannelPlayTimes(m_nBackgroundAudioChannel, nullptr); // Does nothing
+    // Como el original (0x50779A..0x5077A6): `movzx eax, word [esi+4]; push 0; push eax; call 0x4D8820`. Con tiempos nulos
+    // solo lee la tabla de canales, pero la llamada existe y el banco la traza.
+    AEAudioHardware.GetChannelPlayTimes(static_cast<int16>(m_nBackgroundAudioChannel), nullptr);
     if (m_bPlayingMissionCompleteTrack && trackPlayTime == -4) {
         m_bStoppingMissionCompleteTrack = true;
     } else if (m_bStoppingMissionCompleteTrack) {
@@ -784,9 +923,11 @@ int8 CAudioEngine::GetBeatTrackStatus() {
 }
 
 // 0x507DC0
-void CAudioEngine::StartRadio(eRadioID id, eBassSetting bassSetting) {
+void CAudioEngine::StartRadio(eRadioID radioId, eBassSetting bassSetting) {
+    // Como el original (0x507DC0..0x507DE1): `push [esp+8] / push [esp+4]`, dwords de la pila sin tocar (signo extendido).
     if (!GetBeatTrackStatus()) {
-        AERadioTrackManager.StartRadio(id, bassSetting, 0.f, false);
+        CallMgr<void>(static_cast<void (CAERadioTrackManager::*)(eRadioID, eBassSetting, float, bool)>(&CAERadioTrackManager::StartRadio),
+                      SExt(radioId), SExt(bassSetting), 0.f, false);
     }
 }
 
@@ -809,12 +950,13 @@ void CAudioEngine::SetBassEnhanceOnOff(bool enable) {
 
 // 0x506FA0
 void CAudioEngine::SetRadioBassSetting(eBassSetting bassSetting) {
-    AERadioTrackManager.SetBassSetting(bassSetting, 1.0f);
+    // 0x506FA0 `mov eax,[esp+4] / push eax`: dword de la pila con signo
+    CallMgr<void>(&CAERadioTrackManager::SetBassSetting, SExt(bassSetting), 1.0f);
 }
 
 // 0x506FC0
-void CAudioEngine::InitialiseRadioStationID(eRadioID id) {
-    AERadioTrackManager.InitialiseRadioStationID(id);
+void CAudioEngine::InitialiseRadioStationID(eRadioID radioId) {
+    CallMgr<void>(&CAERadioTrackManager::InitialiseRadioStationID, SExt(radioId)); // 0x506FC0 `jmp 0x4E8330`: dword con signo
 }
 
 // 0x506FD0
@@ -833,13 +975,13 @@ bool CAudioEngine::IsRadioRetuneInProgress() {
 }
 
 // 0x507000
-const GxtChar* CAudioEngine::GetRadioStationName(eRadioID id) {
-    return AERadioTrackManager.GetRadioStationName(id);
+const GxtChar* CAudioEngine::GetRadioStationName(eRadioID radioId) {
+    return CallMgr<const GxtChar*>(&CAERadioTrackManager::GetRadioStationName, SExt(radioId)); // 0x507000 `jmp 0x4E9E10`: dword con signo
 }
 
 // 0x507010
-void CAudioEngine::GetRadioStationNameKey(eRadioID id, char* outStr) {
-    AERadioTrackManager.GetRadioStationNameKey(id, outStr);
+void CAudioEngine::GetRadioStationNameKey(eRadioID radioId, char* outStr) {
+    CallMgr<void>(&CAERadioTrackManager::GetRadioStationNameKey, SExt(radioId), outStr); // 0x507010 `jmp 0x4E8380`: dword con signo
 }
 
 // 0x507020

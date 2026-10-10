@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 84/84 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/84 entradas.
+ * Validación registrada: 84/84 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -27,8 +27,9 @@ END GENERATED HOOK STATUS */
 
 #include "VisibilityPlugins.h"
 
-float gVehicleDistanceFromCamera; // 0xC88024
-float gAngleWithHorizontal; // 0xC88020
+// Como el original: estas dos variables viven en el EXE (0xC88024 / 0xC88020) y el resto del codigo del EXE las lee directamente.
+static auto& gVehicleDistanceFromCamera = StaticRef<float>(0xC88024);
+static auto& gAngleWithHorizontal = StaticRef<float>(0xC88020);
 
 bool preAlloc; // 0xC8801C
 
@@ -155,7 +156,8 @@ void CVisibilityPlugins::Shutdown() {
 // inline
 // 0x732DE0
 inline void CVisibilityPlugins::RenderVehicleCB_ControlRenderMultiPassLOD(RpAtomic* atomic, float vehicleDistanceFromCamera) {
-    if (vehicleDistanceFromCamera >= ms_vehicleLod0RenderMultiPassDist) {
+    // Como el original (0x732DE0: fcomp + test ah,5 + jp): se activa si !(distancia < limite), tambien con NaN
+    if (!(vehicleDistanceFromCamera < ms_vehicleLod0RenderMultiPassDist)) {
         SetAtomicFlag(atomic, ATOMIC_UNIQUE_MATERIALS);
     } else {
         ClearAtomicFlag(atomic, ATOMIC_UNIQUE_MATERIALS);
@@ -199,7 +201,8 @@ bool CVisibilityPlugins::InsertAtomicIntoBoatSortedList(RpAtomic* atomic, float 
 
 // 0x734570
 bool CVisibilityPlugins::InsertEntityIntoSortedList(CEntity* entity, float dist) {
-    if (entity->GetModelIndex() == ModelIndices::MI_GRASSHOUSE
+    // Como el original (0x734570): movsx del indice de la entidad frente a movzx del global
+    if (static_cast<int32>(static_cast<int16>(entity->m_nModelIndex)) == static_cast<int32>(ModelIndices::MI_GRASSHOUSE.get_underlying())
         //  || entity->GetModelIndex() == ModelIndices::MI_GASSTATION // In Android
     ) {
         if (InsertEntityIntoReallyDrawLastList(entity, dist)) {
@@ -300,20 +303,28 @@ void* CVisibilityPlugins::AtomicDestructor(void* atomic, RwInt32 offset, RwInt32
 // 0x732500
 int32 CVisibilityPlugins::CalculateFadingAtomicAlpha(CBaseModelInfo* modelInfo, CEntity* entity, float distance) {
     float fFadingDistance = MAX_FADING_DISTANCE;
-    float fDrawDistanceRadius = modelInfo->GetColModel()->GetBoundRadius() + CRenderer::ms_fFarClipPlane;
-    fDrawDistanceRadius = std::min(fDrawDistanceRadius, TheCamera.m_fLODDistMultiplier * modelInfo->m_fDrawDistance);
+    const float fRadiusFar = modelInfo->GetColModel()->GetBoundRadius() + CRenderer::ms_fFarClipPlane;
+    const float fLodDraw = TheCamera.m_fLODDistMultiplier * modelInfo->m_fDrawDistance;
+    // Como el original (0x732522-0x73252F: fcomp + test ah,5 + jp): se elige fLodDraw solo si fLodDraw < fRadiusFar
+    float fDrawDistanceRadius = (fLodDraw < fRadiusFar) ? fLodDraw : fRadiusFar;
 
     if (!entity->GetLod()) {
-        const float fDrawDistance = std::min(modelInfo->m_fDrawDistance, fDrawDistanceRadius);
+        // Como el original (0x732543-0x73254C): se conserva el dibujo solo si modelInfo->m_fDrawDistance < fDrawDistanceRadius
+        const float fDrawDistance = (modelInfo->m_fDrawDistance < fDrawDistanceRadius) ? modelInfo->m_fDrawDistance : fDrawDistanceRadius;
         if (fDrawDistance > MAX_LOWLOD_DISTANCE) {
-            fFadingDistance = fDrawDistance / 15.0f + 10.0f;
+            // Como el original (0x73255D): multiplica por 0x863E0C (0.06666667f), no divide entre 15
+            fFadingDistance = fDrawDistance * 0.06666667f + 10.0f;
         }
         if (entity->m_bIsBIGBuilding) {
             fDrawDistanceRadius *= CRenderer::ms_lowLodDistScale;
         }
     }
-    float fFade = std::min((fDrawDistanceRadius + MAX_FADING_DISTANCE - distance) / fFadingDistance, 1.0f);
-    return static_cast<int32>(modelInfo->m_nAlpha * fFade);
+    float fFade = (fDrawDistanceRadius + MAX_FADING_DISTANCE - distance) / fFadingDistance;
+    if (fFade > 1.0f) { // Como el original (0x73258D: fcom + test ah,41h): solo se recorta si es mayor que 1
+        fFade = 1.0f;
+    }
+    // Como el original (0x7325B0: _ftol2): truncamiento a 64 bits y se usa EAX
+    return static_cast<int32>(static_cast<int64>(static_cast<float>(modelInfo->m_nAlpha) * fFade));
 }
 
 // 0x732310
@@ -418,24 +429,29 @@ float CVisibilityPlugins::GetDistanceSquaredFromCamera(RwFrame* frame) {
     RwMatrix* transformMatrix = RwFrameGetLTM(frame);
     CVector distance;
     RwV3dSub(&distance, &transformMatrix->pos, ms_pCameraPosn);
-    return distance.SquaredMagnitude();
+    // Como el original (0x732CA7-0x732CB5): suma z*z + y*y y despues x*x (no x*x + y*y + z*z)
+    return distance.z * distance.z + distance.y * distance.y + distance.x * distance.x;
 }
 
 // 0x732CC0
 float CVisibilityPlugins::GetDistanceSquaredFromCamera(RwV3d* pos) {
     CVector distance = *pos - *ms_pCameraPosn;
-    return distance.SquaredMagnitude();
+    // Como el original (0x732CDA-0x732CE8): suma z*z + y*y y despues x*x
+    return distance.z * distance.z + distance.y * distance.y + distance.x * distance.x;
 }
 
 // 0x7326D0
 float CVisibilityPlugins::GetDotProductWithCameraVector(RwMatrix* matrix, RwMatrix* carMatrix, uint32 atomicId) {
     const CVector distance = matrix->pos - *ms_pCameraPosn;
+    // Como el original (0x7326E0-0x732776): todos los productos escalares se suman en el orden y*y + x*x + z*z
+    // (CVector::Dot suma z, y, x y daria otro redondeo)
+    const auto DotYXZ = [&](const RwV3d& v) { return v.y * distance.y + v.x * distance.x + v.z * distance.z; };
     float primaryDot{};
 
     if (atomicId & (ATOMIC_REAR | ATOMIC_FRONT)) {
-        primaryDot = distance.Dot(carMatrix->up);
+        primaryDot = DotYXZ(carMatrix->up);
     } else if (atomicId & (ATOMIC_RIGHT | ATOMIC_LEFT)) {
-        primaryDot = distance.Dot(carMatrix->right);
+        primaryDot = DotYXZ(carMatrix->right);
     }
 
     // flip sign for Rear or Left components
@@ -449,7 +465,7 @@ float CVisibilityPlugins::GetDotProductWithCameraVector(RwMatrix* matrix, RwMatr
     const float tailgatMul = 2.5f;
     const float doorsMul = 0.25f;
     if (atomicId & ATOMIC_TOP) {
-        const float zDot = distance.Dot(carMatrix->at);
+        const float zDot = DotYXZ(carMatrix->at);
         const float multiplier = isDoor ? doorsMul : tailgatMul;
 
         primaryDot += zDot * multiplier;
@@ -465,9 +481,9 @@ float CVisibilityPlugins::GetDotProductWithCameraVector(RwMatrix* matrix, RwMatr
     float secondaryDot = 0.0f;
 
     if (atomicId & ATOMIC_REAR_DOOR) {
-        secondaryDot = -distance.Dot(carMatrix->up);
+        secondaryDot = -DotYXZ(carMatrix->up);
     } else if (atomicId & ATOMIC_FRONT_DOOR) {
-        secondaryDot = distance.Dot(carMatrix->up);
+        secondaryDot = DotYXZ(carMatrix->up);
     }
 
     // combine results if both dot products share the same sign (both visible or both hidden)
@@ -509,14 +525,15 @@ bool CVisibilityPlugins::IsAtomicVisible(RpAtomic* atomic) {
     }
     RwSphere sphere = atomic->boundingSphere;
     RwMatrix* transformMatrix = RwFrameGetMatrix(RpAtomicGetFrame(atomic));
-    RwV3d point;
-    RwV3dTransformPoints(&point, &sphere.center, 1, transformMatrix);
+    // Como el original (0x7329D8): el centro se transforma en el sitio (salida = entrada = centro de la esfera)
+    RwV3dTransformPoints(&sphere.center, &sphere.center, 1, transformMatrix);
     return RwCameraFrustumTestSphere(ms_pCamera, &sphere) != rwSPHEREOUTSIDE;
 }
 
 // 0x732AE0
 bool CVisibilityPlugins::IsClumpVisible(RpClump* clump) {
-    return CLUMPPLG_VISIBILITYCB(clump);
+    // Como el original (0x732AE0: jmp [plugin]): llama a la funcion de visibilidad del clump con el propio clump
+    return CLUMPPLG_VISIBILITYCB(clump)(clump);
 }
 
 // 0x732480
@@ -532,14 +549,18 @@ void CVisibilityPlugins::RenderAtomicWithAlpha(RpAtomic* atomic, int32 alpha) {
         RpMaterial* material = RpGeometryGetMaterial(geometry, i);
         RwRGBA* color = RpMaterialGetColor(material);
         alphas[i] = color->alpha;
-        color->alpha = std::min(color->alpha, (uint8)alpha);
+        // Como el original (0x7324C0-0x7324C7): comparacion con signo contra el entero completo (cmp + jle) y se guarda el byte bajo
+        if (static_cast<int32>(color->alpha) > alpha) {
+            color->alpha = static_cast<uint8>(alpha);
+        }
     }
 
     AtomicDefaultRenderCallBack(atomic);
 
-    for (int32 i = 0; i < numMaterials; i++) {
-        RpMaterial* material = RpGeometryGetMaterial(geometry, i);
-        RpMaterialGetColor(material)->alpha = alphas[i];
+    // Como el original (0x7324DB-0x7324EF): la restauracion recorre los materiales de atras hacia delante
+    for (int32 i = numMaterials; i > 0; i--) {
+        RpMaterial* material = RpGeometryGetMaterial(geometry, i - 1);
+        RpMaterialGetColor(material)->alpha = alphas[i - 1];
     }
     RpGeometrySetFlags(geometry, geometryFlags);
 }
@@ -552,7 +573,8 @@ void CVisibilityPlugins::RenderAlphaAtomics() {
 // 0x732660
 RpAtomic* CVisibilityPlugins::RenderAtomicWithAlphaCB(RpAtomic* atomic, void* data) {
     if (RpAtomicGetFlags(atomic) & rpATOMICRENDER) {
-        RenderAtomicWithAlpha(atomic, (int32)(uintptr)data); // TODO: maybe
+        // Como el original (0x73266F-0x732671: mov ecx,[eax]): data apunta al entero con la alfa
+        RenderAtomicWithAlpha(atomic, *static_cast<int32*>(data));
     }
     return atomic;
 }
@@ -577,7 +599,7 @@ void CVisibilityPlugins::RenderEntity(void* obj, float dist) {
         return;
     }
 
-    CBaseModelInfo* mi = CModelInfo::GetModelInfo(entity->m_nModelIndex);
+    CBaseModelInfo* mi = CModelInfo::GetModelInfo(static_cast<int16>(entity->m_nModelIndex)); // Como el original (0x732B50): movsx
     if (mi->bDontWriteZBuffer) {
         RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(FALSE));
     }
@@ -705,11 +727,15 @@ bool CVisibilityPlugins::ShouldCullVehicleAtomic(float distFromCam, float cullDi
 // 0x7340B0
 RpAtomic* CVisibilityPlugins::RenderHeliRotorAlphaCB(RpAtomic* atomic) {
     if (gVehicleDistanceFromCamera < ms_bigVehicleLod0Dist) {
-        uint32 atomicId;
-        float dotProduct = GetVehicleDotProduct(atomic, atomicId);
+        // Como el original (0x7340CB-0x73412B): producto escalar de (pos del atomic - camara) con el eje "at" del clump (sin ATOMIC_ID)
+        RwMatrix* atomicMatrix = RwFrameGetLTM(RpAtomicGetFrame(atomic));
+        RwMatrix* clumpMatrix = RwFrameGetLTM(RpClumpGetFrame(RpAtomicGetClump(atomic)));
+        const float dx = atomicMatrix->pos.x - ms_pCameraPosn->x;
+        const float dy = atomicMatrix->pos.y - ms_pCameraPosn->y;
+        const float dz = atomicMatrix->pos.z - ms_pCameraPosn->z;
+        const float dotProduct = clumpMatrix->at.y * dy + clumpMatrix->at.x * dx + clumpMatrix->at.z * dz;
 
-        // Reference: dotProduct * 20.0f
-        if (!InsertAtomicIntoSortedList(atomic, gVehicleDistanceFromCamera + dotProduct * 20.0f)) {
+        if (!InsertAtomicIntoSortedList(atomic, dotProduct * 20.0f + gVehicleDistanceFromCamera)) {
             AtomicDefaultRenderCallBack(atomic);
         }
     }
@@ -722,11 +748,14 @@ RpAtomic* CVisibilityPlugins::RenderHeliTailRotorAlphaCB(RpAtomic* atomic) {
         RwMatrix* atomicMatrix = RwFrameGetLTM(RpAtomicGetFrame(atomic));
         RwMatrix* clumpMatrix = RwFrameGetLTM(RpClumpGetFrame(RpAtomicGetClump(atomic)));
 
-        CVector distance = atomicMatrix->pos - *ms_pCameraPosn;
-        const float dotProduct1 = distance.Dot(clumpMatrix->right);
-        const float dotProduct2 = distance.Dot(clumpMatrix->up);
+        // Como el original (0x7341A8-0x734202): (right.y*dy + dx*right.x) + right.z*dz, igual con "up", y ((-dot1) - dot2) + distancia
+        const float dx = atomicMatrix->pos.x - ms_pCameraPosn->x;
+        const float dy = atomicMatrix->pos.y - ms_pCameraPosn->y;
+        const float dz = atomicMatrix->pos.z - ms_pCameraPosn->z;
+        const float dotProduct1 = clumpMatrix->right.y * dy + dx * clumpMatrix->right.x + clumpMatrix->right.z * dz;
+        const float dotProduct2 = clumpMatrix->up.y * dy + clumpMatrix->up.x * dx + clumpMatrix->up.z * dz;
 
-        if (!InsertAtomicIntoSortedList(atomic, gVehicleDistanceFromCamera - dotProduct1 - dotProduct2)) {
+        if (!InsertAtomicIntoSortedList(atomic, (-dotProduct1 - dotProduct2) + gVehicleDistanceFromCamera)) {
             AtomicDefaultRenderCallBack(atomic);
         }
     }
@@ -739,7 +768,9 @@ RpAtomic* CVisibilityPlugins::RenderObjNormalAtomic(RpAtomic* atomic) {
     RwMatrix* atomicMatrix = RwFrameGetLTM(RpAtomicGetFrame(atomic));
     CVector distance = atomicMatrix->pos - *ms_pCameraPosn;
     const float length = RwV3dLength(&distance);
-    if (distance.Dot(atomicMatrix->up) < length * -0.3f && length > 8.0f) {
+    // Como el original (0x732420-0x73243A): up.y*dy + up.x*dx + up.z*dz (no el orden z, y, x de CVector::Dot)
+    const float dotUp = atomicMatrix->up.y * distance.y + atomicMatrix->up.x * distance.x + atomicMatrix->up.z * distance.z;
+    if (dotUp < length * -0.3f && length > 8.0f) {
         return atomic;
     }
     AtomicDefaultRenderCallBack(atomic);
@@ -812,12 +843,14 @@ RpAtomic* CVisibilityPlugins::RenderVehicleHiDetailCB(RpAtomic* atomic) {
     if (gVehicleDistanceFromCamera < ms_vehicleLod0Dist) {
         RenderVehicleCB_ControlRenderMultiPassLOD(atomic, gVehicleDistanceFromCamera);
 
-        uint32 atomicId;
-        float dotProduct = GetVehicleDotProduct(atomic, atomicId);
-
-        // cullCompsDist, Complex Heuristic = true (Size Check)
-        if (ShouldCullVehicleAtomic(gVehicleDistanceFromCamera, ms_cullCompsDist, dotProduct, atomicId, true)) {
-            return atomic; // Cull
+        // Como el original (0x733285-0x7332DA, 0x733349-0x7333CA, 0x733461-0x7334BF): el producto escalar (con sus dos RwFrameGetLTM)
+        // solo se calcula si distancia > limite, sin ATOMIC_DONT_CULL y con el angulo < 0.2; si no, se dibuja sin tocar las LTM
+        uint32 atomicId = GetAtomicId(atomic);
+        if (gVehicleDistanceFromCamera > ms_cullCompsDist && !(atomicId & ATOMIC_DONT_CULL) && gAngleWithHorizontal < 0.2f) {
+            const float dotProduct = GetVehicleDotProduct(atomic, atomicId);
+            if (ShouldCullVehicleAtomic(gVehicleDistanceFromCamera, ms_cullCompsDist, dotProduct, atomicId, true)) {
+                return atomic; // Cull
+            }
         }
 
         AtomicDefaultRenderCallBack(atomic);
@@ -858,11 +891,14 @@ RpAtomic* CVisibilityPlugins::RenderTrainHiDetailCB(RpAtomic* atomic) {
     if (gVehicleDistanceFromCamera < ms_bigVehicleLod0Dist) {
         RenderVehicleCB_ControlRenderMultiPassLOD(atomic, gVehicleDistanceFromCamera);
 
-        uint32 atomicId;
-        float dotProduct = GetVehicleDotProduct(atomic, atomicId);
-
-        if (ShouldCullVehicleAtomic(gVehicleDistanceFromCamera, ms_cullCompsDist, dotProduct, atomicId, true)) {
-            return atomic;
+        // Como el original (0x733285-0x7332DA, 0x733349-0x7333CA, 0x733461-0x7334BF): el producto escalar (con sus dos RwFrameGetLTM)
+        // solo se calcula si distancia > limite, sin ATOMIC_DONT_CULL y con el angulo < 0.2; si no, se dibuja sin tocar las LTM
+        uint32 atomicId = GetAtomicId(atomic);
+        if (gVehicleDistanceFromCamera > ms_cullCompsDist && !(atomicId & ATOMIC_DONT_CULL) && gAngleWithHorizontal < 0.2f) {
+            const float dotProduct = GetVehicleDotProduct(atomic, atomicId);
+            if (ShouldCullVehicleAtomic(gVehicleDistanceFromCamera, ms_cullCompsDist, dotProduct, atomicId, true)) {
+                return atomic; // Cull
+            }
         }
 
         AtomicDefaultRenderCallBack(atomic);
@@ -910,12 +946,14 @@ RpAtomic* CVisibilityPlugins::RenderVehicleHiDetailCB_BigVehicle(RpAtomic* atomi
     if (gVehicleDistanceFromCamera < ms_bigVehicleLod0Dist) {
         RenderVehicleCB_ControlRenderMultiPassLOD(atomic, gVehicleDistanceFromCamera);
 
-        uint32 atomicId;
-        float dotProduct = GetVehicleDotProduct(atomic, atomicId);
-
-        // NOTE: BigVehicle Immedate Mode Uses SIMPLE Heuristic (False) in reference
-        if (ShouldCullVehicleAtomic(gVehicleDistanceFromCamera, ms_cullBigCompsDist, dotProduct, atomicId, false)) {
-            return atomic;
+        // Como el original (0x733285-0x7332DA, 0x733349-0x7333CA, 0x733461-0x7334BF): el producto escalar (con sus dos RwFrameGetLTM)
+        // solo se calcula si distancia > limite, sin ATOMIC_DONT_CULL y con el angulo < 0.2; si no, se dibuja sin tocar las LTM
+        uint32 atomicId = GetAtomicId(atomic);
+        if (gVehicleDistanceFromCamera > ms_cullBigCompsDist && !(atomicId & ATOMIC_DONT_CULL) && gAngleWithHorizontal < 0.2f) {
+            const float dotProduct = GetVehicleDotProduct(atomic, atomicId);
+            if (ShouldCullVehicleAtomic(gVehicleDistanceFromCamera, ms_cullBigCompsDist, dotProduct, atomicId, false)) {
+                return atomic; // Cull
+            }
         }
 
         AtomicDefaultRenderCallBack(atomic);
@@ -1097,10 +1135,11 @@ void CVisibilityPlugins::SetAtomicId(RpAtomic* atomic, int32 id) {
 
 // 0x7328A0
 void CVisibilityPlugins::SetAtomicRenderCallback(RpAtomic* atomic, RpAtomicCallBackRender renderCB) {
+    // Como el original (0x7328A6-0x7328B8): se guarda la direccion 0x7491C0 del EXE (no la del envoltorio de la DLL)
     if (!renderCB) {
-        renderCB = AtomicDefaultRenderCallBack;
+        renderCB = reinterpret_cast<RpAtomicCallBackRender>(0x7491C0);
     }
-    RpAtomicSetRenderCallBack(atomic, renderCB);
+    atomic->renderCallBack = renderCB;
 }
 
 // 0x732B00
@@ -1135,23 +1174,32 @@ void CVisibilityPlugins::SetRenderWareCamera(RwCamera* camera) {
     ms_pCamera = camera;
     ms_pCameraPosn = RwMatrixGetPos(RwFrameGetMatrix(RwCameraGetFrame(camera)));
 
-    ms_cullCompsDist = std::powf(TheCamera.m_fLODDistMultiplier * 20.0f, 2.0f);
-    ms_cullBigCompsDist = std::powf(TheCamera.m_fLODDistMultiplier * 50.0f, 2.0f);
+    // Como el original (0x7328C0-0x732988): v = multiplicador * constante y despues v*v en float (sin pow)
+    const float cullComps = TheCamera.m_fLODDistMultiplier * 20.0f;
+    ms_cullCompsDist = cullComps * cullComps;
+    const float cullBigComps = TheCamera.m_fLODDistMultiplier * 50.0f;
+    ms_cullBigCompsDist = cullBigComps * cullBigComps;
 
-    ms_vehicleLod0RenderMultiPassDist = std::powf(TheCamera.m_fGenerationDistMultiplier * 45.0f, 2.0f);
+    const float multiPass = TheCamera.m_fGenerationDistMultiplier * 45.0f;
+    ms_vehicleLod0RenderMultiPassDist = multiPass * multiPass;
     ms_vehicleLod0RenderMultiPassDist += ms_vehicleLod0RenderMultiPassDist;
 
-    ms_vehicleLod0Dist = std::powf(TheCamera.m_fGenerationDistMultiplier * 70.0f, 2.0f);
+    const float vehicleLod0 = TheCamera.m_fGenerationDistMultiplier * 70.0f;
+    ms_vehicleLod0Dist = vehicleLod0 * vehicleLod0;
     ms_vehicleLod0Dist += ms_vehicleLod0Dist;
 
-    float vehicleLodDistance = std::powf(TheCamera.m_fGenerationDistMultiplier * 150.0f, 2.0f) * 2.f;
+    const float vehicleLod1 = TheCamera.m_fGenerationDistMultiplier * 150.0f;
+    float vehicleLodDistance = vehicleLod1 * vehicleLod1;
+    vehicleLodDistance += vehicleLodDistance;
     ms_vehicleLod1Dist = vehicleLodDistance;
     ms_bigVehicleLod0Dist = vehicleLodDistance;
 
-    ms_pedLodDist = std::powf(TheCamera.m_fLODDistMultiplier * 60.0f, 2.0f);
+    const float pedLod = TheCamera.m_fLODDistMultiplier * 60.0f;
+    ms_pedLodDist = pedLod * pedLod;
     ms_pedLodDist += ms_pedLodDist;
 
-    ms_pedFadeDist = std::powf(TheCamera.m_fLODDistMultiplier * 70.0f, 2.0f);
+    const float pedFade = TheCamera.m_fLODDistMultiplier * 70.0f;
+    ms_pedFadeDist = pedFade * pedFade;
     ms_pedFadeDist += ms_pedFadeDist;
 }
 
@@ -1170,10 +1218,23 @@ void CVisibilityPlugins::SetupVehicleVariables(RpClump* clump) {
     RwMatrix* transformMatrix = RwFrameGetLTM(carFrame);
     CVector distance1;
     RwV3dSub(&distance1, &transformMatrix->pos, ms_pCameraPosn);
-    gVehicleDistanceFromCamera = distance1.SquaredMagnitude();
-    CVector2D distance2;
-    RwV2dSub(&distance2, ms_pCameraPosn, RwMatrixGetPos(RwFrameGetMatrix(carFrame)));
-    gAngleWithHorizontal = atan2(ms_pCameraPosn->z - RwMatrixGetPos(RwFrameGetMatrix(carFrame))->z, distance2.Magnitude());
+    // Como el original (0x733190-0x73319E): z*z + y*y y despues x*x
+    gVehicleDistanceFromCamera = distance1.z * distance1.z + distance1.y * distance1.y + distance1.x * distance1.x;
+
+    // Como el original (0x7331AC-0x7331D4): camara - posicion de la matriz local del frame (fsubr), sqrt en float y fpatan en precision completa
+    const RwV3d* framePos = RwMatrixGetPos(RwFrameGetMatrix(carFrame));
+    const float camDx = ms_pCameraPosn->x - framePos->x;
+    const float camDy = ms_pCameraPosn->y - framePos->y;
+    const float camDz = ms_pCameraPosn->z - framePos->z;
+    const float horizontal = std::sqrt(camDy * camDy + camDx * camDx);
+    float angle;
+    __asm {
+        fld dword ptr [camDz]
+        fld dword ptr [horizontal]
+        fpatan
+        fstp dword ptr [angle]
+    }
+    gAngleWithHorizontal = angle;
 }
 
 // unused
@@ -1196,7 +1257,8 @@ RwBool CVisibilityPlugins::VehicleVisibilityCB(RpClump* clump) {
     RwFrame* frame = RpClumpGetFrame(clump);
 
     const float len = GetDistanceSquaredFromCamera(frame);
-    if (len <= ms_vehicleLod1Dist) {
+    // Como el original (0x73372B-0x73373C: fcomp + test ah,41h + jne): con NaN tambien se llama a FrustumSphereCB
+    if (!(len > ms_vehicleLod1Dist)) {
         return FrustumSphereCB(clump);
     }
 

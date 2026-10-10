@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 94/94 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/94 entradas.
+ * Validación registrada: 94/94 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -27,6 +27,20 @@ END GENERATED HOOK STATUS */
 #include "VehicleRecording.h"
 
 static auto& CurrentGangMemberToLoad = StaticRef<int32>(0x9654D4);
+
+// Como el original: InitImageList (0x408402 / 0x408499) guarda el indice de GTA3.IMG y de GTA_INT.IMG en estos dos globales
+static auto& gta3ImgSlot = StaticRef<int32>(0x8E48A8);
+static auto& gtaIntImgSlot = StaticRef<int32>(0x8E48A4);
+// Como el original: LoadCdDirectory() (0x5B82EB / 0x5B8329) guarda aqui el tamano de GTA3.IMG (GetFileSize, 0x406360) y lo desplaza 11 bits
+static auto& ms_imageSize = StaticRef<uint32>(0x8E4C68);
+
+// Como el original (0x407A... / 0x408... / 0x409...): los sectores se calculan con `x * 0.02f + 60.0f` (constantes 0x858B38/0x858B34, redondeo a float
+// en cada operacion) y floor + _ftol2, no con `x / 50.0f` como CWorld::GetSectorX.
+static int32 ExeSector(float v) { return static_cast<int32>(std::floor(v * 0.019999999552965164f + 60.0f)); }
+// Como el original (0x40C560 ...): sectores LOD con `x * 0.005f + 15.0f` (0x858B4C/0x858B48) y truncacion (_ftol2)
+static int32 ExeLodSector(float v) { return static_cast<int32>(v * 0.004999999888241291f + 15.0f); }
+// Como el original: los saltos `jl` tras cmp con ms_memoryUsedBytes comparan con signo
+static bool MemoryUsedBelow(size_t goal) { return static_cast<int32>(CStreaming::ms_memoryUsedBytes) < static_cast<int32>(goal); }
 
 auto& gRwStream = StaticRef<RwStream>(0x8E48AC);
 
@@ -114,7 +128,7 @@ void CStreaming::InjectHooks() {
     RH_ScopedInstall(InstanceLoadedModels, 0x4084F0);
     RH_ScopedInstall(IsCarModelNeededInCurrentZone, 0x407DD0);
     RH_ScopedInstall(SetMissionDoesntRequireModel, 0x409C90);
-    RH_ScopedInstall(SetModelIsDeletable, 0x409C10); // possible problem due to changed signature
+    RH_ScopedInstall(SetModelIsDeletable, 0x409C10);
     RH_ScopedInstall(Shutdown, 0x4084B0);
     RH_ScopedInstall(StreamAmbulanceAndMedic, 0x40A2A0);
     RH_ScopedInstall(StreamCopModels, 0x40A150);
@@ -159,16 +173,23 @@ CLink<CEntity*>* CStreaming::AddEntity(CEntity* entity) {
 // Returns file index
 // 0x407610
 uint32 CStreaming::AddImageToList(const char* fileName, bool bNotPlayerImg) {
-    const auto entry = std::ranges::find_if(ms_files,
-        [](const auto& en) { return !en.IsInUse(); }
-    );
-
-    if (entry == std::end(ms_files))
+    // Como el original (0x407613): primer hueco con Name[0] == 0
+    uint32 idx = 0;
+    for (; idx < std::size(ms_files); idx++) {
+        if (!ms_files[idx].IsInUse())
+            break;
+    }
+    if (idx == std::size(ms_files))
         return 0; // No entry found
 
-    *entry = { fileName, bNotPlayerImg }; // Set entry details
+    // Como el original (0x407642..0x407661): copia el nombre sin limite ni relleno (strcpy), abre el fichero y escribe el handle y la bandera;
+    // no se construye un tStreamingFileDesc temporal (ponia a cero el resto del nombre)
+    auto& entry = ms_files[idx];
+    strcpy(entry.Name, fileName);
+    entry.StreamHandle = CdStreamOpen(fileName);
+    entry.IsNotPlayerImg = bNotPlayerImg;
 
-    return std::distance(ms_files, entry);
+    return idx;
 }
 
 // 0x40C520
@@ -178,10 +199,11 @@ void CStreaming::AddLodsToRequestList(const CVector& point, int32 streamingFlags
     const float minY = point.y - CRenderer::ms_fFarClipPlane;
     const float maxY = point.y + CRenderer::ms_fFarClipPlane;
 
-    const int32 startSectorX = std::max(CWorld::GetLodSectorX(minX), 0);
-    const int32 startSectorY = std::max(CWorld::GetLodSectorY(minY), 0);
-    const int32 endSectorX = std::min(CWorld::GetLodSectorX(maxX), MAX_LOD_PTR_LISTS_X - 1);
-    const int32 endSectorY = std::min(CWorld::GetLodSectorY(maxY), MAX_LOD_PTR_LISTS_Y - 1);
+    // Como el original (0x40C55E..0x40C5D8): sector LOD = trunc(v * 0.005f + 15.0f), sin floor
+    const int32 startSectorX = std::max(ExeLodSector(minX), 0);
+    const int32 startSectorY = std::max(ExeLodSector(minY), 0);
+    const int32 endSectorX = std::min(ExeLodSector(maxX), MAX_LOD_PTR_LISTS_X - 1);
+    const int32 endSectorY = std::min(ExeLodSector(maxY), MAX_LOD_PTR_LISTS_Y - 1);
 
     CWorld::AdvanceCurrentScanCode();
 
@@ -200,7 +222,8 @@ void CStreaming::AddModelsToRequestList(const CVector& point, int32 streamingFla
     const auto min = point - CVector2D{ fRadius, fRadius },
                max = point + CVector2D{ fRadius, fRadius };
 
-    const auto noCheckRadius = static_cast<int32>(CWorld::GetHalfMapSectorX(fRadius));
+    // Como el original (0x40D44A..0x40D593): ftol(r * 0.02f) y sectores con `x * 0.02f + 60.0f` + floor
+    const auto noCheckRadius = static_cast<int32>(fRadius * 0.019999999552965164f);
 
     // Smaller radius, models in it are loaded regardless if they're in the rectangle
     // defined by `min` `max` or in `fRadius`.
@@ -210,13 +233,13 @@ void CStreaming::AddModelsToRequestList(const CVector& point, int32 streamingFla
     // rectangle and radius.
     const int32 radiusOuterSq = (noCheckRadius + 2) * (noCheckRadius + 2);
 
-    const int32 pointSectorX = CWorld::GetSectorX(point.x);
-    const int32 pointSectorY = CWorld::GetSectorY(point.y);
+    const int32 pointSectorX = ExeSector(point.x);
+    const int32 pointSectorY = ExeSector(point.y);
 
-    const int32 startSectorX = std::max(CWorld::GetSectorX(min.x), 0);
-    const int32 startSectorY = std::max(CWorld::GetSectorY(min.y), 0);
-    const int32 endSectorX = std::min(CWorld::GetSectorX(max.x), MAX_SECTORS_X - 1);
-    const int32 endSectorY = std::min(CWorld::GetSectorY(max.y), MAX_SECTORS_Y - 1);
+    const int32 startSectorX = std::max(ExeSector(min.x), 0);
+    const int32 startSectorY = std::max(ExeSector(min.y), 0);
+    const int32 endSectorX = std::min(ExeSector(max.x), MAX_SECTORS_X - 1);
+    const int32 endSectorY = std::min(ExeSector(max.y), MAX_SECTORS_Y - 1);
 
     CWorld::AdvanceCurrentScanCode();
 
@@ -230,13 +253,14 @@ void CStreaming::AddModelsToRequestList(const CVector& point, int32 streamingFla
             const int32 pointSectorDistSq = distanceX * distanceX + distanceY * distanceY;
 
             if (pointSectorDistSq <= radiusInnerSq) {
+                // Como el original (0x40D6B3..0x40D6C9): edificios, objetos de la sector de repeticion (+8) y dummies
                 ProcessEntitiesInSectorList(sector.Buildings, streamingFlags);
-                ProcessEntitiesInSectorList(repeatSector.Peds, streamingFlags);
+                ProcessEntitiesInSectorList(repeatSector.Objects, streamingFlags);
                 ProcessEntitiesInSectorList(sector.Dummies, streamingFlags);
             } else {
                 if (pointSectorDistSq <= radiusOuterSq) {
                     ProcessEntitiesInSectorList(sector.Buildings, point.x, point.y, min.x, min.y, max.x, max.y, fRadius, streamingFlags);
-                    ProcessEntitiesInSectorList(repeatSector.Peds, point.x, point.y, min.x, min.y, max.x, max.y, fRadius, streamingFlags);
+                    ProcessEntitiesInSectorList(repeatSector.Objects, point.x, point.y, min.x, min.y, max.x, max.y, fRadius, streamingFlags);
                     ProcessEntitiesInSectorList(sector.Dummies, point.x, point.y, min.x, min.y, max.x, max.y, fRadius, streamingFlags);
                 }
             }
@@ -252,8 +276,10 @@ bool CStreaming::AreAnimsUsedByRequestedModels(int32 animModelId) {
             return true;
     }
 
-    for (auto & channel : ms_channel) {
-        for (const auto& modelId : channel.modelIds) {
+    // Como el original (0x407B58..0x407BA7): se recorren las 16 ranuras de los dos canales de forma intercalada (canal 0 y luego canal 1 en cada ranura)
+    for (size_t k = 0; k < ms_channel[0].modelIds.size(); k++) {
+        for (auto& channel : ms_channel) {
+            const int32 modelId = channel.modelIds.data()[k];
             if (modelId != MODEL_INVALID && IsModelDFF(modelId) &&
                 CModelInfo::GetModelInfo(modelId)->GetAnimFileIndex() == animModelId
             ) {
@@ -283,21 +309,14 @@ bool CStreaming::AreTexturesUsedByRequestedModels(int32 txdModelId) {
         }
     }
 
-    for (auto& ch : ms_channel) {
-        for (const auto& model : ch.modelIds) {
-            if (model != MODEL_INVALID) {
-                switch (GetModelType(model)) {
-                case eModelType::DFF: {
-                    if (CModelInfo::GetModelInfo(model)->m_nTxdIndex == txdModelId)
-                        return true;
-                    break;
-                }
-                case eModelType::TXD: {
-                    if (CTxdStore::GetParentTxdSlot(ModelIdToTXD(model)) == txdModelId)
-                        return true;
-                    break;
-                }
-                }
+    // Como el original (0x409B51..0x409BE3): canales intercalados ranura a ranura y solo se miran los DFF: la comparacion de los TXD usa por error la
+    // direccion de la ranura del canal (cmp esi,8F8378h en 0x409B77) y nunca se cumple, de modo que un TXD en un canal no cuenta como uso.
+    for (size_t k = 0; k < ms_channel[0].modelIds.size(); k++) {
+        for (auto& ch : ms_channel) {
+            const int32 model = ch.modelIds.data()[k];
+            if (model != MODEL_INVALID && model < RESOURCE_ID_TXD) {
+                if (CModelInfo::GetModelInfo(model)->m_nTxdIndex == txdModelId)
+                    return true;
             }
         }
     }
@@ -421,8 +440,10 @@ int32 CStreaming::GetNextFileOnCd(uint32 streamLastPosn, bool bNotPriority) {
         return nextModelId;
     }
 
+    // Como el original (0x409023..0x409043): sin modelo y con peticiones prioritarias, pone el contador a 0 y vuelve a recorrer la lista
+    // (salto a 0x408E20 con bNotPriority = false) en lugar de devolver -1
     ms_numPriorityRequests = 0;
-    return MODEL_INVALID;
+    return GetNextFileOnCd(streamLastPosn, false);
 }
 
 // 0x407F00
@@ -550,7 +571,7 @@ bool CStreaming::ConvertBufferToObject(uint8* fileBuffer, int32 modelId) {
             return false;
         }
 
-        CMemoryMgr::PushMemId(MEM_STREAMED_TEXTURES);
+        // Como el original (0x40C918..0x40C940): sin cambios del id de memoria ni UpdateMemoryUsed (m_id/m_idStack son datos del EXE)
         bool bTxdLoaded = false;
         if (ms_bLoadingBigModel) {
             bTxdLoaded = CTxdStore::StartLoadTxd(modelTxdIndex, stream);
@@ -559,8 +580,6 @@ bool CStreaming::ConvertBufferToObject(uint8* fileBuffer, int32 modelId) {
         } else {
             bTxdLoaded = CTxdStore::LoadTxd(modelTxdIndex, stream);
         }
-        CMemoryMgr::PopMemId();
-        UpdateMemoryUsed();
 
         if (!bTxdLoaded) {
             RemoveModel(modelId);
@@ -572,9 +591,7 @@ bool CStreaming::ConvertBufferToObject(uint8* fileBuffer, int32 modelId) {
         break;
     }
     case eModelType::COL: {
-        CMemoryMgr::PushMemId(MEM_STREAMED_COLLISION);
         auto success = CColStore::LoadCol(ModelIdToCOL(modelId), fileBuffer, bufferSize);
-        CMemoryMgr::PopMemId();
         if (!success) {
             RemoveModel(modelId);
             RequestModel(modelId, streamingInfo.GetFlags());
@@ -584,9 +601,7 @@ bool CStreaming::ConvertBufferToObject(uint8* fileBuffer, int32 modelId) {
         break;
     }
     case eModelType::IPL: {
-        CMemoryMgr::PushMemId(MEM_STREAMED_COLLISION); // ?
         auto success = CIplStore::LoadIpl(ModelIdToIPL(modelId), (char*)fileBuffer, bufferSize);
-        CMemoryMgr::PopMemId();
         if (!success) {
             RemoveModel(modelId);
             RequestModel(modelId, streamingInfo.GetFlags());
@@ -596,9 +611,7 @@ bool CStreaming::ConvertBufferToObject(uint8* fileBuffer, int32 modelId) {
         break;
     }
     case eModelType::DAT: {
-        CMemoryMgr::PushMemId(MEM_STREAMED_COLLISION); // ?
         ThePaths.LoadPathFindData(stream, ModelIdToDAT(modelId));
-        CMemoryMgr::PopMemId();
         break;
     }
     case eModelType::IFP: {
@@ -612,23 +625,17 @@ bool CStreaming::ConvertBufferToObject(uint8* fileBuffer, int32 modelId) {
         }
 
         // Still required, load
-        CMemoryMgr::PushMemId(MEM_STREAMED_ANIMATION);
         CAnimManager::LoadAnimFile(stream, true, nullptr);
         CAnimManager::CreateAnimAssocGroups();
-        CMemoryMgr::PopMemId();
 
         break;
     }
     case eModelType::RRR: {
-        CMemoryMgr::PushMemId(MEM_STREAMED_ANIMATION);
         CVehicleRecording::Load(stream, ModelIdToRRR(modelId), bufferSize);
-        CMemoryMgr::PopMemId();
         break;
     }
     case eModelType::SCM: {
-        CMemoryMgr::PushMemId(MEM_STREAMABLE_SCM);
         CTheScripts::StreamedScripts.LoadStreamedScript(stream, ModelIdToSCM(modelId));
-        CMemoryMgr::PopMemId();
         break;
     }
     default:
@@ -724,15 +731,17 @@ bool CStreaming::DeleteLeastUsedEntityRwObject(bool bNotOnScreen, int32 streamin
             drawDistanceRadius *= CRenderer::ms_lowLodDistScale;
 
         const CVector entityPos = e->GetLod() ? e->GetLod()->GetPosition() : e->GetPosition();
-        const float fEntityToCamDist = DistanceBetweenPoints(TheCamera.GetPosition(), entityPos);
-        CEntity* const pEntityLastLod = e->FindLastLOD();
+        // Como el original (0x409800..0x409848): distancia = sqrt((dz*dz + dy*dy) + dx*dx) con dx/dy/dz = entidad - camara, en float
+        const CVector& camPos = TheCamera.GetPosition();
+        const float dx = entityPos.x - camPos.x, dy = entityPos.y - camPos.y, dz = entityPos.z - camPos.z;
+        const float fEntityToCamDist = std::sqrt(dz * dz + dy * dy + dx * dx);
 
-        const float fModelRadius = mi->GetColModel()->GetBoundRadius();
+        // Como el original (0x40985F..0x4098C0): la ultima LOD y el radio del volumen de colision solo se consultan si hacen falta
         if (ms_bLoadingScene
-            || bNotOnScreen && !pEntityLastLod->GetIsOnScreen()
+            || bNotOnScreen && !e->FindLastLOD()->GetIsOnScreen()
             || !e->IsInCurrentArea()
             || drawDistanceRadius + 50.0f < fEntityToCamDist
-            || fModelRadius + fCameraFarPlane < fEntityToCamDist
+            || mi->GetColModel()->GetBoundRadius() + fCameraFarPlane < fEntityToCamDist
         ) {
             CStreamingInfo& streamingInfo = GetInfo(e->m_nModelIndex);
             if (streamingInfo.InList() && !streamingInfo.AreAnyFlagsSetOutOf(streamingFlags)) {
@@ -752,8 +761,9 @@ bool CStreaming::DeleteLeastUsedEntityRwObject(bool bNotOnScreen, int32 streamin
 // 0x409210
 // Deletes all RW objects more than 3 sectors (on each axis) away from the given point's sector
 void CStreaming::DeleteRwObjectsAfterDeath(const CVector& point) {
-    const int32 pointSecX = CWorld::GetSectorX(point.x),
-                pointSecY = CWorld::GetSectorY(point.y);
+    // Como el original (0x409226..0x40925C): sectores con `x * 0.02f + 60.0f` + floor
+    const int32 pointSecX = ExeSector(point.x),
+                pointSecY = ExeSector(point.y);
     for (int32 sx = 0; sx < MAX_SECTORS_X; ++sx) {
         if (std::abs(pointSecX - sx) > 3) {
             for (int32 sy = 0; sy < MAX_SECTORS_Y; ++sy) {
@@ -772,15 +782,17 @@ void CStreaming::DeleteRwObjectsAfterDeath(const CVector& point) {
 // 0x40D7C0
 // TODO: Decode this, no clue whats going on here..
 void CStreaming::DeleteRwObjectsBehindCamera(size_t memoryToCleanInBytes) {
-    if (ms_memoryUsedBytes < memoryToCleanInBytes)
+    // Como el original (0x40D7CC): `cmp eax,ecx; jl` con signo
+    if (MemoryUsedBelow(memoryToCleanInBytes))
         return;
 
     const auto START_OFFSET_XY = 10;
     const auto END_OFFSET_XY = 2;
 
     const CVector& cameraPos = TheCamera.GetPosition();
-    const int32 pointSecX = CWorld::GetSectorX(cameraPos.x),
-                pointSecY = CWorld::GetSectorY(cameraPos.y);
+    // Como el original (0x40D7F3..0x40D847): sectores con `x * 0.02f + 60.0f` + floor
+    const int32 pointSecX = ExeSector(cameraPos.x),
+                pointSecY = ExeSector(cameraPos.y);
     const CVector2D& camFwd = TheCamera.GetForward();
     if (std::fabs(camFwd.y) < std::fabs(camFwd.x)) {
         int32 sectorStartY = std::max(pointSecY - START_OFFSET_XY, 0);
@@ -921,7 +933,8 @@ void CStreaming::DeleteRwObjectsBehindCamera(size_t memoryToCleanInBytes) {
         }
     }
 
-    while (ms_memoryUsedBytes >= memoryToCleanInBytes) {
+    // Como el original (0x40E0F9..0x40E115): comparaciones con signo (`jl` / `jge`)
+    while (!MemoryUsedBelow(memoryToCleanInBytes)) {
         if (!RemoveLeastUsedModel(0)) {
             break;
         }
@@ -945,7 +958,7 @@ bool CStreaming::DeleteRwObjectsBehindCameraInSectorList(PtrListType& list, size
             entity->DeleteRwObject();
             if (!CModelInfo::GetModelInfo(entity->m_nModelIndex)->m_nRefCount) {
                 RemoveModel(entity->m_nModelIndex);
-                if (ms_memoryUsedBytes < memoryToCleanInBytes) {
+                if (MemoryUsedBelow(memoryToCleanInBytes)) { // Como el original (0x4099BE / 0x409A67): `jl` con signo
                     return true;
                 }
             }
@@ -982,7 +995,7 @@ bool CStreaming::DeleteRwObjectsNotInFrustumInSectorList(PtrListType& list, size
             entity->DeleteRwObject();
             if (!CModelInfo::GetModelInfo(entity->m_nModelIndex)->m_nRefCount) {
                 RemoveModel(entity->m_nModelIndex);
-                if (ms_memoryUsedBytes < memoryToCleanInBytes) {
+                if (MemoryUsedBelow(memoryToCleanInBytes)) { // Como el original (0x4099BE / 0x409A67): `jl` con signo
                     return true;
                 }
             }
@@ -1004,7 +1017,7 @@ bool CStreaming::RemoveReferencedTxds(size_t goalMemoryUsageBytes) {
             continue;
         }
         RemoveModel(modelId);
-        if (ms_memoryUsedBytes < goalMemoryUsageBytes) {
+        if (MemoryUsedBelow(goalMemoryUsageBytes)) { // Como el original (0x40D2C6): `jl` con signo
             return true;
         }
     }
@@ -1176,7 +1189,8 @@ void CStreaming::LoadCdDirectory(const char* filename, StreamingImgID img) {
             }
             modelId = TXDToModelId(txdSlot);
         } else if (ExtensionIs("COL")) {
-            int32 colSlot = notsa::IsFixBugs() ? CColStore::FindColSlot(entry.Name) : CColStore::FindColSlot();
+            // Como el original (0x5B62F0): FindColSlot (0x410390) siempre devuelve -1 (no hay busqueda por nombre)
+            int32 colSlot = CColStore::FindColSlot();
             if (colSlot == -1)
                 colSlot = CColStore::AddColSlot(entry.Name);
             modelId = COLToModelId(colSlot);
@@ -1216,6 +1230,9 @@ void CStreaming::LoadCdDirectory(const char* filename, StreamingImgID img) {
             }
 
             previousModelId = modelId;
+        } else {
+            // Como el original (0x5B6450 jne 0x5B64B2): si el modelo ya tenia posicion y tamano tambien se reinicia el modelo anterior
+            previousModelId = MODEL_INVALID;
         }
     }
     CFileMgr::CloseFile(imgFile);
@@ -1231,21 +1248,22 @@ void CStreaming::LoadCdDirectory()
     ms_imageOffsets[3] = -1;
     ms_imageOffsets[4] = -1;
     ms_imageOffsets[5] = -1;
-    // ms_imageSize = GetGTA3ImgSize(); 0x406360
+    // Como el original (0x5B82E6): GetGTA3ImgSize (0x406360) = GetFileSize(gStreamFileHandles[0], 0)
+    ms_imageSize = GetFileSize(gStreamFileHandles[0], nullptr);
     ///////////////////////////////////
 
-    // This is used to load the archives
-    auto archiveId{0};
-    for (auto& file : ms_files) {
-        if (file.IsInUse() && file.IsNotPlayerImg) {
+    // Como el original (0x5B82F0..0x5B831F): se recorre hasta la primera ranura sin nombre (o el final); solo se carga la que es imagen "no jugador"
+    for (uint32 archiveId = 0; archiveId < std::size(ms_files) && ms_files[archiveId].IsInUse(); archiveId++) {
+        auto& file = ms_files[archiveId];
+        if (file.IsNotPlayerImg) {
             LoadCdDirectory(file.Name, archiveId);
         }
-        archiveId++;
     }
 
     ///////////// unused //////////////
     ms_lastImageRead = 0;
-    // ms_imageSize = ms_imageSize >> 11;
+    ms_imageSize = ms_imageSize >> 11; // Como el original (0x5B8329)
+    ///////////////////////////////////
 }
 
 // 0x40D3D0
@@ -1268,9 +1286,15 @@ void CStreaming::LoadInitialWeapons() {
 
 // 0x40EB70
 void CStreaming::LoadScene(const CVector& point) {
-    ms_bLoadingScene = true;
+    // Como el original (0x40EB7B): el nivel de la zona del punto se calcula al principio y se usa al final con StreamCopModels
+    const auto level = CTheZones::GetLevelFromPosition(point);
 
-    CVector playerPosition = FindPlayerCoors(0);
+    // Como el original (0x40EB8E..0x40EBD2): posicion del jugador = (0,0,0) salvo que exista Players[0].m_pPed; entonces FindPlayerCoors(-1)
+    CVector playerPosition{ 0.0f, 0.0f, 0.0f };
+    const bool bHasPlayerPed = CWorld::Players[0].m_pPed != nullptr;
+    ms_bLoadingScene = true;
+    if (bHasPlayerPed)
+        playerPosition = FindPlayerCoors(-1);
 
     // Can't use a simple `for` loop here, because model is unlinked (thus the iterator is invalidated) when removed.
     {
@@ -1295,18 +1319,27 @@ void CStreaming::LoadScene(const CVector& point) {
     if (CGame::CanSeeOutSideFromCurrArea()) {
         if (ms_bLoadVehiclesInLoadScene) {
             if (CTheZones::GetZoneInfo(point, nullptr) != CTheZones::GetZoneInfo(playerPosition, nullptr)) {
+                // Como el original (0x40ECE7..0x40ED1E): LoadZoneVehicle inline (no se llama a CStreaming::LoadZoneVehicle)
                 for (int32 i = 0; i < 5; i++) { // todo: magic number
-                    LoadZoneVehicle(point);
+                    if (CPopCycle::m_pCurrZoneInfo) {
+                        CTheZones::GetZoneInfo(point, nullptr);
+                        const auto modelId = CCarCtrl::ChooseCarModelToLoad(CPopCycle::PickARandomGroupOfOtherPeds());
+                        if (modelId >= 0)
+                            RequestModel(modelId, STREAMING_KEEP_IN_MEMORY);
+                    }
                 }
             }
         }
-        StreamCopModels(static_cast<eLevelName>(CTheZones::GetLevelFromPosition(point)));
+        StreamCopModels(static_cast<eLevelName>(level));
     }
     LoadAllRequestedModels(false);
     InstanceLoadedModels(point);
-    ClearFlagForAll(STREAMING_LOADING_SCENE);
+    // Como el original (0x40ED3E..0x40ED4E): ClearFlagForAll(STREAMING_LOADING_SCENE) inline
+    for (auto i = 0; i < RESOURCE_ID_TOTAL; i++) {
+        GetInfo(i).ClearFlags(STREAMING_LOADING_SCENE);
+    }
     ms_bLoadingScene = false;
-    if (FindPlayerPed(0)) {
+    if (CWorld::Players[0].m_pPed) {
         CPopulation::ManageAllPopulation();
     }
 }
@@ -1331,7 +1364,8 @@ void CStreaming::LoadZoneVehicle(const CVector& point) {
 
 // 0x40BA70
 void CStreaming::PossiblyStreamCarOutAfterCreation(int32 modelId) {
-    if (CModelInfo::GetModelInfo(modelId)->m_nFlags & STREAMING_UNKNOWN_1) {
+    // Como el original (0x40BA7C): `test byte ptr [mi+4Eh],1` = CVehicleModelInfo::m_nFlags (no CBaseModelInfo::m_nFlags)
+    if (CModelInfo::GetModelInfo(modelId)->AsVehicleModelInfoPtr()->m_nFlags & 1) {
         if (CGeneral::GetRandomNumber() % 2)
             SetModelIsDeletable(modelId);
     }
@@ -1364,15 +1398,19 @@ void CStreaming::RequestBigBuildings(const CVector& point) {
 void CStreaming::RequestFile(int32 modelId, CdStreamPos pos, uint32 size, StreamingImgID img, int32 streamingFlags) {
     auto& si = GetInfo(modelId);
 
+    // Como el original (0x40A0A0..0x40A0D6): posicion pedida = pos | (img << 24); posicion actual = handle de la imagen de la entrada + su desplazamiento
+    const uint32 wantedPos = std::bit_cast<uint32>(pos) | (static_cast<uint32>(img) << 24);
+    const uint32 currentPos = ms_files[si.m_ImgID].StreamHandle + si.m_CDOffset;
     if (   si.GetCdSize()
-        && si.GetCdPosn() == CdStreamPos{ .Offset = pos.Offset, .FileID = CdStreamHandleToFileID(ms_files[img].StreamHandle) }
+        && currentPos == wantedPos
         && si.GetCdSize() == size
     ) {
         RequestModel(modelId, streamingFlags);
     } else {
         RemoveModel(modelId);
-        si.SetCdPosnAndSize(pos.Offset, size);
+        // Como el original (0x40A0DE..0x40A100): offset = wantedPos & 0xFFFFFF; el id de imagen se guarda antes
         si.SetImg(img);
+        si.SetCdPosnAndSize(wantedPos & 0xFFFFFFu, size);
         RequestModel(modelId, streamingFlags);
     }
 }
@@ -1380,10 +1418,14 @@ void CStreaming::RequestFile(int32 modelId, CdStreamPos pos, uint32 size, Stream
 // 0x4090500
 // Goes thru given channel and removes then re-requests each model
 void CStreaming::RequestFilesInChannel(int32 chIdx) {
-    for (const auto& modelId : ms_channel[chIdx].modelIds) {
+    // Como el original (0x409070..0x409098): la ranura se lee de la memoria en cada vuelta, pero el id y las banderas se guardan ANTES de RemoveModel
+    // (RemoveModel pone a -1 el id en el canal cuando el modelo se esta leyendo; una referencia daria RequestModel(-1))
+    for (size_t k = 0; k < ms_channel[chIdx].modelIds.size(); k++) {
+        const int32 modelId = ms_channel[chIdx].modelIds.data()[k];
         if (modelId != MODEL_INVALID) {
+            const auto flags = GetInfo(modelId).GetFlags();
             RemoveModel(modelId);
-            RequestModel(modelId, GetInfo(modelId).GetFlags());
+            RequestModel(modelId, flags);
         }
     }
 }
@@ -1507,7 +1549,7 @@ void CStreaming::FinishLoadingLargeFile(uint8* pFileBuffer, int32 modelId) {
     CStreamingInfo& streamingInfo = GetInfo(modelId);
     if (streamingInfo.IsLoadingFinishing()/*first half loaded?*/) {
         const uint32 bufferSize = streamingInfo.GetCdSize() * STREAMING_SECTOR_SIZE;
-        const tRwStreamInitializeData rwStreamInitializationData = { pFileBuffer, bufferSize };
+        tRwStreamInitializeData rwStreamInitializationData = { pFileBuffer, bufferSize };
 
         // TODO/BUGFIX: Stream seemingly never closed? (But initialized multiple times)
         RwStream* pRwStream = _rwStreamInitialize(&gRwStream, 0, rwSTREAMMEMORY, rwSTREAMREAD, &rwStreamInitializationData);
@@ -1541,7 +1583,7 @@ void CStreaming::FinishLoadingLargeFile(uint8* pFileBuffer, int32 modelId) {
             break;
         }
         }
-        RwStreamClose(pRwStream, &pFileBuffer);
+        RwStreamClose(pRwStream, &rwStreamInitializationData); // Como el original (0x408DBB..0x408DC1): se pasa la estructura de inicializacion, no &pFileBuffer
 
         streamingInfo.m_LoadState = LOADSTATE_LOADED;
         ms_memoryUsedBytes += bufferSize;
@@ -1623,7 +1665,8 @@ void CStreaming::RequestModelStream(int32 chIdx) {
         RemoveModel(modelId);
 
         streamingInfo->GetCdPosnAndSize(pos, modelSizeSectors);         // Grab pos and size of this model
-        modelId = GetNextFileOnCd(pos.Offset + modelSizeSectors, true); // Find where the next file is after it
+        // Como el original (0x40CC70): se pasa la posicion completa (handle + desplazamiento) mas el tamano, no solo los 24 bits del desplazamiento
+        modelId = GetNextFileOnCd(pos.ToInt() + modelSizeSectors, true); // Find where the next file is after it
         if (modelId == MODEL_INVALID) {
             return; // No more models...
         }
@@ -1835,12 +1878,14 @@ void CStreaming::RequestSpecialModel(int32 modelId, const char* name, int32 flag
     }
 
     const auto modelNameKey = mi->GetModelName();
-    mi->SetModelName(name);
+    // Como el original (0x409E65..0x409E71): m_nKey = GetUppercaseKey(name) directamente (SetModelName guarda ademas el nombre en un mapa NOTSA)
+    mi->m_nKey = CKeyGen::GetUppercaseKey(name);
 
     // Find model si for model, and unload it 0x409E80
     {
         CBaseModelInfo* foundModelInfo = nullptr;
-        for (int32 i = 0; i <= 1000; i++) {
+        // Como el original (0x409E76..0x409F13): 100 vueltas de 10 entradas = ids 0..999 (no 0..1000)
+        for (int32 i = 0; i < 1000; i++) {
             CBaseModelInfo* mi = CModelInfo::GetModelInfo(i);
             if (mi && modelNameKey == mi->GetModelName()) {
                 foundModelInfo = mi;
@@ -1848,10 +1893,11 @@ void CStreaming::RequestSpecialModel(int32 modelId, const char* name, int32 flag
         }
 
         // 0x409F38
-        if (foundModelInfo
-            && foundModelInfo->m_nTxdIndex != -1
-            && CTxdStore::ms_pTxdPool->GetAt(foundModelInfo->m_nTxdIndex) /*has valid TXD*/
-        ) {
+        // Como el original (0x409F1D..0x409F43): ademas de la ranura viva, el diccionario RW del TXD (primer dword) debe ser no nulo
+        const TxdDef* const foundTxd = foundModelInfo && foundModelInfo->m_nTxdIndex != -1
+            ? CTxdStore::ms_pTxdPool->GetAt(foundModelInfo->m_nTxdIndex)
+            : nullptr;
+        if (foundTxd && foundTxd->m_pRwDictionary /*has valid TXD*/) {
             CTxdStore::AddRef(foundModelInfo->m_nTxdIndex); // Makes sure TXD doesn't get unloaded
             RemoveModel(modelId);
             CTxdStore::RemoveRefWithoutDelete(foundModelInfo->m_nTxdIndex);
@@ -1941,9 +1987,10 @@ bool CStreaming::ProcessLoadingChannel(int32 chIdx) {
                 ConvertBufferToObject(fileBuffer, modelId);
 
                 if (info.IsLoadingFinishing()) {
+                    // Como el original (0x40E2DD..0x40E2F6): la ranura 0 del canal recibe el desplazamiento y el id del modelo grande (no la ranura i)
                     ch.LoadStatus = eChannelState::STARTED;
-                    ch.modelStreamingBufferOffsets[i] = bufferOffsetInSectors;
-                    ch.modelIds[i] = modelId;
+                    ch.modelStreamingBufferOffsets[0] = bufferOffsetInSectors;
+                    ch.modelIds[0] = modelId;
                     if (i == 0)
                         continue;
                 }
@@ -2023,7 +2070,8 @@ void CStreaming::ReInit() {
     const auto RemoveModelsInRange = [](auto base, auto count) {
         for (auto modelId = base; modelId < base + count; modelId++) {
             RemoveModel(modelId);
-            CModelInfo::GetModelInfo(modelId)->SetModelName("");
+            // Como el original (0x40E5E9..0x40E604): m_nKey = GetUppercaseKey("")
+            CModelInfo::GetModelInfo(modelId)->m_nKey = CKeyGen::GetUppercaseKey("");
         }
     };
     RemoveModelsInRange(SPECIAL_MODELS_RESOURCE_ID, TOTAL_SPECIAL_MODELS);
@@ -2036,6 +2084,11 @@ void CStreaming::ReInit() {
 void CStreaming::ReadIniFile() {
     ZoneScoped;
 
+    // Como el original (0x5BCCD0..0x5BCF14): atoi (= strtol base 10) para los enteros y (float)atof para los reales; los valores pe_leftx/pe_rightx/pe_topy/
+    // pe_bottomy se guardan como ENTERO en la direccion del dato (0x8D5150..0x8D515C, `mov [..],eax` tras atoi) y dontbuildpaths escribe el byte 0x96F016.
+    static auto& bDontBuildPaths = StaticRef<bool>(0x96F016);
+    const auto StoreInt = [](float& dst, int32 value) { std::memcpy(&dst, &value, sizeof(value)); };
+
     bool bHasDevkitMemory = false;
     auto* file = CFileMgr::OpenFile("stream.ini", "r");
     for (char* line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
@@ -2045,63 +2098,61 @@ void CStreaming::ReadIniFile() {
         char* nextToken{};
         char* attribute = strtok_s(line, " ,\t", &nextToken);
         char* value = strtok_s(nullptr, " ,\t", &nextToken);
-        // NOTSA: atoi, atof are replaced by safe analogues
-        // todo: FileID errors
         if (_stricmp(attribute, "memory") != 0 || bHasDevkitMemory)
         {
             if (!_stricmp(attribute, "devkit_memory"))
             {
-                ms_memoryAvailable = strtol(value, nullptr, 10) * 1024; // kB => bytes conversion
+                ms_memoryAvailable = static_cast<uint32>(atoi(value)) << 10; // kB => bytes conversion
                 bHasDevkitMemory = true;
             }
             else if (!_stricmp(attribute, "vehicles"))
             {
-                desiredNumVehiclesLoaded = strtol(value, nullptr, 10);
+                desiredNumVehiclesLoaded = atoi(value);
             }
             else if (!_stricmp(attribute, "dontbuildpaths"))
             {
-                //bDontBuildPaths = 1; // unused
+                bDontBuildPaths = true;
             }
             else if (!_stricmp(attribute, "pe_lightchangerate"))
             {
-                CPostEffects::SCREEN_EXTRA_MULT_CHANGE_RATE = strtof(value, nullptr);
+                CPostEffects::SCREEN_EXTRA_MULT_CHANGE_RATE = static_cast<float>(atof(value));
             }
             else if (!_stricmp(attribute, "pe_lightingbasecap"))
             {
-                CPostEffects::SCREEN_EXTRA_MULT_BASE_CAP = strtof(value, nullptr);
+                CPostEffects::SCREEN_EXTRA_MULT_BASE_CAP = static_cast<float>(atof(value));
             }
             else if (!_stricmp(attribute, "pe_lightingbasemult"))
             {
-                CPostEffects::SCREEN_EXTRA_MULT_BASE_MULT = strtof(value, nullptr);
+                CPostEffects::SCREEN_EXTRA_MULT_BASE_MULT = static_cast<float>(atof(value));
             }
             else if (!_stricmp(attribute, "pe_leftx"))
             {
-                CPostEffects::m_colourLeftUOffset = (float)strtol(value, nullptr, 10);
+                StoreInt(CPostEffects::m_colourLeftUOffset, atoi(value));
             }
             else if (!_stricmp(attribute, "pe_rightx"))
             {
-                CPostEffects::m_colourRightUOffset = (float)strtol(value, nullptr, 10);
+                StoreInt(CPostEffects::m_colourRightUOffset, atoi(value));
             }
             else if (!_stricmp(attribute, "pe_topy"))
             {
-                CPostEffects::m_colourTopVOffset = (float)strtol(value, nullptr, 10);
+                StoreInt(CPostEffects::m_colourTopVOffset, atoi(value));
             }
             else if (!_stricmp(attribute, "pe_bottomy"))
             {
-                CPostEffects::m_colourBottomVOffset = (float)strtol(value, nullptr, 10);
+                StoreInt(CPostEffects::m_colourBottomVOffset, atoi(value));
             }
             else if (!_stricmp(attribute, "pe_bRadiosity"))
             {
-                CPostEffects::m_bRadiosity = strtol(value, nullptr, 10) != 0;
+                CPostEffects::m_bRadiosity = atoi(value) != 0;
             }
             else if (!_stricmp(attribute, "def_brightness_pal"))
             {
-                FrontEndMenuManager.m_PrefsBrightness = strtol(value, nullptr, 10);
+                FrontEndMenuManager.m_PrefsBrightness = atoi(value);
             }
         }
         else
         {
-            ms_memoryAvailable = strtol(value, nullptr, 10) << 10;
+            ms_memoryAvailable = static_cast<uint32>(atoi(value)) << 10;
         }
     }
     CFileMgr::CloseFile(file);
@@ -2165,7 +2216,8 @@ void CStreaming::RemoveBuildingsNotInArea(eAreaCodes area) {
     for (auto i = GetObjectPool()->GetSize(); i --> 0;) {
         CObject* obj = GetObjectPool()->GetAt(i);
         if (obj && obj->GetRwObject()) {
-            if (obj->IsInArea(area)) {
+            // Como el original (0x4094F2..0x409502): se borran los objetos que NO estan en el area (ni en la 13)
+            if (!obj->IsInArea(area)) {
                 if (!obj->m_bImBeingRendered && obj->m_nObjectType == eObjectType::OBJECT_GAME)
                     obj->DeleteRwObject();
             }
@@ -2174,7 +2226,8 @@ void CStreaming::RemoveBuildingsNotInArea(eAreaCodes area) {
     for (auto i = GetDummyPool()->GetSize(); i --> 0;) {
         CDummy* dummy = GetDummyPool()->GetAt(i);
         if (dummy && dummy->GetRwObject()) {
-            if (dummy->IsInArea(area)) {
+            // Como el original (0x40959C..0x4095B2): se borran los dummies que NO estan en el area (ni en la 13)
+            if (!dummy->IsInArea(area)) {
                 if (!dummy->m_bImBeingRendered)
                     dummy->DeleteRwObject();
             }
@@ -2187,8 +2240,9 @@ void CStreaming::RemoveCarModel(eModelID modelId) {
     CPopulation::m_AppropriateLoadedCars.RemoveMember(modelId);
     CPopulation::m_InAppropriateLoadedCars.RemoveMember(modelId);
     CPopulation::m_LoadedBoats.RemoveMember(modelId);
-    for (CLoadedCarGroup& group : CPopulation::m_LoadedGangCars) {
-        group.RemoveMember(modelId);
+    // Como el original (0x40811F..0x40812A): 11 grupos de 0x2E bytes desde 0xC0EA28 hasta 0xC0EC22 (hay un 11o grupo tras los 10 de bandas)
+    for (auto* group = &CPopulation::m_LoadedGangCars[0]; reinterpret_cast<uintptr_t>(group) < 0xC0EC22u; group++) {
+        group->RemoveMember(modelId);
     }
     ms_vehiclesLoaded.RemoveMember(modelId);
     CPopulation::RemoveSpecificDriverModelsForCar((eModelID)modelId);
@@ -2211,8 +2265,10 @@ void CStreaming::RemoveCurrentZonesModels() {
     for (int32 gangId = 0; gangId < TOTAL_GANGS; gangId++) {
         const auto gangPedGroupId = CPopulation::GetPedGroupId(static_cast<ePopcycleGroup>(gangId + POPCYCLE_GROUP_BALLAS));
 
-        // \/ NOTE: Originally they only processed the first 5 models... I'm not sure why, but this should work too.
-        for (const auto modelId : CPopulation::GetModelsInPedGroup(gangPedGroupId)) {
+        // Como el original (0x40B17B..0x40B2F5): solo se procesan las 5 primeras entradas del grupo (sin mirar el numero de peds del grupo), saltando las
+        // que valen 0x7D0 (ranura sin usar)
+        for (int32 slot = 0; slot < 5; slot++) {
+            const auto modelId = static_cast<uint16>(CPopulation::m_PedGroups[gangPedGroupId][slot]);
             if (modelId != CPopulation::m_DefaultModelIDForUnusedSlot) {
                 SetModelAndItsTxdDeletable(modelId);
             }
@@ -2364,9 +2420,10 @@ bool CStreaming::RemoveLoadedVehicle() {
         return true;
     }
 
-    if (CPopulation::m_LoadedBoats.CountMembers() >= (m_bBoatsNeeded ? 2u : 0u)) {
+    // Como el original (0x40C09D..0x40C0F2): solo si hay MAS barcos que el limite (`jle` a 0x40C0F4) y, si se quita uno, devuelve TRUE (0x40C165)
+    if (CPopulation::m_LoadedBoats.CountMembers() > (m_bBoatsNeeded ? 2u : 0u)) {
         if (ProcessGroup(CPopulation::m_LoadedBoats)) {
-            return false;
+            return true;
         }
     }
 
@@ -2537,12 +2594,23 @@ void CStreaming::ProcessEntitiesInSectorList(PtrListType& list, float posX, floa
         if (timeInfo && !timeInfo->IsVisibleNow())
             continue;
 
+        // Como el original (0x40C32D..0x40C408): rectangulo ESTRICTO (minX < x < maxX, minY < y < maxY) y circulo estricto sobre los CUADRADOS:
+        // umbral = (r*r < dd*dd) ? r*r : dd*dd, y (posY-y)^2 + (posX-x)^2 < umbral; todo en float
         const CVector& entityPos = entity->GetPosition();
-        if (!IsPointInRect2D(entityPos, { minX, minY }, { maxX, maxY }))
-            continue;
-
+        const float radiusSq = radius * radius;
         const float drawDistanceRadius = TheCamera.m_fLODDistMultiplier * modelInfo->m_fDrawDistance;
-        if (!IsPointInCircle2D(entityPos, { posX, posY }, std::min(drawDistanceRadius, radius)))
+        const float drawDistanceSq = drawDistanceRadius * drawDistanceRadius;
+        const float thresholdSq = radiusSq < drawDistanceSq ? radiusSq : drawDistanceSq;
+        if (!(entityPos.x > minX))
+            continue;
+        if (!(entityPos.x < maxX))
+            continue;
+        if (!(entityPos.y > minY))
+            continue;
+        if (!(entityPos.y < maxY))
+            continue;
+        const float dy = posY - entityPos.y, dx = posX - entityPos.x;
+        if (!(dy * dy + dx * dx < thresholdSq))
             continue;
 
         if (modelInfo->GetRwObject() && !entity->GetRwObject())
@@ -2588,7 +2656,8 @@ void CStreaming::ProcessEntitiesInSectorList(PtrListType& list, int32 streamingF
 
 // 0x4076C0
 void CStreaming::RetryLoadFile(int32 chIdx) {
-    NOTSA_LOG_DEBUG("CStreaming::RetryLoadFile called!"); // NOTSA
+    // Como el original (0x4076C1): lo primero es CPad::StopPadsShaking() (0x541D70); no hay registro de log
+    CPad::StopPadsShaking();
 
     if (ms_channelError == -1)
         return CLoadingScreen::Continue();
@@ -2614,9 +2683,11 @@ void CStreaming::RetryLoadFile(int32 chIdx) {
             ch.totalTries++;
 
             // Keep in mind that `CdStreamGetStatus` changes the stream status.
+            // Como el original (0x407719..0x40777B): si el estado es WAITING_TO_READ se sale; si es READING se vuelve a consultar y se sale solo si SIGUE
+            // en READING (je a 0x40776B); con cualquier otro estado se cae al IDLE y se lanza la lectura
             const eCdStreamStatus status = CdStreamGetStatus(chIdx);
-            if ((status == eCdStreamStatus::READING || status == eCdStreamStatus::WAITING_TO_READ) &&
-                (status != eCdStreamStatus::READING || CdStreamGetStatus(chIdx) != eCdStreamStatus::READING)
+            if (status == eCdStreamStatus::WAITING_TO_READ ||
+                (status == eCdStreamStatus::READING && CdStreamGetStatus(chIdx) == eCdStreamStatus::READING)
             ) {
                 break; // Otherwise fallthrough, and do stream read
             }
@@ -2743,7 +2814,8 @@ int32 CStreaming::GetDefaultCabDriverModel() {
 
     //  Otherwise choose new model to use
     if (CTheZones::m_CurrLevel != eLevelName::LEVEL_NAME_COUNTRY_SIDE) {
-        s_LastRandomIndex = 2 * (CTheZones::m_CurrLevel - 1) + CGeneral::GetRandomNumberInRange(0, 2);
+        // Como el original (0x407D79..0x407DA4): 2*(nivel-1) + [0,2) con la formula de 0x407180 (r * 1/32768 * 2, truncado), no la plantilla entera
+        s_LastRandomIndex = 2 * (CTheZones::m_CurrLevel - 1) + CGeneral::GetRandomIntInRange(0, 2);
     }
     return s_DefaultCabDriverModels[s_LastRandomIndex];
 }
@@ -2761,7 +2833,8 @@ eModelID CStreaming::GetDefaultCopCarModel(bool ignoreLvpd1Model) {
         if (!GetInfo(ms_aDefaultCopModel[CTheZones::m_CurrLevel]).IsLoaded()
          || !GetInfo(carModelId).IsLoaded()
         ) {
-            for (int32 i = 0; i < (ignoreLvpd1Model ? 3 : 4); i++) {
+            // Como el original (0x407CB5..0x407CC1): 4 si se ignora LVPD1, 5 si no (el EXE hace `mov edx,5; je ..; mov edx,4`)
+            for (int32 i = 0; i < (ignoreLvpd1Model ? 4 : 5); i++) {
                 if (GetInfo(ms_aDefaultCopModel[i]).IsLoaded()
                  && GetInfo(ms_aDefaultCopCarModel[i]).IsLoaded()
                 ) {
@@ -2783,7 +2856,9 @@ eModelID CStreaming::GetDefaultCopModel() {
         return (eModelID)modelId;
 
     // Try all other level's model
-    for (const auto& mId : ms_aDefaultCopModel) {
+    // Como el original (0x407C1D..0x407C37): solo las 4 primeras ranuras (la 5a es la moto de policia)
+    for (int32 i = 0; i < 4; i++) {
+        const auto mId = ms_aDefaultCopModel[i];
         if (GetInfo(mId).IsLoaded()) {
             return (eModelID)mId;
         }
@@ -2913,7 +2988,7 @@ void CStreaming::Init2() {
     ms_pStreamingBuffer[1] = &ms_pStreamingBuffer[0][STREAMING_SECTOR_SIZE * ms_streamingBufferSize];
     ms_memoryAvailable = 50 * 1024 * 1024; // 50 MB
     desiredNumVehiclesLoaded = 22;
-    ms_rwObjectInstances.Init(12000);
+    ms_rwObjectInstances.Init(1000); // Como el original (0x5B8E54: new[0x2EE0] = 1000 enlaces de 12 bytes)
     ms_bIsInitialised = true;
 }
 
@@ -2921,18 +2996,24 @@ void CStreaming::Init2() {
 void CStreaming::InitImageList() {
     ZoneScoped;
 
-    std::ranges::fill(ms_files, tStreamingFileDesc());
-    AddImageToList("MODELS\\GTA3.IMG", true);
-    AddImageToList("MODELS\\GTA_INT.IMG", true);
+    // Como el original (0x4083C0..0x4083E2): solo se limpia Name[0] y se pone a 0 el handle de cada ranura (no se rellena toda la estructura)
+    for (auto& file : ms_files) {
+        file.Name[0] = 0;
+        file.StreamHandle = 0;
+    }
+    // Como el original (0x408402 / 0x408499): AddImageToList inline y el indice de cada imagen se guarda en 0x8E48A8 / 0x8E48A4
+    gta3ImgSlot = AddImageToList("MODELS\\GTA3.IMG", true);
+    gtaIntImgSlot = AddImageToList("MODELS\\GTA_INT.IMG", true);
 }
 
 // 0x4084F0
 void CStreaming::InstanceLoadedModels(const CVector& point) {
     const float radius = CGame::CanSeeOutSideFromCurrArea() ? 80.0f : 40.0f;
-    const auto startSectorX = std::max(CWorld::GetSectorX(point.x - radius), 0);
-    const auto startSectorY = std::max(CWorld::GetSectorY(point.y - radius), 0);
-    const auto endSectorX = std::min(CWorld::GetSectorX(point.x + radius), MAX_SECTORS_X - 1);
-    const auto endSectorY = std::min(CWorld::GetSectorY(point.y + radius), MAX_SECTORS_Y - 1);
+    // Como el original (0x40852A..0x4086A3): sectores con `x * 0.02f + 60.0f` + floor; el minimo es px - r y el maximo r + px
+    const auto startSectorX = std::max(ExeSector(point.x - radius), 0);
+    const auto startSectorY = std::max(ExeSector(point.y - radius), 0);
+    const auto endSectorX = std::min(ExeSector(radius + point.x), MAX_SECTORS_X - 1);
+    const auto endSectorY = std::min(ExeSector(radius + point.y), MAX_SECTORS_Y - 1);
     for (auto sectorY = startSectorY; sectorY <= endSectorY; ++sectorY) {
         for (auto sectorX = startSectorX; sectorX <= endSectorX; ++sectorX) {
             auto& repeatSector = CWorld::GetRepeatSector(sectorX, sectorY);
@@ -2988,8 +3069,9 @@ bool CStreaming::IsCarModelNeededInCurrentZone(int32 modelId) {
 
     // Check gangs
     for (int32 groupId = 0; groupId < TOTAL_GANGS; groupId++) {
+        // Como el original (0x407EC6..0x407EDF): el grupo de coches de la banda es 0x12 + banda (POPCYCLE_CARGROUP_BALLAS + banda)
         if (CPopCycle::m_pCurrZoneInfo->GangStrength[groupId] != 0 &&
-            CPopulation::DoesCarGroupHaveModelId(groupId, modelId)
+            CPopulation::DoesCarGroupHaveModelId(POPCYCLE_CARGROUP_BALLAS + groupId, modelId)
         ) {
             return true;
         }
@@ -3021,9 +3103,9 @@ void CStreaming::SetMissionDoesntRequireAnim(int32 slot) {
 // refactored: see 0a0d147e for OG source code
 // 0x409C90
 void CStreaming::SetMissionDoesntRequireModel(int32 nDFForTXDModel) {
-    SetModelIsDeletable(nDFForTXDModel, true);
+    SetModelIsDeletable_Impl(nDFForTXDModel, true);
     if (IsModelDFF(nDFForTXDModel)) {
-        SetModelIsDeletable(TXDToModelId(CModelInfo::GetModelInfo(nDFForTXDModel)->m_nTxdIndex), true); // Process TXD of DFF
+        SetModelIsDeletable_Impl(TXDToModelId(CModelInfo::GetModelInfo(nDFForTXDModel)->m_nTxdIndex), true); // Process TXD of DFF
     }
 }
 
@@ -3035,7 +3117,11 @@ void CStreaming::SetMissionDoesntRequireSpecialChar(int32 slot) {
 // Refactored: Added `mission` condition
 // signature changed
 // 0x409C10
-void CStreaming::SetModelIsDeletable(int32 modelId, bool mission) {
+void CStreaming::SetModelIsDeletable(int32 modelId) {
+    SetModelIsDeletable_Impl(modelId, false);
+}
+
+void CStreaming::SetModelIsDeletable_Impl(int32 modelId, bool mission) {
     CStreamingInfo& streamingInfo = GetInfo(modelId);
 
     if (mission) {
@@ -3082,8 +3168,8 @@ void CStreaming::Shutdown() {
         // std::ranges::fill(ms_pStreamingBuffer, nullptr);
     }
     ms_streamingBufferSize = 0;
+    // Como el original (0x4084C1..0x4084E0): sin poner el puntero a nullptr (FIX_BUGS retirado)
     delete ms_pExtraObjectsDir;
-    ms_pExtraObjectsDir = nullptr; // FIX_BUGS
 }
 
 // 0x4096C0
@@ -3134,7 +3220,8 @@ void CStreaming::StreamCopModels(eLevelName level) {
         const auto timeInMs = CTimer::GetTimeInMS();
         if (ms_nTimePassedSinceLastCopBikeStreamedIn < timeInMs) {
             m_bCopBikeLoaded = !m_bCopBikeLoaded;
-            ms_nTimePassedSinceLastCopBikeStreamedIn = timeInMs + CGeneral::GetRandomNumberInRange(30'000, 50'000);
+            // Como el original (0x40A1A9..0x40A1C0): 0x407180(30000, 50000) = formula entera de 1/32768, no la plantilla CGeneral::GetRandomNumberInRange
+            ms_nTimePassedSinceLastCopBikeStreamedIn = timeInMs + CGeneral::GetRandomIntInRange(30'000, 50'000);
         }
 
         if (m_bCopBikeLoaded)
@@ -3196,31 +3283,23 @@ void CStreaming::StreamOneNewCar() {
     if (!CPopCycle::m_pCurrZoneInfo)
         return;
 
-    bool bCheatActive = false;
+    // Como el original (0x40B501..0x40B561): se usa el PRIMER truco activo en este orden (el grupo se empuja y se salta a 0x40B62F)
+    bool bCheatActive = true;
     int32 carGroupId = 0;
     if (CCheat::IsActive(CHEAT_BEACH_PARTY)) {
         carGroupId = POPCYCLE_CARGROUP_BEACHFOLK;
-        bCheatActive = true;
-    }
-    if (CCheat::IsActive(CHEAT_COUNTRY_TRAFFIC)) {
+    } else if (CCheat::IsActive(CHEAT_COUNTRY_TRAFFIC)) {
         carGroupId = POPCYCLE_CARGROUP_FARMERS;
-        bCheatActive = true;
-    }
-    if (CCheat::IsActive(CHEAT_CHEAP_TRAFFIC)) {
+    } else if (CCheat::IsActive(CHEAT_CHEAP_TRAFFIC)) {
         carGroupId = POPCYCLE_CARGROUP_CHEAT1;
-        bCheatActive = true;
-    }
-    if (CCheat::IsActive(CHEAT_FAST_TRAFFIC)) {
+    } else if (CCheat::IsActive(CHEAT_FAST_TRAFFIC)) {
         carGroupId = POPCYCLE_CARGROUP_CHEAT2;
-        bCheatActive = true;
-    }
-    if (CCheat::IsActive(CHEAT_NINJA_THEME)) {
+    } else if (CCheat::IsActive(CHEAT_NINJA_THEME)) {
         carGroupId = POPCYCLE_CARGROUP_CHEAT3;
-        bCheatActive = true;
-    }
-    if (CCheat::IsActive(CHEAT_FUNHOUSE_THEME)) {
+    } else if (CCheat::IsActive(CHEAT_FUNHOUSE_THEME)) {
         carGroupId = POPCYCLE_CARGROUP_CHEAT4;
-        bCheatActive = true;
+    } else {
+        bCheatActive = false;
     }
 
     if (bCheatActive) {
@@ -3253,7 +3332,11 @@ void CStreaming::StreamOneNewCar() {
     ) {
         static auto& lastCarModelStreamedIn = StaticRef<int32>(0x965528); // 0
         if (lastCarModelStreamedIn == MODEL_TAXI) {
-            if (!IsCarModelNeededInCurrentZone(MODEL_CABBIE) && IsCarModelNeededInCurrentZone(MODEL_TAXI)) {
+            // Como el original (0x40B5BC..0x40B61F): si se streameo el taxi la ultima vez, primero se mira el cabbie (si hace falta se usa) y despues el taxi
+            if (IsCarModelNeededInCurrentZone(MODEL_CABBIE)) {
+                carModelId = MODEL_CABBIE;
+                lastCarModelStreamedIn = MODEL_CABBIE;
+            } else if (IsCarModelNeededInCurrentZone(MODEL_TAXI)) {
                 carModelId = MODEL_TAXI;
                 lastCarModelStreamedIn = MODEL_TAXI;
             }
@@ -3285,7 +3368,8 @@ void CStreaming::StreamPedsForInterior(int32 interiorType) {
         const int32 rndHusband = CGeneral::GetRandomNumber() % CPopulation::GetNumPedsInGroup(POPCYCLE_GROUP_HUSBANDS, 0); // Choose a random husband
 
         const int32 numWives = CPopulation::GetNumPedsInGroup(POPCYCLE_GROUP_WIVES, 0);
-        int32 randomWife = std::max(0, rndHusband - CGeneral::GetRandomNumberInRange(3, 9));
+        // Como el original (0x40BCD6..0x40BD1E): husband - [-3,3) con la formula de 0x407180 (r*6 truncado) y limitado a [0, numWives-1]
+        int32 randomWife = std::max(0, rndHusband - CGeneral::GetRandomIntInRange(-3, 3));
         if (numWives - 1 < randomWife)
             randomWife = numWives - 1;
 
@@ -3320,7 +3404,7 @@ void CStreaming::StreamPedsForInterior(int32 interiorType) {
         ClearSlots(TOTAL_LOADED_PEDS);
 
         int32 numPeds = CPopulation::GetNumPedsInGroup(POPCYCLE_GROUP_OFFICE_WORKERS, 0);
-        int32 random = CGeneral::GetRandomNumberInRange(0, numPeds);
+        int32 random = CGeneral::GetRandomIntInRange(0, numPeds); // Como el original (0x40BBEA..0x40BC06): r * (1/32768) * numPeds truncado
         ePopcyclePedGroup groupId = CPopulation::GetPedGroupId(POPCYCLE_GROUP_OFFICE_WORKERS, CPopulation::CurrentWorldZone);
         for (int32 i = 0; i < TOTAL_LOADED_PEDS; i++) {
             int32 modelId = CPopulation::GetPedGroupModelId(groupId, (i + random) % numPeds);
@@ -3486,7 +3570,8 @@ void CStreaming::StreamVehiclesAndPeds_Always(const CVector& unused) {
     if (CTimer::GetFrameCounter() % 64 == 0 && CPopulation::m_AppropriateLoadedCars.CountMembers() < 3)
         StreamOneNewCar();
 
-    StreamZoneModels_Gangs({});
+    // Como el original (0x40B6B4..0x40B6B9): `mov eax,[esp+4]; push eax; call 40AA10` pasa el mismo puntero recibido, no un vector a cero
+    StreamZoneModels_Gangs(unused);
 
     if (CPopCycle::m_pCurrZoneInfo) {
         static auto& lastZonePopulationType = StaticRef<int32>(0x96552C); // 0
@@ -3558,7 +3643,7 @@ void CStreaming::StreamZoneModels(const CVector& unused) {
             }
         }
 
-        timeBeforeNextLoad = 300;
+        timeBeforeNextLoad = 299; // Como el original (0x40A655..0x40A65B): `mov eax,12Ch` y el `dec eax` compartido con la rama de cuenta atras -> 299
     }
 
     static auto& timeBeforeNextGangLoad = StaticRef<int32>(0x9654D0); // 0
@@ -3665,16 +3750,16 @@ void CStreaming::StreamZoneModels_Gangs(const CVector& unused) {
                             return false;
                         }
 
-                        if (CPopulation::m_DefaultModelIDForUnusedSlot == gangCarModelId) {
-                            return false;
-                        }
-
+                        // Como el original (0x40ADA1..0x40ADE5): sin comprobacion previa del id 2000; en la lista de coches de las otras bandas cargadas se
+                        // recorren las 23 entradas, saltando las que valen 0x7D0 (ranura sin usar)
                         for (int32 otherGangId = 0; otherGangId < TOTAL_GANGS; otherGangId++) {
                             if (otherGangId == gangId || (ms_loadedGangs & (1 << otherGangId)) == 0) {
                                 continue;
                             }
-                            if (notsa::contains(CPopulation::m_CarGroups[otherGangId + (int32)(POPCYCLE_CARGROUP_BALLAS)], gangCarModelId)) {
-                                return false;
+                            for (const auto entry : CPopulation::m_CarGroups[otherGangId + (int32)(POPCYCLE_CARGROUP_BALLAS)]) {
+                                if (static_cast<uint16>(entry) != CPopulation::m_DefaultModelIDForUnusedSlot && static_cast<uint16>(entry) == static_cast<uint32>(gangCarModelId)) {
+                                    return false;
+                                }
                             }
                         }
                         
@@ -3744,14 +3829,14 @@ void CStreaming::Update() {
     LoadRequestedModels();
 
     if (CVehicle* remoteVehicle = FindPlayerInfo(0).m_pRemoteVehicle) {
+        // Como el original (0x40E81C..0x40E8D8): el orden es colision (AddCollisionNeededAtPosn, LoadCollision, EnsureCollisionIsInMemory) y despues
+        // IPL (AddIplsNeededAtPosn, LoadIpls, EnsureIplsAreInMemory); la posicion del vehiculo remoto se relee en cada llamada
         CColStore::AddCollisionNeededAtPosn(playerPos);
+        CColStore::LoadCollision(remoteVehicle->GetPosition(), false);
+        CColStore::EnsureCollisionIsInMemory(remoteVehicle->GetPosition());
         CIplStore::AddIplsNeededAtPosn(playerPos);
-
-        const auto& removeVehiclePos = remoteVehicle->GetPosition();
-        CColStore::LoadCollision(removeVehiclePos, false);
-        CColStore::EnsureCollisionIsInMemory(removeVehiclePos);
-        CIplStore::LoadIpls(removeVehiclePos, false);
-        CIplStore::EnsureIplsAreInMemory(removeVehiclePos);
+        CIplStore::LoadIpls(remoteVehicle->GetPosition(), false);
+        CIplStore::EnsureIplsAreInMemory(remoteVehicle->GetPosition());
     }
     else {
         CColStore::LoadCollision(playerPos, false);
@@ -3777,7 +3862,8 @@ void CStreaming::UpdateForAnimViewer() {
 // 0x407F80
 bool CStreaming::WeAreTryingToPhaseVehicleOut(int32 modelId) {
     const auto& si = GetInfo(modelId);
-    return si.IsLoaded() && si.InList() /* <= Is actually loaded (Should be in `LoadedList`) */;
+    // Como el original (0x407F93..0x407FA5): en lista = siguiente >= 0 (con signo) o anterior >= 0
+    return si.IsLoaded() && (si.m_NextIndex >= 0 || si.m_PrevIndex >= 0) /* <= Is actually loaded (Should be in `LoadedList`) */;
 }
 
 void CStreaming::UpdateMemoryUsed() {

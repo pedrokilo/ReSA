@@ -396,7 +396,7 @@ public:
     void SetCameraDirectlyInFrontForFollowPed_ForAPed_CamOnAString(CPed* targetPed);
     void SetCameraUpForMirror();
     void SetFadeColour(uint8 red, uint8 green, uint8 blue);
-    void SetMotionBlur(uint8 red, uint8 green, uint8 blue, int32 value, eMotionBlurType blurType);
+    void SetMotionBlur(uint32 red, uint32 green, uint32 blue, int32 value, eMotionBlurType blurType); // dwords completos como en el EXE (0x50BF40)
     void SetMotionBlurAlpha(int32 alpha);
     void SetNearClipBasedOnPedCollision(float arg2);
     void SetNearClipScript(float nearClip);
@@ -455,7 +455,7 @@ public:
     bool CameraColDetAndReact(CVector* source, CVector* target);
     void CameraGenericModeSpecialCases(CPed* targetPed);
     void CameraPedAimModeSpecialCases(CPed* ped);
-    void CameraPedModeSpecialCases();
+    void CameraPedModeSpecialCases(CPed* ped); // el EXE (0x50CD91) termina en `ret 4`: recibe un CPed* que no usa
     void CameraVehicleModeSpecialCases(CVehicle* vehicle);
     void ClearPlayerWeaponMode();
     bool ConeCastCollisionResolve(const CVector& pos, const CVector& lookAt, CVector& outDest, float rad, float minDist, float& outDist);

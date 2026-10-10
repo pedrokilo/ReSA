@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 110/110 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 19.
- * Validación registrada: 19/110 entradas.
+ * Validación registrada: 110/110 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -68,6 +68,77 @@ auto& gCurCamColVars = StaticRef<uint8>(0x8CCB80);
 auto& gCurDistForCam = StaticRef<float>(0x8CCB84);
 auto& gpCamColVars = StaticRef<float*>(0xB6FE88);
 auto& gCamColVars = StaticRef<float[28][6]>(0x8CC8E0);
+
+namespace {
+// Como el original: constantes float del EXE que NO son el float mas cercano al literal decimal (leidas de .rdata).
+constexpr float kExePi         = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
+constexpr float kExeTwoPi      = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+constexpr float kExeHalfPi     = std::bit_cast<float>(0x3FC90FDBu); // 0x858FE4
+constexpr float kExeMilli      = std::bit_cast<float>(0x3A83126Fu); // 0x858CDC (0.001f)
+constexpr float kExeTimeStep   = std::bit_cast<float>(0x3CA3D70Au); // 0x858B38 (0.02f): el EXE usa paso * 0.02f, no paso / 50
+constexpr float kExePercent    = std::bit_cast<float>(0x3C23D70Au); // 0x858C58 (0.01f)
+
+// Como el original: el jugador activo se lee en linea (movzx byte [0B7CD74h]; imul 190h; [+0B7CD98h]) sin llamar a FindPlayerPed.
+inline CPlayerPed* ActivePlayerPed() {
+    return CWorld::Players[CWorld::PlayerInFocus].m_pPed;
+}
+
+// Como el original (0x50A97E..0x50A98E, 0x50AA91..0x50AA9D): fild del entero con signo, +2^32 si es negativo, fmul 0.001f.
+// El producto se redondea una sola vez a 24 bits (la conversion a float previa daria otro resultado).
+float ElapsedSeconds(int32 elapsedMs) {
+    const float fourGig = 4294967296.0f, milli = kExeMilli;
+    float result;
+    __asm {
+        fild elapsedMs
+        cmp elapsedMs, 0
+        jge positive
+        fadd fourGig
+    positive:
+        fmul milli
+        fstp result
+    }
+    return result;
+}
+
+// Como el original (0x50C088..0x50C0AA): (porcentaje * 0.01f) * tiempo final (fild, +2^32 si es negativo), un solo redondeo
+float CutSceneElapsed(float percent, uint32 finishTime) {
+    const int32 finish = int32(finishTime);
+    const float fourGig = 4294967296.0f, hundredth = kExePercent;
+    float elapsed;
+    __asm {
+        fld percent
+        fmul hundredth
+        fild finish
+        cmp finish, 0
+        jge positive
+        fadd fourGig
+    positive:
+        fmulp st(1), st(0)
+        fstp elapsed
+    }
+    return elapsed;
+}
+
+// Como el original (0x50AC43.., 0x50D254..): reloj en milisegundos como entero con signo (+2^32 si es negativo) y
+// suma de un float SIN pasar antes por float. Guarda el inicio (fst) y el fin (fadd + fstp).
+void StoreTimeAndTimePlus(float& start, float& end, float plus) {
+    const auto nowMs = int32(CTimer::GetTimeInMS());
+    const float fourGig = 4294967296.0f;
+    float startResult, endResult;
+    __asm {
+        fild nowMs
+        cmp nowMs, 0
+        jge positive
+        fadd fourGig
+    positive:
+        fst startResult
+        fadd plus
+        fstp endResult
+    }
+    start = startResult;
+    end   = endResult;
+}
+}
 
 CCam& CCamera::GetActiveCamera() {
     return TheCamera.m_aCams[TheCamera.m_nActiveCam];
@@ -193,7 +264,44 @@ void CCamera::InjectHooks() {
     RH_ScopedGlobalInstall(CamShakeNoPos, 0x50A970);
 }
 
-CCamera* CCamera::Constructor() { this->CCamera::CCamera(); return this; }
+CCamera* CCamera::Constructor() {
+    // Como el original (0x51A450): solo escribe lo que escribe el EXE. El constructor de C++ (inicializadores de miembro) tocaria
+    // bytes que el EXE no toca (matrices a identidad, CamTweak a cero, valores por defecto...), asi que se transcribe a mano.
+    // CPlaceable::CPlaceable (0x54F1E0): posicion, rumbo y puntero de matriz a cero
+    m_placement.m_vPosn = CVector{ 0.0f, 0.0f, 0.0f };
+    m_placement.m_fHeading = 0.0f;
+    m_matrix = nullptr;
+    *reinterpret_cast<uint32*>(this) = 0x8630E8; // vtable de CCamera del EXE
+
+    for (auto& cam : m_aCams) {
+        cam.Init(); // 0x517730 (CCam::CCam) = CCam::Init
+    }
+    for (auto& path : m_aPathArray) {
+        path.m_pArrPathData = nullptr; // 0x5097B0
+    }
+
+    // Las matrices solo reciben a cero m_pAttachMatrix (+0x40) y el dword de +0x44 (CMatrix inline del EXE)
+    for (auto* matrix : { &m_mCameraMatrix, &m_mCameraMatrixOld, &m_mViewMatrix, &m_mMatInverse, &m_mMatMirrorInverse, &m_mMatMirror }) {
+        *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(matrix) + 0x40) = 0;
+        *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(matrix) + 0x44) = 0;
+    }
+
+    for (auto& tweak : m_aCamTweak) { // 0x50E470
+        tweak.ModelID = -1;
+        tweak.Dist    = 1.0f;
+        tweak.Alt     = 1.0f;
+        tweak.Angle   = 0.0f;
+    }
+
+    m_nShakeType = 1;
+    m_bMusicFadedOut = false;
+    m_matrix = reinterpret_cast<CMatrixLink*>(&m_mCameraMatrix);
+    m_fDuckCamMotionFactor = 0.0f;
+    m_fDuckAimCamMotionFactor = 0.0f;
+
+    InitialiseScriptableComponents();
+    return this;
+}
 
 // 0x51A450
 CCamera::CCamera() : CPlaceable() {
@@ -213,64 +321,160 @@ CCamera::~CCamera() {
 
 // 0x5BC520
 void CCamera::Init() {
-    InitialiseScriptableComponents();
-    
+    // Como el original (0x5BC520..0x5BC903): primero se ponen a cero 0x358 dwords desde +0x18 (todo salvo CPlaceable) y luego
+    // se escriben los valores iniciales. El codigo anterior era una reconstruccion distinta (no era este metodo del EXE).
+    std::memset(reinterpret_cast<uint8*>(this) + 0x18, 0, 0x358u * 4u);
+    m_pRwCamera = nullptr;
+    TheCamera.InitialiseScriptableComponents(); // 0x5BC539: ecx = 0xB6F028 (TheCamera), no `this`
+    m_bPlayerWasOnBike = false;
+    m_b1rstPersonRunCloseToAWall = false;
+    m_fPositionAlongSpline = 0.0f;
+    m_bCameraJustRestored = false;
+
     for (auto& camera : m_aCams) {
         camera.Init();
     }
 
-    {
-        auto& cam = m_aCams[0];
-        cam.m_nMode = MODE_FOLLOWPED;
-        cam.m_fTargetCloseInDist = 2.0837801f - 1.85f;
-        cam.m_fMinRealGroundDist = 1.85f;
-        cam.m_fTargetZoomGroundOne = -0.55f;
-        cam.m_fTargetZoomGroundTwo = 1.5f;
-        cam.m_fTargetZoomGroundThree = 3.6f;
-        cam.m_fTargetZoomOneZExtra = 0.06f;
-        cam.m_fTargetZoomTwoZExtra = -0.1f;
-        cam.m_fTargetZoomTwoInteriorZExtra = 0.0f;
-        cam.m_fTargetZoomThreeZExtra = -0.07f;
-        cam.m_fTargetZoomZCloseIn = 0.90040702f;
-        cam.m_pCamTargetEntity = nullptr;
-        cam.m_fCamBufferedHeight = 0.0f;
-        cam.m_fCamBufferedHeightSpeed = 0.0f;
-        cam.m_bCamLookingAtVector = false;
-        cam.m_fPlayerVelocity = 0.0f;
-    }
-
-    {
-        auto& cam = m_aCams[1];
-        cam.m_nMode = MODE_FOLLOWPED;
-        cam.m_pCamTargetEntity = nullptr;
-        cam.m_fCamBufferedHeight = 0.0f;
-        cam.m_fCamBufferedHeightSpeed = 0.0f;
-        cam.m_bCamLookingAtVector = false;
-        cam.m_fPlayerVelocity = 0.0f;
-    }
-
-    {
-        auto& cam = m_aCams[2];
-        cam.m_pCamTargetEntity = nullptr;
-        cam.m_bCamLookingAtVector = false;
-        cam.m_fPlayerVelocity = 0.0f;
-    }
-
+    m_aCams[0].m_fTargetCloseInDist = StaticRef<float>(0x86A46C) - StaticRef<float>(0x86A468);
+    m_aCams[0].m_nMode = MODE_FOLLOWPED;
+    m_aCams[1].m_nMode = MODE_FOLLOWPED;
+    m_aCams[0].m_fMinRealGroundDist = StaticRef<float>(0x86A468);
+    m_bEnable1rstPersonCamCntrlsScript = false;
+    m_bAllow1rstPersonWeaponsCamera = false;
+    m_bCooperativeCamMode = false;
+    m_bAllowShootingWith2PlayersInCar = true;
+    m_bVehicleSuspenHigh = false;
+    m_aCams[0].m_fTargetZoomGroundOne = std::bit_cast<float>(0xBF0CCCCDu);       // -0.55f
+    m_aCams[0].m_fTargetZoomGroundTwo = 1.5f;
+    m_aCams[0].m_fTargetZoomGroundThree = std::bit_cast<float>(0x40666666u);     // 3.6f
+    m_aCams[0].m_fTargetZoomOneZExtra = std::bit_cast<float>(0x3D75C28Fu);       // NO es 0.06f (0x3D75C290)
+    m_aCams[0].m_fTargetZoomTwoZExtra = std::bit_cast<float>(0xBDCCCCCDu);       // -0.1f
+    m_aCams[0].m_fTargetZoomTwoInteriorZExtra = 0.0f;
+    m_aCams[0].m_fTargetZoomThreeZExtra = std::bit_cast<float>(0xBD8F5C29u);     // -0.07f
+    m_aCams[0].m_fTargetZoomZCloseIn = std::bit_cast<float>(0x3F668113u);        // 0.90040702f
+    m_bMoveCamToAvoidGeom = false;
     ClearPlayerWeaponMode();
-
-    m_pTargetEntity = FindPlayerEntity();
-    CEntity::SafeRegisterRef(m_pTargetEntity);
-
-    if (!FrontEndMenuManager.m_bStartGameLoading) {
-        CDraw::FadeValue = 0;
-        m_fMouseAccelVertical = notsa::IsFixBugs() ? m_fMouseAccelHorzntl * 0.6f : 0.0015f;
+    m_bInATunnelAndABigVehicle = false;
+    for (auto& camera : m_aCams) {
+        camera.m_pCamTargetEntity = nullptr;
     }
-    
+    m_aCams[0].m_fCamBufferedHeight = 0.0f;
+    m_aCams[0].m_fCamBufferedHeightSpeed = 0.0f;
+    m_aCams[1].m_fCamBufferedHeight = 0.0f;
+    m_aCams[1].m_fCamBufferedHeightSpeed = 0.0f;
+    for (auto& camera : m_aCams) {
+        camera.m_bCamLookingAtVector = false;
+        camera.m_fPlayerVelocity = 0.0f;
+    }
+    m_bHeadBob = false;
+    m_fFractionInterToStopMoving = 0.25f;
+    m_fFractionInterToStopCatchUp = 0.75f;
+    m_fGaitSwayBuffer = std::bit_cast<float>(0x3F59999Au); // 0.85f
+    m_bScriptParametersSetForInterp = false;
+    m_nCamShakeStart = 0;
+    m_fCamShakeForce = 0.0f;
+    m_nModeObbeCamIsInForCar = 30;
+    m_bIgnoreFadingStuffForMusic = false;
+    m_bWaitForInterpolToFinish = false;
+    m_pToGarageWeAreIn = nullptr;
+    m_pToGarageWeAreInForHackAvoidFirstPerson = nullptr;
+    m_bPlayerIsInGarage = false;
+    m_bJustCameOutOfGarage = false;
+    m_fNearClipScript = std::bit_cast<float>(0x3F666666u); // 0.9f
+    m_bUseNearClipScript = false;
+    m_bDoingSpecialInterp = false;
+    m_bAboveGroundTrainNodesLoaded = false;
+    m_bBelowGroundTrainNodesLoaded = false;
+    m_nModeForTwoPlayersSeparateCars = MODE_TWOPLAYER_SEPARATE_CARS;
+    m_nModeForTwoPlayersSameCarShootingAllowed = MODE_TWOPLAYER_IN_CAR_AND_SHOOTING;
+    m_nModeForTwoPlayersSameCarShootingNotAllowed = MODE_BEHINDCAR;
+    m_nModeForTwoPlayersNotBothInCar = MODE_TWOPLAYER;
+    m_bWideScreenOn = false;
+    m_fFOV_Wide_Screen = 0.0f;
+    m_bRestoreByJumpCut = false;
+    m_nCarZoom = 2;
+    m_nPedZoom = 2;
+    m_fCarZoomSmoothed = 0.0f;
+    m_fCarZoomBase = 0.0f;
+    m_fCarZoomTotal = 0.0f;
+    m_fPedZoomSmoothed = 0.0f;
+    m_fPedZoomTotal = 0.0f;
+    m_fPedZoomBase = 0.0f;
+    m_pTargetEntity = nullptr;
+    // Con vehiculo FindPlayerVehicle se llama dos veces; el jugador activo se lee en linea
+    if (!FindPlayerVehicle(-1, false)) {
+        m_pTargetEntity = ActivePlayerPed();
+    } else {
+        m_pTargetEntity = FindPlayerVehicle(-1, false);
+    }
+    if (m_pTargetEntity) {
+        m_pTargetEntity->RegisterReference(reinterpret_cast<CEntity**>(&m_pTargetEntity));
+    }
+    m_bInitialNodeFound = false;
+    m_fScreenReductionPercentage = 0.0f;
+    m_fScreenReductionSpeed = 0.0f;
+    m_bWideScreenOn = false;
+    m_bWantsToSwitchWidescreenOff = false;
+    m_bWorldViewerBeingUsed = false;
+    m_fPlayerExhaustion = 1.0f;
+    m_fPedOrientForBehindOrInFront = 0.0f;
+    // 0xBA67A5 = CMenuManager::m_bStartGameLoading
+    if (!StaticRef<uint8>(0xBA67A5)) {
+        m_bFading = false;
+        CDraw::FadeValue = 0;
+        m_fFadeAlpha = 0.0f;
+        m_bMusicFading = false;
+        m_fTimeToFadeMusic = 0.0f;
+        m_fEffectsFaderScalingFactor = 0.0f;
+        m_fMouseAccelVertical = std::bit_cast<float>(0x3AC49BA6u);
+    }
+    if (StaticRef<uint8>(0xBA67A5) == 1) {
+        m_fTimeToFadeMusic = 0.0f;
+    }
+    m_bStartingSpline = false;
+    m_nTypeOfSwitch = eSwitchType::INTERPOLATION;
+    m_bUseScriptZoomValuePed = false;
+    m_bUseScriptZoomValueCar = false;
+    m_fPedZoomValueScript = 0.0f;
+    m_fCarZoomValueScript = 0.0f;
+    m_bUseSpecialFovTrain = false;
+    m_fFovForTrain = std::bit_cast<float>(0x428C0000u); // 70.0f
+    m_nModeToGoTo = MODE_FOLLOWPED;
+    m_bJust_Switched = false;
+    m_bUseTransitionBeta = false;
+    m_mCameraMatrix.SetScale(1.0f);
+    m_bTargetJustBeenOnTrain = false;
+    m_bInitialNoNodeStaticsSet = false;
+    m_nLongestTimeInMill = 5000;
+    m_nTimeLastChange = 0;
+    m_bIdleOn = false;
+    m_nTimeWeLeftIdle_StillNoInput = 0;
+    m_nTimeWeEnteredIdle = 0;
+    m_fLODDistMultiplier = 1.0f;
+    m_bCamDirectlyBehind = false;
+    m_bCamDirectlyInFront = false;
+    m_nMotionBlur = 0;
+    m_bGarageFixedCamPositionSet = false;
     SetMotionBlur(255, 255, 255, 0, eMotionBlurType::NONE);
-
-    m_f3rdPersonCHairMultX = 0.53f;
-    m_f3rdPersonCHairMultY = 0.4f;
-    gPlayerPedVisible = 1;
+    m_bCullZoneChecksOn = false;
+    m_bFailedCullZoneTestPreviously = false;
+    m_nCheckCullZoneThisNumFrames = 6;
+    m_nZoneCullFrameNumWereAt = 0;
+    m_fCameraAverageSpeed = 0.0f;
+    m_fCameraSpeedSoFar = 0.0f;
+    m_vecPreviousCameraPosition = CVector{ 0.0f, 0.0f, 0.0f };
+    m_nWorkOutSpeedThisNumFrames = 4;
+    m_nNumFramesSoFar = 0;
+    m_bJustInitialized = true;
+    m_bTransitionState = false;
+    m_nTimeTransitionStart = 0;
+    m_bLookingAtPlayer = true;
+    m_bLookingAtVector = false;
+    m_f3rdPersonCHairMultX = std::bit_cast<float>(0x3F07AE14u); // 0.53f
+    m_f3rdPersonCHairMultY = std::bit_cast<float>(0x3ECCCCCDu); // 0.4f
+    m_fAvoidTheGeometryProbsTimer = 0.0f;
+    m_nAvoidTheGeometryProbsDirn = 0;
+    gPlayerPedVisible = true;
     m_bResetOldMatrix = true;
 }
 
@@ -323,31 +527,26 @@ void CCamera::InitialiseScriptableComponents() {
 
 // 0x50AF90
 void CCamera::InitialiseCameraForDebugMode() {
-#ifndef FINAL
-    if (auto* vehicle = FindPlayerVehicle()) {
-        m_aCams[2].m_vecSource = vehicle->GetPosition();
-    } else if (auto* player = FindPlayerPed()) {
-        m_aCams[2].m_vecSource = player->GetPosition();
-    }
-
-    m_aCams[2].m_fTrueAlpha = 0.0f;
-    m_aCams[2].m_fTrueBeta  = 0.0f;
-    m_aCams[2].m_nMode = eCamMode::MODE_DEBUG;
-#endif
+    // Como el original (0x50AF90): el EXE de venta es un simple `ret`; el codigo de depuracion (#ifndef FINAL) no existe en el.
 }
 
 // 0x50A480
 void CCamera::ApplyVehicleCameraTweaks(CVehicle* vehicle) {
-    if (vehicle->GetModelIndex() == m_nCurrentTweakModelIndex) {
+    // Como el original (0x50A48B / 0x50A4A8): el indice de modelo se lee con movsx (int16 con signo); GetModelIndex() devuelve uint32 sin signo
+    const int32 modelIndex = int32(int16(vehicle->m_nModelIndex));
+    if (modelIndex == m_nCurrentTweakModelIndex) {
         return;
     }
 
     InitCameraVehicleTweaks();
     for (auto& camTweak : m_aCamTweak) {
-        if (camTweak.ModelID == vehicle->GetModelIndex()) {
-            m_fCurrentTweakDistance = camTweak.Dist;
-            m_fCurrentTweakAltitude = camTweak.Alt;
-            m_fCurrentTweakAngle    = camTweak.Angle;
+        // Como el original (0x50A4A6 `test edx,edx; jl`): las entradas con ModelID negativo se saltan
+        if (camTweak.ModelID >= 0 && camTweak.ModelID == modelIndex) {
+            // Como el original (0x50A4BF..0x50A4DD): Dist, ModelID, Alt, Angle
+            m_fCurrentTweakDistance   = camTweak.Dist;
+            m_nCurrentTweakModelIndex = camTweak.ModelID;
+            m_fCurrentTweakAltitude   = camTweak.Alt;
+            m_fCurrentTweakAngle      = camTweak.Angle;
             return;
         }
     }
@@ -355,14 +554,40 @@ void CCamera::ApplyVehicleCameraTweaks(CVehicle* vehicle) {
 
 // 0x50A9F0
 void CCamera::CamShake(float strength, CVector from) {
-    auto dist = DistanceBetweenPoints(from, GetActiveCamera().m_vecSource);
-    dist = std::clamp(dist, 0.0f, 100.0f);
+    // Como el original (0x50A9F0): la camara activa sale de `this` (ecx), no de TheCamera
+    const auto& source = m_aCams[m_nActiveCam].m_vecSource;
+    const float dx = source.x - from.x, dy = source.y - from.y, dz = source.z - from.z;
 
-    float percentShakeForce = 1.0f - dist / 100.f;
-    float shakeForce = (m_fCamShakeForce - float(CTimer::GetTimeInMS() - m_nCamShakeStart) / 1000.f) * percentShakeForce;
+    // Distancia del EXE: raiz del plano XY redondeada a float y luego raiz de (dz^2 + plano^2)
+    const float planar = std::sqrt(dx * dx + dy * dy);
+    float dist = std::sqrt(dz * dz + planar * planar);
+    if (dist > 100.0f) {          // fcom 100; test ah,41h; jne
+        dist = 100.0f;
+    } else if (dist < 0.0f) {     // fcom 0; test ah,5; jp
+        dist = 0.0f;
+    }
 
-    float toShakeForce = percentShakeForce * strength * 0.35f;
-    if (toShakeForce > std::clamp(shakeForce, 0.0f, 2.0f)) {
+    // 0x50AA72..0x50AA8D: producto por 0.01 (double del EXE) y resta a 1.0 (double), redondeo de 24 bits en cada paso
+    const double kHundredth = StaticRef<double>(0x85A308), kOne = StaticRef<double>(0x85A310);
+    float percentShakeForce;
+    __asm {
+        fld dist
+        fmul kHundredth
+        fsubr kOne
+        fstp percentShakeForce
+    }
+
+    float shakeForce = (m_fCamShakeForce - ElapsedSeconds(int32(CTimer::GetTimeInMS() - m_nCamShakeStart))) * percentShakeForce;
+    // 0x50AAAD..0x50AAD9: primero el tope superior (2.0) y luego el inferior (0.0), con la orientacion de las comparaciones del EXE
+    if (!(shakeForce < 2.0f)) {
+        shakeForce = 2.0f;
+    }
+    if (!(shakeForce > 0.0f)) {
+        shakeForce = 0.0f;
+    }
+
+    const float toShakeForce = (percentShakeForce * strength) * std::bit_cast<float>(0x3EB33333u); // 0x858F9C
+    if (toShakeForce > shakeForce) {
         m_fCamShakeForce = toShakeForce;
         m_nCamShakeStart = CTimer::GetTimeInMS();
     }
@@ -370,9 +595,16 @@ void CCamera::CamShake(float strength, CVector from) {
 
 // 0x50A970
 void CamShakeNoPos(CCamera* camera, float strength) {
-    float oldShake = camera->m_fCamShakeForce - float(CTimer::GetTimeInMS() - camera->m_nCamShakeStart) / 1000.f;
+    // Como el original (0x50A970): el tiempo transcurrido va por fild * 0.001f, y el tope superior (2.0) se aplica antes que el inferior (0.0)
+    float oldShake = camera->m_fCamShakeForce - ElapsedSeconds(int32(CTimer::GetTimeInMS() - camera->m_nCamShakeStart));
+    if (!(oldShake < 2.0f)) {
+        oldShake = 2.0f;
+    }
+    if (!(oldShake > 0.0f)) {
+        oldShake = 0.0f;
+    }
 
-    if (strength > std::clamp(oldShake, 0.0f, 2.0f)) {
+    if (strength > oldShake) {
         camera->m_fCamShakeForce = strength;
         camera->m_nCamShakeStart = CTimer::GetTimeInMS();
     }
@@ -414,14 +646,26 @@ void CCamera::Fade(float duration, eFadeFlag direction) {
     m_bMusicFading           = true;
     m_nMusicFadingDirection  = direction;
 
-    m_fTimeToFadeMusic       = std::min(std::max(duration * 0.3f, 0.3f), duration); //Can't use std::clamp there, duration can be bigger or smaller than 0.3f
-    m_nFadeTimeStartedMusic  = CTimer::GetTimeInMS();
-    m_fTimeToWaitToFadeMusic = direction == eFadeFlag::FADE_IN
-        ? duration - m_fTimeToFadeMusic
-        : 0.f;
-    if (direction == eFadeFlag::FADE_IN) {
-        m_fTimeToFadeMusic = std::max(m_fTimeToFadeMusic - 0.1f, 0.f);
+    // Como el original (0x50AC62..0x50ACB4): min(max(duracion * 0.3f, 0.3f), duracion) con la orientacion de las comparaciones del EXE
+    // (fcom 0.3: `>` conserva el producto; fcomp duracion: `<` conserva el valor, si no vale duracion)
+    const float scaled = duration * 0.3f;
+    float musicFade = scaled > 0.3f ? scaled : 0.3f;
+    if (!(musicFade < duration)) {
+        musicFade = duration;
     }
+    m_fTimeToFadeMusic = musicFade;
+    if (direction == eFadeFlag::FADE_IN) {
+        m_fTimeToWaitToFadeMusic = duration - musicFade;
+        float faded = musicFade - 0.1f;
+        if (!(faded > 0.0f)) {  // fcom 0; test ah,41h; je
+            faded = 0.0f;
+        }
+        m_fTimeToFadeMusic      = faded;
+        m_nFadeTimeStartedMusic = CTimer::GetTimeInMS();
+        return;
+    }
+    m_fTimeToWaitToFadeMusic = 0.0f;
+    m_nFadeTimeStartedMusic  = CTimer::GetTimeInMS();
 }
 
 // 0x50AD20
@@ -434,25 +678,46 @@ float CCamera::FindCamFOV() const {
 * @return Rotation in radians at which the gun should point at, relative to the camera's vertical angle
 */
 float CCamera::Find3rdPersonQuickAimPitch() const {
+    // Como el original (0x50AD40..0x50AD8D): x87 con fptan/fpatan a precision completa; tan(fov * 0.5 * pi/180) * ((0.5 - Y) * 2),
+    // luego * (1 / aspecto) y atan de eso, mas el angulo vertical, con el signo cambiado.
     const auto& cam = m_aCams[m_nActiveCam];
-
-    // https://mathworld.wolfram.com/images/eps-svg/SOHCAHTOA_500.svg
-    const auto adjacent = (0.5f - m_f3rdPersonCHairMultY) * 2.f;
-    const auto opposite = std::tan(DegreesToRadians(cam.m_fFOV / 2.0f)) * adjacent;
-    const auto relAngle = cam.m_fVerticalAngle + std::atan(opposite / CDraw::ms_fAspectRatio);
-    return -relAngle; // Flip it
+    const float fov = cam.m_fFOV, vertical = cam.m_fVerticalAngle;
+    const float half = StaticRef<float>(0x858B8C), toRadians = StaticRef<float>(0x8595EC), one = StaticRef<float>(0x858624);
+    const float crosshairY = m_f3rdPersonCHairMultY, aspect = CDraw::ms_fAspectRatio;
+    float result;
+    __asm {
+        fld fov
+        fmul half
+        fmul toRadians
+        fptan
+        fstp st(0)
+        fld half
+        fsub crosshairY
+        fadd st(0), st(0)
+        fmulp st(1), st(0)
+        fld one
+        fdiv aspect
+        fmulp st(1), st(0)
+        fld1
+        fpatan
+        fadd vertical
+        fchs
+        fstp result
+    }
+    return result;
 }
 
 // 0x50AD90
 uint32 CCamera::GetCutSceneFinishTime() {
-    auto& cam = m_aCams[m_nActiveCam];
-    if (cam.m_nMode == eCamMode::MODE_FLYBY) {
-        return cam.m_nFinishTime;
+    // Como el original (0x50AD90): `other` es un puntero a la otra camara (el codigo anterior COPIABA la otra camara sobre la activa)
+    const auto& active = m_aCams[m_nActiveCam];
+    if (active.m_nMode == eCamMode::MODE_FLYBY) {
+        return active.m_nFinishTime;
     }
 
-    cam = m_aCams[(m_nActiveCam + 1) % 2];
-    if (cam.m_nMode == eCamMode::MODE_FLYBY) {
-        return cam.m_nFinishTime;
+    const auto& other = m_aCams[(m_nActiveCam + 1) % 2];
+    if (other.m_nMode == eCamMode::MODE_FLYBY) {
+        return other.m_nFinishTime;
     }
 
     return 0;
@@ -592,12 +857,27 @@ void CCamera::CopyCameraMatrixToRWCam(bool bUpdateMatrix) {
 
 // 0x50B380
 void CCamera::CalculateMirroredMatrix(CVector posn, float mirrorV, CMatrix *camMatrix, CMatrix* mirrorMatrix) {
-    mirrorMatrix->GetPosition() = camMatrix->GetPosition() - posn * 2 * (DotProduct(posn, camMatrix->GetPosition()) - mirrorV);
+    // Como el original (0x50B380..0x50B505): el producto escalar se suma en el orden z, y, x y el factor 2 se aplica al resultado
+    // (n * (2 * (n.p - V))), no a la normal.
+    const CVector position = camMatrix->GetPosition();
+    const float positionFactor = (((posn.z * position.z) + (posn.y * position.y)) + (posn.x * position.x) - mirrorV);
+    const float positionTwice = positionFactor + positionFactor;
+    mirrorMatrix->GetPosition() = CVector{
+        position.x - posn.x * positionTwice,
+        position.y - posn.y * positionTwice,
+        position.z - posn.z * positionTwice
+    };
 
-    const CVector fwd = camMatrix->GetForward() - posn * 2 * DotProduct(posn, camMatrix->GetForward());
+    const auto reflectDirection = [&posn](const CVector& v) {
+        const float dot = ((v.z * posn.z) + (v.y * posn.y)) + (v.x * posn.x);
+        const float twice = dot + dot;
+        return CVector{ v.x - posn.x * twice, v.y - posn.y * twice, v.z - posn.z * twice };
+    };
+
+    const CVector fwd = reflectDirection(camMatrix->GetForward());
     mirrorMatrix->GetForward() = fwd;
 
-    const CVector up = camMatrix->GetUp() - posn * 2 * DotProduct(posn, camMatrix->GetUp());
+    const CVector up = reflectDirection(camMatrix->GetUp());
     mirrorMatrix->GetUp() = up;
 
     mirrorMatrix->GetRight() = CVector{
@@ -634,6 +914,7 @@ void CCamera::RenderMotionBlur() const {
 
 // 0x50B930
 void CCamera::Restore() {
+    // Como el original (0x50B930..0x50BAA5): el jugador activo se lee en linea y FindPlayerVehicle se llama dos veces con vehiculo
     m_bLookingAtPlayer = true;
     m_bLookingAtVector = false;
     m_nTypeOfSwitch = eSwitchType::INTERPOLATION;
@@ -644,21 +925,18 @@ void CCamera::Restore() {
     m_bScriptParametersSetForInterp = false;
     m_nWhoIsInControlOfTheCamera = 0;
 
-    CVehicle* vehicle = FindPlayerVehicle();
-    CPlayerPed* player = FindPlayerPed();
-
-    if (vehicle) {
-        m_nModeToGoTo = MODE_CAM_ON_A_STRING;
-        CEntity::SafeCleanUpRef(m_pTargetEntity);
-        m_pTargetEntity = vehicle;
-    } else {
+    if (!FindPlayerVehicle(-1, false)) {
         m_nModeToGoTo = MODE_FOLLOWPED;
         CEntity::SafeCleanUpRef(m_pTargetEntity);
-        m_pTargetEntity = player;
+        m_pTargetEntity = ActivePlayerPed();
+    } else {
+        m_nModeToGoTo = MODE_CAM_ON_A_STRING;
+        CEntity::SafeCleanUpRef(m_pTargetEntity);
+        m_pTargetEntity = FindPlayerVehicle(-1, false);
     }
     CEntity::SafeRegisterRef(m_pTargetEntity);
 
-    switch (player->m_nPedState) {
+    switch (ActivePlayerPed()->m_nPedState) {
     case PEDSTATE_ENTER_CAR:
     case PEDSTATE_CARJACK:
     case PEDSTATE_OPEN_DOOR:
@@ -666,11 +944,11 @@ void CCamera::Restore() {
         break;
     }
 
-    if (player->m_nPedState == PEDSTATE_EXIT_CAR) {
+    if (ActivePlayerPed()->m_nPedState == PEDSTATE_EXIT_CAR) {
         m_nModeToGoTo = MODE_FOLLOWPED;
 
         CEntity::SafeCleanUpRef(m_pTargetEntity);
-        m_pTargetEntity = player;
+        m_pTargetEntity = ActivePlayerPed();
         CEntity::SafeRegisterRef(m_pTargetEntity);
     }
 
@@ -687,6 +965,7 @@ void CCamera::Restore() {
 
 // 0x50BAB0
 void CCamera::RestoreWithJumpCut() {
+    // Como el original (0x50BAB0..0x50BD1C): ademas de lo de Restore marca m_bCameraJustRestored y apaga los dos permisos de primera persona
     m_bRestoreByJumpCut = true;
     m_bLookingAtPlayer = true;
     m_bLookingAtVector = false;
@@ -697,22 +976,22 @@ void CCamera::RestoreWithJumpCut() {
     m_bUseNearClipScript = false;
     m_nModeObbeCamIsInForCar = 30;
     m_bScriptParametersSetForInterp = false;
+    m_bCameraJustRestored = true;
+    m_bEnable1rstPersonCamCntrlsScript = false;
+    m_bAllow1rstPersonWeaponsCamera = false;
 
-    CVehicle* vehicle = FindPlayerVehicle();
-    CPlayerPed* player = FindPlayerPed();
-
-    if (vehicle) {
-        m_nModeToGoTo = MODE_CAM_ON_A_STRING;
-        CEntity::SafeCleanUpRef(m_pTargetEntity);
-        m_pTargetEntity = vehicle;
-    } else {
+    if (!FindPlayerVehicle(-1, false)) {
         m_nModeToGoTo = MODE_FOLLOWPED;
         CEntity::SafeCleanUpRef(m_pTargetEntity);
-        m_pTargetEntity = player;
+        m_pTargetEntity = ActivePlayerPed();
+    } else {
+        m_nModeToGoTo = MODE_CAM_ON_A_STRING;
+        CEntity::SafeCleanUpRef(m_pTargetEntity);
+        m_pTargetEntity = FindPlayerVehicle(-1, false);
     }
     CEntity::SafeRegisterRef(m_pTargetEntity);
 
-    switch (player->m_nPedState) {
+    switch (ActivePlayerPed()->m_nPedState) {
     case PEDSTATE_ENTER_CAR:
     case PEDSTATE_CARJACK:
     case PEDSTATE_OPEN_DOOR:
@@ -720,30 +999,18 @@ void CCamera::RestoreWithJumpCut() {
         break;
     }
 
-    if (player->m_nPedState == PEDSTATE_EXIT_CAR) {
+    if (ActivePlayerPed()->m_nPedState == PEDSTATE_EXIT_CAR) {
         m_nModeToGoTo = MODE_FOLLOWPED;
 
         CEntity::SafeCleanUpRef(m_pTargetEntity);
-        m_pTargetEntity = player;
+        m_pTargetEntity = ActivePlayerPed();
         CEntity::SafeRegisterRef(m_pTargetEntity);
     }
 
-    if (!m_bCooperativeCamMode) {
-        m_bUseScriptZoomValuePed = false;
-        m_bUseScriptZoomValueCar = false;
-        return;
-    }
-
-    CPlayerPed* player0 = FindPlayerPed(0);
-    CPlayerPed* player1 = FindPlayerPed(1);
-
-    if (!player0) {
-        m_bUseScriptZoomValuePed = false;
-        m_bUseScriptZoomValueCar = false;
-        return;
-    }
-
-    if (!player1) {
+    // Los dos jugadores se leen directamente de la tabla (0xB7CD98 y 0xB7CF28), no con FindPlayerPed
+    CPlayerPed* const player0 = CWorld::Players[0].m_pPed;
+    CPlayerPed* const player1 = CWorld::Players[1].m_pPed;
+    if (!m_bCooperativeCamMode || !player0 || !player1) {
         m_bUseScriptZoomValuePed = false;
         m_bUseScriptZoomValueCar = false;
         return;
@@ -804,6 +1071,7 @@ void CCamera::SetCameraDirectlyInFrontForFollowPed_CamOnAString() {
 // unused
 // 0x50BDA0
 void CCamera::SetCameraDirectlyBehindForFollowPed_ForAPed_CamOnAString(CPed* targetPed) {
+    // Como el original (0x50BDA0): el rumbo sale de GetATanOfXY del vector delantero (no de GetHeading)
     if (!targetPed) {
         return;
     }
@@ -813,7 +1081,7 @@ void CCamera::SetCameraDirectlyBehindForFollowPed_ForAPed_CamOnAString(CPed* tar
 
     TheCamera.m_pTargetEntity = targetPed;
     CEntity::ChangeEntityReference(GetActiveCamera().m_pCamTargetEntity, targetPed);
-    m_fPedOrientForBehindOrInFront = targetPed->GetHeading();
+    m_fPedOrientForBehindOrInFront = CGeneral::GetATanOfXY(targetPed->GetForward().x, targetPed->GetForward().y);
 }
 
 // 0x50BE30
@@ -823,7 +1091,7 @@ void CCamera::SetCameraDirectlyInFrontForFollowPed_ForAPed_CamOnAString(CPed* ta
     }
 
     m_bLookingAtPlayer = false;
-    m_pTargetEntity = targetPed;
+    TheCamera.m_pTargetEntity = targetPed; // Como el original (0x50BE53): 0xB6F980 es TheCamera.m_pTargetEntity, no `this`
 
     CCam& camera = GetActiveCamera();
     CEntity::SafeCleanUpRef(camera.m_pCamTargetEntity);
@@ -855,7 +1123,8 @@ void CCamera::SetFadeColour(uint8 red, uint8 green, uint8 blue) {
 }
 
 // 0x50BF40
-void CCamera::SetMotionBlur(uint8 red, uint8 green, uint8 blue, int32 value, eMotionBlurType blurType) {
+void CCamera::SetMotionBlur(uint32 red, uint32 green, uint32 blue, int32 value, eMotionBlurType blurType) {
+    // Como el original (0x50BF40): los argumentos se copian como dwords completos (los miembros son uint32, no bytes)
     m_nBlurRed    = red;
     m_nBlurGreen  = green;
     m_nBlurBlue   = blue;
@@ -902,21 +1171,24 @@ bool CCamera::Using1stPersonWeaponMode() const {
 void CCamera::SetParametersForScriptInterpolation(float interpolationToStopMoving, float interpolationToCatchUp, uint32 timeForInterpolation) {
     m_nScriptTimeForInterpolation = timeForInterpolation;
     m_bScriptParametersSetForInterp = true;
-    m_fScriptPercentageInterToStopMoving = interpolationToStopMoving / 100.0f;
-    m_fScriptPercentageInterToCatchUp = interpolationToCatchUp / 100.0f;
+    // Como el original (0x50C038, 0x50C052): * 0.01f, no `/ 100.0f`
+    m_fScriptPercentageInterToStopMoving = interpolationToStopMoving * kExePercent;
+    m_fScriptPercentageInterToCatchUp = interpolationToCatchUp * kExePercent;
 }
 
 // 0x50C070
 void CCamera::SetPercentAlongCutScene(float percent) {
-    auto& cam = m_aCams[m_nActiveCam];
-    if (cam.m_nMode == eCamMode::MODE_FLYBY) {
-        cam.m_fTimeElapsedFloat = (float)cam.m_nFinishTime * percent / 100.0f;
+    // Como el original (0x50C070..0x50C0F4): (porcentaje * 0.01f) * tiempo final (fild, +2^32 si es negativo), un solo redondeo;
+    // la otra camara es un puntero (el codigo anterior COPIABA la otra camara sobre la activa)
+    auto& active = m_aCams[m_nActiveCam];
+    if (active.m_nMode == eCamMode::MODE_FLYBY) {
+        active.m_fTimeElapsedFloat = CutSceneElapsed(percent, active.m_nFinishTime);
         return;
     }
 
-    cam = m_aCams[(m_nActiveCam + 1) % 2];
-    if (cam.m_nMode == eCamMode::MODE_FLYBY) {
-        cam.m_fTimeElapsedFloat = (float)cam.m_nFinishTime * percent / 100.0f;
+    auto& other = m_aCams[(m_nActiveCam + 1) % 2];
+    if (other.m_nMode == eCamMode::MODE_FLYBY) {
+        other.m_fTimeElapsedFloat = CutSceneElapsed(percent, other.m_nFinishTime);
         return;
     }
 }
@@ -940,15 +1212,17 @@ void CCamera::SetWideScreenOff() {
 
 // 0x50C160
 void CCamera::SetZoomValueFollowPedScript(int16 zoomMode) {
+    // Como el original (0x50C160): solo 0, 1 y 2 modifican el valor; cualquier otro modo deja el valor anterior
     switch (zoomMode) {
+    case 0:
+        m_fPedZoomValueScript = 0.25f;
+        break;
     case 1:
         m_fPedZoomValueScript = 1.50f;
         break;
     case 2:
-        m_fPedZoomValueScript = 2.90f;
+        m_fPedZoomValueScript = std::bit_cast<float>(0x4039999Au); // 2.90f
         break;
-    default:
-        m_fPedZoomValueScript = 0.25f;
     }
     m_bUseScriptZoomValuePed = true;
 }
@@ -956,24 +1230,19 @@ void CCamera::SetZoomValueFollowPedScript(int16 zoomMode) {
 // zoomMode : 0- ZOOM_ONE , 1- ZOOM_TWO , 2- ZOOM_THREE
 // 0x50C1B0
 void CCamera::SetZoomValueCamStringScript(int16 zoomMode) {
+    // Como el original (0x50C1B0): el tipo se comprueba con (byte [entidad+0x36] & 7) == 2 (vehiculo), no con el estado
     auto entity = m_aCams[0].m_pCamTargetEntity;
 
-    if (entity->GetStatus() == STATUS_SIMPLE) {
+    if (entity->GetIsTypeVehicle()) {
         int32 arrPos{};
-        VERIFY(GetArrPosForVehicleType(static_cast<eVehicleType>(entity->AsVehicle()->GetVehicleAppearance()), arrPos));
-        m_fCarZoomValueScript = [zoomMode]{
-            switch (zoomMode) {
-            case 0:
-                return std::array{ -1.0f, -0.2f, -3.20f, 0.05f, -2.41f }; // 0x8CC3E0
-            case 1:
-                return std::array{ +1.0f, +1.4f, +0.65f, 1.90f, +6.49f }; // 0x8CC3F4
-            case 2:
-                return std::array{ +6.0f, +6.0f, +15.9f, 15.9f, +15.0f }; // 0x8CC408
-            default:
-                NOTSA_UNREACHABLE("Unexpected zoom mode: {}", zoomMode);
-            }
-        }()[arrPos];
-    
+        // El resultado se ignora (el EXE no comprueba el retorno; arrPos queda en 0 si el tipo no esta en la tabla)
+        GetArrPosForVehicleType(static_cast<eVehicleType>(entity->AsVehicle()->GetVehicleAppearance()), arrPos);
+
+        // Tablas de 5 floats del EXE: 0x8CC3E0, 0x8CC3F4 y 0x8CC408 (modos 0, 1 y 2); otro modo no cambia el valor
+        constexpr uintptr_t tables[] = { 0x8CC3E0, 0x8CC3F4, 0x8CC408 };
+        if (zoomMode == 0 || zoomMode == 1 || zoomMode == 2) {
+            m_fCarZoomValueScript = StaticRef<float>(tables[zoomMode] + 4u * uint32(arrPos));
+        }
         m_bUseScriptZoomValueCar = true;
     } else {
         SetZoomValueFollowPedScript(zoomMode);
@@ -1013,117 +1282,124 @@ void CCamera::StoreValuesDuringInterPol(CVector* sourceDuringInter, CVector* tar
 
 // 0x50C360
 void CCamera::UpdateTargetEntity() {
-    m_bPlayerWasOnBike = m_pTargetEntity && m_pTargetEntity->GetIsTypeVehicle() && m_pTargetEntity->AsVehicle()->m_vecMoveSpeed.SquaredMagnitude() > 0.3f;
+    // Como el original (0x50C360..0x50C7B9): transcripcion de las llamadas a FindPlayerPed/FindPlayerVehicle y de las lecturas en linea
+    // de la tabla de jugadores; la entidad objetivo se cambia siempre con CleanUpOldReference + asignacion + RegisterReference.
+    // La entidad nueva se obtiene DESPUES de limpiar la referencia anterior (en el EXE: CleanUpOldReference, FindPlayerPed/Vehicle, asignar, RegisterReference)
+    const auto setTarget = [this](auto&& getEntity) {
+        CEntity::SafeCleanUpRef(m_pTargetEntity);
+        m_pTargetEntity = getEntity();
+        m_pTargetEntity->RegisterReference(reinterpret_cast<CEntity**>(&m_pTargetEntity));
+    };
+    const auto playerPed = [] { return static_cast<CEntity*>(FindPlayerPed(-1)); };
+    const auto playerVehicle = [] { return static_cast<CEntity*>(FindPlayerVehicle(-1, false)); };
 
-    const auto player = FindPlayerPed();
-    assert(player);
+    bool playerDoingSomething = false;
+    m_bPlayerWasOnBike = false;
+    if (m_pTargetEntity && m_pTargetEntity->GetIsTypeVehicle()) {
+        const auto& speed = m_pTargetEntity->AsVehicle()->m_vecMoveSpeed;
+        if (((speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z) > StaticRef<float>(0x8CCC80)) {
+            m_bPlayerWasOnBike = true;
+        }
+    }
 
-    auto something{ true };
+    // Como el original: bl vale 0 (0x50C372) y solo se pone a 1 dentro de `who == 2` (0x50C3CC)
+    bool something = false;
     if (m_nWhoIsInControlOfTheCamera == 2) {
-        m_nModeObbeCamIsInForCar = m_nModeObbeCamIsInForCar;
-        switch (m_nModeObbeCamIsInForCar) {
-        case 8:
-        case 7: {
-            if (player->m_nPedState != PEDSTATE_ARRESTED) {
+        something = true;
+        if (m_nModeObbeCamIsInForCar == 8 || m_nModeObbeCamIsInForCar == 7) {
+            if (FindPlayerPed(-1)->m_nPedState != PEDSTATE_ARRESTED) {
                 something = false;
             }
-
-            if (!FindPlayerVehicle()) {
-                CEntity::ChangeEntityReference(m_pTargetEntity, player);
+            if (!FindPlayerVehicle(-1, false)) {
+                setTarget(playerPed);
             }
-
-            break;
-        }
         }
     }
 
-    if (!m_bLookingAtPlayer && !something || m_bTransitionState) {
-        if (m_pTargetEntity) {
-            if (!m_bTargetJustBeenOnTrain) {
-                return;
-            }
+    if (!((m_bLookingAtPlayer || something) && !m_bTransitionState)) {
+        if (m_pTargetEntity && !m_bTargetJustBeenOnTrain) {
+            return;
         }
-        
     }
 
-    bool playerDoingSomethingWhileDriveBy{};
-    if ([&, this]() { // Check is player doing drive-by
-        if (!FindPlayerVehicle()) {
-            return true;
-        }
+    bool onFootPath;
+    if (!FindPlayerVehicle(-1, false)) {
+        onFootPath = true;
+    } else if (CGameLogic::IsCoopGameGoingOn()) {
+        onFootPath = false;
+    } else if (!FindPlayerPed(-1)->GetTaskManager().GetSimplestActiveTask()) {
+        onFootPath = false;
+    } else {
+        onFootPath = FindPlayerPed(-1)->GetTaskManager().GetSimplestActiveTask()->GetTaskType() == TASK_SIMPLE_GANG_DRIVEBY;
+    }
 
-        if (!CGameLogic::IsCoopGameGoingOn()) {
-            if (player->GetTaskManager().GetSimplestActiveTaskAs<CTaskSimpleGangDriveBy>()) {
-                return true;
-            }
-        }
-
-        return false;
-    }()) {
-        CEntity::ChangeEntityReference(m_pTargetEntity, player);
-
-        playerDoingSomethingWhileDriveBy = [this, player] {
-            switch (player->m_nPedState) {
-            case PEDSTATE_ENTER_CAR:
-            case PEDSTATE_CARJACK:
-            case PEDSTATE_OPEN_DOOR:
-                return true;
-            }
-            return false;
-        }();
-
-        if (!playerDoingSomethingWhileDriveBy) {
-            auto& cam = GetActiveCam();
-            if (cam.m_pCamTargetEntity != m_pTargetEntity) {
-                CEntity::ChangeEntityReference(cam.m_pCamTargetEntity, m_pTargetEntity);
+    if (onFootPath) {
+        setTarget(playerPed);
+        if (FindPlayerPed(-1)->m_nPedState == PEDSTATE_ENTER_CAR
+            || FindPlayerPed(-1)->m_nPedState == PEDSTATE_CARJACK
+            || FindPlayerPed(-1)->m_nPedState == PEDSTATE_OPEN_DOOR) {
+            playerDoingSomething = true;
+        } else {
+            auto& camTarget = m_aCams[m_nActiveCam].m_pCamTargetEntity;
+            if (m_pTargetEntity != camTarget) {
+                CEntity::SafeCleanUpRef(camTarget);
+                camTarget = m_pTargetEntity;
+                camTarget->RegisterReference(reinterpret_cast<CEntity**>(&camTarget));
             }
         }
     } else {
-        CEntity::ChangeEntityReference(m_pTargetEntity, FindPlayerVehicle());
+        setTarget(playerVehicle);
     }
 
-    const auto canEnterCar = player && player->m_pVehicle && player->m_pVehicle->CanPedOpenLocks(player); // Inverted this variable
-
-    if (canEnterCar && player->m_nPedState == PEDSTATE_ENTER_CAR && !playerDoingSomethingWhileDriveBy) {
-        if (m_nCarZoom) {
-            CEntity::ChangeEntityReference(m_pTargetEntity, FindPlayerEntity());
+    // Inverso de CanPedOpenLocks (bl del EXE): true si el jugador no tiene vehiculo o no puede abrirlo
+    bool cannotOpenLocks = true;
+    if (const auto player = ActivePlayerPed(); player && player->m_pVehicle) {
+        const auto asArgument = FindPlayerPed(-1);
+        if (FindPlayerPed(-1)->m_pVehicle->CanPedOpenLocks(asArgument)) {
+            cannotOpenLocks = false;
         }
     }
 
-    if (canEnterCar) {
-        switch (player->m_nPedState) {
-        case PEDSTATE_CARJACK:
-        case PEDSTATE_OPEN_DOOR: {
-            if (!playerDoingSomethingWhileDriveBy) {
-                if (m_nCarZoom) {
-                    CEntity::ChangeEntityReference(m_pTargetEntity, FindPlayerEntity());
-                }
+    if (ActivePlayerPed()->m_nPedState == PEDSTATE_ENTER_CAR && !cannotOpenLocks && !playerDoingSomething) {
+        if (m_nCarZoom != 0) {
+            CEntity::SafeCleanUpRef(m_pTargetEntity);
+            m_pTargetEntity = ActivePlayerPed()->m_pVehicle;
+            if (!ActivePlayerPed()->m_pVehicle) {
+                m_pTargetEntity = FindPlayerPed(-1);
             }
-
-            if (!FindPlayerVehicle()) {
-                CEntity::ChangeEntityReference(m_pTargetEntity, player);
-            }
-        }
+            m_pTargetEntity->RegisterReference(reinterpret_cast<CEntity**>(&m_pTargetEntity));
         }
     }
 
-    switch (player->m_nPedState) {
-    case PEDSTATE_EXIT_CAR:
-    case PEDSTATE_DRAGGED_FROM_CAR:
-        CEntity::ChangeEntityReference(m_pTargetEntity, player);
+    const auto pedState = ActivePlayerPed()->m_nPedState;
+    if ((pedState == PEDSTATE_CARJACK || pedState == PEDSTATE_OPEN_DOOR) && !cannotOpenLocks) {
+        if (!playerDoingSomething && m_nCarZoom != 0) {
+            CEntity::SafeCleanUpRef(m_pTargetEntity);
+            m_pTargetEntity = ActivePlayerPed()->m_pVehicle;
+            m_pTargetEntity->RegisterReference(reinterpret_cast<CEntity**>(&m_pTargetEntity));
+        }
+        if (!ActivePlayerPed()->m_pVehicle) {
+            setTarget(playerPed);
+        }
     }
 
-    if (m_pTargetEntity->GetIsTypeVehicle()) {
-        if (m_nCarZoom == 0) {
-            if (player->m_nPedState == PEDSTATE_ARRESTED) {
-                CEntity::ChangeEntityReference(m_pTargetEntity, player);
-            }
+    if (ActivePlayerPed()->m_nPedState == PEDSTATE_EXIT_CAR) {
+        setTarget(playerPed);
+    }
+    if (ActivePlayerPed()->m_nPedState == PEDSTATE_DRAGGED_FROM_CAR) {
+        setTarget(playerPed);
+    }
+
+    if (m_pTargetEntity->GetIsTypeVehicle() && m_nCarZoom == 0) {
+        if (FindPlayerPed(-1)->m_nPedState == PEDSTATE_ARRESTED) {
+            setTarget(playerPed);
         }
     }
 }
 
 // 0x50C7C0
 void CCamera::TakeControl(CEntity* target, eCamMode modeToGoTo, eSwitchType switchType, int32 whoIsInControlOfTheCamera) {
+    // Como el original (0x50C7C0..0x50C8AC)
     if (!m_bCinemaCamera) {
         if (whoIsInControlOfTheCamera == 2 && m_nWhoIsInControlOfTheCamera == 1) {
             return;
@@ -1131,33 +1407,32 @@ void CCamera::TakeControl(CEntity* target, eCamMode modeToGoTo, eSwitchType swit
     }
     m_nWhoIsInControlOfTheCamera = whoIsInControlOfTheCamera;
 
-    const auto [newGoToMode, newTargetEntity] = [&, this]() -> std::tuple<eCamMode, CEntity*>{
-        if (target) {
-            return {
-                [&, this] {
-                    if (modeToGoTo == MODE_NONE) {
-                        switch (target->GetType()) {
-                        case ENTITY_TYPE_PED:
-                            return MODE_FOLLOWPED;
-                        case ENTITY_TYPE_VEHICLE:
-                            return MODE_CAM_ON_A_STRING;
-                        }
-                    }
-                    return modeToGoTo;
-                }(),
-                target
-            };
+    CEntity* newTargetEntity = target;
+    auto newGoToMode = modeToGoTo;
+    if (!target) {
+        newTargetEntity = FindPlayerVehicle(-1, false) ? static_cast<CEntity*>(FindPlayerVehicle(-1, false)) : static_cast<CEntity*>(ActivePlayerPed());
+    } else if (modeToGoTo == MODE_NONE) {
+        // 0x50C840: el tipo se lee de la entidad objetivo ACTUAL (m_pTargetEntity), no de la nueva
+        switch (m_pTargetEntity->GetType()) {
+        case ENTITY_TYPE_PED:
+            newGoToMode = MODE_FOLLOWPED;
+            break;
+        case ENTITY_TYPE_VEHICLE:
+            newGoToMode = MODE_CAM_ON_A_STRING;
+            break;
         }
+    }
 
-        return { modeToGoTo, FindPlayerEntity() };
-    }();
+    m_bLookingAtVector = false;
+    CEntity::SafeCleanUpRef(m_pTargetEntity);
+    m_pTargetEntity = newTargetEntity;
+    m_pTargetEntity->RegisterReference(reinterpret_cast<CEntity**>(&m_pTargetEntity));
 
-    CEntity::ChangeEntityReference(m_pTargetEntity, newTargetEntity);
     m_nModeToGoTo = newGoToMode;
-
-    m_nTypeOfSwitch    = switchType;
-    m_bLookingAtPlayer = m_bLookingAtVector = false;
+    m_nTypeOfSwitch = switchType;
+    m_bLookingAtPlayer = false;
     m_bStartInterScript = true;
+    (void)FindPlayerPed(-1); // 0x50C8A0: el EXE la llama y descarta el resultado
 }
 
 // 0x50C8B0
@@ -1176,7 +1451,50 @@ void CCamera::TakeControlNoEntity(const CVector& fixedModeVector, eSwitchType sw
 
 // 0x50C910
 void CCamera::TakeControlAttachToEntity(CEntity* target, CEntity* attached, CVector* attachedCamOffset, CVector* attachedCamLookAt, float tilt, eSwitchType switchType, int32 whoIsInControlOfTheCamera) {
-    plugin::CallMethod<0x50C910, CCamera*, CEntity*, CEntity*, CVector*, CVector*, float, eSwitchType, int32>(this, target, attached, attachedCamOffset, attachedCamLookAt, tilt, switchType, whoIsInControlOfTheCamera);
+    // Como el original (0x50C910..0x50CAD7). Antes esta funcion llamaba al propio EXE (plugin::CallMethod).
+    if (whoIsInControlOfTheCamera == 2 && m_nWhoIsInControlOfTheCamera == 1) {
+        return;
+    }
+    m_nWhoIsInControlOfTheCamera = whoIsInControlOfTheCamera;
+
+    if (!attached) {
+        attached = FindPlayerVehicle(-1, false) ? static_cast<CEntity*>(FindPlayerVehicle(-1, false)) : static_cast<CEntity*>(ActivePlayerPed());
+    }
+
+    if (target) {
+        CEntity::SafeCleanUpRef(m_pTargetEntity);
+        m_pTargetEntity = target;
+        m_pTargetEntity->RegisterReference(reinterpret_cast<CEntity**>(&m_pTargetEntity));
+        m_bLookingAtVector = false;
+    } else {
+        m_bLookingAtVector = true;
+        // 0x509760: true si el punto de mira y el desplazamiento difieren en alguna componente
+        const bool differs = !(attachedCamLookAt->x == attachedCamOffset->x
+                            && attachedCamLookAt->y == attachedCamOffset->y
+                            && attachedCamLookAt->z == attachedCamOffset->z);
+        if (differs) {
+            m_vecAttachedCamLookAt = *attachedCamLookAt;
+        } else {
+            m_vecAttachedCamLookAt = CVector{ 0.0f, 0.0f, 0.0f };
+        }
+    }
+
+    if (attachedCamOffset->x == 0.0f && attachedCamOffset->y == 0.0f && attachedCamOffset->z == 0.0f) {
+        m_vecAttachedCamOffset = CVector{ 0.0f, 0.0f, 2.0f };
+    } else {
+        m_vecAttachedCamOffset = *attachedCamOffset;
+    }
+
+    m_fAttachedCamAngle = tilt;
+    CEntity::SafeCleanUpRef(m_pAttachedEntity);
+    m_pAttachedEntity = attached;
+    m_pAttachedEntity->RegisterReference(reinterpret_cast<CEntity**>(&m_pAttachedEntity));
+
+    m_nModeToGoTo = MODE_ATTACHCAM;
+    m_nTypeOfSwitch = switchType;
+    m_bLookingAtPlayer = false;
+    m_bStartInterScript = true;
+    (void)FindPlayerPed(-1); // 0x50CAC8: el EXE la llama y descarta el resultado
 }
 
 // 0x50CAE0
@@ -1251,19 +1569,21 @@ void CCamera::SetColVarsAimWeapon(int32 aimingType) {
 
 // 0x50CC50
 void CCamera::SetColVarsPed(ePedType pedType, int32 nCamPedZoom) {
-    const int32 camColVars = [=] {
-        switch (pedType) {
-        case PED_TYPE_PLAYER1:
-            return nCamPedZoom + 3;
-        case PED_TYPE_PLAYER2:
-            return nCamPedZoom + 6;
-        default:
-            return 0;
-        }
-    }();
+    // Como el original (0x50CC50): otros tipos de ped no tocan nada (el codigo anterior reiniciaba el conjunto 0)
+    int32 camColVars;
+    switch (pedType) {
+    case PED_TYPE_PLAYER1:
+        camColVars = nCamPedZoom + 3;
+        break;
+    case PED_TYPE_PLAYER2:
+        camColVars = nCamPedZoom + 6;
+        break;
+    default:
+        return;
+    }
 
     if (camColVars != gCurCamColVars) {
-        gCurCamColVars = camColVars;
+        gCurCamColVars = uint8(camColVars);
         gCurDistForCam = 1.0f;
         gpCamColVars = gCamColVars[camColVars];
     }
@@ -1271,6 +1591,7 @@ void CCamera::SetColVarsPed(ePedType pedType, int32 nCamPedZoom) {
 
 // 0x50CD30
 void CCamera::CameraGenericModeSpecialCases(CPed* targetPed) {
+    // Como el original (0x50CD30): se guarda la entidad SOSTENIDA (task+8), no el ped
     m_nExtraEntitiesCount = 0;
 
     if (!targetPed) {
@@ -1282,11 +1603,11 @@ void CCamera::CameraGenericModeSpecialCases(CPed* targetPed) {
         return;
     }
 
-    m_pExtraEntity[m_nExtraEntitiesCount++] = targetPed;
+    m_pExtraEntity[m_nExtraEntitiesCount++] = taskHold->m_pEntityToHold;
 }
 
 // 0x50CD80
-void CCamera::CameraPedModeSpecialCases() {
+void CCamera::CameraPedModeSpecialCases(CPed* /*ped*/) {
     CCollision::bCamCollideWithVehicles = true;
     CCollision::bCamCollideWithObjects  = true;
     CCollision::bCamCollideWithPeds     = true;
@@ -1294,7 +1615,7 @@ void CCamera::CameraPedModeSpecialCases() {
 
 // 0x50CDA0
 void CCamera::CameraPedAimModeSpecialCases(CPed* ped) {
-    CameraPedModeSpecialCases();
+    CameraPedModeSpecialCases(ped);
 
     if (ped->IsInVehicle()) {
         m_pExtraEntity[m_nExtraEntitiesCount++] = ped->m_pVehicle;
@@ -1303,13 +1624,23 @@ void CCamera::CameraPedAimModeSpecialCases(CPed* ped) {
 
 // 0x50CDE0
 void CCamera::CameraVehicleModeSpecialCases(CVehicle* vehicle) {
-    float speed = vehicle->m_vecMoveSpeed.Magnitude();
+    // Como el original (0x50CDE0..0x50CE78): la velocidad se compara al cuadrado y el valor lento es 0x3C23D70B
+    CCollision::bCamCollideWithObjects = false;
 
-    const auto slow = speed <= 0.2f;
-    CCollision::relVelCamCollisionVehiclesSqr = slow ? 0.1f : 1.0f;
-    CCollision::bCamCollideWithVehicles = true;
-    CCollision::bCamCollideWithPeds     = slow;
-    CCollision::bCamCollideWithObjects  = slow;
+    const auto& speed = vehicle->m_vecMoveSpeed;
+    const float speedSquared = (speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z;
+    const float limit = StaticRef<float>(0x8CCC88);
+    if (limit * limit < speedSquared) {
+        CCollision::relVelCamCollisionVehiclesSqr = 1.0f;
+        CCollision::bCamCollideWithVehicles = true;
+        CCollision::bCamCollideWithPeds     = false;
+        CCollision::bCamCollideWithObjects  = false;
+    } else {
+        CCollision::relVelCamCollisionVehiclesSqr = std::bit_cast<float>(0x3C23D70Bu);
+        CCollision::bCamCollideWithVehicles = true;
+        CCollision::bCamCollideWithPeds     = true;
+        CCollision::bCamCollideWithObjects  = true;
+    }
 
     if (vehicle->m_pVehicleBeingTowed) {
         m_pExtraEntity[m_nExtraEntitiesCount++] = vehicle->m_pVehicleBeingTowed;
@@ -1318,10 +1649,13 @@ void CCamera::CameraVehicleModeSpecialCases(CVehicle* vehicle) {
 
 // 0x50CE80
 bool CCamera::IsExtraEntityToIgnore(CEntity* entity) {
-    if (m_nExtraEntitiesCount <= 0) {
-        return false;
+    // Como el original (0x50CE80): recorre solo las `m_nExtraEntitiesCount` primeras entradas (con signo)
+    for (int32 i = 0; i < m_nExtraEntitiesCount; ++i) {
+        if ((&m_pExtraEntity[0])[i] == entity) {
+            return true;
+        }
     }
-    return notsa::contains(m_pExtraEntity, entity);
+    return false;
 }
 
 // 0x420C40
@@ -1343,6 +1677,7 @@ bool CCamera::ConsiderPedAsDucking(CPed* ped) {
 
 // 0x50CEF0
 void CCamera::ResetDuckingSystem(CPed* ped) {
+    // Como el original (0x50CEF0..0x50CF98): el modulo de la velocidad se compara AL CUADRADO con 0x8630EC (1.0000001e-6f)
     m_fDuckCamMotionFactor    = 0.0f;
     m_fDuckAimCamMotionFactor = 0.0f;
     if (!ped)
@@ -1355,14 +1690,12 @@ void CCamera::ResetDuckingSystem(CPed* ped) {
     if (!ped->bIsDucking || task->m_bIsAborting)
         return;
 
-    float factor;
-    if (ped->m_vecMoveSpeed.Magnitude() <= 0.000001f)
-        factor = 0.3f - 1.0f;
-    else
-        factor = 0.3f - 0.5f;
-
-    m_fDuckCamMotionFactor    = factor;
-    m_fDuckAimCamMotionFactor = -0.35f;
+    const auto& speed = ped->m_vecMoveSpeed;
+    const float speedSquared = (speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z;
+    m_fDuckCamMotionFactor    = speedSquared > std::bit_cast<float>(0x358637BEu)
+        ? StaticRef<float>(0x8CCB98) - 0.5f
+        : StaticRef<float>(0x8CCB94) - 1.0f;
+    m_fDuckAimCamMotionFactor = std::bit_cast<float>(0xBEB33333u); // -0.35f
 }
 
 // arg5 always used as false
@@ -1464,16 +1797,16 @@ void CCamera::AddShake(float duration, float a2, float a3, float a4, float a5) {
 
 // 0x50D240
 void CCamera::AddShakeSimple(float durationMs, int32 type, float intensity) {
+    // Como el original (0x50D240): el fin se suma al reloj SIN pasar antes por float
     m_fShakeIntensity = intensity;
     m_nShakeType = type;
-    m_fStartShakeTime = static_cast<float>(CTimer::GetTimeInMS());
-    m_fEndShakeTime = m_fStartShakeTime + durationMs;
+    StoreTimeAndTimePlus(m_fStartShakeTime, m_fEndShakeTime, durationMs);
 }
 
 // 0x50D280
 void CCamera::LerpFOV(float zoomInFactor, float zoomOutFactor, float timeLimit, bool bEase) {
-    m_fStartZoomTime = static_cast<float>(CTimer::GetTimeInMS());
-    m_fEndZoomTime = static_cast<float>(CTimer::GetTimeInMS()) + timeLimit;
+    // Como el original (0x50D280): el fin se suma al reloj SIN pasar antes por float
+    StoreTimeAndTimePlus(m_fStartZoomTime, m_fEndZoomTime, timeLimit);
 
     m_nZoomMode = bEase; // TODO: Rename
     m_fZoomInFactor = zoomInFactor;
@@ -1484,82 +1817,64 @@ void CCamera::LerpFOV(float zoomInFactor, float zoomOutFactor, float timeLimit, 
 void CCamera::ProcessFade() {
     ZoneScoped;
 
+    // Como el original (0x50B5D0..0x50B6C7)
     if (!m_bFading) {
         return;
     }
 
-    float fadeAlpha = 0.0f;
-
-    if (m_nFadeInOutFlag == eFadeFlag::FADE_OUT) {
-        m_fFadeDuration == 0.0f
-            ? (m_fFadeAlpha += 0.0f)
-            : (m_fFadeAlpha -= CTimer::GetTimeStepInSeconds() / m_fFadeDuration * 255.0f);
-
-        if (m_fFadeAlpha > 0.0f) {
-            CDraw::FadeValue = static_cast<uint8>(m_fFadeAlpha);
-            return;
+    const auto step = [this] { return ((CTimer::GetTimeStep() * kExeTimeStep) / m_fFadeDuration) * 255.0f; };
+    const auto flag = uint16(m_nFadeInOutFlag);
+    if (flag == 1) { // FADE_OUT
+        m_fFadeAlpha = m_fFadeDuration == 0.0f ? 0.0f : m_fFadeAlpha - step();
+        if (m_fFadeAlpha <= 0.0f) {
+            m_bFading    = false;
+            m_fFadeAlpha = 0.0f;
         }
-
-        m_bFading = false;
-    } else {
-        if (m_nFadeInOutFlag == eFadeFlag::FADE_OUT) { // stupid, why not use a switch instead?
-            CDraw::FadeValue = static_cast<uint8>(m_fFadeAlpha);
-            return;
-        }
-
+    } else if (flag == 0) { // FADE_IN
         if (m_fFadeAlpha >= 255.0f) {
             m_bFading = false;
         }
-
-        fadeAlpha = 255.0f;
-
-        m_fFadeDuration == 0.0f
-            ? (m_fFadeAlpha += 255.0f)
-            : (m_fFadeAlpha += CTimer::GetTimeStepInSeconds() / m_fFadeDuration * 255.0f);
-
-        if (m_fFadeAlpha < 255.0f) {
-            CDraw::FadeValue = static_cast<uint8>(m_fFadeAlpha);
-            return;
+        m_fFadeAlpha = m_fFadeDuration == 0.0f ? 255.0f : step() + m_fFadeAlpha;
+        if (m_fFadeAlpha >= 255.0f) {
+            m_fFadeAlpha = 255.0f;
         }
     }
-
-    m_fFadeAlpha = fadeAlpha;
-    CDraw::FadeValue = static_cast<uint8>(m_fFadeAlpha);
+    CDraw::FadeValue = uint8(int64(m_fFadeAlpha)); // _ftol2 (truncacion de 64 bits) y se guarda `al`
 }
 
 // 0x50B6D0
 void CCamera::ProcessMusicFade() {
-    if (!m_bMusicFading)
+    // Como el original (0x50B6D0..0x50B82C): paso * 0.02f (no GetTimeStepInSeconds) y comparaciones con la orientacion del EXE
+    if (!m_bMusicFading) {
         return;
+    }
 
-    if (m_fTimeToWaitToFadeMusic <= 0.0f) {
-        switch (m_nMusicFadingDirection) {
-        case eFadeFlag::FADE_OUT: {
-            m_fEffectsFaderScalingFactor = m_fTimeToFadeMusic > 0.0f
-                ? CTimer::GetTimeStepInSeconds() / m_fTimeToFadeMusic + m_fEffectsFaderScalingFactor
-                : 1.f;
-            
+    const float step = CTimer::GetTimeStep() * kExeTimeStep;
+    if (m_fTimeToWaitToFadeMusic > 0.0f) {
+        m_fTimeToWaitToFadeMusic = m_fTimeToWaitToFadeMusic - step;
+    } else {
+        if (uint16(m_nMusicFadingDirection) == 1) { // FADE_OUT
+            m_fEffectsFaderScalingFactor = !(m_fTimeToFadeMusic <= 0.0f)
+                ? step / m_fTimeToFadeMusic + m_fEffectsFaderScalingFactor
+                : 1.0f;
             if (m_fEffectsFaderScalingFactor >= 1.0f) {
                 m_bMusicFadedOut = false;
                 m_bMusicFading = false;
                 m_fEffectsFaderScalingFactor = 1.0f;
             }
-            break;
-        }
-        case eFadeFlag::FADE_IN: {
+        } else if (uint16(m_nFadeInOutFlag) == 0) { // 0x50B781: `cmp word [esi+0C30h],dx` compara la bandera del fundido de PANTALLA, no la direccion de la musica
             if (m_fEffectsFaderScalingFactor <= 0.0f) {
                 m_bMusicFadedOut = true;
                 m_bMusicFading = false;
                 m_fEffectsFaderScalingFactor = 0.0f;
             }
-            m_fEffectsFaderScalingFactor = m_fTimeToFadeMusic > 0.0f
-                ? std::max(0.f, m_fEffectsFaderScalingFactor - CTimer::GetTimeStepInSeconds() / m_fTimeToFadeMusic)
-                : 0.f;
-            break;
+            m_fEffectsFaderScalingFactor = !(m_fTimeToFadeMusic <= 0.0f)
+                ? m_fEffectsFaderScalingFactor - step / m_fTimeToFadeMusic
+                : 0.0f;
+            if (m_fEffectsFaderScalingFactor <= 0.0f) {
+                m_fEffectsFaderScalingFactor = 0.0f;
+            }
         }
-        }
-    } else {
-        m_fTimeToWaitToFadeMusic = m_fTimeToWaitToFadeMusic - CTimer::GetTimeStepInSeconds();
     }
 
     if (!AudioEngine.IsLoadingTuneActive()) {
@@ -1642,8 +1957,35 @@ void CCamera::ProcessVectorMoveLinear(float ratio) {
 
 // 0x516500
 void CCamera::ProcessFOVLerp() {
-    if (const auto now = static_cast<float>(CTimer::GetTimeInMS()); now <= m_fEndZoomTime) { /* Check if still processing */
-        ProcessFOVLerp(invLerp(m_fStartZoomTime, m_fEndZoomTime, now));
+    // Como el original (0x516500..0x516556): el reloj se compara y se resta SIN pasar por float (fild, +2^32 si es negativo)
+    const float endTime = m_fEndZoomTime, startTime = m_fStartZoomTime, fourGig = 4294967296.0f;
+    const int32 nowMs = int32(CTimer::GetTimeInMS());
+    float ratio;
+    int32 running;
+    __asm {
+        mov running, 0
+        fild nowMs
+        cmp nowMs, 0
+        jge positive
+        fadd fourGig
+    positive:
+        fcom endTime
+        fnstsw ax
+        test ah, 41h
+        jp notRunning
+        fsub startTime
+        fld endTime
+        fsub startTime
+        fdivp st(1), st(0)
+        fstp ratio
+        mov running, 1
+        jmp done
+    notRunning:
+        fstp st(0)
+    done:
+    }
+    if (running) {
+        ProcessFOVLerp(ratio);
     } else if (m_bBlockZoom) { /* Finished */
         m_bFOVLerpProcessed = true;
     }
@@ -2080,14 +2422,28 @@ void CCamera::Process() {
 
 // 0x514860
 void CCamera::DrawBordersForWideScreen() {
+    // Como el original (0x514860..0x51494F): el CRect del EXE es (izquierda, arriba, derecha, abajo); el constructor de la DLL recibe
+    // (izquierda, ABAJO, derecha, ARRIBA), asi que se rellenan los campos a mano para que +4 y +0xC coincidan con los del EXE.
     CRect rect;
     GetScreenRect(&rect);
     if (m_nBlurType == eMotionBlurType::NONE || m_nBlurType == eMotionBlurType::LIGHT_SCENE) {
         m_nMotionBlurAddAlpha = 80;
     }
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
-    CSprite2d::DrawRect({ -5.f, -5.f,     SCREEN_WIDTH + 5.f, rect.top         }, { 0, 0, 0, 255 });
-    CSprite2d::DrawRect({ -5.f, rect.bottom, SCREEN_WIDTH + 5.f, SCREEN_HEIGHT + 5.f }, { 0, 0, 0, 255 });
+
+    CRect upper;
+    upper.left   = -5.0f;
+    upper.top    = -5.0f;
+    upper.right  = float(RsGlobal.maximumWidth + 5);
+    upper.bottom = rect.top;
+    CSprite2d::DrawRect(upper, CRGBA{ 0, 0, 0, 255 });
+
+    CRect lower;
+    lower.left   = -5.0f;
+    lower.top    = rect.bottom;
+    lower.right  = float(RsGlobal.maximumWidth + 5);
+    lower.bottom = float(RsGlobal.maximumHeight + 5);
+    CSprite2d::DrawRect(lower, CRGBA{ 0, 0, 0, 255 });
 }
 
 // 0x4748A0
@@ -2109,37 +2465,62 @@ void CCamera::FinishCutscene() {
 
 // 0x514970
 void CCamera::Find3rdPersonCamTargetVector(float range, CVector gunMuzzle, CVector& outSource, CVector& outTarget) {
-    const auto pActiveCam = &m_aCams[m_nActiveCam];
-    const float tanHalfFOV = std::tan(DegreesToRadians(pActiveCam->m_fFOV * 0.5f));
-    const float aspectRatio = CDraw::ms_fAspectRatio;
-    
-    // Calculate aim target direction (This will be a unit vector)
-    CVector dir = m_aCams[m_nActiveCam].m_vecFront;
-    
-    if (pActiveCam->m_nMode == eCamMode::MODE_TWOPLAYER_IN_CAR_AND_SHOOTING) {
-        pActiveCam->Get_TwoPlayer_AimVector(dir);
-    } else {
-        // Vertical offset
-        dir += pActiveCam->m_vecUp * (tanHalfFOV * ((0.5f - m_f3rdPersonCHairMultY) * 2.0f) / aspectRatio);
-
-        // Horizontal offset
-        const auto right = pActiveCam->m_vecFront.Cross(pActiveCam->m_vecUp);
-        dir += right * (tanHalfFOV * ((m_f3rdPersonCHairMultX - 0.5f) * 2.0f));
-        
-        // Handle zero magnitude case
-        if (dir.Magnitude() <= 0.0f) {
-            dir = CVector(1.0f, 0.0f, 0.0f);
-        } else {
-            dir.Normalise();
-        }
+    // Como el original (0x514970..0x514B75): el vector de apuntado se construye directamente en outTarget (front + up * v + right * h),
+    // con tan() de fptan a precision completa y el producto (1 / aspecto) del EXE.
+    auto& cam = m_aCams[m_nActiveCam];
+    const float fov = cam.m_fFOV, crosshairX = m_f3rdPersonCHairMultX, crosshairY = m_f3rdPersonCHairMultY, aspect = CDraw::ms_fAspectRatio;
+    const float half = StaticRef<float>(0x858B8C), toRadians = StaticRef<float>(0x8595EC), one = StaticRef<float>(0x858624);
+    float horizontal, vertical;
+    __asm {
+        fld fov
+        fmul half
+        fmul toRadians
+        fptan
+        fstp st(0)
+        fld crosshairX
+        fsub half
+        fadd st(0), st(0)
+        fmul st(0), st(1)
+        fstp horizontal
+        fld half
+        fsub crosshairY
+        fadd st(0), st(0)
+        fld one
+        fdiv aspect
+        fmulp st(1), st(0)
+        fmulp st(1), st(0)
+        fstp vertical
     }
-    
-    // Calculate intersection point with muzzle
-    outSource = pActiveCam->m_vecSource;
-    outSource += (gunMuzzle - outSource).ProjectOnToNormal(dir);
 
-    // Apply final range to target 
-    outTarget = outSource + dir * range;
+    std::memcpy(&outSource, &cam.m_vecSource, sizeof(CVector));
+    std::memcpy(&outTarget, &cam.m_vecFront, sizeof(CVector));
+
+    if (cam.m_nMode == eCamMode::MODE_TWOPLAYER_IN_CAR_AND_SHOOTING) {
+        cam.Get_TwoPlayer_AimVector(outTarget);
+    } else {
+        outTarget.x = vertical * cam.m_vecUp.x + outTarget.x;
+        outTarget.y = vertical * cam.m_vecUp.y + outTarget.y;
+        outTarget.z = vertical * cam.m_vecUp.z + outTarget.z;
+
+        CVector right;
+        CrossProduct(&right, &cam.m_vecFront, &cam.m_vecUp);
+        outTarget.x = horizontal * right.x + outTarget.x;
+        outTarget.y = horizontal * right.y + outTarget.y;
+        outTarget.z = horizontal * right.z + outTarget.z;
+        outTarget.Normalise();
+    }
+
+    // Proyeccion de la boca del arma sobre la direccion (suma en el orden x, z, y del EXE)
+    const float dx = gunMuzzle.x - outSource.x, dy = gunMuzzle.y - outSource.y, dz = gunMuzzle.z - outSource.z;
+    const float projected = (dx * outTarget.x + dz * outTarget.z) + dy * outTarget.y;
+    outSource.x = projected * outTarget.x + outSource.x;
+    outSource.y = projected * outTarget.y + outSource.y;
+    outSource.z = projected * outTarget.z + outSource.z;
+
+    const float reachX = range * outTarget.x, reachY = range * outTarget.y, reachZ = range * outTarget.z;
+    outTarget.x = outSource.x + reachX;
+    outTarget.y = outSource.y + reachY;
+    outTarget.z = outSource.z + reachZ;
 }
 
 // 0x514B80
@@ -2148,6 +2529,13 @@ float CCamera::CalculateGroundHeight(eGroundHeightType type) {
     static auto& exactGroundHeight = StaticRef<float>(0xB70030);
     static auto& bbTopZ            = StaticRef<float>(0xB7002C);
     static auto& bbBottomZ         = StaticRef<float>(0xB70028);
+
+    // Como el original (0x514B80): bandera de inicializacion de las estaticas (bit 0 de 0xB70040)
+    auto& initFlags = StaticRef<uint32>(0xB70040);
+    if (!(initFlags & 1)) {
+        initFlags |= 1;
+        lastCalcCamPos = CVector{ 0.0f, 0.0f, 0.0f };
+    }
 
     const auto& camPos = GetPosition();
 
@@ -2158,19 +2546,22 @@ float CCamera::CalculateGroundHeight(eGroundHeightType type) {
         CEntity* hitEntity;
         if (CWorld::ProcessVerticalLine({ camPos.x, camPos.y, 1000.f }, -1000.f, cp, hitEntity, true, false, false, false, true)) {
             const auto& hitEntPos = hitEntity->GetPosition();
-            const auto& hitBB = hitEntity->GetColModel()->GetBoundingBox();
+            // 0x514C7C: el modelo de colision sale directamente de la tabla de CModelInfo (movsx del indice del modelo)
+            const auto& hitBB = hitEntity->GetModelInfo()->GetColModel()->GetBoundingBox();
 
             exactGroundHeight = cp.m_vecPoint.z;
 
-            bbTopZ = hitEntPos.z + hitBB.m_vecMax.z;
+            bbTopZ = hitBB.m_vecMax.z + hitEntPos.z;
 
             const auto bbsz = hitBB.GetSize();
-            bbBottomZ = std::max(
-                0.f,
-                bbsz.x > 120.f || bbsz.y > 120.f
-                    ? exactGroundHeight
-                    : hitEntPos.z + hitBB.m_vecMin.z
-            );
+            if (bbsz.x > 120.f || bbsz.y > 120.f) {
+                bbBottomZ = exactGroundHeight;
+            } else {
+                bbBottomZ = hitEntPos.z + hitBB.m_vecMin.z;
+            }
+            if (bbBottomZ < 0.0f) {
+                bbBottomZ = 0.0f;
+            }
         }
         lastCalcCamPos = camPos;
     }
@@ -2178,8 +2569,7 @@ float CCamera::CalculateGroundHeight(eGroundHeightType type) {
     switch (type) {
     case eGroundHeightType::ENTITY_BB_TOP:       return bbTopZ;
     case eGroundHeightType::EXACT_GROUND_HEIGHT: return exactGroundHeight;
-    case eGroundHeightType::ENTITY_BB_BOTTOM:    return bbBottomZ;
-    default:                                     NOTSA_UNREACHABLE();
+    default:                                     return bbBottomZ; // 0x514D4A: cualquier otro valor devuelve el limite inferior
     }
 }
 
@@ -2374,15 +2764,23 @@ void CCamera::RestoreCameraAfterMirror() {
 
 // 0x51A5D0
 bool CCamera::ConeCastCollisionResolve(const CVector& pos, const CVector& lookAt, CVector& outDest, float radius, float minDist, float& outDist) {
-    if (pos == lookAt) {
+    // Como el original (0x51A5D0..0x51A6E0): igualdad componente a componente, esferas con material 0, pieza 0 e iluminacion 0xFF,
+    // y destino = (pos - lookAt) * dist + lookAt (no la lerp generica `to * t + from * (1 - t)`).
+    if (pos.x == lookAt.x && pos.y == lookAt.y && pos.z == lookAt.z) {
         return false;
     }
 
-    if (CCollision::CameraConeCastVsWorldCollision(CSphere{ lookAt, radius }, CSphere{ pos, radius }, outDist, minDist)) {
-        outDest = lerp(lookAt, pos, outDist);
+    const CColSphere lookAtSphere{ CSphere{ lookAt, radius }, eSurfaceType(0), 0, tColLighting(0xFF) };
+    const CColSphere posSphere{ CSphere{ pos, radius }, eSurfaceType(0), 0, tColLighting(0xFF) };
+    if (CCollision::CameraConeCastVsWorldCollision(lookAtSphere, posSphere, outDist, minDist)) {
+        const float dx = pos.x - lookAt.x, dy = pos.y - lookAt.y, dz = pos.z - lookAt.z;
+        const float dist = outDist;
+        outDest.x = dx * dist + lookAt.x;
+        outDest.y = dy * dist + lookAt.y;
+        outDest.z = dz * dist + lookAt.z;
         return true;
     } else {
-        outDest = pos;
+        std::memcpy(&outDest, &pos, sizeof(CVector));
         outDist = 1.f;
         return false;
     }
@@ -3706,9 +4104,12 @@ void CCamera::CamControl() {
 
 // 0x5B24A0
 void CCamera::DeleteCutSceneCamDataMemory() {
+    // Como el original (0x5B24A0): operator delete (0x8214BD) solo si el puntero no es nulo
     for (auto& splines : m_aPathArray) {
-        delete splines.m_pArrPathData;
-        splines.m_pArrPathData = nullptr;
+        if (splines.m_pArrPathData) {
+            ::operator delete(splines.m_pArrPathData);
+            splines.m_pArrPathData = nullptr;
+        }
     }
 }
 
@@ -3743,15 +4144,20 @@ void CCamera::LoadPathSplines(FILE* file) {
 
 // 0x50AB50
 void CCamera::GetScreenRect(CRect* rect) const {
+    // Como el original (0x50AB50..0x50ABEE): enteros con fild, % * 0.01f y 1/448 del EXE (no `/ 100.f` ni SCREEN_SCALE_Y)
     rect->left  = 0.0f;
-    rect->right = SCREEN_WIDTH;
+    rect->right = float(RsGlobal.maximumWidth);
 
     if (m_bWideScreenOn) {
-        rect->top    = (float)(RsGlobal.maximumHeight / 2) * m_fScreenReductionPercentage / 100.f - SCREEN_SCALE_Y(22.0f);
-        rect->bottom = SCREEN_HEIGHT - (RsGlobal.maximumHeight / 2) * m_fScreenReductionPercentage / 100.f - SCREEN_SCALE_Y(14.0f);
+        const float height     = float(RsGlobal.maximumHeight);
+        const float halfHeight = float(RsGlobal.maximumHeight / 2);
+        const float scaleY     = std::bit_cast<float>(0x3B124925u); // 0x859524
+        const float reduction  = (halfHeight * m_fScreenReductionPercentage) * kExePercent;
+        rect->top    = reduction - (height * scaleY) * 22.0f;
+        rect->bottom = (height - reduction) - (height * scaleY) * 14.0f;
     } else {
         rect->top    = 0.0f;
-        rect->bottom = SCREEN_HEIGHT;
+        rect->bottom = float(RsGlobal.maximumHeight);
     }
 }
 
@@ -3837,9 +4243,20 @@ void CCamera::StartTransition(eCamMode newCamMode) {
     m_fFractionInterToStopMoving  = 0.25f;
     m_fFractionInterToStopCatchUp = 0.75f;
 
-    // Handle player rotation for weapon modes
-    if (m_pTargetEntity && m_pTargetEntity->GetIsTypePed() && notsa::contains({ MODE_SNIPER, MODE_ROCKETLAUNCHER, MODE_ROCKETLAUNCHER_HS, MODE_M16_1STPERSON, MODE_SNIPER_RUNABOUT, MODE_ROCKETLAUNCHER_RUNABOUT, MODE_ROCKETLAUNCHER_RUNABOUT_HS, MODE_M16_1STPERSON_RUNABOUT, MODE_FIGHT_CAM_RUNABOUT, MODE_HELICANNON_1STPERSON, MODE_CAMERA, MODE_1STPERSON_RUNABOUT }, activeCamMode)) {
-        const float angle                            = CGeneral::GetATanOfXY(activeCam.m_vecFront.x, activeCam.m_vecFront.y) - HALF_PI;
+    // Como el original (0x515236..0x5152CD): el angulo del ped sale de GetATanOfXY (ST0 sin redondear) menos pi/2 del EXE (0x858FE4)
+    if (notsa::contains({ MODE_SNIPER, MODE_ROCKETLAUNCHER, MODE_ROCKETLAUNCHER_HS, MODE_M16_1STPERSON, MODE_SNIPER_RUNABOUT, MODE_ROCKETLAUNCHER_RUNABOUT, MODE_ROCKETLAUNCHER_RUNABOUT_HS, MODE_M16_1STPERSON_RUNABOUT, MODE_FIGHT_CAM_RUNABOUT, MODE_HELICANNON_1STPERSON, MODE_CAMERA, MODE_1STPERSON_RUNABOUT }, activeCamMode)
+        && m_pTargetEntity && m_pTargetEntity->GetIsTypePed()) {
+        const float frontX = activeCam.m_vecFront.x, frontY = activeCam.m_vecFront.y, halfPi = kExeHalfPi;
+        const auto atanOfXY = &CGeneral::GetATanOfXY;
+        float angle;
+        __asm {
+            push frontY
+            push frontX
+            call atanOfXY
+            add esp, 8
+            fsub halfPi
+            fstp angle
+        }
         m_pTargetEntity->AsPed()->m_fCurrentRotation = angle;
         m_pTargetEntity->AsPed()->m_fAimingRotation  = angle;
     }
@@ -3851,11 +4268,8 @@ void CCamera::StartTransition(eCamMode newCamMode) {
     activeCam.m_vecCamFixedModeSource   = m_vecFixedModeSource;
     activeCam.m_vecCamFixedModeUpOffSet = m_vecFixedModeUpOffSet;
     activeCam.m_bCamLookingAtVector     = m_bLookingAtVector;
-    if (m_bItsOkToLookJustAtThePlayer) {
-        activeCam.m_nMode = newCamMode;
-    }
 
-    // Handle specific camera mode transitions
+    // Como el original (0x5153B7..): solo cambian los casos listados; cualquier otro modo no toca nada
     switch (newCamMode) {
     case MODE_BEHINDCAR:
     case MODE_BEHINDBOAT:
@@ -3863,16 +4277,42 @@ void CCamera::StartTransition(eCamMode newCamMode) {
         break;
     case MODE_FOLLOWPED: {
         if (m_bJustCameOutOfGarage) {
-            activeCam.m_fHorizontalAngle = CGeneral::GetATanOfXY(activeCam.m_vecFront.x, activeCam.m_vecFront.y) + PI;
+            // 0x515440..0x51548C: GetATanOfXY (ST0 sin redondear) + pi del EXE (0x858CB8)
+            const float frontX = activeCam.m_vecFront.x, frontY = activeCam.m_vecFront.y, pi = kExePi;
+            const auto atanOfXY = &CGeneral::GetATanOfXY;
+            float angle;
+            __asm {
+                push frontY
+                push frontX
+                call atanOfXY
+                add esp, 8
+                fadd pi
+                fstp angle
+            }
+            activeCam.m_fHorizontalAngle = angle;
             activeCam.m_fTransitionBeta  = 0.0f;
         }
 
-        m_bCamDirectlyInFront |= m_bTargetJustCameOffTrain;
+        if (m_bTargetJustCameOffTrain) {
+            m_bCamDirectlyInFront = true;
+        }
 
-        if (activeCamMode == MODE_CAM_ON_A_STRING) {
-            m_bUseTransitionBeta        = true;
-            const float angle           = CGeneral::GetATanOfXY(activeCam.m_vecFront.x, activeCam.m_vecFront.y);
-            activeCam.m_fTransitionBeta = angle + (fabs(angle) <= HALF_PI ? DegreesToRadians(235.0f) : DegreesToRadians(55.0f));
+        if (activeCam.m_nMode == MODE_CAM_ON_A_STRING) {
+            m_bUseTransitionBeta = true;
+            // 0x5154B8..0x5155C8: el EXE normaliza un 0.0 (no el angulo): |0| <= pi/2 siempre se cumple y se suma SIEMPRE 235 grados
+            // (0x8631DC = 4.1015239f); la rama de 55 grados (0x8631E0) no se alcanza nunca.
+            const float frontX = activeCam.m_vecFront.x, frontY = activeCam.m_vecFront.y, deg235 = std::bit_cast<float>(0x40833FAFu);
+            const auto atanOfXY = &CGeneral::GetATanOfXY;
+            float angle;
+            __asm {
+                push frontY
+                push frontX
+                call atanOfXY
+                add esp, 8
+                fadd deg235
+                fstp angle
+            }
+            activeCam.m_fTransitionBeta = angle;
         }
         break;
     }
@@ -3888,28 +4328,37 @@ void CCamera::StartTransition(eCamMode newCamMode) {
     case MODE_CAMERA:
     case MODE_ROCKETLAUNCHER_HS:
     case MODE_ROCKETLAUNCHER_RUNABOUT_HS: {
-        CEntity* vehicle             = FindPlayerVehicle();
-        CMatrix* playerMat           = vehicle ? &vehicle->GetMatrix() : &FindPlayerPed()->GetMatrix();
-        activeCam.m_fHorizontalAngle = CGeneral::GetATanOfXY(playerMat->GetForward().x, playerMat->GetForward().y);
+        // 0x5153CB..0x51543B: fpatan(x, y) directo del vector delantero de la matriz (no GetATanOfXY); con vehiculo FindPlayerVehicle se llama 3 veces
+        float x, y;
+        if (FindPlayerVehicle(-1, false)) {
+            const auto yMatrix = FindPlayerVehicle(-1, false)->GetMatrix().GetForward().y;
+            x = FindPlayerVehicle(-1, false)->GetMatrix().GetForward().x;
+            y = yMatrix;
+        } else {
+            x = ActivePlayerPed()->GetMatrix().GetForward().x;
+            y = ActivePlayerPed()->GetMatrix().GetForward().y;
+        }
+        float angle;
+        __asm {
+            fld x
+            fld y
+            fpatan
+            fstp angle
+        }
+        activeCam.m_fHorizontalAngle = angle;
         activeCam.m_fVerticalAngle   = 0.0f;
         break;
     }
     case MODE_CAM_ON_A_STRING: {
         if (m_bLookingAtPlayer && !m_bJustCameOutOfGarage) {
+            // 0x515582..0x5155E5: el EXE guarda GetATanOfXY tal cual (FIXED o no), sin sumar grados
             m_bUseTransitionBeta = true;
-            const float angle    = CGeneral::GetATanOfXY(activeCam.m_vecFront.x, activeCam.m_vecFront.y);
-            if (activeCamMode == MODE_FIXED) { // Ghidra
-                activeCam.m_fTransitionBeta = angle;
-                break;
-            }
-
-            // Reconstruced + android simplified
-            activeCam.m_fTransitionBeta = angle + (fabs(angle) <= HALF_PI ? DegreesToRadians(235.0f) : DegreesToRadians(55.0f));
+            activeCam.m_fTransitionBeta = CGeneral::GetATanOfXY(activeCam.m_vecFront.x, activeCam.m_vecFront.y);
         }
         break;
     }
     case MODE_PED_DEAD_BABY:
-        activeCam.m_fVerticalAngle = DegreesToRadians(15.0f);
+        activeCam.m_fVerticalAngle = std::bit_cast<float>(0x3E860A92u); // 0x5155EE (15 grados)
         break;
     }
 
@@ -3974,7 +4423,7 @@ void CCamera::StartTransition(eCamMode newCamMode) {
                 }
                 break;
             case MODE_AIMWEAPON:
-                m_fFractionInterToStopMoving  = 0.0f; // dword_B70044 ?
+                m_fFractionInterToStopMoving  = StaticRef<float>(0xB70044); // 0x5157B4: dword_B70044 (estatico del EXE)
                 m_fFractionInterToStopCatchUp = 1.0f; // *&dword_8CCCC0
                 m_nTransitionDuration         = 400;  // dword_8CCCBC
                 targetCoorsDuration           = 350;

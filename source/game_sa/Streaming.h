@@ -368,7 +368,8 @@ public:
     static void SetMissionDoesntRequireAnim(int32 slot);
     static void SetMissionDoesntRequireModel(int32 modelId);
     static void SetMissionDoesntRequireSpecialChar(int32 slot);
-    static void SetModelIsDeletable(int32 modelId, bool mission = false);
+    static void SetModelIsDeletable(int32 modelId); // 0x409C10 (1 argumento en el EXE: un segundo parametro leeria basura de la pila)
+    static void SetModelIsDeletable_Impl(int32 modelId, bool mission); // NOTSA: nucleo compartido con SetMissionDoesntRequireModel (0x409C90)
     static void SetModelTxdIsDeletable(int32 modelId);
     static void SetModelAndItsTxdDeletable(int32 modelId);
     static void SetSpecialCharIsDeletable(int32 slot);

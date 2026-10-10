@@ -724,7 +724,8 @@ public: // NOTSA functions
     [[nodiscard]] bool IsCreatedBy(eVehicleCreatedBy v) const { return v == m_nCreatedBy; }
     [[nodiscard]] bool IsMissionVehicle() const { return m_nCreatedBy == MISSION_VEHICLE; }
 
-    bool CanUpdateHornCounter() { return m_nAlarmState == 0 || m_nAlarmState == -1 || m_info.m_nStatus == STATUS_WRECKED; }
+    // Como el original (0x4F4CE0 cmp ax,0FFFFh / 0x6B2B77 cmp cx,0FFFFh): m_nAlarmState es uint16, se compara con 0xFFFF (no con -1, que nunca coincide)
+    bool CanUpdateHornCounter() { return m_nAlarmState == 0 || m_nAlarmState == 0xFFFF || m_info.m_nStatus == STATUS_WRECKED; }
 
     CPlane* AsPlane() { return reinterpret_cast<CPlane*>(this); }
     CHeli*  AsHeli()  { return reinterpret_cast<CHeli*>(this); }
