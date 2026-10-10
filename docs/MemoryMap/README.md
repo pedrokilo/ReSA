@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica, 0 con vigencia acreditada y 1 pendientes en 1 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica y 1 pendiente de validación en 1 grupo. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. La única pendiente es Win::NOTSA_WinMain (punto de entrada, excepción documentada). [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Mapa de código y direcciones de ReSA
 
 **[Abrir el visor local](index.html)**. Página interactiva sin servidor ni conexión, compatible con navegadores modernos. Busca una clase, función, dirección o archivo; selecciona una fila para consultar su ficha y procedencia. El filtro de estado permite consultar sólo lo reconstruido, la evidencia aprobada, la vigencia o los pendientes.
 
-Este mapa combina el **análisis del EXE de GTA SA** y el inventario de `D:\Original\gta-reversed-master`, actualizado el 8 de octubre de 2026; el análisis global del EXE se conserva del 6 de octubre. No ejecuta GTA, modifica hooks, recompila, cambia flags ni vuelve a correr bancos.
+Este mapa combina el **análisis del EXE de GTA SA** y el inventario de `D:\Original\gta-reversed-master`, actualizado el 10 de octubre de 2026; el análisis global del EXE se conserva del 6 de octubre. No ejecuta GTA, modifica hooks, recompila, cambia flags ni vuelve a correr bancos.
 
 ## Inventario del EXE
 
@@ -15,8 +15,8 @@ La vista inicial **Funciones del EXE** incluye el código detectado aunque no fi
 | Resultado del análisis binario | Cantidad |
 | --- | ---: |
 | Entradas de función detectadas | **17.765** |
-| Entradas con nombres cruzados del catálogo o sus registros fuente | 8.439 |
-| Entradas sin nombre del catálogo | **9.326** |
+| Entradas con nombres cruzados del catálogo o sus registros fuente | 8.438 |
+| Entradas sin nombre del catálogo | 9.327 |
 | Dirección candidata dentro de un cuerpo existente, sin entrada propia | 1 |
 | Direcciones de código en el inventario combinado | 17.766 |
 | Tablas fuente leídas del EXE | 445 |
@@ -46,14 +46,14 @@ Binario analizado: `D:\Grand Theft Auto San Andreas\gta-sa.exe`, 5.189.632 bytes
 | Clases. namespaces o grupos del catálogo | 771 |
 | Entradas registradas como reconstruidas | 8.446 |
 | Pendientes de reconstrucción | 0 |
-| Evidencias aprobadas vinculadas. verificadas por el auditor | 6.867 |
+| Evidencias aprobadas vinculadas. verificadas por el auditor | 8.445 |
 | Validaciones con vigencia acreditada para su alcance | 0 |
-| Registros con evidencia y coincidencia de fuentes probadas. sin acreditar dependencias | 982 |
-| Definiciones de class/struct en source. con repeticiones | 1.949 |
-| Nombres distintos de tipos captados | 1.936 |
-| Declaraciones y cuerpos candidatos de función. con repeticiones | 27.469 |
+| Registros con evidencia y coincidencia de fuentes probadas. sin acreditar dependencias | 835 |
+| Definiciones de class/struct en source. con repeticiones | 1.950 |
+| Nombres distintos de tipos captados | 1.937 |
+| Declaraciones y cuerpos candidatos de función. con repeticiones | 27.558 |
 | Referencias de vtable declaradas en el código | 445 |
-| Referencias de globales StaticRef/StaticArray | 3.747 |
+| Referencias de globales StaticRef/StaticArray | 3.884 |
 | Registros explícitos de hooks captados | 8.446 |
 | Archivos fuente examinados | 2.332 |
 | Extras NOTSA. fuera del catálogo principal | 3 |

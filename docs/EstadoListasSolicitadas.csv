@@ -1,68 +1,68 @@
-clase,lote,reconstruidas,catalogadas,funciones_solicitadas_reconstruidas,aprobacion_historica,replay_final_al_detener,funciones_replay_final_al_detener,hashes_fuentes_evidencia_coincidentes_al_detener,nota
-CTaskSimpleDead,anteriores,6,6,,sí,no renovado,0,0,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CIdleCam,anteriores,14,14,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CPedAttractor,anteriores,20,20,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CRoadBlocks,anteriores,8,8,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CTaskSimpleFightingControl,anteriores,7,7,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CTaskSimplePlayerOnFoot,anteriores,12,12,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CAEFrontendAudioEntity,anteriores,6,6,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CDecision,anteriores,3,3,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CGroupEventHandler,anteriores,32,32,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CPathFind,anteriores,56,56,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CPickups,anteriores,37,37,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CPopulation,anteriores,66,66,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CRealTimeShadowManager,anteriores,7,7,,sí,no renovado,0,0,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CRope,anteriores,7,7,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CTaskComplexKillCriminal,anteriores,11,11,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CTaskComplexKillPedOnFootArmed,anteriores,11,11,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CAEStreamingChannel,anteriores,24,24,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CGangWars,anteriores,35,35,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CPedGroupPlacer,anteriores,4,4,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CPools,anteriores,19,19,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CPostEffects,anteriores,38,38,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CTaskComplexArrestPed,anteriores,7,7,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CTaskComplexGoToAttractor,anteriores,5,5,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CTaskGangHasslePed,anteriores,5,5,,sí,no renovado,0,0,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CTaskSimpleGangDriveBy,anteriores,4,4,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CTaskUtilityLineUpPedWithCar,anteriores,5,5,,sí,no renovado,0,0,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CAEPedAudioEntity,anteriores,20,20,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CAEPoliceScannerAudioEntity,anteriores,17,17,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CAEVehicleAudioEntity,anteriores,106,106,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CCustomBuildingRenderer,anteriores,7,7,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CFont,anteriores,36,36,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CTaskComplexProstituteSolicit,anteriores,11,11,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-FxSystem_c,anteriores,35,35,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
-CAERadioTrackManager,355,43,43,14,sí,pendiente,0,,
-CAEScriptAudioEntity,355,19,19,11,sí,pendiente,0,,
-CBike,355,40,40,18,sí,completo,18,,
-CCam,355,44,44,30,sí,completo,30,,
-CCamera,355,110,110,19,sí,completo,19,,
-CCarEnterExit,355,32,32,5,sí,completo,5,,
-CClothesBuilder,355,23,23,8,sí,completo,8,,
-CFormation,355,9,9,8,sí,completo,8,,
-CGenericGameStorage,355,19,19,14,sí,pendiente,0,,
-CHud,355,38,38,8,sí,pendiente,0,,
-CInterestingEvents,355,7,7,5,sí,pendiente,0,,
-CMonsterTruck,355,11,11,6,sí,pendiente,0,,
-CPedDamageResponseCalculator,355,6,6,4,sí,pendiente,0,,"IsBleedingWeapon 0x4B5C2A era un bloque interno; catálogo corregido, 4 funciones válidas."
-CPedGeometryAnalyser,355,38,38,29,sí,parcial,6,,
-CPlane,355,23,23,9,sí,pendiente,0,,
-CProjectileInfo,355,12,12,11,sí,pendiente,0,,
-CRunningScript,355,39,39,15,sí,pendiente,0,,
-CShadows,355,31,31,10,sí,pendiente,0,,
-CTaskComplexFollowLeaderInFormation,355,7,7,6,sí,completo,6,,
-CTaskComplexGangFollower,355,8,8,7,sí,pendiente,0,,"Destructor: replay fallido 256/256 pares, diferencia de vptr; sin corregir al parar."
-CTaskComplexGangJoinRespond,355,7,7,5,sí,completo,5,,
-CTaskComplexHitPedWithCar,355,10,10,8,sí,pendiente,0,,
-CTaskComplexKillPedFromBoat,355,7,7,5,sí,completo,5,,
-CTaskComplexPlayHandSignalAnim,355,9,9,6,sí,pendiente,0,,
-CTaskComplexSmartFleePoint,355,12,12,10,sí,pendiente,0,,
-CTaskComplexSunbathe,355,8,8,6,sí,pendiente,0,,
-CTaskComplexWanderStandard,355,9,9,6,sí,pendiente,0,,
-CTaskGangHassleVehicle,355,8,8,6,sí,pendiente,0,,
-CTaskGoToVehicleAndLean,355,7,7,5,sí,pendiente,0,,
-CTrain,355,40,40,20,sí,pendiente,0,,
-CWaterLevel,355,30,30,5,sí,pendiente,0,,
-CWeapon,355,41,41,6,sí,pendiente,0,,
-FxEmitterBP_c,355,9,9,7,sí,completo,7,,
-InteriorGroup_c,355,24,24,22,sí,pendiente,0,,
+clase,lote,reconstruidas,catalogadas,funciones_solicitadas_reconstruidas,aprobacion_historica,replay_final_al_detener,funciones_replay_final_al_detener,hashes_fuentes_evidencia_coincidentes_al_detener,nota,validadas_actuales,pendientes_validacion_actuales,vigentes_actuales,fuentes_coincidentes_actuales
+CTaskSimpleDead,anteriores,6,6,,sí,no renovado,0,0,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,6,0,0,0
+CIdleCam,anteriores,14,14,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,14,0,0,0
+CPedAttractor,anteriores,20,20,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,20,0,0,0
+CRoadBlocks,anteriores,8,8,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,8,0,0,0
+CTaskSimpleFightingControl,anteriores,7,7,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,7,0,0,0
+CTaskSimplePlayerOnFoot,anteriores,12,12,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,12,0,0,0
+CAEFrontendAudioEntity,anteriores,6,6,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,6,0,0,0
+CDecision,anteriores,3,3,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,3,0,0,0
+CGroupEventHandler,anteriores,32,32,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,32,0,0,0
+CPathFind,anteriores,56,56,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,56,0,0,0
+CPickups,anteriores,37,37,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,37,0,0,0
+CPopulation,anteriores,66,66,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,66,0,0,0
+CRealTimeShadowManager,anteriores,7,7,,sí,no renovado,0,0,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,7,0,0,0
+CRope,anteriores,7,7,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,7,0,0,0
+CTaskComplexKillCriminal,anteriores,11,11,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,11,0,0,0
+CTaskComplexKillPedOnFootArmed,anteriores,11,11,,sí,no renovado,0,2,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,11,0,0,0
+CAEStreamingChannel,anteriores,24,24,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,24,0,0,0
+CGangWars,anteriores,35,35,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,35,0,0,0
+CPedGroupPlacer,anteriores,4,4,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,4,0,0,0
+CPools,anteriores,19,19,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,19,0,0,0
+CPostEffects,anteriores,38,38,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,38,0,0,0
+CTaskComplexArrestPed,anteriores,7,7,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,7,0,0,0
+CTaskComplexGoToAttractor,anteriores,5,5,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,5,0,0,0
+CTaskGangHasslePed,anteriores,5,5,,sí,no renovado,0,0,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,5,0,0,0
+CTaskSimpleGangDriveBy,anteriores,4,4,,sí,no renovado,0,3,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,4,0,0,0
+CTaskUtilityLineUpPedWithCar,anteriores,5,5,,sí,no renovado,0,0,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,5,0,0,0
+CAEPedAudioEntity,anteriores,20,20,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,20,0,0,0
+CAEPoliceScannerAudioEntity,anteriores,17,17,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,17,0,0,0
+CAEVehicleAudioEntity,anteriores,106,106,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,106,0,0,0
+CCustomBuildingRenderer,anteriores,7,7,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,7,0,0,0
+CFont,anteriores,36,36,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,36,0,0,0
+CTaskComplexProstituteSolicit,anteriores,11,11,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,11,0,0,0
+FxSystem_c,anteriores,35,35,,sí,no renovado,0,4,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.,35,0,0,0
+CAERadioTrackManager,355,43,43,14,sí,pendiente,0,,,43,0,0,0
+CAEScriptAudioEntity,355,19,19,11,sí,pendiente,0,,,19,0,0,0
+CBike,355,40,40,18,sí,completo,18,,,40,0,0,0
+CCam,355,44,44,30,sí,completo,30,,,44,0,0,0
+CCamera,355,110,110,19,sí,completo,19,,,110,0,0,0
+CCarEnterExit,355,32,32,5,sí,completo,5,,,32,0,0,0
+CClothesBuilder,355,23,23,8,sí,completo,8,,,23,0,0,0
+CFormation,355,9,9,8,sí,completo,8,,,9,0,0,0
+CGenericGameStorage,355,19,19,14,sí,pendiente,0,,,19,0,0,0
+CHud,355,38,38,8,sí,pendiente,0,,,38,0,0,0
+CInterestingEvents,355,7,7,5,sí,pendiente,0,,,7,0,0,0
+CMonsterTruck,355,11,11,6,sí,pendiente,0,,,11,0,0,0
+CPedDamageResponseCalculator,355,6,6,4,sí,pendiente,0,,"IsBleedingWeapon 0x4B5C2A era un bloque interno; catálogo corregido, 4 funciones válidas.",6,0,0,0
+CPedGeometryAnalyser,355,38,38,29,sí,parcial,6,,,38,0,0,0
+CPlane,355,23,23,9,sí,pendiente,0,,,23,0,0,0
+CProjectileInfo,355,12,12,11,sí,pendiente,0,,,12,0,0,0
+CRunningScript,355,39,39,15,sí,pendiente,0,,,39,0,0,0
+CShadows,355,31,31,10,sí,pendiente,0,,,31,0,0,0
+CTaskComplexFollowLeaderInFormation,355,7,7,6,sí,completo,6,,,7,0,0,0
+CTaskComplexGangFollower,355,8,8,7,sí,pendiente,0,,"Destructor: replay fallido 256/256 pares, diferencia de vptr; sin corregir al parar.",8,0,0,0
+CTaskComplexGangJoinRespond,355,7,7,5,sí,completo,5,,,7,0,0,0
+CTaskComplexHitPedWithCar,355,10,10,8,sí,pendiente,0,,,10,0,0,0
+CTaskComplexKillPedFromBoat,355,7,7,5,sí,completo,5,,,7,0,0,0
+CTaskComplexPlayHandSignalAnim,355,9,9,6,sí,pendiente,0,,,9,0,0,0
+CTaskComplexSmartFleePoint,355,12,12,10,sí,pendiente,0,,,12,0,0,0
+CTaskComplexSunbathe,355,8,8,6,sí,pendiente,0,,,8,0,0,0
+CTaskComplexWanderStandard,355,9,9,6,sí,pendiente,0,,,9,0,0,0
+CTaskGangHassleVehicle,355,8,8,6,sí,pendiente,0,,,8,0,0,0
+CTaskGoToVehicleAndLean,355,7,7,5,sí,pendiente,0,,,7,0,0,0
+CTrain,355,40,40,20,sí,pendiente,0,,,40,0,0,0
+CWaterLevel,355,30,30,5,sí,pendiente,0,,,30,0,0,0
+CWeapon,355,41,41,6,sí,pendiente,0,,,41,0,0,0
+FxEmitterBP_c,355,9,9,7,sí,completo,7,,,9,0,0,0
+InteriorGroup_c,355,24,24,22,sí,pendiente,0,,,24,0,0,0

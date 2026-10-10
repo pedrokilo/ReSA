@@ -148,15 +148,15 @@ CAEPoliceScannerAudioEntity,class,public CAEAudioEntity,source/game_sa/Audio/Ent
 CAudioLink,struct,,source/game_sa/Audio/Entities/AEScriptAudioEntity.h,10,source_type_definition
 CAEScriptAudioEntity,class,public CAEAudioEntity,source/game_sa/Audio/Entities/AEScriptAudioEntity.h,30,source_type_definition
 CAETwinLoopSoundEntity,class,public CAEAudioEntity,source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h,25,source_type_definition
-CAEVehicleAudioEntity,class,public CAEAudioEntity,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,41,source_type_definition
-CAEVehicleAudioEntity::Config,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,46,source_type_definition
-CAEVehicleAudioEntity::Config::Props,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,187,source_type_definition
-CAEVehicleAudioEntity::Config::TheProps,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,280,source_type_definition
-CAEVehicleAudioEntity::Config::Stepping,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,339,source_type_definition
-CAEVehicleAudioEntity::eAEState,class,uint8,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,539,source_type_definition
-CAEVehicleAudioEntity::tEngineSound,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,560,source_type_definition
-CAEVehicleAudioEntity::tDummyEngineSlot,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,566,source_type_definition
-CAEVehicleAudioEntity::tVehicleParams,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,572,source_type_definition
+CAEVehicleAudioEntity,class,public CAEAudioEntity,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,42,source_type_definition
+CAEVehicleAudioEntity::Config,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,47,source_type_definition
+CAEVehicleAudioEntity::Config::Props,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,188,source_type_definition
+CAEVehicleAudioEntity::Config::TheProps,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,281,source_type_definition
+CAEVehicleAudioEntity::Config::Stepping,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,340,source_type_definition
+CAEVehicleAudioEntity::eAEState,class,uint8,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,540,source_type_definition
+CAEVehicleAudioEntity::tEngineSound,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,561,source_type_definition
+CAEVehicleAudioEntity::tDummyEngineSlot,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,567,source_type_definition
+CAEVehicleAudioEntity::tVehicleParams,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,573,source_type_definition
 tVehicleAudioSettings,struct,,source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h,13,source_type_definition
 CAEWaterCannonAudioEntity,class,public CAEAudioEntity,source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h,14,source_type_definition
 CAEWeaponAudioEntity,class,public CAEAudioEntity,source/game_sa/Audio/Entities/AEWeaponAudioEntity.h,20,source_type_definition
@@ -264,7 +264,7 @@ CCheckpoints,class,,source/game_sa/Checkpoints.h,9,source_type_definition
 CClock,class,,source/game_sa/Clock.h,9,source_type_definition
 CClothes,class,,source/game_sa/Clothes.h,16,source_type_definition
 Context,struct,,source/game_sa/ClothesBuilder.cpp,190,source_type_definition
-GeoBlendData,struct,,source/game_sa/ClothesBuilder.cpp,304,source_type_definition
+GeoBlendData,struct,,source/game_sa/ClothesBuilder.cpp,311,source_type_definition
 CClothesBuilder,class,,source/game_sa/ClothesBuilder.h,14,source_type_definition
 tMovingFog,struct,,source/game_sa/Clouds.h,23,source_type_definition
 tVolumetricClouds,struct,,source/game_sa/Clouds.h,35,source_type_definition
@@ -436,9 +436,10 @@ CPlayerPed,class,public CPed,source/game_sa/Entity/Ped/PlayerPed.h,20,source_typ
 CPlayerSkin,class,,source/game_sa/Entity/Ped/PlayerSkin.h,5,source_type_definition
 CPhysical,class,public CEntity,source/game_sa/Entity/Physical.h,71,source_type_definition
 CPlaceable,class,,source/game_sa/Entity/Placeable.h,22,source_type_definition
+Act,class,,source/game_sa/Entity/Vehicle/Automobile.cpp,2321,source_type_definition
 CAutomobile,class,public CVehicle,source/game_sa/Entity/Vehicle/Automobile.h,42,source_type_definition
-BikeControl355UnwindEntry,struct,,source/game_sa/Entity/Vehicle/Bike.cpp,1080,source_type_definition
-BikeControl355FuncInfo,struct,,source/game_sa/Entity/Vehicle/Bike.cpp,1082,source_type_definition
+BikeControl355UnwindEntry,struct,,source/game_sa/Entity/Vehicle/Bike.cpp,1180,source_type_definition
+BikeControl355FuncInfo,struct,,source/game_sa/Entity/Vehicle/Bike.cpp,1182,source_type_definition
 CBike,class,public CVehicle,source/game_sa/Entity/Vehicle/Bike.h,29,source_type_definition
 CBmx,class,public CBike,source/game_sa/Entity/Vehicle/Bmx.h,27,source_type_definition
 CBoat,class,public CVehicle,source/game_sa/Entity/Vehicle/Boat.h,30,source_type_definition
@@ -446,8 +447,8 @@ CBoat::CBoatFlags,struct,,source/game_sa/Entity/Vehicle/Boat.h,36,source_type_de
 tHeliLight,struct,,source/game_sa/Entity/Vehicle/Heli.h,38,source_type_definition
 CHeli,class,public CAutomobile,source/game_sa/Entity/Vehicle/Heli.h,62,source_type_definition
 CMonsterTruck,class,public CAutomobile,source/game_sa/Entity/Vehicle/MonsterTruck.h,39,source_type_definition
-PlanePreRender355UnwindEntry,struct,,source/game_sa/Entity/Vehicle/Plane.cpp,752,source_type_definition
-PlanePreRender355FuncInfo,struct,,source/game_sa/Entity/Vehicle/Plane.cpp,760,source_type_definition
+PlanePreRender355UnwindEntry,struct,,source/game_sa/Entity/Vehicle/Plane.cpp,754,source_type_definition
+PlanePreRender355FuncInfo,struct,,source/game_sa/Entity/Vehicle/Plane.cpp,762,source_type_definition
 CPlane,class,public CAutomobile,source/game_sa/Entity/Vehicle/Plane.h,40,source_type_definition
 CQuadBike,class,public CAutomobile,source/game_sa/Entity/Vehicle/QuadBike.h,37,source_type_definition
 CTrailer,class,public CAutomobile,source/game_sa/Entity/Vehicle/Trailer.h,41,source_type_definition
@@ -662,7 +663,6 @@ CGameLogic,class,,source/game_sa/GameLogic.h,38,source_type_definition
 CGamma,class,,source/game_sa/Gamma.h,3,source_type_definition
 CGangInfo,class,,source/game_sa/GangInfo.h,9,source_type_definition
 CGangs,class,,source/game_sa/Gangs.h,17,source_type_definition
-GangRanking,struct,,source/game_sa/GangWars.cpp,1151,source_type_definition
 CGangWars,class,,source/game_sa/GangWars.h,50,source_type_definition
 CGangWarsSaveStructure,class,,source/game_sa/GangWarsSaveStructure.h,11,source_type_definition
 CStoredCar,struct,,source/game_sa/Garage.h,64,source_type_definition
@@ -763,9 +763,9 @@ eCarColLineType,class,uint32,source/game_sa/Models/VehicleModelInfo.h,65,source_
 eCarModsLineType,class,uint32,source/game_sa/Models/VehicleModelInfo.h,72,source_type_definition
 tRestoreEntry,struct,,source/game_sa/Models/VehicleModelInfo.h,86,source_type_definition
 UpgradePosnDesc,struct,,source/game_sa/Models/VehicleModelInfo.h,120,source_type_definition
-CVehicleModelInfo,class,public CClumpModelInfo,source/game_sa/Models/VehicleModelInfo.h,139,source_type_definition
-CVehicleModelInfo::CVehicleStructure,class,,source/game_sa/Models/VehicleModelInfo.h,166,source_type_definition
-CVehicleModelInfo::CLinkedUpgradeList,class,,source/game_sa/Models/VehicleModelInfo.h,223,source_type_definition
+CVehicleModelInfo,class,public CClumpModelInfo,source/game_sa/Models/VehicleModelInfo.h,143,source_type_definition
+CVehicleModelInfo::CVehicleStructure,class,,source/game_sa/Models/VehicleModelInfo.h,170,source_type_definition
+CVehicleModelInfo::CLinkedUpgradeList,class,,source/game_sa/Models/VehicleModelInfo.h,227,source_type_definition
 CWeaponModelInfo,class,public CClumpModelInfo,source/game_sa/Models/WeaponModelInfo.h,18,source_type_definition
 CMotionBlurStreaks,class,,source/game_sa/MotionBlurStreaks.h,11,source_type_definition
 CMouseControllerState,class,,source/game_sa/MouseControllerState.h,3,source_type_definition
@@ -793,8 +793,8 @@ CPedDamageResponse,class,,source/game_sa/PedDamageResponse.h,3,source_type_defin
 CPedDamageResponseCalculator,class,,source/game_sa/PedDamageResponseCalculator.h,9,source_type_definition
 CPedDebugVisualiser,class,,source/game_sa/PedDebugVisualiser.h,7,source_type_definition
 CPedDebugVisualiser::CTextDisplayFlags,class,,source/game_sa/PedDebugVisualiser.h,8,source_type_definition
-GeometryRouteLength355,struct,,source/game_sa/PedGeometryAnalyser.cpp,596,source_type_definition
-RouteTest,struct,,source/game_sa/PedGeometryAnalyser.cpp,736,source_type_definition
+GeometryRouteLength355,struct,,source/game_sa/PedGeometryAnalyser.cpp,599,source_type_definition
+RouteTest,struct,,source/game_sa/PedGeometryAnalyser.cpp,739,source_type_definition
 CPointRoute,class,public notsa::Route<CVector>,source/game_sa/PedGeometryAnalyser.h,17,source_type_definition
 CPedGeometryAnalyser,class,,source/game_sa/PedGeometryAnalyser.h,24,source_type_definition
 CPedGeometryAnalyser::WanderPathClearness,class,uint32,source/game_sa/PedGeometryAnalyser.h,78,source_type_definition
@@ -817,7 +817,7 @@ CPedTaskPair,class,,source/game_sa/PedTaskPair.h,12,source_type_definition
 CPedType,class,,source/game_sa/PedType.h,6,source_type_definition
 CPickup,class,,source/game_sa/Pickup.h,48,source_type_definition
 CPickups,class,,source/game_sa/Pickups.h,26,source_type_definition
-tPickupReference,struct,,source/game_sa/Pickups.h,105,source_type_definition
+tPickupReference,struct,,source/game_sa/Pickups.h,111,source_type_definition
 ExtraVertColour,struct,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h,16,source_type_definition
 CCustomBuildingDNPipeline,class,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h,22,source_type_definition
 CCustomBuildingPipeline,class,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h,3,source_type_definition
@@ -916,7 +916,7 @@ CPopCycle,class,,source/game_sa/PopCycle.h,192,source_type_definition
 tPedGroupTranslationData,struct,,source/game_sa/Population.h,28,source_type_definition
 CPopulation,class,,source/game_sa/Population.h,33,source_type_definition
 CPostEffects,class,,source/game_sa/PostEffects.h,18,source_type_definition
-CPostEffects::imf,struct,,source/game_sa/PostEffects.h,182,source_type_definition
+CPostEffects::imf,struct,,source/game_sa/PostEffects.h,183,source_type_definition
 PPTriPlant,class,,source/game_sa/PPTriPlantBuffer.h,7,source_type_definition
 CPPTriPlantBuffer,class,,source/game_sa/PPTriPlantBuffer.h,34,source_type_definition
 CProjectileInfo,class,,source/game_sa/ProjectileInfo.h,17,source_type_definition
@@ -1324,7 +1324,7 @@ CommandHandler,struct,std::false_type,source/game_sa/Scripts/CommandParser/Parse
 notsa::script::detail::StrongAlias,struct,,source/game_sa/Scripts/CommandParser/ReadArg.hpp,21,source_type_definition
 notsa::script::ScriptEntity,struct,,source/game_sa/Scripts/CommandParser/ReadArg.hpp,100,source_type_definition
 notsa::script::CompareFlagUpdate,struct,,source/game_sa/Scripts/CommandParser/Utility.hpp,31,source_type_definition
-ScriptAngledBox,struct,,source/game_sa/Scripts/RunningScript.cpp,508,source_type_definition
+ScriptAngledBox,struct,,source/game_sa/Scripts/RunningScript.cpp,509,source_type_definition
 scm::StringRef,struct,,source/game_sa/Scripts/RunningScript.h,106,source_type_definition
 scm::ArrayAccess,struct,,source/game_sa/Scripts/RunningScript.h,142,source_type_definition
 scm::ArrayAccess::ElementType,class,uint8,source/game_sa/Scripts/RunningScript.h,143,source_type_definition
@@ -1351,19 +1351,19 @@ tScriptCheckpoint,struct,,source/game_sa/Scripts/TheScripts.h,76,source_type_def
 tScriptEffectSystem,struct,,source/game_sa/Scripts/TheScripts.h,96,source_type_definition
 tScriptSequence,struct,,source/game_sa/Scripts/TheScripts.h,115,source_type_definition
 tScriptText,struct,,source/game_sa/Scripts/TheScripts.h,132,source_type_definition
-eScriptRectangleType,class,int32,source/game_sa/Scripts/TheScripts.h,157,source_type_definition
-tScriptRectangle,struct,,source/game_sa/Scripts/TheScripts.h,166,source_type_definition
-tScriptAttachedAnimGroup,struct,,source/game_sa/Scripts/TheScripts.h,196,source_type_definition
-eScriptSearchLightState,class,uint8,source/game_sa/Scripts/TheScripts.h,206,source_type_definition
-tScriptSearchlight,struct,,source/game_sa/Scripts/TheScripts.h,214,source_type_definition
-tUsedObject,struct,,source/game_sa/Scripts/TheScripts.h,245,source_type_definition
-tScriptSphere,struct,,source/game_sa/Scripts/TheScripts.h,253,source_type_definition
-tStoredLine,struct,,source/game_sa/Scripts/TheScripts.h,277,source_type_definition
-tScriptBrainWaitEntity,struct,,source/game_sa/Scripts/TheScripts.h,285,source_type_definition
-tScriptConnectLodsObject,struct,,source/game_sa/Scripts/TheScripts.h,300,source_type_definition
-ScriptSavedObjectType,class,uint32,source/game_sa/Scripts/TheScripts.h,336,source_type_definition
-CTheScripts,class,,source/game_sa/Scripts/TheScripts.h,349,source_type_definition
-CTheScripts::eUseTextCommandState,class,uint8,source/game_sa/Scripts/TheScripts.h,412,source_type_definition
+eScriptRectangleType,class,int32,source/game_sa/Scripts/TheScripts.h,158,source_type_definition
+tScriptRectangle,struct,,source/game_sa/Scripts/TheScripts.h,167,source_type_definition
+tScriptAttachedAnimGroup,struct,,source/game_sa/Scripts/TheScripts.h,197,source_type_definition
+eScriptSearchLightState,class,uint8,source/game_sa/Scripts/TheScripts.h,207,source_type_definition
+tScriptSearchlight,struct,,source/game_sa/Scripts/TheScripts.h,215,source_type_definition
+tUsedObject,struct,,source/game_sa/Scripts/TheScripts.h,246,source_type_definition
+tScriptSphere,struct,,source/game_sa/Scripts/TheScripts.h,254,source_type_definition
+tStoredLine,struct,,source/game_sa/Scripts/TheScripts.h,278,source_type_definition
+tScriptBrainWaitEntity,struct,,source/game_sa/Scripts/TheScripts.h,286,source_type_definition
+tScriptConnectLodsObject,struct,,source/game_sa/Scripts/TheScripts.h,301,source_type_definition
+ScriptSavedObjectType,class,uint32,source/game_sa/Scripts/TheScripts.h,337,source_type_definition
+CTheScripts,class,,source/game_sa/Scripts/TheScripts.h,351,source_type_definition
+CTheScripts::eUseTextCommandState,class,uint8,source/game_sa/Scripts/TheScripts.h,414,source_type_definition
 tScriptForBrains,struct,,source/game_sa/ScriptsForBrains.h,14,source_type_definition
 CScriptsForBrains,class,,source/game_sa/ScriptsForBrains.h,30,source_type_definition
 CSearchLight,class,,source/game_sa/SearchLight.h,5,source_type_definition
@@ -1371,6 +1371,7 @@ CSector,class,,source/game_sa/Sector.h,11,source_type_definition
 CSetPiece,class,,source/game_sa/SetPiece.h,21,source_type_definition
 CSetPieces,class,,source/game_sa/SetPieces.h,7,source_type_definition
 CShadowCamera,class,,source/game_sa/ShadowCamera.h,12,source_type_definition
+ShadowRect,struct,,source/game_sa/Shadows.cpp,1247,source_type_definition
 CRegisteredShadow,class,,source/game_sa/Shadows.h,69,source_type_definition
 CPermanentShadow,class,,source/game_sa/Shadows.h,90,source_type_definition
 CStaticShadow,class,,source/game_sa/Shadows.h,118,source_type_definition
@@ -1848,7 +1849,7 @@ CWaterCannons,class,,source/game_sa/WaterCannons.h,7,source_type_definition
 WaterCreature_c,class,public ListItem_c<WaterCreature_c>,source/game_sa/WaterCreature_c.h,21,source_type_definition
 tWaterCreatureInfo,struct,,source/game_sa/WaterCreatureManager_c.h,6,source_type_definition
 WaterCreatureManager_c,class,,source/game_sa/WaterCreatureManager_c.h,28,source_type_definition
-SortableVtx,struct,,source/game_sa/WaterLevel.cpp,1310,source_type_definition
+WaterLayerParams,struct,,source/game_sa/WaterLevel.cpp,320,source_type_definition
 CRenPar,struct,,source/game_sa/WaterLevel.h,11,source_type_definition
 CWaterVertex,struct,,source/game_sa/WaterLevel.h,27,source_type_definition
 CWaterPolygon,struct,,source/game_sa/WaterLevel.h,34,source_type_definition
