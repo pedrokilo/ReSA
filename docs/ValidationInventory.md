@@ -6,10 +6,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 7478 |
+| `validated=1` · evidencia aprobada vinculada | 7496 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 7478 |
-| Sin evidencia aprobada vinculada en este registro | 968 |
+| Evidencia histórica vinculada; revisión pendiente | 7496 |
+| Sin evidencia aprobada vinculada en este registro | 950 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -978,6 +978,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCam | `ProcessArrestCamOne` | [Resumen](../reversing/CamArrest355/validation-summary.json) |
 | CCam | `ProcessPedsDeadBaby` | [Resumen](../reversing/CamDead355/validation-summary.json) |
 | CCam | `Process_1rstPersonPedOnPC` | [Resumen](../reversing/CamFirstPerson355/validation-summary.json) |
+| CCam | `Process_1stPerson` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
 | CCam | `Process_AimWeapon` | [Resumen](../reversing/CamAim355/validation-summary.json) |
 | CCam | `Process_AttachedCam` | [Resumen](../reversing/CamAttached355/validation-summary.json) |
 | CCam | `Process_Cam_TwoPlayer` | [Resumen](../reversing/CamTwoPlayer355/validation-summary.json) |
@@ -998,6 +999,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCam | `Process_FollowPedWithMouse` | [Resumen](../reversing/CamMouse355/validation-summary.json) |
 | CCam | `Process_FollowPed_SA` | [Resumen](../reversing/CamFollowPed355/validation-summary.json) |
 | CCam | `Process_M16_1stPerson` | [Resumen](../reversing/CamM16355/validation-summary.json) |
+| CCam | `Process_Rocket` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
 | CCam | `Process_SpecialFixedForSyphon` | [Resumen](../reversing/CamSyphon355/validation-summary.json) |
 | CCam | `Process_WheelCam` | [Resumen](../reversing/CamWheel355/validation-summary.json) |
 | CCam | `RotCamIfInFrontCar` | [Resumen](../reversing/CamRotate355/validation-summary.json) |
@@ -2472,6 +2474,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CHeli | `SetUpWheelColModel` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `SwitchPoliceHelis` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `TestSniperCollision` | [Resumen](../reversing/Mix11/validation-summary.json) |
+| CHud | `Draw` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
+| CHud | `DrawAfterFade` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
 | CHud | `DrawAmmo` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `DrawAreaName` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `DrawBustedWastedMessage` | [Resumen](../reversing/CamHud1/validation-summary.json) |
@@ -2482,6 +2486,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CHud | `DrawMissionTitle` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `DrawOddJobMessage` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `DrawPlayerInfo` | [Resumen](../reversing/HudPlayerInfo355/validation-summary.json) |
+| CHud | `DrawRadar` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
 | CHud | `DrawScriptText` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `DrawSubtitles` | [Resumen](../reversing/HudSubtitles355/validation-summary.json) |
 | CHud | `DrawSuccessFailedMessage` | [Resumen](../reversing/HudSuccess355/validation-summary.json) |
@@ -2489,9 +2494,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CHud | `DrawVehicleName` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `DrawVitalStats` | [Resumen](../reversing/HudVitals355/validation-summary.json) |
 | CHud | `DrawWanted` | [Resumen](../reversing/HudWanted355/validation-summary.json) |
+| CHud | `DrawWeaponIcon` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
 | CHud | `GetRidOfAllHudMessages` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `GetYPosBasedOnHealth` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `HelpMessageDisplayed` | [Resumen](../reversing/CamHud1/validation-summary.json) |
+| CHud | `Initialise` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
 | CHud | `ReInitialise` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `RenderArmorBar` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `RenderBreathBar` | [Resumen](../reversing/CamHud1/validation-summary.json) |
@@ -2504,6 +2511,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CHud | `SetMessage` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `SetVehicleName` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `SetZoneName` | [Resumen](../reversing/CamHud1/validation-summary.json) |
+| CHud | `Shutdown` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
 | CHudColours | `Constructor` | [Resumen](../reversing/World43/validation-summary.json) |
 | CHudColours | `GetIntColour` | [Resumen](../reversing/World43/validation-summary.json) |
 | CHudColours | `GetRGB` | [Resumen](../reversing/World43/validation-summary.json) |
@@ -3518,6 +3526,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPickups | `Save` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `TestForPickupsInBubble` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `TryToMerge_WeaponType` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
+| CPickups | `Update` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
 | CPickups | `UpdateMoneyPerDay` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `WeaponForModel` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPlaceName | `GetForMap` | [Resumen](../reversing/Misc70/validation-summary.json) |
@@ -6770,9 +6779,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWeapon | `CanBeUsedFor2Player-Static` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `CheckForShootingVehicleOccupant` | [Resumen](../reversing/WeaponOccupant355/validation-summary.json) |
 | CWeapon | `Constructor` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
+| CWeapon | `DoBulletImpact` | [Resumen](../reversing/WeaponFinal2/validation-summary.json) |
 | CWeapon | `DoDoomAiming` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `DoDriveByAutoAiming` | [Resumen](../reversing/WeaponDrive355/validation-summary.json) |
 | CWeapon | `DoTankDoomAiming` | [Resumen](../reversing/WeaponTank355/validation-summary.json) |
+| CWeapon | `DoWeaponEffect` | [Resumen](../reversing/WeaponFinal2/validation-summary.json) |
 | CWeapon | `EvaluateTargetForHeatSeekingMissile` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `FindNearestTargetEntityWithScreenCoors` | [Resumen](../reversing/WeaponScreen355/validation-summary.json) |
 | CWeapon | `Fire` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
@@ -6780,7 +6791,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWeapon | `FireFromCar` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `FireInstantHit` | [Resumen](../reversing/WeaponInstant355/validation-summary.json) |
 | CWeapon | `FireInstantHitFromCar` | [Resumen](../reversing/WeaponCarShot355/validation-summary.json) |
+| CWeapon | `FireInstantHitFromCar2` | [Resumen](../reversing/WeaponFinal2/validation-summary.json) |
 | CWeapon | `FireM16_1stPerson` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
+| CWeapon | `FireOneInstantHitRound` | [Resumen](../reversing/WeaponFinal2/validation-summary.json) |
+| CWeapon | `FireProjectile` | [Resumen](../reversing/WeaponFinal2/validation-summary.json) |
+| CWeapon | `FireSniper` | [Resumen](../reversing/WeaponFinal2/validation-summary.json) |
+| CWeapon | `GenerateDamageEvent` | [Resumen](../reversing/WeaponFinal2/validation-summary.json) |
 | CWeapon | `HasWeaponAmmoToBeUsed` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `Initialise` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `InitialiseWeapons` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
@@ -6789,11 +6805,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWeapon | `IsTypeProjectile` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `LaserScopeDot` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `PickTargetForHeatSeekingMissile` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
+| CWeapon | `ProcessLineOfSight` | [Resumen](../reversing/WeaponFinal2/validation-summary.json) |
 | CWeapon | `Reload` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `SetUpPelletCol` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `Shutdown` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `ShutdownWeapons` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `StopWeaponEffect` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
+| CWeapon | `TakePhotograph` | [Resumen](../reversing/WeaponFinal2/validation-summary.json) |
 | CWeapon | `TargetWeaponRangeMultiplier` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `Update` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `UpdateWeapons` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
@@ -7586,7 +7604,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBuildingPool` | 1 | 0 | 1 | 0 |
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
-| `CCam` | 44 | 0 | 42 | 2 |
+| `CCam` | 44 | 0 | 44 | 0 |
 | `CCamera` | 110 | 0 | 19 | 91 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
 | `CCarCtrl` | 22 | 0 | 22 | 0 |
@@ -7745,7 +7763,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CHandObject` | 3 | 0 | 3 | 0 |
 | `CHandShaker` | 3 | 0 | 3 | 0 |
 | `CHeli` | 11 | 0 | 11 | 0 |
-| `CHud` | 38 | 0 | 32 | 6 |
+| `CHud` | 38 | 0 | 38 | 0 |
 | `CHudColours` | 5 | 0 | 5 | 0 |
 | `CIdleCam` | 14 | 0 | 14 | 0 |
 | `CInformFriendsEventQueue` | 4 | 0 | 4 | 0 |
@@ -7827,7 +7845,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedType` | 13 | 0 | 13 | 0 |
 | `CPhysical` | 56 | 0 | 56 | 0 |
 | `CPickup` | 12 | 0 | 12 | 0 |
-| `CPickups` | 37 | 0 | 36 | 1 |
+| `CPickups` | 37 | 0 | 37 | 0 |
 | `CPlaceName` | 2 | 0 | 2 | 0 |
 | `CPlaceable` | 16 | 0 | 16 | 0 |
 | `CPlane` | 23 | 0 | 23 | 0 |
@@ -8222,7 +8240,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
 | `CWaterCannons` | 4 | 0 | 4 | 0 |
 | `CWaterLevel` | 30 | 0 | 30 | 0 |
-| `CWeapon` | 41 | 0 | 32 | 9 |
+| `CWeapon` | 41 | 0 | 41 | 0 |
 | `CWeaponEffects` | 9 | 0 | 9 | 0 |
 | `CWeaponInfo` | 10 | 0 | 10 | 0 |
 | `CWeaponModelInfo` | 3 | 0 | 3 | 0 |

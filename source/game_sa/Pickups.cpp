@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 37/37 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 36/37 entradas.
+ * Validación registrada: 37/37 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -972,8 +972,7 @@ void CPickups::Update() {
     }
 
     // Como el original (0x458F1A..0x458F9B): ambos indicadores consultan las tareas del jugador 1 (Players[0].m_pPed, no
-    // FindPlayerPed); el del jugador 2 solo se evalua si existe Players[1].m_pPed. Como "player2Allowed" implica "!p1Busy",
-    // la rama del jugador 2 del bucle no se ejecuta nunca en el EXE.
+    // FindPlayerPed); el del jugador 2 solo se evalua si existe Players[1].m_pPed.
     const auto isPlayer1Busy = [] {
         auto* intelligence = CWorld::Players[0].m_pPed->GetIntelligence();
         return intelligence->FindTaskByType(TASK_COMPLEX_ENTER_CAR_AS_DRIVER) || intelligence->FindTaskByType(TASK_COMPLEX_USE_MOBILE_PHONE);
@@ -992,11 +991,16 @@ void CPickups::Update() {
         if (pickup.m_nPickupType == PICKUP_NONE || !pickup.m_nFlags.bVisible)
             continue;
 
+        // Como el original (0x459003..0x45909F): si Update del jugador 1 devuelve false se cae (0x459069) a la rama del
+        // jugador 2, que vuelve a comprobar tipo y visibilidad (Update pudo cambiarlos). "p2Allowed" implica jugador 1
+        // libre, asi que con dos jugadores se llama tambien a Update del jugador 2: no es un "else".
         if (p1NotBusy) {
             if (pickup.Update(FindPlayerPed(), FindPlayerVehicle(), CWorld::PlayerInFocus)) {
                 AddToCollectedPickupsArray(i);
+                continue;
             }
-        } else if (p2Allowed) {
+        }
+        if (p2Allowed && pickup.m_nPickupType != PICKUP_NONE && pickup.m_nFlags.bVisible) {
             if (pickup.Update(FindPlayerPed(1), FindPlayerVehicle(1), PED_TYPE_PLAYER2)) {
                 AddToCollectedPickupsArray(i);
             }

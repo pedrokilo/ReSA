@@ -1,0 +1,132 @@
+{
+  "passed": true,
+  "pairs": 6528,
+  "differences": 0,
+  "registered_pairs": 6528,
+  "registered_functions": 9,
+  "functions": {
+    "CCam::Process_1stPerson": 1024,
+    "CCam::Process_Rocket": 1024,
+    "CHud::Draw": 1024,
+    "CHud::DrawAfterFade": 512,
+    "CHud::DrawRadar": 1024,
+    "CHud::DrawWeaponIcon": 768,
+    "CHud::Initialise": 64,
+    "CHud::Shutdown": 64,
+    "CPickups::Update": 1024
+  },
+  "covered_functions": {
+    "CCam::Process_1stPerson": true,
+    "CCam::Process_Rocket": true,
+    "CHud::Draw": true,
+    "CHud::DrawAfterFade": true,
+    "CHud::DrawRadar": true,
+    "CHud::DrawWeaponIcon": true,
+    "CHud::Initialise": true,
+    "CHud::Shutdown": true,
+    "CPickups::Update": true
+  },
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 6528 isolated CPU pairs for 9 pending functions of CHud, CCam and CPickups, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture (seed = case index) in both legs and compares the return value, the bytes of the fake objects, the touched global ranges, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Traced doubles get NO credit. Only the own part of each function is validated. Source tested == current working tree at registration (class sources match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Fixtures: fake CCam/ped/vehicle/ModelInfo objects, real pickup array and HUD statics copied and restored, fake RW render-state table (0xC97B24) swapped temporarily and restored; padding and uninitialised bytes masked. Limits are declared per function in the function-specific scope and in the bank README.",
+  "function_scope": {
+    "CCam::Process_1stPerson": "Corpus 1024; source reviewed against the EXE and corrected before the run where needed (see git diff). fake CCam object (0x238 bytes filled with 0xCD, compared whole), fake ped/vehicle/ModelInfo slot; bones, world line of sight, water level and matrix collaborators doubled with trace; times >= 2^31 exercise the fild+2^32 sum; source corrected: single rounding fild + fadd 2^32 (0x517F4E..0x517F5E) and movsx of the vehicle model (0x5180EB).",
+    "CCam::Process_Rocket": "Corpus 1024; source reviewed against the EXE and corrected before the run where needed (see git diff). fake CCam object, rocket target, player and RW camera; GetATanOfXY stays real, line of sight, motion blur, matrices and weapon-effect collaborators doubled with trace; source corrected: GetATanOfXY returns in ST0 and fsub halfPi (0x511E99).",
+    "CHud::Draw": "Corpus 1024; source reviewed against the EXE and corrected before the run where needed (see git diff). m_bDraw3dMarkers takes 0, 1, 2 and 0x80 (EXE compares the byte with 1, 0x58FCA6); drawing through a fake RW render-state table (RwEngineInstance 0xC97B24 swapped temporarily), collaborators (DrawRadar, DrawWeaponIcon, sprites) doubled with trace; source corrected: cmp byte ds:[0BAA45Ch],1 (0x58FCA6).",
+    "CHud::DrawAfterFade": "Corpus 512; source reviewed against the EXE and corrected before the run where needed (see git diff). drawing through a fake RW render-state table, sprites and collaborators doubled with trace.",
+    "CHud::DrawRadar": "Corpus 1024; source reviewed against the EXE and corrected before the run where needed (see git diff). drawing through a fake RW render-state table; aircraft-ring vehicles always carry a matrix (EXE dereferences [eax+14h] unchecked, 0x58A3ED); collaborators doubled with trace; state 7 renamed for readability only (same value).",
+    "CHud::DrawWeaponIcon": "Corpus 768; source reviewed against the EXE and corrected before the run where needed (see git diff). a FREE TXD slot is NOT tested (the EXE reads address 0, 0x58D825/0x58D831; the source returns); only in-use slots with a fake or null dictionary and texture; RenderOneXLUSprite and CSprite2d::Draw doubled; fake RW render-state table.",
+    "CHud::Initialise": "Corpus 64; source reviewed against the EXE and corrected before the run where needed (see git diff). TXD/sprite collaborators doubled with trace (HUD.TXD never loaded, no texture created or destroyed, TXD pool untouched); ReInitialise is real.",
+    "CHud::Shutdown": "Corpus 64; source reviewed against the EXE and corrected before the run where needed (see git diff). TXD/sprite collaborators doubled with trace (no texture destroyed, TXD pool untouched).",
+    "CPickups::Update": "Corpus 1024; source reviewed against the EXE and corrected before the run where needed (see git diff). CPickup::Update is DOUBLED (it may cancel the type or visibility of the pickup), as are IsVisible, GiveUsAPickUpObject, CWorld::Add/Remove and the CPad/CPedIntelligence collaborators; CollectedPickUpIndex >= 20 is NOT tested (EXE writes out of the table, the DLL aborts in debug); real pickup array copied and restored; source corrected: the player-2 branch is not an else (0x459033 je 0x459069)."
+  },
+  "dependency_review": null,
+  "run": "reversing/HudCamFinal2/runs/20261009-180840-287896",
+  "summary_sha256": "2aaee5cdbdff5973ca1cb02806085ecf348803ccf785a59bce3dbdcdd7630ec8",
+  "result_txt_sha256": "4beac13c56367cad50a639790cbd18d412e638cbcae7dc77acda96322f7aa892",
+  "log_sha256": "3a8a49d5d580c98b598fcb91fcb52a4fc1f2dc8edeee0638ee2ea54d325ef6f1",
+  "comparison_storage": {
+    "uncompressed_sha256": "3a8a49d5d580c98b598fcb91fcb52a4fc1f2dc8edeee0638ee2ea54d325ef6f1",
+    "uncompressed_bytes": 4186791,
+    "compressed_path": "reversing/HudCamFinal2/runs/20261009-180840-287896/comparisons.jsonl.gz",
+    "compressed_sha256": "32743f0cffd48a14d1c6b34b909abd0257860fcf92eaf7bb84d9ce3bb748c7bc",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "3a8a49d5d580c98b598fcb91fcb52a4fc1f2dc8edeee0638ee2ea54d325ef6f1",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-hudcamfinal2\\20261009-180840-287896\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "6626f872f012160815eacc370c83d74999caaa4afec54c2a8cc92aec3c22956d",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "0c4c44783490c6749a137d66fe8f117995bbfa36",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 6528,
+    "registered_pairs": 6528,
+    "asi": "6626f872f012160815eacc370c83d74999caaa4afec54c2a8cc92aec3c22956d",
+    "pdb": "0a996a1f5f58b4c6afbf2c5484c9550a48f14e8821671cd249c499c4cbeaccdb",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-hudcamfinal2-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Hud.cpp": "491e581daa3fee488356e5faf7dcb46582eb7625d06b10f164ff35f4cc0601c2",
+      "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
+      "source/game_sa/Cam.cpp": "7c848a5ebe2c3838b302a5ca736709af00693fae2a8ef682ea7476fd4483af16",
+      "source/game_sa/Cam.h": "6a8c49d34a61a6cb6dc3fd9576bf5532992605c96059e371eadbcb08660cfd06",
+      "source/game_sa/Pickups.cpp": "5329a87e54253342d35c0a088e0fe19711c7c0d79e5d1c332dae790013ff859c",
+      "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "CamCases.hpp": "84f786ac1bd7aa80082bd65503e30af3c3799acbd9d80ef8a2e1bca7e748d29a",
+      "Common.hpp": "65955c4ef54182f1d44e730baebf89f31e308b69bcce61aab34a697897b5c853",
+      "HudCases.hpp": "ddd9572e03343c46416f037c2e9eea2dbc89edcb59e3c16aef92b477e1338578",
+      "LiveComparison.hpp": "5b951fe82d73c78ae109676ad49fd8c7d294784e1440c3f4c9ad944941932ef5",
+      "PickupCases.hpp": "04d36f163ddaf801fb06b5fb94e975347341165735063eb2916e1dbcd5bdc47b",
+      "build_probe.py": "6d100966a42d366f909cb74e94ad010867cd92f73a75eb61cd47d2e72020cd30",
+      "run_local.py": "14058b2f69be86112062b5c8cff05f6bd528627cad3eda9a0bc67b072cb8f211"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Hud.cpp": "CHud::Draw (cmp byte [0BAA45Ch],1, 0x58FCA6) y DrawRadar (estado 7 = SHADEMODE FLAT, solo legibilidad) corregidos contra el EXE; ver git diff",
+      "source/game_sa/Cam.cpp": "CCam::Process_1stPerson (fild + fadd 2^32 una sola redondeada, 0x517F4E..0x517F5E; movsx del modelo del vehiculo, 0x5180EB) y CCam::Process_Rocket (GetATanOfXY devuelve en ST0 y fsub halfPi, 0x511E99) corregidos contra el EXE; ver git diff",
+      "source/game_sa/Pickups.cpp": "CPickups::Update: la rama del jugador 2 no es un else (0x459033 test al,al; je 0x459069); ver git diff"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 6528,
+    "complete_events": 1,
+    "terminal_error_events": 0,
+    "terminal_event": {
+      "event": "complete",
+      "layout_ok": true,
+      "pairs": 6528,
+      "state_restored": true
+    },
+    "layout_events": 1,
+    "begin_events": 1,
+    "begin_checked": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 0,
+    "function_summaries": 9,
+    "functions_with_zero_failures": 9,
+    "unequal_pairs": 0,
+    "unequal_by_function": {},
+    "distinct_cases": 6528,
+    "per_function": {
+      "CHud::Draw": 1024,
+      "CHud::DrawAfterFade": 512,
+      "CHud::DrawRadar": 1024,
+      "CHud::DrawWeaponIcon": 768,
+      "CHud::Initialise": 64,
+      "CHud::Shutdown": 64,
+      "CCam::Process_1stPerson": 1024,
+      "CCam::Process_Rocket": 1024,
+      "CPickups::Update": 1024
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/Hud.cpp": "CHud::Draw (cmp byte [0BAA45Ch],1, 0x58FCA6) y DrawRadar (estado 7 = SHADEMODE FLAT, solo legibilidad) corregidos contra el EXE; ver git diff",
+    "source/game_sa/Cam.cpp": "CCam::Process_1stPerson (fild + fadd 2^32 una sola redondeada, 0x517F4E..0x517F5E; movsx del modelo del vehiculo, 0x5180EB) y CCam::Process_Rocket (GetATanOfXY devuelve en ST0 y fsub halfPi, 0x511E99) corregidos contra el EXE; ver git diff",
+    "source/game_sa/Pickups.cpp": "CPickups::Update: la rama del jugador 2 no es un else (0x459033 test al,al; je 0x459069); ver git diff"
+  },
+  "notes": "HudCamFinal2 registers the nueve funciones de CHud (6), CCam (2) y CPickups (1) (6528 pairs, 0 differences). Limits are declared per function; see scope and the bank README."
+}

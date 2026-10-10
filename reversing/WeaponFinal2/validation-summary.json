@@ -1,0 +1,125 @@
+{
+  "passed": true,
+  "pairs": 7808,
+  "differences": 0,
+  "registered_pairs": 7808,
+  "registered_functions": 9,
+  "functions": {
+    "CWeapon::DoBulletImpact": 2048,
+    "CWeapon::DoWeaponEffect": 512,
+    "CWeapon::FireInstantHitFromCar2": 640,
+    "CWeapon::FireOneInstantHitRound": 768,
+    "CWeapon::FireProjectile": 1280,
+    "CWeapon::FireSniper": 640,
+    "CWeapon::GenerateDamageEvent": 1024,
+    "CWeapon::ProcessLineOfSight": 256,
+    "CWeapon::TakePhotograph": 640
+  },
+  "covered_functions": {
+    "CWeapon::DoBulletImpact": true,
+    "CWeapon::DoWeaponEffect": true,
+    "CWeapon::FireInstantHitFromCar2": true,
+    "CWeapon::FireOneInstantHitRound": true,
+    "CWeapon::FireProjectile": true,
+    "CWeapon::FireSniper": true,
+    "CWeapon::GenerateDamageEvent": true,
+    "CWeapon::ProcessLineOfSight": true,
+    "CWeapon::TakePhotograph": true
+  },
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 7808 isolated CPU pairs for 9 pending functions of CWeapon, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture (seed = case index) in both legs and compares the return value, the bytes of the fake objects, the touched global ranges, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Traced doubles get NO credit. Only the own part of each function is validated. Source tested == current working tree at registration (class sources match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Fixtures: fake entities/peds/vehicles/objects, fake reference list and temporary swaps of ped/object pools, cameras, time and players, always restored; padding and uninitialised bytes masked. Limits are declared per function in the function-specific scope and in the bank README.",
+  "function_scope": {
+    "CWeapon::DoBulletImpact": "Corpus 2048; source reviewed against the EXE and corrected before the run where needed (see git diff). events, animations and collision doubled; tColLighting::GetCurrentLighting doubled and OUT of scope; fake entities, ped and object pools swapped temporarily; source corrected without FIX_BUGS (0x73B6C3), stats 0x80/0x7E, AreInSameGroup once, x87 asin (0x821E70).",
+    "CWeapon::DoWeaponEffect": "Corpus 512; source reviewed against the EXE and corrected before the run where needed (see git diff). effect/FX collaborators doubled with trace; weapon types limited to 0..46 and 49..58 (47/48 assert in GetWeaponInfoIndex).",
+    "CWeapon::FireInstantHitFromCar2": "Corpus 640; source reviewed against the EXE and corrected before the run where needed (see git diff). fake vehicle with BurstTyre in vtable slot 0x2C; collision, events and animation collaborators doubled with trace.",
+    "CWeapon::FireOneInstantHitRound": "Corpus 768; source reviewed against the EXE and corrected before the run where needed (see git diff). collision, events and animation collaborators doubled with trace; x87 asin replicated by __asm (0x73B11A); weapon types 0..46 and 49..58.",
+    "CWeapon::FireProjectile": "Corpus 1280; source reviewed against the EXE and corrected before the run where needed (see git diff). projectile, events, animations and effect collaborators doubled with trace; weapon types 0..46 and 49..58.",
+    "CWeapon::FireSniper": "Corpus 640; source reviewed against the EXE and corrected before the run where needed (see git diff). collision and effect collaborators doubled with trace; source corrected: direction*16 (0x73ABFC..0x73AC27).",
+    "CWeapon::GenerateDamageEvent": "Corpus 1024; source reviewed against the EXE and corrected before the run where needed (see git diff). events constructed for real on fake entities with CReferences::pEmptyList swapped for a fake list; CEventGroup::Add doubled (field-by-field summary); tColLighting::GetCurrentLighting DOUBLED and OUT of scope; animations (AddAnimation/BlendAnimation/SetCurrentTime) doubled; source corrected without FIX_BUGS (743C60 at 0x73A6E5, SetCurrentTime(0) at 0x73A7A4/0x73A657).",
+    "CWeapon::ProcessLineOfSight": "Corpus 256; source reviewed against the EXE and corrected before the run where needed (see git diff). world line test and collaborators doubled with trace; CColPoint only inspected when there is an impact; weapon types 0..46 and 49..58.",
+    "CWeapon::TakePhotograph": "Corpus 640; source reviewed against the EXE and corrected before the run where needed (see git diff). ped/object pools swapped temporarily for fake headers (6 peds of 0x7C4, 6 objects of 0x19C) and restored; camera and visibility collaborators doubled with trace."
+  },
+  "dependency_review": null,
+  "run": "reversing/WeaponFinal2/runs/20261009-181216-969478",
+  "summary_sha256": "15456943522ae30ead7d5ebf3b39857d8a05e2d4e4a5900b07cf6050e911def5",
+  "result_txt_sha256": "cd61df6fbe6d81459c7314c0b6fc2645bd1042a36699dc6a67d71ec6cf8fbe02",
+  "log_sha256": "5f37d62dc581d1576b32c33b6d75a7a0c88f7794eefb5a3d0a2a64197069cc6f",
+  "comparison_storage": {
+    "uncompressed_sha256": "5f37d62dc581d1576b32c33b6d75a7a0c88f7794eefb5a3d0a2a64197069cc6f",
+    "uncompressed_bytes": 2131155,
+    "compressed_path": "reversing/WeaponFinal2/runs/20261009-181216-969478/comparisons.jsonl.gz",
+    "compressed_sha256": "1dac013a99672d709762b0e10994f91f0b8b2bfd31c48b4a6f64f53906c508c9",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "5f37d62dc581d1576b32c33b6d75a7a0c88f7794eefb5a3d0a2a64197069cc6f",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weaponfinal2\\20261009-181216-969478\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "795a47648e8539eee1a5132a34c6296b308b3e25c2000dfdcd989aed38cffccf",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "0c4c44783490c6749a137d66fe8f117995bbfa36",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 7808,
+    "registered_pairs": 7808,
+    "asi": "795a47648e8539eee1a5132a34c6296b308b3e25c2000dfdcd989aed38cffccf",
+    "pdb": "282130b12f3589bcb011e8b0ba9f90a8bc8d7df4860049e6e462a95d7bf38766",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-weaponfinal2-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Weapon.cpp": "e253ced2763de484ab5a5a784244714f3b896a1180edb3122fc490a024ce6943",
+      "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "Cases1.hpp": "6bcba09bc2af87bef18dded7394c2dc263e275dcf5860e07fc9fd08b8774c11a",
+      "Cases2.hpp": "3b8f1d9eb6c9c9f076c6d42d0b1e365223574dac094cb40b22dc17d3c45cfa64",
+      "Cases3.hpp": "d8d01f8ffbdb68e2bae8fb01fffbed36dc4528be2860e4e8900bc6d6378d3b66",
+      "Common.hpp": "4e7925729701607a263872ff1555a064ba58fa894255a2f668707e78cf81c253",
+      "Doubles.hpp": "466d6025f8b5e8a60fc4efb5d47bc12e5e4c446fac97ef1479b916b584335ec2",
+      "LiveComparison.hpp": "360647fd5e61a189845a197fd4b3a6b769b480250ffcf12e84a5fa668b0df9e2",
+      "build_probe.py": "d7b180a9dafe4ee382a3c21c508329b8ad919c7d409c5c8b88fd48c536d5df46",
+      "run_local.py": "402cbc6e6126ed6c0040ed7235aa036d350f1357035835238f94996810344ef3"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Weapon.cpp": "CWeapon::GenerateDamageEvent (sin FIX_BUGS, 743C60 en 0x73A6E5, SetCurrentTime(0) en 0x73A7A4/0x73A657), DoBulletImpact (sin FIX_BUGS 0x73B6C3, estadisticas 0x80/0x7E, AreInSameGroup una vez, asin x87 0x821E70), FireOneInstantHitRound (asin x87 0x73B11A) y FireSniper (dir*16, 0x73ABFC..0x73AC27) corregidos contra el EXE; ver git diff"
+    }
+  },
+  "reaudit": {
+    "comparison_events": 7808,
+    "complete_events": 1,
+    "terminal_error_events": 0,
+    "terminal_event": {
+      "event": "complete",
+      "layout_ok": true,
+      "pairs": 7808,
+      "state_restored": true
+    },
+    "layout_events": 1,
+    "begin_events": 0,
+    "begin_checked": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 7808,
+    "function_summaries": 9,
+    "functions_with_zero_failures": 9,
+    "unequal_pairs": 0,
+    "unequal_by_function": {},
+    "distinct_cases": 7808,
+    "per_function": {
+      "CWeapon::ProcessLineOfSight": 256,
+      "CWeapon::DoWeaponEffect": 512,
+      "CWeapon::FireOneInstantHitRound": 768,
+      "CWeapon::GenerateDamageEvent": 1024,
+      "CWeapon::DoBulletImpact": 2048,
+      "CWeapon::TakePhotograph": 640,
+      "CWeapon::FireInstantHitFromCar2": 640,
+      "CWeapon::FireSniper": 640,
+      "CWeapon::FireProjectile": 1280
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/Weapon.cpp": "CWeapon::GenerateDamageEvent (sin FIX_BUGS, 743C60 en 0x73A6E5, SetCurrentTime(0) en 0x73A7A4/0x73A657), DoBulletImpact (sin FIX_BUGS 0x73B6C3, estadisticas 0x80/0x7E, AreInSameGroup una vez, asin x87 0x821E70), FireOneInstantHitRound (asin x87 0x73B11A) y FireSniper (dir*16, 0x73ABFC..0x73AC27) corregidos contra el EXE; ver git diff"
+  },
+  "notes": "WeaponFinal2 registers the nueve funciones de CWeapon (7808 pairs, 0 differences). Limits are declared per function; see scope and the bank README."
+}

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 8.
- * Validación registrada: 32/38 entradas.
+ * Validación registrada: 38/38 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -440,7 +440,8 @@ void CHud::Draw() {
         }
     }
 
-    if (m_bDraw3dMarkers && !TheCamera.m_bWideScreenOn) {
+    // Como el original (0x58FCA6): 'cmp byte ptr [0BAA45Ch],1' compara el byte con 1 (no es un test de "distinto de cero").
+    if (*reinterpret_cast<const uint8*>(&m_bDraw3dMarkers) == 1 && !TheCamera.m_bWideScreenOn) {
         CRadar::Draw3dMarkers();
     }
 
@@ -1223,7 +1224,7 @@ void CHud::DrawRadar() {
     }
 
     RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, RWRSTATE(rwFILTERLINEAR));
-    RwRenderStateSet(rwRENDERSTATESHADEMODE,     RWRSTATE(rwFILTERNEAREST));
+    RwRenderStateSet(rwRENDERSTATESHADEMODE,     RWRSTATE(rwSHADEMODEFLAT));   // 0x58A384: estado 7 con valor 1
 
     CRadar::DrawMap();
 

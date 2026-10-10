@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 41/41 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 6.
- * Validación registrada: 32/41 entradas.
+ * Validación registrada: 41/41 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -228,8 +228,8 @@ bool CWeapon::GenerateDamageEvent(CPed* victim, CEntity* creator, eWeaponType we
                 : ANIM_ID_FLOOR_HIT
         );
         if (floorHitAnim) {
-            // Como el original (0x73A653..0x73A66A): primero Start(0) y despues flags = (flags & 0xFFF7) | 1
-            floorHitAnim->Start();
+            // Como el original (0x73A653..0x73A66A): primero SetCurrentTime(0) (0x4CEA80, NO Start 0x4CEB70) y despues flags = (flags & 0xFFF7) | 1
+            floorHitAnim->SetCurrentTime(0.0f);
             floorHitAnim->SetFlag(ANIMATION_IS_FINISH_AUTO_REMOVE, false);
             floorHitAnim->SetFlag(ANIMATION_IS_PLAYING, true);
         }
@@ -255,8 +255,10 @@ bool CWeapon::GenerateDamageEvent(CPed* victim, CEntity* creator, eWeaponType we
     );
 
     bool ret = true;
+    // Como el original (0x73A6E5..0x73A72A): GetWeaponInfo(tipo, STD) se consulta SIEMPRE (la desviacion FIX_BUGS con TypeIsWeapon se quito: el
+    // EXE lee la entrada del tipo tambien para WEAPON_RAMMEDBYCAR..WEAPON_FLARE, que existen en la tabla)
     if (!victim->bInVehicle && (
-           (!notsa::IsFixBugs() || CWeaponInfo::TypeIsWeapon(weaponType)) && CWeaponInfo::GetWeaponInfo(weaponType)->m_nWeaponFire == eWeaponFire::WEAPON_FIRE_MELEE
+           CWeaponInfo::GetWeaponInfo(weaponType)->m_nWeaponFire == eWeaponFire::WEAPON_FIRE_MELEE
         || weaponType == WEAPON_FALL && creator && creator->GetIsTypeObject()
     )) { // 0x73A6F1
         eventDmg.ComputeAnim(victim, true);
@@ -276,7 +278,7 @@ bool CWeapon::GenerateDamageEvent(CPed* victim, CEntity* creator, eWeaponType we
             anim->m_BlendAmount = 0.f;
             anim->m_BlendDelta = eventDmg.m_fAnimBlend;
             anim->m_Speed = eventDmg.m_fAnimSpeed;
-            anim->Start();
+            anim->SetCurrentTime(0.0f); // Como el original (0x73A7A4): "push 0; call 0x4CEA80" = SetCurrentTime; Start() ademas activaba el flag ANIMATION_IS_PLAYING
             eventDmg.m_bAnimAdded = true; // Como el original: 0x73A7A9 or byte ptr [esp+4Dh],4 (bit 2 del byte 0x25 del evento)
             break;
         }
@@ -414,7 +416,10 @@ bool CWeapon::FireSniper(CPed* shooter, CEntity* victim, CVector* target) {
     CVector direction = activeCam.m_vecFront;
     direction.Normalise();
 
-    CBulletInfo::AddBullet(shooter, m_Type, activeCam.m_vecSource, CVector{ direction.x * 16.0f, direction.y * 16.0f, direction.z * 16.0f });
+    // Como el original (0x73ABEA..0x73AC30): los fstp [esp+28h/2Ch/30h] escriben dir*16 SOBRE el propio vector; el primer evento usa ese vector
+    // ya multiplicado (x16 y despues x40) y solo el segundo lo renormaliza (0x73ADC7).
+    direction = CVector{ direction.x * 16.0f, direction.y * 16.0f, direction.z * 16.0f };
+    CBulletInfo::AddBullet(shooter, m_Type, activeCam.m_vecSource, direction);
 
     // recoil effect for players
     if (shooter->IsPlayer()) {
@@ -591,9 +596,33 @@ float CWeapon::TargetWeaponRangeMultiplier(CEntity* target, CEntity* weaponOwner
     return 1.0f;
 }
 
+// Como el original (CRT 0x821E70): asin(x) = fpatan(x, fsqrt((1+x)*(1-x))) con las sumas, el producto y la raiz redondeados a float (x87 a 24 bits)
+// y el fpatan a precision completa; despues "fmul 57.29578" (0x42652EE0) redondeado a float.
+static float AsinDegreesX87(float x) {
+    if (!(x < 1.0f)) {
+        return (float)(std::asin((double)x) * (double)std::bit_cast<float>(0x42652EE0u));
+    }
+    const float deg = std::bit_cast<float>(0x42652EE0u);
+    float res;
+    __asm {
+        fld x
+        fld1
+        fadd st, st(1)
+        fld1
+        fsub st, st(2)
+        fmulp st(1), st
+        fsqrt
+        fpatan
+        fmul deg
+        fstp res
+    }
+    return res;
+}
+
 // 0x73B550
 void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& startPoint, const CVector& endPoint, const CColPoint& hitCP, int32 incrementalHit) {
-    const auto firedByPed = firedBy->GetIsTypePed()
+    // Como el original (0x73B586..0x73B597): el tirador puede ser nulo ("test ebx,ebx; je"); solo la rama sin victima lo tolera
+    const auto firedByPed = firedBy && firedBy->GetIsTypePed()
         ? firedBy->AsPed()
         : nullptr;
     const auto firedByPlayer = firedByPed && firedByPed->IsPlayer()
@@ -622,67 +651,77 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
             if (incrementalHit <= 0) {
                 const auto angle = (endPoint - startPoint).Normalized().Dot(hitCP.m_vecNormal);
                 if (angle < 0.f) { // Normal is opposite to that of the bullet's direction
+                    // Como el original (0x73B91F..0x73B93E): asin del CRT (0x821E70, precision completa) y despues "fmul 57.29578" (0x859878 = 0x42652EE0,
+                    // que NO es el float mas cercano a 180/pi); RWRAD2DEG(std::asin(float)) daba otra constante y un asin de simple precision.
                     AudioEngine.ReportBulletHit(
                         victim,
                         hitCP.m_nSurfaceTypeB,
                         hitCP.m_vecPoint,
-                        RWRAD2DEG(std::asin(-angle))
+                        AsinDegreesX87(-angle)
                     );
                 }
             }
         };
 
-#ifdef FIX_BUGS
-        if (firedByPlayer && (firedByPlayer != victim || firedBy->GetStatus() == STATUS_PLAYER)) { // 0x73B6D0
-#else
+        // Como el original (0x73B6BB..0x73B6CD): "(jugador && victima != tirador) || estado del tirador == STATUS_PLAYER". La rama FIX_BUGS
+        // (jugador && (victima != tirador || estado == STATUS_PLAYER)) se quito: el EXE no la tiene.
         if (firedByPlayer && firedByPlayer != victim || firedBy->GetStatus() == STATUS_PLAYER) { // 0x73B6D0
-#endif
             if (notsa::contains({ ENTITY_TYPE_PED, ENTITY_TYPE_VEHICLE, ENTITY_TYPE_OBJECT }, victim->GetType())) {
-                if (CStats::GetStatValue(STAT_BULLETS_FIRED) >= CStats::GetStatValue(STAT_BULLETS_THAT_HIT)) {
+                // Como el original (0x73B6DE..0x73B716): se consulta primero 0x80 (BULLETS_THAT_HIT) y despues 0x7E (BULLETS_FIRED);
+                // "fcomp" ordenado: con NaN no se incrementa
+                const float bulletsThatHit = CStats::GetStatValue(STAT_BULLETS_THAT_HIT);
+                const float bulletsFired = CStats::GetStatValue(STAT_BULLETS_FIRED);
+                if (bulletsFired >= bulletsThatHit) {
                     CStats::IncrementStat(STAT_BULLETS_THAT_HIT);
                 }
             }
             if (firedByPed && CWeaponInfo::TypeHasSkillStats(GetType())) { // 0x73B738 (0x73B731 exige que el tirador sea un ped)
                 // Redundant `if` check here was removed
+                // Como el original (0x73B731..0x73B858): el orden de las comprobaciones y de las llamadas es el del EXE.
                 if ([&]{
                     const auto victimEntity = notsa::coalesce(firedByPed->m_pTargetedObject, victim);
+                    bool hits = false;
 
-                    // NOTE: The code is written upside down to make the controlflow easier
+                    switch (victimEntity->GetType()) {
+                    case eEntityType::ENTITY_TYPE_PED: { // 0x73B75F: fcomp + "test ah,41h; je" => salud > 0 (ordenada)
+                        hits = victimEntity->AsPed()->m_fHealth > 0.f;
+                        break;
+                    }
+                    case eEntityType::ENTITY_TYPE_VEHICLE: { // 0x73B772: salud > 0 (ordenada) y estado != STATUS_WRECKED
+                        const auto victimVeh = victimEntity->AsVehicle();
+                        if (victimVeh->m_fHealth > 0.f && victimVeh->GetStatus() != STATUS_WRECKED) {
+                            hits = true;
+                        }
+                        // 0x73B7D7: despues, antibalas o no danable => falso
+                        if (victimVeh->physicalFlags.bBulletProof || !victimVeh->vehicleFlags.bCanBeDamaged) {
+                            hits = false;
+                        }
+                        // 0x73B7F6: ruedas => BurstTyre(pieza, true) (ranura 0x2C) siempre; si devuelve falso => falso
+                        if (notsa::contains(eCarPiece_WheelPieces, (eCarPiece)hitCP.m_nPieceTypeB)) {
+                            if (!victimVeh->BurstTyre(hitCP.m_nPieceTypeB, true)) {
+                                hits = false;
+                            }
+                        }
+                        break;
+                    }
+                    case eEntityType::ENTITY_TYPE_OBJECT: { // 0x73B797
+                        const auto victimObj = victimEntity->AsObject();
+                        if (victimObj->m_fHealth > 0.f && victimObj->m_nColDamageEffect && victimObj->m_pObjectInfo->m_fColDamageMultiplier >= 0.5f) {
+                            hits = true;
+                        }
+                        break;
+                    }
+                    }
 
+                    // 0x73B828..0x73B83F: con un ped (UNA sola consulta, siempre) => si estan en el mismo grupo no cuenta
                     if (victimEntity->GetIsTypePed() && CPedGroups::AreInSameGroup(victimEntity->AsPed(), firedByPed)) {
                         return false;
                     }
-
-                    switch (victimEntity->GetType()) {
-                    case eEntityType::ENTITY_TYPE_PED: {
-                        const auto victimPed = victimEntity->AsPed();
-                        return !CPedGroups::AreInSameGroup(victimPed, firedByPed) && victimPed->m_fHealth > 0.f;
-                    }
-                    case eEntityType::ENTITY_TYPE_VEHICLE: {
-                        const auto victimVeh = victimEntity->AsVehicle();
-                        if (notsa::contains(eCarPiece_WheelPieces, (eCarPiece)hitCP.m_nPieceTypeB)) {
-                            if (!victimVeh->BurstTyre(hitCP.m_nPieceTypeB, true)) {
-                                return false;
-                            }
-                        }
-                        if (victimVeh->physicalFlags.bBulletProof || !victimVeh->vehicleFlags.bCanBeDamaged) {
-                            return false;
-                        }
-                        if (victimVeh->m_fHealth <= 0.f || victimVeh->GetStatus() == STATUS_WRECKED) {
-                            return false;
-                        }
-                        return true;
-                    }
-                    case eEntityType::ENTITY_TYPE_OBJECT: {
-                        const auto victimObj = victimEntity->AsObject();
-                        return victimObj->m_fHealth > 0.f && victimObj->m_nColDamageEffect && victimObj->m_pObjectInfo->m_fColDamageMultiplier >= 0.5f;
-                    }
-                    }
-                    return false;
+                    return hits;
                 }()) {
                     CStats::UpdateStatsWhenWeaponHit(GetType());
                 }
-                
+
             }
         }
 
@@ -696,7 +735,8 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
                         hitCP.m_vecNormal,
                         hitCP.m_nSurfaceTypeB,
                         incrementalHit ? 2 : 8,
-                        hitCP.m_nLightingA.GetCurrentLighting()
+                        // Como el original (0x73BB5A, 0x73BEF8, 0x73C01F): la iluminacion es la del lado B (byte 0x25 del CColPoint), no la A (0x22)
+                        hitCP.m_nLightingB.GetCurrentLighting()
                     );
                 }
             };
@@ -705,7 +745,10 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
             case eEntityType::ENTITY_TYPE_BUILDING: { // 0x73C014
                 DoBulletImpactFx();
                 if (firedByPlayer) {
-                    firedByPlayer->GetPlayerData()->m_nModelIndexOfLastBuildingShot = victim->m_nModelIndex;
+                    // Como el original (0x73C050..0x73C066): los datos de jugador pueden ser nulos y el indice de modelo se extiende con signo (movsx word)
+                    if (const auto pd = firedByPlayer->GetPlayerData()) {
+                        pd->m_nModelIndexOfLastBuildingShot = (uint32)(int32)(int16)victim->m_nModelIndex;
+                    }
                 }
                 break;
             }
@@ -715,11 +758,12 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
                     victimVeh->InflictDamage(
                         firedBy,
                         GetType(),
-                        (float)(firedByPlayer && TheCamera.GetActiveCam().m_nMode == MODE_TWOPLAYER_IN_CAR_AND_SHOOTING ? 2 * wi->m_nDamage : wi->m_nDamage),
+                        // Como el original (0x73BE6D..0x73BEAA): movsx word + fild; con dos jugadores en coche el dano se duplica DESPUES de pasar a float
+                        (float)(firedByPlayer && TheCamera.GetActiveCam().m_nMode == MODE_TWOPLAYER_IN_CAR_AND_SHOOTING ? 2 * (int32)(int16)wi->m_nDamage : (int32)(int16)wi->m_nDamage),
                         hitCP.m_vecPoint
                     );
                     DoBulletImpactFx();
-                    if (g_LoadMonitor.GetProcLevel() != eProcessingLevel::HIGH) { // 0x73BF6C - NOTE/TODO: Useless, remove
+                    if ((int32)g_LoadMonitor.GetProcLevel() < 2) { // 0x73BF6C "cmp [0xB7298C],2; jge" (comparacion con signo) - NOTE/TODO: Useless, remove
                         const auto wepForceMult = [this]{
                             switch (GetType()) {
                             case WEAPON_DESERT_EAGLE:
@@ -743,13 +787,16 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
                     victimVeh->BurstTyre(hitCP.m_nPieceTypeB, true);
                     g_fx.AddTyreBurst(hitCP.m_vecPoint, hitCP.m_vecNormal);
                     if (firedByPed) { // Add event to occupants
+                        // Como el original (0x73BD84..0x73BE64): el evento se construye UNA vez en la pila y se anade con Add(&evento, false)
+                        // (la plantilla Add(T) por valor hacia una copia del evento y registraba/liberaba referencias de mas)
                         const auto AddEventVehicleDamageWeapon = [&](CPed* ped) {
                             if (ped) {
-                                ped->GetEventGroup().Add(CEventVehicleDamageWeapon{
+                                CEventVehicleDamageWeapon event{
                                     victimVeh,
                                     firedBy,
                                     GetType()
-                                });
+                                };
+                                ped->GetEventGroup().Add(&event, false);
                             }
                         };
                         AddEventVehicleDamageWeapon(victimVeh->m_pDriver);
@@ -820,24 +867,27 @@ void CWeapon::DoBulletImpact(CEntity* firedBy, CEntity* victim, const CVector& s
                         return true;
                     }
                     DoBulletHitFx();
+                    // Como el original (0x73B949..0x73BA58): primero la direccion local (0x5DEF60), despues el dano (movsx word) y al final
+                    // GenerateDamageEvent; el orden de evaluacion de los argumentos de la llamada no esta definido, asi que va en sentencias.
+                    const int32 localDirection = victimPed->GetLocalDirection(startPoint - victimPed->GetPosition2D());
+                    int32 damage = (int32)(int16)wi->m_nDamage;
+                    if (incrementalHit < 0) {
+                        damage = -(damage * incrementalHit);
+                    }
+                    if (firedByPlayer
+                        && (victim->GetPosition() - startPoint).Magnitude() < 1.0f // 0x73B9F8: Magnitude() (4082C0) y "mag < 1.0"
+                        && !victimPed->bNoCriticalHits
+                        && !notsa::contains({ WEAPON_SHOTGUN, WEAPON_SPAS12_SHOTGUN }, GetType())
+                    ) {
+                        damage = 150;
+                    }
                     return GenerateDamageEvent(
                         victimPed,
                         firedBy,
                         GetType(),
-                        [&] {
-                            if (firedByPlayer
-                                && (victim->GetPosition() - startPoint).Magnitude() < 1.0f // 0x73B9F8: Magnitude() (4082C0) y "mag < 1.0"
-                                && !victimPed->bNoCriticalHits
-                                && !notsa::contains({ WEAPON_SHOTGUN, WEAPON_SPAS12_SHOTGUN }, GetType())
-                            ) {
-                                return 150;
-                            }
-                            return incrementalHit < 0
-                                ? -(incrementalHit * (int32)wi->m_nDamage)
-                                : (int32)wi->m_nDamage;
-                        }(),
+                        damage,
                         (ePedPieceTypes)hitCP.m_nPieceTypeB,
-                        victimPed->GetLocalDirection(startPoint - victimPed->GetPosition2D())
+                        (uint8)localDirection
                     );
                 }();
                 if (firedByPlayer) { // 0x73BA79
@@ -2905,7 +2955,7 @@ void FireOneInstantHitRound(const CVector& startPoint, const CVector& endPoint, 
                 hitEntity,
                 hitCP.m_nSurfaceTypeB,
                 hitCP.m_vecPoint,
-                (float)(std::asin((double)(-angleOfIncidenceCos)) * (double)std::bit_cast<float>(0x42652EE0u))
+                AsinDegreesX87(-angleOfIncidenceCos)
             );
         }
     } else { // no hit entity

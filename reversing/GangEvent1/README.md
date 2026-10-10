@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 7496 con evidencia histórica, 0 con vigencia acreditada y 950 pendientes en 13 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # GangEvent1 - banco de CGroupEventHandler (30 fns) y CGangWars (32 fns)
 
 Banco "estilo viejo" (como PadMouse1): se engancha en `CGame::Process` y, por funcion, ejecuta el original del EXE (hook con `State(false)`, llamada a la direccion del EXE) frente al candidato de la DLL (`State(true)`). Se compara traza de colaboradores, valor devuelto y estado tocado. x87 a 24 bits.

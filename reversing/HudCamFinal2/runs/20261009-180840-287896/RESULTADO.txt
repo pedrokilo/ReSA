@@ -1,0 +1,3 @@
+APROBADO: CHud + CCam + CPickups (pendientes)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-hudcamfinal2\20261009-180840-287896

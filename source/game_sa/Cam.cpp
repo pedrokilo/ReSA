@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 44/44 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 30.
- * Validación registrada: 42/44 entradas.
+ * Validación registrada: 44/44 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -1290,11 +1290,11 @@ void CCam::Process_1stPerson(const CVector& target, float orientation, float spe
     auto& wheelieFlags = *(reinterpret_cast<uint8*>(targetVeh) + 0x614);
 
     // 0x517F49..0x517F5E: fild del tiempo (con signo) y fadd 2^32 si es negativo
+    // El x87 (24 bits) redondea una sola vez la suma exacta fild + 2^32: se hace en double para no redondear dos veces.
     const int32 timeSigned = static_cast<int32>(CTimer::GetTimeInMS());
-    float wheelieTime = static_cast<float>(timeSigned);
-    if (timeSigned < 0) {
-        wheelieTime += CamExeFloat(0x858C54);
-    }
+    const float wheelieTime = timeSigned < 0
+        ? static_cast<float>(static_cast<double>(timeSigned) + static_cast<double>(CamExeFloat(0x858C54)))
+        : static_cast<float>(timeSigned);
     if (s_LastWheelieTime > wheelieTime) {
         s_LastWheelieTime = 0.0f;
     }
@@ -1346,9 +1346,9 @@ void CCam::Process_1stPerson(const CVector& target, float orientation, float spe
     }
 
     // 0x5180EB..0x518145: el EXE mira el tipo del modelo (+0x3C); barca => dummy 0 (luz delantera), si no el 4 (asiento delantero)
-    auto* const modelInfo = CModelInfo::GetModelInfo(targetVeh->m_nModelIndex);
+    auto* const modelInfo = CModelInfo::GetModelInfo(int32(int16(targetVeh->m_nModelIndex))); // movsx eax,word ptr [ecx+22h] (0x5180EB)
     const bool  boatModel = *reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(modelInfo) + 0x3C) == 5;
-    const CVector& dummy  = targetVeh->GetVehicleModelInfo()->GetVehicleStruct()->m_avDummyPos[boatModel ? DUMMY_LIGHT_FRONT_MAIN : DUMMY_SEAT_FRONT];
+    const CVector& dummy  = modelInfo->AsVehicleModelInfoPtr()->GetVehicleStruct()->m_avDummyPos[boatModel ? DUMMY_LIGHT_FRONT_MAIN : DUMMY_SEAT_FRONT];   // [eax+5Ch] (0x5180FA)
     const CVector  localPosition{ 0.0f, dummy.y + CamExeFloat(0x859018), dummy.z + CamExeFloat(0x8631EC) }; // x se pone a 0 (0x518139)
 
     m_fFOV = 60.0f;
@@ -5971,7 +5971,21 @@ void CCam::Process_Rocket(const CVector& target, float orientation, float speedV
         GetVectorsReadyForRW();
 
         // 0x511E8A..0x511EBC: rumbo = atan2 del front menos pi/2 en el ped objetivo de TheCamera
-        const float heading = CGeneral::GetATanOfXY(m_vecFront.x, m_vecFront.y) - CamExeFloat(0x858FE4);
+        // GetATanOfXY devuelve el resultado en ST0 sin redondear a float y el EXE resta pi/2 (0x511E99 fsub) antes de guardarlo:
+        // se llama en ensamblador para no redondear dos veces.
+        float heading;
+        {
+            const float atanX = m_vecFront.x, atanY = m_vecFront.y, halfPi = CamExeFloat(0x858FE4);
+            const auto atanFn = &CGeneral::GetATanOfXY;
+            __asm {
+                push dword ptr [atanY]
+                push dword ptr [atanX]
+                call dword ptr [atanFn]
+                add  esp, 8
+                fsub dword ptr [halfPi]
+                fstp dword ptr [heading]
+            }
+        }
         auto* cameraTargetPed = StaticRef<CPed*>(0xB6F980);
         cameraTargetPed->m_fCurrentRotation = heading;
         cameraTargetPed->m_fAimingRotation  = heading;
