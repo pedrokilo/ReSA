@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "e76cfa3c50872851ea0588f0cd147dbe797e06e60d855a18f523ec9d7cc75393",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CPopulation::AddDeadPedInFrontOfCar": 256,
+    "CPopulation::AddPed": 1024,
+    "CPopulation::AddPedAtAttractor": 256,
+    "CPopulation::AddPedInCar": 512,
+    "CPopulation::CreateWaitingCoppers": 512,
+    "CPopulation::GeneratePedsAtAttractors": 512,
+    "CPopulation::PlaceCouple": 512,
+    "CPopulation::PopulateInterior": 256,
+    "CPopulation::TestSafeForRealObject": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "0e4ba173a95b56e5276e19e894c1b3472d54644950949a001b132b6123a2ac1d",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

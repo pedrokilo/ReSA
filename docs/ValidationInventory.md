@@ -6,10 +6,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 7809 |
+| `validated=1` · evidencia aprobada vinculada | 7893 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 7809 |
-| Sin evidencia aprobada vinculada en este registro | 637 |
+| Evidencia histórica vinculada; revisión pendiente | 7893 |
+| Sin evidencia aprobada vinculada en este registro | 553 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -3854,7 +3854,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPopCycle | `UpdateDealerStrengths` | [Resumen](../reversing/World15/validation-summary.json) |
 | CPopCycle | `UpdateIsGangArea` | [Resumen](../reversing/World15/validation-summary.json) |
 | CPopCycle | `UpdatePercentages` | [Resumen](../reversing/World15/validation-summary.json) |
+| CPopulation | `AddDeadPedInFrontOfCar` | [Resumen](../reversing/PopFinal4/validation-summary.json) |
 | CPopulation | `AddExistingPedInCar` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `AddPed` | [Resumen](../reversing/PopFinal4/validation-summary.json) |
+| CPopulation | `AddPedAtAttractor` | [Resumen](../reversing/PopFinal4/validation-summary.json) |
+| CPopulation | `AddPedInCar` | [Resumen](../reversing/PopFinal4/validation-summary.json) |
 | CPopulation | `AddToPopulation` | [Resumen](../reversing/PopulationPending/validation-summary.json) |
 | CPopulation | `ArePedStatsCompatible` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `CanJeerAtStripper` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
@@ -3868,6 +3872,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPopulation | `ConvertAllObjectsToDummyObjects` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `ConvertToDummyObject` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `ConvertToRealObject` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `CreateWaitingCoppers` | [Resumen](../reversing/PopFinal4/validation-summary.json) |
 | CPopulation | `DealWithZoneChange` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `DoesCarGroupHaveModelId` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `FindCarMultiplierMotorway` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
@@ -3878,6 +3883,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPopulation | `FindPedMultiplierMotorway` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `FindPedRaceFromName` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `FindSpecificDriverModelForCar_ToUse` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `GeneratePedsAtAttractors` | [Resumen](../reversing/PopFinal4/validation-summary.json) |
 | CPopulation | `GeneratePedsAtStartOfGame` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `Initialise` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `IsCorrectTimeOfDayForEffect` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
@@ -3901,14 +3907,17 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPopulation | `PedMICanBeCreatedInInterior` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `PickGangCar` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `PickRiotRoadBlockCar` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `PlaceCouple` | [Resumen](../reversing/PopFinal4/validation-summary.json) |
 | CPopulation | `PlaceGangMembers` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `PlaceMallPedsAsStationaryGroup` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `PopulateInterior` | [Resumen](../reversing/PopFinal4/validation-summary.json) |
 | CPopulation | `RemoveAllRandomPeds` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `RemovePed` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `RemovePedsIfThePoolGetsFull` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `RemoveSpecificDriverModelsForCar` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `Shutdown` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `TestRoomForDummyObject` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `TestSafeForRealObject` | [Resumen](../reversing/PopFinal4/validation-summary.json) |
 | CPopulation | `Update` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `UpdatePedCount` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPostEffects | `CCTV` | [Resumen](../reversing/FxPost1/validation-summary.json) |
@@ -6983,6 +6992,81 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicleAnimGroupData | `GetInOutTimings` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CVehicleAnimGroupData | `UsesKartDrivingAnims` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CVehicleAnimGroupData | `UsesTruckDrivingAnims` | [Resumen](../reversing/Events43/validation-summary.json) |
+| CVehicleModelInfo | `AddRemap` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `AddWheelUpgrade` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `AssignRemapTxd` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `ChooseComponent` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `ChooseComponent-Global` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `ChooseSecondComponent` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `ChooseVehicleColour` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `ClearAtomicFlagCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `CollapseFramesCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `ConvertAnimFileIndex` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `CountCompsInRule` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `CreateInstance` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `DeleteRwObject` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `DeleteVehicleColourTextures` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `DisableEnvMap` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `FindTextureCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetAnimFileIndex` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetCustomCarPlateText` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetListOfComponentsNotUsedByRules` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetMatFXEffectMaterialCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetMaximumNumberOfPassengersFromNumberOfDoors` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetModelType` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetNumDoors` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetNumRemaps` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetNumWheelUpgrades` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetOkAndDamagedAtomicCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetOriginalCompPosition` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetWheelPosn` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `GetWheelUpgrade` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `HasAlphaMaterialCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `HideAllComponentsAtomicCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `HideDamagedAtomicCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `Init` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `IsUpgradeAvailable` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `IsValidCompRule` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `LoadEnvironmentMaps` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `LoadVehicleColours` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `LoadVehicleUpgrades` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `MoveObjectsCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `PreprocessHierarchy` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `ReduceMaterialsInVehicle` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `RemoveWindowAlphaCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `ResetEditableMaterials` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetAnimFile` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetAtomicFlagCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetAtomicRenderCallbacks` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetAtomicRendererCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetAtomicRendererCB_Boat` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetAtomicRendererCB_Heli` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetAtomicRendererCB_Plane` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetAtomicRendererCB_RealHeli` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetAtomicRendererCB_Train` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetCarCustomPlate` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetClump` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetCustomCarPlateText` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetDirtTextures` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetEditableMaterials` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetEditableMaterialsCB-RpAtomic` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetEditableMaterialsCB-RpMaterial` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetEnvMapCoeff` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetEnvMapCoeffAtomicCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetEnvMapCoeffCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetEnvironmentMapAtomicCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetEnvironmentMapCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetRenderPipelines` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetRenderPipelinesCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetVehicleColour` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetVehicleComponentFlags` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetupCommonData` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `SetupLightFlags` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `ShutdownEnvironmentMaps` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `ShutdownLightTexture` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `StopUsingCommonVehicleTexDicationary` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `StoreAtomicUsedMaterialsCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `UseCommonVehicleTexDicationary` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
 | CVehiclePool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CVehicleRecording | `ChangeCarPlaybackToUseAI` | [Resumen](../reversing/VehRec29/validation-summary.json) |
 | CVehicleRecording | `FindIndexWithFileNameNumber` | [Resumen](../reversing/VehRec29/validation-summary.json) |
@@ -8175,7 +8259,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPointRoutePool` | 1 | 0 | 1 | 0 |
 | `CPools` | 19 | 0 | 19 | 0 |
 | `CPopCycle` | 15 | 0 | 15 | 0 |
-| `CPopulation` | 66 | 0 | 57 | 9 |
+| `CPopulation` | 66 | 0 | 66 | 0 |
 | `CPostEffects` | 38 | 0 | 38 | 0 |
 | `CProjectileInfo` | 12 | 0 | 12 | 0 |
 | `CPtrNodeDoubleLinkPool` | 1 | 0 | 1 | 0 |
@@ -8544,7 +8628,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CVehicle` | 142 | 0 | 142 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
-| `CVehicleModelInfo` | 75 | 0 | 0 | 75 |
+| `CVehicleModelInfo` | 75 | 0 | 75 | 0 |
 | `CVehiclePool` | 1 | 0 | 1 | 0 |
 | `CVehicleRecording` | 29 | 0 | 29 | 0 |
 | `CVehicleSaveStructure` | 2 | 0 | 2 | 0 |

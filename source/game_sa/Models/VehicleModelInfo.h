@@ -119,12 +119,16 @@ VALIDATE_SIZE(tVehicleCompsUnion, 0x4);
 
 struct UpgradePosnDesc {
 public:
+    // Como el EXE (constructor 0x4C73F0 = mov eax, ecx; ret): no escribe nada. m_qRotation vive en una unión anónima para que
+    // el constructor de CQuaternion (pone x, y, z, w a 0) no se ejecute y los bytes queden como los deja el EXE.
     UpgradePosnDesc(){};
     ~UpgradePosnDesc(){};
 
 public:
     CVector     m_vPosition;
-    CQuaternion m_qRotation;
+    union {
+        CQuaternion m_qRotation;
+    };
     int32       m_nParentComponentId;
 };
 VALIDATE_SIZE(UpgradePosnDesc, 0x20);
@@ -482,12 +486,14 @@ public:
 VALIDATE_SIZE(CVehicleModelInfo::CVehicleStructure, 0x314);
 VALIDATE_SIZE(CVehicleModelInfo, 0x308);
 
-static bool IsValidCompRule(int32 nRule);
-static int32 ChooseComponent(int32 rule, int32 comps);
-static int32 CountCompsInRule(int32 comps);
-static int32 GetListOfComponentsNotUsedByRules(uint32 compRules, int32 numExtras, int32* outList);
-static RpMaterial* RemoveWindowAlphaCB(RpMaterial* material, void* data); // data is RpMaterialList**
-static RwObject* GetOkAndDamagedAtomicCB(RwObject* object, void* data);   // data is &RpAtomic[2]
+// Funciones globales del EXE (0x4C7E10, 0x4C7FB0, 0x4C7F80, 0x4C7E50, 0x4C83B0, 0x4C7BD0). Sin 'static': enlace externo
+// para que los bancos de validación puedan llamar a la versión de la DLL.
+bool IsValidCompRule(int32 nRule);
+int32 ChooseComponent(int32 rule, int32 comps);
+int32 CountCompsInRule(int32 comps);
+int32 GetListOfComponentsNotUsedByRules(uint32 compRules, int32 numExtras, int32* outList);
+RpMaterial* RemoveWindowAlphaCB(RpMaterial* material, void* data); // data is RpMaterialList**
+RwObject* GetOkAndDamagedAtomicCB(RwObject* object, void* data);   // data is &RpAtomic[2]
 
 extern RwTexDictionary*& vehicleTxd;
 extern RwFrame*& carFrame;

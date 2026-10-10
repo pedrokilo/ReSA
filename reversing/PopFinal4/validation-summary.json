@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 9,
+  "not_registered_extra": [],
+  "functions": {
+    "CPopulation::AddDeadPedInFrontOfCar": 256,
+    "CPopulation::AddPed": 1024,
+    "CPopulation::AddPedAtAttractor": 256,
+    "CPopulation::AddPedInCar": 512,
+    "CPopulation::CreateWaitingCoppers": 512,
+    "CPopulation::GeneratePedsAtAttractors": 512,
+    "CPopulation::PlaceCouple": 512,
+    "CPopulation::PopulateInterior": 256,
+    "CPopulation::TestSafeForRealObject": 256
+  },
+  "covered_functions": {
+    "CPopulation::AddDeadPedInFrontOfCar": true,
+    "CPopulation::AddPed": true,
+    "CPopulation::AddPedAtAttractor": true,
+    "CPopulation::AddPedInCar": true,
+    "CPopulation::CreateWaitingCoppers": true,
+    "CPopulation::GeneratePedsAtAttractors": true,
+    "CPopulation::PlaceCouple": true,
+    "CPopulation::PopulateInterior": true,
+    "CPopulation::TestSafeForRealObject": true
+  },
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 4096 isolated CPU pairs for 9 functions of CPopulation, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture (seed = case index) in both legs and compares the return value, the bytes of the fake objects, the touched global ranges, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Traced doubles get NO credit. Only the own part of each function is validated. Source tested == current working tree at registration (class sources match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Padding and uninitialised bytes masked. Bank limits (PopFinal4): CPed::operator new (0x5E4720), CVehicle::operator new (0x6E2D50) and CTask::operator new (0x61A5A0) return holes of own buffers filled with 0xCD (fake buffers, not real pool objects); the constructors of CCivilianPed (0x5DDB70), CCopPed (0x5DDC60), CEmergencyPed (0x5DE340) and CAutomobile (0x6B0A90) are doubled in the EXE and in the DLL (they set only the fields read afterwards: vtable, model, type, intelligence, matrix, clump type 2), so they get no credit; stack tasks and events are REAL (EXE and DLL constructors/destructors) with CTaskManager::SetTask (0x681AF0) and CEventGroup::Add (0x4AB420) doubled and traced (type and words written; unwritten 0xCD arena bytes masked; in events only the fields 0x10/0x12/0x14/0x18 and 0x1C/0x20 of the attractor); world, camera, ground, collisions, paths, weapons, intelligence, streaming and the CPopulation functions each case does not test are doubled with traces and get no credit; ThePaths and the sector lists 0xB992B8 (3072 bytes), pool headers and every touched global are backed up and restored per case; CMatrix::operator* and CPed::SetHeading run undoubled (identity matrices / ped without matrix). Fixture domain: model ids 0..319 only (PedMICanBeCreatedAtThisAttractor reads [mi+0x28] without a null check, 0x61120C); PopulateInterior numPeds <= 6 (the EXE dereferences the ped returned by AddPed without a null check, 0x6165A2); the 2D effect is of attractor type (EFFECT_ATTRACTOR=3). Limits are declared per function in the function-specific scope and in the bank README.",
+  "function_scope": {
+    "CPopulation::AddDeadPedInFrontOfCar": "Corpus 256; fake ped/vehicle buffers (0xCD) and doubled constructors; world, ground Z and collision collaborators doubled with trace. ",
+    "CPopulation::AddPed": "Corpus 1024; ped/vehicle/task operator new return fake 0xCD buffers and the civilian/cop/emergency ped constructors are doubled (no credit); model ids 0..319; collaborators (world, intelligence, weapons, groups) doubled with trace. ",
+    "CPopulation::AddPedAtAttractor": "Corpus 256; source corrected: the attractor event uses task type 233 = 0xE9 (TASK_COMPLEX_USE_ATTRACTOR, 0x61438F; the DLL enum value is 235) - already in HEAD; stack event real, CEventGroup::Add doubled (only the attractor fields 0x10/0x12/0x14/0x18/0x1C/0x20 compared); 2D effect of attractor type (EFFECT_ATTRACTOR=3); model ids 0..319 (0x61120C). ",
+    "CPopulation::AddPedInCar": "Corpus 512; fake ped/vehicle buffers (0xCD) and doubled ped/CAutomobile constructors; CCarEnterExit and intelligence doubled with trace. ",
+    "CPopulation::CreateWaitingCoppers": "Corpus 512; source corrected against the EXE: 0x6D8470 is CVehicle::UsesSiren (not IsLawEnforcementVehicle 0x6D2370); FindPlayerPed(-1) is called BEFORE reserving the task (0x61391A..0x61395D); CTaskComplexKillPedOnFoot built with 6 arguments followed by `or [task+0Ch],30h` (bits 4 and 5 = m_bAimImmediate, m_bWaitForPlayerToBeSafe); fake vehicle/ped/task buffers (0xCD), doubled cop/emergency ped and CAutomobile constructors, SetTask and CEventGroup::Add doubled; JoinCarWithRoadSystem (0x42F5A0) patched only in the EXE. ",
+    "CPopulation::GeneratePedsAtAttractors": "Corpus 512; fake ped buffers (0xCD) and doubled constructors; attractor, path and position collaborators doubled with trace; 2D effect of attractor type (EFFECT_ATTRACTOR=3); model ids 0..319 (PedMICanBeCreatedAtThisAttractor reads [mi+0x28] without a null check, 0x61120C). ",
+    "CPopulation::PlaceCouple": "Corpus 512; fake ped buffers (0xCD) and doubled constructors; path/attractor/position-clear collaborators doubled with trace; model ids 0..319. ",
+    "CPopulation::PopulateInterior": "Corpus 256; numPeds limited to <= 6 because the EXE dereferences the ped returned by AddPed without a null check (0x6165A2); interior path nodes are fake (ThePaths.m_pPathNodes[5..7], restored); fake ped buffers (0xCD) and doubled constructors. ",
+    "CPopulation::TestSafeForRealObject": "Corpus 256; sector lists 0xB992B8 and pool headers backed up and restored; model infos fake (ids 0..319); FindObjectsInRange/ProcessColModels/collision collaborators doubled with trace. "
+  },
+  "dependency_review": null,
+  "run": "reversing/PopFinal4/runs/20261009-214531-885595",
+  "summary_sha256": "49c006cf900d6a118f3ecf6c17c8f2363250b6c0de4a2d3c416097c7788e0614",
+  "result_txt_sha256": "93cd9864e8d0e2d75eb9051b104d39b0b0acc1a2124a855fbb5ab12e32ff7378",
+  "log_sha256": "0e4ba173a95b56e5276e19e894c1b3472d54644950949a001b132b6123a2ac1d",
+  "comparison_storage": {
+    "uncompressed_sha256": "0e4ba173a95b56e5276e19e894c1b3472d54644950949a001b132b6123a2ac1d",
+    "uncompressed_bytes": 776953,
+    "compressed_path": "reversing/PopFinal4/runs/20261009-214531-885595/comparisons.jsonl.gz",
+    "compressed_sha256": "68f5965ba311ae7aea12bdd6aebd1c3adb0d6b92eba2737dc7325198beb692df",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "0e4ba173a95b56e5276e19e894c1b3472d54644950949a001b132b6123a2ac1d",
+    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-popfinal4\\20261009-214531-885595\\comparisons.jsonl"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "e76cfa3c50872851ea0588f0cd147dbe797e06e60d855a18f523ec9d7cc75393",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "head_informational": "8d69181c8c320c5162438a875c2af8012e1f5706",
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 4096,
+    "registered_pairs": 4096,
+    "asi": "e76cfa3c50872851ea0588f0cd147dbe797e06e60d855a18f523ec9d7cc75393",
+    "pdb": "f450f14f591bc9a637259ceaba341ca07c187ab997490e8956d55c14f79942f1",
+    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-popfinal4-probe.pdb (not copied; hash verified)",
+    "tested_sources": {
+      "source/game_sa/Population.cpp": "4d5bdf60cc3532e9711858e69c60ae09e151ca32742d79df06b6ec5f88bea88a",
+      "source/game_sa/Population.h": "49a7b66162734ff4480da6f02bfa09b2c7b34034a4b27382258bf301e482a711"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "bank_sources": {
+      "LiveComparison.hpp": "47565323653bb1efd00490546e0e18ff088a700f39cd3d786144b7565ff5d9bd",
+      "Pop4Cases.hpp": "d79f04b2233dd75374e83568991cbb7c6b3e62739797ac7ed2682fd1521e6be6",
+      "Pop4Support.hpp": "327131614dfdd2fae3fb50b40de665083e40d3fd1655306ba323aca35be0ece5",
+      "build_probe.py": "d03d2a442d9df5e261bb38cfeda4d26d3d1a75dc7a4dc9082d9c1a6b376efacb",
+      "run_local.py": "6043ccee5f7d18a8e44c1a7985747a9e2cb5127107b79d96d9dc4437016750c6"
+    },
+    "uncommitted_source_changes": {
+      "source/game_sa/Population.cpp": "CreateWaitingCoppers corregida contra el EXE: UsesSiren (0x6D8470) en vez de IsLawEnforcementVehicle (0x6D2370); FindPlayerPed(-1) antes de reservar la tarea (0x61391A..0x61395D); CTaskComplexKillPedOnFoot con 6 argumentos y `or [task+0Ch],30h` (bits 4 y 5). AddPedAtAttractor usa el tipo de tarea 233=0xE9 (TASK_COMPLEX_USE_ATTRACTOR, 0x61438F) y las correcciones generales de PopFinal3 ya estan en el arbol; ver git diff y el README del banco."
+    }
+  },
+  "reaudit": {
+    "comparison_events": 4096,
+    "complete_events": 1,
+    "terminal_error_events": 0,
+    "terminal_event": {
+      "event": "complete",
+      "layout_ok": true,
+      "pairs": 4096,
+      "state_restored": true
+    },
+    "layout_events": 1,
+    "begin_events": 0,
+    "begin_checked": true,
+    "waiting_for_player_events": 1,
+    "case_start_events": 0,
+    "function_summaries": 9,
+    "functions_with_zero_failures": 9,
+    "unequal_pairs": 0,
+    "unequal_by_function": {},
+    "distinct_cases": 4096,
+    "per_function": {
+      "CPopulation::AddPed": 1024,
+      "CPopulation::AddDeadPedInFrontOfCar": 256,
+      "CPopulation::AddPedInCar": 512,
+      "CPopulation::PlaceCouple": 512,
+      "CPopulation::AddPedAtAttractor": 256,
+      "CPopulation::CreateWaitingCoppers": 512,
+      "CPopulation::GeneratePedsAtAttractors": 512,
+      "CPopulation::PopulateInterior": 256,
+      "CPopulation::TestSafeForRealObject": 256
+    }
+  },
+  "source_corrections": {
+    "source/game_sa/Population.cpp": "CreateWaitingCoppers corregida contra el EXE: UsesSiren (0x6D8470) en vez de IsLawEnforcementVehicle (0x6D2370); FindPlayerPed(-1) antes de reservar la tarea (0x61391A..0x61395D); CTaskComplexKillPedOnFoot con 6 argumentos y `or [task+0Ch],30h` (bits 4 y 5). AddPedAtAttractor usa el tipo de tarea 233=0xE9 (TASK_COMPLEX_USE_ATTRACTOR, 0x61438F) y las correcciones generales de PopFinal3 ya estan en el arbol; ver git diff y el README del banco."
+  },
+  "notes": "PopFinal4 registers the last 9 functions of CPopulation (4096 pairs, 0 differences). Limits are declared per function; see scope and the bank README. No pending functions remain in CPopulation."
+}

@@ -18,7 +18,7 @@
  * Reconstrucción: COMPLETA — 75/75 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/75 entradas.
+ * Validación registrada: 75/75 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -201,8 +201,9 @@ RwObject* CVehicleModelInfo::CreateInstance()
         }
 
         auto iFirstComp = ChooseComponent();
-        if (iFirstComp != -1 && m_pVehicleStruct->m_apExtras[iFirstComp]) {
-            auto& extra = m_pVehicleStruct->m_apExtras[iFirstComp];
+        // Como el original (0x4C96E2, 0x4C9750): [struct + idx * 4 + 2F4h] sin comprobar el límite del array
+        if (iFirstComp != -1 && m_pVehicleStruct->m_apExtras.data()[iFirstComp]) {
+            auto& extra = m_pVehicleStruct->m_apExtras.data()[iFirstComp];
             auto atomicClone = RpAtomicClone(extra);
             auto newFrame = RwFrameCreate();
             RwFrameTransform(newFrame, RwFrameGetMatrix(RpAtomicGetFrame(extra)), RwOpCombineType::rwCOMBINEREPLACE);
@@ -213,8 +214,8 @@ RwObject* CVehicleModelInfo::CreateInstance()
         ms_compsUsed[0] = iFirstComp;
 
         auto iSecondComp = ChooseSecondComponent();
-        if (iSecondComp != -1 && m_pVehicleStruct->m_apExtras[iSecondComp]) {
-            auto& extra = m_pVehicleStruct->m_apExtras[iSecondComp];
+        if (iSecondComp != -1 && m_pVehicleStruct->m_apExtras.data()[iSecondComp]) {
+            auto& extra = m_pVehicleStruct->m_apExtras.data()[iSecondComp];
             auto atomicClone = RpAtomicClone(extra);
             auto newFrame = RwFrameCreate();
             RwFrameTransform(newFrame, RwFrameGetMatrix(RpAtomicGetFrame(extra)), RwOpCombineType::rwCOMBINEREPLACE);
@@ -237,7 +238,8 @@ RwObject* CVehicleModelInfo::CreateInstance()
 // Conserva temporalmente el nombre del AnimBlock hasta resolverlo a índice.
 void CVehicleModelInfo::SetAnimFile(const char* filename)
 {
-    if (!strcmp(filename, "null")) {
+    // Como el original (0x4C767E: call 0x8229B6): 0x8229B6 es _stricmp, así que "NULL" también se ignora
+    if (!_stricmp(filename, "null")) {
         m_nAnimBlockIndex = -1;
         return;
     }
@@ -245,7 +247,7 @@ void CVehicleModelInfo::SetAnimFile(const char* filename)
     const auto size = strlen(filename) + 1;
     auto name = new char[size];
     m_animBlockFileName = name;
-    strcpy_s(name, size, filename);
+    strcpy(name, filename); // Como el original (0x4C76C0): copia byte a byte; strcpy_s rellenaría con 0xFE en Debug
 }
 
 // 0x4C76D0
@@ -311,12 +313,14 @@ void CVehicleModelInfo::SetAtomicRenderCallbacks()
     }
 }
 
+// 0x4C7C10
 void CVehicleModelInfo::SetVehicleComponentFlags(RwFrame* component, uint32 flags)
 {
     tVehicleComponentFlagsUnion flagsUnion;
     flagsUnion.m_nFlags = flags;
 
-    auto handling = &gHandlingDataMgr.m_aVehicleHandling[m_nHandlingId];
+    // Como el original (0x4C7C1B): movzx edi, byte ptr [ecx+4Ah]; imul 0E0h; + 0C2B9DCh (solo el byte bajo del id, sin comprobar rango)
+    auto handling = &gHandlingDataMgr.m_aVehicleHandling.data()[static_cast<uint8>(m_nHandlingId)];
     if (flagsUnion.bCull)
         RwFrameForAllObjects(component, SetAtomicFlagCB, (void*)eAtomicComponentFlag::ATOMIC_FLAT);
 
@@ -355,7 +359,8 @@ void CVehicleModelInfo::GetWheelPosn(int32 wheel, CVector& outVec, bool local) c
         outVec = *RwMatrixGetPos(RwFrameGetMatrix(frame));
     else {
         auto matrix = RwMatrixCreate();
-        memcpy(matrix, RwFrameGetMatrix(frame), sizeof(CMatrix));
+        // Como el original (0x4C7D5A): rep movsd con ecx = 10h (0x40 bytes = sizeof(RwMatrix)); sizeof(CMatrix) copiaba 8 bytes de más
+        memcpy(matrix, RwFrameGetMatrix(frame), sizeof(RwMatrix));
         auto parent = RwFrameGetParent(frame);
         while (parent) {
             RwMatrixTransform(matrix, RwFrameGetMatrix(parent), RwOpCombineType::rwCOMBINEPOSTCONCAT);
@@ -377,6 +382,7 @@ bool CVehicleModelInfo::GetOriginalCompPosition(CVector& outVec, int32 component
     return true;
 }
 
+// 0x4C8040
 int32 CVehicleModelInfo::ChooseComponent()
 {
     auto result = ms_compsToUse[0];
@@ -387,17 +393,24 @@ int32 CVehicleModelInfo::ChooseComponent()
 
     if (m_extraComps.nExtraARule && IsValidCompRule(m_extraComps.nExtraARule)) {
         return ::ChooseComponent(m_extraComps.nExtraARule, m_extraComps.nExtraAComp);
-    } else if (CGeneral::GetRandomNumberInRange(0, 3) < 2) {
+    }
+
+    // Como el original (0x4C80B7..0x4C80D5): azar inlinado rand() * (1/32768) * 3.0 truncado = GetRandomIntInRange(0, 3);
+    // la plantilla entera de CGeneral interpola con 1/32767 sobre [min, max - 1] y puede salir desfasada en uno.
+    if (CGeneral::GetRandomIntInRange(0, 3) < 2) {
         int32 anVariations[6];
-        auto numComps = (size_t)GetListOfComponentsNotUsedByRules(m_extraComps.m_nComps, m_pVehicleStruct->m_nNumExtras, anVariations);
+        // movsx edx, byte ptr [ecx+30Ch] (0x4C80E2): m_nNumExtras con signo
+        const auto numComps = GetListOfComponentsNotUsedByRules(m_extraComps.m_nComps, static_cast<int8>(m_pVehicleStruct->m_nNumExtras), anVariations);
         if (numComps) {
-            return anVariations[CGeneral::GetRandomNumberInRange(numComps)];
+            // Como el original (0x4C8100): call 0x407180 (0, numComps)
+            return anVariations[CGeneral::GetRandomIntInRange(0, numComps)];
         }
     }
 
     return -1;
 }
 
+// 0x4C8120
 int32 CVehicleModelInfo::ChooseSecondComponent()
 {
     if (ms_compsToUse[1] != -2) {
@@ -406,16 +419,18 @@ int32 CVehicleModelInfo::ChooseSecondComponent()
 
     if (m_extraComps.nExtraBRule && IsValidCompRule(m_extraComps.nExtraBRule)) {
         return ::ChooseComponent(m_extraComps.nExtraBRule, m_extraComps.nExtraBComp);
-    } else if (m_extraComps.nExtraARule && IsValidCompRule(m_extraComps.nExtraARule) && CGeneral::GetRandomNumberInRange(0, 3) < 2) {
+    } else if (m_extraComps.nExtraARule && IsValidCompRule(m_extraComps.nExtraARule) && CGeneral::GetRandomIntInRange(0, 3) < 2) {
         int32 anVariations[6];
-        auto numComps = GetListOfComponentsNotUsedByRules(m_extraComps.m_nComps, m_pVehicleStruct->m_nNumExtras, anVariations);
+        // movsx edx, byte ptr [ecx+30Ch] (0x4C81C1): m_nNumExtras con signo
+        const auto numComps = GetListOfComponentsNotUsedByRules(m_extraComps.m_nComps, static_cast<int8>(m_pVehicleStruct->m_nNumExtras), anVariations);
         if (numComps)
-            return anVariations[CGeneral::GetRandomNumberInRange(0, numComps)];
+            return anVariations[CGeneral::GetRandomIntInRange(0, numComps)];
     }
 
     return -1;
 }
 
+// 0x4C8200
 bool CVehicleModelInfo::IsUpgradeAvailable(eVehicleUpgradePosn upgrade)
 {
     return m_pVehicleStruct->m_aUpgrades[upgrade].m_nParentComponentId >= 0;
@@ -453,12 +468,14 @@ void CVehicleModelInfo::ChooseVehicleColour(uint8& prim, uint8& sec, uint8& tert
         return;
     }
 
+    // Como el original (0x4C8554..0x4C8570): idiv con signo; el resto se guarda como byte y se indexa con movzx
+    // (un resto negativo da un índice de 0..255 sin comprobar el límite del array)
     auto iVariation = (variationShift + m_nLastColorVariation) % m_nNumColorVariations;
     m_nLastColorVariation = iVariation;
-    prim = m_anPrimaryColors[iVariation];
-    sec = m_anSecondaryColors[iVariation];
-    tert = m_anTertiaryColors[iVariation];
-    quat = m_anQuaternaryColors[iVariation];
+    prim = m_anPrimaryColors.data()[m_nLastColorVariation];
+    sec = m_anSecondaryColors.data()[m_nLastColorVariation];
+    tert = m_anTertiaryColors.data()[m_nLastColorVariation];
+    quat = m_anQuaternaryColors.data()[m_nLastColorVariation];
 
     if (m_nNumColorVariations <= 1)
         return;
@@ -475,10 +492,10 @@ void CVehicleModelInfo::ChooseVehicleColour(uint8& prim, uint8& sec, uint8& tert
 
         iVariation = (variationShift + m_nLastColorVariation) % m_nNumColorVariations;
         m_nLastColorVariation = iVariation;
-        prim = m_anPrimaryColors[iVariation];
-        sec = m_anSecondaryColors[iVariation];
-        tert = m_anTertiaryColors[iVariation];
-        quat = m_anQuaternaryColors[iVariation];
+        prim = m_anPrimaryColors.data()[m_nLastColorVariation];
+        sec = m_anSecondaryColors.data()[m_nLastColorVariation];
+        tert = m_anTertiaryColors.data()[m_nLastColorVariation];
+        quat = m_anQuaternaryColors.data()[m_nLastColorVariation];
     }
 }
 
@@ -500,8 +517,9 @@ int32 CVehicleModelInfo::GetNumRemaps()
 void CVehicleModelInfo::AddRemap(int32 txd)
 {
     auto numRemaps = GetNumRemaps();
-    m_anRemapTxds[numRemaps] = txd;
-
+    // Como el original (0x4C86F4): mov word ptr [ecx+eax*2+2FAh], dx sin comprobar el límite (con 4 remaps escribe en el
+    // relleno que sigue a m_anRemapTxds, en 0x302)
+    m_anRemapTxds.data()[numRemaps] = static_cast<int16>(txd);
 }
 
 void CVehicleModelInfo::SetRenderPipelines()
@@ -525,14 +543,18 @@ char* CVehicleModelInfo::GetCustomCarPlateText()
     return m_szPlateText;
 }
 
+// 0x4C8980
 void CVehicleModelInfo::SetCustomCarPlateText(char* text) {
     if (text) {
-        strcpy_s(m_szPlateText, text); // OG code truncated to 8 chars, but we're not gonna do that (As we want to get errors instead of quietly truncating)
+        // Como el original (0x4C898F: call 0x821F40 con 8): strncpy trunca a 8 caracteres y no escribe el terminador
+        // (m_szPlateText[8] no se toca); strcpy_s no truncaba y fallaba con textos largos
+        strncpy(m_szPlateText, text, 8);
     } else {
         m_szPlateText[0] = '\0';
     }
 }
 
+// 0x4C8BD0
 void CVehicleModelInfo::ReduceMaterialsInVehicle()
 {
     CMemoryMgr::LockScratchPad();
@@ -541,15 +563,18 @@ void CVehicleModelInfo::ReduceMaterialsInVehicle()
     RpMaterialList matList;
     matList.space = 20;
     matList.numMaterials = 0;
+    // El EXE reserva con 0x72F420 (malloc); el new[] de la DLL reenvía a 0x821195 -> 0x82119A, que también acaba en malloc
     matList.materials = new RpMaterial*[matList.space];
 
-    // CTimer::GetCurrentTimeInCycles(); // unused code used for performance diagnostics i guess
+    // Como el original (0x4C8C02, 0x4C8C54, 0x4C8C59): medición de tiempos descartada, pero el EXE hace las tres llamadas
+    (void)CTimer::GetCurrentTimeInCycles();
     RpClumpForAllAtomics(GetRpClump(), StoreAtomicUsedMaterialsCB, &matList);
-    for (int32 i = 0; i < m_pVehicleStruct->m_nNumExtras; ++i)
-        StoreAtomicUsedMaterialsCB(m_pVehicleStruct->m_apExtras[i], &matList);
+    // Como el original: la cuenta es un byte con signo (test cl, cl; jle / movsx ecx, byte ptr [eax+30Ch]) y se relee cada vuelta
+    for (int32 i = 0; i < static_cast<int8>(m_pVehicleStruct->m_nNumExtras); ++i)
+        StoreAtomicUsedMaterialsCB(m_pVehicleStruct->m_apExtras.data()[i], &matList);
 
-    // CTimer::GetCurrentTimeInCycles();
-    // CTimer::GetCyclesPerMillisecond();
+    (void)CTimer::GetCurrentTimeInCycles();
+    (void)CTimer::GetCyclesPerMillisecond();
     _rpMaterialListDeinitialize(&matList);
     CMemoryMgr::ReleaseScratchPad();
     CVisibilityPlugins::ClearClumpForAllAtomicsFlag(GetRpClump(), eAtomicComponentFlag::ATOMIC_UNIQUE_MATERIALS);
@@ -577,26 +602,32 @@ void CVehicleModelInfo::DisableEnvMap()
     RpClumpForAllAtomics(GetRpClump(), SetEnvironmentMapAtomicCB, (void*)0xFFFF);
 }
 
+// 0x4C9800
 void CVehicleModelInfo::SetEnvMapCoeff(float coeff)
 {
-    auto iUsedCoeff = static_cast<int32>(floor(coeff * 1000.0F));
+    // Como el original (0x4C9800..0x4C981B): fmul 1000.0f, floor (CRT) y _ftol2 (0x821B40): truncación a 64 bits y se usa el dword bajo
+    auto iUsedCoeff = static_cast<int32>(static_cast<int64>(floor(coeff * 1000.0F)));
     if (!GetRwObject())
         return;
 
     RpClumpForAllAtomics(GetRpClump(), SetEnvMapCoeffAtomicCB, (void*)iUsedCoeff);
 }
 
+// 0x4C73C0
 int32 CVehicleModelInfo::GetNumDoors()
 {
-    return m_nNumDoors;
+    // Como el original: movsx eax, byte ptr [ecx+4Ch] (extiende el signo del byte)
+    return static_cast<int8>(m_nNumDoors);
 }
 
+// 0x4C8E60
 void CVehicleModelInfo::PreprocessHierarchy()
 {
     m_nNumDoors = 0;
     RpAtomic* mainWheelAtomic = nullptr;
     RpAtomic* pTrainBogieAtomic = nullptr;
-    auto& handling = gHandlingDataMgr.m_aVehicleHandling[m_nHandlingId];
+    // Como el original (0x4C8E6F): movzx eax, byte ptr [edi+4Ah]; imul 0E0h; + 0C2B9DCh (solo el byte bajo del id, sin comprobar rango)
+    auto& handling = gHandlingDataMgr.m_aVehicleHandling.data()[static_cast<uint8>(m_nHandlingId)];
     RwObjectNameIdAssocation* nameIdAssoc = ms_vehicleDescs[m_nVehicleType];
     while (nameIdAssoc->m_pName) {
         auto flags = nameIdAssoc->AsFlagsUnion();
@@ -630,7 +661,8 @@ void CVehicleModelInfo::PreprocessHierarchy()
                     RpClumpRemoveAtomic(GetRpClump(), atomic);
                     RwFrameRemoveChild(searchStruct.m_pFrame);
                     SetVehicleComponentFlags(searchStruct.m_pFrame, nameIdAssoc->m_dwFlags);
-                    m_pVehicleStruct->m_apExtras[m_pVehicleStruct->m_nNumExtras] = atomic;
+                    // Como el original (0x4C902E): movsx ecx, byte ptr [eax+30Ch]; sin comprobar el límite del array
+                    m_pVehicleStruct->m_apExtras.data()[static_cast<int8>(m_pVehicleStruct->m_nNumExtras)] = atomic;
                     ++m_pVehicleStruct->m_nNumExtras;
                 }
             }
@@ -688,7 +720,12 @@ void CVehicleModelInfo::PreprocessHierarchy()
             RwFrameUpdateObjects(frame);
             RwFrameForAllObjects(frame, GetOkAndDamagedAtomicCB, aOkDamAtomics);
             if (aOkDamAtomics[0] && aOkDamAtomics[1]) {
-                RpAtomicSetRenderCallBack(aOkDamAtomics[1], RpAtomicGetRenderCallBack(aOkDamAtomics[0]));
+                // Como el original (0x4C918B..0x4C919A): dam->renderCallBack = ok->renderCallBack y, si es nulo, AtomicDefaultRenderCallBack
+                // del EXE (0x7491C0); la macro de la DLL guardaría la dirección del envoltorio de la DLL.
+                aOkDamAtomics[1]->renderCallBack = aOkDamAtomics[0]->renderCallBack;
+                if (!aOkDamAtomics[1]->renderCallBack) {
+                    aOkDamAtomics[1]->renderCallBack = reinterpret_cast<RpAtomicCallBackRender>(0x7491C0);
+                }
                 m_pVehicleStruct->m_nMaskComponentsDamagable |= (1 << nameIdAssoc->m_dwHierarchyId);
             }
         }
@@ -706,6 +743,8 @@ void CVehicleModelInfo::PreprocessHierarchy()
                     auto pClone = RpAtomicClone(mainWheelAtomic);
                     RpAtomicSetFrame(pClone, frame);
                     RpClumpAddAtomic(GetRpClump(), pClone);
+                    // Como el original (0x4C920F..0x4C9215: push 7323C0h; call 0x7328A0): la rueda clonada también recibe RenderWheelAtomicCB
+                    CVisibilityPlugins::SetAtomicRenderCallback(pClone, CVisibilityPlugins::RenderWheelAtomicCB);
                     if (nameIdAssoc->m_dwHierarchyId != CAR_WHEEL_RF
                         && nameIdAssoc->m_dwHierarchyId != CAR_WHEEL_LF
                         && handling.m_bDoubleRwheels) {
@@ -746,9 +785,12 @@ void CVehicleModelInfo::SetupLightFlags(CVehicle* vehicle)
     ms_lightsOn[3] = vehicle->m_renderLights.m_bRightRear;
 }
 
+// 0x4C89B0
 int32 CVehicleModelInfo::GetMaximumNumberOfPassengersFromNumberOfDoors(int32 modelId)
 {
     auto mi = CModelInfo::GetModelInfo(modelId)->AsVehicleModelInfoPtr();
+    // Como el original (0x4C89BF): movzx eax, byte ptr [edx+4Ah]; imul 0E0h; + 0C2B9DCh (solo el byte bajo del id, sin comprobar rango)
+    const auto handling = &gHandlingDataMgr.m_aVehicleHandling.data()[static_cast<uint8>(mi->m_nHandlingId)];
     if (mi->IsBoat() || mi->IsTrailer())
         return 0;
 
@@ -768,11 +810,13 @@ int32 CVehicleModelInfo::GetMaximumNumberOfPassengersFromNumberOfDoors(int32 mod
         break;
 
     default:
-        iDoorsNum = mi->GetNumDoors();
+        // Como el original (0x4C8A31: mov cl, byte ptr [edx+4Ch]; ...; movzx eax, cl): el byte se usa SIN signo aquí
+        // (GetNumDoors, 0x4C73C0, sí lo extiende con movsx)
+        iDoorsNum = mi->m_nNumDoors;
         if (iDoorsNum)
             break;
 
-        if (mi->IsBike() || mi->IsBMX() || mi->IsQuad() || gHandlingDataMgr.GetVehiclePointer(mi->m_nHandlingId)->m_bTandemSeats) {
+        if (mi->IsBike() || mi->IsBMX() || mi->IsQuad() || handling->m_bTandemSeats) {
             return mi->m_pVehicleStruct->IsDummyActive(eVehicleDummy::DUMMY_SEAT_REAR) ? 1 : 0;
         }
         else {
@@ -782,7 +826,7 @@ int32 CVehicleModelInfo::GetMaximumNumberOfPassengersFromNumberOfDoors(int32 mod
         }
     }
 
-    if (gHandlingDataMgr.GetVehiclePointer(mi->m_nHandlingId)->m_bTandemSeats)
+    if (handling->m_bTandemSeats)
         return std::max(0, (iDoorsNum - 2) / 2);
 
     if (modelId == MODEL_COACH || modelId == MODEL_BUS)
@@ -915,10 +959,12 @@ RwTexture* CVehicleModelInfo::FindTextureCB(const char* name)
         return named;
     }
 
+    // Como el original (0x4C7560): copia byte a byte hasta el NUL sin comprobar el tamaño del búfer local
     char buffer[32];
-    strcpy_s(buffer, name);
+    strcpy(buffer, name);
     buffer[0] = '#';
-    return RwTexDictionaryFindNamedTexture(current, buffer);
+    // Como el original (0x4C7574): vuelve a llamar a RwTexDictionaryGetCurrent (0x7F3A90) para esta segunda búsqueda
+    return RwTexDictionaryFindNamedTexture(RwTexDictionaryGetCurrent(), buffer);
 }
 
 void CVehicleModelInfo::UseCommonVehicleTexDicationary()
@@ -1054,15 +1100,15 @@ RpAtomic* CVehicleModelInfo::SetAtomicRendererCB_Plane(RpAtomic* atomic, void* d
 RpAtomic* CVehicleModelInfo::SetAtomicRendererCB_Boat(RpAtomic* atomic, void* data)
 {
     auto nodeName = GetFrameNodeName(RpAtomicGetFrame(atomic));
+    // Como el original (0x4C79B1..0x4C79C6): el recorrido de materiales (HasAlphaMaterialCB) se hace ANTES de comparar el nombre
+    bool bHasAlpha = false;
+    RpGeometryForAllMaterials(RpAtomicGetGeometry(atomic), HasAlphaMaterialCB, &bHasAlpha);
     if (!strcmp(nodeName, "boat_hi"))
         CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderVehicleHiDetailCB_Boat);
     else if (strstr(nodeName, "_vlo")) {
         CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderVehicleLoDetailCB_Boat);
     }
     else {
-        auto geometry = RpAtomicGetGeometry(atomic);
-        bool bHasAlpha = false;
-        RpGeometryForAllMaterials(geometry, HasAlphaMaterialCB, &bHasAlpha);
         if (bHasAlpha)
             CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderVehicleHiDetailAlphaCB_Boat);
         else
@@ -1148,9 +1194,11 @@ void CVehicleModelInfo::SetDirtTextures(CVehicleModelInfo* info, int32 dirtLevel
             RpMaterialSetTexture(info->m_apDirtMaterials[i], CCarFXRenderer::ms_aDirtTextures[dirtLevel]);
 }
 
+// 0x4C87D0
 void CVehicleModelInfo::ShutdownEnvironmentMaps()
 {
-    static bool bEnvMapsLoaded = false; //Not used anywhere else
+    // Como el original (0x4C87D9): mov byte ptr ds:[0B4E6BCh], 0 (bandera global del EXE; antes era una estática local de la DLL)
+    StaticRef<bool>(0xB4E6BC) = false;
     RwTextureDestroy(gpWhiteTexture);
     gpWhiteTexture = nullptr;
 
@@ -1159,20 +1207,25 @@ void CVehicleModelInfo::ShutdownEnvironmentMaps()
     carFrame = nullptr;
 }
 
+// 0x4C8810
 RpMaterial* CVehicleModelInfo::GetMatFXEffectMaterialCB(RpMaterial* material, void* data)
 {
-    auto iEffects = RpMatFXMaterialGetEffects(material);
-    if (!iEffects)
+    // Como el original (0x4C8816 y 0x4C8823): llama dos veces a RpMatFXMaterialGetEffects
+    if (!RpMatFXMaterialGetEffects(material))
         return material;
 
-    *reinterpret_cast<RpMatFXMaterialFlags*>(data) = iEffects;
+    *reinterpret_cast<RpMatFXMaterialFlags*>(data) = RpMatFXMaterialGetEffects(material);
     return nullptr;
 }
 
+// 0x4C8840
 RpMaterial* CVehicleModelInfo::SetEnvironmentMapCB(RpMaterial* material, void* data)
 {
-    if ((uint16)std::bit_cast<uintptr_t>(data) == 0xFFFF) {
-        return DisableMatFx(material, data);
+    // Como el original (0x4C8840: cmp dword ptr [esp+8], 0FFFFh): se compara el dword completo, no solo 16 bits;
+    // la rama llama directamente a RpMatFXMaterialSetEffects(material, 0) (0x4C884F..0x4C8852: push 0, push esi, call 0x811C80)
+    if (std::bit_cast<uintptr_t>(data) == 0xFFFF) {
+        RpMatFXMaterialSetEffects(material, rpMATFXEFFECTNULL);
+        return material;
     }
 
     if (RpMatFXMaterialGetEffects(material) != RpMatFXMaterialFlags::rpMATFXEFFECTENVMAP)
@@ -1186,13 +1239,27 @@ RpMaterial* CVehicleModelInfo::SetEnvironmentMapCB(RpMaterial* material, void* d
     return material;
 }
 
+// 0x4C88B0
 RpMaterial* CVehicleModelInfo::SetEnvMapCoeffCB(RpMaterial* material, void* data)
 {
     if (RpMatFXMaterialGetEffects(material) != RpMatFXMaterialFlags::rpMATFXEFFECTENVMAP)
         return material;
 
-    auto uiCoeff = reinterpret_cast<int32>(data);
-    float fCoeff = static_cast<float>(uiCoeff) / 1000.0F;
+    // Como el original (0x4C88C7..0x4C88DC), en x87: fild dword [data]; si es negativo suma 2^32 (0x858C54);
+    // fmul 0.001f (0x858CDC, NO una división entre 1000); fstp dword. El producto se redondea una sola vez a float.
+    const int32 coeffRaw = reinterpret_cast<int32>(data);
+    const float bias = std::bit_cast<float>(0x4F800000u);  // 4294967296.0f
+    const float scale = std::bit_cast<float>(0x3A83126Fu); // 0.001f (0x858CDC)
+    float fCoeff;
+    __asm {
+        fild dword ptr [coeffRaw]
+        cmp dword ptr [coeffRaw], 0
+        jge coeffNonNegative
+        fadd dword ptr [bias]
+    coeffNonNegative:
+        fmul dword ptr [scale]
+        fstp dword ptr [fCoeff]
+    }
     RpMatFXMaterialSetEnvMapCoefficient(material, fCoeff);
     return material;
 }
@@ -1222,18 +1289,21 @@ RpAtomic* CVehicleModelInfo::SetEnvMapCoeffAtomicCB(RpAtomic* atomic, void* data
     return atomic;
 }
 
+// 0x4C9360
 void CVehicleModelInfo::AssignRemapTxd(const char* name, int16 txdSlot)
 {
+    // Como el original (0x4C937B, 0x4C938D, 0x4C93A2): movzx del byte antes de llamar a isdigit (carácter sin signo)
     auto iLen = strlen(name);
-    if (!isdigit(name[iLen - 1]))
+    if (!isdigit(static_cast<uint8>(name[iLen - 1])))
         return;
 
     auto iLastIndex = iLen - 2;
-    while (isdigit(name[iLastIndex]))
+    while (isdigit(static_cast<uint8>(name[iLastIndex])))
         --iLastIndex;
 
+    // Como el original (0x4C93BD: call 0x821F40): strncpy sin comprobar el tamaño del búfer local, luego el terminador
     char buffer[24];
-    strncpy_s(buffer, name, iLastIndex + 1);
+    strncpy(buffer, name, iLastIndex + 1);
     buffer[iLastIndex + 1] = '\0';
 
     auto mi = CModelInfo::GetModelInfo(buffer, 400, 630);
@@ -1260,6 +1330,7 @@ RpAtomic* CVehicleModelInfo::StoreAtomicUsedMaterialsCB(RpAtomic* atomic, void* 
     return atomic;
 }
 
+// 0x5B8F00
 void CVehicleModelInfo::SetupCommonData() {
     ZoneScoped;
 
@@ -1275,7 +1346,7 @@ void CVehicleModelInfo::SetupCommonData() {
     CTxdStore::AddRef(slot);
     if (slot != -1)
         vehicleTxd = CTxdStore::ms_pTxdPool->GetAt(slot)->m_pRwDictionary;
-    assert(vehicleTxd);
+    // Sin assert(vehicleTxd): el EXE (0x5B8F93) pasa el diccionario tal cual a RwTexDictionaryFindNamedTexture
     ms_pLightsTexture = RwTexDictionaryFindNamedTexture(vehicleTxd, "vehiclelights128");
     ms_pLightsOnTexture = RwTexDictionaryFindNamedTexture(vehicleTxd, "vehiclelightson128");
     CLoadingScreen::NewChunkLoaded();
@@ -1292,9 +1363,13 @@ void CVehicleModelInfo::LoadVehicleColours()
 
     eCarColLineType iLastMode = eCarColLineType::IGNORED;
     eCarColLineType iCurMode = eCarColLineType::IGNORED;
+    // Como el original: red/green/blue son locales de pila que persisten entre líneas (sscanf no escribe los que no lee, p. ej. con
+    // el error de carcols.dat "77.93,96": el EXE deja los valores de la línea anterior). Se inicializan una vez fuera del bucle.
+    uint32 red{}, green{}, blue{};
     while (CFileMgr::ReadLine(file, buffer, 1024)) {
+        // Como el original (0x5B68E0..0x5B690B): sin límite de 10 caracteres, comparación SIN signo (cmp al, 20h; ja) y parada en NUL o '\n'
         auto iStartInd = 0;
-        while (iStartInd < 10 && buffer[iStartInd] && buffer[iStartInd] <= ' ')
+        while (static_cast<uint8>(buffer[iStartInd]) <= ' ' && buffer[iStartInd] && buffer[iStartInd] != '\n')
             ++iStartInd;
 
         auto pLineStart = &buffer[iStartInd];
@@ -1333,16 +1408,8 @@ void CVehicleModelInfo::LoadVehicleColours()
         }
 
         if (iLastMode == eCarColLineType::GLOBAL_RGB) {
-            uint32 red{}, green{}, blue{};
-            const auto read = sscanf_s(buffer, "%d %d %d", &red, &green, &blue);
-#ifdef FIX_BUGS
-            if (read != 3) {
-                // there is a typo in carcols.dat:
-                // "77.93,96			# 98 malachite poly			blue"
-                //    ^~~ should've be a comma.
-                VERIFY(sscanf_s(buffer, "%d.%d %d", &red, &green, &blue) == 3);
-            }
-#endif
+            // Como el original (0x5B6A3E): solo sscanf "%d %d %d"; sin el arreglo de la línea "77.93,96" de carcols.dat (el EXE no lo tiene)
+            RET_IGNORED(sscanf_s(buffer, "%d %d %d", &red, &green, &blue));
             curColor->Set(red, green, blue, 255);
             auto pLineEnd = pLineStart;
             while (*pLineEnd != '#') // Seems redundant(?)
@@ -1450,12 +1517,14 @@ void CVehicleModelInfo::LoadVehicleColours()
 // 0x5B65A0
 void CVehicleModelInfo::LoadVehicleUpgrades()
 {
+    // Como el original (0x5B65BE..0x5B65D1): primero se abre el fichero y después se ponen a 0 los contadores de ruedas
+    auto file = CFileMgr::OpenFile("DATA\\CARMODS.DAT", "r");
     for (auto& wheelUpgrade : ms_numWheelUpgrades)
         wheelUpgrade = 0;
-
-    auto file = CFileMgr::OpenFile("DATA\\CARMODS.DAT", "r");
     char* line;
     eCarModsLineType iLineType = eCarModsLineType::IGNORED;
+    // Como el original: el número de juego de ruedas es un local de pila que persiste entre líneas (si sscanf no lo lee, conserva el anterior)
+    int32 iWheelSet = 0;
     while ((line = CFileLoader::LoadLine(file))) {
         if (!line[0] || line[0] == '#')
             continue;
@@ -1507,23 +1576,23 @@ void CVehicleModelInfo::LoadVehicleUpgrades()
             while (nextToken) {
                 auto ami = static_cast<CAtomicModelInfo*>(CModelInfo::GetModelInfo(nextToken, &iModelId));
                 ami->SetupVehicleUpgradeFlags(nextToken);
-                mi->m_anUpgrades[upgradeIdx++] = iModelId;
+                mi->m_anUpgrades.data()[upgradeIdx++] = iModelId; // sin comprobar el límite, como el original (0x5B6784)
                 nextToken = strtok_s(nullptr, " \t,", &pLastToken);
             }
 
             auto hydraulicsAMI = static_cast<CAtomicModelInfo*>(CModelInfo::GetModelInfo("hydralics", &iModelId));
             hydraulicsAMI->SetupVehicleUpgradeFlags("hydralics");
-            mi->m_anUpgrades[upgradeIdx++] = iModelId;
+            mi->m_anUpgrades.data()[upgradeIdx++] = iModelId; // sin comprobar el límite, como el original (0x5B6784)
 
             auto stereoAMI = static_cast<CAtomicModelInfo*>(CModelInfo::GetModelInfo("stereo", &iModelId));
             stereoAMI->SetupVehicleUpgradeFlags("stereo");
-            mi->m_anUpgrades[upgradeIdx] = iModelId;
+            mi->m_anUpgrades.data()[upgradeIdx] = iModelId;
             break;
         }
 
         case eCarModsLineType::WHEEL: {
-            int32 iModelId = -1, iWheelSet;
-            VERIFY(sscanf_s(line, "%d", &iWheelSet) == 1);
+            int32 iModelId = -1;
+            RET_IGNORED(sscanf_s(line, "%d", &iWheelSet)); // el EXE (0x5B66B3) no comprueba el resultado
             RET_IGNORED(strtok_s(line, " \t,", &pLastToken));
             char* token;
             while ((token = strtok_s(nullptr, " \t,", &pLastToken))) {
@@ -1542,8 +1611,10 @@ void CVehicleModelInfo::LoadVehicleUpgrades()
 // 0x4C8780
 void CVehicleModelInfo::LoadEnvironmentMaps()
 {
+    // Como el original (0x4C8781..0x4C8793): FindTxdSlot("particle") se evalúa ANTES de PushCurrentTxd
+    const auto particleSlot = CTxdStore::FindTxdSlot("particle");
     CTxdStore::PushCurrentTxd();
-    CTxdStore::SetCurrentTxd(CTxdStore::FindTxdSlot("particle"));
+    CTxdStore::SetCurrentTxd(particleSlot);
     if (!gpWhiteTexture) {
         gpWhiteTexture = RwTextureRead("white", nullptr);
         RwTextureGetName(gpWhiteTexture)[0] = '@';
@@ -1588,8 +1659,10 @@ int16 CVehicleModelInfo::CLinkedUpgradeList::FindOtherUpgrade(int16 upgrade)
 }
 
 // 0x4C8D60
-CVehicleModelInfo::CVehicleStructure::CVehicleStructure() : m_aUpgrades()
+CVehicleModelInfo::CVehicleStructure::CVehicleStructure()
 {
+    // Como el original (0x4C8D60): el constructor de cada UpgradePosnDesc (0x4C73F0) no escribe nada; solo se ponen a 0 los
+    // dummies, el padre de cada upgrade a -1, los extras, su contador y la máscara (sin inicializar m_aUpgrades por valor)
     for (auto& vecPos : m_avDummyPos)
         vecPos.Set(0.0F, 0.0F, 0.0F);
 
@@ -1603,8 +1676,9 @@ CVehicleModelInfo::CVehicleStructure::CVehicleStructure() : m_aUpgrades()
 
 CVehicleModelInfo::CVehicleStructure::~CVehicleStructure()
 {
-    for (int32 i = 0; i < m_nNumExtras; ++i) {
-        auto atomic = m_apExtras[i];
+    // Como el original (0x4C7410..0x4C744B): la cuenta es un byte con signo (test al, al; jle / movsx eax, byte ptr [ebp+30Ch])
+    for (int32 i = 0; i < static_cast<int8>(m_nNumExtras); ++i) {
+        auto atomic = m_apExtras.data()[i];
         auto frame = RpAtomicGetFrame(atomic);
         RpAtomicDestroy(atomic);
         RwFrameDestroy(frame);
@@ -1630,28 +1704,32 @@ bool IsValidCompRule(int32 nRule)
         || CWeather::NewWeatherType == WEATHER_RAINY_SF;
 }
 
+// 0x4C7FB0
 int32 ChooseComponent(int32 rule, int32 comps)
 {
+    // Como el original: las tres ramas llaman a 0x407180 (min + (int)(rand * 1/32768 * (max - min))) = GetRandomIntInRange;
+    // la plantilla entera de CGeneral interpola con 1/32767 sobre [min, max - 1] y puede salir desfasada en uno.
     if (rule == eComponentsRules::ALLOW_ALWAYS || rule == eComponentsRules::ONLY_WHEN_RAINING) {
         auto iNumComps = CountCompsInRule(comps);
-        auto rand = CGeneral::GetRandomNumberInRange(0, iNumComps);
+        auto rand = CGeneral::GetRandomIntInRange(0, iNumComps);
         return (comps >> (4 * rand)) & 0xF;
     }
     else if (rule == eComponentsRules::MAYBE_HIDE) {
         auto iNumComps = CountCompsInRule(comps);
-        auto rand = CGeneral::GetRandomNumberInRange(-1, iNumComps);
+        auto rand = CGeneral::GetRandomIntInRange(-1, iNumComps);
         if (rand == -1)
             return -1;
 
         return (comps >> (4 * rand)) & 0xF;
     }
     else if (rule == eComponentsRules::FULL_RANDOM) {
-        return CGeneral::GetRandomNumberInRange(0, 5);
+        return CGeneral::GetRandomIntInRange(0, 5);
     }
     else
         return -1;
 }
 
+// 0x4C7F80
 int32 CountCompsInRule(int32 comps)
 {
     int32 result = 0;
@@ -1659,7 +1737,7 @@ int32 CountCompsInRule(int32 comps)
         if ((comps & 0xF) != 0xF)
             ++result;
 
-        comps /= 16;
+        comps >>= 4; // Como el original (0x4C7F9B): sar ecx, 4 (desplazamiento aritmético; "/ 16" redondea hacia cero y difiere con negativos)
     }
 
     return result;

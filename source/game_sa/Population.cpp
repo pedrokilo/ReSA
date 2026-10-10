@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 66/66 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 57/66 entradas.
+ * Validación registrada: 66/66 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -1401,7 +1401,7 @@ void CPopulation::CreateWaitingCoppers(CVector createAt, float createaWithHeadin
 
                 CCarCtrl::JoinCarWithRoadSystem(veh);
 
-                if (veh->IsLawEnforcementVehicle() && (CGeneral::GetRandomNumber() & 1)) {
+                if (veh->UsesSiren() && (CGeneral::GetRandomNumber() & 1)) { // Como el original: llama a 0x6D8470 (UsesSiren), no a IsLawEnforcementVehicle (0x6D2370)
                     veh->vehicleFlags.bSirenOrAlarm = true;
                 }
 
@@ -1494,9 +1494,15 @@ void CPopulation::CreateWaitingCoppers(CVector createAt, float createaWithHeadin
             }
 
             {
+                // Como el original (0x61391A..0x61395D): FindPlayerPed(-1) se llama ANTES de reservar la tarea; el constructor de 6 argumentos deja los
+                // bits 4..6 del byte 0xC a 0 y despues se hace `or [task+0Ch],30h` (bits 4 y 5 = m_bAimImmediate y m_bWaitForPlayerToBeSafe).
+                const auto target = FindPlayerPed();
+                const auto killTask = new CTaskComplexKillPedOnFoot{target, -1, 0, 0, 0, 2};
+                killTask->m_bAimImmediate = true;
+                killTask->m_bWaitForPlayerToBeSafe = true;
                 CEventScriptCommand killEvent{
                     TASK_PRIMARY_PRIMARY,
-                    new CTaskComplexKillPedOnFoot{FindPlayerPed(), -1, 0, 0, 0, 2, true, true}
+                    killTask
                 };
                 ped->GetEventGroup().Add(&killEvent, false);
                 ped->GetIntelligence()->Process();

@@ -3,7 +3,7 @@
 [Inicio](../README.md) · [Progreso registrado](ReversedClasses.md) · [Proceso y continuidad](../reversing/MEJORAS_DEL_PROCESO.md)
 <!-- Documento generado por contrib/validation_queue.py (lo llama contrib/sync_docs.py). No editar a mano. -->
 
-> **Corte 09/10/2026.** Esta guía ordena **qué validar primero**: las funciones ya reconstruidas (`reversed=1`) que todavía no tienen evidencia aprobada (`validated=0`) en [`hooks.csv`](hooks.csv).
+> **Corte 10/10/2026.** Esta guía ordena **qué validar primero**: las funciones ya reconstruidas (`reversed=1`) que todavía no tienen evidencia aprobada (`validated=0`) en [`hooks.csv`](hooks.csv).
 
 **Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). `validated=1` indica evidencia aprobada vinculada y no acredita por sí sola que siga vigente para el árbol actual.
 
@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.446 |
 | Reconstruidas | 8.446 |
-| Validadas | 7.809 |
-| Reconstruidas sin validar | 637 |
-| De ellas, en esta cola (validables por pares) | 636 |
+| Validadas | 7.893 |
+| Reconstruidas sin validar | 553 |
+| De ellas, en esta cola (validables por pares) | 552 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -23,10 +23,10 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
 | [🟢 Nivel 1: muy barato](#nivel-1) | 0 | 0 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 3 | 241 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 1 | 9 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 2 | 166 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 0 | 0 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 4 | 386 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **8** | **636** | |
+| **Total** | **6** | **552** | |
 
 <a id="nivel-1"></a>
 
@@ -39,25 +39,23 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (3 clases, 241 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (2 clases, 166 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CVehicleModelInfo | 75 | 75 |  | 22 |
-| 2 | CAudioEngine | 82 | 82 |  | 10 |
-| 3 | CVisibilityPlugins | 84 | 84 |  | 14 |
+| 1 | CAudioEngine | 82 | 82 |  | 10 |
+| 2 | CVisibilityPlugins | 84 | 84 |  | 14 |
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (1 clases, 9 funciones)
+## 🟠 Nivel 3: moderadas (0 clases, 0 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CPopulation | 66 | 9 |  | 40 |
 
 <a id="nivel-4"></a>
 
