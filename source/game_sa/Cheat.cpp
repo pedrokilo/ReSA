@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 72/72 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/72 entradas.
+ * Validación registrada: 72/72 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -162,37 +162,50 @@ void CCheat::AddToCheatString(char LastPressedKey) {
         return;
     }
 
-    int32 hashIndex;
-    int32 cheatStringSize = CHEAT_MIN_HASH_SIZE;
-    for (auto i = CHEAT_MIN_HASH_SIZE; i < CHEAT_STRING_SIZE; i++) {
-        uint32 hash = CKeyGen::GetKey(m_CheatString, cheatStringSize);
-        cheatStringSize++;
+    // Como el original (0x4384E0..0x4384ED): copia local de la cadena, incluido el 0 final
+    char buf[CHEAT_STRING_SIZE];
+    {
+        size_t k = 0;
+        char   c;
+        do {
+            c = m_CheatString[k];
+            buf[k] = c;
+            k++;
+        } while (c != 0);
+    }
 
-        hashIndex = -1;
+    // Como el original (0x438500..0x438527): prueba primero la cadena completa y va acortando por el final (hasta 6)
+    for (int32 len = (int32)strLen; len >= CHEAT_MIN_HASH_SIZE; --len) {
+        const uint32 hash = CKeyGen::GetKey(buf); // 0x53CF00
+
+        // Como el original (0x438510): se queda con el primer indice que coincide
         for (int32 j = 0; j < TOTAL_CHEATS; ++j) {
-            if (m_aCheatHashKeys[j] != hash) {
+            if ((uint32)m_aCheatHashKeys[j] != hash) {
                 continue;
             }
-            hashIndex = j;
-        }
-        if (hashIndex == -1) {
-            continue;
+
+            if (m_aCheatsActive[j]) {
+                // deactivated
+                CHud::SetHelpMessage(TheText.Get("CHEAT8"), true, false, false);
+            } else {
+                // activated
+                CHud::SetHelpMessage(TheText.Get("CHEAT1"), true, false, false);
+            }
+
+            CStats::IncrementStat(STAT_TIMES_CHEATED, 1.0f);
+
+            // Como el original (0x438576): el indicador se pone ANTES de ejecutar el truco; sin pasar por ApplyCheat
+            m_bHasPlayerCheated = true;
+            if (auto* const func = m_aCheatFunctions[j]) {
+                func();
+            } else {
+                m_aCheatsActive[j] = !m_aCheatsActive[j];
+            }
+            m_CheatString[0] = '\0';
+            return;
         }
 
-        if (m_aCheatsActive[hashIndex]) {
-            // deactivated
-            CHud::SetHelpMessage(TheText.Get("CHEAT8"), true, false, false);
-        } else {
-            // activated
-            CHud::SetHelpMessage(TheText.Get("CHEAT1"), true, false, false);
-        }
-
-        CStats::IncrementStat(STAT_TIMES_CHEATED, 1.0f);
-
-        ApplyCheat(static_cast<eCheats>(hashIndex));
-        m_bHasPlayerCheated = true;
-        m_CheatString[0] = '\0';
-        return;
+        buf[len - 1] = 0; // 0x43851F
     }
 }
 
@@ -236,7 +249,8 @@ void CCheat::AdrenalineCheat() {
     if (IsActive(CHEAT_ADRENALINE_MODE)) {
         CPickups::GivePlayerGoodiesWithPickUpMI(ModelIndices::MI_PICKUP_ADRENALINE, 0);
     } else {
-        FindPlayerPed()->ClearAdrenaline(); // FIX_BUGS
+        // Como el original (0x4398A8..0x4398BE): solo limpia el bit 1 (m_bAdrenaline) del dword [m_pPlayerData+0x34]
+        FindPlayerPed()->GetPlayerData()->m_bAdrenaline = false;
     }
 }
 
@@ -269,7 +283,7 @@ void CCheat::BeachPartyCheat() {
         CStreaming::StreamPedsIntoRandomSlots(peds);
 
         CPlayerPed* player = FindPlayerPed();
-        player->GetClothesDesc()->SetTextureAndModel(nullptr, nullptr, CLOTHES_TEXTURE_SPECIAL); // FIX_BUGS
+        // Como el original (0x439289..): no hay llamada previa para limpiar CLOTHES_TEXTURE_SPECIAL
         player->GetClothesDesc()->SetTextureAndModel("torso", nullptr, CLOTHES_TEXTURE_TORSO);
         player->GetClothesDesc()->SetTextureAndModel("shortskhaki", "shorts", CLOTHES_TEXTURE_LEGS);
         player->GetClothesDesc()->SetTextureAndModel("flipflop", "flipflop", CLOTHES_TEXTURE_SHOES);
@@ -295,8 +309,12 @@ void CCheat::BlackCarsCheat() {
 
 // 0x439d80
 void CCheat::BlowUpCarsCheat() {
-    for (auto& veh : GetVehiclePool()->GetAllValid()) {
-        veh.BlowUpCar(nullptr, false);
+    // Como el original (0x439D80..0x439DBE): recorre el pool de vehiculos del ultimo slot al primero
+    auto* const pool = GetVehiclePool();
+    for (auto i = pool->GetSize(); i > 0; --i) {
+        if (auto* const veh = pool->GetAt(i - 1)) {
+            veh->BlowUpCar(nullptr, false);
+        }
     }
 }
 
@@ -349,7 +367,7 @@ void CCheat::DrivebyCheat() {
 // 0x439540
 void CCheat::DuskCheat() {
     Toggle(CHEAT_STOP_GAME_CLOCK_ORANGE_SKY);
-    if (!IsActive(CHEAT_STOP_GAME_CLOCK_ORANGE_SKY)) {
+    if (IsActive(CHEAT_STOP_GAME_CLOCK_ORANGE_SKY)) { // Como el original (0x43954C..0x439555): pone las 21:00 al ACTIVAR
         CClock::ms_nGameClockHours = 21;
         CClock::ms_nGameClockMinutes = 0;
         CClock::ms_nGameClockSeconds = 0;
@@ -372,16 +390,18 @@ void CCheat::ElvisLivesCheat() {
 void CCheat::EverybodyAttacksPlayerCheat() {
     Toggle(CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD);
     if (IsActive(CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD)) {
-        auto* const player = FindPlayerPed();
-        for (auto& ped : GetPedPool()->GetAllValid()) {
-            if (ped.IsPlayer())
+        // Como el original (0x439CA1..0x439D5A): recorre el pool de peds del ultimo slot al primero
+        auto* const pool = GetPedPool();
+        for (auto i = pool->GetSize(); i > 0; --i) {
+            auto* const ped = pool->GetAt(i - 1);
+            if (!ped || ped->IsPlayer())
                 continue;
 
-            ped.GetAcquaintance().SetAsAcquaintance(ACQUAINTANCE_HATE, CPedType::GetPedFlag(PED_TYPE_PLAYER1));
+            ped->GetAcquaintance().SetAsAcquaintance(ACQUAINTANCE_HATE, CPedType::GetPedFlag(PED_TYPE_PLAYER1));
 
-            CEventAcquaintancePedHate event(player);
+            CEventAcquaintancePedHate event(FindPlayerPed());
             event.m_TaskId = TASK_COMPLEX_KILL_PED_ON_FOOT;
-            ped.GetEventGroup().Add(&event, false);
+            ped->GetEventGroup().Add(&event, false);
         }
     }
 }
@@ -414,8 +434,7 @@ void CCheat::FatCheat() {
 void CCheat::FunhouseCheat() {
     Toggle(CHEAT_FUNHOUSE_THEME);
     if (IsActive(CHEAT_FUNHOUSE_THEME)) {
-        CPostEffects::m_bHeatHazeFX = false;
-    } else {
+        // Como el original (0x43973B..0x439871): la rama activa carga los peds, viste al jugador y activa la distorsion
         int32 peds[] = {
             MODEL_WMYBELL, MODEL_WFYBURG, MODEL_WMOICE, UNLOAD_MODEL,
             UNLOAD_MODEL, UNLOAD_MODEL, UNLOAD_MODEL, UNLOAD_MODEL,
@@ -423,7 +442,6 @@ void CCheat::FunhouseCheat() {
         CStreaming::StreamPedsIntoRandomSlots(peds);
 
         CPlayerPed* player = FindPlayerPed();
-        player->GetClothesDesc()->SetTextureAndModel(nullptr, nullptr, CLOTHES_TEXTURE_SPECIAL); // FIX_BUGS
         player->GetClothesDesc()->SetTextureAndModel("torso", "torso", CLOTHES_TEXTURE_TORSO);
         player->GetClothesDesc()->SetTextureAndModel("legsheart", "legs", CLOTHES_TEXTURE_LEGS);
         player->GetClothesDesc()->SetTextureAndModel("timberhike", "bask1", CLOTHES_TEXTURE_SHOES);
@@ -438,6 +456,9 @@ void CCheat::FunhouseCheat() {
         CStreaming::ReclassifyLoadedCars();
         ExtraSunnyWeatherCheat();
         CPostEffects::m_bHeatHazeFX = true;
+    } else {
+        // Como el original (0x439875): al desactivar solo se apaga la distorsion
+        CPostEffects::m_bHeatHazeFX = false;
     }
 }
 
@@ -481,8 +502,9 @@ void CCheat::HandleSpecialCheats(eCheats cheat) {
 
 // 0x438D60
 void CCheat::HealthCheat() {
+    // Como el original (0x438D60..0x438D83): usa la vida maxima del jugador 0 (byte global 0xB7CEE7), no la del ped
     CPlayerPed* player = FindPlayerPed();
-    player->m_fHealth = player->GetPlayerInfoForThisPlayerPed()->m_nMaxHealth;
+    player->m_fHealth = static_cast<float>(CWorld::Players[0].m_nMaxHealth);
 
     CVehicle* vehicle = FindPlayerVehicle();
     if (!vehicle) {
@@ -532,41 +554,28 @@ void CCheat::LoveConquersAllCheat() {
 void CCheat::MayhemCheat() {
     Toggle(CHEAT_PEDS_ATTACK_OTHER_WITH_GOLFCLUB);
     if (IsActive(CHEAT_PEDS_ATTACK_OTHER_WITH_GOLFCLUB)) {
-        std::swap(CPedType::ms_apPedTypesOld, CPedType::ms_apPedTypes); // NOTSA
-
         for (uint32 pedType = PED_TYPE_CIVMALE; pedType <= PED_TYPE_PROSTITUTE; pedType++) {
             CPedType::SetPedTypeAsAcquaintance(ACQUAINTANCE_HATE, static_cast<ePedType>(pedType), 0xFFFFF);
         }
 
-        for (auto& ped : GetPedPool()->GetAllValid()) {
-            if (ped.IsPlayer())
+        // Como el original (0x439B6E..0x439C5A): recorre el pool de peds del ultimo slot al primero
+        auto* const pool = GetPedPool();
+        for (auto i = pool->GetSize(); i > 0; --i) {
+            auto* const ped = pool->GetAt(i - 1);
+            if (!ped || ped->IsPlayer())
                 continue;
 
             for (uint32 pedType_1 = PED_TYPE_CIVMALE; pedType_1 <= PED_TYPE_PROSTITUTE; ++pedType_1) {
-                ped.GetAcquaintance().SetAsAcquaintance(ACQUAINTANCE_HATE, CPedType::GetPedFlag(static_cast<ePedType>(pedType_1)));
+                ped->GetAcquaintance().SetAsAcquaintance(ACQUAINTANCE_HATE, CPedType::GetPedFlag(static_cast<ePedType>(pedType_1)));
             }
-            if (CPed* closestPed = ped.GetIntelligence()->GetPedScanner().GetClosestPedInRange()) {
+            if (CPed* closestPed = ped->GetIntelligence()->GetPedScanner().GetClosestPedInRange()) {
                 CEventAcquaintancePedHate event(closestPed);
                 event.m_TaskId = TASK_COMPLEX_KILL_PED_ON_FOOT;
-                ped.GetEventGroup().Add(&event, false);
-            }
-        }
-    } else {
-        // FIX_BUGS https://youtu.be/L97xXbFnFWM?t=90
-        // todo: currently fixes only save game
-        std::swap(CPedType::ms_apPedTypes, CPedType::ms_apPedTypesOld); // straightforward solution
-
-        for (auto& ped : GetPedPool()->GetAllValid()) {
-            if (ped.IsPlayer())
-                continue;
-
-            if (CPed* closestPed = ped.GetIntelligence()->GetPedScanner().GetClosestPedInRange()) {
-                CEventAcquaintancePedHate event(closestPed);
-                event.m_TaskId = TASK_NONE;
-                ped.GetEventGroup().Remove(&event);
+                ped->GetEventGroup().Add(&event, false);
             }
         }
     }
+    // Como el original (0x439B4A): al desactivar no hace nada mas (sin intercambio de tablas de tipos ni baja de eventos)
 }
 
 // 0x439510
@@ -581,11 +590,10 @@ void CCheat::MidnightCheat() {
 
 // 0x438e40
 void CCheat::MoneyArmourHealthCheat() {
+    // Como el original (0x438E41..0x438E80): dinero del jugador en foco, armadura maxima del jugador 0 (0xB7CEE8)
+    CWorld::Players[CWorld::PlayerInFocus].m_nMoney += 250000;
     CPlayerPed* player = FindPlayerPed();
-    CPlayerInfo* playerInfo = player->GetPlayerInfoForThisPlayerPed();
-
-    playerInfo->m_nMoney += 250000;
-    player->m_fArmour = playerInfo->m_nMaxArmour;
+    player->m_fArmour = static_cast<float>(CWorld::Players[0].m_nMaxArmour);
     HealthCheat();
 }
 
@@ -603,10 +611,7 @@ void CCheat::MuscleCheat() {
 void CCheat::NinjaCheat() {
     Toggle(CHEAT_NINJA_THEME);
     if (IsActive(CHEAT_NINJA_THEME)) {
-        if (IsActive(CHEAT_BLACK_TRAFFIC)) {
-            Disable(CHEAT_BLACK_TRAFFIC);
-        }
-    } else {
+        // Como el original (0x439E6E..0x439F48): la rama ACTIVA carga los peds, apaga los otros temas y da la katana
         int32 peds[] = {
             MODEL_TRIADA, MODEL_TRIADB, MODEL_TRIBOSS, UNLOAD_MODEL,
             UNLOAD_MODEL, UNLOAD_MODEL, UNLOAD_MODEL, UNLOAD_MODEL,
@@ -640,6 +645,11 @@ void CCheat::NinjaCheat() {
         CPlayerPed* player = FindPlayerPed();
         player->GiveWeapon(WEAPON_KATANA, 0, true);
         player->SetCurrentWeapon(WEAPON_KATANA);
+    } else {
+        // Como el original (0x439F4D): al desactivar solo se quita el trafico negro
+        if (IsActive(CHEAT_BLACK_TRAFFIC)) {
+            Disable(CHEAT_BLACK_TRAFFIC);
+        }
     }
 }
 
@@ -647,8 +657,7 @@ void CCheat::NinjaCheat() {
 void CCheat::NotWantedCheat() {
     CPlayerPed* player = FindPlayerPed();
     player->CheatWantedLevel(eWantedLevel::WANTED_CLEAN);
-    player->bWantedByPolice = false;
-    Toggle(CHEAT_I_DO_AS_I_PLEASE);
+    Toggle(CHEAT_I_DO_AS_I_PLEASE); // Como el original (0x4396C0..0x4396E2): no toca bWantedByPolice
 }
 
 // 0x4395b0
@@ -709,8 +718,10 @@ void CCheat::TankerCheat() {
         return;
 
     auto* trailer = new CTrailer(MODEL_PETROTR, RANDOM_VEHICLE);
+    if (!trailer)
+        return; // Como el original (0x43A5F3: test esi,esi / je): sin memoria en el pool no se hace nada mas
     trailer->SetPosn(vehicle->GetPosition());
-    trailer->SetOrientation(0.0f, 0.0f, DegreesToRadians(200));
+    trailer->SetOrientation(0.0f, 0.0f, std::bit_cast<float>(0x405F66F3u)); // Como el original (0x43A616): literal exacto de 200 grados
     trailer->SetStatus(STATUS_ABANDONED);
     CWorld::Add(trailer);
     trailer->SetTowLink(vehicle, true);
@@ -723,10 +734,22 @@ CVehicle* CCheat::VehicleCheat(eModelID modelId) {
         return nullptr;
     }
 
-    //    for (auto i = 0; i < 50; ++i) {
-    //        auto vehicle = CPools::GetVehiclePool()->GetAtRef(i);
-    //        if (vehicle)
-    //    }
+    // Como el original (0x43A0E2..0x43A105): si hay mas de 50 vehiculos vivos en el pool no crea nada
+    {
+        auto* const pool = GetVehiclePool();
+        int32 numUsed = 0;
+        for (int32 i = 0; i < (int32)pool->GetSize(); i++) {
+            if (!pool->IsFreeSlotAtIndex(i)) {
+                numUsed++;
+            }
+        }
+        if (numUsed > 50) {
+            return nullptr;
+        }
+    }
+
+    // Como el original (0x43A128): las banderas de streaming se leen ANTES de pedir el modelo
+    const auto streamFlagsBefore = CStreaming::GetInfo(modelId).GetFlags();
 
     CStreaming::RequestModel(modelId, STREAMING_GAME_REQUIRED);
     CStreaming::LoadAllRequestedModels(false);
@@ -734,18 +757,55 @@ CVehicle* CCheat::VehicleCheat(eModelID modelId) {
         return nullptr;
     }
 
-    if (!CStreaming::GetInfo(modelId).IsGameRequired()) {
+    if (!(streamFlagsBefore & STREAMING_GAME_REQUIRED)) { // 0x43A14E: test bl,2
         CStreaming::SetModelIsDeletable(modelId);
         CStreaming::SetModelTxdIsDeletable(modelId);
     }
-    
-    auto* const vehicle = CCarGenerator::CreateVehicle(modelId, RANDOM_VEHICLE); // NB(NOTSA): Made this function instead of having shit here (Also fixes train spawning!)
+
+    // Como el original (0x43A162..0x43A32D): tabla de saltos por tipo de vehiculo del modelo; tren, helicoptero y avion
+    // falsos y cualquier otro tipo caen en CAutomobile (no se usa CCarGenerator::CreateVehicle)
+    CVehicle* vehicle;
+    switch (CModelInfo::GetModelInfo(modelId)->AsVehicleModelInfoPtr()->m_nVehicleType) {
+    case VEHICLE_TYPE_MTRUCK:
+        vehicle = new CMonsterTruck(modelId, RANDOM_VEHICLE);
+        break;
+    case VEHICLE_TYPE_QUAD:
+        vehicle = new CQuadBike(modelId, RANDOM_VEHICLE);
+        break;
+    case VEHICLE_TYPE_HELI:
+        vehicle = new CHeli(modelId, RANDOM_VEHICLE);
+        break;
+    case VEHICLE_TYPE_PLANE:
+        vehicle = new CPlane(modelId, RANDOM_VEHICLE);
+        break;
+    case VEHICLE_TYPE_BOAT:
+        vehicle = new CBoat(modelId, RANDOM_VEHICLE);
+        break;
+    case VEHICLE_TYPE_BIKE: {
+        auto* const bike = new CBike(modelId, RANDOM_VEHICLE);
+        bike->bikeFlags.bOnSideStand = true; // 0x43A269: or byte [eax+0x614],10h
+        vehicle = bike;
+        break;
+    }
+    case VEHICLE_TYPE_BMX: {
+        auto* const bmx = new CBmx(modelId, RANDOM_VEHICLE);
+        bmx->bikeFlags.bOnSideStand = true; // 0x43A29B
+        vehicle = bmx;
+        break;
+    }
+    case VEHICLE_TYPE_TRAILER:
+        vehicle = new CTrailer(modelId, RANDOM_VEHICLE);
+        break;
+    default:
+        vehicle = new CAutomobile(modelId, RANDOM_VEHICLE, true);
+        break;
+    }
     if (!vehicle) {
         return nullptr;
     }
 
     const float radius = vehicle->GetModelInfo()->GetColModel()->GetBoundRadius();
-    const auto  rotZ   = player->m_fCurrentRotation + HALF_PI;
+    const auto  rotZ   = player->m_fCurrentRotation + std::bit_cast<float>(0x3FC90FDBu); // 0x858FE4: pi/2 exacto del exe
     const auto  pos    = player->GetPosition() + (radius + 2.0f) * player->GetForward();
 
     vehicle->SetPosn(pos);
@@ -755,21 +815,11 @@ CVehicle* CCheat::VehicleCheat(eModelID modelId) {
     CWorld::Add(vehicle);
     CTheScripts::ClearSpaceForMissionEntity(pos, vehicle);
 
-    switch (vehicle->m_nVehicleType) {
-    case VEHICLE_TYPE_TRAIN: {
-        const auto train = vehicle->AsTrain();
-        train->FindPositionOnTrackFromCoors();
-        break;
-    }
-    case VEHICLE_TYPE_BOAT:
-        break; /* nop */
-    case VEHICLE_TYPE_BIKE:
+    // Como el original (0x43A426..0x43A456): bici/moto -> CBike::PlaceOnRoadProperly; barco -> nada; el resto -> CAutomobile::PlaceOnRoadProperly
+    if (vehicle->m_nVehicleType == VEHICLE_TYPE_BIKE) {
         vehicle->AsBike()->PlaceOnRoadProperly();
-        break;
-    default:
-        // todo: CAutomobile::PlaceOnRoadProperly Places skimmer incorrectly, it's placed at millions units underground
+    } else if (vehicle->m_nVehicleType != VEHICLE_TYPE_BOAT) {
         vehicle->AsAutomobile()->PlaceOnRoadProperly();
-        break;
     }
 
     return vehicle;
@@ -813,7 +863,7 @@ void CCheat::MonsterTruckCheat() {
 // unused
 // 0x4395a0
 void CCheat::PredatorCheat() {
-    VehicleCheat(MODEL_PREDATOR);
+    // Como el original: el cuerpo es solo un `ret`
 }
 
 // 0x43a560
@@ -872,9 +922,7 @@ void CCheat::VehicleSkillsCheat() {
 void CCheat::VillagePeopleCheat() {
     Toggle(CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS);
     if (IsActive(CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS)) {
-        Disable(CHEAT_EVERYONE_ARMED);
-        EverybodyAttacksPlayerCheat();
-    } else {
+        // Como el original (0x439DE7..0x439E39): la rama ACTIVA carga los peds y activa EVERYONE_ARMED
         int32 peds[] = {
             MODEL_WMYCON, MODEL_CWMYFR, MODEL_ARMY, MODEL_LAPDM1,
             MODEL_BIKERB, UNLOAD_MODEL, UNLOAD_MODEL, UNLOAD_MODEL,
@@ -882,6 +930,9 @@ void CCheat::VillagePeopleCheat() {
         CStreaming::StreamPedsIntoRandomSlots(peds);
         EverybodyAttacksPlayerCheat();
         Enable(CHEAT_EVERYONE_ARMED);
+    } else {
+        Disable(CHEAT_EVERYONE_ARMED);
+        EverybodyAttacksPlayerCheat();
     }
 }
 
@@ -899,10 +950,7 @@ void CCheat::WantedLevelDownCheat() {
 
 // 0x438e90
 void CCheat::WantedLevelUpCheat() {
-    CPlayerPed* player = FindPlayerPed();
-
-    if (!player)
-        return;
+    CPlayerPed* player = FindPlayerPed(); // Como el original (0x438E90): sin comprobar el puntero
 
     const auto level = player->GetWantedLevel();
     player->CheatWantedLevel((eWantedLevel)(std::min(+level + +eWantedLevel::WANTED_LEVEL_2, +eWantedLevel::WANTED_LEVEL_6)));
@@ -919,15 +967,21 @@ void CCheat::WeaponCheat1() {
     std::ranges::for_each(weapons, [](auto model) { CStreaming::RequestModel(model, STREAMING_GAME_REQUIRED); });
     CStreaming::LoadAllRequestedModels(false);
 
-    CPlayerPed* player = FindPlayerPed(0);
+    // Como el original (0x438637..0x438824): el primer jugador es el del foco (-1) y el segundo recibe su propio juego
+    CPlayerPed* player = FindPlayerPed(-1);
     player->GiveWeaponSet1();
 
     CPlayerPed* player1 = FindPlayerPed(1);
     if (player1) {
-        player->GiveWeaponSet1();
+        player1->GiveWeaponSet1();
     }
 
-    std::ranges::for_each(weapons, [](auto model) { CStreaming::SetModelIsDeletable(model); });
+    // Como el original (0x438825..0x43887F): 9 modelos, en este orden, y sin MODEL_COLT45
+    static constexpr eModelID deletable[] = {
+        MODEL_BRASSKNUCKLE, MODEL_MICRO_UZI, MODEL_BAT,      MODEL_MOLOTOV, MODEL_CHROMEGUN,
+        MODEL_AK47,         MODEL_CUNTGUN,   MODEL_ROCKETLA, MODEL_SPRAYCAN
+    };
+    std::ranges::for_each(deletable, [](auto model) { CStreaming::SetModelIsDeletable(model); });
 }
 
 // refactored
@@ -941,7 +995,7 @@ void CCheat::WeaponCheat2() {
     std::ranges::for_each(weapons, [](auto model) { CStreaming::RequestModel(model, STREAMING_GAME_REQUIRED); });
     CStreaming::LoadAllRequestedModels(false);
 
-    CPlayerPed* player = FindPlayerPed(0);
+    CPlayerPed* player = FindPlayerPed(-1); // Como el original (0x43890D): jugador en foco
     player->GiveWeaponSet2();
 
     CPlayerPed* player1 = FindPlayerPed(1);
@@ -962,7 +1016,7 @@ void CCheat::WeaponCheat3() {
     std::ranges::for_each(weapons, [](auto model) { CStreaming::RequestModel(model, STREAMING_GAME_REQUIRED); });
     CStreaming::LoadAllRequestedModels(false);
 
-    CPlayerPed* player = FindPlayerPed(0);
+    CPlayerPed* player = FindPlayerPed(-1); // Como el original (0x438B9D): jugador en foco
     player->GiveWeaponSet3();
 
     CPlayerPed* player1 = FindPlayerPed(1);
@@ -1222,7 +1276,9 @@ void CCheat::InjectHooks() {
             continue;
         }
 
-        RH_ScopedNamedGlobalInstall(cheat.method, cheat.methodName, cheat.installAddress);
+        // La macro RH_ScopedNamedGlobalInstall usa `&fn`: con `cheat.method` (un void* con la direccion de la funcion) daria la direccion del
+        // CAMPO de la tabla (datos no ejecutables) y no la de la funcion. Se pasa el puntero a la funcion directamente.
+        ReversibleHooks::Install(RHCurrentCat.name + "/" + RHCurrentScopeName.name, cheat.methodName, cheat.installAddress, cheat.method);
 
         for (auto& cheatFunc: CCheat::m_aCheatFunctions) {
             if (reinterpret_cast<unsigned long>(cheatFunc) == cheat.installAddress) {

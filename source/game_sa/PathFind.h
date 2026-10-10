@@ -448,7 +448,7 @@ public:
     void AddDynamicLinkBetween2Nodes(CNodeAddress node1, CNodeAddress node2);
     void CompleteNewInterior(CNodeAddress* outAddress);
     void RemoveInterior(uint32 interior);
-    CNodeAddress ReturnInteriorNodeIndex(int32 unkn, uint32 intId, int16 nodeId);
+    CNodeAddress ReturnInteriorNodeIndex(uint32 intId, int16 nodeId); // 0x451300 (ret 0Ch: sin el parametro `unkn` que tenia la DLL)
     CCarPathLinkAddress FindLinkBetweenNodes(CNodeAddress node1, CNodeAddress node2);
     CVector FindParkingNodeInArea(float minX, float maxX, float minY, float maxY, float minZ, float maxZ);
     bool Load();

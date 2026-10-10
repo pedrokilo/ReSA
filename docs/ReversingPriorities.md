@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.446 |
 | Reconstruidas | 8.446 |
-| Validadas | 7.496 |
-| Reconstruidas sin validar | 950 |
-| De ellas, en esta cola (validables por pares) | 949 |
+| Validadas | 7.809 |
+| Reconstruidas sin validar | 637 |
+| De ellas, en esta cola (validables por pares) | 636 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -23,10 +23,10 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
 | [🟢 Nivel 1: muy barato](#nivel-1) | 0 | 0 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 5 | 367 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 3 | 196 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 3 | 241 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 1 | 9 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 4 | 386 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **12** | **949** | |
+| **Total** | **8** | **636** | |
 
 <a id="nivel-1"></a>
 
@@ -39,29 +39,25 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (5 clases, 367 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (3 clases, 241 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CPathFind | 56 | 54 |  | 23 |
-| 2 | CCheat | 72 | 72 |  | 17 |
-| 3 | CVehicleModelInfo | 75 | 75 |  | 22 |
-| 4 | CAudioEngine | 82 | 82 |  | 10 |
-| 5 | CVisibilityPlugins | 84 | 84 |  | 14 |
+| 1 | CVehicleModelInfo | 75 | 75 |  | 22 |
+| 2 | CAudioEngine | 82 | 82 |  | 10 |
+| 3 | CVisibilityPlugins | 84 | 84 |  | 14 |
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (3 clases, 196 funciones)
+## 🟠 Nivel 3: moderadas (1 clases, 9 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CRadar | 63 | 63 |  | 34 |
-| 2 | CPopulation | 66 | 64 |  | 34 |
-| 3 | CTheScripts | 69 | 69 |  | 30 |
+| 1 | CPopulation | 66 | 9 |  | 40 |
 
 <a id="nivel-4"></a>
 

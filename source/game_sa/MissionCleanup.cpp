@@ -17,7 +17,11 @@ CMissionCleanup::CMissionCleanup() {
  */
 void CMissionCleanup::Init() {
     m_Count = 0;
-    m_Objects.fill(tMissionCleanupEntity());
+    // Como el original (0x468DAA..0x468DC9): solo escribe type y handle de cada entrada; los 3 bytes de relleno tras `type` no se tocan
+    for (auto& obj : m_Objects) {
+        obj.type   = 0;
+        obj.handle = 0;
+    }
 }
 
 /* Performs a clean-up

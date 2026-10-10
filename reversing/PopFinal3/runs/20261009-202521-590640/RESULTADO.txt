@@ -1,0 +1,3 @@
+APROBADO: CPopulation (banco por pares)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-popfinal3\20261009-202521-590640

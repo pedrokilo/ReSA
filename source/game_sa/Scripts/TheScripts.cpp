@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 69/69 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/69 entradas.
+ * Validación registrada: 69/69 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -35,6 +35,17 @@ END GENERATED HOOK STATUS */
 #include "extensions/File.hpp"
 
 static inline auto& ScriptsArray = StaticRef<std::array<CRunningScript, MAX_NUM_SCRIPTS>>(0xA8B430);
+
+// Como el original: la variable estatica local de ClearSpaceForMissionEntity (0x486B00) vive en el EXE:
+// 32 CColPoint (0x580 bytes) en 0xA951F8; su guarda de inicializacion es el byte 0xA95778.
+static inline auto& ClearSpaceColPoints = StaticRef<std::array<CColPoint, 32>>(0xA951F8);
+
+namespace {
+//! Pone a nullptr una referencia sin llamar a CleanUpOldReference (el EXE hace `mov [ref], 0`)
+void RawNullEntityRef(notsa::EntityRef<>& ref) {
+    *reinterpret_cast<CEntity**>(std::addressof(ref)) = nullptr; // OJO: EntityRef::operator& devuelve el puntero, no la direccion del miembro
+}
+}
 
 void CTheScripts::InjectHooks() {
 #ifndef NOTSA_STANDALONE
@@ -122,11 +133,56 @@ void CTheScripts::InjectHooks() {
     RH_ScopedInstall(CheckStreamedScriptVersion, 0x464FF0);
 }
 
+namespace {
+//! Como el original (0x4690A8..0x46916F y 0x46A0A0..0x46A184): valores iniciales de una linea de texto de script.
+//! No escribe los 3 bytes de relleno tras HasRightJustify.
+void ResetIntroTextLine(tScriptText& t, float wrapX, float centreSize) {
+    t.Scale.x          = std::bit_cast<float>(0x3EF5C28Fu);
+    t.Scale.y          = std::bit_cast<float>(0x3F8F5C29u);
+    t.Color            = CRGBA{ 225, 225, 225, 255 };
+    t.Justify          = false;
+    t.IsCentered       = false;
+    t.HasBg            = false;
+    t.HasBgTextOnly    = false;
+    t.WrapX            = wrapX;
+    t.CentreSize       = centreSize;
+    t.BgColor          = CRGBA{ 128, 128, 128, 128 };
+    t.IsProportional   = true;
+    t.DropShadowColor  = CRGBA{ 0, 0, 0, 255 };
+    t.DropShadow       = 2;
+    t.TextEdge         = 0;
+    t.IsDrawBeforeFade = false;
+    t.HasRightJustify  = false;
+    t.FontStyle        = FONT_SUBTITLES;
+    t.Pos.x            = 0.0f;
+    t.Pos.y            = 0.0f;
+    std::memset(t.GXTKey, 0, sizeof(t.GXTKey));
+    t.NumberToInsert1  = -1;
+    t.NumberToInsert2  = -1;
+}
+
+//! Como el original (0x4691C8..0x469204): solo escribe estos campos de un rectangulo de script
+void ResetIntroRectangle(tScriptRectangle& r) {
+    r.m_nType             = eScriptRectangleType::INACTIVE;
+    r.m_bDrawBeforeFade   = false;
+    r.m_nTextureId        = -1;
+    r.cornerA.x           = 0.0f;
+    r.cornerA.y           = 0.0f;
+    r.cornerB.x           = 0.0f;
+    r.cornerB.y           = 0.0f;
+    r.m_nAngle            = 0.0f;
+    r.m_nTransparentColor = CRGBA{ 255, 255, 255, 255 };
+    r.gxt1[0]             = '\0';
+    r.m_nTextboxStyle     = 3;
+}
+}
+
 // 0x468D50
 void CTheScripts::Init() {
     rng::fill(ScriptSpace, 0u);
     rng::fill(LocalVariablesForCurrentMission, tScriptParam{});
 
+    pActiveScripts = nullptr;
     CRunningScript* nextScript = nullptr;
     for (auto& script : ScriptsArray) {
         script.Init();
@@ -138,15 +194,18 @@ void CTheScripts::Init() {
         }
         nextScript = &script;
     }
-    pActiveScripts = nullptr;
-    pIdleScripts   = nextScript;
+    pIdleScripts = nextScript;
 
     MissionCleanUp.Init();
     UpsideDownCars.Init();
     StuckCars.Init();
     ScriptsForBrains.Init();
     ScriptResourceManager.Initialise();
-    rng::for_each(EntitiesWaitingForScriptBrain, &tScriptBrainWaitEntity::Clear);
+    // Como el original (0x468E12): `mov [entry], 0` y `mov word [entry+4], -1`, sin CleanUpOldReference ni tocar field_6
+    for (auto& wfsb : EntitiesWaitingForScriptBrain) {
+        RawNullEntityRef(wfsb.m_pEntity);
+        wfsb.m_ScriptBrainIndex = -1;
+    }
 
     if (CGame::bMissionPackGame) {
         char scrFile[MAX_PATH]{};
@@ -160,6 +219,7 @@ void CTheScripts::Init() {
                 break;
             }
         }
+        CFileMgr::SetDir(""); // Como el original (0x468E9F): con paquete de misiones se llama dos veces (0x468E9F y 0x468EE9)
     } else {
         CFileMgr::SetDir("data\\script");
 
@@ -174,12 +234,12 @@ void CTheScripts::Init() {
     LastRandomPedId       = -1;
 
     rng::fill(UsedObjectArray, tUsedObject{});
+    NumberOfUsedObjects = 0; // Como el original (0x468F39): antes de leer los nombres (ReadObjectNamesFromScript fija el valor real)
     ReadObjectNamesFromScript();
     UpdateObjectIndices();
+    bAlreadyRunningAMissionScript = false;
+    bUsingAMultiScriptFile        = true;
     rng::fill(MultiScriptArray, 0u);
-    NumberOfUsedObjects                        = 0;
-    bAlreadyRunningAMissionScript              = false;
-    bUsingAMultiScriptFile                     = true;
     MainScriptSize                             = 0;
     LargestMissionScriptSize                   = 0;
     NumberOfMissionScripts                     = 0;
@@ -215,8 +275,17 @@ void CTheScripts::Init() {
     bDrawOddJobTitleBeforeFade             = true;
     bDrawSubtitlesBeforeFade               = true;
 
-    rng::fill(ScriptSphereArray, tScriptSphere{});
-    rng::fill(IntroTextLines, tScriptText{});
+    // Como el original (0x469060): m_f1 queda como estaba
+    for (auto& sphere : ScriptSphereArray) {
+        sphere.m_vCoords   = CVector{};
+        sphere.m_bUsed     = false;
+        sphere.m_nUniqueId = 1;
+        sphere.m_nId       = 0;
+        sphere.m_fRadius   = 0.0f;
+    }
+    for (auto& line : IntroTextLines) {
+        ResetIntroTextLine(line, (float)RsGlobal.maximumWidth, (float)RsGlobal.maximumWidth);
+    }
 
     NumberOfIntroTextLinesThisFrame = 0;
     UseTextCommands                 = eUseTextCommandState::DISABLED;
@@ -224,7 +293,9 @@ void CTheScripts::Init() {
     MessageCentre                   = 0;
     MessageWidth                    = 0;
 
-    rng::fill(IntroRectangles, tScriptRectangle{});
+    for (auto& rect : IntroRectangles) {
+        ResetIntroRectangle(rect);
+    }
     NumberOfIntroRectanglesThisFrame = 0;
 
     RemoveScriptTextureDictionary();
@@ -235,15 +306,47 @@ void CTheScripts::Init() {
     ClearAllVehicleModelsBlockedByScript();
     InitialiseAllConnectLodObjects();
     InitialiseSpecialAnimGroupsAttachedToCharModels();
-    ScriptEffectSystemArray.fill(tScriptEffectSystem{});
+    // Como el original (0x4692B0): el byte de relleno +1 no se escribe
+    for (auto& fx : ScriptEffectSystemArray) {
+        fx.m_bUsed     = false;
+        fx.m_nId       = 1;
+        fx.m_pFxSystem = nullptr;
+    }
 
-    ScriptSearchLightArray.fill(tScriptSearchlight{});
+    // Como el original (0x4692D0): bEnableShadow = true, id = 1; no se tocan el relleno (+6/+7) ni TargetSpot/vf64/vf70 (+0x58..+0x7B)
+    for (auto& sl : ScriptSearchLightArray) {
+        sl.m_bUsed            = false;
+        sl.m_bClipIfColliding = false;
+        sl.m_bEnableShadow    = true;
+        sl.m_nCurrentState    = eScriptSearchLightState::STATE_0;
+        sl.m_SomethingFlag    = false;
+        sl.m_nId              = 1;
+        sl.m_Origin           = CVector{};
+        sl.m_Target           = CVector{};
+        sl.m_fTargetRadius    = 0.0f;
+        sl.m_fBaseRadius      = 0.0f;
+        sl.m_PathCoord1       = CVector{};
+        sl.m_PathCoord2       = CVector{};
+        sl.m_fPathSpeed       = 0.0f;
+        RawNullEntityRef(sl.m_AttachedEntity);
+        RawNullEntityRef(sl.m_FollowingEntity);
+        RawNullEntityRef(sl.m_Tower);
+        RawNullEntityRef(sl.m_Housing);
+        RawNullEntityRef(sl.m_Bulb);
+    }
     NumberOfScriptSearchLights = 0;
 
-    ScriptCheckpointArray.fill(tScriptCheckpoint{});
+    for (auto& cp : ScriptCheckpointArray) {
+        cp.m_bUsed      = false;
+        cp.m_nId        = 1;
+        cp.m_Checkpoint = nullptr;
+    }
     NumberOfScriptCheckpoints = 0;
 
-    ScriptSequenceTaskArray.fill(tScriptSequence{});
+    for (auto& sq : ScriptSequenceTaskArray) {
+        sq.m_bUsed = false;
+        sq.m_nId   = 1;
+    }
 
     CScripted2dEffects::Init();
     CTaskSequences::Init();
@@ -251,7 +354,6 @@ void CTheScripts::Init() {
     CInformFriendsEventQueue::Init();
     CInformGroupEventQueue::Init();
     CDecisionMakerTypes::GetInstance();
-
 }
 
 // 0x470960
@@ -263,41 +365,45 @@ void CTheScripts::InitialiseAllConnectLodObjects() {
 
 // 0x470940
 void CTheScripts::InitialiseConnectLodObjects(uint16 index) {
-    ScriptConnectLodsObjects[index] = tScriptConnectLodsObject();
+    ScriptConnectLodsObjects.data()[index] = tScriptConnectLodsObject(); // Como el original (0x470940): sin bounds-check
 }
 
 // 0x474730
 void CTheScripts::InitialiseSpecialAnimGroupsAttachedToCharModels() {
     for (auto& group : ScriptAttachedAnimGroups) {
-        group = tScriptAttachedAnimGroup(); // InitialiseSpecialAnimGroup();
+        // Como el original (0x474735..0x474742): solo escribe m_nModelID = -1 e m_IfpName[0] = 0 (el resto del nombre queda igual)
+        group.m_nModelID    = -1;
+        group.m_IfpName[0]  = '\0';
     }
 }
 
 // 0x474710
 void CTheScripts::InitialiseSpecialAnimGroup(uint16 index) {
-    ScriptAttachedAnimGroups[index] = tScriptAttachedAnimGroup();
+    // Como el original (0x474710): sin bounds-check y solo escribe m_nModelID e m_IfpName[0]
+    auto& group = ScriptAttachedAnimGroups.data()[index];
+    group.m_nModelID   = -1;
+    group.m_IfpName[0] = '\0';
 }
 
 // 0x486720
 void CTheScripts::ReadObjectNamesFromScript() {
     auto* usedObjs = GetSCMChunk<tSCMUsedObjectsChunk>();
 
-    NOTSA_LOG_TRACE("Number of used objects: {}", usedObjs->m_NumberOfUsedObjects);
-    NumberOfUsedObjects = usedObjs->m_NumberOfUsedObjects;
-    assert(NumberOfUsedObjects < std::size(UsedObjectArray));
-
-    for (auto&& [i, name] : rngv::enumerate(usedObjs->GetObjectNames())) {
-        UsedObjectArray[i].nModelIndex = 0; // To be updated via UpdateObjectIndices.
-        std::memcpy(UsedObjectArray[i].szModelName, name, sizeof(name));
-
-        NOTSA_LOG_TRACE("Script object #{}: \"{}\"", i, usedObjs->m_UsedObjectNames[i]);
+    // Como el original (0x486720): el contador es un word (movzx) y se copian exactamente 24 bytes por nombre
+    NumberOfUsedObjects = (uint16)usedObjs->m_NumberOfUsedObjects;
+    for (auto i = 0u; i < NumberOfUsedObjects; i++) {
+        std::memcpy(UsedObjectArray.data()[i].szModelName, usedObjs->m_UsedObjectNames[i], sizeof(tSCMUsedObjectsChunk::UsedObjectName));
+        UsedObjectArray.data()[i].nModelIndex = 0; // To be updated via UpdateObjectIndices.
     }
 }
 
 // 0x486780
 void CTheScripts::UpdateObjectIndices() {
-    // First one is ignored because it's empty.
-    for (auto& obj : UsedObjectArray | std::views::drop(1)) {
+    // Como el original (0x486780): solo hasta NumberOfUsedObjects (la primera se ignora porque esta vacia),
+    // poniendo antes nModelIndex = -1 (GetModelInfo no lo escribe si el nombre no existe).
+    for (uint16 i = 1; NumberOfUsedObjects > i; i++) {
+        auto& obj = UsedObjectArray.data()[i];
+        obj.nModelIndex = -1;
         CModelInfo::GetModelInfo(obj.szModelName, &obj.nModelIndex);
     }
 }
@@ -306,20 +412,15 @@ void CTheScripts::UpdateObjectIndices() {
 void CTheScripts::ReadMultiScriptFileOffsetsFromScript() {
     auto* sfi = GetSCMChunk<tSCMScriptFileInfoChunk>();
 
-    NOTSA_LOG_TRACE("Main script size: {}", sfi->m_MainScriptSize);
-    NOTSA_LOG_TRACE("Largest mission size: {}", sfi->m_LargestMissionScriptSize);
-    NOTSA_LOG_TRACE("Number of mission scripts: {}", sfi->m_NumberOfMissionScripts);
-    NOTSA_LOG_TRACE("Number of exclusive mission script: {}", sfi->m_NumberOfExclusiveMissionScripts);
-    NOTSA_LOG_TRACE("Largest num of mission script local vars: {}", sfi->m_LargestNumberOfMissionScriptLocalVars);
-
     MainScriptSize                             = sfi->m_MainScriptSize;
     LargestMissionScriptSize                   = sfi->m_LargestMissionScriptSize;
     NumberOfExclusiveMissionScripts            = sfi->m_NumberOfExclusiveMissionScripts;
     NumberOfMissionScripts                     = sfi->m_NumberOfMissionScripts;
     LargestNumberOfMissionScriptLocalVariables = sfi->m_LargestNumberOfMissionScriptLocalVars;
 
-    for (const auto&& [i, missionOffset] : rngv::enumerate(sfi->GetMissionOffsets())) {
-        MultiScriptArray[i] = missionOffset;
+    // Como el original (0x4867FF..0x486832): el contador se compara con signo (movsx)
+    for (int32 i = 0; i < (int32)(int16)sfi->m_NumberOfMissionScripts; i++) {
+        MultiScriptArray.data()[i] = sfi->m_MissionScriptOffsets[i];
     }
 }
 
@@ -379,27 +480,36 @@ uint32 CTheScripts::AddScriptEffectSystem(FxSystem_c* system) {
 // signature changed (CVector)
 // 0x493000
 uint32 CTheScripts::AddScriptSearchLight(CVector start, CEntity* entity, CVector target, float targetRadius, float baseRadius) {
-    const auto it = rng::find_if(ScriptSearchLightArray, [](auto& ssl) {
-        return !ssl.IsActive();
-    });
-    assert(it != ScriptSearchLightArray.end()); // In vanilla game does OOB access.
+    // Como el original (0x493000..0x49314E): primer hueco libre (OOB si estan los 8 ocupados) y escritura campo a campo.
+    // No toca m_nId (contador de ids), el relleno ni TargetSpot/vf64/vf70; las referencias se limpian en el orden
+    // Following, Attached (+ registro de `entity`), Tower, Housing, Bulb.
+    uint32 idx = 0;
+    while (idx < ScriptSearchLightArray.size() && ScriptSearchLightArray.data()[idx].IsActive()) {
+        ++idx;
+    }
+    assert(idx < ScriptSearchLightArray.size()); // In vanilla game does OOB access.
 
-    const auto idx = std::distance(ScriptSearchLightArray.begin(), it);
-    RemoveScriptSearchLight(idx);
-
-    new (&ScriptSearchLightArray[idx]) tScriptSearchlight{
-        .m_bUsed            = true,
-        .m_bEnableShadow    = true,
-        .m_SomethingFlag    = true,
-        .m_Origin           = start,
-        .m_Target           = target,
-        .m_fTargetRadius    = targetRadius,
-        .m_fBaseRadius      = baseRadius,
-        .m_AttachedEntity   = entity,
-    };
+    auto& sl = ScriptSearchLightArray.data()[idx];
+    sl.m_bClipIfColliding = false;
+    sl.m_nCurrentState    = eScriptSearchLightState::STATE_0;
+    sl.m_SomethingFlag    = true;
+    sl.m_bUsed            = true;
+    sl.m_bEnableShadow    = true;
+    sl.m_Origin           = start;
+    sl.m_Target           = target;
+    sl.m_fBaseRadius      = baseRadius;
+    sl.m_fTargetRadius    = targetRadius;
+    sl.m_PathCoord1       = CVector{};
+    sl.m_PathCoord2       = CVector{};
+    sl.m_fPathSpeed       = 0.0f;
+    sl.m_FollowingEntity  = nullptr;
+    sl.m_AttachedEntity   = entity;
+    sl.m_Tower            = nullptr;
+    sl.m_Housing          = nullptr;
+    sl.m_Bulb             = nullptr;
     ++NumberOfScriptSearchLights;
 
-    return CTheScripts::GetNewUniqueScriptThingIndex(idx, SCRIPT_THING_SEARCH_LIGHT);
+    return GetNewUniqueScriptThingIndex(idx, SCRIPT_THING_SEARCH_LIGHT);
 }
 
 // 0x483B30
@@ -414,7 +524,8 @@ uint32 CTheScripts::AddScriptSphere(uint32 id, CVector posn, float radius) {
     sphere->m_vCoords = posn;
     sphere->m_bUsed   = true;
     sphere->m_fRadius = radius;
-    return GetNewUniqueScriptThingIndex(idx, SCRIPT_THING_EFFECT_SYSTEM);
+    // Como el original (0x483B95): GetNewUniqueScriptThingIndex(index, 0 = SCRIPT_THING_SPHERE)
+    return GetNewUniqueScriptThingIndex(idx, SCRIPT_THING_SPHERE);
 }
 
 // 0x481140
@@ -455,6 +566,11 @@ void CTheScripts::AddToInvisibilitySwapArray(CEntity* entity, bool visible) {
         return;
     }
 
+    // Como el original (0x481249: `cmp byte [esp+10h], 0; jne ret`): si se pide visible y no estaba, no se anade nada
+    if (visible) {
+        return;
+    }
+
     const auto free = rng::find(InvisibilitySettingArray, nullptr);
     if (free == InvisibilitySettingArray.end()) {
         return;
@@ -467,41 +583,48 @@ void CTheScripts::AddToInvisibilitySwapArray(CEntity* entity, bool visible) {
 void CTheScripts::AddToListOfConnectedLodObjects(CObject* obj1, CObject* obj2) {
     const auto idx1 = GetObjectPool()->GetRef(obj1), idx2 = GetObjectPool()->GetRef(obj2);
 
-    const auto lod = rng::find_if(ScriptConnectLodsObjects, [idx1, idx2](auto& lod) {
-        return lod.a == idx1 && lod.b == idx2;
-    });
-    if (lod != ScriptConnectLodsObjects.end()) {
-        // Already exists.
-        return;
+    // Como el original (0x4709D0..0x470A16): recorre las 10 entradas (sale solo si el par ya existe) y se queda con el ULTIMO hueco (a == -1)
+    int32 freeIdx = -1;
+    for (int32 i = 0; i < (int32)ScriptConnectLodsObjects.size(); i++) {
+        const auto& lod = ScriptConnectLodsObjects.data()[i];
+        if (lod.a == idx1 && lod.b == idx2) {
+            // Already exists.
+            return;
+        }
+        if (lod.a == -1) {
+            freeIdx = i;
+        }
+    }
+    if (freeIdx == -1) {
+        return; // El original no hace nada si no hay hueco
     }
 
-    const auto free = rng::find_if(ScriptConnectLodsObjects, [](auto& lod) { return lod.a == -1; });
-    assert(free != ScriptConnectLodsObjects.end()); // In vanilla game does OOB access.
-
-    free->a = idx1;
-    free->b = idx2;
+    ScriptConnectLodsObjects.data()[freeIdx].a = idx1;
+    ScriptConnectLodsObjects.data()[freeIdx].b = idx2;
 }
 
 // 0x474750
 void CTheScripts::AddToListOfSpecialAnimGroupsAttachedToCharModels(int32 modelId, Const char* ifpName) {
-    const auto aag = rng::find_if(ScriptAttachedAnimGroups, [modelId, ifpName](auto& aag) {
-        return aag.m_nModelID == modelId && !std::strcmp(aag.m_IfpName, ifpName);
-    });
-    if (aag != ScriptAttachedAnimGroups.end()) {
-        // Already exists.
+    // Como el original (0x474750..0x4747F5): recorre las 8 entradas (sale solo si ya existe el par modelo+nombre) y se queda con el ULTIMO hueco
+    int32 freeIdx = -1;
+    for (int32 i = 0; i < (int32)ScriptAttachedAnimGroups.size(); i++) {
+        const auto& aag = ScriptAttachedAnimGroups.data()[i];
+        if (aag.m_nModelID == modelId) {
+            if (!std::strcmp(aag.m_IfpName, ifpName)) {
+                // Already exists.
+                return;
+            }
+        } else if (aag.m_nModelID == MODEL_INVALID) {
+            freeIdx = i;
+        }
+    }
+    if (freeIdx == -1) {
         return;
     }
 
-    const auto free = rng::find_if(ScriptAttachedAnimGroups, [](auto& aag) {
-        return aag.m_nModelID == MODEL_INVALID;
-    });
-    if (free == ScriptAttachedAnimGroups.end()) {
-        return;
-    }
-
-    free->m_nModelID = modelId;
-    assert(std::strlen(ifpName) < sizeof(free->m_IfpName));
-    std::strcpy(free->m_IfpName, ifpName);
+    auto& free = ScriptAttachedAnimGroups.data()[freeIdx];
+    free.m_nModelID = modelId;
+    std::strcpy(free.m_IfpName, ifpName);
 }
 
 // 0x470390
@@ -525,21 +648,24 @@ void CTheScripts::AddToVehicleModelsBlockedByScript(eModelID modelIndex) {
 
 // 0x46AB60
 void CTheScripts::AddToWaitingForScriptBrainArray(CEntity* entity, int16 specialModelIndex) {
-    const auto wfsb = rng::find_if(EntitiesWaitingForScriptBrain, [entity](auto& wfsb) {
-        return wfsb.m_pEntity == entity;
-    });
-    if (wfsb != EntitiesWaitingForScriptBrain.end()) {
-        // Already exists.
+    // Como el original (0x46AB60..0x46ABAF): recorre las 150 entradas (sale solo si la entidad ya esta) y se queda con el ULTIMO hueco
+    int32 freeIdx = -1;
+    for (int32 i = 0; i < (int32)EntitiesWaitingForScriptBrain.size(); i++) {
+        CEntity* const cur = EntitiesWaitingForScriptBrain.data()[i].m_pEntity.Get();
+        if (!cur) {
+            freeIdx = i;
+        } else if (cur == entity) {
+            // Already exists.
+            return;
+        }
+    }
+    if (freeIdx < 0) {
         return;
     }
 
-    const auto free = rng::find_if(EntitiesWaitingForScriptBrain, [entity](auto& wfsb) { return !wfsb.m_pEntity; });
-    if (free == EntitiesWaitingForScriptBrain.end()) {
-        return;
-    }
-
-    free->m_pEntity = entity;
-    free->m_ScriptBrainIndex = specialModelIndex;
+    auto& free = EntitiesWaitingForScriptBrain.data()[freeIdx];
+    free.m_pEntity = entity; // guarda el puntero y llama a RegisterReference (0x46AB9D)
+    free.m_ScriptBrainIndex = specialModelIndex;
 }
 
 // 0x4934F0
@@ -549,10 +675,6 @@ void CTheScripts::AttachSearchlightToSearchlightObject(int32 searchLightId, CObj
         return;
     }
     
-    assert(IsEntityPointerValid(bulb));
-    assert(IsEntityPointerValid(tower));
-    assert(IsEntityPointerValid(housing));
-
     auto& sl = ScriptSearchLightArray[idx];
     sl.m_Origin = offset;
     sl.m_AttachedEntity = nullptr;
@@ -582,32 +704,45 @@ void CTheScripts::CleanUpThisObject(CObject* obj) {
 }
 
 // 0x486300
-// TODO: test
 void CTheScripts::CleanUpThisPed(CPed* ped) {
-    if (!ped || ped->IsCreatedByMission()) {
+    // Como el original (0x486328..0x486330: `cmp byte [esi+484h], 2; jne ret`): solo actua sobre peds creados por la mision;
+    // el resto sale sin tocar el contador.
+    if (!ped || !ped->IsCreatedByMission()) {
         return;
     }
 
     ped->SetCharCreatedBy(ePedCreatedBy::PED_GAME);
-    if (ped->bKeepTasksAfterCleanUp) {
-        return;
-    }
 
+    // Como el original (0x48664E): desde aqui todos los caminos (tambien bKeepTasksAfterCleanUp) decrementan el contador
     notsa::ScopeGuard _([]() {
         --CPopulation::ms_nTotalMissionPeds;
     });
 
-    if (auto* veh = ped->GetVehicleIfInOne(); veh && veh->IsDriver(ped)) {
-        const auto FixMission = [veh](eCarMission fix) {
+    if (ped->bKeepTasksAfterCleanUp) {
+        return;
+    }
+
+    const auto RemoveFromGroup = [ped] {
+        if (auto* group = CPedGroups::GetPedsGroup(ped)) {
+            if (auto& member = group->GetMembership(); member.IsFollower(ped)) {
+                member.RemoveMember(ped);
+            }
+        }
+    };
+
+    // Como el original (0x48635B..0x486375): bInVehicle, m_pVehicle != null y el ped es el conductor
+    if (auto* veh = ped->GetVehicleIfInOne(); veh && veh->m_pDriver == ped) {
+        const auto SetMissionUnlessCrashing = [veh](eCarMission mission) {
             auto& mis = veh->m_autoPilot.m_nCarMission;
             if (mis != MISSION_PLANE_CRASH_AND_BURN && mis != MISSION_HELI_CRASH_AND_BURN) {
-                mis = fix;
+                mis = mission;
             }
         };
 
-        switch (veh->GetType()) {
+        // Como el original (0x486383/0x4863E7): se decide por m_nVehicleSubType (+0x594), no por el tipo de entidad
+        switch (veh->m_nVehicleSubType) {
         case eVehicleType::VEHICLE_TYPE_HELI: {
-            FixMission(MISSION_HELI_FLYTOCOORS);
+            SetMissionUnlessCrashing(MISSION_HELI_FLYTOCOORS);
 
             veh->m_autoPilot.m_vecDestinationCoors = CVector{ 10'000.0f, -10'000.0f, 1'000.0f };
             veh->AsHeli()->m_fMinAltitude          = 1000.0f;
@@ -615,7 +750,7 @@ void CTheScripts::CleanUpThisPed(CPed* ped) {
             break;
         }
         case eVehicleType::VEHICLE_TYPE_PLANE: {
-            FixMission(MISSION_PLANE_FLYTOCOORS);
+            SetMissionUnlessCrashing(MISSION_PLANE_FLYTOCOORS);
 
             veh->m_autoPilot.m_vecDestinationCoors = CVector{ 10'000.0f, 10'000.0f, 1'000.0f };
             veh->AsPlane()->m_minAltitude          = 1000.0f;
@@ -623,34 +758,28 @@ void CTheScripts::CleanUpThisPed(CPed* ped) {
             break;
         }
         default:
-            if (veh->IsSubAutomobile() || veh->IsSubBike()) {
+            // Como el original (0x486448): m_nVehicleType (+0x590) automovil (0) o moto (9)
+            if (veh->IsAutomobile() || veh->IsBike()) {
                 CCarCtrl::JoinCarWithRoadSystem(veh);
-                FixMission(MISSION_CRUISE);
+                SetMissionUnlessCrashing(MISSION_CRUISE);
             }
         }
 
         // Quick return: The captain goes down with the ship.
-        ped->bStayInSamePlace = false; // ???
-
-        if (auto* group = CPedGroups::GetPedsGroup(ped)) {
-            if (auto& member = group->GetMembership(); member.IsFollower(ped)) {
-                member.RemoveMember(ped);
-            }
-        }
+        ped->bStayInSamePlace = false;
+        RemoveFromGroup();
         return;
     }
-    ped->bStayInSamePlace = false; // ???
+    ped->bStayInSamePlace = false;
+    RemoveFromGroup();
 
-    if (auto* group = CPedGroups::GetPedsGroup(ped)) {
-        if (auto& member = group->GetMembership(); member.IsFollower(ped)) {
-            member.RemoveMember(ped);
-        }
-    }
-
+    // Como el original (0x4864E3..0x48650B): comprueba el evento EVENT_SCRIPT_COMMAND (con tarea no nula) y la tarea primaria
     const auto CheckTaskExists = [ped](eTaskType type) {
         if (auto* event = ped->GetEventGroup().GetEventOfType(EVENT_SCRIPT_COMMAND)) {
-            if (auto* esc = notsa::dyn_cast<CEventScriptCommand>(event); esc && esc->m_task->GetTaskType() == type) {
-                return true;
+            if (auto* task = static_cast<CEventScriptCommand*>(event)->m_task) {
+                if (task->GetTaskType() == type) {
+                    return true;
+                }
             }
         }
 
@@ -667,23 +796,30 @@ void CTheScripts::CleanUpThisPed(CPed* ped) {
         }
 
         // Get them out of the car then make them wander.
-        ped->GetEventGroup().Add(CEventScriptCommand(TASK_PRIMARY_PRIMARY, new CTaskComplexSequence(
-            new CTaskComplexLeaveAnyCar(0, true, false),
-            CTaskComplexWander::GetWanderTaskByPedType(ped)
-        )));
+        // Como el original (0x486522..0x48658F): orden de reserva secuencia, salir del coche, wander; luego AddTask x2
+        auto* sequence = new CTaskComplexSequence();
+        auto* leaveCar = new CTaskComplexLeaveAnyCar(0, true, false);
+        auto* wander   = CTaskComplexWander::GetWanderTaskByPedType(ped);
+        sequence->AddTask(leaveCar);
+        sequence->AddTask(wander);
+
+        CEventScriptCommand event{ TASK_PRIMARY_PRIMARY, sequence, false };
+        ped->GetEventGroup().Add(&event, false);
     } else {
         if (CheckTaskExists(TASK_COMPLEX_WANDER)) {
             return;
         }
 
         // Make them wander.
-        ped->GetEventGroup().Add(CEventScriptCommand(TASK_PRIMARY_PRIMARY, CTaskComplexWander::GetWanderTaskByPedType(ped)));
+        CEventScriptCommand event{ TASK_PRIMARY_PRIMARY, CTaskComplexWander::GetWanderTaskByPedType(ped), false };
+        ped->GetEventGroup().Add(&event, false);
     }
 }
 
 // 0x486670
 void CTheScripts::CleanUpThisVehicle(CVehicle* vehicle) {
-    if (!vehicle || vehicle->IsCreatedBy(eVehicleCreatedBy::MISSION_VEHICLE)) {
+    // Como el original (0x486679: `cmp byte [esi+4A4h], 2; jne ret`): solo actua sobre vehiculos creados por la mision
+    if (!vehicle || !vehicle->IsCreatedBy(eVehicleCreatedBy::MISSION_VEHICLE)) {
         return;
     }
 
@@ -708,6 +844,7 @@ void CTheScripts::ClearAllSuppressedCarModels() {
 
 // 0x486B00
 void CTheScripts::ClearSpaceForMissionEntity(const CVector& pos, CEntity* ourEntity) {
+    StaticRef<uint8>(0xA95778) |= 1; // Como el original (0x486B0C): guarda de inicializacion de la variable estatica local
     std::array<CEntity*, 16> colEntities{};
     int16                    numColliding{};
 
@@ -725,30 +862,53 @@ void CTheScripts::ClearSpaceForMissionEntity(const CVector& pos, CEntity* ourEnt
         false
     );
 
-    auto* ourColData = ourEntity->GetColData();
-    if (!ourColData) {
+    if (numColliding <= 0) {
         return;
     }
 
-    // Disable suspension lines of vehicles.
-    const auto cdNumLines = std::exchange(ourColData->m_nNumLines, 0);
+    // Como el original (0x486B63..0x486B9C): primero se descartan los peds que estan en un vehiculo (solo por la bandera bInVehicle)
+    for (uint16 i = 0; i < numColliding; i++) {
+        auto* entity = colEntities[i];
+        if (entity != ourEntity && entity->GetIsTypePed() && entity->AsPed()->bInVehicle) {
+            colEntities[i] = nullptr;
+        }
+    }
 
-    for (auto& entity : std::span{ colEntities.data(), (size_t)numColliding }) {
-        if (!entity || entity == ourEntity || (entity->GetIsTypePed() && entity->AsPed()->IsInVehicle())) {
+    for (int32 j = 0; j < numColliding; j++) {
+        CEntity* const entity = colEntities[j];
+        if (entity == ourEntity || !entity) {
             continue;
         }
 
-        std::array<CColPoint, 32> colPoints{};
-        const auto                numCollisions = CCollision::ProcessColModels(
-            ourEntity->GetMatrix(),
-            *ourEntity->GetColModel(),
-            entity->GetMatrix(),
+        // Como el original (0x486BC4..0x486C71): las lineas de suspension (CColData::m_nNumLines, con signo) se desactivan
+        // solo durante ProcessColModels de cada entidad y se restauran justo despues.
+        auto* ourColModel = ourEntity->GetColModel(); // una sola llamada (0x486BC6); el EXE reutiliza el resultado
+        auto* ourColData = ourColModel->m_pColData;
+        if (!ourColData) {
+            continue;
+        }
+        const uint8 savedNumLines = ourColData->m_nNumLines;
+        if ((int8)savedNumLines > 0) {
+            ourColData->m_nNumLines = 0;
+        }
+
+        // Como el original: primero la matriz de la otra entidad y luego la nuestra (AllocateMatrix + UpdateMatrix si faltan)
+        auto& entityMat = entity->GetMatrix();
+        auto& ourMat    = ourEntity->GetMatrix();
+        const auto numCollisions = CCollision::ProcessColModels(
+            ourMat,
+            *ourColModel,
+            entityMat,
             *entity->GetColModel(),
-            colPoints,
+            ClearSpaceColPoints,
             nullptr,
             nullptr,
             false
         );
+
+        if ((int8)savedNumLines > 0) {
+            ourColData->m_nNumLines = savedNumLines;
+        }
 
         if (numCollisions <= 0) {
             continue;
@@ -760,14 +920,15 @@ void CTheScripts::ClearSpaceForMissionEntity(const CVector& pos, CEntity* ourEnt
                 continue;
             }
 
-            if (auto& driver = vehicle->m_pDriver) {
+            if (auto* driver = vehicle->m_pDriver) {
                 CPopulation::RemovePed(driver);
-                CEntity::SafeCleanUpRef(driver);
+                CEntity::SafeCleanUpRef(vehicle->m_pDriver);
+                vehicle->m_pDriver = nullptr;
             }
 
             // Need to use raw pointer here instead of a reference - the m_aPassengers array is modifed in RemovePassenger() and we would crash in RemovePed afterwards
-            for (const auto passenger : vehicle->GetPassengers()) {
-                if (passenger) {
+            for (uint32 k = 0; k < vehicle->m_nMaxPassengers; k++) {
+                if (auto* passenger = vehicle->m_apPassengers[k]) {
                     vehicle->RemovePassenger(passenger);
                     CPopulation::RemovePed(passenger);
                 }
@@ -776,13 +937,12 @@ void CTheScripts::ClearSpaceForMissionEntity(const CVector& pos, CEntity* ourEnt
             CCarCtrl::RemoveFromInterestingVehicleList(vehicle);
             CWorld::Remove(vehicle);
             delete vehicle;
-        }
-
-        if (entity->GetIsTypePed() && !entity->AsPed()->IsPlayer() && entity->AsPed()->CanBeDeleted()) {
-            CPopulation::RemovePed(entity->AsPed());
+        } else if (entity->GetIsTypePed()) {
+            if (!entity->AsPed()->IsPlayer() && entity->AsPed()->CanBeDeleted()) {
+                CPopulation::RemovePed(entity->AsPed());
+            }
         }
     }
-    ourColData->m_nNumLines = cdNumLines;
 }
 
 // 0x5D3390
@@ -800,52 +960,58 @@ int32 CTheScripts::GetActualScriptThingIndex(int32 ref, eScriptThingType type) {
         return -1;
     }
 
-    const auto idx = LOWORD(ref), id = HIWORD(ref);
+    // Como el original (0x4839B4..0x4839BC): indice = word bajo, id = word alto, ambos sin signo; el id guardado
+    // (int16 en varias estructuras) se compara tambien como word sin signo (movzx).
+    const uint32 idx = (uint16)ref, id = (uint32)ref >> 16;
 
     switch (type) {
     case SCRIPT_THING_SPHERE:
-        if (const auto& s = ScriptSphereArray[idx]; s.IsActive() && s.m_nUniqueId == id) {
+        if (const auto& s = ScriptSphereArray[idx]; (uint16)s.m_nUniqueId == id && s.IsActive()) {
             return idx;
         }
         break;
     case SCRIPT_THING_EFFECT_SYSTEM:
-        if (const auto& fx = ScriptEffectSystemArray[idx]; fx.IsActive() && fx.m_nId == id) {
+        if (const auto& fx = ScriptEffectSystemArray[idx]; (uint16)fx.m_nId == id && fx.IsActive()) {
             return idx;
         }
         break;
     case SCRIPT_THING_SEARCH_LIGHT:
-        if (const auto& sl = ScriptSearchLightArray[idx]; sl.IsActive() && sl.m_nId == id) {
+        if (const auto& sl = ScriptSearchLightArray[idx]; (uint16)sl.m_nId == id && sl.IsActive()) {
             return idx;
         }
         break;
     case SCRIPT_THING_CHECKPOINT:
-        if (const auto& cp = ScriptCheckpointArray[idx]; cp.IsActive() && cp.m_nId == id) {
+        if (const auto& cp = ScriptCheckpointArray[idx]; (uint16)cp.m_nId == id && cp.IsActive()) {
             return idx;
         }
         break;
     case SCRIPT_THING_SEQUENCE_TASK:
-        if (const auto& sqt = ScriptSequenceTaskArray[idx]; sqt.IsActive() && sqt.m_nId == id) {
+        if (const auto& sqt = ScriptSequenceTaskArray[idx]; (uint16)sqt.m_nId == id && sqt.IsActive()) {
             return idx;
         }
         break;
     case SCRIPT_THING_FIRE:
-        if (const auto& f = gFireManager.Get(idx); f.IsScript() && f.GetId() == id) {
+        // Como el original (0x483A66..0x483A9E): id y bit "creado por script" sin exigir que el fuego este activo
+        if (const auto& f = gFireManager.m_aFires[idx]; (uint16)f.GetId() == id && f.IsScript()) {
             return idx;
         }
         break;
     case SCRIPT_THING_2D_EFFECT:
-        if (CScripted2dEffects::ms_activated[idx] && CScripted2dEffects::ScriptReferenceIndex[idx] == id) {
+        if (CScripted2dEffects::ScriptReferenceIndex[idx] == id && CScripted2dEffects::ms_activated[idx]) {
             return idx;
         }
         break;
     case SCRIPT_THING_DECISION_MAKER:
         CDecisionMakerTypes::GetInstance();
-        if (CDecisionMakerTypes::m_IsActive[idx] && CDecisionMakerTypes::ScriptReferenceIndex[idx] == id) {
-            return idx;
+        if (CDecisionMakerTypes::ScriptReferenceIndex[idx] == id) {
+            CDecisionMakerTypes::GetInstance();
+            if (CDecisionMakerTypes::m_IsActive[idx]) {
+                return idx;
+            }
         }
         break;
     case SCRIPT_THING_PED_GROUP:
-        if (CPedGroups::ms_activeGroups[idx] && CPedGroups::ScriptReferenceIndex[idx] == id) {
+        if (CPedGroups::ScriptReferenceIndex[idx] == id && CPedGroups::ms_activeGroups[idx]) {
             return idx;
         }
         break;
@@ -856,16 +1022,13 @@ int32 CTheScripts::GetActualScriptThingIndex(int32 ref, eScriptThingType type) {
 }
 
 // 0x483720
-// TODO: TEST REFACTOR!
 int32 CTheScripts::GetNewUniqueScriptThingIndex(int32 index, eScriptThingType type) {
+    // Como el original (p. ej. 0x483741..0x48375F): el id es un word sin signo; si ya vale >= 0xFFFE vuelve a 1, si no se incrementa.
+    // El resultado es (id << 16) | index.
     const auto NewUniqueId = [index](auto& id) -> int32 {
-        if (id == -1 || id == -2) {
-            id = 1;
-        } else {
-            ++id;
-        }
-
-        return (uint32)id << 16 | index;
+        const uint16 cur = (uint16)id;
+        id = (std::remove_reference_t<decltype(id)>)(cur >= 0xFFFEu ? 1u : cur + 1u);
+        return (int32)(((uint32)(uint16)id << 16) | (uint32)index);
     };
 
     switch (type) {
@@ -877,15 +1040,17 @@ int32 CTheScripts::GetNewUniqueScriptThingIndex(int32 index, eScriptThingType ty
         return NewUniqueId(ScriptSearchLightArray[index].m_nId);
     case eScriptThingType::SCRIPT_THING_CHECKPOINT:
         return NewUniqueId(ScriptCheckpointArray[index].m_nId);
-    case eScriptThingType::SCRIPT_THING_SEQUENCE_TASK:
+    case eScriptThingType::SCRIPT_THING_SEQUENCE_TASK: {
+        const auto ret = NewUniqueId(ScriptSequenceTaskArray[index].m_nId);
         ScriptSequenceTaskArray[index].m_bUsed = true;
-        return NewUniqueId(ScriptSequenceTaskArray[index].m_nId);
+        return ret;
+    }
     case eScriptThingType::SCRIPT_THING_FIRE:
         return NewUniqueId(gFireManager.m_aFires[index].GetId());
     case eScriptThingType::SCRIPT_THING_2D_EFFECT:
         return NewUniqueId(CScripted2dEffects::ScriptReferenceIndex[index]);
     case eScriptThingType::SCRIPT_THING_DECISION_MAKER:
-        CDecisionMakerTypes::GetInstance(); // ? TODO check if we really need this
+        CDecisionMakerTypes::GetInstance();
         return NewUniqueId(CDecisionMakerTypes::ScriptReferenceIndex[index]);
     case eScriptThingType::SCRIPT_THING_PED_GROUP:
         return NewUniqueId(CPedGroups::ScriptReferenceIndex[index]);
@@ -898,8 +1063,8 @@ int32 CTheScripts::GetNewUniqueScriptThingIndex(int32 index, eScriptThingType ty
 
 // 0x464D20
 int32 CTheScripts::GetScriptIndexFromPointer(CRunningScript* thread) {
-    assert(ScriptsArray.data() <= thread && thread < ScriptsArray.data() + ScriptsArray.size());
-    return std::distance(ScriptsArray.data(), thread);
+    // Como el original (0x464D20): (puntero - base) / 0xE0 sin comprobar rango
+    return (int32)(thread - ScriptsArray.data());
 }
 
 /*!
@@ -907,16 +1072,12 @@ int32 CTheScripts::GetScriptIndexFromPointer(CRunningScript* thread) {
  * @addr 0x4810C0
  */
 int32 CTheScripts::GetUniqueScriptThingIndex(int32 playerGroup, eScriptThingType type) {
+    // Como el original (0x4810C0): cualquier tipo distinto de 8 devuelve -1
     switch (type) {
-    /* Android
-    case SCRIPT_THING_DECISION_MAKER:
-        CDecisionMakerTypes::GetInstance();
-        return playerGroup | (CDecisionMakerTypes::ScriptReferenceIndex[playerGroup] << 16);
-    */
     case SCRIPT_THING_PED_GROUP:
-        return playerGroup | (CPedGroups::ScriptReferenceIndex[playerGroup] << 16);
+        return (int32)((uint32)playerGroup | ((uint32)CPedGroups::ScriptReferenceIndex[playerGroup] << 16));
     default:
-        return OR_INTERRUPT;
+        return -1;
     }
 }
 
@@ -942,12 +1103,12 @@ void CTheScripts::RemoveFromVehicleModelsBlockedByScript(int32 modelIndex) {
 // 0x46ABC0
 void CTheScripts::RemoveFromWaitingForScriptBrainArray(CEntity* entity, int16 modelIndex) {
     for (auto& bwe : EntitiesWaitingForScriptBrain) {
-        if (bwe.m_pEntity != entity || bwe.m_ScriptBrainIndex != modelIndex) {
+        if (bwe.m_pEntity.Get() != entity || bwe.m_ScriptBrainIndex != modelIndex) {
             continue;
         }
 
-        bwe.m_pEntity = nullptr;
-        bwe.m_ScriptBrainIndex = MODEL_INVALID;
+        bwe.m_pEntity = nullptr; // CleanUpOldReference (0x46ABE8) si habia entidad y luego `mov [entry], 0`
+        bwe.m_ScriptBrainIndex = -1;
     }
 }
 
@@ -959,13 +1120,12 @@ void CTheScripts::RemoveScriptCheckpoint(int32 scriptIndex) {
     }
 
     auto& scp = ScriptCheckpointArray[i];
+    scp.m_bUsed = false; // Como el original (0x4936DC): el id (m_nId) NO se toca, es el contador de ids
     if (const auto* cp = scp.m_Checkpoint) {
         CCheckpoints::DeleteCP(cp->m_ID, cp->m_Type.get_underlying());
     }
-    scp.m_bUsed = false;
-    scp.m_nId = 0;
-
     --NumberOfScriptCheckpoints;
+    scp.m_Checkpoint = nullptr;
 }
 
 // 0x492FD0
@@ -983,10 +1143,31 @@ void CTheScripts::RemoveScriptEffectSystem(int32 scriptIndex) {
 // 0x493160
 void CTheScripts::RemoveScriptSearchLight(int32 scriptIndex) {
     const auto i = GetActualScriptThingIndex(scriptIndex, eScriptThingType::SCRIPT_THING_SEARCH_LIGHT);
-    if (i != -1) {
-        ScriptSearchLightArray[i] = tScriptSearchlight{};
-        --NumberOfScriptSearchLights;
+    if (i == -1) {
+        return;
     }
+
+    // Como el original (0x493172..0x493276): campo a campo; m_bEnableShadow queda en true, el flag/estado a 0, y no se tocan
+    // m_nId (contador de ids), TargetSpot, vf64 ni vf70. Las referencias se limpian en el orden Following, Attached, Tower, Housing, Bulb.
+    auto& sl = ScriptSearchLightArray[i];
+    sl.m_bUsed            = false;
+    sl.m_bClipIfColliding = false;
+    sl.m_bEnableShadow    = true;
+    sl.m_nCurrentState    = eScriptSearchLightState::STATE_0;
+    sl.m_SomethingFlag    = false;
+    sl.m_Origin           = CVector{};
+    sl.m_Target           = CVector{};
+    sl.m_fTargetRadius    = 0.0f;
+    sl.m_fBaseRadius      = 0.0f;
+    sl.m_PathCoord1       = CVector{};
+    sl.m_PathCoord2       = CVector{};
+    sl.m_fPathSpeed       = 0.0f;
+    sl.m_FollowingEntity  = nullptr;
+    sl.m_AttachedEntity   = nullptr;
+    sl.m_Tower            = nullptr;
+    sl.m_Housing          = nullptr;
+    sl.m_Bulb             = nullptr;
+    --NumberOfScriptSearchLights;
 }
 
 // 0x483BA0
@@ -1005,7 +1186,8 @@ void CTheScripts::RemoveScriptSphere(int32 scriptIndex) {
 void CTheScripts::RemoveScriptTextureDictionary() {
     rng::for_each(ScriptSprites, &CSprite2d::Delete);
     if (const auto slot = CTxdStore::FindTxdSlot("script"); slot != -1) {
-        if (const auto* txd = CTxdStore::ms_pTxdPool->GetAt(slot); txd) {
+        // Como el original (0x465A71..0x465A8F): solo se quita si el TxD existe en el pool y tiene diccionario RW (`cmp [txd], 0`)
+        if (const auto* txd = CTxdStore::ms_pTxdPool->GetAt(slot); txd && txd->m_pRwDictionary) {
             CTxdStore::RemoveTxd(slot);
         }
     }
@@ -1017,9 +1199,14 @@ void CTheScripts::RemoveThisPed(CPed* ped) {
         return;
     }
 
+    const auto isMissionChar = ped->GetCreatedBy() == ePedCreatedBy::PED_MISSION;
+
     if (auto* veh = ped->GetVehicleIfInOne()) {
-        if (veh->IsDriver(ped)) {
+        if (veh->m_pDriver == ped) {
             veh->RemoveDriver(false);
+
+            // Como el original (0x486284..0x48628D): el vehiculo queda abandonado (m_nStatus = STATUS_ABANDONED)
+            veh->SetStatus(STATUS_ABANDONED);
 
             if (veh->m_nDoorLock == eCarLock::CARLOCK_COP_CAR) {
                 veh->m_nDoorLock = eCarLock::CARLOCK_UNLOCKED;
@@ -1032,8 +1219,6 @@ void CTheScripts::RemoveThisPed(CPed* ped) {
             veh->RemovePassenger(ped);
         }
     }
-
-    const auto isMissionChar = ped->GetCreatedBy() == ePedCreatedBy::PED_MISSION;
 
     CWorld::RemoveReferencesToDeletedObject(ped);
     delete ped;
@@ -1095,23 +1280,26 @@ void CTheScripts::UndoBuildingSwaps() {
 // 0x486110
 bool CTheScripts::IsPedStopped(CPed* ped) {
     if (ped->IsInVehicle()) {
-        return CTimer::GetTimeStep() / 100.f >= ped->m_pVehicle->m_fMovingSpeed;
+        // Como el original (0x48612A..0x486149): `fcompp` + `test ah,1`: verdadero salvo si timeStep * 0.01f < velocidad (o NaN)
+        return CTimer::GetTimeStep() * std::bit_cast<float>(0x3C23D70Au) >= ped->m_pVehicle->m_fMovingSpeed;
     }
-    if (!ped->IsPedStandingInPlace()) {
-        return false;
-    }
+    // Como el original (0x48614D..0x4861A0): primero los cuatro RpAnimBlendClumpGetAssociation del jugador, en este orden
     if (ped->IsPlayer()) {
-        if (RpAnimBlendClumpGetAssociation(ped->GetRpClump(), { ANIM_ID_RUN_STOP, ANIM_ID_RUN_STOPR, ANIM_ID_JUMP_LAUNCH, ANIM_ID_JUMP_GLIDE })) {
-            return false;
+        for (const uint32 animId : { (uint32)ANIM_ID_RUN_STOP, (uint32)ANIM_ID_RUN_STOPR, (uint32)ANIM_ID_JUMP_LAUNCH, (uint32)ANIM_ID_JUMP_GLIDE }) {
+            if (RpAnimBlendClumpGetAssociation(ped->GetRpClump(), animId)) {
+                return false;
+            }
         }
+    }
+    // Como el original (0x4861A0): CPed::IsPedStandingInPlace en linea (`cmp [esi+534h], 4; jge`, con signo)
+    if ((int32)ped->m_nMoveState >= 4) {
+        return false;
     }
     if (ped->bIsLanding || ped->bIsInTheAir || !ped->bIsStanding) {
         return false;
     }
-    if (ped->m_vecAnimMovingShiftLocal.IsZero()) {
-        return true;
-    }
-    return false;
+    // Como el original: dos fcomp con 0.0 (cualquier NaN da falso)
+    return ped->m_vecAnimMovingShiftLocal.x == 0.0f && ped->m_vecAnimMovingShiftLocal.y == 0.0f;
 }
 
 // 0x464D50
@@ -1121,7 +1309,12 @@ bool CTheScripts::IsPlayerOnAMission() {
 
 // 0x4861F0
 bool CTheScripts::IsVehicleStopped(CVehicle* veh) {
-    return std::max(CTimer::GetTimeStep(), CTimer::ms_fOldTimeStep) / 100.0f >= veh->m_fMovingSpeed;
+    // Como el original (0x4861F6..0x486237): minimo de timeStep y oldTimeStep (`fcomp` + `test ah,5` + jp: con NaN o >= elige el viejo),
+    // multiplicado por 0.01f y comparado con `fcompp`: verdadero si velocidad <= minimo * 0.01f
+    const float ts  = CTimer::GetTimeStep();
+    const float old = CTimer::ms_fOldTimeStep;
+    const float sel = (ts < old) ? ts : old;
+    return std::bit_cast<float>(0x3C23D70Au) * sel >= veh->m_fMovingSpeed;
 }
 
 // 0x5D4FD0
@@ -1131,14 +1324,18 @@ void CTheScripts::Load() {
     const auto totalSize = CGenericGameStorage::LoadDataFromWorkBuffer<uint32>();
     auto       p         = ScriptSpace.data();
 
-    // Load chunks
-    auto nParts = totalSize / MAX_SAVED_GVAR_PART_SIZE;
-    for (nParts; nParts-- > 0; p += MAX_SAVED_GVAR_PART_SIZE) {
-        CGenericGameStorage::LoadDataFromWorkBuffer(p, MAX_SAVED_GVAR_PART_SIZE);
+    // Como el original (0x5D4FF3..0x5D5045): con total > 0xC800 (comparacion con signo) se cargan
+    // (total - 0xC801) / 0xC800 + 1 trozos de 0xC800 bytes y luego el resto; con un total multiplo de 0xC800 no hay trozo final de tamano 0.
+    uint32 remainder = totalSize;
+    if ((int32)totalSize > (int32)MAX_SAVED_GVAR_PART_SIZE) {
+        auto nParts = (totalSize - (MAX_SAVED_GVAR_PART_SIZE + 1)) / MAX_SAVED_GVAR_PART_SIZE + 1;
+        remainder   = totalSize - nParts * MAX_SAVED_GVAR_PART_SIZE;
+        for (; nParts > 0; nParts--, p += MAX_SAVED_GVAR_PART_SIZE) {
+            CGenericGameStorage::LoadDataFromWorkBuffer(p, MAX_SAVED_GVAR_PART_SIZE);
+        }
     }
 
     // Load remainder
-    const auto remainder = totalSize % MAX_SAVED_GVAR_PART_SIZE;
     CGenericGameStorage::LoadDataFromWorkBuffer(p, remainder);
 
     for (auto& sfb : ScriptsForBrains.m_aScriptForBrains) {
@@ -1277,14 +1474,17 @@ void CTheScripts::Save() {
     auto       p         = ScriptSpace.data();
     CGenericGameStorage::SaveDataToWorkBuffer(totalSize);
 
-    // Load chunks
-    auto nParts = totalSize / MAX_SAVED_GVAR_PART_SIZE;
-    for (nParts; nParts-- > 0; p += MAX_SAVED_GVAR_PART_SIZE) {
-        CGenericGameStorage::SaveDataToWorkBuffer(p, MAX_SAVED_GVAR_PART_SIZE);
+    // Como el original (0x5D4C69..0x5D4CB7): igual que Load; sin trozo final de tamano 0 cuando el total es multiplo de 0xC800
+    uint32 remainder = totalSize;
+    if ((int32)totalSize > (int32)MAX_SAVED_GVAR_PART_SIZE) {
+        auto nParts = (totalSize - (MAX_SAVED_GVAR_PART_SIZE + 1)) / MAX_SAVED_GVAR_PART_SIZE + 1;
+        remainder   = totalSize - nParts * MAX_SAVED_GVAR_PART_SIZE;
+        for (; nParts > 0; nParts--, p += MAX_SAVED_GVAR_PART_SIZE) {
+            CGenericGameStorage::SaveDataToWorkBuffer(p, MAX_SAVED_GVAR_PART_SIZE);
+        }
     }
 
-    // Load remainder
-    const auto remainder = totalSize % MAX_SAVED_GVAR_PART_SIZE;
+    // Save remainder
     CGenericGameStorage::SaveDataToWorkBuffer(p, remainder);
 
 
@@ -1416,6 +1616,10 @@ void CTheScripts::Process() {
     }
 
     CommandsExecuted = 0;
+    ScriptsUpdated   = 0;
+
+    // Como el original (0x46A010..0x46A036): CTimer::ms_fTimeStepNonClipped (0xB7CB58) * 0.02f * 1000.0f truncado con _ftol2
+    const auto timeStepMS = (int32)(CTimer::GetTimeStepNonClipped() * std::bit_cast<float>(0x3CA3D70Au) * 1000.0f);
 
     UpsideDownCars.UpdateTimers();
     StuckCars.Process();
@@ -1429,21 +1633,24 @@ void CTheScripts::Process() {
     }
 
     if (UseTextCommands != eUseTextCommandState::DISABLED) {
-        rng::fill(IntroTextLines, tScriptText{});
+        // Como el original (0x46A0A0..0x46A184): wrapX = 182.0, centreSize = 640.0 (no el ancho de pantalla de Init)
+        for (auto& line : IntroTextLines) {
+            ResetIntroTextLine(line, std::bit_cast<float>(0x43360000u), std::bit_cast<float>(0x44200000u));
+        }
         NumberOfIntroTextLinesThisFrame = 0;
 
-        rng::fill(IntroRectangles, tScriptRectangle{});
+        // Como el original (0x46A196..0x46A1A8): solo se limpian m_nType y m_bDrawBeforeFade de cada rectangulo
+        for (auto& rect : IntroRectangles) {
+            rect.m_nType           = eScriptRectangleType::INACTIVE;
+            rect.m_bDrawBeforeFade = false;
+        }
         NumberOfIntroRectanglesThisFrame = 0;
 
         if (UseTextCommands == eUseTextCommandState::DISABLE_NEXT_FRAME) {
             UseTextCommands = eUseTextCommandState::DISABLED;
         }
-    } else { // Check these, just in case something modifies them: If so, you can place a 'Break when data changes' breakpoint on the variable
-        assert(NumberOfIntroTextLinesThisFrame == 0);
-        assert(NumberOfIntroRectanglesThisFrame == 0);
     }
 
-    const auto timeStepMS = (int32)CTimer::GetTimeStepInMS();
     LocalVariablesForCurrentMission[SCRIPT_VAR_TIMERA].iParam += timeStepMS;
     LocalVariablesForCurrentMission[SCRIPT_VAR_TIMERB].iParam += timeStepMS;
 
@@ -1454,6 +1661,7 @@ void CTheScripts::Process() {
     // (TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME) hacia que se ejecutara el script terminado y, siguiendo su m_pNext,
     // toda la lista de scripts inactivos.
     for (CRunningScript* it = pActiveScripts; it;) {
+        ++ScriptsUpdated;
         CRunningScript* const next = it->m_pNext;
 
         it->m_LocalVars[SCRIPT_VAR_TIMERA].iParam += timeStepMS;
@@ -1465,11 +1673,51 @@ void CTheScripts::Process() {
 
     CLoadingScreen::NewChunkLoaded();
 
-    for (auto& ped : GetPedPool()->GetAllValid()) {
-        if (ped.IsCreatedByMission()) {
-            ped.GetIntelligence()->RecordEventForScript(0, 0);
+    // Como el original (0x46A233..0x46A279): el pool de peds se recorre de la ultima ranura a la primera
+    auto* const pedPool = GetPedPool();
+    for (auto i = pedPool->GetSize(); i-- > 0;) {
+        if (auto* ped = pedPool->GetAt(i); ped && ped->IsCreatedByMission()) {
+            ped->GetIntelligence()->RecordEventForScript(0, 0);
         }
     }
+}
+
+namespace {
+//! fpatan sobre (ST1 = num, ST0 = den): un unico redondeo a float al guardar (como el fstp del EXE)
+float ExeAtan2(float num, float den) {
+    float result;
+    __asm {
+        fld  dword ptr [num]
+        fld  dword ptr [den]
+        fpatan
+        fstp dword ptr [result]
+    }
+    return result;
+}
+
+//! Como el original (0x493A33..0x493C86, igual en los cuatro estados): acerca el objetivo del foco a `goal`.
+//! Devuelve true si todavia estaba lejos (distancia > velocidad, o NaN) y lo ha movido; false si ha llegado.
+//! Distancia = sqrt((dz*dz + dy*dy) + dx*dx), como el orden de las sumas del EXE.
+bool StepSearchLightTarget(tScriptSearchlight& sl, const CVector& goal) {
+    const float dx = goal.x - sl.m_Target.x;
+    const float dy = goal.y - sl.m_Target.y;
+    const float dz = goal.z - sl.m_Target.z;
+    const float len = sqrtf((dz * dz + dy * dy) + dx * dx);
+    if (len <= sl.m_fPathSpeed) {
+        return false;
+    }
+
+    CVector dir{ dx, dy, dz };
+    dir.Normalise(); // 0x59C910
+    const float speed = sl.m_fPathSpeed;
+    const float mx = dir.x * speed;
+    const float my = dir.y * speed;
+    const float mz = speed * dir.z;
+    sl.m_Target.x = mx + sl.m_Target.x;
+    sl.m_Target.y = my + sl.m_Target.y;
+    sl.m_Target.z = mz + sl.m_Target.z;
+    return true;
+}
 }
 
 // 0x4939F0
@@ -1481,62 +1729,73 @@ void CTheScripts::ProcessAllSearchLights() {
             continue;
         }
 
-        const auto dir = sl.m_PathCoord2 - sl.m_Target;
-        if (dir.SquaredMagnitude() > sq(sl.m_fPathSpeed)) { // Originally part of every case, moved it out here...
-            sl.m_Target *= dir.Normalized() * sl.m_fPathSpeed;
-        } else {
-            switch (sl.m_nCurrentState) {
-            case eScriptSearchLightState::STATE_1: {
+        // Como el original (0x493A1A..0x493C86): salto por estado; los estados 0 y > 4 no mueven el objetivo
+        switch (sl.m_nCurrentState) {
+        case eScriptSearchLightState::STATE_1: {
+            if (!StepSearchLightTarget(sl, sl.m_PathCoord1)) {
                 sl.m_Target        = sl.m_PathCoord1;
                 sl.m_SomethingFlag = true;
                 sl.m_nCurrentState = eScriptSearchLightState::STATE_2;
-                break;
             }
-            case eScriptSearchLightState::STATE_2: {
+            break;
+        }
+        case eScriptSearchLightState::STATE_2: {
+            if (!StepSearchLightTarget(sl, sl.m_PathCoord2)) {
                 sl.m_Target        = sl.m_PathCoord2;
                 sl.m_SomethingFlag = true;
                 sl.m_nCurrentState = eScriptSearchLightState::STATE_1;
-                break;
             }
-            case eScriptSearchLightState::STATE_3: {
+            break;
+        }
+        case eScriptSearchLightState::STATE_3: {
+            if (!StepSearchLightTarget(sl, sl.m_FollowingEntity->GetPosition())) {
                 sl.m_Target = sl.m_FollowingEntity->GetPosition();
-                /* flag is not altered */
-                break;
+                /* flag/estado no se alteran */
             }
-            case eScriptSearchLightState::STATE_4: {
+            break;
+        }
+        case eScriptSearchLightState::STATE_4: {
+            if (!StepSearchLightTarget(sl, sl.m_PathCoord1)) {
                 sl.m_Target        = sl.m_PathCoord1;
-                sl.m_fPathSpeed    = 0.0f;
-                sl.m_PathCoord1    = CVector{};
-                sl.m_SomethingFlag = true;
                 sl.m_nCurrentState = eScriptSearchLightState::STATE_0;
-                break;
+                sl.m_SomethingFlag = true;
+                sl.m_PathCoord1    = CVector{};
+                sl.m_fPathSpeed    = 0.0f;
             }
-            default:
-                NOTSA_UNREACHABLE("Invalid SearchLight State ({})", (int)sl.m_nCurrentState);
-            }
+            break;
+        }
+        default:
+            break;
         }
 
-        CEntity* bulb = sl.m_Bulb;
+        CEntity* const bulb = sl.m_Bulb.Get();
         if (!bulb) {
             continue;
         }
 
-        const auto prevPos    = bulb->GetPosition();
-        const auto tgtBulbDir = (sl.m_Target - bulb->GetPosition()).Normalized();
+        // Como el original (0x493C86..0x493E01): direccion bombilla -> objetivo normalizada (0x59C910),
+        // rumbo = atan2(-x, y) y cabeceo = atan2(z, sqrt(x*x + y*y)) con fpatan; la matriz del EXE se usa sin comprobar null.
+        const CVector bulbPos = bulb->GetPosition();
+        CVector       dir{ sl.m_Target.x - bulbPos.x, sl.m_Target.y - bulbPos.y, sl.m_Target.z - bulbPos.z };
+        dir.Normalise();
+
+        const CVector prevPos = bulb->m_matrix->GetPosition();
+        const float   heading = ExeAtan2(-dir.x, dir.y);
+        const float   pitch   = ExeAtan2(dir.z, sqrtf(dir.x * dir.x + dir.y * dir.y));
 
         const auto Transform = [&](CEntity* entity) {
-            const auto rotX = std::atan2(tgtBulbDir.z, tgtBulbDir.Magnitude2D());
-            const auto rotZ = tgtBulbDir.Heading();
-
-            entity->m_matrix->RotateX(rotX);
-            entity->m_matrix->RotateZ(rotZ);
-            entity->GetPosition() += prevPos;
+            auto& mat = *entity->m_matrix;
+            mat.SetRotateX(pitch); // 0x59B060
+            mat.RotateZ(heading);  // 0x59B390
+            mat.GetPosition().x = prevPos.x + mat.GetPosition().x;
+            mat.GetPosition().y = prevPos.y + mat.GetPosition().y;
+            mat.GetPosition().z = prevPos.z + mat.GetPosition().z;
             entity->UpdateRwMatrix();
             entity->UpdateRwFrame();
         };
 
         Transform(bulb);
-        Transform(sl.m_Housing);
+        Transform(sl.m_Housing.Get());
     }
 }
 
@@ -1546,6 +1805,9 @@ void CTheScripts::ProcessWaitingForScriptBrainArray() {
 
     if (!FindPlayerPed())
         return;
+
+    // Como el original (0x46CF24): el centro del mundo del jugador (FindPlayerCentreOfWorld 0x56E250) se calcula una sola vez antes del bucle
+    const CVector playerCentre = FindPlayerCentreOfWorld(CWorld::PlayerInFocus);
 
     for (auto& e : EntitiesWaitingForScriptBrain) {
         if (!e.m_pEntity) {
@@ -1577,7 +1839,7 @@ void CTheScripts::ProcessWaitingForScriptBrainArray() {
 
             switch (obj->objectFlags.b0x100000_0x200000) {
             case 1:
-                if (!ScriptsForBrains.IsObjectWithinBrainActivationRange(obj, FindPlayerCentreOfWorld()))
+                if (!ScriptsForBrains.IsObjectWithinBrainActivationRange(obj, playerCentre))
                     break;
 
                 [[fallthrough]];
@@ -1628,22 +1890,23 @@ void CTheScripts::UseSwitchJumpTable(int32& switchLabelAddress) {
         return true;
     };
 
-    auto ptr1 = 0u;
-    auto ptr2 = NumberOfEntriesInSwitchTable - 1u;
-    while (ptr2 - ptr1 > 1) {
-        const auto idx = (ptr1 + ptr2) / 2;
-        if (CheckEntryAndJump(&SwitchJumpTable[idx])) {
+    // Como el original (0x4703CC..0x4703DD): los punteros son bytes (bl = NumberOfEntriesInSwitchTable - 1, con wrap a 8 bits)
+    uint8 ptr1 = 0;
+    uint8 ptr2 = (uint8)((uint8)NumberOfEntriesInSwitchTable - 1);
+    while ((int32)ptr2 - (int32)ptr1 > 1) {
+        const uint8 idx = (uint8)(((int32)ptr1 + (int32)ptr2) / 2);
+        if (CheckEntryAndJump(&SwitchJumpTable.data()[idx])) {
             return;
         }
 
-        if (ValueToCheckInSwitchStatement <= SwitchJumpTable[idx].m_nSwitchValue) {
+        if (ValueToCheckInSwitchStatement <= SwitchJumpTable.data()[idx].m_nSwitchValue) {
             ptr2 = idx;
         } else {
             ptr1 = idx;
         }
     }
 
-    if (CheckEntryAndJump(&SwitchJumpTable[ptr2]) || CheckEntryAndJump(&SwitchJumpTable[ptr1])) {
+    if (CheckEntryAndJump(&SwitchJumpTable.data()[ptr2]) || CheckEntryAndJump(&SwitchJumpTable.data()[ptr1])) {
         return;
     }
 
@@ -1662,62 +1925,35 @@ void CTheScripts::PrintListSizes() {
 
 uint32 DbgLineColour = 0x0000FFFF; // r = 0, g = 0, b = 255, a = 255
 
+namespace {
+//! Como el original (p. ej. 0x48684B..0x48687D): ProcessVerticalLine desde (x, y, -1000) con distancia 1000 sobre edificios y dummies
+void DebugProbeVerticalLine(float x, float y) {
+    CColPoint colPoint;
+    CEntity*  colEntity;
+    const CVector origin{ x, y, -1000.0f };
+    CWorld::ProcessVerticalLine(origin, 1000.0f, colPoint, colEntity, true, false, false, false, true, false, nullptr);
+}
+}
+
 // Usage:
 //  const auto pos = FindPlayerPed()->GetPosition() + CVector{ 0.0f, 0.f, 1.0f };
 //  CTheScripts::DrawDebugSquare(pos.x + 5.f, pos.y, pos.x, pos.y + 5.f);
 // 0x486840
 void CTheScripts::DrawDebugSquare(float x1, float y1, float x2, float y2) {
-    CColPoint colPoint{};
-    CEntity*  colEntity;
-
-    CVector p1 { x1, y1, -1000.0f };
-    CWorld::ProcessVerticalLine(p1, 1000.0f, colPoint, colEntity, true, false, false, false, true, false, nullptr);
-    p1.z = colPoint.m_vecPoint.z + 2.0f;
-
-    CVector p2 { x2, y1, -1000.0f };
-    CWorld::ProcessVerticalLine(p2, 1000.0f, colPoint, colEntity, true, false, false, false, true, false, nullptr);
-    p2.z = colPoint.m_vecPoint.z + 2.0f;
-
-    CVector p3 { x2, y2, -1000.0f };
-    CWorld::ProcessVerticalLine(p3, 1000.0f, colPoint, colEntity, true, false, false, false, true, false, nullptr);
-    p3.z = colPoint.m_vecPoint.z + 2.0f;
-
-    CVector p4 { x1, y2, -1000.0f };
-    CWorld::ProcessVerticalLine(p4, 1000.0f, colPoint, colEntity, true, false, false, false, true, false, nullptr);
-    p4.z = colPoint.m_vecPoint.z + 2.0f; // FIX_BUGS: missing in original code 🤷
-
-    ScriptDebugLine3D(p1, p2, DbgLineColour, DbgLineColour);
-    ScriptDebugLine3D(p2, p3, DbgLineColour, DbgLineColour);
-    ScriptDebugLine3D(p3, p4, DbgLineColour, DbgLineColour);
-    ScriptDebugLine3D(p4, p1, DbgLineColour, DbgLineColour);
+    // Como el original: cuatro sondas verticales y nada mas (las alturas calculadas no se usan y ScriptDebugLine3D del EXE es un `ret`)
+    DebugProbeVerticalLine(x1, y1);
+    DebugProbeVerticalLine(x2, y1);
+    DebugProbeVerticalLine(x2, y2);
+    DebugProbeVerticalLine(x1, y2);
 }
 
-// float infX, float infY, float sup.x, float supY, float rotSupX, float rotSupY, float rotInfX, float rotInfY
 // 0x486990
-void CTheScripts::DrawDebugAngledSquare(const CVector2D& inf, const CVector2D& sup, const CVector2D& rotSup, const CVector2D& rotInf) {
-    CColPoint colPoint{};
-    CEntity*  colEntity;
-
-    CVector p1 { inf.x, inf.y, -1000.0f };
-    CWorld::ProcessVerticalLine(p1, 1000.0f, colPoint, colEntity, true, false, false, false, true, false, nullptr);
-    p1.z = colPoint.m_vecPoint.z + 2.0f;
-
-    CVector p2 { sup.x, sup.y, -1000.0f };
-    CWorld::ProcessVerticalLine(p2, 1000.0f, colPoint, colEntity, true, false, false, false, true, false, nullptr);
-    p2.z = colPoint.m_vecPoint.z + 2.0f;
-
-    CVector p3 { rotSup.x, rotSup.y, -1000.0f };
-    CWorld::ProcessVerticalLine(p3, 1000.0f, colPoint, colEntity, true, false, false, false, true, false, nullptr);
-    p3.z = colPoint.m_vecPoint.z + 2.0f;
-
-    CVector p4 { rotInf.x, rotInf.y, -1000.0f };
-    CWorld::ProcessVerticalLine(p4, 1000.0f, colPoint, colEntity, true, false, false, false, true, false, nullptr);
-    p4.z = colPoint.m_vecPoint.z + 2.0f;
-
-    ScriptDebugLine3D(p1, p2, DbgLineColour, DbgLineColour);
-    ScriptDebugLine3D(p2, p3, DbgLineColour, DbgLineColour);
-    ScriptDebugLine3D(p3, p4, DbgLineColour, DbgLineColour);
-    ScriptDebugLine3D(p4, p1, DbgLineColour, DbgLineColour);
+void CTheScripts::DrawDebugAngledSquare(float infX, float infY, float supX, float supY, float rotSupX, float rotSupY, float rotInfX, float rotInfY) {
+    // Como el original: cuatro sondas verticales (inf, sup, rotSup, rotInf)
+    DebugProbeVerticalLine(infX, infY);
+    DebugProbeVerticalLine(supX, supY);
+    DebugProbeVerticalLine(rotSupX, rotSupY);
+    DebugProbeVerticalLine(rotInfX, rotInfY);
 }
 
 // (float infX, float infY, float infZ, float supX, float supY, float supZ)
@@ -1752,6 +1988,15 @@ void CTheScripts::DrawDebugAngledCube(const CVector& inf, const CVector& sup, co
     ScriptDebugLine3D({ rotInf.x, rotInf.y, sup.z    }, { rotInf.x, rotInf.y, inf.z }, DbgLineColour, DbgLineColour);
 }
 
+namespace {
+//! Como el original: copia directa de las esquinas (los rectangulos de script pueden estar invertidos; CRect(min, max) lo comprueba con assert)
+CRect ScriptRawRect(const CVector2D& a, const CVector2D& b) {
+    CRect r;
+    r.left = a.x; r.bottom = a.y; r.right = b.x; r.top = b.y;
+    return r;
+}
+}
+
 // 0x464980
 void CTheScripts::DrawScriptSpritesAndRectangles(bool drawBeforeFade) {
     for (const auto& rt : IntroRectangles) {
@@ -1772,7 +2017,7 @@ void CTheScripts::DrawScriptSpritesAndRectangles(bool drawBeforeFade) {
             break;
         case eScriptRectangleType::TEXT:
             FrontEndMenuManager.DrawWindow(
-                CRect{ rt.cornerA, rt.cornerB },
+                ScriptRawRect(rt.cornerA, rt.cornerB),
                 rt.gxt1,
                 0,
                 CRGBA{ 0, 0, 0, 190 },
@@ -1782,35 +2027,53 @@ void CTheScripts::DrawScriptSpritesAndRectangles(bool drawBeforeFade) {
             break;
         case eScriptRectangleType::MONOCOLOR:
             CSprite2d::DrawRect(
-                CRect{ rt.cornerA, rt.cornerB },
+                ScriptRawRect(rt.cornerA, rt.cornerB),
                 rt.m_nTransparentColor
             );
             break;
         case eScriptRectangleType::TEXTURED:
             ScriptSprites[rt.m_nTextureId].Draw(
-                CRect{ rt.cornerA, rt.cornerB },
+                ScriptRawRect(rt.cornerA, rt.cornerB),
                 rt.m_nTransparentColor
             );
             break;
         case eScriptRectangleType::MONOCOLOR_ANGLED: {
-            // mid: Vector that points to the middle of line A-B from A.
-            // vAM: A to mid.
-            const auto mid = (rt.cornerA + rt.cornerB) / 2.0f;
-            const auto vAM = mid - rt.cornerA;
-            const auto cos = std::cos(rt.m_nAngle);
-            const auto sin = std::sin(rt.m_nAngle);
+            // Como el original (0x464A9A..0x464B7F): mid = (B + A) * 0.5 y vAM = mid - A; cos(fcos) queda en ST0 sin redondear a float
+            // y sin(fsin) se guarda como float; los cuatro productos se redondean a 24 bits.
+            const float midX = (rt.cornerB.x + rt.cornerA.x) * 0.5f;
+            const float midY = (rt.cornerB.y + rt.cornerA.y) * 0.5f;
+            const float vAMx = midX - rt.cornerA.x;
+            const float vAMy = midY - rt.cornerA.y;
+            const float angle = rt.m_nAngle;
+            float prodCosB, prodSinA, prodCosA, prodSinB, sinVal;
+            __asm {
+                fld  dword ptr [angle]
+                fcos
+                fld  dword ptr [angle]
+                fsin
+                fstp dword ptr [sinVal]
+                fld  st(0)
+                fmul dword ptr [vAMy]
+                fstp dword ptr [prodCosB]
+                fld  dword ptr [sinVal]
+                fmul dword ptr [vAMx]
+                fstp dword ptr [prodSinA]
+                fmul dword ptr [vAMx]
+                fstp dword ptr [prodCosA]
+                fld  dword ptr [sinVal]
+                fmul dword ptr [vAMy]
+                fstp dword ptr [prodSinB]
+            }
 
-            // This is 2D rotation, couldn't find a better function aside from
-            // using matricies or quaternions.
             ScriptSprites[rt.m_nTextureId].Draw(
-                -cos * vAM.x + sin * vAM.y + mid.x,
-                -sin * vAM.x - cos * vAM.y + mid.y,
-                +sin * vAM.y + cos * vAM.x + mid.x,
-                +sin * vAM.x - cos * vAM.y + mid.y,
-                -cos * vAM.x - sin * vAM.y + mid.x,
-                +cos * vAM.y - sin * vAM.x + mid.y,
-                +cos * vAM.x - sin * vAM.y + mid.x,
-                +sin * vAM.x + cos * vAM.y + mid.y,
+                (-prodCosA + prodSinB) + midX,
+                (-prodSinA - prodCosB) + midY,
+                (prodSinB + prodCosA) + midX,
+                (prodSinA - prodCosB) + midY,
+                (-prodCosA - prodSinB) + midX,
+                (prodCosB + -prodSinA) + midY,
+                (prodCosA - prodSinB) + midX,
+                (prodSinA + prodCosB) + midY,
                 rt.m_nTransparentColor
             );
             break;
@@ -1822,13 +2085,9 @@ void CTheScripts::DrawScriptSpritesAndRectangles(bool drawBeforeFade) {
 }
 
 // Usage:
-//   const auto pos = FindPlayerPed()->GetPosition() + CVector{ 0.0f, 0.f, 1.0f };
 //   CTheScripts::ScriptDebugCircle2D(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100, 50.f, 50.f, HudColour.GetRGB(HUD_COLOUR_RED).ToInt());
 // 0x485C20
-void CTheScripts::ScriptDebugCircle2D(float x, float y, float width, float height, CRGBA color) {
-    return plugin::Call<0x485C20, float, float, float, float, CRGBA>(x, y, width, height, color);
-
-    // untested
+void CTheScripts::ScriptDebugCircle2D(float x, float y, float width, float height, uint32 color) {
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,      RWRSTATE(TRUE));
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE,       RWRSTATE(FALSE));
     RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
@@ -1837,19 +2096,54 @@ void CTheScripts::ScriptDebugCircle2D(float x, float y, float width, float heigh
     RwRenderStateSet(rwRENDERSTATETEXTUREFILTER,     RWRSTATE(rwFILTERLINEAR));
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(NULL));
 
-    const auto iters = 16;
-    auto part = (CTimer::GetTimeInMS() >> 6) % iters;
-    for (auto i = 0; i < iters; i++) {
-        RwIm2DVertex vertex{
-            .x = std::sin((float)i * PI / 8.0f) * width + x,
-            .y = std::cos((float)i * PI / 8.0f) * height + y
-        };
-        if (part == i)
-            vertex.emissiveColor = (3 * color.g / 4) | (((3 * color.b / 4) | (((3 * color.a / 4) | ((3 * color.r / 4) << 8)) << 8)) << 8); // todo: (3 * color / 4).ToIntARGB();
-        else
-            vertex.emissiveColor = color.ToIntARGB();
-        RwIm2DVertex vertices[2] = { vertex, vertex };
-        RwIm2DRenderLine(vertices, std::size(vertices), 0, 1); // todo: RwIm2DRenderLine_BUGFIX
+    // Como el original (0x485C7F..0x485DA1): parte resaltada = (CTimer::m_snTimeInMilliseconds >> 6) & 0xF; el color llega como
+    // r<<24|g<<16|b<<8|a y los vertices lo llevan como a<<24|r<<16|g<<8|b; el segmento resaltado usa 3/4 de cada canal.
+    // z, rhw y u/v de los vertices quedan sin inicializar, como en el EXE.
+    const int32  part = (int16)((CTimer::GetTimeInMS() >> 6) & 0xF);
+    const int32  cr   = (color >> 24) & 0xFF;
+    const int32  cg   = (color >> 16) & 0xFF;
+    const int32  cb   = (color >> 8) & 0xFF;
+    const int32  ca   = color & 0xFF;
+    const uint32 argb = ((uint32)ca << 24) | ((uint32)cr << 16) | ((uint32)cg << 8) | (uint32)cb;
+    const uint32 dim  = ((uint32)(ca * 3 / 4) << 24) | ((uint32)(cr * 3 / 4) << 16) | ((uint32)(cg * 3 / 4) << 8) | (uint32)(cb * 3 / 4);
+    const float  step = std::bit_cast<float>(0x3EC90FDBu); // 0x859F50: pi / 8
+
+    RwIm2DVertex vertices[2];
+    for (int32 i = 0; i < 16; i++) {
+        const int32 idx0 = i;
+        const int32 idx1 = i + 1;
+        float v0x, v0y, v1x, v1y;
+        __asm {
+            fild dword ptr [idx0]
+            fmul dword ptr [step]
+            fld  st(0)
+            fsin
+            fmul dword ptr [width]
+            fadd dword ptr [x]
+            fstp dword ptr [v0x]
+            fcos
+            fmul dword ptr [height]
+            fadd dword ptr [y]
+            fstp dword ptr [v0y]
+            fild dword ptr [idx1]
+            fmul dword ptr [step]
+            fld  st(0)
+            fsin
+            fmul dword ptr [width]
+            fadd dword ptr [x]
+            fstp dword ptr [v1x]
+            fcos
+            fmul dword ptr [height]
+            fadd dword ptr [y]
+            fstp dword ptr [v1y]
+        }
+        vertices[0].x = v0x;
+        vertices[0].y = v0y;
+        vertices[1].x = v1x;
+        vertices[1].y = v1y;
+        vertices[0].emissiveColor = (part == i) ? dim : argb;
+        vertices[1].emissiveColor = vertices[0].emissiveColor;
+        RwIm2DRenderLine(vertices, 2, 0, 1);
     }
 
     RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(FALSE));
@@ -1885,7 +2179,8 @@ void CTheScripts::DrawScriptSpheres() {
 // 0x485E00
 void CTheScripts::HighlightImportantArea(uint32 id, float x1, float y1, float x2, float y2, float z) {
     CVector2D inf, sup;
-    if (x1 < x2) {
+    // Como el original (0x485E07..0x485E55): `fcomp` + `test ah,41h` + jne -> con x1 <= x2 (o NaN) inf = x1 y sup = x2
+    if (!(x1 > x2)) {
         inf.x = x1;
         sup.x = x2;
     } else {
@@ -1893,7 +2188,7 @@ void CTheScripts::HighlightImportantArea(uint32 id, float x1, float y1, float x2
         sup.x = x1;
     }
 
-    if (y1 < y2) {
+    if (!(y1 > y2)) {
         inf.y = y1;
         sup.y = y2;
     } else {
@@ -1902,9 +2197,10 @@ void CTheScripts::HighlightImportantArea(uint32 id, float x1, float y1, float x2
     }
 
     CVector center;
-    center.x = (inf.x + sup.x) / 2;
-    center.y = (inf.y + sup.y) / 2;
-    center.z = (z <= MAP_Z_LOW_LIMIT) ? CWorld::FindGroundZForCoord(center.x, center.y) : z;
+    center.x = (sup.x + inf.x) * 0.5f;
+    center.y = (sup.y + inf.y) * 0.5f;
+    // Como el original (0x485E99): a la altura del suelo se le suma 2.0 (0x858CA0)
+    center.z = (z <= MAP_Z_LOW_LIMIT) ? CWorld::FindGroundZForCoord(center.x, center.y) + 2.0f : z;
     CShadows::RenderIndicatorShadow(id, SHADOW_ADDITIVE, nullptr, center, sup.x - center.x, 0.0f, 0.0f, center.y - sup.y, 0);
 }
 
@@ -1951,17 +2247,7 @@ static tStoredLine aStoredLines[MAX_NUM_STORED_LINES];
 
 // 0x485DE0
 void CTheScripts::ScriptDebugLine3D(const CVector& start, const CVector& end, uint32 color1, uint32 color2) {
-#ifndef FINAL
-    if (NumScriptDebugLines >= MAX_NUM_STORED_LINES)
-        return;
-
-    auto& line = aStoredLines[NumScriptDebugLines];
-    line.vecInf = start;
-    line.vecSup = end;
-    line.color1 = color1;
-    line.color2 = color2;
-    NumScriptDebugLines++;
-#endif
+    // Como el original: el cuerpo del EXE es un `ret` (las lineas de depuracion no se almacenan en la version final)
 }
 
 // 0x0 NOP
@@ -1977,6 +2263,17 @@ void CTheScripts::RenderTheScriptDebugLines() {
 #endif
 }
 
+namespace {
+//! Como el original (Multiply3x3 0x59C790): matriz * vector con el orden de sumas del EXE
+CVector ExeMultiply3x3MV(const CMatrix& m, const CVector& v) {
+    return {
+        (m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x,
+        (m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y,
+        (m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y
+    };
+}
+}
+
 // 0x493E30
 void CTheScripts::RenderAllSearchLights() {
     ZoneScoped;
@@ -1986,16 +2283,18 @@ void CTheScripts::RenderAllSearchLights() {
             continue;
         }
 
-        const auto origin = [&] {
-            if (auto e = notsa::coalesce(light.m_AttachedEntity.Get(), light.m_Bulb.Get())) {
-                return e->GetMatrix().TransformVector(light.m_Origin) + e->GetPosition();
-            }
+        CVector origin = light.m_Origin;
+        if (auto e = notsa::coalesce(light.m_AttachedEntity.Get(), light.m_Bulb.Get())) {
+            // Como el original (0x493EE2..0x493F7B): matriz de la entidad (la crea si falta), origen transformado + posicion de la matriz
+            const auto& mat         = e->GetMatrix();
+            const CVector rotated   = ExeMultiply3x3MV(mat, light.m_Origin);
+            const CVector& matPos   = mat.GetPosition();
+            origin = CVector{ rotated.x + matPos.x, rotated.y + matPos.y, rotated.z + matPos.z };
+        }
 
-            return light.m_Origin;
-        }();
-
+        // Como el original (0x493E37: ebx = 0x216, incrementado por foco): el primer argumento es 0x216 + indice, no el indice
         CHeli::SearchLightCone(
-            i,
+            0x216 + (int32)i,
             origin,
             light.m_Target,
             light.m_fTargetRadius,
@@ -2017,7 +2316,10 @@ void CTheScripts::RenderAllSearchLights() {
 // 0x474800
 bool CTheScripts::ScriptAttachAnimGroupToCharModel(int32 modelId, const char* ifpName) {
     auto* mi = CModelInfo::GetModelInfo(modelId);
-    if (mi->GetAnimFileIndex() == CAnimManager::GetAnimationBlockIndex(ifpName)) {
+    // Como el original (0x474806..0x474824): primero GetAnimFileIndex (vtable +0x38) y despues GetAnimationBlockIndex
+    const auto curIndex   = mi->GetAnimFileIndex();
+    const auto blockIndex = CAnimManager::GetAnimationBlockIndex(ifpName);
+    if (curIndex == blockIndex) {
         // Already attached?
         return false;
     }

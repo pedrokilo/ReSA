@@ -6,10 +6,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 7496 |
+| `validated=1` · evidencia aprobada vinculada | 7809 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 7496 |
-| Sin evidencia aprobada vinculada en este registro | 950 |
+| Evidencia histórica vinculada; revisión pendiente | 7809 |
+| Sin evidencia aprobada vinculada en este registro | 637 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -1121,6 +1121,78 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarGenerator | `Setup` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCarGenerator | `SwitchOff` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCarGenerator | `SwitchOn` | [Resumen](../reversing/Data8a/validation-summary.json) |
+| CCheat | `AddToCheatString` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `AdrenalineCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `AllCarsAreGreatCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `AllCarsAreShitCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `ApacheCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `ApplyCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `BeachPartyCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `BlackCarsCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `BlowUpCarsCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `CloudyWeatherCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `CountrysideInvasionCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `DoCheats` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `DozerCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `DrivebyCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `DuskCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `ElvisLivesCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `EverybodyAttacksPlayerCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `ExtraSunnyWeatherCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `FastTimeCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `FatCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `FlyboyCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `FoggyWeatherCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `FunhouseCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `GangLandCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `GangsCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `GolfcartCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `HandleSpecialCheats` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `HearseCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `IsZoneStreamingAllowed` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `JetpackCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `LoveConquersAllCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `LovefistCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `MayhemCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `MidnightCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `MoneyArmourHealthCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `MonsterTruckCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `MuscleCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `NinjaCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `NotWantedCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `ParachuteCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `PinkCarsCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `PredatorCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `QuadCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `RainyWeatherCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `ResetCheats` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `RiotCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `SandstormCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `SkinnyCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `SlowTimeCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `StaminaCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `StockCar2Cheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `StockCar3Cheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `StockCar4Cheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `StockCarCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `StormCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `StuntPlaneCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `SuicideCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `SunnyWeatherCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `TankCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `TankerCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `TrashmasterCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `VehicleCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `VehicleSkillsCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `VillagePeopleCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `VortexCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `WantedCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `WantedLevelDownCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `WantedLevelUpCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `WeaponCheat1` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `WeaponCheat2` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `WeaponCheat3` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
+| CCheat | `WeaponSkillsCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
 | CCheckpoint | `Render` | [Resumen](../reversing/FixBugs/validation-summary.json) |
 | CCheckpoints | `DeleteCP` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCheckpoints | `Init` | [Resumen](../reversing/Data8a/validation-summary.json) |
@@ -2994,8 +3066,62 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `Update` | [Resumen](../reversing/RequestedPadMutationRemaining3/validation-summary-update.json) |
 | CPad | `UpdateMouse` | [Resumen](../reversing/PadMouse1/validation-summary.json) |
 | CPad | `WeaponJustDown` | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) |
+| CPathFind | `AddDynamicLinkBetween2Nodes_For1Node` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `AddInteriorLink` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `AddInteriorLinkToExternalNode` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `AddNodeToList` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `AddNodeToNewInterior` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `AreNodesLoadedForArea` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `ComputeRoute` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
+| CPathFind | `CountNeighboursToBeSwitchedOff` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `DoPathSearch` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
+| CPathFind | `FindLinkBetweenNodes` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindNearestExteriorNodeToInteriorNode` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindNodeClosestToCoorsFavourDirection` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindNodeCoorsForScript-LinkedNode` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindNodeCoorsForScript-TwoNodes` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindRegionForCoors` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindStartPointOfRegion-` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindXCoorsForRegion` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindXRegionForCoors` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindYCoorsForRegion` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindYRegionForCoors` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `GetPathNode` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `HaveRequestedNodesBeenLoaded` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `Init` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `IsAreaNodesAvailable` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `IsWaterNodeNearby` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `Load` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `LoadPathFindData-Area` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `LoadPathFindData-FromStream` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `LoadSceneForPathNodes` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `MakeRequestForNodesToBeLoaded` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `MarkRegionsForCoors` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `MarkRoadNodeAsDontWander` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `ReInit` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `ReleaseRequestedNodes` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `RemoveInterior` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `RemoveNodeFromList` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `ReturnInteriorNodeIndex` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `Save` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `SetLinksBridgeLights` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `SetPathsNeededAtPosition` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `Shutdown` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `StartNewInterior` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `SwitchOffNodeAndNeighbours` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `SwitchPedRoadsOffInArea` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `SwitchRoadsOffInArea` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `SwitchRoadsOffInAreaForOneRegion` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `TakeWidthIntoAccountForWandering` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `TestCrossesRoad` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `TestForPedTrafficLight` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `These2NodesAreAdjacent` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `ThisNodeHasToBeSwitchedOff` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `ThisNodeWillLeadIntoADeadEnd` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `TidyUpNodeSwitchesAfterMission` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `UnLoadPathFindData` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `UnMarkAllRoadNodesAsDontWander` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `UpdateStreaming` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathNode | `GetPosition` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CPed | `AddGogglesModel` | [Resumen](../reversing/CPedB/validation-summary.json) |
 | CPed | `AddWeaponModel` | [Resumen](../reversing/CPedA/validation-summary.json) |
@@ -3728,8 +3854,63 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPopCycle | `UpdateDealerStrengths` | [Resumen](../reversing/World15/validation-summary.json) |
 | CPopCycle | `UpdateIsGangArea` | [Resumen](../reversing/World15/validation-summary.json) |
 | CPopCycle | `UpdatePercentages` | [Resumen](../reversing/World15/validation-summary.json) |
+| CPopulation | `AddExistingPedInCar` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `AddToPopulation` | [Resumen](../reversing/PopulationPending/validation-summary.json) |
+| CPopulation | `ArePedStatsCompatible` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `CanJeerAtStripper` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `CanSolicitPlayerInCar` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `CanSolicitPlayerOnFoot` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ChooseCivilianCoupleOccupations` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ChooseCivilianOccupation` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ChooseCivilianOccupationForVehicle` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ChooseGangOccupation` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ChoosePolicePedOccupation` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ConvertAllObjectsToDummyObjects` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ConvertToDummyObject` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ConvertToRealObject` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `DealWithZoneChange` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `DoesCarGroupHaveModelId` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `FindCarMultiplierMotorway` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `FindDistanceToNearestPedOfType` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `FindDummyDistForModel` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `FindNumberOfPedsWeCanPlaceOnBenches` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `FindPedDensityMultiplierCullZone` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `FindPedMultiplierMotorway` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `FindPedRaceFromName` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `FindSpecificDriverModelForCar_ToUse` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `GeneratePedsAtStartOfGame` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `Initialise` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `IsCorrectTimeOfDayForEffect` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `IsFemale` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `IsMale` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `IsSecurityGuard` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `IsSkateable` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `IsSunbather-ModelID` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `LoadCarGroups` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `LoadPedGroups` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `LoadSpecificDriverModelsForCar` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ManageAllPopulation` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ManageDummy` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `ManageObject` | [Resumen](../reversing/PopulationPending/validation-summary.json) |
+| CPopulation | `ManagePed` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `ManagePopulation` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `MoveCarsAndPedsOutOfAbandonedZones` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `PedCreationDistMultiplier` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `PedMICanBeCreatedAtAttractor` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `PedMICanBeCreatedAtThisAttractor` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `PedMICanBeCreatedInInterior` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `PickGangCar` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `PickRiotRoadBlockCar` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `PlaceGangMembers` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `PlaceMallPedsAsStationaryGroup` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `RemoveAllRandomPeds` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `RemovePed` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `RemovePedsIfThePoolGetsFull` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `RemoveSpecificDriverModelsForCar` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `Shutdown` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `TestRoomForDummyObject` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `Update` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `UpdatePedCount` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPostEffects | `CCTV` | [Resumen](../reversing/FxPost1/validation-summary.json) |
 | CPostEffects | `Close` | [Resumen](../reversing/FxPost1/validation-summary.json) |
 | CPostEffects | `ColourFilter` | [Resumen](../reversing/FxPost1/validation-summary.json) |
@@ -3806,6 +3987,69 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CQuadTreeNode<T> | `GetAllMatching-vec` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `InSector` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `InitPool` | [Resumen](../reversing/Sys12/validation-summary.json) |
+| CRadar | `AddBlipToLegendList` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `CalculateBlipAlpha` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `CalculateCachedSinCos` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ChangeBlipBrightness` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ChangeBlipColour` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ChangeBlipDisplay` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ChangeBlipScale` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ClearActualBlip-OG` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ClearBlip` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ClearBlipForEntity-OG` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ClipRadarTileCoords` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DisplayThisBlip` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `Draw3dMarkers` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawAreaOnRadar` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawBlips` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawCoordBlip` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawLegend` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawMap` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawRadarGangOverlay` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawRadarMap` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawRadarMask` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawRadarSection` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawRadarSectionMap` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawRadarSprite` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawRotatingRadarSprite` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawYouAreHereSprite` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `GetActualBlipArrayIndex` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `GetNewUniqueBlipIndex` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `GetRadarTraceColour` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `GetTextureCorners` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `InitFrontEndMap` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `Initialise` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `IsPointInsideRadar` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `LimitRadarPoint` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `LimitToMap` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `LineRadarBoxCollision` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `Load` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `LoadTextures` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `RemoveMapSection` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `RemoveRadarSections` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `RequestMapSection` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `Save` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetBlipAlwaysDisplayInZoom` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetBlipEntryExit` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetBlipFade` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetBlipFriendly` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetBlipSprite` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetCoordBlip` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetCoordBlipAppearance` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetEntityBlip` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetMapCentreToPlayerCoords` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetShortRangeCoordBlip` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetupAirstripBlips` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `SetupRadarRect` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ShowRadarMarker` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ShowRadarTrace` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `ShowRadarTraceWithHeight` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `Shutdown` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `StreamRadarSections-vec` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `StreamRadarSections-xy` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `TransformRadarPointToRealWorldSpace` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `TransformRadarPointToScreenSpace` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `TransformRealWorldPointToRadarSpace` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
 | CRealTimeShadow | `Constructor` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CRealTimeShadow | `Create` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CRealTimeShadow | `Destroy` | [Resumen](../reversing/Data8b/validation-summary.json) |
@@ -6358,6 +6602,75 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTheCarGenerators | `Process` | [Resumen](../reversing/Mgr7/validation-summary.json) |
 | CTheCarGenerators | `RemoveCarGenerators` | [Resumen](../reversing/Mgr7/validation-summary.json) |
 | CTheCarGenerators | `Save` | [Resumen](../reversing/Mgr7/validation-summary.json) |
+| CTheScripts | `AddScriptCheckpoint` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddScriptEffectSystem` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddScriptSearchLight` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddScriptSphere` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddToBuildingSwapArray` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddToInvisibilitySwapArray` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddToListOfConnectedLodObjects` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddToListOfSpecialAnimGroupsAttachedToCharModels` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddToSwitchJumpTable` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddToVehicleModelsBlockedByScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AddToWaitingForScriptBrainArray` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `AttachSearchlightToSearchlightObject` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `CheckStreamedScriptVersion` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `CleanUpThisObject` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `CleanUpThisPed` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `CleanUpThisVehicle` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ClearAllSuppressedCarModels` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ClearAllVehicleModelsBlockedByScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ClearSpaceForMissionEntity` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `DoScriptSetupAfterPoolsHaveLoaded` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `DrawDebugAngledSquare` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `DrawDebugSquare-` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `DrawScriptSpheres` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `DrawScriptSpritesAndRectangles` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `GetActualScriptThingIndex` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `GetNewUniqueScriptThingIndex` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `GetScriptIndexFromPointer` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `GetUniqueScriptThingIndex` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `HasCarModelBeenSuppressed` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `HasVehicleModelBeenBlockedByScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `HighlightImportantAngledArea` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `HighlightImportantArea-` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `Init` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `InitialiseAllConnectLodObjects` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `InitialiseConnectLodObjects` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `InitialiseSpecialAnimGroup` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `InitialiseSpecialAnimGroupsAttachedToCharModels` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `IsPedStopped` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `IsPlayerOnAMission` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `IsVehicleStopped` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `Load` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `PrintListSizes` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `Process` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ProcessAllSearchLights` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ProcessWaitingForScriptBrainArray` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ReadMultiScriptFileOffsetsFromScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ReadObjectNamesFromScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ReinitialiseSwitchStatementData` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `RemoveFromWaitingForScriptBrainArray` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `RemoveScriptCheckpoint` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `RemoveScriptEffectSystem` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `RemoveScriptSearchLight` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `RemoveScriptSphere` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `RemoveScriptTextureDictionary` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `RemoveThisPed` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `RenderAllSearchLights` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `Save` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ScriptAttachAnimGroupToCharModel` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ScriptConnectLodsFunction` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ScriptDebugCircle2D` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `ScriptDebugLine3D` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `StartNewScript-indexed` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `StartNewScript-last-idle` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `StartTestScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `UndoBuildingSwaps` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `UndoEntityInvisibilitySettings` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `UpdateObjectIndices` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `UseSwitchJumpTable` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `WipeLocalVariableMemoryForMissionScript` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheZones | `AssignZoneInfoForThisZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
 | CTheZones | `Calc2DDistanceBetween2Zones` | [Resumen](../reversing/Zones21/validation-summary.json) |
 | CTheZones | `CreateZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
@@ -7611,7 +7924,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
 | `CCarFXRenderer` | 10 | 0 | 10 | 0 |
 | `CCarGenerator` | 8 | 0 | 8 | 0 |
-| `CCheat` | 72 | 0 | 0 | 72 |
+| `CCheat` | 72 | 0 | 72 | 0 |
 | `CCheckpoint` | 1 | 0 | 1 | 0 |
 | `CCheckpoints` | 8 | 0 | 8 | 0 |
 | `CCivilianPed` | 3 | 0 | 3 | 0 |
@@ -7808,7 +8121,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `COnscreenTimer` | 6 | 0 | 6 | 0 |
 | `CPPTriPlantBuffer` | 7 | 0 | 7 | 0 |
 | `CPad` | 75 | 0 | 75 | 0 |
-| `CPathFind` | 56 | 0 | 2 | 54 |
+| `CPathFind` | 56 | 0 | 56 | 0 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
 | `CPed` | 145 | 0 | 145 | 0 |
 | `CPedAttractor` | 20 | 0 | 20 | 0 |
@@ -7862,14 +8175,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPointRoutePool` | 1 | 0 | 1 | 0 |
 | `CPools` | 19 | 0 | 19 | 0 |
 | `CPopCycle` | 15 | 0 | 15 | 0 |
-| `CPopulation` | 66 | 0 | 2 | 64 |
+| `CPopulation` | 66 | 0 | 57 | 9 |
 | `CPostEffects` | 38 | 0 | 38 | 0 |
 | `CProjectileInfo` | 12 | 0 | 12 | 0 |
 | `CPtrNodeDoubleLinkPool` | 1 | 0 | 1 | 0 |
 | `CPtrNodeSingleLinkPool` | 1 | 0 | 1 | 0 |
 | `CQuadBike` | 12 | 0 | 12 | 0 |
 | `CQuadTreeNode<T>` | 12 | 0 | 12 | 0 |
-| `CRadar` | 63 | 0 | 0 | 63 |
+| `CRadar` | 63 | 0 | 63 | 0 |
 | `CRealTimeShadow` | 8 | 0 | 8 | 0 |
 | `CRealTimeShadowManager` | 7 | 0 | 7 | 0 |
 | `CRect` | 8 | 0 | 8 | 0 |
@@ -8216,7 +8529,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTempColModels` | 2 | 0 | 2 | 0 |
 | `CText` | 9 | 0 | 9 | 0 |
 | `CTheCarGenerators` | 7 | 0 | 7 | 0 |
-| `CTheScripts` | 69 | 0 | 0 | 69 |
+| `CTheScripts` | 69 | 0 | 69 | 0 |
 | `CTheZones` | 21 | 0 | 21 | 0 |
 | `CTimeCycle` | 20 | 0 | 20 | 0 |
 | `CTimeInfo` | 6 | 0 | 6 | 0 |

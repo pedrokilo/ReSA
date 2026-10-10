@@ -137,7 +137,8 @@ struct tScriptText {
     bool          IsCentered{ false }; //!< `HasRightJustify` takes precedence over it. If true, uses `eFontAlignment::ALIGN_CENTER` otherwise `eFontAlignment::ALIGN_LEFT`.
     bool          HasBg{ false };
     bool          HasBgTextOnly{ false }; //!< Unused
-    float         WrapX{ SCREEN_HEIGHT };
+    // Como el original (0x4690D8/0x4690E0: fild [0xC17044] -> fst/fstp): WrapX y CentreSize valen RsGlobal.maximumWidth.
+    float         WrapX{ SCREEN_WIDTH };
     float         CentreSize{ SCREEN_WIDTH };
     CRGBA         BgColor{ 128, 128, 128, 128 };
     bool          IsProportional{ true };
@@ -538,7 +539,8 @@ public:
     static void RenderAllSearchLights();
     static bool ScriptAttachAnimGroupToCharModel(int32 modelId, const char* ifpName);
     static void ScriptConnectLodsFunction(int32 objectHandle1, int32 objectHandle2);
-    static void ScriptDebugCircle2D(float x, float y, float width, float height, CRGBA color);
+    // Como el original (0x485C20): el color llega como entero r<<24|g<<16|b<<8|a (CRGBA::ToInt), no como CRGBA en memoria.
+    static void ScriptDebugCircle2D(float x, float y, float width, float height, uint32 color);
     static CRunningScript* StartNewScript(uint8* startIP);
     static CRunningScript* StartNewScript(uint8* startIP, uint16 index);
     static void StartTestScript();
@@ -562,7 +564,8 @@ public:
     static void HighlightImportantAngledArea(uint32 markerId, float fromX, float fromY, float toX, float toY, float angledToX, float angledToY, float angledFromX, float angledFromY, float height);
     static void DrawDebugSquare(float, float, float, float);
     static void DrawDebugSquare(const CRect& area) { DrawDebugSquare(area.left, area.top, area.right, area.bottom); }
-    static void DrawDebugAngledSquare(const CVector2D& inf, const CVector2D& sup, const CVector2D& rotSup, const CVector2D& rotInf);
+    // Como el original (0x486990): ocho floats por pila (infX, infY, supX, supY, rotSupX, rotSupY, rotInfX, rotInfY).
+    static void DrawDebugAngledSquare(float infX, float infY, float supX, float supY, float rotSupX, float rotSupY, float rotInfX, float rotInfY);
     static void DrawDebugCube(const CVector& inf, const CVector& sup);
     static void DrawDebugAngledCube(const CVector& inf, const CVector& sup, const CVector2D& rotSup, const CVector2D& rotInf);
     static void DrawScriptSpritesAndRectangles(bool drawBeforeFade);
