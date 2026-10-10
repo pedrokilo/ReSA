@@ -55,11 +55,23 @@ inline void __fastcall G6_Accel(void* self,void*,void* vp){
     At<int16>(vp,0x20)=g6.accel; At<int16>(vp,0x22)=g6.brake;
 }
 // GetVolForPlayerEngineSound(tVehicleParams&, eVehicleEngineSoundType) 0x4F5D00 (ret 8, float en ST0)
-inline float __fastcall G6_Vol(void* self,void*,void* vp,int16 st){
+inline float __fastcall G6_VolBody(void* self,void*,void* vp,int16 st){
     if(!Mine())return 0.f;
     const uint32 h=G6VpHash(vp,true), k=g6.volIdx++, s=uint32(uint16(st));
     Push(T6_VOL,Id(self),s,h,k);
     return Fl(0x3E800000u+((h^(k*0x9E3779B1u)^(s*0x85EBCA6Bu))&0x3FFFFFu));
+}
+// Como el original (0x4F5D00): conserva ECX. ProcessPlayerVehicleEngine vuelve a usarlo sin recargarlo
+// entre call 0x4F5D00 en 0x4FC9C1 y call 0x4F8070 en 0x4FC9CD (tambien 0x4FC903/0x4FC90F).
+inline __declspec(naked) void G6_Vol(){
+    __asm {
+        push ecx
+        push dword ptr [esp+12]
+        push dword ptr [esp+12]
+        call G6_VolBody
+        pop ecx
+        ret 8
+    }
 }
 // GetFreqForPlayerEngineSound(tVehicleParams&, eVehicleEngineSoundType) 0x4F8070 (ret 8, float en ST0)
 inline float __fastcall G6_Frq(void* self,void*,void* vp,int16 st){
@@ -138,6 +150,8 @@ inline void StubsG6(){
     // --- ProcessPlayerVehicleEngine
     AddHookStub(G_X6,0x4F5080,K,"GetAccelAndBrake",FnPtr(&G6_Accel));
     AddHookStub(G_X6,0x4F5D00,K,"GetVolForPlayerEngineSound",FnPtr(&G6_Vol));
+    // El hook conserva ECX mediante un wrapper distinto del miembro que llama directamente la fuente.
+    AddStub(G_X6,0,bit_cast<uintptr_t>(&CAEVehicleAudioEntity::GetVolForPlayerEngineSound),FnPtr(&G6_Vol));
     AddHookStub(G_X6,0x4F8070,K,"GetFreqForPlayerEngineSound",FnPtr(&G6_Frq));
     AddHookStub(G_X6,0x4F7A50,K,"RequestNewPlayerCarEngineSound",FnPtr(&G6_Req));
     AddHookStub(G_X6,0x4F6420,K,"AddAudioEvent-0",FnPtr(&G6_Event));
@@ -279,7 +293,10 @@ inline bool RunG6(Ctx& c){
     // ===================================================================================================================
     if(nm=="ProcessPlayerVehicleEngine"){
         G6PlayerEngineFixture(c);
+        Write({{"event","probe_stage"},{"function",c.nm},{"case",c.i},{"candidate",c.candidate},{"stage","before_call"},
+               {"state",int(c.Ent()->m_State)},{"gear",c.Ent()->m_AuGear},{"base",At<int32>(ev,0x590)}});
         { auto P=MakePatches(G_STD|G_X6); CallThis<void>(c.a,E,w.params); }
+        Write({{"event","probe_stage"},{"function",c.nm},{"case",c.i},{"candidate",c.candidate},{"stage","after_call"}});
         out["ent"]=Hex(E,TEMP_SOUND_OFF)+"|"+Hex(E+TEMP_SOUND_END,ENT_SIZE-TEMP_SOUND_END);
         out["veh"]=Hex(ev+0x428,8);
         out["vp"]=G6VpDump(w.params);

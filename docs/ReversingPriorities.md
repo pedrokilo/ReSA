@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.446 |
 | Reconstruidas | 8.446 |
-| Validadas | 8.343 |
-| Reconstruidas sin validar | 103 |
-| De ellas, en esta cola (validables por pares) | 102 |
+| Validadas | 8.445 |
+| Reconstruidas sin validar | 1 |
+| De ellas, en esta cola (validables por pares) | 0 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -25,8 +25,8 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 | [🟢 Nivel 1: muy barato](#nivel-1) | 0 | 0 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 0 | 0 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
 | [🟠 Nivel 3: moderadas](#nivel-3) | 0 | 0 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 1 | 102 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **1** | **102** | |
+| [🔴 Nivel 4: caras](#nivel-4) | 0 | 0 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **0** | **0** | |
 
 <a id="nivel-1"></a>
 
@@ -57,13 +57,12 @@ Criterio: el resto.
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (1 clases, 102 funciones)
+## 🔴 Nivel 4: caras (0 clases, 0 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CAEVehicleAudioEntity | 106 | 102 |  | 54 |
 
 <a id="fuera-de-la-cola"></a>
 

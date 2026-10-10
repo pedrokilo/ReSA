@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 106/106 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 3.
- * Validación registrada: 4/106 entradas.
+ * Validación registrada: 106/106 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,6 +33,27 @@ END GENERATED HOOK STATUS */
 #include <reversiblebugfixes/Bugs.hpp>
 
 constexpr size_t HORN_NUM_PATTERNS = 8;
+// Como el original (4D9E67 fyl2x; los llamadores multiplican ST0 sin almacenarlo como float).
+static float AudioLog10ScaledExe(float input, float factor) {
+    float result;
+    if (!(input >= std::bit_cast<float>(0x3727C5ACu))) {
+        input = -5.0f;
+        __asm {
+            fld input
+            fmul factor
+            fstp result
+        }
+    } else {
+        __asm {
+            fldlg2
+            fld input
+            fyl2x
+            fmul factor
+            fstp result
+        }
+    }
+    return result;
+}
 constexpr size_t HORN_PATTERN_SIZE = 44;
 // Como el original: el EXE indexa 0x862B9C + patron*44 - contador (4F6263 imul edx,edx,2Ch / 4F626C sub edx,ecx / 4F626E mov al,[edx+862B9Ch]),
 // es decir la fila 'patron' empieza en 0x862B70 (la tabla anterior estaba desplazada una fila).
@@ -615,7 +636,7 @@ float CAEVehicleAudioEntity::GetFlyingMetalVolume(CPhysical* physical) const noe
     if (v < std::bit_cast<float>(0x2EDBE6FEu)) { // 0x862CE0 (no es el float mas cercano a 1e-10)
         return -100.0f;
     }
-    return CAEAudioUtility::AudioLog10(v) * 10.0f;
+    return AudioLog10ScaledExe(v, 10.0f); // 0x4F61CC: ST0 conserva fyl2x hasta fmul, sin redondeo intermedio.
 }
 #pragma endregion
 
@@ -807,7 +828,7 @@ void CAEVehicleAudioEntity::AddAudioEvent(eAudioEvents event, float p1) {
             .SoundID     = SND_GENRL_COLLISIONS_SPLASH_END,
             .AudioEntity = this,
             .Pos         = GetVehicle()->GetPosition(),
-            .Volume      = (CAEAudioUtility::AudioLog10(vol) * 20.0f + StaticRef<float>(0xB6B9C8)) + defVol,
+            .Volume      = (AudioLog10ScaledExe(vol, 20.0f) + StaticRef<float>(0xB6B9C8)) + defVol,
         });
         m_TimeSplashLastTriggered = CTimer::GetTimeInMS(); // 0x4F67F1
         break;
@@ -1431,9 +1452,9 @@ float CAEVehicleAudioEntity::GetVolumeForDummyIdle(float ratio, float fadeRatio)
             { 0.7000f, 0.707f},
             { 1.0001f, 0.000f}
         };
-        term = CAEAudioUtility::AudioLog10(CAEAudioUtility::GetPiecewiseLinearT(fadeRatio, points)) * 20.0f;
+        term = AudioLog10ScaledExe(CAEAudioUtility::GetPiecewiseLinearT(fadeRatio, points), 20.0f);
     } else if (!(fadeRatio > 0.99f)) { // 0x862CD0 (float)
-        term = CAEAudioUtility::AudioLog10(fadeRatio) * 10.0f;
+        term = AudioLog10ScaledExe(fadeRatio, 10.0f);
     } else {
         term = 0.0f;
     }
@@ -1486,7 +1507,7 @@ float CAEVehicleAudioEntity::GetVolumeForDummyRev(float ratio, float fadeRatio) 
     float volume = ExeLerp(cfg->Rev.VolumeBase, cfg->Rev.VolumeMax, GetDummyRevRatioProgress(ratio));
     float term; // (term + EngineVolumeOffset) + volume
     if (m_State != eAEState::DUMMY_CRZ) {
-        term = CAEAudioUtility::AudioLog10(1.0f - fadeRatio) * 10.0f;
+        term = AudioLog10ScaledExe(1.0f - fadeRatio, 10.0f);
     } else if (!(fadeRatio > 0.99)) { // 0x4F544C fcomp qword [862CD8] + test ah,41h / jne: <= 0.99 o NaN (DOUBLE)
         constexpr float points[][2] = { // 0x8CC114
             { 0.0000f, 0.000f},
@@ -1495,7 +1516,7 @@ float CAEVehicleAudioEntity::GetVolumeForDummyRev(float ratio, float fadeRatio) 
             { 0.7000f, 1.000f},
             { 1.0001f, 1.000f},
         };
-        term = CAEAudioUtility::AudioLog10(CAEAudioUtility::GetPiecewiseLinearT(fadeRatio, points)) * 20.0f;
+        term = AudioLog10ScaledExe(CAEAudioUtility::GetPiecewiseLinearT(fadeRatio, points), 20.0f);
     } else {
         term = 0.0f;
     }
@@ -2386,7 +2407,7 @@ void CAEVehicleAudioEntity::ProcessVehicleSkidding(tVehicleParams& vp) {
     const float skidPerWheel = sumWheelSkid / static_cast<float>(numWheels);
     float       volume       = -100.0f;
     if (skidPerWheel > 0.00001f) {
-        volume = (s_Config.Skid.VolBase + volBase) + CAEAudioUtility::AudioLog10(skidPerWheel) * 20.0f;
+        volume = (s_Config.Skid.VolBase + volBase) + AudioLog10ScaledExe(skidPerWheel, 20.0f);
         if (volume < -100.0f) {
             sfx    = -1;
             volume = -100.0f;
@@ -2543,7 +2564,7 @@ void CAEVehicleAudioEntity::ProcessVehicleFlatTyre(tVehicleParams& vp) {
         const float speed = cfg->FrqGearVelocityFactor * vf + 1.0f;
         float volume = -100.0f;
         if (vf > 0.0) {
-            volume = CAEAudioUtility::AudioLog10(vf) * 20.0f + cfg->VolOffset;
+            volume = AudioLog10ScaledExe(vf, 20.0f) + cfg->VolOffset;
         }
         PlayFlatTyreSound(4, speed, volume);
     } else {
@@ -2579,7 +2600,11 @@ void CAEVehicleAudioEntity::ProcessVehicleRoadNoise(tVehicleParams& vp) {
         float v = absSpeed + absSpeed; // fadd st,st
         v       = (1.0f < v) ? 1.0f : v;
 
-        // El EXE calcula aqui la distancia a la camara (0x4F8BAF..0x4F8C30) pero la descarta (se sobrescribe [esp+14h])
+        // Como el original: push superficie desplaza ESP; 4F8C30 escribe el factor de frecuencia ([esp+10h] antes del push).
+        const CVector delta = m_Entity->GetPosition() - TheCamera.GetPosition();
+        const float distance = std::sqrt((delta.z * delta.z + delta.x * delta.x) + delta.y * delta.y);
+        const float ratio = distance / StaticRef<float>(0x8CBD10);
+        speedFactor = ((ratio < 1.0f) ? 1.0f : ratio) * 0.5f + 0.75f;
         float volBase;
         const auto surface = vp.Vehicle->m_nContactSurface;
         if (IsSurfaceAudioGrass(surface)) { // 0x4F8CD5
@@ -2595,7 +2620,7 @@ void CAEVehicleAudioEntity::ProcessVehicleRoadNoise(tVehicleParams& vp) {
             sfx     = 21;
         }
         if (v > std::bit_cast<float>(0x38A7C5ACu)) { // 0x862CF4
-            volume = CAEAudioUtility::AudioLog10(v) * 20.0f + volBase;
+            volume = AudioLog10ScaledExe(v, 20.0f) + volBase;
         }
     }
 
@@ -2618,7 +2643,7 @@ void CAEVehicleAudioEntity::ProcessReverseGear(tVehicleParams& vp) {
             !(a->m_GasPedal < 0.0f) ? 20 : 19, // Como el original (0x4F8EA7 fcomp + test ah,5 + jnp): con NaN elige 20
             cfg->FrqBase + std::abs(revs) * cfg->FrqRevsFactor,
             std::abs(revs) > 0.0f
-                ? cfg->VolBase + CAEAudioUtility::AudioLog10(std::abs(revs)) * 20.0f
+                ? cfg->VolBase + AudioLog10ScaledExe(std::abs(revs), 20.0f)
                 : -100.0f
         );
     } else { // Cancel sound otherwise
@@ -2834,7 +2859,7 @@ void CAEVehicleAudioEntity::ProcessMovingParts(tVehicleParams& vp) {
     const auto        slot   = props->Slot.value_or(m_DummySlot);
     const auto* const params = &props->SoundParamsByPartDir[!(delta > 0.f) ? 0 : 1]; // 0x4FB368 fcomp qword [859EF8] + test ah,41h / jne: <= 0 o NaN -> primer juego
 
-    const auto volume = CAEAudioUtility::AudioLog10(m_MovingPartSmoothedSpeed) * 20.0f + params->Vol;
+    const auto volume = AudioLog10ScaledExe(m_MovingPartSmoothedSpeed, 20.0f) + params->Vol;
     if (!(volume > -100.0f)) { // 0x4FB575 fcomp [859014] + test ah,41h / jne: <= -100 o NaN detiene el sonido
         StopGenericEngineSound(AE_SOUND_MOVING_PARTS);
     } else {
@@ -3022,9 +3047,22 @@ void CAEVehicleAudioEntity::ProcessPlayerVehicleEngine(tVehicleParams& vp) {
     vp.IsHandbrakeOn = vp.Vehicle->vehicleFlags.bIsHandbrakeOn;
 
     // 0x4FBBC3..0x4FBC1C: el EXE limita la relacion a [0, 1] (fcomp con 1.0 y 0.0 dobles); un NaN se queda como NaN
-    auto* const gear = &vp.Transmission->m_aGears[vp.RealGear];
+    auto* const gear = &vp.Transmission->m_aGears.data()[vp.RealGear]; // Como el original (4FBBC6): indexa sin comprobacion de limite.
     {
-        const float r = (vp.AbsSpeed - gear->ChangeDownVelocity) / (gear->MaxVelocity - gear->ChangeDownVelocity);
+        // Como el original (4FBBCD..4FBBD5): x87 conserva subnormales, incluso en la ranura 6 solapada con campos de transmision.
+        // SSE con FTZ/DAZ cambiaria un divisor subnormal por cero y produciria NaN para velocidad cero.
+        const float absSpeed = vp.AbsSpeed;
+        const float gearMax = gear->MaxVelocity;
+        const float gearDown = gear->ChangeDownVelocity;
+        float r;
+        __asm {
+            fld absSpeed
+            fsub gearDown
+            fld gearMax
+            fsub gearDown
+            fdivp st(1), st
+            fstp r
+        }
         vp.RealRevsRatio = vp.RealGear
             ? (r > 1.0 ? 1.0f : (r < 0.0 ? 0.0f : r))
             : 0.f;
@@ -3476,7 +3514,7 @@ auto GetAircraftDistantSoundVolume(const CPhysical* v, float baseVol) {
     if (distSq <= 128.f) {
         vol += invLerp(48.f, 128.f, std::sqrtf(distSq)); // NB: I think this should be substracted (The closer the plane is, the less volume the distant sound should have)
     }
-    return CAEAudioUtility::AudioLog10(vol) * 20.f + 8.f;
+    return AudioLog10ScaledExe(vol, 20.0f) + 8.f;
 }
 
 // notsa - See 0x4FE5E5
@@ -3686,11 +3724,11 @@ inline float ExePropDistantVolume(const CVector& entityPos, float pf) {
             return -100.0f;
         }
         const float t  = (dist - 48.0f) * std::bit_cast<float>(0x3C4CCCCDu); // 0x85A5C4
-        const float lt = CAEAudioUtility::AudioLog10(t) * 20.0f;
-        const float lp = CAEAudioUtility::AudioLog10(pf) * 20.0f;
+        const float lt = AudioLog10ScaledExe(t, 20.0f);
+        const float lp = AudioLog10ScaledExe(pf, 20.0f);
         return (lp + lt) + 8.0f;
     }
-    return CAEAudioUtility::AudioLog10(pf) * 20.0f + 8.0f;
+    return AudioLog10ScaledExe(pf, 20.0f) + 8.0f;
 }
 }
 
@@ -3736,7 +3774,7 @@ void CAEVehicleAudioEntity::ProcessAIProp(tVehicleParams& vp) {
 
     float R, Q;
     ExePropOrientation(vp.Vehicle, R, Q);
-    const float L3 = CAEAudioUtility::AudioLog10(pf) * 20.0f + 8.0f; // 0x4FE23E
+    const float L3 = AudioLog10ScaledExe(pf, 20.0f) + 8.0f; // 0x4FE23E
 
     // 0x4FE256 - Frecuencia del rotor
     const float F = (R * std::bit_cast<float>(0x3DCCCCCDu) + Q * std::bit_cast<float>(0x3E19999Au)) + 1.0f;
@@ -3808,10 +3846,10 @@ void CAEVehicleAudioEntity::ProcessDummyOrPlayerProp(tVehicleParams& vp, bool is
 
     // 0x4FD4AD - Volumenes
     const float W1 = (1.0f - kPropTiltExe * C) * pf;
-    const float L1 = CAEAudioUtility::AudioLog10(W1) * 20.0f + 8.0f;
+    const float L1 = AudioLog10ScaledExe(W1, 20.0f) + 8.0f;
     const float W2 = (C * 0.5f + 0.5f) * pf;
-    const float L2 = CAEAudioUtility::AudioLog10(W2) * 20.0f + 8.0f;
-    const float L3 = CAEAudioUtility::AudioLog10(pf) * 20.0f + 8.0f;
+    const float L2 = AudioLog10ScaledExe(W2, 20.0f) + 8.0f;
+    const float L3 = AudioLog10ScaledExe(pf, 20.0f) + 8.0f;
     const float S  = ExePropDistantVolume(m_Entity->GetPosition(), pf);
 
     // 0x4FD5FB - Calado
@@ -4007,10 +4045,10 @@ void CAEVehicleAudioEntity::ProcessAIHeli(tVehicleParams& vp) {
     const float tilt = ExeHeliTilt(vp.Vehicle);
 
     const float W1 = (1.0f - C) * vf;
-    const float L1 = CAEAudioUtility::AudioLog10(W1) * 20.0f + 8.0f;
+    const float L1 = AudioLog10ScaledExe(W1, 20.0f) + 8.0f;
     const float W2 = (C * 0.5f + 0.5f) * vf;
-    const float L2 = CAEAudioUtility::AudioLog10(W2) * 20.0f + 8.0f;
-    const float L3 = CAEAudioUtility::AudioLog10(vf) * 20.0f + 2.0f;
+    const float L2 = AudioLog10ScaledExe(W2, 20.0f) + 8.0f;
+    const float L3 = AudioLog10ScaledExe(vf, 20.0f) + 2.0f;
 
     // 0x4FF050 - Frecuencia del rotor (solo con el paso 0x3BAEC33C)
     const float F0 = ExeHeliDamageFreq(vp.Vehicle, (tilt * std::bit_cast<float>(0x3E4CCCCDu) + 1.0f) * ff);
@@ -4021,10 +4059,10 @@ void CAEVehicleAudioEntity::ProcessAIHeli(tVehicleParams& vp) {
 
     if (CWeather::UnderWaterness >= 0.5f) { // 0x4FF1EA: fcomp [858B8C] / test ah,1 / jne (un NaN cuenta como "menor")
         CancelAllVehicleEngineSounds(AE_SOUND_AIRCRAFT_DISTANT);
-        const float v = CAEAudioUtility::AudioLog10(vf) * 20.0f + 8.0f;
+        const float v = AudioLog10ScaledExe(vf, 20.0f) + 8.0f;
         PlayAircraftSound(AE_SOUND_AIRCRAFT_DISTANT, SND_BANK_SLOT_VEHICLE_GEN, 3, v, 1.0f);
     } else if (m_PlayerEngineBank == SND_BANK_GENRL_APACHE) { // 0x4FF23D
-        const float x = CAEAudioUtility::AudioLog10(vf) * 20.0f + 8.0f;
+        const float x = AudioLog10ScaledExe(vf, 20.0f) + 8.0f;
         PlayAircraftSound(AE_SOUND_AIRCRAFT_FRONT, SND_BANK_SLOT_COP_HELI, 1, std::bit_cast<float>(0x40C00000u) + x, freq);
         PlayAircraftSound(AE_SOUND_AIRCRAFT_DISTANT, SND_BANK_SLOT_COP_HELI, 0, std::bit_cast<float>(0x40C00000u) + S, 1.0f);
     } else { // 0x4FF295
@@ -4066,10 +4104,10 @@ void CAEVehicleAudioEntity::ProcessDummyOrPlayerHeli(tVehicleParams& vp, bool is
     }
 
     const float W1 = (1.0f - kPropTiltExe * C) * vf;
-    const float L1 = CAEAudioUtility::AudioLog10(W1) * 20.0f + 8.0f;
+    const float L1 = AudioLog10ScaledExe(W1, 20.0f) + 8.0f;
     const float W2 = (C * 0.5f + 0.5f) * vf;
-    const float L2 = CAEAudioUtility::AudioLog10(W2) * 20.0f + 8.0f;
-    const float L3 = CAEAudioUtility::AudioLog10(vf) * 20.0f + 2.0f;
+    const float L2 = AudioLog10ScaledExe(W2, 20.0f) + 8.0f;
+    const float L3 = AudioLog10ScaledExe(vf, 20.0f) + 2.0f;
 
     // 0x4FE6AA - Frecuencia del rotor
     const float base = isDummy
@@ -4164,10 +4202,10 @@ void CAEVehicleAudioEntity::ProcessPlayerSeaPlane(tVehicleParams& vp) {
 
     // 0x4FF552 - Volumenes
     const float W1 = (1.0f - C) * x;
-    const float L1 = CAEAudioUtility::AudioLog10(W1) * 20.0f + 8.0f;
+    const float L1 = AudioLog10ScaledExe(W1, 20.0f) + 8.0f;
     const float W2 = (C * 0.5f + 0.5f) * x;
-    const float L2 = CAEAudioUtility::AudioLog10(W2) * 20.0f + 8.0f;
-    const float L3 = CAEAudioUtility::AudioLog10(x) * 20.0f + 8.0f;
+    const float L2 = AudioLog10ScaledExe(W2, 20.0f) + 8.0f;
+    const float L3 = AudioLog10ScaledExe(x, 20.0f) + 8.0f;
 
     // 0x4FF5CD - Frecuencia del rotor
     const float F0 = (((R * std::bit_cast<float>(0x3DCCCCCDu) + Q * std::bit_cast<float>(0x3E19999Au)) + A) + 1.0f);
@@ -4197,7 +4235,7 @@ void CAEVehicleAudioEntity::ProcessDummySeaPlane(tVehicleParams& vp) {
 
     const float ps = *reinterpret_cast<const float*>(raw + 0x5A4) * std::bit_cast<float>(0x4091745Du); // 0x4FF830
     const float x  = GetDummyRCRotorSpeedFactor(ps);
-    const float v  = CAEAudioUtility::AudioLog10(x) * 20.0f + 8.0f;                                      // 0x4FF87F
+    const float v  = AudioLog10ScaledExe(x, 20.0f) + 8.0f;                                      // 0x4FF87F
     PlayAircraftSound(AE_SOUND_AIRCRAFT_NEAR, SND_BANK_SLOT_VEHICLE_GEN, 17, v, 1.0f);                  // 0x4FF8A9
 }
 #pragma endregion
@@ -4227,11 +4265,11 @@ void CAEVehicleAudioEntity::ProcessGenericJet(bool bEngineOn, tVehicleParams& pa
     if (bank < 0.f) { bank = -bank; } // 0x4FFB0E: fcomp 0.0 / test ah,5 / jp (con -0.0 no se invierte)
     float pitch = fAccelRatio > 0.f ? .1f : 0.f;
     if (fBrakeRatio > 0.f) pitch -= .05f;
-    const auto frontVolume = CAEAudioUtility::AudioLog10((1.f - StaticRef<float>(0x8CBD98) * facing) * fEngineSpeed) * 20.f + front;
-    const auto rearVolume = CAEAudioUtility::AudioLog10((facing * .5f + .5f) * fEngineSpeed) * 20.f + rear;
+    const auto frontVolume = AudioLog10ScaledExe((1.f - StaticRef<float>(0x8CBD98) * facing) * fEngineSpeed, 20.0f) + front;
+    const auto rearVolume = AudioLog10ScaledExe((facing * .5f + .5f) * fEngineSpeed, 20.0f) + rear;
     auto& fadingThrust = StaticRef<float>(reinterpret_cast<uintptr_t>(this) + 0x230);
     fadingThrust = fAccelRatio > 0.f ? thrust : fadingThrust - 1.f;
-    const auto thrustVolume = (CAEAudioUtility::AudioLog10(fEngineSpeed) * 20.f + fadingThrust) + fStalledVolume;
+    const auto thrustVolume = (AudioLog10ScaledExe(fEngineSpeed, 20.0f) + fadingThrust) + fStalledVolume;
     const auto target = (((bank * StaticRef<float>(0x858B1C) + tilt * StaticRef<float>(0x858FCC)) + pitch) + 1.f) * fStalledFrequency;
     auto& frequency = m_CurrentRotorFrequency;
     if (frequency < 0.f) frequency = target;
@@ -4405,7 +4443,7 @@ void CAEVehicleAudioEntity::ProcessDummyRCPlane(tVehicleParams& vp) {
 
     const float freq = CalculatePlanePropFreq(vp, accel);
     const float sf   = GetDummyRCRotorSpeedFactor(propSpeed);
-    const float vol  = CAEAudioUtility::AudioLog10(sf) * 20.f + cfg->RotorVolBase;
+    const float vol  = AudioLog10ScaledExe(sf, 20.0f) + cfg->RotorVolBase;
 
     UpdateRotorFreq(freq, cfg->RotorFreqStepUp, cfg->RotorFreqStepDown);
 
@@ -4462,7 +4500,7 @@ void CAEVehicleAudioEntity::ProcessDummyRCHeli(tVehicleParams& vp) {
     }
 
     const float sf  = GetDummyRCRotorSpeedFactor(rotor);
-    const float vol = CAEAudioUtility::AudioLog10(sf) * 20.f + cfg->VolBase;
+    const float vol = AudioLog10ScaledExe(sf, 20.0f) + cfg->VolBase;
 
     // 0x4FAC62 - sf * 0.19999999 (0x862D00) + tilt * 0.2 + aceleracion + 0.8
     const float freq = ((sf * cfg->FrqSpeedFactor + tilt * cfg->FrqTiltDownFactor) + accel) + cfg->FrqBase;
@@ -4576,7 +4614,7 @@ void CAEVehicleAudioEntity::ProcessDummyTrainEngine(tVehicleParams& vp) {
 
     // 0x5009A9
     if (isTram) {
-        vol = CAEAudioUtility::AudioLog10(sf) * 20.f + vol;
+        vol = AudioLog10ScaledExe(sf, 20.0f) + vol;
     }
 
     // 0x5009D0
@@ -4653,7 +4691,7 @@ void CAEVehicleAudioEntity::ProcessPlayerTrainBrakes(tVehicleParams& vp) {
         PlayTrainBrakeSound(-1, freq, -100.f);
         return;
     }
-    PlayTrainBrakeSound(0, freq, CAEAudioUtility::AudioLog10(vol) * 20.f + brakeCfg.VolBase);
+    PlayTrainBrakeSound(0, freq, AudioLog10ScaledExe(vol, 20.0f) + brakeCfg.VolBase);
 }
 
 // Android
@@ -4684,10 +4722,10 @@ void CAEVehicleAudioEntity::ProcessTrainTrackSound(tVehicleParams& vp) {
         const float absTrainSpeed = std::fabs(train->m_fTrainSpeed);
         if (1.0f < absTrainSpeed) { // 0x4FA57B
             sf     = 1.0f;
-            volume = CAEAudioUtility::AudioLog10(sf) * 20.0f + cfg->VolBase;
+            volume = AudioLog10ScaledExe(sf, 20.0f) + cfg->VolBase;
         } else if (absTrainSpeed >= 0.00001f) { // 0x4FA5A0
             sf     = absTrainSpeed;
-            volume = CAEAudioUtility::AudioLog10(sf) * 20.0f + cfg->VolBase;
+            volume = AudioLog10ScaledExe(sf, 20.0f) + cfg->VolBase;
         } else {
             sf = absTrainSpeed;
         }
@@ -4853,7 +4891,7 @@ void CAEVehicleAudioEntity::ProcessBoatMovingOverWater(tVehicleParams& vp) {
 
     float volume = -100.0f;
     if ((reinterpret_cast<uint8*>(vp.Vehicle)[0x5AC] & 1) && sf >= 0.00001f) { // bBoatInWater
-        volume = CAEAudioUtility::AudioLog10(sf) * 20.0f + (m_AuSettings.IsSeaplane() ? cfg->VolBaseOfSeaplane : cfg->VolBase);
+        volume = AudioLog10ScaledExe(sf, 20.0f) + (m_AuSettings.IsSeaplane() ? cfg->VolBaseOfSeaplane : cfg->VolBase);
     }
     float speed = sf * std::bit_cast<float>(0x3E4CCCCCu) + 0.8f; // 0x862D00 NO es el float mas cercano a 0.2
 
@@ -5021,7 +5059,7 @@ void ProcessBicycleAudio(CAEVehicleAudioEntity& self, CAEVehicleAudioEntity::tVe
     }
     const auto ratio = std::clamp(std::abs(params.Speed / *reinterpret_cast<float*>(reinterpret_cast<uint8*>(params.Transmission)+0x58)), 0.f, 1.f);
     const auto wheel = float(vehicle[0x804]);
-    const auto volume = (CAEAudioUtility::AudioLog10(wheel * .25f * ratio) * 20.f + self.m_EventVolume) + StaticRef<float>(0x8CBEBC);
+    const auto volume = (AudioLog10ScaledExe(wheel * .25f * ratio, 20.0f) + self.m_EventVolume) + StaticRef<float>(0x8CBEBC);
     const auto frequencyBase = ((wheel * StaticRef<float>(0xB6BA6C)) * .125f + StaticRef<float>(0xB6BA6C) * ratio) + StaticRef<float>(0x8CBD5C);
     float frequency;
     const float angle = *reinterpret_cast<float*>(vehicle+0x648);
@@ -5038,7 +5076,7 @@ void ProcessBicycleAudio(CAEVehicleAudioEntity& self, CAEVehicleAudioEntity::tVe
     }
     const bool pedaling = vehicle[0x834] != 0;
     const auto tyre = pedaling ? self.GetBaseVolumeForBicycleTyre(ratio) : 0.f;
-    const auto sprocketVolume = (CAEAudioUtility::AudioLog10(tyre) * 20.f + self.m_EventVolume) + StaticRef<float>(0x8CBEC0);
+    const auto sprocketVolume = (AudioLog10ScaledExe(tyre, 20.0f) + self.m_EventVolume) + StaticRef<float>(0x8CBEC0);
     const auto sprocketFrequency = StaticRef<float>(0xB6BA70) * ratio + StaticRef<float>(0x8CBD64);
     self.PlayBicycleSound(CAEVehicleAudioEntity::AE_SOUND_BICYCLE_TYRE, slot, 0, volume, frequency);
     self.PlayBicycleSound(CAEVehicleAudioEntity::AE_SOUND_BICYCLE_SPROCKET_1, slot, 1, sprocketVolume, sprocketFrequency);
@@ -5082,20 +5120,9 @@ void CAEVehicleAudioEntity::ProcessDummyRCCar(tVehicleParams& vp) {
     // CAEAudioUtility::GetPiecewiseLinear (0x4D9D90); la tabla 0x8CC0A4 (dB) es el VOLUMEN y la 0x8CBF8C la VELOCIDAD.
     const float x  = std::fabs(vp.Speed / vp.Transmission->m_MaxVelocity);
     const float sf = (1.0f < x) ? 1.0f : (x < 0.0f ? 0.0f : x);
-    static constexpr float volumePoints[4][2] = { // 0x8CC0A4
-        { 0.00f, -100.f },
-        { 0.05f, -24.0f },
-        { 0.20f, 0.000f },
-        { 1.00f, 0.000f },
-    };
-    static constexpr float speedPoints[4][2] = { // 0x8CBF8C
-        { 0.00f, 0.70f },
-        { 0.05f, 0.70f },
-        { 0.20f, 0.90f },
-        { 1.00f, 1.15f },
-    };
-    const float volume = CAEAudioUtility::GetPiecewiseLinearT(sf, volumePoints);
-    const float speed  = CAEAudioUtility::GetPiecewiseLinearT(sf, speedPoints);
+    // Como el original (500EED/500EFE): consulta las tablas vivas de .data, no una copia congelada de sus valores iniciales.
+    const float volume = CAEAudioUtility::GetPiecewiseLinear(sf, 4, reinterpret_cast<const float (*)[2]>(0x8CC0A4));
+    const float speed  = CAEAudioUtility::GetPiecewiseLinear(sf, 4, reinterpret_cast<const float (*)[2]>(0x8CBF8C));
     UpdateGenericVehicleSound(
         AE_SOUND_CAR_ID,
         m_DummySlot,
@@ -5174,7 +5201,7 @@ void CAEVehicleAudioEntity::ProcessPlayerCombine(tVehicleParams& vp) {
             SND_BANK_GENRL_HARVESTER_P,
             SND_GENRL_HARVESTER_P_ZZHARVEST_LOOP,
             1.f,
-            CAEAudioUtility::AudioLog10(std::clamp(vp.Speed / cfg->VolSpeedFactor, 0.f, 1.f)) * 20.f + cfg->VolBase,
+            AudioLog10ScaledExe(std::clamp(vp.Speed / cfg->VolSpeedFactor, 0.f, 1.f), 20.0f) + cfg->VolBase,
             2.f
         );
     } else {
@@ -5220,7 +5247,7 @@ void CAEVehicleAudioEntity::ProcessDummyGolfCart(tVehicleParams& vp) {
             m_DummyEngineBank,
             0,
             ExeLerp(cfg->FrqMin, cfg->FrqMax, t), // 0xB6BA9C * t + 0x8CBFD0
-            CAEAudioUtility::AudioLog10(volume) * 20.f + cfg->VolOffset,
+            AudioLog10ScaledExe(volume, 20.0f) + cfg->VolOffset,
             2.f
         );
     } else {
@@ -5518,6 +5545,21 @@ static void __declspec(naked) G3NonDriveSkid_KeepEdx() {
     }
 }
 
+// Como el original (4F5D00..4F5E2F): conserva ECX, que 4FC9CD reutiliza despues de 4FC9C1.
+static float __fastcall VehAudioPlayerVolume_Impl(const CAEVehicleAudioEntity* self, void*, CAEVehicleAudioEntity::tVehicleParams* vp, CAEVehicleAudioEntity::eVehicleEngineSoundType st) {
+    return self->GetVolForPlayerEngineSound(*vp, st);
+}
+static void __declspec(naked) VehAudioPlayerVolume_KeepEcx() {
+    __asm {
+        push ecx
+        push dword ptr [esp + 0Ch]
+        push dword ptr [esp + 0Ch]
+        call VehAudioPlayerVolume_Impl
+        pop ecx
+        ret 8
+    }
+}
+
 void CAEVehicleAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEVehicleAudioEntity, 0x862CEC, 1);
     RH_ScopedCategory("Audio/Entities");
@@ -5600,7 +5642,7 @@ void CAEVehicleAudioEntity::InjectHooks() {
     RH_ScopedInstall(CancelVehicleEngineSound, 0x4F55C0);
     RH_ScopedInstall(RequestNewPlayerCarEngineSound, 0x4F7A50);
     RH_ScopedInstall(GetFreqForPlayerEngineSound, 0x4F8070);
-    RH_ScopedInstall(GetVolForPlayerEngineSound, 0x4F5D00);
+    RH_ScopedNamedGlobalInstall(VehAudioPlayerVolume_KeepEcx, "GetVolForPlayerEngineSound", 0x4F5D00);
     //RH_ScopedInstall(UpdateVehicleEngineSound, 0x4F56D0); // Don't hook because original function doesn't return a bool, ours does
     RH_ScopedInstall(StopGenericEngineSound, 0x4F6320);
 

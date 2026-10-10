@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica, 0 con vigencia acreditada y 1 pendientes en 1 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # VisPluginsFinal4: banco por pares de CVisibilityPlugins
 
 Banco de comparación par a par dentro del juego completo (flujo Small2/PadMouse1/VehModelInfoFinal4) para las **84 funciones** de `CVisibilityPlugins` (`docs/hooks.csv`, `validated=0`, EXE gta-sa.exe 1.0 US). Sin compilar ni ejecutar todavía. **18176 pares** (84/84 funciones cubiertas, ninguna excluida).

@@ -83,6 +83,7 @@ inline void Update(){
         const auto& fn=fns[f]; int failures=0; const std::string full=std::string(fn.cls)+"::"+fn.name;
         if(!only.empty()&&only!=full)continue;
         for(int i=0;i<fn.cases;++i) {
+            Write({{"event","case_start"},{"function",full},{"case",i}});
             auto run=[&](bool candidate)->json {
                 Ctx c; c.fn=&fn; c.nm=fn.name; c.i=i; c.f=uint32(f); c.candidate=candidate;
                 c.st=uint32(i+1)*2654435761u^uint32(f+1)*0x9E3779B9u^0xA4E1u; if(!c.st)c.st=1;
@@ -103,14 +104,27 @@ inline void Update(){
                 RestoreAll();
                 return out;
             };
-            const auto original=run(false), candidate=run(true);
+            const auto original=run(false);
+            static World originalWorld;
+            std::memcpy(&originalWorld,&w,sizeof(w));
+            const auto candidate=run(true);
             const bool ok=original==candidate&&original["switches"]==true&&candidate["switches"]==true&&original["handled"]==true;
             passed&=ok; failures+=!ok;
             if(ok)Write({{"event","comparison"},{"pair",pair++},{"function",full},{"case",i},{"equal",true},{"accepted",true},{"original",Summary(original)},{"candidate",Summary(candidate)},{"events",original["trace"].size()}});
             else { json diff=json::array(), vals=json::object();
                 json dg=json::array(); if(original.contains("gregions")&&candidate.contains("gregions"))for(size_t q=0;q<saved.size()&&q<original["gregions"].size();++q)if(original["gregions"][q]!=candidate["gregions"][q])dg.push_back({{"addr",saved[q].addr},{"bytes",saved[q].bytes.size()}}); for(auto& [k,v]:original.items())if(candidate[k]!=v){ diff.push_back(k);
                        const auto so=v.dump(), sc=candidate[k].dump(); vals[k]={{"o",so.substr(0,600)},{"c",sc.substr(0,600)}}; }
-                Write({{"event","comparison"},{"pair",pair++},{"function",full},{"case",i},{"equal",false},{"accepted",false},{"differs",diff},{"diff_values",vals},{"diff_globals",dg},
+                // Diagnostico de bytes sin cambiar el criterio de igualdad. Omite solo el escritorio ya excluido por WorldHash.
+                json dw=json::array();
+                if(original["world"]!=candidate["world"]){
+                    const auto* ob=reinterpret_cast<const uint8*>(&originalWorld);
+                    const auto* cb=reinterpret_cast<const uint8*>(&w);
+                    for(size_t q=0;q<sizeof(w)&&dw.size()<64;++q){
+                        const bool scratch=q<sizeof(w.ent)&&q%ENT_BUF>=TEMP_SOUND_OFF&&q%ENT_BUF<TEMP_SOUND_END;
+                        if(!scratch&&ob[q]!=cb[q])dw.push_back({{"offset",q},{"o",ob[q]},{"c",cb[q]}});
+                    }
+                }
+                Write({{"event","comparison"},{"pair",pair++},{"function",full},{"case",i},{"equal",false},{"accepted",false},{"differs",diff},{"diff_values",vals},{"diff_globals",dg},{"diff_world",dw},
                        {"original",failures<=2 ? original:json(nullptr)},{"candidate",failures<=2 ? candidate:json(nullptr)}}); }
         }
         Write({{"event","function_summary"},{"function",full},{"failures",failures},{"cases",fn.cases}});

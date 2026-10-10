@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 8343 con evidencia histórica, 0 con vigencia acreditada y 103 pendientes en 2 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica, 0 con vigencia acreditada y 1 pendientes en 1 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # ReSA: reconstrucción, validación e independencia
@@ -19,9 +19,9 @@ Corte del 8 de octubre de 2026. Clases y reconstrucciones se calculan sobre `hoo
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
 | Clases completas en el catálogo | `████████████████████` | 771/771 · 100,00% |
-| Clases validadas de las completas | `████████████████████` | 769/771 · 99,74% |
+| Clases validadas de las completas | `████████████████████` | 770/771 · 99,87% |
 | Funciones registradas como reconstruidas | `████████████████████` | 8.446/8.446 · 100,00% |
-| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████████` | **8.343/8.446 · 98,78%** |
+| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████████` | **8.445/8.446 · 99,99%** |
 
 **Siguientes mediciones** (todavía sin porcentaje útil):
 

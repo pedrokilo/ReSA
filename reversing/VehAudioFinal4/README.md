@@ -1,7 +1,11 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 9 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 8445 con evidencia histórica, 0 con vigencia acreditada y 1 pendientes en 1 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](../../docs/CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # CAEVehicleAudioEntity (banco final 4)
 
 Banco par a par dentro del juego completo (original con los hooks de la clase desactivados frente a candidata con hooks activos) para las
-**102 funciones** pendientes de `CAEVehicleAudioEntity` (`docs/hooks.csv`, `validated=0`): **20024 pares previstos**. Sin compilar ni ejecutar todavia.
+**102 funciones** pendientes de `CAEVehicleAudioEntity` (`docs/hooks.csv`, `validated=0`): **20024 pares previstos**. La aprobación completa se registra únicamente tras una corrida sin diferencias y la reauditoría de sus registros.
 
 Comando: `CMAKE_BUILD_PARALLEL_LEVEL=2 _CL_=-MP2 bash reversing/_handoff/bench.sh VehAudioFinal4 3`
 
@@ -19,8 +23,10 @@ Comando: `CMAKE_BUILD_PARALLEL_LEVEL=2 _CL_=-MP2 bash reversing/_handoff/bench.s
 ## Notas del metodo
 - `m_tempSound` (+0x8..+0x7C) no se compara: el EXE lo usa de escritorio y la DLL puede usar un temporal. Los campos de `CAESound` que `Initialise` no escribe (relleno, tiempos, distancias a la camara,
   `m_IsAudioHardwareAware`) se ponen a cero en la copia que ve `RequestNewSound`.
-- x87 a 24 bits durante cada llamada (`_controlfp`). Fixtures sin NaN/sNaN ni entradas que hagan al EXE leer pila sin inicializar (se documentan por funcion en los informes de grupo).
+- x87 a 24 bits durante cada llamada (`_controlfp`). Hay NaN silenciosos en comparaciones que los admiten; no se generan sNaN ni entradas que hagan al EXE leer pila sin inicializar (se documentan por funcion en los informes de grupo).
 - `GetFreqForIdle` (0x4F5C60) y `GetVehicleDriveWheelSkidValue`/`GetVehicleNonDriveWheelSkidValue` (0x4F5F30/0x4F6000) preservan EDX que sus llamadores del EXE reutilizan: hooks naked (push/pop edx).
+- El falso `G6_Vol` conserva ECX, igual que `GetVolForPlayerEngineSound` (0x4F5D00). El EXE llama a volumen en 0x4FC9C1 y a frecuencia en 0x4FC9CD sin recargar ECX; un falso C++ ordinario introducia un receptor incorrecto en la segunda llamada.
+- En diferencias de `world`, `diff_world` muestra hasta 64 bytes discrepantes con desplazamiento relativo a `World`. Es solo diagnostico: no altera la igualdad ni enmascara campos adicionales.
 
 ## Correcciones de fuente (AEVehicleAudioEntity.cpp/.h, AEAudioEntity.cpp), con evidencia
 - `ProcessPlayerJet` 0x50169B: maximo con signo de las palabras de 16 bits en +0x20/+0x22 (`cmp ax,cx; jg`), sin conversion float->int16 (C4244); 0x50190B pedales crudos `movsx`+`fild`+`fmul 1/255`.
@@ -148,3 +154,7 @@ Total: 20024 pares.
 - `ProcessPlayerTrainBrakes` con un tren que no sea del jugador: 0x500B87 lee un local sin inicializar.
 - Ramas `Enabled=false` de los derrapes (0x8CBD80/81): `s_Config` es protegido.
 - `UpdateParameters` con helicoptero y sonido cercano (usa `GetComponentWorldPosition` real).
+
+## Aprobación (10/10/2026)
+
+Corrida `20261010-151711-778299`: 102 funciones, 20024 pares, cero diferencias; passed/all_equal/state_restored=true, saves/configuraciones intactos. Reauditoría obligatoria sin registros pasantes nulos.

@@ -6,10 +6,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8343 |
+| `validated=1` · evidencia aprobada vinculada | 8445 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8343 |
-| Sin evidencia aprobada vinculada en este registro | 103 |
+| Evidencia histórica vinculada; revisión pendiente | 8445 |
+| Sin evidencia aprobada vinculada en este registro | 1 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -602,10 +602,112 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEUserRadioTrackManager | `Shutdown` | [Resumen](../reversing/Audio15/validation-summary.json) |
 | CAEUserRadioTrackManager | `WriteUserTracksFile-` | [Resumen](../reversing/Audio15/validation-summary.json) |
 | CAEUserRadioTrackManager | `WriteUserTracksThread` | [Resumen](../reversing/Audio15/validation-summary.json) |
+| CAEVehicleAudioEntity | `AddAudioEvent-0` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `AddAudioEvent-1` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `CancelVehicleEngineSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `Constructor` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `CopHeli` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `DemandBankSlot` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `Destructor` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `DisableHelicoptor` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `DisableHelicoptors` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `DoesBankSlotContainThisBank` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `EnableHelicoptor` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `EnableHelicoptors` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetAccelAndBrake` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetAircraftNearPosition` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetBaseVolumeForBicycleTyre` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetFlyingMetalVolume` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetFreqForIdle` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetFreqForPlayerEngineSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetFrequencyForDummyIdle` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetFrequencyForDummyRev` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetHornState-` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetSirenState` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetVehicleAudioSettings` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetVehicleDriveWheelSkidValue` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetVehicleNonDriveWheelSkidValue` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetVehicleTypeForAudio` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetVolForPlayerEngineSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetVolumeForDummyIdle` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `GetVolumeForDummyRev` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `InhibitAccForTime` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `InhibitCrzForTime` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `Initialise` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `IsAccInhibited` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `IsAccInhibitedBackwards` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `IsAccInhibitedForLowSpeed` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `IsAccInhibitedForTime` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `IsCrzInhibitedForTime` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `JustFinishedAccelerationLoop` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `JustGotInVehicleAsDriver` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `JustGotOutOfVehicleAsDriver` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `JustWreckedVehicle` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `PlayAircraftSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `PlayBicycleSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `PlayFlatTyreSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `PlayHornOrSiren` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `PlayReverseSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `PlayRoadNoiseSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `PlaySkidSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `PlayTrainBrakeSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `PlayerAboutToExitVehicleAsDriver` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessAIHeli` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessAIProp` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessAircraft` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessBoatEngine` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessBoatMovingOverWater` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
 | CAEVehicleAudioEntity | `ProcessDummyBicycle` | [Resumen](../reversing/AudioVehiclePending/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummyGolfCart` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummyHeli` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
 | CAEVehicleAudioEntity | `ProcessDummyHovercraft` | [Resumen](../reversing/AudioVehiclePending/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummyJet` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummyProp` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummyRCCar` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummyRCHeli` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummyRCPlane` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummySeaPlane` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummyStateTransition` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummyTrainEngine` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessDummyVehicleEngine` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessEngineDamage` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
 | CAEVehicleAudioEntity | `ProcessGenericJet` | [Resumen](../reversing/AudioVehiclePending/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessMovingParts` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessNitro` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
 | CAEVehicleAudioEntity | `ProcessPlayerBicycle` | [Resumen](../reversing/AudioVehiclePending/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessPlayerCombine` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessPlayerHeli` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessPlayerJet` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessPlayerProp` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessPlayerSeaPlane` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessPlayerTrainBrakes` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessPlayerVehicleEngine` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessRainOnVehicle` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessReverseGear` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessSpecialVehicle` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessTrainTrackSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessVehicle` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessVehicleFlatTyre` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessVehicleRoadNoise` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessVehicleSirenAlarmHorn` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `ProcessVehicleSkidding` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `RequestBankSlot` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `RequestNewPlayerCarEngineSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `Service` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `StartVehicleEngineSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `StaticGetPlayerVehicleAudioSettingsForRadio` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `StaticInitialise` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `StaticService` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `StopGenericEngineSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `StoppedUsingBankSlot` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `Terminate` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `TurnOffRadioForVehicle` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `TurnOnRadioForVehicle` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `UpdateBoatSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `UpdateGasPedalAudio` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `UpdateGenericVehicleSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `UpdateParameters` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
+| CAEVehicleAudioEntity | `UpdateTrainSound` | [Resumen](../reversing/VehAudioFinal4/validation-summary.json) |
 | CAEVorbisDecoder | `CloseCallback` | [Resumen](../reversing/Audio13/validation-summary.json) |
 | CAEVorbisDecoder | `Constructor` | [Resumen](../reversing/Audio13/validation-summary.json) |
 | CAEVorbisDecoder | `Destructor` | [Resumen](../reversing/Audio13/validation-summary.json) |
@@ -8415,7 +8517,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAETrackLoader` | 1 | 0 | 1 | 0 |
 | `CAETwinLoopSoundEntity` | 7 | 0 | 7 | 0 |
 | `CAEUserRadioTrackManager` | 15 | 0 | 15 | 0 |
-| `CAEVehicleAudioEntity` | 106 | 0 | 4 | 102 |
+| `CAEVehicleAudioEntity` | 106 | 0 | 106 | 0 |
 | `CAEVorbisDecoder` | 13 | 0 | 13 | 0 |
 | `CAEWMADecoder` | 11 | 0 | 11 | 0 |
 | `CAEWaterCannonAudioEntity` | 7 | 0 | 7 | 0 |
