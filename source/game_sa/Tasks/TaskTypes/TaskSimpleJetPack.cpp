@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "TrigSimpleCpp.h"
 
 #include "TaskSimpleJetPack.h"
 #include "TaskSimplePlayerOnFoot.h"
@@ -102,24 +103,10 @@ float __declspec(naked) __cdecl JpUIntDivX87(uint32 v, float k) {
 }
 
 // fsin(a) · k con el seno sin redondear
-float __declspec(naked) __cdecl JpMulSinX87(float a, float k) {
-    __asm {
-        fld   dword ptr [esp+4]
-        fsin
-        fmul  dword ptr [esp+8]
-        ret
-    }
-}
+
 
 // fcos(a) · k con el coseno sin redondear
-float __declspec(naked) __cdecl JpMulCosX87(float a, float k) {
-    __asm {
-        fld   dword ptr [esp+4]
-        fcos
-        fmul  dword ptr [esp+8]
-        ret
-    }
-}
+
 
 // (1 - p) · udS · ángulo máximo + p · angle con p = pow(0.9, paso) del _CIpow del EXE (0x822130) en ST0 completo
 float __declspec(naked) __cdecl JpLerpThrustAngleX87(float udS, float angle, float step) {
@@ -486,7 +473,7 @@ bool CTaskSimpleJetPack::ProcessPed(CPed* ped) {
             // Como el original: t = ms · 0.0015707964 (un redondeo); ((fsin(t) · paso) · -0.05) · rand() · (1/32767)
             const float t  = JpUIntMulX87(CTimer::m_snTimeInMilliseconds, kJpTimeToRad);
             const float rf = (float)CGeneral::GetRandomNumber() * kJpRandRecip;
-            ped->m_fAimingRotation = JpMulSinX87(t, CTimer::GetTimeStep()) * JETPACK_TURN_RATE * rf + ped->m_fAimingRotation;
+            ped->m_fAimingRotation = TrigSimpleSinMulCpp(t, CTimer::GetTimeStep()) * JETPACK_TURN_RATE * rf + ped->m_fAimingRotation;
 
             if (ped->GetPlayerData()) {
                 ped->GetPlayerData()->m_fMoveBlendRatio = 0.f;
@@ -541,8 +528,8 @@ void CTaskSimpleJetPack::RenderJetPack(CPed* ped) {
             float x, y;
             if (m_ThrustStop) {
                 const float t = JpUIntDivX87(CTimer::m_snTimeInMilliseconds, kJpJetBallPeriod);
-                x = JpMulSinX87(t, bLeftSide ? 45.f : -45.f);
-                y = JpMulCosX87(t, 45.f);
+                x = TrigSimpleSinMulCpp(t, bLeftSide ? 45.f : -45.f);
+                y = TrigSimpleCosMulCpp(t, 45.f);
             } else {
                 const float a = bLeftSide ? m_ThrustAngle * kJpRadToDeg + headingDeg : m_ThrustAngle * kJpRadToDeg - headingDeg;
                 x = 90.f < a ? 90.f : (-90.f > a ? -90.f : a);

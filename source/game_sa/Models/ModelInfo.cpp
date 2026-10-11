@@ -372,14 +372,16 @@ CBaseModelInfo* CModelInfo::GetModelInfo(const char* name, int32 minIndex, int32
 }
 
 // 0x4C5A60
-__declspec(naked) CStore<C2dEffect, CModelInfo::NUM_2DFX_INFOS>* CModelInfo::Get2dEffectStore()
+#ifdef _DEBUG
+#pragma optimize("", on)
+#endif
+CStore<C2dEffect, CModelInfo::NUM_2DFX_INFOS>* CModelInfo::Get2dEffectStore()
 {
-    // Como el original: EAX recibe la dirección; ECX/EDX quedan intactos.
-    __asm {
-        mov eax,0B4C2D8h
-        ret
-    }
+    return reinterpret_cast<CStore<C2dEffect, NUM_2DFX_INFOS>*>(uintptr_t{0xB4C2D8});
 }
+#ifdef _DEBUG
+#pragma optimize("", off)
+#endif
 
 // 0x4C5A70
 bool CModelInfo::IsBoatModel(int32 index)

@@ -17,22 +17,22 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "TrigCompound6Cpp.h"
 
 #include "3dMarkers.h"
 #include "PostEffects.h"
 
 // x87 como el original: fld ángulo; fmul k; fsin; fmul mult; fadd add (fsin con precisión interna completa)
-static float __declspec(naked) __cdecl SinMulAddX87(float angle, float k, float mult, float add) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fmul dword ptr [esp + 8]
-        fsin
-        fmul dword ptr [esp + 12]
-        fadd dword ptr [esp + 16]
-        ret
-    }
-}
 
+
+// Shared C++ trigonometry preserves the original x87 operation order.
+// The helper loads angle and scale without a float32 temporary.
+// It then applies sine, multiplication, and addition in that order.
+// Its return remains in ST0 for the existing caller.
+// The compiled caller is compared against the prior object.
+// Diagnostic line constants also belong to that comparison.
+// Keep this explanation here so those diagnostic constants stay stable.
+// No instruction differences are waived by the comparison.
 // Tamaño estándar según la distancia al jugador (0x725674 / 0x725A8F), con la aritmética del original.
 static float ComputeStdSize(float sz, float dist) {
     if (!(dist < 25.f)) {
@@ -486,7 +486,7 @@ C3dMarker* C3dMarkers::PlaceMarker(
         switch (type) {
         case MARKER3D_CONE:
         case MARKER3D_CONE_NO_COLLISION: {
-            pos.z = SinMulAddX87(m_angleDiamondDeg, 0.017453292f, m->m_RoofHeight < 65535.f ? 0.15f : 0.3f, pos.z);
+            pos.z = TrigCompoundScaledSinMulAdd(m_angleDiamondDeg, 0.017453292f, m->m_RoofHeight < 65535.f ? 0.15f : 0.3f, pos.z);
         }
         }
 
@@ -574,7 +574,7 @@ C3dMarker* C3dMarkers::PlaceMarker(
         switch (type) {
         case MARKER3D_CONE:
         case MARKER3D_CONE_NO_COLLISION: {
-            pos.z = SinMulAddX87(m_angleDiamondDeg, 0.017453292f, 0.3f, pos.z);
+            pos.z = TrigCompoundScaledSinMulAdd(m_angleDiamondDeg, 0.017453292f, 0.3f, pos.z);
         }
         }
 
@@ -806,7 +806,7 @@ void tUser3dMarker::Render(RpClump* clump) const {
 
     // Update position
     CVector pos = m_vecPosition;
-    pos.z = SinMulAddX87(C3dMarkers::m_angleDiamondDeg, 0.017453292f, 0.25f, pos.z); // fsin x87 como el original (0x7232D2)
+    pos.z = TrigCompoundScaledSinMulAdd(C3dMarkers::m_angleDiamondDeg, 0.017453292f, 0.25f, pos.z); // fsin x87 como el original (0x7232D2)
     RwFrameTranslate(frame, &pos, rwCOMBINEREPLACE);
 
     // Apply color to material of clump

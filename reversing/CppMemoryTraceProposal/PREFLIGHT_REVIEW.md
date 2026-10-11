@@ -1,0 +1,13 @@
+# Revisión offline previa a compilar DependenciesMemoryCpp16
+
+No se compiló ni ejecutó; el banco permanece sin editar. `preflight_hardening.patch` añade una barrera inmediata después de las cinco observaciones positivas de calibración. Una observación inválida no permite continuar leyendo payload ni deduciendo ownership para free; se declara `calibrationResourcesRestored=false`, se restaura FP y se devuelve la campaña incompleta. El banco rechazará la admisión y notificará estado incompleto. El proceso fallido debe cerrarse; no se declara recuperación de recursos desconocidos.
+
+También explicita `noinline` para ProtectedGate, manteniendo el `__try/__except` aislado. Esta función sólo contiene Result trivial y referencias/parámetros escalares; no contiene JSON, vector ni objetos con destructor. No se identificó un causante directo de C2712. La compilación real de MSVC sigue siendo obligatoria y no se afirma que haya pasado.
+
+La instalación y restauración DR utilizan un helper con suspensión cooperativa, Get/SetThreadContext y lectura posterior del hilo propietario, en lugar de contexto inválido del hilo actual. Se deshace sólo el incremento propio de suspensión. DR7 habilita L0/L1/L2 para ejecución; conserva el cuarto slot deshabilitado y bits reservados; rechaza cualquier slot activo, GD/TF o razones pendientes. El handler no asigna memoria, recoge argumentos físicos, consume sólo su razón y usa RF exclusivamente al reanudar. El filtro SEH sólo captura el SINGLE_STEP propio rechazado mientras scope sigue activo. La prueba negativa 17 contra 18 es obligatoria antes de aceptar la campaña; terceros que intercepten la excepción impedirían demostrar el aborto y bloquearían admisión.
+
+Stop exige readback exacto del estado guardado, helper terminado y VEH eliminado. No retira VEH mientras no haya confirmado restauración de registros; su almacenamiento global evita callbacks a objetos destruidos. API/timeout/ResumeThread fallidos impiden declarar éxito. Esto no promete recuperación cuando falla Windows: conserva señal de fallo y requiere cerrar el proceso.
+
+El hash compara registros generales, segmentos, flags salvo RF y estado FP del contexto antes/después del handler. Los slots dr/DR6 son modificaciones deliberadas. Debe confirmarse con la calibración y el banco real; no sustituye la comparación final x87/MXCSR. El prefijo candidata de 64 bytes y ventana de retorno de 1024 siguen sin probar ausencia de delegación: se necesita revisión de fuente y xrefs compilados.
+
+Orden obligatorio: aplicar/revisar endurecimiento; compilar; calibrar y pasar 8192 parejas con fuente ASM actual; luego experimentar parche C++ en serie y volver a ejecutar el mismo banco. No sustituir ni eliminar Memory9 antes de contar con esa evidencia.

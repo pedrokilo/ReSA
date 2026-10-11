@@ -1,0 +1,16 @@
+{
+  "helpers": [
+    {
+      "old": "REEMPLAZAR_SIMBOLO_COFF_ANTIGUO_EXACTO",
+      "new": "REEMPLAZAR_SIMBOLO_COFF_NUEVO_EXACTO",
+      "canonical": "sinMul"
+    }
+  ],
+  "consumers": [
+    {
+      "old_object": "RUTA_OBJ_ANTIGUO",
+      "new_object": "RUTA_OBJ_NUEVO",
+      "symbol": "SIMBOLO_FUNCION_COFF_EXACTO"
+    }
+  ]
+}

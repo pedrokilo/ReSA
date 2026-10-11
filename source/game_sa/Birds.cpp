@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "TrigCompound6Cpp.h"
+#include "TrigSimpleCpp.h"
 
 #include "Birds.h"
 #include "Clouds.h"
@@ -72,55 +74,40 @@ inline float GetMaxDistance(eBirdsBiome biome) {
 
 namespace {
 // Como el original: fsin/fcos/fpatan del x87 con precisión interna completa; el producto/suma siguiente lo redondea la FPU.
-__declspec(naked) float __cdecl BirdsSinMul(float angle, float mult) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fsin
-        fmul dword ptr [esp + 8]
-        ret
-    }
-}
 
-__declspec(naked) float __cdecl BirdsCosMul(float angle, float mult) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fcos
-        fmul dword ptr [esp + 8]
-        ret
-    }
-}
 
-__declspec(naked) float __cdecl BirdsSinMulAdd(float angle, float mult, float add) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fsin
-        fmul dword ptr [esp + 8]
-        fadd dword ptr [esp + 12]
-        ret
-    }
-}
 
-__declspec(naked) float __cdecl BirdsCosMulAdd(float angle, float mult, float add) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fcos
-        fmul dword ptr [esp + 8]
-        fadd dword ptr [esp + 12]
-        ret
-    }
-}
+
+
+
+
 
 // -sin(angle) / div, con el seno sin redondear
-__declspec(naked) float __cdecl BirdsNegSinDiv(float angle, float div) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fsin
-        fchs
-        fdiv dword ptr [esp + 8]
-        ret
-    }
-}
 
+
+// Shared C++ helpers replace the three compound trigonometric bodies.
+// Spawn position uses sine times distance plus camera X.
+// Its second component uses cosine times distance plus camera Y.
+// Both expressions keep the full intermediate x87 value.
+// Wing motion uses the same sine, multiply, and add sequence.
+// The negative sine factor changes sign before division.
+// Moving the sign change after division would change rounding behavior.
+// The helper therefore keeps those operations separate in its C++ source.
+// Double expressions allow the compiler to retain ST0 intermediates.
+// The actual object must still prove that no temporary was introduced.
+// Intrinsic sine and cosine must emit the original x87 instructions.
+// Library calls are rejected for these helpers.
+// The calling convention remains cdecl with float arguments.
+// The float result remains in ST0.
+// The helper preserves integer flags and caller registers.
+// Consumer instructions and relocations are compared separately.
+// Only the authorized helper call destinations may change.
+// Update exercises both spawn helpers in the game bank.
+// Render exercises the wing helpers and negative division.
+// CreateNumberOfBirds remains a companion regression.
+// Diagnostic source-line constants are part of the object comparison.
+// Keeping this explanation here preserves those existing constants.
+// No byte or relocation differences are ignored.
 // atan2(x, y) con fpatan
 __declspec(naked) float __cdecl BirdsAtan2(float x, float y) {
     __asm {
@@ -331,8 +318,8 @@ void CBirds::Update() {
                 }
 
                 const CVector vecBirdSpawnPos{
-                    BirdsSinMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.x),
-                    BirdsCosMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.y),
+                    TrigCompoundSinMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.x),
+                    TrigCompoundCosMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.y),
                     fBirdSpawnZ
                 };
 
@@ -418,15 +405,15 @@ void CBirds::Render() {
             auto& vecPos = matBirdTransform.GetPosition();
             const uint32 uiStillness = bird.m_nWingStillness;
             const uint32 uiTime = CTimer::GetTimeInMS() + uiWingMoveTimeOffset;
-            vecPos.z = BirdsSinMulAdd((float)(uiTime % uiStillness) * (BIRDS_WING_K / (float)uiStillness), 0.1F, vecPos.z);
+            vecPos.z = TrigCompoundSinMulAdd((float)(uiTime % uiStillness) * (BIRDS_WING_K / (float)uiStillness), 0.1F, vecPos.z);
         }
 
         CVector vecScreenPos;
         float fScreenWidth;
         float fScreenHeight;
         if (CSprite::CalcScreenCoors(matBirdTransform.GetPosition(), &vecScreenPos, &fScreenWidth, &fScreenHeight, false, true)) {
-            const auto fCosSize = BirdsCosMul(bird.m_fAngle, bird.m_fSize);
-            const auto fSinSize = BirdsSinMul(bird.m_fAngle, bird.m_fSize);
+            const auto fCosSize = TrigSimpleCosMulCpp(bird.m_fAngle, bird.m_fSize);
+            const auto fSinSize = TrigSimpleSinMulCpp(bird.m_fAngle, bird.m_fSize);
 
             matBirdTransform.GetRight().Set(fCosSize, -fSinSize, 0.0F);
             matBirdTransform.GetForward().Set(fSinSize, fCosSize, 0.0F);
@@ -444,16 +431,16 @@ void CBirds::Render() {
                 const uint32 uiStillness = bird.m_nWingStillness;
                 const uint32 uiTime = CTimer::GetTimeInMS() + uiWingMoveTimeOffset;
                 const float fWingK = BIRDS_WING_K / (float)uiStillness;
-                const float fSin1 = BirdsSinMul((float)((uiStillness / 6 + uiTime) % uiStillness) * fWingK, -1.0f);
+                const float fSin1 = TrigSimpleSinMulCpp((float)((uiStillness / 6 + uiTime) % uiStillness) * fWingK, -1.0f);
 
                 const auto fSizeUsed = (1.0F > bird.m_fSize) ? 1.0F : bird.m_fSize; // Como el original: NaN usa el tamaño
                 const auto fSin1Factor = fSin1 / fSizeUsed;
-                const auto fSin2Factor = BirdsNegSinDiv((float)(uiTime % uiStillness) * fWingK, fSizeUsed);
+                const auto fSin2Factor = TrigCompoundNegSinDiv((float)(uiTime % uiStillness) * fWingK, fSizeUsed);
 
-                const auto fOffX1 = BirdsCosMul(fSin1Factor, 0.5F);
-                const auto fOffZ1 = BirdsSinMul(fSin1Factor, 0.5F);
-                const auto fOffX2 = BirdsCosMul(fSin2Factor, 0.5F);
-                const auto fOffZ2 = BirdsSinMul(fSin2Factor, 0.5F);
+                const auto fOffX1 = TrigSimpleCosMulCpp(fSin1Factor, 0.5F);
+                const auto fOffZ1 = TrigSimpleSinMulCpp(fSin1Factor, 0.5F);
+                const auto fOffX2 = TrigSimpleCosMulCpp(fSin2Factor, 0.5F);
+                const auto fOffZ2 = TrigSimpleSinMulCpp(fSin2Factor, 0.5F);
 
                 RwUInt8 cAlpha = 255;
                 const auto& vecCameraPos = TheCamera.GetPosition();

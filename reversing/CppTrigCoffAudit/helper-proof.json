@@ -1,0 +1,186 @@
+{
+  "object_sha256": "fa5af3a07a0d75e42bf9a47c03f91658f91a200f4b8dbd26750bfd01381e19b2",
+  "functions": [
+    {
+      "symbol": "?TrigSimpleSinCpp@@YAMM@Z",
+      "section": 8,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "55",
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "offset": 1,
+          "bytes": "8bec",
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "offset": 3,
+          "bytes": "d94508",
+          "mnemonic": "fld",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "offset": 6,
+          "bytes": "d9fe",
+          "mnemonic": "fsin",
+          "operands": ""
+        },
+        {
+          "offset": 8,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "offset": 9,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?TrigSimpleCosCpp@@YAMM@Z",
+      "section": 4,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "55",
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "offset": 1,
+          "bytes": "8bec",
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "offset": 3,
+          "bytes": "d94508",
+          "mnemonic": "fld",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "offset": 6,
+          "bytes": "d9ff",
+          "mnemonic": "fcos",
+          "operands": ""
+        },
+        {
+          "offset": 8,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "offset": 9,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?TrigSimpleSinMulCpp@@YAMMM@Z",
+      "section": 10,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "55",
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "offset": 1,
+          "bytes": "8bec",
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "offset": 3,
+          "bytes": "d94508",
+          "mnemonic": "fld",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "offset": 6,
+          "bytes": "d9fe",
+          "mnemonic": "fsin",
+          "operands": ""
+        },
+        {
+          "offset": 8,
+          "bytes": "d84d0c",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "offset": 11,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "offset": 12,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?TrigSimpleCosMulCpp@@YAMMM@Z",
+      "section": 6,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "55",
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "offset": 1,
+          "bytes": "8bec",
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "offset": 3,
+          "bytes": "d94508",
+          "mnemonic": "fld",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "offset": 6,
+          "bytes": "d9ff",
+          "mnemonic": "fcos",
+          "operands": ""
+        },
+        {
+          "offset": 8,
+          "bytes": "d84d0c",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "offset": 11,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "offset": 12,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "limitation": "Relocations unresolved; function extents inferred from COFF symbols. No runtime approval."
+}

@@ -1,0 +1,52 @@
+{
+  "bank": "CppInteriorNext",
+  "run": "20261011-000453-501774",
+  "functions": 2,
+  "pairs": 6144,
+  "pairs_per_function": {
+    "Interior_c::FurnishOffice": 2048,
+    "Interior_c::Shop_AddShelfInfo": 4096
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "475a53800bb2c7ac6bf255c3d5d0efc83d16eaea1712ace9a6e2863abfb1ab29",
+  "tested_sources": {
+    "source/game_sa/Interior/Interior_c.cpp": "bc5e0b0b1d32a6c8566bcaf7182938bc0aa215dcd126e88178055265319336ae",
+    "source/game_sa/Interior/InteriorCpp.cpp": "fabf3f5f64d5a731c0f7de247d2cb20a31b9213864ce40a6116c7e7a3b921336",
+    "source/game_sa/Interior/InteriorShelfCpp.cpp": "8708e405deb20074b1e28126a40ab069c13766bd5b4e7b0c78be20ac2d9d031e",
+    "source/game_sa/Interior/Interior_c.h": "481975c80d69fbdf7a92f7dc3ef77f439140a02eaf8585015536ba93e9ea6c5f",
+    "source/game_sa/Interior/Furniture_c.h": "13c5c9d6d0ea5448412e158532530f5e9a30b95228f01bc6e48fc27a92f71216",
+    "source/game_sa/Interior/FurnitureManager_c.h": "e235083ff94829d209180cf56fd504d74784a71b45fff39c42a14d4ae9bfa4f0",
+    "source/game_sa/Interior/FurnitureManager_c.cpp": "2665bcd4082c702d79188dc516ab77a3a117ba27522e99321c6c558106537d65",
+    "source/game_sa/Interior/FurnitureGroup_c.h": "c353e65b7935ef07e7c581fd06f25145bd26e577e6c8dcee8883fc2c351b39f1",
+    "source/game_sa/Interior/FurnitureSubGroup_c.h": "0edfa6fd0983beb5a810ac9aa77b44cc4c74f27425c50453800889bb9d5d97e1",
+    "source/game_sa/Interior/FurnitureItem.h": "9a0d59dfe31b0c929868751323556d3d24c7047dc7d16b2ad5137246798fc942",
+    "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9",
+    "source/game_sa/Core/ListItem_c.h": "ec87db92de269531a45c7e905d15a19b12eb7f26210f32f030a68cc8604e8ac7",
+    "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0",
+    "source/Base.h": "09bd63c8bb483f0f49c4db800fba259ee634a0e7dd4e4c356fbd7050b88d4096",
+    "source/CMakeLists.txt": "4b36b691ea0e5e701566d0a68d9f668dfe0e01e456db675d2778953bdbc731f9",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "source/reversiblehooks/RootHookCategory.h": "c48de9e729dc3aaf973dff92cff28822410b635c5101ba65a27327badea33ef7",
+    "source/reversiblehooks/ReversibleHooks.h": "0a6c8bacfec64a9706ff30c71ffb56bdf17475a84324d86733e77930c2478986",
+    "source/reversiblehooks/ReversibleHooks.cpp": "135d69e6d8a6f59202840ae842307739ff9388e85a9fcfb64ef6ac5bfeaac83c",
+    "source/reversiblehooks/HookCategory.h": "4025d7df608fbacffca0f0235be905345c423a1ffef2b37a2ce2767507c83e20",
+    "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095",
+    "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+    "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+    "reversing/CppInteriorNext/run_local.py": "29b261dd4a964df01a4b41926b55e957c426888bc6bbf415a50c9789cab3b641"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "5645a67e61d2a61be3081d17a37a66f200017b246201deaecd8756516d62cba4",
+    "build_probe.py": "94fa163d50708d3235f70297bb3ffb4d6a4e787f70766e15d694511da4f51cf7",
+    "run_local.py": "29b261dd4a964df01a4b41926b55e957c426888bc6bbf415a50c9789cab3b641"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "e4ddfeba3711f3902b6f5b7924c7be7c1f5590e9a2dd97e017b37a15b02f5def",
+  "registered_hook_verified": true
+}

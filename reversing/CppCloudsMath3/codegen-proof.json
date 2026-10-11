@@ -1,0 +1,99 @@
+{
+  "object_sha256": "10ab76af5084859bd12068098de83f9fefd2060a0ded2111b0938e0bf7c86502",
+  "functions": [
+    {
+      "symbol": "?CloudsSinX87@@YAMM@Z",
+      "instructions": [
+        [
+          "push",
+          "ebp"
+        ],
+        [
+          "mov",
+          "ebp, esp"
+        ],
+        [
+          "fld",
+          "dword ptr [ebp + 8]"
+        ],
+        [
+          "fsin",
+          ""
+        ],
+        [
+          "pop",
+          "ebp"
+        ],
+        [
+          "ret",
+          ""
+        ]
+      ]
+    },
+    {
+      "symbol": "?CloudsCosX87@@YAMM@Z",
+      "instructions": [
+        [
+          "push",
+          "ebp"
+        ],
+        [
+          "mov",
+          "ebp, esp"
+        ],
+        [
+          "fld",
+          "dword ptr [ebp + 8]"
+        ],
+        [
+          "fcos",
+          ""
+        ],
+        [
+          "pop",
+          "ebp"
+        ],
+        [
+          "ret",
+          ""
+        ]
+      ]
+    },
+    {
+      "symbol": "?CloudsSinMulX87@@YAMMM@Z",
+      "instructions": [
+        [
+          "push",
+          "ebp"
+        ],
+        [
+          "mov",
+          "ebp, esp"
+        ],
+        [
+          "fld",
+          "dword ptr [ebp + 8]"
+        ],
+        [
+          "fsin",
+          ""
+        ],
+        [
+          "fmul",
+          "dword ptr [ebp + 0xc]"
+        ],
+        [
+          "pop",
+          "ebp"
+        ],
+        [
+          "ret",
+          ""
+        ]
+      ]
+    }
+  ],
+  "no_intermediate_store": true,
+  "no_crt_call": true,
+  "frame_prologue": "PUSH EBP/MOV EBP,ESP; POP EBP restores; no arithmetic or EFLAGS changes"
+}

@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "TrigCompound6Cpp.h"
+#include "TrigSimpleCpp.h"
 
 #include "TaskSimpleSwim.h"
 #include "TaskSimpleClimb.h"
@@ -148,31 +150,12 @@ float __declspec(naked) __cdecl MulPowX87(float base, float exp, float v) {
     }
 }
 
-float __declspec(naked) __cdecl SinX87(float a) {
-    __asm {
-        fld    dword ptr [esp + 4]
-        fsin
-        ret
-    }
-}
 
-float __declspec(naked) __cdecl CosX87(float a) {
-    __asm {
-        fld    dword ptr [esp + 4]
-        fcos
-        ret
-    }
-}
+
+
 
 // z - fsin(a) a la precisión vigente
-float __declspec(naked) __cdecl SubSinX87(float z, float a) {
-    __asm {
-        fld    dword ptr [esp + 8]
-        fsin
-        fsubr  dword ptr [esp + 4]
-        ret
-    }
-}
+
 
 // out[0..2] = fcos(a) * f[0..2], out[3] = fsin(a) * m (productos con el valor completo de ST0)
 void __declspec(naked) __cdecl CosSinProductsX87(float a, const float* f, float m, float* out) {
@@ -743,7 +726,7 @@ void CTaskSimpleSwim::ProcessSwimmingResistance(CPed* ped) {
                         m_fStateChanger = 0.0f;
                 }
             } else {
-                if (SubSinX87(pedPos.z, m_fRotationX) + 0.65f > fWaterLevel) {
+                if (TrigCompoundSubSin(pedPos.z, m_fRotationX) + 0.65f > fWaterLevel) {
                     m_fStateChanger = ts * 0.002f + m_fStateChanger;
                     if (m_fStateChanger > 0.05f) {
                         m_fStateChanger = 0.05f;
@@ -976,7 +959,7 @@ void CTaskSimpleSwim::ProcessControlInput(CPlayerPed* ped) {
             if (fWalkMagnitude > 0.0f) {
                 float angle = CGeneral::LimitRadianAngle(RadianAngleFromOriginSubX87(-walkX, walkY, TheCamera.m_fOrientation));
                 // Como el original: (-sin, cos, 0) con fsin/fcos
-                const CVector vecPedWalkDirection(-SinX87(angle), CosX87(angle), 0.0f);
+                const CVector vecPedWalkDirection(-TrigSimpleSinCpp(angle), TrigSimpleCosCpp(angle), 0.0f);
                 const float cur = ped->m_fCurrentRotation;
                 if (angle > cur + SWIM_PI) {
                     angle -= SWIM_TWO_PI;

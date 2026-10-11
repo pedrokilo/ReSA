@@ -96,7 +96,8 @@ LONG WINAPI WindowsExceptionHandler(PEXCEPTION_POINTERS pExceptionInfo) {
         }
     }
 
-    CONTEXT& context = *pExceptionInfo->ContextRecord;
+    // StackWalk mutates its context; preserve the exception for subsequent handlers.
+    CONTEXT context = *pExceptionInfo->ContextRecord;
 
     Section("REGISTERS");
     {

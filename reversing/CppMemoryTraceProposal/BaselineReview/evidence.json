@@ -1,0 +1,23 @@
+{
+  "review": "Offline; no ejecución ni aprobación de línea base",
+  "clone": "E:/JUEGOS/GTA San Andreas - CVehicle Test",
+  "expected_pairs": 8192,
+  "expected_per_function": 2048,
+  "production_context_copy": true,
+  "allocator_functions_still_naked_asm": [
+    "Malloc-SizeHint",
+    "Realloc-MemorySizeHint",
+    "MallocAlign-SizeAlignHint",
+    "FreeAlign"
+  ],
+  "source_sha256": {
+    "source/app/app_debug.cpp": "b120898c0b6ecc556ce3c558705aa283cfd310e655889f6ce26127fee77b4d0a",
+    "source/game_sa/MemoryMgr.cpp": "0150cc899d9f1e524e5a3cc60b1f5c4b88cdb8b5dce7a0665bd56b10e0a2b586",
+    "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+    "reversing/DependenciesMemoryCpp16/build_probe.py": "d08401f5a7d9f7c7ee504c1edbcbca2aed338887d455f72e965cf7c910f7b392",
+    "reversing/DependenciesMemoryCpp16/run_local.py": "1b02d9e6cc06e10f94ac6e906db5c7c5ca632e551336f4f871f37c1258d00eb7",
+    "reversing/DependenciesMemoryCpp16/HardwareTrace.hpp": "9e889bcefc45972082116ddc790b23317edc2518b65fd5b31156af72dd68bdf5",
+    "reversing/DependenciesMemoryCpp16/TraceSupport.hpp": "2736eda2c2d756a6d84ec9a96a6817c62e2e0b536c01a90a5a5b5302686563c9",
+    "reversing/CppMemoryTraceProposal/independent_trace_audit.py": "6bc18b97ef0ed94ab5847c89f3f7f4b8619b9c354e87375e9eeff7961c0abc10"
+  }
+}

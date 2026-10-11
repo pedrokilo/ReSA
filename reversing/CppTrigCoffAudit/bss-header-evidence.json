@@ -1,0 +1,138 @@
+[
+  {
+    "object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\Birds.obj",
+    "section_number": 3201,
+    "section_name": ".bss",
+    "size": 40,
+    "raw_pointer": 0,
+    "flags": "0xc0300080",
+    "header_timestamp": "7501cb6a",
+    "symbols": [
+      [
+        0,
+        ".bss"
+      ],
+      [
+        0,
+        "?SOURCE_PATH@notsa@@3Vpath@filesystem@std@@B"
+      ],
+      [
+        36,
+        "?RwEngineInstance@@3AAPAURwGlobals@@A"
+      ],
+      [
+        28,
+        "?aTempBufferIndices@@3AAY0BAAA@GA"
+      ],
+      [
+        32,
+        "?TempBufferVertices@@3AAUTempVertexBuffer@@A"
+      ]
+    ],
+    "relocations": []
+  },
+  {
+    "object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Birds.obj",
+    "section_number": 3197,
+    "section_name": ".bss",
+    "size": 40,
+    "raw_pointer": 0,
+    "flags": "0xc0300080",
+    "header_timestamp": "2738cb6a",
+    "symbols": [
+      [
+        0,
+        ".bss"
+      ],
+      [
+        0,
+        "?SOURCE_PATH@notsa@@3Vpath@filesystem@std@@B"
+      ],
+      [
+        36,
+        "?RwEngineInstance@@3AAPAURwGlobals@@A"
+      ],
+      [
+        28,
+        "?aTempBufferIndices@@3AAY0BAAA@GA"
+      ],
+      [
+        32,
+        "?TempBufferVertices@@3AAUTempVertexBuffer@@A"
+      ]
+    ],
+    "relocations": []
+  },
+  {
+    "object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\BrightLights.obj",
+    "section_number": 361,
+    "section_name": ".bss",
+    "size": 20,
+    "raw_pointer": 0,
+    "flags": "0xc0300080",
+    "header_timestamp": "7601cb6a",
+    "symbols": [
+      [
+        0,
+        ".bss"
+      ],
+      [
+        16,
+        "?RwEngineInstance@@3AAPAURwGlobals@@A"
+      ],
+      [
+        12,
+        "?aTempBufferIndices@@3AAY0BAAA@GA"
+      ],
+      [
+        8,
+        "?TempBufferVertices@@3AAUTempVertexBuffer@@A"
+      ],
+      [
+        0,
+        "?BrightTempVerticesStored@?A0xe2670134@@3AAHA"
+      ],
+      [
+        4,
+        "?BrightTempIndicesStored@?A0xe2670134@@3AAHA"
+      ]
+    ],
+    "relocations": []
+  },
+  {
+    "object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BrightLights.obj",
+    "section_number": 357,
+    "section_name": ".bss",
+    "size": 20,
+    "raw_pointer": 0,
+    "flags": "0xc0300080",
+    "header_timestamp": "2738cb6a",
+    "symbols": [
+      [
+        0,
+        ".bss"
+      ],
+      [
+        16,
+        "?RwEngineInstance@@3AAPAURwGlobals@@A"
+      ],
+      [
+        12,
+        "?aTempBufferIndices@@3AAY0BAAA@GA"
+      ],
+      [
+        8,
+        "?TempBufferVertices@@3AAUTempVertexBuffer@@A"
+      ],
+      [
+        0,
+        "?BrightTempVerticesStored@?A0xe2670134@@3AAHA"
+      ],
+      [
+        4,
+        "?BrightTempIndicesStored@?A0xe2670134@@3AAHA"
+      ]
+    ],
+    "relocations": []
+  }
+]

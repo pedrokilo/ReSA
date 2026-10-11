@@ -1,0 +1,90 @@
+{
+  "object_sha256": "a154cf162363e50d4fea6f66ae2f4ddd4a4060fd3064d61b98172e8f73c13381",
+  "functions": [
+    {
+      "symbol": "?Get2dEffectStore@CModelInfo@@SAPAV?$CStore@UC2dEffect@@$0GE@@@XZ",
+      "section": 356,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "55",
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "offset": 1,
+          "bytes": "8bec",
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "offset": 3,
+          "bytes": "81ecc0000000",
+          "mnemonic": "sub",
+          "operands": "esp, 0xc0"
+        },
+        {
+          "offset": 9,
+          "bytes": "53",
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "offset": 10,
+          "bytes": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "offset": 11,
+          "bytes": "57",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "offset": 12,
+          "bytes": "b8d8c2b400",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb4c2d8"
+        },
+        {
+          "offset": 17,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "offset": 18,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "offset": 19,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "offset": 20,
+          "bytes": "8be5",
+          "mnemonic": "mov",
+          "operands": "esp, ebp"
+        },
+        {
+          "offset": 22,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "offset": 23,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "limitation": "Relocations unresolved; function extents inferred from COFF symbols. No runtime approval."
+}

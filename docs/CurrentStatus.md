@@ -1,5 +1,7 @@
 # Estado comprobado de ReSA · 10 de octubre de 2026
 
+**Prioridad actual, 11/10/2026:** convertir `source/game_sa` a C++ sin ensamblador en línea ni declaraciones `naked`, conservando resultados exactos del EXE. El [inventario de migración](../reversing/CppOnlyMigration/README.md) distingue conversiones probadas de propuestas pendientes; sus pruebas no incrementan automáticamente el catálogo ni la cohorte de dependencias.
+
 **Alcance del 100%:** corresponde a las entradas del catálogo principal. La [auditoría de cobertura fuera del catálogo](BinaryCoverageAudit.md) identifica funciones del juego sin registro y wrappers que siguen llamando al EXE, incluidos control de ped, renderizado de automóvil y tareas. No están acreditados todos los métodos de cada clase ni la independencia del ejecutable original.
 
 ## Dependencias fuera del catálogo: progreso comprobado
@@ -1903,3 +1905,5 @@ El freeze relativo antiguo de TaskCtorDtor corresponde a preparación no ejecuta
 | Clase/grupo | Funciones sin validar |
 | --- | ---: |
 | Win | 1 |
+
+Estado de la migracion a C++ al 11/10/2026: 34 funciones fuente convertidas y revalidadas. Quedan 930 apariciones de ensamblador y 277 declaraciones naked en 177 archivos; son conteos lexicos, no funciones. Lote final IntegerMinimal2: 8704 pares compartidos, cero diferencias, cero resultados nulos y restauracion verificada. Trabajo detenido por orden del usuario tras este lote. Lista completa: [archivos pendientes](../reversing/CppOnlyMigration/FILES.md); evidencia y alcance: [migracion C++](../reversing/CppOnlyMigration/README.md).

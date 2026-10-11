@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "TrigSimpleCpp.h"
 
 #include "BrightLights.h"
 
@@ -26,22 +27,8 @@ auto& BrightTempVerticesStored = StaticRef<int32>(0xC4B950);
 auto& BrightTempIndicesStored  = StaticRef<int32>(0xC4B954);
 
 // Como el original: fsin/fcos del x87 (precisión interna completa) y producto redondeado por la FPU.
-float __declspec(naked) __cdecl BrightSinMulX87(float angle, float k) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fsin
-        fmul dword ptr [esp + 8]
-        ret
-    }
-}
-float __declspec(naked) __cdecl BrightCosMulX87(float angle, float k) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fcos
-        fmul dword ptr [esp + 8]
-        ret
-    }
-}
+
+
 
 // Como el original: float a byte con _ftol2 (truncado a 64 bits, se queda el byte bajo).
 uint8 BrightFtolByte(float f) {
@@ -225,8 +212,8 @@ void tBrightLight::Render() const {
 
             // Como el original: ángulo (float)i * (2pi/8) (0x859AB0) y fsin/fcos del x87 por 0.1 (0x8D5E48).
             const float angle = static_cast<float>(static_cast<int32>(i)) * std::bit_cast<float>(0x3F490FDBu);
-            const float s     = BrightSinMulX87(angle, 0.1f);
-            const float c     = BrightCosMulX87(angle, 0.1f);
+            const float s     = TrigSimpleSinMulCpp(angle, 0.1f);
+            const float c     = TrigSimpleCosMulCpp(angle, 0.1f);
             // Como el original: (R * c + T * s) + P.
             vertex->objVertex.x = (c * m_vecRight.x + s * m_vecTop.x) + m_vecPosition.x;
             vertex->objVertex.y = (c * m_vecRight.y + s * m_vecTop.y) + m_vecPosition.y;

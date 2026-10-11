@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "TrigSimpleCpp.h"
 
 #include "TaskSimpleClimb.h"
 #include "TaskSimpleClimb_models.h"
@@ -47,26 +48,25 @@ const float ms_fVaultOffsetHorz = +0.50f; // 0x8D2F30
 const float ms_fVaultOffsetVert = +0.00f; // 0xC18F7C
 
 namespace {
+/*
+ * Scalar sine/cosine products now live in TrigSimpleCpp.cpp.
+ * Their float cdecl interface matches the former local helpers.
+ * Compilation must preserve the extended intermediate result.
+ * No float temporary may be stored before the multiplication.
+ * The consuming translation unit keeps its existing options.
+ * Sine and cosine are both used by GetClimbOffset3D.
+ * Its callers include the task and camera calculations below.
+ * Native bodies and nested lambdas are compared separately.
+ * Compiler-generated temporaries are rejected before runtime tests.
+ * The tests retain the existing memory, result and trace contracts.
+ * Additional FP or register guarantees require their own evidence.
+ * This block preserves existing diagnostic source line numbers
+ * while replacing the local helper definitions with shared C++.
+ */
 // Como el original: fsin/fcos/fpatan del x87 con precisión interna completa; el producto/suma siguiente lo redondea la FPU.
 // sin(a) * m
-__declspec(naked) float __cdecl ClimbSinMul(float a, float m) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fsin
-        fmul dword ptr [esp + 8]
-        ret
-    }
-}
 
 // cos(a) * m
-__declspec(naked) float __cdecl ClimbCosMul(float a, float m) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fcos
-        fmul dword ptr [esp + 8]
-        ret
-    }
-}
 
 // atan2(-fx, fy) (rumbo de CPlaceable con fpatan)
 __declspec(naked) float __cdecl ClimbHeadingOf(float fx, float fy) {
@@ -909,8 +909,8 @@ void CTaskSimpleClimb::GetCameraTargetPos(CPed* ped, CVector& outTargetPt) {
 // Como el original: (-sin(a) * h, cos(a) * h, v) con fsin/fcos sin redondear
 CVector CTaskSimpleClimb::GetClimbOffset3D(CVector2D offset2D, float angle) {
     return CVector{
-        -ClimbSinMul(angle, offset2D.x),
-        ClimbCosMul(angle, offset2D.x),
+        -TrigSimpleSinMulCpp(angle, offset2D.x),
+        TrigSimpleCosMulCpp(angle, offset2D.x),
         offset2D.y
     };
 }

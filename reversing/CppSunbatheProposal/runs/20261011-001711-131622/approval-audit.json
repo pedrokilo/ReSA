@@ -1,0 +1,43 @@
+{
+  "bank": "CppSunbatheProposal",
+  "run": "20261011-001711-131622",
+  "functions": 2,
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CDecisionMakerTypes::GetInstance": 2048,
+    "CTaskComplexSunbathe::CanSunbathe": 2048
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "c9f47f9b11f55f9cd7c442c068c896d8cda7c01049323f526fb4974a34132842",
+  "tested_sources": {
+    "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "8d4f5187ca896f7cc31d1039fdedc7eb5800e7f99a563bf317d9649cb110c8ba",
+    "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
+    "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
+    "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
+    "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
+    "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "238b6448344cdc835c87f2520ee5cbd730c9c77d113854c2fa3cbce5183d65d7",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+    "source/game_sa/Clock.h": "b623a30bec24062a66a9ae08c36616847af8179edcb9f9925fcaab50a8023491",
+    "source/game_sa/Weather.h": "2e1157e99a5d1c74402b94df44a72ff0d599dce975071bb87396ab5b19851852",
+    "source/game_sa/Population.cpp": "65f680fef7edfb64dae07ab7c899dd5203a6c9dfea4093916010b627fab23f89",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+    "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "25a676485ae5cbe040717498b69ba40be6ac1b43acd07bea5eff40578a20d201",
+    "NativeProof.hpp": "b4f9de6743a68e0ea236309ac144b4f9389daad1006cc4da4cabc5d7167bd58b",
+    "build_probe.py": "5a31bce002d04fb73e738196ec7612db62f519b16ed22ee20390eb4651447b8a",
+    "run_local.py": "b2cef48e4eef2d686cf273dbb11e81b84b69a92c3f917bd0377ecd7fe1407e0a"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "09da680df4e175ddd63111611b9b2c4266ce2779e48947215f8c5ee5c663af6b",
+  "registered_hook_verified": true
+}

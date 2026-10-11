@@ -1,0 +1,38 @@
+[
+  {
+    "name": "SetUseD3DResourceBuffering",
+    "old": {
+      "bytes": "8a4424043ea284608d00c3",
+      "relocations": [],
+      "helpers": [],
+      "object_sha256": "c1ec5df76eda93df58e88aa03ae5781b244d61720cb72868e06c906139b7630c",
+      "size": 11
+    },
+    "candidate": {
+      "bytes": "8a442404a284608d00c3",
+      "relocations": [],
+      "helpers": [],
+      "object_sha256": "b8de43f7ba9c66afa4e338cb403c62fcb1dce32a64f9731ab249f756f7fed16c",
+      "size": 10
+    },
+    "complete_equal": false
+  },
+  {
+    "name": "Native_00424100",
+    "old": {
+      "bytes": "32c0c3",
+      "relocations": [],
+      "helpers": [],
+      "object_sha256": "c2b88f0d7710ee7e572b53fba7544bab82d039dc83e40df950e992a63d36e322",
+      "size": 3
+    },
+    "candidate": {
+      "bytes": "32c0c3",
+      "relocations": [],
+      "helpers": [],
+      "object_sha256": "b8de43f7ba9c66afa4e338cb403c62fcb1dce32a64f9731ab249f756f7fed16c",
+      "size": 3
+    },
+    "complete_equal": true
+  }
+]

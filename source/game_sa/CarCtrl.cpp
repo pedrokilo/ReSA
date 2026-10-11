@@ -193,15 +193,16 @@ int32 CCarCtrl::ChoosePoliceCarModel(uint32 ignoreLvpd1Model) {
 }
 
 // 0x423F00
-__declspec(naked) void CCarCtrl::ClearInterestingVehicleList() {
-    // Como el original 0x423F00..0x423F0C: sólo limpia punteros, conserva tiempos y ECX/EDX.
-    __asm {
-        xor eax, eax
-        mov dword ptr ds:[00969084h], eax
-        mov dword ptr ds:[00969088h], eax
-        ret
-    }
+#ifdef _DEBUG
+#pragma optimize("", on)
+#endif
+void CCarCtrl::ClearInterestingVehicleList() {
+    *reinterpret_cast<CVehicle* volatile*>(0x969084) = nullptr;
+    *reinterpret_cast<CVehicle* volatile*>(0x969088) = nullptr;
 }
+#ifdef _DEBUG
+#pragma optimize("", off)
+#endif
 
 // 0x422760
 void CCarCtrl::ClitargetOrientationToLink(CVehicle* vehicle, CCarPathLinkAddress arg2, int8 arg3, float* arg4, float arg5, float arg6) {
@@ -344,30 +345,17 @@ float CCarCtrl::FindPercDependingOnDistToLink(CVehicle* vehicle, CCarPathLinkAdd
 }
 
 // 0x421770
-__declspec(naked) int32 CCarCtrl::FindSequenceElement(int32 arg1) {
-    // Como el original 0x421770..0x4217A8: byte no nulo, suma de 32 bits e IDIV con signo.
-    __asm {
-        mov al, byte ptr ds:[00969070h]
-        test al, al
-        je reverseSequence
-        mov eax, dword ptr [esp+4]
-        mov ecx, dword ptr ds:[00969074h]
-        add eax, ecx
-        cdq
-        idiv dword ptr ds:[00969078h]
-        mov eax, edx
-        ret
-    reverseSequence:
-        mov ecx, dword ptr ds:[00969078h]
-        mov edx, dword ptr [esp+4]
-        mov eax, ecx
-        sub eax, edx
-        add eax, dword ptr ds:[00969074h]
-        cdq
-        idiv ecx
-        mov eax, edx
-        ret
-    }
+int32 CCarCtrl::FindSequenceElement(int32 arg1) {
+    // 0x421770..0x4217A8: read the flag's byte representation, wrap
+    // additions/subtractions to 32 bits, then take the signed remainder.
+    const auto otherWay = *reinterpret_cast<const uint8*>(&bSequenceOtherWay);
+    const auto length = SequenceElements;
+    const auto offset = static_cast<uint32>(SequenceRandomOffset);
+    const auto argument = static_cast<uint32>(arg1);
+    const uint32 numerator = otherWay
+        ? argument + offset
+        : static_cast<uint32>(length) - argument + offset;
+    return std::bit_cast<int32>(numerator) % length;
 }
 
 // 0x4224E0
@@ -1351,9 +1339,3 @@ float CCarCtrl::FindMaxSteerAngle(CVehicle* veh) {
 }
 
 // 0x424100: native no-effect helper. Upper24bits of EAX must survive.
-__declspec(naked) bool Native_00424100(float,float) {
-    __asm {
-        xor al,al
-        ret
-    }
-}

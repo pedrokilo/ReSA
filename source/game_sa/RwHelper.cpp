@@ -307,45 +307,16 @@ bool RpGeometryReplaceOldMaterialWithNewMaterial(RpGeometry* geometry, RpMateria
 }
 
 // 0x734E50
-static uintptr_t TextureUppercaseKeyBody=uintptr_t(static_cast<uint32(*)(const char*)>(&CKeyGen::GetUppercaseKey));
-// 0x734E50: exact intrusive dictionary traversal and hash comparison.
-__declspec(naked) RwTexture* RwTexDictionaryFindHashNamedTexture(RwTexDictionary*,uint32) {
-    __asm {
-    push ebx
-    mov ebx,dword ptr [esp+8]
-    push ebp
-    add ebx,8
-    push esi
-    mov esi,dword ptr [ebx]
-    cmp esi,ebx
-    push edi
-    je L00734E82
-    mov ebp,dword ptr [esp+18h]
-    L00734E65: lea edi,[esi-8]
-    lea eax,[edi+10h]
-    test eax,eax
-    je L00734E7C
-    push eax
-    call dword ptr [TextureUppercaseKeyBody]
-    add esp,4
-    cmp eax,ebp
-    je L00734E89
-    L00734E7C: mov esi,dword ptr [esi]
-    cmp esi,ebx
-    jne L00734E65
-    L00734E82: pop edi
-    pop esi
-    pop ebp
-    xor eax,eax
-    pop ebx
-    ret
-    L00734E89: mov eax,edi
-    pop edi
-    pop esi
-    pop ebp
-    pop ebx
-    ret
+RwTexture* RwTexDictionaryFindHashNamedTexture(RwTexDictionary* dictionary, uint32 hash) {
+    auto* const sentinel = &dictionary->texturesInDict.link;
+    for (auto* link = sentinel->next; link != sentinel; link = link->next) {
+        auto* const texture = reinterpret_cast<RwTexture*>(
+            reinterpret_cast<uint8*>(link) - offsetof(RwTexture, lInDictionary));
+        if (CKeyGen::GetUppercaseKey(texture->name) == hash) {
+            return texture;
+        }
     }
+    return nullptr;
 }
 
 // 0x734FC0

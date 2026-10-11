@@ -1,0 +1,31 @@
+{
+  "old_symbols_observed": true,
+  "new_helper_symbols": "ABI-inferred; verify against actual new objects",
+  "objects": [
+    {
+      "object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\Birds.obj",
+      "sha256": "e07aa70f1f17fccc0078af5ff46ec23d29ec93db242993ff24d24bfad8e5f652",
+      "consumer": "?Render@CBirds@@SAXXZ"
+    },
+    {
+      "object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\BrightLights.obj",
+      "sha256": "01f772169892b0e6daca0ca5e79db4411c5afd292ac924daf91aff971e9d367f",
+      "consumer": "?Render@CBrightLights@@SAXXZ"
+    },
+    {
+      "object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\PlaneTrails.obj",
+      "sha256": "bd3d3ba8221c1ca1ff08203d2743826b74bbcb5709497b221cc12e0e6b8509df",
+      "consumer": "?Update@CPlaneTrails@@SAXXZ"
+    },
+    {
+      "object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\TaskSimpleJetPack.obj",
+      "sha256": "6f9ef3c05cb5ae34699480793665097d3615a86d6f813bc0828650ee5ed72e81",
+      "consumer": "?ProcessPed@CTaskSimpleJetPack@@UAE_NPAVCPed@@@Z"
+    },
+    {
+      "object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\TaskSimpleSwim.obj",
+      "sha256": "a99035bfa64eac69790dc0864d30932eed8bb4e72e59e4c84790a97f8a40cdeb",
+      "consumer": "?ProcessControlInput@CTaskSimpleSwim@@QAEXPAVCPlayerPed@@@Z"
+    }
+  ]
+}

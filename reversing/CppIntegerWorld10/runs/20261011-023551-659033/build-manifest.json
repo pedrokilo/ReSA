@@ -1,0 +1,39 @@
+{
+  "binaries": {
+    "asi": "1fe7f2b405bb4c0907838694135f02a30a0631dc0caa77dbb0841c46887f4366",
+    "pdb": "38241ac2d97960f165366405232f58629ec31ae3f3e7dead1ba82c1dff9ff205"
+  },
+  "sources": {
+    "source/game_sa/Cam.cpp": "cf8d5db9aff6bf98622bfa990f74ddd0b335b6bd90af14c15ebec1109714abbb",
+    "source/game_sa/Cam.h": "f48cf3c64eda811b598ea3808c1ad78ca126075703d4c81022986500d826524d",
+    "source/game_sa/Camera.cpp": "ccbeeee2352e96ca1871187ed446959a075a834a40b4e08adcfee3a2dba8773b",
+    "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
+    "source/game_sa/CarCtrl.cpp": "7aa8f0bcea45102e48ebe0b9f35d416f66a627a0b4698eeffc65783b1ef3ced3",
+    "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+    "source/game_sa/cHandlingDataMgr.cpp": "87cd7e19a98b03db49981b8bc0a7a1b31666650724ef0364001b1427a58084e6",
+    "source/game_sa/cHandlingDataMgr.h": "a884fbd43e07fccff9812824d123ee35d1050e6902fcc6a559824dded809e31d",
+    "source/game_sa/Models/ModelInfo.h": "803a964d2c86424ef2464bd6841f77b1c7eba747f99b81632b217d90ad0f6ba0",
+    "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4",
+    "source/game_sa/Models/BaseModelInfo.h": "91bece0c4ec1c9f8772b17ba11dcbc9f8e75636292f995f735cbd06514419cc6",
+    "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
+    "source/game_sa/Entity/Vehicle/Vehicle.h": "fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d",
+    "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+    "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+    "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
+    "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
+    "source/game_sa/IntegerMinimalCpp.cpp": "afa44733aff93142c54e38320e808f9d046ba9560a5912033aa1cb194bc4c55f",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
+    "source/CMakeLists.txt": "07fd1e818ebfee2f268ee1b02f51810eb0ad46187dc5495570d680aac7123c39",
+    "docs/hooks.csv": "cff7932ea4a75958bee515763619c9a5b5e06f0ba7fa4863bd6cc14a9a5a9dbd",
+    "source/StdInc.h": "ecda706c9bee127ad14550c3faa19d8e60a1f5a0a11493a1d14560ecc2462d09",
+    "source/game_sa/RenderWare/D3DResourceSystem.h": "dc060d39860ea99ea7e75a7a473db78cfa59b7c30d50f6aa76291e666187a656"
+  },
+  "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+  "instrumentation": {
+    "LiveComparison.hpp": "35960bdd8b5cf33bf24588d7b3c0420e16a340804eafcc541d561c5f817ec9de",
+    "build_probe.py": "05c425e50e872a01a6bf05996f48b983dddb1c56974381b82e49acc3c37baee9",
+    "NewGameConfiguration.py": "ca4cff07327e65c41af1c90292c24e7e658baa6071fc5fbbbb49ed1231c2b6e4",
+    "run_local.py": "b7f409d3c3392a2e67d87eed7708210a24b697d1a2250fc1939240d6d3486c1e"
+  }
+}

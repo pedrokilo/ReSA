@@ -1,0 +1,43 @@
+{
+  "clouds_source_sha256": "eb394d4868d17658b05a45e592baab614d5cce80a7980f5bf6e8f75b4797b6af",
+  "weather_source_sha256": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
+  "weather_fields": [
+    "CloudCoverage",
+    "ExtraSunnyness",
+    "Foggyness",
+    "Foggyness_SF",
+    "NewWeatherType",
+    "OldWeatherType",
+    "Rainbow",
+    "UnderWaterness",
+    "Wind",
+    "WindDir"
+  ],
+  "source_body_changes": [
+    "FindPlayerPed area access bridged without changing collaborator call",
+    "FindPlayerVehicle(-1,false) returns unchanged CPlaceable base pointer",
+    "FindPlayerCoors(-1) bridged without arithmetic",
+    "CWeather static bindings renamed to identical types and addresses"
+  ],
+  "dangerous_include_paths": [
+    "World.h -> PtrListDoubleLink.h -> PtrNode.h -> Pools.h",
+    "Weather.h -> AEWeatherAudioEntity.h -> AEAudioEntity.h -> AESound.h -> EntityRef.hpp -> Entity.h -> ColModel.h -> CollisionData.h -> CompressedVector.h"
+  ],
+  "safe_headers_inspected": [
+    "Common",
+    "Camera",
+    "TxdStore",
+    "Coronas",
+    "PostEffects",
+    "Sprite",
+    "CullZones",
+    "General",
+    "Draw",
+    "BrightLights",
+    "Clock",
+    "TimeCycle",
+    "Timer",
+    "Game",
+    "Scene"
+  ]
+}

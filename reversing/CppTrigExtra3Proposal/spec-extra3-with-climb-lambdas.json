@@ -1,0 +1,96 @@
+{
+  "helpers": [
+    {
+      "old": "?FollowPointRouteCos@@YAMM@Z",
+      "new": "?TrigSimpleCosCpp@@YAMM@Z",
+      "canonical": "Cos"
+    },
+    {
+      "old": "?ClimbSinMul@?A0xff79849f@@YAMMM@Z",
+      "new": "?TrigSimpleSinMulCpp@@YAMMM@Z",
+      "canonical": "SinMul"
+    },
+    {
+      "old": "?ClimbCosMul@?A0xff79849f@@YAMMM@Z",
+      "new": "?TrigSimpleCosMulCpp@@YAMMM@Z",
+      "canonical": "CosMul"
+    }
+  ],
+  "consumers": [
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskComplexFollowPointRoute.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFollowPointRoute.obj",
+      "symbol": "?CalcBlendRatio@CTaskComplexFollowPointRoute@@QAEMPAVCPed@@_N@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "?ProcessPed@CTaskSimpleClimb@@UAE_NPAVCPed@@@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "?TestForClimb@CTaskSimpleClimb@@SAPAVCEntity@@PAVCPed@@AAVCVector@@AAMAAW4eSurfaceType@@_N@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "?TestForStandUp@CTaskSimpleClimb@@QAE_NPAVCPed@@ABVCVector@@M@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "?TestForVault@CTaskSimpleClimb@@QAE_NPAVCPed@@ABVCVector@@M@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "?GetCameraStickModifier@CTaskSimpleClimb@@QAEXPAVCEntity@@AAM111@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "?GetCameraTargetPos@CTaskSimpleClimb@@QAEXPAVCPed@@AAVCVector@@@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "?GetClimbOffset3D@CTaskSimpleClimb@@CA?AVCVector@@VCVector2D@@M@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "??R<lambda_1>@?0??ProcessPed@CTaskSimpleClimb@@UAE_NPAVCPed@@@Z@QBE@XZ"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "??0<lambda_1>@?0??ProcessPed@CTaskSimpleClimb@@UAE_NPAVCPed@@@Z@QAE@ABQAVCEntity@@@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "??R<lambda_2>@?BH@??ProcessPed@CTaskSimpleClimb@@UAE_NPAVCPed@@@Z@QBE?AVCVector2D@@XZ"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "??0<lambda_2>@?BH@??ProcessPed@CTaskSimpleClimb@@UAE_NPAVCPed@@@Z@QAE@PAV2@@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "??R<lambda_3>@?BH@??ProcessPed@CTaskSimpleClimb@@UAE_NPAVCPed@@@Z@QBE@ABVCVector@@@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "??R<lambda_4>@?EL@??ProcessPed@CTaskSimpleClimb@@UAE_NPAVCPed@@@Z@QBE@XZ"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-extra-coff\\TaskSimpleClimb.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "symbol": "??0<lambda_4>@?EL@??ProcessPed@CTaskSimpleClimb@@UAE_NPAVCPed@@@Z@QAE@PAV2@@Z"
+    }
+  ]
+}

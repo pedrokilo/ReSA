@@ -23,48 +23,21 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleRunTimedAnim.h"
 #include "InterestingEvents.h"
 
-// Global game helper: the existing population call targets 0x632140.
-namespace {
-__declspec(naked) void Task11SunnyWeather() {
-    __asm {
-        push 0062F2D0h
-        ret
+// 0x632140: whole EAX result, readonly hour/weather, no original GAME delegation.
+int32 CanSunbathe() {
+    const uint8 hour = *reinterpret_cast<volatile const uint8*>(0xB70153);
+    if (hour < 10 || hour >= 18) {
+        return 0;
     }
-}
-}
-__declspec(naked) bool CanSunbathe() {
-    __asm {
-        mov al,byte ptr ds:[00B70153h]
-        cmp al,0Ah
-        jb task11_63218A
-        cmp al,12h
-        jae task11_63218A
-        mov ax,word ptr ds:[00C8131Ch]
-        cmp ax,1
-        je task11_632184
-        cmp ax,3
-        je task11_632184
-        cmp ax,0Eh
-        je task11_632184
-        cmp ax,5
-        je task11_632184
-        cmp ax,0Ah
-        je task11_632184
-        cmp ax,12h
-        je task11_632184
-        push eax
-        call Task11SunnyWeather
-        add esp,4
-        test al,al
-        je task11_63218A
-task11_632184:
-        mov eax,1
-        ret
-task11_63218A:
-        xor eax,eax
-        ret
+    const int16 weather = *reinterpret_cast<volatile const int16*>(0xC8131C);
+    if (weather == 1 || weather == 3 || weather == 14 || weather == 5 ||
+        weather == 10 || weather == 18 || weather == 0 || weather == 2 ||
+        weather == 13 || weather == 6 || weather == 11 || weather == 17) {
+        return 1;
     }
+    return 0;
 }
+
 
 namespace {
 bool SunbatheWeatherAllows() {

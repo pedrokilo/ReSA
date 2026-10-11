@@ -1,0 +1,48 @@
+{
+  "object_sha256": "e3acc7bdea646b8bca8763a4c94bcb3871f852c8fdcf5f40976ce4417d3e151c",
+  "functions": [
+    {
+      "symbol": "?SinMulAddX87@@YAMMMMM@Z",
+      "section": 1797,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442404",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d84c2408",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 8,
+          "bytes": "d9fe",
+          "mnemonic": "fsin",
+          "operands": ""
+        },
+        {
+          "offset": 10,
+          "bytes": "d84c240c",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [esp + 0xc]"
+        },
+        {
+          "offset": 14,
+          "bytes": "d8442410",
+          "mnemonic": "fadd",
+          "operands": "dword ptr [esp + 0x10]"
+        },
+        {
+          "offset": 18,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "limitation": "Relocations unresolved; function extents inferred from COFF symbols. No runtime approval."
+}

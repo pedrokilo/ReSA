@@ -17,27 +17,14 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "TrigSimpleCpp.h"
 
 #include "PlaneTrails.h"
 
 namespace {
 // Como el original: fsin/fcos del x87 (precisión interna completa) y producto redondeado por la FPU.
-float __declspec(naked) __cdecl PlaneTrailsSinMulX87(float angle, float k) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fsin
-        fmul dword ptr [esp + 8]
-        ret
-    }
-}
-float __declspec(naked) __cdecl PlaneTrailsCosMulX87(float angle, float k) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fcos
-        fmul dword ptr [esp + 8]
-        ret
-    }
-}
+
+
 } // namespace
 
 void CPlaneTrails::InjectHooks() {
@@ -95,10 +82,10 @@ void CPlaneTrails::Update() {
     const auto Angle = [] { return static_cast<float>(static_cast<int32>(CTimer::GetTimeInMS() & 0x1FFFF)) * std::bit_cast<float>(0x38490FDBu); };
 
     float t = Angle();
-    aArray[0].Update(CVector{ PlaneTrailsSinMulX87(t, 2590.0f), PlaneTrailsCosMulX87(t, +2200.0f), 550.0f }, CRGBA{ 255,   0,   0, 255 }, coronaBaseId + 1,   0, 22, 7);
+    aArray[0].Update(CVector{ TrigSimpleSinMulCpp(t, 2590.0f), TrigSimpleCosMulCpp(t, +2200.0f), 550.0f }, CRGBA{ 255,   0,   0, 255 }, coronaBaseId + 1,   0, 22, 7);
     t = Angle();
-    aArray[1].Update(CVector{ PlaneTrailsSinMulX87(t, 2000.0f), PlaneTrailsCosMulX87(t, -2600.0f), 500.0f }, CRGBA{ 255, 255, 128, 255 }, coronaBaseId + 2, 350, 21, 7);
+    aArray[1].Update(CVector{ TrigSimpleSinMulCpp(t, 2000.0f), TrigSimpleCosMulCpp(t, -2600.0f), 500.0f }, CRGBA{ 255, 255, 128, 255 }, coronaBaseId + 2, 350, 21, 7);
     t = Angle();
     // Como el original: el tercer avión usa el coseno para X y el seno para Y.
-    aArray[2].Update(CVector{ PlaneTrailsCosMulX87(t, 2100.0f), PlaneTrailsSinMulX87(t, +1300.0f), 600.0f }, CRGBA{ 255, 255, 255, 255 }, coronaBaseId + 3, 200, 20, 6);
+    aArray[2].Update(CVector{ TrigSimpleCosMulCpp(t, 2100.0f), TrigSimpleSinMulCpp(t, +1300.0f), 600.0f }, CRGBA{ 255, 255, 255, 255 }, coronaBaseId + 3, 200, 20, 6);
 }

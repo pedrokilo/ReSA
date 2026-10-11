@@ -2,6 +2,8 @@
 > **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
+**Prioridad actual: C++ sin ensamblador escrito en producción.** Se convierte `source/game_sa` conservando resultados exactos del EXE y repitiendo pruebas dentro del juego. La migración sigue pendiente; el 100% del catálogo no implica ausencia de ensamblador. [Inventario y conversiones comprobadas](reversing/CppOnlyMigration/README.md).
+
 <!-- RESA-HOOK-UNLOCK-FINAL:BEGIN -->
 **Bloqueos reales pendientes: 0.** Los seis locks restantes del corte anterior se retiraron después de pruebas dentro del juego y reparación del ABI. Los dos desbloqueos anteriores de CEntryExit/CPostEffects siguen acreditados en su banco. Los 413 indicadores históricos obsoletos no se presentan como desbloqueos nuevos.
 
@@ -462,3 +464,5 @@ Estado de las listas solicitadas al detener el trabajo: [reconstrucción y valid
 <!-- /USER LISTS STOP STATUS -->
 
 Solicitud posterior: [`Interior_c` quedó reconstruida y validada](docs/InteriorValidation.md), con 52/52 funciones catalogadas y 74.752 comparaciones finales. El lote anterior permanece detenido; sus cifras de replay corresponden al cierre histórico indicado.
+
+Estado de la migracion a C++ al 11/10/2026: 34 funciones fuente convertidas y revalidadas. Quedan 930 apariciones de ensamblador y 277 declaraciones naked en 177 archivos; son conteos lexicos, no funciones. Lote final IntegerMinimal2: 8704 pares compartidos, cero diferencias, cero resultados nulos y restauracion verificada. Trabajo detenido por orden del usuario tras este lote. Lista completa: [archivos pendientes](reversing/CppOnlyMigration/FILES.md); evidencia y alcance: [migracion C++](reversing/CppOnlyMigration/README.md).

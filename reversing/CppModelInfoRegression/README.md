@@ -1,0 +1,15 @@
+# Regresión CModelInfo tras compilar ModelInfo.cpp con /Zi
+
+APROBADO: corrida 20261011-010041-660495, 28 métodos, 5264 pares, cero diferencias y cero resultados nulos. Restauración, partidas y configuración verificadas por auditor independiente en audit/audit_run.py; evidencia archivada en runs.
+
+Banco derivado de Small2 sin modificarlo. La campaña aprobada ejecutó exclusivamente sus 28 identidades CModelInfo, con 5264 pares: Initialise 8, ShutDown 64, ReInit2dEffects 8, cuatro consultas 1536, nueve Add 576 y doce Is 3072. Get2dEffectStore se mide en CppModelStore aparte: no se contabiliza como segunda migración.
+
+Mantiene la tabla completa de 74 colaboradores y sus hooks OFF/ON, las semillas con el índice histórico original, los fixtures, las trazas y todos los campos que antes decidían igualdad. Se escriben objetos original/candidate completos tanto en éxito como en fallo; un retorno legítimamente nulo se conserva dentro del objeto y no reemplaza el registro lateral. El analizador exige switches verdaderos y campos ret/trace además de los gates heredados.
+
+Mantiene los stubs de Small2: primitivas RW, memoria, Init2dEffects, SetColModel y SetTexDictionary. Initialise/ShutDown usan stores y vtables de prueba; consultas utilizan la tabla real de modelos del clon. Acredita resultados, memorias hash/contadores y orden de llamadas bajo estos colaboradores; no acredita independencia transitiva ni un contrato completo de EFLAGS, registros o x87. El banco Get2dEffectStore y la inspección del objeto cubren su migración propia.
+
+La restauración final comprueba todos los rangos globales que conserva Small2, tiempo, cámara, área, foco, underwater y estados enabled/locked de los 74 hooks. No se rebaja el gate anterior. Como en Small2, el hash de stores cubre todo MI_BEGIN..MI_END y los datos se restauran antes de cada escritura/bombeo.
+
+build_probe.py registra ModelInfo.cpp/.h, MemoryMgr.cpp/.h, InjectHooksMain.cpp, archivos RH, CMake y HookRoute; conserva PCH y las opciones por fuente aplicadas por el coordinador. Los scripts redirigen runtime_runner.GAME en memoria exclusivamente al clon E:/JUEGOS/GTA San Andreas - CVehicle Test. No editan runtime_runner.py ni la instalación original.
+
+Solo el coordinador compila y ejecuta en serie. La evidencia dinámica de esta regresión está archivada y vinculada desde el registro de migración. No añade conversiones ni funciones a la cohorte.

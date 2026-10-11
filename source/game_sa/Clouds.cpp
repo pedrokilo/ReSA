@@ -16,10 +16,82 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
-#include "StdInc.h"
-
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
+#include <algorithm>
+#include <array>
+#include <bit>
+#include <cassert>
+#include <cmath>
+#include <cstdint>
+#include <cstring>
+#include <functional>
+#include <initializer_list>
+#include <iterator>
+#include <limits>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <optional>
+#include <ranges>
+#include <random>
+#include <span>
+#include <string>
+#include <tuple>
+#include <type_traits>
+#include <utility>
+#include <vector>
+#include "app/platform/win/winincl.h"
+#include "Base.h"
+#include "config.h"
+#include "HookSystem.h"
+#include "reversiblehooks/ReversibleHooks.h"
+#include <extensions/Casting.hpp>
+#include <Tracy.hpp>
+#include <d3d9.h>
+#include <dinput.h>
+#include "RenderWare/D3DIndexDataBuffer.h"
+#include "RenderWare/D3DResourceSystem.h"
+#include "RenderWare/D3DTextureBuffer.h"
+#include "RenderWare.h"
+#include "RenderWare/rw/skeleton.h"
+#include "Vector.h"
+#include "Vector2D.h"
+#include "Matrix.h"
+#include "MatrixLink.h"
+#include "SimpleTransform.h"
+#include "Placeable.h"
+#include "Common.h"
 #include "Clouds.h"
+#include "CloudsMathCpp.h"
+#include "CloudsAccessCpp.h"
+#include "CloudsWeatherCpp.h"
+class CColSphere;
+#include "eModelID.h"
+#include "eWeaponType.h"
+#include "RGBA.h"
+#include "Collision/Sphere.h"
+#include "Collision/Box.h"
+#include "Sprite2d.h"
+#include <extensions/FixedVector.hpp>
+#include "Camera.h"
 #include "PostEffects.h"
+#include "Sprite.h"
+#include "Coronas.h"
+#include "CullZones.h"
+#include "TxdStore.h"
+#include "General.h"
+#include "Draw.h"
+#include "Clock.h"
+#include "Timer.h"
+#include "TimeCycle.h"
+#include "BrightLights.h"
+#include "Game.h"
+#include "Scene.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 auto& CurrentFogIntensity = StaticRef<float>(0x8D5798);
 
@@ -32,29 +104,10 @@ namespace {
 const float s_CloudsTwo32 = 4294967296.0f;
 
 // Como el original: fsin/fcos del x87 a precisión interna completa; el resultado queda en ST0.
-float __declspec(naked) __cdecl CloudsSinX87(float angle) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fsin
-        ret
-    }
-}
-float __declspec(naked) __cdecl CloudsCosX87(float angle) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fcos
-        ret
-    }
-}
+
+
 // Como el original (0x712FF0): fsin a precisión completa y producto redondeado por la FPU.
-float __declspec(naked) __cdecl CloudsSinMulX87(float angle, float k) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fsin
-        fmul dword ptr [esp + 8]
-        ret
-    }
-}
+
 // Como el original (0x71303C): fild del dword (corregido a sin signo con +2^32) más el incremento, un único redondeo de la FPU.
 float __declspec(naked) __cdecl CloudsRotationSumX87(int32 value, float delta) {
     __asm {
@@ -135,8 +188,8 @@ void CClouds::Update() {
     ZoneScoped;
 
     // Como el original: fsin del x87 y la rotación individual se suma como flotante (dword sin signo) y se trunca con _ftol2.
-    CloudRotation = CloudsSinMulX87(TheCamera.m_fOrientation - 0.85f, CWeather::Wind) * 0.001f + CloudRotation;
-    const float delta = (CTimer::GetTimeStep() * CWeather::Wind * 0.5f + 0.3f) * 60.0f;
+    CloudRotation = CloudsSinMulX87(TheCamera.m_fOrientation - 0.85f, CloudsWeatherCpp::Wind) * 0.001f + CloudRotation;
+    const float delta = (CTimer::GetTimeStep() * CloudsWeatherCpp::Wind * 0.5f + 0.3f) * 60.0f;
     IndividualRotation = CloudsFtol(CloudsRotationSumX87(IndividualRotation, delta));
 }
 
@@ -225,7 +278,7 @@ void CClouds::MovingFog_Delete(int32 fogSlotIndex) {
 
 // 0x716B10
 void CClouds::MovingFog_Update() {
-    if (MovingFog_GetFXIntensity() == 0.f)
+    if (CloudsEqualOrderedCpp(0.f, MovingFog_GetFXIntensity()))
         return;
 
     // Como el original: la cámara y el viento se copian una vez antes del bucle.
@@ -248,14 +301,14 @@ void CClouds::MovingFog_Update() {
 
         // Como el original: magnitud sumada en el orden z, y, x; NaN cuenta como cerca.
         const float dist = std::sqrt(dz * dz + dy * dy + dx * dx);
-        if (!(dist > 60.f)) {
+        if (!(60.f < dist)) {
             ms_mf.m_fIntensity[i] = CTimer::GetTimeStep() + ms_mf.m_fIntensity[i];
-            if (ms_mf.m_fIntensity[i] > ms_mf.m_fMaxIntensity[i]) {
+            if (CloudsLessOrderedCpp(ms_mf.m_fMaxIntensity[i], ms_mf.m_fIntensity[i])) {
                 ms_mf.m_fIntensity[i] = ms_mf.m_fMaxIntensity[i];
             }
         } else {
             ms_mf.m_fIntensity[i] = ms_mf.m_fIntensity[i] - CTimer::GetTimeStep();
-            if (ms_mf.m_fIntensity[i] <= 0.f) {
+            if (0.f >= ms_mf.m_fIntensity[i]) {
                 MovingFog_Delete(i);
             }
         }
@@ -264,7 +317,7 @@ void CClouds::MovingFog_Update() {
 
 // 0x7136D0
 float CClouds::MovingFog_GetFXIntensity() {
-    return CWeather::Foggyness_SF;
+    return CloudsWeatherCpp::Foggyness_SF;
 }
 
 // 0x7136E0
@@ -286,11 +339,11 @@ int32 CClouds::MovingFog_GetFirstFreeSlot() {
 void CClouds::MovingFogRender() {
     ZoneScoped;
 
-    if (MovingFog_GetFXIntensity() == 0.f)
+    if (CloudsEqualOrderedCpp(0.f, MovingFog_GetFXIntensity()))
         return;
 
     // Como el original: se sale si el área actual o la del jugador no es el mundo exterior.
-    if (static_cast<int32>(CGame::currArea) != 0 || FindPlayerPed()->GetAreaCode() != AREA_CODE_NORMAL_WORLD)
+    if (static_cast<int32>(CGame::currArea) != 0 || CloudsPlayerAreaCodeCpp() != AREA_CODE_NORMAL_WORLD)
         return;
 
     // Adjust fog intensity
@@ -299,17 +352,17 @@ void CClouds::MovingFogRender() {
         const float step = CTimer::GetTimeStep() * (1.0f / 300.0f);
         if (CCullZones::CamNoRain() && CCullZones::PlayerNoRain()) {
             CurrentFogIntensity = CurrentFogIntensity - step;
-            if (CurrentFogIntensity < 0.f) {
+            if (0.f > CurrentFogIntensity) {
                 CurrentFogIntensity = 0.f;
             }
         } else {
             CurrentFogIntensity = CurrentFogIntensity + step;
-            if (CurrentFogIntensity > 1.f) {
+            if (1.f < CurrentFogIntensity) {
                 CurrentFogIntensity = 1.f;
             }
         }
 
-        if (CWeather::UnderWaterness >= CPostEffects::m_fWaterFXStartUnderWaterness) {
+        if (CPostEffects::m_fWaterFXStartUnderWaterness <= CloudsWeatherCpp::UnderWaterness) {
             CurrentFogIntensity = 0.f;
             return;
         }
@@ -355,7 +408,7 @@ void CClouds::MovingFogRender() {
         const CVector fogUp    = CVector{ camUp.x * halfSize, camUp.y * halfSize, camUp.z * halfSize };
         const CVector fogRight = CVector{ camRight.x * halfSize, camRight.y * halfSize, camRight.z * halfSize };
 
-        const int32  alpha = CloudsFtol(CWeather::Foggyness_SF * ms_mf.m_fIntensity[fogIdx] * CurrentFogIntensity);
+        const int32  alpha = CloudsFtol(CloudsWeatherCpp::Foggyness_SF * ms_mf.m_fIntensity[fogIdx] * CurrentFogIntensity);
         const uint32 color = (static_cast<uint32>(alpha) << 24) | (static_cast<uint32>(red) << 16) | (static_cast<uint32>(green) << 8) | static_cast<uint32>(blue);
         for (int32 k = 0; k < 6; k++) {
             // Como el original: cada esquina con el orden de sumas del EXE (la primera es (derecha + arriba) + posición).
@@ -435,7 +488,7 @@ void CClouds::Render() {
         if (moonDist < 220 && s_DebugSettings.Moon.Enabled) {
             const int32 colorB = 220 - moonDist;
             // Como el original: max(nubes, niebla) con la comparación del EXE (iguales o NaN -> niebla).
-            const float balance = CWeather::CloudCoverage > CWeather::Foggyness ? CWeather::CloudCoverage : CWeather::Foggyness;
+            const float balance = CloudsWeatherCpp::CloudCoverage > CloudsWeatherCpp::Foggyness ? CloudsWeatherCpp::CloudCoverage : CloudsWeatherCpp::Foggyness;
             const int32 colorRG = CloudsFtol((1.0f - balance) * static_cast<float>(colorB));
             if (colorRG > 0) {
                 const auto& camPos = TheCamera.GetPosition();
@@ -505,7 +558,7 @@ void CClouds::Render() {
             t = (60 - CClock::ms_nGameClockMinutes) * 255 / 60;
         }
         if (t != 0) {
-            const float balance = CWeather::CloudCoverage > CWeather::Foggyness ? CWeather::CloudCoverage : CWeather::Foggyness;
+            const float balance = CloudsWeatherCpp::CloudCoverage > CloudsWeatherCpp::Foggyness ? CloudsWeatherCpp::CloudCoverage : CloudsWeatherCpp::Foggyness;
             // Como el original: la base de color ya incluye el balance de nubes/niebla.
             const int32 colorC = CloudsFtol((1.0f - balance) * static_cast<float>(t));
 
@@ -554,8 +607,8 @@ void CClouds::Render() {
     //
     {
         // Como el original: max(niebla, nubes) y luego max(ExtraSunny, eso) con las comparaciones del EXE.
-        const float fogCloud = CWeather::Foggyness > CWeather::CloudCoverage ? CWeather::Foggyness : CWeather::CloudCoverage;
-        const float balance  = CWeather::ExtraSunnyness > fogCloud ? CWeather::ExtraSunnyness : fogCloud;
+        const float fogCloud = CloudsWeatherCpp::Foggyness > CloudsWeatherCpp::CloudCoverage ? CloudsWeatherCpp::Foggyness : CloudsWeatherCpp::CloudCoverage;
+        const float balance  = CloudsWeatherCpp::ExtraSunnyness > fogCloud ? CloudsWeatherCpp::ExtraSunnyness : fogCloud;
         const float inv      = 1.0f - balance;
         // Como el original: el color uint16 completo por (1 - balance), truncado y guardado como byte.
         const auto colorR = static_cast<uint8>(CloudsFtol(static_cast<float>(cc.m_nLowCloudsRed) * inv));
@@ -590,7 +643,7 @@ void CClouds::Render() {
     //
     // Arcoíris [0x71422F - 0x714387]
     //
-    if (s_DebugSettings.Rainbow.Enabled && (s_DebugSettings.Rainbow.Force || CWeather::Rainbow != 0.0f)) {
+    if (s_DebugSettings.Rainbow.Enabled && (s_DebugSettings.Rainbow.Force || CloudsWeatherCpp::Rainbow != 0.0f)) {
         const auto& lineR = StaticRef<std::array<uint8, 6>>(0x8D5370);
         const auto& lineG = StaticRef<std::array<uint8, 6>>(0x8D5378);
         const auto& lineB = StaticRef<std::array<uint8, 6>>(0x8D5380);
@@ -606,9 +659,9 @@ void CClouds::Render() {
                 continue;
             }
             const float rhw = 1.0f / linePosScr.z;
-            const auto  b   = static_cast<uint8>(CloudsFtol(static_cast<float>(lineB[i]) * CWeather::Rainbow));
-            const auto  g   = static_cast<uint8>(CloudsFtol(static_cast<float>(lineG[i]) * CWeather::Rainbow));
-            const auto  r   = static_cast<uint8>(CloudsFtol(static_cast<float>(lineR[i]) * CWeather::Rainbow));
+            const auto  b   = static_cast<uint8>(CloudsFtol(static_cast<float>(lineB[i]) * CloudsWeatherCpp::Rainbow));
+            const auto  g   = static_cast<uint8>(CloudsFtol(static_cast<float>(lineG[i]) * CloudsWeatherCpp::Rainbow));
+            const auto  r   = static_cast<uint8>(CloudsFtol(static_cast<float>(lineR[i]) * CloudsWeatherCpp::Rainbow));
             CSprite::RenderBufferedOneXLUSprite(linePosScr, { w * 2.0f, h * 50.0f }, r, g, b, 255, rhw, 255);
         }
 
@@ -628,7 +681,7 @@ void CClouds::Render() {
         if (CClock::ms_nGameClockHours >= 5) {
             return;
         }
-        if (!IsExtraSunny(CWeather::OldWeatherType) || !IsExtraSunny(CWeather::NewWeatherType)) {
+        if (!IsExtraSunny(CloudsWeatherCpp::OldWeatherType) || !IsExtraSunny(CloudsWeatherCpp::NewWeatherType)) {
             return;
         }
     }
@@ -691,8 +744,8 @@ void CClouds::RenderSkyPolys() {
     } else if (fBlendFactor < 0.0f) {
         fBlendFactor = 0.0f;
     }
-    if (!(fBlendFactor > CWeather::Foggyness)) {
-        fBlendFactor = CWeather::Foggyness;
+    if (!(CloudsWeatherCpp::Foggyness < fBlendFactor)) {
+        fBlendFactor = CloudsWeatherCpp::Foggyness;
     }
 
     // Como el original: gris·(1 - f) + inferior·f, truncado con _ftol2 y guardado como byte.
@@ -849,7 +902,7 @@ void CClouds::RenderBottomFromHeight() {
         high = 190.f + rise;
     }
     auto& windShift = StaticRef<float>(0xC6E954);
-    windShift = CTimer::GetTimeStep() * CWeather::Wind * 0.25f + windShift;
+    windShift = CTimer::GetTimeStep() * CloudsWeatherCpp::Wind * 0.25f + windShift;
 
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(FALSE));
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(TRUE));
@@ -1154,15 +1207,15 @@ void CClouds::VolumetricCloudsRender() {
 
     // Como el original: se sale si el área actual o la del jugador no es el mundo exterior.
     if (!s_DebugSettings.VolumetricClouds.Force) {
-        if (static_cast<int32>(CGame::currArea) != 0 || FindPlayerPed()->GetAreaCode() != AREA_CODE_NORMAL_WORLD) {
+        if (static_cast<int32>(CGame::currArea) != 0 || CloudsPlayerAreaCodeCpp() != AREA_CODE_NORMAL_WORLD) {
             return;
         }
     }
 
     // Como el original: calidad media 0,66 (0x3F28F5C3), baja 0,5, el resto 1.
-    switch (g_fx.GetFxQuality()) {
-    case FX_QUALITY_MEDIUM: m_fVolumetricCloudDensity = std::bit_cast<float>(0x3F28F5C3u); break;
-    case FX_QUALITY_LOW:    m_fVolumetricCloudDensity = 0.5f; break;
+    switch (CloudsFxQualityCpp()) {
+    case 1: m_fVolumetricCloudDensity = std::bit_cast<float>(0x3F28F5C3u); break; // FX_QUALITY_MEDIUM
+    case 0: m_fVolumetricCloudDensity = 0.5f; break; // FX_QUALITY_LOW
     default:                m_fVolumetricCloudDensity = 1.f; break;
     }
 
@@ -1211,8 +1264,8 @@ void CClouds::VolumetricCloudsRender() {
     RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, RWRSTATE(rwFILTERLINEAR));
 
     // Como el original: primero el vehículo y luego las coordenadas; no se toca la velocidad del jugador.
-    const auto plyrVeh = FindPlayerVehicle(-1, false);
-    const auto plyrPos = FindPlayerCoors(-1);
+    const auto plyrVeh = CloudsPlayerVehiclePlaceableCpp();
+    const auto plyrPos = CloudsPlayerCoorsCpp();
     staticGuards |= 2;
 
     //> 0x71653F
@@ -1276,8 +1329,8 @@ void CClouds::VolumetricCloudsRender() {
         const float vcDistToCam = std::sqrt(ddz * ddz + ddy * ddy + ddx * ddx);
 
         //> 0x71674E - Adjust vc position by wind
-        vcPos.x = m_fVolumetricCloudWindMoveFactor * CWeather::WindDir.x + vcPos.x;
-        vcPos.y = CWeather::WindDir.y * m_fVolumetricCloudWindMoveFactor + vcPos.y;
+        vcPos.x = m_fVolumetricCloudWindMoveFactor * CloudsWeatherCpp::WindDir.x + vcPos.x;
+        vcPos.y = CloudsWeatherCpp::WindDir.y * m_fVolumetricCloudWindMoveFactor + vcPos.y;
 
         //> 0x716772 - VC too far, delete it
         if (!ms_vc.bJustCreated[vcidx] && vcDistToCam > m_fVolumetricCloudMaxDistance) {

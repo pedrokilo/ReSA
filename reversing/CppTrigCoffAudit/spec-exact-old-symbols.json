@@ -1,0 +1,86 @@
+{
+  "helpers": [
+    {
+      "old": "?BirdsSinMul@?A0x04b87a83@@YAMMM@Z",
+      "new": "?TrigSimpleSinMulCpp@@YAMMM@Z",
+      "canonical": "SinMul"
+    },
+    {
+      "old": "?BirdsCosMul@?A0x04b87a83@@YAMMM@Z",
+      "new": "?TrigSimpleCosMulCpp@@YAMMM@Z",
+      "canonical": "CosMul"
+    },
+    {
+      "old": "?BrightSinMulX87@?A0xe2670134@@YAMMM@Z",
+      "new": "?TrigSimpleSinMulCpp@@YAMMM@Z",
+      "canonical": "SinMul"
+    },
+    {
+      "old": "?BrightCosMulX87@?A0xe2670134@@YAMMM@Z",
+      "new": "?TrigSimpleCosMulCpp@@YAMMM@Z",
+      "canonical": "CosMul"
+    },
+    {
+      "old": "?PlaneTrailsSinMulX87@?A0xd36e6bfc@@YAMMM@Z",
+      "new": "?TrigSimpleSinMulCpp@@YAMMM@Z",
+      "canonical": "SinMul"
+    },
+    {
+      "old": "?PlaneTrailsCosMulX87@?A0xd36e6bfc@@YAMMM@Z",
+      "new": "?TrigSimpleCosMulCpp@@YAMMM@Z",
+      "canonical": "CosMul"
+    },
+    {
+      "old": "?JpMulSinX87@?A0xfab3d614@@YAMMM@Z",
+      "new": "?TrigSimpleSinMulCpp@@YAMMM@Z",
+      "canonical": "SinMul"
+    },
+    {
+      "old": "?JpMulCosX87@?A0xfab3d614@@YAMMM@Z",
+      "new": "?TrigSimpleCosMulCpp@@YAMMM@Z",
+      "canonical": "CosMul"
+    },
+    {
+      "old": "?SinX87@?A0x36e0e9ff@@YAMM@Z",
+      "new": "?TrigSimpleSinCpp@@YAMM@Z",
+      "canonical": "Sin"
+    },
+    {
+      "old": "?CosX87@?A0x36e0e9ff@@YAMM@Z",
+      "new": "?TrigSimpleCosCpp@@YAMM@Z",
+      "canonical": "Cos"
+    }
+  ],
+  "consumers": [
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\Birds.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Birds.obj",
+      "symbol": "?Render@CBirds@@SAXXZ"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\BrightLights.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BrightLights.obj",
+      "symbol": "?Render@CBrightLights@@SAXXZ"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\PlaneTrails.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlaneTrails.obj",
+      "symbol": "?Update@CPlaneTrails@@SAXXZ"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\TaskSimpleJetPack.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleJetPack.obj",
+      "symbol": "?ProcessPed@CTaskSimpleJetPack@@UAE_NPAVCPed@@@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\TaskSimpleSwim.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSwim.obj",
+      "symbol": "?ProcessControlInput@CTaskSimpleSwim@@QAEXPAVCPlayerPed@@@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-coff\\BrightLights.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BrightLights.obj",
+      "symbol": "?Render@tBrightLight@@QBEXXZ"
+    }
+  ]
+}

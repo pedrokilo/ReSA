@@ -1,0 +1,152 @@
+{
+  "object_hashes": {
+    "3dMarkers.obj": "e3acc7bdea646b8bca8763a4c94bcb3871f852c8fdcf5f40976ce4417d3e151c",
+    "Birds.obj": "af58ba51a047ef83cf0e31c89062881170be93322761ae22f0b69d37f2f34c7e",
+    "TaskComplexFollowNodeRoute.obj": "5670dd6c6b3c1d9db56a3e9da8d29cb3122a5300fb120f7543fa9d9c28883be7",
+    "TaskSimpleSwim.obj": "63ed4a1bf2ce6d14c43fba06c5da2d41cf39aa3484343def0dbc0d4e578a5942"
+  },
+  "objects": [
+    {
+      "object": "3dMarkers.obj",
+      "sha256": "e3acc7bdea646b8bca8763a4c94bcb3871f852c8fdcf5f40976ce4417d3e151c",
+      "helper_symbols": {
+        "?SinMulAddX87@@YAMMMMM@Z": "ScaledSinMulAdd"
+      },
+      "direct_helper_callers": [
+        {
+          "symbol": "?Render@tUser3dMarker@@QBEXPAURpClump@@@Z",
+          "helper_relocations": [
+            {
+              "offset": 141,
+              "target": "?SinMulAddX87@@YAMMMMM@Z",
+              "type": 20,
+              "preceding_opcode": 232
+            }
+          ]
+        },
+        {
+          "symbol": "?PlaceMarker@C3dMarkers@@SAPAVC3dMarker@@IW4e3dMarkerType@@AAVCVector@@MEEEEGMFV4@_N@Z",
+          "helper_relocations": [
+            {
+              "offset": 1493,
+              "target": "?SinMulAddX87@@YAMMMMM@Z",
+              "type": 20,
+              "preceding_opcode": 232
+            },
+            {
+              "offset": 2815,
+              "target": "?SinMulAddX87@@YAMMMMM@Z",
+              "type": 20,
+              "preceding_opcode": 232
+            }
+          ]
+        }
+      ],
+      "all_transitive_callers": [
+        "?PlaceMarker@C3dMarkers@@SAPAVC3dMarker@@IW4e3dMarkerType@@AAVCVector@@MEEEEGMFV4@_N@Z",
+        "?PlaceMarkerCone@C3dMarkers@@SAXIAAVCVector@@MEEEEGMF_N@Z",
+        "?PlaceMarkerSet@C3dMarkers@@SAXIW4e3dMarkerType@@AAVCVector@@MEEEEGMF@Z",
+        "?Render@C3dMarkers@@SAXXZ",
+        "?Render@tUser3dMarker@@QBEXPAURpClump@@@Z",
+        "?User3dMarkersDraw@C3dMarkers@@SAXXZ"
+      ]
+    },
+    {
+      "object": "Birds.obj",
+      "sha256": "af58ba51a047ef83cf0e31c89062881170be93322761ae22f0b69d37f2f34c7e",
+      "helper_symbols": {
+        "?BirdsSinMulAdd@?A0x04b87a83@@YAMMMM@Z": "SinMulAdd",
+        "?BirdsCosMulAdd@?A0x04b87a83@@YAMMMM@Z": "CosMulAdd",
+        "?BirdsNegSinDiv@?A0x04b87a83@@YAMMM@Z": "NegSinDiv"
+      },
+      "direct_helper_callers": [
+        {
+          "symbol": "?Update@CBirds@@SAXXZ",
+          "helper_relocations": [
+            {
+              "offset": 607,
+              "target": "?BirdsSinMulAdd@?A0x04b87a83@@YAMMMM@Z",
+              "type": 20,
+              "preceding_opcode": 232
+            },
+            {
+              "offset": 654,
+              "target": "?BirdsCosMulAdd@?A0x04b87a83@@YAMMMM@Z",
+              "type": 20,
+              "preceding_opcode": 232
+            }
+          ]
+        },
+        {
+          "symbol": "?Render@CBirds@@SAXXZ",
+          "helper_relocations": [
+            {
+              "offset": 510,
+              "target": "?BirdsSinMulAdd@?A0x04b87a83@@YAMMMM@Z",
+              "type": 20,
+              "preceding_opcode": 232
+            },
+            {
+              "offset": 1450,
+              "target": "?BirdsNegSinDiv@?A0x04b87a83@@YAMMM@Z",
+              "type": 20,
+              "preceding_opcode": 232
+            }
+          ]
+        }
+      ],
+      "all_transitive_callers": [
+        "?Render@CBirds@@SAXXZ",
+        "?Update@CBirds@@SAXXZ"
+      ]
+    },
+    {
+      "object": "TaskComplexFollowNodeRoute.obj",
+      "sha256": "5670dd6c6b3c1d9db56a3e9da8d29cb3122a5300fb120f7543fa9d9c28883be7",
+      "helper_symbols": {
+        "?FollowNodeRouteCosHalfX87@?A0xa010752d@@YAMMM@Z": "CosHalf"
+      },
+      "direct_helper_callers": [
+        {
+          "symbol": "?CalcBlendRatio@CTaskComplexFollowNodeRoute@@IBEMPAVCPed@@_N@Z",
+          "helper_relocations": [
+            {
+              "offset": 603,
+              "target": "?FollowNodeRouteCosHalfX87@?A0xa010752d@@YAMMM@Z",
+              "type": 20,
+              "preceding_opcode": 232
+            }
+          ]
+        }
+      ],
+      "all_transitive_callers": [
+        "?CalcBlendRatio@CTaskComplexFollowNodeRoute@@IBEMPAVCPed@@_N@Z",
+        "?ControlSubTask@CTaskComplexFollowNodeRoute@@UAEPAVCTask@@PAVCPed@@@Z"
+      ]
+    },
+    {
+      "object": "TaskSimpleSwim.obj",
+      "sha256": "63ed4a1bf2ce6d14c43fba06c5da2d41cf39aa3484343def0dbc0d4e578a5942",
+      "helper_symbols": {
+        "?SubSinX87@?A0x36e0e9ff@@YAMMM@Z": "SubSin"
+      },
+      "direct_helper_callers": [
+        {
+          "symbol": "?ProcessSwimmingResistance@CTaskSimpleSwim@@QAEXPAVCPed@@@Z",
+          "helper_relocations": [
+            {
+              "offset": 1721,
+              "target": "?SubSinX87@?A0x36e0e9ff@@YAMMM@Z",
+              "type": 20,
+              "preceding_opcode": 232
+            }
+          ]
+        }
+      ],
+      "all_transitive_callers": [
+        "?ProcessPed@CTaskSimpleSwim@@UAE_NPAVCPed@@@Z",
+        "?ProcessSwimmingResistance@CTaskSimpleSwim@@QAEXPAVCPed@@@Z"
+      ]
+    }
+  ]
+}

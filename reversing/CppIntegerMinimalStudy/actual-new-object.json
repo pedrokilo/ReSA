@@ -1,0 +1,48 @@
+{
+  "object_sha256": "5de9180619b59702726254b3c92d0f10834559efd5aee380db544f3bdd801415",
+  "functions": [
+    {
+      "symbol": "?SetUseD3DResourceBuffering@D3DResourceSystem@@SAX_N@Z",
+      "section": 6,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "8a442404",
+          "mnemonic": "mov",
+          "operands": "al, byte ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "a284608d00",
+          "mnemonic": "mov",
+          "operands": "byte ptr [0x8d6084], al"
+        },
+        {
+          "offset": 9,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?Native_00424100@@YA_NMM@Z",
+      "section": 4,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "32c0",
+          "mnemonic": "xor",
+          "operands": "al, al"
+        },
+        {
+          "offset": 2,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "limitation": "Relocations unresolved; function extents inferred from COFF symbols. No runtime approval."
+}

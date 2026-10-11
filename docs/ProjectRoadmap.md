@@ -4,6 +4,8 @@
 
 # ReSA: reconstrucción, validación e independencia
 
+**Prioridad vigente:** convertir la producción de `source/game_sa` a C++ sin ensamblador en línea ni `naked`, con resultados exactos frente al EXE y validación dentro del juego. [Inventario y evidencia de la migración](../reversing/CppOnlyMigration/README.md). Esta migración sigue pendiente y se mide por separado del 100% histórico del catálogo.
+
 [Inicio](../README.md) · [Indicadores del catálogo](ReversedClasses.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas](../reversing/README.md)
 
 ## Objetivo
@@ -70,3 +72,5 @@ Después se evaluará y construirá **un ejecutable propio**: punto de entrada, 
 El catálogo principal está cerrado históricamente: 8.445/8.445 entradas y 771/771 grupos, cero pendientes y cero locks. La conmutación de los seis últimos locks se acredita en su [banco final](../reversing/HookUnlockFinal/README.md); no quedan los 85 bloqueos citados en el alcance anterior. La cobertura fuera del catálogo y la vigencia de dependencias siguen pendientes de investigación. Los resultados anteriores de [CConversationForPed](../reversing/ConversationForPed/README.md) y [CPedToPlayerConversations](../reversing/PedToPlayerConversations/README.md) conservan su alcance histórico.
 
 Mantener un solo `PROBAR.cmd`, reutilizar `reversing` y realizar pruebas locales con plazo y restauración exclusivamente en `E:\JUEGOS\GTA San Andreas - CVehicle Test`. Conservar la instalación personal y las partidas. La autorización actual incluye actualizar los Markdown y publicar los cambios en Git; no autoriza alterar la instalación personal ni apagar el equipo. Las configuraciones y los perfiles históricos conservan su fecha y no sustituyen una campaña de integración vigente.
+
+Estado de la migracion a C++ al 11/10/2026: 34 funciones fuente convertidas y revalidadas. Quedan 930 apariciones de ensamblador y 277 declaraciones naked en 177 archivos; son conteos lexicos, no funciones. Lote final IntegerMinimal2: 8704 pares compartidos, cero diferencias, cero resultados nulos y restauracion verificada. Trabajo detenido por orden del usuario tras este lote. Lista completa: [archivos pendientes](../reversing/CppOnlyMigration/FILES.md); evidencia y alcance: [migracion C++](../reversing/CppOnlyMigration/README.md).

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "TrigCompound6Cpp.h"
 
 #include "Interior/InteriorManager_c.h"
 
@@ -67,15 +68,7 @@ constexpr float FNR_PI             = std::bit_cast<float>(0x40490FDBu); // 0x858
 constexpr float FNR_SPEED_SQ_LIMIT = 0.015625f;                          // 0x86FC74
 
 // Como el original: fcos del x87 con precisión interna completa; producto y suma redondeados por la FPU
-__declspec(naked) float __cdecl FollowNodeRouteCosHalfX87(float angle, float half) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fcos
-        fmul dword ptr [esp + 8]
-        fadd dword ptr [esp + 8]
-        ret
-    }
-}
+
 
 // Como el original: posición del nodo leída directamente del array del área (sin comprobaciones)
 CVector FollowNodeRouteNodePos(CNodeAddress addr) {
@@ -279,7 +272,7 @@ float CTaskComplexFollowNodeRoute::CalcBlendRatio(CPed* ped, bool slowing) const
     } else if (ratio > 1.f) {
         ratio = 1.f;
     }
-    const float change         = FollowNodeRouteCosHalfX87(ratio * FNR_PI, 0.5f) * (slowing ? m_SpeedDecreaseAmt : m_SpeedIncreaseAmt);
+    const float change         = TrigCompoundCosHalf(ratio * FNR_PI, 0.5f) * (slowing ? m_SpeedDecreaseAmt : m_SpeedIncreaseAmt);
     const float ratioMoveState = CTaskSimpleGoToPointFine::BaseRatio(m_MoveState) - change;
     const float ratioMin       = CTaskSimpleGoToPointFine::BaseRatio(PEDMOVE_WALK) + 0.75f;
     return ratioMin > ratioMoveState ? ratioMin : ratioMoveState;

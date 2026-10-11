@@ -1,0 +1,9 @@
+# Selección de animación en C++
+
+Conversión de `CTaskComplexPlayHandSignalAnim::GetAnimIdForPed`, `0x61B460..0x61B4B0`. Conserva stdcall (RET 4), retorno EAX completo y EDX, que el llamador original utiliza después. La fuente usa comparaciones C++ de tipo de peatón: 7→320, 8→321, 9→322, 11→324, 14→323; otros tipos→−1.
+
+Prueba dentro del juego completo, sobre el jugador cargado, con 2.048 pares y tipos 0..31. Cada lado comprueba retorno mediante tabla independiente, EDX con semillas distintas, pila, EBX/ESI/EDI y receptor completo intacto. Se restaura el tipo de peatón antes de escribir cada resultado y se comprueba el receptor completo al final. No se aplican tolerancias ni se instrumenta el cuerpo probado.
+
+Corrida aprobada `20261010-233050-855356`: cero diferencias, ningún resultado original/candidate nulo, hook registrado y rutas verificadas, estado restaurado, partidas y configuración intactas. Evidencia y auditoría independiente en `runs/20261010-233050-855356/`. El auditor es una derivación local del verificador de dependencias con la identidad única de este banco; mantiene comprobaciones de hashes, manifiesto, registros, restauración y archivo comprimido.
+
+La preservación de EDX se acredita para el código compilado probado, no como garantía del estándar C++. Cambios de compilador/configuración requieren repetir la prueba. ECX es volátil y el EXE lo cambia en algunas ramas; el contrato aquí verificado no exige valores accidentales que el llamador no consume. No incrementa el catálogo ni la cohorte de dependencias.

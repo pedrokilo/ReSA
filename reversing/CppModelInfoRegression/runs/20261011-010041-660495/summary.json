@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "6b6825b007cab3f146e2eeda98d2376f5a4cced759d660ae3b2ddba39636c6fd",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 5264,
+  "pairs_per_function": {
+    "CModelInfo::Initialise": 8,
+    "CModelInfo::ShutDown": 64,
+    "CModelInfo::ReInit2dEffects": 8,
+    "CModelInfo::GetModelInfoUInt16": 256,
+    "CModelInfo::GetModelInfoFromHashKey": 256,
+    "CModelInfo::GetModelInfo-full": 512,
+    "CModelInfo::GetModelInfo-minmax": 512,
+    "CModelInfo::AddAtomicModel": 64,
+    "CModelInfo::AddDamageAtomicModel": 64,
+    "CModelInfo::AddLodAtomicModel": 64,
+    "CModelInfo::AddTimeModel": 64,
+    "CModelInfo::AddLodTimeModel": 64,
+    "CModelInfo::AddWeaponModel": 64,
+    "CModelInfo::AddClumpModel": 64,
+    "CModelInfo::AddVehicleModel": 64,
+    "CModelInfo::AddPedModel": 64,
+    "CModelInfo::IsBoatModel": 256,
+    "CModelInfo::IsCarModel": 256,
+    "CModelInfo::IsTrainModel": 256,
+    "CModelInfo::IsHeliModel": 256,
+    "CModelInfo::IsPlaneModel": 256,
+    "CModelInfo::IsBikeModel": 256,
+    "CModelInfo::IsFakePlaneModel": 256,
+    "CModelInfo::IsMonsterTruckModel": 256,
+    "CModelInfo::IsQuadBikeModel": 256,
+    "CModelInfo::IsBmxModel": 256,
+    "CModelInfo::IsTrailerModel": 256,
+    "CModelInfo::IsVehicleModelType": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "d754e37ea628a37f0b92a05a7d44bef1c8c3db402d87ba33b1ce7d86dd9dea0c",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

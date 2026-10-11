@@ -1,0 +1,13 @@
+# CppTrigJetPack: migración trigonométrica C++
+
+Preparado offline, pendiente de compilación, ejecución y aprobación por coordinación. Derivado de CTasks14b sin editar el banco histórico. Dos identidades ejecutadas: ProcessPed 0x6801F0, VMT 0x8705C4 slot 7, 1024 pares; RenderJetPack 0x67F6A0, 512 pares. Total 1536. ProcessPed solo consume SinMul; RenderJetPack cubre SinMul y CosMul en ProcessJetBall cuando ThrustStop y frame válido.
+
+Conserva toda la tabla original de hooks, su conmutación OFF/ON y el índice f original de la semilla. Mantiene fixtures, trazas, snapshots y gates de igualdad, switches y clean. Registra ambos objetos laterales completos incluso en éxito o fallo; retorno void/nulo legítimo permanece dentro del objeto, nunca como registro lateral nulo. El analizador vuelve a exigir objeto completo, switches, clean, ret y trace.
+
+Conserva restauración histórica de globals, referencias y pools; exige también enabled/locked finales de todos los hooks. Los colaboradores instrumentados y sus exclusiones son los documentados en reversing/CTasks14b/README.md y comentarios del HPP heredado. No certifica independencia transitiva del EXE ni prueba exhaustiva del mundo real.
+
+Este banco heredado compara resultados y memorias numéricas observables; no contiene captura física FP108 ni comparación completa de flags x87, EFLAGS o ABI. No se introduce tolerancia ni normalización. La fidelidad adicional exige que coordinación compruebe código emitido de los helpers y equivalencia de los callers antes/después; no se da por demostrada aquí.
+
+Manifiesto incluye fuentes históricas, TrigSimpleCpp.cpp/.h, CMake, InjectHooksMain y RH. Los scripts usan exclusivamente E:/JUEGOS/GTA San Andreas - CVehicle Test mediante configuración en memoria, sin editar runtime_runner.py. Solo coordinación compila y ejecuta en serie.
+
+Cobertura adicional: fixture_thrust_stop serializa el byte 0xD sin consumir RNG. El auditor exige al menos un caso RenderJetPack con ThrustStop verdadero y trazas frame_from_name para jetball1 y jetball2 válidas. Los fixtures históricos ya alternan stop, clump y máscara mFrame; no se fuerzan resultados ni se cambian semillas. begin registered_hook exige enabled real de ambas rutas.

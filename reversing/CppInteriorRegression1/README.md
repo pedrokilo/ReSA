@@ -1,0 +1,3 @@
+# Regresión de dos conversiones de interiores
+
+Banco separado derivado del aprobado CppInteriorProposal, sin cambiar sus instrumentos históricos. Repite Shop_FurnishCeiling y Office_FurnishCenter sobre la fuente y opciones finales posteriores a CppInteriorNext: 6144 pares, incluyendo ABI, flags del método vacío, memoria, trace y estado restaurado. APROBADO: corrida 20261011-000903-597439, 6144 pares completos, cero diferencias y cero comparaciones nulas; rutas y restauración verificadas. [Auditoría](runs/20261011-000903-597439/approval-audit.json). El banco no serializa registered_hook en begin; sus hooks se buscan realmente y las rutas por pareja están comprobadas.

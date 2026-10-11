@@ -1,0 +1,48 @@
+{
+  "bank": "CppTrigBrightPlane",
+  "run": "20261011-012319-542392",
+  "functions": 2,
+  "pairs": 1536,
+  "pairs_per_function": {
+    "CBrightLights::Render": 512,
+    "CPlaneTrails::Update": 1024
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "9557b1d1a9ee416a135bebf0913bedd005221fd951e49d0ec8fc9dee91007fac",
+  "tested_sources": {
+    "source/game_sa/BrightLights.cpp": "872635d6ebdb43e1af2a28cc02bb7e14fd2918c8f419cf01431faf1cdb5b992e",
+    "source/game_sa/BrightLights.h": "5d505f44fc806bee1c3f5834108c739fe7450a8e0c62b9e5c891972ffe453e56",
+    "source/game_sa/MotionBlurStreaks.cpp": "57e3fa6d185636d4d7e26c61380e473d94685bfa26eeb8511b848e6b79f32b44",
+    "source/game_sa/PlaneTrails.cpp": "0d13f00224b8277e5512072c8cde411a5aedbfdc7edca43832669ad6ccdf08b8",
+    "source/game_sa/PlaneTrail.cpp": "ebc80dd55c6c5ea113582791712bba4c40b19b1326c49ee0444178fbe7642687",
+    "source/game_sa/ShinyTexts.cpp": "d69a281a70d5b1c8dc8f9f6584e79d38dcf0c72c9ac170045eefe4679a71bd0f",
+    "source/game_sa/Escalators.cpp": "8835dd4660318bec322180a2f67c36ba23e738cad8be28ade454378137f21480",
+    "source/game_sa/Bridge.cpp": "2d7b226da205b6ec53599a3c21a840d5695f33f040d823b2d5ea2fc01322c2c4",
+    "source/game_sa/Entity/Ped/PlayerSkin.cpp": "b725e853ad0ac44d3c936722f693b77d30c58420091c43584dc9ac38a63b1cae",
+    "source/game_sa/TrigSimpleCpp.cpp": "aac5c811f7f4fdf7825566801b8358b95cda84fb912e399310dd6db657f69a4e",
+    "source/game_sa/TrigSimpleCpp.h": "48fcbe2fa177bcf50e32220dd611665accf2d03fe95649134ccdd5417d0fe413",
+    "source/CMakeLists.txt": "fe300bba92f7141276d1d6ea6dbba73f556428406c4479e238fd9e8de72f40ba",
+    "CMakeLists.txt": "b68fad6160dbe5ae12e78e142b1691b49b337db1c84c8c37947268db85f3e0a1",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+    "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+    "reversing/CppTrigBrightPlane/run_local.py": "7d8b933122541464486c35c7ba74c8e9bda53c9c1ac1abf6d5a3f48d79de60a2",
+    "reversing/CppTrigBrightPlane/README.md": "938109fc27774e8aca1c8021f3d2a074704c0d57cc71ce0e09098678b6aa231e"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "2f3a03a84567043d17d0f3c80ec81b897cce8152382c99ae91f45c3f424b24cd",
+    "build_probe.py": "993192e49a39b8e5d520f220b016bb25f3b2d2eaf5fb392cf10829d73cb9d162",
+    "run_local.py": "7d8b933122541464486c35c7ba74c8e9bda53c9c1ac1abf6d5a3f48d79de60a2"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "80ab09044c70e3f33d57708891def94d945d473b4ce5ec8d49c45bf5808a7fa0",
+  "registered_hook_verified": false,
+  "auditor_sha256": "803419537480ea9929882da40ec94b46b9be41cf659009ab9ee7f00a6e2b82d8",
+  "route_field": "switches",
+  "scope": "Legacy consumer fixtures, results/state/traces; collaborators instrumented; no full FP108/EFLAGS/register ABI claim"
+}

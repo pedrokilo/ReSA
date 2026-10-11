@@ -1,0 +1,32 @@
+{
+  "bank": "CppSequence2",
+  "run": "20261010-231937-429823",
+  "functions": 3,
+  "pairs": 4352,
+  "pairs_per_function": {
+    "CCarCtrl::ClearInterestingVehicleList": 256,
+    "CCarCtrl::RegisterVehicleOfInterest": 2048,
+    "CCarCtrl::FindSequenceElement": 2048
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "c1af42f0a22109819641b03c915febcadff5b5217a6197653dba37337b97ebd5",
+  "tested_sources": {
+    "source/game_sa/CarCtrl.cpp": "10fa539fbc78c6fdc249a542615f403ac5bd28fa91c0ba7bc5dfd8f955380849",
+    "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "a22822be355a2e7492cae6f02af3b94105ba29b79b6a427f63f68d3c3c260aba",
+    "build_probe.py": "cf2c05aa7c60e24e240502118c9d0e9859c03ee015c18955d46173fb86b7575b",
+    "run_local.py": "c293272efbfcdb5c9836f4186f9dcbe667334ce184f7af8de83152e3b4514801"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "df1305bb21647245828ba2f4f375b5d9215c6a7eee83c6c66657b876f08d7e95",
+  "registered_hook_verified": true
+}

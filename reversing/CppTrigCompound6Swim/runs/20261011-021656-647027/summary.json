@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "f3edd78e3d414568d4eaf894a574072906ac79a5257ed58385cd2345d659709e",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CTaskSimpleSwim::ProcessSwimmingResistance": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "f61ba05f4f15e68f3500043e338fb2f6ec33e7eb019961866a7a0d50aa7474ef",
+  "observed_coverage": {
+    "subsin_pairs": {
+      "original": 24,
+      "candidate": 24
+    },
+    "cases": {
+      "original": [
+        9,
+        10,
+        17,
+        55,
+        263,
+        273,
+        324,
+        329,
+        354,
+        363,
+        459,
+        550,
+        582,
+        588,
+        615,
+        629,
+        639,
+        789,
+        794,
+        815,
+        827,
+        884,
+        999,
+        1008
+      ],
+      "candidate": [
+        9,
+        10,
+        17,
+        55,
+        263,
+        273,
+        324,
+        329,
+        354,
+        363,
+        459,
+        550,
+        582,
+        588,
+        615,
+        629,
+        639,
+        789,
+        794,
+        815,
+        827,
+        884,
+        999,
+        1008
+      ]
+    }
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

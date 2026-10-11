@@ -1,0 +1,741 @@
+{
+  "all_equal": true,
+  "comparisons": [
+    {
+      "symbol": "??__ERwEngineInstance@@YAXXZ",
+      "equal": true,
+      "old": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab68247bc900e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@PAURwGlobals@@@@YAAAPAURwGlobals@@I@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?RwEngineInstance@@3AAPAURwGlobals@@A",
+            "00000000",
+            [
+              36,
+              0,
+              3
+            ],
+            "2c34ce1df23b838c5abf2a7f6437cca3d3067ed509ff25f11df6b11b582b51eb"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "e07aa70f1f17fccc0078af5ff46ec23d29ec93db242993ff24d24bfad8e5f652",
+        "size": 61
+      },
+      "new": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab68247bc900e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@PAURwGlobals@@@@YAAAPAURwGlobals@@I@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?RwEngineInstance@@3AAPAURwGlobals@@A",
+            "00000000",
+            [
+              36,
+              0,
+              3
+            ],
+            "2c34ce1df23b838c5abf2a7f6437cca3d3067ed509ff25f11df6b11b582b51eb"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "af58ba51a047ef83cf0e31c89062881170be93322761ae22f0b69d37f2f34c7e",
+        "size": 61
+      }
+    },
+    {
+      "symbol": "??__EaTempBufferIndices@@YAXXZ",
+      "equal": true,
+      "old": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6858b9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@$$BY0BAAA@G@@YAAAY0BAAA@GI@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?aTempBufferIndices@@3AAY0BAAA@GA",
+            "00000000",
+            [
+              28,
+              0,
+              3
+            ],
+            "2c34ce1df23b838c5abf2a7f6437cca3d3067ed509ff25f11df6b11b582b51eb"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "e07aa70f1f17fccc0078af5ff46ec23d29ec93db242993ff24d24bfad8e5f652",
+        "size": 61
+      },
+      "new": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6858b9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@$$BY0BAAA@G@@YAAAY0BAAA@GI@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?aTempBufferIndices@@3AAY0BAAA@GA",
+            "00000000",
+            [
+              28,
+              0,
+              3
+            ],
+            "2c34ce1df23b838c5abf2a7f6437cca3d3067ed509ff25f11df6b11b582b51eb"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "af58ba51a047ef83cf0e31c89062881170be93322761ae22f0b69d37f2f34c7e",
+        "size": 61
+      }
+    },
+    {
+      "symbol": "??__ETempBufferVertices@@YAXXZ",
+      "equal": true,
+      "old": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6858d9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@UTempVertexBuffer@@@@YAAAUTempVertexBuffer@@I@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?TempBufferVertices@@3AAUTempVertexBuffer@@A",
+            "00000000",
+            [
+              32,
+              0,
+              3
+            ],
+            "2c34ce1df23b838c5abf2a7f6437cca3d3067ed509ff25f11df6b11b582b51eb"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "e07aa70f1f17fccc0078af5ff46ec23d29ec93db242993ff24d24bfad8e5f652",
+        "size": 61
+      },
+      "new": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6858d9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@UTempVertexBuffer@@@@YAAAUTempVertexBuffer@@I@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?TempBufferVertices@@3AAUTempVertexBuffer@@A",
+            "00000000",
+            [
+              32,
+              0,
+              3
+            ],
+            "2c34ce1df23b838c5abf2a7f6437cca3d3067ed509ff25f11df6b11b582b51eb"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "af58ba51a047ef83cf0e31c89062881170be93322761ae22f0b69d37f2f34c7e",
+        "size": 61
+      }
+    },
+    {
+      "symbol": "??__ERwEngineInstance@@YAXXZ",
+      "equal": true,
+      "old": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab68247bc900e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@PAURwGlobals@@@@YAAAPAURwGlobals@@I@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?RwEngineInstance@@3AAPAURwGlobals@@A",
+            "00000000",
+            [
+              16,
+              0,
+              3
+            ],
+            "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "01f772169892b0e6daca0ca5e79db4411c5afd292ac924daf91aff971e9d367f",
+        "size": 61
+      },
+      "new": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab68247bc900e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@PAURwGlobals@@@@YAAAPAURwGlobals@@I@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?RwEngineInstance@@3AAPAURwGlobals@@A",
+            "00000000",
+            [
+              16,
+              0,
+              3
+            ],
+            "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "77ab62d6ad6c3dd0155a2cc1a99186903424161e84e20ac496ed0172e3e53afd",
+        "size": 61
+      }
+    },
+    {
+      "symbol": "??__EaTempBufferIndices@@YAXXZ",
+      "equal": true,
+      "old": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6858b9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@$$BY0BAAA@G@@YAAAY0BAAA@GI@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?aTempBufferIndices@@3AAY0BAAA@GA",
+            "00000000",
+            [
+              12,
+              0,
+              3
+            ],
+            "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "01f772169892b0e6daca0ca5e79db4411c5afd292ac924daf91aff971e9d367f",
+        "size": 61
+      },
+      "new": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6858b9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@$$BY0BAAA@G@@YAAAY0BAAA@GI@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?aTempBufferIndices@@3AAY0BAAA@GA",
+            "00000000",
+            [
+              12,
+              0,
+              3
+            ],
+            "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "77ab62d6ad6c3dd0155a2cc1a99186903424161e84e20ac496ed0172e3e53afd",
+        "size": 61
+      }
+    },
+    {
+      "symbol": "??__ETempBufferVertices@@YAXXZ",
+      "equal": true,
+      "old": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6858d9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@UTempVertexBuffer@@@@YAAAUTempVertexBuffer@@I@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?TempBufferVertices@@3AAUTempVertexBuffer@@A",
+            "00000000",
+            [
+              8,
+              0,
+              3
+            ],
+            "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "01f772169892b0e6daca0ca5e79db4411c5afd292ac924daf91aff971e9d367f",
+        "size": 61
+      },
+      "new": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6858d9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@UTempVertexBuffer@@@@YAAAUTempVertexBuffer@@I@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?TempBufferVertices@@3AAUTempVertexBuffer@@A",
+            "00000000",
+            [
+              8,
+              0,
+              3
+            ],
+            "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "77ab62d6ad6c3dd0155a2cc1a99186903424161e84e20ac496ed0172e3e53afd",
+        "size": 61
+      }
+    },
+    {
+      "symbol": "??__EBrightTempVerticesStored@?A0xe2670134@@YAXXZ",
+      "equal": true,
+      "old": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6850b9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@H@@YAAAHI@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?BrightTempVerticesStored@?A0xe2670134@@3AAHA",
+            "00000000",
+            [
+              0,
+              0,
+              3
+            ],
+            "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "01f772169892b0e6daca0ca5e79db4411c5afd292ac924daf91aff971e9d367f",
+        "size": 61
+      },
+      "new": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6850b9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@H@@YAAAHI@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?BrightTempVerticesStored@?A0xe2670134@@3AAHA",
+            "00000000",
+            [
+              0,
+              0,
+              3
+            ],
+            "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "77ab62d6ad6c3dd0155a2cc1a99186903424161e84e20ac496ed0172e3e53afd",
+        "size": 61
+      }
+    },
+    {
+      "symbol": "??__EBrightTempIndicesStored@?A0xe2670134@@YAXXZ",
+      "equal": true,
+      "old": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6854b9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@H@@YAAAHI@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?BrightTempIndicesStored@?A0xe2670134@@3AAHA",
+            "00000000",
+            [
+              4,
+              0,
+              3
+            ],
+            "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "01f772169892b0e6daca0ca5e79db4411c5afd292ac924daf91aff971e9d367f",
+        "size": 61
+      },
+      "new": {
+        "bytes": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab6854b9c400e80000000083c404a3000000005f5e5b81c4c00000003bece8000000008be55dc3",
+        "relocations": [
+          [
+            29,
+            20,
+            "??$StaticRef@H@@YAAAHI@Z",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ],
+          [
+            37,
+            6,
+            "?BrightTempIndicesStored@?A0xe2670134@@3AAHA",
+            "00000000",
+            [
+              4,
+              0,
+              3
+            ],
+            "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90"
+          ],
+          [
+            53,
+            20,
+            "__RTC_CheckEsp",
+            "00000000",
+            [
+              0,
+              32,
+              2
+            ],
+            null
+          ]
+        ],
+        "helpers": [],
+        "object_sha256": "77ab62d6ad6c3dd0155a2cc1a99186903424161e84e20ac496ed0172e3e53afd",
+        "size": 61
+      }
+    }
+  ]
+}

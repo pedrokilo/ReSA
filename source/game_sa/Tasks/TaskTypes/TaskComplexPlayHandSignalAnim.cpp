@@ -87,41 +87,20 @@ CTaskComplexPlayHandSignalAnim::~CTaskComplexPlayHandSignalAnim() {
 }
 
 // 0x61B460
-__declspec(naked) AnimationId __stdcall CTaskComplexPlayHandSignalAnim::GetAnimIdForPed(CPed* ped) {
-    // Como el original: stdcall y preserva EDX, usado por CreateFirstSubTask.
-    __asm {
-        mov eax, [esp+4]
-        mov eax, [eax+598h]
-        cmp eax, 7
-        jne gang2
-        mov eax, 140h
-        ret 4
-    gang2:
-        cmp eax, 8
-        jne gang3
-        mov eax, 141h
-        ret 4
-    gang3:
-        cmp eax, 9
-        jne gang5
-        mov eax, 142h
-        ret 4
-    gang5:
-        cmp eax, 0Bh
-        jne gang8
-        mov eax, 144h
-        ret 4
-    gang8:
-        xor ecx, ecx
-        cmp eax, 0Eh
-        setne cl
-        dec ecx
-        and ecx, 144h
-        dec ecx
-        mov eax, ecx
-        ret 4
-    }
+#ifdef _DEBUG
+#pragma optimize("", on)
+#endif
+AnimationId __stdcall CTaskComplexPlayHandSignalAnim::GetAnimIdForPed(CPed* ped) {
+    const auto type = ped->m_nPedType;
+    if (type == 7) return static_cast<AnimationId>(320);
+    if (type == 8) return static_cast<AnimationId>(321);
+    if (type == 9) return static_cast<AnimationId>(322);
+    if (type == 11) return static_cast<AnimationId>(324);
+    return static_cast<AnimationId>(type == 14 ? 323 : -1);
 }
+#ifdef _DEBUG
+#pragma optimize("", off)
+#endif
 
 // 0x61B2F0
 CTask* CTaskComplexPlayHandSignalAnim::CreateSubTask(eTaskType taskType) {

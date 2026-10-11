@@ -1,0 +1,40 @@
+{
+  "bank": "CppIntegerNext/Texture",
+  "run": "20261010-235425-798187",
+  "functions": 1,
+  "pairs": 2048,
+  "pairs_per_function": {
+    "RwHelper::RwTexDictionaryFindHashNamedTexture": 2048
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "1141504dbc9be38439f47de6b6a956fd128b7c2f831d80ff73274fc26909e650",
+  "tested_sources": {
+    "source/game_sa/RwHelper.cpp": "ffb58088c9b9b269138a5d477bb13ccf27f83ee41a4d4c5e0ad884bbf69c6f4c",
+    "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735",
+    "source/game_sa/Core/KeyGen.cpp": "3bb96a07f76557a9114e32ee9377294c507214a2f5dc0ece5fc3b61893cbfe1d",
+    "source/game_sa/Core/KeyGen.h": "4adcfe3431cbb7d680f40353439839d17bc364245e7637f802ba6e7a8a5adcb6",
+    "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+    "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
+    "source/game_sa/TxdDef.h": "537cbd1c1e4b44e941d31d3bd3191c215c26bef5358d0bfcf468d50d2dc52144",
+    "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+    "source/game_sa/RenderWare/RenderWare.h": "b1c989af4fccd7ac2b20236abc72f6740df2348ee26bd3e23065d1b94b6fb630",
+    "source/game_sa/RenderWare/rw/rwcore.h": "d5a0707008427e2e44d4aad87a3dea8296980079293b27e61cb23815846d8eec",
+    "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "6f236a21b51a7e41eaf0a124c3353aa3d78752a6481c8f0767d8643ae66c52b9",
+    "NativeProof.hpp": "9d19291cf2d1841313f028b3710b8ba5de59e21af634b50e7d3f7f27e5b9ff29",
+    "build_probe.py": "113d84ec1bf912c2f4099069599fa36fa945675f68bf8af7cdcbe61bfe0143d4",
+    "run_local.py": "8f25eb065be23e67b59a402c2e87a0d4f6fb03e7d53fce8550069d362231ab55"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "c94c3f5bc7691ebf276088ab18a5100becd929a0fad2a773f432ea73061f0916",
+  "registered_hook_verified": true
+}

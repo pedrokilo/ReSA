@@ -55,6 +55,60 @@ file(
     "${CMAKE_CURRENT_SOURCE_DIR}/*.c*"
 )
 list(APPEND SOURCE_FILES_WITHOUT_MODULES_LIST StdInc.cpp)
+if(MSVC)
+    set_source_files_properties(game_sa/IntegerMinimalCpp.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/Oy;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    set_source_files_properties(game_sa/TrigCompound6Cpp.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    # Scalar x87 intrinsic helpers; callers retain their existing compiler options.
+    set_source_files_properties(game_sa/TrigSimpleCpp.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    # Ordinary debug symbols avoid Edit-and-Continue stack padding in constant returns.
+    set_source_files_properties(game_sa/Models/ModelInfo.cpp PROPERTIES
+        COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>"
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    # Cloud comparisons must update x87 C0/C3 like the original EXE.
+    set_source_files_properties(game_sa/Clouds.cpp PROPERTIES
+        COMPILE_OPTIONS "/arch:IA32"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    set_source_files_properties(game_sa/CloudsMathCpp.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    # /ZI reserves stack space even for an empty function, changing EFLAGS.
+    # These C++ bodies must preserve the original caller's flags and registers.
+    # Use ordinary debug symbols and compile separately from the /ZI PCH/unity.
+    set_source_files_properties(game_sa/Interior/InteriorCpp.cpp PROPERTIES
+        COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>;/arch:IA32"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    # Direct x87 argument stores preserve the EXE's C1 rounding result.
+    # A separate optimized TU avoids Debug temporaries and leaves other bodies alone.
+    set_source_files_properties(game_sa/Interior/InteriorShelfCpp.cpp PROPERTIES
+        COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>;/arch:IA32;/O2;/Ob2;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+endif()
 if (${RE_PROJECT}_WITH_OPENAL)
     # TODO: Remove dsound specific sources
 else()

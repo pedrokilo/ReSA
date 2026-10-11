@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "TrigSimpleCpp.h"
 #include "TaskComplexFollowPointRoute.h"
 #include "TaskSimpleGoToPointFine.h"
 #include "TaskComplexGoToPointAndStandStill.h"
@@ -325,13 +326,6 @@ eTaskType CTaskComplexFollowPointRoute::CalcGoToTaskType(CPed* ped, eTaskType su
 }
 
 // Como el original: fcos del x87 con precision interna completa (el llamador redondea a float)
-static __declspec(naked) float __cdecl FollowPointRouteCos(float angle) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fcos
-        ret
-    }
-}
 
 // 0x66E710
 float CTaskComplexFollowPointRoute::CalcBlendRatio(CPed* ped, bool slowing) {
@@ -362,7 +356,7 @@ float CTaskComplexFollowPointRoute::CalcBlendRatio(CPed* ped, bool slowing) {
         progress = 1.f;
     }
     const float angle  = progress * std::bit_cast<float>(0x40490FDBu); // PI (0x858CB8)
-    const float cosine = FollowPointRouteCos(angle);
+    const float cosine = TrigSimpleCosCpp(angle);
     float mult = cosine * 0.5f + 0.5f;
     mult *= slowing ? m_speedDecreaseAmt : m_speedIncreaseAmt;
 

@@ -35,13 +35,6 @@ void D3DResourceSystem::Init() {
 
 // 0x730AC0
 // Writes one byte and preserves EAX high bits, ECX and EDX as in the EXE.
-__declspec(naked) void D3DResourceSystem::SetUseD3DResourceBuffering(bool) {
-    __asm {
-    mov al,byte ptr [esp+4]
-    mov byte ptr ds:[008D6084h],al
-    ret
-    }
-}
 
 // 0x730A00
 void D3DResourceSystem::Shutdown() {

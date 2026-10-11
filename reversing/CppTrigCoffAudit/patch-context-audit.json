@@ -1,0 +1,63 @@
+[
+  {
+    "file": "source\\game_sa\\Birds.cpp",
+    "old_hunk_matches": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "applicable": true
+  },
+  {
+    "file": "source\\game_sa\\BrightLights.cpp",
+    "old_hunk_matches": [
+      1,
+      1,
+      1
+    ],
+    "applicable": true
+  },
+  {
+    "file": "source\\game_sa\\PlaneTrails.cpp",
+    "old_hunk_matches": [
+      1,
+      1
+    ],
+    "applicable": true
+  },
+  {
+    "file": "source\\game_sa\\Tasks\\TaskTypes\\TaskSimpleJetPack.cpp",
+    "old_hunk_matches": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "applicable": true
+  },
+  {
+    "file": "source\\game_sa\\Tasks\\TaskTypes\\TaskSimpleSwim.cpp",
+    "old_hunk_matches": [
+      1,
+      1,
+      1
+    ],
+    "applicable": true
+  },
+  {
+    "file": "source\\CMakeLists.txt",
+    "old_hunk_matches": [
+      0
+    ],
+    "applicable": false
+  },
+  {
+    "file": "source/game_sa/TrigSimpleCpp.h",
+    "new_file_absent": true
+  },
+  {
+    "file": "source/game_sa/TrigSimpleCpp.cpp",
+    "new_file_absent": true
+  }
+]

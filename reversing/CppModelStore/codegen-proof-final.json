@@ -1,0 +1,78 @@
+{
+  "object_sha256": "837e6c5a4598ad5d50daaa27667776bddcc0c868a36886e9d07237d93ad93bff",
+  "functions": [
+    {
+      "symbol": "?Get2dEffectStore@CModelInfo@@SAPAV?$CStore@UC2dEffect@@$0GE@@@XZ",
+      "section": 5,
+      "instructions": [
+        {
+          "offset": 12624,
+          "bytes": "55",
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "offset": 12625,
+          "bytes": "8bec",
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "offset": 12627,
+          "bytes": "b8d8c2b400",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb4c2d8"
+        },
+        {
+          "offset": 12632,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "offset": 12633,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        },
+        {
+          "offset": 12634,
+          "bytes": "cc",
+          "mnemonic": "int3",
+          "operands": ""
+        },
+        {
+          "offset": 12635,
+          "bytes": "cc",
+          "mnemonic": "int3",
+          "operands": ""
+        },
+        {
+          "offset": 12636,
+          "bytes": "cc",
+          "mnemonic": "int3",
+          "operands": ""
+        },
+        {
+          "offset": 12637,
+          "bytes": "cc",
+          "mnemonic": "int3",
+          "operands": ""
+        },
+        {
+          "offset": 12638,
+          "bytes": "cc",
+          "mnemonic": "int3",
+          "operands": ""
+        },
+        {
+          "offset": 12639,
+          "bytes": "cc",
+          "mnemonic": "int3",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "limitation": "Relocations unresolved; function extents inferred from COFF symbols. No runtime approval."
+}

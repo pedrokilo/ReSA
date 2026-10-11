@@ -1,0 +1,96 @@
+{
+  "helpers": [
+    {
+      "old": "?SinMulAddX87@@YAMMMMM@Z",
+      "new": "?TrigCompoundScaledSinMulAdd@@YAMMMMM@Z",
+      "canonical": "ScaledSinMulAdd"
+    },
+    {
+      "old": "?BirdsSinMulAdd@?A0x04b87a83@@YAMMMM@Z",
+      "new": "?TrigCompoundSinMulAdd@@YAMMMM@Z",
+      "canonical": "SinMulAdd"
+    },
+    {
+      "old": "?BirdsCosMulAdd@?A0x04b87a83@@YAMMMM@Z",
+      "new": "?TrigCompoundCosMulAdd@@YAMMMM@Z",
+      "canonical": "CosMulAdd"
+    },
+    {
+      "old": "?BirdsNegSinDiv@?A0x04b87a83@@YAMMM@Z",
+      "new": "?TrigCompoundNegSinDiv@@YAMMM@Z",
+      "canonical": "NegSinDiv"
+    },
+    {
+      "old": "?FollowNodeRouteCosHalfX87@?A0xa010752d@@YAMMM@Z",
+      "new": "?TrigCompoundCosHalf@@YAMMM@Z",
+      "canonical": "CosHalf"
+    },
+    {
+      "old": "?SubSinX87@?A0x36e0e9ff@@YAMMM@Z",
+      "new": "?TrigCompoundSubSin@@YAMMM@Z",
+      "canonical": "SubSin"
+    }
+  ],
+  "consumers": [
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\3dMarkers.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\3dMarkers.obj",
+      "symbol": "?PlaceMarker@C3dMarkers@@SAPAVC3dMarker@@IW4e3dMarkerType@@AAVCVector@@MEEEEGMFV4@_N@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\3dMarkers.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\3dMarkers.obj",
+      "symbol": "?PlaceMarkerCone@C3dMarkers@@SAXIAAVCVector@@MEEEEGMF_N@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\3dMarkers.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\3dMarkers.obj",
+      "symbol": "?PlaceMarkerSet@C3dMarkers@@SAXIW4e3dMarkerType@@AAVCVector@@MEEEEGMF@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\3dMarkers.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\3dMarkers.obj",
+      "symbol": "?Render@C3dMarkers@@SAXXZ"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\3dMarkers.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\3dMarkers.obj",
+      "symbol": "?Render@tUser3dMarker@@QBEXPAURpClump@@@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\3dMarkers.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\3dMarkers.obj",
+      "symbol": "?User3dMarkersDraw@C3dMarkers@@SAXXZ"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\Birds.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Birds.obj",
+      "symbol": "?Render@CBirds@@SAXXZ"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\Birds.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Birds.obj",
+      "symbol": "?Update@CBirds@@SAXXZ"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\TaskComplexFollowNodeRoute.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFollowNodeRoute.obj",
+      "symbol": "?CalcBlendRatio@CTaskComplexFollowNodeRoute@@IBEMPAVCPed@@_N@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\TaskComplexFollowNodeRoute.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFollowNodeRoute.obj",
+      "symbol": "?ControlSubTask@CTaskComplexFollowNodeRoute@@UAEPAVCTask@@PAVCPed@@@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\TaskSimpleSwim.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSwim.obj",
+      "symbol": "?ProcessPed@CTaskSimpleSwim@@UAE_NPAVCPed@@@Z"
+    },
+    {
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppOnlyMigration\\artifacts\\old-trig-compound6-coff\\TaskSimpleSwim.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSwim.obj",
+      "symbol": "?ProcessSwimmingResistance@CTaskSimpleSwim@@QAEXPAVCPed@@@Z"
+    }
+  ]
+}

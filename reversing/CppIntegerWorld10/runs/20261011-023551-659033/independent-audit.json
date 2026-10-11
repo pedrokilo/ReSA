@@ -1,0 +1,22 @@
+{
+  "functions": 2,
+  "pairs": 4096,
+  "differences": 0,
+  "null_passes": 0,
+  "state_restored": true,
+  "comparisons_sha256": "13f53f39a2037784e1bda1789bf645e598e1bc25e6204dfe220662d67d8ad525",
+  "runner_summary_sha256": "b32e8532fda6e40cd1dadfddc3fad195ff9b3cf966ca126f5a0d967b924c97ae",
+  "saves_verified": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "configs_verified": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest_sha256": "509194ac572ffb94c29944e2acae67e0ce366266354c268c4e970027c8a3382b",
+  "asi_sha256": "1fe7f2b405bb4c0907838694135f02a30a0631dc0caa77dbb0841c46887f4366",
+  "auditor_sha256": "be652daf130d3d115b181589c544b90af285f1cdd2c51e744b3ce6b3a395712b"
+}

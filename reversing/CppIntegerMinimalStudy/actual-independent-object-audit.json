@@ -1,0 +1,26 @@
+{
+  "all_exact": true,
+  "object_sha256": "5de9180619b59702726254b3c92d0f10834559efd5aee380db544f3bdd801415",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "coff_parser_sha256": "3d2fd1df74ec3883bf130cf636945487e81a127bcb3bc9e364c78d45fd89669d",
+  "functions": [
+    {
+      "symbol": "?Native_00424100@@YA_NMM@Z",
+      "game_address": "0x424100",
+      "complete_extent": true,
+      "relocations_zero": true,
+      "exact_exe_bytes": true,
+      "size": 3,
+      "bytes": "32c0c3"
+    },
+    {
+      "symbol": "?SetUseD3DResourceBuffering@D3DResourceSystem@@SAX_N@Z",
+      "game_address": "0x730ac0",
+      "complete_extent": true,
+      "relocations_zero": true,
+      "exact_exe_bytes": true,
+      "size": 10,
+      "bytes": "8a442404a284608d00c3"
+    }
+  ]
+}
