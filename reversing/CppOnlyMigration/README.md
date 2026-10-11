@@ -6,7 +6,7 @@ El inventario inicial identificó 185 archivos con 965 apariciones de ensamblado
 
 ## Conversiones comprobadas
 
-[approvals.json](approvals.json) conserva 34 conversiones de funciones fuente con sus auditorías dentro del juego:
+[approvals.json](approvals.json) conserva 36 conversiones de funciones fuente con sus auditorías dentro del juego:
 
 | Función | Entrada EXE | Pares propios |
 | --- | --- | ---: |
@@ -33,6 +33,8 @@ El inventario inicial identificó 185 archivos con 965 apariciones de ensamblado
 | SwimSubSinX87 | Helper fuente, SwimmingResistance | 1024 |
 | SetUseD3DResourceBuffering | 0x730AC0 | 512 |
 | Native_00424100 | 0x424100 | 2048 |
+| ShadowExtendedSqrt (ShadowSqrtCpp) | Helper fuente, StoreStaticShadow y StoreShadowForVehicle | 8192 compartidos |
+| ShadowDistanceFade (ShadowMathCpp) | Helper fuente, StoreStaticShadow y StoreShadowForVehicle | 8192 compartidos |
 
 Cada corrida aprobada tiene cero diferencias, resultados no nulos, rutas y restauración verificadas. Estas conversiones vuelven a probar implementaciones catalogadas; no incrementan las 105 aprobaciones de la cohorte de dependencias.
 
@@ -63,3 +65,17 @@ TrigSimple10 conserva las operaciones FLD/FSIN o FCOS/FMUL cuando corresponde, s
 Memoria superó las ocho calibraciones diagnósticas tras corregir la copia del contexto en app_debug.cpp; sigue pendiente la campaña completa sin logger y MemoryMgr.cpp permanece sin convertir. TrigCompound6 ya fue integrado y revalidado: seis helpers, 9216 pares compartidos en cuatro campañas, cero diferencias y restauración verificada. La cobertura medida incluye 311 casos de actualización de aves, 459 casos de geometría renderizada y 24 casos de la rama SubSin de natación. Los consumidores conservan sus contratos históricos; no se atribuye medición integral de FP108 o registros a cada uno.
 
 TrigExtra3 aprobado: FollowPointRoute pasó 512 pares y Climb 4608, cero diferencias, sin resultados nulos y restauración verificada. Quince cuerpos COFF conservan instrucciones y relocations salvo los tres destinos autorizados. El primer banco Climb alcanzaba entidades externas: se aislaron todas las cabezas de sectores 120x120 y repeat 16x16, con restauración y guardia de ámbito; la campaña final no alcanzó entidades externas. Se acreditaron 51 casos de cosine en rutas y ocho casos de seno/coseno en escalada mediante inferencia de flujo y trazas. Evidencias en CppTrigFollowPointRoute/runs y CppTrigClimb/runs.
+
+## ShadowSqrt (11/10/2026)
+
+ShadowExtendedSqrt pasó a source/game_sa/ShadowSqrtCpp.cpp, con opciones /O2 /Oi /arch:IA32 /fp:fast /Zi sólo para ese archivo y sin RTC/PCH/unity. El objeto real hace FLD32, FSQRT, FSTP64, FLD64, sin relocaciones en .text. Los cuerpos completos de StoreStaticShadow (1258 bytes) y StoreShadowForVehicle (3464 bytes) son idénticos a los anteriores salvo el destino de la llamada (compare_coff, caller-spec.json). Bancos: CppShadowSqrtStatic (corrida 20261011-125451-461566, 4096 pares) y CppShadowSqrtVehicle (corrida 20261011-125623-404352, 4096 pares), cero diferencias, cero registros nulos, estado, partidas y configuración restaurados. El conteo pasa a 927 apariciones de ensamblador y 277 declaraciones naked en 177 archivos.
+
+Límites: el helper original (debug) dejaba EAX=CCCCCCCC y ECX=0 y el nuevo no; la equivalencia se apoya en que ninguno de los dos sitios de llamada lee esos registros ni los flags tras la llamada (ADD ESP,4 es la primera instrucción). NaN, negativos, caminos de excepción x87 y el contrato completo de registros no están cubiertos. ShadowExtendedProduct, ShadowDistanceFade y ShadowFadeInteger siguen en ensamblador y no quedan validados por estos bancos. Este lote no incrementa la cohorte de 499 dependencias ni afirma independencia del EXE.
+
+Plan de lotes y clasificación por dificultad: [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md) · [plan-clasificacion.csv](plan-clasificacion.csv).
+
+## ShadowDistanceFade (11/10/2026)
+
+ShadowDistanceFade pasó a source/game_sa/ShadowMathCpp.cpp (mismas opciones por archivo que ShadowSqrtCpp.cpp). Hace las mismas operaciones IEEE en el mismo orden de resultados que el ensamblador (1 - (sqrt(cuad) - d*0,75) * (4/d)), con almacenamiento FSTP64 y recarga; el compilador calcula 4/d antes de la raíz, así que el cuerpo no es idéntico byte a byte al del ensamblador. Las constantes 4,0 y 0,75 salen del .rdata del propio objeto. Los cuerpos de StoreStaticShadow y StoreShadowForVehicle son idénticos salvo el destino de la llamada (caller-spec-fade.json) y, tras la llamada, ninguno lee EAX, ECX, EDX ni banderas. Bancos CppShadowSqrtStatic (corrida 20261011-131717-551954) y CppShadowSqrtVehicle (corrida 20261011-131818-030789), 4096 pares cada uno, cero diferencias. La rama de atenuación aparece en las trazas de Vehicle (534 intensidades distintas); Static sólo registra el estado resumido. No cubre NaN, distancia cero ni caminos de excepción x87. El conteo pasa a 926 apariciones de ensamblador.
+
+Corrección de alcance del lote 1: ShadowExtendedProduct también lo usa la función de polígonos (Shadows.cpp:975), y ShadowHeightDifference y ShadowHeightSum los usa CastShadowSectorList; los XY y de proyección los usan otras funciones. Esos helpers necesitan bancos derivados de ShadowXY355, ShadowGenerate355, ShadowXYZ355 y ShadowSectors355, no sólo los dos bancos de ShadowSqrt.

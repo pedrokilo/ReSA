@@ -127,7 +127,7 @@ source/game_sa/Ropes.cpp,2,0
 source/game_sa/RwHelper.cpp,1,1
 source/game_sa/Scripts/RunningScript.cpp,1,0
 source/game_sa/Scripts/TheScripts.cpp,3,0
-source/game_sa/Shadows.cpp,60,1
+source/game_sa/Shadows.cpp,56,1
 source/game_sa/ShotInfo.cpp,2,0
 source/game_sa/SimpleTransform.cpp,2,0
 source/game_sa/Sprite.cpp,2,0

@@ -34,6 +34,8 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include <imgui.h>
 #include "Shadows.h"
+#include "ShadowSqrtCpp.h"
+#include "ShadowMathCpp.h"
 #include "FireManager.h"
 #include <CustomBuildingDNPipeline.h>
 
@@ -1554,23 +1556,6 @@ static float ShadowCameraDistanceSquared(const CVector& position, const CVector&
     }
     return result;
 }
-static double ShadowDistanceFade(float squared, float distance) {
-    const float threeQuarters = 0.75f, four = 4.0f, one = 1.0f;
-    double result;
-    __asm {
-        fld squared
-        fsqrt
-        fld distance
-        fmul threeQuarters
-        fsubp st(1), st(0)
-        fld four
-        fdiv distance
-        fmulp st(1), st(0)
-        fsubr one
-        fstp result
-    }
-    return result;
-}
 static double ShadowExtendedProduct(float a, float b) {
     double result;
     __asm { fld a }
@@ -1578,13 +1563,7 @@ static double ShadowExtendedProduct(float a, float b) {
     __asm { fstp result }
     return result;
 }
-static double ShadowExtendedSqrt(float value) {
-    double result;
-    __asm { fld value }
-    __asm { fsqrt }
-    __asm { fstp result }
-    return result;
-}
+
 static int32 ShadowFadeInteger(double fade, int32 value) {
     int32 result;
     __asm {
@@ -1602,8 +1581,8 @@ bool CShadows::StoreStaticShadow(uint32 id, eShadowType type, RwTexture* texture
     if (drawDistance != 0.0f) {
         const double radiusSquared = ShadowExtendedProduct(drawDistance, drawDistance);
         if (!(squared < radiusSquared)) return true;
-        if (!(ShadowExtendedSqrt(squared) < ShadowExtendedProduct(drawDistance, 0.75f))) {
-            const double fade = ShadowDistanceFade(squared, drawDistance);
+        if (!(ShadowSqrtCpp(squared) < ShadowExtendedProduct(drawDistance, 0.75f))) {
+            const double fade = ShadowDistanceFadeCpp(squared, drawDistance);
             intensity = int16(ShadowFadeInteger(fade, intensity));
             red = uint8(ShadowFadeInteger(fade, red));
             green = uint8(ShadowFadeInteger(fade, green));
@@ -1680,7 +1659,7 @@ void CShadows::StoreShadowForVehicle(CVehicle* vehicle, VEH_SHD_TYPE vehShadowTy
         (vehShadowType >= VEH_SHD_HELI && vehShadowType <= VEH_SHD_RC ? 144.0f : 18.0f);
     if (!(squared < distance * distance)) return;
     int16 intensity = strength;
-    if (!(ShadowExtendedSqrt(squared) < ShadowExtendedProduct(distance, .75f))) intensity = int16(ShadowFadeInteger(ShadowDistanceFade(squared, distance), strength));
+    if (!(ShadowSqrtCpp(squared) < ShadowExtendedProduct(distance, .75f))) intensity = int16(ShadowFadeInteger(ShadowDistanceFadeCpp(squared, distance), strength));
     const auto& box = vehicle->GetColModel()->GetBoundingBox();
     float length = box.m_vecMax.y - box.m_vecMin.y;
     float breadth = box.m_vecMax.x - box.m_vecMin.x;

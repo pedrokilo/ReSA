@@ -93,37 +93,51 @@
 
 <a id="grupo-1406"></a>
 
+## Globales y helpers: source/game_sa/ShadowMathCpp.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ShadowDistanceFadeCpp(float squared, float distance) | [source/game_sa/ShadowMathCpp.cpp:4](../../source/game_sa/ShadowMathCpp.cpp#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1407"></a>
+
+## Globales y helpers: source/game_sa/ShadowSqrtCpp.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ShadowSqrtCpp(float value) | [source/game_sa/ShadowSqrtCpp.cpp:4](../../source/game_sa/ShadowSqrtCpp.cpp#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1408"></a>
+
 ## Globales y helpers: source/game_sa/Shadows.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| PermanentShadowFadeInteger(double elapsed, double duration, int32 value) | [source/game_sa/Shadows.cpp:193](../../source/game_sa/Shadows.cpp#L193) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| CalculateShadowStrength(float currDist, float maxDist, int32 maxStrength) | [source/game_sa/Shadows.cpp:475](../../source/game_sa/Shadows.cpp#L475) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ShadowXYDot(float x,float a,float y,float b) | [source/game_sa/Shadows.cpp:840](../../source/game_sa/Shadows.cpp#L840) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 6 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowXYCross(const CVector& p,const CVector& origin,float edgeX,float edgeY) | [source/game_sa/Shadows.cpp:850](../../source/game_sa/Shadows.cpp#L850) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 8 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowXYBlend(float previous,float current,float ratio) | [source/game_sa/Shadows.cpp:863](../../source/game_sa/Shadows.cpp#L863) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 7 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowXYPlaneDistance(const CVector& n,const CVector& vertex) | [source/game_sa/Shadows.cpp:874](../../source/game_sa/Shadows.cpp#L874) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowXYPlaneHeight(const CVector& n,float x,float y,float distance) | [source/game_sa/Shadows.cpp:889](../../source/game_sa/Shadows.cpp#L889) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowXYClip(CVector* positions,CVector* uv,int count,CVector* outPositions,CVector* outUV,const CVector& origin,const CVector& destination) | [source/game_sa/Shadows.cpp:905](../../source/game_sa/Shadows.cpp#L905) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ShadowProjectionRatio(float numerator, float value, float multiplier) | [source/game_sa/Shadows.cpp:985](../../source/game_sa/Shadows.cpp#L985) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::CastShadowEntityXYZ 0x0070A040 | 4 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowProjectionCoordinate(float base, float value, float multiplier) | [source/game_sa/Shadows.cpp:993](../../source/game_sa/Shadows.cpp#L993) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 4 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowNormalOffset(float value) | [source/game_sa/Shadows.cpp:1001](../../source/game_sa/Shadows.cpp#L1001) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 3 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowHeightSum(float a, float b) | [source/game_sa/Shadows.cpp:1159](../../source/game_sa/Shadows.cpp#L1159) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::CastShadowSectorList&lt;CPtrListSingleLink&lt;CPhysical*&gt;&gt; 0x0070A630 | 3 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowHeightDifference(float a, float b) | [source/game_sa/Shadows.cpp:1166](../../source/game_sa/Shadows.cpp#L1166) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 3 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowRectangleEdge(float position, float front, float side, bool maximum) | [source/game_sa/Shadows.cpp:1480](../../source/game_sa/Shadows.cpp#L1480) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::GeneratePolysForStaticShadow 0x0070B730 | 4 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowFtol(double value) | [source/game_sa/Shadows.cpp:1494](../../source/game_sa/Shadows.cpp#L1494) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ShadowSectorIndex(float coordinate, bool maximum) | [source/game_sa/Shadows.cpp:1498](../../source/game_sa/Shadows.cpp#L1498) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowCameraDistanceSquared(const CVector& position, const CVector& camera) | [source/game_sa/Shadows.cpp:1535](../../source/game_sa/Shadows.cpp#L1535) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::StoreStaticShadow 0x0070BA00 | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowDistanceFade(float squared, float distance) | [source/game_sa/Shadows.cpp:1557](../../source/game_sa/Shadows.cpp#L1557) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowExtendedProduct(float a, float b) | [source/game_sa/Shadows.cpp:1574](../../source/game_sa/Shadows.cpp#L1574) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 3 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowExtendedSqrt(float value) | [source/game_sa/Shadows.cpp:1581](../../source/game_sa/Shadows.cpp#L1581) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 3 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowFadeInteger(double fade, int32 value) | [source/game_sa/Shadows.cpp:1588](../../source/game_sa/Shadows.cpp#L1588) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowVehiclePosition(CVector& position,float extentLength,float maximumY,float shift,float forwardX,float forwardY) | [source/game_sa/Shadows.cpp:1656](../../source/game_sa/Shadows.cpp#L1656) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::StoreShadowForVehicle 0x0070BDA0 | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowTriangleAlpha(float depth, uint32 intensity) | [source/game_sa/Shadows.cpp:1884](../../source/game_sa/Shadows.cpp#L1884) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| * ShadowRenderTriangleCB(CVector* normal, CVector* trianglePos, _ProjectionParam* param) | [source/game_sa/Shadows.cpp:1910](../../source/game_sa/Shadows.cpp#L1910) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| ShadowRenderTriangleRegisterEntry() | [source/game_sa/Shadows.cpp:1953](../../source/game_sa/Shadows.cpp#L1953) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| PermanentShadowFadeInteger(double elapsed, double duration, int32 value) | [source/game_sa/Shadows.cpp:195](../../source/game_sa/Shadows.cpp#L195) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| CalculateShadowStrength(float currDist, float maxDist, int32 maxStrength) | [source/game_sa/Shadows.cpp:477](../../source/game_sa/Shadows.cpp#L477) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ShadowXYDot(float x,float a,float y,float b) | [source/game_sa/Shadows.cpp:842](../../source/game_sa/Shadows.cpp#L842) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 6 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowXYCross(const CVector& p,const CVector& origin,float edgeX,float edgeY) | [source/game_sa/Shadows.cpp:852](../../source/game_sa/Shadows.cpp#L852) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 8 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowXYBlend(float previous,float current,float ratio) | [source/game_sa/Shadows.cpp:865](../../source/game_sa/Shadows.cpp#L865) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 7 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowXYPlaneDistance(const CVector& n,const CVector& vertex) | [source/game_sa/Shadows.cpp:876](../../source/game_sa/Shadows.cpp#L876) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowXYPlaneHeight(const CVector& n,float x,float y,float distance) | [source/game_sa/Shadows.cpp:891](../../source/game_sa/Shadows.cpp#L891) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowXYClip(CVector* positions,CVector* uv,int count,CVector* outPositions,CVector* outUV,const CVector& origin,const CVector& destination) | [source/game_sa/Shadows.cpp:907](../../source/game_sa/Shadows.cpp#L907) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ShadowProjectionRatio(float numerator, float value, float multiplier) | [source/game_sa/Shadows.cpp:987](../../source/game_sa/Shadows.cpp#L987) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::CastShadowEntityXYZ 0x0070A040 | 4 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowProjectionCoordinate(float base, float value, float multiplier) | [source/game_sa/Shadows.cpp:995](../../source/game_sa/Shadows.cpp#L995) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 4 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowNormalOffset(float value) | [source/game_sa/Shadows.cpp:1003](../../source/game_sa/Shadows.cpp#L1003) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 3 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowHeightSum(float a, float b) | [source/game_sa/Shadows.cpp:1161](../../source/game_sa/Shadows.cpp#L1161) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::CastShadowSectorList&lt;CPtrListSingleLink&lt;CPhysical*&gt;&gt; 0x0070A630 | 3 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowHeightDifference(float a, float b) | [source/game_sa/Shadows.cpp:1168](../../source/game_sa/Shadows.cpp#L1168) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 3 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowRectangleEdge(float position, float front, float side, bool maximum) | [source/game_sa/Shadows.cpp:1482](../../source/game_sa/Shadows.cpp#L1482) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::GeneratePolysForStaticShadow 0x0070B730 | 4 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowFtol(double value) | [source/game_sa/Shadows.cpp:1496](../../source/game_sa/Shadows.cpp#L1496) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ShadowSectorIndex(float coordinate, bool maximum) | [source/game_sa/Shadows.cpp:1500](../../source/game_sa/Shadows.cpp#L1500) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowCameraDistanceSquared(const CVector& position, const CVector& camera) | [source/game_sa/Shadows.cpp:1537](../../source/game_sa/Shadows.cpp#L1537) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::StoreStaticShadow 0x0070BA00 | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowExtendedProduct(float a, float b) | [source/game_sa/Shadows.cpp:1559](../../source/game_sa/Shadows.cpp#L1559) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 3 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowFadeInteger(double fade, int32 value) | [source/game_sa/Shadows.cpp:1567](../../source/game_sa/Shadows.cpp#L1567) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowVehiclePosition(CVector& position,float extentLength,float maximumY,float shift,float forwardX,float forwardY) | [source/game_sa/Shadows.cpp:1635](../../source/game_sa/Shadows.cpp#L1635) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::StoreShadowForVehicle 0x0070BDA0 | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowTriangleAlpha(float depth, uint32 intensity) | [source/game_sa/Shadows.cpp:1863](../../source/game_sa/Shadows.cpp#L1863) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| * ShadowRenderTriangleCB(CVector* normal, CVector* trianglePos, _ProjectionParam* param) | [source/game_sa/Shadows.cpp:1889](../../source/game_sa/Shadows.cpp#L1889) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ShadowRenderTriangleRegisterEntry() | [source/game_sa/Shadows.cpp:1932](../../source/game_sa/Shadows.cpp#L1932) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1407"></a>
+<a id="grupo-1409"></a>
 
 ## Globales y helpers: source/game_sa/Shopping.cpp
 
@@ -131,7 +145,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetChangingStatIndex(const char* stat) | [source/game_sa/Shopping.cpp:70](../../source/game_sa/Shopping.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1408"></a>
+<a id="grupo-1410"></a>
 
 ## Globales y helpers: source/game_sa/SpecialFX.cpp
 
@@ -139,7 +153,7 @@
 | --- | --- | --- | --- | --- | --- |
 | MultiplyPointLikeExe(const CMatrix& m, const CVector& v) | [source/game_sa/SpecialFX.cpp:100](../../source/game_sa/SpecialFX.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1409"></a>
+<a id="grupo-1411"></a>
 
 ## Globales y helpers: source/game_sa/Sprite.cpp
 
@@ -157,7 +171,7 @@
 | SetSpriteVertices(RwIm2DVertex* vertices, const CornerCoords1D& xs, const CornerCoords1D& ys, float z, float rhw, uint32 color) | [source/game_sa/Sprite.cpp:195](../../source/game_sa/Sprite.cpp#L195) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PushSpriteQuad() | [source/game_sa/Sprite.cpp:201](../../source/game_sa/Sprite.cpp#L201) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo nSpriteBufferIndex: source/game_sa/Sprite.cpp:22 (0x00C6A158) |
 
-<a id="grupo-1410"></a>
+<a id="grupo-1412"></a>
 
 ## Globales y helpers: source/game_sa/Stats.cpp
 
@@ -201,7 +215,7 @@
 | VehicleStats9Display() | [source/game_sa/Stats.cpp:3065](../../source/game_sa/Stats.cpp#L3065) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x0055B980; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | VehicleStats9Ftol() | [source/game_sa/Stats.cpp:3066](../../source/game_sa/Stats.cpp#L3066) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x00821B40; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1411"></a>
+<a id="grupo-1413"></a>
 
 ## Globales y helpers: source/game_sa/StencilShadows.cpp
 
@@ -216,7 +230,7 @@
 | StencilTransformPoints(CVector* out, int32 count, const CMatrix* matrix, const CVector* in) | [source/game_sa/StencilShadows.cpp:121](../../source/game_sa/StencilShadows.cpp#L121) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x0054EEF0: Common::TransformPoints; ruta efectiva sin resolver |
 | BuildShadowVolume(CStencilShadowObject* obj, bool forVehicle) | [source/game_sa/StencilShadows.cpp:128](../../source/game_sa/StencilShadows.cpp#L128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo s_ShadowTrianglePoints: source/game_sa/StencilShadows.cpp:28 (0x00C6A174); Posible dato fijo s_ShadowTrianglePointsUnk: source/game_sa/StencilShadows.cpp:27 (0x00C6A170); Posible dato fijo s_SunPosNrm: source/game_sa/StencilShadows.cpp:30 (0x008D5244); Posible dato fijo s_TransformedShadowTrianglePoints: source/game_sa/StencilShadows.cpp:29 (0x00C6A178) |
 
-<a id="grupo-1412"></a>
+<a id="grupo-1414"></a>
 
 ## Globales y helpers: source/game_sa/Streaming.cpp
 
@@ -226,7 +240,7 @@
 | ExeLodSector(float v) | [source/game_sa/Streaming.cpp:41](../../source/game_sa/Streaming.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MemoryUsedBelow(size_t goal) | [source/game_sa/Streaming.cpp:43](../../source/game_sa/Streaming.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_memoryUsedBytes: source/game_sa/Streaming.h:245 (0x008E4CB4) |
 
-<a id="grupo-1413"></a>
+<a id="grupo-1415"></a>
 
 ## Globales y helpers: source/game_sa/Streaming.h
 
@@ -258,7 +272,7 @@
 | ModelIdToRRR(int32 absId) | [source/game_sa/Streaming.h:138](../../source/game_sa/Streaming.h#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ModelIdToSCM(int32 absId) | [source/game_sa/Streaming.h:139](../../source/game_sa/Streaming.h#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1414"></a>
+<a id="grupo-1416"></a>
 
 ## Globales y helpers: source/game_sa/StuckCarCheck.cpp
 
@@ -266,7 +280,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * GetVehicleNoBoundsCheck(int32 handle) | [source/game_sa/StuckCarCheck.cpp:25](../../source/game_sa/StuckCarCheck.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1415"></a>
+<a id="grupo-1417"></a>
 
 ## Globales y helpers: source/game_sa/StuntJumpManager.cpp
 
@@ -279,7 +293,7 @@
 | ResetAllJumps() | [source/game_sa/StuntJumpManager.cpp:351](../../source/game_sa/StuntJumpManager.cpp#L351) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | StuntJumpTestCode() | [source/game_sa/StuntJumpManager.cpp:359](../../source/game_sa/StuntJumpManager.cpp#L359) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1416"></a>
+<a id="grupo-1418"></a>
 
 ## Globales y helpers: source/game_sa/TagManager.cpp
 
@@ -287,7 +301,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IsTagInArea(const CRect& area, const tTagDesc& tag) | [source/game_sa/TagManager.cpp:121](../../source/game_sa/TagManager.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1417"></a>
+<a id="grupo-1419"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocator.h
 
@@ -295,7 +309,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CPedGroupDefaultTaskAllocator | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocator.h:10](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocator.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1418"></a>
+<a id="grupo-1420"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h
 
@@ -303,21 +317,3 @@
 | --- | --- | --- | --- | --- | --- |
 | CPedGroupDefaultTaskAllocatorChat | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h:33](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h#L33) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h:41](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1419"></a>
-
-## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPedGroupDefaultTaskAllocatorFollowAnyMeans | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h:31](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h#L31) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h:39](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1420"></a>
-
-## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPedGroupDefaultTaskAllocatorFollowLimited | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h:28](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h#L28) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h:36](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

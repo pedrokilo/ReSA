@@ -1,6 +1,6 @@
 # Archivos pendientes de convertir a C++
 
-177 archivos: 930 apariciones de ensamblador y 277 declaraciones naked.
+177 archivos: 926 apariciones de ensamblador y 277 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -134,7 +134,7 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/RwHelper.cpp](../../source/game_sa/RwHelper.cpp) | 1 | 1 |
 | [source/game_sa/Scripts/RunningScript.cpp](../../source/game_sa/Scripts/RunningScript.cpp) | 1 | 0 |
 | [source/game_sa/Scripts/TheScripts.cpp](../../source/game_sa/Scripts/TheScripts.cpp) | 3 | 0 |
-| [source/game_sa/Shadows.cpp](../../source/game_sa/Shadows.cpp) | 60 | 1 |
+| [source/game_sa/Shadows.cpp](../../source/game_sa/Shadows.cpp) | 56 | 1 |
 | [source/game_sa/ShotInfo.cpp](../../source/game_sa/ShotInfo.cpp) | 2 | 0 |
 | [source/game_sa/SimpleTransform.cpp](../../source/game_sa/SimpleTransform.cpp) | 2 | 0 |
 | [source/game_sa/Sprite.cpp](../../source/game_sa/Sprite.cpp) | 2 | 0 |

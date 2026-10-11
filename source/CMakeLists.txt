@@ -92,6 +92,20 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # Double-rounded FSQRT helper for shadow distance checks; Shadows.cpp keeps its options.
+    set_source_files_properties(game_sa/ShadowSqrtCpp.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    # Scalar x87 shadow math helpers; Shadows.cpp keeps its options.
+    set_source_files_properties(game_sa/ShadowMathCpp.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # /ZI reserves stack space even for an empty function, changing EFLAGS.
     # These C++ bodies must preserve the original caller's flags and registers.
     # Use ordinary debug symbols and compile separately from the /ZI PCH/unity.

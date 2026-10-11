@@ -1,0 +1,21 @@
+{
+  "helpers": [
+    {
+      "old": "?ShadowExtendedSqrt@@YANM@Z",
+      "new": "_ShadowSqrtCpp",
+      "canonical": "ShadowExtendedSqrtPC24Store64"
+    }
+  ],
+  "consumers": [
+    {
+      "symbol": "?StoreStaticShadow@CShadows@@SA_NIW4eShadowType@@PAURwTexture@@ABVCVector@@MMMMFEEEMMM_NM@Z",
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppSqrtSmallStudy\\artifacts\\Shadows.actual-before.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\reversing\\CppSqrtSmallStudy\\artifacts\\Shadows.actual-after.obj"
+    },
+    {
+      "symbol": "?StoreShadowForVehicle@CShadows@@SAXPAVCVehicle@@W4VEH_SHD_TYPE@@@Z",
+      "old_object": "D:\\Original\\gta-reversed-master\\reversing\\CppSqrtSmallStudy\\artifacts\\Shadows.actual-before.obj",
+      "new_object": "D:\\Original\\gta-reversed-master\\reversing\\CppSqrtSmallStudy\\artifacts\\Shadows.actual-after.obj"
+    }
+  ]
+}

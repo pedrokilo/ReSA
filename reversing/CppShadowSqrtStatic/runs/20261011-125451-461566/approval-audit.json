@@ -1,0 +1,52 @@
+{
+  "bank": "CppShadowSqrtStatic",
+  "run": "20261011-125451-461566",
+  "functions": 1,
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CShadows::StoreStaticShadow": 4096
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "28e2cac49b9880ba2db953eef1e75fb55a51a5e34dc6d4d9ddf3481d19cd7cba",
+  "tested_sources": {
+    "source/game_sa/Shadows.cpp": "fe49fb1a9eff46e7880e3b505faed3d6577daff5b8615becbed8d577fe329612",
+    "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
+    "source/game_sa/ShadowSqrtCpp.cpp": "30aff951ac5927dcde4e88b0991cf7934c2f2859525f81eaefed163bad8afb98",
+    "source/game_sa/ShadowSqrtCpp.h": "4d53a6bebfda90376a620bcc1849338a20d4f6f59be6c61dd0734f7d2f4f7962",
+    "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+    "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+    "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+    "source/game_sa/Core/Vector2D.h": "8d04bab5a3e40bcea6905c38645544702fa1ae351a3ed84fff68e4155e3089d0",
+    "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
+    "source/game_sa/Collision/ColTrianglePlane.h": "4b5a5a9ac830973ae14af16eb74cb73a0ee0d1a8106583292ba60a7c338de499",
+    "source/game_sa/Collision/ColTriangle.h": "4c44f284207ecf62fff89de2751bc56aec84a793373304f96fd57062cb125f4a",
+    "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
+    "source/game_sa/RealTimeShadow.h": "9851f77d169019512dfb60e050f620ad383e84c94193bdf80aacbba7d0533b49",
+    "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
+    "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+    "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
+    "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
+    "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
+    "source/CMakeLists.txt": "b7408f8c9ad48745df03a241a1414806d5816c437948e6d2a940379c8a385378",
+    "CMakeLists.txt": "b68fad6160dbe5ae12e78e142b1691b49b337db1c84c8c37947268db85f3e0a1",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "source/reversiblehooks/RootHookCategory.h": "c48de9e729dc3aaf973dff92cff28822410b635c5101ba65a27327badea33ef7",
+    "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "16e0074caca87a9628139cc07e8a33356500e4435a131b0775182bd46b9e7b25",
+    "build_probe.py": "4ab93091650e1a94155d054f17990aefb9c31ebd299891aa54b0a6c513048649",
+    "run_local.py": "fa0710186cd1a6050f8540a1f90136cfc19a1bd87446bc2c761e88c9511d7cd3"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "5d4ebb6908b43e826cf304ae67676d78b4f1772afc0a069ea2912c20e10b25f0",
+  "registered_hook_verified": false,
+  "auditor_sha256": "c32cea4434e203321f0322f9a33a74334bd2a4036c55afd856a6b4fe5cd3606f",
+  "route_field": "switches",
+  "scope": "Two selected shadow consumers historical fixtures/results/state/traces; helper debug ABI differs; no full FP108/raw register contract or exception-path certification"
+}

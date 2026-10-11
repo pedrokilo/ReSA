@@ -1,0 +1,73 @@
+--- a/source/game_sa/Shadows.cpp
++++ b/source/game_sa/Shadows.cpp
+@@ -34,6 +34,7 @@
+ #include "StdInc.h"
+ #include <imgui.h>
+ #include "Shadows.h"
++#include "ShadowSqrtCpp.h"
+ #include "FireManager.h"
+ #include <CustomBuildingDNPipeline.h>
+ 
+@@ -1578,13 +1579,7 @@
+     __asm { fstp result }
+     return result;
+ }
+-static double ShadowExtendedSqrt(float value) {
+-    double result;
+-    __asm { fld value }
+-    __asm { fsqrt }
+-    __asm { fstp result }
+-    return result;
+-}
++
+ static int32 ShadowFadeInteger(double fade, int32 value) {
+     int32 result;
+     __asm {
+@@ -1602,7 +1597,7 @@
+     if (drawDistance != 0.0f) {
+         const double radiusSquared = ShadowExtendedProduct(drawDistance, drawDistance);
+         if (!(squared < radiusSquared)) return true;
+-        if (!(ShadowExtendedSqrt(squared) < ShadowExtendedProduct(drawDistance, 0.75f))) {
++        if (!(ShadowSqrtCpp(squared) < ShadowExtendedProduct(drawDistance, 0.75f))) {
+             const double fade = ShadowDistanceFade(squared, drawDistance);
+             intensity = int16(ShadowFadeInteger(fade, intensity));
+             red = uint8(ShadowFadeInteger(fade, red));
+@@ -1680,7 +1675,7 @@
+         (vehShadowType >= VEH_SHD_HELI && vehShadowType <= VEH_SHD_RC ? 144.0f : 18.0f);
+     if (!(squared < distance * distance)) return;
+     int16 intensity = strength;
+-    if (!(ShadowExtendedSqrt(squared) < ShadowExtendedProduct(distance, .75f))) intensity = int16(ShadowFadeInteger(ShadowDistanceFade(squared, distance), strength));
++    if (!(ShadowSqrtCpp(squared) < ShadowExtendedProduct(distance, .75f))) intensity = int16(ShadowFadeInteger(ShadowDistanceFade(squared, distance), strength));
+     const auto& box = vehicle->GetColModel()->GetBoundingBox();
+     float length = box.m_vecMax.y - box.m_vecMin.y;
+     float breadth = box.m_vecMax.x - box.m_vecMin.x;
+--- a/source/CMakeLists.txt
++++ b/source/CMakeLists.txt
+@@ -81,6 +81,12 @@
+         SKIP_UNITY_BUILD_INCLUSION ON
+     )
+     set_source_files_properties(game_sa/CloudsMathCpp.cpp PROPERTIES
++        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
++        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
++        SKIP_PRECOMPILE_HEADERS ON
++        SKIP_UNITY_BUILD_INCLUSION ON
++    )
++    set_source_files_properties(game_sa/ShadowSqrtCpp.cpp PROPERTIES
+         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+         VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+         SKIP_PRECOMPILE_HEADERS ON
+--- /dev/null
++++ b/source/game_sa/ShadowSqrtCpp.h
+@@ -0,0 +1,2 @@
++#pragma once
++extern "C" double __cdecl ShadowSqrtCpp(float value);
+--- /dev/null
++++ b/source/game_sa/ShadowSqrtCpp.cpp
+@@ -0,0 +1,7 @@
++// Compile separately: /O2 /Oi /arch:IA32 /fp:fast, ordinary /Zi and no RTC/PCH/unity.
++extern "C" double __cdecl sqrt(double);
++#pragma intrinsic(sqrt)
++extern "C" __declspec(noinline) double __cdecl ShadowSqrtCpp(float value) {
++    volatile double result = sqrt(double(value));
++    return result;
++}
