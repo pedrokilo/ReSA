@@ -439,28 +439,29 @@
     "converted_source_functions": 1,
     "source": "source/game_sa/Conversations/ConversationForPed.cpp",
     "shared_source": "source/game_sa/Conversations/ConversationMathCpp.cpp",
-    "bank": "CppConversationPosition",
-    "run": "20261011-135326-813627",
-    "pairs": 2414,
-    "audit": "reversing/CppConversationPosition/runs/20261011-135326-813627/approval-audit.json",
+    "bank": "CppConversationForPed",
+    "run": "20261011-143612-800417",
+    "pairs": 4702,
+    "audit": "reversing/CppConversationForPed/runs/20261011-143612-800417/approval-audit.json",
     "differences": 0,
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppConversationStudy/README.md",
-    "scope": "Three x87 blocks replaced by C++ helpers with the same operation order; function body remains Debug code, so no byte-identical or raw-register claim; fixtures of the historical bank (position cases only, 18 x87 adversarial cases); no NaN/infinity beyond them."
+    "scope": "The three x87 blocks are static noinline C++ functions in ConversationForPed.cpp, which is compiled whole with /O2 /arch:IA32 /fp:fast; inlined, /fp:fast replaced sqrt(s)>4 by s>16, so the helpers stay noinline and keep FSQRT, the same addition order and false-on-NaN comparisons. The class bank also revalidates Update (0x43C190, 2288 pairs) under the new options; Update was never assembly and is not a new conversion. Debug-style body of IsPlayerInPositionForConversation no longer applies (O2), so no byte-identical or raw-register claim; only the 18 historical x87 adversarial cases, no NaN/infinity; Clear(bool) not exercised; Yes/No keys driven through the real CPad bytes (their accessors are inline).",
+    "own_pairs": 2414
   },
   "0x0043A710": {
     "identity": "CConversationNode::ClearRecursively",
     "converted_source_functions": 1,
-    "source": "source/game_sa/Conversations/ConversationNodeCpp.cpp",
+    "source": "source/game_sa/Conversations/ConversationNode.cpp",
     "bank": "CppConversationClear",
-    "run": "20261011-135438-113628",
+    "run": "20261011-141656-479908",
     "pairs": 2048,
-    "audit": "reversing/CppConversationClear/runs/20261011-135438-113628/approval-audit.json",
+    "audit": "reversing/CppConversationClear/runs/20261011-141656-479908/approval-audit.json",
     "differences": 0,
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppConversationStudy/exe-clear-recursively.json",
-    "scope": "Naked EDX-preserving wrapper replaced by a direct hook; real /O2 object writes only EAX/ECX/ESI like the EXE and has no EDX references; raw EAX/ECX/EDX/ESI/EDI/EBX/EBP/ESP/flags checked in 2048 acyclic pairs; not a byte-identical body and not a proof of other callers."
+    "scope": "Naked EDX-preserving wrapper replaced by a direct hook; the whole ConversationNode.cpp is compiled /O2 and the real ClearRecursively object (92 bytes, same size as the EXE) writes only EAX/ECX/ESI with no EDX references (indices via m_Nodes.data()[i], no std::array assert); raw EAX/ECX/EDX/ESI/EDI/EBX/EBP/ESP/flags checked in 2048 acyclic pairs; not a byte-identical body and not a proof of other callers."
   }
 }

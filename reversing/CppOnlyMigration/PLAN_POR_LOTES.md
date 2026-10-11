@@ -23,7 +23,7 @@ Los totales suman las 782 definiciones del inventario actual. Las dos columnas d
 
 ## Lo ya hecho
 
-38 funciones fuente. Lote 1a: ShadowExtendedSqrt y ShadowDistanceFade (README). Lote Conversaciones: IsPlayerInPositionForConversation y ClearRecursively (ver [CppConversationStudy](../CppConversationStudy/README.md)).
+38 funciones fuente. Lote 1a: ShadowExtendedSqrt y ShadowDistanceFade (README). Lote Conversaciones: IsPlayerInPositionForConversation y ClearRecursively, cada clase en sus dos archivos `.cpp` y `.h` (ver [CppConversationStudy](../CppConversationStudy/README.md)). La revisión de las conversiones anteriores, que sí tienen archivos auxiliares y código duplicado, está en [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md).
 
 **Hallazgo útil:** un envoltorio `naked` que sólo preserva EDX (`*_KeepEdx`) se puede reemplazar por un hook directo si la función se compila en un archivo /O2 propio y el objeto real no escribe EDX, como en ClearRecursively. Hay 8 envoltorios `KeepEdx` en `source/game_sa` (Audio/AEVehicleAudioEntity, CarEnterExit y otros): candidatos a un lote propio, cada uno con comprobación del objeto real y banco con EDX sembrado. No se asume que el compilador no use EDX: se comprueba en el objeto de cada función.
 

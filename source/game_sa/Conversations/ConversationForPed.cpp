@@ -16,9 +16,20 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+// Este archivo se compila completo con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt):
+// IsPlayerInPositionForConversation necesita las operaciones x87 sin guardados intermedios de float.
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
+#include "StdInc.h"
 #include "ConversationForPed.h"
 #include "Conversations.h"
-#include "ConversationMathCpp.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+extern "C" double __cdecl sqrt(double);
+#pragma intrinsic(sqrt)
 
 /** Registra la actualización y la comprobación espacial de la conversación. */
 void CConversationForPed::InjectHooks() {
@@ -126,6 +137,28 @@ void CConversationForPed::Update() {
     }
 }
 
+// GTA cambia la precisión de x87: ni float ni double conservan todos sus redondeos
+// intermedios. Estas funciones son noinline porque, insertadas en línea con /fp:fast, el
+// compilador sustituye sqrt(s) > 4 por s > 16 y elimina el FSQRT. Conservan la secuencia del
+// EXE (FSQRT, FCOMP + FNSTSW + TEST AH,41h), el orden de las sumas y el resultado false con NaN.
+static __declspec(noinline) bool ConversationTooFar(const CVector& ped, const CVector& player) {
+    const float dx = player.x - ped.x;
+    const float dy = player.y - ped.y;
+    const float dz = player.z - ped.z;
+    const float distance = float(sqrt(double((dz * dz + dy * dy) + dx * dx)));
+    return distance > 4.f;
+}
+
+static __declspec(noinline) bool ConversationFacingAway(const CVector& ped, const CVector& player) {
+    const float dot = (player.z * ped.z + player.y * ped.y) + player.x * ped.x;
+    return dot > 0.f;
+}
+
+static __declspec(noinline) bool ConversationMovingTooFast(const CVector& speed) {
+    const float magnitude = float(sqrt(double(speed.x * speed.x + speed.y * speed.y)));
+    return magnitude > 0.01f;
+}
+
 // 0x43AC40
 /**
  * Comprueba distancia, orientación, movimiento y disponibilidad de los participantes.
@@ -136,23 +169,16 @@ void CConversationForPed::Update() {
 bool CConversationForPed::IsPlayerInPositionForConversation(bool randomConversation) {
     const auto& pedPosition = m_pPed->GetPosition();
     const auto playerPosition = FindPlayerCoors();
-    // GTA cambia la precisión de x87: ni float ni double conservan todos sus
-    // redondeos intermedios. El cálculo está en ConversationMathCpp.cpp, con las
-    // mismas operaciones x87 y la comparación que conserva los casos NaN.
-    const bool tooFar = ConversationTooFarCpp(&pedPosition.x, &playerPosition.x);
-    if (tooFar) {
+    if (ConversationTooFar(pedPosition, playerPosition)) {
         return false;
     }
 
     const auto& pedForward = m_pPed->GetForward();
     const auto& playerForward = FindPlayerPed()->GetForward();
-    const bool facingAway = ConversationFacingAwayCpp(&pedForward.x, &playerForward.x);
-    if (facingAway) {
+    if (ConversationFacingAway(pedForward, playerForward)) {
         return false;
     }
-    const auto& speed = FindPlayerPed()->m_vecMoveSpeed;
-    const bool movingTooFast = ConversationMovingTooFastCpp(&speed.x);
-    if (movingTooFast) {
+    if (ConversationMovingTooFast(FindPlayerPed()->m_vecMoveSpeed)) {
         return false;
     }
     if (m_pPed->m_pLastEntityDamage == FindPlayerPed()

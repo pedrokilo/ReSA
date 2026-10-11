@@ -9,12 +9,33 @@
     "ESI (saved with PUSH ESI/POP ESI)"
   ],
   "exe_exit_flags": "last flag-setting instruction is OR EAX,-1 (CF=OF=0, SF=1, ZF=0, PF=1; AF undefined); EAX=0xFFFFFFFF",
-  "candidate_object": "ConversationNodeCpp.obj (/O2 /Oi /arch:IA32 /fp:fast /Zi, no RTC/PCH/unity)",
+  "candidate_object": "ConversationNode.obj (archivo completo /O2 /Oi /arch:IA32 /fp:fast /Zi, sin RTC/PCH/unity)",
   "candidate_registers_written": [
     "EAX",
     "ECX",
     "ESI (saved with PUSH ESI/POP ESI)"
   ],
-  "candidate_edx_references": 0,
-  "note": "Instruction encodings differ (CWDE+LEA vs MOVSX+LEA, store order) but the register contract and exit flags are the same; the bank checks EDX/EBX/EDI/EBP/ESP preservation, EAX, ECX, flags and node memory in 2048 pairs."
+  "candidate_edx_references": "0 en el cuerpo de ClearRecursively (comprobado decodificando los 92 bytes; el acceso usa m_Nodes.data()[i], sin assert de std::array)",
+  "note": "Instruction encodings differ (CWDE+LEA vs MOVSX+LEA, store order) but the register contract and exit flags are the same; the bank checks EDX/EBX/EDI/EBP/ESP preservation, EAX, ECX, flags and node memory in 2048 pairs.",
+  "candidate_function_bytes": "568bf10fb746086685c07811988d0c40a1000000008d0cc8e8000000000fb7460a6685c07811988d0c40a1000000008d0cc8e80000000083c8ffc60600668946086689460ac7460c00000000c7461000000000c74614000000005ec3",
+  "candidate_function_size": 92,
+  "candidate_relocations": [
+    [
+      17,
+      "?m_Nodes@CConversations@@2AAV?$array@VCConversationNode@@$0DC@@std@@A"
+    ],
+    [
+      25,
+      "?ClearRecursively@CConversationNode@@QAEXXZ"
+    ],
+    [
+      43,
+      "?m_Nodes@CConversations@@2AAV?$array@VCConversationNode@@$0DC@@std@@A"
+    ],
+    [
+      51,
+      "?ClearRecursively@CConversationNode@@QAEXXZ"
+    ]
+  ],
+  "candidate_note": "Mismo tama\u00f1o (92 bytes) y mismo contrato de registros y de salida que el EXE; las codificaciones difieren (CWDE+LEA, carga de m_Nodes por memoria)."
 }

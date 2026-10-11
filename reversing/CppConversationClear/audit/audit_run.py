@@ -15,7 +15,7 @@ FLAGS_HYPOTHESIS = 0x84  # CF=OF=0, SF=1, ZF=0, PF=1: se COMPRUEBA, no se asume
 GATES = ('called', 'fixture_acyclic', 'route_ok', 'stack_restored', 'registers_preserved', 'edx_preserved',
          'df_preserved', 'oracle_ok', 'guards_ok', 'snapshot_restored', 'fp_state_restored')
 REQUIRED_SOURCES = {'source/game_sa/Conversations/ConversationNode.cpp', 'source/game_sa/Conversations/ConversationNode.h',
-                    'source/game_sa/Conversations/ConversationNodeCpp.cpp', 'source/game_sa/Conversations/Conversations.h',
+                    'source/game_sa/Conversations/Conversations.h',
                     'source/game_sa/Conversations/ConversationForPed.cpp', 'source/CMakeLists.txt', 'CMakeLists.txt',
                     'source/InjectHooksMain.cpp', 'source/reversiblehooks/RootHookCategory.h',
                     'source/reversiblehooks/ReversibleHook/Base.h'}

@@ -6,6 +6,8 @@
 
 ## Reglas generales
 
+- **Todo lo que se reconstruya se escribe en C++**, sin `__asm` ni `__declspec(naked)`. Una clase ocupa dos archivos, un `.cpp` y un `.h`, y no se duplican funciones, globales ni listas de includes. El ensamblador existente se convierte a C++ conservando los resultados exactos del EXE. Proceso, técnicas y límites: [reversing/CppOnlyMigration/PROCESO.md](../reversing/CppOnlyMigration/PROCESO.md).
+
 - No modifiques código existente salvo que esté relacionado con tu contribución o sea imprescindible.
 - Revisa las advertencias del compilador e intenta eliminarlas.
 

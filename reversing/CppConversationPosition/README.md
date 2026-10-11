@@ -1,3 +1,5 @@
+> SUPERADO el 11/10/2026: `ConversationMathCpp` ya no existe (los helpers pasaron a ConversationForPed.cpp) y la clase completa se valida con CppConversationForPed. Este banco y su corrida 20261011-135326-813627 quedan sólo como historia.
+
 > Actualización 11/10/2026: este banco se compiló y ejecutó dentro del juego; la corrida 20261011-135326-813627 aprobó 2414 pares con cero diferencias (auditoría en runs/20261011-135326-813627/approval-audit.json). Las frases siguientes que dicen «no compilado ni ejecutado» describen el estado de cuando se escribió. Resultado y límites en [CppConversationStudy](../CppConversationStudy/README.md).
 
 # CppConversationPosition: propuesta pendiente

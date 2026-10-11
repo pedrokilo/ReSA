@@ -72,12 +72,12 @@ template<typename T>
 auto& PoolOf() = delete;
 
 template<>
-auto& PoolOf<CColModel>() {
+inline auto& PoolOf<CColModel>() {
     return *GetColModelPool();
 }
 
 template<>
-auto& PoolOf<CPedIntelligence>() {
+inline auto& PoolOf<CPedIntelligence>() {
     return *GetPedIntelligencePool();
 }
 
@@ -88,12 +88,12 @@ auto& PoolOf<CPedIntelligence>() {
 //auto& PoolOf<CPtrNodeDoubleLink>() { return *GetPtrNodeDoubleLinkPool(); }
 
 template<>
-auto& PoolOf<CEntryInfoNode>() {
+inline auto& PoolOf<CEntryInfoNode>() {
     return *GetEntryInfoNodePool();
 }
 
 template<>
-auto& PoolOf<CPointRoute>() {
+inline auto& PoolOf<CPointRoute>() {
     return *GetPointRoutePool();
 }
 
@@ -101,17 +101,17 @@ auto& PoolOf<CPointRoute>() {
 //auto& PoolOf<CPatrolRoute>() { return *GetPatrolRoutePool(); }
 
 template<>
-auto& PoolOf<CNodeRoute>() {
+inline auto& PoolOf<CNodeRoute>() {
     return *GetNodeRoutePool();
 }
 
 template<>
-auto& PoolOf<CTaskAllocator>() {
+inline auto& PoolOf<CTaskAllocator>() {
     return *GetTaskAllocatorPool();
 }
 
 template<>
-auto& PoolOf<CPedAttractor>() {
+inline auto& PoolOf<CPedAttractor>() {
     return *GetPedAttractorPool();
 }
 

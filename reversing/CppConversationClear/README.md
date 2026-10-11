@@ -3,7 +3,7 @@
 # CppConversationClear
 
 Banco por pares dentro del juego para `CConversationNode::ClearRecursively` (0x43A710): EXE (hook apagado) frente a
-`source/game_sa/Conversations/ConversationNodeCpp.cpp` (/O2 /Oi /arch:IA32 /fp:fast) enganchado directamente con
+`source/game_sa/Conversations/ConversationNode.cpp` (archivo completo compilado con /O2 /Oi /arch:IA32 /fp:fast) enganchado directamente con
 `RH_ScopedInstall`. **No compilado ni ejecutado.** Ningun resultado anterior (p. ej. Pools56, 512 pares sin registros)
 valida este candidato.
 

@@ -16,15 +16,67 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+// Este archivo se compila con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt):
+// 0x43A710 solo debe escribir eax, ecx y esi porque sus llamadores del EXE conservan un puntero en edx.
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
+#include "StdInc.h"
 #include "ConversationNode.h"
 #include "Conversations.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 /** Registra la rutina reconstruida que limpia nodos de forma recursiva. */
 void CConversationNode::InjectHooks() {
     RH_ScopedClass(CConversationNode);
     RH_ScopedCategory("Conversations");
     // 0x43A710 solo toca eax, ecx y esi; sus llamadores del EXE (CConversations::RemoveConversationForPed 0x43A960,
-    // CConversationForPed::Clear 0x43A770) conservan el puntero del slot en edx. ConversationNodeCpp.cpp se compila
-    // con /O2 y su objeto no escribe edx, por lo que ya no hace falta un envoltorio.
+    // CConversationForPed::Clear 0x43A770) conservan el puntero del slot en edx. este archivo se compila con
+    // /O2 y su objeto no escribe edx, por lo que ya no hace falta un envoltorio.
     RH_ScopedInstall(ClearRecursively, 0x43A710);
+}
+
+/**
+ * Reinicia un solo nodo sin modificar los nodos referenciados por sus ramas.
+ *
+ * Asignar '\0' a m_Name[0] es importante: CConversations::DoneSettingUpConversation()
+ * utiliza un nombre vacío para identificar entradas libres del pool global de nodos.
+ */
+void CConversationNode::Clear() {
+    m_Name[0] = '\0';
+
+    // -1 funciona como centinela para "sin sucesor" o final de esta rama.
+    m_NodeYes = -1;
+    m_NodeNo  = -1;
+
+    // Elimina todos los identificadores de voz asociados al nodo.
+    m_Speech  = 0;
+    m_SpeechY = 0;
+    m_SpeechN = 0;
+}
+
+// 0x43A710
+/**
+ * Libera todo el subárbol de conversación cuya raíz es este nodo.
+ *
+ * Las ramas se limpian antes que el nodo actual para que sus índices sigan
+ * disponibles durante el recorrido recursivo.
+ *
+ * @note Se espera que los datos originales formen un árbol/grafo acíclico. Un
+ * ciclo provocaría recursión indefinida porque esta rutina no mantiene un conjunto
+ * de nodos ya visitados.
+ * Los índices se usan sin comprobación de límites, como en el EXE (data() evita el assert de std::array).
+ */
+void CConversationNode::ClearRecursively() {
+    if (m_NodeYes >= 0) {
+        CConversations::m_Nodes.data()[m_NodeYes].ClearRecursively();
+    }
+
+    if (m_NodeNo >= 0) {
+        CConversations::m_Nodes.data()[m_NodeNo].ClearRecursively();
+    }
+
+    Clear();
 }

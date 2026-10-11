@@ -4,15 +4,19 @@ Conversión de las dos únicas fuentes con ensamblador en `source/game_sa/Conver
 
 ## CConversationForPed::IsPlayerInPositionForConversation (0x43AC40)
 
-Los tres bloques `__asm` x87 pasaron a `ConversationMathCpp.cpp` (`ConversationTooFarCpp`, `ConversationFacingAwayCpp`, `ConversationMovingTooFastCpp`), compilado /O2 /Oi /arch:IA32 /fp:fast /Zi sin RTC/PCH/unity sólo para ese archivo. Objeto real: mismas operaciones y mismo orden de sumas que el ensamblador ((dz²+dy²)+dx², (z·z+y·y)+x·x, x²+y²), FSQRT en el cálculo de distancia y velocidad, y la comparación FCOMP + FNSTSW + TEST AH,41h que da `false` con NaN. El compilador reparte los registros x87 de otra forma (FXCH). El cuerpo de la función sigue siendo código Debug: se probó el resultado y el estado, no igualdad byte a byte con el EXE.
+Los tres bloques `__asm` x87 pasaron a funciones `static __declspec(noinline)` dentro de `ConversationForPed.cpp` (`ConversationTooFar`, `ConversationFacingAway`, `ConversationMovingTooFast`), de modo que la clase queda en sus dos archivos, `.cpp` y `.h`. El archivo completo se compila con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity: `#pragma optimize` dentro de un archivo Debug no sirve con `/ZI` y `/RTC1` (el compilador lo ignora y deja código Debug con cada `float` guardado en memoria y una llamada a `__CIsqrt`).
 
-Banco: CppConversationPosition, corrida 20261011-135326-813627, 2414 pares (los fixtures de posición del banco histórico ConversationForPed), cero diferencias. Un intento anterior (134333-986645) falló por disco lleno, sin resultado ni cambios en partidas o configuración.
+Con las funciones insertadas en línea, `/fp:fast` sustituyó `sqrt(s) > 4` por `s > 16` y eliminó el FSQRT, lo que cambia resultados en los bordes de redondeo. Por eso siguen `noinline`: el objeto real conserva FSQRT, FCOMP + FNSTSW + TEST AH,41h, el orden de las sumas ((dz²+dy²)+dx², (z·z+y·y)+x·x, x²+y²) y el resultado `false` con NaN. El objeto es igual al de los helpers del estudio anterior.
+
+Al ser /O2 para todo el archivo, el banco valida la clase completa: CppConversationForPed, corrida 20261011-143612-800417, 4702 pares (2414 de posición y 2288 de `Update`), cero diferencias. `Update` nunca tuvo ensamblador; se revalida porque cambian sus opciones de compilación. Reemplaza al banco CppConversationPosition (corrida 20261011-135326-813627, ya sin vigencia: su fuente `ConversationMathCpp` ya no existe).
+
+Para compilar sin PCH hizo falta corregir dos errores de cabecera que el PCH ocultaba: las especializaciones `notsa::PoolOf<T>()` de `Pools.h` y ocho funciones de `CompressedVector.h` estaban definidas sin `inline`, y duplicaban símbolos al incluir `StdInc.h` fuera del PCH.
 
 ## CConversationNode::ClearRecursively (0x43A710)
 
-Sustituye el envoltorio `naked` que preservaba EDX por un hook directo (`RH_ScopedInstall`) a `CConversationNode::ClearRecursively` definido en `ConversationNodeCpp.cpp` (/O2, mismas opciones por archivo). El objeto real sólo escribe EAX, ECX y ESI (guardado), igual que el EXE (ver `exe-clear-recursively.json`), no contiene referencias a EDX y termina con OR EAX,-1. Se movieron a ese archivo las definiciones de `Clear` y `ClearRecursively`; la constante 0x969570 de `CConversations::m_Nodes` está duplicada allí para no incluir `Conversations.h`, y el banco comprueba que coincide.
+Sustituye el envoltorio `naked` que preservaba EDX por un hook directo (`RH_ScopedInstall`) a `CConversationNode::ClearRecursively`, que queda en `ConversationNode.cpp` junto con `Clear` e `InjectHooks`: el archivo completo se compila con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (la clase queda en sus dos archivos, `.cpp` y `.h`). El objeto real de `ClearRecursively` mide 92 bytes como el del EXE, sólo escribe EAX, ECX y ESI (guardado), no contiene referencias a EDX y termina con OR EAX,-1 (ver `exe-clear-recursively.json`). Accede a los nodos con `m_Nodes.data()[i]`: `m_Nodes[i]` añadía el assert de límites de `std::array`, con una ruta que llama a `__CrtDbgReport` y clobberaría EDX, y el EXE no comprueba límites.
 
-Banco: CppConversationClear, corrida 20261011-135438-113628, 2048 pares con registros crudos: EDX preservado en todos los pares, EAX=0xFFFFFFFF, banderas definidas 0x84 (SF y PF) en todos, hash de los 50 nodos idéntico. Sólo grafos acíclicos (un ciclo recursaría sin fin también en el EXE).
+Banco: CppConversationClear, corrida 20261011-141656-479908 (repetida tras unificar el archivo; la anterior 20261011-135438-113628 era del archivo ConversationNodeCpp.cpp, ya eliminado y sólo se conserva como historia), 2048 pares con registros crudos: EDX preservado en todos los pares, EAX=0xFFFFFFFF, banderas definidas 0x84 (SF y PF) en todos, hash de los 50 nodos idéntico. Sólo grafos acíclicos (un ciclo recursaría sin fin también en el EXE).
 
 ## Límites
 
@@ -21,8 +25,6 @@ No cubre NaN ni infinito más allá de los 18 casos x87 históricos, ni el contr
 | Objeto | SHA256 |
 | --- | --- |
 | ConversationForPed.actual-before.obj | 0e2fcb794e46d7a0a896a9a3e17a489e5d2ad36229cf659ef6046540c7141f2b |
-| ConversationForPed.actual-after.obj | 6cc3f4c84e5ff0bbe26e1e9a811042e8e191c32276afca9fd4c099a624ddec5f |
 | ConversationNode.actual-before.obj | 0cde90cf13d65f9dbcc2cafccaf84754934bdef7479d16bce0678f9b2f5c98a0 |
-| ConversationNode.actual-after.obj | fc02335eef6f0620bd4ad555b72f1517bd261f29e44eec8b4e556edb0249a772 |
-| ConversationMathCpp.actual.obj | 5d9ee3b014dceff56d8a36674c2d5429443f8056834c9f5a35115e5dfb42e8a3 |
-| ConversationNodeCpp.actual.obj | 0ccc505336018beb5d888cdce292a5be2815a01ce478b688983f788db5d7130a |
+| ConversationNode.actual-final.obj | 297eff01f1cb05918fc8dac542f6c46521e432e10d376113b87916f6991abe56 |
+| ConversationForPed.actual-final.obj | 5a870c5a8fe80482740caa51e61f8c060c95a09b3e5311946cb14c10baf39b1f |

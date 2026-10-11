@@ -1,5 +1,7 @@
 # Conversión del código de producción a C++ sin ensamblador
 
+Política y proceso: [PROCESO.md](PROCESO.md) · revisión de lo anterior: [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md) · plan: [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md).
+
 Orden del usuario del 10/10/2026: eliminar ensamblador en línea y declaraciones naked de source/game_sa conservando resultados exactos del EXE, sin tolerancias numéricas.
 
 El inventario inicial identificó 185 archivos con 965 apariciones de ensamblador y 312 declaraciones naked, tras excluir comentarios y cadenas. Son apariciones léxicas, no funciones. [inventory.csv](inventory.csv) y [summary.json](summary.json) se regeneran con `python -B contrib/audit_cpp_assembly.py`; el análisis no sustituye un parser C++ ni una comprobación de ramas del preprocesador.
@@ -84,4 +86,4 @@ Corrección de alcance del lote 1: ShadowExtendedProduct también lo usa la func
 
 ## Conversaciones (11/10/2026)
 
-IsPlayerInPositionForConversation (0x43AC40) sustituye sus tres bloques x87 por helpers de ConversationMathCpp.cpp, y ClearRecursively (0x43A710) deja de usar el envoltorio `naked` que preservaba EDX: se engancha directamente a la versión de ConversationNodeCpp.cpp (/O2), cuyo objeto sólo escribe EAX, ECX y ESI como el EXE. Bancos CppConversationPosition (corrida 20261011-135326-813627, 2414 pares) y CppConversationClear (corrida 20261011-135438-113628, 2048 pares; EDX preservado en todos y banderas 0x84), cero diferencias. Detalle, límites y hashes de los objetos en [CppConversationStudy](../CppConversationStudy/README.md). El conteo pasa a 922 apariciones de ensamblador y 276 declaraciones naked en 175 archivos.
+IsPlayerInPositionForConversation (0x43AC40) sustituye sus tres bloques x87 por funciones noinline del propio ConversationForPed.cpp, compilado completo con /O2, y ClearRecursively (0x43A710) deja de usar el envoltorio `naked` que preservaba EDX: se engancha directamente a la versión de ConversationNode.cpp, compilado completo con /O2, cuyo objeto (92 bytes, igual que el EXE) sólo escribe EAX, ECX y ESI. Bancos CppConversationForPed (corrida 20261011-143612-800417, 4702 pares: 2414 de posición y 2288 de Update) y CppConversationClear (corrida 20261011-141656-479908, 2048 pares; EDX preservado en todos y banderas 0x84), cero diferencias. Detalle, límites y hashes de los objetos en [CppConversationStudy](../CppConversationStudy/README.md). El conteo pasa a 922 apariciones de ensamblador y 276 declaraciones naked en 175 archivos.

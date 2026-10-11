@@ -4,8 +4,8 @@
   "inline_assembly_occurrences": 922,
   "naked_declarations": 276,
   "extensions": {
-    ".cpp": 980,
-    ".h": 1188,
+    ".cpp": 978,
+    ".h": 1187,
     ".md": 1,
     ".def": 1,
     ".hpp": 11,

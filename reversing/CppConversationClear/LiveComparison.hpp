@@ -1,6 +1,6 @@
 #pragma once
 // Banco por pares dentro del juego: CConversationNode::ClearRecursively (0x43A710), thiscall, ECX=nodo, sin pila.
-// Candidato = ConversationNodeCpp.cpp (/O2 /Oi /arch:IA32 /fp:fast) enganchado DIRECTAMENTE con RH_ScopedInstall.
+// Candidato = ConversationNode.cpp (archivo completo /O2 /Oi /arch:IA32 /fp:fast) enganchado DIRECTAMENTE con RH_ScopedInstall.
 // Registros crudos: EAX/ECX/EDX/ESI/EDI/EBX/EBP/ESP y EFLAGS capturados inmediatamente despues de la llamada.
 // Fixtures SIN CICLOS (un ciclo recursaria sin fin en el original). No compilado ni ejecutado.
 #include <fstream>

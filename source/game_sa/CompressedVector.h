@@ -9,37 +9,37 @@ using CompressedFxVector = FixedVector<int16, 32767.0f>;
 using CompressedUnitFloat = FixedFloat<int16, 4096.0f>;
 
 // Use CompressedVector as a type instead.
-[[deprecated]] auto CompressVector(const CVector& v) {
+[[deprecated]] inline auto CompressVector(const CVector& v) {
     return CompressedVector{ v };
 }
 // Use CompressedVector as a type instead.
-[[deprecated]] auto UncompressVector(const CompressedVector& v) {
+[[deprecated]] inline auto UncompressVector(const CompressedVector& v) {
     return CVector{ v };
 }
 
 // Use CompressedLargeVector as a type instead.
-[[deprecated]] auto CompressLargeVector(const CVector& v) {
+[[deprecated]] inline auto CompressLargeVector(const CVector& v) {
     return CompressedLargeVector{ v };
 }
 // Use CompressedLargeVector as a type instead.
-[[deprecated]] auto UncompressLargeVector(const CompressedLargeVector& v) {
+[[deprecated]] inline auto UncompressLargeVector(const CompressedLargeVector& v) {
     return CVector{ v };
 }
 
 // Use CompressedUnitVector as a type instead.
-[[deprecated]] auto CompressUnitVector(const CVector& v) {
+[[deprecated]] inline auto CompressUnitVector(const CVector& v) {
     return CompressedUnitVector{ v };
 }
 // Use CompressedUnitVector as a type instead.
-[[deprecated]] auto UncompressUnitVector(const CompressedUnitVector& v) {
+[[deprecated]] inline auto UncompressUnitVector(const CompressedUnitVector& v) {
     return CVector{ v };
 }
 
 // Use CompressedFxVector as a type instead.
-[[deprecated]] auto CompressFxVector(const CVector& v) {
+[[deprecated]] inline auto CompressFxVector(const CVector& v) {
     return CompressedFxVector{ v };
 }
 // Use CompressedFxVector as a type instead.
-[[deprecated]] auto UncompressFxVector(const CompressedFxVector& v) {
+[[deprecated]] inline auto UncompressFxVector(const CompressedFxVector& v) {
     return CVector{ v };
 }

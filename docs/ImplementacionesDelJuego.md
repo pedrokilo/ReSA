@@ -158,7 +158,7 @@ De esas 780 definiciones, **491 son mixtas** y **289 contienen sólo ensamblador
 | [CControllerConfigManager](implementaciones/detalle-007.md#grupo-133) · [source/game_sa/ControllerConfigManager.cpp](../source/game_sa/ControllerConfigManager.cpp), [source/game_sa/ControllerConfigManager.h](../source/game_sa/ControllerConfigManager.h) | 59 | 0 | 14 | 0 | 0 |
 | [CControllerState](implementaciones/detalle-007.md#grupo-134) · [source/game_sa/ControllerState.cpp](../source/game_sa/ControllerState.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CConversationForPed](implementaciones/detalle-007.md#grupo-135) · [source/game_sa/Conversations/ConversationForPed.cpp](../source/game_sa/Conversations/ConversationForPed.cpp) | 2 | 0 | 2 | 0 | 0 |
-| [CConversationNode](implementaciones/detalle-007.md#grupo-136) · [source/game_sa/Conversations/ConversationNode.cpp](../source/game_sa/Conversations/ConversationNode.cpp), [source/game_sa/Conversations/ConversationNodeCpp.cpp](../source/game_sa/Conversations/ConversationNodeCpp.cpp) | 1 | 0 | 2 | 0 | 0 |
+| [CConversationNode](implementaciones/detalle-007.md#grupo-136) · [source/game_sa/Conversations/ConversationNode.cpp](../source/game_sa/Conversations/ConversationNode.cpp) | 1 | 0 | 2 | 0 | 0 |
 | [CConversations](implementaciones/detalle-007.md#grupo-137) · [source/game_sa/Conversations/Conversations.cpp](../source/game_sa/Conversations/Conversations.cpp) | 10 | 0 | 3 | 0 | 0 |
 | [CCopPed](implementaciones/detalle-007.md#grupo-138) · [source/game_sa/Entity/Ped/CopPed.cpp](../source/game_sa/Entity/Ped/CopPed.cpp) | 7 | 0 | 7 | 0 | 0 |
 | [CCoronas](implementaciones/detalle-007.md#grupo-139) · [source/game_sa/Coronas.cpp](../source/game_sa/Coronas.cpp) | 11 | 0 | 3 | 0 | 0 |
@@ -1078,7 +1078,7 @@ De esas 780 definiciones, **491 son mixtas** y **289 contienen sólo ensamblador
 | [Globales y helpers: source/game_sa/Collision/Sphere.cpp](implementaciones/detalle-053.md#grupo-1053) · [source/game_sa/Collision/Sphere.cpp](../source/game_sa/Collision/Sphere.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/CompressedVector.h](implementaciones/detalle-053.md#grupo-1054) · [source/game_sa/CompressedVector.h](../source/game_sa/CompressedVector.h) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/ControllerConfigManager.cpp](implementaciones/detalle-053.md#grupo-1055) · [source/game_sa/ControllerConfigManager.cpp](../source/game_sa/ControllerConfigManager.cpp) | 0 | 0 | 2 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Conversations/ConversationMathCpp.cpp](implementaciones/detalle-053.md#grupo-1056) · [source/game_sa/Conversations/ConversationMathCpp.cpp](../source/game_sa/Conversations/ConversationMathCpp.cpp) | 3 | 0 | 0 | 0 | 0 |
+| [Globales y helpers: source/game_sa/Conversations/ConversationForPed.cpp](implementaciones/detalle-053.md#grupo-1056) · [source/game_sa/Conversations/ConversationForPed.cpp](../source/game_sa/Conversations/ConversationForPed.cpp) | 0 | 0 | 3 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/EntryInfoNode.cpp](implementaciones/detalle-053.md#grupo-1057) · [source/game_sa/Core/EntryInfoNode.cpp](../source/game_sa/Core/EntryInfoNode.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/Matrix.cpp](implementaciones/detalle-053.md#grupo-1058) · [source/game_sa/Core/Matrix.cpp](../source/game_sa/Core/Matrix.cpp) | 0 | 0 | 6 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/OctTree.h](implementaciones/detalle-053.md#grupo-1059) · [source/game_sa/Core/OctTree.h](../source/game_sa/Core/OctTree.h) | 0 | 0 | 1 | 0 | 0 |

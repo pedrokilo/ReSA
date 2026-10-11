@@ -106,15 +106,15 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
-    # Conversation x87 checks (0x43AC40) keep the original operation order; callers keep their options.
-    set_source_files_properties(game_sa/Conversations/ConversationMathCpp.cpp PROPERTIES
+    # CConversationForPed::IsPlayerInPositionForConversation (0x43AC40) keeps the original x87 sequence; the whole class file is compiled this way.
+    set_source_files_properties(game_sa/Conversations/ConversationForPed.cpp PROPERTIES
         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
         VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
-    # 0x43A710 must not write EDX (callers keep a slot pointer there); optimized code touches only EAX/ECX/ESI.
-    set_source_files_properties(game_sa/Conversations/ConversationNodeCpp.cpp PROPERTIES
+    # 0x43A710 must not write EDX (callers keep a slot pointer there); this whole file holds only that class, and its optimized code touches only EAX/ECX/ESI.
+    set_source_files_properties(game_sa/Conversations/ConversationNode.cpp PROPERTIES
         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
         VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
         SKIP_PRECOMPILE_HEADERS ON
