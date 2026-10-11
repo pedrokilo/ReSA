@@ -1,10 +1,10 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8549 funciones reconstruidas; 8549 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9224 entradas binarias sin nombre catalogado; 820 destinos originales explícitos fuera del catálogo, 396 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 104 aprobadas dentro del juego; 131 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Cobertura fuera del catálogo de ReSA
 
-Revisión del 10 de octubre de 2026. **El 100% corresponde a las 8.547 entradas del catálogo principal, no a todo el código del EXE ni a todos los métodos de cada clase.** Hay funciones de juego identificadas que siguen delegando al original y no figuran en ese catálogo. La auditoría estática no concede validación. La cohorte de dependencias acumula 102 funciones reconstruidas y probadas dentro del juego antes de registrarlas, con 237.248 pares finales y cero diferencias: [inventario y evidencias](../reversing/OriginalDependencies499/README.md).
+Revisión del 10 de octubre de 2026. **El 100% corresponde a las 8.549 entradas del catálogo principal, no a todo el código del EXE ni a todos los métodos de cada clase.** Hay funciones de juego identificadas que siguen delegando al original y no figuran en ese catálogo. La auditoría estática no concede validación. La cohorte de dependencias acumula 104 funciones reconstruidas y probadas dentro del juego antes de registrarlas, con 241.344 pares finales y cero diferencias: [inventario y evidencias](../reversing/OriginalDependencies499/README.md).
 
 El texto recibido propone una dirección útil: auditar dependencias e integración antes de afirmar independencia del EXE. Sus cifras del catálogo son anteriores a la exclusión de `Win::NOTSA_WinMain`. Esa adaptación conserva su registro separado; no se considera una función original validada. La evidencia histórica del catálogo tampoco equivale a vigencia acreditada: el mapa registra cero validaciones con revisión actual de dependencias.
 
@@ -12,20 +12,20 @@ El texto recibido propone una dirección útil: auditar dependencias e integraci
 
 | Medida | Cantidad | Interpretación |
 | --- | ---: | --- |
-| Entradas del catálogo principal con evidencia histórica | 8.547 / 8.547 | Alcance del 100% publicado |
+| Entradas del catálogo principal con evidencia histórica | 8.549 / 8.549 | Alcance del 100% publicado |
 | Entradas de función detectadas en el EXE | 17.765 | Límites detectados, no total semántico exacto |
-| Entradas enlazadas con nombres del catálogo | 8.539 | Direcciones binarias, no número de filas del CSV |
-| Entradas sin nombre del catálogo | 9.226 | Incluye juego, bibliotecas, helpers y código generado |
+| Entradas enlazadas con nombres del catálogo | 8.541 | Direcciones binarias, no número de filas del CSV |
+| Entradas sin nombre del catálogo | 9.224 | Incluye juego, bibliotecas, helpers y código generado |
 | Slots fuente leídos del EXE | 5.486 | Extensión declarada por 443 tablas |
 | Slots con destino sin nombre del catálogo | 2.575 | Se repiten destinos por herencia |
 | Destinos únicos de esos slots | 949 | No son 949 funciones por reconstruir demostradas |
-| Destinos originales explícitos encontrados en source sin nombre catalogado | 822 | Cruce limitado de llamadas plugin y casts invocados |
-| De esos destinos, con aristas desde funciones catalogadas | 398 | Prioridad útil para investigar dependencias |
+| Destinos originales explícitos encontrados en source sin nombre catalogado | 820 | Cruce limitado de llamadas plugin y casts invocados |
+| De esos destinos, con aristas desde funciones catalogadas | 396 | Prioridad útil para investigar dependencias |
 | Identidades de registros fuente no enlazadas por owner/nombre | 180 | Candidatos; incluye diferencias de etiquetas de sobrecarga |
 | Nombres de tipos fuente fuera de los owners del catálogo | 1.177 | Incluye POD, plantillas, auxiliares y bibliotecas |
 | Llamadas indirectas sin resolver | 6.004 | Impiden afirmar un grafo de dependencias completo |
 
-Los conjuntos se solapan y **no se suman**. La separación de WinMain dejó 9.328 entradas sin nombre; el cruce binario actual debe consultarse junto con su fecha en el inventario. La cohorte inicial conserva las mismas 499 identidades: 235 funciones del juego, 243 destinos de bibliotecas y 21 inciertos. Actualmente tiene 102 funciones aprobadas y 133 del juego pendientes. Los nueve tipos RTTI recuperados tampoco representan todas las clases. El total exacto de funciones de juego faltantes fuera de esta cohorte sigue sin determinarse.
+Los conjuntos se solapan y **no se suman**. La separación de WinMain dejó 9.328 entradas sin nombre; el cruce binario actual debe consultarse junto con su fecha en el inventario. La cohorte inicial conserva las mismas 499 identidades: 235 funciones del juego, 243 destinos de bibliotecas y 21 inciertos. Actualmente tiene 104 funciones aprobadas y 131 del juego pendientes. Los nueve tipos RTTI recuperados tampoco representan todas las clases. El total exacto de funciones de juego faltantes fuera de esta cohorte sigue sin determinarse.
 
 ## Omisiones concretas que merecen trabajo
 
@@ -48,7 +48,7 @@ Los conjuntos se solapan y **no se suman**. La separación de WinMain dejó 9.32
 | CVector, CVector2D y CMatrix | Varias | Registros presentes en fuente; instalación desactivada en InjectHooksMain |
 | CQuaternion::Set (matriz y eje/ángulo) | 0x0059C3E0 / 0x0059C600 | Dos métodos registrados y validados: 2.048 pares; el resto de la clase sigue fuera de este alcance |
 
-Las dos revisiones enlazadas abajo conservan archivo/línea, slot o llamador y dirección/instrucción del EXE. Distinguen wrappers pendientes de fuente ya implementada. El registro completo de las 102 admisiones y sus bancos RH original/candidato está en la cohorte enlazada; ninguna recibe validación por inspección. Las 99 admisiones de la continuación suman 229.568 pares finales. Además de los primeros bancos, incluyen guardado de peatones, combate, cuaterniones, teclado y cámara, frustum, constructores de tareas, decisiones y relaciones, colisión, agua, formación, estadísticas y mensajes. El getter de memoria comprueba la tabla real sin validar sus callbacks. Cada banco documenta sus colaboradores y límites.
+Las dos revisiones enlazadas abajo conservan archivo/línea, slot o llamador y dirección/instrucción del EXE. Distinguen wrappers pendientes de fuente ya implementada. El registro completo de las 104 admisiones y sus bancos RH original/candidato está en la cohorte enlazada; ninguna recibe validación por inspección. Las 101 admisiones de la continuación suman 233.664 pares finales. Además de los primeros bancos, incluyen guardado de peatones, combate, cuaterniones, teclado y cámara, frustum, constructores de tareas, decisiones y relaciones, colisión, agua, formación, estadísticas y mensajes. El getter de memoria comprueba la tabla real sin validar sus callbacks. Cada banco documenta sus colaboradores y límites.
 
 Por contraste, `rand`, `operator new` y `RwTextureRead` son dependencias identificadas de CRT/RenderWare; requieren decidir cómo sustituir o conservar la biblioteca, pero no deben presentarse como funciones desconocidas de gameplay. Los destructores de borrado y los cuerpos base compartidos tampoco se cuentan una vez por cada slot.
 
@@ -59,11 +59,11 @@ Por contraste, `rand`, `operator new` y `RwTextureRead` son dependencias identif
 3. Resolver llamadas indirectas y separar CRT, RenderWare, código generado y helpers. Mantener explícitos los casos todavía desconocidos.
 4. Revisar vigencia de fuentes y dependencias, y ejecutar pruebas de integración de arranque, partida, vehículos, ped, tareas, audio, render y cierre. Sólo después plantear un ejecutable independiente y medir qué servicios/datos del original siguen siendo necesarios.
 
-El siguiente objetivo verificable es **cubrir las dependencias reales del juego fuera del catálogo**, sin convertir automáticamente las 9.226 entradas en una lista de funciones faltantes. Siguen pendientes 133 destinos clasificados como juego y 21 inciertos en la cohorte inicial, además del seguimiento separado de 243 destinos de bibliotecas.
+El siguiente objetivo verificable es **cubrir las dependencias reales del juego fuera del catálogo**, sin convertir automáticamente las 9.224 entradas en una lista de funciones faltantes. Siguen pendientes 131 destinos clasificados como juego y 21 inciertos en la cohorte inicial, además del seguimiento separado de 243 destinos de bibliotecas.
 
 ## Listas completas y reproducción
 
-- [9.226 entradas sin nombre catalogado](../reversing/BinaryCoverageAudit/unmatched-functions.csv).
+- [9.224 entradas sin nombre catalogado](../reversing/BinaryCoverageAudit/unmatched-functions.csv).
 - [Slots sin nombre catalogado](../reversing/BinaryCoverageAudit/virtual-slots-outside-catalogue.csv).
 - [Registros fuente candidatos](../reversing/BinaryCoverageAudit/source-registration-candidates.csv).
 - [Tipos fuente fuera del catálogo](../reversing/BinaryCoverageAudit/source-types-outside-catalogue.csv).

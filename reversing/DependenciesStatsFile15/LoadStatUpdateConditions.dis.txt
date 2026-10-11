@@ -1,0 +1,103 @@
+00559860: push ebp
+00559861: mov ebp,esp
+00559863: and esp,0FFFFFFF8h
+00559866: sub esp,78h
+00559869: push ebx
+0055986A: push ebp
+0055986B: push esi
+0055986C: push edi
+0055986D: xor ebx,ebx
+0055986F: push 858B54h
+00559874: mov dword ptr [esp+1Ch],0
+0055987C: mov dword ptr [esp+18h],ebx
+00559880: call 005387D0
+00559885: push 859C6Ch
+0055988A: push 863F80h
+0055988F: call 00538900
+00559894: mov esi,eax
+00559896: push esi
+00559897: mov dword ptr [esp+30h],esi
+0055989B: mov dword ptr ds:[00B794D0h],ebx
+005598A1: mov dword ptr [esp+20h],ebx
+005598A5: call 00536F80
+005598AA: add esp,10h
+005598AD: cmp eax,ebx
+005598AF: je 0055998B
+005598B5: mov ecx,8
+005598BA: lea edx,[esp+24h]
+005598BE: sub ecx,edx
+005598C0: mov ebp,0B78200h
+005598C5: mov dword ptr [esp+1Ch],ecx
+005598C9: lea esp,[esp+00000000h]
+ 00
+005598D0: mov cl,byte ptr [eax]
+005598D2: cmp cl,23h
+005598D5: je 0055997A
+005598DB: cmp cl,bl
+005598DD: je 0055997A
+005598E3: lea ecx,[esp+24h]
+005598E7: push ecx
+005598E8: lea edx,[esp+1Ch]
+005598EC: push edx
+005598ED: lea ecx,[esp+34h]
+005598F1: push ecx
+005598F2: lea edx,[esp+44h]
+005598F6: push edx
+005598F7: lea ecx,[esp+24h]
+005598FB: push ecx
+005598FC: push 863F70h
+00559901: push eax
+00559902: call 008220AD
+00559907: mov dx,word ptr [esp+30h]
+0055990C: add esp,1Ch
+0055990F: mov edi,863F64h
+00559914: lea esi,[esp+2Ch]
+00559918: mov ecx,9
+0055991D: xor eax,eax
+0055991F: repe cmps byte ptr [esi],byte ptr es:[edi]
+00559921: mov word ptr [ebp],dx
+00559925: mov byte ptr [ebp+2],bl
+00559928: jne 0055992F
+0055992A: mov byte ptr [ebp+3],bl
+0055992D: jmp 00559947
+0055992F: mov edi,863F58h
+00559934: lea esi,[esp+2Ch]
+00559938: mov ecx,9
+0055993D: xor edx,edx
+0055993F: repe cmps byte ptr [esi],byte ptr es:[edi]
+00559941: jne 00559947
+00559943: mov byte ptr [ebp+3],1
+00559947: mov eax,dword ptr [esp+18h]
+0055994B: mov ecx,dword ptr [esp+1Ch]
+0055994F: mov dword ptr [ebp+4],eax
+00559952: lea eax,[esp+24h]
+00559956: lea edx,[ecx+ebp]
+00559959: lea esp,[esp+00000000h]
+ 00
+00559960: mov cl,byte ptr [eax]
+00559962: mov byte ptr [edx+eax],cl
+00559965: inc eax
+00559966: cmp cl,bl
+00559968: jne 00559960
+0055996A: mov ecx,dword ptr [esp+10h]
+0055996E: mov esi,dword ptr [esp+20h]
+00559972: inc ecx
+00559973: mov dword ptr [esp+10h],ecx
+00559977: add ebp,10h
+0055997A: push esi
+0055997B: call 00536F80
+00559980: add esp,4
+00559983: cmp eax,ebx
+00559985: jne 005598D0
+0055998B: mov edx,dword ptr [esp+10h]
+0055998F: push esi
+00559990: mov dword ptr ds:[00B794D0h],edx
+00559996: call 005389D0
+0055999B: add esp,4
+0055999E: pop edi
+0055999F: pop esi
+005599A0: pop ebp
+005599A1: pop ebx
+005599A2: mov esp,ebp
+005599A4: pop ebp
+005599A5: ret

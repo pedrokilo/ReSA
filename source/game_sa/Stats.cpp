@@ -163,6 +163,7 @@ void CStats::InjectHooks() {
     RH_ScopedInstall(SafeToShowThisStat, 0x559590);
     RH_ScopedInstall(CheckForThreshold, 0x5595F0);
     RH_ScopedInstall(IsStatCapped, 0x559630);
+    RH_ScopedInstall(LoadStatUpdateConditions, 0x559860);
     RH_ScopedInstall(LoadActionReactionStats, 0x5599B0);
     RH_ScopedInstall(FindMaxNumberOfGroupMembers, 0x559A50);
     RH_ScopedInstall(ProcessReactionStatsOnDecrement, 0x559730);
@@ -657,8 +658,241 @@ Ui8_CheckForStatsMessage_55985F:
 }
 
 // 0x559860
-void CStats::LoadStatUpdateConditions() {
-    plugin::Call<0x559860>();
+// Tail entry bridge: preserves registers, flags and physical arguments.
+__declspec(naked) static void StatsFile15EntrySetDir() {
+    __asm { push 05387D0h }
+    __asm { ret }
+}
+
+// Tail entry bridge: preserves registers, flags and physical arguments.
+__declspec(naked) static void StatsFile15EntryOpenFile() {
+    __asm { push 0538900h }
+    __asm { ret }
+}
+
+// Tail entry bridge: preserves registers, flags and physical arguments.
+__declspec(naked) static void StatsFile15EntryLoadLine() {
+    __asm { push 0536F80h }
+    __asm { ret }
+}
+
+// Tail entry bridge: preserves registers, flags and physical arguments.
+__declspec(naked) static void StatsFile15EntryCloseFile() {
+    __asm { push 05389D0h }
+    __asm { ret }
+}
+
+// Tail entry bridge: preserves registers, flags and physical arguments.
+__declspec(naked) static void StatsFile15EntrySscanf() {
+    __asm { push 08220ADh }
+    __asm { ret }
+}
+
+__declspec(naked) void CStats::LoadStatUpdateConditions() {
+    __asm {
+        // 0x559860
+        push ebp
+        // 0x559861
+        mov ebp,esp
+        // 0x559863
+        and esp,0FFFFFFF8h
+        // 0x559866
+        sub esp,78h
+        // 0x559869
+        push ebx
+        // 0x55986A
+        push ebp
+        // 0x55986B
+        push esi
+        // 0x55986C
+        push edi
+        // 0x55986D
+        xor ebx,ebx
+        // 0x55986F
+        push 858B54h
+        // 0x559874
+        mov dword ptr [esp+1Ch],0
+        // 0x55987C
+        mov dword ptr [esp+18h],ebx
+        // 0x559880
+        call StatsFile15EntrySetDir
+        // 0x559885
+        push 859C6Ch
+        // 0x55988A
+        push 863F80h
+        // 0x55988F
+        call StatsFile15EntryOpenFile
+        // 0x559894
+        mov esi,eax
+        // 0x559896
+        push esi
+        // 0x559897
+        mov dword ptr [esp+30h],esi
+        // 0x55989B
+        mov dword ptr ds:[00B794D0h],ebx
+        // 0x5598A1
+        mov dword ptr [esp+20h],ebx
+        // 0x5598A5
+        call StatsFile15EntryLoadLine
+        // 0x5598AA
+        add esp,10h
+        // 0x5598AD
+        cmp eax,ebx
+        // 0x5598AF
+        je StatsFile15_55998B
+        // 0x5598B5
+        mov ecx,8
+        // 0x5598BA
+        lea edx,[esp+24h]
+        // 0x5598BE
+        sub ecx,edx
+        // 0x5598C0
+        mov ebp,0B78200h
+        // 0x5598C5
+        mov dword ptr [esp+1Ch],ecx
+        // 0x5598C9
+        lea esp,[esp+00000000h]
+        StatsFile15_5598D0:
+        mov cl,byte ptr [eax]
+        // 0x5598D2
+        cmp cl,23h
+        // 0x5598D5
+        je StatsFile15_55997A
+        // 0x5598DB
+        cmp cl,bl
+        // 0x5598DD
+        je StatsFile15_55997A
+        // 0x5598E3
+        lea ecx,[esp+24h]
+        // 0x5598E7
+        push ecx
+        // 0x5598E8
+        lea edx,[esp+1Ch]
+        // 0x5598EC
+        push edx
+        // 0x5598ED
+        lea ecx,[esp+34h]
+        // 0x5598F1
+        push ecx
+        // 0x5598F2
+        lea edx,[esp+44h]
+        // 0x5598F6
+        push edx
+        // 0x5598F7
+        lea ecx,[esp+24h]
+        // 0x5598FB
+        push ecx
+        // 0x5598FC
+        push 863F70h
+        // 0x559901
+        push eax
+        // 0x559902
+        call StatsFile15EntrySscanf
+        // 0x559907
+        mov dx,word ptr [esp+30h]
+        // 0x55990C
+        add esp,1Ch
+        // 0x55990F
+        mov edi,863F64h
+        // 0x559914
+        lea esi,[esp+2Ch]
+        // 0x559918
+        mov ecx,9
+        // 0x55991D
+        xor eax,eax
+        // 0x55991F
+        repe cmpsb
+        // 0x559921
+        mov word ptr [ebp],dx
+        // 0x559925
+        mov byte ptr [ebp+2],bl
+        // 0x559928
+        jne StatsFile15_55992F
+        // 0x55992A
+        mov byte ptr [ebp+3],bl
+        // 0x55992D
+        jmp StatsFile15_559947
+        StatsFile15_55992F:
+        mov edi,863F58h
+        // 0x559934
+        lea esi,[esp+2Ch]
+        // 0x559938
+        mov ecx,9
+        // 0x55993D
+        xor edx,edx
+        // 0x55993F
+        repe cmpsb
+        // 0x559941
+        jne StatsFile15_559947
+        // 0x559943
+        mov byte ptr [ebp+3],1
+        StatsFile15_559947:
+        mov eax,dword ptr [esp+18h]
+        // 0x55994B
+        mov ecx,dword ptr [esp+1Ch]
+        // 0x55994F
+        mov dword ptr [ebp+4],eax
+        // 0x559952
+        lea eax,[esp+24h]
+        // 0x559956
+        lea edx,[ecx+ebp]
+        // 0x559959
+        lea esp,[esp+00000000h]
+        StatsFile15_559960:
+        mov cl,byte ptr [eax]
+        // 0x559962
+        mov byte ptr [edx+eax],cl
+        // 0x559965
+        inc eax
+        // 0x559966
+        cmp cl,bl
+        // 0x559968
+        jne StatsFile15_559960
+        // 0x55996A
+        mov ecx,dword ptr [esp+10h]
+        // 0x55996E
+        mov esi,dword ptr [esp+20h]
+        // 0x559972
+        inc ecx
+        // 0x559973
+        mov dword ptr [esp+10h],ecx
+        // 0x559977
+        add ebp,10h
+        StatsFile15_55997A:
+        push esi
+        // 0x55997B
+        call StatsFile15EntryLoadLine
+        // 0x559980
+        add esp,4
+        // 0x559983
+        cmp eax,ebx
+        // 0x559985
+        jne StatsFile15_5598D0
+        StatsFile15_55998B:
+        mov edx,dword ptr [esp+10h]
+        // 0x55998F
+        push esi
+        // 0x559990
+        mov dword ptr ds:[00B794D0h],edx
+        // 0x559996
+        call StatsFile15EntryCloseFile
+        // 0x55999B
+        add esp,4
+        // 0x55999E
+        pop edi
+        // 0x55999F
+        pop esi
+        // 0x5599A0
+        pop ebp
+        // 0x5599A1
+        pop ebx
+        // 0x5599A2
+        mov esp,ebp
+        // 0x5599A4
+        pop ebp
+        // 0x5599A5
+        ret
+    }
 }
 
 // 0x5599B0

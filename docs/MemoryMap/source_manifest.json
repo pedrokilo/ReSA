@@ -3629,7 +3629,7 @@
   },
   {
     "file": "source/game_sa/Garage.cpp",
-    "sha256": "5f2c2afdb268e5a62c6d63165cead5ff495919195ae5b0e0f864e340fe48fba6"
+    "sha256": "15d0fbeb68b6701f13b39b8559df380ddcd4002051a5edbf9fc16a3bf9e5281e"
   },
   {
     "file": "source/game_sa/Garage.h",
@@ -5721,7 +5721,7 @@
   },
   {
     "file": "source/game_sa/Stats.cpp",
-    "sha256": "f80e96cf5128282b5a8e3b1b8fb22babfdf460ffcd9e804c073eb3a5af790ac2"
+    "sha256": "371211ce059616597d4879fe9d6ab78f92f0c566a65e45b096d8316323a4d0f2"
   },
   {
     "file": "source/game_sa/Stats.h",

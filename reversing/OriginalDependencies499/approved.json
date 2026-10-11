@@ -406,5 +406,13 @@
   "0x005F7800": {
     "identity": "CPedGroupIntelligence::ComputeScriptCommandTasks",
     "validation_summary": "reversing/DependenciesGroupTasks14/validation-summary.json"
+  },
+  "0x00559860": {
+    "identity": "CStats::LoadStatUpdateConditions",
+    "validation_summary": "reversing/DependenciesStatsFile15/validation-summary.json"
+  },
+  "0x00448EE0": {
+    "identity": "CGarage::IsEntityTouching3D",
+    "validation_summary": "reversing/DependenciesWorld15/validation-summary.json"
   }
 }

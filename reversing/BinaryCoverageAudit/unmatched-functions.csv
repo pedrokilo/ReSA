@@ -285,7 +285,6 @@ rva,va,name,body_bytes,thunk,calling_convention,source,section,executable_sectio
 0x00048be0,0x00448be0,FUN_00448be0,333,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,4,4
 0x00048d30,0x00448d30,FUN_00448d30,281,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,5,5
 0x00048e50,0x00448e50,FUN_00448e50,75,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,5,5
-0x00048ee0,0x00448ee0,FUN_00448ee0,356,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,4,8
 0x00049050,0x00449050,FUN_00449050,162,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,5,2
 0x00049100,0x00449100,FUN_00449100,279,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,4,2
 0x00049220,0x00449220,FUN_00449220,441,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,5,5
@@ -1364,7 +1363,6 @@ rva,va,name,body_bytes,thunk,calling_convention,source,section,executable_sectio
 0x00158f90,0x00558f90,FUN_00558f90,6,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,0,2
 0x00159010,0x00559010,FUN_00559010,110,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,0,1
 0x00159230,0x00559230,FUN_00559230,735,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,24,4
-0x00159860,0x00559860,FUN_00559860,326,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,6,1
 0x0015a780,0x0055a780,FUN_0055a780,3924,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,83,4
 0x0015bc50,0x0055bc50,FUN_0055bc50,716,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,8,2
 0x0015bf20,0x0055bf20,FUN_0055bf20,385,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,5,1

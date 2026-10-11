@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8549 funciones reconstruidas; 8549 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9224 entradas binarias sin nombre catalogado; 820 destinos originales explícitos fuera del catálogo, 396 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 104 aprobadas dentro del juego; 131 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Auditoría independiente de la cohorte admitida actual
 
-Instantánea approved SHA256 `8491b84e0551207ee2b9df9034a30975d5a451b2e801582159ddeb844b52108a`. Gzip leído en streaming; no builds/juego ni cambios a fuentes, instrumentos o catálogo. Auditoría histórica de43 conservada.
+Instantánea approved SHA256 `8a8290c290974d7c3deb67e3e04a73251e4a18c18779c01780cd2977846a0589`. Gzip leído en streaming; no builds/juego ni cambios a fuentes, instrumentos o catálogo. Auditoría histórica de43 conservada.
 
-**102 funciones / 45 bancos / 237248 pares; 0 hallazgos.**
+**104 funciones / 47 bancos / 241344 pares; 0 hallazgos.**
 
 | Banco | Funciones | Pares | Diferencias | NULL | Hallazgos |
 |---|---:|---:|---:|---:|---:|
@@ -31,6 +31,7 @@ Instantánea approved SHA256 `8491b84e0551207ee2b9df9034a30975d5a451b2e801582159
 | DependenciesPointLights1 | 1 | 2560 | 0 | 0 | 0 |
 | DependenciesPointLights2 | 2 | 1024 | 0 | 0 | 0 |
 | DependenciesStats1 | 1 | 4096 | 0 | 0 | 0 |
+| DependenciesStatsFile15 | 1 | 2048 | 0 | 0 | 0 |
 | DependenciesStatsRadio7 | 2 | 4096 | 0 | 0 | 0 |
 | DependenciesStatsUi8 | 4 | 8192 | 0 | 0 | 0 |
 | DependenciesTask10 | 3 | 6144 | 0 | 0 | 0 |
@@ -49,6 +50,7 @@ Instantánea approved SHA256 `8491b84e0551207ee2b9df9034a30975d5a451b2e801582159
 | DependenciesWorld12 | 1 | 2048 | 0 | 0 | 0 |
 | DependenciesWorld13 | 1 | 2048 | 0 | 0 | 0 |
 | DependenciesWorld14 | 1 | 2048 | 0 | 0 | 0 |
+| DependenciesWorld15 | 1 | 2048 | 0 | 0 | 0 |
 | DependenciesWorld4 | 2 | 4608 | 0 | 0 | 0 |
 | DependenciesWorld9 | 2 | 4096 | 0 | 0 | 0 |
 | DependenciesWorldFxFont5 | 4 | 15360 | 0 | 0 | 0 |
@@ -80,6 +82,7 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesFightLeaf2 | source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp | a677c96ed78e89e6ba483783629136f62ea17cc17111df1fe4be9016a822ef21 | 9745e2abb26aaf1cfc29b897f9ec17e8ffa82dbdb264b474ba5f934086cc87be |
 | DependenciesFightLeaf2 | source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h | 85e857dcb63b2c84b4dd31d19f1c0165fdd337606ae22405678ca0433633a18a | 1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981 |
 | DependenciesFightLeaf2 | source/InjectHooksMain.cpp | 87b22b34070d1b503867720319876156317fe88595a424596c86ef4f2a43380f | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
+| DependenciesGarage2 | source/game_sa/Garage.cpp | 5f2c2afdb268e5a62c6d63165cead5ff495919195ae5b0e0f864e340fe48fba6 | 15d0fbeb68b6701f13b39b8559df380ddcd4002051a5edbf9fc16a3bf9e5281e |
 | DependenciesGarage2 | source/game_sa/Garages.cpp | f510ac836f1f5c1535daac20afd9bf0296cf54ae436f8bb4a9a98ccc3a3bef38 | e735bbddabf34637c7717d15d7a2aeb44f92404af9c8a00085a380435cf5272c |
 | DependenciesGarage2 | source/InjectHooksMain.cpp | 87b22b34070d1b503867720319876156317fe88595a424596c86ef4f2a43380f | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesLeaf2 | source/game_sa/MemoryMgr.cpp | 30ec6a6b730b9160a9c61872b7810aaaa5ea3b5266d3695ba6ec7fb9e22f4ee0 | 645dd362627fb014a2acd4fdc95798b0caca8ae35c617762a5285a05053a162c |
@@ -96,10 +99,10 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesPointLights1 | source/game_sa/PointLights.cpp | 2a750dc198ac4f63a970aa02e117af45b4a2134ce3f34571ec3bec464746e084 | e4ce86341b6aa596300748094185f5d670f3fd3fdc63aeb2d798cf71ca6870ec |
 | DependenciesPointLights1 | source/InjectHooksMain.cpp | d774c9f7572474d11096747ef2ff5884a696e92106f7ad40d40713712641c898 | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesPointLights2 | source/InjectHooksMain.cpp | 87b22b34070d1b503867720319876156317fe88595a424596c86ef4f2a43380f | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
-| DependenciesStats1 | source/game_sa/Stats.cpp | b8e5e8bb24b9f527750cfcfccd00ecaf9b4b9b0c4f91b9633fb37a992bd106eb | f80e96cf5128282b5a8e3b1b8fb22babfdf460ffcd9e804c073eb3a5af790ac2 |
+| DependenciesStats1 | source/game_sa/Stats.cpp | b8e5e8bb24b9f527750cfcfccd00ecaf9b4b9b0c4f91b9633fb37a992bd106eb | 371211ce059616597d4879fe9d6ab78f92f0c566a65e45b096d8316323a4d0f2 |
 | DependenciesStats1 | source/InjectHooksMain.cpp | d774c9f7572474d11096747ef2ff5884a696e92106f7ad40d40713712641c898 | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
-| DependenciesStatsRadio7 | source/game_sa/Stats.cpp | e84d841dc097e7d00a610e9e2b6ab67ad841b49b13077d026c0b38e8ab35e55a | f80e96cf5128282b5a8e3b1b8fb22babfdf460ffcd9e804c073eb3a5af790ac2 |
-| DependenciesStatsUi8 | source/game_sa/Stats.cpp | 435ed0597eaa20ae2f951e3df137c14b88f6ecdf07ada7b3e7466a790b45f311 | f80e96cf5128282b5a8e3b1b8fb22babfdf460ffcd9e804c073eb3a5af790ac2 |
+| DependenciesStatsRadio7 | source/game_sa/Stats.cpp | e84d841dc097e7d00a610e9e2b6ab67ad841b49b13077d026c0b38e8ab35e55a | 371211ce059616597d4879fe9d6ab78f92f0c566a65e45b096d8316323a4d0f2 |
+| DependenciesStatsUi8 | source/game_sa/Stats.cpp | 435ed0597eaa20ae2f951e3df137c14b88f6ecdf07ada7b3e7466a790b45f311 | 371211ce059616597d4879fe9d6ab78f92f0c566a65e45b096d8316323a4d0f2 |
 | DependenciesTask10 | source/game_sa/PedGroupIntelligence.cpp | 237ad4d03244f44672bb677db568be9f49963c71d24feee95c80f634c3ee19df | f41495a46bdf744cd4214092c9c2d334217ce042b571a9aa16f531a5ffb8811b |
 | DependenciesTaskCtor4 | source/InjectHooksMain.cpp | 399556be232dab15fe51f27b1a7a8273bd0b6374f060ee746bda26b2d1cef22e | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesTaskLeaf3 | source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp | f5ad686f4647c6941aed5cf5627884042a168ab3b79ca77f2a9e0d0f5ed3e630 | 9745e2abb26aaf1cfc29b897f9ec17e8ffa82dbdb264b474ba5f934086cc87be |
@@ -111,11 +114,13 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesVehicleLeaf5 | source/game_sa/CarCtrl.h | 47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b | 839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d |
 | DependenciesVehicleLeaf5 | source/game_sa/PathFind.cpp | 74740e839dd6617821671c9cddb7f42c650c4269a1575c9ab71648a8a3de338a | 92323d8ab4c18b41ddc23ec7ed275d6feb5ce68e5d44b7edd4f51cf43bf17496 |
 | DependenciesVehicleLeaf5 | source/InjectHooksMain.cpp | 1bcf20e722e114bd25680050a86cf0d927edd8e74e860844719024339636a291 | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
-| DependenciesVehicleStats10 | source/game_sa/Stats.cpp | ba43d5e2192b00186702002e782f8b58c46caca52f82e1675c851e2a0fe0759b | f80e96cf5128282b5a8e3b1b8fb22babfdf460ffcd9e804c073eb3a5af790ac2 |
+| DependenciesVehicleStats10 | source/game_sa/Stats.cpp | ba43d5e2192b00186702002e782f8b58c46caca52f82e1675c851e2a0fe0759b | 371211ce059616597d4879fe9d6ab78f92f0c566a65e45b096d8316323a4d0f2 |
 | DependenciesVehicleStats11 | source/game_sa/Entity/Vehicle/Vehicle.cpp | 296216ae6e579bdd31c3d0dc37e71596c6a9ae28c679d08e5994a4a821af33a0 | 1886f1f0360c46ab7fa481fa448b6afef2a6b0b96f1e06eb7285c8f4a1fb93e1 |
-| DependenciesVehicleStats9 | source/game_sa/Stats.cpp | 43c7ed5f6bf2c290b1f8b941764f4d15cbbb012aa8dacba32b6fcae733377360 | f80e96cf5128282b5a8e3b1b8fb22babfdf460ffcd9e804c073eb3a5af790ac2 |
+| DependenciesVehicleStats11 | source/game_sa/Stats.cpp | f80e96cf5128282b5a8e3b1b8fb22babfdf460ffcd9e804c073eb3a5af790ac2 | 371211ce059616597d4879fe9d6ab78f92f0c566a65e45b096d8316323a4d0f2 |
+| DependenciesVehicleStats9 | source/game_sa/Stats.cpp | 43c7ed5f6bf2c290b1f8b941764f4d15cbbb012aa8dacba32b6fcae733377360 | 371211ce059616597d4879fe9d6ab78f92f0c566a65e45b096d8316323a4d0f2 |
 | DependenciesWorld10 | source/game_sa/CarCtrl.cpp | a8401f085f007d4db85b844298982f082f6f931df00aeb0a50d0264436d894f6 | 6073bf49f30376e7e9175545b579c099418146b7c1ff2ec6d0b80bcd396ee93f |
 | DependenciesWorld13 | source/game_sa/PathFind.cpp | b289ad134233f537732d2ff6555ae5d294e0d493bc9bc0e164a13f3b42bda5f2 | 92323d8ab4c18b41ddc23ec7ed275d6feb5ce68e5d44b7edd4f51cf43bf17496 |
+| DependenciesWorld4 | source/game_sa/Garage.cpp | 5f2c2afdb268e5a62c6d63165cead5ff495919195ae5b0e0f864e340fe48fba6 | 15d0fbeb68b6701f13b39b8559df380ddcd4002051a5edbf9fc16a3bf9e5281e |
 | DependenciesWorld4 | source/InjectHooksMain.cpp | 7a912880d0ff2128cb6654e679653c12ac91c8fa2e94784475ee43cb3ad9360c | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesWorldFxFont5 | source/game_sa/Camera.cpp | 6504b062b078a9abac940d720b6482894ef29275e139c49f12dfd14548f34557 | ccbeeee2352e96ca1871187ed446959a075a834a40b4e08adcfee3a2dba8773b |
 | DependenciesWorldFxFont5 | source/InjectHooksMain.cpp | 1bcf20e722e114bd25680050a86cf0d927edd8e74e860844719024339636a291 | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
@@ -155,6 +160,7 @@ Sin discrepancias detectadas.
 - DependenciesPointLights1: `79bfb66a332e1a0c91cc473f0cc6f05ecd7d3b4e944c52393641250bec53a5bf`
 - DependenciesPointLights2: `9a7ae11fb20ee6ba2cdbd6faf215b140df83d3d022615c344e8a50f7e0176530`
 - DependenciesStats1: `a1108bffebe6ad09031acbeb75bcbcb5ea3b66f5fe353cf3a38b7ed1fc745333`
+- DependenciesStatsFile15: `d3e8bc3297f9c2cab983f965beaf50d4953ac135cbedba5b1d552da68b0a4b7c`
 - DependenciesStatsRadio7: `677d56d37d83adf401e75a7fe02b292e12fab8c99c896e645ccfea8d6168b11f`
 - DependenciesStatsUi8: `36580e799fa2346a4a9a8186e6f85a0266eb50fa4cd1f1f453a0df1aa4e792c8`
 - DependenciesTask10: `99f8aba128bc48a25992148c699baff964eb3273801bd494711beff3482da23f`
@@ -173,6 +179,7 @@ Sin discrepancias detectadas.
 - DependenciesWorld12: `970992b04c6795e3509272039e76f7c07617598ad7fdf7d122a03dc8ee1d80c9`
 - DependenciesWorld13: `3bc61396daf2022ecda49ebfd78f19bec0ccd71314b889c0c7e2b7882f2793ce`
 - DependenciesWorld14: `09315c7f25873e6b184495907b58f301b304b242d20ffed90655409ff380e8e8`
+- DependenciesWorld15: `75745177195de2b036db79a1101dfe7dab327bfa9bb3d8a79caa5ba6af3205ee`
 - DependenciesWorld4: `ab6b3595832e84b362842f0bfbee868d3d62bf4c35b797b21a8f043ab1b49c49`
 - DependenciesWorld9: `99fcbcd38fec81e2b7617dbf8d28baa94e6a48b336b15405c73bd45c494892b2`
 - DependenciesWorldFxFont5: `1f39571e6dc281aaa5cbd78c53e6a1944a9e476f6fe6f9370b57417feb5c5ccf`

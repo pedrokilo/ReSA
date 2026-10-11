@@ -532803,6 +532803,95 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia hist\u00f3rica limitada a fixtures, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
       "review_reference": "reversing/DependenciesGroupTasks14/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStats",
+        "fn_name": "LoadStatUpdateConditions",
+        "address": "0x00559860",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/DependenciesStatsFile15/validation-summary.json",
+        "sha256": "bbbed6d7042c31de6a7c8d1d53ff7978e74b4a3ba3bd93253539e05978bae3f0",
+        "passed_path": [
+          "covered_functions",
+          "CStats::LoadStatUpdateConditions"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Stats.cpp": "371211ce059616597d4879fe9d6ab78f92f0c566a65e45b096d8316323a4d0f2",
+        "source/game_sa/Stats.h": "06ea5fa42ae006428bd2d2fe505f68e7f2506cd207f46d6b96f57c930abf1e44",
+        "source/game_sa/FileMgr.cpp": "a7a192213bcc8f9c445f080ea27e957fc58c27e8345fedd35be93bca37c51f68",
+        "source/game_sa/FileMgr.h": "5ee4a8305e446d6d3ef391530d1a4226b59940d2a781bf97a096a2d268ee514f",
+        "source/game_sa/FileLoader.cpp": "f6c2f7dcfa5e338fd72e7b76d46b4d6670b9025c6a30bc783ebfaf1cfb2241ef",
+        "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
+        "source/game_sa/CutsceneMgr.cpp": "4cddadb9affd99b4d1def2c1dfd65c218583e4315836c9aa1d6f8fb091a62332",
+        "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
+        "reversing/DependenciesStatsFile15/HelperRoutes.hpp": "4b101437b8ded980a109e544a343705f9cf783b06e2fbfc0800a45a2ed89fe43",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia hist\u00f3rica limitada a fixtures, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
+      "review_reference": "reversing/DependenciesStatsFile15/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarage",
+        "fn_name": "IsEntityTouching3D",
+        "address": "0x00448EE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/DependenciesWorld15/validation-summary.json",
+        "sha256": "f3ace4fcfb0f1a924acd48ec51d3be9cc413d1c7ce1bd27f454b6d9d3fcb2925",
+        "passed_path": [
+          "covered_functions",
+          "CGarage::IsEntityTouching3D"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garage.cpp": "15d0fbeb68b6701f13b39b8559df380ddcd4002051a5edbf9fc16a3bf9e5281e",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a",
+        "source/game_sa/Garages.cpp": "e735bbddabf34637c7717d15d7a2aeb44f92404af9c8a00085a380435cf5272c",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
+        "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d",
+        "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+        "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+        "source/game_sa/Core/MatrixLinkList.cpp": "3cd88e9890a2edd57d30aa4c6c2dc95f6c47fd2d5cee86f9085a584a6a9ad6f9",
+        "source/game_sa/Core/MatrixLinkList.h": "e37f434ddb8b08d790dfabf61a58ee8055638fad7770e4e6aaee5a8749e1836d",
+        "source/game_sa/Core/MatrixLink.cpp": "38c7a9a95b2c8c9c4a90063d38f42a1c88182c6a2d518bd98badc81dcee74320",
+        "source/game_sa/Core/MatrixLink.h": "ce05ae9f46be69790be1ffb2a9270470e8b021519a83284270164fd3d8528355",
+        "source/game_sa/Core/Matrix.cpp": "f5c9d1f294ca4fdd5245eb23ff28148550d78e9a1615d3e1f4de6f814281d69b",
+        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2",
+        "source/game_sa/SimpleTransform.h": "48d68e2dbb22fb131e21e6b58078fc06be4136824c38dce24a268db8765374f8",
+        "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
+        "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
+        "source/game_sa/Collision/ColSphere.h": "bd100cf3052d51eec06d543245887a65817895416354a6dcf2499372956ca499",
+        "source/game_sa/Collision/Sphere.h": "39b77da495f035898452bf3b4ef38cd585463f93d52f2101d492598d8ea3c44a",
+        "source/game_sa/Models/ModelInfo.h": "803a964d2c86424ef2464bd6841f77b1c7eba747f99b81632b217d90ad0f6ba0",
+        "source/game_sa/Models/BaseModelInfo.h": "91bece0c4ec1c9f8772b17ba11dcbc9f8e75636292f995f735cbd06514419cc6",
+        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
+        "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
+        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
+        "reversing/DependenciesWorld10/NewGameConfiguration.py": "ca4cff07327e65c41af1c90292c24e7e658baa6071fc5fbbbb49ed1231c2b6e4"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia hist\u00f3rica limitada a fixtures, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
+      "review_reference": "reversing/DependenciesWorld15/README.md"
     }
   ]
 }

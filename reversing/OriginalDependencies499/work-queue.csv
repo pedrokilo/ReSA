@@ -10,7 +10,7 @@ address,identity,status,bank,pairs_expected,source_snapshot
 0x0049EB00,Fx_c::AddBlood,pending,,,source/game_sa/Fx/Fx.cpp:273
 0x0049F3D0,Fx_c::AddBulletImpact,pending,,,source/game_sa/Fx/Fx.cpp:293
 0x004A0D70,Fx_c::TriggerWaterHydrant,pending,,,source/game_sa/Fx/Fx.cpp:343
-0x0060A610,CPlayerPed::ControlButtonSprint,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:717
+0x0060A610,CPlayerPed::ControlButtonSprint,prepared_not_validated,DependenciesTaskSprint16,2048,source/game_sa/Entity/Ped/PlayerPed.cpp:717
 0x0060E530,CPlayerPed::FindNextWeaponLockOnTarget,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:1119
 0x006D7C90,CVehicle::InflictDamage,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:3738
 0x006D85F0,CVehicle::FlyingControl,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:3821
@@ -70,7 +70,6 @@ address,identity,status,bank,pairs_expected,source_snapshot
 0x004471E0,CGarages::AddOne,pending,,,source/game_sa/Garages.cpp:170
 0x00447600,CGarage::InitDoorsAtStart,pending,,,source/game_sa/Garage.cpp:165
 0x004486C0,CGarage::PlayerArrestedOrDied,pending,,,source/game_sa/Garage.cpp:144
-0x00448EE0,CGarage::IsEntityTouching3D,prepared_not_validated,DependenciesWorld15,2048,source/game_sa/Garage.cpp:119
 0x00449050,CGarage::EntityHasASphereWayOutsideGarage,prepared_not_validated,DependenciesGarageSphere15,2048,source/game_sa/Garage.cpp:109
 0x00449690,CGarage::RemoveCarsBlockingDoorNotInside,pending,,,source/game_sa/Garage.cpp:114
 0x00449760,CStoredCar::StoreCar,pending,,,source/game_sa/Garage.cpp:305
@@ -97,8 +96,7 @@ address,identity,status,bank,pairs_expected,source_snapshot
 0x00515BD0,CCamera::UpdateSoundDistances,pending,,,source/game_sa/Camera.cpp:1497
 0x00516010,CCam helper copSource alternativo=true sin símbolo confirmado,pending,,,source/game_sa/Cam.cpp:961
 0x00516560,CCamera::ProcessShake,pending,,,source/game_sa/Camera.cpp:1999
-0x00559860,CStats::LoadStatUpdateConditions,prepared_not_validated,DependenciesStatsFile15,2048,source/game_sa/Stats.cpp:398
-0x0055BF20,CStats::UpdateSexAppealStat,pending,,,source/game_sa/Stats.cpp:980
+0x0055BF20,CStats::UpdateSexAppealStat,prepared_not_validated,DependenciesStatsSex16,2048,source/game_sa/Stats.cpp:980
 0x005617C0,GetMillisecondTime,pending,,,source/game_sa/Timer.cpp:53
 0x00587000,CRadar::DrawEntityBlip,pending,,,source/game_sa/Radar.cpp:2074
 0x005B7670,CFileLoader::Load2dEffect,pending,,,source/game_sa/FileLoader.cpp:1023

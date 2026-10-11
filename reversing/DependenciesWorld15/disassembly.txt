@@ -1,0 +1,130 @@
+00448EE0: sub esp,10h
+00448EE3: push ebx
+00448EE4: mov ebx,dword ptr [esp+18h]
+00448EE8: movsx eax,word ptr [ebx+22h]
+00448EEC: mov edx,ecx
+00448EEE: mov ecx,dword ptr [eax*4+00A9B0C8h]
+ 00
+00448EF5: mov eax,dword ptr [ecx+14h]
+00448EF8: mov ecx,dword ptr [eax+24h]
+00448EFB: push ebp
+00448EFC: push esi
+00448EFD: mov dword ptr [esp+20h],ecx
+00448F01: mov ecx,dword ptr [ebx+14h]
+00448F04: xor esi,esi
+00448F06: cmp ecx,esi
+00448F08: push edi
+00448F09: mov dword ptr [esp+10h],edx
+00448F0D: lea eax,[ecx+30h]
+00448F10: jne 00448F15
+00448F12: lea eax,[ebx+4]
+00448F15: fld dword ptr [edx+28h]
+00448F18: fsub dword ptr [esp+24h]
+00448F1C: fcomp dword ptr [eax]
+00448F1E: fnstsw ax
+00448F20: test ah,41h
+00448F23: je 0044902C
+00448F29: cmp ecx,esi
+00448F2B: lea eax,[ecx+30h]
+00448F2E: jne 00448F33
+00448F30: lea eax,[ebx+4]
+00448F33: fld dword ptr [esp+24h]
+00448F37: fadd dword ptr [edx+2Ch]
+00448F3A: fcomp dword ptr [eax]
+00448F3C: fnstsw ax
+00448F3E: test ah,5
+00448F41: jnp 0044902C
+00448F47: cmp ecx,esi
+00448F49: lea eax,[ecx+30h]
+00448F4C: jne 00448F51
+00448F4E: lea eax,[ebx+4]
+00448F51: fld dword ptr [edx+30h]
+00448F54: fsub dword ptr [esp+24h]
+00448F58: fcomp dword ptr [eax+4]
+00448F5B: fnstsw ax
+00448F5D: test ah,41h
+00448F60: je 0044902C
+00448F66: cmp ecx,esi
+00448F68: lea eax,[ecx+30h]
+00448F6B: jne 00448F70
+00448F6D: lea eax,[ebx+4]
+00448F70: fld dword ptr [esp+24h]
+00448F74: fadd dword ptr [edx+34h]
+00448F77: fcomp dword ptr [eax+4]
+00448F7A: fnstsw ax
+00448F7C: test ah,5
+00448F7F: jnp 0044902C
+00448F85: cmp ecx,esi
+00448F87: lea eax,[ecx+30h]
+00448F8A: jne 00448F8F
+00448F8C: lea eax,[ebx+4]
+00448F8F: fld dword ptr [edx+8]
+00448F92: fsub dword ptr [esp+24h]
+00448F96: fcomp dword ptr [eax+8]
+00448F99: fnstsw ax
+00448F9B: test ah,41h
+00448F9E: je 0044902C
+00448FA4: cmp ecx,esi
+00448FA6: je 00448FAD
+00448FA8: add ecx,30h
+00448FAB: jmp 00448FB0
+00448FAD: lea ecx,[ebx+4]
+00448FB0: fld dword ptr [esp+24h]
+00448FB4: fadd dword ptr [edx+1Ch]
+00448FB7: fcomp dword ptr [ecx+8]
+00448FBA: fnstsw ax
+00448FBC: test ah,5
+00448FBF: jnp 0044902C
+00448FC1: mov ecx,ebx
+00448FC3: call 00535300
+00448FC8: mov edi,dword ptr [eax+2Ch]
+00448FCB: cmp word ptr [edi],si
+00448FCE: mov dword ptr [esp+24h],esi
+00448FD2: jle 0044902C
+00448FD4: mov edx,dword ptr [edi+8]
+00448FD7: add edx,esi
+00448FD9: push edx
+00448FDA: mov ecx,ebx
+00448FDC: call 00411990
+00448FE1: push eax
+00448FE2: lea eax,[esp+1Ch]
+00448FE6: push eax
+00448FE7: call 0059C890
+00448FEC: mov edx,dword ptr [edi+8]
+00448FEF: mov ecx,dword ptr [esi+edx+0Ch]
+00448FF3: mov ebp,dword ptr [eax]
+00448FF5: add esp,0Ch
+00448FF8: push ecx
+00448FF9: sub esp,0Ch
+00448FFC: mov ecx,esp
+00448FFE: mov dword ptr [ecx],ebp
+00449000: mov ebp,dword ptr [eax+4]
+00449003: mov eax,dword ptr [eax+8]
+00449006: mov dword ptr [ecx+4],ebp
+00449009: mov dword ptr [ecx+8],eax
+0044900C: mov ecx,dword ptr [esp+20h]
+00449010: call 004487D0
+00449015: test al,al
+00449017: jne 00449038
+00449019: mov eax,dword ptr [esp+24h]
+0044901D: movsx ecx,word ptr [edi]
+00449020: inc eax
+00449021: add esi,14h
+00449024: cmp eax,ecx
+00449026: mov dword ptr [esp+24h],eax
+0044902A: jl 00448FD7
+0044902C: xor al,al
+0044902E: pop edi
+0044902F: pop esi
+00449030: pop ebp
+00449031: pop ebx
+00449032: add esp,10h
+00449035: ret 4
+00449038: pop edi
+00449039: pop esi
+0044903A: pop ebp
+0044903B: mov al,1
+0044903D: pop ebx
+0044903E: add esp,10h
+00449041: ret 4
+ 00449050: 83
