@@ -1,5 +1,7 @@
 # Estado comprobado de ReSA · 10 de octubre de 2026
 
+La [tabla de implementaciones por clase y función](ImplementacionesDelJuego.md) distingue C++, ensamblador y cuerpos mixtos, señala `naked` y separa validación histórica de evidencia de migración. Incluye envolturas al EXE y asociaciones sin resolver; no acredita un standalone.
+
 **Prioridad actual, 11/10/2026:** convertir `source/game_sa` a C++ sin ensamblador en línea ni declaraciones `naked`, conservando resultados exactos del EXE. El [inventario de migración](../reversing/CppOnlyMigration/README.md) distingue conversiones probadas de propuestas pendientes; sus pruebas no incrementan automáticamente el catálogo ni la cohorte de dependencias.
 
 **Alcance del 100%:** corresponde a las entradas del catálogo principal. La [auditoría de cobertura fuera del catálogo](BinaryCoverageAudit.md) identifica funciones del juego sin registro y wrappers que siguen llamando al EXE, incluidos control de ped, renderizado de automóvil y tareas. No están acreditados todos los métodos de cada clase ni la independencia del ejecutable original.
