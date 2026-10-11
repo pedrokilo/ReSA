@@ -76,6 +76,7 @@ public:
         if constexpr (std::is_same_v<T_PosCalc, CEntitySeekPosCalculatorXYOffset>) {
             RH_ScopedVirtualClass(CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>, 0x86FBB4, 11);
 
+            RH_ScopedInstall(SetMaxEntityDist2D, 0x4BC470);
             RH_ScopedInstall(Constructor, 0x661DC0);
             RH_ScopedInstall(Destructor, 0x661F30);
 
@@ -404,6 +405,8 @@ public:
         return m_entitySeekPosCalculator;
     }
 
+    void SetMaxEntityDist2D(float); // Common prefix; native distance + scan timer reset.
+
     void SetEntityMinDist2D(float v) {
         m_minEntityDist2D = v;
     }
@@ -469,3 +472,5 @@ protected: // Wrappers for hooks
         return this;
     }
 };
+
+template<> void CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D(float);

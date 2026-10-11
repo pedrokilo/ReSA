@@ -1,0 +1,9 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Correccion del dominio del banco
+
+La primera ejecucion completo 15.360 pares: 40 rechazados exclusivamente por el limite supuesto de ocho vertices. Los 40 registros original y candidate eran identicos, incluido retorno 10 y bytes de salida. No hubo diferencia de fuente.
+
+El EXE incrementa el contador por interseccion (0x585233 INC EAX), por esquina insertada (0x5852D4 INC ESI) y al cerrar interseccion (0x585307 INC [ESP+10h]); no elimina duplicados de borde. La geometria convexa no implica ocho entradas de salida para este algoritmo. El banco dispone de 16 vertices y guardas intactas; ahora exige retorno 0..16, conserva comparacion exacta de todos los bytes y repite todos los pares.

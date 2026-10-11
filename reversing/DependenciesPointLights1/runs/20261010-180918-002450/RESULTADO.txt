@@ -1,0 +1,3 @@
+APROBADO: CPointLights::AddLight (EXE contra reconstrucción independiente)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciespointlights1\20261010-180918-002450

@@ -21,6 +21,7 @@ public:
     int32      field_40[10];
     int32      field_68[10];
 
+    static void InjectHooks();
     void Clear();
 };
 

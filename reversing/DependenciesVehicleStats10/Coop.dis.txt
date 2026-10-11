@@ -1,0 +1,10 @@
+00441390: mov eax,dword ptr ds:[00B7CD98h]
+00441395: test eax,eax
+00441397: je 004413A8
+00441399: mov eax,dword ptr ds:[00B7CF28h]
+0044139E: test eax,eax
+004413A0: je 004413A8
+004413A2: mov eax,1
+004413A7: ret
+004413A8: xor eax,eax
+004413AA: ret

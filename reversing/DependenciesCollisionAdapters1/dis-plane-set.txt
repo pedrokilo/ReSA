@@ -1,0 +1,113 @@
+00411660: sub esp,3Ch
+00411663: mov edx,dword ptr [esp+40h]
+00411667: push ebx
+00411668: push esi
+00411669: mov esi,ecx
+0041166B: mov ecx,dword ptr [esp+4Ch]
+0041166F: movzx eax,word ptr [ecx]
+00411672: lea eax,[eax+eax*2]
+00411675: lea eax,[edx+eax*2]
+00411678: push edi
+00411679: movsx edi,word ptr [eax]
+0041167C: mov dword ptr [esp+50h],edi
+00411680: movsx edi,word ptr [eax+2]
+00411684: fild dword ptr [esp+50h]
+00411688: movsx eax,word ptr [eax+4]
+0041168C: fmul dword ptr ds:[00858B88h]
+00411692: mov dword ptr [esp+50h],edi
+00411696: fstp dword ptr [esp+18h]
+0041169A: fild dword ptr [esp+50h]
+0041169E: mov dword ptr [esp+50h],eax
+004116A2: movzx eax,word ptr [ecx+2]
+004116A6: lea eax,[eax+eax*2]
+004116A9: fmul dword ptr ds:[00858B88h]
+004116AF: movsx edi,word ptr [edx+eax*2]
+004116B3: lea eax,[edx+eax*2]
+004116B6: fstp dword ptr [esp+1Ch]
+004116BA: fild dword ptr [esp+50h]
+004116BE: mov dword ptr [esp+50h],edi
+004116C2: movsx edi,word ptr [eax+2]
+004116C6: movsx eax,word ptr [eax+4]
+004116CA: fmul dword ptr ds:[00858B88h]
+004116D0: fstp dword ptr [esp+20h]
+004116D4: fild dword ptr [esp+50h]
+004116D8: mov dword ptr [esp+50h],edi
+004116DC: fmul dword ptr ds:[00858B88h]
+004116E2: fild dword ptr [esp+50h]
+004116E6: mov dword ptr [esp+50h],eax
+004116EA: movzx eax,word ptr [ecx+4]
+004116EE: lea ecx,[eax+eax*2]
+004116F1: fmul dword ptr ds:[00858B88h]
+004116F7: lea eax,[edx+ecx*2]
+004116FA: fild dword ptr [esp+50h]
+004116FE: movsx edx,word ptr [eax]
+00411701: fmul dword ptr ds:[00858B88h]
+00411707: mov dword ptr [esp+50h],edx
+0041170B: fstp dword ptr [esp+38h]
+0041170F: fild dword ptr [esp+50h]
+00411713: fmul dword ptr ds:[00858B88h]
+00411719: fstp dword ptr [esp+0Ch]
+0041171D: movsx ecx,word ptr [eax+2]
+00411721: mov dword ptr [esp+50h],ecx
+00411725: fild dword ptr [esp+50h]
+00411729: fmul dword ptr ds:[00858B88h]
+0041172F: fstp dword ptr [esp+10h]
+00411733: movsx edx,word ptr [eax+4]
+00411737: mov dword ptr [esp+50h],edx
+0041173B: fild dword ptr [esp+50h]
+0041173F: fmul dword ptr ds:[00858B88h]
+00411745: fstp dword ptr [esp+14h]
+00411749: fxch st(1)
+0041174B: fsub dword ptr [esp+18h]
+0041174F: fstp dword ptr [esp+24h]
+00411753: fsub dword ptr [esp+1Ch]
+00411757: fstp dword ptr [esp+28h]
+0041175B: fld dword ptr [esp+38h]
+0041175F: fsub dword ptr [esp+20h]
+00411763: fstp dword ptr [esp+2Ch]
+00411767: fld dword ptr [esp+0Ch]
+0041176B: fsub dword ptr [esp+18h]
+0041176F: fstp dword ptr [esp+30h]
+00411773: fld dword ptr [esp+10h]
+00411777: fsub dword ptr [esp+1Ch]
+0041177B: lea eax,[esp+24h]
+0041177F: push eax
+00411780: lea ecx,[esp+34h]
+00411784: fstp dword ptr [esp+38h]
+00411788: fld dword ptr [esp+18h]
+0041178C: push ecx
+0041178D: fsub dword ptr [esp+28h]
+00411791: lea edx,[esp+44h]
+00411795: push edx
+00411796: fstp dword ptr [esp+44h]
+0041179A: call 0059C730
+0041179F: mov ecx,dword ptr [eax]
+004117A1: mov dword ptr [esp+18h],ecx
+004117A5: mov edx,dword ptr [eax+4]
+004117A8: mov dword ptr [esp+1Ch],edx
+004117AC: mov eax,dword ptr [eax+8]
+004117AF: add esp,0Ch
+004117B2: lea ecx,[esp+0Ch]
+004117B6: mov dword ptr [esp+14h],eax
+004117BA: call 0059C910
+004117BF: fld dword ptr [esp+0Ch]
+004117C3: fmul dword ptr ds:[00858BF8h]
+004117C9: call 00821B40
+004117CE: fld dword ptr [esp+10h]
+004117D2: fmul dword ptr ds:[00858BF8h]
+004117D8: mov di,ax
+004117DB: mov word ptr [esi],di
+004117DE: call 00821B40
+004117E3: fld dword ptr [esp+14h]
+004117E7: fmul dword ptr ds:[00858BF8h]
+004117ED: mov bx,ax
+004117F0: mov word ptr [esi+2],bx
+004117F4: call 00821B40
+004117F9: movsx ecx,di
+004117FC: mov dword ptr [esp+50h],ecx
+00411800: movsx edx,bx
+00411803: fild dword ptr [esp+50h]
+00411807: mov dword ptr [esp+50h],edx
+0041180B: mov word ptr [esi+4],ax
+ 0041180F: D8
+ 00411810: 0D

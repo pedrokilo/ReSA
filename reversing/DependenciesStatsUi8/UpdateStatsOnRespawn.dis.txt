@@ -1,0 +1,52 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0055CFC0: 51                 push        ecx
+  0055CFC1: A1 08 95 B7 00     mov         eax,dword ptr ds:[00B79508h]
+  0055CFC6: DB 05 08 95 B7 00  fild        dword ptr ds:[00B79508h]
+  0055CFCC: 85 C0              test        eax,eax
+  0055CFCE: 7D 06              jge         0055CFD6
+  0055CFD0: D8 05 54 8C 85 00  fadd        dword ptr ds:[00858C54h]
+  0055CFD6: D8 1D F4 8F B7 00  fcomp       dword ptr ds:[00B78FF4h]
+  0055CFDC: DF E0              fnstsw      ax
+  0055CFDE: F6 C4 41           test        ah,41h
+  0055CFE1: 75 40              jne         0055D023
+  0055CFE3: D9 05 E0 93 B7 00  fld         dword ptr ds:[00B793E0h]
+  0055CFE9: D8 1D 00 A7 85 00  fcomp       dword ptr ds:[0085A700h]
+  0055CFEF: DF E0              fnstsw      ax
+  0055CFF1: F6 C4 41           test        ah,41h
+  0055CFF4: 75 21              jne         0055D017
+  0055CFF6: 8B 0D 74 8F B7 00  mov         ecx,dword ptr ds:[00B78F74h]
+  0055CFFC: 51                 push        ecx
+  0055CFFD: 6A 18              push        18h
+  0055CFFF: E8 7C F1 FF FF     call        0055C180
+  0055D004: 8B 15 74 8F B7 00  mov         edx,dword ptr ds:[00B78F74h]
+  0055D00A: 52                 push        edx
+  0055D00B: 6A 18              push        18h
+  0055D00D: 6A 00              push        0
+  0055D00F: E8 6C E9 FF FF     call        0055B980
+  0055D014: 83 C4 14           add         esp,14h
+  0055D017: C7 05 08 95 B7 00  mov         dword ptr ds:[00B79508h],0
+            00 00 00 00
+  0055D021: 59                 pop         ecx
+  0055D022: C3                 ret
+  0055D023: FF 05 08 95 B7 00  inc         dword ptr ds:[00B79508h]
+  0055D029: 59                 pop         ecx
+  0055D02A: C3                 ret
+  0055D02B: 90                 nop
+  0055D02C: 90                 nop
+  0055D02D: 90                 nop
+  0055D02E: 90                 nop
+  0055D02F: 90                 nop
+  0055D030: A1
+  0055D031: 10
+  0055D032: 95                 xchg        eax,ebp
+
+  Summary
+
+      456000 .text

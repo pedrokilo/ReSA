@@ -42,6 +42,27 @@ END GENERATED HOOK STATUS */
 #include <Pools/TaskAllocatorPool.h>
 #include <Pools/PedAttractorPool.h>
 
+
+// 0x4442D0
+__declspec(naked) int32 CPedPool::GetRef(const CPed*) {
+    __asm {
+        mov         eax,dword ptr [ecx]
+        mov         edx,dword ptr [esp+4]
+        mov         ecx,dword ptr [ecx+4]
+        sub         edx,eax
+        mov         eax,41EE7CA7h
+        imul        edx
+        sar         edx,9
+        mov         eax,edx
+        shr         eax,1Fh
+        add         edx,eax
+        movzx       eax,byte ptr [edx+ecx]
+        shl         edx,8
+        add         eax,edx
+        ret         4
+    }
+}
+
 auto& ms_pPedPool               = StaticRef<CPedPool*>(0xB74490);
 auto& ms_pVehiclePool           = StaticRef<CVehiclePool*>(0xB74494);
 auto& ms_pBuildingPool          = StaticRef<CBuildingPool*>(0xB74498);

@@ -1,0 +1,7 @@
+{
+  "targets": 499,
+  "source": "reversing/BinaryCoverageAudit/review-source-calls.csv",
+  "source_sha256": "cfa0cc48de57c84492ce9ae5fef8faa3cac9a89ffda3d2f3644802d1fb4295ad",
+  "targets_sha256": "053429a5f106c4ebc29692571ed378d915edd0c6b967ced2cd7eacac7526f491",
+  "scope": "499 original explicit targets referenced from catalogue at audit 2026-10-10"
+}

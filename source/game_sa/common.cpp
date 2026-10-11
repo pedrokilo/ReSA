@@ -40,6 +40,8 @@ END GENERATED HOOK STATUS */
 void InjectCommonHooks() {
     RH_ScopedNamespaceName("Common");
     RH_ScopedCategory("Common");
+    RH_ScopedGlobalInstall(TransformPoint, 0x54ECE0);
+    RH_ScopedGlobalInstall(TransformPoints, 0x54EEF0);
 
     RH_ScopedGlobalOverloadedInstall(MakeUpperCase, "", 0x7186E0, char* (*)(char*, const char*));
     RH_ScopedGlobalOverloadedInstall(MakeUpperCase, "in", 0x718710, char* (*)(char*));
@@ -54,32 +56,36 @@ void InjectCommonHooks() {
 
 // 0x54ECE0
 void TransformPoint(RwV3d& point, const CSimpleTransform& placement, const RwV3d& vecPos) {
-    // Como el original: fcos/fsin a precision completa (sin pasarlos a float) y cada producto/suma redondeado a 24 bits por el x87
-    const float hdg = placement.m_fHeading, vecX = vecPos.x, vecY = vecPos.y, posX = placement.m_vPosn.x, posY = placement.m_vPosn.y;
-    float outX, outY;
+    const auto* transform = &placement;
+    const auto* input = &vecPos;
+    auto* output = &point;
+    // Como el original: escribe x antes de releer input.x para y (alias output==input).
     __asm {
-        fld dword ptr [hdg]
+        mov eax, transform
+        mov ecx, input
+        mov edx, output
+        fld dword ptr [eax + 0Ch]
         fcos
-        fld dword ptr [hdg]
+        fld dword ptr [eax + 0Ch]
         fsin
         fld st(1)
-        fmul dword ptr [vecX]
+        fmul dword ptr [ecx]
         fld st(1)
-        fmul dword ptr [vecY]
+        fmul dword ptr [ecx + 4]
         fsubp st(1), st(0)
-        fadd dword ptr [posX]
-        fstp dword ptr [outX]
+        fadd dword ptr [eax]
+        fstp dword ptr [edx]
         fxch st(1)
-        fmul dword ptr [vecY]
+        fmul dword ptr [ecx + 4]
         fxch st(1)
-        fmul dword ptr [vecX]
+        fmul dword ptr [ecx]
         faddp st(1), st(0)
-        fadd dword ptr [posY]
-        fstp dword ptr [outY]
+        fadd dword ptr [eax + 4]
+        fstp dword ptr [edx + 4]
+        fld dword ptr [eax + 8]
+        fadd dword ptr [ecx + 8]
+        fstp dword ptr [edx + 8]
     }
-    point.x = outX;
-    point.y = outY;
-    point.z = placement.m_vPosn.z + vecPos.z;
 }
 
 // 0x54EEA0
@@ -118,11 +124,24 @@ void TransformVectors(RwV3d* vecsOut, int32 numVectors, const CSimpleTransform& 
 
 // 0x54EEF0
 void TransformPoints(RwV3d* pointOut, int count, const CMatrix& transformMatrix, RwV3d* pointIn) {
-    transformMatrix.CopyToRwMatrix(CGame::m_pWorkingMatrix1);
-    RwMatrixUpdate(CGame::m_pWorkingMatrix1);
+    // Como el original 0x59B8B0: copia doce dwords, sin tocar flags ni padding.
+    const auto* source = reinterpret_cast<const uint8*>(&transformMatrix);
+    auto* destination = reinterpret_cast<uint8*>(CGame::m_pWorkingMatrix1);
+    for (unsigned row : {0u, 0x10u, 0x20u, 0x30u}) {
+        for (unsigned component = 0; component < 3; ++component) {
+            uint32 value;
+            std::memcpy(&value, source + row + component * 4, 4);
+            std::memcpy(destination + row + component * 4, &value, 4);
+        }
+    }
+    RwMatrixUpdate(CGame::m_pWorkingMatrix1); // 0x59B90D: dentro del colaborador original
+    RwMatrixUpdate(CGame::m_pWorkingMatrix1); // 0x54EF07: llamada adicional del entry
 
-    for (auto i = 0; i < count; i++) {
-        RwV3dTransformPoint(pointOut++, pointIn++, CGame::m_pWorkingMatrix1);
+    // Como el original: el contador de máquina decrece hasta cero; el dominio válido es count>=0.
+    for (auto remaining = std::bit_cast<uint32>(count); remaining != 0; --remaining) {
+        RwV3dTransformPoint(pointOut, pointIn, CGame::m_pWorkingMatrix1);
+        ++pointOut;
+        ++pointIn;
     }
 }
 

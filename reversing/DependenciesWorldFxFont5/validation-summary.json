@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "pairs": 15360,
+  "differences": 0,
+  "registered_pairs": 15360,
+  "registered_functions": 4,
+  "functions": {
+    "Fx_c::CreateMatFromVec": 1024,
+    "CFont::GetScriptLetterSize": 6144,
+    "CCamera::IsSphereVisible-matrix": 4096,
+    "CRadar::ClipRadarPoly": 4096
+  },
+  "covered_functions": {
+    "Fx_c::CreateMatFromVec": true,
+    "CFont::GetScriptLetterSize": true,
+    "CCamera::IsSphereVisible-matrix": true,
+    "CRadar::ClipRadarPoly": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/DependenciesWorldFxFont5/runs/20261010-200311-662835",
+  "summary_sha256": "e67c7a8918ef19ec79a76b3adc9ebba7066c79d23f5d7b0638f2cd85dbf67f5d",
+  "result_txt_sha256": "0b0a11cdda0dc560a3c51a85361fdc90cad8b6af13c9afd9fbb2bdc512fe4f0c",
+  "log_sha256": "1f39571e6dc281aaa5cbd78c53e6a1944a9e476f6fe6f9370b57417feb5c5ccf",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "54000fbfa714b9b2396dd81f6aabf6ca695aee20f66c4bde15456a3e21b659dc",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Fx/Fx.cpp": "d7a80190b86bdbefd8fe91d86ecfac8b13a6dab4050a9916c307536d5f0ab0a0",
+      "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
+      "source/game_sa/Font.cpp": "174b7aa63a0359e167c0903e82764ec3a2239868f767ac89dbbdc5428c340d66",
+      "source/game_sa/Font.h": "740bc1093d83db1f43daea8a2ad6ad99e9f46b81b4a78e79ca6a2d867679c430",
+      "source/game_sa/Camera.cpp": "6504b062b078a9abac940d720b6482894ef29275e139c49f12dfd14548f34557",
+      "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
+      "source/game_sa/Radar.cpp": "dcbd7cc2103c2739b9510c5b8b01e13a734916e41c4b39aa62079a028f71233a",
+      "source/game_sa/Radar.h": "417da2902642dd4a9126ab949d3ae7ca5f2481fd4863d05d51b3016820081150",
+      "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd",
+      "source/game_sa/RenderWare/rw/rwplcore.cpp": "2bbb06450fd3800e8576e2b62ccb9b436838d8fa2d1dbf7a58d9a60b7aec58a9",
+      "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
+      "source/InjectHooksMain.cpp": "1bcf20e722e114bd25680050a86cf0d927edd8e74e860844719024339636a291",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "caf568811299854804830ce9170ae478c3101319523cb6571fea609aa3c94d72",
+      "build_probe.py": "bd51fb2bb5711a6d983fda310c5c6362a86839bd674c94ba9757aab18061a80b",
+      "prepare.py": "5d93301227915336c32f878527e62deaa79029ae680aadd33c69b1e5bc0393ac",
+      "run_local.py": "9bc938072f30d423bcebea99e2bdf626778cb8789af3a565721667d34daf0f8e"
+    }
+  },
+  "reaudit": {
+    "bank": "DependenciesWorldFxFont5",
+    "run": "20261010-200311-662835",
+    "functions": 4,
+    "pairs": 15360,
+    "pairs_per_function": {
+      "Fx_c::CreateMatFromVec": 1024,
+      "CFont::GetScriptLetterSize": 6144,
+      "CCamera::IsSphereVisible-matrix": 4096,
+      "CRadar::ClipRadarPoly": 4096
+    },
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "saves_unchanged": true,
+    "configs_restored": true,
+    "hook_routes_verified": true,
+    "log_sha256": "1f39571e6dc281aaa5cbd78c53e6a1944a9e476f6fe6f9370b57417feb5c5ccf",
+    "tested_sources": {
+      "source/game_sa/Fx/Fx.cpp": "d7a80190b86bdbefd8fe91d86ecfac8b13a6dab4050a9916c307536d5f0ab0a0",
+      "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
+      "source/game_sa/Font.cpp": "174b7aa63a0359e167c0903e82764ec3a2239868f767ac89dbbdc5428c340d66",
+      "source/game_sa/Font.h": "740bc1093d83db1f43daea8a2ad6ad99e9f46b81b4a78e79ca6a2d867679c430",
+      "source/game_sa/Camera.cpp": "6504b062b078a9abac940d720b6482894ef29275e139c49f12dfd14548f34557",
+      "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
+      "source/game_sa/Radar.cpp": "dcbd7cc2103c2739b9510c5b8b01e13a734916e41c4b39aa62079a028f71233a",
+      "source/game_sa/Radar.h": "417da2902642dd4a9126ab949d3ae7ca5f2481fd4863d05d51b3016820081150",
+      "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd",
+      "source/game_sa/RenderWare/rw/rwplcore.cpp": "2bbb06450fd3800e8576e2b62ccb9b436838d8fa2d1dbf7a58d9a60b7aec58a9",
+      "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
+      "source/InjectHooksMain.cpp": "1bcf20e722e114bd25680050a86cf0d927edd8e74e860844719024339636a291",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "caf568811299854804830ce9170ae478c3101319523cb6571fea609aa3c94d72",
+      "build_probe.py": "bd51fb2bb5711a6d983fda310c5c6362a86839bd674c94ba9757aab18061a80b",
+      "prepare.py": "5d93301227915336c32f878527e62deaa79029ae680aadd33c69b1e5bc0393ac",
+      "run_local.py": "9bc938072f30d423bcebea99e2bdf626778cb8789af3a565721667d34daf0f8e"
+    },
+    "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "executed_probe_sha256": "54000fbfa714b9b2396dd81f6aabf6ca695aee20f66c4bde15456a3e21b659dc",
+    "registered_hook_verified": true
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/DependenciesWorldFxFont5/runs/20261010-200311-662835/comparisons.jsonl.gz",
+    "compressed_sha256": "e2166d394c3a9c309d17595ba4fae14f3b00cda22f7fbd026e470d209cbdab1b",
+    "uncompressed_sha256": "1f39571e6dc281aaa5cbd78c53e6a1944a9e476f6fe6f9370b57417feb5c5ccf",
+    "uncompressed_bytes": 12215370,
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "1f39571e6dc281aaa5cbd78c53e6a1944a9e476f6fe6f9370b57417feb5c5ccf"
+  }
+}

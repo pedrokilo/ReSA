@@ -1,0 +1,16 @@
+{
+  "failed_run": "20261010-183432-945126",
+  "classification": "bench expectation error; no original/candidate output differences",
+  "pairs": 2560,
+  "actual_output_differences": 0,
+  "false_abi_checks": 576,
+  "evidence": [
+    "0x448740 push ECX reserves scratch slot",
+    "0x448764 FSTP [ESP] replaces it with dy when arithmetic is reached",
+    "0x4487B6 and 0x4487C6 POP ECX return the dy bits"
+  ],
+  "correction": "Compare raw ECX/EDX original/candidate; require ECX=this only in radius overload; preserve stack/callee/EDX checks. Repeat complete bank before registration.",
+  "source_changed_for_failure": false,
+  "failed_log_sha256": "f46e31364272832d05c594104e8a5c5d7694864c9557dcf9fd4b1ca1e4a9e0b2",
+  "state_restored": true
+}

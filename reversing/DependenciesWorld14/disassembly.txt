@@ -1,0 +1,132 @@
+00422370: sub esp,18h
+00422373: push edi
+00422374: mov edi,dword ptr [esp+20h]
+00422378: mov eax,0FFFFh
+0042237D: cmp word ptr [edi+00000390h],ax
+ 00
+00422384: je 0042238F
+00422386: cmp word ptr [edi+00000394h],ax
+ 00
+0042238D: jne 0042239A
+0042238F: fld dword ptr ds:[00858B50h]
+00422395: pop edi
+00422396: add esp,18h
+00422399: ret
+0042239A: push ebp
+0042239B: mov ebp,dword ptr [edi+00000390h]
+004223A1: movzx eax,bp
+004223A4: mov ecx,dword ptr [eax*4+0096F854h]
+ 00
+004223AB: test ecx,ecx
+004223AD: push esi
+004223AE: jne 004223BD
+004223B0: fld dword ptr ds:[00858B50h]
+004223B6: pop esi
+004223B7: pop ebp
+004223B8: pop edi
+004223B9: add esp,18h
+004223BC: ret
+004223BD: mov esi,dword ptr [edi+00000394h]
+004223C3: movzx ecx,si
+004223C6: mov eax,dword ptr [ecx*4+0096F854h]
+ 00
+004223CD: test eax,eax
+004223CF: mov dword ptr [esp+0Ch],esi
+004223D3: je 004223B0
+004223D5: mov ecx,ebp
+004223D7: shr ecx,10h
+004223DA: imul ecx,ecx,1Ch
+004223DD: movzx eax,bp
+004223E0: push ebx
+004223E1: mov ebx,dword ptr [eax*4+0096F854h]
+ 00
+004223E8: lea edx,[esp+1Ch]
+004223EC: push edx
+004223ED: add ecx,ebx
+004223EF: mov dword ptr [esp+30h],ebp
+004223F3: call 00420A10
+004223F8: mov ecx,dword ptr [eax+8]
+004223FB: mov dword ptr [esp+18h],ecx
+004223FF: mov ecx,esi
+00422401: shr ecx,10h
+00422404: imul ecx,ecx,1Ch
+00422407: mov eax,esi
+00422409: mov dword ptr [esp+2Ch],eax
+0042240D: movzx eax,ax
+00422410: lea edx,[esp+1Ch]
+00422414: push edx
+00422415: add ecx,dword ptr [eax*4+0096F854h]
+ 00
+0042241C: call 00420A10
+00422421: mov esi,dword ptr [edi+14h]
+00422424: test esi,esi
+00422426: mov ecx,dword ptr [eax+8]
+00422429: mov dword ptr [esp+14h],ecx
+0042242D: lea ebx,[esi+30h]
+00422430: jne 00422435
+00422432: lea ebx,[edi+4]
+00422435: mov ecx,ebp
+00422437: shr ecx,10h
+0042243A: imul ecx,ecx,1Ch
+0042243D: movzx eax,bp
+00422440: lea edx,[esp+1Ch]
+00422444: push edx
+00422445: add ecx,dword ptr [eax*4+0096F854h]
+ 00
+0042244C: mov dword ptr [esp+30h],ebp
+00422450: call 00420A10
+00422455: test esi,esi
+00422457: fld dword ptr [eax]
+00422459: fsub dword ptr [ebx]
+0042245B: fld dword ptr [eax+4]
+0042245E: fsub dword ptr [ebx+4]
+00422461: pop ebx
+00422462: fld st(0)
+00422464: fmul st,st(1)
+00422466: fld st(2)
+00422468: fmul st,st(3)
+0042246A: faddp st(1),st
+0042246C: fsqrt
+0042246E: fstp st(2)
+00422470: fstp st(0)
+00422472: fstp dword ptr [esp+28h]
+00422476: je 0042247D
+00422478: add esi,30h
+0042247B: jmp 00422480
+0042247D: lea esi,[edi+4]
+00422480: mov eax,dword ptr [esp+0Ch]
+00422484: lea ecx,[esp+18h]
+00422488: push ecx
+00422489: mov ecx,eax
+0042248B: shr ecx,10h
+0042248E: imul ecx,ecx,1Ch
+00422491: movzx edx,ax
+00422494: mov dword ptr [esp+10h],eax
+00422498: add ecx,dword ptr [edx*4+0096F854h]
+ 00
+0042249F: call 00420A10
+004224A4: fld dword ptr [eax]
+004224A6: fsub dword ptr [esi]
+004224A8: fld dword ptr [eax+4]
+004224AB: fsub dword ptr [esi+4]
+004224AE: pop esi
+004224AF: fld st(0)
+004224B1: pop ebp
+004224B2: fmul st,st(1)
+004224B4: pop edi
+004224B5: fld st(2)
+004224B7: fmul st,st(3)
+004224B9: faddp st(1),st
+004224BB: fsqrt
+004224BD: fstp st(2)
+004224BF: fstp st(0)
+004224C1: fld dword ptr [esp+1Ch]
+004224C5: fmul dword ptr [esp+4]
+004224C9: fld st(1)
+004224CB: fmul dword ptr [esp+8]
+004224CF: faddp st(1),st
+004224D1: fxch st(1)
+004224D3: fadd dword ptr [esp+1Ch]
+004224D7: fdivp st(1),st
+004224D9: add esp,18h
+004224DC: ret

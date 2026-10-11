@@ -74,7 +74,7 @@ void CFont::InjectHooks() {
     RH_ScopedInstall(PrintStringFromBottom, 0x71A820);
     RH_ScopedInstall(GetCharacterSize, 0x719750);
     RH_ScopedInstall(LoadFontValues, 0x7187C0);
-    // Install("", "GetScriptLetterSize", 0x719670, &GetScriptLetterSize);
+    RH_ScopedGlobalInstall(GetScriptLetterSize, 0x719670);
     RH_ScopedInstall(FindSubFontCharacter, 0x7192C0);
     RH_ScopedGlobalInstall(GetLetterIdPropValue, 0x718770);
 }
@@ -884,8 +884,94 @@ float CFont::GetHeight(bool a1) {
 }
 
 // 0x719670, original name unknown
-float GetScriptLetterSize(uint8 letterId) {
-    return plugin::CallAndReturn<float, 0x719670, uint8>(letterId);
+// RH mutable entry: bank enables helper and proves resolved DLL body.
+static uintptr_t ScriptSubFontBody=reinterpret_cast<uintptr_t>(&CFont::FindSubFontCharacter);
+// Native7192C0 preserves ECX/EDX; the new caller depends on CL across this call.
+// Adapt the reconstructed C++ helper ABI, without calling the original game helper.
+__declspec(naked) static void ScriptSubFontNativeAbi() {
+    __asm {
+        push ecx
+        push edx
+        push dword ptr [esp+16]
+        push dword ptr [esp+16]
+        call dword ptr [ScriptSubFontBody]
+        add esp,8
+        pop edx
+        pop ecx
+        ret
+    }
+}
+
+__declspec(naked) float GetScriptLetterSize(uint8) {
+    __asm {
+    mov dl,byte ptr [esp+4]
+    sub esp,8
+    cmp dl,3Fh
+    jne L00719682
+    xor dl,dl
+    mov byte ptr [esp+0Ch],dl
+    L00719682: movzx eax,word ptr ds:[00A44B68h]
+    imul eax,eax,44h
+    mov cl,byte ptr [eax+00A91404h]
+    mov byte ptr [esp+3],cl
+    mov ecx,dword ptr [eax+00A91410h]
+    fld dword ptr [eax+00A913E8h]
+    sub ecx,2
+    push ebx
+    mov bl,byte ptr [eax+00A9140Ah]
+    je L007196CA
+    dec ecx
+    je L007196C2
+    cmp dl,91h
+    mov cl,byte ptr [eax+00A91410h]
+    mov al,dl
+    jne L007196E5
+    mov al,40h
+    jmp L007196EC
+    L007196C2: mov cl,1
+    mov byte ptr [esp+8],cl
+    jmp L007196D1
+    L007196CA: xor cl,cl
+    mov byte ptr [esp+8],2
+    L007196D1: mov edx,dword ptr [esp+8]
+    mov eax,dword ptr [esp+10h]
+    push edx
+    push eax
+    call ScriptSubFontNativeAbi
+    add esp,8
+    jmp L007196EC
+    L007196E5: cmp dl,9Bh
+    jbe L007196EC
+    xor al,al
+    L007196EC: mov dl,byte ptr [esp+7]
+    test dl,dl
+    je L00719722
+    movzx ecx,cl
+    imul ecx,ecx,0D2h
+    movzx edx,al
+    movzx eax,byte ptr [ecx+edx+00C718B0h]
+    movsx ecx,bl
+    mov dword ptr [esp+10h],eax
+    pop ebx
+    fild dword ptr [esp+0Ch]
+    mov dword ptr [esp+0Ch],ecx
+    fiadd dword ptr [esp+0Ch]
+    fmulp st(1),st
+    add esp,8
+    ret
+    L00719722: movzx edx,cl
+    imul edx,edx,0D2h
+    movzx eax,byte ptr [edx+00C71981h]
+    movsx ecx,bl
+    mov dword ptr [esp+10h],eax
+    pop ebx
+    fild dword ptr [esp+0Ch]
+    mov dword ptr [esp+0Ch],ecx
+    fiadd dword ptr [esp+0Ch]
+    fmulp st(1),st
+    add esp,8
+    ret
+    }
 }
 
 // 0x7192C0

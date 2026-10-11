@@ -54,7 +54,7 @@ void Fx_c::InjectHooks() {
     // + RH_ScopedInstall(DestroyEntityFx, 0x4A1280);
     // + RH_ScopedInstall(Update, 0x49E640);
     // + RH_ScopedInstall(Render, 0x49E650);
-    // RH_ScopedInstall(CreateMatFromVec, 0x49E950);
+    RH_ScopedInstall(CreateMatFromVec, 0x49E950);
     // + RH_ScopedInstall(SetFxQuality, 0x49EA40);
     // + RH_ScopedInstall(GetFxQuality, 0x49EA50);
     // RH_ScopedInstall(AddBlood, 0x49EB00);
@@ -231,30 +231,94 @@ void Fx_c::Render(RwCamera* camera, bool heatHaze) {
     g_fxMan.Render(camera, heatHaze);
 }
 
-// 0x49E950
-/**
- * Esta función continúa delegada al ejecutable original mediante llamada directa.
- * El bloque C++ posterior al return conserva una reconstrucción inactiva de referencia.
- */
-void Fx_c::CreateMatFromVec(RwMatrix* out, const CVector* origin, const CVector* direction) {
-    ((void(__thiscall*)(Fx_c*, RwMatrix*, const CVector*, const CVector*))0x49E950)(this, out, origin, direction);
-    return;
+// Actual RenderWare libraries; no game collaborator or substitute.
+static uintptr_t FxNormalizeLibrary=0x7ED9B0;
+static uintptr_t FxMatrixUpdateLibrary=0x7F18A0;
 
-    /*
-    RwMatrixSetIdentity(out);
-    RwV3dAssign(RwMatrixGetPos(out), origin);
-    RwV3dAssign(RwMatrixGetUp(out), direction);
-    RwV3dNormalize(&out->up, RwMatrixGetUp(out));
-
-    out->right.x = out->up.z * 0.0f  - out->up.y * -1.0f;
-    out->right.y = out->up.x * -1.0f - out->up.z * 0.0f;
-    out->right.z = out->up.y * 0.0f  - out->up.x * 0.0f;
-
-    out->at.x = out->up.x * -1.0f        - out->up.z * 0.0f * out->up.z - out->up.y * 0.0f  - out->up.x * 0.0f * out->up.y;
-    out->at.y = out->up.y * 0.0f         - out->up.x * 0.0f * out->up.x - out->right.x                         * out->up.z;
-    out->at.z = out->right.x * out->up.y - out->up.x * -1.0f            - out->up.z * 0.0f                     * out->up.x;
-
-    RwMatrixUpdate(out);*/
+// 0x49E950: preserve native write/alias order and x87 arithmetic.
+__declspec(naked) void Fx_c::CreateMatFromVec(RwMatrix*,const CVector*,const CVector*) {
+    __asm {
+    push esi
+    mov esi,dword ptr [esp+8]
+    mov edx,dword ptr [esi+0Ch]
+    mov eax,3F800000h
+    mov dword ptr [esi+14h],eax
+    mov dword ptr [esi+28h],eax
+    mov dword ptr [esi],eax
+    xor eax,eax
+    mov dword ptr [esi+38h],eax
+    mov dword ptr [esi+34h],eax
+    mov dword ptr [esi+30h],eax
+    mov dword ptr [esi+10h],eax
+    mov dword ptr [esi+18h],eax
+    mov dword ptr [esi+8],eax
+    mov dword ptr [esi+4],eax
+    mov dword ptr [esi+24h],eax
+    mov dword ptr [esi+20h],eax
+    mov eax,dword ptr [esp+0Ch]
+    push edi
+    lea edi,[esi+10h]
+    or edx,20003h
+    mov dword ptr [esi+0Ch],edx
+    mov ecx,dword ptr [eax]
+    mov dword ptr [esi+30h],ecx
+    mov edx,dword ptr [eax+4]
+    mov dword ptr [esi+34h],edx
+    mov eax,dword ptr [eax+8]
+    mov dword ptr [esi+38h],eax
+    mov eax,dword ptr [esp+14h]
+    mov ecx,dword ptr [eax]
+    mov dword ptr [edi],ecx
+    mov edx,dword ptr [eax+4]
+    mov dword ptr [esi+14h],edx
+    mov eax,dword ptr [eax+8]
+    push edi
+    push edi
+    mov dword ptr [esi+18h],eax
+    call dword ptr [FxNormalizeLibrary]
+    fstp st(0)
+    fld dword ptr [esi+18h]
+    fmul dword ptr ds:[00858B50h]
+    fld st(0)
+    fld dword ptr [esi+14h]
+    fmul dword ptr ds:[00858C1Ch]
+    fsubp st(1),st
+    fst dword ptr [esi]
+    fld dword ptr [edi]
+    fmul dword ptr ds:[00858C1Ch]
+    fsub st,st(2)
+    fst dword ptr [esi+4]
+    fld dword ptr [esi+14h]
+    fmul dword ptr ds:[00858B50h]
+    fld dword ptr [edi]
+    fmul dword ptr ds:[00858B50h]
+    fsubp st(1),st
+    fst dword ptr [esi+8]
+    fld st(1)
+    fmul dword ptr [esi+18h]
+    fld st(1)
+    fmul dword ptr [esi+14h]
+    fsubp st(1),st
+    fstp dword ptr [esi+20h]
+    fmul dword ptr [edi]
+    fld st(2)
+    fmul dword ptr [esi+18h]
+    fsubp st(1),st
+    push esi
+    fstp dword ptr [esi+24h]
+    fxch st(1)
+    fmul dword ptr [esi+14h]
+    fxch st(1)
+    fmul dword ptr [edi]
+    fsubp st(1),st
+    fstp dword ptr [esi+28h]
+    fstp st(0)
+    call dword ptr [FxMatrixUpdateLibrary]
+    add esp,0Ch
+    pop edi
+    pop esi
+    ret 0Ch
+    }
 }
 
 // 0x49EA40

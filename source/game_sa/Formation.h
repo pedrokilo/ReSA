@@ -23,6 +23,7 @@ public:
     static inline auto& m_Peds                        = StaticRef<CPedList>(0xC1A4D8);
 
     static void InjectHooks();
+    static int32 FindNearestFreeDestination(CVector,float*);
 
     static void DistributeDestinations(CPedList& pedlist);
     static void DistributeDestinations_CoverPoints(const CPedList& pedlist, CVector pos);

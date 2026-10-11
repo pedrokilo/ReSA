@@ -135,6 +135,8 @@ static void WellBufferMe(float target, float& valueToChange, float& speedSoFar, 
 void CCam::InjectHooks() {
     RH_ScopedClass(CCam);
     RH_ScopedCategory("Camera");
+    RH_ScopedGlobalInstall(CameraPathInterpolateVector, 0x5B2090);
+    RH_ScopedGlobalInstall(CameraPathInterpolateScalar, 0x5B2330);
 
     RH_ScopedInstall(Constructor, 0x517730);
     RH_ScopedInstall(Init, 0x50E490);
@@ -151,6 +153,7 @@ void CCam::InjectHooks() {
     RH_ScopedInstall(LookRight, 0x520E40);
     RH_ScopedInstall(RotCamIfInFrontCar, 0x50A4F0);
     RH_ScopedInstall(Using3rdPersonMouseCam, 0x50A850);
+    RH_ScopedInstall(GetBoatHeightForFirstPerson, 0x509CA0);
     RH_ScopedInstall(Process, 0x526FC0);
     RH_ScopedInstall(ProcessArrestCamOne, 0x518500);
     RH_ScopedInstall(ProcessPedsDeadBaby, 0x519250);
@@ -613,7 +616,7 @@ bool CCam::LookRight(bool lookRight) {
     }
     CVector target=entity->GetPosition();float distance=9.0f;
     if(m_nMode==static_cast<eCamMode>(0x12))distance=*reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(this)+0xD0);
-    else if(m_nMode==static_cast<eCamMode>(0x16)){float height=0;if(plugin::CallMethodAndReturn<bool,0x509CA0>(this,&height)&&!CCullZones::Cam1stPersonForPlayer())m_vecSource.z=target.z+height;}
+    else if(m_nMode==static_cast<eCamMode>(0x16)){float height=0;if(GetBoatHeightForFirstPerson(&height)&&!CCullZones::Cam1stPersonForPlayer())m_vecSource.z=target.z+height;}
     auto direction=entity->GetMatrix().GetForward();direction.Normalise();
     LookSideOrbit(direction.x,direction.y,lookRight?1.0f:-1.0f,distance,target.x,target.y,m_vecSource.x,m_vecSource.y);
     auto* col=entity->GetColModel();const float sourceZ=m_vecSource.z;
@@ -1133,8 +1136,8 @@ void CCam::Process_1rstPersonPedOnPC(const CVector&, float orientation, float, f
         const float mouseX = StaticRef<float>(0xB73424), mouseY = StaticRef<float>(0xB73428);
         float betaDelta, alphaDelta;
         if (mouseX == 0.f && mouseY == 0.f) {
-            const float horizontal = float(-int(reinterpret_cast<int16(__thiscall*)(CPad*)>(0x540E80)(CPad::GetPad(0))));
-            orientation = float(int(reinterpret_cast<int16(__thiscall*)(CPad*)>(0x540F80)(CPad::GetPad(0))));
+            const float horizontal = float(-int(CPad::GetPad(0)->GetMouseCameraStickHorizontal()));
+            orientation = float(int(CPad::GetPad(0)->GetMouseCameraStickVertical()));
             const float horizontalSign = horizontal < 0.f ? -1.f : 1.f, verticalSign = orientation < 0.f ? -1.f : 1.f;
             const float scale = m_fFOV * f(0x85A5C4);
             betaDelta = (((horizontal * horizontal) * f(0x858FC4)) * (scale * f(0x863100))) * horizontalSign * CTimer::GetTimeStep();
@@ -1893,13 +1896,9 @@ float CamPower(float base, float step) {
 }
 // Uncatalogued stick helpers used by the mouse follow camera (0x540E80/0x540F80).
 int16 MouseCameraStick(const CPad* pad, bool vertical) {
-    int32 input = StaticRef<int16>(vertical ? 0xB7345E : 0xB7345C);
-    if (vertical && StaticRef<uint8>(0xB73402)) input = int16(-input);
-    const auto* bytes = reinterpret_cast<const uint8*>(pad);
-    if (std::abs(input) > 100 && (*reinterpret_cast<const int16*>(bytes + 0x10E) != 0 || *reinterpret_cast<const int16*>(bytes + 0x26) == 0)) return int16(input > 0 ? input - 50 : input + 50);
-    if (StaticRef<CCam>(0xB6F19C).Using3rdPersonMouseCam() && std::abs(input) > 50) return int16((input > 0 ? input - 50 : input + 50) / 2);
-    return 0;
+    return vertical?pad->GetMouseCameraStickVertical():pad->GetMouseCameraStickHorizontal();
 }
+
 bool TwoPlayerCameraVisible(const CVector& source) {
     CColPoint point;
     CEntity* entity{};
@@ -3638,9 +3637,9 @@ void CCam::Process_FlyBy(const CVector&, float, float, float) {
     if(done){sourceIndex=(int32(sourcePath[0])-1)*10+1;targetIndex=(int32(targetPath[0])-1)*10+1;rollIndex=int32(rollPath[0])*4-3;fovIndex=int32(fovPath[0])*4-3;}
     else StaticRef<float>(0xB6F168)=time/finish;
     const auto advance=[&](const float* path,int32& index,int32 step){if(!done)while((path[index]-path[1])*1000.0f<=time)index+=step;};
-    advance(sourcePath,sourceIndex,10);plugin::Call<0x5B2090>(&m_vecSource,sourcePath,time,&sourceIndex);
-    advance(targetPath,targetIndex,10);plugin::Call<0x5B2090>(&m_vecFront,targetPath,time,&targetIndex);
-    float roll=0;advance(rollPath,rollIndex,4);plugin::Call<0x5B2330>(&roll,rollPath,time,&rollIndex);
+    advance(sourcePath,sourceIndex,10);CameraPathInterpolateVector(&m_vecSource,sourcePath,time,&sourceIndex);
+    advance(targetPath,targetIndex,10);CameraPathInterpolateVector(&m_vecFront,targetPath,time,&targetIndex);
+    float roll=0;advance(rollPath,rollIndex,4);CameraPathInterpolateScalar(&roll,rollPath,time,&rollIndex);
     const float radians=std::bit_cast<float>(0x3C8EFA35u),halfPi=std::bit_cast<float>(0x3FC90FDBu);float upX,upZ;
     __asm { fld roll
         fmul radians
@@ -3652,7 +3651,7 @@ void CCam::Process_FlyBy(const CVector&, float, float, float) {
         fstp upZ
     }
     m_vecUp.x=upX;m_vecUp.z=upZ;
-    advance(fovPath,fovIndex,4);plugin::Call<0x5B2330>(&StaticRef<float>(0xBC4074),fovPath,time,&fovIndex);
+    advance(fovPath,fovIndex,4);CameraPathInterpolateScalar(&StaticRef<float>(0xBC4074),fovPath,time,&fovIndex);
     if(done){StaticRef<float>(0xB6F168)=1;sourceIndex=targetIndex=rollIndex=fovIndex=0;}
     m_vecTargetCoorsForFudgeInter=m_vecFront;m_vecFront-=m_vecSource;m_vecFront.Normalise();
     const auto side=CrossProduct(m_vecUp,m_vecFront);m_vecUp=CrossProduct(m_vecFront,side);m_vecUp.Normalise();m_fFOV=StaticRef<float>(0xBC4074);
@@ -6310,4 +6309,372 @@ bool IsLampPost(eModelID modelId) {
         },
         modelId
     );
+}
+
+// Actual EXE CRT conversion library (ST0 input).
+static uintptr_t CameraPathFtolLibrary=0x821B40;
+
+// 0x5b2090: exact native spline arithmetic and index writes.
+__declspec(naked) void CameraPathInterpolateVector(CVector*,const float*,float,int32*) {
+    __asm {
+    sub esp,34h
+    push esi
+    mov esi,dword ptr [esp+40h]
+    fld dword ptr [esi]
+    push edi
+    call dword ptr [CameraPathFtolLibrary]
+    mov edi,dword ptr [esp+4Ch]
+    mov edx,dword ptr [edi]
+    fld dword ptr [esi+edx*4]
+    mov ecx,eax
+    fsub dword ptr [esi+edx*4-28h]
+    lea eax,[ecx+ecx*4]
+    fmul dword ptr ds:[00858C4Ch]
+    fld dword ptr [esi+eax*8-24h]
+    fmul dword ptr ds:[00858C4Ch]
+    fstp dword ptr [esp+44h]
+    fld dword ptr [esp+48h]
+    fcomp dword ptr [esp+44h]
+    fnstsw ax
+    test ah,5
+    jp L005B2128
+    dec edx
+    mov eax,0CCCCCCCDh
+    mul edx
+    shr edx,3
+    cmp edx,ecx
+    push ebx
+    mov bl,1
+    jbe L005B20F3
+    lea edx,[ecx+ecx*4-5]
+    lea eax,[edx+edx+1]
+    xor bl,bl
+    mov dword ptr [edi],eax
+    L005B20F3: fcom dword ptr ds:[008D0F80h]
+    fnstsw ax
+    test ah,41h
+    jp L005B2127
+    cmp bl,1
+    jne L005B2127
+    mov eax,dword ptr [edi]
+    add eax,0Ah
+    mov dword ptr [edi],eax
+    lea edx,[eax-1]
+    mov eax,0CCCCCCCDh
+    mul edx
+    shr edx,3
+    cmp edx,ecx
+    jbe L005B2127
+    lea eax,[ecx+ecx*4-5]
+    lea ecx,[eax+eax+1]
+    mov dword ptr [edi],ecx
+    L005B2127: pop ebx
+    L005B2128: mov ecx,dword ptr [edi]
+    fld dword ptr [esi+ecx*4-28h]
+    fmul dword ptr ds:[00858C4Ch]
+    fsubr dword ptr [esp+48h]
+    fdivrp st(1),st
+    fcom dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    jne L005B2151
+    fstp st(0)
+    fld dword ptr ds:[00858624h]
+    jmp L005B2166
+    L005B2151: fcom dword ptr ds:[00858B50h]
+    fnstsw ax
+    test ah,5
+    jp L005B2166
+    fstp st(0)
+    fld dword ptr ds:[00858B50h]
+    L005B2166: fld dword ptr [esp+48h]
+    fcomp dword ptr [esp+44h]
+    fnstsw ax
+    test ah,41h
+    jne L005B217D
+    fstp st(0)
+    fld dword ptr ds:[00858624h]
+    L005B217D: fld dword ptr [esi+ecx*4-24h]
+    pop edi
+    fstp dword ptr [esp+8]
+    fld dword ptr [esi+ecx*4-20h]
+    fstp dword ptr [esp+0Ch]
+    fld dword ptr [esi+ecx*4-1Ch]
+    fstp dword ptr [esp+10h]
+    fld dword ptr [esi+ecx*4+4]
+    fstp dword ptr [esp+14h]
+    fld dword ptr [esi+ecx*4+8]
+    fstp dword ptr [esp+18h]
+    fld dword ptr [esi+ecx*4+0Ch]
+    fstp dword ptr [esp+1Ch]
+    fld dword ptr [esi+ecx*4-0Ch]
+    fst dword ptr [esp+20h]
+    fld dword ptr [esi+ecx*4-8]
+    fstp dword ptr [esp+24h]
+    fld dword ptr [esi+ecx*4-4]
+    fstp dword ptr [esp+28h]
+    fld dword ptr [esi+ecx*4+10h]
+    fstp dword ptr [esp+2Ch]
+    fld dword ptr [esi+ecx*4+14h]
+    fstp dword ptr [esp+30h]
+    fld dword ptr [esi+ecx*4+18h]
+    pop esi
+    fstp dword ptr [esp+30h]
+    fcomp dword ptr [esp+4]
+    fnstsw ax
+    test ah,44h
+    jp L005B220C
+    fld dword ptr [esp+20h]
+    fcomp dword ptr [esp+8]
+    fnstsw ax
+    test ah,44h
+    jp L005B220C
+    fld dword ptr [esp+24h]
+    fcomp dword ptr [esp+0Ch]
+    fnstsw ax
+    test ah,44h
+    jnp L005B22C4
+    L005B220C: fld st(0)
+    mov eax,dword ptr [esp+38h]
+    fmul st,st(1)
+    fld st(0)
+    fmul st,st(2)
+    fstp dword ptr [esp+3Ch]
+    fld dword ptr ds:[00858624h]
+    fsub st,st(2)
+    fld st(0)
+    fmul st,st(1)
+    fst dword ptr [esp]
+    fmul st,st(1)
+    fstp dword ptr [esp+44h]
+    fmul st,st(1)
+    fstp dword ptr [esp+40h]
+    fstp st(0)
+    fmul dword ptr [esp]
+    fld dword ptr [esp+40h]
+    fmul dword ptr [esp+28h]
+    fld st(1)
+    fmul dword ptr [esp+1Ch]
+    faddp st(1),st
+    fmul dword ptr ds:[00858B3Ch]
+    fld dword ptr [esp+3Ch]
+    fmul dword ptr [esp+10h]
+    faddp st(1),st
+    fld dword ptr [esp+44h]
+    fmul dword ptr [esp+4]
+    faddp st(1),st
+    fstp dword ptr [eax]
+    fld dword ptr [esp+40h]
+    fmul dword ptr [esp+2Ch]
+    fld st(1)
+    fmul dword ptr [esp+20h]
+    faddp st(1),st
+    fmul dword ptr ds:[00858B3Ch]
+    fld dword ptr [esp+3Ch]
+    fmul dword ptr [esp+14h]
+    faddp st(1),st
+    fld dword ptr [esp+44h]
+    fmul dword ptr [esp+8]
+    faddp st(1),st
+    fstp dword ptr [eax+4]
+    fmul dword ptr [esp+24h]
+    fld dword ptr [esp+40h]
+    fmul dword ptr [esp+30h]
+    faddp st(1),st
+    fmul dword ptr ds:[00858B3Ch]
+    fld dword ptr [esp+3Ch]
+    fmul dword ptr [esp+18h]
+    faddp st(1),st
+    fld dword ptr [esp+44h]
+    fmul dword ptr [esp+0Ch]
+    faddp st(1),st
+    fstp dword ptr [eax+8]
+    jmp L005B22FC
+    L005B22C4: fld dword ptr [esp+10h]
+    mov eax,dword ptr [esp+38h]
+    fsub dword ptr [esp+4]
+    fmul st,st(1)
+    fadd dword ptr [esp+4]
+    fstp dword ptr [eax]
+    fld dword ptr [esp+14h]
+    fsub dword ptr [esp+8]
+    fmul st,st(1)
+    fadd dword ptr [esp+8]
+    fstp dword ptr [eax+4]
+    fld dword ptr [esp+18h]
+    fsub dword ptr [esp+0Ch]
+    fmul st,st(1)
+    fadd dword ptr [esp+0Ch]
+    fstp dword ptr [eax+8]
+    fstp st(0)
+    L005B22FC: fld dword ptr ds:[00B6F8ACh]
+    fadd dword ptr [eax]
+    fstp dword ptr [eax]
+    fld dword ptr ds:[00B6F8B0h]
+    fadd dword ptr [eax+4]
+    fstp dword ptr [eax+4]
+    fld dword ptr ds:[00B6F8B4h]
+    fadd dword ptr [eax+8]
+    fstp dword ptr [eax+8]
+    add esp,34h
+    ret
+    }
+}
+
+// 0x5b2330: exact native spline arithmetic and index writes.
+__declspec(naked) void CameraPathInterpolateScalar(float*,const float*,float,int32*) {
+    __asm {
+    push ebx
+    push esi
+    mov esi,dword ptr [esp+10h]
+    fld dword ptr [esi]
+    push edi
+    call dword ptr [CameraPathFtolLibrary]
+    mov edx,dword ptr [esp+1Ch]
+    mov edi,dword ptr [edx]
+    fld dword ptr [esi+edi*4]
+    mov ecx,eax
+    fsub dword ptr [esi+edi*4-10h]
+    shl eax,4
+    fmul dword ptr ds:[00858C4Ch]
+    fld dword ptr [eax+esi-0Ch]
+    fmul dword ptr ds:[00858C4Ch]
+    fstp dword ptr [esp+14h]
+    fld dword ptr [esp+18h]
+    fcomp dword ptr [esp+14h]
+    fnstsw ax
+    test ah,5
+    jp L005B23B4
+    dec edi
+    shr edi,2
+    cmp edi,ecx
+    mov bl,1
+    jbe L005B2388
+    lea eax,[ecx*4+0FFFFFFFDh]
+    xor bl,bl
+    mov dword ptr [edx],eax
+    L005B2388: fcomp dword ptr ds:[008D0F80h]
+    fnstsw ax
+    test ah,41h
+    jp L005B23B6
+    cmp bl,1
+    jne L005B23B6
+    mov eax,dword ptr [edx]
+    add eax,4
+    mov dword ptr [edx],eax
+    dec eax
+    shr eax,2
+    cmp eax,ecx
+    jbe L005B23B6
+    lea ecx,[ecx*4+0FFFFFFFDh]
+    mov dword ptr [edx],ecx
+    jmp L005B23B6
+    L005B23B4: fstp st(0)
+    L005B23B6: mov ecx,dword ptr [edx]
+    fld dword ptr [esi+ecx*4-10h]
+    fmul dword ptr ds:[00858C4Ch]
+    fsubr dword ptr [esp+18h]
+    fld dword ptr [esi+ecx*4]
+    fsub dword ptr [esi+ecx*4-10h]
+    fmul dword ptr ds:[00858C4Ch]
+    fdivp st(1),st
+    fcom dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    jne L005B23EC
+    fstp st(0)
+    fld dword ptr ds:[00858624h]
+    jmp L005B2401
+    L005B23EC: fcom dword ptr ds:[00858B50h]
+    fnstsw ax
+    test ah,5
+    jp L005B2401
+    fstp st(0)
+    fld dword ptr ds:[00858B50h]
+    L005B2401: fld dword ptr [esp+18h]
+    fcomp dword ptr [esp+14h]
+    fnstsw ax
+    test ah,41h
+    jne L005B2418
+    fstp st(0)
+    fld dword ptr ds:[00858624h]
+    L005B2418: fld dword ptr ds:[00858624h]
+    fsub st,st(1)
+    fld st(0)
+    fmul st,st(1)
+    fld st(0)
+    fmul st,st(2)
+    fld dword ptr [esi+ecx*4-4]
+    fld dword ptr [esi+ecx*4+8]
+    fld st(1)
+    fcomp dword ptr [esi+ecx*4-0Ch]
+    fnstsw ax
+    test ah,44h
+    jnp L005B2477
+    fld dword ptr [esi+ecx*4+4]
+    mov edx,dword ptr [esp+10h]
+    fmul st,st(6)
+    fxch st(1)
+    pop edi
+    fmul st,st(5)
+    fmul dword ptr ds:[00858B3Ch]
+    faddp st(1),st
+    fmul st,st(5)
+    fxch st(1)
+    fmul st,st(3)
+    fmul dword ptr ds:[00858B3Ch]
+    faddp st(1),st
+    fmul st,st(4)
+    fxch st(1)
+    fmul dword ptr [esi+ecx*4-0Ch]
+    pop esi
+    pop ebx
+    faddp st(1),st
+    fstp dword ptr [edx]
+    fstp st(0)
+    fstp st(0)
+    fstp st(0)
+    ret
+    L005B2477: fstp st(0)
+    mov eax,dword ptr [esp+10h]
+    fstp st(0)
+    pop edi
+    fstp st(0)
+    fstp st(0)
+    fstp st(0)
+    fld dword ptr [esi+ecx*4+4]
+    fsub dword ptr [esi+ecx*4-0Ch]
+    fmul st,st(1)
+    fadd dword ptr [esi+ecx*4-0Ch]
+    pop esi
+    pop ebx
+    fstp dword ptr [eax]
+    fstp st(0)
+    ret
+    }
+}
+
+static uintptr_t CameraBoatHandlingBody=std::bit_cast<uintptr_t>(&cHandlingDataMgr::GetBoatPointer);
+// 0x509CA0: real target/model metadata and handling row; RET4 exact.
+__declspec(naked) bool CCam::GetBoatHeightForFirstPerson(float*) {
+    __asm {
+    mov eax,dword ptr [ecx+0000021Ch]
+    test eax,eax
+    je L00509CD6
+    movsx eax,word ptr [eax+22h]
+    mov ecx,dword ptr [eax*4+00A9B0C8h]
+    movsx eax,word ptr [ecx+4Ah]
+    push eax
+    mov ecx,0C2B9C8h
+    call dword ptr [CameraBoatHandlingBody]
+    test eax,eax
+    je L00509CD6
+    mov edx,dword ptr [eax+20h]
+    mov eax,dword ptr [esp+4]
+    mov dword ptr [eax],edx
+    mov al,1
+    ret 4
+    L00509CD6: xor al,al
+    ret 4
+    }
 }

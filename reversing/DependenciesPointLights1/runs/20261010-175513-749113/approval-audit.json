@@ -1,0 +1,24 @@
+{
+  "bank": "DependenciesPointLights1",
+  "run": "20261010-175513-749113",
+  "functions": 1,
+  "pairs": 2560,
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "9494953a188f6d73c8972980fee0ed012f2c421727fc1ac9681d57cc116fcc40",
+  "tested_sources": {
+    "source/game_sa/PointLights.cpp": "a9a47f9f7882d6e21c68d025fe3c385e658457630871bfedd8eb3a6d276679db",
+    "source/game_sa/PointLights.h": "b1ec03235ddd72d5bf1783952d8a7c70c1457cdf69f1f25151f1706761226ecb"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "77c51fb9c36dfbf79f15b2aedcc8f7e9e461822aa348ef62a1ff0cce395b1546",
+    "build_probe.py": "13b923701c149f5b3fe3c579a6e324c7d8126ae3403e51b2b4103b0dceb1efe2",
+    "run_local.py": "26d779a26ffd9698aebb3e7ddfcbfa0ab603924efef2afb71ab73841047592af"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "79a7b185dac44afc309ab69579d68b8585095f1f8bc371c9605006704cda4ec0"
+}

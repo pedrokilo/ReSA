@@ -1,0 +1,410 @@
+{
+  "0x005F7E80": {
+    "identity": "CPedGroups::GetPedsGroup",
+    "validation_summary": "reversing/DependenciesPedGroups1/validation-summary.json"
+  },
+  "0x00559AF0": {
+    "identity": "CStats::GetFatAndMuscleModifier",
+    "validation_summary": "reversing/DependenciesStats1/validation-summary.json"
+  },
+  "0x007000E0": {
+    "identity": "CPointLights::AddLight",
+    "validation_summary": "reversing/DependenciesPointLights1/validation-summary.json"
+  },
+  "0x005F7E40": {
+    "identity": "CPedGroups::IsGroupLeader",
+    "validation_summary": "reversing/DependenciesPedGroups2/validation-summary.json"
+  },
+  "0x005F7EE0": {
+    "identity": "CPedGroups::GetGroupId",
+    "validation_summary": "reversing/DependenciesPedGroups2/validation-summary.json"
+  },
+  "0x005F7F10": {
+    "identity": "CPedGroups::IsInPlayersGroup",
+    "validation_summary": "reversing/DependenciesPedGroups2/validation-summary.json"
+  },
+  "0x005F7F40": {
+    "identity": "CPedGroups::AreInSameGroup",
+    "validation_summary": "reversing/DependenciesPedGroups2/validation-summary.json"
+  },
+  "0x00423F00": {
+    "identity": "CCarCtrl::ClearInterestingVehicleList",
+    "validation_summary": "reversing/DependenciesCarCtrl2/validation-summary.json"
+  },
+  "0x00423DE0": {
+    "identity": "CCarCtrl::RegisterVehicleOfInterest",
+    "validation_summary": "reversing/DependenciesCarCtrl2/validation-summary.json"
+  },
+  "0x00421770": {
+    "identity": "CCarCtrl::FindSequenceElement",
+    "validation_summary": "reversing/DependenciesCarCtrl2/validation-summary.json"
+  },
+  "0x004C5A60": {
+    "identity": "CModelInfo::Get2dEffectStore",
+    "validation_summary": "reversing/DependenciesLeaf2/validation-summary.json"
+  },
+  "0x0072F480": {
+    "identity": "CMemoryMgr::InitScratchPad",
+    "validation_summary": "reversing/DependenciesLeaf2/validation-summary.json"
+  },
+  "0x006FFB40": {
+    "identity": "CPointLights::Init",
+    "validation_summary": "reversing/DependenciesPointLights2/validation-summary.json"
+  },
+  "0x006FFFE0": {
+    "identity": "CPointLights::RemoveLightsAffectingObject",
+    "validation_summary": "reversing/DependenciesPointLights2/validation-summary.json"
+  },
+  "0x004ABDA0": {
+    "identity": "CTaskSimpleFight::GetComboAnimGroupID",
+    "validation_summary": "reversing/DependenciesFightLeaf2/validation-summary.json"
+  },
+  "0x004ABDC0": {
+    "identity": "CTaskSimpleFight::IsComboSet",
+    "validation_summary": "reversing/DependenciesFightLeaf2/validation-summary.json"
+  },
+  "0x004ABDF0": {
+    "identity": "CTaskSimpleFight::IsHitComboSet",
+    "validation_summary": "reversing/DependenciesFightLeaf2/validation-summary.json"
+  },
+  "0x00728150": {
+    "identity": "CSprite2d::OffsetTexCoordForBilinearFiltering",
+    "validation_summary": "reversing/DependenciesMathSprite2/validation-summary.json"
+  },
+  "0x0054ECE0": {
+    "identity": "Common::TransformPoint",
+    "validation_summary": "reversing/DependenciesMathSprite2/validation-summary.json"
+  },
+  "0x0054EEF0": {
+    "identity": "Common::TransformPoints",
+    "validation_summary": "reversing/DependenciesMathSprite2/validation-summary.json"
+  },
+  "0x00448740": {
+    "identity": "CGarage::IsPointInsideGarage-point",
+    "validation_summary": "reversing/DependenciesGarage2/validation-summary.json"
+  },
+  "0x004487D0": {
+    "identity": "CGarage::IsPointInsideGarage-radius",
+    "validation_summary": "reversing/DependenciesGarage2/validation-summary.json"
+  },
+  "0x004489F0": {
+    "identity": "CGarages::FindSafeHouseIndexForGarageType",
+    "validation_summary": "reversing/DependenciesGarage2/validation-summary.json"
+  },
+  "0x0061C5E0": {
+    "identity": "CTaskSimpleFight::ControlFight",
+    "validation_summary": "reversing/DependenciesTaskLeaf3/validation-summary.json"
+  },
+  "0x005D43D0": {
+    "identity": "CPedSaveStructure::Construct",
+    "validation_summary": "reversing/DependenciesTaskLeaf3/validation-summary.json"
+  },
+  "0x0059C3E0": {
+    "identity": "CQuaternion::Set-matrix",
+    "validation_summary": "reversing/DependenciesMathLeaf3/validation-summary.json"
+  },
+  "0x0059C600": {
+    "identity": "CQuaternion::Set-axis-angle",
+    "validation_summary": "reversing/DependenciesMathLeaf3/validation-summary.json"
+  },
+  "0x00541490": {
+    "identity": "CPad::GetCurrentKeyPressed",
+    "validation_summary": "reversing/DependenciesWorldLeaf3/validation-summary.json"
+  },
+  "0x004AA030": {
+    "identity": "FxFrustumInfo_c::IsCollision",
+    "validation_summary": "reversing/DependenciesWorldLeaf3/validation-summary.json"
+  },
+  "0x00675C30": {
+    "identity": "CTaskInteriorSitInChair::Constructor",
+    "validation_summary": "reversing/DependenciesTaskCtor4/validation-summary.json"
+  },
+  "0x00683340": {
+    "identity": "CTaskComplexWaitForPed::Constructor",
+    "validation_summary": "reversing/DependenciesTaskCtor4/validation-summary.json"
+  },
+  "0x00423FC0": {
+    "identity": "CCarCtrl::SwitchVehicleToRealPhysics",
+    "validation_summary": "reversing/DependenciesCarCtrl4/validation-summary.json"
+  },
+  "0x00424000": {
+    "identity": "CCarCtrl::UpdateCarCount",
+    "validation_summary": "reversing/DependenciesCarCtrl4/validation-summary.json"
+  },
+  "0x00730AC0": {
+    "identity": "D3DResourceSystem::SetUseD3DResourceBuffering",
+    "validation_summary": "reversing/DependenciesWorld4/validation-summary.json"
+  },
+  "0x0044A240": {
+    "identity": "CGarages::FindGarageForObject",
+    "validation_summary": "reversing/DependenciesWorld4/validation-summary.json"
+  },
+  "0x005FFF90": {
+    "identity": "CAttractorScanner::Clear",
+    "validation_summary": "reversing/DependenciesTaskPed5/validation-summary.json"
+  },
+  "0x00421050": {
+    "identity": "CPedIntelligence::IncrementAngerAtPlayer",
+    "validation_summary": "reversing/DependenciesTaskPed5/validation-summary.json"
+  },
+  "0x0061C470": {
+    "identity": "CTaskSimpleFight::Constructor",
+    "validation_summary": "reversing/DependenciesTaskPed5/validation-summary.json"
+  },
+  "0x004ABAC0": {
+    "identity": "CEventSource::ComputeEventSourceType",
+    "validation_summary": "reversing/DependenciesTaskPed5/validation-summary.json"
+  },
+  "0x00424130": {
+    "identity": "CCarCtrl::FindSpeedMultiplierWithSpeedFromNodes",
+    "validation_summary": "reversing/DependenciesVehicleLeaf5/validation-summary.json"
+  },
+  "0x0044DA30": {
+    "identity": "CPathFind::AddRandomOffsetToNodePosition",
+    "validation_summary": "reversing/DependenciesVehicleLeaf5/validation-summary.json"
+  },
+  "0x0065DA70": {
+    "identity": "CPhysical::ApplyTurnForceComponents",
+    "validation_summary": "reversing/DependenciesVehicleLeaf5/validation-summary.json"
+  },
+  "0x0046AAE0": {
+    "identity": "CScriptsForBrains::MarkAttractorScriptBrainWithThisNameAsNoLongerNeeded",
+    "validation_summary": "reversing/DependenciesVehicleLeaf5/validation-summary.json"
+  },
+  "0x0049E950": {
+    "identity": "Fx_c::CreateMatFromVec",
+    "validation_summary": "reversing/DependenciesWorldFxFont5/validation-summary.json"
+  },
+  "0x00719670": {
+    "identity": "CFont::GetScriptLetterSize",
+    "validation_summary": "reversing/DependenciesWorldFxFont5/validation-summary.json"
+  },
+  "0x00420C40": {
+    "identity": "CCamera::IsSphereVisible-matrix",
+    "validation_summary": "reversing/DependenciesWorldFxFont5/validation-summary.json"
+  },
+  "0x00585040": {
+    "identity": "CRadar::ClipRadarPoly",
+    "validation_summary": "reversing/DependenciesWorldFxFont5/validation-summary.json"
+  },
+  "0x006043A0": {
+    "identity": "CDecisionMakerTypes::RemoveDecisionMaker",
+    "validation_summary": "reversing/DependenciesDecisionRelationship6/validation-summary.json"
+  },
+  "0x00607050": {
+    "identity": "CDecisionMakerTypes::AddDecisionMaker",
+    "validation_summary": "reversing/DependenciesDecisionRelationship6/validation-summary.json"
+  },
+  "0x00600840": {
+    "identity": "CDecisionMakerTypes::LoadEventIndices",
+    "validation_summary": "reversing/DependenciesDecisionRelationship6/validation-summary.json"
+  },
+  "0x0061A1D0": {
+    "identity": "CPlayerRelationshipRecorder::RecordRelationshipWithPlayer",
+    "validation_summary": "reversing/DependenciesDecisionRelationship6/validation-summary.json"
+  },
+  "0x00606E70": {
+    "identity": "CDecisionMakerTypes::MakeDecision-Ped",
+    "validation_summary": "reversing/DependenciesDecisionPed7/validation-summary.json"
+  },
+  "0x00606F80": {
+    "identity": "CDecisionMakerTypes::MakeDecision-Group",
+    "validation_summary": "reversing/DependenciesDecisionPed7/validation-summary.json"
+  },
+  "0x004442D0": {
+    "identity": "CPedPool::GetRef",
+    "validation_summary": "reversing/DependenciesDecisionPed7/validation-summary.json"
+  },
+  "0x004B0A50": {
+    "identity": "CEventScriptCommand::Destructor",
+    "validation_summary": "reversing/DependenciesDecisionPed7/validation-summary.json"
+  },
+  "0x00558EC0": {
+    "identity": "CStats::PopulateFavoriteRadioStationList",
+    "validation_summary": "reversing/DependenciesStatsRadio7/validation-summary.json"
+  },
+  "0x00558FA0": {
+    "identity": "CStats::FindMostFavoriteRadioStation",
+    "validation_summary": "reversing/DependenciesStatsRadio7/validation-summary.json"
+  },
+  "0x00418580": {
+    "identity": "CCollision::CalculateTrianglePlanes-colModel",
+    "validation_summary": "reversing/DependenciesCollisionAdapters1/validation-summary.json"
+  },
+  "0x004185A0": {
+    "identity": "CCollision::RemoveTrianglePlanes-colModel",
+    "validation_summary": "reversing/DependenciesCollisionAdapters1/validation-summary.json"
+  },
+  "0x005B2090": {
+    "identity": "CCam::CameraPathInterpolateVector",
+    "validation_summary": "reversing/DependenciesWorldWaterPath6/validation-summary.json"
+  },
+  "0x005B2330": {
+    "identity": "CCam::CameraPathInterpolateScalar",
+    "validation_summary": "reversing/DependenciesWorldWaterPath6/validation-summary.json"
+  },
+  "0x006E5BB0": {
+    "identity": "CWaterLevel::GetWaterLevelNoWavesForQuad",
+    "validation_summary": "reversing/DependenciesWorldWaterPath6/validation-summary.json"
+  },
+  "0x006E5E90": {
+    "identity": "CWaterLevel::GetWaterLevelNoWavesForTriangle",
+    "validation_summary": "reversing/DependenciesWorldWaterPath6/validation-summary.json"
+  },
+  "0x005404A0": {
+    "identity": "CPad::GetCameraCycleUp",
+    "validation_summary": "reversing/DependenciesPadCamera7/validation-summary.json"
+  },
+  "0x00540E80": {
+    "identity": "CPad::GetMouseCameraStickHorizontal",
+    "validation_summary": "reversing/DependenciesPadCamera7/validation-summary.json"
+  },
+  "0x00540F80": {
+    "identity": "CPad::GetMouseCameraStickVertical",
+    "validation_summary": "reversing/DependenciesPadCamera7/validation-summary.json"
+  },
+  "0x0069B1B0": {
+    "identity": "CFormation::FindNearestFreeDestination",
+    "validation_summary": "reversing/DependenciesFormationMemory8/validation-summary.json"
+  },
+  "0x00745510": {
+    "identity": "Rs::psGetMemoryFunctions",
+    "validation_summary": "reversing/DependenciesFormationMemory8/validation-summary.json"
+  },
+  "0x0055A210": {
+    "identity": "CStats::FindCriminalRatingString",
+    "validation_summary": "reversing/DependenciesStatsUi8/validation-summary.json"
+  },
+  "0x0055CFC0": {
+    "identity": "CStats::UpdateStatsOnRespawn",
+    "validation_summary": "reversing/DependenciesStatsUi8/validation-summary.json"
+  },
+  "0x0055D030": {
+    "identity": "CStats::UpdateStatsAddToHealth",
+    "validation_summary": "reversing/DependenciesStatsUi8/validation-summary.json"
+  },
+  "0x00559760": {
+    "identity": "CStats::CheckForStatsMessage",
+    "validation_summary": "reversing/DependenciesStatsUi8/validation-summary.json"
+  },
+  "0x006E7210": {
+    "identity": "CWaterLevel::CalculateWavesOnlyForCoordinate2Native",
+    "validation_summary": "reversing/DependenciesWorld9/validation-summary.json"
+  },
+  "0x004BC470": {
+    "identity": "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D",
+    "validation_summary": "reversing/DependenciesWorld9/validation-summary.json"
+  },
+  "0x0055CAC0": {
+    "identity": "CStats::UpdateStatsWhenDriving",
+    "validation_summary": "reversing/DependenciesVehicleStats9/validation-summary.json"
+  },
+  "0x0055CC00": {
+    "identity": "CStats::UpdateStatsWhenFlying",
+    "validation_summary": "reversing/DependenciesVehicleStats9/validation-summary.json"
+  },
+  "0x0072F420": {
+    "identity": "CMemoryMgr::Malloc-SizeHint",
+    "validation_summary": "reversing/DependenciesMemory9/validation-summary.json"
+  },
+  "0x0072F440": {
+    "identity": "CMemoryMgr::Realloc-MemorySizeHint",
+    "validation_summary": "reversing/DependenciesMemory9/validation-summary.json"
+  },
+  "0x0072F4C0": {
+    "identity": "CMemoryMgr::MallocAlign-SizeAlignHint",
+    "validation_summary": "reversing/DependenciesMemory9/validation-summary.json"
+  },
+  "0x0072F4F0": {
+    "identity": "CMemoryMgr::FreeAlign",
+    "validation_summary": "reversing/DependenciesMemory9/validation-summary.json"
+  },
+  "0x0055C470": {
+    "identity": "CStats::UpdateFatAndMuscleStats",
+    "validation_summary": "reversing/DependenciesVehicleStats10/validation-summary.json"
+  },
+  "0x0055CEB0": {
+    "identity": "CStats::UpdateStatsWhenWeaponHit",
+    "validation_summary": "reversing/DependenciesVehicleStats10/validation-summary.json"
+  },
+  "0x0055C990": {
+    "identity": "CStats::UpdateStatsWhenSwimming",
+    "validation_summary": "reversing/DependenciesVehicleStats10/validation-summary.json"
+  },
+  "0x005FB800": {
+    "identity": "CPedGroups::AddGroup",
+    "validation_summary": "reversing/DependenciesTask10/validation-summary.json"
+  },
+  "0x005FB8C0": {
+    "identity": "CPedGroups::Init",
+    "validation_summary": "reversing/DependenciesTask10/validation-summary.json"
+  },
+  "0x005FB930": {
+    "identity": "CPedGroups::CleanUpForShutDown",
+    "validation_summary": "reversing/DependenciesTask10/validation-summary.json"
+  },
+  "0x004684F0": {
+    "identity": "CDecisionMakerTypes::GetInstance",
+    "validation_summary": "reversing/DependenciesTask11/validation-summary.json"
+  },
+  "0x00632140": {
+    "identity": "CTaskComplexSunbathe::CanSunbathe",
+    "validation_summary": "reversing/DependenciesTask11/validation-summary.json"
+  },
+  "0x0055C780": {
+    "identity": "CStats::UpdateStatsWhenCycling",
+    "validation_summary": "reversing/DependenciesVehicleStats11/validation-summary.json"
+  },
+  "0x0049B010": {
+    "identity": "CVehicle::IsValidModForVehicle",
+    "validation_summary": "reversing/DependenciesVehicleStats11/validation-summary.json"
+  },
+  "0x00509CA0": {
+    "identity": "CCam::GetBoatHeightForFirstPerson",
+    "validation_summary": "reversing/DependenciesWorld10/validation-summary.json"
+  },
+  "0x00424100": {
+    "identity": "CCarCtrl::Native_00424100",
+    "validation_summary": "reversing/DependenciesWorld10/validation-summary.json"
+  },
+  "0x006E2D50": {
+    "identity": "CVehicle::operator new-anon",
+    "validation_summary": "reversing/DependenciesVehicle12/validation-summary.json"
+  },
+  "0x0061C530": {
+    "identity": "CTaskSimpleFight::Destructor",
+    "validation_summary": "reversing/DependenciesTask12/validation-summary.json"
+  },
+  "0x00734E50": {
+    "identity": "RwHelper::RwTexDictionaryFindHashNamedTexture",
+    "validation_summary": "reversing/DependenciesWorld11/validation-summary.json"
+  },
+  "0x0044DF60": {
+    "identity": "CPathFind::RemoveInteriorLinks",
+    "validation_summary": "reversing/DependenciesWorld13/validation-summary.json"
+  },
+  "0x00734AB0": {
+    "identity": "RwHelper::GetAnimHierarchyFromFrame",
+    "validation_summary": "reversing/DependenciesWorld12/validation-summary.json"
+  },
+  "0x0044EFC0": {
+    "identity": "CPathFind::CalcRoadDensity",
+    "validation_summary": "reversing/DependenciesPathDensity13/validation-summary.json"
+  },
+  "0x00572800": {
+    "identity": "CTheZones::SetCurrentZoneAsUnlocked",
+    "validation_summary": "reversing/DependenciesZones13/validation-summary.json"
+  },
+  "0x00450320": {
+    "identity": "CPathFind::FindNodeOrientationForCarPlacement",
+    "validation_summary": "reversing/DependenciesPathOrientation14/validation-summary.json"
+  },
+  "0x00422370": {
+    "identity": "CCarCtrl::FindGhostRoadHeight",
+    "validation_summary": "reversing/DependenciesWorld14/validation-summary.json"
+  },
+  "0x005F7800": {
+    "identity": "CPedGroupIntelligence::ComputeScriptCommandTasks",
+    "validation_summary": "reversing/DependenciesGroupTasks14/validation-summary.json"
+  }
+}

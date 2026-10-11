@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "pairs": 1024,
+  "differences": 0,
+  "registered_pairs": 1024,
+  "registered_functions": 2,
+  "functions": {
+    "CPointLights::Init": 512,
+    "CPointLights::RemoveLightsAffectingObject": 512
+  },
+  "covered_functions": {
+    "CPointLights::Init": true,
+    "CPointLights::RemoveLightsAffectingObject": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/DependenciesPointLights2/runs/20261010-182800-435674",
+  "summary_sha256": "942586ab99cdc193eb683020e6cb7280d3c1d060f5130c090553ddd2ccac305c",
+  "result_txt_sha256": "b77321766f5be5cc738472f3c4c0e8180486ee78203cb4fda75570bed7739d03",
+  "log_sha256": "9a7ae11fb20ee6ba2cdbd6faf215b140df83d3d022615c344e8a50f7e0176530",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "b8bc4bc10b1e9d88cd27370200b09eba23c74cf5df121a783130a1883e5811a6",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/PointLights.cpp": "e4ce86341b6aa596300748094185f5d670f3fd3fdc63aeb2d798cf71ca6870ec",
+      "source/game_sa/PointLights.h": "4064a0170e62207882e15c48f10e4b76ce043a2748b661e6fe17d30101b973f8",
+      "source/InjectHooksMain.cpp": "87b22b34070d1b503867720319876156317fe88595a424596c86ef4f2a43380f",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "8c6d157a943b475637bb8fb7cb7b3dc4331baa58844ab4eb3f67bea4e1cdcde8",
+      "build_probe.py": "2c7df28b7c6b8b580b4712118eb2dd820e353ed00e57fe84ca6adb1420ea582e",
+      "run_local.py": "7cde64048bd2677c9cad241301e4265372162ffc207b69cb2297a25d9182feac"
+    }
+  },
+  "reaudit": {
+    "bank": "DependenciesPointLights2",
+    "run": "20261010-182800-435674",
+    "functions": 2,
+    "pairs": 1024,
+    "pairs_per_function": {
+      "CPointLights::Init": 512,
+      "CPointLights::RemoveLightsAffectingObject": 512
+    },
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "saves_unchanged": true,
+    "configs_restored": true,
+    "hook_routes_verified": true,
+    "log_sha256": "9a7ae11fb20ee6ba2cdbd6faf215b140df83d3d022615c344e8a50f7e0176530",
+    "tested_sources": {
+      "source/game_sa/PointLights.cpp": "e4ce86341b6aa596300748094185f5d670f3fd3fdc63aeb2d798cf71ca6870ec",
+      "source/game_sa/PointLights.h": "4064a0170e62207882e15c48f10e4b76ce043a2748b661e6fe17d30101b973f8",
+      "source/InjectHooksMain.cpp": "87b22b34070d1b503867720319876156317fe88595a424596c86ef4f2a43380f",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "8c6d157a943b475637bb8fb7cb7b3dc4331baa58844ab4eb3f67bea4e1cdcde8",
+      "build_probe.py": "2c7df28b7c6b8b580b4712118eb2dd820e353ed00e57fe84ca6adb1420ea582e",
+      "run_local.py": "7cde64048bd2677c9cad241301e4265372162ffc207b69cb2297a25d9182feac"
+    },
+    "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "executed_probe_sha256": "b8bc4bc10b1e9d88cd27370200b09eba23c74cf5df121a783130a1883e5811a6",
+    "registered_hook_verified": true
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/DependenciesPointLights2/runs/20261010-182800-435674/comparisons.jsonl.gz",
+    "compressed_sha256": "7b86532b55c30443fa43eb2f133c667d1e9e8a6317e2412d8857cbb6f3303b32",
+    "uncompressed_sha256": "9a7ae11fb20ee6ba2cdbd6faf215b140df83d3d022615c344e8a50f7e0176530",
+    "uncompressed_bytes": 19661719,
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "9a7ae11fb20ee6ba2cdbd6faf215b140df83d3d022615c344e8a50f7e0176530"
+  }
+}

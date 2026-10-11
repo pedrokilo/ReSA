@@ -1,0 +1,29 @@
+0044DF60: push edi
+0044DF61: mov edi,dword ptr ds:[0096EF80h]
+0044DF67: xor edx,edx
+0044DF69: test edi,edi
+0044DF6B: jle 0044DF9C
+0044DF6D: push ebx
+0044DF6E: push esi
+0044DF6F: mov esi,dword ptr [esp+10h]
+0044DF73: mov ecx,96EAC0h
+0044DF78: xor eax,eax
+0044DF7A: lea ebx,[ebx]
+0044DF7C: cmp edx,esi
+0044DF7E: je 0044DF88
+0044DF80: movsx ebx,byte ptr [eax+ecx]
+0044DF84: cmp ebx,esi
+0044DF86: jne 0044DF8C
+0044DF88: mov byte ptr [eax+ecx],0FFh
+0044DF8C: inc eax
+0044DF8D: cmp eax,6
+0044DF90: jl 0044DF7C
+0044DF92: inc edx
+0044DF93: add ecx,6
+0044DF96: cmp edx,edi
+0044DF98: jl 0044DF78
+0044DF9A: pop esi
+0044DF9B: pop ebx
+0044DF9C: pop edi
+ 0044DF9D: C2
+ 0044DF9E: 04

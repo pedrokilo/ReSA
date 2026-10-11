@@ -1,0 +1,17 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Auditoría independiente de PathDensity13
+
+Lectura íntegra de comparisons.jsonl.gz de `20261010-221026-884852`, sin compilar ni volver a ejecutar GTA. SHA256 del JSONL descomprimido `940d436c34f116aa13293227867476a7989b7a4503e7331e347b4954e2816d23`, igual a la admisión.
+
+Eventos: waiting_for_player1, actual_path_initial1, begin1, comparison2048, function_summary1, actual_path_final1 y complete1. Casos y pares únicos exactamente0..2047, una función CPathFind::CalcRoadDensity; no hay registros nulos, diferencias ni accesos inválidos.
+
+Para los 4.096 lados se regeneró cada input y sus siete bloques crudos completos, incluidas direcciones declaradas, padding y canarios. Coinciden íntegramente. El oráculo independiente PC24 coincide con retorno float32 y diez bytes de ST0 en todos los casos; ambos argumentos físicos permanecen iguales a x_bits/y_bits. Todos los gates de ESP/no volátiles/RH OFF-ON/fixtures readonly/FP/restauración pasan. No se normalizaron los resultados.
+
+El conjunto de dominios exigido por run_local.py está completo: 64 áreas de origen, 16 modos, contador no positivo/fuente ausente, enlaces0/1/2/3/15, destinos y navegación cargados/ausentes, mismo área, carriles0..7, longitudes cero/positivas, aportes múltiples, límites80 y x NaN/y infinito. La cobertura se deduce de inputs serializados y resultados crudos, no de tracing por instrucción ni de archivos de caminos cargados. Las fixtures son grafos sintéticos válidos para los accesos efectuados; no se certifica concurrencia ni punteros inválidos.
+
+ThePaths real tiene snapshots completos únicos de15.488 bytes inicial y final, exactamente iguales. Complete compacto registra2.048 pares y state_restored/floating_state_restored/actual_path_unchanged true. Begin confirma ruta RH registrada, constantes del EXE, cero colaboradores y ningún stub.
+
+Los once hashes de fuentes del manifiesto coinciden exactamente con tested_sources de approval-audit.json. Los tres instrumentos actuales coinciden con bank_sources congelados. SHA256 del archivo ASI disponible `8e7a9e6bb1b94b8090fe0e5bb0d63d7cfeb2ea3b547bc98364d22584987c567c`, igual al ejecutado. Saves_unchanged y configs_restored están afirmados por runner/archivo de aprobación; esta auditoría no relee la instalación personal ni las partidas actuales.

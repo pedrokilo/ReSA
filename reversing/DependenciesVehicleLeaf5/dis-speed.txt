@@ -1,0 +1,16 @@
+00424130: mov al,byte ptr [esp+4]
+00424134: cmp al,0FFh
+00424136: je 00424155
+00424138: test al,al
+0042413A: je 0042414E
+0042413C: cmp al,2
+0042413E: je 00424147
+00424140: fld dword ptr ds:[00858624h]
+00424146: ret
+00424147: fld dword ptr ds:[00858F54h]
+0042414D: ret
+0042414E: fld dword ptr ds:[00858F50h]
+00424154: ret
+00424155: fld dword ptr ds:[00858B8Ch]
+0042415B: ret
+ 00424160: 8B

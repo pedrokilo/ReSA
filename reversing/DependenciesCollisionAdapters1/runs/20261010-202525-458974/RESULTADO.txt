@@ -1,0 +1,3 @@
+APROBADO: Collision model adapters with isolated cache and real allocation
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciescollisionadapters1\20261010-202525-458974

@@ -1,0 +1,48 @@
+006E2A50: mov edx,dword ptr [ecx+8]
+006E2A53: push esi
+006E2A54: xor al,al
+006E2A56: push edi
+006E2A57: mov edi,dword ptr [ecx+0Ch]
+006E2A5A: inc edi
+006E2A5B: mov esi,edi
+006E2A5D: cmp esi,edx
+006E2A5F: mov dword ptr [ecx+0Ch],edi
+006E2A62: jne 006E2A71
+006E2A64: test al,al
+006E2A66: mov dword ptr [ecx+0Ch],0
+ 00
+006E2A6D: jne 006E2AB5
+006E2A6F: mov al,1
+006E2A71: mov esi,dword ptr [ecx+4]
+006E2A74: mov edi,dword ptr [ecx+0Ch]
+006E2A77: test byte ptr [esi+edi],80h
+006E2A7B: je 006E2A57
+006E2A7D: push ebx
+006E2A7E: mov edx,esi
+006E2A80: mov eax,edi
+006E2A82: mov bl,byte ptr [eax+edx]
+006E2A85: add eax,edx
+006E2A87: and bl,7Fh
+006E2A8A: mov byte ptr [eax],bl
+006E2A8C: mov edx,dword ptr [ecx+0Ch]
+006E2A8F: mov eax,dword ptr [ecx+4]
+006E2A92: mov bl,byte ptr [eax+edx]
+006E2A95: add eax,edx
+006E2A97: mov dl,byte ptr [eax]
+006E2A99: inc dl
+006E2A9B: xor dl,bl
+006E2A9D: and dl,7Fh
+006E2AA0: xor bl,dl
+006E2AA2: mov byte ptr [eax],bl
+006E2AA4: mov eax,dword ptr [ecx+0Ch]
+006E2AA7: mov edx,dword ptr [ecx]
+006E2AA9: imul eax,eax,0A18h
+006E2AAF: pop ebx
+006E2AB0: pop edi
+006E2AB1: add eax,edx
+006E2AB3: pop esi
+006E2AB4: ret
+006E2AB5: pop edi
+006E2AB6: xor eax,eax
+006E2AB8: pop esi
+006E2AB9: ret

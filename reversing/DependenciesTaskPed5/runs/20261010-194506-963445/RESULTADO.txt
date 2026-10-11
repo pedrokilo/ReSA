@@ -1,0 +1,3 @@
+APROBADO: Task/ped complete cohort
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciestaskped5\20261010-194506-963445

@@ -1,0 +1,79 @@
+0055CEB0: push ecx
+0055CEB1: mov eax,dword ptr [esp+8]
+0055CEB5: push esi
+0055CEB6: push edi
+0055CEB7: push eax
+0055CEB8: call 00743CD0
+0055CEBD: mov esi,eax
+0055CEBF: add esp,4
+0055CEC2: cmp si,52h
+0055CEC6: lea edi,[esi-45h]
+0055CEC9: jae 0055CED7
+0055CECB: movzx ecx,si
+0055CECE: fld dword ptr [ecx*4+00B79380h]
+ 00
+0055CED5: jmp 0055CEE1
+0055CED7: movzx edx,si
+0055CEDA: fild dword ptr [edx*4+00B78E20h]
+ 00
+0055CEE1: fstp dword ptr [esp+8]
+0055CEE5: call 00441390
+0055CEEA: test al,al
+0055CEEC: jne 0055CF90
+0055CEF2: fld dword ptr [esp+8]
+0055CEF6: fcomp dword ptr ds:[00858C4Ch]
+0055CEFC: fnstsw ax
+0055CEFE: test ah,5
+0055CF01: jp 0055CF90
+0055CF07: mov eax,dword ptr [edi*4+00B78F40h]
+ 00
+0055CF0E: push ebx
+0055CF0F: lea ebx,[edi*4+00B78F40h]
+ 00
+0055CF16: push eax
+0055CF17: push esi
+0055CF18: call 0055C180
+0055CF1D: mov eax,dword ptr ds:[00B79514h]
+0055CF22: add esp,8
+0055CF25: cmp eax,edi
+0055CF27: je 0055CF3E
+0055CF29: pop ebx
+0055CF2A: mov dword ptr ds:[00B79514h],edi
+0055CF30: pop edi
+0055CF31: mov dword ptr ds:[00B79504h],0
+0055CF3B: pop esi
+0055CF3C: pop ecx
+0055CF3D: ret
+0055CF3E: mov ecx,dword ptr ds:[00B79504h]
+0055CF44: fild dword ptr ds:[00B79504h]
+0055CF4A: test ecx,ecx
+0055CF4C: jge 0055CF54
+0055CF4E: fadd dword ptr ds:[00858C54h]
+0055CF54: fcom dword ptr [edi*4+00B78FC8h]
+ 00
+0055CF5B: fnstsw ax
+0055CF5D: test ah,41h
+0055CF60: jne 0055CF82
+0055CF62: fmul dword ptr [ebx]
+0055CF64: push ecx
+0055CF65: fstp dword ptr [esp]
+0055CF68: push esi
+0055CF69: push 1
+0055CF6B: call 0055B980
+0055CF70: add esp,0Ch
+0055CF73: pop ebx
+0055CF74: pop edi
+0055CF75: mov dword ptr ds:[00B79504h],0
+0055CF7F: pop esi
+0055CF80: pop ecx
+0055CF81: ret
+0055CF82: mov eax,dword ptr ds:[00B79504h]
+0055CF87: fstp st(0)
+0055CF89: inc eax
+0055CF8A: mov dword ptr ds:[00B79504h],eax
+0055CF8F: pop ebx
+0055CF90: pop edi
+0055CF91: pop esi
+0055CF92: pop ecx
+0055CF93: ret
+ 0055CFA0: D9

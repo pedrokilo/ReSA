@@ -1,0 +1,19 @@
+{
+  "targets": 499,
+  "reviewed": 499,
+  "categories": {
+    "library": 243,
+    "game": 235,
+    "unknown": 21
+  },
+  "implementation": {
+    "wrapper": 393,
+    "implemented": 103,
+    "unknown": 3
+  },
+  "runtime_passed": 102,
+  "runtime_pending": 397,
+  "scope": "Source classification is not runtime validation; unknowns preserved.",
+  "game_runtime_pending": 133,
+  "unknown_category_pending": 21
+}

@@ -128,6 +128,7 @@ void CCamera::InjectHooks() {
     RH_ScopedClass(CCamera);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedOverloadedInstall(IsSphereVisible, "matrix", 0x420C40, bool(CCamera::*)(const CVector&,float,RwMatrix*));
     RH_ScopedInstall(GetArrPosForVehicleType, 0x50AF00);
     RH_ScopedInstall(GetPositionAlongSpline, 0x50AF80);
     RH_ScopedInstall(GetRoughDistanceToGround, 0x516B00);
@@ -1639,8 +1640,86 @@ bool CCamera::IsExtraEntityToIgnore(CEntity* entity) {
 }
 
 // 0x420C40
-bool CCamera::IsSphereVisible(const CVector& origin, float radius, RwMatrix* transformMatrix) {
-    return plugin::CallMethodAndReturn<bool, 0x420C40, CCamera*, const CVector&, float, RwMatrix*>(this, origin, radius, transformMatrix);
+static uintptr_t CameraTransformPointsLibrary=0x7EDD90;
+// Native camera frustum comparisons; actual RW library transforms one copied point.
+__declspec(naked) bool CCamera::IsSphereVisible(const CVector&,float,RwMatrix*) {
+    __asm {
+    sub esp,0Ch
+    mov eax,dword ptr [esp+10h]
+    fld dword ptr [eax+4]
+    mov edx,dword ptr [esp+18h]
+    push esi
+    push edx
+    mov esi,ecx
+    mov ecx,dword ptr [eax]
+    fstp dword ptr [esp+0Ch]
+    fld dword ptr [eax+8]
+    push 1
+    lea eax,[esp+0Ch]
+    mov dword ptr [esp+0Ch],ecx
+    push eax
+    lea ecx,[esp+10h]
+    fstp dword ptr [esp+18h]
+    push ecx
+    call dword ptr [CameraTransformPointsLibrary]
+    fld dword ptr [esp+18h]
+    fadd dword ptr [esp+28h]
+    add esp,10h
+    fcomp dword ptr ds:[00C3EFA0h]
+    fnstsw ax
+    test ah,5
+    jnp L00420D2D
+    fld dword ptr [esp+8]
+    fsub dword ptr [esp+18h]
+    fcomp dword ptr ds:[00C3EF9Ch]
+    fnstsw ax
+    test ah,41h
+    je L00420D2D
+    fld dword ptr [esp+4]
+    fmul dword ptr [esi+00000B24h]
+    fld dword ptr [esp+8]
+    fmul dword ptr [esi+00000B28h]
+    faddp st(1),st
+    fcomp dword ptr [esp+18h]
+    fnstsw ax
+    test ah,41h
+    je L00420D2D
+    fld dword ptr [esp+4]
+    fmul dword ptr [esi+00000B30h]
+    fld dword ptr [esp+8]
+    fmul dword ptr [esi+00000B34h]
+    faddp st(1),st
+    fcomp dword ptr [esp+18h]
+    fnstsw ax
+    test ah,41h
+    je L00420D2D
+    fld dword ptr [esp+0Ch]
+    fmul dword ptr [esi+00000B44h]
+    fld dword ptr [esp+8]
+    fmul dword ptr [esi+00000B40h]
+    faddp st(1),st
+    fcomp dword ptr [esp+18h]
+    fnstsw ax
+    test ah,41h
+    je L00420D2D
+    fld dword ptr [esp+0Ch]
+    fmul dword ptr [esi+00000B50h]
+    fld dword ptr [esp+8]
+    fmul dword ptr [esi+00000B4Ch]
+    faddp st(1),st
+    fcomp dword ptr [esp+18h]
+    fnstsw ax
+    test ah,41h
+    jne L00420D36
+    L00420D2D: xor al,al
+    pop esi
+    add esp,0Ch
+    ret 0Ch
+    L00420D36: mov al,1
+    pop esi
+    add esp,0Ch
+    ret 0Ch
+    }
 }
 
 // 0x420D40 - NOTE: Function has no hook
@@ -3586,7 +3665,7 @@ void CameraControlWeaponMode(CCamera& camera, bool stairs) {
     }
 }
 bool CameraControlCycleUp(CPad* pad) {
-    return plugin::CallMethodAndReturn<bool, 0x5404A0, CPad*>(pad);
+    return pad->GetCameraCycleUp();
 }
 void CameraControlVehicleCycle(CCamera& camera) {
     auto& requested = StaticRef<uint16>(0xB70140);
@@ -3638,8 +3717,8 @@ void CameraControlPedCycle(CCamera& camera) {
         && (!camera.m_bWideScreenOn || camera.m_bEnable1rstPersonCamCntrlsScript)
         && !camera.m_aCams[camera.m_nActiveCam].Using3rdPersonMouseCam()) {
         if (!FindPlayerPed()->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK)) {
-            if (plugin::CallMethodAndReturn<int16, 0x540E80, CPad*>(CPad::GetPad(0)) == 0) {
-                plugin::CallMethodAndReturn<int16, 0x540F80, CPad*>(CPad::GetPad(0));
+            if (CPad::GetPad(0)->GetMouseCameraStickHorizontal() == 0) {
+                CPad::GetPad(0)->GetMouseCameraStickVertical();
             }
         }
         if (camera.m_bFirstPersonBeingUsed) {

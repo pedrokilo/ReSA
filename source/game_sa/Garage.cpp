@@ -20,6 +20,8 @@ END GENERATED HOOK STATUS */
 
 #include "Garage.h"
 
+namespace { const float GarageQueryZero = 0.0f; }
+
 void CGarage::InjectHooks() {
     RH_ScopedClass(CGarage);
     RH_ScopedCategoryGlobal();
@@ -34,12 +36,12 @@ void CGarage::InjectHooks() {
     // RH_ScopedInstall(IsEntityEntirelyOutside, 0x448D30);
     // RH_ScopedInstall(IsStaticPlayerCarEntirelyInside, 0x44A830);
     // RH_ScopedInstall(IsEntityEntirelyInside3D, 0x448BE0);
-    // RH_ScopedInstall(IsPointInsideGarage, 0x448740);
+    RH_ScopedOverloadedInstall(IsPointInsideGarage, "point", 0x448740, bool(CGarage::*)(CVector));
     // RH_ScopedInstall(PlayerArrestedOrDied, 0x4486C0);
     RH_ScopedInstall(OpenThisGarage, 0x447D50);
     RH_ScopedInstall(CloseThisGarage, 0x447D70);
     // RH_ScopedInstall(InitDoorsAtStart, 0x447600);
-    // RH_ScopedInstall(IsPointInsideGarage, 0x4487D0);
+    RH_ScopedOverloadedInstall(IsPointInsideGarage, "radius", 0x4487D0, bool(CGarage::*)(CVector, float));
     // RH_ScopedInstall(Update, 0x44AA50);
 }
 
@@ -135,8 +137,62 @@ bool CGarage::IsEntityEntirelyInside3D(CEntity* entity, float radius) {
 }
 
 // 0x448740
-bool CGarage::IsPointInsideGarage(CVector point) {
-    return plugin::CallMethodAndReturn<bool, 0x448740, CGarage*, CVector>(this, point);
+// 0x448764 sobrescribe el ECX guardado con dy; el pop final devuelve esos bits. EDX queda intacto.
+__declspec(naked) bool CGarage::IsPointInsideGarage(CVector point) {
+    __asm {
+        push ecx
+        fld dword ptr [esp+10h]
+        fcomp dword ptr [ecx+8]
+        fnstsw ax
+        test ah,5
+        jnp gpoint004487B4
+        fld dword ptr [esp+10h]
+        fcomp dword ptr [ecx+1Ch]
+        fnstsw ax
+        test ah,41h
+        je gpoint004487B4
+        fld dword ptr [esp+0Ch]
+        fsub dword ptr [ecx+4]
+        fstp dword ptr [esp]
+        fld dword ptr [esp+8]
+        fsub dword ptr [ecx]
+        fst dword ptr [esp+8]
+        fmul dword ptr [ecx+0Ch]
+        fld dword ptr [esp]
+        fmul dword ptr [ecx+10h]
+        faddp st(1),st
+        fcom dword ptr [GarageQueryZero]
+        fnstsw ax
+        test ah,5
+        jnp gpoint004487B2
+        fcomp dword ptr [ecx+20h]
+        fnstsw ax
+        test ah,41h
+        je gpoint004487B4
+        fld dword ptr [esp+8]
+        fmul dword ptr [ecx+14h]
+        fld dword ptr [esp]
+        fmul dword ptr [ecx+18h]
+        faddp st(1),st
+        fcom dword ptr [GarageQueryZero]
+        fnstsw ax
+        test ah,5
+        jp gpoint004487BA
+gpoint004487B2:
+        fstp st(0)
+gpoint004487B4:
+        xor al,al
+        pop ecx
+        ret 0Ch
+gpoint004487BA:
+        fcomp dword ptr [ecx+24h]
+        fnstsw ax
+        test ah,41h
+        je gpoint004487B4
+        mov al,1
+        pop ecx
+        ret 0Ch
+    }
 }
 
 // 0x4486C0
@@ -166,8 +222,73 @@ void CGarage::InitDoorsAtStart() {
 }
 
 // 0x4487D0
-bool CGarage::IsPointInsideGarage(CVector point, float radius) {
-    return plugin::CallMethodAndReturn<bool, 0x4487D0, CGarage*, CVector, float>(this, point, radius);
+// Copia del flujo x87 original; conserva ECX y EDX que reutiliza FindGarageForObject.
+__declspec(naked) bool CGarage::IsPointInsideGarage(CVector point, float radius) {
+    __asm {
+        fld dword ptr [ecx+8]
+        sub esp,8
+        fsub dword ptr [esp+18h]
+        fcomp dword ptr [esp+14h]
+        fnstsw ax
+        test ah,41h
+        je gradius0044885C
+        fld dword ptr [esp+18h]
+        fadd dword ptr [ecx+1Ch]
+        fcomp dword ptr [esp+14h]
+        fnstsw ax
+        test ah,5
+        jnp gradius0044885C
+        fld dword ptr [esp+10h]
+        fsub dword ptr [ecx+4]
+        fstp dword ptr [esp]
+        fld dword ptr [esp+0Ch]
+        fsub dword ptr [ecx]
+        fst dword ptr [esp+0Ch]
+        fmul dword ptr [ecx+0Ch]
+        fld dword ptr [esp]
+        fmul dword ptr [ecx+10h]
+        faddp st(1),st
+        fld dword ptr [esp+18h]
+        fchs
+        fstp dword ptr [esp+4]
+        fcom dword ptr [esp+4]
+        fnstsw ax
+        test ah,5
+        jnp gradius0044885A
+        fld dword ptr [esp+18h]
+        fadd dword ptr [ecx+20h]
+        fxch st(1)
+        fcompp
+        fnstsw ax
+        test ah,41h
+        je gradius0044885C
+        fld dword ptr [esp+0Ch]
+        fmul dword ptr [ecx+14h]
+        fld dword ptr [esp]
+        fmul dword ptr [ecx+18h]
+        faddp st(1),st
+        fcom dword ptr [esp+4]
+        fnstsw ax
+        test ah,5
+        jp gradius00448864
+gradius0044885A:
+        fstp st(0)
+gradius0044885C:
+        xor al,al
+        add esp,8
+        ret 10h
+gradius00448864:
+        fld dword ptr [esp+18h]
+        fadd dword ptr [ecx+24h]
+        fxch st(1)
+        fcompp
+        fnstsw ax
+        test ah,41h
+        je gradius0044885C
+        mov al,1
+        add esp,8
+        ret 10h
+    }
 }
 
 // 0x44AA50

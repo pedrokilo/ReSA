@@ -43,6 +43,7 @@ void CPhysical::InjectHooks()
 
     RH_ScopedInstall(RemoveAndAdd, 0x542560);
     RH_ScopedInstall(ApplyTurnForce, 0x542A50);
+    RH_ScopedInstall(ApplyTurnForceComponents, 0x65DA70);
     RH_ScopedInstall(ApplyForce, 0x542B50);
     RH_ScopedInstall(GetSpeed, 0x542CE0);
     RH_ScopedInstall(ApplyMoveSpeed, 0x542DD0);
@@ -779,6 +780,11 @@ void CPhysical::ApplyMoveForce(CVector force)
         const float invMass = 1.0f / m_fMass;
         m_vecMoveSpeed += force * invMass;
     }
+}
+
+// 0x65DA70: the original adapter passes both vectors by value to 0x542A50.
+void CPhysical::ApplyTurnForceComponents(float fx, float fy, float fz, float px, float py, float pz) {
+    ApplyTurnForce(CVector{fx, fy, fz}, CVector{px, py, pz});
 }
 
 // 0x542A50

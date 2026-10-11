@@ -47,6 +47,7 @@ static void __declspec(naked) rsPreInitCommandLine_Eax() {
 void RsInjectHooks() {
     RH_ScopedNamespaceName("Rs");
     RH_ScopedCategoryGlobal();
+    RH_ScopedGlobalInstall(psGetMemoryFunctions, 0x745510);
 
     RH_ScopedGlobalInstall(RsKeyFromScanCode, 0x6193F0);
     RH_ScopedGlobalInstall(RsTimer, 0x619410);
@@ -281,9 +282,12 @@ static RwMemoryFunctions g_objMemFunctions = { // 0x8D6228
 */
 
 // 0x745510
-RwMemoryFunctions* psGetMemoryFunctions() {
-    return plugin::CallAndReturn<RwMemoryFunctions*, 0x745510>();
-    // return &g_objMemFunctions;
+// Native getter returns the actual initialized EXE RW callback table.
+__declspec(naked) RwMemoryFunctions* psGetMemoryFunctions() {
+    __asm {
+        mov eax,8D6228h
+        ret
+    }
 }
 
 // 0x619C90

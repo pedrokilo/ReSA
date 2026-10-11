@@ -1,0 +1,51 @@
+00734A70: push esi
+00734A71: mov esi,dword ptr [esp+8]
+00734A75: push esi
+00734A76: call 007C5160
+00734A7B: add esp,4
+00734A7E: test eax,eax
+00734A80: jne 00734A99
+00734A82: mov eax,dword ptr [esp+0Ch]
+00734A86: push eax
+00734A87: push 734A70h
+00734A8C: push esi
+00734A8D: call 007F0DC0
+00734A92: add esp,0Ch
+00734A95: mov eax,esi
+00734A97: pop esi
+00734A98: ret
+00734A99: mov ecx,dword ptr [esp+0Ch]
+00734A9D: mov dword ptr [ecx],eax
+00734A9F: xor eax,eax
+00734AA1: pop esi
+00734AA2: ret
+00734AB0: push ecx
+00734AB1: push esi
+00734AB2: mov esi,dword ptr [esp+0Ch]
+00734AB6: push esi
+00734AB7: mov dword ptr [esp+8],0
+00734ABF: call 007C5160
+00734AC4: add esp,4
+00734AC7: test eax,eax
+00734AC9: jne 00734AE4
+00734ACB: lea eax,[esp+4]
+00734ACF: push eax
+00734AD0: push 734A70h
+00734AD5: push esi
+00734AD6: call 007F0DC0
+00734ADB: mov eax,dword ptr [esp+10h]
+00734ADF: add esp,0Ch
+00734AE2: jmp 00734AE8
+00734AE4: mov dword ptr [esp+4],eax
+00734AE8: test eax,eax
+00734AEA: jne 00734B03
+00734AEC: lea ecx,[esp+4]
+00734AF0: push ecx
+00734AF1: push 734A70h
+00734AF6: push esi
+00734AF7: call 007F0DC0
+00734AFC: mov eax,dword ptr [esp+10h]
+00734B00: add esp,0Ch
+00734B03: pop esi
+00734B04: pop ecx
+00734B05: ret

@@ -1,0 +1,77 @@
+0055C990: push ecx
+0055C991: mov al,byte ptr [esp+8]
+0055C995: test al,al
+0055C997: jne 0055C9A9
+0055C999: mov al,byte ptr [esp+0Ch]
+0055C99D: test al,al
+0055C99F: jne 0055C9A9
+0055C9A1: fld dword ptr ds:[00B78F80h]
+0055C9A7: jmp 0055C9AF
+0055C9A9: fld dword ptr ds:[00B78F84h]
+0055C9AF: call 00821B40
+0055C9B4: push eax
+0055C9B5: call 0055C470
+0055C9BA: fild dword ptr ds:[00B794E4h]
+0055C9C0: mov eax,dword ptr ds:[00B794E4h]
+0055C9C5: add esp,4
+0055C9C8: test eax,eax
+0055C9CA: jge 0055C9D2
+0055C9CC: fadd dword ptr ds:[00858C54h]
+0055C9D2: fld dword ptr ds:[00B78F98h]
+0055C9D8: fmul dword ptr ds:[00858C4Ch]
+0055C9DE: fcompp
+0055C9E0: fnstsw ax
+0055C9E2: test ah,5
+0055C9E5: jp 0055CA14
+0055C9E7: mov ecx,dword ptr ds:[00B78F14h]
+0055C9ED: push ecx
+0055C9EE: push 16h
+0055C9F0: mov dword ptr ds:[00B794E4h],0
+0055C9FA: call 0055C180
+0055C9FF: mov edx,dword ptr ds:[00B78F14h]
+0055CA05: push edx
+0055CA06: push 16h
+0055CA08: push 1
+0055CA0A: call 0055B980
+0055CA0F: add esp,14h
+0055CA12: jmp 0055CA31
+0055CA14: fld dword ptr ds:[00B7CB5Ch]
+0055CA1A: fmul dword ptr ds:[00858B38h]
+0055CA20: fmul dword ptr ds:[00858C4Ch]
+0055CA26: call 00821B40
+0055CA2B: add dword ptr ds:[00B794E4h],eax
+0055CA31: mov al,byte ptr [esp+8]
+0055CA35: test al,al
+0055CA37: je 0055CAB3
+0055CA39: mov eax,dword ptr ds:[00B794E8h]
+0055CA3E: fild dword ptr ds:[00B794E8h]
+0055CA44: test eax,eax
+0055CA46: jge 0055CA4E
+0055CA48: fadd dword ptr ds:[00858C54h]
+0055CA4E: fld dword ptr ds:[00B78FC0h]
+0055CA54: fmul dword ptr ds:[00858C4Ch]
+0055CA5A: fcompp
+0055CA5C: fnstsw ax
+0055CA5E: test ah,5
+0055CA61: jp 0055CA96
+0055CA63: mov ecx,dword ptr ds:[00B78F38h]
+0055CA69: push ecx
+0055CA6A: push 0E1h
+0055CA6F: mov dword ptr ds:[00B794E8h],0
+0055CA79: call 0055C180
+0055CA7E: mov edx,dword ptr ds:[00B78F38h]
+0055CA84: push edx
+0055CA85: push 0E1h
+0055CA8A: push 1
+0055CA8C: call 0055B980
+0055CA91: add esp,14h
+0055CA94: pop ecx
+0055CA95: ret
+0055CA96: fld dword ptr ds:[00B7CB5Ch]
+0055CA9C: fmul dword ptr ds:[00858B38h]
+0055CAA2: fmul dword ptr ds:[00858C4Ch]
+0055CAA8: call 00821B40
+0055CAAD: add dword ptr ds:[00B794E8h],eax
+0055CAB3: pop ecx
+0055CAB4: ret
+0055CAC0: push ecx

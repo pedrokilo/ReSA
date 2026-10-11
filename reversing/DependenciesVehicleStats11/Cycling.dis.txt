@@ -1,0 +1,156 @@
+0055C780: push ebx
+0055C781: mov bl,byte ptr [esp+8]
+0055C785: push esi
+0055C786: mov esi,dword ptr [esp+10h]
+0055C78A: fld dword ptr [esi+0000049Ch]
+0055C790: fabs
+0055C792: fcomp dword ptr ds:[00858B50h]
+0055C798: fnstsw ax
+0055C79A: test ah,41h
+0055C79D: je 0055C7AF
+0055C79F: test bl,bl
+0055C7A1: je 0055C843
+0055C7A7: fld dword ptr ds:[00B78F7Ch]
+0055C7AD: jmp 0055C7C1
+0055C7AF: test bl,bl
+0055C7B1: je 0055C7BB
+0055C7B3: fld dword ptr ds:[00B78F7Ch]
+0055C7B9: jmp 0055C7C1
+0055C7BB: fld dword ptr ds:[00B78F78h]
+0055C7C1: call 00821B40
+0055C7C6: push eax
+0055C7C7: call 0055C470
+0055C7CC: fild dword ptr ds:[00B794DCh]
+0055C7D2: mov eax,dword ptr ds:[00B794DCh]
+0055C7D7: add esp,4
+0055C7DA: test eax,eax
+0055C7DC: jge 0055C7E4
+0055C7DE: fadd dword ptr ds:[00858C54h]
+0055C7E4: fld dword ptr ds:[00B78F94h]
+0055C7EA: fmul dword ptr ds:[00858C4Ch]
+0055C7F0: fcompp
+0055C7F2: fnstsw ax
+0055C7F4: test ah,5
+0055C7F7: jp 0055C826
+0055C7F9: mov ecx,dword ptr ds:[00B78F10h]
+0055C7FF: push ecx
+0055C800: push 16h
+0055C802: mov dword ptr ds:[00B794DCh],0
+0055C80C: call 0055C180
+0055C811: mov edx,dword ptr ds:[00B78F10h]
+0055C817: push edx
+0055C818: push 16h
+0055C81A: push 1
+0055C81C: call 0055B980
+0055C821: add esp,14h
+0055C824: jmp 0055C843
+0055C826: fld dword ptr ds:[00B7CB5Ch]
+0055C82C: fmul dword ptr ds:[00858B38h]
+0055C832: fmul dword ptr ds:[00858C4Ch]
+0055C838: call 00821B40
+0055C83D: add dword ptr ds:[00B794DCh],eax
+0055C843: mov eax,dword ptr ds:[00B794E0h]
+0055C848: fild dword ptr ds:[00B794E0h]
+0055C84E: test eax,eax
+0055C850: jge 0055C858
+0055C852: fadd dword ptr ds:[00858C54h]
+0055C858: fld dword ptr ds:[00B78FACh]
+0055C85E: fmul dword ptr ds:[00858C4Ch]
+0055C864: fcompp
+0055C866: fnstsw ax
+0055C868: test ah,5
+0055C86B: jp 0055C8A1
+0055C86D: mov ecx,dword ptr ds:[00B78F28h]
+0055C873: push ecx
+0055C874: push 0E6h
+0055C879: mov dword ptr ds:[00B794E0h],0
+0055C883: call 0055C180
+0055C888: mov edx,dword ptr ds:[00B78F28h]
+0055C88E: push edx
+0055C88F: push 0E6h
+0055C894: push 1
+0055C896: call 0055B980
+0055C89B: add esp,14h
+0055C89E: pop esi
+0055C89F: pop ebx
+0055C8A0: ret
+0055C8A1: cmp byte ptr [esi+00000804h],2
+ 02
+0055C8A8: jae 0055C8E6
+0055C8AA: fld dword ptr [esi+4Ch]
+0055C8AD: fld dword ptr [esi+48h]
+0055C8B0: fld dword ptr [esi+44h]
+0055C8B3: fld st(0)
+0055C8B5: fmul st,st(1)
+0055C8B7: fld st(2)
+0055C8B9: fmul st,st(3)
+0055C8BB: faddp st(1),st
+0055C8BD: fld st(3)
+0055C8BF: fmul st,st(4)
+0055C8C1: faddp st(1),st
+0055C8C3: fld dword ptr ds:[00863E58h]
+0055C8C9: fmul dword ptr ds:[00863E58h]
+0055C8CF: fcompp
+0055C8D1: fstp st(0)
+0055C8D3: fnstsw ax
+0055C8D5: fstp st(0)
+0055C8D7: test ah,5
+0055C8DA: fstp st(0)
+0055C8DC: jp 0055C8E6
+0055C8DE: fld dword ptr ds:[00863E64h]
+0055C8E4: jmp 0055C92C
+0055C8E6: fld dword ptr [esi+4Ch]
+0055C8E9: fld dword ptr [esi+48h]
+0055C8EC: fld dword ptr [esi+44h]
+0055C8EF: fld st(0)
+0055C8F1: fmul st,st(1)
+0055C8F3: fld st(2)
+0055C8F5: fmul st,st(3)
+0055C8F7: faddp st(1),st
+0055C8F9: fld st(3)
+0055C8FB: fmul st,st(4)
+0055C8FD: faddp st(1),st
+0055C8FF: fld dword ptr ds:[00863E54h]
+0055C905: fmul dword ptr ds:[00863E54h]
+0055C90B: fcompp
+0055C90D: fstp st(0)
+0055C90F: fnstsw ax
+0055C911: fstp st(0)
+0055C913: test ah,5
+0055C916: fstp st(0)
+0055C918: jp 0055C98A
+0055C91A: test bl,bl
+0055C91C: je 0055C926
+0055C91E: fld dword ptr ds:[00863E60h]
+0055C924: jmp 0055C92C
+0055C926: fld dword ptr ds:[00863E5Ch]
+0055C92C: fcom dword ptr ds:[00858B50h]
+0055C932: fnstsw ax
+0055C934: test ah,41h
+0055C937: jne 0055C988
+0055C939: fld dword ptr ds:[00B7CB5Ch]
+0055C93F: fmul dword ptr ds:[00858B38h]
+0055C945: fmul dword ptr ds:[00858C4Ch]
+0055C94B: call 00821B40
+0055C950: test eax,eax
+0055C952: mov dword ptr [esp+10h],eax
+0055C956: fild dword ptr [esp+10h]
+0055C95A: jge 0055C962
+0055C95C: fadd dword ptr ds:[00858C54h]
+0055C962: fmulp st(1),st
+0055C964: sub esp,8
+0055C967: fstp qword ptr [esp]
+0055C96A: call 00823820
+0055C96F: add esp,8
+0055C972: call 00821B40
+0055C977: mov ecx,dword ptr ds:[00B794E0h]
+0055C97D: add ecx,eax
+0055C97F: pop esi
+0055C980: mov dword ptr ds:[00B794E0h],ecx
+0055C986: pop ebx
+0055C987: ret
+0055C988: fstp st(0)
+0055C98A: pop esi
+0055C98B: pop ebx
+0055C98C: ret
+0055C990: push ecx

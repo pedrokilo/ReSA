@@ -21,6 +21,7 @@ extern bool& gbFirstPersonRunThisFrame;
 
 class CCam {
 public:
+    bool GetBoatHeightForFirstPerson(float*); // Descriptive native alias0x509CA0.
     bool      m_bBelowMinDist;
     bool      m_bBehindPlayerDesired;
     bool      m_bCamLookingAtVector;
@@ -195,3 +196,7 @@ VALIDATE_SIZE(CCam, 0x238);
 
 int32 ConvertPedNode2BoneTag(int32 simpleId);
 bool  IsLampPost(eModelID modelId);
+
+// Descriptive aliases for native cutscene spline interpolation helpers.
+void CameraPathInterpolateVector(CVector*,const float*,float,int32*);
+void CameraPathInterpolateScalar(float*,const float*,float,int32*);

@@ -1,0 +1,33 @@
+0065DA70: sub esp,18h
+0065DA73: mov eax,dword ptr [esp+28h]
+0065DA77: mov edx,dword ptr [esp+2Ch]
+0065DA7B: mov dword ptr [esp],eax
+0065DA7F: mov eax,dword ptr [esp+30h]
+0065DA83: mov dword ptr [esp+4],edx
+0065DA87: mov edx,dword ptr [esp+1Ch]
+0065DA8B: mov dword ptr [esp+8],eax
+0065DA8F: mov eax,dword ptr [esp+20h]
+0065DA93: mov dword ptr [esp+0Ch],edx
+0065DA97: mov edx,dword ptr [esp+24h]
+0065DA9B: mov dword ptr [esp+10h],eax
+0065DA9F: mov dword ptr [esp+14h],edx
+0065DAA3: mov edx,dword ptr [esp]
+0065DAA7: sub esp,0Ch
+0065DAAA: mov eax,esp
+0065DAAC: mov dword ptr [eax],edx
+0065DAAE: mov edx,dword ptr [esp+10h]
+0065DAB2: mov dword ptr [eax+4],edx
+0065DAB5: mov edx,dword ptr [esp+14h]
+0065DAB9: mov dword ptr [eax+8],edx
+0065DABC: mov edx,dword ptr [esp+18h]
+0065DAC0: sub esp,0Ch
+0065DAC3: mov eax,esp
+0065DAC5: mov dword ptr [eax],edx
+0065DAC7: mov edx,dword ptr [esp+28h]
+0065DACB: mov dword ptr [eax+4],edx
+0065DACE: mov edx,dword ptr [esp+2Ch]
+0065DAD2: mov dword ptr [eax+8],edx
+0065DAD5: call 00542A50
+0065DADA: add esp,18h
+0065DADD: ret 18h
+ 0065DAE0: D9

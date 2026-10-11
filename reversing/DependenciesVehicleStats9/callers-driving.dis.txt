@@ -1,0 +1,18 @@
+0057145C: movzx eax,byte ptr ds:[00B7CD74h]
+ 00
+00571463: imul eax,eax,190h
+00571469: mov eax,dword ptr [eax+00B7CD98h]
+0057146F: cmp eax,ebx
+00571471: je 0057148F
+00571473: test dword ptr [eax+0000046Ch],ebp
+00571479: je 0057148F
+0057147B: mov eax,dword ptr [eax+0000058Ch]
+00571481: push eax
+00571482: call 0055CAC0
+00571487: add esp,4
+0057148A: jmp 00571567
+0057148F: xor eax,eax
+00571491: push eax
+00571492: call 0055CAC0
+00571497: add esp,4
+0057149A: jmp 00571567

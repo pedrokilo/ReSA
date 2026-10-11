@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "pairs": 2048,
+  "differences": 0,
+  "registered_pairs": 2048,
+  "registered_functions": 1,
+  "functions": {
+    "CPathFind::RemoveInteriorLinks": 2048
+  },
+  "covered_functions": {
+    "CPathFind::RemoveInteriorLinks": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/DependenciesWorld13/runs/20261010-220155-120090",
+  "summary_sha256": "56a2a5a4ae9cd2a6fed30b8e2938ad3ebde560cd59dda83b2a08813a36932ea1",
+  "result_txt_sha256": "068ff78667e6d037d9c22b2ae3020d93f7311fc6d0b3049660ceacad90e85563",
+  "log_sha256": "3bc61396daf2022ecda49ebfd78f19bec0ccd71314b889c0c7e2b7882f2793ce",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "81ae7e818541f4f249a66d828d605fa6f255afbfc365f425b1b33fea5c7fa1d0",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/PathFind.cpp": "b289ad134233f537732d2ff6555ae5d294e0d493bc9bc0e164a13f3b42bda5f2",
+      "source/game_sa/PathFind.h": "1937fc23e3c44aa8e867fa78ca1d0495684f066dd278f1b7d4bd9d62ed0891af",
+      "source/game_sa/NodeAddress.h": "a22f707c909a6cc7786132304de10096a7e9721036e76ced52df9786fe2f8bdd",
+      "source/game_sa/Interior/InteriorGroup_c.cpp": "36aedfc920cb221dd4df4ddb0ea88fc23a540413bd884208be8bcb51b5c80540",
+      "source/game_sa/Interior/InteriorGroup_c.h": "80ad6d255a9d4aa13013bb714b3f2afd9eda5bd6029270db143ce1f811fc14db",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "4b45812f12972b29c7749ce767fe1ceb8651534a8697628cf643e8a0513db549",
+      "build_probe.py": "8c195d576cccb81a361ef19159be82e5c82cbfc0ff9479481a4d262bb8a05b0c",
+      "run_local.py": "2015cd3bc2cbbc0bc47b603bc325fda2a15d54caab05a0ca78127d9e89419fe3"
+    }
+  },
+  "reaudit": {
+    "bank": "DependenciesWorld13",
+    "run": "20261010-220155-120090",
+    "functions": 1,
+    "pairs": 2048,
+    "pairs_per_function": {
+      "CPathFind::RemoveInteriorLinks": 2048
+    },
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "saves_unchanged": true,
+    "configs_restored": true,
+    "hook_routes_verified": true,
+    "log_sha256": "3bc61396daf2022ecda49ebfd78f19bec0ccd71314b889c0c7e2b7882f2793ce",
+    "tested_sources": {
+      "source/game_sa/PathFind.cpp": "b289ad134233f537732d2ff6555ae5d294e0d493bc9bc0e164a13f3b42bda5f2",
+      "source/game_sa/PathFind.h": "1937fc23e3c44aa8e867fa78ca1d0495684f066dd278f1b7d4bd9d62ed0891af",
+      "source/game_sa/NodeAddress.h": "a22f707c909a6cc7786132304de10096a7e9721036e76ced52df9786fe2f8bdd",
+      "source/game_sa/Interior/InteriorGroup_c.cpp": "36aedfc920cb221dd4df4ddb0ea88fc23a540413bd884208be8bcb51b5c80540",
+      "source/game_sa/Interior/InteriorGroup_c.h": "80ad6d255a9d4aa13013bb714b3f2afd9eda5bd6029270db143ce1f811fc14db",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "4b45812f12972b29c7749ce767fe1ceb8651534a8697628cf643e8a0513db549",
+      "build_probe.py": "8c195d576cccb81a361ef19159be82e5c82cbfc0ff9479481a4d262bb8a05b0c",
+      "run_local.py": "2015cd3bc2cbbc0bc47b603bc325fda2a15d54caab05a0ca78127d9e89419fe3"
+    },
+    "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "executed_probe_sha256": "81ae7e818541f4f249a66d828d605fa6f255afbfc365f425b1b33fea5c7fa1d0",
+    "registered_hook_verified": true
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/DependenciesWorld13/runs/20261010-220155-120090/comparisons.jsonl.gz",
+    "compressed_sha256": "93023bd54a689e54004c8e35e90e4a590236bb07336b0fa29b94a5ab523fd6a5",
+    "uncompressed_sha256": "3bc61396daf2022ecda49ebfd78f19bec0ccd71314b889c0c7e2b7882f2793ce",
+    "uncompressed_bytes": 7510229,
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "3bc61396daf2022ecda49ebfd78f19bec0ccd71314b889c0c7e2b7882f2793ce"
+  }
+}

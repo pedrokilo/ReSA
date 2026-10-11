@@ -142,7 +142,6 @@ CTaskInteriorGoToInfo,0x008702bc,0x004702bc,11,11,source/game_sa/Tasks/TaskTypes
 CTaskInteriorLieInBed,0x00870338,0x00470338,9,9,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp,27,source_table_read_from_exe
 CTaskInteriorShopKeeper,0x00870290,0x00470290,11,11,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp,30,source_table_read_from_exe
 CTaskInteriorSitAtDesk,0x0087035c,0x0047035c,9,9,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp,25,source_table_read_from_exe
-CTaskInteriorSitInChair,0x00870314,0x00470314,9,9,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp,6,source_table_read_from_exe
 CTaskInteriorUseInfo,0x008702e8,0x004702e8,11,11,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp,36,source_table_read_from_exe
 CEntitySeekPosCalculatorFixedPos,0x0086fd18,0x0046fd18,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp,25,source_table_read_from_exe
 CEntitySeekPosCalculatorRadiusAngleOffset,0x0085a384,0x0045a384,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp,25,source_table_read_from_exe
@@ -278,7 +277,7 @@ CTaskComplexSmartFleePoint,0x0086f744,0x0046f744,11,11,source/game_sa/Tasks/Task
 CTaskComplexStareAtPed,0x0086fa2c,0x0046fa2c,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp,28,source_table_read_from_exe
 CTaskComplexStealCar,0x0086e7fc,0x0046e7fc,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp,27,source_table_read_from_exe
 CTaskComplexStuckInAir,0x00870608,0x00470608,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp,183,source_table_read_from_exe
-CTaskComplexSunbathe,0x0086e0ac,0x0046e0ac,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp,48,source_table_read_from_exe
+CTaskComplexSunbathe,0x0086e0ac,0x0046e0ac,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp,91,source_table_read_from_exe
 CTaskComplexTrackEntity,0x0086f998,0x0046f998,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp,26,source_table_read_from_exe
 CTaskComplexTreatAccident,0x0086f4ec,0x0046f4ec,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp,30,source_table_read_from_exe
 CTaskComplexTurnToFaceEntityOrCoord,0x0086ff94,0x0046ff94,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp,25,source_table_read_from_exe
@@ -301,7 +300,6 @@ CTaskComplexWaitAtAttractor,0x0086e108,0x0046e108,11,11,source/game_sa/Tasks/Tas
 CTaskComplexWaitForBackup,0x00870da4,0x00470da4,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBackup.cpp,27,source_table_read_from_exe
 CTaskComplexWaitForBus,0x0086e18c,0x0046e18c,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp,25,source_table_read_from_exe
 CTaskComplexWaitForDryWeather,0x0086e160,0x0046e160,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForDryWeather.cpp,25,source_table_read_from_exe
-CTaskComplexWaitForPed,0x008706f8,0x004706f8,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,6,source_table_read_from_exe
 CTaskComplexWalkAlongsidePed,0x008706cc,0x004706cc,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexWalkAlongsidePed.cpp,30,source_table_read_from_exe
 CTaskComplexWalkRoundBuildingAttempt,0x0086f334,0x0046f334,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp,32,source_table_read_from_exe
 CTaskComplexWalkRoundCar,0x0086f308,0x0046f308,11,11,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp,29,source_table_read_from_exe
@@ -369,7 +367,7 @@ CTaskSimpleEvasiveDive,0x0086f244,0x0046f244,9,9,source/game_sa/Tasks/TaskTypes/
 CTaskSimpleEvasiveStep,0x0086f1f4,0x0046f1f4,9,9,source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.cpp,24,source_table_read_from_exe
 CTaskSimpleFacial,0x00870ab8,0x00470ab8,9,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp,24,source_table_read_from_exe
 CTaskSimpleFall,0x00870430,0x00470430,9,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp,25,source_table_read_from_exe
-CTaskSimpleFight,0x0086d684,0x0046d684,9,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,53,source_table_read_from_exe
+CTaskSimpleFight,0x0086d684,0x0046d684,9,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,146,source_table_read_from_exe
 CTaskSimpleFightingControl,0x0086d700,0x0046d700,9,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,72,source_table_read_from_exe
 CTaskSimpleFinishBrain,0x00859d20,0x00459d20,9,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp,23,source_table_read_from_exe
 CTaskSimpleGangDriveBy,0x0086d944,0x0046d944,9,9,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp,25,source_table_read_from_exe

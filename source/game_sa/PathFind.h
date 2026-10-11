@@ -230,6 +230,7 @@ public:
     static void InjectHooks();
 
     void Init();
+    void AddRandomOffsetToNodePosition(CNodeAddress first, CNodeAddress second, int16 random, float* x, float* y);
     static void PreparePathData() { /*noop 0x44D0E0*/ }
     void UnLoadPathFindData(int32 index);
     void RemoveBadStartNode(CVector pos, CNodeAddress* address, int16* numPathFindNodes);

@@ -1,0 +1,51 @@
+{
+  "bank": "DependenciesCollisionAdapters1",
+  "run": "20261010-202525-458974",
+  "functions": 2,
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CCollision::CalculateTrianglePlanes-colModel": 1024,
+    "CCollision::RemoveTrianglePlanes-colModel": 1024
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "91ea740f08b68b530c82d86e3bbf3aec6922a7eb3ba9bbe126742f2f4413162d",
+  "tested_sources": {
+    "source/game_sa/Collision/Collision.cpp": "d4a098fe034eac808a1c43ece7d1f1bc1557a2d3dfdc0b3d1aceecce25de1d97",
+    "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
+    "source/game_sa/Collision/ColModel.cpp": "1e388691012d39eb502dae66477171fe6cc74210ee5d48e7da44854b690370f8",
+    "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
+    "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
+    "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
+    "source/game_sa/Collision/ColTrianglePlane.cpp": "ed4da2d64437c91b0ea47733fa42198826e8ab61afb7265a08e8d75f64ff0dd8",
+    "source/game_sa/Collision/ColTrianglePlane.h": "4b5a5a9ac830973ae14af16eb74cb73a0ee0d1a8106583292ba60a7c338de499",
+    "source/game_sa/Collision/ColTriangle.h": "4c44f284207ecf62fff89de2751bc56aec84a793373304f96fd57062cb125f4a",
+    "source/game_sa/CompressedVector.h": "a590cacdace96671c1cbdbf88ff20c6b8ac82eb9b755e53ae2a2d23b54f532d6",
+    "source/game_sa/MemoryMgr.cpp": "30ec6a6b730b9160a9c61872b7810aaaa5ea3b5266d3695ba6ec7fb9e22f4ee0",
+    "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+    "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
+    "source/game_sa/Core/LinkList.h": "28a010ffca27a723ddac87b264084f84a1ec8f95995c414c5be1483cbaa34032",
+    "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+    "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+    "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
+    "reversing/DependenciesCollisionAdapters1/HelperHookRoute.hpp": "db858ad185fe0a6436da2e4bce090431dff811f3427605d856233f6be67ec0e1",
+    "reversing/DependenciesCollisionAdapters1/AllocationTrace.hpp": "f57e4cd98980cb1784b49e1c93686c3cf514ac8f61a943d57b9587ecdbdb9ed5"
+  },
+  "bank_sources": {
+    "AllocationTrace.hpp": "f57e4cd98980cb1784b49e1c93686c3cf514ac8f61a943d57b9587ecdbdb9ed5",
+    "HelperHookRoute.hpp": "db858ad185fe0a6436da2e4bce090431dff811f3427605d856233f6be67ec0e1",
+    "LiveComparison.hpp": "3c7adec50500ee2dc67760c8b2495c98a31cd12b9083b17eeb5789175204588d",
+    "build_probe.py": "e802273c0a09b40bd4aa9708f8742ce494e54d03003e498c61375c60f6e18654",
+    "run_local.py": "855eaed9023c1467254c21349f241193ffaed866d25194864afe090f0031d978"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "63cd3f02f7874168a14ceefd1f74d0882e8bc47a0772b1e4ce8eb4d26fefda99",
+  "registered_hook_verified": true
+}

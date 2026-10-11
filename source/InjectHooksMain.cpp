@@ -1,4 +1,9 @@
 #include "StdInc.h"
+#include "AttractorScanner.h"
+#include "Events/EventSource.h"
+#include "RenderWare/D3DResourceSystem.h"
+#include "PedSaveStructure.h"
+#include "Interior/TaskInteriorSitInChair.h"
 
 #include <extensions/CommandLine.h>
 
@@ -184,6 +189,7 @@
 #include "TempColModels.h"
 #include "Conversations.h"
 #include "DecisionMakers/DecisionMakerTypesFileLoader.h"
+#include "PlayerRelationshipRecorder.h"
 
 // Plant
 #include "PlantMgr.h"
@@ -600,6 +606,7 @@ void InjectHooksMain() {
     RwHelperInjectHooks();
     RwCoreInjectHooks();
     CPad::InjectHooks();
+    D3DResourceSystem::InjectHooks();
     InjectCommonHooks();
     CEscalator::InjectHooks();
     CShadowCamera::InjectHooks();
@@ -674,10 +681,11 @@ void InjectHooksMain() {
     /******* Don't hook these, performance is bad ********
     /* CVector::InjectHooks();
     /* CVector2D::InjectHooks();
-    /* CQuaternion::InjectHooks();
+    /* CQuaternion::Get remains disabled; selective Set hooks are installed below.
     /* CMatrix::InjectHooks();
     /****************************************************/
 
+    CQuaternion::InjectHooks(); // Only the reconstructed Set dependencies.
     CMatrixLink::InjectHooks();
     CMatrixLinkList::InjectHooks();
     CEntryInfoNode::InjectHooks();
@@ -693,6 +701,7 @@ void InjectHooksMain() {
 
     CReferences::InjectHooks();
     CPopulation::InjectHooks();
+    CMemoryMgr::InjectHooks();
     CModelInfo::InjectHooks();
     CBaseModelInfo::InjectHooks();
     CAtomicModelInfo::InjectHooks();
@@ -723,6 +732,9 @@ void InjectHooksMain() {
     CCompressedMatrixNotAligned::InjectHooks();
     CVisibilityPlugins::InjectHooks();
     CPed::InjectHooks();
+    CPedSaveStructure::InjectHooks();
+    CAttractorScanner::InjectHooks();
+    CEventSource::InjectHooks();
     CPedIntelligence::InjectHooks();
     CPedGroupIntelligence::InjectHooks();
     CCollision::InjectHooks();
@@ -804,6 +816,7 @@ void InjectHooksMain() {
     CFallingGlassPane::InjectHooks();
     CGlass::InjectHooks();
     CPedGroups::InjectHooks();
+    CPointLights::InjectHooks();
     CClock::InjectHooks();
     CClouds::InjectHooks();
     CCoronas::InjectHooks();
@@ -835,6 +848,7 @@ void InjectHooksMain() {
     CNodeRoute::InjectHooks();
     CLoadMonitor::InjectHooks();
     CDecisionMakerTypes::InjectHooks();
+    CPlayerRelationshipRecorder::InjectHooks();
     CDecisionMakerTypesFileLoader::InjectHooks();
     CDecision::InjectHooks();
     CPedStats::InjectHooks();
@@ -1007,7 +1021,7 @@ void InjectHooksMain() {
             CTaskInteriorLieInBed::InjectHooks();
             CTaskInteriorShopKeeper::InjectHooks();
             CTaskInteriorSitAtDesk::InjectHooks();
-        // CTaskInteriorSitInChair::InjectHooks();
+        CTaskInteriorSitInChair::InjectHooks();
             CTaskInteriorUseInfo::InjectHooks();
         };
         // NOTA (2026-10-01): este `Interior` no se invocaba; ninguna de las 8
@@ -1273,7 +1287,7 @@ void InjectHooksMain() {
         CTaskSimpleFall::InjectHooks();
         CTaskSimpleClimb::InjectHooks();
         CTaskComplexPlayHandSignalAnim::InjectHooks();
-        // CTaskComplexWaitForPed::InjectHooks();
+        CTaskComplexWaitForPed::InjectHooks();
         CTaskComplexJump::InjectHooks();
         CTaskComplexWanderStandard::InjectHooks();
         CTaskComplexSunbathe::InjectHooks();
@@ -1443,6 +1457,7 @@ void InjectHooksMain() {
         FxSystemBP_c::InjectHooks();
         FxSystem_c::InjectHooks();
         FxSphere_c::InjectHooks();
+        FxFrustumInfo_c::InjectHooks();
         FxPrimBP_c::InjectHooks();
         FxMemoryPool_c::InjectHooks();
         FxInfoManager_c::InjectHooks();

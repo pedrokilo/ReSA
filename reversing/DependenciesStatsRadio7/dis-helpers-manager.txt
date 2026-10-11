@@ -1,0 +1,2 @@
+004E83E0: lea eax,[ecx+18h]
+004E83E3: ret

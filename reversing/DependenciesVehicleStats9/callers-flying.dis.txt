@@ -1,0 +1,16 @@
+005713B2: mov eax,dword ptr [eax+00B7CD98h]
+005713B8: cmp eax,ebx
+005713BA: je 005713D8
+005713BC: test dword ptr [eax+0000046Ch],ebp
+005713C2: je 005713D8
+005713C4: mov eax,dword ptr [eax+0000058Ch]
+005713CA: push eax
+005713CB: call 0055CC00
+005713D0: add esp,4
+005713D3: jmp 00571567
+005713D8: xor eax,eax
+005713DA: push eax
+005713DB: call 0055CC00
+005713E0: add esp,4
+005713E3: jmp 00571567
+ 005713E8: 0F

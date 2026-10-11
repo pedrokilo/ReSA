@@ -19,6 +19,7 @@ public:
     static D3DTextureBuffer &TextureBuffer;
     static D3DIndexDataBuffer &IndexDataBuffer;
 
+    static void InjectHooks();
     static void CancelBuffering();
     static uint32 GetTotalIndexDataSize();
     static uint32 GetTotalPixelsSize();

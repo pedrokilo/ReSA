@@ -1,0 +1,15 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Revisión conservadora del tercio C
+
+165 destinos externos al catálogo: **60 game, 90 library y 15 unknown**. Todas las filas siguen indicando wrapper: esta clasificación no equivale a reconstrucción o validación.
+
+Se reclasificaron de game a unknown los cinco destinos de cámara cinematográfica, tres de Fight, tres helpers de GangDriveBy, el helper de ángulos de tarea, el helper atribuido a AttributeZone, el generador aleatorio 610DB0 y RpGeometryReplaceOldMaterialWithNewMaterial. Las firmas y nombres inferidos del llamador no bastan para acreditar la procedencia del destino. Se conserva la evidencia y se hace explícita la incertidumbre, sin registrar funciones.
+
+610DB0 es un cálculo de rango aleatorio: el EXE lee los límites 86C6C4/86C6C8, llama rand, escala en x87 y convierte a entero. El nombre previo gang-count describía el uso, no el destino. CFormation 69B1B0 se mantiene game por la coincidencia directa de los globales C1A318/C1A324/C1A43C con su lista de destinos y marcas de asignación; el nombre es descriptivo.
+
+Los destinos QuickTime mantienen library por el contexto de tipos QTSound y las entradas InitializeQTML/EnterMovies del decoder, junto con los thunks de despacho observados (por ejemplo 818430: selector 250027 y salto indirecto 8E2A0C; 818490: 25002A; 818DB0: 150008). No se afirma un nombre exportado para cada selector ni se usa la VA como prueba de biblioteca. Los wrappers SDK de RenderWare conservan library; el helper de geometría ubicado fuera de esa familia queda unknown.
+
+Esta revisión sólo modifica classification-c.csv y este informe. No modifica Stats, los bancos, el catálogo, los documentos congelados, ni ejecuta compilaciones o el juego. Respecto al agregado provisional 237 game / 239 library / 23 unknown, aplicar el cambio de este tercio da **222 game / 239 library / 38 unknown**, si los otros dos tercios permanecen iguales.

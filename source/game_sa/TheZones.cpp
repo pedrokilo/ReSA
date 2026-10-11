@@ -35,6 +35,7 @@ void CTheZones::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedGlobalInstall(ResetZonesRevealed, 0x572110);
+    RH_ScopedGlobalInstall(SetCurrentZoneAsUnlocked, 0x572800);
     RH_ScopedGlobalInstall(PointLiesWithinZone, 0x572270);
     RH_ScopedGlobalInstall(GetNavigationZone, 0x572590);
     RH_ScopedGlobalInstall(GetMapZone, 0x5725A0);
@@ -337,8 +338,73 @@ void CTheZones::Init() {
 
 // Unlock the current zone
 // 0x572800
-void CTheZones::SetCurrentZoneAsUnlocked() {
-    ((void(__cdecl*)())0x572800)();
+static __declspec(naked) void Zones13PlayerCoords() { __asm {
+    push 0056E010h
+    ret
+} }
+static __declspec(naked) void Zones13Level() { __asm {
+    push 00572300h
+    ret
+} }
+static __declspec(naked) void Zones13Visited() { __asm {
+    push 00572130h
+    ret
+} }
+static __declspec(naked) void Zones13FloatToLong() { __asm {
+    push 00821B40h
+    ret
+} }
+
+__declspec(naked) void CTheZones::SetCurrentZoneAsUnlocked() {
+    __asm {
+        sub esp,0Ch
+        lea eax,[esp]
+        push 0FFFFFFFFh
+        push eax
+        call Zones13PlayerCoords
+        lea ecx,[esp+8]
+        push ecx
+        call Zones13Level
+        mov dword ptr ds:[00BA6718h],eax
+        mov al,byte ptr ds:[00A444A4h]
+        add esp,0Ch
+        test al,al
+        jne zones13_572896
+        mov eax,dword ptr ds:[00B72914h]
+        test eax,eax
+        jne zones13_572896
+        mov edx,dword ptr [esp+4]
+        mov eax,dword ptr [esp]
+        push edx
+        push eax
+        call Zones13Visited
+        add esp,8
+        test al,al
+        jne zones13_572896
+        fld dword ptr [esp]
+        push esi
+        fadd dword ptr ds:[00859A94h]
+        fmul dword ptr ds:[00865060h]
+        call Zones13FloatToLong
+        fld dword ptr [esp+8]
+        fadd dword ptr ds:[00859A94h]
+        movzx eax,al
+        lea ecx,[eax+eax*4]
+        shl ecx,1
+        fmul dword ptr ds:[00865060h]
+        mov esi,ecx
+        call Zones13FloatToLong
+        movzx edx,al
+        mov eax,dword ptr ds:[00BA372Ch]
+        sub esi,edx
+        inc eax
+        mov byte ptr [esi+00BA3739h],1
+        mov dword ptr ds:[00BA372Ch],eax
+        pop esi
+zones13_572896:
+        add esp,0Ch
+        ret
+    }
 }
 
 // Creates a zone

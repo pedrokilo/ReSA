@@ -1,0 +1,9 @@
+004C8740: mov eax,dword ptr [esp+4]
+004C8744: movsx eax,word ptr [eax*2+00B4E470h]
+004C874C: ret
+004C8750: mov eax,dword ptr [esp+4]
+004C8754: mov ecx,dword ptr [esp+8]
+004C8758: imul eax,eax,0Fh
+004C875B: add eax,ecx
+004C875D: movsx eax,word ptr [eax*2+00B4E3F8h]
+004C8765: ret

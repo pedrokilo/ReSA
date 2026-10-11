@@ -1,0 +1,44 @@
+00558FA0: push esi
+00558FA1: push edi
+00558FA2: xor ecx,ecx
+00558FA4: mov eax,1
+00558FA9: mov edx,3
+00558FAE: mov esi,0B78E60h
+00558FB3: mov edi,dword ptr [esi-4]
+00558FB6: cmp edi,ecx
+00558FB8: jle 00558FBF
+00558FBA: mov ecx,edi
+00558FBC: lea eax,[edx-2]
+00558FBF: mov edi,dword ptr [esi]
+00558FC1: cmp edi,ecx
+00558FC3: jle 00558FCA
+00558FC5: mov ecx,edi
+00558FC7: lea eax,[edx-1]
+00558FCA: mov edi,dword ptr [esi+4]
+00558FCD: cmp edi,ecx
+00558FCF: jle 00558FD5
+00558FD1: mov ecx,edi
+00558FD3: mov eax,edx
+00558FD5: mov edi,dword ptr [esi+8]
+00558FD8: cmp edi,ecx
+00558FDA: jle 00558FE1
+00558FDC: mov ecx,edi
+00558FDE: lea eax,[edx+1]
+00558FE1: mov edi,dword ptr [esi+0Ch]
+00558FE4: cmp edi,ecx
+00558FE6: jle 00558FED
+00558FE8: mov ecx,edi
+00558FEA: lea eax,[edx+2]
+00558FED: mov edi,dword ptr [esi+10h]
+00558FF0: cmp edi,ecx
+00558FF2: jle 00558FF9
+00558FF4: mov ecx,edi
+00558FF6: lea eax,[edx+3]
+00558FF9: add edx,6
+00558FFC: lea edi,[edx-2]
+00558FFF: add esi,18h
+00559002: cmp edi,0Dh
+00559005: jl 00558FB3
+00559007: pop edi
+00559008: pop esi
+00559009: ret

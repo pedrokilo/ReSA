@@ -1,0 +1,41 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# DependenciesTask12 — destructor Fight completo aprobado
+
+Estado: **APROBADO y registrado** en la corrida [20261010-215421-886885](runs/20261010-215421-886885/approval-audit.json): **1 función / 2048 pares, cero diferencias, cero registros original/candidate NULL**, restauración de estado/rutas, configuraciones y partidas verificada. La propuesta fue aplicada a producción antes de esta prueba. Los tres instrumentos aprobados permanecen inmutables.
+
+Evidencia: [comparaciones comprimidas](runs/20261010-215421-886885/comparisons.jsonl.gz), [resultado](runs/20261010-215421-886885/summary.json) y [auditoría independiente](audit-runtime.md). SHA256 del log descomprimido: `6190fdf7dbbb3b5e2f06eb58a61eec7a5d07bb2a39eeeb2da9a8f1e807fd121f`; ASI ejecutado: `cc210828b07ecd424bebb3e75d0c91d9dec73ac0ac14858434341ab2eb9dc094`.
+
+Una función probada, **2048 pares**: CTaskSimpleFight::Destructor 0x61C530. Identidad de la cohorte: CTaskSimpleFight::~CTaskSimpleFight. El nombre RH Destructor identifica el wrapper que reproduce esa entrada nativa; su retorno C++ histórico de tipo puntero no añade un retorno semántico al destructor nativo. El banco trata EAX/ECX/EDX como volátiles y no inventa un retorno.
+
+## Fuente completa y ABI
+
+Se revisaron las **52 instrucciones** originales de 0x61C530..0x61C5DF, con margen posterior. La propuesta incluye RET final explícito. Conserva handler SEH del EXE 0x83F338 y todos los saltos, referencias, callbacks, decremento de bloque, llamada base y restauración de pila/cadena. Los cuatro puentes PUSH dirección/RET llaman colaboradores reales sin modificar registros adicionales. Scope warning4733 únicamente en el wrapper naked. Se prueba la ruta normal y restauración FS:[0], no el desenrollado excepcional.
+
+El banco invoca siempre la entrada original 0x61C530 con RH producción OFF/ON, exige registro y captura ESP, EBX/ESI/EDI/EBP y FS:[0] inmediatamente mediante gate ensamblador. La dirección candidata se obtiene del registro Simple real por dirección/nombre, evitando publicar un método privado o inventar un candidato alternativo. No se usa fallback de EntryPatch como aprobación.
+
+## Fixtures reales, todas las ramas
+
+Se construye un CTaskSimpleFight completo mediante constructor 0x61C470 sobre un slot adquirido por operator new real 0x61A5A0 en pool privado de cuatro slots, con bitmap/cabecera reales y owner=false. No se simula su vtable ni se fabrica un destructor. Target NULL o jugador real; para el segundo, RegisterReference y CleanUpOldReference usan 16 nodos privados CReference reales, preservando íntegra la cadena original del jugador y los 3000 nodos originales.
+
+Las asociaciones no son stubs: se resuelve la animación IDLE del grupo DEFAULT en el catálogo real cargado y se invoca constructor estático-dinámico 0x4CF080 sobre esa definición completa. Se crean asociaciones legítimas y todos sus nodos, con jerarquía/secuencias reales y referencia natural al bloque. Se evita CopyAnimation porque introduce Uncompress/caché; el constructor elegido sólo copia enlaces de secuencias y adquiere la referencia. Las asociaciones permanecen separadas de clumps, un estado válido del constructor. Nunca se alteran animaciones existentes del jugador.
+
+Cada asociación parte de callback FINISH real 0x4D1390 y userdata=task; el destructor Fight debe sustituirlo por DELETE del mismo callback con userdata NULL. Se comprueban **60 bytes completos de cada asociación y todos sus nodos de 24 bytes** contra el snapshot anterior, con sólo esas tres escrituras esperadas. Los dos floats auxiliares que Init deja sin inicializar se siembran explícitamente con valores finitos después del constructor; el fixture no presenta esos bytes como salida definida del constructor. Se comparan todos los 40 bytes de task, cuyo único cambio esperado adicional es vtable final 0x86D48C y flag de referencia puesto a cero únicamente cuando corresponde.
+
+Perfiles: target NULL/real × máscara de dos asociaciones (ninguna, primera, segunda, ambas) × cuatro modos de referencia × 64 semillas de padding/argumentos. Los modos son false, true+grupo33 (guard defensivo que no adquiere referencia), true+grupoDEFAULT y una segunda variante de la misma rama válida de liberación. Cada rama DEFAULT adquiere antes una referencia real por AddAnimBlockRef, consumida exactamente por el destructor. El grupo33 se conserva como sentinel original del constructor. Todos los saltos presentes se ejercitan; no se fuerza fallo de asignación ni estados de referencia negativos.
+
+Los punteros de heap a asociaciones y nodos pueden diferir entre asignaciones: el banco los normaliza sólo en el registro comparado (slot 1/2, node-buffer token, owner de cada nodo), después de comprobar igualdades exactas entre cada objeto observado y su snapshot/expected local. No normaliza callbacks, jerarquía, secuencias, bytes de payload ni efectos de la fuente.
+
+## Restitución y límites
+
+El destructor Fight no borra asociaciones: el banco ejecuta después su destructor completo real 0x4CECF0 y delete CRT real 0x8214BD. El task ya destruido se libera mediante operator delete real 0x61A5B0 sin destruirlo otra vez. Se exige pool vacío, partición de referencias completa, jugador sin referencias privadas y los 5760 bytes de bloques de animación exactamente iguales al estado inicial: las referencias se equilibran por APIs reales, nunca por memcpy sobre el contador.
+
+Se vigilan cabecera/puntero, almacenamiento y bitmap del pool original entero; nodos originales CReference, jugador entero, catálogo de grupos, definición estática completa, jerarquía y mapa de secuencias. Se restauran referencias/pool global antes de cualquier bombeo de mensajes. FP x87 de108 bytes y MXCSR se conservan y verifican. Veinte colaboradores mantienen rutas reales actuales, bytes, módulo y flags RH antes/después/final; no hay certificación de independencia transitiva ni de metadatos internos del heap. Los keyframes globales no se modifican ni se reclaman como snapshot de todas las animaciones del juego.
+
+Preflight rechaza ausencia de catálogo/animación cargada, definición sin nodos, flag de referencia ya presente en la definición estática, bloque inseguro o pool original inválido. No crea un sustituto artificial ni contabiliza un rechazo como aprobado. El manifiesto verifica rutas existentes antes de compilar; run_local exige 2048 pares únicos, objetos no nulos, todas las observaciones y gates, cobertura de máscaras/modos y restauración final. Véase [triage](triage.md) para Extract aplazado.
+
+## Refuerzo antes de primera compilación
+
+La restauración RH final se ejecuta incondicionalmente, incluso cuando fallan memoria o colaboradores; los resultados se combinan después. Preflight valida el array y rango DEFAULT antes de resolver IDLE y exige identidad real grupo0/ID3/puntero de catálogo. Task y asociación NULL se rechazan antes de memset: se limpia con destructores/liberaciones reales lo ya construido, se restituyen referencias/pool y se marca fixture_contract=false. Ninguna comparación rechazada por dominio puede pasar ni ocultarse como caso válido. No se fuerza OOM ni se sustituye el allocator.

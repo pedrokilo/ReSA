@@ -1,0 +1,14 @@
+0073B841: mov al,byte ptr [esp+0000008Ch]
+ 00
+0073B848: test al,al
+0073B84A: je 0073B85B
+0073B84C: mov edx,dword ptr [esp+10h]
+0073B850: mov eax,dword ptr [edx]
+0073B852: push eax
+0073B853: call 0055CEB0
+0073B858: add esp,4
+0073B85B: mov cl,byte ptr [esi+36h]
+0073B85E: and cl,7
+0073B861: cmp cl,3
+0073B864: jne 0073BAE8
+ 0073B86A: 8A

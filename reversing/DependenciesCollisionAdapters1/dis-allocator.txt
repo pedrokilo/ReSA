@@ -1,0 +1,6 @@
+0072F420: mov eax,dword ptr [esp+4]
+0072F424: push eax
+0072F425: call 00824257
+0072F42A: add esp,4
+0072F42D: ret
+0072F430: jmp 0082413F

@@ -534,7 +534,7 @@ void CFormation::DistributeDestinations(CPedList& pedList) {
         float total{};
         for (int32 i = 0; i < count; ++i) {
             // Separate executable helper chooses an unclaimed point and adds its cost.
-            const int32 destination = plugin::CallAndReturn<int32, 0x69B1B0, CVector, float*>(positions[i], &total);
+            const int32 destination = FindNearestFreeDestination(positions[i], &total);
             m_aFinalPedLinkToDestinations[i] = destination;
             m_Destinations.m_PointHasBeenClaimed[destination] = true;
         }
@@ -672,8 +672,67 @@ void CFormation::InjectHooks() {
     RH_ScopedGlobalInstall(FindCoverPointsBehindBox, 0x699FF0);
     RH_ScopedGlobalInstall(GenerateGatherDestinations, 0x69A620);
     RH_ScopedGlobalInstall(GenerateGatherDestinations_AroundCar, 0x69A770);
+    RH_ScopedGlobalInstall(FindNearestFreeDestination, 0x69B1B0);
     RH_ScopedGlobalInstall(DistributeDestinations, 0x69B240);
     RH_ScopedGlobalInstall(DistributeDestinations_CoverPoints, 0x69B5B0);
     RH_ScopedGlobalInstall(DistributeDestinations_PedsToAttack, 0x69B700);
     RH_ScopedGlobalInstall(FindCoverPoints, 0x69B860);
+}
+
+// 0x69B1B0: native first-minimum, claimed mask and x87 distance/total writes.
+__declspec(naked) int32 CFormation::FindNearestFreeDestination(CVector,float*) {
+    __asm {
+    push ecx
+    fld dword ptr ds:[0086D270h]
+    push esi
+    mov esi,dword ptr ds:[00C1A318h]
+    push edi
+    or edi,0FFFFFFFFh
+    xor ecx,ecx
+    test esi,esi
+    jle L0069B223
+    mov edx,0C1A324h
+    lea ecx,[ecx]
+    L0069B1D0: mov al,byte ptr [ecx+00C1A43Ch]
+    test al,al
+    jne L0069B21B
+    fld dword ptr [edx-8]
+    fsub dword ptr [esp+10h]
+    fld dword ptr [edx-4]
+    fsub dword ptr [esp+14h]
+    fld dword ptr [edx]
+    fsub dword ptr [esp+18h]
+    fld st(0)
+    fmul st,st(1)
+    fld st(2)
+    fmul st,st(3)
+    faddp st(1),st
+    fld st(3)
+    fmul st,st(4)
+    faddp st(1),st
+    fsqrt
+    fstp st(3)
+    fstp st(0)
+    fstp st(0)
+    fst dword ptr [esp+8]
+    fcomp st(1)
+    fnstsw ax
+    test ah,5
+    jp L0069B21B
+    fstp st(0)
+    mov edi,ecx
+    fld dword ptr [esp+8]
+    L0069B21B: inc ecx
+    add edx,0Ch
+    cmp ecx,esi
+    jl L0069B1D0
+    L0069B223: mov eax,dword ptr [esp+1Ch]
+    fadd dword ptr [eax]
+    fstp dword ptr [eax]
+    mov eax,edi
+    pop edi
+    pop esi
+    pop ecx
+    ret
+    }
 }

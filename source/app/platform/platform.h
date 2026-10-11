@@ -82,3 +82,5 @@ RwBool psNativeTextureSupport();
 void psDebugMessageHandler(RwDebugType type, const RwChar* str); // Como el original: es un RwDebugHandler
 RwBool psAlwaysOnTop(RwBool alwaysOnTop);
 RwBool psSelectDevice();
+
+RwMemoryFunctions* psGetMemoryFunctions();

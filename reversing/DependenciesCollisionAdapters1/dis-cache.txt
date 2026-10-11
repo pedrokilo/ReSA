@@ -1,0 +1,86 @@
+00416330: push edi
+00416331: mov edi,dword ptr [esp+8]
+00416335: cmp word ptr [edi+4],0
+0041633A: je 004163F4
+00416340: mov eax,dword ptr [edi+1Ch]
+00416343: test eax,eax
+00416345: je 00416380
+00416347: mov ecx,edi
+00416349: call 0040F6E0
+0041634E: mov ecx,dword ptr [eax+8]
+00416351: mov edx,dword ptr [eax+4]
+00416354: mov dword ptr [ecx+4],edx
+00416357: mov ecx,dword ptr [eax+4]
+0041635A: mov edx,dword ptr [eax+8]
+0041635D: mov dword ptr [ecx+8],edx
+00416360: mov ecx,dword ptr ds:[00965934h]
+00416366: mov dword ptr [eax+8],ecx
+00416369: mov edx,dword ptr ds:[00965934h]
+0041636F: mov dword ptr [edx+4],eax
+00416372: mov dword ptr [eax+4],96592Ch
+ 00
+00416379: mov dword ptr ds:[00965934h],eax
+0041637E: pop edi
+0041637F: ret
+00416380: push esi
+00416381: lea eax,[esp+0Ch]
+00416385: push eax
+00416386: mov ecx,96592Ch
+0041638B: call 004161F0
+00416390: mov esi,eax
+00416392: test esi,esi
+00416394: jne 004163E4
+00416396: mov esi,dword ptr ds:[0096593Ch]
+0041639C: mov ecx,dword ptr [esi]
+0041639E: call 0040F6A0
+004163A3: mov ecx,dword ptr [esi+8]
+004163A6: mov edx,dword ptr [esi+4]
+004163A9: mov dword ptr [ecx+4],edx
+004163AC: mov eax,dword ptr [esi+4]
+004163AF: mov ecx,dword ptr [esi+8]
+004163B2: mov dword ptr [eax+8],ecx
+004163B5: mov edx,dword ptr ds:[0096594Ch]
+004163BB: mov dword ptr [esi+8],edx
+004163BE: mov eax,dword ptr ds:[0096594Ch]
+004163C3: lea ecx,[esp+0Ch]
+004163C7: mov dword ptr [eax+4],esi
+004163CA: push ecx
+004163CB: mov dword ptr [esi+4],965944h
+ 00
+004163D2: mov ecx,96592Ch
+004163D7: mov dword ptr ds:[0096594Ch],esi
+004163DD: call 004161F0
+004163E2: mov esi,eax
+004163E4: mov ecx,edi
+004163E6: call 0040F590
+004163EB: push esi
+004163EC: mov ecx,edi
+004163EE: call 0040F6C0
+004163F3: pop esi
+004163F4: pop edi
+004163F5: ret
+00416400: push esi
+00416401: mov esi,dword ptr [esp+8]
+00416405: mov eax,dword ptr [esi+1Ch]
+00416408: test eax,eax
+0041640A: je 0041644B
+0041640C: mov ecx,esi
+0041640E: call 0040F6E0
+00416413: mov ecx,dword ptr [eax+8]
+00416416: mov edx,dword ptr [eax+4]
+00416419: mov dword ptr [ecx+4],edx
+0041641C: mov ecx,dword ptr [eax+4]
+0041641F: mov edx,dword ptr [eax+8]
+00416422: mov dword ptr [ecx+8],edx
+00416425: mov ecx,dword ptr ds:[0096594Ch]
+0041642B: mov dword ptr [eax+8],ecx
+0041642E: mov edx,dword ptr ds:[0096594Ch]
+00416434: mov dword ptr [edx+4],eax
+00416437: mov dword ptr [eax+4],965944h
+ 00
+0041643E: mov ecx,esi
+00416440: mov dword ptr ds:[0096594Ch],eax
+00416445: pop esi
+ 00416446: E9
+00416447: push ebp
+00416448: xchg eax,edx

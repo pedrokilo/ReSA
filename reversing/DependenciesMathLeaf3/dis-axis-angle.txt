@@ -1,0 +1,17 @@
+0059C600: fld dword ptr [esp+8]
+0059C604: mov eax,dword ptr [esp+4]
+0059C608: fmul dword ptr ds:[00858B8Ch]
+0059C60E: fld st(0)
+0059C610: fsin
+0059C612: fld st(0)
+0059C614: fmul dword ptr [eax]
+0059C616: fstp dword ptr [ecx]
+0059C618: fld st(0)
+0059C61A: fmul dword ptr [eax+4]
+0059C61D: fstp dword ptr [ecx+4]
+0059C620: fmul dword ptr [eax+8]
+0059C623: fstp dword ptr [ecx+8]
+0059C626: fcos
+0059C628: fstp dword ptr [ecx+0Ch]
+0059C62B: ret 8
+0059C630: push ebx

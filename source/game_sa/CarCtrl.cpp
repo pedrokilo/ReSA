@@ -45,6 +45,8 @@ void CCarCtrl::InjectHooks()
 {
     RH_ScopedClass(CCarCtrl);
     RH_ScopedCategoryGlobal();
+    RH_ScopedInstall(FindGhostRoadHeight, 0x422370);
+    RH_ScopedGlobalInstall(Native_00424100, 0x424100);
 
     using namespace ReversibleHooks;
     RH_ScopedInstall(Init, 0x4212E0);
@@ -69,6 +71,12 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(SlowCarOnRailsDownForTrafficAndLights, 0x434790);
     RH_ScopedInstall(FindMaxSteerAngle, 0x427FE0);
     RH_ScopedInstall(GenerateRandomCars, 0x4341C0);
+    RH_ScopedInstall(ClearInterestingVehicleList, 0x423F00);
+    RH_ScopedInstall(RegisterVehicleOfInterest, 0x423DE0);
+    RH_ScopedInstall(FindSequenceElement, 0x421770);
+    RH_ScopedInstall(SwitchVehicleToRealPhysics, 0x423FC0);
+    RH_ScopedInstall(UpdateCarCount, 0x424000);
+    RH_ScopedInstall(FindSpeedMultiplierWithSpeedFromNodes, 0x424130);
 }
 
 // 0x4212E0
@@ -185,8 +193,14 @@ int32 CCarCtrl::ChoosePoliceCarModel(uint32 ignoreLvpd1Model) {
 }
 
 // 0x423F00
-void CCarCtrl::ClearInterestingVehicleList() {
-    plugin::Call<0x423F00>();
+__declspec(naked) void CCarCtrl::ClearInterestingVehicleList() {
+    // Como el original 0x423F00..0x423F0C: sólo limpia punteros, conserva tiempos y ECX/EDX.
+    __asm {
+        xor eax, eax
+        mov dword ptr ds:[00969084h], eax
+        mov dword ptr ds:[00969088h], eax
+        ret
+    }
 }
 
 // 0x422760
@@ -330,8 +344,30 @@ float CCarCtrl::FindPercDependingOnDistToLink(CVehicle* vehicle, CCarPathLinkAdd
 }
 
 // 0x421770
-int32 CCarCtrl::FindSequenceElement(int32 arg1) {
-    return plugin::CallAndReturn<int32, 0x421770, int32>(arg1);
+__declspec(naked) int32 CCarCtrl::FindSequenceElement(int32 arg1) {
+    // Como el original 0x421770..0x4217A8: byte no nulo, suma de 32 bits e IDIV con signo.
+    __asm {
+        mov al, byte ptr ds:[00969070h]
+        test al, al
+        je reverseSequence
+        mov eax, dword ptr [esp+4]
+        mov ecx, dword ptr ds:[00969074h]
+        add eax, ecx
+        cdq
+        idiv dword ptr ds:[00969078h]
+        mov eax, edx
+        ret
+    reverseSequence:
+        mov ecx, dword ptr ds:[00969078h]
+        mov edx, dword ptr [esp+4]
+        mov eax, ecx
+        sub eax, edx
+        add eax, dword ptr ds:[00969074h]
+        cdq
+        idiv ecx
+        mov eax, edx
+        ret
+    }
 }
 
 // 0x4224E0
@@ -341,11 +377,142 @@ float CCarCtrl::FindSpeedMultiplier(float arg1, float arg2, float arg3, float ar
 
 // 0x424130
 float CCarCtrl::FindSpeedMultiplierWithSpeedFromNodes(int8 arg1) {
-    return plugin::CallAndReturn<float, 0x424130, int8>(arg1);
+    switch (static_cast<uint8>(arg1)) {
+    case 0xFF: return 0.5f;
+    case 0: return std::bit_cast<float>(0x3F266666u);
+    case 2: return std::bit_cast<float>(0x40133333u);
+    default: return 1.0f;
+    }
 }
 
-float CCarCtrl::FindGhostRoadHeight(CVehicle* vehicle) {
-    return plugin::CallAndReturn<float, 0x422370, CVehicle*>(vehicle);
+static uintptr_t GhostPathNodePositionBody=std::bit_cast<uintptr_t>(&CPathNode::GetPosition);
+__declspec(naked) float CCarCtrl::FindGhostRoadHeight(CVehicle*) {
+    __asm {
+    sub esp,18h
+    push edi
+    mov edi,dword ptr [esp+20h]
+    mov eax,0FFFFh
+    cmp word ptr [edi+00000390h],ax
+    je L0042238F
+    cmp word ptr [edi+00000394h],ax
+    jne L0042239A
+    L0042238F: fld dword ptr ds:[00858B50h]
+    pop edi
+    add esp,18h
+    ret
+    L0042239A: push ebp
+    mov ebp,dword ptr [edi+00000390h]
+    movzx eax,bp
+    mov ecx,dword ptr [eax*4+0096F854h]
+    test ecx,ecx
+    push esi
+    jne L004223BD
+    L004223B0: fld dword ptr ds:[00858B50h]
+    pop esi
+    pop ebp
+    pop edi
+    add esp,18h
+    ret
+    L004223BD: mov esi,dword ptr [edi+00000394h]
+    movzx ecx,si
+    mov eax,dword ptr [ecx*4+0096F854h]
+    test eax,eax
+    mov dword ptr [esp+0Ch],esi
+    je L004223B0
+    mov ecx,ebp
+    shr ecx,10h
+    imul ecx,ecx,1Ch
+    movzx eax,bp
+    push ebx
+    mov ebx,dword ptr [eax*4+0096F854h]
+    lea edx,[esp+1Ch]
+    push edx
+    add ecx,ebx
+    mov dword ptr [esp+30h],ebp
+    call dword ptr [GhostPathNodePositionBody]
+    mov ecx,dword ptr [eax+8]
+    mov dword ptr [esp+18h],ecx
+    mov ecx,esi
+    shr ecx,10h
+    imul ecx,ecx,1Ch
+    mov eax,esi
+    mov dword ptr [esp+2Ch],eax
+    movzx eax,ax
+    lea edx,[esp+1Ch]
+    push edx
+    add ecx,dword ptr [eax*4+0096F854h]
+    call dword ptr [GhostPathNodePositionBody]
+    mov esi,dword ptr [edi+14h]
+    test esi,esi
+    mov ecx,dword ptr [eax+8]
+    mov dword ptr [esp+14h],ecx
+    lea ebx,[esi+30h]
+    jne L00422435
+    lea ebx,[edi+4]
+    L00422435: mov ecx,ebp
+    shr ecx,10h
+    imul ecx,ecx,1Ch
+    movzx eax,bp
+    lea edx,[esp+1Ch]
+    push edx
+    add ecx,dword ptr [eax*4+0096F854h]
+    mov dword ptr [esp+30h],ebp
+    call dword ptr [GhostPathNodePositionBody]
+    test esi,esi
+    fld dword ptr [eax]
+    fsub dword ptr [ebx]
+    fld dword ptr [eax+4]
+    fsub dword ptr [ebx+4]
+    pop ebx
+    fld st(0)
+    fmul st,st(1)
+    fld st(2)
+    fmul st,st(3)
+    faddp st(1),st
+    fsqrt
+    fstp st(2)
+    fstp st(0)
+    fstp dword ptr [esp+28h]
+    je L0042247D
+    add esi,30h
+    jmp L00422480
+    L0042247D: lea esi,[edi+4]
+    L00422480: mov eax,dword ptr [esp+0Ch]
+    lea ecx,[esp+18h]
+    push ecx
+    mov ecx,eax
+    shr ecx,10h
+    imul ecx,ecx,1Ch
+    movzx edx,ax
+    mov dword ptr [esp+10h],eax
+    add ecx,dword ptr [edx*4+0096F854h]
+    call dword ptr [GhostPathNodePositionBody]
+    fld dword ptr [eax]
+    fsub dword ptr [esi]
+    fld dword ptr [eax+4]
+    fsub dword ptr [esi+4]
+    pop esi
+    fld st(0)
+    pop ebp
+    fmul st,st(1)
+    pop edi
+    fld st(2)
+    fmul st,st(3)
+    faddp st(1),st
+    fsqrt
+    fstp st(2)
+    fstp st(0)
+    fld dword ptr [esp+1Ch]
+    fmul dword ptr [esp+4]
+    fld st(1)
+    fmul dword ptr [esp+8]
+    faddp st(1),st
+    fxch st(1)
+    fadd dword ptr [esp+1Ch]
+    fdivp st(1),st
+    add esp,18h
+    ret
+    }
 }
 
 // 0x42B270
@@ -675,7 +842,30 @@ void CCarCtrl::ReconsiderRoute(CVehicle* vehicle) {
 
 // 0x423DE0
 void CCarCtrl::RegisterVehicleOfInterest(CVehicle* vehicle) {
-    plugin::Call<0x423DE0, CVehicle*>(vehicle);
+    // 0x423DF0..0x423E98: renueva duplicados; después primer hueco o timestamp mínimo sin signo.
+    for (size_t i = 0; i < 2; ++i) {
+        if (apCarsToKeep[i] == vehicle) {
+            aCarsToKeepTime[i] = CTimer::GetTimeInMS();
+            return;
+        }
+    }
+    for (size_t i = 0; i < 2; ++i) {
+        if (!apCarsToKeep[i]) {
+            apCarsToKeep[i] = vehicle;
+            aCarsToKeepTime[i] = CTimer::GetTimeInMS();
+            return;
+        }
+    }
+    size_t oldest = 0;
+    uint32 oldestTime = UINT32_MAX;
+    for (size_t i = 0; i < 2; ++i) {
+        if (apCarsToKeep[i] && aCarsToKeepTime[i] < oldestTime) {
+            oldest = i;
+            oldestTime = aCarsToKeepTime[i];
+        }
+    }
+    apCarsToKeep[oldest] = vehicle;
+    aCarsToKeepTime[oldest] = CTimer::GetTimeInMS();
 }
 
 // 0x4322B0
@@ -1034,7 +1224,13 @@ void CCarCtrl::SwitchBetweenPhysicsAndGhost(CVehicle* vehicle) {
 
 // 0x423FC0
 void CCarCtrl::SwitchVehicleToRealPhysics(CVehicle* vehicle) {
-    plugin::Call<0x423FC0, CVehicle*>(vehicle);
+    vehicle->SetStatus(STATUS_PHYSICS);
+    vehicle->m_autoPilot.m_nTempAction = TEMPACT_NONE;
+    // Two separate original timer reads; the first deadline wraps modulo 2^32.
+    const auto* timer = reinterpret_cast<const volatile uint32*>(0xB7CB84);
+    vehicle->m_autoPilot.m_nTimeToStartMission = *timer + 2000u;
+    vehicle->m_autoPilot.m_nTimeSwitchedToRealPhysics = *timer;
+    vehicle->m_nFakePhysics = 0;
 }
 
 // 0x425B30
@@ -1064,7 +1260,49 @@ void CCarCtrl::TriggerDogFightMoves(CVehicle* vehicle1, CVehicle* vehicle2) {
 
 // 0x424000
 void CCarCtrl::UpdateCarCount(CVehicle* vehicle, uint8 bDecrease) {
-    plugin::Call<0x424000, CVehicle*, uint8>(vehicle, bDecrease);
+    // DEC saturates by the sign of its wrapped result, not the input sign.
+    const auto increment = [](auto& counter) {
+        uint32 bits;
+        std::memcpy(&bits, &counter, sizeof(bits));
+        ++bits;
+        std::memcpy(&counter, &bits, sizeof(bits));
+    };
+    const auto decrement = [](auto& counter, bool saturate) {
+        uint32 bits;
+        std::memcpy(&bits, &counter, sizeof(bits));
+        --bits;
+        if (saturate && (bits & 0x80000000u)) bits = 0;
+        std::memcpy(&counter, &bits, sizeof(bits));
+    };
+    if (!bDecrease) {
+        switch (vehicle->m_nCreatedBy) {
+        case RANDOM_VEHICLE:
+            if (vehicle->vehicleFlags.bIsLawEnforcer) increment(NumLawEnforcerCars);
+            increment(NumRandomCars);
+            break;
+        case MISSION_VEHICLE:
+            if (vehicle->vehicleFlags.bIsLawEnforcer) {
+                vehicle->vehicleFlags.bIsLawEnforcer = false;
+                decrement(NumLawEnforcerCars, false);
+            }
+            increment(NumMissionCars);
+            break;
+        case PARKED_VEHICLE: increment(NumParkedCars); break;
+        case PERMANENT_VEHICLE: increment(NumPermanentVehicles); break;
+        default: break;
+        }
+    } else {
+        switch (vehicle->m_nCreatedBy) {
+        case RANDOM_VEHICLE:
+            if (vehicle->vehicleFlags.bIsLawEnforcer) decrement(NumLawEnforcerCars, true);
+            decrement(NumRandomCars, true);
+            break;
+        case MISSION_VEHICLE: decrement(NumMissionCars, true); break;
+        case PARKED_VEHICLE: decrement(NumParkedCars, true); break;
+        case PERMANENT_VEHICLE: decrement(NumPermanentVehicles, true); break;
+        default: break;
+        }
+    }
 }
 
 // 0x436540
@@ -1110,4 +1348,12 @@ float CCarCtrl::FindMaxSteerAngle(CVehicle* veh) {
     }
     const float angle = 0.9f - speed;
     return 0.7f < angle ? 0.7f : angle;
+}
+
+// 0x424100: native no-effect helper. Upper24bits of EAX must survive.
+__declspec(naked) bool Native_00424100(float,float) {
+    __asm {
+        xor al,al
+        ret
+    }
 }

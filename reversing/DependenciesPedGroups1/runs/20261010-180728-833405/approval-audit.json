@@ -1,0 +1,29 @@
+{
+  "bank": "DependenciesPedGroups1",
+  "run": "20261010-180728-833405",
+  "functions": 1,
+  "pairs": 1024,
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "9f7a8587a905604e6b958af8c420d464cfad4019cea65a2334e261b357ded595",
+  "tested_sources": {
+    "source/game_sa/PedGroups.cpp": "7541a7beb7db08f67e8ad6f3bf3d15e0d1800c524012073d7d7189dca0e74241",
+    "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
+    "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
+    "source/game_sa/PedGroupMembership.h": "15a1f964b9292f642bf760642393e7b422c93a59092e2f6e06099f3d4a0e045a",
+    "source/InjectHooksMain.cpp": "d774c9f7572474d11096747ef2ff5884a696e92106f7ad40d40713712641c898",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "10f6d54904b5f2233d4946da65811d73351bafda13899d365c00d3ab6ca58446",
+    "build_probe.py": "ab1bea298be1a57926367d7119a5dd12da4ec5c67d8ffc8dcbf7c476bc61434b",
+    "run_local.py": "f8b4dc2137dc24a33b2556a9a9a71f3cad63538d0aea83aa5aa170d7918fc14b"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "7d234db9b5cd7c098ecdde7b2950da865c4d3de2ca05df43db2b1a34a6fdab78",
+  "registered_hook_verified": true
+}

@@ -1,0 +1,45 @@
+{
+  "bank": "DependenciesVehicle12",
+  "run": "20261010-214932-336927",
+  "functions": 1,
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CVehicle::operator new-anon": 2048
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "37f427d8bc1849beedc8955773fd45d4707707a86c60a8830240ce1061f28a74",
+  "tested_sources": {
+    "source/game_sa/CutsceneMgr.cpp": "4cddadb9affd99b4d1def2c1dfd65c218583e4315836c9aa1d6f8fb091a62332",
+    "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+    "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1886f1f0360c46ab7fa481fa448b6afef2a6b0b96f1e06eb7285c8f4a1fb93e1",
+    "source/game_sa/Entity/Vehicle/Vehicle.h": "fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d",
+    "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
+    "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+    "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
+    "source/game_sa/Pools.cpp": "44be32e7886bc6a2ccfd35c5081a6f1970f4104bd1a7ea56a39126405a71c517",
+    "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
+    "source/game_sa/MemoryMgr.cpp": "645dd362627fb014a2acd4fdc95798b0caca8ae35c617762a5285a05053a162c",
+    "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+    "source/game_sa/Memory/MemoryHeap.cpp": "c4506127e3efab85a4aed399357e2fa3900019686765dbd2252e816dc11131dc",
+    "source/game_sa/Memory/MemoryHeap.h": "2bb60d57ad75d69bf38c3ab901c894b4245022ac2607a35c20c32d74c95014c6",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
+    "reversing/DependenciesVehicle12/HelperRoutes.hpp": "4fde3cff25417d60550d75b81415129fe2b3b252941b1a1ddc5851ba8c57437d",
+    "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+  },
+  "bank_sources": {
+    "HelperRoutes.hpp": "4fde3cff25417d60550d75b81415129fe2b3b252941b1a1ddc5851ba8c57437d",
+    "LiveComparison.hpp": "c8f29bdde45b47b2f3318e2456a9d8b2c1361ae21e8d4763e680db6d82ec1791",
+    "build_probe.py": "7f6364361a21bc940140596cc63e830bd73aebdf4b53a8a199c69c57d26d25e4",
+    "run_local.py": "e370af8b6de6783a3a2905ac36dc5aa78755d0e9052d6f501c82e57a55e75abf"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "76dc64774b45086b1afcafe224632dd344f95380bd32bb545a2008fd116ea04c",
+  "registered_hook_verified": true
+}

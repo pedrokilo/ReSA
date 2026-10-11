@@ -1,0 +1,24 @@
+{
+  "bank": "DependenciesStats1",
+  "run": "20261010-175320-795964",
+  "functions": 1,
+  "pairs": 4096,
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "49e76410d15838ba937479dfc1d586fbd3bddc7998d5aa97c8f3adaa8717c9d3",
+  "tested_sources": {
+    "source/game_sa/Stats.cpp": "dac4c3cf1f7072b9564c47f2213a1234491540f8531e6f5d88ae5d859cb051a1",
+    "source/game_sa/Stats.h": "06ea5fa42ae006428bd2d2fe505f68e7f2506cd207f46d6b96f57c930abf1e44"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "15d608a17b5c24591958f6f80bdc56d793a6b98127fe1f1f16cc7ddd88d7543a",
+    "build_probe.py": "032a390cafabbfa2f97dfaaf345f70ff7879160d846a4ab0c2c6eeed83a7b58b",
+    "run_local.py": "f1695611c848d51bdd96d15e23558d132991869e83f4fde67a0ed6bd6c6a4c30"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "4598b940359834c4c14e6b66e12d82b7ab9b2d563239db4e4022de27db17ffe4"
+}

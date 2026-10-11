@@ -1,0 +1,62 @@
+0044DA30: mov eax,dword ptr [esp+4]
+0044DA34: cmp ax,0FFFFh
+0044DA38: je 0044DAF3
+0044DA3E: movzx eax,ax
+0044DA41: mov edx,dword ptr [ecx+eax*4+00000804h]
+ 00
+0044DA48: test edx,edx
+0044DA4A: je 0044DAF3
+0044DA50: mov eax,dword ptr [esp+8]
+0044DA54: cmp ax,0FFFFh
+0044DA58: je 0044DAF3
+0044DA5E: movzx eax,ax
+0044DA61: mov eax,dword ptr [ecx+eax*4+00000804h]
+ 00
+0044DA68: test eax,eax
+0044DA6A: je 0044DAF3
+0044DA70: mov ecx,dword ptr [esp+4]
+0044DA74: push esi
+0044DA75: mov esi,dword ptr [esp+0Ch]
+0044DA79: shr ecx,10h
+0044DA7C: shr esi,10h
+0044DA7F: imul ecx,ecx,1Ch
+0044DA82: imul esi,esi,1Ch
+0044DA85: add ecx,edx
+0044DA87: mov dl,byte ptr [esi+eax+16h]
+0044DA8B: add esi,eax
+0044DA8D: mov al,byte ptr [ecx+16h]
+0044DA90: cmp al,dl
+0044DA92: push edi
+0044DA93: jae 0044DA97
+0044DA95: mov dl,al
+0044DA97: movsx eax,word ptr [esp+14h]
+0044DA9C: mov edi,eax
+0044DA9E: and edi,0Fh
+0044DAA1: movzx edx,dl
+0044DAA4: sub edi,7
+0044DAA7: imul edi,edx
+0044DAAA: mov edx,dword ptr [esp+18h]
+0044DAAE: mov dword ptr [esp+14h],edi
+0044DAB2: pop edi
+0044DAB3: fild dword ptr [esp+10h]
+0044DAB7: fmul dword ptr ds:[00859A9Ch]
+0044DABD: fadd dword ptr [edx]
+0044DABF: fstp dword ptr [edx]
+0044DAC1: mov dl,byte ptr [esi+16h]
+0044DAC4: mov cl,byte ptr [ecx+16h]
+0044DAC7: cmp cl,dl
+0044DAC9: pop esi
+0044DACA: jb 0044DACE
+0044DACC: mov cl,dl
+0044DACE: sar eax,4
+0044DAD1: and eax,0Fh
+0044DAD4: movzx ecx,cl
+0044DAD7: sub eax,7
+0044DADA: imul eax,ecx
+0044DADD: mov dword ptr [esp+0Ch],eax
+0044DAE1: mov eax,dword ptr [esp+14h]
+0044DAE5: fild dword ptr [esp+0Ch]
+0044DAE9: fmul dword ptr ds:[00859A9Ch]
+0044DAEF: fadd dword ptr [eax]
+0044DAF1: fstp dword ptr [eax]
+0044DAF3: ret 14h

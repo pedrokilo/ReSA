@@ -1,0 +1,1066 @@
+CALLER 0x00421440 / CALL 0x0042147a
+0042147A: call 006E2D50
+0042147F: add esp,4
+00421482: mov dword ptr [esp+14h],eax
+00421486: test eax,eax
+00421488: mov dword ptr [esp+0Ch],0
+00421490: je 004216FA
+00421496: mov ecx,dword ptr [esp+18h]
+0042149A: push ecx
+0042149B: push esi
+0042149C: mov ecx,eax
+0042149E: call 006F2940
+004214A3: mov ecx,dword ptr [esp+4]
+ 004214A7: 64
+ 004214A8: 89
+ 004214A9: 0D
+ 004214AA: 00
+
+CALLER 0x00421440 / CALL 0x004214b8
+004214B8: call 006E2D50
+004214BD: add esp,4
+004214C0: mov dword ptr [esp+14h],eax
+004214C4: test eax,eax
+004214C6: mov dword ptr [esp+0Ch],1
+004214CE: je 004216FA
+004214D4: mov edx,dword ptr [esp+18h]
+004214D8: push edx
+004214D9: push esi
+004214DA: mov ecx,eax
+004214DC: call 006F6030
+004214E1: mov ecx,dword ptr [esp+4]
+ 004214E5: 64
+ 004214E6: 89
+ 004214E7: 0D
+ 004214E8: 00
+
+CALLER 0x00421440 / CALL 0x004214f6
+004214F6: call 006E2D50
+004214FB: add esp,4
+004214FE: mov dword ptr [esp+14h],eax
+00421502: test eax,eax
+00421504: mov dword ptr [esp+0Ch],2
+0042150C: je 00421573
+0042150E: mov ecx,dword ptr [esp+18h]
+00421512: push ecx
+00421513: push esi
+00421514: mov ecx,eax
+00421516: call 006BF430
+0042151B: or byte ptr [eax+00000614h],10h
+ 10
+00421522: mov ecx,dword ptr [esp+4]
+ 00421526: 64
+
+CALLER 0x00421440 / CALL 0x00421537
+00421537: call 006E2D50
+0042153C: add esp,4
+0042153F: mov dword ptr [esp+14h],eax
+00421543: test eax,eax
+00421545: mov dword ptr [esp+0Ch],3
+0042154D: je 00421573
+0042154F: mov edx,dword ptr [esp+18h]
+00421553: push edx
+00421554: push esi
+00421555: mov ecx,eax
+00421557: call 006BF820
+0042155C: or byte ptr [eax+00000614h],10h
+ 10
+00421563: mov ecx,dword ptr [esp+4]
+ 00421567: 64
+
+CALLER 0x00421440 / CALL 0x00421591
+00421591: call 006E2D50
+00421596: add esp,4
+00421599: mov dword ptr [esp+14h],eax
+0042159D: test eax,eax
+0042159F: mov dword ptr [esp+0Ch],4
+004215A7: je 004216FA
+004215AD: mov ecx,dword ptr [esp+18h]
+004215B1: push ecx
+004215B2: push esi
+004215B3: mov ecx,eax
+004215B5: call 006C8D60
+004215BA: mov ecx,dword ptr [esp+4]
+ 004215BE: 64
+ 004215BF: 89
+ 004215C0: 0D
+ 004215C1: 00
+
+CALLER 0x00421440 / CALL 0x004215cf
+004215CF: call 006E2D50
+004215D4: add esp,4
+004215D7: mov dword ptr [esp+14h],eax
+004215DB: test eax,eax
+004215DD: mov dword ptr [esp+0Ch],5
+004215E5: je 004216FA
+004215EB: mov edx,dword ptr [esp+18h]
+004215EF: push edx
+004215F0: push esi
+004215F1: mov ecx,eax
+004215F3: call 006CE370
+004215F8: mov ecx,dword ptr [esp+4]
+ 004215FC: 64
+ 004215FD: 89
+ 004215FE: 0D
+ 004215FF: 00
+
+CALLER 0x00421440 / CALL 0x0042160d
+0042160D: call 006E2D50
+00421612: add esp,4
+00421615: mov dword ptr [esp+14h],eax
+00421619: test eax,eax
+0042161B: mov dword ptr [esp+0Ch],6
+00421623: je 004216FA
+00421629: mov ecx,dword ptr [esp+18h]
+0042162D: push ecx
+0042162E: push esi
+0042162F: mov ecx,eax
+00421631: call 006C4190
+00421636: mov ecx,dword ptr [esp+4]
+ 0042163A: 64
+ 0042163B: 89
+ 0042163C: 0D
+ 0042163D: 00
+
+CALLER 0x00421440 / CALL 0x0042164b
+0042164B: call 006E2D50
+00421650: add esp,4
+00421653: mov dword ptr [esp+14h],eax
+00421657: test eax,eax
+00421659: mov dword ptr [esp+0Ch],7
+00421661: je 004216FA
+00421667: mov edx,dword ptr [esp+18h]
+0042166B: push edx
+0042166C: push esi
+0042166D: mov ecx,eax
+0042166F: call 006C8E20
+00421674: mov ecx,dword ptr [esp+4]
+ 00421678: 64
+ 00421679: 89
+ 0042167A: 0D
+ 0042167B: 00
+
+CALLER 0x00421440 / CALL 0x00421689
+00421689: call 006E2D50
+0042168E: add esp,4
+00421691: mov dword ptr [esp+14h],eax
+00421695: test eax,eax
+00421697: mov dword ptr [esp+0Ch],8
+0042169F: je 004216FA
+004216A1: mov ecx,dword ptr [esp+18h]
+004216A5: push ecx
+004216A6: push esi
+004216A7: mov ecx,eax
+004216A9: call 006D03A0
+004216AE: mov ecx,dword ptr [esp+4]
+004216B2: mov dword ptr fs:[00000000h],ecx
+ 00
+004216B9: pop esi
+
+CALLER 0x00421440 / CALL 0x004216c3
+004216C3: call 006E2D50
+004216C8: add esp,4
+004216CB: mov dword ptr [esp+14h],eax
+004216CF: test eax,eax
+004216D1: mov dword ptr [esp+0Ch],9
+004216D9: je 004216FA
+004216DB: mov edx,dword ptr [esp+18h]
+004216DF: push 1
+004216E1: push edx
+004216E2: push esi
+004216E3: mov ecx,eax
+004216E5: call 006B0A90
+004216EA: mov ecx,dword ptr [esp+4]
+ 004216EE: 64
+ 004216EF: 89
+ 004216F0: 0D
+004216F1: add byte ptr [eax],al
+ 004216F3: 00
+
+CALLER 0x0042b7d0 / CALL 0x0042b8e2
+0042B8E2: call 006E2D50
+0042B8E7: add esp,4
+0042B8EA: mov dword ptr [esp+20h],eax
+0042B8EE: mov ebx,dword ptr [esp+0000008Ch]
+ 00
+0042B8F5: xor edi,edi
+0042B8F7: cmp eax,edi
+0042B8F9: mov dword ptr [esp+00000084h],edi
+ 00
+0042B900: je 0042B912
+0042B902: push 1
+0042B904: push 1
+0042B906: push ebx
+0042B907: mov ecx,eax
+0042B909: call 006B0A90
+0042B90E: mov esi,eax
+0042B910: jmp 0042B914
+ 0042B912: 33
+
+CALLER 0x00431f80 / CALL 0x00431fb3
+00431FB3: call 006E2D50
+00431FB8: add esp,4
+00431FBB: mov dword ptr [esp+0Ch],eax
+00431FBF: test eax,eax
+00431FC1: mov dword ptr [esp+18h],0
+00431FC9: je 00431FD9
+00431FCB: push 2
+00431FCD: push esi
+00431FCE: mov ecx,eax
+00431FD0: call 006F2940
+00431FD5: mov esi,eax
+00431FD7: jmp 00431FDB
+00431FD9: xor esi,esi
+00431FDB: fld dword ptr [esp+2Ch]
+ 00431FDF: C7
+00431FE0: inc esp
+00431FE1: and al,18h
+ 00431FE3: FF
+
+CALLER 0x0043a0b0 / CALL 0x0043a187
+0043A187: call 006E2D50
+0043A18C: add esp,4
+0043A18F: mov dword ptr [esp+0Ch],eax
+0043A193: test eax,eax
+0043A195: mov dword ptr [esp+30h],0
+0043A19D: je 0043A32D
+0043A1A3: push 1
+0043A1A5: push edi
+0043A1A6: mov ecx,eax
+0043A1A8: call 006C8D60
+0043A1AD: jmp 0043A32F
+0043A1B2: push 9BCh
+ 0043A1B7: E8
+
+CALLER 0x0043a0b0 / CALL 0x0043a1b7
+0043A1B7: call 006E2D50
+0043A1BC: add esp,4
+0043A1BF: mov dword ptr [esp+0Ch],eax
+0043A1C3: test eax,eax
+0043A1C5: mov dword ptr [esp+30h],1
+0043A1CD: je 0043A32D
+0043A1D3: push 1
+0043A1D5: push edi
+0043A1D6: mov ecx,eax
+0043A1D8: call 006CE370
+0043A1DD: jmp 0043A32F
+0043A1E2: push 0A18h
+ 0043A1E7: E8
+
+CALLER 0x0043a0b0 / CALL 0x0043a1e7
+0043A1E7: call 006E2D50
+0043A1EC: add esp,4
+0043A1EF: mov dword ptr [esp+0Ch],eax
+0043A1F3: test eax,eax
+0043A1F5: mov dword ptr [esp+30h],2
+0043A1FD: je 0043A32D
+0043A203: push 1
+0043A205: push edi
+0043A206: mov ecx,eax
+0043A208: call 006C4190
+0043A20D: jmp 0043A32F
+0043A212: push 0A04h
+ 0043A217: E8
+
+CALLER 0x0043a0b0 / CALL 0x0043a217
+0043A217: call 006E2D50
+0043A21C: add esp,4
+0043A21F: mov dword ptr [esp+0Ch],eax
+0043A223: test eax,eax
+0043A225: mov dword ptr [esp+30h],3
+0043A22D: je 0043A32D
+0043A233: push 1
+0043A235: push edi
+0043A236: mov ecx,eax
+0043A238: call 006C8E20
+0043A23D: jmp 0043A32F
+0043A242: push 814h
+ 0043A247: E8
+
+CALLER 0x0043a0b0 / CALL 0x0043a247
+0043A247: call 006E2D50
+0043A24C: add esp,4
+0043A24F: mov dword ptr [esp+0Ch],eax
+0043A253: test eax,eax
+0043A255: mov dword ptr [esp+30h],4
+0043A25D: je 0043A2A6
+0043A25F: push 1
+0043A261: push edi
+0043A262: mov ecx,eax
+0043A264: call 006BF430
+0043A269: or byte ptr [eax+00000614h],bl
+0043A26F: jmp 0043A32F
+ 0043A274: 68
+0043A275: cmp byte ptr [eax],cl
+ 0043A277: 00
+
+CALLER 0x0043a0b0 / CALL 0x0043a279
+0043A279: call 006E2D50
+0043A27E: add esp,4
+0043A281: mov dword ptr [esp+0Ch],eax
+0043A285: test eax,eax
+0043A287: mov dword ptr [esp+30h],5
+0043A28F: je 0043A2A6
+0043A291: push 1
+0043A293: push edi
+0043A294: mov ecx,eax
+0043A296: call 006BF820
+0043A29B: or byte ptr [eax+00000614h],bl
+0043A2A1: jmp 0043A32F
+0043A2A6: xor eax,eax
+ 0043A2A8: 08
+0043A2A9: cwde
+
+CALLER 0x0043a0b0 / CALL 0x0043a2b5
+0043A2B5: call 006E2D50
+0043A2BA: add esp,4
+0043A2BD: mov dword ptr [esp+0Ch],eax
+0043A2C1: test eax,eax
+0043A2C3: mov dword ptr [esp+30h],6
+0043A2CB: je 0043A32D
+0043A2CD: push 1
+0043A2CF: push edi
+0043A2D0: mov ecx,eax
+0043A2D2: call 006D03A0
+0043A2D7: jmp 0043A32F
+0043A2D9: push 7E8h
+0043A2DE: call 006E2D50
+0043A2E3: add esp,4
+
+CALLER 0x0043a0b0 / CALL 0x0043a2de
+0043A2DE: call 006E2D50
+0043A2E3: add esp,4
+0043A2E6: mov dword ptr [esp+0Ch],eax
+0043A2EA: test eax,eax
+0043A2EC: mov dword ptr [esp+30h],7
+0043A2F4: je 0043A32D
+0043A2F6: push 1
+0043A2F8: push edi
+0043A2F9: mov ecx,eax
+0043A2FB: call 006F2940
+0043A300: jmp 0043A32F
+0043A302: push 988h
+0043A307: call 006E2D50
+0043A30C: add esp,4
+
+CALLER 0x0043a0b0 / CALL 0x0043a307
+0043A307: call 006E2D50
+0043A30C: add esp,4
+0043A30F: mov dword ptr [esp+0Ch],eax
+0043A313: test eax,eax
+0043A315: mov dword ptr [esp+30h],8
+0043A31D: je 0043A32D
+0043A31F: push 1
+0043A321: push 1
+0043A323: push edi
+0043A324: mov ecx,eax
+0043A326: call 006B0A90
+0043A32B: jmp 0043A32F
+0043A32D: xor eax,eax
+0043A32F: mov esi,eax
+0043A331: test esi,esi
+ 0043A333: C7
+0043A334: inc esp
+0043A335: and al,30h
+ 0043A337: FF
+
+CALLER 0x0043a570 / CALL 0x0043a5c7
+0043A5C7: call 006E2D50
+0043A5CC: add esp,4
+0043A5CF: mov dword ptr [esp+8],eax
+0043A5D3: test eax,eax
+0043A5D5: mov dword ptr [esp+14h],0
+0043A5DD: je 0043A5F1
+0043A5DF: push 1
+0043A5E1: push 248h
+0043A5E6: mov ecx,eax
+0043A5E8: call 006D03A0
+0043A5ED: mov esi,eax
+0043A5EF: jmp 0043A5F3
+0043A5F1: xor esi,esi
+0043A5F3: test esi,esi
+ 0043A5F5: C7
+0043A5F6: inc esp
+ 0043A5F7: 24
+
+CALLER 0x00447e40 / CALL 0x00447f0b
+00447F0B: call 006E2D50
+00447F10: add esp,4
+00447F13: mov dword ptr [esp+10h],eax
+00447F17: cmp eax,ebx
+00447F19: mov dword ptr [esp+1Ch],ebx
+00447F1D: je 004480D7
+00447F23: movzx ecx,word ptr [edi+12h]
+00447F27: push 1
+00447F29: push ecx
+00447F2A: mov ecx,eax
+00447F2C: call 006C8D60
+00447F31: jmp 004480D9
+00447F36: push 9BCh
+ 00447F3B: E8
+
+CALLER 0x00447e40 / CALL 0x00447f3b
+00447F3B: call 006E2D50
+00447F40: add esp,4
+00447F43: mov dword ptr [esp+10h],eax
+00447F47: cmp eax,ebx
+00447F49: mov dword ptr [esp+1Ch],1
+00447F51: je 004480D7
+00447F57: movzx edx,word ptr [edi+12h]
+00447F5B: push 1
+00447F5D: push edx
+00447F5E: mov ecx,eax
+00447F60: call 006CE370
+00447F65: jmp 004480D9
+ 00447F6A: 68
+ 00447F6B: 18
+
+CALLER 0x00447e40 / CALL 0x00447f6f
+00447F6F: call 006E2D50
+00447F74: add esp,4
+00447F77: mov dword ptr [esp+10h],eax
+00447F7B: cmp eax,ebx
+00447F7D: mov dword ptr [esp+1Ch],2
+00447F85: je 004480D7
+00447F8B: movzx ecx,word ptr [edi+12h]
+00447F8F: push 1
+00447F91: push ecx
+00447F92: mov ecx,eax
+00447F94: call 006C4190
+00447F99: jmp 004480D9
+ 00447F9E: 68
+ 00447F9F: 04
+
+CALLER 0x00447e40 / CALL 0x00447fa3
+00447FA3: call 006E2D50
+00447FA8: add esp,4
+00447FAB: mov dword ptr [esp+10h],eax
+00447FAF: cmp eax,ebx
+00447FB1: mov dword ptr [esp+1Ch],3
+00447FB9: je 004480D7
+00447FBF: movzx edx,word ptr [edi+12h]
+00447FC3: push 1
+00447FC5: push edx
+00447FC6: mov ecx,eax
+00447FC8: call 006C8E20
+00447FCD: jmp 004480D9
+ 00447FD2: 68
+ 00447FD3: 14
+
+CALLER 0x00447e40 / CALL 0x00447fd7
+00447FD7: call 006E2D50
+00447FDC: add esp,4
+00447FDF: mov dword ptr [esp+10h],eax
+00447FE3: cmp eax,ebx
+00447FE5: mov dword ptr [esp+1Ch],4
+00447FED: je 00448040
+00447FEF: movzx ecx,word ptr [edi+12h]
+00447FF3: push 1
+00447FF5: push ecx
+00447FF6: mov ecx,eax
+00447FF8: call 006BF430
+00447FFD: or byte ptr [eax+00000614h],10h
+ 10
+ 00448004: E9
+00448005: rol byte ptr [eax],1
+ 00448007: 00
+
+CALLER 0x00447e40 / CALL 0x0044800e
+0044800E: call 006E2D50
+00448013: add esp,4
+00448016: mov dword ptr [esp+10h],eax
+0044801A: cmp eax,ebx
+0044801C: mov dword ptr [esp+1Ch],5
+00448024: je 00448040
+00448026: movzx edx,word ptr [edi+12h]
+0044802A: push 1
+0044802C: push edx
+0044802D: mov ecx,eax
+0044802F: call 006BF820
+00448034: or byte ptr [eax+00000614h],10h
+ 10
+ 0044803B: E9
+0044803C: cdq
+0044803D: add byte ptr [eax],al
+
+CALLER 0x00447e40 / CALL 0x00448053
+00448053: call 006E2D50
+00448058: add esp,4
+0044805B: mov dword ptr [esp+10h],eax
+0044805F: cmp eax,ebx
+00448061: mov dword ptr [esp+1Ch],6
+00448069: je 004480D7
+0044806B: movzx ecx,word ptr [edi+12h]
+0044806F: push 1
+00448071: push ecx
+00448072: mov ecx,eax
+00448074: call 006D03A0
+00448079: jmp 004480D9
+0044807B: push 7E8h
+ 00448080: E8
+00448081: retf
+00448082: lods byte ptr [esi]
+ 00448083: 29
+
+CALLER 0x00447e40 / CALL 0x00448080
+00448080: call 006E2D50
+00448085: add esp,4
+00448088: mov dword ptr [esp+10h],eax
+0044808C: cmp eax,ebx
+0044808E: mov dword ptr [esp+1Ch],7
+00448096: je 004480D7
+00448098: movzx edx,word ptr [edi+12h]
+0044809C: push 1
+0044809E: push edx
+0044809F: mov ecx,eax
+004480A1: call 006F2940
+004480A6: jmp 004480D9
+004480A8: push 988h
+ 004480AD: E8
+004480AE: sahf
+004480AF: lods byte ptr [esi]
+ 004480B0: 29
+
+CALLER 0x00447e40 / CALL 0x004480ad
+004480AD: call 006E2D50
+004480B2: add esp,4
+004480B5: mov dword ptr [esp+10h],eax
+004480B9: cmp eax,ebx
+004480BB: mov dword ptr [esp+1Ch],8
+004480C3: je 004480D7
+004480C5: movzx ecx,word ptr [edi+12h]
+004480C9: push 1
+004480CB: push 1
+004480CD: push ecx
+004480CE: mov ecx,eax
+004480D0: call 006B0A90
+004480D5: jmp 004480D9
+004480D7: xor eax,eax
+004480D9: fld dword ptr [edi+8]
+004480DC: mov esi,eax
+
+CALLER 0x0045ab10 / CALL 0x0045ab3f
+0045AB3F: call 006E2D50
+0045AB44: add esp,4
+0045AB47: mov dword ptr [esp+8],eax
+0045AB4B: xor ebx,ebx
+0045AB4D: cmp eax,ebx
+0045AB4F: mov dword ptr [esp+14h],ebx
+0045AB53: je 0045ABC6
+0045AB55: push 2
+0045AB57: push esi
+0045AB58: mov ecx,eax
+0045AB5A: call 006C4190
+0045AB5F: jmp 0045ABC8
+0045AB61: push esi
+0045AB62: call 004C5B30
+0045AB67: add esp,4
+0045AB6A: test al,al
+0045AB6C: je 0045AB99
+ 0045AB6E: 68
+ 0045AB6F: 04
+
+CALLER 0x0045ab10 / CALL 0x0045ab73
+0045AB73: call 006E2D50
+0045AB78: add esp,4
+0045AB7B: mov dword ptr [esp+8],eax
+0045AB7F: xor ebx,ebx
+0045AB81: cmp eax,ebx
+0045AB83: mov dword ptr [esp+14h],1
+0045AB8B: je 0045ABC6
+0045AB8D: push 2
+0045AB8F: push esi
+0045AB90: mov ecx,eax
+0045AB92: call 006C8E20
+0045AB97: jmp 0045ABC8
+0045AB99: push 988h
+0045AB9E: call 006E2D50
+ 0045ABA3: 83
+
+CALLER 0x0045ab10 / CALL 0x0045ab9e
+0045AB9E: call 006E2D50
+0045ABA3: add esp,4
+0045ABA6: mov dword ptr [esp+8],eax
+0045ABAA: xor ebx,ebx
+0045ABAC: cmp eax,ebx
+0045ABAE: mov dword ptr [esp+14h],2
+0045ABB6: je 0045ABC6
+0045ABB8: push 1
+0045ABBA: push 2
+0045ABBC: push esi
+0045ABBD: mov ecx,eax
+0045ABBF: call 006B0A90
+0045ABC4: jmp 0045ABC8
+0045ABC6: xor eax,eax
+0045ABC8: fld dword ptr [esp+24h]
+ 0045ABCC: 8B
+0045ABCD: push esp
+ 0045ABCE: 24
+
+CALLER 0x004619c0 / CALL 0x004621f4
+004621F4: call 006E2D50
+004621F9: add esp,4
+004621FC: mov dword ptr [esp+44h],eax
+00462200: cmp eax,ebp
+00462202: mov byte ptr [esp+00000124h],2
+0046220A: je 00462220
+0046220C: mov ecx,dword ptr [esp+20h]
+00462210: push 1
+00462212: push 1
+00462214: push ecx
+00462215: mov ecx,eax
+00462217: call 006B0A90
+0046221C: mov esi,eax
+0046221E: jmp 00462222
+00462220: xor esi,esi
+00462222: mov dl,byte ptr [esi+36h]
+
+CALLER  / CALL 0x00484d59
+00484D59: call 006E2D50
+00484D5E: add esp,4
+00484D61: mov dword ptr [esp+24h],eax
+00484D65: test eax,eax
+00484D67: mov dword ptr [esp+00000164h],0
+00484D72: je 00484EEE
+00484D78: push 1
+00484D7A: push esi
+00484D7B: mov ecx,eax
+00484D7D: call 006C8D60
+00484D82: jmp 00484EF0
+ 00484D87: 68
+ 00484D88: BC
+ 00484D89: 09
+
+CALLER  / CALL 0x00484d8c
+00484D8C: call 006E2D50
+00484D91: add esp,4
+00484D94: mov dword ptr [esp+24h],eax
+00484D98: test eax,eax
+00484D9A: mov dword ptr [esp+00000164h],1
+00484DA5: je 00484EEE
+00484DAB: push 1
+00484DAD: push esi
+00484DAE: mov ecx,eax
+00484DB0: call 006CE370
+00484DB5: jmp 00484EF0
+ 00484DBA: 68
+00484DBB: sbb byte ptr [edx],cl
+
+CALLER  / CALL 0x00484dbf
+00484DBF: call 006E2D50
+00484DC4: add esp,4
+00484DC7: mov dword ptr [esp+24h],eax
+00484DCB: test eax,eax
+00484DCD: mov dword ptr [esp+00000164h],2
+00484DD8: je 00484EEE
+00484DDE: push 1
+00484DE0: push esi
+00484DE1: mov ecx,eax
+00484DE3: call 006C4190
+00484DE8: jmp 00484EF0
+ 00484DED: 68
+00484DEE: add al,0Ah
+
+CALLER  / CALL 0x00484df2
+00484DF2: call 006E2D50
+00484DF7: add esp,4
+00484DFA: mov dword ptr [esp+24h],eax
+00484DFE: test eax,eax
+00484E00: mov dword ptr [esp+00000164h],3
+00484E0B: je 00484EEE
+00484E11: push 1
+00484E13: push esi
+00484E14: mov ecx,eax
+00484E16: call 006C8E20
+00484E1B: jmp 00484EF0
+ 00484E20: 68
+00484E21: adc al,8
+
+CALLER  / CALL 0x00484e25
+00484E25: call 006E2D50
+00484E2A: add esp,4
+00484E2D: mov dword ptr [esp+24h],eax
+00484E31: test eax,eax
+00484E33: mov dword ptr [esp+00000164h],4
+00484E3E: je 00484E89
+00484E40: push 1
+00484E42: push esi
+00484E43: mov ecx,eax
+00484E45: call 006BF430
+00484E4A: or byte ptr [eax+00000614h],10h
+ 10
+00484E51: jmp 00484EF0
+
+CALLER  / CALL 0x00484e5b
+00484E5B: call 006E2D50
+00484E60: add esp,4
+00484E63: mov dword ptr [esp+24h],eax
+00484E67: test eax,eax
+00484E69: mov dword ptr [esp+00000164h],5
+00484E74: je 00484E89
+00484E76: push 1
+00484E78: push esi
+00484E79: mov ecx,eax
+00484E7B: call 006BF820
+00484E80: or byte ptr [eax+00000614h],10h
+ 10
+00484E87: jmp 00484EF0
+00484E89: xor eax,eax
+ 00484E8B: 80
+
+CALLER  / CALL 0x00484e99
+00484E99: call 006E2D50
+00484E9E: add esp,4
+00484EA1: mov dword ptr [esp+24h],eax
+00484EA5: test eax,eax
+00484EA7: mov dword ptr [esp+00000164h],6
+00484EB2: je 00484EEE
+00484EB4: push 1
+00484EB6: push esi
+00484EB7: mov ecx,eax
+00484EB9: call 006D03A0
+00484EBE: jmp 00484EF0
+00484EC0: push 988h
+00484EC5: call 006E2D50
+
+CALLER  / CALL 0x00484ec5
+00484EC5: call 006E2D50
+00484ECA: add esp,4
+00484ECD: mov dword ptr [esp+24h],eax
+00484ED1: test eax,eax
+00484ED3: mov dword ptr [esp+00000164h],7
+00484EDE: je 00484EEE
+00484EE0: push 1
+00484EE2: push 1
+00484EE4: push esi
+00484EE5: mov ecx,eax
+00484EE7: call 006B0A90
+00484EEC: jmp 00484EF0
+00484EEE: xor eax,eax
+00484EF0: fld dword ptr ds:[00A43C78h]
+
+CALLER 0x004998a0 / CALL 0x004998d5
+004998D5: call 006E2D50
+004998DA: add esp,4
+004998DD: mov dword ptr [esp+0Ch],eax
+004998E1: cmp eax,edi
+004998E3: mov dword ptr [esp+6Ch],edi
+004998E7: je 004998F9
+004998E9: push 1
+004998EB: push 1
+004998ED: push esi
+004998EE: mov ecx,eax
+004998F0: call 006B0A90
+004998F5: mov esi,eax
+004998F7: jmp 004998FB
+004998F9: xor esi,esi
+004998FB: mov eax,dword ptr [esp+74h]
+004998FF: mov ecx,dword ptr [esp+78h]
+00499903: push edi
+00499904: push edi
+ 00499905: 6A
+
+CALLER 0x006133f0 / CALL 0x0061352c
+0061352C: call 006E2D50
+00613531: add esp,4
+00613534: mov dword ptr [esp+28h],eax
+00613538: cmp eax,esi
+0061353A: mov dword ptr [esp+0000008Ch],esi
+ 00
+00613541: je 00613551
+00613543: push 1
+00613545: push 1
+00613547: push ebx
+00613548: mov ecx,eax
+0061354A: call 006B0A90
+0061354F: mov esi,eax
+00613551: mov al,byte ptr [esi+36h]
+00613554: and al,7
+00613556: or al,20h
+00613558: mov byte ptr [esi+36h],al
+ 0061355B: 8B
+0061355C: inc esp
+
+CALLER 0x006c6520 / CALL 0x006c6547
+006C6547: call 006E2D50
+006C654C: add esp,4
+006C654F: mov dword ptr [esp+8],eax
+006C6553: test eax,eax
+006C6555: mov dword ptr [esp+20h],0
+006C655D: je 006C6597
+006C655F: push 4
+006C6561: push 1E8h
+006C6566: mov ecx,eax
+006C6568: call 006C4190
+006C656D: jmp 006C6599
+006C656F: call 006E2D50
+006C6574: add esp,4
+ 006C6577: 89
+
+CALLER 0x006c6520 / CALL 0x006c656f
+006C656F: call 006E2D50
+006C6574: add esp,4
+006C6577: mov dword ptr [esp+8],eax
+006C657B: test eax,eax
+006C657D: mov dword ptr [esp+20h],1
+006C6585: je 006C6597
+006C6587: push 4
+006C6589: push 1F1h
+006C658E: mov ecx,eax
+006C6590: call 006C4190
+006C6595: jmp 006C6599
+006C6597: xor eax,eax
+006C6599: push ebx
+006C659A: mov ebx,dword ptr [esp+2Ch]
+006C659E: mov esi,eax
+
+CALLER 0x006cd2f0 / CALL 0x006cd3a4
+006CD3A4: call 006E2D50
+006CD3A9: add esp,18h
+006CD3AC: mov dword ptr [esp+18h],eax
+006CD3B0: cmp eax,ebp
+006CD3B2: mov dword ptr [esp+7Ch],ebp
+006CD3B6: je 006CD3CC
+006CD3B8: mov ecx,dword ptr ds:[00C1CAD8h]
+006CD3BE: push 1
+006CD3C0: push ecx
+006CD3C1: mov ecx,eax
+006CD3C3: call 006C4190
+006CD3C8: mov esi,eax
+006CD3CA: jmp 006CD3CE
+006CD3CC: xor esi,esi
+006CD3CE: lea edx,[esp+1Ch]
+006CD3D2: push edx
+006CD3D3: mov ecx,esi
+
+CALLER 0x006cd2f0 / CALL 0x006cd6b3
+006CD6B3: call 006E2D50
+006CD6B8: add esp,18h
+006CD6BB: mov dword ptr [esp+18h],eax
+006CD6BF: cmp eax,ebp
+006CD6C1: mov dword ptr [esp+7Ch],3
+006CD6C9: je 006CD6DF
+006CD6CB: mov edx,dword ptr ds:[00C1CAD8h]
+006CD6D1: push 1
+006CD6D3: push edx
+006CD6D4: mov ecx,eax
+006CD6D6: call 006C8E20
+006CD6DB: mov esi,eax
+006CD6DD: jmp 006CD6E1
+006CD6DF: xor esi,esi
+ 006CD6E1: 8D
+006CD6E2: inc esp
+ 006CD6E3: 24
+
+CALLER 0x006f34d0 / CALL 0x006f378a
+006F378A: call 006E2D50
+006F378F: add esp,4
+006F3792: mov dword ptr [esp+20h],eax
+006F3796: test eax,eax
+006F3798: mov dword ptr [esp+00000088h],3
+006F37A3: je 006F3949
+006F37A9: push 3
+006F37AB: push ebp
+006F37AC: mov ecx,eax
+006F37AE: call 006C8D60
+006F37B3: jmp 006F394B
+ 006F37B8: 68
+ 006F37B9: BC
+ 006F37BA: 09
+
+CALLER 0x006f34d0 / CALL 0x006f37bd
+006F37BD: call 006E2D50
+006F37C2: add esp,4
+006F37C5: mov dword ptr [esp+20h],eax
+006F37C9: test eax,eax
+006F37CB: mov dword ptr [esp+00000088h],4
+006F37D6: je 006F3949
+006F37DC: push 3
+006F37DE: push ebp
+006F37DF: mov ecx,eax
+006F37E1: call 006CE370
+006F37E6: jmp 006F394B
+ 006F37EB: 68
+006F37EC: sbb byte ptr [edx],cl
+
+CALLER 0x006f34d0 / CALL 0x006f37f0
+006F37F0: call 006E2D50
+006F37F5: add esp,4
+006F37F8: mov dword ptr [esp+20h],eax
+006F37FC: test eax,eax
+006F37FE: mov dword ptr [esp+00000088h],ebx
+ 00
+006F3805: je 006F3949
+006F380B: push 3
+006F380D: push ebp
+006F380E: mov ecx,eax
+006F3810: call 006C4190
+006F3815: jmp 006F394B
+006F381A: push 0A04h
+ 006F381F: E8
+ 006F3820: 2C
+
+CALLER 0x006f34d0 / CALL 0x006f381f
+006F381F: call 006E2D50
+006F3824: add esp,4
+006F3827: mov dword ptr [esp+20h],eax
+006F382B: test eax,eax
+006F382D: mov dword ptr [esp+00000088h],6
+006F3838: je 006F3949
+006F383E: push 3
+006F3840: push ebp
+006F3841: mov ecx,eax
+006F3843: call 006C8E20
+006F3848: jmp 006F394B
+ 006F384D: 68
+006F384E: adc al,8
+
+CALLER 0x006f34d0 / CALL 0x006f3852
+006F3852: call 006E2D50
+006F3857: add esp,4
+006F385A: mov dword ptr [esp+20h],eax
+006F385E: test eax,eax
+006F3860: mov dword ptr [esp+00000088h],7
+006F386B: je 006F38B9
+006F386D: push 3
+006F386F: push ebp
+006F3870: mov ecx,eax
+006F3872: call 006BF430
+006F3877: or byte ptr [eax+00000614h],10h
+ 10
+006F387E: jmp 006F394B
+
+CALLER 0x006f34d0 / CALL 0x006f3888
+006F3888: call 006E2D50
+006F388D: add esp,4
+006F3890: mov dword ptr [esp+20h],eax
+006F3894: test eax,eax
+006F3896: mov dword ptr [esp+00000088h],8
+006F38A1: je 006F38B9
+006F38A3: push 3
+006F38A5: push ebp
+006F38A6: mov ecx,eax
+006F38A8: call 006BF820
+006F38AD: or byte ptr [eax+00000614h],10h
+ 10
+006F38B4: jmp 006F394B
+
+CALLER 0x006f34d0 / CALL 0x006f38cc
+006F38CC: call 006E2D50
+006F38D1: add esp,4
+006F38D4: mov dword ptr [esp+20h],eax
+006F38D8: test eax,eax
+006F38DA: mov dword ptr [esp+00000088h],9
+006F38E5: je 006F3949
+006F38E7: push 3
+006F38E9: push ebp
+006F38EA: mov ecx,eax
+006F38EC: call 006D03A0
+006F38F1: jmp 006F394B
+006F38F3: push 6ACh
+006F38F8: call 006E2D50
+
+CALLER 0x006f34d0 / CALL 0x006f38f8
+006F38F8: call 006E2D50
+006F38FD: add esp,4
+006F3900: mov dword ptr [esp+20h],eax
+006F3904: test eax,eax
+006F3906: mov dword ptr [esp+00000088h],esi
+ 00
+006F390D: je 006F3949
+006F390F: push 3
+006F3911: push ebp
+006F3912: mov ecx,eax
+006F3914: call 006F6030
+006F3919: jmp 006F394B
+006F391B: push 988h
+006F3920: call 006E2D50
+006F3925: add esp,4
+ 006F3928: 89
+
+CALLER 0x006f34d0 / CALL 0x006f3920
+006F3920: call 006E2D50
+006F3925: add esp,4
+006F3928: mov dword ptr [esp+20h],eax
+006F392C: test eax,eax
+006F392E: mov dword ptr [esp+00000088h],0Bh
+006F3939: je 006F3949
+006F393B: push 1
+006F393D: push 3
+006F393F: push ebp
+006F3940: mov ecx,eax
+006F3942: call 006B0A90
+006F3947: jmp 006F394B
+006F3949: xor eax,eax
+006F394B: mov esi,eax
+006F394D: mov ecx,esi
+ 006F394F: C7
+ 006F3950: 84
+
+CALLER 0x006f34d0 / CALL 0x006f39b2
+006F39B2: call 006E2D50
+006F39B7: add esp,4
+006F39BA: mov dword ptr [esp+20h],eax
+006F39BE: test eax,eax
+006F39C0: mov dword ptr [esp+00000088h],2
+006F39CB: je 006F3A5F
+006F39D1: push 3
+006F39D3: push ebp
+006F39D4: mov ecx,eax
+006F39D6: call 006F2940
+ 006F39DB: C7
+006F39DC: test byte ptr [eax+ecx*4],ah
+006F39DF: add byte ptr [eax],al
+006F39E1: add bh,bh
+
+CALLER 0x006f34d0 / CALL 0x006f39f2
+006F39F2: call 006E2D50
+006F39F7: add esp,4
+006F39FA: mov dword ptr [esp+20h],eax
+006F39FE: test eax,eax
+006F3A00: mov dword ptr [esp+00000088h],1
+006F3A0B: je 006F3A5F
+006F3A0D: push 3
+006F3A0F: push ebp
+006F3A10: mov ecx,eax
+006F3A12: call 006C8E20
+006F3A17: mov dword ptr [esp+00000088h],0FFFFFFFFh
+ 006F3A22: 8B
+
+CALLER 0x006f34d0 / CALL 0x006f3a2b
+006F3A2B: call 006E2D50
+006F3A30: add esp,4
+006F3A33: mov dword ptr [esp+20h],eax
+006F3A37: test eax,eax
+006F3A39: mov dword ptr [esp+00000088h],0
+006F3A44: je 006F3A5F
+006F3A46: push 3
+006F3A48: push ebp
+006F3A49: mov ecx,eax
+006F3A4B: call 006C4190
+006F3A50: mov dword ptr [esp+00000088h],0FFFFFFFFh
+ 006F3A5B: 8B
+
+CALLER 0x006f7550 / CALL 0x006f7619
+006F7619: call 006E2D50
+006F761E: add esp,4
+006F7621: mov dword ptr [esp+1Ch],eax
+006F7625: cmp eax,ebp
+006F7627: mov dword ptr [esp+68h],ebp
+006F762B: je 006F763D
+006F762D: mov ecx,dword ptr [esi]
+006F762F: push 4
+006F7631: push ecx
+006F7632: mov ecx,eax
+006F7634: call 006F6030
+006F7639: mov esi,eax
+006F763B: jmp 006F763F
+006F763D: xor esi,esi
+006F763F: mov ecx,dword ptr [esi+14h]
+006F7642: push ebp
+006F7643: push ebp
+006F7644: push ebp
+ 006F7645: C7
+006F7646: inc esp
+006F7647: and al,74h
+ 006F7649: FF

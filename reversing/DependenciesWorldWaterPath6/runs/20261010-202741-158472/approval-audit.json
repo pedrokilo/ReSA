@@ -1,0 +1,38 @@
+{
+  "bank": "DependenciesWorldWaterPath6",
+  "run": "20261010-202741-158472",
+  "functions": 4,
+  "pairs": 24576,
+  "pairs_per_function": {
+    "CCam::CameraPathInterpolateVector": 4096,
+    "CCam::CameraPathInterpolateScalar": 4096,
+    "CWaterLevel::GetWaterLevelNoWavesForQuad": 8192,
+    "CWaterLevel::GetWaterLevelNoWavesForTriangle": 8192
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "ff7a5756fef912bff337370db1b4585e3d997981b28e7c43439383984f325373",
+  "tested_sources": {
+    "source/game_sa/Cam.cpp": "4ab21863009100b9fd08bdf5928a517fe2e748fc93294f4fca9e4fd60a17fe31",
+    "source/game_sa/Cam.h": "614df07ead748988eee3250c0c4e862d93ec3e155f3fbff9687e2a54faaab269",
+    "source/game_sa/Camera.cpp": "6504b062b078a9abac940d720b6482894ef29275e139c49f12dfd14548f34557",
+    "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
+    "source/game_sa/WaterLevel.cpp": "f932d3f9d3a708c545e1eab7daeb63271a0c3232ea8c0571c3d8a02868fe31ae",
+    "source/game_sa/WaterLevel.h": "1759cc2e4835495469180ef145f770617757973ab982d1f869068a9204c1dc54",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "143bd25c44aa4aa316f513ca84c45f5fc72593db92f8229c4733b78a4c689241",
+    "build_probe.py": "3dc5b02e31bcc8fb30f3f863e9fa1c0c5aa0f2778c9acc3ffc002997b14a8e28",
+    "prepare.py": "12d734ac36d1cd771f0ee02cd350b96a2cbbcbc715ab1003722b334dd56d1bc8",
+    "run_local.py": "799f0fd62f83d92f89dca27a831d511d73b97ffe73075861ce25cfe7100e49b1"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "e88cc70c414f1e2278023180f041c62bd303c491babb5e77da513195e7ee6936",
+  "registered_hook_verified": true
+}

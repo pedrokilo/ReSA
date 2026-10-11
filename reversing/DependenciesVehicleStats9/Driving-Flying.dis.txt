@@ -1,0 +1,185 @@
+0055CAC0: push ecx
+0055CAC1: mov edx,dword ptr [esp+8]
+0055CAC5: mov eax,dword ptr [edx+00000590h]
+0055CACB: xor ecx,ecx
+0055CACD: test eax,eax
+0055CACF: jne 0055CAD3
+0055CAD1: mov ecx,edx
+0055CAD3: mov eax,dword ptr ds:[00B794ECh]
+0055CAD8: fild dword ptr ds:[00B794ECh]
+0055CADE: test eax,eax
+0055CAE0: jge 0055CAE8
+0055CAE2: fadd dword ptr ds:[00858C54h]
+0055CAE8: fstp dword ptr [esp+8]
+0055CAEC: fld dword ptr ds:[00B78FA4h]
+0055CAF2: fmul dword ptr ds:[00858C4Ch]
+0055CAF8: fcomp dword ptr [esp+8]
+0055CAFC: fnstsw ax
+0055CAFE: test ah,5
+0055CB01: jp 0055CB36
+0055CB03: mov ecx,dword ptr ds:[00B78F20h]
+0055CB09: push ecx
+0055CB0A: push 0A0h
+0055CB0F: mov dword ptr ds:[00B794ECh],0
+0055CB19: call 0055C180
+0055CB1E: mov edx,dword ptr ds:[00B78F20h]
+0055CB24: push edx
+0055CB25: push 0A0h
+0055CB2A: push 1
+0055CB2C: call 0055B980
+0055CB31: add esp,14h
+0055CB34: pop ecx
+0055CB35: ret
+0055CB36: fld dword ptr [edx+4Ch]
+0055CB39: fld dword ptr [edx+48h]
+0055CB3C: fld dword ptr [edx+44h]
+0055CB3F: fld st(0)
+0055CB41: fmul st,st(1)
+0055CB43: fld st(2)
+0055CB45: fmul st,st(3)
+0055CB47: faddp st(1),st
+0055CB49: fld st(3)
+0055CB4B: fmul st,st(4)
+0055CB4D: faddp st(1),st
+0055CB4F: fsqrt
+0055CB51: fstp st(3)
+0055CB53: fstp st(0)
+0055CB55: fstp st(0)
+0055CB57: fcom dword ptr ds:[00863E70h]
+0055CB5D: fnstsw ax
+0055CB5F: test ah,41h
+0055CB62: je 0055CBBE
+0055CB64: test ecx,ecx
+0055CB66: je 0055CB72
+0055CB68: mov al,byte ptr [ecx+00000960h]
+0055CB6E: test al,al
+0055CB70: je 0055CBBE
+0055CB72: fcomp dword ptr ds:[00863E68h]
+0055CB78: fnstsw ax
+0055CB7A: test ah,41h
+0055CB7D: jne 0055CBFD
+0055CB7F: fld dword ptr ds:[00B7CB5Ch]
+0055CB85: fmul dword ptr ds:[00858B38h]
+0055CB8B: fmul dword ptr ds:[00858C4Ch]
+0055CB91: call 00821B40
+0055CB96: test eax,eax
+0055CB98: mov dword ptr [esp],eax
+0055CB9C: fild dword ptr [esp]
+0055CBA0: jge 0055CBA8
+0055CBA2: fadd dword ptr ds:[00858C54h]
+0055CBA8: fmul dword ptr ds:[00863E6Ch]
+0055CBAE: fadd dword ptr [esp+8]
+0055CBB2: call 00821B40
+0055CBB7: mov dword ptr ds:[00B794ECh],eax
+0055CBBC: pop ecx
+0055CBBD: ret
+0055CBBE: fstp st(0)
+0055CBC0: fld dword ptr ds:[00B7CB5Ch]
+0055CBC6: fmul dword ptr ds:[00858B38h]
+0055CBCC: fmul dword ptr ds:[00858C4Ch]
+0055CBD2: call 00821B40
+0055CBD7: test eax,eax
+0055CBD9: mov dword ptr [esp],eax
+0055CBDD: fild dword ptr [esp]
+0055CBE1: jge 0055CBE9
+0055CBE3: fadd dword ptr ds:[00858C54h]
+0055CBE9: fmul dword ptr ds:[00863E74h]
+0055CBEF: fadd dword ptr [esp+8]
+0055CBF3: call 00821B40
+0055CBF8: mov dword ptr ds:[00B794ECh],eax
+0055CBFD: pop ecx
+0055CBFE: ret
+0055CC00: push ecx
+0055CC01: mov ecx,dword ptr [esp+8]
+0055CC05: mov eax,dword ptr [ecx+00000590h]
+0055CC0B: test eax,eax
+0055CC0D: jne 0055CD50
+0055CC13: mov eax,dword ptr ds:[00B794F0h]
+0055CC18: fild dword ptr ds:[00B794F0h]
+0055CC1E: test eax,eax
+0055CC20: jge 0055CC28
+0055CC22: fadd dword ptr ds:[00858C54h]
+0055CC28: fstp dword ptr [esp+8]
+0055CC2C: fld dword ptr ds:[00B78FA8h]
+0055CC32: fmul dword ptr ds:[00858C4Ch]
+0055CC38: fcomp dword ptr [esp+8]
+0055CC3C: fnstsw ax
+0055CC3E: test ah,5
+0055CC41: jp 0055CC76
+0055CC43: mov ecx,dword ptr ds:[00B78F24h]
+0055CC49: push ecx
+0055CC4A: push 0DFh
+0055CC4F: mov dword ptr ds:[00B794F0h],0
+0055CC59: call 0055C180
+0055CC5E: mov edx,dword ptr ds:[00B78F24h]
+0055CC64: push edx
+0055CC65: push 0DFh
+0055CC6A: push 1
+0055CC6C: call 0055B980
+0055CC71: add esp,14h
+0055CC74: pop ecx
+0055CC75: ret
+0055CC76: mov al,byte ptr [ecx+00000960h]
+0055CC7C: test al,al
+0055CC7E: jne 0055CD50
+0055CC84: fld dword ptr [ecx+4Ch]
+0055CC87: fld dword ptr [ecx+48h]
+0055CC8A: fld dword ptr [ecx+44h]
+0055CC8D: fld st(0)
+0055CC8F: fmul st,st(1)
+0055CC91: fld st(2)
+0055CC93: fmul st,st(3)
+0055CC95: faddp st(1),st
+0055CC97: fld st(3)
+0055CC99: fmul st,st(4)
+0055CC9B: faddp st(1),st
+0055CC9D: fsqrt
+0055CC9F: fstp st(3)
+0055CCA1: fstp st(0)
+0055CCA3: fstp st(0)
+0055CCA5: fcom dword ptr ds:[00863E80h]
+0055CCAB: fnstsw ax
+0055CCAD: test ah,41h
+0055CCB0: je 0055CD11
+0055CCB2: mov eax,dword ptr [ecx+14h]
+0055CCB5: fld dword ptr [eax+28h]
+0055CCB8: fcomp dword ptr ds:[00858B50h]
+0055CCBE: fnstsw ax
+0055CCC0: test ah,5
+0055CCC3: jnp 0055CD11
+0055CCC5: fcomp dword ptr ds:[00863E78h]
+0055CCCB: fnstsw ax
+0055CCCD: test ah,41h
+0055CCD0: jne 0055CD50
+0055CCD2: fld dword ptr ds:[00B7CB5Ch]
+0055CCD8: fmul dword ptr ds:[00858B38h]
+0055CCDE: fmul dword ptr ds:[00858C4Ch]
+0055CCE4: call 00821B40
+0055CCE9: test eax,eax
+0055CCEB: mov dword ptr [esp],eax
+0055CCEF: fild dword ptr [esp]
+0055CCF3: jge 0055CCFB
+0055CCF5: fadd dword ptr ds:[00858C54h]
+0055CCFB: fmul dword ptr ds:[00863E7Ch]
+0055CD01: fadd dword ptr [esp+8]
+0055CD05: call 00821B40
+0055CD0A: mov dword ptr ds:[00B794F0h],eax
+0055CD0F: pop ecx
+0055CD10: ret
+0055CD11: fstp st(0)
+0055CD13: fld dword ptr ds:[00B7CB5Ch]
+0055CD19: fmul dword ptr ds:[00858B38h]
+0055CD1F: fmul dword ptr ds:[00858C4Ch]
+0055CD25: call 00821B40
+0055CD2A: test eax,eax
+0055CD2C: mov dword ptr [esp],eax
+0055CD30: fild dword ptr [esp]
+0055CD34: jge 0055CD3C
+0055CD36: fadd dword ptr ds:[00858C54h]
+0055CD3C: fmul dword ptr ds:[00863E84h]
+0055CD42: fadd dword ptr [esp+8]
+0055CD46: call 00821B40
+0055CD4B: mov dword ptr ds:[00B794F0h],eax
+0055CD50: pop ecx
+0055CD51: ret
+ 0055CD60: A1

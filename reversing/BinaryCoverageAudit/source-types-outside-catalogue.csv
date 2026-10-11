@@ -94,7 +94,6 @@ CPedSeatAttractor,class,public CPedAttractor,source/game_sa/Attractors/PedSeatAt
 CPedStepAttractor,class,public  CPedAttractor,source/game_sa/Attractors/PedStepAttractor.h,5,source_type_definition
 CPedStopAttractor,class,public CPedAttractor,source/game_sa/Attractors/PedStopAttractor.h,5,source_type_definition
 CPedTriggerScriptAttractor,class,public CPedAttractor,source/game_sa/Attractors/PedTriggerScriptAttractor.h,5,source_type_definition
-CAttractorScanner,class,,source/game_sa/AttractorScanner.h,13,source_type_definition
 sReverbEnvironment,struct,,source/game_sa/Audio/AEAudioEnvironment.h,10,source_type_definition
 tSmoothFadeEntry,struct,,source/game_sa/Audio/AESmoothFadeThread.h,14,source_type_definition
 tBeatInfo,class,,source/game_sa/Audio/AudioEngine.h,15,source_type_definition
@@ -208,8 +207,8 @@ ColHelpers::V2::Header,struct,,source/game_sa/Collision/ColHelpers.h,190,source_
 ColHelpers::V3::Header,struct,V2::Header,source/game_sa/Collision/ColHelpers.h,217,source_type_definition
 ColHelpers::V4::Header,struct,V3::Header,source/game_sa/Collision/ColHelpers.h,246,source_type_definition
 ClosestCorner,class,,source/game_sa/Collision/Collision.cpp,288,source_type_definition
-CColCacheEntry,struct,,source/game_sa/Collision/Collision.cpp,3442,source_type_definition
-CColCacheEntry::eType,class,uint8,source/game_sa/Collision/Collision.cpp,3443,source_type_definition
+CColCacheEntry,struct,,source/game_sa/Collision/Collision.cpp,3441,source_type_definition
+CColCacheEntry::eType,class,uint8,source/game_sa/Collision/Collision.cpp,3442,source_type_definition
 CCollision::DebugSettings,struct,,source/game_sa/Collision/Collision.h,32,source_type_definition
 CCollision::DebugSettings::ShapeShapeCollision,struct,,source/game_sa/Collision/Collision.h,33,source_type_definition
 CCollisionEventScanner,class,,source/game_sa/Collision/CollisionEventScanner.h,6,source_type_definition
@@ -255,7 +254,6 @@ CPtrNodeDoubleLink,class,"public CPtrNode<TItemType, CPtrNodeDoubleLink<TItemTyp
 CPtrNodeSingleLink,class,"public CPtrNode<TItemType, CPtrNodeSingleLink<TItemType>>",source/game_sa/Core/PtrNodeSingleLink.h,18,source_type_definition
 CQuadTreeNode,class,,source/game_sa/Core/QuadTreeNode.h,54,source_type_definition
 CQuadTreeNodeLegacyPool,struct,CPool<CQuadTreeNode<void*>>,source/game_sa/Core/QuadTreeNode.h,348,source_type_definition
-CQuaternion,class,,source/game_sa/Core/Quaternion.h,12,source_type_definition
 SArray,struct,,source/game_sa/Core/SArray.h,12,source_type_definition
 CStore,class,,source/game_sa/Core/Store.h,9,source_type_definition
 CVector,class,public RwV3d,source/game_sa/Core/Vector.h,16,source_type_definition
@@ -279,14 +277,12 @@ CDate,class,,source/game_sa/Date.h,9,source_type_definition
 CDebug::tDebugText,struct,,source/game_sa/Debug.h,9,source_type_definition
 CDecisionMaker,class,,source/game_sa/DecisionMakers/DecisionMaker.h,12,source_type_definition
 eDecisionMakerType,class,int32,source/game_sa/DecisionMakers/DecisionMakerTypes.h,10,source_type_definition
-CDecisionMakerTypes,class,,source/game_sa/DecisionMakers/DecisionMakerTypes.h,41,source_type_definition
 CDecisionSimple,class,,source/game_sa/DecisionMakers/DecisionSimple.h,9,source_type_definition
 CDirectory::DirectoryInfo,struct,,source/game_sa/Directory.h,15,source_type_definition
 CDummyPed,class,public CDummy,source/game_sa/Entity/Dummy/DummyPed.h,11,source_type_definition
 CEntity::CEntityInfo,struct,,source/game_sa/Entity/Entity.h,52,source_type_definition
 CProjectile,class,public CObject,source/game_sa/Entity/Object/Projectile.h,11,source_type_definition
 CEmergencyPed,class,public CPed,source/game_sa/Entity/Ped/EmergencyPed.h,11,source_type_definition
-CPedSaveStructure,class,,source/game_sa/Entity/Ped/PedSaveStructure.h,7,source_type_definition
 CPlayerPedDataSaveStructure,struct,,source/game_sa/Entity/Ped/PlayerPed.cpp,100,source_type_definition
 tPlayerSprintSet,struct,,source/game_sa/Entity/Ped/PlayerPed.cpp,697,source_type_definition
 Act,class,,source/game_sa/Entity/Vehicle/Automobile.cpp,2321,source_type_definition
@@ -347,7 +343,6 @@ CEventSexyPed,class,public CEventEditableResponse,source/game_sa/Events/EventSex
 CEventSexyVehicle,class,public CEvent,source/game_sa/Events/EventSexyVehicle.h,7,source_type_definition
 CEventSignalAtPed,class,public CEvent,source/game_sa/Events/EventSignalAtPed.h,7,source_type_definition
 CEventSoundLoud,class,public CEventEditableResponse,source/game_sa/Events/EventSoundLoud.h,8,source_type_definition
-CEventSource,class,,source/game_sa/Events/EventSource.h,5,source_type_definition
 CEventSpecial,class,public CEventEditableResponse,source/game_sa/Events/EventSpecial.h,6,source_type_definition
 CEventVehicleThreat,class,public CEventEditableResponse,source/game_sa/Events/EventVehicleThreat.h,6,source_type_definition
 CNearbyFireScanner,class,,source/game_sa/Events/NearbyFireScanner.h,9,source_type_definition
@@ -408,7 +403,6 @@ EmissionInfo_t,struct,,source/game_sa/Fx/EmissionInfo.h,5,source_type_definition
 FxEntitySystem,struct,public ListItem_c<FxEntitySystem>,source/game_sa/Fx/Fx.h,35,source_type_definition
 FxBox_c,class,,source/game_sa/Fx/FxBox.h,5,source_type_definition
 FxEmitter_c,class,public FxPrim_c,source/game_sa/Fx/FxEmitter.h,7,source_type_definition
-FxFrustumInfo_c,class,,source/game_sa/Fx/FxFrustumInfo.h,12,source_type_definition
 FxPlane_c,class,public RwPlane,source/game_sa/Fx/FxPlane.h,5,source_type_definition
 FxPrim_c,class,,source/game_sa/Fx/FxPrim.h,6,source_type_definition
 FxBufferedMatrix,struct,,source/game_sa/Fx/FxPrimBP.h,25,source_type_definition
@@ -454,7 +448,6 @@ HeapBlockDesc,class,,source/game_sa/Memory/HeapBlockDesc.h,37,source_type_defini
 HeapFreeBlockDesc,class,public HeapBlockDesc,source/game_sa/Memory/HeapFreeBlockDesc.h,8,source_type_definition
 CMemoryHeap,class,,source/game_sa/Memory/MemoryHeap.h,17,source_type_definition
 CStack,class,,source/game_sa/MemoryMgr.h,69,source_type_definition
-CMemoryMgr,class,,source/game_sa/MemoryMgr.h,95,source_type_definition
 CMentalState,class,,source/game_sa/MentalHealth.h,7,source_type_definition
 MPack,struct,,source/game_sa/MenuManager.h,44,source_type_definition
 eController,class,int8,source/game_sa/MenuManager.h,49,source_type_definition
@@ -513,7 +506,6 @@ CPlantSurfPropPlantData,struct,,source/game_sa/PlantSurfPropMgr.h,29,source_type
 CPlantSurfProp,struct,,source/game_sa/PlantSurfPropMgr.h,45,source_type_definition
 CPlayerInfoSaveStructure,class,,source/game_sa/PlayerInfo.h,142,source_type_definition
 PlayerRelationship,struct,,source/game_sa/PlayerRelationshipRecorder.h,5,source_type_definition
-CPlayerRelationshipRecorder,class,,source/game_sa/PlayerRelationshipRecorder.h,18,source_type_definition
 BreakInfoTriangle,struct,,source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h,18,source_type_definition
 BreakInfoColor,struct,,source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h,22,source_type_definition
 BreakInfo_t,struct,,source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h,30,source_type_definition
@@ -552,7 +544,6 @@ t2dEffectSlotMachineWheelStreamData,struct,,source/game_sa/Plugins/TwoDEffectPlu
 t2dEffectEscalatorStreamData,struct,,source/game_sa/Plugins/TwoDEffectPlugin/2dEffectStream.h,82,source_type_definition
 t2dEffectPedAttractorStreamData,struct,,source/game_sa/Plugins/TwoDEffectPlugin/2dEffectStream.h,91,source_type_definition
 CPointLight,class,,source/game_sa/PointLights.h,23,source_type_definition
-CPointLights,class,,source/game_sa/PointLights.h,40,source_type_definition
 CPointList,class,,source/game_sa/PointList.h,11,source_type_definition
 CPolyBunch,class,,source/game_sa/PolyBunch.h,11,source_type_definition
 CPatrolRoutePool,class,public CPool<void*>,source/game_sa/Pools/PatrolRoutePool.h,6,source_type_definition
@@ -573,7 +564,6 @@ tScanLists,struct,,source/game_sa/Renderer.h,22,source_type_definition
 tRenderListEntry,struct,,source/game_sa/Renderer.h,50,source_type_definition
 CWorldScan,class,,source/game_sa/Renderer.h,61,source_type_definition
 D3DIndexDataBuffer,class,,source/game_sa/RenderWare/D3DIndexDataBuffer.h,13,source_type_definition
-D3DResourceSystem,class,,source/game_sa/RenderWare/D3DResourceSystem.h,15,source_type_definition
 D3DTextureBuffer,class,,source/game_sa/RenderWare/D3DTextureBuffer.h,13,source_type_definition
 RwResEntrySA,struct,RwResEntry,source/game_sa/RenderWare/RenderWare.h,51,source_type_definition
 RpADCDataTag,struct,,source/game_sa/RenderWare/rw/rpadc.h,41,source_type_definition
@@ -1033,7 +1023,6 @@ CTaskComplex,class,public CTask,source/game_sa/Tasks/TaskComplex.h,13,source_typ
 CTaskComplexSequence::eRepeatMode,class,uint32,source/game_sa/Tasks/TaskComplexSequence.h,8,source_type_definition
 CTaskSimple,class,public CTask,source/game_sa/Tasks/TaskSimple.h,13,source_type_definition
 CTaskInteriorLieInBed::AnimSeqIdx,class,,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.h,12,source_type_definition
-CTaskInteriorSitInChair,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h,10,source_type_definition
 CEntitySeekPosCalculator,class,,source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h,9,source_type_definition
 CTaskComplexSeekEntity,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,46,source_type_definition
 CTaskComplexSeekEntityAnyMeans,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeans.h,25,source_type_definition
@@ -1055,7 +1044,6 @@ CTaskComplexPresentIDToCop,class,public CTaskComplex,source/game_sa/Tasks/TaskTy
 CTaskComplexReactToAttack,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexReactToAttack.h,10,source_type_definition
 CTaskComplexUseEntryExit,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexUseEntryExit.h,10,source_type_definition
 CTaskComplexUseMobilePhone,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h,12,source_type_definition
-CTaskComplexWaitForPed,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h,8,source_type_definition
 CTaskSimpleAbseil,class,public CTaskSimpleRunAnim,source/game_sa/Tasks/TaskTypes/TaskSimpleAbseil.h,5,source_type_definition
 CTaskSimpleBeHitWhileMoving,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.h,10,source_type_definition
 CTaskSimpleBeKickedOnGround,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.h,10,source_type_definition
@@ -1067,7 +1055,6 @@ CTaskSimpleDuckToggle::eMode,class,int32,source/game_sa/Tasks/TaskTypes/TaskSimp
 CTaskSimpleDuckWhileShotsWhizzing,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleDuckWhileShotsWhizzing.h,10,source_type_definition
 eFacialExpression,class,,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h,16,source_type_definition
 CMeleeInfo,class,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h,23,source_type_definition
-CTaskSimpleFight,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h,42,source_type_definition
 eDrivebyStyle,class,int8,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h,14,source_type_definition
 eGunCommand,class,int8,source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h,12,source_type_definition
 CTaskSimpleHailTaxi,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleHailTaxi.h,10,source_type_definition
@@ -1109,7 +1096,7 @@ tClumpVisibilityPlugin,struct,,source/game_sa/VisibilityPlugins.h,60,source_type
 tFrameVisibilityPlugin,struct,,source/game_sa/VisibilityPlugins.h,67,source_type_definition
 CVisibilityPlugins::AlphaObjectInfo,struct,,source/game_sa/VisibilityPlugins.h,84,source_type_definition
 tWaterCreatureInfo,struct,,source/game_sa/WaterCreatureManager_c.h,6,source_type_definition
-WaterLayerParams,struct,,source/game_sa/WaterLevel.cpp,314,source_type_definition
+WaterLayerParams,struct,,source/game_sa/WaterLevel.cpp,317,source_type_definition
 CRenPar,struct,,source/game_sa/WaterLevel.h,11,source_type_definition
 CWaterVertex,struct,,source/game_sa/WaterLevel.h,27,source_type_definition
 CWaterPolygon,struct,,source/game_sa/WaterLevel.h,34,source_type_definition

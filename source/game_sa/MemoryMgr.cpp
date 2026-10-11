@@ -24,6 +24,12 @@ static LPCRITICAL_SECTION gpScratchPadCS;
 void CMemoryMgr::InjectHooks() {
     RH_ScopedClass(CMemoryMgr);
     RH_ScopedCategory("Memory");
+    RH_ScopedInstall(InitScratchPad, 0x72F480);
+    RH_ScopedOverloadedInstall(Malloc, "SizeHint", 0x72F420, void*(*)(uint32,uint32));
+    RH_ScopedOverloadedInstall(Realloc, "MemorySizeHint", 0x72F440, uint8*(*)(void*,uint32,uint32));
+    RH_ScopedOverloadedInstall(MallocAlign, "SizeAlignHint", 0x72F4C0, uint8*(*)(uint32,uint32,uint32));
+    RH_ScopedInstall(FreeAlign, 0x72F4F0);
+
 }
 
 // 0x72F3B0
@@ -97,10 +103,57 @@ void CMemoryMgr::SetHint(void* memory, const char* hint) {
 }
 
 // 0x72F480
-void CMemoryMgr::InitScratchPad() {
-    return plugin::Call<0x72F480>();
-
-    g_Heaps[HEAP_SCRATCH].Init(PC_Scratch, sizeof(PC_Scratch), false);
+// Como el original: Init(mem=0xC8E0C8, size=0x4000, bInitSizes=false).
+// Se conserva el orden de escrituras y los bytes de cabeceras que el EXE no inicializa.
+__declspec(naked) void CMemoryMgr::InitScratchPad() {
+    __asm {
+        mov eax,3FF0h
+        push ebx
+        push esi
+        mov esi,0C87BD0h
+        mov ecx,0C8E0C8h
+        mov dword ptr [esi],ecx
+        add ecx,eax
+        mov dword ptr [esi+4],ecx
+        xor ebx,ebx
+        mov dword ptr [esi+40h],ebx
+        mov dl,1
+        mov byte ptr [esi+3Ch],dl
+        push edi
+        or edi,0FFFFFFFFh
+        mov dword ptr [esi+44h],edi
+        mov byte ptr [ecx+4],dl
+        mov ecx,dword ptr [esi+4]
+        mov word ptr [ecx+6],di
+        mov edx,dword ptr [esi+4]
+        mov dword ptr [edx],ebx
+        mov ecx,dword ptr [esi+4]
+        mov edx,dword ptr [esi]
+        mov dword ptr [ecx+0Ch],edx
+        mov ecx,dword ptr [esi]
+        add eax,0FFFFFFF0h
+        mov dword ptr [ecx],eax
+        mov edx,dword ptr [esi]
+        mov byte ptr [edx+4],bl
+        mov eax,dword ptr [esi]
+        mov dword ptr [eax+0Ch],ebx
+        lea eax,[esi+8]
+        mov dword ptr [esi+34h],eax
+        mov dword ptr [esi+20h],7FFFFFFFh
+        lea ecx,[esi+20h]
+        mov dword ptr [esi+18h],ecx
+        mov edx,dword ptr [eax+10h]
+        mov ecx,dword ptr [esi]
+        mov dword ptr [ecx+10h],edx
+        mov edx,dword ptr [eax+10h]
+        mov dword ptr [edx+14h],ecx
+        mov dword ptr [ecx+14h],eax
+        mov dword ptr [eax+10h],ecx
+        pop edi
+        pop esi
+        pop ebx
+        ret
+    }
 }
 
 void* CMemoryMgr::MallocFromScratchPad(uint32 size) {
@@ -207,7 +260,29 @@ void* CMemoryMgr::InternalRealloc(void* memory, uint32 size) {
     return newMemory;
 }
 
+namespace {
+__declspec(naked) void* __cdecl Memory9NativeMalloc(uint32) {
+    __asm {
+        push 00824257h
+        ret
+    }
+}
+__declspec(naked) uint8* __cdecl Memory9NativeRealloc(void*, uint32) {
+    __asm {
+        push 00824269h
+        ret
+    }
+}
+__declspec(naked) void __cdecl Memory9NativeFree(void*) {
+    __asm {
+        push 0082413Fh
+        ret
+    }
+}
+}
+
 // 0x72F420
+#ifdef MEMORY_MGR_USE_MEMORY_HEAP
 void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
     _LOCK_MEMORYHEAP();
@@ -236,6 +311,17 @@ void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
     return ::malloc(size);
 #endif
 }
+#else
+__declspec(naked) void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
+    __asm {
+        mov eax,[esp+4]
+        push eax
+        call Memory9NativeMalloc
+        add esp,4
+        ret
+    }
+}
+#endif
 
 // 0x72F430
 void CMemoryMgr::Free(void* memory) {
@@ -257,6 +343,7 @@ void CMemoryMgr::Free(void* memory) {
 }
 
 // 0x72F440
+#ifdef MEMORY_MGR_USE_MEMORY_HEAP
 uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
     if (!memory) {
@@ -289,6 +376,19 @@ uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
     return static_cast<uint8*>(::realloc(memory, size));
 #endif
 }
+#else
+__declspec(naked) uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
+    __asm {
+        mov eax,[esp+8]
+        mov ecx,[esp+4]
+        push eax
+        push ecx
+        call Memory9NativeRealloc
+        add esp,8
+        ret
+    }
+}
+#endif
 
 // 0x72F460
 uint8* CMemoryMgr::Calloc(uint32 numObj, uint32 sizeObj, uint32 hint) {
@@ -302,6 +402,7 @@ uint8* CMemoryMgr::Calloc(uint32 numObj, uint32 sizeObj, uint32 hint) {
 }
 
 // 0x72F4C0
+#ifdef MEMORY_MGR_USE_MEMORY_HEAP
 uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
     auto* memory = Malloc(size + align, nHint);
 
@@ -309,11 +410,43 @@ uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
     *((void**)result - 1) = memory;
     return static_cast<uint8*>(result);
 }
+#else
+__declspec(naked) uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
+    __asm {
+        mov eax,[esp+4]
+        push esi
+        mov esi,[esp+0Ch]
+        add eax,esi
+        push eax
+        call Memory9NativeMalloc
+        mov ecx,eax
+        lea eax,[ecx+esi]
+        add esp,4
+        dec esi
+        not esi
+        and eax,esi
+        mov [eax-4],ecx
+        pop esi
+        ret
+    }
+}
+#endif
 
+#ifdef MEMORY_MGR_USE_MEMORY_HEAP
 void CMemoryMgr::FreeAlign(void* memory) {
     return plugin::Call<0x72F4F0, void*>(memory);
     Free(*((void**)memory - 1));
 }
+#else
+__declspec(naked) void CMemoryMgr::FreeAlign(void* memory) {
+    __asm {
+        mov eax,[esp+4]
+        mov ecx,[eax-4]
+        mov [esp+4],ecx
+        jmp Memory9NativeFree
+    }
+}
+#endif
 
 void CMemoryMgr::SetRestrictMemoryMove(bool restrict) {
     g_Heaps[HEAP_PRIMARY].m_bMovingRestricted   = restrict;
@@ -370,7 +503,7 @@ void* CMemoryMgr::Malloc(uint32 size) {
 }
 
 void* CMemoryMgr::MallocAlign(uint32 size, uint32 align) {
-    // Como el original: 0x72F4C0 recibe 3 argumentos (size, align, hint); con 2 el EXE leía basura como hint
+    // PC 0x72F4C0 reads only size and align; the additional API hint is ignored.
     return plugin::CallAndReturn<void*, 0x72F4C0, uint32, uint32, uint32>(size, align, 0);
 
     void* memory = MallocAlign(size, align, 0);

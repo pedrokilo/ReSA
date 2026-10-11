@@ -1,0 +1,3 @@
+APROBADO: Camera cycle and horizontal/vertical mouse input
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciespadcamera7\20261010-203312-870430

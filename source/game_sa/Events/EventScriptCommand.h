@@ -15,6 +15,7 @@ public:
 
     CEventScriptCommand(int32 primaryTaskIndex, CTask* task, bool affectsDeadPeds = false);
     ~CEventScriptCommand() override;
+    void Destructor();
 
     eEventType GetEventType() const override { return Type; }
     int32 GetEventPriority() const override;

@@ -1,0 +1,53 @@
+00509CA0: mov eax,dword ptr [ecx+0000021Ch]
+00509CA6: test eax,eax
+00509CA8: je 00509CD6
+00509CAA: movsx eax,word ptr [eax+22h]
+00509CAE: mov ecx,dword ptr [eax*4+00A9B0C8h]
+ 00
+00509CB5: movsx eax,word ptr [ecx+4Ah]
+00509CB9: push eax
+00509CBA: mov ecx,0C2B9C8h
+00509CBF: call 006F5300
+00509CC4: test eax,eax
+00509CC6: je 00509CD6
+00509CC8: mov edx,dword ptr [eax+20h]
+00509CCB: mov eax,dword ptr [esp+4]
+00509CCF: mov dword ptr [eax],edx
+00509CD1: mov al,1
+00509CD3: ret 4
+00509CD6: xor al,al
+00509CD8: ret 4
+ 00509CE0: 83
+
+006F5300: mov al,byte ptr [esp+4]
+006F5304: cmp al,0AFh
+006F5306: jb 006F531C
+006F5308: cmp al,0BAh
+006F530A: ja 006F531C
+006F530C: movzx eax,al
+006F530F: imul eax,eax,3Ch
+006F5312: lea eax,[eax+ecx+00009A50h]
+ 00
+006F5319: ret 4
+006F531C: lea eax,[ecx+0000C354h]
+006F5322: ret 4
+006F5330: push ebx
+
+00424100: xor al,al
+00424102: ret
+
+006B1D4C: mov eax,dword ptr [esi+14h]
+006B1D4F: test eax,eax
+006B1D51: lea ecx,[eax+30h]
+006B1D54: jne 006B1DEE
+006B1D5A: lea ecx,[esi+4]
+006B1D5D: lea eax,[esi+4]
+006B1D60: mov edx,dword ptr [ecx+4]
+006B1D63: mov eax,dword ptr [eax]
+006B1D65: push edx
+006B1D66: push eax
+006B1D67: call 00424100
+006B1D6C: add esp,8
+006B1D6F: test al,al
+006B1D71: jne 006B1DFD
+ 006B1D77: 8A

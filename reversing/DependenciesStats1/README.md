@@ -1,0 +1,17 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# GetFatAndMuscleModifier
+
+Transcripción de 0x559AF0..0x559F58: dieciséis ramas, configuración viva 0x8CDE58..0x8CDEC0, cálculos x87 y comparaciones `test ah,41h/5`. Las plantillas Max/Min de 0x420800/0x404330 están implementadas localmente con el mismo contrato NaN y ST0; no se llama al original como candidato.
+
+El banco ejecuta 4.096 pares dentro del juego completo. Alterna OFF/ON mediante HookRoute sobre el hook registrado, llama siempre a la entrada original y comprueba cada ruta; queda OFF entre llamadas y restaura el estado inicial de RH al finalizar. Si no existe registro, usa EntryPatch temporal. El evento begin indica registered_hook. Usa dieciséis enums válidos, dos fuera de rango, fronteras 400/800, cero firmado, infinito y NaN silencioso; compara retorno por bits, ausencia de mutaciones, ECX/EDX con semillas por caso y balance de ESP. La captura de registros se hace inmediatamente después del call en asm, antes de otras llamadas. El frontal naked cdecl de producción conserva ECX/EDX como el EXE, sin ret 4. Conserva y restaura tablas de estadísticas, configuración, control x87 y código de entrada. No sustituye colaboradores.
+
+Ejecución por el coordinador: `CMAKE_BUILD_PARALLEL_LEVEL=2 _CL_=-MP2 bash reversing/_handoff/bench.sh DependenciesStats1 3`.
+
+Validación final aprobada en la corrida `20261010-180513-732235`: **1 función, 4.096 pares, 0 diferencias y 0 registros con original/candidate nulos**. Se verificó el hook RH de producción apagado/activo en todos los pares, retorno exacto por bits, ECX/EDX conservados y ESP equilibrado. Estado, hooks, tablas y control x87 restaurados; partidas sin cambios y configuraciones restauradas.
+
+Evidencia: [resumen de validación](validation-summary.json), [auditoría final](runs/20261010-180513-732235/approval-audit.json), [comparaciones completas](runs/20261010-180513-732235/comparisons.jsonl.gz) y [resultado](runs/20261010-180513-732235/RESULTADO.txt). El JSONL descomprimido tiene SHA-256 `a1108bffebe6ad09031acbeb75bcbcb5ea3b66f5fe353cf3a38b7ed1fc745333`, conservado tras compresión sin pérdida.
+
+La evidencia acredita esta implementación y los casos enumerados dentro del juego completo. No extiende la validación a toda integración posible ni demuestra independencia de los datos y servicios del EXE.

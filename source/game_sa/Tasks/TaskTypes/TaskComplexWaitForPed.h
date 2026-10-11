@@ -19,6 +19,7 @@ private:
 
 public:
     static void InjectHooks();
+    CTaskComplexWaitForPed* Constructor(CPed* ped, float radius, uint32 time, bool rotate);
 };
 
 VALIDATE_SIZE(CTaskComplexWaitForPed, 0x2C);

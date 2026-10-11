@@ -1,0 +1,3 @@
+APROBADO: FX matrix, script letters, camera frustum and radar polygon
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesworldfxfont5\20261010-200311-662835

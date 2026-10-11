@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "pairs": 2048,
+  "differences": 0,
+  "registered_pairs": 2048,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::FindGhostRoadHeight": 2048
+  },
+  "covered_functions": {
+    "CCarCtrl::FindGhostRoadHeight": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/DependenciesWorld14/runs/20261010-222252-781249",
+  "summary_sha256": "997c8e82d240827c69c8057dd5a45ca0752a1076ff6513d034520bf4ae017a80",
+  "result_txt_sha256": "a73949794c51005250c38c244079f4359d069d1d8df62f2836428382cc00a55a",
+  "log_sha256": "09315c7f25873e6b184495907b58f301b304b242d20ffed90655409ff380e8e8",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "bedc9a36ea951395504038a292967bb8892d674981e03f04e12d0fc33fd2ad4e",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/CarCtrl.cpp": "6073bf49f30376e7e9175545b579c099418146b7c1ff2ec6d0b80bcd396ee93f",
+      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+      "source/game_sa/PathFind.cpp": "92323d8ab4c18b41ddc23ec7ed275d6feb5ce68e5d44b7edd4f51cf43bf17496",
+      "source/game_sa/PathFind.h": "1937fc23e3c44aa8e867fa78ca1d0495684f066dd278f1b7d4bd9d62ed0891af",
+      "source/game_sa/NodeAddress.h": "a22f707c909a6cc7786132304de10096a7e9721036e76ced52df9786fe2f8bdd",
+      "source/game_sa/AutoPilot.h": "a01fa25150ddc34b0f93bf8525ddab4fa28110776da1963db37a9d6dd413a72c",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d",
+      "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/SimpleTransform.h": "48d68e2dbb22fb131e21e6b58078fc06be4136824c38dce24a268db8765374f8",
+      "source/game_sa/Core/MatrixLink.h": "ce05ae9f46be69790be1ffb2a9270470e8b021519a83284270164fd3d8528355",
+      "source/game_sa/Core/MatrixLinkList.cpp": "3cd88e9890a2edd57d30aa4c6c2dc95f6c47fd2d5cee86f9085a584a6a9ad6f9",
+      "source/game_sa/Core/MatrixLinkList.h": "e37f434ddb8b08d790dfabf61a58ee8055638fad7770e4e6aaee5a8749e1836d",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
+      "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
+      "reversing/DependenciesWorld10/NewGameConfiguration.py": "ca4cff07327e65c41af1c90292c24e7e658baa6071fc5fbbbb49ed1231c2b6e4"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "d59df8a816d36d55b60c9dfe2db11d6b1389f2d6e9fe3a9e5231984f4da72c89",
+      "NativeProof.hpp": "51e76a686c26aa2c35f4eb378168537cb48f03444954e9c9e83e84db4ec6c56a",
+      "build_probe.py": "84e6ffe12ccabd2474108eb69736dcf57bc52955b9bdd36755567bfd8e6d6710",
+      "run_local.py": "a615e72f78b0ef50f5281b230f897d4caff83ad049661deef66a3dcee8a44bba"
+    }
+  },
+  "reaudit": {
+    "bank": "DependenciesWorld14",
+    "run": "20261010-222252-781249",
+    "functions": 1,
+    "pairs": 2048,
+    "pairs_per_function": {
+      "CCarCtrl::FindGhostRoadHeight": 2048
+    },
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "saves_unchanged": true,
+    "configs_restored": true,
+    "hook_routes_verified": true,
+    "log_sha256": "09315c7f25873e6b184495907b58f301b304b242d20ffed90655409ff380e8e8",
+    "tested_sources": {
+      "source/game_sa/CarCtrl.cpp": "6073bf49f30376e7e9175545b579c099418146b7c1ff2ec6d0b80bcd396ee93f",
+      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+      "source/game_sa/PathFind.cpp": "92323d8ab4c18b41ddc23ec7ed275d6feb5ce68e5d44b7edd4f51cf43bf17496",
+      "source/game_sa/PathFind.h": "1937fc23e3c44aa8e867fa78ca1d0495684f066dd278f1b7d4bd9d62ed0891af",
+      "source/game_sa/NodeAddress.h": "a22f707c909a6cc7786132304de10096a7e9721036e76ced52df9786fe2f8bdd",
+      "source/game_sa/AutoPilot.h": "a01fa25150ddc34b0f93bf8525ddab4fa28110776da1963db37a9d6dd413a72c",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d",
+      "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/SimpleTransform.h": "48d68e2dbb22fb131e21e6b58078fc06be4136824c38dce24a268db8765374f8",
+      "source/game_sa/Core/MatrixLink.h": "ce05ae9f46be69790be1ffb2a9270470e8b021519a83284270164fd3d8528355",
+      "source/game_sa/Core/MatrixLinkList.cpp": "3cd88e9890a2edd57d30aa4c6c2dc95f6c47fd2d5cee86f9085a584a6a9ad6f9",
+      "source/game_sa/Core/MatrixLinkList.h": "e37f434ddb8b08d790dfabf61a58ee8055638fad7770e4e6aaee5a8749e1836d",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
+      "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
+      "reversing/DependenciesWorld10/NewGameConfiguration.py": "ca4cff07327e65c41af1c90292c24e7e658baa6071fc5fbbbb49ed1231c2b6e4"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "d59df8a816d36d55b60c9dfe2db11d6b1389f2d6e9fe3a9e5231984f4da72c89",
+      "NativeProof.hpp": "51e76a686c26aa2c35f4eb378168537cb48f03444954e9c9e83e84db4ec6c56a",
+      "build_probe.py": "84e6ffe12ccabd2474108eb69736dcf57bc52955b9bdd36755567bfd8e6d6710",
+      "run_local.py": "a615e72f78b0ef50f5281b230f897d4caff83ad049661deef66a3dcee8a44bba"
+    },
+    "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "executed_probe_sha256": "bedc9a36ea951395504038a292967bb8892d674981e03f04e12d0fc33fd2ad4e",
+    "registered_hook_verified": true
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/DependenciesWorld14/runs/20261010-222252-781249/comparisons.jsonl.gz",
+    "compressed_sha256": "fa94040fb6b12c16b9a542b46cc70ff3afd9d809ba7057e2b99fd699c437e3ea",
+    "uncompressed_sha256": "09315c7f25873e6b184495907b58f301b304b242d20ffed90655409ff380e8e8",
+    "uncompressed_bytes": 2005793,
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "09315c7f25873e6b184495907b58f301b304b242d20ffed90655409ff380e8e8"
+  }
+}

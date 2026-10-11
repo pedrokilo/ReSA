@@ -191,6 +191,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedVirtualClass(CVehicle, 0x871e80, 66);
     RH_ScopedCategory("Vehicle");
 
+    RH_ScopedOverloadedInstall(operator new, "anon", 0x6E2D50, void* (*)(unsigned));
     RH_ScopedInstall(Constructor, 0x6D5F10);
     RH_ScopedInstall(Destructor, 0x6E2B40);
 
@@ -357,6 +358,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedGlobalOverloadedInstall(SetVehicleAtomicVisibilityCB, "Frame", 0x6D26D0, RwFrame*(*)(RwFrame*, void*));
     // RH_ScopedGlobalInstall(SetCompAlphaCB, 0x6D2950);
     RH_ScopedGlobalInstall(IsVehiclePointerValid, 0x6E38F0);
+    RH_ScopedGlobalInstall(IsValidModForVehicle, 0x49B010);
     // RH_ScopedGlobalInstall(RemoveUpgradeCB, 0x6D3300);
     // RH_ScopedGlobalInstall(FindUpgradeCB, 0x6D3370);
     RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Object", 0x6D33B0, RwObject*(*)(RwObject*, void*));
@@ -546,8 +548,12 @@ CVehicle::~CVehicle() {
     }
 }
 
-void* CVehicle::operator new(unsigned size) {
-    return GetVehiclePool()->New();
+// Como el original: size no se consulta; el pool real usa almacenamiento de 0xA18 bytes.
+// CVehiclePool::New reconstruida se instala separadamente en 0x6E2A50.
+__declspec(naked) void* CVehicle::operator new(unsigned size) {
+    __asm { mov ecx,dword ptr ds:[0B74494h] }
+    __asm { push 06E2A50h }
+    __asm { ret }
 }
 
 void CVehicle::operator delete(void* data) {
@@ -5174,8 +5180,175 @@ void CVehicle::GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceT
     ((void(__thiscall*)(CVehicle*, bool&, eOrdnanceType&))0x6E3440)(this, status, ordnanceType);
 }
 
-bool IsValidModForVehicle(uint32 modelId, CVehicle* vehicle) {
-    return plugin::CallAndReturn<bool, 0x49B010, uint32, CVehicle*>(modelId, vehicle);
+
+namespace {
+__declspec(naked) void VehicleStats11WheelCount() { __asm { push 0004C8740h } __asm { ret } }
+__declspec(naked) void VehicleStats11WheelModel() { __asm { push 0004C8750h } __asm { ret } }
+}
+
+__declspec(naked) bool IsValidModForVehicle(uint32 modelId, CVehicle* vehicle) {
+    __asm {
+        // 0x49B010
+        push ebx
+        // 0x49B011
+        mov ebx,dword ptr [esp+8]
+        // 0x49B015
+        push esi
+        // 0x49B016
+        mov esi,dword ptr [esp+010h]
+        // 0x49B01A
+        movsx eax,word ptr [esi+022h]
+        // 0x49B01E
+        mov edx,dword ptr [eax*4+000A9B0C8h]
+        // 0x49B025
+        mov eax,dword ptr [ebx*4+000A9B0C8h]
+        // 0x49B02C
+        xor ecx,ecx
+        // 0x49B02E
+        mov cx,word ptr [eax+012h]
+        // 0x49B032
+        push edi
+        // 0x49B033
+        mov eax,ecx
+        // 0x49B035
+        and eax,0100h
+        // 0x49B03A
+        test ax,ax
+        // 0x49B03D
+        je VehicleStats11_VehicleMod_49B089
+        // 0x49B03F
+        mov edi,ecx
+        // 0x49B041
+        and edi,07C00h
+        // 0x49B047
+        cmp edi,0800h
+        // 0x49B04D
+        jne VehicleStats11_VehicleMod_49B084
+        // 0x49B04F
+        movsx edi,byte ptr [edx+04Fh]
+        // 0x49B053
+        push edi
+        // 0x49B054
+        xor esi,esi
+        // 0x49B056
+        call VehicleStats11WheelCount
+        // 0x49B05B
+        add esp,4
+        // 0x49B05E
+        test eax,eax
+        // 0x49B060
+        jle VehicleStats11_VehicleMod_49B07E
+VehicleStats11_VehicleMod_49B062:
+        push esi
+        // 0x49B063
+        push edi
+        // 0x49B064
+        call VehicleStats11WheelModel
+        // 0x49B069
+        add esp,8
+        // 0x49B06C
+        cmp eax,ebx
+        // 0x49B06E
+        je VehicleStats11_VehicleMod_49B0DA
+        // 0x49B070
+        push edi
+        // 0x49B071
+        inc esi
+        // 0x49B072
+        call VehicleStats11WheelCount
+        // 0x49B077
+        add esp,4
+        // 0x49B07A
+        cmp esi,eax
+        // 0x49B07C
+        jl VehicleStats11_VehicleMod_49B062
+VehicleStats11_VehicleMod_49B07E:
+        xor al,al
+VehicleStats11_VehicleMod_49B080:
+        pop edi
+        // 0x49B081
+        pop esi
+        // 0x49B082
+        pop ebx
+        // 0x49B083
+        ret
+VehicleStats11_VehicleMod_49B084:
+        test ax,ax
+        // 0x49B087
+        jne VehicleStats11_VehicleMod_49B0BC
+VehicleStats11_VehicleMod_49B089:
+        and ecx,07C00h
+        // 0x49B08F
+        cmp ecx,04400h
+        // 0x49B095
+        jne VehicleStats11_VehicleMod_49B0BC
+        // 0x49B097
+        mov al,byte ptr [esi+0000001D3h]
+        // 0x49B09D
+        test al,al
+        // 0x49B09F
+        jne VehicleStats11_VehicleMod_49B07E
+        // 0x49B0A1
+        mov cl,byte ptr [esi+0000001BEh]
+        // 0x49B0A7
+        mov al,1
+        // 0x49B0A9
+        cmp cl,al
+        // 0x49B0AB
+        jne VehicleStats11_VehicleMod_49B080
+        // 0x49B0AD
+        test byte ptr [esi+00000042Eh],010h
+        // 0x49B0B4
+        jne VehicleStats11_VehicleMod_49B080
+        // 0x49B0B6
+        pop edi
+        // 0x49B0B7
+        pop esi
+        // 0x49B0B8
+        xor al,al
+        // 0x49B0BA
+        pop ebx
+        // 0x49B0BB
+        ret
+VehicleStats11_VehicleMod_49B0BC:
+        xor eax,eax
+        // 0x49B0BE
+        lea ecx,[edx+0000002D6h]
+VehicleStats11_VehicleMod_49B0C4:
+        movsx edx,word ptr [ecx]
+        // 0x49B0C7
+        cmp edx,ebx
+        // 0x49B0C9
+        je VehicleStats11_VehicleMod_49B0DA
+        // 0x49B0CB
+        inc eax
+        // 0x49B0CC
+        add ecx,2
+        // 0x49B0CF
+        cmp eax,012h
+        // 0x49B0D2
+        jl VehicleStats11_VehicleMod_49B0C4
+        // 0x49B0D4
+        pop edi
+        // 0x49B0D5
+        pop esi
+        // 0x49B0D6
+        xor al,al
+        // 0x49B0D8
+        pop ebx
+        // 0x49B0D9
+        ret
+VehicleStats11_VehicleMod_49B0DA:
+        pop edi
+        // 0x49B0DB
+        pop esi
+        // 0x49B0DC
+        mov al,1
+        // 0x49B0DE
+        pop ebx
+        // 0x49B0DF
+        ret
+    }
 }
 
 // 0x6E38F0

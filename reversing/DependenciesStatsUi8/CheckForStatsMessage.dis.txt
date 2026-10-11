@@ -1,0 +1,100 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00559760: 6A 00              push        0
+  00559762: E8 09 64 FE FF     call        0053FB70
+  00559767: 8A 88 17 01 00 00  mov         cl,byte ptr [eax+00000117h]
+  0055976D: 83 C4 04           add         esp,4
+  00559770: 84 C9              test        cl,cl
+  00559772: 0F 85 E7 00 00 00  jne         0055985F
+  00559778: A0 56 DE 8C 00     mov         al,byte ptr ds:[008CDE56h]
+  0055977D: 84 C0              test        al,al
+  0055977F: 0F 84 DA 00 00 00  je          0055985F
+  00559785: A0 65 F0 B6 00     mov         al,byte ptr ds:[00B6F065h]
+  0055978A: 84 C0              test        al,al
+  0055978C: 0F 85 CD 00 00 00  jne         0055985F
+  00559792: A0 52 F8 B5 00     mov         al,byte ptr ds:[00B5F852h]
+  00559797: 84 C0              test        al,al
+  00559799: 0F 85 C0 00 00 00  jne         0055985F
+  0055979F: E8 AC F3 02 00     call        00588B50
+  005597A4: 84 C0              test        al,al
+  005597A6: 0F 85 B3 00 00 00  jne         0055985F
+  005597AC: A0 E3 82 BA 00     mov         al,byte ptr ds:[00BA82E3h]
+  005597B1: 84 C0              test        al,al
+  005597B3: 0F 85 A6 00 00 00  jne         0055985F
+  005597B9: 53                 push        ebx
+  005597BA: 56                 push        esi
+  005597BB: 57                 push        edi
+  005597BC: 33 FF              xor         edi,edi
+  005597BE: BE 00 82 B7 00     mov         esi,0B78200h
+  005597C3: B3 01              mov         bl,1
+  005597C5: EB 09              jmp         005597D0
+  005597C7: 8D A4 24 00 00 00  lea         esp,[esp+00000000h]
+            00
+  005597CE: 8B FF              mov         edi,edi
+  005597D0: 3B 3D D0 94 B7 00  cmp         edi,dword ptr ds:[00B794D0h]
+  005597D6: 0F 83 80 00 00 00  jae         0055985C
+  005597DC: 8A 46 02           mov         al,byte ptr [esi+2]
+  005597DF: 84 C0              test        al,al
+  005597E1: 75 69              jne         0055984C
+  005597E3: 8A 46 03           mov         al,byte ptr [esi+3]
+  005597E6: 84 C0              test        al,al
+  005597E8: 74 24              je          0055980E
+  005597EA: 33 C0              xor         eax,eax
+  005597EC: 66 8B 06           mov         ax,word ptr [esi]
+  005597EF: 50                 push        eax
+  005597F0: E8 4B F6 FF FF     call        00558E40
+  005597F5: D8 5E 04           fcomp       dword ptr [esi+4]
+  005597F8: 83 C4 04           add         esp,4
+  005597FB: DF E0              fnstsw      ax
+  005597FD: F6 C4 01           test        ah,1
+  00559800: 75 4A              jne         0055984C
+  00559802: 6A 00              push        0
+  00559804: 6A 00              push        0
+  00559806: 6A 00              push        0
+  00559808: 8D 4E 08           lea         ecx,[esi+8]
+  0055980B: 51                 push        ecx
+  0055980C: EB 22              jmp         00559830
+  0055980E: 33 D2              xor         edx,edx
+  00559810: 66 8B 16           mov         dx,word ptr [esi]
+  00559813: 52                 push        edx
+  00559814: E8 27 F6 FF FF     call        00558E40
+  00559819: D8 5E 04           fcomp       dword ptr [esi+4]
+  0055981C: 83 C4 04           add         esp,4
+  0055981F: DF E0              fnstsw      ax
+  00559821: F6 C4 41           test        ah,41h
+  00559824: 7A 26              jp          0055984C
+  00559826: 6A 00              push        0
+  00559828: 6A 00              push        0
+  0055982A: 6A 00              push        0
+  0055982C: 8D 46 08           lea         eax,[esi+8]
+  0055982F: 50                 push        eax
+  00559830: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  00559835: 88 5E 02           mov         byte ptr [esi+2],bl
+  00559838: E8 13 68 14 00     call        006A0050
+  0055983D: 50                 push        eax
+  0055983E: E8 9D F3 02 00     call        00588BE0
+  00559843: 83 C4 10           add         esp,10h
+  00559846: 88 1D D4 94 B7 00  mov         byte ptr ds:[00B794D4h],bl
+  0055984C: 47                 inc         edi
+  0055984D: 83 C6 10           add         esi,10h
+  00559850: 81 FF 80 00 00 00  cmp         edi,80h
+  00559856: 0F 82 74 FF FF FF  jb          005597D0
+  0055985C: 5F                 pop         edi
+  0055985D: 5E                 pop         esi
+  0055985E: 5B                 pop         ebx
+  0055985F: C3                 ret
+  00559860: 55                 push        ebp
+  00559861: 8B EC              mov         ebp,esp
+  00559863: 83 E4 F8           and         esp,0FFFFFFF8h
+  00559866: 83
+  00559867: EC                 in          al,dx
+
+  Summary
+
+      456000 .text

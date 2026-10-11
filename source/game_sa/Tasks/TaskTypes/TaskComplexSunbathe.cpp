@@ -23,6 +23,49 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleRunTimedAnim.h"
 #include "InterestingEvents.h"
 
+// Global game helper: the existing population call targets 0x632140.
+namespace {
+__declspec(naked) void Task11SunnyWeather() {
+    __asm {
+        push 0062F2D0h
+        ret
+    }
+}
+}
+__declspec(naked) bool CanSunbathe() {
+    __asm {
+        mov al,byte ptr ds:[00B70153h]
+        cmp al,0Ah
+        jb task11_63218A
+        cmp al,12h
+        jae task11_63218A
+        mov ax,word ptr ds:[00C8131Ch]
+        cmp ax,1
+        je task11_632184
+        cmp ax,3
+        je task11_632184
+        cmp ax,0Eh
+        je task11_632184
+        cmp ax,5
+        je task11_632184
+        cmp ax,0Ah
+        je task11_632184
+        cmp ax,12h
+        je task11_632184
+        push eax
+        call Task11SunnyWeather
+        add esp,4
+        test al,al
+        je task11_63218A
+task11_632184:
+        mov eax,1
+        ret
+task11_63218A:
+        xor eax,eax
+        ret
+    }
+}
+
 namespace {
 bool SunbatheWeatherAllows() {
     const auto hour = CClock::GetGameClockHours();
@@ -51,7 +94,10 @@ void CTaskComplexSunbathe::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x631F80);
     RH_ScopedInstall(Destructor, 0x632050);
 
-    //RH_ScopedGlobalInstall(CanSunbathe, 0x632140, { .reversed = false });
+    {
+        RH_ScopedCategory("Tasks/TaskTypes");
+        RH_ScopedGlobalInstall(CanSunbathe, 0x632140);
+    }
     //RH_ScopedGlobalInstall(ShouldLoadSunbatheAnims, 0x632190, { .reversed = false });
 
     //RH_ScopedInstall(CreateSubTask, 0x638290, { .reversed = false });

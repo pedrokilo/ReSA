@@ -1,0 +1,2 @@
+006E2D50: mov ecx,dword ptr ds:[00B74494h]
+006E2D56: jmp 006E2A50

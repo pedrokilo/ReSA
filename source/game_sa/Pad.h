@@ -114,6 +114,9 @@ public:
     static inline auto& padNumber = StaticRef<char>(0xB73400);
 
 public:
+    bool GetCameraCycleUp() const;
+    int16 GetMouseCameraStickHorizontal() const;
+    int16 GetMouseCameraStickVertical() const;
     static void InjectHooks();
 
     CPad();

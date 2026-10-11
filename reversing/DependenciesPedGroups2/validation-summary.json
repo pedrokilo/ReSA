@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "pairs": 13056,
+  "differences": 0,
+  "registered_pairs": 13056,
+  "registered_functions": 4,
+  "functions": {
+    "CPedGroups::IsGroupLeader": 4096,
+    "CPedGroups::GetGroupId": 256,
+    "CPedGroups::IsInPlayersGroup": 512,
+    "CPedGroups::AreInSameGroup": 8192
+  },
+  "covered_functions": {
+    "CPedGroups::IsGroupLeader": true,
+    "CPedGroups::GetGroupId": true,
+    "CPedGroups::IsInPlayersGroup": true,
+    "CPedGroups::AreInSameGroup": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/DependenciesPedGroups2/runs/20261010-182106-246424",
+  "summary_sha256": "132b13fda5107b1f613ca855ed343e975194328a9fd8f66b9b76516245feb128",
+  "result_txt_sha256": "7011266adf16260a46704138d81a290e070af038c874942d30487755fcb2b216",
+  "log_sha256": "067e8bf1421e4bd7df713e80295851dda0a0ca4df4ad50d6f0bea001a0f956b4",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "3e117780f16936d9f71fe1917554642a37e70e6f883a15b0513c3b1b5e218bf5",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/PedGroups.cpp": "0b16b20509132bc774db2d7f300484d6882bbe85839808c5a07812cd2df4b6a3",
+      "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
+      "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
+      "source/game_sa/PedGroupMembership.h": "15a1f964b9292f642bf760642393e7b422c93a59092e2f6e06099f3d4a0e045a",
+      "source/InjectHooksMain.cpp": "87b22b34070d1b503867720319876156317fe88595a424596c86ef4f2a43380f",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "93cdc129a29c4e2d342d89ffbce048e29d8429ac8f8a4842a5ac2e52ec475e5d",
+      "build_probe.py": "e01a199224bef92a159cc1946717c0a81605ae97907e079861ff5f4fa57ea6e6",
+      "run_local.py": "b7ce18e83ad9a536537986109d58d77f6154ef25c9b8ccc609d97160d8081c9b"
+    }
+  },
+  "reaudit": {
+    "bank": "DependenciesPedGroups2",
+    "run": "20261010-182106-246424",
+    "functions": 4,
+    "pairs": 13056,
+    "pairs_per_function": {
+      "CPedGroups::IsGroupLeader": 4096,
+      "CPedGroups::GetGroupId": 256,
+      "CPedGroups::IsInPlayersGroup": 512,
+      "CPedGroups::AreInSameGroup": 8192
+    },
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "saves_unchanged": true,
+    "configs_restored": true,
+    "hook_routes_verified": true,
+    "log_sha256": "067e8bf1421e4bd7df713e80295851dda0a0ca4df4ad50d6f0bea001a0f956b4",
+    "tested_sources": {
+      "source/game_sa/PedGroups.cpp": "0b16b20509132bc774db2d7f300484d6882bbe85839808c5a07812cd2df4b6a3",
+      "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
+      "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
+      "source/game_sa/PedGroupMembership.h": "15a1f964b9292f642bf760642393e7b422c93a59092e2f6e06099f3d4a0e045a",
+      "source/InjectHooksMain.cpp": "87b22b34070d1b503867720319876156317fe88595a424596c86ef4f2a43380f",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "93cdc129a29c4e2d342d89ffbce048e29d8429ac8f8a4842a5ac2e52ec475e5d",
+      "build_probe.py": "e01a199224bef92a159cc1946717c0a81605ae97907e079861ff5f4fa57ea6e6",
+      "run_local.py": "b7ce18e83ad9a536537986109d58d77f6154ef25c9b8ccc609d97160d8081c9b"
+    },
+    "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "executed_probe_sha256": "3e117780f16936d9f71fe1917554642a37e70e6f883a15b0513c3b1b5e218bf5",
+    "registered_hook_verified": true
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/DependenciesPedGroups2/runs/20261010-182106-246424/comparisons.jsonl.gz",
+    "compressed_sha256": "a5668b3c1f115592d893d77d8cb2f5cf76182f9048693bf094c03ea873751834",
+    "uncompressed_sha256": "067e8bf1421e4bd7df713e80295851dda0a0ca4df4ad50d6f0bea001a0f956b4",
+    "uncompressed_bytes": 5663843,
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "067e8bf1421e4bd7df713e80295851dda0a0ca4df4ad50d6f0bea001a0f956b4"
+  }
+}

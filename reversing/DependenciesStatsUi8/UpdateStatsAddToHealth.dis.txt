@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0055D030: A1 10 95 B7 00     mov         eax,dword ptr ds:[00B79510h]
+  0055D035: 03 44 24 04        add         eax,dword ptr [esp+4]
+  0055D039: 85 C0              test        eax,eax
+  0055D03B: 89 44 24 04        mov         dword ptr [esp+4],eax
+  0055D03F: DB 44 24 04        fild        dword ptr [esp+4]
+  0055D043: A3 10 95 B7 00     mov         dword ptr ds:[00B79510h],eax
+  0055D048: 7D 06              jge         0055D050
+  0055D04A: D8 05 54 8C 85 00  fadd        dword ptr ds:[00858C54h]
+  0055D050: D8 1D F8 8F B7 00  fcomp       dword ptr ds:[00B78FF8h]
+  0055D056: DF E0              fnstsw      ax
+  0055D058: F6 C4 41           test        ah,41h
+  0055D05B: 75 2A              jne         0055D087
+  0055D05D: A1 3C 8F B7 00     mov         eax,dword ptr ds:[00B78F3Ch]
+  0055D062: 50                 push        eax
+  0055D063: 6A 18              push        18h
+  0055D065: E8 16 F1 FF FF     call        0055C180
+  0055D06A: 8B 0D 3C 8F B7 00  mov         ecx,dword ptr ds:[00B78F3Ch]
+  0055D070: 51                 push        ecx
+  0055D071: 6A 18              push        18h
+  0055D073: 6A 01              push        1
+  0055D075: E8 06 E9 FF FF     call        0055B980
+  0055D07A: 83 C4 14           add         esp,14h
+  0055D07D: C7 05 10 95 B7 00  mov         dword ptr ds:[00B79510h],0
+            00 00 00 00
+  0055D087: C3                 ret
+  0055D088: 90                 nop
+  0055D089: 90                 nop
+  0055D08A: 90                 nop
+  0055D08B: 90                 nop
+  0055D08C: 90                 nop
+  0055D08D: 90                 nop
+  0055D08E: 90                 nop
+  0055D08F: 90                 nop
+
+  Summary
+
+      456000 .text

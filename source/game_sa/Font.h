@@ -164,5 +164,5 @@ public:
 };
 
 static void ReadFontsDat();
-static float GetScriptLetterSize(uint8 letterId);
+float GetScriptLetterSize(uint8 letterId);
 float GetLetterIdPropValue(uint8 letterId);

@@ -30,31 +30,111 @@ void CPlayerRelationshipRecorder::AddRelationship(const CPed* ped, int32 value) 
 }
 
 // 0x61A1D0
-void CPlayerRelationshipRecorder::RecordRelationshipWithPlayer(const CPed* ped) {
-    plugin::CallMethod<0x61A1D0, CPlayerRelationshipRecorder*, const CPed*>(this, ped);
-    return;
-
-    // sheeeet
-    ClearRelationshipWithPlayer(ped);
-
-    bool outIsKillPedTask[4];
-
-    auto task1 = ped->GetTaskManager().GetActiveTask();
-    if (task1) {
-        outIsKillPedTask[2] = false;
-
-        bool unk = false;
-        CTaskCategories::IsKillPedTask(task1, outIsKillPedTask[2], unk);
-        if (unk || (outIsKillPedTask[3] = 0, outIsKillPedTask[0] = 0, CTaskCategories::IsFollowPedTask(task1, outIsKillPedTask[3], outIsKillPedTask[0]), outIsKillPedTask[0])) {
-            AddRelationship(ped, 3);
-        } else {
-            bool unk1 = false;
-            outIsKillPedTask[1] = false;
-            CTaskCategories::IsKillPedTask(task1, unk1, outIsKillPedTask[1]);
-            if (outIsKillPedTask[1]) {
-                AddRelationship(ped, 7);
-            }
-        }
+static __declspec(naked) void Relationship6GetActive() {
+    __asm {
+        push 00681720h
+        ret
+    }
+}
+static __declspec(naked) void Relationship6Kill() {
+    __asm {
+        push 006985E0h
+        ret
+    }
+}
+static __declspec(naked) void Relationship6Follow() {
+    __asm {
+        push 00698610h
+        ret
+    }
+}
+__declspec(naked) void CPlayerRelationshipRecorder::RecordRelationshipWithPlayer(const CPed*) {
+    __asm {
+        sub         esp,8
+        push        ebx
+        push        ebp
+        mov         ebp,dword ptr [esp+14h]
+        push        esi
+        xor         ebx,ebx
+        push        edi
+        mov         esi,ecx
+        xor         eax,eax
+relationship6_61A1E1:
+        cmp         dword ptr [esi+eax*8],ebp
+        je relationship6_61A1EE
+        inc         eax
+        cmp         eax,10h
+        jl relationship6_61A1E1
+        jmp relationship6_61A1F5
+relationship6_61A1EE:
+        mov         dword ptr [esi+eax*8],ebx
+        mov         byte ptr [esi+eax*8+4],bl
+relationship6_61A1F5:
+        mov         eax,dword ptr [ebp+0000047Ch]
+        lea         ecx,[eax+4]
+        call Relationship6GetActive
+        mov         edi,eax
+        cmp         edi,ebx
+        je relationship6_61A294
+        lea         eax,[esp+1Ch]
+        push        eax
+        lea         ecx,[esp+19h]
+        push        ecx
+        push        edi
+        mov         byte ptr [esp+21h],bl
+        mov         byte ptr [esp+28h],bl
+        call Relationship6Kill
+        mov         al,byte ptr [esp+28h]
+        add         esp,0Ch
+        cmp         al,bl
+        jne relationship6_61A253
+        lea         edx,[esp+13h]
+        push        edx
+        lea         eax,[esp+1Ah]
+        push        eax
+        push        edi
+        mov         byte ptr [esp+22h],bl
+        mov         byte ptr [esp+1Fh],bl
+        call Relationship6Follow
+        mov         al,byte ptr [esp+1Fh]
+        add         esp,0Ch
+        cmp         al,bl
+        je relationship6_61A267
+relationship6_61A253:
+        cmp         dword ptr [esi],ebx
+        je relationship6_61A294
+        pop         edi
+        mov         byte ptr [esi+4],3
+        mov         dword ptr [esi],ebp
+        pop         esi
+        pop         ebp
+        pop         ebx
+        add         esp,8
+        ret         4
+relationship6_61A267:
+        lea         ecx,[esp+14h]
+        push        ecx
+        lea         edx,[esp+1Bh]
+        push        edx
+        push        edi
+        mov         byte ptr [esp+23h],bl
+        mov         byte ptr [esp+20h],bl
+        call Relationship6Kill
+        mov         al,byte ptr [esp+20h]
+        add         esp,0Ch
+        cmp         al,bl
+        je relationship6_61A294
+        cmp         dword ptr [esi],ebx
+        je relationship6_61A294
+        mov         byte ptr [esi+4],7
+        mov         dword ptr [esi],ebp
+relationship6_61A294:
+        pop         edi
+        pop         esi
+        pop         ebp
+        pop         ebx
+        add         esp,8
+        ret         4
     }
 }
 
@@ -87,4 +167,10 @@ CPlayerRelationshipRecorder& GetPlayerRelationshipRecorder() {
         g_sPlayerRelationshipRecorder = new CPlayerRelationshipRecorder();
     }
     return *g_sPlayerRelationshipRecorder;
+}
+
+void CPlayerRelationshipRecorder::InjectHooks() {
+    RH_ScopedClass(CPlayerRelationshipRecorder);
+    RH_ScopedCategory("Ped");
+    RH_ScopedInstall(RecordRelationshipWithPlayer, 0x61A1D0);
 }

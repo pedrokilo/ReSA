@@ -61,6 +61,7 @@ void CPedIntelligence::InjectHooks()
 {
     RH_ScopedClass(CPedIntelligence);
     RH_ScopedCategoryGlobal();
+    RH_ScopedInstall(IncrementAngerAtPlayer, 0x421050);
 
     RH_ScopedInstall(Constructor, 0x607140);
     RH_ScopedInstall(Destructor, 0x607300);
@@ -1024,13 +1025,36 @@ float CPedIntelligence::GetPedFOVRange() const {
     return std::max(m_fHearingRange, m_fSeeingRange);
 }
 
-// 0x421050
-void CPedIntelligence::IncrementAngerAtPlayer(uint8 anger) {
-    if (!m_mentalState.m_AngerTimer.IsOutOfTime()) {
-        return;
+// 0x421050: this es CPedIntelligence.
+__declspec(naked) void CPedIntelligence::IncrementAngerAtPlayer(uint8) {
+    __asm {
+        mov         al,byte ptr [ecx+00000180h]
+        test        al,al
+        je          anger5_4210B5
+        mov         al,byte ptr [ecx+00000181h]
+        test        al,al
+        je          anger5_421076
+        mov         eax,dword ptr ds:[00B7CB84h]
+        mov         dword ptr [ecx+00000178h],eax
+        mov         byte ptr [ecx+00000181h],0
+anger5_421076:
+        mov         edx,dword ptr [ecx+00000178h]
+        mov         eax,dword ptr [ecx+0000017Ch]
+        add         eax,edx
+        mov         edx,dword ptr ds:[00B7CB84h]
+        cmp         edx,eax
+        sbb         al,al
+        inc         al
+        test        al,al
+        je          anger5_4210B5
+        mov         dword ptr [ecx+00000178h],edx
+        mov         dl,byte ptr [esp+4]
+        mov         dword ptr [ecx+0000017Ch],0BB8h
+        mov         byte ptr [ecx+00000180h],1
+        add         byte ptr [ecx+00000174h],dl
+anger5_4210B5:
+        ret         4
     }
-    m_mentalState.m_AngerTimer.Start(3000);
-    m_mentalState.m_AngerAtPlayer += anger;
 }
 
 // 0x6074A0

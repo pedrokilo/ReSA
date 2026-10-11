@@ -1,0 +1,11 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Revisión estática preliminar World10
+
+509CA0..509CD8:18instrucciones, únicasalteraciones de transcripción son etiquetas yCALLindirecto al símbolo miembro6F5300. Conserva ambosRET4 yAL. Rechazo targetNULL legítimo; helperNULL inalcanzable por6F5300LEA[ecx+index]/LEA[ecx+C354] yECXmanagerC2B9C8. Banco exige targetreal leído delpool y todoslosdatosreadonly; nunca modelos/esferas/actores inventados.
+
+424100:2instrucciones exactamenteXORAL/RET. Caller6B1D4C..6B1D77 muestra posiciónx/y ycleanup8. No reconstruir comoXOREAX ni inventar nombresemántico. EightseedsofEAX dan prueba porfixture deupper24bits; firma dosfloatsrespeta slotsreales ycaller-saved unconstrained. ScopeCCarCtrl es registroinstrumental explícito, no identidadoriginal.
+
+Sin builds/juego/fuenteproducción. Propuesta completa y gates listos para revisión de raíz. La cobertura esperada es1024NULL+1024real y256casos porsemillaEAX. Rastroshelper32bytes antes/después yBody/module verificados bajo elmodo adecuado. Final restaura las tres rutas por separado (no cortocircuito enRestore) yFPU. Fuenteproductionexistente deduplicada sin alterarholdout.

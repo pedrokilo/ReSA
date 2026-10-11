@@ -1,0 +1,17 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Auditoría independiente del registro aprobado — World10
+
+Run `20261010-214328-227570`. Se volvió a leer el gzip archivado en streaming, sin ejecutar el banco ni modificar instrumentos.
+
+Resultado: dos funciones, 4.096 pares únicos y consecutivos, 2.048 casos únicos por función, cero diferencias, cero registros original/candidate nulos, todos iguales y aceptados. Todos los gates de ruta/helper, pila, registros, contrato, sólo lectura, guardas y restauración x87/MXCSR son verdaderos en ambos lados. Dos resúmenes de función tienen failures=0 y complete_paths=true. Complete acredita 4.096 pares y estado, helper y FPU restaurados.
+
+CCam tiene 1.024 targets NULL y 1.024 vehículos reales. Native_00424100 tiene ocho semillas EAX, 256 casos por semilla; observa XOR AL,AL preservando los otros 24 bits y ambos argumentos físicos. Begin confirma área exterior 0 y configuración FastLoader.SaveGameToLoad=0, vehículos cargados por el juego y rutas registradas. GetBoatPointer está OFF en original y ON en candidata, con los bytes/cuerpo reales documentados por el banco.
+
+Se verificaron hashes del gzip expandido, summary.json, RESULTADO.txt y los cuatro instrumentos listados en manifest.bank_sources. Los snapshots históricos de fuentes pertenecen al manifiesto de esa compilación; no se exige coincidencia con fuentes evolucionadas por bancos posteriores.
+
+SHA-256 del registro: `617bdbc0a5347f96625580dc368d2da4143e621e7f4ca11263421d6a9372d235`. ASI ejecutada: `d3826d73a93d5453b1cb4fc8852bf142fc8c2ff00f69466e90c6c3c25af12313`. Summary: `d91c43be343c3d469caf204b319923a43bb5b432d405015fd3888ac8934f3c95`. Summary del runner confirma saves_unchanged=true y configs_restored=true. La configuración exterior usa backups del runner y un guard final adicional, sin alterar partidas ni runtime_runner.py.
+
+Alcance: evidencia de estas dos entradas y estos fixtures, no independencia transitiva del helper ni integración universal. CCarCtrl es scope de instrumentación de la hoja desconocida 0x424100, sin inferencia de clase original. La rama helper-NULL de GetBoatPointer no es alcanzable con su manager real fijo; la fuente la conserva. Los intentos anteriores con cero pares dentro de casa CJ se excluyen de esta aprobación.

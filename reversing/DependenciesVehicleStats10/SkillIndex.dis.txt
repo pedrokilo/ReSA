@@ -1,0 +1,26 @@
+00743CD0: mov eax,dword ptr [esp+4]
+00743CD4: cmp eax,16h
+00743CD7: jl 00743D0C
+00743CD9: cmp eax,20h
+00743CDC: jg 00743D0C
+00743CDE: cmp eax,1Fh
+00743CE1: jle 00743CFD
+00743CE3: sub eax,20h
+00743CE6: je 00743CF4
+00743CE8: dec eax
+00743CE9: jne 00743D04
+00743CEB: mov eax,0Ch
+00743CF0: add eax,45h
+00743CF3: ret
+00743CF4: mov eax,6
+00743CF9: add eax,45h
+00743CFC: ret
+00743CFD: add eax,0FFFFFFEAh
+00743D00: add eax,45h
+00743D03: ret
+00743D04: mov eax,dword ptr [esp+4]
+00743D08: add eax,45h
+00743D0B: ret
+00743D0C: or eax,0FFFFFFFFh
+00743D0F: ret
+00743D10: push esi

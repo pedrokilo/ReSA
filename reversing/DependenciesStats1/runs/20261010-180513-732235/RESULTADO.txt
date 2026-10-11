@@ -1,0 +1,3 @@
+APROBADO: Dependencia CStats::GetFatAndMuscleModifier
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesstats1\20261010-180513-732235

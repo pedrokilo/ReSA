@@ -1,0 +1,109 @@
+0059C3E0: mov edx,dword ptr [esp+4]
+0059C3E4: fld dword ptr [edx+14h]
+0059C3E7: fadd dword ptr [edx]
+0059C3E9: fadd dword ptr [edx+28h]
+0059C3EC: fcom dword ptr ds:[00858B50h]
+0059C3F2: fnstsw ax
+0059C3F4: test ah,1
+0059C3F7: jne 0059C437
+0059C3F9: fadd dword ptr ds:[00858624h]
+0059C3FF: fsqrt
+0059C401: fld dword ptr ds:[00858B8Ch]
+0059C407: fmul st,st(1)
+0059C409: fstp dword ptr [ecx+0Ch]
+0059C40C: fdivr dword ptr ds:[00858B8Ch]
+0059C412: fld dword ptr [edx+18h]
+0059C415: fsub dword ptr [edx+24h]
+0059C418: fmul st,st(1)
+0059C41A: fstp dword ptr [ecx]
+0059C41C: fld dword ptr [edx+20h]
+0059C41F: fsub dword ptr [edx+8]
+0059C422: fmul st,st(1)
+0059C424: fstp dword ptr [ecx+4]
+0059C427: fld dword ptr [edx+4]
+0059C42A: fsub dword ptr [edx+10h]
+0059C42D: fmul st,st(1)
+0059C42F: fstp dword ptr [ecx+8]
+0059C432: fstp st(0)
+0059C434: ret 4
+0059C437: fstp st(0)
+0059C439: fld dword ptr [edx]
+0059C43B: fsub dword ptr [edx+14h]
+0059C43E: fsub dword ptr [edx+28h]
+0059C441: fcom dword ptr ds:[00858B50h]
+0059C447: fnstsw ax
+0059C449: test ah,1
+0059C44C: jne 0059C48C
+0059C44E: fadd dword ptr ds:[00858624h]
+0059C454: fsqrt
+0059C456: fld dword ptr ds:[00858B8Ch]
+0059C45C: fmul st,st(1)
+0059C45E: fstp dword ptr [ecx]
+0059C460: fdivr dword ptr ds:[00858B8Ch]
+0059C466: fld dword ptr [edx+10h]
+0059C469: fadd dword ptr [edx+4]
+0059C46C: fmul st,st(1)
+0059C46E: fstp dword ptr [ecx+4]
+0059C471: fld dword ptr [edx+20h]
+0059C474: fadd dword ptr [edx+8]
+0059C477: fmul st,st(1)
+0059C479: fstp dword ptr [ecx+8]
+0059C47C: fld dword ptr [edx+18h]
+0059C47F: fsub dword ptr [edx+24h]
+0059C482: fmul st,st(1)
+0059C484: fstp dword ptr [ecx+0Ch]
+0059C487: fstp st(0)
+0059C489: ret 4
+0059C48C: fstp st(0)
+0059C48E: fld dword ptr [edx+14h]
+0059C491: fsub dword ptr [edx]
+0059C493: fsub dword ptr [edx+28h]
+0059C496: fcom dword ptr ds:[00858B50h]
+0059C49C: fnstsw ax
+0059C49E: test ah,1
+0059C4A1: jne 0059C4E1
+0059C4A3: fadd dword ptr ds:[00858624h]
+0059C4A9: fsqrt
+0059C4AB: fld dword ptr ds:[00858B8Ch]
+0059C4B1: fmul st,st(1)
+0059C4B3: fstp dword ptr [ecx+4]
+0059C4B6: fdivr dword ptr ds:[00858B8Ch]
+0059C4BC: fld dword ptr [edx+20h]
+0059C4BF: fsub dword ptr [edx+8]
+0059C4C2: fmul st,st(1)
+0059C4C4: fstp dword ptr [ecx+0Ch]
+0059C4C7: fld dword ptr [edx+10h]
+0059C4CA: fsub dword ptr [edx+4]
+0059C4CD: fmul st,st(1)
+0059C4CF: fstp dword ptr [ecx]
+0059C4D1: fld dword ptr [edx+24h]
+0059C4D4: fadd dword ptr [edx+18h]
+0059C4D7: fmul st,st(1)
+0059C4D9: fstp dword ptr [ecx+8]
+0059C4DC: fstp st(0)
+0059C4DE: ret 4
+0059C4E1: fstp st(0)
+0059C4E3: fld dword ptr [edx+14h]
+0059C4E6: fadd dword ptr [edx]
+0059C4E8: fsubr dword ptr [edx+28h]
+0059C4EB: fadd dword ptr ds:[00858624h]
+0059C4F1: fsqrt
+0059C4F3: fld dword ptr ds:[00858B8Ch]
+0059C4F9: fmul st,st(1)
+0059C4FB: fstp dword ptr [ecx+8]
+0059C4FE: fdivr dword ptr ds:[00858B8Ch]
+0059C504: fld dword ptr [edx+4]
+0059C507: fsub dword ptr [edx+10h]
+0059C50A: fmul st,st(1)
+0059C50C: fstp dword ptr [ecx+0Ch]
+0059C50F: fld dword ptr [edx+20h]
+0059C512: fadd dword ptr [edx+8]
+0059C515: fmul st,st(1)
+0059C517: fstp dword ptr [ecx]
+0059C519: fld dword ptr [edx+24h]
+0059C51C: fadd dword ptr [edx+18h]
+0059C51F: fmul st,st(1)
+0059C521: fstp dword ptr [ecx+4]
+0059C524: fstp st(0)
+0059C526: ret 4
+ 0059C530: 83

@@ -36,7 +36,8 @@ void RwHelperInjectHooks() {
     RH_ScopedGlobalInstall(GetFirstChild, 0x734900);
     RH_ScopedGlobalInstall(SkinAtomicGetHAnimHierarchCB, 0x734A20);
     RH_ScopedGlobalInstall(GetAnimHierarchyFromSkinClump, 0x734A40);
-    // RH_ScopedGlobalInstall(GetAnimHierarchyFromFrame, 0x734AB0);
+    RH_ScopedGlobalInstall(GetAnimHierarchyFromFrame, 0x734AB0);
+    RH_ScopedGlobalInstall(RwTexDictionaryFindHashNamedTexture, 0x734E50);
     RH_ScopedGlobalInstall(GetAnimHierarchyFromClump, 0x734B10);
     RH_ScopedGlobalInstall(AtomicRemoveAnimFromSkinCB, 0x734B90);
     RH_ScopedGlobalInstall(RpAtomicConvertGeometryToTL, 0x734BE0);
@@ -144,9 +145,40 @@ RwFrame* GetFirstChild(RwFrame* frame) {
 }
 
 // 0x734AB0
-RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame* frame) {
-    assert(frame);
-    return ((RpHAnimHierarchy * (__cdecl*)(RwFrame*))0x734AB0)(frame);
+static uintptr_t FrameHierarchyGetterBody=0x7C5160,FrameChildrenWalkerBody=0x7F0DC0;
+__declspec(naked) RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame*) {
+    __asm {
+    push ecx
+    push esi
+    mov esi,dword ptr [esp+0Ch]
+    push esi
+    mov dword ptr [esp+8],0
+    call dword ptr [FrameHierarchyGetterBody]
+    add esp,4
+    test eax,eax
+    jne L00734AE4
+    lea eax,[esp+4]
+    push eax
+    push 734A70h
+    push esi
+    call dword ptr [FrameChildrenWalkerBody]
+    mov eax,dword ptr [esp+10h]
+    add esp,0Ch
+    jmp L00734AE8
+    L00734AE4: mov dword ptr [esp+4],eax
+    L00734AE8: test eax,eax
+    jne L00734B03
+    lea ecx,[esp+4]
+    push ecx
+    push 734A70h
+    push esi
+    call dword ptr [FrameChildrenWalkerBody]
+    mov eax,dword ptr [esp+10h]
+    add esp,0Ch
+    L00734B03: pop esi
+    pop ecx
+    ret
+    }
 }
 
 // 0x734B10
@@ -275,8 +307,45 @@ bool RpGeometryReplaceOldMaterialWithNewMaterial(RpGeometry* geometry, RpMateria
 }
 
 // 0x734E50
-RwTexture* RwTexDictionaryFindHashNamedTexture(RwTexDictionary* txd, uint32 hash) {
-    return ((RwTexture * (__cdecl*)(RwTexDictionary*, uint32))0x734E50)(txd, hash);
+static uintptr_t TextureUppercaseKeyBody=uintptr_t(static_cast<uint32(*)(const char*)>(&CKeyGen::GetUppercaseKey));
+// 0x734E50: exact intrusive dictionary traversal and hash comparison.
+__declspec(naked) RwTexture* RwTexDictionaryFindHashNamedTexture(RwTexDictionary*,uint32) {
+    __asm {
+    push ebx
+    mov ebx,dword ptr [esp+8]
+    push ebp
+    add ebx,8
+    push esi
+    mov esi,dword ptr [ebx]
+    cmp esi,ebx
+    push edi
+    je L00734E82
+    mov ebp,dword ptr [esp+18h]
+    L00734E65: lea edi,[esi-8]
+    lea eax,[edi+10h]
+    test eax,eax
+    je L00734E7C
+    push eax
+    call dword ptr [TextureUppercaseKeyBody]
+    add esp,4
+    cmp eax,ebp
+    je L00734E89
+    L00734E7C: mov esi,dword ptr [esi]
+    cmp esi,ebx
+    jne L00734E65
+    L00734E82: pop edi
+    pop esi
+    pop ebp
+    xor eax,eax
+    pop ebx
+    ret
+    L00734E89: mov eax,edi
+    pop edi
+    pop esi
+    pop ebp
+    pop ebx
+    ret
+    }
 }
 
 // 0x734FC0

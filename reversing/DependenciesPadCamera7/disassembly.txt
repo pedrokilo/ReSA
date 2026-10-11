@@ -1,0 +1,174 @@
+005404A0: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+005404A7: cmp eax,3
+005404AA: ja 005404D8
+005404AC: jmp dword ptr [eax*4+005404DCh]
+ 00
+005404B3: cmp word ptr [ecx+1Ah],0
+005404B8: je 005404D5
+005404BA: cmp word ptr [ecx+4Ah],0
+005404BF: jmp 005404CD
+005404C1: cmp word ptr [ecx+10h],0
+005404C6: je 005404D5
+005404C8: cmp word ptr [ecx+40h],0
+005404CD: jne 005404D5
+005404CF: mov eax,1
+005404D4: ret
+005404D5: xor eax,eax
+005404D7: ret
+005404D8: xor al,al
+005404DA: ret
+ 005404DC: B3
+
+00540E80: push ecx
+00540E81: movsx eax,word ptr ds:[00B7345Ch]
+ 00
+00540E88: mov dword ptr [esp],eax
+00540E8C: fild dword ptr [esp]
+00540E90: fst dword ptr [esp]
+00540E94: fcomp dword ptr ds:[00858B50h]
+00540E9A: fld dword ptr [esp]
+00540E9E: fnstsw ax
+00540EA0: test ah,5
+00540EA3: jp 00540EA7
+00540EA5: fchs
+00540EA7: fcomp dword ptr ds:[00858628h]
+00540EAD: fnstsw ax
+00540EAF: test ah,41h
+00540EB2: jne 00540F07
+00540EB4: cmp word ptr [ecx+0000010Eh],0
+00540EBC: jne 00540ECA
+00540EBE: cmp word ptr [ecx+26h],0
+00540EC3: setne al
+00540EC6: test al,al
+00540EC8: jne 00540F07
+00540ECA: fld dword ptr [esp]
+00540ECE: fcomp dword ptr ds:[00858B50h]
+00540ED4: fld dword ptr [esp]
+00540ED8: fnstsw ax
+00540EDA: test ah,41h
+00540EDD: jne 00540EF3
+00540EDF: fsub dword ptr ds:[00858628h]
+00540EE5: fadd dword ptr ds:[00858B40h]
+00540EEB: add esp,4
+00540EEE: jmp 00821B40
+00540EF3: fadd dword ptr ds:[00858628h]
+00540EF9: fsub dword ptr ds:[00858B40h]
+00540EFF: add esp,4
+00540F02: jmp 00821B40
+00540F07: mov ecx,0B6F19Ch
+00540F0C: call 0050A850
+00540F11: test al,al
+00540F13: je 00540F76
+00540F15: fld dword ptr [esp]
+00540F19: fcomp dword ptr ds:[00858B50h]
+00540F1F: fld dword ptr [esp]
+00540F23: fnstsw ax
+00540F25: test ah,5
+00540F28: jp 00540F2C
+00540F2A: fchs
+00540F2C: fcomp dword ptr ds:[00858B40h]
+00540F32: fnstsw ax
+00540F34: test ah,41h
+00540F37: jne 00540F76
+00540F39: fld dword ptr [esp]
+00540F3D: fcomp dword ptr ds:[00858B50h]
+00540F43: fld dword ptr [esp]
+00540F47: fnstsw ax
+00540F49: test ah,41h
+00540F4C: jne 00540F62
+00540F4E: fsub dword ptr ds:[00858B40h]
+00540F54: fmul dword ptr ds:[00858B8Ch]
+00540F5A: add esp,4
+00540F5D: jmp 00821B40
+00540F62: fadd dword ptr ds:[00858B40h]
+00540F68: fmul dword ptr ds:[00858B8Ch]
+00540F6E: add esp,4
+00540F71: jmp 00821B40
+00540F76: xor ax,ax
+00540F79: pop ecx
+00540F7A: ret
+00540F80: push ecx
+
+00540F80: push ecx
+00540F81: mov al,byte ptr ds:[00B73402h]
+00540F86: test al,al
+00540F88: push esi
+00540F89: push edi
+00540F8A: mov di,word ptr ds:[00B7345Eh]
+ 00
+00540F91: mov word ptr [esp+8],di
+00540F96: je 00540FA5
+00540F98: mov eax,dword ptr [esp+8]
+00540F9C: neg eax
+00540F9E: mov dword ptr [esp+8],eax
+00540FA2: mov di,ax
+00540FA5: test di,di
+00540FA8: movsx esi,di
+00540FAB: mov eax,esi
+00540FAD: jge 00540FB1
+00540FAF: neg eax
+00540FB1: cmp eax,64h
+00540FB4: jle 00540FDF
+00540FB6: cmp word ptr [ecx+0000010Eh],0
+00540FBE: jne 00540FCC
+00540FC0: cmp word ptr [ecx+26h],0
+00540FC5: setne al
+00540FC8: test al,al
+00540FCA: jne 00540FDF
+00540FCC: test di,di
+00540FCF: jle 00540FD8
+00540FD1: pop edi
+00540FD2: lea eax,[esi-32h]
+00540FD5: pop esi
+00540FD6: pop ecx
+00540FD7: ret
+00540FD8: pop edi
+00540FD9: lea eax,[esi+32h]
+00540FDC: pop esi
+00540FDD: pop ecx
+00540FDE: ret
+00540FDF: mov ecx,0B6F19Ch
+00540FE4: call 0050A850
+00540FE9: test al,al
+00540FEB: je 00541035
+00540FED: test di,di
+00540FF0: mov eax,esi
+00540FF2: jge 00540FF6
+00540FF4: neg eax
+00540FF6: cmp eax,32h
+00540FF9: jle 00541035
+00540FFB: test di,di
+00540FFE: pop edi
+00540FFF: jle 0054101B
+00541001: add esi,0FFFFFFCEh
+00541004: mov dword ptr [esp+4],esi
+00541008: fild dword ptr [esp+4]
+0054100C: pop esi
+0054100D: fmul dword ptr ds:[00858B8Ch]
+00541013: add esp,4
+00541016: jmp 00821B40
+0054101B: add esi,32h
+0054101E: mov dword ptr [esp+4],esi
+00541022: fild dword ptr [esp+4]
+00541026: pop esi
+00541027: fmul dword ptr ds:[00858B8Ch]
+0054102D: add esp,4
+00541030: jmp 00821B40
+00541035: pop edi
+00541036: xor ax,ax
+00541039: pop esi
+0054103A: pop ecx
+0054103B: ret
+ 00541040: 66
+
+0050A850: mov al,byte ptr ds:[00B6EC2Eh]
+0050A855: test al,al
+0050A857: je 0050A863
+0050A859: cmp word ptr [ecx+0Ch],4
+0050A85E: jne 0050A863
+0050A860: mov al,1
+0050A862: ret
+0050A863: xor al,al
+0050A865: ret
+ 0050A870: 6A

@@ -1,0 +1,70 @@
+00542A50: sub esp,18h
+00542A53: push esi
+00542A54: mov esi,ecx
+00542A56: mov eax,dword ptr [esi+40h]
+00542A59: test al,10h
+00542A5B: jne 00542B3E
+00542A61: test al,40h
+00542A63: mov dword ptr [esp+4],0
+00542A6B: mov dword ptr [esp+8],0
+00542A73: mov dword ptr [esp+0Ch],0
+00542A7B: jne 00542AA9
+00542A7D: mov eax,dword ptr [esi+14h]
+00542A80: lea ecx,[esi+000000A4h]
+00542A86: push ecx
+00542A87: push eax
+00542A88: lea edx,[esp+18h]
+00542A8C: push edx
+00542A8D: call 0059C790
+00542A92: mov ecx,dword ptr [eax]
+00542A94: mov edx,dword ptr [eax+4]
+00542A97: mov eax,dword ptr [eax+8]
+00542A9A: add esp,0Ch
+00542A9D: mov dword ptr [esp+4],ecx
+00542AA1: mov dword ptr [esp+8],edx
+00542AA5: mov dword ptr [esp+0Ch],eax
+00542AA9: test byte ptr [esi+40h],20h
+00542AAD: je 00542ABF
+00542AAF: fld dword ptr ds:[00858B50h]
+00542AB5: mov dword ptr [esp+28h],0
+00542ABD: jmp 00542AC3
+00542ABF: fld dword ptr [esp+34h]
+00542AC3: fld dword ptr [esp+2Ch]
+00542AC7: mov ecx,dword ptr [esi+00000090h]
+00542ACD: fsub dword ptr [esp+4]
+00542AD1: lea edx,[esp+20h]
+00542AD5: push edx
+00542AD6: lea eax,[esp+14h]
+00542ADA: fstp dword ptr [esp+14h]
+00542ADE: mov dword ptr [esp+30h],ecx
+00542AE2: fld dword ptr [esp+34h]
+00542AE6: push eax
+00542AE7: fsub dword ptr [esp+10h]
+00542AEB: lea ecx,[esp+0Ch]
+00542AEF: push ecx
+00542AF0: fstp dword ptr [esp+20h]
+00542AF4: fsub dword ptr [esp+18h]
+00542AF8: fstp dword ptr [esp+24h]
+00542AFC: call 0059C730
+00542B01: fld dword ptr ds:[00858624h]
+00542B07: fdiv dword ptr [esp+38h]
+00542B0B: add esp,0Ch
+00542B0E: fld st(0)
+00542B10: fmul dword ptr [eax]
+00542B12: fld st(1)
+00542B14: fmul dword ptr [eax+4]
+00542B17: fstp dword ptr [esp+30h]
+00542B1B: fxch st(1)
+00542B1D: fmul dword ptr [eax+8]
+00542B20: fstp dword ptr [esp+34h]
+00542B24: fadd dword ptr [esi+50h]
+00542B27: fstp dword ptr [esi+50h]
+00542B2A: fld dword ptr [esp+30h]
+00542B2E: fadd dword ptr [esi+54h]
+00542B31: fstp dword ptr [esi+54h]
+00542B34: fld dword ptr [esp+34h]
+00542B38: fadd dword ptr [esi+58h]
+00542B3B: fstp dword ptr [esi+58h]
+00542B3E: pop esi
+00542B3F: add esp,18h
+00542B42: ret 18h

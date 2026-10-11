@@ -20,6 +20,7 @@ public:
     std::array<PlayerRelationship, 16> m_Relationships;
 
 public:
+    static void InjectHooks();
     CPlayerRelationshipRecorder();
     ~CPlayerRelationshipRecorder();
 

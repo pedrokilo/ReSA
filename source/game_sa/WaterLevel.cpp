@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 void CWaterLevel::InjectHooks() {
     RH_ScopedClass(CWaterLevel);
     RH_ScopedCategoryGlobal();
+    RH_ScopedInstall(CalculateWavesOnlyForCoordinate2Native, 0x6E7210);
 
     RH_ScopedGlobalInstall(WaterLevelInitialise, 0x6EAE80);
     RH_ScopedGlobalInstall(Shutdown, 0x6E59E0);
@@ -63,6 +64,8 @@ void CWaterLevel::InjectHooks() {
     RH_ScopedGlobalInstall(SetUpWaterFog, 0x6EA9F0);
     RH_ScopedGlobalInstall(FindNearestWaterAndItsFlow, 0x6E9D70);
     RH_ScopedGlobalInstall(GetWaterLevelNoWaves, 0x6E8580);
+    RH_ScopedInstall(GetWaterLevelNoWavesForQuad, 0x6E5BB0);
+    RH_ScopedInstall(GetWaterLevelNoWavesForTriangle, 0x6E5E90);
     RH_ScopedGlobalInstall(RenderWaterFog, 0x6E7760);
     RH_ScopedGlobalInstall(CalculateWavesOnlyForCoordinate, 0x6E6EF0);
     RH_ScopedGlobalInstall(RenderWater, 0x6EF650);
@@ -984,9 +987,9 @@ bool CWaterLevel::GetWaterLevelNoWaves(CVector pos, float * pOutWaterLevel, floa
     const auto check = [&](const PolyInfo& info) {
         switch (info.Type()) {
         case PolyInfo::PType::SINGLE_QUAD:
-            return plugin::CallAndReturn<bool, 0x6E5BB0>(&WaterQuads[info.Id()], pos.x, pos.y, pos.z, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
+            return GetWaterLevelNoWavesForQuad(&WaterQuads[info.Id()], pos.x, pos.y, pos.z, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
         case PolyInfo::PType::SINGLE_TRI:
-            return plugin::CallAndReturn<bool, 0x6E5E90>(&WaterTriangles[info.Id()], pos.x, pos.y, pos.z, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
+            return GetWaterLevelNoWavesForTriangle(&WaterTriangles[info.Id()], pos.x, pos.y, pos.z, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
         default:
             return false;
         }
@@ -1362,13 +1365,123 @@ void CWaterLevel::MarkQuadsAndPolysToBeRendered(int32 blockX, int32 blockY, bool
 }
 
 // 0x6E7210
-void CWaterLevel::CalculateWavesOnlyForCoordinate2( // TODO: Original name didn't have a 2 in it... I'm just lazy!
-    int32 x, int32 y,
-    float* pResultHeight,
-    float bigWavesAmpl,
-    float smallWavesAmpl
-) {
-    plugin::Call<0x6E7210>(x, y, bigWavesAmpl, smallWavesAmpl, pResultHeight);
+static uintptr_t WaterWaveFtolLibrary=0x821B40;
+// Native stack order differs from public interface: x,y,big,small,height.
+__declspec(naked) void CWaterLevel::CalculateWavesOnlyForCoordinate2Native(int32,int32,float,float,float*) {
+    __asm {
+    mov eax,dword ptr [esp+4]
+    test eax,eax
+    jge L006E721E
+    neg eax
+    mov dword ptr [esp+4],eax
+    L006E721E: mov ecx,dword ptr [esp+8]
+    test ecx,ecx
+    jge L006E722C
+    neg ecx
+    mov dword ptr [esp+8],ecx
+    L006E722C: cdq
+    sub eax,edx
+    push esi
+    mov esi,eax
+    mov eax,ecx
+    mov ecx,dword ptr ds:[00C228A4h]
+    cdq
+    sub eax,edx
+    sar eax,1
+    sar esi,1
+    and eax,7
+    and esi,7
+    xor edx,edx
+    fld dword ptr [esi*4+008D38C8h]
+    fmul dword ptr [eax*4+008D38E8h]
+    mov eax,dword ptr ds:[00B7CB84h]
+    sub eax,ecx
+    mov ecx,1388h
+    div ecx
+    fmul dword ptr ds:[00C812E8h]
+    fild dword ptr [esp+8]
+    fild dword ptr [esp+0Ch]
+    fstp dword ptr [esp+8]
+    test edx,edx
+    mov dword ptr [esp+0Ch],edx
+    fild dword ptr [esp+0Ch]
+    jge L006E7289
+    fadd dword ptr ds:[00858C54h]
+    L006E7289: fmul dword ptr ds:[00872020h]
+    fld dword ptr [esp+8]
+    fadd st,st(2)
+    fmul dword ptr ds:[0087201Ch]
+    faddp st(1),st
+    fmul dword ptr ds:[0085A778h]
+    call dword ptr [WaterWaveFtolLibrary]
+    mov esi,dword ptr [esp+18h]
+    and eax,0FFh
+    fld dword ptr [eax*4+00BB3E00h]
+    mov ecx,0DACh
+    fmul dword ptr ds:[00871FF8h]
+    fmul st,st(2)
+    fmul dword ptr [esp+10h]
+    fadd dword ptr [esi]
+    fst dword ptr [esp+0Ch]
+    fstp dword ptr [esi]
+    mov edx,dword ptr ds:[00C228A4h]
+    mov eax,dword ptr ds:[00B7CB84h]
+    sub eax,edx
+    xor edx,edx
+    div ecx
+    test edx,edx
+    mov dword ptr [esp+10h],edx
+    fild dword ptr [esp+10h]
+    jge L006E72F4
+    fadd dword ptr ds:[00858C54h]
+    L006E72F4: fmul dword ptr ds:[00872018h]
+    fld dword ptr [esp+8]
+    fmul dword ptr ds:[00872014h]
+    faddp st(1),st
+    fxch st(1)
+    fmul dword ptr ds:[00872010h]
+    faddp st(1),st
+    fmul dword ptr ds:[0085A778h]
+    call dword ptr [WaterWaveFtolLibrary]
+    and eax,0FFh
+    fld dword ptr [eax*4+00BB3E00h]
+    mov ecx,0BB8h
+    fmul dword ptr ds:[00871FFCh]
+    fmul st,st(1)
+    fmul dword ptr [esp+14h]
+    fadd dword ptr [esp+0Ch]
+    fst dword ptr [esi]
+    mov edx,dword ptr ds:[00C228A4h]
+    mov eax,dword ptr ds:[00B7CB84h]
+    sub eax,edx
+    xor edx,edx
+    div ecx
+    test edx,edx
+    mov dword ptr [esp+0Ch],edx
+    fild dword ptr [esp+0Ch]
+    jge L006E7361
+    fadd dword ptr ds:[00858C54h]
+    L006E7361: fmul dword ptr ds:[0087200Ch]
+    fld dword ptr [esp+8]
+    fmul dword ptr ds:[00872008h]
+    faddp st(1),st
+    fmul dword ptr ds:[0085A778h]
+    call dword ptr [WaterWaveFtolLibrary]
+    and eax,0FFh
+    fld dword ptr [eax*4+00BB3E00h]
+    fmul dword ptr ds:[00872000h]
+    fmul st,st(2)
+    fmul dword ptr [esp+14h]
+    fadd st,st(1)
+    fstp dword ptr [esi]
+    pop esi
+    fstp st(0)
+    fstp st(0)
+    ret
+    }
+}
+void CWaterLevel::CalculateWavesOnlyForCoordinate2(int32 x,int32 y,float* height,float bigWavesAmpl,float smallWavesAmpl) {
+    CalculateWavesOnlyForCoordinate2Native(x,y,bigWavesAmpl,smallWavesAmpl,height);
 }
 
 // 0x6E6CA0
@@ -1767,4 +1880,414 @@ CWaterVertex CWaterPolygon<NumVerts>::GetVertex(uint16 idx) const {
 // External collaborator; reconstruction is outside the current pending scope.
 bool CWaterLevel::TestLineAgainstWater(CVector from, CVector to, CVector* intersection) {
     return plugin::CallAndReturn<bool, 0x6E61B0, CVector, CVector, CVector*>(from, to, intersection);
+}
+
+// 0x6e5bb0: reads real loaded water atlas; no game collaborator calls.
+__declspec(naked) bool CWaterLevel::GetWaterLevelNoWavesForQuad(const CWaterQuad*,float,float,float,float*,float*,float*) {
+    __asm {
+    sub esp,10h
+    mov ecx,dword ptr [esp+14h]
+    movsx edx,word ptr [ecx]
+    lea edx,[edx+edx*4]
+    shl edx,2
+    movsx eax,word ptr [edx+00C22910h]
+    mov dword ptr [esp],eax
+    push ebx
+    push ebp
+    fild dword ptr [esp+8]
+    push esi
+    push edi
+    fstp dword ptr [esp+24h]
+    fld dword ptr [esp+28h]
+    fcomp dword ptr [esp+24h]
+    fnstsw ax
+    test ah,1
+    jne L006E5E6E
+    movsx eax,word ptr [ecx+2]
+    lea edi,[eax+eax*4]
+    shl edi,2
+    movsx ebp,word ptr [edi+00C22910h]
+    mov dword ptr [esp+18h],ebp
+    fild dword ptr [esp+18h]
+    fcomp dword ptr [esp+28h]
+    fnstsw ax
+    test ah,1
+    jne L006E5E6E
+    movsx eax,word ptr [edx+00C22912h]
+    mov dword ptr [esp+18h],eax
+    fild dword ptr [esp+18h]
+    fstp dword ptr [esp+14h]
+    fld dword ptr [esp+2Ch]
+    fcomp dword ptr [esp+14h]
+    fnstsw ax
+    test ah,1
+    jne L006E5E6E
+    movsx eax,word ptr [ecx+4]
+    lea esi,[eax+eax*4]
+    shl esi,2
+    movsx ebx,word ptr [esi+00C22912h]
+    mov dword ptr [esp+1Ch],ebx
+    fild dword ptr [esp+1Ch]
+    fcomp dword ptr [esp+2Ch]
+    fnstsw ax
+    test ah,1
+    jne L006E5E6E
+    mov eax,dword ptr [esp+10h]
+    fld dword ptr [esp+28h]
+    fsub dword ptr [esp+24h]
+    sub ebp,eax
+    mov dword ptr [esp+28h],ebp
+    fidiv dword ptr [esp+28h]
+    mov eax,dword ptr [esp+18h]
+    sub ebx,eax
+    mov dword ptr [esp+24h],ebx
+    fstp dword ptr [esp+28h]
+    fld dword ptr [esp+2Ch]
+    fsub dword ptr [esp+14h]
+    fidiv dword ptr [esp+24h]
+    fld dword ptr [esp+28h]
+    fadd st,st(1)
+    fcomp dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    jp L006E5D6A
+    fld dword ptr [esi+00C22914h]
+    mov esi,dword ptr [esp+34h]
+    fsub dword ptr [edx+00C22914h]
+    fmul st,st(1)
+    fld dword ptr [edi+00C22914h]
+    mov edi,dword ptr [esp+38h]
+    test edi,edi
+    fsub dword ptr [edx+00C22914h]
+    fmul dword ptr [esp+28h]
+    faddp st(1),st
+    fadd dword ptr [edx+00C22914h]
+    fstp dword ptr [esi]
+    je L006E5E7A
+    movsx edx,word ptr [ecx+4]
+    movsx eax,word ptr [ecx]
+    lea edx,[edx+edx*4]
+    lea eax,[eax+eax*4]
+    fld dword ptr [edx*4+00C22918h]
+    movsx edx,word ptr [ecx+2]
+    lea edx,[edx+edx*4]
+    fsub dword ptr [eax*4+00C22918h]
+    fmul st,st(1)
+    fld dword ptr [edx*4+00C22918h]
+    fsub dword ptr [eax*4+00C22918h]
+    fmul dword ptr [esp+28h]
+    faddp st(1),st
+    fadd dword ptr [eax*4+00C22918h]
+    fstp dword ptr [edi]
+    movsx edx,word ptr [ecx+4]
+    movsx eax,word ptr [ecx]
+    lea edx,[edx+edx*4]
+    lea eax,[eax+eax*4]
+    fld dword ptr [edx*4+00C2291Ch]
+    movsx edx,word ptr [ecx+2]
+    lea edx,[edx+edx*4]
+    fsub dword ptr [eax*4+00C2291Ch]
+    fmul st,st(1)
+    fld dword ptr [edx*4+00C2291Ch]
+    fsub dword ptr [eax*4+00C2291Ch]
+    fmul dword ptr [esp+28h]
+    faddp st(1),st
+    fadd dword ptr [eax*4+00C2291Ch]
+    mov eax,dword ptr [esp+3Ch]
+    fstp dword ptr [eax]
+    jmp L006E5E40
+    L006E5D6A: fsubr dword ptr ds:[00858624h]
+    movsx eax,word ptr [ecx+6]
+    fld dword ptr ds:[00858624h]
+    lea eax,[eax+eax*4]
+    fsub dword ptr [esp+28h]
+    fld dword ptr [esi+00C22914h]
+    mov esi,dword ptr [esp+34h]
+    fsub dword ptr [eax*4+00C22914h]
+    fmul st,st(1)
+    fld dword ptr [edi+00C22914h]
+    mov edi,dword ptr [esp+38h]
+    test edi,edi
+    fsub dword ptr [eax*4+00C22914h]
+    fmul st,st(3)
+    faddp st(1),st
+    fadd dword ptr [eax*4+00C22914h]
+    fstp dword ptr [esi]
+    je L006E5E78
+    movsx edx,word ptr [ecx+2]
+    movsx eax,word ptr [ecx+6]
+    lea edx,[edx+edx*4]
+    lea eax,[eax+eax*4]
+    fld dword ptr [edx*4+00C22918h]
+    movsx edx,word ptr [ecx+4]
+    lea edx,[edx+edx*4]
+    fsub dword ptr [eax*4+00C22918h]
+    fmul st,st(2)
+    fld dword ptr [edx*4+00C22918h]
+    fsub dword ptr [eax*4+00C22918h]
+    fmul st,st(2)
+    faddp st(1),st
+    fadd dword ptr [eax*4+00C22918h]
+    fstp dword ptr [edi]
+    movsx edx,word ptr [ecx+2]
+    movsx eax,word ptr [ecx+6]
+    lea edx,[edx+edx*4]
+    lea eax,[eax+eax*4]
+    fld dword ptr [edx*4+00C2291Ch]
+    movsx edx,word ptr [ecx+4]
+    lea edx,[edx+edx*4]
+    fsub dword ptr [eax*4+00C2291Ch]
+    fmul st,st(2)
+    fld dword ptr [edx*4+00C2291Ch]
+    fsub dword ptr [eax*4+00C2291Ch]
+    fmul st,st(2)
+    faddp st(1),st
+    fadd dword ptr [eax*4+00C2291Ch]
+    mov eax,dword ptr [esp+3Ch]
+    fstp dword ptr [eax]
+    fstp st(0)
+    L006E5E40: fstp st(0)
+    fld dword ptr [esi]
+    fsub dword ptr ds:[00858B44h]
+    fcomp dword ptr [esp+30h]
+    fnstsw ax
+    test ah,41h
+    jne L006E5E5B
+    test byte ptr [ecx+8],4
+    jne L006E5E6E
+    L006E5E5B: fld dword ptr [esi]
+    fadd dword ptr ds:[00858BA4h]
+    fcomp dword ptr [esp+30h]
+    fnstsw ax
+    test ah,5
+    jp L006E5E7C
+    L006E5E6E: pop edi
+    pop esi
+    pop ebp
+    xor al,al
+    pop ebx
+    add esp,10h
+    ret
+    L006E5E78: fstp st(0)
+    L006E5E7A: fstp st(0)
+    L006E5E7C: pop edi
+    pop esi
+    pop ebp
+    mov al,1
+    pop ebx
+    add esp,10h
+    ret
+    }
+}
+
+// 0x6e5e90: reads real loaded water atlas; no game collaborator calls.
+__declspec(naked) bool CWaterLevel::GetWaterLevelNoWavesForTriangle(const CWaterTriangle*,float,float,float,float*,float*,float*) {
+    __asm {
+    sub esp,10h
+    mov ecx,dword ptr [esp+14h]
+    movsx edx,word ptr [ecx]
+    lea edx,[edx+edx*4]
+    shl edx,2
+    movsx eax,word ptr [edx+00C22910h]
+    mov dword ptr [esp+8],eax
+    push ebx
+    push ebp
+    fild dword ptr [esp+10h]
+    push esi
+    push edi
+    fstp dword ptr [esp+14h]
+    fld dword ptr [esp+28h]
+    fcomp dword ptr [esp+14h]
+    fnstsw ax
+    test ah,1
+    jne L006E619E
+    movsx eax,word ptr [ecx+2]
+    lea ebx,[eax+eax*4]
+    shl ebx,2
+    movsx ebp,word ptr [ebx+00C22910h]
+    mov dword ptr [esp+24h],ebp
+    fild dword ptr [esp+24h]
+    fcomp dword ptr [esp+28h]
+    fnstsw ax
+    test ah,1
+    jne L006E619E
+    movsx eax,word ptr [ecx+4]
+    lea esi,[eax+eax*4]
+    mov ax,word ptr [edx+00C22912h]
+    shl esi,2
+    mov di,word ptr [esi+00C22912h]
+    cmp ax,di
+    movsx edi,di
+    movsx eax,ax
+    mov dword ptr [esp+24h],edi
+    mov dword ptr [esp+10h],eax
+    jge L006E5F2B
+    fild dword ptr [esp+10h]
+    fst dword ptr [esp+1Ch]
+    fild dword ptr [esp+24h]
+    jmp L006E5F37
+    L006E5F2B: fild dword ptr [esp+24h]
+    fild dword ptr [esp+10h]
+    fst dword ptr [esp+1Ch]
+    L006E5F37: fstp dword ptr [esp+24h]
+    fld dword ptr [esp+2Ch]
+    fcomp st(1)
+    fnstsw ax
+    fstp st(0)
+    test ah,1
+    jne L006E619E
+    fld dword ptr [esp+2Ch]
+    fcomp dword ptr [esp+24h]
+    fnstsw ax
+    test ah,41h
+    jp L006E619E
+    mov eax,dword ptr [esp+18h]
+    fld dword ptr [esp+28h]
+    fsub dword ptr [esp+14h]
+    sub ebp,eax
+    mov dword ptr [esp+28h],ebp
+    fidiv dword ptr [esp+28h]
+    mov ebp,dword ptr [esp+10h]
+    sub edi,ebp
+    mov dword ptr [esp+28h],edi
+    mov ax,word ptr [edx+00C22910h]
+    cmp ax,word ptr [esi+00C22910h]
+    fstp dword ptr [esp+24h]
+    fld dword ptr [esp+2Ch]
+    fsub dword ptr [esp+1Ch]
+    fidiv dword ptr [esp+28h]
+    fstp dword ptr [esp+28h]
+    jne L006E608B
+    fld dword ptr [esp+28h]
+    fadd dword ptr [esp+24h]
+    fcomp dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    jp L006E619E
+    fld dword ptr [esi+00C22914h]
+    mov esi,dword ptr [esp+38h]
+    test esi,esi
+    fsub dword ptr [edx+00C22914h]
+    mov edi,dword ptr [esp+34h]
+    fmul dword ptr [esp+28h]
+    fld dword ptr [ebx+00C22914h]
+    fsub dword ptr [edx+00C22914h]
+    fmul dword ptr [esp+24h]
+    faddp st(1),st
+    fadd dword ptr [edx+00C22914h]
+    fstp dword ptr [edi]
+    je L006E6168
+    movsx edx,word ptr [ecx+2]
+    movsx eax,word ptr [ecx]
+    lea edx,[edx+edx*4]
+    lea eax,[eax+eax*4]
+    fld dword ptr [edx*4+00C22918h]
+    movsx edx,word ptr [ecx+4]
+    lea edx,[edx+edx*4]
+    fsub dword ptr [eax*4+00C22918h]
+    fmul dword ptr [esp+24h]
+    fld dword ptr [edx*4+00C22918h]
+    fsub dword ptr [eax*4+00C22918h]
+    fmul dword ptr [esp+28h]
+    faddp st(1),st
+    fadd dword ptr [eax*4+00C22918h]
+    fstp dword ptr [esi]
+    movsx edx,word ptr [ecx+4]
+    movsx eax,word ptr [ecx]
+    lea edx,[edx+edx*4]
+    lea eax,[eax+eax*4]
+    fld dword ptr [edx*4+00C2291Ch]
+    movsx edx,word ptr [ecx+2]
+    lea edx,[edx+edx*4]
+    fsub dword ptr [eax*4+00C2291Ch]
+    fmul dword ptr [esp+28h]
+    fld dword ptr [edx*4+00C2291Ch]
+    fsub dword ptr [eax*4+00C2291Ch]
+    fmul dword ptr [esp+24h]
+    faddp st(1),st
+    fadd dword ptr [eax*4+00C2291Ch]
+    mov eax,dword ptr [esp+3Ch]
+    fstp dword ptr [eax]
+    jmp L006E6168
+    L006E608B: fld dword ptr [esp+24h]
+    fcomp dword ptr [esp+28h]
+    fnstsw ax
+    test ah,1
+    jne L006E619E
+    fld dword ptr ds:[00858624h]
+    mov edi,dword ptr [esp+34h]
+    fsub dword ptr [esp+24h]
+    fld dword ptr [esi+00C22914h]
+    mov esi,dword ptr [esp+38h]
+    test esi,esi
+    fsub dword ptr [ebx+00C22914h]
+    fmul dword ptr [esp+28h]
+    fld dword ptr [edx+00C22914h]
+    fsub dword ptr [ebx+00C22914h]
+    fmul st,st(2)
+    faddp st(1),st
+    fadd dword ptr [ebx+00C22914h]
+    fstp dword ptr [edi]
+    je L006E6166
+    movsx edx,word ptr [ecx]
+    movsx eax,word ptr [ecx+2]
+    lea edx,[edx+edx*4]
+    lea eax,[eax+eax*4]
+    fld dword ptr [edx*4+00C22918h]
+    movsx edx,word ptr [ecx+4]
+    lea edx,[edx+edx*4]
+    fsub dword ptr [eax*4+00C22918h]
+    fmul st,st(1)
+    fld dword ptr [edx*4+00C22918h]
+    fsub dword ptr [eax*4+00C22918h]
+    fmul dword ptr [esp+28h]
+    faddp st(1),st
+    fadd dword ptr [eax*4+00C22918h]
+    fstp dword ptr [esi]
+    movsx edx,word ptr [ecx]
+    movsx eax,word ptr [ecx+2]
+    lea edx,[edx+edx*4]
+    lea eax,[eax+eax*4]
+    fld dword ptr [edx*4+00C2291Ch]
+    movsx edx,word ptr [ecx+4]
+    lea edx,[edx+edx*4]
+    fsub dword ptr [eax*4+00C2291Ch]
+    fmul st,st(1)
+    fld dword ptr [edx*4+00C2291Ch]
+    fsub dword ptr [eax*4+00C2291Ch]
+    fmul dword ptr [esp+28h]
+    faddp st(1),st
+    fadd dword ptr [eax*4+00C2291Ch]
+    mov eax,dword ptr [esp+3Ch]
+    fstp dword ptr [eax]
+    L006E6166: fstp st(0)
+    L006E6168: fld dword ptr [edi]
+    fsub dword ptr ds:[00858B44h]
+    fcomp dword ptr [esp+30h]
+    fnstsw ax
+    test ah,41h
+    jne L006E6181
+    test byte ptr [ecx+6],4
+    jne L006E619E
+    L006E6181: fld dword ptr [edi]
+    fadd dword ptr ds:[00858BA4h]
+    fcomp dword ptr [esp+30h]
+    fnstsw ax
+    test ah,5
+    jnp L006E619E
+    pop edi
+    pop esi
+    pop ebp
+    mov al,1
+    pop ebx
+    add esp,10h
+    ret
+    L006E619E: pop edi
+    pop esi
+    pop ebp
+    xor al,al
+    pop ebx
+    add esp,10h
+    ret
+    }
 }

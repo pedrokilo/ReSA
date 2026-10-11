@@ -1,0 +1,65 @@
+006DF438: call 004185A0
+006DF43D: mov eax,dword ptr [edi+00C1CCA4h]
+006DF443: add esp,4
+006DF446: test eax,eax
+006DF448: jne 006DF451
+006DF44A: mov ecx,ebp
+006DF44C: call 0040F810
+ 006DF451: 0F
+
+0070870E: call 00418580
+00708713: mov eax,dword ptr [esi+14h]
+00708716: add esp,4
+00708719: test eax,eax
+0070871B: jne 00708730
+0070871D: mov ecx,esi
+0070871F: call 0054F560
+00708724: mov edx,dword ptr [esi+14h]
+00708727: push edx
+00708728: lea ecx,[esi+4]
+ 0070872B: E8
+
+0070A082: call 00418580
+0070A087: mov eax,dword ptr [esi]
+0070A089: mov esi,dword ptr [eax+4]
+0070A08C: push 1
+0070A08E: push 0C2340000h
+0070A093: lea edx,[esp+1Ch]
+0070A097: push edx
+0070A098: lea eax,[esp+000000A4h]
+ 00
+ 0070A09F: 83
+
+0071C352: call 00418580
+0071C357: mov eax,dword ptr [edi+1Ch]
+0071C35A: add esp,4
+0071C35D: test eax,eax
+0071C35F: je 0071CB5A
+0071C365: movsx ecx,word ptr [esp+10h]
+0071C36A: lea edx,[ecx+ecx*4]
+ 0071C36D: 0F
+
+0071D0D7: call 00418580
+0071D0DC: xor ebp,ebp
+0071D0DE: add esp,4
+0071D0E1: cmp word ptr [edi+4],bp
+0071D0E5: jle 0071D4CD
+0071D0EB: xor ebx,ebx
+0071D0ED: lea ecx,[ecx]
+0071D0F0: mov edx,dword ptr [edi+1Ch]
+0071D0F3: mov eax,dword ptr [edi+18h]
+0071D0F6: add edx,ebx
+0071D0F8: push edx
+0071D0F9: mov edx,dword ptr [edi+14h]
+ 0071D0FC: 8D
+
+0073F800: call 00418580
+0073F805: add esp,1Ch
+0073F808: cmp word ptr [esi+4],bp
+0073F80C: mov dword ptr [esp+14h],ebp
+0073F810: jle 0073F8AE
+0073F816: jmp 0073F820
+0073F818: lea esp,[esp+00000000h]
+ 00
+0073F820: movsx edi,word ptr [esp+14h]
+ 0073F825: 8B

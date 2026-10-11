@@ -1,0 +1,35 @@
+00734E50: push ebx
+00734E51: mov ebx,dword ptr [esp+8]
+00734E55: push ebp
+00734E56: add ebx,8
+00734E59: push esi
+00734E5A: mov esi,dword ptr [ebx]
+00734E5C: cmp esi,ebx
+00734E5E: push edi
+00734E5F: je 00734E82
+00734E61: mov ebp,dword ptr [esp+18h]
+00734E65: lea edi,[esi-8]
+00734E68: lea eax,[edi+10h]
+00734E6B: test eax,eax
+00734E6D: je 00734E7C
+00734E6F: push eax
+00734E70: call 0053CF30
+00734E75: add esp,4
+00734E78: cmp eax,ebp
+00734E7A: je 00734E89
+00734E7C: mov esi,dword ptr [esi]
+00734E7E: cmp esi,ebx
+00734E80: jne 00734E65
+00734E82: pop edi
+00734E83: pop esi
+00734E84: pop ebp
+00734E85: xor eax,eax
+00734E87: pop ebx
+00734E88: ret
+00734E89: mov eax,edi
+00734E8B: pop edi
+00734E8C: pop esi
+00734E8D: pop ebp
+00734E8E: pop ebx
+00734E8F: ret
+ 00734E90: A1

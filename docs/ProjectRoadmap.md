@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/10/2026 (Ciudad de México):** 771 grupos / 8445 funciones reconstruidas; 8445 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9328 entradas binarias sin nombre catalogado; 924 destinos originales explícitos fuera del catálogo, 499 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # ReSA: reconstrucción, validación e independencia
@@ -18,10 +18,10 @@ Estado documental del 10 de octubre de 2026 (corte de validación 453). Clases y
 
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
-| Clases completas en el catálogo | `████████████████████` | 771/771 · 100,00% |
-| Clases validadas de las completas | `████████████████████` | 771/771 · 100,00% |
-| Funciones registradas como reconstruidas | `████████████████████` | 8.445/8.445 · 100,00% |
-| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████████` | **8.445/8.445 · 100,00%** |
+| Clases completas en el catálogo | `████████████████████` | 784/784 · 100,00% |
+| Clases validadas de las completas | `████████████████████` | 784/784 · 100,00% |
+| Funciones registradas como reconstruidas | `████████████████████` | 8.547/8.547 · 100,00% |
+| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████████` | **8.547/8.547 · 100,00%** |
 
 **Siguientes mediciones** (todavía sin porcentaje útil):
 
@@ -32,7 +32,7 @@ Estado documental del 10 de octubre de 2026 (corte de validación 453). Clases y
 
 Las cuatro extensiones y adaptaciones NOTSA están en [hooks_notsa.csv](hooks_notsa.csv) y quedan fuera del progreso: tres hooks de modo ventana y Win::NOTSA_WinMain. Este último conserva validated=0 y su hook en 0x748710; su reclasificación no añade una validación. [Alcance NOTSA](HooksNOTSA.md).
 
-El catálogo contiene 8.445 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 0 entradas pendientes y 0 clases incompletas. De las entradas registradas, 0 tienen `locked=1` y 8.445 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
+El catálogo contiene 8.445 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 0 entradas pendientes y 0 clases incompletas. De las entradas registradas, 0 tienen `locked=1` y 8.547 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
 
 `reversed`, `validated`, vigencia de validación, `locked` y dependencia del original son dimensiones distintas. `validated=1` conserva que la función pasó una evidencia aprobada; la vigencia se calcula aparte con hashes y revisión de dependencias. Un cuerpo C++ puede seguir pendiente de validación; una función validada puede llamar a otras implementaciones originales. El [registro separado de validaciones](../reversing/ValidationRegistry/README.md) vincula 8.445 entradas con evidencia histórica aprobada; ninguna tiene vigencia actual acreditada. El [inventario completo](ValidationInventory.md) clasifica las 8.445 entradas reconstruidas. La [auditoría de cobertura](BinaryCoverageAudit.md) identifica 924 destinos originales explícitos sin nombre catalogado, 499 con aristas desde funciones catalogadas y 9.328 entradas binarias sin nombre del catálogo. Son conjuntos solapados que incluyen bibliotecas, helpers y código generado; no representan un total exacto de funciones de juego faltantes. El panel calcula la vigencia mediante evidencia, hashes y revisión de dependencias; no la deduce del flag de reconstrucción.
 

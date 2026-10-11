@@ -7,6 +7,12 @@
 
 #include "StdInc.h"
 
+void D3DResourceSystem::InjectHooks() {
+    RH_ScopedClass(D3DResourceSystem);
+    RH_ScopedCategory("RenderWare");
+    RH_ScopedInstall(SetUseD3DResourceBuffering, 0x730AC0);
+}
+
 // 0x730900
 void D3DResourceSystem::CancelBuffering() {
     plugin::Call<0x730900>();
@@ -28,10 +34,13 @@ void D3DResourceSystem::Init() {
 }
 
 // 0x730AC0
-void D3DResourceSystem::SetUseD3DResourceBuffering(bool bUse) {
-    ZoneScoped;
-
-    plugin::Call<0x730AC0, bool>(bUse);
+// Writes one byte and preserves EAX high bits, ECX and EDX as in the EXE.
+__declspec(naked) void D3DResourceSystem::SetUseD3DResourceBuffering(bool) {
+    __asm {
+    mov al,byte ptr [esp+4]
+    mov byte ptr ds:[008D6084h],al
+    ret
+    }
 }
 
 // 0x730A00

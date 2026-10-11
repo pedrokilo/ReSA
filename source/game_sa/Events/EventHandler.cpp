@@ -2020,7 +2020,7 @@ void CEventHandler::ComputePedCollisionWithPedResponse(CEvent* e, CTask* tactive
                 if (tGoTo) {
                     tGoTo->m_fRadius = mag + 0.1f;
                 }
-                plugin::CallMethod<0x4BC470, CTask*, float>(tSeek, mag + 0.1f);
+                static_cast<CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>*>(tSeek)->SetMaxEntityDist2D(mag + 0.1f);
                 if (mag < 8.f) {
                     std::memcpy(&tGangFol->dword20, &d, sizeof(float) * 3);
                 }
@@ -2177,7 +2177,7 @@ void CEventHandler::ComputePedCollisionWithPlayerResponse(CEvent* e, CTask* tact
         } else if (tGoTo) {
             static_cast<CTaskSimpleGoTo*>(tGoTo)->m_fRadius = mag + 0.1f;
         }
-        plugin::CallMethod<0x4BC470, CTask*, float>(tSeek, mag + 0.1f);
+        static_cast<CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>*>(tSeek)->SetMaxEntityDist2D(mag + 0.1f);
         if (mag < 8.f) {
             std::memcpy(reinterpret_cast<uint8*>(tGangFol) + 0x20, &d, sizeof(float) * 3);
         }

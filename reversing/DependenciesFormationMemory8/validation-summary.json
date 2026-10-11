@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "pairs": 8256,
+  "differences": 0,
+  "registered_pairs": 8256,
+  "registered_functions": 2,
+  "functions": {
+    "CFormation::FindNearestFreeDestination": 8192,
+    "Rs::psGetMemoryFunctions": 64
+  },
+  "covered_functions": {
+    "CFormation::FindNearestFreeDestination": true,
+    "Rs::psGetMemoryFunctions": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/DependenciesFormationMemory8/runs/20261010-203532-167959",
+  "summary_sha256": "e57a6cad1bf0d17e3afe4d208da200f7309e9986a12d0130c3a1b7ddb2142b8f",
+  "result_txt_sha256": "4f56b22447aa9fa4dfdbb234a8100bf74595fe8b02a312f8000d64f254d9e7f7",
+  "log_sha256": "e6a5950555d2d02265bdf3f8baa357cb24b4c93a9ddfd75febc5bc37ee887db9",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "904f607590de333efdf4e09250b8b42d0ded0cb47e5f4385b1e64df5a190af8d",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Formation.cpp": "6b2b77de218a0c3618277760cd794aded1487e6df5704752a4bb47a8b5188737",
+      "source/game_sa/Formation.h": "5a7cea5bf801cadd5941c1a1542e486be2f6fa21dcfcf0f4254efb3aba00c2df",
+      "source/game_sa/PointList.h": "1eab97924fde314ef6ff5e48f9d40075040b24e42e94beadd2cb6741e1463b86",
+      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+      "source/app/platform/platform.cpp": "5593c41de5e8088cdc28a816f4c939a5b7f7c1620494cde7b79c1df9e52add19",
+      "source/app/platform/platform.h": "9e57624df81af27ef4c8bd3347e93a0b8ba34ac708525891be6fa4a0630cb0f9",
+      "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "1799e56e73a74752f6f424694cb13c5fa8af8d167fa699deb144b0efef6f64d3",
+      "build_probe.py": "416a13681395790c5df4dc778c56b3caaeb3b8368ff221cc81a9f57387802880",
+      "prepare.py": "f0c9026c4591b03e6739b277181861a02033b8166e579a51c19a027cc499647d",
+      "run_local.py": "6c1f977f1ea1a1b07369fb73cf8ab14d3052d269f34c95b56373ccab4e0ff63a"
+    }
+  },
+  "reaudit": {
+    "bank": "DependenciesFormationMemory8",
+    "run": "20261010-203532-167959",
+    "functions": 2,
+    "pairs": 8256,
+    "pairs_per_function": {
+      "CFormation::FindNearestFreeDestination": 8192,
+      "Rs::psGetMemoryFunctions": 64
+    },
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "saves_unchanged": true,
+    "configs_restored": true,
+    "hook_routes_verified": true,
+    "log_sha256": "e6a5950555d2d02265bdf3f8baa357cb24b4c93a9ddfd75febc5bc37ee887db9",
+    "tested_sources": {
+      "source/game_sa/Formation.cpp": "6b2b77de218a0c3618277760cd794aded1487e6df5704752a4bb47a8b5188737",
+      "source/game_sa/Formation.h": "5a7cea5bf801cadd5941c1a1542e486be2f6fa21dcfcf0f4254efb3aba00c2df",
+      "source/game_sa/PointList.h": "1eab97924fde314ef6ff5e48f9d40075040b24e42e94beadd2cb6741e1463b86",
+      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+      "source/app/platform/platform.cpp": "5593c41de5e8088cdc28a816f4c939a5b7f7c1620494cde7b79c1df9e52add19",
+      "source/app/platform/platform.h": "9e57624df81af27ef4c8bd3347e93a0b8ba34ac708525891be6fa4a0630cb0f9",
+      "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "1799e56e73a74752f6f424694cb13c5fa8af8d167fa699deb144b0efef6f64d3",
+      "build_probe.py": "416a13681395790c5df4dc778c56b3caaeb3b8368ff221cc81a9f57387802880",
+      "prepare.py": "f0c9026c4591b03e6739b277181861a02033b8166e579a51c19a027cc499647d",
+      "run_local.py": "6c1f977f1ea1a1b07369fb73cf8ab14d3052d269f34c95b56373ccab4e0ff63a"
+    },
+    "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "executed_probe_sha256": "904f607590de333efdf4e09250b8b42d0ded0cb47e5f4385b1e64df5a190af8d",
+    "registered_hook_verified": true
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/DependenciesFormationMemory8/runs/20261010-203532-167959/comparisons.jsonl.gz",
+    "compressed_sha256": "a326eec641322910e8e728a3b482ba49d3391cd4991d87b94bf734bd344acbe9",
+    "uncompressed_sha256": "e6a5950555d2d02265bdf3f8baa357cb24b4c93a9ddfd75febc5bc37ee887db9",
+    "uncompressed_bytes": 6384722,
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "e6a5950555d2d02265bdf3f8baa357cb24b4c93a9ddfd75febc5bc37ee887db9"
+  }
+}

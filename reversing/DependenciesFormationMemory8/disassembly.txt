@@ -1,0 +1,57 @@
+0069B1B0: push ecx
+0069B1B1: fld dword ptr ds:[0086D270h]
+0069B1B7: push esi
+0069B1B8: mov esi,dword ptr ds:[00C1A318h]
+0069B1BE: push edi
+0069B1BF: or edi,0FFFFFFFFh
+0069B1C2: xor ecx,ecx
+0069B1C4: test esi,esi
+0069B1C6: jle 0069B223
+0069B1C8: mov edx,0C1A324h
+0069B1CD: lea ecx,[ecx]
+0069B1D0: mov al,byte ptr [ecx+00C1A43Ch]
+0069B1D6: test al,al
+0069B1D8: jne 0069B21B
+0069B1DA: fld dword ptr [edx-8]
+0069B1DD: fsub dword ptr [esp+10h]
+0069B1E1: fld dword ptr [edx-4]
+0069B1E4: fsub dword ptr [esp+14h]
+0069B1E8: fld dword ptr [edx]
+0069B1EA: fsub dword ptr [esp+18h]
+0069B1EE: fld st(0)
+0069B1F0: fmul st,st(1)
+0069B1F2: fld st(2)
+0069B1F4: fmul st,st(3)
+0069B1F6: faddp st(1),st
+0069B1F8: fld st(3)
+0069B1FA: fmul st,st(4)
+0069B1FC: faddp st(1),st
+0069B1FE: fsqrt
+0069B200: fstp st(3)
+0069B202: fstp st(0)
+0069B204: fstp st(0)
+0069B206: fst dword ptr [esp+8]
+0069B20A: fcomp st(1)
+0069B20C: fnstsw ax
+0069B20E: test ah,5
+0069B211: jp 0069B21B
+0069B213: fstp st(0)
+0069B215: mov edi,ecx
+0069B217: fld dword ptr [esp+8]
+0069B21B: inc ecx
+0069B21C: add edx,0Ch
+0069B21F: cmp ecx,esi
+0069B221: jl 0069B1D0
+0069B223: mov eax,dword ptr [esp+1Ch]
+0069B227: fadd dword ptr [eax]
+0069B229: fstp dword ptr [eax]
+0069B22B: mov eax,edi
+0069B22D: pop edi
+0069B22E: pop esi
+0069B22F: pop ecx
+0069B230: ret
+ 0069B240: 81
+
+00745510: mov eax,8D6228h
+00745515: ret
+ 00745520: B8

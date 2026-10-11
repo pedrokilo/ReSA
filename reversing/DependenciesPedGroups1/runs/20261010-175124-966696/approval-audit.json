@@ -1,0 +1,26 @@
+{
+  "bank": "DependenciesPedGroups1",
+  "run": "20261010-175124-966696",
+  "functions": 1,
+  "pairs": 1024,
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "8d025e85cee84b7234d91eaa31b42abd2b80e3643130518098b7dd23d537399d",
+  "tested_sources": {
+    "source/game_sa/PedGroups.cpp": "47a5dc2e3fe41b9dfa085601eb571296e7ded1fdf4ee2f0396c6ac3d0ab821ed",
+    "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
+    "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
+    "source/game_sa/PedGroupMembership.h": "15a1f964b9292f642bf760642393e7b422c93a59092e2f6e06099f3d4a0e045a"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "3cea9b35593f4429f6f331024c2788c03f17415c5c6c063245906ead9d03dad4",
+    "build_probe.py": "df4314037e75bc7bb56a4e5ec7811894ebf9db77fb9075a9806aaff64bab3b2c",
+    "run_local.py": "f8b4dc2137dc24a33b2556a9a9a71f3cad63538d0aea83aa5aa170d7918fc14b"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "137c7d081098be10b7cf033cbc7beeea0d725d1a065faaa225482c48ed8f1053"
+}

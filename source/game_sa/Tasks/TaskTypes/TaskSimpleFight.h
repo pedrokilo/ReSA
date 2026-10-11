@@ -70,6 +70,7 @@ public:
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;
 
+    CTaskSimpleFight* Constructor(CEntity* entity, int32 nCommand, uint32 nIdlePeriod);
     static void LoadMeleeData();
 
     void BeHitWhileBlocking(CPed* ped1, CPed* ped2, int8, int8);
@@ -104,7 +105,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CTaskSimpleFight* Constructor(CEntity* entity, int32 nCommand, uint32 nIdlePeriod);
+
     CTaskSimpleFight* Destructor();
 
 };

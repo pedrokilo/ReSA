@@ -181,6 +181,7 @@ public:
     void ApplyMoveForce(float x, float y, float z);
     void ApplyMoveForce(CVector force);
     void ApplyTurnForce(CVector force, CVector point);
+    void ApplyTurnForceComponents(float fx, float fy, float fz, float px, float py, float pz);
     void ApplyForce(CVector vecMoveSpeed, CVector point, bool bUpdateTurnSpeed);
 
     CVector GetSpeed( CVector point);

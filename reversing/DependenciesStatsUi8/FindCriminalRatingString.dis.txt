@@ -1,0 +1,383 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0055A210: E8 6B EE FF FF     call        00559080
+  0055A215: 85 C0              test        eax,eax
+  0055A217: 7D 67              jge         0055A280
+  0055A219: 3D 0C FE FF FF     cmp         eax,0FFFFFE0Ch
+  0055A21E: 7E 10              jle         0055A230
+  0055A220: 68 7C 41 86 00     push        86417Ch
+  0055A225: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A22A: E8 21 5E 14 00     call        006A0050
+  0055A22F: C3                 ret
+  0055A230: 3D 30 F8 FF FF     cmp         eax,0FFFFF830h
+  0055A235: 7E 10              jle         0055A247
+  0055A237: 68 74 41 86 00     push        864174h
+  0055A23C: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A241: E8 0A 5E 14 00     call        006A0050
+  0055A246: C3                 ret
+  0055A247: 3D 60 F0 FF FF     cmp         eax,0FFFFF060h
+  0055A24C: 7E 10              jle         0055A25E
+  0055A24E: 68 6C 41 86 00     push        86416Ch
+  0055A253: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A258: E8 F3 5D 14 00     call        006A0050
+  0055A25D: C3                 ret
+  0055A25E: 3D 90 E8 FF FF     cmp         eax,0FFFFE890h
+  0055A263: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A268: 7E 0B              jle         0055A275
+  0055A26A: 68 64 41 86 00     push        864164h
+  0055A26F: E8 DC 5D 14 00     call        006A0050
+  0055A274: C3                 ret
+  0055A275: 68 5C 41 86 00     push        86415Ch
+  0055A27A: E8 D1 5D 14 00     call        006A0050
+  0055A27F: C3                 ret
+  0055A280: 83 F8 14           cmp         eax,14h
+  0055A283: 7D 10              jge         0055A295
+  0055A285: 68 54 41 86 00     push        864154h
+  0055A28A: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A28F: E8 BC 5D 14 00     call        006A0050
+  0055A294: C3                 ret
+  0055A295: 83 F8 32           cmp         eax,32h
+  0055A298: 7D 10              jge         0055A2AA
+  0055A29A: 68 4C 41 86 00     push        86414Ch
+  0055A29F: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A2A4: E8 A7 5D 14 00     call        006A0050
+  0055A2A9: C3                 ret
+  0055A2AA: 83 F8 4B           cmp         eax,4Bh
+  0055A2AD: 7D 10              jge         0055A2BF
+  0055A2AF: 68 44 41 86 00     push        864144h
+  0055A2B4: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A2B9: E8 92 5D 14 00     call        006A0050
+  0055A2BE: C3                 ret
+  0055A2BF: 83 F8 64           cmp         eax,64h
+  0055A2C2: 7D 10              jge         0055A2D4
+  0055A2C4: 68 3C 41 86 00     push        86413Ch
+  0055A2C9: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A2CE: E8 7D 5D 14 00     call        006A0050
+  0055A2D3: C3                 ret
+  0055A2D4: 83 F8 78           cmp         eax,78h
+  0055A2D7: 7D 10              jge         0055A2E9
+  0055A2D9: 68 34 41 86 00     push        864134h
+  0055A2DE: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A2E3: E8 68 5D 14 00     call        006A0050
+  0055A2E8: C3                 ret
+  0055A2E9: 3D 96 00 00 00     cmp         eax,96h
+  0055A2EE: 7D 10              jge         0055A300
+  0055A2F0: 68 2C 41 86 00     push        86412Ch
+  0055A2F5: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A2FA: E8 51 5D 14 00     call        006A0050
+  0055A2FF: C3                 ret
+  0055A300: 3D C8 00 00 00     cmp         eax,0C8h
+  0055A305: 7D 10              jge         0055A317
+  0055A307: 68 24 41 86 00     push        864124h
+  0055A30C: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A311: E8 3A 5D 14 00     call        006A0050
+  0055A316: C3                 ret
+  0055A317: 3D F0 00 00 00     cmp         eax,0F0h
+  0055A31C: 7D 10              jge         0055A32E
+  0055A31E: 68 1C 41 86 00     push        86411Ch
+  0055A323: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A328: E8 23 5D 14 00     call        006A0050
+  0055A32D: C3                 ret
+  0055A32E: 3D 0E 01 00 00     cmp         eax,10Eh
+  0055A333: 7D 10              jge         0055A345
+  0055A335: 68 14 41 86 00     push        864114h
+  0055A33A: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A33F: E8 0C 5D 14 00     call        006A0050
+  0055A344: C3                 ret
+  0055A345: 3D 2C 01 00 00     cmp         eax,12Ch
+  0055A34A: 7D 10              jge         0055A35C
+  0055A34C: 68 0C 41 86 00     push        86410Ch
+  0055A351: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A356: E8 F5 5C 14 00     call        006A0050
+  0055A35B: C3                 ret
+  0055A35C: 3D 4F 01 00 00     cmp         eax,14Fh
+  0055A361: 7D 10              jge         0055A373
+  0055A363: 68 04 41 86 00     push        864104h
+  0055A368: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A36D: E8 DE 5C 14 00     call        006A0050
+  0055A372: C3                 ret
+  0055A373: 3D 72 01 00 00     cmp         eax,172h
+  0055A378: 7D 10              jge         0055A38A
+  0055A37A: 68 FC 40 86 00     push        8640FCh
+  0055A37F: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A384: E8 C7 5C 14 00     call        006A0050
+  0055A389: C3                 ret
+  0055A38A: 3D 90 01 00 00     cmp         eax,190h
+  0055A38F: 7D 10              jge         0055A3A1
+  0055A391: 68 F4 40 86 00     push        8640F4h
+  0055A396: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A39B: E8 B0 5C 14 00     call        006A0050
+  0055A3A0: C3                 ret
+  0055A3A1: 3D C2 01 00 00     cmp         eax,1C2h
+  0055A3A6: 7D 10              jge         0055A3B8
+  0055A3A8: 68 EC 40 86 00     push        8640ECh
+  0055A3AD: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A3B2: E8 99 5C 14 00     call        006A0050
+  0055A3B7: C3                 ret
+  0055A3B8: 3D F4 01 00 00     cmp         eax,1F4h
+  0055A3BD: 7D 10              jge         0055A3CF
+  0055A3BF: 68 E4 40 86 00     push        8640E4h
+  0055A3C4: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A3C9: E8 82 5C 14 00     call        006A0050
+  0055A3CE: C3                 ret
+  0055A3CF: 3D 26 02 00 00     cmp         eax,226h
+  0055A3D4: 7D 10              jge         0055A3E6
+  0055A3D6: 68 DC 40 86 00     push        8640DCh
+  0055A3DB: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A3E0: E8 6B 5C 14 00     call        006A0050
+  0055A3E5: C3                 ret
+  0055A3E6: 3D 58 02 00 00     cmp         eax,258h
+  0055A3EB: 7D 10              jge         0055A3FD
+  0055A3ED: 68 D4 40 86 00     push        8640D4h
+  0055A3F2: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A3F7: E8 54 5C 14 00     call        006A0050
+  0055A3FC: C3                 ret
+  0055A3FD: 3D 62 02 00 00     cmp         eax,262h
+  0055A402: 7D 10              jge         0055A414
+  0055A404: 68 CC 40 86 00     push        8640CCh
+  0055A409: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A40E: E8 3D 5C 14 00     call        006A0050
+  0055A413: C3                 ret
+  0055A414: 3D 8A 02 00 00     cmp         eax,28Ah
+  0055A419: 7D 10              jge         0055A42B
+  0055A41B: 68 C4 40 86 00     push        8640C4h
+  0055A420: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A425: E8 26 5C 14 00     call        006A0050
+  0055A42A: C3                 ret
+  0055A42B: 3D BC 02 00 00     cmp         eax,2BCh
+  0055A430: 7D 10              jge         0055A442
+  0055A432: 68 BC 40 86 00     push        8640BCh
+  0055A437: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A43C: E8 0F 5C 14 00     call        006A0050
+  0055A441: C3                 ret
+  0055A442: 3D 52 03 00 00     cmp         eax,352h
+  0055A447: 7D 10              jge         0055A459
+  0055A449: 68 B4 40 86 00     push        8640B4h
+  0055A44E: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A453: E8 F8 5B 14 00     call        006A0050
+  0055A458: C3                 ret
+  0055A459: 3D E8 03 00 00     cmp         eax,3E8h
+  0055A45E: 7D 10              jge         0055A470
+  0055A460: 68 AC 40 86 00     push        8640ACh
+  0055A465: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A46A: E8 E1 5B 14 00     call        006A0050
+  0055A46F: C3                 ret
+  0055A470: 3D ED 03 00 00     cmp         eax,3EDh
+  0055A475: 7D 10              jge         0055A487
+  0055A477: 68 A4 40 86 00     push        8640A4h
+  0055A47C: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A481: E8 CA 5B 14 00     call        006A0050
+  0055A486: C3                 ret
+  0055A487: 3D 7E 04 00 00     cmp         eax,47Eh
+  0055A48C: 7D 10              jge         0055A49E
+  0055A48E: 68 9C 40 86 00     push        86409Ch
+  0055A493: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A498: E8 B3 5B 14 00     call        006A0050
+  0055A49D: C3                 ret
+  0055A49E: 3D 14 05 00 00     cmp         eax,514h
+  0055A4A3: 7D 2E              jge         0055A4D3
+  0055A4A5: DB 05 34 90 B7 00  fild        dword ptr ds:[00B79034h]
+  0055A4AB: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A4B0: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  0055A4B6: DF E0              fnstsw      ax
+  0055A4B8: F6 C4 41           test        ah,41h
+  0055A4BB: 75 0B              jne         0055A4C8
+  0055A4BD: 68 94 40 86 00     push        864094h
+  0055A4C2: E8 89 5B 14 00     call        006A0050
+  0055A4C7: C3                 ret
+  0055A4C8: 68 9C 40 86 00     push        86409Ch
+  0055A4CD: E8 7E 5B 14 00     call        006A0050
+  0055A4D2: C3                 ret
+  0055A4D3: 3D DC 05 00 00     cmp         eax,5DCh
+  0055A4D8: 7D 10              jge         0055A4EA
+  0055A4DA: 68 8C 40 86 00     push        86408Ch
+  0055A4DF: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A4E4: E8 67 5B 14 00     call        006A0050
+  0055A4E9: C3                 ret
+  0055A4EA: 3D A4 06 00 00     cmp         eax,6A4h
+  0055A4EF: 7D 10              jge         0055A501
+  0055A4F1: 68 84 40 86 00     push        864084h
+  0055A4F6: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A4FB: E8 50 5B 14 00     call        006A0050
+  0055A500: C3                 ret
+  0055A501: 3D D0 07 00 00     cmp         eax,7D0h
+  0055A506: 7D 10              jge         0055A518
+  0055A508: 68 7C 40 86 00     push        86407Ch
+  0055A50D: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A512: E8 39 5B 14 00     call        006A0050
+  0055A517: C3                 ret
+  0055A518: 3D 34 08 00 00     cmp         eax,834h
+  0055A51D: 7D 10              jge         0055A52F
+  0055A51F: 68 74 40 86 00     push        864074h
+  0055A524: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A529: E8 22 5B 14 00     call        006A0050
+  0055A52E: C3                 ret
+  0055A52F: 3D FC 08 00 00     cmp         eax,8FCh
+  0055A534: 7D 10              jge         0055A546
+  0055A536: 68 6C 40 86 00     push        86406Ch
+  0055A53B: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A540: E8 0B 5B 14 00     call        006A0050
+  0055A545: C3                 ret
+  0055A546: 3D C4 09 00 00     cmp         eax,9C4h
+  0055A54B: 7D 10              jge         0055A55D
+  0055A54D: 68 64 40 86 00     push        864064h
+  0055A552: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A557: E8 F4 5A 14 00     call        006A0050
+  0055A55C: C3                 ret
+  0055A55D: 3D BE 0A 00 00     cmp         eax,0ABEh
+  0055A562: 7D 10              jge         0055A574
+  0055A564: 68 5C 40 86 00     push        86405Ch
+  0055A569: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A56E: E8 DD 5A 14 00     call        006A0050
+  0055A573: C3                 ret
+  0055A574: 3D B8 0B 00 00     cmp         eax,0BB8h
+  0055A579: 7D 10              jge         0055A58B
+  0055A57B: 68 54 40 86 00     push        864054h
+  0055A580: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A585: E8 C6 5A 14 00     call        006A0050
+  0055A58A: C3                 ret
+  0055A58B: 3D AC 0D 00 00     cmp         eax,0DACh
+  0055A590: 7D 10              jge         0055A5A2
+  0055A592: 68 4C 40 86 00     push        86404Ch
+  0055A597: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A59C: E8 AF 5A 14 00     call        006A0050
+  0055A5A1: C3                 ret
+  0055A5A2: 3D A0 0F 00 00     cmp         eax,0FA0h
+  0055A5A7: 7D 10              jge         0055A5B9
+  0055A5A9: 68 44 40 86 00     push        864044h
+  0055A5AE: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A5B3: E8 98 5A 14 00     call        006A0050
+  0055A5B8: C3                 ret
+  0055A5B9: 3D 88 13 00 00     cmp         eax,1388h
+  0055A5BE: 7D 10              jge         0055A5D0
+  0055A5C0: 68 3C 40 86 00     push        86403Ch
+  0055A5C5: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A5CA: E8 81 5A 14 00     call        006A0050
+  0055A5CF: C3                 ret
+  0055A5D0: 3D 4C 1D 00 00     cmp         eax,1D4Ch
+  0055A5D5: 7D 10              jge         0055A5E7
+  0055A5D7: 68 34 40 86 00     push        864034h
+  0055A5DC: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A5E1: E8 6A 5A 14 00     call        006A0050
+  0055A5E6: C3                 ret
+  0055A5E7: 3D 10 27 00 00     cmp         eax,2710h
+  0055A5EC: 7D 10              jge         0055A5FE
+  0055A5EE: 68 2C 40 86 00     push        86402Ch
+  0055A5F3: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A5F8: E8 53 5A 14 00     call        006A0050
+  0055A5FD: C3                 ret
+  0055A5FE: 3D 20 4E 00 00     cmp         eax,4E20h
+  0055A603: 7D 10              jge         0055A615
+  0055A605: 68 24 40 86 00     push        864024h
+  0055A60A: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A60F: E8 3C 5A 14 00     call        006A0050
+  0055A614: C3                 ret
+  0055A615: 3D 30 75 00 00     cmp         eax,7530h
+  0055A61A: 7D 10              jge         0055A62C
+  0055A61C: 68 1C 40 86 00     push        86401Ch
+  0055A621: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A626: E8 25 5A 14 00     call        006A0050
+  0055A62B: C3                 ret
+  0055A62C: 3D 40 9C 00 00     cmp         eax,9C40h
+  0055A631: 7D 10              jge         0055A643
+  0055A633: 68 14 40 86 00     push        864014h
+  0055A638: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A63D: E8 0E 5A 14 00     call        006A0050
+  0055A642: C3                 ret
+  0055A643: 3D 50 C3 00 00     cmp         eax,0C350h
+  0055A648: 7D 10              jge         0055A65A
+  0055A64A: 68 0C 40 86 00     push        86400Ch
+  0055A64F: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A654: E8 F7 59 14 00     call        006A0050
+  0055A659: C3                 ret
+  0055A65A: 3D E8 FD 00 00     cmp         eax,0FDE8h
+  0055A65F: 7D 10              jge         0055A671
+  0055A661: 68 04 40 86 00     push        864004h
+  0055A666: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A66B: E8 E0 59 14 00     call        006A0050
+  0055A670: C3                 ret
+  0055A671: 3D 80 38 01 00     cmp         eax,13880h
+  0055A676: 7D 10              jge         0055A688
+  0055A678: 68 FC 3F 86 00     push        863FFCh
+  0055A67D: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A682: E8 C9 59 14 00     call        006A0050
+  0055A687: C3                 ret
+  0055A688: 3D A0 86 01 00     cmp         eax,186A0h
+  0055A68D: 7D 10              jge         0055A69F
+  0055A68F: 68 F4 3F 86 00     push        863FF4h
+  0055A694: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A699: E8 B2 59 14 00     call        006A0050
+  0055A69E: C3                 ret
+  0055A69F: 3D F0 49 02 00     cmp         eax,249F0h
+  0055A6A4: 7D 10              jge         0055A6B6
+  0055A6A6: 68 EC 3F 86 00     push        863FECh
+  0055A6AB: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A6B0: E8 9B 59 14 00     call        006A0050
+  0055A6B5: C3                 ret
+  0055A6B6: 3D 40 0D 03 00     cmp         eax,30D40h
+  0055A6BB: 7D 10              jge         0055A6CD
+  0055A6BD: 68 E4 3F 86 00     push        863FE4h
+  0055A6C2: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A6C7: E8 84 59 14 00     call        006A0050
+  0055A6CC: C3                 ret
+  0055A6CD: 3D E0 93 04 00     cmp         eax,493E0h
+  0055A6D2: 7D 10              jge         0055A6E4
+  0055A6D4: 68 DC 3F 86 00     push        863FDCh
+  0055A6D9: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A6DE: E8 6D 59 14 00     call        006A0050
+  0055A6E3: C3                 ret
+  0055A6E4: 3D D8 B8 05 00     cmp         eax,5B8D8h
+  0055A6E9: 7D 10              jge         0055A6FB
+  0055A6EB: 68 D4 3F 86 00     push        863FD4h
+  0055A6F0: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A6F5: E8 56 59 14 00     call        006A0050
+  0055A6FA: C3                 ret
+  0055A6FB: 3D 20 A1 07 00     cmp         eax,7A120h
+  0055A700: 7D 37              jge         0055A739
+  0055A702: DB 05 C4 90 B7 00  fild        dword ptr ds:[00B790C4h]
+  0055A708: D8 0D D0 3F 86 00  fmul        dword ptr ds:[00863FD0h]
+  0055A70E: D8 0D 44 90 85 00  fmul        dword ptr ds:[00859044h]
+  0055A714: E8 27 74 2C 00     call        00821B40
+  0055A719: 83 F8 0A           cmp         eax,0Ah
+  0055A71C: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A721: 7E 0B              jle         0055A72E
+  0055A723: 68 C8 3F 86 00     push        863FC8h
+  0055A728: E8 23 59 14 00     call        006A0050
+  0055A72D: C3                 ret
+  0055A72E: 68 D4 3F 86 00     push        863FD4h
+  0055A733: E8 18 59 14 00     call        006A0050
+  0055A738: C3                 ret
+  0055A739: 3D 40 42 0F 00     cmp         eax,0F4240h
+  0055A73E: 7C 29              jl          0055A769
+  0055A740: 0F B6 05 74 CD B7  movzx       eax,byte ptr ds:[00B7CD74h]
+            00
+  0055A747: 69 C0 90 01 00 00  imul        eax,eax,190h
+  0055A74D: 81 B8 54 CE B7 00  cmp         dword ptr [eax+00B7CE54h],989680h
+            80 96 98 00
+  0055A757: 7E 10              jle         0055A769
+  0055A759: 68 C0 3F 86 00     push        863FC0h
+  0055A75E: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A763: E8 E8 58 14 00     call        006A0050
+  0055A768: C3                 ret
+  0055A769: 68 B8 3F 86 00     push        863FB8h
+  0055A76E: B9 40 B3 C1 00     mov         ecx,0C1B340h
+  0055A773: E8 D8 58 14 00     call        006A0050
+  0055A778: C3                 ret
+  0055A779: 90                 nop
+  0055A77A: 90                 nop
+  0055A77B: 90                 nop
+  0055A77C: 90                 nop
+  0055A77D: 90                 nop
+  0055A77E: 90                 nop
+  0055A77F: 90                 nop
+  0055A780: 0F
+
+  Summary
+
+      456000 .text

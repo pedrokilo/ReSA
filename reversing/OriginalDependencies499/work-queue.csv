@@ -1,0 +1,134 @@
+address,identity,status,bank,pairs_expected,source_snapshot
+0x0042F5A0,CCarCtrl::JoinCarWithRoadSystem,pending,,,source/game_sa/CarCtrl.cpp:583
+0x0042F870,CCarCtrl::JoinCarWithRoadSystemGotoCoors,pending,,,source/game_sa/CarCtrl.cpp:588
+0x005A1D70,"CObject::CObject(int32,bool)",pending,,,source/game_sa/Population.cpp:1979
+0x0044F460,CPathFind::FindNodeClosestToCoors,pending,,,source/game_sa/PathFind.cpp:843
+0x0060A9C0,CPlayerPed::SetRealMoveAnim,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:781
+0x00456F20,CPickups::GenerateNewOne,pending,,,source/game_sa/Pickups.cpp:507
+0x00514030,CCamera unnamed geometry helper,pending,,,source/game_sa/Cam.cpp:959
+0x0041B980,CAutoPilot::ModifySpeed,pending,,,source/game_sa/AutoPilot.cpp:47
+0x0049EB00,Fx_c::AddBlood,pending,,,source/game_sa/Fx/Fx.cpp:273
+0x0049F3D0,Fx_c::AddBulletImpact,pending,,,source/game_sa/Fx/Fx.cpp:293
+0x004A0D70,Fx_c::TriggerWaterHydrant,pending,,,source/game_sa/Fx/Fx.cpp:343
+0x0060A610,CPlayerPed::ControlButtonSprint,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:717
+0x0060E530,CPlayerPed::FindNextWeaponLockOnTarget,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:1119
+0x006D7C90,CVehicle::InflictDamage,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:3738
+0x006D85F0,CVehicle::FlyingControl,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:3821
+0x0072CAE0,CWorldScan::ScanWorld,pending,,,source/game_sa/Renderer.cpp:112
+0x00741FD0,CVehicle::DoDriveByShootings,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:5223
+0x0042B7D0,CCarCtrl::GenerateOneEmergencyServicesCar,pending,,,source/game_sa/CarCtrl.cpp:383
+0x00437C20,CCarCtrl::SteerAICarWithPhysics,pending,,,source/game_sa/CarCtrl.cpp:937
+0x0049F040,Fx_c::AddSparks,pending,,,source/game_sa/Fx/Fx.cpp:283
+0x0049F970,Fx_c::AddGlass,pending,,,source/game_sa/Fx/Fx.cpp:308
+0x00515D80,CCam unnamed arrest cop-source helper,pending,,,source/game_sa/Cam.cpp:961
+0x0055A780,CStats::ConstructStatLine,pending,,,source/game_sa/Stats.cpp:857
+0x006AA290,CAutomobile::UpdateWheelMatrix,pending,,,source/game_sa/Entity/Vehicle/Automobile.cpp:6272
+0x00728200,CSprite2d::AddToBuffer,pending,,,source/game_sa/Sprite2d.cpp:468
+0x0042CE40,CCarCtrl::ScanForPedDanger,pending,,,source/game_sa/CarCtrl.cpp:791
+0x00430050,CCarCtrl::GenerateOneRandomCar,pending,,,source/game_sa/CarCtrl.cpp:388
+0x00436540,CCarCtrl::UpdateCarOnRails,pending,,,source/game_sa/CarCtrl.cpp:1072
+0x00449FF0,CGarage unnamed camera door helper,pending,,,source/game_sa/Camera.cpp:3803
+0x0044F8C0,CPathFind::FindNthNodeClosestToCoors,pending,,,source/game_sa/PathFind.cpp:350
+0x0045AE80,CRemote::TakeRemoteControlledCarFromPlayer,pending,,,source/game_sa/Remote.cpp:7
+0x0046B270,CScriptsForBrains::StartNewStreamedScriptBrain,pending,,,source/game_sa/ScriptsForBrains.cpp:70
+0x0046FF20,CScriptsForBrains::CheckIfNewEntityNeedsScript,pending,,,source/game_sa/ScriptsForBrains.cpp:58
+0x005E8CD0,CPed::ProcessControl,pending,,,source/game_sa/Entity/Ped/Ped.cpp:4441
+0x0060C1E0,CPlayerPed::KeepAreaAroundPlayerClear,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:883
+0x0062B490,CTaskComplexKillPedOnFoot::CreateFirstSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:70
+0x006AAB50,CAutomobile::PreRender,pending,,,source/game_sa/Entity/Vehicle/Automobile.cpp:7260
+0x006D73B0,CVehicle::ProcessBikeWheel,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:3711
+0x006DFC50,CVehicle::UpdateTrailerLink,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:4832
+0x006E0050,CVehicle::UpdateTractorLink,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:4837
+0x006E0950,CVehicle::ProcessSirenAndHorn,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:4857
+0x00746F70,DIReleaseMouse,pending,,,source/game_sa/Pad.cpp:1548
+0x004217C0,CCarCtrl::SetUpDriverAndPassengersForVehicle,pending,,,source/game_sa/CarCtrl.cpp:813
+0x0044A3C0,CGarages::StoreCarInNearestImpoundingGarage,pending,,,source/game_sa/Garages.cpp:543
+0x0049F300,Fx_c::AddTyreBurst,pending,,,source/game_sa/Fx/Fx.cpp:288
+0x0049FB30,Fx_c::AddWheelSpray,pending,,,source/game_sa/Fx/Fx.cpp:313
+0x00512EF0,CCam helper arrest camera de from/initialise sin símbolo confirmado,pending,,,source/game_sa/Cam.cpp:962
+0x0055BC50,CStats::UpdateRespectStat,pending,,,source/game_sa/Stats.cpp:628
+0x00625E70,CTaskComplexKillPedOnFoot::CreateSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:78
+0x00627B20,CTaskSimpleGangDriveBy helper de animación sin símbolo confirmado,pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:92; source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:182
+0x00627CC0,CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado,pending,,,source/game_sa/Cam.cpp:2398; source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:185
+0x006C58E0,CHeli::SearchLightCone,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:218
+0x006DE880,CVehicle::AddSingleWheelParticles,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787
+0x006E3290,CVehicle::AddVehicleUpgrade,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:5160
+0x006E61B0,CWaterLevel::TestLineAgainstWater,pending,,,source/game_sa/WaterLevel.cpp:1769
+0x006E6870,CWaterLevel helper de agua distante,pending,,,source/game_sa/WaterLevel.cpp:1556
+0x006E6A10,CWaterLevel helper de agua cercana,pending,,,source/game_sa/WaterLevel.cpp:1557
+0x006E7680,CWaterLevel helper de envío de agua acumulada sin símbolo confirmado,pending,,,source/game_sa/WaterLevel.cpp:351; source/game_sa/WaterLevel.cpp:397; source/game_sa/WaterLevel.cpp:748
+0x006EABA0,Creación de objeto toalla para sunbathe sin símbolo confirmado,pending,,,source/game_sa/Population.cpp:2012; source/game_sa/Population.cpp:2026
+0x006FFBB0,CPointLights::GenerateLightsAffectingObject,pending,,,source/game_sa/PointLights.cpp:18
+0x00719B40,CFont helper de impresión de segmento sin símbolo confirmado,pending,,,source/game_sa/Font.cpp:704
+0x00730FC0,RwTexDictionaryGtaStreamRead,pending,,,source/game_sa/RenderWare/rw/rwtexdict.cpp:18
+0x00406E80,"Selector de modelo de ped para ataque de bandas, sin símbolo confirmado",pending,,,source/game_sa/GangWars.cpp:319
+0x00424210,CCarCtrl::GenerateCarCreationCoors2,pending,,,source/game_sa/CarCtrl.cpp:373
+0x00424F80,CCarCtrl::PossiblyRemoveVehicle,pending,,,source/game_sa/CarCtrl.cpp:653
+0x0042FC40,CCarCtrl::ReconsiderRoute,pending,,,source/game_sa/CarCtrl.cpp:673
+0x004342A0,CCarCtrl::SetCoordsOfScriptCar,pending,,,source/game_sa/CarCtrl.cpp:808
+0x00434400,CCarCtrl::FindMaximumSpeedForThisCarInTraffic,pending,,,source/game_sa/CarCtrl.cpp:314
+0x004471E0,CGarages::AddOne,pending,,,source/game_sa/Garages.cpp:170
+0x00447600,CGarage::InitDoorsAtStart,pending,,,source/game_sa/Garage.cpp:165
+0x004486C0,CGarage::PlayerArrestedOrDied,pending,,,source/game_sa/Garage.cpp:144
+0x00448EE0,CGarage::IsEntityTouching3D,prepared_not_validated,DependenciesWorld15,2048,source/game_sa/Garage.cpp:119
+0x00449050,CGarage::EntityHasASphereWayOutsideGarage,prepared_not_validated,DependenciesGarageSphere15,2048,source/game_sa/Garage.cpp:109
+0x00449690,CGarage::RemoveCarsBlockingDoorNotInside,pending,,,source/game_sa/Garage.cpp:114
+0x00449760,CStoredCar::StoreCar,pending,,,source/game_sa/Garage.cpp:305
+0x0044AA50,CGarage::Update,pending,,,source/game_sa/Garage.cpp:175
+0x0044D520,CAutomobile::HasCarStoppedBecauseOfLight,pending,,,source/game_sa/Entity/Vehicle/Automobile.cpp:7233
+0x0044E790,CPathFind generador de coordenadas de ped sin símbolo confirmado,pending,,,source/game_sa/Population.cpp:2090
+0x0044ECA0,CPathFind::GeneratePedCreationCoors_Interior,pending,,,source/game_sa/PathFind.cpp:322
+0x00451B70,CPathFind::FindNextNodeWandering,pending,,,source/game_sa/PathFind.cpp:360
+0x00452270,CPathFind::CompleteNewInterior,pending,,,source/game_sa/Interior/InteriorGroup_c.cpp:237
+0x004652D0,CMissionCleanup::CheckIfCollisionHasLoadedForMissionObjects,pending,,,source/game_sa/MissionCleanup.cpp:113
+0x0046AA80,CScriptsForBrains::RequestAttractorScriptBrainWithThisName,pending,,,source/game_sa/ScriptsForBrains.cpp:66
+0x0046CED0,InteriorGroup_c::SetupHousePeds,pending,,,source/game_sa/Interior/InteriorGroup_c.cpp:144
+0x0049F750,Fx_c::AddDebris,pending,,,source/game_sa/Fx/Fx.cpp:303
+0x0049FF20,Fx_c::AddWheelGrass,pending,,,source/game_sa/Fx/Fx.cpp:318
+0x004A0170,Fx_c::AddWheelGravel,pending,,,source/game_sa/Fx/Fx.cpp:323
+0x004A03C0,Fx_c::AddWheelMud,pending,,,source/game_sa/Fx/Fx.cpp:328
+0x004A0610,Fx_c::AddWheelSand,pending,,,source/game_sa/Fx/Fx.cpp:333
+0x004A09C0,Fx_c::AddWheelDust,pending,,,source/game_sa/Fx/Fx.cpp:338
+0x004A0DE0,Fx_c::TriggerGunshot,pending,,,source/game_sa/Fx/Fx.cpp:348
+0x004A0FA0,Fx_c::TriggerTankFire,pending,,,source/game_sa/Fx/Fx.cpp:353
+0x004D86B0,CAEAudioHardware::PlaySound,pending,,,source/game_sa/Audio/Hardware/AEAudioHardware.cpp:290
+0x004E7990,CAEMFDecoder helper abrir movie/media sonido,pending,,,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:58
+0x004E7A80,CAEMFDecoder helper obtener formato media,pending,,,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:61
+0x00515BD0,CCamera::UpdateSoundDistances,pending,,,source/game_sa/Camera.cpp:1497
+0x00516010,CCam helper copSource alternativo=true sin símbolo confirmado,pending,,,source/game_sa/Cam.cpp:961
+0x00516560,CCamera::ProcessShake,pending,,,source/game_sa/Camera.cpp:1999
+0x00559860,CStats::LoadStatUpdateConditions,prepared_not_validated,DependenciesStatsFile15,2048,source/game_sa/Stats.cpp:398
+0x0055BF20,CStats::UpdateSexAppealStat,pending,,,source/game_sa/Stats.cpp:980
+0x005617C0,GetMillisecondTime,pending,,,source/game_sa/Timer.cpp:53
+0x00587000,CRadar::DrawEntityBlip,pending,,,source/game_sa/Radar.cpp:2074
+0x005B7670,CFileLoader::Load2dEffect,pending,,,source/game_sa/FileLoader.cpp:1023
+0x005BEDC0,CTaskSimpleFight::LoadMeleeData,pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:39
+0x005C0B70,FxInfoManager_c::Load,pending,,,source/game_sa/Fx/FxInfoManager.cpp:181
+0x005D44B0,CPedSaveStructure::Extract,pending,,,source/game_sa/Entity/Ped/PedSaveStructure.cpp:5
+0x00602C00,CPedStuckChecker::TestPedStuck,pending,,,source/game_sa/PedStuckChecker.cpp:7
+0x00604500,CCollisionEventScanner::ScanForCollisionEvents,pending,,,source/game_sa/Collision/CollisionEventScanner.cpp:7
+0x00607E30,CEventScanner::ScanForEvents,pending,,,source/game_sa/Events/EventScanner.cpp:27
+0x006098F0,CPlayerPed::ProcessAnimGroups,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:377
+0x0060B650,CPlayerPed::Compute3rdPersonMouseTarget,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:845
+0x0060BA80,CPlayerPed::DrawTriangleForMouseRecruitPed,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:850
+0x0060CD20,CPlayerPed::SetInitialState,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:1005
+0x0060D350,CPlayerPed::ProcessGroupBehaviour,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:1082
+0x0060D850,CPlayerPed::ProcessWeaponSwitch,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:1109
+0x0060DC50,CPlayerPed::FindWeaponLockOnTarget,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:1114
+0x00626260,CTaskComplexKillPedOnFoot::ControlSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:74
+0x00641FC0,CTaskComplexLeaveCar::CreateFirstSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:65
+0x006C79A0,CHeli::UpdateHelis,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:267
+0x006DF930,CVehicle::RemoveVehicleUpgrade,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:4822
+0x006E1A60,CVehicle::DoVehicleLights,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:5031
+0x006E3950,CVehicle::ProcessWeapons,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:5196
+0x006E7B30,CWaterLevel::FillQuadsAndTrianglesList,pending,,,source/game_sa/WaterLevel.cpp:1736
+0x006EA960,CWaterLevel::GetWaterDepth,pending,,,source/game_sa/WaterLevel.cpp:1005
+0x006EB810,CWaterLevel::RenderHighDetailWaterRectangle,pending,,,source/game_sa/WaterLevel.cpp:770
+0x006EDDC0,CWaterLevel::RenderHighDetailWaterTriangle,pending,,,source/game_sa/WaterLevel.cpp:1404
+0x007002D0,CPointLights::RenderFogEffect,pending,,,source/game_sa/PointLights.cpp:148
+0x00706520,CRealTimeShadow::SetupForThisEntity,pending,,,source/game_sa/RealTimeShadow.cpp:93
+0x00730830,D3DResourceSystem::Init,pending,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:27
+0x00730900,D3DResourceSystem::CancelBuffering,pending,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:12
+0x00730A00,D3DResourceSystem::Shutdown,pending,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:39
+0x0073DF00,CVehicle::FireFixedMachineGuns,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:5218
+0x00745650,GetDXVersion,pending,,,source/app/platform/win/WinPs.cpp:180

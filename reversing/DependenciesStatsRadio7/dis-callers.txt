@@ -1,0 +1,90 @@
+0055B344: call 00558EC0
+0055B349: test al,al
+0055B34B: jne 0055B5A6
+0055B351: cmp esi,ebp
+0055B353: je 0055B60D
+ 0055B359: 8D
+
+0055B388: call 00558EC0
+0055B38D: test al,al
+0055B38F: jne 0055B5A6
+0055B395: cmp esi,ebp
+0055B397: je 0055B60D
+ 0055B39D: 8D
+
+0055C12C: call 00558EC0
+0055C131: call 005599B0
+0055C136: call 00559860
+0055C13B: pop edi
+
+005D3B9E: call 00558EC0
+005D3BA3: push 38h
+005D3BA5: push 0B78E58h
+ 005D3BAA: E8
+
+0047BED3: call 00558FA0
+0047BED8: push eax
+0047BED9: mov ecx,0B6BC90h
+0047BEDE: call 00507E10
+0047BEE3: xor al,al
+0047BEE5: jmp 0047BF31
+ 0047BEE7: 6A
+
+004D7184: call 00558FA0
+004D7189: mov byte ptr [esi+3],al
+004D718C: mov al,byte ptr [esi+3]
+004D718F: test al,al
+004D7191: mov ecx,0B6BC90h
+004D7196: jl 004D71DF
+ 004D7198: E8
+
+0055B35F: call 00558FA0
+0055B364: push eax
+0055B365: mov ecx,0B6BC90h
+0055B36A: call 00507010
+0055B36F: cmp esi,ebp
+0055B371: jne 0055B5A5
+ 0055B377: 8D
+
+004E8380: mov al,byte ptr [esp+4]
+004E8384: cmp al,0Dh
+004E8386: jne 004E83A0
+004E8388: mov ecx,dword ptr ds:[0085F3B0h]
+004E838E: mov eax,dword ptr [esp+8]
+004E8392: mov dword ptr [eax],ecx
+004E8394: mov edx,dword ptr ds:[0085F3B4h]
+004E839A: mov dword ptr [eax+4],edx
+004E839D: ret 8
+004E83A0: cmp al,0Ch
+004E83A2: jne 004E83BC
+004E83A4: mov ecx,dword ptr ds:[0085F3A8h]
+004E83AA: mov eax,dword ptr [esp+8]
+004E83AE: mov dword ptr [eax],ecx
+004E83B0: mov edx,dword ptr ds:[0085F3ACh]
+004E83B6: mov dword ptr [eax+4],edx
+004E83B9: ret 8
+004E83BC: mov ecx,dword ptr [esp+8]
+004E83C0: movsx eax,al
+004E83C3: dec eax
+004E83C4: push eax
+004E83C5: push 85F3A0h
+004E83CA: push ecx
+004E83CB: call 00821BB5
+004E83D0: add esp,0Ch
+ 004E83D3: C2
+ 004E83D4: 08
+
+004E8290: mov al,byte ptr [esp+4]
+004E8294: cmp al,0Ch
+004E8296: jne 004E82A4
+004E8298: cmp word ptr ds:[00B6B976h],0
+004E82A0: ja 004E82A4
+004E82A2: mov al,0Dh
+004E82A4: mov dl,byte ptr ds:[00B7CB49h]
+004E82AA: test dl,dl
+004E82AC: jne 004E82C1
+004E82AE: mov dl,byte ptr ds:[00B7CB48h]
+004E82B4: test dl,dl
+004E82B6: jne 004E82C1
+004E82B8: movsx eax,al
+ 004E82BB: 89

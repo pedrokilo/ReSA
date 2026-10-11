@@ -1,6 +1,6 @@
 owner,name,va,macro,file,line,status
-Rs,rsCommandLine_Eax,0x00619510,RH_ScopedNamedGlobalInstall,source/app/platform/platform.cpp,63,source_hook_reference
-Rs,rsPreInitCommandLine_Eax,0x00619530,RH_ScopedNamedGlobalInstall,source/app/platform/platform.cpp,64,source_hook_reference
+Rs,rsCommandLine_Eax,0x00619510,RH_ScopedNamedGlobalInstall,source/app/platform/platform.cpp,64,source_hook_reference
+Rs,rsPreInitCommandLine_Eax,0x00619530,RH_ScopedNamedGlobalInstall,source/app/platform/platform.cpp,65,source_hook_reference
 Input,Initialise,0x007487CF,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,437,source_hook_reference
 Input,diMouseInit,0x007469A0,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,438,source_hook_reference
 Input,EnumDevicesCallback,0x00747020,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,439,source_hook_reference
@@ -59,7 +59,6 @@ CMatrix,operator*-Mat,0x0059BE30,RH_ScopedGlobalOverloadedInstall,source/game_sa
 CMatrix,operator+-,0x0059BFA0,RH_ScopedGlobalOverloadedInstall,source/game_sa/Core/Matrix.cpp,59,source_hook_reference
 CMatrix,Invert-1,0x0059B920,RH_ScopedGlobalOverloadedInstall,source/game_sa/Core/Matrix.cpp,60,source_hook_reference
 CMatrix,Invert-2,0x0059BDD0,RH_ScopedGlobalOverloadedInstall,source/game_sa/Core/Matrix.cpp,61,source_hook_reference
-CQuaternion,Get-,0x0059C080,RH_ScopedOverloadedInstall,source/game_sa/Core/Quaternion.cpp,16,source_hook_reference
 CVector,Magnitude,0x004082C0,RH_ScopedInstall,source/game_sa/Core/Vector.cpp,18,source_hook_reference
 CVector,Magnitude2D,0x00406D50,RH_ScopedInstall,source/game_sa/Core/Vector.cpp,19,source_hook_reference
 CVector,Normalise,0x0059C910,RH_ScopedInstall,source/game_sa/Core/Vector.cpp,20,source_hook_reference
@@ -90,7 +89,7 @@ CDamageManager,SetLightStatus_Hook,0x006C2100,RH_ScopedNamedGlobalInstall,source
 CDamageManager,GetComponentGroup_Hook,0x006C2040,RH_ScopedNamedGlobalInstall,source/game_sa/DamageManager.cpp,222,source_hook_reference
 CDamageManager,GetCarNodeIndexFromDoor_Hook,0x006C26F0,RH_ScopedNamedGlobalInstall,source/game_sa/DamageManager.cpp,223,source_hook_reference
 CDamageManager,GetWheelStatus_Hooked,0x006C21B0,RH_ScopedNamedInstall,source/game_sa/DamageManager.cpp,224,source_hook_reference
-CVehicle,GetVehicleAppearance_Reversed,0x006D1080,RH_ScopedNamedInstall,source/game_sa/Entity/Vehicle/Vehicle.cpp,231,source_hook_reference
+CVehicle,GetVehicleAppearance_Reversed,0x006D1080,RH_ScopedNamedInstall,source/game_sa/Entity/Vehicle/Vehicle.cpp,232,source_hook_reference
 CEntryExit,EntryExitGetPositionRelativeToOutsideWorldKeepEdx,0x0043EA00,RH_ScopedNamedGlobalInstall,source/game_sa/EntryExit.cpp,60,source_hook_reference
 FxPrimBP_c,Load_Reversed,0x005C2010,RH_ScopedNamedInstall,source/game_sa/Fx/FxPrimBP.cpp,32,source_hook_reference
 CBaseModelInfo,SetBaseModelInfoFlags_KeepEdx,0x005B3AD0,RH_ScopedNamedGlobalInstall,source/game_sa/Models/BaseModelInfo.cpp,86,source_hook_reference
@@ -170,7 +169,7 @@ CLinkedUpgradeList,CountCompsInRule,0x004C7F80,RH_ScopedGlobalInstall,source/gam
 CLinkedUpgradeList,GetListOfComponentsNotUsedByRules,0x004C7E50,RH_ScopedGlobalInstall,source/game_sa/Models/VehicleModelInfo.cpp,140,source_hook_reference
 CLinkedUpgradeList,RemoveWindowAlphaCB,0x004C83B0,RH_ScopedGlobalInstall,source/game_sa/Models/VehicleModelInfo.cpp,141,source_hook_reference
 CLinkedUpgradeList,GetOkAndDamagedAtomicCB,0x004C7BD0,RH_ScopedGlobalInstall,source/game_sa/Models/VehicleModelInfo.cpp,142,source_hook_reference
-CPad,GetMouseState,0x00746ED0,RH_ScopedInstall,source/game_sa/Pad.cpp,128,source_hook_reference
+CPad,GetMouseState,0x00746ED0,RH_ScopedInstall,source/game_sa/Pad.cpp,133,source_hook_reference
 CPickup,PickupIsVisibleKeepEdx,0x00454C70,RH_ScopedNamedGlobalInstall,source/game_sa/Pickup.cpp,52,source_hook_reference
 CPickups,GenerateNewOne_WeaponType_ExeAbi,0x00457380,RH_ScopedNamedInstall,source/game_sa/Pickups.cpp,65,source_hook_reference
 CPickups,GetNewUniquePickupIndex_ExeAbi,0x00456A30,RH_ScopedNamedInstall,source/game_sa/Pickups.cpp,67,source_hook_reference

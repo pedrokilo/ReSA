@@ -1,0 +1,12 @@
+00570239: lea eax,[ecx+30h]
+0057023C: jmp 00570241
+0057023E: add eax,4
+00570241: mov ecx,dword ptr [edx+4]
+00570244: mov edx,dword ptr [eax]
+00570246: push ecx
+00570247: push edx
+00570248: mov ecx,96F050h
+0057024D: call 0044EFC0
+00570252: fstp dword ptr [esi+00000134h]
+ 00570258: D9
+00570259: xchg dh,byte ptr [ecx+eax]

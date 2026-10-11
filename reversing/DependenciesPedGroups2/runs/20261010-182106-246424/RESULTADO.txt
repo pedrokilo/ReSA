@@ -1,0 +1,3 @@
+APROBADO: CPedGroups cuatro consultas OFF/ON
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-depspedgroups2\20261010-182106-246424

@@ -1,0 +1,31 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# DependenciesWorldFxFont5 — aprobado dentro del juego
+
+Cuatro dependencias del juego fuera del catálogo, reconstruidas, aplicadas y aprobadas en la corrida [20261010-200311-662835](runs/20261010-200311-662835/): **4 funciones, 15.360 pares, cero diferencias, cero resultados original/candidate nulos, estado, partidas y configuraciones restaurados**. Véanse [validación registrada](validation-summary.json) y [auditoría de aprobación](runs/20261010-200311-662835/approval-audit.json). `source-unapplied.patch` conserva la propuesta histórica; ya fue aplicada por la raíz. No volver a aplicarla ni regenerarla con prepare.py: el banco aprobado incorpora correcciones posteriores de casteo FontStyle y dominio Radar.
+
+SHA-256 del log descomprimido: `1f39571e6dc281aaa5cbd78c53e6a1944a9e476f6fe6f9370b57417feb5c5ccf`; ASI ejecutado: `54000fbfa714b9b2396dd81f6aabf6ca695aee20f66c4bde15456a3e21b659dc`; summary.json: `e67c7a8918ef19ec79a76b3adc9ebba7066c79d23f5d7b0638f2cd85dbf67f5d`.
+
+| Función | Entrada | Pares aprobados |
+| --- | --- | --- |
+| Fx_c::CreateMatFromVec | 49E950 | 1.024 |
+| CFont::GetScriptLetterSize, función global alojada en esta categoría | 719670 | 6.144 |
+| CCamera::IsSphereVisible-matrix | 420C40 | 4.096 |
+| CRadar::ClipRadarPoly | 585040 | 4.096 |
+| Total | | **15.360** |
+
+Desensamblado: `disassembly.txt`, obtenido con `dis.sh` del EXE original. Conserva `ds:` en absolutos, sólo etiquetas de destino referenciadas y todos los RET completos. La transcripción x87 conserva orden, redondeo de escrituras intermedias, comparaciones unordered y condiciones de igualdad.
+
+FX49E951..49EA32: identidad con conservación de flags/padding, orden de copia de origen y dirección observable por alias, normalización real RW7ED9B0, álgebra x8749E9C1..49EA26 y actualización real RW7F18A0. No sustitutos. Fixture de salida0x40 con guardas, vectores no nulos/ejes/magnitudes/pendientes, origen finito, alias origen=pos y dirección=up. `this` es g_fx real y se comprueba que no cambia. Ambas funciones RW deben resolver a código de la imagen EXE.
+
+Fuente719670: se elimina sólo `static` de la declaración global en Font.h para que el banco pueda obtener la misma dirección; no se inventa método nativo. Tabla IntroTextLines96entradas reales, índices0..95, estilos0..3, proporcional sí/no, todas256letras, escala0/positiva/negativa y TextEdge signed-128/0/127. Las métricas permanecen las cargadas por el juego, no tablas falsas; se comprueban512bytes desde C718B0, incluyendo accesos nativos sin comprobación de índice. El helper7192C0 nativo conserva ECX/EDX y el caller mantiene CL como estilo después de la llamada: se propone adaptador ABI local que conserva esos registros alrededor de la función C++ reconstruida. No sustituye su resultado ni llama al helper original.
+
+Cámara420C40: RwV3dTransformPoints7EDD90 real y punto copiado antes de transformar. Cámara TheCamera real con snapshot completoD78, cuatro normales frustum unitarias coherentes y matrices RW reales identidad/rotadas/trasladadas. Near=C3EFA0=0.5, far=C3EF9C=40 (el primer filtro compara y+radio con near); todos los campos se restauran antes de mensajes. Casos finitos, límites, radios positivos/cero/negativos y unordered; retorno bool compara AL semántico.
+
+Radar585040: todos los caminos, cuadriláteros convexos finitos centrados dentro/fuera/en borde, tamaños mínimo/mayor y rotación, ambos órdenes de orientación. Buffers de capacidad real16 vértices con guardas; entrada readonly. El EXE conserva duplicados al recortar sobre bordes y puede devolver 10 vértices. La primera corrida tuvo 40 rechazos del banco por asumir un máximo de ocho, con original/candidate idénticos; se corrigió únicamente el dominio y se repitió completa. [Revisión del dominio con dirección e instrucción](review-radar-domain.md). Helper LineRadarBoxCollision584E00 es fuente reconstruida existente, sin mocks.
+
+Colaboradores del juego: en Font y Radar, OFF para original y ON para candidata. Se demuestra justo antes de llamar el salto de la entrada original, la resolución de la cadena E9 del puntero usado por fuente y que coincide con HookRoute::Body capturado activo en el módulo ASI. No basta que un puntero inicialmente pertenezca a DLL: RH puede redirigir también su ILThunk cuando está apagado. `helper_route_ok` debe pasar en todos los pares. RW se comprueba en el módulo EXE real y se conserva como biblioteca dentro de este alcance.
+
+ABI: ESP y EBX/ESI/EDI/EBP, resultado float por ST0 almacenado32bits para Font, AL para bool de cámara, int32 para Radar; FX es void, sin exigir registros volátiles indefinidos. Snapshot/restauración antes de cada publicación: cámara, near/far, IntroTextLines y contador, x87 completo FNSAVE/FRSTOR y MXCSR completo STMXCSR/LDMXCSR; comprobación readonly de métricas font y g_fx. Cámara y Radar observaron tanto rechazos/salida vacía como resultados positivos; las ramas cortas no bastan para aprobar. Los seis hooks quedaron restaurados. Ningún resultado original/candidate es nulo. La evidencia acredita los fixtures de esta corrida; no integración universal ni independencia transitiva del EXE.

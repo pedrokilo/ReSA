@@ -1,0 +1,72 @@
+00423FC0: mov eax,dword ptr [esp+4]
+00423FC4: mov cl,byte ptr [eax+36h]
+00423FC7: and cl,7
+00423FCA: or cl,18h
+00423FCD: mov byte ptr [eax+36h],cl
+00423FD0: xor cl,cl
+00423FD2: mov byte ptr [eax+000003BBh],cl
+00423FD8: mov edx,dword ptr ds:[00B7CB84h]
+00423FDE: add edx,7D0h
+00423FE4: mov dword ptr [eax+000003ACh],edx
+00423FEA: mov edx,dword ptr ds:[00B7CB84h]
+00423FF0: mov dword ptr [eax+000003B0h],edx
+00423FF6: mov byte ptr [eax+000000B8h],cl
+00423FFC: ret
+00424000: mov al,byte ptr [esp+8]
+00424004: mov ecx,dword ptr [esp+4]
+00424008: xor edx,edx
+0042400A: cmp al,dl
+0042400C: movzx eax,byte ptr [ecx+000004A4h]
+ 00
+00424013: jne 00424069
+00424015: dec eax
+00424016: cmp eax,3
+00424019: ja 004240C8
+0042401F: jmp dword ptr [eax*4+004240CCh]
+ 00
+00424026: test byte ptr [ecx+00000428h],1
+ 01
+0042402D: je 00424035
+0042402F: inc dword ptr ds:[00969098h]
+00424035: inc dword ptr ds:[00969094h]
+0042403B: ret
+0042403C: mov al,byte ptr [ecx+00000428h]
+00424042: test al,1
+00424044: je 00424054
+00424046: and al,0FEh
+00424048: mov byte ptr [ecx+00000428h],al
+0042404E: dec dword ptr ds:[00969098h]
+00424054: inc dword ptr ds:[0096909Ch]
+0042405A: ret
+0042405B: inc dword ptr ds:[009690A0h]
+00424061: ret
+00424062: inc dword ptr ds:[009690A4h]
+00424068: ret
+00424069: dec eax
+0042406A: cmp eax,3
+0042406D: ja 004240C8
+0042406F: jmp dword ptr [eax*4+004240DCh]
+ 00
+00424076: test byte ptr [ecx+00000428h],1
+ 01
+0042407D: je 0042408D
+0042407F: dec dword ptr ds:[00969098h]
+00424085: jns 0042408D
+00424087: mov dword ptr ds:[00969098h],edx
+0042408D: dec dword ptr ds:[00969094h]
+00424093: jns 004240C8
+00424095: mov dword ptr ds:[00969094h],edx
+0042409B: ret
+0042409C: dec dword ptr ds:[0096909Ch]
+004240A2: jns 004240C8
+004240A4: mov dword ptr ds:[0096909Ch],edx
+004240AA: ret
+004240AB: dec dword ptr ds:[009690A0h]
+004240B1: jns 004240C8
+004240B3: mov dword ptr ds:[009690A0h],edx
+004240B9: ret
+004240BA: dec dword ptr ds:[009690A4h]
+004240C0: jns 004240C8
+004240C2: mov dword ptr ds:[009690A4h],edx
+004240C8: ret
+ 004240C9: 8D

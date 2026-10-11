@@ -1,0 +1,84 @@
+0049B010: push ebx
+0049B011: mov ebx,dword ptr [esp+8]
+0049B015: push esi
+0049B016: mov esi,dword ptr [esp+10h]
+0049B01A: movsx eax,word ptr [esi+22h]
+0049B01E: mov edx,dword ptr [eax*4+00A9B0C8h]
+ 00
+0049B025: mov eax,dword ptr [ebx*4+00A9B0C8h]
+ 00
+0049B02C: xor ecx,ecx
+0049B02E: mov cx,word ptr [eax+12h]
+0049B032: push edi
+0049B033: mov eax,ecx
+0049B035: and eax,100h
+0049B03A: test ax,ax
+0049B03D: je 0049B089
+0049B03F: mov edi,ecx
+0049B041: and edi,7C00h
+0049B047: cmp edi,800h
+0049B04D: jne 0049B084
+0049B04F: movsx edi,byte ptr [edx+4Fh]
+0049B053: push edi
+0049B054: xor esi,esi
+0049B056: call 004C8740
+0049B05B: add esp,4
+0049B05E: test eax,eax
+0049B060: jle 0049B07E
+0049B062: push esi
+0049B063: push edi
+0049B064: call 004C8750
+0049B069: add esp,8
+0049B06C: cmp eax,ebx
+0049B06E: je 0049B0DA
+0049B070: push edi
+0049B071: inc esi
+0049B072: call 004C8740
+0049B077: add esp,4
+0049B07A: cmp esi,eax
+0049B07C: jl 0049B062
+0049B07E: xor al,al
+0049B080: pop edi
+0049B081: pop esi
+0049B082: pop ebx
+0049B083: ret
+0049B084: test ax,ax
+0049B087: jne 0049B0BC
+0049B089: and ecx,7C00h
+0049B08F: cmp ecx,4400h
+0049B095: jne 0049B0BC
+0049B097: mov al,byte ptr [esi+000001D3h]
+0049B09D: test al,al
+0049B09F: jne 0049B07E
+0049B0A1: mov cl,byte ptr [esi+000001BEh]
+0049B0A7: mov al,1
+0049B0A9: cmp cl,al
+0049B0AB: jne 0049B080
+0049B0AD: test byte ptr [esi+0000042Eh],10h
+ 10
+0049B0B4: jne 0049B080
+0049B0B6: pop edi
+0049B0B7: pop esi
+0049B0B8: xor al,al
+0049B0BA: pop ebx
+0049B0BB: ret
+0049B0BC: xor eax,eax
+0049B0BE: lea ecx,[edx+000002D6h]
+0049B0C4: movsx edx,word ptr [ecx]
+0049B0C7: cmp edx,ebx
+0049B0C9: je 0049B0DA
+0049B0CB: inc eax
+0049B0CC: add ecx,2
+0049B0CF: cmp eax,12h
+0049B0D2: jl 0049B0C4
+0049B0D4: pop edi
+0049B0D5: pop esi
+0049B0D6: xor al,al
+0049B0D8: pop ebx
+0049B0D9: ret
+0049B0DA: pop edi
+0049B0DB: pop esi
+0049B0DC: mov al,1
+0049B0DE: pop ebx
+0049B0DF: ret
+0049B0E0: push ebx

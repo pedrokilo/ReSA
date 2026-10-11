@@ -30,6 +30,7 @@ END GENERATED HOOK STATUS */
 void CSprite2d::InjectHooks() {
     RH_ScopedClass(CSprite2d);
     RH_ScopedCategoryGlobal();
+    RH_ScopedInstall(OffsetTexCoordForBilinearFiltering, 0x728150);
 
     RH_ScopedInstall(Constructor, 0x727230);
     RH_ScopedInstall(Destructor, 0x7281E0);
@@ -459,7 +460,41 @@ void CSprite2d::SetVerticesForSniper(const CRect& posn, const CRGBA& color1, con
 
 void CSprite2d::OffsetTexCoordForBilinearFiltering(float width, float height)
 {
-    ((void(__cdecl*)(float, float))0x728150)(width, height);
+    auto* vertices = maVertices.data();
+    const float one = 1.0f;
+    // Como el original 0x728150: mantiene los dos offsets en x87 y sólo toca cuatro UV.
+    __asm {
+        mov eax, vertices
+        fld width
+        fadd st(0), st
+        fdivr one
+        fld dword ptr [eax + 14h]
+        fadd st, st(1)
+        fstp dword ptr [eax + 14h]
+        fld height
+        fadd st(0), st
+        fdivr one
+        fld dword ptr [eax + 18h]
+        fadd st, st(1)
+        fstp dword ptr [eax + 18h]
+        fld st(1)
+        fadd dword ptr [eax + 30h]
+        fstp dword ptr [eax + 30h]
+        fld dword ptr [eax + 34h]
+        fadd st, st(1)
+        fstp dword ptr [eax + 34h]
+        fld st(1)
+        fadd dword ptr [eax + 4Ch]
+        fstp dword ptr [eax + 4Ch]
+        fld dword ptr [eax + 50h]
+        fadd st, st(1)
+        fstp dword ptr [eax + 50h]
+        fxch st(1)
+        fadd dword ptr [eax + 68h]
+        fstp dword ptr [eax + 68h]
+        fadd dword ptr [eax + 6Ch]
+        fstp dword ptr [eax + 6Ch]
+    }
 }
 
 // add vertices to buffer

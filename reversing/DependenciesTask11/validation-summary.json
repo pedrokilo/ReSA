@@ -1,0 +1,104 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 2,
+  "functions": {
+    "CDecisionMakerTypes::GetInstance": 2048,
+    "CTaskComplexSunbathe::CanSunbathe": 2048
+  },
+  "covered_functions": {
+    "CDecisionMakerTypes::GetInstance": true,
+    "CTaskComplexSunbathe::CanSunbathe": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/DependenciesTask11/runs/20261010-213032-855203",
+  "summary_sha256": "5ae31f0d9fe7c697d18871127c366e3b75cf12e3bb9c057e8d9f0bac800d2ee5",
+  "result_txt_sha256": "6bce3bb6c8a1dd6c435b664f572398f2f9db7a2d05cae9f4211d0ffce104449d",
+  "log_sha256": "9bc789a856a699e8f8c17c13ea9abb46851850e05844e573127de809b042f2b5",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "bbaa8052ba3bc66e05dd33fc1b06e0e871b7bcb8102f2a438f13417618e4f0ba",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "8d4f5187ca896f7cc31d1039fdedc7eb5800e7f99a563bf317d9649cb110c8ba",
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
+      "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
+      "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
+      "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
+      "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "85b9c4f92c62b5ddffa09aaffbdf67d3c01e941eb06714d69f6400a2b92b3626",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+      "source/game_sa/Clock.h": "b623a30bec24062a66a9ae08c36616847af8179edcb9f9925fcaab50a8023491",
+      "source/game_sa/Weather.h": "2e1157e99a5d1c74402b94df44a72ff0d599dce975071bb87396ab5b19851852",
+      "source/game_sa/Population.cpp": "65f680fef7edfb64dae07ab7c899dd5203a6c9dfea4093916010b627fab23f89",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "e779faed55fdbd57efbfbf8f70ca8c03cf4ce2ef9ad24209c9ece8762a16fc1f",
+      "NativeProof.hpp": "20ebbd917a92a0f28a3a961c24123a4a94b0a6819c2c2db59c88bdcbf32924ad",
+      "build_probe.py": "09ee837ae990fe62adab099f29d55ba2b2c487fe035b5399407a5e2a3d2d0c73",
+      "run_local.py": "74b51d32e4edc9297b46949d3cf59bf394e815167d68ff31ceccbe75daef6a85"
+    }
+  },
+  "reaudit": {
+    "bank": "DependenciesTask11",
+    "run": "20261010-213032-855203",
+    "functions": 2,
+    "pairs": 4096,
+    "pairs_per_function": {
+      "CDecisionMakerTypes::GetInstance": 2048,
+      "CTaskComplexSunbathe::CanSunbathe": 2048
+    },
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "saves_unchanged": true,
+    "configs_restored": true,
+    "hook_routes_verified": true,
+    "log_sha256": "9bc789a856a699e8f8c17c13ea9abb46851850e05844e573127de809b042f2b5",
+    "tested_sources": {
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "8d4f5187ca896f7cc31d1039fdedc7eb5800e7f99a563bf317d9649cb110c8ba",
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
+      "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
+      "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
+      "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
+      "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "85b9c4f92c62b5ddffa09aaffbdf67d3c01e941eb06714d69f6400a2b92b3626",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+      "source/game_sa/Clock.h": "b623a30bec24062a66a9ae08c36616847af8179edcb9f9925fcaab50a8023491",
+      "source/game_sa/Weather.h": "2e1157e99a5d1c74402b94df44a72ff0d599dce975071bb87396ab5b19851852",
+      "source/game_sa/Population.cpp": "65f680fef7edfb64dae07ab7c899dd5203a6c9dfea4093916010b627fab23f89",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "e779faed55fdbd57efbfbf8f70ca8c03cf4ce2ef9ad24209c9ece8762a16fc1f",
+      "NativeProof.hpp": "20ebbd917a92a0f28a3a961c24123a4a94b0a6819c2c2db59c88bdcbf32924ad",
+      "build_probe.py": "09ee837ae990fe62adab099f29d55ba2b2c487fe035b5399407a5e2a3d2d0c73",
+      "run_local.py": "74b51d32e4edc9297b46949d3cf59bf394e815167d68ff31ceccbe75daef6a85"
+    },
+    "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "executed_probe_sha256": "bbaa8052ba3bc66e05dd33fc1b06e0e871b7bcb8102f2a438f13417618e4f0ba",
+    "registered_hook_verified": true
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/DependenciesTask11/runs/20261010-213032-855203/comparisons.jsonl.gz",
+    "compressed_sha256": "ca33fa1badbfc0b593beb5c38b14025bfff4e0ffa02d9847f765ff722864073c",
+    "uncompressed_sha256": "9bc789a856a699e8f8c17c13ea9abb46851850e05844e573127de809b042f2b5",
+    "uncompressed_bytes": 5046166,
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "9bc789a856a699e8f8c17c13ea9abb46851850e05844e573127de809b042f2b5"
+  }
+}

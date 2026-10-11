@@ -27,6 +27,7 @@ void CEventScriptCommand::InjectHooks()
     RH_ScopedVirtualClass(CEventScriptCommand, 0x85B378, 17);
     RH_ScopedCategory("Events");
 
+    RH_ScopedInstall(Destructor, 0x4B0A50);
     RH_ScopedInstall(Constructor, 0x4B0A00);
     // Como el original se llaman por la vtable: con RH_ScopedInstall el destino era el thunk virtual de la DLL, que
     // vuelve a saltar por la vtable del EXE (entrada enganchada) y se queda en un bucle infinito
@@ -106,3 +107,35 @@ CTask* CEventScriptCommand::CloneScriptTask() const
         return m_task->Clone();
     return nullptr;
 }
+
+#pragma warning(push)
+#pragma warning(disable: 4733) // Handler SEH original 83A018.
+__declspec(naked) void CEventScriptCommand::Destructor() {
+    __asm {
+        push        0FFFFFFFFh
+        push        83A018h
+        mov         eax,dword ptr fs:[00000000h]
+        push        eax
+        mov         dword ptr fs:[00000000h],esp
+        push        ecx
+        push        esi
+        mov         esi,ecx
+        mov         dword ptr [esp+4],esi
+        mov         dword ptr [esi],85B378h
+        mov         ecx,dword ptr [esi+10h]
+        test        ecx,ecx
+        mov         dword ptr [esp+10h],0
+        je eventdtor7_4B0A88
+        mov         eax,dword ptr [ecx]
+        push        1
+        call        dword ptr [eax]
+eventdtor7_4B0A88:
+        mov         ecx,dword ptr [esp+8]
+        mov         dword ptr [esi],85AB38h
+        pop         esi
+        mov         dword ptr fs:[00000000h],ecx
+        add         esp,10h
+        ret
+    }
+}
+#pragma warning(pop)

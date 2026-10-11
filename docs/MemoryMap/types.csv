@@ -297,8 +297,8 @@ ColHelpers::V3::Header,struct,V2::Header,source/game_sa/Collision/ColHelpers.h,2
 ColHelpers::V4::Header,struct,V3::Header,source/game_sa/Collision/ColHelpers.h,246,source_type_definition
 CColLine,class,,source/game_sa/Collision/ColLine.h,18,source_type_definition
 ClosestCorner,class,,source/game_sa/Collision/Collision.cpp,288,source_type_definition
-CColCacheEntry,struct,,source/game_sa/Collision/Collision.cpp,3442,source_type_definition
-CColCacheEntry::eType,class,uint8,source/game_sa/Collision/Collision.cpp,3443,source_type_definition
+CColCacheEntry,struct,,source/game_sa/Collision/Collision.cpp,3441,source_type_definition
+CColCacheEntry::eType,class,uint8,source/game_sa/Collision/Collision.cpp,3442,source_type_definition
 CCollision,class,,source/game_sa/Collision/Collision.h,20,source_type_definition
 CCollision::DebugSettings,struct,,source/game_sa/Collision/Collision.h,32,source_type_definition
 CCollision::DebugSettings::ShapeShapeCollision,struct,,source/game_sa/Collision/Collision.h,33,source_type_definition
@@ -1468,7 +1468,7 @@ CTaskInteriorLieInBed,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/In
 CTaskInteriorLieInBed::AnimSeqIdx,class,,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.h,12,source_type_definition
 CTaskInteriorShopKeeper,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.h,10,source_type_definition
 CTaskInteriorSitAtDesk,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h,13,source_type_definition
-CTaskInteriorSitInChair,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h,10,source_type_definition
+CTaskInteriorSitInChair,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h,9,source_type_definition
 CTaskInteriorUseInfo,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.h,10,source_type_definition
 CEntitySeekPosCalculator,class,,source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h,9,source_type_definition
 CEntitySeekPosCalculatorFixedPos,class,public CEntitySeekPosCalculator,source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.h,7,source_type_definition
@@ -1849,7 +1849,7 @@ CWaterCannons,class,,source/game_sa/WaterCannons.h,7,source_type_definition
 WaterCreature_c,class,public ListItem_c<WaterCreature_c>,source/game_sa/WaterCreature_c.h,21,source_type_definition
 tWaterCreatureInfo,struct,,source/game_sa/WaterCreatureManager_c.h,6,source_type_definition
 WaterCreatureManager_c,class,,source/game_sa/WaterCreatureManager_c.h,28,source_type_definition
-WaterLayerParams,struct,,source/game_sa/WaterLevel.cpp,314,source_type_definition
+WaterLayerParams,struct,,source/game_sa/WaterLevel.cpp,317,source_type_definition
 CRenPar,struct,,source/game_sa/WaterLevel.h,11,source_type_definition
 CWaterVertex,struct,,source/game_sa/WaterLevel.h,27,source_type_definition
 CWaterPolygon,struct,,source/game_sa/WaterLevel.h,34,source_type_definition

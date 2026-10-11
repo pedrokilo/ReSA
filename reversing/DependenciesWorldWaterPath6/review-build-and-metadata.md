@@ -1,0 +1,11 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8547 funciones reconstruidas; 8547 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9226 entradas binarias sin nombre catalogado; 822 destinos originales explícitos fuera del catálogo, 398 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 102 aprobadas dentro del juego; 133 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Reparaciones y admisión
+
+La compilación inicial falló por memoria del compilador; se repitió en serie. MSVC exigió prefijo 0 en dos literales 0FFFFFFFDh de LEA en Cam.cpp; instrucciones e inmediato permanecen iguales.
+
+El run 20261010-201101-474538 tuvo 24576 pares iguales pero faltaba begin explícito con registro RH. El run 20261010-201708-953003 incorporó registro, atlas y CRT reales, pero aún faltaba ejercer duración <=32. Ninguno se admitió como cobertura final. No se modificó el verificador ni se redujeron requisitos.
+
+El run **20261010-202741-158472** ejecutó la ampliación de intervalos, preflight de lecturas y fronteras de profundidad: **4 funciones/24576 pares, 0 diferencias/0 nulos**, todos los gates verdaderos, estado/partidas/configuraciones restaurados. Aprobado y registrado. Log `ff7a5756fef912bff337370db1b4585e3d997981b28e7c43439383984f325373`; ASI `e88cc70c414f1e2278023180f041c62bd303c491babb5e77da513195e7ee6936`. Auditoría independiente en audit-runtime.md. La evidencia se limita a fixtures dentro del juego completo; conserva el CRT original y no acredita independencia transitiva ni integración universal.

@@ -265,6 +265,8 @@ public:
     static void SetUpWaterFog(int32 a1, int32 a2, int32 a3, int32 a4);
     static void RenderWakeSegment(const CVector2D& a1, const CVector2D& a2, const CVector2D& a3, const CVector2D& a4, const float& widthA, const float& widthB, const float& alphaA, const float& alphaB, const float& wakeZ);
     static void FindNearestWaterAndItsFlow();
+    static bool GetWaterLevelNoWavesForQuad(const CWaterQuad*,float,float,float,float*,float*,float*);
+    static bool GetWaterLevelNoWavesForTriangle(const CWaterTriangle*,float,float,float,float*,float*,float*);
     static bool GetWaterLevelNoWaves(CVector pos, float * pOutWaterLevel, float * fUnkn1 = nullptr, float * fUnkn2 = nullptr);
     static void RenderWaterFog();
     static bool TestLineAgainstWater(CVector from, CVector to, CVector* intersection);
@@ -272,6 +274,7 @@ public:
     static void MarkQuadsAndPolysToBeRendered(int32 blockX, int32 blockY, bool isInInterior);
     static void BlockHit(int32 X, int32 Y);
 
+    static void CalculateWavesOnlyForCoordinate2Native(int32,int32,float,float,float*);
     static void CalculateWavesOnlyForCoordinate2(
         int32 x, int32 y,
         float* pResultHeight, // in/out variable => in is the "water level" from `GetWaterLevelNoWaves`/out is the Z coordinate of the wave

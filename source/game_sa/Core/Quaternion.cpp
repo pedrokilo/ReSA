@@ -13,7 +13,10 @@ void CQuaternion::InjectHooks() {
     RH_ScopedClass(CQuaternion);
     RH_ScopedCategory("Core");
 
-    RH_ScopedOverloadedInstall(Get, "", 0x59C080, void (CQuaternion::*)(RwMatrix*) const);
+    // Keep Get disabled: only the two independently tested dependencies are installed.
+    // RH_ScopedOverloadedInstall(Get, "", 0x59C080, void (CQuaternion::*)(RwMatrix*) const);
+    RH_ScopedOverloadedInstall(Set, "matrix", 0x59C3E0, void (CQuaternion::*)(const RwMatrix&));
+    RH_ScopedOverloadedInstall(Set, "axis-angle", 0x59C600, void (CQuaternion::*)(RwV3d*, float));
 }
 
 // Quat to matrix
@@ -59,7 +62,124 @@ void CQuaternion::Slerp(const CQuaternion& from, const CQuaternion& to, float ha
 
 // Quat from matrix
 void CQuaternion::Set(const RwMatrix& m) {
-    ((void(__thiscall*)(CQuaternion*, const RwMatrix&))0x59C3E0)(this, m);
+    const auto* source = &m;
+    auto* output = this;
+    const float zero = 0.0f, half = 0.5f, one = 1.0f;
+    // Como el original: cuatro ramas, orden x87 y raiz/reciproco sin redondeo intermedio.
+    __asm {
+        mov edx, source
+        mov ecx, output
+        fld dword ptr [edx + 14h]
+        fadd dword ptr [edx]
+        fadd dword ptr [edx + 28h]
+        fcom zero
+        fnstsw ax
+        test ah, 1
+        jne negativeTrace
+        fadd one
+        fsqrt
+        fld half
+        fmul st, st(1)
+        fstp dword ptr [ecx + 0Ch]
+        fdivr half
+        fld dword ptr [edx + 18h]
+        fsub dword ptr [edx + 24h]
+        fmul st, st(1)
+        fstp dword ptr [ecx]
+        fld dword ptr [edx + 20h]
+        fsub dword ptr [edx + 8]
+        fmul st, st(1)
+        fstp dword ptr [ecx + 4]
+        fld dword ptr [edx + 4]
+        fsub dword ptr [edx + 10h]
+        fmul st, st(1)
+        fstp dword ptr [ecx + 8]
+        fstp st(0)
+        jmp matrixFinished
+    negativeTrace:
+        fstp st(0)
+        fld dword ptr [edx]
+        fsub dword ptr [edx + 14h]
+        fsub dword ptr [edx + 28h]
+        fcom zero
+        fnstsw ax
+        test ah, 1
+        jne tryY
+        fadd one
+        fsqrt
+        fld half
+        fmul st, st(1)
+        fstp dword ptr [ecx]
+        fdivr half
+        fld dword ptr [edx + 10h]
+        fadd dword ptr [edx + 4]
+        fmul st, st(1)
+        fstp dword ptr [ecx + 4]
+        fld dword ptr [edx + 20h]
+        fadd dword ptr [edx + 8]
+        fmul st, st(1)
+        fstp dword ptr [ecx + 8]
+        fld dword ptr [edx + 18h]
+        fsub dword ptr [edx + 24h]
+        fmul st, st(1)
+        fstp dword ptr [ecx + 0Ch]
+        fstp st(0)
+        jmp matrixFinished
+    tryY:
+        fstp st(0)
+        fld dword ptr [edx + 14h]
+        fsub dword ptr [edx]
+        fsub dword ptr [edx + 28h]
+        fcom zero
+        fnstsw ax
+        test ah, 1
+        jne useZ
+        fadd one
+        fsqrt
+        fld half
+        fmul st, st(1)
+        fstp dword ptr [ecx + 4]
+        fdivr half
+        fld dword ptr [edx + 20h]
+        fsub dword ptr [edx + 8]
+        fmul st, st(1)
+        fstp dword ptr [ecx + 0Ch]
+        fld dword ptr [edx + 10h]
+        fsub dword ptr [edx + 4]
+        fmul st, st(1)
+        fstp dword ptr [ecx]
+        fld dword ptr [edx + 24h]
+        fadd dword ptr [edx + 18h]
+        fmul st, st(1)
+        fstp dword ptr [ecx + 8]
+        fstp st(0)
+        jmp matrixFinished
+    useZ:
+        fstp st(0)
+        fld dword ptr [edx + 14h]
+        fadd dword ptr [edx]
+        fsubr dword ptr [edx + 28h]
+        fadd one
+        fsqrt
+        fld half
+        fmul st, st(1)
+        fstp dword ptr [ecx + 8]
+        fdivr half
+        fld dword ptr [edx + 4]
+        fsub dword ptr [edx + 10h]
+        fmul st, st(1)
+        fstp dword ptr [ecx + 0Ch]
+        fld dword ptr [edx + 20h]
+        fadd dword ptr [edx + 8]
+        fmul st, st(1)
+        fstp dword ptr [ecx]
+        fld dword ptr [edx + 24h]
+        fadd dword ptr [edx + 18h]
+        fmul st, st(1)
+        fstp dword ptr [ecx + 4]
+        fstp st(0)
+    matrixFinished:
+    }
 }
 
 // Quat from euler angles
@@ -69,7 +189,26 @@ void CQuaternion::Set(float x, float y, float z) {
 
 // Quat from axis & angle
 void CQuaternion::Set(RwV3d* axis, float angle) {
-    ((void(__thiscall*)(CQuaternion*, RwV3d*, float))0x59C600)(this, axis, angle);
+    auto* output = this;
+    const float half = 0.5f;
+    __asm {
+        mov eax, axis
+        mov ecx, output
+        fld angle
+        fmul half
+        fld st(0)
+        fsin
+        fld st(0)
+        fmul dword ptr [eax]
+        fstp dword ptr [ecx]
+        fld st(0)
+        fmul dword ptr [eax + 4]
+        fstp dword ptr [ecx + 4]
+        fmul dword ptr [eax + 8]
+        fstp dword ptr [ecx + 8]
+        fcos
+        fstp dword ptr [ecx + 0Ch]
+    }
 }
 
 // Spherical linear interpolation

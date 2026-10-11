@@ -38,8 +38,269 @@ END GENERATED HOOK STATUS */
 #include <reversiblebugfixes/Bugs.hpp>
 
 // 0x44EFC0
-float CPathFind::CalcRoadDensity(float x, float y) {
-    return plugin::CallMethodAndReturn<float, 0x44EFC0>(this, x, y);
+__declspec(naked) float CPathFind::CalcRoadDensity(float x, float y) {
+    __asm {
+        // 0x44EFC0
+        sub esp,18h
+        // 0x44EFC3
+        fld dword ptr ds:[00858B50h]
+        // 0x44EFC9
+        push ebx
+        // 0x44EFCA
+        push ebp
+        // 0x44EFCB
+        push esi
+        // 0x44EFCC
+        push edi
+        // 0x44EFCD
+        lea ebp,[ecx+00000804h]
+        // 0x44EFD3
+        mov dword ptr [esp+20h],40h
+        // 0x44EFDB
+        jmp PathDensity13_44EFE0
+        // 0x44EFDD
+        lea ecx,[ecx]
+PathDensity13_44EFE0:
+        mov edx,dword ptr [ebp]
+        // 0x44EFE3
+        test edx,edx
+        // 0x44EFE5
+        je PathDensity13_44F167
+        // 0x44EFEB
+        mov eax,dword ptr [ebp+000008C0h]
+        // 0x44EFF1
+        test eax,eax
+        // 0x44EFF3
+        jle PathDensity13_44F167
+        // 0x44EFF9
+        lea esi,[edx+0Ah]
+        // 0x44EFFC
+        mov dword ptr [esp+18h],esi
+        // 0x44F000
+        mov dword ptr [esp+1Ch],eax
+PathDensity13_44F004:
+        movsx eax,word ptr [esi-2]
+        // 0x44F008
+        mov dword ptr [esp+14h],eax
+        // 0x44F00C
+        fild dword ptr [esp+14h]
+        // 0x44F010
+        fmul dword ptr ds:[00858C48h]
+        // 0x44F016
+        fst dword ptr [esp+10h]
+        // 0x44F01A
+        fsub dword ptr [esp+2Ch]
+        // 0x44F01E
+        fabs
+        // 0x44F020
+        fcomp dword ptr ds:[00858A14h]
+        // 0x44F026
+        fnstsw ax
+        // 0x44F028
+        test ah,5
+        // 0x44F02B
+        jp PathDensity13_44F151
+        // 0x44F031
+        movsx edx,word ptr [esi]
+        // 0x44F034
+        mov dword ptr [esp+14h],edx
+        // 0x44F038
+        fild dword ptr [esp+14h]
+        // 0x44F03C
+        fmul dword ptr ds:[00858C48h]
+        // 0x44F042
+        fst dword ptr [esp+14h]
+        // 0x44F046
+        fsub dword ptr [esp+30h]
+        // 0x44F04A
+        fabs
+        // 0x44F04C
+        fcomp dword ptr ds:[00858A14h]
+        // 0x44F052
+        fnstsw ax
+        // 0x44F054
+        test ah,5
+        // 0x44F057
+        jp PathDensity13_44F151
+        // 0x44F05D
+        xor edx,edx
+        // 0x44F05F
+        mov dl,byte ptr [esi+0Eh]
+        // 0x44F062
+        test dl,0Fh
+        // 0x44F065
+        je PathDensity13_44F151
+        // 0x44F06B
+        and edx,0Fh
+        // 0x44F06E
+        jle PathDensity13_44F151
+        // 0x44F074
+        movsx eax,word ptr [esi+6]
+        // 0x44F078
+        mov edi,dword ptr [ebp+00000240h]
+        // 0x44F07E
+        lea esi,[eax+eax]
+        // 0x44F081
+        lea edi,[edi+eax*4]
+        // 0x44F084
+        mov ebx,edx
+PathDensity13_44F086:
+        mov eax,dword ptr [edi]
+        // 0x44F088
+        mov dword ptr [esp+24h],eax
+        // 0x44F08C
+        movzx eax,ax
+        // 0x44F08F
+        mov edx,dword ptr [ecx+eax*4+00000804h]
+        // 0x44F096
+        test edx,edx
+        // 0x44F098
+        je PathDensity13_44F140
+        // 0x44F09E
+        mov eax,dword ptr [esp+24h]
+        // 0x44F0A2
+        fld dword ptr [esp+10h]
+        // 0x44F0A6
+        shr eax,10h
+        // 0x44F0A9
+        imul eax,eax,1Ch
+        // 0x44F0AC
+        add eax,edx
+        // 0x44F0AE
+        movsx edx,word ptr [eax+8]
+        // 0x44F0B2
+        movsx eax,word ptr [eax+0Ah]
+        // 0x44F0B6
+        mov dword ptr [esp+24h],edx
+        // 0x44F0BA
+        mov edx,dword ptr [ebp+000005A0h]
+        // 0x44F0C0
+        fild dword ptr [esp+24h]
+        // 0x44F0C4
+        mov dword ptr [esp+24h],eax
+        // 0x44F0C8
+        movzx eax,word ptr [esi+edx]
+        // 0x44F0CC
+        fmul dword ptr ds:[00858C48h]
+        // 0x44F0D2
+        fsubp st(1),st
+        // 0x44F0D4
+        mov edx,eax
+        // 0x44F0D6
+        fld dword ptr [esp+14h]
+        // 0x44F0DA
+        shr edx,0Ah
+        // 0x44F0DD
+        cmp dword ptr [ecx+edx*4+00000804h],0
+        // 0x44F0E5
+        fild dword ptr [esp+24h]
+        // 0x44F0E9
+        fmul dword ptr ds:[00858C48h]
+        // 0x44F0EF
+        fsubp st(1),st
+        // 0x44F0F1
+        fld st(0)
+        // 0x44F0F3
+        fmul st,st(1)
+        // 0x44F0F5
+        fld st(2)
+        // 0x44F0F7
+        fmul st,st(3)
+        // 0x44F0F9
+        faddp st(1),st
+        // 0x44F0FB
+        fsqrt
+        // 0x44F0FD
+        fstp st(2)
+        // 0x44F0FF
+        fstp st(0)
+        // 0x44F101
+        je PathDensity13_44F13E
+        // 0x44F103
+        mov edx,dword ptr [ecx+edx*4+00000924h]
+        // 0x44F10A
+        and eax,3FFh
+        // 0x44F10F
+        imul eax,eax,0Eh
+        // 0x44F112
+        mov al,byte ptr [edx+eax+0Bh]
+        // 0x44F116
+        mov dl,al
+        // 0x44F118
+        and dl,7
+        // 0x44F11B
+        movzx edx,dl
+        // 0x44F11E
+        mov dword ptr [esp+24h],edx
+        // 0x44F122
+        shr al,3
+        // 0x44F125
+        fild dword ptr [esp+24h]
+        // 0x44F129
+        and al,7
+        // 0x44F12B
+        movzx eax,al
+        // 0x44F12E
+        fmul st,st(1)
+        // 0x44F130
+        mov dword ptr [esp+24h],eax
+        // 0x44F134
+        faddp st(2),st
+        // 0x44F136
+        fild dword ptr [esp+24h]
+        // 0x44F13A
+        fmul st,st(1)
+        // 0x44F13C
+        faddp st(2),st
+PathDensity13_44F13E:
+        fstp st(0)
+PathDensity13_44F140:
+        add edi,4
+        // 0x44F143
+        add esi,2
+        // 0x44F146
+        dec ebx
+        // 0x44F147
+        jne PathDensity13_44F086
+        // 0x44F14D
+        mov esi,dword ptr [esp+18h]
+PathDensity13_44F151:
+        mov eax,dword ptr [esp+1Ch]
+        // 0x44F155
+        add esi,1Ch
+        // 0x44F158
+        dec eax
+        // 0x44F159
+        mov dword ptr [esp+18h],esi
+        // 0x44F15D
+        mov dword ptr [esp+1Ch],eax
+        // 0x44F161
+        jne PathDensity13_44F004
+PathDensity13_44F167:
+        mov eax,dword ptr [esp+20h]
+        // 0x44F16B
+        add ebp,4
+        // 0x44F16E
+        dec eax
+        // 0x44F16F
+        mov dword ptr [esp+20h],eax
+        // 0x44F173
+        jne PathDensity13_44EFE0
+        // 0x44F179
+        fmul dword ptr ds:[00858FC0h]
+        // 0x44F17F
+        pop edi
+        // 0x44F180
+        pop esi
+        // 0x44F181
+        pop ebp
+        // 0x44F182
+        pop ebx
+        // 0x44F183
+        add esp,18h
+        // 0x44F186
+        ret 8
+    }
 }
 
 // TODO: Move into the class itself
@@ -78,6 +339,7 @@ inline int32 RegionValueOf(float p) {
 void CPathFind::InjectHooks() {
     RH_ScopedClass(CPathFind);
     RH_ScopedCategoryGlobal();
+    RH_ScopedInstall(AddRandomOffsetToNodePosition, 0x44DA30);
 
     // Hooks commented out because most of the functions have no definitions
     // thus it's not possible to take their address
@@ -92,6 +354,7 @@ void CPathFind::InjectHooks() {
     RH_ScopedInstall(FindXRegionForCoors, 0x44D890);
     RH_ScopedInstall(AddInteriorLinkToExternalNode, 0x44DF30);
     RH_ScopedInstall(AddInteriorLink, 0x44DED0);
+    RH_ScopedInstall(RemoveInteriorLinks, 0x44DF60);
     RH_ScopedInstall(MarkRegionsForCoors, 0x44DB60);
     RH_ScopedOverloadedInstall(FindStartPointOfRegion, "", 0x44D930, void(CPathFind::*)(size_t, size_t, float&, float&));
     RH_ScopedInstall(FindYCoorsForRegion, 0x44D910);
@@ -106,7 +369,7 @@ void CPathFind::InjectHooks() {
     RH_ScopedOverloadedInstall(FindNodeCoorsForScript, "LinkedNode", 0x4505E0, CVector(CPathFind::*)(CNodeAddress, bool*));
     RH_ScopedInstall(IsWaterNodeNearby, 0x450DE0);
     RH_ScopedInstall(CountNeighboursToBeSwitchedOff, 0x4504F0);
-    //RH_ScopedInstall(FindNodeOrientationForCarPlacement, 0x450320);
+    RH_ScopedInstall(FindNodeOrientationForCarPlacement, 0x450320);
     //RH_ScopedInstall(FindNodePairClosestToCoors, 0x44FEE0);
     RH_ScopedInstall(FindNodeClosestToCoorsFavourDirection, 0x44FCE0);
     //RH_ScopedInstall(FindNodeClosestToCoors, 0x44FA30);
@@ -130,7 +393,7 @@ void CPathFind::InjectHooks() {
     //RH_ScopedInstall(FindNthNodeClosestToCoors, 0x44F8C0);
     //RH_ScopedInstall(FindNodeClosestInRegion, 0x44F2C0);
     //RH_ScopedInstall(CalcDistToAnyConnectingLinks, 0x44F190);
-    //RH_ScopedInstall(CalcRoadDensity, 0x44EFC0);
+    RH_ScopedInstall(CalcRoadDensity, 0x44EFC0);
     RH_ScopedInstall(TestForPedTrafficLight, 0x44D480);
     RH_ScopedInstall(UnMarkAllRoadNodesAsDontWander, 0x44D400);
     RH_ScopedInstall(TidyUpNodeSwitchesAfterMission, 0x44D3B0);
@@ -1230,8 +1493,331 @@ size_t CPathFind::CountNeighboursToBeSwitchedOff(const CPathNode& node) {
 }
 
 // 0x450320
-float CPathFind::FindNodeOrientationForCarPlacement(CNodeAddress nodeInfo) {
-    return plugin::CallMethodAndReturn<float, 0x450320, CPathFind*, CNodeAddress>(this, nodeInfo);
+// Complete EXE helper 0x59C910..0x59C960; local reconstruction, no original delegation.
+__declspec(naked) void PathOrientation14Normalise() {
+    __asm {
+    // 0x59C910
+    fld dword ptr [ecx+8]
+    // 0x59C913
+    fld dword ptr [ecx+4]
+    // 0x59C916
+    fld dword ptr [ecx]
+    // 0x59C918
+    fld st(0)
+    // 0x59C91A
+    fmul st,st(1)
+    // 0x59C91C
+    fld st(2)
+    // 0x59C91E
+    fmul st,st(3)
+    // 0x59C920
+    faddp st(1),st
+    // 0x59C922
+    fld st(3)
+    // 0x59C924
+    fmul st,st(4)
+    // 0x59C926
+    faddp st(1),st
+    // 0x59C928
+    fstp st(3)
+    // 0x59C92A
+    fstp st(0)
+    // 0x59C92C
+    fstp st(0)
+    // 0x59C92E
+    fcom dword ptr ds:[000858B50h]
+    // 0x59C934
+    fnstsw ax
+    // 0x59C936
+    test ah,041h
+    // 0x59C939
+    jp PathOrientation14Norm_59C944
+    // 0x59C93B
+    fstp st(0)
+    // 0x59C93D
+    mov dword ptr [ecx],03F800000h
+    // 0x59C943
+    ret
+    PathOrientation14Norm_59C944:
+    fsqrt
+    // 0x59C946
+    fdivr dword ptr ds:[000858624h]
+    // 0x59C94C
+    fld st(0)
+    // 0x59C94E
+    fmul dword ptr [ecx]
+    // 0x59C950
+    fstp dword ptr [ecx]
+    // 0x59C952
+    fld st(0)
+    // 0x59C954
+    fmul dword ptr [ecx+4]
+    // 0x59C957
+    fstp dword ptr [ecx+4]
+    // 0x59C95A
+    fmul dword ptr [ecx+8]
+    // 0x59C95D
+    fstp dword ptr [ecx+8]
+    // 0x59C960
+    ret
+    }
+}
+
+__declspec(naked) float CPathFind::FindNodeOrientationForCarPlacement(CNodeAddress nodeInfo) {
+    __asm {
+    // 0x450320
+    sub esp,028h
+    // 0x450323
+    movzx edx,word ptr [esp+02Ch]
+    // 0x450328
+    mov eax,dword ptr [ecx+edx*4+000000804h]
+    // 0x45032F
+    test eax,eax
+    // 0x450331
+    mov dword ptr [esp],edx
+    // 0x450335
+    jne PathOrientation14_450343
+    // 0x450337
+    fld dword ptr ds:[000858B50h]
+    // 0x45033D
+    add esp,028h
+    // 0x450340
+    ret 4
+    PathOrientation14_450343:
+    push esi
+    // 0x450344
+    mov esi,dword ptr [esp+030h]
+    // 0x450348
+    shr esi,010h
+    // 0x45034B
+    imul esi,esi,01Ch
+    // 0x45034E
+    add esi,eax
+    // 0x450350
+    mov al,byte ptr [esi+018h]
+    // 0x450353
+    test al,00Fh
+    // 0x450355
+    jne PathOrientation14_450364
+    PathOrientation14_450357:
+    fld dword ptr ds:[000858B50h]
+    // 0x45035D
+    pop esi
+    // 0x45035E
+    add esp,028h
+    // 0x450361
+    ret 4
+    PathOrientation14_450364:
+    push ebx
+    // 0x450365
+    and eax,00Fh
+    // 0x450368
+    push ebp
+    // 0x450369
+    lea ebx,[eax-1]
+    // 0x45036C
+    xor ebp,ebp
+    // 0x45036E
+    test ebx,ebx
+    // 0x450370
+    jle PathOrientation14_4503D3
+    // 0x450372
+    movsx eax,word ptr [esi+010h]
+    // 0x450376
+    mov edx,dword ptr [ecx+edx*4+000000DA4h]
+    // 0x45037D
+    push edi
+    // 0x45037E
+    lea edi,[edx+eax*2]
+    PathOrientation14_450381:
+    movzx eax,word ptr [edi]
+    // 0x450384
+    mov edx,eax
+    // 0x450386
+    shr edx,00Ah
+    // 0x450389
+    cmp dword ptr [ecx+edx*4+000000804h],0
+    // 0x450391
+    je PathOrientation14_4503C6
+    // 0x450393
+    mov edx,dword ptr [ecx+edx*4+000000924h]
+    // 0x45039A
+    and eax,03FFh
+    // 0x45039F
+    imul eax,eax,00Eh
+    // 0x4503A2
+    add eax,edx
+    // 0x4503A4
+    mov dx,word ptr [esp+03Ch]
+    // 0x4503A9
+    cmp word ptr [eax+4],dx
+    // 0x4503AD
+    jne PathOrientation14_4503C0
+    // 0x4503AF
+    mov dx,word ptr [esp+03Eh]
+    // 0x4503B4
+    cmp word ptr [eax+6],dx
+    // 0x4503B8
+    jne PathOrientation14_4503C0
+    // 0x4503BA
+    test byte ptr [eax+00Bh],038h
+    // 0x4503BE
+    jmp PathOrientation14_4503C4
+    PathOrientation14_4503C0:
+    test byte ptr [eax+00Bh],7
+    PathOrientation14_4503C4:
+    jne PathOrientation14_4503CE
+    PathOrientation14_4503C6:
+    inc ebp
+    // 0x4503C7
+    add edi,2
+    // 0x4503CA
+    cmp ebp,ebx
+    // 0x4503CC
+    jl PathOrientation14_450381
+    PathOrientation14_4503CE:
+    mov edx,dword ptr [esp+010h]
+    // 0x4503D2
+    pop edi
+    PathOrientation14_4503D3:
+    movsx eax,word ptr [esi+010h]
+    // 0x4503D7
+    mov edx,dword ptr [ecx+edx*4+000000A44h]
+    // 0x4503DE
+    add eax,ebp
+    // 0x4503E0
+    mov eax,dword ptr [edx+eax*4]
+    // 0x4503E3
+    mov dword ptr [esp+038h],eax
+    // 0x4503E7
+    movzx eax,ax
+    // 0x4503EA
+    mov ecx,dword ptr [ecx+eax*4+000000804h]
+    // 0x4503F1
+    test ecx,ecx
+    // 0x4503F3
+    pop ebp
+    // 0x4503F4
+    pop ebx
+    // 0x4503F5
+    je PathOrientation14_450357
+    // 0x4503FB
+    mov eax,dword ptr [esp+030h]
+    // 0x4503FF
+    movsx edx,word ptr [esi+00Ah]
+    // 0x450403
+    shr eax,010h
+    // 0x450406
+    imul eax,eax,01Ch
+    // 0x450409
+    add eax,ecx
+    // 0x45040B
+    movsx ecx,word ptr [esi+8]
+    // 0x45040F
+    mov dword ptr [esp+030h],ecx
+    // 0x450413
+    movsx ecx,word ptr [esi+00Ch]
+    // 0x450417
+    fild dword ptr [esp+030h]
+    // 0x45041B
+    mov dword ptr [esp+030h],edx
+    // 0x45041F
+    fmul dword ptr ds:[000858C48h]
+    // 0x450425
+    movsx edx,word ptr [eax+8]
+    // 0x450429
+    fild dword ptr [esp+030h]
+    // 0x45042D
+    mov dword ptr [esp+030h],ecx
+    // 0x450431
+    fmul dword ptr ds:[000858C48h]
+    // 0x450437
+    movsx ecx,word ptr [eax+00Ah]
+    // 0x45043B
+    fild dword ptr [esp+030h]
+    // 0x45043F
+    mov dword ptr [esp+030h],edx
+    // 0x450443
+    fmul dword ptr ds:[000858C48h]
+    // 0x450449
+    fstp dword ptr [esp+028h]
+    // 0x45044D
+    fild dword ptr [esp+030h]
+    // 0x450451
+    mov dword ptr [esp+030h],ecx
+    // 0x450455
+    fmul dword ptr ds:[000858C48h]
+    // 0x45045B
+    fild dword ptr [esp+030h]
+    // 0x45045F
+    fmul dword ptr ds:[000858C48h]
+    // 0x450465
+    fstp dword ptr [esp+00Ch]
+    // 0x450469
+    movsx edx,word ptr [eax+00Ch]
+    // 0x45046D
+    mov dword ptr [esp+030h],edx
+    // 0x450471
+    fild dword ptr [esp+030h]
+    // 0x450475
+    fmul dword ptr ds:[000858C48h]
+    // 0x45047B
+    fstp dword ptr [esp+010h]
+    // 0x45047F
+    fsub st,st(2)
+    // 0x450481
+    fstp dword ptr [esp+014h]
+    // 0x450485
+    mov eax,dword ptr [esp+014h]
+    // 0x450489
+    fld dword ptr [esp+00Ch]
+    // 0x45048D
+    mov dword ptr [esp+8],eax
+    // 0x450491
+    fsub st,st(1)
+    // 0x450493
+    fstp dword ptr [esp+018h]
+    // 0x450497
+    mov ecx,dword ptr [esp+018h]
+    // 0x45049B
+    fstp st(0)
+    // 0x45049D
+    mov dword ptr [esp+00Ch],ecx
+    // 0x4504A1
+    fstp st(0)
+    // 0x4504A3
+    lea ecx,[esp+8]
+    // 0x4504A7
+    fld dword ptr [esp+010h]
+    // 0x4504AB
+    fsub dword ptr [esp+028h]
+    // 0x4504AF
+    fstp dword ptr [esp+01Ch]
+    // 0x4504B3
+    mov edx,dword ptr [esp+01Ch]
+    // 0x4504B7
+    mov dword ptr [esp+010h],edx
+    // 0x4504BB
+    mov dword ptr [esp+010h],0
+    // 0x4504C3
+    call PathOrientation14Normalise
+    // 0x4504C8
+    fld dword ptr [esp+8]
+    // 0x4504CC
+    fchs
+    // 0x4504CE
+    pop esi
+    // 0x4504CF
+    fld dword ptr [esp+8]
+    // 0x4504D3
+    fpatan
+    // 0x4504D5
+    fmul dword ptr ds:[000859878h]
+    // 0x4504DB
+    add esp,028h
+    // 0x4504DE
+    ret 4
+    }
 }
 
 // 0x452160
@@ -1397,6 +1983,40 @@ float CPathFind::FindYCoorsForRegion(size_t y) {
     return detail::GetCoorsOfRegion(y, NUM_PATH_MAP_AREA_Y);
 }
 
+// 0x44DF60: clears this node's six slots and signed references in all active rows.
+__declspec(naked) void CPathFind::RemoveInteriorLinks(uint32) {
+    __asm {
+    push edi
+    mov edi,dword ptr ds:[0096EF80h]
+    xor edx,edx
+    test edi,edi
+    jle L0044DF9C
+    push ebx
+    push esi
+    mov esi,dword ptr [esp+10h]
+    mov ecx,96EAC0h
+    L0044DF78: xor eax,eax
+    lea ebx,[ebx]
+    L0044DF7C: cmp edx,esi
+    je L0044DF88
+    movsx ebx,byte ptr [eax+ecx]
+    cmp ebx,esi
+    jne L0044DF8C
+    L0044DF88: mov byte ptr [eax+ecx],0FFh
+    L0044DF8C: inc eax
+    cmp eax,6
+    jl L0044DF7C
+    inc edx
+    add ecx,6
+    cmp edx,edi
+    jl L0044DF78
+    pop esi
+    pop ebx
+    L0044DF9C: pop edi
+    ret 4
+    }
+}
+
 // 0x44DED0
 void CPathFind::AddInteriorLink(int32 intNodeA, int32 intNodeB) {
     const auto AddLink = [](int32 intIdx, int32 linkTo) {
@@ -1537,4 +2157,47 @@ void CPathFind::SwitchRoadsOffInArea(float xMin, float xMax, float yMin, float y
 // 0x452F00
 void CPathFind::SwitchPedRoadsOffInArea(float xMin, float xMax, float yMin, float yMax, float zMin, float zMax, bool bSwitchOff, bool bBackToOriginal) {
     SwitchRoadsOffInArea(xMin, xMax, yMin, yMax, zMin, zMax, bSwitchOff, false, bBackToOriginal);
+}
+
+// 0x44DA30: both offsets use the minimum raw width; preserve x-before-y alias order.
+void CPathFind::AddRandomOffsetToNodePosition(CNodeAddress first, CNodeAddress second, int16 random, float* x, float* y) {
+    if (first.m_wAreaId == 0xFFFF || !m_pPathNodes[first.m_wAreaId]) return;
+    if (second.m_wAreaId == 0xFFFF || !m_pPathNodes[second.m_wAreaId]) return;
+    const auto* a = reinterpret_cast<const uint8*>(&m_pPathNodes[first.m_wAreaId][first.m_wNodeId]);
+    const auto* b = reinterpret_cast<const uint8*>(&m_pPathNodes[second.m_wAreaId][second.m_wNodeId]);
+    const int32 xFactor = (uint16(random) & 15) - 7;
+    const int32 yFactor = ((uint16(random) >> 4) & 15) - 7;
+    const float scale = std::bit_cast<float>(0x3BFDF3B6u);
+    int32 displacement;
+    __asm {
+        mov ecx, a
+        mov edx, b
+        movzx eax, byte ptr [ecx + 16h]
+        movzx ebx, byte ptr [edx + 16h]
+        cmp eax, ebx
+        jbe firstMinimum
+        mov eax, ebx
+    firstMinimum:
+        imul eax, xFactor
+        mov displacement, eax
+        mov eax, x
+        fild displacement
+        fmul scale
+        fadd dword ptr [eax]
+        fstp dword ptr [eax]
+        // Original reloads both widths after writing x, including possible aliasing.
+        movzx eax, byte ptr [ecx + 16h]
+        movzx ebx, byte ptr [edx + 16h]
+        cmp eax, ebx
+        jbe secondMinimum
+        mov eax, ebx
+    secondMinimum:
+        imul eax, yFactor
+        mov displacement, eax
+        mov eax, y
+        fild displacement
+        fmul scale
+        fadd dword ptr [eax]
+        fstp dword ptr [eax]
+    }
 }

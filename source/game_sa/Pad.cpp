@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Pad.h"
+#include "Cam.h"
 #include "platform/win/WinInput.h"
 #include "ControllerConfigManager.h"
 #include "app.h"
@@ -46,9 +47,13 @@ static auto& byte_B73401 = StaticRef<char>(0xB73401); // unused, unknown
 void CPad::InjectHooks() {
     RH_ScopedClass(CPad);
     RH_ScopedCategoryGlobal();
+    RH_ScopedInstall(GetCameraCycleUp, 0x5404A0);
+    RH_ScopedInstall(GetMouseCameraStickHorizontal, 0x540E80);
+    RH_ScopedInstall(GetMouseCameraStickVertical, 0x540F80);
 
     // CPad", 0x541D80, &CPad::Constructor);
     // CPad~", 0x53ED60, &CPad::Destructor);
+    RH_ScopedGlobalInstall(GetCurrentKeyPressed, 0x541490);
     RH_ScopedInstall(Initialise, 0x541D90);
     RH_ScopedInstall(ClearKeyBoardHistory, 0x53F1E0);
     RH_ScopedInstall(ClearMouseHistory, 0x541BD0);
@@ -1540,8 +1545,316 @@ bool CPad::DebugMenuJustPressed() {
 }
 
 // 0x541490
-int GetCurrentKeyPressed(RsKeyCodes& keys) {
-    return plugin::CallAndReturn<int, 0x541490, RsKeyCodes&>(keys);
+// Native EAX returns the output address; last rising key in EXE priority wins.
+__declspec(naked) int GetCurrentKeyPressed(RsKeyCodes&) {
+    __asm {
+    mov eax,dword ptr [esp+4] // EXE 0x00541490
+    push esi // EXE 0x00541494
+    mov dword ptr [eax],420h // EXE 0x00541495
+    mov edx,2 // EXE 0x0054149B
+    xor ecx,ecx // EXE 0x005414A0
+    push edi // EXE 0x005414A2
+    L005414A3: cmp word ptr [ecx+00B731A8h],0
+    je L005414BC // EXE 0x005414AB
+    cmp word ptr [ecx+00B72F38h],0 // EXE 0x005414AD
+    jne L005414BC // EXE 0x005414B5
+    lea esi,[edx-2] // EXE 0x005414B7
+    mov dword ptr [eax],esi // EXE 0x005414BA
+    L005414BC: cmp word ptr [ecx+00B731AAh],0
+    je L005414D5 // EXE 0x005414C4
+    cmp word ptr [ecx+00B72F3Ah],0 // EXE 0x005414C6
+    jne L005414D5 // EXE 0x005414CE
+    lea esi,[edx-1] // EXE 0x005414D0
+    mov dword ptr [eax],esi // EXE 0x005414D3
+    L005414D5: cmp word ptr [ecx+00B731ACh],0
+    je L005414EB // EXE 0x005414DD
+    cmp word ptr [ecx+00B72F3Ch],0 // EXE 0x005414DF
+    jne L005414EB // EXE 0x005414E7
+    mov dword ptr [eax],edx // EXE 0x005414E9
+    L005414EB: cmp word ptr [ecx+00B731AEh],0
+    je L00541504 // EXE 0x005414F3
+    cmp word ptr [ecx+00B72F3Eh],0 // EXE 0x005414F5
+    jne L00541504 // EXE 0x005414FD
+    lea esi,[edx+1] // EXE 0x005414FF
+    mov dword ptr [eax],esi // EXE 0x00541502
+    L00541504: cmp word ptr [ecx+00B731B0h],0
+    je L0054151D // EXE 0x0054150C
+    cmp word ptr [ecx+00B72F40h],0 // EXE 0x0054150E
+    jne L0054151D // EXE 0x00541516
+    lea esi,[edx+2] // EXE 0x00541518
+    mov dword ptr [eax],esi // EXE 0x0054151B
+    L0054151D: add edx,5
+    lea esi,[edx-2] // EXE 0x00541520
+    add ecx,0Ah // EXE 0x00541523
+    cmp esi,0FFh // EXE 0x00541526
+    jl L005414A3 // EXE 0x0054152C
+    mov edx,3EAh // EXE 0x00541532
+    xor ecx,ecx // EXE 0x00541537
+    mov esi,2 // EXE 0x00541539
+    mov edi,edi // EXE 0x0054153E
+    L00541540: cmp word ptr [ecx+00B73190h],0
+    je L00541559 // EXE 0x00541548
+    cmp word ptr [ecx+00B72F20h],0 // EXE 0x0054154A
+    jne L00541559 // EXE 0x00541552
+    lea edi,[edx-1] // EXE 0x00541554
+    mov dword ptr [eax],edi // EXE 0x00541557
+    L00541559: cmp word ptr [ecx+00B73192h],0
+    je L0054156F // EXE 0x00541561
+    cmp word ptr [ecx+00B72F22h],0 // EXE 0x00541563
+    jne L0054156F // EXE 0x0054156B
+    mov dword ptr [eax],edx // EXE 0x0054156D
+    L0054156F: cmp word ptr [ecx+00B73194h],0
+    je L00541588 // EXE 0x00541577
+    cmp word ptr [ecx+00B72F24h],0 // EXE 0x00541579
+    jne L00541588 // EXE 0x00541581
+    lea edi,[edx+1] // EXE 0x00541583
+    mov dword ptr [eax],edi // EXE 0x00541586
+    L00541588: cmp word ptr [ecx+00B73196h],0
+    je L005415A1 // EXE 0x00541590
+    cmp word ptr [ecx+00B72F26h],0 // EXE 0x00541592
+    jne L005415A1 // EXE 0x0054159A
+    lea edi,[edx+2] // EXE 0x0054159C
+    mov dword ptr [eax],edi // EXE 0x0054159F
+    L005415A1: cmp word ptr [ecx+00B73198h],0
+    je L005415BA // EXE 0x005415A9
+    cmp word ptr [ecx+00B72F28h],0 // EXE 0x005415AB
+    jne L005415BA // EXE 0x005415B3
+    lea edi,[edx+3] // EXE 0x005415B5
+    mov dword ptr [eax],edi // EXE 0x005415B8
+    L005415BA: cmp word ptr [ecx+00B7319Ah],0
+    je L005415D3 // EXE 0x005415C2
+    cmp word ptr [ecx+00B72F2Ah],0 // EXE 0x005415C4
+    jne L005415D3 // EXE 0x005415CC
+    lea edi,[edx+4] // EXE 0x005415CE
+    mov dword ptr [eax],edi // EXE 0x005415D1
+    L005415D3: add edx,6
+    add ecx,0Ch // EXE 0x005415D6
+    dec esi // EXE 0x005415D9
+    jne L00541540 // EXE 0x005415DA
+    cmp word ptr ds:[00B733A8h],0 // EXE 0x005415E0
+    pop edi // EXE 0x005415E8
+    pop esi // EXE 0x005415E9
+    je L005415FC // EXE 0x005415EA
+    cmp word ptr ds:[00B73138h],0 // EXE 0x005415EC
+    jne L005415FC // EXE 0x005415F4
+    mov dword ptr [eax],3E8h // EXE 0x005415F6
+    L005415FC: cmp word ptr ds:[00B733AAh],0
+    je L00541616 // EXE 0x00541604
+    cmp word ptr ds:[00B7313Ah],0 // EXE 0x00541606
+    jne L00541616 // EXE 0x0054160E
+    mov dword ptr [eax],3F5h // EXE 0x00541610
+    L00541616: cmp word ptr ds:[00B733ACh],0
+    je L00541630 // EXE 0x0054161E
+    cmp word ptr ds:[00B7313Ch],0 // EXE 0x00541620
+    jne L00541630 // EXE 0x00541628
+    mov dword ptr [eax],3F6h // EXE 0x0054162A
+    L00541630: cmp word ptr ds:[00B733AEh],0
+    je L0054164A // EXE 0x00541638
+    cmp word ptr ds:[00B7313Eh],0 // EXE 0x0054163A
+    jne L0054164A // EXE 0x00541642
+    mov dword ptr [eax],3F7h // EXE 0x00541644
+    L0054164A: cmp word ptr ds:[00B733B0h],0
+    je L00541664 // EXE 0x00541652
+    cmp word ptr ds:[00B73140h],0 // EXE 0x00541654
+    jne L00541664 // EXE 0x0054165C
+    mov dword ptr [eax],3F8h // EXE 0x0054165E
+    L00541664: cmp word ptr ds:[00B733B2h],0
+    je L0054167E // EXE 0x0054166C
+    cmp word ptr ds:[00B73142h],0 // EXE 0x0054166E
+    jne L0054167E // EXE 0x00541676
+    mov dword ptr [eax],3F9h // EXE 0x00541678
+    L0054167E: cmp word ptr ds:[00B733B4h],0
+    je L00541698 // EXE 0x00541686
+    cmp word ptr ds:[00B73144h],0 // EXE 0x00541688
+    jne L00541698 // EXE 0x00541690
+    mov dword ptr [eax],3FAh // EXE 0x00541692
+    L00541698: cmp word ptr ds:[00B733B6h],0
+    je L005416B2 // EXE 0x005416A0
+    cmp word ptr ds:[00B73146h],0 // EXE 0x005416A2
+    jne L005416B2 // EXE 0x005416AA
+    mov dword ptr [eax],3FBh // EXE 0x005416AC
+    L005416B2: cmp word ptr ds:[00B733B8h],0
+    je L005416CC // EXE 0x005416BA
+    cmp word ptr ds:[00B73148h],0 // EXE 0x005416BC
+    jne L005416CC // EXE 0x005416C4
+    mov dword ptr [eax],3FCh // EXE 0x005416C6
+    L005416CC: cmp word ptr ds:[00B733BAh],0
+    je L005416E6 // EXE 0x005416D4
+    cmp word ptr ds:[00B7314Ah],0 // EXE 0x005416D6
+    jne L005416E6 // EXE 0x005416DE
+    mov dword ptr [eax],3FDh // EXE 0x005416E0
+    L005416E6: cmp word ptr ds:[00B733BCh],0
+    je L00541700 // EXE 0x005416EE
+    cmp word ptr ds:[00B7314Ch],0 // EXE 0x005416F0
+    jne L00541700 // EXE 0x005416F8
+    mov dword ptr [eax],3FEh // EXE 0x005416FA
+    L00541700: cmp word ptr ds:[00B733BEh],0
+    je L0054171A // EXE 0x00541708
+    cmp word ptr ds:[00B7314Eh],0 // EXE 0x0054170A
+    jne L0054171A // EXE 0x00541712
+    mov dword ptr [eax],410h // EXE 0x00541714
+    L0054171A: cmp word ptr ds:[00B733C0h],0
+    je L00541734 // EXE 0x00541722
+    cmp word ptr ds:[00B73150h],0 // EXE 0x00541724
+    jne L00541734 // EXE 0x0054172C
+    mov dword ptr [eax],411h // EXE 0x0054172E
+    L00541734: cmp word ptr ds:[00B733C2h],0
+    je L0054174E // EXE 0x0054173C
+    cmp word ptr ds:[00B73152h],0 // EXE 0x0054173E
+    jne L0054174E // EXE 0x00541746
+    mov dword ptr [eax],409h // EXE 0x00541748
+    L0054174E: cmp word ptr ds:[00B733C4h],0
+    je L00541768 // EXE 0x00541756
+    cmp word ptr ds:[00B73154h],0 // EXE 0x00541758
+    jne L00541768 // EXE 0x00541760
+    mov dword ptr [eax],3FFh // EXE 0x00541762
+    L00541768: cmp word ptr ds:[00B733C6h],0
+    je L00541782 // EXE 0x00541770
+    cmp word ptr ds:[00B73156h],0 // EXE 0x00541772
+    jne L00541782 // EXE 0x0054177A
+    mov dword ptr [eax],400h // EXE 0x0054177C
+    L00541782: cmp word ptr ds:[00B733C8h],0
+    je L0054179C // EXE 0x0054178A
+    cmp word ptr ds:[00B73158h],0 // EXE 0x0054178C
+    jne L0054179C // EXE 0x00541794
+    mov dword ptr [eax],402h // EXE 0x00541796
+    L0054179C: cmp word ptr ds:[00B733CAh],0
+    je L005417B6 // EXE 0x005417A4
+    cmp word ptr ds:[00B7315Ah],0 // EXE 0x005417A6
+    jne L005417B6 // EXE 0x005417AE
+    mov dword ptr [eax],401h // EXE 0x005417B0
+    L005417B6: cmp word ptr ds:[00B733CCh],0
+    je L005417D0 // EXE 0x005417BE
+    cmp word ptr ds:[00B7315Ch],0 // EXE 0x005417C0
+    jne L005417D0 // EXE 0x005417C8
+    mov dword ptr [eax],40Fh // EXE 0x005417CA
+    L005417D0: cmp word ptr ds:[00B733CEh],0
+    je L005417EA // EXE 0x005417D8
+    cmp word ptr ds:[00B7315Eh],0 // EXE 0x005417DA
+    jne L005417EA // EXE 0x005417E2
+    mov dword ptr [eax],403h // EXE 0x005417E4
+    L005417EA: cmp word ptr ds:[00B733D0h],0
+    je L00541804 // EXE 0x005417F2
+    cmp word ptr ds:[00B73160h],0 // EXE 0x005417F4
+    jne L00541804 // EXE 0x005417FC
+    mov dword ptr [eax],404h // EXE 0x005417FE
+    L00541804: cmp word ptr ds:[00B733D2h],0
+    je L0054181E // EXE 0x0054180C
+    cmp word ptr ds:[00B73162h],0 // EXE 0x0054180E
+    jne L0054181E // EXE 0x00541816
+    mov dword ptr [eax],405h // EXE 0x00541818
+    L0054181E: cmp word ptr ds:[00B733D4h],0
+    je L00541838 // EXE 0x00541826
+    cmp word ptr ds:[00B73164h],0 // EXE 0x00541828
+    jne L00541838 // EXE 0x00541830
+    mov dword ptr [eax],406h // EXE 0x00541832
+    L00541838: cmp word ptr ds:[00B733D6h],0
+    je L00541852 // EXE 0x00541840
+    cmp word ptr ds:[00B73166h],0 // EXE 0x00541842
+    jne L00541852 // EXE 0x0054184A
+    mov dword ptr [eax],407h // EXE 0x0054184C
+    L00541852: cmp word ptr ds:[00B733D8h],0
+    je L0054186C // EXE 0x0054185A
+    cmp word ptr ds:[00B73168h],0 // EXE 0x0054185C
+    jne L0054186C // EXE 0x00541864
+    mov dword ptr [eax],408h // EXE 0x00541866
+    L0054186C: cmp word ptr ds:[00B733DAh],0
+    je L00541886 // EXE 0x00541874
+    cmp word ptr ds:[00B7316Ah],0 // EXE 0x00541876
+    jne L00541886 // EXE 0x0054187E
+    mov dword ptr [eax],40Ah // EXE 0x00541880
+    L00541886: cmp word ptr ds:[00B733DCh],0
+    je L005418A0 // EXE 0x0054188E
+    cmp word ptr ds:[00B7316Ch],0 // EXE 0x00541890
+    jne L005418A0 // EXE 0x00541898
+    mov dword ptr [eax],40Bh // EXE 0x0054189A
+    L005418A0: cmp word ptr ds:[00B733DEh],0
+    je L005418BA // EXE 0x005418A8
+    cmp word ptr ds:[00B7316Eh],0 // EXE 0x005418AA
+    jne L005418BA // EXE 0x005418B2
+    mov dword ptr [eax],40Ch // EXE 0x005418B4
+    L005418BA: cmp word ptr ds:[00B733E0h],0
+    je L005418D4 // EXE 0x005418C2
+    cmp word ptr ds:[00B73170h],0 // EXE 0x005418C4
+    jne L005418D4 // EXE 0x005418CC
+    mov dword ptr [eax],40Dh // EXE 0x005418CE
+    L005418D4: cmp word ptr ds:[00B733E2h],0
+    je L005418EE // EXE 0x005418DC
+    cmp word ptr ds:[00B73172h],0 // EXE 0x005418DE
+    jne L005418EE // EXE 0x005418E6
+    mov dword ptr [eax],40Eh // EXE 0x005418E8
+    L005418EE: cmp word ptr ds:[00B733E4h],0
+    je L00541908 // EXE 0x005418F6
+    cmp word ptr ds:[00B73174h],0 // EXE 0x005418F8
+    jne L00541908 // EXE 0x00541900
+    mov dword ptr [eax],412h // EXE 0x00541902
+    L00541908: cmp word ptr ds:[00B733E6h],0
+    je L00541922 // EXE 0x00541910
+    cmp word ptr ds:[00B73176h],0 // EXE 0x00541912
+    jne L00541922 // EXE 0x0054191A
+    mov dword ptr [eax],413h // EXE 0x0054191C
+    L00541922: cmp word ptr ds:[00B733E8h],0
+    je L0054193C // EXE 0x0054192A
+    cmp word ptr ds:[00B73178h],0 // EXE 0x0054192C
+    jne L0054193C // EXE 0x00541934
+    mov dword ptr [eax],414h // EXE 0x00541936
+    L0054193C: cmp word ptr ds:[00B733EAh],0
+    je L00541956 // EXE 0x00541944
+    cmp word ptr ds:[00B7317Ah],0 // EXE 0x00541946
+    jne L00541956 // EXE 0x0054194E
+    mov dword ptr [eax],415h // EXE 0x00541950
+    L00541956: cmp word ptr ds:[00B733ECh],0
+    je L00541970 // EXE 0x0054195E
+    cmp word ptr ds:[00B7317Ch],0 // EXE 0x00541960
+    jne L00541970 // EXE 0x00541968
+    mov dword ptr [eax],416h // EXE 0x0054196A
+    L00541970: cmp word ptr ds:[00B733F0h],0
+    je L0054198A // EXE 0x00541978
+    cmp word ptr ds:[00B73180h],0 // EXE 0x0054197A
+    jne L0054198A // EXE 0x00541982
+    mov dword ptr [eax],418h // EXE 0x00541984
+    L0054198A: cmp word ptr ds:[00B733EEh],0
+    je L005419A4 // EXE 0x00541992
+    cmp word ptr ds:[00B7317Eh],0 // EXE 0x00541994
+    jne L005419A4 // EXE 0x0054199C
+    mov dword ptr [eax],417h // EXE 0x0054199E
+    L005419A4: cmp word ptr ds:[00B733F2h],0
+    je L005419BE // EXE 0x005419AC
+    cmp word ptr ds:[00B73182h],0 // EXE 0x005419AE
+    jne L005419BE // EXE 0x005419B6
+    mov dword ptr [eax],419h // EXE 0x005419B8
+    L005419BE: cmp word ptr ds:[00B733F4h],0
+    je L005419D8 // EXE 0x005419C6
+    cmp word ptr ds:[00B73184h],0 // EXE 0x005419C8
+    jne L005419D8 // EXE 0x005419D0
+    mov dword ptr [eax],41Ah // EXE 0x005419D2
+    L005419D8: cmp word ptr ds:[00B733F6h],0
+    je L005419F2 // EXE 0x005419E0
+    cmp word ptr ds:[00B73186h],0 // EXE 0x005419E2
+    jne L005419F2 // EXE 0x005419EA
+    mov dword ptr [eax],41Bh // EXE 0x005419EC
+    L005419F2: cmp word ptr ds:[00B733F8h],0
+    je L00541A0C // EXE 0x005419FA
+    cmp word ptr ds:[00B73188h],0 // EXE 0x005419FC
+    jne L00541A0C // EXE 0x00541A04
+    mov dword ptr [eax],41Ch // EXE 0x00541A06
+    L00541A0C: cmp word ptr ds:[00B733FAh],0
+    je L00541A26 // EXE 0x00541A14
+    cmp word ptr ds:[00B7318Ah],0 // EXE 0x00541A16
+    jne L00541A26 // EXE 0x00541A1E
+    mov dword ptr [eax],41Dh // EXE 0x00541A20
+    L00541A26: cmp word ptr ds:[00B733FCh],0
+    je L00541A40 // EXE 0x00541A2E
+    cmp word ptr ds:[00B7318Ch],0 // EXE 0x00541A30
+    jne L00541A40 // EXE 0x00541A38
+    mov dword ptr [eax],41Eh // EXE 0x00541A3A
+    L00541A40: cmp word ptr ds:[00B733FEh],0
+    je L00541A5A // EXE 0x00541A48
+    cmp word ptr ds:[00B7318Eh],0 // EXE 0x00541A4A
+    jne L00541A5A // EXE 0x00541A52
+    mov dword ptr [eax],41Fh // EXE 0x00541A54
+    L00541A5A: ret
+    }
 }
 
 IDirectInputDevice8* DIReleaseMouse() { // todo: wininput
@@ -1550,4 +1863,184 @@ IDirectInputDevice8* DIReleaseMouse() { // todo: wininput
 
 void InitialiseMouse(bool exclusive) {
     WinInput::diMouseInit(exclusive);
+}
+
+static uintptr_t MouseCameraModeBody=std::bit_cast<uintptr_t>(&CCam::Using3rdPersonMouseCam);
+static uintptr_t MouseCameraFtolLibrary=0x821B40;
+
+// 0x5404A0: native table 5404DC = B3,C1,B3,B3; all candidate targets local.
+__declspec(naked) bool CPad::GetCameraCycleUp() const {
+    __asm {
+        movzx eax,word ptr [ecx+10Ah]
+        cmp eax,3
+        ja invalidMode
+        cmp eax,1
+        je alternate
+        cmp word ptr [ecx+1Ah],0
+        je released
+        cmp word ptr [ecx+4Ah],0
+        jmp previous
+    alternate:
+        cmp word ptr [ecx+10h],0
+        je released
+        cmp word ptr [ecx+40h],0
+    previous:
+        jne released
+        mov eax,1
+        ret
+    released:
+        xor eax,eax
+        ret
+    invalidMode:
+        xor al,al
+        ret
+    }
+}
+
+// 0x540e80: exact native x87/integer branches, actual CRT tail call.
+__declspec(naked) int16 CPad::GetMouseCameraStickHorizontal() const {
+    __asm {
+    push ecx
+    movsx eax,word ptr ds:[00B7345Ch]
+    mov dword ptr [esp],eax
+    fild dword ptr [esp]
+    fst dword ptr [esp]
+    fcomp dword ptr ds:[00858B50h]
+    fld dword ptr [esp]
+    fnstsw ax
+    test ah,5
+    jp L00540EA7
+    fchs
+    L00540EA7: fcomp dword ptr ds:[00858628h]
+    fnstsw ax
+    test ah,41h
+    jne L00540F07
+    cmp word ptr [ecx+0000010Eh],0
+    jne L00540ECA
+    cmp word ptr [ecx+26h],0
+    setne al
+    test al,al
+    jne L00540F07
+    L00540ECA: fld dword ptr [esp]
+    fcomp dword ptr ds:[00858B50h]
+    fld dword ptr [esp]
+    fnstsw ax
+    test ah,41h
+    jne L00540EF3
+    fsub dword ptr ds:[00858628h]
+    fadd dword ptr ds:[00858B40h]
+    add esp,4
+    jmp dword ptr [MouseCameraFtolLibrary]
+    L00540EF3: fadd dword ptr ds:[00858628h]
+    fsub dword ptr ds:[00858B40h]
+    add esp,4
+    jmp dword ptr [MouseCameraFtolLibrary]
+    L00540F07: mov ecx,0B6F19Ch
+    call dword ptr [MouseCameraModeBody]
+    test al,al
+    je L00540F76
+    fld dword ptr [esp]
+    fcomp dword ptr ds:[00858B50h]
+    fld dword ptr [esp]
+    fnstsw ax
+    test ah,5
+    jp L00540F2C
+    fchs
+    L00540F2C: fcomp dword ptr ds:[00858B40h]
+    fnstsw ax
+    test ah,41h
+    jne L00540F76
+    fld dword ptr [esp]
+    fcomp dword ptr ds:[00858B50h]
+    fld dword ptr [esp]
+    fnstsw ax
+    test ah,41h
+    jne L00540F62
+    fsub dword ptr ds:[00858B40h]
+    fmul dword ptr ds:[00858B8Ch]
+    add esp,4
+    jmp dword ptr [MouseCameraFtolLibrary]
+    L00540F62: fadd dword ptr ds:[00858B40h]
+    fmul dword ptr ds:[00858B8Ch]
+    add esp,4
+    jmp dword ptr [MouseCameraFtolLibrary]
+    L00540F76: xor ax,ax
+    pop ecx
+    ret
+    }
+}
+
+// 0x540f80: exact native x87/integer branches, actual CRT tail call.
+__declspec(naked) int16 CPad::GetMouseCameraStickVertical() const {
+    __asm {
+    push ecx
+    mov al,byte ptr ds:[00B73402h]
+    test al,al
+    push esi
+    push edi
+    mov di,word ptr ds:[00B7345Eh]
+    mov word ptr [esp+8],di
+    je L00540FA5
+    mov eax,dword ptr [esp+8]
+    neg eax
+    mov dword ptr [esp+8],eax
+    mov di,ax
+    L00540FA5: test di,di
+    movsx esi,di
+    mov eax,esi
+    jge L00540FB1
+    neg eax
+    L00540FB1: cmp eax,64h
+    jle L00540FDF
+    cmp word ptr [ecx+0000010Eh],0
+    jne L00540FCC
+    cmp word ptr [ecx+26h],0
+    setne al
+    test al,al
+    jne L00540FDF
+    L00540FCC: test di,di
+    jle L00540FD8
+    pop edi
+    lea eax,[esi-32h]
+    pop esi
+    pop ecx
+    ret
+    L00540FD8: pop edi
+    lea eax,[esi+32h]
+    pop esi
+    pop ecx
+    ret
+    L00540FDF: mov ecx,0B6F19Ch
+    call dword ptr [MouseCameraModeBody]
+    test al,al
+    je L00541035
+    test di,di
+    mov eax,esi
+    jge L00540FF6
+    neg eax
+    L00540FF6: cmp eax,32h
+    jle L00541035
+    test di,di
+    pop edi
+    jle L0054101B
+    add esi,0FFFFFFCEh
+    mov dword ptr [esp+4],esi
+    fild dword ptr [esp+4]
+    pop esi
+    fmul dword ptr ds:[00858B8Ch]
+    add esp,4
+    jmp dword ptr [MouseCameraFtolLibrary]
+    L0054101B: add esi,32h
+    mov dword ptr [esp+4],esi
+    fild dword ptr [esp+4]
+    pop esi
+    fmul dword ptr ds:[00858B8Ch]
+    add esp,4
+    jmp dword ptr [MouseCameraFtolLibrary]
+    L00541035: pop edi
+    xor ax,ax
+    pop esi
+    pop ecx
+    ret
+    }
 }

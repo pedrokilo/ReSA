@@ -163,3 +163,6 @@ public:
     static void WeaveThroughPedsSectorList(PtrListType& ptrList, CVehicle* vehicle, CPhysical* physical, float arg4, float arg5, float arg6, float arg7, float* arg8, float* arg9);
     static float FindMaxSteerAngle(CVehicle* veh);
 };
+
+// Address alias only; CCarCtrl is instrumentation owner, not a recovered native class.
+bool Native_00424100(float,float);

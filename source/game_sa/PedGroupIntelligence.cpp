@@ -28,6 +28,7 @@ void CPedGroupIntelligence::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Constructor, 0x5F7250);
+    RH_ScopedInstall(ComputeScriptCommandTasks, 0x5F7800);
 
     RH_ScopedInstall(FlushTasks, 0x5F79C0); // Como el original: __thiscall con 2 argumentos (ret 8); como cdecl descuadraba la pila
     RH_ScopedOverloadedInstall(ReportFinishedTask, "Wrapper", 0x5F86F0, bool(CPedGroupIntelligence::*)(const CPed*, const CTask*));
@@ -512,6 +513,140 @@ CTaskAllocator* CPedGroupIntelligence::ComputeEventResponseTasks() {
     return CGroupEventHandler::ComputeEventResponseTasks(*m_CurrentEvent, m_pPedGroup);
 }
 
-void CPedGroupIntelligence::ComputeScriptCommandTasks() {
-    plugin::CallMethod<0x5F7800>(this);
+__declspec(naked) void CPedGroupIntelligence::ComputeScriptCommandTasks() {
+    // 0x5F7800..0x5F79B3: preserves physical-slot metadata and real virtual deletion.
+    __asm {
+        sub esp,0A8h
+        push ebx
+        push ebp
+        mov ebp,ecx
+        mov edx,dword ptr [ebp]
+        push esi
+        push edi
+        mov dword ptr [esp+10h],ebp
+        add edx,8
+        lea eax,[esp+20h]
+        mov ecx,8
+L_5F7820:
+        xor esi,esi
+        mov dword ptr [eax-8],esi
+        mov dword ptr [eax-4],esi
+        mov dword ptr [eax],0FFFFFFFFh
+        mov dword ptr [eax+4],esi
+        mov byte ptr [eax+8],0
+        add eax,14h
+        dec ecx
+        jne L_5F7820
+        lea ecx,[esp+1Ch]
+        lea ebx,[edx+4]
+        lea edi,[ebp+0000014Ch]
+        mov dword ptr [esp+14h],8
+L_5F7850:
+        mov eax,dword ptr [edi]
+        mov esi,dword ptr [ebx]
+        cmp esi,eax
+        mov edx,dword ptr [edi+4]
+        mov dword ptr [ecx-4],eax
+        mov dword ptr [ecx],edx
+        je L_5F7899
+        mov edx,dword ptr [esp+10h]
+        xor ebp,ebp
+        xor eax,eax
+        mov dword ptr [ecx-4],esi
+        add edx,14Ch
+L_5F7871:
+        cmp dword ptr [edx],esi
+        je L_5F7880
+        inc eax
+        add edx,14h
+        cmp eax,8
+        jl L_5F7871
+        jmp L_5F7893
+L_5F7880:
+        lea edx,[eax+eax*4]
+        mov eax,dword ptr [esp+10h]
+        mov ebp,dword ptr [eax+edx*4+00000150h]
+        add eax,14Ch
+L_5F7893:
+        mov dword ptr [ecx],ebp
+        mov ebp,dword ptr [esp+10h]
+L_5F7899:
+        mov eax,dword ptr [esp+14h]
+        add ebx,4
+        add edi,14h
+        add ecx,14h
+        dec eax
+        mov dword ptr [esp+14h],eax
+        jne L_5F7850
+        lea esi,[ebp+00000150h]
+        mov ebx,8
+L_5F78B8:
+        mov ecx,dword ptr [esi]
+        test ecx,ecx
+        je L_5F78F4
+        mov edi,dword ptr [esi-4]
+        xor eax,eax
+        lea edx,[esp+18h]
+L_5F78C7:
+        cmp dword ptr [edx],edi
+        je L_5F78D6
+        inc eax
+        add edx,14h
+        cmp eax,8
+        jl L_5F78C7
+        jmp L_5F78E1
+L_5F78D6:
+        lea eax,[eax+eax*4]
+        mov edx,dword ptr [esp+eax*4+1Ch]
+        test edx,edx
+        jne L_5F78F4
+L_5F78E1:
+        mov edx,dword ptr [ecx]
+        push 1
+        call dword ptr [edx]
+        mov dword ptr [esi-4],0
+        mov dword ptr [esi],0
+L_5F78F4:
+        add esi,14h
+        dec ebx
+        jne L_5F78B8
+        mov eax,dword ptr [esp+18h]
+        mov ecx,dword ptr [esp+1Ch]
+        mov edx,dword ptr [esp+2Ch]
+        mov dword ptr [ebp+0000014Ch],eax
+        mov eax,dword ptr [esp+30h]
+        mov dword ptr [ebp+00000150h],ecx
+        mov ecx,dword ptr [esp+40h]
+        mov dword ptr [ebp+00000160h],edx
+        mov edx,dword ptr [esp+44h]
+        mov dword ptr [ebp+00000164h],eax
+        mov eax,dword ptr [esp+54h]
+        mov dword ptr [ebp+00000174h],ecx
+        mov ecx,dword ptr [esp+58h]
+        mov dword ptr [ebp+00000178h],edx
+        mov edx,dword ptr [esp+68h]
+        mov dword ptr [ebp+00000188h],eax
+        mov eax,dword ptr [esp+6Ch]
+        mov dword ptr [ebp+0000018Ch],ecx
+        mov ecx,dword ptr [esp+7Ch]
+        mov dword ptr [ebp+0000019Ch],edx
+        mov edx,dword ptr [esp+00000080h]
+        mov dword ptr [ebp+000001A0h],eax
+        mov eax,dword ptr [esp+00000090h]
+        pop edi
+        mov dword ptr [ebp+000001B0h],ecx
+        mov ecx,dword ptr [esp+00000090h]
+        mov dword ptr [ebp+000001B4h],edx
+        mov edx,dword ptr [esp+000000A0h]
+        mov dword ptr [ebp+000001C4h],eax
+        mov eax,dword ptr [esp+000000A4h]
+        pop esi
+        mov dword ptr [ebp+000001C8h],ecx
+        mov dword ptr [ebp+000001D8h],edx
+        mov dword ptr [ebp+000001DCh],eax
+        pop ebp
+        pop ebx
+        add esp,0A8h
+        ret
+    }
 }

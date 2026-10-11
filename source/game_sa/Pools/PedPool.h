@@ -38,12 +38,15 @@ public:
         RH_ScopedClass(CPedPool);
         RH_ScopedCategory("Pools");
 
+        RH_ScopedInstall(GetRef, 0x4442D0);
         RH_ScopedInstall(New, 0x005E45E0);
         RH_ScopedInstall(GetAtRef, 0x404910);
     }
 
 public:
     using CPool::CPool;
+
+    int32 GetRef(const CPed*);
 
     // Como el original: busca desde el cursor + 1 y no rellena el almacenamiento (ver CPool::NewLegacy).
     CPed* New() {

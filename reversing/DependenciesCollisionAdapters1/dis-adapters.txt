@@ -1,0 +1,14 @@
+00418580: mov eax,dword ptr [esp+4]
+00418584: mov eax,dword ptr [eax+2Ch]
+00418587: test eax,eax
+00418589: je 00418594
+0041858B: mov dword ptr [esp+4],eax
+0041858F: jmp 00416330
+00418594: ret
+004185A0: mov eax,dword ptr [esp+4]
+004185A4: mov eax,dword ptr [eax+2Ch]
+004185A7: test eax,eax
+004185A9: je 004185B4
+004185AB: mov dword ptr [esp+4],eax
+004185AF: jmp 00416400
+004185B4: ret

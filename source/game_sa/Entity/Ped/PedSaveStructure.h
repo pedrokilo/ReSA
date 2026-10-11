@@ -17,6 +17,7 @@ public:
     uint8         m_nFightingStyle;
     uint8         m_nAllowedAttackMoves;
 
+    static void InjectHooks();
     void Extract(CPed* ped);
     void Construct(CPed* ped);
 };

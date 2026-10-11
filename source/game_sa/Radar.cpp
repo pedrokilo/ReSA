@@ -180,7 +180,7 @@ void CRadar::InjectHooks() {
 
     RH_ScopedInstall(SetupAirstripBlips, 0x587D20); // TEST
     RH_ScopedInstall(DrawBlips, 0x588050);
-    // RH_ScopedInstall(ClipRadarPoly, 0x585040);
+    RH_ScopedInstall(ClipRadarPoly, 0x585040);
     RH_ScopedInstall(DrawAreaOnRadar, 0x5853D0);
     RH_ScopedOverloadedInstall(StreamRadarSections, "xy", 0x584C50, void (*)(int32, int32));
     RH_ScopedInstall(AddBlipToLegendList, 0x5859F0);
@@ -1309,8 +1309,308 @@ int32 LineRadarBoxCollision(CVector2D& result, const CVector2D& lineStart, const
 }
 
 // 0x585040
-int32 CRadar::ClipRadarPoly(CVector2D* out, const CVector2D* in) {
-    return plugin::CallAndReturn<int32, 0x585040, CVector2D*, const CVector2D*>(out, in);
+// The bank proves this mutable RH entry resolves to the reconstructed helper.
+static uintptr_t RadarBoxCollisionBody=reinterpret_cast<uintptr_t>(&LineRadarBoxCollision);
+
+__declspec(naked) int32 CRadar::ClipRadarPoly(CVector2D*,const CVector2D*) {
+    __asm {
+    push ebp
+    mov ebp,esp
+    and esp,0FFFFFFF8h
+    sub esp,4Ch
+    push ebx
+    mov ebx,dword ptr [ebp+0Ch]
+    fld dword ptr [ebx]
+    push esi
+    fcomp dword ptr ds:[00858C1Ch]
+    push edi
+    xor edi,edi
+    mov dword ptr [esp+10h],edi
+    mov dword ptr [esp+18h],0FFFFFFFFh
+    fnstsw ax
+    mov dword ptr [esp+38h],3F800000h
+    mov dword ptr [esp+3Ch],0BF800000h
+    test ah,5
+    mov dword ptr [esp+40h],3F800000h
+    mov dword ptr [esp+44h],3F800000h
+    mov dword ptr [esp+48h],0BF800000h
+    mov dword ptr [esp+4Ch],3F800000h
+    mov dword ptr [esp+50h],0BF800000h
+    mov dword ptr [esp+54h],0BF800000h
+    jnp L005850DF
+    fld dword ptr [ebx]
+    fcomp dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    je L005850DF
+    fld dword ptr [ebx+4]
+    fcomp dword ptr ds:[00858C1Ch]
+    fnstsw ax
+    test ah,5
+    jnp L005850DF
+    fld dword ptr [ebx+4]
+    fcomp dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    je L005850DF
+    mov al,1
+    jmp L005850E1
+    L005850DF: xor al,al
+    L005850E1: fld dword ptr [ebx+8]
+    mov byte ptr [esp+14h],al
+    fcomp dword ptr ds:[00858C1Ch]
+    fnstsw ax
+    test ah,5
+    jnp L00585129
+    fld dword ptr [ebx+8]
+    fcomp dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    je L00585129
+    fld dword ptr [ebx+0Ch]
+    fcomp dword ptr ds:[00858C1Ch]
+    fnstsw ax
+    test ah,5
+    jnp L00585129
+    fld dword ptr [ebx+0Ch]
+    fcomp dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    je L00585129
+    mov al,1
+    jmp L0058512B
+    L00585129: xor al,al
+    L0058512B: fld dword ptr [ebx+10h]
+    mov byte ptr [esp+15h],al
+    fcomp dword ptr ds:[00858C1Ch]
+    fnstsw ax
+    test ah,5
+    jnp L00585173
+    fld dword ptr [ebx+10h]
+    fcomp dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    je L00585173
+    fld dword ptr [ebx+14h]
+    fcomp dword ptr ds:[00858C1Ch]
+    fnstsw ax
+    test ah,5
+    jnp L00585173
+    fld dword ptr [ebx+14h]
+    fcomp dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    je L00585173
+    mov al,1
+    jmp L00585175
+    L00585173: xor al,al
+    L00585175: fld dword ptr [ebx+18h]
+    mov byte ptr [esp+16h],al
+    fcomp dword ptr ds:[00858C1Ch]
+    fnstsw ax
+    test ah,5
+    jnp L005851BD
+    fld dword ptr [ebx+18h]
+    fcomp dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    je L005851BD
+    fld dword ptr [ebx+1Ch]
+    fcomp dword ptr ds:[00858C1Ch]
+    fnstsw ax
+    test ah,5
+    jnp L005851BD
+    fld dword ptr [ebx+1Ch]
+    fcomp dword ptr ds:[00858624h]
+    fnstsw ax
+    test ah,41h
+    je L005851BD
+    mov al,1
+    jmp L005851BF
+    L005851BD: xor al,al
+    L005851BF: lea edx,[esp+14h]
+    mov ecx,ebx
+    dec edx
+    mov byte ptr [esp+17h],al
+    mov dword ptr [esp+20h],edi
+    mov dword ptr [esp+1Ch],ecx
+    mov dword ptr [esp+30h],edx
+    jmp L005851E0
+    L005851D8: mov edx,dword ptr [esp+30h]
+    lea esp,[esp]
+    L005851E0: mov eax,dword ptr [esp+20h]
+    inc eax
+    cmp byte ptr [edx+eax],0
+    mov dword ptr [esp+2Ch],eax
+    je L00585209
+    mov edx,dword ptr [ebp+8]
+    mov esi,dword ptr [ecx]
+    lea edx,[edx+edi*8]
+    mov dword ptr [edx],esi
+    mov esi,dword ptr [ecx+4]
+    inc edi
+    mov dword ptr [esp+10h],edi
+    mov dword ptr [edx+4],esi
+    jmp L00585317
+    L00585209: mov esi,eax
+    add eax,0FFFFFFFEh
+    and eax,3
+    lea eax,[ebx+eax*8]
+    push eax
+    push ecx
+    mov ecx,dword ptr [ebp+8]
+    lea edx,[ecx+edi*8]
+    push edx
+    and esi,3
+    call dword ptr [RadarBoxCollisionBody]
+    mov edi,eax
+    add esp,0Ch
+    cmp edi,0FFFFFFFFh
+    je L0058523C
+    mov eax,dword ptr [esp+10h]
+    inc eax
+    mov dword ptr [esp+18h],edi
+    mov dword ptr [esp+10h],eax
+    L0058523C: mov ecx,dword ptr [esp+10h]
+    mov eax,dword ptr [ebp+8]
+    lea eax,[eax+ecx*8]
+    mov ecx,dword ptr [esp+1Ch]
+    lea edx,[ebx+esi*8]
+    push edx
+    push ecx
+    push eax
+    mov dword ptr [esp+40h],eax
+    call dword ptr [RadarBoxCollisionBody]
+    add esp,0Ch
+    cmp eax,0FFFFFFFFh
+    mov dword ptr [esp+28h],eax
+    je L0058530B
+    cmp edi,0FFFFFFFFh
+    jne L00585307
+    cmp dword ptr [esp+18h],edi
+    jne L005852B5
+    mov edi,dword ptr [esp+20h]
+    mov esi,3
+    cmp edi,esi
+    jg L005852B5
+    L00585285: test esi,esi
+    lea edx,[esp+20h]
+    jne L00585294
+    lea eax,[ebx+18h]
+    push eax
+    push ebx
+    jmp L0058529C
+    L00585294: lea eax,[ebx+esi*8]
+    lea ecx,[eax-8]
+    push ecx
+    push eax
+    L0058529C: push edx
+    call dword ptr [RadarBoxCollisionBody]
+    add esp,0Ch
+    cmp eax,0FFFFFFFFh
+    jne L005852B1
+    dec esi
+    cmp esi,edi
+    jge L00585285
+    jmp L005852B5
+    L005852B1: mov dword ptr [esp+18h],eax
+    L005852B5: mov edx,dword ptr [esp+34h]
+    mov eax,dword ptr [esp+18h]
+    fld dword ptr [edx]
+    mov ecx,dword ptr [esp+28h]
+    fld dword ptr [edx+4]
+    cmp eax,ecx
+    je L005852F7
+    lea ebx,[ebx+00000000h]
+    L005852D0: mov esi,dword ptr [esp+10h]
+    inc esi
+    mov ecx,edx
+    mov dword ptr [esp+10h],esi
+    mov esi,dword ptr [esp+eax*8+38h]
+    mov dword ptr [ecx],esi
+    mov esi,dword ptr [esp+eax*8+3Ch]
+    add edx,8
+    inc eax
+    mov dword ptr [ecx+4],esi
+    mov ecx,dword ptr [esp+28h]
+    and eax,3
+    cmp eax,ecx
+    jne L005852D0
+    L005852F7: mov eax,dword ptr [ebp+8]
+    fxch st(1)
+    mov ecx,dword ptr [esp+10h]
+    fstp dword ptr [eax+ecx*8]
+    fstp dword ptr [eax+ecx*8+4]
+    L00585307: inc dword ptr [esp+10h]
+    L0058530B: mov edi,dword ptr [esp+10h]
+    mov ecx,dword ptr [esp+1Ch]
+    mov eax,dword ptr [esp+2Ch]
+    L00585317: add ecx,8
+    cmp eax,4
+    mov dword ptr [esp+20h],eax
+    mov dword ptr [esp+1Ch],ecx
+    jl L005851D8
+    test edi,edi
+    jne L005853C1
+    fld dword ptr [ebx+4]
+    fsub dword ptr [ebx+0Ch]
+    fld dword ptr [ebx]
+    fsub dword ptr [ebx+8]
+    fdivp st(1),st
+    fld dword ptr [ebx+4]
+    fsub dword ptr [ebx+1Ch]
+    fld dword ptr [ebx]
+    fsub dword ptr [ebx+18h]
+    fdivp st(1),st
+    fstp dword ptr [esp+2Ch]
+    fld st(0)
+    fmul dword ptr [ebx+18h]
+    fsub dword ptr [ebx+1Ch]
+    fxch st(1)
+    fmul dword ptr [ebx]
+    fsub dword ptr [ebx+4]
+    fmulp st(1),st
+    fcomp dword ptr ds:[00858B50h]
+    fnstsw ax
+    test ah,5
+    jp L005853C1
+    fld dword ptr [esp+2Ch]
+    fmul dword ptr [ebx+8]
+    fsub dword ptr [ebx+0Ch]
+    fld dword ptr [esp+2Ch]
+    fmul dword ptr [ebx]
+    fsub dword ptr [ebx+4]
+    fmulp st(1),st
+    fcomp dword ptr ds:[00858B50h]
+    fnstsw ax
+    test ah,5
+    jp L005853C1
+    mov ecx,dword ptr [ebp+8]
+    mov eax,3F800000h
+    mov edx,0BF800000h
+    mov dword ptr [ecx],eax
+    mov dword ptr [ecx+4],edx
+    mov dword ptr [ecx+8],eax
+    mov dword ptr [ecx+0Ch],eax
+    mov dword ptr [ecx+14h],eax
+    mov dword ptr [ecx+10h],edx
+    mov eax,4
+    mov dword ptr [ecx+18h],edx
+    mov dword ptr [ecx+1Ch],edx
+    pop edi
+    pop esi
+    pop ebx
+    mov esp,ebp
+    pop ebp
+    ret
+    L005853C1: mov eax,edi
+    pop edi
+    pop esi
+    pop ebx
+    mov esp,ebp
+    pop ebp
+    ret
+    }
 }
 
 // 0x5853D0

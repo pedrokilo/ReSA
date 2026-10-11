@@ -1,0 +1,377 @@
+00541490: mov eax,dword ptr [esp+4]
+00541494: push esi
+00541495: mov dword ptr [eax],420h
+0054149B: mov edx,2
+005414A0: xor ecx,ecx
+005414A2: push edi
+005414A3: cmp word ptr [ecx+00B731A8h],0
+005414AB: je 005414BC
+005414AD: cmp word ptr [ecx+00B72F38h],0
+005414B5: jne 005414BC
+005414B7: lea esi,[edx-2]
+005414BA: mov dword ptr [eax],esi
+005414BC: cmp word ptr [ecx+00B731AAh],0
+005414C4: je 005414D5
+005414C6: cmp word ptr [ecx+00B72F3Ah],0
+005414CE: jne 005414D5
+005414D0: lea esi,[edx-1]
+005414D3: mov dword ptr [eax],esi
+005414D5: cmp word ptr [ecx+00B731ACh],0
+005414DD: je 005414EB
+005414DF: cmp word ptr [ecx+00B72F3Ch],0
+005414E7: jne 005414EB
+005414E9: mov dword ptr [eax],edx
+005414EB: cmp word ptr [ecx+00B731AEh],0
+005414F3: je 00541504
+005414F5: cmp word ptr [ecx+00B72F3Eh],0
+005414FD: jne 00541504
+005414FF: lea esi,[edx+1]
+00541502: mov dword ptr [eax],esi
+00541504: cmp word ptr [ecx+00B731B0h],0
+0054150C: je 0054151D
+0054150E: cmp word ptr [ecx+00B72F40h],0
+00541516: jne 0054151D
+00541518: lea esi,[edx+2]
+0054151B: mov dword ptr [eax],esi
+0054151D: add edx,5
+00541520: lea esi,[edx-2]
+00541523: add ecx,0Ah
+00541526: cmp esi,0FFh
+0054152C: jl 005414A3
+00541532: mov edx,3EAh
+00541537: xor ecx,ecx
+00541539: mov esi,2
+0054153E: mov edi,edi
+00541540: cmp word ptr [ecx+00B73190h],0
+00541548: je 00541559
+0054154A: cmp word ptr [ecx+00B72F20h],0
+00541552: jne 00541559
+00541554: lea edi,[edx-1]
+00541557: mov dword ptr [eax],edi
+00541559: cmp word ptr [ecx+00B73192h],0
+00541561: je 0054156F
+00541563: cmp word ptr [ecx+00B72F22h],0
+0054156B: jne 0054156F
+0054156D: mov dword ptr [eax],edx
+0054156F: cmp word ptr [ecx+00B73194h],0
+00541577: je 00541588
+00541579: cmp word ptr [ecx+00B72F24h],0
+00541581: jne 00541588
+00541583: lea edi,[edx+1]
+00541586: mov dword ptr [eax],edi
+00541588: cmp word ptr [ecx+00B73196h],0
+00541590: je 005415A1
+00541592: cmp word ptr [ecx+00B72F26h],0
+0054159A: jne 005415A1
+0054159C: lea edi,[edx+2]
+0054159F: mov dword ptr [eax],edi
+005415A1: cmp word ptr [ecx+00B73198h],0
+005415A9: je 005415BA
+005415AB: cmp word ptr [ecx+00B72F28h],0
+005415B3: jne 005415BA
+005415B5: lea edi,[edx+3]
+005415B8: mov dword ptr [eax],edi
+005415BA: cmp word ptr [ecx+00B7319Ah],0
+005415C2: je 005415D3
+005415C4: cmp word ptr [ecx+00B72F2Ah],0
+005415CC: jne 005415D3
+005415CE: lea edi,[edx+4]
+005415D1: mov dword ptr [eax],edi
+005415D3: add edx,6
+005415D6: add ecx,0Ch
+005415D9: dec esi
+005415DA: jne 00541540
+005415E0: cmp word ptr ds:[00B733A8h],0
+005415E8: pop edi
+005415E9: pop esi
+005415EA: je 005415FC
+005415EC: cmp word ptr ds:[00B73138h],0
+005415F4: jne 005415FC
+005415F6: mov dword ptr [eax],3E8h
+005415FC: cmp word ptr ds:[00B733AAh],0
+00541604: je 00541616
+00541606: cmp word ptr ds:[00B7313Ah],0
+0054160E: jne 00541616
+00541610: mov dword ptr [eax],3F5h
+00541616: cmp word ptr ds:[00B733ACh],0
+0054161E: je 00541630
+00541620: cmp word ptr ds:[00B7313Ch],0
+00541628: jne 00541630
+0054162A: mov dword ptr [eax],3F6h
+00541630: cmp word ptr ds:[00B733AEh],0
+00541638: je 0054164A
+0054163A: cmp word ptr ds:[00B7313Eh],0
+00541642: jne 0054164A
+00541644: mov dword ptr [eax],3F7h
+0054164A: cmp word ptr ds:[00B733B0h],0
+00541652: je 00541664
+00541654: cmp word ptr ds:[00B73140h],0
+0054165C: jne 00541664
+0054165E: mov dword ptr [eax],3F8h
+00541664: cmp word ptr ds:[00B733B2h],0
+0054166C: je 0054167E
+0054166E: cmp word ptr ds:[00B73142h],0
+00541676: jne 0054167E
+00541678: mov dword ptr [eax],3F9h
+0054167E: cmp word ptr ds:[00B733B4h],0
+00541686: je 00541698
+00541688: cmp word ptr ds:[00B73144h],0
+00541690: jne 00541698
+00541692: mov dword ptr [eax],3FAh
+00541698: cmp word ptr ds:[00B733B6h],0
+005416A0: je 005416B2
+005416A2: cmp word ptr ds:[00B73146h],0
+005416AA: jne 005416B2
+005416AC: mov dword ptr [eax],3FBh
+005416B2: cmp word ptr ds:[00B733B8h],0
+005416BA: je 005416CC
+005416BC: cmp word ptr ds:[00B73148h],0
+005416C4: jne 005416CC
+005416C6: mov dword ptr [eax],3FCh
+005416CC: cmp word ptr ds:[00B733BAh],0
+005416D4: je 005416E6
+005416D6: cmp word ptr ds:[00B7314Ah],0
+005416DE: jne 005416E6
+005416E0: mov dword ptr [eax],3FDh
+005416E6: cmp word ptr ds:[00B733BCh],0
+005416EE: je 00541700
+005416F0: cmp word ptr ds:[00B7314Ch],0
+005416F8: jne 00541700
+005416FA: mov dword ptr [eax],3FEh
+00541700: cmp word ptr ds:[00B733BEh],0
+00541708: je 0054171A
+0054170A: cmp word ptr ds:[00B7314Eh],0
+00541712: jne 0054171A
+00541714: mov dword ptr [eax],410h
+0054171A: cmp word ptr ds:[00B733C0h],0
+00541722: je 00541734
+00541724: cmp word ptr ds:[00B73150h],0
+0054172C: jne 00541734
+0054172E: mov dword ptr [eax],411h
+00541734: cmp word ptr ds:[00B733C2h],0
+0054173C: je 0054174E
+0054173E: cmp word ptr ds:[00B73152h],0
+00541746: jne 0054174E
+00541748: mov dword ptr [eax],409h
+0054174E: cmp word ptr ds:[00B733C4h],0
+00541756: je 00541768
+00541758: cmp word ptr ds:[00B73154h],0
+00541760: jne 00541768
+00541762: mov dword ptr [eax],3FFh
+00541768: cmp word ptr ds:[00B733C6h],0
+00541770: je 00541782
+00541772: cmp word ptr ds:[00B73156h],0
+0054177A: jne 00541782
+0054177C: mov dword ptr [eax],400h
+00541782: cmp word ptr ds:[00B733C8h],0
+0054178A: je 0054179C
+0054178C: cmp word ptr ds:[00B73158h],0
+00541794: jne 0054179C
+00541796: mov dword ptr [eax],402h
+0054179C: cmp word ptr ds:[00B733CAh],0
+005417A4: je 005417B6
+005417A6: cmp word ptr ds:[00B7315Ah],0
+005417AE: jne 005417B6
+005417B0: mov dword ptr [eax],401h
+005417B6: cmp word ptr ds:[00B733CCh],0
+005417BE: je 005417D0
+005417C0: cmp word ptr ds:[00B7315Ch],0
+005417C8: jne 005417D0
+005417CA: mov dword ptr [eax],40Fh
+005417D0: cmp word ptr ds:[00B733CEh],0
+005417D8: je 005417EA
+005417DA: cmp word ptr ds:[00B7315Eh],0
+005417E2: jne 005417EA
+005417E4: mov dword ptr [eax],403h
+005417EA: cmp word ptr ds:[00B733D0h],0
+005417F2: je 00541804
+005417F4: cmp word ptr ds:[00B73160h],0
+005417FC: jne 00541804
+005417FE: mov dword ptr [eax],404h
+00541804: cmp word ptr ds:[00B733D2h],0
+0054180C: je 0054181E
+0054180E: cmp word ptr ds:[00B73162h],0
+00541816: jne 0054181E
+00541818: mov dword ptr [eax],405h
+0054181E: cmp word ptr ds:[00B733D4h],0
+00541826: je 00541838
+00541828: cmp word ptr ds:[00B73164h],0
+00541830: jne 00541838
+00541832: mov dword ptr [eax],406h
+00541838: cmp word ptr ds:[00B733D6h],0
+00541840: je 00541852
+00541842: cmp word ptr ds:[00B73166h],0
+0054184A: jne 00541852
+0054184C: mov dword ptr [eax],407h
+00541852: cmp word ptr ds:[00B733D8h],0
+0054185A: je 0054186C
+0054185C: cmp word ptr ds:[00B73168h],0
+00541864: jne 0054186C
+00541866: mov dword ptr [eax],408h
+0054186C: cmp word ptr ds:[00B733DAh],0
+00541874: je 00541886
+00541876: cmp word ptr ds:[00B7316Ah],0
+0054187E: jne 00541886
+00541880: mov dword ptr [eax],40Ah
+00541886: cmp word ptr ds:[00B733DCh],0
+0054188E: je 005418A0
+00541890: cmp word ptr ds:[00B7316Ch],0
+00541898: jne 005418A0
+0054189A: mov dword ptr [eax],40Bh
+005418A0: cmp word ptr ds:[00B733DEh],0
+005418A8: je 005418BA
+005418AA: cmp word ptr ds:[00B7316Eh],0
+005418B2: jne 005418BA
+005418B4: mov dword ptr [eax],40Ch
+005418BA: cmp word ptr ds:[00B733E0h],0
+005418C2: je 005418D4
+005418C4: cmp word ptr ds:[00B73170h],0
+005418CC: jne 005418D4
+005418CE: mov dword ptr [eax],40Dh
+005418D4: cmp word ptr ds:[00B733E2h],0
+005418DC: je 005418EE
+005418DE: cmp word ptr ds:[00B73172h],0
+005418E6: jne 005418EE
+005418E8: mov dword ptr [eax],40Eh
+005418EE: cmp word ptr ds:[00B733E4h],0
+005418F6: je 00541908
+005418F8: cmp word ptr ds:[00B73174h],0
+00541900: jne 00541908
+00541902: mov dword ptr [eax],412h
+00541908: cmp word ptr ds:[00B733E6h],0
+00541910: je 00541922
+00541912: cmp word ptr ds:[00B73176h],0
+0054191A: jne 00541922
+0054191C: mov dword ptr [eax],413h
+00541922: cmp word ptr ds:[00B733E8h],0
+0054192A: je 0054193C
+0054192C: cmp word ptr ds:[00B73178h],0
+00541934: jne 0054193C
+00541936: mov dword ptr [eax],414h
+0054193C: cmp word ptr ds:[00B733EAh],0
+00541944: je 00541956
+00541946: cmp word ptr ds:[00B7317Ah],0
+0054194E: jne 00541956
+00541950: mov dword ptr [eax],415h
+00541956: cmp word ptr ds:[00B733ECh],0
+0054195E: je 00541970
+00541960: cmp word ptr ds:[00B7317Ch],0
+00541968: jne 00541970
+0054196A: mov dword ptr [eax],416h
+00541970: cmp word ptr ds:[00B733F0h],0
+00541978: je 0054198A
+0054197A: cmp word ptr ds:[00B73180h],0
+00541982: jne 0054198A
+00541984: mov dword ptr [eax],418h
+0054198A: cmp word ptr ds:[00B733EEh],0
+00541992: je 005419A4
+00541994: cmp word ptr ds:[00B7317Eh],0
+0054199C: jne 005419A4
+0054199E: mov dword ptr [eax],417h
+005419A4: cmp word ptr ds:[00B733F2h],0
+005419AC: je 005419BE
+005419AE: cmp word ptr ds:[00B73182h],0
+005419B6: jne 005419BE
+005419B8: mov dword ptr [eax],419h
+005419BE: cmp word ptr ds:[00B733F4h],0
+005419C6: je 005419D8
+005419C8: cmp word ptr ds:[00B73184h],0
+005419D0: jne 005419D8
+005419D2: mov dword ptr [eax],41Ah
+005419D8: cmp word ptr ds:[00B733F6h],0
+005419E0: je 005419F2
+005419E2: cmp word ptr ds:[00B73186h],0
+005419EA: jne 005419F2
+005419EC: mov dword ptr [eax],41Bh
+005419F2: cmp word ptr ds:[00B733F8h],0
+005419FA: je 00541A0C
+005419FC: cmp word ptr ds:[00B73188h],0
+00541A04: jne 00541A0C
+00541A06: mov dword ptr [eax],41Ch
+00541A0C: cmp word ptr ds:[00B733FAh],0
+00541A14: je 00541A26
+00541A16: cmp word ptr ds:[00B7318Ah],0
+00541A1E: jne 00541A26
+00541A20: mov dword ptr [eax],41Dh
+00541A26: cmp word ptr ds:[00B733FCh],0
+00541A2E: je 00541A40
+00541A30: cmp word ptr ds:[00B7318Ch],0
+00541A38: jne 00541A40
+00541A3A: mov dword ptr [eax],41Eh
+00541A40: cmp word ptr ds:[00B733FEh],0
+00541A48: je 00541A5A
+00541A4A: cmp word ptr ds:[00B7318Eh],0
+00541A52: jne 00541A5A
+00541A54: mov dword ptr [eax],41Fh
+00541A5A: ret
+ 00541A60: B0
+
+004AA030: mov edx,dword ptr [esp+4]
+004AA034: fld dword ptr [edx]
+004AA036: fsub dword ptr [ecx]
+004AA038: fld dword ptr [ecx+4]
+004AA03B: fsubr dword ptr [edx+4]
+004AA03E: fld dword ptr [ecx+8]
+004AA041: fsubr dword ptr [edx+8]
+004AA044: fld dword ptr [ecx+0Ch]
+004AA047: fadd dword ptr [edx+0Ch]
+004AA04A: fld st(1)
+004AA04C: fmul st,st(2)
+004AA04E: fld st(3)
+004AA050: fmul st,st(4)
+004AA052: faddp st(1),st
+004AA054: fld st(4)
+004AA056: fmul st,st(5)
+004AA058: faddp st(1),st
+004AA05A: fld st(1)
+004AA05C: fmul st,st(2)
+004AA05E: fcompp
+004AA060: fstp st(0)
+004AA062: fstp st(0)
+004AA064: fnstsw ax
+004AA066: fstp st(0)
+004AA068: test ah,41h
+004AA06B: fstp st(0)
+004AA06D: je 004AA074
+004AA06F: xor eax,eax
+004AA071: ret 4
+004AA074: push ebx
+004AA075: push esi
+004AA076: push edi
+004AA077: mov edi,dword ptr [edx+10h]
+004AA07A: xor ebx,ebx
+004AA07C: lea esp,[esp]
+004AA080: mov esi,edi
+004AA082: and esi,3
+004AA085: mov eax,esi
+004AA087: shl eax,4
+004AA08A: fld dword ptr [eax+ecx+18h]
+004AA08E: lea eax,[eax+ecx+14h]
+004AA092: fmul dword ptr [edx+4]
+004AA095: fld dword ptr [eax]
+004AA097: fmul dword ptr [edx]
+004AA099: faddp st(1),st
+004AA09B: fld dword ptr [eax+8]
+004AA09E: fmul dword ptr [edx+8]
+004AA0A1: faddp st(1),st
+004AA0A3: fsub dword ptr [eax+0Ch]
+004AA0A6: fcomp dword ptr [edx+0Ch]
+004AA0A9: fnstsw ax
+004AA0AB: test ah,41h
+004AA0AE: je 004AA0C2
+004AA0B0: inc ebx
+004AA0B1: inc edi
+004AA0B2: cmp ebx,4
+004AA0B5: jl 004AA080
+004AA0B7: pop edi
+004AA0B8: pop esi
+004AA0B9: mov eax,1
+004AA0BE: pop ebx
+004AA0BF: ret 4
+004AA0C2: pop edi
+004AA0C3: mov dword ptr [edx+10h],esi
+004AA0C6: pop esi
+004AA0C7: xor eax,eax
+004AA0C9: pop ebx
+004AA0CA: ret 4
+004AA0D0: push esi

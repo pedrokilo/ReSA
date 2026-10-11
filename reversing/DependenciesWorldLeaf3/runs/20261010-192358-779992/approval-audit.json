@@ -1,0 +1,36 @@
+{
+  "bank": "DependenciesWorldLeaf3",
+  "run": "20261010-192358-779992",
+  "functions": 2,
+  "pairs": 8192,
+  "pairs_per_function": {
+    "CPad::GetCurrentKeyPressed": 4096,
+    "FxFrustumInfo_c::IsCollision": 4096
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "a3625fcaeae6de3196cba11a4a819be671320bdf60ece622b9cff589485cebef",
+  "tested_sources": {
+    "source/game_sa/Pad.cpp": "e16080cdb71094e82dcd756c39cd347aea40f49911e22abe1553cb2ecce269d2",
+    "source/game_sa/Pad.h": "d18adb99148fe3fbdde2447a44699451f3afce97f29994bdf3bd29a3829889e2",
+    "source/game_sa/Fx/FxFrustumInfo.cpp": "b43cc73aff8195e884a21fb759b0c3bf770247464d182e89c933017c452ca3b4",
+    "source/game_sa/Fx/FxFrustumInfo.h": "51a05b5bc94ea9665bd0396dde2570a7bc729167f26782fcdd5428e2e0cd32aa",
+    "source/game_sa/Fx/FxSphere.h": "64f3e8784d281115266cea7d1c5b68c32a074f7c99718d6189eff790da24a401",
+    "source/game_sa/Fx/FxPlane.h": "03346dc69fb61f7ad0348112957f0145538616a34a873771682c27d52f487611",
+    "source/InjectHooksMain.cpp": "9dfbb99233c6ca03c5aa68186aeb26d5ed8e2d3c394c747ac7e38b033975877e",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "cd39bafcb0f5b480a4cd7e2be2bdf0d8695e040f4e3c54552186126d4ee9782b",
+    "build_probe.py": "6beaf6b7ba7e27424da593b2cc32c9f7cdd79c381ceba53e2f0ff7cc4df00307",
+    "prepare.py": "47171a680d2898c61b0380608d516ff9a432f48de7203ce8c4f086c278c30fc9",
+    "run_local.py": "7ae9a44596e75dcd68d4e6d1c1ff80e1780669e9639e67ec82756f228b9efc1a"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "a0d682713d52980b73a814be757f4e576f26389a6587c1fc9c148bbb946e5d1b",
+  "registered_hook_verified": true
+}

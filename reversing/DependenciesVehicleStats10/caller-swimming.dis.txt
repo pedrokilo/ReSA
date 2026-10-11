@@ -1,0 +1,15 @@
+0068A193: mov di,word ptr [edi+0Ah]
+0068A197: cmp di,2
+0068A19B: sete al
+0068A19E: cmp di,4
+0068A1A2: sete cl
+0068A1A5: push eax
+0068A1A6: push ecx
+0068A1A7: call 0055C990
+0068A1AC: add esp,8
+0068A1AF: pop edi
+0068A1B0: pop esi
+0068A1B1: pop ebp
+0068A1B2: pop ebx
+ 0068A1B3: C2
+ 0068A1B4: 04

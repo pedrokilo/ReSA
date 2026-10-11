@@ -33,6 +33,13 @@ def main():
     current = evaluate(ROOT, ROOT/'docs/hooks.csv')['current']
     coverage_path = ROOT/'reversing/BinaryCoverageAudit/summary.json'
     coverage = json.loads(coverage_path.read_text(encoding='utf-8')) if coverage_path.exists() else None
+    dependencies_path = ROOT/'reversing/OriginalDependencies499/progress.json'
+    dependencies = json.loads(dependencies_path.read_text(encoding='utf-8')) if dependencies_path.exists() else None
+    dependencies_note = (
+        f"Cohorte inicial de 499 dependencias: {dependencies['runtime_passed']} aprobadas dentro del juego; "
+        f"{dependencies['game_runtime_pending']} entradas del juego pendientes, "
+        f"{dependencies['categories']['library']} de bibliotecas y "
+        f"{dependencies['categories']['unknown']} inciertas. " if dependencies else '')
     frozen = json.loads((ROOT/'reversing/RequestedValidation20261008/documentation-frozen-exceptions.json').read_text(encoding='utf-8'))['frozen_markdown_exceptions']
     def check_frozen():
         for name, info in frozen.items():
@@ -71,6 +78,7 @@ def main():
             f'Vigencia acreditada: {current}; la evidencia histórica no acredita dependencias ni independencia del EXE. '
             f'{notsa_note}'
             f'{coverage_note}'
+            f'{dependencies_note}'
             f'[Estado actual y alcance]({link}). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.\n'
             '<!-- RESA-CURRENT-STATUS:END -->\n\n'
         )
