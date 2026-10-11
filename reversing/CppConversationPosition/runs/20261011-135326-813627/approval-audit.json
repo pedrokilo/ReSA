@@ -1,0 +1,55 @@
+{
+  "bank": "CppConversationPosition",
+  "run": "20261011-135326-813627",
+  "functions": 1,
+  "pairs": 2414,
+  "pairs_per_function": {
+    "CConversationForPed::IsPlayerInPositionForConversation": 2414
+  },
+  "families": {
+    "distance": 84,
+    "facing": 10,
+    "speed": 60,
+    "damage": 48,
+    "availability": 32,
+    "placement-early-out": 2,
+    "mixed-distance": 1080,
+    "mixed-speed": 1080,
+    "x87-precision": 18
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "e5a6415013b54007a31f6351422b532a93e5c8411afa73a682a2a3b8a4a70692",
+  "tested_sources": {
+    "source/game_sa/Conversations/ConversationForPed.cpp": "a28f26580107eb0aaafcb305b2f3d258e5227fd4d9b9db09826ed7766f083ce1",
+    "source/game_sa/Conversations/ConversationForPed.h": "bf772e6501457690f0b05f40dfde6c20fe809fa99038beca5dede415caa5958d",
+    "source/game_sa/Conversations/ConversationMathCpp.cpp": "0bf04f01109f582780a01b5af52a02987a8784c182c687d0846c382679e5a120",
+    "source/game_sa/Conversations/ConversationMathCpp.h": "de029b89daa7de8a276e6aaf119360c656191d8fa46c942a1d3e7a69b1104bc6",
+    "source/game_sa/Conversations/Conversations.h": "5c5f21aa37c2335168e1af5b7e3e5a42f583b823cc13f4110446a9e76d8bb4ad",
+    "source/game_sa/Conversations/ConversationNode.h": "a0c160b0df90d6126bd3f9284d99b52a598f307d7544fcb69eda9526ba9feaca",
+    "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+    "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+    "source/game_sa/Core/MatrixLink.h": "ce05ae9f46be69790be1ffb2a9270470e8b021519a83284270164fd3d8528355",
+    "source/CMakeLists.txt": "adf804700467d784a02a3dfe9c209edceccc0c37ce678d9e547befef8b64ea2b",
+    "CMakeLists.txt": "b68fad6160dbe5ae12e78e142b1691b49b337db1c84c8c37947268db85f3e0a1",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "source/reversiblehooks/RootHookCategory.h": "c48de9e729dc3aaf973dff92cff28822410b635c5101ba65a27327badea33ef7",
+    "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "591023330f666e93146a2f492310041642778c55e63bfc4d41277d9642448bc8",
+    "Probe.hpp": "20145952a507a5cd247269e99acd3e3710d6d1c44ae416e331cd3196366cd3ee",
+    "build_probe.py": "42585856af0fe4d2c083efc417fa97e76c8ea333fb255c034abe6c2c96e72333",
+    "run_local.py": "981bcc2afc6a5245e7ee52fca9b30822611597abca574d409d8e2db9be9ce1ee"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "d0b69e95b38e4c91b323c87bd6360484e8e3baf364bdabfbe90b47e9fe34f321",
+  "registered_hook_verified": false,
+  "auditor_sha256": "0846cde3244edd13ffbcf28c45a54814582315468912bef21a58b6b0bf397612",
+  "route_field": "switches",
+  "scope": "Historical position fixtures/results/state/traces of CConversationForPed::IsPlayerInPositionForConversation only; x87 helpers are /O2 but the candidate body is Debug code; no exhaustive x87 status/NaN contract, no raw register contract, no Update coverage"
+}

@@ -246,11 +246,6 @@ source/game_sa/Collision/Collision.cpp,4198,naked,pending_cpp_conversion
 source/game_sa/Collision/Collision.cpp,4201,inline_assembly,pending_cpp_conversion
 source/game_sa/common.cpp,63,inline_assembly,pending_cpp_conversion
 source/game_sa/common.cpp,106,inline_assembly,pending_cpp_conversion
-source/game_sa/Conversations/ConversationForPed.cpp,144,inline_assembly,pending_cpp_conversion
-source/game_sa/Conversations/ConversationForPed.cpp,180,inline_assembly,pending_cpp_conversion
-source/game_sa/Conversations/ConversationForPed.cpp,203,inline_assembly,pending_cpp_conversion
-source/game_sa/Conversations/ConversationNode.cpp,28,naked,pending_cpp_conversion
-source/game_sa/Conversations/ConversationNode.cpp,29,inline_assembly,pending_cpp_conversion
 source/game_sa/Core/Matrix.cpp,182,naked,pending_cpp_conversion
 source/game_sa/Core/Matrix.cpp,184,inline_assembly,pending_cpp_conversion
 source/game_sa/Core/Matrix.cpp,207,naked,pending_cpp_conversion

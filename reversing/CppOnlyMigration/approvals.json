@@ -433,5 +433,34 @@
     "state_restored": true,
     "helper_codegen": "reversing/CppSqrtSmallStudy/caller-spec-fade.json",
     "scope": "Same IEEE operations and order of results as the ASM helper (1 - (sqrt(sq) - d*0.75) * (4/d)), stored via FSTP64 and reloaded; the compiler schedules 4/d before the sqrt, so the body is not byte-identical to the ASM; constants 4.0 and 0.75 come from the object's own .rdata. Both consumers COFF-identical except the call target; after the call neither reads EAX/ECX/EDX or flags (ADD ESP,8 / FSTP [ESP]). Fade branch evidenced in Vehicle traces (534 distinct intensities); Static records hashed state only. No NaN, zero distance or x87 exception-path coverage; ShadowExtendedProduct, ShadowFadeInteger and the XY/projection/height helpers remain ASM."
+  },
+  "0x0043AC40": {
+    "identity": "CConversationForPed::IsPlayerInPositionForConversation",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Conversations/ConversationForPed.cpp",
+    "shared_source": "source/game_sa/Conversations/ConversationMathCpp.cpp",
+    "bank": "CppConversationPosition",
+    "run": "20261011-135326-813627",
+    "pairs": 2414,
+    "audit": "reversing/CppConversationPosition/runs/20261011-135326-813627/approval-audit.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppConversationStudy/README.md",
+    "scope": "Three x87 blocks replaced by C++ helpers with the same operation order; function body remains Debug code, so no byte-identical or raw-register claim; fixtures of the historical bank (position cases only, 18 x87 adversarial cases); no NaN/infinity beyond them."
+  },
+  "0x0043A710": {
+    "identity": "CConversationNode::ClearRecursively",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Conversations/ConversationNodeCpp.cpp",
+    "bank": "CppConversationClear",
+    "run": "20261011-135438-113628",
+    "pairs": 2048,
+    "audit": "reversing/CppConversationClear/runs/20261011-135438-113628/approval-audit.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppConversationStudy/exe-clear-recursively.json",
+    "scope": "Naked EDX-preserving wrapper replaced by a direct hook; real /O2 object writes only EAX/ECX/ESI like the EXE and has no EDX references; raw EAX/ECX/EDX/ESI/EDI/EBX/EBP/ESP/flags checked in 2048 acyclic pairs; not a byte-identical body and not a proof of other callers."
   }
 }

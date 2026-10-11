@@ -155,12 +155,13 @@
 
 <a id="grupo-1056"></a>
 
-## Globales y helpers: source/game_sa/Conversations/ConversationNode.cpp
+## Globales y helpers: source/game_sa/Conversations/ConversationMathCpp.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| ConversationNodeClearRecursively(CConversationNode* node) | [source/game_sa/Conversations/ConversationNode.cpp:22](../../source/game_sa/Conversations/ConversationNode.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ConversationNodeClearRecursivelyKeepEdx() | [source/game_sa/Conversations/ConversationNode.cpp:28](../../source/game_sa/Conversations/ConversationNode.cpp#L28) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CConversations::RemoveConversationForPed 0x0043A960 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| ConversationTooFarCpp(const float* ped, const float* player) | [source/game_sa/Conversations/ConversationMathCpp.cpp:7](../../source/game_sa/Conversations/ConversationMathCpp.cpp#L7) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ConversationFacingAwayCpp(const float* ped, const float* player) | [source/game_sa/Conversations/ConversationMathCpp.cpp:15](../../source/game_sa/Conversations/ConversationMathCpp.cpp#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ConversationMovingTooFastCpp(const float* speed) | [source/game_sa/Conversations/ConversationMathCpp.cpp:20](../../source/game_sa/Conversations/ConversationMathCpp.cpp#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1057"></a>
 

@@ -36,8 +36,6 @@ source/game_sa/Clothes.cpp,1,1
 source/game_sa/ClothesBuilder.cpp,3,0
 source/game_sa/Clouds.cpp,1,1
 source/game_sa/Collision/Collision.cpp,1,1
-source/game_sa/Conversations/ConversationForPed.cpp,3,0
-source/game_sa/Conversations/ConversationNode.cpp,1,1
 source/game_sa/Core/Matrix.cpp,10,10
 source/game_sa/Core/Quaternion.cpp,2,0
 source/game_sa/Coronas.cpp,1,0

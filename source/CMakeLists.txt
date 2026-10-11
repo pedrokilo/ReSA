@@ -106,6 +106,20 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # Conversation x87 checks (0x43AC40) keep the original operation order; callers keep their options.
+    set_source_files_properties(game_sa/Conversations/ConversationMathCpp.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    # 0x43A710 must not write EDX (callers keep a slot pointer there); optimized code touches only EAX/ECX/ESI.
+    set_source_files_properties(game_sa/Conversations/ConversationNodeCpp.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # /ZI reserves stack space even for an empty function, changing EFLAGS.
     # These C++ bodies must preserve the original caller's flags and registers.
     # Use ordinary debug symbols and compile separately from the /ZI PCH/unity.

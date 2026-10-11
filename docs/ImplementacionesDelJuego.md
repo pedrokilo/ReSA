@@ -2,9 +2,9 @@
 
 Este documento distingue el lenguaje de la fuente, la reconstrucción, la validación registrada y la independencia del EXE. Reconstruir un cuerpo en ensamblador también es ingeniería inversa; una envoltura que delega el cuerpo al original no lo reconstruye por sí sola.
 
-El inventario asigna **926 apariciones de ensamblador** a **782 definiciones con cuerpo** y **277 declaraciones naked** a **277 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
+El inventario asigna **922 apariciones de ensamblador** a **780 definiciones con cuerpo** y **276 declaraciones naked** a **276 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 782 definiciones, **492 son mixtas** y **290 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 17384 definiciones en 1970 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 780 definiciones, **491 son mixtas** y **289 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 17385 definiciones en 1970 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -15,7 +15,7 @@ De esas 782 definiciones, **492 son mixtas** y **290 contienen sólo ensamblador
 - Una envoltura C++ se reconoce conservadoramente cuando el único statement es una llamada plugin::Call* a dirección fija. Algunos trampolines ASM simples también se reconocen. Otras envolturas indirectas pueden permanecer sin resolver.
 - Se registran colaboradores con dirección fija y posibles datos fijos referenciados por nombre. Un destino catalogado puede estar reconstruido y enlazado mediante hook; el inventario **no determina la ruta efectiva**. Direcciones por sí solas no prueban ausencia de reconstrucción.
 - «Sin indicio directo» sólo significa que los patrones examinados no lo encontraron. No se resuelven todas las llamadas virtuales, macros, alias, punteros ni dependencias transitivas. **Ningún grupo se declara standalone demostrado.**
-- Tree-sitter detectó errores de análisis en 857 cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los 782 cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.
+- Tree-sitter detectó errores de análisis en 857 cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los 780 cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.
 
 - 906 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
 
@@ -157,8 +157,8 @@ De esas 782 definiciones, **492 son mixtas** y **290 contienen sólo ensamblador
 | [CCompressedMatrixNotAligned](implementaciones/detalle-007.md#grupo-132) · [source/game_sa/CompressedMatrixNotAligned.cpp](../source/game_sa/CompressedMatrixNotAligned.cpp), [source/game_sa/CompressedMatrixNotAligned.h](../source/game_sa/CompressedMatrixNotAligned.h) | 2 | 0 | 3 | 0 | 0 |
 | [CControllerConfigManager](implementaciones/detalle-007.md#grupo-133) · [source/game_sa/ControllerConfigManager.cpp](../source/game_sa/ControllerConfigManager.cpp), [source/game_sa/ControllerConfigManager.h](../source/game_sa/ControllerConfigManager.h) | 59 | 0 | 14 | 0 | 0 |
 | [CControllerState](implementaciones/detalle-007.md#grupo-134) · [source/game_sa/ControllerState.cpp](../source/game_sa/ControllerState.cpp) | 2 | 0 | 1 | 0 | 0 |
-| [CConversationForPed](implementaciones/detalle-007.md#grupo-135) · [source/game_sa/Conversations/ConversationForPed.cpp](../source/game_sa/Conversations/ConversationForPed.cpp) | 1 | 1 | 2 | 3 | 0 |
-| [CConversationNode](implementaciones/detalle-007.md#grupo-136) · [source/game_sa/Conversations/ConversationNode.cpp](../source/game_sa/Conversations/ConversationNode.cpp) | 1 | 0 | 2 | 0 | 0 |
+| [CConversationForPed](implementaciones/detalle-007.md#grupo-135) · [source/game_sa/Conversations/ConversationForPed.cpp](../source/game_sa/Conversations/ConversationForPed.cpp) | 2 | 0 | 2 | 0 | 0 |
+| [CConversationNode](implementaciones/detalle-007.md#grupo-136) · [source/game_sa/Conversations/ConversationNode.cpp](../source/game_sa/Conversations/ConversationNode.cpp), [source/game_sa/Conversations/ConversationNodeCpp.cpp](../source/game_sa/Conversations/ConversationNodeCpp.cpp) | 1 | 0 | 2 | 0 | 0 |
 | [CConversations](implementaciones/detalle-007.md#grupo-137) · [source/game_sa/Conversations/Conversations.cpp](../source/game_sa/Conversations/Conversations.cpp) | 10 | 0 | 3 | 0 | 0 |
 | [CCopPed](implementaciones/detalle-007.md#grupo-138) · [source/game_sa/Entity/Ped/CopPed.cpp](../source/game_sa/Entity/Ped/CopPed.cpp) | 7 | 0 | 7 | 0 | 0 |
 | [CCoronas](implementaciones/detalle-007.md#grupo-139) · [source/game_sa/Coronas.cpp](../source/game_sa/Coronas.cpp) | 11 | 0 | 3 | 0 | 0 |
@@ -1078,7 +1078,7 @@ De esas 782 definiciones, **492 son mixtas** y **290 contienen sólo ensamblador
 | [Globales y helpers: source/game_sa/Collision/Sphere.cpp](implementaciones/detalle-053.md#grupo-1053) · [source/game_sa/Collision/Sphere.cpp](../source/game_sa/Collision/Sphere.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/CompressedVector.h](implementaciones/detalle-053.md#grupo-1054) · [source/game_sa/CompressedVector.h](../source/game_sa/CompressedVector.h) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/ControllerConfigManager.cpp](implementaciones/detalle-053.md#grupo-1055) · [source/game_sa/ControllerConfigManager.cpp](../source/game_sa/ControllerConfigManager.cpp) | 0 | 0 | 2 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Conversations/ConversationNode.cpp](implementaciones/detalle-053.md#grupo-1056) · [source/game_sa/Conversations/ConversationNode.cpp](../source/game_sa/Conversations/ConversationNode.cpp) | 0 | 1 | 1 | 1 | 1 |
+| [Globales y helpers: source/game_sa/Conversations/ConversationMathCpp.cpp](implementaciones/detalle-053.md#grupo-1056) · [source/game_sa/Conversations/ConversationMathCpp.cpp](../source/game_sa/Conversations/ConversationMathCpp.cpp) | 3 | 0 | 0 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/EntryInfoNode.cpp](implementaciones/detalle-053.md#grupo-1057) · [source/game_sa/Core/EntryInfoNode.cpp](../source/game_sa/Core/EntryInfoNode.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/Matrix.cpp](implementaciones/detalle-053.md#grupo-1058) · [source/game_sa/Core/Matrix.cpp](../source/game_sa/Core/Matrix.cpp) | 0 | 0 | 6 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/OctTree.h](implementaciones/detalle-053.md#grupo-1059) · [source/game_sa/Core/OctTree.h](../source/game_sa/Core/OctTree.h) | 0 | 0 | 1 | 0 | 0 |

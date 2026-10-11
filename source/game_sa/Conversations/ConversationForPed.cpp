@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "ConversationForPed.h"
 #include "Conversations.h"
+#include "ConversationMathCpp.h"
 
 /** Registra la actualización y la comprobación espacial de la conversación. */
 void CConversationForPed::InjectHooks() {
@@ -136,87 +137,21 @@ bool CConversationForPed::IsPlayerInPositionForConversation(bool randomConversat
     const auto& pedPosition = m_pPed->GetPosition();
     const auto playerPosition = FindPlayerCoors();
     // GTA cambia la precisión de x87: ni float ni double conservan todos sus
-    // redondeos intermedios. Comparar en x87 también conserva los casos NaN.
-    const auto* pedCoords = &pedPosition;
-    const auto* playerCoords = &playerPosition;
-    const float maxDistance = 4.f;
-    bool tooFar;
-    __asm {
-        mov ecx, pedCoords
-        mov edx, playerCoords
-        fld dword ptr [edx]
-        fsub dword ptr [ecx]
-        fld dword ptr [edx + 4]
-        fsub dword ptr [ecx + 4]
-        fld dword ptr [edx + 8]
-        fsub dword ptr [ecx + 8]
-        fld st(0)
-        fmul st(0), st(1)
-        fld st(2)
-        fmul st(0), st(3)
-        faddp st(1), st(0)
-        fld st(3)
-        fmul st(0), st(4)
-        faddp st(1), st(0)
-        fsqrt
-        fstp st(3)
-        fstp st(0)
-        fstp st(0)
-        fcomp maxDistance
-        fnstsw ax
-        test ah, 41h
-        setz tooFar
-    }
+    // redondeos intermedios. El cálculo está en ConversationMathCpp.cpp, con las
+    // mismas operaciones x87 y la comparación que conserva los casos NaN.
+    const bool tooFar = ConversationTooFarCpp(&pedPosition.x, &playerPosition.x);
     if (tooFar) {
         return false;
     }
 
     const auto& pedForward = m_pPed->GetForward();
     const auto& playerForward = FindPlayerPed()->GetForward();
-    const auto* pedDirection = &pedForward;
-    const auto* playerDirection = &playerForward;
-    const float maxDot = 0.f;
-    bool facingAway;
-    __asm {
-        mov ecx, pedDirection
-        mov edx, playerDirection
-        fld dword ptr [edx + 8]
-        fmul dword ptr [ecx + 8]
-        fld dword ptr [edx + 4]
-        fmul dword ptr [ecx + 4]
-        faddp st(1), st(0)
-        fld dword ptr [edx]
-        fmul dword ptr [ecx]
-        faddp st(1), st(0)
-        fcomp maxDot
-        fnstsw ax
-        test ah, 41h
-        setz facingAway
-    }
+    const bool facingAway = ConversationFacingAwayCpp(&pedForward.x, &playerForward.x);
     if (facingAway) {
         return false;
     }
     const auto& speed = FindPlayerPed()->m_vecMoveSpeed;
-    const auto* moveSpeed = &speed;
-    const float maxSpeed = 0.01f;
-    bool movingTooFast;
-    __asm {
-        mov ecx, moveSpeed
-        fld dword ptr [ecx + 4]
-        fld dword ptr [ecx]
-        fld st(0)
-        fmul st(0), st(1)
-        fld st(2)
-        fmul st(0), st(3)
-        faddp st(1), st(0)
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        fcomp maxSpeed
-        fnstsw ax
-        test ah, 41h
-        setz movingTooFast
-    }
+    const bool movingTooFast = ConversationMovingTooFastCpp(&speed.x);
     if (movingTooFast) {
         return false;
     }

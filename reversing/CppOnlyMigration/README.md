@@ -6,7 +6,7 @@ El inventario inicial identificó 185 archivos con 965 apariciones de ensamblado
 
 ## Conversiones comprobadas
 
-[approvals.json](approvals.json) conserva 36 conversiones de funciones fuente con sus auditorías dentro del juego:
+[approvals.json](approvals.json) conserva 38 conversiones de funciones fuente con sus auditorías dentro del juego:
 
 | Función | Entrada EXE | Pares propios |
 | --- | --- | ---: |
@@ -35,6 +35,8 @@ El inventario inicial identificó 185 archivos con 965 apariciones de ensamblado
 | Native_00424100 | 0x424100 | 2048 |
 | ShadowExtendedSqrt (ShadowSqrtCpp) | Helper fuente, StoreStaticShadow y StoreShadowForVehicle | 8192 compartidos |
 | ShadowDistanceFade (ShadowMathCpp) | Helper fuente, StoreStaticShadow y StoreShadowForVehicle | 8192 compartidos |
+| IsPlayerInPositionForConversation | 0x43AC40 | 2414 |
+| CConversationNode::ClearRecursively | 0x43A710 | 2048 |
 
 Cada corrida aprobada tiene cero diferencias, resultados no nulos, rutas y restauración verificadas. Estas conversiones vuelven a probar implementaciones catalogadas; no incrementan las 105 aprobaciones de la cohorte de dependencias.
 
@@ -79,3 +81,7 @@ Plan de lotes y clasificación por dificultad: [PLAN_POR_LOTES.md](PLAN_POR_LOTE
 ShadowDistanceFade pasó a source/game_sa/ShadowMathCpp.cpp (mismas opciones por archivo que ShadowSqrtCpp.cpp). Hace las mismas operaciones IEEE en el mismo orden de resultados que el ensamblador (1 - (sqrt(cuad) - d*0,75) * (4/d)), con almacenamiento FSTP64 y recarga; el compilador calcula 4/d antes de la raíz, así que el cuerpo no es idéntico byte a byte al del ensamblador. Las constantes 4,0 y 0,75 salen del .rdata del propio objeto. Los cuerpos de StoreStaticShadow y StoreShadowForVehicle son idénticos salvo el destino de la llamada (caller-spec-fade.json) y, tras la llamada, ninguno lee EAX, ECX, EDX ni banderas. Bancos CppShadowSqrtStatic (corrida 20261011-131717-551954) y CppShadowSqrtVehicle (corrida 20261011-131818-030789), 4096 pares cada uno, cero diferencias. La rama de atenuación aparece en las trazas de Vehicle (534 intensidades distintas); Static sólo registra el estado resumido. No cubre NaN, distancia cero ni caminos de excepción x87. El conteo pasa a 926 apariciones de ensamblador.
 
 Corrección de alcance del lote 1: ShadowExtendedProduct también lo usa la función de polígonos (Shadows.cpp:975), y ShadowHeightDifference y ShadowHeightSum los usa CastShadowSectorList; los XY y de proyección los usan otras funciones. Esos helpers necesitan bancos derivados de ShadowXY355, ShadowGenerate355, ShadowXYZ355 y ShadowSectors355, no sólo los dos bancos de ShadowSqrt.
+
+## Conversaciones (11/10/2026)
+
+IsPlayerInPositionForConversation (0x43AC40) sustituye sus tres bloques x87 por helpers de ConversationMathCpp.cpp, y ClearRecursively (0x43A710) deja de usar el envoltorio `naked` que preservaba EDX: se engancha directamente a la versión de ConversationNodeCpp.cpp (/O2), cuyo objeto sólo escribe EAX, ECX y ESI como el EXE. Bancos CppConversationPosition (corrida 20261011-135326-813627, 2414 pares) y CppConversationClear (corrida 20261011-135438-113628, 2048 pares; EDX preservado en todos y banderas 0x84), cero diferencias. Detalle, límites y hashes de los objetos en [CppConversationStudy](../CppConversationStudy/README.md). El conteo pasa a 922 apariciones de ensamblador y 276 declaraciones naked en 175 archivos.

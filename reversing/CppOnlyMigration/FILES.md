@@ -1,6 +1,6 @@
 # Archivos pendientes de convertir a C++
 
-177 archivos: 926 apariciones de ensamblador y 277 declaraciones naked.
+175 archivos: 922 apariciones de ensamblador y 276 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -43,8 +43,6 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/ClothesBuilder.cpp](../../source/game_sa/ClothesBuilder.cpp) | 3 | 0 |
 | [source/game_sa/Clouds.cpp](../../source/game_sa/Clouds.cpp) | 1 | 1 |
 | [source/game_sa/Collision/Collision.cpp](../../source/game_sa/Collision/Collision.cpp) | 1 | 1 |
-| [source/game_sa/Conversations/ConversationForPed.cpp](../../source/game_sa/Conversations/ConversationForPed.cpp) | 3 | 0 |
-| [source/game_sa/Conversations/ConversationNode.cpp](../../source/game_sa/Conversations/ConversationNode.cpp) | 1 | 1 |
 | [source/game_sa/Core/Matrix.cpp](../../source/game_sa/Core/Matrix.cpp) | 10 | 10 |
 | [source/game_sa/Core/Quaternion.cpp](../../source/game_sa/Core/Quaternion.cpp) | 2 | 0 |
 | [source/game_sa/Coronas.cpp](../../source/game_sa/Coronas.cpp) | 1 | 0 |
