@@ -884,7 +884,7 @@ rva,va,name,body_bytes,thunk,calling_convention,source,section,executable_sectio
 0x00048d30,0x00448d30,FUN_00448d30,281,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,5,5
 0x00048e50,0x00448e50,FUN_00448e50,75,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,5,5
 0x00048ee0,0x00448ee0,FUN_00448ee0,356,false,unknown,DEFAULT,.text,True,CGarage::IsEntityTouching3D,,historical,ghidra_function_entry,4,8
-0x00049050,0x00449050,FUN_00449050,162,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,5,2
+0x00049050,0x00449050,FUN_00449050,162,false,unknown,DEFAULT,.text,True,CGarage::EntityHasASphereWayOutsideGarage,,historical,ghidra_function_entry,5,2
 0x00049100,0x00449100,FUN_00449100,279,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,4,2
 0x00049220,0x00449220,FUN_00449220,441,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,5,5
 0x000494f0,0x004494f0,FUN_004494f0,247,false,unknown,DEFAULT,.text,True,,,,ghidra_function_entry,4,3

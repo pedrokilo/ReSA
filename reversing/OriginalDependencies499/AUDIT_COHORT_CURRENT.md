@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8549 funciones reconstruidas; 8549 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9224 entradas binarias sin nombre catalogado; 820 destinos originales explícitos fuera del catálogo, 396 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 104 aprobadas dentro del juego; 131 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Auditoría independiente de la cohorte admitida actual
 
-Instantánea approved SHA256 `8a8290c290974d7c3deb67e3e04a73251e4a18c18779c01780cd2977846a0589`. Gzip leído en streaming; no builds/juego ni cambios a fuentes, instrumentos o catálogo. Auditoría histórica de43 conservada.
+Instantánea approved SHA256 `0449a71ec060db25e7ee81d546ab440f50cf98a29354ef5e673f3511a16704b2`. Gzip leído en streaming; no builds/juego ni cambios a fuentes, instrumentos o catálogo. Auditoría histórica de43 conservada.
 
-**104 funciones / 47 bancos / 241344 pares; 0 hallazgos.**
+**105 funciones / 48 bancos / 243392 pares; 0 hallazgos.**
 
 | Banco | Funciones | Pares | Diferencias | NULL | Hallazgos |
 |---|---:|---:|---:|---:|---:|
@@ -18,6 +18,7 @@ Instantánea approved SHA256 `8a8290c290974d7c3deb67e3e04a73251e4a18c18779c01780
 | DependenciesFightLeaf2 | 3 | 6144 | 0 | 0 | 0 |
 | DependenciesFormationMemory8 | 2 | 8256 | 0 | 0 | 0 |
 | DependenciesGarage2 | 3 | 2560 | 0 | 0 | 0 |
+| DependenciesGarageSphere15 | 1 | 2048 | 0 | 0 | 0 |
 | DependenciesGroupTasks14 | 1 | 2048 | 0 | 0 | 0 |
 | DependenciesLeaf2 | 2 | 2048 | 0 | 0 | 0 |
 | DependenciesMathLeaf3 | 2 | 2048 | 0 | 0 | 0 |
@@ -82,7 +83,7 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesFightLeaf2 | source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp | a677c96ed78e89e6ba483783629136f62ea17cc17111df1fe4be9016a822ef21 | 9745e2abb26aaf1cfc29b897f9ec17e8ffa82dbdb264b474ba5f934086cc87be |
 | DependenciesFightLeaf2 | source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h | 85e857dcb63b2c84b4dd31d19f1c0165fdd337606ae22405678ca0433633a18a | 1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981 |
 | DependenciesFightLeaf2 | source/InjectHooksMain.cpp | 87b22b34070d1b503867720319876156317fe88595a424596c86ef4f2a43380f | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
-| DependenciesGarage2 | source/game_sa/Garage.cpp | 5f2c2afdb268e5a62c6d63165cead5ff495919195ae5b0e0f864e340fe48fba6 | 15d0fbeb68b6701f13b39b8559df380ddcd4002051a5edbf9fc16a3bf9e5281e |
+| DependenciesGarage2 | source/game_sa/Garage.cpp | 5f2c2afdb268e5a62c6d63165cead5ff495919195ae5b0e0f864e340fe48fba6 | d6cd84ad62468fb369005bbc82079e934fa75933dcf8604ecdec350445f8845a |
 | DependenciesGarage2 | source/game_sa/Garages.cpp | f510ac836f1f5c1535daac20afd9bf0296cf54ae436f8bb4a9a98ccc3a3bef38 | e735bbddabf34637c7717d15d7a2aeb44f92404af9c8a00085a380435cf5272c |
 | DependenciesGarage2 | source/InjectHooksMain.cpp | 87b22b34070d1b503867720319876156317fe88595a424596c86ef4f2a43380f | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesLeaf2 | source/game_sa/MemoryMgr.cpp | 30ec6a6b730b9160a9c61872b7810aaaa5ea3b5266d3695ba6ec7fb9e22f4ee0 | 645dd362627fb014a2acd4fdc95798b0caca8ae35c617762a5285a05053a162c |
@@ -120,7 +121,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesVehicleStats9 | source/game_sa/Stats.cpp | 43c7ed5f6bf2c290b1f8b941764f4d15cbbb012aa8dacba32b6fcae733377360 | 371211ce059616597d4879fe9d6ab78f92f0c566a65e45b096d8316323a4d0f2 |
 | DependenciesWorld10 | source/game_sa/CarCtrl.cpp | a8401f085f007d4db85b844298982f082f6f931df00aeb0a50d0264436d894f6 | 6073bf49f30376e7e9175545b579c099418146b7c1ff2ec6d0b80bcd396ee93f |
 | DependenciesWorld13 | source/game_sa/PathFind.cpp | b289ad134233f537732d2ff6555ae5d294e0d493bc9bc0e164a13f3b42bda5f2 | 92323d8ab4c18b41ddc23ec7ed275d6feb5ce68e5d44b7edd4f51cf43bf17496 |
-| DependenciesWorld4 | source/game_sa/Garage.cpp | 5f2c2afdb268e5a62c6d63165cead5ff495919195ae5b0e0f864e340fe48fba6 | 15d0fbeb68b6701f13b39b8559df380ddcd4002051a5edbf9fc16a3bf9e5281e |
+| DependenciesWorld15 | source/game_sa/Garage.cpp | 15d0fbeb68b6701f13b39b8559df380ddcd4002051a5edbf9fc16a3bf9e5281e | d6cd84ad62468fb369005bbc82079e934fa75933dcf8604ecdec350445f8845a |
+| DependenciesWorld4 | source/game_sa/Garage.cpp | 5f2c2afdb268e5a62c6d63165cead5ff495919195ae5b0e0f864e340fe48fba6 | d6cd84ad62468fb369005bbc82079e934fa75933dcf8604ecdec350445f8845a |
 | DependenciesWorld4 | source/InjectHooksMain.cpp | 7a912880d0ff2128cb6654e679653c12ac91c8fa2e94784475ee43cb3ad9360c | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesWorldFxFont5 | source/game_sa/Camera.cpp | 6504b062b078a9abac940d720b6482894ef29275e139c49f12dfd14548f34557 | ccbeeee2352e96ca1871187ed446959a075a834a40b4e08adcfee3a2dba8773b |
 | DependenciesWorldFxFont5 | source/InjectHooksMain.cpp | 1bcf20e722e114bd25680050a86cf0d927edd8e74e860844719024339636a291 | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
@@ -147,6 +149,7 @@ Sin discrepancias detectadas.
 - DependenciesFightLeaf2: `24a788f4a01c3d19a61022141626d18a108976abaf089173fe36cffa916c3dd1`
 - DependenciesFormationMemory8: `e6a5950555d2d02265bdf3f8baa357cb24b4c93a9ddfd75febc5bc37ee887db9`
 - DependenciesGarage2: `44994745714170b1aeac0dc00aa354d53db0b339e24f84cee3028d11cb9f4b1e`
+- DependenciesGarageSphere15: `d3fae6b4129bad51ef489972e1065b8bc62c80919e1b6150df5e9a0994b85d1b`
 - DependenciesGroupTasks14: `92136e376ac4aa3aafff49df56f0b5fc7049177c2eb36ba85669fc5ab20e462f`
 - DependenciesLeaf2: `0777a00c0c1c301c14426c85a64a712c39082481fa3353c52203077420dfe439`
 - DependenciesMathLeaf3: `89b9293858492f789c19fcbd80e5f2b07fae893028188938821bc805f5712daa`

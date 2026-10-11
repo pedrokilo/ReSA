@@ -70,7 +70,6 @@ address,identity,status,bank,pairs_expected,source_snapshot
 0x004471E0,CGarages::AddOne,pending,,,source/game_sa/Garages.cpp:170
 0x00447600,CGarage::InitDoorsAtStart,pending,,,source/game_sa/Garage.cpp:165
 0x004486C0,CGarage::PlayerArrestedOrDied,pending,,,source/game_sa/Garage.cpp:144
-0x00449050,CGarage::EntityHasASphereWayOutsideGarage,prepared_not_validated,DependenciesGarageSphere15,2048,source/game_sa/Garage.cpp:109
 0x00449690,CGarage::RemoveCarsBlockingDoorNotInside,pending,,,source/game_sa/Garage.cpp:114
 0x00449760,CStoredCar::StoreCar,pending,,,source/game_sa/Garage.cpp:305
 0x0044AA50,CGarage::Update,pending,,,source/game_sa/Garage.cpp:175

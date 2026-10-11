@@ -30,7 +30,7 @@ void CGarage::InjectHooks() {
     // RH_ScopedInstall(TidyUpGarageClose, 0x449D10);
     // RH_ScopedInstall(TidyUpGarage, 0x449C50);
     RH_ScopedInstall(StoreAndRemoveCarsForThisHideOut, 0x449900);
-    // RH_ScopedInstall(EntityHasASphereWayOutsideGarage, 0x449050);
+    RH_ScopedInstall(EntityHasASphereWayOutsideGarage, 0x449050);
     // RH_ScopedInstall(RemoveCarsBlockingDoorNotInside, 0x449690);
     RH_ScopedInstall(IsEntityTouching3D, 0x448EE0);
     // RH_ScopedInstall(IsEntityEntirelyOutside, 0x448D30);
@@ -106,9 +106,105 @@ void CGarage::StoreAndRemoveCarsForThisHideOut(CStoredCar* storedCars, int32 max
         storedCars[i].Clear();
 }
 
+
+namespace {
+__declspec(naked) void GarageSphere15_4487D0() {
+    __asm { push 04487D0h }
+    __asm { ret }
+}
+__declspec(naked) void GarageSphere15_535300() {
+    __asm { push 0535300h }
+    __asm { ret }
+}
+__declspec(naked) void GarageSphere15_54F1B0() {
+    __asm { push 054F1B0h }
+    __asm { ret }
+}
+__declspec(naked) void GarageSphere15_54F560() {
+    __asm { push 054F560h }
+    __asm { ret }
+}
+__declspec(naked) void GarageSphere15_59C890() {
+    __asm { push 059C890h }
+    __asm { ret }
+}
+}
+
 // 0x449050
-bool CGarage::EntityHasASphereWayOutsideGarage(CEntity* entity, float fRadius) {
-    return plugin::CallMethodAndReturn<bool, 0x449050, CGarage*, CEntity*, float>(this, entity, fRadius);
+__declspec(naked) bool CGarage::EntityHasASphereWayOutsideGarage(CEntity* entity, float fRadius) {
+    // Como el original: 0x449050..0x4490EF, AL y ret 8; colaboradores reales.
+    __asm {
+        sub esp,10h
+        push ebx
+        mov ebx,dword ptr [esp+18h]
+        push ebp
+        push esi
+        mov dword ptr [esp+0Ch],ecx
+        push edi
+        mov ecx,ebx
+        call GarageSphere15_535300
+        mov esi,dword ptr [eax+2Ch]
+        xor ebp,ebp
+        cmp word ptr [esi],bp
+        jle L_4490DA
+        xor edi,edi
+L_449072:
+        mov eax,dword ptr [ebx+14h]
+        test eax,eax
+        jne L_44908C
+        mov ecx,ebx
+        call GarageSphere15_54F560
+        mov eax,dword ptr [ebx+14h]
+        push eax
+        lea ecx,[ebx+4]
+        call GarageSphere15_54F1B0
+L_44908C:
+        mov ecx,dword ptr [esi+8]
+        mov eax,dword ptr [ebx+14h]
+        add ecx,edi
+        push ecx
+        push eax
+        lea edx,[esp+1Ch]
+        push edx
+        call GarageSphere15_59C890
+        fld dword ptr [esp+34h]
+        mov ecx,dword ptr [esi+8]
+        fadd dword ptr [ecx+edi+0Ch]
+        push ecx
+        mov ecx,dword ptr [eax]
+        mov edx,esp
+        fstp dword ptr [esp+0Ch]
+        mov dword ptr [edx],ecx
+        mov ecx,dword ptr [eax+4]
+        mov eax,dword ptr [eax+8]
+        mov dword ptr [edx+4],ecx
+        mov ecx,dword ptr [esp+20h]
+        mov dword ptr [edx+8],eax
+        call GarageSphere15_4487D0
+        test al,al
+        je L_4490E6
+        movsx ecx,word ptr [esi]
+        inc ebp
+        add edi,14h
+        cmp ebp,ecx
+        jl L_449072
+L_4490DA:
+        xor al,al
+        pop edi
+        pop esi
+        pop ebp
+        pop ebx
+        add esp,10h
+        ret 8
+L_4490E6:
+        pop edi
+        pop esi
+        pop ebp
+        mov al,1
+        pop ebx
+        add esp,10h
+        ret 8
+    }
 }
 
 // 0x449690

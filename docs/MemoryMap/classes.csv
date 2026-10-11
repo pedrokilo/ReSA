@@ -231,7 +231,7 @@ CGameLogic,class,27,27,0,27,27,0,,,source/game_sa/GameLogic.h:38,catalogue_class
 CGamma,class,2,2,0,2,2,0,,,source/game_sa/Gamma.h:3,catalogue_class_or_group
 CGangWars,class,35,35,0,35,35,0,,,source/game_sa/GangWars.h:50,catalogue_class_or_group
 CGangs,class,8,8,0,8,8,0,,,source/game_sa/Gangs.h:17,catalogue_class_or_group
-CGarage,class,7,7,0,7,7,0,,,source/game_sa/Garage.h:96,catalogue_class_or_group
+CGarage,class,8,8,0,8,8,0,,,source/game_sa/Garage.h:96,catalogue_class_or_group
 CGarages,class,23,23,0,23,23,0,,,source/game_sa/Garages.h:15,catalogue_class_or_group
 CGeneral,catalogue_group,9,9,0,9,9,0,,,,catalogue_class_or_group
 CGenericGameStorage,class,19,19,0,19,19,0,,,source/game_sa/GenericGameStorage.h:12,catalogue_class_or_group

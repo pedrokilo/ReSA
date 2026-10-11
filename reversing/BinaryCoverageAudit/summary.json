@@ -2,8 +2,8 @@
   "scope": "static inventory; counts are candidates, not missing implementations",
   "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "binary_functions": 17765,
-  "catalogue_named_entries": 8541,
-  "entries_without_catalogue_names": 9224,
+  "catalogue_named_entries": 8542,
+  "entries_without_catalogue_names": 9223,
   "source_slots": 5486,
   "source_slots_without_catalogue_name": 2575,
   "unique_source_slot_targets_without_catalogue_name": 949,
@@ -44,11 +44,11 @@
   "unresolved_indirect_calls": 6004,
   "exact_missing_game_functions": null,
   "inputs_sha256": {
-    "binary_functions.csv": "87b5dc785b2236546d8812295d082b9b031304eb7867821678072e9bbe198002",
+    "binary_functions.csv": "45254d92bbe4b18123a829995c3aa603baf66b479f8ef25191f720610613098c",
     "binary_slots.csv": "13a55e99661dd3d2d4a022d683431c40bcf3bb80232c146d9d9f544c000f6dba",
-    "registrations.csv": "038fe8a4e6e5c54905444cd6f845e409b70b060053e9fee007069f0342020cf6",
+    "registrations.csv": "80c1a0077a2b3263b5ea238fb3678c84d83224bdcf37f6ea9382cd6d0dc63076",
     "types.csv": "fbb3a6145a63bb7eeac83afdcc779218888602ec28c11609bf27eaaa35a187aa",
-    "review-source-calls.csv": "dde738ae6bb507b33751f53c74e83f3bce526621d3ab67252fcff48a66a4be87"
+    "review-source-calls.csv": "f727729a6a17394b462f0b1bb89dca7342a0f71272d28b168458ace6aa02314b"
   },
   "limitations": [
     "Source registration labels can differ from catalogue overload labels.",
@@ -56,6 +56,6 @@
     "Repeated virtual targets include inheritance and deleting destructors.",
     "No runtime equivalence or independence from the original EXE is certified."
   ],
-  "explicit_original_targets_without_catalogue_name": 820,
-  "explicit_targets_referenced_from_catalogued_entries": 396
+  "explicit_original_targets_without_catalogue_name": 819,
+  "explicit_targets_referenced_from_catalogued_entries": 395
 }

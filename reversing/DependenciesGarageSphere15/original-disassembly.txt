@@ -1,0 +1,73 @@
+00449050: sub esp,10h
+00449053: push ebx
+00449054: mov ebx,dword ptr [esp+18h]
+00449058: push ebp
+00449059: push esi
+0044905A: mov dword ptr [esp+0Ch],ecx
+0044905E: push edi
+0044905F: mov ecx,ebx
+00449061: call 00535300
+00449066: mov esi,dword ptr [eax+2Ch]
+00449069: xor ebp,ebp
+0044906B: cmp word ptr [esi],bp
+0044906E: jle 004490DA
+00449070: xor edi,edi
+00449072: mov eax,dword ptr [ebx+14h]
+00449075: test eax,eax
+00449077: jne 0044908C
+00449079: mov ecx,ebx
+0044907B: call 0054F560
+00449080: mov eax,dword ptr [ebx+14h]
+00449083: push eax
+00449084: lea ecx,[ebx+4]
+00449087: call 0054F1B0
+0044908C: mov ecx,dword ptr [esi+8]
+0044908F: mov eax,dword ptr [ebx+14h]
+00449092: add ecx,edi
+00449094: push ecx
+00449095: push eax
+00449096: lea edx,[esp+1Ch]
+0044909A: push edx
+0044909B: call 0059C890
+004490A0: fld dword ptr [esp+34h]
+004490A4: mov ecx,dword ptr [esi+8]
+004490A7: fadd dword ptr [ecx+edi+0Ch]
+004490AB: push ecx
+004490AC: mov ecx,dword ptr [eax]
+004490AE: mov edx,esp
+004490B0: fstp dword ptr [esp+0Ch]
+004490B4: mov dword ptr [edx],ecx
+004490B6: mov ecx,dword ptr [eax+4]
+004490B9: mov eax,dword ptr [eax+8]
+004490BC: mov dword ptr [edx+4],ecx
+004490BF: mov ecx,dword ptr [esp+20h]
+004490C3: mov dword ptr [edx+8],eax
+004490C6: call 004487D0
+004490CB: test al,al
+004490CD: je 004490E6
+004490CF: movsx ecx,word ptr [esi]
+004490D2: inc ebp
+004490D3: add edi,14h
+004490D6: cmp ebp,ecx
+004490D8: jl 00449072
+004490DA: xor al,al
+004490DC: pop edi
+004490DD: pop esi
+004490DE: pop ebp
+004490DF: pop ebx
+004490E0: add esp,10h
+004490E3: ret 8
+004490E6: pop edi
+004490E7: pop esi
+004490E8: pop ebp
+004490E9: mov al,1
+004490EB: pop ebx
+004490EC: add esp,10h
+004490EF: ret 8
+00449100: sub esp,20h
+00449103: push ebx
+00449104: push ebp
+00449105: push esi
+00449106: push edi
+ 00449107: 8B
+ 00449108: 3D

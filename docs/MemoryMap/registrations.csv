@@ -3538,6 +3538,7 @@ CGangWars,Load,0x005D3EB0,RH_ScopedInstall,source/game_sa/GangWars.cpp,78,source
 CGangWars,Save,0x005D5530,RH_ScopedInstall,source/game_sa/GangWars.cpp,79,source_hook_reference
 CGarage,BuildRotatedDoorMatrix,0x004479F0,RH_ScopedInstall,source/game_sa/Garage.cpp,29,source_hook_reference
 CGarage,StoreAndRemoveCarsForThisHideOut,0x00449900,RH_ScopedInstall,source/game_sa/Garage.cpp,32,source_hook_reference
+CGarage,EntityHasASphereWayOutsideGarage,0x00449050,RH_ScopedInstall,source/game_sa/Garage.cpp,33,source_hook_reference
 CGarage,IsEntityTouching3D,0x00448EE0,RH_ScopedInstall,source/game_sa/Garage.cpp,35,source_hook_reference
 CGarage,IsPointInsideGarage-point,0x00448740,RH_ScopedOverloadedInstall,source/game_sa/Garage.cpp,39,source_hook_reference
 CGarage,OpenThisGarage,0x00447D50,RH_ScopedInstall,source/game_sa/Garage.cpp,41,source_hook_reference

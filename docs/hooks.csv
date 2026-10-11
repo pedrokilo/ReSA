@@ -8548,3 +8548,4 @@ CCarCtrl,FindGhostRoadHeight,0x00422370,1,0,1,S
 CPedGroupIntelligence,ComputeScriptCommandTasks,0x005F7800,1,0,1,S
 CStats,LoadStatUpdateConditions,0x00559860,1,0,1,S
 CGarage,IsEntityTouching3D,0x00448EE0,1,0,1,S
+CGarage,EntityHasASphereWayOutsideGarage,0x00449050,1,0,1,S

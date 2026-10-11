@@ -1,18 +1,18 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8549 funciones reconstruidas; 8549 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9224 entradas binarias sin nombre catalogado; 820 destinos originales explícitos fuera del catálogo, 396 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 104 aprobadas dentro del juego; 131 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,549 entradas reversed=1**, de 8,549 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,550 entradas reversed=1**, de 8,550 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8549 |
+| `validated=1` · evidencia aprobada vinculada | 8550 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8549 |
+| Evidencia histórica vinculada; revisión pendiente | 8550 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2813,6 +2813,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGangs | `SetWillAttackPlayerWithCops` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CGarage | `BuildRotatedDoorMatrix` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `CloseThisGarage` | [Resumen](../reversing/Data23/validation-summary.json) |
+| CGarage | `EntityHasASphereWayOutsideGarage` | [Resumen](../reversing/DependenciesGarageSphere15/validation-summary.json) |
 | CGarage | `IsEntityTouching3D` | [Resumen](../reversing/DependenciesWorld15/validation-summary.json) |
 | CGarage | `IsPointInsideGarage-point` | [Resumen](../reversing/DependenciesGarage2/validation-summary.json) |
 | CGarage | `IsPointInsideGarage-radius` | [Resumen](../reversing/DependenciesGarage2/validation-summary.json) |
@@ -8812,7 +8813,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGamma` | 2 | 0 | 2 | 0 |
 | `CGangWars` | 35 | 0 | 35 | 0 |
 | `CGangs` | 8 | 0 | 8 | 0 |
-| `CGarage` | 7 | 0 | 7 | 0 |
+| `CGarage` | 8 | 0 | 8 | 0 |
 | `CGarages` | 23 | 0 | 23 | 0 |
 | `CGeneral` | 9 | 0 | 9 | 0 |
 | `CGenericGameStorage` | 19 | 0 | 19 | 0 |
