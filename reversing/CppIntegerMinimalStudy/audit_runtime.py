@@ -96,7 +96,7 @@ def main():
     ap.add_argument('--runner-summary', required=True); ap.add_argument('--game', required=True)
     a = ap.parse_args(); m = json.loads(Path(a.manifest).read_text(encoding='utf-8'))
     need(sha(a.asi) == m['binaries']['asi'], 'ASI hash')
-    required_sources = {'source/game_sa/IntegerMinimalCpp.cpp', 'source/CMakeLists.txt', 'docs/hooks.csv',
+    required_sources = {('source/game_sa/RenderWare/D3DResourceSystem.cpp' if a.kind == 4 else 'source/game_sa/NativeStubs.cpp'), 'source/CMakeLists.txt', 'docs/hooks.csv',
                         'source/StdInc.h', 'source/game_sa/CarCtrl.h',
                         'source/game_sa/RenderWare/D3DResourceSystem.h', 'source/InjectHooksMain.cpp',
                         'reversing/OriginalDependencies499/HookRoute.hpp'}

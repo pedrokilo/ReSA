@@ -67,7 +67,7 @@ def main():
     assert all(row['failures']==0 for row in fsum)
     manifest = json.loads((bank / 'artifacts/build-manifest.json').read_text(encoding='utf-8'))
     assert summary['executed_probe_sha256'] == manifest['binaries']['asi']
-    assert {'source/game_sa/Shadows.cpp','source/game_sa/Shadows.h','source/game_sa/ShadowSqrtCpp.cpp','source/game_sa/ShadowSqrtCpp.h','source/game_sa/ShadowMathCpp.cpp','source/game_sa/ShadowMathCpp.h','source/CMakeLists.txt','CMakeLists.txt','source/InjectHooksMain.cpp','source/reversiblehooks/RootHookCategory.h','source/reversiblehooks/ReversibleHook/Base.h'} <= set(manifest['sources']), 'Required helper/options/routes source hashes missing'
+    assert {'source/game_sa/Shadows.cpp','source/game_sa/Shadows.h','source/game_sa/X87Math.cpp','source/game_sa/X87Math.h','source/CMakeLists.txt','CMakeLists.txt','source/InjectHooksMain.cpp','source/reversiblehooks/RootHookCategory.h','source/reversiblehooks/ReversibleHook/Base.h'} <= set(manifest['sources']), 'Required helper/options/routes source hashes missing'
     assert sha(ROOT / 'source/game_sa/Game.cpp') == manifest['game_cpp']
     for path, digest in manifest['sources'].items():
         assert sha(ROOT / path) == digest, path

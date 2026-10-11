@@ -1,0 +1,26 @@
+{
+  "binaries": {
+    "asi": "beed750f977f2bec516597f1b330c0e4f2d6985390bb795d6283983160472643",
+    "pdb": "97966e2f68c0e62274718a8060b6881bab4a892ca57dbe2a9b9692e5f7f2f3b6"
+  },
+  "sources": {
+    "source/game_sa/Garages.cpp": "e735bbddabf34637c7717d15d7a2aeb44f92404af9c8a00085a380435cf5272c",
+    "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+    "source/game_sa/Garage.cpp": "d6cd84ad62468fb369005bbc82079e934fa75933dcf8604ecdec350445f8845a",
+    "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a",
+    "source/game_sa/RenderWare/D3DResourceSystem.cpp": "f3b6458861d08104e42fd7664832ec0c57830ba1c3fc15da2ddf4fa5d2fe39f6",
+    "source/game_sa/RenderWare/D3DResourceSystem.h": "dc060d39860ea99ea7e75a7a473db78cfa59b7c30d50f6aa76291e666187a656",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
+    "source/CMakeLists.txt": "9071cccf18eb5234dea296b823e3f9c676ee04a955e67e0dd162826e4784f5b1",
+    "docs/hooks.csv": "cff7932ea4a75958bee515763619c9a5b5e06f0ba7fa4863bd6cc14a9a5a9dbd",
+    "source/StdInc.h": "ecda706c9bee127ad14550c3faa19d8e60a1f5a0a11493a1d14560ecc2462d09",
+    "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d"
+  },
+  "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+  "instrumentation": {
+    "LiveComparison.hpp": "71213cb1a6ea35cfd0698230f33f65fd4a0c669cc132269fd8f37f13f30cb20e",
+    "build_probe.py": "a14c4921cd2a105fe80b046542a247d49fe81b415d748b6006ed8aeaaeb3a100",
+    "run_local.py": "f5959782437f753e3573b6484a864552a27d480691322018ded5b717591a5c34"
+  }
+}

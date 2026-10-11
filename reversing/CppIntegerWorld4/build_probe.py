@@ -10,4 +10,4 @@ if __name__=='__main__':
         'source/game_sa/Garages.cpp','source/game_sa/Garages.h',
         'source/game_sa/Garage.cpp','source/game_sa/Garage.h',
         'source/game_sa/RenderWare/D3DResourceSystem.cpp','source/game_sa/RenderWare/D3DResourceSystem.h',
-        'source/game_sa/IntegerMinimalCpp.cpp','source/InjectHooksMain.cpp','reversing/OriginalDependencies499/HookRoute.hpp','source/CMakeLists.txt','docs/hooks.csv','source/StdInc.h','source/game_sa/CarCtrl.h'])))
+        'source/game_sa/RenderWare/D3DResourceSystem.cpp','source/InjectHooksMain.cpp','reversing/OriginalDependencies499/HookRoute.hpp','source/CMakeLists.txt','docs/hooks.csv','source/StdInc.h','source/game_sa/CarCtrl.h'])))

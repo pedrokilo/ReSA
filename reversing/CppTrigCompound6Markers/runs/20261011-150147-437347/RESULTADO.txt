@@ -1,0 +1,3 @@
+APROBADO: CppTrigCompound6Markers
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpptrigcompound6markers\20261011-150147-437347

@@ -81,10 +81,10 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| GetMaxDistance(eBirdsBiome biome) | [source/game_sa/Birds.cpp:66](../../source/game_sa/Birds.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| BirdsAtan2(float x, float y) | [source/game_sa/Birds.cpp:112](../../source/game_sa/Birds.cpp#L112) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| BirdsAddAtan2(float add, float x, float y) | [source/game_sa/Birds.cpp:122](../../source/game_sa/Birds.cpp#L122) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| BirdsRotate(float angle, float* px, float* py) | [source/game_sa/Birds.cpp:134](../../source/game_sa/Birds.cpp#L134) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| GetMaxDistance(eBirdsBiome biome) | [source/game_sa/Birds.cpp:65](../../source/game_sa/Birds.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| BirdsAtan2(float x, float y) | [source/game_sa/Birds.cpp:111](../../source/game_sa/Birds.cpp#L111) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| BirdsAddAtan2(float add, float x, float y) | [source/game_sa/Birds.cpp:121](../../source/game_sa/Birds.cpp#L121) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| BirdsRotate(float angle, float* px, float* py) | [source/game_sa/Birds.cpp:133](../../source/game_sa/Birds.cpp#L133) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
 <a id="grupo-1031"></a>
 

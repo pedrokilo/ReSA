@@ -34,8 +34,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include <imgui.h>
 #include "Shadows.h"
-#include "ShadowSqrtCpp.h"
-#include "ShadowMathCpp.h"
+#include "X87Math.h"
 #include "FireManager.h"
 #include <CustomBuildingDNPipeline.h>
 

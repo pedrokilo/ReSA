@@ -56,20 +56,22 @@ file(
 )
 list(APPEND SOURCE_FILES_WITHOUT_MODULES_LIST StdInc.cpp)
 if(MSVC)
-    set_source_files_properties(game_sa/IntegerMinimalCpp.cpp PROPERTIES
+    # D3DResourceSystem::SetUseD3DResourceBuffering (0x730AC0): the whole class file is compiled so its body matches the EXE.
+    set_source_files_properties(game_sa/RenderWare/D3DResourceSystem.cpp PROPERTIES
         COMPILE_OPTIONS "/O2;/Oi;/Oy;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
         VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
-    set_source_files_properties(game_sa/TrigCompound6Cpp.cpp PROPERTIES
-        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+    # Free native stubs (not part of a class) whose bodies must match the EXE exactly.
+    set_source_files_properties(game_sa/NativeStubs.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/Oy;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
         VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
-    # Scalar x87 intrinsic helpers; callers retain their existing compiler options.
-    set_source_files_properties(game_sa/TrigSimpleCpp.cpp PROPERTIES
+    # Shared scalar x87 helpers (sin/cos, ordered comparisons, shadow sqrt/fade); callers retain their own options.
+    set_source_files_properties(game_sa/X87Math.cpp PROPERTIES
         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
         VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
         SKIP_PRECOMPILE_HEADERS ON
@@ -83,26 +85,6 @@ if(MSVC)
     # Cloud comparisons must update x87 C0/C3 like the original EXE.
     set_source_files_properties(game_sa/Clouds.cpp PROPERTIES
         COMPILE_OPTIONS "/arch:IA32"
-        SKIP_PRECOMPILE_HEADERS ON
-        SKIP_UNITY_BUILD_INCLUSION ON
-    )
-    set_source_files_properties(game_sa/CloudsMathCpp.cpp PROPERTIES
-        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
-        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
-        SKIP_PRECOMPILE_HEADERS ON
-        SKIP_UNITY_BUILD_INCLUSION ON
-    )
-    # Double-rounded FSQRT helper for shadow distance checks; Shadows.cpp keeps its options.
-    set_source_files_properties(game_sa/ShadowSqrtCpp.cpp PROPERTIES
-        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
-        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
-        SKIP_PRECOMPILE_HEADERS ON
-        SKIP_UNITY_BUILD_INCLUSION ON
-    )
-    # Scalar x87 shadow math helpers; Shadows.cpp keeps its options.
-    set_source_files_properties(game_sa/ShadowMathCpp.cpp PROPERTIES
-        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
-        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )

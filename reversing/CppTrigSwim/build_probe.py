@@ -11,5 +11,5 @@ SOURCES = [
     'source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp', 'source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h',
     'source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp', 'source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h',
 ]
-SOURCES += ['source/game_sa/TrigSimpleCpp.cpp', 'source/game_sa/TrigSimpleCpp.h', 'source/CMakeLists.txt', 'CMakeLists.txt', 'source/InjectHooksMain.cpp', 'source/reversiblehooks/RootHookCategory.h', 'source/reversiblehooks/ReversibleHook/Base.h', 'reversing/OriginalDependencies499/HookRoute.hpp']
+SOURCES += ['source/game_sa/X87Math.cpp', 'source/game_sa/X87Math.h', 'source/CMakeLists.txt', 'CMakeLists.txt', 'source/InjectHooksMain.cpp', 'source/reversiblehooks/RootHookCategory.h', 'source/reversiblehooks/ReversibleHook/Base.h', 'reversing/OriginalDependencies499/HookRoute.hpp']
 if __name__ == '__main__': print(json.dumps(build(Path(__file__).parent, 'cpptrigswim', 'CppTrigSwimLive', SOURCES)))

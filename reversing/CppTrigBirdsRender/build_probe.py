@@ -10,5 +10,5 @@ W = 'source/app/platform/win/'
 SOURCES = [G + p for p in ('Birds.cpp', 'Birds.h', 'Credits.cpp', 'Credits.h', 'Curves.cpp', 'Curves.h', 'OnscreenTimer.cpp', 'OnscreenTimer.h',
                            'Models/TimeInfo.cpp', 'Models/TimeInfo.h', 'Interior/FurnitureGroup_c.cpp', 'Interior/FurnitureGroup_c.h')] + \
           [W + p for p in ('WinPlatform.cpp', 'WinMain.cpp')]
-SOURCES += ['source/game_sa/TrigSimpleCpp.cpp', 'source/game_sa/TrigSimpleCpp.h', 'source/CMakeLists.txt', 'CMakeLists.txt', 'source/InjectHooksMain.cpp', 'reversing/ProbeSupport.hpp', 'reversing/ProbeRuntime.hpp', 'reversing/CppTrigBirdsRender/run_local.py', 'reversing/CppTrigBirdsRender/README.md']
+SOURCES += ['source/game_sa/X87Math.cpp', 'source/game_sa/X87Math.h', 'source/CMakeLists.txt', 'CMakeLists.txt', 'source/InjectHooksMain.cpp', 'reversing/ProbeSupport.hpp', 'reversing/ProbeRuntime.hpp', 'reversing/CppTrigBirdsRender/run_local.py', 'reversing/CppTrigBirdsRender/README.md']
 if __name__ == '__main__': print(json.dumps(build(Path(__file__).parent, 'cpptrigbirdsrender', 'CppTrigBirdsRenderLive', SOURCES)))

@@ -1,0 +1,3 @@
+APROBADO: CppTrigBrightPlane
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpptrigbrightplane\20261011-145617-175579

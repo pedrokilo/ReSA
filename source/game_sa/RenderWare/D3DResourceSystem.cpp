@@ -5,7 +5,15 @@
     Do not delete this comment block. Respect others' work!
 */
 
+// Este archivo se compila completo con /O2 /Oi /Oy /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt):
+// SetUseD3DResourceBuffering debe coincidir byte a byte con el EXE (10 bytes, sin prólogo ni relocaciones).
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "StdInc.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 void D3DResourceSystem::InjectHooks() {
     RH_ScopedClass(D3DResourceSystem);
@@ -34,7 +42,10 @@ void D3DResourceSystem::Init() {
 }
 
 // 0x730AC0
-// Writes one byte and preserves EAX high bits, ECX and EDX as in the EXE.
+// Writes one byte and preserves EAX high bits, ECX, EDX and the flags as in the EXE.
+void D3DResourceSystem::SetUseD3DResourceBuffering(bool enabled) {
+    *reinterpret_cast<volatile unsigned char*>(0x8D6084) = enabled;
+}
 
 // 0x730A00
 void D3DResourceSystem::Shutdown() {

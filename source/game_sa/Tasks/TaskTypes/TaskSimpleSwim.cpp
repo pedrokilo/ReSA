@@ -17,8 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
-#include "TrigCompound6Cpp.h"
-#include "TrigSimpleCpp.h"
+#include "X87Math.h"
 
 #include "TaskSimpleSwim.h"
 #include "TaskSimpleClimb.h"

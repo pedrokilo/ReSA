@@ -17,7 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
-#include "TrigCompound6Cpp.h"
+#include "X87Math.h"
 
 #include "3dMarkers.h"
 #include "PostEffects.h"

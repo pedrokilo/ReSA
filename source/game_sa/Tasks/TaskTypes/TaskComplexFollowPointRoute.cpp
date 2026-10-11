@@ -17,7 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
-#include "TrigSimpleCpp.h"
+#include "X87Math.h"
 #include "TaskComplexFollowPointRoute.h"
 #include "TaskSimpleGoToPointFine.h"
 #include "TaskComplexGoToPointAndStandStill.h"

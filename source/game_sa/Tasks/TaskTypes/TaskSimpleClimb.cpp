@@ -23,7 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
-#include "TrigSimpleCpp.h"
+#include "X87Math.h"
 
 #include "TaskSimpleClimb.h"
 #include "TaskSimpleClimb_models.h"
@@ -49,7 +49,7 @@ const float ms_fVaultOffsetVert = +0.00f; // 0xC18F7C
 
 namespace {
 /*
- * Scalar sine/cosine products now live in TrigSimpleCpp.cpp.
+ * Scalar sine/cosine products now live in X87Math.cpp.
  * Their float cdecl interface matches the former local helpers.
  * Compilation must preserve the extended intermediate result.
  * No float temporary may be stored before the multiplication.
