@@ -13,4 +13,4 @@ if __name__=='__main__':print(json.dumps(build(Path(__file__).parent,'cppinteger
  'source/game_sa/Models/BaseModelInfo.h','source/game_sa/Entity/Entity.h',
  'source/game_sa/Entity/Vehicle/Vehicle.h','source/game_sa/Entity/Placeable.h',
  'source/game_sa/Core/Pool.h','source/game_sa/Pools/VehiclePool.h','source/game_sa/Pools/Pools.h',
- 'source/game_sa/NativeStubs.cpp','source/InjectHooksMain.cpp','reversing/OriginalDependencies499/HookRoute.hpp','source/CMakeLists.txt','docs/hooks.csv','source/StdInc.h','source/game_sa/RenderWare/D3DResourceSystem.h'])))
+ 'source/game_sa/CarCtrl.cpp','source/InjectHooksMain.cpp','reversing/OriginalDependencies499/HookRoute.hpp','source/CMakeLists.txt','docs/hooks.csv','source/StdInc.h','source/game_sa/RenderWare/D3DResourceSystem.h'])))

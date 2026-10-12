@@ -23,6 +23,11 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 
+// Este archivo se compila con /Zi (sin /ZI ni comprobaciones en tiempo de ejecución), sin PCH ni unity (ver
+// source/CMakeLists.txt): el relleno de /ZI cambiaría las banderas de Native_00424100, que se optimiza por pragma.
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "StdInc.h"
 
 #include "CarCtrl.h"
@@ -37,9 +42,18 @@ END GENERATED HOOK STATUS */
 #include "eAreaCodes.h"
 
 #include <reversiblebugfixes/Bugs.hpp>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 auto& apCarsToKeep = StaticRef<CVehicle*[2]>(0x969084);
 auto& aCarsToKeepTime = StaticRef<std::array<uint32, 2>>(0x96907C);
+
+// 0x424100: XOR AL,AL; RET. Conserva EAX alto, ECX/EDX y los registros no volátiles. Función suelta (alias de dirección):
+// CCarCtrl es sólo el dueño de la instrumentación. Optimizada por pragma para que el cuerpo mida 3 bytes como el del EXE.
+#pragma optimize("gty", on)
+bool Native_00424100(float, float) { return false; }
+#pragma optimize("", on)
 
 void CCarCtrl::InjectHooks()
 {

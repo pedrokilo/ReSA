@@ -1,0 +1,3 @@
+APROBADO: CppInteriorNext
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpp-interior-next\20261011-154040-161197

@@ -1,0 +1,3 @@
+APROBADO: CppInteriorRegression1
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpp-interior-regression1\20261011-160419-986968

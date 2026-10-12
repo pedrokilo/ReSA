@@ -1,0 +1,3 @@
+APROBADO: InteriorAbi
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interior-abi\20261011-154310-400465

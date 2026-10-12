@@ -3,23 +3,27 @@
     "identity": "CCarCtrl::FindSequenceElement",
     "source": "source/game_sa/CarCtrl.cpp",
     "bank": "CppSequence1",
-    "run": "20261010-230755-701916",
+    "run": "20261011-161020-773879",
     "pairs": 2048,
-    "audit": "reversing/CppSequence1/runs/20261010-230755-701916/approval-audit.json",
+    "audit": "reversing/CppSequence1/runs/20261011-161020-773879/approval-audit.json",
     "differences": 0,
     "null_comparison_records": 0,
-    "state_restored": true
+    "state_restored": true,
+    "previous_run": "20261010-230755-701916",
+    "revalidation_note": "Revalidado el 11/10/2026 tras fundir la clase en sus dos archivos (Interior_c.cpp / CarCtrl.cpp, sin /ZI ni comprobaciones en tiempo de ejecución; sólo la función que lo necesita se optimiza por pragma); la corrida anterior era de los archivos eliminados."
   },
   "0x00423F00": {
     "identity": "CCarCtrl::ClearInterestingVehicleList",
     "source": "source/game_sa/CarCtrl.cpp",
     "bank": "CppSequence2",
-    "run": "20261010-231937-429823",
+    "run": "20261011-161116-526305",
     "pairs": 256,
-    "audit": "reversing/CppSequence2/runs/20261010-231937-429823/approval-audit.json",
+    "audit": "reversing/CppSequence2/runs/20261011-161116-526305/approval-audit.json",
     "differences": 0,
     "null_comparison_records": 0,
-    "state_restored": true
+    "state_restored": true,
+    "previous_run": "20261010-231937-429823",
+    "revalidation_note": "Revalidado el 11/10/2026 tras fundir la clase en sus dos archivos (Interior_c.cpp / CarCtrl.cpp, sin /ZI ni comprobaciones en tiempo de ejecución; sólo la función que lo necesita se optimiza por pragma); la corrida anterior era de los archivos eliminados."
   },
   "0x0061B460": {
     "identity": "CTaskComplexPlayHandSignalAnim::GetAnimIdForPed",
@@ -34,11 +38,11 @@
   },
   "0x00599A30": {
     "identity": "Interior_c::Office_FurnishCenter",
-    "source": "source/game_sa/Interior/InteriorCpp.cpp",
+    "source": "source/game_sa/Interior/Interior_c.cpp",
     "bank": "CppInteriorProposal",
-    "run": "20261010-234420-320168",
+    "run": "20261011-153548-459480",
     "pairs": 4096,
-    "audit": "reversing/CppInteriorProposal/runs/20261010-234420-320168/approval-audit.json",
+    "audit": "reversing/CppInteriorProposal/runs/20261011-153548-459480/approval-audit.json",
     "differences": 0,
     "null_comparison_records": 0,
     "state_restored": true,
@@ -52,15 +56,17 @@
         "null_comparison_records": 0,
         "state_restored": true
       }
-    ]
+    ],
+    "previous_run": "20261010-234420-320168",
+    "revalidation_note": "Revalidado el 11/10/2026 tras fundir la clase en sus dos archivos (Interior_c.cpp / CarCtrl.cpp, sin /ZI ni comprobaciones en tiempo de ejecución; sólo la función que lo necesita se optimiza por pragma); la corrida anterior era de los archivos eliminados."
   },
   "0x0059A130": {
     "identity": "Interior_c::Shop_FurnishCeiling",
-    "source": "source/game_sa/Interior/InteriorCpp.cpp",
+    "source": "source/game_sa/Interior/Interior_c.cpp",
     "bank": "CppInteriorProposal",
-    "run": "20261010-234420-320168",
+    "run": "20261011-153548-459480",
     "pairs": 2048,
-    "audit": "reversing/CppInteriorProposal/runs/20261010-234420-320168/approval-audit.json",
+    "audit": "reversing/CppInteriorProposal/runs/20261011-153548-459480/approval-audit.json",
     "differences": 0,
     "null_comparison_records": 0,
     "state_restored": true,
@@ -74,7 +80,9 @@
         "null_comparison_records": 0,
         "state_restored": true
       }
-    ]
+    ],
+    "previous_run": "20261010-234420-320168",
+    "revalidation_note": "Revalidado el 11/10/2026 tras fundir la clase en sus dos archivos (Interior_c.cpp / CarCtrl.cpp, sin /ZI ni comprobaciones en tiempo de ejecución; sólo la función que lo necesita se optimiza por pragma); la corrida anterior era de los archivos eliminados."
   },
   "0x00734E50": {
     "identity": "RwHelper::RwTexDictionaryFindHashNamedTexture",
@@ -89,27 +97,31 @@
   },
   "0x00599AF0": {
     "identity": "Interior_c::FurnishOffice",
-    "source": "source/game_sa/Interior/InteriorCpp.cpp",
+    "source": "source/game_sa/Interior/Interior_c.cpp",
     "bank": "CppInteriorNext",
-    "run": "20261011-000453-501774",
+    "run": "20261011-154040-161197",
     "pairs": 2048,
-    "audit": "reversing/CppInteriorNext/runs/20261011-000453-501774/approval-audit.json",
+    "audit": "reversing/CppInteriorNext/runs/20261011-154040-161197/approval-audit.json",
     "differences": 0,
     "null_comparison_records": 0,
     "state_restored": true,
-    "scope": "body conversion; collaborators instrumented, no transitive approval; numeric input PC24 nearest"
+    "scope": "body conversion; collaborators instrumented, no transitive approval; numeric input PC24 nearest",
+    "previous_run": "20261011-000453-501774",
+    "revalidation_note": "Revalidado el 11/10/2026 tras fundir la clase en sus dos archivos (Interior_c.cpp / CarCtrl.cpp, sin /ZI ni comprobaciones en tiempo de ejecución; sólo la función que lo necesita se optimiza por pragma); la corrida anterior era de los archivos eliminados."
   },
   "0x0059A140": {
     "identity": "Interior_c::Shop_AddShelfInfo",
-    "source": "source/game_sa/Interior/InteriorShelfCpp.cpp",
+    "source": "source/game_sa/Interior/Interior_c.cpp",
     "bank": "CppInteriorNext",
-    "run": "20261011-000453-501774",
+    "run": "20261011-154040-161197",
     "pairs": 4096,
-    "audit": "reversing/CppInteriorNext/runs/20261011-000453-501774/approval-audit.json",
+    "audit": "reversing/CppInteriorNext/runs/20261011-154040-161197/approval-audit.json",
     "differences": 0,
     "null_comparison_records": 0,
     "state_restored": true,
-    "scope": "body conversion; collaborators instrumented, no transitive approval; numeric input PC24 nearest"
+    "scope": "body conversion; collaborators instrumented, no transitive approval; numeric input PC24 nearest",
+    "previous_run": "20261011-000453-501774",
+    "revalidation_note": "Revalidado el 11/10/2026 tras fundir la clase en sus dos archivos (Interior_c.cpp / CarCtrl.cpp, sin /ZI ni comprobaciones en tiempo de ejecución; sólo la función que lo necesita se optimiza por pragma); la corrida anterior era de los archivos eliminados."
   },
   "0x00632140": {
     "identity": "CTaskComplexSunbathe::CanSunbathe",
@@ -391,19 +403,19 @@
   "0x424100": {
     "identity": "CCarCtrl::Native_00424100",
     "converted_source_functions": 1,
-    "source": "source/game_sa/NativeStubs.cpp",
+    "source": "source/game_sa/CarCtrl.cpp",
     "bank": "CppIntegerWorld10",
-    "run": "20261011-150945-519471",
+    "run": "20261011-161211-340213",
     "pairs": 4096,
     "own_pairs": 2048,
     "differences": 0,
     "null_comparison_records": 0,
     "state_restored": true,
-    "audit": "reversing/CppIntegerWorld10/runs/20261011-150945-519471/independent-audit.json",
+    "audit": "reversing/CppIntegerWorld10/runs/20261011-161211-340213/independent-audit.json",
     "helper_codegen": "reversing/CppIntegerMinimalStudy/actual-independent-object-audit.json",
     "scope": "Exact complete EXE body, raw GPR/defined flags/arguments; original companion fixtures; no full FP108 post-consumer claim",
-    "previous_run": "20261011-023551-659033",
-    "revalidation_note": "Revalidado el 11/10/2026 tras consolidar los helpers en X87Math.cpp (sin archivos auxiliares duplicados); la corrida anterior era de los archivos eliminados."
+    "previous_run": "20261011-150945-519471",
+    "revalidation_note": "Revalidado el 11/10/2026 tras fundir la clase en sus dos archivos (Interior_c.cpp / CarCtrl.cpp, sin /ZI ni comprobaciones en tiempo de ejecución; sólo la función que lo necesita se optimiza por pragma); la corrida anterior era de los archivos eliminados."
   },
   "source:Shadows:ShadowExtendedSqrt": {
     "identity": "ShadowExtendedSqrt",

@@ -6,7 +6,7 @@ Vigente desde el 10/10/2026 por orden del propietario del proyecto. Resume las r
 
 1. **Todo lo que se reconstruya se escribe en C++.** No se añade `__asm`, `_asm` ni `__declspec(naked)` en `source/game_sa`. El ensamblador existente se convierte a C++ conservando los resultados exactos del EXE.
 2. **Una clase = dos archivos: un `.cpp` y un `.h`.** Nada de archivos auxiliares con sufijo `Cpp`, ni de métodos de una clase definidos en otra, ni de helpers sueltos por conversión.
-3. **Sin duplicados.** No se copian funciones, variables globales con sus direcciones, declaraciones de `sin`/`cos`/`sqrt` ni listas de includes. Si algo lo usan varias clases (por ejemplo helpers trigonométricos x87), vive en un único módulo compartido: hoy `X87Math.cpp/.h`, y las clases lo usan; no lo copian. Las funciones sueltas que no pertenecen a ninguna clase y deben coincidir byte a byte con el EXE van en `NativeStubs.cpp`.
+3. **Sin duplicados.** No se copian funciones, variables globales con sus direcciones, declaraciones de `sin`/`cos`/`sqrt` ni listas de includes. Si algo lo usan varias clases (por ejemplo helpers trigonométricos x87), vive en un único módulo compartido: hoy `X87Math.cpp/.h`, y las clases lo usan; no lo copian. Una función suelta de una clase (o de su alias de dirección) que deba coincidir byte a byte con el EXE vive en el `.cpp` de esa clase.
 4. **Resultados exactos del EXE, sin tolerancias añadidas.** No se mueve ensamblador a otro archivo de producción, no se esconden opcodes y no se delega el cuerpo al EXE para aparentar una conversión.
 5. **Las opciones de compilación son por archivo, nunca globales.** Un archivo de clase puede compilarse con `/O2 /Oi /arch:IA32 /fp:fast /Zi` sin PCH ni unity cuando la clase necesita x87 exacto; entonces se revalida toda la clase, no sólo la función convertida.
 6. **El 100 % del catálogo no es el 100 % en C++.** Catálogo, lenguaje e independencia del EXE se miden por separado. Nunca se declara «100 %» mezclándolos.
@@ -34,9 +34,14 @@ Vigente desde el 10/10/2026 por orden del propietario del proyecto. Resume las r
 - **Orden de operaciones.** Escribir las sumas en el orden del EXE (`(dz*dz + dy*dy) + dx*dx`); el compilador lo conserva. Comparaciones ordenadas dan `false` con NaN, igual que `FCOMP + FNSTSW + TEST AH,41h`.
 - **`/fp:fast` y `sqrt`.** Insertado en línea, `/fp:fast` sustituyó `sqrt(s) > 4` por `s > 16` y eliminó el `FSQRT`. Las funciones que comparan una raíz van `static __declspec(noinline)`.
 - **Envoltorios `naked` que sólo conservan EDX.** Se sustituyen por el hook directo si la función vive en un archivo compilado con `/O2` y el objeto real sólo escribe EAX, ECX y ESI (comprobarlo decodificando los bytes). Los índices de arrays van con `.data()[i]`: `array::operator[]` añade un assert cuya ruta llama a `__CrtDbgReport` y clobberaría EDX.
+- **Clases con `naked` (transcripciones del EXE).** No se compilan completas con `/O2`: esas funciones escriben EBX/ESI/EDI sin guardarlos y los llamadores optimizados pierden variables guardadas en esos registros. El archivo de la clase se compila con `/Zi` (sin `/ZI`) y `BasicRuntimeChecks=Default`, y sólo la función que necesita código optimizado lleva `#pragma optimize("gt", on)` (y `#pragma float_control(precise, off, push)` si es x87) y `#pragma optimize("", on)` al terminar. Sin `std::bit_cast` ni otras plantillas dentro de esa función: sin `/Ob2` quedan como llamadas. Ejemplos: `Interior_c.cpp`, `CarCtrl.cpp`.
 - **Archivos sin PCH.** Basta `#include "StdInc.h"` entre `#pragma warning(push, 0)` y `pop`. Para eso se corrigieron en `Pools.h` (`PoolOf<T>`) y `CompressedVector.h` funciones definidas en cabecera sin `inline`, que duplicaban símbolos fuera del PCH.
 - **Contrato de registros.** Los bancos estrictos siembran ECX y EDX, capturan EAX, ECX, EDX, ESI, EDI, EBX, EBP, ESP y las banderas definidas justo después de la llamada, y exigen la misma salida que el EXE.
 - **Colaboradores.** Las llamadas a otras funciones quedan identificadas en el registro; probar un consumidor no valida a sus colaboradores.
+
+## Herramientas
+
+En [herramientas/](herramientas/): `rerun_banks.py` (bancos con auditor propio), `rerun_int.py` (bancos de enteros), `rerun_hist.py` y `hist_wrap.py` (bancos históricos: redirigen el juego al clon, reapuntan `PROBE_HASH` y restauran la evidencia que reescriben) y `audit_generico.py` (auditor para bancos sin script propio).
 
 ## Trampas
 

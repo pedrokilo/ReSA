@@ -1,0 +1,3 @@
+APROBADO: CCarCtrl dependencias EXE frente reconstrucción RH
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cppsequence2\20261011-161116-526305

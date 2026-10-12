@@ -17,10 +17,10 @@ El proyecto compila con `/Od /ZI /RTC1` y SSE, y usa PCH. Para obtener el x87 ex
 | `CloudsAccessCpp.cpp` (4 envoltorios) | **Corregido.** Eliminado; las llamadas son directas. |
 | Declaraciones de `sin`/`cos`/`sqrt` repetidas en seis archivos | **Corregido.** Una sola vez en `X87Math.cpp`. |
 | `Clouds`, `CShadows` y los módulos trigonométricos con varios archivos auxiliares | **Corregido.** `TrigSimpleCpp`, `TrigCompound6Cpp`, `CloudsMathCpp`, `ShadowSqrtCpp` y `ShadowMathCpp` se fundieron en `X87Math.cpp/.h`, un único módulo compartido. |
-| `IntegerMinimalCpp.cpp` con métodos de dos clases | **Corregido en parte.** `SetUseD3DResourceBuffering` volvió a `D3DResourceSystem.cpp` (compilado completo con `/O2`). `Native_00424100` no pertenece a ninguna clase y vive en `NativeStubs.cpp`: pasar `CarCtrl.cpp` a `/O2` exigiría revalidar sus 30 funciones enganchadas y 11 bancos. |
-| `Interior_c` con 4 archivos y un prólogo de includes copiado | **Pendiente.** Unificar `InteriorCpp.cpp` e `InteriorShelfCpp.cpp` en `Interior_c.cpp` obliga a compilar el archivo completo (8.556 líneas, 46 definiciones con ensamblador) con opciones nuevas y a revalidar la clase con unos 22 bancos históricos. Hay riesgo real de cambiar el comportamiento de funciones ya validadas. |
+| `IntegerMinimalCpp.cpp` con métodos de dos clases | **Corregido.** `SetUseD3DResourceBuffering` volvió a `D3DResourceSystem.cpp` (compilado completo con `/O2`) y `Native_00424100` a `CarCtrl.cpp`, optimizada por `#pragma`; se eliminó `NativeStubs.cpp`. Revalidado con 11 bancos (ver [REVALIDACION_INTERIOR_CARCTRL.md](REVALIDACION_INTERIOR_CARCTRL.md)). |
+| `Interior_c` con 4 archivos y un prólogo de includes copiado | **Corregido.** `InteriorCpp.cpp` e `InteriorShelfCpp.cpp` se fundieron en `Interior_c.cpp` (compilado con `/Zi`, sin `/O2` global; sólo `Shop_AddShelfInfo` optimizada por pragma). Revalidado con 11 bancos: 10 aprobados y InteriorCommerce, que ya fallaba antes. |
 
-Archivos eliminados: `TrigSimpleCpp.cpp/.h`, `TrigCompound6Cpp.cpp/.h`, `CloudsMathCpp.cpp/.h`, `CloudsAccessCpp.cpp/.h`, `CloudsWeatherCpp.h`, `ShadowSqrtCpp.cpp/.h`, `ShadowMathCpp.cpp/.h`, `IntegerMinimalCpp.cpp`, `ConversationMathCpp.cpp/.h` y `ConversationNodeCpp.cpp`. Archivos nuevos: `X87Math.cpp/.h` (módulo compartido) y `NativeStubs.cpp`.
+Archivos eliminados: `InteriorCpp.cpp`, `InteriorShelfCpp.cpp`, `NativeStubs.cpp`, `TrigSimpleCpp.cpp/.h`, `TrigCompound6Cpp.cpp/.h`, `CloudsMathCpp.cpp/.h`, `CloudsAccessCpp.cpp/.h`, `CloudsWeatherCpp.h`, `ShadowSqrtCpp.cpp/.h`, `ShadowMathCpp.cpp/.h`, `IntegerMinimalCpp.cpp`, `ConversationMathCpp.cpp/.h` y `ConversationNodeCpp.cpp`. Archivo nuevo: `X87Math.cpp/.h` (módulo compartido).
 
 Revalidación: 16 bancos repetidos con cero diferencias (detalle en [README.md](README.md), sección «Consolidación sin archivos auxiliares duplicados»).
 
@@ -52,7 +52,7 @@ Revalidación: 16 bancos repetidos con cero diferencias (detalle en [README.md](
 
 `ConversationNode` y `ConversationForPed` quedaron en `.cpp` y `.h` por clase. Para lograrlo se compila el archivo completo con las opciones de `/O2` e incluye `StdInc.h` directamente, tras dos arreglos de cabecera que eran errores reales ocultos por el PCH: `PoolOf<T>` de `Pools.h` y ocho funciones de `CompressedVector.h` se definían sin `inline`.
 
-## Propuesta de limpieza original (aplicada salvo `Interior_c` y `CarCtrl`)
+## Propuesta de limpieza original (aplicada completa)
 
 Con `StdInc.h` utilizable sin PCH, las listas de includes copiadas pueden sustituirse por una línea, y estos archivos pueden volver a su clase cuando ella no tenga otras funciones validadas que cambiar de opciones. En orden de menor a mayor coste:
 

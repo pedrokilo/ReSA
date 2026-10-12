@@ -16,6 +16,9 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "StdInc.h"
 #include "Interior_c.h"
 #include "InteriorGroup_c.h"
@@ -23,6 +26,9 @@ END GENERATED HOOK STATUS */
 #include "FurnitureManager_c.h"
 #include "InteriorManager_c.h"
 #include "Building.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 // Address labels retained for direct comparison with the extracted assembly.
 #pragma warning(push)
@@ -8554,3 +8560,72 @@ Interior_c* Interior_c::Constructor() {
 }
 
 void Interior_c::Destructor() {}
+
+// --- Funciones reconstruidas con el cuerpo exacto del EXE (antes en InteriorCpp.cpp e InteriorShelfCpp.cpp) ---
+// Interior_c.cpp se compila completo con /Zi /arch:IA32 (sin /ZI, PCH ni unity); no con /O2, porque sus transcripciones naked
+// escriben EBX/ESI/EDI como el EXE. Sólo Shop_AddShelfInfo se optimiza con pragmas (ver source/CMakeLists.txt).
+
+// 0x599A30
+// Integer layout and return value match the EXE, including negative remainders.
+int32 Interior_c::Office_FurnishCenter() {
+    const auto* box = reinterpret_cast<const uint8*>(m_box);
+    const int32 width = int32(box[2]) - 6;
+    const int32 height = int32(box[3]) - 6;
+    const int32 columns = width / 6;
+    const int32 rows = height / 6;
+    const int32 insetX = (width % 6) / 2;
+    const int32 insetY = (height % 6) / 2;
+    if (width > 0 && height > 0 && columns > 0) {
+        for (int32 column = 0; column < columns; ++column) {
+            for (int32 row = 0; row < rows; ++row) {
+                Office_PlaceDeskQuad(-1, insetX + 6 + column * 6,
+                    insetY + 6 + row * 6, int32(m_furnitureId));
+            }
+        }
+    }
+    // 0x599ACB reloads this value after each populated column. Empty paths
+    // retain the same EAX computed at 0x599A8C.
+    return insetY;
+}
+
+// 0x59A130
+void Interior_c::Shop_FurnishCeiling() {
+}
+
+
+// 0x599AF0
+void Interior_c::FurnishOffice() {
+    const auto dimension = [this](unsigned offset) {
+        return int32(reinterpret_cast<const uint8*>(m_box)[offset]);
+    };
+    SetTilesStatus(0, 0, 2, 2, 2, 0);
+    SetTilesStatus(0, dimension(3) - 2, 2, 2, 2, 0);
+    SetTilesStatus(dimension(2) - 2, 0, 2, 2, 2, 0);
+    SetTilesStatus(dimension(2) - 2, dimension(3) - 2, 2, 2, 2, 0);
+    m_furnitureId = int8(g_furnitureMan.GetRandomId(1, 0, uint8(dimension(0x1F))));
+    field_792 = int8(g_furnitureMan.GetRandomId(1, 1, uint8(dimension(0x1F))));
+    Office_FurnishEdges();
+    Office_FurnishCenter();
+    Shop_FurnishCeiling();
+}
+
+// 0x59A140
+#pragma optimize("gt", on)
+#pragma float_control(precise, off, push)
+void Interior_c::Shop_AddShelfInfo(int32 x, int32 y, int32 direction) {
+    auto& counter = *reinterpret_cast<uint32*>(0x8D0948);
+    if (int32(counter) > 1) {
+        // This is the external CRT rand collaborator, not a game method body.
+        const uint32 draw = uint32(reinterpret_cast<int(__cdecl*)()>(0x821B1E)()) & 0xFFFF;
+        const float chance = float(draw) * (1.0f / 32768.0f) * 100.0f;
+        if (int32(chance) > 60) {
+            AddInteriorInfo(8, float(x), float(y), direction, nullptr);
+            counter = 1;
+            return;
+        }
+    }
+    // EXE INC wraps all bit patterns, including INT_MAX. Unsigned avoids UB.
+    ++counter;
+}
+#pragma float_control(pop)
+#pragma optimize("", on)

@@ -4,6 +4,17 @@
 
 <a id="grupo-1281"></a>
 
+## Globales y helpers: source/game_sa/GenericGameStorage.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| make_hex_string(TInputIter first, TInputIter last, bool use_uppercase = true, bool insert_spaces = false) | [source/game_sa/GenericGameStorage.cpp:40](../../source/game_sa/GenericGameStorage.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| LOG_HEX_SPAN(uint8* start, size_t size) | [source/game_sa/GenericGameStorage.cpp:56](../../source/game_sa/GenericGameStorage.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| LOG_HEX_SPAN(uint8* start, size_t size) | [source/game_sa/GenericGameStorage.cpp:65](../../source/game_sa/GenericGameStorage.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SaveVersionName(uint32 version) | [source/game_sa/GenericGameStorage.cpp:237](../../source/game_sa/GenericGameStorage.cpp#L237) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1282"></a>
+
 ## Globales y helpers: source/game_sa/GenericGameStorage.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -11,7 +22,7 @@
 | * GetNameOfSavedGame(int32 slot) | [source/game_sa/GenericGameStorage.h:114](../../source/game_sa/GenericGameStorage.h#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_SlotFileName: source/game_sa/GenericGameStorage.h:73 (0x00C16368) |
 | GetSavedGameState(int32 slot) | [source/game_sa/GenericGameStorage.h:120](../../source/game_sa/GenericGameStorage.h#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_Slots: source/game_sa/GenericGameStorage.h:74 (0x00C16EBC) |
 
-<a id="grupo-1282"></a>
+<a id="grupo-1283"></a>
 
 ## Globales y helpers: source/game_sa/Glass.cpp
 
@@ -23,7 +34,7 @@
 | FindVertexFurthestFromV0(const CVector (&v)\[4\]) | [source/game_sa/Glass.cpp:81](../../source/game_sa/Glass.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsGlassObjectWithCol(CEntity* entity) | [source/game_sa/Glass.cpp:258](../../source/game_sa/Glass.cpp#L258) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1283"></a>
+<a id="grupo-1284"></a>
 
 ## Globales y helpers: source/game_sa/GrassRenderer.cpp
 
@@ -31,7 +42,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GrassDistance(const CVector& a, const CVector& b) | [source/game_sa/GrassRenderer.cpp:69](../../source/game_sa/GrassRenderer.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1284"></a>
+<a id="grupo-1285"></a>
 
 ## Globales y helpers: source/game_sa/GxtChar.cpp
 
@@ -44,7 +55,7 @@
 | TextCopy(GxtChar* dst, const GxtChar* src) | [source/game_sa/GxtChar.cpp:87](../../source/game_sa/GxtChar.cpp#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GxtCharStrcpy(GxtChar* dst, const GxtChar* src) | [source/game_sa/GxtChar.cpp:97](../../source/game_sa/GxtChar.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1285"></a>
+<a id="grupo-1286"></a>
 
 ## Globales y helpers: source/game_sa/GxtChar.h
 
@@ -56,7 +67,7 @@
 | * AsciiFromGxtChar(const GxtChar* gxtAsciiText) | [source/game_sa/GxtChar.h:97](../../source/game_sa/GxtChar.h#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * operator""_gxt(const char* text, size_t) | [source/game_sa/GxtChar.h:101](../../source/game_sa/GxtChar.h#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1286"></a>
+<a id="grupo-1287"></a>
 
 ## Globales y helpers: source/game_sa/Hud.cpp
 
@@ -70,7 +81,7 @@
 | SubtitleCentreVitals(int width) | [source/game_sa/Hud.cpp:1402](../../source/game_sa/Hud.cpp#L1402) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | SubtitleScaleX(int width, bool vitals) | [source/game_sa/Hud.cpp:1426](../../source/game_sa/Hud.cpp#L1426) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1287"></a>
+<a id="grupo-1288"></a>
 
 ## Globales y helpers: source/game_sa/IdleCam.cpp
 
@@ -78,7 +89,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IdleMultiply3x3_VM(const CVector& v, const CMatrix& m) | [source/game_sa/IdleCam.cpp:40](../../source/game_sa/IdleCam.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1288"></a>
+<a id="grupo-1289"></a>
 
 ## Globales y helpers: source/game_sa/InterestingEvents.cpp
 
@@ -86,7 +97,7 @@
 | --- | --- | --- | --- | --- | --- |
 | InterestingSector(float coordinate, float radius, bool useEnd) | [source/game_sa/InterestingEvents.cpp:161](../../source/game_sa/InterestingEvents.cpp#L161) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1289"></a>
+<a id="grupo-1290"></a>
 
 ## Globales y helpers: source/game_sa/Interior/FurnitureSubGroup_c.cpp
 
@@ -94,7 +105,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * SelectFurnitureByWealth(TList_c&lt;Furniture_c&gt;& list, uint8 wealth) | [source/game_sa/Interior/FurnitureSubGroup_c.cpp:42](../../source/game_sa/Interior/FurnitureSubGroup_c.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1290"></a>
+<a id="grupo-1291"></a>
 
 ## Globales y helpers: source/game_sa/Interior/InteriorManager_c.cpp
 
@@ -104,52 +115,52 @@
 | * ModelInfoOf(const CEntity* entity) | [source/game_sa/Interior/InteriorManager_c.cpp:67](../../source/game_sa/Interior/InteriorManager_c.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8) |
 | AreaOf(const CEntity* entity) | [source/game_sa/Interior/InteriorManager_c.cpp:72](../../source/game_sa/Interior/InteriorManager_c.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1291"></a>
+<a id="grupo-1292"></a>
 
 ## Globales y helpers: source/game_sa/Interior/Interior_c.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| InteriorRandomCoordinate(int32 extent) | [source/game_sa/Interior/Interior_c.cpp:32](../../source/game_sa/Interior/Interior_c.cpp#L32) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | Conversión de dirección fija: 0x00858B14; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorLocalTileCentre(int32 negativeWidth, int32 negativeHeight, int32 negativeDepth, float offsetX, float offsetY, CVector* output) | [source/game_sa/Interior/Interior_c.cpp:47](../../source/game_sa/Interior/Interior_c.cpp#L47) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorProjectionInside(const RwV3d* axis, const CVector* delta, int32 dimension, float bias) | [source/game_sa/Interior/Interior_c.cpp:68](../../source/game_sa/Interior/Interior_c.cpp#L68) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorTruncate(float value) | [source/game_sa/Interior/Interior_c.cpp:95](../../source/game_sa/Interior/Interior_c.cpp#L95) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorPositionSeed(const CVector* position, int32 extra) | [source/game_sa/Interior/Interior_c.cpp:103](../../source/game_sa/Interior/Interior_c.cpp#L103) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorNearEntrance(const CVector* camera, const CVector* centre) | [source/game_sa/Interior/Interior_c.cpp:115](../../source/game_sa/Interior/Interior_c.cpp#L115) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00407180() | [source/game_sa/Interior/Interior_c.cpp:249](../../source/game_sa/Interior/Interior_c.cpp#L249) | Ensamblador · Envoltura al EXE | Histórica del catálogo: Interior_c::Bedroom_AddTableItem 0x00593F10 | 1 / 1 | Trampolín ASM a 0x00407180; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall005911E0() | [source/game_sa/Interior/Interior_c.cpp:251](../../source/game_sa/Interior/Interior_c.cpp#L251) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005911E0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00591220() | [source/game_sa/Interior/Interior_c.cpp:253](../../source/game_sa/Interior/Interior_c.cpp#L253) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00591220; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00591700() | [source/game_sa/Interior/Interior_c.cpp:255](../../source/game_sa/Interior/Interior_c.cpp#L255) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00591700; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall005917C0() | [source/game_sa/Interior/Interior_c.cpp:257](../../source/game_sa/Interior/Interior_c.cpp#L257) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005917C0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall005918E0() | [source/game_sa/Interior/Interior_c.cpp:259](../../source/game_sa/Interior/Interior_c.cpp#L259) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005918E0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00591C50() | [source/game_sa/Interior/Interior_c.cpp:261](../../source/game_sa/Interior/Interior_c.cpp#L261) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00591C50; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00591D20() | [source/game_sa/Interior/Interior_c.cpp:263](../../source/game_sa/Interior/Interior_c.cpp#L263) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00591D20; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00591E40() | [source/game_sa/Interior/Interior_c.cpp:265](../../source/game_sa/Interior/Interior_c.cpp#L265) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00591E40; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00592AA0() | [source/game_sa/Interior/Interior_c.cpp:267](../../source/game_sa/Interior/Interior_c.cpp#L267) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00592AA0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00593120() | [source/game_sa/Interior/Interior_c.cpp:269](../../source/game_sa/Interior/Interior_c.cpp#L269) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00593120; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00593340() | [source/game_sa/Interior/Interior_c.cpp:271](../../source/game_sa/Interior/Interior_c.cpp#L271) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00593340; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall005934E0() | [source/game_sa/Interior/Interior_c.cpp:273](../../source/game_sa/Interior/Interior_c.cpp#L273) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005934E0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00593F10() | [source/game_sa/Interior/Interior_c.cpp:275](../../source/game_sa/Interior/Interior_c.cpp#L275) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00593F10; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00596930() | [source/game_sa/Interior/Interior_c.cpp:277](../../source/game_sa/Interior/Interior_c.cpp#L277) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00596930; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00597240() | [source/game_sa/Interior/Interior_c.cpp:279](../../source/game_sa/Interior/Interior_c.cpp#L279) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00597240; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00597430() | [source/game_sa/Interior/Interior_c.cpp:281](../../source/game_sa/Interior/Interior_c.cpp#L281) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00597430; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall005974E0() | [source/game_sa/Interior/Interior_c.cpp:283](../../source/game_sa/Interior/Interior_c.cpp#L283) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005974E0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall005975C0() | [source/game_sa/Interior/Interior_c.cpp:285](../../source/game_sa/Interior/Interior_c.cpp#L285) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005975C0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00821B1E() | [source/game_sa/Interior/Interior_c.cpp:287](../../source/game_sa/Interior/Interior_c.cpp#L287) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00821B1E; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeCall00821B40() | [source/game_sa/Interior/Interior_c.cpp:289](../../source/game_sa/Interior/Interior_c.cpp#L289) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00821B40; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeNativeBedroom_AddTableItem() | [source/game_sa/Interior/Interior_c.cpp:292](../../source/game_sa/Interior/Interior_c.cpp#L292) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeNativeFurnishBedroom() | [source/game_sa/Interior/Interior_c.cpp:408](../../source/game_sa/Interior/Interior_c.cpp#L408) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::FurnishBedroom 0x00593FC0 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeNativeKitchen_FurnishEdges() | [source/game_sa/Interior/Interior_c.cpp:1830](../../source/game_sa/Interior/Interior_c.cpp#L1830) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::Kitchen_FurnishEdges 0x00596930 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeNativeFurnishKitchen() | [source/game_sa/Interior/Interior_c.cpp:3100](../../source/game_sa/Interior/Interior_c.cpp#L3100) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::FurnishKitchen 0x005970B0 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeNativeLounge_AddTV() | [source/game_sa/Interior/Interior_c.cpp:3416](../../source/game_sa/Interior/Interior_c.cpp#L3416) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::Lounge_AddTV 0x00597240 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeNativeLounge_AddHifi() | [source/game_sa/Interior/Interior_c.cpp:3706](../../source/game_sa/Interior/Interior_c.cpp#L3706) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::Lounge_AddHifi 0x00597430 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeNativeLounge_AddChairInfo() | [source/game_sa/Interior/Interior_c.cpp:3824](../../source/game_sa/Interior/Interior_c.cpp#L3824) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::Lounge_AddChairInfo 0x005974E0 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeNativeLounge_AddSofaInfo() | [source/game_sa/Interior/Interior_c.cpp:3968](../../source/game_sa/Interior/Interior_c.cpp#L3968) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::Lounge_AddSofaInfo 0x005975C0 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorHomeNativeFurnishLounge() | [source/game_sa/Interior/Interior_c.cpp:4258](../../source/game_sa/Interior/Interior_c.cpp#L4258) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::FurnishLounge 0x00597740 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorObjectZExact(float offsetZ,float boundMinZ,int32 negativeHeight) | [source/game_sa/Interior/Interior_c.cpp:7732](../../source/game_sa/Interior/Interior_c.cpp#L7732) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::PlaceObject 0x005934E0 | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| InteriorFurniturePositionExact(CVector* position,int32 negativeWidth,int32 negativeDepth,int32 boxHeight,int32 tileX,int32 tileY,int32 shiftX,int32 shiftY,float height,bool ceiling) | [source/game_sa/Interior/Interior_c.cpp:7744](../../source/game_sa/Interior/Interior_c.cpp#L7744) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorRandomCoordinate(int32 extent) | [source/game_sa/Interior/Interior_c.cpp:38](../../source/game_sa/Interior/Interior_c.cpp#L38) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | Conversión de dirección fija: 0x00858B14; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorLocalTileCentre(int32 negativeWidth, int32 negativeHeight, int32 negativeDepth, float offsetX, float offsetY, CVector* output) | [source/game_sa/Interior/Interior_c.cpp:53](../../source/game_sa/Interior/Interior_c.cpp#L53) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorProjectionInside(const RwV3d* axis, const CVector* delta, int32 dimension, float bias) | [source/game_sa/Interior/Interior_c.cpp:74](../../source/game_sa/Interior/Interior_c.cpp#L74) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorTruncate(float value) | [source/game_sa/Interior/Interior_c.cpp:101](../../source/game_sa/Interior/Interior_c.cpp#L101) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorPositionSeed(const CVector* position, int32 extra) | [source/game_sa/Interior/Interior_c.cpp:109](../../source/game_sa/Interior/Interior_c.cpp#L109) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorNearEntrance(const CVector* camera, const CVector* centre) | [source/game_sa/Interior/Interior_c.cpp:121](../../source/game_sa/Interior/Interior_c.cpp#L121) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00407180() | [source/game_sa/Interior/Interior_c.cpp:255](../../source/game_sa/Interior/Interior_c.cpp#L255) | Ensamblador · Envoltura al EXE | Histórica del catálogo: Interior_c::Bedroom_AddTableItem 0x00593F10 | 1 / 1 | Trampolín ASM a 0x00407180; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall005911E0() | [source/game_sa/Interior/Interior_c.cpp:257](../../source/game_sa/Interior/Interior_c.cpp#L257) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005911E0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00591220() | [source/game_sa/Interior/Interior_c.cpp:259](../../source/game_sa/Interior/Interior_c.cpp#L259) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00591220; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00591700() | [source/game_sa/Interior/Interior_c.cpp:261](../../source/game_sa/Interior/Interior_c.cpp#L261) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00591700; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall005917C0() | [source/game_sa/Interior/Interior_c.cpp:263](../../source/game_sa/Interior/Interior_c.cpp#L263) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005917C0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall005918E0() | [source/game_sa/Interior/Interior_c.cpp:265](../../source/game_sa/Interior/Interior_c.cpp#L265) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005918E0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00591C50() | [source/game_sa/Interior/Interior_c.cpp:267](../../source/game_sa/Interior/Interior_c.cpp#L267) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00591C50; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00591D20() | [source/game_sa/Interior/Interior_c.cpp:269](../../source/game_sa/Interior/Interior_c.cpp#L269) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00591D20; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00591E40() | [source/game_sa/Interior/Interior_c.cpp:271](../../source/game_sa/Interior/Interior_c.cpp#L271) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00591E40; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00592AA0() | [source/game_sa/Interior/Interior_c.cpp:273](../../source/game_sa/Interior/Interior_c.cpp#L273) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00592AA0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00593120() | [source/game_sa/Interior/Interior_c.cpp:275](../../source/game_sa/Interior/Interior_c.cpp#L275) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00593120; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00593340() | [source/game_sa/Interior/Interior_c.cpp:277](../../source/game_sa/Interior/Interior_c.cpp#L277) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00593340; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall005934E0() | [source/game_sa/Interior/Interior_c.cpp:279](../../source/game_sa/Interior/Interior_c.cpp#L279) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005934E0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00593F10() | [source/game_sa/Interior/Interior_c.cpp:281](../../source/game_sa/Interior/Interior_c.cpp#L281) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00593F10; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00596930() | [source/game_sa/Interior/Interior_c.cpp:283](../../source/game_sa/Interior/Interior_c.cpp#L283) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00596930; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00597240() | [source/game_sa/Interior/Interior_c.cpp:285](../../source/game_sa/Interior/Interior_c.cpp#L285) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00597240; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00597430() | [source/game_sa/Interior/Interior_c.cpp:287](../../source/game_sa/Interior/Interior_c.cpp#L287) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00597430; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall005974E0() | [source/game_sa/Interior/Interior_c.cpp:289](../../source/game_sa/Interior/Interior_c.cpp#L289) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005974E0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall005975C0() | [source/game_sa/Interior/Interior_c.cpp:291](../../source/game_sa/Interior/Interior_c.cpp#L291) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005975C0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00821B1E() | [source/game_sa/Interior/Interior_c.cpp:293](../../source/game_sa/Interior/Interior_c.cpp#L293) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00821B1E; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeCall00821B40() | [source/game_sa/Interior/Interior_c.cpp:295](../../source/game_sa/Interior/Interior_c.cpp#L295) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00821B40; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeNativeBedroom_AddTableItem() | [source/game_sa/Interior/Interior_c.cpp:298](../../source/game_sa/Interior/Interior_c.cpp#L298) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeNativeFurnishBedroom() | [source/game_sa/Interior/Interior_c.cpp:414](../../source/game_sa/Interior/Interior_c.cpp#L414) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::FurnishBedroom 0x00593FC0 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeNativeKitchen_FurnishEdges() | [source/game_sa/Interior/Interior_c.cpp:1836](../../source/game_sa/Interior/Interior_c.cpp#L1836) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::Kitchen_FurnishEdges 0x00596930 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeNativeFurnishKitchen() | [source/game_sa/Interior/Interior_c.cpp:3106](../../source/game_sa/Interior/Interior_c.cpp#L3106) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::FurnishKitchen 0x005970B0 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeNativeLounge_AddTV() | [source/game_sa/Interior/Interior_c.cpp:3422](../../source/game_sa/Interior/Interior_c.cpp#L3422) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::Lounge_AddTV 0x00597240 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeNativeLounge_AddHifi() | [source/game_sa/Interior/Interior_c.cpp:3712](../../source/game_sa/Interior/Interior_c.cpp#L3712) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::Lounge_AddHifi 0x00597430 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeNativeLounge_AddChairInfo() | [source/game_sa/Interior/Interior_c.cpp:3830](../../source/game_sa/Interior/Interior_c.cpp#L3830) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::Lounge_AddChairInfo 0x005974E0 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeNativeLounge_AddSofaInfo() | [source/game_sa/Interior/Interior_c.cpp:3974](../../source/game_sa/Interior/Interior_c.cpp#L3974) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::Lounge_AddSofaInfo 0x005975C0 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorHomeNativeFurnishLounge() | [source/game_sa/Interior/Interior_c.cpp:4264](../../source/game_sa/Interior/Interior_c.cpp#L4264) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::FurnishLounge 0x00597740 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorObjectZExact(float offsetZ,float boundMinZ,int32 negativeHeight) | [source/game_sa/Interior/Interior_c.cpp:7738](../../source/game_sa/Interior/Interior_c.cpp#L7738) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Interior_c::PlaceObject 0x005934E0 | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| InteriorFurniturePositionExact(CVector* position,int32 negativeWidth,int32 negativeDepth,int32 boxHeight,int32 tileX,int32 tileY,int32 shiftX,int32 shiftY,float height,bool ceiling) | [source/game_sa/Interior/Interior_c.cpp:7750](../../source/game_sa/Interior/Interior_c.cpp#L7750) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1292"></a>
+<a id="grupo-1293"></a>
 
 ## Globales y helpers: source/game_sa/IplStore.cpp
 
@@ -162,7 +173,7 @@
 | IsIPLAnInterior(const char* iplFileName) | [source/game_sa/IplStore.cpp:764](../../source/game_sa/IplStore.cpp#L764) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ExtractIPLNameFromPath(const char* iplFilePath, char(&out)\[N\]) | [source/game_sa/IplStore.cpp:786](../../source/game_sa/IplStore.cpp#L786) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1293"></a>
+<a id="grupo-1294"></a>
 
 ## Globales y helpers: source/game_sa/IplStore.h
 
@@ -170,7 +181,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetLoadedBuildings() | [source/game_sa/IplStore.h:67](../../source/game_sa/IplStore.h#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gNumLoadedBuildings: source/game_sa/IplStore.h:64 (0x00BCC0D8); Posible dato fijo gpLoadedBuildings: source/game_sa/IplStore.h:65 (0x00BCC0E0) |
 
-<a id="grupo-1294"></a>
+<a id="grupo-1295"></a>
 
 ## Globales y helpers: source/game_sa/LoadingScreen.cpp
 
@@ -180,7 +191,7 @@
 | LoadingStretchX(float a) | [source/game_sa/LoadingScreen.cpp:78](../../source/game_sa/LoadingScreen.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040) |
 | LoadingStretchY(float a) | [source/game_sa/LoadingScreen.cpp:79](../../source/game_sa/LoadingScreen.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040) |
 
-<a id="grupo-1295"></a>
+<a id="grupo-1296"></a>
 
 ## Globales y helpers: source/game_sa/Memory/MemoryHeap.cpp
 
@@ -190,7 +201,7 @@
 | * GetBlockDesc(void* mem) | [source/game_sa/Memory/MemoryHeap.cpp:16](../../source/game_sa/Memory/MemoryHeap.cpp#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GetFreeBlockDesc(void* mem) | [source/game_sa/Memory/MemoryHeap.cpp:21](../../source/game_sa/Memory/MemoryHeap.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1296"></a>
+<a id="grupo-1297"></a>
 
 ## Globales y helpers: source/game_sa/MemoryMgr.cpp
 
@@ -208,7 +219,7 @@
 | operator delete(void* p) | [source/game_sa/MemoryMgr.cpp:584](../../source/game_sa/MemoryMgr.cpp#L584) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x008214BD: fuera del catálogo consultado; ruta efectiva sin resolver |
 | operator delete\[\](void* p) | [source/game_sa/MemoryMgr.cpp:588](../../source/game_sa/MemoryMgr.cpp#L588) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x008213AE: fuera del catálogo consultado; ruta efectiva sin resolver |
 
-<a id="grupo-1297"></a>
+<a id="grupo-1298"></a>
 
 ## Globales y helpers: source/game_sa/MenuManager.cpp
 
@@ -216,7 +227,7 @@
 | --- | --- | --- | --- | --- | --- |
 | & GetMenu() | [source/game_sa/MenuManager.cpp:41](../../source/game_sa/MenuManager.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:39 (0x00BA6748) |
 
-<a id="grupo-1298"></a>
+<a id="grupo-1299"></a>
 
 ## Globales y helpers: source/game_sa/MenuSystem.cpp
 
@@ -226,7 +237,7 @@
 | MenuStretchY(float y) | [source/game_sa/MenuSystem.cpp:280](../../source/game_sa/MenuSystem.cpp#L280) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040) |
 | MenuSumColumnWidths(const CMenuSystem::Menu* menu, int32 count) | [source/game_sa/MenuSystem.cpp:283](../../source/game_sa/MenuSystem.cpp#L283) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1299"></a>
+<a id="grupo-1300"></a>
 
 ## Globales y helpers: source/game_sa/Messages.cpp
 
@@ -236,12 +247,3 @@
 | RemoveMessageAt(std::array&lt;tMessage, N&gt;& msgs, int16 i) | [source/game_sa/Messages.cpp:75](../../source/game_sa/Messages.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MessageTextEquals(const GxtChar* a, const GxtChar* b) | [source/game_sa/Messages.cpp:91](../../source/game_sa/Messages.cpp#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * FindUnusedMsgInArray(std::array&lt;tMessage, N&gt;& arr) | [source/game_sa/Messages.cpp:113](../../source/game_sa/Messages.cpp#L113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1300"></a>
-
-## Globales y helpers: source/game_sa/ModelIndices.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| MatchModelStringUint16(char* name, ModelIndex) | [source/game_sa/ModelIndices.cpp:502](../../source/game_sa/ModelIndices.cpp#L502) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| TestModelIndices() | [source/game_sa/ModelIndices.cpp:507](../../source/game_sa/ModelIndices.cpp#L507) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

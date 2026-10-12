@@ -11,7 +11,7 @@ def main():
     ap.add_argument('comparisons'); ap.add_argument('--kind', type=int, choices=(4,10), required=True)
     for name in ('manifest','asi','repo','bank','out','runner-summary','game'): ap.add_argument('--'+name, required=True)
     a = ap.parse_args(); manifest = Path(a.manifest); m = json.loads(manifest.read_text(encoding='utf-8'))
-    required = {('source/game_sa/RenderWare/D3DResourceSystem.cpp' if a.kind == 4 else 'source/game_sa/NativeStubs.cpp'),'source/CMakeLists.txt','docs/hooks.csv',
+    required = {('source/game_sa/RenderWare/D3DResourceSystem.cpp' if a.kind == 4 else 'source/game_sa/CarCtrl.cpp'),'source/CMakeLists.txt','docs/hooks.csv',
                 'source/StdInc.h','source/game_sa/CarCtrl.h','source/game_sa/RenderWare/D3DResourceSystem.h',
                 'source/InjectHooksMain.cpp','reversing/OriginalDependencies499/HookRoute.hpp'}
     need(required <= set(m['sources']), 'missing compiler/catalog manifest dependency')

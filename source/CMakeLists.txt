@@ -63,10 +63,11 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
-    # Free native stubs (not part of a class) whose bodies must match the EXE exactly.
-    set_source_files_properties(game_sa/NativeStubs.cpp PROPERTIES
-        COMPILE_OPTIONS "/O2;/Oi;/Oy;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
-        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+    # CCarCtrl::Native_00424100 (0x424100) must be 3 bytes like the EXE; /ZI padding would change the flags.
+    # The class file uses ordinary /Zi symbols and no runtime checks; only that stub is optimized, by pragma.
+    set_source_files_properties(game_sa/CarCtrl.cpp PROPERTIES
+        COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>"
+        VS_SETTINGS "BasicRuntimeChecks=Default"
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
@@ -102,18 +103,12 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
-    # /ZI reserves stack space even for an empty function, changing EFLAGS.
-    # These C++ bodies must preserve the original caller's flags and registers.
-    # Use ordinary debug symbols and compile separately from the /ZI PCH/unity.
-    set_source_files_properties(game_sa/Interior/InteriorCpp.cpp PROPERTIES
+    # Interior_c holds bodies that must match the EXE. /ZI padding would change the flags of the empty
+    # Shop_FurnishCeiling, so the class file uses ordinary /Zi symbols. It is NOT compiled optimized as a whole:
+    # its naked transcriptions clobber EBX/ESI/EDI like the EXE, so optimized C++ callers would lose values kept in
+    # those registers. Only Shop_AddShelfInfo (direct x87 stores for the EXE's C1 rounding) is optimized, by pragma.
+    set_source_files_properties(game_sa/Interior/Interior_c.cpp PROPERTIES
         COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>;/arch:IA32"
-        SKIP_PRECOMPILE_HEADERS ON
-        SKIP_UNITY_BUILD_INCLUSION ON
-    )
-    # Direct x87 argument stores preserve the EXE's C1 rounding result.
-    # A separate optimized TU avoids Debug temporaries and leaves other bodies alone.
-    set_source_files_properties(game_sa/Interior/InteriorShelfCpp.cpp PROPERTIES
-        COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>;/arch:IA32;/O2;/Ob2;/fp:fast"
         VS_SETTINGS "BasicRuntimeChecks=Default"
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON

@@ -1,0 +1,3 @@
+APROBADO: Vehicle/math leaves and script brain reference
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesvehicleleaf5\20261011-161610-981161

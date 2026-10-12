@@ -1,0 +1,28 @@
+{
+  "bank": "CppSequence2",
+  "run": "20261011-161116-526305",
+  "functions": 3,
+  "pairs": 4352,
+  "pairs_per_function": {
+    "CCarCtrl::ClearInterestingVehicleList": 256,
+    "CCarCtrl::RegisterVehicleOfInterest": 2048,
+    "CCarCtrl::FindSequenceElement": 2048
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "log_sha256": "c1af42f0a22109819641b03c915febcadff5b5217a6197653dba37337b97ebd5",
+  "tested_sources": {
+    "source/game_sa/CarCtrl.cpp": "5734a13ad9b791dc807eb07a85edcc473233869851e89285402c7b61b9814727",
+    "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ba00a14d59c1fa6dda4b5eec62534dd62a7ee76bea0f8cd214f65e7f63ea0fc6",
+  "auditor": "herramientas/audit_generico.py",
+  "auditor_sha256": "31e9e0092b0b6371363e0c2a9d1ec67b01a14c54671c49c2c4becaecd781ec95",
+  "scope": "Pares, igualdad, no nulos, rutas y compuertas booleanas presentes, restauraci\u00f3n y hashes. Sin contrato de registros crudos ni prueba del cuerpo completo del EXE."
+}

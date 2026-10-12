@@ -4,13 +4,22 @@
 
 <a id="grupo-1301"></a>
 
+## Globales y helpers: source/game_sa/ModelIndices.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| MatchModelStringUint16(char* name, ModelIndex) | [source/game_sa/ModelIndices.cpp:502](../../source/game_sa/ModelIndices.cpp#L502) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| TestModelIndices() | [source/game_sa/ModelIndices.cpp:507](../../source/game_sa/ModelIndices.cpp#L507) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1302"></a>
+
 ## Globales y helpers: source/game_sa/Models/AtomicModelInfo.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | SetAtomicModelInfoFlags(CAtomicModelInfo* modelInfo, uint32 dwFlags) | [source/game_sa/Models/AtomicModelInfo.cpp:249](../../source/game_sa/Models/AtomicModelInfo.cpp#L249) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1302"></a>
+<a id="grupo-1303"></a>
 
 ## Globales y helpers: source/game_sa/Models/AtomicModelInfo.h
 
@@ -19,7 +28,7 @@
 | CAtomicModelInfo | [source/game_sa/Models/AtomicModelInfo.h:22](../../source/game_sa/Models/AtomicModelInfo.h#L22) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetRwModelType() const override | [source/game_sa/Models/AtomicModelInfo.h:34](../../source/game_sa/Models/AtomicModelInfo.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1303"></a>
+<a id="grupo-1304"></a>
 
 ## Globales y helpers: source/game_sa/Models/BaseModelInfo.cpp
 
@@ -27,7 +36,7 @@
 | --- | --- | --- | --- | --- | --- |
 | SetBaseModelInfoFlags_KeepEdx() | [source/game_sa/Models/BaseModelInfo.cpp:35](../../source/game_sa/Models/BaseModelInfo.cpp#L35) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1304"></a>
+<a id="grupo-1305"></a>
 
 ## Globales y helpers: source/game_sa/Models/BaseModelInfo.h
 
@@ -67,7 +76,7 @@
 | * GetRpClump() const noexcept | [source/game_sa/Models/BaseModelInfo.h:255](../../source/game_sa/Models/BaseModelInfo.h#L255) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GetRpAtomic() const noexcept | [source/game_sa/Models/BaseModelInfo.h:256](../../source/game_sa/Models/BaseModelInfo.h#L256) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1305"></a>
+<a id="grupo-1306"></a>
 
 ## Globales y helpers: source/game_sa/Models/ClumpModelInfo.cpp
 
@@ -76,7 +85,7 @@
 | SetClumpModelInfoFlags_KeepEdx() | [source/game_sa/Models/ClumpModelInfo.cpp:37](../../source/game_sa/Models/ClumpModelInfo.cpp#L37) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | SetClumpModelInfoFlags(CClumpModelInfo* modelInfo, uint32 dwFlags) | [source/game_sa/Models/ClumpModelInfo.cpp:399](../../source/game_sa/Models/ClumpModelInfo.cpp#L399) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1306"></a>
+<a id="grupo-1307"></a>
 
 ## Globales y helpers: source/game_sa/Models/ClumpModelInfo.h
 
@@ -86,7 +95,7 @@
 | CClumpModelInfo() | [source/game_sa/Models/ClumpModelInfo.h:48](../../source/game_sa/Models/ClumpModelInfo.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetRwModelType() const override | [source/game_sa/Models/ClumpModelInfo.h:55](../../source/game_sa/Models/ClumpModelInfo.h#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1307"></a>
+<a id="grupo-1308"></a>
 
 ## Globales y helpers: source/game_sa/Models/DamageAtomicModelInfo.h
 
@@ -94,7 +103,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CDamageAtomicModelInfo | [source/game_sa/Models/DamageAtomicModelInfo.h:11](../../source/game_sa/Models/DamageAtomicModelInfo.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1308"></a>
+<a id="grupo-1309"></a>
 
 ## Globales y helpers: source/game_sa/Models/LodAtomicModelInfo.h
 
@@ -102,7 +111,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CLodAtomicModelInfo | [source/game_sa/Models/LodAtomicModelInfo.h:11](../../source/game_sa/Models/LodAtomicModelInfo.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1309"></a>
+<a id="grupo-1310"></a>
 
 ## Globales y helpers: source/game_sa/Models/LodTimeModelInfo.h
 
@@ -110,7 +119,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CLodAtomicModelInfo | [source/game_sa/Models/LodTimeModelInfo.h:6](../../source/game_sa/Models/LodTimeModelInfo.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1310"></a>
+<a id="grupo-1311"></a>
 
 ## Globales y helpers: source/game_sa/Models/PedModelInfo.h
 
@@ -125,7 +134,7 @@
 | CanPedDriveVehicleClass(eVehicleClass cls) const | [source/game_sa/Models/PedModelInfo.h:71](../../source/game_sa/Models/PedModelInfo.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsPedTypeFemale() const noexcept | [source/game_sa/Models/PedModelInfo.h:72](../../source/game_sa/Models/PedModelInfo.h#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1311"></a>
+<a id="grupo-1312"></a>
 
 ## Globales y helpers: source/game_sa/Models/TimeModelInfo.h
 
@@ -133,7 +142,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAtomicModelInfo | [source/game_sa/Models/TimeModelInfo.h:18](../../source/game_sa/Models/TimeModelInfo.h#L18) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1312"></a>
+<a id="grupo-1313"></a>
 
 ## Globales y helpers: source/game_sa/Models/VehicleModelInfo.cpp
 
@@ -143,7 +152,7 @@
 | ChooseComponent(int32 rule, int32 comps) | [source/game_sa/Models/VehicleModelInfo.cpp:1708](../../source/game_sa/Models/VehicleModelInfo.cpp#L1708) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleModelInfo::ChooseComponent-Global 0x004C7FB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetListOfComponentsNotUsedByRules(uint32 compRules, int32 numExtras, int32* outList) | [source/game_sa/Models/VehicleModelInfo.cpp:1746](../../source/game_sa/Models/VehicleModelInfo.cpp#L1746) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1313"></a>
+<a id="grupo-1314"></a>
 
 ## Globales y helpers: source/game_sa/Models/VehicleModelInfo.h
 
@@ -173,7 +182,7 @@
 | GetWheelSize(bool front) | [source/game_sa/Models/VehicleModelInfo.h:479](../../source/game_sa/Models/VehicleModelInfo.h#L479) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetVehicleStruct() const | [source/game_sa/Models/VehicleModelInfo.h:484](../../source/game_sa/Models/VehicleModelInfo.h#L484) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1314"></a>
+<a id="grupo-1315"></a>
 
 ## Globales y helpers: source/game_sa/Models/WeaponModelInfo.h
 
@@ -183,7 +192,7 @@
 | SetWeaponInfo(eWeaponType weapon) | [source/game_sa/Models/WeaponModelInfo.h:33](../../source/game_sa/Models/WeaponModelInfo.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetWeaponInfo() | [source/game_sa/Models/WeaponModelInfo.h:34](../../source/game_sa/Models/WeaponModelInfo.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1315"></a>
+<a id="grupo-1316"></a>
 
 ## Globales y helpers: source/game_sa/NodeRoute.cpp
 
@@ -191,7 +200,7 @@
 | --- | --- | --- | --- | --- | --- |
 | RH_ScopedInstall(operator new, 0x41B860); RH_ScopedInstall(operator delete, 0x41B870); } void* CNodeRoute::operator new(uint32 size) | [source/game_sa/NodeRoute.cpp:26](../../source/game_sa/NodeRoute.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1316"></a>
+<a id="grupo-1317"></a>
 
 ## Globales y helpers: source/game_sa/Occluder.cpp
 
@@ -202,7 +211,7 @@
 | CalcClippedScreenCoors(int32 idxFrom, int32 idxTo, CVector& out) | [source/game_sa/Occluder.cpp:52](../../source/game_sa/Occluder.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo OccluderCoors: source/game_sa/Occluder.h:17 (0x00C798E0); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:39 (0x00B6F028) |
 | RawAngle(const COccluder* o, size_t offset) | [source/game_sa/Occluder.cpp:65](../../source/game_sa/Occluder.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1317"></a>
+<a id="grupo-1318"></a>
 
 ## Globales y helpers: source/game_sa/Pad.cpp
 
@@ -213,7 +222,7 @@
 | * DIReleaseMouse() | [source/game_sa/Pad.cpp:1860](../../source/game_sa/Pad.cpp#L1860) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x00746F70: fuera del catálogo consultado; ruta efectiva sin resolver |
 | InitialiseMouse(bool exclusive) | [source/game_sa/Pad.cpp:1864](../../source/game_sa/Pad.cpp#L1864) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1318"></a>
+<a id="grupo-1319"></a>
 
 ## Globales y helpers: source/game_sa/PathFind.cpp
 
@@ -221,7 +230,7 @@
 | --- | --- | --- | --- | --- | --- |
 | PathOrientation14Normalise() | [source/game_sa/PathFind.cpp:1497](../../source/game_sa/PathFind.cpp#L1497) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPathFind::FindNodeOrientationForCarPlacement 0x00450320 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1319"></a>
+<a id="grupo-1320"></a>
 
 ## Globales y helpers: source/game_sa/PedAttractorManager.cpp
 
@@ -230,13 +239,3 @@
 | IsValidAttractorType(int32 type) | [source/game_sa/PedAttractorManager.cpp:120](../../source/game_sa/PedAttractorManager.cpp#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | TransformPointOG(const CMatrix& m, const CVector& v) | [source/game_sa/PedAttractorManager.cpp:294](../../source/game_sa/PedAttractorManager.cpp#L294) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | TransformVectorOG(const CMatrix& m, const CVector& v) | [source/game_sa/PedAttractorManager.cpp:303](../../source/game_sa/PedAttractorManager.cpp#L303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1320"></a>
-
-## Globales y helpers: source/game_sa/PedGeometryAnalyser.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| GeometryPlaneOffset(const CVector* plane, const CVector* previous) | [source/game_sa/PedGeometryAnalyser.cpp:329](../../source/game_sa/PedGeometryAnalyser.cpp#L329) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| GeometryRouteLength355Compute(const CVector* points,int count,GeometryRouteLength355* result) | [source/game_sa/PedGeometryAnalyser.cpp:570](../../source/game_sa/PedGeometryAnalyser.cpp#L570) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| GeometryRouteLength355Less(const GeometryRouteLength355* first,const GeometryRouteLength355* second) | [source/game_sa/PedGeometryAnalyser.cpp:600](../../source/game_sa/PedGeometryAnalyser.cpp#L600) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
