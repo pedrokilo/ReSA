@@ -612,20 +612,15 @@
     "source": "source/game_sa/Audio/Loaders/AEWMADecoder.cpp",
     "shared_source": "source/game_sa/X87Math.cpp",
     "bank": "Audio11",
-    "run": "20261011-224224-976573",
+    "run": "20261011-231624-593138",
     "pairs": 512,
     "own_pairs": 512,
-    "audit": "reversing/CppAudioX87Unified/runs/Audio11-20261011-224224-976573/summary.json",
+    "audit": "reversing/CppAudioSpeechFix/runs/Audio11-20261011-231624-593138/summary.json",
     "differences": 0,
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppAudioX87Study/README.md",
-    "scope": "Suma de 64 bits sin signo cargada en x87 como 63 bits bajos más el bit alto, por 0.0001 y guardada como float; helper AudioSumToMsCpp. El banco completo Audio11 falla en CAEPedlessSpeechAudioEntity::AddSayEvent (4/1024), igual con el árbol anterior a este cambio (evidencia en reversing/CppAudioBaseline); las 512 comparaciones de GetStreamPlayTimeMs y las de las otras 41 funciones del banco son iguales. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
-    "bank_failure_preexisting": {
-      "function": "CAEPedlessSpeechAudioEntity::AddSayEvent",
-      "differences": "4/1024",
-      "baseline": "reversing/CppAudioBaseline/runs/Audio11-20261011-224855-067155/summary.json"
-    }
+    "scope": "Suma de 64 bits sin signo cargada en x87 como 63 bits bajos más el bit alto, por 0.0001 y guardada como float; helper AudioSumToMsCpp. El banco completo Audio11 aprueba (13632 pares); su único fallo previo, CAEPedlessSpeechAudioEntity::AddSayEvent, era un error de dirección corregido el mismo día (ver reversing/CppAudioX87Study/README.md). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
   },
   "source:CAERadioTrackManager:CalculateRadioVolume355": {
     "identity": "CalculateRadioVolume355 (CAERadioTrackManager::UpdateRadioVolumes)",
@@ -660,5 +655,63 @@
     "helper_codegen": "reversing/CppAudioX87Study/README.md",
     "scope": "Producto entero por 0.01 con fild + fmul y guardado como float, helper AudioPercentOfProductCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
     "consumer_functions": 1
+  },
+  "0x004D9E50": {
+    "identity": "CAEAudioUtility::AudioLog10",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Audio/AEAudioUtility.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CppModelInfoRegression",
+    "run": "20261011-232444-568877",
+    "pairs": 5264,
+    "audit": "reversing/CppModelInfoRegression/runs/20261011-232444-568877/approval-audit.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "additional_banks": [
+      {
+        "bank": "Small2",
+        "run": "20261011-232002-434983",
+        "pairs": 32016,
+        "summary": "reversing/CppAudioSpeechFix/runs/Small2-20261011-232002-434983/summary.json"
+      },
+      {
+        "bank": "AudioHw54",
+        "run": "20261011-232155-587777",
+        "pairs": 9280,
+        "summary": "reversing/CppAudioSpeechFix/runs/AudioHw54-20261011-232155-587777/summary.json"
+      }
+    ],
+    "helper_codegen": "reversing/CppAudioX87Study/README.md",
+    "scope": "log10(p) con fldlg2/fyl2x y un solo redondeo a float, helper AudioLog10Cpp; el umbral p < 0.00001 sigue en la función. Bancos completos repetidos sobre la fuente nueva."
+  },
+  "bug_fix:AudioForRadioVariable": {
+    "identity": "Lecturas de 0xB6B98C (s_pPlayerAttachedForRadio) en el código de voz y del escáner de policía",
+    "converted_source_functions": 0,
+    "source": "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp, AEPedSpeechAudioEntity.cpp y AEPoliceScannerAudioEntity.cpp",
+    "note": "Corrección de un error de la fuente, no una conversión de ensamblador: seis sitios leían s_pVehicleAudioSettingsForRadio (0xB6B99C) donde el EXE lee 0xB6B98C (4E5DD2, 4E61D5, 4E66F0, 4E769B). Dejaba a Audio11 fallando 4/1024 en CAEPedlessSpeechAudioEntity::AddSayEvent.",
+    "banks": [
+      {
+        "bank": "Audio11",
+        "run": "20261011-231624-593138",
+        "summary": "reversing/CppAudioSpeechFix/runs/Audio11-20261011-231624-593138/summary.json"
+      },
+      {
+        "bank": "PedSpeech58",
+        "run": "20261011-231808-577272",
+        "summary": "reversing/CppAudioSpeechFix/runs/PedSpeech58-20261011-231808-577272/summary.json"
+      },
+      {
+        "bank": "AudioScannerPending",
+        "run": "20261011-232635-953660",
+        "summary": "reversing/CppAudioSpeechFix/runs/AudioScannerPending-20261011-232635-953660/summary.json"
+      },
+      {
+        "bank": "AudioWave2",
+        "run": "20261011-232736-488396",
+        "summary": "reversing/CppAudioSpeechFix/runs/AudioWave2-20261011-232736-488396/summary.json"
+      }
+    ],
+    "baseline_failure": "reversing/CppAudioBaseline/runs/Audio11-20261011-224855-067155/summary.json"
   }
 }

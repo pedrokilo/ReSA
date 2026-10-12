@@ -14,20 +14,20 @@ Archivos de apoyo: [plan-clasificacion.csv](plan-clasificacion.csv) (una fila po
 - **Cobertura por banco histórico:** para cada helper `static` se buscaron sus llamadores por nombre en el mismo archivo y se comprobó si cada llamador figura en la tabla de algún banco `reversing/*/LiveComparison.hpp`. Para métodos con cuerpo propio se buscó la función misma. Un banco histórico **no basta**: validó el código anterior, así que cada lote necesita un banco derivado (como CppShadowSqrt\*) y su revisión de los puntos de llamada. La cobertura sólo dice que hay un banco del que partir.
 - **Sin determinar:** 131 helpers `static` en los que la búsqueda no halló llamador (puede ser uso por macro, plantilla o desde otro archivo). Se revisan a mano antes de planificarlos.
 
-## Cifras (771 definiciones con ensamblador, 11/10/2026)
+## Cifras (770 definiciones con ensamblador, 11/10/2026)
 
 | Nivel | Con banco histórico del que partir | Sin banco | Total |
 | --- | ---: | ---: | ---: |
 | A (cortas, sin x87/llamadas) | 6 | 4 | 10 |
-| B (x87 sin llamadas, medianas) | 206 | 37 | 243 |
+| B (x87 sin llamadas, medianas) | 205 | 37 | 242 |
 | C (naked, llamadas, SSE, x87 largo) | 143 | 79 | 222 |
 | D (largas, cadenas, sistema) | 186 | 110 | 296 |
 
-Los totales suman las 771 definiciones del inventario actual (se recalcularon tras las conversiones del 11/10; el detalle por función está en [plan-clasificacion.csv](plan-clasificacion.csv)). Las dos columnas de la derecha no son «hecho» ni «pendiente de verificar»: son sólo dónde hay punto de partida.
+Los totales suman las 770 definiciones del inventario actual (se recalcularon tras las conversiones del 11/10; el detalle por función está en [plan-clasificacion.csv](plan-clasificacion.csv)). Las dos columnas de la derecha no son «hecho» ni «pendiente de verificar»: son sólo dónde hay punto de partida.
 
 ## Lo ya hecho
 
-47 funciones fuente. Lote 1a: ShadowExtendedSqrt y ShadowDistanceFade (README). Lote Conversaciones: IsPlayerInPositionForConversation y ClearRecursively; lote Animación y atractores: CalcTheta, RemoveQuaternionFlips, GetDisplacement y CAttractorScanner::Clear (ver [CppAnimAttractorStudy](../CppAnimAttractorStudy/README.md)); lote Conversaciones: cada clase en sus dos archivos `.cpp` y `.h` (ver [CppConversationStudy](../CppConversationStudy/README.md)). La revisión de las conversiones anteriores, que sí tienen archivos auxiliares y código duplicado, está en [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md).
+48 funciones fuente. Lote 1a: ShadowExtendedSqrt y ShadowDistanceFade (README). Lote Conversaciones: IsPlayerInPositionForConversation y ClearRecursively; lote Animación y atractores: CalcTheta, RemoveQuaternionFlips, GetDisplacement y CAttractorScanner::Clear (ver [CppAnimAttractorStudy](../CppAnimAttractorStudy/README.md)); lote Conversaciones: cada clase en sus dos archivos `.cpp` y `.h` (ver [CppConversationStudy](../CppConversationStudy/README.md)). La revisión de las conversiones anteriores, que sí tienen archivos auxiliares y código duplicado, está en [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md).
 
 **Hallazgo útil:** un envoltorio `naked` que sólo preserva EDX (`*_KeepEdx`) se puede reemplazar por un hook directo si la función se compila en un archivo /O2 propio y el objeto real no escribe EDX, como en ClearRecursively. Hay 8 envoltorios `KeepEdx` en `source/game_sa` (Audio/AEVehicleAudioEntity, CarEnterExit y otros): candidatos a un lote propio, cada uno con comprobación del objeto real y banco con EDX sembrado. No se asume que el compilador no use EDX: se comprueba en el objeto de cada función.
 

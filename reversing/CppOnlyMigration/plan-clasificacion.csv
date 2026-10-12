@@ -10,11 +10,10 @@ A,source/game_sa/Shadows.cpp,ShadowHeightSum,1160,7,0,,0,,CShadows::CastRealTime
 A,source/game_sa/Shadows.cpp,ShadowHeightDifference,1167,7,0,,0,CppShadowSqrtStatic+ShadowStatic355,CShadows::CastRealTimeShadowSectorList+CShadows::CastShadowSectorList+CShadows::StoreStaticShadow
 A,source/game_sa/Shadows.cpp,ShadowExtendedProduct,1558,7,0,,1,CppShadowSqrtStatic+CppShadowSqrtVehicle+ShadowStatic355+ShadowVehicle355+ShadowXY355,CShadows::CastShadowEntityXY+CShadows::StoreShadowForVehicle+CShadows::StoreStaticShadow
 B,source/game_sa/3dMarkers.cpp,ComputeStdSize,37,26,0,x87,0,,C3dMarkers::PlaceMarker
-B,source/game_sa/Audio/AEAudioUtility.cpp,CAEAudioUtility::AudioLog10,119,13,0,x87,1,CppModelInfoRegression+Small2,
-B,source/game_sa/Audio/AEAudioUtility.cpp,CAEAudioUtility::GetCurrentTimeInMS,135,25,0,x87,1,CppModelInfoRegression+Small2,
-B,source/game_sa/Audio/AEAudioUtility.cpp,CAEAudioUtility::ConvertFromBytesToMS,163,21,0,x87,1,CppModelInfoRegression+Small2,
-B,source/game_sa/Audio/AEAudioUtility.cpp,CAEAudioUtility::ConvertFromMSToBytes,186,22,0,x87,1,CppModelInfoRegression+Small2,
-B,source/game_sa/Audio/AEAudioUtility.cpp,CAEAudioUtility::StaticInitialise,211,25,0,x87,1,CppModelInfoRegression+Small2,
+B,source/game_sa/Audio/AEAudioUtility.cpp,CAEAudioUtility::GetCurrentTimeInMS,129,25,0,x87,1,CppModelInfoRegression+Small2,
+B,source/game_sa/Audio/AEAudioUtility.cpp,CAEAudioUtility::ConvertFromBytesToMS,157,21,0,x87,1,CppModelInfoRegression+Small2,
+B,source/game_sa/Audio/AEAudioUtility.cpp,CAEAudioUtility::ConvertFromMSToBytes,180,22,0,x87,1,CppModelInfoRegression+Small2,
+B,source/game_sa/Audio/AEAudioUtility.cpp,CAEAudioUtility::StaticInitialise,205,25,0,x87,1,CppModelInfoRegression+Small2,
 B,source/game_sa/Audio/AESmoothFadeThread.cpp,DsVolumeToDb,30,10,0,x87,1,Sys10,CAESmoothFadeThread::RequestFade+CAESmoothFadeThread::Service
 B,source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,AddCosMulX87,30,13,0,x87,1,AnimAudio6,CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire
 B,source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,AddSinMulX87,45,13,0,x87,1,AnimAudio6,CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire

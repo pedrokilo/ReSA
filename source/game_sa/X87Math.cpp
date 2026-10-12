@@ -125,3 +125,15 @@ __declspec(noinline) float __cdecl AudioPercentOfProductCpp(int product) {
     volatile float scaled = float(double(product) * 0.01f); // 0x858C58
     return scaled;
 }
+
+__declspec(noinline) float __cdecl AudioLog10Cpp(float p) {
+    volatile float result = float(log10(double(p)));
+    return result;
+}
+
+// Con /fp:fast el compilador reordena las sumas; en una función de orden estricto se conserva el del EXE.
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl VectorSquaredMagnitudeAboveCpp(const float* vector, float limit) {
+    return (vector[2] * vector[2] + vector[1] * vector[1]) + vector[0] * vector[0] > limit;
+}
+#pragma float_control(pop)

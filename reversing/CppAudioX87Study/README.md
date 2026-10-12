@@ -39,15 +39,23 @@ Los bancos históricos completos se repitieron sobre la fuente final con `herram
 | Audio20 (20261011-224039-233665) | `PlayGunSounds` | 10176 | aprobado |
 | Audio14 (20261011-224528-071759) | `CAESoundManager::Service` | 10240 | aprobado |
 | RadioVolumes355 (20261011-224738-339249) | `UpdateRadioVolumes` | 1024 | aprobado (la corrida 224419 falló 138/1024) |
-| Audio11 (20261011-224224-976573) | `GetStreamPlayTimeMs` | 512 propios (43 funciones en el banco) | **`GetStreamPlayTimeMs` y otras 41 funciones iguales; falla `AddSayEvent` 4/1024** |
+| Audio11 (20261011-224224-976573) | `GetStreamPlayTimeMs` | 512 propios (43 funciones en el banco) | `GetStreamPlayTimeMs` y otras 41 funciones iguales; `AddSayEvent` 4/1024 (corregido más abajo, ver «Fallo preexistente»: Audio11 aprueba con 13632 pares en 20261011-231624-593138) |
 
-## Fallo preexistente en Audio11: `CAEPedlessSpeechAudioEntity::AddSayEvent`
+## Fallo preexistente en Audio11: causa y corrección
 
-El banco Audio11 falla en `AddSayEvent` (4 de 1024 pares), **también con el árbol anterior a estos cambios** (evidencia en `CppAudioBaseline`). En esos casos el original devuelve −1 justo después de la comprobación de `streaming_ctx` y el candidato sigue hasta reproducir la frase. La condición siguiente en el código es `(posición de la entidad − posición de la cámara).SquaredMagnitude() > 3600.f`; es probable que en casos límite la suma de cuadrados se evalúe distinto (x87 con otro orden de sumas frente al `float` de SSE), pero no se confirmó. Está fuera de estos cinco archivos y no se tocó.
+El banco Audio11 fallaba en `CAEPedlessSpeechAudioEntity::AddSayEvent` (4 de 1024 pares, casos 10, 116, 563 y 797) también con el árbol anterior. En esos casos el original devolvía −1 justo después de la comprobación de `streaming_ctx` y el candidato seguía hasta reproducir la frase.
 
-## Pendiente relacionado
+**Causa:** el desensamblado del EXE (0x4E61D5) muestra `cmp [8E4CB8h], 0Fh` seguido de `mov eax, [0B6B98Ch]`: con más de 15 modelos pedidos devuelve −1 si la variable en **0xB6B98C** (`s_pPlayerAttachedForRadio`) no es nula. La fuente leía `CAEVehicleAudioEntity::s_pVehicleAudioSettingsForRadio`, que está en **0xB6B99C** (la que sólo lee el audio de vehículos). Un barrido de bytes del EXE lo confirma: las lecturas de 0xB6B98C en el código de voz son 0x4E5DD2, 0x4E61D5, 0x4E66F0 y 0x4E769B, y las de 0xB6B99C son todas del audio de vehículos. Es muy probable que la variable se moviera a 0xB6B99C para el código de vehículos y dejara mal los sitios de voz.
 
-`CAEAudioUtility::AudioLog10` (`AEAudioUtility.cpp`) tiene el mismo `fldlg2 / fld / fyl2x / fstp` y puede usar un helper hermano de `AudioLog10Times20Cpp`; no estaba en esta lista.
+**Corrección:** seis sitios pasaron a `s_pPlayerAttachedForRadio`: `CAEPedlessSpeechAudioEntity::AddSayEvent` (0x4E61D5), `CAEPedSpeechAudioEntity::AddSayEvent` (0x4E66F0), `PlayLoadedSound` (0x4E5DD2), `I_AddSayEvent`, `I_PlayLoadedSound` y el escáner de policía (0x4E769B). Los dos `I_*` no tienen dirección propia en el EXE y siguen a sus equivalentes.
+
+**Resultado:** Audio11 aprueba con 13632 pares, y PedSpeech58 (21760), AudioScannerPending (4096) y AudioWave2 (18496) también.
+
+**Segunda diferencia con el EXE, ya incluida:** `AddSayEvent` calculaba la distancia al cuadrado con `SquaredMagnitude()` en el orden x² + y² + z²; el EXE usa `CVector::SquaredMagnitude` (0x406DA0), que suma (z² + y²) + x² en x87 sin redondear. Se añadió `VectorSquaredMagnitudeAboveCpp` en `X87Math`. No era la causa del fallo (los mismos cuatro casos fallaban antes y después), pero sí una diferencia real con el EXE en casos límite a 60 m.
+
+## `AudioLog10`
+
+`CAEAudioUtility::AudioLog10` (0x4D9E50) tenía el mismo `fldlg2 / fld / fyl2x / fstp`. Pasó a `AudioLog10Cpp`: el objeto es `fld [p]; fldlg2; fxch; fyl2x; fstp; fld`. CppModelInfoRegression (5264 pares, auditado), Small2 (32016) y AudioHw54 (9280) aprueban.
 
 ## Límites
 

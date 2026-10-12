@@ -1166,8 +1166,9 @@ int16 CAEPedSpeechAudioEntity::AddSayEvent(eAudioEvents audioEvent, eGlobalSpeec
         return -1;
     }
 
+    // Como el original: todo el código de voz lee 0xB6B98C (s_pPlayerAttachedForRadio); 0xB6B99C (s_pVehicleAudioSettingsForRadio) sólo lo lee el audio de vehículos.
     if (IsGlobalContextImportantForStreaming(gCtx) || isForceAudible || isFrontEnd) {
-        if (CStreaming::ms_numModelsRequested > 15 && CAEVehicleAudioEntity::s_pVehicleAudioSettingsForRadio) {
+        if (CStreaming::ms_numModelsRequested > 15 && CAEVehicleAudioEntity::s_pPlayerAttachedForRadio) {
             return -1;
         }
     } else if (CStreaming::IsVeryBusy()) {
@@ -1545,7 +1546,7 @@ void CAEPedSpeechAudioEntity::PlayLoadedSound() {
     } else {
         sound.Initialise(slot, m_SoundID, this, m_Entity->GetPosition(), m_EventVolume, 1.f, 1.f, 1.f, 0, 0, 0.f, 0);
         sound.m_Flags         = SOUND_REQUEST_UPDATES | SOUND_IS_CANCELLABLE; // 6
-        sound.m_RollOffFactor = CAEVehicleAudioEntity::s_pVehicleAudioSettingsForRadio ? 3.f : 2.f;
+        sound.m_RollOffFactor = CAEVehicleAudioEntity::s_pPlayerAttachedForRadio ? 3.f : 2.f;
     }
     if (m_IsForcedAudible) {
         sound.m_Volume = 3.f;
@@ -1750,7 +1751,7 @@ int16 CAEPedSpeechAudioEntity::I_AddSayEvent(CVector pos, eAudioEvents audioEven
     }
 
     if (IsGlobalContextImportantForStreaming(gCtx) || isForceAudible || isFrontEnd) {
-        if (CStreaming::ms_numModelsRequested > 15 && CAEVehicleAudioEntity::s_pVehicleAudioSettingsForRadio) {
+        if (CStreaming::ms_numModelsRequested > 15 && CAEVehicleAudioEntity::s_pPlayerAttachedForRadio) {
             return -1;
         }
     } else if (CStreaming::IsVeryBusy()) {
@@ -1917,7 +1918,7 @@ void CAEPedSpeechAudioEntity::I_PlayLoadedSound(CEntity* attachTo) {
             attachTo->GetPosition(),
             SOUND_REQUEST_UPDATES | SOUND_IS_CANCELLABLE,
             IsPedless ? 12.f : m_EventVolume,
-            IsPedless ? 3.5f : CAEVehicleAudioEntity::s_pVehicleAudioSettingsForRadio ? 3.f : 2.f
+            IsPedless ? 3.5f : CAEVehicleAudioEntity::s_pPlayerAttachedForRadio ? 3.f : 2.f
         );
     }
 

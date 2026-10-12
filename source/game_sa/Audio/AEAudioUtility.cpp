@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include <chrono>
 
 #include "AEAudioUtility.h"
+#include "X87Math.h"
 
 auto& Frequency = StaticRef<LARGE_INTEGER>(0xB610F0);
 auto& startTimeMs = StaticRef<uint64>(0xb610f8);
@@ -115,19 +116,12 @@ float CAEAudioUtility::GetPiecewiseLinear(float x, int16 dataCount, const float 
 }
 
 // 0x4d9e50
-// Como el original: log10 con fldlg2/fyl2x (precisión interna del FPU).
+// Como el original: log10 con fldlg2/fyl2x (precisión interna del FPU) y un solo redondeo a float (X87Math.cpp).
 float CAEAudioUtility::AudioLog10(float p) {
     if (p < 0.00001f) {
         return -5.0f;
     }
-    float result;
-    __asm {
-        fldlg2
-        fld   p
-        fyl2x
-        fstp  result
-    }
-    return result;
+    return AudioLog10Cpp(p);
 }
 
 // 0x4d9e80

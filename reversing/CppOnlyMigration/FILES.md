@@ -4,7 +4,7 @@
 
 # Archivos pendientes de convertir a C++
 
-166 archivos: 913 apariciones de ensamblador y 274 declaraciones naked.
+166 archivos: 912 apariciones de ensamblador y 274 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -12,7 +12,7 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | --- | ---: | ---: |
 | [source/game_sa/3dMarkers.cpp](../../source/game_sa/3dMarkers.cpp) | 3 | 0 |
 | [source/game_sa/Audio/AEAudioEnvironment.cpp](../../source/game_sa/Audio/AEAudioEnvironment.cpp) | 2 | 0 |
-| [source/game_sa/Audio/AEAudioUtility.cpp](../../source/game_sa/Audio/AEAudioUtility.cpp) | 5 | 0 |
+| [source/game_sa/Audio/AEAudioUtility.cpp](../../source/game_sa/Audio/AEAudioUtility.cpp) | 4 | 0 |
 | [source/game_sa/Audio/AESmoothFadeThread.cpp](../../source/game_sa/Audio/AESmoothFadeThread.cpp) | 2 | 0 |
 | [source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp](../../source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp) | 2 | 0 |
 | [source/game_sa/Audio/Entities/AEPedAudioEntity.cpp](../../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) | 3 | 0 |

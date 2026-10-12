@@ -1,0 +1,3 @@
+APROBADO: Scanner pendientes
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-audio-scanner-pending\20261011-232635-953660

@@ -1,0 +1,3 @@
+APROBADO: Voz de peatón (CAEPedSpeechAudioEntity, lista de 34)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pedspeech58\20261011-231808-577272

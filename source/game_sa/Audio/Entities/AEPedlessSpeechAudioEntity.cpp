@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "AEPedlessSpeechAudioEntity.h"
+#include "X87Math.h"
 #include "AEAudioUtility.h"
 #include "AEVehicleAudioEntity.h"
 #include "AESoundManager.h"
@@ -124,8 +125,9 @@ int16 CAEPedlessSpeechAudioEntity::AddSayEvent(eAudioEvents audioEvent, eGlobalS
     m_PedAudioType = PED_TYPE_GFD;
     m_VoiceID      = (ePedSpeechVoiceS16)(10);
 
+    // Como el original: todo el código de voz lee 0xB6B98C (s_pPlayerAttachedForRadio); 0xB6B99C (s_pVehicleAudioSettingsForRadio) sólo lo lee el audio de vehículos.
     if (IsGlobalContextImportantForStreaming(gCtx) || isForceAudible || isFrontEnd) {
-        if (CStreaming::ms_numModelsRequested > 15 && CAEVehicleAudioEntity::s_pVehicleAudioSettingsForRadio) {
+        if (CStreaming::ms_numModelsRequested > 15 && CAEVehicleAudioEntity::s_pPlayerAttachedForRadio) {
             return -1;
         }
     } else if (CStreaming::IsVeryBusy()) {
@@ -133,7 +135,10 @@ int16 CAEPedlessSpeechAudioEntity::AddSayEvent(eAudioEvents audioEvent, eGlobalS
     }
 
     // Como el original: (entidad - cámara) al cuadrado frente a 3600 (0x8599B8); a 60 m exactos o con NaN sigue.
-    if ((attachTo->GetPosition() - TheCamera.GetPosition()).SquaredMagnitude() > 3600.f) {
+    // El EXE suma el cuadrado como (z² + y²) + x² (CVector::SquaredMagnitude, 0x406DA0) sin redondear, y no como
+    // x² + y² + z²: en casos límite cambia el resultado (X87Math.cpp).
+    const CVector toCamera = attachTo->GetPosition() - TheCamera.GetPosition();
+    if (VectorSquaredMagnitudeAboveCpp(&toCamera.x, 3600.f)) {
         return -1;
     }
 

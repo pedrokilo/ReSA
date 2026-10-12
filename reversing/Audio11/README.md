@@ -55,3 +55,7 @@ Validadas el 02/10/2026 con **13.632 pares original/candidato dentro de GTA**, t
   - el contador y el tamaño sin inicializar que el EXE pasa a `GetAttributeIndices` y `GetMediaType`.
 
 Repetir: `python reversing/Audio11/build_probe.py` y `python reversing/run.py --case audio11`. Evidencia: [validation-summary.json](validation-summary.json).
+
+## Actualización 11/10/2026
+
+`AddSayEvent` fallaba 4/1024 porque la fuente leía `s_pVehicleAudioSettingsForRadio` (0xB6B99C) donde el EXE lee `s_pPlayerAttachedForRadio` (0xB6B98C); corregido en seis sitios de voz. Con la corrección, el banco aprueba con 13632 pares (corrida 20261011-231624-593138). Detalle en `reversing/CppAudioX87Study/README.md`; evidencia en `reversing/CppAudioSpeechFix`.

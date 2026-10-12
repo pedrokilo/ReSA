@@ -41,3 +41,9 @@ float __cdecl AudioRadioVolumeDbCpp(float effects, float music);
 float __cdecl AudioSumToMsCpp(unsigned long long sum);
 // producto entero · 0.01 con fild + fmul (CAESoundManager::Service, 0x4F0000).
 float __cdecl AudioPercentOfProductCpp(int product);
+
+// log10(p) con fldlg2/fyl2x y un solo redondeo a float (CAEAudioUtility::AudioLog10, 0x4D9E50; el umbral lo comprueba el llamador).
+float __cdecl AudioLog10Cpp(float p);
+// Cuadrado de la magnitud de un vector sumado como el EXE (CVector::SquaredMagnitude, 0x406DA0): (z·z + y·y) + x·x sin
+// redondear, comparado con "mayor que" (con NaN da false). Los punteros apuntan a x, y, z consecutivos.
+bool __cdecl VectorSquaredMagnitudeAboveCpp(const float* vector, float limit);

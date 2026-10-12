@@ -1,7 +1,7 @@
 file,inline_assembly_occurrences,naked_declarations
 source/game_sa/3dMarkers.cpp,3,0
 source/game_sa/Audio/AEAudioEnvironment.cpp,2,0
-source/game_sa/Audio/AEAudioUtility.cpp,5,0
+source/game_sa/Audio/AEAudioUtility.cpp,4,0
 source/game_sa/Audio/AESmoothFadeThread.cpp,2,0
 source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,2,0
 source/game_sa/Audio/Entities/AEPedAudioEntity.cpp,3,0

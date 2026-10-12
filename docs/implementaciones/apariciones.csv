@@ -4,11 +4,10 @@ source/game_sa/3dMarkers.cpp,52,inline_assembly,ComputeStdSize,37
 source/game_sa/3dMarkers.cpp,375,inline_assembly,C3dMarkers::PlaceMarker,356
 source/game_sa/Audio/AEAudioEnvironment.cpp,159,inline_assembly,CAEAudioEnvironment::GetPositionRelativeToCamera_Vector,144
 source/game_sa/Audio/AEAudioEnvironment.cpp,193,inline_assembly,CAEAudioEnvironment::GetPositionRelativeToCamera_Vector,144
-source/game_sa/Audio/AEAudioUtility.cpp,124,inline_assembly,CAEAudioUtility::AudioLog10,119
-source/game_sa/Audio/AEAudioUtility.cpp,145,inline_assembly,CAEAudioUtility::GetCurrentTimeInMS,135
-source/game_sa/Audio/AEAudioUtility.cpp,167,inline_assembly,CAEAudioUtility::ConvertFromBytesToMS,163
-source/game_sa/Audio/AEAudioUtility.cpp,190,inline_assembly,CAEAudioUtility::ConvertFromMSToBytes,186
-source/game_sa/Audio/AEAudioUtility.cpp,220,inline_assembly,CAEAudioUtility::StaticInitialise,211
+source/game_sa/Audio/AEAudioUtility.cpp,139,inline_assembly,CAEAudioUtility::GetCurrentTimeInMS,129
+source/game_sa/Audio/AEAudioUtility.cpp,161,inline_assembly,CAEAudioUtility::ConvertFromBytesToMS,157
+source/game_sa/Audio/AEAudioUtility.cpp,184,inline_assembly,CAEAudioUtility::ConvertFromMSToBytes,180
+source/game_sa/Audio/AEAudioUtility.cpp,214,inline_assembly,CAEAudioUtility::StaticInitialise,205
 source/game_sa/Audio/AESmoothFadeThread.cpp,33,inline_assembly,DsVolumeToDb,30
 source/game_sa/Audio/AESmoothFadeThread.cpp,137,inline_assembly,CAESmoothFadeThread::Service,117
 source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,32,inline_assembly,AddCosMulX87,30

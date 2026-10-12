@@ -6,9 +6,9 @@
 
 Este documento distingue el lenguaje de la fuente, la reconstrucción, la validación registrada y la independencia del EXE. Reconstruir un cuerpo en ensamblador también es ingeniería inversa; una envoltura que delega el cuerpo al original no lo reconstruye por sí sola.
 
-El inventario asigna **913 apariciones de ensamblador** a **771 definiciones con cuerpo** y **274 declaraciones naked** a **274 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
+El inventario asigna **912 apariciones de ensamblador** a **770 definiciones con cuerpo** y **274 declaraciones naked** a **274 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 771 definiciones, **484 son mixtas** y **287 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 17381 definiciones en 1963 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 770 definiciones, **483 son mixtas** y **287 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 17383 definiciones en 1963 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -19,7 +19,7 @@ De esas 771 definiciones, **484 son mixtas** y **287 contienen sólo ensamblador
 - Una envoltura C++ se reconoce conservadoramente cuando el único statement es una llamada plugin::Call* a dirección fija. Algunos trampolines ASM simples también se reconocen. Otras envolturas indirectas pueden permanecer sin resolver.
 - Se registran colaboradores con dirección fija y posibles datos fijos referenciados por nombre. Un destino catalogado puede estar reconstruido y enlazado mediante hook; el inventario **no determina la ruta efectiva**. Direcciones por sí solas no prueban ausencia de reconstrucción.
 - «Sin indicio directo» sólo significa que los patrones examinados no lo encontraron. No se resuelven todas las llamadas virtuales, macros, alias, punteros ni dependencias transitivas. **Ningún grupo se declara standalone demostrado.**
-- Tree-sitter detectó errores de análisis en 857 cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los 771 cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.
+- Tree-sitter detectó errores de análisis en 857 cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los 770 cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.
 
 - 907 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
 
@@ -46,7 +46,7 @@ De esas 771 definiciones, **484 son mixtas** y **287 contienen sólo ensamblador
 | [CAEAudioEntity](implementaciones/detalle-001.md#grupo-17) · [source/game_sa/Audio/Entities/AEAudioEntity.cpp](../source/game_sa/Audio/Entities/AEAudioEntity.cpp) | 0 | 0 | 4 | 0 | 0 |
 | [CAEAudioEnvironment](implementaciones/detalle-001.md#grupo-18) · [source/game_sa/Audio/AEAudioEnvironment.cpp](../source/game_sa/Audio/AEAudioEnvironment.cpp) | 5 | 0 | 4 | 2 | 0 |
 | [CAEAudioHardware](implementaciones/detalle-001.md#grupo-19) · [source/game_sa/Audio/Hardware/AEAudioHardware.cpp](../source/game_sa/Audio/Hardware/AEAudioHardware.cpp), [source/game_sa/Audio/Hardware/AEAudioHardware.h](../source/game_sa/Audio/Hardware/AEAudioHardware.h) | 52 | 0 | 8 | 0 | 0 |
-| [CAEAudioUtility](implementaciones/detalle-001.md#grupo-20) · [source/game_sa/Audio/AEAudioUtility.cpp](../source/game_sa/Audio/AEAudioUtility.cpp), [source/game_sa/Audio/AEAudioUtility.h](../source/game_sa/Audio/AEAudioUtility.h) | 4 | 5 | 5 | 5 | 0 |
+| [CAEAudioUtility](implementaciones/detalle-001.md#grupo-20) · [source/game_sa/Audio/AEAudioUtility.cpp](../source/game_sa/Audio/AEAudioUtility.cpp), [source/game_sa/Audio/AEAudioUtility.h](../source/game_sa/Audio/AEAudioUtility.h) | 5 | 4 | 5 | 4 | 0 |
 | [CAEBankLoader](implementaciones/detalle-002.md#grupo-21) · [source/game_sa/Audio/Loaders/AEBankLoader.cpp](../source/game_sa/Audio/Loaders/AEBankLoader.cpp), [source/game_sa/Audio/Loaders/AEBankLoader.h](../source/game_sa/Audio/Loaders/AEBankLoader.h) | 7 | 0 | 6 | 0 | 0 |
 | [CAEBankSlot](implementaciones/detalle-002.md#grupo-22) · [source/game_sa/Audio/Loaders/AEBankLoader.h](../source/game_sa/Audio/Loaders/AEBankLoader.h) | 0 | 0 | 2 | 0 | 0 |
 | [CAECollisionAudioEntity](implementaciones/detalle-002.md#grupo-23) · [source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp](../source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp) | 18 | 0 | 2 | 0 | 0 |
@@ -1838,7 +1838,7 @@ De esas 771 definiciones, **484 son mixtas** y **287 contienen sólo ensamblador
 | [Globales y helpers: source/game_sa/Weather.cpp](implementaciones/detalle-091.md#grupo-1809) · [source/game_sa/Weather.cpp](../source/game_sa/Weather.cpp) | 0 | 0 | 13 | 5 | 0 |
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-091.md#grupo-1810) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 19 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-091.md#grupo-1811) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 3 | 0 | 0 |
-| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-091.md#grupo-1812) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 21 | 0 | 0 | 0 | 0 |
+| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-091.md#grupo-1812) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 23 | 0 | 0 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-091.md#grupo-1813) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 6 | 5 | 1 |
 | [Globales y helpers: source/game_sa/common.cpp](implementaciones/detalle-091.md#grupo-1814) · [source/game_sa/common.cpp](../source/game_sa/common.cpp) | 3 | 0 | 11 | 1 | 0 |
 | [Globales y helpers: source/game_sa/common.h](implementaciones/detalle-091.md#grupo-1815) · [source/game_sa/common.h](../source/game_sa/common.h) | 0 | 0 | 26 | 0 | 0 |
