@@ -53,9 +53,23 @@ bool __cdecl VectorSquaredMagnitudeAboveCpp(const float* vector, float limit);
 void __cdecl PowScaleVector3Cpp(float* vector, float damp, float step);
 // (tiempo sin signo) · 0.001 con fild + corrección de 2^32 y fmul, guardado como float (CCutsceneMgr::FinishCutscene, 0x5B04D0).
 float __cdecl UnsignedMillisToSecondsCpp(unsigned int millis);
-// atan2(-forwardX, forwardY) - pi/2 con el fpatan sin redondear (CGameLogic, GetHeading 0x441DB0 menos pi/2).
-float __cdecl HeadingMinusHalfPiCpp(float forwardX, float forwardY, float halfPi);
 // double · 65535.0 redondeado por la x87 y guardado como float (CGamma::SetGamma, 0x747200).
 float __cdecl GammaScaleCpp(double value);
 // acos del CRT del EXE (_CIacos, 0x822380): palabra de control (anterior & 0x300) | 0x7F, fpatan(sqrt((1 + x)(1 - x)), x).
 float __cdecl ExeAcosCpp(float x);
+
+// Lote de diez archivos (12/10/2026).
+// atan2(num, den) - sub con el fpatan sin redondear y un solo redondeo a float (CGameLogic: GetHeading 0x441DB0 menos pi/2; CRenderer).
+float __cdecl Atan2MinusCpp(float num, float den, float sub);
+// (coordenada +/- radio) · 0.02 + 60 guardado como double (CInterestingEvents::ScanForNearbyEntities, 0x605A30); useEnd suma el radio.
+double __cdecl InterestingSectorCpp(float coordinate, float radius, bool useEnd);
+// sin(i · k) con fild del entero y un solo redondeo a float (CMaths::InitMathsTables, 0x59AC90).
+float __cdecl TrigIntSinMulCpp(int i, float k);
+// n · f con fild del entero y un solo redondeo a float (CCustomCarEnvMapPipeline).
+float __cdecl IntTimesFloatCpp(int n, float f);
+// Salud restante = max(prevHP - factor, minimumHP) sin redondear antes del daño; daño = prevHP - restante (CPedDamageResponseCalculator::ComputeWillKillPed, 0x4B3290).
+void __cdecl FallRemainingHealthCpp(float prevHP, float factor, float minimumHP, float* remaining, float* damage);
+// Suma 1 / (2 · ancho) a las u y 1 / (2 · alto) a las v de los cuatro vértices RwIm2DVertex (28 bytes) (CSprite2d::OffsetTexCoordForBilinearFiltering, 0x728150).
+void __cdecl SpriteBilinearOffsetCpp(float* vertices, float width, float height);
+// Esquinas C y D de un área angulada (CRunningScript, 0x487F60 y similares): ángulo + pi/2 normalizado a [0, 2pi]; corners = {cx, cy, dx, dy}.
+void __cdecl ScriptAngledCornersCpp(float angle, float startX, float startY, float endX, float endY, float width, float* corners);

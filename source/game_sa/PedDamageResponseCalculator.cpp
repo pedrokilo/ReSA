@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include <reversiblebugfixes/Bugs.hpp>
 #include "PedDamageResponseCalculator.h"
@@ -223,25 +224,8 @@ void CPedDamageResponseCalculator::ComputeWillKillPed(CPed* ped, CPedDamageRespo
         const float minimumHP = 5.0f;
         float remainingHealth{};
         float damageHealth{};
-        // 0x4B3290..0x4B32C4: retain the x87 remainder after storing health.
-        // Damage uses that unrounded remainder, not the float health in memory.
-        __asm {
-            fld prevHP
-            fsub factor
-            fld minimumHP
-            fcomp
-            fnstsw ax
-            test ah, 0x41
-            jnz keepRemainingForKillPed
-            fstp st(0)
-            fld minimumHP
-        keepRemainingForKillPed:
-            fst remainingHealth
-            fld prevHP
-            fsub st(0), st(1)
-            fstp damageHealth
-            fstp st(0)
-        }
+        // 0x4B3290..0x4B32C4: el resto x87 se conserva sin redondear tras guardar la salud; el daño usa ese resto (X87Math.cpp).
+        FallRemainingHealthCpp(prevHP, factor, minimumHP, &remainingHealth, &damageHealth);
         ped->m_fHealth      = remainingHealth;
         rsp.m_bHealthZero   = false;
         rsp.m_fDamageHealth = damageHealth;

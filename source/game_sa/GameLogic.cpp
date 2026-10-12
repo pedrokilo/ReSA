@@ -68,7 +68,7 @@ static float GetHeadingMinusHalfPi(const CPlaceable& placeable) {
     if (const auto* const matrix = placeable.m_matrix) {
         const float forwardX = matrix->GetForward().x;
         const float forwardY = matrix->GetForward().y;
-        return HeadingMinusHalfPiCpp(forwardX, forwardY, GAMELOGIC_HALF_PI);
+        return Atan2MinusCpp(-forwardX, forwardY, GAMELOGIC_HALF_PI);
     }
     return placeable.m_placement.m_fHeading - GAMELOGIC_HALF_PI;
 }

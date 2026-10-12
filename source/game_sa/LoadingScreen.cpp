@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "platform.h"
 #include "LoadingScreen.h"
 
@@ -60,17 +61,8 @@ void CLoadingScreen::InjectHooks() {
 // por 0.001 con la precisión del FPU del juego.
 static float ClockSeconds() {
     const int32 ms = (int32)GetMillisecondTime();
-    static const float k2pow32 = 4294967296.0f, kMsToSec = 0.001f;
-    float secs;
-    __asm {
-        fild  ms
-        cmp   ms, 0
-        jge   L_positive
-        fadd  k2pow32
-    L_positive:
-        fmul  kMsToSec
-        fstp  secs
-    }
+    // fild con corrección de 2^32 si es negativo y fmul 0.001f (X87Math.cpp)
+    const float secs = UnsignedMillisToSecondsCpp(uint32(ms));
     return secs;
 }
 

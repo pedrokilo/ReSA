@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "cc6625550f5282a5456980f232cd2fadaf13dc4e3dbe61343b8beedc996bf631",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 13888,
+  "pairs_per_function": {
+    "CGameLogic::CalcDistanceToForbiddenTrainCrossing": 1024,
+    "CGameLogic::ClearSkip": 128,
+    "CGameLogic::DoWeaponStuffAtStartOf2PlayerGame": 256,
+    "CGameLogic::FindCityClosestToPoint": 1024,
+    "CGameLogic::ForceDeathRestart": 64,
+    "CGameLogic::InitAtStartOfGame": 64,
+    "CGameLogic::IsCoopGameGoingOn": 128,
+    "CGameLogic::IsPlayerAllowedToGoInThisDirection": 1024,
+    "CGameLogic::IsPlayerUse2PlayerControls": 256,
+    "CGameLogic::IsPointWithinLineArea": 1024,
+    "CGameLogic::IsSkipWaitingForScriptToFadeIn": 64,
+    "CGameLogic::LaRiotsActiveHere": 1024,
+    "CGameLogic::Load": 128,
+    "CGameLogic::PassTime": 1024,
+    "CGameLogic::Remove2ndPlayerIfPresent": 128,
+    "CGameLogic::ResetStuffUponResurrection": 256,
+    "CGameLogic::RestorePedsWeapons": 512,
+    "CGameLogic::RestorePlayerStuffDuringResurrection": 512,
+    "CGameLogic::Save": 128,
+    "CGameLogic::SetPlayerWantedLevelForForbiddenTerritories": 1024,
+    "CGameLogic::SetUpSkip": 256,
+    "CGameLogic::SkipCanBeActivated": 512,
+    "CGameLogic::SortOutStreamingAndMemory": 128,
+    "CGameLogic::StopPlayerMovingFromDirection": 1024,
+    "CGameLogic::StorePedsWeapons": 128,
+    "CGameLogic::Update": 1024,
+    "CGameLogic::UpdateSkip": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "99a41b13c17e29821238b99cfc856986b9ed3fec1cc350fbe2d9a7778421b5e5",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

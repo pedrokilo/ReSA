@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "InterestingEvents.h"
 
@@ -159,21 +160,8 @@ void CInterestingEvents::Add(CInterestingEvents::EType type, CEntity* entity) {
 
 namespace {
 int32 InterestingSector(float coordinate, float radius, bool useEnd) {
-        constexpr float scale = 0.02f, sectorBias = 60.0f;
-        double result;
-        __asm {
-            fld coordinate
-            cmp useEnd, 0
-            je subtractRadius
-            fadd radius
-            jmp scaleSector
-        subtractRadius:
-            fsub radius
-        scaleSector:
-            fmul scale
-            fadd sectorBias
-            fstp result
-        }
+        // Como el original: (coordenada +/- radio) · 0.02 + 60 en x87 y guardado como double (X87Math.cpp)
+        const double result = InterestingSectorCpp(coordinate, radius, useEnd);
         return int32(std::floor(result));
 }
 

@@ -4,7 +4,7 @@
 
 # Archivos pendientes de convertir a C++
 
-157 archivos: 903 apariciones de ensamblador y 274 declaraciones naked.
+147 archivos: 893 apariciones de ensamblador y 274 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -77,17 +77,12 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/General.cpp](../../source/game_sa/General.cpp) | 4 | 4 |
 | [source/game_sa/Hud.cpp](../../source/game_sa/Hud.cpp) | 6 | 0 |
 | [source/game_sa/IdleCam.cpp](../../source/game_sa/IdleCam.cpp) | 4 | 0 |
-| [source/game_sa/InterestingEvents.cpp](../../source/game_sa/InterestingEvents.cpp) | 1 | 0 |
 | [source/game_sa/Interior/Interior_c.cpp](../../source/game_sa/Interior/Interior_c.cpp) | 50 | 42 |
-| [source/game_sa/LoadingScreen.cpp](../../source/game_sa/LoadingScreen.cpp) | 1 | 0 |
-| [source/game_sa/Maths.cpp](../../source/game_sa/Maths.cpp) | 1 | 0 |
 | [source/game_sa/MemoryMgr.cpp](../../source/game_sa/MemoryMgr.cpp) | 8 | 8 |
 | [source/game_sa/Models/BaseModelInfo.cpp](../../source/game_sa/Models/BaseModelInfo.cpp) | 1 | 1 |
 | [source/game_sa/Models/ClumpModelInfo.cpp](../../source/game_sa/Models/ClumpModelInfo.cpp) | 1 | 1 |
-| [source/game_sa/Models/VehicleModelInfo.cpp](../../source/game_sa/Models/VehicleModelInfo.cpp) | 1 | 0 |
 | [source/game_sa/Pad.cpp](../../source/game_sa/Pad.cpp) | 10 | 5 |
 | [source/game_sa/PathFind.cpp](../../source/game_sa/PathFind.cpp) | 7 | 4 |
-| [source/game_sa/PedDamageResponseCalculator.cpp](../../source/game_sa/PedDamageResponseCalculator.cpp) | 1 | 0 |
 | [source/game_sa/PedGeometryAnalyser.cpp](../../source/game_sa/PedGeometryAnalyser.cpp) | 5 | 0 |
 | [source/game_sa/PedGroupIntelligence.cpp](../../source/game_sa/PedGroupIntelligence.cpp) | 1 | 1 |
 | [source/game_sa/PedGroupPlacer.cpp](../../source/game_sa/PedGroupPlacer.cpp) | 3 | 1 |
@@ -96,10 +91,8 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/PedIntelligence.cpp](../../source/game_sa/PedIntelligence.cpp) | 1 | 1 |
 | [source/game_sa/Pickup.cpp](../../source/game_sa/Pickup.cpp) | 2 | 1 |
 | [source/game_sa/Pickups.cpp](../../source/game_sa/Pickups.cpp) | 7 | 0 |
-| [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp) | 1 | 0 |
 | [source/game_sa/Plant/PlantLocTri.cpp](../../source/game_sa/Plant/PlantLocTri.cpp) | 1 | 1 |
 | [source/game_sa/Plant/ProcSurfaceInfo.cpp](../../source/game_sa/Plant/ProcSurfaceInfo.cpp) | 3 | 0 |
-| [source/game_sa/PlantMgr.cpp](../../source/game_sa/PlantMgr.cpp) | 1 | 0 |
 | [source/game_sa/PlayerInfo.cpp](../../source/game_sa/PlayerInfo.cpp) | 2 | 0 |
 | [source/game_sa/PlayerRelationshipRecorder.cpp](../../source/game_sa/PlayerRelationshipRecorder.cpp) | 4 | 4 |
 | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 7 | 0 |
@@ -112,17 +105,14 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Ragdoll/BoneNode.cpp](../../source/game_sa/Ragdoll/BoneNode.cpp) | 4 | 4 |
 | [source/game_sa/Ragdoll/IKChain.cpp](../../source/game_sa/Ragdoll/IKChain.cpp) | 1 | 1 |
 | [source/game_sa/RenderWare/rw/rwplcore.h](../../source/game_sa/RenderWare/rw/rwplcore.h) | 3 | 0 |
-| [source/game_sa/Renderer.cpp](../../source/game_sa/Renderer.cpp) | 1 | 0 |
 | [source/game_sa/Replay.cpp](../../source/game_sa/Replay.cpp) | 2 | 0 |
 | [source/game_sa/Ropes.cpp](../../source/game_sa/Ropes.cpp) | 2 | 0 |
 | [source/game_sa/RwHelper.cpp](../../source/game_sa/RwHelper.cpp) | 1 | 1 |
-| [source/game_sa/Scripts/RunningScript.cpp](../../source/game_sa/Scripts/RunningScript.cpp) | 1 | 0 |
 | [source/game_sa/Scripts/TheScripts.cpp](../../source/game_sa/Scripts/TheScripts.cpp) | 3 | 0 |
 | [source/game_sa/Shadows.cpp](../../source/game_sa/Shadows.cpp) | 56 | 1 |
 | [source/game_sa/ShotInfo.cpp](../../source/game_sa/ShotInfo.cpp) | 2 | 0 |
 | [source/game_sa/SimpleTransform.cpp](../../source/game_sa/SimpleTransform.cpp) | 2 | 0 |
 | [source/game_sa/Sprite.cpp](../../source/game_sa/Sprite.cpp) | 2 | 0 |
-| [source/game_sa/Sprite2d.cpp](../../source/game_sa/Sprite2d.cpp) | 1 | 0 |
 | [source/game_sa/Stats.cpp](../../source/game_sa/Stats.cpp) | 69 | 44 |
 | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp) | 1 | 0 |
 | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp) | 1 | 1 |

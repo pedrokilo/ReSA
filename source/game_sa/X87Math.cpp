@@ -152,8 +152,8 @@ __declspec(noinline) float __cdecl UnsignedMillisToSecondsCpp(unsigned int milli
     return seconds;
 }
 
-__declspec(noinline) float __cdecl HeadingMinusHalfPiCpp(float forwardX, float forwardY, float halfPi) {
-    volatile float result = float(atan2(double(-forwardX), double(forwardY)) - double(halfPi));
+__declspec(noinline) float __cdecl Atan2MinusCpp(float num, float den, float sub) {
+    volatile float result = float(atan2(double(num), double(den)) - double(sub));
     return result;
 }
 
@@ -168,4 +168,64 @@ __declspec(noinline) float __cdecl ExeAcosCpp(float x) {
     volatile float result = float(atan2(sqrt((1.0f + x) * (1.0f - x)), x));
     _control87(previousControl, _MCW_PC | _MCW_RC | _MCW_EM);
     return result;
+}
+
+// --- Lote de diez archivos ---
+__declspec(noinline) double __cdecl InterestingSectorCpp(float coordinate, float radius, bool useEnd) {
+    const double edge = useEnd ? double(coordinate) + double(radius) : double(coordinate) - double(radius);
+    volatile double result = edge * 0.02f + 60.0f;
+    return result;
+}
+
+__declspec(noinline) float __cdecl TrigIntSinMulCpp(int i, float k) {
+    return float(sin(double(i) * double(k)));
+}
+
+__declspec(noinline) float __cdecl IntTimesFloatCpp(int n, float f) {
+    volatile float result = float(double(n) * double(f));
+    return result;
+}
+
+// El orden estricto es el del EXE: con /fp:fast prevHP - (prevHP - factor) se simplificaría a factor.
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl FallRemainingHealthCpp(float prevHP, float factor, float minimumHP, float* remaining, float* damage) {
+    double left = double(prevHP) - double(factor);
+    if (double(minimumHP) > left) {
+        left = double(minimumHP);
+    }
+    *remaining = float(left);
+    *damage = float(double(prevHP) - left);
+}
+#pragma float_control(pop)
+
+__declspec(noinline) void __cdecl SpriteBilinearOffsetCpp(float* vertices, float width, float height) {
+    const double du = 1.0f / (double(width) + double(width));
+    const double dv = 1.0f / (double(height) + double(height));
+    // offsets de los bytes 0x14, 0x18, 0x30, 0x34, 0x4C, 0x50, 0x68 y 0x6C
+    vertices[5] = float(double(vertices[5]) + du);
+    vertices[6] = float(double(vertices[6]) + dv);
+    vertices[12] = float(double(vertices[12]) + du);
+    vertices[13] = float(double(vertices[13]) + dv);
+    vertices[19] = float(double(vertices[19]) + du);
+    vertices[20] = float(double(vertices[20]) + dv);
+    vertices[26] = float(double(vertices[26]) + du);
+    vertices[27] = float(double(vertices[27]) + dv);
+}
+
+__declspec(noinline) void __cdecl ScriptAngledCornersCpp(float angle, float startX, float startY, float endX, float endY, float width, float* corners) {
+    const double twoPi = 0x1.921FB6p+2f; // 0x40C90FDB
+    double a = double(angle) + double(0x1.921FB6p+0f); // + pi/2 (0x3FC90FDB)
+    while (a < 0.0) {
+        a += twoPi;
+    }
+    while (a > twoPi) {
+        a -= twoPi;
+    }
+    const double sinWidth = sin(a) * double(width);
+    corners[2] = float(double(endX) + sinWidth);
+    const double minusCosWidth = -(cos(a) * double(width));
+    volatile float storedMinusCos = float(minusCosWidth);
+    corners[3] = float(minusCosWidth + double(endY));
+    corners[0] = float(sinWidth + double(startX));
+    corners[1] = float(double(storedMinusCos) + double(startY));
 }

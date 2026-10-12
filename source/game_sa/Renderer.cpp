@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "Renderer.h"
 
@@ -45,15 +46,7 @@ float DistanceZYX(const CVector& a, const CVector& b) {
 
 // Como el original: atan2(num, den) con fpatan (precisión completa) menos `heading`, redondeado a float
 float FpatanMinus(float num, float den, float heading) {
-    float result;
-    __asm {
-        fld num
-        fld den
-        fpatan
-        fsub heading
-        fstp result
-    }
-    return result;
+    return Atan2MinusCpp(num, den, heading);
 }
 
 // Como el original: sectores con x * 0,02 + 60 y sectores LOD con x * 0,005 + 15 (multiplicación, no división)

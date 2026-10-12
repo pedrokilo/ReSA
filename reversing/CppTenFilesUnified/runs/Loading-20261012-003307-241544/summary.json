@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "6b052cf5db84eeab9c5b547ac53afb9751cb6fc7166fe752f074c6e55a63fde9",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 9328,
+  "pairs_per_function": {
+    "CLoadingScreen::Init": 256,
+    "CLoadingScreen::Shutdown": 128,
+    "CLoadingScreen::RenderSplash": 512,
+    "CLoadingScreen::LoadSplashes": 256,
+    "CLoadingScreen::DisplayMessage": 64,
+    "CLoadingScreen::SetLoadingBarMsg": 128,
+    "CLoadingScreen::GetClockTime": 512,
+    "CLoadingScreen::Pause": 16,
+    "CLoadingScreen::Continue": 256,
+    "CLoadingScreen::RenderLoadingBar": 1024,
+    "CLoadingScreen::DisplayNextSplash": 256,
+    "CLoadingScreen::StartFading": 128,
+    "CLoadingScreen::DisplayPCScreen": 512,
+    "CLoadingScreen::Update": 2048,
+    "CLoadingScreen::DoPCTitleFadeIn": 64,
+    "CLoadingScreen::DoPCTitleFadeOut": 64,
+    "CLoadingScreen::DoPCScreenChange": 512,
+    "CLoadingScreen::NewChunkLoaded": 2048,
+    "CLoadingScreen::IsActive": 32,
+    "CLoadingScreen::LoadingScreen": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "2b3e33fcc4c0123b311ed774c776c7102a7c2d69b0e35b5c3942ab1d1988243d",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

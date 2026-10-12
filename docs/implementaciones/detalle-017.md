@@ -41,10 +41,10 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CMaths::GetSinFast(float rad) | [source/game_sa/Maths.cpp:37](../../source/game_sa/Maths.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMaths::GetSinFast 0x004A1340 | 0 / 0 | Posible dato fijo SIN_LUT: source/game_sa/Maths.cpp:28 (0x00BB3E00) |
-| CMaths::GetCosFast(float rad) | [source/game_sa/Maths.cpp:42](../../source/game_sa/Maths.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMaths::GetCosFast 0x004A1360 | 0 / 0 | Posible dato fijo SIN_LUT: source/game_sa/Maths.cpp:28 (0x00BB3E00) |
-| CMaths::InitMathsTables() | [source/game_sa/Maths.cpp:47](../../source/game_sa/Maths.cpp#L47) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMaths::InitMathsTables 0x0059AC90 | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| CMaths::InjectHooks() | [source/game_sa/Maths.cpp:64](../../source/game_sa/Maths.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CMaths::GetSinFast(float rad) | [source/game_sa/Maths.cpp:38](../../source/game_sa/Maths.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMaths::GetSinFast 0x004A1340 | 0 / 0 | Posible dato fijo SIN_LUT: source/game_sa/Maths.cpp:29 (0x00BB3E00) |
+| CMaths::GetCosFast(float rad) | [source/game_sa/Maths.cpp:43](../../source/game_sa/Maths.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMaths::GetCosFast 0x004A1360 | 0 / 0 | Posible dato fijo SIN_LUT: source/game_sa/Maths.cpp:29 (0x00BB3E00) |
+| CMaths::InitMathsTables() | [source/game_sa/Maths.cpp:48](../../source/game_sa/Maths.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CMaths::InitMathsTables 0x0059AC90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CMaths::InjectHooks() | [source/game_sa/Maths.cpp:60](../../source/game_sa/Maths.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-324"></a>
 

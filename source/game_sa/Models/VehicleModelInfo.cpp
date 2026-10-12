@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "VehicleModelInfo.h"
 #include "CustomCarPlateMgr.h"
@@ -1247,19 +1248,7 @@ RpMaterial* CVehicleModelInfo::SetEnvMapCoeffCB(RpMaterial* material, void* data
 
     // Como el original (0x4C88C7..0x4C88DC), en x87: fild dword [data]; si es negativo suma 2^32 (0x858C54);
     // fmul 0.001f (0x858CDC, NO una división entre 1000); fstp dword. El producto se redondea una sola vez a float.
-    const int32 coeffRaw = reinterpret_cast<int32>(data);
-    const float bias = std::bit_cast<float>(0x4F800000u);  // 4294967296.0f
-    const float scale = std::bit_cast<float>(0x3A83126Fu); // 0.001f (0x858CDC)
-    float fCoeff;
-    __asm {
-        fild dword ptr [coeffRaw]
-        cmp dword ptr [coeffRaw], 0
-        jge coeffNonNegative
-        fadd dword ptr [bias]
-    coeffNonNegative:
-        fmul dword ptr [scale]
-        fstp dword ptr [fCoeff]
-    }
+    const float fCoeff = UnsignedMillisToSecondsCpp(reinterpret_cast<uint32>(data)); // X87Math.cpp
     RpMatFXMaterialSetEnvMapCoefficient(material, fCoeff);
     return material;
 }

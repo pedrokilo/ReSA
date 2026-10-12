@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include <Pipelines/PipelinesCommon.hpp>
 #include "CustomCarEnvMapPipeline.h"
@@ -44,13 +45,7 @@ int32 Ftol(float x) {
 
 // Como el original: fild n; fmul f (el entero entra exacto en la FPU y el producto se redondea una vez)
 float FildMul(int32 n, float f) {
-    float r;
-    __asm {
-        fild n
-        fmul f
-        fstp r
-    }
-    return r;
+    return IntTimesFloatCpp(n, f);
 }
 
 // Como el original: byte con signo · 0,125 (flt_858C48)

@@ -580,7 +580,6 @@ source/game_sa/IdleCam.cpp,256,inline_assembly,pending_cpp_conversion
 source/game_sa/IdleCam.cpp,440,inline_assembly,pending_cpp_conversion
 source/game_sa/IdleCam.cpp,540,inline_assembly,pending_cpp_conversion
 source/game_sa/IdleCam.cpp,571,inline_assembly,pending_cpp_conversion
-source/game_sa/InterestingEvents.cpp,164,inline_assembly,pending_cpp_conversion
 source/game_sa/Interior/Interior_c.cpp,43,inline_assembly,pending_cpp_conversion
 source/game_sa/Interior/Interior_c.cpp,55,inline_assembly,pending_cpp_conversion
 source/game_sa/Interior/Interior_c.cpp,77,inline_assembly,pending_cpp_conversion
@@ -673,8 +672,6 @@ source/game_sa/Interior/Interior_c.cpp,7984,naked,pending_cpp_conversion
 source/game_sa/Interior/Interior_c.cpp,7985,inline_assembly,pending_cpp_conversion
 source/game_sa/Interior/Interior_c.cpp,8480,naked,pending_cpp_conversion
 source/game_sa/Interior/Interior_c.cpp,8481,inline_assembly,pending_cpp_conversion
-source/game_sa/LoadingScreen.cpp,65,inline_assembly,pending_cpp_conversion
-source/game_sa/Maths.cpp,54,inline_assembly,pending_cpp_conversion
 source/game_sa/MemoryMgr.cpp,108,naked,pending_cpp_conversion
 source/game_sa/MemoryMgr.cpp,109,inline_assembly,pending_cpp_conversion
 source/game_sa/MemoryMgr.cpp,264,naked,pending_cpp_conversion
@@ -695,7 +692,6 @@ source/game_sa/Models/BaseModelInfo.cpp,35,naked,pending_cpp_conversion
 source/game_sa/Models/BaseModelInfo.cpp,36,inline_assembly,pending_cpp_conversion
 source/game_sa/Models/ClumpModelInfo.cpp,37,naked,pending_cpp_conversion
 source/game_sa/Models/ClumpModelInfo.cpp,38,inline_assembly,pending_cpp_conversion
-source/game_sa/Models/VehicleModelInfo.cpp,1254,inline_assembly,pending_cpp_conversion
 source/game_sa/Pad.cpp,314,inline_assembly,pending_cpp_conversion
 source/game_sa/Pad.cpp,388,inline_assembly,pending_cpp_conversion
 source/game_sa/Pad.cpp,564,naked,pending_cpp_conversion
@@ -722,7 +718,6 @@ source/game_sa/PathFind.cpp,1567,inline_assembly,pending_cpp_conversion
 source/game_sa/PathFind.cpp,1987,naked,pending_cpp_conversion
 source/game_sa/PathFind.cpp,1988,inline_assembly,pending_cpp_conversion
 source/game_sa/PathFind.cpp,2172,inline_assembly,pending_cpp_conversion
-source/game_sa/PedDamageResponseCalculator.cpp,228,inline_assembly,pending_cpp_conversion
 source/game_sa/PedGeometryAnalyser.cpp,332,inline_assembly,pending_cpp_conversion
 source/game_sa/PedGeometryAnalyser.cpp,454,inline_assembly,pending_cpp_conversion
 source/game_sa/PedGeometryAnalyser.cpp,535,inline_assembly,pending_cpp_conversion
@@ -765,13 +760,11 @@ source/game_sa/Pickups.cpp,233,inline_assembly,pending_cpp_conversion
 source/game_sa/Pickups.cpp,382,inline_assembly,pending_cpp_conversion
 source/game_sa/Pickups.cpp,437,inline_assembly,pending_cpp_conversion
 source/game_sa/Pickups.cpp,477,inline_assembly,pending_cpp_conversion
-source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp,48,inline_assembly,pending_cpp_conversion
 source/game_sa/Plant/PlantLocTri.cpp,37,naked,pending_cpp_conversion
 source/game_sa/Plant/PlantLocTri.cpp,38,inline_assembly,pending_cpp_conversion
 source/game_sa/Plant/ProcSurfaceInfo.cpp,104,inline_assembly,pending_cpp_conversion
 source/game_sa/Plant/ProcSurfaceInfo.cpp,164,inline_assembly,pending_cpp_conversion
 source/game_sa/Plant/ProcSurfaceInfo.cpp,226,inline_assembly,pending_cpp_conversion
-source/game_sa/PlantMgr.cpp,425,inline_assembly,pending_cpp_conversion
 source/game_sa/PlayerInfo.cpp,156,inline_assembly,pending_cpp_conversion
 source/game_sa/PlayerInfo.cpp,518,inline_assembly,pending_cpp_conversion
 source/game_sa/PlayerRelationshipRecorder.cpp,33,naked,pending_cpp_conversion
@@ -830,7 +823,6 @@ source/game_sa/Ragdoll/BoneNode.cpp,468,naked,pending_cpp_conversion
 source/game_sa/Ragdoll/BoneNode.cpp,469,inline_assembly,pending_cpp_conversion
 source/game_sa/Ragdoll/IKChain.cpp,65,naked,pending_cpp_conversion
 source/game_sa/Ragdoll/IKChain.cpp,66,inline_assembly,pending_cpp_conversion
-source/game_sa/Renderer.cpp,49,inline_assembly,pending_cpp_conversion
 source/game_sa/RenderWare/rw/rwplcore.h,494,inline_assembly,pending_cpp_conversion
 source/game_sa/RenderWare/rw/rwplcore.h,520,inline_assembly,pending_cpp_conversion
 source/game_sa/RenderWare/rw/rwplcore.h,521,inline_assembly,pending_cpp_conversion
@@ -840,7 +832,6 @@ source/game_sa/Ropes.cpp,227,inline_assembly,pending_cpp_conversion
 source/game_sa/Ropes.cpp,237,inline_assembly,pending_cpp_conversion
 source/game_sa/RwHelper.cpp,149,naked,pending_cpp_conversion
 source/game_sa/RwHelper.cpp,150,inline_assembly,pending_cpp_conversion
-source/game_sa/Scripts/RunningScript.cpp,515,inline_assembly,pending_cpp_conversion
 source/game_sa/Scripts/TheScripts.cpp,1689,inline_assembly,pending_cpp_conversion
 source/game_sa/Scripts/TheScripts.cpp,2049,inline_assembly,pending_cpp_conversion
 source/game_sa/Scripts/TheScripts.cpp,2116,inline_assembly,pending_cpp_conversion
@@ -907,7 +898,6 @@ source/game_sa/SimpleTransform.cpp,18,inline_assembly,pending_cpp_conversion
 source/game_sa/SimpleTransform.cpp,42,inline_assembly,pending_cpp_conversion
 source/game_sa/Sprite.cpp,80,inline_assembly,pending_cpp_conversion
 source/game_sa/Sprite.cpp,109,inline_assembly,pending_cpp_conversion
-source/game_sa/Sprite2d.cpp,466,inline_assembly,pending_cpp_conversion
 source/game_sa/Stats.cpp,80,naked,pending_cpp_conversion
 source/game_sa/Stats.cpp,81,inline_assembly,pending_cpp_conversion
 source/game_sa/Stats.cpp,86,naked,pending_cpp_conversion

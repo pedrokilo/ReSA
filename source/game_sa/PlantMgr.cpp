@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "PlantMgr.h"
 #include "GrassRenderer.h"
@@ -421,14 +422,7 @@ float CPlantMgr::CalculateWindBending() {
     // Como el original: fsin de precisión completa multiplicado por 0.008 o 0.005 (no se divide)
     const float angle = (float)(int32)(CTimer::GetTimeInMS() & 0xFFF) * scalingFactor;
     const float scale = wind >= 0.2f ? 0.008f : 0.005f;
-    float result;
-    __asm {
-        fld   angle
-        fsin
-        fmul  scale
-        fstp  result
-    }
-    return result;
+    return TrigSimpleSinMulCpp(angle, scale);
 }
 
 // 0x5DBAE0

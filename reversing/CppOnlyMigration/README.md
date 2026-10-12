@@ -6,7 +6,7 @@
 
 Política y proceso: [PROCESO.md](PROCESO.md) · revisión de lo anterior: [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md) · plan: [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md).
 
-**Estado actual (12/10/2026):** 57 funciones fuente convertidas y revalidadas dentro del juego; quedan 903 apariciones de ensamblador y 274 declaraciones `naked` en 157 archivos de `source/game_sa` (conteos léxicos, no funciones). Todas las clases convertidas están en sus dos archivos `.cpp` y `.h`, con `X87Math.cpp/.h` como único módulo compartido de helpers x87. Las secciones fechadas más abajo conservan las cifras del momento en que se escribieron. Documentos: [PROCESO.md](PROCESO.md) (política y técnicas), [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md) (lo que falta, por dificultad), [FILES.md](FILES.md) (archivos pendientes), [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md), [REVALIDACION_INTERIOR_CARCTRL.md](REVALIDACION_INTERIOR_CARCTRL.md) y [approvals.json](approvals.json) (evidencia por función).
+**Estado actual (12/10/2026):** 67 funciones fuente convertidas y revalidadas dentro del juego; quedan 893 apariciones de ensamblador y 274 declaraciones `naked` en 147 archivos de `source/game_sa` (conteos léxicos, no funciones). Todas las clases convertidas están en sus dos archivos `.cpp` y `.h`, con `X87Math.cpp/.h` como único módulo compartido de helpers x87. Las secciones fechadas más abajo conservan las cifras del momento en que se escribieron. Documentos: [PROCESO.md](PROCESO.md) (política y técnicas), [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md) (lo que falta, por dificultad), [FILES.md](FILES.md) (archivos pendientes), [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md), [REVALIDACION_INTERIOR_CARCTRL.md](REVALIDACION_INTERIOR_CARCTRL.md) y [approvals.json](approvals.json) (evidencia por función).
 
 Orden del usuario del 10/10/2026: eliminar ensamblador en línea y declaraciones naked de source/game_sa conservando resultados exactos del EXE, sin tolerancias numéricas.
 
@@ -14,7 +14,7 @@ El inventario inicial identificó 185 archivos con 965 apariciones de ensamblado
 
 ## Conversiones comprobadas
 
-[approvals.json](approvals.json) conserva 57 conversiones de funciones fuente con sus auditorías dentro del juego:
+[approvals.json](approvals.json) conserva 67 conversiones de funciones fuente con sus auditorías dentro del juego:
 
 | Función | Entrada EXE | Pares propios |
 | --- | --- | ---: |
@@ -64,6 +64,16 @@ El inventario inicial identificó 185 archivos con 965 apariciones de ensamblado
 | CFileLoader::LoadObjectInstance (acos) | 0x538090 | 11968 |
 | CGameLogic::UpdateSkip (GetHeadingMinusHalfPi) | 0x442480 | 13888 |
 | CGamma::SetGamma | 0x747200 | 12416 |
+| CInterestingEvents::ScanForNearbyEntities | 0x605A30 | 2048 |
+| CLoadingScreen (ClockSeconds) | GetClockTime 0x590280 | 9328 |
+| CMaths::InitMathsTables | 0x59AC90 | 32016 |
+| CVehicleModelInfo::SetEnvMapCoeffCB | 0x4C88B0 | 256 |
+| CPedDamageResponseCalculator::ComputeWillKillPed (caída) | 0x4B3210 | 6144 |
+| CCustomCarEnvMapPipeline (FildMul) | helper | 10880 |
+| CPlantMgr::CalculateWindBending | 0x5DB3D0 | 1024 |
+| CRenderer (FpatanMinus) | helper | 18112 |
+| CRunningScript (áreas anguladas) | 0x487F60, 0x488780, 0x4883F0 | 6144 |
+| CSprite2d::OffsetTexCoordForBilinearFiltering | 0x728150 | 11136 |
 
 Cada corrida aprobada tiene cero diferencias, resultados no nulos, rutas y restauración verificadas. Estas conversiones vuelven a probar implementaciones catalogadas; no incrementan las 105 aprobaciones de la cohorte de dependencias.
 
@@ -134,8 +144,12 @@ Se eliminó el ensamblador de `AECollisionAudioEntity.cpp`, `AEWeaponAudioEntity
 
 ## Audio: AudioLog10 y el error de dirección de voz (11/10/2026)
 
-`CAEAudioUtility::AudioLog10` (el mismo `fldlg2 / fyl2x` que los helpers anteriores) pasó a `AudioLog10Cpp`, con CppModelInfoRegression (5264 pares, auditado), Small2 (32016) y AudioHw54 (9280) aprobados. Al investigar el fallo preexistente de `AddSayEvent` se encontró que la fuente leía `s_pVehicleAudioSettingsForRadio` (0xB6B99C) donde el EXE lee `s_pPlayerAttachedForRadio` (0xB6B98C) en el código de voz y en el escáner de policía; con seis sitios corregidos, Audio11 (13632 pares), PedSpeech58 (21760), AudioScannerPending (4096) y AudioWave2 (18496) aprueban. Además, `AddSayEvent` suma la distancia al cuadrado como el EXE, (z² + y²) + x² sin redondear. Detalle en [CppAudioX87Study](../CppAudioX87Study/README.md). El conteo pasa a 903 apariciones de ensamblador y 274 declaraciones naked en 157 archivos.
+`CAEAudioUtility::AudioLog10` (el mismo `fldlg2 / fyl2x` que los helpers anteriores) pasó a `AudioLog10Cpp`, con CppModelInfoRegression (5264 pares, auditado), Small2 (32016) y AudioHw54 (9280) aprobados. Al investigar el fallo preexistente de `AddSayEvent` se encontró que la fuente leía `s_pVehicleAudioSettingsForRadio` (0xB6B99C) donde el EXE lee `s_pPlayerAttachedForRadio` (0xB6B98C) en el código de voz y en el escáner de policía; con seis sitios corregidos, Audio11 (13632 pares), PedSpeech58 (21760), AudioScannerPending (4096) y AudioWave2 (18496) aprueban. Además, `AddSayEvent` suma la distancia al cuadrado como el EXE, (z² + y²) + x² sin redondear. Detalle en [CppAudioX87Study](../CppAudioX87Study/README.md). El conteo pasa a 893 apariciones de ensamblador y 274 declaraciones naked en 147 archivos.
 
 ## Nueve archivos con un solo bloque (12/10/2026)
 
-Se eliminó el ensamblador de `BouncingPanel.cpp`, `Checkpoints.cpp`, `Coronas.cpp`, `CutsceneMgr.cpp`, `Decision.cpp`, `EntryExitManager.cpp`, `FileLoader.cpp`, `GameLogic.cpp` y `Gamma.cpp` con cinco helpers nuevos en `X87Math` (`PowScaleVector3Cpp`, `UnsignedMillisToSecondsCpp`, `HeadingMinusHalfPiCpp`, `GammaScaleCpp`, `ExeAcosCpp`), reutilizando los trigonométricos existentes en tres casos y C++ puro en `Decision.cpp` ([detalle y objetos](../CppNineFilesStudy/README.md)). Nueve bancos históricos completos repetidos, sin diferencias: World52 (18384 pares), Data8a (18176), World11 (16704), Cutscene35 (13184), DecisionPending (3072), World18 (7808) más FixBugs (10304), FileLoader47 (11968), GameLogic27 (13888) y Misc70 (12416). Una primera tanda se solapó con otra por error mío y quedó invalidada; las cifras son de la tanda única en serie. `ExeAcosCpp` duplica la fórmula de acos de `AnimCalcThetaCpp` y `PowScaleVector3Cpp` usa el `_CIpow` de la DLL, no el del EXE (límites en el detalle). El conteo pasa a 903 apariciones de ensamblador y 274 declaraciones naked en 157 archivos.
+Se eliminó el ensamblador de `BouncingPanel.cpp`, `Checkpoints.cpp`, `Coronas.cpp`, `CutsceneMgr.cpp`, `Decision.cpp`, `EntryExitManager.cpp`, `FileLoader.cpp`, `GameLogic.cpp` y `Gamma.cpp` con cinco helpers nuevos en `X87Math` (`PowScaleVector3Cpp`, `UnsignedMillisToSecondsCpp`, `HeadingMinusHalfPiCpp`, `GammaScaleCpp`, `ExeAcosCpp`), reutilizando los trigonométricos existentes en tres casos y C++ puro en `Decision.cpp` ([detalle y objetos](../CppNineFilesStudy/README.md)). Nueve bancos históricos completos repetidos, sin diferencias: World52 (18384 pares), Data8a (18176), World11 (16704), Cutscene35 (13184), DecisionPending (3072), World18 (7808) más FixBugs (10304), FileLoader47 (11968), GameLogic27 (13888) y Misc70 (12416). Una primera tanda se solapó con otra por error mío y quedó invalidada; las cifras son de la tanda única en serie. `ExeAcosCpp` duplica la fórmula de acos de `AnimCalcThetaCpp` y `PowScaleVector3Cpp` usa el `_CIpow` de la DLL, no el del EXE (límites en el detalle). El conteo pasa a 893 apariciones de ensamblador y 274 declaraciones naked en 147 archivos.
+
+## Diez archivos con un solo bloque (12/10/2026)
+
+Se eliminó el ensamblador de `InterestingEvents.cpp`, `LoadingScreen.cpp`, `Maths.cpp`, `VehicleModelInfo.cpp`, `PedDamageResponseCalculator.cpp`, `CustomCarEnvMapPipeline.cpp`, `PlantMgr.cpp`, `Renderer.cpp`, `RunningScript.cpp` y `Sprite2d.cpp` ([detalle y objetos](../CppTenFilesStudy/README.md)). Siete helpers nuevos en `X87Math` (`Atan2MinusCpp` sustituye a `HeadingMinusHalfPiCpp` del lote anterior, sin duplicar), y `UnsignedMillisToSecondsCpp` y `TrigSimpleSinMulCpp` reutilizados. Bancos completos repetidos sin diferencias en las funciones convertidas: InterestingScan355 (2048 pares), Loading (9328), Small2 (32016), PedDamagePending (6144), EnvMap37 (10880), Renderer33 (18112), ScriptAngled355 (6144), Sprite2d33 (11136), DependenciesMathSprite2 (3072) y GameLogic27 (13888, tras la unificación). Dos bancos fallan en funciones ajenas al lote y **igual con el árbol anterior** (línea base propia): VehModelInfoFinal4 (`PreprocessHierarchy`, `ReduceMaterialsInVehicle`) y Plant19 (`CPlantMgr::Render`); en ambos las funciones convertidas son iguales. Game22 no compila su sonda (defecto del banco: lista `Game.cpp` entre las fuentes que la propia sonda modifica). El conteo pasa a 893 apariciones de ensamblador y 274 declaraciones naked en 147 archivos.

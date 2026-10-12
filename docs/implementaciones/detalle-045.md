@@ -157,8 +157,8 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CWorldScan::ScanWorld(CVector2D *points, int32 pointsCount, tScanFunction scanFunction) | [source/game_sa/Renderer.cpp:110](../../source/game_sa/Renderer.cpp#L110) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x0072CAE0: fuera del catálogo consultado; ruta efectiva sin resolver |
-| CWorldScan::SetExtraRectangleToScan(float minX, float maxX, float minY, float maxY) | [source/game_sa/Renderer.cpp:115](../../source/game_sa/Renderer.cpp#L115) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x0072D5E0: fuera del catálogo consultado; ruta efectiva sin resolver |
+| CWorldScan::ScanWorld(CVector2D *points, int32 pointsCount, tScanFunction scanFunction) | [source/game_sa/Renderer.cpp:103](../../source/game_sa/Renderer.cpp#L103) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x0072CAE0: fuera del catálogo consultado; ruta efectiva sin resolver |
+| CWorldScan::SetExtraRectangleToScan(float minX, float maxX, float minY, float maxY) | [source/game_sa/Renderer.cpp:108](../../source/game_sa/Renderer.cpp#L108) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x0072D5E0: fuera del catálogo consultado; ruta efectiva sin resolver |
 
 <a id="grupo-884"></a>
 

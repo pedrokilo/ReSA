@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "Maths.h"
 
@@ -50,13 +51,8 @@ void CMaths::InitMathsTables() {
     auto* lut = StaticRef<std::array<float, SIN_LUT_SIZE>>(0xBB3E00).data();
     static const float kStep = std::bit_cast<float>(0x3CC90FDBu); // 0x859BBC
     for (int32 i = 0; i < (int32)SIN_LUT_SIZE; i++) {
-        float v;
-        __asm {
-            fild  i
-            fmul  kStep
-            fsin
-            fstp  v
-        }
+        // fild + fmul + fsin con la precisión del FPU y un solo redondeo (X87Math.cpp)
+        const float v = TrigIntSinMulCpp(i, kStep);
         lut[i] = v;
     }
 }

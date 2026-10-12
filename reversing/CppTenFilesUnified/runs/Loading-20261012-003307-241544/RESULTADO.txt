@@ -1,0 +1,3 @@
+APROBADO: CLoadingScreen
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-loading\20261012-003307-241544

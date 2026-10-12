@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "Tasks/TaskTypes/TaskSimpleFinishBrain.h"
 #include "Tasks/ScriptedBrainTaskStore.h"
 #include "Tasks/TaskTypes/TaskSimpleRunNamedAnim.h"
@@ -509,58 +510,12 @@ ScriptAngledBox MakeScriptAngledBox(bool threeD, int offset) {
     const float angledWidth = ScriptParams[offset+(threeD?6:4)].fParam;
     box.draw = ScriptParams[offset+(threeD?7:5)].iParam != 0;
     const float startX=box.a.x, startY=box.a.y, endX=box.b.x, endY=box.b.y;
-    const float halfPi=std::bit_cast<float>(0x3FC90FDBu),twoPi=std::bit_cast<float>(0x40C90FDBu),zero=0.0f;
     auto radianFunction = static_cast<float(*)(float,float,float,float)>(&CGeneral::GetRadianAngleBetweenPoints);
-    float cornerCX,cornerCY,cornerDX,cornerDY,minusCosWidth;
-    __asm {
-        push endY
-        push endX
-        push startY
-        push startX
-        call radianFunction
-        add esp,16
-        fadd halfPi
-        fcom zero
-        fnstsw ax
-        test ah,5
-        jp nonnegative
-    negative:
-        fadd twoPi
-        fcom zero
-        fnstsw ax
-        test ah,5
-        jnp negative
-    nonnegative:
-        fcom twoPi
-        fnstsw ax
-        test ah,41h
-        jne normalized
-    tooLarge:
-        fsub twoPi
-        fcom twoPi
-        fnstsw ax
-        test ah,41h
-        je tooLarge
-    normalized:
-        fld st(0)
-        fsin
-        fmul angledWidth
-        fld endX
-        fadd st(0),st(1)
-        fstp cornerDX
-        fxch st(1)
-        fcos
-        fmul angledWidth
-        fchs
-        fst minusCosWidth
-        fadd endY
-        fstp cornerDY
-        fadd startX
-        fstp cornerCX
-        fld minusCosWidth
-        fadd startY
-        fstp cornerCY
-    }
+    // Como el original (0x487F60): ángulo entre los puntos + pi/2 normalizado a [0, 2pi] y esquinas con fsin/fcos (X87Math.cpp)
+    const float angle = radianFunction(startX,startY,endX,endY);
+    float corners[4];
+    ScriptAngledCornersCpp(angle,startX,startY,endX,endY,angledWidth,corners);
+    const float cornerCX=corners[0],cornerCY=corners[1],cornerDX=corners[2],cornerDY=corners[3];
     box.c=CVector2D{cornerCX,cornerCY};box.d=CVector2D{cornerDX,cornerDY};
     box.ab=box.b-box.a;box.ac=box.c-box.a;
     box.abLength=std::sqrt(box.ab.x*box.ab.x+box.ab.y*box.ab.y);

@@ -126,9 +126,9 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| IsValidCompRule(int32 nRule) | [source/game_sa/Models/VehicleModelInfo.cpp:1698](../../source/game_sa/Models/VehicleModelInfo.cpp#L1698) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NewWeatherType: source/game_sa/Weather.h:59 (0x00C8131C); Posible dato fijo OldWeatherType: source/game_sa/Weather.h:60 (0x00C81320) |
-| ChooseComponent(int32 rule, int32 comps) | [source/game_sa/Models/VehicleModelInfo.cpp:1708](../../source/game_sa/Models/VehicleModelInfo.cpp#L1708) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleModelInfo::ChooseComponent-Global 0x004C7FB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetListOfComponentsNotUsedByRules(uint32 compRules, int32 numExtras, int32* outList) | [source/game_sa/Models/VehicleModelInfo.cpp:1746](../../source/game_sa/Models/VehicleModelInfo.cpp#L1746) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsValidCompRule(int32 nRule) | [source/game_sa/Models/VehicleModelInfo.cpp:1687](../../source/game_sa/Models/VehicleModelInfo.cpp#L1687) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NewWeatherType: source/game_sa/Weather.h:59 (0x00C8131C); Posible dato fijo OldWeatherType: source/game_sa/Weather.h:60 (0x00C81320) |
+| ChooseComponent(int32 rule, int32 comps) | [source/game_sa/Models/VehicleModelInfo.cpp:1697](../../source/game_sa/Models/VehicleModelInfo.cpp#L1697) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleModelInfo::ChooseComponent-Global 0x004C7FB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetListOfComponentsNotUsedByRules(uint32 compRules, int32 numExtras, int32* outList) | [source/game_sa/Models/VehicleModelInfo.cpp:1735](../../source/game_sa/Models/VehicleModelInfo.cpp#L1735) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1311"></a>
 

@@ -1,0 +1,3 @@
+FALLO: CVehicleModelInfo (banco final 4)
+Funciones con diferencias: CVehicleModelInfo::PreprocessHierarchy: 153/512; CVehicleModelInfo::ReduceMaterialsInVehicle: 256/256
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-vehmodelinfofinal4\20261012-004053-946909

@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "Sprite2d.h"
 #include "GxtChar.h"
@@ -460,41 +461,8 @@ void CSprite2d::SetVerticesForSniper(const CRect& posn, const CRGBA& color1, con
 
 void CSprite2d::OffsetTexCoordForBilinearFiltering(float width, float height)
 {
-    auto* vertices = maVertices.data();
-    const float one = 1.0f;
-    // Como el original 0x728150: mantiene los dos offsets en x87 y sólo toca cuatro UV.
-    __asm {
-        mov eax, vertices
-        fld width
-        fadd st(0), st
-        fdivr one
-        fld dword ptr [eax + 14h]
-        fadd st, st(1)
-        fstp dword ptr [eax + 14h]
-        fld height
-        fadd st(0), st
-        fdivr one
-        fld dword ptr [eax + 18h]
-        fadd st, st(1)
-        fstp dword ptr [eax + 18h]
-        fld st(1)
-        fadd dword ptr [eax + 30h]
-        fstp dword ptr [eax + 30h]
-        fld dword ptr [eax + 34h]
-        fadd st, st(1)
-        fstp dword ptr [eax + 34h]
-        fld st(1)
-        fadd dword ptr [eax + 4Ch]
-        fstp dword ptr [eax + 4Ch]
-        fld dword ptr [eax + 50h]
-        fadd st, st(1)
-        fstp dword ptr [eax + 50h]
-        fxch st(1)
-        fadd dword ptr [eax + 68h]
-        fstp dword ptr [eax + 68h]
-        fadd dword ptr [eax + 6Ch]
-        fstp dword ptr [eax + 6Ch]
-    }
+    // Como el original 0x728150: mantiene los dos offsets en x87 y sólo toca cuatro UV (X87Math.cpp).
+    SpriteBilinearOffsetCpp(reinterpret_cast<float*>(maVertices.data()), width, height);
 }
 
 // add vertices to buffer
