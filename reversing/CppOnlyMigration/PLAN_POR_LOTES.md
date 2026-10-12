@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 11/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Plan por lotes para pasar de ensamblador a C++ (versión 2)
 
 Revisado el 11/10/2026. La primera versión se escribió por intuición y el lote 1 tuvo que corregirse al revisar los consumidores. Esta versión sale de datos calculados sobre el árbol actual, y declara qué mide cada cifra y qué no.
@@ -10,16 +14,16 @@ Archivos de apoyo: [plan-clasificacion.csv](plan-clasificacion.csv) (una fila po
 - **Cobertura por banco histórico:** para cada helper `static` se buscaron sus llamadores por nombre en el mismo archivo y se comprobó si cada llamador figura en la tabla de algún banco `reversing/*/LiveComparison.hpp`. Para métodos con cuerpo propio se buscó la función misma. Un banco histórico **no basta**: validó el código anterior, así que cada lote necesita un banco derivado (como CppShadowSqrt\*) y su revisión de los puntos de llamada. La cobertura sólo dice que hay un banco del que partir.
 - **Sin determinar:** 131 helpers `static` en los que la búsqueda no halló llamador (puede ser uso por macro, plantilla o desde otro archivo). Se revisan a mano antes de planificarlos.
 
-## Cifras (782 definiciones con ensamblador)
+## Cifras (776 definiciones con ensamblador, 11/10/2026)
 
 | Nivel | Con banco histórico del que partir | Sin banco | Total |
 | --- | ---: | ---: | ---: |
 | A (cortas, sin x87/llamadas) | 6 | 4 | 10 |
-| B (x87 sin llamadas, medianas) | 210 | 39 | 249 |
-| C (naked, llamadas, SSE, x87 largo) | 145 | 80 | 225 |
-| D (largas, cadenas, sistema) | 188 | 110 | 298 |
+| B (x87 sin llamadas, medianas) | 209 | 38 | 247 |
+| C (naked, llamadas, SSE, x87 largo) | 143 | 79 | 222 |
+| D (largas, cadenas, sistema) | 187 | 110 | 297 |
 
-Los totales suman las 782 definiciones del inventario actual. Las dos columnas de la derecha no son «hecho» ni «pendiente de verificar»: son sólo dónde hay punto de partida.
+Los totales suman las 776 definiciones del inventario actual (se recalcularon tras las conversiones del 11/10; el detalle por función está en [plan-clasificacion.csv](plan-clasificacion.csv)). Las dos columnas de la derecha no son «hecho» ni «pendiente de verificar»: son sólo dónde hay punto de partida.
 
 ## Lo ya hecho
 
@@ -49,7 +53,7 @@ Riesgo medio: mismo método que los helpers ya convertidos (TU dedicada /O2 /Oi 
 
 **Lote 6 — nivel C con contrato de registros.** Interior_c.cpp (24 funciones; 4 bancos), Stats.cpp (23; 8 bancos), Matrix.cpp, Garage.cpp. Antes de convertir cada una hay que fijar los registros de entrada y salida; los rechazos anteriores por cambiar ECX/EDX indican el riesgo.
 
-**Lote 7 — sin banco de partida (nivel A–C sin cobertura: 123 funciones).** Requieren primero escribir un banco desde cero. Se hacen cuando los lotes con cobertura estén cerrados.
+**Lote 7 — sin banco de partida (nivel A–C sin cobertura: 121 funciones).** Requieren primero escribir un banco desde cero. Se hacen cuando los lotes con cobertura estén cerrados.
 
 **Al final — nivel D y bloqueados.** MemoryMgr.cpp (falta la línea base ASM completa sin logger diagnóstico), EventSource (propuesta con `__fastcall` sin aprobar), AEAudioUtility.cpp (la heurística lo marca B, pero incluye tiempo del sistema y debe revisarse), DecisionMakerTypes.cpp, TaskSimpleFight.cpp, Pad.cpp y RpAnimBlend.
 

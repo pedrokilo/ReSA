@@ -1,6 +1,12 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 11/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Conversión del código de producción a C++ sin ensamblador
 
 Política y proceso: [PROCESO.md](PROCESO.md) · revisión de lo anterior: [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md) · plan: [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md).
+
+**Estado actual (11/10/2026):** 42 funciones fuente convertidas y revalidadas dentro del juego; quedan 918 apariciones de ensamblador y 274 declaraciones `naked` en 171 archivos de `source/game_sa` (conteos léxicos, no funciones; 776 definiciones). Todas las clases convertidas están en sus dos archivos `.cpp` y `.h`, con `X87Math.cpp/.h` como único módulo compartido de helpers x87. Las secciones fechadas más abajo conservan las cifras del momento en que se escribieron. Documentos: [PROCESO.md](PROCESO.md) (política y técnicas), [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md) (lo que falta, por dificultad), [FILES.md](FILES.md) (archivos pendientes), [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md), [REVALIDACION_INTERIOR_CARCTRL.md](REVALIDACION_INTERIOR_CARCTRL.md) y [approvals.json](approvals.json) (evidencia por función).
 
 Orden del usuario del 10/10/2026: eliminar ensamblador en línea y declaraciones naked de source/game_sa conservando resultados exactos del EXE, sin tolerancias numéricas.
 
