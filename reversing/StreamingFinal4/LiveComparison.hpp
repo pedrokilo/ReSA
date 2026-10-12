@@ -44,7 +44,7 @@ inline std::string RegisterStubs(){
     // azar, memoria, pad
     AddStub(E_RNG,0x821B1E,bit_cast<uintptr_t>(&CGeneral::GetRandomNumber),FnPtr(&S_Rand));
     AddStub(E_NEW,0x82119A,0,FnPtr(&S_New)); AddStub(E_NEW,0x821195,0,FnPtr(&S_New)); AddStub(E_NEW,0x8214BD,0,FnPtr(&S_Delete)); AddStub(E_NEW,0x8213AE,0,FnPtr(&S_Delete));
-    AddStub(E_MEM,0x72F4C0,0,FnPtr(&S_Malloc)); AddStub(E_MEM,0x72F4F0,0,FnPtr(&S_FreeAlign));
+    AddStub(E_MEM,0x72F4C0,0,FnPtr(&S_Malloc)); AddStub(E_MEM,0x72F4F0,bit_cast<uintptr_t>(&CMemoryMgr::FreeAlign),FnPtr(&S_FreeAlign));
     AddStub(E_PAD,0x541D70,bit_cast<uintptr_t>(&CPad::StopPadsShaking),FnPtr(&S_PadStop));
     // CdStream
     hk(E_CD,0x4063E0,"CdStream","CdStreamGetStatus",FnPtr(&S_CdStat)); hk(E_CD,0x406460,"CdStream","CdStreamSync",FnPtr(&S_CdSync));

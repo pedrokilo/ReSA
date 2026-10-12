@@ -17,6 +17,9 @@ runpy.run_path(sys.argv[0], run_name="__main__")
 '''
 def run(cmd,**k): return subprocess.run(cmd,cwd=str(ROOT),env=env,capture_output=True,text=True,encoding='utf-8',errors='replace',**k)
 res={}
+def _modified(bank):
+    return set(l[3:].strip().replace('"','') for l in subprocess.run(['git','status','--porcelain','--',f'reversing/{bank}'],cwd=str(ROOT),capture_output=True,text=True,encoding='utf-8',errors='replace').stdout.splitlines() if l[:2].strip()=='M')
+PRE={b:_modified(b) for b in sys.argv[2:]}
 for bank in sys.argv[2:]:
     r={'bank':bank}; t0=time.time()
     for script in ('build_probe.py','run_local.py'):
@@ -49,5 +52,7 @@ for bank in sys.argv[2:]:
                 except Exception as e: r['summary_err']=str(e)
             else: r['err']=out[-500:]
     # restaurar archivos de evidencia histórica que el banco reescribe
-    subprocess.run(['git','checkout','--',f'reversing/{bank}'],cwd=str(ROOT),capture_output=True)
+    after=set(l[3:].strip().replace('"','') for l in subprocess.run(['git','status','--porcelain','--',f'reversing/{bank}'],cwd=str(ROOT),capture_output=True,text=True,encoding='utf-8',errors='replace').stdout.splitlines() if l[:2].strip()=='M')
+    for path in sorted(after-PRE.get(bank,set())):
+        subprocess.run(['git','checkout','--',path],cwd=str(ROOT),capture_output=True)
     r['secs']=round(time.time()-t0); res[bank]=r; print(json.dumps(r),flush=True)

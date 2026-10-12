@@ -2,7 +2,9 @@
 #include <fstream>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <bit>
 #include "Interior_c.h"
+#include "FurnitureManager_c.h"
 #include "../ProbeRuntime.hpp"
 namespace InteriorCommerceLive {
 inline bool done{};inline std::ofstream log;inline json trace;inline uint32 scenario{},calls{},rngCalls{};
@@ -118,6 +120,15 @@ patch(0x59A140,D59A140);
 patch(0x59A030,D59A030);
 patch(0x59A1B0,D59A1B0);
 patch(0x59A590,D59A590);
+ // El candidato de FurnishOffice y Shop_AddShelfInfo es C++ y llama a las funciones de la DLL (no a las direcciones del EXE):
+ // se interceptan también sus puntos de entrada con el mismo despachador que el EXE, para que ambos lados registren la misma traza.
+ auto patchDll=[&](uintptr_t exe,uintptr_t dll,auto callback){if(exe!=fn.address)patches.push_back(std::make_unique<ReversingProbe::EntryPatch>(dll,callback));};
+ patchDll(0x591700,std::bit_cast<uintptr_t>(&Interior_c::SetTilesStatus),D591700);
+ patchDll(0x599770,std::bit_cast<uintptr_t>(&Interior_c::Office_FurnishEdges),D599770);
+ patchDll(0x599A30,std::bit_cast<uintptr_t>(&Interior_c::Office_FurnishCenter),D599A30);
+ patchDll(0x59A130,std::bit_cast<uintptr_t>(&Interior_c::Shop_FurnishCeiling),D59A130);
+ patchDll(0x591E40,std::bit_cast<uintptr_t>(&Interior_c::AddInteriorInfo),D591E40);
+ patchDll(0x591220,std::bit_cast<uintptr_t>(&FurnitureManager_c::GetRandomId),D591220);
   alignas(16) std::array<uint8,sizeof(Interior_c)> object{};alignas(16) std::array<uint8,64> box{};
   for(int i=0;i<fn.cases;++i){auto run=[&](bool candidate){scenario=uint32(i);calls=0;rngCalls=0;trace=json::array();object.fill(0);box.fill(0);furniture.fill(0);auto* self=reinterpret_cast<Interior_c*>(object.data());self->m_box=reinterpret_cast<tEffectInterior*>(box.data());
    box[2]=uint8(5+i%24);box[3]=uint8(5+(i/3)%24);box[5]=uint8(i%12);box[0x1F]=uint8(i%5);*reinterpret_cast<int16*>(furniture.data()+10)=int16(i%8);self->field_3EC=int16(box[2]);self->field_3EE=int16(box[3]);self->m_furnitureGroupId=int8(i%9);self->m_furnitureId=int8(i%8);self->field_792=int8(i%7);self->m_interiorInfosCount=int8(i%8);

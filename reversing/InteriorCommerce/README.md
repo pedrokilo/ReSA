@@ -46,3 +46,7 @@ La sonda restaura los dos globals de comercio y todos los estados/locks de hooks
 Final paired-fixture validation: **PASSED**. Actual report `20261008-092822-849396`: 16,384 pairs across 16 functions. Exact full-source/instrument/archived-binary manifests and observed EXE/ASI hashes verified. Cataloged Interior_c methods only.
 
 <!-- END INTERIOR FINAL VALIDATION -->
+
+## Actualización 11/10/2026
+
+`FurnishOffice` y `Shop_AddShelfInfo` se convirtieron a C++ el 10/10 y el banco dejó de coincidir: interceptaba los colaboradores sólo en las direcciones del EXE y el candidato llama a las funciones de la DLL. `LiveComparison.hpp` intercepta ahora también las entradas de la DLL de `SetTilesStatus`, `GetRandomId`, `AddInteriorInfo`, `Office_FurnishEdges`, `Office_FurnishCenter` y `Shop_FurnishCeiling` (`patchDll`), sin retirar ninguna compuerta. Corrida 20261011-211815-039666: 16384 pares, aprobado. Evidencia en `reversing/CppInteriorCommerceFix`.

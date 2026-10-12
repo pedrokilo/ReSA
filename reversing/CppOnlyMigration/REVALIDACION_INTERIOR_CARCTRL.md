@@ -28,9 +28,9 @@ Las 54 funciones enganchadas de `Interior_c.cpp` tienen banco; todas se repitier
 | InteriorLifecycleRuntime | 4096 | aprobado |
 | InteriorPlacement | 4096 | aprobado |
 | InteriorSpatial | 7168 | aprobado |
-| **InteriorCommerce** | 16384 | **falla en 2 funciones, también antes de la fusión** |
+| InteriorCommerce (corrida 20261011-211815-039666, tras corregir su instrumentación) | 16384 | aprobado |
 
-**InteriorCommerce** falla `FurnishOffice` (1024/1024) y `Shop_AddShelfInfo` (266/1024), exactamente igual con el árbol anterior a la fusión (evidencia en `CppInteriorBaseline`). El banco histórico espera, en las trazas, las llamadas al EXE de la versión antigua de esas dos funciones, que ya se habían convertido a C++ el 10/10; las valida `CppInteriorProposal`/`CppInteriorNext`. Las otras 14 funciones del banco pasan. Conviene retirar esas dos del banco histórico o derivar uno nuevo; no se hizo.
+**InteriorCommerce** fallaba en `FurnishOffice` (1024/1024) y `Shop_AddShelfInfo` (266/1024), también con el árbol anterior a la fusión. Causa: el banco interceptaba los colaboradores sólo en sus direcciones del EXE, pero el candidato de esas dos funciones es C++ (convertido el 10/10) y llama a las funciones de la DLL (`SetTilesStatus`, `GetRandomId`, `AddInteriorInfo`, `Office_FurnishEdges`, `Office_FurnishCenter`, `Shop_FurnishCeiling`), que no pasaban por la intercepción: en la traza del candidato faltaban esas llamadas. Solución: `LiveComparison.hpp` intercepta ahora también el punto de entrada de la DLL de cada uno de esos colaboradores con el mismo despachador que usa para el EXE (`patchDll`), sin saltarse la función bajo prueba. No se retiró ni relajó ninguna compuerta: la comparación de trazas, memoria y retorno sigue siendo exacta. Con el parche pasan los 16384 pares de las 16 funciones. Los colaboradores quedan sustituidos por el despachador durante la prueba, así que este banco no valida sus cuerpos.
 
 Una corrida de `CppInteriorRegression1` registró una aserción de `CShadowCamera::DrawOutlineBorder` (código de sombras en tiempo real, ajeno a `Interior_c`) y su auditor la rechazó; repetida, pasó limpia. Se anota como puntual.
 
@@ -48,13 +48,14 @@ Una corrida de `CppInteriorRegression1` registró una aserción de `CShadowCamer
 | DependenciesWorld10 | 4096 | aprobado |
 | DependenciesWorld14 | 2048 | aprobado |
 | PopulationFactory | 18432 | aprobado |
-| **StreamingFinal4** | 20992 | **`CStreaming::Shutdown` falla 64/64, también antes del cambio** |
+| StreamingFinal4 (corrida 20261011-211139-086170, tras corregir su instrumentación) | 20992 | aprobado |
 
-**StreamingFinal4:** la única función que difiere es `CStreaming::Shutdown`, y falla idéntico (64/64) con el árbol de HEAD, anterior a los cambios de `CarCtrl.cpp` e `Interior_c.cpp` (evidencia en `CppStreamingBaseline`). Es un fallo preexistente de ese banco o de esa función, no de esta fusión; las demás funciones del banco pasan. No se investigó su causa.
+**StreamingFinal4** fallaba sólo en `CStreaming::Shutdown` (64/64), también con el árbol anterior. Causa: el banco intercepta `CMemoryMgr::FreeAlign` en la dirección del EXE (0x72F4F0), pero la `FreeAlign` de la DLL es ahora una transcripción `naked` que libera por su cuenta sin pasar por esa dirección, de modo que el candidato registraba un evento menos (`events` 3 contra 2 y 1 contra 0). Solución: `LiveComparison.hpp` pasa ahora la dirección de la función de la DLL (`&CMemoryMgr::FreeAlign`) a `AddStub`, igual que ya hacía con `CGeneral::GetRandomNumber`. No se tocó `Shutdown` ni ninguna compuerta. Pasan los 20992 pares. Como `FreeAlign` queda sustituida por el stub durante la prueba, este banco no valida su cuerpo.
 
 ## Cómo se ejecutó y qué límites tiene
 
 - Los bancos históricos se lanzaron con `herramientas/rerun_hist.py` (envoltorio `hist_wrap.py`): redirige el juego al clon de pruebas en memoria, guarda el resultado en `CppInteriorUnified`, `CppCarCtrlUnified`, `CppInteriorBaseline` y `CppStreamingBaseline`, y restaura con `git checkout` los archivos de evidencia que cada banco reescribe. `PopulationFactory` fija el hash de la sonda aprobada (`PROBE_HASH`): el envoltorio lo reapunta al hash de la sonda recién compilada y copia la sonda a `_baseline`, sin tocar ninguna otra compuerta.
 - `CppSequence1` y `CppSequence2` no tenían script de auditoría en el repositorio: se auditaron con `herramientas/audit_generico.py`, que comprueba pares, igualdad, no nulos, compuertas booleanas, restauración y hashes, pero no registros crudos.
+- Los dos fallos que quedaban eran de la instrumentación de sus bancos (ver arriba); las correcciones están en `reversing/InteriorCommerce/LiveComparison.hpp` y `reversing/StreamingFinal4/LiveComparison.hpp`, y la evidencia en `CppInteriorCommerceFix` y `CppStreamingFix`.
 - Los bancos de Interior se corrieron antes del cambio de `CarCtrl.cpp` y los de CarCtrl después de la fusión de Interior; el árbol final contiene ambos cambios, que están en archivos distintos. No se repitió una pasada conjunta.
 - El x87, NaN, infinitos y registros crudos conservan los límites que ya tenían los bancos.

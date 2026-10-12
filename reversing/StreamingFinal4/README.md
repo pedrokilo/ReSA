@@ -142,3 +142,6 @@ Corrida `20261010-143008-897454`: passed=true, 20992 pares, 94 funciones registr
 | CStreaming::Update | 256 |
 | CStreaming::WeAreTryingToPhaseVehicleOut | 128 |
 
+## Actualización 11/10/2026
+
+`CStreaming::Shutdown` fallaba 64/64: el banco interceptaba `CMemoryMgr::FreeAlign` sólo en 0x72F4F0 y la `FreeAlign` de la DLL pasó a ser una transcripción `naked` que no pasa por esa dirección. `LiveComparison.hpp` pasa ahora también `&CMemoryMgr::FreeAlign` a `AddStub`. Corrida 20261011-211139-086170: 20992 pares, aprobado. Evidencia en `reversing/CppStreamingFix`.
