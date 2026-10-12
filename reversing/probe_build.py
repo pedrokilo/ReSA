@@ -33,7 +33,10 @@ def build(here: Path, prefix: str, namespace: str, tested_sources=(), install=Tr
         GAME_CPP.write_text(content, encoding='utf-8', newline='\n')
         with (artifacts/'probe-build.log').open('w') as log:
             subprocess.run([str(CMAKE), '--build', str(ROOT/'build'), '--config', 'Debug'], stdout=log, stderr=subprocess.STDOUT, check=True)
-        if any(digest(ROOT/p) != value for p, value in hashes_before.items()):
+        # Game.cpp lo modifica la propia sonda: si el banco lo vigila, se exige que siga siendo exactamente lo que la sonda escribió.
+        probe_game_cpp = hashlib.sha256(content.encode('utf-8')).hexdigest()
+        expected_after = {p: (probe_game_cpp if (ROOT/p).resolve() == GAME_CPP.resolve() else value) for p, value in hashes_before.items()}
+        if any(digest(ROOT/p) != value for p, value in expected_after.items()):
             raise RuntimeError('Cambió una fuente probada durante la compilación; repetir la sonda.')
         if any(digest(here/name) != value for name, value in instrument_before.items()):
             raise RuntimeError('Cambió el banco durante la compilación; repetir la sonda.')

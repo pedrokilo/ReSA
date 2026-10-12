@@ -55,7 +55,7 @@ inline std::string RegisterStubs(){
     AddStub(G_RWOBJ,0x7F0990,0,FnPtr(&S_FrameGetLTM)); AddStub(G_RWOBJ,0x7F2A50,0,FnPtr(&S_MatrixCreate)); AddStub(G_RWOBJ,0x7F2A20,0,FnPtr(&S_MatrixDestroy));
     AddStub(G_RWOBJ,0x7F25A0,0,FnPtr(&S_MatrixTransform)); AddStub(G_RWOBJ,0x7F1FD0,0,FnPtr(&S_MatrixRotate)); AddStub(G_RWOBJ,0x7EDD90,0,FnPtr(&S_V3dTransformPoints));
     AddStub(G_RWOBJ,0x74A4C0,0,FnPtr(&S_ClumpRemoveAtomic)); AddStub(G_RWOBJ,0x74A490,0,FnPtr(&S_ClumpAddAtomic)); AddStub(G_RWOBJ,0x749E60,0,FnPtr(&S_AtomicClone));
-    AddStub(G_RWOBJ,0x749DC0,0,FnPtr(&S_AtomicDestroy)); AddStub(G_RWOBJ,0x74BF20,0,FnPtr(&S_AtomicSetFrame)); AddStub(G_RWOBJ,0x59C3E0,0,FnPtr(&S_QuatSet));
+    AddStub(G_RWOBJ,0x749DC0,0,FnPtr(&S_AtomicDestroy)); AddStub(G_RWOBJ,0x74BF20,0,FnPtr(&S_AtomicSetFrame)); AddStub(G_RWOBJ,0x59C3E0,bit_cast<uintptr_t>(static_cast<void(CQuaternion::*)(const RwMatrix&)>(&CQuaternion::Set)),FnPtr(&S_QuatSet));
     // materiales / MatFX
     AddStub(G_MATFX,0x812140,0,FnPtr(&S_MatFXGetEffects)); AddStub(G_MATFX,0x811C80,0,FnPtr(&S_MatFXSetEffects)); AddStub(G_MATFX,0x8125B0,0,FnPtr(&S_MatFXSetEnvMapFrame));
     AddStub(G_MATFX,0x812680,0,FnPtr(&S_MatFXSetEnvMapCoeff)); AddStub(G_MATFX,0x74DBC0,0,FnPtr(&S_MaterialSetTexture)); AddStub(G_MATFX,0x74E350,0,FnPtr(&S_MatListAppend));
@@ -64,10 +64,11 @@ inline std::string RegisterStubs(){
     AddStub(G_TEX,0x7F39F0,0,FnPtr(&S_TexDictFind)); AddStub(G_TEX,0x7F3A90,0,FnPtr(&S_TexDictGetCurrent)); AddStub(G_TEX,0x7F34F0,0,FnPtr(&S_TexGetFindCB));
     AddStub(G_TEX,0x7F34D0,0,FnPtr(&S_TexSetFindCB)); AddStub(G_TEX,0x7F3820,0,FnPtr(&S_TexDestroy)); AddStub(G_TEX,0x7F3AC0,0,FnPtr(&S_TexRead));
     // memoria, azar, scratchpad, reloj
+    // CQuaternion::Set y CMemoryMgr::InitScratchPad: el candidato es C++ y llama a las funciones de la DLL; se interceptan también esos puntos de entrada.
     AddStub(G_RNG,0x821B1E,bit_cast<uintptr_t>(&CGeneral::GetRandomNumber),FnPtr(&S_RandExe));
     stubs.back().fn=FnPtr(&S_RandExe);
     AddStub(G_NEW,0x82119A,0,FnPtr(&S_New)); AddStub(G_NEW,0x821195,0,FnPtr(&S_New)); AddStub(G_NEW,0x8214BD,0,FnPtr(&S_Delete)); AddStub(G_NEW,0x8213AE,0,FnPtr(&S_Delete));
-    AddStub(G_NEW,0x72F420,0,FnPtr(&S_Malloc72)); AddStub(G_SCRATCH,0x72F480,0,FnPtr(&S_InitScratch));
+    AddStub(G_NEW,0x72F420,0,FnPtr(&S_Malloc72)); AddStub(G_SCRATCH,0x72F480,bit_cast<uintptr_t>(&CMemoryMgr::InitScratchPad),FnPtr(&S_InitScratch));
     // visibilidad y clump base
     chk(hk(G_VIS,0x7328A0,"CVisibilityPlugins","SetAtomicRenderCallback",FnPtr(&S_SetAtomicRenderCB)));
     chk(hk(G_VIS,0x732350,"CVisibilityPlugins","ClearClumpForAllAtomicsFlag",FnPtr(&S_ClearClumpFlag)));

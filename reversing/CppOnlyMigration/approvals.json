@@ -913,7 +913,15 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppTenFilesStudy/README.md",
-    "scope": "sin(i · paso) con fild + fmul + fsin y un solo redondeo, helper TrigIntSinMulCpp. El banco Game22 que también lo cubre no se puede compilar (ver README del estudio). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+    "scope": "sin(i · paso) con fild + fmul + fsin y un solo redondeo, helper TrigIntSinMulCpp. El banco Game22 que también lo cubre no se puede compilar (ver README del estudio). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "Game22",
+        "run": "20261012-005053-648050",
+        "pairs": 5824,
+        "summary": "reversing/CppTenFilesUnified/runs/Game22-20261012-005053-648050/summary.json"
+      }
+    ]
   },
   "0x004C88B0": {
     "identity": "CVehicleModelInfo::SetEnvMapCoeffCB",
@@ -922,17 +930,19 @@
     "shared_source": "source/game_sa/X87Math.cpp",
     "bank": "VehModelInfoFinal4",
     "run": "20261012-002452-885305",
-    "pairs": 256,
-    "own_pairs": 256,
+    "pairs": 16384,
+    "own_pairs": 16384,
     "audit": "reversing/CppTenFilesUnified/runs\\VehModelInfoFinal4-20261012-002452-885305/summary.json",
     "differences": 0,
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppTenFilesStudy/README.md",
     "scope": "fild con corrección de 2^32 y fmul 0.001f; reutiliza UnsignedMillisToSecondsCpp. En el banco, SetEnvMapCoeffCB (256 pares), SetEnvMapCoeff (256) y SetEnvMapCoeffAtomicCB (64) son iguales. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
-    "bank_failure_preexisting": {
-      "functions": "CVehicleModelInfo::PreprocessHierarchy 153/512; CVehicleModelInfo::ReduceMaterialsInVehicle 256/256",
-      "baseline": "reversing/CppTenFilesBaseline/runs/VehModelInfoFinal4-20261012-004053-946909/RESULTADO.txt"
+    "bank_run_after_instrumentation_fix": {
+      "run": "VehModelInfoFinal4-20261012-005514-284244",
+      "pairs": 16384,
+      "summary": "reversing/CppBankFixes/runs/VehModelInfoFinal4-20261012-005514-284244/summary.json",
+      "note": "banco completo sin diferencias tras interceptar también los puntos de entrada de la DLL (sin retirar compuertas)"
     }
   },
   "0x004B3210": {
@@ -974,17 +984,19 @@
     "shared_source": "source/game_sa/X87Math.cpp",
     "bank": "Plant19",
     "run": "20261012-003030-928231",
-    "pairs": 1024,
-    "own_pairs": 1024,
+    "pairs": 10688,
+    "own_pairs": 10688,
     "audit": "reversing/CppTenFilesUnified/runs\\Plant19-20261012-003030-928231/summary.json",
     "differences": 0,
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppTenFilesStudy/README.md",
     "scope": "fsin por 0.008/0.005 con TrigSimpleSinMulCpp. CalculateWindBending: 1024 pares iguales. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
-    "bank_failure_preexisting": {
-      "functions": "CPlantMgr::Render 429/512",
-      "baseline": "reversing/CppTenFilesBaseline/runs/Plant19-20261012-004423-666757/RESULTADO.txt"
+    "bank_run_after_instrumentation_fix": {
+      "run": "Plant19-20261012-005302-527936",
+      "pairs": 10688,
+      "summary": "reversing/CppBankFixes/runs/Plant19-20261012-005302-527936/summary.json",
+      "note": "banco completo sin diferencias tras interceptar también los puntos de entrada de la DLL (sin retirar compuertas)"
     }
   },
   "source:CRenderer:FpatanMinus": {

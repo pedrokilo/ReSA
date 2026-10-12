@@ -43,20 +43,23 @@ Bancos históricos completos con `herramientas/rerun_hist.py`; evidencia en `rev
 | InterestingScan355 | `ScanForNearbyEntities` | 2048 | aprobado |
 | Loading | `CLoadingScreen` | 9328 | aprobado |
 | Small2 | `InitMathsTables` | 32016 | aprobado |
-| VehModelInfoFinal4 | `SetEnvMapCoeffCB` | 256 propios | mis funciones iguales; falla `PreprocessHierarchy` 153/512 y `ReduceMaterialsInVehicle` 256/256, **igual con el árbol anterior** |
+| VehModelInfoFinal4 | `SetEnvMapCoeffCB` | 256 propios (16384 tras corregir el banco) | aprobado tras corregir la instrumentación (ver abajo) |
 | PedDamagePending | `ComputeWillKillPed` | 6144 | aprobado |
 | EnvMap37 | `CCustomCarEnvMapPipeline` | 10880 | aprobado |
-| Plant19 | `CalculateWindBending` | 1024 propios | mis funciones iguales; falla `CPlantMgr::Render` 429/512, **igual con el árbol anterior** |
+| Plant19 | `CalculateWindBending` | 1024 propios (10688 tras corregir el banco) | aprobado tras corregir la instrumentación (ver abajo) |
 | Renderer33 | visibilidad y streaming | 18112 | aprobado |
 | ScriptAngled355 | tres comandos de área angulada | 6144 | aprobado |
 | Sprite2d33 | `OffsetTexCoordForBilinearFiltering` | 11136 | aprobado |
 | DependenciesMathSprite2 | el mismo | 3072 | aprobado |
 | GameLogic27 | `UpdateSkip` (tras cambiar a `Atan2MinusCpp`) | 13888 | aprobado |
 
-## Fallos que no son de este lote
+## Fallos de bancos encontrados y corregidos
 
-- **VehModelInfoFinal4 y Plant19:** línea base con el código de `HEAD` (`git stash` de `source`, reconstrucción y la misma corrida): idénticos recuentos de diferencias en las mismas funciones. Ninguna de esas funciones tiene ensamblador ni se modificó. Sigue pendiente investigarlos aparte.
-- **Game22:** su sonda no se puede compilar. El banco incluye `source/game_sa/Game.cpp` en las fuentes probadas, pero la propia sonda lo modifica durante la compilación, de modo que la comprobación del hash siempre falla («Cambió una fuente probada durante la compilación»). Es un defecto del banco, anterior a este lote; `InitMathsTables` queda cubierta por Small2.
+Tres bancos fallaban en funciones sin ensamblador, con los mismos recuentos antes y después de este lote (línea base con el código de `HEAD`). Los tres eran defectos de instrumentación, no de las funciones: el banco interceptaba a los colaboradores sólo en las direcciones del EXE y el candidato, ya en C++, llama a las funciones de la DLL. No se retiró ni relajó ninguna compuerta; los colaboradores sustituidos no quedan validados por ellos.
+
+- **Plant19** (`CPlantMgr::Render` 429/512): el original llamaba tres veces por triángulo a `CCamera::IsSphereVisible` en 0x420C40 y el candidato a la versión naked de la DLL, que nadie registraba. Ahora el banco parchea también `&CCamera::IsSphereVisible` (versión con matriz). 10688 pares, cero diferencias (`reversing/CppBankFixes/runs/Plant19-20261012-005302-527936`).
+- **VehModelInfoFinal4** (`PreprocessHierarchy` 153/512, `ReduceMaterialsInVehicle` 256/256): el original llamaba a `CMemoryMgr::InitScratchPad` (0x72F480) y a `CQuaternion::Set` (0x59C3E0), cuyos sustitutos del banco tenían dirección de la DLL a 0, así que el candidato ejecutaba las funciones reales sin traza ni efecto marcado. Ahora `AddStub` recibe `&CMemoryMgr::InitScratchPad` y `&CQuaternion::Set`. 16384 pares, cero diferencias (`reversing/CppBankFixes/runs/VehModelInfoFinal4-20261012-005514-284244`).
+- **Game22:** la sonda no compilaba: el banco lista `Game.cpp` entre las fuentes vigiladas, pero la propia sonda lo modifica durante la compilación y la comprobación de hash fallaba siempre. `probe_build.py` exige ahora que `Game.cpp` sea exactamente lo que la sonda escribió (sigue vigilando el resto de las fuentes y el banco). 5824 pares, cero diferencias (`reversing/CppTenFilesUnified/runs/Game22-20261012-005053-648050`); cubre `InitMathsTables` además de Small2.
 
 ## Límites
 
