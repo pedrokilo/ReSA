@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "BouncingPanel.h"
+#include "X87Math.h"
 
 void CBouncingPanel::InjectHooks() {
     RH_ScopedClass(CBouncingPanel);
@@ -65,25 +66,10 @@ CVector Multiply3x3_VM_59C810(const CVector& v, const CMatrix& m) {
     };
 }
 
-// Como el original: pos *= pow(damp, timestep) con el _CIpow del EXE (0x822130); el resultado se usa
-// con la precision completa de ST0 en las tres multiplicaciones
+// Como el original: pos *= pow(damp, timestep); el factor se usa con la precision completa de ST0
+// en las tres multiplicaciones (X87Math.cpp)
 void MultiplyByPow(CVector& pos, float damp, float step) {
-    float* const p = &pos.x;
-    __asm {
-        fld damp
-        fld step
-        mov eax, 0x822130
-        call eax
-        mov edx, p
-        fld st(0)
-        fmul dword ptr [edx]
-        fstp dword ptr [edx]
-        fld st(0)
-        fmul dword ptr [edx+4]
-        fstp dword ptr [edx+4]
-        fmul dword ptr [edx+8]
-        fstp dword ptr [edx+8]
-    }
+    PowScaleVector3Cpp(&pos.x, damp, step);
 }
 } // namespace
 

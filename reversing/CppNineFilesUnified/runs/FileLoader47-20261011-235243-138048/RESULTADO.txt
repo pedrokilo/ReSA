@@ -1,0 +1,3 @@
+FALLO: CFileLoader (lista 34): lectores dat/ide/ipl, colision, RW y LinkLods
+GTA sin progreso: el registro no crece desde hace 240 s (abortado).
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fileloader47\20261011-235243-138048

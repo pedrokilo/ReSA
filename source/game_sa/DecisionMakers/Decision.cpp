@@ -52,19 +52,8 @@ void CDecision::From(const CDecision& rhs) {
 }
 
 static uint8 ProbabilityByte(float value) {
-    int64 result;
-    uint16 savedControl, truncateControl;
-    __asm {
-        fnstcw savedControl
-        mov ax, savedControl
-        or ax, 0C00h
-        mov truncateControl, ax
-        fldcw truncateControl
-        fld value
-        fistp qword ptr result
-        fldcw savedControl
-    }
-    return static_cast<uint8>(result);
+    // Como el original: truncado a 64 bits con signo (fistp con redondeo hacia cero); sólo se guarda el byte bajo.
+    return static_cast<uint8>(static_cast<int64>(value));
 }
 
 // 0x600570

@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include "Checkpoints.h"
 #include "Checkpoint.h"
+#include "X87Math.h"
 
 void CCheckpoints::InjectHooks() {
     RH_ScopedClass(CCheckpoints);
@@ -59,17 +60,10 @@ CCheckpoint* CCheckpoints::FindById(uint32 id) {
 // 0x722970
 void CCheckpoints::SetHeading(uint32 id, float headingDeg) {
     if (auto* cp = FindById(id)) {
-        // Como el original: fcos/fsin del x87 (precisión completa) sobre el ángulo ya redondeado a float.
+        // Como el original: fcos/fsin del x87 (precisión completa, X87Math.cpp) sobre el ángulo ya redondeado a float.
         const float rad = headingDeg * DEG_TO_RAD;
-        float outCos, outSin;
-        __asm {
-            fld   rad
-            fld   st(0)
-            fcos
-            fstp  outCos
-            fsin
-            fstp  outSin
-        }
+        const float outCos = TrigSimpleCosCpp(rad);
+        const float outSin = TrigSimpleSinCpp(rad);
         cp->m_Fwd.x = outCos;
         cp->m_Fwd.y = outSin;
         cp->m_Fwd.Normalise();

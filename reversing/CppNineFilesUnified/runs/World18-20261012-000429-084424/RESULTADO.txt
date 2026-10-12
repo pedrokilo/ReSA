@@ -1,0 +1,3 @@
+APROBADO: Gestor de entradas y salidas (lista de 18)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-world18\20261012-000429-084424

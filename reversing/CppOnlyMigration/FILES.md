@@ -1,10 +1,10 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 12/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Archivos pendientes de convertir a C++
 
-166 archivos: 912 apariciones de ensamblador y 274 declaraciones naked.
+157 archivos: 903 apariciones de ensamblador y 274 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -24,7 +24,6 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Audio/Loaders/AEWaveDecoder.cpp](../../source/game_sa/Audio/Loaders/AEWaveDecoder.cpp) | 2 | 0 |
 | [source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp](../../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp) | 2 | 0 |
 | [source/game_sa/Birds.cpp](../../source/game_sa/Birds.cpp) | 3 | 3 |
-| [source/game_sa/BouncingPanel.cpp](../../source/game_sa/BouncingPanel.cpp) | 1 | 0 |
 | [source/game_sa/BreakObject_c.cpp](../../source/game_sa/BreakObject_c.cpp) | 1 | 1 |
 | [source/game_sa/BulletInfo.cpp](../../source/game_sa/BulletInfo.cpp) | 1 | 1 |
 | [source/game_sa/BulletTraces.cpp](../../source/game_sa/BulletTraces.cpp) | 2 | 0 |
@@ -33,18 +32,14 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/CarAI.cpp](../../source/game_sa/CarAI.cpp) | 3 | 0 |
 | [source/game_sa/CarCtrl.cpp](../../source/game_sa/CarCtrl.cpp) | 1 | 1 |
 | [source/game_sa/CarEnterExit.cpp](../../source/game_sa/CarEnterExit.cpp) | 4 | 1 |
-| [source/game_sa/Checkpoints.cpp](../../source/game_sa/Checkpoints.cpp) | 1 | 0 |
 | [source/game_sa/Clothes.cpp](../../source/game_sa/Clothes.cpp) | 1 | 1 |
 | [source/game_sa/ClothesBuilder.cpp](../../source/game_sa/ClothesBuilder.cpp) | 3 | 0 |
 | [source/game_sa/Clouds.cpp](../../source/game_sa/Clouds.cpp) | 1 | 1 |
 | [source/game_sa/Collision/Collision.cpp](../../source/game_sa/Collision/Collision.cpp) | 1 | 1 |
 | [source/game_sa/Core/Matrix.cpp](../../source/game_sa/Core/Matrix.cpp) | 10 | 10 |
 | [source/game_sa/Core/Quaternion.cpp](../../source/game_sa/Core/Quaternion.cpp) | 2 | 0 |
-| [source/game_sa/Coronas.cpp](../../source/game_sa/Coronas.cpp) | 1 | 0 |
 | [source/game_sa/Cover.cpp](../../source/game_sa/Cover.cpp) | 3 | 0 |
 | [source/game_sa/Curves.cpp](../../source/game_sa/Curves.cpp) | 1 | 1 |
-| [source/game_sa/CutsceneMgr.cpp](../../source/game_sa/CutsceneMgr.cpp) | 1 | 0 |
-| [source/game_sa/DecisionMakers/Decision.cpp](../../source/game_sa/DecisionMakers/Decision.cpp) | 1 | 0 |
 | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp) | 14 | 14 |
 | [source/game_sa/Door.cpp](../../source/game_sa/Door.cpp) | 3 | 0 |
 | [source/game_sa/Entity/Entity.cpp](../../source/game_sa/Entity/Entity.cpp) | 3 | 0 |
@@ -65,12 +60,10 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Entity/Vehicle/Vehicle.cpp](../../source/game_sa/Entity/Vehicle/Vehicle.cpp) | 14 | 6 |
 | [source/game_sa/EntityScanner.cpp](../../source/game_sa/EntityScanner.cpp) | 3 | 0 |
 | [source/game_sa/EntryExit.cpp](../../source/game_sa/EntryExit.cpp) | 4 | 1 |
-| [source/game_sa/EntryExitManager.cpp](../../source/game_sa/EntryExitManager.cpp) | 1 | 0 |
 | [source/game_sa/Events/Event.cpp](../../source/game_sa/Events/Event.cpp) | 2 | 0 |
 | [source/game_sa/Events/EventKnockOffBike.cpp](../../source/game_sa/Events/EventKnockOffBike.cpp) | 6 | 0 |
 | [source/game_sa/Events/EventScriptCommand.cpp](../../source/game_sa/Events/EventScriptCommand.cpp) | 1 | 1 |
 | [source/game_sa/Events/EventSource.cpp](../../source/game_sa/Events/EventSource.cpp) | 4 | 4 |
-| [source/game_sa/FileLoader.cpp](../../source/game_sa/FileLoader.cpp) | 1 | 0 |
 | [source/game_sa/Fire.cpp](../../source/game_sa/Fire.cpp) | 2 | 0 |
 | [source/game_sa/FireManager.cpp](../../source/game_sa/FireManager.cpp) | 3 | 0 |
 | [source/game_sa/Font.cpp](../../source/game_sa/Font.cpp) | 2 | 2 |
@@ -78,8 +71,6 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Fx/Fx.cpp](../../source/game_sa/Fx/Fx.cpp) | 1 | 1 |
 | [source/game_sa/Fx/FxFrustumInfo.cpp](../../source/game_sa/Fx/FxFrustumInfo.cpp) | 1 | 1 |
 | [source/game_sa/Fx/FxManager.cpp](../../source/game_sa/Fx/FxManager.cpp) | 1 | 1 |
-| [source/game_sa/GameLogic.cpp](../../source/game_sa/GameLogic.cpp) | 1 | 0 |
-| [source/game_sa/Gamma.cpp](../../source/game_sa/Gamma.cpp) | 1 | 0 |
 | [source/game_sa/GangWars.cpp](../../source/game_sa/GangWars.cpp) | 5 | 0 |
 | [source/game_sa/Garage.cpp](../../source/game_sa/Garage.cpp) | 15 | 9 |
 | [source/game_sa/Garages.cpp](../../source/game_sa/Garages.cpp) | 1 | 1 |

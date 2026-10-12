@@ -37,6 +37,7 @@ END GENERATED HOOK STATUS */
 #include "LoadingScreen.h"
 #include "Garages.h"
 #include "Glass.h"
+#include "X87Math.h"
 
 #define CHECK_ARG_COUNT(_l, _expected, _n) \
     do { \
@@ -1061,16 +1062,9 @@ void CFileLoader::Load2dEffect(const char* line) {
     CTxdStore::PopCurrentTxd();
 }
 
-// Como el original: acos del CRT del EXE (_CIacos, 0x822380: x87 con la precision del EXE) sobre el float
+// Como el original: acos del CRT del EXE (_CIacos, 0x822380) sobre el float (X87Math.cpp)
 static float ExeCIacos(float x) {
-    float result;
-    __asm {
-        fld   x
-        mov   eax, 0x822380
-        call  eax
-        fstp  result
-    }
-    return result;
+    return ExeAcosCpp(x);
 }
 
 // 0x538090

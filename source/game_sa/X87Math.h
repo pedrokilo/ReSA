@@ -47,3 +47,15 @@ float __cdecl AudioLog10Cpp(float p);
 // Cuadrado de la magnitud de un vector sumado como el EXE (CVector::SquaredMagnitude, 0x406DA0): (z·z + y·y) + x·x sin
 // redondear, comparado con "mayor que" (con NaN da false). Los punteros apuntan a x, y, z consecutivos.
 bool __cdecl VectorSquaredMagnitudeAboveCpp(const float* vector, float limit);
+
+// Lote de nueve archivos (11/10/2026).
+// v *= pow(damp, step) con la precisión completa de ST0 en las tres multiplicaciones (CBouncingPanel::ProcessPanel, 0x6F49A0).
+void __cdecl PowScaleVector3Cpp(float* vector, float damp, float step);
+// (tiempo sin signo) · 0.001 con fild + corrección de 2^32 y fmul, guardado como float (CCutsceneMgr::FinishCutscene, 0x5B04D0).
+float __cdecl UnsignedMillisToSecondsCpp(unsigned int millis);
+// atan2(-forwardX, forwardY) - pi/2 con el fpatan sin redondear (CGameLogic, GetHeading 0x441DB0 menos pi/2).
+float __cdecl HeadingMinusHalfPiCpp(float forwardX, float forwardY, float halfPi);
+// double · 65535.0 redondeado por la x87 y guardado como float (CGamma::SetGamma, 0x747200).
+float __cdecl GammaScaleCpp(double value);
+// acos del CRT del EXE (_CIacos, 0x822380): palabra de control (anterior & 0x300) | 0x7F, fpatan(sqrt((1 + x)(1 - x)), x).
+float __cdecl ExeAcosCpp(float x);

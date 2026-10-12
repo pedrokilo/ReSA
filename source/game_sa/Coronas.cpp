@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include <reversiblebugfixes/Bugs.hpp>
 #include "Coronas.h"
+#include "X87Math.h"
 
 constexpr std::array<const char[26], eCoronaType::CORONATYPE_COUNT> aCoronaSpriteNames = {
     "coronastar",
@@ -188,14 +189,7 @@ CVector CoronaWorldPosition(const CRegisteredCorona& c, bool checkBikeLean) {
 
 // Como el original: fsin a precision completa y el x10 redondeado en la FPU (0x6FBF5C/0x6FBFBC)
 float SinTimesTenX87(float angle) {
-    float result;
-    __asm {
-        fld    angle
-        fsin
-        fmul   s_CoronaTen
-        fstp   result
-    }
-    return result;
+    return TrigSimpleSinMulCpp(angle, s_CoronaTen);
 }
 
 // Como el original: escritura directa en TempBufferVertices (RwIm3DVertex: posicion, normal sin tocar, color, u, v)

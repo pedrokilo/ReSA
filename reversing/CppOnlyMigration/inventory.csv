@@ -50,7 +50,6 @@ source/game_sa/Birds.cpp,121,naked,pending_cpp_conversion
 source/game_sa/Birds.cpp,122,inline_assembly,pending_cpp_conversion
 source/game_sa/Birds.cpp,133,naked,pending_cpp_conversion
 source/game_sa/Birds.cpp,134,inline_assembly,pending_cpp_conversion
-source/game_sa/BouncingPanel.cpp,72,inline_assembly,pending_cpp_conversion
 source/game_sa/BreakObject_c.cpp,371,naked,pending_cpp_conversion
 source/game_sa/BreakObject_c.cpp,372,inline_assembly,pending_cpp_conversion
 source/game_sa/BulletInfo.cpp,78,naked,pending_cpp_conversion
@@ -222,7 +221,6 @@ source/game_sa/cHandlingDataMgr.cpp,457,inline_assembly,pending_cpp_conversion
 source/game_sa/cHandlingDataMgr.cpp,468,inline_assembly,pending_cpp_conversion
 source/game_sa/cHandlingDataMgr.cpp,482,naked,pending_cpp_conversion
 source/game_sa/cHandlingDataMgr.cpp,483,inline_assembly,pending_cpp_conversion
-source/game_sa/Checkpoints.cpp,65,inline_assembly,pending_cpp_conversion
 source/game_sa/Clothes.cpp,40,naked,pending_cpp_conversion
 source/game_sa/Clothes.cpp,41,inline_assembly,pending_cpp_conversion
 source/game_sa/ClothesBuilder.cpp,248,inline_assembly,pending_cpp_conversion
@@ -256,14 +254,11 @@ source/game_sa/Core/Matrix.cpp,948,naked,pending_cpp_conversion
 source/game_sa/Core/Matrix.cpp,950,inline_assembly,pending_cpp_conversion
 source/game_sa/Core/Quaternion.cpp,69,inline_assembly,pending_cpp_conversion
 source/game_sa/Core/Quaternion.cpp,194,inline_assembly,pending_cpp_conversion
-source/game_sa/Coronas.cpp,192,inline_assembly,pending_cpp_conversion
 source/game_sa/Cover.cpp,116,inline_assembly,pending_cpp_conversion
 source/game_sa/Cover.cpp,725,inline_assembly,pending_cpp_conversion
 source/game_sa/Cover.cpp,751,inline_assembly,pending_cpp_conversion
 source/game_sa/Curves.cpp,140,naked,pending_cpp_conversion
 source/game_sa/Curves.cpp,141,inline_assembly,pending_cpp_conversion
-source/game_sa/CutsceneMgr.cpp,318,inline_assembly,pending_cpp_conversion
-source/game_sa/DecisionMakers/Decision.cpp,57,inline_assembly,pending_cpp_conversion
 source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,17,naked,pending_cpp_conversion
 source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,18,inline_assembly,pending_cpp_conversion
 source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,23,naked,pending_cpp_conversion
@@ -485,7 +480,6 @@ source/game_sa/EntryExit.cpp,42,inline_assembly,pending_cpp_conversion
 source/game_sa/EntryExit.cpp,216,inline_assembly,pending_cpp_conversion
 source/game_sa/EntryExit.cpp,227,inline_assembly,pending_cpp_conversion
 source/game_sa/EntryExit.cpp,277,inline_assembly,pending_cpp_conversion
-source/game_sa/EntryExitManager.cpp,334,inline_assembly,pending_cpp_conversion
 source/game_sa/Events/Event.cpp,87,inline_assembly,pending_cpp_conversion
 source/game_sa/Events/Event.cpp,111,inline_assembly,pending_cpp_conversion
 source/game_sa/Events/EventKnockOffBike.cpp,167,inline_assembly,pending_cpp_conversion
@@ -504,7 +498,6 @@ source/game_sa/Events/EventSource.cpp,17,naked,pending_cpp_conversion
 source/game_sa/Events/EventSource.cpp,18,inline_assembly,pending_cpp_conversion
 source/game_sa/Events/EventSource.cpp,23,naked,pending_cpp_conversion
 source/game_sa/Events/EventSource.cpp,24,inline_assembly,pending_cpp_conversion
-source/game_sa/FileLoader.cpp,1067,inline_assembly,pending_cpp_conversion
 source/game_sa/Fire.cpp,96,inline_assembly,pending_cpp_conversion
 source/game_sa/Fire.cpp,492,inline_assembly,pending_cpp_conversion
 source/game_sa/FireManager.cpp,397,inline_assembly,pending_cpp_conversion
@@ -538,8 +531,6 @@ source/game_sa/Fx/FxFrustumInfo.cpp,12,naked,pending_cpp_conversion
 source/game_sa/Fx/FxFrustumInfo.cpp,13,inline_assembly,pending_cpp_conversion
 source/game_sa/Fx/FxManager.cpp,285,naked,pending_cpp_conversion
 source/game_sa/Fx/FxManager.cpp,286,inline_assembly,pending_cpp_conversion
-source/game_sa/GameLogic.cpp,72,inline_assembly,pending_cpp_conversion
-source/game_sa/Gamma.cpp,87,inline_assembly,pending_cpp_conversion
 source/game_sa/GangWars.cpp,162,inline_assembly,pending_cpp_conversion
 source/game_sa/GangWars.cpp,261,inline_assembly,pending_cpp_conversion
 source/game_sa/GangWars.cpp,274,inline_assembly,pending_cpp_conversion

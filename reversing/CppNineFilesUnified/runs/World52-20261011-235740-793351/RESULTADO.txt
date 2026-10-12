@@ -1,0 +1,3 @@
+APROBADO: Mundo, render y plugins (lista de 52)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-world52\20261011-235740-793351

@@ -1,0 +1,3 @@
+APROBADO: CCutsceneMgr (35 funciones)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cutscene35\20261012-000047-638033

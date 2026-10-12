@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Gamma.h"
+#include "X87Math.h"
 
 void CGamma::InjectHooks() {
     RH_ScopedClass(CGamma);
@@ -80,15 +81,9 @@ void CGamma::SetGamma(float gammaLevel, bool fade) {
 
     // Como el original: pow de la CRT en doble precisión y el producto por 65535.0 redondeado por la x87
     // a 24 bits; la conversión a entero es la truncación de 64 bits de _ftol2.
-    static const double k65535 = 65535.0;
     for (auto i = 0; i < 256; i++) {
         const double p = std::pow((double)((float)(i + 1) * 0.00390625f), (double)power);
-        float scaled;
-        __asm {
-            fld   p
-            fmul  k65535
-            fstp  scaled
-        }
+        const float scaled = GammaScaleCpp(p);
         const auto gamma = (int16)(int64)scaled;
         ms_GammaTable.blue[i] = ms_GammaTable.green[i] = ms_GammaTable.red[i] = gamma;
     }

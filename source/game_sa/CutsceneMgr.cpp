@@ -28,6 +28,7 @@ END GENERATED HOOK STATUS */
 
 #include "Fx.h"
 #include "CutsceneMgr.h"
+#include "X87Math.h"
 #include "TaskSimpleCarSetPedOut.h"
 #include "Rubbish.h"
 #include <TempColModels.h>
@@ -305,26 +306,12 @@ void CCutsceneMgr::DeleteCutsceneData_overlay() {
     CStreaming::ForceLayerToRead(true);
 }
 
-// Constantes del EXE para FinishCutscene (0x858C54 y 0x858CDC)
-static const float s_fFinishTwoPow32 = 4294967296.0f;
-static const float s_fFinishMilli    = std::bit_cast<float>(0x3A83126Fu);
-
 // 0x5B04D0
 void CCutsceneMgr::FinishCutscene() {
     if (dataFileLoaded) {
         // Como el original: fild del tiempo (sin signo) y fmul por 0.001f en la x87
         const uint32 finishTime = TheCamera.GetCutSceneFinishTime();
-        float timer;
-        __asm {
-            fild dword ptr finishTime
-            mov eax, finishTime
-            test eax, eax
-            jge positive
-            fadd dword ptr s_fFinishTwoPow32
-        positive:
-            fmul dword ptr s_fFinishMilli
-            fstp dword ptr timer
-        }
+        const float timer = UnsignedMillisToSecondsCpp(finishTime);
         ms_cutsceneTimerS = timer;
         TheCamera.FinishCutscene();
     }

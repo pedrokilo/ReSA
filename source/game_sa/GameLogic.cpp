@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include "Garages.h"
 #include "PedClothesDesc.h"
 #include "PostEffects.h"
+#include "X87Math.h"
 
 void CGameLogic::InjectHooks() {
     RH_ScopedClass(CGameLogic);
@@ -64,23 +65,12 @@ static constexpr float GAMELOGIC_HALF_PI    = std::bit_cast<float>(0x3FC90FDBu);
 // Como el original: GetHeading (0x441DB0) deja atan2(-forward.x, forward.y) en ST0 sin redondear (fpatan)
 // y el llamador le resta pi/2 en x87 antes de guardarlo como float.
 static float GetHeadingMinusHalfPi(const CPlaceable& placeable) {
-    float halfPi = GAMELOGIC_HALF_PI;
-    float result;
     if (const auto* const matrix = placeable.m_matrix) {
-        float forwardX = matrix->GetForward().x;
-        float forwardY = matrix->GetForward().y;
-        __asm {
-            fld forwardX
-            fchs
-            fld forwardY
-            fpatan
-            fsub halfPi
-            fstp result
-        }
-    } else {
-        result = placeable.m_placement.m_fHeading - halfPi;
+        const float forwardX = matrix->GetForward().x;
+        const float forwardY = matrix->GetForward().y;
+        return HeadingMinusHalfPiCpp(forwardX, forwardY, GAMELOGIC_HALF_PI);
     }
-    return result;
+    return placeable.m_placement.m_fHeading - GAMELOGIC_HALF_PI;
 }
 
 // 0x4418E0

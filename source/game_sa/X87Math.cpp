@@ -6,7 +6,8 @@ extern "C" double __cdecl cos(double);
 extern "C" double __cdecl sqrt(double);
 extern "C" double __cdecl atan2(double, double);
 extern "C" double __cdecl log10(double);
-#pragma intrinsic(sin, cos, sqrt, atan2, log10)
+extern "C" double __cdecl pow(double, double);
+#pragma intrinsic(sin, cos, sqrt, atan2, log10, pow)
 #include <float.h>
 
 // --- Seno y coseno ---
@@ -137,3 +138,34 @@ __declspec(noinline) bool __cdecl VectorSquaredMagnitudeAboveCpp(const float* ve
     return (vector[2] * vector[2] + vector[1] * vector[1]) + vector[0] * vector[0] > limit;
 }
 #pragma float_control(pop)
+
+// --- Lote de nueve archivos ---
+__declspec(noinline) void __cdecl PowScaleVector3Cpp(float* vector, float damp, float step) {
+    const double factor = pow(double(damp), double(step));
+    vector[0] = float(double(vector[0]) * factor);
+    vector[1] = float(double(vector[1]) * factor);
+    vector[2] = float(double(vector[2]) * factor);
+}
+
+__declspec(noinline) float __cdecl UnsignedMillisToSecondsCpp(unsigned int millis) {
+    volatile float seconds = float(double(millis) * 0.001f); // 0x858CDC
+    return seconds;
+}
+
+__declspec(noinline) float __cdecl HeadingMinusHalfPiCpp(float forwardX, float forwardY, float halfPi) {
+    volatile float result = float(atan2(double(-forwardX), double(forwardY)) - double(halfPi));
+    return result;
+}
+
+__declspec(noinline) float __cdecl GammaScaleCpp(double value) {
+    volatile float scaled = float(value * 65535.0);
+    return scaled;
+}
+
+__declspec(noinline) float __cdecl ExeAcosCpp(float x) {
+    const unsigned previousControl = _control87(0, 0);
+    _control87((previousControl & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM);
+    volatile float result = float(atan2(sqrt((1.0f + x) * (1.0f - x)), x));
+    _control87(previousControl, _MCW_PC | _MCW_RC | _MCW_EM);
+    return result;
+}

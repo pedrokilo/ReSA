@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "EntryExitManager.h"
+#include "X87Math.h"
 
 using EntryExitTreeNode = CQuadTreeNode<CEntryExit*>;
 auto& mp_QuadTree       = StaticRef<EntryExitTreeNode*>(0x96A7D0);
@@ -330,15 +331,8 @@ int32 CEntryExitManager::AddOne(
     // Como el original: rectángulo del árbol con CMatrix::SetRotateZ (0x59B0E0) del ángulo EN GRADOS (sin
     // convertir) y MultiplyMatrixWithVector (0x59C890, con su orden de sumas) de (-ancho/2, -alto/2, 0) y
     // (ancho/2, alto/2, 0); después se suma el centro y se ordenan los extremos (NaN cae en la rama `else`).
-    float rotCos, rotSin;
-    __asm {
-        fld   entranceAngle
-        fcos
-        fstp  rotCos
-        fld   entranceAngle
-        fsin
-        fstp  rotSin
-    }
+    const float rotCos = TrigSimpleCosCpp(entranceAngle);
+    const float rotSin = TrigSimpleSinCpp(entranceAngle);
     const float zero     = 0.0f;
     const float corner0X = entranceRangeX * -0.5f;
     const float corner0Y = entranceRangeY * -0.5f;
