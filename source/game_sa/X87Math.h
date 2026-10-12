@@ -87,3 +87,19 @@ float __cdecl DistanceSquaredZXYCpp(const float* a, const float* b);
 void __cdecl PowDecaySpeedCpp(float* speed, float* shift, float step);
 // num / den con fild + fidiv y un solo redondeo a float (CTaskSimpleIKChain).
 float __cdecl IntRatioCpp(int num, int den);
+
+// Lote de dieciséis archivos (12/10/2026), fase A: fragmentos x87 pequeños.
+// acos del CRT del EXE sobre un double (_CIacos, 0x822394): el resultado queda sin redondear (CBreakObject).
+double __cdecl ExeAcosDoubleCpp(double x);
+// asin del CRT del EXE (_CIasin, 0x821E70) por 57.29578f (0x859878), sin redondear (CBulletInfo::Update).
+float __cdecl ExeAsinDegreesCpp(float x);
+// (entero sin signo) + delta con fild, corrección de 2^32 y un solo redondeo (CClouds::Update, 0x71303C).
+float __cdecl UnsignedPlusFloatCpp(int value, float delta);
+// f + entero con signo (fld + fiadd) guardado como float (CWanted::RegisterCrime, 0x561E10).
+float __cdecl FloatPlusIntCpp(float f, int i);
+// n · a · b con fild y dos fmul, un solo redondeo a float (CWeaponInfo::GetTargetHeadRange, 0x743D50).
+float __cdecl IntTimesTwoFloatsCpp(int n, float a, float b);
+// CCurves::CalcCorrectedDist (0x43C880): distancia corregida y t; devuelve el valor sin redondear en ST0.
+float __cdecl CurvesCorrectedDistCpp(float current, float total, float speedVariation, float* outT);
+// Radio de la esfera del frustum de FxManager_c::CalcFrustumInfo (0x4A9165..0x4A91B5).
+float __cdecl FxFrustumRadiusCpp(float dist, float farClip);

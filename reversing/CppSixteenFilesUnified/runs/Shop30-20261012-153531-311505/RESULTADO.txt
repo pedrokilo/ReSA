@@ -1,0 +1,3 @@
+APROBADO: Tiendas (lista de 30)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-shop30\20261012-153531-311505

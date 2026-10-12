@@ -213,7 +213,6 @@ B,source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp,SinPlusX87,165,10,0,
 B,source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp,FighterDirection,845,15,0,x87,0,FootWave4+PlayerFighterPending,CTaskSimplePlayerOnFoot::PlayerControlDucked+CTaskSimplePlayerOnFoot::PlayerControlFighter+CTaskSimplePlayerOnFoot::PlayerControlZelda+CTaskSimplePlayerOnFoot::PlayerControlZeldaWeapon+FighterProject
 B,source/game_sa/Timer.cpp,X87DivByU32,71,15,0,x87,1,Sys13,CTimer::Update
 B,source/game_sa/Timer.cpp,X87U64ToFloat,126,13,0,x87,1,Sys13,CTimer::Update
-B,source/game_sa/VisibilityPlugins.cpp,CVisibilityPlugins::SetupVehicleVariables,1212,27,0,x87,1,VisPluginsFinal4,
 B,source/game_sa/WaterCreature_c.cpp,GetHeadingX87_6E4,39,17,0,x87,1,World52,WaterCreature_c::Init+WaterCreature_c::Update
 B,source/game_sa/WaterCreature_c.cpp,GetForwardX87_6E4,58,17,0,x87,1,World52,WaterCreature_c::Update
 B,source/game_sa/WaterLevel.cpp,WaterNearestDistance,908,13,0,x87,1,WaterNearest355,CWaterLevel::FindNearestWaterAndItsFlow
@@ -223,7 +222,6 @@ B,source/game_sa/WeaponEffects.cpp,SinMulX87,31,10,0,x87,1,Ped9,CWeaponEffects::
 B,source/game_sa/WeaponEffects.cpp,CosMulX87,42,10,0,x87,1,Ped9,CWeaponEffects::Render
 B,source/game_sa/WeaponEffects.cpp,MulDoubleAddX87,54,10,0,x87,1,Ped9,CWeaponEffects::Render
 B,source/game_sa/WeaponEffects.cpp,AngleSinCosX87,66,21,0,x87,1,Ped9,CWeaponEffects::Render
-B,source/game_sa/WeaponInfo.cpp,CWeaponInfo::GetTargetHeadRange,486,15,0,x87,1,Data10,
 B,source/game_sa/Weather.cpp,SinMulAddX87,84,11,0,x87,1,Misc61a,CWeather::AddRain
 B,source/game_sa/Weather.cpp,CosMulAddX87,96,11,0,x87,1,Misc61a,CWeather::AddRain
 B,source/game_sa/Weather.cpp,HalfMinusHalfCosX87,109,12,0,x87,1,Misc61a,CWeather::Update
@@ -242,8 +240,6 @@ C,source/game_sa/Audio/Hardware/AEAudioHardware.cpp,ExePowGain,437,20,0,call/jmp
 C,source/game_sa/Birds.cpp,BirdsAtan2,111,8,1,x87,1,CppTrigBirdsRender+CppTrigCompound6Birds+CppTrigCompoundBirds+Misc6,CBirds::CreateNumberOfBirds+CBirds::Update
 C,source/game_sa/Birds.cpp,BirdsAddAtan2,121,10,1,x87,1,CppTrigBirdsRender+CppTrigCompound6Birds+CppTrigCompoundBirds+Misc6,CBirds::Update
 C,source/game_sa/Birds.cpp,BirdsRotate,133,28,1,x87,1,CppTrigBirdsRender+CppTrigCompound6Birds+CppTrigCompoundBirds+Misc6,CBirds::Update
-C,source/game_sa/BreakObject_c.cpp,AcosX87,371,23,1,x87,0,,BreakObject_c::Update
-C,source/game_sa/BulletInfo.cpp,AsinDegreesX87,78,23,1,x87,1,Data23,CBulletInfo::Update
 C,source/game_sa/BulletTraces.cpp,PlayFrontEndSoundForTrace,61,51,0,x87,0,,CBulletTraces::AddTrace
 C,source/game_sa/Cam.cpp,CCam::LookBehind,513,57,0,x87,1,CamLookBehind355,
 C,source/game_sa/Cam.cpp,LookSideOrbit,572,22,0,call/jmp+stack+x87,1,CamLookSide355,CCam::LookRight
@@ -274,7 +270,6 @@ C,source/game_sa/Camera.cpp,CameraProcessTruncateProduct,2278,11,0,call/jmp+x87,
 C,source/game_sa/Camera.cpp,CCamera::CalculateFrustumPlanes,2655,38,0,x87,1,CameraFrustum355,
 C,source/game_sa/Camera.cpp,CCamera::ImproveNearClip,2751,55,0,x87,1,CameraImprove355,
 C,source/game_sa/Camera.cpp,CineyModeRotatedDirection,2849,24,0,call/jmp+stack+x87,1,CameraNewMode355,CCamera::TryToStartNewCamMode
-C,source/game_sa/Clouds.cpp,CloudsRotationSumX87,59,12,1,x87,1,Clouds21+CppCloudsMath3+CppCloudsRegression20,CClouds::Update
 C,source/game_sa/Core/Matrix.cpp,CMatrix::SetRotateXOnly,182,22,1,x87,1,FixCore,
 C,source/game_sa/Core/Matrix.cpp,CMatrix::SetRotateYOnly,207,23,1,x87,1,FixCore,
 C,source/game_sa/Core/Matrix.cpp,CMatrix::SetRotateZOnly,234,22,1,x87,1,FixCore,
@@ -282,7 +277,6 @@ C,source/game_sa/Core/Matrix.cpp,CMatrix::SetRotate,279,70,1,x87,0,,
 C,source/game_sa/Core/Matrix.cpp,CMatrix::RotateX,353,74,1,x87,1,FixCore,
 C,source/game_sa/Core/Matrix.cpp,CMatrix::RotateY,431,72,1,x87,1,FixCore,
 C,source/game_sa/Core/Matrix.cpp,CMatrix::RotateZ,507,74,1,x87,1,FixCore,
-C,source/game_sa/Curves.cpp,CalcCorrectedDistX87,140,37,1,x87,1,CppTrigBirdsRender+CppTrigCompound6Birds+CppTrigCompoundBirds+Misc6,CCurves::CalcCorrectedDist
 C,source/game_sa/Door.cpp,DoorMultiplyByPow,90,12,0,call/jmp+x87,1,AnimAudio6,CDoor::Process
 C,source/game_sa/Entity/Object/Object.cpp,ObjMulByCrtPow,89,18,0,call/jmp+x87,1,Object48,CObject::ProcessControl
 C,source/game_sa/Entity/Object/Object.cpp,ObjTrainCrossingAngle,110,18,0,call/jmp+x87,1,Object48,CObject::ProcessTrainCrossingBehaviour
@@ -336,7 +330,6 @@ C,source/game_sa/Events/Event.cpp,CEvent::GetSoundLevel,59,37,0,x87,0,,
 C,source/game_sa/Formation.cpp,CoverCorner,65,40,0,x87,0,,CFormation::FindCoverPointsBehindBox
 C,source/game_sa/Formation.cpp,CFormation::FindCoverPointsBehindBox,178,40,0,x87,0,,
 C,source/game_sa/Formation.cpp,FormationMeanRadius,411,37,0,x87,1,FormationAssign355,CFormation::DistributeDestinations
-C,source/game_sa/Fx/FxManager.cpp,FxFrustumRadiusX87,285,26,1,x87,1,Fx25,FxManager_c::CalcFrustumInfo
 C,source/game_sa/Garage.cpp,GarageSphere15_4487D0,111,4,1,,0,,
 C,source/game_sa/Garage.cpp,GarageSphere15_535300,115,4,1,,0,,
 C,source/game_sa/Garage.cpp,GarageSphere15_54F1B0,119,4,1,,0,,
@@ -497,11 +490,9 @@ D,source/game_sa/Camera.cpp,CCamera::ProcessFOVLerp,2018,34,0,call/jmp+x87,0,,
 D,source/game_sa/Camera.cpp,CCamera::Find3rdPersonCamTargetVector,2526,58,0,string+x87,1,CameraFinal4,
 D,source/game_sa/Camera.cpp,CCamera::CalculateDerivedValues,2695,54,0,call/jmp+x87,1,CameraDerived355,
 D,source/game_sa/Camera.cpp,CCamera::StartTransition,4292,268,0,call/jmp+stack+system+x87,1,CameraFinal4,
-D,source/game_sa/CarCtrl.cpp,CCarCtrl::FindGhostRoadHeight,391,128,1,call/jmp+stack+x87,1,DependenciesWorld14,
 D,source/game_sa/CarEnterExit.cpp,ComputePassengerIndexFromCarDoor_KeepEdx,35,11,1,call/jmp+stack,0,,
 D,source/game_sa/CarEnterExit.cpp,CCarEnterExit::GetNearestCarDoor,292,181,0,call/jmp+x87,1,CarEnterWave4,
 D,source/game_sa/CarEnterExit.cpp,CCarEnterExit::IsPlayerToQuitCarEnter,663,60,0,call/jmp+stack+x87,1,CarQuit355,
-D,source/game_sa/Clothes.cpp,ClothesGetTextureDependencyKeepRegs,40,12,1,call/jmp+stack,0,,
 D,source/game_sa/Collision/Collision.cpp,CCollision::SphereVsEntity,4198,15,1,call/jmp,1,GeoFinal1,
 D,source/game_sa/Core/Matrix.cpp,CMatrix::Reorthogonalise,597,106,1,x87,0,,
 D,source/game_sa/Core/Matrix.cpp,CMatrix::ConvertToEulerAngles,754,191,1,call/jmp+stack+x87,0,,
@@ -525,7 +516,6 @@ D,source/game_sa/Entity/Object/Object.cpp,ObjDoorAngleDiff,131,50,0,call/jmp+x87
 D,source/game_sa/Entity/Object/Object.cpp,CObject::ProcessSamSiteBehaviour,1071,82,0,call/jmp+stack+x87,1,Object48,
 D,source/game_sa/Entity/Ped/Ped.cpp,CPed::ProcessBuoyancy,2023,173,0,call/jmp+x87,1,CPedB,
 D,source/game_sa/Entity/Ped/Ped.cpp,CPed::PreRenderAfterTest,3211,343,0,x87,1,CPedB,
-D,source/game_sa/Entity/Ped/PedSaveStructure.cpp,CPedSaveStructure::Construct,8,70,1,call/jmp+stack+string,1,DependenciesTaskLeaf3,
 D,source/game_sa/Entity/Ped/PlayerPed.cpp,CPlayerPed::GetButtonSprintResults,743,9,1,call/jmp+stack,1,PlayerPed51,
 D,source/game_sa/Entity/Physical.cpp,CPhysical::ProcessShift,515,118,0,call/jmp+x87,1,Physical56,
 D,source/game_sa/Entity/Physical.cpp,CPhysical::ApplyAirResistance,1559,72,0,call/jmp+x87,1,Physical56,
@@ -574,7 +564,6 @@ D,source/game_sa/Formation.cpp,GatherPoint,221,37,0,call/jmp+x87,1,FormationLook
 D,source/game_sa/Formation.cpp,GatherCarComponent,292,31,0,call/jmp+x87,1,FormationGather355,CFormation::GenerateGatherDestinations_AroundCar
 D,source/game_sa/Formation.cpp,FormationCentroid,355,55,0,call/jmp+x87,1,FormationAssign355,CFormation::DistributeDestinations
 D,source/game_sa/Formation.cpp,CFormation::FindNearestFreeDestination,683,56,1,stack+x87,1,CppFormationNumeric+DependenciesFormationMemory8,
-D,source/game_sa/Fx/Fx.cpp,Fx_c::CreateMatFromVec,239,84,1,call/jmp+stack+x87,1,DependenciesWorldFxFont5,
 D,source/game_sa/Fx/FxFrustumInfo.cpp,FxFrustumInfo_c::IsCollision,12,72,1,stack+x87,1,DependenciesWorldLeaf3,
 D,source/game_sa/Garage.cpp,CGarage::EntityHasASphereWayOutsideGarage,134,75,1,call/jmp+stack+x87,1,DependenciesGarageSphere15,
 D,source/game_sa/Garage.cpp,CGarage::IsEntityTouching3D,221,142,1,call/jmp+stack+x87,1,DependenciesWorld15,
@@ -727,7 +716,6 @@ D,source/game_sa/TheZones.cpp,Zones13Visited,349,4,1,stack,0,,
 D,source/game_sa/TheZones.cpp,Zones13FloatToLong,353,4,1,stack,0,,
 D,source/game_sa/TheZones.cpp,CTheZones::SetCurrentZoneAsUnlocked,358,51,1,call/jmp+stack+x87,1,DependenciesZones13,
 D,source/game_sa/Timer.cpp,CTimer::UpdateVariables,258,82,0,call/jmp+x87,1,Sys13,
-D,source/game_sa/Wanted.cpp,CWanted::ReportCrimeNow,313,105,0,x87,1,Wanted33,
 D,source/game_sa/WaterLevel.cpp,WaterInterpolateWave,191,32,0,call/jmp+x87,1,WaterQuery355,CWaterLevel::AddWaveToResult
 D,source/game_sa/WaterLevel.cpp,CWaterLevel::RenderWakeSegment,384,69,0,string+x87,1,GfxWave2,
 D,source/game_sa/WaterLevel.cpp,CWaterLevel::CalculateWavesOnlyForCoordinate,1094,238,0,call/jmp+x87,1,GfxWave2,

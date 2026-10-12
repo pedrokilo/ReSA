@@ -1,0 +1,3 @@
+FALLO: Decision, pool handle and real task lifecycle
+Funciones con diferencias: CEventScriptCommand::Destructor: 2048/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesdecisionped7\20261012-153124-773259

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "BulletInfo.h"
 
@@ -69,34 +70,6 @@ bool CBulletInfo::IsTimeToBeDestroyed() const noexcept {
         now = (double)(float)(now + 4294967296.0);
     }
     return now > (double)m_nDestroyTime;
-}
-
-// asin del CRT del juego (0x821E70): fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control
-// (anterior & 0x300) | 0x7F (0x828F05), así que fadd/fsub/fmul/fsqrt redondean como el juego; después
-// el llamador multiplica en el FPU por 57.29578f (0x859878 = 0x42652EE0, no es el float más cercano a 180/PI).
-static const float s_RadToDegBullet = std::bit_cast<float>(0x42652EE0u);
-static float __declspec(naked) __cdecl AsinDegreesX87(float x) {
-    __asm {
-        sub    esp, 4
-        fnstcw word ptr [esp]
-        mov    ax, word ptr [esp]
-        and    ax, 300h
-        or     ax, 7Fh
-        mov    word ptr [esp + 2], ax
-        fldcw  word ptr [esp + 2]
-        fld    dword ptr [esp + 8]
-        fld1
-        fadd   st, st(1)
-        fld1
-        fsub   st, st(2)
-        fmulp  st(1), st
-        fsqrt
-        fpatan
-        fldcw  word ptr [esp]
-        fmul   dword ptr [s_RadToDegBullet]
-        add    esp, 4
-        ret
-    }
 }
 
 // 0x736010
@@ -280,7 +253,7 @@ void CBulletInfo::Update() {
                 const auto& n = colPoint.m_vecNormal;
                 const float dirDotColPointNorm = n.x * dir.x + n.z * dir.z + n.y * dir.y;
                 if (dirDotColPointNorm < 0.0f) {
-                    const float angle = AsinDegreesX87(-dirDotColPointNorm);
+                    const float angle = ExeAsinDegreesCpp(-dirDotColPointNorm);
                     AudioEngine.ReportBulletHit(hitEntity, colPoint.m_nSurfaceTypeB, colPoint.m_vecPoint, angle);
                 }
             }

@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "VisibilityPlugins.h"
 
@@ -1227,13 +1228,7 @@ void CVisibilityPlugins::SetupVehicleVariables(RpClump* clump) {
     const float camDy = ms_pCameraPosn->y - framePos->y;
     const float camDz = ms_pCameraPosn->z - framePos->z;
     const float horizontal = std::sqrt(camDy * camDy + camDx * camDx);
-    float angle;
-    __asm {
-        fld dword ptr [camDz]
-        fld dword ptr [horizontal]
-        fpatan
-        fstp dword ptr [angle]
-    }
+    const float angle = TrigAtan2Cpp(camDz, horizontal); // X87Math.cpp
     gAngleWithHorizontal = angle;
 }
 

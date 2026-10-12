@@ -387,134 +387,39 @@ float CCarCtrl::FindSpeedMultiplierWithSpeedFromNodes(int8 arg1) {
     }
 }
 
-static uintptr_t GhostPathNodePositionBody=std::bit_cast<uintptr_t>(&CPathNode::GetPosition);
-__declspec(naked) float CCarCtrl::FindGhostRoadHeight(CVehicle*) {
-    __asm {
-    sub esp,18h
-    push edi
-    mov edi,dword ptr [esp+20h]
-    mov eax,0FFFFh
-    cmp word ptr [edi+00000390h],ax
-    je L0042238F
-    cmp word ptr [edi+00000394h],ax
-    jne L0042239A
-    L0042238F: fld dword ptr ds:[00858B50h]
-    pop edi
-    add esp,18h
-    ret
-    L0042239A: push ebp
-    mov ebp,dword ptr [edi+00000390h]
-    movzx eax,bp
-    mov ecx,dword ptr [eax*4+0096F854h]
-    test ecx,ecx
-    push esi
-    jne L004223BD
-    L004223B0: fld dword ptr ds:[00858B50h]
-    pop esi
-    pop ebp
-    pop edi
-    add esp,18h
-    ret
-    L004223BD: mov esi,dword ptr [edi+00000394h]
-    movzx ecx,si
-    mov eax,dword ptr [ecx*4+0096F854h]
-    test eax,eax
-    mov dword ptr [esp+0Ch],esi
-    je L004223B0
-    mov ecx,ebp
-    shr ecx,10h
-    imul ecx,ecx,1Ch
-    movzx eax,bp
-    push ebx
-    mov ebx,dword ptr [eax*4+0096F854h]
-    lea edx,[esp+1Ch]
-    push edx
-    add ecx,ebx
-    mov dword ptr [esp+30h],ebp
-    call dword ptr [GhostPathNodePositionBody]
-    mov ecx,dword ptr [eax+8]
-    mov dword ptr [esp+18h],ecx
-    mov ecx,esi
-    shr ecx,10h
-    imul ecx,ecx,1Ch
-    mov eax,esi
-    mov dword ptr [esp+2Ch],eax
-    movzx eax,ax
-    lea edx,[esp+1Ch]
-    push edx
-    add ecx,dword ptr [eax*4+0096F854h]
-    call dword ptr [GhostPathNodePositionBody]
-    mov esi,dword ptr [edi+14h]
-    test esi,esi
-    mov ecx,dword ptr [eax+8]
-    mov dword ptr [esp+14h],ecx
-    lea ebx,[esi+30h]
-    jne L00422435
-    lea ebx,[edi+4]
-    L00422435: mov ecx,ebp
-    shr ecx,10h
-    imul ecx,ecx,1Ch
-    movzx eax,bp
-    lea edx,[esp+1Ch]
-    push edx
-    add ecx,dword ptr [eax*4+0096F854h]
-    mov dword ptr [esp+30h],ebp
-    call dword ptr [GhostPathNodePositionBody]
-    test esi,esi
-    fld dword ptr [eax]
-    fsub dword ptr [ebx]
-    fld dword ptr [eax+4]
-    fsub dword ptr [ebx+4]
-    pop ebx
-    fld st(0)
-    fmul st,st(1)
-    fld st(2)
-    fmul st,st(3)
-    faddp st(1),st
-    fsqrt
-    fstp st(2)
-    fstp st(0)
-    fstp dword ptr [esp+28h]
-    je L0042247D
-    add esi,30h
-    jmp L00422480
-    L0042247D: lea esi,[edi+4]
-    L00422480: mov eax,dword ptr [esp+0Ch]
-    lea ecx,[esp+18h]
-    push ecx
-    mov ecx,eax
-    shr ecx,10h
-    imul ecx,ecx,1Ch
-    movzx edx,ax
-    mov dword ptr [esp+10h],eax
-    add ecx,dword ptr [edx*4+0096F854h]
-    call dword ptr [GhostPathNodePositionBody]
-    fld dword ptr [eax]
-    fsub dword ptr [esi]
-    fld dword ptr [eax+4]
-    fsub dword ptr [esi+4]
-    pop esi
-    fld st(0)
-    pop ebp
-    fmul st,st(1)
-    pop edi
-    fld st(2)
-    fmul st,st(3)
-    faddp st(1),st
-    fsqrt
-    fstp st(2)
-    fstp st(0)
-    fld dword ptr [esp+1Ch]
-    fmul dword ptr [esp+4]
-    fld st(1)
-    fmul dword ptr [esp+8]
-    faddp st(1),st
-    fxch st(1)
-    fadd dword ptr [esp+1Ch]
-    fdivp st(1),st
-    add esp,18h
-    ret
+// 0x422370: altura del camino de un coche fantasma, interpolada entre el nodo actual y el siguiente con la distancia 2D del coche a
+// cada uno: (distA·zB + distB·zA) / (distB + distA). CPathNode::GetPosition se llama cuatro veces, en el mismo orden que el original
+// (A, B, A, B), por la instanciacion fuera de linea de la DLL.
+float CCarCtrl::FindGhostRoadHeight(CVehicle* vehicle) {
+    static CVector (CPathNode::* volatile const getPosition)() const = &CPathNode::GetPosition;
+    constexpr float noHeight = 0.0f; // 0x858B50
+    const CNodeAddress current = vehicle->m_autoPilot.m_currentAddress;
+    const CNodeAddress next    = vehicle->m_autoPilot.m_startingRouteNode;
+    if (current.m_wAreaId == 0xFFFF || next.m_wAreaId == 0xFFFF) {
+        return noHeight;
     }
+    CPathNode** const areas = ThePaths.m_pPathNodes;
+    if (!areas[current.m_wAreaId]) {
+        return noHeight;
+    }
+    if (!areas[next.m_wAreaId]) {
+        return noHeight;
+    }
+    CPathNode* const nodeA = areas[current.m_wAreaId] + current.m_wNodeId;
+    CPathNode* const nodeB = areas[next.m_wAreaId] + next.m_wNodeId;
+
+    const float zA = (nodeA->*getPosition)().z;
+    const float zB = (nodeB->*getPosition)().z;
+    const CVector& carPos = vehicle->GetPosition();
+    const CVector  posA   = (nodeA->*getPosition)();
+    const float    dxA    = posA.x - carPos.x;
+    const float    dyA    = posA.y - carPos.y;
+    const float    distA  = std::sqrt(dyA * dyA + dxA * dxA);
+    const CVector  posB   = (nodeB->*getPosition)();
+    const float    dxB    = posB.x - carPos.x;
+    const float    dyB    = posB.y - carPos.y;
+    const float    distB  = std::sqrt(dyB * dyB + dxB * dxB);
+    return (distA * zB + distB * zA) / (distB + distA);
 }
 
 // 0x42B270

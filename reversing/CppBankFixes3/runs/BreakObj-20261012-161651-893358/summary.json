@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "87dec2c9cbf834074a0125405e3bd6eeb805eafbf2dac1b159f341b4934f1dcf",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 10752,
+  "pairs_per_function": {
+    "BreakObject_c::CalcGroupCenter": 1024,
+    "BreakObject_c::SetGroupData": 1024,
+    "BreakObject_c::SetBreakInfo": 1024,
+    "BreakObject_c::Exit": 512,
+    "BreakObject_c::DoCollisionResponse": 2048,
+    "BreakObject_c::DoCollision": 1024,
+    "BreakObject_c::Update": 2048,
+    "BreakObject_c::Init": 1024,
+    "BreakObject_c::Render": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "cfb98e7dd9103a0af5f7a88be02ff7d11c15190c1d954aad6e6d0694a582e1e3",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

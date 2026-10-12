@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "BreakObject_c.h"
 #include "Plugins/BreakablePlugin/BreakablePlugin.h"
@@ -366,32 +367,6 @@ void BreakObject_c::DoCollision(BreakGroup_t* group, float timeStep) {
     }
 }
 
-// acos del CRT del juego (0x822394): fpatan(sqrt((1 + x)(1 - x)), x) conservando la precisión del FPU
-// (palabra de control (anterior & 0x300) | 0x7F, como 0x828F05).
-static double __declspec(naked) __cdecl AcosX87(double x) {
-    __asm {
-        sub    esp, 4
-        fnstcw word ptr [esp]
-        mov    ax, word ptr [esp]
-        and    ax, 300h
-        or     ax, 7Fh
-        mov    word ptr [esp + 2], ax
-        fldcw  word ptr [esp + 2]
-        fld    qword ptr [esp + 8]
-        fld1
-        fadd   st, st(1)
-        fld1
-        fsub   st, st(2)
-        fmulp  st(1), st
-        fsqrt
-        fxch   st(1)
-        fpatan
-        fldcw  word ptr [esp]
-        add    esp, 4
-        ret
-    }
-}
-
 // 0x59E220
 void BreakObject_c::Update(float timeStep) {
     if (m_NumBreakGroups <= 0) {
@@ -422,7 +397,7 @@ void BreakObject_c::Update(float timeStep) {
 
                 // acos en doble precisión (CRT del original); el ángulo se guarda como float
                 const float dot = m_VecNormal.x * vecFacing->x + m_VecNormal.y * vecFacing->y + m_VecNormal.z * vecFacing->z;
-                const double angle = AcosX87((double)dot);
+                const double angle = ExeAcosDoubleCpp((double)dot);
                 const float fAngleRad = (float)angle;
                 if (std::fabs(angle) > 0.01f) {
                     RwV3d axis{

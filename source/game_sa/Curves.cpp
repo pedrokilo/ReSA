@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "Curves.h"
 
 void CCurves::InjectHooks() {
@@ -130,55 +131,9 @@ float CCurves::CalcSpeedScaleFactor(
     return totalDist_Time + straightDist2 + straightDist1;
 }
 
-namespace {
-// Constantes del EXE: 1e-5 (0x858C14), 0,5 (0x858B8C), pi (0x858CB8), 2pi (0x858CBC), 1/(2pi) (0x8594F0), 1 y 0
-const float s_CurvesEps = std::bit_cast<float>(0x3727C5ACu), s_CurvesHalf = 0.5f, s_CurvesPi = std::bit_cast<float>(0x40490FDBu),
-            s_CurvesTwoPi = std::bit_cast<float>(0x40C90FDBu), s_CurvesInvTwoPi = std::bit_cast<float>(0x3E22F983u), s_CurvesOne = 1.0f, s_CurvesZero = 0.0f;
-
-// Como el original (0x43C880): transcripción del x87; fcos/fsin con precisión interna completa y el producto
-// del seno redondeado por la FPU.
-__declspec(naked) float __cdecl CalcCorrectedDistX87(float current, float total, float speedVariation, float* outT) {
-    __asm {
-        fld     dword ptr [esp + 8]
-        fcomp   dword ptr [s_CurvesEps]
-        fnstsw  ax
-        test    ah, 5
-        jp      compute
-        mov     eax, dword ptr [esp + 10h]
-        fld     dword ptr [s_CurvesZero]
-        mov     dword ptr [eax], 3F000000h
-        ret
-    compute:
-        fld     dword ptr [esp + 4]
-        mov     ecx, dword ptr [esp + 10h]
-        fdiv    dword ptr [esp + 8]
-        fld     dword ptr [s_CurvesPi]
-        fmul    st, st(1)
-        fcos
-        fmul    dword ptr [s_CurvesHalf]
-        fsubr   dword ptr [s_CurvesHalf]
-        fstp    dword ptr [ecx]
-        fmul    dword ptr [s_CurvesTwoPi]
-        fsin
-        fld     dword ptr [esp + 8]
-        fmul    dword ptr [s_CurvesInvTwoPi]
-        fmulp   st(1), st
-        fmul    dword ptr [esp + 0Ch]
-        fld     dword ptr [esp + 0Ch]
-        fadd    st(0), st
-        fsubr   dword ptr [s_CurvesOne]
-        fadd    dword ptr [s_CurvesOne]
-        fmul    dword ptr [s_CurvesHalf]
-        fmul    dword ptr [esp + 4]
-        faddp   st(1), st
-        ret
-    }
-}
-} // namespace
-
 // 0x43C880
 float CCurves::CalcCorrectedDist(float current, float total, float speedVariation, float* outT) {
-    return CalcCorrectedDistX87(current, total, speedVariation, outT);
+    return CurvesCorrectedDistCpp(current, total, speedVariation, outT); // X87Math.cpp
 }
 
 // 0x43C900

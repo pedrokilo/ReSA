@@ -47,28 +47,6 @@ auto& gpCloudTex = StaticRef<RwTexture*>(0xC6AA78);
 auto& gpCloudMaskTex = StaticRef<RwTexture*>(0xC6AA7C);
 
 namespace {
-// Como el original: constante 2^32 (0x858C54) con la que el x87 corrige la carga con signo de un entero sin signo.
-const float s_CloudsTwo32 = 4294967296.0f;
-
-// Como el original: fsin/fcos del x87 a precisión interna completa; el resultado queda en ST0.
-
-
-// Como el original (0x712FF0): fsin a precisión completa y producto redondeado por la FPU.
-
-// Como el original (0x71303C): fild del dword (corregido a sin signo con +2^32) más el incremento, un único redondeo de la FPU.
-float __declspec(naked) __cdecl CloudsRotationSumX87(int32 value, float delta) {
-    __asm {
-        fld  dword ptr [esp + 8]
-        fild dword ptr [esp + 4]
-        cmp  dword ptr [esp + 4], 0
-        jge  positive
-        fadd dword ptr [s_CloudsTwo32]
-    positive:
-        faddp st(1), st
-        ret
-    }
-}
-
 // Como el original: _ftol2 (0x821B40) trunca a 64 bits y se usa la parte baja.
 int32 CloudsFtol(float value) {
     return static_cast<int32>(static_cast<int64>(value));
@@ -137,7 +115,7 @@ void CClouds::Update() {
     // Como el original: fsin del x87 y la rotación individual se suma como flotante (dword sin signo) y se trunca con _ftol2.
     CloudRotation = TrigSimpleSinMulCpp(TheCamera.m_fOrientation - 0.85f, CWeather::Wind) * 0.001f + CloudRotation;
     const float delta = (CTimer::GetTimeStep() * CWeather::Wind * 0.5f + 0.3f) * 60.0f;
-    IndividualRotation = CloudsFtol(CloudsRotationSumX87(IndividualRotation, delta));
+    IndividualRotation = CloudsFtol(UnsignedPlusFloatCpp(IndividualRotation, delta));
 }
 
 // 0x712FA0

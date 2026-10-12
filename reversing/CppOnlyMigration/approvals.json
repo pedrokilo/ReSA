@@ -1278,5 +1278,255 @@
     "state_restored": true,
     "helper_codegen": "reversing/CppThirteenFilesStudy/README.md",
     "scope": "fild · 0.05f con IntTimesFloatCpp (ya existía). También Ped9 (14720). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00733160": {
+    "identity": "CVisibilityPlugins::SetupVehicleVariables",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/VisibilityPlugins.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "VisPluginsFinal4",
+    "run": "20261012-142352-307690",
+    "pairs": 18176,
+    "own_pairs": 18176,
+    "audit": "reversing/CppSixteenFilesUnified/runs\\VisPluginsFinal4-20261012-142352-307690/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "atan2(altura de la cámara, distancia horizontal) con TrigAtan2Cpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00562120": {
+    "identity": "CWanted::ReportCrimeNow",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Wanted.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Wanted33",
+    "run": "20261012-144921-991608",
+    "pairs": 15616,
+    "own_pairs": 15616,
+    "audit": "reversing/CppSixteenFilesUnified/runs\\Wanted33-20261012-144921-991608/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "f + entero con signo (fld + fiadd) guardado como float, helper FloatPlusIntCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00743D50": {
+    "identity": "CWeaponInfo::GetTargetHeadRange",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/WeaponInfo.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Data10",
+    "run": "20261012-145046-717233",
+    "pairs": 8896,
+    "own_pairs": 8896,
+    "audit": "reversing/CppSixteenFilesUnified/runs\\Data10-20261012-145046-717233/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "fild · alcance · 0.04 con un solo redondeo, helper IntTimesTwoFloatsCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00712FF0": {
+    "identity": "CClouds::Update (suma de rotación)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Clouds.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Clouds21",
+    "run": "20261012-145208-102986",
+    "pairs": 8384,
+    "own_pairs": 8384,
+    "audit": "reversing/CppSixteenFilesUnified/runs\\Clouds21-20261012-145208-102986/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "fild con corrección de 2^32 más el incremento, helper UnsignedPlusFloatCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0059E220": {
+    "identity": "BreakObject_c::Update (acos)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/BreakObject_c.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "BreakObj",
+    "run": "20261012-161651-893358",
+    "pairs": 10752,
+    "own_pairs": 10752,
+    "audit": "reversing/CppBankFixes3/runs\\BreakObj-20261012-161651-893358/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "acos del CRT del EXE sobre un double, helper ExeAcosDoubleCpp (ExeAcosCpp pasa a apoyarse en él). BreakObj fallaba igual con el código anterior por no interceptar FxSystem_c::AddParticle ni Fx_c::AddSparks de la DLL; corregido sin retirar compuertas. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "BreakBatch",
+        "run": "20261012-145354-602358",
+        "pairs": 3232,
+        "summary": "reversing/CppSixteenFilesUnified/runs\\BreakBatch-20261012-145354-602358/summary.json"
+      }
+    ],
+    "bank_instrumentation_fix": {
+      "note": "el banco fallaba igual con el código anterior (reversing/CppSixteenFilesBaseline/runs); corregido interceptando las entradas de la DLL, sin retirar compuertas"
+    }
+  },
+  "0x007360D0": {
+    "identity": "CBulletInfo::Update (asin en grados)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/BulletInfo.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Data23",
+    "run": "20261012-162428-026470",
+    "pairs": 13904,
+    "own_pairs": 13904,
+    "audit": "reversing/CppBankFixes3/runs\\Data23-20261012-162428-026470/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "asin del CRT del EXE por 57.29578f, helper ExeAsinDegreesCpp. Data23 se colgaba igual con el código anterior; se interceptaron además los puntos de entrada de la DLL de CWeapon::CheckForShootingVehicleOccupant, CCamera::IsSphereVisible, CGarage::IsPointInsideGarage y CGarage::EntityHasASphereWayOutsideGarage, sin retirar compuertas. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "bank_instrumentation_fix": {
+      "note": "el banco fallaba igual con el código anterior (reversing/CppSixteenFilesBaseline/runs); corregido interceptando las entradas de la DLL, sin retirar compuertas"
+    }
+  },
+  "0x0043C880": {
+    "identity": "CCurves::CalcCorrectedDist",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Curves.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Misc6",
+    "run": "20261012-150129-265878",
+    "pairs": 19456,
+    "own_pairs": 19456,
+    "audit": "reversing/CppSixteenFilesUnified/runs\\Misc6-20261012-150129-265878/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "distancia corregida con fcos/fsin y aritmética en orden estricto, helper CurvesCorrectedDistCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004A9140": {
+    "identity": "FxManager_c::CalcFrustumInfo (radio)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Fx/FxManager.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Fx25",
+    "run": "20261012-160338-598769",
+    "pairs": 14336,
+    "own_pairs": 14336,
+    "audit": "reversing/CppSixteenFilesUnified2/runs\\Fx25-20261012-160338-598769/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "radio de la esfera del frustum con fpatan y fsin, helper FxFrustumRadiusCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0049E950": {
+    "identity": "Fx_c::CreateMatFromVec",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Fx/Fx.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesWorldFxFont5",
+    "run": "20261012-150759-256804",
+    "pairs": 15360,
+    "own_pairs": 15360,
+    "audit": "reversing/CppSixteenFilesUnified/runs\\DependenciesWorldFxFont5-20261012-150759-256804/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "matriz identidad con la dirección normalizada (RwV3dNormalize y RwMatrixUpdate de RenderWare) y productos cruzados en aritmética float en el mismo orden de escritura; C++ puro. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "Object48",
+        "run": "20261012-161443-462346",
+        "pairs": 18368,
+        "summary": "reversing/CppSixteenFilesUnified2/runs\\Object48-20261012-161443-462346/summary.json"
+      },
+      {
+        "bank": "Cutscene35",
+        "run": "20261012-150623-691049",
+        "pairs": 13184,
+        "summary": "reversing/CppSixteenFilesUnified/runs\\Cutscene35-20261012-150623-691049/summary.json"
+      }
+    ]
+  },
+  "0x00422370": {
+    "identity": "CCarCtrl::FindGhostRoadHeight",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/CarCtrl.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesWorld14",
+    "run": "20261012-151227-057115",
+    "pairs": 2048,
+    "own_pairs": 2048,
+    "audit": "reversing/CppSixteenFilesUnified/runs\\DependenciesWorld14-20261012-151227-057115/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "(distA·zB + distB·zA) / (distB + distA) con cuatro llamadas a CPathNode::GetPosition en el orden A, B, A, B; C++ puro. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "CarCtrl22",
+        "run": "20261012-152647-783767",
+        "pairs": 10304,
+        "summary": "reversing/CppSixteenFilesUnified/runs\\CarCtrl22-20261012-152647-783767/summary.json"
+      },
+      {
+        "bank": "Physical56",
+        "run": "20261012-151325-740825",
+        "pairs": 23808,
+        "summary": "reversing/CppSixteenFilesUnified/runs\\Physical56-20261012-151325-740825/summary.json"
+      }
+    ]
+  },
+  "0x005A7EA0": {
+    "identity": "CClothes::GetTextureDependency",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Clothes.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "ClothesScriptedSprint",
+    "run": "20261012-153404-744419",
+    "pairs": 8448,
+    "own_pairs": 8448,
+    "audit": "reversing/CppSixteenFilesUnified/runs\\ClothesScriptedSprint-20261012-153404-744419/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "conmutador que sólo toca EAX (comprobado en el objeto); el hook es la propia función en vez del envoltorio naked que conservaba ECX y EDX. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "Shop30",
+        "run": "20261012-153531-311505",
+        "pairs": 9024,
+        "summary": "reversing/CppSixteenFilesUnified/runs\\Shop30-20261012-153531-311505/summary.json"
+      }
+    ]
+  },
+  "0x005D43D0": {
+    "identity": "CPedSaveStructure::Construct",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/PedSaveStructure.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesTaskLeaf3",
+    "run": "20261012-160757-692174",
+    "pairs": 4096,
+    "own_pairs": 4096,
+    "audit": "reversing/CppSixteenFilesUnified2/runs\\DependenciesTaskLeaf3-20261012-160757-692174/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppSixteenFilesStudy/README.md",
+    "scope": "copia de los campos del ped con el residuo de EAX/EDX del EXE devuelto como uint64 (EDX:EAX) y ECX = 0 por el rep movsd (archivo de la clase compilado optimizado). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "CPedD",
+        "run": "20261012-161243-677758",
+        "pairs": 8384,
+        "summary": "reversing/CppSixteenFilesUnified2/runs\\CPedD-20261012-161243-677758/summary.json"
+      }
+    ]
   }
 }

@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "00dfc3626ad5284fe806c4dfcd67103fc7e2f5578e3cb599f767724685c69783",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 8896,
+  "pairs_per_function": {
+    "CWeaponInfo::FindWeaponFireType": 256,
+    "CWeaponInfo::FindWeaponType": 256,
+    "CWeaponInfo::GetCrouchReloadAnimationID": 256,
+    "CWeaponInfo::GetSkillStatIndex": 128,
+    "CWeaponInfo::GetTargetHeadRange": 512,
+    "CWeaponInfo::GetWeaponInfo-original": 512,
+    "CWeaponInfo::GetWeaponReloadTime": 512,
+    "CWeaponInfo::Initialise": 32,
+    "CWeaponInfo::LoadWeaponData": 512,
+    "CWeaponInfo::Shutdown": 16,
+    "FxSystemBP_c::Constructor": 64,
+    "FxSystemBP_c::Destructor": 64,
+    "FxSystemBP_c::FreePrtFromSystem": 256,
+    "FxSystemBP_c::GetBoundingSphere": 64,
+    "FxSystemBP_c::Load": 512,
+    "FxSystemBP_c::Render": 256,
+    "FxSystemBP_c::SetBoundingSphere": 256,
+    "FxSystemBP_c::Unload": 16,
+    "FxSystemBP_c::Update": 256,
+    "FxSystemBP_c::operator new": 128,
+    "CTaskComplexBeInGroup::Clone": 128,
+    "CTaskComplexBeInGroup::Constructor": 128,
+    "CTaskComplexBeInGroup::ControlSubTask": 1024,
+    "CTaskComplexBeInGroup::CreateFirstSubTask": 256,
+    "CTaskComplexBeInGroup::CreateNextSubTask": 256,
+    "CTaskComplexBeInGroup::Destructor": 128,
+    "CTaskComplexBeInGroup::GetTaskType": 64,
+    "CTaskComplexBeInGroup::MakeAbortable": 512,
+    "CTaskComplexBeInGroup::MonitorMainGroupTask": 512,
+    "CTaskComplexBeInGroup::MonitorSecondaryGroupTask": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "07f53cdc073a9511fe75476560f7200891bae1d9a5638c085622b0625ad71bdd",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

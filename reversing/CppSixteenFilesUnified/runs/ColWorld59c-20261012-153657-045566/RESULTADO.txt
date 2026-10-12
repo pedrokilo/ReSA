@@ -1,0 +1,3 @@
+FALLO: Colision de mundo y camara (lista de 59)
+Funciones con diferencias: CCollision::SphereCastVsSphere: 486/1024; CCollision::SphereCastVsEntity: 501/1024; CCollision::SphereCastVsCaches: 723/1024; CCollision::CheckCameraCollisionBuildings: 66/512; CCollision::CheckCameraCollisionVehicles: 29/512; CCollision::CheckCameraCollisionObjects: 51/512; CCollision::BuildCacheOfCameraCollision: 189/512; CCollision::CameraConeCastVsWorldCollision: 191/512; CCollision::ProcessLineOfSight: 173/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-colworld59c\20261012-153657-045566

@@ -12,6 +12,8 @@
 #include "BreakObject_c.h"
 #include "Plugins/BreakablePlugin/BreakablePlugin.h"
 #include "PostEffects.h"
+#include "Fx/FxSystem.h"
+#include "Fx/Fx.h"
 #include "../ProbeRuntime.hpp"
 
 namespace BreakObjLive {
@@ -94,6 +96,8 @@ inline void Update() {
     {
         using ReversingProbe::EntryPatch; using std::bit_cast;
         EntryPatch d1(0x7F3820,TexDestroy), d3(0x4AA440,AddParticle), d4(0x49F040,AddSparks);
+        // El candidato es C++ y llama a FxSystem_c::AddParticle y Fx_c::AddSparks de la DLL (no a 0x4AA440/0x49F040): se interceptan tambien.
+        EntryPatch d3d(bit_cast<uintptr_t>(static_cast<void(FxSystem_c::*)(const CVector&,const CVector&,float,const FxPrtMult_c&,float,float,float,bool)>(&FxSystem_c::AddParticle)),AddParticle), d4d(bit_cast<uintptr_t>(&Fx_c::AddSparks),AddSparks);
         EntryPatch d5(0x4A13B0,FRenderBegin), d5d(bit_cast<uintptr_t>(&RenderBegin),FRenderBegin), d6(0x4A1600,FRenderEnd), d6d(bit_cast<uintptr_t>(&RenderEnd),FRenderEnd);
         EntryPatch d7(0x4A1410,FAddTriExe), d7d(bit_cast<uintptr_t>(static_cast<void(*)(CVector,CVector,CVector,RwTexCoords,RwTexCoords,RwTexCoords,const CRGBA&,const CRGBA&,const CRGBA&)>(&RenderAddTri)),FAddTriDll);
         EntryPatch d8(0x7F0990,FrameGetLTM);

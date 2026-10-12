@@ -23,32 +23,15 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
 
 #include "Clothes.h"
 #include "ClothesBuilder.h"
 #include "PedClothesDesc.h"
 
 auto& PlayerClothes = StaticRef<CPedClothesDesc>(0xBC1C78);
-
-static eClothesModelPart __cdecl ClothesGetTextureDependency(eClothesTexturePart texturePart) {
-    return CClothes::GetTextureDependency(texturePart);
-}
-
-// Como el original: 0x5A7EA0 solo toca eax; sus llamadores del EXE (CClothes::Init 0x5A80D0,
-// CPedClothesDesc::SetTextureAndModel 0x5A8050/0x5A8080, 0x5A8626) conservan ecx y edx a través de la llamada.
-static __declspec(naked) void ClothesGetTextureDependencyKeepRegs() {
-    __asm {
-        push ecx
-        push edx
-        push dword ptr [esp+12]
-        call ClothesGetTextureDependency
-        add  esp, 4
-        pop  edx
-        pop  ecx
-        ret
-    }
-}
 
 void CClothes::InjectHooks() {
     RH_ScopedClass(CClothes);
@@ -61,7 +44,7 @@ void CClothes::InjectHooks() {
     RH_ScopedInstall(RebuildPlayerIfNeeded, 0x5A8390);
     RH_ScopedInstall(RebuildPlayer, 0x5A82C0);
     RH_ScopedInstall(RebuildCutscenePlayer, 0x5A8270);
-    RH_ScopedNamedGlobalInstall(ClothesGetTextureDependencyKeepRegs, "GetTextureDependency", 0x5A7EA0); // Envoltorio que conserva ecx y edx
+    RH_ScopedInstall(GetTextureDependency, 0x5A7EA0); // Como el original solo toca eax: los llamadores del EXE conservan ecx y edx
     RH_ScopedInstall(GetDependentTexture, 0x5A7F30);
     RH_ScopedInstall(GetPlayerMotionGroupToLoad, 0x5A7FB0);
     RH_ScopedInstall(GetDefaultPlayerMotionGroup, 0x5A81B0);
@@ -264,6 +247,9 @@ void CClothes::RebuildCutscenePlayer(CPlayerPed* player, int32 modelId) {
 }
 
 // 0x5A7EA0
+// Como el original: solo toca EAX (los llamadores del EXE conservan ECX y EDX: CClothes::Init 0x5A80D0,
+// CPedClothesDesc::SetTextureAndModel 0x5A8050/0x5A8080 y 0x5A8626). Optimizada por pragma para que el objeto lo cumpla.
+#pragma optimize("gt", on)
 eClothesModelPart CClothes::GetTextureDependency(eClothesTexturePart texturePart) {
     switch (texturePart) {
     case CLOTHES_TEXTURE_TORSO:    return CLOTHES_MODEL_TORSO;
@@ -278,6 +264,7 @@ eClothesModelPart CClothes::GetTextureDependency(eClothesTexturePart texturePart
     default:                       return CLOTHES_MODEL_UNAVAILABLE;
     }
 }
+#pragma optimize("", on)
 
 // 0x5A7F30
 eClothesTexturePart CClothes::GetDependentTexture(eClothesModelPart modelPart) {

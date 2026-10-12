@@ -1,0 +1,3 @@
+APROBADO: GeoFinal1 (SphereVsEntity, SetupPlayerPed, CanPedTargetPed, ComputeClosestSurfacePoint-ped, CRealTimeShadowManager)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-geofinal1\20261012-161012-040214

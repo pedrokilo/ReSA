@@ -1,0 +1,3 @@
+FALLO: Gestor de efectos FxManager_c (lista de 25)
+Funciones con diferencias: FxManager_c::CreateFxSystem-1: 497/1024; FxManager_c::CreateFxSystem-2: 195/1024; FxManager_c::CreateFxSystem-3: 483/1024; FxManager_c::CreateFxSystem-4: 193/1024; FxManager_c::ShouldCreate: 557/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fx25\20261012-150259-876312

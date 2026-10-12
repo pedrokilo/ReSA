@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "WeaponInfo.h"
 
@@ -489,14 +490,7 @@ float CWeaponInfo::GetTargetHeadRange() const {
     int32 skillPlus2 = (int32)(m_nSkillLevel.get_underlying() + 2u);
     float rangeValue = m_fWeaponRange;
     float factor = 0.04f;
-    float result;
-    __asm {
-        fild  skillPlus2
-        fmul  rangeValue
-        fmul  factor
-        fstp  result
-    }
-    return result;
+    return IntTimesTwoFloatsCpp(skillPlus2, rangeValue, factor); // X87Math.cpp
 }
 
 // 0x743D70

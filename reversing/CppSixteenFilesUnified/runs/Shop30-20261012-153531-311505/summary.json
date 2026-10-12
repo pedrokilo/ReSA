@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "3f89c50e6d1de8b35ba4b4c0a599100a4caf7126675a9aae1a3e1c91adc74c3c",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 9024,
+  "pairs_per_function": {
+    "CShopping::Buy": 1024,
+    "CShopping::FindItem": 256,
+    "CShopping::FindSection": 512,
+    "CShopping::FindSectionInSection": 256,
+    "CShopping::GetExtraInfo": 256,
+    "CShopping::GetItemIndex": 256,
+    "CShopping::GetKey": 512,
+    "CShopping::GetNameTag": 256,
+    "CShopping::GetNextSection": 512,
+    "CShopping::GetPrice": 512,
+    "CShopping::GetPriceSectionFromName": 256,
+    "CShopping::HasPlayerBought": 256,
+    "CShopping::IncrementStat": 256,
+    "CShopping::IncrementStat2": 512,
+    "CShopping::Init": 128,
+    "CShopping::Load": 128,
+    "CShopping::LoadPrices": 512,
+    "CShopping::LoadShop": 512,
+    "CShopping::LoadStats": 256,
+    "CShopping::RemoveLoadedPrices": 128,
+    "CShopping::RemoveLoadedShop": 128,
+    "CShopping::RestoreClothesState": 128,
+    "CShopping::RestoreVehicleMods": 256,
+    "CShopping::Save": 128,
+    "CShopping::SetCurrentProperty": 64,
+    "CShopping::SetPlayerHasBought": 256,
+    "CShopping::ShutdownForRestart": 128,
+    "CShopping::StoreClothesState": 128,
+    "CShopping::StoreVehicleMods": 256,
+    "CShopping::UpdateStats": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "19864c2dd0447feab62a15ffe654732493ff33c331ef0016cbdc990e857ff26a",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -50,10 +50,6 @@ source/game_sa/Birds.cpp,121,naked,BirdsAddAtan2,121
 source/game_sa/Birds.cpp,122,inline_assembly,BirdsAddAtan2,121
 source/game_sa/Birds.cpp,133,naked,BirdsRotate,133
 source/game_sa/Birds.cpp,134,inline_assembly,BirdsRotate,133
-source/game_sa/BreakObject_c.cpp,371,naked,AcosX87,371
-source/game_sa/BreakObject_c.cpp,372,inline_assembly,AcosX87,371
-source/game_sa/BulletInfo.cpp,78,naked,AsinDegreesX87,78
-source/game_sa/BulletInfo.cpp,79,inline_assembly,AsinDegreesX87,78
 source/game_sa/BulletTraces.cpp,95,inline_assembly,PlayFrontEndSoundForTrace,61
 source/game_sa/BulletTraces.cpp,230,inline_assembly,CBulletTraces::Render,199
 source/game_sa/Cam.cpp,62,inline_assembly,CamExeSin,60
@@ -208,8 +204,6 @@ source/game_sa/Camera.cpp,4401,inline_assembly,CCamera::StartTransition,4292
 source/game_sa/CarAI.cpp,108,inline_assembly,ExeForward,102
 source/game_sa/CarAI.cpp,127,inline_assembly,ExeRight,121
 source/game_sa/CarAI.cpp,148,inline_assembly,HeadOnDot,140
-source/game_sa/CarCtrl.cpp,391,naked,CCarCtrl::FindGhostRoadHeight,391
-source/game_sa/CarCtrl.cpp,392,inline_assembly,CCarCtrl::FindGhostRoadHeight,391
 source/game_sa/CarEnterExit.cpp,35,naked,ComputePassengerIndexFromCarDoor_KeepEdx,35
 source/game_sa/CarEnterExit.cpp,36,inline_assembly,ComputePassengerIndexFromCarDoor_KeepEdx,35
 source/game_sa/CarEnterExit.cpp,320,inline_assembly,CCarEnterExit::GetNearestCarDoor,292
@@ -221,13 +215,9 @@ source/game_sa/cHandlingDataMgr.cpp,457,inline_assembly,TimesOneSixthX87,455
 source/game_sa/cHandlingDataMgr.cpp,468,inline_assembly,SinX87,466
 source/game_sa/cHandlingDataMgr.cpp,482,naked,AsinDegreesHandlingX87,482
 source/game_sa/cHandlingDataMgr.cpp,483,inline_assembly,AsinDegreesHandlingX87,482
-source/game_sa/Clothes.cpp,40,naked,ClothesGetTextureDependencyKeepRegs,40
-source/game_sa/Clothes.cpp,41,inline_assembly,ClothesGetTextureDependencyKeepRegs,40
 source/game_sa/ClothesBuilder.cpp,248,inline_assembly,ClothesBlendPair,246
 source/game_sa/ClothesBuilder.cpp,261,inline_assembly,ClothesBlendTriple,259
 source/game_sa/ClothesBuilder.cpp,277,inline_assembly,ClothesNormalizeWeights,275
-source/game_sa/Clouds.cpp,59,naked,CloudsRotationSumX87,59
-source/game_sa/Clouds.cpp,60,inline_assembly,CloudsRotationSumX87,59
 source/game_sa/Collision/Collision.cpp,4198,naked,CCollision::SphereVsEntity,4198
 source/game_sa/Collision/Collision.cpp,4201,inline_assembly,CCollision::SphereVsEntity,4198
 source/game_sa/common.cpp,63,inline_assembly,TransformPoint,58
@@ -257,8 +247,6 @@ source/game_sa/Core/Quaternion.cpp,194,inline_assembly,CQuaternion::Set,191
 source/game_sa/Cover.cpp,116,inline_assembly,CoverDirDot,112
 source/game_sa/Cover.cpp,725,inline_assembly,CCover::FindDirFromVector_Reversed,720
 source/game_sa/Cover.cpp,751,inline_assembly,CCover::FindVectorFromDir_Reversed,747
-source/game_sa/Curves.cpp,140,naked,CalcCorrectedDistX87,140
-source/game_sa/Curves.cpp,141,inline_assembly,CalcCorrectedDistX87,140
 source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,17,naked,Decision6SetPed,17
 source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,18,inline_assembly,Decision6SetPed,17
 source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,23,naked,Decision6SetGroup,23
@@ -306,8 +294,6 @@ source/game_sa/Entity/Ped/Ped.cpp,2154,inline_assembly,CPed::ProcessBuoyancy,202
 source/game_sa/Entity/Ped/Ped.cpp,2665,inline_assembly,EmitFootRainParticles,2664
 source/game_sa/Entity/Ped/Ped.cpp,2677,inline_assembly,EmitFootDustParticles,2676
 source/game_sa/Entity/Ped/Ped.cpp,3444,inline_assembly,CPed::PreRenderAfterTest,3211
-source/game_sa/Entity/Ped/PedSaveStructure.cpp,8,naked,CPedSaveStructure::Construct,8
-source/game_sa/Entity/Ped/PedSaveStructure.cpp,9,inline_assembly,CPedSaveStructure::Construct,8
 source/game_sa/Entity/Ped/PlayerPed.cpp,729,inline_assembly,GetButtonSprintResultsImpl,722
 source/game_sa/Entity/Ped/PlayerPed.cpp,743,naked,CPlayerPed::GetButtonSprintResults,743
 source/game_sa/Entity/Ped/PlayerPed.cpp,744,inline_assembly,CPlayerPed::GetButtonSprintResults,743
@@ -525,12 +511,8 @@ source/game_sa/Formation.cpp,482,inline_assembly,FormationScalePosition,476
 source/game_sa/Formation.cpp,613,inline_assembly,FormationVehicleIsStationary,610
 source/game_sa/Formation.cpp,683,naked,CFormation::FindNearestFreeDestination,683
 source/game_sa/Formation.cpp,684,inline_assembly,CFormation::FindNearestFreeDestination,683
-source/game_sa/Fx/Fx.cpp,239,naked,Fx_c::CreateMatFromVec,239
-source/game_sa/Fx/Fx.cpp,240,inline_assembly,Fx_c::CreateMatFromVec,239
 source/game_sa/Fx/FxFrustumInfo.cpp,12,naked,FxFrustumInfo_c::IsCollision,12
 source/game_sa/Fx/FxFrustumInfo.cpp,13,inline_assembly,FxFrustumInfo_c::IsCollision,12
-source/game_sa/Fx/FxManager.cpp,285,naked,FxFrustumRadiusX87,285
-source/game_sa/Fx/FxManager.cpp,286,inline_assembly,FxFrustumRadiusX87,285
 source/game_sa/GangWars.cpp,162,inline_assembly,CGangWars::CalculateTimeTillNextAttack,157
 source/game_sa/GangWars.cpp,261,inline_assembly,GangWaveRandomOffset,257
 source/game_sa/GangWars.cpp,274,inline_assembly,GangWaveInteger,271
@@ -1121,8 +1103,6 @@ source/game_sa/Timer.cpp,91,inline_assembly,X87AddU32Ftol,88
 source/game_sa/Timer.cpp,110,inline_assembly,X87MulU32Ftol,107
 source/game_sa/Timer.cpp,130,inline_assembly,X87U64ToFloat,126
 source/game_sa/Timer.cpp,298,inline_assembly,CTimer::UpdateVariables,258
-source/game_sa/VisibilityPlugins.cpp,1231,inline_assembly,CVisibilityPlugins::SetupVehicleVariables,1212
-source/game_sa/Wanted.cpp,401,inline_assembly,CWanted::ReportCrimeNow,313
 source/game_sa/WaterCreature_c.cpp,46,inline_assembly,GetHeadingX87_6E4,39
 source/game_sa/WaterCreature_c.cpp,64,inline_assembly,GetForwardX87_6E4,58
 source/game_sa/WaterLevel.cpp,193,inline_assembly,WaterInterpolateWave,191
@@ -1145,7 +1125,6 @@ source/game_sa/WeaponEffects.cpp,33,inline_assembly,SinMulX87,31
 source/game_sa/WeaponEffects.cpp,44,inline_assembly,CosMulX87,42
 source/game_sa/WeaponEffects.cpp,56,inline_assembly,MulDoubleAddX87,54
 source/game_sa/WeaponEffects.cpp,68,inline_assembly,AngleSinCosX87,66
-source/game_sa/WeaponInfo.cpp,493,inline_assembly,CWeaponInfo::GetTargetHeadRange,486
 source/game_sa/Weather.cpp,86,inline_assembly,SinMulAddX87,84
 source/game_sa/Weather.cpp,98,inline_assembly,CosMulAddX87,96
 source/game_sa/Weather.cpp,112,inline_assembly,HalfMinusHalfCosX87,109

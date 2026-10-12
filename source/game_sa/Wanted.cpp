@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "Wanted.h"
 
@@ -397,12 +398,7 @@ void CWanted::ReportCrimeNow(eCrimeType crimeType, const CVector& posn, bool bPo
     if (addChaos) {
         // Como el original: fiadd del caos (entero con signo) al float y truncado con _ftol2 (64 bits)
         int32 chaosInt = (int32)m_ChaosLevel;
-        float chaosSum;
-        __asm {
-            fld   crimeMult
-            fiadd chaosInt
-            fstp  chaosSum
-        }
+        const float chaosSum = FloatPlusIntCpp(crimeMult, chaosInt); // X87Math.cpp
         m_ChaosLevel = (uint32)(int32)(int64)chaosSum;
     }
 

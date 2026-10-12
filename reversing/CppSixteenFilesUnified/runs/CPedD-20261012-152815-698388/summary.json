@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "574b089903ff54c9c4884977de705557e13d062a8444df8e5051a4e1136a6671",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 8384,
+  "pairs_per_function": {
+    "CPed::Constructor": 512,
+    "CPed::Destructor": 512,
+    "CPed::Initialise": 16,
+    "CPed::Update": 16,
+    "CPed::Save": 128,
+    "CPed::Load": 128,
+    "CPed::FlagToDestroyWhenNextProcessed": 1024,
+    "CPed::CanBeArrested": 256,
+    "CPed::CanBeDeleted": 512,
+    "CPed::CanBeDeletedEvenInVehicle": 256,
+    "CPed::CanPedReturnToState": 256,
+    "CPed::CanSetPedState": 256,
+    "CPed::CanStrafeOrMouseControl": 256,
+    "CPed::IsAlive": 256,
+    "CPed::IsPedInControl": 512,
+    "CPed::IsPedShootable": 256,
+    "CPed::IsPlayer": 128,
+    "CPed::IsPointerValid": 1024,
+    "CPed::SetPedState": 512,
+    "CPed::SetPedStats": 128,
+    "CPed::SetPedDefaultDecisionMaker": 256,
+    "CPed::SetStayInSamePlace": 128,
+    "CPed::SetRadioStation": 512,
+    "CPed::GetBikeRidingSkill": 512,
+    "CPed::UpdateStatEnteringVehicle": 16,
+    "CPed::UpdateStatLeavingVehicle": 16
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "94d93bc1fc618da7565bd5236edb2d39c5ae82b3742e716c75c881f1b1c4d157",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

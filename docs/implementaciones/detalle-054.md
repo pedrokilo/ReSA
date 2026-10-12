@@ -8,18 +8,6 @@
 
 <a id="grupo-1061"></a>
 
-## Globales y helpers: source/game_sa/Coronas.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CoronaMatrixTimesPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Coronas.cpp:168](../../source/game_sa/Coronas.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CoronaWorldPosition(const CRegisteredCorona& c, bool checkBikeLean) | [source/game_sa/Coronas.cpp:178](../../source/game_sa/Coronas.cpp#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SinTimesTenX87(float angle) | [source/game_sa/Coronas.cpp:191](../../source/game_sa/Coronas.cpp#L191) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetSunReflectionVertex(uint32 index, float x, float y, float z, uint32 color, float u, float v) | [source/game_sa/Coronas.cpp:196](../../source/game_sa/Coronas.cpp#L196) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958) |
-| SunReflectionDistanceFactor(CVector point, float radius) | [source/game_sa/Coronas.cpp:207](../../source/game_sa/Coronas.cpp#L207) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:39 (0x00B6F028) |
-
-<a id="grupo-1062"></a>
-
 ## Globales y helpers: source/game_sa/Cover.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -37,7 +25,7 @@
 | CoverNormalise(CVector& v) | [source/game_sa/Cover.cpp:98](../../source/game_sa/Cover.cpp#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CoverDirDot(float deltaX, float deltaY, float deltaZ, int32 dirIndex) | [source/game_sa/Cover.cpp:112](../../source/game_sa/Cover.cpp#L112) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1063"></a>
+<a id="grupo-1062"></a>
 
 ## Globales y helpers: source/game_sa/CullZones.cpp
 
@@ -45,15 +33,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IsPointWithinArbitraryArea(CVector2D p, CVector2D p1, CVector2D p2, CVector2D p3, CVector2D p4) | [source/game_sa/CullZones.cpp:249](../../source/game_sa/CullZones.cpp#L249) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1064"></a>
-
-## Globales y helpers: source/game_sa/Curves.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CalcCorrectedDistX87(float current, float total, float speedVariation, float* outT) | [source/game_sa/Curves.cpp:140](../../source/game_sa/Curves.cpp#L140) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-
-<a id="grupo-1065"></a>
+<a id="grupo-1063"></a>
 
 ## Globales y helpers: source/game_sa/CustomCarPlateMgr.cpp
 
@@ -62,7 +42,7 @@
 | ResolvePlateType(uint8 plateType) | [source/game_sa/CustomCarPlateMgr.cpp:117](../../source/game_sa/CustomCarPlateMgr.cpp#L117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCharacterPositionInCharSet(char c) | [source/game_sa/CustomCarPlateMgr.cpp:130](../../source/game_sa/CustomCarPlateMgr.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1066"></a>
+<a id="grupo-1064"></a>
 
 ## Globales y helpers: source/game_sa/CustomRoadsignMgr.cpp
 
@@ -73,7 +53,7 @@
 | RoadsignGenerateTextRaster(char* roadName, int32 numLetters, RwRaster* charsetRaster, int32 unused, RwRaster* signRaster) | [source/game_sa/CustomRoadsignMgr.cpp:360](../../source/game_sa/CustomRoadsignMgr.cpp#L360) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo pCharsetLockedRaster: source/game_sa/CustomRoadsignMgr.h:12 (0x00C3EF88) |
 | RoadsignGetLineAndRow(char cLetter, int32* line, int32* row) | [source/game_sa/CustomRoadsignMgr.cpp:400](../../source/game_sa/CustomRoadsignMgr.cpp#L400) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1067"></a>
+<a id="grupo-1065"></a>
 
 ## Globales y helpers: source/game_sa/CutsceneMgr.cpp
 
@@ -82,7 +62,7 @@
 | RestorePlayerWeapon(CPed* ped, eWeaponType type, int32 ammo) | [source/game_sa/CutsceneMgr.cpp:165](../../source/game_sa/CutsceneMgr.cpp#L165) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_aInfoForModel: source/game_sa/Streaming.h:247 (0x008E4CC0) |
 | FindCutsceneAudioTrackId(const char* cutsceneName) | [source/game_sa/CutsceneMgr.cpp:1189](../../source/game_sa/CutsceneMgr.cpp#L1189) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1068"></a>
+<a id="grupo-1066"></a>
 
 ## Globales y helpers: source/game_sa/DamageManager.cpp
 
@@ -112,7 +92,7 @@
 | GetCarNodeIndexFromPanel_Hook(uint32 panel) | [source/game_sa/DamageManager.cpp:186](../../source/game_sa/DamageManager.cpp#L186) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCarNodeIndexFromDoor_Hook(uint32 door) | [source/game_sa/DamageManager.cpp:190](../../source/game_sa/DamageManager.cpp#L190) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1069"></a>
+<a id="grupo-1067"></a>
 
 ## Globales y helpers: source/game_sa/Darkel.cpp
 
@@ -120,7 +100,7 @@
 | --- | --- | --- | --- | --- | --- |
 | SetGameLogicStateNow(eGameLogicState state) | [source/game_sa/Darkel.cpp:68](../../source/game_sa/Darkel.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo GameState: source/game_sa/GameLogic.h:64 (0x0096A8B0); Posible dato fijo TimeOfLastEvent: source/game_sa/GameLogic.h:63 (0x0096A8AC) |
 
-<a id="grupo-1070"></a>
+<a id="grupo-1068"></a>
 
 ## Globales y helpers: source/game_sa/DecisionMakers/Decision.cpp
 
@@ -128,7 +108,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ProbabilityByte(float value) | [source/game_sa/DecisionMakers/Decision.cpp:54](../../source/game_sa/DecisionMakers/Decision.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1071"></a>
+<a id="grupo-1069"></a>
 
 ## Globales y helpers: source/game_sa/DecisionMakers/DecisionMakerTypes.cpp
 
@@ -143,7 +123,7 @@
 | Decision7One() | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:166](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L166) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x006040D0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | Decision7Many() | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:172](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L172) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00606060; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1072"></a>
+<a id="grupo-1070"></a>
 
 ## Globales y helpers: source/game_sa/Door.cpp
 
@@ -154,7 +134,7 @@
 | DoorMultiply3x3_VM(const CVector& v, const CMatrix& m) | [source/game_sa/Door.cpp:81](../../source/game_sa/Door.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DoorMultiplyByPow(float& angVel, float rate, float step) | [source/game_sa/Door.cpp:90](../../source/game_sa/Door.cpp#L90) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1073"></a>
+<a id="grupo-1071"></a>
 
 ## Globales y helpers: source/game_sa/Draw.cpp
 
@@ -162,7 +142,7 @@
 | --- | --- | --- | --- | --- | --- |
 | DoFade() | [source/game_sa/Draw.cpp:53](../../source/game_sa/Draw.cpp#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FadeBlue: source/game_sa/Draw.h:22 (0x00C3EFAA); Posible dato fijo FadeGreen: source/game_sa/Draw.h:21 (0x00C3EFA9); Posible dato fijo FadeOutTime: source/game_sa/Draw.cpp:24 (0x008D2BD4); Posible dato fijo FadeRed: source/game_sa/Draw.h:20 (0x00C3EFA8); Posible dato fijo FadeTimer: source/game_sa/Draw.cpp:23 (0x00C16EE0); Posible dato fijo FadeValue: source/game_sa/Draw.h:23 (0x00C3EFAB); Posible dato fijo JustLoadedDontFadeInYet: source/game_sa/Draw.h:9 (0x00C16EDC); Posible dato fijo StillToFadeOut: source/game_sa/Draw.h:10 (0x00C16EDD); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:39 (0x00B6F028) |
 
-<a id="grupo-1074"></a>
+<a id="grupo-1072"></a>
 
 ## Globales y helpers: source/game_sa/Entity/AnimatedBuilding.h
 
@@ -170,7 +150,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAnimatedBuilding | [source/game_sa/Entity/AnimatedBuilding.h:14](../../source/game_sa/Entity/AnimatedBuilding.h#L14) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1075"></a>
+<a id="grupo-1073"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Building.cpp
 
@@ -178,7 +158,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IsBuildingPointerValid(CBuilding* building) | [source/game_sa/Entity/Building.cpp:67](../../source/game_sa/Entity/Building.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1076"></a>
+<a id="grupo-1074"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Building.h
 
@@ -186,7 +166,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CBuilding | [source/game_sa/Entity/Building.h:17](../../source/game_sa/Entity/Building.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1077"></a>
+<a id="grupo-1075"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Dummy/Dummy.h
 
@@ -194,7 +174,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CEntity | [source/game_sa/Entity/Dummy/Dummy.h:17](../../source/game_sa/Entity/Dummy/Dummy.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1078"></a>
+<a id="grupo-1076"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Dummy/DummyObject.h
 
@@ -202,7 +182,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CDummyObject | [source/game_sa/Entity/Dummy/DummyObject.h:17](../../source/game_sa/Entity/Dummy/DummyObject.h#L17) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1079"></a>
+<a id="grupo-1077"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Entity.cpp
 
@@ -218,7 +198,7 @@
 | EntityGroupB_MultiplyPoint59C890(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Entity.cpp:1041](../../source/game_sa/Entity/Entity.cpp#L1041) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | EntityGroupC_HeadingDegreesPlus(const CMatrix* mat, float placementHeading, float baseAngle) | [source/game_sa/Entity/Entity.cpp:1124](../../source/game_sa/Entity/Entity.cpp#L1124) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 2 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1080"></a>
+<a id="grupo-1078"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Entity.h
 
@@ -324,3 +304,19 @@
 | AsDummy() | [source/game_sa/Entity/Entity.h:413](../../source/game_sa/Entity/Entity.h#L413) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Entity/Entity.h:423](../../source/game_sa/Entity/Entity.h#L423) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Entity/Entity.h:428](../../source/game_sa/Entity/Entity.h#L428) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1079"></a>
+
+## Globales y helpers: source/game_sa/Entity/Object/CutsceneObject.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CCutsceneObject | [source/game_sa/Entity/Object/CutsceneObject.h:13](../../source/game_sa/Entity/Object/CutsceneObject.h#L13) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1080"></a>
+
+## Globales y helpers: source/game_sa/Entity/Object/HandObject.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CHandObject | [source/game_sa/Entity/Object/HandObject.h:17](../../source/game_sa/Entity/Object/HandObject.h#L17) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0); Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |

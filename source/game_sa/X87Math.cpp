@@ -10,6 +10,7 @@ extern "C" double __cdecl pow(double, double);
 #pragma intrinsic(sin, cos, sqrt, atan2, log10, pow)
 #include <float.h>
 #include <string.h>
+#include <bit>
 
 // --- Seno y coseno ---
 // Acceptance requires native x87 opcodes without any intervening store or CRT call.
@@ -186,11 +187,16 @@ __declspec(noinline) float __cdecl GammaScaleCpp(double value) {
     return scaled;
 }
 
-__declspec(noinline) float __cdecl ExeAcosCpp(float x) {
+__declspec(noinline) double __cdecl ExeAcosDoubleCpp(double x) {
     const unsigned previousControl = _control87(0, 0);
     _control87((previousControl & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM);
-    volatile float result = float(atan2(sqrt((1.0f + x) * (1.0f - x)), x));
+    volatile double result = atan2(sqrt((1.0 + x) * (1.0 - x)), x);
     _control87(previousControl, _MCW_PC | _MCW_RC | _MCW_EM);
+    return result;
+}
+
+__declspec(noinline) float __cdecl ExeAcosCpp(float x) {
+    volatile float result = float(ExeAcosDoubleCpp(double(x)));
     return result;
 }
 
@@ -279,3 +285,65 @@ __declspec(noinline) float __cdecl IntRatioCpp(int num, int den) {
     volatile float result = float(double(num) / double(den));
     return result;
 }
+
+// --- Lote de dieciséis archivos, fase A ---
+static constexpr float kF_3727C5AC = std::bit_cast<float>(0x3727C5ACu);
+static constexpr float kF_3C8EFA2E = std::bit_cast<float>(0x3C8EFA2Eu);
+static constexpr float kF_3E22F983 = std::bit_cast<float>(0x3E22F983u);
+static constexpr float kF_40490FDB = std::bit_cast<float>(0x40490FDBu);
+static constexpr float kF_40C90FDB = std::bit_cast<float>(0x40C90FDBu);
+static constexpr float kF_42652EE0 = std::bit_cast<float>(0x42652EE0u);
+static constexpr float kF_42652EED = std::bit_cast<float>(0x42652EEDu);
+
+__declspec(noinline) float __cdecl ExeAsinDegreesCpp(float x) {
+    const unsigned previousControl = _control87(0, 0);
+    _control87((previousControl & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM);
+    volatile double angle = atan2(double(x), sqrt((1.0 + x) * (1.0 - x)));
+    _control87(previousControl, _MCW_PC | _MCW_RC | _MCW_EM);
+    return float(angle * kF_42652EE0); // 57.29578f (0x859878)
+}
+
+__declspec(noinline) float __cdecl UnsignedPlusFloatCpp(int value, float delta) {
+    return float(double(static_cast<unsigned int>(value)) + double(delta));
+}
+
+__declspec(noinline) float __cdecl FloatPlusIntCpp(float f, int i) {
+    volatile float result = float(double(f) + double(i));
+    return result;
+}
+
+__declspec(noinline) float __cdecl IntTimesTwoFloatsCpp(int n, float a, float b) {
+    volatile float result = float(double(n) * double(a) * double(b));
+    return result;
+}
+
+// sqrt(dist² + 1) con fsqrt en línea (fuera del modo precise, que lo convertiría en una llamada a la CRT)
+static __declspec(noinline) double __cdecl FxFrustumHypotenuse(float dist) {
+    volatile double result = sqrt(double(dist) * double(dist) + 1.0);
+    return result;
+}
+
+// Orden estricto del EXE; las funciones trigonométricas van en llamadas aparte (en modo precise se convertirían en llamadas a la CRT).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl CurvesCorrectedDistCpp(float current, float total, float speedVariation, float* outT) {
+    if (total < kF_3727C5AC) { // 1e-5 (0x858C14)
+        *outT = 0.5f;
+        return 0.0f;
+    }
+    const double ratio = double(current) / double(total);
+    *outT = float(0.5 - TrigSimpleCosCpp(float(kF_40490FDB * ratio)) * 0.5); // pi (0x858CB8)
+    const double sine = TrigSimpleSinCpp(float(ratio * kF_40C90FDB));          // 2pi (0x858CBC)
+    const double scaledSine = sine * (double(total) * kF_3E22F983);            // 1/(2pi) (0x8594F0)
+    const double blend = ((1.0 - (double(speedVariation) + double(speedVariation))) + 1.0) * 0.5;
+    return float(scaledSine * double(speedVariation) + blend * double(current));
+}
+
+__declspec(noinline) float __cdecl FxFrustumRadiusCpp(float dist, float farClip) {
+    const float angle = float(TrigAtan2Cpp(dist, 1.0f) * kF_42652EED);           // 0x42652EED
+    const double hypotenuse = FxFrustumHypotenuse(dist);
+    const double scaled = hypotenuse * double(farClip);
+    const double sinSupplement = TrigSimpleSinCpp(float((180.0 - (double(angle) + double(angle))) * kF_3C8EFA2E)); // 0x3C8EFA2E
+    const double sinAngle = TrigSimpleSinCpp(float(double(angle) * kF_3C8EFA2E));
+    return float((scaled / sinSupplement) * sinAngle);
+}
+#pragma float_control(pop)

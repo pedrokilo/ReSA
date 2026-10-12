@@ -4,7 +4,7 @@
 
 # Archivos pendientes de convertir a C++
 
-134 archivos: 880 apariciones de ensamblador y 274 declaraciones naked.
+122 archivos: 868 apariciones de ensamblador y 265 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -24,28 +24,21 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Audio/Loaders/AEWaveDecoder.cpp](../../source/game_sa/Audio/Loaders/AEWaveDecoder.cpp) | 2 | 0 |
 | [source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp](../../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp) | 2 | 0 |
 | [source/game_sa/Birds.cpp](../../source/game_sa/Birds.cpp) | 3 | 3 |
-| [source/game_sa/BreakObject_c.cpp](../../source/game_sa/BreakObject_c.cpp) | 1 | 1 |
-| [source/game_sa/BulletInfo.cpp](../../source/game_sa/BulletInfo.cpp) | 1 | 1 |
 | [source/game_sa/BulletTraces.cpp](../../source/game_sa/BulletTraces.cpp) | 2 | 0 |
 | [source/game_sa/Cam.cpp](../../source/game_sa/Cam.cpp) | 102 | 3 |
 | [source/game_sa/Camera.cpp](../../source/game_sa/Camera.cpp) | 43 | 1 |
 | [source/game_sa/CarAI.cpp](../../source/game_sa/CarAI.cpp) | 3 | 0 |
-| [source/game_sa/CarCtrl.cpp](../../source/game_sa/CarCtrl.cpp) | 1 | 1 |
 | [source/game_sa/CarEnterExit.cpp](../../source/game_sa/CarEnterExit.cpp) | 4 | 1 |
-| [source/game_sa/Clothes.cpp](../../source/game_sa/Clothes.cpp) | 1 | 1 |
 | [source/game_sa/ClothesBuilder.cpp](../../source/game_sa/ClothesBuilder.cpp) | 3 | 0 |
-| [source/game_sa/Clouds.cpp](../../source/game_sa/Clouds.cpp) | 1 | 1 |
 | [source/game_sa/Collision/Collision.cpp](../../source/game_sa/Collision/Collision.cpp) | 1 | 1 |
 | [source/game_sa/Core/Matrix.cpp](../../source/game_sa/Core/Matrix.cpp) | 10 | 10 |
 | [source/game_sa/Core/Quaternion.cpp](../../source/game_sa/Core/Quaternion.cpp) | 2 | 0 |
 | [source/game_sa/Cover.cpp](../../source/game_sa/Cover.cpp) | 3 | 0 |
-| [source/game_sa/Curves.cpp](../../source/game_sa/Curves.cpp) | 1 | 1 |
 | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp) | 14 | 14 |
 | [source/game_sa/Door.cpp](../../source/game_sa/Door.cpp) | 3 | 0 |
 | [source/game_sa/Entity/Entity.cpp](../../source/game_sa/Entity/Entity.cpp) | 3 | 0 |
 | [source/game_sa/Entity/Object/Object.cpp](../../source/game_sa/Entity/Object/Object.cpp) | 5 | 0 |
 | [source/game_sa/Entity/Ped/Ped.cpp](../../source/game_sa/Entity/Ped/Ped.cpp) | 6 | 2 |
-| [source/game_sa/Entity/Ped/PedSaveStructure.cpp](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp) | 1 | 1 |
 | [source/game_sa/Entity/Ped/PlayerPed.cpp](../../source/game_sa/Entity/Ped/PlayerPed.cpp) | 4 | 1 |
 | [source/game_sa/Entity/Physical.cpp](../../source/game_sa/Entity/Physical.cpp) | 10 | 1 |
 | [source/game_sa/Entity/Placeable.cpp](../../source/game_sa/Entity/Placeable.cpp) | 3 | 3 |
@@ -68,9 +61,7 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/FireManager.cpp](../../source/game_sa/FireManager.cpp) | 3 | 0 |
 | [source/game_sa/Font.cpp](../../source/game_sa/Font.cpp) | 2 | 2 |
 | [source/game_sa/Formation.cpp](../../source/game_sa/Formation.cpp) | 17 | 1 |
-| [source/game_sa/Fx/Fx.cpp](../../source/game_sa/Fx/Fx.cpp) | 1 | 1 |
 | [source/game_sa/Fx/FxFrustumInfo.cpp](../../source/game_sa/Fx/FxFrustumInfo.cpp) | 1 | 1 |
-| [source/game_sa/Fx/FxManager.cpp](../../source/game_sa/Fx/FxManager.cpp) | 1 | 1 |
 | [source/game_sa/GangWars.cpp](../../source/game_sa/GangWars.cpp) | 5 | 0 |
 | [source/game_sa/Garage.cpp](../../source/game_sa/Garage.cpp) | 15 | 9 |
 | [source/game_sa/Garages.cpp](../../source/game_sa/Garages.cpp) | 1 | 1 |
@@ -133,13 +124,10 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/TheZones.cpp](../../source/game_sa/TheZones.cpp) | 5 | 5 |
 | [source/game_sa/TimeCycle.cpp](../../source/game_sa/TimeCycle.cpp) | 2 | 2 |
 | [source/game_sa/Timer.cpp](../../source/game_sa/Timer.cpp) | 5 | 0 |
-| [source/game_sa/VisibilityPlugins.cpp](../../source/game_sa/VisibilityPlugins.cpp) | 1 | 0 |
-| [source/game_sa/Wanted.cpp](../../source/game_sa/Wanted.cpp) | 1 | 0 |
 | [source/game_sa/WaterCreature_c.cpp](../../source/game_sa/WaterCreature_c.cpp) | 2 | 0 |
 | [source/game_sa/WaterLevel.cpp](../../source/game_sa/WaterLevel.cpp) | 8 | 3 |
 | [source/game_sa/Weapon.cpp](../../source/game_sa/Weapon.cpp) | 5 | 0 |
 | [source/game_sa/WeaponEffects.cpp](../../source/game_sa/WeaponEffects.cpp) | 4 | 0 |
-| [source/game_sa/WeaponInfo.cpp](../../source/game_sa/WeaponInfo.cpp) | 1 | 0 |
 | [source/game_sa/Weather.cpp](../../source/game_sa/Weather.cpp) | 5 | 0 |
 | [source/game_sa/World_Helper.cpp](../../source/game_sa/World_Helper.cpp) | 1 | 1 |
 | [source/game_sa/cHandlingDataMgr.cpp](../../source/game_sa/cHandlingDataMgr.cpp) | 5 | 1 |

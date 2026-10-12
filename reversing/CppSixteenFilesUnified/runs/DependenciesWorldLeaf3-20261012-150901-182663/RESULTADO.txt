@@ -1,0 +1,3 @@
+FALLO: Keyboard and FX frustum dependencies
+Funciones con diferencias: FxFrustumInfo_c::IsCollision: 4096/4096
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesworldleaf3\20261012-150901-182663

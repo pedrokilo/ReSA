@@ -1,0 +1,3 @@
+APROBADO: BreakablePlugin y BreakManager_c
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-break\20261012-145354-602358

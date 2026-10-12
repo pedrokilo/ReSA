@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "FxManager.h"
 #include "FxEmitterPrt.h"
@@ -272,43 +273,6 @@ FxSystemBP_c* FxManager_c::FindFxSystemBP(const char* name) {
     return nullptr;
 }
 
-// Constantes del EXE: 0x85A998 (57.295826f, no es el float más cercano a 180/pi), 0x85A7BC (0.017453279f),
-// 0x858624 (1.0f) y 0x85A994 (180.0f).
-static uint32 s_FxFrustumRadToDeg = 0x42652EEDu;
-static uint32 s_FxFrustumDegToRad = 0x3C8EFA2Eu;
-static float  s_FxFrustumOne      = 1.0f;
-static float  s_FxFrustum180      = 180.0f;
-
-// Como el original (0x4A9165..0x4A91B5): ángulo = atan2(dist, 1) con fpatan * 57.295826f guardado como float;
-// radio = sqrt(dist² + 1) * farClip / sin((180 - 2·ángulo) * k) * sin(ángulo * k), con fsin del x87 a precisión
-// interna completa (la división y el producto los redondea la palabra de control del juego).
-static __declspec(naked) float __cdecl FxFrustumRadiusX87(float dist, float farClip) {
-    __asm {
-        fld     dword ptr [esp + 4]
-        fld     st(0)
-        fld1
-        fpatan
-        fmul    dword ptr [s_FxFrustumRadToDeg]
-        fstp    dword ptr [esp + 4]
-        fld     st(0)
-        fmulp   st(1), st
-        fadd    dword ptr [s_FxFrustumOne]
-        fsqrt
-        fmul    dword ptr [esp + 8]
-        fld     dword ptr [esp + 4]
-        fadd    st(0), st
-        fsubr   dword ptr [s_FxFrustum180]
-        fmul    dword ptr [s_FxFrustumDegToRad]
-        fsin
-        fdivp   st(1), st
-        fld     dword ptr [esp + 4]
-        fmul    dword ptr [s_FxFrustumDegToRad]
-        fsin
-        fmulp   st(1), st
-        ret
-    }
-}
-
 // 0x4A9140
 // Deriva una esfera envolvente y cuatro planos laterales desde la cámara actual.
 void FxManager_c::CalcFrustumInfo(RwCamera* camera) {
@@ -317,7 +281,7 @@ void FxManager_c::CalcFrustumInfo(RwCamera* camera) {
 
     // Como el original: longitud de la ventana con fsqrt en línea (x·x + y·y), no RwV2dLength.
     const float dist   = std::sqrt(viewWindow->x * viewWindow->x + viewWindow->y * viewWindow->y);
-    const float radius = FxFrustumRadiusX87(dist, RwCameraGetFarClipPlane(camera));
+    const float radius = FxFrustumRadiusCpp(dist, RwCameraGetFarClipPlane(camera));
 
     // Como el original: sólo escribe centro y radio; m_nNumPlanesPassed de la esfera no se toca.
     m_Frustum.m_Sphere.m_vecCenter = CVector{matrix->pos} + CVector{matrix->at} * radius;

@@ -361,7 +361,7 @@ inline void Update() {
                             Patches P;
                             P.Add(0x5E4220,SIsPointerValid); P.Add(MA(&CPed::IsPointerValid),SIsPointerValid);
                             P.Add(0x56BA00,SPlos); P.Add(MA(&CWorld::ProcessLineOfSight),SPlos);
-                            P.Add(0x73F480,SCheckOccupant);
+                            P.Add(0x73F480,SCheckOccupant); P.Add(MA(&CWeapon::CheckForShootingVehicleOccupant),SCheckOccupant); // el candidato en C++ llama a la funcion de la DLL
                             P.Add(0x5DEF60,SLocalDir); P.Add(MA(&CPed::GetLocalDirection),SLocalDir);
                             P.Add(0x73A530,SDamageEvent); P.Add(MA(&CWeapon::GenerateDamageEvent),SDamageEvent);
                             P.Add(0x532010,SReportCrime); P.Add(MA(&CCrime::ReportCrime),SReportCrime);
@@ -372,7 +372,7 @@ inline void Update() {
                             P.Add(0x4CEA80,SSetCurrentTime); P.Add(MA(&CAnimBlendAssociation::SetCurrentTime),SSetCurrentTime);
                             P.Add(0x6D7C90,SInflictDamage);
                             P.Add(0x53A050,SStartFire); P.Add(MA(static_cast<CFire*(CFireManager::*)(CEntity*,CEntity*,float,uint8,uint32,int8)>(&CFireManager::StartFire)),SStartFire);
-                            P.Add(0x420C40,SSphereVisible);
+                            P.Add(0x420C40,SSphereVisible); P.Add(MA(static_cast<bool(CCamera::*)(const CVector&,float,RwMatrix*)>(&CCamera::IsSphereVisible)),SSphereVisible);
                             P.Add(0x59F0C0,SLightExe); P.Add(MA(&tColLighting::GetCurrentLighting),SLightDll);
                             P.Add(0x5A0D90,SObjectDamage); P.Add(MA(&CObject::ObjectDamage),SObjectDamage);
                             P.Add(0x542800,SAddToMoving); P.Add(MA(&CPhysical::AddToMovingList),SAddToMoving);
@@ -434,7 +434,7 @@ inline void Update() {
                             int32 maxSlot=int32(next()%9)-2; if(next()%10==0)maxSlot=int32(next());
                             {
                                 Patches P;
-                                P.Add(0x448740,SInsideGarage); P.Add(0x449050,SSphereOutside); P.Add(0x449760,SStoreCar);
+                                P.Add(0x448740,SInsideGarage); P.Add(0x449050,SSphereOutside); P.Add(0x449760,SStoreCar); P.Add(MA(static_cast<bool(CGarage::*)(CVector)>(&CGarage::IsPointInsideGarage)),SInsideGarage); P.Add(MA(&CGarage::EntityHasASphereWayOutsideGarage),SSphereOutside); // el candidato en C++ llama a las funciones de la DLL
                                 P.Add(0x56E860,SCancelEnterExe); P.Add(MA(static_cast<void(CPlayerInfo::*)(CVehicle*)>(&CPlayerInfo::CancelPlayerEnteringCars)),SCancelEnterDll);
                                 P.Add(0x563280,SWorldRemove); P.Add(MA(&CWorld::Remove),SWorldRemove);
                                 reinterpret_cast<void(__thiscall*)(void*,void*,int32)>(a)(gar.data(),stored.data(),maxSlot);

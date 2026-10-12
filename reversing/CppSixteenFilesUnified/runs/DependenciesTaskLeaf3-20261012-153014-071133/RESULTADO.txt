@@ -1,0 +1,3 @@
+FALLO: ControlFight y PedSaveStructure::Construct
+Funciones con diferencias: CPedSaveStructure::Construct: 2048/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciestaskleaf3\20261012-153014-071133

@@ -185,9 +185,9 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CPedSaveStructure::Extract(CPed* ped) | [source/game_sa/Entity/Ped/PedSaveStructure.cpp:4](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp#L4) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x005D44B0: fuera del catálogo consultado; ruta efectiva sin resolver |
-| CPedSaveStructure::Construct(CPed*) | [source/game_sa/Entity/Ped/PedSaveStructure.cpp:8](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp#L8) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedSaveStructure::Construct 0x005D43D0 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| CPedSaveStructure::InjectHooks() | [source/game_sa/Entity/Ped/PedSaveStructure.cpp:79](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedSaveStructure::Extract(CPed* ped) | [source/game_sa/Entity/Ped/PedSaveStructure.cpp:8](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp#L8) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x005D44B0: fuera del catálogo consultado; ruta efectiva sin resolver |
+| CPedSaveStructure::Construct(CPed* ped) | [source/game_sa/Entity/Ped/PedSaveStructure.cpp:13](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedSaveStructure::Construct 0x005D43D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedSaveStructure::InjectHooks() | [source/game_sa/Entity/Ped/PedSaveStructure.cpp:52](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-389"></a>
 

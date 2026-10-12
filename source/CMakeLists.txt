@@ -85,6 +85,22 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # CClothes::GetTextureDependency (0x5A7EA0) solo debe tocar EAX (los llamadores del EXE conservan ECX y EDX); se optimiza por
+    # pragma, que solo actua con /Zi y sin comprobaciones de ejecucion.
+    set_source_files_properties(game_sa/Clothes.cpp PROPERTIES
+        COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>"
+        VS_SETTINGS "BasicRuntimeChecks=Default"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    # CPedSaveStructure::Construct (0x5D43D0) deja el residuo de EAX/EDX del EXE y ECX = 0 por el rep movsd: el archivo de la clase
+    # (solo esa clase) se compila optimizado.
+    set_source_files_properties(game_sa/Entity/Ped/PedSaveStructure.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;$<$<CONFIG:Debug>:/Zi>"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # Ordinary debug symbols avoid Edit-and-Continue stack padding in constant returns.
     set_source_files_properties(game_sa/Models/ModelInfo.cpp PROPERTIES
         COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>"

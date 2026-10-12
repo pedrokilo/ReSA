@@ -19,6 +19,7 @@ public:
 
     static void InjectHooks();
     void Extract(CPed* ped);
-    void Construct(CPed* ped);
+    // 0x5D43D0: devuelve EDX:EAX como el EXE (residuo de sus registros; ECX queda a 0 tras el rep movsd)
+    uint64 Construct(CPed* ped);
 };
 VALIDATE_SIZE(CPedSaveStructure, 0x18C);

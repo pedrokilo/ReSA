@@ -1,0 +1,3 @@
+APROBADO: DependenciesWorld14
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesworld14\20261012-151227-057115

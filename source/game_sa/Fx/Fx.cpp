@@ -231,94 +231,44 @@ void Fx_c::Render(RwCamera* camera, bool heatHaze) {
     g_fxMan.Render(camera, heatHaze);
 }
 
-// Actual RenderWare libraries; no game collaborator or substitute.
-static uintptr_t FxNormalizeLibrary=0x7ED9B0;
-static uintptr_t FxMatrixUpdateLibrary=0x7F18A0;
+// 0x49E950: matriz identidad con la direccion como eje "arriba" normalizado; mismo orden de escrituras que el original.
+// La normalizacion (0x7ED9B0) y la actualizacion de la matriz (0x7F18A0) son librerias de RenderWare.
+void Fx_c::CreateMatFromVec(RwMatrix* mat, const CVector* pos, const CVector* dir) {
+    const uint32 flags = mat->flags;
+    mat->up.y    = 1.0f;
+    mat->at.z    = 1.0f;
+    mat->right.x = 1.0f;
+    mat->pos.z   = 0.0f;
+    mat->pos.y   = 0.0f;
+    mat->pos.x   = 0.0f;
+    mat->up.x    = 0.0f;
+    mat->up.z    = 0.0f;
+    mat->right.z = 0.0f;
+    mat->right.y = 0.0f;
+    mat->at.y    = 0.0f;
+    mat->at.x    = 0.0f;
+    mat->flags   = flags | 0x20003;
+    mat->pos.x   = pos->x;
+    mat->pos.y   = pos->y;
+    mat->pos.z   = pos->z;
+    mat->up.x    = dir->x;
+    mat->up.y    = dir->y;
+    mat->up.z    = dir->z;
+    RwV3dNormalize(&mat->up, &mat->up);
 
-// 0x49E950: preserve native write/alias order and x87 arithmetic.
-__declspec(naked) void Fx_c::CreateMatFromVec(RwMatrix*,const CVector*,const CVector*) {
-    __asm {
-    push esi
-    mov esi,dword ptr [esp+8]
-    mov edx,dword ptr [esi+0Ch]
-    mov eax,3F800000h
-    mov dword ptr [esi+14h],eax
-    mov dword ptr [esi+28h],eax
-    mov dword ptr [esi],eax
-    xor eax,eax
-    mov dword ptr [esi+38h],eax
-    mov dword ptr [esi+34h],eax
-    mov dword ptr [esi+30h],eax
-    mov dword ptr [esi+10h],eax
-    mov dword ptr [esi+18h],eax
-    mov dword ptr [esi+8],eax
-    mov dword ptr [esi+4],eax
-    mov dword ptr [esi+24h],eax
-    mov dword ptr [esi+20h],eax
-    mov eax,dword ptr [esp+0Ch]
-    push edi
-    lea edi,[esi+10h]
-    or edx,20003h
-    mov dword ptr [esi+0Ch],edx
-    mov ecx,dword ptr [eax]
-    mov dword ptr [esi+30h],ecx
-    mov edx,dword ptr [eax+4]
-    mov dword ptr [esi+34h],edx
-    mov eax,dword ptr [eax+8]
-    mov dword ptr [esi+38h],eax
-    mov eax,dword ptr [esp+14h]
-    mov ecx,dword ptr [eax]
-    mov dword ptr [edi],ecx
-    mov edx,dword ptr [eax+4]
-    mov dword ptr [esi+14h],edx
-    mov eax,dword ptr [eax+8]
-    push edi
-    push edi
-    mov dword ptr [esi+18h],eax
-    call dword ptr [FxNormalizeLibrary]
-    fstp st(0)
-    fld dword ptr [esi+18h]
-    fmul dword ptr ds:[00858B50h]
-    fld st(0)
-    fld dword ptr [esi+14h]
-    fmul dword ptr ds:[00858C1Ch]
-    fsubp st(1),st
-    fst dword ptr [esi]
-    fld dword ptr [edi]
-    fmul dword ptr ds:[00858C1Ch]
-    fsub st,st(2)
-    fst dword ptr [esi+4]
-    fld dword ptr [esi+14h]
-    fmul dword ptr ds:[00858B50h]
-    fld dword ptr [edi]
-    fmul dword ptr ds:[00858B50h]
-    fsubp st(1),st
-    fst dword ptr [esi+8]
-    fld st(1)
-    fmul dword ptr [esi+18h]
-    fld st(1)
-    fmul dword ptr [esi+14h]
-    fsubp st(1),st
-    fstp dword ptr [esi+20h]
-    fmul dword ptr [edi]
-    fld st(2)
-    fmul dword ptr [esi+18h]
-    fsubp st(1),st
-    push esi
-    fstp dword ptr [esi+24h]
-    fxch st(1)
-    fmul dword ptr [esi+14h]
-    fxch st(1)
-    fmul dword ptr [edi]
-    fsubp st(1),st
-    fstp dword ptr [esi+28h]
-    fstp st(0)
-    call dword ptr [FxMatrixUpdateLibrary]
-    add esp,0Ch
-    pop edi
-    pop esi
-    ret 0Ch
-    }
+    // Como el original: derecha = (z*0 - y*-1, x*-1 - z*0, y*0 - x*0) y adelante = derecha x arriba (aritmetica float del FPU a 24 bits)
+    const float ux = mat->up.x, uy = mat->up.y, uz = mat->up.z;
+    const float zeroZ = uz * 0.0f;
+    const float rx = zeroZ - uy * -1.0f;
+    const float ry = ux * -1.0f - zeroZ;
+    const float rz = uy * 0.0f - ux * 0.0f;
+    mat->right.x = rx;
+    mat->right.y = ry;
+    mat->right.z = rz;
+    mat->at.x = ry * uz - rz * uy;
+    mat->at.y = rz * ux - rx * uz;
+    mat->at.z = rx * uy - ry * ux;
+    RwMatrixUpdate(mat);
 }
 
 // 0x49EA40
