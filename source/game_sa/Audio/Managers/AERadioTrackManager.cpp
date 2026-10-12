@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "AERadioTrackManager.h"
+#include "X87Math.h"
 #include "RadioStreamsPC.h"
 
 #include "AEAudioHardware.h"
@@ -596,23 +597,11 @@ void CAERadioTrackManager::StartTrackPlayback() {
 
 // 0x4EA010
 static float CalculateRadioVolume355() {
+    // 20 · log10(efectos / música) - 9 con la precisión interna del FPU y un solo redondeo (X87Math.cpp)
+    // Orden de lectura del original: primero efectos y después música (los argumentos de una llamada se evalúan de derecha a izquierda)
     const auto effects = AEAudioHardware.GetEffectsMasterScalingFactor();
     const auto music = AEAudioHardware.GetMusicMasterScalingFactor();
-    const auto twenty = StaticRef<float>(0x858BA4);
-    const auto nine = StaticRef<float>(0x85EED4);
-    float result;
-    __asm {
-        fld effects
-        fdiv music
-        fldlg2
-        fxch st(1)
-        fyl2x
-        fmul twenty
-        fsub nine
-        fstp result
-    }
-    return result;
-
+    return AudioRadioVolumeDbCpp(effects, music);
 }
 
 void CAERadioTrackManager::UpdateRadioVolumes() {

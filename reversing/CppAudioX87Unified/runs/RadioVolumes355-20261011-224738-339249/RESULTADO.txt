@@ -1,0 +1,3 @@
+APROBADO: RadioVolumes355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-radio-volumes355\20261011-224738-339249

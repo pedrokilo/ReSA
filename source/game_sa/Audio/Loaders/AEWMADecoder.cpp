@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h" // TODO: Remove
 
 #include "AEWMADecoder.h"
+#include "X87Math.h"
 
 #include "MemoryMgr.h"
 
@@ -204,20 +205,9 @@ long CAEWMADecoder::GetStreamPlayTimeMs() {
         return -1;
     }
     // Como el original: la suma de 64 bits sin signo se carga en x87 (63 bits bajos + bit alto con fchs),
-    // se multiplica por 0.0001 (0x858FC4) con la precisión del FPU y se trunca con _ftol2.
-    const uint64 sum   = m_nSampleTime + m_nSampleDuration;
-    int64        low63 = (int64)(sum & 0x7FFFFFFFFFFFFFFFull);
-    int64        top   = (int64)(sum & 0x8000000000000000ull);
-    float        scale = 0.0001f;
-    float        ms;
-    __asm {
-        fild  qword ptr low63
-        fild  qword ptr top
-        fchs
-        faddp st(1), st
-        fmul  dword ptr scale
-        fstp  dword ptr ms
-    }
+    // se multiplica por 0.0001 (0x858FC4) con la precisión del FPU y se trunca con _ftol2 (X87Math.cpp).
+    const uint64 sum = m_nSampleTime + m_nSampleDuration;
+    const float  ms  = AudioSumToMsCpp(sum);
     return (long)(int64)ms;
 }
 

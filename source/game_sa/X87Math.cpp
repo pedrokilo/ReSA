@@ -5,7 +5,8 @@ extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
 extern "C" double __cdecl sqrt(double);
 extern "C" double __cdecl atan2(double, double);
-#pragma intrinsic(sin, cos, sqrt, atan2)
+extern "C" double __cdecl log10(double);
+#pragma intrinsic(sin, cos, sqrt, atan2, log10)
 #include <float.h>
 
 // --- Seno y coseno ---
@@ -100,4 +101,27 @@ __declspec(noinline) void __cdecl AnimCalcThetaCpp(const float* prev, const floa
     } else {
         *invSinTheta = 0.0f;
     }
+}
+
+// --- Audio ---
+__declspec(noinline) float __cdecl AudioLog10Times20Cpp(float x) {
+    volatile float result = float(log10(double(x)) * 20.0f); // 0x858BA4
+    return result;
+}
+
+__declspec(noinline) float __cdecl AudioRadioVolumeDbCpp(float effects, float music) {
+    volatile float result = float(log10(double(effects) / double(music)) * 20.0f - 9.0f); // 0x858BA4 y 0x85EED4
+    return result;
+}
+
+__declspec(noinline) float __cdecl AudioSumToMsCpp(unsigned long long sum) {
+    const long long low63 = static_cast<long long>(sum & 0x7FFFFFFFFFFFFFFFull);
+    const long long top = static_cast<long long>(sum & 0x8000000000000000ull);
+    volatile float ms = float((double(low63) - double(top)) * 0.0001f); // 0x858FC4
+    return ms;
+}
+
+__declspec(noinline) float __cdecl AudioPercentOfProductCpp(int product) {
+    volatile float scaled = float(double(product) * 0.01f); // 0x858C58
+    return scaled;
 }

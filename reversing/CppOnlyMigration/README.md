@@ -6,7 +6,7 @@
 
 Política y proceso: [PROCESO.md](PROCESO.md) · revisión de lo anterior: [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md) · plan: [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md).
 
-**Estado actual (11/10/2026):** 42 funciones fuente convertidas y revalidadas dentro del juego; quedan 918 apariciones de ensamblador y 274 declaraciones `naked` en 171 archivos de `source/game_sa` (conteos léxicos, no funciones; 776 definiciones). Todas las clases convertidas están en sus dos archivos `.cpp` y `.h`, con `X87Math.cpp/.h` como único módulo compartido de helpers x87. Las secciones fechadas más abajo conservan las cifras del momento en que se escribieron. Documentos: [PROCESO.md](PROCESO.md) (política y técnicas), [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md) (lo que falta, por dificultad), [FILES.md](FILES.md) (archivos pendientes), [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md), [REVALIDACION_INTERIOR_CARCTRL.md](REVALIDACION_INTERIOR_CARCTRL.md) y [approvals.json](approvals.json) (evidencia por función).
+**Estado actual (11/10/2026):** 47 funciones fuente convertidas y revalidadas dentro del juego; quedan 913 apariciones de ensamblador y 274 declaraciones `naked` en 166 archivos de `source/game_sa` (conteos léxicos, no funciones). Todas las clases convertidas están en sus dos archivos `.cpp` y `.h`, con `X87Math.cpp/.h` como único módulo compartido de helpers x87. Las secciones fechadas más abajo conservan las cifras del momento en que se escribieron. Documentos: [PROCESO.md](PROCESO.md) (política y técnicas), [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md) (lo que falta, por dificultad), [FILES.md](FILES.md) (archivos pendientes), [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md), [REVALIDACION_INTERIOR_CARCTRL.md](REVALIDACION_INTERIOR_CARCTRL.md) y [approvals.json](approvals.json) (evidencia por función).
 
 Orden del usuario del 10/10/2026: eliminar ensamblador en línea y declaraciones naked de source/game_sa conservando resultados exactos del EXE, sin tolerancias numéricas.
 
@@ -14,7 +14,7 @@ El inventario inicial identificó 185 archivos con 965 apariciones de ensamblado
 
 ## Conversiones comprobadas
 
-[approvals.json](approvals.json) conserva 42 conversiones de funciones fuente con sus auditorías dentro del juego:
+[approvals.json](approvals.json) conserva 47 conversiones de funciones fuente con sus auditorías dentro del juego:
 
 | Función | Entrada EXE | Pares propios |
 | --- | --- | ---: |
@@ -49,6 +49,11 @@ El inventario inicial identificó 185 archivos con 965 apariciones de ensamblado
 | CAnimBlendSequence::RemoveQuaternionFlips | 0x4D1190 | 512 |
 | CPedShelterAttractor::GetDisplacement | 0x5EF420 | 512 |
 | CAttractorScanner::Clear | 0x5FFF90 | 2048 |
+| Log10Times20 (CAECollisionAudioEntity) | helper, tres consumidores | 3072 |
+| Log10Times20 (CAEWeaponAudioEntity) | helper, PlayGunSounds | 1024 |
+| CAEWMADecoder::GetStreamPlayTimeMs | 0x502AF0 | 512 |
+| CalculateRadioVolume355 (UpdateRadioVolumes) | helper, 0x4EA010 | 1024 |
+| CAESoundManager::Service (fragmento fild/fmul) | 0x4F0000 | 1024 |
 
 Cada corrida aprobada tiene cero diferencias, resultados no nulos, rutas y restauración verificadas. Estas conversiones vuelven a probar implementaciones catalogadas; no incrementan las 105 aprobaciones de la cohorte de dependencias.
 
@@ -112,3 +117,7 @@ Siguiendo la auditoría ([AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_A
 ## Animación y atractores (11/10/2026)
 
 Se convirtieron cuatro funciones con ensamblador de cuatro clases ([detalle y objetos](../CppAnimAttractorStudy/README.md)): `CAnimBlendNode::CalcTheta`, `CAnimBlendSequence::RemoveQuaternionFlips`, `CPedShelterAttractor::GetDisplacement` y `CAttractorScanner::Clear`. Bancos completos repetidos sobre la fuente final: Anim16 (14080 pares), Render14 (6784), CTasks61c (28928) y DependenciesTaskPed5 (8192), todos aprobados con cero diferencias; las evidencias están en `CppAnimAttractorUnified`. Dos corridas intermedias fallaron y se corrigieron (ver el estudio). El conteo pasa a 918 apariciones de ensamblador y 274 declaraciones naked en 171 archivos.
+
+## Audio: x87 en cinco archivos (11/10/2026)
+
+Se eliminó el ensamblador de `AECollisionAudioEntity.cpp`, `AEWeaponAudioEntity.cpp`, `AEWMADecoder.cpp`, `AERadioTrackManager.cpp` y `AESoundManager.cpp` con cuatro helpers de `X87Math` ([detalle y objetos](../CppAudioX87Study/README.md)). La función `Log10Times20` estaba duplicada en los dos primeros archivos y quedó en un único `AudioLog10Times20Cpp`. Bancos completos repetidos: Audio17 (11088 pares), Audio20 (10176), Audio14 (10240) y RadioVolumes355 (1024), aprobados con cero diferencias; Audio11 (los 512 pares de `GetStreamPlayTimeMs` iguales) falla sólo en `CAEPedlessSpeechAudioEntity::AddSayEvent` (4/1024), igual con el árbol anterior. Una primera corrida de RadioVolumes355 falló por el orden de evaluación de los argumentos y se corrigió. El conteo pasa a 913 apariciones de ensamblador y 274 declaraciones naked en 166 archivos.

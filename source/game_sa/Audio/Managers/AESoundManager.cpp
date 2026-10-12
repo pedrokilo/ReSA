@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "AESoundManager.h"
+#include "X87Math.h"
 
 #include "AEAudioEnvironment.h"
 #include "AEAudioHardware.h"
@@ -176,15 +177,9 @@ void CAESoundManager::Service() {
             continue;
         }
 
-        // Como el original: fild del producto entero, fmul por 0,01f (0x858C58) en x87 y _ftol2
-        int32       product = sound.m_PlayTime * m_VirtualChannelSoundLengths[i];
-        const float percent = 0.01f;
-        float       scaled;
-        __asm {
-            fild  product
-            fmul  percent
-            fstp  scaled
-        }
+        // Como el original: fild del producto entero, fmul por 0,01f (0x858C58) en x87 y _ftol2 (X87Math.cpp)
+        const int32 product = sound.m_PlayTime * m_VirtualChannelSoundLengths[i];
+        const float scaled  = AudioPercentOfProductCpp(product);
         sound.m_PlayTime = static_cast<int16>(static_cast<int64>(scaled));
     }
 

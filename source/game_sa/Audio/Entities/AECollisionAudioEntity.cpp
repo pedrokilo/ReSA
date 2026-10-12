@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include <reversiblebugfixes/Bugs.hpp>
 
 #include "AECollisionAudioEntity.h"
+#include "X87Math.h"
 #include "AEAudioHardware.h"
 #include "AEAudioUtility.h"
 
@@ -32,21 +33,6 @@ namespace {
 // esta clase solo lo cambia en algunos sonidos. tSoundPlayParams usa 0.0 por
 // defecto, así que aquí se pasa explícitamente el valor original.
 constexpr float NO_CLIENT_VARIABLE = -1.f;
-
-// Como el original: log10 con fldlg2/fyl2x a precisión interna completa del FPU y
-// producto por 20 redondeado una sola vez (sin el umbral de CAEAudioUtility::AudioLog10).
-float Log10Times20(float x) {
-    float k20 = 20.f; // 0x858BA4
-    float result;
-    __asm {
-        fldlg2
-        fld   x
-        fyl2x
-        fmul  k20
-        fstp  result
-    }
-    return result;
-}
 
 // Como el original: limpia la entrada sin tocar LoopStopTimeMs (Reset 0x4DA320 y Service 0x4DA2C0).
 void ClearCollisionSoundEntry(tCollisionSound& entry) {
@@ -240,7 +226,7 @@ void CAECollisionAudioEntity::PlayOneShotCollisionSound(CEntity* entityA, CEntit
         auto       volume     = GetDefaultVolume(AE_GENERAL_COLLISION) - 3.f;
         auto       playTime   = startAt;
         if (startAt > maxStartAt) { // 0x4DB32D
-            volume   += Log10Times20((float)(100 - startAt) / (float)(100 - maxStartAt));
+            volume   += AudioLog10Times20Cpp((float)(100 - startAt) / (float)(100 - maxStartAt));
             playTime  = (int16)(maxStartAt);
         }
         if (volume <= -100.f) { // 0x4DB37E
@@ -295,7 +281,7 @@ std::pair<float, float> CAECollisionAudioEntity::GetLoopingCollisionSoundVolumeA
         if (!(ratio < 1.f)) {
             ratio = 1.f;
         }
-        volume = Log10Times20(ratio) + GetDefaultVolume(AE_GENERAL_COLLISION);
+        volume = AudioLog10Times20Cpp(ratio) + GetDefaultVolume(AE_GENERAL_COLLISION);
         if (speed > 0.75f) {
             baseSpeed = speed;
         }
@@ -398,7 +384,7 @@ void CAECollisionAudioEntity::UpdateLoopingCollisionSound(
     if (!(ratio < 1.f)) {
         ratio = 1.f;
     }
-    const auto volume      = Log10Times20(ratio) + GetDefaultVolume(AE_GENERAL_COLLISION);
+    const auto volume      = AudioLog10Times20Cpp(ratio) + GetDefaultVolume(AE_GENERAL_COLLISION);
     const auto targetSpeed = (speed > 0.75f ? speed : 0.75f) * 0.8f;
 
     // Como el original: acerca el valor al objetivo con el paso dado; si son iguales (o NaN) no escribe.
@@ -561,7 +547,7 @@ void CAECollisionAudioEntity::ReportWaterSplash(CPhysical* physical, float volum
     } else {
         // Como el original: log10(min(|v|, 0.6) * 1.6666666) * 20 en línea, sin el umbral de AudioLog10.
         const auto mag      = physical->GetMoveSpeed().Magnitude();
-        const auto speedLog = Log10Times20((mag < 0.6f ? mag : 0.6f) * 1.6666666f);
+        const auto speedLog = AudioLog10Times20Cpp((mag < 0.6f ? mag : 0.6f) * 1.6666666f);
         volume = (speedLog > -18.f ? speedLog : -18.f) + baseVolume;
     }
 

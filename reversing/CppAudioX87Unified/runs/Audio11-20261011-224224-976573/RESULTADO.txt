@@ -1,0 +1,3 @@
+FALLO: Voz sin peatón, decodificador WMA, ropa y aceleración de colisiones (lista de 11)
+Funciones con diferencias: CAEPedlessSpeechAudioEntity::AddSayEvent: 4/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-audio11\20261011-224224-976573

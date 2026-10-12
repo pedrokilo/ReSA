@@ -31,3 +31,13 @@ bool __cdecl AnimQuaternionDotNegativeCpp(const float* last, const float* cur);
 // AnimCalcThetaCpp: theta = acos(producto recortado a 1) con la palabra de control del EXE y 1/sin(theta) sin redondear
 // (0 si theta es exactamente 0), como CAnimBlendNode::CalcTheta (0x4D00E0).
 void __cdecl AnimCalcThetaCpp(const float* prev, const float* curr, float* theta, float* invSinTheta);
+
+// Audio: cada función devuelve un float guardado y recargado, como los helpers originales (fstp + fld).
+// 20 · log10(x) con fldlg2/fyl2x a precisión interna completa y un solo redondeo (CAECollisionAudioEntity, CAEWeaponAudioEntity).
+float __cdecl AudioLog10Times20Cpp(float x);
+// 20 · log10(effects / music) - 9 (CAERadioTrackManager::UpdateRadioVolumes, 0x4EA010).
+float __cdecl AudioRadioVolumeDbCpp(float effects, float music);
+// (suma de 64 bits sin signo) · 0.0001, cargada en x87 como 63 bits bajos más el bit alto (CAEWMADecoder::GetStreamPlayTimeMs, 0x502AF0).
+float __cdecl AudioSumToMsCpp(unsigned long long sum);
+// producto entero · 0.01 con fild + fmul (CAESoundManager::Service, 0x4F0000).
+float __cdecl AudioPercentOfProductCpp(int product);

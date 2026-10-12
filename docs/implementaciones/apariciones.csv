@@ -11,7 +11,6 @@ source/game_sa/Audio/AEAudioUtility.cpp,190,inline_assembly,CAEAudioUtility::Con
 source/game_sa/Audio/AEAudioUtility.cpp,220,inline_assembly,CAEAudioUtility::StaticInitialise,211
 source/game_sa/Audio/AESmoothFadeThread.cpp,33,inline_assembly,DsVolumeToDb,30
 source/game_sa/Audio/AESmoothFadeThread.cpp,137,inline_assembly,CAESmoothFadeThread::Service,117
-source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp,41,inline_assembly,Log10Times20,38
 source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,32,inline_assembly,AddCosMulX87,30
 source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,47,inline_assembly,AddSinMulX87,45
 source/game_sa/Audio/Entities/AEPedAudioEntity.cpp,283,inline_assembly,CAEPedAudioEntity::UpdateJetPack,257
@@ -27,7 +26,6 @@ source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,5531,naked,G3NonDriveSkid
 source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,5532,inline_assembly,G3NonDriveSkid_KeepEdx,5531
 source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,5548,naked,VehAudioPlayerVolume_KeepEcx,5548
 source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,5549,inline_assembly,VehAudioPlayerVolume_KeepEcx,5548
-source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp,47,inline_assembly,Log10Times20,44
 source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,103,inline_assembly,CAEWeatherAudioEntity::AddAudioEvent,87
 source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,145,inline_assembly,CAEWeatherAudioEntity::UpdateParameters,132
 source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,165,inline_assembly,CAEWeatherAudioEntity::UpdateParameters,132
@@ -45,11 +43,8 @@ source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp,36,inline_assembly,SecondsToMs,
 source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp,130,inline_assembly,CAEVorbisDecoder::SetCursor,124
 source/game_sa/Audio/Loaders/AEWaveDecoder.cpp,34,inline_assembly,BytesToMs,31
 source/game_sa/Audio/Loaders/AEWaveDecoder.cpp,100,inline_assembly,CAEWaveDecoder::SetCursor,93
-source/game_sa/Audio/Loaders/AEWMADecoder.cpp,213,inline_assembly,CAEWMADecoder::GetStreamPlayTimeMs,202
 source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp,97,inline_assembly,CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume,82
 source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp,336,inline_assembly,CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume,82
-source/game_sa/Audio/Managers/AERadioTrackManager.cpp,604,inline_assembly,CalculateRadioVolume355,598
-source/game_sa/Audio/Managers/AESoundManager.cpp,183,inline_assembly,CAESoundManager::Service,140
 source/game_sa/Birds.cpp,111,naked,BirdsAtan2,111
 source/game_sa/Birds.cpp,112,inline_assembly,BirdsAtan2,111
 source/game_sa/Birds.cpp,121,naked,BirdsAddAtan2,121

@@ -11,7 +11,6 @@ source/game_sa/Audio/AEAudioUtility.cpp,190,inline_assembly,pending_cpp_conversi
 source/game_sa/Audio/AEAudioUtility.cpp,220,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/AESmoothFadeThread.cpp,33,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/AESmoothFadeThread.cpp,137,inline_assembly,pending_cpp_conversion
-source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp,41,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,32,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,47,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Entities/AEPedAudioEntity.cpp,283,inline_assembly,pending_cpp_conversion
@@ -27,7 +26,6 @@ source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,5531,naked,pending_cpp_co
 source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,5532,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,5548,naked,pending_cpp_conversion
 source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,5549,inline_assembly,pending_cpp_conversion
-source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp,47,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,103,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,145,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,165,inline_assembly,pending_cpp_conversion
@@ -45,11 +43,8 @@ source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp,36,inline_assembly,pending_cpp_
 source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp,130,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Loaders/AEWaveDecoder.cpp,34,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Loaders/AEWaveDecoder.cpp,100,inline_assembly,pending_cpp_conversion
-source/game_sa/Audio/Loaders/AEWMADecoder.cpp,213,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp,97,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp,336,inline_assembly,pending_cpp_conversion
-source/game_sa/Audio/Managers/AERadioTrackManager.cpp,604,inline_assembly,pending_cpp_conversion
-source/game_sa/Audio/Managers/AESoundManager.cpp,183,inline_assembly,pending_cpp_conversion
 source/game_sa/Birds.cpp,111,naked,pending_cpp_conversion
 source/game_sa/Birds.cpp,112,inline_assembly,pending_cpp_conversion
 source/game_sa/Birds.cpp,121,naked,pending_cpp_conversion

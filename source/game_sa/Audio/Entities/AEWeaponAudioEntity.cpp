@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "AEWeaponAudioEntity.h"
+#include "X87Math.h"
 #include "AEAudioEnvironment.h"
 #include "AESoundManager.h"
 #include "AEAudioHardware.h"
@@ -38,21 +39,6 @@ auto& gfWeaponPlaneFrequencyVariations = StaticRef<std::array<float, 2>>(0x8CC29
 
 // Atenuación que usa el original (0x3F28F5C3 = 0.66f, no 2/3).
 constexpr float WEAPON_ROLL_OFF = 0.66f;
-
-// Como el original: 20 · log10(x) con fldlg2/fyl2x (precisión interna del FPU) y el producto por 20 (0x858BA4)
-// redondeado por la FPU a la precisión del juego.
-float Log10Times20(float x) {
-    float       twenty = 20.f;
-    float       result;
-    __asm {
-        fldlg2
-        fld   x
-        fyl2x
-        fmul  twenty
-        fstp  result
-    }
-    return result;
-}
 } // namespace
 
 void CAEWeaponAudioEntity::InjectHooks() {
@@ -441,9 +427,9 @@ void CAEWeaponAudioEntity::PlayGunSounds(
                 // Interpolación entre ambos límites: t = 1 en nearLim y 0 en farLim.
                 const float t     = (farLim - dist) / (farLim - nearLim);
                 const float atten = CAEAudioEnvironment::GetDistanceAttenuation(dist);
-                frontEndVolume    = (atten + Log10Times20(t * 0.7071f)) + baseVolume;
+                frontEndVolume    = (atten + AudioLog10Times20Cpp(t * 0.7071f)) + baseVolume;
                 // Como el original: 0x862E14 = 0x3E95F6FE (no es el float más cercano a 0.2929).
-                mainVolume        = Log10Times20((1.f - t) * std::bit_cast<float>(0x3E95F6FEu) + 0.7071f) + baseVolume;
+                mainVolume        = AudioLog10Times20Cpp((1.f - t) * std::bit_cast<float>(0x3E95F6FEu) + 0.7071f) + baseVolume;
             }
         }
     }

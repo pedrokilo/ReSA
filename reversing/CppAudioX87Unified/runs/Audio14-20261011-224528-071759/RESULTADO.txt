@@ -1,0 +1,3 @@
+APROBADO: Gestor de sonidos e hilo de streaming de audio (lista de 14)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-audio14\20261011-224528-071759

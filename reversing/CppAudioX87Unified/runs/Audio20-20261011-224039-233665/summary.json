@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "162319c606587714218db8c55027f5343134b1852a142c363d90fa1cb75334b2",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 10176,
+  "pairs_per_function": {
+    "CAEDataStream::Constructor": 256,
+    "CAEDataStream::Destructor": 256,
+    "CAEDataStream::FillBuffer": 1024,
+    "CAEDataStream::GetCurrentPosition": 256,
+    "CAEDataStream::Initialise": 512,
+    "CAEDataStream::Seek-OG": 1024,
+    "CAEWeaponAudioEntity::Initialise": 128,
+    "CAEWeaponAudioEntity::Terminate": 64,
+    "CAEWeaponAudioEntity::Reset": 128,
+    "CAEWeaponAudioEntity::StopFlameThrowerIdleGasLoop": 128,
+    "CAEWeaponAudioEntity::PlayGoggleSound": 256,
+    "CAEWeaponAudioEntity::WeaponReload": 512,
+    "CAEWeaponAudioEntity::PlayFlameThrowerIdleGasLoop": 128,
+    "CAEWeaponAudioEntity::ReportChainsawEvent": 512,
+    "CAEWeaponAudioEntity::ReportStealthKill": 256,
+    "CAEWeaponAudioEntity::PlayGunSounds": 1024,
+    "CAEWeaponAudioEntity::PlayFlameThrowerSounds": 256,
+    "CAEWeaponAudioEntity::PlayWeaponLoopSound": 256,
+    "CAEWeaponAudioEntity::PlayCameraSound": 128,
+    "CAEWeaponAudioEntity::PlayMiniGunFireSounds": 512,
+    "CAEWeaponAudioEntity::PlayMiniGunStopSound": 256,
+    "CAEWeaponAudioEntity::PlayChainsawStopSound": 256,
+    "CAEWeaponAudioEntity::UpdateParameters": 1024,
+    "CAEWeaponAudioEntity::WeaponFire": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "0c9d12e68e9b10d0ebdc0f3ed6fddea376bebec6f10a80e6254375ae21c653cb",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

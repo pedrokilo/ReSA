@@ -14,20 +14,20 @@ Archivos de apoyo: [plan-clasificacion.csv](plan-clasificacion.csv) (una fila po
 - **Cobertura por banco histórico:** para cada helper `static` se buscaron sus llamadores por nombre en el mismo archivo y se comprobó si cada llamador figura en la tabla de algún banco `reversing/*/LiveComparison.hpp`. Para métodos con cuerpo propio se buscó la función misma. Un banco histórico **no basta**: validó el código anterior, así que cada lote necesita un banco derivado (como CppShadowSqrt\*) y su revisión de los puntos de llamada. La cobertura sólo dice que hay un banco del que partir.
 - **Sin determinar:** 131 helpers `static` en los que la búsqueda no halló llamador (puede ser uso por macro, plantilla o desde otro archivo). Se revisan a mano antes de planificarlos.
 
-## Cifras (776 definiciones con ensamblador, 11/10/2026)
+## Cifras (771 definiciones con ensamblador, 11/10/2026)
 
 | Nivel | Con banco histórico del que partir | Sin banco | Total |
 | --- | ---: | ---: | ---: |
 | A (cortas, sin x87/llamadas) | 6 | 4 | 10 |
-| B (x87 sin llamadas, medianas) | 209 | 38 | 247 |
+| B (x87 sin llamadas, medianas) | 206 | 37 | 243 |
 | C (naked, llamadas, SSE, x87 largo) | 143 | 79 | 222 |
-| D (largas, cadenas, sistema) | 187 | 110 | 297 |
+| D (largas, cadenas, sistema) | 186 | 110 | 296 |
 
-Los totales suman las 776 definiciones del inventario actual (se recalcularon tras las conversiones del 11/10; el detalle por función está en [plan-clasificacion.csv](plan-clasificacion.csv)). Las dos columnas de la derecha no son «hecho» ni «pendiente de verificar»: son sólo dónde hay punto de partida.
+Los totales suman las 771 definiciones del inventario actual (se recalcularon tras las conversiones del 11/10; el detalle por función está en [plan-clasificacion.csv](plan-clasificacion.csv)). Las dos columnas de la derecha no son «hecho» ni «pendiente de verificar»: son sólo dónde hay punto de partida.
 
 ## Lo ya hecho
 
-42 funciones fuente. Lote 1a: ShadowExtendedSqrt y ShadowDistanceFade (README). Lote Conversaciones: IsPlayerInPositionForConversation y ClearRecursively; lote Animación y atractores: CalcTheta, RemoveQuaternionFlips, GetDisplacement y CAttractorScanner::Clear (ver [CppAnimAttractorStudy](../CppAnimAttractorStudy/README.md)); lote Conversaciones: cada clase en sus dos archivos `.cpp` y `.h` (ver [CppConversationStudy](../CppConversationStudy/README.md)). La revisión de las conversiones anteriores, que sí tienen archivos auxiliares y código duplicado, está en [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md).
+47 funciones fuente. Lote 1a: ShadowExtendedSqrt y ShadowDistanceFade (README). Lote Conversaciones: IsPlayerInPositionForConversation y ClearRecursively; lote Animación y atractores: CalcTheta, RemoveQuaternionFlips, GetDisplacement y CAttractorScanner::Clear (ver [CppAnimAttractorStudy](../CppAnimAttractorStudy/README.md)); lote Conversaciones: cada clase en sus dos archivos `.cpp` y `.h` (ver [CppConversationStudy](../CppConversationStudy/README.md)). La revisión de las conversiones anteriores, que sí tienen archivos auxiliares y código duplicado, está en [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md).
 
 **Hallazgo útil:** un envoltorio `naked` que sólo preserva EDX (`*_KeepEdx`) se puede reemplazar por un hook directo si la función se compila en un archivo /O2 propio y el objeto real no escribe EDX, como en ClearRecursively. Hay 8 envoltorios `KeepEdx` en `source/game_sa` (Audio/AEVehicleAudioEntity, CarEnterExit y otros): candidatos a un lote propio, cada uno con comprobación del objeto real y banco con EDX sembrado. No se asume que el compilador no use EDX: se comprueba en el objeto de cada función.
 
@@ -53,7 +53,7 @@ Riesgo medio: mismo método que los helpers ya convertidos (TU dedicada /O2 /Oi 
 
 **Lote 6 — nivel C con contrato de registros.** Interior_c.cpp (24 funciones; 4 bancos), Stats.cpp (23; 8 bancos), Matrix.cpp, Garage.cpp. Antes de convertir cada una hay que fijar los registros de entrada y salida; los rechazos anteriores por cambiar ECX/EDX indican el riesgo.
 
-**Lote 7 — sin banco de partida (nivel A–C sin cobertura: 121 funciones).** Requieren primero escribir un banco desde cero. Se hacen cuando los lotes con cobertura estén cerrados.
+**Lote 7 — sin banco de partida (nivel A–C sin cobertura: 120 funciones).** Requieren primero escribir un banco desde cero. Se hacen cuando los lotes con cobertura estén cerrados.
 
 **Al final — nivel D y bloqueados.** MemoryMgr.cpp (falta la línea base ASM completa sin logger diagnóstico), EventSource (propuesta con `__fastcall` sin aprobar), AEAudioUtility.cpp (la heurística lo marca B, pero incluye tiempo del sistema y debe revisarse), DecisionMakerTypes.cpp, TaskSimpleFight.cpp, Pad.cpp y RpAnimBlend.
 
