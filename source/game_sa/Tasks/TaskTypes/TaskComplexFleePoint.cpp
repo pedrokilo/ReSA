@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "TaskComplexFleePoint.h"
 #include "TaskComplexGoToPointAndStandStill.h"
 #include "TaskSimpleGoToPoint.h"
@@ -114,15 +115,8 @@ void CTaskComplexFleePoint::ComputeTargetPoint(CPed const* ped) {
     dir.Normalise();
 
     const float angle = CGeneral::GetRandomNumberInRange<float>(-0.33f, 0.33f);
-    float cosAng, sinAng;
-    __asm {
-        fld angle
-        fld st(0)
-        fcos
-        fstp cosAng
-        fsin
-        fstp sinAng
-    }
+    const float cosAng = TrigSimpleCosCpp(angle); // X87Math.cpp
+    const float sinAng = TrigSimpleSinCpp(angle);
     const float spread = CGeneral::GetRandomNumberInRange<float>(3.f, 6.f);
 
     const float ySin = dir.y * sinAng;

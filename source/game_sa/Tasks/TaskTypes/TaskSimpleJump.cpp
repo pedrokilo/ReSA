@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TaskSimpleJump.h"
 #include "TaskSimpleClimb.h"
@@ -184,17 +185,8 @@ void CTaskSimpleJump::Launch(CPed* ped) {
         if ((fHorizontalJumpSpeed * fHorizontalJumpSpeed > speedX * speedX + speedY * speedY || ped->m_standingOnEntity) && !m_pClimbEntity) {
             // Como el original: fsin/fcos con precision interna completa, multiplicados por la velocidad
             const float rotation = ped->m_fCurrentRotation, speed = fHorizontalJumpSpeed;
-            float sinSpeed, cosSpeed;
-            __asm {
-                fld  rotation
-                fsin
-                fmul speed
-                fstp sinSpeed
-                fld  rotation
-                fcos
-                fmul speed
-                fstp cosSpeed
-            }
+            const float sinSpeed = TrigSimpleSinMulCpp(rotation, speed); // X87Math.cpp
+            const float cosSpeed = TrigSimpleCosMulCpp(rotation, speed);
             if (const auto standingOn = ped->m_standingOnEntity) {
                 ped->m_vecMoveSpeed.x = standingOn->AsPhysical()->m_vecMoveSpeed.x - sinSpeed;
                 ped->m_vecMoveSpeed.y = cosSpeed + standingOn->AsPhysical()->m_vecMoveSpeed.y;

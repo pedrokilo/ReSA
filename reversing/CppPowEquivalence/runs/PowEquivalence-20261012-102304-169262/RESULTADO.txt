@@ -1,0 +1,3 @@
+FALLO: PowEquivalence
+Funciones con diferencias: PowScaleVector3Cpp: 1/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pow-equivalence\20261012-102304-169262

@@ -29,6 +29,9 @@
 #include "Tasks/Task.h"
 #include "Tasks/TaskComplexSequence.h"
 #include "Tasks/Allocators/TaskAllocatorKillThreatsBasic.h"
+#include "PedGroups.h"
+#include "InterestingEvents.h"
+#include "CarCtrl.h"
 #include "TaskComplexBeStill.h"
 #include "TaskComplexDieInCar.h"
 #include "TaskComplexDriveFireTruck.h"
@@ -318,6 +321,9 @@ inline void Update() {
         using ReversingProbe::EntryPatch; using std::bit_cast;
         EntryPatch r1(bit_cast<uintptr_t>(&CGeneral::GetRandomNumber),FakeRandomNumber), r1e(0x821B1E,FakeRand);
         EntryPatch g1e(0x5F7E80,FakePedsGroup), g2e(0x5F7EE0,FakeGroupId), g3e(0x602590,FakeInteresting), g4e(0x423FC0,FakeRealPhysics);
+        // El candidato es C++ y llama a las funciones de la DLL (no a las direcciones del EXE): se interceptan tambien sus puntos de entrada.
+        EntryPatch g1(bit_cast<uintptr_t>(&CPedGroups::GetPedsGroup),FakePedsGroup), g2(bit_cast<uintptr_t>(&CPedGroups::GetGroupId),FakeGroupId);
+        EntryPatch g3(bit_cast<uintptr_t>(&CInterestingEvents::Add),FakeInteresting), g4(bit_cast<uintptr_t>(&CCarCtrl::SwitchVehicleToRealPhysics),FakeRealPhysics);
         EntryPatch g5(bit_cast<uintptr_t>(&CPedGroupIntelligence::FlushTasks),FakeFlushDll), g5e(0x5F79C0,FakeFlushExe);
         EntryPatch g6(bit_cast<uintptr_t>(static_cast<void(CPedGroupIntelligence::*)(CPed*,bool,const CTask&,bool,const CTask&,eSecondaryTask)>(&CPedGroupIntelligence::SetEventResponseTask)),FakeEventResponse), g6e(0x5F8510,FakeEventResponse);
         EntryPatch s1(bit_cast<uintptr_t>(&CPed::SetPedState),FakeSetPedState), s1e(0x5E4500,FakeSetPedState);

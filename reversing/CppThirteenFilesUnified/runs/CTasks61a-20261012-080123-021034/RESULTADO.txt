@@ -1,0 +1,3 @@
+APROBADO: Tareas de coche: conducir, bajar, subir de conductor/pasajero, esperar, ir a punto, apoyarse y puerta de pasajero (9 clases)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctasks61a\20261012-080123-021034

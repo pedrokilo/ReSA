@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "PedPlacement.h"
 #include "TaskSimpleCarJumpOut.h"
 #include "TaskSimpleCarSetPedOut.h"
@@ -153,23 +154,7 @@ bool CTaskSimpleCarJumpOut::ProcessPed(CPed* ped) {
         return false;    
     }()) {
         // Como el original: pow(0.96, paso) con el _CIpow del EXE (0x822130) y el producto en ST0
-        const double base  = 0.9599999785423279;
-        const float  step  = CTimer::GetTimeStep();
-        float* const speed = &m_initialVehSpeed;
-        float* const shift = &ped->m_vecAnimMovingShiftLocal.y;
-        __asm {
-            fld base
-            fld step
-            mov eax, 0x822130
-            call eax
-            mov edx, speed
-            fmul dword ptr [edx]
-            fst dword ptr [edx]
-            fmul step
-            mov edx, shift
-            fadd dword ptr [edx]
-            fstp dword ptr [edx]
-        }
+        PowDecaySpeedCpp(&m_initialVehSpeed, &ped->m_vecAnimMovingShiftLocal.y, CTimer::GetTimeStep()); // X87Math.cpp
     }
 
     // Not in vehicle anymore?

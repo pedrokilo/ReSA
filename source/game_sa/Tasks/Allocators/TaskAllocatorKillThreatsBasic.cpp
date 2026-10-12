@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TaskAllocatorKillThreatsBasic.h"
 #include <InterestingEvents.h>
@@ -89,30 +90,7 @@ CTaskAllocator* CTaskAllocatorKillThreatsBasic::ProcessGroup(CPedGroupIntelligen
 
 // Preserve x87 intermediate precision and the original (z*z + x*x) + y*y order.
 static float ClosestThreatDistance(const CVector& a, const CVector& b) {
-    float result;
-    __asm {
-        mov eax, a
-        mov ecx, b
-        fld dword ptr [eax]
-        fsub dword ptr [ecx]
-        fld dword ptr [eax + 4]
-        fsub dword ptr [ecx + 4]
-        fld dword ptr [eax + 8]
-        fsub dword ptr [ecx + 8]
-        fld st(0)
-        fmul st(0), st(1)
-        fld st(3)
-        fmul st(0), st(4)
-        faddp st(1), st(0)
-        fld st(2)
-        fmul st(0), st(3)
-        faddp st(1), st(0)
-        fstp result
-        fstp st(0)
-        fstp st(0)
-        fstp st(0)
-    }
-    return result;
+    return DistanceSquaredZXYCpp(&a.x, &b.x); // X87Math.cpp
 }
 
 // 0x69C850

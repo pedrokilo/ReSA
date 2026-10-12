@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TaskSimpleAchieveHeading.h"
 #include "Ragdoll/IKChainManager.h"
@@ -118,19 +119,8 @@ void CTaskSimpleAchieveHeading::SetUpIK(CPed* ped) {
     // Como el original: fld h; fsin/fcos (precisión interna completa); fadd st,st; fadd pos (redondeo de la FPU)
     const CVector& pos = ped->GetPosition();
     const float heading = m_DesiredHeadingRad, posX = pos.x, posY = pos.y;
-    float lookX, lookY;
-    __asm {
-        fld  heading
-        fsin
-        fadd st(0), st(0)
-        fadd posX
-        fstp lookX
-        fld  heading
-        fcos
-        fadd st(0), st(0)
-        fadd posY
-        fstp lookY
-    }
+    const float lookX = TrigCompoundSinMulAdd(heading, 2.0f, posX); // X87Math.cpp
+    const float lookY = TrigCompoundCosMulAdd(heading, 2.0f, posY);
     CVector lookAt{ lookX, lookY, pos.z + 0.61f };
     g_ikChainMan.LookAt("TaskAchvHeading", ped, nullptr, 5'000, BONE_UNKNOWN, &lookAt, false, 0.25f, 500, 3, false);
     m_IsDoingIK = true;

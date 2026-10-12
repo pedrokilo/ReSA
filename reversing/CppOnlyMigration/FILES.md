@@ -4,7 +4,7 @@
 
 # Archivos pendientes de convertir a C++
 
-147 archivos: 893 apariciones de ensamblador y 274 declaraciones naked.
+134 archivos: 880 apariciones de ensamblador y 274 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -114,35 +114,22 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/SimpleTransform.cpp](../../source/game_sa/SimpleTransform.cpp) | 2 | 0 |
 | [source/game_sa/Sprite.cpp](../../source/game_sa/Sprite.cpp) | 2 | 0 |
 | [source/game_sa/Stats.cpp](../../source/game_sa/Stats.cpp) | 69 | 44 |
-| [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp) | 1 | 0 |
 | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp) | 1 | 1 |
 | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp) | 2 | 0 |
 | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp) | 1 | 1 |
 | [source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp](../../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp) | 2 | 0 |
-| [source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarMelee.cpp](../../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarMelee.cpp) | 1 | 0 |
-| [source/game_sa/Tasks/TaskTypes/TaskComplexFleePoint.cpp](../../source/game_sa/Tasks/TaskTypes/TaskComplexFleePoint.cpp) | 1 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp](../../source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp) | 1 | 1 |
 | [source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp](../../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp) | 2 | 2 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleAchieveHeading.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleAchieveHeading.cpp) | 1 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp) | 1 | 1 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp) | 1 | 0 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleCarJumpOut.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleCarJumpOut.cpp) | 1 | 0 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp) | 1 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp) | 4 | 4 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp) | 1 | 1 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) | 13 | 13 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp) | 4 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp) | 1 | 1 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp) | 1 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp) | 3 | 3 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp) | 1 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp) | 6 | 4 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleJump.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleJump.cpp) | 1 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp) | 4 | 0 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp) | 1 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp) | 7 | 6 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp) | 1 | 0 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp) | 1 | 0 |
 | [source/game_sa/TheZones.cpp](../../source/game_sa/TheZones.cpp) | 5 | 5 |
 | [source/game_sa/TimeCycle.cpp](../../source/game_sa/TimeCycle.cpp) | 2 | 2 |
 | [source/game_sa/Timer.cpp](../../source/game_sa/Timer.cpp) | 5 | 0 |

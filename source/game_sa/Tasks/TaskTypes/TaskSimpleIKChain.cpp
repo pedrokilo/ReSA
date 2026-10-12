@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "TaskSimpleIKChain.h"
 #include "Ragdoll/IKChainManager.h"
 
@@ -171,12 +172,7 @@ bool CTaskSimpleIKChain::ProcessPed(CPed* ped) {
     } else {
         // Como el original: fild/fidiv con enteros exactos y tope solo si supera 1 (un NaN se conserva)
         const int32 denom = m_TargetTime - timeStepMs - now;
-        float t;
-        __asm {
-            fild  timeStepMs
-            fidiv denom
-            fstp  t
-        }
+        float t = IntRatioCpp(timeStepMs, denom); // X87Math.cpp
         if (t > 1.0f) {
             t = 1.0f;
         }

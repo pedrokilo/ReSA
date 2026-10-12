@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "TaskSimpleThrowControl.h"
 #include "TaskSimpleThrowProjectile.h"
 
@@ -83,16 +84,9 @@ bool CTaskSimpleThrowControl::ProcessPed(CPed* ped) {
     const auto* targetPos = m_pos != CVector{} ? &m_pos : nullptr;
     if (m_entity || targetPos) {
         const auto delta = (m_entity ? m_entity->GetPosition() : m_pos) - ped->GetPosition();
-        float heading;
-        // Preserve the original x87 atan2 and its signed-zero behavior.
+        // Preserve the original x87 atan2 and its signed-zero behavior (X87Math.cpp).
         const float x = delta.x, y = delta.y;
-        __asm {
-            fld x
-            fchs
-            fld y
-            fpatan
-            fstp heading
-        }
+        const float heading = TrigAtan2Cpp(-x, y);
         ped->m_fAimingRotation = heading;
     }
     if (!m_isAttacking) {

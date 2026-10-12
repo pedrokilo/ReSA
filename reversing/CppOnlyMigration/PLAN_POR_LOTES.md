@@ -19,15 +19,15 @@ Archivos de apoyo: [plan-clasificacion.csv](plan-clasificacion.csv) (una fila po
 | Nivel | Con banco histórico del que partir | Sin banco | Total |
 | --- | ---: | ---: | ---: |
 | A (cortas, sin x87/llamadas) | 6 | 4 | 10 |
-| B (x87 sin llamadas, medianas) | 205 | 37 | 242 |
-| C (naked, llamadas, SSE, x87 largo) | 143 | 79 | 222 |
-| D (largas, cadenas, sistema) | 186 | 110 | 296 |
+| B (x87 sin llamadas, medianas) | 191 | 35 | 226 |
+| C (naked, llamadas, SSE, x87 largo) | 133 | 77 | 210 |
+| D (largas, cadenas, sistema) | 182 | 110 | 292 |
 
-Los totales suman las 770 definiciones del inventario actual (se recalcularon tras las conversiones del 11/10; el detalle por función está en [plan-clasificacion.csv](plan-clasificacion.csv)). Las dos columnas de la derecha no son «hecho» ni «pendiente de verificar»: son sólo dónde hay punto de partida.
+Los totales suman las 738 definiciones del inventario actual (se recalcularon tras las conversiones del 12/10; el detalle por función está en [plan-clasificacion.csv](plan-clasificacion.csv)). Las dos columnas de la derecha no son «hecho» ni «pendiente de verificar»: son sólo dónde hay punto de partida.
 
 ## Lo ya hecho
 
-48 funciones fuente. Lote 1a: ShadowExtendedSqrt y ShadowDistanceFade (README). Lote Conversaciones: IsPlayerInPositionForConversation y ClearRecursively; lote Animación y atractores: CalcTheta, RemoveQuaternionFlips, GetDisplacement y CAttractorScanner::Clear (ver [CppAnimAttractorStudy](../CppAnimAttractorStudy/README.md)); lote Conversaciones: cada clase en sus dos archivos `.cpp` y `.h` (ver [CppConversationStudy](../CppConversationStudy/README.md)). La revisión de las conversiones anteriores, que sí tienen archivos auxiliares y código duplicado, está en [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md).
+80 funciones fuente. Lote 1a: ShadowExtendedSqrt y ShadowDistanceFade (README). Lote Conversaciones: IsPlayerInPositionForConversation y ClearRecursively; lote Animación y atractores: CalcTheta, RemoveQuaternionFlips, GetDisplacement y CAttractorScanner::Clear (ver [CppAnimAttractorStudy](../CppAnimAttractorStudy/README.md)); lote Conversaciones: cada clase en sus dos archivos `.cpp` y `.h` (ver [CppConversationStudy](../CppConversationStudy/README.md)). La revisión de las conversiones anteriores, que sí tienen archivos auxiliares y código duplicado, está en [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md). Lotes posteriores (11 y 12/10/2026): audio x87 en cinco archivos y `AudioLog10` ([CppAudioX87Study](../CppAudioX87Study/README.md)), nueve archivos ([CppNineFilesStudy](../CppNineFilesStudy/README.md)), diez archivos ([CppTenFilesStudy](../CppTenFilesStudy/README.md)), trece archivos de tareas ([CppThirteenFilesStudy](../CppThirteenFilesStudy/README.md)) y la equivalencia del `pow` con el EXE ([PowEquivalence](../PowEquivalence/README.md)).
 
 **Hallazgo útil:** un envoltorio `naked` que sólo preserva EDX (`*_KeepEdx`) se puede reemplazar por un hook directo si la función se compila en un archivo /O2 propio y el objeto real no escribe EDX, como en ClearRecursively. Hay 8 envoltorios `KeepEdx` en `source/game_sa` (Audio/AEVehicleAudioEntity, CarEnterExit y otros): candidatos a un lote propio, cada uno con comprobación del objeto real y banco con EDX sembrado. No se asume que el compilador no use EDX: se comprueba en el objeto de cada función.
 

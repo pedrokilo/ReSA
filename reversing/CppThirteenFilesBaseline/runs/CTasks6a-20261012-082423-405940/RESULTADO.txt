@@ -1,0 +1,3 @@
+FALLO: Tareas complejas A (lista de 6)
+Funciones con diferencias: CTaskAllocatorKillThreatsBasic::AllocateTasks: 846/1024; CTaskAllocatorKillThreatsBasic::ProcessGroup: 282/512; CTaskComplexDieInCar::CreateFirstSubTask: 4/1024; CTaskComplexDieInCar::PreparePedVehicleForPedDeath: 39/256
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctasks6a\20261012-082423-405940

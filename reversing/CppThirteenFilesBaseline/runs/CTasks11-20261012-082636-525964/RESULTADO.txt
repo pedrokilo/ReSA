@@ -1,0 +1,3 @@
+FALLO: Respuesta editable, conducir, ser arrastrado y huir a un punto (lista de 11)
+Error dentro de GTA; consultar comparisons.jsonl.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctasks11\20261012-082636-525964

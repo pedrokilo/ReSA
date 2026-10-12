@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "TaskSimpleGunControl.h"
 #include "TaskSimpleUseGun.h"
 #include "TaskSimpleDuck.h"
@@ -65,15 +66,7 @@ CTaskSimpleGunControl::~CTaskSimpleGunControl() {
 
 // atan2(-x, y) con fpatan como el EXE (precision completa del FPU, redondeo al guardar)
 static float GunControlHeading(float x, float y) {
-    float result;
-    __asm {
-        fld x
-        fchs
-        fld y
-        fpatan
-        fstp result
-    }
-    return result;
+    return TrigAtan2Cpp(-x, y); // X87Math.cpp
 }
 
 // 0x61F530

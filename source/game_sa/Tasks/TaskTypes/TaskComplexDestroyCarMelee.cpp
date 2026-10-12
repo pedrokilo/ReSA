@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TaskComplexDestroyCarMelee.h"
 #include "SeekEntity/TaskComplexSeekEntity.h"
@@ -188,14 +189,7 @@ void CTaskComplexDestroyCarMelee::CalculateSearchPositionAndRanges(CPed* ped) {
     const float deltaY = pedPos.y - m_VehPos.y;
     m_MaxAtkRange = m_MaxArriveRange = m_VehToDestroy->GetModelInfo()->GetColModel()->GetBoundRadius() + 0.35f;
     // Como el original: atan2(dx, -dy) con fpatan (precision completa del FPU, redondeo al guardar)
-    float angle;
-    __asm {
-        fld deltaX
-        fld deltaY
-        fchs
-        fpatan
-        fstp angle
-    }
+    const float angle = TrigAtan2Cpp(deltaX, -deltaY); // X87Math.cpp
     m_MaxAtkAngleRad = angle;
 }
 

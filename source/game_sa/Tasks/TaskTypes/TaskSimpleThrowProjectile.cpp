@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TaskSimpleThrowProjectile.h"
 
@@ -179,12 +180,7 @@ bool CTaskSimpleThrowProjectile::ProcessPed(CPed* ped) {
                 }
                 const int32 counter = (int32)m_ButtonCounter;
                 const float attackScale = 0.05f; // 0x858C28
-                float attackCounter;
-                __asm {
-                    fild  counter
-                    fmul  attackScale
-                    fstp  attackCounter
-                }
+                const float attackCounter = IntTimesFloatCpp(counter, attackScale); // X87Math.cpp
                 ped->GetPlayerData()->m_fAttackButtonCounter = attackCounter;
             }
 

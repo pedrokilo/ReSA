@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TaskSimpleStealthKill.h"
 
@@ -61,14 +62,7 @@ CTaskSimpleStealthKill::~CTaskSimpleStealthKill() {
 
 // atan2(y, x) con fpatan como el EXE (precision completa del FPU, redondeo al guardar)
 static float StealthKillAtan2(float y, float x) {
-    float result;
-    __asm {
-        fld y
-        fld x
-        fpatan
-        fstp result
-    }
-    return result;
+    return TrigAtan2Cpp(y, x); // X87Math.cpp
 }
 
 // 0x62E540

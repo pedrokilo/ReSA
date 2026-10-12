@@ -27,6 +27,8 @@
 #include "Tasks/Task.h"
 #include "Events/EventEditableResponse.h"
 #include "Events/EventGroup.h"
+#include "Events/EventSource.h"
+#include "DecisionMakers/DecisionMakerTypes.h"
 #include "TaskComplexCarDrive.h"
 #include "TaskComplexCarSlowBeDraggedOut.h"
 #include "TaskComplexFleePoint.h"
@@ -292,8 +294,12 @@ inline void Update() {
         EntryPatch q1(Body(bit_cast<uintptr_t>(&CInformFriendsEventQueue::Add)),FakeFriendsAdd), q1e(0x4AC1E0,FakeFriendsAdd);
         EntryPatch q2(Body(bit_cast<uintptr_t>(&CInformGroupEventQueue::Add)),FakeGroupQueueAdd), q2e(0x4B7CD0,FakeGroupQueueAdd);
         EntryPatch g1(Body(bit_cast<uintptr_t>(&CPedGroups::GetPedsGroup)),FakePedsGroup), g1e(0x5F7E80,FakePedsGroup);
-        // ComputeEventSourceType y las dos MakeDecision de la DLL llaman a la direccion del EXE
+        // ComputeEventSourceType y las dos MakeDecision son ya codigo de la DLL (el candidato en C++ las llama directamente): se interceptan
+        // tanto las direcciones del EXE como los puntos de entrada de la DLL con las mismas funciones falsas.
         EntryPatch d1e(0x4ABAC0,FakeSourceType), d2e(0x606E70,FakeDecisionPed), d3e(0x606F80,FakeDecisionGroup);
+        EntryPatch d1(Body(bit_cast<uintptr_t>(&CEventSource::ComputeEventSourceType)),FakeSourceType);
+        EntryPatch d2(Body(bit_cast<uintptr_t>(static_cast<void(CDecisionMakerTypes::*)(CPed*,eEventType,int32,bool,eTaskType,eTaskType,eTaskType,eTaskType,bool,int16&,int16&)>(&CDecisionMakerTypes::MakeDecision))),FakeDecisionPed);
+        EntryPatch d3(Body(bit_cast<uintptr_t>(static_cast<eTaskType(CDecisionMakerTypes::*)(CPedGroup*,eEventType,int32,bool,eTaskType,eTaskType,eTaskType,eTaskType)>(&CDecisionMakerTypes::MakeDecision))),FakeDecisionGroup);
         EntryPatch p1(Body(bit_cast<uintptr_t>(static_cast<CPlayerPed*(*)(int32)>(&FindPlayerPed))),FakeFindPlayerPed), p1e(0x56E210,FakeFindPlayerPed);
         EntryPatch t1(Body(dllSetPedSlow),FakeSetPedSlowProcess), t1e(0x64C220,FakeSetPedSlowProcess);
 

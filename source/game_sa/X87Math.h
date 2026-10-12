@@ -50,6 +50,10 @@ bool __cdecl VectorSquaredMagnitudeAboveCpp(const float* vector, float limit);
 
 // Lote de nueve archivos (11/10/2026).
 // v *= pow(damp, step) con la precisión completa de ST0 en las tres multiplicaciones (CBouncingPanel::ProcessPanel, 0x6F49A0).
+// pow(base, exponente) con los resultados del _CIpow del EXE (0x822130). Su rama SSE2 es el mismo algoritmo y las mismas tablas que
+// __CIpow de la CRT de la DLL (comprobado byte a byte), y sólo difiere en las reglas de C99 para ±1 elevado a NaN/±infinito y NaN
+// elevado a ±0, donde el EXE devuelve NaN y la DLL 1.
+double __cdecl ExeCompatiblePowCpp(double base, double exponent);
 void __cdecl PowScaleVector3Cpp(float* vector, float damp, float step);
 // (tiempo sin signo) · 0.001 con fild + corrección de 2^32 y fmul, guardado como float (CCutsceneMgr::FinishCutscene, 0x5B04D0).
 float __cdecl UnsignedMillisToSecondsCpp(unsigned int millis);
@@ -73,3 +77,13 @@ void __cdecl FallRemainingHealthCpp(float prevHP, float factor, float minimumHP,
 void __cdecl SpriteBilinearOffsetCpp(float* vertices, float width, float height);
 // Esquinas C y D de un área angulada (CRunningScript, 0x487F60 y similares): ángulo + pi/2 normalizado a [0, 2pi]; corners = {cx, cy, dx, dy}.
 void __cdecl ScriptAngledCornersCpp(float angle, float startX, float startY, float endX, float endY, float width, float* corners);
+
+// Lote de trece archivos de tareas (12/10/2026).
+// atan2(y, x) con fpatan a precisión completa; el llamador guarda el float (varias tareas de ped).
+float __cdecl TrigAtan2Cpp(float y, float x);
+// Distancia al cuadrado entre dos vectores (x, y, z consecutivos) sumada como (dz² + dx²) + dy² sin redondear (CTaskAllocatorKillThreatsBasic, 0x69C850).
+float __cdecl DistanceSquaredZXYCpp(const float* a, const float* b);
+// speed = pow(0.96, paso) · speed; shift += speed · paso (CTaskSimpleCarJumpOut::ProcessPed), con el factor en ST0 sin redondear.
+void __cdecl PowDecaySpeedCpp(float* speed, float* shift, float step);
+// num / den con fild + fidiv y un solo redondeo a float (CTaskSimpleIKChain).
+float __cdecl IntRatioCpp(int num, int den);

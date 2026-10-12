@@ -56,7 +56,7 @@ La primera tanda se lanzó con `nohup … &` y, al creer que había muerto, se l
 ## Límites
 
 - Los bancos no tienen auditor propio: la comprobación es el analizador de cada banco y el resumen de la corrida; sin cobertura exhaustiva de x87 más allá de sus fixtures.
-- `PowScaleVector3Cpp` llama al `_CIpow` de la CRT de la DLL, no al del EXE (0x822130); coinciden en los 18384 pares de World52, pero no está demostrado que sean idénticos en todo el dominio.
+- `PowScaleVector3Cpp` usa `ExeCompatiblePowCpp` (pow de la CRT de la DLL con las excepciones de C99 del EXE). El algoritmo y las tablas del `_CIpow` del EXE y del `__CIpow` de la DLL son idénticos (76 de unos 80 bloques iguales; los demás sólo se activan con entradas especiales) y el banco [PowEquivalence](../PowEquivalence/README.md) lo confirma bit a bit: rejilla de 28224 pares de especiales, 536 870 912 casos por regiones de (signo, exponente) y 2^26 casos de la función; el dominio completo de dos floats (2^64) no se enumera. Las banderas de excepción difieren en el desbordamiento a ±infinito y en NaN^±0 (inobservables; detalle en ese README).
 - `ExeAcosCpp` repite la fórmula de acos que ya contiene `AnimCalcThetaCpp` (que la necesita sin redondear); no se unificaron para no alterar una función validada. Fuera de [-1, 1] el EXE entra en una rama de error y puede devolver otro patrón de NaN.
 - Los colaboradores no se validan por probar a sus consumidores.
 

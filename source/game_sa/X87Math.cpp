@@ -9,6 +9,7 @@ extern "C" double __cdecl log10(double);
 extern "C" double __cdecl pow(double, double);
 #pragma intrinsic(sin, cos, sqrt, atan2, log10, pow)
 #include <float.h>
+#include <string.h>
 
 // --- Seno y coseno ---
 // Acceptance requires native x87 opcodes without any intervening store or CRT call.
@@ -140,8 +141,31 @@ __declspec(noinline) bool __cdecl VectorSquaredMagnitudeAboveCpp(const float* ve
 #pragma float_control(pop)
 
 // --- Lote de nueve archivos ---
+__declspec(noinline) double __cdecl ExeCompatiblePowCpp(double base, double exponent) {
+    unsigned long long b, e;
+    memcpy(&b, &base, 8);
+    memcpy(&e, &exponent, 8);
+    const unsigned long long magnitudeMask = 0x7FFFFFFFFFFFFFFFull, infinity = 0x7FF0000000000000ull, quietBit = 0x0008000000000000ull;
+    const bool exponentNaN = (e & magnitudeMask) > infinity, exponentInfinite = (e & magnitudeMask) == infinity;
+    // ±1 elevado a NaN: el EXE devuelve ese NaN silenciado; a ±infinito: el NaN indefinido (0xFFF8000000000000)
+    if ((b & magnitudeMask) == 0x3FF0000000000000ull && (exponentNaN || exponentInfinite)) {
+        const unsigned long long r = exponentNaN ? (e | quietBit) : 0xFFF8000000000000ull;
+        double result;
+        memcpy(&result, &r, 8);
+        return result;
+    }
+    // NaN elevado a ±0: el EXE devuelve la base NaN silenciada
+    if ((b & magnitudeMask) > infinity && (e & magnitudeMask) == 0) {
+        const unsigned long long r = b | quietBit;
+        double result;
+        memcpy(&result, &r, 8);
+        return result;
+    }
+    return pow(base, exponent);
+}
+
 __declspec(noinline) void __cdecl PowScaleVector3Cpp(float* vector, float damp, float step) {
-    const double factor = pow(double(damp), double(step));
+    const double factor = ExeCompatiblePowCpp(double(damp), double(step));
     vector[0] = float(double(vector[0]) * factor);
     vector[1] = float(double(vector[1]) * factor);
     vector[2] = float(double(vector[2]) * factor);
@@ -228,4 +252,30 @@ __declspec(noinline) void __cdecl ScriptAngledCornersCpp(float angle, float star
     corners[3] = float(minusCosWidth + double(endY));
     corners[0] = float(sinWidth + double(startX));
     corners[1] = float(double(storedMinusCos) + double(startY));
+}
+
+// --- Lote de trece archivos de tareas ---
+__declspec(noinline) float __cdecl TrigAtan2Cpp(float y, float x) {
+    return float(atan2(double(y), double(x)));
+}
+
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl DistanceSquaredZXYCpp(const float* a, const float* b) {
+    const double dx = double(a[0]) - double(b[0]);
+    const double dy = double(a[1]) - double(b[1]);
+    const double dz = double(a[2]) - double(b[2]);
+    volatile float result = float((dz * dz + dx * dx) + dy * dy);
+    return result;
+}
+#pragma float_control(pop)
+
+__declspec(noinline) void __cdecl PowDecaySpeedCpp(float* speed, float* shift, float step) {
+    const double scaled = ExeCompatiblePowCpp(0.9599999785423279, double(step)) * double(*speed);
+    *speed = float(scaled);
+    *shift = float(scaled * double(step) + double(*shift));
+}
+
+__declspec(noinline) float __cdecl IntRatioCpp(int num, int den) {
+    volatile float result = float(double(num) / double(den));
+    return result;
 }

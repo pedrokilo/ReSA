@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "TaskSimpleCarDrive.h"
 #include "TaskUtilityLineUpPedWithCar.h"
 #include "Ragdoll/IKChainManager.h"
@@ -166,13 +167,7 @@ void CTaskSimpleCarDrive::UpdateBopping() {
 
 // Como el original: fsin del x87 con precisión interna completa sobre un float ya redondeado.
 static float X87Sin(float angle) {
-    float result;
-    __asm {
-        fld dword ptr [angle]
-        fsin
-        fstp dword ptr [result]
-    }
-    return result;
+    return TrigSimpleSinCpp(angle); // X87Math.cpp
 }
 
 // Como el original: ejes pasados a RtQuatRotate (0x86EBD4 = X, 0x86EBC8/0x86EBE0 = Z).

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TaskSimpleChoking.h"
 
@@ -106,13 +107,7 @@ bool CTaskSimpleChoking::ProcessPed(CPed* ped) {
         if (dot > 0.0f) { // fcomp + test ah,41h: solo con dot estrictamente positivo (NaN no)
             // fpatan trabaja a precision completa: atan2(-dx, dy) como en el EXE
             const float negDx = -dx;
-            float       result;
-            __asm {
-                fld   dword ptr [negDx]
-                fld   dword ptr [dy]
-                fpatan
-                fstp  dword ptr [result]
-            }
+            const float result = TrigAtan2Cpp(negDx, dy); // X87Math.cpp
             ped->m_fAimingRotation = result;
         }
     }
