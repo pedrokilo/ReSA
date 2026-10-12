@@ -4,33 +4,6 @@
 
 <a id="grupo-1181"></a>
 
-## Globales y helpers: source/game_sa/Events/EventPassObject.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CEventPassObject | [source/game_sa/Events/EventPassObject.h:7](../../source/game_sa/Events/EventPassObject.h#L7) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetEventType() const override | [source/game_sa/Events/EventPassObject.h:16](../../source/game_sa/Events/EventPassObject.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetEventPriority() const override | [source/game_sa/Events/EventPassObject.h:17](../../source/game_sa/Events/EventPassObject.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetLifeTime() override | [source/game_sa/Events/EventPassObject.h:18](../../source/game_sa/Events/EventPassObject.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const noexcept override | [source/game_sa/Events/EventPassObject.h:19](../../source/game_sa/Events/EventPassObject.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AffectsPed(CPed* ped) override | [source/game_sa/Events/EventPassObject.h:20](../../source/game_sa/Events/EventPassObject.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1182"></a>
-
-## Globales y helpers: source/game_sa/Events/EventPedCollisionWithPed.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CEventPedCollisionWithPed | [source/game_sa/Events/EventPedCollisionWithPed.h:8](../../source/game_sa/Events/EventPedCollisionWithPed.h#L8) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetEventType() const override | [source/game_sa/Events/EventPedCollisionWithPed.h:23](../../source/game_sa/Events/EventPedCollisionWithPed.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetEventPriority() const override | [source/game_sa/Events/EventPedCollisionWithPed.h:25](../../source/game_sa/Events/EventPedCollisionWithPed.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetLifeTime() override | [source/game_sa/Events/EventPedCollisionWithPed.h:26](../../source/game_sa/Events/EventPedCollisionWithPed.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const noexcept override | [source/game_sa/Events/EventPedCollisionWithPed.h:27](../../source/game_sa/Events/EventPedCollisionWithPed.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetVictimMoveState() const | [source/game_sa/Events/EventPedCollisionWithPed.h:29](../../source/game_sa/Events/EventPedCollisionWithPed.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetMoveState() const | [source/game_sa/Events/EventPedCollisionWithPed.h:30](../../source/game_sa/Events/EventPedCollisionWithPed.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1183"></a>
-
 ## Globales y helpers: source/game_sa/Events/EventPedCollisionWithPlayer.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -39,7 +12,7 @@
 | GetEventType() const override | [source/game_sa/Events/EventPedCollisionWithPlayer.h:16](../../source/game_sa/Events/EventPedCollisionWithPlayer.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const noexcept override | [source/game_sa/Events/EventPedCollisionWithPlayer.h:17](../../source/game_sa/Events/EventPedCollisionWithPlayer.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1184"></a>
+<a id="grupo-1182"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPedEnteredMyVehicle.h
 
@@ -53,7 +26,7 @@
 | GetLocalSoundLevel() override | [source/game_sa/Events/EventPedEnteredMyVehicle.h:17](../../source/game_sa/Events/EventPedEnteredMyVehicle.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventPedEnteredMyVehicle.h:18](../../source/game_sa/Events/EventPedEnteredMyVehicle.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1185"></a>
+<a id="grupo-1183"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPedToChase.h
 
@@ -66,7 +39,7 @@
 | * Clone() const noexcept override | [source/game_sa/Events/EventPedToChase.h:19](../../source/game_sa/Events/EventPedToChase.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventPedToChase.h:20](../../source/game_sa/Events/EventPedToChase.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1186"></a>
+<a id="grupo-1184"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPedToFlee.h
 
@@ -79,7 +52,7 @@
 | * Clone() const noexcept override | [source/game_sa/Events/EventPedToFlee.h:17](../../source/game_sa/Events/EventPedToFlee.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventPedToFlee.h:18](../../source/game_sa/Events/EventPedToFlee.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1187"></a>
+<a id="grupo-1185"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPlayerCollisionWithPed.h
 
@@ -89,7 +62,7 @@
 | GetEventType() const override | [source/game_sa/Events/EventPlayerCollisionWithPed.h:19](../../source/game_sa/Events/EventPlayerCollisionWithPed.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const noexcept override | [source/game_sa/Events/EventPlayerCollisionWithPed.h:20](../../source/game_sa/Events/EventPlayerCollisionWithPed.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1188"></a>
+<a id="grupo-1186"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPlayerCommandToGroup.h
 
@@ -104,7 +77,7 @@
 | * GetSourceEntity() const override | [source/game_sa/Events/EventPlayerCommandToGroup.h:31](../../source/game_sa/Events/EventPlayerCommandToGroup.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | TakesPriorityOver(const CEvent& refEvent) override | [source/game_sa/Events/EventPlayerCommandToGroup.h:32](../../source/game_sa/Events/EventPlayerCommandToGroup.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1189"></a>
+<a id="grupo-1187"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPlayerCommandToGroupAttack.h
 
@@ -116,7 +89,7 @@
 | GetEventPriority() const override | [source/game_sa/Events/EventPlayerCommandToGroupAttack.h:17](../../source/game_sa/Events/EventPlayerCommandToGroupAttack.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventPlayerCommandToGroupAttack.h:19](../../source/game_sa/Events/EventPlayerCommandToGroupAttack.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1190"></a>
+<a id="grupo-1188"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPlayerCommandToGroupGather.h
 
@@ -128,7 +101,7 @@
 | GetEventPriority() const override | [source/game_sa/Events/EventPlayerCommandToGroupGather.h:15](../../source/game_sa/Events/EventPlayerCommandToGroupGather.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventPlayerCommandToGroupGather.h:16](../../source/game_sa/Events/EventPlayerCommandToGroupGather.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1191"></a>
+<a id="grupo-1189"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPotentialGetRunOver.h
 
@@ -142,7 +115,7 @@
 | GetLocalSoundLevel() override | [source/game_sa/Events/EventPotentialGetRunOver.h:20](../../source/game_sa/Events/EventPotentialGetRunOver.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventPotentialGetRunOver.h:21](../../source/game_sa/Events/EventPotentialGetRunOver.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1192"></a>
+<a id="grupo-1190"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPotentialWalkIntoFire.h
 
@@ -154,7 +127,7 @@
 | GetLifeTime() override | [source/game_sa/Events/EventPotentialWalkIntoFire.h:33](../../source/game_sa/Events/EventPotentialWalkIntoFire.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventPotentialWalkIntoFire.h:35](../../source/game_sa/Events/EventPotentialWalkIntoFire.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1193"></a>
+<a id="grupo-1191"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPotentialWalkIntoObject.h
 
@@ -167,7 +140,7 @@
 | GetEventPriority() const override | [source/game_sa/Events/EventPotentialWalkIntoObject.h:32](../../source/game_sa/Events/EventPotentialWalkIntoObject.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetLifeTime() override | [source/game_sa/Events/EventPotentialWalkIntoObject.h:33](../../source/game_sa/Events/EventPotentialWalkIntoObject.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1194"></a>
+<a id="grupo-1192"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPotentialWalkIntoPed.h
 
@@ -181,7 +154,7 @@
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventPotentialWalkIntoPed.h:25](../../source/game_sa/Events/EventPotentialWalkIntoPed.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(CPed* ped, const CVector& targetPoint, eMoveState moveState) | [source/game_sa/Events/EventPotentialWalkIntoPed.h:31](../../source/game_sa/Events/EventPotentialWalkIntoPed.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1195"></a>
+<a id="grupo-1193"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPotentialWalkIntoVehicle.h
 
@@ -194,7 +167,7 @@
 | GetEventPriority() const override | [source/game_sa/Events/EventPotentialWalkIntoVehicle.h:32](../../source/game_sa/Events/EventPotentialWalkIntoVehicle.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetLifeTime() override | [source/game_sa/Events/EventPotentialWalkIntoVehicle.h:33](../../source/game_sa/Events/EventPotentialWalkIntoVehicle.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1196"></a>
+<a id="grupo-1194"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventRevived.h
 
@@ -206,7 +179,7 @@
 | GetLifeTime() override | [source/game_sa/Events/EventRevived.h:15](../../source/game_sa/Events/EventRevived.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const noexcept override | [source/game_sa/Events/EventRevived.h:16](../../source/game_sa/Events/EventRevived.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1197"></a>
+<a id="grupo-1195"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventScriptCommand.h
 
@@ -217,7 +190,7 @@
 | GetLifeTime() override | [source/game_sa/Events/EventScriptCommand.h:22](../../source/game_sa/Events/EventScriptCommand.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const noexcept override | [source/game_sa/Events/EventScriptCommand.h:23](../../source/game_sa/Events/EventScriptCommand.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1198"></a>
+<a id="grupo-1196"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventScriptedAttractor.h
 
@@ -227,7 +200,7 @@
 | GetEventType() const override | [source/game_sa/Events/EventScriptedAttractor.h:19](../../source/game_sa/Events/EventScriptedAttractor.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventScriptedAttractor.h:20](../../source/game_sa/Events/EventScriptedAttractor.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1199"></a>
+<a id="grupo-1197"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventSeenCop.h
 
@@ -239,7 +212,7 @@
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventSeenCop.h:16](../../source/game_sa/Events/EventSeenCop.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventSeenCop.h:17](../../source/game_sa/Events/EventSeenCop.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1200"></a>
+<a id="grupo-1198"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventSeenPanickedPed.h
 
@@ -251,3 +224,28 @@
 | GetLifeTime() override | [source/game_sa/Events/EventSeenPanickedPed.h:16](../../source/game_sa/Events/EventSeenPanickedPed.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GetSourceEntity() const override | [source/game_sa/Events/EventSeenPanickedPed.h:18](../../source/game_sa/Events/EventSeenPanickedPed.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventSeenPanickedPed.h:19](../../source/game_sa/Events/EventSeenPanickedPed.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1199"></a>
+
+## Globales y helpers: source/game_sa/Events/EventSexyPed.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CEventEditableResponse | [source/game_sa/Events/EventSexyPed.h:10](../../source/game_sa/Events/EventSexyPed.h#L10) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetEventType() const override | [source/game_sa/Events/EventSexyPed.h:19](../../source/game_sa/Events/EventSexyPed.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetEventPriority() const override | [source/game_sa/Events/EventSexyPed.h:20](../../source/game_sa/Events/EventSexyPed.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetLifeTime() override | [source/game_sa/Events/EventSexyPed.h:21](../../source/game_sa/Events/EventSexyPed.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetSourceEntity() const override | [source/game_sa/Events/EventSexyPed.h:23](../../source/game_sa/Events/EventSexyPed.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CloneEditable() const noexcept override | [source/game_sa/Events/EventSexyPed.h:24](../../source/game_sa/Events/EventSexyPed.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1200"></a>
+
+## Globales y helpers: source/game_sa/Events/EventSexyVehicle.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CEventSexyVehicle | [source/game_sa/Events/EventSexyVehicle.h:7](../../source/game_sa/Events/EventSexyVehicle.h#L7) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetEventType() const override | [source/game_sa/Events/EventSexyVehicle.h:15](../../source/game_sa/Events/EventSexyVehicle.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetEventPriority() const override | [source/game_sa/Events/EventSexyVehicle.h:16](../../source/game_sa/Events/EventSexyVehicle.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetLifeTime() override | [source/game_sa/Events/EventSexyVehicle.h:17](../../source/game_sa/Events/EventSexyVehicle.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const noexcept override | [source/game_sa/Events/EventSexyVehicle.h:18](../../source/game_sa/Events/EventSexyVehicle.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

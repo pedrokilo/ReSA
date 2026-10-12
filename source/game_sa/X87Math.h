@@ -23,3 +23,11 @@ bool __cdecl CloudsLessOrderedCpp(float first, float second);
 // Sombras: raíz cuadrada y atenuación por distancia, devueltas como double (FSTP64 + FLD64)
 extern "C" double __cdecl ShadowSqrtCpp(float value);
 extern "C" double __cdecl ShadowDistanceFadeCpp(float squared, float distance);
+
+// Animación: producto escalar de dos quaterniones en el orden del EXE ((w·w + z·z) + y·y) + x·x
+// (los punteros apuntan a x, y, z, w consecutivos).
+// AnimQuaternionDotNegativeCpp: true si el producto es < 0 (comparación ordenada: con NaN da false).
+bool __cdecl AnimQuaternionDotNegativeCpp(const float* last, const float* cur);
+// AnimCalcThetaCpp: theta = acos(producto recortado a 1) con la palabra de control del EXE y 1/sin(theta) sin redondear
+// (0 si theta es exactamente 0), como CAnimBlendNode::CalcTheta (0x4D00E0).
+void __cdecl AnimCalcThetaCpp(const float* prev, const float* curr, float* theta, float* invSinTheta);

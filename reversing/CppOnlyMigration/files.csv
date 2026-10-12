@@ -1,9 +1,5 @@
 file,inline_assembly_occurrences,naked_declarations
 source/game_sa/3dMarkers.cpp,3,0
-source/game_sa/Animation/AnimBlendNode.cpp,1,1
-source/game_sa/Animation/AnimBlendSequence.cpp,1,0
-source/game_sa/AttractorScanner.cpp,1,1
-source/game_sa/Attractors/PedShelterAttractor.cpp,1,0
 source/game_sa/Audio/AEAudioEnvironment.cpp,2,0
 source/game_sa/Audio/AEAudioUtility.cpp,5,0
 source/game_sa/Audio/AESmoothFadeThread.cpp,2,0

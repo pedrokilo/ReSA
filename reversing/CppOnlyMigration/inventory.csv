@@ -2,12 +2,6 @@ file,line,kind,status
 source/game_sa/3dMarkers.cpp,45,inline_assembly,pending_cpp_conversion
 source/game_sa/3dMarkers.cpp,52,inline_assembly,pending_cpp_conversion
 source/game_sa/3dMarkers.cpp,375,inline_assembly,pending_cpp_conversion
-source/game_sa/Animation/AnimBlendNode.cpp,115,naked,pending_cpp_conversion
-source/game_sa/Animation/AnimBlendNode.cpp,116,inline_assembly,pending_cpp_conversion
-source/game_sa/Animation/AnimBlendSequence.cpp,175,inline_assembly,pending_cpp_conversion
-source/game_sa/Attractors/PedShelterAttractor.cpp,40,inline_assembly,pending_cpp_conversion
-source/game_sa/AttractorScanner.cpp,5,naked,pending_cpp_conversion
-source/game_sa/AttractorScanner.cpp,6,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/AEAudioEnvironment.cpp,159,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/AEAudioEnvironment.cpp,193,inline_assembly,pending_cpp_conversion
 source/game_sa/Audio/AEAudioUtility.cpp,124,inline_assembly,pending_cpp_conversion

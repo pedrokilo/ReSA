@@ -4,30 +4,13 @@
 
 <a id="grupo-1001"></a>
 
-## Globales y helpers: source/game_sa/Audio/Entities/AEScriptAudioEntity.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CAEScriptAudioEntity | [source/game_sa/Audio/Entities/AEScriptAudioEntity.h:30](../../source/game_sa/Audio/Entities/AEScriptAudioEntity.h#L30) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1002"></a>
-
-## Globales y helpers: source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CAETwinLoopSoundEntity | [source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h:25](../../source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h#L25) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsActive() const noexcept | [source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h:68](../../source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1003"></a>
-
 ## Globales y helpers: source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | & GetVehicleAudioSettings(eModelID model) | [source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h:283](../../source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h#L283) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1004"></a>
+<a id="grupo-1002"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp
 
@@ -81,7 +64,7 @@
 | VehAudioPlayerVolume_Impl(const CAEVehicleAudioEntity* self, void*, CAEVehicleAudioEntity::tVehicleParams* vp, CAEVehicleAudioEntity::eVehicleEngineSoundType st) | [source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp:5545](../../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp#L5545) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | VehAudioPlayerVolume_KeepEcx() | [source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp:5548](../../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp#L5548) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1005"></a>
+<a id="grupo-1003"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEVehicleAudioEntity.h
 
@@ -98,7 +81,7 @@
 | EnumToString(eAERadioType rt) | [source/game_sa/Audio/Entities/AEVehicleAudioEntity.h:932](../../source/game_sa/Audio/Entities/AEVehicleAudioEntity.h#L932) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | EnumToString(eAEVehicleSoundType v) | [source/game_sa/Audio/Entities/AEVehicleAudioEntity.h:943](../../source/game_sa/Audio/Entities/AEVehicleAudioEntity.h#L943) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1006"></a>
+<a id="grupo-1004"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h
 
@@ -106,7 +89,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEWaterCannonAudioEntity | [source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h:14](../../source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h#L14) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1007"></a>
+<a id="grupo-1005"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp
 
@@ -114,7 +97,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Log10Times20(float x) | [source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp:44](../../source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp#L44) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1008"></a>
+<a id="grupo-1006"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEWeaponAudioEntity.h
 
@@ -122,7 +105,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEWeaponAudioEntity | [source/game_sa/Audio/Entities/AEWeaponAudioEntity.h:20](../../source/game_sa/Audio/Entities/AEWeaponAudioEntity.h#L20) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1009"></a>
+<a id="grupo-1007"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp
 
@@ -131,7 +114,7 @@
 | DefaultVolumeInt(eAudioEvents event) | [source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp:47](../../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FadeWeatherSoundOut(CAESound* sound) | [source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp:52](../../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1010"></a>
+<a id="grupo-1008"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEWeatherAudioEntity.h
 
@@ -139,7 +122,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEWeatherAudioEntity | [source/game_sa/Audio/Entities/AEWeatherAudioEntity.h:11](../../source/game_sa/Audio/Entities/AEWeatherAudioEntity.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1011"></a>
+<a id="grupo-1009"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Enums/eAEVehicleDoorType.h
 
@@ -147,7 +130,7 @@
 | --- | --- | --- | --- | --- | --- |
 | EnumToString(eAEVehicleDoorType v) | [source/game_sa/Audio/Enums/eAEVehicleDoorType.h:14](../../source/game_sa/Audio/Enums/eAEVehicleDoorType.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1012"></a>
+<a id="grupo-1010"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Enums/eAEVehicleHornType.h
 
@@ -155,7 +138,7 @@
 | --- | --- | --- | --- | --- | --- |
 | EnumToString(eAEVehicleHornType v) | [source/game_sa/Audio/Enums/eAEVehicleHornType.h:25](../../source/game_sa/Audio/Enums/eAEVehicleHornType.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1013"></a>
+<a id="grupo-1011"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Enums/eBassSetting.h
 
@@ -163,7 +146,7 @@
 | --- | --- | --- | --- | --- | --- |
 | EnumToString(eBassSetting v) | [source/game_sa/Audio/Enums/eBassSetting.h:14](../../source/game_sa/Audio/Enums/eBassSetting.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1014"></a>
+<a id="grupo-1012"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Enums/eSoundBank.h
 
@@ -171,7 +154,7 @@
 | --- | --- | --- | --- | --- | --- |
 | EnumToString(eSoundBank v) | [source/game_sa/Audio/Enums/eSoundBank.h:740](../../source/game_sa/Audio/Enums/eSoundBank.h#L740) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1015"></a>
+<a id="grupo-1013"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Enums/eSoundBankSlot.h
 
@@ -179,7 +162,7 @@
 | --- | --- | --- | --- | --- | --- |
 | EnumToString(eSoundBankSlot v) | [source/game_sa/Audio/Enums/eSoundBankSlot.h:87](../../source/game_sa/Audio/Enums/eSoundBankSlot.h#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1016"></a>
+<a id="grupo-1014"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Hardware/AEAudioChannel.h
 
@@ -189,7 +172,7 @@
 | GetVolume() const | [source/game_sa/Audio/Hardware/AEAudioChannel.h:67](../../source/game_sa/Audio/Hardware/AEAudioChannel.h#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsBufferPlaying() const | [source/game_sa/Audio/Hardware/AEAudioChannel.h:69](../../source/game_sa/Audio/Hardware/AEAudioChannel.h#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1017"></a>
+<a id="grupo-1015"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Hardware/AEAudioHardware.cpp
 
@@ -199,7 +182,7 @@
 | ExeAddFadeNearEnd(int32 diff, int32 divisor, const float* gain, float* sum) | [source/game_sa/Audio/Hardware/AEAudioHardware.cpp:459](../../source/game_sa/Audio/Hardware/AEAudioHardware.cpp#L459) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | ExeGainToDecibels(const float* gain) | [source/game_sa/Audio/Hardware/AEAudioHardware.cpp:487](../../source/game_sa/Audio/Hardware/AEAudioHardware.cpp#L487) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 2 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1018"></a>
+<a id="grupo-1016"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Hardware/AEAudioHardware.h
 
@@ -207,7 +190,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CopyFromAESound(const CAESound& sound) | [source/game_sa/Audio/Hardware/AEAudioHardware.h:29](../../source/game_sa/Audio/Hardware/AEAudioHardware.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1019"></a>
+<a id="grupo-1017"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Hardware/AEStaticChannel.h
 
@@ -215,7 +198,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEStaticChannel | [source/game_sa/Audio/Hardware/AEStaticChannel.h:4](../../source/game_sa/Audio/Hardware/AEStaticChannel.h#L4) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1020"></a>
+<a id="grupo-1018"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Hardware/AEStreamingChannel.h
 
@@ -225,3 +208,19 @@
 | * Constructor(IDirectSound* directSound, uint16 channelId) | [source/game_sa/Audio/Hardware/AEStreamingChannel.h:77](../../source/game_sa/Audio/Hardware/AEStreamingChannel.h#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Destructor() | [source/game_sa/Audio/Hardware/AEStreamingChannel.h:82](../../source/game_sa/Audio/Hardware/AEStreamingChannel.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DirectSoundBufferFadeToSilence() | [source/game_sa/Audio/Hardware/AEStreamingChannel.h:87](../../source/game_sa/Audio/Hardware/AEStreamingChannel.h#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AESmoothFadeThread: source/game_sa/Audio/AESmoothFadeThread.cpp:25 (0x00B608D0) |
+
+<a id="grupo-1019"></a>
+
+## Globales y helpers: source/game_sa/Audio/Loaders/AEDataStream.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CAEDataStream | [source/game_sa/Audio/Loaders/AEDataStream.h:13](../../source/game_sa/Audio/Loaders/AEDataStream.h#L13) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1020"></a>
+
+## Globales y helpers: source/game_sa/Audio/Loaders/AEMFDecoder.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CAEStreamingDecoder | [source/game_sa/Audio/Loaders/AEMFDecoder.h:12](../../source/game_sa/Audio/Loaders/AEMFDecoder.h#L12) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

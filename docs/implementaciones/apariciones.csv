@@ -2,12 +2,6 @@ file,line,kind,function,definition_line
 source/game_sa/3dMarkers.cpp,45,inline_assembly,ComputeStdSize,37
 source/game_sa/3dMarkers.cpp,52,inline_assembly,ComputeStdSize,37
 source/game_sa/3dMarkers.cpp,375,inline_assembly,C3dMarkers::PlaceMarker,356
-source/game_sa/Animation/AnimBlendNode.cpp,115,naked,CalcThetaX87,115
-source/game_sa/Animation/AnimBlendNode.cpp,116,inline_assembly,CalcThetaX87,115
-source/game_sa/Animation/AnimBlendSequence.cpp,175,inline_assembly,IsQuaternionDotNegative,172
-source/game_sa/Attractors/PedShelterAttractor.cpp,40,inline_assembly,CPedShelterAttractor::GetDisplacement,26
-source/game_sa/AttractorScanner.cpp,5,naked,CAttractorScanner::Clear,5
-source/game_sa/AttractorScanner.cpp,6,inline_assembly,CAttractorScanner::Clear,5
 source/game_sa/Audio/AEAudioEnvironment.cpp,159,inline_assembly,CAEAudioEnvironment::GetPositionRelativeToCamera_Vector,144
 source/game_sa/Audio/AEAudioEnvironment.cpp,193,inline_assembly,CAEAudioEnvironment::GetPositionRelativeToCamera_Vector,144
 source/game_sa/Audio/AEAudioUtility.cpp,124,inline_assembly,CAEAudioUtility::AudioLog10,119

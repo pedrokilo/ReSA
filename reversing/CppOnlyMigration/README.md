@@ -8,7 +8,7 @@ El inventario inicial identificó 185 archivos con 965 apariciones de ensamblado
 
 ## Conversiones comprobadas
 
-[approvals.json](approvals.json) conserva 38 conversiones de funciones fuente con sus auditorías dentro del juego:
+[approvals.json](approvals.json) conserva 42 conversiones de funciones fuente con sus auditorías dentro del juego:
 
 | Función | Entrada EXE | Pares propios |
 | --- | --- | ---: |
@@ -39,6 +39,10 @@ El inventario inicial identificó 185 archivos con 965 apariciones de ensamblado
 | ShadowDistanceFade (X87Math) | Helper fuente, StoreStaticShadow y StoreShadowForVehicle | 8192 compartidos |
 | IsPlayerInPositionForConversation | 0x43AC40 | 2414 |
 | CConversationNode::ClearRecursively | 0x43A710 | 2048 |
+| CAnimBlendNode::CalcTheta | 0x4D00E0 | 1024 |
+| CAnimBlendSequence::RemoveQuaternionFlips | 0x4D1190 | 512 |
+| CPedShelterAttractor::GetDisplacement | 0x5EF420 | 512 |
+| CAttractorScanner::Clear | 0x5FFF90 | 2048 |
 
 Cada corrida aprobada tiene cero diferencias, resultados no nulos, rutas y restauración verificadas. Estas conversiones vuelven a probar implementaciones catalogadas; no incrementan las 105 aprobaciones de la cohorte de dependencias.
 
@@ -98,3 +102,7 @@ Siguiendo la auditoría ([AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_A
 - **`Native_00424100`:** ahora vive en `CarCtrl.cpp` (3 bytes, idénticos al EXE), optimizada por `#pragma`; `NativeStubs.cpp` se eliminó. Ver [REVALIDACION_INTERIOR_CARCTRL.md](REVALIDACION_INTERIOR_CARCTRL.md).
 - **Revalidación (primera tanda):** 16 bancos repetidos con los archivos nuevos, todos con cero diferencias y cero registros nulos, y estado, partidas y configuración restaurados: CppShadowSqrtStatic y Vehicle (4096 + 4096), CppCloudsMath3 (3072), CppCloudsRegression20 (8384), CppTrigBirdsRender (512), CppTrigBrightPlane (1536), CppTrigClimb (4608), CppTrigFollowPointRoute (512), CppTrigJetPack (1536), CppTrigSwim (2048), CppTrigCompound6Birds (2560), Markers (4608), Route (1024), Swim (1024), CppIntegerWorld4 (4608) y CppIntegerWorld10 (4096). Los registros de `approvals.json` apuntan a las corridas nuevas y conservan la anterior en `previous_run`.
 - **`Interior_c`:** `InteriorCpp.cpp` e `InteriorShelfCpp.cpp` se fundieron en `Interior_c.cpp`; ver [REVALIDACION_INTERIOR_CARCTRL.md](REVALIDACION_INTERIOR_CARCTRL.md) para el detalle. Los dos fallos preexistentes (InteriorCommerce y `CStreaming::Shutdown`) eran huecos de la instrumentación de sus bancos y quedaron corregidos: ambos bancos aprueban.
+
+## Animación y atractores (11/10/2026)
+
+Se convirtieron cuatro funciones con ensamblador de cuatro clases ([detalle y objetos](../CppAnimAttractorStudy/README.md)): `CAnimBlendNode::CalcTheta`, `CAnimBlendSequence::RemoveQuaternionFlips`, `CPedShelterAttractor::GetDisplacement` y `CAttractorScanner::Clear`. Bancos completos repetidos sobre la fuente final: Anim16 (14080 pares), Render14 (6784), CTasks61c (28928) y DependenciesTaskPed5 (8192), todos aprobados con cero diferencias; las evidencias están en `CppAnimAttractorUnified`. Dos corridas intermedias fallaron y se corrigieron (ver el estudio). El conteo pasa a 918 apariciones de ensamblador y 274 declaraciones naked en 171 archivos.

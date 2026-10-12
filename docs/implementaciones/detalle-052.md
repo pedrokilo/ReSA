@@ -4,29 +4,13 @@
 
 <a id="grupo-1021"></a>
 
-## Globales y helpers: source/game_sa/Audio/Loaders/AEDataStream.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CAEDataStream | [source/game_sa/Audio/Loaders/AEDataStream.h:13](../../source/game_sa/Audio/Loaders/AEDataStream.h#L13) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1022"></a>
-
-## Globales y helpers: source/game_sa/Audio/Loaders/AEMFDecoder.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CAEStreamingDecoder | [source/game_sa/Audio/Loaders/AEMFDecoder.h:12](../../source/game_sa/Audio/Loaders/AEMFDecoder.h#L12) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1023"></a>
-
 ## Globales y helpers: source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | SecondsToMs(double seconds) | [source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp:33](../../source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp#L33) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1024"></a>
+<a id="grupo-1022"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Loaders/AEVorbisDecoder.h
 
@@ -34,7 +18,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEStreamingDecoder | [source/game_sa/Audio/Loaders/AEVorbisDecoder.h:13](../../source/game_sa/Audio/Loaders/AEVorbisDecoder.h#L13) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1025"></a>
+<a id="grupo-1023"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Loaders/AEWMADecoder.h
 
@@ -42,7 +26,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEStreamingDecoder | [source/game_sa/Audio/Loaders/AEWMADecoder.h:15](../../source/game_sa/Audio/Loaders/AEWMADecoder.h#L15) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1026"></a>
+<a id="grupo-1024"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Loaders/AEWaveDecoder.cpp
 
@@ -50,7 +34,7 @@
 | --- | --- | --- | --- | --- | --- |
 | BytesToMs(uint32 bytes, uint32 bytesPerSecond) | [source/game_sa/Audio/Loaders/AEWaveDecoder.cpp:31](../../source/game_sa/Audio/Loaders/AEWaveDecoder.cpp#L31) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1027"></a>
+<a id="grupo-1025"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Loaders/AEWaveDecoder.h
 
@@ -58,7 +42,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEStreamingDecoder | [source/game_sa/Audio/Loaders/AEWaveDecoder.h:16](../../source/game_sa/Audio/Loaders/AEWaveDecoder.h#L16) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1028"></a>
+<a id="grupo-1026"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Managers/AERadioTrackManager.cpp
 
@@ -67,7 +51,7 @@
 | ResetCommon(CAERadioTrackManager& self) | [source/game_sa/Audio/Managers/AERadioTrackManager.cpp:102](../../source/game_sa/Audio/Managers/AERadioTrackManager.cpp#L102) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_nAdvertIndexHistory: source/game_sa/Audio/Managers/AERadioTrackManager.h:169 (0x00B620C0); Posible dato fijo m_nDJBanterIndexHistory: source/game_sa/Audio/Managers/AERadioTrackManager.h:168 (0x00B61D78); Posible dato fijo m_nIdentIndexHistory: source/game_sa/Audio/Managers/AERadioTrackManager.h:170 (0x00B62980); Posible dato fijo m_nMusicTrackIndexHistory: source/game_sa/Audio/Managers/AERadioTrackManager.h:171 (0x00B62B40); Posible dato fijo m_nSpecialDJBanterIndex: source/game_sa/Audio/Managers/AERadioTrackManager.h:199 (0x00B62C72); Posible dato fijo m_nSpecialDJBanterPending: source/game_sa/Audio/Managers/AERadioTrackManager.h:200 (0x00B62C73) |
 | CalculateRadioVolume355() | [source/game_sa/Audio/Managers/AERadioTrackManager.cpp:598](../../source/game_sa/Audio/Managers/AERadioTrackManager.cpp#L598) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAERadioTrackManager::UpdateRadioVolumes 0x004EA010 | 1 / 0 | Posible dato fijo AEAudioHardware: source/game_sa/Audio/Hardware/AEAudioHardware.cpp:29 (0x00B5F8B8); ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1029"></a>
+<a id="grupo-1027"></a>
 
 ## Globales y helpers: source/game_sa/Audio/OpenAL/OALBase.cpp
 
@@ -75,7 +59,7 @@
 | --- | --- | --- | --- | --- | --- |
 | OALCheckErrors(std::string_view file, int32 line) | [source/game_sa/Audio/OpenAL/OALBase.cpp:26](../../source/game_sa/Audio/OpenAL/OALBase.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1030"></a>
+<a id="grupo-1028"></a>
 
 ## Globales y helpers: source/game_sa/Birds.cpp
 
@@ -86,7 +70,7 @@
 | BirdsAddAtan2(float add, float x, float y) | [source/game_sa/Birds.cpp:121](../../source/game_sa/Birds.cpp#L121) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | BirdsRotate(float angle, float* px, float* py) | [source/game_sa/Birds.cpp:133](../../source/game_sa/Birds.cpp#L133) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1031"></a>
+<a id="grupo-1029"></a>
 
 ## Globales y helpers: source/game_sa/BouncingPanel.cpp
 
@@ -96,7 +80,7 @@
 | Multiply3x3_VM_59C810(const CVector& v, const CMatrix& m) | [source/game_sa/BouncingPanel.cpp:60](../../source/game_sa/BouncingPanel.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MultiplyByPow(CVector& pos, float damp, float step) | [source/game_sa/BouncingPanel.cpp:70](../../source/game_sa/BouncingPanel.cpp#L70) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1032"></a>
+<a id="grupo-1030"></a>
 
 ## Globales y helpers: source/game_sa/BreakObject_c.cpp
 
@@ -105,7 +89,7 @@
 | MatrixTimesPoint59C890(const CMatrix& m, const CVector& v) | [source/game_sa/BreakObject_c.cpp:48](../../source/game_sa/BreakObject_c.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AcosX87(double x) | [source/game_sa/BreakObject_c.cpp:371](../../source/game_sa/BreakObject_c.cpp#L371) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1033"></a>
+<a id="grupo-1031"></a>
 
 ## Globales y helpers: source/game_sa/BrightLights.cpp
 
@@ -113,7 +97,7 @@
 | --- | --- | --- | --- | --- | --- |
 | BrightFtolByte(float f) | [source/game_sa/BrightLights.cpp:34](../../source/game_sa/BrightLights.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1034"></a>
+<a id="grupo-1032"></a>
 
 ## Globales y helpers: source/game_sa/BulletInfo.cpp
 
@@ -121,7 +105,7 @@
 | --- | --- | --- | --- | --- | --- |
 | AsinDegreesX87(float x) | [source/game_sa/BulletInfo.cpp:78](../../source/game_sa/BulletInfo.cpp#L78) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1035"></a>
+<a id="grupo-1033"></a>
 
 ## Globales y helpers: source/game_sa/BulletTraces.cpp
 
@@ -129,7 +113,7 @@
 | --- | --- | --- | --- | --- | --- |
 | PlayFrontEndSoundForTrace(const CVector& fromWorldSpace, const CVector& toWorldSpace) | [source/game_sa/BulletTraces.cpp:61](../../source/game_sa/BulletTraces.cpp#L61) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:39 (0x00B6F028); ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1036"></a>
+<a id="grupo-1034"></a>
 
 ## Globales y helpers: source/game_sa/Buoyancy.cpp
 
@@ -138,7 +122,7 @@
 | BuoyancyMultiply3x3(const CMatrix& m, const CVector& v) | [source/game_sa/Buoyancy.cpp:32](../../source/game_sa/Buoyancy.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | BuoyancyMultiplyPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Buoyancy.cpp:41](../../source/game_sa/Buoyancy.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1037"></a>
+<a id="grupo-1035"></a>
 
 ## Globales y helpers: source/game_sa/C_PcSave.cpp
 
@@ -146,7 +130,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * GxtCharToSafeAscii(const GxtChar* src) | [source/game_sa/C_PcSave.cpp:54](../../source/game_sa/C_PcSave.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1038"></a>
+<a id="grupo-1036"></a>
 
 ## Globales y helpers: source/game_sa/Cam.cpp
 
@@ -230,7 +214,7 @@
 | ConvertPedNode2BoneTag(int32 simpleId) | [source/game_sa/Cam.cpp:6265](../../source/game_sa/Cam.cpp#L6265) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsLampPost(eModelID modelId) | [source/game_sa/Cam.cpp:6290](../../source/game_sa/Cam.cpp#L6290) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo MI_BOLLARDLIGHT: source/game_sa/ModelIndices.cpp:90 (0x008CD5FC); Posible dato fijo MI_MLAMPPOST: source/game_sa/ModelIndices.cpp:96 (0x008CD614); Posible dato fijo MI_SINGLESTREETLIGHTS1: source/game_sa/ModelIndices.cpp:33 (0x008CD518); Posible dato fijo MI_SINGLESTREETLIGHTS2: source/game_sa/ModelIndices.cpp:34 (0x008CD51C); Posible dato fijo MI_SINGLESTREETLIGHTS3: source/game_sa/ModelIndices.cpp:35 (0x008CD520); Posible dato fijo MI_STREETLAMP1: source/game_sa/ModelIndices.cpp:37 (0x008CD528); Posible dato fijo MI_STREETLAMP2: source/game_sa/ModelIndices.cpp:38 (0x008CD52C); Posible dato fijo MI_TELPOLE02: source/game_sa/ModelIndices.cpp:99 (0x008CD620); Posible dato fijo MI_TRAFFICLIGHTS_3: source/game_sa/ModelIndices.cpp:29 (0x008CD508); Posible dato fijo MI_TRAFFICLIGHTS_4: source/game_sa/ModelIndices.cpp:30 (0x008CD50C); Posible dato fijo MI_TRAFFICLIGHTS_5: source/game_sa/ModelIndices.cpp:31 (0x008CD510); Posible dato fijo MI_TRAFFICLIGHTS_GAY: source/game_sa/ModelIndices.cpp:32 (0x008CD514); Posible dato fijo MI_TRAFFICLIGHTS_MIAMI: source/game_sa/ModelIndices.cpp:26 (0x008CD4FC); Posible dato fijo MI_TRAFFICLIGHTS_TWOVERTICAL: source/game_sa/ModelIndices.cpp:28 (0x008CD504) |
 
-<a id="grupo-1039"></a>
+<a id="grupo-1037"></a>
 
 ## Globales y helpers: source/game_sa/Camera.cpp
 
@@ -286,7 +270,7 @@
 | CameraControlVehicleGarage(CCamera& camera, bool& stairs) | [source/game_sa/Camera.cpp:3960](../../source/game_sa/Camera.cpp#L3960) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CameraControlPedGarage(CCamera& camera, bool& stairs) | [source/game_sa/Camera.cpp:4035](../../source/game_sa/Camera.cpp#L4035) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1040"></a>
+<a id="grupo-1038"></a>
 
 ## Globales y helpers: source/game_sa/CarAI.cpp
 
@@ -303,3 +287,19 @@
 | PrepareGoToCoors(CVehicle* veh, eCarDrivingStyle drivingStyle, bool setCruiseSpeed) | [source/game_sa/CarAI.cpp:176](../../source/game_sa/CarAI.cpp#L176) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetTempActionFor(CAutoPilot& ap, eAutoPilotTempAction action, uint32 durMs) | [source/game_sa/CarAI.cpp:189](../../source/game_sa/CarAI.cpp#L189) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PlayerWantedLevel() | [source/game_sa/CarAI.cpp:194](../../source/game_sa/CarAI.cpp#L194) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1039"></a>
+
+## Globales y helpers: source/game_sa/CarCtrl.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| Native_00424100(float, float) | [source/game_sa/CarCtrl.cpp:55](../../source/game_sa/CarCtrl.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1040"></a>
+
+## Globales y helpers: source/game_sa/CarEnterExit.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ComputePassengerIndexFromCarDoor_KeepEdx(const CVehicle* vehicle, int32 doorId) | [source/game_sa/CarEnterExit.cpp:35](../../source/game_sa/CarEnterExit.cpp#L35) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |

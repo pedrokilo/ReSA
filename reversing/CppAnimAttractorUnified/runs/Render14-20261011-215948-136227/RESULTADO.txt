@@ -1,0 +1,3 @@
+APROBADO: Secuencias de animación y pipeline día/noche de edificios (lista de 14)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-render14\20261011-215948-136227

@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "AnimBlendNode.h"
+#include "X87Math.h"
 
 /**
  * Registra las operaciones de interpolación temporal de un nodo de animación.
@@ -105,77 +106,11 @@ bool CAnimBlendNode::FindKeyFrame(float time) {
     return true;
 }
 
-static float s_CalcThetaOne  = 1.0f;
-static float s_CalcThetaZero = 0.0f;
-
-// Como el original (0x4D00E0): producto escalar en x87 ((pw·cw + pz·cz) + py·cy) + px·cx guardado como float,
-// recorte a 1 con fcomp (NaN pasa), acos del CRT del juego (0x822380: fpatan(sqrt((1 + x)(1 - x)), x) con la
-// palabra de control (anterior & 0x300) | 0x7F), theta guardado como float y 1/fsin calculado con el resultado
-// completo del acos (sin redondear) salvo si es exactamente 0.
-static void __declspec(naked) __cdecl CalcThetaX87(const CQuaternion* prev, const CQuaternion* curr, float* theta, float* invSinTheta) {
-    __asm {
-        mov    eax, dword ptr [esp + 4]
-        mov    ecx, dword ptr [esp + 8]
-        fld    dword ptr [eax + 0Ch]
-        fmul   dword ptr [ecx + 0Ch]
-        fld    dword ptr [eax + 8]
-        fmul   dword ptr [ecx + 8]
-        faddp  st(1), st
-        fld    dword ptr [eax + 4]
-        fmul   dword ptr [ecx + 4]
-        faddp  st(1), st
-        fld    dword ptr [eax]
-        fmul   dword ptr [ecx]
-        faddp  st(1), st
-        fst    dword ptr [esp + 4]
-        fcomp  dword ptr [s_CalcThetaOne]
-        fnstsw ax
-        test   ah, 41h
-        jne    ct_noclamp
-        mov    dword ptr [esp + 4], 3F800000h
-    ct_noclamp:
-        fld    dword ptr [esp + 4]
-        sub    esp, 4
-        fnstcw word ptr [esp]
-        mov    ax, word ptr [esp]
-        and    ax, 300h
-        or     ax, 7Fh
-        mov    word ptr [esp + 2], ax
-        fldcw  word ptr [esp + 2]
-        fld1
-        fadd   st, st(1)
-        fld1
-        fsub   st, st(2)
-        fmulp  st(1), st
-        fsqrt
-        fxch   st(1)
-        fpatan
-        fldcw  word ptr [esp]
-        add    esp, 4
-        fld    st(0)
-        mov    eax, dword ptr [esp + 0Ch]
-        fstp   dword ptr [eax]
-        fcom   dword ptr [s_CalcThetaZero]
-        fnstsw ax
-        test   ah, 44h
-        jnp    ct_zero
-        fsin
-        mov    ecx, dword ptr [esp + 10h]
-        fdivr  dword ptr [s_CalcThetaOne]
-        fstp   dword ptr [ecx]
-        ret
-    ct_zero:
-        mov    edx, dword ptr [esp + 10h]
-        fstp   st(0)
-        mov    dword ptr [edx], 0
-        ret
-    }
-}
-
 // 0x4D00E0
 // Precalcula el ángulo y 1/sin(theta) usados por Slerp entre los dos keyframes.
 void CAnimBlendNode::CalcTheta(const CQuaternion& prev, const CQuaternion& curr, float& theta, float& invSinTheta) {
-    CalcThetaX87(&prev, &curr, &theta, &invSinTheta);
+    // Como el original (0x4D00E0): producto escalar, recorte a 1, acos del CRT del juego y 1/sin sin redondear; en X87Math.cpp.
+    AnimCalcThetaCpp(&prev.x, &curr.x, &theta, &invSinTheta);
 }
 
 // 0x4D0190

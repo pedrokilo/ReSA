@@ -71,6 +71,13 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # CAttractorScanner::Clear (0x5FFF90) must keep ECX and compute the square with the x87; the whole class file is compiled so.
+    set_source_files_properties(game_sa/AttractorScanner.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # Shared scalar x87 helpers (sin/cos, ordered comparisons, shadow sqrt/fade); callers retain their own options.
     set_source_files_properties(game_sa/X87Math.cpp PROPERTIES
         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"

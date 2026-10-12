@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "AnimBlendSequence.h"
+#include "X87Math.h"
 #include <reversiblebugfixes/Bugs.hpp>
 
 /**
@@ -167,32 +168,6 @@ size_t CAnimBlendSequence::GetDataSize(bool compressed) const {
     return kfSize * static_cast<int16>(m_FramesNum);
 }
 
-// Como el original: producto escalar de 0x4D11F4 en x87 ((lw·fw + lz·fz) + ly·fy) + lx·fx y comparación "< 0" con
-// fcomp (NaN no cuenta como negativo).
-static bool IsQuaternionDotNegative(const float* pLast, const float* pCur) {
-    float       zeroF = 0.0f;
-    uint16      sw;
-    __asm {
-        mov  eax, pLast
-        mov  edx, pCur
-        fld  dword ptr [eax+12]
-        fmul dword ptr [edx+12]
-        fld  dword ptr [eax+8]
-        fmul dword ptr [edx+8]
-        faddp st(1), st
-        fld  dword ptr [eax+4]
-        fmul dword ptr [edx+4]
-        faddp st(1), st
-        fld  dword ptr [edx]
-        fmul dword ptr [eax]
-        faddp st(1), st
-        fcomp zeroF
-        fnstsw ax
-        mov  sw, ax
-    }
-    return (sw & 0x0500) == 0x0100;
-}
-
 // 0x4D1190
 /**
  * Mantiene quaternions consecutivos en el mismo hemisferio.
@@ -210,7 +185,7 @@ void CAnimBlendSequence::RemoveQuaternionFlips() const {
     std::memcpy(last, m_Frames, sizeof(last));
     for (int32 i = 1; i < static_cast<int16>(m_FramesNum); i++) {
         auto* const f = reinterpret_cast<float*>(static_cast<uint8*>(m_Frames) + i * (m_bHasTranslation ? 32 : 20));
-        if (IsQuaternionDotNegative(last, f)) {
+        if (AnimQuaternionDotNegativeCpp(last, f)) {
             f[0] = -f[0];
             f[1] = -f[1];
             f[2] = -f[2];

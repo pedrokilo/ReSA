@@ -4,26 +4,6 @@
 
 <a id="grupo-981"></a>
 
-## Globales y helpers: source/game_sa/Attractors/PedStopAttractor.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPedStopAttractor | [source/game_sa/Attractors/PedStopAttractor.h:5](../../source/game_sa/Attractors/PedStopAttractor.h#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedStopAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedStopAttractor.h:10](../../source/game_sa/Attractors/PedStopAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetType() const override | [source/game_sa/Attractors/PedStopAttractor.h:28](../../source/game_sa/Attractors/PedStopAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-982"></a>
-
-## Globales y helpers: source/game_sa/Attractors/PedTriggerScriptAttractor.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPedTriggerScriptAttractor | [source/game_sa/Attractors/PedTriggerScriptAttractor.h:5](../../source/game_sa/Attractors/PedTriggerScriptAttractor.h#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedTriggerScriptAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedTriggerScriptAttractor.h:10](../../source/game_sa/Attractors/PedTriggerScriptAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetType() const override | [source/game_sa/Attractors/PedTriggerScriptAttractor.h:28](../../source/game_sa/Attractors/PedTriggerScriptAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-983"></a>
-
 ## Globales y helpers: source/game_sa/Audio/AESmoothFadeThread.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -31,7 +11,7 @@
 | DsVolumeToDb(int32 dsVolume) | [source/game_sa/Audio/AESmoothFadeThread.cpp:30](../../source/game_sa/Audio/AESmoothFadeThread.cpp#L30) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | DbToDsVolume(float volume) | [source/game_sa/Audio/AESmoothFadeThread.cpp:42](../../source/game_sa/Audio/AESmoothFadeThread.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-984"></a>
+<a id="grupo-982"></a>
 
 ## Globales y helpers: source/game_sa/Audio/AEStreamThread.cpp
 
@@ -40,7 +20,7 @@
 | ChannelPlayTime(CAEStreamingChannel* channel) | [source/game_sa/Audio/AEStreamThread.cpp:30](../../source/game_sa/Audio/AEStreamThread.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ChannelLength(CAEStreamingChannel* channel) | [source/game_sa/Audio/AEStreamThread.cpp:34](../../source/game_sa/Audio/AEStreamThread.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-985"></a>
+<a id="grupo-983"></a>
 
 ## Globales y helpers: source/game_sa/Audio/AudioEngine.cpp
 
@@ -49,7 +29,7 @@
 | SExt(E v) | [source/game_sa/Audio/AudioEngine.cpp:37](../../source/game_sa/Audio/AudioEngine.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CallMgr(M method, A... args) | [source/game_sa/Audio/AudioEngine.cpp:39](../../source/game_sa/Audio/AudioEngine.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AERadioTrackManager: source/game_sa/Audio/Managers/AERadioTrackManager.cpp:29 (0x008CB6F8) |
 
-<a id="grupo-986"></a>
+<a id="grupo-984"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEAudioEntity.h
 
@@ -57,7 +37,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEAudioEntity | [source/game_sa/Audio/Entities/AEAudioEntity.h:15](../../source/game_sa/Audio/Entities/AEAudioEntity.h#L15) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-987"></a>
+<a id="grupo-985"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp
 
@@ -68,7 +48,7 @@
 | GetLoopingCollisionMagnitude(const CVector& v, const CVector& t, bool zFirst) | [source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp:63](../../source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsEntityModel(const CEntity* entity, ModelIndex mi) | [source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp:74](../../source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-988"></a>
+<a id="grupo-986"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AECollisionAudioEntity.h
 
@@ -77,7 +57,7 @@
 | CAECollisionAudioEntity | [source/game_sa/Audio/Entities/AECollisionAudioEntity.h:25](../../source/game_sa/Audio/Entities/AECollisionAudioEntity.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CanAddNewSound() const | [source/game_sa/Audio/Entities/AECollisionAudioEntity.h:84](../../source/game_sa/Audio/Entities/AECollisionAudioEntity.h#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-989"></a>
+<a id="grupo-987"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEDoorAudioEntity.h
 
@@ -85,7 +65,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEDoorAudioEntity | [source/game_sa/Audio/Entities/AEDoorAudioEntity.h:11](../../source/game_sa/Audio/Entities/AEDoorAudioEntity.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-990"></a>
+<a id="grupo-988"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEExplosionAudioEntity.h
 
@@ -93,7 +73,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEExplosionAudioEntity | [source/game_sa/Audio/Entities/AEExplosionAudioEntity.h:14](../../source/game_sa/Audio/Entities/AEExplosionAudioEntity.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-991"></a>
+<a id="grupo-989"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEFireAudioEntity.h
 
@@ -101,7 +81,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEFireAudioEntity | [source/game_sa/Audio/Entities/AEFireAudioEntity.h:19](../../source/game_sa/Audio/Entities/AEFireAudioEntity.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-992"></a>
+<a id="grupo-990"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEFrontendAudioEntity.h
 
@@ -109,7 +89,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEFrontendAudioEntity | [source/game_sa/Audio/Entities/AEFrontendAudioEntity.h:6](../../source/game_sa/Audio/Entities/AEFrontendAudioEntity.h#L6) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-993"></a>
+<a id="grupo-991"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp
 
@@ -118,7 +98,7 @@
 | AddCosMulX87(float& v, float a, float r) | [source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp:30](../../source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp#L30) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | AddSinMulX87(float& v, float a, float r) | [source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp:45](../../source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp#L45) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-994"></a>
+<a id="grupo-992"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.h
 
@@ -126,7 +106,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEGlobalWeaponAudioEntity | [source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.h:7](../../source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.h#L7) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-995"></a>
+<a id="grupo-993"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEPedAudioEntity.cpp
 
@@ -134,7 +114,7 @@
 | --- | --- | --- | --- | --- | --- |
 | PedShirtLogarithmicVolume(float value, float baseVolume) | [source/game_sa/Audio/Entities/AEPedAudioEntity.cpp:741](../../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp#L741) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-996"></a>
+<a id="grupo-994"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEPedAudioEntity.h
 
@@ -142,7 +122,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CAEPedAudioEntity | [source/game_sa/Audio/Entities/AEPedAudioEntity.h:16](../../source/game_sa/Audio/Entities/AEPedAudioEntity.h#L16) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 
-<a id="grupo-997"></a>
+<a id="grupo-995"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp
 
@@ -157,7 +137,7 @@
 | & SpeechSlot(int32 idx) | [source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp:149](../../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp#L149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GetFacialTask(CEntity* entity) | [source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp:154](../../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp#L154) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-998"></a>
+<a id="grupo-996"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h
 
@@ -167,7 +147,7 @@
 | IsAllSpeechDisabled() const | [source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h:200](../../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h#L200) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetSexForSpecialPed(uint32) const | [source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h:210](../../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h#L210) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-999"></a>
+<a id="grupo-997"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h
 
@@ -181,10 +161,27 @@
 | IsPedFemaleForAudio() override | [source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h:28](../../source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | *& AttachedRaw() | [source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h:38](../../source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1000"></a>
+<a id="grupo-998"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | CAEPoliceScannerAudioEntity | [source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h:17](../../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h#L17) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Posible dato fijo State: source/game_sa/GangWars.h:64 (0x0096AB64) |
+
+<a id="grupo-999"></a>
+
+## Globales y helpers: source/game_sa/Audio/Entities/AEScriptAudioEntity.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CAEScriptAudioEntity | [source/game_sa/Audio/Entities/AEScriptAudioEntity.h:30](../../source/game_sa/Audio/Entities/AEScriptAudioEntity.h#L30) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1000"></a>
+
+## Globales y helpers: source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CAETwinLoopSoundEntity | [source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h:25](../../source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h#L25) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsActive() const noexcept | [source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h:68](../../source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

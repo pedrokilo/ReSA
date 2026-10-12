@@ -1,0 +1,3 @@
+APROBADO: Tareas lista 61c (GoToPoint*, GotoDoor, Aiming, atractores, RunNamedAnim, WalkRoundCar)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctasks61c\20261011-220713-933257

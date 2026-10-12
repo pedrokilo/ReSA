@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "PedShelterAttractor.h"
+#include "X87Math.h"
 
 #include "Tasks/TaskTypes/TaskComplexGoToAttractor.h"
 
@@ -36,17 +37,9 @@ CVector& CPedShelterAttractor::GetDisplacement(int32 pedId) {
                 // Como el original: ángulo = rand · (1/32767) · 2π y radio = 2 · (rand · (1/32767)) (coseno y seno x87)
                 const float ang = static_cast<float>(CGeneral::GetRandomNumber()) * RECIP * TWOPI;
                 const float rad = (static_cast<float>(CGeneral::GetRandomNumber()) * RECIP) * 2.0f;
-                float outX, outY;
-                __asm {
-                    fld   dword ptr [ang]
-                    fcos
-                    fmul  dword ptr [rad]
-                    fstp  dword ptr [outX]
-                    fld   dword ptr [ang]
-                    fsin
-                    fmul  dword ptr [rad]
-                    fstp  dword ptr [outY]
-                }
+                // x87: cos/sin de ang por rad, redondeados a float una sola vez (X87Math.cpp)
+                const float outX = TrigSimpleCosMulCpp(ang, rad);
+                const float outY = TrigSimpleSinMulCpp(ang, rad);
                 candidate.x = outX;
                 candidate.y = outY;
                 candidate.z = 0.0f;

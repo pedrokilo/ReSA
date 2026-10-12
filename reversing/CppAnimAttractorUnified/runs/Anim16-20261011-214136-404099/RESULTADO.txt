@@ -1,0 +1,3 @@
+APROBADO: Jerarquías y nodos de animación (lista de 16)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-anim16\20261011-214136-404099

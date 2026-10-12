@@ -1,16 +1,12 @@
 # Archivos pendientes de convertir a C++
 
-175 archivos: 922 apariciones de ensamblador y 276 declaraciones naked.
+171 archivos: 918 apariciones de ensamblador y 274 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
 | Archivo | Ensamblador | naked |
 | --- | ---: | ---: |
 | [source/game_sa/3dMarkers.cpp](../../source/game_sa/3dMarkers.cpp) | 3 | 0 |
-| [source/game_sa/Animation/AnimBlendNode.cpp](../../source/game_sa/Animation/AnimBlendNode.cpp) | 1 | 1 |
-| [source/game_sa/Animation/AnimBlendSequence.cpp](../../source/game_sa/Animation/AnimBlendSequence.cpp) | 1 | 0 |
-| [source/game_sa/AttractorScanner.cpp](../../source/game_sa/AttractorScanner.cpp) | 1 | 1 |
-| [source/game_sa/Attractors/PedShelterAttractor.cpp](../../source/game_sa/Attractors/PedShelterAttractor.cpp) | 1 | 0 |
 | [source/game_sa/Audio/AEAudioEnvironment.cpp](../../source/game_sa/Audio/AEAudioEnvironment.cpp) | 2 | 0 |
 | [source/game_sa/Audio/AEAudioUtility.cpp](../../source/game_sa/Audio/AEAudioUtility.cpp) | 5 | 0 |
 | [source/game_sa/Audio/AESmoothFadeThread.cpp](../../source/game_sa/Audio/AESmoothFadeThread.cpp) | 2 | 0 |
