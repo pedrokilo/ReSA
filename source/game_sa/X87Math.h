@@ -103,3 +103,13 @@ float __cdecl IntTimesTwoFloatsCpp(int n, float a, float b);
 float __cdecl CurvesCorrectedDistCpp(float current, float total, float speedVariation, float* outT);
 // Radio de la esfera del frustum de FxManager_c::CalcFrustumInfo (0x4A9165..0x4A91B5).
 float __cdecl FxFrustumRadiusCpp(float dist, float farClip);
+
+// Residuo de registros del EXE (lote de 12/10/2026, parte 2). Estas dos funciones son lo último que ejecuta la función que se reproduce:
+// reciben los valores en los registros que hay que dejar (la convención __fastcall/__thiscall los pone en ECX/EDX, y su cuerpo no
+// los toca), devuelven EAX y salen, así que la función llamadora termina con ECX, EDX y EAX exactamente como el EXE.
+// ECX = ecxValue, EDX = edxValue, EAX = eaxValue.
+unsigned int __fastcall ResidueRegsCpp(unsigned int ecxValue, unsigned int edxValue, unsigned int eaxValue);
+// ECX = this, EAX = eaxValue y EDX intacto (no es parámetro): se llama como ((ResidueEcx*)ecxValue)->Get(eaxValue).
+struct ResidueEcx {
+    unsigned int __thiscall Get(unsigned int eaxValue);
+};

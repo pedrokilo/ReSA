@@ -16,6 +16,9 @@ public:
 
     static void InjectHooks();
 
-    bool IsCollision(FxSphere_c& sphere);
+    // 0x4AA030: el EXE devuelve EAX = 0/1, deja EDX = la esfera y conserva ECX = this (sus llamadores lo usan).
+    // IsCollisionRegs deja esos registros con ResidueRegsCpp; IsCollision es la forma normal para el resto del codigo.
+    uint32 IsCollisionRegs(FxSphere_c& sphere);
+    bool   IsCollision(FxSphere_c& sphere) { return IsCollisionRegs(sphere) != 0; }
 };
 VALIDATE_SIZE(FxFrustumInfo_c, 0x54);

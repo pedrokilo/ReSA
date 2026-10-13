@@ -15,7 +15,10 @@ public:
 
     CEventScriptCommand(int32 primaryTaskIndex, CTask* task, bool affectsDeadPeds = false);
     ~CEventScriptCommand() override;
-    void Destructor();
+    // 0x4B0A50: el EXE deja EAX = resultado del destructor de la tarea (o la cabeza de la cadena SEH), ECX = esa cabeza y EDX intacto.
+    // Se declara __fastcall (ECX = this, EDX = el EDX de entrada, sin parametros en la pila: misma limpieza que el __thiscall sin
+    // argumentos) para poder devolver EDX tal como entro.
+    static uint32 __fastcall Destructor(CEventScriptCommand* self, uint32 entryEdx);
 
     eEventType GetEventType() const override { return Type; }
     int32 GetEventPriority() const override;

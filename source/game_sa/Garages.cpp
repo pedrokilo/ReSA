@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "Garages.h"
 
@@ -35,7 +36,7 @@ void CGarages::InjectHooks() {
     RH_ScopedInstall(AllRespraysCloseOrOpen, 0x448B30);
     RH_ScopedInstall(IsModelIndexADoor, 0x448AF0);
     RH_ScopedInstall(FindSafeHouseIndexForGarageType, 0x4489F0);
-    RH_ScopedInstall(FindGarageForObject, 0x44A240);
+    RH_ScopedNamedInstall(FindGarageForObjectRegs, "FindGarageForObject", 0x44A240);
     RH_ScopedInstall(IsPointWithinHideOutGarage, 0x448900);
     RH_ScopedInstall(IsGarageOpen, 0x447D00);
     RH_ScopedInstall(IsGarageClosed, 0x447D30);
@@ -253,133 +254,52 @@ int32 CGarages::FindSafeHouseIndexForGarageType(eGarageType type) {
 }
 
 // 0x44A240
-// Method entry may be redirected by RH; the validation bank proves its active DLL route.
-static uintptr_t FindGarageRadiusBody = std::bit_cast<uintptr_t>(static_cast<bool(CGarage::*)(CVector,float)>(&CGarage::IsPointInsideGarage));
-
-// Native x87 order, first nearest candidate wins, placement and matrix positions.
-__declspec(naked) int16 CGarages::FindGarageForObject(CObject*) {
-    __asm {
-    sub esp,30h
-    mov ecx,dword ptr ds:[0096C024h]
-    push ebx
-    push ebp
-    push esi
-    or eax,0FFFFFFFFh
-    xor esi,esi
-    test ecx,ecx
-    push edi
-    mov dword ptr [esp+14h],47C34FF3h
-    mov dword ptr [esp+18h],eax
-    jbe L0044A3AA
-    mov edi,dword ptr [esp+44h]
-    mov edx,dword ptr [edi+14h]
-    mov ecx,96C048h
-    L0044A272: test edx,edx
-    lea eax,[edx+30h]
-    jne L0044A27C
-    lea eax,[edi+4]
-    L0044A27C: mov ebp,dword ptr [eax]
-    push 40E00000h
-    sub esp,0Ch
-    mov ebx,esp
-    mov dword ptr [ebx],ebp
-    mov ebp,dword ptr [eax+4]
-    mov eax,dword ptr [eax+8]
-    mov dword ptr [ebx+4],ebp
-    mov dword ptr [ebx+8],eax
-    call dword ptr [FindGarageRadiusBody]
-    test al,al
-    je L0044A392
-    test edx,edx
-    fld dword ptr [ecx]
-    fld dword ptr [ecx+4]
-    lea eax,[edx+30h]
-    fld dword ptr [ecx+8]
-    fstp dword ptr [esp+24h]
-    fld dword ptr [ecx+0Ch]
-    fld dword ptr [ecx+10h]
-    fld dword ptr [ecx+20h]
-    fmul dword ptr ds:[00858B8Ch]
-    fstp dword ptr [esp+10h]
-    fxch st(1)
-    fmul dword ptr [esp+10h]
-    fstp dword ptr [esp+28h]
-    fmul dword ptr [esp+10h]
-    fld dword ptr [esp+10h]
-    fmul dword ptr ds:[00858B50h]
-    fstp dword ptr [esp+30h]
-    fld dword ptr [esp+28h]
-    fadd st,st(3)
-    fstp dword ptr [esp+1Ch]
-    fadd st,st(1)
-    fstp st(2)
-    fstp st(0)
-    fld dword ptr [esp+30h]
-    fadd dword ptr [esp+24h]
-    fld dword ptr [ecx+14h]
-    fld dword ptr [ecx+18h]
-    fld dword ptr [ecx+24h]
-    fmul dword ptr ds:[00858B8Ch]
-    fstp dword ptr [esp+10h]
-    fxch st(1)
-    fmul dword ptr [esp+10h]
-    fstp dword ptr [esp+34h]
-    fmul dword ptr [esp+10h]
-    fld dword ptr [esp+10h]
-    fmul dword ptr ds:[00858B50h]
-    fstp dword ptr [esp+3Ch]
-    fld dword ptr [esp+34h]
-    fadd dword ptr [esp+1Ch]
-    fstp dword ptr [esp+1Ch]
-    fadd st,st(2)
-    fstp dword ptr [esp+20h]
-    fld dword ptr [esp+3Ch]
-    fadd st,st(1)
-    fstp dword ptr [esp+24h]
-    fstp st(0)
-    fstp st(0)
-    jne L0044A34F
-    lea eax,[edi+4]
-    L0044A34F: fld dword ptr [eax]
-    fsub dword ptr [esp+1Ch]
-    fld dword ptr [eax+4]
-    fsub dword ptr [esp+20h]
-    fld dword ptr [eax+8]
-    fsub dword ptr [esp+24h]
-    fld st(0)
-    fmul st,st(1)
-    fld st(2)
-    fmul st,st(3)
-    faddp st(1),st
-    fld st(3)
-    fmul st,st(4)
-    faddp st(1),st
-    fsqrt
-    fstp st(3)
-    fstp st(0)
-    fstp st(0)
-    fcom dword ptr [esp+14h]
-    fnstsw ax
-    test ah,5
-    jp L0044A390
-    fstp dword ptr [esp+14h]
-    mov dword ptr [esp+18h],esi
-    jmp L0044A392
-    L0044A390: fstp st(0)
-    L0044A392: mov eax,dword ptr ds:[0096C024h]
-    inc esi
-    add ecx,0D8h
-    cmp esi,eax
-    jb L0044A272
-    mov eax,dword ptr [esp+18h]
-    L0044A3AA: pop edi
-    pop esi
-    pop ebp
-    pop ebx
-    add esp,30h
-    ret
+// Como el original: se elige el garaje cuya posicion central queda mas cerca del objeto (el primero con la distancia minima
+// estrictamente menor), entre los que contienen el punto con radio 7. El centro es posicion + direccionA·ancho/2 + direccionB·alto/2
+// (cada producto y suma se redondea como el FPU a 24 bits; la z usa productos por 0). Sin garajes el EXE sale con EAX = -1, ECX = 0 y
+// EDX intacto; con garajes deja ECX = fin del arreglo recorrido y EDX = matriz del objeto (ResidueRegsCpp / ResidueEcx::Get, ver X87Math.h).
+// Sin comprobaciones de ejecucion para que el codigo posterior a la ultima llamada no cambie ECX/EDX.
+#pragma runtime_checks("", off)
+uint32 CGarages::FindGarageForObjectRegs(CObject* object) {
+    if (static_cast<uint32>(NumGarages) == 0) {
+        return reinterpret_cast<ResidueEcx*>(static_cast<uintptr_t>(0))->Get(0xFFFFFFFFu);
     }
+    uint32 best    = 0xFFFFFFFFu;
+    float  minDist = std::bit_cast<float>(0x47C34FF3u);
+    const auto* const matrix = object->m_matrix;
+    const CVector&    objPos = matrix ? matrix->GetPosition() : object->m_placement.m_vPosn;
+
+    uint32 i = 0;
+    do {
+        auto& garage = aGarages[i];
+        if (garage.IsPointInsideGarage(objPos, 7.0f)) {
+            const float halfWidth  = garage.m_fWidth * 0.5f;
+            const float ax         = garage.m_vDirectionA.x * halfWidth;
+            const float ay         = garage.m_vDirectionA.y * halfWidth;
+            const float az         = halfWidth * 0.0f;
+            const float x1         = ax + garage.m_vPosn.x;
+            const float y1         = ay + garage.m_vPosn.y;
+            const float z1         = az + garage.m_vPosn.z;
+            const float halfHeight = garage.m_fHeight * 0.5f;
+            const float bx         = garage.m_vDirectionB.x * halfHeight;
+            const float by         = garage.m_vDirectionB.y * halfHeight;
+            const float bz         = halfHeight * 0.0f;
+            const float dx         = objPos.x - (bx + x1);
+            const float dy         = objPos.y - (by + y1);
+            const float dz         = objPos.z - (bz + z1);
+            const float dist       = std::sqrt(dz * dz + dy * dy + dx * dx);
+            if (dist < minDist) {
+                minDist = dist;
+                best    = i;
+            }
+        }
+        i++;
+    } while (i < static_cast<uint32>(NumGarages));
+
+    const uint32 arrayEnd = static_cast<uint32>(reinterpret_cast<uintptr_t>(&aGarages[0])) + i * static_cast<uint32>(sizeof(CGarage));
+    return ResidueRegsCpp(arrayEnd, static_cast<uint32>(reinterpret_cast<uintptr_t>(matrix)), best);
 }
+#pragma runtime_checks("", restore)
 
 // 0x447680
 int16 CGarages::FindGarageIndex(char* name) {

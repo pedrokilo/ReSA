@@ -218,8 +218,6 @@ source/game_sa/cHandlingDataMgr.cpp,483,inline_assembly,AsinDegreesHandlingX87,4
 source/game_sa/ClothesBuilder.cpp,248,inline_assembly,ClothesBlendPair,246
 source/game_sa/ClothesBuilder.cpp,261,inline_assembly,ClothesBlendTriple,259
 source/game_sa/ClothesBuilder.cpp,277,inline_assembly,ClothesNormalizeWeights,275
-source/game_sa/Collision/Collision.cpp,4198,naked,CCollision::SphereVsEntity,4198
-source/game_sa/Collision/Collision.cpp,4201,inline_assembly,CCollision::SphereVsEntity,4198
 source/game_sa/common.cpp,63,inline_assembly,TransformPoint,58
 source/game_sa/common.cpp,106,inline_assembly,TransformVectors,102
 source/game_sa/Core/Matrix.cpp,182,naked,CMatrix::SetRotateXOnly,182
@@ -474,8 +472,6 @@ source/game_sa/Events/EventKnockOffBike.cpp,190,inline_assembly,X87MulAdd,188
 source/game_sa/Events/EventKnockOffBike.cpp,220,inline_assembly,CEventKnockOffBike::CalcForcesAndAnims,211
 source/game_sa/Events/EventKnockOffBike.cpp,388,inline_assembly,CEventKnockOffBike::SetPedSafePosition,368
 source/game_sa/Events/EventKnockOffBike.cpp,398,inline_assembly,CEventKnockOffBike::SetPedSafePosition,368
-source/game_sa/Events/EventScriptCommand.cpp,113,naked,CEventScriptCommand::Destructor,113
-source/game_sa/Events/EventScriptCommand.cpp,114,inline_assembly,CEventScriptCommand::Destructor,113
 source/game_sa/Events/EventSource.cpp,5,naked,EventSource5IsPlayer,5
 source/game_sa/Events/EventSource.cpp,6,inline_assembly,EventSource5IsPlayer,5
 source/game_sa/Events/EventSource.cpp,11,naked,EventSource5Friendly,11
@@ -511,8 +507,6 @@ source/game_sa/Formation.cpp,482,inline_assembly,FormationScalePosition,476
 source/game_sa/Formation.cpp,613,inline_assembly,FormationVehicleIsStationary,610
 source/game_sa/Formation.cpp,683,naked,CFormation::FindNearestFreeDestination,683
 source/game_sa/Formation.cpp,684,inline_assembly,CFormation::FindNearestFreeDestination,683
-source/game_sa/Fx/FxFrustumInfo.cpp,12,naked,FxFrustumInfo_c::IsCollision,12
-source/game_sa/Fx/FxFrustumInfo.cpp,13,inline_assembly,FxFrustumInfo_c::IsCollision,12
 source/game_sa/GangWars.cpp,162,inline_assembly,CGangWars::CalculateTimeTillNextAttack,157
 source/game_sa/GangWars.cpp,261,inline_assembly,GangWaveRandomOffset,257
 source/game_sa/GangWars.cpp,274,inline_assembly,GangWaveInteger,271
@@ -542,8 +536,6 @@ source/game_sa/Garage.cpp,381,naked,CGarage::IsPointInsideGarage,381
 source/game_sa/Garage.cpp,382,inline_assembly,CGarage::IsPointInsideGarage,381
 source/game_sa/Garage.cpp,466,naked,CGarage::IsPointInsideGarage,466
 source/game_sa/Garage.cpp,467,inline_assembly,CGarage::IsPointInsideGarage,466
-source/game_sa/Garages.cpp,260,naked,CGarages::FindGarageForObject,260
-source/game_sa/Garages.cpp,261,inline_assembly,CGarages::FindGarageForObject,260
 source/game_sa/General.cpp,42,naked,CGeneral::GetRandomNumberInRange<float>,42
 source/game_sa/General.cpp,43,inline_assembly,CGeneral::GetRandomNumberInRange<float>,42
 source/game_sa/General.cpp,125,naked,CGeneral::GetRadianAngleBetweenPoints,125

@@ -4,7 +4,7 @@
 
 # Archivos pendientes de convertir a C++
 
-122 archivos: 868 apariciones de ensamblador y 265 declaraciones naked.
+118 archivos: 864 apariciones de ensamblador y 261 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -30,7 +30,6 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/CarAI.cpp](../../source/game_sa/CarAI.cpp) | 3 | 0 |
 | [source/game_sa/CarEnterExit.cpp](../../source/game_sa/CarEnterExit.cpp) | 4 | 1 |
 | [source/game_sa/ClothesBuilder.cpp](../../source/game_sa/ClothesBuilder.cpp) | 3 | 0 |
-| [source/game_sa/Collision/Collision.cpp](../../source/game_sa/Collision/Collision.cpp) | 1 | 1 |
 | [source/game_sa/Core/Matrix.cpp](../../source/game_sa/Core/Matrix.cpp) | 10 | 10 |
 | [source/game_sa/Core/Quaternion.cpp](../../source/game_sa/Core/Quaternion.cpp) | 2 | 0 |
 | [source/game_sa/Cover.cpp](../../source/game_sa/Cover.cpp) | 3 | 0 |
@@ -55,16 +54,13 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/EntryExit.cpp](../../source/game_sa/EntryExit.cpp) | 4 | 1 |
 | [source/game_sa/Events/Event.cpp](../../source/game_sa/Events/Event.cpp) | 2 | 0 |
 | [source/game_sa/Events/EventKnockOffBike.cpp](../../source/game_sa/Events/EventKnockOffBike.cpp) | 6 | 0 |
-| [source/game_sa/Events/EventScriptCommand.cpp](../../source/game_sa/Events/EventScriptCommand.cpp) | 1 | 1 |
 | [source/game_sa/Events/EventSource.cpp](../../source/game_sa/Events/EventSource.cpp) | 4 | 4 |
 | [source/game_sa/Fire.cpp](../../source/game_sa/Fire.cpp) | 2 | 0 |
 | [source/game_sa/FireManager.cpp](../../source/game_sa/FireManager.cpp) | 3 | 0 |
 | [source/game_sa/Font.cpp](../../source/game_sa/Font.cpp) | 2 | 2 |
 | [source/game_sa/Formation.cpp](../../source/game_sa/Formation.cpp) | 17 | 1 |
-| [source/game_sa/Fx/FxFrustumInfo.cpp](../../source/game_sa/Fx/FxFrustumInfo.cpp) | 1 | 1 |
 | [source/game_sa/GangWars.cpp](../../source/game_sa/GangWars.cpp) | 5 | 0 |
 | [source/game_sa/Garage.cpp](../../source/game_sa/Garage.cpp) | 15 | 9 |
-| [source/game_sa/Garages.cpp](../../source/game_sa/Garages.cpp) | 1 | 1 |
 | [source/game_sa/General.cpp](../../source/game_sa/General.cpp) | 4 | 4 |
 | [source/game_sa/Hud.cpp](../../source/game_sa/Hud.cpp) | 6 | 0 |
 | [source/game_sa/IdleCam.cpp](../../source/game_sa/IdleCam.cpp) | 4 | 0 |

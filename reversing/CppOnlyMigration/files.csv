@@ -19,7 +19,6 @@ source/game_sa/Camera.cpp,43,1
 source/game_sa/CarAI.cpp,3,0
 source/game_sa/CarEnterExit.cpp,4,1
 source/game_sa/ClothesBuilder.cpp,3,0
-source/game_sa/Collision/Collision.cpp,1,1
 source/game_sa/Core/Matrix.cpp,10,10
 source/game_sa/Core/Quaternion.cpp,2,0
 source/game_sa/Cover.cpp,3,0
@@ -44,16 +43,13 @@ source/game_sa/EntityScanner.cpp,3,0
 source/game_sa/EntryExit.cpp,4,1
 source/game_sa/Events/Event.cpp,2,0
 source/game_sa/Events/EventKnockOffBike.cpp,6,0
-source/game_sa/Events/EventScriptCommand.cpp,1,1
 source/game_sa/Events/EventSource.cpp,4,4
 source/game_sa/Fire.cpp,2,0
 source/game_sa/FireManager.cpp,3,0
 source/game_sa/Font.cpp,2,2
 source/game_sa/Formation.cpp,17,1
-source/game_sa/Fx/FxFrustumInfo.cpp,1,1
 source/game_sa/GangWars.cpp,5,0
 source/game_sa/Garage.cpp,15,9
-source/game_sa/Garages.cpp,1,1
 source/game_sa/General.cpp,4,4
 source/game_sa/Hud.cpp,6,0
 source/game_sa/IdleCam.cpp,4,0

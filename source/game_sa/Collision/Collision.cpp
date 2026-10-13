@@ -4195,21 +4195,18 @@ static bool __cdecl SphereVsEntityBody(CColSphere* /*sphere: ignorada, como en e
 }
 
 // 0x41A5A0
-bool __declspec(naked) CCollision::SphereVsEntity(CColSphere* sphere, CEntity* entity) {
-    // Al entrar [esp] = retorno, [esp+4] = sphere, [esp+8] = entity (cdecl). Los 16 bytes de basura de pila de
-    // [esp-0x68] se capturan sin tocar la pila y se salta al cuerpo con los argumentos intactos.
-    __asm {
-        mov eax, dword ptr [esp-0x68]
-        mov dword ptr [gSphereVsEntityStackSphere+0], eax
-        mov eax, dword ptr [esp-0x64]
-        mov dword ptr [gSphereVsEntityStackSphere+4], eax
-        mov eax, dword ptr [esp-0x60]
-        mov dword ptr [gSphereVsEntityStackSphere+8], eax
-        mov eax, dword ptr [esp-0x5C]
-        mov dword ptr [gSphereVsEntityStackSphere+12], eax
-        jmp SphereVsEntityBody
-    }
+// Sin comprobaciones de ejecucion (RTC rellenaria con 0xCC la pila que hay que leer) y sin locales ni llamadas antes de leer: los
+// 16 bytes de basura de [ESP_entrada - 0x68 .. - 0x59] siguen intactos cuando se copian.
+#pragma runtime_checks("", off)
+bool CCollision::SphereVsEntity(CColSphere* sphere, CEntity* entity) {
+    const auto* const entry = static_cast<const uint32*>(_AddressOfReturnAddress());
+    gSphereVsEntityStackSphere[0] = entry[-0x68 / 4];
+    gSphereVsEntityStackSphere[1] = entry[-0x64 / 4];
+    gSphereVsEntityStackSphere[2] = entry[-0x60 / 4];
+    gSphereVsEntityStackSphere[3] = entry[-0x5C / 4];
+    return SphereVsEntityBody(sphere, entity);
 }
+#pragma runtime_checks("", restore)
 
 void CCollision::InjectHooks() {
 #ifdef TEST_COLLISION_FUNCS

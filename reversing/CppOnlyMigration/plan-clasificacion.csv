@@ -493,7 +493,6 @@ D,source/game_sa/Camera.cpp,CCamera::StartTransition,4292,268,0,call/jmp+stack+s
 D,source/game_sa/CarEnterExit.cpp,ComputePassengerIndexFromCarDoor_KeepEdx,35,11,1,call/jmp+stack,0,,
 D,source/game_sa/CarEnterExit.cpp,CCarEnterExit::GetNearestCarDoor,292,181,0,call/jmp+x87,1,CarEnterWave4,
 D,source/game_sa/CarEnterExit.cpp,CCarEnterExit::IsPlayerToQuitCarEnter,663,60,0,call/jmp+stack+x87,1,CarQuit355,
-D,source/game_sa/Collision/Collision.cpp,CCollision::SphereVsEntity,4198,15,1,call/jmp,1,GeoFinal1,
 D,source/game_sa/Core/Matrix.cpp,CMatrix::Reorthogonalise,597,106,1,x87,0,,
 D,source/game_sa/Core/Matrix.cpp,CMatrix::ConvertToEulerAngles,754,191,1,call/jmp+stack+x87,0,,
 D,source/game_sa/Core/Matrix.cpp,CMatrix::ConvertFromEulerAngles,948,190,1,call/jmp+stack+x87,0,,
@@ -550,7 +549,6 @@ D,source/game_sa/EntityScanner.cpp,CEntityScanner::ScanForEntitiesInRange,100,77
 D,source/game_sa/EntryExit.cpp,EntryExitGetPositionRelativeToOutsideWorldKeepEdx,41,9,1,call/jmp+stack,0,,
 D,source/game_sa/Events/EventKnockOffBike.cpp,CEventKnockOffBike::CalcForcesAndAnims,211,155,0,x87,1,Data8b,
 D,source/game_sa/Events/EventKnockOffBike.cpp,CEventKnockOffBike::SetPedSafePosition,368,117,0,x87,1,Data8b,
-D,source/game_sa/Events/EventScriptCommand.cpp,CEventScriptCommand::Destructor,113,28,1,call/jmp+stack,1,DependenciesDecisionPed7,
 D,source/game_sa/Events/EventSource.cpp,EventSource5IsPlayer,5,6,1,stack,0,,
 D,source/game_sa/Events/EventSource.cpp,EventSource5Friendly,11,6,1,stack,0,,
 D,source/game_sa/Events/EventSource.cpp,EventSource5Threatened,17,6,1,stack,0,,
@@ -564,11 +562,9 @@ D,source/game_sa/Formation.cpp,GatherPoint,221,37,0,call/jmp+x87,1,FormationLook
 D,source/game_sa/Formation.cpp,GatherCarComponent,292,31,0,call/jmp+x87,1,FormationGather355,CFormation::GenerateGatherDestinations_AroundCar
 D,source/game_sa/Formation.cpp,FormationCentroid,355,55,0,call/jmp+x87,1,FormationAssign355,CFormation::DistributeDestinations
 D,source/game_sa/Formation.cpp,CFormation::FindNearestFreeDestination,683,56,1,stack+x87,1,CppFormationNumeric+DependenciesFormationMemory8,
-D,source/game_sa/Fx/FxFrustumInfo.cpp,FxFrustumInfo_c::IsCollision,12,72,1,stack+x87,1,DependenciesWorldLeaf3,
 D,source/game_sa/Garage.cpp,CGarage::EntityHasASphereWayOutsideGarage,134,75,1,call/jmp+stack+x87,1,DependenciesGarageSphere15,
 D,source/game_sa/Garage.cpp,CGarage::IsEntityTouching3D,221,142,1,call/jmp+stack+x87,1,DependenciesWorld15,
 D,source/game_sa/Garage.cpp,CGarage::IsPointInsideGarage,381,56,1,stack+x87,0,,
-D,source/game_sa/Garages.cpp,CGarages::FindGarageForObject,260,123,1,call/jmp+stack+x87,1,CppIntegerWorld4+DependenciesWorld4,
 D,source/game_sa/General.cpp,CGeneral::GetRandomNumberInRange<float>,42,16,1,call/jmp+stack+x87,0,,
 D,source/game_sa/General.cpp,CGeneral::GetATanOfXY,174,116,1,x87,1,Core9,
 D,source/game_sa/Hud.cpp,CHud::DrawRadar,1208,119,0,x87,1,HudCamFinal2,

@@ -54,7 +54,10 @@ public:
     static void AllRespraysCloseOrOpen(bool state);
 
     static int32 FindSafeHouseIndexForGarageType(eGarageType type);
-    static int16 FindGarageForObject(CObject*);
+    // 0x44A240: el EXE deja EAX = indice (32 bits), ECX = fin del arreglo de garajes recorrido, EDX = matriz del objeto (o EDX de
+    // entrada si no hay garajes). FindGarageForObjectRegs reproduce esos registros; FindGarageForObject es la forma normal.
+    static uint32 FindGarageForObjectRegs(CObject* object);
+    static int16  FindGarageForObject(CObject* object) { return static_cast<int16>(FindGarageForObjectRegs(object)); }
     static int16 FindGarageIndex(char* name);
     static float FindDoorHeightForMI(uint32 modelIndex);
 

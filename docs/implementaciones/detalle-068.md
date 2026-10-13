@@ -8,6 +8,32 @@
 
 <a id="grupo-1341"></a>
 
+## Globales y helpers: source/game_sa/Pools.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * ConstructPool(int32 capacity, uint32 elementSize) | [source/game_sa/Pools.cpp:134](../../source/game_sa/Pools.cpp#L134) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DestroyPool(void* poolPtr) | [source/game_sa/Pools.cpp:156](../../source/game_sa/Pools.cpp#L156) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetPedPool() | [source/game_sa/Pools.cpp:506](../../source/game_sa/Pools.cpp#L506) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPedPool: source/game_sa/Pools.cpp:66 (0x00B74490) |
+| * GetVehiclePool() | [source/game_sa/Pools.cpp:511](../../source/game_sa/Pools.cpp#L511) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pVehiclePool: source/game_sa/Pools.cpp:67 (0x00B74494) |
+| * GetBuildingPool() | [source/game_sa/Pools.cpp:516](../../source/game_sa/Pools.cpp#L516) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pBuildingPool: source/game_sa/Pools.cpp:68 (0x00B74498) |
+| * GetObjectPool() | [source/game_sa/Pools.cpp:521](../../source/game_sa/Pools.cpp#L521) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pObjectPool: source/game_sa/Pools.cpp:69 (0x00B7449C) |
+| * GetDummyPool() | [source/game_sa/Pools.cpp:526](../../source/game_sa/Pools.cpp#L526) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pDummyPool: source/game_sa/Pools.cpp:70 (0x00B744A0) |
+| * GetColModelPool() | [source/game_sa/Pools.cpp:531](../../source/game_sa/Pools.cpp#L531) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pColModelPool: source/game_sa/Pools.cpp:71 (0x00B744A4) |
+| * GetTaskPool() | [source/game_sa/Pools.cpp:536](../../source/game_sa/Pools.cpp#L536) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pTaskPool: source/game_sa/Pools.cpp:72 (0x00B744A8) |
+| * GetPedIntelligencePool() | [source/game_sa/Pools.cpp:541](../../source/game_sa/Pools.cpp#L541) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPedIntelligencePool: source/game_sa/Pools.cpp:73 (0x00B744C0) |
+| * GetPtrNodeSingleLinkPool() | [source/game_sa/Pools.cpp:546](../../source/game_sa/Pools.cpp#L546) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPtrNodeSingleLinkPool: source/game_sa/Pools.cpp:74 (0x00B74484) |
+| * GetPtrNodeDoubleLinkPool() | [source/game_sa/Pools.cpp:551](../../source/game_sa/Pools.cpp#L551) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPtrNodeDoubleLinkPool: source/game_sa/Pools.cpp:75 (0x00B74488) |
+| * GetEntryInfoNodePool() | [source/game_sa/Pools.cpp:556](../../source/game_sa/Pools.cpp#L556) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pEntryInfoNodePool: source/game_sa/Pools.cpp:76 (0x00B7448C) |
+| * GetPointRoutePool() | [source/game_sa/Pools.cpp:561](../../source/game_sa/Pools.cpp#L561) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPointRoutePool: source/game_sa/Pools.cpp:77 (0x00B744B0) |
+| * GetPatrolRoutePool() | [source/game_sa/Pools.cpp:566](../../source/game_sa/Pools.cpp#L566) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPatrolRoutePool: source/game_sa/Pools.cpp:78 (0x00B744B4) |
+| * GetEventPool() | [source/game_sa/Pools.cpp:571](../../source/game_sa/Pools.cpp#L571) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pEventPool: source/game_sa/Pools.cpp:79 (0x00B744AC) |
+| * GetNodeRoutePool() | [source/game_sa/Pools.cpp:576](../../source/game_sa/Pools.cpp#L576) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pNodeRoutePool: source/game_sa/Pools.cpp:80 (0x00B744B8) |
+| * GetTaskAllocatorPool() | [source/game_sa/Pools.cpp:581](../../source/game_sa/Pools.cpp#L581) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pTaskAllocatorPool: source/game_sa/Pools.cpp:81 (0x00B744BC) |
+| * GetPedAttractorPool() | [source/game_sa/Pools.cpp:586](../../source/game_sa/Pools.cpp#L586) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPedAttractorPool: source/game_sa/Pools.cpp:82 (0x00B744C4) |
+
+<a id="grupo-1342"></a>
+
 ## Globales y helpers: source/game_sa/Population.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -21,7 +47,7 @@
 | PopulationDefaultTask(CPed* ped,ePedType type) | [source/game_sa/Population.cpp:1969](../../source/game_sa/Population.cpp#L1969) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x0048E610: CTaskComplexWanderCriminal::Constructor; ruta efectiva sin resolver; Colaborador por dirección 0x005A1D70: fuera del catálogo consultado; ruta efectiva sin resolver; Colaborador por dirección 0x00681B60: CTaskManager::SetTaskSecondary; ruta efectiva sin resolver; Conversión de dirección fija: 0x00A90CF0; Posible dato fijo MI_TELLY: source/game_sa/ModelIndices.cpp:69 (0x008CD5A8) |
 | PopulationSunbathe(CPed* ped,const CVector& position) | [source/game_sa/Population.cpp:1987](../../source/game_sa/Population.cpp#L1987) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x0043E0C0: CPlaceable::SetHeading; ruta efectiva sin resolver; Colaborador por dirección 0x00632140: CTaskComplexSunbathe::CanSunbathe; ruta efectiva sin resolver; Colaborador por dirección 0x006EABA0: fuera del catálogo consultado; ruta efectiva sin resolver; Conversión de dirección fija: 0x00969159; Posible dato fijo g_surfaceInfos: source/game_sa/SurfaceInfos_c.h:79 (0x00B79538) |
 
-<a id="grupo-1342"></a>
+<a id="grupo-1343"></a>
 
 ## Globales y helpers: source/game_sa/PostEffects.cpp
 
@@ -38,7 +64,7 @@
 | FogCosCoord(float angle, float quarter, float radius, float half, float third) | [source/game_sa/PostEffects.cpp:157](../../source/game_sa/PostEffects.cpp#L157) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | ExeClampScaleChannel(uint8 channel, float mult) | [source/game_sa/PostEffects.cpp:173](../../source/game_sa/PostEffects.cpp#L173) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1343"></a>
+<a id="grupo-1344"></a>
 
 ## Globales y helpers: source/game_sa/ProjectileInfo.cpp
 
@@ -52,7 +78,7 @@
 | AddProjectileSteering(CVector& velocity, const CVector& steering, float acceleration, float timestep, bool fast) | [source/game_sa/ProjectileInfo.cpp:317](../../source/game_sa/ProjectileInfo.cpp#L317) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | LimitProjectileSpeed(CProjectile* projectile) | [source/game_sa/ProjectileInfo.cpp:352](../../source/game_sa/ProjectileInfo.cpp#L352) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1344"></a>
+<a id="grupo-1345"></a>
 
 ## Globales y helpers: source/game_sa/Queue.h
 
@@ -64,7 +90,7 @@
 | GetFirstInQueue(Queue* q) | [source/game_sa/Queue.h:43](../../source/game_sa/Queue.h#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RemoveFirstInQueue(Queue* q) | [source/game_sa/Queue.h:47](../../source/game_sa/Queue.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1345"></a>
+<a id="grupo-1346"></a>
 
 ## Globales y helpers: source/game_sa/RGBA.h
 
@@ -72,7 +98,7 @@
 | --- | --- | --- | --- | --- | --- |
 | lerp&lt;CRGBA&gt;(const CRGBA& from, const CRGBA& to, float t) | [source/game_sa/RGBA.h:226](../../source/game_sa/RGBA.h#L226) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1346"></a>
+<a id="grupo-1347"></a>
 
 ## Globales y helpers: source/game_sa/Radar.cpp
 
@@ -90,7 +116,7 @@
 | RadarGangPulse(float angle, int32 alphaInt) | [source/game_sa/Radar.cpp:2077](../../source/game_sa/Radar.cpp#L2077) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | GetAirStripLocation(eAirstripLocation location) | [source/game_sa/Radar.cpp:2436](../../source/game_sa/Radar.cpp#L2436) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1347"></a>
+<a id="grupo-1348"></a>
 
 ## Globales y helpers: source/game_sa/Ragdoll/BoneNode.cpp
 
@@ -101,7 +127,7 @@
 | LimitX87(BoneNode_c*, void*, float) | [source/game_sa/Ragdoll/BoneNode.cpp:338](../../source/game_sa/Ragdoll/BoneNode.cpp#L338) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | CalcWldMatX87(BoneNode_c*, void*, const RwMatrix*) | [source/game_sa/Ragdoll/BoneNode.cpp:468](../../source/game_sa/Ragdoll/BoneNode.cpp#L468) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1348"></a>
+<a id="grupo-1349"></a>
 
 ## Globales y helpers: source/game_sa/Ragdoll/IKChain.cpp
 
@@ -110,7 +136,7 @@
 | *& RawRefSlot(notsa::EntityRef&lt;T&gt;& ref) | [source/game_sa/Ragdoll/IKChain.cpp:55](../../source/game_sa/Ragdoll/IKChain.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IKChainRotationAngleX87(float boneSpeed, float dot, float chainSpeed) | [source/game_sa/Ragdoll/IKChain.cpp:65](../../source/game_sa/Ragdoll/IKChain.cpp#L65) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1349"></a>
+<a id="grupo-1350"></a>
 
 ## Globales y helpers: source/game_sa/Ragdoll/IKChainManager.cpp
 
@@ -119,7 +145,7 @@
 | * GetPedIKManagerTask(CPed* ped, bool createIfNotExists = false) | [source/game_sa/Ragdoll/IKChainManager.cpp:168](../../source/game_sa/Ragdoll/IKChainManager.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GetPedIKLookAtTask(CPed* ped) | [source/game_sa/Ragdoll/IKChainManager.cpp:184](../../source/game_sa/Ragdoll/IKChainManager.cpp#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1350"></a>
+<a id="grupo-1351"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/RenderWare.h
 
@@ -131,7 +157,7 @@
 | _rpMaterialSetDefaultSurfaceProperties(RwSurfaceProperties *surfProps) | [source/game_sa/RenderWare/RenderWare.h:44](../../source/game_sa/RenderWare/RenderWare.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RwStreamRead(RwStream* stream, size_t size = sizeof(T)) | [source/game_sa/RenderWare/RenderWare.h:60](../../source/game_sa/RenderWare/RenderWare.h#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1351"></a>
+<a id="grupo-1352"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rpanisot.cpp
 
@@ -142,7 +168,7 @@
 | RpAnisotTextureGetMaxAnisotropy(RwTexture* tex) | [source/game_sa/RenderWare/rw/rpanisot.cpp:13](../../source/game_sa/RenderWare/rw/rpanisot.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RpAnisotPluginAttach() | [source/game_sa/RenderWare/rw/rpanisot.cpp:17](../../source/game_sa/RenderWare/rw/rpanisot.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1352"></a>
+<a id="grupo-1353"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rpdbgerr.cpp
 
@@ -150,7 +176,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * rwPLUGIN_ERRFUNC(RwInt32 code,...) | [source/game_sa/RenderWare/rw/rpdbgerr.cpp:69](../../source/game_sa/RenderWare/rw/rpdbgerr.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1353"></a>
+<a id="grupo-1354"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rphanim.cpp
 
@@ -183,7 +209,7 @@
 | RpHAnimFrameSetID(RwFrame* frame, RwInt32 id) | [source/game_sa/RenderWare/rw/rphanim.cpp:104](../../source/game_sa/RenderWare/rw/rphanim.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RpHAnimFrameGetID(RwFrame* frame) | [source/game_sa/RenderWare/rw/rphanim.cpp:108](../../source/game_sa/RenderWare/rw/rphanim.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1354"></a>
+<a id="grupo-1355"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rpmatfx.cpp
 
@@ -223,7 +249,7 @@
 | * RpMatFXMaterialGetUVTransformMatrices(const RpMaterial* material, RwMatrix* baseTransform, RwMatrix* dualTransform) | [source/game_sa/RenderWare/rw/rpmatfx.cpp:129](../../source/game_sa/RenderWare/rw/rpmatfx.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * RpMatFXGetD3D9Pipeline(RpMatFXD3D9Pipeline d3d9Pipeline) | [source/game_sa/RenderWare/rw/rpmatfx.cpp:133](../../source/game_sa/RenderWare/rw/rpmatfx.cpp#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1355"></a>
+<a id="grupo-1356"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rpskin.cpp
 
@@ -253,7 +279,7 @@
 | _rpSkinSplitDataDestroy(RpSkin* skin) | [source/game_sa/RenderWare/rw/rpskin.cpp:89](../../source/game_sa/RenderWare/rw/rpskin.cpp#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * RxNodeDefinitionGetD3D9SkinAtomicAllInOne() | [source/game_sa/RenderWare/rw/rpskin.cpp:93](../../source/game_sa/RenderWare/rw/rpskin.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1356"></a>
+<a id="grupo-1357"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rpuvanim.cpp
 
@@ -289,7 +315,7 @@
 | * RpMaterialUVAnimApplyUpdate(RpMaterial* material) | [source/game_sa/RenderWare/rw/rpuvanim.cpp:113](../../source/game_sa/RenderWare/rw/rpuvanim.cpp#L113) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x007CC110: fuera del catálogo consultado; ruta efectiva sin resolver |
 | RpMaterialUVAnimExists(const RpMaterial* material) | [source/game_sa/RenderWare/rw/rpuvanim.cpp:118](../../source/game_sa/RenderWare/rw/rpuvanim.cpp#L118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1357"></a>
+<a id="grupo-1358"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rpworld.cpp
 
@@ -583,7 +609,7 @@
 | * _rpWorldChunkInfoRead(RwStream* stream, RpWorldChunkInfo* worldChunkInfo, RwInt32* bytesRead) | [source/game_sa/RenderWare/rw/rpworld.cpp:1146](../../source/game_sa/RenderWare/rw/rpworld.cpp#L1146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | _rwD3D9EnableClippingIfNeeded(void *object, RwUInt32 type) | [source/game_sa/RenderWare/rw/rpworld.cpp:1157](../../source/game_sa/RenderWare/rw/rpworld.cpp#L1157) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1358"></a>
+<a id="grupo-1359"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rtanim.cpp
 
@@ -618,7 +644,7 @@
 | RtAnimInterpolatorBlendSubInterpolator(RtAnimInterpolator* outAnim, RtAnimInterpolator* inAnim1, RtAnimInterpolator* inAnim2, RwReal alpha) | [source/game_sa/RenderWare/rw/rtanim.cpp:225](../../source/game_sa/RenderWare/rw/rtanim.cpp#L225) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RtAnimInterpolatorAddSubInterpolator(RtAnimInterpolator* outAnim, RtAnimInterpolator* mainAnim, RtAnimInterpolator* subAnim) | [source/game_sa/RenderWare/rw/rtanim.cpp:229](../../source/game_sa/RenderWare/rw/rtanim.cpp#L229) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1359"></a>
+<a id="grupo-1360"></a>
 
 ## Globales y helpers: source/game_sa/RenderWare/rw/rtbmp.cpp
 
@@ -626,28 +652,3 @@
 | --- | --- | --- | --- | --- | --- |
 | * RtBMPImageWrite(RwImage* image, const RwChar* imageName) | [source/game_sa/RenderWare/rw/rtbmp.cpp:5](../../source/game_sa/RenderWare/rw/rtbmp.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * RtBMPImageRead(const RwChar* imageName) | [source/game_sa/RenderWare/rw/rtbmp.cpp:9](../../source/game_sa/RenderWare/rw/rtbmp.cpp#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1360"></a>
-
-## Globales y helpers: source/game_sa/RenderWare/rw/rtdict.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * RtDictSchemaInit(RtDictSchema* schema) | [source/game_sa/RenderWare/rw/rtdict.cpp:5](../../source/game_sa/RenderWare/rw/rtdict.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RtDictSchemaDestruct(RtDictSchema* schema) | [source/game_sa/RenderWare/rw/rtdict.cpp:9](../../source/game_sa/RenderWare/rw/rtdict.cpp#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RtDictSchemaStreamReadDict(RtDictSchema* schema, RwStream* stream) | [source/game_sa/RenderWare/rw/rtdict.cpp:13](../../source/game_sa/RenderWare/rw/rtdict.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RtDictSchemaCreateDict(RtDictSchema* schema) | [source/game_sa/RenderWare/rw/rtdict.cpp:17](../../source/game_sa/RenderWare/rw/rtdict.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RtDictSchemaAddDict(RtDictSchema* schema, RtDict* dict) | [source/game_sa/RenderWare/rw/rtdict.cpp:21](../../source/game_sa/RenderWare/rw/rtdict.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RtDictSchemaRemoveDict(RtDictSchema* schema, RtDict* dict) | [source/game_sa/RenderWare/rw/rtdict.cpp:25](../../source/game_sa/RenderWare/rw/rtdict.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RtDictSchemaForAllDictionaries(RtDictSchema* schema, RtDictCallBack* callback, RtDictEntryType data) | [source/game_sa/RenderWare/rw/rtdict.cpp:29](../../source/game_sa/RenderWare/rw/rtdict.cpp#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RtDictSchemaGetCurrentDict(RtDictSchema* schema) | [source/game_sa/RenderWare/rw/rtdict.cpp:33](../../source/game_sa/RenderWare/rw/rtdict.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RtDictSchemaSetCurrentDict(RtDictSchema* schema, RtDict* dict) | [source/game_sa/RenderWare/rw/rtdict.cpp:37](../../source/game_sa/RenderWare/rw/rtdict.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RtDictDestroy(RtDict* dictionary) | [source/game_sa/RenderWare/rw/rtdict.cpp:41](../../source/game_sa/RenderWare/rw/rtdict.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RtDictAddEntry(RtDict* dictionary, RtDictEntryType entry) | [source/game_sa/RenderWare/rw/rtdict.cpp:45](../../source/game_sa/RenderWare/rw/rtdict.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RtDictFindNamedEntry(RtDict* dictionary, const RwChar* name) | [source/game_sa/RenderWare/rw/rtdict.cpp:49](../../source/game_sa/RenderWare/rw/rtdict.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RtDictForAllEntries(const RtDict* dictionary, RtDictEntryCallBack* callBack, RtDictEntryType data) | [source/game_sa/RenderWare/rw/rtdict.cpp:53](../../source/game_sa/RenderWare/rw/rtdict.cpp#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RtDictRemoveEntry(RtDict* dictionary, RtDictEntryType entry) | [source/game_sa/RenderWare/rw/rtdict.cpp:57](../../source/game_sa/RenderWare/rw/rtdict.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RtDictStreamWrite(const RtDict* dictionary, RwStream* stream) | [source/game_sa/RenderWare/rw/rtdict.cpp:61](../../source/game_sa/RenderWare/rw/rtdict.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RtDictStreamGetSize(const RtDict* dictionary) | [source/game_sa/RenderWare/rw/rtdict.cpp:65](../../source/game_sa/RenderWare/rw/rtdict.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * _rtDictSchemaInitDict(RtDictSchema* schema, RtDict* dictionary) | [source/game_sa/RenderWare/rw/rtdict.cpp:69](../../source/game_sa/RenderWare/rw/rtdict.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| _rtDictDestruct(RtDict* dictionary) | [source/game_sa/RenderWare/rw/rtdict.cpp:73](../../source/game_sa/RenderWare/rw/rtdict.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

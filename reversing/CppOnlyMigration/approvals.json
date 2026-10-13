@@ -1528,5 +1528,112 @@
         "summary": "reversing/CppSixteenFilesUnified2/runs\\CPedD-20261012-161243-677758/summary.json"
       }
     ]
+  },
+  "0x004AA030": {
+    "identity": "FxFrustumInfo_c::IsCollision",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Fx/FxFrustumInfo.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesWorldLeaf3",
+    "run": "20261012-171007-366816",
+    "pairs": 8192,
+    "own_pairs": 8192,
+    "audit": "reversing/CppFourNakedUnified/runs\\DependenciesWorldLeaf3-20261012-171007-366816/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourNakedStudy/README.md",
+    "scope": "colisión esfera-frustum; deja EAX = 0/1, EDX = la esfera y ECX = this con ResidueRegsCpp. Residuo de registros reproducido con ResidueRegsCpp/ResidueEcx (X87Math). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "Fx25",
+        "run": "20261012-171133-164847",
+        "pairs": 14336,
+        "summary": "reversing/CppFourNakedUnified/runs\\Fx25-20261012-171133-164847/summary.json"
+      }
+    ]
+  },
+  "0x0044A240": {
+    "identity": "CGarages::FindGarageForObject",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Garages.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesWorld4",
+    "run": "20261012-171249-511041",
+    "pairs": 4608,
+    "own_pairs": 4608,
+    "audit": "reversing/CppFourNakedUnified/runs\\DependenciesWorld4-20261012-171249-511041/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourNakedStudy/README.md",
+    "scope": "garaje más cercano que contiene el punto; deja ECX = fin del arreglo, EDX = matriz del objeto y EAX = índice (o EAX = -1, ECX = 0 y EDX intacto sin garajes). Residuo de registros reproducido con ResidueRegsCpp/ResidueEcx (X87Math). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "DependenciesGarage2",
+        "run": "20261012-171921-685905",
+        "pairs": 2560,
+        "summary": "reversing/CppFourNakedUnified/runs\\DependenciesGarage2-20261012-171921-685905/summary.json"
+      },
+      {
+        "bank": "Object48",
+        "run": "20261012-172007-888851",
+        "pairs": 18368,
+        "summary": "reversing/CppFourNakedUnified/runs\\Object48-20261012-172007-888851/summary.json"
+      }
+    ]
+  },
+  "0x004B0A50": {
+    "identity": "CEventScriptCommand::Destructor",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Events/EventScriptCommand.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesDecisionPed7",
+    "run": "20261012-174943-671859",
+    "pairs": 8192,
+    "own_pairs": 8192,
+    "audit": "reversing/CppFourNakedUnified5/runs\\DependenciesDecisionPed7-20261012-174943-671859/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourNakedStudy/README.md",
+    "scope": "destrucción de la tarea con la vtable del propio evento y luego la de CEvent, con marco de excepciones manual en fs:[0]; deja ECX = cabeza anterior de fs:[0] y EAX/EDX como el destructor de la tarea. Residuo de registros reproducido con ResidueRegsCpp/ResidueEcx (X87Math). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "GangWarsPending",
+        "run": "20261012-175049-355563",
+        "pairs": 3072,
+        "summary": "reversing/CppFourNakedUnified5/runs\\GangWarsPending-20261012-175049-355563/summary.json"
+      }
+    ],
+    "seh_unwind": {
+      "tested": true,
+      "note": "caso nuevo del banco: el destructor de la tarea lanza una excepción; original y candidato terminan con la vtable de CEvent y la cadena de excepciones restaurada",
+      "negative_control": "reversing/CppFourNakedNegControl/runs (con el manejador sin efecto el banco falla)"
+    }
+  },
+  "0x0041A5A0": {
+    "identity": "CCollision::SphereVsEntity",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Collision/Collision.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "GeoFinal1",
+    "run": "20261012-171657-612581",
+    "pairs": 4608,
+    "own_pairs": 4608,
+    "audit": "reversing/CppFourNakedUnified/runs\\GeoFinal1-20261012-171657-612581/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourNakedStudy/README.md",
+    "scope": "copia los 16 bytes de pila sin escribir bajo su marco (comprobaciones de ejecución desactivadas sólo en la función) y llama al cuerpo. Residuo de registros reproducido con ResidueRegsCpp/ResidueEcx (X87Math). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "ColWorld59c",
+        "run": "20261012-171537-567504",
+        "pairs": 13568,
+        "summary": "reversing/CppFourNakedUnified/runs\\ColWorld59c-20261012-171537-567504/summary.json"
+      }
+    ]
   }
 }

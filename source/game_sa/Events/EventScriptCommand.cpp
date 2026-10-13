@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "EventScriptCommand.h"
+#include "X87Math.h"
 
 #include "TaskSimpleRunAnim.h"
 
@@ -108,34 +109,51 @@ CTask* CEventScriptCommand::CloneScriptTask() const
     return nullptr;
 }
 
-#pragma warning(push)
-#pragma warning(disable: 4733) // Handler SEH original 83A018.
-__declspec(naked) void CEventScriptCommand::Destructor() {
-    __asm {
-        push        0FFFFFFFFh
-        push        83A018h
-        mov         eax,dword ptr fs:[00000000h]
-        push        eax
-        mov         dword ptr fs:[00000000h],esp
-        push        ecx
-        push        esi
-        mov         esi,ecx
-        mov         dword ptr [esp+4],esi
-        mov         dword ptr [esi],85B378h
-        mov         ecx,dword ptr [esi+10h]
-        test        ecx,ecx
-        mov         dword ptr [esp+10h],0
-        je eventdtor7_4B0A88
-        mov         eax,dword ptr [ecx]
-        push        1
-        call        dword ptr [eax]
-eventdtor7_4B0A88:
-        mov         ecx,dword ptr [esp+8]
-        mov         dword ptr [esi],85AB38h
-        pop         esi
-        mov         dword ptr fs:[00000000h],ecx
-        add         esp,10h
-        ret
+namespace {
+// Marco de excepciones del original (EXCEPTION_REGISTRATION_RECORD + datos propios): su manejador (0x83A018) solo desenrolla, ejecutando
+// la accion del estado 0 (0x83A010 -> 0x4AC010), que deja la vtable de CEvent. Aqui el manejador hace lo mismo y no atiende la excepcion.
+struct DestructorFrame {
+    DestructorFrame*   next;
+    void*              handler;
+    volatile uintptr_t* vtable;
+};
+
+EXCEPTION_DISPOSITION __cdecl DestructorUnwind(EXCEPTION_RECORD* record, void* frame, CONTEXT*, void*) {
+    if (record->ExceptionFlags & (EXCEPTION_UNWINDING | EXCEPTION_EXIT_UNWIND)) {
+        *static_cast<DestructorFrame*>(frame)->vtable = 0x85AB38;
     }
+    return ExceptionContinueSearch;
 }
+} // namespace
+
+// 0x4B0A50: destructor sin liberar. Como el original: la vtable pasa a la del propio evento (0x85B378) mientras se destruye la tarea
+// (destructor virtual con el indicador de liberar) y, al terminar, a la de la clase base CEvent (0x85AB38). Igual que el original se
+// registra un marco en la cadena de excepciones (fs:[0]) mientras dura la destruccion de la tarea, de modo que si lanza una excepcion
+// el desenrollado deje tambien la vtable de CEvent, y se retira al terminar (sin __try/__finally del compilador: su marco y su
+// epilogo cambiarian ECX/EDX tras la ultima llamada). Al salir el original deja ECX = cabeza anterior de la cadena, EAX y EDX como los
+// dejo el destructor de la tarea (o la cabeza y el EDX de entrada si no hay tarea; aqui el EDX se recibe como parametro). Sin
+// comprobaciones de ejecucion para no cambiar ECX/EDX tras la ultima llamada.
+#pragma warning(push)
+#pragma warning(disable: 4733) // el marco se registra a mano en fs:[0], como el original (manejador 0x83A018)
+#pragma runtime_checks("", off)
+uint32 __fastcall CEventScriptCommand::Destructor(CEventScriptCommand* self, uint32 entryEdx) {
+    const uint32 previousHead = __readfsdword(0);
+    uint32       eax          = previousHead;
+    uint32       edx          = entryEdx;
+    auto&        vtable       = *reinterpret_cast<volatile uintptr_t*>(self);
+    DestructorFrame frame{ reinterpret_cast<DestructorFrame*>(static_cast<uintptr_t>(previousHead)), reinterpret_cast<void*>(&DestructorUnwind), &vtable };
+    vtable = 0x85B378;
+    __writefsdword(0, static_cast<uint32>(reinterpret_cast<uintptr_t>(&frame)));
+    if (CTask* const task = self->m_task) {
+        // El destructor de la tarea devuelve this en EAX y deja su propio residuo en EDX: se declara con retorno de 64 bits para leer ambos.
+        using DeletingDestructor = uint64(__thiscall*)(CTask*, int);
+        const uint64 residue = reinterpret_cast<DeletingDestructor*>(*reinterpret_cast<void***>(task))[0](task, 1);
+        eax = static_cast<uint32>(residue);
+        edx = static_cast<uint32>(residue >> 32);
+    }
+    __writefsdword(0, previousHead);
+    vtable = 0x85AB38;
+    return ResidueRegsCpp(previousHead, edx, eax);
+}
+#pragma runtime_checks("", restore)
 #pragma warning(pop)

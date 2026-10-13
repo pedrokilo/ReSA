@@ -218,8 +218,6 @@ source/game_sa/cHandlingDataMgr.cpp,483,inline_assembly,pending_cpp_conversion
 source/game_sa/ClothesBuilder.cpp,248,inline_assembly,pending_cpp_conversion
 source/game_sa/ClothesBuilder.cpp,261,inline_assembly,pending_cpp_conversion
 source/game_sa/ClothesBuilder.cpp,277,inline_assembly,pending_cpp_conversion
-source/game_sa/Collision/Collision.cpp,4198,naked,pending_cpp_conversion
-source/game_sa/Collision/Collision.cpp,4201,inline_assembly,pending_cpp_conversion
 source/game_sa/common.cpp,63,inline_assembly,pending_cpp_conversion
 source/game_sa/common.cpp,106,inline_assembly,pending_cpp_conversion
 source/game_sa/Core/Matrix.cpp,182,naked,pending_cpp_conversion
@@ -474,8 +472,6 @@ source/game_sa/Events/EventKnockOffBike.cpp,190,inline_assembly,pending_cpp_conv
 source/game_sa/Events/EventKnockOffBike.cpp,220,inline_assembly,pending_cpp_conversion
 source/game_sa/Events/EventKnockOffBike.cpp,388,inline_assembly,pending_cpp_conversion
 source/game_sa/Events/EventKnockOffBike.cpp,398,inline_assembly,pending_cpp_conversion
-source/game_sa/Events/EventScriptCommand.cpp,113,naked,pending_cpp_conversion
-source/game_sa/Events/EventScriptCommand.cpp,114,inline_assembly,pending_cpp_conversion
 source/game_sa/Events/EventSource.cpp,5,naked,pending_cpp_conversion
 source/game_sa/Events/EventSource.cpp,6,inline_assembly,pending_cpp_conversion
 source/game_sa/Events/EventSource.cpp,11,naked,pending_cpp_conversion
@@ -511,8 +507,6 @@ source/game_sa/Formation.cpp,482,inline_assembly,pending_cpp_conversion
 source/game_sa/Formation.cpp,613,inline_assembly,pending_cpp_conversion
 source/game_sa/Formation.cpp,683,naked,pending_cpp_conversion
 source/game_sa/Formation.cpp,684,inline_assembly,pending_cpp_conversion
-source/game_sa/Fx/FxFrustumInfo.cpp,12,naked,pending_cpp_conversion
-source/game_sa/Fx/FxFrustumInfo.cpp,13,inline_assembly,pending_cpp_conversion
 source/game_sa/GangWars.cpp,162,inline_assembly,pending_cpp_conversion
 source/game_sa/GangWars.cpp,261,inline_assembly,pending_cpp_conversion
 source/game_sa/GangWars.cpp,274,inline_assembly,pending_cpp_conversion
@@ -542,8 +536,6 @@ source/game_sa/Garage.cpp,381,naked,pending_cpp_conversion
 source/game_sa/Garage.cpp,382,inline_assembly,pending_cpp_conversion
 source/game_sa/Garage.cpp,466,naked,pending_cpp_conversion
 source/game_sa/Garage.cpp,467,inline_assembly,pending_cpp_conversion
-source/game_sa/Garages.cpp,260,naked,pending_cpp_conversion
-source/game_sa/Garages.cpp,261,inline_assembly,pending_cpp_conversion
 source/game_sa/General.cpp,42,naked,pending_cpp_conversion
 source/game_sa/General.cpp,43,inline_assembly,pending_cpp_conversion
 source/game_sa/General.cpp,125,naked,pending_cpp_conversion

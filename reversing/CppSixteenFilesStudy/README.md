@@ -27,6 +27,8 @@ Helpers nuevos en `X87Math`: `ExeAcosDoubleCpp`, `ExeAsinDegreesCpp`, `UnsignedP
 
 ## Cuatro que siguen naked (y por qué)
 
+> **Actualización:** estas cuatro se convirtieron después sin relajar los bancos; ver [CppFourNakedStudy](../CppFourNakedStudy/README.md). Lo que sigue describe el primer intento.
+
 Se convirtieron, se probaron y se **volvieron a su versión naked validada**, porque el comportamiento de C++ no puede igualar lo que el EXE deja en los registros y la comparación del banco (o los llamadores del EXE) lo exige:
 
 | Función | Motivo |

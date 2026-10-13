@@ -10,7 +10,9 @@ extern "C" double __cdecl pow(double, double);
 #pragma intrinsic(sin, cos, sqrt, atan2, log10, pow)
 #include <float.h>
 #include <string.h>
+#include <assert.h>
 #include <bit>
+#include "X87Math.h"
 
 // --- Seno y coseno ---
 // Acceptance requires native x87 opcodes without any intervening store or CRT call.
@@ -347,3 +349,40 @@ __declspec(noinline) float __cdecl FxFrustumRadiusCpp(float dist, float farClip)
     return float((scaled / sinSupplement) * sinAngle);
 }
 #pragma float_control(pop)
+
+// --- Residuo de registros ---
+__declspec(noinline) unsigned int __fastcall ResidueRegsCpp(unsigned int /*ecxValue*/, unsigned int /*edxValue*/, unsigned int eaxValue) {
+    return eaxValue;
+}
+
+__declspec(noinline) unsigned int __thiscall ResidueEcx::Get(unsigned int eaxValue) {
+    return eaxValue;
+}
+
+// Comprobación al cargar la DLL (se activa con assert): los dos ayudantes tienen que ser exactamente "devolver el parámetro de la pila y salir",
+// sin tocar ECX ni EDX. Si un cambio de opciones o de compilador los altera, las funciones que reproducen el residuo del EXE dejarían
+// registros equivocados sin avisar. Se siguen los saltos de enlace incremental (E9) que pone el modo Debug.
+static const unsigned char* FollowIncrementalThunks(const unsigned char* code) {
+    for (int hops = 0; hops < 4 && code[0] == 0xE9; ++hops) {
+        int offset;
+        memcpy(&offset, code + 1, sizeof offset);
+        code += 5 + offset;
+    }
+    return code;
+}
+
+static bool ResidueHelperIsTrivial(const void* function) {
+    static const unsigned char withFrame[]    = {0x55, 0x8B, 0xEC, 0x8B, 0x45, 0x08, 0x5D, 0xC2, 0x04, 0x00}; // push ebp; mov ebp,esp; mov eax,[ebp+8]; pop ebp; ret 4
+    static const unsigned char withoutFrame[] = {0x8B, 0x44, 0x24, 0x04, 0xC2, 0x04, 0x00};                  // mov eax,[esp+4]; ret 4
+    const unsigned char* code = FollowIncrementalThunks(static_cast<const unsigned char*>(function));
+    return memcmp(code, withFrame, sizeof withFrame) == 0 || memcmp(code, withoutFrame, sizeof withoutFrame) == 0;
+}
+
+static bool ResidueHelpersAreTrivial() {
+    auto  member = &ResidueEcx::Get;
+    const void* getAddress;
+    memcpy(&getAddress, &member, sizeof getAddress);
+    return ResidueHelperIsTrivial(reinterpret_cast<const void*>(&ResidueRegsCpp)) && ResidueHelperIsTrivial(getAddress);
+}
+
+static const bool s_residueHelpersChecked = (assert(ResidueHelpersAreTrivial() && "Los ayudantes de residuo de registros ya no son triviales: revisar X87Math.cpp y las opciones de compilacion"), true);

@@ -163,8 +163,9 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| FxFrustumInfo_c::InjectHooks() | [source/game_sa/Fx/FxFrustumInfo.cpp:4](../../source/game_sa/Fx/FxFrustumInfo.cpp#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxFrustumInfo_c::IsCollision(FxSphere_c&) | [source/game_sa/Fx/FxFrustumInfo.cpp:12](../../source/game_sa/Fx/FxFrustumInfo.cpp#L12) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxFrustumInfo_c::IsCollision 0x004AA030 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| FxFrustumInfo_c::InjectHooks() | [source/game_sa/Fx/FxFrustumInfo.cpp:5](../../source/game_sa/Fx/FxFrustumInfo.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxFrustumInfo_c::IsCollisionRegs(FxSphere_c& sphere) | [source/game_sa/Fx/FxFrustumInfo.cpp:16](../../source/game_sa/Fx/FxFrustumInfo.cpp#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsCollision(FxSphere_c& sphere) | [source/game_sa/Fx/FxFrustumInfo.h:22](../../source/game_sa/Fx/FxFrustumInfo.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxFrustumInfo_c::IsCollision 0x004AA030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-914"></a>
 

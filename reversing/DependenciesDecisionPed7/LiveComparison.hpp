@@ -91,6 +91,14 @@ inline Abi Call(uintptr_t entry,uintptr_t object,const uint32* arguments,int arg
         beforeB==afterB&&beforeS==afterS&&beforeI==afterI&&beforeP==afterP,beforeH==afterH,
         {beforeB^afterB,beforeS^afterS,beforeI^afterI,beforeP^afterP}};
 }
+// Desenrollado SEH: el destructor virtual de una tarea falsa lanza una excepcion; el evento debe terminar con la vtable de CEvent y la
+// cadena de excepciones debe volver a su cabeza anterior (en el original y en el candidato). No puede ir en una funcion con objetos C++.
+inline void* __fastcall RaisingTaskDestructor(void* self,void*,int){RaiseException(0xE0DEC0DEu,0,0,nullptr);return self;}
+inline bool CallDestructorCatching(uintptr_t entry,void* event){
+    __try{reinterpret_cast<uint32(__fastcall*)(void*,uint32)>(entry)(event,0x12345678u);}
+    __except(GetExceptionCode()==0xE0DEC0DEu?EXCEPTION_EXECUTE_HANDLER:EXCEPTION_CONTINUE_SEARCH){return true;}
+    return false;
+}
 inline void Update(){
  if(done)return;
  char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);const auto dir=std::filesystem::path(exe).parent_path();
@@ -114,7 +122,7 @@ inline void Update(){
  helperRoutes.emplace_back(reinterpret_cast<uintptr_t>(FunctionToVoidPtr(&CTask::operator delete)));
  auto helpersUnchanged=[&]{if(!NativeHelpers())return false;for(const auto& h:helperRoutes)if(!h.Unchanged())return false;return true;};
  json helpers=json::array();for(const auto& h:helperRoutes)helpers.push_back(h.Observe());
- Write({{"event","begin"},{"registered_hook",one.Registered()&&two.Registered()&&ref.Registered()&&destroy.Registered()},{"collaborators_stubbed",false},{"helper_routes",helpers},{"seh_exception_unwind_tested",false}});
+ Write({{"event","begin"},{"registered_hook",one.Registered()&&two.Registered()&&ref.Registered()&&destroy.Registered()},{"collaborators_stubbed",false},{"helper_routes",helpers},{"seh_exception_unwind_tested",true}});
  const auto getPtd=reinterpret_cast<uint8*(__cdecl*)()>(0x827B3D);auto* randomState=reinterpret_cast<uint32*>(getPtd()+0x14);const auto savedRandom=*randomState;
  auto*& globalTaskPool=*reinterpret_cast<CTaskPool**>(0xB744A8);auto* savedTaskPool=globalTaskPool;auto* savedRefs=CReferences::pEmptyList;const auto savedTime=CTimer::GetTimeInMS();const auto savedFp=CaptureFpu();
  auto restore=[&]{globalTaskPool=savedTaskPool;*randomState=savedRandom;*reinterpret_cast<uint32*>(0xB7CB84)=savedTime;CReferences::pEmptyList=savedRefs;RestoreFpu(savedFp);};
@@ -181,6 +189,22 @@ inline void Update(){
    passed&=equal;failures+=!equal;Write({{"event","comparison"},{"function",std::string(fn.cls)+"::"+fn.name},{"pair",pair++},{"case",scenario},{"original",original},{"candidate",candidate},{"equal",equal},{"accepted",equal}});
   }
   Write({{"event","function_summary"},{"function",std::string(fn.cls)+"::"+fn.name},{"cases",fn.cases},{"failures",failures}});
+ }
+ // Desenrollado de una excepcion lanzada por el destructor de la tarea (el banco original no lo probaba: seh_exception_unwind_tested era false).
+ {
+  alignas(4) std::array<uint8,sizeof(CEventScriptCommand)> raisingEvent;alignas(4) std::array<uint8,0x20> fakeTask;void* fakeVtable[2]{reinterpret_cast<void*>(&RaisingTaskDestructor),nullptr};
+  auto unwindRun=[&](bool candidate){
+   restore();_controlfp(_PC_24,_MCW_PC);std::fill(raisingEvent.begin(),raisingEvent.end(),uint8(0x5A));fakeTask.fill(0);memcpy(fakeTask.data(),&fakeVtable[0],0);
+   void* const vt=fakeVtable;memcpy(fakeTask.data(),&vt,4);put32(raisingEvent.data()+0x10,uint32(reinterpret_cast<uintptr_t>(fakeTask.data())));
+   const uint32 headBefore=__readfsdword(0);bool caught=false;
+   destroy.Invoke(candidate,[&]{caught=CallDestructorCatching(0x4B0A50,raisingEvent.data());return Abi{};});
+   const uint32 headAfter=__readfsdword(0);
+   json value={{"caught",caught},{"event_vtable",get32(raisingEvent.data())},{"task_field",get32(raisingEvent.data()+0x10)},{"head_restored",headBefore==headAfter},{"event",raisingEvent}};
+   restore();return value;
+  };
+  const auto original=unwindRun(false),candidate=unwindRun(true);
+  const bool equal=original==candidate&&original["caught"]==true&&original["event_vtable"]==uint32(0x85AB38)&&original["head_restored"]==true;
+  passed&=equal;Write({{"event","seh_unwind"},{"equal",equal},{"original",original},{"candidate",candidate}});
  }
  restore();bool restored=globalTaskPool==savedTaskPool&&*randomState==savedRandom&&CReferences::pEmptyList==savedRefs&&CTimer::GetTimeInMS()==savedTime&&CaptureFpu()==savedFp&&helpersUnchanged();
  for(int i=0;i<4;++i)restored&=codes[i]==ReversingProbe::Bytes(reinterpret_cast<void*>(fns[i].address),5);for(auto* route:routes){const bool ok=route->Restore();restored&=ok;}
