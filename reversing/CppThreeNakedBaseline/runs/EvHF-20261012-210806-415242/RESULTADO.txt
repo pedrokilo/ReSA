@@ -1,0 +1,3 @@
+FALLO: CEventHandler grupo F (EvHF)
+Funciones con diferencias: CEventHandler::ComputePedCollisionWithPedResponse: 1895/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-evhf\20261012-210806-415242

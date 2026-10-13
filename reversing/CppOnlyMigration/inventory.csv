@@ -716,8 +716,6 @@ source/game_sa/PedIK.cpp,104,inline_assembly,pending_cpp_conversion
 source/game_sa/PedIK.cpp,117,inline_assembly,pending_cpp_conversion
 source/game_sa/PedIK.cpp,185,inline_assembly,pending_cpp_conversion
 source/game_sa/PedIK.cpp,252,inline_assembly,pending_cpp_conversion
-source/game_sa/PedIntelligence.cpp,1029,naked,pending_cpp_conversion
-source/game_sa/PedIntelligence.cpp,1030,inline_assembly,pending_cpp_conversion
 source/game_sa/Pickup.cpp,32,naked,pending_cpp_conversion
 source/game_sa/Pickup.cpp,33,inline_assembly,pending_cpp_conversion
 source/game_sa/Pickup.cpp,266,inline_assembly,pending_cpp_conversion
@@ -728,8 +726,6 @@ source/game_sa/Pickups.cpp,233,inline_assembly,pending_cpp_conversion
 source/game_sa/Pickups.cpp,382,inline_assembly,pending_cpp_conversion
 source/game_sa/Pickups.cpp,437,inline_assembly,pending_cpp_conversion
 source/game_sa/Pickups.cpp,477,inline_assembly,pending_cpp_conversion
-source/game_sa/Plant/PlantLocTri.cpp,37,naked,pending_cpp_conversion
-source/game_sa/Plant/PlantLocTri.cpp,38,inline_assembly,pending_cpp_conversion
 source/game_sa/Plant/ProcSurfaceInfo.cpp,104,inline_assembly,pending_cpp_conversion
 source/game_sa/Plant/ProcSurfaceInfo.cpp,164,inline_assembly,pending_cpp_conversion
 source/game_sa/Plant/ProcSurfaceInfo.cpp,226,inline_assembly,pending_cpp_conversion
@@ -975,8 +971,6 @@ source/game_sa/Stats.cpp,3694,naked,pending_cpp_conversion
 source/game_sa/Stats.cpp,3695,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp,46,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp,62,inline_assembly,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp,9,naked,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp,10,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp,78,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp,98,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,12,naked,pending_cpp_conversion

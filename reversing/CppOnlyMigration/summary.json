@@ -1,8 +1,8 @@
 {
   "scope": "source/game_sa; lexical occurrences, not functions",
-  "files_with_assembly_or_naked": 107,
-  "inline_assembly_occurrences": 853,
-  "naked_declarations": 250,
+  "files_with_assembly_or_naked": 104,
+  "inline_assembly_occurrences": 850,
+  "naked_declarations": 247,
   "extensions": {
     ".cpp": 970,
     ".h": 1181,

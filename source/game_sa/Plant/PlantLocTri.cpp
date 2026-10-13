@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include "PlantMgr.h"
 #include "PlantSurfPropMgr.h"
 #include "ProcObjectMan.h"
+#include "X87Math.h"
 
 // 0x5DC210
 // Usa el área real del triángulo como multiplicador espacial de las densidades
@@ -33,15 +34,12 @@ float GetPlantDensity(CPlantLocTri* plant) {
     return std::sqrt(c.z * c.z + c.y * c.y + c.x * c.x) * 0.5f;
 }
 
-// Como el original: 0x5DC210 recibe el triángulo en EAX y devuelve el resultado en ST0
-static __declspec(naked) float GetPlantDensity_EaxWrapper() {
-    __asm {
-        push eax
-        call GetPlantDensity
-        add esp, 4
-        ret
-    }
+// Como el original: 0x5DC210 recibe el triángulo en EAX y devuelve el resultado en ST0. EntryEaxCpp debe ser lo primero que se ejecuta.
+#pragma runtime_checks("", off)
+__declspec(safebuffers) static float GetPlantDensity_EaxEntry() {
+    return GetPlantDensity(reinterpret_cast<CPlantLocTri*>(EntryEaxCpp()));
 }
+#pragma runtime_checks("", restore)
 
 /**
  * Registra creación y liberación de triángulos capaces de producir plantas u objetos.
@@ -53,7 +51,7 @@ void CPlantLocTri::InjectHooks() {
     RH_ScopedInstall(Add, 0x5DC290);
     RH_ScopedInstall(Release, 0x5DB6D0);
 
-    RH_ScopedNamedGlobalInstall(GetPlantDensity_EaxWrapper, "GetPlantDensity", 0x5DC210); // Como el original: argumento en EAX
+    RH_ScopedNamedGlobalInstall(GetPlantDensity_EaxEntry, "GetPlantDensity", 0x5DC210); // Como el original: argumento en EAX
 }
 
 // 0x5DC290

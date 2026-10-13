@@ -1,0 +1,3 @@
+APROBADO: CEventHandler: respuestas a eventos y manejador (grupo A)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-evha\20261012-205917-638689

@@ -354,6 +354,31 @@ __declspec(noinline) float __cdecl FxFrustumRadiusCpp(float dist, float farClip)
 }
 #pragma float_control(pop)
 
+// fld [a]; fcomp [b]; fnstsw ax (CTaskComplexSeekEntity<XYOffset>::SetMaxEntityDist2D, 0x4BC470): palabra de estado x87 tras comparar.
+// Se compara en x87 (el archivo se compila con /arch:IA32) para que el cargador marque IE y DE como lo hace el EXE; las condiciones C0, C2 y C3
+// salen del resultado de la comparación y los indicadores de excepción acumulados se leen del x87 con _statusfp2. TOP = 0 y C1 = 0.
+#pragma float_control(precise, on, push)
+__declspec(noinline) unsigned int __cdecl X87CompareStatusCpp(const float* a, const float* b) {
+    unsigned int status = 0;
+    if (!(*a == *a) || !(*b == *b)) {
+        status = 0x4500; // desordenado
+    } else if (*a == *b) {
+        status = 0x4000;
+    } else if (*a < *b) {
+        status = 0x0100;
+    }
+    unsigned int x87 = 0, sse = 0;
+    _statusfp2(&x87, &sse);
+    if (x87 & _SW_INVALID)    status |= 0x01;
+    if (x87 & _SW_DENORMAL)   status |= 0x02;
+    if (x87 & _SW_ZERODIVIDE) status |= 0x04;
+    if (x87 & _SW_OVERFLOW)   status |= 0x08;
+    if (x87 & _SW_UNDERFLOW)  status |= 0x10;
+    if (x87 & _SW_INEXACT)    status |= 0x20;
+    return status;
+}
+#pragma float_control(pop)
+
 // --- Residuo de registros ---
 __declspec(noinline) unsigned int __fastcall ResidueRegsCpp(unsigned int /*ecxValue*/, unsigned int /*edxValue*/, unsigned int eaxValue) {
     return eaxValue;
@@ -362,6 +387,15 @@ __declspec(noinline) unsigned int __fastcall ResidueRegsCpp(unsigned int /*ecxVa
 __declspec(noinline) unsigned int __thiscall ResidueEcx::Get(unsigned int eaxValue) {
     return eaxValue;
 }
+
+// EAX de entrada de la función que lo llama, si es lo primero que ésta ejecuta: no tiene `return`, de modo que MSVC no escribe EAX y sale
+// (`ret`, con o sin marco de pila). Es comportamiento sin definir en el lenguaje: lo vigilan la comprobación de bytes de abajo, al cargar la
+// DLL, y contrib/audit_register_residue.py en los objetos que lo usan.
+#pragma warning(push)
+#pragma warning(disable : 4716)
+__declspec(noinline) unsigned int __fastcall EntryEaxCpp() {
+}
+#pragma warning(pop)
 
 // Comprobación al cargar la DLL (se activa con assert): los dos ayudantes tienen que ser exactamente "devolver el parámetro de la pila y salir",
 // sin tocar ECX ni EDX. Si un cambio de opciones o de compilador los altera, las funciones que reproducen el residuo del EXE dejarían
@@ -382,11 +416,18 @@ static bool ResidueHelperIsTrivial(const void* function) {
     return memcmp(code, withFrame, sizeof withFrame) == 0 || memcmp(code, withoutFrame, sizeof withoutFrame) == 0;
 }
 
+static bool EntryEaxHelperIsTrivial() {
+    const unsigned char* code = FollowIncrementalThunks(reinterpret_cast<const unsigned char*>(&EntryEaxCpp));
+    static const unsigned char plain[]     = {0xC2, 0x00, 0x00};             // ret 0 (así termina MSVC una __fastcall sin parámetros de pila)
+    static const unsigned char withFrame[] = {0x55, 0x8B, 0xEC, 0x5D, 0xC2, 0x00, 0x00}; // push ebp; mov ebp,esp; pop ebp; ret 0
+    return code[0] == 0xC3 || memcmp(code, plain, sizeof plain) == 0 || memcmp(code, withFrame, sizeof withFrame) == 0;
+}
+
 static bool ResidueHelpersAreTrivial() {
     auto  member = &ResidueEcx::Get;
     const void* getAddress;
     memcpy(&getAddress, &member, sizeof getAddress);
-    return ResidueHelperIsTrivial(reinterpret_cast<const void*>(&ResidueRegsCpp)) && ResidueHelperIsTrivial(getAddress);
+    return ResidueHelperIsTrivial(reinterpret_cast<const void*>(&ResidueRegsCpp)) && ResidueHelperIsTrivial(getAddress) && EntryEaxHelperIsTrivial();
 }
 
 static const bool s_residueHelpersChecked = (assert(ResidueHelpersAreTrivial() && "Los ayudantes de residuo de registros ya no son triviales: revisar X87Math.cpp y las opciones de compilacion"), true);

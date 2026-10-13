@@ -19,6 +19,7 @@ def disassembly(*functions):
 
 CALL = 'call        ?ResidueRegsCpp@@YIIIII@Z'
 GET = 'call        ?Get@ResidueEcx@@QAEII@Z'
+ENTRY = 'call        ?EntryEaxCpp@@YIIXZ'
 
 
 class RegisterResidueAuditTest(unittest.TestCase):
@@ -52,6 +53,23 @@ class RegisterResidueAuditTest(unittest.TestCase):
     def test_code_without_helper_calls_is_ignored(self):
         checked, bad = self.run_audit(['push        ebp', 'mov         ecx,eax', 'pop         ebp', 'ret'])
         self.assertEqual((checked, bad), (0, []))
+
+    def test_entry_eax_read_as_first_instruction_is_accepted(self):
+        checked, bad = self.run_audit(['push        ebp', 'mov         ebp,esp', 'sub         esp,8', 'mov         dword ptr [ebp-4],ecx', ENTRY, 'pop         ebp', 'ret'])
+        self.assertEqual((checked, bad), (1, []))
+
+    def test_write_to_eax_before_entry_read_is_rejected(self):
+        checked, bad = self.run_audit(['push        ebp', 'mov         ebp,esp', 'mov         eax,dword ptr [ebp+8]', ENTRY, 'pop         ebp', 'ret'])
+        self.assertEqual(checked, 1)
+        self.assertEqual(len(bad), 1)
+
+    def test_runtime_check_prologue_before_entry_read_is_rejected(self):
+        checked, bad = self.run_audit(['push        ebp', 'mov         ebp,esp', 'mov         eax,0CCCCCCCCh', ENTRY, 'pop         ebp', 'ret'])
+        self.assertEqual(len(bad), 1)
+
+    def test_call_before_entry_read_is_rejected(self):
+        checked, bad = self.run_audit(['push        ebp', 'call        foo', ENTRY, 'pop         ebp', 'ret'])
+        self.assertEqual(len(bad), 1)
 
 
 if __name__ == '__main__':

@@ -3,7 +3,7 @@
 <!-- RESA-CURRENT-STATUS:END -->
 
 
-# Catorce archivos con un bloque de ensamblador y una función naked: once convertidos, tres que siguen naked (12/10/2026)
+# Catorce archivos con un bloque de ensamblador y una función naked: los catorce en C++ (12/10/2026)
 
 Lote pedido: `Models/BaseModelInfo.cpp`, `Models/ClumpModelInfo.cpp`, `PedGroupIntelligence.cpp`, `PedIntelligence.cpp`, `Plant/PlantLocTri.cpp`, `Pools.cpp`, `Ragdoll/IKChain.cpp`, `RwHelper.cpp`, `Interior/TaskInteriorSitInChair.cpp`, `SeekEntity/TaskComplexSeekEntityXYOffset.cpp`, `TaskComplexGoToCarDoorAndStandStill.cpp`, `TaskSimpleBeHit.cpp`, `TaskSimpleDead.cpp` y `TaskSimpleGoToPointFine.cpp`. Política: [PROCESO.md](../CppOnlyMigration/PROCESO.md). Técnica del residuo de registros: [CppFourNakedStudy](../CppFourNakedStudy/README.md).
 
@@ -20,13 +20,16 @@ Lote pedido: `Models/BaseModelInfo.cpp`, `Models/ClumpModelInfo.cpp`, `PedGroupI
 | `CTaskComplexGoToCarDoorAndStandStill::IsVehicleInRange` (0x6458A0) | `__fastcall` con residuo ECX/EDX/EAX |
 | `CTaskSimpleBeHit` (rumbo), `CTaskSimpleDead` (asin), `CTaskSimpleGoToPointFine::SetTargetPos` | `TrigAtan2Cpp`, `ExeAsinDoubleCpp` (nuevo en `X87Math`) y `ResidueEcx::Get` |
 
-## Siguen naked (3) y por qué
+## Las tres que seguían naked, ahora en C++
 
-- `CPedIntelligence::IncrementAngerAtPlayer` (0x421050): escribe sólo AL/DL; los bits altos de EAX/EDX que quedan al salir son los de entrada, y C++ no puede leer el EAX de entrada.
-- `CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D` (0x4BC470): `fnstsw ax` deja la mitad alta de EAX con el valor de entrada.
-- `GetPlantDensity` (0x5DC210): el argumento llega en EAX.
+Se resolvieron después con una técnica nueva, sin relajar bancos:
 
-Los tres exigen leer o conservar un registro que el compilador no expone; ninguna técnica de C++ probada lo reproduce sin ensamblador.
+- **`EntryEaxCpp`** (`X87Math.cpp`): `unsigned __fastcall EntryEaxCpp() {}` sin `return` (aviso C4716 desactivado en esa función). MSVC no escribe EAX y la compila a `ret 0`, así que devuelve el EAX de entrada de quien la llama. Es comportamiento sin definir en el lenguaje, vigilado en tres niveles: la comprobación de bytes de `X87Math.cpp` al cargar la DLL (el primer intento, con una variable sin inicializar, devolvía un hueco de pila y la DLL se detuvo en la carga), `contrib/audit_register_residue.py` (antes de cada llamada a `EntryEaxCpp` solo puede haber prólogo y copias: ninguna escritura a EAX/AX/AL/AH, llamada ni salto condicional; pruebas en `contrib/tests/`) y los bancos. La función que lo usa se compila sin comprobaciones de ejecución ni cookie de /GS (`safebuffers`) y lo llama primero.
+- `GetPlantDensity` (0x5DC210): `GetPlantDensity(reinterpret_cast<CPlantLocTri*>(EntryEaxCpp()))`; el resultado sigue saliendo por ST0.
+- `IncrementAngerAtPlayer` (0x421050): `IncrementAngerAtPlayerRegs(self, entryEdx, anger)` (`__fastcall`, `ret 4`) deja EAX = bits altos del EAX de entrada o de la suma con AL cambiado, y EDX = EDX de entrada, la hora o la hora con el argumento en DL; el método de la clase llama a esa función.
+- `SetMaxEntityDist2D` (0x4BC470): `SetMaxEntityDist2DRegs(self, entryEdx, bitsDistancia)`. El original guarda salvo que la comparación dé igualdad exacta (con NaN también guarda: `test ah,44h` con C3 y C2 a 1 tiene paridad par). Si no guarda, AX es la palabra de estado de `fnstsw`: `X87CompareStatusCpp` la reconstruye (C0/C2/C3 de la comparación, banderas de excepción acumuladas leídas con `_statusfp2`, TOP = 0). La primera versión no guardaba con NaN y el banco DependenciesWorld9 lo detectó (480/2048).
+
+Bancos: World52 (18384 pares), DependenciesTaskPed5 (8192), DependenciesWorld9 (4096), EvHA (17984), EvHF (2048). Los bancos se actualizaron para referenciar `IncrementAngerAtPlayerRegs` y `SetMaxEntityDist2DRegs`; EvHF además interceptaba solo la entrada del EXE de `CPedGroups::GetPedsGroup` (0x5F7E80) y fallaba igual en HEAD (1895/2048 en `ComputePedCollisionWithPedResponse`; evidencia en `reversing/CppThreeNakedBaseline`); se añadió el punto de entrada de la DLL. Evidencia: `reversing/CppThreeNakedUnified/runs/` (incluye las corridas fallidas intermedias) y `CppThreeNakedUnified2/runs/`.
 
 ## Revalidación
 
@@ -47,7 +50,7 @@ Bancos históricos completos con `herramientas/rerun_hist.py`; evidencia en `rev
 | IK20, IKDataWarnings | 11264, ver resumen | aprobado |
 | FixHooks | 6144 | aprobado en la segunda versión del banco (`CppFourteenFilesUnified3`): la primera falló en las comprobaciones estáticas porque esperaba bloqueados y sin hook 16 hooks de vtable que el commit 0d0094be había desbloqueado y activado (CTaskComplexGangFollower, CTaskGangHassleVehicle, CTaskGoToVehicleAndLean, `CTaskSimpleDead::ProcessPed`, `CBike::ProcessAI`). Ahora acepta cualquiera de los dos estados reales (bloqueado con el hueco del EXE, o desbloqueado con el hueco en la DLL); el resto del banco no cambió |
 
-`python contrib/audit_register_residue.py` revisa ahora 11 objetos (0 violaciones).
+`python contrib/audit_register_residue.py` revisa ahora 14 objetos (0 violaciones).
 
 ## Límites
 

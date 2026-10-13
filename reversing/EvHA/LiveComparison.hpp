@@ -391,7 +391,7 @@ inline void Update() {
         patch(common,0x600DC0,&CPedIntelligence::AddTaskPhysResponse,AddPhys);
         patch(common,0x600DE0,&CPedIntelligence::AddTaskEventResponseTemp,AddTemp);
         patch(common,0x600E00,&CPedIntelligence::AddTaskEventResponseNonTemp,AddNonTemp);
-        patch(common,0x421050,&CPedIntelligence::IncrementAngerAtPlayer,IncAnger);
+        patch(common,0x421050,&IncrementAngerAtPlayerRegs,IncAnger);
         // eventos y tareas
         patch(common,0x4B3A20,&CEventDamage::ProcessDamage,ProcessDamageStub);
         patch(common,0x4B3A60,&CEventDamage::ComputeDeathAnim,DeathAnimStub);

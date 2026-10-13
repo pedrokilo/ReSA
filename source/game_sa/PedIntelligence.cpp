@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "PedIntelligence.h"
+#include "X87Math.h"
 
 #include "Ragdoll/IKChainManager.h"
 #include "PedType.h"
@@ -61,7 +62,7 @@ void CPedIntelligence::InjectHooks()
 {
     RH_ScopedClass(CPedIntelligence);
     RH_ScopedCategoryGlobal();
-    RH_ScopedInstall(IncrementAngerAtPlayer, 0x421050);
+    RH_ScopedNamedGlobalInstall(IncrementAngerAtPlayerRegs, "IncrementAngerAtPlayer", 0x421050);
 
     RH_ScopedInstall(Constructor, 0x607140);
     RH_ScopedInstall(Destructor, 0x607300);
@@ -1025,36 +1026,39 @@ float CPedIntelligence::GetPedFOVRange() const {
     return std::max(m_fHearingRange, m_fSeeingRange);
 }
 
-// 0x421050: this es CPedIntelligence.
-__declspec(naked) void CPedIntelligence::IncrementAngerAtPlayer(uint8) {
-    __asm {
-        mov         al,byte ptr [ecx+00000180h]
-        test        al,al
-        je          anger5_4210B5
-        mov         al,byte ptr [ecx+00000181h]
-        test        al,al
-        je          anger5_421076
-        mov         eax,dword ptr ds:[00B7CB84h]
-        mov         dword ptr [ecx+00000178h],eax
-        mov         byte ptr [ecx+00000181h],0
-anger5_421076:
-        mov         edx,dword ptr [ecx+00000178h]
-        mov         eax,dword ptr [ecx+0000017Ch]
-        add         eax,edx
-        mov         edx,dword ptr ds:[00B7CB84h]
-        cmp         edx,eax
-        sbb         al,al
-        inc         al
-        test        al,al
-        je          anger5_4210B5
-        mov         dword ptr [ecx+00000178h],edx
-        mov         dl,byte ptr [esp+4]
-        mov         dword ptr [ecx+0000017Ch],0BB8h
-        mov         byte ptr [ecx+00000180h],1
-        add         byte ptr [ecx+00000174h],dl
-anger5_4210B5:
-        ret         4
+// 0x421050: ECX = this, EDX de entrada y un argumento en pila (ret 4). Como el original, deja en EAX los bits altos del EAX de entrada
+// o de la suma (solo cambia AL) y en EDX el EDX de entrada, la hora o la hora con el argumento en DL.
+#pragma runtime_checks("", off)
+__declspec(safebuffers) uint32 __fastcall IncrementAngerAtPlayerRegs(CPedIntelligence* self, uint32 entryEdx, uint8 anger) {
+    const uint32 entryEax = EntryEaxCpp();
+    auto* const  base     = reinterpret_cast<uint8*>(self);
+    auto&        total    = base[0x174];
+    auto&        lastTime = *reinterpret_cast<uint32*>(base + 0x178);
+    auto&        interval = *reinterpret_cast<uint32*>(base + 0x17C);
+    auto&        active   = base[0x180];
+    auto&        pending  = base[0x181];
+    const uint32 now      = CTimer::m_snTimeInMilliseconds;
+    if (!active) {
+        return ResidueRegsCpp(reinterpret_cast<uint32>(self), entryEdx, entryEax & 0xFFFFFF00u);
     }
+    if (pending) {
+        lastTime = now;
+        pending  = 0;
+    }
+    const uint32 sum = lastTime + interval;
+    if (now < sum) {
+        return ResidueRegsCpp(reinterpret_cast<uint32>(self), now, sum & 0xFFFFFF00u);
+    }
+    lastTime = now;
+    interval = 3000;
+    active   = 1;
+    total    = static_cast<uint8>(total + anger);
+    return ResidueRegsCpp(reinterpret_cast<uint32>(self), (now & 0xFFFFFF00u) | anger, (sum & 0xFFFFFF00u) | 1u);
+}
+#pragma runtime_checks("", restore)
+
+void CPedIntelligence::IncrementAngerAtPlayer(uint8 anger) {
+    IncrementAngerAtPlayerRegs(this, 0, anger);
 }
 
 // 0x6074A0

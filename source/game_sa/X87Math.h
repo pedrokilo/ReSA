@@ -114,6 +114,12 @@ struct ResidueEcx {
     unsigned int __thiscall Get(unsigned int eaxValue);
 };
 
+// Palabra de estado x87 (como la deja fnstsw) tras comparar *a con *b; ver X87Math.cpp.
+unsigned int __cdecl X87CompareStatusCpp(const float* a, const float* b);
+// EAX con el que se entró a la función que lo llama, siempre que esa función lo invoque antes de tocar EAX (sin comprobaciones de ejecución ni
+// cookie de /GS). Permite recibir argumentos en EAX o conservar sus bits altos sin ensamblador.
+unsigned int __fastcall EntryEaxCpp();
+
 // Lote de catorce archivos (12/10/2026).
 // asin del CRT del EXE (_CIasin, 0x821E70) sobre un double: fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control del EXE.
 double __cdecl ExeAsinDoubleCpp(double x);

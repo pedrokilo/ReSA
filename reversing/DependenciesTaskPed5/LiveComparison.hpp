@@ -83,7 +83,7 @@ inline void Update(){
  if(!log.is_open()){log.open(dir/"dependenciestaskped5-runtime.jsonl");Write({{"event","waiting_for_player"}});ReversingProbe::InstallFailureCapture("dependenciestaskped5");}
  if(!FindPlayerPed()||CCutsceneMgr::IsRunning())return;done=true;
  OriginalDependencies499::HookRoute clear("CAttractorScanner","Clear",0x5FFF90,FunctionToVoidPtr(&CAttractorScanner::Clear));
- OriginalDependencies499::HookRoute anger("CPedIntelligence","IncrementAngerAtPlayer",0x421050,FunctionToVoidPtr(&CPedIntelligence::IncrementAngerAtPlayer));
+ OriginalDependencies499::HookRoute anger("CPedIntelligence","IncrementAngerAtPlayer",0x421050,FunctionToVoidPtr(&IncrementAngerAtPlayerRegs));
  OriginalDependencies499::HookRoute fight("CTaskSimpleFight","Constructor",0x61C470,FunctionToVoidPtr(&CTaskSimpleFight::Constructor));
  OriginalDependencies499::HookRoute event("CEventSource","ComputeEventSourceType",0x4ABAC0,&CEventSource::ComputeEventSourceType);
  OriginalDependencies499::HookRoute* routes[]{&clear,&anger,&fight,&event};

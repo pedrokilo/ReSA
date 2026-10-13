@@ -98,7 +98,7 @@ inline void Update(){
  auto restore=[&]{std::memcpy(reinterpret_cast<void*>(0xB7CB84),timerSaved.data(),4);std::memcpy(reinterpret_cast<void*>(0xC228A4),waterTimeSaved.data(),4);std::memcpy(reinterpret_cast<void*>(0xC812E8),weatherSaved.data(),4);RestoreFP(fpSaved.data());WriteMXCSR(mxcsrSaved);};
  std::array<std::unique_ptr<OriginalDependencies499::HookRoute>,2> routes;
  routes[0]=std::make_unique<OriginalDependencies499::HookRoute>(fns[0].cls,fns[0].name,fns[0].address,&CWaterLevel::CalculateWavesOnlyForCoordinate2Native);
- routes[1]=std::make_unique<OriginalDependencies499::HookRoute>(fns[1].cls,fns[1].name,fns[1].address,FunctionToVoidPtr(&CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D));
+ routes[1]=std::make_unique<OriginalDependencies499::HookRoute>(fns[1].cls,fns[1].name,fns[1].address,FunctionToVoidPtr(&SetMaxEntityDist2DRegs));
  Write({{"event","begin"},{"registered_hook",routes[0]->Registered()&&routes[1]->Registered()},{"actual_crt_library",crtUnchanged()},{"crt_entry",0x821B40},{"crt_core",crtCore},{"crt_entry_bytes",crtEntrySaved},{"crt_core_bytes",crtCoreSaved},{"loaded_sine_table",tablesReal},{"collaborators_stubbed",false},{"game_collaborators",0}});
  bool passed=tablesReal;uint32 pair=0;
  for(int index=0;index<2;++index){bool changed=false,unchanged=false,positive=false,negative=false;uint32 failures=0;

@@ -184,13 +184,13 @@ inline void Update() {
     {
         using ReversingProbe::EntryPatch; using std::bit_cast;
         EntryPatch r1(bit_cast<uintptr_t>(&CGeneral::GetRandomNumber),FakeRandomNumber), r1e(0x821B1E,FakeRand);
-        EntryPatch g1e(0x5F7E80,GetGroupStub);                                                                                         // la DLL reenvia al EXE
+        EntryPatch g1(bit_cast<uintptr_t>(&CPedGroups::GetPedsGroup),GetGroupStub), g1e(0x5F7E80,GetGroupStub);                          // la DLL la tiene reconstruida y enganchada
         EntryPatch g2(bit_cast<uintptr_t>(&CPedGroupMembership::GetLeader),LeaderStub), g2e(0x5F69A0,LeaderStub);
         EntryPatch h1(bit_cast<uintptr_t>(static_cast<int32(*)(const CPed&,CEntity&)>(&CPedGeometryAnalyser::ComputeEntityHitSide)),HitSideStub), h1e(0x5F3BC0,HitSideStub);
         EntryPatch o1(bit_cast<uintptr_t>(static_cast<int32(*)(const CPed&,CEntity&,const CVector&,CPointRoute&,int32)>(&CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox)),RouteStub), o1e(0x5F6110,RouteStub);
         EntryPatch l1(bit_cast<uintptr_t>(&IKChainManager_c::LookAt),LookAt), l1e(0x618970,LookAt);
         EntryPatch f2(bit_cast<uintptr_t>(&CPedIntelligence::GetMoveStateFromGoToTask),GoToMove), f2e(0x601D70,GoToMove);
-        EntryPatch a1(bit_cast<uintptr_t>(&CPedIntelligence::IncrementAngerAtPlayer),Anger), a1e(0x421050,Anger);
+        EntryPatch a1(bit_cast<uintptr_t>(&IncrementAngerAtPlayerRegs),Anger), a1e(0x421050,Anger);
         for(size_t f=0;f<fns.size();++f) {
             const auto& fn=fns[f]; int failures=0; const std::string nm=fn.name, full=std::string(fn.cls)+"::"+nm;
             if(!only.empty()&&only!=full)continue;

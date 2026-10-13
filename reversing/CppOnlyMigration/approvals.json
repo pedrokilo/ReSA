@@ -1865,5 +1865,67 @@
         "summary": "reversing/CppFourteenFilesUnified/runs\\UnlockTrackEntity-20261012-185910-661890/summary.json"
       }
     ]
+  },
+  "0x00421050": {
+    "identity": "CPedIntelligence::IncrementAngerAtPlayer",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/PedIntelligence.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesTaskPed5",
+    "run": "20261012-205227-625087",
+    "pairs": 8192,
+    "own_pairs": 8192,
+    "audit": "reversing/CppThreeNakedUnified/runs\\DependenciesTaskPed5-20261012-205227-625087/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "EAX de entrada con EntryEaxCpp (solo cambia AL), EDX de entrada como parámetro __fastcall y residuo con ResidueRegsCpp. El banco EvHF fallaba igual antes de este cambio (1895/2048 en ComputePedCollisionWithPedResponse) porque no interceptaba CPedGroups::GetPedsGroup de la DLL; corregido añadiendo ese punto de entrada, sin retirar compuertas. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "EvHA",
+        "run": "20261012-205917-638689",
+        "pairs": 17984,
+        "summary": "reversing/CppThreeNakedUnified/runs\\EvHA-20261012-205917-638689/summary.json"
+      },
+      {
+        "bank": "EvHF",
+        "run": "20261012-211331-274309",
+        "pairs": 2048,
+        "summary": "reversing/CppThreeNakedUnified2/runs\\EvHF-20261012-211331-274309/summary.json"
+      }
+    ]
+  },
+  "0x004BC470": {
+    "identity": "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesWorld9",
+    "run": "20261012-205758-434617",
+    "pairs": 4096,
+    "own_pairs": 4096,
+    "audit": "reversing/CppThreeNakedUnified/runs\\DependenciesWorld9-20261012-205758-434617/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "EAX de entrada con EntryEaxCpp y palabra de estado x87 de fnstsw reproducida con X87CompareStatusCpp (condiciones C0/C2/C3 y banderas de excepción acumuladas); guarda si no es igual (un NaN también). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005DC210": {
+    "identity": "GetPlantDensity (argumento en EAX)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Plant/PlantLocTri.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "World52",
+    "run": "20261012-205047-606965",
+    "pairs": 18384,
+    "own_pairs": 18384,
+    "audit": "reversing/CppThreeNakedUnified/runs\\World52-20261012-205047-606965/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "El triángulo se lee del EAX de entrada con EntryEaxCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
   }
 }

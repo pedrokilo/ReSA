@@ -42,6 +42,9 @@ END GENERATED HOOK STATUS */
 #include "PosCalculators/EntitySeekPosCalculatorStandard.h"
 #include "PosCalculators/EntitySeekPosCalculatorXYOffset.h"
 
+// 0x4BC470 con los registros del EXE (TaskComplexSeekEntityXYOffset.cpp); el argumento llega como los bits del float.
+uint32 __fastcall SetMaxEntityDist2DRegs(void* self, uint32 entryEdx, uint32 distanceBits);
+
 template <std::derived_from<CEntitySeekPosCalculator> T_PosCalc = CEntitySeekPosCalculatorStandard>
 class NOTSA_EXPORT_VTABLE CTaskComplexSeekEntity : public CTaskComplex {
     CEntity* m_entityToSeek{};
@@ -76,7 +79,7 @@ public:
         if constexpr (std::is_same_v<T_PosCalc, CEntitySeekPosCalculatorXYOffset>) {
             RH_ScopedVirtualClass(CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>, 0x86FBB4, 11);
 
-            RH_ScopedInstall(SetMaxEntityDist2D, 0x4BC470);
+            RH_ScopedNamedGlobalInstall(SetMaxEntityDist2DRegs, "SetMaxEntityDist2D", 0x4BC470);
             RH_ScopedInstall(Constructor, 0x661DC0);
             RH_ScopedInstall(Destructor, 0x661F30);
 

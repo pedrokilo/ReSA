@@ -175,3 +175,6 @@ private:
 
 VALIDATE_SIZE(CPedIntelligence, 0x294);
 VALIDATE_OFFSET(CPedIntelligence, m_AnotherStaticCounter, 0x274);
+
+// 0x421050 con los registros del EXE (PedIntelligence.cpp); IncrementAngerAtPlayer llama a esta función.
+uint32 __fastcall IncrementAngerAtPlayerRegs(CPedIntelligence* self, uint32 entryEdx, uint8 anger);

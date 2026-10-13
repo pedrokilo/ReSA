@@ -61,10 +61,8 @@ source/game_sa/PedGeometryAnalyser.cpp,5,0
 source/game_sa/PedGroupPlacer.cpp,3,1
 source/game_sa/PedGroups.cpp,5,5
 source/game_sa/PedIK.cpp,8,1
-source/game_sa/PedIntelligence.cpp,1,1
 source/game_sa/Pickup.cpp,2,1
 source/game_sa/Pickups.cpp,7,0
-source/game_sa/Plant/PlantLocTri.cpp,1,1
 source/game_sa/Plant/ProcSurfaceInfo.cpp,3,0
 source/game_sa/PlayerInfo.cpp,2,0
 source/game_sa/PlayerRelationshipRecorder.cpp,4,4
@@ -85,7 +83,6 @@ source/game_sa/SimpleTransform.cpp,2,0
 source/game_sa/Sprite.cpp,2,0
 source/game_sa/Stats.cpp,69,44
 source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp,2,0
-source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp,1,1
 source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp,2,0
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,2,2
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,4,4

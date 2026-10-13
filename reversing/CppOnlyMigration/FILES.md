@@ -1,6 +1,6 @@
 # Archivos pendientes de convertir a C++
 
-107 archivos: 853 apariciones de ensamblador y 250 declaraciones naked.
+104 archivos: 850 apariciones de ensamblador y 247 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -68,10 +68,8 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/PedGroupPlacer.cpp](../../source/game_sa/PedGroupPlacer.cpp) | 3 | 1 |
 | [source/game_sa/PedGroups.cpp](../../source/game_sa/PedGroups.cpp) | 5 | 5 |
 | [source/game_sa/PedIK.cpp](../../source/game_sa/PedIK.cpp) | 8 | 1 |
-| [source/game_sa/PedIntelligence.cpp](../../source/game_sa/PedIntelligence.cpp) | 1 | 1 |
 | [source/game_sa/Pickup.cpp](../../source/game_sa/Pickup.cpp) | 2 | 1 |
 | [source/game_sa/Pickups.cpp](../../source/game_sa/Pickups.cpp) | 7 | 0 |
-| [source/game_sa/Plant/PlantLocTri.cpp](../../source/game_sa/Plant/PlantLocTri.cpp) | 1 | 1 |
 | [source/game_sa/Plant/ProcSurfaceInfo.cpp](../../source/game_sa/Plant/ProcSurfaceInfo.cpp) | 3 | 0 |
 | [source/game_sa/PlayerInfo.cpp](../../source/game_sa/PlayerInfo.cpp) | 2 | 0 |
 | [source/game_sa/PlayerRelationshipRecorder.cpp](../../source/game_sa/PlayerRelationshipRecorder.cpp) | 4 | 4 |
@@ -92,7 +90,6 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Sprite.cpp](../../source/game_sa/Sprite.cpp) | 2 | 0 |
 | [source/game_sa/Stats.cpp](../../source/game_sa/Stats.cpp) | 69 | 44 |
 | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp) | 2 | 0 |
-| [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp) | 1 | 1 |
 | [source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp](../../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp) | 2 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp](../../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp) | 2 | 2 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp) | 4 | 4 |

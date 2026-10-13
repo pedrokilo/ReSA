@@ -716,8 +716,6 @@ source/game_sa/PedIK.cpp,104,inline_assembly,DivCosX87,102
 source/game_sa/PedIK.cpp,117,inline_assembly,RotateXX87,114
 source/game_sa/PedIK.cpp,185,inline_assembly,RotateYX87,182
 source/game_sa/PedIK.cpp,252,inline_assembly,ArmHeadingDiffX87,248
-source/game_sa/PedIntelligence.cpp,1029,naked,CPedIntelligence::IncrementAngerAtPlayer,1029
-source/game_sa/PedIntelligence.cpp,1030,inline_assembly,CPedIntelligence::IncrementAngerAtPlayer,1029
 source/game_sa/Pickup.cpp,32,naked,PickupIsVisibleKeepEdx,32
 source/game_sa/Pickup.cpp,33,inline_assembly,PickupIsVisibleKeepEdx,32
 source/game_sa/Pickup.cpp,266,inline_assembly,PickupRevenueIncrement,262
@@ -728,8 +726,6 @@ source/game_sa/Pickups.cpp,233,inline_assembly,PickupGlowByte,229
 source/game_sa/Pickups.cpp,382,inline_assembly,CPickups::DoPickUpEffects,367
 source/game_sa/Pickups.cpp,437,inline_assembly,CPickups::DoPickUpEffects,367
 source/game_sa/Pickups.cpp,477,inline_assembly,CPickups::DoPickUpEffects,367
-source/game_sa/Plant/PlantLocTri.cpp,37,naked,GetPlantDensity_EaxWrapper,37
-source/game_sa/Plant/PlantLocTri.cpp,38,inline_assembly,GetPlantDensity_EaxWrapper,37
 source/game_sa/Plant/ProcSurfaceInfo.cpp,104,inline_assembly,ProcSurfaceMulX87,102
 source/game_sa/Plant/ProcSurfaceInfo.cpp,164,inline_assembly,ProcSurfaceInfo_c::AddObject,113
 source/game_sa/Plant/ProcSurfaceInfo.cpp,226,inline_assembly,ProcSurfaceInfo_c::AddObject,113
@@ -975,8 +971,6 @@ source/game_sa/Stats.cpp,3694,naked,CStats::UpdateStatsAddToHealth,3694
 source/game_sa/Stats.cpp,3695,inline_assembly,CStats::UpdateStatsAddToHealth,3694
 source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp,46,inline_assembly,CEntitySeekPosCalculatorRadiusAngleOffset::ComputeEntitySeekPos,38
 source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp,62,inline_assembly,CEntitySeekPosCalculatorRadiusAngleOffset::ComputeEntitySeekPos,38
-source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp,9,naked,CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D,9
-source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp,10,inline_assembly,CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D,9
 source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp,78,inline_assembly,CTaskComplexDestroyCarArmed::CalculateSearchPositionAndRanges,72
 source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp,98,inline_assembly,CTaskComplexDestroyCarArmed::CalculateSearchPositionAndRanges,72
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,12,naked,TaskCtorRegisterReference,12

@@ -19,8 +19,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OBJECTS = ['FxFrustumInfo', 'Garages', 'EventScriptCommand', 'BaseModelInfo', 'ClumpModelInfo', 'PedGroupIntelligence', 'Pools', 'RwHelper', 'TaskInteriorSitInChair',
-           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine']
+           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri']
 HELPER_CALL = re.compile(r'^call\s+\?(ResidueRegsCpp@@YIIIII@Z|Get@ResidueEcx@@QAEII@Z)\b')
+ENTRY_CALL = re.compile(r'^call\s+\?EntryEaxCpp@@YIIXZ$')
+# Antes de leer el EAX de entrada (EntryEaxCpp) sólo puede ejecutarse código lineal que no escriba EAX: prólogo, guardado de registros y
+# copias de ECX/EDX/argumentos. Cualquier llamada, salto condicional o instrucción cuyo destino sea EAX/AX/AL/AH lo estropearía.
+ENTRY_FORBIDDEN = [
+    re.compile(r'^(call|xchg|cdq|cwde|mul|div|idiv|cpuid|rep|j(?!mp\b)\w+|loop\w*)\b'),
+    re.compile(r'^(?!push |cmp |test )\w+\s+(eax|ax|al|ah)\b'),
+    re.compile(r'^pop\s+(eax|ax)$'),
+]
 ALLOWED = [
     re.compile(r'^pop\s+(ebx|esi|edi|ebp)$'),
     re.compile(r'^mov\s+esp,ebp$'),
@@ -91,15 +99,29 @@ def violations_after_calls(function):
     return found
 
 
+def violations_before_entry_read(function):
+    """Instrucciones anteriores a cada llamada a EntryEaxCpp que pueden cambiar EAX (o desviar el flujo)."""
+    found = []
+    for index, (_, text) in enumerate(function):
+        if not ENTRY_CALL.match(text):
+            continue
+        for address, before in function[:index]:
+            if any(pattern.match(before) for pattern in ENTRY_FORBIDDEN):
+                found.append((address, before + ' (antes de leer el EAX de entrada)'))
+    return found
+
+
 def audit(functions):
     """Devuelve (llamadas_revisadas, violaciones) para una lista de funciones ya separadas."""
     checked, bad = 0, []
     for function in functions:
         calls = sum(1 for _, text in function if HELPER_CALL.match(text))
-        if not calls:
+        entry_reads = sum(1 for _, text in function if ENTRY_CALL.match(text))
+        if not calls and not entry_reads:
             continue
-        checked += calls
+        checked += calls + entry_reads
         bad.extend(violations_after_calls(function))
+        bad.extend(violations_before_entry_read(function))
     return checked, bad
 
 
