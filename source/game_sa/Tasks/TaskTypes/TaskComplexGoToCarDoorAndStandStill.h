@@ -45,7 +45,7 @@ protected:
     void      ComputeRouteToDoor(const CPed& ped);
 private:
     friend void InjectHooksMain();
-    friend bool __fastcall GoToCarDoorIsVehicleInRange(CTaskComplexGoToCarDoorAndStandStill* task, void*, const CPed* ped);
+    friend uint32 __fastcall GoToCarDoorIsVehicleInRange(CTaskComplexGoToCarDoorAndStandStill* task, uint32, const CPed* ped);
     static void InjectHooks();
 
     CTaskComplexGoToCarDoorAndStandStill* Constructor(CVehicle* vehicle, eMoveState a3, bool a4, int32 a5, float a6, float a7, float a8, int32 a9) { this->CTaskComplexGoToCarDoorAndStandStill::CTaskComplexGoToCarDoorAndStandStill(vehicle, a3, a4, a5, a6, a7, a8, a9); return this; }

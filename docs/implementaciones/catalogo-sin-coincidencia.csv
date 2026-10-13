@@ -901,7 +901,6 @@ CFont,GetScriptLetterSize,0x00719670,1,0,1,S,hooks.csv
 Rs,psGetMemoryFunctions,0x00745510,1,0,1,S,hooks.csv
 CVehicle,IsValidModForVehicle,0x0049B010,1,0,1,S,hooks.csv
 CCarCtrl,Native_00424100,0x00424100,1,0,1,S,hooks.csv
-RwHelper,GetAnimHierarchyFromFrame,0x00734AB0,1,0,1,S,hooks.csv
 WindowedModeHooks,RenderWare::_rwD3D9CameraBeginUpdate,0x007F8F20,1,0,0,S,hooks_notsa.csv
 WindowedModeHooks,RenderWare::_rwD3D9CameraClear,0x007F7730,1,0,0,S,hooks_notsa.csv
 WindowedModeHooks,notsa::WindowedMode::HookDirect3DDeviceReplacerSA,0x007F6781,1,0,0,S,hooks_notsa.csv

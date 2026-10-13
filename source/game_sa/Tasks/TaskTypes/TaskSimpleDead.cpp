@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TaskSimpleDead.h"
 #include "AnimBlendAssociation.h"
@@ -64,29 +65,9 @@ CTask* CTaskSimpleDead::Clone() const {
 }
 
 namespace {
-// Como el original: asin del CRT del EXE (0x821E70): fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control
-// (anterior & 0x300) | 0x7F; el resultado queda en ST0
-float __declspec(naked) __cdecl DeadAsinX87(float x) {
-    __asm {
-        sub    esp, 4
-        fnstcw word ptr [esp]
-        mov    ax, word ptr [esp]
-        and    ax, 300h
-        or     ax, 7Fh
-        mov    word ptr [esp + 2], ax
-        fldcw  word ptr [esp + 2]
-        fld    dword ptr [esp + 8]
-        fld1
-        fadd   st, st(1)
-        fld1
-        fsub   st, st(2)
-        fmulp  st(1), st
-        fsqrt
-        fpatan
-        fldcw  word ptr [esp]
-        add    esp, 4
-        ret
-    }
+// Como el original: asin del CRT del EXE (0x821E70) con la palabra de control (anterior & 0x300) | 0x7F (X87Math.cpp)
+float DeadAsinX87(float x) {
+    return static_cast<float>(ExeAsinDoubleCpp(static_cast<double>(x)));
 }
 } // namespace
 

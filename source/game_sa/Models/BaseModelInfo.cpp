@@ -23,26 +23,24 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include <intrin.h>
+#include "X87Math.h"
 
 #include "BaseModelInfo.h"
 
 /**
  * Registra las operaciones comunes compartidas por todos los tipos de model info.
  */
-// Como el original: 0x5B3AD0 es cdecl (modelInfo, flags) y solo usa EAX/ECX; sus llamadores del EXE (p. ej.
-// SetClumpModelInfoFlags 0x5B3C30) siguen usando EDX después de la llamada. El hook se resolvía al método
-// thiscall (ret 4) y descuadraba la pila: esta envoltura recibe los argumentos cdecl y conserva EDX.
-static void __declspec(naked) SetBaseModelInfoFlags_KeepEdx() {
-    __asm {
-        push edx
-        push dword ptr [esp + 0Ch]
-        push dword ptr [esp + 0Ch]
-        call SetBaseModelInfoFlags
-        add  esp, 8
-        pop  edx
-        ret
-    }
+// Como el original: 0x5B3AD0 es cdecl (modelInfo, flags) y solo usa EAX/ECX; sus llamadores del EXE siguen usando EDX despues de la
+// llamada. Se declara __fastcall sin parametros en la pila (ECX y EDX se reciben por registro y la limpieza de pila sigue siendo la
+// del llamador cdecl) para recibir el EDX de entrada y devolverlo intacto; los argumentos se leen de la pila bajo la direccion de retorno.
+#pragma runtime_checks("", off)
+static uint32 __fastcall SetBaseModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 entryEdx) {
+    const uint32* const arguments = static_cast<const uint32*>(_AddressOfReturnAddress()) + 1; // [esp+4] = modelInfo, [esp+8] = flags
+    SetBaseModelInfoFlags(reinterpret_cast<CBaseModelInfo*>(static_cast<uintptr_t>(arguments[0])), arguments[1]);
+    return ResidueRegsCpp(0, entryEdx, 0);
 }
+#pragma runtime_checks("", restore)
 
 void CBaseModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CBaseModelInfo, 0x85BB9C, 15);

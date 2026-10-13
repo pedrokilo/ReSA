@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "TaskComplexGoToCarDoorAndStandStill.h"
+#include "X87Math.h"
 #include "TaskSimpleCarGoToPointNearDoorUntilDoorNotInUse.h"
 #include "TaskSimplePause.h"
 #include "TaskSimpleStandStill.h"
@@ -26,24 +27,14 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexFollowPointRoute.h"
 #include "TaskSimpleGoToPoint.h"
 
-bool __fastcall GoToCarDoorIsVehicleInRange(CTaskComplexGoToCarDoorAndStandStill* task, void*, const CPed* ped) {
-    return task->IsVehicleInRange(*ped);
+// Como el original: 0x6458A0 solo toca eax y la pila x87; CreateFirstSubTask (0x64D45C) y ControlSubTask (0x64A94A) llaman a
+// CreateSubTask justo despues sin recargar ecx, asi que conserva ecx y edx y devuelve 0/1 en EAX (movzx).
+#pragma runtime_checks("", off)
+uint32 __fastcall GoToCarDoorIsVehicleInRange(CTaskComplexGoToCarDoorAndStandStill* task, uint32 entryEdx, const CPed* ped) {
+    const bool inRange = task->IsVehicleInRange(*ped);
+    return ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(task)), entryEdx, inRange ? 1u : 0u);
 }
-
-// Como el original: 0x6458A0 solo toca eax y la pila x87; CreateFirstSubTask (0x64D45C) y ControlSubTask (0x64A94A)
-// llaman a CreateSubTask justo después sin recargar ecx, así que el envoltorio conserva ecx y edx.
-static __declspec(naked) void GoToCarDoorIsVehicleInRangeKeepRegs() {
-    __asm {
-        push   ecx
-        push   edx
-        push   dword ptr [esp + 0Ch]
-        call   GoToCarDoorIsVehicleInRange
-        movzx  eax, al
-        pop    edx
-        pop    ecx
-        ret    4
-    }
-}
+#pragma runtime_checks("", restore)
 
 void CTaskComplexGoToCarDoorAndStandStill::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGoToCarDoorAndStandStill, 0x86ec4c, 11);
@@ -52,7 +43,7 @@ void CTaskComplexGoToCarDoorAndStandStill::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x645780);
     RH_ScopedInstall(Destructor, 0x64A580);
 
-    RH_ScopedNamedGlobalInstall(GoToCarDoorIsVehicleInRangeKeepRegs, "IsVehicleInRange", 0x6458A0);
+    RH_ScopedNamedGlobalInstall(GoToCarDoorIsVehicleInRange, "IsVehicleInRange", 0x6458A0);
     RH_ScopedInstall(ComputeRouteToDoor, 0x645910);
     RH_ScopedInstall(CreateSubTask, 0x64A5F0);
 

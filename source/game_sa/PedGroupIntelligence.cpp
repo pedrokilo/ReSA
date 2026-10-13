@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "PedGroupIntelligence.h"
+#include "X87Math.h"
 #include "Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocator.h"
 #include "Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocators.h"
 #include <reversiblebugfixes/Bugs.hpp>
@@ -513,140 +514,55 @@ CTaskAllocator* CPedGroupIntelligence::ComputeEventResponseTasks() {
     return CGroupEventHandler::ComputeEventResponseTasks(*m_CurrentEvent, m_pPedGroup);
 }
 
-__declspec(naked) void CPedGroupIntelligence::ComputeScriptCommandTasks() {
-    // 0x5F7800..0x5F79B3: preserves physical-slot metadata and real virtual deletion.
-    __asm {
-        sub esp,0A8h
-        push ebx
-        push ebp
-        mov ebp,ecx
-        mov edx,dword ptr [ebp]
-        push esi
-        push edi
-        mov dword ptr [esp+10h],ebp
-        add edx,8
-        lea eax,[esp+20h]
-        mov ecx,8
-L_5F7820:
-        xor esi,esi
-        mov dword ptr [eax-8],esi
-        mov dword ptr [eax-4],esi
-        mov dword ptr [eax],0FFFFFFFFh
-        mov dword ptr [eax+4],esi
-        mov byte ptr [eax+8],0
-        add eax,14h
-        dec ecx
-        jne L_5F7820
-        lea ecx,[esp+1Ch]
-        lea ebx,[edx+4]
-        lea edi,[ebp+0000014Ch]
-        mov dword ptr [esp+14h],8
-L_5F7850:
-        mov eax,dword ptr [edi]
-        mov esi,dword ptr [ebx]
-        cmp esi,eax
-        mov edx,dword ptr [edi+4]
-        mov dword ptr [ecx-4],eax
-        mov dword ptr [ecx],edx
-        je L_5F7899
-        mov edx,dword ptr [esp+10h]
-        xor ebp,ebp
-        xor eax,eax
-        mov dword ptr [ecx-4],esi
-        add edx,14Ch
-L_5F7871:
-        cmp dword ptr [edx],esi
-        je L_5F7880
-        inc eax
-        add edx,14h
-        cmp eax,8
-        jl L_5F7871
-        jmp L_5F7893
-L_5F7880:
-        lea edx,[eax+eax*4]
-        mov eax,dword ptr [esp+10h]
-        mov ebp,dword ptr [eax+edx*4+00000150h]
-        add eax,14Ch
-L_5F7893:
-        mov dword ptr [ecx],ebp
-        mov ebp,dword ptr [esp+10h]
-L_5F7899:
-        mov eax,dword ptr [esp+14h]
-        add ebx,4
-        add edi,14h
-        add ecx,14h
-        dec eax
-        mov dword ptr [esp+14h],eax
-        jne L_5F7850
-        lea esi,[ebp+00000150h]
-        mov ebx,8
-L_5F78B8:
-        mov ecx,dword ptr [esi]
-        test ecx,ecx
-        je L_5F78F4
-        mov edi,dword ptr [esi-4]
-        xor eax,eax
-        lea edx,[esp+18h]
-L_5F78C7:
-        cmp dword ptr [edx],edi
-        je L_5F78D6
-        inc eax
-        add edx,14h
-        cmp eax,8
-        jl L_5F78C7
-        jmp L_5F78E1
-L_5F78D6:
-        lea eax,[eax+eax*4]
-        mov edx,dword ptr [esp+eax*4+1Ch]
-        test edx,edx
-        jne L_5F78F4
-L_5F78E1:
-        mov edx,dword ptr [ecx]
-        push 1
-        call dword ptr [edx]
-        mov dword ptr [esi-4],0
-        mov dword ptr [esi],0
-L_5F78F4:
-        add esi,14h
-        dec ebx
-        jne L_5F78B8
-        mov eax,dword ptr [esp+18h]
-        mov ecx,dword ptr [esp+1Ch]
-        mov edx,dword ptr [esp+2Ch]
-        mov dword ptr [ebp+0000014Ch],eax
-        mov eax,dword ptr [esp+30h]
-        mov dword ptr [ebp+00000150h],ecx
-        mov ecx,dword ptr [esp+40h]
-        mov dword ptr [ebp+00000160h],edx
-        mov edx,dword ptr [esp+44h]
-        mov dword ptr [ebp+00000164h],eax
-        mov eax,dword ptr [esp+54h]
-        mov dword ptr [ebp+00000174h],ecx
-        mov ecx,dword ptr [esp+58h]
-        mov dword ptr [ebp+00000178h],edx
-        mov edx,dword ptr [esp+68h]
-        mov dword ptr [ebp+00000188h],eax
-        mov eax,dword ptr [esp+6Ch]
-        mov dword ptr [ebp+0000018Ch],ecx
-        mov ecx,dword ptr [esp+7Ch]
-        mov dword ptr [ebp+0000019Ch],edx
-        mov edx,dword ptr [esp+00000080h]
-        mov dword ptr [ebp+000001A0h],eax
-        mov eax,dword ptr [esp+00000090h]
-        pop edi
-        mov dword ptr [ebp+000001B0h],ecx
-        mov ecx,dword ptr [esp+00000090h]
-        mov dword ptr [ebp+000001B4h],edx
-        mov edx,dword ptr [esp+000000A0h]
-        mov dword ptr [ebp+000001C4h],eax
-        mov eax,dword ptr [esp+000000A4h]
-        pop esi
-        mov dword ptr [ebp+000001C8h],ecx
-        mov dword ptr [ebp+000001D8h],edx
-        mov dword ptr [ebp+000001DCh],eax
-        pop ebp
-        pop ebx
-        add esp,0A8h
-        ret
+// 0x5F7800: reconstruye los pares (ped, tarea) de las ocho plazas segun los miembros actuales del grupo: cada plaza conserva el par anterior y,
+// si el miembro cambio, toma el nuevo y la tarea que tuviera ese ped en cualquier plaza anterior (o ninguna). Despues se destruyen
+// (destructor virtual con el indicador de liberar) las tareas anteriores cuyo ped ya no tiene tarea nueva. Deja EAX = tarea de la plaza 7,
+// ECX = tarea de la plaza 6 y EDX = ped de la plaza 7, como el EXE.
+// safebuffers: sin la comprobacion de la cookie de /GS, que tras la ultima llamada cambiaria ECX (el arreglo local la activa).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) uint32 CPedGroupIntelligence::ComputeScriptCommandTasks() {
+    PedTaskPairs fresh{};
+    auto&        membership = m_pPedGroup->GetMembership();
+    for (size_t i = 0; i < fresh.size(); i++) {
+        CPed* const member = membership.GetMember(static_cast<int32>(i));
+        fresh[i].Ped  = m_ScriptCommandPedTaskPairs[i].Ped;
+        fresh[i].Task = m_ScriptCommandPedTaskPairs[i].Task;
+        if (member != m_ScriptCommandPedTaskPairs[i].Ped) {
+            fresh[i].Ped = member;
+            CTask* task  = nullptr;
+            for (size_t j = 0; j < m_ScriptCommandPedTaskPairs.size(); j++) {
+                if (m_ScriptCommandPedTaskPairs[j].Ped == member) {
+                    task = m_ScriptCommandPedTaskPairs[j].Task;
+                    break;
+                }
+            }
+            fresh[i].Task = task;
+        }
     }
+    for (size_t j = 0; j < m_ScriptCommandPedTaskPairs.size(); j++) {
+        CTask* const task = m_ScriptCommandPedTaskPairs[j].Task;
+        if (!task) {
+            continue;
+        }
+        bool keep = false;
+        for (size_t k = 0; k < fresh.size(); k++) {
+            if (fresh[k].Ped == m_ScriptCommandPedTaskPairs[j].Ped) {
+                keep = fresh[k].Task != nullptr;
+                break;
+            }
+        }
+        if (keep) {
+            continue;
+        }
+        delete task;
+        m_ScriptCommandPedTaskPairs[j].Ped  = nullptr;
+        m_ScriptCommandPedTaskPairs[j].Task = nullptr;
+    }
+    for (size_t i = 0; i < fresh.size(); i++) {
+        m_ScriptCommandPedTaskPairs[i].Ped  = fresh[i].Ped;
+        m_ScriptCommandPedTaskPairs[i].Task = fresh[i].Task;
+    }
+    return ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(fresh[6].Task)), static_cast<uint32>(reinterpret_cast<uintptr_t>(fresh[7].Ped)),
+                          static_cast<uint32>(reinterpret_cast<uintptr_t>(fresh[7].Task)));
 }
+#pragma runtime_checks("", restore)

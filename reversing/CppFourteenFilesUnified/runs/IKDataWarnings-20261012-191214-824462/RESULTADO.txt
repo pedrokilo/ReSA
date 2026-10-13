@@ -1,0 +1,3 @@
+APROBADO: IK y datos corregidos
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ik-data\20261012-191214-824462

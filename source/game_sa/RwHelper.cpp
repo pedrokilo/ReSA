@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include <intrin.h>
+#include "X87Math.h"
 
 #include "RwHelper.h"
 
@@ -36,7 +38,7 @@ void RwHelperInjectHooks() {
     RH_ScopedGlobalInstall(GetFirstChild, 0x734900);
     RH_ScopedGlobalInstall(SkinAtomicGetHAnimHierarchCB, 0x734A20);
     RH_ScopedGlobalInstall(GetAnimHierarchyFromSkinClump, 0x734A40);
-    RH_ScopedGlobalInstall(GetAnimHierarchyFromFrame, 0x734AB0);
+    RH_ScopedNamedGlobalInstall(GetAnimHierarchyFromFrameRegs, "GetAnimHierarchyFromFrame", 0x734AB0);
     RH_ScopedGlobalInstall(RwTexDictionaryFindHashNamedTexture, 0x734E50);
     RH_ScopedGlobalInstall(GetAnimHierarchyFromClump, 0x734B10);
     RH_ScopedGlobalInstall(AtomicRemoveAnimFromSkinCB, 0x734B90);
@@ -145,41 +147,34 @@ RwFrame* GetFirstChild(RwFrame* frame) {
 }
 
 // 0x734AB0
-static uintptr_t FrameHierarchyGetterBody=0x7C5160,FrameChildrenWalkerBody=0x7F0DC0;
-__declspec(naked) RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame*) {
-    __asm {
-    push ecx
-    push esi
-    mov esi,dword ptr [esp+0Ch]
-    push esi
-    mov dword ptr [esp+8],0
-    call dword ptr [FrameHierarchyGetterBody]
-    add esp,4
-    test eax,eax
-    jne L00734AE4
-    lea eax,[esp+4]
-    push eax
-    push 734A70h
-    push esi
-    call dword ptr [FrameChildrenWalkerBody]
-    mov eax,dword ptr [esp+10h]
-    add esp,0Ch
-    jmp L00734AE8
-    L00734AE4: mov dword ptr [esp+4],eax
-    L00734AE8: test eax,eax
-    jne L00734B03
-    lea ecx,[esp+4]
-    push ecx
-    push 734A70h
-    push esi
-    call dword ptr [FrameChildrenWalkerBody]
-    mov eax,dword ptr [esp+10h]
-    add esp,0Ch
-    L00734B03: pop esi
-    pop ecx
-    ret
+// Como el original: jerarquia del propio marco (RpHAnimFrameGetHierarchy, 0x7C5160) o, si no la tiene, la primera que devuelva el
+// recorrido de sus hijos con la funcion 0x734A70 (RwFrameForAllChildren, 0x7F0DC0), que se repite una segunda vez si aun no hay.
+RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame* frame) {
+    const auto callback = reinterpret_cast<RwFrameCallBack>(0x734A70);
+    RpHAnimHierarchy* found = nullptr;
+    RpHAnimHierarchy* hierarchy = RpHAnimFrameGetHierarchy(frame);
+    if (hierarchy) {
+        found = hierarchy;
+    } else {
+        RwFrameForAllChildren(frame, callback, &found);
+        hierarchy = found;
     }
+    if (!hierarchy) {
+        RwFrameForAllChildren(frame, callback, &found);
+        hierarchy = found;
+    }
+    return hierarchy;
 }
+
+// Forma del hook en 0x734AB0: el original conserva ECX de entrada. Se declara __fastcall sin parametros en la pila (el llamador cdecl
+// limpia la pila) y el marco se lee bajo la direccion de retorno.
+#pragma runtime_checks("", off)
+uint32 __fastcall GetAnimHierarchyFromFrameRegs(void* entryEcx, uint32 entryEdx) {
+    RwFrame* const frame = reinterpret_cast<RwFrame*>(static_cast<uintptr_t>(static_cast<const uint32*>(_AddressOfReturnAddress())[1]));
+    RpHAnimHierarchy* const hierarchy = GetAnimHierarchyFromFrame(frame);
+    return ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(entryEcx)), entryEdx, static_cast<uint32>(reinterpret_cast<uintptr_t>(hierarchy)));
+}
+#pragma runtime_checks("", restore)
 
 // 0x734B10
 RpHAnimHierarchy* GetAnimHierarchyFromClump(RpClump* clump) {

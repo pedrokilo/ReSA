@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "f523b96e859dbfb2c4bdc996eb910eaac30ebecdbd1aa0aab17ce3603c9322f4",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "game_stopped_before_analysis": true,
+  "validation": {
+    "bone_nodes_returned": true,
+    "chain_differences": 0,
+    "chain_pairs": 131,
+    "counters_valid": true,
+    "event": "complete",
+    "groups_equal": true,
+    "skeleton_unchanged": true,
+    "skimmer_defaults_explicit": true,
+    "state_restored": true,
+    "timecycle_different_bytes": 0
+  },
+  "pairs": 131,
+  "log_sha256": "3a43da49b1fc801dcc9c0fc2b069d54449b4e51e8e554545f690d41a666c1e52",
+  "scope": "IK SetupBones semantic pairs plus native weather-table and active car-group comparison",
+  "probe_sha256": "f523b96e859dbfb2c4bdc996eb910eaac30ebecdbd1aa0aab17ce3603c9322f4",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

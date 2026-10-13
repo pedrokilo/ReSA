@@ -662,10 +662,6 @@ source/game_sa/MemoryMgr.cpp,414,naked,pending_cpp_conversion
 source/game_sa/MemoryMgr.cpp,415,inline_assembly,pending_cpp_conversion
 source/game_sa/MemoryMgr.cpp,441,naked,pending_cpp_conversion
 source/game_sa/MemoryMgr.cpp,442,inline_assembly,pending_cpp_conversion
-source/game_sa/Models/BaseModelInfo.cpp,35,naked,pending_cpp_conversion
-source/game_sa/Models/BaseModelInfo.cpp,36,inline_assembly,pending_cpp_conversion
-source/game_sa/Models/ClumpModelInfo.cpp,37,naked,pending_cpp_conversion
-source/game_sa/Models/ClumpModelInfo.cpp,38,inline_assembly,pending_cpp_conversion
 source/game_sa/Pad.cpp,314,inline_assembly,pending_cpp_conversion
 source/game_sa/Pad.cpp,388,inline_assembly,pending_cpp_conversion
 source/game_sa/Pad.cpp,564,naked,pending_cpp_conversion
@@ -697,8 +693,6 @@ source/game_sa/PedGeometryAnalyser.cpp,454,inline_assembly,pending_cpp_conversio
 source/game_sa/PedGeometryAnalyser.cpp,535,inline_assembly,pending_cpp_conversion
 source/game_sa/PedGeometryAnalyser.cpp,571,inline_assembly,pending_cpp_conversion
 source/game_sa/PedGeometryAnalyser.cpp,602,inline_assembly,pending_cpp_conversion
-source/game_sa/PedGroupIntelligence.cpp,516,naked,pending_cpp_conversion
-source/game_sa/PedGroupIntelligence.cpp,518,inline_assembly,pending_cpp_conversion
 source/game_sa/PedGroupPlacer.cpp,61,inline_assembly,pending_cpp_conversion
 source/game_sa/PedGroupPlacer.cpp,80,inline_assembly,pending_cpp_conversion
 source/game_sa/PedGroupPlacer.cpp,208,naked,pending_cpp_conversion
@@ -758,8 +752,6 @@ source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,1312,inline_assembly,pe
 source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,1411,inline_assembly,pending_cpp_conversion
 source/game_sa/PointLights.cpp,62,inline_assembly,pending_cpp_conversion
 source/game_sa/PointLights.cpp,102,inline_assembly,pending_cpp_conversion
-source/game_sa/Pools.cpp,47,naked,pending_cpp_conversion
-source/game_sa/Pools.cpp,48,inline_assembly,pending_cpp_conversion
 source/game_sa/Population.cpp,1434,inline_assembly,pending_cpp_conversion
 source/game_sa/Population.cpp,1477,inline_assembly,pending_cpp_conversion
 source/game_sa/PostEffects.cpp,43,inline_assembly,pending_cpp_conversion
@@ -795,8 +787,6 @@ source/game_sa/Ragdoll/BoneNode.cpp,338,naked,pending_cpp_conversion
 source/game_sa/Ragdoll/BoneNode.cpp,339,inline_assembly,pending_cpp_conversion
 source/game_sa/Ragdoll/BoneNode.cpp,468,naked,pending_cpp_conversion
 source/game_sa/Ragdoll/BoneNode.cpp,469,inline_assembly,pending_cpp_conversion
-source/game_sa/Ragdoll/IKChain.cpp,65,naked,pending_cpp_conversion
-source/game_sa/Ragdoll/IKChain.cpp,66,inline_assembly,pending_cpp_conversion
 source/game_sa/RenderWare/rw/rwplcore.h,494,inline_assembly,pending_cpp_conversion
 source/game_sa/RenderWare/rw/rwplcore.h,520,inline_assembly,pending_cpp_conversion
 source/game_sa/RenderWare/rw/rwplcore.h,521,inline_assembly,pending_cpp_conversion
@@ -804,8 +794,6 @@ source/game_sa/Replay.cpp,899,inline_assembly,pending_cpp_conversion
 source/game_sa/Replay.cpp,939,inline_assembly,pending_cpp_conversion
 source/game_sa/Ropes.cpp,227,inline_assembly,pending_cpp_conversion
 source/game_sa/Ropes.cpp,237,inline_assembly,pending_cpp_conversion
-source/game_sa/RwHelper.cpp,149,naked,pending_cpp_conversion
-source/game_sa/RwHelper.cpp,150,inline_assembly,pending_cpp_conversion
 source/game_sa/Scripts/TheScripts.cpp,1689,inline_assembly,pending_cpp_conversion
 source/game_sa/Scripts/TheScripts.cpp,2049,inline_assembly,pending_cpp_conversion
 source/game_sa/Scripts/TheScripts.cpp,2116,inline_assembly,pending_cpp_conversion
@@ -985,22 +973,16 @@ source/game_sa/Stats.cpp,3626,naked,pending_cpp_conversion
 source/game_sa/Stats.cpp,3627,inline_assembly,pending_cpp_conversion
 source/game_sa/Stats.cpp,3694,naked,pending_cpp_conversion
 source/game_sa/Stats.cpp,3695,inline_assembly,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp,14,naked,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp,15,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp,46,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp,62,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp,9,naked,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp,10,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp,78,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp,98,inline_assembly,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp,35,naked,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp,36,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,12,naked,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,13,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,22,naked,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,23,inline_assembly,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp,25,naked,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp,26,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,72,naked,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,73,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,83,naked,pending_cpp_conversion
@@ -1009,8 +991,6 @@ source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,95,naked,pending_cpp_conversi
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,96,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,107,naked,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,108,inline_assembly,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp,69,naked,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp,70,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,17,naked,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,17,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,21,naked,pending_cpp_conversion
@@ -1041,8 +1021,6 @@ source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,40,inline_assembly,
 source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,58,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,127,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,310,inline_assembly,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp,207,naked,pending_cpp_conversion
-source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp,208,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp,34,naked,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp,35,inline_assembly,pending_cpp_conversion
 source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp,44,naked,pending_cpp_conversion

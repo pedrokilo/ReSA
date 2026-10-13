@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TaskInteriorSitInChair.h"
 
@@ -10,31 +11,25 @@ void CTaskInteriorSitInChair::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x675C30);
 }
 
-// Como el original: conserva la vtable EXE para los demás métodos.
-__declspec(naked) CTaskInteriorSitInChair* CTaskInteriorSitInChair::Constructor(void*, uint32, uint8) {
-    __asm {
-        push        esi
-        mov         esi,ecx
-        mov dword ptr [ecx+4],0
-        mov         ecx,dword ptr [esp+8]
-        mov         edx,dword ptr [esp+0Ch]
-        xor         eax,eax
-        mov         dword ptr [esi],870314h
-        mov         dword ptr [esi+1Ch],eax
-        mov         dword ptr [esi+20h],eax
-        mov         byte ptr [esi+24h],al
-        mov         byte ptr [esi+25h],al
-        mov         dword ptr [esi+8],ecx
-        mov         cl,byte ptr [esp+10h]
-        mov         dword ptr [esi+14h],eax
-        mov         byte ptr [esi+29h],al
-        mov         byte ptr [esi+28h],al
-        mov         byte ptr [esi+2Ah],al
-        mov         dword ptr [esi+0Ch],edx
-        mov         byte ptr [esi+10h],cl
-        mov         dword ptr [esi+18h],0FFFFFFFFh
-        mov         eax,esi
-        pop         esi
-        ret         0Ch
-    }
+// Como el original: conserva la vtable EXE para los demás métodos. Deja EAX = this, ECX = (info con el byte bajo = modo) y EDX = duracion.
+#pragma runtime_checks("", off)
+uint32 CTaskInteriorSitInChair::Constructor(void* info, uint32 duration, uint8 mode) {
+    auto* const fields = reinterpret_cast<uint8*>(this);
+    *reinterpret_cast<uint32*>(fields + 0x04) = 0;
+    *reinterpret_cast<uint32*>(fields + 0x00) = 0x870314;
+    *reinterpret_cast<uint32*>(fields + 0x1C) = 0;
+    *reinterpret_cast<uint32*>(fields + 0x20) = 0;
+    fields[0x24] = 0;
+    fields[0x25] = 0;
+    *reinterpret_cast<uint32*>(fields + 0x08) = static_cast<uint32>(reinterpret_cast<uintptr_t>(info));
+    *reinterpret_cast<uint32*>(fields + 0x14) = 0;
+    fields[0x29] = 0;
+    fields[0x28] = 0;
+    fields[0x2A] = 0;
+    *reinterpret_cast<uint32*>(fields + 0x0C) = duration;
+    fields[0x10] = mode;
+    *reinterpret_cast<uint32*>(fields + 0x18) = 0xFFFFFFFFu;
+    const uint32 infoBits = static_cast<uint32>(reinterpret_cast<uintptr_t>(info));
+    return ResidueRegsCpp((infoBits & 0xFFFFFF00u) | mode, duration, static_cast<uint32>(reinterpret_cast<uintptr_t>(this)));
 }
+#pragma runtime_checks("", restore)

@@ -662,10 +662,6 @@ source/game_sa/MemoryMgr.cpp,414,naked,CMemoryMgr::MallocAlign,414
 source/game_sa/MemoryMgr.cpp,415,inline_assembly,CMemoryMgr::MallocAlign,414
 source/game_sa/MemoryMgr.cpp,441,naked,CMemoryMgr::FreeAlign,441
 source/game_sa/MemoryMgr.cpp,442,inline_assembly,CMemoryMgr::FreeAlign,441
-source/game_sa/Models/BaseModelInfo.cpp,35,naked,SetBaseModelInfoFlags_KeepEdx,35
-source/game_sa/Models/BaseModelInfo.cpp,36,inline_assembly,SetBaseModelInfoFlags_KeepEdx,35
-source/game_sa/Models/ClumpModelInfo.cpp,37,naked,SetClumpModelInfoFlags_KeepEdx,37
-source/game_sa/Models/ClumpModelInfo.cpp,38,inline_assembly,SetClumpModelInfoFlags_KeepEdx,37
 source/game_sa/Pad.cpp,314,inline_assembly,NormalizePadAxis,311
 source/game_sa/Pad.cpp,388,inline_assembly,CPad::ProcessPad,324
 source/game_sa/Pad.cpp,564,naked,PadShakeFloatToInteger,564
@@ -697,8 +693,6 @@ source/game_sa/PedGeometryAnalyser.cpp,454,inline_assembly,CPedGeometryAnalyser:
 source/game_sa/PedGeometryAnalyser.cpp,535,inline_assembly,CPedGeometryAnalyser::ComputePedShotSide,526
 source/game_sa/PedGeometryAnalyser.cpp,571,inline_assembly,GeometryRouteLength355Compute,570
 source/game_sa/PedGeometryAnalyser.cpp,602,inline_assembly,GeometryRouteLength355Less,600
-source/game_sa/PedGroupIntelligence.cpp,516,naked,CPedGroupIntelligence::ComputeScriptCommandTasks,516
-source/game_sa/PedGroupIntelligence.cpp,518,inline_assembly,CPedGroupIntelligence::ComputeScriptCommandTasks,516
 source/game_sa/PedGroupPlacer.cpp,61,inline_assembly,PlaceCircularGroup,54
 source/game_sa/PedGroupPlacer.cpp,80,inline_assembly,PlaceCircularGroup,54
 source/game_sa/PedGroupPlacer.cpp,208,naked,CPedGroupPlacer::PlaceGroup,208
@@ -758,8 +752,6 @@ source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,1312,inline_assembly,Fr
 source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,1411,inline_assembly,FrameUpdateCallBackNonSkinnedWithVelocityExtraction,1407
 source/game_sa/PointLights.cpp,62,inline_assembly,CPointLights::AddLight,54
 source/game_sa/PointLights.cpp,102,inline_assembly,CPointLights::AddLight,54
-source/game_sa/Pools.cpp,47,naked,CPedPool::GetRef,47
-source/game_sa/Pools.cpp,48,inline_assembly,CPedPool::GetRef,47
 source/game_sa/Population.cpp,1434,inline_assembly,CPopulation::CreateWaitingCoppers,1330
 source/game_sa/Population.cpp,1477,inline_assembly,CPopulation::CreateWaitingCoppers,1330
 source/game_sa/PostEffects.cpp,43,inline_assembly,ExeLog2TruncViaDouble,39
@@ -795,8 +787,6 @@ source/game_sa/Ragdoll/BoneNode.cpp,338,naked,LimitX87,338
 source/game_sa/Ragdoll/BoneNode.cpp,339,inline_assembly,LimitX87,338
 source/game_sa/Ragdoll/BoneNode.cpp,468,naked,CalcWldMatX87,468
 source/game_sa/Ragdoll/BoneNode.cpp,469,inline_assembly,CalcWldMatX87,468
-source/game_sa/Ragdoll/IKChain.cpp,65,naked,IKChainRotationAngleX87,65
-source/game_sa/Ragdoll/IKChain.cpp,66,inline_assembly,IKChainRotationAngleX87,65
 source/game_sa/RenderWare/rw/rwplcore.h,494,inline_assembly,int32fromreal,487
 source/game_sa/RenderWare/rw/rwplcore.h,520,inline_assembly,RwFastRealToUInt32Inline,515
 source/game_sa/RenderWare/rw/rwplcore.h,521,inline_assembly,RwFastRealToUInt32Inline,515
@@ -804,8 +794,6 @@ source/game_sa/Replay.cpp,899,inline_assembly,CReplay::ProcessLookAroundCam,870
 source/game_sa/Replay.cpp,939,inline_assembly,CReplay::ProcessLookAroundCam,870
 source/game_sa/Ropes.cpp,227,inline_assembly,CRopes::FindCoorsAlongRope,204
 source/game_sa/Ropes.cpp,237,inline_assembly,CRopes::FindCoorsAlongRope,204
-source/game_sa/RwHelper.cpp,149,naked,GetAnimHierarchyFromFrame,149
-source/game_sa/RwHelper.cpp,150,inline_assembly,GetAnimHierarchyFromFrame,149
 source/game_sa/Scripts/TheScripts.cpp,1689,inline_assembly,ExeAtan2,1687
 source/game_sa/Scripts/TheScripts.cpp,2049,inline_assembly,CTheScripts::DrawScriptSpritesAndRectangles,2001
 source/game_sa/Scripts/TheScripts.cpp,2116,inline_assembly,CTheScripts::ScriptDebugCircle2D,2090
@@ -985,22 +973,16 @@ source/game_sa/Stats.cpp,3626,naked,CStats::UpdateStatsOnRespawn,3626
 source/game_sa/Stats.cpp,3627,inline_assembly,CStats::UpdateStatsOnRespawn,3626
 source/game_sa/Stats.cpp,3694,naked,CStats::UpdateStatsAddToHealth,3694
 source/game_sa/Stats.cpp,3695,inline_assembly,CStats::UpdateStatsAddToHealth,3694
-source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp,14,naked,CTaskInteriorSitInChair::Constructor,14
-source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp,15,inline_assembly,CTaskInteriorSitInChair::Constructor,14
 source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp,46,inline_assembly,CEntitySeekPosCalculatorRadiusAngleOffset::ComputeEntitySeekPos,38
 source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp,62,inline_assembly,CEntitySeekPosCalculatorRadiusAngleOffset::ComputeEntitySeekPos,38
 source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp,9,naked,CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D,9
 source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp,10,inline_assembly,CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D,9
 source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp,78,inline_assembly,CTaskComplexDestroyCarArmed::CalculateSearchPositionAndRanges,72
 source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp,98,inline_assembly,CTaskComplexDestroyCarArmed::CalculateSearchPositionAndRanges,72
-source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp,35,naked,GoToCarDoorIsVehicleInRangeKeepRegs,35
-source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp,36,inline_assembly,GoToCarDoorIsVehicleInRangeKeepRegs,35
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,12,naked,TaskCtorRegisterReference,12
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,13,inline_assembly,TaskCtorRegisterReference,12
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,22,naked,CTaskComplexWaitForPed::Constructor,22
 source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,23,inline_assembly,CTaskComplexWaitForPed::Constructor,22
-source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp,25,naked,BeHitAtan2,25
-source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp,26,inline_assembly,BeHitAtan2,25
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,72,naked,ClimbHeadingOf,72
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,73,inline_assembly,ClimbHeadingOf,72
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,83,naked,ClimbAddHeading,83
@@ -1009,8 +991,6 @@ source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,95,naked,ClimbSubHeading,95
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,96,inline_assembly,ClimbSubHeading,95
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,107,naked,ClimbHeadingSub,107
 source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,108,inline_assembly,ClimbHeadingSub,107
-source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp,69,naked,DeadAsinX87,69
-source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp,70,inline_assembly,DeadAsinX87,69
 source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,17,naked,TaskLeafCleanupReference,17
 source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,17,inline_assembly,TaskLeafCleanupReference,17
 source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,21,naked,TaskLeafRegisterReference,21
@@ -1041,8 +1021,6 @@ source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,40,inline_assembly,
 source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,58,inline_assembly,FightControlShouldBlock,55
 source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,127,inline_assembly,CTaskSimpleFightingControl::CalcMoveCommand,107
 source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,310,inline_assembly,CTaskSimpleFightingControl::ProcessPed,263
-source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp,207,naked,CTaskSimpleGoToPointFine::SetTargetPos_Reversed,207
-source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp,208,inline_assembly,CTaskSimpleGoToPointFine::SetTargetPos_Reversed,207
 source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp,34,naked,HoldAtan2X87,34
 source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp,35,inline_assembly,HoldAtan2X87,34
 source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp,44,naked,HoldHeadingMinusX87,44

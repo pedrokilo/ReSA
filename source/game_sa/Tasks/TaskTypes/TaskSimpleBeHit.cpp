@@ -17,18 +17,14 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TaskSimpleBeHit.h"
 #include "TaskSimpleFight.h"
 
-// atan2(x, y) con fpatan (precisión interna completa, redondeo a float al guardar)
-static __declspec(naked) float __cdecl BeHitAtan2(float x, float y) {
-    __asm {
-        fld    dword ptr [esp + 4]
-        fld    dword ptr [esp + 8]
-        fpatan
-        ret
-    }
+// atan2(x, y) con fpatan (precisión interna completa, redondeo a float al guardar): TrigAtan2Cpp (X87Math.cpp)
+static float BeHitAtan2(float x, float y) {
+    return TrigAtan2Cpp(x, y);
 }
 
 void CTaskSimpleBeHit::InjectHooks() {

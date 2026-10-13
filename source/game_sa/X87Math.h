@@ -113,3 +113,9 @@ unsigned int __fastcall ResidueRegsCpp(unsigned int ecxValue, unsigned int edxVa
 struct ResidueEcx {
     unsigned int __thiscall Get(unsigned int eaxValue);
 };
+
+// Lote de catorce archivos (12/10/2026).
+// asin del CRT del EXE (_CIasin, 0x821E70) sobre un double: fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control del EXE.
+double __cdecl ExeAsinDoubleCpp(double x);
+// CIKChain: boneSpeed · acos(dot) · chainSpeed · 57.29578f (0x617AA3..0x617AC5), con el acos del CRT del EXE.
+float __cdecl IKChainRotationAngleCpp(float boneSpeed, float dot, float chainSpeed);

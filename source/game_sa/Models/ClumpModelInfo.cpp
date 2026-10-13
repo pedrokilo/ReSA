@@ -24,6 +24,8 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include <intrin.h>
+#include "X87Math.h"
 
 #include "ClumpModelInfo.h"
 #include "CustomBuildingRenderer.h"
@@ -32,19 +34,16 @@ END GENERATED HOOK STATUS */
 /**
  * Registra el ciclo de vida, clonación y utilidades de jerarquía de CClumpModelInfo.
  */
-// Como el original: 0x5B3C30 es cdecl (modelInfo, flags); el hook se resolvía al método thiscall (ret 4) y
-// descuadraba la pila. Esta envoltura recibe los argumentos cdecl y conserva EDX como la función del EXE.
-static void __declspec(naked) SetClumpModelInfoFlags_KeepEdx() {
-    __asm {
-        push edx
-        push dword ptr [esp + 0Ch]
-        push dword ptr [esp + 0Ch]
-        call SetClumpModelInfoFlags
-        add  esp, 8
-        pop  edx
-        ret
-    }
+// Como el original: 0x5B3C30 es cdecl (modelInfo, flags) y solo usa EAX/ECX; sus llamadores del EXE siguen usando EDX despues de la
+// llamada. Se declara __fastcall sin parametros en la pila (ECX y EDX se reciben por registro y la limpieza de pila sigue siendo la
+// del llamador cdecl) para recibir el EDX de entrada y devolverlo intacto; los argumentos se leen de la pila bajo la direccion de retorno.
+#pragma runtime_checks("", off)
+static uint32 __fastcall SetClumpModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 entryEdx) {
+    const uint32* const arguments = static_cast<const uint32*>(_AddressOfReturnAddress()) + 1; // [esp+4] = modelInfo, [esp+8] = flags
+    SetClumpModelInfoFlags(reinterpret_cast<CClumpModelInfo*>(static_cast<uintptr_t>(arguments[0])), arguments[1]);
+    return ResidueRegsCpp(0, entryEdx, 0);
 }
+#pragma runtime_checks("", restore)
 
 void CClumpModelInfo::InjectHooks()
 {

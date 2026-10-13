@@ -1,0 +1,3 @@
+APROBADO: Helicóptero, ir a la puerta del coche y nadar (lista de 11)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-mix11\20261012-190224-143303

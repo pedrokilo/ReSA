@@ -18,7 +18,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OBJECTS = ['FxFrustumInfo', 'Garages', 'EventScriptCommand']
+OBJECTS = ['FxFrustumInfo', 'Garages', 'EventScriptCommand', 'BaseModelInfo', 'ClumpModelInfo', 'PedGroupIntelligence', 'Pools', 'RwHelper', 'TaskInteriorSitInChair',
+           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine']
 HELPER_CALL = re.compile(r'^call\s+\?(ResidueRegsCpp@@YIIIII@Z|Get@ResidueEcx@@QAEII@Z)\b')
 ALLOWED = [
     re.compile(r'^pop\s+(ebx|esi|edi|ebp)$'),

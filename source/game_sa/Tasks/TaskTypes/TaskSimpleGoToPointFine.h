@@ -21,7 +21,7 @@ public:
 
     void  SetBlendedMoveAnim(CPed* ped);
     void  SetTargetPos(CVector posn);
-    static void __fastcall SetTargetPos_Reversed(CTaskSimpleGoToPointFine*, void*, CVector);
+    static uint32 __fastcall SetTargetPos_Reversed(CTaskSimpleGoToPointFine*, uint32, CVector);
     void  SetMoveRatio(float value) { m_fMoveRatio = value; } // 0x65F3A0
     static float BaseRatio(eMoveState moveState);
 

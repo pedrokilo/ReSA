@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "TaskSimpleGoToPointFine.h"
+#include "X87Math.h"
 #include "TaskSimpleDuck.h"
 
 void CTaskSimpleGoToPointFine::InjectHooks() {
@@ -203,18 +204,13 @@ void CTaskSimpleGoToPointFine::SetTargetPos(CVector posn) {
 }
 
 // Native TrackEntity::ControlSubTask keeps the child pointer in ECX across this
-// call and immediately writes its move ratio. Preserve that executable ABI.
-__declspec(naked) void __fastcall CTaskSimpleGoToPointFine::SetTargetPos_Reversed(CTaskSimpleGoToPointFine*, void*, CVector) {
-    __asm {
-        push ecx
-        push dword ptr [esp + 16]
-        push dword ptr [esp + 16]
-        push dword ptr [esp + 16]
-        call CTaskSimpleGoToPointFine::SetTargetPos
-        pop ecx
-        ret 12
-    }
+// call and immediately writes its move ratio. Preserve that executable ABI: ECX = this on return.
+#pragma runtime_checks("", off)
+uint32 __fastcall CTaskSimpleGoToPointFine::SetTargetPos_Reversed(CTaskSimpleGoToPointFine* self, uint32 /*edx*/, CVector posn) {
+    self->SetTargetPos(posn);
+    return reinterpret_cast<ResidueEcx*>(self)->Get(0);
 }
+#pragma runtime_checks("", restore)
 
 // 0x65EF30
 float CTaskSimpleGoToPointFine::BaseRatio(eMoveState moveState) {

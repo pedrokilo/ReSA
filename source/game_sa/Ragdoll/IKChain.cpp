@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "IKChain.h"
 #include "BoneNodeManager.h"
@@ -54,61 +55,6 @@ void IKChain_c::InjectHooks() {
 template<typename T>
 static T*& RawRefSlot(notsa::EntityRef<T>& ref) {
     return *reinterpret_cast<T**>(std::addressof(ref));
-}
-
-// Como el original (0x617AA3..0x617AC5): GetSpeed() * acos(dot) * m_Speed * 57.29578f en el x87.
-// acos es el del CRT del juego (0x822380): fpatan(sqrt((1 + x)(1 - x)), x) con la palabra de control
-// (anterior & 0x300) | 0x7F; con la palabra del juego (!= 0x27F, precision enmascarada) y el indicador de
-// inexactitud activo, el CRT redondea el resultado a double (0x828EA7) antes de devolverlo, salvo que el
-// indicador del CRT 0xC9ABFC (nunca escrito por el EXE) no sea cero.
-static float s_IKChainRadToDeg = std::bit_cast<float>(0x42652EE0u); // 0x859878 (no es el float más cercano a 180/pi)
-static float __declspec(naked) __cdecl IKChainRotationAngleX87(float boneSpeed, float dot, float chainSpeed) {
-    __asm {
-        fld    dword ptr [esp + 4]
-        fld    dword ptr [esp + 8]
-        sub    esp, 0Ch
-        fnstcw word ptr [esp + 8]
-        mov    ax, word ptr [esp + 8]
-        and    ax, 300h
-        or     ax, 7Fh
-        mov    word ptr [esp + 0Ah], ax
-        cmp    word ptr [esp + 8], 27Fh
-        je     ik_compute
-        fldcw  word ptr [esp + 0Ah]
-    ik_compute:
-        fld1
-        fadd   st, st(1)
-        fld1
-        fsub   st, st(2)
-        fmulp  st(1), st
-        fsqrt
-        fxch   st(1)
-        fpatan
-        mov    ax, word ptr [esp + 8]
-        cmp    dword ptr ds:[0C9ABFCh], 0
-        jne    ik_fast
-        cmp    ax, 27Fh
-        je     ik_done
-        test   ax, 20h
-        je     ik_restore
-        fnstsw ax
-        test   ax, 20h
-        je     ik_restore
-        fstp   qword ptr [esp]
-        fld    qword ptr [esp]
-        jmp    ik_restore
-    ik_fast:
-        cmp    ax, 27Fh
-        je     ik_done
-    ik_restore:
-        fldcw  word ptr [esp + 8]
-    ik_done:
-        add    esp, 0Ch
-        fmulp  st(1), st
-        fmul   dword ptr [esp + 0Ch]
-        fmul   dword ptr [s_IKChainRadToDeg]
-        ret
-    }
 }
 
 // 0x618370
@@ -344,7 +290,7 @@ void IKChain_c::MoveBonesToTarget() {
             continue;
         }
 
-        const float angle = IKChainRotationAngleX87(bone->GetSpeed(), dot, m_Speed);
+        const float angle = IKChainRotationAngleCpp(bone->GetSpeed(), dot, m_Speed);
 
         // Como el original: efector x objetivo con los productos en el orden del EXE
         CVector cross{

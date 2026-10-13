@@ -1635,5 +1635,227 @@
         "summary": "reversing/CppFourNakedUnified/runs\\ColWorld59c-20261012-171537-567504/summary.json"
       }
     ]
+  },
+  "0x005B3AD0": {
+    "identity": "CBaseModelInfo::SetFlags (envoltorio cdecl)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Models/BaseModelInfo.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Model34",
+    "run": "20261012-183920-009241",
+    "pairs": 13280,
+    "own_pairs": 13280,
+    "audit": "reversing/CppFourteenFilesUnified/runs\\Model34-20261012-183920-009241/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "ECX/EDX de salida con ResidueRegsCpp; EDX de entrada como parámetro __fastcall. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005B3C30": {
+    "identity": "CClumpModelInfo::SetFlags (envoltorio cdecl)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Models/ClumpModelInfo.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Clump24",
+    "run": "20261012-184034-930233",
+    "pairs": 12256,
+    "own_pairs": 12256,
+    "audit": "reversing/CppFourteenFilesUnified/runs\\Clump24-20261012-184034-930233/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "Igual que el anterior. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005F7800": {
+    "identity": "CPedGroupIntelligence::ComputeScriptCommandTasks",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/PedGroupIntelligence.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesGroupTasks14",
+    "run": "20261012-191439-140348",
+    "pairs": 2048,
+    "own_pairs": 2048,
+    "audit": "reversing/CppFourteenFilesUnified2/runs\\DependenciesGroupTasks14-20261012-191439-140348/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "Reconstrucción de los pares de script con borrado virtual de tareas; devuelve el residuo EAX/ECX/EDX con ResidueRegsCpp. La primera corrida falló por operar sobre los pares equivocados (principal en vez de script); corregido y repetido. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "DependenciesDecisionPed7",
+        "run": "20261012-184458-217878",
+        "pairs": 8192,
+        "summary": "reversing/CppFourteenFilesUnified/runs\\DependenciesDecisionPed7-20261012-184458-217878/summary.json"
+      },
+      {
+        "bank": "GangWarsPending",
+        "run": "20261012-184613-099117",
+        "pairs": 3072,
+        "summary": "reversing/CppFourteenFilesUnified/runs\\GangWarsPending-20261012-184613-099117/summary.json"
+      }
+    ]
+  },
+  "0x004442D0": {
+    "identity": "CPedPool::GetRef",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Pools.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesDecisionPed7",
+    "run": "20261012-184458-217878",
+    "pairs": 8192,
+    "own_pairs": 8192,
+    "audit": "reversing/CppFourteenFilesUnified/runs\\DependenciesDecisionPed7-20261012-184458-217878/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "Índice con la división con signo del EXE y residuo ECX/EDX/EAX. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "GangWarsPending",
+        "run": "20261012-184613-099117",
+        "pairs": 3072,
+        "summary": "reversing/CppFourteenFilesUnified/runs\\GangWarsPending-20261012-184613-099117/summary.json"
+      }
+    ]
+  },
+  "0x00617CA0": {
+    "identity": "IKChain_c::ProcessPed (ángulo de rotación)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Ragdoll/IKChain.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "IK20",
+    "run": "20261012-191052-808509",
+    "pairs": 11264,
+    "own_pairs": 11264,
+    "audit": "reversing/CppFourteenFilesUnified/runs\\IK20-20261012-191052-808509/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "GetSpeed · acos(dot) · velocidad · 57.29578f, helper IKChainRotationAngleCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "IKDataWarnings",
+        "run": "20261012-191214-824462",
+        "pairs": 131,
+        "summary": "reversing/CppFourteenFilesUnified/runs\\IKDataWarnings-20261012-191214-824462/summary.json"
+      }
+    ]
+  },
+  "0x00734AB0": {
+    "identity": "RwHelper::GetAnimHierarchyFromFrame",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/RwHelper.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesWorld12",
+    "run": "20261012-191630-236714",
+    "pairs": 2048,
+    "own_pairs": 2048,
+    "audit": "reversing/CppFourteenFilesUnified2/runs\\DependenciesWorld12-20261012-191630-236714/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "C++ puro más hook con ECX/EDX de entrada y residuo; el banco apunta ahora al hook GetAnimHierarchyFromFrameRegs. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "Clump24",
+        "run": "20261012-184034-930233",
+        "pairs": 12256,
+        "summary": "reversing/CppFourteenFilesUnified/runs\\Clump24-20261012-184034-930233/summary.json"
+      }
+    ]
+  },
+  "0x00675C30": {
+    "identity": "CTaskInteriorSitInChair::Constructor",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesTaskCtor4",
+    "run": "20261012-184748-393162",
+    "pairs": 4096,
+    "own_pairs": 4096,
+    "audit": "reversing/CppFourteenFilesUnified/runs\\DependenciesTaskCtor4-20261012-184748-393162/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "Escritura de campos por desplazamiento y residuo de registros. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x006458A0": {
+    "identity": "CTaskComplexGoToCarDoorAndStandStill::IsVehicleInRange",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Mix11",
+    "run": "20261012-190224-143303",
+    "pairs": 19520,
+    "own_pairs": 19520,
+    "audit": "reversing/CppFourteenFilesUnified/runs\\Mix11-20261012-190224-143303/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "Residuo de ECX/EDX/EAX con ResidueRegsCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00620A20": {
+    "identity": "CTaskSimpleBeHit::ProcessPed (rumbo)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CTasks8c",
+    "run": "20261012-190829-685391",
+    "pairs": 16896,
+    "own_pairs": 16896,
+    "audit": "reversing/CppFourteenFilesUnified/runs\\CTasks8c-20261012-190829-685391/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "atan2 con TrigAtan2Cpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00630600": {
+    "identity": "CTaskSimpleDead::ProcessPed (asin)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CTasks8c",
+    "run": "20261012-190829-685391",
+    "pairs": 16896,
+    "own_pairs": 16896,
+    "audit": "reversing/CppFourteenFilesUnified/runs\\CTasks8c-20261012-190829-685391/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "asin del CRT del EXE con ExeAsinDoubleCpp. FixHooks no sirve de evidencia: falla por hooks de otras clases que el commit 0d0094be desbloqueó (lista de 16 hooks bloqueados desactualizada), independiente de este cambio. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0065F330": {
+    "identity": "CTaskSimpleGoToPointFine::SetTargetPos",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "STasks8a",
+    "run": "20261012-184947-238651",
+    "pairs": 12224,
+    "own_pairs": 12224,
+    "audit": "reversing/CppFourteenFilesUnified/runs\\STasks8a-20261012-184947-238651/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
+    "scope": "ECX = this con ResidueEcx::Get. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "UnlockTrackEntity",
+        "run": "20261012-185910-661890",
+        "pairs": 9216,
+        "summary": "reversing/CppFourteenFilesUnified/runs\\UnlockTrackEntity-20261012-185910-661890/summary.json"
+      }
+    ]
   }
 }

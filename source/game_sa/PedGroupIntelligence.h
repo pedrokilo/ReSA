@@ -36,7 +36,7 @@ public:
     bool            AddEvent(CEvent* event);
     void            ComputeDefaultTasks(CPed* ped);
     CTaskAllocator* ComputeEventResponseTasks();
-    void            ComputeScriptCommandTasks();
+    uint32          ComputeScriptCommandTasks(); // 0x5F7800: devuelve EDX:EAX como el EXE (ver el .cpp)
     void            FlushTasks(PedTaskPairs& taskPairs, CPed* ped); // Como el original: __thiscall (ret 8), `this` sin usar
 
     //! @notsa

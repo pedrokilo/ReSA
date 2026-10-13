@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include <Pools/Pools.h>
 #include "CarCtrl.h"
@@ -44,24 +45,21 @@ END GENERATED HOOK STATUS */
 
 
 // 0x4442D0
-__declspec(naked) int32 CPedPool::GetRef(const CPed*) {
-    __asm {
-        mov         eax,dword ptr [ecx]
-        mov         edx,dword ptr [esp+4]
-        mov         ecx,dword ptr [ecx+4]
-        sub         edx,eax
-        mov         eax,41EE7CA7h
-        imul        edx
-        sar         edx,9
-        mov         eax,edx
-        shr         eax,1Fh
-        add         edx,eax
-        movzx       eax,byte ptr [edx+ecx]
-        shl         edx,8
-        add         eax,edx
-        ret         4
-    }
+// Como el original: indice = (puntero - almacenamiento) / 0x7C4 con division con signo (multiplicacion por 0x41EE7CA7, sar 9 y
+// correccion del signo); resultado = (indice << 8) + banderas[indice]. Deja ECX = tabla de banderas y EDX = indice << 8.
+#pragma runtime_checks("", off)
+uint32 CPedPool::GetRef(const CPed* ped) {
+    const uintptr_t storage = *reinterpret_cast<const uintptr_t*>(this);          // primer miembro del pool
+    const uintptr_t flags   = *(reinterpret_cast<const uintptr_t*>(this) + 1);    // segundo: tabla de banderas
+    const int32     diff    = static_cast<int32>(reinterpret_cast<uintptr_t>(ped) - storage);
+    const int32     high    = static_cast<int32>((static_cast<int64>(0x41EE7CA7) * diff) >> 32);
+    const int32     shifted = high >> 9;
+    const int32     index   = shifted + static_cast<int32>(static_cast<uint32>(shifted) >> 31);
+    const uint32    byteFlag = *reinterpret_cast<const uint8*>(flags + static_cast<uintptr_t>(static_cast<uint32>(index)));
+    const uint32    shiftedIndex = static_cast<uint32>(index) << 8;
+    return ResidueRegsCpp(static_cast<uint32>(flags), shiftedIndex, byteFlag + shiftedIndex);
 }
+#pragma runtime_checks("", restore)
 
 auto& ms_pPedPool               = StaticRef<CPedPool*>(0xB74490);
 auto& ms_pVehiclePool           = StaticRef<CVehiclePool*>(0xB74494);

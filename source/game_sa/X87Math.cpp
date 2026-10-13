@@ -297,12 +297,16 @@ static constexpr float kF_40C90FDB = std::bit_cast<float>(0x40C90FDBu);
 static constexpr float kF_42652EE0 = std::bit_cast<float>(0x42652EE0u);
 static constexpr float kF_42652EED = std::bit_cast<float>(0x42652EEDu);
 
-__declspec(noinline) float __cdecl ExeAsinDegreesCpp(float x) {
+__declspec(noinline) double __cdecl ExeAsinDoubleCpp(double x) {
     const unsigned previousControl = _control87(0, 0);
     _control87((previousControl & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM);
-    volatile double angle = atan2(double(x), sqrt((1.0 + x) * (1.0 - x)));
+    volatile double angle = atan2(x, sqrt((1.0 + x) * (1.0 - x)));
     _control87(previousControl, _MCW_PC | _MCW_RC | _MCW_EM);
-    return float(angle * kF_42652EE0); // 57.29578f (0x859878)
+    return angle;
+}
+
+__declspec(noinline) float __cdecl ExeAsinDegreesCpp(float x) {
+    return float(ExeAsinDoubleCpp(double(x)) * kF_42652EE0); // 57.29578f (0x859878), después de restaurar la palabra de control
 }
 
 __declspec(noinline) float __cdecl UnsignedPlusFloatCpp(int value, float delta) {
@@ -386,3 +390,10 @@ static bool ResidueHelpersAreTrivial() {
 }
 
 static const bool s_residueHelpersChecked = (assert(ResidueHelpersAreTrivial() && "Los ayudantes de residuo de registros ya no son triviales: revisar X87Math.cpp y las opciones de compilacion"), true);
+
+// Orden estricto del EXE (a·b)·c·k; el acos va en una llamada aparte.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl IKChainRotationAngleCpp(float boneSpeed, float dot, float chainSpeed) {
+    return float(((double(boneSpeed) * ExeAcosDoubleCpp(double(dot))) * double(chainSpeed)) * kF_42652EE0);
+}
+#pragma float_control(pop)
