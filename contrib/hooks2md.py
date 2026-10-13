@@ -69,6 +69,16 @@ def generate(input_path, output_path, update_source_status=False):
             f"hooks.csv validated=1 ({validated_count}) no coincide con evidencia aprobada "
             f"({validation['documented']}). Ejecuta: python contrib/sync_validated_flags.py"
         )
+    # Funciones definidas en source/game_sa (inventario de implementaciones) escritas solo en C++: sin __asm ni naked.
+    cpp_total = cpp_only = 0
+    inventory = Path(input_path).with_name('implementaciones') / 'funciones.csv'
+    if inventory.exists():
+        with inventory.open(encoding='utf-8-sig', newline='') as stream:
+            for row in csv.DictReader(stream):
+                cpp_total += 1
+                cpp_only += row['language'] == 'C++'
+    cpp_row = ([f"| Funciones del código fuente escritas solo en C++ (sin ensamblador) | `{'█' * round(20*cpp_only/cpp_total)}{'░' * (20-round(20*cpp_only/cpp_total))}` | {cpp_only:,}/{cpp_total:,} · {cpp_only/cpp_total:.2%} |"]
+               if cpp_total else [])
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     lines = ["# Progreso del reversing", "",
              "[Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)", "",
@@ -80,8 +90,8 @@ def generate(input_path, output_path, update_source_status=False):
              f"| Clases completas | `{'█' * round(20*len(full)/len(ordered))}{'░' * (20-round(20*len(full)/len(ordered)))}` | {len(full)}/{len(ordered)} · {len(full)/len(ordered):.2%} |",
              f"| Clases validadas (de las completas) | `{'█' * round(20*len(validated_classes)/len(full))}{'░' * (20-round(20*len(validated_classes)/len(full)))}` | {len(validated_classes)}/{len(full)} · {len(validated_classes)/len(full):.2%} |",
              f"| Funciones reconstruidas | `{'█' * round(20*reversed_count/total)}{'░' * (20-round(20*reversed_count/total))}` | {reversed_count:,}/{total:,} · {reversed_count/total:.2%} |",
-             f"| Funciones validadas (de las reconstruidas) | `{'█' * round(20*validated_count/reversed_count)}{'░' * (20-round(20*validated_count/reversed_count))}` | {validated_count:,}/{reversed_count:,} · {validated_count/reversed_count:.2%} |", "",
-             "Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL.", "",
+             f"| Funciones validadas (de las reconstruidas) | `{'█' * round(20*validated_count/reversed_count)}{'░' * (20-round(20*validated_count/reversed_count))}` | {validated_count:,}/{reversed_count:,} · {validated_count/reversed_count:.2%} |", *cpp_row, "",
+             "Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL." + (" La última barra cuenta todas las definiciones de funciones de `source/game_sa` (no solo las del catálogo) que no contienen `__asm` ni `naked`; el detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md)." if cpp_total else ""), "",
              "**Migración de ensamblador a C++:** algunas clases ya reconstruidas y validadas todavía contienen ensamblador en su fuente (`__asm` o funciones `naked`), porque se reconstruyeron conservando exactamente el comportamiento del EXE. Pasarán por un proceso de conversión de ensamblador a C++ que conserve resultados idénticos y se vuelva a validar dentro del juego. Hasta entonces, «reconstruida y validada» no implica «escrita en C++». Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Lista de archivos pendientes: [FILES.md](../reversing/CppOnlyMigration/FILES.md) · [estado de la migración](../reversing/CppOnlyMigration/README.md).", "",
              f"Hay {total:,} entradas catalogadas, {locked:,} bloqueadas y {total-locked:,} sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks."
              + (f" Las extensiones o adaptaciones NOTSA ({notsa_count}, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta." if notsa_count else ""), "",

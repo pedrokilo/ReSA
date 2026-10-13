@@ -1094,5 +1094,3 @@ source/game_sa/Weather.cpp,98,inline_assembly,pending_cpp_conversion
 source/game_sa/Weather.cpp,112,inline_assembly,pending_cpp_conversion
 source/game_sa/Weather.cpp,125,inline_assembly,pending_cpp_conversion
 source/game_sa/Weather.cpp,136,inline_assembly,pending_cpp_conversion
-source/game_sa/World_Helper.cpp,120,naked,pending_cpp_conversion
-source/game_sa/World_Helper.cpp,121,inline_assembly,pending_cpp_conversion

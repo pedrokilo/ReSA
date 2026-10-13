@@ -1,22 +1,22 @@
 {
   "scope": "source/game_sa, definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 17415,
+    "source_definition_count": 17416,
     "groups": 1966,
-    "assembly_occurrences": 850,
-    "naked_declarations": 247,
-    "definitions_with_assembly": 708,
-    "definitions_with_naked": 247,
+    "assembly_occurrences": 849,
+    "naked_declarations": 246,
+    "definitions_with_assembly": 707,
+    "definitions_with_naked": 246,
     "mixed_definitions": 448,
-    "asm_only_definitions": 260,
+    "asm_only_definitions": 259,
     "unassigned_occurrences": 0,
     "body_parse_errors": 859,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 847,
     "historical_catalog_rows": 8554,
     "catalog_rows_without_unambiguous_source_match_in_scope": 906,
-    "validated_reconstructed_own_cpp_definitions": 7587,
-    "validated_reconstructed_own_asm_definitions": 229,
+    "validated_reconstructed_own_cpp_definitions": 7588,
+    "validated_reconstructed_own_asm_definitions": 228,
     "wrapper_definitions": 334
   },
   "source_sha256": {
@@ -2177,7 +2177,7 @@
     "source/game_sa/WindModifiers.h": "943f390d7aced157f2b84f563241d5cd2e47a0561407ecfe71fc44178016ac51",
     "source/game_sa/World.cpp": "b7ff3a0962752810a3e1568ca6d66a53754d69e64491b9b8127c679e793d19ca",
     "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
-    "source/game_sa/World_Helper.cpp": "9123f85bf6571857625fa05ba2ee7e16a86a1715d3a0a841f6d5cabae1d19330",
+    "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
     "source/game_sa/X87Math.cpp": "7c689fe5d2f2e04991e6aec7b45fbc8fc34b0bc914c72608db825f2f81eb8b91",
     "source/game_sa/X87Math.h": "b4dccce6d04d98fe057a25e4b326cab78d8206355fc895f3ce801e2d586183ce",
     "source/game_sa/Zone.cpp": "efb2c9fa14a6744d59fb142a8c8497719d7e9bf976ca3aebca78cc33caffa14a",
@@ -2188,7 +2188,7 @@
     "hooks.csv": "cff7932ea4a75958bee515763619c9a5b5e06f0ba7fa4863bd6cc14a9a5a9dbd",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "0010fbea9e3513173af544ef64fd24423b0e28d0f129477354ba71dda1011edd",
+  "migration_registry_sha256": "c167570d26abf645571565311607f8ac65bfa3aad23ff0355a9c04f03491ab34",
   "files_with_parse_errors": [
     "source/game_sa/Animation/AnimBlendAssocGroup.cpp",
     "source/game_sa/Animation/AnimBlendAssociation.cpp",

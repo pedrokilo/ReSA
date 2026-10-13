@@ -2,9 +2,9 @@
 
 Este documento distingue el lenguaje de la fuente, la reconstrucción, la validación registrada y la independencia del EXE. Reconstruir un cuerpo en ensamblador también es ingeniería inversa; una envoltura que delega el cuerpo al original no lo reconstruye por sí sola.
 
-El inventario asigna **850 apariciones de ensamblador** a **708 definiciones con cuerpo** y **247 declaraciones naked** a **247 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
+El inventario asigna **849 apariciones de ensamblador** a **707 definiciones con cuerpo** y **246 declaraciones naked** a **246 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 708 definiciones, **448 son mixtas** y **260 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 17415 definiciones en 1966 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 707 definiciones, **448 son mixtas** y **259 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 17416 definiciones en 1966 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -15,7 +15,7 @@ De esas 708 definiciones, **448 son mixtas** y **260 contienen sólo ensamblador
 - Una envoltura C++ se reconoce conservadoramente cuando el único statement es una llamada plugin::Call* a dirección fija. Algunos trampolines ASM simples también se reconocen. Otras envolturas indirectas pueden permanecer sin resolver.
 - Se registran colaboradores con dirección fija y posibles datos fijos referenciados por nombre. Un destino catalogado puede estar reconstruido y enlazado mediante hook; el inventario **no determina la ruta efectiva**. Direcciones por sí solas no prueban ausencia de reconstrucción.
 - «Sin indicio directo» sólo significa que los patrones examinados no lo encontraron. No se resuelven todas las llamadas virtuales, macros, alias, punteros ni dependencias transitivas. **Ningún grupo se declara standalone demostrado.**
-- Tree-sitter detectó errores de análisis en 859 cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los 708 cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.
+- Tree-sitter detectó errores de análisis en 859 cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los 707 cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.
 
 - 906 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
 
@@ -904,7 +904,7 @@ De esas 708 definiciones, **448 son mixtas** y **260 contienen sólo ensamblador
 | [CWeaponModelInfo](implementaciones/detalle-044.md#grupo-879) · [source/game_sa/Models/WeaponModelInfo.cpp](../source/game_sa/Models/WeaponModelInfo.cpp) | 3 | 0 | 1 | 0 | 0 |
 | [CWeather](implementaciones/detalle-044.md#grupo-880) · [source/game_sa/Weather.cpp](../source/game_sa/Weather.cpp), [source/game_sa/Weather.h](../source/game_sa/Weather.h) | 12 | 0 | 5 | 0 | 0 |
 | [CWindModifiers](implementaciones/detalle-045.md#grupo-881) · [source/game_sa/WindModifiers.cpp](../source/game_sa/WindModifiers.cpp) | 2 | 0 | 1 | 0 | 0 |
-| [CWorld](implementaciones/detalle-045.md#grupo-882) · [source/game_sa/World.cpp](../source/game_sa/World.cpp), [source/game_sa/World.h](../source/game_sa/World.h), [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 80 | 1 | 47 | 1 | 1 |
+| [CWorld](implementaciones/detalle-045.md#grupo-882) · [source/game_sa/World.cpp](../source/game_sa/World.cpp), [source/game_sa/World.h](../source/game_sa/World.h), [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 81 | 0 | 47 | 0 | 0 |
 | [CWorldScan](implementaciones/detalle-045.md#grupo-883) · [source/game_sa/Renderer.cpp](../source/game_sa/Renderer.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [CZone](implementaciones/detalle-045.md#grupo-884) · [source/game_sa/Zone.cpp](../source/game_sa/Zone.cpp), [source/game_sa/Zone.h](../source/game_sa/Zone.h) | 0 | 0 | 5 | 0 | 0 |
 | [CZoneDef](implementaciones/detalle-045.md#grupo-885) · [source/game_sa/CullZones.h](../source/game_sa/CullZones.h) | 0 | 0 | 2 | 0 | 0 |
@@ -1834,7 +1834,7 @@ De esas 708 definiciones, **448 son mixtas** y **260 contienen sólo ensamblador
 | [Globales y helpers: source/game_sa/WeaponInfo.cpp](implementaciones/detalle-091.md#grupo-1809) · [source/game_sa/WeaponInfo.cpp](../source/game_sa/WeaponInfo.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Weather.cpp](implementaciones/detalle-091.md#grupo-1810) · [source/game_sa/Weather.cpp](../source/game_sa/Weather.cpp) | 0 | 0 | 13 | 5 | 0 |
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-091.md#grupo-1811) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 19 | 0 | 0 |
-| [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-091.md#grupo-1812) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 3 | 0 | 0 |
+| [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-091.md#grupo-1812) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 4 | 0 | 0 |
 | [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-091.md#grupo-1813) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 56 | 0 | 0 | 0 | 0 |
 | [Globales y helpers: source/game_sa/X87Math.h](implementaciones/detalle-091.md#grupo-1814) · [source/game_sa/X87Math.h](../source/game_sa/X87Math.h) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-091.md#grupo-1815) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 6 | 5 | 1 |

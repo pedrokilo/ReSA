@@ -2,6 +2,7 @@
 
 #include "World.h"
 #include "EntryExitManager.h"
+#include "X87Math.h"
 
 // inlined
 CPlayerInfo& FindPlayerInfo(int32 playerId) {
@@ -113,97 +114,31 @@ CVector FindPlayerCentreOfWorldForMap(int32 playerId) {
     return centre;
 }
 
+// Como el original: el rumbo es atan2(-adelante.x, adelante.y) con fpatan (TrigAtan2Cpp) y, sin matriz, el rumbo compacto de la entidad;
+// el vehiculo remoto y el ped de reserva se leen con el indice crudo (sin resolver el negativo) y el vehiculo normal con el indice resuelto
+static float EntityHeading(const CPlaceable* entity) {
+    if (const auto* const matrix = entity->m_matrix) {
+        const CVector& forward = matrix->GetForward();
+        return TrigAtan2Cpp(-forward.x, forward.y);
+    }
+    return entity->m_placement.m_fHeading;
+}
+
 // Returns player angle in radians
 // 0x56E450
-// Como el original: transcripcion exacta (el rumbo es atan2(-y, x) con fpatan y se devuelve en ST0 sin redondear a float;
-// el vehiculo remoto se lee con el indice crudo y sin exigir bInVehicle; el vehiculo normal con el indice resuelto)
-__declspec(naked) float FindPlayerHeading(int32 playerId) {
-    __asm {
-        mov ecx, dword ptr [esp+4]
-        mov edx, ecx
-        imul edx, edx, 190h
-        mov eax, dword ptr [edx+0B7CE48h]
-        test eax, eax
-        je no_remote
-        mov ecx, dword ptr [eax+14h]
-        test ecx, ecx
-        je remote_placement
-        fld dword ptr [ecx+10h]
-        fchs
-        fld dword ptr [ecx+14h]
-        fpatan
-        ret
-    remote_placement:
-        fld dword ptr [eax+10h]
-        ret
-    no_remote:
-        test ecx, ecx
-        push ebx
-        mov bl, byte ptr ds:[0B7CD74h]
-        push edi
-        mov eax, ecx
-        jge resolved1
-        movzx eax, bl
-    resolved1:
-        imul eax, eax, 190h
-        mov eax, dword ptr [eax+0B7CD98h]
-        test eax, eax
-        je fallback
-        test dword ptr [eax+46Ch], 100h
-        je fallback
-        mov edi, dword ptr [eax+58Ch]
-        test edi, edi
-        je fallback
-        test ecx, ecx
-        mov eax, ecx
-        jge resolved2
-        movzx eax, bl
-    resolved2:
-        imul eax, eax, 190h
-        mov eax, dword ptr [eax+0B7CD98h]
-        test eax, eax
-        je no_vehicle
-        mov ecx, dword ptr [eax+46Ch]
-        test ch, 1
-        je no_vehicle
-        mov eax, dword ptr [eax+58Ch]
-        jmp have_vehicle
-    no_vehicle:
-        xor eax, eax
-    have_vehicle:
-        mov ecx, dword ptr [eax+14h]
-        test ecx, ecx
-        je vehicle_placement
-        fld dword ptr [ecx+10h]
-        pop edi
-        fchs
-        pop ebx
-        fld dword ptr [ecx+14h]
-        fpatan
-        ret
-    vehicle_placement:
-        fld dword ptr [eax+10h]
-        pop edi
-        pop ebx
-        ret
-    fallback:
-        mov edx, dword ptr [edx+0B7CD98h]
-        mov eax, dword ptr [edx+14h]
-        test eax, eax
-        je ped_placement
-        fld dword ptr [eax+10h]
-        pop edi
-        fchs
-        pop ebx
-        fld dword ptr [eax+14h]
-        fpatan
-        ret
-    ped_placement:
-        fld dword ptr [edx+10h]
-        pop edi
-        pop ebx
-        ret
+float FindPlayerHeading(int32 playerId) {
+    const auto rawInfo = [](int32 index) {
+        return reinterpret_cast<const CPlayerInfo*>(reinterpret_cast<uintptr_t>(&CWorld::Players[0]) + static_cast<uintptr_t>(index) * sizeof(CPlayerInfo));
+    };
+    const CPlayerInfo* const info = rawInfo(playerId);
+    if (const auto* const remote = info->m_pRemoteVehicle) {
+        return EntityHeading(remote);
     }
+    const auto* const resolved = rawInfo(playerId < 0 ? static_cast<int32>(CWorld::PlayerInFocus) : playerId);
+    if (const auto* const ped = resolved->m_pPed; ped && ped->bInVehicle && ped->m_pVehicle) {
+        return EntityHeading(ped->m_pVehicle);
+    }
+    return EntityHeading(info->m_pPed);
 }
 
 // Returns Z coord for active player

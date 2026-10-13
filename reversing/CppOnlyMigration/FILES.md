@@ -1,6 +1,6 @@
 # Archivos pendientes de convertir a C++
 
-104 archivos: 850 apariciones de ensamblador y 247 declaraciones naked.
+103 archivos: 849 apariciones de ensamblador y 246 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -107,6 +107,5 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Weapon.cpp](../../source/game_sa/Weapon.cpp) | 5 | 0 |
 | [source/game_sa/WeaponEffects.cpp](../../source/game_sa/WeaponEffects.cpp) | 4 | 0 |
 | [source/game_sa/Weather.cpp](../../source/game_sa/Weather.cpp) | 5 | 0 |
-| [source/game_sa/World_Helper.cpp](../../source/game_sa/World_Helper.cpp) | 1 | 1 |
 | [source/game_sa/cHandlingDataMgr.cpp](../../source/game_sa/cHandlingDataMgr.cpp) | 5 | 1 |
 | [source/game_sa/common.cpp](../../source/game_sa/common.cpp) | 2 | 0 |

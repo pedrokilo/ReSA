@@ -100,6 +100,5 @@ source/game_sa/WaterLevel.cpp,8,3
 source/game_sa/Weapon.cpp,5,0
 source/game_sa/WeaponEffects.cpp,4,0
 source/game_sa/Weather.cpp,5,0
-source/game_sa/World_Helper.cpp,1,1
 source/game_sa/cHandlingDataMgr.cpp,5,1
 source/game_sa/common.cpp,2,0

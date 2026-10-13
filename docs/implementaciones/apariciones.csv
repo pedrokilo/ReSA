@@ -1094,5 +1094,3 @@ source/game_sa/Weather.cpp,98,inline_assembly,CosMulAddX87,96
 source/game_sa/Weather.cpp,112,inline_assembly,HalfMinusHalfCosX87,109
 source/game_sa/Weather.cpp,125,inline_assembly,NegSinX87,123
 source/game_sa/Weather.cpp,136,inline_assembly,CosX87,134
-source/game_sa/World_Helper.cpp,120,naked,FindPlayerHeading,120
-source/game_sa/World_Helper.cpp,121,inline_assembly,FindPlayerHeading,120

@@ -1927,5 +1927,29 @@
     "state_restored": true,
     "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
     "scope": "El triángulo se lee del EAX de entrada con EntryEaxCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0056E450": {
+    "identity": "FindPlayerHeading",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/World_Helper.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "WldC",
+    "run": "20261012-230139-232622",
+    "pairs": 13120,
+    "own_pairs": 13120,
+    "audit": "reversing/CppWorldHelperUnified/runs\\WldC-20261012-230139-232622/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppOnlyMigration/README.md",
+    "additional_banks": [
+      {
+        "bank": "RadarFinal3",
+        "run": "20261012-230332-075297",
+        "pairs": 15040,
+        "summary": "reversing/CppWorldHelperUnified/runs\\RadarFinal3-20261012-230332-075297/summary.json"
+      }
+    ],
+    "scope": "atan2(-adelante.x, adelante.y) con TrigAtan2Cpp; vehículo remoto y ped de reserva con el índice crudo, vehículo normal con el índice resuelto. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
   }
 }
