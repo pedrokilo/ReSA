@@ -1,0 +1,3 @@
+APROBADO: Audio: Ambience, StaticChannel y Weather
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-audio-completion\20261012-235638-149970

@@ -4,25 +4,19 @@
 
 # Archivos pendientes de convertir a C++
 
-103 archivos: 849 apariciones de ensamblador y 246 declaraciones naked.
+97 archivos: 837 apariciones de ensamblador y 246 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
 | Archivo | Ensamblador | naked |
 | --- | ---: | ---: |
 | [source/game_sa/3dMarkers.cpp](../../source/game_sa/3dMarkers.cpp) | 3 | 0 |
-| [source/game_sa/Audio/AEAudioEnvironment.cpp](../../source/game_sa/Audio/AEAudioEnvironment.cpp) | 2 | 0 |
 | [source/game_sa/Audio/AEAudioUtility.cpp](../../source/game_sa/Audio/AEAudioUtility.cpp) | 4 | 0 |
-| [source/game_sa/Audio/AESmoothFadeThread.cpp](../../source/game_sa/Audio/AESmoothFadeThread.cpp) | 2 | 0 |
-| [source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp](../../source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp) | 2 | 0 |
 | [source/game_sa/Audio/Entities/AEPedAudioEntity.cpp](../../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) | 3 | 0 |
 | [source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp](../../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp) | 6 | 4 |
 | [source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp](../../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp) | 6 | 0 |
 | [source/game_sa/Audio/Hardware/AEAudioHardware.cpp](../../source/game_sa/Audio/Hardware/AEAudioHardware.cpp) | 4 | 0 |
 | [source/game_sa/Audio/Loaders/AEMFDecoder.cpp](../../source/game_sa/Audio/Loaders/AEMFDecoder.cpp) | 3 | 0 |
-| [source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp](../../source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp) | 2 | 0 |
-| [source/game_sa/Audio/Loaders/AEWaveDecoder.cpp](../../source/game_sa/Audio/Loaders/AEWaveDecoder.cpp) | 2 | 0 |
-| [source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp](../../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp) | 2 | 0 |
 | [source/game_sa/Birds.cpp](../../source/game_sa/Birds.cpp) | 3 | 3 |
 | [source/game_sa/BulletTraces.cpp](../../source/game_sa/BulletTraces.cpp) | 2 | 0 |
 | [source/game_sa/Cam.cpp](../../source/game_sa/Cam.cpp) | 102 | 3 |

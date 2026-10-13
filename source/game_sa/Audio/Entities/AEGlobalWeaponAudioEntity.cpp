@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "AEAudioUtility.h"
 #include "AEGlobalWeaponAudioEntity.h"
@@ -28,32 +29,12 @@ auto& pFogHorn = StaticRef<CAESound*>(0xB612FC);
 namespace {
 // Como el original: v += fcos(a) * r con fcos a precisión interna completa (producto y suma redondeados por la FPU)
 void AddCosMulX87(float& v, float a, float r) {
-    float* const p = &v;
-    __asm {
-        fld r
-        fld a
-        fcos
-        fmul st, st(1)
-        mov eax, p
-        fadd dword ptr [eax]
-        fstp dword ptr [eax]
-        fstp st(0)
-    }
+    v = TrigCompoundCosMulAdd(a, r, v);
 }
 
 // Como el original: v += fsin(a) * r
 void AddSinMulX87(float& v, float a, float r) {
-    float* const p = &v;
-    __asm {
-        fld r
-        fld a
-        fsin
-        fmul st, st(1)
-        mov eax, p
-        fadd dword ptr [eax]
-        fstp dword ptr [eax]
-        fstp st(0)
-    }
+    v = TrigCompoundSinMulAdd(a, r, v);
 }
 } // namespace
 

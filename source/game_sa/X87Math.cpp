@@ -438,3 +438,56 @@ __declspec(noinline) float __cdecl IKChainRotationAngleCpp(float boneSpeed, floa
     return float(((double(boneSpeed) * ExeAcosDoubleCpp(double(dot))) * double(chainSpeed)) * kF_42652EE0);
 }
 #pragma float_control(pop)
+
+// --- Lote de seis archivos de audio (12/10/2026) ---
+// Entero sin signo como lo carga el EXE: fild (con signo) y, si el bit alto está puesto, fadd 2^32 en la precisión vigente.
+static __forceinline double UnsignedAsX87(unsigned int value) {
+    double result = double(static_cast<int>(value));
+    if (static_cast<int>(value) < 0) {
+        result += 4294967296.0f;
+    }
+    return result;
+}
+
+
+__declspec(noinline) float __cdecl UnsignedTimesFloatCpp(unsigned int value, float factor) {
+    volatile float result = float(UnsignedAsX87(value) * double(factor));
+    return result;
+}
+
+__declspec(noinline) long __cdecl SecondsToMsCpp(double seconds) {
+    volatile double ms = seconds * 1000.0; // 0x85A318
+    return static_cast<long>(static_cast<long long>(ms));
+}
+
+__declspec(noinline) long __cdecl BytesToMsCpp(unsigned int bytes, unsigned int bytesPerSecond) {
+    const double bytesValue = UnsignedAsX87(bytes);
+    const double rateValue  = UnsignedAsX87(bytesPerSecond);
+    const double ratio      = bytesValue / rateValue;
+    volatile double ms = ratio * 1000.0f;
+    return static_cast<long>(static_cast<long long>(ms));
+}
+
+// Sin reasociación: el EXE multiplica (posición · 0.001f) y luego por la tasa, cada paso a 24 bits.
+#pragma float_control(precise, on, push)
+__declspec(noinline) int __cdecl WaveCursorBytesCpp(unsigned int position, unsigned int bytesPerSecond) {
+    double bytes = UnsignedAsX87(position) * 0.001f; // 0x858CDC
+    bytes        = bytes * UnsignedAsX87(bytesPerSecond);
+    bytes        = bytes + 44.0f;
+    volatile double stored = bytes;
+    return static_cast<int>(static_cast<long long>(stored));
+}
+#pragma float_control(pop)
+
+// start + 20·log10(1 + (10^(diff·0.05) - 1) · transcurrido / duración) (CAESmoothFadeThread::Service)
+__declspec(noinline) float __cdecl SmoothFadeVolumeCpp(float diff, float start, unsigned int elapsed, int fadeTime) {
+    const float  exponent = float(double(diff) * 0.05f); // 0x3D4CCCCD
+    double       step     = ExeCompatiblePowCpp(10.0, double(exponent));
+    step                  = step - 1.0f;
+    const double progress = UnsignedAsX87(elapsed) / double(fadeTime);
+    step                  = step * progress;
+    step                  = step + 1.0f;
+    const double decibels = log10(step) * 20.0f;
+    volatile float result = float(decibels + double(start));
+    return result;
+}

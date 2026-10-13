@@ -1951,5 +1951,135 @@
       }
     ],
     "scope": "atan2(-adelante.x, adelante.y) con TrigAtan2Cpp; vehículo remoto y ped de reserva con el índice crudo, vehículo normal con el índice resuelto. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D80B0": {
+    "identity": "CAEAudioEnvironment::GetPositionRelativeToCamera_Vector",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Audio/AEAudioEnvironment.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Small2",
+    "run": "20261012-234027-626569",
+    "pairs": 32016,
+    "own_pairs": 1024,
+    "audit": "reversing/CppAudioSixUnified/runs\\Small2-20261012-234027-626569/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppAudioSixStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "UnlockAudio",
+        "run": "20261013-000532-285417",
+        "pairs": 9216,
+        "summary": "reversing/CppAudioSixUnified/runs\\UnlockAudio-20261013-000532-285417/summary.json"
+      },
+      {
+        "bank": "Audio14",
+        "run": "20261013-000630-187887",
+        "pairs": 10240,
+        "summary": "reversing/CppAudioSixUnified/runs\\Audio14-20261013-000630-187887/summary.json"
+      },
+      {
+        "bank": "Audio18",
+        "run": "20261013-000739-759036",
+        "pairs": 9216,
+        "summary": "reversing/CppAudioSixUnified/runs\\Audio18-20261013-000739-759036/summary.json"
+      },
+      {
+        "bank": "RadioVolumes355",
+        "run": "20261013-000844-199974",
+        "pairs": 1024,
+        "summary": "reversing/CppAudioSixUnified/runs\\RadioVolumes355-20261013-000844-199974/summary.json"
+      }
+    ],
+    "scope": "Aritmética float en el mismo orden que el x87 del EXE (24 bits), sin ensamblador ni ayudante. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004EED10": {
+    "identity": "CAESmoothFadeThread::Service (DsVolumeToDb y fundido)",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/Audio/AESmoothFadeThread.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Sys10",
+    "run": "20261012-234230-516410",
+    "pairs": 17088,
+    "own_pairs": 1024,
+    "audit": "reversing/CppAudioSixUnified/runs\\Sys10-20261012-234230-516410/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppAudioSixStudy/README.md",
+    "scope": "DsVolumeToDb con IntTimesFloatCpp y el volumen del fundido con SmoothFadeVolumeCpp (pow del EXE 0x822130, fyl2x). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004DF210": {
+    "identity": "CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire (AddCosMulX87 y AddSinMulX87)",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "AnimAudio6",
+    "run": "20261013-001206-191743",
+    "pairs": 13568,
+    "own_pairs": 1024,
+    "audit": "reversing/CppAudioSixUnified/runs\\AnimAudio6-20261013-001206-191743/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppAudioSixStudy/README.md",
+    "scope": "TrigCompoundCosMulAdd y TrigCompoundSinMulAdd. Para que el banco aprobara se añadió la interceptación de la entrada de la DLL de CMemoryMgr::FreeAlign (naked desde d26e3a5d); antes fallaba igual en HEAD (CAnimBlendClumpData, 85/128 y 174/256). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00502670": {
+    "identity": "CAEVorbisDecoder::SetCursor (y SecondsToMs de GetStreamLengthMs/GetStreamPlayTimeMs)",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Audio13",
+    "run": "20261012-234555-236138",
+    "pairs": 11520,
+    "own_pairs": 512,
+    "audit": "reversing/CppAudioSixUnified/runs\\Audio13-20261012-234555-236138/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppAudioSixStudy/README.md",
+    "scope": "SetCursor con UnsignedTimesFloatCpp(pos, 0.001f) y SecondsToMsCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005033C0": {
+    "identity": "CAEWaveDecoder::SetCursor (y BytesToMs de GetStreamLengthMs/GetStreamPlayTimeMs)",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/Audio/Loaders/AEWaveDecoder.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Core9",
+    "run": "20261012-235025-939260",
+    "pairs": 19968,
+    "own_pairs": 1024,
+    "audit": "reversing/CppAudioSixUnified/runs\\Core9-20261012-235025-939260/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppAudioSixStudy/README.md",
+    "scope": "WaveCursorBytesCpp con float_control(precise) (la primera versión, con /fp:fast, reasociaba (pos·0,001)·tasa y Core9 dio 206/1024 diferencias en SetCursor) y BytesToMsCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D6E60": {
+    "identity": "CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "AudioCompletion",
+    "run": "20261012-235638-149970",
+    "pairs": 10086,
+    "own_pairs": 7846,
+    "audit": "reversing/CppAudioSixUnified/runs\\AudioCompletion-20261012-235638-149970/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppAudioSixStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "AmbienceTrack",
+        "run": "20261013-000934-949074",
+        "pairs": 4416,
+        "summary": "reversing/CppAudioSixUnified/runs\\AmbienceTrack-20261013-000934-949074/summary.json"
+      }
+    ],
+    "scope": "Volumen de tormenta de arena con AudioLog10Times20Cpp(x) - 6 y atenuación bajo el agua con sqrt(d·d + dz·dz)·0,5714286f en float. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
   }
 }

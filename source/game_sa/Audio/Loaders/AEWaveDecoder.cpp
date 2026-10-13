@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h" // TODO: Remove
+#include "X87Math.h"
 
 #include "AEWaveDecoder.h"
 
@@ -29,24 +30,7 @@ namespace {
 // Como el original: ambos enteros se cargan con fild (sin signo: +2^32 si el bit alto está puesto), se dividen y se
 // multiplican por 1000 en x87 a la precisión vigente y el resultado se trunca (_ftol2, 0x821B40).
 long BytesToMs(uint32 bytes, uint32 bytesPerSecond) {
-    static const float k2pow32 = 4294967296.0f, k1000 = 1000.0f;
-    double ms;
-    __asm {
-        fild  dword ptr bytes
-        cmp   bytes, 0
-        jge   L_bytesPositive
-        fadd  k2pow32
-    L_bytesPositive:
-        fild  dword ptr bytesPerSecond
-        cmp   bytesPerSecond, 0
-        jge   L_bpsPositive
-        fadd  k2pow32
-    L_bpsPositive:
-        fdivp st(1), st
-        fmul  k1000
-        fstp  ms
-    }
-    return (long)(int64)ms;
+    return BytesToMsCpp(bytes, bytesPerSecond);
 }
 } // namespace
 
@@ -94,26 +78,8 @@ void CAEWaveDecoder::SetCursor(unsigned long pos) {
     if (!m_bInitialized) {
         return;
     }
-    static const float k2pow32 = 4294967296.0f, kMsToSec = 0.001f, kHeader = 44.0f;
     const uint32 bytesPerSecond = sampleRate * 4;
-    double bytes;
-    __asm {
-        fild  dword ptr pos
-        cmp   pos, 0
-        jge   L_posPositive
-        fadd  k2pow32
-    L_posPositive:
-        fmul  kMsToSec
-        fild  dword ptr bytesPerSecond
-        cmp   bytesPerSecond, 0
-        jge   L_bpsPositive
-        fadd  k2pow32
-    L_bpsPositive:
-        fmulp st(1), st
-        fadd  kHeader
-        fstp  bytes
-    }
-    const auto offset = (int32)(int64)bytes;
+    const auto offset = (int32)WaveCursorBytesCpp(pos, bytesPerSecond);
     _dataStreamCopy->Seek(offset % 2 + offset, SEEK_SET);
 }
 

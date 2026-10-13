@@ -125,3 +125,10 @@ unsigned int __fastcall EntryEaxCpp();
 double __cdecl ExeAsinDoubleCpp(double x);
 // CIKChain: boneSpeed · acos(dot) · chainSpeed · 57.29578f (0x617AA3..0x617AC5), con el acos del CRT del EXE.
 float __cdecl IKChainRotationAngleCpp(float boneSpeed, float dot, float chainSpeed);
+
+// Lote de seis archivos de audio (12/10/2026).
+float __cdecl UnsignedTimesFloatCpp(unsigned int value, float factor);
+long __cdecl SecondsToMsCpp(double seconds);
+long __cdecl BytesToMsCpp(unsigned int bytes, unsigned int bytesPerSecond);
+int __cdecl WaveCursorBytesCpp(unsigned int position, unsigned int bytesPerSecond);
+float __cdecl SmoothFadeVolumeCpp(float diff, float start, unsigned int elapsed, int fadeTime);

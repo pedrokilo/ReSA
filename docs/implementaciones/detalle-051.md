@@ -200,10 +200,10 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CAEStreamingChannel | [source/game_sa/Audio/Hardware/AEStreamingChannel.h:17](../../source/game_sa/Audio/Hardware/AEStreamingChannel.h#L17) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Posible dato fijo AESmoothFadeThread: source/game_sa/Audio/AESmoothFadeThread.cpp:25 (0x00B608D0) |
+| CAEStreamingChannel | [source/game_sa/Audio/Hardware/AEStreamingChannel.h:17](../../source/game_sa/Audio/Hardware/AEStreamingChannel.h#L17) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Posible dato fijo AESmoothFadeThread: source/game_sa/Audio/AESmoothFadeThread.cpp:26 (0x00B608D0) |
 | * Constructor(IDirectSound* directSound, uint16 channelId) | [source/game_sa/Audio/Hardware/AEStreamingChannel.h:77](../../source/game_sa/Audio/Hardware/AEStreamingChannel.h#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Destructor() | [source/game_sa/Audio/Hardware/AEStreamingChannel.h:82](../../source/game_sa/Audio/Hardware/AEStreamingChannel.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DirectSoundBufferFadeToSilence() | [source/game_sa/Audio/Hardware/AEStreamingChannel.h:87](../../source/game_sa/Audio/Hardware/AEStreamingChannel.h#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AESmoothFadeThread: source/game_sa/Audio/AESmoothFadeThread.cpp:25 (0x00B608D0) |
+| DirectSoundBufferFadeToSilence() | [source/game_sa/Audio/Hardware/AEStreamingChannel.h:87](../../source/game_sa/Audio/Hardware/AEStreamingChannel.h#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AESmoothFadeThread: source/game_sa/Audio/AESmoothFadeThread.cpp:26 (0x00B608D0) |
 
 <a id="grupo-1018"></a>
 
@@ -227,4 +227,4 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| SecondsToMs(double seconds) | [source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp:33](../../source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp#L33) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| SecondsToMs(double seconds) | [source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp:34](../../source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

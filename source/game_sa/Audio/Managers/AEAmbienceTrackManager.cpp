@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include "AEAmbienceTrackManager.h"
 #include "AEAudioHardware.h"
 #include "AEAudioUtility.h"
+#include "X87Math.h"
 
 auto& AEAmbienceTrackManager = StaticRef<CAEAmbienceTrackManager>(0x8AC15C);
 
@@ -93,15 +94,7 @@ void CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume() {
         if (CWeather::Sandstorm > 0.f) {
             if (CGame::currArea == AREA_CODE_NORMAL_WORLD && !CCullZones::PlayerNoRain() && !CCullZones::CamNoRain()) {
                 specialTrackId = 167;
-                const float sandstorm = CWeather::Sandstorm, decibels = 20.f, dbOffset = 6.f;
-                __asm {
-                    fldlg2
-                    fld sandstorm
-                    fyl2x
-                    fmul decibels
-                    fsub dbOffset
-                    fstp volume
-                }
+                volume = AudioLog10Times20Cpp(CWeather::Sandstorm) - 6.f;
             }
             isSandstorm = true;
         }
@@ -332,20 +325,8 @@ void CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume() {
         const float waterZ = TheCamera.m_fHeightOfNearestWater;
         const float distance = TheCamera.m_fDistanceToWater;
         const float scale = 0.5714285969734192f;
-        float attenuationDistance;
-        __asm {
-            fld cameraZ
-            fsub waterZ
-            fld distance
-            fmul distance
-            fld st(1)
-            fmul st, st(2)
-            faddp st(1), st
-            fstp st(1)
-            fsqrt
-            fmul scale
-            fstp attenuationDistance
-        }
+        const float dz = cameraZ - waterZ;
+        const float attenuationDistance = std::sqrt(distance * distance + dz * dz) * scale;
         volume = CAEAudioEnvironment::GetDistanceAttenuation(attenuationDistance) - 12.f;
         targetFrequency = 1.f;
     }

@@ -1,0 +1,3 @@
+APROBADO: Decodificador MF, fundido de audio, conversaciones, directorio e historial de eventos (lista de 10)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-sys10\20261012-234230-516410

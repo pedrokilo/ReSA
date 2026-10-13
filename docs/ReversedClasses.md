@@ -6,7 +6,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-13 05:30 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-13 06:22 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -18,7 +18,7 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | Clases validadas (de las completas) | `████████████████████` | 784/784 · 100.00% |
 | Funciones reconstruidas | `████████████████████` | 8,550/8,550 · 100.00% |
 | Funciones validadas (de las reconstruidas) | `████████████████████` | 8,550/8,550 · 100.00% |
-| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `██████████████████░░` | 7,780/8,550 · 90.99% |
+| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `██████████████████░░` | 7,784/8,550 · 91.04% |
 
 Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
@@ -35,7 +35,7 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 | Validaciones vigentes para el árbol actual | 0/8,550 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | No medido | Auditar, para cada función reconstruida, las llamadas directas y transitivas que todavía saltan a código del EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
 
-**Validación consolidada parcialmente:** 8550 funciones con evidencia aprobada vinculada, 617 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 8550 funciones con evidencia aprobada vinculada, 609 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 ## Vista general
 

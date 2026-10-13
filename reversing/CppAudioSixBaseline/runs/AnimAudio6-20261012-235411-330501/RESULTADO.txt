@@ -1,0 +1,3 @@
+FALLO: Audio, animación, objetos de cinemática, puertas y vídeo (lista de 6)
+Funciones con diferencias: CAnimBlendClumpData::Destructor: 85/128; CAnimBlendClumpData::SetNumberOfBones: 174/256
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-animaudio6\20261012-235411-330501

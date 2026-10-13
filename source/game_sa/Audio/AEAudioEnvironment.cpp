@@ -155,96 +155,22 @@ void CAEAudioEnvironment::GetPositionRelativeToCamera_Vector(CVector* output, co
         cameraOffset = half - half;
         if (auto* player = FindPlayerPed()) {
             const auto* playerPos = &player->GetPosition();
-            uint8 deltaXExt[10], deltaYExt[10], deltaZValue[10];
-            __asm {
-                mov eax, playerPos
-                mov edx, center
-                fld dword ptr [eax]
-                fsub dword ptr [edx]
-                fstp tbyte ptr deltaXExt
-                fld dword ptr [eax + 4]
-                fsub dword ptr [edx + 4]
-                fstp tbyte ptr deltaYExt
-                fld dword ptr [eax + 8]
-                fsub dword ptr [edx + 8]
-                fstp tbyte ptr deltaZValue
-                fld tbyte ptr deltaXExt
-                fmul st, st(0)
-                fld tbyte ptr deltaYExt
-                fmul st, st(0)
-                faddp st(1), st
-                fld tbyte ptr deltaZValue
-                fmul st, st(0)
-                faddp st(1), st
-                fsqrt
-                fsub half
-                fstp cameraOffset
-            }
+            const float dx = playerPos->x - center->x, dy = playerPos->y - center->y, dz = playerPos->z - center->z;
+            cameraOffset = std::sqrt(dx * dx + dy * dy + dz * dz) - half;
         }
         // Recorte del original: 0 si min(v, máx) < 0; si no, min(v, máx) (NaN -> máx)
         const float maxOffset = gCameraOffsetMax;
         const float t = cameraOffset < maxOffset ? cameraOffset : maxOffset;
         cameraOffset = 0.f > t ? 0.f : t;
     }
-    // Preserve the original x87 intermediates: Y remains extended, Z is
-    // rounded to float, and the lateral dot product adds Y+Z before X.
-    uint8 deltaXExt[10], deltaYExt[10];
-    float deltaZValue, temp;
-    __asm {
-        mov eax, matrix
-        mov edx, center
-        mov ecx, pos
-        fld dword ptr [eax + 10h]
-        fmul cameraOffset
-        fstp temp
-        fld temp
-        fadd dword ptr [edx]
-        fstp temp
-        fld dword ptr [ecx]
-        fsub temp
-        fstp tbyte ptr deltaXExt
-        fld dword ptr [eax + 14h]
-        fmul cameraOffset
-        fstp temp
-        fld temp
-        fadd dword ptr [edx + 4]
-        fsubr dword ptr [ecx + 4]
-        fstp tbyte ptr deltaYExt
-        fld dword ptr [eax + 18h]
-        fmul cameraOffset
-        fadd dword ptr [edx + 8]
-        fsubr dword ptr [ecx + 8]
-        fstp deltaZValue
-        mov edx, output
-        fld tbyte ptr deltaYExt
-        fmul dword ptr [eax + 4]
-        fld deltaZValue
-        fmul dword ptr [eax + 8]
-        faddp st(1), st
-        fld tbyte ptr deltaXExt
-        fmul dword ptr [eax]
-        faddp st(1), st
-        fchs
-        fstp dword ptr [edx]
-        fld tbyte ptr deltaXExt
-        fmul dword ptr [eax + 10h]
-        fld tbyte ptr deltaYExt
-        fmul dword ptr [eax + 14h]
-        faddp st(1), st
-        fld deltaZValue
-        fmul dword ptr [eax + 18h]
-        faddp st(1), st
-        fstp dword ptr [edx + 4]
-        fld tbyte ptr deltaXExt
-        fmul dword ptr [eax + 20h]
-        fld tbyte ptr deltaYExt
-        fmul dword ptr [eax + 24h]
-        faddp st(1), st
-        fld deltaZValue
-        fmul dword ptr [eax + 28h]
-        faddp st(1), st
-        fstp dword ptr [edx + 8]
-    }
+    // Mismo orden de operaciones que el EXE (x87 a 24 bits: cada operación se redondea a float).
+    const auto* m = reinterpret_cast<const float*>(matrix);
+    const float dx = pos->x - (m[4] * cameraOffset + center->x);
+    const float dy = pos->y - (m[5] * cameraOffset + center->y);
+    const float dz = pos->z - (m[6] * cameraOffset + center->z);
+    output->x = -((dy * m[1] + dz * m[2]) + dx * m[0]);
+    output->y = (dx * m[4] + dy * m[5]) + dz * m[6];
+    output->z = (dx * m[8] + dy * m[9]) + dz * m[10];
 }
 
 CVector CAEAudioEnvironment::GetPositionRelativeToCamera(CPlaceable* placeable) {

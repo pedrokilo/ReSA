@@ -1,0 +1,462 @@
+diff --git a/source/game_sa/Audio/AEAudioEnvironment.cpp b/source/game_sa/Audio/AEAudioEnvironment.cpp
+index ec27211a..02f2aa8d 100644
+--- a/source/game_sa/Audio/AEAudioEnvironment.cpp
++++ b/source/game_sa/Audio/AEAudioEnvironment.cpp
+@@ -155,96 +155,22 @@ void CAEAudioEnvironment::GetPositionRelativeToCamera_Vector(CVector* output, co
+         cameraOffset = half - half;
+         if (auto* player = FindPlayerPed()) {
+             const auto* playerPos = &player->GetPosition();
+-            uint8 deltaXExt[10], deltaYExt[10], deltaZValue[10];
+-            __asm {
+-                mov eax, playerPos
+-                mov edx, center
+-                fld dword ptr [eax]
+-                fsub dword ptr [edx]
+-                fstp tbyte ptr deltaXExt
+-                fld dword ptr [eax + 4]
+-                fsub dword ptr [edx + 4]
+-                fstp tbyte ptr deltaYExt
+-                fld dword ptr [eax + 8]
+-                fsub dword ptr [edx + 8]
+-                fstp tbyte ptr deltaZValue
+-                fld tbyte ptr deltaXExt
+-                fmul st, st(0)
+-                fld tbyte ptr deltaYExt
+-                fmul st, st(0)
+-                faddp st(1), st
+-                fld tbyte ptr deltaZValue
+-                fmul st, st(0)
+-                faddp st(1), st
+-                fsqrt
+-                fsub half
+-                fstp cameraOffset
+-            }
++            const float dx = playerPos->x - center->x, dy = playerPos->y - center->y, dz = playerPos->z - center->z;
++            cameraOffset = std::sqrt(dx * dx + dy * dy + dz * dz) - half;
+         }
+         // Recorte del original: 0 si min(v, máx) < 0; si no, min(v, máx) (NaN -> máx)
+         const float maxOffset = gCameraOffsetMax;
+         const float t = cameraOffset < maxOffset ? cameraOffset : maxOffset;
+         cameraOffset = 0.f > t ? 0.f : t;
+     }
+-    // Preserve the original x87 intermediates: Y remains extended, Z is
+-    // rounded to float, and the lateral dot product adds Y+Z before X.
+-    uint8 deltaXExt[10], deltaYExt[10];
+-    float deltaZValue, temp;
+-    __asm {
+-        mov eax, matrix
+-        mov edx, center
+-        mov ecx, pos
+-        fld dword ptr [eax + 10h]
+-        fmul cameraOffset
+-        fstp temp
+-        fld temp
+-        fadd dword ptr [edx]
+-        fstp temp
+-        fld dword ptr [ecx]
+-        fsub temp
+-        fstp tbyte ptr deltaXExt
+-        fld dword ptr [eax + 14h]
+-        fmul cameraOffset
+-        fstp temp
+-        fld temp
+-        fadd dword ptr [edx + 4]
+-        fsubr dword ptr [ecx + 4]
+-        fstp tbyte ptr deltaYExt
+-        fld dword ptr [eax + 18h]
+-        fmul cameraOffset
+-        fadd dword ptr [edx + 8]
+-        fsubr dword ptr [ecx + 8]
+-        fstp deltaZValue
+-        mov edx, output
+-        fld tbyte ptr deltaYExt
+-        fmul dword ptr [eax + 4]
+-        fld deltaZValue
+-        fmul dword ptr [eax + 8]
+-        faddp st(1), st
+-        fld tbyte ptr deltaXExt
+-        fmul dword ptr [eax]
+-        faddp st(1), st
+-        fchs
+-        fstp dword ptr [edx]
+-        fld tbyte ptr deltaXExt
+-        fmul dword ptr [eax + 10h]
+-        fld tbyte ptr deltaYExt
+-        fmul dword ptr [eax + 14h]
+-        faddp st(1), st
+-        fld deltaZValue
+-        fmul dword ptr [eax + 18h]
+-        faddp st(1), st
+-        fstp dword ptr [edx + 4]
+-        fld tbyte ptr deltaXExt
+-        fmul dword ptr [eax + 20h]
+-        fld tbyte ptr deltaYExt
+-        fmul dword ptr [eax + 24h]
+-        faddp st(1), st
+-        fld deltaZValue
+-        fmul dword ptr [eax + 28h]
+-        faddp st(1), st
+-        fstp dword ptr [edx + 8]
+-    }
++    // Mismo orden de operaciones que el EXE (x87 a 24 bits: cada operación se redondea a float).
++    const auto* m = reinterpret_cast<const float*>(matrix);
++    const float dx = pos->x - (m[4] * cameraOffset + center->x);
++    const float dy = pos->y - (m[5] * cameraOffset + center->y);
++    const float dz = pos->z - (m[6] * cameraOffset + center->z);
++    output->x = -((dy * m[1] + dz * m[2]) + dx * m[0]);
++    output->y = (dx * m[4] + dy * m[5]) + dz * m[6];
++    output->z = (dx * m[8] + dy * m[9]) + dz * m[10];
+ }
+ 
+ CVector CAEAudioEnvironment::GetPositionRelativeToCamera(CPlaceable* placeable) {
+diff --git a/source/game_sa/Audio/AESmoothFadeThread.cpp b/source/game_sa/Audio/AESmoothFadeThread.cpp
+index ea8262bd..4cba4bce 100644
+--- a/source/game_sa/Audio/AESmoothFadeThread.cpp
++++ b/source/game_sa/Audio/AESmoothFadeThread.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "X87Math.h"
+ #include "AESmoothFadeThread.h"
+ 
+ #include "AEAudioChannel.h"
+@@ -28,14 +29,7 @@ namespace {
+ // Como el original: volumen DirectSound (centésimas de dB, cargado con fild) · 0.01f (0x858C58) en x87 a la
+ // precisión vigente, redondeado a float.
+ float DsVolumeToDb(int32 dsVolume) {
+-    static const float kToDb = 0.01f;
+-    float volume;
+-    __asm {
+-        fild  dword ptr dsVolume
+-        fmul  kToDb
+-        fstp  volume
+-    }
+-    return volume;
++    return IntTimesFloatCpp(dsVolume, 0.01f); // 0x858C58
+ }
+ 
+ // Como el original: volumen · 100 (0x858628) truncado con _ftol2 (0x821B40, 64 bits; se usa la parte baja).
+@@ -129,33 +123,7 @@ void CAESmoothFadeThread::Service() {
+                 // Como el original: todo en la pila x87. Paso lineal pow(10, diff · 0.05) - 1 con el _CIpow del EXE
+                 // (0x822130), progreso = transcurrido (sin signo) / duración, y
+                 // volumen = inicio + 20 · log10(1 + paso · progreso) con fyl2x.
+-                static const double kTen = 10.0;
+-                static const float  kToLinear = std::bit_cast<float>(0x3D4CCCCDu), kOne = 1.0f, k2pow32 = 4294967296.0f, kDecibels = 20.0f;
+-                const float  diff = entry.m_fVolumeDiff, start = entry.m_fStartVolume;
+-                const int32  fadeTime = entry.m_wFadeTime;
+-                float        volume;
+-                __asm {
+-                    fld   kTen
+-                    fld   diff
+-                    fmul  kToLinear
+-                    mov   eax, 0x822130
+-                    call  eax
+-                    fsub  kOne
+-                    fild  dword ptr elapsed
+-                    cmp   elapsed, 0
+-                    jge   L_elapsedPositive
+-                    fadd  k2pow32
+-                L_elapsedPositive:
+-                    fidiv dword ptr fadeTime
+-                    fmulp st(1), st
+-                    fadd  kOne
+-                    fldlg2
+-                    fxch  st(1)
+-                    fyl2x
+-                    fmul  kDecibels
+-                    fadd  start
+-                    fstp  volume
+-                }
++                const float volume = SmoothFadeVolumeCpp(entry.m_fVolumeDiff, entry.m_fStartVolume, elapsed, static_cast<int32>(entry.m_wFadeTime));
+                 entry.m_fCurVolume = volume;
+                 entry.m_pSoundBuffer->SetVolume(DbToDsVolume(volume));
+                 continue;
+diff --git a/source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp b/source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp
+index d9336ee5..4dcd240b 100644
+--- a/source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp
++++ b/source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "X87Math.h"
+ 
+ #include "AEAudioUtility.h"
+ #include "AEGlobalWeaponAudioEntity.h"
+@@ -28,32 +29,12 @@ auto& pFogHorn = StaticRef<CAESound*>(0xB612FC);
+ namespace {
+ // Como el original: v += fcos(a) * r con fcos a precisión interna completa (producto y suma redondeados por la FPU)
+ void AddCosMulX87(float& v, float a, float r) {
+-    float* const p = &v;
+-    __asm {
+-        fld r
+-        fld a
+-        fcos
+-        fmul st, st(1)
+-        mov eax, p
+-        fadd dword ptr [eax]
+-        fstp dword ptr [eax]
+-        fstp st(0)
+-    }
++    v = TrigCompoundCosMulAdd(a, r, v);
+ }
+ 
+ // Como el original: v += fsin(a) * r
+ void AddSinMulX87(float& v, float a, float r) {
+-    float* const p = &v;
+-    __asm {
+-        fld r
+-        fld a
+-        fsin
+-        fmul st, st(1)
+-        mov eax, p
+-        fadd dword ptr [eax]
+-        fstp dword ptr [eax]
+-        fstp st(0)
+-    }
++    v = TrigCompoundSinMulAdd(a, r, v);
+ }
+ } // namespace
+ 
+diff --git a/source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp b/source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp
+index fe4e42ae..c6d15fc5 100644
+--- a/source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp
++++ b/source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h" // TODO: Remove
++#include "X87Math.h"
+ 
+ #include "AEVorbisDecoder.h"
+ 
+@@ -31,14 +32,7 @@ namespace {
+ // Como el original: segundos (double) * 1000.0 (0x85A318) en x87 a la precisión vigente, truncado con _ftol2
+ // (0x821B40, 64 bits; se usa la parte baja).
+ long SecondsToMs(double seconds) {
+-    static const double k1000 = 1000.0;
+-    double ms;
+-    __asm {
+-        fld   seconds
+-        fmul  k1000
+-        fstp  ms
+-    }
+-    return (long)(int64)ms;
++    return SecondsToMsCpp(seconds);
+ }
+ } // namespace
+ 
+@@ -125,17 +119,7 @@ void CAEVorbisDecoder::SetCursor(unsigned long pos) {
+     if (!m_bInitialized)
+         return;
+ 
+-    static const float k2pow32 = 4294967296.0f, k0001 = 0.001f;
+-    double seconds;
+-    __asm {
+-        fild  dword ptr pos
+-        cmp   pos, 0
+-        jge   L_posPositive
+-        fadd  k2pow32
+-    L_posPositive:
+-        fmul  k0001
+-        fstp  seconds
+-    }
++    const double seconds = UnsignedTimesFloatCpp(pos, 0.001f); // 0x858CDC
+     ov_time_seek(m_pVorbisFileHandle, seconds);
+ }
+ 
+diff --git a/source/game_sa/Audio/Loaders/AEWaveDecoder.cpp b/source/game_sa/Audio/Loaders/AEWaveDecoder.cpp
+index 5264d91b..6a4c894a 100644
+--- a/source/game_sa/Audio/Loaders/AEWaveDecoder.cpp
++++ b/source/game_sa/Audio/Loaders/AEWaveDecoder.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h" // TODO: Remove
++#include "X87Math.h"
+ 
+ #include "AEWaveDecoder.h"
+ 
+@@ -29,24 +30,7 @@ namespace {
+ // Como el original: ambos enteros se cargan con fild (sin signo: +2^32 si el bit alto está puesto), se dividen y se
+ // multiplican por 1000 en x87 a la precisión vigente y el resultado se trunca (_ftol2, 0x821B40).
+ long BytesToMs(uint32 bytes, uint32 bytesPerSecond) {
+-    static const float k2pow32 = 4294967296.0f, k1000 = 1000.0f;
+-    double ms;
+-    __asm {
+-        fild  dword ptr bytes
+-        cmp   bytes, 0
+-        jge   L_bytesPositive
+-        fadd  k2pow32
+-    L_bytesPositive:
+-        fild  dword ptr bytesPerSecond
+-        cmp   bytesPerSecond, 0
+-        jge   L_bpsPositive
+-        fadd  k2pow32
+-    L_bpsPositive:
+-        fdivp st(1), st
+-        fmul  k1000
+-        fstp  ms
+-    }
+-    return (long)(int64)ms;
++    return BytesToMsCpp(bytes, bytesPerSecond);
+ }
+ } // namespace
+ 
+@@ -94,26 +78,8 @@ void CAEWaveDecoder::SetCursor(unsigned long pos) {
+     if (!m_bInitialized) {
+         return;
+     }
+-    static const float k2pow32 = 4294967296.0f, kMsToSec = 0.001f, kHeader = 44.0f;
+     const uint32 bytesPerSecond = sampleRate * 4;
+-    double bytes;
+-    __asm {
+-        fild  dword ptr pos
+-        cmp   pos, 0
+-        jge   L_posPositive
+-        fadd  k2pow32
+-    L_posPositive:
+-        fmul  kMsToSec
+-        fild  dword ptr bytesPerSecond
+-        cmp   bytesPerSecond, 0
+-        jge   L_bpsPositive
+-        fadd  k2pow32
+-    L_bpsPositive:
+-        fmulp st(1), st
+-        fadd  kHeader
+-        fstp  bytes
+-    }
+-    const auto offset = (int32)(int64)bytes;
++    const auto offset = (int32)WaveCursorBytesCpp(pos, bytesPerSecond);
+     _dataStreamCopy->Seek(offset % 2 + offset, SEEK_SET);
+ }
+ 
+diff --git a/source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp b/source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp
+index 9d984093..49b666a2 100644
+--- a/source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp
++++ b/source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp
+@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
+ #include "AEAmbienceTrackManager.h"
+ #include "AEAudioHardware.h"
+ #include "AEAudioUtility.h"
++#include "X87Math.h"
+ 
+ auto& AEAmbienceTrackManager = StaticRef<CAEAmbienceTrackManager>(0x8AC15C);
+ 
+@@ -93,15 +94,7 @@ void CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume() {
+         if (CWeather::Sandstorm > 0.f) {
+             if (CGame::currArea == AREA_CODE_NORMAL_WORLD && !CCullZones::PlayerNoRain() && !CCullZones::CamNoRain()) {
+                 specialTrackId = 167;
+-                const float sandstorm = CWeather::Sandstorm, decibels = 20.f, dbOffset = 6.f;
+-                __asm {
+-                    fldlg2
+-                    fld sandstorm
+-                    fyl2x
+-                    fmul decibels
+-                    fsub dbOffset
+-                    fstp volume
+-                }
++                volume = AudioLog10Times20Cpp(CWeather::Sandstorm) - 6.f;
+             }
+             isSandstorm = true;
+         }
+@@ -332,20 +325,8 @@ void CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume() {
+         const float waterZ = TheCamera.m_fHeightOfNearestWater;
+         const float distance = TheCamera.m_fDistanceToWater;
+         const float scale = 0.5714285969734192f;
+-        float attenuationDistance;
+-        __asm {
+-            fld cameraZ
+-            fsub waterZ
+-            fld distance
+-            fmul distance
+-            fld st(1)
+-            fmul st, st(2)
+-            faddp st(1), st
+-            fstp st(1)
+-            fsqrt
+-            fmul scale
+-            fstp attenuationDistance
+-        }
++        const float dz = cameraZ - waterZ;
++        const float attenuationDistance = std::sqrt(distance * distance + dz * dz) * scale;
+         volume = CAEAudioEnvironment::GetDistanceAttenuation(attenuationDistance) - 12.f;
+         targetFrequency = 1.f;
+     }
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 4f84b6c9..cc9f084c 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -438,3 +438,56 @@ __declspec(noinline) float __cdecl IKChainRotationAngleCpp(float boneSpeed, floa
+     return float(((double(boneSpeed) * ExeAcosDoubleCpp(double(dot))) * double(chainSpeed)) * kF_42652EE0);
+ }
+ #pragma float_control(pop)
++
++// --- Lote de seis archivos de audio (12/10/2026) ---
++// Entero sin signo como lo carga el EXE: fild (con signo) y, si el bit alto está puesto, fadd 2^32 en la precisión vigente.
++static __forceinline double UnsignedAsX87(unsigned int value) {
++    double result = double(static_cast<int>(value));
++    if (static_cast<int>(value) < 0) {
++        result += 4294967296.0f;
++    }
++    return result;
++}
++
++
++__declspec(noinline) float __cdecl UnsignedTimesFloatCpp(unsigned int value, float factor) {
++    volatile float result = float(UnsignedAsX87(value) * double(factor));
++    return result;
++}
++
++__declspec(noinline) long __cdecl SecondsToMsCpp(double seconds) {
++    volatile double ms = seconds * 1000.0; // 0x85A318
++    return static_cast<long>(static_cast<long long>(ms));
++}
++
++__declspec(noinline) long __cdecl BytesToMsCpp(unsigned int bytes, unsigned int bytesPerSecond) {
++    const double bytesValue = UnsignedAsX87(bytes);
++    const double rateValue  = UnsignedAsX87(bytesPerSecond);
++    const double ratio      = bytesValue / rateValue;
++    volatile double ms = ratio * 1000.0f;
++    return static_cast<long>(static_cast<long long>(ms));
++}
++
++// Sin reasociación: el EXE multiplica (posición · 0.001f) y luego por la tasa, cada paso a 24 bits.
++#pragma float_control(precise, on, push)
++__declspec(noinline) int __cdecl WaveCursorBytesCpp(unsigned int position, unsigned int bytesPerSecond) {
++    double bytes = UnsignedAsX87(position) * 0.001f; // 0x858CDC
++    bytes        = bytes * UnsignedAsX87(bytesPerSecond);
++    bytes        = bytes + 44.0f;
++    volatile double stored = bytes;
++    return static_cast<int>(static_cast<long long>(stored));
++}
++#pragma float_control(pop)
++
++// start + 20·log10(1 + (10^(diff·0.05) - 1) · transcurrido / duración) (CAESmoothFadeThread::Service)
++__declspec(noinline) float __cdecl SmoothFadeVolumeCpp(float diff, float start, unsigned int elapsed, int fadeTime) {
++    const float  exponent = float(double(diff) * 0.05f); // 0x3D4CCCCD
++    double       step     = ExeCompatiblePowCpp(10.0, double(exponent));
++    step                  = step - 1.0f;
++    const double progress = UnsignedAsX87(elapsed) / double(fadeTime);
++    step                  = step * progress;
++    step                  = step + 1.0f;
++    const double decibels = log10(step) * 20.0f;
++    volatile float result = float(decibels + double(start));
++    return result;
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index b1db2358..141ab6e2 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -125,3 +125,10 @@ unsigned int __fastcall EntryEaxCpp();
+ double __cdecl ExeAsinDoubleCpp(double x);
+ // CIKChain: boneSpeed · acos(dot) · chainSpeed · 57.29578f (0x617AA3..0x617AC5), con el acos del CRT del EXE.
+ float __cdecl IKChainRotationAngleCpp(float boneSpeed, float dot, float chainSpeed);
++
++// Lote de seis archivos de audio (12/10/2026).
++float __cdecl UnsignedTimesFloatCpp(unsigned int value, float factor);
++long __cdecl SecondsToMsCpp(double seconds);
++long __cdecl BytesToMsCpp(unsigned int bytes, unsigned int bytesPerSecond);
++int __cdecl WaveCursorBytesCpp(unsigned int position, unsigned int bytesPerSecond);
++float __cdecl SmoothFadeVolumeCpp(float diff, float start, unsigned int elapsed, int fadeTime);

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "AESmoothFadeThread.h"
 
 #include "AEAudioChannel.h"
@@ -28,14 +29,7 @@ namespace {
 // Como el original: volumen DirectSound (centésimas de dB, cargado con fild) · 0.01f (0x858C58) en x87 a la
 // precisión vigente, redondeado a float.
 float DsVolumeToDb(int32 dsVolume) {
-    static const float kToDb = 0.01f;
-    float volume;
-    __asm {
-        fild  dword ptr dsVolume
-        fmul  kToDb
-        fstp  volume
-    }
-    return volume;
+    return IntTimesFloatCpp(dsVolume, 0.01f); // 0x858C58
 }
 
 // Como el original: volumen · 100 (0x858628) truncado con _ftol2 (0x821B40, 64 bits; se usa la parte baja).
@@ -129,33 +123,7 @@ void CAESmoothFadeThread::Service() {
                 // Como el original: todo en la pila x87. Paso lineal pow(10, diff · 0.05) - 1 con el _CIpow del EXE
                 // (0x822130), progreso = transcurrido (sin signo) / duración, y
                 // volumen = inicio + 20 · log10(1 + paso · progreso) con fyl2x.
-                static const double kTen = 10.0;
-                static const float  kToLinear = std::bit_cast<float>(0x3D4CCCCDu), kOne = 1.0f, k2pow32 = 4294967296.0f, kDecibels = 20.0f;
-                const float  diff = entry.m_fVolumeDiff, start = entry.m_fStartVolume;
-                const int32  fadeTime = entry.m_wFadeTime;
-                float        volume;
-                __asm {
-                    fld   kTen
-                    fld   diff
-                    fmul  kToLinear
-                    mov   eax, 0x822130
-                    call  eax
-                    fsub  kOne
-                    fild  dword ptr elapsed
-                    cmp   elapsed, 0
-                    jge   L_elapsedPositive
-                    fadd  k2pow32
-                L_elapsedPositive:
-                    fidiv dword ptr fadeTime
-                    fmulp st(1), st
-                    fadd  kOne
-                    fldlg2
-                    fxch  st(1)
-                    fyl2x
-                    fmul  kDecibels
-                    fadd  start
-                    fstp  volume
-                }
+                const float volume = SmoothFadeVolumeCpp(entry.m_fVolumeDiff, entry.m_fStartVolume, elapsed, static_cast<int32>(entry.m_wFadeTime));
                 entry.m_fCurVolume = volume;
                 entry.m_pSoundBuffer->SetVolume(DbToDsVolume(volume));
                 continue;

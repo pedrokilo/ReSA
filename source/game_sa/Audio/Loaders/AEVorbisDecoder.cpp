@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h" // TODO: Remove
+#include "X87Math.h"
 
 #include "AEVorbisDecoder.h"
 
@@ -31,14 +32,7 @@ namespace {
 // Como el original: segundos (double) * 1000.0 (0x85A318) en x87 a la precisión vigente, truncado con _ftol2
 // (0x821B40, 64 bits; se usa la parte baja).
 long SecondsToMs(double seconds) {
-    static const double k1000 = 1000.0;
-    double ms;
-    __asm {
-        fld   seconds
-        fmul  k1000
-        fstp  ms
-    }
-    return (long)(int64)ms;
+    return SecondsToMsCpp(seconds);
 }
 } // namespace
 
@@ -125,17 +119,7 @@ void CAEVorbisDecoder::SetCursor(unsigned long pos) {
     if (!m_bInitialized)
         return;
 
-    static const float k2pow32 = 4294967296.0f, k0001 = 0.001f;
-    double seconds;
-    __asm {
-        fild  dword ptr pos
-        cmp   pos, 0
-        jge   L_posPositive
-        fadd  k2pow32
-    L_posPositive:
-        fmul  k0001
-        fstp  seconds
-    }
+    const double seconds = UnsignedTimesFloatCpp(pos, 0.001f); // 0x858CDC
     ov_time_seek(m_pVorbisFileHandle, seconds);
 }
 

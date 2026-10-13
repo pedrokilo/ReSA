@@ -284,6 +284,7 @@ inline void Update() {
         EntryPatch cd(bit_cast<uintptr_t>(&CdStreamOpen),FakeCdOpen), cde(0x4067B0,FakeCdOpen);
         EntryPatch m1(bit_cast<uintptr_t>(static_cast<void*(*)(uint32)>(&CMemoryMgr::Malloc)),FakeMalloc1), m2(bit_cast<uintptr_t>(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc)),FakeMalloc2), m2e(0x72F420,FakeMalloc2);
         EntryPatch m3(bit_cast<uintptr_t>(&CMemoryMgr::Free),FakeFree), m3e(0x72F430,FakeFree), m4e(0x72F4C0,FakeMallocAlign), m5e(0x72F4F0,FakeFreeAlign);
+        EntryPatch m5(bit_cast<uintptr_t>(&CMemoryMgr::FreeAlign),FakeFreeAlign); // entrada de la DLL (naked desde d26e3a5d): ~CAnimBlendClumpData/SetNumberOfBones la llaman directo, no por 0x72F4F0
         EntryPatch a1(bit_cast<uintptr_t>(&CAEAudioHardware::IsSoundBankLoaded),FakeIsBankLoaded), a1e(0x4D88C0,FakeIsBankLoaded);
         EntryPatch a2(bit_cast<uintptr_t>(&CAEAudioHardware::LoadSoundBank),FakeLoadBank), a2e(0x4D88A0,FakeLoadBank);
         EntryPatch a3(bit_cast<uintptr_t>(&CAudioEngine::IsLoadingTuneActive),FakeLoadingTune), a3e(0x506D90,FakeLoadingTune);

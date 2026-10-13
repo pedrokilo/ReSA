@@ -1,17 +1,11 @@
 file,inline_assembly_occurrences,naked_declarations
 source/game_sa/3dMarkers.cpp,3,0
-source/game_sa/Audio/AEAudioEnvironment.cpp,2,0
 source/game_sa/Audio/AEAudioUtility.cpp,4,0
-source/game_sa/Audio/AESmoothFadeThread.cpp,2,0
-source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,2,0
 source/game_sa/Audio/Entities/AEPedAudioEntity.cpp,3,0
 source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,6,4
 source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,6,0
 source/game_sa/Audio/Hardware/AEAudioHardware.cpp,4,0
 source/game_sa/Audio/Loaders/AEMFDecoder.cpp,3,0
-source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp,2,0
-source/game_sa/Audio/Loaders/AEWaveDecoder.cpp,2,0
-source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp,2,0
 source/game_sa/Birds.cpp,3,3
 source/game_sa/BulletTraces.cpp,2,0
 source/game_sa/Cam.cpp,102,3
