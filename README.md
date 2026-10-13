@@ -1,10 +1,31 @@
+<p align="center">
+  <img src="docs/images/resa-logo.png" alt="reSA logo" width="400">
+</p>
+
+# GTA San Andreas · Reversing en ReSA
+
+Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. La meta es una reconstrucción completa y validada, seguida de un ejecutable propio.
+
+La [hoja de ruta de ReSA](docs/ProjectRoadmap.md) define el objetivo **ReSA — Zero Original Function Dependency**. Completar el catálogo es un hito intermedio.
+
+**[🗺️ Mapa de clases y funciones](docs/MemoryMap/index.html) · [📊 Progreso](docs/ReversedClasses.md) · [🧭 Qué abordar después](docs/ReversingPriorities.md) · [🧪 Pruebas](reversing/README.md) · [📋 Proceso y continuidad](reversing/MEJORAS_DEL_PROCESO.md)**
+
+> [!NOTE]
+> Este README describe el trabajo local de la rama **ReSA**. El avance registrado y los bancos aprobados no equivalen a cobertura exhaustiva ni a estabilidad general del juego.
+
+## Estado actual
+
 <!-- RESA-CURRENT-STATUS:BEGIN -->
 > **Estado al 12/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
+**Alcance del 100%:** las 8.445 entradas catalogadas tienen evidencia histórica; quedan funciones y métodos del juego fuera de ese catálogo. La [auditoría binaria y de dependencias](docs/BinaryCoverageAudit.md) identifica 924 destinos originales explícitos sin nombre catalogado, 499 con aristas desde funciones catalogadas, y 9.328 entradas binarias sin nombre del catálogo. Estos conjuntos se solapan e incluyen bibliotecas, helpers y código generado: no se suman ni equivalen a un total exacto de funciones faltantes. La vigencia acreditada sigue en 0.
+
 **Lenguaje e independencia del EXE:** [tabla por clase y detalle de funciones](docs/ImplementacionesDelJuego.md), con C++, ensamblador, funciones mixtas, marcas `naked`, validación registrada y dependencias detectadas. Reconstruir en ensamblador también es ingeniería inversa; estar escrito en C++ no demuestra que el cuerpo deje de depender del EXE.
 
 **Prioridad actual: C++ sin ensamblador escrito en producción.** Algunas clases ya reconstruidas y validadas todavía tienen ensamblador en su fuente y pasarán por un proceso de conversión de ensamblador a C++, con resultados idénticos al EXE y nueva validación dentro del juego. Archivos pendientes: [FILES.md](reversing/CppOnlyMigration/FILES.md). Se convierte `source/game_sa` conservando resultados exactos del EXE y repitiendo pruebas dentro del juego. La migración sigue pendiente; el 100% del catálogo no implica ausencia de ensamblador. [Inventario y conversiones comprobadas](reversing/CppOnlyMigration/README.md). **Regla del proyecto:** todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados; el proceso está documentado en [PROCESO.md](reversing/CppOnlyMigration/PROCESO.md).
+
+### Bloqueos de hooks
 
 <!-- RESA-HOOK-UNLOCK-FINAL:BEGIN -->
 **Bloqueos reales pendientes: 0.** Los seis locks restantes del corte anterior se retiraron después de pruebas dentro del juego y reparación del ABI. Los dos desbloqueos anteriores de CEntryExit/CPostEffects siguen acreditados en su banco. Los 413 indicadores históricos obsoletos no se presentan como desbloqueos nuevos.
@@ -24,31 +45,17 @@ Se exige también la repetición completa de las 102 funciones (20.024 pares) y 
 Se comprobaron restauración de hooks, configuración y partidas. La sesión de audio se descarta sin guardar; no se afirma restauración exacta de tareas, estadísticas o streaming ni estabilidad universal, todos los modelos o todos los controladores. Desbloqueo no significa independencia del EXE. El corte 453 conserva sus evidencias; el catálogo de progreso tiene 8445/8445 funciones con evidencia histórica y 771/771 grupos completos. Win::NOTSA_WinMain se registra aparte como adaptación NOTSA con validated=0 y hook conservado en 0x748710; su exclusión no acredita una validación nueva. [Clasificación NOTSA](docs/HooksNOTSA.md).
 <!-- RESA-HOOK-UNLOCK-FINAL:END -->
 
-<img src="docs/images/resa-logo.png" alt="reSA logo" width="400">
+### Migración a C++
 
-# ESOS WEYES DEL REVERSE SE DEMORAN UN CHINGO, SUS CLASES REVERTIDAS NI ESTÁN VALIDADAS Y ESO QUE SON UN MONTÓN DE GENTE PTM
-# GTA San Andreas · Reversing en ReSA
+Estado de la migracion a C++ al 12/10/2026: 111 funciones fuente convertidas y revalidadas. Quedan 849 apariciones de ensamblador y 246 declaraciones naked en 103 archivos; son conteos lexicos, no funciones. Lista completa: [archivos pendientes](reversing/CppOnlyMigration/FILES.md); evidencia y alcance: [migracion C++](reversing/CppOnlyMigration/README.md).
 
-Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. La meta es una reconstrucción completa y validada, seguida de un ejecutable propio.
-
-La [hoja de ruta de ReSA](docs/ProjectRoadmap.md) define el objetivo **ReSA — Zero Original Function Dependency**. Completar el catálogo es un hito intermedio.
-
-**Alcance del 100%:** las 8.445 entradas catalogadas tienen evidencia histórica; quedan funciones y métodos del juego fuera de ese catálogo. La [auditoría binaria y de dependencias](docs/BinaryCoverageAudit.md) identifica 924 destinos originales explícitos sin nombre catalogado, 499 con aristas desde funciones catalogadas, y 9.328 entradas binarias sin nombre del catálogo. Estos conjuntos se solapan e incluyen bibliotecas, helpers y código generado: no se suman ni equivalen a un total exacto de funciones faltantes. La vigencia acreditada sigue en 0.
-
-**[🗺️ Mapa de clases y funciones](docs/MemoryMap/index.html) · [📊 Progreso](docs/ReversedClasses.md) · [🧭 Qué abordar después](docs/ReversingPriorities.md) · [🧪 Pruebas](reversing/README.md) · [📋 Proceso y continuidad](reversing/MEJORAS_DEL_PROCESO.md)**
-
-> [!NOTE]
-> Este README describe el trabajo local de la rama **ReSA**. El avance registrado y los bancos aprobados no equivalen a cobertura exhaustiva ni a estabilidad general del juego.
-
-## Intro
-
-[FLOSS: instalación local y análisis de cadenas](docs/FLOSS.md). Disponible para Codex y Claude en `C:\Users\pedro\Tools\FLOSS\floss.exe`; todavía no hay resultados de FLOSS registrados para ReSA.
-
-### Cómo funciona
+## Cómo funciona
 
 La compilación produce `gta_reversed.asi`, una DLL que carga un ASI loader. Los hooks redirigen funciones del ejecutable a sus reconstrucciones en C++; las direcciones como `0x571920` identifican entradas del original. El proyecto todavía depende del ejecutable y de los recursos del juego: no es un ejecutable independiente terminado.
 
 El objetivo es preservar el comportamiento original. Cada reconstrucción se contrasta con el original antes de actualizar sus indicadores; una compilación correcta o un hook visible en el debug no sustituyen esa comparación.
+
+[FLOSS: instalación local y análisis de cadenas](docs/FLOSS.md). Disponible para Codex y Claude en `C:\Users\pedro\Tools\FLOSS\floss.exe`; todavía no hay resultados de FLOSS registrados para ReSA.
 
 ## Instalación
 
@@ -112,7 +119,7 @@ El ejecutable de referencia es **GTA SA Compact**, distinto de otros ejecutables
 
 Los bancos habituales arrancan con `--unhook=Audio,Global/SurfaceInfos_c`. El caso `sound-copy` mantiene Audio activo y solo excluye SurfaceInfos. Esa exclusión limita sus conclusiones; una futura validación de funciones de audio necesita configurar y comprobar explícitamente sus hooks. Las pruebas son automáticas y no requieren una demostración visual.
 
-## Mejoras
+## Avance y evidencia
 
 ### Estado del trabajo
 
@@ -209,6 +216,14 @@ Las comparaciones corresponden al alcance descrito en cada README, no necesariam
 **Cierre anterior:** [diez clases del Top 10](reversing/Top10/README.md), 22 entradas nuevas y 51.712 comparaciones exactas. Incluye Shooting, recursos de scripts, LeaveCarAndWander, WaitForBus, PopCycle, CarCtrl, KillThreatsBasic, FxPrimBP, EntityScanner y DragPedFromCar.
 
 El constructor de `CPlayerInfo` ya fue corregido, validado y desbloqueado; incluye regresiones de entrega y selección de armas. `CQuadBike::ProcessControl` tiene un candidato que compila, pero continúa **sin validar y deshabilitado**, con progreso 11/12. Se conservan también los bancos históricos de vehículos, guardados, jugador y efectos de armas.
+
+### Listas solicitadas anteriormente
+
+<!-- USER LISTS STOP STATUS -->
+Estado de las listas solicitadas al detener el trabajo: [reconstrucción y validación parcial](docs/EstadoListasSolicitadas.md). Las 67 clases tienen la reconstrucción solicitada aplicada; el último lote quedó con 117/354 funciones verificadas con las fuentes finales y un fallo pendiente en el destructor de GangFollower.
+<!-- /USER LISTS STOP STATUS -->
+
+Solicitud posterior: [`Interior_c` quedó reconstruida y validada](docs/InteriorValidation.md), con 52/52 funciones catalogadas y 74.752 comparaciones finales. El lote anterior permanece detenido; sus cifras de replay corresponden al cierre histórico indicado.
 
 ## Pendientes
 
@@ -460,11 +475,3 @@ El objetivo no es ganar una carrera de porcentajes. El objetivo es poder llegar 
 - Cientos de personas que han compartido sus conocimientos en [gtaforums.com](https://gtaforums.com/topic/194199-documenting-gta-sa-memory-addresses).
 - El [equipo de re3](https://github.com/GTAmodding/re3).
 - Todas las personas que han contribuido a la ingeniería inversa de GTA San Andreas.
-
-<!-- USER LISTS STOP STATUS -->
-Estado de las listas solicitadas al detener el trabajo: [reconstrucción y validación parcial](docs/EstadoListasSolicitadas.md). Las 67 clases tienen la reconstrucción solicitada aplicada; el último lote quedó con 117/354 funciones verificadas con las fuentes finales y un fallo pendiente en el destructor de GangFollower.
-<!-- /USER LISTS STOP STATUS -->
-
-Solicitud posterior: [`Interior_c` quedó reconstruida y validada](docs/InteriorValidation.md), con 52/52 funciones catalogadas y 74.752 comparaciones finales. El lote anterior permanece detenido; sus cifras de replay corresponden al cierre histórico indicado.
-
-Estado de la migracion a C++ al 12/10/2026: 111 funciones fuente convertidas y revalidadas. Quedan 849 apariciones de ensamblador y 246 declaraciones naked en 103 archivos; son conteos lexicos, no funciones. Lote final IntegerMinimal2: 8704 pares compartidos, cero diferencias, cero resultados nulos y restauracion verificada. Trabajo detenido por orden del usuario tras este lote. Lista completa: [archivos pendientes](reversing/CppOnlyMigration/FILES.md); evidencia y alcance: [migracion C++](reversing/CppOnlyMigration/README.md).
