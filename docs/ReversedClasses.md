@@ -6,7 +6,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-13 05:19 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-13 05:30 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -18,9 +18,9 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | Clases validadas (de las completas) | `████████████████████` | 784/784 · 100.00% |
 | Funciones reconstruidas | `████████████████████` | 8,550/8,550 · 100.00% |
 | Funciones validadas (de las reconstruidas) | `████████████████████` | 8,550/8,550 · 100.00% |
-| Funciones del código fuente escritas solo en C++ (sin ensamblador) | `███████████████████░` | 16,709/17,416 · 95.94% |
+| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `██████████████████░░` | 7,780/8,550 · 90.99% |
 
-Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra cuenta todas las definiciones de funciones de `source/game_sa` (no solo las del catálogo) que no contienen `__asm` ni `naked`; el detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
+Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
 **Migración de ensamblador a C++:** algunas clases ya reconstruidas y validadas todavía contienen ensamblador en su fuente (`__asm` o funciones `naked`), porque se reconstruyeron conservando exactamente el comportamiento del EXE. Pasarán por un proceso de conversión de ensamblador a C++ que conserve resultados idénticos y se vuelva a validar dentro del juego. Hasta entonces, «reconstruida y validada» no implica «escrita en C++». Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Lista de archivos pendientes: [FILES.md](../reversing/CppOnlyMigration/FILES.md) · [estado de la migración](../reversing/CppOnlyMigration/README.md).
 
