@@ -31,6 +31,8 @@ Vigente desde el 10/10/2026 por orden del propietario del proyecto. Resume las r
 8. **Auditar** la corrida con el `audit_run.py` del banco (`--archive`): pares, cero diferencias, ningún registro nulo, estado, partidas y configuración restaurados, hashes de fuentes.
 9. **Documentar una vez por lote:** `approvals.json`, `python -B contrib/audit_cpp_assembly.py`, `contrib/inventory_implementations.py`, textos de estado, y la evidencia del lote en su carpeta de estudio.
 10. **Verificar** con `python -B contrib/audit_hook_catalog.py --strict` y las pruebas de `contrib/tests/test_inventory_implementations.py` antes de publicar. Nada se sube a git sin que se pida.
+    - Si el lote usa el residuo de registros, ejecutar también `python -B contrib/audit_register_residue.py` (y añadir el objeto nuevo a `OBJECTS`) y sus pruebas en `contrib/tests/`.
+    - `contrib/inventory_implementations.py` necesita `tree-sitter` y `tree-sitter-cpp` (`contrib/requirements-implementations.txt`); sin ellos falla con `ModuleNotFoundError`. En esta máquina están en `C:\Users\pedro\.codex\tmp\resa-source-inventory-parser-stable`: ejecutar con `PYTHONPATH` apuntando ahí.
 
 ## Técnicas comprobadas
 

@@ -45,7 +45,7 @@ Bancos históricos completos con `herramientas/rerun_hist.py`; evidencia en `rev
 | Mix11 | 19520 | aprobado |
 | CTasks8c | 16896 | aprobado |
 | IK20, IKDataWarnings | 11264, ver resumen | aprobado |
-| FixHooks | — | falla en las comprobaciones estáticas con 16 hooks de vtable de otras clases (CTaskComplexGangFollower, CTaskGangHassleVehicle, CTaskGoToVehicleAndLean, CTaskSimpleDead::ProcessPed, CBike::ProcessAI) que el commit 0d0094be desbloqueó; el banco sigue esperándolos bloqueados. No depende de este lote y no se usa como evidencia |
+| FixHooks | 6144 | aprobado en la segunda versión del banco (`CppFourteenFilesUnified3`): la primera falló en las comprobaciones estáticas porque esperaba bloqueados y sin hook 16 hooks de vtable que el commit 0d0094be había desbloqueado y activado (CTaskComplexGangFollower, CTaskGangHassleVehicle, CTaskGoToVehicleAndLean, `CTaskSimpleDead::ProcessPed`, `CBike::ProcessAI`). Ahora acepta cualquiera de los dos estados reales (bloqueado con el hueco del EXE, o desbloqueado con el hueco en la DLL); el resto del banco no cambió |
 
 `python contrib/audit_register_residue.py` revisa ahora 11 objetos (0 violaciones).
 

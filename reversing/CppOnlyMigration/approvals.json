@@ -1832,7 +1832,15 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppFourteenFilesStudy/README.md",
-    "scope": "asin del CRT del EXE con ExeAsinDoubleCpp. FixHooks no sirve de evidencia: falla por hooks de otras clases que el commit 0d0094be desbloqueó (lista de 16 hooks bloqueados desactualizada), independiente de este cambio. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+    "scope": "asin del CRT del EXE con ExeAsinDoubleCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "FixHooks",
+        "run": "20261012-201153-692839",
+        "pairs": 6144,
+        "summary": "reversing/CppFourteenFilesUnified3/runs\\FixHooks-20261012-201153-692839/summary.json"
+      }
+    ]
   },
   "0x0065F330": {
     "identity": "CTaskSimpleGoToPointFine::SetTargetPos",

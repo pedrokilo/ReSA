@@ -124,7 +124,8 @@ inline void Update() {
     {
         json bad=json::array();
         for(auto& l:lockedVmt){ auto* h=FindHook(l.cls,l.name);
-            const bool ok=h&&h->Symbol()[0]=='V'&&h->Locked()&&!h->Hooked()&&Slot(l.vt,l.slot)==l.address;
+            // Bloqueado y sin hook: el hueco sigue siendo el del EXE. Desbloqueado y con hook (commit 0d0094be en adelante): el hueco apunta a la DLL.
+            const bool ok=h&&h->Symbol()[0]=='V'&&((h->Locked()&&!h->Hooked()&&Slot(l.vt,l.slot)==l.address)||(!h->Locked()&&h->Hooked()&&!InExe(Slot(l.vt,l.slot))));
             if(!ok)bad.push_back(std::string(l.cls)+"::"+l.name); }
         const bool distinct=Follow(OurVirtual(hooks[0]))!=Follow(OurVirtual(hooks[1]))&&Follow(OurVirtual(hooks[2]))!=Follow(dllWanderControl);
         // CEntity::Add-rect: el hueco 1 del EXE conmuta (comprobado despues de cambiar el estado)

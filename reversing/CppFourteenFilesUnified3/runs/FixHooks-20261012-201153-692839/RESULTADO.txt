@@ -1,0 +1,3 @@
+APROBADO: Hooks duplicados y virtuales con hook plano
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fixhooks\20261012-201153-692839

@@ -2188,7 +2188,7 @@
     "hooks.csv": "cff7932ea4a75958bee515763619c9a5b5e06f0ba7fa4863bd6cc14a9a5a9dbd",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "dfbb5a5cf4ea903729fb1b75ceb4d59d964bf7e2543a82375ec0913ac118601c",
+  "migration_registry_sha256": "aab5582a2129ab742265c1ee4d49dab222a12adf7eb437bcdcf2f3262f7c6cc7",
   "files_with_parse_errors": [
     "source/game_sa/Animation/AnimBlendAssocGroup.cpp",
     "source/game_sa/Animation/AnimBlendAssociation.cpp",
