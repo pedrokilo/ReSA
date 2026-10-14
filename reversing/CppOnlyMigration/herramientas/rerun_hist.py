@@ -55,4 +55,11 @@ for bank in sys.argv[2:]:
     after=set(l[3:].strip().replace('"','') for l in subprocess.run(['git','status','--porcelain','--',f'reversing/{bank}'],cwd=str(ROOT),capture_output=True,text=True,encoding='utf-8',errors='replace').stdout.splitlines() if l[:2].strip()=='M')
     for path in sorted(after-PRE.get(bank,set())):
         subprocess.run(['git','checkout','--',path],cwd=str(ROOT),capture_output=True)
+    # limpiar lo regenerable (sonda .pdb de ~1,7 GB, informe crudo del clon) solo si la evidencia ya se copió al repo
+    try:
+        sys.path.insert(0,str(Path(__file__).resolve().parent))
+        from limpiar_regenerables import limpiar_banco
+        copiado=any((OUT/'runs').glob(f'{bank}-*/summary.json')) if (OUT/'runs').exists() else False
+        r['limpieza_gb']=limpiar_banco(bank,r.get('folder') if copiado else None)
+    except Exception as e: r['limpieza_err']=str(e)
     r['secs']=round(time.time()-t0); res[bank]=r; print(json.dumps(r),flush=True)
