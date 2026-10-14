@@ -132,3 +132,5 @@ long __cdecl SecondsToMsCpp(double seconds);
 long __cdecl BytesToMsCpp(unsigned int bytes, unsigned int bytesPerSecond);
 int __cdecl WaveCursorBytesCpp(unsigned int position, unsigned int bytesPerSecond);
 float __cdecl SmoothFadeVolumeCpp(float diff, float start, unsigned int elapsed, int fadeTime);
+// 1 - num/den con enteros sin signo cargados como el EXE (CBulletTraces::Render).
+float __cdecl OneMinusUnsignedRatioCpp(unsigned int numerator, unsigned int denominator);

@@ -491,3 +491,11 @@ __declspec(noinline) float __cdecl SmoothFadeVolumeCpp(float diff, float start, 
     volatile float result = float(decibels + double(start));
     return result;
 }
+
+__declspec(noinline) float __cdecl OneMinusUnsignedRatioCpp(unsigned int numerator, unsigned int denominator) {
+    const double numeratorValue   = UnsignedAsX87(numerator);
+    const double denominatorValue = UnsignedAsX87(denominator);
+    const double ratio            = numeratorValue / denominatorValue;
+    volatile float result = float(1.0f - ratio);
+    return result;
+}

@@ -4,7 +4,7 @@
 
 # Archivos pendientes de convertir a C++
 
-97 archivos: 837 apariciones de ensamblador y 246 declaraciones naked.
+96 archivos: 835 apariciones de ensamblador y 246 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -18,7 +18,6 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Audio/Hardware/AEAudioHardware.cpp](../../source/game_sa/Audio/Hardware/AEAudioHardware.cpp) | 4 | 0 |
 | [source/game_sa/Audio/Loaders/AEMFDecoder.cpp](../../source/game_sa/Audio/Loaders/AEMFDecoder.cpp) | 3 | 0 |
 | [source/game_sa/Birds.cpp](../../source/game_sa/Birds.cpp) | 3 | 3 |
-| [source/game_sa/BulletTraces.cpp](../../source/game_sa/BulletTraces.cpp) | 2 | 0 |
 | [source/game_sa/Cam.cpp](../../source/game_sa/Cam.cpp) | 102 | 3 |
 | [source/game_sa/Camera.cpp](../../source/game_sa/Camera.cpp) | 43 | 1 |
 | [source/game_sa/CarAI.cpp](../../source/game_sa/CarAI.cpp) | 3 | 0 |

@@ -2081,5 +2081,77 @@
       }
     ],
     "scope": "Volumen de tormenta de arena con AudioLog10Times20Cpp(x) - 6 y atenuación bajo el agua con sqrt(d·d + dz·dz)·0,5714286f en float. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00723750": {
+    "identity": "CBulletTraces::AddTrace (PlayFrontEndSoundForTrace)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/BulletTraces.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Fx43",
+    "run": "20261014-005137-867124",
+    "pairs": 15552,
+    "own_pairs": 1024,
+    "audit": "reversing/CppBulletTracesUnified/runs\\Fx43-20261014-005137-867124/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppBulletTracesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "Data7",
+        "run": "20261014-003902-627858",
+        "pairs": 13760,
+        "summary": "reversing/CppBulletTracesUnified/runs\\Data7-20261014-003902-627858/summary.json"
+      },
+      {
+        "bank": "Replay47",
+        "run": "20261014-004813-437223",
+        "pairs": 18208,
+        "summary": "reversing/CppBulletTracesUnified/runs\\Replay47-20261014-004813-437223/summary.json"
+      },
+      {
+        "bank": "WeaponFinal2",
+        "run": "20261014-005019-572596",
+        "pairs": 7808,
+        "summary": "reversing/CppBulletTracesUnified/runs\\WeaponFinal2-20261014-005019-572596/summary.json"
+      }
+    ],
+    "scope": "Volumen del sonido de la bala con AudioLog10Times20Cpp(factor), igual que el fyl2x del EXE (0x7238F7). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00723C10": {
+    "identity": "CBulletTraces::Render",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/BulletTraces.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Fx43",
+    "run": "20261014-005137-867124",
+    "pairs": 15552,
+    "own_pairs": 512,
+    "audit": "reversing/CppBulletTracesUnified/runs\\Fx43-20261014-005137-867124/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppBulletTracesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "Data7",
+        "run": "20261014-003902-627858",
+        "pairs": 13760,
+        "summary": "reversing/CppBulletTracesUnified/runs\\Data7-20261014-003902-627858/summary.json"
+      },
+      {
+        "bank": "Replay47",
+        "run": "20261014-004813-437223",
+        "pairs": 18208,
+        "summary": "reversing/CppBulletTracesUnified/runs\\Replay47-20261014-004813-437223/summary.json"
+      },
+      {
+        "bank": "WeaponFinal2",
+        "run": "20261014-005019-572596",
+        "pairs": 7808,
+        "summary": "reversing/CppBulletTracesUnified/runs\\WeaponFinal2-20261014-005019-572596/summary.json"
+      }
+    ],
+    "scope": "Progreso 1 - transcurrido/duración con OneMinusUnsignedRatioCpp (enteros sin signo cargados como el EXE). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
   }
 }

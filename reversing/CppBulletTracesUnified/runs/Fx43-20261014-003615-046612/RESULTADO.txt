@@ -1,0 +1,3 @@
+FALLO: Audio del clima, efectos, fuego, entrada y JPEG (lista de 43)
+Funciones con diferencias: CFire::ProcessFire: 609/1024; CMovingThings::Init: 64/64; FxMemoryPool_c::Init: 64/64; FxMemoryPool_c::Optimise: 128/128
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fx43\20261014-003615-046612

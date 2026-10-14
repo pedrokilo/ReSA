@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "BulletTraces.h"
 
 void CBulletTraces::InjectHooks()
@@ -91,15 +92,7 @@ void PlayFrontEndSoundForTrace(const CVector& fromWorldSpace, const CVector& toW
     const float factor = 1.f - camToLineDist * 0.5f;
     float volume = -100.f;
     if (factor != 0.f) {
-        const float decibels = 20.f;
-        __asm {
-            fld factor
-            fldlg2
-            fxch st(1)
-            fyl2x
-            fmul decibels
-            fstp volume
-        }
+        volume = AudioLog10Times20Cpp(factor);
     }
     eAudioEvents event;
     if (!(pointX < 0.f)) {
@@ -225,25 +218,7 @@ void CBulletTraces::Render() {
         // Time progress 1 => 0 as time passes
         // Como el original: enteros sin signo cargados con fild (+2^32) y una sola division redondeada.
         const uint32 elapsed = trace.GetRemainingLifetime(), lifeTime = trace.m_nLifeTime;
-        const float twoPow32 = 4294967296.f, one = 1.f;
-        float t;
-        __asm {
-            mov eax, elapsed
-            fild elapsed
-            test eax, eax
-            jge trace_elapsed_ok
-            fadd twoPow32
-        trace_elapsed_ok:
-            mov ecx, lifeTime
-            fild lifeTime
-            test ecx, ecx
-            jge trace_life_ok
-            fadd twoPow32
-        trace_life_ok:
-            fdivp st(1), st
-            fsubr one
-            fstp t
-        }
+        const float t = OneMinusUnsignedRatioCpp(elapsed, lifeTime);
         const auto alpha = (uint8)(int32)((float)trace.m_nTransparency * t);
 
         const float size = t * trace.m_fRadius;

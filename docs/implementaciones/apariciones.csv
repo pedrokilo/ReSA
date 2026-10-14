@@ -38,8 +38,6 @@ source/game_sa/Birds.cpp,121,naked,BirdsAddAtan2,121
 source/game_sa/Birds.cpp,122,inline_assembly,BirdsAddAtan2,121
 source/game_sa/Birds.cpp,133,naked,BirdsRotate,133
 source/game_sa/Birds.cpp,134,inline_assembly,BirdsRotate,133
-source/game_sa/BulletTraces.cpp,95,inline_assembly,PlayFrontEndSoundForTrace,61
-source/game_sa/BulletTraces.cpp,230,inline_assembly,CBulletTraces::Render,199
 source/game_sa/Cam.cpp,62,inline_assembly,CamExeSin,60
 source/game_sa/Cam.cpp,71,inline_assembly,CamExeCos,69
 source/game_sa/Cam.cpp,430,inline_assembly,CCam::Get_TwoPlayer_AimVector,404

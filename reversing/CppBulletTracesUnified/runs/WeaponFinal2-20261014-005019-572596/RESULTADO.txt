@@ -1,0 +1,3 @@
+APROBADO: CWeapon pendientes (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-weaponfinal2\20261014-005019-572596

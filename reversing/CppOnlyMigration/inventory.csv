@@ -38,8 +38,6 @@ source/game_sa/Birds.cpp,121,naked,pending_cpp_conversion
 source/game_sa/Birds.cpp,122,inline_assembly,pending_cpp_conversion
 source/game_sa/Birds.cpp,133,naked,pending_cpp_conversion
 source/game_sa/Birds.cpp,134,inline_assembly,pending_cpp_conversion
-source/game_sa/BulletTraces.cpp,95,inline_assembly,pending_cpp_conversion
-source/game_sa/BulletTraces.cpp,230,inline_assembly,pending_cpp_conversion
 source/game_sa/Cam.cpp,62,inline_assembly,pending_cpp_conversion
 source/game_sa/Cam.cpp,71,inline_assembly,pending_cpp_conversion
 source/game_sa/Cam.cpp,430,inline_assembly,pending_cpp_conversion

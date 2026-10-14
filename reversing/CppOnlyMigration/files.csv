@@ -7,7 +7,6 @@ source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,6,0
 source/game_sa/Audio/Hardware/AEAudioHardware.cpp,4,0
 source/game_sa/Audio/Loaders/AEMFDecoder.cpp,3,0
 source/game_sa/Birds.cpp,3,3
-source/game_sa/BulletTraces.cpp,2,0
 source/game_sa/Cam.cpp,102,3
 source/game_sa/Camera.cpp,43,1
 source/game_sa/CarAI.cpp,3,0

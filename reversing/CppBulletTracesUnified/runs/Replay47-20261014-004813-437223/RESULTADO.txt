@@ -1,0 +1,3 @@
+APROBADO: CReplay (47 funciones)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-replay47\20261014-004813-437223

@@ -6,9 +6,9 @@
 
 Este documento distingue el lenguaje de la fuente, la reconstrucción, la validación registrada y la independencia del EXE. Reconstruir un cuerpo en ensamblador también es ingeniería inversa; una envoltura que delega el cuerpo al original no lo reconstruye por sí sola.
 
-El inventario asigna **837 apariciones de ensamblador** a **697 definiciones con cuerpo** y **246 declaraciones naked** a **246 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
+El inventario asigna **835 apariciones de ensamblador** a **695 definiciones con cuerpo** y **246 declaraciones naked** a **246 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 697 definiciones, **438 son mixtas** y **259 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 17422 definiciones en 1966 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 695 definiciones, **436 son mixtas** y **259 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 17423 definiciones en 1966 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -19,7 +19,7 @@ De esas 697 definiciones, **438 son mixtas** y **259 contienen sólo ensamblador
 - Una envoltura C++ se reconoce conservadoramente cuando el único statement es una llamada plugin::Call* a dirección fija. Algunos trampolines ASM simples también se reconocen. Otras envolturas indirectas pueden permanecer sin resolver.
 - Se registran colaboradores con dirección fija y posibles datos fijos referenciados por nombre. Un destino catalogado puede estar reconstruido y enlazado mediante hook; el inventario **no determina la ruta efectiva**. Direcciones por sí solas no prueban ausencia de reconstrucción.
 - «Sin indicio directo» sólo significa que los patrones examinados no lo encontraron. No se resuelven todas las llamadas virtuales, macros, alias, punteros ni dependencias transitivas. **Ningún grupo se declara standalone demostrado.**
-- Tree-sitter detectó errores de análisis en 859 cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los 697 cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.
+- Tree-sitter detectó errores de análisis en 859 cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los 695 cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.
 
 - 906 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
 
@@ -124,7 +124,7 @@ De esas 697 definiciones, **438 son mixtas** y **259 contienen sólo ensamblador
 | [CBuildingPool](implementaciones/detalle-005.md#grupo-95) · [source/game_sa/Pools/BuildingPool.h](../source/game_sa/Pools/BuildingPool.h) | 1 | 0 | 1 | 0 | 0 |
 | [CBulletInfo](implementaciones/detalle-005.md#grupo-96) · [source/game_sa/BulletInfo.cpp](../source/game_sa/BulletInfo.cpp) | 4 | 0 | 3 | 0 | 0 |
 | [CBulletTrace](implementaciones/detalle-005.md#grupo-97) · [source/game_sa/BulletTrace.h](../source/game_sa/BulletTrace.h) | 0 | 0 | 3 | 0 | 0 |
-| [CBulletTraces](implementaciones/detalle-005.md#grupo-98) · [source/game_sa/BulletTraces.cpp](../source/game_sa/BulletTraces.cpp), [source/game_sa/BulletTraces.h](../source/game_sa/BulletTraces.h) | 4 | 1 | 3 | 1 | 0 |
+| [CBulletTraces](implementaciones/detalle-005.md#grupo-98) · [source/game_sa/BulletTraces.cpp](../source/game_sa/BulletTraces.cpp), [source/game_sa/BulletTraces.h](../source/game_sa/BulletTraces.h) | 5 | 0 | 3 | 0 | 0 |
 | [CCam](implementaciones/detalle-005.md#grupo-99) · [source/game_sa/Cam.cpp](../source/game_sa/Cam.cpp), [source/game_sa/Cam.h](../source/game_sa/Cam.h) | 29 | 18 | 6 | 29 | 3 |
 | [CCamera](implementaciones/detalle-005.md#grupo-100) · [source/game_sa/Camera.cpp](../source/game_sa/Camera.cpp), [source/game_sa/Camera.h](../source/game_sa/Camera.h) | 104 | 10 | 20 | 15 | 1 |
 | [CCarAI](implementaciones/detalle-006.md#grupo-101) · [source/game_sa/CarAI.cpp](../source/game_sa/CarAI.cpp) | 25 | 0 | 1 | 0 | 0 |
@@ -1057,7 +1057,7 @@ De esas 697 definiciones, **438 son mixtas** y **259 contienen sólo ensamblador
 | [Globales y helpers: source/game_sa/BouncingPanel.cpp](implementaciones/detalle-052.md#grupo-1028) · [source/game_sa/BouncingPanel.cpp](../source/game_sa/BouncingPanel.cpp) | 0 | 0 | 3 | 0 | 0 |
 | [Globales y helpers: source/game_sa/BreakObject_c.cpp](implementaciones/detalle-052.md#grupo-1029) · [source/game_sa/BreakObject_c.cpp](../source/game_sa/BreakObject_c.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/BrightLights.cpp](implementaciones/detalle-052.md#grupo-1030) · [source/game_sa/BrightLights.cpp](../source/game_sa/BrightLights.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [Globales y helpers: source/game_sa/BulletTraces.cpp](implementaciones/detalle-052.md#grupo-1031) · [source/game_sa/BulletTraces.cpp](../source/game_sa/BulletTraces.cpp) | 0 | 0 | 1 | 1 | 0 |
+| [Globales y helpers: source/game_sa/BulletTraces.cpp](implementaciones/detalle-052.md#grupo-1031) · [source/game_sa/BulletTraces.cpp](../source/game_sa/BulletTraces.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Buoyancy.cpp](implementaciones/detalle-052.md#grupo-1032) · [source/game_sa/Buoyancy.cpp](../source/game_sa/Buoyancy.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/C_PcSave.cpp](implementaciones/detalle-052.md#grupo-1033) · [source/game_sa/C_PcSave.cpp](../source/game_sa/C_PcSave.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Cam.cpp](implementaciones/detalle-052.md#grupo-1034) · [source/game_sa/Cam.cpp](../source/game_sa/Cam.cpp) | 0 | 8 | 69 | 73 | 0 |
@@ -1839,7 +1839,7 @@ De esas 697 definiciones, **438 son mixtas** y **259 contienen sólo ensamblador
 | [Globales y helpers: source/game_sa/Weather.cpp](implementaciones/detalle-091.md#grupo-1810) · [source/game_sa/Weather.cpp](../source/game_sa/Weather.cpp) | 0 | 0 | 13 | 5 | 0 |
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-091.md#grupo-1811) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 19 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-091.md#grupo-1812) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-091.md#grupo-1813) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 62 | 0 | 0 | 0 | 0 |
+| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-091.md#grupo-1813) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 63 | 0 | 0 | 0 | 0 |
 | [Globales y helpers: source/game_sa/X87Math.h](implementaciones/detalle-091.md#grupo-1814) · [source/game_sa/X87Math.h](../source/game_sa/X87Math.h) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-091.md#grupo-1815) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 6 | 5 | 1 |
 | [Globales y helpers: source/game_sa/common.cpp](implementaciones/detalle-091.md#grupo-1816) · [source/game_sa/common.cpp](../source/game_sa/common.cpp) | 3 | 0 | 11 | 1 | 0 |
