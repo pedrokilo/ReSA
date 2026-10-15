@@ -261,6 +261,8 @@ public:
 
     // Registra la dirección de un puntero externo para poder anularlo al destruir this.
     void RegisterReference(CEntity** entity);
+    // Como RegisterReference, y devuelve el EDX con que sale 0x571B70 (entryEdx si no inserta ni poda; ver Entity.cpp). Solo lo lee TaskComplexWaitForPed::Constructor.
+    uint32 RegisterReferenceWithResidue(CEntity** entity, uint32 entryEdx);
 
     // Mantiene la lista de referencias externas y elimina entradas obsoletas.
     void CleanUpOldReference(CEntity** entity);

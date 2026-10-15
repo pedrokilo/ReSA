@@ -3753,5 +3753,101 @@
     "state_restored": true,
     "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
     "scope": "Ayudantes PostFx* de X87Math (log y tan como intrínsecos). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00719670": {
+    "identity": "CFont::GetScriptLetterSize (naked auxiliar ScriptSubFontNativeAbi)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Font.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesWorldFxFont5",
+    "run": "20261015-002933-383584",
+    "pairs": 15360,
+    "own_pairs": 15360,
+    "audit": "reversing/CppFiveLevel2Unified/runs\\DependenciesWorldFxFont5-20261015-002933-383584/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFiveLevel2Study/README.md",
+    "scope": "C++ plano: lectura por puntero crudo de IntroTextLines y gFontData como el EXE, suma entera y un solo producto float. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00683340": {
+    "identity": "CTaskComplexWaitForPed::Constructor y TaskCtorRegisterReference",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesTaskCtor4",
+    "run": "20261015-005325-860038",
+    "pairs": 4096,
+    "own_pairs": 4096,
+    "audit": "reversing/CppFiveLevel2Unified/runs\\DependenciesTaskCtor4-20261015-005325-860038/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFiveLevel2Study/README.md",
+    "scope": "Marco SEH manual en fs:[0], ResidueRegsCpp y reproducción del EDX que deja 0x571B70 (tiempo con byte bajo = booleano si no inserta referencia; cabeza anterior de la lista si inserta; restos de los bucles de poda si se agotan las listas). Con CEntity::RegisterReferenceWithResidue (source/game_sa/Entity/Entity.cpp) se reproduce el EDX de todas las salidas de 0x571B70, incluida la poda de las tres pools; esa rama no la ejerce ningún par del banco. Verificado por contrib/audit_register_residue.py. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "CEntB",
+        "run": "20261015-005436-852257",
+        "pairs": 13824,
+        "summary": "reversing/CppFiveLevel2Unified/runs\\CEntB-20261015-005436-852257/summary.json"
+      }
+    ]
+  },
+  "0x00711EF0": {
+    "identity": "CBirds::CreateNumberOfBirds y Update (BirdsAtan2, BirdsAddAtan2, BirdsRotate)",
+    "converted_source_functions": 3,
+    "source": "source/game_sa/Birds.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CppTrigCompound6Birds",
+    "run": "20261015-003134-956039",
+    "pairs": 2560,
+    "own_pairs": 2560,
+    "audit": "reversing/CppFiveLevel2Unified/runs\\CppTrigCompound6Birds-20261015-003134-956039/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFiveLevel2Study/README.md",
+    "additional_banks": [
+      {
+        "bank": "CppTrigBirdsRender",
+        "run": "20261015-003225-928700",
+        "pairs": 512,
+        "summary": "reversing/CppFiveLevel2Unified/runs\\CppTrigBirdsRender-20261015-003225-928700/summary.json"
+      }
+    ],
+    "scope": "TrigAtan2Cpp, BirdsAddAtan2Cpp y BirdsRotateCpp (seno y coseno sin redondear, un redondeo por producto, x e y leídos antes de escribir). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00441DB0": {
+    "identity": "CPlaceable::GetHeading y GetRoll (naked), y PlaceableHeadingFromForward",
+    "converted_source_functions": 3,
+    "source": "source/game_sa/Entity/Placeable.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "World16",
+    "run": "20261015-005547-395224",
+    "pairs": 19680,
+    "own_pairs": 19680,
+    "audit": "reversing/CppFiveLevel2Unified/runs\\World16-20261015-005547-395224/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFiveLevel2Study/README.md",
+    "scope": "PlaceableHeadingDblCpp y PlaceableRollDblCpp devuelven double con el fpatan sin redondear en ST0; Placeable.cpp los enlaza con /alternatename como float. Comprobado en el objeto sin optimizar: call, add esp y ret sin fstp ni fld tras la llamada; no se cambian las opciones de compilación del archivo. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0059B390": {
+    "identity": "CMatrix::RotateZ en CTaskSimpleHoldEntity::SetPedPosition y atan2 de ProcessPed (HoldAtan2X87, HoldHeadingMinusX87, HoldRotateZ_59B390)",
+    "converted_source_functions": 3,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CTasks14b",
+    "run": "20261015-003310-686559",
+    "pairs": 12352,
+    "own_pairs": 12352,
+    "audit": "reversing/CppFiveLevel2Unified/runs\\CTasks14b-20261015-003310-686559/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppFiveLevel2Study/README.md",
+    "scope": "TrigAtan2Cpp, Atan2MinusCpp y HoldEntityRotateZCpp (coseno sin redondear, seno guardado como float, un redondeo por operación). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
   }
 }

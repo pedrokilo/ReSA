@@ -1,0 +1,3 @@
+FALLO: Native task constructors
+Funciones con diferencias: CTaskComplexWaitForPed::Constructor: 512/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciestaskctor4\20261015-003025-534180

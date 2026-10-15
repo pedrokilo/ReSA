@@ -8,15 +8,6 @@
 
 <a id="grupo-1801"></a>
 
-## Globales y helpers: source/game_sa/Wanted.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| WantedAsInt(eWantedLevel level) | [source/game_sa/Wanted.cpp:70](../../source/game_sa/Wanted.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| WantedDistSqZYX(const CVector& from, const CVector& to) | [source/game_sa/Wanted.cpp:75](../../source/game_sa/Wanted.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1802"></a>
-
 ## Globales y helpers: source/game_sa/WaterCreature_c.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -27,7 +18,7 @@
 | SetHeading_6E4(CPlaceable* placeable, float heading) | [source/game_sa/WaterCreature_c.cpp:77](../../source/game_sa/WaterCreature_c.cpp#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | RandomPercent_6E4() | [source/game_sa/WaterCreature_c.cpp:86](../../source/game_sa/WaterCreature_c.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1803"></a>
+<a id="grupo-1802"></a>
 
 ## Globales y helpers: source/game_sa/WaterLevel.cpp
 
@@ -42,7 +33,7 @@
 | WaterNearestDistance(double x, double y) | [source/game_sa/WaterLevel.cpp:908](../../source/game_sa/WaterLevel.cpp#L908) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | WaterRenderShifts() | [source/game_sa/WaterLevel.cpp:1521](../../source/game_sa/WaterLevel.cpp#L1521) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1804"></a>
+<a id="grupo-1803"></a>
 
 ## Globales y helpers: source/game_sa/WaterLevel.h
 
@@ -50,7 +41,7 @@
 | --- | --- | --- | --- | --- | --- |
 | lerp(CRenPar rp1, CRenPar rp2, float t) | [source/game_sa/WaterLevel.h:18](../../source/game_sa/WaterLevel.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1805"></a>
+<a id="grupo-1804"></a>
 
 ## Globales y helpers: source/game_sa/Weapon.cpp
 
@@ -63,7 +54,7 @@
 | InstantHitSwayAccumulate355(CVector* endpoint,const CVector* sineBasis,const CVector* cosineBasis,float amplitude,float sine,float cosine) | [source/game_sa/Weapon.cpp:1792](../../source/game_sa/Weapon.cpp#L1792) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | InstantHitOscillation(uint32 milliseconds, float& sine, float& cosine) | [source/game_sa/Weapon.cpp:1797](../../source/game_sa/Weapon.cpp#L1797) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1806"></a>
+<a id="grupo-1805"></a>
 
 ## Globales y helpers: source/game_sa/WeaponInfo.cpp
 
@@ -72,7 +63,7 @@
 | GetBaseComboByName(const char* name) | [source/game_sa/WeaponInfo.cpp:160](../../source/game_sa/WeaponInfo.cpp#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FindAnimGroupIndexByName(const char* name, bool& found) | [source/game_sa/WeaponInfo.cpp:180](../../source/game_sa/WeaponInfo.cpp#L180) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1807"></a>
+<a id="grupo-1806"></a>
 
 ## Globales y helpers: source/game_sa/Weather.cpp
 
@@ -87,7 +78,7 @@
 | IsHeatHazeType(int16 w) | [source/game_sa/Weather.cpp:105](../../source/game_sa/Weather.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | StepTowards(float& value, float target, float step) | [source/game_sa/Weather.cpp:110](../../source/game_sa/Weather.cpp#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1808"></a>
+<a id="grupo-1807"></a>
 
 ## Globales y helpers: source/game_sa/World.cpp
 
@@ -113,7 +104,7 @@
 | WldEMatrixTimesPoint(const CMatrix& m, const CVector& v) | [source/game_sa/World.cpp:2101](../../source/game_sa/World.cpp#L2101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | WorldDampMoveSpeedExe(float* moveSpeed) | [source/game_sa/World.cpp:2402](../../source/game_sa/World.cpp#L2402) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1809"></a>
+<a id="grupo-1808"></a>
 
 ## Globales y helpers: source/game_sa/World_Helper.cpp
 
@@ -124,7 +115,7 @@
 | FindPlayerHeight(int32 playerId) | [source/game_sa/World_Helper.cpp:147](../../source/game_sa/World_Helper.cpp#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & FindPlayerGroup(int32 playerId) | [source/game_sa/World_Helper.cpp:158](../../source/game_sa/World_Helper.cpp#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1810"></a>
+<a id="grupo-1809"></a>
 
 ## Globales y helpers: source/game_sa/X87Math.cpp
 
@@ -320,8 +311,13 @@
 | WeatherAudioCityNoiseArgument(float dist, float speed) | [source/game_sa/X87Math.cpp:1731](../../source/game_sa/X87Math.cpp#L1731) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | WeatherAudioCityNoiseOffsetCpp(float dist, float speed) | [source/game_sa/X87Math.cpp:1736](../../source/game_sa/X87Math.cpp#L1736) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | WeatherAudioRainTargetCpp(float wet, int defaultVolume) | [source/game_sa/X87Math.cpp:1742](../../source/game_sa/X87Math.cpp#L1742) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| BirdsAddAtan2Cpp(float add, float x, float y) | [source/game_sa/X87Math.cpp:1749](../../source/game_sa/X87Math.cpp#L1749) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| BirdsRotateCpp(float angle, float* px, float* py) | [source/game_sa/X87Math.cpp:1755](../../source/game_sa/X87Math.cpp#L1755) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| HoldEntityRotateZCpp(float* m, float angle) | [source/game_sa/X87Math.cpp:1772](../../source/game_sa/X87Math.cpp#L1772) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PlaceableHeadingDblCpp(const float* forward) | [source/game_sa/X87Math.cpp:1792](../../source/game_sa/X87Math.cpp#L1792) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PlaceableRollDblCpp(const float* right, float upZ) | [source/game_sa/X87Math.cpp:1797](../../source/game_sa/X87Math.cpp#L1797) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1811"></a>
+<a id="grupo-1810"></a>
 
 ## Globales y helpers: source/game_sa/X87Math.h
 
@@ -329,7 +325,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ResidueRegsCpp(unsigned int ecxValue, unsigned int edxValue, unsigned int eaxValue) | [source/game_sa/X87Math.h:56](../../source/game_sa/X87Math.h#L56) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1812"></a>
+<a id="grupo-1811"></a>
 
 ## Globales y helpers: source/game_sa/cHandlingDataMgr.cpp
 
@@ -342,7 +338,7 @@
 | SinX87(float value) | [source/game_sa/cHandlingDataMgr.cpp:466](../../source/game_sa/cHandlingDataMgr.cpp#L466) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | AsinDegreesHandlingX87(float x) | [source/game_sa/cHandlingDataMgr.cpp:482](../../source/game_sa/cHandlingDataMgr.cpp#L482) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1813"></a>
+<a id="grupo-1812"></a>
 
 ## Globales y helpers: source/game_sa/common.cpp
 
@@ -363,7 +359,7 @@
 | UnicodeToUTF8(const std::wstring& str) | [source/game_sa/common.cpp:288](../../source/game_sa/common.cpp#L288) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * RpAnimBlendClumpGetAssociation(RpClump* clump, std::initializer_list&lt;AnimationId&gt; ids) | [source/game_sa/common.cpp:309](../../source/game_sa/common.cpp#L309) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1814"></a>
+<a id="grupo-1813"></a>
 
 ## Globales y helpers: source/game_sa/common.h
 
@@ -396,7 +392,7 @@
 | make_fourcc4(const char* line, const char abcd\[4\]) | [source/game_sa/common.h:232](../../source/game_sa/common.h#L232) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MakeFourCC(const char fourcc\[4\]) | [source/game_sa/common.h:237](../../source/game_sa/common.h#L237) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1815"></a>
+<a id="grupo-1814"></a>
 
 ## HeapBlockDesc
 
@@ -408,7 +404,7 @@
 | * HeapBlockDesc::_GetBlockData() const | [source/game_sa/Memory/HeapBlockDesc.cpp:25](../../source/game_sa/Memory/HeapBlockDesc.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HeapBlockDesc::_DumpBlockInfo() const | [source/game_sa/Memory/HeapBlockDesc.cpp:29](../../source/game_sa/Memory/HeapBlockDesc.cpp#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1816"></a>
+<a id="grupo-1815"></a>
 
 ## HeapBlockFlags
 
@@ -416,7 +412,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ResetFlags(bool IsBound = false) | [source/game_sa/Memory/HeapBlockDesc.h:25](../../source/game_sa/Memory/HeapBlockDesc.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1817"></a>
+<a id="grupo-1816"></a>
 
 ## HeapFreeBlockDesc
 
@@ -429,7 +425,7 @@
 | HeapFreeBlockDesc::ReplaceHeapFreeBlock(HeapFreeBlockDesc* desc) | [source/game_sa/Memory/HeapFreeBlockDesc.cpp:33](../../source/game_sa/Memory/HeapFreeBlockDesc.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HeapFreeBlockDesc::RemoveHeapFreeBlock() | [source/game_sa/Memory/HeapFreeBlockDesc.cpp:43](../../source/game_sa/Memory/HeapFreeBlockDesc.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1818"></a>
+<a id="grupo-1817"></a>
 
 ## IKChainManager_c
 
@@ -456,7 +452,7 @@
 | IKChainManager_c::IsFacingTarget(CPed* ped, eIKChainSlot slot) const | [source/game_sa/Ragdoll/IKChainManager.cpp:338](../../source/game_sa/Ragdoll/IKChainManager.cpp#L338) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChainManager_c::IsFacingTarget 0x00618330 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IKChainManager_c::PointArm(const char* purpose, eIKArm pedArmId, CPed* ped, CEntity* lookAtEntity, eBoneTag32 offsetBoneTag, CVector* offset, float speed, int32 blendTime, float cullDist) const | [source/game_sa/Ragdoll/IKChainManager.cpp:348](../../source/game_sa/Ragdoll/IKChainManager.cpp#L348) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChainManager_c::PointArm 0x00618B60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1819"></a>
+<a id="grupo-1818"></a>
 
 ## IKChain_c
 
@@ -488,7 +484,7 @@
 | GetBones() | [source/game_sa/Ragdoll/IKChain.h:52](../../source/game_sa/Ragdoll/IKChain.h#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetIKSlot() const | [source/game_sa/Ragdoll/IKChain.h:54](../../source/game_sa/Ragdoll/IKChain.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1820"></a>
+<a id="grupo-1819"></a>
 
 ## InteriorGroup_c
 
@@ -524,3 +520,33 @@
 | GetPeds() | [source/game_sa/Interior/InteriorGroup_c.h:44](../../source/game_sa/Interior/InteriorGroup_c.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetId() const | [source/game_sa/Interior/InteriorGroup_c.h:72](../../source/game_sa/Interior/InteriorGroup_c.h#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_id: source/game_sa/MemoryMgr.h:101 (0x00C87B1C) |
 | GetInteriors() const | [source/game_sa/Interior/InteriorGroup_c.h:74](../../source/game_sa/Interior/InteriorGroup_c.h#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1820"></a>
+
+## InteriorManager_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| InteriorManager_c::InjectHooks() | [source/game_sa/Interior/InteriorManager_c.cpp:29](../../source/game_sa/Interior/InteriorManager_c.cpp#L29) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_furnitureMan: source/game_sa/Interior/FurnitureManager_c.h:46 (0x00BAB380); Posible dato fijo g_interiorMan: source/game_sa/Interior/InteriorManager_c.h:99 (0x00BAF670); Posible dato fijo m_IsActive: source/game_sa/DecisionMakers/DecisionMakerTypes.h:46 (0x00C0B01C); Posible dato fijo m_id: source/game_sa/MemoryMgr.h:101 (0x00C87B1C); Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8) |
+| InteriorManager_c::Update() | [source/game_sa/Interior/InteriorManager_c.cpp:106](../../source/game_sa/Interior/InteriorManager_c.cpp#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::Update 0x00598F50 | 0 / 0 | Posible dato fijo m_IsActive: source/game_sa/DecisionMakers/DecisionMakerTypes.h:46 (0x00C0B01C) |
+| InteriorManager_c::PruneVisibleEffects(InteriorEffectInfo_t* infos, size_t numInfos, size_t maxVisibleFxCount, float maxDist) | [source/game_sa/Interior/InteriorManager_c.cpp:207](../../source/game_sa/Interior/InteriorManager_c.cpp#L207) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::PruneVisibleEffects 0x00598A60 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:39 (0x00B6F028) |
+| InteriorManager_c::AddSameGroupEffectInfos(InteriorEffectInfo_t* ifxi, int32) | [source/game_sa/Interior/InteriorManager_c.cpp:264](../../source/game_sa/Interior/InteriorManager_c.cpp#L264) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::AddSameGroupEffectInfos 0x00598430 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InteriorManager_c::AreAnimsLoaded(int32 animBlock) const | [source/game_sa/Interior/InteriorManager_c.cpp:289](../../source/game_sa/Interior/InteriorManager_c.cpp#L289) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::AreAnimsLoaded 0x005980F0 | 0 / 0 | Conversión de dirección fija: 0x00B5D4B0 |
+| InteriorManager_c::Exit() | [source/game_sa/Interior/InteriorManager_c.cpp:301](../../source/game_sa/Interior/InteriorManager_c.cpp#L301) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::Exit 0x00598010 | 0 / 0 | Posible dato fijo g_furnitureMan: source/game_sa/Interior/FurnitureManager_c.h:46 (0x00BAB380) |
+| InteriorManager_c::GetVisibleEffects(InteriorEffectInfo_t* intFxInfos, uint32 maxNumIntFxInfo) | [source/game_sa/Interior/InteriorManager_c.cpp:315](../../source/game_sa/Interior/InteriorManager_c.cpp#L315) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::GetVisibleEffects 0x00598D80 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:39 (0x00B6F028); Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914) |
+| InteriorManager_c::IsInteriorEffectVisible(C2dEffectInterior*, CEntity* entity) | [source/game_sa/Interior/InteriorManager_c.cpp:372](../../source/game_sa/Interior/InteriorManager_c.cpp#L372) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::IsInteriorEffectVisible 0x00598690 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:39 (0x00B6F028) |
+| * InteriorManager_c::GetPedsInterior(const CPed* ped) | [source/game_sa/Interior/InteriorManager_c.cpp:412](../../source/game_sa/Interior/InteriorManager_c.cpp#L412) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::GetPedsInterior 0x00598620 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InteriorManager_c::ReturnInteriorToPool(Interior_c* interior) | [source/game_sa/Interior/InteriorManager_c.cpp:426](../../source/game_sa/Interior/InteriorManager_c.cpp#L426) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::ReturnInteriorToPool 0x005984B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * InteriorManager_c::GetInteriorFromPool() | [source/game_sa/Interior/InteriorManager_c.cpp:431](../../source/game_sa/Interior/InteriorManager_c.cpp#L431) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::GetInteriorFromPool 0x005984A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * InteriorManager_c::GetVectorsInterior(const CVector& pt) | [source/game_sa/Interior/InteriorManager_c.cpp:437](../../source/game_sa/Interior/InteriorManager_c.cpp#L437) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::GetVectorsInterior 0x005983D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InteriorManager_c::SetStealableObjectStolen(CEntity* entity, uint8 isStolen) | [source/game_sa/Interior/InteriorManager_c.cpp:449](../../source/game_sa/Interior/InteriorManager_c.cpp#L449) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::SetStealableObjectStolen 0x00598390 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InteriorManager_c::FindStealableObjectId(CEntity* entity) const | [source/game_sa/Interior/InteriorManager_c.cpp:457](../../source/game_sa/Interior/InteriorManager_c.cpp#L457) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::FindStealableObjectId-1 0x00598360 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InteriorManager_c::FindStealableObjectId(int32 interiorId, int32 modelId, CVector point) const | [source/game_sa/Interior/InteriorManager_c.cpp:467](../../source/game_sa/Interior/InteriorManager_c.cpp#L467) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::FindStealableObjectId-2 0x005982F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InteriorManager_c::HasInteriorHadStealDataSetup(Interior_c* interior) const | [source/game_sa/Interior/InteriorManager_c.cpp:478](../../source/game_sa/Interior/InteriorManager_c.cpp#L478) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::HasInteriorHadStealDataSetup 0x005982B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InteriorManager_c::IsGroupActive(int32 groupType) const | [source/game_sa/Interior/InteriorManager_c.cpp:488](../../source/game_sa/Interior/InteriorManager_c.cpp#L488) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::IsGroupActive 0x00598280 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * InteriorManager_c::GetPedsInteriorGroup(const CPed* ped) | [source/game_sa/Interior/InteriorManager_c.cpp:498](../../source/game_sa/Interior/InteriorManager_c.cpp#L498) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::GetPedsInteriorGroup 0x00598240 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InteriorManager_c::SetEntryExitPtr(CEntryExit* enex) | [source/game_sa/Interior/InteriorManager_c.cpp:514](../../source/game_sa/Interior/InteriorManager_c.cpp#L514) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::SetEntryExitPtr 0x00598180 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InteriorManager_c::GetBoundingBox(CEntity* entity, CVector* pos) | [source/game_sa/Interior/InteriorManager_c.cpp:531](../../source/game_sa/Interior/InteriorManager_c.cpp#L531) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::GetBoundingBox 0x00598090 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InteriorManager_c::ActivatePeds(bool enable) | [source/game_sa/Interior/InteriorManager_c.cpp:546](../../source/game_sa/Interior/InteriorManager_c.cpp#L546) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: InteriorManager_c::ActivatePeds 0x00598080 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetInteriorIds() const | [source/game_sa/Interior/InteriorManager_c.h:76](../../source/game_sa/Interior/InteriorManager_c.h#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetObjects() const | [source/game_sa/Interior/InteriorManager_c.h:77](../../source/game_sa/Interior/InteriorManager_c.h#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

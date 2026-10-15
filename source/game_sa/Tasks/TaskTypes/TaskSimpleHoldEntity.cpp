@@ -23,35 +23,14 @@ END GENERATED HOOK STATUS */
 #include "TaskSimplePickUpEntity.h"
 #include "TaskSimplePutDownEntity.h"
 
+#include "X87Math.h"
+
 namespace {
 // Como el original: constantes exactas del EXE
 constexpr float HOLD_RAND_RECIP      = std::bit_cast<float>(0x38000100u); // 0x858C7C (1/32767)
 constexpr float HOLD_PUTDOWN_CARRY105 = std::bit_cast<float>(0x3EDDDDDEu); // 0x870A70 (0.43333334)
 constexpr float HOLD_PUTDOWN_CARRY05  = std::bit_cast<float>(0x3EBBBBBCu); // 0x870A6C (0.36666667)
 constexpr float HOLD_PUTDOWN_CARRY    = std::bit_cast<float>(0x3F19999Au); // 0x870A68 (0.6)
-
-// Como el original: atan2(y, x) con fpatan del x87 (precisión completa, se redondea al guardar)
-float __declspec(naked) __cdecl HoldAtan2X87(float y, float x) {
-    __asm {
-        fld   dword ptr [esp+4]
-        fld   dword ptr [esp+8]
-        fpatan
-        ret
-    }
-}
-
-// Como el original: atan2(-fx, fy) - rot sin redondear el ángulo intermedio (fpatan y fsub en la pila)
-float __declspec(naked) __cdecl HoldHeadingMinusX87(float fx, float fy, float rot) {
-    __asm {
-        fld   dword ptr [esp+8]
-        fld   dword ptr [esp+4]
-        fchs
-        fxch  st(1)
-        fpatan
-        fsub  dword ptr [esp+0Ch]
-        ret
-    }
-}
 
 // Como el original: MultiplyMatrixWithVector (0x59C890) con el orden de sumas del EXE
 CVector HoldMatrixTimesPoint59C890(const CMatrix& m, const CVector& v) {
@@ -69,82 +48,6 @@ CVector HoldMultiply3x3_59C790(const CMatrix& m, const CVector& v) {
         m.GetUp().y * v.z + m.GetRight().y * v.x + m.GetForward().y * v.y,
         m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y
     };
-}
-
-// Como el original: transcripción de CMatrix::RotateZ (0x59B390): fcos queda en la pila sin redondear y fsin se
-// guarda como float; mismo orden de productos y de escrituras (thiscall: ecx = matriz, ángulo en la pila, ret 4)
-void __declspec(naked) __fastcall HoldRotateZ_59B390(CMatrix* m, int, float angle) {
-    __asm {
-        sub   esp, 20h
-        fld   dword ptr [esp+24h]
-        fcos
-        fld   dword ptr [esp+24h]
-        fsin
-        fstp  dword ptr [esp+24h]
-        fld   st(0)
-        fmul  dword ptr [ecx]
-        fld   dword ptr [esp+24h]
-        fmul  dword ptr [ecx+4]
-        fsubp st(1), st
-        fld   st(1)
-        fmul  dword ptr [ecx+4]
-        fld   dword ptr [esp+24h]
-        fmul  dword ptr [ecx]
-        faddp st(1), st
-        fld   st(2)
-        fmul  dword ptr [ecx+10h]
-        fld   dword ptr [esp+24h]
-        fmul  dword ptr [ecx+14h]
-        fsubp st(1), st
-        fstp  dword ptr [esp+8]
-        fld   dword ptr [esp+24h]
-        mov   eax, dword ptr [esp+8]
-        fmul  dword ptr [ecx+10h]
-        mov   dword ptr [ecx+10h], eax
-        fld   st(3)
-        fmul  dword ptr [ecx+14h]
-        faddp st(1), st
-        fstp  dword ptr [esp+0Ch]
-        fld   st(2)
-        mov   edx, dword ptr [esp+0Ch]
-        fmul  dword ptr [ecx+20h]
-        mov   dword ptr [ecx+14h], edx
-        fld   dword ptr [esp+24h]
-        fmul  dword ptr [ecx+24h]
-        fsubp st(1), st
-        fstp  dword ptr [esp+10h]
-        fld   dword ptr [esp+24h]
-        mov   eax, dword ptr [esp+10h]
-        fmul  dword ptr [ecx+20h]
-        mov   dword ptr [ecx+20h], eax
-        fld   st(3)
-        fmul  dword ptr [ecx+24h]
-        faddp st(1), st
-        fstp  dword ptr [esp+14h]
-        mov   edx, dword ptr [esp+14h]
-        fld   st(2)
-        fmul  dword ptr [ecx+30h]
-        mov   dword ptr [ecx+24h], edx
-        fld   dword ptr [esp+24h]
-        fmul  dword ptr [ecx+34h]
-        fsubp st(1), st
-        fstp  dword ptr [esp+18h]
-        fld   dword ptr [esp+24h]
-        mov   eax, dword ptr [esp+18h]
-        fmul  dword ptr [ecx+30h]
-        mov   dword ptr [ecx+30h], eax
-        fxch  st(3)
-        fmul  dword ptr [ecx+34h]
-        faddp st(3), st
-        fxch  st(2)
-        fstp  dword ptr [esp+1Ch]
-        mov   edx, dword ptr [esp+1Ch]
-        fstp  dword ptr [ecx]
-        mov   dword ptr [ecx+34h], edx
-        fstp  dword ptr [ecx+4]
-        add   esp, 20h
-        ret   4
-    }
 }
 } // namespace
 
@@ -365,7 +268,7 @@ bool CTaskSimpleHoldEntity::ProcessPed(CPed* ped) {
 
             // Como el original: GetHeading en línea con fpatan; la resta se hace sobre el ángulo sin redondear
             if (const CMatrix* m = entityToHold->m_matrix) {
-                m_fRotation = HoldHeadingMinusX87(m->GetForward().x, m->GetForward().y, ped->m_fCurrentRotation);
+                m_fRotation = Atan2MinusCpp(-m->GetForward().x, m->GetForward().y, ped->m_fCurrentRotation);
             } else {
                 m_fRotation = entityToHold->m_placement.m_fHeading - ped->m_fCurrentRotation;
             }
@@ -415,7 +318,7 @@ bool CTaskSimpleHoldEntity::ProcessPed(CPed* ped) {
                     const CVector& entPos = entityToHold->GetPosition();
                     const CVector& pedPos2 = ped->GetPosition();
                     const CVector direction{ entPos.x - pedPos2.x, entPos.y - pedPos2.y, entPos.z - pedPos2.z };
-                    ped->m_fAimingRotation = HoldAtan2X87(-direction.x, direction.y); // Como el original: fpatan
+                    ped->m_fAimingRotation = TrigAtan2Cpp(-direction.x, direction.y); // Como el original: fpatan
                 }
             }
         }
@@ -479,7 +382,7 @@ bool CTaskSimpleHoldEntity::SetPedPosition(CPed* ped) {
                     entityToHoldPos.y = bonePos.y + entityToHoldPos.y;
                     entityToHoldPos.z = bonePos.z + entityToHoldPos.z;
                     CMatrix rotationMatrix(pedMat);
-                    HoldRotateZ_59B390(&rotationMatrix, 0, m_fRotation); // Como el original: RotateZ del EXE (fcos sin redondear)
+                    HoldEntityRotateZCpp(reinterpret_cast<float*>(&rotationMatrix), m_fRotation); // Como el original: RotateZ del EXE (fcos sin redondear)
                     *static_cast<CMatrix*>(&m_pEntityToHold->GetMatrix()) = rotationMatrix;
                     m_pEntityToHold->SetPosn(entityToHoldPos);
                 }

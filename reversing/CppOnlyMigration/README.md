@@ -6,7 +6,7 @@
 
 Política y proceso: [PROCESO.md](PROCESO.md) · revisión de lo anterior: [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md) · plan: [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md).
 
-**Estado actual (15/10/2026):** 293 funciones fuente convertidas y revalidadas dentro del juego; quedan 638 apariciones de ensamblador y 239 declaraciones `naked` en 40 archivos de `source/game_sa` (conteos léxicos, no funciones). Todas las clases convertidas están en sus dos archivos `.cpp` y `.h`, con `X87Math.cpp/.h` como único módulo compartido de helpers x87. Las secciones fechadas más abajo conservan las cifras del momento en que se escribieron. Documentos: [PROCESO.md](PROCESO.md) (política y técnicas), [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md) (lo que falta, por dificultad), [FILES.md](FILES.md) (archivos pendientes), [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md), [REVALIDACION_INTERIOR_CARCTRL.md](REVALIDACION_INTERIOR_CARCTRL.md) y [approvals.json](approvals.json) (evidencia por función).
+**Estado actual (15/10/2026):** 305 funciones fuente convertidas y revalidadas dentro del juego; quedan 625 apariciones de ensamblador y 226 declaraciones `naked` en 35 archivos de `source/game_sa` (conteos léxicos, no funciones). Todas las clases convertidas están en sus dos archivos `.cpp` y `.h`, con `X87Math.cpp/.h` como único módulo compartido de helpers x87. Las secciones fechadas más abajo conservan las cifras del momento en que se escribieron. Documentos: [PROCESO.md](PROCESO.md) (política y técnicas), [PLAN_POR_LOTES.md](PLAN_POR_LOTES.md) (lo que falta, por dificultad), [FILES.md](FILES.md) (archivos pendientes), [AUDITORIA_ARCHIVOS_AUXILIARES.md](AUDITORIA_ARCHIVOS_AUXILIARES.md), [REVALIDACION_INTERIOR_CARCTRL.md](REVALIDACION_INTERIOR_CARCTRL.md) y [approvals.json](approvals.json) (evidencia por función).
 
 Orden del usuario del 10/10/2026: eliminar ensamblador en línea y declaraciones naked de source/game_sa conservando resultados exactos del EXE, sin tolerancias numéricas.
 
@@ -209,6 +209,8 @@ Se eliminó el ensamblador de `common.cpp`, `WaterCreature_c.cpp`, `TaskComplexD
 Se eliminó el ensamblador de diecinueve archivos de nivel 1 (`3dMarkers`, `AEPedAudioEntity`, `AEMFDecoder`, `CarAI`, `ClothesBuilder`, `Cover`, `Door`, `Entity`, `EntityScanner`, `FireManager`, `ProcSurfaceInfo`, `rwplcore.h`, `TheScripts`, `AEAudioUtility`, `AEAudioHardware`, `IdleCam`, `TaskSimpleFightingControl`, `TaskSimplePlayerOnFoot` y `WeaponEffects`); 26 bancos sin diferencias ([detalle y hashes](../CppNineteenFilesStudy/README.md)).
 
 Se eliminó el ensamblador de diecinueve archivos de nivel 2 (`Pickup`, `Object`, `QuadBike`, `GangWars`, `PedGeometryAnalyser`, `Timer`, `Weapon`, `Weather`, `PedGroupPlacer`, `AEWeatherAudioEntity`, `EventKnockOffBike`, `Hud`, `ProjectileInfo`, `CarEnterExit`, `PlayerPed`, `EntryExit`, `Train`, `Pickups` y `PostEffects`) y se convirtió una función de `RpAnimBlend`; los bancos aprobaron sin diferencias ([detalle y hashes](../CppTwentyFilesStudy/README.md)).
+
+Se eliminó el ensamblador de otros cinco archivos de nivel 2 (`Font`, `TaskComplexWaitForPed`, `Birds`, `Placeable` y `TaskSimpleHoldEntity`); seis bancos sin diferencias ([detalle y hashes](../CppFiveLevel2Study/README.md)).
 
 ## Diez archivos con un solo bloque (12/10/2026)
 

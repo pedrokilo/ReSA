@@ -107,58 +107,6 @@ namespace {
 // Diagnostic source-line constants are part of the object comparison.
 // Keeping this explanation here preserves those existing constants.
 // No byte or relocation differences are ignored.
-// atan2(x, y) con fpatan
-__declspec(naked) float __cdecl BirdsAtan2(float x, float y) {
-    __asm {
-        fld    dword ptr [esp + 4]
-        fld    dword ptr [esp + 8]
-        fpatan
-        ret
-    }
-}
-
-// add + atan2(x, y), con el arcotangente sin redondear
-__declspec(naked) float __cdecl BirdsAddAtan2(float add, float x, float y) {
-    __asm {
-        fld    dword ptr [esp + 4]
-        fld    dword ptr [esp + 8]
-        fld    dword ptr [esp + 12]
-        fpatan
-        faddp  st(1), st
-        ret
-    }
-}
-
-// Giro de la velocidad objetivo (0x7126C5): x' = cos·x + sin·y, y' = cos·y - sin·x
-__declspec(naked) void __cdecl BirdsRotate(float angle, float* px, float* py) {
-    __asm {
-        mov   eax, dword ptr [esp + 8]
-        mov   edx, dword ptr [esp + 12]
-        fld   dword ptr [esp + 4]
-        fld   dword ptr [eax]
-        fld   dword ptr [edx]
-        fld   st(2)
-        fsin
-        fxch  st(3)
-        fcos
-        fld   st(0)
-        fmul  st, st(3)
-        fld   st(4)
-        fmul  st, st(3)
-        faddp st(1), st
-        fstp  dword ptr [eax]
-        fmul  st, st(1)
-        fxch  st(3)
-        fmul  st, st(2)
-        fsubp st(3), st
-        fxch  st(2)
-        fstp  dword ptr [edx]
-        fstp  st(1)
-        fstp  st(0)
-        ret
-    }
-}
-
 const float BIRDS_WING_K   = std::bit_cast<float>(0x40C8F5C3u); // 0x872828: 6,28 (no 2pi)
 const float BIRDS_ANGLE_K  = std::bit_cast<float>(0x3CC8F5C3u); // 0x859C44: 0,02453125
 const float BIRDS_CURVES_K = std::bit_cast<float>(0x3B03126Fu); // 0x858F44: 0,002
@@ -191,7 +139,7 @@ void CBirds::CreateNumberOfBirds(CVector vecStartPos, CVector vecTargetPos, int3
         assert(i < (int32)std::size(faCreationCoorsX));
 
         const auto iSpeedRandFactor = static_cast<int32>(CGeneral::GetRandomNumber() % 31);
-        bird.m_fAngle = BirdsAtan2(vecBirdDirection.x, vecBirdDirection.y);
+        bird.m_fAngle = TrigAtan2Cpp(vecBirdDirection.x, vecBirdDirection.y);
         bird.m_fMaxBirdDistance = fMaxDistance;
         bird.m_bCreated = true;
         bird.m_eBirdMode = eBirdMode::BIRD_DRAW_UPDATE;
@@ -313,7 +261,7 @@ void CBirds::Update() {
                     vecForward.Normalise();
                     // Como el original: (rand & 0xFF) - 128 con signo, · 1/256, más atan2 sin redondear
                     const int32 iRand = (int32)(CGeneral::GetRandomNumber() & 0xFF) - 0x80;
-                    fSpawnAngleCamRelative = BirdsAddAtan2((float)iRand * (1.0f / 256.0f), vecForward.x, vecForward.y);
+                    fSpawnAngleCamRelative = BirdsAddAtan2Cpp((float)iRand * (1.0f / 256.0f), vecForward.x, vecForward.y);
                 }
 
                 const CVector vecBirdSpawnPos{
@@ -359,7 +307,7 @@ void CBirds::Update() {
             continue;
 
         if (bird.m_bMustDoCurves) {
-            BirdsRotate(CTimer::GetTimeStep() * BIRDS_CURVES_K, &bird.m_vecTargetVelocity.x, &bird.m_vecTargetVelocity.y);
+            BirdsRotateCpp(CTimer::GetTimeStep() * BIRDS_CURVES_K, &bird.m_vecTargetVelocity.x, &bird.m_vecTargetVelocity.y);
         }
 
         // Como el original: paso en segundos = ms_fTimeStep · 0,02
@@ -371,7 +319,7 @@ void CBirds::Update() {
         const CVector vecTarget = bird.m_vecTargetVelocity;
         bird.m_vecCurrentVelocity = Lerp(bird.m_vecCurrentVelocity, vecTarget, fProgress);
         bird.m_vecPosn += (fTimeStep * bird.m_vecCurrentVelocity);
-        bird.m_fAngle = BirdsAtan2(vecTarget.x, vecTarget.y);
+        bird.m_fAngle = TrigAtan2Cpp(vecTarget.x, vecTarget.y);
     }
 }
 

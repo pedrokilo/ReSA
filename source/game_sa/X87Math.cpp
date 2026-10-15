@@ -1744,3 +1744,63 @@ __declspec(noinline) float __cdecl WeatherAudioRainTargetCpp(float wet, int defa
     return result;
 }
 
+// --- Lote de cinco archivos de nivel 2 (15/10/2026) ---
+// CBirds::Update (0x71251B..0x712521): faddp st(1) suma el fpatan sin redondear al producto ya redondeado; float(double + double) da el mismo redondeo único.
+__declspec(noinline) float __cdecl BirdsAddAtan2Cpp(float add, float x, float y) {
+    return float(double(add) + atan2(double(x), double(y)));
+}
+
+// CBirds::Update (0x7126C5..0x7126FB): s y c quedan en la pila x87 sin redondear; cada producto se guarda como float (precisión interna de 24 bits) y la suma/resta también.
+// El EXE carga x e y antes de escribir x (fstp [px]) y escribe y al final: con px == py gana la escritura de y.
+__declspec(noinline) void __cdecl BirdsRotateCpp(float angle, float* px, float* py) {
+    const float x = *px;
+    const float y = *py;
+    const double s = sin(double(angle));
+    const double c = cos(double(angle));
+    volatile float cx = float(c * double(x));
+    volatile float sy = float(s * double(y));
+    volatile float cy = float(c * double(y));
+    volatile float sx = float(s * double(x));
+    const float nx = cx + sy;
+    const float ny = cy - sx;
+    *px = nx;
+    *py = ny;
+}
+
+// CMatrix::RotateZ (0x59B390): c = fcos sin redondear (queda en la pila x87); s = fsin guardado como float (fstp dword). Para cada fila (right, forward, up, pos):
+// x' = c*x - s*y, y' = c*y + s*x (pos: y' = s*x + c*y); todas las lecturas usan los valores originales de la fila (el EXE lee antes de sobrescribir) y cada resultado se redondea una vez a float.
+__declspec(noinline) void __cdecl HoldEntityRotateZCpp(float* m, float angle) {
+    const double c = cos(double(angle));
+    volatile float storedSin = float(sin(double(angle)));
+    const double s = storedSin;
+    const double rx = m[0],  ry = m[1];
+    const double fx = m[4],  fy = m[5];
+    const double ux = m[8],  uy = m[9];
+    const double px = m[12], py = m[13];
+    m[4]  = float(c * fx - s * fy);
+    m[5]  = float(s * fx + c * fy);
+    m[8]  = float(c * ux - s * uy);
+    m[9]  = float(s * ux + c * uy);
+    m[12] = float(c * px - s * py);
+    m[13] = float(s * px + c * py);
+    m[0]  = float(c * rx - s * ry);
+    m[1]  = float(c * ry + s * rx);
+}
+
+// CPlaceable::GetHeading / GetRoll (0x441DB0 / 0x420B30). extern "C" y double: CPlaceable las declara como float con otro nombre (/alternatename) para devolver ST0 sin redondear.
+// -forward.x por fchs (exacto); sin precise para que fpatan salga en linea.
+extern "C" __declspec(noinline) double __cdecl PlaceableHeadingDblCpp(const float* forward) {
+    return atan2(-double(forward[0]), double(forward[1]));
+}
+
+// atan2(right.z, den) con den = fsqrt(float(x*x) + float(y*y)) y, solo si up.z < 0 (NaN no), den * (-1.0f) con fmul (0x858C1C; no fchs: un NaN conserva su signo).
+extern "C" __declspec(noinline) double __cdecl PlaceableRollDblCpp(const float* right, float upZ) {
+    const float xx = right[0] * right[0];
+    const float yy = right[1] * right[1];
+    double den = sqrt(double(xx + yy));
+    volatile float minusOne = -1.0f;
+    if (upZ < 0.0f)
+        den = den * double(minusOne);
+    return atan2(double(right[2]), den);
+}
+

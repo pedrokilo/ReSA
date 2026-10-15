@@ -56,3 +56,5 @@ Sin cobertura exhaustiva de x87 más allá de los fixtures de los bancos (por ej
 | Replay.actual-before.obj | 0d1c523e9ab19ac28bb8201fc5e227c28e8031470b0af2c1a8b9065a1eea50f5 |
 | X87Math.actual-after.obj | 1c6ee3d5fea2fa37b3c8ecb9fb47365964bd07ed2abf6899bdd7a1a3cccb4cc5 |
 | X87Math.actual-before.obj | 496bfc3d2949737b2756d327b6f42def29e3ef239a519694090eb9782133d024 |
+
+Nota (15/10/2026): el archivo local `X87Math.actual-before.obj` de esta carpeta (ignorada por git) se sobrescribió por error al preparar otro lote y no se pudo recuperar (el estado intermedio de `X87Math.cpp` de entonces no está en git); el hash de arriba es el que se registró entonces. Lo que había en su lugar se conserva con la extensión `.sobrescrito` y es el objeto «antes» del lote de [cinco archivos de nivel 2](../CppFiveLevel2Study/README.md).

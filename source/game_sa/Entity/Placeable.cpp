@@ -22,9 +22,12 @@ END GENERATED HOOK STATUS */
     https://github.com/DK22Pac/plugin-sdk
     Do not delete this comment block. Respect others' work!
 */
+#pragma warning(push, 0)
 #include "StdInc.h"
 
 #include "Placeable.h"
+#include "X87Math.h"
+#pragma warning(pop)
 
 /**
  * Registra las operaciones de transformación y gestión del pool global de matrices.
@@ -51,20 +54,13 @@ void CPlaceable::InjectHooks() {
     RH_ScopedInstall(FreeStaticMatrix, 0x54F010);
 }
 
-static const float s_PlaceableMinusOne = -1.0f; // Como el original: constante 0x858C1C
-
-namespace {
-
-// Como el original: atan2(-forward.x, forward.y) con fpatan del x87 (precisión completa); el llamador lo guarda a float.
-__declspec(naked) float __cdecl PlaceableHeadingFromForward(float negForwardX, float forwardY) {
-    __asm {
-        fld dword ptr [esp+4]
-        fld dword ptr [esp+8]
-        fpatan
-        ret
-    }
-}
-} // namespace
+// Ayudantes de X87Math.cpp (PlaceableHeadingDblCpp / PlaceableRollDblCpp) que devuelven un double: el fpatan queda sin redondear en ST0.
+// Aqui se declaran como float (alias del enlazador) para que el metodo devuelva ST0 tal cual: el retorno float de una llamada ya llega en ST0 y
+// el compilador no lo guarda ni lo recarga, tampoco sin optimizar (se comprueba en el objeto: call, add esp y ret, sin fstp ni fld tras la llamada).
+extern "C" float __cdecl PlaceableHeadingFltCpp(const float* forward);
+extern "C" float __cdecl PlaceableRollFltCpp(const float* right, float upZ);
+#pragma comment(linker, "/alternatename:_PlaceableHeadingFltCpp=_PlaceableHeadingDblCpp")
+#pragma comment(linker, "/alternatename:_PlaceableRollFltCpp=_PlaceableRollDblCpp")
 
 // Comienza con la representación compacta CSimpleTransform y sin CMatrixLink asignada.
 CPlaceable::CPlaceable() : m_placement() {
@@ -137,56 +133,19 @@ void CPlaceable::SetHeading(float heading) {
 
 // 0x441DB0
 // Como el original: atan2(-forward.x, forward.y) con fpatan; el resultado se devuelve en ST0 sin redondear a float.
-__declspec(naked) float CPlaceable::GetHeading() const {
-    __asm {
-        mov eax, dword ptr [ecx+14h]
-        test eax, eax
-        je no_matrix
-        fld dword ptr [eax+10h]
-        fchs
-        fld dword ptr [eax+14h]
-        fpatan
-        ret
-    no_matrix:
-        fld dword ptr [ecx+10h]
-        ret
-    }
+float CPlaceable::GetHeading() const {
+    if (!m_matrix)
+        return m_placement.m_fHeading;
+    return PlaceableHeadingFltCpp(&m_matrix->GetForward().x);
 }
 
 // 0x420B30
 // Como el original: atan2(right.z, ±|right.xy|) con fsqrt (no la magnitud al cuadrado) y fpatan; el signo
 // se invierte solo si up.z < 0 (NaN no) y el resultado se devuelve en ST0 sin redondear a float.
-__declspec(naked) float CPlaceable::GetRoll() const {
-    __asm {
-        mov ecx, dword ptr [ecx+14h]
-        test ecx, ecx
-        je no_matrix
-        fld dword ptr [ecx+4]
-        fld dword ptr [ecx]
-        fld st(0)
-        fmul st, st(1)
-        fld st(2)
-        fmul st, st(3)
-        faddp st(1), st
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        fldz
-        fld dword ptr [ecx+28h]
-        fcompp
-        fnstsw ax
-        test ah, 5
-        jp not_negative
-        fmul dword ptr [s_PlaceableMinusOne]
-    not_negative:
-        fld dword ptr [ecx+8]
-        fxch st(1)
-        fpatan
-        ret
-    no_matrix:
-        fldz
-        ret
-    }
+float CPlaceable::GetRoll() const {
+    if (!m_matrix)
+        return 0.0f;
+    return PlaceableRollFltCpp(&m_matrix->GetRight().x, m_matrix->GetUp().z);
 }
 
 bool CPlaceable::IsWithinArea(float x1, float y1, float x2, float y2) const {
@@ -226,7 +185,7 @@ bool CPlaceable::IsWithinArea(float x1, float y1, float z1, float x2, float y2, 
  */
 void CPlaceable::RemoveMatrix() {
     const auto& vecForward = m_matrix->GetForward();
-    const float fHeading = PlaceableHeadingFromForward(-vecForward.x, vecForward.y); // Como el original: fpatan
+    const float fHeading = TrigAtan2Cpp(-vecForward.x, vecForward.y); // Como el original: fpatan guardado como float
 
     m_placement.m_vPosn = m_matrix->GetPosition();
     m_placement.m_fHeading = fHeading;
@@ -264,7 +223,7 @@ void CPlaceable::SetMatrix(CMatrix& matrix) {
     if (!m_matrix) {
         if (matrix.GetUp().z == 1.0F) {
             auto& vecForward = matrix.GetForward();
-            const float fHeading = PlaceableHeadingFromForward(-vecForward.x, vecForward.y); // Como el original: fpatan
+            const float fHeading = TrigAtan2Cpp(-vecForward.x, vecForward.y); // Como el original: fpatan guardado como float
 
             m_placement.m_vPosn = matrix.GetPosition();
             m_placement.m_fHeading = fHeading;

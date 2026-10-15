@@ -380,3 +380,14 @@ float __cdecl WeatherAudioThunderFallCpp(float reqVolume, unsigned int diff);
 float __cdecl WeatherAudioCityNoiseOffsetCpp(float dist, float speed);
 // Service 0x5055C4 (lluvia): 20·log10(wet·1.25) + fild(defaultVolume), un solo fstp float.
 float __cdecl WeatherAudioRainTargetCpp(float wet, int defaultVolume);
+
+// Lote de cinco archivos de nivel 2 (15/10/2026).
+// float(add + atan2(x, y)) con el fpatan sin redondear y un solo redondeo a float; add ya es float (CBirds::Update, 0x71251B..0x712521, ángulo de aparición relativo a la cámara).
+float __cdecl BirdsAddAtan2Cpp(float add, float x, float y);
+// Giro de la velocidad objetivo (CBirds::Update, 0x7126C5..0x7126FB): x' = c*x + s*y, y' = c*y - s*x con fsin/fcos sin redondear, un redondeo a float por producto y por suma; x e y se leen antes de escribir.
+void __cdecl BirdsRotateCpp(float angle, float* px, float* py);
+// CMatrix::RotateZ (0x59B390) sobre m = 16 floats (right@0, forward@4, up@8, pos@12 como en CMatrix): gira x/y de cada fila; cos sin redondear, sin guardado como float, un redondeo por operacion.
+void __cdecl HoldEntityRotateZCpp(float* m, float angle);
+// CPlaceable::GetHeading/GetRoll: fpatan sin redondear en ST0 (double, extern "C"); Placeable.cpp los usa con otro nombre float via /alternatename, no por este encabezado.
+extern "C" double __cdecl PlaceableHeadingDblCpp(const float* forward);
+extern "C" double __cdecl PlaceableRollDblCpp(const float* right, float upZ);

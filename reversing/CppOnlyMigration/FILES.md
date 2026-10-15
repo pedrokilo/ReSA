@@ -4,28 +4,25 @@
 
 # Archivos pendientes de convertir a C++
 
-40 archivos: 638 apariciones de ensamblador y 239 declaraciones naked.
+35 archivos: 625 apariciones de ensamblador y 226 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
 | Archivo | Ensamblador | naked |
 | --- | ---: | ---: |
 | [source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp](../../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp) | 6 | 4 |
-| [source/game_sa/Birds.cpp](../../source/game_sa/Birds.cpp) | 3 | 3 |
 | [source/game_sa/Cam.cpp](../../source/game_sa/Cam.cpp) | 102 | 3 |
 | [source/game_sa/Camera.cpp](../../source/game_sa/Camera.cpp) | 43 | 1 |
 | [source/game_sa/Core/Matrix.cpp](../../source/game_sa/Core/Matrix.cpp) | 10 | 10 |
 | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp) | 14 | 14 |
 | [source/game_sa/Entity/Ped/Ped.cpp](../../source/game_sa/Entity/Ped/Ped.cpp) | 6 | 2 |
 | [source/game_sa/Entity/Physical.cpp](../../source/game_sa/Entity/Physical.cpp) | 10 | 1 |
-| [source/game_sa/Entity/Placeable.cpp](../../source/game_sa/Entity/Placeable.cpp) | 3 | 3 |
 | [source/game_sa/Entity/Vehicle/Automobile.cpp](../../source/game_sa/Entity/Vehicle/Automobile.cpp) | 11 | 0 |
 | [source/game_sa/Entity/Vehicle/Bike.cpp](../../source/game_sa/Entity/Vehicle/Bike.cpp) | 28 | 3 |
 | [source/game_sa/Entity/Vehicle/Bmx.cpp](../../source/game_sa/Entity/Vehicle/Bmx.cpp) | 8 | 1 |
 | [source/game_sa/Entity/Vehicle/Plane.cpp](../../source/game_sa/Entity/Vehicle/Plane.cpp) | 48 | 7 |
 | [source/game_sa/Entity/Vehicle/Vehicle.cpp](../../source/game_sa/Entity/Vehicle/Vehicle.cpp) | 14 | 6 |
 | [source/game_sa/Events/EventSource.cpp](../../source/game_sa/Events/EventSource.cpp) | 4 | 4 |
-| [source/game_sa/Font.cpp](../../source/game_sa/Font.cpp) | 2 | 2 |
 | [source/game_sa/Formation.cpp](../../source/game_sa/Formation.cpp) | 17 | 1 |
 | [source/game_sa/Garage.cpp](../../source/game_sa/Garage.cpp) | 15 | 9 |
 | [source/game_sa/General.cpp](../../source/game_sa/General.cpp) | 4 | 4 |
@@ -41,10 +38,8 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Ragdoll/BoneNode.cpp](../../source/game_sa/Ragdoll/BoneNode.cpp) | 4 | 4 |
 | [source/game_sa/Shadows.cpp](../../source/game_sa/Shadows.cpp) | 56 | 1 |
 | [source/game_sa/Stats.cpp](../../source/game_sa/Stats.cpp) | 69 | 44 |
-| [source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp](../../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp) | 2 | 2 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp) | 4 | 4 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) | 13 | 13 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp) | 3 | 3 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp) | 6 | 4 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp) | 7 | 6 |
 | [source/game_sa/TheZones.cpp](../../source/game_sa/TheZones.cpp) | 5 | 5 |

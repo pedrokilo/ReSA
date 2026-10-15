@@ -884,94 +884,40 @@ float CFont::GetHeight(bool a1) {
 }
 
 // 0x719670, original name unknown
-// RH mutable entry: bank enables helper and proves resolved DLL body.
-static uintptr_t ScriptSubFontBody=reinterpret_cast<uintptr_t>(&CFont::FindSubFontCharacter);
-// Native7192C0 preserves ECX/EDX; the new caller depends on CL across this call.
-// Adapt the reconstructed C++ helper ABI, without calling the original game helper.
-__declspec(naked) static void ScriptSubFontNativeAbi() {
-    __asm {
-        push ecx
-        push edx
-        push dword ptr [esp+16]
-        push dword ptr [esp+16]
-        call dword ptr [ScriptSubFontBody]
-        add esp,8
-        pop edx
-        pop ecx
-        ret
-    }
-}
+// Como el original: lee IntroTextLines[NumberOfIntroTextLinesThisFrame] SIN comprobar el rango (0x719689 imul eax,eax,44h)
+// y los bytes de fuente SIN comprobar el indice (0x7196F7/0x719700 y 0x719722); por eso el acceso es por puntero crudo.
+// Estilo 2 -> textura 0 y FindSubFontCharacter(letra, 2); estilo 3 -> textura 1 y FindSubFontCharacter(letra, 1);
+// resto -> textura = byte bajo del estilo, 0x91 -> 0x40 y > 0x9B -> 0 (0x7196B1..0x7196EA).
+// Suma entera (fild + fiadd) y producto por la escala en un solo redondeo a 24 bits, como el original.
+float GetScriptLetterSize(uint8 letterId) {
+    if (letterId == '?')
+        letterId = 0;
 
-__declspec(naked) float GetScriptLetterSize(uint8) {
-    __asm {
-    mov dl,byte ptr [esp+4]
-    sub esp,8
-    cmp dl,3Fh
-    jne L00719682
-    xor dl,dl
-    mov byte ptr [esp+0Ch],dl
-    L00719682: movzx eax,word ptr ds:[00A44B68h]
-    imul eax,eax,44h
-    mov cl,byte ptr [eax+00A91404h]
-    mov byte ptr [esp+3],cl
-    mov ecx,dword ptr [eax+00A91410h]
-    fld dword ptr [eax+00A913E8h]
-    sub ecx,2
-    push ebx
-    mov bl,byte ptr [eax+00A9140Ah]
-    je L007196CA
-    dec ecx
-    je L007196C2
-    cmp dl,91h
-    mov cl,byte ptr [eax+00A91410h]
-    mov al,dl
-    jne L007196E5
-    mov al,40h
-    jmp L007196EC
-    L007196C2: mov cl,1
-    mov byte ptr [esp+8],cl
-    jmp L007196D1
-    L007196CA: xor cl,cl
-    mov byte ptr [esp+8],2
-    L007196D1: mov edx,dword ptr [esp+8]
-    mov eax,dword ptr [esp+10h]
-    push edx
-    push eax
-    call ScriptSubFontNativeAbi
-    add esp,8
-    jmp L007196EC
-    L007196E5: cmp dl,9Bh
-    jbe L007196EC
-    xor al,al
-    L007196EC: mov dl,byte ptr [esp+7]
-    test dl,dl
-    je L00719722
-    movzx ecx,cl
-    imul ecx,ecx,0D2h
-    movzx edx,al
-    movzx eax,byte ptr [ecx+edx+00C718B0h]
-    movsx ecx,bl
-    mov dword ptr [esp+10h],eax
-    pop ebx
-    fild dword ptr [esp+0Ch]
-    mov dword ptr [esp+0Ch],ecx
-    fiadd dword ptr [esp+0Ch]
-    fmulp st(1),st
-    add esp,8
-    ret
-    L00719722: movzx edx,cl
-    imul edx,edx,0D2h
-    movzx eax,byte ptr [edx+00C71981h]
-    movsx ecx,bl
-    mov dword ptr [esp+10h],eax
-    pop ebx
-    fild dword ptr [esp+0Ch]
-    mov dword ptr [esp+0Ch],ecx
-    fiadd dword ptr [esp+0Ch]
-    fmulp st(1),st
-    add esp,8
-    ret
+    const auto* const text = reinterpret_cast<const tScriptText*>(reinterpret_cast<const uint8*>(CTheScripts::IntroTextLines.data()) + sizeof(tScriptText) * CTheScripts::NumberOfIntroTextLinesThisFrame);
+    const bool  proportional = text->IsProportional;
+    const int32 style        = static_cast<int32>(text->FontStyle);
+    const int8  outline      = text->TextEdge;
+    const float scaleX       = text->Scale.x;
+
+    uint8 fontId;
+    uint8 charIdx = letterId;
+    if (style == 2) {
+        fontId  = 0;
+        charIdx = CFont::FindSubFontCharacter(letterId, 2);
+    } else if (style == 3) {
+        fontId  = 1;
+        charIdx = CFont::FindSubFontCharacter(letterId, 1);
+    } else {
+        fontId = static_cast<uint8>(style);
+        if (letterId == 0x91)
+            charIdx = 0x40;
+        else if (letterId > 0x9B)
+            charIdx = 0;
     }
+
+    const auto* const font = reinterpret_cast<const uint8*>(gFontData.data()) + fontId * sizeof(tFontData);
+    const int32 value = proportional ? font[charIdx] : font[offsetof(tFontData, m_unpropValue)];
+    return static_cast<float>(value + static_cast<int32>(outline)) * scaleX;
 }
 
 // 0x7192C0

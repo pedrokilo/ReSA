@@ -1825,24 +1825,50 @@ void CEntity::PruneReferences() {
 // in references.cpp
 // 0x571B70
 void CEntity::RegisterReference(CEntity** entity) {
+    RegisterReferenceWithResidue(entity, 0);
+}
+
+// Igual que RegisterReference y devuelve el EDX con que sale el original (0x571B70), que el constructor de CTaskComplexWaitForPed deja como residuo:
+// - sin tocar nada (edificio sin IPL, referencia ya registrada): el EDX de entrada;
+// - si inserta una referencia (0x571C9F): la cabeza anterior de la lista de este objeto;
+// - si poda y no consigue ninguna libre: el ultimo valor que dejan los bucles de poda. El de peatones carga la tabla de estados de la pool en cada
+//   ranura; el de vehiculos solo cambia el byte bajo (el estado de la ranura); el de objetos carga la tabla entera. Tras CEntity::PruneReferences
+//   (0x571A90) EDX vale &m_pReferences si la lista esta vacia y, si no, lo ultimo que cargo en su recorrido (m_ppEntity de cada referencia o, si la
+//   quita, su siguiente).
+uint32 CEntity::RegisterReferenceWithResidue(CEntity** entity, uint32 entryEdx) {
     if (GetIsTypeBuilding() && !m_bIsTempBuilding && !m_bIsProcObject && !GetIplIndex()) {
-        return;
+        return entryEdx;
     }
 
     for (auto refs = m_pReferences; refs; refs = refs->m_pNext) {
         if (refs->m_ppEntity == entity) {
-            return;
+            return entryEdx;
         }
     }
 
+    uint32 edx = entryEdx;
     if (!CReferences::pEmptyList) {
         // Como el original (0x571BC3..0x571C90): cada pool (peatones, vehiculos y objetos) se recorre de la ultima
         // ranura a la primera, y se para en cuanto la lista de libres deja de estar vacia
-        const auto PruneDescending = [](auto* pool) {
+        const auto PruneResidue = [](const CEntity* e) {
+            uint32 value = static_cast<uint32>(reinterpret_cast<uintptr_t>(&e->m_pReferences));
+            for (auto refs = e->m_pReferences; refs; refs = refs->m_pNext) {
+                value = static_cast<uint32>(reinterpret_cast<uintptr_t>(refs->m_ppEntity));
+                if (*refs->m_ppEntity != e) {
+                    value = static_cast<uint32>(reinterpret_cast<uintptr_t>(refs->m_pNext));
+                }
+            }
+            return value;
+        };
+        const auto PruneDescending = [&](auto* pool, bool onlyLowByte) {
+            // CPool: [+0] almacenamiento, [+4] tabla de estados (un byte por ranura, bit 7 = libre)
+            const auto states = reinterpret_cast<const uint8*>(reinterpret_cast<const uintptr_t*>(pool)[1]);
             for (int32 i = (int32)pool->GetSize(); i > 0;) {
                 --i;
-                if (auto* const entity = pool->GetAt(i)) {
-                    entity->PruneReferences();
+                edx = onlyLowByte ? ((edx & ~0xFFu) | states[i]) : static_cast<uint32>(reinterpret_cast<uintptr_t>(states));
+                if (auto* const other = pool->GetAt(i)) {
+                    edx = PruneResidue(other);
+                    other->PruneReferences();
                     if (CReferences::pEmptyList) {
                         return;
                     }
@@ -1850,22 +1876,24 @@ void CEntity::RegisterReference(CEntity** entity) {
             }
         };
 
-        PruneDescending(GetPedPool());
+        PruneDescending(GetPedPool(), false);
         if (!CReferences::pEmptyList) {
-            PruneDescending(GetVehiclePool());
+            PruneDescending(GetVehiclePool(), true);
         }
         if (!CReferences::pEmptyList) {
-            PruneDescending(GetObjectPool());
+            PruneDescending(GetObjectPool(), false);
         }
     }
 
     if (CReferences::pEmptyList) {
         auto pEmptyRef = CReferences::pEmptyList;
+        edx = static_cast<uint32>(reinterpret_cast<uintptr_t>(m_pReferences));
         CReferences::pEmptyList = pEmptyRef->m_pNext;
         pEmptyRef->m_pNext = m_pReferences;
         m_pReferences = pEmptyRef;
         pEmptyRef->m_ppEntity = entity;
     }
+    return edx;
 }
 
 // Processes all light-type 2dEffects for this entity

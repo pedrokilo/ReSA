@@ -220,14 +220,6 @@
 
 <a id="grupo-1095"></a>
 
-## Globales y helpers: source/game_sa/Entity/Placeable.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| PlaceableHeadingFromForward(float negForwardX, float forwardY) | [source/game_sa/Entity/Placeable.cpp:59](../../source/game_sa/Entity/Placeable.cpp#L59) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-
-<a id="grupo-1096"></a>
-
 ## Globales y helpers: source/game_sa/Entity/Placeable.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -242,7 +234,7 @@
 | & GetPosition() | [source/game_sa/Entity/Placeable.h:70](../../source/game_sa/Entity/Placeable.h#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetPosition2D() | [source/game_sa/Entity/Placeable.h:71](../../source/game_sa/Entity/Placeable.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1097"></a>
+<a id="grupo-1096"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Automobile.cpp
 
@@ -274,7 +266,7 @@
 | * GetCurrentAtomicObjectCB(RwObject* object, void* data) | [source/game_sa/Entity/Vehicle/Automobile.cpp:7283](../../source/game_sa/Entity/Vehicle/Automobile.cpp#L7283) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GetCurrentAtomicObject(RwFrame* frame) | [source/game_sa/Entity/Vehicle/Automobile.cpp:7291](../../source/game_sa/Entity/Vehicle/Automobile.cpp#L7291) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1098"></a>
+<a id="grupo-1097"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Automobile.h
 
@@ -298,7 +290,7 @@
 | Constructor(int32 modelIndex, eVehicleCreatedBy createdBy, bool setupSuspensionLines) | [source/game_sa/Entity/Vehicle/Automobile.h:396](../../source/game_sa/Entity/Vehicle/Automobile.h#L396) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Destructor() | [source/game_sa/Entity/Vehicle/Automobile.h:401](../../source/game_sa/Entity/Vehicle/Automobile.h#L401) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1099"></a>
+<a id="grupo-1098"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Bike.cpp
 
@@ -331,7 +323,7 @@
 | BikeSetupHeight355(float force, float suspensionLength, float wheel, float startZ) | [source/game_sa/Entity/Vehicle/Bike.cpp:5862](../../source/game_sa/Entity/Vehicle/Bike.cpp#L5862) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 | BikeSetupSphere355(CColSphere* sphere,float limit) | [source/game_sa/Entity/Vehicle/Bike.cpp:5881](../../source/game_sa/Entity/Vehicle/Bike.cpp#L5881) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
 
-<a id="grupo-1100"></a>
+<a id="grupo-1099"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Bike.h
 
@@ -355,3 +347,22 @@
 | IsAnyWheelNotMakingContactWithGround() const | [source/game_sa/Entity/Vehicle/Bike.h:158](../../source/game_sa/Entity/Vehicle/Bike.h#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Bike.h:161](../../source/game_sa/Entity/Vehicle/Bike.h#L161) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Entity/Vehicle/Bike.h:162](../../source/game_sa/Entity/Vehicle/Bike.h#L162) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1100"></a>
+
+## Globales y helpers: source/game_sa/Entity/Vehicle/Bmx.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| BmxMax(float a, float b) | [source/game_sa/Entity/Vehicle/Bmx.cpp:40](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| BmxSin(float x) | [source/game_sa/Entity/Vehicle/Bmx.cpp:43](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L43) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| BmxCos(float x) | [source/game_sa/Entity/Vehicle/Bmx.cpp:53](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L53) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| BmxSinTimes(float x, float k) | [source/game_sa/Entity/Vehicle/Bmx.cpp:64](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L64) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| BmxChassisZ(float lean, float boundMinZ, float zOff) | [source/game_sa/Entity/Vehicle/Bmx.cpp:76](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L76) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| BmxLeanTerm(float curTime, float totalTime, float start, float blend, float mult) | [source/game_sa/Entity/Vehicle/Bmx.cpp:94](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L94) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| BmxAtan2(float y, float x) | [source/game_sa/Entity/Vehicle/Bmx.cpp:111](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L111) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| BmxPowTimes(float base, float timeStep, float x) | [source/game_sa/Entity/Vehicle/Bmx.cpp:123](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L123) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| BmxNegAsinCore(float x) | [source/game_sa/Entity/Vehicle/Bmx.cpp:138](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L138) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
+| BmxNegAsin(float x) | [source/game_sa/Entity/Vehicle/Bmx.cpp:163](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L163) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| BmxMultiply3x3_MV(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/Bmx.cpp:175](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L175) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| BmxNeedsNewAnim(const CAnimBlendAssociation* a) | [source/game_sa/Entity/Vehicle/Bmx.cpp:184](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

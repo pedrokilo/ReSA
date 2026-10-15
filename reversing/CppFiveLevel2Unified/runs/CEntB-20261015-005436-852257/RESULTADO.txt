@@ -1,0 +1,3 @@
+APROBADO: CEntity, grupo B: ciclo de vida, referencias, estado y colision
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-centb\20261015-005436-852257
