@@ -243,57 +243,32 @@ void CClothesBuilder::StoreBoneArray(RpClump* clump, int32 idx) {
 * @arg clump  The clump to which the frames belong to
 * @arg frames A list of frames whose geometry should be blended together
 */
+// Como el original (0x5A4940/0x5A4F10): x87 a 24 bits, cada fmul/fadd redondea a float; precise impide reasociar.
+#pragma float_control(precise, on, push)
 static float ClothesBlendPair(float a, float b, float ra, float rb) {
-    float result;
-    __asm {
-        fld b
-        fmul rb
-        fld a
-        fmul ra
-        faddp st(1), st(0)
-        fstp result
-    }
-    return result;
+    const float tb = b * rb;
+    const float ta = a * ra;
+    return tb + ta;
 }
 
 static float ClothesBlendTriple(float a, float b, float c, float ra, float rb, float rc) {
-    float result;
-    __asm {
-        fld a
-        fmul ra
-        fld b
-        fmul rb
-        faddp st(1), st(0)
-        fld c
-        fmul rc
-        faddp st(1), st(0)
-        fstp result
-    }
-    return result;
+    const float ta = a * ra;
+    const float tb = b * rb;
+    const float s = ta + tb;
+    const float tc = c * rc;
+    return s + tc;
 }
 
 static void ClothesNormalizeWeights(float* weights) {
-    const float one = 1.0f;
-    __asm {
-        mov eax, weights
-        fld dword ptr [eax+12]
-        fadd dword ptr [eax+8]
-        fadd dword ptr [eax+4]
-        fadd dword ptr [eax]
-        fdivr one
-        fld st(0)
-        fmul dword ptr [eax]
-        fstp dword ptr [eax]
-        fld st(0)
-        fmul dword ptr [eax+4]
-        fstp dword ptr [eax+4]
-        fld st(0)
-        fmul dword ptr [eax+8]
-        fstp dword ptr [eax+8]
-        fmul dword ptr [eax+12]
-        fstp dword ptr [eax+12]
-    }
+    // Suma 3+2+1+0, inversa 1/suma y producto in situ, como en 0x5A4E1B
+    const float sum = ((weights[3] + weights[2]) + weights[1]) + weights[0];
+    const float inv = 1.0f / sum;
+    weights[0] = weights[0] * inv;
+    weights[1] = weights[1] * inv;
+    weights[2] = weights[2] * inv;
+    weights[3] = weights[3] * inv;
 }
+#pragma float_control(pop)
 
 template<size_t N>
 RpGeometry* BlendGeometry(RpClump* clump, std::pair<const char*, float> (&&frameNamesRatios)[N]) {

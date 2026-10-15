@@ -1,0 +1,3 @@
+FALLO: Eventos (lista de 52)
+Funciones con diferencias: CEventPedCollisionWithPed::AffectsPed: 71/1024; CEventVehicleCollision::AffectsPed: 9/1024; CEventVehicleOnFire::AffectsPed: 394/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-events52\20261014-173725-946034

@@ -21,21 +21,12 @@ END GENERATED HOOK STATUS */
 #include "IdleCam.h"
 #include "InterestingEvents.h"
 #include "HandShaker.h"
+#include "X87Math.h"
 
 auto& gIdleCam = StaticRef<CIdleCam>(0xB6FDA0);
 auto& gbCineyCamProcessedOnFrame = StaticRef<uint32>(0xB6EC40);
 
 namespace {
-// Como el original: constantes exactas del EXE (no las de common.h)
-const float kIdlePi       = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
-const float kIdleTwoPi    = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
-const float kIdleMinusPi  = std::bit_cast<float>(0xC0490FDBu); // 0x858CC0
-const float kIdleOne      = 1.0f;                              // 0x858624
-const float kIdleHalf     = 0.5f;                              // 0x858B8C
-const float kIdle180      = 180.0f;                            // 0x85A994
-const float kIdle270      = 270.0f;                            // 0x859070
-const float kIdleDegToRad = std::bit_cast<float>(0x3C8EFA35u); // 0x8595EC
-
 // Como el original (0x59C810): vector por matriz (producto escalar con las filas), sin posicion y con el orden de sumas del EXE
 CVector IdleMultiply3x3_VM(const CVector& v, const CMatrix& m) {
     return {
@@ -248,24 +239,8 @@ void CIdleCam::ProcessFOVZoom(float time) {
             m_CurFOV = m_ZoomFarthest;
             break;
         }
-        {
-            // Como el original: FSIN y el orden x87 exacto de la interpolación.
-            const float angle = (270.0f - ((now - m_TimeZoomStarted) / m_DurationFOVZoom) * 180.0f) * std::bit_cast<float>(0x3C8EFA35u);
-            const float from = m_ZoomFrom, to = m_ZoomTo, one = 1.0f, half = 0.5f;
-            float result;
-            __asm {
-                fld angle
-                fsin
-                fadd one
-                fmul half
-                fld to
-                fsub from
-                fmulp st(1), st
-                fadd from
-                fstp result
-            }
-            m_CurFOV = result;
-        }
+        // Como el original (0x517E2E..0x517E63): FSIN y el orden x87 exacto de la interpolación, en un ayudante de X87Math.
+        m_CurFOV = IdleCamFovLerpCpp(now, m_TimeZoomStarted, m_DurationFOVZoom, m_ZoomFrom, m_ZoomTo);
         break;
     case 2: m_CurFOV = nearest; break;
     case 3: m_CurFOV = m_ZoomFarthest; break;
@@ -433,98 +408,11 @@ float CIdleCam::ProcessSlerp(float& outX, float& outZ) {
     const float mag1 = std::sqrt(d1x * d1x + d1y * d1y);
     const float mag2 = std::sqrt(d2y * d2y + d2x * d2x);
 
-    const uintptr_t atanFn = 0x53CC70; // CGeneral::GetATanOfXY: devuelve ST0 con precision completa y el original la usa sin redondear
-    const float timeLast = m_TimeLastTargetSelected, slerpDuration = m_SlerpDuration;
-    float slerpAtan{}, slerpDist{}, lookAtAtan{}, slerpT{}, resX{}, resZ{};
-    // Como el original: 0x517A8E..0x517BD5, transcripcion x87. lookAtDistAtan (4a llamada) se queda en la pila sin redondear a float.
-    __asm {
-        push d1y
-        push d1x
-        call atanFn
-        add esp, 8
-        fadd dword ptr [kIdlePi]
-        fstp slerpAtan
-        push d1z
-        push mag1
-        call atanFn
-        add esp, 8
-        fstp slerpDist
-        push d2y
-        push d2x
-        call atanFn
-        add esp, 8
-        fadd dword ptr [kIdlePi]
-        fstp lookAtAtan
-        push d2z
-        push mag2
-        call atanFn
-        add esp, 8
-        // ajuste de lookAtDistAtan: si (look - slerp) > PI resta 2PI; si no, si < -PI suma 2PI (con NaN no cambia)
-        fld slerpDist
-        fsubr st, st(1)
-        fcom dword ptr [kIdlePi]
-        fnstsw ax
-        test ah, 41h
-        jne L_dist_else
-        fstp st(0)
-        fsub dword ptr [kIdleTwoPi]
-        jmp L_dist_done
-    L_dist_else:
-        fcomp dword ptr [kIdleMinusPi]
-        fnstsw ax
-        test ah, 5
-        jp L_dist_done
-        fadd dword ptr [kIdleTwoPi]
-    L_dist_done:
-        // lo mismo para lookAtAtan
-        fld lookAtAtan
-        fld slerpAtan
-        fsubr st, st(1)
-        fcom dword ptr [kIdlePi]
-        fnstsw ax
-        test ah, 41h
-        jne L_atan_else
-        fstp st(0)
-        fsub dword ptr [kIdleTwoPi]
-        jmp L_atan_done
-    L_atan_else:
-        fcomp dword ptr [kIdleMinusPi]
-        fnstsw ax
-        test ah, 5
-        jp L_atan_done
-        fadd dword ptr [kIdleTwoPi]
-    L_atan_done:
-        // t = min((ahora - inicio) / duracion, 1.0): solo se limita si t > 1.0 (con NaN se queda)
-        fld beginTime
-        fsub timeLast
-        fdiv slerpDuration
-        fst slerpT
-        fcomp dword ptr [kIdleOne]
-        fnstsw ax
-        test ah, 41h
-        jne L_t_done
-        mov dword ptr [slerpT], 3F800000h
-    L_t_done:
-        // lerpT = (sin((270 - t * 180) * (PI / 180)) + 1) * 0.5 con FSIN
-        fld slerpT
-        fmul dword ptr [kIdle180]
-        fsubr dword ptr [kIdle270]
-        fmul dword ptr [kIdleDegToRad]
-        fsin
-        fadd dword ptr [kIdleOne]
-        fmul dword ptr [kIdleHalf]
-        // out = desde + (hasta - desde) * lerpT
-        fxch st(2)
-        fsub slerpDist
-        fmul st, st(2)
-        fadd slerpDist
-        fstp resX
-        fsub slerpAtan
-        fmul st, st(1)
-        fadd slerpAtan
-        fstp resZ
-        fstp st(0)
-    }
+    // Como el original (0x517A8E..0x517BD5): las cuatro llamadas a CGeneral::GetATanOfXY (0x53CC70; la cuarta queda sin redondear en ST0),
+    // el ajuste de +-2PI, el tiempo normalizado y la interpolación con FSIN van en un ayudante de X87Math.
+    const float d1[3]{ d1x, d1y, d1z }, d2[3]{ d2x, d2y, d2z };
+    float resX{}, resZ{};
+    const float slerpT = IdleCamSlerpCpp(&CGeneral::GetATanOfXY, d1, d2, mag1, mag2, beginTime, m_TimeLastTargetSelected, m_SlerpDuration, &resX, &resZ);
     outX = resX;
     outZ = resZ;
     return slerpT;
@@ -535,27 +423,11 @@ void CIdleCam::FinaliseIdleCamera(float curAngleX, float curAngleY, float shakeD
     // Como el original: vecUp es una referencia al vector arriba de la camara (antes era una copia: `auto&a=x, b=y` solo hace referencia a la primera)
     auto &vecFwd = m_Cam->m_vecFront, &vecUp = m_Cam->m_vecUp;
 
-    // Como el original (0x50E763..0x50E7B1): FCOS/FSIN del x87 (precision completa), cada componente se guarda como float
-    float frontX{}, frontY{}, frontZ{};
-    __asm {
-        fld curAngleX
-        fcos
-        fld curAngleY
-        fcos
-        fmul st, st(1)
-        fchs
-        fstp frontX
-        fld curAngleY
-        fsin
-        fmul st, st(1)
-        fchs
-        fstp frontY
-        fstp st(0)
-        fld curAngleX
-        fsin
-        fstp frontZ
-    }
-    vecFwd = CVector{ frontX, frontY, frontZ };
+    // Como el original (0x50E763..0x50E7B1): {-(cos(Y)·cos(X)), -(sin(Y)·cos(X)), sin(X)} con FCOS/FSIN sin redondear y un redondeo a float por
+    // componente (FCHS no cambia el redondeo); mismo cálculo que la dirección de la luz de CTimeCycle::Initialise.
+    float front[3]{};
+    TimeCycleDirnToSunCpp(curAngleX, curAngleY, front);
+    vecFwd = CVector{ -front[0], -front[1], front[2] };
     vecFwd.Normalise(); // 0x50E7C0
     m_LastIdlePos = vecFwd + m_Cam->m_vecSource;
 
@@ -566,16 +438,9 @@ void CIdleCam::FinaliseIdleCamera(float curAngleX, float curAngleY, float shakeD
     // Como el original (0x50E855): Multiply3x3 vector * matriz (0x59C810: producto con las filas, sin posicion); antes TransformPoint (columnas + posicion)
     vecFwd = IdleMultiply3x3_VM(vecFwd, hs.m_resultMat);
 
-    // Como el original (0x50E87D..0x50E8B2): sin/cos del x87 con precision completa
-    float angleSin{}, angleCos{};
-    __asm {
-        fld angle
-        fsin
-        fstp angleSin
-        fld angle
-        fcos
-        fstp angleCos
-    }
+    // Como el original (0x50E87D..0x50E8B2): sin/cos del x87 con precisión completa, guardados como float
+    const float angleSin = TrigSimpleSinCpp(angle);
+    const float angleCos = TrigSimpleCosCpp(angle);
     vecUp.Set(angleSin, 0.0f, angleCos);
     auto rightDir = CrossProduct(vecFwd, vecUp);
     rightDir.Normalise();

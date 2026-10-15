@@ -1,0 +1,3 @@
+APROBADO: Marcadores 3D (C3dMarker, C3dMarkers)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-markers\20261014-202827-317503

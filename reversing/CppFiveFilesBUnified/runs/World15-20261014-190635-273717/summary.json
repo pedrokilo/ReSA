@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "4e58cfcf6b190eef76feeebf9b5c47bdcecd47b617c60ce9d1b47639753f3afd",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 17312,
+  "pairs_per_function": {
+    "CPopCycle::Initialise": 32,
+    "CPopCycle::PickGangToCreateMembersOf": 512,
+    "CPopCycle::FindNewPedType": 1024,
+    "CPopCycle::PickPedMIToStreamInForCurrentZone": 512,
+    "CPopCycle::IsPedAppropriateForCurrentZone": 512,
+    "CPopCycle::IsPedInGroup": 512,
+    "CPopCycle::GetCurrentPercOther_Peds": 512,
+    "CPopCycle::PickARandomGroupOfOtherPeds": 512,
+    "CPopCycle::PlayerKilledADealer": 128,
+    "CPopCycle::UpdateDealerStrengths": 256,
+    "CPopCycle::UpdateAreaDodgyness": 256,
+    "CPopCycle::UpdateIsGangArea": 128,
+    "CPopCycle::PedIsAcceptableInCurrentZone": 256,
+    "CPopCycle::UpdatePercentages": 1024,
+    "CPopCycle::Update": 512,
+    "CSprite::Initialise": 64,
+    "CSprite::CalcScreenCoors": 1024,
+    "CSprite::FlushSpriteBuffer": 256,
+    "CSprite::InitSpriteBuffer": 64,
+    "CSprite::RenderOneXLUSprite": 1024,
+    "CSprite::RenderOneXLUSprite_Triangle": 1024,
+    "CSprite::RenderOneXLUSprite_Rotate_Aspect": 1024,
+    "CSprite::Set4Vertices2D-CRect": 512,
+    "CSprite::CalcHorizonCoors": 512,
+    "CSprite::RenderBufferedOneXLUSprite": 1024,
+    "CSprite::RenderBufferedOneXLUSprite_Rotate_Aspect": 1024,
+    "CSprite::RenderBufferedOneXLUSprite_Rotate_Dimension": 1024,
+    "CSprite::RenderBufferedOneXLUSprite_Rotate_2Colours": 1024,
+    "CSprite::RenderBufferedOneXLUSprite2D": 512,
+    "CSprite::RenderOneXLUSprite2D": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "7f925d0052da6fe583eb7f71f4825dcbdb26ecf39cf1e8d1b737832f914b166e",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

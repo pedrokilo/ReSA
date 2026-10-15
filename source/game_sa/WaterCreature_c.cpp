@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "WaterCreature_c.h"
 
@@ -35,43 +36,42 @@ namespace {
 constexpr float PI_6E4 = std::bit_cast<float>(0x40490FDBu);     // 3.1415927f
 constexpr float TWO_PI_6E4 = std::bit_cast<float>(0x40C90FDBu); // 6.2831855f
 
-// Como el original: GetHeading en linea con fpatan (precision completa, redondeo al guardar)
+// Como el original: GetHeading en linea (0x6E43F9 y 0x6E4ABB): fchs + fpatan a precision completa y un solo redondeo al guardar el float
 float GetHeadingX87_6E4(const CPlaceable* placeable) {
     const CMatrix* m = placeable->m_matrix;
     if (!m) {
         return placeable->m_placement.m_fHeading;
     }
-    const float* fwd = &m->GetForward().x;
-    float result;
-    __asm {
-        mov eax, fwd
-        fld dword ptr [eax]
-        fchs
-        fld dword ptr [eax+4]
-        fpatan
-        fstp result
-    }
-    return result;
+    const CVector& fwd = m->GetForward();
+    return TrigAtan2Cpp(-fwd.x, fwd.y);
 }
 
-// Como el original: vector frontal en linea; sin matriz usa fsin/fcos del x87 sobre el heading
-CVector GetForwardX87_6E4(const CPlaceable* placeable) {
+// El producto va en funciones aparte con precise: /fp:fast podria reasociar (a * b) * c, y el EXE redondea a 24 bits tras cada fmul
+#pragma float_control(precise, on, push)
+// Como el original: vector frontal * velocidad (0x6E4865..0x6E48BE, rama del grupo). Sin matriz el EXE deja -sin y cos de
+// heading sin redondear a float y los multiplica por la velocidad (un solo redondeo): x = -sin * v, y = cos * v, z = 0 * v
+CVector ForwardTimesSpeed_6E4(const CPlaceable* placeable, float speed) {
     if (const CMatrix* m = placeable->m_matrix) {
-        return m->GetForward();
+        const CVector& fwd = m->GetForward();
+        return { fwd.x * speed, fwd.y * speed, fwd.z * speed };
     }
     const float heading = placeable->m_placement.m_fHeading;
-    float s, c;
-    __asm {
-        fld heading
-        fsin
-        fchs
-        fstp s
-        fld heading
-        fcos
-        fstp c
-    }
-    return { s, c, 0.f };
+    return { -TrigSimpleSinMulCpp(heading, speed), TrigSimpleCosMulCpp(heading, speed), 0.f * speed };
 }
+
+// Como el original: vector frontal * paso * velocidad (0x6E4D26..0x6E4D83, rama en solitario). Sin matriz el EXE multiplica
+// -sin (sin redondear) por el paso y guarda el coseno como float antes de multiplicarlo; luego todo se multiplica por la velocidad
+CVector ForwardTimesStepSpeed_6E4(const CPlaceable* placeable, float step, float speed) {
+    if (const CMatrix* m = placeable->m_matrix) {
+        const CVector& fwd = m->GetForward();
+        return { fwd.x * step * speed, fwd.y * step * speed, fwd.z * step * speed };
+    }
+    const float heading = placeable->m_placement.m_fHeading;
+    const float sinStep = -TrigSimpleSinMulCpp(heading, step);
+    const float cosStep = TrigSimpleCosCpp(heading) * step;
+    return { sinStep * speed, cosStep * speed, 0.f * step * speed };
+}
+#pragma float_control(pop)
 
 // Como el original: SetHeading en linea (SetRotateZOnly o heading de m_placement)
 void SetHeading_6E4(CPlaceable* placeable, float heading) {
@@ -210,8 +210,8 @@ void WaterCreature_c::Update(float fTimeStep)
         fSpeed = fSpeed < fMaxStep ? fSpeed : fMaxStep;
 
         const auto vecPos = m_pObject->GetPosition();
-        const auto vecForward = GetForwardX87_6E4(m_pObject);
-        m_pObject->SetPosn(CVector{ vecForward.x * fSpeed + vecPos.x, vecPos.y + vecForward.y * fSpeed, vecPos.z + vecForward.z * fSpeed });
+        const auto vecMove = ForwardTimesSpeed_6E4(m_pObject, fSpeed);
+        m_pObject->SetPosn(CVector{ vecMove.x + vecPos.x, vecPos.y + vecMove.y, vecPos.z + vecMove.z });
 
         if (pInfo.m_fMaxDistFromFollowed * 5.0F < fDistFromGroup) // Como el original: estrictamente mayor
             m_pFollowedCreature = nullptr; // Break out from group
@@ -318,8 +318,7 @@ void WaterCreature_c::Update(float fTimeStep)
             m_fCurSpeed = fCurSpeed;
         }
 
-        const auto vecForward = GetForwardX87_6E4(m_pObject);
-        const CVector vecStep{ vecForward.x * fTimeStep * fCurSpeed, vecForward.y * fTimeStep * fCurSpeed, vecForward.z * fTimeStep * fCurSpeed };
+        const auto vecStep = ForwardTimesStepSpeed_6E4(m_pObject, fTimeStep, fCurSpeed);
         m_pObject->SetPosn(CVector{ vecStep.x + vecPos.x, vecStep.y + vecPos.y, vecStep.z + vecPos.z });
     }
 

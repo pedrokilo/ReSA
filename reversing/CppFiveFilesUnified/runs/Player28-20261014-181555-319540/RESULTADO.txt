@@ -1,0 +1,3 @@
+APROBADO: Información del jugador (lista de 28)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-player28\20261014-181555-319540

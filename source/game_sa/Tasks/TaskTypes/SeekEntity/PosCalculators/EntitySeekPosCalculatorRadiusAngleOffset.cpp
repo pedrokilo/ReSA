@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "EntitySeekPosCalculatorRadiusAngleOffset.h"
 #include "PedGeometryAnalyser.h"
@@ -43,32 +44,17 @@ void CEntitySeekPosCalculatorRadiusAngleOffset::ComputeEntitySeekPos(const CPed&
         fwdY = mat->GetForward().y;
     } else {
         const float headingArg = target.m_placement.m_fHeading;
-        __asm {
-            fld  headingArg
-            fsin
-            fchs
-            fstp fwdX
-            fld  headingArg
-            fcos
-            fstp fwdY
-        }
+        fwdX = -TrigSimpleSinCpp(headingArg); // fld/fsin/fchs/fstp: float(-sin)
+        fwdY = TrigSimpleCosCpp(headingArg);  // fld/fcos/fstp
     }
     const float heading = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(fwdX, fwdY, 0.0f, 0.0f));
     const float angleArg = CGeneral::LimitRadianAngle(heading + m_angle);
 
     // Como el original: -fsin(a) se multiplica por el radio con precisión interna completa; fcos se guarda antes como float
     const float radiusArg = m_radius;
-    float offX, cosA;
-    __asm {
-        fld  angleArg
-        fsin
-        fchs
-        fmul radiusArg
-        fstp offX
-        fld  angleArg
-        fcos
-        fstp cosA
-    }
+    // -sin*radius se redondea a float al multiplicar (x87 a 24 bits) y se suma a pos.x; fcos se guarda como float antes de multiplicar
+    const float offX = -TrigSimpleSinMulCpp(angleArg, radiusArg);
+    const float cosA = TrigSimpleCosCpp(angleArg);
     const float offY = radiusArg * cosA;
     const float offZ = radiusArg * 0.0f; // Como el original: radio * 0.0 (0x858B50), no un 0 literal
 

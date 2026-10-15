@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "TimeCycle.h"
 #include "PostEffects.h"
@@ -85,45 +86,6 @@ static const float s_TcBrightLow     = std::bit_cast<float>(0x3F4CCCCDu); // 0x8
 // 0x86A6D0 y 0x86A6C8: ángulos (double) de la dirección de la luz hacia el sol
 static double s_TcDirnAngleA = std::bit_cast<double>(0x3FE921FB60000000ull); // pi / 4 (float)
 static double s_TcDirnAngleB = std::bit_cast<double>(0xC002D97C80000000ull); // -3 * pi / 4 (float)
-
-// Como el original (0x5BC026): fcos/fsin con precisión interna completa, productos redondeados a float.
-static void __declspec(naked) __cdecl CalcDirnLightToSunX87(CVector* out) {
-    __asm {
-        mov  eax, dword ptr [esp + 4]
-        fld  qword ptr [s_TcDirnAngleA]
-        fcos
-        fld  qword ptr [s_TcDirnAngleB]
-        fcos
-        fmul st, st(1)
-        fstp dword ptr [eax]
-        fld  qword ptr [s_TcDirnAngleB]
-        fsin
-        fmul st, st(1)
-        fstp dword ptr [eax + 4]
-        fstp st(0)
-        fld  qword ptr [s_TcDirnAngleA]
-        fsin
-        fstp dword ptr [eax + 8]
-        ret
-    }
-}
-
-// Como el original (0x560A80): x = 0.7 + fsin(a), z = 0.2 - fcos(a) con el seno/coseno sin redondear.
-static void __declspec(naked) __cdecl CalcVectorToSunX87(float angle, float* outX, float* outZ) {
-    __asm {
-        fld   dword ptr [esp + 4]
-        fld   st(0)
-        fsin
-        fadd  dword ptr [s_TcSunX]
-        mov   eax, dword ptr [esp + 8]
-        fstp  dword ptr [eax]
-        fcos
-        fsubr dword ptr [s_TcSunZ]
-        mov   eax, dword ptr [esp + 12]
-        fstp  dword ptr [eax]
-        ret
-    }
-}
 
 // 0x5BBAC0
 void CTimeCycle::Initialise(bool padFile) {
@@ -294,7 +256,7 @@ void CTimeCycle::Initialise(bool padFile) {
     CFileMgr::CloseFile(file);
 
     // Como el original: cos/sin x87 de los ángulos double del EXE y CVector::Normalise (0x59C910)
-    CalcDirnLightToSunX87(&m_vecDirnLightToSun);
+    TimeCycleDirnToSunCpp(s_TcDirnAngleA, s_TcDirnAngleB, &m_vecDirnLightToSun.x);
     m_vecDirnLightToSun.Normalise();
     m_FogReduction = 0;
     m_bExtraColourOn = false;
@@ -491,7 +453,7 @@ void CTimeCycle::CalcColoursForPoint(CVector point, CColourSet* set) {
         const float sunAngle = minutes * s_TcSunAngle;
         auto& sun = m_VectorToSun.data()[m_CurrentStoredValue];
         float x, z;
-        CalcVectorToSunX87(sunAngle, &x, &z);
+        TimeCycleVectorToSunCpp(sunAngle, s_TcSunX, s_TcSunZ, &x, &z);
         sun.x = x;
         sun.y = s_TcSunY;
         sun.z = z;

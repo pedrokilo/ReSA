@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 
+#include "X87Math.h"
 #include "TaskSimpleFightingControl.h"
 #include "PedStats.h"
 #include "TaskSimpleFight.h"
@@ -32,41 +33,6 @@ static auto& FightControlIdleTime = StaticRef<float>(0x8D2E50);
 static auto& FightControlBlockChance = StaticRef<float>(0x8D2E54);
 static auto& FightControlBlockTimeMin = StaticRef<int32>(0x8D2E58);
 static auto& FightControlBlockTimeMax = StaticRef<int32>(0x8D2E5C);
-
-static uint32 FightControlElapsed(float step) {
-    const float seconds = .02f, milliseconds = 1000.f;
-    int64 elapsed;
-    uint16 control, truncate;
-    __asm {
-        fld step
-        fmul seconds
-        fmul milliseconds
-        fnstcw control
-        mov ax, control
-        or ax, 0C00h
-        mov truncate, ax
-        fldcw truncate
-        fistp elapsed
-        fldcw control
-    }
-    return static_cast<uint32>(elapsed);
-}
-
-static bool FightControlShouldBlock(float random, float chance, float rate) {
-    const float scale = .025f;
-    bool result;
-    __asm {
-        fld random
-        fld chance
-        fmul rate
-        fmul scale
-        fcompp
-        fnstsw ax
-        test ah, 41h
-        setz result
-    }
-    return result;
-}
 
 void CTaskSimpleFightingControl::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleFightingControl, 0x86d700, 9);
@@ -123,35 +89,17 @@ int16 CTaskSimpleFightingControl::CalcMoveCommand(CPed* ped) {
     const float rotation = ped->m_fCurrentRotation;
     const float piValue = std::bit_cast<float>(0x40490FDBu), minusPiValue = std::bit_cast<float>(0xC0490FDBu), twoPiValue = std::bit_cast<float>(0x40C90FDBu);
     const float attackAngle = std::bit_cast<float>(0x3E860A92u);
-    bool outsideAngle;
-    __asm {
-        fld deltaX
-        fchs
-        fld deltaY
-        fpatan
-        fsub rotation
-        fcom piValue
-        fnstsw ax
-        test ah, 41h
-        jne check_lower
-        fsub twoPiValue
-        jmp wrapped
-    check_lower:
-        fcom minusPiValue
-        fnstsw ax
-        test ah, 5
-        jp wrapped
-        fadd twoPiValue
-    wrapped:
-        fabs
-        fcomp attackAngle
-        fnstsw ax
-        test ah, 41h
-        setz outsideAngle
+    // atan2 con fpatan sin redondear y un solo redondeo a float en la resta (Atan2MinusCpp); cada fsub/fadd posterior redondea a 24 bits (= float).
+    float angle = Atan2MinusCpp(-deltaX, deltaY, rotation);
+    if (angle > piValue) { // fcom + test ah,41h: con NaN no entra
+        angle -= twoPiValue;
+    } else if (angle < minusPiValue) { // test ah,5 + jp: solo suma si es estrictamente menor
+        angle += twoPiValue;
     }
+    const bool outsideAngle = std::fabs(angle) > attackAngle; // fabs + fcomp + test ah,41h: con NaN da false
     if (outsideAngle) {
         // Como el original (0x624BF4): paso * 0.02 * 1000 truncado por _ftol2 y sumado a la hora del proximo ataque.
-        m_nextAttackTime += FightControlElapsed(CTimer::GetTimeStep());
+        m_nextAttackTime += FightCtlElapsedCpp(CTimer::GetTimeStep());
         return 0;
     }
 
@@ -284,12 +232,12 @@ bool CTaskSimpleFightingControl::ProcessPed(CPed* ped) {
             command = ped->m_nFightingStyle == 4 || ped->GetActiveWeapon().m_Type != WEAPON_UNARMED ? 11 : 12;
         } else {
             const bool startBlock = m_target->GetIsTypePed() && !m_someTime
-                && FightControlShouldBlock(CGeneral::GetRandomNumberInRange(0.f, 100.f), FightControlBlockChance, shootingRate);
+                && FightCtlShouldBlockCpp(CGeneral::GetRandomNumberInRange(0.f, 100.f), FightControlBlockChance, shootingRate);
             if (startBlock) {
                 m_someTime = CGeneral::GetRandomIntInRange(FightControlBlockTimeMin, FightControlBlockTimeMax);
                 command = 2;
             } else if (m_someTime) {
-                const auto elapsed = FightControlElapsed(CTimer::GetTimeStep());
+                const auto elapsed = FightCtlElapsedCpp(CTimer::GetTimeStep());
                 m_someTime = m_someTime > elapsed ? m_someTime - elapsed : 0;
                 command = 2;
             }
@@ -299,43 +247,10 @@ bool CTaskSimpleFightingControl::ProcessPed(CPed* ped) {
     auto* fight = static_cast<CTaskSimpleFight*>(ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK));
     m_maxAttackRange = CTaskSimpleFight::m_aComboData[std::max(int32(fight->m_nComboSet) - 4, 0)].m_fRanges;
     if (!m_nextAttackTime) {
-        // The original keeps the random ratio and denominator on the x87 stack
-        // until its truncating conversion to milliseconds.
+        // 0x62A2DC..0x62A32F: (rand/32767 + .25) / ((tasa*agresion*.025*.7) + .3) * intervalo, truncado por _ftol2 (32 bits bajos); ver FightCtlAttackDelayCpp.
         const int32 random = CGeneral::GetRandomNumber();
-        const float reciprocal = 1.f / 32767.f, quarter = .25f, rateScale = .025f, aggressionScale = .7f, base = .3f;
-        const float aggression = m_unk3;
-        const uint32 interval = FightControlAttackInterval;
-        const double unsignedCorrection = 4294967296.0;
-        int32 delay;
-        __asm {
-            fild random
-            fmul reciprocal
-            fadd quarter
-            fld shootingRate
-            fmul aggression
-            fmul rateScale
-            fmul aggressionScale
-            fadd base
-            fdivp st(1), st(0)
-            fild interval
-            cmp interval, 0
-            jge positive_interval
-            fadd unsignedCorrection
-        positive_interval:
-            fmulp st(1), st(0)
-            sub esp, 12
-            fnstcw word ptr [esp]
-            mov ax, word ptr [esp]
-            or ax, 0C00h
-            mov word ptr [esp+2], ax
-            fldcw word ptr [esp+2]
-            fistp qword ptr [esp+4]
-            fldcw word ptr [esp]
-            mov eax, [esp+4]
-            add esp, 12
-            mov delay, eax
-        }
-        m_nextAttackTime = static_cast<uint32>(delay) + CTimer::GetTimeInMS();
+        const uint32 delay = FightCtlAttackDelayCpp(random, shootingRate, m_unk3, FightControlAttackInterval);
+        m_nextAttackTime = delay + CTimer::GetTimeInMS();
     }
     if (fight->m_nComboSet <= 1) {
         const auto move = CalcMoveCommand(ped);

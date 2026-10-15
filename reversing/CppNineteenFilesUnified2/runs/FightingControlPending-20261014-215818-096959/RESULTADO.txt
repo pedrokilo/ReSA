@@ -1,0 +1,3 @@
+APROBADO: Fighting control pendiente
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fighting-control-pending\20261014-215818-096959

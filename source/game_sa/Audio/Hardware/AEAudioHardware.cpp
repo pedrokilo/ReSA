@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "AEAudioUtility.h"
 #include "AEStaticChannel.h"
 #include "AEUserRadioTrackManager.h"
+#include "X87Math.h"
 
 auto& AEAudioHardware = StaticRef<CAEAudioHardware>(0xB5F8B8);
 
@@ -425,84 +426,19 @@ void CAEAudioHardware::SetChannelFrequencyScalingFactor(int16 channel, uint16 ch
     }
 }
 
-// Ayudantes x87 de RescaleChannelVolumes (0x4D8990), con las constantes del EXE.
+// Constantes del EXE para el volumen final de RescaleChannelVolumes (0x4D8990).
 namespace {
-const double s_RescaleTen      = 10.0;                                // 0x859EA8 (qword)
-const float  s_RescaleToLinear = std::bit_cast<float>(0x3D4CCCCDu);   // 0x858C28 (0,05)
-const float  s_RescaleInvMax   = std::bit_cast<float>(0x38800200u);   // 0x85F078 (1 / 16383)
-const float  s_RescaleLogMin   = std::bit_cast<float>(0x3727C5ACu);   // 0x858C14 (0,00001)
-const float  s_RescaleDecibels = 20.0f;                               // 0x858BA4
+const float s_RescaleInvMax = std::bit_cast<float>(0x38800200u);   // 0x85F078 (1 / 16383)
+const float s_RescaleLogMin = std::bit_cast<float>(0x3727C5ACu);   // 0x858C14 (0,00001)
 
-// 0x4D8B58: gain = 10^(vol · 0,05) (fst); si sum no es nulo, *sum = ST0 + *sum (fadd/fstp) como el EXE.
-void ExePowGain(float vol, float* gain, float* sum) {
-    __asm {
-        fld   s_RescaleTen
-        fld   vol
-        fmul  s_RescaleToLinear
-        mov   eax, 0x822130
-        call  eax
-        mov   edx, gain
-        fst   dword ptr [edx]
-        mov   ecx, sum
-        test  ecx, ecx
-        jz    L_powDrop
-        fadd  dword ptr [ecx]
-        fstp  dword ptr [ecx]
-        jmp   L_powDone
-    L_powDrop:
-        fstp  st(0)
-    L_powDone:
-    }
-}
-
-// 0x4D8BC4: r = diff · gain / length (fild, fmul, fidiv); r < 0 -> 0; r > gain -> gain (NaN se conserva); *sum += r.
-void ExeAddFadeNearEnd(int32 diff, int32 divisor, const float* gain, float* sum) { // (sin `length`: es un operador de MASM)
-    __asm {
-        mov    edx, gain
-        mov    ecx, sum
-        fild   diff
-        fmul   dword ptr [edx]
-        fidiv  divisor
-        ftst
-        fnstsw ax
-        test   ah, 5
-        jp     L_fadeNotNegative
-        fstp   st(0)
-        fldz
-        jmp    L_fadeAdd
-    L_fadeNotNegative:
-        fcom   dword ptr [edx]
-        fnstsw ax
-        test   ah, 41h
-        jne    L_fadeAdd
-        fstp   st(0)
-        fld    dword ptr [edx]
-    L_fadeAdd:
-        fadd   dword ptr [ecx]
-        fstp   dword ptr [ecx]
-    }
-}
-
-// 0x4D8D40: 20 · AudioLog10(gain · (1 / 16383)); AudioLog10 del EXE: p < 0,00001 o NaN -> -5.
+// 0x4D8D40: 20 · AudioLog10(gain · (1 / 16383)); AudioLog10 del EXE (0x4D9E50): p < 0,00001 o NaN -> -5 (·20 = -100);
+// si no, fldlg2/fyl2x sin redondear y ·20 en x87 con un solo redondeo (AudioLog10Times20Cpp).
 float ExeGainToDecibels(const float* gain) {
-    float p, result;
-    __asm {
-        mov   edx, gain
-        fld   dword ptr [edx]
-        fmul  s_RescaleInvMax
-        fstp  p
-    }
+    const float p = *gain * s_RescaleInvMax; // fmul + fstp float
     if (!(p >= s_RescaleLogMin)) {
-        return -5.0f * s_RescaleDecibels;
+        return -100.0f;
     }
-    __asm {
-        fldlg2
-        fld   p
-        fyl2x
-        fmul  s_RescaleDecibels
-        fstp  result
-    }
-    return result;
+    return AudioLog10Times20Cpp(p);
 }
 } // namespace
 
@@ -589,10 +525,10 @@ void CAEAudioHardware::RescaleChannelVolumes() {
 
         // Como el original: 10^(vol · 0,05) con el _CIpow del EXE (0x822130); se guarda como float (fst) y,
         // si el canal no se puede atenuar, se suma el ST0 completo a fullSum.
-        ExePowGain(vol, &m_ChannelGains[i], (flags & FLAG_UNDUCKABLE) ? &fullSum : nullptr);
+        AudioHwPowGainCpp(vol, &m_ChannelGains[i], (flags & FLAG_UNDUCKABLE) ? &fullSum : nullptr);
 
         if (flags & FLAG_UNDUCKABLE) {
-            // Ya sumado en ExePowGain.
+            // Ya sumado en AudioHwPowGainCpp.
         } else if ((flags & FLAG_FADE_NEAR_END) && ch && ch->GetPlayTime() >= 0) {
             // NOTE: `GetPlayTime()` is called twice on purpose (0x4D8B9A / 0x4D8BBB) -
             // it reads live playback state, so caching it would deviate from the original.
@@ -601,7 +537,7 @@ void CAEAudioHardware::RescaleChannelVolumes() {
             const int32 length   = static_cast<int16>(ch->GetLength());
             const int32 playTime = ch->GetPlayTime();
             // Como el original: fild de la diferencia, fmul y fidiv en x87, acotado a [0, gain] y sumado a scaleSum.
-            ExeAddFadeNearEnd(static_cast<int32>(static_cast<uint32>(length) - static_cast<uint32>(playTime)), length, &m_ChannelGains[i], &scaleSum);
+            AudioHwFadeNearEndCpp(static_cast<int32>(static_cast<uint32>(length) - static_cast<uint32>(playTime)), length, &m_ChannelGains[i], &scaleSum);
         } else {
             scaleSum += m_ChannelGains[i];
         }

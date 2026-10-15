@@ -134,3 +134,112 @@ int __cdecl WaveCursorBytesCpp(unsigned int position, unsigned int bytesPerSecon
 float __cdecl SmoothFadeVolumeCpp(float diff, float start, unsigned int elapsed, int fadeTime);
 // 1 - num/den con enteros sin signo cargados como el EXE (CBulletTraces::Render).
 float __cdecl OneMinusUnsignedRatioCpp(unsigned int numerator, unsigned int denominator);
+
+// Lote de cinco archivos (14/10/2026).
+// {sin(angle/2)·axis, cos(angle/2)} en out[0..3] con el seno sin redondear y lecturas/escrituras intercaladas (la salida puede solaparse con el eje) (CQuaternion::Set, 0x59C600).
+void __cdecl QuaternionFromAxisAngleCpp(float* out, const float* axis, float angle);
+// float(from - atan2(num, den)) con el fpatan sin redondear y un solo redondeo a float (CBoat::ProcessControl, rumbo bloqueado).
+float __cdecl Atan2FromCpp(float num, float den, float from);
+// *value = float(pow(base, step) * *value) con el pow del EXE en ST0 sin redondear (CBoat::ProcessControlInputs).
+void __cdecl PowScaleFloatCpp(float* value, float base, float step);
+// CTrailer::ProcessAI (0x6CF5FC): giro del remolque de equipaje hacia el rumbo del tractor; forward = {x, y} de la matriz o nullptr (usa el rumbo compacto).
+float __cdecl TrailerSteerCpp(const float* tractorForward, float tractorHeading, const float* selfForward, float selfHeading);
+// 10 · log10(x) con fldlg2/fyl2x y un solo redondeo a float (CEvent::GetSoundLevel, 0x4B2850).
+float __cdecl Log10Times10Cpp(float x);
+// 10 · log10((power2 + power1) / power1) con un solo redondeo a float; power2 = pow sin redondear a float, power1 ya float (CEvent::CalcSoundLevelIncrement, 0x4AC050).
+float __cdecl SoundLevelIncrementCpp(double power2, float power1);
+
+// Lote de cinco archivos (14/10/2026, 2).
+// CFireManager::StartFire sin objetivo (0x539F00): ((rnd · factorA) · factorB + offset) · burnTime + nowMs con enteros sin signo como fild (+ 2^32), un redondeo a 24 bits por operación; el llamador aplica _ftol2.
+float __cdecl FireBurnTimeCpp(int rnd, float factorA, float factorB, float offset, unsigned int burnTime, unsigned int nowMs);
+// value - whole con fisub (entero exacto, un solo redondeo) (CFire::ProcessFire, 0x53AD8F).
+float __cdecl IntFractionCpp(float value, int whole);
+// float(from - atanFn(x, y)) con el valor de ST0 de atanFn (CGeneral::GetATanOfXY) sin redondear y un solo redondeo a float (CPlayerInfo::EvaluateCarPosition, 0x56DAD0).
+float __cdecl PlayerInfoAtanFromCpp(float (__cdecl* atanFn)(float, float), float from, float x, float y);
+// CPointLights::AddLight (0x7000E0): filtro por x/y (offsets y límite = radio + 15 como float); false si la luz queda fuera (comparaciones estrictas, false con NaN).
+bool __cdecl PointLightsInRangeXYCpp(const float* camera, float pointX, float pointY, float radius, float* outOffsetX, float* outOffsetY, float* outLimit);
+// CPointLights::AddLight (0x7000E0): distancia (z·z + y·y) + x·x, false si queda fuera del límite; si cae en la franja de atenuación (>= 0.75 · límite) multiplica red/green/blue por el coeficiente del EXE.
+bool __cdecl PointLightsDistanceFadeCpp(float pointZ, const float* camera, float offsetX, float offsetY, float limit, float* red, float* green, float* blue);
+// Lote de Replay.cpp (14/10/2026).
+// CReplay::ProcessLookAroundCam (0x45D760): offsets = {sin(dir)·cos(view)·dist, cos(dir)·cos(view)·dist, sin(view)·dist}, cada uno con un solo redondeo a float y fsin/fcos sin redondear.
+void __cdecl ReplayLookAroundOffsetsCpp(float view, float dirAngle, float dist, float* offsets);
+
+// Lote de cinco archivos (14/10/2026, 3).
+// CRopes::FindCoorsAlongRope (0x555E40): dist (ya recortada) · 31 sin redondear, interpolación entre dos segmentos (stride 3 floats) escrita en out[0..2]; devuelve el índice de segmento.
+int __cdecl RopesInterpolateCpp(float dist, const float* segments, float* out);
+// CShotInfo::AddShot (0x739CE8..0x739DD3): float(_ftol(vida + tiempo sin signo)) con fild + 2^32 y un redondeo por operación; se coloca tras UnsignedAsX87 en X87Math.cpp.
+float __cdecl ShotInfoDestroyTimeCpp(float lifespan, unsigned int nowMs);
+// CSimpleTransform::Invert (0x54EF90): x = -(cos·bx) - sin·by, y = sin·bx - cos·by, con cos/sin sin redondear; base = {x, y, z, rumbo}.
+void __cdecl SimpleTransformInvertCpp(const float* base, float* out);
+// Coeficientes de las cuatro esquinas de un sprite girado {-cos - sin, sin - cos, cos + sin, cos - sin}, fsin/fcos sin redondear (CSprite 0x70D490/0x70E780/0x70EDE0).
+void __cdecl SpriteQuadCoeffsCpp(float rotation, float* coeffs);
+// {w·cos, sin·h, cos·h, sin·w} con fsin/fcos sin redondear y un redondeo a float por producto (CSprite::RenderBufferedOneXLUSprite_Rotate_Dimension, 0x70EAB0).
+void __cdecl SpriteDimensionTermsCpp(float rotation, float width, float height, float* terms);
+
+// Lote de cuatro archivos (14/10/2026, 4).
+// TransformPoint (0x54ECE0): out = rotación por transform[3] de in más {transform[0..2]}; transform = {x, y, z, rumbo}; la salida puede ser la entrada.
+void __cdecl CommonTransformPointCpp(float* out, const float* transform, const float* in);
+// CTaskComplexDestroyCarArmed::CalculateSearchPositionAndRanges (0x628C80): sqrt((x·x + y·y) + z·z) con suma sin redondear y un solo redondeo a float; v apunta a x, y, z consecutivos.
+float __cdecl DestroyCarDistanceCpp(const float* v);
+// CTimeCycle::Initialise (0x5BC026): {cos(b)·cos(a), sin(b)·cos(a), sin(a)} con fcos/fsin sin redondear y un redondeo a float por componente.
+void __cdecl TimeCycleDirnToSunCpp(double angleA, double angleB, float* out);
+// CTimeCycle::CalcColoursForPoint (0x560A80): x = sunX + sin(a), z = sunZ - cos(a) con seno/coseno sin redondear y un redondeo a float por componente.
+void __cdecl TimeCycleVectorToSunCpp(float angle, float sunX, float sunZ, float* outX, float* outZ);
+// Common::TransformVectors (0x54EE30): bucle de rotación de numVectors vectores (3 floats) con x87, para propagar los NaN como el EXE.
+void __cdecl CommonTransformVectorsCpp(float* out, int numVectors, float cosHeading, float sinHeading, const float* in);
+
+// Lote de diecinueve archivos (14/10/2026, 5).
+// CAEPedAudioEntity::UpdateJetPack (0x4E1068..0x4E10A2): *sinStored = float(sin(angle)) (fst); devuelve float(|sin| · k + add) con el seno de fsin sin redondear y el signo cambiado solo si sin < 0 (fchs; NaN y 0 intactos).
+float __cdecl PedAudioJetPackSinCpp(float angle, float k, float add, float* sinStored);
+// CAEMFDecoder::GetStreamPlayTimeMs (0x4E7940): fild(playTime) / divider con un solo redondeo a float (x87 a 24 bits), truncado como _ftol2 (0x821B40).
+long __cdecl MfDecoderPlayTimeMsCpp(int playTime, float divider);
+// CAEMFDecoder::SetCursor (0x4E78E0): fild(pos) (+2^32 redondeado a float si pos < 0 como entero) · multiplier con un solo redondeo a float, truncado como _ftol2.
+long __cdecl MfDecoderCursorToPlayTimeCpp(unsigned int pos, float multiplier);
+// CCarAI::EntitiesGoHeadOn (0x41CD00), entidad sin matriz: ((dz*0 + cos(h)*dy) + (-sin(h))*dx) con fsin/fcos sin redondear a float, resultado float.
+float __cdecl CarAIHeadOnDotNoMatrixCpp(float heading, float dx, float dy, float dz);
+// CCover::FindDirFromVector (0x698D40): int(fpatan(-x, y) * (128/pi)) con el truncamiento de _ftol2; devuelve los 32 bits bajos del entero de 64 bits.
+int __cdecl CoverDirFromVectorCpp(float x, float y);
+// CCover::FindAndReserveCoverPoint (0x69936D): ((dy * float(cos a)) + (-sin(a) * dx)) + dz * 0 con a = float(dirIndex * 2pi/256); el seno entra sin redondear al producto.
+float __cdecl CoverDirDotCpp(float dx, float dy, float dz, int dirIndex);
+// float(atan2(num, den) * k + base) con el fpatan sin redondear, un redondeo a 24 bits por operacion y fstp final (CEntity::CreateEffects, 0x533A0B..0x533A5E).
+float __cdecl EntityHeadingDegreesPlusCpp(float num, float den, float k, float base);
+// ProcSurfaceInfo_c::AddObject (0x5A2E60): fila de matriz {x, y, z} *= {xy, xy, z} con fld/fmul/fstp por componente (conserva denormales).
+void __cdecl ProcSurfaceScaleRowCpp(float* row, float xy, float z);
+// ProcSurfaceInfo_c::AddObject (0x5A3803): *z = *z - (minZ * zScale - minZ) con un redondeo a 24 bits por operación y sin guardados intermedios.
+void __cdecl ProcSurfaceOffsetZCpp(float* z, float minZ, float zScale);
+// RwFastRealToUInt32Inline (rwplcore.h): FLD dword + FISTP dword; redondeo al par mas cercano; fuera de rango/NaN/inf = 0x80000000.
+unsigned int __cdecl RwPlCoreFastRealToUInt32Cpp(float x);
+// CTheScripts::DrawScriptSpritesAndRectangles, rectangulo angulado (0x464AC3..0x464AE9): terms = {cos·vAMy, sin·vAMx, cos·vAMx, sin·vAMy}; fcos queda sin redondear en ST0 y fsin se guarda como float, un redondeo a float por producto.
+void __cdecl TheScriptsAngledRectTermsCpp(float angle, float vAMx, float vAMy, float* terms);
+// CAEAudioUtility (0x4D9E80, 0x4D9EF0, 0x4D9F40, 0x5B97F0); se coloca tras UnsignedAsX87 en X87Math.cpp (los tres primeros lo usan).
+// GetCurrentTimeInMS: (contador / frecuencia) · 1000.0f menos el inicio (mitades baja/alta cargadas por separado), devuelve el int64 truncado (_ftol2) como uint64.
+unsigned long long __cdecl AudioUtilTimeMsCpp(long long counter, long long frequency, unsigned long long start);
+// ConvertFromBytesToMS: bytes / (producto · 0.002f), ambos enteros cargados como sin signo; devuelve el cociente (el llamador hace floor y _ftol2).
+double __cdecl AudioUtilBytesToMsQuotientCpp(unsigned int bytes, unsigned int product);
+// ConvertFromMSToBytes: (producto · 0.002f) · ms, ambos sin signo; devuelve el producto (el llamador hace floor y _ftol2).
+double __cdecl AudioUtilMsToBytesProductCpp(unsigned int product, unsigned int ms);
+// StaticInitialise: 10.0f / denominador a 24 bits, almacenado como float (el log10 se obtiene con AudioLog10Cpp).
+float __cdecl AudioUtilLogInverseCpp(double denominator);
+// CAEAudioHardware::RescaleChannelVolumes (0x4D8B58): gain = 10^(vol · 0.05) con el _CIpow del EXE, *gain = float(ST0); si sum no es nulo, *sum = float(ST0 + *sum) con ST0 sin redondear.
+void __cdecl AudioHwPowGainCpp(float vol, float* gain, float* sum);
+// CAEAudioHardware::RescaleChannelVolumes (0x4D8BC4): r = (diff · *gain) / divisor (fild, fmul, fidiv), r < 0 -> 0, r > *gain -> *gain (NaN se conserva), *sum = float(r + *sum).
+void __cdecl AudioHwFadeNearEndCpp(int diff, int divisor, const float* gain, float* sum);
+// Lote de IdleCam.cpp (14/10/2026).
+// CIdleCam::ProcessFOVZoom (0x517E2E..0x517E63): from + (to - from) · (sin((270 - ((now - started) / duration) · 180) · 0.0174532924) + 1) · 0.5, FSIN sin redondear y un solo redondeo a float.
+float __cdecl IdleCamFovLerpCpp(float now, float started, float duration, float from, float to);
+// CIdleCam::ProcessSlerp (0x517A8E..0x517BD5): 4 llamadas a atanFn (CGeneral::GetATanOfXY, la 4a sin redondear), ajuste de +-2PI, t = min((now - timeLast) / duration, 1) y salidas outX/outZ (interpolación con FSIN); devuelve t. d1/d2 = {x, y, z}; mag1/mag2 = sqrt(x² + y²) ya float.
+float __cdecl IdleCamSlerpCpp(float (__cdecl* atanFn)(float, float), const float* d1, const float* d2, float mag1, float mag2, float now, float timeLast, float duration, float* outX, float* outZ);
+// CTaskSimpleFightingControl (0x624BF4, 0x62A28E): 32 bits bajos del _ftol2 de (paso · 0.02f) · 1000.f (milisegundos de un paso).
+unsigned int __cdecl FightCtlElapsedCpp(float step);
+// CTaskSimpleFightingControl::ProcessPed (0x62A239..0x62A253): (probabilidad · tasa) · 0.025f > aleatorio, comparación ordenada (con NaN da false).
+bool __cdecl FightCtlShouldBlockCpp(float random, float chance, float rate);
+// CTaskSimpleFightingControl::ProcessPed (0x62A2E5..0x62A32F): 32 bits bajos del _ftol2 de ((rand · 1/32767 + .25) / (((tasa · agresión) · .025 · .7) + .3)) · intervalo (intervalo con signo vía fild; si es negativo, + 2^32).
+unsigned int __cdecl FightCtlAttackDelayCpp(int random, float shootingRate, float aggression, unsigned int interval);
+// CTaskSimplePlayerOnFoot::ProcessPlayerWeapon (0x686DB2..0x686DBB): float(sin(pitch) + z) con el fsin sin redondear y un solo redondeo en el fadd.
+float __cdecl OnFootSinPlusCpp(float pitch, float z);
+// CTaskSimplePlayerOnFoot::PlayerControlFighter (0x687687..0x6877AB): proyección de (-sin, cos) sobre right/forward de la matriz; right y forward apuntan a x, y, z; out = {x, y}. roundTrig: seno y coseno redondeados a float (rama cooperativa).
+void __cdecl OnFootFighterProjectCpp(const float* right, const float* forward, float angle, float magnitude, bool roundTrig, float* out);
+// float(a · k + b) con k double (fmul qword) y cada paso redondeado a 24 bits por la x87 (CWeaponEffects::Render, 0x7437A7: rc · 0.1 + base.x).
+float __cdecl WeaponFxMulDoubleAddCpp(float a, double k, float b);
+// a = atan2(y, x) con el fpatan sin redondear: *outSin = float(sin a), *outCos = float(cos a), *outOneMinusCos = float(1 - cos a) con el coseno sin redondear (CWeaponEffects::Render, 0x743630..0x7436B9).
+void __cdecl WeaponFxAngleSinCosCpp(float y, float x, float* outSin, float* outCos, float* outOneMinusCos);

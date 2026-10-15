@@ -1,0 +1,3 @@
+APROBADO: CTaskSimpleFightingControl y CTaskComplexProstituteSolicit (funciones restantes)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-taskfinal2\20261014-210554-071816

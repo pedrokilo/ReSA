@@ -25,66 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "WeaponEffects.h"
-
-namespace {
-// Como el original: fsin/fcos a precisión completa multiplicados con un solo redondeo (FPU a 24 bits)
-float SinMulX87(float angle, float k) {
-    float result;
-    __asm {
-        fld    angle
-        fsin
-        fmul   k
-        fstp   result
-    }
-    return result;
-}
-
-float CosMulX87(float angle, float k) {
-    float result;
-    __asm {
-        fld    angle
-        fcos
-        fmul   k
-        fstp   result
-    }
-    return result;
-}
-
-// Como el original: a * k (double) + b, redondeando cada paso a float en la FPU
-float MulDoubleAddX87(float a, double k, float b) {
-    float result;
-    __asm {
-        fld    a
-        fmul   k
-        fadd   b
-        fstp   result
-    }
-    return result;
-}
-
-// Como el original: el ángulo de fpatan no se redondea antes de fsin/fcos; 1 - cos tampoco
-void AngleSinCosX87(float y, float x, float& outSin, float& outCos, float& outOneMinusCos) {
-    float ls, lc, lo;
-    __asm {
-        fld    y
-        fld    x
-        fpatan
-        fld    st(0)
-        fsin
-        fstp   ls
-        fcos
-        fld    st(0)
-        fstp   lc
-        fld1
-        fsub   st, st(1)
-        fstp   lo
-        fstp   st(0)
-    }
-    outSin = ls;
-    outCos = lc;
-    outOneMinusCos = lo;
-}
-} // namespace
+#include "X87Math.h"
 
 void CWeaponEffects::InjectHooks() {
     RH_ScopedClass(CWeaponEffects);
@@ -252,8 +193,8 @@ void CWeaponEffects::Render() {
                 RwRenderStateSet(rwRENDERSTATETEXTURERASTER, gpCrossHairTexFlight[1]->raster);
                 ch.field_20 = std::max(ch.field_20 - 20.f * spin, 0.f);
                 ch.m_fRotation = ch.field_20 == 0.f ? 1.f : 0.f;
-                flightX = SinMulX87(spin, ch.field_20);
-                flightY = CosMulX87(spin, ch.field_20);
+                flightX = TrigSimpleSinMulCpp(spin, ch.field_20);
+                flightY = TrigSimpleCosMulCpp(spin, ch.field_20);
                 screen.x -= flightX;
                 screen.y -= flightY;
                 for (const float scale : {0.95f, 1.05f}) {
@@ -284,7 +225,7 @@ void CWeaponEffects::Render() {
             for (int triangle = 0; triangle < 3; ++triangle) {
                 const auto point = [&](float degrees, float radius) {
                     const auto angle = degrees * 0.01745329238474369f + ch.field_1C;
-                    return CVector2D{screen.x - SinMulX87(angle, radius), screen.y - CosMulX87(angle, radius)};
+                    return CVector2D{screen.x - TrigSimpleSinMulCpp(angle, radius), screen.y - TrigSimpleCosMulCpp(angle, radius)};
                 };
                 const float degrees = float(triangle) * 120.f;
                 auto a = point(degrees, inner + pulse[i]);
@@ -333,7 +274,7 @@ void CWeaponEffects::Render() {
                 const auto& right = camera.GetRight();
                 const float u = up.x * dx + up.z * dz + up.y * dy;
                 const float r = right.x * dx + right.z * dz + right.y * dy;
-                AngleSinCosX87(u, r, outSin, outCos, outOneMinusCos);
+                WeaponFxAngleSinCosCpp(u, r, &outSin, &outCos, &outOneMinusCos);
             };
             float camSin, camCos, camOneMinusCos;
             angleTo(camera.GetPosition(), camSin, camCos, camOneMinusCos);
@@ -350,7 +291,7 @@ void CWeaponEffects::Render() {
             const CVector2D v3{ (rc + base.x) - rs * 0.5f, t2 * radius + base.y };
             CSprite::RenderOneXLUSprite_Triangle(base, v2, v3, 2.5f, 0, 0, 0, 255, 1.f, 255);
             // Como el original: desplazamiento en X con la constante double 0.1 (0x86EEE0) y en Y con 0.1f
-            const CVector2D insetBase{ MulDoubleAddX87(rc, 0.1, base.x), 0.1f * rs + base.y };
+            const CVector2D insetBase{ WeaponFxMulDoubleAddCpp(rc, 0.1, base.x), 0.1f * rs + base.y };
             const CVector2D iv2{ t1 * radius * 0.8f + insetBase.x, (rs - 0.5f * rc) * 0.8f + insetBase.y };
             const CVector2D iv3{ (rc - 0.5f * rs) * 0.8f + insetBase.x, t2 * radius * 0.8f + insetBase.y };
             CSprite::RenderOneXLUSprite_Triangle(insetBase, iv2, iv3, 2.5f, ch.m_color.r, ch.m_color.g, ch.m_color.b, 255, 1.f, 255);

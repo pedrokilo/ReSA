@@ -1,0 +1,3 @@
+APROBADO: Tareas complejas A (lista de 10)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctasks10a\20261014-193605-936042

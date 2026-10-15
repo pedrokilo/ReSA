@@ -487,40 +487,21 @@ MACRO_STOP
 static __inline RwInt32
 int32fromreal(RwReal x)
 {
-    RwInt16 savemode;
-    RwInt16 workmode;
-    RwInt32 res;
-    
-    _asm
-    {
-        fnstcw    savemode      ; get fpu mode
-        fld dword ptr[x]        ; load rwreal x  
-  
-        mov       ax,savemode   ; put fpu mode in register
-        or        ah,0ch        ; or-in truncate mode
-  
-        mov       workmode,ax   ; make ready to set fpu mode
-        fldcw     workmode      ; set fpu to truncate mode
-        fistp     dword ptr[res]; store the rwint32eger result 
-        fldcw     savemode      ; restore fpu mode
-    }
-
-    return res;
+    /* Truncation (FPU en modo truncar + FISTP de 32 bits); fuera de rango o NaN da 0x80000000 */
+    return (RwInt32)x;
 }
 #define RwInt32FromRealMacro(x) int32fromreal(x)
 
 #endif /* (!defined(RWINT32FROMFLOAT)) */
 
 #if (!defined(NOASM))
+/* Definida en X87Math.cpp: FLD dword + FISTP dword (redondeo al par mas cercano) */
+extern RwUInt32 __cdecl RwPlCoreFastRealToUInt32Cpp(float x);
+
 static __inline RwUInt32 
 RwFastRealToUInt32Inline(RwReal x)
 {
-    RwUInt32 res;
-
-    __asm FLD DWord Ptr[x];
-    __asm FISTP DWord Ptr[res];
-    
-    return(res);
+    return RwPlCoreFastRealToUInt32Cpp(x);
 }
 
 #define RwFastRealToUInt32 RwFastRealToUInt32Inline

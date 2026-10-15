@@ -125,78 +125,24 @@ float CAEAudioUtility::AudioLog10(float p) {
 }
 
 // 0x4d9e80
-// Como el original: (contador / frecuencia) · 1000 en x87 (con la precisión del juego) menos el inicio.
+// Como el original: (contador / frecuencia) · 1000 en x87 (con la precisión del juego) menos el inicio (X87Math.cpp).
 uint64 CAEAudioUtility::GetCurrentTimeInMS() {
     LARGE_INTEGER counter;
     QueryPerformanceCounter(&counter);
-    const LARGE_INTEGER* freq = &Frequency;
-    const uint64 start = startTimeMs;
-    const uint32 startHigh = (uint32)(start >> 32);
-    int32 startParts[2] = { (int32)(uint32)start, (int32)(startHigh & 0x7FFFFFFF) };
-    int32 signParts[2]  = { 0, (int32)(startHigh & 0x80000000) };
-    static const float kThousand = 1000.0f;
-    double value;
-    __asm {
-        fild  qword ptr counter
-        mov   eax, freq
-        fild  qword ptr [eax]
-        fdivp st(1), st
-        fmul  kThousand
-        fild  qword ptr startParts
-        fild  qword ptr signParts
-        fchs
-        faddp st(1), st
-        fsubp st(1), st
-        fstp  value
-    }
-    return (uint64)(int64)value; // _ftol2 (0x821B40): truncamiento a 64 bits
+    return AudioUtilTimeMsCpp(counter.QuadPart, Frequency.QuadPart, startTimeMs);
 }
 
 // 0x4d9ef0
 // Como el original: bytes enteros sin redondear entre (canales · frecuencia · 0.002), floor en double.
 uint32 CAEAudioUtility::ConvertFromBytesToMS(uint32 lengthInBytes, uint32 sampleRate, uint16 numChannels) {
     const uint32 product = (uint32)numChannels * sampleRate;
-    static const float k2pow32 = 4294967296.0f, kScale = 0.002f;
-    double quotient;
-    __asm {
-        fild  dword ptr lengthInBytes
-        cmp   lengthInBytes, 0
-        jge   L_bytesPositive
-        fadd  k2pow32
-    L_bytesPositive:
-        fild  dword ptr product
-        cmp   product, 0
-        jge   L_productPositive
-        fadd  k2pow32
-    L_productPositive:
-        fmul  kScale
-        fdivp st(1), st
-        fstp  quotient
-    }
-    return (uint32)(int64)std::floor(quotient);
+    return (uint32)(int64)std::floor(AudioUtilBytesToMsQuotientCpp(lengthInBytes, product));
 }
 
 // 0x4d9f40
 uint32 CAEAudioUtility::ConvertFromMSToBytes(uint32 a, uint32 frequency, uint16 frequencyMult) {
     const uint32 product = (uint32)frequencyMult * frequency;
-    static const float k2pow32 = 4294967296.0f, kScale = 0.002f;
-    double bytes;
-    __asm {
-        fild  dword ptr product
-        cmp   product, 0
-        jge   L_productPositive
-        fadd  k2pow32
-    L_productPositive:
-        fmul  kScale
-        fild  dword ptr a
-        cmp   a, 0
-        jge   L_aPositive
-        fadd  k2pow32
-    L_aPositive:
-        fmulp st(1), st
-        fstp  bytes
-    }
-    const auto value = (int32)(int64)std::floor(bytes);
+    const auto value = (int32)(int64)std::floor(AudioUtilMsToBytesProductCpp(product, a));
     return (uint32)(value % (int32)(2 * frequencyMult) + value); // división con signo como el original
 }
 
@@ -207,19 +153,10 @@ void CAEAudioUtility::StaticInitialise() {
     m_sfLogLookup[0][0] = 0.0f;
     m_sfLogLookup[0][1] = -100.0f;
     m_sfLogLookup[1][0] = 0.00001f;
-    static const float kTen = 10.0f;
     for (size_t i = 2; i < LOOKUP_SIZE; i++) {
         const double denom = std::pow((double)1.2f, (double)(LOOKUP_SIZE - i - 1)); // base 0x86A438 = (double)1.2f
-        float v, logv;
-        __asm {
-            fld   denom
-            fdivr kTen
-            fst   v
-            fldlg2
-            fxch  st(1)
-            fyl2x
-            fstp  logv
-        }
+        const float v      = AudioUtilLogInverseCpp(denom);
+        const float logv   = AudioLog10Cpp(v);
         m_sfLogLookup[i][0] = v;
         m_sfLogLookup[1][1] = logv;
     }

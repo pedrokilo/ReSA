@@ -38,8 +38,8 @@ def _tam(p: Path) -> int:
 
 
 def _juego_abierto() -> bool:
-    salida = subprocess.run(['tasklist', '/FI', 'IMAGENAME eq gta_sa.exe'], capture_output=True, text=True).stdout
-    return 'gta_sa.exe' in salida.lower()
+    salida = subprocess.run(['tasklist', '/FI', 'IMAGENAME eq gta_sa.exe'], capture_output=True).stdout or b''
+    return b'gta_sa.exe' in salida.lower()
 
 
 def _clon_valido() -> bool:

@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "Boat.h"
 #include "CarCtrl.h"
 #include "ControllerConfigManager.h"
+#include "X87Math.h"
 
 const float SECOND_LOD_DISTANCE = 150.0f; // 0x872188
 
@@ -790,25 +791,10 @@ void CBoat::ProcessControl() {
             m_LockedHeading = GetHeading();
         } else {
             // Como el original: locked - heading con el heading de fpatan sin redondear (x87)
-            const CPlaceable* const self = this;
-            const float locked = m_LockedHeading;
-            float angle;
-            __asm {
-                mov ecx, self
-                mov eax, dword ptr [ecx+14h]
-                test eax, eax
-                je no_matrix
-                fld dword ptr [eax+10h]
-                fchs
-                fld dword ptr [eax+14h]
-                fpatan
-                jmp have_heading
-            no_matrix:
-                fld dword ptr [ecx+10h]
-            have_heading:
-                fsubr locked
-                fstp angle
-            }
+            // El heading (fpatan) queda sin redondear en ST0; sólo se redondea la resta (X87Math.cpp)
+            const float angle = m_matrix
+                ? Atan2FromCpp(-m_matrix->GetForward().x, m_matrix->GetForward().y, m_LockedHeading)
+                : m_LockedHeading - m_placement.m_fHeading;
             const CVector vecPos = GetPosition();
             m_matrix->RotateZ(angle);
             m_matrix->GetPosition() = vecPos;
@@ -1101,18 +1087,7 @@ void CBoat::ProcessControlInputs(uint8 padNum) {
 
             if (std::fabs(m_fRawSteerAngle) < BOAT_STEER_DAMP_THRESHOLD || pad->NewState.m_bVehicleMouseLook) {
                 // Como el original: pow del EXE (_CIpow 0x822130) en ST0 con precisión completa por el ángulo
-                float* const rawPtr = &m_fRawSteerAngle;
-                const float base = BOAT_STEER_DAMP_BASE;
-                const float step = CTimer::GetTimeStep();
-                __asm {
-                    fld base
-                    fld step
-                    mov eax, 0x822130
-                    call eax
-                    mov edx, rawPtr
-                    fmul dword ptr [edx]
-                    fstp dword ptr [edx]
-                }
+                PowScaleFloatCpp(&m_fRawSteerAngle, BOAT_STEER_DAMP_BASE, CTimer::GetTimeStep());
             }
         }
     } else {

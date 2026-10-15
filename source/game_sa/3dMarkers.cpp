@@ -34,32 +34,20 @@ END GENERATED HOOK STATUS */
 // Keep this explanation here so those diagnostic constants stay stable.
 // No instruction differences are waived by the comparison.
 // Tamaño estándar según la distancia al jugador (0x725674 / 0x725A8F), con la aritmética del original.
+#pragma float_control(precise, on, push)
 static float ComputeStdSize(float sz, float dist) {
     if (!(dist < 25.f)) {
         return sz;
     }
-    // x87 explícito: los resultados deben coincidir bit a bit con el original (precisión del FPU del juego).
-    static const float k25 = 25.f, k03 = 0.3f, k0015 = std::bit_cast<float>(0x3C75C290u); // 0x8717A8: el float siguiente a 0.015 (no 0.015f)
-    float result;
+    // Mismo orden que el original (x87 a 24 bits = una operación float por paso, sin reasociar):
+    // dist <= 5: sz - sz * 0.3; si no: sz - ((25 - dist) * sz) * 0.015.
+    static constexpr float k25 = 25.f, k03 = 0.3f, k0015 = std::bit_cast<float>(0x3C75C290u); // 0x8717A8: el float siguiente a 0.015 (no 0.015f)
     if (dist <= 5.f) {
-        __asm {
-            fld   sz
-            fmul  k03
-            fsubr sz
-            fstp  result
-        }
-    } else {
-        __asm {
-            fld   k25
-            fsub  dist
-            fmul  sz
-            fmul  k0015
-            fsubr sz
-            fstp  result
-        }
+        return sz - sz * k03;
     }
-    return result;
+    return sz - ((k25 - dist) * sz) * k0015;
 }
+#pragma float_control(pop)
 
 // Matriz "con este eje arriba" como la construye el original (0x7224AF / 0x721392): unidad si el eje es
 // exactamente (0,0,1); si no, derecha = normalizar(Z x n), frente = normalizar(n x derecha), arriba = n.
@@ -367,20 +355,12 @@ C3dMarker* C3dMarkers::PlaceMarker(
 ) {
     assert(id != 0);
 
-    // x87 como el original: dx² + dy² y fsqrt con la precisión del FPU del juego.
     float markerToPlayerDist2D;
     const CVector centre = FindPlayerCentreOfWorld(0); // El original guarda una copia y la usa para UpdateZCoordinate de los cilindros
     {
         const float distX = pos.x - centre.x, distY = pos.y - centre.y;
-        __asm {
-            fld   distX
-            fmul  distX
-            fld   distY
-            fmul  distY
-            faddp st(1), st
-            fsqrt
-            fstp  markerToPlayerDist2D
-        }
+        // (dx² + dy²) y raíz con un solo redondeo a float por operación, como la x87 a 24 bits.
+        markerToPlayerDist2D = std::sqrt(distX * distX + distY * distY);
     }
 
     switch (type) {

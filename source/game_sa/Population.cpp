@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 
 #include "Population.h"
 #include "Glass.h"
+#include "X87Math.h"
 #include <PedPlacement.h>
 #include <Attractors/PedAttractorPedPlacer.h>
 
@@ -1426,26 +1427,12 @@ void CPopulation::CreateWaitingCoppers(CVector createAt, float createaWithHeadin
             const float scaledI  = static_cast<float>(i) * 0.2f;
             const float heading  = (rndRoll * (scaledI - scaledJ) + scaledJ) + createaWithHeading;
 
-            // sin/cos en x87 (precision completa; el producto y la suma se redondean a la precision vigente)
-            CVector copPedPos{ 0.f, 0.f, createAt.z };
-            {
-                const float baseX = createAt.x, baseY = createAt.y;
-                float outX{}, outY{};
-                __asm {
-                    fld   dword ptr [heading]
-                    fld   st(0)
-                    fsin
-                    fmul  dword ptr [distRoll]
-                    fadd  dword ptr [baseX]
-                    fstp  dword ptr [outX]
-                    fcos
-                    fmul  dword ptr [distRoll]
-                    fadd  dword ptr [baseY]
-                    fstp  dword ptr [outY]
-                }
-                copPedPos.x = outX;
-                copPedPos.y = outY;
-            }
+            // fsin/fcos x87 sin redondear, producto y suma en 24 bits (0x613781..0x613796): helpers compartidos de X87Math
+            CVector copPedPos{
+                TrigCompoundSinMulAdd(heading, distRoll, createAt.x),
+                TrigCompoundCosMulAdd(heading, distRoll, createAt.y),
+                createAt.z
+            };
 
             if (!CWorld::GetIsLineOfSightClear(createAt, copPedPos, true, true, false, true)) {
                 continue;
@@ -1471,17 +1458,7 @@ void CPopulation::CreateWaitingCoppers(CVector createAt, float createaWithHeadin
             // Direccion (normalizada en 3D) hacia el punto de creacion; angulo = atan2(-x, y) con fpatan
             CVector toCreateAt{ createAt.x - copPedPos.x, createAt.y - copPedPos.y, createAt.z - copPedPos.z };
             toCreateAt.Normalise();
-            float angle{};
-            {
-                const float dirX = toCreateAt.x, dirY = toCreateAt.y;
-                __asm {
-                    fld   dword ptr [dirX]
-                    fchs
-                    fld   dword ptr [dirY]
-                    fpatan
-                    fstp  dword ptr [angle]
-                }
-            }
+            const float angle = TrigAtan2Cpp(-toCreateAt.x, toCreateAt.y); // fld -x; fld y; fpatan (0x6138B1..0x6138B7)
             ped->m_fCurrentRotation = angle;
             ped->m_fAimingRotation  = angle;
             ped->SetHeading(angle);

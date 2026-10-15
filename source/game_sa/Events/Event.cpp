@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "Event.h"
 
 
@@ -82,15 +83,7 @@ float CEvent::GetSoundLevel(const CEntity* entity, CVector& position) {
     // una sola vez y distancia multiplicada por 0.01f (0x858C58), no dividida entre 100.
     const float localSoundLevel = GetLocalSoundLevel();
     const float distanceSq      = distance * distance;
-    float       k10             = 10.0f; // 0x85862C
-    float       log10Times10;
-    __asm {
-        fldlg2
-        fld   distanceSq
-        fyl2x
-        fmul  k10
-        fstp  log10Times10
-    }
+    const float log10Times10    = Log10Times10Cpp(distanceSq); // x 10.0f (0x85862C)
     return (localSoundLevel - log10Times10) - distance * 0.01f;
 }
 
@@ -106,17 +99,5 @@ float CEvent::CalcSoundLevelIncrement(float level1, float level2) {
     // el cociente se redondean a float en el x87 y el log10 usa fldlg2/fyl2x a precisión interna.
     const float  power1 = (float)std::pow(10.0, (double)(level1 * 0.1f));
     const double power2 = std::pow(10.0, (double)(level2 * 0.1f));
-    float        k10    = 10.0f; // 0x85862C
-    float        result;
-    __asm {
-        fld   power2
-        fadd  power1
-        fdiv  power1
-        fldlg2
-        fxch  st(1)
-        fyl2x
-        fmul  k10
-        fstp  result
-    }
-    return result;
+    return SoundLevelIncrementCpp(power2, power1);
 }

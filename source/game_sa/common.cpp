@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "Garages.h"
 #include "common.h"
@@ -56,36 +57,9 @@ void InjectCommonHooks() {
 
 // 0x54ECE0
 void TransformPoint(RwV3d& point, const CSimpleTransform& placement, const RwV3d& vecPos) {
-    const auto* transform = &placement;
-    const auto* input = &vecPos;
-    auto* output = &point;
-    // Como el original: escribe x antes de releer input.x para y (alias output==input).
-    __asm {
-        mov eax, transform
-        mov ecx, input
-        mov edx, output
-        fld dword ptr [eax + 0Ch]
-        fcos
-        fld dword ptr [eax + 0Ch]
-        fsin
-        fld st(1)
-        fmul dword ptr [ecx]
-        fld st(1)
-        fmul dword ptr [ecx + 4]
-        fsubp st(1), st(0)
-        fadd dword ptr [eax]
-        fstp dword ptr [edx]
-        fxch st(1)
-        fmul dword ptr [ecx + 4]
-        fxch st(1)
-        fmul dword ptr [ecx]
-        faddp st(1), st(0)
-        fadd dword ptr [eax + 4]
-        fstp dword ptr [edx + 4]
-        fld dword ptr [eax + 8]
-        fadd dword ptr [ecx + 8]
-        fstp dword ptr [edx + 8]
-    }
+    // Como el original: x se escribe antes de releer in.x/in.y para y (la salida puede ser la entrada);
+    // coseno y seno quedan sin redondear en la x87 dentro del ayudante.
+    CommonTransformPointCpp(&point.x, &placement.m_vPosn.x, &vecPos.x);
 }
 
 // 0x54EEA0
@@ -100,26 +74,13 @@ void TransformVectors(RwV3d* vecsOut, int32 numVectors, const CMatrix& matrix, c
 
 // 0x54EE30
 void TransformVectors(RwV3d* vecsOut, int32 numVectors, const CSimpleTransform& transform, const RwV3d* vecsIn) {
-    // Como el original: solo rota (sin sumar la posicion) y copia la z; coseno y seno se redondean a float antes de usarlos
-    const float hdg = transform.m_fHeading;
-    float cosHeading, sinHeading;
-    __asm {
-        fld dword ptr [hdg]
-        fcos
-        fstp dword ptr [cosHeading]
-        fld dword ptr [hdg]
-        fsin
-        fstp dword ptr [sinHeading]
-    }
-    for (auto i = 0; i < numVectors; i++) {
-        const float vecX = vecsIn->x, vecY = vecsIn->y;
-        const auto  vecZ = vecsIn->z;
-        vecsOut->x = cosHeading * vecX - sinHeading * vecY;
-        vecsOut->y = sinHeading * vecX + cosHeading * vecY;
-        vecsOut->z = vecZ;
-        ++vecsOut;
-        ++vecsIn;
-    }
+    // Como el original (0x54EE30): solo rota (sin sumar la posicion) y copia la z; coseno y seno se redondean a float antes de usarlos.
+    const float cosHeading = TrigSimpleCosCpp(transform.m_fHeading);
+    const float sinHeading = TrigSimpleSinCpp(transform.m_fHeading);
+
+    // El bucle va en X87Math (x87 como el EXE): x se escribe antes de releer in.x para y, z se copia como dword y el contador
+    // decrece hasta cero (dec/jne; el dominio válido es numVectors>=0). Con SSE los NaN de x/y se propagarían distinto.
+    CommonTransformVectorsCpp(&vecsOut->x, numVectors, cosHeading, sinHeading, &vecsIn->x);
 }
 
 // 0x54EEF0

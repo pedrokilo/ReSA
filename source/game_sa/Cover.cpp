@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Cover.h"
+#include "X87Math.h"
 
 void CCover::InjectHooks() {
     RH_ScopedClass(CCover);
@@ -105,37 +106,6 @@ void CoverNormalise(CVector& v) {
     v.x *= inv;
     v.y *= inv;
     v.z *= inv;
-}
-
-// Como el original (0x69936D): producto escalar con el vector de la dirección calculado en línea. El seno
-// (negado) entra al producto con la precisión interna del x87, solo el coseno se guarda a float.
-float CoverDirDot(float deltaX, float deltaY, float deltaZ, int32 dirIndex) {
-    static const float step = std::bit_cast<float>(0x3CC90FDBu); // 0x859BBC (2π/256)
-    static const float zero = 0.0f;
-    float cosValue, result;
-    __asm {
-        fld deltaX
-        fld deltaY
-        fld deltaZ
-        fild dirIndex
-        fmul step
-        fld st(0)
-        fsin
-        fchs
-        fxch st(1)
-        fcos
-        fstp cosValue
-        fxch st(2)
-        fmul cosValue
-        fxch st(2)
-        fmul st, st(3)
-        faddp st(2), st
-        fmul zero
-        faddp st(1), st
-        fstp result
-        fstp st(0)
-    }
-    return result;
 }
 } // namespace
 
@@ -601,7 +571,8 @@ CCoverPoint* CCover::FindAndReserveCoverPoint(CPed* ped, const CVector& targetPo
             pointPos = raw.Point;
         }
         if (type == 3) {
-            const float dot = CoverDirDot(targetPos.x - raw.Point.x, targetPos.y - raw.Point.y, targetPos.z - raw.Point.z, raw.Dir);
+            // Como el original (0x69936D): producto escalar con el vector de la dirección calculado en línea
+            const float dot = CoverDirDotCpp(targetPos.x - raw.Point.x, targetPos.y - raw.Point.y, targetPos.z - raw.Point.z, raw.Dir);
             if (!(dot > 0.0f)) {
                 continue;
             }
@@ -718,25 +689,7 @@ CCoverPoint::Dir CCover::FindDirFromVector(CVector dir) {
 
 // Como el original: devuelve el entero completo de _ftol2 (truncado a 64 bits) en EAX.
 int32 CCover::FindDirFromVector_Reversed(CVector dir) {
-    const float scale = 0x1.45f306p+5f;
-    const float x = dir.x, y = dir.y;
-    uint16 oldControl, truncControl;
-    int64 result;
-    __asm {
-        fld x
-        fchs
-        fld y
-        fpatan
-        fmul scale
-        fnstcw oldControl
-        mov ax, oldControl
-        or ax, 0C00h
-        mov truncControl, ax
-        fldcw truncControl
-        fistp result
-        fldcw oldControl
-    }
-    return int32(result);
+    return CoverDirFromVectorCpp(dir.x, dir.y); // fpatan(-x, y) * (128/π) y truncamiento de _ftol2 (0x698D40)
 }
 
 // 0x698D60
@@ -745,20 +698,10 @@ CVector CCover::FindVectorFromDir(CCoverPoint::Dir direction) {
 }
 
 CVector CCover::FindVectorFromDir_Reversed(uint8 direction) {
-    const int32 value = direction;
-    const float scale = 0x1.921fb6p-6f;
-    float x, y;
-    __asm {
-        fild value
-        fmul scale
-        fld st(0)
-        fsin
-        fchs
-        fstp x
-        fcos
-        fstp y
-    }
-    return {x, y, 0.f};
+    // Como el original (0x698D60): el ángulo se redondea a float (fmul); el seno se niega y ambos se guardan como float
+    static const float step = std::bit_cast<float>(0x3CC90FDBu); // 0x859BBC (2π/256)
+    const float angle = IntTimesFloatCpp(direction, step);
+    return { -TrigSimpleSinCpp(angle), TrigSimpleCosCpp(angle), 0.f };
 }
 
 // unused

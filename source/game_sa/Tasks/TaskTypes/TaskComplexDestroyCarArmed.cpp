@@ -18,6 +18,8 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 
+#include "X87Math.h"
+
 #include "TaskComplexDestroyCarArmed.h"
 #include "TaskSimplePause.h"
 #include "TaskSimpleThrowControl.h"
@@ -73,38 +75,16 @@ void CTaskComplexDestroyCarArmed::CalculateSearchPositionAndRanges(CPed* ped) {
     m_PedPos = ped->GetPosition();
     m_VehiclePos = m_VehToDestroy->GetPosition();
     m_PedToVehDirUnnorm = m_VehiclePos - m_PedPos;
-    const auto* delta = &m_PedToVehDirUnnorm;
-    float distance;
-    __asm {
-        mov eax, delta
-        fld dword ptr [eax]
-        fmul st, st(0)
-        fld dword ptr [eax + 4]
-        fmul st, st(0)
-        faddp st(1), st
-        fld dword ptr [eax + 8]
-        fmul st, st(0)
-        faddp st(1), st
-        fsqrt
-        fstp distance
-    }
+    // Como el original: (x*x + y*y) + z*z sin redondear intermedios y raiz cuadrada (ayudante de X87Math, orden fijo)
+    const float distance = DestroyCarDistanceCpp(&m_PedToVehDirUnnorm.x);
     m_PedVehDist = distance;
 
     const auto& weapon = ped->GetActiveWeapon();
     const auto& winfo  = weapon.GetWeaponInfo(ped);
     const float range = winfo.m_fWeaponRange;
     const float half = .5f, inner = .9f, outer = 1.1f;
-    float halfRange, innerRange, outerRange;
-    __asm {
-        fld range
-        fmul half
-        fst halfRange
-        fmul inner
-        fstp innerRange
-        fld halfRange
-        fmul outer
-        fstp outerRange
-    }
+    // Como el original: mitad del rango; interior = mitad * 0.9 y exterior = mitad * 1.1 (un redondeo a float por producto)
+    const float halfRange = range * half, innerRange = halfRange * inner, outerRange = halfRange * outer;
     // Como el original: fcomp + test ah,41h -> un rango NaN se conserva
     m_fWeaponRangeClamped = (.8f > innerRange) ? .8f : innerRange;
     m_fWeaponRange = outerRange;

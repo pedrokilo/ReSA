@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 
 #include "Rope.h"
 #include "Ropes.h"
+#include "X87Math.h"
 
 void CRopes::InjectHooks() {
     RH_ScopedClass(CRopes);
@@ -220,58 +221,8 @@ bool CRopes::FindCoorsAlongRope(uint32 ropeId, float fDistAlongRope, CVector* ou
     } else if (0.999f < dist) {
         dist = 0.999f;
     }
-    // Como el original: x87 con exponente extendido (los denormales no se aplastan) y t*p1.x sin redondear a float
-    const float kScale = 31.0f;
-    const float kOne   = 1.0f;
-    float dist31;
-    __asm {
-        fld  dist
-        fmul kScale
-        fstp dist31
-    }
-    const int32 segIdx = (int32)dist31; // _ftol2 (0x821B40): trunca
-
-    const float* pa = &rope.m_aSegments.data()[segIdx].x;
-    const float* pb = &rope.m_aSegments.data()[segIdx + 1].x;
-    float tyv, tzv, uxv, uyv, uzv, rx, ry, rz;
-    __asm {
-        mov   eax, pa
-        mov   edx, pb
-        fld   dist31
-        fisub segIdx
-        fld   st(0)
-        fmul  dword ptr [edx]
-        fld   st(1)
-        fmul  dword ptr [edx + 4]
-        fstp  tyv
-        fld   st(1)
-        fmul  dword ptr [edx + 8]
-        fstp  tzv
-        fld   kOne
-        fsub  st(0), st(2)
-        fld   st(0)
-        fmul  dword ptr [eax]
-        fstp  uxv
-        fld   st(0)
-        fmul  dword ptr [eax + 4]
-        fstp  uyv
-        fmul  dword ptr [eax + 8]
-        fstp  uzv
-        fld   uxv
-        fadd  st(0), st(1)
-        fstp  rx
-        fstp  st(0)
-        fstp  st(0)
-        fld   uyv
-        fadd  tyv
-        fstp  ry
-        fld   uzv
-        fadd  tzv
-        fstp  rz
-    }
-    outPosn->x = rx;
-    outPosn->y = ry;
-    outPosn->z = rz;
+    // Como el original: dist * 31 y el interpolado quedan en la pila x87 sin redondear a float (ayudante compartido en X87Math)
+    const int32 segIdx = RopesInterpolateCpp(dist, &rope.m_aSegments.data()[0].x, &outPosn->x);
     if (outSpeed) {
         *outSpeed = rope.m_aSpeed.data()[segIdx + 1];
     }

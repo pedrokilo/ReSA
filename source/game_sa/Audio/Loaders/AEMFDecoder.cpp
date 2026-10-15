@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h" // TODO: Remove
 
 #include "AEMFDecoder.h"
+#include "X87Math.h"
 
 // 0x4e7770
 // Como el original: sólo escribe el nombre, el flag, la película, la media y la pista; el resto del objeto queda
@@ -121,16 +122,9 @@ bool CAEMFDecoder::Initialise() {
     m_nSampleRate       = 44100;
     m_fTimeDivider      = std::bit_cast<float>(0x42306666u); // 44.1
 
-    // Como el original: fild · (1000/44100, float 0x85F390) en x87 a la precisión vigente, truncado con _ftol2.
+    // Como el original: fild · (1000/44100, float 0x85F390) con un solo redondeo a float (x87 a 24 bits), truncado con _ftol2.
     static const float kMediaUnitsToMs = std::bit_cast<float>(0x3CB9C278u);
-    const long mediaUnits = m_nLength;
-    double     lengthMs;
-    __asm {
-        fild  dword ptr mediaUnits
-        fmul  dword ptr kMediaUnitsToMs
-        fstp  lengthMs
-    }
-    m_nLengthMs = static_cast<long>(static_cast<int64>(lengthMs));
+    m_nLengthMs = static_cast<long>(static_cast<int64>(IntTimesFloatCpp(m_nLength, kMediaUnitsToMs)));
 
     // Como el original: la duración se consulta por la vtable y las pistas de menos de 7 s se descartan.
     m_bInitialized = true;
@@ -170,15 +164,7 @@ long CAEMFDecoder::GetStreamPlayTimeMs() {
     if (!m_bInitialized)
         return -1;
 
-    const long  playTime = m_nPlayTime;
-    const float divider = m_fTimeDivider;
-    double      ms;
-    __asm {
-        fild  dword ptr playTime
-        fdiv  dword ptr divider
-        fstp  ms
-    }
-    return (long)(int64)ms;
+    return MfDecoderPlayTimeMsCpp(m_nPlayTime, m_fTimeDivider);
 }
 
 // 0x4e78e0
@@ -187,19 +173,7 @@ void CAEMFDecoder::SetCursor(unsigned long pos) {
     if (!m_bInitialized)
         return;
 
-    static const float k2pow32 = 4294967296.0f;
-    const float multiplier = m_fTimeDivider;
-    double      playTime;
-    __asm {
-        fild  dword ptr pos
-        cmp   pos, 0
-        jge   L_posPositive
-        fadd  k2pow32
-    L_posPositive:
-        fmul  dword ptr multiplier
-        fstp  playTime
-    }
-    m_nPlayTime = (long)(int64)playTime;
+    m_nPlayTime = MfDecoderCursorToPlayTimeCpp(pos, m_fTimeDivider);
 }
 
 // 0x4e78c0

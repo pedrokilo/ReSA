@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "b6dee6c06858f178c483882fab8752064d68e9665e8bad665dc5eb5479425a71",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 13888,
+  "pairs_per_function": {
+    "CEvent::Constructor": 64,
+    "CEvent::CalcSoundLevelIncrement": 1024,
+    "CEvent::GetSoundLevel": 1024,
+    "CEventAreaCodes::Constructor": 128,
+    "CEventAreaCodes::AffectsPed": 1024,
+    "CEventAreaCodes::TakesPriorityOver": 256,
+    "CEventGlobalGroup::AddEventsToGroup": 256,
+    "CEventGlobalGroup::AddEventsToPed": 256,
+    "CEventGlobalGroup::GetSoundLevel": 1024,
+    "CEventPedCollisionWithPed::Constructor": 128,
+    "CEventPedCollisionWithPed::AffectsPed": 1024,
+    "CEventPedCollisionWithPed::TakesPriorityOver": 256,
+    "CEventPotentialWalkIntoPed::Constructor": 128,
+    "CEventPotentialWalkIntoPed::AffectsPed": 1024,
+    "CEventPotentialWalkIntoPed::TakesPriorityOver": 256,
+    "CEventSoundQuiet::Constructor": 128,
+    "CEventSoundQuiet::AffectsPed": 1024,
+    "CEventSoundQuiet::CloneEditable": 256,
+    "CEventVehicleCollision::Constructor": 128,
+    "CEventVehicleCollision::AffectsPed": 1024,
+    "CEventVehicleCollision::Clone": 256,
+    "CEventVehicleDied::Constructor": 128,
+    "CEventVehicleDied::AffectsPed": 512,
+    "CEventVehicleDied::Clone": 256,
+    "CEventVehicleHitAndRun::Constructor": 128,
+    "CEventVehicleHitAndRun::Clone": 256,
+    "CEventVehicleHitAndRun::ReportCriminalEvent": 512,
+    "CEventVehicleOnFire::Constructor": 128,
+    "CEventVehicleOnFire::AffectsPed": 1024,
+    "CEventVehicleOnFire::CloneEditable": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "2f43d8b340f7af60c0c6aa657f54e0c353f1c95893ee7ab3a4c1093af116af6e",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

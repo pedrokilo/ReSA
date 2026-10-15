@@ -1,0 +1,3 @@
+APROBADO: Eventos (lista de 52)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-events52\20261014-174555-575800

@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "Fire.h"
 #include "FireManager.h"
 #include "CreepingFire.h"
+#include "X87Math.h"
 
 void CFire::InjectHooks() {
     RH_ScopedClass(CFire);
@@ -89,31 +90,12 @@ void CFire::ExtinguishWithWater(float fWaterStrength) {
 }
 
 // Como el original (0x539F00): (rand * 1/32767 * 0.29999995 + 1) * tiempo + ahora, todo en x87 (enteros sin signo con fild + 2^32)
+// y un solo _ftol2 sobre el resultado (ver FireBurnTimeCpp en X87Math).
 static uint32 FireStartBurnTime(uint32 burnTime) {
-    int32 rnd = (int32)CGeneral::GetRandomNumber();
-    uint32 nowMs = CTimer::GetTimeInMS();
-    float total;
-    __asm {
-        fild dword ptr [rnd]
-        fmul dword ptr ds:[0x858C7C]
-        fmul dword ptr ds:[0x863A40]
-        fadd dword ptr ds:[0x858624]
-        fild dword ptr [burnTime]
-        mov eax, burnTime
-        test eax, eax
-        jge burn_pos
-        fadd dword ptr ds:[0x858C54]
-    burn_pos:
-        fmulp st(1), st
-        fild dword ptr [nowMs]
-        mov eax, nowMs
-        test eax, eax
-        jge now_pos
-        fadd dword ptr ds:[0x858C54]
-    now_pos:
-        faddp st(1), st
-        fstp dword ptr [total]
-    }
+    const int32 rnd = (int32)CGeneral::GetRandomNumber();
+    const uint32 nowMs = CTimer::GetTimeInMS();
+    const float total = FireBurnTimeCpp(rnd, std::bit_cast<float>(0x38000100u) /* 0x858C7C */, std::bit_cast<float>(0x3E999998u) /* 0x863A40 */,
+                                        1.0f /* 0x858624 */, burnTime, nowMs);
     return (uint32)(int64)total;
 }
 
@@ -487,21 +469,9 @@ void CFire::ProcessFire() {
         const float strength = m_Strength;
         const int32 whole = (int32)(int64)strength;
         const uint32 remaining = m_TimeToBurn - CTimer::GetTimeInMS();
-        const float twoPow32 = 4294967296.f, invTime = std::bit_cast<float>(0x3995CBECu);
-        float fract, timeLeft;
-        __asm {
-            fld strength
-            fisub whole
-            fstp fract
-            mov eax, remaining
-            fild remaining
-            test eax, eax
-            jge fire_remaining_ok
-            fadd twoPow32
-        fire_remaining_ok:
-            fmul invTime
-            fstp timeLeft
-        }
+        // fisub: strength - (int)strength con el entero exacto y un solo redondeo; fild + 2^32 si el tiempo restante tiene el bit alto, por 1/3500.
+        const float fract = IntFractionCpp(strength, whole);
+        const float timeLeft = UnsignedTimesFloatCpp(remaining, std::bit_cast<float>(0x3995CBECu) /* 0x863A48 */);
         m_FxSystem->SetConstTime(true, fract < timeLeft ? fract : timeLeft);
     }
 

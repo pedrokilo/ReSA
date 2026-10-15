@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "ShotInfo.h"
 #include <algorithm>
+#include "X87Math.h"
 
 constexpr auto      MAX_SHOT_INFOS = 100u;
 static inline auto& aShotInfos = StaticRef<std::array<CShotInfo, MAX_SHOT_INFOS>>(0xC89690);
@@ -90,23 +91,8 @@ bool CShotInfo::AddShot(CEntity* creator, eWeaponType weaponType, CVector origin
     shot->m_vecTargetOffset.z = speed * shot->m_vecTargetOffset.z;
     shot->m_pCreator = creator;
 
-    // Como el original: vida + tiempo (entero sin signo) truncado a entero y vuelto a float.
-    const float  lifespan = weapInfo->m_fLifespan, twoPow32 = 4294967296.f;
-    const uint32 now = CTimer::GetTimeInMS();
-    float sum;
-    __asm {
-        fld lifespan
-        mov eax, now
-        fild now
-        test eax, eax
-        jge shot_now_ok
-        fadd twoPow32
-    shot_now_ok:
-        faddp st(1), st
-        fstp sum
-    }
-    const int32 destroy = (int32)(int64)sum;
-    shot->m_DestroyTime = (float)destroy;
+    // Como el original (0x739CE8..0x739DD3): vida + tiempo (entero sin signo con fild y +2^32), truncado a entero (_ftol) y vuelto a float.
+    shot->m_DestroyTime = ShotInfoDestroyTimeCpp(weapInfo->m_fLifespan, CTimer::GetTimeInMS());
     return true;
 }
 
@@ -144,24 +130,7 @@ void CShotInfo::Update() {
 
         if (weaponInfo.flags.bSlowdown) {
             // Como el original: pow(0.96, paso) con el _CIpow del EXE (0x822130) y ST0 completo en los productos.
-            const double base = 0.9599999785423279;
-            const float  step = CTimer::GetTimeStep();
-            float* const offPtr = &shot.m_vecTargetOffset.x;
-            __asm {
-                fld base
-                fld step
-                mov eax, 0x822130
-                call eax
-                mov edx, offPtr
-                fld st(0)
-                fmul dword ptr [edx]
-                fstp dword ptr [edx]
-                fld st(0)
-                fmul dword ptr [edx+4]
-                fstp dword ptr [edx+4]
-                fmul dword ptr [edx+8]
-                fstp dword ptr [edx+8]
-            }
+            PowScaleVector3Cpp(&shot.m_vecTargetOffset.x, std::bit_cast<float>(0x3F75C28Fu), CTimer::GetTimeStep()); // 0.96f == 0x86F0E0 como double
         }
 
         if (weaponInfo.flags.bRangeIncreasesOverTime) {

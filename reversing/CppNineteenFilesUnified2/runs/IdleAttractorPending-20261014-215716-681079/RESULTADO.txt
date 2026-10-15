@@ -1,0 +1,3 @@
+APROBADO: Pendientes IdleCam y PedAttractor
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-idle-attractor-pending\20261014-215716-681079

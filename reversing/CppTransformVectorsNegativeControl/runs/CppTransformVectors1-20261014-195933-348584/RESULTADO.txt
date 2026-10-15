@@ -1,0 +1,3 @@
+FALLO: Common::TransformVectors (CSimpleTransform), EXE vs DLL directa
+Funciones con diferencias: Common::TransformVectors(CSimpleTransform): 635/3072
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpptransformvectors1\20261014-195933-348584

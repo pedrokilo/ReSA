@@ -30,6 +30,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleHoldEntity.h"
 #include "TaskSimpleFight.h"
 #include "TaskSimpleDuck.h"
+#include "X87Math.h"
 
 auto& gLastRandomNumberForIdleAnimationID = StaticRef<int32>(0x8D2FEC);
 auto& gLastTouchTimeDelta = StaticRef<uint32>(0xC19664);
@@ -149,30 +150,6 @@ bool CTaskSimplePlayerOnFoot::ProcessPed(CPed* ped) {
 }
 
 namespace {
-// Como el original: fpatan del x87 (atan(num / den) con cuadrante) con la precision interna completa; el resultado se redondea a float al guardarlo.
-float Atan2X87(float num, float den) {
-    float result;
-    __asm {
-        fld num
-        fld den
-        fpatan
-        fstp result
-    }
-    return result;
-}
-
-// Como el original (0x686DB2..0x686DBB): fsin del x87 sin redondear a float y fadd con z (redondeo a 24 bits de la suma).
-float SinPlusX87(float pitch, float z) {
-    float result;
-    __asm {
-        fld pitch
-        fsin
-        fadd z
-        fstp result
-    }
-    return result;
-}
-
 // Como el original: la entrada del banco de armas se indexa con movsx del byte de la ranura (sin comprobar el rango).
 CWeapon& ActiveWeaponOf(CPlayerPed* player) {
     return player->m_aWeapons.data()[static_cast<int8>(player->m_nActiveWeaponSlot)];
@@ -572,7 +549,7 @@ void CTaskSimplePlayerOnFoot::ProcessPlayerWeapon(CPlayerPed* player) {
                 CCam* camera = &CCamera::GetActiveCamera();
                 if (!weaponInfo->flags.bAimWithArm && camera->m_nMode == MODE_FOLLOWPED) {
                     // Como el original (0x6870A1..0x6870AB): fchs + fpatan del x87
-                    player->m_fAimingRotation = Atan2X87(-camera->m_vecFront.x, camera->m_vecFront.y);
+                    player->m_fAimingRotation = TrigAtan2Cpp(-camera->m_vecFront.x, camera->m_vecFront.y);
                 }
                 if (player->m_pTargetedObject || playerData->m_bFreeAiming) {
                     CTaskSimpleUseGun* taskUseGun = intelligence->GetTaskUseGun();
@@ -699,7 +676,7 @@ void CTaskSimplePlayerOnFoot::ProcessPlayerWeapon(CPlayerPed* player) {
                 firingPoint = playerMatrix->GetForward();
 
                 // Como el original (0x686DB2..0x686DE1): seno x87 sin redondear sumado a z; todos los productos por 5.0 en float
-                const float aimZ = SinPlusX87(player->GetPlayerData()->m_fLookPitch, firingPoint.z);
+                const float aimZ = OnFootSinPlusCpp(player->GetPlayerData()->m_fLookPitch, firingPoint.z);
                 firingPoint.x = firingPoint.x * 5.0f;
                 firingPoint.y = firingPoint.y * 5.0f;
                 firingPoint.z = aimZ * 5.0f;
@@ -841,71 +818,19 @@ void CTaskSimplePlayerOnFoot::PlayIdleAnimations(CPlayerPed* player) {
 }
 
 namespace {
-// Como el original: fsin/fcos x87, con redondeo a float al pasar la dirección cooperativa.
+// Como el original: fsin/fcos x87, con redondeo a float al guardar (-sin y cos).
 CVector FighterDirection(float angle) {
-    CVector result;
-    float trigSin, trigCos;
-    __asm {
-        fld angle
-        fld st(0)
-        fsin
-        fchs
-        fstp trigSin
-        fcos
-        fstp trigCos
-    }
-    result = CVector{trigSin, trigCos, 0.0f};
-    return result;
+    const float trigSin = -TrigSimpleSinCpp(angle);
+    const float trigCos = TrigSimpleCosCpp(angle);
+    return CVector{trigSin, trigCos, 0.0f};
 }
 
 // Como el original: seno/coseno permanecen en x87 en la rama no cooperativa;
-// productos en orden y, x, z, incluida la multiplicación por cero del eje z.
+// productos en orden y, x, z, incluida la multiplicación por cero del eje z (ver OnFootFighterProjectCpp).
 CVector2D FighterProject(CMatrix* matrix, float angle, float magnitude, bool roundTrig) {
-    CVector2D result;
-    float projectedX, projectedY;
-    const CVector direction = roundTrig ? FighterDirection(angle) : CVector{};
-    const float trigSin = direction.x, trigCos = direction.y;
-    __asm {
-        cmp roundTrig, 0
-        je unrounded
-        fld trigSin
-        fld trigCos
-        jmp project
-    unrounded:
-        fld angle
-        fld st(0)
-        fsin
-        fchs
-        fxch st(1)
-        fcos
-    project:
-        mov eax, matrix
-        fld st(0)
-        fmul dword ptr [eax+4]
-        fld st(2)
-        fmul dword ptr [eax]
-        faddp st(1),st
-        fld dword ptr [eax+8]
-        fldz
-        fmulp st(1),st
-        faddp st(1),st
-        fmul magnitude
-        fstp projectedX
-        fmul dword ptr [eax+14h]
-        fxch st(1)
-        fmul dword ptr [eax+10h]
-        faddp st(1),st
-        fld dword ptr [eax+18h]
-        fldz
-        fmulp st(1),st
-        faddp st(1),st
-        fmul magnitude
-        fchs
-        fstp projectedY
-    }
-    result.x = projectedX;
-    result.y = projectedY;
-    return result;
+    float projected[2];
+    OnFootFighterProjectCpp(&matrix->GetRight().x, &matrix->GetForward().x, angle, magnitude, roundTrig, projected);
+    return CVector2D{projected[0], projected[1]};
 }
 } // namespace
 
@@ -1052,7 +977,7 @@ void CTaskSimplePlayerOnFoot::PlayerControlZeldaWeapon(CPlayerPed* player) {
         if (targetedObject) {
             CVector2D distance = targetedObject->GetPosition() - player->GetPosition();
             // Como el original (0x687EA3..0x687EAB): fchs + fpatan del x87
-            player->m_fAimingRotation = Atan2X87(-distance.x, distance.y);
+            player->m_fAimingRotation = TrigAtan2Cpp(-distance.x, distance.y);
         }
     }
 
@@ -1162,7 +1087,7 @@ void CTaskSimplePlayerOnFoot::PlayerControlDucked(CPlayerPed* player) {
             moveSpeed.y = -((moveDirection.y * matrix->GetForward().y + matrix->GetForward().z * 0.0f + moveDirection.x * matrix->GetForward().x) * pedMoveBlendRatio);
             if (targetedObject) {
                 CVector distance = targetedObject->GetPosition() - player->GetPosition();
-                player->m_fAimingRotation = Atan2X87(-distance.x, distance.y);
+                player->m_fAimingRotation = TrigAtan2Cpp(-distance.x, distance.y);
             } else {
                 player->m_fAimingRotation = limitedRadianAngle;
             }

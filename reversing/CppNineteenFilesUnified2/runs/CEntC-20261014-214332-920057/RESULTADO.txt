@@ -1,0 +1,3 @@
+APROBADO: CEntity grupo C (efectos 2D, dibujo e iluminacion)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-centc\20261014-214332-920057

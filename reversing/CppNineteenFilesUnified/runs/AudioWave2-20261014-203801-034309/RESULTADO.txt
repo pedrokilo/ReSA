@@ -1,0 +1,3 @@
+APROBADO: AudioWave2: CAEScript/PoliceScanner/Ped AudioEntity y CAEStreamingChannel (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-audiowave2\20261014-203801-034309

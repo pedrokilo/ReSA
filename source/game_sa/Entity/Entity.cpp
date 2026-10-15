@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "Entity.h"
 
@@ -214,14 +215,7 @@ CVector EntityA_MultiplyPoint59C890(const CMatrix& m, const CVector& v) {
 }
 // Como el original: fsin a precision completa y el producto redondeado a 24 bits por el x87
 float EntityA_SinTimes(float angle, float factor) {
-    float result;
-    __asm {
-        fld dword ptr [angle]
-        fsin
-        fmul dword ptr [factor]
-        fstp dword ptr [result]
-    }
-    return result;
+    return TrigSimpleSinMulCpp(angle, factor);
 }
 // Como el original: (v < 0) ? -v : v (con -0.0 y NaN sin cambios, a diferencia de fabs)
 float EntityA_AbsLikeExe(float v) {
@@ -1127,21 +1121,9 @@ static float EntityGroupC_HeadingDegreesPlus(const CMatrix* mat, float placement
     if (mat) {
         const float negFwdX = -mat->GetForward().x;
         const float fwdY    = mat->GetForward().y;
-        __asm {
-            fld  dword ptr [negFwdX]
-            fld  dword ptr [fwdY]
-            fpatan
-            fmul dword ptr [kRadToDeg]
-            fadd dword ptr [baseAngle]
-            fstp dword ptr [outDeg]
-        }
+        outDeg = EntityHeadingDegreesPlusCpp(negFwdX, fwdY, kRadToDeg, baseAngle);
     } else {
-        __asm {
-            fld  dword ptr [placementHeading]
-            fmul dword ptr [kRadToDeg]
-            fadd dword ptr [baseAngle]
-            fstp dword ptr [outDeg]
-        }
+        outDeg = placementHeading * kRadToDeg + baseAngle; // fld + fmul + fadd + fstp: un redondeo a 24 bits por operacion
     }
     return outDeg;
 }
@@ -2100,20 +2082,9 @@ void CEntity::ProcessLightsForEntity() {
                 const CVector& entityPos = GetPosition();
                 const float fPosX = entityPos.x, fPosY = entityPos.y;
                 static const float kMulX = 20.0f, kMulY = 10.0f; // 0x858BA4, 0x85862C
-                float fSumX, fSumY;
-                __asm {
-                    fld   dword ptr [fPosX]
-                    fmul  dword ptr [kMulX]
-                    fiadd dword ptr [iBaseOff]
-                    fstp  dword ptr [fSumX]
-                }
+                const float fSumX = FloatPlusIntCpp(fPosX * kMulX, iBaseOff); // fld + fmul + fiadd (el producto se redondea a 24 bits)
                 const int32 iOffX = static_cast<int32>(fSumX);
-                __asm {
-                    fld   dword ptr [fPosY]
-                    fmul  dword ptr [kMulY]
-                    fiadd dword ptr [iOffX]
-                    fstp  dword ptr [fSumY]
-                }
+                const float fSumY = FloatPlusIntCpp(fPosY * kMulY, iOffX);
                 const int32 iOffY = static_cast<int32>(fSumY);
 
                 // Como el original: el modo sale de (resto * 9) / 10000 (con signo), no de resto / 10000 * 9

@@ -33,6 +33,7 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexWander.h"
 
 #include "extensions/File.hpp"
+#include "X87Math.h"
 
 static inline auto& ScriptsArray = StaticRef<std::array<CRunningScript, MAX_NUM_SCRIPTS>>(0xA8B430);
 
@@ -1683,18 +1684,6 @@ void CTheScripts::Process() {
 }
 
 namespace {
-//! fpatan sobre (ST1 = num, ST0 = den): un unico redondeo a float al guardar (como el fstp del EXE)
-float ExeAtan2(float num, float den) {
-    float result;
-    __asm {
-        fld  dword ptr [num]
-        fld  dword ptr [den]
-        fpatan
-        fstp dword ptr [result]
-    }
-    return result;
-}
-
 //! Como el original (0x493A33..0x493C86, igual en los cuatro estados): acerca el objetivo del foco a `goal`.
 //! Devuelve true si todavia estaba lejos (distancia > velocidad, o NaN) y lo ha movido; false si ha llegado.
 //! Distancia = sqrt((dz*dz + dy*dy) + dx*dx), como el orden de las sumas del EXE.
@@ -1780,8 +1769,8 @@ void CTheScripts::ProcessAllSearchLights() {
         dir.Normalise();
 
         const CVector prevPos = bulb->m_matrix->GetPosition();
-        const float   heading = ExeAtan2(-dir.x, dir.y);
-        const float   pitch   = ExeAtan2(dir.z, sqrtf(dir.x * dir.x + dir.y * dir.y));
+        const float   heading = TrigAtan2Cpp(-dir.x, dir.y); // X87Math.cpp: fpatan(ST1 = num, ST0 = den) con un solo redondeo a float
+        const float   pitch   = TrigAtan2Cpp(dir.z, sqrtf(dir.x * dir.x + dir.y * dir.y));
 
         const auto Transform = [&](CEntity* entity) {
             auto& mat = *entity->m_matrix;
@@ -2045,25 +2034,12 @@ void CTheScripts::DrawScriptSpritesAndRectangles(bool drawBeforeFade) {
             const float vAMx = midX - rt.cornerA.x;
             const float vAMy = midY - rt.cornerA.y;
             const float angle = rt.m_nAngle;
-            float prodCosB, prodSinA, prodCosA, prodSinB, sinVal;
-            __asm {
-                fld  dword ptr [angle]
-                fcos
-                fld  dword ptr [angle]
-                fsin
-                fstp dword ptr [sinVal]
-                fld  st(0)
-                fmul dword ptr [vAMy]
-                fstp dword ptr [prodCosB]
-                fld  dword ptr [sinVal]
-                fmul dword ptr [vAMx]
-                fstp dword ptr [prodSinA]
-                fmul dword ptr [vAMx]
-                fstp dword ptr [prodCosA]
-                fld  dword ptr [sinVal]
-                fmul dword ptr [vAMy]
-                fstp dword ptr [prodSinB]
-            }
+            float terms[4]; // {cos * vAMy, sin * vAMx, cos * vAMx, sin * vAMy}
+            TheScriptsAngledRectTermsCpp(angle, vAMx, vAMy, terms); // X87Math.cpp
+            const float prodCosB = terms[0];
+            const float prodSinA = terms[1];
+            const float prodCosA = terms[2];
+            const float prodSinB = terms[3];
 
             ScriptSprites[rt.m_nTextureId].Draw(
                 (-prodCosA + prodSinB) + midX,
@@ -2112,31 +2088,13 @@ void CTheScripts::ScriptDebugCircle2D(float x, float y, float width, float heigh
     for (int32 i = 0; i < 16; i++) {
         const int32 idx0 = i;
         const int32 idx1 = i + 1;
-        float v0x, v0y, v1x, v1y;
-        __asm {
-            fild dword ptr [idx0]
-            fmul dword ptr [step]
-            fld  st(0)
-            fsin
-            fmul dword ptr [width]
-            fadd dword ptr [x]
-            fstp dword ptr [v0x]
-            fcos
-            fmul dword ptr [height]
-            fadd dword ptr [y]
-            fstp dword ptr [v0y]
-            fild dword ptr [idx1]
-            fmul dword ptr [step]
-            fld  st(0)
-            fsin
-            fmul dword ptr [width]
-            fadd dword ptr [x]
-            fstp dword ptr [v1x]
-            fcos
-            fmul dword ptr [height]
-            fadd dword ptr [y]
-            fstp dword ptr [v1y]
-        }
+        // t = i * (pi / 8) con fild + fmul (un redondeo a 24 bits); x = fsin(t) * width + x e y = fcos(t) * height + y con fsin/fcos sin redondear
+        const float t0  = IntTimesFloatCpp(idx0, step);
+        const float t1  = IntTimesFloatCpp(idx1, step);
+        const float v0x = TrigCompoundSinMulAdd(t0, width, x);
+        const float v0y = TrigCompoundCosMulAdd(t0, height, y);
+        const float v1x = TrigCompoundSinMulAdd(t1, width, x);
+        const float v1y = TrigCompoundCosMulAdd(t1, height, y);
         vertices[0].x = v0x;
         vertices[0].y = v0y;
         vertices[1].x = v1x;

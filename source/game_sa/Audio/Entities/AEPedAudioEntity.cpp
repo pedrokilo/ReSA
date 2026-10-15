@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "AEPedAudioEntity.h"
 #include "AEAudioHardware.h"
 #include "AEAudioUtility.h"
+#include "X87Math.h"
 #include <bit>
 
 void CAEPedAudioEntity::InjectHooks() {
@@ -279,21 +280,9 @@ void CAEPedAudioEntity::UpdateJetPack(float thrustFwd, float thrustAngle) {
     // para la velocidad del sonido 0 y el float guardado (fst [esp+4]) para la del sonido 2.
     const float zero = StaticRef<float>(0xB61384); // 0x4E10A4: global sin inicializar del EXE (0.0)
     const float k    = StaticRef<float>(0xB613B0); // 0.93f - 1.0f, calculado por el inicializador 0x84C7E0
-    float sinF{}, speed0{};
-    __asm {
-        fld  dword ptr [thrustAngle]
-        fsin
-        fcom dword ptr ds:[0x858B50]
-        fst  dword ptr [sinF]
-        fnstsw ax
-        test ah, 5
-        jp   skipNeg
-        fchs
-    skipNeg:
-        fmul dword ptr [k]
-        fadd dword ptr ds:[0x8AE608]
-        fstp dword ptr [speed0]
-    }
+    // 0x4E1068..0x4E10A2: el seno de fsin queda sin redondear en ST0 para |sin|·k + 1.0 (velocidad del sonido 0); el float guardado (fst) es sinF.
+    float sinF{};
+    const float speed0 = PedAudioJetPackSinCpp(thrustAngle, k, StaticRef<float>(0x8AE608), &sinF);
     const float absSin = sinF < 0.0f ? -sinF : sinF; // fcomp 0 / test ah,5 / jp / fchs (NaN y 0 sin cambio)
 
     m_JetPackSound0->m_Volume = zero + m_fVolume1;
@@ -630,15 +619,8 @@ void CAEPedAudioEntity::HandlePedHit(eAudioEvents event, CPhysical* physical, ui
         case 64: case 68: collision(); return;
         case 61: case 62: case 63: case 65: case 66: case 67: {
             const float value = static_cast<float>(reinterpret_cast<const int32*>(0x8AD914)[size_t(surfaceId) * 4]) * StaticRef<float>(0x858C58);
-            float result; const float twenty = 20.f;
-            __asm {
-                fld value
-                fldlg2
-                fxch st(1)
-                fyl2x
-                fmul twenty
-                fstp result
-            }
+            // 0x4DA510: fild * 0.01f, fldlg2/fyl2x y fmul 20.0f con un solo redondeo a float (fstp) = AudioLog10Times20Cpp.
+            const float result = AudioLog10Times20Cpp(value);
             mainOffset = result;
             if (event >= 65) mainID = 58;
             collision(); break;
@@ -739,19 +721,10 @@ void CAEPedAudioEntity::PlayShirtFlap(float volume, float speed) {
 }
 
 static float PedShirtLogarithmicVolume(float value, float baseVolume) {
-    float result;
-    const float scale = 20.f;
-    auto logFunction = &CAEAudioUtility::AudioLog10;
-    // Preserve the transcendental result in ST(0) through both operations.
-    __asm {
-        push value
-        call logFunction
-        add esp, 4
-        fmul scale
-        fadd baseVolume
-        fstp result
-    }
-    return result;
+    // 0x4D9E50 + 0x4E303A: p < 1e-5 (o NaN: fcomp + test ah,1 / jne) devuelve -5.0; si no, log10(p) sin redondear en ST0.
+    // Luego fmul 20.0f (-5 · 20 = -100 exacto), fadd baseVolume y fstp: el producto se redondea a 24 bits y la suma otra vez.
+    const float scaled = (value >= 0.00001f) ? AudioLog10Times20Cpp(value) : -100.0f;
+    return scaled + baseVolume;
 }
 
 // 0x4E2EE0

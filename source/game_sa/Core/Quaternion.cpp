@@ -8,6 +8,7 @@
 #include "StdInc.h"
 
 #include "Quaternion.h"
+#include "X87Math.h"
 
 void CQuaternion::InjectHooks() {
     RH_ScopedClass(CQuaternion);
@@ -60,155 +61,61 @@ void CQuaternion::Slerp(const CQuaternion& from, const CQuaternion& to, float ha
     ((void(__thiscall*)(CQuaternion*, const CQuaternion&, const CQuaternion&, float, float, float))0x59C300)(this, from, to, halftheta, sintheta_inv, t);
 }
 
-// Quat from matrix
+// Quat from matrix (0x59C3E0). Cuatro ramas segun la traza; cada operacion x87 del EXE (24 bits) es una operacion float, en su
+// orden, y las lecturas de la matriz y escrituras del cuaternion se intercalan como en el EXE (la salida puede solaparse con la matriz).
+#pragma float_control(precise, on, push)
 void CQuaternion::Set(const RwMatrix& m) {
-    const auto* source = &m;
-    auto* output = this;
-    const float zero = 0.0f, half = 0.5f, one = 1.0f;
-    // Como el original: cuatro ramas, orden x87 y raiz/reciproco sin redondeo intermedio.
-    __asm {
-        mov edx, source
-        mov ecx, output
-        fld dword ptr [edx + 14h]
-        fadd dword ptr [edx]
-        fadd dword ptr [edx + 28h]
-        fcom zero
-        fnstsw ax
-        test ah, 1
-        jne negativeTrace
-        fadd one
-        fsqrt
-        fld half
-        fmul st, st(1)
-        fstp dword ptr [ecx + 0Ch]
-        fdivr half
-        fld dword ptr [edx + 18h]
-        fsub dword ptr [edx + 24h]
-        fmul st, st(1)
-        fstp dword ptr [ecx]
-        fld dword ptr [edx + 20h]
-        fsub dword ptr [edx + 8]
-        fmul st, st(1)
-        fstp dword ptr [ecx + 4]
-        fld dword ptr [edx + 4]
-        fsub dword ptr [edx + 10h]
-        fmul st, st(1)
-        fstp dword ptr [ecx + 8]
-        fstp st(0)
-        jmp matrixFinished
-    negativeTrace:
-        fstp st(0)
-        fld dword ptr [edx]
-        fsub dword ptr [edx + 14h]
-        fsub dword ptr [edx + 28h]
-        fcom zero
-        fnstsw ax
-        test ah, 1
-        jne tryY
-        fadd one
-        fsqrt
-        fld half
-        fmul st, st(1)
-        fstp dword ptr [ecx]
-        fdivr half
-        fld dword ptr [edx + 10h]
-        fadd dword ptr [edx + 4]
-        fmul st, st(1)
-        fstp dword ptr [ecx + 4]
-        fld dword ptr [edx + 20h]
-        fadd dword ptr [edx + 8]
-        fmul st, st(1)
-        fstp dword ptr [ecx + 8]
-        fld dword ptr [edx + 18h]
-        fsub dword ptr [edx + 24h]
-        fmul st, st(1)
-        fstp dword ptr [ecx + 0Ch]
-        fstp st(0)
-        jmp matrixFinished
-    tryY:
-        fstp st(0)
-        fld dword ptr [edx + 14h]
-        fsub dword ptr [edx]
-        fsub dword ptr [edx + 28h]
-        fcom zero
-        fnstsw ax
-        test ah, 1
-        jne useZ
-        fadd one
-        fsqrt
-        fld half
-        fmul st, st(1)
-        fstp dword ptr [ecx + 4]
-        fdivr half
-        fld dword ptr [edx + 20h]
-        fsub dword ptr [edx + 8]
-        fmul st, st(1)
-        fstp dword ptr [ecx + 0Ch]
-        fld dword ptr [edx + 10h]
-        fsub dword ptr [edx + 4]
-        fmul st, st(1)
-        fstp dword ptr [ecx]
-        fld dword ptr [edx + 24h]
-        fadd dword ptr [edx + 18h]
-        fmul st, st(1)
-        fstp dword ptr [ecx + 8]
-        fstp st(0)
-        jmp matrixFinished
-    useZ:
-        fstp st(0)
-        fld dword ptr [edx + 14h]
-        fadd dword ptr [edx]
-        fsubr dword ptr [edx + 28h]
-        fadd one
-        fsqrt
-        fld half
-        fmul st, st(1)
-        fstp dword ptr [ecx + 8]
-        fdivr half
-        fld dword ptr [edx + 4]
-        fsub dword ptr [edx + 10h]
-        fmul st, st(1)
-        fstp dword ptr [ecx + 0Ch]
-        fld dword ptr [edx + 20h]
-        fadd dword ptr [edx + 8]
-        fmul st, st(1)
-        fstp dword ptr [ecx]
-        fld dword ptr [edx + 24h]
-        fadd dword ptr [edx + 18h]
-        fmul st, st(1)
-        fstp dword ptr [ecx + 4]
-        fstp st(0)
-    matrixFinished:
+    const float zero = 0.0f, half = 0.5f, one = 1.0f; // 0x858B50, 0x858B8C, 0x858624
+    // fcom + "test ah,1": un NaN (desordenado) o negativo sigue a la rama siguiente.
+    const float trace = (m.up.y + m.right.x) + m.at.z;
+    if (trace >= zero) {
+        const float root = std::sqrt(trace + one);
+        w = half * root;
+        const float inv = half / root;
+        x = (m.up.z - m.at.y) * inv;
+        y = (m.at.x - m.right.z) * inv;
+        z = (m.right.y - m.up.x) * inv;
+        return;
     }
+    const float dx = (m.right.x - m.up.y) - m.at.z;
+    if (dx >= zero) {
+        const float root = std::sqrt(dx + one);
+        x = half * root;
+        const float inv = half / root;
+        y = (m.up.x + m.right.y) * inv;
+        z = (m.at.x + m.right.z) * inv;
+        w = (m.up.z - m.at.y) * inv;
+        return;
+    }
+    const float dy = (m.up.y - m.right.x) - m.at.z;
+    if (dy >= zero) {
+        const float root = std::sqrt(dy + one);
+        y = half * root;
+        const float inv = half / root;
+        w = (m.at.x - m.right.z) * inv;
+        x = (m.up.x - m.right.y) * inv;
+        z = (m.at.y + m.up.z) * inv;
+        return;
+    }
+    // Ultima rama sin comparacion (fsubr): m22 - (m11 + m00); la raiz de un negativo da el NaN indefinido igual que fsqrt.
+    const float dz = m.at.z - (m.up.y + m.right.x);
+    const float root = std::sqrt(dz + one);
+    z = half * root;
+    const float inv = half / root;
+    w = (m.right.y - m.up.x) * inv;
+    x = (m.at.x + m.right.z) * inv;
+    y = (m.at.y + m.up.z) * inv;
 }
+#pragma float_control(pop)
 
 // Quat from euler angles
 void CQuaternion::Set(float x, float y, float z) {
     ((void(__thiscall*)(CQuaternion*, float, float, float))0x59C530)(this, x, y, z);
 }
 
-// Quat from axis & angle
+// Quat from axis & angle (0x59C600): {sin(a/2) * eje, cos(a/2)} con el seno sin redondear (QuaternionFromAxisAngleCpp, X87Math).
 void CQuaternion::Set(RwV3d* axis, float angle) {
-    auto* output = this;
-    const float half = 0.5f;
-    __asm {
-        mov eax, axis
-        mov ecx, output
-        fld angle
-        fmul half
-        fld st(0)
-        fsin
-        fld st(0)
-        fmul dword ptr [eax]
-        fstp dword ptr [ecx]
-        fld st(0)
-        fmul dword ptr [eax + 4]
-        fstp dword ptr [ecx + 4]
-        fmul dword ptr [eax + 8]
-        fstp dword ptr [ecx + 8]
-        fcos
-        fstp dword ptr [ecx + 0Ch]
-    }
+    QuaternionFromAxisAngleCpp(&x, &axis->x, angle);
 }
 
 // Spherical linear interpolation

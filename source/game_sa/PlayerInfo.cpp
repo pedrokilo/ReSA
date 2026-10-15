@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "PlayerInfo.h"
 #include "FireManager.h"
@@ -151,16 +152,7 @@ void CPlayerInfo::EvaluateCarPosition(CEntity* car, CPed* ped, float pedToVehDis
     // y se resta directamente (fsubr): un solo redondeo de angleFront - carAngle.
     const float diffX = carPosn.x - pedPosn.x;
     const float diffY = carPosn.y - pedPosn.y;
-    float (*const getATanOfXY)(float, float) = &CGeneral::GetATanOfXY;
-    float carAngleFromFront;
-    __asm {
-        push  diffY
-        push  diffX
-        call  getATanOfXY
-        add   esp, 8
-        fsubr angleFront
-        fstp  carAngleFromFront
-    }
+    float carAngleFromFront = PlayerInfoAtanFromCpp(&CGeneral::GetATanOfXY, angleFront, diffX, diffY);
 
     // Como el original: LimitRadianAngle inlinado sin el clamp a +-25 (while > PI: -= 2PI; while < -PI: += 2PI)
     // y la división por 2PI es una multiplicación por 1/(2PI) (0x8594F0).
@@ -514,12 +506,7 @@ void CPlayerInfo::StreamParachuteWeapon(bool unk) {
 void CPlayerInfo::AddHealth(int32 amount) const {
     // Como el original: fild + fadd, el entero se suma sin redondearlo antes a float
     const float health = m_pPed->m_fHealth;
-    float sum;
-    __asm {
-        fild amount
-        fadd health
-        fstp sum
-    }
+    const float sum = FloatPlusIntCpp(health, amount);
     const auto newValue = std::min((float)m_nMaxHealth, sum); // Clamp to m_nMaxHealth
     m_pPed->m_fHealth = std::max(newValue, m_pPed->m_fHealth); // Don't change health to a lower value
 }

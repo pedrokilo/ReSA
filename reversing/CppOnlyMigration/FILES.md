@@ -4,31 +4,20 @@
 
 # Archivos pendientes de convertir a C++
 
-96 archivos: 835 apariciones de ensamblador y 246 declaraciones naked.
+59 archivos: 736 apariciones de ensamblador y 244 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
 | Archivo | Ensamblador | naked |
 | --- | ---: | ---: |
-| [source/game_sa/3dMarkers.cpp](../../source/game_sa/3dMarkers.cpp) | 3 | 0 |
-| [source/game_sa/Audio/AEAudioUtility.cpp](../../source/game_sa/Audio/AEAudioUtility.cpp) | 4 | 0 |
-| [source/game_sa/Audio/Entities/AEPedAudioEntity.cpp](../../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) | 3 | 0 |
 | [source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp](../../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp) | 6 | 4 |
 | [source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp](../../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp) | 6 | 0 |
-| [source/game_sa/Audio/Hardware/AEAudioHardware.cpp](../../source/game_sa/Audio/Hardware/AEAudioHardware.cpp) | 4 | 0 |
-| [source/game_sa/Audio/Loaders/AEMFDecoder.cpp](../../source/game_sa/Audio/Loaders/AEMFDecoder.cpp) | 3 | 0 |
 | [source/game_sa/Birds.cpp](../../source/game_sa/Birds.cpp) | 3 | 3 |
 | [source/game_sa/Cam.cpp](../../source/game_sa/Cam.cpp) | 102 | 3 |
 | [source/game_sa/Camera.cpp](../../source/game_sa/Camera.cpp) | 43 | 1 |
-| [source/game_sa/CarAI.cpp](../../source/game_sa/CarAI.cpp) | 3 | 0 |
 | [source/game_sa/CarEnterExit.cpp](../../source/game_sa/CarEnterExit.cpp) | 4 | 1 |
-| [source/game_sa/ClothesBuilder.cpp](../../source/game_sa/ClothesBuilder.cpp) | 3 | 0 |
 | [source/game_sa/Core/Matrix.cpp](../../source/game_sa/Core/Matrix.cpp) | 10 | 10 |
-| [source/game_sa/Core/Quaternion.cpp](../../source/game_sa/Core/Quaternion.cpp) | 2 | 0 |
-| [source/game_sa/Cover.cpp](../../source/game_sa/Cover.cpp) | 3 | 0 |
 | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp) | 14 | 14 |
-| [source/game_sa/Door.cpp](../../source/game_sa/Door.cpp) | 3 | 0 |
-| [source/game_sa/Entity/Entity.cpp](../../source/game_sa/Entity/Entity.cpp) | 3 | 0 |
 | [source/game_sa/Entity/Object/Object.cpp](../../source/game_sa/Entity/Object/Object.cpp) | 5 | 0 |
 | [source/game_sa/Entity/Ped/Ped.cpp](../../source/game_sa/Entity/Ped/Ped.cpp) | 6 | 2 |
 | [source/game_sa/Entity/Ped/PlayerPed.cpp](../../source/game_sa/Entity/Ped/PlayerPed.cpp) | 4 | 1 |
@@ -37,26 +26,19 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Entity/Vehicle/Automobile.cpp](../../source/game_sa/Entity/Vehicle/Automobile.cpp) | 11 | 0 |
 | [source/game_sa/Entity/Vehicle/Bike.cpp](../../source/game_sa/Entity/Vehicle/Bike.cpp) | 28 | 3 |
 | [source/game_sa/Entity/Vehicle/Bmx.cpp](../../source/game_sa/Entity/Vehicle/Bmx.cpp) | 8 | 1 |
-| [source/game_sa/Entity/Vehicle/Boat.cpp](../../source/game_sa/Entity/Vehicle/Boat.cpp) | 2 | 0 |
 | [source/game_sa/Entity/Vehicle/Plane.cpp](../../source/game_sa/Entity/Vehicle/Plane.cpp) | 48 | 7 |
 | [source/game_sa/Entity/Vehicle/QuadBike.cpp](../../source/game_sa/Entity/Vehicle/QuadBike.cpp) | 5 | 0 |
-| [source/game_sa/Entity/Vehicle/Trailer.cpp](../../source/game_sa/Entity/Vehicle/Trailer.cpp) | 2 | 0 |
 | [source/game_sa/Entity/Vehicle/Train.cpp](../../source/game_sa/Entity/Vehicle/Train.cpp) | 7 | 0 |
 | [source/game_sa/Entity/Vehicle/Vehicle.cpp](../../source/game_sa/Entity/Vehicle/Vehicle.cpp) | 14 | 6 |
-| [source/game_sa/EntityScanner.cpp](../../source/game_sa/EntityScanner.cpp) | 3 | 0 |
 | [source/game_sa/EntryExit.cpp](../../source/game_sa/EntryExit.cpp) | 4 | 1 |
-| [source/game_sa/Events/Event.cpp](../../source/game_sa/Events/Event.cpp) | 2 | 0 |
 | [source/game_sa/Events/EventKnockOffBike.cpp](../../source/game_sa/Events/EventKnockOffBike.cpp) | 6 | 0 |
 | [source/game_sa/Events/EventSource.cpp](../../source/game_sa/Events/EventSource.cpp) | 4 | 4 |
-| [source/game_sa/Fire.cpp](../../source/game_sa/Fire.cpp) | 2 | 0 |
-| [source/game_sa/FireManager.cpp](../../source/game_sa/FireManager.cpp) | 3 | 0 |
 | [source/game_sa/Font.cpp](../../source/game_sa/Font.cpp) | 2 | 2 |
 | [source/game_sa/Formation.cpp](../../source/game_sa/Formation.cpp) | 17 | 1 |
 | [source/game_sa/GangWars.cpp](../../source/game_sa/GangWars.cpp) | 5 | 0 |
 | [source/game_sa/Garage.cpp](../../source/game_sa/Garage.cpp) | 15 | 9 |
 | [source/game_sa/General.cpp](../../source/game_sa/General.cpp) | 4 | 4 |
 | [source/game_sa/Hud.cpp](../../source/game_sa/Hud.cpp) | 6 | 0 |
-| [source/game_sa/IdleCam.cpp](../../source/game_sa/IdleCam.cpp) | 4 | 0 |
 | [source/game_sa/Interior/Interior_c.cpp](../../source/game_sa/Interior/Interior_c.cpp) | 50 | 42 |
 | [source/game_sa/MemoryMgr.cpp](../../source/game_sa/MemoryMgr.cpp) | 8 | 8 |
 | [source/game_sa/Pad.cpp](../../source/game_sa/Pad.cpp) | 10 | 5 |
@@ -67,42 +49,23 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/PedIK.cpp](../../source/game_sa/PedIK.cpp) | 8 | 1 |
 | [source/game_sa/Pickup.cpp](../../source/game_sa/Pickup.cpp) | 2 | 1 |
 | [source/game_sa/Pickups.cpp](../../source/game_sa/Pickups.cpp) | 7 | 0 |
-| [source/game_sa/Plant/ProcSurfaceInfo.cpp](../../source/game_sa/Plant/ProcSurfaceInfo.cpp) | 3 | 0 |
-| [source/game_sa/PlayerInfo.cpp](../../source/game_sa/PlayerInfo.cpp) | 2 | 0 |
 | [source/game_sa/PlayerRelationshipRecorder.cpp](../../source/game_sa/PlayerRelationshipRecorder.cpp) | 4 | 4 |
 | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 7 | 0 |
-| [source/game_sa/PointLights.cpp](../../source/game_sa/PointLights.cpp) | 2 | 0 |
-| [source/game_sa/Population.cpp](../../source/game_sa/Population.cpp) | 2 | 0 |
 | [source/game_sa/PostEffects.cpp](../../source/game_sa/PostEffects.cpp) | 7 | 0 |
 | [source/game_sa/ProjectileInfo.cpp](../../source/game_sa/ProjectileInfo.cpp) | 6 | 0 |
 | [source/game_sa/Radar.cpp](../../source/game_sa/Radar.cpp) | 10 | 2 |
 | [source/game_sa/Ragdoll/BoneNode.cpp](../../source/game_sa/Ragdoll/BoneNode.cpp) | 4 | 4 |
-| [source/game_sa/RenderWare/rw/rwplcore.h](../../source/game_sa/RenderWare/rw/rwplcore.h) | 3 | 0 |
-| [source/game_sa/Replay.cpp](../../source/game_sa/Replay.cpp) | 2 | 0 |
-| [source/game_sa/Ropes.cpp](../../source/game_sa/Ropes.cpp) | 2 | 0 |
-| [source/game_sa/Scripts/TheScripts.cpp](../../source/game_sa/Scripts/TheScripts.cpp) | 3 | 0 |
 | [source/game_sa/Shadows.cpp](../../source/game_sa/Shadows.cpp) | 56 | 1 |
-| [source/game_sa/ShotInfo.cpp](../../source/game_sa/ShotInfo.cpp) | 2 | 0 |
-| [source/game_sa/SimpleTransform.cpp](../../source/game_sa/SimpleTransform.cpp) | 2 | 0 |
-| [source/game_sa/Sprite.cpp](../../source/game_sa/Sprite.cpp) | 2 | 0 |
 | [source/game_sa/Stats.cpp](../../source/game_sa/Stats.cpp) | 69 | 44 |
-| [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp) | 2 | 0 |
-| [source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp](../../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp) | 2 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp](../../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp) | 2 | 2 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp) | 4 | 4 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) | 13 | 13 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp) | 4 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp) | 3 | 3 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp) | 6 | 4 |
-| [source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp) | 4 | 0 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp) | 7 | 6 |
 | [source/game_sa/TheZones.cpp](../../source/game_sa/TheZones.cpp) | 5 | 5 |
-| [source/game_sa/TimeCycle.cpp](../../source/game_sa/TimeCycle.cpp) | 2 | 2 |
 | [source/game_sa/Timer.cpp](../../source/game_sa/Timer.cpp) | 5 | 0 |
-| [source/game_sa/WaterCreature_c.cpp](../../source/game_sa/WaterCreature_c.cpp) | 2 | 0 |
 | [source/game_sa/WaterLevel.cpp](../../source/game_sa/WaterLevel.cpp) | 8 | 3 |
 | [source/game_sa/Weapon.cpp](../../source/game_sa/Weapon.cpp) | 5 | 0 |
-| [source/game_sa/WeaponEffects.cpp](../../source/game_sa/WeaponEffects.cpp) | 4 | 0 |
 | [source/game_sa/Weather.cpp](../../source/game_sa/Weather.cpp) | 5 | 0 |
 | [source/game_sa/cHandlingDataMgr.cpp](../../source/game_sa/cHandlingDataMgr.cpp) | 5 | 1 |
-| [source/game_sa/common.cpp](../../source/game_sa/common.cpp) | 2 | 0 |

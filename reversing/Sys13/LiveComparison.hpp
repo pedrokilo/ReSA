@@ -307,6 +307,8 @@ inline void __fastcall FakeSetPosn(void* self,void*,const CVector* pos){ T({"Set
 inline void __fastcall FakePlaceOnRoad(void* self,void*){ T({"PlaceOnRoadProperly",Name(self)}); }
 inline void __fastcall FakeWheelPosn(void* self,void*,int32 wheel,CVector* out,uint32 local){ T({"GetWheelPosn",Name(self),wheel,Name(out),local&0xFF}); *out=wheelPosn[uint32(wheel)&3]; }
 inline void* __cdecl FakeMalloc(uint32 size){ T({"Malloc",size}); return lines6b.data(); }
+// parches de Malloc: dirección del EXE + entradas de la DLL (naked desde d26e3a5d; CTrailer::SetupSuspensionLines llama CMemoryMgr::Malloc directo)
+struct MallocGuard { ReversingProbe::EntryPatch e{0x72F420,FakeMalloc}, d2{Addr(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc)),FakeMalloc}, d1{Addr(static_cast<void*(*)(uint32)>(&CMemoryMgr::Malloc)),FakeMalloc}; };
 inline bool __cdecl FakePlayback(void* v){ T({"IsPlaybackGoingOnForCar",Name(v)}); return playbackRet; }
 inline std::vector<void*> foundObjs;
 inline void __cdecl FakeFindObjects(const CVector* pt,float radius,uint32 b2d,int16* count,int16 maxCount,CEntity** outEnt,uint32 b,uint32 v,uint32 pd,uint32 o,uint32 d){
@@ -440,7 +442,7 @@ inline json RunTrailer(const std::string& nm,const auto& fn,bool candidate,Rng& 
     else if(nm=="GetTowBarPos"||nm=="GetTowHitchPos"){ CVector o{r.uni(-9.f,9.f),r.uni(-9.f,9.f),r.uni(-9.f,9.f)}; const uint32 check=r.next()%2;
         void* const v=r.next()%4==0 ? nullptr : r.next()%3 ? static_cast<void*>(veh0.data()) : t;
         ret=reinterpret_cast<uint8(__thiscall*)(void*,CVector*,uint32,void*)>(target)(t,&o,check,v)!=0; out["pos"]=Vec(&o); }
-    else if(nm=="SetupSuspensionLines"){ ReversingProbe::EntryPatch m(0x72F420,FakeMalloc); reinterpret_cast<void(__thiscall*)(void*)>(target)(t); }
+    else if(nm=="SetupSuspensionLines"){ MallocGuard m; reinterpret_cast<void(__thiscall*)(void*)>(target)(t); }
     else if(nm=="PreRender"||nm=="ProcessControl"||nm=="ProcessSuspension"||nm=="ResetSuspension")reinterpret_cast<void(__thiscall*)(void*)>(target)(t);
     else if(nm=="ProcessAI"){ uint32 flags=r.next();
         { Patches s; s.Add(0x6CF030,FakeScanThis); s.Add(FollowIn(Addr(&CTrailer::ScanForTowLink)),FakeScanThis); s.Add(Addr(&CTrailer::ScanForTowLink),FakeScanThis);
@@ -453,7 +455,7 @@ inline json RunTrailer(const std::string& nm,const auto& fn,bool candidate,Rng& 
         ret=reinterpret_cast<uint8(__thiscall*)(void*,void*,uint32)>(target)(t,v,r.next()%2)!=0; }
     else if(nm=="ScanForTowLink")reinterpret_cast<void(__thiscall*)(void*)>(target)(t);
     else if(nm=="Constructor"){ std::memset(t,0xCD,VEH); const int32 model=TRAILER_MODELS[r.next()%8]; const int32 by=int32(r.next()%5);
-        ReversingProbe::EntryPatch m(0x72F420,FakeMalloc); ret=Name(reinterpret_cast<void*(__thiscall*)(void*,int32,int32)>(target)(t,model,by)); }
+        MallocGuard m; ret=Name(reinterpret_cast<void*(__thiscall*)(void*,int32,int32)>(target)(t,model,by)); }
     RestoreModelInfos();
     // vptr: el EXE escribe 0x871C28 y la DLL su propia vtable de CTrailer
     const uintptr_t vp=At<uintptr_t>(t,0); json vpj=vp==EXE_TRAILER_VT||(nm=="Constructor"&&InDll(vp)) ? json("CTrailer") : Name(vp);

@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 #include "RealTimeShadowManager.h"
 #include "Replay.h"
 #include "Skidmarks.h"
+#include "X87Math.h"
 
 void CReplay::InjectHooks() {
     RH_ScopedClass(CReplay);
@@ -895,14 +896,8 @@ void CReplay::ProcessLookAroundCam() {
 
                 const float diffY = camPos.y - FindPlayerCoors(-1).y;
                 const float diffX = camPos.x - FindPlayerCoors(-1).x;
-                float angle;
-                __asm {
-                    fld   diffX
-                    fld   diffY
-                    fpatan
-                    fstp  angle
-                }
-                playerCameraDirAngle = angle;
+                // Como el original: fpatan(diffX / diffY) a precisión completa y un solo redondeo a float (X87Math).
+                playerCameraDirAngle = TrigAtan2Cpp(diffX, diffY);
             }
             FramesActiveLookAroundCam = 60;
         }
@@ -931,30 +926,15 @@ void CReplay::ProcessLookAroundCam() {
                 viewAngle = view;
             }
 
-            // Como el original: fsin/fcos del x87 a precisión completa; los productos se redondean a float.
+            // Como el original: fsin/fcos del x87 a precisión completa; los productos se redondean a float (X87Math).
             const float dirAngle = playerCameraDirAngle;
             const float view     = viewAngle;
             const float dist     = playerCameraDistance;
-            float offX, offY, offZ;
-            __asm {
-                fld   view
-                fcos
-                fld   dirAngle
-                fsin
-                fmul  st, st(1)
-                fmul  dist
-                fstp  offX
-                fld   dirAngle
-                fcos
-                fmul  st, st(1)
-                fmul  dist
-                fstp  offY
-                fstp  st(0)
-                fld   view
-                fsin
-                fmul  dist
-                fstp  offZ
-            }
+            float offsets[3];
+            ReplayLookAroundOffsetsCpp(view, dirAngle, dist, offsets);
+            const float offX = offsets[0];
+            const float offY = offsets[1];
+            const float offZ = offsets[2];
 
             const CVector focus{CameraFocus.x, CameraFocus.y, CameraFocus.z};
             CVector target{offX + focus.x, offY + focus.y, offZ + focus.z};

@@ -1,0 +1,3 @@
+APROBADO: Ped audio pendientes
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-audio-ped-pending\20261014-213208-269717

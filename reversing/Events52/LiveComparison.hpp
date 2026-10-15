@@ -234,9 +234,9 @@ inline void Update() {
     {
         using ReversingProbe::EntryPatch; using std::bit_cast;
         EntryPatch s1(bit_cast<uintptr_t>(&CPedIntelligence::IsThreatenedBy),Threatened), s1e(0x601C30,Threatened);
-        EntryPatch s2e(0x5F7E80,PedsGroup);   // la DLL solo envuelve la del EXE
+        EntryPatch s2(bit_cast<uintptr_t>(&CPedGroups::GetPedsGroup),PedsGroup), s2e(0x5F7E80,PedsGroup);   // la DLL la llama directo (AffectsPed de PedCollisionWithPed y VehicleOnFire)
         EntryPatch s3(bit_cast<uintptr_t>(static_cast<int32(*)(const CPed&,CEntity&)>(&CPedGeometryAnalyser::ComputeEntityHitSide)),HitSidePed), s3e(0x5F3BC0,HitSidePed);
-        EntryPatch s4e(0x5F3AC0,HitSidePoint);   // la DLL solo envuelve la del EXE
+        EntryPatch s4(bit_cast<uintptr_t>(static_cast<int32(*)(const CVector&,CEntity&)>(&CPedGeometryAnalyser::ComputeEntityHitSide)),HitSidePoint), s4e(0x5F3AC0,HitSidePoint);   // la DLL la llama directo (CEventVehicleCollision::AffectsPed)
         EntryPatch s5(bit_cast<uintptr_t>(&CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanes),Planes), s5e(0x5F3660,Planes);
         EntryPatch s6(bit_cast<uintptr_t>(&CTaskComplexWalkRoundCar::SetNewVehicle),SetNewVeh), s6e(0x654290,SetNewVeh);
         EntryPatch s7(bit_cast<uintptr_t>(static_cast<CWanted*(*)(int32)>(&FindPlayerWanted)),FindWanted), s7e(0x56E230,FindWanted);

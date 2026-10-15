@@ -6,6 +6,7 @@
 */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include "SimpleTransform.h"
 
@@ -14,15 +15,7 @@ void CSimpleTransform::UpdateRwMatrix(RwMatrix* out)
 {
     // Como el original (0x54EF40): fcos/fsin a precision completa y luego se guardan como float
     const float heading = m_fHeading;
-    float sinHeading, cosHeading;
-    __asm {
-        fld dword ptr [heading]
-        fcos
-        fstp dword ptr [cosHeading]
-        fld dword ptr [heading]
-        fsin
-        fstp dword ptr [sinHeading]
-    }
+    const float sinHeading = TrigSimpleSinCpp(heading), cosHeading = TrigSimpleCosCpp(heading);
 
     out->right = { cosHeading, sinHeading, 0.0f };
     out->up = { -sinHeading, cosHeading, 0.0f };
@@ -37,28 +30,8 @@ void CSimpleTransform::UpdateRwMatrix(RwMatrix* out)
 void CSimpleTransform::Invert(const CSimpleTransform& base)
 {
     // Como el original (0x54EF90): fcos/fsin a precision completa y productos redondeados a 24 bits por el x87
-    const float heading = base.m_fHeading, baseX = base.m_vPosn.x, baseY = base.m_vPosn.y;
-    float outX, outY;
-    __asm {
-        fld dword ptr [heading]
-        fcos
-        fld dword ptr [heading]
-        fsin
-        fld st(1)
-        fmul dword ptr [baseX]
-        fchs
-        fld st(1)
-        fmul dword ptr [baseY]
-        fsubp st(1), st(0)
-        fstp dword ptr [outX]
-        fmul dword ptr [baseX]
-        fxch st(1)
-        fmul dword ptr [baseY]
-        fsubp st(1), st(0)
-        fstp dword ptr [outY]
-    }
-    m_vPosn.x = outX;
-    m_vPosn.y = outY;
+    // x e y se calculan en una funcion x87 aparte; base se relee tras escribir x, igual que el EXE (por si base == this)
+    SimpleTransformInvertCpp(reinterpret_cast<const float*>(&base), reinterpret_cast<float*>(this));
     m_vPosn.z = -base.m_vPosn.z;
     m_fHeading = -base.m_fHeading;
 }

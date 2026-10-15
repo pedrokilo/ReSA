@@ -1,0 +1,98 @@
+?TrigSimpleSinCpp (10 bytes): fld fsin
+?TrigSimpleCosCpp (10 bytes): fld fcos
+?TrigSimpleSinMulCpp (13 bytes): fld fsin fmul
+?TrigSimpleCosMulCpp (13 bytes): fld fcos fmul
+?CloudsEqualOrderedCpp (39 bytes): fld fld fcom fnstsw fcompp fnstsw fstp fstp
+?CloudsLessOrderedCpp (26 bytes): fld fld fcompp fnstsw
+_ShadowSqrtCpp (21 bytes): fld fsqrt fstp.q fld.q
+_ShadowDistanceFadeCpp (48 bytes): fld fld.q fdiv fxch fmul fld fsqrt fsubrp fmulp fld1 fsubrp fstp.q fld.q
+?AnimQuaternionDotNegativeCpp (38 bytes): call ?AnimOrderedQuaternionDot@@YANPBM0@Z fcomp fnstsw
+?AnimCalcThetaCpp (167 bytes): call ?AnimOrderedQuaternionDot@@YANPBM0@Z fst fld1 fcompp fnstsw fld1 fstp fstp fld fstp call __control87 call __control87 fld fld fld1 fadd fsub fmulp fsqrt fxch fpatan fstp.q call __control87 fld.q fst fldz fucomp fnstsw fsin fld1 fdivrp fstp fstp fldz fstp
+?AudioLog10Times20Cpp (26 bytes): fld fldlg2 fxch fyl2x fmul fstp fld
+?AudioRadioVolumeDbCpp (35 bytes): fld fdiv fldlg2 fxch fyl2x fmul fsub fstp fld
+?AudioSumToMsCpp (60 bytes): fild fild fsubp fmul fstp fld
+?AudioPercentOfProductCpp (20 bytes): fild fmul fstp fld
+?AudioLog10Cpp (20 bytes): fld fldlg2 fxch fyl2x fstp fld
+?VectorSquaredMagnitudeAboveCpp (50 bytes): fld fld fld fld fmul fxch fmul fxch fmul faddp fxch faddp fcompp fnstsw
+?ExeCompatiblePowCpp (200 bytes): fld.q fld.q fld.q fld.q fld.q call __CIpow
+?PowScaleVector3Cpp (52 bytes): fld fstp.q fld fstp.q call ?ExeCompatiblePowCpp@@YANNN@Z fld fmul fstp fld fmul fstp fmul fstp
+?UnsignedMillisToSecondsCpp (33 bytes): fild fadd fmul fstp fld
+?GammaScaleCpp (20 bytes): fld.q fmul fstp fld
+?ExeAcosCpp (28 bytes): fld fstp.q call ?ExeAcosDoubleCpp@@YANN@Z fstp fld
+?Atan2MinusCpp (22 bytes): fld fld fpatan fsub fstp fld
+?InterestingSectorCpp (46 bytes): fld fld faddp fsubp fmul fadd fstp.q fld.q
+?TrigIntSinMulCpp (13 bytes): fld fimul fsin
+?IntTimesFloatCpp (17 bytes): fild fmul fstp fld
+?FallRemainingHealthCpp (55 bytes): fld fld fsubr fld fcom fnstsw fstp fst fsubp fstp fstp fst fsubp fstp
+?SpriteBilinearOffsetCpp (88 bytes): fld fld.q fld fdivrp fdiv fld fadd fstp fld fadd fstp fld fadd fstp fld fadd fstp fld fadd fstp fld fadd fstp fld faddp fxch fstp fadd fstp
+?ScriptAngledCornersCpp (127 bytes): fld fadd fldz fcom fnstsw fld.q fstp fxch fadd fxch fcom fnstsw fstp fxch fcom fnstsw fsub fcom fnstsw fstp fld fld fsin fmul fld fadd fstp fxch fcos fmulp fchs fst fadd fstp fadd fstp fld fadd fstp
+?TrigAtan2Cpp (13 bytes): fld fld fpatan
+?DistanceSquaredZXYCpp (45 bytes): fld fsub fld fsub fld fsub fmul fxch fmul faddp fmul faddp fstp fld
+?PowDecaySpeedCpp (57 bytes): fld fst.q fstp.q fld.q fstp.q call ?ExeCompatiblePowCpp@@YANNN@Z fmul fst fmul fadd fstp
+?IntRatioCpp (17 bytes): fild fidiv fstp fld
+?ExeAcosDoubleCpp (82 bytes): call __control87 call __control87 fld.q fld fld1 fadd fsub fmulp fsqrt fxch fpatan fstp.q call __control87 fld.q
+?ExeAsinDegreesCpp (28 bytes): fld fstp.q call ?ExeAsinDoubleCpp@@YANN@Z fmul
+?UnsignedPlusFloatCpp (24 bytes): fild fadd fadd
+?FloatPlusIntCpp (17 bytes): fld fiadd fstp fld
+?IntTimesTwoFloatsCpp (20 bytes): fild fmul fmul fstp fld
+?CurvesCorrectedDistCpp (182 bytes): fld fld fcom fnstsw fstp fstp fld fstp fldz fld fst.q fxch fst.q fdivp fst.q fmul fstp fld fstp call ?TrigSimpleCosCpp@@YAMM@Z fld.q fmul fld fsubrp fxch fstp fld fst.q fadd fld1 fld fsubrp faddp fmulp fmul fstp.q fld.q fmul fstp.q fld.q fmul fstp fld fstp call ?TrigSimpleSinCpp@@YAMM@Z fmul fmul fadd fstp fld
+?FxFrustumRadiusCpp (140 bytes): fld1 fstp fld fstp call ?TrigAtan2Cpp@@YAMMM@Z fmul fstp fld fst.q fmul fstp fld fstp call ?TrigSimpleSinCpp@@YAMM@Z fstp.q fld.q fadd fsubr fmul fstp fld fstp call ?TrigSimpleSinCpp@@YAMM@Z fstp.q fld fstp.q fld fstp call ?FxFrustumHypotenuse@@YANM@Z fmul fdiv fmul fstp fld
+?ResidueRegsCpp@@YIIIII@Z (10 bytes): 
+?X87CompareStatusCpp (163 bytes): fld fucom fnstsw fld fucom fnstsw fucom fnstsw fstp fcompp fnstsw fstp fstp call __statusfp2
+?EntryEaxCpp@@YIIXZ (3 bytes): 
+?ExeAsinDoubleCpp (80 bytes): call __control87 call __control87 fld.q fld fld1 fadd fsub fmulp fsqrt fpatan fstp.q call __control87 fld.q
+?IKChainRotationAngleCpp (40 bytes): fld fstp.q call ?ExeAcosDoubleCpp@@YANN@Z fmul fmul fmul fstp fld
+?UnsignedTimesFloatCpp (29 bytes): fild fadd fmul fstp fld
+?SecondsToMsCpp (24 bytes): fld.q fmul fstp.q fld.q
+?BytesToMsCpp (61 bytes): fild fld.q fadd fild faddp fstp fdivp fmul fstp.q fld.q call __ftol2
+?WaveCursorBytesCpp (69 bytes): fild fld.q fadd fxch fmul fild faddp fstp fmulp fadd fstp.q fld.q call __ftol2
+?SmoothFadeVolumeCpp (85 bytes): fld fmul fstp.q fld.q fstp.q call ?ExeCompatiblePowCpp@@YANNN@Z fld1 fsub fild fadd fidiv fmulp faddp fldlg2 fxch fyl2x fmul fadd fstp fld
+?OneMinusUnsignedRatioCpp (61 bytes): fild fld.q fadd fild faddp fdivp fld1 fsubrp fstp fld fstp fdivp fld1 fsubrp fstp fld
+?QuaternionFromAxisAngleCpp (49 bytes): fld fmul fld fsin fld fmul fstp fld fmul fstp fmul fstp fcos fstp
+?Atan2FromCpp (18 bytes): fld fld fld fpatan fsubp
+?PowScaleFloatCpp (36 bytes): fld fstp.q fld fstp.q call ?ExeCompatiblePowCpp@@YANNN@Z fmul fstp
+?TrailerSteerCpp (107 bytes): fld fchs fld fpatan fld fld fchs fld fpatan fld fld fld.q fadd fxch fcomp fnstsw fstp fxch fsub fsubrp fsubr fcomp fnstsw fxch fadd fxch fxch fsubrp
+?Log10Times10Cpp (26 bytes): fld fldlg2 fxch fyl2x fmul fstp fld
+?SoundLevelIncrementCpp (33 bytes): fld fld.q fadd fdivrp fldlg2 fxch fyl2x fmul fstp fld
+?FireBurnTimeCpp (82 bytes): fild fstp.q fld.q fmul fmul fadd fild fld.q fadd fxch fmulp fild faddp faddp fstp fld fstp faddp fstp fld
+?IntFractionCpp (17 bytes): fld fisub fstp fld
+?PlayerInfoAtanFromCpp (36 bytes): fld fstp fld fstp call ? fsubr fstp fld
+?PointLightsInRangeXYCpp (143 bytes): fld fsub fstp fld fadd fstp fld fld fcompp fnstsw fld fchs fstp fld fld fcompp fnstsw fld fsub fstp fld fst fld fcompp fnstsw fld fld fcompp fnstsw fld fstp fld fstp fld fstp
+?PointLightsDistanceFadeCpp (80 bytes): fld fstp fld fstp fld fsub fstp call ?PointLightsSquaredDistance@@YANMMM@Z fsqrt fstp fld fstp fld fstp call ?PointLightsClassifyFade@@YA_NMMPAM00@Z
+?ReplayLookAroundOffsetsCpp (53 bytes): fld fld fcos fld fld fld fsin fmul fmul fstp fxch fcos fmulp fmul fxch fstp fxch fsin fmulp fstp
+?RopesInterpolateCpp (150 bytes): fld fmul fld call __ftol2_sse fild fstp.q fsub fld fmul fld fmul fstp fld fmul fstp fld1 fsubrp fld fmul fstp fld fmul fstp fld fmulp fxch fstp fadd fstp fld fadd fstp fld fadd fstp fld fstp fld fstp fld fstp
+?ShotInfoDestroyTimeCpp (46 bytes): fild fadd fadd fstp fld call __ftol2 fild fstp fld
+?SimpleTransformInvertCpp (49 bytes): fld fld fcos fxch fsin fld fmul fld fmul fchs fsubrp fstp fld fmulp fmul fsubrp fstp
+?SpriteQuadCoeffsCpp (46 bytes): fld fld fsin fxch fcos fld fchs fsub fstp fld fsub fstp fld fadd fstp fsubrp fstp
+?SpriteDimensionTermsCpp (50 bytes): fld fld fsin fxch fcos fld fld fmul fstp fld fld fmul fstp fmulp fxch fstp fmulp fstp
+?CommonTransformPointCpp (72 bytes): fld fld fcos fxch fsin fld fld fmul fld fmul fsubrp faddp fstp fld fld fmulp fld fmulp fxch faddp faddp fstp fld fadd fstp
+?DestroyCarDistanceCpp (41 bytes): fld fld fld fmul fxch fmul fxch fmul faddp faddp call __CIsqrt fstp fld
+?TimeCycleDirnToSunCpp (38 bytes): fld.q fld fcos fld.q fld fcos fmul fstp fsin fmulp fstp fsin fstp
+?TimeCycleVectorToSunCpp (34 bytes): fld fld fsin fadd fstp fld fxch fcos fsubp fstp
+?CommonTransformVectorsCpp (74 bytes): fld fld fld fmul fld fmul fsubrp fstp fld fmul fld fmul faddp fstp fstp fstp
+?PedAudioJetPackSinCpp (40 bytes): fld fsin fst fldz fcomp fnstsw fchs fmul fadd fstp fld
+?MfDecoderPlayTimeMsCpp (21 bytes): fild fdiv fstp fld
+?MfDecoderCursorToPlayTimeCpp (27 bytes): fld fstp call ?UnsignedTimesFloatCpp@@YAMIM@Z
+?CarAIHeadOnDotNoMatrixCpp (55 bytes): fld fst call ?CarAICosExtCpp@@YANM@Z fmul fld fmul faddp fxch fstp call ?CarAINegSinExtCpp@@YANM@Z fmul faddp fstp fld
+?CoverDirFromVectorCpp (41 bytes): fld fstp fld fchs fstp call ?CoverAtan2ScaledCpp@@YAMMM@Z fstp fld
+?CoverDirDotCpp (110 bytes): fld fstp call ?IntTimesFloatCpp@@YAMHM@Z fstp fld fstp call ?TrigSimpleCosCpp@@YAMM@Z fmul fstp fld fstp.q fld fchs fstp fld fstp call ?TrigSimpleSinMulCpp@@YAMMM@Z fadd fstp fld fld fmul fstp fadd fstp fld
+?EntityHeadingDegreesPlusCpp (25 bytes): fld fld fpatan fmul fadd fstp fld
+?ProcSurfaceScaleRowCpp (32 bytes): fld fld fmul fstp fmul fstp fld fmul fstp
+?ProcSurfaceOffsetZCpp (22 bytes): fld fld fmul fsubrp fsubr fstp
+?RwPlCoreFastRealToUInt32Cpp (148 bytes): fld fld fcom fnstsw fstp fld fcomp fnstsw fldz fcom fnstsw fld fchs fstp fxch fst fxch fld fld fcom fnstsw fstp fstp fstp fld.q fadd fxch fstp fsubr fstp fld call __ftol2_sse fcompp fnstsw fstp
+?TheScriptsAngledRectTermsCpp (56 bytes): fld fld fsin fstp fld fxch fcos fld fld fmul fstp fld fld fmul fstp fmulp fxch fstp fmulp fstp
+?AudioUtilTimeMsCpp (94 bytes): fild fstp.q fld.q fild fstp.q fdiv fmul fild fstp.q fld.q fild fstp.q fsub fsubp fstp.q fld.q
+?AudioUtilBytesToMsQuotientCpp (72 bytes): fild fld.q fadd fild faddp fmul fdivp fstp.q fld.q fstp fmul fdivp fstp.q fld.q
+?AudioUtilMsToBytesProductCpp (68 bytes): fild fld.q fadd fxch fmul fild faddp fmulp fstp.q fld.q fstp fmulp fstp.q fld.q
+?AudioUtilLogInverseCpp (20 bytes): fld.q fdiv fstp fld
+?AudioHwPowGainCpp (58 bytes): fld fmul fstp.q fld.q fstp.q call ?ExeCompatiblePowCpp@@YANNN@Z fst fadd fstp fstp
+?AudioHwFadeNearEndCpp (85 bytes): fld fild fstp.q fld.q fmul fild fstp.q fdiv fldz fcom fnstsw fstp fstp fadd fstp fstp fld fxch fcomp fnstsw fstp fadd fstp
+?IdleCamFovLerpCpp (78 bytes): fld fld fsub fld fld fsubr fdivrp fmul fsubr fmul fstp.q call ?IdleCamSinCpp@@YANN@Z fadd fmul fmulp faddp fstp fld
+?IdleCamSlerpCpp (319 bytes): fld fstp fld fstp call ? fadd fstp fld fstp fld fstp call ? fstp fld fstp fld fstp call ? fadd fstp fld fstp fld fstp call ? fld fld fsub fld.q fcom fnstsw fld.q fstp fld.q fsub fcom fnstsw fstp fld.q fadd fld fld fld fsub fcom fnstsw fstp fstp fstp fsubp fxch fcomp fnstsw fstp faddp fstp fld fsub fdiv fst fld1 fcom fnstsw fstp fld1 fstp fld fld.q fmul fsubr fmul fstp.q call ?IdleCamSinCpp@@YANN@Z faddp fxch fmul fxch fsub fmul faddp fxch fstp fsub fxch fmulp faddp fxch fstp
+?FightCtlElapsedCpp (30 bytes): fld fmul fmul fstp fld
+?FightCtlShouldBlockCpp (35 bytes): fld fmul fmul fld fcompp fnstsw
+?FightCtlAttackDelayCpp (117 bytes): fild fstp.q fld.q fild fstp fld fmul fadd fstp fld fld fmul fmul fmul fadd fstp fdiv fstp fld fxch fadd fstp fld fxch fmulp fstp fld call __ftol2
+?OnFootSinPlusCpp (13 bytes): fld fsin fadd
+?OnFootFighterProjectCpp (175 bytes): fldz fstp fld fld fsin fchs fxch fcos fxch fstp fstp fld fld fld fmul fstp fld fmul fstp fld fadd fstp fld fmul fstp fld fadd fstp fld fld fmul fxch fstp fld fmulp fxch fstp fld fmulp fxch fstp fld fadd fstp fld fmul fstp fld fadd fstp fmul fstp fld fstp fld fchs fstp
+?WeaponFxMulDoubleAddCpp (20 bytes): fld fmul fadd fstp fld
+?WeaponFxAngleSinCosCpp (38 bytes): fld fld fpatan fld fsin fstp fcos fst fld1 fsubrp fstp

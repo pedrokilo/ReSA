@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "ProcSurfaceInfo.h"
 #include "ProcObjectMan.h"
 #include "PlantLocTri.h"
+#include "X87Math.h"
 
 void ProcSurfaceInfo_c::InjectHooks() {
     RH_ScopedClass(ProcSurfaceInfo_c);
@@ -98,17 +99,6 @@ static float ProcSurfaceRandomInRange(float min, float max) {
     return (max - min) * r + min;
 }
 
-// Producto en el x87 como el EXE (conserva los denormales que SSE vacía a cero).
-static void ProcSurfaceMulX87(float& v, float k) {
-    float* pv = &v;
-    __asm {
-        mov  eax, pv
-        fld  dword ptr [eax]
-        fmul k
-        fstp dword ptr [eax]
-    }
-}
-
 // 0x5A32D0
 ProcObjectListItem* ProcSurfaceInfo_c::AddObject(CVector pos, CVector normal, tColLighting lighting) {
     //Original function has some exception handling built in, this is ignored in reversed code
@@ -160,15 +150,8 @@ ProcObjectListItem* ProcSurfaceInfo_c::AddObject(CVector pos, CVector normal, tC
         CMatrix tempMatrix{};
 
         // Como el original: fcos/fsin del FPU (precisión completa), redondeados a float al guardar.
-        float rotCosValue, rotSinValue;
-        __asm {
-            fld   rotation
-            fcos
-            fstp  rotCosValue
-            fld   rotation
-            fsin
-            fstp  rotSinValue
-        }
+        const float rotCosValue = TrigSimpleCosCpp(rotation);
+        const float rotSinValue = TrigSimpleSinCpp(rotation);
         CVector rotVec = { rotCosValue, rotSinValue, 0.f };
 
         // Como el original: CrossProduct (0x59C730) y Normalise (0x59C910) en el sitio.
@@ -215,25 +198,10 @@ ProcObjectListItem* ProcSurfaceInfo_c::AddObject(CVector pos, CVector normal, tC
             // Como el original (0x5A2E60): cada fila se multiplica componente a componente por (xy, xy, z).
             // Los productos se hacen en el x87 como el EXE: conserva los denormales que SSE vacía a cero.
             for (CVector* row : { &tempMatrix.GetRight(), &tempMatrix.GetForward(), &tempMatrix.GetUp() }) {
-                ProcSurfaceMulX87(row->x, xyScale);
-                ProcSurfaceMulX87(row->y, xyScale);
-                ProcSurfaceMulX87(row->z, zScale);
+                ProcSurfaceScaleRowCpp(&row->x, xyScale, zScale);
             }
             // Como el original (0x5A3803): pos.z - (min.z * zScale - min.z), todo en el x87
-            {
-                float* pz = &tempMatrix.GetPosition().z;
-                const float minZ = minBounding.z;
-                __asm {
-                    fld  minZ
-                    fmul zScale
-                    fsub minZ
-                    mov  eax, pz
-                    fld  dword ptr [eax]
-                    fsub st, st(1)
-                    fstp dword ptr [eax]
-                    fstp st(0)
-                }
-            }
+            ProcSurfaceOffsetZCpp(&tempMatrix.GetPosition().z, minBounding.z, zScale);
             tempMatrix.UpdateRW();
 
             head->m_Obj->UpdateRwFrame();

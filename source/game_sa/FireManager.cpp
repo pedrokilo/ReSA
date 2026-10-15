@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "FireManager.h"
 #include "TheScripts.h"
 #include "Shadows.h"
+#include "X87Math.h"
 
 void CFireManager::InjectHooks() {
     RH_ScopedClass(CFireManager);
@@ -391,29 +392,6 @@ int32 CFireManager::StartScriptFire(const CVector& pos, CEntity* target, float _
     return -1;
 }
 
-// Como el original: fsin/fcos x87 a precisión completa y producto redondeado
-static float FireSinMul(float angle, float mult) {
-    float res;
-    __asm {
-        fld dword ptr [angle]
-        fsin
-        fmul dword ptr [mult]
-        fstp dword ptr [res]
-    }
-    return res;
-}
-
-static float FireCosMul(float angle, float mult) {
-    float res;
-    __asm {
-        fld dword ptr [angle]
-        fcos
-        fmul dword ptr [mult]
-        fstp dword ptr [res]
-    }
-    return res;
-}
-
 static void FireRegisterCorona(uint32 id, uint8 red, uint8 green, uint8 blue, const CVector& pos, float coronaSize, eCoronaFlareType flare) {
     CCoronas::RegisterCorona(id, nullptr, red, green, blue, 0xFF, pos, coronaSize, 70.0f, eCoronaType::CORONATYPE_HEADLIGHT, flare,
         eCoronaReflType::CORREFL_NONE, eCoronaLOSCheck::LOSCHECK_OFF, eCoronaTrail::TRAIL_OFF, 0.0f, false, 1.5f, false, 15.0f, false, false);
@@ -437,8 +415,8 @@ void CFireManager::Update() {
         // Como el original: rand * (1/32767) * 2pi y rand * (1/32767) * 25 + 35 (floats del EXE)
         const float fRandomAngleRad = (float)(int32)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL * 6.2831855f;
         const float fRandomDist = (float)(int32)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL * 25.0f + 35.0f;
-        const float offX = FireSinMul(fRandomAngleRad, fRandomDist);
-        const float offY = FireCosMul(fRandomAngleRad, fRandomDist);
+        const float offX = TrigSimpleSinMulCpp(fRandomAngleRad, fRandomDist);
+        const float offY = TrigSimpleCosMulCpp(fRandomAngleRad, fRandomDist);
 
         CVector point;
         {
@@ -463,16 +441,9 @@ void CFireManager::Update() {
             camFwd = TheCamera.m_matrix->GetForward();
         } else {
             const float heading = TheCamera.m_placement.m_fHeading;
-            float sinH, cosH;
-            __asm {
-                fld dword ptr [heading]
-                fsin
-                fchs
-                fstp dword ptr [sinH]
-                fld dword ptr [heading]
-                fcos
-                fstp dword ptr [cosH]
-            }
+            // fsin; fchs; fstp: negar antes o despues de redondear a float da el mismo resultado (redondeo simetrico)
+            const float sinH = -TrigSimpleSinCpp(heading);
+            const float cosH = TrigSimpleCosCpp(heading);
             camFwd = CVector{ sinH, cosH, 0.0f };
         }
 

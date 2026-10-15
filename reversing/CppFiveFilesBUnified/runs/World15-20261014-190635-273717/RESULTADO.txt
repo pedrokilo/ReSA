@@ -1,0 +1,3 @@
+APROBADO: Ciclo de población y sprites (lista de 15)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-world15\20261014-190635-273717

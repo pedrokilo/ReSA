@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Door.h"
+#include "X87Math.h"
 
 float DOOR_SPEED_MIN_LIMIT = 0.001f; // 0x872304
 float DOOR_SPEED_MIN_LIMIT_TRAIN = 0.002f; // 0x872308
@@ -56,27 +57,6 @@ void CDoor::InjectHooks() {
 }
 
 namespace {
-// Como el original: fsin/fcos del x87 a precisión interna completa, redondeados a float al guardarlos
-float DoorSinX87(float a) {
-    float r;
-    __asm {
-        fld a
-        fsin
-        fstp r
-    }
-    return r;
-}
-
-float DoorCosX87(float a) {
-    float r;
-    __asm {
-        fld a
-        fcos
-        fstp r
-    }
-    return r;
-}
-
 // Como el original: Multiply3x3 (0x59C810), vector por matriz, con el orden de sumas del EXE
 CVector DoorMultiply3x3_VM(const CVector& v, const CMatrix& m) {
     return {
@@ -84,20 +64,6 @@ CVector DoorMultiply3x3_VM(const CVector& v, const CMatrix& m) {
         m.GetForward().y * v.y + m.GetForward().x * v.x + m.GetForward().z * v.z,
         m.GetUp().y * v.y + m.GetUp().x * v.x + m.GetUp().z * v.z,
     };
-}
-
-// Como el original: angVel = pow(rate, timestep) * angVel con el _CIpow del EXE (0x822130)
-void DoorMultiplyByPow(float& angVel, float rate, float step) {
-    float* const p = &angVel;
-    __asm {
-        fld rate
-        fld step
-        mov eax, 0x822130
-        call eax
-        mov edx, p
-        fmul dword ptr [edx]
-        fstp dword ptr [edx]
-    }
 }
 } // namespace
 
@@ -125,8 +91,8 @@ bool CDoor::Process(CVehicle* vehicle, Const CVector& oldMoveSpeed, Const CVecto
     }
 
     // 0x6F41B2
-    const float sin = DoorSinX87(m_angle);
-    const float cos = DoorCosX87(m_angle);
+    const float sin = TrigSimpleSinCpp(m_angle);
+    const float cos = TrigSimpleCosCpp(m_angle);
 
     // Como el original: solo se rota en los ejes X y Z; con cualquier otro eje se usa el seno
     float ang;
@@ -162,7 +128,7 @@ bool CDoor::Process(CVehicle* vehicle, Const CVector& oldMoveSpeed, Const CVecto
         const float rate = (TheCamera.m_bWideScreenOn || (vehicle->IsAutomobile() && !vehicle->AsAutomobile()->m_nNumContactWheels))
             ? DOOR_DAMP_RATE_CHASSIS_CUTSCENE
             : DOOR_DAMP_RATE_CHASSIS;
-        DoorMultiplyByPow(m_angVel, rate, CTimer::GetTimeStep());
+        PowScaleFloatCpp(&m_angVel, rate, CTimer::GetTimeStep()); // Como el original: pow(rate, timestep) * angVel con _CIpow (0x822130)
         m_angVel = m_angVel - CTimer::GetTimeStep() * m_angle * DOOR_SPRING_RATE_CHASSIS;
     } else if (vehicle->IsBoat()) {
         m_angVel *= DOOR_DAMP_RATE_BOAT;

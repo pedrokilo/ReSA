@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "X87Math.h"
 #include "Sprite.h"
 
 static inline auto& nSpriteBufferIndex = StaticRef<int32>(0xC6A158);
@@ -76,25 +77,10 @@ struct SpriteQuadCoeffs {
 // NOTSA
 // Como el original: fsin/fcos a precision completa de la FPU; solo las sumas se redondean a float.
 static SpriteQuadCoeffs CalcSpriteQuadCoeffs(float rotation) {
-    float c0, c1, c2, c3;
-    __asm {
-        fld    rotation
-        fsin
-        fld    rotation
-        fcos
-        fld    st(0)
-        fchs
-        fsub   st, st(2)
-        fstp   c0
-        fld    st(1)
-        fsub   st, st(1)
-        fstp   c1
-        fld    st(0)
-        fadd   st, st(2)
-        fstp   c2
-        fsubrp st(1), st
-        fstp   c3
-    }
+    float coeffs[4];
+    SpriteQuadCoeffsCpp(rotation, coeffs);
+    const float c0 = coeffs[0], c1 = coeffs[1], c2 = coeffs[2], c3 = coeffs[3];
+
     // c0 = -cos - sin, c1 = sin - cos, c2 = cos + sin, c3 = cos - sin
     return {
         .xs = { c0, c1, c2, c3 },
@@ -105,23 +91,10 @@ static SpriteQuadCoeffs CalcSpriteQuadCoeffs(float rotation) {
 // NOTSA
 // Como el original (0x70EAB0): w*cos, sin*h, cos*h y sin*w con fsin/fcos a precision completa
 static void CalcSpriteDimensionTerms(float rotation, float sprW, float sprH, float& outWCos, float& outHSin, float& outHCos, float& outWSin) {
-    float wc, hs, hc, ws;
-    __asm {
-        fld    rotation
-        fsin
-        fld    rotation
-        fcos
-        fld    st(0)
-        fmul   sprW
-        fstp   wc
-        fld    st(1)
-        fmul   sprH
-        fstp   hs
-        fmul   sprH
-        fstp   hc
-        fmul   sprW
-        fstp   ws
-    }
+    float terms[4];
+    SpriteDimensionTermsCpp(rotation, sprW, sprH, terms);
+    const float wc = terms[0], hs = terms[1], hc = terms[2], ws = terms[3];
+
     outWCos = wc;
     outHSin = hs;
     outHCos = hc;

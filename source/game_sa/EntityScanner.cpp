@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "EntityScanner.h"
+#include "X87Math.h"
 
 void CEntityScanner::InjectHooks() {
     RH_ScopedVirtualClass(CEntityScanner, 0x86CD40, 1);
@@ -55,45 +56,9 @@ void CEntityScanner::Clear() {
     CEntity::ClearReference(m_pClosestEntityInRange);
 }
 
-// Preserve x87 intermediate precision and the original (z*z + x*x) + y*y order.
-static double ScannerDistance(const CVector& a, const CVector& b) {
-    double result;
-    __asm {
-        mov eax, a
-        mov ecx, b
-        fld dword ptr [eax]
-        fsub dword ptr [ecx]
-        fld dword ptr [eax + 4]
-        fsub dword ptr [ecx + 4]
-        fld dword ptr [eax + 8]
-        fsub dword ptr [ecx + 8]
-        fld st(0)
-        fmul st(0), st(1)
-        fld st(3)
-        fmul st(0), st(4)
-        faddp st(1), st(0)
-        fld st(2)
-        fmul st(0), st(3)
-        faddp st(1), st(0)
-        fstp result
-        fstp st(0)
-        fstp st(0)
-        fstp st(0)
-    }
-    return result;
-}
-
-static int32 ScannerSector(float position, float delta) {
-    const float scale = 0.02f, origin = 60.f;
-    double result;
-    __asm {
-        fld position
-        fadd delta
-        fmul scale
-        fadd origin
-        fstp result
-    }
-    return int32(std::floor(result));
+// (coordenada + delta) * 0.02 + 60 con floor, como el EXE (0x5FFA20); InterestingSectorCpp ya conserva el orden x87.
+static int32 ScannerSector(float position, float range, bool useEnd) {
+    return int32(std::floor(InterestingSectorCpp(position, range, useEnd)));
 }
 
 // 0x5FFA20
@@ -107,16 +72,11 @@ void CEntityScanner::ScanForEntitiesInRange(const eRepeatSectorList sectorList, 
     const float range = intelligence->m_fHearingRange > intelligence->m_fSeeingRange
         ? intelligence->m_fHearingRange : intelligence->m_fSeeingRange;
     const auto& position = ped.GetPosition();
-    const int32 minX = std::max(0, ScannerSector(position.x, -range));
-    const int32 minY = std::max(0, ScannerSector(position.y, -range));
-    const int32 maxX = std::min(119, ScannerSector(position.x, range));
-    const int32 maxY = std::min(119, ScannerSector(position.y, range));
-    double rangeSquared;
-    __asm {
-        fld range
-        fmul range
-        fstp rangeSquared
-    }
+    const int32 minX = std::max(0, ScannerSector(position.x, range, false));
+    const int32 minY = std::max(0, ScannerSector(position.y, range, false));
+    const int32 maxX = std::min(119, ScannerSector(position.x, range, true));
+    const int32 maxY = std::min(119, ScannerSector(position.y, range, true));
+    const float rangeSquared = range * range;
     std::array<float, MAX_NUM_ENTITIES> distances;
     distances.fill(std::numeric_limits<float>::max());
     int32 count = 0;
@@ -132,7 +92,7 @@ void CEntityScanner::ScanForEntitiesInRange(const eRepeatSectorList sectorList, 
             if (sectorList == REPEATSECTOR_PEDS && !isPlayer && static_cast<CPed*>(entity)->m_nPedState == PEDSTATE_DEAD) {
                 continue;
             }
-            const double distance = ScannerDistance(entity->GetPosition(), position);
+            const float distance = DistanceSquaredZXYCpp(&entity->GetPosition().x, &position.x);
             if (!(distance < rangeSquared)) {
                 continue;
             }

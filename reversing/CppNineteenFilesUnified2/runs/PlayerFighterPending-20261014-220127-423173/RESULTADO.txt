@@ -1,0 +1,3 @@
+APROBADO: PlayerControlFighter
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-player-fighter-pending\20261014-220127-423173

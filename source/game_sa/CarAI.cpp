@@ -40,6 +40,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCarSetPedOut.h"
 #include "Timer.h"
 #include "eWeaponType.h"
+#include "X87Math.h"
 
 void CCarAI::InjectHooks() {
     RH_ScopedClass(CCarAI);
@@ -104,17 +105,7 @@ CVector ExeForward(const CPlaceable& e) {
         return e.m_matrix->GetForward();
     }
     const float h = e.m_placement.m_fHeading;
-    float s, c;
-    __asm {
-        fld   h
-        fsin
-        fchs
-        fstp  s
-        fld   h
-        fcos
-        fstp  c
-    }
-    return CVector{ s, c, 0.f };
+    return CVector{ -TrigSimpleSinCpp(h), TrigSimpleCosCpp(h), 0.f };
 }
 
 // Como el original (0x41CC70): right de la matriz o (cos h, sin h, 0) con fsin/fcos del x87, guardado en float
@@ -123,47 +114,17 @@ CVector ExeRight(const CPlaceable& e) {
         return e.m_matrix->GetRight();
     }
     const float h = e.m_placement.m_fHeading;
-    float s, c;
-    __asm {
-        fld   h
-        fsin
-        fstp  s
-        fld   h
-        fcos
-        fstp  c
-    }
-    return CVector{ c, s, 0.f };
+    return CVector{ TrigSimpleCosCpp(h), TrigSimpleSinCpp(h), 0.f };
 }
 
 // Como el original (EntitiesGoHeadOn): forward . d en orden (z + y) + x; sin matriz el forward (-sin h, cos h, 0)
-// se queda en los registros del x87 sin redondear
+// se queda en los registros del x87 sin redondear (ayudante de X87Math)
 float HeadOnDot(const CPlaceable& e, const CVector& d) {
     if (e.m_matrix) {
         const auto& f = e.m_matrix->GetForward();
         return (d.z * f.z + f.y * d.y) + f.x * d.x;
     }
-    const float h = e.m_placement.m_fHeading;
-    const float ddx = d.x, ddy = d.y, ddz = d.z;
-    float r;
-    __asm {
-        fld   h
-        fsin
-        fchs
-        fld   h
-        fcos
-        fldz
-        fld   ddz
-        fmul  st, st(1)
-        fxch  st(2)
-        fmul  ddy
-        faddp st(2), st
-        fxch  st(2)
-        fmul  ddx
-        faddp st(1), st
-        fstp  r
-        fstp  st(0)
-    }
-    return r;
+    return CarAIHeadOnDotNoMatrixCpp(e.m_placement.m_fHeading, d.x, d.y, d.z);
 }
 
 // Como el original: |coors - destino| en x y luego en y contra el umbral (NaN cuenta como cerca)

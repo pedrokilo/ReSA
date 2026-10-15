@@ -1,0 +1,3 @@
+APROBADO: Common::TransformVectors (CSimpleTransform), EXE vs DLL directa
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpptransformvectors1\20261014-200105-192593

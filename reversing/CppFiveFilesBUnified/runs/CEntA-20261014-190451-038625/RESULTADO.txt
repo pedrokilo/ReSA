@@ -1,0 +1,3 @@
+APROBADO: CEntity grupo A: matrices, transformaciones, limites y visibilidad
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-centa\20261014-190451-038625

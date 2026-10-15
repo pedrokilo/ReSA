@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include "Trailer.h"
 #include "VehicleRecording.h"
+#include "X87Math.h"
 
 // define?
 constexpr float BAGGAGE_TRAILER_TOWED_RATIO = -1000.0f;
@@ -62,91 +63,19 @@ void CopyColPoint(CColPoint& dst, const CColPoint& src) {
 // Como el original: rumbo de CPlaceable con fpatan (atan2(-forward.x, forward.y)) o el de m_placement sin matriz,
 // guardado a float.
 float HeadingX87(const CPlaceable* placeable) {
-    float heading;
-    __asm {
-        mov eax, placeable
-        mov ecx, [eax + 14h]
-        test ecx, ecx
-        je no_matrix
-        fld dword ptr [ecx + 10h]
-        fchs
-        fld dword ptr [ecx + 14h]
-        fpatan
-        jmp heading_store
-    no_matrix:
-        fld dword ptr [eax + 10h]
-    heading_store:
-        fstp dword ptr [heading]
+    if (placeable->m_matrix) {
+        const CVector& forward = placeable->m_matrix->GetForward();
+        return TrigAtan2Cpp(-forward.x, forward.y); // X87Math.cpp: float(atan2(y, x)) con un solo redondeo
     }
-    return heading;
+    return placeable->m_placement.m_fHeading;
 }
 
 // Como el original (0x6CF5FC): ángulo de giro de los remolques de equipaje hacia el rumbo del tractor. Los dos
-// rumbos quedan en la pila del x87 a precisión completa (fpatan) y se comparan con rumbo propio ± π antes de restar.
+// rumbos quedan sin redondear (fpatan) y se comparan con rumbo propio ± π antes de restar (X87Math.cpp).
 float SteerTowardsTractor(const CPlaceable* tractor, const CPlaceable* self) {
-    const float pi    = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
-    const float twoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
-    float steer;
-    __asm {
-        mov eax, tractor
-        mov ecx, [eax + 14h]
-        test ecx, ecx
-        je tractor_no_matrix
-        fld dword ptr [ecx + 10h]
-        fchs
-        fld dword ptr [ecx + 14h]
-        fpatan
-        jmp tractor_done
-    tractor_no_matrix:
-        fld dword ptr [eax + 10h]
-    tractor_done:
-        mov eax, self
-        mov ecx, [eax + 14h]
-        test ecx, ecx
-        je self_no_matrix
-        fld dword ptr [ecx + 10h]
-        fchs
-        fld dword ptr [ecx + 14h]
-        fpatan
-        jmp self_done
-    self_no_matrix:
-        fld dword ptr [eax + 10h]
-    self_done:
-        fld dword ptr [pi]
-        fadd st, st(1)
-        fld st(2)
-        fcompp
-        fnstsw ax
-        test ah, 41h
-        jne not_above
-        fxch st(1)
-        fsub dword ptr [twoPi]
-        fxch st(1)
-        fxch st(1)
-        fsub st, st(1)
-        fstp dword ptr [steer]
-        fstp st(0)
-        jmp finished
-    not_above:
-        fld dword ptr [pi]
-        fsubr st, st(1)
-        fld st(2)
-        fcompp
-        fnstsw ax
-        test ah, 5
-        jp no_wrap
-        fxch st(1)
-        fadd dword ptr [twoPi]
-        fxch st(1)
-    no_wrap:
-        fxch st(1)
-        fsub st, st(1)
-        fstp dword ptr [steer]
-        fstp st(0)
-    finished:
-        nop
-    }
-    return steer;
+    const float* tractorForward = tractor->m_matrix ? &tractor->m_matrix->GetForward().x : nullptr;
+    const float* selfForward    = self->m_matrix ? &self->m_matrix->GetForward().x : nullptr;
+    return TrailerSteerCpp(tractorForward, tractor->m_placement.m_fHeading, selfForward, self->m_placement.m_fHeading);
 }
 } // namespace
 

@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "9cbac51403b9008e8a3531ae3c156a92f84f546de760487a00db39aac18660fa",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 17056,
+  "pairs_per_function": {
+    "C3dMarker::AddMarker": 512,
+    "C3dMarker::DeleteMarkerObject": 128,
+    "C3dMarker::IsZCoordinateUpToDate": 1024,
+    "C3dMarker::SetZCoordinateIfNotUpToDate": 1024,
+    "C3dMarker::UpdateZCoordinate": 2048,
+    "C3dMarkers::DirectionArrowFindFirstFreeSlot": 256,
+    "C3dMarkers::DirectionArrowSet": 512,
+    "C3dMarkers::DirectionArrowsInit": 64,
+    "C3dMarkers::ForceRender": 32,
+    "C3dMarkers::User3dMarkerDelete": 256,
+    "C3dMarkers::User3dMarkerDeleteAll": 64,
+    "C3dMarkers::User3dMarkerFindFirstFreeSlot": 256,
+    "C3dMarkers::User3dMarkerSet": 512,
+    "C3dMarkers::LoadUser3dMarkers": 64,
+    "C3dMarkers::SaveUser3dMarkers": 64,
+    "C3dMarkers::User3dMarkerAtomicCB": 64,
+    "C3dMarkers::Update": 256,
+    "C3dMarkers::PlaceMarkerSet": 512,
+    "C3dMarkers::PlaceMarkerCone": 1024,
+    "C3dMarkers::PlaceMarker": 4096,
+    "C3dMarker::Render": 2048,
+    "C3dMarkers::User3dMarkersDraw": 512,
+    "C3dMarkers::DirectionArrowsDraw": 1024,
+    "C3dMarkers::Render": 512,
+    "C3dMarkers::Init": 64,
+    "C3dMarkers::Shutdown": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "8b986dfeee6f22f2867edf18e281cf5a9a94c04243856d3feafbdeb0c4e86c73",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

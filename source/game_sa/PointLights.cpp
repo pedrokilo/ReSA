@@ -7,6 +7,7 @@
 #include "StdInc.h"
 
 #include "PointLights.h"
+#include "X87Math.h"
 
 void CPointLights::InjectHooks() {
     RH_ScopedClass(CPointLights);
@@ -52,97 +53,20 @@ bool CPointLights::ProcessVerticalLineUsingCache(CVector point, float* outZ) {
 
 // 0x7000E0
 void CPointLights::AddLight(uint8 lightType, CVector point, CVector direction, float radius, float red, float green, float blue, uint8 fogType, bool generateExtraShadows, CEntity* entityAffected) {
-    const auto* cameraPos = &TheCamera.GetPosition();
-    const float pointX = point.x, pointY = point.y, pointZ = point.z;
-    float offsetX, offsetY, limit, lowerLimit, distance;
-    const float margin = 15.0f, fadeStart = 0.75f, fadeRange = 4.0f, one = 1.0f;
-    bool inside = false;
-    // Como el original: comparaciones x87 estrictas, también para NaN (0x700115/0x700132).
-    // Se conserva el orden z*z + y*y + x*x, y el coeficiente de color permanece en ST0.
-    __asm {
-        mov ecx, cameraPos
-        fld pointX
-        fsub dword ptr [ecx]
-        fstp offsetX
-        fld radius
-        fadd margin
-        fstp limit
-        fld offsetX
-        fcomp limit
-        fnstsw ax
-        test ah, 5
-        jp pointOutside
-        fld limit
-        fchs
-        fstp lowerLimit
-        fld offsetX
-        fcomp lowerLimit
-        fnstsw ax
-        test ah, 41h
-        jne pointOutside
-        fld pointY
-        fsub dword ptr [ecx + 4]
-        fst offsetY
-        fcomp limit
-        fnstsw ax
-        test ah, 5
-        jp pointOutside
-        fld offsetY
-        fcomp lowerLimit
-        fnstsw ax
-        test ah, 41h
-        jne pointOutside
-        mov inside, 1
-    pointOutside:
-    }
-    if (!inside || std::bit_cast<int32>(NumLights) >= MAX_POINT_LIGHTS) {
+    // Como el original (0x7000E0): la cámara se lee de la matriz o, sin matriz, del placement; x e y se filtran antes de comprobar el
+    // contador (0x700115..0x700170) y la distancia, con el orden z*z + y*y + x*x, se calcula después (0x700197..0x7001C7).
+    // Las comparaciones y la atenuación (0x70027C..0x7002B9, con el coeficiente sin descargar a un float intermedio) viven en
+    // X87Math: son estrictas, también para NaN, y /fp:fast no debe reordenarlas.
+    const float* cameraPos = &TheCamera.GetPosition().x;
+    float offsetX, offsetY, limit;
+    if (!PointLightsInRangeXYCpp(cameraPos, point.x, point.y, radius, &offsetX, &offsetY, &limit)) {
         return;
     }
-    inside = false;
-    __asm {
-        mov ecx, cameraPos
-        fld pointZ
-        fsub dword ptr [ecx + 8]
-        fld pointZ
-        fsub dword ptr [ecx + 8]
-        fmulp st(1), st
-        fld offsetY
-        fmul offsetY
-        faddp st(1), st
-        fld offsetX
-        fmul offsetX
-        faddp st(1), st
-        fsqrt
-        fst distance
-        fcomp limit
-        fnstsw ax
-        test ah, 5
-        jp lightOutside
-        mov inside, 1
-        fld limit
-        fmul fadeStart
-        fcomp distance
-        fnstsw ax
-        test ah, 41h
-        jne attenuateLight
-        jmp lightOutside
-    attenuateLight:
-        fld distance
-        fdiv limit
-        fsub fadeStart
-        fmul fadeRange
-        fsubr one
-        fld red
-        fmul st, st(1)
-        fstp red
-        fld green
-        fmul st, st(1)
-        fstp green
-        fmul blue
-        fstp blue
-    lightOutside:
+    if (std::bit_cast<int32>(NumLights) >= MAX_POINT_LIGHTS) {
+        return;
     }
-    if (!inside) {
+    // Atenúa red/green/blue en el sitio sólo si la luz entra en la franja de atenuación; si no, los deja intactos.
+    if (!PointLightsDistanceFadeCpp(point.z, cameraPos, offsetX, offsetY, limit, &red, &green, &blue)) {
         return;
     }
     auto& light = aLights[NumLights++];

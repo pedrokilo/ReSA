@@ -1,0 +1,3 @@
+APROBADO: Clases sueltas (lista de 56)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-misc56\20261014-190747-187508
