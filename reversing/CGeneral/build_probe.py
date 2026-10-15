@@ -22,6 +22,8 @@ def main():
             if p.name=='General.cpp':
                 content=content.replace('#include "StdInc.h"','#include "StdInc.h"\n#include "'+(HERE/'Probe.hpp').as_posix()+'"')
                 content=content.replace('        push ecx','        inc GeneralProbeCalls\n        push ecx',1)
+                # Con el cuerpo ya en C++ (sin ensamblador) el contador va al principio de GetRandomNumberInRange<float>
+                content=content.replace('    return GeneralRandomInRangeCpp(','    ++GeneralProbeCalls;\n    return GeneralRandomInRangeCpp(',1)
             else:
                 content=content.replace('#include "StdInc.h"','#include "StdInc.h"\n#include "'+(HERE/'LiveComparison.hpp').as_posix()+'"')
                 content=content.replace('void CGame::Process() {','void CGame::Process() {\n    GeneralLive::Update();')

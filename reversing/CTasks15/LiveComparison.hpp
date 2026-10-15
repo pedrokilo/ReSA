@@ -39,6 +39,7 @@
 #include "PedIntelligence.h"
 #include "PedGroups.h"
 #include "PedGeometryAnalyser.h"
+#include "TaskComplexGangFollower.h"
 #include "Events/EventGroup.h"
 #include "Collision/Collision.h"
 #include "Collision/ColModel.h"
@@ -369,7 +370,8 @@ inline void Update() {
     std::vector<std::pair<uintptr_t,size_t>> regions{{ADDR_TIME,4},{ADDR_STEP,4},{ADDR_SCAN,2},{ADDR_TEMPCOL,TEMPCOL_SIZE},{ADDR_LOOK_THR,4},
         {ADDR_STATMAT,0x48},{ADDR_STATMAT_GUARD,4},{ADDR_AVOID_STATIC,8},{ADDR_CLIMBCM,0xC0},
         {uintptr_t(&CPad::GetPad(0)->DisablePlayerControls),2},{uintptr_t(&CWorld::ms_aRepeatSectors[0][0]),sizeof(CRepeatSector)*16*16}};
-    for(int y=SECTOR0;y<SECTOR0+NCELL;++y)regions.push_back({uintptr_t(&CWorld::GetSector(SECTOR0,y)),sizeof(CSector)*NCELL});
+    // Se guardan TODAS las cabezas regulares (120x120): el recorrido de ScanToGrab puede salir de las nueve celdas del fixture y alcanzar entidades reales
+    regions.push_back({uintptr_t(&CWorld::ms_aSectors[0][0]),sizeof(CWorld::ms_aSectors)});
     std::vector<std::vector<uint8>> saved; for(auto& [a,n]:regions)saved.push_back(ReversingProbe::Bytes(reinterpret_cast<void*>(a),n));
     auto restoreGlobals=[&]{ for(size_t k=0;k<regions.size();++k)std::memcpy(reinterpret_cast<void*>(regions[k].first),saved[k].data(),regions[k].second); };
     auto globalsIntact=[&]{ for(size_t k=0;k<regions.size();++k)if(std::memcmp(reinterpret_cast<void*>(regions[k].first),saved[k].data(),regions[k].second))return false; return true; };
@@ -407,8 +409,8 @@ inline void Update() {
         EntryPatch t5(Body(MemberAddress(&CTaskSimpleUseGun::ClearAnim)),FClearAnim), t5e(0x61E190,FClearAnim);
         EntryPatch t6(Body(MemberAddress(&CTaskSimpleGoToPoint::UpdatePoint)),FUpdatePoint), t6e(0x645700,FUpdatePoint);
         EntryPatch g1(Body(bit_cast<uintptr_t>(&CPedGroups::AreInSameGroup)),FSameGroup), g1e(0x5F7F40,FSameGroup);
-        EntryPatch g2(0x5F1890,FRoute);       // el simbolo del DLL llama a esta direccion del EXE
-        EntryPatch g3(0x65ED40,FOffsetPos);   // idem (CalculateOffsetPosition)
+        EntryPatch g2(0x5F1890,FRoute), g2d(Body(bit_cast<uintptr_t>(&CPedGeometryAnalyser::ComputeRouteRoundSphere)),FRoute); // la DLL llama a su propia entrada, ademas de a la del EXE
+        EntryPatch g3(0x65ED40,FOffsetPos), g3d(Body(MemberAddress(&CTaskComplexGangFollower::CalculateOffsetPosition)),FOffsetPos); // idem (CalculateOffsetPosition; la DLL llama a su propia entrada)
         EntryPatch g4(Body(MemberAddress(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add))),FEventAdd), g4e(0x4AB420,FEventAdd);
         EntryPatch c1(Body(bit_cast<uintptr_t>(&CStats::GetFatAndMuscleModifier)),FFat), c1e(0x559AF0,FFat);
         EntryPatch c2(Body(bit_cast<uintptr_t>(&CCollision::ProcessColModels)),FProcessColModels), c2e(0x4185C0,FProcessColModels);
@@ -432,6 +434,11 @@ inline void Update() {
                     st=uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0x1515u; if(!st)st=1; trace=json::array(); seed=uint32(i);
                     rngCalls=blendCalls=colCalls=boolCnt=0; freshIds.clear();
                     CleanRefs(); restoreGlobals();
+                    // Aislamiento solo de cabezas: ninguna celda del mundo (regular 120x120 ni repetida 16x16) apunta a nodos reales durante la ejecucion; no se
+                    // recorre, libera ni modifica ningun nodo ni entidad real. Los fixtures inyectan despues sus nueve celdas y restoreGlobals devuelve todo.
+                    static_assert(sizeof(CSector)==8&&sizeof(CRepeatSector)==12);
+                    std::memset(&CWorld::ms_aSectors[0][0],0,sizeof(CWorld::ms_aSectors));
+                    std::memset(&CWorld::ms_aRepeatSectors[0][0],0,sizeof(CWorld::ms_aRepeatSectors));
                     At<uint32>(reinterpret_cast<void*>(ADDR_TIME),0)=100000u+next()%1000000u;
                     const uint32 now=At<uint32>(reinterpret_cast<void*>(ADDR_TIME),0);
                     // paso >= 1.6 en ProcessPed de trepar (rama FIX_BUGS fuera del banco)

@@ -391,3 +391,23 @@ void __cdecl HoldEntityRotateZCpp(float* m, float angle);
 // CPlaceable::GetHeading/GetRoll: fpatan sin redondear en ST0 (double, extern "C"); Placeable.cpp los usa con otro nombre float via /alternatename, no por este encabezado.
 extern "C" double __cdecl PlaceableHeadingDblCpp(const float* forward);
 extern "C" double __cdecl PlaceableRollDblCpp(const float* right, float upZ);
+
+// Lote de cinco archivos (General, BoneNode y otros; 15/10/2026).
+// Lote de General.cpp (15/10/2026), prefijo General. Los cuatro bloques x87 de CGeneral (se pueden colocar al final de X87Math.h).
+// CGeneral::GetRandomNumberInRange<float> (0x41BD90): ((random · 1/32767) · (max - min)) + min con fild del entero, un redondeo a 24 bits por operación y el resultado en ST0 sin guardar (acepta extremos invertidos).
+float __cdecl GeneralRandomInRangeCpp(int random, float min, float max);
+// CGeneral::GetRadianAngleBetweenPoints (0x53CBE0): dx = x2 - x1, dy = y2 - y1 (0 pasa a 0.0001f), fpatan(dx/dy) sin redondear y pi/2 ± pi/2 en el orden del EXE según dx > 0 y dy > 0 (con NaN, false).
+float __cdecl GeneralRadianAngleCpp(float x1, float y1, float x2, float y2);
+// CGeneral::GetATanOfXY (0x53CC70): 0 si x e y son 0; si no, ocho ramas según |x| < |y| y los signos; la rama x > 0, y > 0, |x| >= |y| devuelve el fpatan sin redondear en ST0.
+extern "C" double __cdecl GeneralATanOfXYDblCpp(float x, float y); // General.cpp lo declara como float con otro nombre (/alternatename) para devolver ST0 sin redondear
+// CGeneral::SolveQuadratic (0x53CE30): d = b·b - (a·c)·4 en registro; false si d < 0 (NaN resuelve); si no escribe *x2 = ((sqrt(d) - b) · (1/a)) · 0.5 y luego *x1 = ((-b - sqrt(d)) · (1/a)) · 0.5 (orden de escritura del EXE).
+bool __cdecl GeneralSolveQuadraticCpp(float a, float b, float c, float* x1, float* x2);
+// Lote de BoneNode.cpp (15/10/2026), prefijo BoneNode. Todos __cdecl; los vectores/quaterniones son floats consecutivos (x, y, z[, w]).
+// BoneNode_c::EulerToQuat (0x6171F0): grados Euler -> quaternion {x, y, z, w} con fsin/fcos y 1/(x²+y²+z²+w²) (sin raíz); lee los tres ángulos antes de escribir (out puede ser angles).
+void __cdecl BoneNodeEulerToQuatCpp(const float* angles, float* out);
+// BoneNode_c::QuatToEuler (0x617080): quaternion {x, y, z, w} -> grados Euler {x, y, z} con fpatan sin redondear; en el bloqueo cardán (sen = ±1) relee q tras escribir out[1], como el EXE.
+void __cdecl BoneNodeQuatToEulerCpp(const float* q, float* out);
+// BoneNode_c::Limit (0x617650), tramo de sujeción: euler = {x, y, z}, min/max = m_LimitMin/m_LimitMax (x, y, z); primero el mínimo y luego el máximo por eje; si narrowZ (BONE_HEAD) el rango Z se estrecha hacia poseZ con max(1 - |x|/45, 0) y el mínimo resultante se compara sin guardar como float.
+void __cdecl BoneNodeLimitClampCpp(float* euler, const float* limitMin, const float* limitMax, bool narrowZ, float poseZ);
+// BoneNode_c::CalcWldMat (0x616CD0): filas right/up/at (3 floats cada una) de la matriz local a partir del quaternion {x, y, z, w} con s = 2/(x²+y²+z²+w²).
+void __cdecl BoneNodeLocalMatrixCpp(const float* q, float* right, float* up, float* at);

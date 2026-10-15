@@ -68,51 +68,24 @@ namespace {
 
 // cos(a) * m
 
-// atan2(-fx, fy) (rumbo de CPlaceable con fpatan)
-__declspec(naked) float __cdecl ClimbHeadingOf(float fx, float fy) {
-    __asm {
-        fld    dword ptr [esp + 4]
-        fchs
-        fld    dword ptr [esp + 8]
-        fpatan
-        ret
-    }
+// Rumbo de CPlaceable con fpatan: atan2(-fx, fy) sin redondear; cada llamador lo guarda como float (un solo redondeo), igual que TrigAtan2Cpp.
+inline float ClimbHeadingOf(float fx, float fy) {
+    return TrigAtan2Cpp(-fx, fy);
 }
 
-// add + atan2(-fx, fy), con el arcotangente sin redondear
-__declspec(naked) float __cdecl ClimbAddHeading(float add, float fx, float fy) {
-    __asm {
-        fld    dword ptr [esp + 8]
-        fchs
-        fld    dword ptr [esp + 12]
-        fpatan
-        fadd   dword ptr [esp + 4]
-        ret
-    }
+// add + atan2(-fx, fy), con el arcotangente sin redondear (un solo redondeo a float)
+inline float ClimbAddHeading(float add, float fx, float fy) {
+    return BirdsAddAtan2Cpp(add, -fx, fy);
 }
 
 // val - atan2(-fx, fy), con el arcotangente sin redondear
-__declspec(naked) float __cdecl ClimbSubHeading(float val, float fx, float fy) {
-    __asm {
-        fld    dword ptr [esp + 8]
-        fchs
-        fld    dword ptr [esp + 12]
-        fpatan
-        fsubr  dword ptr [esp + 4]
-        ret
-    }
+inline float ClimbSubHeading(float val, float fx, float fy) {
+    return Atan2FromCpp(-fx, fy, val);
 }
 
 // atan2(-fx, fy) - sub, con el arcotangente sin redondear
-__declspec(naked) float __cdecl ClimbHeadingSub(float fx, float fy, float sub) {
-    __asm {
-        fld    dword ptr [esp + 4]
-        fchs
-        fld    dword ptr [esp + 8]
-        fpatan
-        fsub   dword ptr [esp + 12]
-        ret
-    }
+inline float ClimbHeadingSub(float fx, float fy, float sub) {
+    return Atan2MinusCpp(-fx, fy, sub);
 }
 
 // Como el original: MultiplyMatrixWithVector (0x59C890) con el orden de sumas del EXE

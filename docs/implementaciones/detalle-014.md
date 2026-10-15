@@ -12,8 +12,8 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CEventSource::ComputeEventSourceType(const CEvent&, const CPed&) | [source/game_sa/Events/EventSource.cpp:23](../../source/game_sa/Events/EventSource.cpp#L23) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventSource::ComputeEventSourceType 0x004ABAC0 | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| CEventSource::InjectHooks() | [source/game_sa/Events/EventSource.cpp:86](../../source/game_sa/Events/EventSource.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventSource::ComputeEventSourceType(const CEvent& event, const CPed& ped) | [source/game_sa/Events/EventSource.cpp:27](../../source/game_sa/Events/EventSource.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventSource::ComputeEventSourceType 0x004ABAC0 | 0 / 0 | Conversión de dirección fija: 0x005DF8F0, 0x00601BC0, 0x00601C30 |
+| CEventSource::InjectHooks() | [source/game_sa/Events/EventSource.cpp:67](../../source/game_sa/Events/EventSource.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-262"></a>
 

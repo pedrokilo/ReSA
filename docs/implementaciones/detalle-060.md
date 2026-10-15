@@ -228,16 +228,6 @@
 
 <a id="grupo-1199"></a>
 
-## Globales y helpers: source/game_sa/Events/EventSource.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| EventSource5IsPlayer() | [source/game_sa/Events/EventSource.cpp:5](../../source/game_sa/Events/EventSource.cpp#L5) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x005DF8F0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| EventSource5Friendly() | [source/game_sa/Events/EventSource.cpp:11](../../source/game_sa/Events/EventSource.cpp#L11) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00601BC0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| EventSource5Threatened() | [source/game_sa/Events/EventSource.cpp:17](../../source/game_sa/Events/EventSource.cpp#L17) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00601C30; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-
-<a id="grupo-1200"></a>
-
 ## Globales y helpers: source/game_sa/Events/EventSpecial.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -248,3 +238,15 @@
 | GetLifeTime() override | [source/game_sa/Events/EventSpecial.h:13](../../source/game_sa/Events/EventSpecial.h#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventSpecial.h:14](../../source/game_sa/Events/EventSpecial.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventSpecial.h:15](../../source/game_sa/Events/EventSpecial.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1200"></a>
+
+## Globales y helpers: source/game_sa/Events/EventStuckInAir.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CEventStuckInAir | [source/game_sa/Events/EventStuckInAir.h:9](../../source/game_sa/Events/EventStuckInAir.h#L9) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetEventType() const override | [source/game_sa/Events/EventStuckInAir.h:17](../../source/game_sa/Events/EventStuckInAir.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetLifeTime() override | [source/game_sa/Events/EventStuckInAir.h:19](../../source/game_sa/Events/EventStuckInAir.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const noexcept override | [source/game_sa/Events/EventStuckInAir.h:20](../../source/game_sa/Events/EventStuckInAir.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CanBeInterruptedBySameEvent() override | [source/game_sa/Events/EventStuckInAir.h:23](../../source/game_sa/Events/EventStuckInAir.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

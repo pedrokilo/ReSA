@@ -19,7 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OBJECTS = ['FxFrustumInfo', 'Garages', 'EventScriptCommand', 'BaseModelInfo', 'ClumpModelInfo', 'PedGroupIntelligence', 'Pools', 'RwHelper', 'TaskInteriorSitInChair',
-           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed']
+           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed', 'PlayerRelationshipRecorder', 'EventSource']
 HELPER_CALL = re.compile(r'^call\s+\?(ResidueRegsCpp@@YIIIII@Z|Get@ResidueEcx@@QAEII@Z|PlayerPedResidueFloatCpp@@YIMIIM@Z)\b')
 ENTRY_CALL = re.compile(r'^call\s+\?EntryEaxCpp@@YIIXZ$')
 ENTRY_EDX_CALL = re.compile(r'^call\s+\?CarEnterExitEntryEdxCpp@@YI_KXZ$')
@@ -43,6 +43,17 @@ ALLOWED = [
     re.compile(r'^jmp\s+[0-9A-Fa-f]{8}$'),
     re.compile(r'^int\s+3$'),
 ]
+# Llamadas cuyo residuo de ECX/EDX debe llegar intacto a la salida (CEventSource::ComputeEventSourceType): los tres colaboradores del EXE
+# (se cargan por direccion en un registro justo antes de `call reg`) y la primera llamada indirecta tras leer el EDX de entrada
+# (GetSourceEntity). Por cada camino que sale a `ret` sin otra llamada de por medio no puede escribirse ECX, EDX ni sus partes.
+EXE_COLLABORATOR_LOAD = re.compile(r'^mov\s+(eax|ecx|edx),(601C30h|601BC0h|5DF8F0h)$')
+INDIRECT_CALL = re.compile(r'^call\s+(eax|ecx|edx)$')
+CLOBBERS_ECX_EDX = [
+    re.compile(r'^(?!push |cmp |test |j\w+ )\w+\s+(ecx|cx|cl|ch|edx|dx|dl|dh)\b'),
+    re.compile(r'^(cdq|cwd|mul|div|idiv|rep|xchg)\b'),
+]
+JUMP_TARGET = re.compile(r'^(j\w+)\s+([0-9A-Fa-f]{8})$')
+
 INSTRUCTION = re.compile(r'^\s*([0-9A-F]{8}):\s+(.*\S)\s*$')
 
 
@@ -106,6 +117,54 @@ def violations_after_calls(function):
     return found
 
 
+def monitored_calls(function):
+    """Indices de las llamadas `call reg` cuyo residuo debe conservarse: colaboradores del EXE y GetSourceEntity (primera tras el EDX de entrada)."""
+    found = []
+    entry_edx = next((i for i, (_, text) in enumerate(function) if ENTRY_EDX_CALL.match(text)), None)
+    first_indirect_done = False
+    for index, (_, text) in enumerate(function):
+        m = INDIRECT_CALL.match(text)
+        if not m:
+            continue
+        register = m.group(1)
+        if any((load := EXE_COLLABORATOR_LOAD.match(function[j][1])) and load.group(1) == register for j in range(max(0, index - 8), index)):
+            found.append(index)
+        elif entry_edx is not None and index > entry_edx and not first_indirect_done:
+            found.append(index)
+        if entry_edx is not None and index > entry_edx:
+            first_indirect_done = True
+    return found
+
+
+def violations_clobbering_residue(function):
+    """Escrituras de ECX/EDX entre una llamada vigilada y un `ret` alcanzable sin otra llamada de por medio (otra llamada reinicia el residuo)."""
+    found = []
+    by_address = {address: index for index, (address, _) in enumerate(function)}
+    for call_index in monitored_calls(function):
+        seen, stack = set(), [(call_index + 1, None)]
+        while stack:
+            cursor, tainted = stack.pop()
+            if cursor >= len(function) or (cursor, tainted) in seen:
+                continue
+            seen.add((cursor, tainted))
+            address, text = function[cursor]
+            if text.startswith('call'):
+                continue
+            if tainted is None and any(pattern.match(text) for pattern in CLOBBERS_ECX_EDX):
+                tainted = (address, text)
+            if text.startswith('ret'):
+                if tainted is not None:
+                    found.append((tainted[0], tainted[1] + ' (pisa ECX/EDX antes de la salida)'))
+                continue
+            jump = JUMP_TARGET.match(text)
+            if jump and jump.group(2) and int(jump.group(2), 16) in by_address:
+                stack.append((by_address[int(jump.group(2), 16)], tainted))
+                if jump.group(1) == 'jmp':
+                    continue
+            stack.append((cursor + 1, tainted))
+    return sorted(set(found))
+
+
 def violations_before_entry_read(function):
     """Instrucciones anteriores a cada llamada a EntryEaxCpp que pueden cambiar EAX (o desviar el flujo)."""
     found = []
@@ -136,10 +195,12 @@ def audit(functions):
     for function in functions:
         calls = sum(1 for _, text in function if HELPER_CALL.match(text))
         entry_reads = sum(1 for _, text in function if ENTRY_CALL.match(text) or ENTRY_EDX_CALL.match(text))
-        if not calls and not entry_reads:
+        watched = len(monitored_calls(function))
+        if not calls and not entry_reads and not watched:
             continue
-        checked += calls + entry_reads
+        checked += calls + entry_reads + watched
         bad.extend(violations_after_calls(function))
+        bad.extend(violations_clobbering_residue(function))
         bad.extend(violations_before_entry_read(function))
         bad.extend(violations_before_entry_edx_read(function))
     return checked, bad

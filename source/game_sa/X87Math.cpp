@@ -1804,3 +1804,283 @@ extern "C" __declspec(noinline) double __cdecl PlaceableRollDblCpp(const float* 
     return atan2(double(right[2]), den);
 }
 
+// --- Lote de cinco archivos (General, BoneNode y otros; 15/10/2026) ---
+// --- CGeneral (General.cpp) ---
+static constexpr float kGeneral_38000100 = std::bit_cast<float>(0x38000100u); // 1/32767 (0x858C7C)
+static constexpr float kGeneral_38D1B717 = std::bit_cast<float>(0x38D1B717u); // 0.0001 (0x858FC4)
+static constexpr float kGeneral_3FC90FDB = std::bit_cast<float>(0x3FC90FDBu); // pi/2 (0x858FE4)
+static constexpr float kGeneral_4096CBE4 = std::bit_cast<float>(0x4096CBE4u); // 3pi/2 (0x863AC4)
+// pi (0x858CB8) y 2pi (0x858CBC): kF_40490FDB y kF_40C90FDB, definidas arriba.
+
+// Una sola operación x87 tras el fpatan: el resultado sin redondear de fpatan entra directo a fsubr/fadd. Fuera de precise (fpatan/fsqrt en línea).
+static __declspec(noinline) double __cdecl GeneralAtanDbl(double ratio) { return atan2(ratio, 1.0); }
+static __declspec(noinline) double __cdecl GeneralConstMinusAtanDbl(double k, double ratio) { return k - atan2(ratio, 1.0); }
+static __declspec(noinline) double __cdecl GeneralAtanPlusConstDbl(double ratio, double k) { return atan2(ratio, 1.0) + k; }
+static __declspec(noinline) double __cdecl GeneralSqrtDbl(double value) { return sqrt(value); }
+
+// 0x41BD90. Orden del EXE: fild; fmul 1/32767; fld max; fsub min; fmulp; fadd min. float(...) deja el resultado en ST0.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl GeneralRandomInRangeCpp(int random, float min, float max) {
+    return float(((double(random) * double(kGeneral_38000100)) * (double(max) - double(min))) + double(min));
+}
+
+// 0x53CBE0. Con dx = x2 - x1 y dy = y2 - y1 (dy == 0 incluido -0 pasa a 0.0001f; NaN sigue), a = atan(dx/dy):
+//   dx > 0, dy > 0: (pi/2 - a) + pi/2   dx > 0, dy <= 0: pi/2 - (a + pi/2)
+//   dx <= 0, dy > 0: -pi/2 - (a + pi/2)  dx <= 0, dy <= 0: (pi/2 - a) - pi/2     (<= incluye NaN)
+// El EXE decide por las banderas de fcomp/fcom conservadas a traves de fdiv/fpatan (0x41/0x44 de AH), no por una comparacion nueva.
+__declspec(noinline) float __cdecl GeneralRadianAngleCpp(float x1, float y1, float x2, float y2) {
+    const double dx = double(x2) - double(x1);
+    double dy = double(y2) - double(y1);
+    if (dy == 0.0) {
+        dy = double(kGeneral_38D1B717);
+    }
+    const double ratio = dx / dy;
+    const double halfPi = double(kGeneral_3FC90FDB);
+    if (dx > 0.0) {
+        if (dy > 0.0) {
+            return float((halfPi - GeneralAtanDbl(ratio)) + halfPi);
+        }
+        return float(halfPi - (GeneralAtanDbl(ratio) + halfPi));
+    }
+    if (dy > 0.0) {
+        return float(-halfPi - (GeneralAtanDbl(ratio) + halfPi));
+    }
+    return float((halfPi - GeneralAtanDbl(ratio)) - halfPi);
+}
+
+// 0x53CC70. |x| y |y| con fchs solo si < 0 (NaN y -0 intactos); "positivo" = estrictamente > 0 (NaN no). Un solo fpatan por llamada, sin redondear antes de la
+// ultima suma/resta; (-1/d)*n son dos operaciones separadas (fld -1; fdiv; fmul).
+extern "C" __declspec(noinline) double __cdecl GeneralATanOfXYDblCpp(float x, float y) {
+    if (x == 0.0f && y == 0.0f) {
+        return 0.0f;
+    }
+    const double dx = double(x);
+    const double dy = double(y);
+    const double absX = x < 0.0f ? -dx : dx;
+    const double absY = y < 0.0f ? -dy : dy;
+    const bool xPositive = x > 0.0f;
+    const bool yPositive = y > 0.0f;
+    const double halfPi = double(kGeneral_3FC90FDB);
+    const double threeHalfPi = double(kGeneral_4096CBE4);
+    const double pi = double(kF_40490FDB);
+    const double twoPi = double(kF_40C90FDB);
+    if (absX < absY) {
+        if (yPositive) {
+            if (xPositive) {
+                return float(GeneralConstMinusAtanDbl(halfPi, dx / dy));
+            }
+            return float(GeneralAtanPlusConstDbl((-1.0 / dy) * dx, halfPi));
+        }
+        if (xPositive) {
+            return float(GeneralAtanPlusConstDbl((-1.0 / dy) * dx, threeHalfPi));
+        }
+        return float(GeneralConstMinusAtanDbl(threeHalfPi, dx / dy));
+    }
+    if (yPositive) {
+        if (xPositive) {
+            return GeneralAtanDbl(dy / dx); // el fpatan puro sale sin redondear en ST0 (el control de precision solo afecta a +,-,*,/ y sqrt)
+        }
+        return float(GeneralConstMinusAtanDbl(pi, (-1.0 / dx) * dy));
+    }
+    if (xPositive) {
+        return float(GeneralConstMinusAtanDbl(twoPi, (-1.0 / dx) * dy));
+    }
+    return float(GeneralAtanPlusConstDbl(dy / dx, pi));
+}
+
+// 0x53CE30. d y las raices se mantienen en el rango extendido de la x87 (b·b puede superar FLT_MAX); sqrt en ayudante aparte (fsqrt en línea, 24 bits).
+// Los dos fstp float se hacen primero en x2 y luego en x1 (si son el mismo float, gana x1). a, b y c llegan por valor: ninguna salida los altera.
+__declspec(noinline) bool __cdecl GeneralSolveQuadraticCpp(float a, float b, float c, float* x1, float* x2) {
+    const double db = double(b);
+    const double discriminant = db * db - (double(a) * double(c)) * 4.0;
+    if (discriminant < 0.0) {
+        return false;
+    }
+    const double root = GeneralSqrtDbl(discriminant);
+    const double inverseA = 1.0 / double(a);
+    *x2 = float(((root - db) * inverseA) * 0.5);
+    *x1 = float(((-db - root) * inverseA) * 0.5);
+    return true;
+}
+#pragma float_control(pop)
+
+// --- Lote de BoneNode.cpp (15/10/2026), prefijo BoneNode (BoneNode_c: 0x6171F0, 0x617080, 0x617650, 0x616CD0) ---
+// Constantes del EXE: pi 0x858CB8, 1/180 0x85F0AC, 1/pi 0x86D2B4, 1/45 0x86D2B8 (180.0f en 0x85A994).
+static constexpr float kBoneNodePi     = std::bit_cast<float>(0x40490FDBu);
+static constexpr float kBoneNodeInv180 = std::bit_cast<float>(0x3BB60B61u);
+static constexpr float kBoneNodeInvPi  = std::bit_cast<float>(0x3EA2F983u);
+static constexpr float kBoneNodeInv45  = std::bit_cast<float>(0x3CB60B61u);
+
+// fpatan sin redondear en ST0 (se devuelve como double); fuera de la región precise para que sea el fpatan en línea.
+static __declspec(noinline) double BoneNodeAtan2Cpp(double y, double x) {
+    return atan2(y, x);
+}
+
+#pragma float_control(precise, on, push)
+// ((ángulo · pi) · (1/180)) · 0.5 sin guardar como float, en el orden del EXE (con /fp:fast se plegarían las constantes); queda en ST0.
+static __declspec(noinline) double BoneNodeHalfAngleCpp(float angle) {
+    return ((double(angle) * kBoneNodePi) * kBoneNodeInv180) * 0.5f;
+}
+
+// Normalización del EXE (0x6172BB..0x617323): ((w² + z²) + y²) + x² y multiplicación por 1/suma (sin raíz); z llega desde registro (ya a 24 bits).
+static __declspec(noinline) void BoneNodeNormaliseQuatCpp(float x, float y, float z, float w, float* out) {
+    const float sum = ((w * w + z * z) + y * y) + x * x;
+    const float inv = 1.0f / sum;
+    out[0] = inv * x;
+    out[1] = inv * y;
+    out[2] = inv * z;
+    out[3] = inv * w;
+}
+
+// float(atan2(y, x) · 180 · (1/pi)): fpatan sin redondear, un redondeo a 24 bits por fmul y fstp final.
+static __declspec(noinline) float BoneNodeAtan2DegCpp(float y, float x) {
+    return float((BoneNodeAtan2Cpp(double(y), double(x)) * 180.0f) * kBoneNodeInvPi);
+}
+#pragma float_control(pop)
+
+// BoneNode_c::EulerToQuat (0x6171F0). Se guardan como float (volatile = fstp/fld del EXE): hz, cos x/y/z, sin x, cc = cz·cx, ss = sz·sx, y la x, y, w del quaternion.
+// Quedan en registro: sin(hy) y sin(hz) a precisión completa (nunca como double guardado), cs = cx·sz, sc = sx·cz (a 24 bits: guardarlos como double no pierde nada) y z.
+// Revisar el .obj: ningún fstp/fld qword de los fsin entre su cálculo y su uso, y los cuatro productos con sy en el orden descrito.
+__declspec(noinline) void __cdecl BoneNodeEulerToQuatCpp(const float* angles, float* out) {
+    const double hx = BoneNodeHalfAngleCpp(angles[0]);
+    const double hy = BoneNodeHalfAngleCpp(angles[1]);
+    volatile float hz = float(BoneNodeHalfAngleCpp(angles[2]));
+
+    volatile float cx = float(cos(hx));
+    volatile float cy = float(cos(hy));
+    volatile float cz = float(cos(double(hz)));
+    volatile float sx = float(sin(hx));
+    const double   sy = sin(hy);
+    const double   sz = sin(double(hz));
+
+    volatile float  cc = cz * cx;
+    volatile double cs = double(cx) * sz;
+    volatile double sc = double(sx) * double(cz);
+    volatile float  ss = float(sz * double(sx));
+
+    volatile float x = float(double(cy) * sc - cs * sy);
+    volatile float y = float(double(cc) * sy + double(ss) * double(cy));
+    const double   z = cs * double(cy) - sc * sy;
+    volatile float w = float(double(ss) * sy + double(cc) * double(cy));
+
+    BoneNodeNormaliseQuatCpp(x, y, float(z), w, out);
+}
+
+#pragma float_control(precise, on, push)
+// BoneNode_c::QuatToEuler (0x617080). q = {x, y, z, w}. 2·(a·b) se calcula como p + p; todas las sumas y restas en el orden del EXE.
+__declspec(noinline) void __cdecl BoneNodeQuatToEulerCpp(const float* q, float* out) {
+    const float yy  = q[1] * q[1];
+    const float yy2 = yy + yy;                      // 2y²
+    const float a   = 1.0f - yy2;                   // 1 - 2y²
+    const float zz  = q[2] * q[2];
+    const float c1  = a - (zz + zz);                // (1 - 2y²) - 2z²
+
+    const float zw  = q[2] * q[3];
+    const float xy  = q[0] * q[1];
+    const float b   = (zw + zw) + (xy + xy);        // 2zw + 2xy
+
+    const float zx  = q[2] * q[0];
+    const float wy  = q[3] * q[1];
+    const float d   = (zx + zx) - (wy + wy);        // 2zx - 2wy
+
+    const float zy  = q[2] * q[1];
+    const float wx  = q[3] * q[0];
+    const float c   = (zy + zy) + (wx + wx);        // 2zy + 2wx
+
+    const float xx  = q[0] * q[0];
+    const float dd  = (1.0f - (xx + xx)) - yy2;     // (1 - 2x²) - 2y²
+
+    const float s    = -d;
+    const float cosP = float(sqrt(double(1.0f - s * s)));  // fsqrt a 24 bits, guardado como float
+
+    out[1] = BoneNodeAtan2DegCpp(s, cosP);
+
+    if (s == 1.0f || s == -1.0f) {
+        // Bloqueo cardán: q se vuelve a leer (el EXE lo hace tras escribir out[1]).
+        const float gx2 = q[0] * q[0];
+        const float gz2 = q[2] * q[2];
+        const float g1  = (1.0f - (gx2 + gx2)) - (gz2 + gz2);
+        const float gzy = q[2] * q[1];
+        const float gwx = q[3] * q[0];
+        const float g2  = -((gzy + gzy) - (gwx + gwx));
+        out[0] = BoneNodeAtan2DegCpp(g2, g1);
+        out[2] = BoneNodeAtan2DegCpp(0.0f, 1.0f);   // fpatan(+0, 1) = +0
+    } else {
+        const float r   = 1.0f / cosP;
+        const float cr  = c * r;
+        const float rdd = r * dd;
+        out[0]          = BoneNodeAtan2DegCpp(cr, rdd);
+        const float br  = b * r;
+        const float rc1 = r * c1;
+        out[2]          = BoneNodeAtan2DegCpp(br, rc1);
+    }
+}
+
+// BoneNode_c::Limit (0x617650), tramo entre QuatToEuler y EulerToQuat. Comparaciones ordenadas (false con NaN); los valores que el EXE deja en registro
+// (mínimo Z y factor de la cabeza) son double para no pasar por float; el máximo Z estrechado sí se guarda como float ([esp+8]).
+__declspec(noinline) void __cdecl BoneNodeLimitClampCpp(float* euler, const float* limitMin, const float* limitMax, bool narrowZ, float poseZ) {
+    if (euler[0] < limitMin[0]) {
+        euler[0] = limitMin[0];
+    }
+    if (euler[0] > limitMax[0]) {
+        euler[0] = limitMax[0];
+    }
+    if (euler[1] < limitMin[1]) {
+        euler[1] = limitMin[1];
+    }
+    if (euler[1] > limitMax[1]) {
+        euler[1] = limitMax[1];
+    }
+
+    double minZ = limitMin[2];
+    float  maxZ = limitMax[2];
+    if (narrowZ) {
+        const float absX = std::bit_cast<float>(std::bit_cast<unsigned int>(euler[0]) & 0x7FFFFFFFu); // fabs
+        double factor    = 1.0 - double(absX) * kBoneNodeInv45;
+        if (0.0 > factor) {
+            factor = 0.0;
+        }
+        minZ = (minZ - double(poseZ)) * factor + double(poseZ);
+        maxZ = float((double(maxZ) - double(poseZ)) * factor + double(poseZ));
+    }
+    if (euler[2] < minZ) {
+        euler[2] = float(minZ);
+    }
+    if (euler[2] > maxZ) {
+        euler[2] = maxZ;
+    }
+}
+
+// BoneNode_c::CalcWldMat (0x616CD0), matriz local: s = 2/(((x² + y²) + z²) + w²) y productos (s·a)·b con el redondeo a 24 bits del EXE.
+__declspec(noinline) void __cdecl BoneNodeLocalMatrixCpp(const float* q, float* right, float* up, float* at) {
+    const float qx = q[0];
+    const float qy = q[1];
+    const float qz = q[2];
+    const float qw = q[3];
+    const float s  = 2.0f / (((qx * qx + qy * qy) + qz * qz) + qw * qw);
+
+    const float sx = s * qx;
+    const float sy = s * qy;
+    const float sz = s * qz;
+    const float xw = sx * qw;
+    const float yw = sy * qw;
+    const float zw = sz * qw;
+    const float xx = sx * qx;
+    const float yy = sy * qy;
+    const float zz = sz * qz;
+    const float zy = sz * qy;
+    const float xz = sx * qz;
+    const float yx = sy * qx;
+
+    right[0] = 1.0f - (zz + yy);
+    right[1] = zw + yx;
+    right[2] = xz - yw;
+    up[0]    = yx - zw;
+    up[1]    = 1.0f - (zz + xx);
+    up[2]    = zy + xw;
+    at[0]    = xz + yw;
+    at[1]    = zy - xw;
+    at[2]    = 1.0f - (yy + xx);
+}
+#pragma float_control(pop)
+

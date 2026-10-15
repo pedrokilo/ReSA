@@ -1,0 +1,3 @@
+FALLO: Task/ped complete cohort
+Funciones con diferencias: CEventSource::ComputeEventSourceType: 1504/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciestaskped5\20261015-091444-328138

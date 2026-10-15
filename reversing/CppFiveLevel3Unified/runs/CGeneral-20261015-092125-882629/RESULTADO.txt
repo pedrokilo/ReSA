@@ -1,0 +1,3 @@
+FALLO: CGeneral: RNG float
+Diferencia o llamadas incorrectas
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-general\20261015-092125-882629

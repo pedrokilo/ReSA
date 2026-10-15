@@ -1,0 +1,3 @@
+FALLO: Decision and relationship full entries
+Funciones con diferencias: CPlayerRelationshipRecorder::RecordRelationshipWithPlayer: 410/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesdecisionrelationship6\20261015-091855-241696

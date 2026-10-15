@@ -1,0 +1,3 @@
+FALLO: Evitar peatones al deambular, trepar y agacharse (lista de 15)
+Funciones con diferencias: CTaskComplexAvoidOtherPedWhileWandering::ComputeDetourTarget: 256/256; CTaskComplexAvoidOtherPedWhileWandering::ComputeRouteRoundSphere: 128/128; CTaskComplexAvoidOtherPedWhileWandering::ControlSubTask: 81/1024; CTaskComplexAvoidOtherPedWhileWandering::CreateFirstSubTask: 228/256; CTaskComplexAvoidOtherPedWhileWandering::CreateNextSubTask: 48/256; CTaskSimpleClimb::ProcessPed: 1/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctasks15\20261015-092356-877031

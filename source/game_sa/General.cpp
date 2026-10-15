@@ -26,6 +26,13 @@ END GENERATED HOOK STATUS */
 
 #include <random>
 
+#include "X87Math.h"
+
+// GeneralATanOfXYDblCpp (X87Math.cpp) devuelve un double: el fpatan puro de GetATanOfXY queda sin redondear en ST0. Aqui se declara como float con otro
+// nombre (alias del enlazador) para que el metodo devuelva ST0 tal cual, sin pasar por memoria como float.
+extern "C" float __cdecl GeneralATanOfXYFltCpp(float x, float y);
+#pragma comment(linker, "/alternatename:_GeneralATanOfXYFltCpp=_GeneralATanOfXYDblCpp")
+
 static std::random_device randomDevice;
 static std::mt19937 randomEngine(randomDevice());
 
@@ -35,25 +42,11 @@ static int32 GetRandomNumberInRange_int32(int32 min, int32 max) {
 }
 
 // 0x41BD90
-// x87 is intentional: GTA changes its precision control, and intermediate
-// values have a wider exponent range than float. SSE/double expressions can
-// change rounding or overflow. Keep ST(0) intact for native callers as well.
+// Como el original: lerp con la x87 (entero del RNG por 1/32767, por (max - min), mas min; un redondeo a 24 bits por operacion y el resultado
+// queda en ST(0) sin guardar). El aritmetico esta en X87Math.cpp; el RNG se llama una sola vez, como el EXE, y acepta extremos invertidos.
 template<>
-__declspec(naked) float CGeneral::GetRandomNumberInRange<float>(float min, float max) {
-    __asm {
-        push ecx
-        call GetRandomNumber
-        movzx eax, ax
-        mov [esp], eax
-        fild dword ptr [esp]
-        fmul dword ptr [RAND_MAX_FLOAT_RECIPROCAL]
-        fld dword ptr [esp + 12]
-        fsub dword ptr [esp + 8]
-        fmulp st(1), st(0)
-        fadd dword ptr [esp + 8]
-        pop ecx
-        ret
-    }
+float CGeneral::GetRandomNumberInRange<float>(float min, float max) {
+    return GeneralRandomInRangeCpp(static_cast<int>(GetRandomNumber()), min, max);
 }
 
 void CGeneral::InjectHooks() {
@@ -86,18 +79,9 @@ float CGeneral::LimitAngle(float angle) {
 
 namespace {
 // Como el original: constantes exactas del EXE (no las de common.h)
-const float kGenZero         = 0.0f;                              // 0x858B50
-const float kGenHalf         = 0.5f;                              // 0x858B8C
-const float kGenOne          = 1.0f;                              // 0x858624
-const float kGenFour         = 4.0f;                              // 0x858B90
-const float kGenMinusOne     = -1.0f;                             // 0x858C1C
-const float kGenTinyY        = std::bit_cast<float>(0x38D1B717u); // 0x858FC4 (0.0001)
-const float kGenHalfPi       = std::bit_cast<float>(0x3FC90FDBu); // 0x858FE4
-const float kGenMinusHalfPi  = std::bit_cast<float>(0xBFC90FDBu); // 0x859998
 const float kGenPi           = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
 const float kGenMinusPi      = std::bit_cast<float>(0xC0490FDBu); // 0x858CC0
 const float kGenTwoPi        = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
-const float kGenThreeHalfPi  = std::bit_cast<float>(0x4096CBE4u); // 0x863AC4
 const float kGenPiOver8      = std::bit_cast<float>(0x3EC90FDBu); // 0x859F50
 const float kGenInvTwoPi     = std::bit_cast<float>(0x3E22F983u); // 0x8594F0
 const float kGenRadToDeg     = std::bit_cast<float>(0x42652EE0u); // 0x859878 (no es el float más cercano a 180/pi)
@@ -120,172 +104,16 @@ float CGeneral::LimitRadianAngle(float angle) {
 }
 
 // 0x53CBE0
-// Como el original: transcripción x87 (cociente a la precisión vigente, fpatan completo, pi/2 +- pi/2 en ese orden
-// y banderas de la comparación de y conservadas a través de fpatan).
-__declspec(naked) float CGeneral::GetRadianAngleBetweenPoints(float x1, float y1, float x2, float y2) {
-    __asm {
-        fld   dword ptr [esp+0Ch]
-        fsub  dword ptr [esp+4]
-        fld   dword ptr [esp+10h]
-        fsub  dword ptr [esp+8]
-        fcom  dword ptr [kGenZero]
-        fnstsw ax
-        test  ah, 44h
-        jp    L_yNotZero
-        fstp  st(0)
-        fld   dword ptr [kGenTinyY]
-    L_yNotZero:
-        fld   st(1)
-        fcomp dword ptr [kGenZero]
-        fnstsw ax
-        fcom  dword ptr [kGenZero]
-        fxch  st(1)
-        test  ah, 41h
-        fdiv  st, st(1)
-        fld1
-        fpatan
-        fstp  st(1)
-        fnstsw ax
-        jne   L_xNotPositive
-        test  ah, 41h
-        jne   L_xPositiveYNotPositive
-        fsubr dword ptr [kGenHalfPi]
-        fadd  dword ptr [kGenHalfPi]
-        ret
-    L_xPositiveYNotPositive:
-        fadd  dword ptr [kGenHalfPi]
-        fsubr dword ptr [kGenHalfPi]
-        ret
-    L_xNotPositive:
-        test  ah, 41h
-        jne   L_xNotPositiveYNotPositive
-        fadd  dword ptr [kGenHalfPi]
-        fsubr dword ptr [kGenMinusHalfPi]
-        ret
-    L_xNotPositiveYNotPositive:
-        fsubr dword ptr [kGenHalfPi]
-        fsub  dword ptr [kGenHalfPi]
-        ret
-    }
+// Como el original: transcripcion x87 en X87Math.cpp (cociente a la precision vigente, fpatan completo, pi/2 +- pi/2 en ese orden
+// y signos de x e y evaluados como en el EXE).
+float CGeneral::GetRadianAngleBetweenPoints(float x1, float y1, float x2, float y2) {
+    return GeneralRadianAngleCpp(x1, y1, x2, y2);
 }
 
 // 0x53CC70
-// Como el original: transcripción x87; la rama x > 0, |x| >= |y| devuelve fpatan sin redondear en ST(0).
-__declspec(naked) float CGeneral::GetATanOfXY(float x, float y) {
-    __asm {
-        fld   dword ptr [esp+4]
-        fcomp dword ptr [kGenZero]
-        fnstsw ax
-        test  ah, 44h
-        jp    L_notBothZero
-        fld   dword ptr [esp+8]
-        fcomp dword ptr [kGenZero]
-        fnstsw ax
-        test  ah, 44h
-        jp    L_notBothZero
-        fld   dword ptr [kGenZero]
-        ret
-    L_notBothZero:
-        fld   dword ptr [esp+4]
-        fcomp dword ptr [kGenZero]
-        fld   dword ptr [esp+4]
-        fnstsw ax
-        test  ah, 5
-        jp    L_absX
-        fchs
-    L_absX:
-        fld   dword ptr [esp+8]
-        fcomp dword ptr [kGenZero]
-        fld   dword ptr [esp+8]
-        fnstsw ax
-        test  ah, 5
-        jp    L_absY
-        fchs
-    L_absY:
-        fxch  st(1)
-        fcomp st(1)
-        fstp  st(0)
-        fld   dword ptr [esp+8]
-        fnstsw ax
-        fcomp dword ptr [kGenZero]
-        fld   dword ptr [esp+4]
-        test  ah, 5
-        fnstsw ax
-        fcomp dword ptr [kGenZero]
-        jp    L_xNotSmaller
-        test  ah, 41h
-        fnstsw ax
-        jne   L_yNotPositive1
-        test  ah, 41h
-        jne   L_yPositiveXNotPositive1
-        fld   dword ptr [esp+4]
-        fdiv  dword ptr [esp+8]
-        fld1
-        fpatan
-        fsubr dword ptr [kGenHalfPi]
-        ret
-    L_yPositiveXNotPositive1:
-        fld   dword ptr [kGenMinusOne]
-        fdiv  dword ptr [esp+8]
-        fmul  dword ptr [esp+4]
-        fld1
-        fpatan
-        fadd  dword ptr [kGenHalfPi]
-        ret
-    L_yNotPositive1:
-        test  ah, 41h
-        jne   L_yNotPositiveXNotPositive1
-        fld   dword ptr [kGenMinusOne]
-        fdiv  dword ptr [esp+8]
-        fmul  dword ptr [esp+4]
-        fld1
-        fpatan
-        fadd  dword ptr [kGenThreeHalfPi]
-        ret
-    L_yNotPositiveXNotPositive1:
-        fld   dword ptr [esp+4]
-        fdiv  dword ptr [esp+8]
-        fld1
-        fpatan
-        fsubr dword ptr [kGenThreeHalfPi]
-        ret
-    L_xNotSmaller:
-        test  ah, 41h
-        fnstsw ax
-        jne   L_yNotPositive2
-        test  ah, 41h
-        jne   L_yPositiveXNotPositive2
-        fld   dword ptr [esp+8]
-        fdiv  dword ptr [esp+4]
-        fld1
-        fpatan
-        ret
-    L_yPositiveXNotPositive2:
-        fld   dword ptr [kGenMinusOne]
-        fdiv  dword ptr [esp+4]
-        fmul  dword ptr [esp+8]
-        fld1
-        fpatan
-        fsubr dword ptr [kGenPi]
-        ret
-    L_yNotPositive2:
-        test  ah, 41h
-        jne   L_yNotPositiveXNotPositive2
-        fld   dword ptr [kGenMinusOne]
-        fdiv  dword ptr [esp+4]
-        fmul  dword ptr [esp+8]
-        fld1
-        fpatan
-        fsubr dword ptr [kGenTwoPi]
-        ret
-    L_yNotPositiveXNotPositive2:
-        fld   dword ptr [esp+8]
-        fdiv  dword ptr [esp+4]
-        fld1
-        fpatan
-        fadd  dword ptr [kGenPi]
-        ret
-    }
+// Como el original: transcripcion x87 en X87Math.cpp; la rama x > 0, |x| >= |y| devuelve el fpatan sin redondear en ST(0).
+float CGeneral::GetATanOfXY(float x, float y) {
+    return GeneralATanOfXYFltCpp(x, y);
 }
 
 // 0x53CDC0
@@ -310,45 +138,10 @@ uint32 CGeneral::GetNodeHeadingFromVector(float x, float y) {
 * @returns If there is a solution for the equation
 * @addr 0x53CE30
 */
-// Como el original: transcripción x87 (b*b - a*c*4 sin desbordar a float en registro, 1/a y * 0.5;
+// Como el original: transcripcion x87 en X87Math.cpp (b*b - a*c*4 sin desbordar a float en registro, 1/a y * 0.5;
 // x2 = (sqrt(d) - b) * (1/a) * 0.5 se escribe antes que x1 = (-b - sqrt(d)) * (1/a) * 0.5; un discriminante NaN resuelve).
-__declspec(naked) bool CGeneral::SolveQuadratic(float a, float b, float c, float& x1, float& x2) {
-    __asm {
-        fld   dword ptr [esp+8]
-        fmul  dword ptr [esp+8]
-        fld   dword ptr [esp+4]
-        fmul  dword ptr [esp+0Ch]
-        fmul  dword ptr [kGenFour]
-        fsubp st(1), st
-        fcom  dword ptr [kGenZero]
-        fnstsw ax
-        test  ah, 5
-        jp    L_solve
-        xor   al, al
-        fstp  st(0)
-        ret
-    L_solve:
-        fsqrt
-        mov   eax, dword ptr [esp+14h]
-        mov   ecx, dword ptr [esp+10h]
-        fld   dword ptr [kGenOne]
-        fdiv  dword ptr [esp+4]
-        fld   st(1)
-        fsub  dword ptr [esp+8]
-        fmul  st, st(1)
-        fmul  dword ptr [kGenHalf]
-        fstp  dword ptr [eax]
-        mov   al, 1
-        fld   dword ptr [esp+8]
-        fchs
-        fsub  st, st(2)
-        fmul  st, st(1)
-        fmul  dword ptr [kGenHalf]
-        fstp  dword ptr [ecx]
-        fstp  st(0)
-        fstp  st(0)
-        ret
-    }
+bool CGeneral::SolveQuadratic(float a, float b, float c, float& x1, float& x2) {
+    return GeneralSolveQuadraticCpp(a, b, c, &x1, &x2);
 }
 
 // 0x53CEA0

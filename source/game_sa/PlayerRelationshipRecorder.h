@@ -29,6 +29,8 @@ public:
     void AddRelationship(const CPed* ped, int32 value);
     int32 GetRelationshipWithPlayer(const CPed* ped);
     void RecordRelationshipWithPlayer(const CPed* ped);
+    // Forma del EXE (0x61A1D0): this en ECX, EDX de entrada y ped en pila; deja EAX/ECX/EDX como el EXE (ver el .cpp). Es la que engancha el hook.
+    static uint32 __fastcall RecordRelationshipWithPlayerRegs(CPlayerRelationshipRecorder* self, uint32 entryEdx, const CPed* ped);
 };
 
 CPlayerRelationshipRecorder& GetPlayerRelationshipRecorder();

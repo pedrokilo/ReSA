@@ -1,5 +1,6 @@
 #pragma once
 #include <fstream>
+#include <optional>
 #include "DecisionMakers/DecisionMakerTypes.h"
 #include "PlayerRelationshipRecorder.h"
 #include "Pools/Pools.h"
@@ -27,6 +28,24 @@ inline bool done{};inline std::ofstream log;
 inline void Write(const json& row){ReversingProbe::PumpMessages();log<<row.dump()<<'\n';log.flush();}
 inline std::vector<uint8> FileBytes(const std::filesystem::path& path){std::ifstream in(path,std::ios::binary);return {std::istreambuf_iterator<char>(in),std::istreambuf_iterator<char>()};}
 struct Abi {uint32 eax,ecx,edx;bool stack,nonvolatile,seh;std::array<uint32,4> nonvolatileDelta;};
+// Copia exacta de CTaskManager::GetActiveTask del EXE (0x681720): conserva ECX. El banco la pone SOLO en la ruta original: esa entrada del EXE
+// esta enganchada a la version C++ de la DLL, cuyo residuo de ECX (p. ej. el rep stos del prologo en Debug) no es el del EXE.
+__declspec(naked) inline void ExeGetActiveTask(){
+    __asm {
+        xor eax,eax
+    scan:
+        cmp dword ptr [ecx+eax*4],0
+        jne found
+        inc eax
+        cmp eax,5
+        jl scan
+        xor eax,eax
+        ret
+    found:
+        mov eax,dword ptr [ecx+eax*4]
+        ret
+    }
+}
 inline Abi Call(uintptr_t entry,uintptr_t object,uint32 argA,uint32 argB,uint32 argC,uint32 argD,int argc,uint32 seedD,bool cdeclCall=false){
     uint32 resultA,resultC,resultD,before,after,beforeH,afterH;
     uint32 beforeB,beforeS,beforeI,beforeP,afterB,afterS,afterI,afterP;
@@ -84,7 +103,7 @@ inline void Update(){
  OriginalDependencies499::HookRoute remove("CDecisionMakerTypes","RemoveDecisionMaker",0x6043A0,FunctionToVoidPtr(&CDecisionMakerTypes::RemoveDecisionMaker));
  OriginalDependencies499::HookRoute add("CDecisionMakerTypes","AddDecisionMaker",0x607050,FunctionToVoidPtr(&CDecisionMakerTypes::AddDecisionMaker));
  OriginalDependencies499::HookRoute load("CDecisionMakerTypes","LoadEventIndices",0x600840,FunctionToVoidPtr(&CDecisionMakerTypes::LoadEventIndices));
- OriginalDependencies499::HookRoute record("CPlayerRelationshipRecorder","RecordRelationshipWithPlayer",0x61A1D0,FunctionToVoidPtr(&CPlayerRelationshipRecorder::RecordRelationshipWithPlayer));
+ OriginalDependencies499::HookRoute record("CPlayerRelationshipRecorder","RecordRelationshipWithPlayer",0x61A1D0,FunctionToVoidPtr(&CPlayerRelationshipRecorder::RecordRelationshipWithPlayerRegs));
  OriginalDependencies499::HookRoute* routes[]{&remove,&add,&load,&record};
  std::array<std::vector<uint8>,4> codes;for(int i=0;i<4;++i)codes[i]=ReversingProbe::Bytes(reinterpret_cast<void*>(fns[i].address),5);
  json helpers=json::array();for(uintptr_t a:{0x600B50u,0x5F7340u,0x6006B0u,0x5BB9F0u,0x681720u,0x6985E0u,0x698610u})helpers.push_back({{"address",a},{"jumps_to_dll",ReversingProbe::JumpsToDll(a)},{"bytes",ReversingProbe::Bytes(reinterpret_cast<void*>(a),5)}});
@@ -113,6 +132,7 @@ inline void Update(){
  auto active=reinterpret_cast<uint8*>(0xC0B01C);auto group=reinterpret_cast<uint8*>(0xC0AFE0);auto groupFlags=reinterpret_cast<uint8*>(0xC098E0);auto groupObjects=reinterpret_cast<uint8*>(0xC09920);
  bool passed=true;int pair=0;
  for(int index=0;index<4;++index){int failures=0;const auto& fn=fns[index];
+  std::optional<ReversingProbe::EntryPatch> exeActive;if(index==3)exeActive.emplace(0x681720u,ExeGetActiveTask);
   for(int scenario=0;scenario<fn.cases;++scenario){
    auto invoke=[&](bool candidate){restore();uint32 seed=uint32(scenario)*2654435761u+0x12893211u;
     auto next=[&]{seed=seed*1664525u+1013904223u;return seed;};
