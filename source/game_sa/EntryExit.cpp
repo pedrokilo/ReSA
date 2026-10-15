@@ -31,22 +31,25 @@ END GENERATED HOOK STATUS */
 #include "Events/EventGroupEvent.h"
 #include "Events/EventLeaderEntryExit.h"
 #include "Rubbish.h"
+#include "X87Math.h"
 
 static void __fastcall EntryExitGetPositionRelativeToOutsideWorld(CEntryExit* enex, void*, CVector* outPos) {
     enex->GetPositionRelativeToOutsideWorld(*outPos);
 }
 
-// Como el original: 0x43EA00 no toca edx y CEntryExitManager::GetPositionRelativeToOutsideWorld (0x43F150)
-// usa edx como contador del bucle a través de la llamada; envoltorio thiscall (ret 4) que conserva edx.
-static __declspec(naked) void EntryExitGetPositionRelativeToOutsideWorldKeepEdx() {
-    __asm {
-        push edx
-        push dword ptr [esp+8]
-        call EntryExitGetPositionRelativeToOutsideWorld
-        pop  edx
-        ret  4
-    }
+// 0x43EA00: ECX = this, EDX de entrada y un argumento en pila (ret 4). Como el original (que no toca EDX, pero CEntryExitManager::
+// GetPositionRelativeToOutsideWorld, 0x43F150, lo usa de contador del bucle a través de la llamada), deja EDX = EDX de entrada,
+// ECX = la entrada enlazada (o this) y EAX = outPos, o el puntero de enlace con AL = 0 cuando la entrada está en el mundo normal (sale antes de sumar).
+#pragma runtime_checks("", off)
+static __declspec(safebuffers) uint32 __fastcall EntryExitGetPositionRelativeToOutsideWorldRegs(CEntryExit* self, uint32 entryEdx, CVector* outPos) {
+    CEntryExit* const link = self->m_pLink;
+    CEntryExit* const enex = link ? link : self;
+    const bool        inWorld = enex->m_nArea == eAreaCodes::AREA_CODE_NORMAL_WORLD;
+    self->GetPositionRelativeToOutsideWorld(*outPos);
+    return ResidueRegsCpp(reinterpret_cast<uint32>(enex), entryEdx,
+        inWorld ? (reinterpret_cast<uint32>(link) & 0xFFFFFF00u) : reinterpret_cast<uint32>(outPos));
 }
+#pragma runtime_checks("", restore)
 
 void CEntryExit::InjectHooks() {
     RH_ScopedClass(CEntryExit);
@@ -57,7 +60,7 @@ void CEntryExit::InjectHooks() {
     RH_ScopedInstall(FindValidTeleportPoint, 0x43EAF0);
     RH_ScopedInstall(IsInArea, 0x43E460);
     // Conmutación EXE/DLL con EDX y pila conservados: reversing/HookUnlockAudit.
-    RH_ScopedNamedGlobalInstall(EntryExitGetPositionRelativeToOutsideWorldKeepEdx, "GetPositionRelativeToOutsideWorld", 0x43EA00);
+    RH_ScopedNamedGlobalInstall(EntryExitGetPositionRelativeToOutsideWorldRegs, "GetPositionRelativeToOutsideWorld", 0x43EA00);
     RH_ScopedInstall(TransitionStarted, 0x43FFD0);
     RH_ScopedInstall(TransitionFinished, 0x4404A0);
     RH_ScopedInstall(RequestObjectsInFrustum, 0x43E690);
@@ -157,7 +160,7 @@ CEntryExit* CEntryExit::GetEntryExitToDisplayNameOf() {
 }
 
 // 0x43EA00
-// El hook del EXE pasa por EntryExitGetPositionRelativeToOutsideWorldKeepEdx (conserva edx).
+// El hook del EXE pasa por EntryExitGetPositionRelativeToOutsideWorldRegs (conserva edx y deja los registros del original).
 void CEntryExit::GetPositionRelativeToOutsideWorld(CVector& outPos) {
     const auto pos = GetPosition(); // Como el original: centro de la entrada de `this`, antes de sustituir por el enlace
     const auto enex = GetLinkedOrThis(); // this = GetLinkedOrThis();
@@ -210,31 +213,10 @@ void CEntryExit::FindValidTeleportPoint(CVector& outTeleportPoint) {
     for (auto ring = 0; ring < 2; ring++) { // Test with 2 ranges
         for (int32 i = 0; i < NumTestPoints; i++) {
             const float rot = (float)i * std::bit_cast<float>(0x40C90FDBu) * 0.125f;
-            float offX, offY;
-            if (ring == 0) {
-                float ringRadius = 1.25f;
-                __asm {
-                    fld   rot
-                    fld   st(0)
-                    fcos
-                    fmul  ringRadius
-                    fstp  offX
-                    fsin
-                    fmul  ringRadius
-                    fstp  offY
-                }
-            } else {
-                __asm {
-                    fld   rot
-                    fld   st(0)
-                    fcos
-                    fadd  st, st(0)
-                    fstp  offX
-                    fsin
-                    fadd  st, st(0)
-                    fstp  offY
-                }
-            }
+            // fcos/fsin sin redondear y un solo redondeo a float por producto (el doble es exacto: radio 2 = fadd st, st)
+            const float radius = ring == 0 ? 1.25f : 2.0f;
+            const float offX = TrigSimpleCosMulCpp(rot, radius);
+            const float offY = TrigSimpleSinMulCpp(rot, radius);
             const CVector point{ offX + outTeleportPoint.x, offY + outTeleportPoint.y, outTeleportPoint.z };
             if (IsTeleportPointValid(outTeleportPoint, point)) {
                 outTeleportPoint = point;
@@ -273,15 +255,8 @@ bool CEntryExit::IsInArea(const CVector& position) {
         const float dy = position.y - cy;
         const float dx = position.x - cx;
         const float rot = m_fEntranceAngleRad;
-        float rotCos, rotSin;
-        __asm {
-            fld   rot
-            fcos
-            fstp  rotCos
-            fld   rot
-            fsin
-            fstp  rotSin
-        }
+        const float rotCos = TrigSimpleCosCpp(rot);
+        const float rotSin = TrigSimpleSinCpp(rot);
         const float zero = 0.0f;
         x = ((zero * dz + -rotSin * dy) + rotCos * dx) + zero;
         y = ((zero * dz + rotSin * dx) + rotCos * dy) + zero;

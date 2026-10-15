@@ -1,0 +1,3 @@
+APROBADO: HudSubtitles355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-hud-subtitles355\20261014-233224-328758

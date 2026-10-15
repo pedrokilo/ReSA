@@ -35,6 +35,7 @@ END GENERATED HOOK STATUS */
 #include "CutsceneMgr.h"
 #include "Clock.h"
 #include "PostEffects.h"
+#include "X87Math.h"
 
 // 0x8CCF30
 std::array<float, 16> CWeather::saTreeWindOffsets = { 1.0f, 0.5f, 0.2f, 0.7f, 0.4f, 1.0f, 0.5f, 0.3f, 0.2f, 0.1f, 0.7f, 0.6f, 0.3f, 1.0f, 0.5f, 0.2f };
@@ -79,67 +80,6 @@ constexpr float WindGustTableA[16] = { // 0x8D5FF8
 constexpr float WindGustTableB[16] = { // 0x8D6038
     0.5f, -0.3f, 0.8f, 0.0f, -0.4f, -0.8f, 0.3f, -0.1f, -0.9f, -0.5f, 0.7f, 0.7f, 0.3f, 0.7f, 0.0f, -0.5f,
 };
-
-// Como el original: fsin/fcos del x87 con precision interna completa; el producto y la suma posteriores los redondea la FPU.
-float SinMulAddX87(float fAng, float vScale, float vAddend) {
-    float fOut;
-    __asm {
-        fld  fAng
-        fsin
-        fmul vScale
-        fadd vAddend
-        fstp fOut
-    }
-    return fOut;
-}
-
-float CosMulAddX87(float fAng, float vScale, float vAddend) {
-    float fOut;
-    __asm {
-        fld  fAng
-        fcos
-        fmul vScale
-        fadd vAddend
-        fstp fOut
-    }
-    return fOut;
-}
-
-// 0.5 - cos(a) * 0.5 con el coseno sin redondear
-float HalfMinusHalfCosX87(float fAng) {
-    const float fHalf = 0.5f;
-    float fOut;
-    __asm {
-        fld   fAng
-        fcos
-        fmul  fHalf
-        fsubr fHalf
-        fstp  fOut
-    }
-    return fOut;
-}
-
-// -sin(a) sin redondear antes de guardar
-float NegSinX87(float fAng) {
-    float fOut;
-    __asm {
-        fld  fAng
-        fsin
-        fchs
-        fstp fOut
-    }
-    return fOut;
-}
-
-float CosX87(float fAng) {
-    float fOut;
-    __asm {
-        fld  fAng
-        fcos
-        fstp fOut
-    }
-    return fOut;
-}
 
 // Como el original: rand() del EXE (0x821B1E)
 inline int32 Rand() { return (int32)CGeneral::GetRandomNumber(); }
@@ -304,8 +244,8 @@ void CWeather::AddRain() {
             }
 
             CVector probe;
-            probe.x = SinMulAddX87(angle, radius, TheCamera.GetPosition().x);
-            probe.y = CosMulAddX87(angle, radius, TheCamera.GetPosition().y);
+            probe.x = TrigCompoundSinMulAdd(angle, radius, TheCamera.GetPosition().x);
+            probe.y = TrigCompoundCosMulAdd(angle, radius, TheCamera.GetPosition().y);
             probe.z = 40.0f;
 
             CColPoint colPoint;
@@ -884,7 +824,7 @@ void CWeather::Update() {
         WindDir.y = wc * 0.7f;
 
         const int32 e = (int32)((time >> 10) & 0xF);
-        const float a = HalfMinusHalfCosX87(((float)(time & 0x3FF) * 0.0009765625f) * PI_F);
+        const float a = WeatherHalfMinusHalfCosCpp(((float)(time & 0x3FF) * 0.0009765625f) * PI_F);
         const float b = 1.0f - a;
         float X = (((a * WindGustTableB[(e + 1) & 0xF]) + (b * WindGustTableB[e])) * WindClipped) * 0.4f + WindDir.x;
         float Y = (((b * WindGustTableB[(e + 3) & 0xF]) + (a * WindGustTableB[(e + 4) & 0xF])) * WindClipped) * 0.4f + WindDir.y;
@@ -901,7 +841,7 @@ void CWeather::Update() {
         }
 
         const int32 e3 = (int32)((time >> 11) & 0xF);
-        const float c  = HalfMinusHalfCosX87(((float)(time & 0x7FF) * 0.00048828125f) * PI_F);
+        const float c  = WeatherHalfMinusHalfCosCpp(((float)(time & 0x7FF) * 0.00048828125f) * PI_F);
         const float d  = 1.0f - c;
         const float m  = d * WindGustTableA[e3] + c * WindGustTableA[(e3 + 1) & 0xF];
         WindDir.x = m * X;
@@ -999,8 +939,8 @@ void CWeather::UpdateInTunnelness() {
             const CVector& mf = TheCamera.m_matrix->GetForward();
             fwd = CVector{mf.x, mf.y, mf.z};
         } else {
-            fwd.x = NegSinX87(TheCamera.m_placement.m_fHeading);
-            fwd.y = CosX87(TheCamera.m_placement.m_fHeading);
+            fwd.x = WeatherNegSinCpp(TheCamera.m_placement.m_fHeading);
+            fwd.y = TrigSimpleCosCpp(TheCamera.m_placement.m_fHeading);
         }
         fwd.z = 0.0f;
         fwd.Normalise();

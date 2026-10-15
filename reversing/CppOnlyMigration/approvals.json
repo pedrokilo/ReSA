@@ -3329,5 +3329,429 @@
     "state_restored": true,
     "helper_codegen": "reversing/CppNineteenFilesStudy/README.md",
     "scope": "TrigSimpleSinMulCpp / TrigSimpleCosMulCpp, WeaponFxMulDoubleAddCpp y WeaponFxAngleSinCosCpp (atan2 sin redondear; 1 - cos con el coseno sin redondear). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00454C70": {
+    "identity": "CPickup::IsVisible (PickupIsVisibleKeepEdx) y PickupRevenueIncrement",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/Pickup.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "PickWeap1",
+    "run": "20261014-232058-742076",
+    "pairs": 11020,
+    "own_pairs": 11020,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\PickWeap1-20261014-232058-742076/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "PickupsPending",
+        "run": "20261014-234539-172452",
+        "pairs": 2048,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\PickupsPending-20261014-234539-172452/summary.json"
+      }
+    ],
+    "scope": "Puente de residuo de registros con ResidueRegsCpp (verificado por contrib/audit_register_residue.py) e incremento de ingresos con UnsignedTimesFloatCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005A07D0": {
+    "identity": "CObject::ProcessSamSiteBehaviour, SetMatrixForTrainCrossing y ayudantes (ObjMulByCrtPow, ObjTrainCrossingAngle, ObjDoorAngleDiff)",
+    "converted_source_functions": 5,
+    "source": "source/game_sa/Entity/Object/Object.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Object48",
+    "run": "20261014-230622-112884",
+    "pairs": 18368,
+    "own_pairs": 18368,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\Object48-20261014-230622-112884/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "scope": "Ayudantes Object* de X87Math bajo float_control(precise); la potencia de la CRT queda en un ayudante aparte. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x006CE370": {
+    "identity": "CQuadBike (QuadDeltaStoredDamp, QuadDeltaFullDamp, QuadPowTimes, QuadLeanAngle, QuadAtan2)",
+    "converted_source_functions": 5,
+    "source": "source/game_sa/Entity/Vehicle/QuadBike.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Misc61b",
+    "run": "20261014-230804-578500",
+    "pairs": 21504,
+    "own_pairs": 21504,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\Misc61b-20261014-230804-578500/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "scope": "Ayudantes QuadBike* de X87Math; atan2 y pow en funciones aparte sin precise. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00443DB0": {
+    "identity": "CGangWars::CalculateTimeTillNextAttack, GangWaveRandomOffset, GangDefenderOffset y GangWarTimeDelta",
+    "converted_source_functions": 4,
+    "source": "source/game_sa/GangWars.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "GangEvent1",
+    "run": "20261014-231251-023856",
+    "pairs": 17792,
+    "own_pairs": 17792,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\GangEvent1-20261014-231251-023856/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "GangWarsPending",
+        "run": "20261014-231452-010940",
+        "pairs": 3072,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\GangWarsPending-20261014-231452-010940/summary.json"
+      }
+    ],
+    "scope": "Ayudantes GangWars* de X87Math; enteros sin signo como fild + 2^32. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005F1500": {
+    "identity": "CPedGeometryAnalyser::ComputeEntityDirs, GeometryPlaneOffset y las dos funciones de longitud de ruta",
+    "converted_source_functions": 4,
+    "source": "source/game_sa/PedGeometryAnalyser.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "GeometryCore355",
+    "run": "20261014-231556-034090",
+    "pairs": 4608,
+    "own_pairs": 4608,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\GeometryCore355-20261014-231556-034090/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "GeometryRoutes355",
+        "run": "20261014-231701-462428",
+        "pairs": 3072,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\GeometryRoutes355-20261014-231701-462428/summary.json"
+      },
+      {
+        "bank": "RequestedGeometryPlanesV2",
+        "run": "20261014-231831-751501",
+        "pairs": 2048,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\RequestedGeometryPlanesV2-20261014-231831-751501/summary.json"
+      }
+    ],
+    "scope": "Ayudantes PedGeom* de X87Math. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005618D0": {
+    "identity": "CTimer::UpdateVariables y ayudantes X87DivByU32, X87AddU32Ftol, X87MulU32Ftol y X87U64ToFloat",
+    "converted_source_functions": 5,
+    "source": "source/game_sa/Timer.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Sys13",
+    "run": "20261014-231910-359234",
+    "pairs": 15872,
+    "own_pairs": 15872,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\Sys13-20261014-231910-359234/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "scope": "Ayudantes Timer* de X87Math con enteros sin signo y 64 bits como el EXE. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0073C710": {
+    "identity": "CWeapon (AsinDegreesX87, SetUpPelletCol, DoDriveByAutoAiming, FireAreaEffect, FireFromCar, InstantHitSwayAccumulate355, InstantHitOscillation, Fire)",
+    "converted_source_functions": 8,
+    "source": "source/game_sa/Weapon.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "WeaponInstant355",
+    "run": "20261014-232351-221061",
+    "pairs": 20480,
+    "own_pairs": 20480,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\WeaponInstant355-20261014-232351-221061/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "WeaponDrive355",
+        "run": "20261014-232205-439742",
+        "pairs": 1024,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\WeaponDrive355-20261014-232205-439742/summary.json"
+      },
+      {
+        "bank": "WeaponFinal2",
+        "run": "20261014-232249-442181",
+        "pairs": 7808,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\WeaponFinal2-20261014-232249-442181/summary.json"
+      },
+      {
+        "bank": "PickWeap1",
+        "run": "20261014-232058-742076",
+        "pairs": 11020,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\PickWeap1-20261014-232058-742076/summary.json"
+      }
+    ],
+    "scope": "Ayudantes Weapon* de X87Math (incl. WeaponTanCpp, WeaponLessThanTanCpp, WeaponSwayAccumulateCpp y WeaponHeadingDegreesCpp). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0072B850": {
+    "identity": "CWeather (SinMulAddX87, CosMulAddX87, HalfMinusHalfCosX87, NegSinX87, CosX87)",
+    "converted_source_functions": 5,
+    "source": "source/game_sa/Weather.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Fx43",
+    "run": "20261014-232841-373067",
+    "pairs": 15552,
+    "own_pairs": 15552,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\Fx43-20261014-232841-373067/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "scope": "Ayudantes Weather* de X87Math (seno/coseno sin redondear donde el EXE los deja en ST0). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005FD810": {
+    "identity": "CPedGroupPlacer::PlaceGroup (conmutador naked) y PlaceCircularGroup",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/PedGroupPlacer.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "GroupPlacerPending",
+    "run": "20261014-232656-105636",
+    "pairs": 3072,
+    "own_pairs": 3072,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\GroupPlacerPending-20261014-232656-105636/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "RequestedGroupPlacerCorrectedV2",
+        "run": "20261014-232759-850660",
+        "pairs": 1536,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\RequestedGroupPlacerCorrectedV2-20261014-232759-850660/summary.json"
+      }
+    ],
+    "scope": "PlaceGroup pasa a C++ plano (noinline en PlaceChatGroup/PlaceRandomGroup); círculo con PedGroupPlacerCircleCpp. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00506800": {
+    "identity": "CAEWeatherAudioEntity::AddAudioEvent, UpdateParameters y Service",
+    "converted_source_functions": 3,
+    "source": "source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "AudioCompletion",
+    "run": "20261014-235222-130245",
+    "pairs": 10086,
+    "own_pairs": 10086,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\AudioCompletion-20261014-235222-130245/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "scope": "Ayudantes WeatherAudio* de X87Math. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004B4AC0": {
+    "identity": "CEventKnockOffBike::SetPedSafePosition y ayudantes X87Mul, X87Mul4, X87MulAdd y X87Combine",
+    "converted_source_functions": 5,
+    "source": "source/game_sa/Events/EventKnockOffBike.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Data8b",
+    "run": "20261015-000418-693806",
+    "pairs": 17024,
+    "own_pairs": 17024,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\Data8b-20261015-000418-693806/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "scope": "Ayudantes KnockOff* de X87Math. El banco Data8b necesitó dos interceptaciones nuevas en la DLL (CCamera::IsSphereVisible y CPathFind::FindNodeOrientationForCarPlacement) con el mismo Fake que en el EXE; ninguna compuerta se relajó. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0058A330": {
+    "identity": "CHud::DrawRadar y DrawSubtitles (SubtitleScaleY, SubtitleCentreVitals y SubtitleScaleX)",
+    "converted_source_functions": 5,
+    "source": "source/game_sa/Hud.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "HudCamFinal2",
+    "run": "20261014-233306-589435",
+    "pairs": 6528,
+    "own_pairs": 6528,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\HudCamFinal2-20261014-233306-589435/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "HudSubtitles355",
+        "run": "20261014-233224-328758",
+        "pairs": 1024,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\HudSubtitles355-20261014-233224-328758/summary.json"
+      }
+    ],
+    "scope": "Ayudantes Hud* de X87Math. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00737C80": {
+    "identity": "CProjectileInfo (ProjectileCreatorHeading, ProjectileThrownVelocity, ProjectileDamping, RemoveBackwardProjectileSteering, AddProjectileSteering, LimitProjectileSpeed)",
+    "converted_source_functions": 6,
+    "source": "source/game_sa/ProjectileInfo.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "ProjectileAdd355",
+    "run": "20261014-233410-530247",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\ProjectileAdd355-20261014-233410-530247/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "ProjectileUpdate355",
+        "run": "20261014-233510-905839",
+        "pairs": 8192,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\ProjectileUpdate355-20261014-233510-905839/summary.json"
+      }
+    ],
+    "scope": "Ayudantes ProjInfo* de X87Math. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0064F1E0": {
+    "identity": "CCarEnterExit::ComputePassengerIndexFromCarDoor (puente KeepEdx), GetNearestCarDoor e IsPlayerToQuitCarEnter",
+    "converted_source_functions": 3,
+    "source": "source/game_sa/CarEnterExit.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CarEnterWave4",
+    "run": "20261014-233713-020915",
+    "pairs": 3840,
+    "own_pairs": 3840,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\CarEnterWave4-20261014-233713-020915/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "CarQuit355",
+        "run": "20261014-233626-090069",
+        "pairs": 4096,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\CarQuit355-20261014-233626-090069/summary.json"
+      },
+      {
+        "bank": "MiscWave2",
+        "run": "20261014-233804-444346",
+        "pairs": 19264,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\MiscWave2-20261014-233804-444346/summary.json"
+      }
+    ],
+    "scope": "Puente de residuo con #pragma runtime_checks off, safebuffers y CarEnterExitEntryEdxCpp (verificado por audit_register_residue.py). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0060A820": {
+    "identity": "CPlayerPed::GetButtonSprintResults (puente KeepEdx) y ayudantes PlayerPedATanMinus y PlayerPedAtan2",
+    "converted_source_functions": 3,
+    "source": "source/game_sa/Entity/Ped/PlayerPed.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "PlayerPed51",
+    "run": "20261014-233859-225659",
+    "pairs": 11648,
+    "own_pairs": 11648,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\PlayerPed51-20261014-233859-225659/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "scope": "Puente de residuo con PlayerPedResidueFloatCpp y safebuffers (verificado por audit_register_residue.py). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x0043EAF0": {
+    "identity": "CEntryExit::GetPositionRelativeToOutsideWorld (puente KeepEdx), FindValidTeleportPoint e IsInArea",
+    "converted_source_functions": 3,
+    "source": "source/game_sa/EntryExit.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "World11",
+    "run": "20261014-234115-440539",
+    "pairs": 16704,
+    "own_pairs": 16704,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\World11-20261014-234115-440539/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "HookUnlockAudit",
+        "run": "20261014-234304-385322",
+        "pairs": 2048,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\HookUnlockAudit-20261014-234304-385322/summary.json"
+      }
+    ],
+    "scope": "Puente de residuo con EntryEaxCpp (verificado por audit_register_residue.py). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x006F6CC0": {
+    "identity": "CTrain (TrainProjection355, TrainLighting355, TrainLightingBlend355, TrainRailDistance355, ScaleByExePow, ScaleSixByExePow, HeadingMinusOld)",
+    "converted_source_functions": 7,
+    "source": "source/game_sa/Entity/Vehicle/Train.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "TrainWave3",
+    "run": "20261014-234452-366375",
+    "pairs": 1024,
+    "own_pairs": 1024,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\TrainWave3-20261014-234452-366375/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "additional_banks": [
+      {
+        "bank": "TrainPosition355",
+        "run": "20261014-234403-433378",
+        "pairs": 1024,
+        "summary": "reversing/CppTwentyFilesUnified/runs\\TrainPosition355-20261014-234403-433378/summary.json"
+      }
+    ],
+    "scope": "Ayudantes Train* de X87Math. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00458970": {
+    "identity": "CPickups (CreatePickupCoorsCloseToCoors, CreateSomeMoney, PickupGlowByte, DoPickUpEffects)",
+    "converted_source_functions": 4,
+    "source": "source/game_sa/Pickups.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "PickupsPending",
+    "run": "20261014-234539-172452",
+    "pairs": 2048,
+    "own_pairs": 2048,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\PickupsPending-20261014-234539-172452/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "scope": "Ayudantes Pickups* de X87Math. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D1610": {
+    "identity": "RpAnimBlend NormaliseQuatExe (AnimQuaternionNormaliseCpp)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "RpAnim43",
+    "run": "20261014-234934-141154",
+    "pairs": 13248,
+    "own_pairs": 13248,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\RpAnim43-20261014-234934-141154/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "scope": "Solo se convirtió NormaliseQuatExe; los seis bloques que quedan en el archivo son puentes al EXE con argumento en EAX y no se tocaron. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00704150": {
+    "identity": "CPostEffects (RippleWave, RippleFinalU, FogSinCoord, FogCosCoord, InfraredVisionStoreAndSetLightsForHeatObjects)",
+    "converted_source_functions": 6,
+    "source": "source/game_sa/PostEffects.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "FxPost1",
+    "run": "20261014-234733-642409",
+    "pairs": 15488,
+    "own_pairs": 15488,
+    "audit": "reversing/CppTwentyFilesUnified/runs\\FxPost1-20261014-234733-642409/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwentyFilesStudy/README.md",
+    "scope": "Ayudantes PostFx* de X87Math (log y tan como intrínsecos). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
   }
 }

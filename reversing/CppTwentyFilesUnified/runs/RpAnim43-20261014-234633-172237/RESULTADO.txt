@@ -1,0 +1,3 @@
+FALLO: Plugin RpAnimBlend (lista de 43)
+GTA no responde (ventana colgada y sin progreso 30 s; abortado).
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-rpanim43\20261014-234633-172237

@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "oswrapper.h"
+#include "X87Math.h"
 
 
 void CTimer::InjectHooks()
@@ -63,80 +64,6 @@ bool QueryTimerFrequency(uint32& frequencyLow) {
     frequencyLow = frequency.LowPart;
     return true;
 }
-
-namespace {
-// Las funciones del reloj del EXE cargan los enteros con fild (exactos, con +2^32 si son negativos como int32)
-// y convierten con _ftol2 (0x821B40, truncado a 64 bits; se llama al del EXE). Se replican con el x87 para redondear igual.
-// fild den (+2^32) ; fdivr num
-float X87DivByU32(float num, uint32 den) {
-    const float twoPow32 = 4294967296.0f;
-    float result;
-    __asm {
-        fild dword ptr [den]
-        mov eax, den
-        test eax, eax
-        jge den_positive
-        fadd dword ptr [twoPow32]
-    den_positive:
-        fdivr dword ptr [num]
-        fstp dword ptr [result]
-    }
-    return result;
-}
-
-// fild base (+2^32) ; fadd q ; _ftol2
-uint32 X87AddU32Ftol(uint32 base, float q) {
-    const float twoPow32 = 4294967296.0f;
-    uint32 result;
-    __asm {
-        fild dword ptr [base]
-        mov eax, base
-        test eax, eax
-        jge base_positive
-        fadd dword ptr [twoPow32]
-    base_positive:
-        fadd dword ptr [q]
-        mov ecx, 0x821B40
-        call ecx
-        mov result, eax
-    }
-    return result;
-}
-
-// fild value (+2^32) ; fmul factor ; _ftol2
-uint32 X87MulU32Ftol(uint32 value, float factor) {
-    const float twoPow32 = 4294967296.0f;
-    uint32 result;
-    __asm {
-        fild dword ptr [value]
-        mov eax, value
-        test eax, eax
-        jge value_positive
-        fadd dword ptr [twoPow32]
-    value_positive:
-        fmul dword ptr [factor]
-        mov ecx, 0x821B40
-        call ecx
-        mov result, eax
-    }
-    return result;
-}
-
-// uint64 -> float como en 0x561BA2: (v & 0x7FFF...) + 2^63 con un solo redondeo
-float X87U64ToFloat(uint64 value) {
-    const uint32 lo = (uint32)value, hi = (uint32)(value >> 32);
-    uint32 lowPart[2]{ lo, hi & 0x7FFFFFFFu }, signPart[2]{ 0u, hi & 0x80000000u };
-    float result;
-    __asm {
-        fild qword ptr [lowPart]
-        fild qword ptr [signPart]
-        fchs
-        faddp st(1), st
-        fstp dword ptr [result]
-    }
-    return result;
-}
-} // namespace
 
 // 0x5617E0
 void CTimer::Initialise()
@@ -238,7 +165,7 @@ uint32 CTimer::GetCyclesPerMillisecond()
 // 0x561A50
 uint32 CTimer::GetCyclesPerFrame()
 {
-    return X87MulU32Ftol(m_snTimerDivider, 20.0f); // Como el original: fild + fmul 20 + _ftol2
+    return static_cast<uint32>(MfDecoderCursorToPlayTimeCpp(m_snTimerDivider, 20.0f)); // Como el original: fild (+2^32) + fmul 20 + _ftol2
 }
 
 // 0x561A80
@@ -289,40 +216,11 @@ void CTimer::UpdateVariables(float timeElapsed)
     // el paso no recortado es q * 0,05 (no q / 20) y los ms se truncan antes de limitar a 300 (sin signo).
     // Como el original (0x5618D0..0x56191A): q queda en la pila del x87 (exponente extendido) para la suma, el
     // producto por 0,05 (un denormal se guarda como denormal, no se anula como con SSE) y el truncado de los ms.
-    uint32 elapsedMs;
-    {
-        const uint32 divider = m_snTimerDivider, nonClipped = m_snTimeInMillisecondsNonClipped;
-        const float twoPow32 = 4294967296.0f, stepScale = std::bit_cast<float>(0x3D4CCCCDu); // 0x858C28
-        uint32 newNonClipped;
-        float stepNonClipped;
-        __asm {
-            fild dword ptr [divider]
-            mov eax, divider
-            test eax, eax
-            jge div_positive
-            fadd dword ptr [twoPow32]
-        div_positive:
-            fdivr dword ptr [timeElapsed]
-            fild dword ptr [nonClipped]
-            mov eax, nonClipped
-            test eax, eax
-            jge nc_positive
-            fadd dword ptr [twoPow32]
-        nc_positive:
-            fadd st, st(1)
-            mov ecx, 0x821B40
-            call ecx
-            mov newNonClipped, eax
-            fld dword ptr [stepScale]
-            fmul st, st(1)
-            fstp dword ptr [stepNonClipped]
-            mov ecx, 0x821B40
-            call ecx
-            mov elapsedMs, eax
-        }
-        m_snTimeInMillisecondsNonClipped = newNonClipped;
-        ms_fTimeStepNonClipped = stepNonClipped;
-    }
+    uint32 elapsedMs, newNonClipped;
+    float stepNonClipped;
+    TimerUpdateStepCpp(timeElapsed, m_snTimerDivider, m_snTimeInMillisecondsNonClipped, &newNonClipped, &stepNonClipped, &elapsedMs);
+    m_snTimeInMillisecondsNonClipped = newNonClipped;
+    ms_fTimeStepNonClipped = stepNonClipped;
     if (elapsedMs > 300) {
         elapsedMs = 300;
     }
@@ -346,7 +244,7 @@ void CTimer::Update() {
         return;
 
     m_sbEnableTimeDebug = true;
-    game_FPS = X87DivByU32(1000.0f, m_snTimeInMillisecondsNonClipped - m_snPreviousTimeInMillisecondsNonClipped);
+    game_FPS = TimerDivByU32Cpp(1000.0f, m_snTimeInMillisecondsNonClipped - m_snPreviousTimeInMillisecondsNonClipped);
 
     // Update history
     m_snPPPPreviousTimeInMilliseconds = m_snPPPreviousTimeInMilliseconds;
@@ -358,12 +256,12 @@ void CTimer::Update() {
 
     // Como el original: diferencia de 64 bits convertida a float sin signo con un solo redondeo
     const uint64 nRenderTimeNow = ms_fnTimerFunction();
-    auto fTimeDelta = X87U64ToFloat(nRenderTimeNow - m_snRenderStartTime);
+    auto fTimeDelta = TimerU64ToFloatCpp(nRenderTimeNow - m_snRenderStartTime);
     if (!GetIsPaused())
         fTimeDelta = ms_fTimeScale * fTimeDelta;
     m_snRenderStartTime = nRenderTimeNow;
 
-    m_snTimeInMillisecondsPauseMode = X87AddU32Ftol(m_snTimeInMillisecondsPauseMode, X87DivByU32(fTimeDelta, m_snTimerDivider));
+    m_snTimeInMillisecondsPauseMode = TimerPauseModeCpp(m_snTimeInMillisecondsPauseMode, fTimeDelta, m_snTimerDivider);
     if (GetIsPaused())
         fTimeDelta = 0.0f;
 

@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 
 #include "TaskComplexEnterCar.h"
 #include "TaskSimpleCarSetPedOut.h"
+#include "X87Math.h"
 
 void CEventKnockOffBike::InjectHooks()
 {
@@ -161,49 +162,19 @@ void CEventKnockOffBike::SetPedOutCar(CPed* ped)
 }
 
 namespace {
-// Como el original: productos y sumas en el x87 (sin vaciar desnormales y con el exponente extendido hasta el fstp)
-float X87Mul(float a, float b) {
-    float r;
-    __asm {
-        fld a
-        fmul b
-        fstp r
-    }
+// Como el original: productos y sumas en el x87 (sin vaciar desnormales y con el exponente extendido hasta el fstp);
+// la secuencia exacta de cada componente vive en X87Math (KnockOff*Cpp).
+CVector KnockOffScale(const CVector& v, float k) {
+    CVector r;
+    KnockOffScaleCpp(&v.x, k, &r.x);
     return r;
 }
 
-float X87Mul4(float a, float b, float c, float d) {
-    float r;
-    __asm {
-        fld a
-        fmul b
-        fmul c
-        fmul d
-        fstp r
-    }
+// up * upK + side * sideK; up es el primer sumando del EXE (x, y sin redondear; z guardado como float)
+CVector KnockOffCombine(const CVector& up, float upK, const CVector& side, float sideK) {
+    CVector r;
+    KnockOffCombineCpp(&up.x, upK, &side.x, sideK, &r.x);
     return r;
-}
-
-// a * ca + b * cb
-float X87MulAdd(float a, float ca, float b, float cb) {
-    float r;
-    __asm {
-        fld a
-        fmul ca
-        fld b
-        fmul cb
-        faddp st(1), st
-        fstp r
-    }
-    return r;
-}
-
-CVector X87Scale(const CVector& v, float k) {
-    return { X87Mul(v.x, k), X87Mul(v.y, k), X87Mul(v.z, k) };
-}
-
-CVector X87Combine(const CVector& a, float ca, const CVector& b, float cb) {
-    return { X87MulAdd(a.x, ca, b.x, cb), X87MulAdd(a.y, ca, b.y, cb), X87MulAdd(a.z, ca, b.z, cb) };
 }
 } // namespace
 
@@ -214,15 +185,7 @@ int32 CEventKnockOffBike::CalcForcesAndAnims(CPed* ped)
     constexpr int32 DEFAULT_ANIM = 15;
 
     uint8 numContactWheels = 0;
-    float massRatio;
-    {
-        const float pedMass = ped->m_fMass, vehMass = m_vehicle->m_fMass;
-        __asm {
-            fld pedMass
-            fdiv vehMass
-            fstp massRatio
-        }
-    }
+    const float massRatio = KnockOffRatioCpp(ped->m_fMass, m_vehicle->m_fMass);
     if (m_vehicle->IsBike())
         numContactWheels = m_vehicle->AsBike()->m_nNoOfContactWheels;
     else if (m_vehicle->IsAutomobile())
@@ -248,7 +211,7 @@ int32 CEventKnockOffBike::CalcForcesAndAnims(CPed* ped)
         case 0:
         {
             if (speedSq < 0.09f) {
-                CVector force = X87Combine(m_vehicle->m_matrix->GetForward(), -6.0f, m_vehicle->m_matrix->GetUp(), 5.0f);
+                CVector force = KnockOffCombine(m_vehicle->m_matrix->GetUp(), 5.0f, m_vehicle->m_matrix->GetForward(), -6.0f);
                 ped->ApplyMoveForce(force);
             }
             ped->m_pEntityIgnoredCollision = m_vehicle;
@@ -259,12 +222,12 @@ int32 CEventKnockOffBike::CalcForcesAndAnims(CPed* ped)
         {
             if (!(speedSq > 0.09f)) {
                 ped->m_vecMoveSpeed = m_vehicle->m_vecMoveSpeed;
-                CVector force = X87Combine(m_vehicle->m_matrix->GetUp(), 4.0f, m_vehicle->m_matrix->GetRight(), 8.0f);
+                CVector force = KnockOffCombine(m_vehicle->m_matrix->GetUp(), 4.0f, m_vehicle->m_matrix->GetRight(), 8.0f);
                 ped->ApplyMoveForce(force);
                 return ANIM_ID_KD_LEFT;
             }
-            ped->m_vecMoveSpeed = X87Scale(m_vehicle->m_vecMoveSpeed, 0.3f);
-            CVector force = X87Combine(m_vehicle->m_matrix->GetUp(), 5.0f, m_vehicle->m_matrix->GetRight(), 6.0f);
+            ped->m_vecMoveSpeed = KnockOffScale(m_vehicle->m_vecMoveSpeed, 0.3f);
+            CVector force = KnockOffCombine(m_vehicle->m_matrix->GetUp(), 5.0f, m_vehicle->m_matrix->GetRight(), 6.0f);
             ped->ApplyMoveForce(force);
             return ANIM_ID_KO_SPIN_R;
         }
@@ -272,12 +235,12 @@ int32 CEventKnockOffBike::CalcForcesAndAnims(CPed* ped)
         {
             if (!(speedSq > 0.09f)) {
                 ped->m_vecMoveSpeed = m_vehicle->m_vecMoveSpeed;
-                CVector force = X87Combine(m_vehicle->m_matrix->GetUp(), 4.0f, m_vehicle->m_matrix->GetRight(), -8.0f);
+                CVector force = KnockOffCombine(m_vehicle->m_matrix->GetUp(), 4.0f, m_vehicle->m_matrix->GetRight(), -8.0f);
                 ped->ApplyMoveForce(force);
                 return ANIM_ID_KD_RIGHT;
             }
-            ped->m_vecMoveSpeed = X87Scale(m_vehicle->m_vecMoveSpeed, 0.3f);
-            CVector force = X87Combine(m_vehicle->m_matrix->GetUp(), 5.0f, m_vehicle->m_matrix->GetRight(), -6.0f);
+            ped->m_vecMoveSpeed = KnockOffScale(m_vehicle->m_vecMoveSpeed, 0.3f);
+            CVector force = KnockOffCombine(m_vehicle->m_matrix->GetUp(), 5.0f, m_vehicle->m_matrix->GetRight(), -6.0f);
             ped->ApplyMoveForce(force);
             return ANIM_ID_KO_SPIN_L;
         }
@@ -293,8 +256,8 @@ int32 CEventKnockOffBike::CalcForcesAndAnims(CPed* ped)
             factor = -0.2f;
         // Como el original: ApplyMoveForce(x, y, 0)
         ped->ApplyMoveForce(
-            X87Mul4(factor, m_collisionImpactVelocity.x, massRatio, m_damageIntensity),
-            X87Mul4(factor, m_collisionImpactVelocity.y, massRatio, m_damageIntensity),
+            KnockOffMul4Cpp(factor, m_collisionImpactVelocity.x, massRatio, m_damageIntensity),
+            KnockOffMul4Cpp(factor, m_collisionImpactVelocity.y, massRatio, m_damageIntensity),
             0.0f
         );
         float randomNum = 5.0f;
@@ -325,7 +288,7 @@ int32 CEventKnockOffBike::CalcForcesAndAnims(CPed* ped)
     }
     case KNOCK_OFF_TYPE_FALL:
     {
-        ped->m_vecMoveSpeed = X87Scale(m_vehicle->m_vecMoveSpeed, 0.2f);
+        ped->m_vecMoveSpeed = KnockOffScale(m_vehicle->m_vecMoveSpeed, 0.2f);
         ped->m_vecMoveSpeed.z = 0.0f;
         ped->m_pEntityIgnoredCollision = m_vehicle;
         return ANIM_ID_FALL_FALL;
@@ -336,8 +299,8 @@ int32 CEventKnockOffBike::CalcForcesAndAnims(CPed* ped)
         // Como el original: el número aleatorio se pide antes de calcular x e y
         const float forceZ = CGeneral::GetRandomNumberInRange(3.0f, 5.0f);
         ped->ApplyMoveForce(
-            X87Mul4(-0.3f, m_collisionImpactVelocity.x, massRatio, m_damageIntensity),
-            X87Mul4(-0.3f, m_collisionImpactVelocity.y, massRatio, m_damageIntensity),
+            KnockOffMul4Cpp(-0.3f, m_collisionImpactVelocity.x, massRatio, m_damageIntensity),
+            KnockOffMul4Cpp(-0.3f, m_collisionImpactVelocity.y, massRatio, m_damageIntensity),
             forceZ
         );
         ped->m_pEntityIgnoredCollision = m_vehicle;
@@ -383,25 +346,9 @@ bool CEventKnockOffBike::SetPedSafePosition(CPed* ped)
         if (vehMat) {
             const float fwdX = vehMat->GetForward().x, fwdY = vehMat->GetForward().y;
             if (upZ < 0.0f) {
-                const float pi = std::bit_cast<float>(0x40490FDBu);
-                float sum;
-                __asm {
-                    fld fwdX
-                    fchs
-                    fld fwdY
-                    fpatan
-                    fadd pi
-                    fstp sum
-                }
-                heading = CGeneral::LimitRadianAngle(sum);
+                heading = CGeneral::LimitRadianAngle(KnockOffHeadingCpp(fwdX, fwdY, true));
             } else {
-                __asm {
-                    fld fwdX
-                    fchs
-                    fld fwdY
-                    fpatan
-                    fstp heading
-                }
+                heading = KnockOffHeadingCpp(fwdX, fwdY, false);
             }
         } else {
             heading = m_vehicle->m_placement.m_fHeading;

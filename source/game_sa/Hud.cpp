@@ -33,6 +33,7 @@ END GENERATED HOOK STATUS */
 #include "EntryExitManager.h"
 #include "TaskSimpleUseGun.h"
 #include "eHud.h"
+#include "X87Math.h"
 
 namespace {
 // Constantes float leidas del EXE (algunas no son el float mas cercano al literal decimal).
@@ -1239,15 +1240,8 @@ void CHud::DrawRadar() {
         const float negRightZ = -matrix.GetRight().z;
         const float upZ       = matrix.GetUp().z;
         const float quarterPi = ExeFloat(0x859AB0);
-        float baseAngle;
-        __asm {
-            fld  dword ptr [negRightZ]
-            fld  dword ptr [upZ]
-            fpatan
-            fchs
-            fsub dword ptr [quarterPi]
-            fstp dword ptr [baseAngle]
-        }
+        // fld negRightZ; fld upZ; fpatan; fchs; fsub quarterPi; fstp (0x58A422..0x58A435): -atan2(-right.z, up.z) - pi/4 con un solo redondeo
+        const float baseAngle = HudRadarBaseAngleCpp(negRightZ, upZ, quarterPi);
         const float p1      = ExeFloat(0x866B78) * sx;              // 94.0 * sx
         const float radiusX = p1 - sx * ExeFloat(0x859008);         // p1 - 18.0 * sx
         const float centerX = p1 * ExeFloat(0x858B8C);              // p1 * 0.5
@@ -1259,18 +1253,8 @@ void CHud::DrawRadar() {
         float xs[4], ys[4];
         for (int32 k = 0; k < 4; ++k) {
             const float angle = (float)k * halfPi + baseAngle;
-            float sinA, cosA;
-            __asm {
-                fld  dword ptr [angle]
-                fld  st(0)
-                fsin
-                fxch st(1)
-                fcos
-                fstp dword ptr [cosA]
-                fstp dword ptr [sinA]
-            }
-            xs[k] = ((zero * cosA + sinA) * radiusX + sx40) + centerX;
-            ys[k] = (((cosA - zero * sinA) * radiusY) + centerY) + baseY;
+            // fsin/fcos sin redondear (0x58A4C4..0x58A4F6): el seno y el coseno entran en la x87 sin pasar por float
+            HudRadarRingPointCpp(angle, zero, radiusX, radiusY, sx40, centerX, centerY, baseY, &xs[k], &ys[k]);
         }
         // Orden de argumentos del EXE (0x58A52B..0x58A551): (e1, e0, e2, e3)
         Sprites[SPRITE_RADAR_RING_PLANE].Draw(xs[1], ys[1], xs[0], ys[0], xs[2], ys[2], xs[3], ys[3], CRGBA(255, 255, 255, 255));
@@ -1384,58 +1368,17 @@ void CHud::DrawScriptText(bool isBeforeFade) {
 
 namespace {
 float SubtitleScaleY(int height, bool widescreen) {
-    float result;
-    __asm {
-        fild height
-        fmul dword ptr ds:[00859524h]
-        cmp widescreen, 0
-        je subtitle_scale_y_normal
-        fmul dword ptr ds:[00858F08h]
-        jmp subtitle_scale_y_store
-    subtitle_scale_y_normal:
-        fmul dword ptr ds:[00866C20h]
-    subtitle_scale_y_store:
-        fstp result
-    }
-    return result;
+    // fild height; fmul 0x859524; fmul (0x858F08 con pantalla ancha, 0x866C20 si no); fstp
+    return IntTimesTwoFloatsCpp(height, ExeFloat(0x859524), ExeFloat(widescreen ? 0x858F08 : 0x866C20));
 }
 float SubtitleCentreVitals(int width) {
-    float result;
-    __asm {
-        fild width
-        fld dword ptr ds:[00859520h]
-        fmul st, st(1)
-        fld dword ptr ds:[00859000h]
-        fmul st, st(1)
-        fld st(1)
-        fmul dword ptr ds:[00858BA4h]
-        fsubr st, st(3)
-        fsub st, st(1)
-        fxch st(2)
-        fmul dword ptr ds:[00865374h]
-        fadd st, st(1)
-        fsubp st(2), st
-        fxch st(1)
-        fmul dword ptr ds:[00858C98h]
-        fstp result
-        fstp st(0)
-        fstp st(0)
-    }
-    return result;
+    // 0x58C4F6..0x58C52F: la cadena x87 de fild/fmul/fsub/fadd con el ancho entero exacto; ayudante de X87Math
+    return HudSubtitleCentreVitalsCpp(width, ExeFloat(0x859520), ExeFloat(0x859000), ExeFloat(0x858BA4), ExeFloat(0x865374), ExeFloat(0x858C98));
 }
 float SubtitleScaleX(int width, bool vitals) {
-    float result;
-    __asm {
-        fild width
-        fmul dword ptr ds:[00859520h]
-        fmul dword ptr ds:[00866C24h]
-        cmp vitals, 0
-        je subtitle_scale_store
-        fmul dword ptr ds:[00858C98h]
-    subtitle_scale_store:
-        fstp result
-    }
-    return result;
+    // fild width; fmul 0x859520; fmul 0x866C24; [fmul 0x858C98 con vitals]; fstp (el producto parcial ya es un float de 24 bits)
+    const float base = IntTimesTwoFloatsCpp(width, ExeFloat(0x859520), ExeFloat(0x866C24));
+    return vitals ? base * ExeFloat(0x858C98) : base;
 }
 }
 // 0x58C250
@@ -1462,20 +1405,7 @@ void CHud::DrawSubtitles() {
         wasWidescreen = false;
         CFont::SetScaleForCurrentLanguage(SubtitleScaleX(RsGlobal.maximumWidth, false), SubtitleScaleY(RsGlobal.maximumHeight, false));
         // Como el original: mantiene ambos operandos en x87 hasta guardar la coordenada.
-        const int subtitleHeight = RsGlobal.maximumHeight;
-        __asm {
-            fild subtitleHeight
-            fld dword ptr ds:[00859524h]
-            fmul st, st(1)
-            fld dword ptr ds:[00866C1Ch]
-            fmul st, st(1)
-            fsubr st, st(2)
-            fxch st(1)
-            fadd st, st
-            fsubp st(1), st
-            fstp y
-            fstp st(0)
-        }
+        y = HudSubtitleBottomYCpp(RsGlobal.maximumHeight, ExeFloat(0x859524), ExeFloat(0x866C1C));
         if (CTheScripts::bUseMessageFormatting) {
             CFont::SetCentreSize(float(sx * CTheScripts::MessageWidth));
             x = float(sx * CTheScripts::MessageCentre);

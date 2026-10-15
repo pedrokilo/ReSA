@@ -1,0 +1,3 @@
+APROBADO: Eventos de bici y script, tareas de script, sombras, rectángulos y coches atascados (lista de 8)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-data8b\20261015-000418-693806

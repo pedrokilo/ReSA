@@ -1,0 +1,3 @@
+APROBADO: CBmx, CQuadBike, CCarFXRenderer y CStencilShadows
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-misc61b\20261014-230804-578500

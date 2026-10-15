@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "ProjectileInfo.h"
+#include "X87Math.h"
 
 #include "Entity/Object/Projectile.h"
 #include "Radar.h"
@@ -95,29 +96,16 @@ void CProjectileInfo::RemoveNotAdd(CEntity* creator, eWeaponType weaponType, CVe
 // 0x737C80
 static float ProjectileCreatorHeading(CEntity* creator) {
     if (!creator->m_matrix) return *reinterpret_cast<float*>(reinterpret_cast<uint8*>(creator) + 0x10);
-    const auto forward = creator->GetMatrix().GetForward(); const float headingInputX = forward.x, headingInputY = forward.y; float heading;
-    __asm {
-        fld headingInputX
-        fchs
-        fld headingInputY
-        fpatan
-        fstp heading
-    }
+    const auto forward = creator->GetMatrix().GetForward();
+    // fld y; fld x; fchs; fpatan -> atan2(-x, y), guardado como float (0x737D32).
+    const float heading = TrigAtan2Cpp(-forward.x, forward.y);
     return heading;
 }
 static CVector ProjectileThrownVelocity(float heading, float speed, float height) {
-    const float negative = StaticRef<float>(0x858C1C); float outputX, outputY;
-    __asm {
-        fld heading
-        fsin
-        fmul speed
-        fmul negative
-        fstp outputX
-        fld heading
-        fcos
-        fmul speed
-        fstp outputY
-    }
+    const float negative = StaticRef<float>(0x858C1C);
+    // fsin; fmul speed; fmul negative; fstp x. fcos; fmul speed; fstp y (0x737DA6).
+    const float outputX = TrigSimpleSinMulCpp(heading, speed) * negative;
+    const float outputY = TrigSimpleCosMulCpp(heading, speed);
     return CVector{outputX, outputY, height};
 }
 bool CProjectileInfo::AddProjectile(CEntity* creator, eWeaponType projectileType, CVector origin, float force, const CVector* dir, CEntity* target) {
@@ -259,135 +247,21 @@ template<typename T> T& ProjectileField(CEntity* entity, size_t offset) {
     return *reinterpret_cast<T*>(reinterpret_cast<uint8*>(entity) + offset);
 }
 float ProjectileDamping(float timestep) {
-    const float base = StaticRef<float>(0x8D6104); float result;
-    const uintptr_t powerFunction = 0x822130;
-    __asm {
-        fld base
-        fld timestep
-        call powerFunction
-        fstp result
-    }
+    const float base = StaticRef<float>(0x8D6104);
+    // fld base; fld timestep; call _CIpow (0x822130); fstp result (0x7395CF).
+    const float result = float(ExeCompatiblePowCpp(double(base), double(timestep)));
     return result;
 }
 // Preserve the missile's x87 factor until each component product is formed.
 void RemoveBackwardProjectileSteering(CVector& steering,const CVector& direction) {
-    const float zero=0.f;float productZ;
-    __asm {
-        mov eax,steering
-        mov edx,direction
-        fld dword ptr [eax+8]
-        fmul dword ptr [edx+8]
-        fld dword ptr [eax+4]
-        fmul dword ptr [edx+4]
-        faddp st(1),st(0)
-        fld dword ptr [eax]
-        fmul dword ptr [edx]
-        faddp st(1),st(0)
-        fcom zero
-        fnstsw ax
-        test ah,5
-        jp projectileSteeringUnchanged
-        mov eax,steering
-        mov edx,direction
-        fld dword ptr [edx]
-        fmul st(0),st(1)
-        fld dword ptr [edx+4]
-        fmul st(0),st(2)
-        fld dword ptr [edx+8]
-        fmul st(0),st(3)
-        fstp productZ
-        fld dword ptr [eax]
-        fsub st(0),st(2)
-        fstp dword ptr [eax]
-        fld dword ptr [eax+4]
-        fsub st(0),st(1)
-        fstp dword ptr [eax+4]
-        fstp st(0)
-        fstp st(0)
-        fstp st(0)
-        fld dword ptr [eax+8]
-        fsub productZ
-        fstp dword ptr [eax+8]
-        jmp projectileSteeringProjectionDone
-    projectileSteeringUnchanged:
-        fstp st(0)
-    projectileSteeringProjectionDone:
-    }
+    ProjInfoRemoveBackwardSteeringCpp(&steering.x, &direction.x);
 }
 void AddProjectileSteering(CVector& velocity, const CVector& steering, float acceleration, float timestep, bool fast) {
-    auto* output = &velocity;
-    const auto* input = &steering;
     const float speedMultiplier = StaticRef<float>(0x858F08);
-    float productY, productZ;
-    __asm {
-        push edi
-        mov edi,output
-        mov eax,input
-        fld acceleration
-        cmp fast,0
-        je factor_ready
-        fmul speedMultiplier
-    factor_ready:
-        fmul timestep
-        fld dword ptr [eax]
-        fmul st,st(1)
-        fld dword ptr [eax+4]
-        fmul st,st(2)
-        fstp productY
-        fld dword ptr [eax+8]
-        fmul st,st(2)
-        fstp productZ
-        fadd dword ptr [edi]
-        fstp dword ptr [edi]
-        fstp st(0)
-        fld productY
-        fadd dword ptr [edi+4]
-        fstp dword ptr [edi+4]
-        fld productZ
-        fadd dword ptr [edi+8]
-        fstp dword ptr [edi+8]
-        pop edi
-    }
+    ProjInfoAddSteeringCpp(&velocity.x, &steering.x, acceleration, timestep, fast, speedMultiplier);
 }
 void LimitProjectileSpeed(CProjectile* projectile) {
-    auto* velocity=&projectile->m_vecMoveSpeed;
-    const float limit=StaticRef<float>(0x872C00);
-    __asm {
-        mov eax,velocity
-        fld dword ptr [eax+8]
-        fld dword ptr [eax+4]
-        fld dword ptr [eax]
-        fld st(0)
-        fmul st(0),st(1)
-        fld st(2)
-        fmul st(0),st(3)
-        faddp st(1),st(0)
-        fld st(3)
-        fmul st(0),st(4)
-        faddp st(1),st(0)
-        fsqrt
-        fstp st(3)
-        fstp st(0)
-        fstp st(0)
-        fcom limit
-        fnstsw ax
-        test ah,41h
-        jne projectileLimitDone
-        mov eax,velocity
-        fdivr limit
-        fld st(0)
-        fmul dword ptr [eax]
-        fstp dword ptr [eax]
-        fld st(0)
-        fmul dword ptr [eax+4]
-        fstp dword ptr [eax+4]
-        fmul dword ptr [eax+8]
-        fstp dword ptr [eax+8]
-        jmp projectileLimitExit
-    projectileLimitDone:
-        fstp st(0)
-    projectileLimitExit:
-    }
+    ProjInfoLimitSpeedCpp(&projectile->m_vecMoveSpeed.x, StaticRef<float>(0x872C00));
 }
 }
 void CProjectileInfo::Update() {

@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "PostEffects.h"
 #include "CustomBuildingDNPipeline.h"
 #include "Clouds.h"
+#include "X87Math.h"
 
 auto& cc_vertices = StaticRef<std::array<RwIm2DVertex, 4>>(0xC400D8);
 auto& cc_indices = StaticRef<std::array<RwImVertexIndex, 12>>(0x8D5174); // { 0, 1, 2, 0, 2, 3, 0, 1, 2, 0, 2, 3 };
@@ -34,43 +35,14 @@ static inline auto& s_DayNightBalanceParamOld = StaticRef<float>(0xC3F860);
 static constexpr auto GRAIN_TEXTURE_DIM = 256u; // 256x256
 
 namespace {
-// Como el original: 0x7043D9..0x704465 (SetupBackBufferVertex). fldln2 ; fld qword [0x86F990] (2.0) ; fyl2x deja ln(2.0) que se guarda como DOUBLE
-// en memoria (fstp qword [esp+10h]) ; fldln2 ; fild n ; fyl2x ; fdiv qword [esp+10h] ; _ftol2. El cociente se redondea a la precision vigente (24 bits).
+// Como el original: 0x7043D9..0x704465 (SetupBackBufferVertex). ln(2.0) se guarda como DOUBLE y el cociente se redondea a 24 bits (ver PostFxLog2TruncViaDoubleCpp en X87Math.cpp).
 int32 ExeLog2TruncViaDouble(int32 value) {
-    const double base = StaticRef<double>(0x86F990);
-    double lnBase{};
-    float  quotient{};
-    __asm {
-        fldln2
-        fld   qword ptr [base]
-        fyl2x
-        fstp  qword ptr [lnBase]
-        fldln2
-        fild  dword ptr [value]
-        fyl2x
-        fdiv  qword ptr [lnBase]
-        fstp  dword ptr [quotient]
-    }
-    return static_cast<int32>(static_cast<int64>(quotient));
+    return PostFxLog2TruncViaDoubleCpp(value, StaticRef<double>(0x86F990));
 }
 
-// Como el original: 0x703EB5..0x703EDF (ImmediateModeFilterStuffInitialize). ln(2.0) se queda en ST(1) en precision extendida
-// (fldln2 ; fld qword [0x86F990] ; fyl2x) y se usa en fdiv st,st(1).
+// Como el original: 0x703EB5..0x703EDF (ImmediateModeFilterStuffInitialize). ln(2.0) se queda en ST(1) en precision extendida (ver PostFxLog2TruncKeepExtendedCpp).
 int32 ExeLog2TruncKeepExtended(int32 value) {
-    const double base = StaticRef<double>(0x86F990);
-    float quotient{};
-    __asm {
-        fldln2
-        fld   qword ptr [base]
-        fyl2x
-        fldln2
-        fild  dword ptr [value]
-        fyl2x
-        fdiv  st, st(1)
-        fstp  dword ptr [quotient]
-        fstp  st(0)
-    }
-    return static_cast<int32>(static_cast<int64>(quotient));
+    return PostFxLog2TruncKeepExtendedCpp(value, StaticRef<double>(0x86F990));
 }
 
 // Como el original: potencia de dos de la pantalla = pow(2.0, floor(log2(n)) + 1) con la pow del CRT del EXE (0x8220F0) y _ftol2 (0x821B40).
@@ -87,86 +59,21 @@ int32 HazeScaleY(float k) { return static_cast<int32>(static_cast<int64>(static_
 
 // Como el original: 0x703A46..0x703A9C. ms sin signo (fild + 2^32 si el dword es negativo, 0x858C54) * speed ; freq * y ; suma ; fsin (precision completa) ; * xoffset.
 float RippleWave(uint32 timeMs, float speed, float freq, float y, float xoffset) {
-    const float two32 = StaticRef<float>(0x858C54);
-    float result{};
-    __asm {
-        fild  dword ptr [timeMs]
-        cmp   dword ptr [timeMs], 0
-        jge   noFix
-        fadd  dword ptr [two32]
-    noFix:
-        fmul  dword ptr [speed]
-        fld   dword ptr [freq]
-        fmul  dword ptr [y]
-        faddp st(1), st
-        fsin
-        fmul  dword ptr [xoffset]
-        fstp  dword ptr [result]
-    }
-    return result;
+    return PostFxRippleWaveCpp(timeMs, speed, freq, y, xoffset);
 }
 
-// Como el original: 0x703B87..0x703C4F (ultimo par de vertices). El seno (fsin, precision completa) NO se multiplica por xoffset (no hay fmul tras 0x703BBB fsin) y
-// se queda en la pila x87 sin redondear: u0 = (sin + xoffset) / ancho ; u1 = ((ancho + sin) - xoffset) / ancho.
+// Como el original: 0x703B87..0x703C4F (ultimo par de vertices). El seno (fsin, precision completa) NO se multiplica por xoffset y se queda sin redondear:
+// u0 = (sin + xoffset) / ancho ; u1 = ((ancho + sin) - xoffset) / ancho.
 void RippleFinalU(uint32 timeMs, float speed, float freq, float y, float xoffset, int32 width, float* outU0, float* outU1) {
-    const float two32 = StaticRef<float>(0x858C54);
-    float u0{}, u1{};
-    __asm {
-        fild  dword ptr [timeMs]
-        cmp   dword ptr [timeMs], 0
-        jge   noFix
-        fadd  dword ptr [two32]
-    noFix:
-        fmul  dword ptr [speed]
-        fld   dword ptr [freq]
-        fmul  dword ptr [y]
-        faddp st(1), st
-        fsin
-        fld   st(0)
-        fadd  dword ptr [xoffset]
-        fidiv dword ptr [width]
-        fstp  dword ptr [u0]
-        fild  dword ptr [width]
-        fld   st(0)
-        fadd  st, st(2)
-        fsub  dword ptr [xoffset]
-        fdiv  st, st(1)
-        fstp  dword ptr [u1]
-        fstp  st(0)
-        fstp  st(0)
-    }
-    *outU0 = u0;
-    *outU1 = u1;
+    PostFxRippleFinalUCpp(timeMs, speed, freq, y, xoffset, width, outU0, outU1);
 }
 
 // Como el original: 0x7042C0..0x7042F0 / 0x704361..0x704391. fsin/fcos en precision completa y luego * (cuarto + radio) + mitad - tercio, redondeando en cada operacion a 24 bits.
 float FogSinCoord(float angle, float quarter, float radius, float half, float third) {
-    float result{};
-    __asm {
-        fld   dword ptr [angle]
-        fsin
-        fld   dword ptr [quarter]
-        fadd  dword ptr [radius]
-        fmulp st(1), st
-        fadd  dword ptr [half]
-        fsub  dword ptr [third]
-        fstp  dword ptr [result]
-    }
-    return result;
+    return PostFxFogSinCoordCpp(angle, quarter, radius, half, third);
 }
 float FogCosCoord(float angle, float quarter, float radius, float half, float third) {
-    float result{};
-    __asm {
-        fld   dword ptr [angle]
-        fcos
-        fld   dword ptr [quarter]
-        fadd  dword ptr [radius]
-        fmulp st(1), st
-        fadd  dword ptr [half]
-        fsub  dword ptr [third]
-        fstp  dword ptr [result]
-    }
-    return result;
+    return PostFxFogCosCoordCpp(angle, quarter, radius, half, third);
 }
 
 // Como el original: 0x704825..0x704B79 canal * multiplicador y luego limite [0,255] (fcom 255.0 / fcom 0.0): >=255 o NaN -> 255, <=0 -> 0; despues _ftol2 y se guarda el byte bajo.
@@ -895,12 +802,7 @@ void CPostEffects::InfraredVisionStoreAndSetLightsForHeatObjects(CPed* ped) {
         const auto time = std::abs((int32)(CTimer::GetTimeInMS() - ped->m_nDeathTimeMS));
         // Como el original: 0x70137B fild [esp+10h] ; 0x70137F fmul [0x858FC4] (0.0001f): el entero entra exacto al x87 y se multiplica una vez; no (float)time / 10000
         const auto k = StaticRef<float>(0x858FC4);
-        float delta{};
-        __asm {
-            fild  dword ptr [time]
-            fmul  dword ptr [k]
-            fstp  dword ptr [delta]
-        }
+        const float delta = IntTimesFloatCpp(time, k);
 
         m_fInfraredVisionHeatObjectCol.red = std::max(m_fInfraredVisionHeatObjectCol.red - delta, 0.0f);
         m_fInfraredVisionHeatObjectCol.green = 0.0f;

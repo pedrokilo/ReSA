@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "PedPlacement.h"
+#include "X87Math.h"
 #include "Tasks/TaskTypes/TaskComplexBeInGroup.h"
 #include "Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h"
 #include "Tasks/TaskTypes/TaskComplexWanderGang.h"
@@ -55,19 +56,8 @@ bool PlaceCircularGroup(ePedType type, uint32 numPeds, const CVector& origin, bo
     if (static_cast<int32>(numPeds) < 2) return false;
     const int32 groupId = CPedGroups::AddGroup();
     if (groupId < 0) return false;
-    const float twoPi = std::bit_cast<float>(0x40C90FDBu), half = 0.5f, one = 1.0f;
-    const int32 signedNumPeds = static_cast<int32>(numPeds);
-    float angleStep, radius;
-    __asm {
-        fild signedNumPeds
-        fdivr twoPi
-        fst angleStep
-        fcos
-        fsubr one
-        fdivr half
-        fsqrt
-        fstp radius
-    }
+    float radius;
+    const float angleStep = PedGroupPlacerCircleCpp(static_cast<int32>(numPeds), &radius);
     if (!GroupOriginCanBeUsed(origin, radius)) return false;
     std::array<CPed*, 8> created;
     int32 count = 0;
@@ -76,17 +66,8 @@ bool PlaceCircularGroup(ePedType type, uint32 numPeds, const CVector& origin, bo
         const float randomAngle = ((float(CGeneral::GetRandomNumber()) * std::bit_cast<float>(0x38000100u)) * 0.4f - 0.2f) * angleStep;
         const float randomRadius = ((float(CGeneral::GetRandomNumber()) * std::bit_cast<float>(0x38000100u)) * 0.4f - 0.2f) * radius + radius;
         const float angle = static_cast<float>(i) * angleStep + randomAngle;
-        float offsetX, offsetY;
-        __asm {
-            fld angle
-            fld st(0)
-            fcos
-            fmul randomRadius
-            fstp offsetX
-            fsin
-            fmul randomRadius
-            fstp offsetY
-        }
+        const float offsetX = TrigSimpleCosMulCpp(angle, randomRadius);
+        const float offsetY = TrigSimpleSinMulCpp(angle, randomRadius);
         bool found;
         const float ground = CWorld::FindGroundZFor3DCoord({offsetX + origin.x, offsetY + origin.y, origin.z + 1.0f}, &found, nullptr) + 1.0f;
         if (!found) continue;
@@ -180,43 +161,27 @@ bool CPedGroupPlacer::PlaceFormationGroup(ePedType type, uint32 numOfPeds, const
 }
 
 // 0x5FCE80
-bool CPedGroupPlacer::PlaceChatGroup(ePedType type, uint32 numOfPeds, const CVector& origin, ePedGroupDefaultTaskAllocatorType unused) {
+__declspec(noinline) bool CPedGroupPlacer::PlaceChatGroup(ePedType type, uint32 numOfPeds, const CVector& origin, ePedGroupDefaultTaskAllocatorType unused) {
     return PlaceCircularGroup(type, numOfPeds, origin, false);
 }
 
 // 0x5FD330
-bool CPedGroupPlacer::PlaceRandomGroup(ePedType type, uint32 numOfPeds, const CVector& origin, ePedGroupDefaultTaskAllocatorType unused) {
+__declspec(noinline) bool CPedGroupPlacer::PlaceRandomGroup(ePedType type, uint32 numOfPeds, const CVector& origin, ePedGroupDefaultTaskAllocatorType unused) {
     return PlaceCircularGroup(type, numOfPeds, origin, true);
 }
 
-namespace {
-// ECX and the four stack arguments retain the member-call ABI on this tail jump.
-bool __fastcall PlaceGroupDelegated(CPedGroupPlacer* self, void*, ePedType type, uint32 numOfPeds, const CVector& origin, ePedGroupDefaultTaskAllocatorType allocType) {
+// 0x5FD810
+bool CPedGroupPlacer::PlaceGroup(ePedType type, uint32 numOfPeds, const CVector& origin, ePedGroupDefaultTaskAllocatorType allocType) {
     using enum ePedGroupDefaultTaskAllocatorType;
     switch (allocType) {
     case FOLLOW_ANY_MEANS:
-    case FOLLOW_LIMITED: return self->PlaceFormationGroup(type, numOfPeds, origin, allocType);
+    case FOLLOW_LIMITED: return PlaceFormationGroup(type, numOfPeds, origin, allocType);
     case STAND_STILL:
-    case CHAT: return self->PlaceChatGroup(type, numOfPeds, origin, allocType);
-    case RANDOM: return self->PlaceRandomGroup(type, numOfPeds, origin, allocType);
-    default: NOTSA_UNREACHABLE(); // The entry shim handles the original default route.
-    }
-}
-}
-
-// 0x5FD810
-__declspec(naked) bool CPedGroupPlacer::PlaceGroup(ePedType type, uint32 numOfPeds, const CVector& origin, ePedGroupDefaultTaskAllocatorType allocType) {
-    // The EXE returns the origin pointer byte for allocator 4, including noncanonical
-    // bool representations. A C++ bool conversion would change its raw AL result.
-    __asm {
-        mov eax, [esp + 10h]
-        cmp eax, 5
-        ja originalDefault
-        cmp eax, 4
-        je originalDefault
-        jmp PlaceGroupDelegated
-    originalDefault:
-        mov al, byte ptr [esp + 0Ch]
-        ret 10h
+    case CHAT: return PlaceChatGroup(type, numOfPeds, origin, allocType);
+    case RANDOM: return PlaceRandomGroup(type, numOfPeds, origin, allocType);
+    default:
+        // The EXE returns the low byte of the origin pointer (AL = [esp + 0Ch]) for allocator 4
+        // and out-of-range values. bit_cast keeps the raw byte (no 0/1 normalisation).
+        return std::bit_cast<bool>(static_cast<uint8>(reinterpret_cast<uintptr_t>(&origin)));
     }
 }

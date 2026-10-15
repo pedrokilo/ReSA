@@ -36,6 +36,7 @@ END GENERATED HOOK STATUS */
 #include "Garages.h"
 #include "CustomBuildingRenderer.h"
 #include "CustomBuildingDNPipeline.h"
+#include "X87Math.h"
 
 namespace {
 // Como el original: constantes float exactas del EXE
@@ -82,101 +83,6 @@ int32 ObjFtol(float f) {
 // Como el original: ceil del CRT sobre el valor convertido a double y _ftol2 (0x823820/0x538AD0 + 0x821B40)
 uint8 ObjCeilSteps(float f) {
     return static_cast<uint8>(static_cast<int64>(std::ceil(static_cast<double>(f))));
-}
-
-// Como el original: pow del CRT del EXE (_CIpow, 0x822130) y cada componente multiplicado por el resultado
-// completo de ST0 (sin redondearlo antes a float).
-void ObjMulByCrtPow(float base, float exponent, float* values, int32 count) {
-    __asm {
-        fld    base
-        fld    exponent
-        mov    eax, 0x822130
-        call   eax
-        mov    edx, values
-        mov    ecx, count
-    pow_loop:
-        fld    st(0)
-        fmul   dword ptr [edx]
-        fstp   dword ptr [edx]
-        add    edx, 4
-        dec    ecx
-        jnz    pow_loop
-        fstp   st(0)
-    }
-}
-
-// Como el original (0x5A0CD3..0x5A0D11): acos del CRT del EXE (_CIacos, 0x822380) con el resultado completo en
-// ST0 y la suma o resta del paso redondeada una sola vez.
-float ObjTrainCrossingAngle(float upZ, float step, int32 subtract) {
-    float result;
-    __asm {
-        fld    upZ
-        mov    eax, 0x822380
-        call   eax
-        fld    step
-        cmp    subtract, 0
-        je     tc_add
-        fsubp  st(1), st
-        jmp    tc_done
-    tc_add:
-        faddp  st(1), st
-    tc_done:
-        fstp   result
-    }
-    return result;
-}
-
-// Como el original: rumbo con fpatan sin redondear (CPlaceable::GetHeading inline), normalizado frente al ángulo
-// inicial de la puerta con comparaciones sobre el valor de 80 bits, y diferencia redondeada a float.
-float ObjDoorAngleDiff(const CPlaceable* placeable, float doorStart) {
-    const auto* mat = placeable->m_matrix;
-    float fwdX = 0.0f, fwdY = 0.0f, heading = 0.0f;
-    int32 hasMatrix = 0;
-    if (mat) {
-        hasMatrix = 1;
-        fwdX = mat->GetForward().x;
-        fwdY = mat->GetForward().y;
-    } else {
-        heading = placeable->m_placement.m_fHeading;
-    }
-    const float startPlusPi  = doorStart + OBJ_PI;
-    const float startMinusPi = doorStart - OBJ_PI;
-    const float twoPi        = OBJ_TWO_PI;
-    float result;
-    __asm {
-        cmp    hasMatrix, 0
-        je     da_nomat
-        fld    fwdX
-        fchs
-        fld    fwdY
-        fpatan
-        jmp    da_have
-    da_nomat:
-        fld    heading
-    da_have:
-        fld    startPlusPi
-        fld    st(1)
-        fcompp
-        fnstsw ax
-        test   ah, 41h
-        jne    da_check_low
-        fsub   twoPi
-        jmp    da_diff
-    da_check_low:
-        fld    startMinusPi
-        fld    st(1)
-        fcompp
-        fnstsw ax
-        test   ah, 5
-        jp     da_diff
-        fadd   twoPi
-    da_diff:
-        fld    doorStart
-        fsub   st, st(1)
-        fstp   result
-        fstp   st(0)
-    }
-    return result;
 }
 } // namespace
 
@@ -426,9 +332,10 @@ void CObject::ProcessControl() {
 
         CPhysical::ApplyMoveForce(vecBuoyancyForce);
         CPhysical::ApplyTurnForce(vecBuoyancyForce, vecBuoyancyTurnPoint);
-        // Como el original: pow(0.97, paso) del CRT con ST0 completo en los seis productos; m_vecTurnSpeed (0x50)
-        // sigue a m_vecMoveSpeed (0x44) en memoria.
-        ObjMulByCrtPow(0.97F, CTimer::GetTimeStep(), &m_vecMoveSpeed.x, 6);
+        // Como el original: un solo pow(0.97, paso) del CRT (0x822130) con ST0 sin redondear en los seis productos
+        // (0x44..0x58); el resultado es determinista, así que dos llamadas por vector dan el mismo factor.
+        PowScaleVector3Cpp(&m_vecMoveSpeed.x, 0.97F, CTimer::GetTimeStep());
+        PowScaleVector3Cpp(&m_vecTurnSpeed.x, 0.97F, CTimer::GetTimeStep());
     }
     else if (m_nModelIndex != ModelIndices::MI_BUOY) {
         physicalFlags.bTouchingWater = false;
@@ -454,14 +361,14 @@ void CObject::ProcessControl() {
         const float fForceMult = -0.05F * m_fTurnMass;
         CPhysical::ApplyTurnForce(CVector{ fForceMult * m_vecMoveSpeed.x, fForceMult * m_vecMoveSpeed.y, fForceMult * m_vecMoveSpeed.z }, vecPoint);
         const float fBase = 1.0F - ObjSqMag(m_vecMoveSpeed) * 0.2F;
-        ObjMulByCrtPow(fBase, CTimer::GetTimeStep(), &m_vecMoveSpeed.x, 3);
+        PowScaleVector3Cpp(&m_vecMoveSpeed.x, fBase, CTimer::GetTimeStep());
     }
 
     if (m_bIsBIGBuilding)
         SetIsInSafePosition(true);
 
     if (physicalFlags.bDisableMoveForce && m_fDoorStartAngle > -1000.0F) {
-        auto fDiff = ObjDoorAngleDiff(this, m_fDoorStartAngle);
+        auto fDiff = ObjectDoorAngleDiffCpp(m_matrix ? &m_matrix->GetForward().x : nullptr, m_placement.m_fHeading, m_fDoorStartAngle);
         if (std::fabs(fDiff) > ObjF(0x3F060A92u)) // 0x866F58, PI/6
             objectFlags.bIsDoorOpen = true;
 
@@ -1099,18 +1006,9 @@ void CObject::ProcessSamSiteBehaviour() {
             const float dirX = vecTargetPos.x - vecPos.x;
             const float dirY = vecTargetPos.y - vecPos.y;
 
-            // Como el original: la diferencia se calcula con el ángulo completo de ST0 y LimitRadianAngle en línea
+            // Como el original: la diferencia se calcula con el ángulo completo de ST0 (fst del ángulo y fsub del rumbo)
             float fAngle, fAngleDiff;
-            auto* const atanOfXY = &CGeneral::GetATanOfXY;
-            __asm {
-                push   dirY
-                push   dirX
-                call   atanOfXY
-                add    esp, 8
-                fst    fAngle
-                fsub   fHeading
-                fstp   fAngleDiff
-            }
+            ObjectSamSiteAtanCpp(&CGeneral::GetATanOfXY, dirX, dirY, fHeading, &fAngle, &fAngleDiff);
             while (fAngleDiff > OBJ_PI)
                 fAngleDiff -= OBJ_TWO_PI;
             while (fAngleDiff < OBJ_MINUS_PI)
@@ -1178,11 +1076,11 @@ void CObject::ProcessTrainCrossingBehaviour() {
     const float fMaxAngle = ObjF(0x3FACE9CCu);
     float fAngle;
     if (objectFlags.bTrainCrossEnabled) {
-        fAngle = ObjTrainCrossingAngle(m_matrix->GetUp().z, fTimeStep, 1);
+        fAngle = ObjectTrainCrossingAngleCpp(m_matrix->GetUp().z, fTimeStep, true);
         if (!(fAngle > 0.0F))
             fAngle = 0.0F;
     } else {
-        fAngle = ObjTrainCrossingAngle(m_matrix->GetUp().z, fTimeStep, 0);
+        fAngle = ObjectTrainCrossingAngleCpp(m_matrix->GetUp().z, fTimeStep, false);
         if (!(fAngle < fMaxAngle))
             fAngle = fMaxAngle;
     }
@@ -1570,25 +1468,8 @@ CObject* CObject::Create(CDummyObject* dummyObject) {
 // fija el signo de los ceros) y se escribe up antes que forward.
 void CObject::SetMatrixForTrainCrossing(CMatrix* matrix, float fAngle) {
     const auto vecAxis = CrossProduct(CVector(0.0F, 0.0F, 1.0F), matrix->GetRight());
-    const float axisX = vecAxis.x, axisY = vecAxis.y, axisZ = vecAxis.z;
-    float cosX, cosY, cosZ, sinA;
-    __asm {
-        fld    fAngle
-        fcos
-        fld    axisX
-        fmul   st, st(1)
-        fstp   cosX
-        fld    axisY
-        fmul   st, st(1)
-        fstp   cosY
-        fmul   axisZ
-        fstp   cosZ
-        fld    fAngle
-        fsin
-        fstp   sinA
-    }
-    const float zeroSin = 0.0F * sinA;
-    const CVector vecForward{ zeroSin + cosX, zeroSin + cosY, sinA + cosZ };
+    CVector vecForward;
+    ObjectTrainCrossingForwardCpp(&vecAxis.x, fAngle, &vecForward.x);
 
     matrix->GetUp() = CrossProduct(matrix->GetRight(), vecForward);
     matrix->GetForward() = vecForward;

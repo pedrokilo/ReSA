@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "AEWeatherAudioEntity.h"
 #include "AEAudioHardware.h"
 #include "AEAudioUtility.h"
+#include "X87Math.h"
 
 enum class eWeatherEvent {
     THUNDER    = 1,
@@ -93,24 +94,8 @@ void CAEWeatherAudioEntity::AddAudioEvent(eAudioEvents event) {
         AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_EXPLOSIONS, SND_BANK_SLOT_EXPLOSIONS);
         return;
     }
-    // The original evaluates the logarithm on the x87 stack, without first
-    // rounding the lightning-duration expression to float.
-    const auto duration = double(CWeather::LightningDuration);
-    const auto defaultVolume = GetDefaultVolume(AE_THUNDER);
-    const float durationScale = 0.0375f, decibels = 20.f;
-    const double base = 0.25;
-    float volume;
-    __asm {
-        fld duration
-        fmul durationScale
-        fadd base
-        fldlg2
-        fxch st(1)
-        fyl2x
-        fmul decibels
-        fadd defaultVolume
-        fstp volume
-    }
+    // Como el original (0x5068BA): duracion sin signo, log10 con fyl2x sin redondear y la suma entera, todo en la pila x87.
+    const float volume = WeatherAudioThunderBaseCpp(CWeather::LightningDuration, DefaultVolumeInt(AE_THUNDER));
     m_nThunderFrequencyVariationCounter = (m_nThunderFrequencyVariationCounter + 1) % 3;
     const auto& frequencies = StaticRef<std::array<float, 3>>(0x8CC300);
     const float pitch = frequencies[m_nThunderFrequencyVariationCounter];
@@ -138,74 +123,15 @@ void CAEWeatherAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) 
     case 1: { // Trueno (0x505A85)
         // Como el original: todo en la pila x87 (duracion sin signo, log10 con fyl2x, pow del EXE 0x822130).
         const uint32 duration = CWeather::LightningDuration;
-        const int32  defaultVolume = DefaultVolumeInt(AE_THUNDER);
-        const float  scale = std::bit_cast<float>(0x3D19999Au), decibels = 20.f, twoPow32 = 4294967296.f;
-        const double base = 0.25;
-        float reqVolume;
-        __asm {
-            mov ecx, duration
-            fild dword ptr duration
-            test ecx, ecx
-            jge thunder_dur_ok
-            fadd twoPow32
-        thunder_dur_ok:
-            fmul scale
-            fadd base
-            fldlg2
-            fxch st(1)
-            fyl2x
-            fmul decibels
-            fiadd defaultVolume
-            fstp reqVolume
-        }
+        const float  reqVolume = WeatherAudioThunderBaseCpp(duration, DefaultVolumeInt(AE_THUNDER));
         const uint32 reqPlayPos = 600u - duration / 20u * 500u;
         const int32  playPos = curPlayPos;
         float volume;
         if ((uint32)playPos <= reqPlayPos) { // 0x505AED
-            __asm {
-                fild playPos
-                mov eax, reqPlayPos
-                fild reqPlayPos
-                test eax, eax
-                jge thunder_req_ok
-                fadd twoPow32
-            thunder_req_ok:
-                fdivp st(1), st
-                fldlg2
-                fxch st(1)
-                fyl2x
-                fmul decibels
-                fadd reqVolume
-                fstp volume
-            }
+            volume = WeatherAudioThunderRiseCpp(playPos, reqPlayPos, reqVolume);
         } else if ((uint32)playPos <= reqPlayPos + 200u && reqVolume > 0.f) { // 0x505B3F
             const uint32 diff = (uint32)playPos - reqPlayPos;
-            const double ten = 10.0;
-            const float  toLinear = std::bit_cast<float>(0x3D4CCCCDu), one = 1.f, invSteps = std::bit_cast<float>(0x3BA3D70Au);
-            __asm {
-                fld ten
-                fld reqVolume
-                fmul toLinear
-                mov eax, 0x822130
-                call eax
-                mov eax, diff
-                fild diff
-                test eax, eax
-                jge thunder_diff_ok
-                fadd twoPow32
-            thunder_diff_ok:
-                fld one
-                fsub st, st(2)
-                fmulp st(1), st
-                fmul invSteps
-                fadd st, st(1)
-                fldlg2
-                fxch st(1)
-                fyl2x
-                fstp st(1)
-                fmul decibels
-                fstp volume
-            }
+            volume = WeatherAudioThunderFallCpp(reqVolume, diff); // pow del EXE (0x822130) incluido
         } else { // 0x505B97
             volume = reqVolume < 0.f ? reqVolume : 0.f;
         }
@@ -265,19 +191,7 @@ void CAEWeatherAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) 
                 speed = (force - 0.35f) * std::bit_cast<float>(0x3F86BCA2u);
                 const CVector delta{ right.x + pov.x - hitCP.m_vecPoint.x, right.y + pov.y - hitCP.m_vecPoint.y, right.z + pov.z - hitCP.m_vecPoint.z };
                 const float dist = delta.Magnitude();
-                const float invRange = std::bit_cast<float>(0x3E2AAAABu), one = 1.f, decibels = 20.f, baseVolume = 30.f;
-                __asm {
-                    fld dist
-                    fmul invRange
-                    fsubr one
-                    fmul speed
-                    fldlg2
-                    fxch st(1)
-                    fyl2x
-                    fmul decibels
-                    fadd baseVolume
-                    fstp volumeOffset
-                }
+                volumeOffset = WeatherAudioCityNoiseOffsetCpp(dist, speed);
                 speed = speed * 1.75f + 1.75f;
             }
         }
@@ -403,19 +317,7 @@ void CAEWeatherAudioEntity::Service() {
             wet = 0.f;
         }
         const int32 defaultVolume = DefaultVolumeInt(AE_RAIN);
-        const float invRange = 1.25f, decibels = 20.f;
-        __asm {
-            fld wet
-            fmul invRange
-            fldlg2
-            fxch st(1)
-            fyl2x
-            fild defaultVolume
-            fxch st(1)
-            fmul decibels
-            faddp st(1), st
-            fstp target
-        }
+        target = WeatherAudioRainTargetCpp(wet, defaultVolume);
     }
 
     // 0x505634

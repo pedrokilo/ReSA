@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 #include "Weapon.h"
 
 #include "Glass.h"
+#include "X87Math.h"
 #include "CollisionData.h"
 #include "Collision/ColLine.h"
 #include "WeaponInfo.h"
@@ -595,21 +596,7 @@ static float AsinDegreesX87(float x) {
     if (!(x < 1.0f)) {
         return (float)(std::asin((double)x) * (double)std::bit_cast<float>(0x42652EE0u));
     }
-    const float deg = std::bit_cast<float>(0x42652EE0u);
-    float res;
-    __asm {
-        fld x
-        fld1
-        fadd st, st(1)
-        fld1
-        fsub st, st(2)
-        fmulp st(1), st
-        fsqrt
-        fpatan
-        fmul deg
-        fstp res
-    }
-    return res;
+    return ExeAsinDegreesCpp(x); // _CIasin (0x821E70) por 57.29578f (0x859878), mismo cuerpo que usa CBulletInfo::Update
 }
 
 // 0x73B550
@@ -1078,17 +1065,9 @@ void CWeapon::SetUpPelletCol(int32 numPellets, CEntity* owner, CEntity* victim, 
         const int32 randomSpread = CGeneral::GetRandomNumber();
         const float spread = (((float)randomSpread * randScale) * spreadRange) + minSpread;
 
-        float oX, oZ;
-        __asm {
-            fld angle
-            fcos
-            fmul spread
-            fstp oX
-            fld angle
-            fsin
-            fmul spread
-            fstp oZ
-        }
+        // fcos/fsin sin redondear por spread y un solo redondeo a float (0x73C8BB..0x73C8D6)
+        const float oX = TrigSimpleCosMulCpp(angle, spread);
+        const float oZ = TrigSimpleSinMulCpp(angle, spread);
 
         lines[i].Set(
             { oX, lineY, oZ },
@@ -1307,17 +1286,12 @@ void CWeapon::DoDriveByAutoAiming(CEntity* owner, CVehicle* vehicle, CVector* st
         }
     }
     const auto aimAngle = vehicle->GetPlaneGunsAutoAimAngle();
-    float threshold = 2.5f;
-    if (aimAngle > 0.5f) {
-        const float radians = aimAngle * std::bit_cast<float>(0x3C8EFA35u);
-        __asm {
-            fld radians
-            fptan
-            fstp st(0)
-            fstp threshold
-        }
-    }
-    if (bestScore < threshold) {
+    // Como el original (0x73DA19..0x73DA48): el umbral es tan(angulo * 0x8595EC) SIN redondear a float (queda en ST0 y se compara con la
+    // puntuacion), o 2.5 (0x858FA0) si el angulo no supera 0.5 (ni es NaN).
+    const bool inRange = aimAngle > 0.5f
+        ? WeaponLessThanTanCpp(bestScore, aimAngle * std::bit_cast<float>(0x3C8EFA35u))
+        : bestScore < 2.5f;
+    if (inRange) {
         const auto delta = entities[best]->GetPosition() - *startPoint;
         const auto scale = rayLength / magnitude(delta);
         *endPoint = *startPoint + delta * scale;
@@ -1579,42 +1553,19 @@ bool CWeapon::FireAreaEffect(CEntity* firingEntity, const CVector& origin, CEnti
         float headingDegrees;
         if (firingEntity->m_matrix) { // 0x73E965: atan2(-fwd.x, fwd.y)
             const float forwardX = firingEntity->m_matrix->GetForward().x, forwardY = firingEntity->m_matrix->GetForward().y;
-            const float degreesScale = std::bit_cast<float>(0x42652EE0u);
-            __asm {
-                fld forwardX
-                fchs
-                fld forwardY
-                fpatan
-                fmul degreesScale
-                fstp headingDegrees
-            }
+            headingDegrees = WeaponHeadingDegreesCpp(forwardX, forwardY); // fpatan sin redondear por 0x859878, un solo redondeo
         } else { // 0x73E97E: heading del placeable (esi+0x10)
             headingDegrees = firingEntity->m_placement.m_fHeading * std::bit_cast<float>(0x42652EE0u);
         }
 
         const float headingRadians = headingDegrees * std::bit_cast<float>(0x3C8EFA0Cu); // 0x73E997 fmul [0x872C60] (leido del EXE)
-        float sinValue, cosValue;
-        __asm {
-            fld headingRadians
-            fsin
-            fchs
-            fstp sinValue
-            fld headingRadians
-            fcos
-            fstp cosValue
-        }
+        const float sinValue = -TrigSimpleSinCpp(headingRadians); // fsin; fchs; fstp
+        const float cosValue = TrigSimpleCosCpp(headingRadians);
         shotDir = CVector{ sinValue, cosValue, 0.f };
         if (firingEntity->GetIsTypePed()) {
             if (const auto pd = firingEntity->AsPed()->GetPlayerData()) {
                 const float pitch = pd->m_fLookPitch;
-                float negTan;
-                __asm {
-                    fld pitch
-                    fptan
-                    fstp st(0)
-                    fchs
-                    fstp negTan
-                }
+                const float negTan = -WeaponTanCpp(pitch); // fptan; fstp st(0); fchs; fstp
                 shotDir.z = negTan;
                 shotDir.Normalise(); // 0x73E9D8 (0x59C910): solo se normaliza dentro de esta rama
             }
@@ -1835,82 +1786,19 @@ float InstantHitConstant(uintptr_t address) { return *reinterpret_cast<const flo
 int32 InstantHitAnimationDuration(CWeaponInfo* wi) {
     const float animationStart = wi->m_fAnimLoopStart, animationEnd = wi->m_fAnimLoopEnd;
     const float scale = InstantHitConstant(0x858978);
-    int32 result;
-    __asm {
-        fld animationEnd
-        fsub animationStart
-        fmul scale
-        mov eax, 0x821B40
-        call eax
-        mov result, eax
-    }
-    return result;
+    // (fin - inicio) * escala a 24 bits por operacion y truncado como _ftol2 (0x821B40): conversion a 64 bits y 32 bits bajos
+    return static_cast<int32>(static_cast<long long>((animationEnd - animationStart) * scale));
 }
 static void InstantHitSwayAccumulate355(CVector* endpoint,const CVector* sineBasis,const CVector* cosineBasis,float amplitude,float sine,float cosine) {
-    float productX,productY;
-    __asm {
-        mov ecx,sineBasis
-        mov edx,endpoint
-        fld dword ptr [ecx+8]
-        fmul amplitude
-        fld dword ptr [ecx+4]
-        fmul amplitude
-        fstp productY
-        fld dword ptr [ecx]
-        fmul amplitude
-        fstp productX
-        fmul sine
-        fld productY
-        fmul sine
-        fld productX
-        fmul sine
-        fadd dword ptr [edx]
-        fstp dword ptr [edx]
-        fld dword ptr [edx+4]
-        fadd st,st(1)
-        fstp dword ptr [edx+4]
-        fstp st(0)
-        fadd dword ptr [edx+8]
-        mov ecx,cosineBasis
-        fld dword ptr [ecx+8]
-        fmul amplitude
-        fld dword ptr [ecx+4]
-        fmul amplitude
-        fstp productY
-        fld dword ptr [ecx]
-        fmul amplitude
-        fstp productX
-        fmul cosine
-        fld productY
-        fmul cosine
-        fld productX
-        fmul cosine
-        fadd dword ptr [edx]
-        fstp dword ptr [edx]
-        fld dword ptr [edx+4]
-        fadd st,st(1)
-        fstp dword ptr [edx+4]
-        fstp st(0)
-        fadd st,st(1)
-        fstp dword ptr [edx+8]
-        fstp st(0)
-    }
+    // 0x740103..0x7401B7: ver WeaponSwayAccumulateCpp (X87Math)
+    WeaponSwayAccumulateCpp(&endpoint->x, &sineBasis->x, &cosineBasis->x, amplitude, sine, cosine);
 }
 
 void InstantHitOscillation(uint32 milliseconds, float& sine, float& cosine) {
-    float sineResult,cosineResult;
-    const double time = double(milliseconds);
-    const float frequency = InstantHitConstant(0x8D6118);
-    __asm {
-        fld time
-        fmul frequency
-        fld st(0)
-        fsin
-        fstp sineResult
-        fcos
-        fstp cosineResult
-    }
-    sine=sineResult;cosine=cosineResult;
+    // 0x7400E7..0x74012F: fild del tiempo sin signo (+2^32 si el bit alto esta puesto) por 0x8D6118, redondeado a 24 bits; fsin/fcos de ese valor
+    const float time = UnsignedTimesFloatCpp(milliseconds, InstantHitConstant(0x8D6118));
+    sine = TrigSimpleSinCpp(time);
+    cosine = TrigSimpleCosCpp(time);
 }
 }
 
@@ -2502,38 +2390,16 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
         // Como el original (0x7423CD..0x74240F): el rumbo sale de atan2(-fwd.x, fwd.y) (fpatan) o del heading del placeable, se
         // multiplica por 57.2957764 (0x859878) y luego por 0.017453216 (0x872C60) y el seno/coseno son de x87 a precision completa.
         float angle;
-        const float degreesScale = std::bit_cast<float>(0x42652EE0u), radiansScale = std::bit_cast<float>(0x3C8EFA0Cu);
+        const float radiansScale = std::bit_cast<float>(0x3C8EFA0Cu);
         if (firedBy->m_matrix) {
             const float forwardX = firedBy->m_matrix->GetForward().x, forwardY = firedBy->m_matrix->GetForward().y;
-            __asm {
-                fld forwardX
-                fchs
-                fld forwardY
-                fpatan
-                fmul degreesScale
-                fmul radiansScale
-                fstp angle
-            }
+            angle = WeaponHeadingDegreesCpp(forwardX, forwardY) * radiansScale; // fpatan * 0x859878 (un redondeo) * 0x872C60 (otro)
         } else {
             const float heading = firedBy->m_placement.m_fHeading;
-            __asm {
-                fld heading
-                fmul degreesScale
-                fmul radiansScale
-                fstp angle
-            }
+            angle = (heading * std::bit_cast<float>(0x42652EE0u)) * radiansScale;
         }
-        float sinPart, cosPart;
-        __asm {
-            fld angle
-            fsin
-            fmul r
-            fstp sinPart
-            fld angle
-            fcos
-            fmul r
-            fstp cosPart
-        }
+        const float sinPart = TrigSimpleSinMulCpp(angle, r); // fsin sin redondear por 0.15 y un redondeo
+        const float cosPart = TrigSimpleCosMulCpp(angle, r);
         fxPos->x = fxPos->x - sinPart;
         fxPos->y = cosPart + fxPos->y;
     }

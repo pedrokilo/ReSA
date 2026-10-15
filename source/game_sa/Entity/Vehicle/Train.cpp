@@ -28,6 +28,7 @@ END GENERATED HOOK STATUS */
 
 #include "Buoyancy.h"
 #include "CarCtrl.h"
+#include "X87Math.h"
 
 
 
@@ -551,100 +552,6 @@ int32 CTrain::FindClosestTrackNode(CVector position, int32* outTrackId) {
 }
 
 // 0x6F6CC0
-static float TrainProjection355(float x, float y, float nx, float ny, float px, float py) {
-    float result;
-    __asm {
-        fld x
-        fsub nx
-        fmul st, st(0)
-        fld y
-        fsub ny
-        fmul st, st(0)
-        faddp st(1), st
-        fsqrt
-        fmul st, st(0)
-        fld nx
-        fsub x
-        fld px
-        fsub x
-        fmulp st(1), st
-        fld ny
-        fsub y
-        fld py
-        fsub y
-        fmulp st(1), st
-        faddp st(1), st
-        fdiv st, st(1)
-        fstp result
-        fstp st(0)
-    }
-    return result;
-}
-
-static float TrainLighting355(uint32 lightingLow, uint32 lightingHigh, float day) {
-    float result;
-    __asm {
-        fld day
-        fild lightingLow
-        fmul dword ptr ds:[00858F10h]
-        fld dword ptr ds:[00858624h]
-        fsub st, st(2)
-        fmulp st(1), st
-        fild lightingHigh
-        fmul dword ptr ds:[00858F10h]
-        fmul st, st(2)
-        faddp st(1), st
-        fstp result
-        fstp st(0)
-    }
-    return result;
-}
-static float TrainLightingBlend355(uint32 lightingLow, uint32 lightingHigh, float day, float previous, float factor) {
-    float result;
-    __asm {
-        fld day
-        fild lightingLow
-        fmul dword ptr ds:[00858F10h]
-        fld dword ptr ds:[00858624h]
-        fsub st, st(2)
-        fmulp st(1), st
-        fild lightingHigh
-        fmul dword ptr ds:[00858F10h]
-        fmul st, st(2)
-        faddp st(1), st
-        fsub previous
-        fmul factor
-        fadd previous
-        fstp result
-        fstp st(0)
-    }
-    return result;
-}
-static float TrainRailDistance355(uint32 before, uint32 after, float factor, float minimum, float maximum, float total) {
-    float result;
-    __asm {
-        fild before
-        fmul dword ptr ds:[00859040h]
-        fild after
-        fmul dword ptr ds:[00859040h]
-        fsub st, st(1)
-        fmul factor
-        faddp st(1), st
-        fld maximum
-        fsub minimum
-        fmul dword ptr ds:[00858B8Ch]
-        fsubp st(1), st
-        fcom dword ptr ds:[00858B50h]
-        fnstsw ax
-        test ah, 5
-        jp railDone355
-        fadd total
-    railDone355:
-        fstp result
-    }
-    return result;
-}
-
 void CTrain::FindPositionOnTrackFromCoors() {
     for (int32 i = 0; i < NumTrackNodes[m_nTrackId]; ++i) {
         const auto next = (i + 1) % NumTrackNodes[m_nTrackId];
@@ -654,7 +561,7 @@ void CTrain::FindPositionOnTrackFromCoors() {
         const auto nx = float(nodes[next].x) * .125f;
         const auto ny = float(nodes[next].y) * .125f;
         const auto& pos = GetPosition();
-        const auto factor = TrainProjection355(x, y, nx, ny, pos.x, pos.y);
+        const auto factor = TrainProjectionCpp(x, y, nx, ny, pos.x, pos.y);
         if (!(factor > StaticRef<float>(0x858CDC) && factor < StaticRef<float>(0x872490))) continue;
         const auto dx = nx - x;
         const auto dy = ny - y;
@@ -665,7 +572,7 @@ void CTrain::FindPositionOnTrackFromCoors() {
         const auto errorY = projectedY - pos.y;
         if (std::sqrt((errorX * errorX + errorY * errorY) + (factor * 0.f) * (factor * 0.f)) < 3.f) {
             const auto& box = CModelInfo::GetModelInfo(m_nModelIndex)->GetColModel()->m_boundBox;
-            m_fCurrentRailDistance = TrainRailDistance355(nodes[i].m_nDistanceFromStart, nodes[next].m_nDistanceFromStart, factor, box.m_vecMin.y, box.m_vecMax.y, arrTotalTrackLength[m_nTrackId]);
+            m_fCurrentRailDistance = TrainRailDistanceCpp(nodes[i].m_nDistanceFromStart, nodes[next].m_nDistanceFromStart, factor, box.m_vecMin.y, box.m_vecMax.y, arrTotalTrackLength[m_nTrackId]);
             m_fTrainSpeed = std::sqrt((m_vecMoveSpeed.z * m_vecMoveSpeed.z + m_vecMoveSpeed.y * m_vecMoveSpeed.y) + m_vecMoveSpeed.x * m_vecMoveSpeed.x);
             const auto dot = (dy * m_vecMoveSpeed.y + m_vecMoveSpeed.z * 0.f) + dx * m_vecMoveSpeed.x;
             if (bool(trainFlags.bClockwiseDirection) == (dot > 0.f)) m_fTrainSpeed = -m_fTrainSpeed;
@@ -673,10 +580,10 @@ void CTrain::FindPositionOnTrackFromCoors() {
         }
         const auto lighting = reinterpret_cast<uint8(__thiscall*)(CTrainNode*)>(0x6F5F80)(&nodes[i]);
         const auto day = StaticRef<float>(0x8D12C0);
-        const auto previous = TrainLighting355(lighting & 15, lighting >> 4, day);
+        const auto previous = TrainNodeLightingCpp(lighting & 15, lighting >> 4, day);
         const auto nextLighting = reinterpret_cast<uint8(__thiscall*)(CTrainNode*)>(0x6F5F80)(&nodes[next]);
         const auto nextDay = StaticRef<float>(0x8D12C0);
-        m_fContactSurfaceBrightness = TrainLightingBlend355(nextLighting & 15, nextLighting >> 4, nextDay, previous, factor);
+        m_fContactSurfaceBrightness = TrainLightingBlendCpp(nextLighting & 15, nextLighting >> 4, nextDay, previous, factor);
     }
 }
 
@@ -997,67 +904,6 @@ void CTrain::AddNearbyPedAsRandomPassenger() {
 
 
 
-// Como el original: pow del EXE (0x822130, base en st1 y exponente en st0, precision completa). El producto con *value se redondea a
-// float solo al guardar (fmul + fstp); std::pow<float> redondearia antes el resultado.
-static void ScaleByExePow(float* value, double base, float exponent) {
-    const uintptr_t powAddress = 0x822130;
-    __asm {
-        fld qword ptr [base]
-        fld dword ptr [exponent]
-        mov eax, powAddress
-        call eax
-        mov eax, value
-        fmul dword ptr [eax]
-        fstp dword ptr [eax]
-    }
-}
-
-// Como el original (0x6F9D1B..0x6F9D66): el mismo pow (base float en st1) multiplica en orden las seis componentes
-// m_vecMoveSpeed.xyz y m_vecTurnSpeed.xyz (contiguas desde +0x44).
-static void ScaleSixByExePow(float* values, float base, float exponent) {
-    const uintptr_t powAddress = 0x822130;
-    __asm {
-        fld dword ptr [base]
-        fld dword ptr [exponent]
-        mov eax, powAddress
-        call eax
-        mov eax, values
-        fld st(0)
-        fmul dword ptr [eax]
-        fstp dword ptr [eax]
-        fld st(0)
-        fmul dword ptr [eax+4]
-        fstp dword ptr [eax+4]
-        fld st(0)
-        fmul dword ptr [eax+8]
-        fstp dword ptr [eax+8]
-        fld st(0)
-        fmul dword ptr [eax+0Ch]
-        fstp dword ptr [eax+0Ch]
-        fld st(0)
-        fmul dword ptr [eax+10h]
-        fstp dword ptr [eax+10h]
-        fmul dword ptr [eax+14h]
-        fstp dword ptr [eax+14h]
-    }
-}
-
-// Como el original (0x6F95B7..0x6F9626): rumbo nuevo = fpatan(-adelante.x, adelante.y) en precision completa; la resta con el rumbo
-// viejo (float) es lo que se redondea (fsub dword ptr [esp+24h]).
-static float HeadingMinusOld(const CMatrix* matrix, float oldHeading) {
-    float result;
-    __asm {
-        mov eax, matrix
-        fld dword ptr [eax+10h]
-        fchs
-        fld dword ptr [eax+14h]
-        fpatan
-        fsub dword ptr [oldHeading]
-        fstp dword ptr [result]
-    }
-    return result;
-}
-
 // Como el original: el EXE inlinea CTrainNode::GetDistanceFromStart (0x6F54B0) como uint16 * 0.3333333432674408 (0x859040), no / 3.0f.
 static float NodeDistanceFromStart(const CTrainNode& node) {
     return static_cast<float>(node.m_nDistanceFromStart) * std::bit_cast<float>(0x3EAAAAABu);
@@ -1085,7 +931,7 @@ void CTrain::ProcessControl() {
                 m_fCurrentRailDistance = m_pPrevCarriage->m_fCurrentRailDistance + m_fLength;
             } else {
                 // Como el original (0x6F8E49..0x6F8E72): pow del EXE (0x822130) con base double 0.99f (0x872500) y producto sin redondear antes de guardar
-                ScaleByExePow(&m_fTrainSpeed, 0.9900000095367432, CTimer::GetTimeStep());
+                PowScaleFloatCpp(&m_fTrainSpeed, 0.99f, CTimer::GetTimeStep());
                 m_fCurrentRailDistance += m_fTrainSpeed * CTimer::GetTimeStep();
             }
 
@@ -1265,7 +1111,7 @@ void CTrain::ProcessControl() {
             }
 
             // Como el original (0x6F8BF2..0x6F8C10): pow del EXE con base double 0.99975 (0x872508), producto sin redondear
-            ScaleByExePow(&m_fTrainSpeed, 0.999750018119812, CTimer::GetTimeStep());
+            PowScaleFloatCpp(&m_fTrainSpeed, 0.99975f, CTimer::GetTimeStep());
             if (!trainFlags.bClockwiseDirection) {
                 m_fTrainSpeed = -m_fTrainSpeed;
             }
@@ -1462,7 +1308,7 @@ void CTrain::ProcessControl() {
 
         // Como el original (0x6F9626..0x6F964C): rumbo nuevo en precision completa menos el viejo; constantes pi / 2*pi del EXE
         // (0x858CB8 = 0x40490FDB, 0x858CBC = 0x40C90FDB, 0x858CC0 = 0xC0490FDB), no el PI = 3.14159f de common.h
-        float fHeading = m_matrix ? HeadingMinusOld(m_matrix, fOldTrainHeading) : m_placement.m_fHeading - fOldTrainHeading;
+        float fHeading = m_matrix ? Atan2MinusCpp(-m_matrix->GetForward().x, m_matrix->GetForward().y, fOldTrainHeading) : m_placement.m_fHeading - fOldTrainHeading;
         if (fHeading <= std::bit_cast<float>(0x40490FDBu)) {
             if (fHeading < std::bit_cast<float>(0xC0490FDBu)) {
                 fHeading += std::bit_cast<float>(0x40C90FDBu);
@@ -1574,7 +1420,8 @@ void CTrain::ProcessControl() {
 
             float fSpeedFactor = 1.0f - vecBuoyancyForce.z / (fTimeStep * m_fMass * 0.008f) * 0.05f;
             // Como el original (0x6F9D1B..0x6F9D66): pow del EXE sin redondear a float; multiplica m_vecMoveSpeed y m_vecTurnSpeed (+0x44..+0x58)
-            ScaleSixByExePow(&m_vecMoveSpeed.x, fSpeedFactor, CTimer::GetTimeStep());
+            PowScaleVector3Cpp(&m_vecMoveSpeed.x, fSpeedFactor, CTimer::GetTimeStep());
+            PowScaleVector3Cpp(&m_vecTurnSpeed.x, fSpeedFactor, CTimer::GetTimeStep());
             ApplyMoveForce(vecBuoyancyForce.x, vecBuoyancyForce.y, vecBuoyancyForce.z);
             ApplyTurnForce(vecBuoyancyForce, vecBuoyancyTurnPoint);
         }

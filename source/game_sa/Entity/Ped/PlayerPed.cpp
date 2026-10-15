@@ -33,10 +33,22 @@ END GENERATED HOOK STATUS */
 #include "MBlur.h"
 #include "EventPlayerCommandToGroupAttack.h"
 #include "EventPlayerCommandToGroupGather.h"
+#include "X87Math.h"
 
 bool CPlayerPed::bDebugPlayerInvincible;
 bool CPlayerPed::bDebugTargeting;
 bool CPlayerPed::bDebugTapToTarget;
+
+// Como el original (0x60A820): solo escribe EAX, ECX (= datos del jugador, +0x480) y ST0, y deja EDX intacto; su llamador en 0x60B430
+// conserva en EDX un puntero a la animacion a traves de la llamada. Este puente __fastcall recibe el EDX de entrada y termina en
+// PlayerPedResidueFloatCpp (ECX = datos del jugador, EDX = el de entrada, ST0 = resultado), asi que no usa ensamblador.
+// Sin comprobaciones de ejecucion (RTC) ni cookie de /GS para que no cambien ECX/EDX tras la ultima llamada.
+#pragma runtime_checks("", off)
+static float __declspec(safebuffers) __fastcall GetButtonSprintResultsKeepEdx(CPlayerPed* self, uint32 entryEdx, eSprintType sprintType) {
+    const float result = self->GetButtonSprintResults(sprintType);
+    return PlayerPedResidueFloatCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self->GetPlayerData())), entryEdx, result);
+}
+#pragma runtime_checks("", restore)
 
 void CPlayerPed::InjectHooks() {
     RH_ScopedVirtualClass(CPlayerPed, 0x86D168, 26);
@@ -78,7 +90,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(MakePlayerGroupDisappear, 0x60A440);
     RH_ScopedInstall(MakePlayerGroupReappear, 0x60A4B0);
     RH_ScopedInstall(HandleSprintEnergy, 0x60A550);
-    RH_ScopedInstall(GetButtonSprintResults, 0x60A820);
+    RH_ScopedNamedGlobalInstall(GetButtonSprintResultsKeepEdx, "GetButtonSprintResults", 0x60A820);
     RH_ScopedInstall(HandlePlayerBreath, 0x60A8D0);
     RH_ScopedOverloadedInstall(MakeChangesForNewWeapon, "", 0x60B460, void(CPlayerPed::*)(eWeaponType));
     RH_ScopedGlobalInstall(LOSBlockedBetweenPeds, 0x60B550);
@@ -717,37 +729,15 @@ float CPlayerPed::ControlButtonSprint(eSprintType sprintType) {
     return plugin::CallMethodAndReturn<float, 0x60A610, CPlayerPed *, eSprintType>(this, sprintType);
 }
 
-// The original caller at 0x60B430 keeps an animation pointer in EDX across this call.
-// Keep the ABI bridge separate from the C++ calculation so compiler changes cannot clobber it.
-static float __fastcall GetButtonSprintResultsImpl(CPlayerPed* player, void*, eSprintType sprintType) {
-    const auto speed = player->GetPlayerData()->m_fMoveSpeed;
-    if (speed > PLAYER_SPRINT_THRESHOLD) {
-        // Keep the original x87 intermediate precision instead of rounding each SSE operation.
-        const auto multiplier = PLAYER_SPRINT_SET[sprintType].field_1C;
-        const float one = 1.0f;
-        float result;
-        __asm {
-            fld speed
-            fdiv PLAYER_SPRINT_THRESHOLD
-            fsub one
-            fmul multiplier
-            fadd one
-            fstp result
-        }
-        return result;
-    }
-    return speed > 0.0f ? 1.0f : 0.0f;
-}
-
 // 0x60A820
-__declspec(naked) float CPlayerPed::GetButtonSprintResults(eSprintType) {
-    __asm {
-        push edx
-        push dword ptr [esp + 8]
-        call GetButtonSprintResultsImpl
-        pop edx
-        ret 4
+float CPlayerPed::GetButtonSprintResults(eSprintType sprintType) {
+    const float speed = GetPlayerData()->m_fMoveSpeed;
+    if (speed > PLAYER_SPRINT_THRESHOLD) {
+        // Como el original: (velocidad / 5 - 1) * k + 1 con un redondeo a 24 bits por operacion en la x87. La rama
+        // "si t < 0 entonces t = 0" del EXE (0x60A84B) es inalcanzable: con velocidad > 5, velocidad / 5 >= 1 y t >= 0.
+        return PlayerPedSprintResultCpp(speed, PLAYER_SPRINT_THRESHOLD, PLAYER_SPRINT_SET[sprintType].field_1C);
     }
+    return speed > 0.0f ? 1.0f : 0.0f; // Como el original: NaN y negativos dan 0
 }
 
 // 0x60A8A0
@@ -1016,17 +1006,7 @@ static auto& PLAYER_MAX_TARGET_VIEW_ANGLE = StaticRef<float>(0x8D243C); // 140.0
 // Como el original: GetATanOfXY (0x53CC70) deja el ángulo en ST0 sin redondear a float y el EXE le resta
 // la compensación directamente (una sola rotura a 24 bits)
 static float PlayerPedATanMinus(float x, float y, float compensation) {
-    float (*const atanOfXY)(float, float) = &CGeneral::GetATanOfXY;
-    float result;
-    __asm {
-        push y
-        push x
-        call atanOfXY
-        add esp, 8
-        fsub compensation
-        fstp result
-    }
-    return result;
+    return PlayerPedAtanMinusCpp(&CGeneral::GetATanOfXY, x, y, compensation);
 }
 
 constexpr float PLAYER_PI = 3.14159274101257324f;     // 0x858CB8
@@ -1117,18 +1097,6 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
 // 0x60E530
 bool CPlayerPed::FindNextWeaponLockOnTarget(CEntity* arg0, bool arg1) {
     return plugin::CallMethodAndReturn<bool, 0x60E530, CPlayerPed *, CEntity*, bool>(this, arg0, arg1);
-}
-
-// Como el original: fpatan (precisión completa) con el resultado redondeado a float al guardarlo
-static float PlayerPedAtan2(float y, float x) {
-    float result;
-    __asm {
-        fld y
-        fld x
-        fpatan
-        fstp result
-    }
-    return result;
 }
 
 // 0x60EA90
@@ -1301,7 +1269,7 @@ void CPlayerPed::ProcessControl() {
         auto& activeCam = TheCamera.GetActiveCam();
         if (activeCam.m_nMode == MODE_FOLLOWPED && !activeCam.m_nDirectionWasLooking) {
             m_nLookTime = 0;
-            float lookDir = CGeneral::LimitRadianAngle(PlayerPedAtan2(-activeCam.m_vecFront.x, activeCam.m_vecFront.y));
+            float lookDir = CGeneral::LimitRadianAngle(TrigAtan2Cpp(-activeCam.m_vecFront.x, activeCam.m_vecFront.y));
             const float angle = std::fabs(lookDir - m_fCurrentRotation);
             // Como el original: 30, 150, 210 y 330 grados son las constantes en radianes del EXE; NaN limpia la mirada
             if (m_nPedState != PEDSTATE_ATTACK && angle > 0.5235987901687622f && angle < 5.759586811065674f) {

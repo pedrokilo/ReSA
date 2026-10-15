@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "RpAnimBlend.h"
+#include "X87Math.h"
 
 // Offset del payload CAnimBlendClumpData* registrado dentro de cada RpClump.
 static auto& ClumpOffset = StaticRef<uint32>(0xB5F878);
@@ -712,52 +713,9 @@ float CalculateTotalBlendOfPartial(AnimBlendUpdateData* c, AnimBlendFrameData* f
 #ifdef USE_COPY_PASTE_FRAME_UPDATE
 #pragma region "R* Frame Update Functions"
 // 0x4D1610 (CQuaternion::Normalise del EXE; los hooks de CQuaternion no están instalados)
-// Como el original: longitud en registros x87 y multiplicación por el recíproco (no división).
+// Como el original: longitud en registros x87 y multiplicación por el recíproco (no división); ver X87Math.cpp.
 static void NormaliseQuatExe(CQuaternion* quat) {
-    __asm {
-        mov ecx, quat
-        fld dword ptr [ecx+0Ch]
-        fld dword ptr [ecx+8]
-        fld dword ptr [ecx+4]
-        fld dword ptr [ecx]
-        fld st(0)
-        fmul st, st(1)
-        fld st(2)
-        fmul st, st(3)
-        faddp st(1), st
-        fld st(3)
-        fmul st, st(4)
-        faddp st(1), st
-        fld st(4)
-        fmul st, st(5)
-        faddp st(1), st
-        fstp st(4)
-        fstp st(0)
-        fstp st(0)
-        fstp st(0)
-        fcom dword ptr ds:[0x858B50]
-        fnstsw ax
-        test ah, 44h
-        jp quat_normalise
-        fstp st(0)
-        mov dword ptr [ecx+0Ch], 3F800000h
-        jmp quat_done
-    quat_normalise:
-        fsqrt
-        fdivr dword ptr ds:[0x858624]
-        fld st(0)
-        fmul dword ptr [ecx]
-        fstp dword ptr [ecx]
-        fld st(0)
-        fmul dword ptr [ecx+4]
-        fstp dword ptr [ecx+4]
-        fld st(0)
-        fmul dword ptr [ecx+8]
-        fstp dword ptr [ecx+8]
-        fmul dword ptr [ecx+0Ch]
-        fstp dword ptr [ecx+0Ch]
-    quat_done:
-    }
+    AnimQuaternionNormaliseCpp(&quat->x);
 }
 
 /*!

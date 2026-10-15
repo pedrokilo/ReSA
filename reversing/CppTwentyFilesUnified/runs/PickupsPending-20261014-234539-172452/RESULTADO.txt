@@ -1,0 +1,3 @@
+APROBADO: CPickups pendientes
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pickups-pending\20261014-234539-172452

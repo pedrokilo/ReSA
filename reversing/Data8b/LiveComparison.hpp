@@ -32,6 +32,7 @@
 #include "Tasks/PedScriptedTaskRecord.h"
 #include "RealTimeShadow.h"
 #include "ShadowCamera.h"
+#include "Camera.h"
 #include "StuckCarCheck.h"
 #include "UpsideDownCarCheck.h"
 #include "PathFind.h"
@@ -343,7 +344,7 @@ inline void Update() {
         EntryPatch l1(bit_cast<uintptr_t>(&CWorld::GetIsLineOfSightClear),FakeLos), l1e(0x56A490,FakeLos);
         EntryPatch t1(OurVirtual("CTaskSimpleCarSetPedOut","ProcessPed"),FakeProcessPed), t1e(0x647D10,FakeProcessPed);   // la entrada de la DLL es un envoltorio que llama al EXE
         EntryPatch t2(bit_cast<uintptr_t>(&CCarEnterExit::RemoveCarSitAnim),FakeRemoveSit), t2e(0x64F680,FakeRemoveSit);
-        EntryPatch c1e(0x420C40,FakeSphereVis);    // IsSphereVisible de 3 args: envoltorio en la DLL
+        EntryPatch c1(bit_cast<uintptr_t>(static_cast<bool(CCamera::*)(const CVector&,float,RwMatrix*)>(&CCamera::IsSphereVisible)),FakeSphereVis), c1e(0x420C40,FakeSphereVis);   // la DLL llama a la de 3 args directamente (la de 2 args no tiene hook)
         EntryPatch c2(bit_cast<uintptr_t>(&CWorld::FindMissionEntitiesIntersectingCube),FakeFindMission), c2e(0x569240,FakeFindMission);
         EntryPatch c3e(0x4342A0,FakeSetCoords);    // SetCoordsOfScriptCar: envoltorio en la DLL
         EntryPatch c4(bit_cast<uintptr_t>(static_cast<bool(CUpsideDownCarCheck::*)(const CVehicle*)>(&CUpsideDownCarCheck::IsCarUpsideDown)),FakeUpside), c4e(0x463830,FakeUpside);
@@ -351,7 +352,7 @@ inline void Update() {
         EntryPatch n1(bit_cast<uintptr_t>(static_cast<CVector(CPathFind::*)(CNodeAddress,CNodeAddress,float&,bool*)>(&CPathFind::FindNodeCoorsForScript)),FakeCoorsTwo), n1e(0x450780,FakeCoorsTwo);
         EntryPatch n2(bit_cast<uintptr_t>(static_cast<CVector(CPathFind::*)(CNodeAddress,bool*)>(&CPathFind::FindNodeCoorsForScript)),FakeCoorsLinked), n2e(0x4505E0,FakeCoorsLinked);
         EntryPatch n3(bit_cast<uintptr_t>(&CPathFind::FindNthNodeClosestToCoors),FakeNth), n3e(0x44F8C0,FakeNth);
-        EntryPatch n4e(0x450320,FakeOrient);       // FindNodeOrientationForCarPlacement: envoltorio en la DLL
+        EntryPatch n4(bit_cast<uintptr_t>(&CPathFind::FindNodeOrientationForCarPlacement),FakeOrient), n4e(0x450320,FakeOrient);       // FindNodeOrientationForCarPlacement: StuckCarCheck.cpp la llama directo en la DLL
         EntryPatch s1(bit_cast<uintptr_t>(&CShadowCamera::Destroy),FakeCamDestroy), s1e(0x705400,FakeCamDestroy);
         EntryPatch s2(bit_cast<uintptr_t>(&CShadowCamera::Create),FakeCamCreate), s2e(0x705B60,FakeCamCreate);
         EntryPatch s3(bit_cast<uintptr_t>(&CShadowCamera::SetLight),FakeCamSetLight), s3e(0x705520,FakeCamSetLight);

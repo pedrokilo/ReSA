@@ -1,0 +1,3 @@
+APROBADO: WeaponDrive355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-weapon-drive355\20261014-232205-439742

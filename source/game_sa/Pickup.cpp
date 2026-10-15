@@ -20,23 +20,21 @@ END GENERATED HOOK STATUS */
 
 #include "Pickup.h"
 #include "ModelIndices.h"
+#include "X87Math.h"
 
 using namespace ModelIndices;
 
-// Como el original: 0x454C70 solo toca eax y ecx; su llamador del EXE (0x458E42, en CPickups)
-// conserva el puntero del pickup en edx a través de la llamada (mov ecx,edx justo después).
-static bool __fastcall PickupIsVisible(CPickup* pickup) {
-    return pickup->IsVisible();
+// Como el original: 0x454C70 solo escribe EAX (0/1) y ECX (la y comprimida con signo extendido, movsx) y no toca EDX; su llamador
+// del EXE (0x458E42, en CPickups) conserva el puntero del pickup en EDX a traves de la llamada (mov ecx,edx justo despues).
+// El EDX de entrada se recibe como segundo parametro __fastcall y se devuelve con ResidueRegsCpp (X87Math.h), que sale sin tocar registros.
+// Sin comprobaciones de ejecucion para que no cambien ECX/EDX tras la ultima llamada.
+#pragma runtime_checks("", off)
+static uint32 __fastcall PickupIsVisibleKeepEdx(CPickup* self, uint32 entryEdx) {
+    const bool visible = self->IsVisible();
+    const int32 y = *reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(self) + 0x12); // m_vecPos.y crudo (movsx ecx,[ecx+0x12])
+    return ResidueRegsCpp(static_cast<uint32>(y), entryEdx, visible ? 1u : 0u);
 }
-
-static __declspec(naked) void PickupIsVisibleKeepEdx() {
-    __asm {
-        push edx
-        call PickupIsVisible
-        pop  edx
-        ret
-    }
-}
+#pragma runtime_checks("", restore)
 
 void CPickup::InjectHooks() {
     RH_ScopedClass(CPickup);
@@ -258,24 +256,6 @@ void CPickup::Remove() {
     m_nFlags.bDisabled = true;
 }
 
-// Como el original: fild del producto (exacto), + 2^32 si es negativo, y fmul por 1/1440000 a 24 bits
-static float PickupRevenueIncrement(uint32 product) {
-    float result;
-    const float scale = 1.0f / 1'440'000.0f;
-    const float two32 = 4294967296.0f;
-    __asm {
-        fild  dword ptr product
-        mov   eax, product
-        test  eax, eax
-        jge   positive
-        fadd  dword ptr two32
-    positive:
-        fmul  dword ptr scale
-        fstp  dword ptr result
-    }
-    return result;
-}
-
 // Updates the pickup. Returns TRUE if pickup was removed/disabled
 // 0x457410
 bool CPickup::Update(CPlayerPed* player, CVehicle* vehicle, int32 playerId) {
@@ -296,8 +276,8 @@ bool CPickup::Update(CPlayerPed* player, CVehicle* vehicle, int32 playerId) {
         const auto coors = FindPlayerCoors();
         const float dx = coors.x - posn.x, dy = coors.y - posn.y, dz = coors.z - posn.z;
         if (std::sqrt(dz * dz + dy * dy + dx * dx) > 10.0f) {
-            // Como el original: producto entero (dinero por día * tiempo) en 32 bits, sin signo, por 1/1440000
-            m_fRevenueValue += PickupRevenueIncrement((uint32)m_nMoneyPerDay * elapsed);
+            // Como el original: producto entero (dinero por día * tiempo) en 32 bits (fild + 2^32 si el bit alto está puesto) por 1/1440000 (0x859BB8), un redondeo por operación
+            m_fRevenueValue += UnsignedTimesFloatCpp((uint32)m_nMoneyPerDay * elapsed, 1.0f / 1'440'000.0f);
         }
         // Como el original: mínimo con el ammo con signo; un valor NaN se queda con el ammo
         const float ammoF = (float)(int32)m_nAmmo;

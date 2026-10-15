@@ -1,0 +1,3 @@
+FALLO: Eventos de bici y script, tareas de script, sombras, rectángulos y coches atascados (lista de 8)
+Funciones con diferencias: CStuckCarCheck::Process: 187/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-data8b\20261015-000126-224438

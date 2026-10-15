@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 12/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 15/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,72 +8,62 @@
 
 <a id="grupo-1841"></a>
 
-## RenderInfo_t
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| SetColor(float red, float green, float blue, float alpha) | [source/game_sa/Fx/RenderInfo.h:48](../../source/game_sa/Fx/RenderInfo.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetRangeColor(float red, float green, float blue) | [source/game_sa/Fx/RenderInfo.h:55](../../source/game_sa/Fx/RenderInfo.h#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Process() | [source/game_sa/Fx/RenderInfo.h:61](../../source/game_sa/Fx/RenderInfo.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1842"></a>
-
 ## ResidueEcx
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| ResidueEcx::Get(unsigned int eaxValue) | [source/game_sa/X87Math.cpp:387](../../source/game_sa/X87Math.cpp#L387) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ResidueEcx::Get(unsigned int eaxValue) | [source/game_sa/X87Math.cpp:389](../../source/game_sa/X87Math.cpp#L389) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1843"></a>
+<a id="grupo-1842"></a>
 
 ## RpAnimBlend
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| * ClumpAnimConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:32](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L32) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: RpAnimBlend::ClumpAnimConstruct 0x004D5F40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * ClumpAnimCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:62](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::ClumpAnimCopy 0x004D5F90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RtAnimBlendKeyFrameApply(void* voidMat, void* voidFrame) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:72](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RtAnimBlendKeyFrameApply 0x004D5FA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendKeyFrameInterpolate(void* voidOut, void* voidIn1, void* voidIn2, float time, void* customData) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:81](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendKeyFrameInterpolate 0x004D60C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendAllocateData(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:134](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L134) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendAllocateData 0x004D5F50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpInit(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:231](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L231) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpInit 0x004D6720 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpAddAssociation(RpClump* clump, CAnimBlendAssociation* association, uint32 playFlags, float startTime, float blendAmount) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:241](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L241) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpAddAssociation 0x004D6790 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpExtractAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:324](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L324) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpExtractAssociations 0x004D6BE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpGiveAssociations(RpClump* clump, CAnimBlendAssociation* associations) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:335](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L335) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGiveAssociations 0x004D6C30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpFillFrameArray(RpClump* clump, AnimBlendFrameData** outFrameData) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:352](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L352) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpFillFrameArray 0x004D64A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpFindBone(RpClump* clump, eBoneTag32 boneTag) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:377](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L377) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpFindBone 0x004D6400 | 0 / 0 | Posible dato fijo gpAnimBlendFrameData: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:367 (0x00B5F87C) |
-| * RpAnimBlendClumpFindFrame(RpClump* clump, const char* needle) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:401](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L401) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpFindFrame 0x004D62A0 | 0 / 0 | Posible dato fijo gpAnimBlendFrameData: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:367 (0x00B5F87C) |
-| * RpAnimBlendClumpFindFrameFromHashKey(RpClump* clump, uint32 boneNameKey) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:430](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L430) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpFindFrameFromHashKey 0x004D6370 | 0 / 0 | Posible dato fijo gpAnimBlendFrameData: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:367 (0x00B5F87C) |
-| * RpAnimBlendClumpGetMainAssociation(RpClump* clump, CAnimBlendAssociation** pp2ndAnim, float* pBlendVal2nd) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:498](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L498) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetMainAssociation 0x004D6910 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpGetMainAssociation_N(RpClump* clump, uint32 n) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:564](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L564) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetMainAssociation_N 0x004D69F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpGetMainPartialAssociation(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:571](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L571) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetMainPartialAssociation 0x004D69A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpGetMainPartialAssociation_N(RpClump* clump, int32 n) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:589](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L589) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetMainPartialAssociation_N 0x004D6A30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpGetNumAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:610](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L610) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetNumAssociations 0x004D6B60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpGetNumNonPartialAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:617](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L617) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetNumNonPartialAssociations 0x004D6BB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpGetNumPartialAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:624](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L624) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetNumPartialAssociations 0x004D6B80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpIsInitialized(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:631](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L631) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpIsInitialized 0x004D6760 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpPauseAllAnimations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:638](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L638) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpPauseAllAnimations 0x004D6B00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpUnPauseAllAnimations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:646](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L646) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpUnPauseAllAnimations 0x004D6B30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpRemoveAllAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:655](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L655) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpRemoveAllAssociations 0x004D6C00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpRemoveAssociations(RpClump* clump, uint32 flags) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:662](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L662) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpRemoveAssociations 0x004D6820 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpSetBlendDeltas(RpClump* clump, uint32 flags, float delta) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:671](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L671) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpSetBlendDeltas 0x004D67E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FrameUpdateCallBackCompressedSkinned(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:952](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L952) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::FrameUpdateCallBackCompressedSkinned 0x004D2E40 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:687 (0x00B4EA0C) |
-| FrameUpdateCallBackCompressedNonSkinned(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1064](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1064) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::FrameUpdateCallBackCompressedNonSkinned 0x004D32D0 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:687 (0x00B4EA0C) |
-| FrameUpdateCallBackSkinned(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1291](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1291) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::FrameUpdateCallBackSkinned 0x004D2B90 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:687 (0x00B4EA0C) |
-| FrameUpdateCallBackNonSkinned(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1526](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1526) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::FrameUpdateCallBackNonSkinned 0x004D30A0 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:687 (0x00B4EA0C) |
-| RpAnimBlendClumpUpdateAnimations(RpClump* clump, float timeStep, bool isOnScreen) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1816](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1816) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpUpdateAnimations 0x004D34F0 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:687 (0x00B4EA0C) |
-| * RpAnimBlendCreateAnimationForHierarchy(RpHAnimHierarchy* hierarchy) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1903](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1903) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendCreateAnimationForHierarchy 0x004D60E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendFrameGetName(RwFrame* frame) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1920](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1920) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendFrameGetName 0x004D5EF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendFrameSetName(RwFrame* frame, const char* name) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1925](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1925) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendFrameSetName 0x004D5F00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * ClumpAnimConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:33](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L33) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: RpAnimBlend::ClumpAnimConstruct 0x004D5F40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * ClumpAnimCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:63](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::ClumpAnimCopy 0x004D5F90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RtAnimBlendKeyFrameApply(void* voidMat, void* voidFrame) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:73](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RtAnimBlendKeyFrameApply 0x004D5FA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendKeyFrameInterpolate(void* voidOut, void* voidIn1, void* voidIn2, float time, void* customData) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:82](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendKeyFrameInterpolate 0x004D60C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RpAnimBlendAllocateData(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:135](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L135) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendAllocateData 0x004D5F50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpInit(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:232](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L232) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpInit 0x004D6720 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RpAnimBlendClumpAddAssociation(RpClump* clump, CAnimBlendAssociation* association, uint32 playFlags, float startTime, float blendAmount) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:242](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L242) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpAddAssociation 0x004D6790 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RpAnimBlendClumpExtractAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:325](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L325) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpExtractAssociations 0x004D6BE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpGiveAssociations(RpClump* clump, CAnimBlendAssociation* associations) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:336](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L336) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGiveAssociations 0x004D6C30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpFillFrameArray(RpClump* clump, AnimBlendFrameData** outFrameData) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:353](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L353) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpFillFrameArray 0x004D64A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RpAnimBlendClumpFindBone(RpClump* clump, eBoneTag32 boneTag) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:378](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L378) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpFindBone 0x004D6400 | 0 / 0 | Posible dato fijo gpAnimBlendFrameData: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:368 (0x00B5F87C) |
+| * RpAnimBlendClumpFindFrame(RpClump* clump, const char* needle) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:402](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L402) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpFindFrame 0x004D62A0 | 0 / 0 | Posible dato fijo gpAnimBlendFrameData: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:368 (0x00B5F87C) |
+| * RpAnimBlendClumpFindFrameFromHashKey(RpClump* clump, uint32 boneNameKey) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:431](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L431) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpFindFrameFromHashKey 0x004D6370 | 0 / 0 | Posible dato fijo gpAnimBlendFrameData: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:368 (0x00B5F87C) |
+| * RpAnimBlendClumpGetMainAssociation(RpClump* clump, CAnimBlendAssociation** pp2ndAnim, float* pBlendVal2nd) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:499](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L499) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetMainAssociation 0x004D6910 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RpAnimBlendClumpGetMainAssociation_N(RpClump* clump, uint32 n) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:565](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L565) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetMainAssociation_N 0x004D69F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RpAnimBlendClumpGetMainPartialAssociation(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:572](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L572) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetMainPartialAssociation 0x004D69A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RpAnimBlendClumpGetMainPartialAssociation_N(RpClump* clump, int32 n) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:590](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L590) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetMainPartialAssociation_N 0x004D6A30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpGetNumAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:611](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L611) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetNumAssociations 0x004D6B60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpGetNumNonPartialAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:618](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L618) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetNumNonPartialAssociations 0x004D6BB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpGetNumPartialAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:625](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L625) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetNumPartialAssociations 0x004D6B80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpIsInitialized(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:632](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L632) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpIsInitialized 0x004D6760 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpPauseAllAnimations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:639](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L639) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpPauseAllAnimations 0x004D6B00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpUnPauseAllAnimations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:647](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L647) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpUnPauseAllAnimations 0x004D6B30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpRemoveAllAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:656](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L656) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpRemoveAllAssociations 0x004D6C00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpRemoveAssociations(RpClump* clump, uint32 flags) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:663](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L663) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpRemoveAssociations 0x004D6820 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendClumpSetBlendDeltas(RpClump* clump, uint32 flags, float delta) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:672](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L672) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpSetBlendDeltas 0x004D67E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FrameUpdateCallBackCompressedSkinned(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:910](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L910) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::FrameUpdateCallBackCompressedSkinned 0x004D2E40 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:688 (0x00B4EA0C) |
+| FrameUpdateCallBackCompressedNonSkinned(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1022](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1022) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::FrameUpdateCallBackCompressedNonSkinned 0x004D32D0 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:688 (0x00B4EA0C) |
+| FrameUpdateCallBackSkinned(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1249](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1249) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::FrameUpdateCallBackSkinned 0x004D2B90 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:688 (0x00B4EA0C) |
+| FrameUpdateCallBackNonSkinned(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1484](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1484) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::FrameUpdateCallBackNonSkinned 0x004D30A0 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:688 (0x00B4EA0C) |
+| RpAnimBlendClumpUpdateAnimations(RpClump* clump, float timeStep, bool isOnScreen) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1774](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1774) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpUpdateAnimations 0x004D34F0 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:688 (0x00B4EA0C) |
+| * RpAnimBlendCreateAnimationForHierarchy(RpHAnimHierarchy* hierarchy) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1861](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1861) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendCreateAnimationForHierarchy 0x004D60E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RpAnimBlendFrameGetName(RwFrame* frame) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1878](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1878) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendFrameGetName 0x004D5EF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RpAnimBlendFrameSetName(RwFrame* frame, const char* name) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1883](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1883) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendFrameSetName 0x004D5F00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1844"></a>
+<a id="grupo-1843"></a>
 
 ## RpAnimBlendPlugin
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| RpAnimBlendPlugin::InjectHooks() | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1951](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1951) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RpAnimBlendPlugin::InjectHooks() | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1909](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1909) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1845"></a>
+<a id="grupo-1844"></a>
 
 ## RtAnim
 
@@ -81,7 +71,7 @@
 | --- | --- | --- | --- | --- | --- |
 | RtAnim::InjectHooks() | [source/game_sa/RenderWare/rw/rtanim.cpp:233](../../source/game_sa/RenderWare/rw/rtanim.cpp#L233) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1846"></a>
+<a id="grupo-1845"></a>
 
 ## RwHelper
 
@@ -114,7 +104,7 @@
 | * RwTexDictionaryFindHashNamedTexture(RwTexDictionary* dictionary, uint32 hash) | [source/game_sa/RwHelper.cpp:305](../../source/game_sa/RwHelper.cpp#L305) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RwTexDictionaryFindHashNamedTexture 0x00734E50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * RemoveRefsCB(RpAtomic* atomic, void* data) | [source/game_sa/RwHelper.cpp:338](../../source/game_sa/RwHelper.cpp#L338) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::RemoveRefsCB 0x007226D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1847"></a>
+<a id="grupo-1846"></a>
 
 ## RwObjectNameIdAssocation
 
@@ -122,7 +112,7 @@
 | --- | --- | --- | --- | --- | --- |
 | AsFlagsUnion() | [source/game_sa/RwObjectNameIdAssocation.h:81](../../source/game_sa/RwObjectNameIdAssocation.h#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1848"></a>
+<a id="grupo-1847"></a>
 
 ## SArray
 
@@ -149,7 +139,7 @@
 | * Allocate(size_t n) | [source/game_sa/Core/SArray.h:119](../../source/game_sa/Core/SArray.h#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Deallocate(T* p) | [source/game_sa/Core/SArray.h:120](../../source/game_sa/Core/SArray.h#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1849"></a>
+<a id="grupo-1848"></a>
 
 ## SurfaceInfo
 
@@ -157,7 +147,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Read(const char* line) | [source/game_sa/SurfaceInfo_c.h:64](../../source/game_sa/SurfaceInfo_c.h#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1850"></a>
+<a id="grupo-1849"></a>
 
 ## SurfaceInfos_c
 
@@ -216,7 +206,7 @@
 | SurfaceInfos_c::GetAdhesiveLimit(CColPoint* colPoint) | [source/game_sa/SurfaceInfos_c.cpp:696](../../source/game_sa/SurfaceInfos_c.cpp#L696) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: SurfaceInfos_c::GetAdhesiveLimit 0x0055EB50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsAudioGravelConcreteOrTile(SurfaceId id) | [source/game_sa/SurfaceInfos_c.h:73](../../source/game_sa/SurfaceInfos_c.h#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1851"></a>
+<a id="grupo-1850"></a>
 
 ## TList_c
 
@@ -244,7 +234,7 @@
 | end() | [source/game_sa/Core/List_c.h:267](../../source/game_sa/Core/List_c.h#L267) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsEmpty() const | [source/game_sa/Core/List_c.h:269](../../source/game_sa/Core/List_c.h#L269) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1852"></a>
+<a id="grupo-1851"></a>
 
 ## TList_c::BaseIterator
 
@@ -260,7 +250,7 @@
 | operator==(const BaseIterator&lt;Y&gt;& lhs, const BaseIterator&lt;Y&gt;& rhs) | [source/game_sa/Core/List_c.h:38](../../source/game_sa/Core/List_c.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | operator!=(const BaseIterator&lt;Y&gt;& lhs, const BaseIterator&lt;Y&gt;& rhs) | [source/game_sa/Core/List_c.h:39](../../source/game_sa/Core/List_c.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1853"></a>
+<a id="grupo-1852"></a>
 
 ## UpgradePosnDesc
 
@@ -269,7 +259,7 @@
 | UpgradePosnDesc() | [source/game_sa/Models/VehicleModelInfo.h:124](../../source/game_sa/Models/VehicleModelInfo.h#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ~UpgradePosnDesc() | [source/game_sa/Models/VehicleModelInfo.h:125](../../source/game_sa/Models/VehicleModelInfo.h#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1854"></a>
+<a id="grupo-1853"></a>
 
 ## UpsideDownCar
 
@@ -278,7 +268,7 @@
 | UpsideDownCar() | [source/game_sa/UpsideDownCarCheck.h:15](../../source/game_sa/UpsideDownCarCheck.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Clear() | [source/game_sa/UpsideDownCarCheck.h:19](../../source/game_sa/UpsideDownCarCheck.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1855"></a>
+<a id="grupo-1854"></a>
 
 ## WaterCreatureManager_c
 
@@ -295,7 +285,7 @@
 | WaterCreatureManager_c::Update(float deltaTime) | [source/game_sa/WaterCreatureManager_c.cpp:151](../../source/game_sa/WaterCreatureManager_c.cpp#L151) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: WaterCreatureManager_c::Update 0x006E4F10 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:39 (0x00B6F028) |
 | & GetCreatureInfo(uint32/*eWaterCreatureType*/ type) | [source/game_sa/WaterCreatureManager_c.h:62](../../source/game_sa/WaterCreatureManager_c.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_waterCreatureInfos: source/game_sa/WaterCreatureManager_c.h:37 (0x008D3698) |
 
-<a id="grupo-1856"></a>
+<a id="grupo-1855"></a>
 
 ## WaterCreature_c
 
@@ -310,7 +300,7 @@
 | IsJellyfish() const | [source/game_sa/WaterCreature_c.h:49](../../source/game_sa/WaterCreature_c.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsSmallFish() const | [source/game_sa/WaterCreature_c.h:50](../../source/game_sa/WaterCreature_c.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1857"></a>
+<a id="grupo-1856"></a>
 
 ## cBuoyancy
 
@@ -327,7 +317,7 @@
 | cBuoyancy::FindWaterLevel(const CVector& vecInitialZPos, CVector* outVecOffset, tWaterLevel* outInWaterState) | [source/game_sa/Buoyancy.cpp:546](../../source/game_sa/Buoyancy.cpp#L546) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cBuoyancy::FindWaterLevel 0x006C2810 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cBuoyancy::FindWaterLevelNorm(const CVector& vecInitialZPos, CVector* outVecOffset, tWaterLevel* outInWaterState, CVector* outVecNormal) | [source/game_sa/Buoyancy.cpp:566](../../source/game_sa/Buoyancy.cpp#L566) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cBuoyancy::FindWaterLevelNorm 0x006C28C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1858"></a>
+<a id="grupo-1857"></a>
 
 ## cHandlingDataMgr
 
@@ -349,7 +339,7 @@
 | cHandlingDataMgr::ConvertBikeDataToGameUnits(tBikeHandlingData* bikeHandling) | [source/game_sa/cHandlingDataMgr.cpp:582](../../source/game_sa/cHandlingDataMgr.cpp#L582) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cHandlingDataMgr::ConvertBikeDataToGameUnits 0x006F5290 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cHandlingDataMgr::FindExactWord(const char* name, const char* nameTable, uint32 entrySize, uint32 entryCount) | [source/game_sa/cHandlingDataMgr.cpp:590](../../source/game_sa/cHandlingDataMgr.cpp#L590) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cHandlingDataMgr::FindExactWord 0x006F4F30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1859"></a>
+<a id="grupo-1858"></a>
 
 ## cTransmission
 
@@ -361,7 +351,7 @@
 | cTransmission::CalculateGearForSimpleCar(float speed, uint8& currentGear) | [source/game_sa/cTransmission.cpp:93](../../source/game_sa/cTransmission.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cTransmission::CalculateGearForSimpleCar 0x006D0530 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cTransmission::CalculateDriveAcceleration(const float& gasPedal, uint8& currentGear, float& gearChangeCount, float& velocity, float* a6, float* a7, uint8 allWheelsOnGround, uint8 handlingCheat) | [source/game_sa/cTransmission.cpp:112](../../source/game_sa/cTransmission.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cTransmission::CalculateDriveAcceleration 0x006D05E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1860"></a>
+<a id="grupo-1859"></a>
 
 ## detail
 
@@ -371,3 +361,14 @@
 | ScriptWidthScale(uint8 width) | [source/game_sa/PathFind.cpp:786](../../source/game_sa/PathFind.cpp#L786) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ScriptOffsetPos(const CVector& nodePos, float px, float py, float scale) | [source/game_sa/PathFind.cpp:789](../../source/game_sa/PathFind.cpp#L789) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCoorsOfRegion(size_t p, size_t nareas) | [source/game_sa/PathFind.cpp:1971](../../source/game_sa/PathFind.cpp#L1971) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1860"></a>
+
+## details
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * CPtrNodeDoubleLink__operator_new(size_t sz) | [source/game_sa/Core/PtrNodeDoubleLink.cpp:4](../../source/game_sa/Core/PtrNodeDoubleLink.cpp#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPtrNodeDoubleLink__operator_delete(void* data, size_t sz) | [source/game_sa/Core/PtrNodeDoubleLink.cpp:9](../../source/game_sa/Core/PtrNodeDoubleLink.cpp#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPtrNodeSingleLink__operator_new(size_t sz) | [source/game_sa/Core/PtrNodeSingleLink.cpp:4](../../source/game_sa/Core/PtrNodeSingleLink.cpp#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPtrNodeSingleLink__operator_delete(void* data, size_t sz) | [source/game_sa/Core/PtrNodeSingleLink.cpp:9](../../source/game_sa/Core/PtrNodeSingleLink.cpp#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

@@ -7,7 +7,9 @@ extern "C" double __cdecl sqrt(double);
 extern "C" double __cdecl atan2(double, double);
 extern "C" double __cdecl log10(double);
 extern "C" double __cdecl pow(double, double);
-#pragma intrinsic(sin, cos, sqrt, atan2, log10, pow)
+extern "C" double __cdecl log(double);
+extern "C" double __cdecl tan(double);
+#pragma intrinsic(sin, cos, sqrt, atan2, log10, pow, log, tan)
 #include <float.h>
 #include <string.h>
 #include <assert.h>
@@ -423,11 +425,13 @@ static bool EntryEaxHelperIsTrivial() {
     return code[0] == 0xC3 || memcmp(code, plain, sizeof plain) == 0 || memcmp(code, withFrame, sizeof withFrame) == 0;
 }
 
+static bool PlayerPedResidueFloatIsTrivial();
+static bool CarEnterExitEntryEdxHelperIsTrivial();
 static bool ResidueHelpersAreTrivial() {
     auto  member = &ResidueEcx::Get;
     const void* getAddress;
     memcpy(&getAddress, &member, sizeof getAddress);
-    return ResidueHelperIsTrivial(reinterpret_cast<const void*>(&ResidueRegsCpp)) && ResidueHelperIsTrivial(getAddress) && EntryEaxHelperIsTrivial();
+    return ResidueHelperIsTrivial(reinterpret_cast<const void*>(&ResidueRegsCpp)) && ResidueHelperIsTrivial(getAddress) && EntryEaxHelperIsTrivial() && PlayerPedResidueFloatIsTrivial() && CarEnterExitEntryEdxHelperIsTrivial();
 }
 
 static const bool s_residueHelpersChecked = (assert(ResidueHelpersAreTrivial() && "Los ayudantes de residuo de registros ya no son triviales: revisar X87Math.cpp y las opciones de compilacion"), true);
@@ -1081,5 +1085,662 @@ __declspec(noinline) void __cdecl WeaponFxAngleSinCosCpp(float y, float x, float
     const double c = cos(angle);
     *outCos = float(c);
     *outOneMinusCos = float(1.0 - c);
+}
+
+
+// --- Lote de veinte archivos de nivel 2 (14/10/2026) ---
+// --- CPlayerPed (lote w20) ---
+// 0x60A82F..0x60A869: fld v; fdiv [0x8D2458]; fsub [0x858624]; fmul [tabla + 0x1C]; fadd [0x858624]. La rama t < 0 -> 0 (0x60A845) es inalcanzable con v > 5.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl PlayerPedSprintResultCpp(float speed, float threshold, float multiplier) {
+    volatile float result = float(((double(speed) / double(threshold) - 1.0) * double(multiplier)) + 1.0);
+    return result;
+}
+#pragma float_control(pop)
+
+// 0x60D0E9..0x60D0EE: call GetATanOfXY; fsub [compensation] (el valor de ST0 sigue en la pila x87, un solo redondeo a float).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl PlayerPedAtanMinusCpp(float (__cdecl* atanFn)(float, float), float x, float y, float compensation) {
+    volatile float result = float(double(atanFn(x, y)) - double(compensation));
+    return result;
+}
+#pragma float_control(pop)
+
+// Igual que ResidueRegsCpp pero devolviendo un float en ST0: compilada (/O2) es `fld dword ptr [esp+4]; ret 4` y no toca ECX, EDX ni EAX.
+#pragma runtime_checks("", off)
+__declspec(noinline) float __fastcall PlayerPedResidueFloatCpp(unsigned int /*ecxValue*/, unsigned int /*edxValue*/, float value) {
+    return value;
+}
+#pragma runtime_checks("", restore)
+
+// Comprobacion al cargar la DLL (anadir a ResidueHelpersAreTrivial): el ayudante tiene que ser `fld dword ptr [esp+4]; ret 4` (o con marco ebp).
+static bool PlayerPedResidueFloatIsTrivial() {
+    static const unsigned char withoutFrame[] = {0xD9, 0x44, 0x24, 0x04, 0xC2, 0x04, 0x00};                  // fld dword ptr [esp+4]; ret 4
+    static const unsigned char withFrame[]    = {0x55, 0x8B, 0xEC, 0xD9, 0x45, 0x08, 0x5D, 0xC2, 0x04, 0x00}; // push ebp; mov ebp,esp; fld dword ptr [ebp+8]; pop ebp; ret 4
+    const unsigned char* code = FollowIncrementalThunks(reinterpret_cast<const unsigned char*>(&PlayerPedResidueFloatCpp));
+    return memcmp(code, withoutFrame, sizeof withoutFrame) == 0 || memcmp(code, withFrame, sizeof withFrame) == 0;
+}
+
+// --- Lote CarEnterExit ---
+// CCarEnterExit::GetNearestCarDoor (0x6529A4..0x6529D8): ST1 = fpatan(-dx, dy); ST0 = fpatan(-fwd.x, fwd.y) o el float heading; fsubp st(1) redondea una vez a 24 bits.
+// Los dos valores deben quedar en la pila x87 (sin fstp qword entre ellos): revisar el .obj (mismo patrón que TrailerSteerCpp).
+__declspec(noinline) float __cdecl CarEnterExitHeadingDiffCpp(float dx, float dy, const float* forward, float heading) {
+    const double a = atan2(-double(dx), double(dy));
+    const double b = forward ? atan2(-double(forward[0]), double(forward[1])) : double(heading);
+    volatile float result = float(a - b);
+    return result;
+}
+
+// EDX de entrada de la función que lo llama, si es lo primero que ésta ejecuta: no tiene `return`, de modo que MSVC no escribe EAX ni EDX y sale
+// (`ret`, con o sin marco de pila); el llamador lo lee como mitad alta del resultado de 64 bits. Comportamiento sin definir en el lenguaje, vigilado
+// igual que EntryEaxCpp (comprobación de bytes al cargar la DLL y contrib/audit_register_residue.py).
+#pragma warning(push)
+#pragma warning(disable : 4716)
+__declspec(noinline) unsigned long long __fastcall CarEnterExitEntryEdxCpp() {
+}
+#pragma warning(pop)
+
+// Colocar DESPUÉS de FollowIncrementalThunks y EntryEaxHelperIsTrivial; se añade a la comprobación existente (ResidueHelpersAreTrivial: `&& CarEnterExitEntryEdxHelperIsTrivial()`).
+static bool CarEnterExitEntryEdxHelperIsTrivial() {
+    const unsigned char* code = FollowIncrementalThunks(reinterpret_cast<const unsigned char*>(&CarEnterExitEntryEdxCpp));
+    static const unsigned char plain[]     = {0xC2, 0x00, 0x00};
+    static const unsigned char withFrame[] = {0x55, 0x8B, 0xEC, 0x5D, 0xC2, 0x00, 0x00};
+    return code[0] == 0xC3 || memcmp(code, plain, sizeof plain) == 0 || memcmp(code, withFrame, sizeof withFrame) == 0;
+}
+
+// Cada operacion x87 a 24 bits: fild n; fdivr twoPi; fst angleStep; fcos; fsubr 1.0; fdivr 0.5; fsqrt; fstp radius.
+// La doble precision (53 >= 2*24+2) hace que /,-,sqrt en double y luego float() coincidan con un solo redondeo a 24 bits.
+__declspec(noinline) float __cdecl PedGroupPlacerCircleCpp(int numPeds, float* radius) {
+    volatile float step = float(double(std::bit_cast<float>(0x40C90FDBu)) / double(numPeds)); // 0x858CBC
+    volatile float oneMinusCos = float(1.0 - cos(double(step)));
+    volatile float quotient = float(0.5 / double(oneMinusCos));                                // 0x858B8C
+    volatile float root = float(sqrt(double(quotient)));
+    *radius = root;
+    return step;
+}
+
+// CWeather::Update (0x72C445/0x72C5E5): 0.5 - cos(a) * 0.5 con el coseno sin redondear (fcos; fmul 0.5; fsubr 0.5; un solo redondeo a float); va tras TrigCompoundCosHalf.
+__declspec(noinline) float __cdecl WeatherHalfMinusHalfCosCpp(float angle) {
+    return float(0.5 - cos(double(angle)) * 0.5);
+}
+// CWeather::UpdateInTunnelness (0x72B6A4): fld heading; fsin; fchs; fstp (negacion exacta del seno sin redondear antes; conserva el signo de NaN que da fchs); va tras TrigCompoundNegSinDiv.
+__declspec(noinline) float __cdecl WeatherNegSinCpp(float angle) {
+    return float(-sin(double(angle)));
+}
+
+// --- CQuadBike (14/10/2026) ---
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl QuadBikeDampDeltaStoredCpp(float res, float timeStep, float vel) {
+    const float damp = float(ExeCompatiblePowCpp(double(res), double(timeStep))); // fstp dword [damp]
+    volatile float result = (vel * damp) - vel;
+    return result;
+}
+
+__declspec(noinline) float __cdecl QuadBikeDampDeltaFullCpp(float res, float timeStep, float vel) {
+    const double damp = ExeCompatiblePowCpp(double(res), double(timeStep)); // ST0 sin redondear
+    volatile float result = float((damp * double(vel)) - double(vel));
+    return result;
+}
+
+__declspec(noinline) float __cdecl QuadBikeLeanAngleCpp(float desLean, float timeStep, float leanAngle, float fullAnimLean, float steerAngle, float steeringLock) {
+    const double v        = ExeCompatiblePowCpp(double(desLean), double(timeStep)); // ST0 sin redondear, usado en el producto y en 1 - v
+    const float  quotient = (fullAnimLean * steerAngle) / (steeringLock * 0.017453292f); // 0x8595EC; todo float
+    volatile float result = float((v * double(leanAngle)) - (double(quotient) * (1.0 - v)));
+    return result;
+}
+#pragma float_control(pop)
+
+// Pickups: (sin(angle) + add) * mult; add y mult se leen tras el seno (volatile) para que /fp:fast no redistribuya el producto.
+__declspec(noinline) float __cdecl PickupsSinAddMulCpp(float angle, float add, float mult) {
+    const volatile float* addend = &add;
+    const volatile float* factor = &mult;
+    double value = sin(double(angle));
+    value += double(*addend);
+    value *= double(*factor);
+    volatile float result = float(value);
+    return result;
+}
+
+// Pickups: orden estricto del EXE; con /fp:fast (1 - d*k)*255 se reasociaria como 255 - d*(k*255).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl PickupsAlphaValueCpp(float distance, float factor, float one, float scale) {
+    const float scaled = distance * factor;
+    const float remainder = one - scaled;
+    volatile float result = remainder * scale;
+    return result;
+}
+#pragma float_control(pop)
+
+// Va tras AnimQuaternionDotNegativeCpp en X87Math.cpp (misma sección "Animación").
+// Suma de cuadrados en el orden del EXE (0x4D161B..0x4D162F); devuelve double para no redondear al rango de float (x87 conserva el exponente extendido).
+#pragma float_control(precise, on, push)
+static __declspec(noinline) double RpAnimBlendQuaternionSumSquares(const float* q) {
+    return ((q[0] * q[0] + q[1] * q[1]) + q[2] * q[2]) + q[3] * q[3];
+}
+#pragma float_control(pop)
+
+__declspec(noinline) void __cdecl AnimQuaternionNormaliseCpp(float* q) {
+    const double sum = RpAnimBlendQuaternionSumSquares(q);
+    // fcom con 0.0f; test ah,44h / jp: solo "igual" (ordenado) va a la rama w = 1; mayor, menor y no ordenado (NaN) normalizan.
+    if (sum == 0.0) {
+        q[3] = 1.0f;
+        return;
+    }
+    // fsqrt; fdivr 1.0f: el recíproco queda en ST0 (24 bits) y cada producto con el float de memoria se guarda como float.
+    const double inv = 1.0f / sqrt(sum);
+    q[0] = float(inv * q[0]);
+    q[1] = float(inv * q[1]);
+    q[2] = float(inv * q[2]);
+    q[3] = float(inv * q[3]);
+}
+
+// --- Lote de PostEffects.cpp (14/10/2026) ---
+// fsin/fcos en funciones aparte SIN float_control(precise) (con precise pasarían a llamadas a la CRT); devuelven ST0 sin redondear.
+static __declspec(noinline) double PostFxSinFull(double angle) { return sin(angle); }
+static __declspec(noinline) double PostFxCosFull(double angle) { return cos(angle); }
+
+// SetupBackBufferVertex (0x7043D9..0x70440B): ln(base) = fldln2 ; fld base ; fyl2x guardado como double; ln(value) / eso, redondeado a 24 bits; _ftol2 sobre el float.
+__declspec(noinline) int __cdecl PostFxLog2TruncViaDoubleCpp(int value, double base) {
+    volatile double lnBase = log(base);
+    volatile float quotient = float(log(double(value)) / lnBase);
+    return static_cast<int>(static_cast<long long>(quotient));
+}
+
+// ImmediateModeFilterStuffInitialize (0x703EB5..0x703EDF): ln(base) se queda en ST(1) en precisión extendida (una sola expresión, sin guardar).
+__declspec(noinline) int __cdecl PostFxLog2TruncKeepExtendedCpp(int value, double base) {
+    volatile float quotient = float(log(double(value)) / log(base));
+    return static_cast<int>(static_cast<long long>(quotient));
+}
+
+// Ripple y Fog: sin reasociación (el EXE suma/resta paso a paso a 24 bits); el seno entra al producto/suma directamente desde ST0 (la llamada lo devuelve sin guardar).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl PostFxRippleWaveCpp(unsigned int timeMs, float speed, float freq, float y, float xoffset) {
+    const double arg = UnsignedAsX87(timeMs) * double(speed) + double(freq) * double(y); // ya redondeado a 24 bits: guardarlo como double es exacto
+    volatile float result = float(PostFxSinFull(arg) * double(xoffset));
+    return result;
+}
+
+// El seno se vuelve a calcular en cada uso (misma entrada, mismo resultado) para que nunca se guarde como double entre los dos usos.
+__declspec(noinline) void __cdecl PostFxRippleFinalUCpp(unsigned int timeMs, float speed, float freq, float y, float xoffset, int width, float* outU0, float* outU1) {
+    const double arg = UnsignedAsX87(timeMs) * double(speed) + double(freq) * double(y);
+    *outU0 = float((PostFxSinFull(arg) + double(xoffset)) / double(width));
+    *outU1 = float(((double(width) + PostFxSinFull(arg)) - double(xoffset)) / double(width));
+}
+
+__declspec(noinline) float __cdecl PostFxFogSinCoordCpp(float angle, float quarter, float radius, float half, float third) {
+    volatile float result = float(((PostFxSinFull(double(angle)) * (double(quarter) + double(radius))) + double(half)) - double(third));
+    return result;
+}
+__declspec(noinline) float __cdecl PostFxFogCosCoordCpp(float angle, float quarter, float radius, float half, float third) {
+    volatile float result = float(((PostFxCosFull(double(angle)) * (double(quarter) + double(radius))) + double(half)) - double(third));
+    return result;
+}
+#pragma float_control(pop)
+
+// Lote de GangWars.cpp (14/10/2026). Va dentro de X87Math.cpp (usa memcpy de <string.h>); precise evita que /fp:fast reasocie o pliegue las constantes.
+#pragma float_control(precise, on, push)
+// 0x858C7C = 0x38000100: unidad del generador (1 / 32768 con ajuste), cargada como float.
+static double GangWarsUnit() {
+    const unsigned int bits = 0x38000100u;
+    float unit;
+    memcpy(&unit, &bits, sizeof(unit));
+    return double(unit);
+}
+
+// 0x443DB0: fild rnd; fmul 0x858C7C; fmul 0x858C20 (0.9f); fmul 0x8598B8 (1080000.f); fadd 0x8598B4 (648000.f); jmp _ftol2.
+__declspec(noinline) unsigned int __cdecl GangWarsNextAttackDelayCpp(int random) {
+    double value = double(random) * GangWarsUnit();
+    value = value * double(0.9f);
+    value = value * double(1080000.0f);
+    value = value + double(648000.0f);
+    return static_cast<unsigned int>(static_cast<long long>(value));
+}
+
+// 0x444D30: fild; fmul unidad; fmul scale; fadd base; fsub subtract; fstp.
+__declspec(noinline) float __cdecl GangWarsRandomOffsetCpp(int random, float base, float scale, float subtract) {
+    double value = double(random) * GangWarsUnit();
+    value = value * double(scale);
+    value = value + double(base);
+    value = value - double(subtract);
+    volatile float result = float(value);
+    return result;
+}
+
+// 0x44557C: fild; fmul unidad; (fxch) fmul 3.0f; fadd 2.0f. El resultado queda en ST0 a 24 bits; se devuelve como float.
+__declspec(noinline) float __cdecl GangWarsRandomScaledCpp(int random, float scale, float base) {
+    double value = double(random) * GangWarsUnit();
+    value = value * double(scale);
+    value = value + double(base);
+    volatile float result = float(value);
+    return result;
+}
+
+// 0x444C72: fld value; fmul scale; fadd base; fimul multiple; call _ftol2.
+__declspec(noinline) int __cdecl GangWarsScaledTruncCpp(float value, float scale, float base, int multiple) {
+    double scaled = double(value) * double(scale);
+    scaled = scaled + double(base);
+    scaled = scaled * double(multiple);
+    return static_cast<int>(static_cast<long long>(scaled));
+}
+
+// 0x446BA2: fld CTimer::ms_fTimeStep; fmul 0x858B38 (0.02f); fmul +-1000.f; call _ftol2.
+__declspec(noinline) unsigned int __cdecl GangWarsTimeDeltaCpp(float step, bool negative) {
+    double value = double(step) * double(0.02f);
+    value = value * (negative ? -1000.0 : 1000.0);
+    return static_cast<unsigned int>(static_cast<long long>(value));
+}
+
+// 0x445586: fild index; fmul 0x858CBC (6.2831855f); fidiv total; fst angle.
+__declspec(noinline) float __cdecl GangWarsDefenderAngleCpp(int index, int total) {
+    double value = double(index) * double(6.2831855f);
+    value = value / double(total);
+    volatile float result = float(value);
+    return result;
+}
+#pragma float_control(pop)
+
+// --- Lote de Hud.cpp (14/10/2026) ---
+// CHud::DrawRadar (0x58A422..0x58A435): fld negRightZ; fld upZ; fpatan; fchs; fsub quarterPi; fstp. (-a) - q con a sin redondear.
+__declspec(noinline) float __cdecl HudRadarBaseAngleCpp(float negRightZ, float upZ, float quarterPi) {
+    return float(-atan2(double(negRightZ), double(upZ)) - double(quarterPi));
+}
+
+// CHud::DrawRadar (0x58A4C4..0x58A4F6): fsin y fcos de la misma copia de ST0, sin fstp intermedio; luego las dos cadenas fmul/fadd/fsubr hasta cada fstp.
+__declspec(noinline) void __cdecl HudRadarRingPointCpp(float angle, float zero, float radiusX, float radiusY, float sx40, float centerX, float centerY, float baseY, float* outX, float* outY) {
+    const double s = sin(double(angle));
+    const double c = cos(double(angle));
+    *outX = float(((double(zero) * c + s) * double(radiusX) + double(sx40)) + double(centerX));
+    *outY = float((((c - double(zero) * s) * double(radiusY)) + double(centerY)) + double(baseY));
+}
+
+// Las dos cadenas siguientes son aritmetica pura (sin fsin/fcos): el orden de las operaciones del EXE no puede reasociarse.
+#pragma float_control(precise, on, push)
+// CHud::DrawSubtitles (0x58C4F6..0x58C52F): P = c520*w; Q = k0*P; T = (w - P*k1) - Q; V = P*k2 + Q; resultado = (T - V)*k3.
+__declspec(noinline) float __cdecl HudSubtitleCentreVitalsCpp(int width, float k520, float k0, float k1, float k2, float k3) {
+    const double w = double(width);
+    const double p = double(k520) * w;
+    const double q = double(k0) * p;
+    const double t = (w - p * double(k1)) - q;
+    const double v = p * double(k2) + q;
+    volatile float result = float((t - v) * double(k3));
+    return result;
+}
+
+// CHud::DrawSubtitles (0x58C47B..0x58C495): A = c524*h; B = k*A; C = h - B; y = C - (A + A).
+__declspec(noinline) float __cdecl HudSubtitleBottomYCpp(int height, float c524, float k866c1c) {
+    const double h = double(height);
+    const double a = double(c524) * h;
+    const double b = double(k866c1c) * a;
+    const double c = h - b;
+    volatile float result = float(c - (a + a));
+    return result;
+}
+#pragma float_control(pop)
+
+// --- Timer (CTimer) ---
+// UnsignedAsX87 (fild con signo + 2^32 si el bit alto esta puesto) ya existe en este archivo.
+__declspec(noinline) float __cdecl TimerDivByU32Cpp(float num, unsigned int den) {
+    volatile float result = float(double(num) / UnsignedAsX87(den)); // fdivr: num / den
+    return result;
+}
+
+// fild qword (low63) ; fild qword (bit 63 como INT64_MIN) ; fchs ; faddp  ->  low63 + 2^63 con un solo redondeo; fstp float.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl TimerU64ToFloatCpp(unsigned long long value) {
+    const long long low63 = static_cast<long long>(value & 0x7FFFFFFFFFFFFFFFull);
+    const long long top = static_cast<long long>(value & 0x8000000000000000ull);
+    volatile float result = float(double(low63) - double(top));
+    return result;
+}
+
+// El cociente queda en ST0 (sin guardar como float); _ftol2 trunca a 64 bits y el EXE usa EAX (NaN/fuera de rango: 0x8000000000000000 -> 0).
+__declspec(noinline) unsigned int __cdecl TimerPauseModeCpp(unsigned int pauseMode, float delta, unsigned int divider) {
+    const double quotient = double(delta) / UnsignedAsX87(divider);
+    return static_cast<unsigned int>(static_cast<long long>(UnsignedAsX87(pauseMode) + quotient));
+}
+
+// q = timeElapsed / divider (fdivr) queda en la pila: ftol(nonClipped + q) -> newNonClipped; float(0.05f * q) -> stepNonClipped; ftol(q) -> elapsedMs.
+__declspec(noinline) void __cdecl TimerUpdateStepCpp(float timeElapsed, unsigned int divider, unsigned int nonClipped, unsigned int* newNonClipped, float* stepNonClipped, unsigned int* elapsedMs) {
+    const double q = double(timeElapsed) / UnsignedAsX87(divider);
+    *newNonClipped = static_cast<unsigned int>(static_cast<long long>(UnsignedAsX87(nonClipped) + q));
+    *stepNonClipped = float(double(std::bit_cast<float>(0x3D4CCCCDu)) * q); // 0x858C28
+    *elapsedMs = static_cast<unsigned int>(static_cast<long long>(q));
+}
+#pragma float_control(pop)
+
+// --- CTrain::FindPositionOnTrackFromCoors (0x6F6CC0), lote de Train.cpp ---
+// Aritmetica float pura en el orden del EXE bajo float_control(precise): sin reasociaciones de /fp:fast (p. ej. sqrt(s)·sqrt(s) -> s ni (low·k)·(1-day) -> low·(k·(1-day))).
+// La x87 corre a 24 bits, asi que cada operacion float equivale al fmul/fadd/fsub del EXE; solo la raiz va por double (fsqrt).
+#pragma float_control(precise, on, push)
+// 0x6F6D85..0x6F6DEB: la raiz queda redondeada a float (el EXE no la guarda, pero a 24 bits es lo mismo) y se multiplica por si misma.
+__declspec(noinline) float __cdecl TrainProjectionCpp(float x, float y, float nx, float ny, float px, float py) {
+    const float a = x - nx;
+    const float b = y - ny;
+    const float length = float(sqrt(double(b * b + a * a)));
+    const float dx = nx - x;
+    const float dy = ny - y;
+    const float p = px - x;
+    const float q = py - y;
+    return (p * dx + q * dy) / (length * length);
+}
+
+// 0x6F6E95..0x6F6EE3 (cada fild lee un nibble 0..15: exacto con signo o sin el).
+__declspec(noinline) float __cdecl TrainNodeLightingCpp(int low, int high, float day) {
+    const float k = std::bit_cast<float>(0x3D088889u); // 0x858F10
+    const float one = 1.0f;                            // 0x858624
+    const float lowPart = (float(low) * k) * (one - day);
+    const float highPart = (float(high) * k) * day;
+    return lowPart + highPart;
+}
+
+// 0x6F6EE9..0x6F6F38 (el valor final se guarda con fstp en m_fContactSurfaceBrightness).
+__declspec(noinline) float __cdecl TrainLightingBlendCpp(int low, int high, float day, float previous, float factor) {
+    const float k = std::bit_cast<float>(0x3D088889u); // 0x858F10
+    const float one = 1.0f;                            // 0x858624
+    const float lowPart = (float(low) * k) * (one - day);
+    const float highPart = (float(high) * k) * day;
+    const float light = lowPart + highPart;
+    return (light - previous) * factor + previous;
+}
+
+// 0x6F6F95..0x6F6FEC: el EXE guarda un valor intermedio en m_fCurrentRailDistance (0x6F6FB5) que se sobrescribe sin leerse; aqui solo importa el final.
+__declspec(noinline) float __cdecl TrainRailDistanceCpp(int before, int after, float factor, float minimum, float maximum, float total) {
+    const float k = std::bit_cast<float>(0x3EAAAAABu); // 0x859040
+    const float half = std::bit_cast<float>(0x3F000000u); // 0x858B8C
+    const float b = float(before) * k;
+    const float a = float(after) * k;
+    float distance = (b + (a - b) * factor) - (maximum - minimum) * half;
+    if (distance < 0.0f) { // fcom + test ah,5 + jp: solo suma con "menor que" estricto; igual y NaN no suman
+        distance = distance + total;
+    }
+    return distance;
+}
+#pragma float_control(pop)
+
+// --- Lote ProjectileInfo (14/10/2026) ---
+// precise: conserva el orden de las sumas y productos del EXE (un redondeo float por operación, como la x87 a 24 bits).
+#pragma float_control(precise, on, push)
+// CProjectileInfo::Update, 0x7394CF: dot = (sz·dz + sy·dy) + sx·dx; si dot < 0, steering -= direction · dot (el producto z se guarda como float).
+__declspec(noinline) void __cdecl ProjInfoRemoveBackwardSteeringCpp(float* steering, const float* direction) {
+    const float dot = (steering[2] * direction[2] + steering[1] * direction[1]) + steering[0] * direction[0];
+    if (dot < 0.0f) {
+        const float productX = direction[0] * dot;
+        const float productY = direction[1] * dot;
+        const float productZ = direction[2] * dot;
+        steering[0] = steering[0] - productX;
+        steering[1] = steering[1] - productY;
+        steering[2] = steering[2] - productZ;
+    }
+}
+
+// CProjectileInfo::Update, 0x7395EC: velocity += steering · ((acceleration [· speedMultiplier]) · timestep).
+__declspec(noinline) void __cdecl ProjInfoAddSteeringCpp(float* velocity, const float* steering, float acceleration, float timestep, bool fast, float speedMultiplier) {
+    float factor = acceleration;
+    if (fast) {
+        factor = factor * speedMultiplier;
+    }
+    factor = factor * timestep;
+    const float productX = steering[0] * factor;
+    const float productY = steering[1] * factor;
+    const float productZ = steering[2] * factor;
+    velocity[0] = productX + velocity[0];
+    velocity[1] = productY + velocity[1];
+    velocity[2] = productZ + velocity[2];
+}
+
+// (x² + y²) + z² como float (0x73964E); el producto z va el último, a diferencia de CVector::SquaredMagnitude.
+static __declspec(noinline) float ProjInfoSquaredXYZCpp(const float* v) {
+    volatile float sum = (v[0] * v[0] + v[1] * v[1]) + v[2] * v[2];
+    return sum;
+}
+#pragma float_control(pop)
+
+// CProjectileInfo::Update, 0x73964E: limita la velocidad del misil. La raíz va en ShadowSqrtCpp (noinline) para que /fp:fast no
+// convierta sqrt(s) > limit en s > limit²; la comparación es ordenada (con NaN no cambia nada), el cociente queda redondeado a float.
+__declspec(noinline) void __cdecl ProjInfoLimitSpeedCpp(float* velocity, float limit) {
+    const double magnitude = ShadowSqrtCpp(ProjInfoSquaredXYZCpp(velocity));
+    if (magnitude > double(limit)) {
+        volatile float scaleStore = float(double(limit) / magnitude);
+        const float scale = scaleStore;
+        velocity[0] = scale * velocity[0];
+        velocity[1] = scale * velocity[1];
+        velocity[2] = scale * velocity[2];
+    }
+}
+
+// CWeapon::FireAreaEffect (0x73E965..0x73E975) y CWeapon::Fire (0x7423D4..0x7423F0): fld x; fchs; fld y; fpatan; fmul [0x859878 = 0x42652EE0]. El producto se redondea una vez a 24 bits.
+__declspec(noinline) float __cdecl WeaponHeadingDegreesCpp(float forwardX, float forwardY) {
+    volatile float result = float(atan2(-double(forwardX), double(forwardY)) * double(std::bit_cast<float>(0x42652EE0u)));
+    return result;
+}
+
+// CWeapon::FireAreaEffect (0x73E9C7..0x73E9D4): fld pitch; fptan; fstp st(0); (fchs y fstp los hace el llamador).
+__declspec(noinline) float __cdecl WeaponTanCpp(float x) {
+    volatile float result = float(tan(double(x)));
+    return result;
+}
+
+// CWeapon::DoDriveByAutoAiming (0x73DA27..0x73DA48): fmul [0x8595EC]; fptan; fstp st(0); ... fld bestScore; fcomp st(1); test ah,5; jp -> continúa solo si lhs < tan (ordenado).
+// El llamador ya hizo el producto aimAngle · 0x8595EC como float (fmul a 24 bits).
+__declspec(noinline) bool __cdecl WeaponLessThanTanCpp(float lhs, float radians) {
+    return double(lhs) < tan(double(radians));
+}
+
+// CWeapon::FireInstantHit, copia 1 (0x740103..0x7401B7) y copia 2 (0x74059B..0x74065B), con sine/cosine ya guardados como float (fstp [esp+0x20]).
+// Orden del EXE: producto base·amp (z queda en la pila; y, x se guardan), luego ·seno; x += px·s (guardado), y = y + py·s (guardado), z' = pz·s + z (sin guardar);
+// después lo mismo con el coseno: x += qx·c, y = y + qy·c, z = qz·c + z' guardado. Cada operación se redondea a 24 bits (equivale a float); precise mantiene el orden.
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl WeaponSwayAccumulateCpp(float* endpoint, const float* sineBasis, const float* cosineBasis, float amplitude, float sine, float cosine) {
+    const float sz = sineBasis[2] * amplitude;
+    const float sy = sineBasis[1] * amplitude;
+    const float sx = sineBasis[0] * amplitude;
+    endpoint[0] = sx * sine + endpoint[0];
+    endpoint[1] = endpoint[1] + sy * sine;
+    const float zSum = sz * sine + endpoint[2];
+    const float cz = cosineBasis[2] * amplitude;
+    const float cy = cosineBasis[1] * amplitude;
+    const float cx = cosineBasis[0] * amplitude;
+    endpoint[0] = cx * cosine + endpoint[0];
+    endpoint[1] = endpoint[1] + cy * cosine;
+    endpoint[2] = cz * cosine + zSum;
+}
+#pragma float_control(pop)
+
+// --- CEventKnockOffBike (0x4B0020 CalcForcesAndAnims, 0x4B4AC0 SetPedSafePosition) ---
+// El proceso corre la x87 a 24 bits de mantisa con exponente extendido: un "double" calculado aqui equivale a un registro ST, y solo lo que el EXE guarda con fstp se redondea a float.
+
+// 0x4B0020..0x4B004C: fld pedMass; fdiv vehMass; fstp massRatio.
+__declspec(noinline) float __cdecl KnockOffRatioCpp(float num, float den) {
+    volatile float result = float(double(num) / double(den));
+    return result;
+}
+
+#pragma float_control(precise, on, push)
+// 0x4B00AB..0x4B00BB: fld a; fmul b; fmul c; fmul d; fstp (orden de izquierda a derecha, sin reasociar).
+__declspec(noinline) float __cdecl KnockOffMul4Cpp(float a, float b, float c, float d) {
+    volatile float result = float(((double(a) * double(b)) * double(c)) * double(d));
+    return result;
+}
+
+// 0x4B0266: fld v; fmul k; fstp out (tres veces, cada producto se guarda como float).
+__declspec(noinline) void __cdecl KnockOffScaleCpp(const float* v, float k, float* out) {
+    volatile float x = float(double(v[0]) * double(k));
+    volatile float y = float(double(v[1]) * double(k));
+    volatile float z = float(double(v[2]) * double(k));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+
+// 0x4B0311..0x4B0389 (y copias en 0x4B0422, 0x4B047D, 0x4B0541, 0x4B05E1, 0x4B0623..0x4B065D):
+//   ST: upX*upK, upY*upK (sin guardar); [mem] float(upZ*upK); ST: sideX*sideK (sin guardar); [mem] float(sideY*sideK), float(sideZ*sideK)
+//   x = float(sideX' + upX'), y = float(float(sideY*sideK) + upY'), z = float(float(sideZ*sideK) + float(upZ*upK)).
+__declspec(noinline) void __cdecl KnockOffCombineCpp(const float* up, float upK, const float* side, float sideK, float* out) {
+    const double upX = double(up[0]) * double(upK);
+    const double upY = double(up[1]) * double(upK);
+    volatile float upZStored = float(double(up[2]) * double(upK));
+    const double sideX = double(side[0]) * double(sideK);
+    volatile float sideYStored = float(double(side[1]) * double(sideK));
+    volatile float sideZStored = float(double(side[2]) * double(sideK));
+    const float x = float(sideX + upX);
+    const float y = float(double(sideYStored) + upY);
+    const float z = float(double(sideZStored) + double(upZStored));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+#pragma float_control(pop)
+
+// 0x4B4B0E..0x4B4B47: fld fwdX; fchs; fld fwdY; fpatan; [fadd pi]; fstp. El fpatan queda sin redondear hasta el fadd/fstp.
+__declspec(noinline) float __cdecl KnockOffHeadingCpp(float fwdX, float fwdY, bool addPi) {
+    const double heading = atan2(-double(fwdX), double(fwdY));
+    volatile float result = addPi ? float(heading + double(kF_40490FDB)) : float(heading);
+    return result;
+}
+
+// --- Lote de PedGeometryAnalyser.cpp (14/10/2026) ---
+// 0x5F16EC..0x5F171B: fld prev.z; fmul plane.z; fld prev.y; fmul plane.y; faddp; fld prev.x; fmul plane.x; faddp; fchs; fstp float.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl PedGeomPlaneOffsetCpp(const float* plane, const float* previous) {
+    volatile float result = -((previous[2] * plane[2] + previous[1] * plane[1]) + previous[0] * plane[0]);
+    return result;
+}
+#pragma float_control(pop)
+
+// 0x5F13F6..0x5F143D. El fpatan sale sin redondear: fsub rotation lo redondea a 24 bits (como Atan2MinusCpp); el resto es float con la
+// secuencia del EXE. fcom con 0: solo "menor" (C0) suma 2pi (iguales, mayores y NaN no). El resultado es la parte baja del entero de 64 bits de _ftol2.
+// Etapa 1 (sin precise: el compilador emite fpatan): num/den llegan como double ya calculados en la etapa 2 para conservar el -0 de -(dx).
+static __declspec(noinline) float __cdecl PedGeomShotAngleCpp(double num, double den, float rotation) {
+    volatile float angle = float(atan2(num, den) - double(rotation));
+    return angle;
+}
+#pragma float_control(precise, on, push)
+__declspec(noinline) int __cdecl PedGeomShotSideCpp(const float* origin, const float* target, float rotation) {
+    const float quarter = std::bit_cast<float>(0x3F490FDBu); // 0x859AB0
+    const float full = std::bit_cast<float>(0x40C90FDBu);    // 0x858CBC
+    const float scale = std::bit_cast<float>(0x3F22F983u);   // 0x858FB8
+    const double deltaX = double(target[0]) - double(origin[0]);
+    const double num = -deltaX;
+    const double den = double(target[1]) - double(origin[1]);
+    float value = PedGeomShotAngleCpp(num, den, rotation) + quarter;
+    if (value < 0.0f) { value += full; }
+    value *= scale;
+    return int(static_cast<long long>(value));
+}
+
+// 0x5F561B..0x5F56B1: acumulador desde 0.0f; por tramo, fld x3 (new - old), dz² + dy² y luego + dx², fsqrt y faddp.
+__declspec(noinline) double __cdecl PedGeomRouteLengthCpp(const float* points, int count) {
+    double length = 0.0;
+    for (int i = 1; i < count; ++i) {
+        const float* from = points + 3 * (i - 1);
+        const float* to = from + 3;
+        const double dx = double(to[0]) - double(from[0]);
+        const double dy = double(to[1]) - double(from[1]);
+        const double dz = double(to[2]) - double(from[2]);
+        length += sqrt((dz * dz + dy * dy) + dx * dx);
+    }
+    return length;
+}
+__declspec(noinline) bool __cdecl PedGeomRouteLengthLessCpp(double first, double second) {
+    return first < second;
+}
+#pragma float_control(pop)
+
+// --- Lote de Object.cpp (14/10/2026) ---
+// CObject::ProcessControl (0x5A2763..0x5A27BD): ver X87Math.h. El rumbo (fpatan) se compara y se ajusta sin guardarlo como float; solo la diferencia final se redondea.
+__declspec(noinline) float __cdecl ObjectDoorAngleDiffCpp(const float* forward, float compactHeading, float doorStart) {
+    const float pi    = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
+    const float twoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+    double heading    = forward ? atan2(double(-forward[0]), double(forward[1])) : double(compactHeading);
+    const float upper = doorStart + pi;
+    if (heading > double(upper)) {
+        heading = heading - double(twoPi);
+    } else {
+        const float lower = doorStart - pi;
+        if (heading < double(lower)) {
+            heading = heading + double(twoPi);
+        }
+    }
+    volatile float result = float(double(doorStart) - heading);
+    return result;
+}
+
+// CObject::ProcessSamSiteBehaviour (0x5A093C..0x5A0945): call atanFn; fst angle; fsub heading; fstp diff. Revisar en el .obj: ningun fstp/fld entre la llamada y el fsub.
+__declspec(noinline) void __cdecl ObjectSamSiteAtanCpp(float (__cdecl* atanFn)(float, float), float x, float y, float heading, float* outAngle, float* outDiff) {
+    const double angle = double(atanFn(x, y));
+    *outAngle          = float(angle);
+    *outDiff           = float(angle - double(heading));
+}
+
+// CObject::ProcessTrainCrossingBehaviour (0x5A0CD3..0x5A0D11): _CIacos (0x822380) = fpatan(sqrt((1 + x)(1 - x)), x) con la palabra de control (anterior & 0x300) | 0x7F; el resultado queda en ST0 y el fsubp/faddp
+// del paso lo consume sin redondear. x = +-1 da 0 / pi como fldz/fldpi y |x| > 1 o NaN dan NaN (el llamador lo sustituye por sus limites).
+__declspec(noinline) float __cdecl ObjectTrainCrossingAngleCpp(float upZ, float step, bool subtract) {
+    const unsigned previousControl = _control87(0, 0);
+    _control87((previousControl & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM);
+    const double x     = double(upZ);
+    const double delta = subtract ? -double(step) : double(step);
+    volatile float result = float(atan2(sqrt((1.0 + x) * (1.0 - x)), x) + delta);
+    _control87(previousControl, _MCW_PC | _MCW_RC | _MCW_EM);
+    return result;
+}
+
+// CObject::SetMatrixForTrainCrossing (0x59F230..0x59F28B): fcos; cos*axis.x -> float; cos*axis.y -> float; cos*axis.z queda en ST0 (a 24 bits ya es float); fsin; 0*sen -> float; sen -> float;
+// forward.x = (0*sen) + cosX; forward.y = (0*sen) + cosY; forward.z = sen + cosZ. El cero es volatile para que /fp:fast no elimine 0*sen (signo de los ceros, NaN).
+__declspec(noinline) void __cdecl ObjectTrainCrossingForwardCpp(const float* axis, float angle, float* forward) {
+    volatile float zero = 0.0f;
+    const double c = cos(double(angle));
+    volatile float cosX = float(double(axis[0]) * c);
+    volatile float cosY = float(double(axis[1]) * c);
+    const double cosZ = double(axis[2]) * c;
+    const double s    = sin(double(angle));
+    volatile float zeroSin   = float(double(zero) * s);
+    volatile float sinStored = float(s);
+    forward[0] = float(double(zeroSin) + double(cosX));
+    forward[1] = float(double(zeroSin) + double(cosY));
+    forward[2] = float(double(sinStored) + cosZ);
+}
+
+// --- CAEWeatherAudioEntity (colocar DESPUES de UnsignedAsX87 y de ExeCompatiblePowCpp) ---
+__declspec(noinline) float __cdecl WeatherAudioThunderBaseCpp(unsigned int duration, int defaultVolume) {
+    const double argument = UnsignedAsX87(duration) * std::bit_cast<float>(0x3D19999Au) + 0.25; // 0x862E40 y 0x862E38
+    volatile float result = float(log10(argument) * 20.0f + double(defaultVolume)); // 0x858BA4
+    return result;
+}
+
+__declspec(noinline) float __cdecl WeatherAudioThunderRiseCpp(int playPos, unsigned int reqPlayPos, float reqVolume) {
+    const double ratio = double(playPos) / UnsignedAsX87(reqPlayPos);
+    volatile float result = float(log10(ratio) * 20.0f + double(reqVolume));
+    return result;
+}
+
+// Orden estricto del EXE (d·(1 - p))·k + p; el log10 va en la función siguiente (con precise pasaría a ser una llamada a la CRT).
+#pragma float_control(precise, on, push)
+static __declspec(noinline) double WeatherAudioThunderFallArgument(float reqVolume, unsigned int diff) {
+    const double p = ExeCompatiblePowCpp(10.0, double(reqVolume) * double(std::bit_cast<float>(0x3D4CCCCDu))); // 0x859EA8 y 0x858C28
+    return (UnsignedAsX87(diff) * (1.0f - p)) * double(std::bit_cast<float>(0x3BA3D70Au)) + p; // 0x858624 y 0x858B4C
+}
+#pragma float_control(pop)
+
+__declspec(noinline) float __cdecl WeatherAudioThunderFallCpp(float reqVolume, unsigned int diff) {
+    const double argument = WeatherAudioThunderFallArgument(reqVolume, diff);
+    volatile float result = float(log10(argument) * 20.0f);
+    return result;
+}
+
+#pragma float_control(precise, on, push)
+static __declspec(noinline) double WeatherAudioCityNoiseArgument(float dist, float speed) {
+    return (1.0f - double(dist) * double(std::bit_cast<float>(0x3E2AAAABu))) * double(speed); // 0x85F0A0 y 0x858624
+}
+#pragma float_control(pop)
+
+__declspec(noinline) float __cdecl WeatherAudioCityNoiseOffsetCpp(float dist, float speed) {
+    const double argument = WeatherAudioCityNoiseArgument(dist, speed);
+    volatile float result = float(log10(argument) * 20.0f + 30.0f); // 0x858BA4 y 0x858CA4
+    return result;
+}
+
+__declspec(noinline) float __cdecl WeatherAudioRainTargetCpp(float wet, int defaultVolume) {
+    volatile float result = float(log10(double(wet) * 1.25f) * 20.0f + double(defaultVolume)); // 0x8595F0 y 0x858BA4
+    return result;
 }
 

@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "QuadBike.h"
 #include "VehicleRecording.h"
 #include "ControllerConfigManager.h"
+#include "X87Math.h"
 
 auto& bDoQuadDamping = StaticRef<bool>(0x8D3450); // true
 auto& QUAD_HBSTEER_ANIM_MULT = StaticRef<float>(0x8D3454); // -0.4f
@@ -43,88 +44,6 @@ CVector QuadMultiply3x3_VM(const CVector& v, const CMatrix& m) {
         m.GetForward().y * v.y + m.GetForward().x * v.x + m.GetForward().z * v.z,
         m.GetUp().y * v.y + m.GetUp().x * v.x + m.GetUp().z * v.z,
     };
-}
-
-// Como el original: damp = pow(res, paso) con el _CIpow del EXE (0x822130) guardado como float; delta = vel * damp - vel
-float QuadDeltaStoredDamp(float res, float timeStep, float vel) {
-    float damp, result;
-    __asm {
-        fld   res
-        fld   timeStep
-        mov   eax, 0x822130
-        call  eax
-        fstp  damp
-        fld   vel
-        fmul  damp
-        fsub  vel
-        fstp  result
-    }
-    return result;
-}
-
-// Como el original: delta = pow(res, paso) * vel - vel con el resultado de pow a precision completa (sin guardarlo)
-float QuadDeltaFullDamp(float res, float timeStep, float vel) {
-    float result;
-    __asm {
-        fld   res
-        fld   timeStep
-        mov   eax, 0x822130
-        call  eax
-        fmul  vel
-        fsub  vel
-        fstp  result
-    }
-    return result;
-}
-
-// Como el original: valor = pow(base, paso) * x con pow a precision completa
-float QuadPowTimes(float base, float timeStep, float x) {
-    float result;
-    __asm {
-        fld   base
-        fld   timeStep
-        mov   eax, 0x822130
-        call  eax
-        fmul  x
-        fstp  result
-    }
-    return result;
-}
-
-// Como el original: angulo de inclinacion = v * angulo - plenoAnim * volante / (bloqueo * RAD) * (1 - v), v = pow(deseado, paso)
-// a precision completa (v se usa sin redondear en el producto y en la resta)
-float QuadLeanAngle(float desLean, float timeStep, float leanAngle, float fullAnimLean, float steerAngle, float steeringLock) {
-    constexpr float kDegToRad = 0.017453292f;
-    const float     quotient  = (fullAnimLean * steerAngle) / (steeringLock * kDegToRad); // todo float, como el x87 a 24 bits
-    float           result;
-    __asm {
-        fld   desLean
-        fld   timeStep
-        mov   eax, 0x822130
-        call  eax
-        fld   st(0)
-        fmul  leanAngle
-        fld1
-        fsub  st, st(2)
-        fmul  quotient
-        fchs
-        faddp st(1), st
-        fstp  result
-        fstp  st(0)
-    }
-    return result;
-}
-
-// Como el original: fpatan x87 (precision interna completa) redondeado a float
-float QuadAtan2(float y, float x) {
-    float result;
-    __asm {
-        fld   y
-        fld   x
-        fpatan
-        fstp  result
-    }
-    return result;
 }
 
 // Como el original: plantillas Max (0x420800) y Min (0x404330) del EXE; con NaN devuelven el segundo
@@ -221,7 +140,7 @@ void CQuadBike::PreRender() {
     if (m_aCarNodes[QUAD_SUSPENSION_LF]) {
         mat.Attach(RwFrameGetMatrix(m_aCarNodes[QUAD_SUSPENSION_LF]), false);
         const CVector saved = mat.GetPosition();
-        mat.SetRotateY(QuadAtan2(m_wheelPosition[CAR_WHEEL_FRONT_LEFT] - wheelFrontLeftPos.z, std::fabs(wheelFrontLeftPos.x)));
+        mat.SetRotateY(TrigAtan2Cpp(m_wheelPosition[CAR_WHEEL_FRONT_LEFT] - wheelFrontLeftPos.z, std::fabs(wheelFrontLeftPos.x)));
         mat.GetPosition() += saved;
         mat.UpdateRW();
     }
@@ -229,7 +148,7 @@ void CQuadBike::PreRender() {
     if (m_aCarNodes[QUAD_SUSPENSION_RF]) {
         mat.Attach(RwFrameGetMatrix(m_aCarNodes[QUAD_SUSPENSION_RF]), false);
         const CVector saved = mat.GetPosition();
-        mat.SetRotateY(-QuadAtan2(m_wheelPosition[eCarWheel::CAR_WHEEL_FRONT_RIGHT] - wheelFrontLeftPos.z, std::fabs(wheelFrontLeftPos.x)));
+        mat.SetRotateY(-TrigAtan2Cpp(m_wheelPosition[eCarWheel::CAR_WHEEL_FRONT_RIGHT] - wheelFrontLeftPos.z, std::fabs(wheelFrontLeftPos.x)));
         mat.GetPosition() += saved;
         mat.UpdateRW();
     }
@@ -339,7 +258,7 @@ bool CQuadBike::ProcessAI(uint32& extraHandlingFlags) {
     }
 
     // Como el original: pow del EXE (0x822130) a precision completa
-    m_sRideAnimData.LeanAngle = QuadLeanAngle(
+    m_sRideAnimData.LeanAngle = QuadBikeLeanAngleCpp(
         m_pHandling->m_fDesLean,
         timeStep,
         m_sRideAnimData.LeanAngle,
@@ -388,8 +307,8 @@ void CQuadBike::ProcessControl() {
         }
         resistanceX /= velocity.x * velocity.x * speedResistanceX + 1.0f;
         const float resistanceY = resistance.y / (velocity.y * velocity.y * 1.0f + 1.0f);
-        const float deltaX = QuadDeltaStoredDamp(resistanceX, timeStep, velocity.x);
-        const float deltaY = QuadDeltaFullDamp(resistanceY, timeStep, velocity.y);
+        const float deltaX = QuadBikeDampDeltaStoredCpp(resistanceX, timeStep, velocity.x);
+        const float deltaY = QuadBikeDampDeltaFullCpp(resistanceY, timeStep, velocity.y);
 
         // Como el original: fuerza = (-up * delta) * masa de giro, con cada producto redondeado a float
         const float turnMass = m_fTurnMass;
@@ -450,7 +369,7 @@ void CQuadBike::ProcessControlInputs(uint8 playerNum) {
                 m_sRideAnimData.LeanFwd = CPad::NewMouseControllerState.m_AmountMoved.y * -0.0035f + m_sRideAnimData.LeanFwd;
             }
             if (std::fabs(m_sRideAnimData.LeanFwd) < 0.35f || CPad::GetPad(playerNum)->NewState.m_bVehicleMouseLook != 0) {
-                m_sRideAnimData.LeanFwd = QuadPowTimes(0.98f, CTimer::GetTimeStep(), m_sRideAnimData.LeanFwd);
+                PowScaleFloatCpp(&m_sRideAnimData.LeanFwd, 0.98f, CTimer::GetTimeStep());
             }
         }
     }

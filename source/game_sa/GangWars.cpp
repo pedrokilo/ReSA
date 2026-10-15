@@ -37,6 +37,7 @@ END GENERATED HOOK STATUS */
 #include "EventScriptCommand.h"
 #include "EventGroup.h"
 #include "Pools/PedPool.h"
+#include "X87Math.h"
 
 void CGangWars::InjectHooks() {
     RH_ScopedClass(CGangWars);
@@ -155,25 +156,8 @@ bool CGangWars::AttackWaveOvercome() {
 
 // 0x443DB0
 uint32 CGangWars::CalculateTimeTillNextAttack() {
-    const int32 random = CGeneral::GetRandomNumber();
-    const float unit = std::bit_cast<float>(0x38000100u), variation = 0.9f, span = 1080000.0f, base = 648000.0f;
-    int64 result;
-    uint16 oldControl, truncateControl;
-    __asm {
-        fnstcw oldControl
-        mov ax, oldControl
-        or ax, 0C00h
-        mov truncateControl, ax
-        fild random
-        fmul unit
-        fmul variation
-        fmul span
-        fadd base
-        fldcw truncateControl
-        fistp result
-        fldcw oldControl
-    }
-    return static_cast<uint32>(result);
+    // Como el original (0x443DB0): rand, y fild * 3.0518509e-5f * 0.9f * 1080000.f + 648000.f con _ftol2 (32 bits bajos)
+    return GangWarsNextAttackDelayCpp(CGeneral::GetRandomNumber());
 }
 
 // 0x443F80
@@ -255,36 +239,10 @@ void CGangWars::ClearTheStreets() {
 // 0x444810
 namespace {
 float GangWaveRandomOffset(float base, float scale, float subtract) {
-    const int32 random = CGeneral::GetRandomNumber();
-    const float unit = std::bit_cast<float>(0x38000100u);
-    float result;
-    __asm {
-        fild random
-        fmul unit
-        fmul scale
-        fadd base
-        fsub subtract
-        fstp result
-    }
-    return result;
+    return GangWarsRandomOffsetCpp(CGeneral::GetRandomNumber(), base, scale, subtract);
 }
 int32 GangWaveInteger(float value, float scale, float base, int32 multiple) {
-    int64 result;
-    uint16 oldControl, truncateControl;
-    __asm {
-        fnstcw oldControl
-        mov ax, oldControl
-        or ax, 0C00h
-        mov truncateControl, ax
-        fld value
-        fmul scale
-        fadd base
-        fimul multiple
-        fldcw truncateControl
-        fistp result
-        fldcw oldControl
-    }
-    return static_cast<int32>(result);
+    return GangWarsScaledTruncCpp(value, scale, base, multiple);
 }
 void GangWaveCommand(CPed* ped, CTask* task) {
     alignas(4) std::array<uint8, 0x18> event;
@@ -446,39 +404,12 @@ namespace {
 // Como el original (0x44553B..0x4455E8): posicion de cada defensor. Se usa el x87 a precision completa para fsin/fcos
 // y el orden exacto de operaciones: sin(a) * (r1 * unidad * 3.0 + 2.0) + x (el 2.0 va DENTRO del factor, no al final).
 void GangDefenderOffset(int32 pedIndex, int32 pedTotal, int32 random1, int32 random2, float baseX, float baseY, float& outAngle, float& outX, float& outY) {
-    const float twoPiValue = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
-    const float unitValue = std::bit_cast<float>(0x38000100u);  // 0x858C7C
-    const float radiusScale = 3.0f;                              // 0x858B3C
-    const float radiusBias = 2.0f;                               // 0x858CA0
-    float angleValue, xValue, yValue;
-    __asm {
-        fild random1
-        fmul unitValue
-        fild pedIndex
-        fmul twoPiValue
-        fidiv pedTotal
-        fst angleValue
-        fsin
-        fxch st(1)
-        fmul radiusScale
-        fadd radiusBias
-        fmulp st(1), st
-        fadd baseX
-        fstp xValue
-        fild random2
-        fmul unitValue
-        fld angleValue
-        fcos
-        fxch st(1)
-        fmul radiusScale
-        fadd radiusBias
-        fmulp st(1), st
-        fadd baseY
-        fstp yValue
-    }
-    outAngle = angleValue;
-    outX = xValue;
-    outY = yValue;
+    // Angulo = float(indice * 2pi / total); radio = r * unidad * 3.0 + 2.0 (float); x = sin(angulo) * radio + base con el seno sin redondear
+    const float radiusX = GangWarsRandomScaledCpp(random1, 3.0f, 2.0f);
+    outAngle = GangWarsDefenderAngleCpp(pedIndex, pedTotal);
+    outX = TrigCompoundSinMulAdd(outAngle, radiusX, baseX);
+    const float radiusY = GangWarsRandomScaledCpp(random2, 3.0f, 2.0f);
+    outY = TrigCompoundCosMulAdd(outAngle, radiusY, baseY);
 }
 float GangPickupOffset(int32 random, float base) {
     // Como el original (0x445A4D..0x445A70): ((r * unidad) * 4.0 + base) - 2.0
@@ -1057,22 +988,7 @@ void CGangWars::TellStreamingWhichGangsAreNeeded(uint32& gangsBitFlags) {
 
 namespace {
 uint32 GangWarTimeDelta(bool negative) {
-        const float step = CTimer::GetTimeStep(), seconds = 0.02f, milliseconds = negative ? -1000.0f : 1000.0f;
-        int64 result;
-        uint16 oldControl, truncateControl;
-        __asm {
-            fnstcw oldControl
-            mov ax, oldControl
-            or ax, 0C00h
-            mov truncateControl, ax
-            fld step
-            fmul seconds
-            fmul milliseconds
-            fldcw truncateControl
-            fistp result
-            fldcw oldControl
-        }
-        return static_cast<uint32>(result);
+    return GangWarsTimeDeltaCpp(CTimer::GetTimeStep(), negative);
 }
 }
 

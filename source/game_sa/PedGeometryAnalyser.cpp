@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include "PedGeometryAnalyser.h"
 #include "Interior/InteriorManager_c.h"
+#include "X87Math.h"
 
 void CPedGeometryAnalyser::InjectHooks() {
     RH_ScopedClass(CPedGeometryAnalyser);
@@ -325,28 +326,6 @@ void CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanes(float zPos, CEntity& e
     ComputeEntityBoundingBoxPlanesUncachedAll(zPos, entity, outPlanes, outPlanesDot);
 }
 
-namespace {
-float GeometryPlaneOffset(const CVector* plane, const CVector* previous) {
-    float result;
-    // 0x5F16EC..0x5F171B: retain x87 products/sums until the final float store.
-    __asm {
-        mov ecx, plane
-        mov edx, previous
-        fld dword ptr [edx+8]
-        fmul dword ptr [ecx+8]
-        fld dword ptr [edx+4]
-        fmul dword ptr [ecx+4]
-        faddp st(1), st
-        fld dword ptr [edx]
-        fmul dword ptr [ecx]
-        faddp st(1), st
-        fchs
-        fstp result
-    }
-    return result;
-}
-}
-
 // 0x5F1670
 void CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached(float zPos, const CVector* corners, CVector(*outPlanes)[4], float* outPlanesDot) {
     const CVector* corner2 = &corners[3];
@@ -361,7 +340,7 @@ void CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached(float zPos, co
         // point-normal plane equation:
         // ax + by + cz + d = 0
         // d = - n . P
-        outPlanesDot[i] = GeometryPlaneOffset(&plane, corner2);
+        outPlanesDot[i] = PedGeomPlaneOffsetCpp(&plane.x, &corner2->x); // 0x5F16EC..0x5F171B
 
         corner2 = &corner;
     }
@@ -450,15 +429,9 @@ CVector* CPedGeometryAnalyser::ComputeEntityDirs(const CEntity& entity, CVector*
         right = entity.m_matrix->GetRight();
     } else {
         const auto heading = entity.GetHeading();
-        float sine, cosine;
-        __asm {
-            fld heading
-            fsin
-            fstp sine
-            fld heading
-            fcos
-            fstp cosine
-        }
+        // 0x5F1529..0x5F1579: fld heading; fsin; fchs; fstp / fld heading; fcos; fstp (each result rounded once to float).
+        const float sine = TrigSimpleSinCpp(heading);
+        const float cosine = TrigSimpleCosCpp(heading);
         forward = CVector{ -sine, cosine, 0.f };
         right = CVector{ cosine, sine, 0.f };
     }
@@ -527,37 +500,8 @@ int32 CPedGeometryAnalyser::ComputePedShotSide(const CPed& ped, const CVector& p
     const auto* origin = &ped.GetPosition();
     const auto* target = &posn;
     const auto rotation = ped.m_fCurrentRotation;
-    constexpr float quarter = std::bit_cast<float>(0x3F490FDBu);
-    constexpr float full = std::bit_cast<float>(0x40C90FDBu);
-    constexpr float scale = std::bit_cast<float>(0x3F22F983u);
-    int32 result;
-    // Keep the original extended-precision atan and truncation sequence.
-    __asm {
-        mov ecx, origin
-        mov edx, target
-        fld dword ptr [edx]
-        fsub dword ptr [ecx]
-        fchs
-        fld dword ptr [edx+4]
-        fsub dword ptr [ecx+4]
-        fpatan
-        fsub rotation
-        fadd quarter
-        fldz
-        fxch st(1)
-        fcom st(1)
-        fnstsw ax
-        fstp st(1)
-        test ah, 5
-        jp nonnegative
-        fadd full
-    nonnegative:
-        fmul scale
-        mov eax, 0821B40h
-        call eax
-        mov result, eax
-    }
-    return result;
+    // 0x5F13F6..0x5F143D: fpatan(-(target.x - origin.x), target.y - origin.y) unrounded, rotation/pi-quarter/2pi/scale, then _ftol2 (low 32 bits).
+    return PedGeomShotSideCpp(&origin->x, &target->x, rotation);
 }
 
 // 0x5F6110
@@ -565,51 +509,6 @@ int32 CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox(const CPed& ped, 
     return ComputeRouteRoundEntityBoundingBox(ped, ped.GetPosition(), entity, posn, pointRoute, a5);
 }
 
-namespace {
-struct GeometryRouteLength355 { uint8 storage[10]{}; };
-void GeometryRouteLength355Compute(const CVector* points,int count,GeometryRouteLength355* result) {
-    __asm {
-        mov edx,points
-        mov ecx,count
-        dec ecx
-        fldz
-        test ecx,ecx
-        jle geometry_route_length_done
-    geometry_route_length_loop:
-        fld dword ptr [edx+0Ch]
-        fsub dword ptr [edx]
-        fmul st,st(0)
-        fld dword ptr [edx+10h]
-        fsub dword ptr [edx+4]
-        fmul st,st(0)
-        faddp st(1),st
-        fld dword ptr [edx+14h]
-        fsub dword ptr [edx+8]
-        fmul st,st(0)
-        faddp st(1),st
-        fsqrt
-        faddp st(1),st
-        add edx,0Ch
-        dec ecx
-        jne geometry_route_length_loop
-    geometry_route_length_done:
-        mov edx,result
-        fstp tbyte ptr [edx]
-    }
-}
-bool GeometryRouteLength355Less(const GeometryRouteLength355* first,const GeometryRouteLength355* second) {
-    uint16 status;
-    __asm {
-        mov edx,second
-        fld tbyte ptr [edx]
-        mov edx,first
-        fld tbyte ptr [edx]
-        fcompp
-        fnstsw status
-    }
-    return (status&0x4500)==0x0100;
-}
-}
 // 0x5F3DD0
 int32 CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox(const CPed& ped, const CVector& a2, CEntity& entity, const CVector& a4, CPointRoute& pointRoute, int32 a6){
     pointRoute.Clear();
@@ -706,9 +605,9 @@ int32 CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox(const CPed& ped, 
         center.x = ((corners[0].x + corners[1].x) + corners[2].x + corners[3].x) * .25f;
         center.y = ((corners[0].y + corners[1].y) + corners[2].y + corners[3].y) * .25f;
         center.z = ((corners[0].z + corners[1].z) + corners[2].z + corners[3].z) * .25f;
-        struct RouteTest { bool clear; int stop; CEntity* obstacle; GeometryRouteLength355 length; } tests[2];
+        struct RouteTest { bool clear; int stop; CEntity* obstacle; double length; } tests[2];
         for (auto path = 0; path < 2; ++path) {
-            tests[path] = {true, sizes[path], nullptr, {}};
+            tests[path] = {true, sizes[path], nullptr, 0.0};
             for (auto i = 1; i < sizes[path]; ++i) {
                 const auto& from = paths[path][i-1]; const auto& to = paths[path][i];
                 auto planar = CVector{to.x - from.x, to.y - from.y, 0.f};
@@ -729,16 +628,16 @@ int32 CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox(const CPed& ped, 
                     } else { obstacle = nullptr; }
                 }
             }
-            GeometryRouteLength355Compute(paths[path],sizes[path],&tests[path].length);
+            tests[path].length = PedGeomRouteLengthCpp(&paths[path][0].x, sizes[path]); // 0x5F561B..0x5F56B1
         }
         if (!tests[0].clear) {
             if (tests[1].clear) { selected = 1; }
             else if (tests[0].stop == 1 && tests[1].stop >= 2) { selected = 1; }
             else if (tests[0].stop > 1 && tests[1].stop == 1) { selected = 0; }
-            else if (tests[0].obstacle == tests[1].obstacle) { selected = GeometryRouteLength355Less(&tests[0].length,&tests[1].length) ? 0 : 1; }
+            else if (tests[0].obstacle == tests[1].obstacle) { selected = PedGeomRouteLengthLessCpp(tests[0].length, tests[1].length) ? 0 : 1; }
             else { selected = tests[0].obstacle->GetColModel()->m_boundSphere.m_fRadius < tests[1].obstacle->GetColModel()->m_boundSphere.m_fRadius ? 0 : 1; }
         } else if (!tests[1].clear) { selected = 0; }
-        else { selected = GeometryRouteLength355Less(&tests[0].length,&tests[1].length) ? 0 : 1; }
+        else { selected = PedGeomRouteLengthLessCpp(tests[0].length, tests[1].length) ? 0 : 1; }
     }
     for (auto i = 1; i < sizes[selected]-1; ++i) { pointRoute.AddUnlessFull(paths[selected][i]); }
     pointRoute.AddUnlessFull(a4);

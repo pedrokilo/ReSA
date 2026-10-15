@@ -27,22 +27,21 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCarSetPedInAsDriver.h"
 #include "TaskComplexDriveWander.h"
 #include "TaskSimpleCarSetPedInAsPassenger.h"
+#include "X87Math.h"
 
 // Como el original: 0x64F1E0 es cdecl (vehicle, doorId) y solo usa EAX/ECX; su llamador SetPedInCarDirect (0x650356) guarda
 // doorId en EDX antes de la llamada y lo vuelve a empujar tras ella (0x650360 `push edx`). Un hook normal deja EDX libre para
 // el compilador y, con el hook de SetPedInCarDirect desactivado, el EXE construiria la tarea con una puerta basura: esta
-// envoltura recibe los argumentos cdecl y conserva EDX.
-static int32 __declspec(naked) __cdecl ComputePassengerIndexFromCarDoor_KeepEdx(const CVehicle* vehicle, int32 doorId) {
-    __asm {
-        push edx
-        push dword ptr [esp + 0Ch]
-        push dword ptr [esp + 0Ch]
-        call CCarEnterExit::ComputePassengerIndexFromCarDoor
-        add  esp, 8
-        pop  edx
-        ret
-    }
+// envoltura recibe los argumentos cdecl y devuelve EDX intacto sin ensamblador. Lo primero que ejecuta es
+// CarEnterExitEntryEdxCpp (EDX de entrada en la mitad alta del resultado de 64 bits; ver X87Math.h) y lo ultimo es
+// ResidueRegsCpp, que deja EDX = el de entrada y EAX = el resultado (ECX no lo lee ningun llamador del EXE).
+#pragma runtime_checks("", off)
+static int32 __declspec(safebuffers) __cdecl ComputePassengerIndexFromCarDoor_KeepEdx(const CVehicle* vehicle, int32 doorId) {
+    const uint32 entryEdx = uint32(CarEnterExitEntryEdxCpp() >> 32);
+    const int32  result   = CCarEnterExit::ComputePassengerIndexFromCarDoor(vehicle, doorId);
+    return int32(ResidueRegsCpp(0, entryEdx, uint32(result)));
 }
+#pragma runtime_checks("", restore)
 
 void CCarEnterExit::InjectHooks() {
     RH_ScopedClass(CCarEnterExit);
@@ -306,33 +305,15 @@ bool CCarEnterExit::GetNearestCarDoor(const CPed* ped, const CVehicle* vehicle, 
             // Como el original (0x652981..0x652A0F): |right.z| < 0.1 (0x858B1C)
             if (std::abs(vehicle->GetRight().z) < 0.1f) {
                 // Como el original (0x6529A4..0x652A02): angulo del vehiculo al peaton menos el rumbo del vehiculo,
-                // envuelto a (-PI, PI]. fpatan es de precision completa y la resta se redondea a 24 bits en x87:
-                // se replica con __asm. Sin matriz el rumbo es el campo de la entidad (+0x10).
+                // envuelto a (-PI, PI]. Los dos fpatan quedan sin redondear en la pila x87 y la resta se redondea una sola
+                // vez a 24 bits (CarEnterExitHeadingDiffCpp). Sin matriz el rumbo es el campo de la entidad (+0x10); esa rama
+                // es inalcanzable (el EXE ya leyo right.z de la matriz en 0x652984 y cae con ECX = 0).
                 const auto& vehPos = vehicle->GetPosition();
                 const auto& pedPos = ped->GetPosition();
                 const float pdx = pedPos.x - vehPos.x, pdy = pedPos.y - vehPos.y;
-                const float negPdx = -pdx;
                 const bool hasMatrix = vehicle->m_matrix != nullptr;
-                const float negFwdX = hasMatrix ? -vehicle->GetForward().x : 0.f, fwdY = hasMatrix ? vehicle->GetForward().y : 0.f;
-                const float heading = vehicle->m_placement.m_fHeading;
-                const int hasMatrixInt = hasMatrix ? 1 : 0;
-                float angle = 0.f;
-                __asm {
-                    fld negPdx
-                    fld pdy
-                    fpatan
-                    cmp hasMatrixInt, 0
-                    je NearestDoorUseHeading
-                    fld negFwdX
-                    fld fwdY
-                    fpatan
-                    jmp NearestDoorSub
-                NearestDoorUseHeading:
-                    fld heading
-                NearestDoorSub:
-                    fsubp st(1), st
-                    fstp angle
-                }
+                const CVector forward = hasMatrix ? vehicle->GetForward() : CVector{};
+                float angle = CarEnterExitHeadingDiffCpp(pdx, pdy, hasMatrix ? &forward.x : nullptr, vehicle->m_placement.m_fHeading);
                 if (angle > std::bit_cast<float>(0x40490FDBu)) {            // 0x858CB8
                     angle -= std::bit_cast<float>(0x40C90FDBu);             // 0x858CBC
                 } else if (angle < std::bit_cast<float>(0xC0490FDBu)) {     // 0x858CC0
@@ -670,54 +651,26 @@ bool CCarEnterExit::IsPlayerToQuitCarEnter(const CPed* ped, const CVehicle* vehi
     }}
     const float pi=std::bit_cast<float>(0x40490FDBu),twoPi=std::bit_cast<float>(0x40C90FDBu),halfPi=std::bit_cast<float>(0x3FC90FDBu);
     if(orient){
-        const auto* matrix=vehicle->m_matrix;const auto delta=ped->GetPosition()-vehicle->GetPosition();const auto& right=matrix->GetRight();const float projection=(delta.x*right.x+delta.y*right.y)+delta.z*right.z;const auto& forward=matrix->GetForward();const float negativeX=-forward.x,forwardY=forward.y,signedHalfPi=projection>0.0f?halfPi:-halfPi;
-        __asm { fld negativeX
-            fld forwardY
-            fpatan
-            fadd signedHalfPi
-            fstp heading
-        }
+        const auto* matrix=vehicle->m_matrix;const auto delta=ped->GetPosition()-vehicle->GetPosition();const auto& right=matrix->GetRight();const float projection=delta.x*right.x+(delta.y*right.y+delta.z*right.z);const auto& forward=matrix->GetForward();
+        // Como el original (0x64F30B..0x64F362): la suma es dx·rx + (dy·ry + dz·rz); el fpatan queda sin redondear, se le suma o resta pi/2
+        // y se guarda como float (atan2 - (-pi/2) == atan2 + pi/2 bit a bit).
+        heading=Atan2MinusCpp(-forward.x,forward.y,projection>0.0f?-halfPi:halfPi);
         if(matrix->GetUp().z<0){heading+=pi;if(heading>pi)heading-=twoPi;}
         if(heading>pi)heading-=twoPi;else if(heading<-pi)heading+=twoPi;
     }
     if(*reinterpret_cast<CEntity*const*>(reinterpret_cast<const uint8*>(vehicle)+0x490))return true;
     if(pad->DisablePlayerControls)return false;
     if(special){if(pad->MeleeAttackJustDown(false))return true;}
-    else {const auto elapsed=CTimer::GetTimeInMS()-uint32(startTime);const double time=int32(elapsed)<0?double(float(int32(elapsed))+4294967296.0f):double(int32(elapsed));if(time<=double(StaticRef<float>(0x8D2ED8)))return false;}
+    else {const auto elapsed=CTimer::GetTimeInMS()-uint32(startTime);const double time=int32(elapsed)<0?double(float(double(int32(elapsed))+4294967296.0)):double(int32(elapsed));if(!(time>double(StaticRef<float>(0x8D2ED8))))return false;}
     const float upDown=float(pad->GetPedWalkUpDown()),leftRight=float(pad->GetPedWalkLeftRight());
-    const float negativeLeft=-leftRight,zero=0,cameraOrientation=StaticRef<float>(0xB6F178);
     const float magnitude=std::sqrt(leftRight*leftRight+upDown*upDown)*0.0078125f;
-    const float upper=heading+pi,lower=heading-pi,threshold=std::bit_cast<float>(0x3F490FDBu);bool quit=false;
-    const auto angleFunction=static_cast<float(*)(float,float,float,float)>(&CGeneral::GetRadianAngleBetweenPoints);
-    __asm { push upDown
-        push negativeLeft
-        push zero
-        push zero
-        call angleFunction
-        add esp,16
-        fsub cameraOrientation
-        fcom upper
-        fnstsw ax
-        test ah,41h
-        jnz CarQuitBelowUpper
-        fsub twoPi
-        jmp CarQuitAngleReady
-    CarQuitBelowUpper:
-        fcom lower
-        fnstsw ax
-        test ah,5
-        jp CarQuitAngleReady
-        fadd twoPi
-    CarQuitAngleReady:
-        fsub heading
-        fabs
-        fcomp threshold
-        fnstsw ax
-        test ah,41h
-        jnz CarQuitAngleDone
-        mov quit,1
-    CarQuitAngleDone:
-    }
+    const float upper=heading+pi,lower=heading-pi,threshold=std::bit_cast<float>(0x3F490FDBu);
+    // Como el original (0x64F467..0x64F502): GetRadianAngleBetweenPoints(0, 0, -leftRight, upDown) devuelve en ST0 un valor ya redondeado a
+    // 24 bits (todas sus ramas terminan en fadd/fsub), asi que el flujo x87 equivale a aritmetica float: - orientacion de camara, envuelto
+    // a [heading - pi, heading + pi] (las comparaciones con NaN dejan el angulo igual, como los jp del EXE) y |angulo - heading| > pi/4.
+    float angle=CGeneral::GetRadianAngleBetweenPoints(0.0f,0.0f,-leftRight,upDown)-StaticRef<float>(0xB6F178);
+    if(angle>upper)angle-=twoPi;else if(angle<lower)angle+=twoPi;
+    const bool quit=std::abs(angle-heading)>threshold;
     return magnitude>0.75f&&quit;
 }
 

@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Pickups.h"
+#include "X87Math.h"
 #include "Garages.h"
 #include "tPickupMessage.h"
 #include "PostEffects.h"
@@ -129,21 +130,10 @@ void CPickups::CreatePickupCoorsCloseToCoors(float inX, float inY, float inZ, fl
     for (int32 attempt = 0; attempt < 32; ++attempt) {
         const int32 randomAngle = CGeneral::GetRandomNumber() & 255;
         const float angleStep = std::bit_cast<float>(0x3CC90FDBu), radius = 1.5f;
-        float pickupX, pickupY;
-        // Como el original: fsin/fcos permanecen en x87 hasta multiplicar y sumar.
-        __asm {
-            fild randomAngle
-            fmul angleStep
-            fld st(0)
-            fsin
-            fmul radius
-            fadd inX
-            fstp pickupX
-            fcos
-            fmul radius
-            fadd inY
-            fstp pickupY
-        }
+        // Como el original: el angulo float(n * paso) alimenta fsin y fcos a precision completa; luego * 1.5 + coordenada.
+        const float angle = IntTimesFloatCpp(randomAngle, angleStep);
+        const float pickupX = TrigCompoundSinMulAdd(angle, radius, inX);
+        const float pickupY = TrigCompoundCosMulAdd(angle, radius, inY);
         bool found;
         const float pickupZ = CWorld::FindGroundZFor3DCoord({pickupX, pickupY, inZ}, &found, nullptr) + 0.5f;
         if (!found) continue;
@@ -185,27 +175,9 @@ void CPickups::CreateSomeMoney(CVector coors, int32 amount) {
         // calcula con fsin/fcos x87 a precision completa; luego * 1.5 + coordenada, cada paso redondeado a float.
         const float angleStep = std::bit_cast<float>(0x3CC90FDBu), radius = 1.5f;
         const int32 randomX = CGeneral::GetRandomNumber() & 0xFF;
-        float x = coors.x;
-        __asm {
-            fild randomX
-            fmul angleStep
-            fsin
-            fmul radius
-            fadd x
-            fstp x
-        }
-        coors.x = x;
+        coors.x = TrigCompoundSinMulAdd(IntTimesFloatCpp(randomX, angleStep), radius, coors.x);
         const int32 randomY = CGeneral::GetRandomNumber() & 0xFF;
-        float y = coors.y;
-        __asm {
-            fild randomY
-            fmul angleStep
-            fcos
-            fmul radius
-            fadd y
-            fstp y
-        }
-        coors.y = y;
+        coors.y = TrigCompoundCosMulAdd(IntTimesFloatCpp(randomY, angleStep), radius, coors.y);
         coors.z = CWorld::FindGroundZFor3DCoord(coors, &result, nullptr) + 0.5f;
 
         if (result) {
@@ -229,15 +201,7 @@ void CPickups::DetonateMinesHitByGunShot(const CVector& shotOrigin, const CVecto
 static uint8 PickupGlowByte(CEntity* entity, float distance, uint32 mask, float angleStep, float radius, float inverseRadius, float scale) {
     const int32 ticks = (int32)((CTimer::GetTimeInMS() + (uint32)(uintptr_t)entity) & mask);
     const float one = 1.0f, half = 0.5f;
-    float wave;
-    __asm {
-        fild ticks
-        fmul angleStep
-        fsin
-        fadd one
-        fmul half
-        fstp wave
-    }
+    const float wave = PickupsSinAddMulCpp(IntTimesFloatCpp(ticks, angleStep), one, half);
     const float value = ((wave * (radius - distance)) * inverseRadius) * scale;
     return (uint8)(int64)value; // _ftol2 y se usa el byte bajo (mov bl,al)
 }
@@ -378,15 +342,7 @@ void CPickups::DoPickUpEffects(CEntity* entity) {
                 const int32 red = 100 - static_cast<int32>((float(CGeneral::GetRandomNumber()) * std::bit_cast<float>(0x38000000u)) * -50.0f);
                 const int32 ticks = CTimer::GetTimeInMS() & 8191;
                 const float angleStep = std::bit_cast<float>(0x3A48F5C3u), bias = 1.7f, multiplier = 3.7f;
-                float coronaSize;
-                __asm {
-                    fild ticks
-                    fmul angleStep
-                    fsin
-                    fadd bias
-                    fmul multiplier
-                    fstp coronaSize
-                }
+                const float coronaSize = PickupsSinAddMulCpp(IntTimesFloatCpp(ticks, angleStep), bias, multiplier);
                 const uint8 green = static_cast<uint8>(static_cast<int32>(float(red) * 0.7f));
                 // Como el original: el identificador es una direccion de la pila, no la del objeto.
                 uint8 coronaId;
@@ -433,21 +389,8 @@ void CPickups::DoPickUpEffects(CEntity* entity) {
                 const auto* color = reinterpret_cast<const uint8*>(0x8A5FB0 + colorIndex * 8);
                 message.color.r = color[0]; message.color.g = color[1]; message.color.b = color[2];
                 const float alphaFactor = std::bit_cast<float>(0x3D924925u), one = 1.0f, alphaScale = 255.0f;
-                int64 alphaValue; uint16 alphaOldControl, alphaTruncateControl;
-                __asm {
-                    fnstcw alphaOldControl
-                    mov ax, alphaOldControl
-                    or ax, 0C00h
-                    mov alphaTruncateControl, ax
-                    fld distance
-                    fmul alphaFactor
-                    fsubr one
-                    fmul alphaScale
-                    fldcw alphaTruncateControl
-                    fistp alphaValue
-                    fldcw alphaOldControl
-                }
-                message.color.a = static_cast<uint8>(alphaValue);
+                // Como el original: (1 - d * (1/14)) * 255 con fistp truncado (_ftol2); se usa el byte bajo.
+                message.color.a = static_cast<uint8>(static_cast<int64>(PickupsAlphaValueCpp(distance, alphaFactor, one, alphaScale)));
                 message.flags = (message.flags & ~1u) | ((flags & 8) ? 1u : 0u);
                 message.field_19 = textKind;
                 message.price = uint32(price) * 5;
@@ -473,18 +416,9 @@ void CPickups::DoPickUpEffects(CEntity* entity) {
     if (model == 362) scale = 1.2f;
     const int32 ticks = CTimer::GetTimeInMS() & 2047;
     const float angleStep = std::bit_cast<float>(0x3B4851ECu);
-    float cosineScaled, sineScaled;
-    __asm {
-        fild ticks
-        fmul angleStep
-        fld st(0)
-        fcos
-        fmul scale
-        fstp cosineScaled
-        fsin
-        fmul scale
-        fstp sineScaled
-    }
+    const float angle = IntTimesFloatCpp(ticks, angleStep);
+    const float cosineScaled = TrigSimpleCosMulCpp(angle, scale);
+    const float sineScaled = TrigSimpleSinMulCpp(angle, scale);
     auto& matrix = entity->GetMatrix();
     matrix.GetRight() = CVector{cosineScaled, sineScaled, 0.0f};
     matrix.GetForward() = CVector{-sineScaled, cosineScaled, 0.0f};
