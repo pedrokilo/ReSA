@@ -1,0 +1,24 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 15/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# CppPedFootEmitters1 — emisores de particulas de pisada de CPed::DoFootLanded
+
+Banco nuevo (sin compilar ni ejecutar todavia) para las dos estaticas `noinline` de `source/game_sa/Entity/Ped/Ped.cpp` que sustituyen a los puentes `__asm` de `CPed::DoFootLanded` (0x5E5380):
+
+| Emisor | EXE | Convencion del EXE | Colaborador de salida |
+|---|---|---|---|
+| `EmitFootRainParticles` | 0x5E3630 | EBX = peaton, EDI = posicion, EAX = 4, argumento de pila ignorado (`ret`) | `g_fx.m_Splash` (0xA9AE30), dos `AddParticle` por vuelta |
+| `EmitFootDustParticles` | 0x5E37C0 | ESI = peaton, EBX = posicion, EAX = 4, argumento de pila ignorado | `g_fx.m_SmokeII3expand` (0xA9AE24), un `AddParticle` si el byte 0xB72C70 es 0 |
+
+**Original:** el codigo del EXE llamado por su direccion con un adaptador `__asm` (permitido en el banco) que carga EBX/ESI/EDI/EAX y el argumento de pila aleatorio. **Candidato:** la estatica de la DLL, a traves de envoltorios exportados que `build_probe.py` anade temporalmente al final de `Ped.cpp` (y restaura siempre; guarda copia en `artifacts/ped-cpp-before-probe.bin` mientras dura). La direccion del constructor de `FxPrtMult_c` se obtiene con `/alternatename` sobre su simbolo decorado. Ni el EXE ni la DLL llevan hook en estos cuerpos.
+
+**Colaboradores simulados y trazados** (`EntryPatch` en la direccion del EXE y en la entrada de la DLL): `CEntity::GetIsOnScreen` 0x534540, `FxPrtMult_c::FxPrtMult_c` 0x4AB290 (escribe los 7 floats como el real), `FxSystem_c::AddParticle` 0x4AA440, `SurfaceInfos_c::ProducesFootDust` 0x55E8B0, `rand` 0x821B1E (EXE) y `CGeneral::GetRandomNumber` (DLL), ambos con la misma secuencia por semilla (con extremos 0, 1, 16383, 16384, 32766, 32767) y registrados como la misma llamada `rand`.
+
+**Fixtures (1536 pares por emisor, 16 clases x 96):** camara con matriz (posicion en +0x30) o sin ella (posicion compacta en +4, con la otra como senuelo); distancia dentro, exactamente en el umbral (dx² + dy² = 100 y ±1 ulp), lejos y enorme (1e30); NaN/sNaN/±inf/−0/denormales en x, y, z del punto y en la camara; vector forward con especiales, denormales y 1e30 (1,5 x forward puede desbordar); `GetIsOnScreen` falso (~19 %); `ProducesFootDust` verdadero/falso (2/3 - 1/3) con superficie 0..255; byte 0xB72C70 en {0, 1, 2, 0x80, 0xFF}; argumento de pila aleatorio; peaton lleno de patron (solo se leen +0x14 y +0xBA).
+
+**Se exige por par:** traza completa identica (cada llamada con sus argumentos en bits exactos: punto, velocidad, cuatro floats finales, los 7 floats del constructor, si `mult` es el objeto construido, sistema `splash`/`smoke`, ids de superficie, valores de rand); ESP, EBX/ESI/EDI/EBP conservados; pila x87 vacia (tag 0xFFFF); control x87 conservado; peaton, matrices, buffer de posicion (con guardas), bloque de camara (0x40 bytes en 0xB6F028), todo `g_fx` y el byte 0xB72C70 sin cambios; estado y bytes de entrada de todas las rutas restaurados. El analizador exige ademas EXE sin hook y con sus bytes originales (FNV-1a de 0x190 y 0x194 bytes), disposicion de datos (offsets 0x14, 0xBA, 0x10, 0x30, 0x24, 0x30), cobertura minima por ruta (`offscreen`, `far`, `no_dust`, `blocked_by_byte`, `emit`) y por clase, y cero emisiones en rutas de salida.
+
+Limitacion conocida: la DLL usa `GetMatrix()` (que asigna una matriz si es nula) y el EXE desreferencia `[ped+0x14]` sin comprobar; con matriz nula el EXE se cae, asi que el banco solo usa peatones con matriz.
+
+Flujo: `python -B reversing/CppOnlyMigration/herramientas/rerun_hist.py <carpetaEvidencia> CppPedFootEmitters1`. Fuentes vigiladas: `Ped.cpp` (hash del original), `Ped.h`, `FxPrtMult.cpp/.h`, `General.cpp/.h`, `X87Math.cpp/.h`.

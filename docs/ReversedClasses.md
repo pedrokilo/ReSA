@@ -6,7 +6,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-15 18:41 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-15 22:42 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -18,7 +18,7 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | Clases validadas (de las completas) | `████████████████████` | 784/784 · 100.00% |
 | Funciones reconstruidas | `████████████████████` | 8,550/8,550 · 100.00% |
 | Funciones validadas (de las reconstruidas) | `████████████████████` | 8,550/8,550 · 100.00% |
-| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `██████████████████░░` | 7,866/8,550 · 92.00% |
+| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `██████████████████░░` | 7,867/8,550 · 92.01% |
 
 Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 

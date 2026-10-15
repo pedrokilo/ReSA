@@ -4,7 +4,6 @@ source/game_sa/Cam.cpp,102,3
 source/game_sa/Camera.cpp,43,1
 source/game_sa/Core/Matrix.cpp,10,10
 source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,14,14
-source/game_sa/Entity/Ped/Ped.cpp,6,2
 source/game_sa/Entity/Physical.cpp,10,1
 source/game_sa/Entity/Vehicle/Automobile.cpp,11,0
 source/game_sa/Entity/Vehicle/Bike.cpp,28,3
@@ -18,7 +17,6 @@ source/game_sa/MemoryMgr.cpp,8,8
 source/game_sa/Pad.cpp,10,5
 source/game_sa/PathFind.cpp,7,4
 source/game_sa/PedIK.cpp,8,1
-source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,6,0
 source/game_sa/Radar.cpp,10,2
 source/game_sa/Shadows.cpp,56,1
 source/game_sa/Stats.cpp,69,44

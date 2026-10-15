@@ -1,0 +1,3 @@
+APROBADO: WeaponInstant355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-weapon-instant355\20261015-161648-823939

@@ -1,0 +1,3 @@
+FALLO: CPed grupo C: mirar, apuntar y animaciones (29 funciones)
+Funciones con diferencias: CPed::SetMoveAnim: 63/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpedc\20261015-131517-240523

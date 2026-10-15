@@ -4,7 +4,7 @@
 
 # Archivos pendientes de convertir a C++
 
-27 archivos: 590 apariciones de ensamblador y 195 declaraciones naked.
+25 archivos: 578 apariciones de ensamblador y 193 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -15,7 +15,6 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Camera.cpp](../../source/game_sa/Camera.cpp) | 43 | 1 |
 | [source/game_sa/Core/Matrix.cpp](../../source/game_sa/Core/Matrix.cpp) | 10 | 10 |
 | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp) | 14 | 14 |
-| [source/game_sa/Entity/Ped/Ped.cpp](../../source/game_sa/Entity/Ped/Ped.cpp) | 6 | 2 |
 | [source/game_sa/Entity/Physical.cpp](../../source/game_sa/Entity/Physical.cpp) | 10 | 1 |
 | [source/game_sa/Entity/Vehicle/Automobile.cpp](../../source/game_sa/Entity/Vehicle/Automobile.cpp) | 11 | 0 |
 | [source/game_sa/Entity/Vehicle/Bike.cpp](../../source/game_sa/Entity/Vehicle/Bike.cpp) | 28 | 3 |
@@ -29,7 +28,6 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Pad.cpp](../../source/game_sa/Pad.cpp) | 10 | 5 |
 | [source/game_sa/PathFind.cpp](../../source/game_sa/PathFind.cpp) | 7 | 4 |
 | [source/game_sa/PedIK.cpp](../../source/game_sa/PedIK.cpp) | 8 | 1 |
-| [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 6 | 0 |
 | [source/game_sa/Radar.cpp](../../source/game_sa/Radar.cpp) | 10 | 2 |
 | [source/game_sa/Shadows.cpp](../../source/game_sa/Shadows.cpp) | 56 | 1 |
 | [source/game_sa/Stats.cpp](../../source/game_sa/Stats.cpp) | 69 | 44 |

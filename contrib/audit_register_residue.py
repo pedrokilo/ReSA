@@ -19,9 +19,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OBJECTS = ['FxFrustumInfo', 'Garages', 'EventScriptCommand', 'BaseModelInfo', 'ClumpModelInfo', 'PedGroupIntelligence', 'Pools', 'RwHelper', 'TaskInteriorSitInChair',
-           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed', 'PlayerRelationshipRecorder', 'EventSource', 'TheZones', 'PedGroups']
+           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed', 'PlayerRelationshipRecorder', 'EventSource', 'TheZones', 'PedGroups', 'Ped']
 # Objetos cuyas funciones con ayudante de residuo deben salir SIEMPRE por él (una sola salida; ningun `ret` alcanzable sin pasar por la llamada).
-EVERY_PATH_OBJECTS = {'TheZones'}
+EVERY_PATH_OBJECTS = {'TheZones', 'Ped'}
 HELPER_CALL = re.compile(r'^call\s+\?(ResidueRegsCpp@@YIIIII@Z|Get@ResidueEcx@@QAEII@Z|PlayerPedResidueFloatCpp@@YIMIIM@Z)\b')
 ENTRY_CALL = re.compile(r'^call\s+\?EntryEaxCpp@@YIIXZ$')
 ENTRY_EDX_CALL = re.compile(r'^call\s+\?CarEnterExitEntryEdxCpp@@YI_KXZ$')
@@ -60,7 +60,7 @@ CLOBBERS_ECX_EDX = [
 ENTRY_PARAM_OBJECTS = {'PedGroups'}
 JMC_CALL = re.compile(r'^call\s+.*CheckForDebuggerJustMyCode')
 # Minimo de llamadas a ayudantes de residuo por objeto: si baja, alguna funcion dejo de usar la tecnica (el optimizador o un cambio de fuente la elimino).
-MIN_RESIDUE_CALLS = {'PedGroups': 3}
+MIN_RESIDUE_CALLS = {'PedGroups': 3, 'Ped': 1}
 JUMP_TARGET = re.compile(r'^(j\w+)\s+([0-9A-Fa-f]{8})$')
 
 INSTRUCTION = re.compile(r'^\s*([0-9A-F]{8}):\s+(.*\S)\s*$')

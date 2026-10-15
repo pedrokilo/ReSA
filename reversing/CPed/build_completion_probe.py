@@ -35,6 +35,8 @@ def main():
                 fragment=content[begin:end]
                 substitutions={
                     'GetBonePosition(&position, leftFoot ? BONE_L_FOOT : BONE_R_FOOT, false)': 'plugin::CallMethod<0x5E4280>(this, &position, leftFoot ? BONE_L_FOOT : BONE_R_FOOT, false)',
+                    'EmitFootRainParticles(this, &position);': 'if (PedCompletionProbe::footEmit[0]) PedCompletionProbe::footEmit[0](this, &position); else EmitFootRainParticles(this, &position);',
+                    'EmitFootDustParticles(this, &position);': 'if (PedCompletionProbe::footEmit[1]) PedCompletionProbe::footEmit[1](this, &position); else EmitFootDustParticles(this, &position);',
                     'CLocalisation::Blood()': 'plugin::CallAndReturn<bool, 0x56D230>()',
                     'g_surfaceInfos.LeavesFootsteps(m_nContactSurface)': 'plugin::CallMethodAndReturn<bool, 0x55E890>(&g_surfaceInfos, uint32(m_nContactSurface))',
                     'g_surfaceInfos.IsShallowWater(m_nContactSurface)': 'plugin::CallMethodAndReturn<bool, 0x55E730>(&g_surfaceInfos, uint32(m_nContactSurface))',
@@ -62,8 +64,8 @@ def main():
                     'CGeneral::GetRandomNumber()':'plugin::CallAndReturn<int, 0x821B1E>()',
                     'data->m_pPedClothesDesc->GetIsWearingBalaclava()':'plugin::CallMethodAndReturn<bool, 0x5A7950>(data->m_pPedClothesDesc)',
                     'GetEventGlobalGroup()->Add(&event)':'plugin::CallMethodAndReturn<CEvent*, 0x4AB420>(GetEventGlobalGroup(), &event, false)',
-                    'm_pedAudio.AddAudioEvent(AE_PED_SKATE_LEFT, std::log10(adhesion) * 20.0f, speed)':'plugin::CallMethod<0x4E2BB0>(&m_pedAudio, AE_PED_SKATE_LEFT, std::log10(adhesion) * 20.0f, speed, nullptr, SURFACE_DEFAULT, 0, 0)',
-                    'm_pedAudio.AddAudioEvent(AE_PED_SKATE_RIGHT, std::log10(adhesion) * 20.0f, speed)':'plugin::CallMethod<0x4E2BB0>(&m_pedAudio, AE_PED_SKATE_RIGHT, std::log10(adhesion) * 20.0f, speed, nullptr, SURFACE_DEFAULT, 0, 0)',
+                    'm_pedAudio.AddAudioEvent(AE_PED_SKATE_LEFT, AudioLog10Times20Cpp(adhesion), speed)':'plugin::CallMethod<0x4E2BB0>(&m_pedAudio, AE_PED_SKATE_LEFT, AudioLog10Times20Cpp(adhesion), speed, nullptr, SURFACE_DEFAULT, 0, 0)',
+                    'm_pedAudio.AddAudioEvent(AE_PED_SKATE_RIGHT, AudioLog10Times20Cpp(adhesion), speed)':'plugin::CallMethod<0x4E2BB0>(&m_pedAudio, AE_PED_SKATE_RIGHT, AudioLog10Times20Cpp(adhesion), speed, nullptr, SURFACE_DEFAULT, 0, 0)',
                     'm_pedAudio.AddAudioEvent(left ? AE_PED_FOOTSTEP_LEFT : AE_PED_FOOTSTEP_RIGHT, volume, speed)':'plugin::CallMethod<0x4E2BB0>(&m_pedAudio, left ? AE_PED_FOOTSTEP_LEFT : AE_PED_FOOTSTEP_RIGHT, volume, speed, nullptr, SURFACE_DEFAULT, 0, 0)',
                 }
                 for old,new in substitutions.items():

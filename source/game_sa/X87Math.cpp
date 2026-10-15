@@ -16,6 +16,20 @@ extern "C" double __cdecl tan(double);
 #include <bit>
 #include "X87Math.h"
 
+// --- Palabra de control como la del CRT del EXE (_CIasin/_CIacos, 0x821E70/0x822380): (anterior & 0x300) | 0x7F, solo la x87 ---
+// _control87 del CRT de la DLL modifica ademas MXCSR (redondeo y mascaras) y, al restaurar con el valor leido de la x87, lo dejaria igualado a ella si antes diferian.
+// __control87_2 con puntero SSE nulo toca unicamente la x87, como el EXE. Devuelve la palabra x87 previa (formato _MCW_*).
+static __forceinline unsigned ExeFpuControlEnter() {
+    unsigned previous = 0, ignored = 0;
+    __control87_2(0, 0, &previous, nullptr);
+    __control87_2((previous & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM, &ignored, nullptr);
+    return previous;
+}
+static __forceinline void ExeFpuControlLeave(unsigned previous) {
+    unsigned ignored = 0;
+    __control87_2(previous, _MCW_PC | _MCW_RC | _MCW_EM, &ignored, nullptr);
+}
+
 // --- Seno y coseno ---
 // Acceptance requires native x87 opcodes without any intervening store or CRT call.
 __declspec(noinline) float __cdecl TrigSimpleSinCpp(float angle) { return float(sin(double(angle))); }
@@ -97,10 +111,9 @@ __declspec(noinline) void __cdecl AnimCalcThetaCpp(const float* prev, const floa
     }
     const float x = stored;
     // acos del CRT del juego (0x822380): palabra de control (anterior & 0x300) | 0x7F, fpatan(sqrt((1 + x)(1 - x)), x).
-    const unsigned previousControl = _control87(0, 0);
-    _control87((previousControl & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM);
+    const unsigned previousControl = ExeFpuControlEnter();
     const double acosValue = atan2(sqrt((1.0f + x) * (1.0f - x)), x);
-    _control87(previousControl, _MCW_PC | _MCW_RC | _MCW_EM);
+    ExeFpuControlLeave(previousControl);
     *theta = float(acosValue);
     // 1/sin con el acos completo (sin redondear); 0 sólo si es exactamente 0 (con NaN sigue el camino de fsin).
     if (acosValue != 0.0) {
@@ -192,10 +205,9 @@ __declspec(noinline) float __cdecl GammaScaleCpp(double value) {
 }
 
 __declspec(noinline) double __cdecl ExeAcosDoubleCpp(double x) {
-    const unsigned previousControl = _control87(0, 0);
-    _control87((previousControl & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM);
+    const unsigned previousControl = ExeFpuControlEnter();
     volatile double result = atan2(sqrt((1.0 + x) * (1.0 - x)), x);
-    _control87(previousControl, _MCW_PC | _MCW_RC | _MCW_EM);
+    ExeFpuControlLeave(previousControl);
     return result;
 }
 
@@ -329,10 +341,9 @@ __declspec(noinline) double __cdecl ExeAsinDoubleCpp(double x) {
         }
         return std::bit_cast<double>(result);
     }
-    const unsigned previousControl = _control87(0, 0);
-    _control87((previousControl & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM);
+    const unsigned previousControl = ExeFpuControlEnter();
     volatile double angle = atan2(x, sqrt((1.0 + x) * (1.0 - x)));
-    _control87(previousControl, _MCW_PC | _MCW_RC | _MCW_EM);
+    ExeFpuControlLeave(previousControl);
     return angle;
 }
 
@@ -891,7 +902,11 @@ __declspec(noinline) void __cdecl ProcSurfaceOffsetZCpp(float* z, float minZ, fl
 }
 #pragma float_control(pop)
 
-// Requiere <cstdint>. Equivale a FLD dword [x]; FISTP dword [res] con la palabra de control por defecto del proceso (redondeo al par).
+// Requiere <cstdint>. Equivale a FLD dword [x]; FISTP dword [res] con la palabra de control vigente (precision y redondeo cualesquiera).
+// Por debajo de 2^23 el redondeo a entero lo hace el propio almacenamiento a float de x + M, con M = +-2^23 del signo de x (rejilla de paso 1 en [2^23, 2^24)):
+// el fstp dword redondea con el RC vigente (al par, hacia -inf, hacia +inf o hacia 0) y, al llevar M el signo de x, el sentido del redondeo dirigido es
+// el correcto tambien para los negativos (con |x| + M y cambio de signo, "hacia -inf" y "hacia +inf" se invertirian). La suma es exacta en 53/64 bits y a 24 bits
+// ya es el unico redondeo; solo el almacenamiento aplica el modo.
 #pragma float_control(precise, on, push)
 unsigned int __cdecl RwPlCoreFastRealToUInt32Cpp(float x) {
     constexpr float kMagic = 8388608.0f; // 2^23: por encima todo float es ya entero
@@ -902,10 +917,10 @@ unsigned int __cdecl RwPlCoreFastRealToUInt32Cpp(float x) {
     if (ax >= kMagic) {
         return static_cast<unsigned int>(static_cast<int>(x)); // ya entero: el truncado es exacto
     }
-    volatile float t = ax + kMagic; // suma exacta en x87 y un unico redondeo a float = redondeo al par de la parte fraccionaria
-    t = t - kMagic;
-    const int r = static_cast<int>(t);
-    return static_cast<unsigned int>(x < 0.0f ? -r : r);
+    const float magic = x < 0.0f ? -kMagic : kMagic;
+    volatile float t = x + magic; // un unico redondeo a la rejilla entera, con el RC vigente
+    t = t - magic;                // exacto
+    return static_cast<unsigned int>(static_cast<int>(t));
 }
 #pragma float_control(pop)
 
@@ -1177,14 +1192,12 @@ static bool CarEnterExitEntryEdxHelperIsTrivial() {
     return code[0] == 0xC3 || memcmp(code, plain, sizeof plain) == 0 || memcmp(code, withFrame, sizeof withFrame) == 0;
 }
 
-// Cada operacion x87 a 24 bits: fild n; fdivr twoPi; fst angleStep; fcos; fsubr 1.0; fdivr 0.5; fsqrt; fstp radius.
-// La doble precision (53 >= 2*24+2) hace que /,-,sqrt en double y luego float() coincidan con un solo redondeo a 24 bits.
+// fild n; fdivr twoPi; fst angleStep; fcos; fsubr 1.0; fdivr 0.5; fsqrt; fstp radius. Solo angleStep se guarda (fst deja ST0 intacto): fcos, la resta, el cociente y la raiz
+// parten del cociente sin redondear a float, a la precision vigente.
 __declspec(noinline) float __cdecl PedGroupPlacerCircleCpp(int numPeds, float* radius) {
-    volatile float step = float(double(std::bit_cast<float>(0x40C90FDBu)) / double(numPeds)); // 0x858CBC
-    volatile float oneMinusCos = float(1.0 - cos(double(step)));
-    volatile float quotient = float(0.5 / double(oneMinusCos));                                // 0x858B8C
-    volatile float root = float(sqrt(double(quotient)));
-    *radius = root;
+    const double stepFull = double(std::bit_cast<float>(0x40C90FDBu)) / double(numPeds); // 0x858CBC
+    volatile float step = float(stepFull);
+    *radius = float(sqrt(0.5 / (1.0 - cos(stepFull)))); // 0x858B8C
     return step;
 }
 
@@ -1441,16 +1454,16 @@ __declspec(noinline) void __cdecl TimerUpdateStepCpp(float timeElapsed, unsigned
 // Aritmetica float pura en el orden del EXE bajo float_control(precise): sin reasociaciones de /fp:fast (p. ej. sqrt(s)·sqrt(s) -> s ni (low·k)·(1-day) -> low·(k·(1-day))).
 // La x87 corre a 24 bits, asi que cada operacion float equivale al fmul/fadd/fsub del EXE; solo la raiz va por double (fsqrt).
 #pragma float_control(precise, on, push)
-// 0x6F6D85..0x6F6DEB: la raiz queda redondeada a float (el EXE no la guarda, pero a 24 bits es lo mismo) y se multiplica por si misma.
+// 0x6F6D85..0x6F6DEB: restas, raiz, productos y cociente quedan en ST a la precision vigente; fst dword copia dx y dy sin consumirlos y solo el cociente final se guarda (fstp dword).
 __declspec(noinline) float __cdecl TrainProjectionCpp(float x, float y, float nx, float ny, float px, float py) {
-    const float a = x - nx;
-    const float b = y - ny;
-    const float length = float(sqrt(double(b * b + a * a)));
-    const float dx = nx - x;
-    const float dy = ny - y;
-    const float p = px - x;
-    const float q = py - y;
-    return (p * dx + q * dy) / (length * length);
+    const double a = double(x) - double(nx);
+    const double b = double(y) - double(ny);
+    const double length = sqrt(b * b + a * a);
+    const double dx = double(nx) - double(x);
+    const double dy = double(ny) - double(y);
+    const double p = double(px) - double(x);
+    const double q = double(py) - double(y);
+    return float((p * dx + q * dy) / (length * length));
 }
 
 // 0x6F6E95..0x6F6EE3 (cada fild lee un nibble 0..15: exacto con signo o sin el).
@@ -1636,23 +1649,24 @@ __declspec(noinline) float __cdecl PedGeomPlaneOffsetCpp(const float* plane, con
 }
 #pragma float_control(pop)
 
-// 0x5F13F6..0x5F143D. El fpatan sale sin redondear: fsub rotation lo redondea a 24 bits (como Atan2MinusCpp); el resto es float con la
-// secuencia del EXE. fcom con 0: solo "menor" (C0) suma 2pi (iguales, mayores y NaN no). El resultado es la parte baja del entero de 64 bits de _ftol2.
+// 0x5F13F6..0x5F143D. fpatan; fsub rotation; fadd pi/4 (0x859AB0); fcom 0 y fadd 2pi (0x858CBC) solo si "menor" (iguales, mayores y NaN no); fmul 2/pi (0x858FB8);
+// jmp _ftol2. No hay ningun almacenamiento a float en toda la cadena: todo queda en ST0 a la precision vigente (el resultado es la parte baja del entero de 64 bits
+// de _ftol2). Por eso la etapa 1 devuelve un double (fpatan menos rotacion, sin redondear a float) y la cadena sigue en double: exacta con PC24 y PC53; con PC64
+// los valores pasan por un double entre la etapa 1 y el resto (limite que no se puede cerrar sin un tipo de 80 bits).
 // Etapa 1 (sin precise: el compilador emite fpatan): num/den llegan como double ya calculados en la etapa 2 para conservar el -0 de -(dx).
-static __declspec(noinline) float __cdecl PedGeomShotAngleCpp(double num, double den, float rotation) {
-    volatile float angle = float(atan2(num, den) - double(rotation));
-    return angle;
+static __declspec(noinline) double __cdecl PedGeomShotAngleDbl(double num, double den, float rotation) {
+    return atan2(num, den) - double(rotation);
 }
 #pragma float_control(precise, on, push)
 __declspec(noinline) int __cdecl PedGeomShotSideCpp(const float* origin, const float* target, float rotation) {
-    const float quarter = std::bit_cast<float>(0x3F490FDBu); // 0x859AB0
-    const float full = std::bit_cast<float>(0x40C90FDBu);    // 0x858CBC
-    const float scale = std::bit_cast<float>(0x3F22F983u);   // 0x858FB8
+    const double quarter = double(std::bit_cast<float>(0x3F490FDBu)); // 0x859AB0
+    const double full = double(std::bit_cast<float>(0x40C90FDBu));    // 0x858CBC
+    const double scale = double(std::bit_cast<float>(0x3F22F983u));   // 0x858FB8
     const double deltaX = double(target[0]) - double(origin[0]);
     const double num = -deltaX;
     const double den = double(target[1]) - double(origin[1]);
-    float value = PedGeomShotAngleCpp(num, den, rotation) + quarter;
-    if (value < 0.0f) { value += full; }
+    double value = PedGeomShotAngleDbl(num, den, rotation) + quarter;
+    if (value < 0.0) { value += full; }
     value *= scale;
     return int(static_cast<long long>(value));
 }
@@ -1704,12 +1718,11 @@ __declspec(noinline) void __cdecl ObjectSamSiteAtanCpp(float (__cdecl* atanFn)(f
 // CObject::ProcessTrainCrossingBehaviour (0x5A0CD3..0x5A0D11): _CIacos (0x822380) = fpatan(sqrt((1 + x)(1 - x)), x) con la palabra de control (anterior & 0x300) | 0x7F; el resultado queda en ST0 y el fsubp/faddp
 // del paso lo consume sin redondear. x = +-1 da 0 / pi como fldz/fldpi y |x| > 1 o NaN dan NaN (el llamador lo sustituye por sus limites).
 __declspec(noinline) float __cdecl ObjectTrainCrossingAngleCpp(float upZ, float step, bool subtract) {
-    const unsigned previousControl = _control87(0, 0);
-    _control87((previousControl & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM);
+    const unsigned previousControl = ExeFpuControlEnter();
     const double x     = double(upZ);
     const double delta = subtract ? -double(step) : double(step);
     volatile float result = float(atan2(sqrt((1.0 + x) * (1.0 - x)), x) + delta);
-    _control87(previousControl, _MCW_PC | _MCW_RC | _MCW_EM);
+    ExeFpuControlLeave(previousControl);
     return result;
 }
 
@@ -1847,17 +1860,21 @@ static __declspec(noinline) double __cdecl GeneralConstMinusAtanDbl(double k, do
 static __declspec(noinline) double __cdecl GeneralAtanPlusConstDbl(double ratio, double k) { return atan2(ratio, 1.0) + k; }
 static __declspec(noinline) double __cdecl GeneralSqrtDbl(double value) { return sqrt(value); }
 
-// 0x41BD90. Orden del EXE: fild; fmul 1/32767; fld max; fsub min; fmulp; fadd min. float(...) deja el resultado en ST0.
+// 0x41BD90. Orden del EXE: fild; fmul 1/32767; fld max; fsub min; fmulp; fadd min; ret con ST0 SIN guardar. Devuelve double (extern "C"): General.cpp lo
+// declara como float con otro nombre (/alternatename) para que ST0 salga tal cual. Con float(...) el resultado pasaba por memoria como float y los
+// resultados menores que 2^-126 se redondeaban a subnormal float, mientras que la x87 de PC24 conserva el exponente extendido
+// (banco CppX87Precision1, caso 302: ST0 = 0x3F7D8F6FF5.. del EXE frente a 0x3F7D8F6FF0.. de la DLL).
 #pragma float_control(precise, on, push)
-__declspec(noinline) float __cdecl GeneralRandomInRangeCpp(int random, float min, float max) {
-    return float(((double(random) * double(kGeneral_38000100)) * (double(max) - double(min))) + double(min));
+extern "C" __declspec(noinline) double __cdecl GeneralRandomInRangeDblCpp(int random, float min, float max) {
+    return ((double(random) * double(kGeneral_38000100)) * (double(max) - double(min))) + double(min);
 }
 
 // 0x53CBE0. Con dx = x2 - x1 y dy = y2 - y1 (dy == 0 incluido -0 pasa a 0.0001f; NaN sigue), a = atan(dx/dy):
 //   dx > 0, dy > 0: (pi/2 - a) + pi/2   dx > 0, dy <= 0: pi/2 - (a + pi/2)
 //   dx <= 0, dy > 0: -pi/2 - (a + pi/2)  dx <= 0, dy <= 0: (pi/2 - a) - pi/2     (<= incluye NaN)
 // El EXE decide por las banderas de fcomp/fcom conservadas a traves de fdiv/fpatan (0x41/0x44 de AH), no por una comparacion nueva.
-__declspec(noinline) float __cdecl GeneralRadianAngleCpp(float x1, float y1, float x2, float y2) {
+// Devuelve double (extern "C"): el EXE termina con ST0 sin guardar y con float(...) el resultado se redondearia a 24 bits bajo PC53/PC64 (banco CppX87Precision1).
+extern "C" __declspec(noinline) double __cdecl GeneralRadianAngleDblCpp(float x1, float y1, float x2, float y2) {
     const double dx = double(x2) - double(x1);
     double dy = double(y2) - double(y1);
     if (dy == 0.0) {
@@ -1867,17 +1884,18 @@ __declspec(noinline) float __cdecl GeneralRadianAngleCpp(float x1, float y1, flo
     const double halfPi = double(kGeneral_3FC90FDB);
     if (dx > 0.0) {
         if (dy > 0.0) {
-            return float((halfPi - GeneralAtanDbl(ratio)) + halfPi);
+            return (halfPi - GeneralAtanDbl(ratio)) + halfPi;
         }
-        return float(halfPi - (GeneralAtanDbl(ratio) + halfPi));
+        return halfPi - (GeneralAtanDbl(ratio) + halfPi);
     }
     if (dy > 0.0) {
-        return float(-halfPi - (GeneralAtanDbl(ratio) + halfPi));
+        return -halfPi - (GeneralAtanDbl(ratio) + halfPi);
     }
-    return float((halfPi - GeneralAtanDbl(ratio)) - halfPi);
+    return (halfPi - GeneralAtanDbl(ratio)) - halfPi;
 }
 
-// 0x53CC70. |x| y |y| con fchs solo si < 0 (NaN y -0 intactos); "positivo" = estrictamente > 0 (NaN no). Un solo fpatan por llamada, sin redondear antes de la
+// 0x53CC70. Todas las ramas terminan en ret con ST0 sin guardar (fsubr/fadd/fpatan): sin float(...) ni almacenamientos (con PC53/PC64 se redondearia a 24 bits).
+// |x| y |y| con fchs solo si < 0 (NaN y -0 intactos); "positivo" = estrictamente > 0 (NaN no). Un solo fpatan por llamada, sin redondear antes de la
 // ultima suma/resta; (-1/d)*n son dos operaciones separadas (fld -1; fdiv; fmul).
 extern "C" __declspec(noinline) double __cdecl GeneralATanOfXYDblCpp(float x, float y) {
     if (x == 0.0f && y == 0.0f) {
@@ -1896,25 +1914,25 @@ extern "C" __declspec(noinline) double __cdecl GeneralATanOfXYDblCpp(float x, fl
     if (absX < absY) {
         if (yPositive) {
             if (xPositive) {
-                return float(GeneralConstMinusAtanDbl(halfPi, dx / dy));
+                return GeneralConstMinusAtanDbl(halfPi, dx / dy);
             }
-            return float(GeneralAtanPlusConstDbl((-1.0 / dy) * dx, halfPi));
+            return GeneralAtanPlusConstDbl((-1.0 / dy) * dx, halfPi);
         }
         if (xPositive) {
-            return float(GeneralAtanPlusConstDbl((-1.0 / dy) * dx, threeHalfPi));
+            return GeneralAtanPlusConstDbl((-1.0 / dy) * dx, threeHalfPi);
         }
-        return float(GeneralConstMinusAtanDbl(threeHalfPi, dx / dy));
+        return GeneralConstMinusAtanDbl(threeHalfPi, dx / dy);
     }
     if (yPositive) {
         if (xPositive) {
             return GeneralAtanDbl(dy / dx); // el fpatan puro sale sin redondear en ST0 (el control de precision solo afecta a +,-,*,/ y sqrt)
         }
-        return float(GeneralConstMinusAtanDbl(pi, (-1.0 / dx) * dy));
+        return GeneralConstMinusAtanDbl(pi, (-1.0 / dx) * dy);
     }
     if (xPositive) {
-        return float(GeneralConstMinusAtanDbl(twoPi, (-1.0 / dx) * dy));
+        return GeneralConstMinusAtanDbl(twoPi, (-1.0 / dx) * dy);
     }
-    return float(GeneralAtanPlusConstDbl(dy / dx, pi));
+    return GeneralAtanPlusConstDbl(dy / dx, pi);
 }
 
 // 0x53CE30. d y las raices se mantienen en el rango extendido de la x87 (b·b puede superar FLT_MAX); sqrt en ayudante aparte (fsqrt en línea, 24 bits).
@@ -2114,8 +2132,8 @@ __declspec(noinline) void __cdecl BoneNodeLocalMatrixCpp(const float* q, float* 
 #pragma float_control(pop)
 
 // --- Lote de tres archivos (cHandlingDataMgr y otros; 15/10/2026) ---
-// cHandlingDataMgr::ConvertBikeData* (fmul x87): producto de dos float con un solo redondeo; en x87 los subnormales se conservan (el SSE de la DLL los descartaria).
-__declspec(noinline) float __cdecl HandlingTimesFloatCpp(float a, float b) {
+// Producto de dos float con la fmul del x87 (un solo redondeo); en x87 los subnormales se conservan (el SSE de la DLL los descartaria). Lo usan cHandlingDataMgr::ConvertBikeData* y CPed::EmitFootRainParticles.
+__declspec(noinline) float __cdecl X87TimesFloatCpp(float a, float b) {
     return a * b;
 }
 
@@ -2129,24 +2147,256 @@ __declspec(noinline) float __cdecl HandlingSinScaledCpp(float angle, float k) {
     return float(sin(double(angle) * double(k))); // fld, fmul dword, fsin, fstp dword (como TrigCompoundScaledSinMulAdd)
 }
 
-// Orden estricto del EXE (sin reasociar ni sustituir divisiones por constantes); NaN: la comparación falla y el bucle sale.
+// cHandlingDataMgr::ConvertDataToGameUnits (0x6F5080): todo el cuerpo aritmetico, con la pila x87 del EXE: accel y la velocidad (ST1/ST0 en el bucle)
+// viajan SIN redondear a float (solo el fst dword a memoria las redondea; un float subnormal guardado sigue siendo normal en ST0), y 1/masa tambien
+// va sin redondear a la multiplicacion del dano por colision. El codigo C++ normal de la DLL (SSE) descarta los subnormales y redondeaba antes de
+// seguir (banco CppX87Precision1, PC24: 127-143 de 1024 casos). Orden estricto del EXE (sin reasociar); NaN: la comparacion falla y el bucle sale.
+//   0x6F5085..0x6F50E9: accel = K1*acc; vel = K2*maxVel (se guarda en [esp+8] y en +0x84); freno = K1*freno; 1/masa; flotabilidad = masa*0.8/pct (fidiv);
+//   dano = (1/masa)*dano*2000. 0x6F50F0..0x6F5158: bucle de reduccion (0,01 y 1/6 double; 1000 y 0,5 float). 0x6F515A..0x6F5229: ramas por tipo.
 #pragma float_control(precise, on, push)
-__declspec(noinline) float __cdecl HandlingReduceVelocityCpp(float velocity, float accel, float drag) {
+__declspec(noinline) void __cdecl HandlingConvertGameUnitsCpp(float accelConst, float velocityConst, float mass, int percentSubmerged, float drag, int vehicleId,
+                                                              bool maxspLimit, bool driveType4, float* engineAccel, float* maxVelocity, float* brake,
+                                                              float* massRecpr, float* buoyancy, float* collision, float* maxFlat, float* maxReverse) {
     const double oneSixth = std::bit_cast<double>(0x3FC5555555555554ull); // 0x872350
-    float v = velocity;
-    while (v > 0.0f) {                                    // fcom [0x858B50]; test ah, 0x41
-        v = float(double(v) - 0.01);                      // fsub qword [0x85A308]
-        const float limit = float(double(accel) * oneSixth); // fmul qword [0x872350]
-        float resistance;
-        if (drag < 0.01f) {                               // fcomp [0x858C58]; test ah, 5; jp
-            resistance = -((1.0f / (v * v * drag + 1.0f) - 1.0f) * v);
-        } else {                                          // también con NaN
-            resistance = drag / 1000.0f * 0.5f * v * v;
+    const double accel = double(accelConst) * double(*engineAccel);
+    *engineAccel = float(accel);                                          // fst dword [+0x7c]
+    const double velocity = double(velocityConst) * double(*maxVelocity);
+    volatile float velocityMem = float(velocity);                         // fst dword [esp+8]
+    *maxVelocity = velocityMem;                                           // fst dword [+0x84]
+    *brake = float(double(accelConst) * double(*brake));
+    const double recpr = 1.0 / double(mass);
+    *massRecpr = float(recpr);                                            // fst dword [+8]
+    *buoyancy = float(double(mass) * double(0.8f) / double(percentSubmerged));
+    *collision = float(recpr * double(*collision) * double(2000.0f));
+
+    double v = velocity;
+    while (v > 0.0) {                                                     // fcom [0x858B50]; test ah, 0x41
+        v = v - 0.01;                                                     // fsub qword [0x85A308]
+        const double limit = accel * oneSixth;                            // fmul qword [0x872350]
+        double resistance;
+        if (drag < 0.01f) {                                               // fcomp [0x858C58]; test ah, 5; jp
+            resistance = -((1.0 / (v * v * double(drag) + 1.0) - 1.0) * v);
+        } else {                                                          // tambien con NaN
+            resistance = double(drag) / double(1000.0f) * double(0.5f) * v * v;
         }
-        if (!(limit < resistance)) {                      // fcomp st(1); test ah, 5; jnp
+        if (!(limit < resistance)) {                                      // fcomp st(1); test ah, 5; jnp
             break;
         }
     }
-    return v;
+
+    const double minusPointTwo = double(-0.2f);                           // 0x858FDC
+    if (vehicleId == 38) {                                                // VT_RCBANDIT: velocidad sin reducir
+        *maxFlat = velocityMem;
+        *maxReverse = -velocityMem;
+    } else if (maxspLimit) {                                              // 0x863278 = 0.8333333f; 0x85C654 = -0.25f; min con -0,2f (NaN se conserva)
+        const double flat = double(velocityMem) * double(0.8333333f);
+        *maxFlat = float(flat);
+        double reverse = flat * double(-0.25f);
+        if (minusPointTwo < reverse) {
+            reverse = minusPointTwo;
+        }
+        *maxReverse = float(reverse);
+    } else if (vehicleId >= 162 && vehicleId <= 174) {                    // VT_BIKE..VT_FREEWAY (cmp con signo)
+        *maxFlat = float(v);
+        *maxReverse = -0.05f;                                             // 0xBD4CCCCD
+        *maxVelocity = float(v * double(1.2f));                           // 0x858F08
+    } else {
+        volatile float flatMem = float(v);                                // fst dword [+0x88]; despues fld dword [+0x88] (ya redondeada)
+        *maxFlat = flatMem;
+        *maxVelocity = float(v * double(1.2f));
+        double reverse = double(flatMem) * double(-0.3f);                 // 0x858EE4
+        if (minusPointTwo < reverse) {
+            reverse = minusPointTwo;
+        }
+        *maxReverse = float(reverse);
+    }
+    *engineAccel = float(accel * double(driveType4 ? 0.25f : 0.5f));      // 0x858C84 / 0x858B8C
+}
+#pragma float_control(pop)
+
+// --- Lote Ped (15/10/2026) ---
+// --- Lote de Ped.cpp (15/10/2026), prefijo Ped ---
+// IMPORTANTE: este bloque debe ir DESPUES de PedGeomShotAngleCpp (static, X87Math.cpp ~l.1640), que reutiliza.
+
+// _ftol2 (0x821B40) sobre el valor de ST0: ver X87Math.h. fld st; fst dword [esp+18h]; fistp qword; fild qword; fsubp (v - R, a la precision vigente); fstp dword.
+// R = fistp con el RC vigente (al par, hacia -inf, hacia +inf o hacia 0): se calcula con enteros desde los bits del double v (exacto para un float
+// ensanchado y para un ST0 de hasta 53 bits). La fraccion v - R se calcula con la propia x87 (fild + fsub + fstp dword): asi sigue la precision y el redondeo vigentes
+// (y el cero exacto sale +0 salvo en "hacia -inf", donde x - x = -0) sin reproducirlos a mano. EAX:EDX salen siempre truncados, como en el EXE.
+static long long X87FistpQword(double v, unsigned int roundingControl) {
+    const unsigned long long bits = std::bit_cast<unsigned long long>(v);
+    const unsigned int       biased = static_cast<unsigned int>(bits >> 52) & 0x7FFu;
+    const bool               neg    = (bits >> 63) != 0;
+    if (biased >= 0x3FFu + 63u) { // |v| >= 2^63, infinitos y NaN (v = -2^63 da lo mismo): entero indefinido
+        return static_cast<long long>(0x8000000000000000ull);
+    }
+    const unsigned long long mantissa = (bits & 0xFFFFFFFFFFFFFull) | (biased != 0 ? 0x10000000000000ull : 0ull);
+    const int                shift    = static_cast<int>(biased != 0 ? biased : 1u) - 1075; // v = mantissa * 2^shift
+    unsigned long long magnitude;
+    if (shift >= 0) {
+        magnitude = mantissa << shift; // ya es entero (|v| < 2^63)
+    } else {
+        const unsigned int rs = static_cast<unsigned int>(-shift);
+        unsigned long long q, rem, half;
+        if (rs >= 64u) { // |v| < 2^-11: solo cuenta que no sea cero
+            q = 0; rem = mantissa; half = ~0ull;
+        } else {
+            q = mantissa >> rs; rem = mantissa & ((1ull << rs) - 1ull); half = 1ull << (rs - 1u);
+        }
+        const bool exact = rem == 0;
+        bool up;
+        switch (roundingControl) {
+        case _RC_DOWN: up = neg && !exact; break;  // hacia -inf: sube la magnitud de los negativos
+        case _RC_UP:   up = !neg && !exact; break; // hacia +inf: sube la magnitud de los positivos
+        case _RC_CHOP: up = false; break;
+        default:       up = rem > half || (rem == half && (q & 1ull) != 0); break; // al par
+        }
+        magnitude = q + (up ? 1ull : 0ull);
+    }
+    return neg ? -static_cast<long long>(magnitude) : static_cast<long long>(magnitude);
+}
+
+static Ftol2Regs Ftol2RegsCore(double v, unsigned int entryEcx) {
+    const bool         neg     = (std::bit_cast<unsigned long long>(v) >> 63) != 0;
+    const long long    rounded = X87FistpQword(v, _control87(0, 0) & _MCW_RC);
+    const unsigned int low     = unsigned(static_cast<unsigned long long>(rounded));
+    const unsigned int high    = unsigned(static_cast<unsigned long long>(rounded) >> 32);
+    if (low == 0 && (high & 0x7FFFFFFFu) == 0) { // 0x821B9F: sale con ECX de entrada, EAX = 0, EDX = alta
+        return { 0, entryEcx, high };
+    }
+    volatile float fraction = float(v - double(rounded)); // fild + fsubp + fstp dword con el modo vigente
+    const unsigned int fracBits = std::bit_cast<unsigned int>(static_cast<float>(fraction));
+    if (!neg) { // add ecx,7FFFFFFFh / sbb eax,0 / sbb edx,0
+        const unsigned int ecx    = fracBits + 0x7FFFFFFFu;
+        const unsigned int carry  = ecx < fracBits ? 1u : 0u;
+        const unsigned int borrow = low < carry ? 1u : 0u;
+        return { low - carry, ecx, high - borrow };
+    }
+    const unsigned int t     = fracBits ^ 0x80000000u; // xor ecx,80000000h / add ecx,7FFFFFFFh / adc eax,0 / adc edx,0
+    const unsigned int ecx   = t + 0x7FFFFFFFu;
+    const unsigned int carry = ecx < t ? 1u : 0u;
+    const unsigned int eax   = low + carry;
+    return { eax, ecx, high + (eax < low ? 1u : 0u) };
+}
+
+__declspec(noinline) Ftol2Regs __cdecl Ftol2RegsCpp(float v, unsigned int entryEcx) {
+    return Ftol2RegsCore(double(v), entryEcx);
+}
+
+// Igual, con un ST0 de hasta 53 bits de mantisa (resultado de una cadena x87 a PC24 o PC53 que no se redondeo a float): exacto en esas dos precisiones.
+__declspec(noinline) Ftol2Regs __cdecl Ftol2RegsDblCpp(double v, unsigned int entryEcx) {
+    return Ftol2RegsCore(v, entryEcx);
+}
+
+// CPed::GetLocalDirection (0x5DEF60..0x5DEFA9 + _ftol2): fpatan(-x, y) sin redondear; fsub de la rotacion (ped+0x558); + pi/4 (0x859AB0); mientras < 0 (fcom ordenado: con NaN no
+// entra) + 2pi (0x858CBC); * 2/pi (0x858FB8); _ftol2 con ECX = this. Sin ningun almacenamiento a float entre el fpatan y _ftol2 (ver PedGeomShotAngleDbl).
+#pragma float_control(precise, on, push)
+__declspec(noinline) Ftol2Regs __cdecl PedLocalDirectionRegsCpp(const float* point, float rotation, unsigned int entryEcx) {
+    const double quarter = double(std::bit_cast<float>(0x3F490FDBu)); // 0x859AB0
+    const double full    = double(std::bit_cast<float>(0x40C90FDBu)); // 0x858CBC
+    const double scale   = double(std::bit_cast<float>(0x3F22F983u)); // 0x858FB8
+    double value = PedGeomShotAngleDbl(-double(point[0]), double(point[1]), rotation) + quarter; // -x por fchs: conserva el -0
+    while (value < 0.0) {
+        value += full;
+    }
+    value *= scale;
+    return Ftol2RegsDblCpp(value, entryEcx);
+}
+#pragma float_control(pop)
+
+// CPed::SetPedPositionInCar (0x5DF910) y CPed::PositionAttachedPed (0x5DFDF0): fpatan(-x, y) [+ add] como double en ST0 sin redondear (extern "C"; Ped.cpp
+// los declara como float con otro nombre via /alternatename, igual que Placeable.cpp). El fadd de add redondea a 24 bits como en el EXE. Sin precise: fpatan en linea.
+extern "C" __declspec(noinline) double __cdecl PedAtanNegXYDblCpp(float x, float y) {
+    return atan2(-double(x), double(y));
+}
+extern "C" __declspec(noinline) double __cdecl PedAtanNegXYAddDblCpp(float x, float y, float add) {
+    return atan2(-double(x), double(y)) + double(add);
+}
+
+// --- Ajuste de exactitud de Ped y RpAnimBlend (15/10/2026) ---
+// --- CPed::CalculateNewVelocity (0x5E4C50), prefijo Cnv. Añadir al final de X87Math.cpp (usa ExeCompatiblePowCpp y ExeAsinDoubleCpp, ya definidos arriba) ---
+__declspec(noinline) float __cdecl CnvDecayPowCpp(float base, float step) {
+    return float(ExeCompatiblePowCpp(double(base), double(step)));
+}
+
+__declspec(noinline) float __cdecl CnvAsinFloatCpp(float x) {
+    return float(ExeAsinDoubleCpp(double(x)));
+}
+
+// Orden estricto del EXE: asin * (1 - blend) [fmulp], blend * previous [fmul], suma [faddp]; sin reasociar.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl CnvBlendedAsinCpp(float x, float blend, float previous) {
+    const double angle = ExeAsinDoubleCpp(double(x));
+    const double weighted = angle * double(1.0f - blend);
+    const double carried = double(blend * previous);
+    return float(weighted + carried);
+}
+
+__declspec(noinline) float __cdecl CnvZeroPlusSumCpp(float first, float second) {
+    volatile float zero = 0.0f; // evita que /fp:fast simplifique 0 + first
+    const float accumulated = zero + first;
+    return accumulated + second;
+}
+#pragma float_control(pop)
+
+// --- CPed::KillPedWithCar (0x5F094E): fild random; fmul qword 0.002; fadd qword 1.5; fmul dword lift; fstp dword ---
+// Con la palabra de control a 24 bits cada operación redondea a float; en SSE el doble se redondea una sola vez al final y 21% de los casos difiere.
+__declspec(noinline) float __cdecl KpcBounceLiftScaleCpp(float lift, int random) {
+    volatile float result = float((double(random) * 0.002 + 1.5) * double(lift));
+    return result;
+}
+
+// --- Lote RpNan (RpAnimBlend, 15/10/2026): aritmética del x87 de 0x4D1680..0x4D32D0 y 0x59C080. Se puede colocar al final de X87Math.cpp. ---
+// Con /arch:IA32 son fld/fadd/fsub/fmul de memoria; el proceso corre el x87 a 24 bits. El SSE de la DLL descarta subnormales (DAZ/FTZ) y con dos NaN devuelve el primer operando.
+__declspec(noinline) float __cdecl RpNanAddCpp(float a, float b) { return a + b; }
+__declspec(noinline) float __cdecl RpNanSubCpp(float a, float b) { return a - b; }
+
+#pragma float_control(precise, on, push)
+// Cadenas con intermedios en registros: se calculan como double para que el compilador no los guarde como float (el hardware redondea a 24 bits por la palabra de control).
+__declspec(noinline) float __cdecl RpNanMulAddCpp(float a, float b, float c) {
+    return float(double(a) * double(b) + double(c));
+}
+
+__declspec(noinline) float __cdecl RpNanSkinZCorrectCpp(float z, float bonePosZ) {
+    const double scaled = double(z) * 2.5f;            // fmul [0x858FA0]
+    const double offset = scaled + 2.0f;               // fadd [0x858CA0]
+    const double term   = offset * double(bonePosZ);   // fmul [esi + 0xC]
+    return float(term + double(z));                    // fadd [ebp + 0x18]; fstp
+}
+
+// 0x59C080. Los valores marcados "float" pasan por fstp dword (desbordan / se desnormalizan); los "reg" siguen en ST.
+__declspec(noinline) void __cdecl RpNanQuatToMatrixCpp(const float* q, float* m) {
+    const double x2  = double(q[0]) + double(q[0]);               // reg: 2x
+    const double y2  = double(q[1]) + double(q[1]);               // reg: 2y
+    const float  z2  = float(double(q[2]) + double(q[2]));        // float: [esp] = 2z
+    const float  A   = float(x2 * q[0]);                          // x2x
+    const float  B   = float(y2 * q[0]);                          // y2x
+    const float  C   = float(double(z2) * q[0]);                  // z2x
+    const float  D   = float(y2 * q[1]);                          // y2y
+    const float  E   = float(double(z2) * q[1]);                  // z2y
+    const float  F   = float(double(z2) * q[2]);                  // z2z
+    const float  G   = float(x2 * q[3]);                          // x2w
+    const double Y2W = y2 * q[3];                                 // reg: 2y·w, sin redondear a float
+    const double Z2W = double(z2) * q[3];                         // reg: 2z·w, sin redondear a float
+    m[0]  = float(1.0f - (double(F) + double(D)));                // right.x = 1 - (z2z + y2y)
+    m[4]  = float(double(B) - Z2W);                               // up.x    = y2x - z2w
+    m[8]  = float(Y2W + double(C));                               // at.x    = y2w + z2x
+    m[1]  = float(Z2W + double(B));                               // right.y = z2w + y2x
+    m[5]  = float(1.0f - (double(F) + double(A)));                // up.y    = 1 - (z2z + x2x)
+    m[9]  = float(double(E) - double(G));                         // at.y    = z2y - x2w
+    m[2]  = float(double(C) - Y2W);                               // right.z = z2x - y2w
+    m[6]  = float(double(G) + double(E));                         // up.z    = x2w + z2y
+    m[10] = float(1.0f - (double(D) + double(A)));                // at.z    = 1 - (y2y + x2x)
+}
+#pragma float_control(pop)
+
+
+// --- RpAnimBlendClumpUpdateAnimations (0x4D34F0; lote w20) ---
+// Una sola expresión y sin reasociar (precise): la x87 de 24 bits redondea cada operación; en doubles de SSE el resultado solo se redondea al final y difiere.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl RpUpdateSyncAccumCpp(float total, float speed, float blend, float acc) {
+    return float(double(total) / double(speed) * double(blend) + double(acc));
+}
+__declspec(noinline) float __cdecl RpUpdateSyncStepCpp(float total, float totalTime, float totalBlend, float timeStep) {
+    return float(double(total) / double(totalTime) * double(totalBlend) * double(timeStep));
 }
 #pragma float_control(pop)

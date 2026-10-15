@@ -1,0 +1,3 @@
+APROBADO: Decodificador WAV, reloj, CdStream, CGeneral y comunes (lista de 9)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-core9\20261015-155850-200669

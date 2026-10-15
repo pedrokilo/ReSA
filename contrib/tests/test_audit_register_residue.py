@@ -102,6 +102,25 @@ class RegisterResidueAuditTest(unittest.TestCase):
         self.assertIn('PedGroups', audit.OBJECTS)
         self.assertEqual(audit.MIN_RESIDUE_CALLS['PedGroups'], 3)
 
+    # Ped (CPed::GetLocalDirection, 0x5DEF60): thiscall con un argumento en la pila (ret 4); toda salida pasa por el ayudante y nada lo sigue salvo el epilogo.
+    def test_ped_is_audited_on_every_path(self):
+        self.assertIn('Ped', audit.OBJECTS)
+        self.assertIn('Ped', audit.EVERY_PATH_OBJECTS)
+        self.assertEqual(audit.MIN_RESIDUE_CALLS['Ped'], 1)
+
+    def test_thiscall_function_with_stack_argument_is_accepted(self):
+        function = ['push        ebp', 'mov         ebp,esp', 'sub         esp,18h', 'mov         dword ptr [ebp-4],ecx', 'cmp         eax,3', 'jle         00000015',
+                    'mov         edx,0FFFFFFFCh', CALL, 'mov         esp,ebp', 'pop         ebp', 'ret         4']
+        checked, bad = audit.audit(audit.split_functions(disassembly(function)), every_path=True, min_calls=1)
+        self.assertEqual(bad, [])
+
+    def test_ped_rejects_a_check_after_the_helper_and_a_return_that_skips_it(self):
+        after = ['push        ebp', 'mov         ebp,esp', CALL, 'cmp         ebp,esp', 'call        __RTC_CheckEsp', 'pop         ebp', 'ret         4']
+        self.assertEqual(len(audit.audit(audit.split_functions(disassembly(after)), every_path=True)[1]), 1)
+        skip = ['push        ebp', 'mov         ebp,esp', 'test        al,al', 'je          00000015', CALL, 'pop         ebp', 'ret         4', 'pop         ebp', 'ret         4']
+        bad = audit.audit(audit.split_functions(disassembly(skip)), every_path=True)[1]
+        self.assertTrue(any('alcanzable' in text for _, text in bad))
+
 
 if __name__ == '__main__':
     unittest.main()

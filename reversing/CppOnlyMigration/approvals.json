@@ -3880,7 +3880,15 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppFiveLevel3Study/README.md",
-    "scope": "GeneralRandomInRangeCpp(GetRandomNumber(), min, max). La instrumentación de build_probe.py de CGeneral cuenta ahora las llamadas con un ++ al principio de la función (antes se insertaba un inc junto al push ecx del ensamblador). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+    "scope": "GeneralRandomInRangeCpp(GetRandomNumber(), min, max). La instrumentación de build_probe.py de CGeneral cuenta ahora las llamadas con un ++ al principio de la función (antes se insertaba un inc junto al push ecx del ensamblador). GeneralRandomInRangeDblCpp devuelve double (extern \"C\") y General.cpp lo enlaza como float: con float(...) un resultado menor que 2^-126 se redondeaba a subnormal de float y el EXE lo conserva con exponente extendido (caso 302 de CppX87Precision1 a 24 bits). Exacto bajo las tres precisiones y los cuatro redondeos. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "CppX87Precision1",
+        "run": "20261015-153520-690685",
+        "pairs": 172032,
+        "summary": "reversing/CppTwoLevel5Unified/runs\\CppX87Precision1-20261015-153520-690685/summary.json"
+      }
+    ]
   },
   "0x0053CC70": {
     "identity": "CGeneral::GetATanOfXY",
@@ -3896,7 +3904,15 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppFiveLevel3Study/README.md",
-    "scope": "GeneralATanOfXYDblCpp devuelve double (extern \"C\") y General.cpp lo enlaza como float con /alternatename: el fpatan puro sale sin redondear en ST0 (una primera versión devolvía float y Core9 dio 97/1024 diferencias de ST0). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+    "scope": "GeneralATanOfXYDblCpp devuelve double (extern \"C\") y General.cpp lo enlaza como float con /alternatename: el fpatan puro sale sin redondear en ST0 (una primera versión devolvía float y Core9 dio 97/1024 diferencias de ST0). Sin diferencias exigidas a 24 y 53 bits en los cuatro redondeos; 1408 diferencias exploratorias solo a 64 bits (ver límites). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "CppX87Precision1",
+        "run": "20261015-153520-690685",
+        "pairs": 172032,
+        "summary": "reversing/CppTwoLevel5Unified/runs\\CppX87Precision1-20261015-153520-690685/summary.json"
+      }
+    ]
   },
   "0x0053CBE0": {
     "identity": "CGeneral::GetRadianAngleBetweenPoints",
@@ -3912,7 +3928,15 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppFiveLevel3Study/README.md",
-    "scope": "GeneralRadianAngleCpp con el fpatan en un ayudante aparte sin precise. Cuatro ramas por los signos estrictos de dx y dy. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+    "scope": "GeneralRadianAngleCpp con el fpatan en un ayudante aparte sin precise. Cuatro ramas por los signos estrictos de dx y dy. GeneralRadianAngleDblCpp devuelve double (extern \"C\"): el EXE termina con ST0 sin guardar y con float(...) el resultado se redondeaba a 24 bits bajo 53 bits de precisión. Exacto a 24 y 53 bits. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "CppX87Precision1",
+        "run": "20261015-153520-690685",
+        "pairs": 172032,
+        "summary": "reversing/CppTwoLevel5Unified/runs\\CppX87Precision1-20261015-153520-690685/summary.json"
+      }
+    ]
   },
   "0x0053CE30": {
     "identity": "CGeneral::SolveQuadratic",
@@ -3928,7 +3952,15 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppFiveLevel3Study/README.md",
-    "scope": "GeneralSolveQuadraticCpp: discriminante en el rango extendido de la x87, sqrt en ayudante aparte, x2 se escribe antes que x1. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+    "scope": "GeneralSolveQuadraticCpp: discriminante en el rango extendido de la x87, sqrt en ayudante aparte, x2 se escribe antes que x1. Sin diferencias exigidas a 24 y 53 bits; diferencias exploratorias solo a 64 bits. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "CppX87Precision1",
+        "run": "20261015-153520-690685",
+        "pairs": 172032,
+        "summary": "reversing/CppTwoLevel5Unified/runs\\CppX87Precision1-20261015-153520-690685/summary.json"
+      }
+    ]
   },
   "0x0061A1D0": {
     "identity": "CPlayerRelationshipRecorder::RecordRelationshipWithPlayer y los tres saltos naked a GetActiveTask, Kill y Follow",
@@ -4072,7 +4104,15 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
-    "scope": "HandlingReduceVelocityCpp bajo float_control(precise): el bucle de reducción de velocidad con las constantes double del EXE. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+    "scope": "HandlingReduceVelocityCpp bajo float_control(precise): el bucle de reducción de velocidad con las constantes double del EXE. HandlingConvertGameUnitsCpp lleva todo el cuerpo aritmético en double bajo float_control(precise), con volatile float donde el EXE relee de memoria: el EXE mantiene accel, la velocidad y 1/masa sin redondear a float en la pila x87 y la versión anterior los redondeaba en cada paso y descartaba subnormales (127 a 143 casos de 1024 en CppX87Precision1 a 24 bits). Exacto a 24 bits y en los cuatro redondeos. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "CppX87Precision1",
+        "run": "20261015-153520-690685",
+        "pairs": 172032,
+        "summary": "reversing/CppTwoLevel5Unified/runs\\CppX87Precision1-20261015-153520-690685/summary.json"
+      }
+    ]
   },
   "0x006F5290": {
     "identity": "cHandlingDataMgr::ConvertBikeDataToGameUnits (SinX87)",
@@ -4088,7 +4128,15 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
-    "scope": "HandlingSinScaledCpp: float(sin(ángulo · k)) con el producto redondeado a 24 bits. m_fFullAnimLean con HandlingTimesFloatCpp (fmul x87). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+    "scope": "HandlingSinScaledCpp: float(sin(ángulo · k)) con el producto redondeado a 24 bits. m_fFullAnimLean con X87TimesFloatCpp (fmul x87). Exacto bajo las tres precisiones y los cuatro redondeos (CppX87Precision1). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "CppX87Precision1",
+        "run": "20261015-153520-690685",
+        "pairs": 172032,
+        "summary": "reversing/CppTwoLevel5Unified/runs\\CppX87Precision1-20261015-153520-690685/summary.json"
+      }
+    ]
   },
   "0x006F5240": {
     "identity": "cHandlingDataMgr::ConvertBikeDataToWorldUnits (AsinDegreesHandlingX87 naked)",
@@ -4104,7 +4152,7 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
-    "scope": "ExeAsinDegreesCpp con ExeAsinDoubleCpp reescrito para todas las ramas de _CIasin (0x821E70): |x|<1, ±1 exacto (π/2 de 64 bits), dominio (|x|>1 e infinitos: real indefinido y errno=EDOM) y NaN (propia x silenciada). Los fixtures de World11, Data23 y WeaponFinal2 se ampliaron con entradas ±1, ±1,5, ±2, ±1e30, NaN, ±inf, ±0 y subnormales sin tocar compuertas; los bancos de los demás usuarios (BulletInfo, Weapon, TaskSimpleDead) aprobaron. Además m_fFullAnimLean se multiplica con HandlingTimesFloatCpp (fmul x87): con los fixtures nuevos la multiplicación en SSE de la DLL descartaba subnormales que el EXE conserva (6 de 256 pares). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "scope": "ExeAsinDegreesCpp con ExeAsinDoubleCpp reescrito para todas las ramas de _CIasin (0x821E70): |x|<1, ±1 exacto (π/2 de 64 bits), dominio (|x|>1 e infinitos: real indefinido y errno=EDOM) y NaN (propia x silenciada). Los fixtures de World11, Data23 y WeaponFinal2 se ampliaron con entradas ±1, ±1,5, ±2, ±1e30, NaN, ±inf, ±0 y subnormales sin tocar compuertas; los bancos de los demás usuarios (BulletInfo, Weapon, TaskSimpleDead) aprobaron. Además m_fFullAnimLean se multiplica con X87TimesFloatCpp (fmul x87): con los fixtures nuevos la multiplicación en SSE de la DLL descartaba subnormales que el EXE conserva (6 de 256 pares). Exacto bajo las tres precisiones y los cuatro redondeos (CppX87Precision1). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
     "additional_banks": [
       {
         "bank": "Data23",
@@ -4135,6 +4183,12 @@
         "run": "20261015-123442-829673",
         "pairs": 20480,
         "summary": "reversing/CppThreeLevel4Unified/runs\\WeaponInstant355-20261015-123442-829673/summary.json"
+      },
+      {
+        "bank": "CppX87Precision1",
+        "run": "20261015-153520-690685",
+        "pairs": 172032,
+        "summary": "reversing/CppTwoLevel5Unified/runs\\CppX87Precision1-20261015-153520-690685/summary.json"
       }
     ]
   },
@@ -4221,5 +4275,245 @@
     "state_restored": true,
     "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
     "scope": "Float puro con _ftol2 emulado con enteros (Zones13Ftol2, contrastado contra una simulación del ensamblador) y celda bajo float_control(precise); termina en ResidueRegsCpp con los EAX, ECX y EDX con que sale el EXE en los cuatro caminos (también el residuo de GetLevelFromPosition y FindPlayerCoors). El banco DependenciesZones13 ahora compara los registros con semillas por caso, desactiva durante la compuerta los hooks de las tres colaboradoras para ejecutar las del EXE e incorpora oráculos independientes. Verificado por contrib/audit_register_residue.py (toda salida pasa por el ayudante). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D1680": {
+    "identity": "RpAnimBlend: puente al EXE de FrameUpdateCallBack...SkinnedWithVelocityExtraction (2D, skinned)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "RpAnim43",
+    "run": "20261015-155149-064976",
+    "pairs": 17344,
+    "own_pairs": 17344,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\RpAnim43-20261015-155149-064976/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "La plantilla FrameUpdateCallBackExeVelocity<IsCompressed, IsSkinned, Is3D> reescribe en C++ el cuerpo del EXE (posición del ped asignada, loopedDeltaV con GetEndTranslation, producto escalar del cuaternión con NaN, bloque de z solo en skinned 2D, banderas IGNORE_ROOT_TRANSLATION y DONT_ADD_TO_PARTIAL_BLEND según la variante) y reutiliza NormaliseQuatExe y AnimQuaternionDotNegativeCpp. Los puentes solo corrían en la ruta candidata del banco; los envoltorios de producción siguen desactivados (DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS). El banco RpAnim43 ahora ejerce también NaN (distinto signo y carga, señalizantes), ±inf, ±0, subnormales, magnitudes ±1e30/±1e-30/FLT_MAX, cuaterniones sin normalizar o nulos y tiempos extremos en uno de cada tres casos (2048 casos por envoltorio); con ellos las sumas, restas y productos de la plantilla pasan por ayudantes x87 (RpNan*, ExeAdd/ExeSub/ExeMul) porque el SSE de la DLL difiere en NaN con carga distinta, subnormales y desbordes intermedios. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D1A50": {
+    "identity": "RpAnimBlend: puente al EXE de FrameUpdateCallBack...SkinnedWith3dVelocityExtraction",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "RpAnim43",
+    "run": "20261015-155149-064976",
+    "pairs": 17344,
+    "own_pairs": 17344,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\RpAnim43-20261015-155149-064976/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "La plantilla FrameUpdateCallBackExeVelocity<IsCompressed, IsSkinned, Is3D> reescribe en C++ el cuerpo del EXE (posición del ped asignada, loopedDeltaV con GetEndTranslation, producto escalar del cuaternión con NaN, bloque de z solo en skinned 2D, banderas IGNORE_ROOT_TRANSLATION y DONT_ADD_TO_PARTIAL_BLEND según la variante) y reutiliza NormaliseQuatExe y AnimQuaternionDotNegativeCpp. Los puentes solo corrían en la ruta candidata del banco; los envoltorios de producción siguen desactivados (DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS). El banco RpAnim43 ahora ejerce también NaN (distinto signo y carga, señalizantes), ±inf, ±0, subnormales, magnitudes ±1e30/±1e-30/FLT_MAX, cuaterniones sin normalizar o nulos y tiempos extremos en uno de cada tres casos (2048 casos por envoltorio); con ellos las sumas, restas y productos de la plantilla pasan por ayudantes x87 (RpNan*, ExeAdd/ExeSub/ExeMul) porque el SSE de la DLL difiere en NaN con carga distinta, subnormales y desbordes intermedios. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D1DB0": {
+    "identity": "RpAnimBlend: puente al EXE de FrameUpdateCallBack...CompressedSkinned (3D)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "RpAnim43",
+    "run": "20261015-155149-064976",
+    "pairs": 17344,
+    "own_pairs": 17344,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\RpAnim43-20261015-155149-064976/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "La plantilla FrameUpdateCallBackExeVelocity<IsCompressed, IsSkinned, Is3D> reescribe en C++ el cuerpo del EXE (posición del ped asignada, loopedDeltaV con GetEndTranslation, producto escalar del cuaternión con NaN, bloque de z solo en skinned 2D, banderas IGNORE_ROOT_TRANSLATION y DONT_ADD_TO_PARTIAL_BLEND según la variante) y reutiliza NormaliseQuatExe y AnimQuaternionDotNegativeCpp. Los puentes solo corrían en la ruta candidata del banco; los envoltorios de producción siguen desactivados (DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS). El banco RpAnim43 ahora ejerce también NaN (distinto signo y carga, señalizantes), ±inf, ±0, subnormales, magnitudes ±1e30/±1e-30/FLT_MAX, cuaterniones sin normalizar o nulos y tiempos extremos en uno de cada tres casos (2048 casos por envoltorio); con ellos las sumas, restas y productos de la plantilla pasan por ayudantes x87 (RpNan*, ExeAdd/ExeSub/ExeMul) porque el SSE de la DLL difiere en NaN con carga distinta, subnormales y desbordes intermedios. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D2100": {
+    "identity": "RpAnimBlend: puente al EXE de FrameUpdateCallBack...NonSkinnedWithVelocityExtraction (2D)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "RpAnim43",
+    "run": "20261015-155149-064976",
+    "pairs": 17344,
+    "own_pairs": 17344,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\RpAnim43-20261015-155149-064976/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "La plantilla FrameUpdateCallBackExeVelocity<IsCompressed, IsSkinned, Is3D> reescribe en C++ el cuerpo del EXE (posición del ped asignada, loopedDeltaV con GetEndTranslation, producto escalar del cuaternión con NaN, bloque de z solo en skinned 2D, banderas IGNORE_ROOT_TRANSLATION y DONT_ADD_TO_PARTIAL_BLEND según la variante) y reutiliza NormaliseQuatExe y AnimQuaternionDotNegativeCpp. Los puentes solo corrían en la ruta candidata del banco; los envoltorios de producción siguen desactivados (DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS). El banco RpAnim43 ahora ejerce también NaN (distinto signo y carga, señalizantes), ±inf, ±0, subnormales, magnitudes ±1e30/±1e-30/FLT_MAX, cuaterniones sin normalizar o nulos y tiempos extremos en uno de cada tres casos (2048 casos por envoltorio); con ellos las sumas, restas y productos de la plantilla pasan por ayudantes x87 (RpNan*, ExeAdd/ExeSub/ExeMul) porque el SSE de la DLL difiere en NaN con carga distinta, subnormales y desbordes intermedios. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D2450": {
+    "identity": "RpAnimBlend: puente al EXE de FrameUpdateCallBack...NonSkinnedWith3dVelocityExtraction",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "RpAnim43",
+    "run": "20261015-155149-064976",
+    "pairs": 17344,
+    "own_pairs": 17344,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\RpAnim43-20261015-155149-064976/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "La plantilla FrameUpdateCallBackExeVelocity<IsCompressed, IsSkinned, Is3D> reescribe en C++ el cuerpo del EXE (posición del ped asignada, loopedDeltaV con GetEndTranslation, producto escalar del cuaternión con NaN, bloque de z solo en skinned 2D, banderas IGNORE_ROOT_TRANSLATION y DONT_ADD_TO_PARTIAL_BLEND según la variante) y reutiliza NormaliseQuatExe y AnimQuaternionDotNegativeCpp. Los puentes solo corrían en la ruta candidata del banco; los envoltorios de producción siguen desactivados (DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS). El banco RpAnim43 ahora ejerce también NaN (distinto signo y carga, señalizantes), ±inf, ±0, subnormales, magnitudes ±1e30/±1e-30/FLT_MAX, cuaterniones sin normalizar o nulos y tiempos extremos en uno de cada tres casos (2048 casos por envoltorio); con ellos las sumas, restas y productos de la plantilla pasan por ayudantes x87 (RpNan*, ExeAdd/ExeSub/ExeMul) porque el SSE de la DLL difiere en NaN con carga distinta, subnormales y desbordes intermedios. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D27F0": {
+    "identity": "RpAnimBlend: puente al EXE de FrameUpdateCallBack...CompressedNonSkinned (3D)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "RpAnim43",
+    "run": "20261015-155149-064976",
+    "pairs": 17344,
+    "own_pairs": 17344,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\RpAnim43-20261015-155149-064976/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "La plantilla FrameUpdateCallBackExeVelocity<IsCompressed, IsSkinned, Is3D> reescribe en C++ el cuerpo del EXE (posición del ped asignada, loopedDeltaV con GetEndTranslation, producto escalar del cuaternión con NaN, bloque de z solo en skinned 2D, banderas IGNORE_ROOT_TRANSLATION y DONT_ADD_TO_PARTIAL_BLEND según la variante) y reutiliza NormaliseQuatExe y AnimQuaternionDotNegativeCpp. Los puentes solo corrían en la ruta candidata del banco; los envoltorios de producción siguen desactivados (DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS). El banco RpAnim43 ahora ejerce también NaN (distinto signo y carga, señalizantes), ±inf, ±0, subnormales, magnitudes ±1e30/±1e-30/FLT_MAX, cuaterniones sin normalizar o nulos y tiempos extremos en uno de cada tres casos (2048 casos por envoltorio); con ellos las sumas, restas y productos de la plantilla pasan por ayudantes x87 (RpNan*, ExeAdd/ExeSub/ExeMul) porque el SSE de la DLL difiere en NaN con carga distinta, subnormales y desbordes intermedios. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005DEF60": {
+    "identity": "CPed::GetLocalDirection (__asm)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/Ped.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CPedC",
+    "run": "20261015-155523-530744",
+    "pairs": 15552,
+    "own_pairs": 15552,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\CPedC-20261015-155523-530744/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "PedLocalDirectionRegsCpp: fpatan(-x, y) sin redondear, menos la rotación, más π/4, más 2π mientras sea negativo, por 2/π y _ftol2 emulado (Ftol2RegsCpp, compartido con TheZones); GetLocalDirection termina en ResidueRegsCpp con los EAX, ECX y EDX con que sale el EXE (incluida la rama n > 3). El banco CPedC ahora compara EAX, ECX y EDX con semillas por caso. Verificado por contrib/audit_register_residue.py. CppX87Precision1 la compara con las tres precisiones y los cuatro redondeos (EAX, ECX y EDX): exacta a 24 y 53 bits; diferencias exploratorias solo a 64 bits. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "CppX87Precision1",
+        "run": "20261015-153520-690685",
+        "pairs": 172032,
+        "summary": "reversing/CppTwoLevel5Unified/runs\\CppX87Precision1-20261015-153520-690685/summary.json"
+      }
+    ]
+  },
+  "0x005DF910": {
+    "identity": "CPed::SetPedPositionInCar (naked PedE_AtanNegXY)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/Ped.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CPedE",
+    "run": "20261015-155628-138507",
+    "pairs": 10368,
+    "own_pairs": 10368,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\CPedE-20261015-155628-138507/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "PedAtanNegXYDblCpp devuelve double (extern \"C\") y Ped.cpp lo enlaza como float con /alternatename: el fpatan queda sin redondear en ST0. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005DFDF0": {
+    "identity": "CPed::PositionAttachedPed (naked PedE_AtanNegXYAdd)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/Ped.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CPedE",
+    "run": "20261015-155628-138507",
+    "pairs": 10368,
+    "own_pairs": 10368,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\CPedE-20261015-155628-138507/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "PedAtanNegXYAddDblCpp, igual que SetPedPositionInCar con la suma final a 24 bits. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005E1FA0": {
+    "identity": "CPed::ProcessBuoyancy (bloque pow)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/Ped.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CPedB",
+    "run": "20261015-155431-224338",
+    "pairs": 7232,
+    "own_pairs": 7232,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\CPedB-20261015-155431-224338/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "PowScaleVector3Cpp(&copia, 0,9f, paso) y volcado de x e y siempre; z solo si z < 0 (con NaN no). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005E65A0": {
+    "identity": "CPed::PreRenderAfterTest (oscilación)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/Ped.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CPedB",
+    "run": "20261015-155431-224338",
+    "pairs": 7232,
+    "own_pairs": 7232,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\CPedB-20261015-155431-224338/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "-TrigSimpleSinMulCpp(m_Wobble, 5). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005E5380": {
+    "identity": "CPed::DoFootLanded (puentes EmitFootRainParticles 0x5E3630 y EmitFootDustParticles 0x5E37C0)",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/Entity/Ped/Ped.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CppPedFootEmitters1",
+    "run": "20261015-160204-571636",
+    "pairs": 3072,
+    "own_pairs": 3072,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\CppPedFootEmitters1-20261015-160204-571636/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "additional_banks": [
+      {
+        "bank": "CPedCompletion",
+        "run": "20261015-163950-314634",
+        "pairs": 28672,
+        "summary": "reversing/CppTwoLevel5Unified/runs\\CPedCompletion-20261015-163950-314634/summary.json"
+      }
+    ],
+    "scope": "Los dos puentes que llamaban a funciones del EXE con argumentos en EBX/EDI/ESI/EAX se reescriben en C++ como funciones estáticas; el producto forward·1,5 usa X87TimesFloatCpp (fmul x87: el SSE de la DLL descartaba subnormales que el EXE conserva, 77 de 1536 pares del banco nuevo). Banco propio nuevo CppPedFootEmitters1 (EXE por dirección con adaptador de ensamblador dentro del banco frente a la estática de la DLL, trazas completas con argumentos en bits, 1536 pares por emisor). reversing/CPed (completion, 28672 pares de seis funciones) compara ahora en bits exactos (se quitó la tolerancia 1e-5 de run_completion.py tras corregir las diferencias de CalculateNewVelocity, PlayFootSteps y KillPedWithCar). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D34F0": {
+    "identity": "RpAnimBlendClumpUpdateAnimations (bucles de sincronización y de paso de tiempo)",
+    "converted_source_functions": 0,
+    "source": "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CppRpAnimUpdate1",
+    "run": "20261015-154942-427862",
+    "pairs": 7168,
+    "own_pairs": 7168,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\CppRpAnimUpdate1-20261015-154942-427862/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "Los dos bucles (0x4D3578 y 0x4D35C4..0x4D3605) pasan por RpUpdateSyncAccumCpp, RpUpdateSyncStepCpp, ExeAdd/ExeMul y CloudsEqualOrderedCpp: el EXE encadena fdiv, fmul y fadd en x87 con un redondeo a 24 bits por paso y el C++ lo hacía en double con SSE (53 bits) y trataba un subnormal como cero. Banco nuevo CppRpAnimUpdate1: 4096 pares con los callbacks del EXE y 2048 con los cinco callbacks en C++, comparando en bits. Antes solo la ejercía el banco antiguo reversing/RpAnimBlend (652 pares, tolerancia 1e-5). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x004D2E10": {
+    "identity": "FrameUpdateCallBackOffscreen",
+    "converted_source_functions": 0,
+    "source": "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "CppRpAnimUpdate1",
+    "run": "20261015-154942-427862",
+    "pairs": 7168,
+    "own_pairs": 7168,
+    "audit": "reversing/CppTwoLevel5Unified/runs\\CppRpAnimUpdate1-20261015-154942-427862/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwoLevel5Study/README.md",
+    "scope": "Reescrita para llamar a FrameUpdateCallBackSkinnedWithVelocityExtraction como el EXE (prueba de la bandera 8, m_PedPosition y 0x4D1680, siempre 2D); antes usaba la plantilla FrameUpdateCallBackT, que se eliminó junto con FrameUpdateCallBackW por ser código muerto (no se instanciaban). Banco CppRpAnimUpdate1: 1024 pares. Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
   }
 }

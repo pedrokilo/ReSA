@@ -1,0 +1,3 @@
+APROBADO: CppTrigClimb
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpptrigclimb\20261015-163632-097545

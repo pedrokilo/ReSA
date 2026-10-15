@@ -1,0 +1,3 @@
+APROBADO: CppTrigBirdsRender
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpptrigbirdsrender\20261015-162912-555167

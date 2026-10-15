@@ -27,7 +27,7 @@ inline bool Run(CPlayerPed* player,int& pair,double& maximum) {
     const bool enabled=hook->Hooked(),locked=hook->Locked(); hook->LockState(false);
     CColModel model; model.m_boundBox.m_vecMin=CVector{-1.f,-2.f,-.5f}; model.m_boundBox.m_vecMax=CVector{1.25f,2.5f,1.5f}; col=&model;
     auto* savedIgnore=CWorld::pIgnoreEntity; auto* savedNodes=ThePaths.m_pPathNodes[0]; std::array<CPathNode,2> nodes{}; ThePaths.m_pPathNodes[0]=nodes.data();
-    ReversingProbe::EntryPatch pc(0x535300,Col),ps(0x6D1DD0,Side),collision(0x54D920,Collision),line(0x56A490,Line),door(0x64E740,Door),closest(0x44F460,Closest),ground(0x616920,Ground);
+    ReversingProbe::EntryPatch pc(0x535300,Col),ps(0x6D1DD0,Side),collision(0x54D920,Collision),line(0x56A490,Line),door(0x64E740,Door),doorDll(std::bit_cast<uintptr_t>(&CCarEnterExit::GetPositionToOpenCarDoor),Door),closest(0x44F460,Closest),ground(0x616920,Ground);
     auto entry=reinterpret_cast<bool(__thiscall*)(CPed*,int32,CVehicle*,bool)>(0x5E0820); bool passed=true;
     for(int i=0;i<4096 && passed;++i) {
         input=i; PedInput a(player,i),b(player,i); Tyres::VehicleInput va(i,0),vb(i,0);

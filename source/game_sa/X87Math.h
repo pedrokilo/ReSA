@@ -396,9 +396,9 @@ extern "C" double __cdecl PlaceableRollDblCpp(const float* right, float upZ);
 // Lote de cinco archivos (General, BoneNode y otros; 15/10/2026).
 // Lote de General.cpp (15/10/2026), prefijo General. Los cuatro bloques x87 de CGeneral (se pueden colocar al final de X87Math.h).
 // CGeneral::GetRandomNumberInRange<float> (0x41BD90): ((random · 1/32767) · (max - min)) + min con fild del entero, un redondeo a 24 bits por operación y el resultado en ST0 sin guardar (acepta extremos invertidos).
-float __cdecl GeneralRandomInRangeCpp(int random, float min, float max);
+extern "C" double __cdecl GeneralRandomInRangeDblCpp(int random, float min, float max); // General.cpp lo declara como float con otro nombre (/alternatename) para devolver ST0 sin redondear
 // CGeneral::GetRadianAngleBetweenPoints (0x53CBE0): dx = x2 - x1, dy = y2 - y1 (0 pasa a 0.0001f), fpatan(dx/dy) sin redondear y pi/2 ± pi/2 en el orden del EXE según dx > 0 y dy > 0 (con NaN, false).
-float __cdecl GeneralRadianAngleCpp(float x1, float y1, float x2, float y2);
+extern "C" double __cdecl GeneralRadianAngleDblCpp(float x1, float y1, float x2, float y2); // General.cpp lo declara como float con otro nombre (/alternatename)
 // CGeneral::GetATanOfXY (0x53CC70): 0 si x e y son 0; si no, ocho ramas según |x| < |y| y los signos; la rama x > 0, y > 0, |x| >= |y| devuelve el fpatan sin redondear en ST0.
 extern "C" double __cdecl GeneralATanOfXYDblCpp(float x, float y); // General.cpp lo declara como float con otro nombre (/alternatename) para devolver ST0 sin redondear
 // CGeneral::SolveQuadratic (0x53CE30): d = b·b - (a·c)·4 en registro; false si d < 0 (NaN resuelve); si no escribe *x2 = ((sqrt(d) - b) · (1/a)) · 0.5 y luego *x1 = ((-b - sqrt(d)) · (1/a)) · 0.5 (orden de escritura del EXE).
@@ -414,11 +414,63 @@ void __cdecl BoneNodeLimitClampCpp(float* euler, const float* limitMin, const fl
 void __cdecl BoneNodeLocalMatrixCpp(const float* q, float* right, float* up, float* at);
 
 // Lote de tres archivos (cHandlingDataMgr y otros; 15/10/2026).
-// Producto de dos float con la fmul del x87 (conserva subnormales).
-float __cdecl HandlingTimesFloatCpp(float a, float b);
+// Producto de dos float con la fmul del x87 (conserva subnormales; cHandlingDataMgr y CPed::EmitFootRainParticles).
+float __cdecl X87TimesFloatCpp(float a, float b);
 // cHandlingDataMgr::LoadHandlingData (0x5BE2AC): float(valor · 0.4) con 0.4 double (0x86A950) y un solo redondeo a 24 bits (valor = atof).
 float __cdecl HandlingAtofTimes04Cpp(double value);
 // cHandlingDataMgr::ConvertBikeDataToGameUnits (0x6F5294..0x6F529F): float(sin(angle · k)) con el producto redondeado a 24 bits y fsin a precisión completa.
 float __cdecl HandlingSinScaledCpp(float angle, float k);
-// cHandlingDataMgr::ConvertDataToGameUnits (0x6F50F0..0x6F5158): bucle que reduce la velocidad en 0.01 (double) hasta que accel · (1/6 double) >= resistencia; devuelve la velocidad final.
-float __cdecl HandlingReduceVelocityCpp(float velocity, float accel, float drag);
+// cHandlingDataMgr::ConvertDataToGameUnits (0x6F5080), todo el cuerpo aritmetico salvo InitGearRatios: accel/velocidad/1-masa viajan sin redondear a float como en la pila x87 del EXE
+// (los subnormales se conservan), bucle de reduccion (0,01 y 1/6 double) y ramas por tipo (RC Bandit = 38, motos 162..174, m_bUseMaxspLimit, resto). Los punteros son los campos de
+// tHandlingData/cTransmission (+0x7c, +0x84, +0x94, +8, +0x24, +0xc8, +0x88, +0x8c); engineAccel, maxVelocity, brake y collision se leen antes de escribirse.
+void __cdecl HandlingConvertGameUnitsCpp(float accelConst, float velocityConst, float mass, int percentSubmerged, float drag, int vehicleId,
+                                         bool maxspLimit, bool driveType4, float* engineAccel, float* maxVelocity, float* brake,
+                                         float* massRecpr, float* buoyancy, float* collision, float* maxFlat, float* maxReverse);
+
+// Lote Ped (15/10/2026).
+// Registros con que sale _ftol2 (0x821B40) para el ST0 v entrado con ECX = entryEcx: EAX/EDX = int64 truncado, ECX = bits de la fraccion v - R (+/-0x7FFFFFFF), con R = fistp
+// con el redondeo vigente (al par, -inf, +inf o 0) y la resta y el fstp dword con la precision y el redondeo vigentes (la propia x87). Compartido por
+// CTheZones::SetCurrentZoneAsUnlocked (0x572800) y CPed::GetLocalDirection (0x5DEF60).
+// Ftol2RegsCpp recibe v como float (ST0 ya redondeado a float por el llamador: con PC24 es lo que hay en el EXE); Ftol2RegsDblCpp recibe un ST0 de hasta 53 bits
+// (cadena x87 con PC24 o PC53 sin pasar por float): usar esta cuando el EXE llama a _ftol2 directamente tras fmul/fadd sin fstp.
+struct Ftol2Regs { unsigned int eax, ecx, edx; };
+Ftol2Regs __cdecl Ftol2RegsCpp(float v, unsigned int entryEcx);
+Ftol2Regs __cdecl Ftol2RegsDblCpp(double v, unsigned int entryEcx);
+// CPed::GetLocalDirection (0x5DEF60): fpatan(-x, y) - rotacion + pi/4, + 2pi mientras < 0, * 2/pi y _ftol2; point apunta a x, y; entryEcx = this (ECX de entrada, que _ftol2 conserva en
+// su salida corta). Devuelve EAX/ECX/EDX con que sale _ftol2 (eax = 32 bits bajos del entero); el llamador aplica "si > 3 reducir modulo 4" y el residuo de esa rama.
+Ftol2Regs __cdecl PedLocalDirectionRegsCpp(const float* point, float rotation, unsigned int entryEcx);
+// CPed::SetPedPositionInCar / PositionAttachedPed: atan2(-x, y) [+ add] con el fpatan sin redondear en ST0 (double, extern "C"); Ped.cpp los usa como float con otro nombre via /alternatename (no por este encabezado).
+extern "C" double __cdecl PedAtanNegXYDblCpp(float x, float y);
+extern "C" double __cdecl PedAtanNegXYAddDblCpp(float x, float y, float add);
+
+// Ajuste de exactitud de Ped y RpAnimBlend (15/10/2026).
+// --- CPed::CalculateNewVelocity (0x5E4C50), prefijo Cnv. Añadir al final de X87Math.h ---
+// pow(base, step) del EXE (_CIpow, 0x822130) guardado como float (fstp dword [esp+0x10] en 0x5E5021 / 0x5E5193).
+float __cdecl CnvDecayPowCpp(float base, float step);
+// asin del EXE (_CIasin, 0x821E70) guardado como float (fstp dword [esi+0x520], 0x5E50E4). x ya recortado a [-1, 1].
+float __cdecl CnvAsinFloatCpp(float x);
+// asin(x) * (1 - blend) + blend * previous (0x5E512C..0x5E5153): el asin queda en ST0 sin pasar por float; (1 - blend) y blend * previous se redondean como float.
+float __cdecl CnvBlendedAsinCpp(float x, float blend, float previous);
+// (0.0f + first) + second (0x5E51F9..0x5E5268): el EXE pone 0x550/0x554 a +0.0 y les suma cada término, con lo que un -0.0 de first pasa a +0.0.
+float __cdecl CnvZeroPlusSumCpp(float first, float second);
+// Lote KillPedWithCar (15/10/2026).
+// CPed::KillPedWithCar (0x5F094E..0x5F097A): lift · (random · 0.002 + 1.5) con fild del entero, fmul y fadd de los double 0.002 y 1.5 y fmul del float lift,
+// cada paso redondeado a 24 bits por la x87 y un solo fstp a float (random = GetRandomNumber() & 255).
+float __cdecl KpcBounceLiftScaleCpp(float lift, int random);
+// Lote RpNan (RpAnimBlend, 15/10/2026). Aritmética float del x87 de las rutinas de animación 0x4D1680..0x4D32D0 y 0x59C080. Todo en X87Math.cpp (se puede colocar al final).
+// fld a; fadd b (resultado en ST0; el que llama lo guarda como float, igual que el fstp del EXE). Conserva subnormales y con dos NaN elige el de mayor mantisa.
+float __cdecl RpNanAddCpp(float a, float b);
+// fld a; fsub b.
+float __cdecl RpNanSubCpp(float a, float b);
+// fld a; fmul b; fadd c con el producto sin redondear a float (exponente extendido), como `fld st(0); fmul [BonePos]; fadd [t]; fstp` de 0x4D2B90/0x4D30A0/0x4D2E40/0x4D32D0.
+float __cdecl RpNanMulAddCpp(float a, float b, float c);
+// 0x4D1A05..0x4D1A31 (skinned 2D, z entre -0.8 y -0.4): ((z · 2.5 + 2) · bonePosZ) + z en una sola cadena x87 sin redondear a float entre operaciones.
+float __cdecl RpNanSkinZCorrectCpp(float z, float bonePosZ);
+// CQuaternion::Get(RwMatrix*) del EXE (0x59C080): q = {x, y, z, w}; escribe right (m[0..2]), up (m[4..6]) y at (m[8..10]) de la RwMatrix. 2·z se guarda como float, 2·x y 2·y quedan en registros,
+// y 2·y·w y 2·z·w no se redondean a float antes de sumarse (exponente extendido).
+void __cdecl RpNanQuatToMatrixCpp(const float* q, float* m);
+// Lote RpUpdate (RpAnimBlendClumpUpdateAnimations, 0x4D34F0; w20). Cadenas x87 sin guardar entre operaciones (cada operación redondea a 24 bits; un solo fstp a float).
+// 0x4D3578..0x4D3585: fld total; fdiv speed; fmul blend; fadd acc.
+float __cdecl RpUpdateSyncAccumCpp(float total, float speed, float blend, float acc);
+// 0x4D35F3..0x4D3605: fld total; fdiv totalTime; fmul totalBlend; fmul timeStep.
+float __cdecl RpUpdateSyncStepCpp(float total, float totalTime, float totalBlend, float timeStep);

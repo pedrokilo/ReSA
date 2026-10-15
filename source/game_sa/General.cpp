@@ -32,6 +32,13 @@ END GENERATED HOOK STATUS */
 // nombre (alias del enlazador) para que el metodo devuelva ST0 tal cual, sin pasar por memoria como float.
 extern "C" float __cdecl GeneralATanOfXYFltCpp(float x, float y);
 #pragma comment(linker, "/alternatename:_GeneralATanOfXYFltCpp=_GeneralATanOfXYDblCpp")
+extern "C" float __cdecl GeneralRadianAngleFltCpp(float x1, float y1, float x2, float y2);
+#pragma comment(linker, "/alternatename:_GeneralRadianAngleFltCpp=_GeneralRadianAngleDblCpp")
+
+// GeneralRandomInRangeDblCpp (X87Math.cpp) devuelve un double por el mismo motivo: el ultimo fadd de 0x41BD90 queda sin redondear en ST0 (un float(...) pasaba por memoria
+// y redondeaba a subnormal). Aqui se declara como float con el nombre GeneralRandomInRangeCpp (alias del enlazador a la version Dbl).
+extern "C" float __cdecl GeneralRandomInRangeCpp(int random, float min, float max);
+#pragma comment(linker, "/alternatename:_GeneralRandomInRangeCpp=_GeneralRandomInRangeDblCpp")
 
 static std::random_device randomDevice;
 static std::mt19937 randomEngine(randomDevice());
@@ -107,7 +114,7 @@ float CGeneral::LimitRadianAngle(float angle) {
 // Como el original: transcripcion x87 en X87Math.cpp (cociente a la precision vigente, fpatan completo, pi/2 +- pi/2 en ese orden
 // y signos de x e y evaluados como en el EXE).
 float CGeneral::GetRadianAngleBetweenPoints(float x1, float y1, float x2, float y2) {
-    return GeneralRadianAngleCpp(x1, y1, x2, y2);
+    return GeneralRadianAngleFltCpp(x1, y1, x2, y2);
 }
 
 // 0x53CC70

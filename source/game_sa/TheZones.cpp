@@ -354,59 +354,8 @@ void CTheZones::Init() {
 //   celda nueva    : EAX = ZonesRevealed + 1,       ECX = ECX de _ftol2(y) (con ECX de entrada 10*cx), EDX = cy
 // &pos del EXE es (ESP de entrada) - 12 (`sub esp,0Ch`); se obtiene con _AddressOfReturnAddress.
 namespace {
-struct Zones13Regs {
-    uint32 eax, ecx, edx;
-};
-
-// Registros con que sale _ftol2 (0x821B40) para un valor v (x87 a 24 bits: v ya es un float): EAX/EDX = int64 truncado y ECX = bits de la
-// parte fraccionaria v - redondeo-al-par(v) (+/-0x7FFFFFFF). Si el redondeo da 0 en la palabra baja y la alta es 0 o 0x80000000
-// (|v| < 0.5, v no finito o |v| >= 2^63) sale por 0x821B9F: EAX = 0, EDX = alta, ECX = el de entrada. Solo enteros: no depende del modo de FP.
-Zones13Regs Zones13Ftol2(float v, uint32 entryEcx) {
-    const uint32 bits = std::bit_cast<uint32>(v);
-    const uint32 e    = (bits >> 23) & 0xFFu;
-    const bool   neg  = (bits >> 31) != 0;
-    int64        rounded = 0;
-    uint32       fracBits = 0;
-    if (e == 0xFFu || e >= 127u + 63u) {
-        rounded = int64(0x8000000000000000ull); // fistp: entero indefinido
-    } else if (e >= 126u) {
-        const uint32 m     = (bits & 0x7FFFFFu) | 0x800000u;
-        const int    shift = int(e) - 150;
-        uint64       magnitude;
-        if (shift >= 0) {
-            magnitude = uint64(m) << shift; // ya es entero: v - R = +0
-        } else {
-            const uint32 rs   = uint32(-shift); // 1..24
-            const uint32 q    = m >> rs;
-            const uint32 rem  = m & ((1u << rs) - 1u);
-            const uint32 half = 1u << (rs - 1u);
-            const bool   up   = rem > half || (rem == half && (q & 1u) != 0);
-            magnitude         = uint64(q) + (up ? 1u : 0u);
-            const uint32 d    = up ? (1u << rs) - rem : rem; // |v - R| * 2^rs
-            if (d != 0) {
-                const float frac = float(int32(d)) * std::bit_cast<float>((127u - rs) << 23); // exacto: d < 2^24
-                fracBits         = std::bit_cast<uint32>(frac) | ((neg != up) ? 0x80000000u : 0u);
-            }
-        }
-        rounded = neg ? -int64(magnitude) : int64(magnitude);
-    }
-    const uint32 low  = uint32(uint64(rounded));
-    const uint32 high = uint32(uint64(rounded) >> 32);
-    if (low == 0 && (high & 0x7FFFFFFFu) == 0) {
-        return { 0, entryEcx, high };
-    }
-    if (!neg) { // add ecx,7FFFFFFFh / sbb eax,0 / sbb edx,0
-        const uint32 ecx    = fracBits + 0x7FFFFFFFu;
-        const uint32 carry  = ecx < fracBits ? 1u : 0u;
-        const uint32 borrow = low < carry ? 1u : 0u;
-        return { low - carry, ecx, high - borrow };
-    }
-    const uint32 t     = fracBits ^ 0x80000000u; // xor ecx,80000000h / add ecx,7FFFFFFFh / adc eax,0 / adc edx,0
-    const uint32 ecx   = t + 0x7FFFFFFFu;
-    const uint32 carry = ecx < t ? 1u : 0u;
-    const uint32 eax   = low + carry;
-    return { eax, ecx, high + (eax < low ? 1u : 0u) };
-}
+// Registros de salida de _ftol2 (0x821B40): Ftol2RegsCpp de X87Math.cpp (compartido con CPed::GetLocalDirection).
+using Zones13Regs = Ftol2Regs;
 
 // (coord + 3000.0f) * 0x865060 en este orden (fadd [0x859A94]; fmul [0x865060]) y un redondeo a float por operacion; el /fp:fast global podria
 // reasociar a coord * k + 3000 * k.
@@ -454,9 +403,9 @@ __declspec(safebuffers) void CTheZones::SetCurrentZoneAsUnlocked() {
     } else if (static_cast<int32>(CGame::currArea) != 0) {
         resEax = uint32(static_cast<int32>(CGame::currArea));
     } else {
-        const Zones13Regs fx = Zones13Ftol2(Zones13CellValue(pos.x), 0);
+        const Zones13Regs fx = Ftol2RegsCpp(Zones13CellValue(pos.x), 0);
         const uint32 cx = fx.eax & 0xFFu;
-        const Zones13Regs fy = Zones13Ftol2(Zones13CellValue(pos.y), 10u * cx);
+        const Zones13Regs fy = Ftol2RegsCpp(Zones13CellValue(pos.y), 10u * cx);
         const uint32 cy = fy.eax & 0xFFu;
         const int32 index = 10 * (int32)cx - (int32)cy;
         auto* cells = reinterpret_cast<uint8*>(&ZonesVisited);

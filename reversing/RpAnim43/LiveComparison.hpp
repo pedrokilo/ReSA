@@ -178,8 +178,8 @@ struct Fn { const char* cls; const char* name; uintptr_t address; uintptr_t vt; 
 inline const std::array<Fn,42> fns{{
     {"RpAnimBlend","ClumpAnimConstruct",0x4D5F40,0,-1,64},{"RpAnimBlend","ClumpAnimCopy",0x4D5F90,0,-1,64},
     {"RpAnimBlend","ClumpAnimDestruct",0x4D6110,0,-1,256},
-    {"RpAnimBlend","FrameUpdateCallBackCompressedNonSkinned",0x4D32D0,0,-1,1024},{"RpAnimBlend","FrameUpdateCallBackCompressedSkinned",0x4D2E40,0,-1,1024},
-    {"RpAnimBlend","FrameUpdateCallBackNonSkinned",0x4D30A0,0,-1,1024},{"RpAnimBlend","FrameUpdateCallBackSkinned",0x4D2B90,0,-1,1024},
+    {"RpAnimBlend","FrameUpdateCallBackCompressedNonSkinned",0x4D32D0,0,-1,2048},{"RpAnimBlend","FrameUpdateCallBackCompressedSkinned",0x4D2E40,0,-1,2048},
+    {"RpAnimBlend","FrameUpdateCallBackNonSkinned",0x4D30A0,0,-1,2048},{"RpAnimBlend","FrameUpdateCallBackSkinned",0x4D2B90,0,-1,2048},
     {"RpAnimBlend","RpAnimBlendAllocateData",0x4D5F50,0,-1,64},{"RpAnimBlend","RpAnimBlendClumpAddAssociation",0x4D6790,0,-1,256},
     {"RpAnimBlend","RpAnimBlendClumpExtractAssociations",0x4D6BE0,0,-1,128},{"RpAnimBlend","RpAnimBlendClumpFillFrameArray",0x4D64A0,0,-1,512},
     {"RpAnimBlend","RpAnimBlendClumpFindBone",0x4D6400,0,-1,256},{"RpAnimBlend","RpAnimBlendClumpFindFrame",0x4D62A0,0,-1,512},
@@ -311,6 +311,33 @@ inline void Update() {
             auto anyFlags=[&]{ const uint32 r=next()%6; return r==0 ? 0u : r==1 ? next() : r==2 ? 0x10u : 1u<<(next()%16); };
             // Fixture de los callbacks de actualizacion: arrays de nodos con secuencias y keyframes reales.
             auto buildUpdate=[&](bool compressed,bool skinned){
+                // Estres numerico en un caso de cada tres (i%3==2): NaN con signo y carga distintos (tambien senalizantes), +-inf, +-0, subnormales,
+                // magnitudes de 1e30/1e-30 y quaternions sin normalizar o nulos. Generador PROPIO (sn): el principal (next) no se toca, asi que
+                // los casos normales quedan identicos a los de antes. Se reinicia en cada ejecucion (original y candidata ven la misma secuencia).
+                // Para que los falsos no rompan el flujo: el tiempo de los keyframes sigue siendo positivo y no diminuto (o NaN/+inf/1e30, que salen
+                // del bucle de NextKeyFrame de inmediato); el paso de tiempo nunca es +inf ni grande y positivo, y el tiempo restante nunca es -inf ni
+                // muy negativo (con un asociado en bucle el `while (restante <= 0)` no terminaria).
+                const bool stress=i%3==2;
+                uint32 sst=uint32(i)*2246822519u^uint32(f)*3266489917u^0x5712E55u; if(!sst)sst=1;
+                auto sn=[&]{sst^=sst<<13;sst^=sst>>17;sst^=sst<<5;return sst;};
+                const uint32 smode=stress ? sn()%8 : 0; // 0 NaN, 1 inf/0, 2 subnormales, 3 extremos, 4 sin normalizar, 5 todo, 6 solo blends/tiempos, 7 NaN+inf+extremos
+                const bool dataMode=smode!=4&&smode!=6;
+                auto SF=[](uint32 b){return std::bit_cast<float>(b);};
+                const uint32 kNaNs[]{0x7FC00000u,0xFFC00000u,0x7FC00001u,0xFFC12345u,0x7FA00000u,0xFFA00000u,0x7FFFFFFFu,0xFFFFFFFFu,0x7FC54321u};
+                const uint32 kInfs[]{0x7F800000u,0xFF800000u,0u,0x80000000u,0x7F800000u,0xFF800000u};
+                const uint32 kSubs[]{1u,0x80000001u,0x007FFFFFu,0x807FFFFFu,0x00400000u,0x80400000u,0x000116C2u,0x800116C2u,0x00800000u,0x80800000u};
+                const float  kBigs[]{1e30f,-1e30f,1e-30f,-1e-30f,3.4028235e38f,-3.4028235e38f,1e20f,-1e20f,1e-20f};
+                const uint32 poolMask=smode==0 ? 1u : smode==1 ? 2u : smode==2 ? 4u : smode==3 ? 8u : smode==4 ? 0u : smode==7 ? (1u|2u|8u) : 15u;
+                auto sp=[&]()->float{
+                    uint32 pick=sn()%4; const uint32 mask=poolMask ? poolMask : 15u;
+                    while(!((mask>>pick)&1u))pick=(pick+1)%4;
+                    switch(pick){ case 0: return SF(kNaNs[sn()%std::size(kNaNs)]); case 1: return SF(kInfs[sn()%std::size(kInfs)]);
+                                  case 2: return SF(kSubs[sn()%std::size(kSubs)]); default: return kBigs[sn()%std::size(kBigs)]; } };
+                // Paso de tiempo (nunca +inf ni positivo grande) y tiempo restante (nunca -inf ni muy negativo).
+                const float kTimeSteps[]{SF(0x7FC00000u),SF(0xFFC12345u),SF(0x7FA00000u),0.f,SF(0x80000000u),SF(1u),SF(0x80000001u),SF(0xFF800000u),-1e30f,1e-30f,-1e-30f};
+                const float kRemain[]{SF(0x7FC00000u),SF(0xFFC12345u),SF(0x7FA00000u),SF(0x7F800000u),1e30f,0.f,SF(0x80000000u),SF(1u),SF(0x80000001u),1e-30f,-1e-30f};
+                const float kKfTimes[]{SF(0x7FC00000u),SF(0xFFC12345u),SF(0x7F800000u),1e30f};
+                const int32 kExtI16[]{32767,-32768,-32767,0,1,-1};
                 const int32 nArr=next()%8==0 ? int32(NARR) : 1+int32(next()%4);
                 At<uint32>(updData.data(),0)=next()%3==0 ? 0u : next()%4==0 ? 2u : 1u;
                 bool anyValid=false;
@@ -319,6 +346,10 @@ inline void Update() {
                     uint16 fl=uint16(next()); fl=uint16(fl&~0x13u); if(next()%4)fl|=1; if(next()%2)fl|=2; if(next()%3==0)fl|=0x10;
                     At<uint16>(as,0x2E)=fl; const uint32 r=next()%6;
                     At<float>(as,0x18)=r==0 ? 0.f : r==1 ? 1.f : uni(0.05f,1.f); At<float>(as,0x28)=next()%4==0 ? 0.f : uni(0.f,0.25f);
+                    if(stress){
+                        if(smode!=4&&sn()%(smode==6 ? 2u : 4u)==0)At<float>(as,0x18)=sp();
+                        if(smode==6 ? sn()%2==0 : sn()%6==0)At<float>(as,0x28)=kTimeSteps[sn()%std::size(kTimeSteps)];
+                    }
                     const bool trans=next()%2!=0; const int32 nf=1+int32(next()%5);
                     At<uint32>(sq,0)=next(); At<uint16>(sq,4)=uint16((next()%8 ? 1 : 0)|(trans ? 2 : 0)|(compressed ? 4 : 0)); At<uint16>(sq,6)=uint16(nf); At<void*>(sq,8)=kb;
                     const size_t stride=compressed ? (trans ? 16 : 10) : (trans ? 32 : 20);
@@ -328,15 +359,31 @@ inline void Update() {
                             if(trans)for(int c=0;c<3;++c)At<int16>(kf,10+size_t(c)*2)=int16(int32(next()%4096)-2048); }
                         else { for(int c=0;c<4;++c)At<float>(kf,size_t(c)*4)=q[c]; At<float>(kf,16)=uni(0.05f,0.5f);
                             if(trans)for(int c=0;c<3;++c)At<float>(kf,20+size_t(c)*4)=uni(-2.f,2.f); } }
+                    if(stress)for(int32 k=0;k<nf;++k){ uint8* kf=kb+size_t(k)*stride;
+                        if(compressed){
+                            const int32 sc=(smode==3||smode==4||smode==5||smode==7) ? 1+int32(sn()%8) : 1; const bool zero=smode==4&&sn()%4==0;
+                            for(size_t c=0;c<4;++c){ int32 v=zero ? 0 : int32(At<int16>(kf,c*2))*sc; if(dataMode&&sn()%6==0)v=kExtI16[sn()%std::size(kExtI16)];
+                                At<int16>(kf,c*2)=int16(std::clamp(v,-32768,32767)); }
+                            if(trans)for(size_t c=0;c<3;++c){ int32 v=At<int16>(kf,10+c*2); if(dataMode&&sn()%6==0)v=kExtI16[sn()%std::size(kExtI16)];
+                                At<int16>(kf,10+c*2)=int16(v); }
+                        } else {
+                            const float s=smode==3 ? ((sn()&1) ? 1e30f : 1e-30f) : (smode==4||smode==5||smode==7) ? float(1+sn()%2000)/20.f : 1.f; const bool zero=smode==4&&sn()%4==0;
+                            for(size_t c=0;c<4;++c){ float v=zero ? 0.f : At<float>(kf,c*4)*s; if(dataMode&&sn()%4==0)v=sp(); At<float>(kf,c*4)=v; }
+                            if(dataMode&&smode!=2&&sn()%12==0)At<float>(kf,16)=kKfTimes[sn()%std::size(kKfTimes)];
+                            if(trans)for(size_t c=0;c<3;++c){ float v=At<float>(kf,20+c*4); if(smode==3&&sn()%2==0)v*=(sn()&1) ? 1e30f : 1e-30f; if(dataMode&&sn()%4==0)v=sp(); At<float>(kf,20+c*4)=v; }
+                        } }
                     const bool valid=next()%5!=0; anyValid|=valid;
                     const int32 cur=nf>1 ? 1+int32(next()%uint32(nf-1)) : 0;
                     At<int16>(nd,8)=int16(cur); At<int16>(nd,0xA)=int16(cur ? cur-1 : nf-1); At<float>(nd,0xC)=uni(-0.2f,0.5f);
+                    if(stress&&(smode==6 ? sn()%2==0 : sn()%6==0))At<float>(nd,0xC)=kRemain[sn()%std::size(kRemain)];
                     At<void*>(nd,0x10)=valid ? sq : nullptr; At<void*>(nd,0x14)=as;
                     if(valid){ auto* node=reinterpret_cast<CAnimBlendNode*>(nd); if(compressed)node->CalcDeltasCompressed(); else node->CalcDeltas(); }
                     At<void*>(updData.data(),4+size_t(a)*4)=nd;
                 }
                 if(!anyValid){ uint8* nd=ND(0); At<void*>(nd,0x10)=SQ(0); auto* node=reinterpret_cast<CAnimBlendNode*>(nd); if(compressed)node->CalcDeltasCompressed(); else node->CalcDeltas(); }
-                uint8* fd=FD(0); fd[0]=uint8(next()); RndF(fd+4,12,-1.f,1.f); At<void*>(fd,0x10)=skinned ? static_cast<void*>(kfs.data()) : static_cast<void*>(FR(1));
+                uint8* fd=FD(0); fd[0]=uint8(next()); RndF(fd+4,12,-1.f,1.f);
+                if(stress&&dataMode)for(size_t c=0;c<3;++c)if(sn()%3==0)At<float>(fd,4+c*4)=sp();
+                At<void*>(fd,0x10)=skinned ? static_cast<void*>(kfs.data()) : static_cast<void*>(FR(1));
                 At<void*>(vdata.data(),0xC)=next()%2 ? pedPos.data() : nullptr; G<void*>(GPCLUMP)=vdata.data();
             };
 

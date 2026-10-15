@@ -1,0 +1,3 @@
+APROBADO: CPed::EmitFootRainParticles / EmitFootDustParticles, EXE 0x5E3630/0x5E37C0 vs DLL
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpppedfootemitters1\20261015-132939-536233

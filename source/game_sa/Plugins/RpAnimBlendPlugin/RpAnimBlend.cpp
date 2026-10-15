@@ -687,6 +687,13 @@ struct AnimBlendUpdateData { // OG name
 
 static auto& gpAnimBlendClump = StaticRef<CAnimBlendClumpData*>(0xB4EA0C);
 
+// Aritmética float de las rutinas de animación del EXE (0x4D1680..0x4D32D0): cada `fld a; fadd b; fstp` es x87 (PC24, exponente extendido).
+// El SSE de la DLL descarta los subnormales (DAZ/FTZ) y con dos NaN devuelve el primer operando (el x87 el de mayor mantisa), así que toda suma,
+// resta o producto de estas rutinas va por X87Math.cpp, con los operandos en el mismo orden que el EXE (`ExeAdd(a, b)` = `fld a; fadd b`).
+static float ExeAdd(float a, float b) { return RpNanAddCpp(a, b); }
+static float ExeSub(float a, float b) { return RpNanSubCpp(a, b); }
+static float ExeMul(float a, float b) { return X87TimesFloatCpp(a, b); }
+
 float CalculateTotalBlendOfPartial(AnimBlendUpdateData* c, AnimBlendFrameData* fd, bool checkDontAddToBlend) {
     float sum{};
     if (c->IncludePartial) {
@@ -698,7 +705,7 @@ float CalculateTotalBlendOfPartial(AnimBlendUpdateData* c, AnimBlendFrameData* f
 
             const auto assoc = node->GetAnimAssoc();
             if (assoc->HasFlag(ANIMATION_IS_PARTIAL) && (!checkDontAddToBlend || !assoc->HasFlag(ANIMATION_DONT_ADD_TO_PARTIAL_BLEND))) {
-                sum += assoc->GetBlendAmount();
+                sum = ExeAdd(assoc->GetBlendAmount(), sum); // fld blend; fadd suma
             }
         }
     }
@@ -732,10 +739,11 @@ static void FrameUpdateCallBackNoVelocity(AnimBlendFrameData* fd, AnimBlendUpdat
         for (auto it = c->BlendNodeArrays; *it; it++) {
             const auto node = *it;
             if (node->m_Seq && node->m_BlendAssoc->IsPartial()) {
-                partialBlend = node->m_BlendAssoc->m_BlendAmount + partialBlend;
+                partialBlend = ExeAdd(node->m_BlendAssoc->m_BlendAmount, partialBlend);
             }
         }
     }
+    const float weight = ExeSub(1.f, partialBlend); // fld 1.0; fsub suma (el EXE lo recalcula en cada nodo, siempre igual)
 
     CVector     nextT{ 0.f, 0.f, 0.f };
     CQuaternion nextQ{ 0.f, 0.f, 0.f, 0.f };
@@ -749,32 +757,32 @@ static void FrameUpdateCallBackNoVelocity(AnimBlendFrameData* fd, AnimBlendUpdat
         CVector     t;
         CQuaternion q;
         if constexpr (IsCompressed) {
-            node->UpdateCompressed(t, q, 1.f - partialBlend);
+            node->UpdateCompressed(t, q, weight);
         } else {
-            node->Update(t, q, 1.f - partialBlend);
+            node->Update(t, q, weight);
         }
 
         if (node->m_Seq->m_bHasTranslation) {
-            nextT.x    = t.x + nextT.x;
-            nextT.y    = t.y + nextT.y;
-            nextT.z    = t.z + nextT.z;
-            nextBlendT = node->m_BlendAssoc->m_BlendAmount + nextBlendT;
+            nextT.x    = ExeAdd(t.x, nextT.x);
+            nextT.y    = ExeAdd(t.y, nextT.y);
+            nextT.z    = ExeAdd(t.z, nextT.z);
+            nextBlendT = ExeAdd(node->m_BlendAssoc->m_BlendAmount, nextBlendT);
         }
 
         if constexpr (IsSkinned) {
-            const float dot = q.w * nextQ.w + q.z * nextQ.z + q.y * nextQ.y + q.x * nextQ.x;
-            if (dot < 0.f) {
-                nextQ.x = nextQ.x - q.x;
-                nextQ.y = nextQ.y - q.y;
-                nextQ.z = nextQ.z - q.z;
-                nextQ.w = nextQ.w - q.w;
+            // w·w + z·z + y·y + x·x < 0 en x87 sin redondear a float (en SSE el producto desborda a inf y pierde el signo); con NaN suma
+            if (AnimQuaternionDotNegativeCpp(&nextQ.x, &q.x)) {
+                nextQ.x = ExeSub(nextQ.x, q.x);
+                nextQ.y = ExeSub(nextQ.y, q.y);
+                nextQ.z = ExeSub(nextQ.z, q.z);
+                nextQ.w = ExeSub(nextQ.w, q.w);
                 continue;
             }
         }
-        nextQ.x = q.x + nextQ.x;
-        nextQ.y = q.y + nextQ.y;
-        nextQ.z = q.z + nextQ.z;
-        nextQ.w = q.w + nextQ.w;
+        nextQ.x = ExeAdd(q.x, nextQ.x);
+        nextQ.y = ExeAdd(q.y, nextQ.y);
+        nextQ.z = ExeAdd(q.z, nextQ.z);
+        nextQ.w = ExeAdd(q.w, nextQ.w);
     }
 
     if constexpr (IsSkinned) {
@@ -784,125 +792,232 @@ static void FrameUpdateCallBackNoVelocity(AnimBlendFrameData* fd, AnimBlendUpdat
             std::memcpy(&kf->q, &nextQ, sizeof(kf->q));
         }
         if (!fd->KeyFramesIgnoreNodeTranslation) {
-            kf->t.x = nextT.x * nextBlendT;
-            kf->t.y = nextT.y * nextBlendT;
-            kf->t.z = nextT.z * nextBlendT;
-            const float inv = 1.f - nextBlendT;
-            kf->t.x = inv * fd->BonePos.x + kf->t.x;
-            kf->t.y = inv * fd->BonePos.y + kf->t.y;
-            kf->t.z = inv * fd->BonePos.z + kf->t.z;
+            kf->t.x = ExeMul(nextT.x, nextBlendT);
+            kf->t.y = ExeMul(nextT.y, nextBlendT);
+            kf->t.z = ExeMul(nextT.z, nextBlendT);
+            const float inv = ExeSub(1.f, nextBlendT); // queda en ST0 (sin redondeo extra: 1 - b nunca sale del rango de float)
+            kf->t.x = RpNanMulAddCpp(inv, fd->BonePos.x, kf->t.x); // fld inv; fmul BonePos; fadd t (el producto no se redondea a float)
+            kf->t.y = RpNanMulAddCpp(inv, fd->BonePos.y, kf->t.y);
+            kf->t.z = RpNanMulAddCpp(inv, fd->BonePos.z, kf->t.z);
         }
     } else {
         const auto mat = RwFrameGetMatrix(fd->Frame);
         if (!fd->KeyFramesIgnoreNodeOrientation) {
             RwMatrixSetIdentity(mat);
             NormaliseQuatExe(&nextQ);
-            nextQ.Get(mat);
+            RpNanQuatToMatrixCpp(&nextQ.x, reinterpret_cast<float*>(mat)); // CQuaternion::Get del EXE (0x59C080) en x87; el hook de Get está apagado y el de la DLL es SSE
         }
         if (!fd->KeyFramesIgnoreNodeTranslation) {
             const auto pos = RwMatrixGetPos(mat);
             pos->x = nextT.x;
             pos->y = nextT.y;
             pos->z = nextT.z;
-            const float inv = 1.f - nextBlendT;
-            pos->x = inv * fd->FramePos.x + pos->x;
-            pos->y = inv * fd->FramePos.y + pos->y;
-            pos->z = inv * fd->FramePos.z + pos->z;
+            const float inv = ExeSub(1.f, nextBlendT);
+            pos->x = RpNanMulAddCpp(inv, fd->FramePos.x, pos->x);
+            pos->y = RpNanMulAddCpp(inv, fd->FramePos.y, pos->y);
+            pos->z = RpNanMulAddCpp(inv, fd->FramePos.z, pos->z);
         }
+        RwMatrixUpdate(mat);
+    }
+}
+
+/*!
+ * @brief Extracción de velocidad de 0x4D1680/0x4D1A50/0x4D1DB0/0x4D2100/0x4D2450/0x4D27F0 (en el EXE `c` llega en EAX y `fd` en la pila; cdecl, el llamador limpia)
+ * @details Una sola plantilla para las seis rutinas, que difieren en cuatro cosas (comprobadas contra el desensamblado):
+ * @details - Suma de blends parciales: 0x4D1680 y 0x4D1A50 (skinned no comprimidas) excluyen DONT_ADD_TO_PARTIAL_BLEND; las otras cuatro no.
+ * @details - 2D (`!Is3D`, 0x4D1680/0x4D2100): salta los nodos con IGNORE_ROOT_TRANSLATION y solo usa y (y x si CAN_EXTRACT_X_VELOCITY);
+ * @details   3D: x, y y z, sin mirar IGNORE_ROOT_TRANSLATION.
+ * @details - Quaternion: solo 0x4D1680 resta cuando el producto escalar es < 0 (con NaN suma); las demás siempre suman.
+ * @details - Traslación final: skinned 2D corrige z con (z·2.5 + 2)·BonePos.z entre -0.8 y -0.4; no skinned 2D no suma FramePos;
+ * @details   el resto suma BonePos/FramePos por componente. La posición del ped se ASIGNA (`d - c`), no se acumula.
+ * @details Orden de los operandos como el EXE (`fld a; fadd b` = a + b) para que con NaN coincida el resultado.
+ * @details `GetEndTranslation` escribe en el mismo `t` (el EXE reutiliza el búfer) y se suma ese `t`.
+ */
+template<bool IsCompressed, bool IsSkinned, bool Is3D>
+static void FrameUpdateCallBackExeVelocity(AnimBlendUpdateData* c, AnimBlendFrameData* fd) {
+    const auto kf  = IsSkinned ? fd->KeyFrame : nullptr;                // [fd + 0x10] leído al entrar
+    const auto mat = IsSkinned ? nullptr : RwFrameGetMatrix(fd->Frame); // [fd + 0x10] + 0x10 (no skinned)
+
+    const float partialScale = ExeSub(1.f, CalculateTotalBlendOfPartial(c, fd, IsSkinned && !IsCompressed));
+
+    CVector currV{ 0.f, 0.f, 0.f };
+    for (auto it = c->BlendNodeArrays; *it; it++) {
+        const auto node = *it;
+        if (!node->m_Seq || !node->m_Seq->m_bHasTranslation) {
+            continue;
+        }
+        const auto flags = node->m_BlendAssoc->m_Flags;
+        if constexpr (!Is3D) {
+            if (flags & ANIMATION_IGNORE_ROOT_TRANSLATION) {
+                continue;
+            }
+        }
+        if (!(flags & ANIMATION_CAN_EXTRACT_VELOCITY)) {
+            continue;
+        }
+
+        CVector t;
+        if constexpr (IsCompressed) {
+            node->GetCurrentTranslationCompressed(t, partialScale);
+        } else {
+            node->GetCurrentTranslation(t, partialScale);
+        }
+        if constexpr (Is3D) {
+            currV.x = ExeAdd(t.x, currV.x);
+            currV.y = ExeAdd(t.y, currV.y);
+            currV.z = ExeAdd(t.z, currV.z);
+        } else {
+            currV.y = ExeAdd(currV.y, t.y);
+            if (flags & ANIMATION_CAN_EXTRACT_X_VELOCITY) {
+                currV.x = ExeAdd(currV.x, t.x);
+            }
+        }
+    }
+
+    CQuaternion nextQ{ 0.f, 0.f, 0.f, 0.f };
+    CVector     nextT{ 0.f, 0.f, 0.f };
+    CVector     deltaV{ 0.f, 0.f, 0.f };
+    CVector     loopedDeltaV{ 0.f, 0.f, 0.f };
+    bool        hasLoopedVelocity = false;
+    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
+        const auto node = *it;
+        if (!node->m_Seq) {
+            continue;
+        }
+
+        CVector     t;
+        CQuaternion q;
+        const bool  looped = IsCompressed
+            ? node->UpdateCompressed(t, q, partialScale)
+            : node->Update(t, q, partialScale);
+
+        bool subtractQ = false;
+        if constexpr (IsSkinned && !Is3D) {
+            subtractQ = AnimQuaternionDotNegativeCpp(&nextQ.x, &q.x); // w·w + z·z + y·y + x·x < 0 (con NaN suma)
+        }
+        if (subtractQ) {
+            nextQ.x = ExeSub(nextQ.x, q.x);
+            nextQ.y = ExeSub(nextQ.y, q.y);
+            nextQ.z = ExeSub(nextQ.z, q.z);
+            nextQ.w = ExeSub(nextQ.w, q.w);
+        } else {
+            nextQ.x = ExeAdd(q.x, nextQ.x);
+            nextQ.y = ExeAdd(q.y, nextQ.y);
+            nextQ.z = ExeAdd(q.z, nextQ.z);
+            nextQ.w = ExeAdd(q.w, nextQ.w);
+        }
+
+        if (!node->m_Seq->m_bHasTranslation) {
+            continue;
+        }
+        const auto flags = node->m_BlendAssoc->m_Flags;
+        if constexpr (!Is3D) {
+            if (flags & ANIMATION_IGNORE_ROOT_TRANSLATION) {
+                continue;
+            }
+            nextT.x = ExeAdd(nextT.x, t.x);
+            nextT.y = ExeAdd(nextT.y, t.y);
+            nextT.z = ExeAdd(t.z, nextT.z);
+        } else {
+            nextT.x = ExeAdd(t.x, nextT.x);
+            nextT.y = ExeAdd(t.y, nextT.y);
+            nextT.z = ExeAdd(t.z, nextT.z);
+        }
+        if (!(flags & ANIMATION_CAN_EXTRACT_VELOCITY)) {
+            continue;
+        }
+
+        if constexpr (Is3D) {
+            deltaV.x = ExeAdd(t.x, deltaV.x);
+            deltaV.y = ExeAdd(t.y, deltaV.y);
+            deltaV.z = ExeAdd(t.z, deltaV.z);
+        } else {
+            deltaV.y = ExeAdd(deltaV.y, t.y);
+            if (flags & ANIMATION_CAN_EXTRACT_X_VELOCITY) {
+                deltaV.x = ExeAdd(deltaV.x, t.x);
+            }
+        }
+
+        hasLoopedVelocity |= looped;
+        if (!looped) {
+            continue;
+        }
+
+        if constexpr (IsCompressed) {
+            node->GetEndTranslationCompressed(t, partialScale);
+        } else {
+            node->GetEndTranslation(t, partialScale);
+        }
+        if constexpr (Is3D) {
+            loopedDeltaV.x = ExeAdd(t.x, loopedDeltaV.x);
+            loopedDeltaV.y = ExeAdd(t.y, loopedDeltaV.y);
+            loopedDeltaV.z = ExeAdd(t.z, loopedDeltaV.z);
+        } else {
+            loopedDeltaV.y = ExeAdd(loopedDeltaV.y, t.y);
+            if (flags & ANIMATION_CAN_EXTRACT_X_VELOCITY) {
+                loopedDeltaV.x = ExeAdd(loopedDeltaV.x, t.x);
+            }
+        }
+    }
+
+    if (!fd->KeyFramesIgnoreNodeOrientation) {
+        if constexpr (IsSkinned) {
+            NormaliseQuatExe(&nextQ);
+            std::memcpy(&kf->q, &nextQ, sizeof(kf->q));
+        } else {
+            RwMatrixSetIdentity(mat);
+            NormaliseQuatExe(&nextQ);
+            RpNanQuatToMatrixCpp(&nextQ.x, reinterpret_cast<float*>(mat)); // CQuaternion::Get del EXE (0x59C080) en x87; el hook de Get está apagado y el de la DLL es SSE
+        }
+    }
+
+    if (!fd->KeyFramesIgnoreNodeTranslation) {
+        // Posición del ped: se asigna `delta - actual` y luego se suma la parte del bucle (no se acumula)
+        const auto ws = gpAnimBlendClump->m_PedPosition;
+        ws->x = ExeSub(deltaV.x, currV.x);
+        ws->y = ExeSub(deltaV.y, currV.y);
+        if constexpr (Is3D) {
+            ws->z = ExeSub(deltaV.z, currV.z);
+        }
+        if (hasLoopedVelocity) {
+            ws->x = ExeAdd(loopedDeltaV.x, ws->x);
+            ws->y = ExeAdd(loopedDeltaV.y, ws->y);
+            if constexpr (Is3D) {
+                ws->z = ExeAdd(loopedDeltaV.z, ws->z);
+            }
+        }
+
+        // Traslación del frame: x, y, z consecutivos (kf->t o la posición de la matriz)
+        float* const tr = IsSkinned ? &kf->t.x : &RwMatrixGetPos(mat)->x;
+        tr[0] = ExeSub(nextT.x, deltaV.x);
+        tr[1] = ExeSub(nextT.y, deltaV.y);
+        if constexpr (Is3D) {
+            tr[2] = ExeSub(nextT.z, deltaV.z);
+            tr[0] = ExeAdd(fd->BonePos.x, tr[0]);
+            tr[1] = ExeAdd(fd->BonePos.y, tr[1]);
+            tr[2] = ExeAdd(fd->BonePos.z, tr[2]);
+        } else {
+            tr[2] = nextT.z; // copia de bits (mov), sin aritmética
+            if constexpr (IsSkinned) {
+                const float z = tr[2];
+                if (!(z < -0.8f)) { // con NaN también entra (jp del EXE)
+                    // entre -0.8 y -0.4: ((z·2.5 + 2)·BonePos.z) + z en una sola cadena x87 (sin redondear a float entre operaciones); si no, BonePos.z + z
+                    tr[2] = z < -0.4f ? RpNanSkinZCorrectCpp(z, fd->BonePos.z) : ExeAdd(fd->BonePos.z, z);
+                }
+                tr[0] = ExeAdd(fd->BonePos.x, tr[0]);
+                tr[1] = ExeAdd(fd->BonePos.y, tr[1]);
+            }
+        }
+    }
+
+    if constexpr (!IsSkinned) {
         RwMatrixUpdate(mat);
     }
 }
 
 // 0x4D1DB0
 void FrameUpdateCallBackWithVelocityExtractionCompressedSkinned(AnimBlendUpdateData* c, AnimBlendFrameData* fd) {
-    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
-
-#if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
-    _asm {
-        mov eax, c
-        push fd
-        mov ecx, 0x4D1DB0
-        call ecx
-        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
-    };
-    return;
-#endif
-
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, false);
-
-    CVector currV{}; // Velocity
-    for (auto it = c->BlendNodeArrays; *it; it++) {
-        const auto node = *it;
-
-        if (!node->IsValid() || !node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        CVector t;
-        node->GetCurrentTranslationCompressed(t, partialScale);
-        currV += t;
-    }
-
-    CQuaternion nextQ{};
-    CVector     nextT{}; // Translation
-    CVector     deltaV{}, loopedDeltaV{}; // 3D Velocity
-    bool        hasLoopedVelocity{};
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-
-        const auto blendScale = partialScale;
-        CVector t;
-        CQuaternion q;
-        const auto looped = node->UpdateCompressed(t, q, blendScale);
-
-        nextQ = nextQ + q;
-
-        if (!node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        nextT += t;
-
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        deltaV += t;
-
-        if (hasLoopedVelocity |= looped) {
-            CVector t2;
-            node->GetEndTranslationCompressed(t2, blendScale);
-            loopedDeltaV += t;
-        }
-    }
-
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        nextQ.Normalise();
-        fd->KeyFrame->q = nextQ;
-    }
-
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        // Update world positions (This moves the ped around the world)
-        const auto wsPos = gpAnimBlendClump->m_PedPosition;
-        *wsPos += deltaV - currV;
-        if (hasLoopedVelocity) {
-            *wsPos += loopedDeltaV;
-        }
-
-        // Update key-frame translation
-        fd->KeyFrame->t = nextT - deltaV + fd->BonePos;
-    }
+    FrameUpdateCallBackExeVelocity<true, true, true>(c, fd); // comprimida, skinned, 3D (0x4D1DB0)
 }
 
 // 0x4D2E40
@@ -921,100 +1036,7 @@ void FrameUpdateCallBackCompressedSkinned(AnimBlendFrameData* fd, void* data) {
 // 0x4D27F0
 // FrameUpdateCallBackT<true, false, true, true>
 void FrameUpdateCallBackWithVelocityExtractionCompressedNonSkinned(AnimBlendUpdateData* c, AnimBlendFrameData* fd) {
-    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
-
-#if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
-    _asm {
-        mov eax, c
-        push fd
-        mov ecx, 0x4D27F0
-        call ecx
-        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
-    };
-    return;
-#endif
-
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, false);
-
-    CVector currV{}; // 3D Velocity
-    for (auto it = c->BlendNodeArrays; *it; it++) {
-        const auto node = *it;
-
-        if (!node->IsValid() || !node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        CVector t;
-        node->GetCurrentTranslationCompressed(t, partialScale);
-        currV += t;
-    }
-
-    CQuaternion nextQ{};
-    CVector     nextT{}; // Translation
-    CVector     deltaV{}, loopedDeltaV{}; // 3D Velocity
-    bool        hasLoopedVelocity{};
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-
-        const auto blendScale = partialScale;
-        CVector t;
-        CQuaternion q;
-        const auto looped = node->UpdateCompressed(t, q, blendScale);
-
-        nextQ = nextQ + q;
-
-        if (!node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        nextT += t;
-
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        deltaV += t;
-
-        if (hasLoopedVelocity |= looped) {
-            CVector t2;
-            node->GetEndTranslationCompressed(t2, blendScale);
-            loopedDeltaV += t;
-        }
-    }
-
-    const auto fmat = RwFrameGetMatrix(fd->Frame);
-
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        RwMatrixSetIdentity(fmat);
-        nextQ.Normalise();
-        nextQ.Get(fmat);
-    }
-
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        // Update world positions (This moves the ped around the world)
-        const auto wsPos = gpAnimBlendClump->m_PedPosition;
-        *wsPos += deltaV - currV;
-        if (hasLoopedVelocity) {
-            *wsPos += loopedDeltaV;
-        }
-
-        // Update key-frame translation
-        CVector t = nextT - deltaV + fd->BonePos;
-        RwV3dAssign(RwMatrixGetPos(fmat), &t);
-    }
-
-    RwMatrixUpdate(fmat);
+    FrameUpdateCallBackExeVelocity<true, false, true>(c, fd); // comprimida, no skinned, 3D (0x4D27F0)
 }
 
 // 0x4D32D0
@@ -1033,215 +1055,13 @@ void FrameUpdateCallBackCompressedNonSkinned(AnimBlendFrameData* fd, void* data)
 // 0x4D1A50
 // FrameUpdateCallBackT<false, true, true, true>
 void FrameUpdateCallBackSkinnedWith3dVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) { // `c` is passed in `eax`, can't hook
-    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
-
-#if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
-    _asm {
-        mov eax, c
-        push fd
-        mov ecx, 0x4D1A50
-        call ecx
-        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
-    };
-    return;
-#endif
-
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, true);
-
-    // 0x4D1B32
-    CVector currV{}; // 3D Velocity
-    for (auto it = c->BlendNodeArrays; *it; it++) {
-        const auto node = *it;
-
-        if (!node->IsValid() || !node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        CVector t;
-        node->GetCurrentTranslation(t, partialScale);
-        currV += t;
-    }
-
-    // 0x4D1B97
-    CQuaternion nextQ{};
-    CVector     nextT{}; // Translation
-    CVector     deltaV{}, loopedDeltaV{}; // 3D Velocity
-    bool        hasLoopedVelocity{};
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-
-        const auto blendScale = partialScale;
-        CVector t;
-        CQuaternion q;
-        const auto looped = node->Update(t, q, blendScale);
-
-        nextQ = nextQ + q;
-
-        if (!node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        nextT += t;
-
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        deltaV += t;
-
-        if (hasLoopedVelocity |= looped) {
-            CVector t2;
-            node->GetEndTranslation(t2, blendScale);
-            loopedDeltaV += t;
-        }
-    }
-
-    // 0x4D1CB2
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        nextQ.Normalise();
-        fd->KeyFrame->q = nextQ;
-    }
-
-    // 0x4D1CD7
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        // Update world positions (This moves the ped around the world)
-        const auto wsPos = gpAnimBlendClump->m_PedPosition;
-        *wsPos += deltaV - currV;
-        if (hasLoopedVelocity) {
-            *wsPos += loopedDeltaV;
-        }
-
-        // Update key-frame translation
-        fd->KeyFrame->t = nextT - deltaV + fd->BonePos;
-    }
+    FrameUpdateCallBackExeVelocity<false, true, true>(c, fd); // skinned, 3D (0x4D1A50)
 }
 
 // 0x4D1680
 // FrameUpdateCallBackT<false, true, true, false>
 void FrameUpdateCallBackSkinnedWithVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) { // `c` is passed in `eax`, can't hook
-    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
-
-#if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
-    _asm {
-        mov eax, c
-        push fd
-        mov ecx, 0x4D1680
-        call ecx
-        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
-    };
-    return;
-#endif
-
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, true);
-
-    // 0x4D174C
-    CVector2D currV{}; // Velocity
-    for (auto it = c->BlendNodeArrays; *it; it++) {
-        const auto node = *it;
-
-        if (!node->IsValid() || !node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-        if (assoc->HasFlag(ANIMATION_IGNORE_ROOT_TRANSLATION) || !assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        CVector t;
-        node->GetCurrentTranslation(t, partialScale);
-        currV.y += t.y;
-        if (assoc->HasFlag(ANIMATION_CAN_EXTRACT_X_VELOCITY)) {
-            currV.x += t.x;
-        }
-    }
-
-    // 0x4D17C4
-    CQuaternion nextQ{}; // Rotation
-    CVector     nextT{}; // Translation
-    CVector2D   deltaV{}, loopedDeltaV{}; // 2D Velocity
-    bool        hasLoopedVelocity{};
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-
-        CVector t;
-        CQuaternion q;
-        const auto looped = node->Update(t, q, partialScale);
-
-        nextQ = q.Dot(nextQ) >= 0.f
-            ? nextQ + q
-            : nextQ - q;
-
-        if (!node->GetRootKF()->HasTranslation() || assoc->HasFlag(ANIMATION_IGNORE_ROOT_TRANSLATION)) {
-            continue;
-        }
-
-        nextT += t;
-
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        deltaV.y += t.y;
-        if (assoc->HasFlag(ANIMATION_CAN_EXTRACT_X_VELOCITY)) {
-            deltaV.x += t.x;
-        }
-
-        if (hasLoopedVelocity |= looped) {
-            CVector t2;
-            node->GetEndTranslation(t2, partialScale);
-            loopedDeltaV.y += t2.y;
-            if (assoc->HasFlag(ANIMATION_CAN_EXTRACT_X_VELOCITY)) {
-                loopedDeltaV.x += t2.x;
-            }
-        }
-    }
-
-    // 0x4D195C
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        nextQ.Normalise();
-        fd->KeyFrame->q = nextQ;
-    }
-
-    // 0x4D1980
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        // Update world positions (This moves the ped around the world)
-        const auto wsPos = gpAnimBlendClump->m_PedPosition;
-        wsPos->x = deltaV.x - currV.x;
-        wsPos->y = deltaV.y - currV.y;
-        if (hasLoopedVelocity) {
-            wsPos->x += loopedDeltaV.x;
-            wsPos->y += loopedDeltaV.y;
-        }
-
-        // Update key-frame translation
-        const auto kfT = &fd->KeyFrame->t;
-        *kfT = nextT - CVector{deltaV};
-        kfT->x += fd->BonePos.x;
-        kfT->y += fd->BonePos.y;
-        if (kfT->z >= -0.8f) {
-            kfT->z += kfT->z >= -0.4f
-                ? fd->BonePos.z
-                : (kfT->z * 2.5f + 2.f) * fd->BonePos.z;
-        }
-    }
+    FrameUpdateCallBackExeVelocity<false, true, false>(c, fd); // skinned, 2D (0x4D1680)
 }
 
 // 0x4D2B90
@@ -1264,219 +1084,13 @@ void FrameUpdateCallBackSkinned(AnimBlendFrameData* fd, void* data) {
 // 0x4D2450
 // FrameUpdateCallBackT<false, false, true, true>
 void FrameUpdateCallBackNonSkinnedWith3dVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) {
-    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
-
-#if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
-    _asm {
-        mov eax, c
-        push fd
-        mov ecx, 0x4D2450
-        call ecx
-        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
-    };
-    return;
-#endif
-
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, false);
-
-    CVector currV{}; // Velocity
-    for (auto it = c->BlendNodeArrays; *it; it++) {
-        const auto node = *it;
-
-        if (!node->IsValid() || !node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        CVector t;
-        node->GetCurrentTranslation(t, partialScale);
-        currV += t;
-    }
-
-    CQuaternion nextQ{};
-    CVector     nextT{}; // Translation
-    CVector     deltaV{}, loopedDeltaV{}; // 3D Velocity
-    bool        hasLoopedVelocity{};
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-
-        const auto blendScale = partialScale;
-        CVector t;
-        CQuaternion q;
-        const auto looped = node->Update(t, q, blendScale);
-
-        nextQ = nextQ + q;
-
-        if (!node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        nextT += t;
-
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        deltaV += t;
-
-        if (hasLoopedVelocity |= looped) {
-            CVector t2;
-            node->GetEndTranslation(t2, blendScale);
-            loopedDeltaV += t;
-        }
-    }
-
-    const auto fmat = RwFrameGetMatrix(fd->Frame);
-
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        RwMatrixSetIdentity(fmat);
-        nextQ.Normalise();
-        nextQ.Get(fmat);
-    }
-
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        // Update world positions (This moves the ped around the world)
-        const auto wsPos = gpAnimBlendClump->m_PedPosition;
-        *wsPos += deltaV - currV;
-        if (hasLoopedVelocity) {
-            *wsPos += loopedDeltaV;
-        }
-
-        // Update key-frame translation
-        CVector t = nextT - deltaV + fd->BonePos;
-        RwV3dAssign(RwMatrixGetPos(fmat), &t);
-    }
-
-    RwMatrixUpdate(fmat);
+    FrameUpdateCallBackExeVelocity<false, false, true>(c, fd); // no skinned, 3D (0x4D2450)
 }
 
 // 0x4D2100
 // FrameUpdateCallBackT<false, false, true, false>
 void FrameUpdateCallBackNonSkinnedWithVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) {
-    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
-
-#if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
-    _asm {
-        mov eax, c
-        push fd
-        mov ecx, 0x4D2100
-        call ecx
-        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
-    };
-    return;
-#endif
-
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, false);
-
-    CVector2D currV{}; // Velocity
-    for (auto it = c->BlendNodeArrays; *it; it++) {
-        const auto node = *it;
-
-        if (!node->IsValid() || !node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-        if (assoc->HasFlag(ANIMATION_IGNORE_ROOT_TRANSLATION) || !assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        CVector t;
-        node->GetCurrentTranslation(t, partialScale);
-        currV.y += t.y;
-        if (assoc->HasFlag(ANIMATION_CAN_EXTRACT_X_VELOCITY)) {
-            currV.x += t.x;
-        }
-    }
-
-    CQuaternion nextQ{}; // Rotation
-    CVector     nextT{}; // Translation
-    CVector2D   deltaV{}, loopedDeltaV{}; // 2D Velocity
-    bool        hasLoopedVelocity{};
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-
-        CVector t;
-        CQuaternion q;
-        const auto looped = node->Update(t, q, partialScale);
-
-        nextQ = q.Dot(nextQ) >= 0.f
-            ? nextQ + q
-            : nextQ - q;
-
-        if (!node->GetRootKF()->HasTranslation() || assoc->HasFlag(ANIMATION_IGNORE_ROOT_TRANSLATION)) {
-            continue;
-        }
-
-        nextT += t;
-
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        deltaV.y += t.y;
-        if (assoc->HasFlag(ANIMATION_CAN_EXTRACT_X_VELOCITY)) {
-            deltaV.x += t.x;
-        }
-
-        if (hasLoopedVelocity |= looped) {
-            CVector t2;
-            node->GetEndTranslation(t2, partialScale);
-            loopedDeltaV.y += t2.y;
-            if (assoc->HasFlag(ANIMATION_CAN_EXTRACT_X_VELOCITY)) {
-                loopedDeltaV.x += t2.x;
-            }
-        }
-    }
-
-    const auto fmat = RwFrameGetMatrix(fd->Frame);
-
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        RwMatrixSetIdentity(fmat);
-        nextQ.Normalise();
-        nextQ.Get(fmat);
-    }
-
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        // Update world positions (This moves the ped around the world)
-        const auto wsPos = gpAnimBlendClump->m_PedPosition;
-        wsPos->x = deltaV.x - currV.x;
-        wsPos->y = deltaV.y - currV.y;
-        if (hasLoopedVelocity) {
-            wsPos->x += loopedDeltaV.x;
-            wsPos->y += loopedDeltaV.y;
-        }
-
-        // Update key-frame translation
-        CVector t = nextT - CVector{deltaV};
-        t.x += fd->BonePos.x;
-        t.y += fd->BonePos.y;
-        RwV3dAssign(RwMatrixGetPos(fmat), &t);
-
-        //if (kfT->z >= -0.8f) {
-        //    kfT->z += kfT->z >= -0.4f
-        //        ? fd->BonePos.z
-        //        : (kfT->z * 2.5f + 2.f) * fd->BonePos.z;
-        //}
-    }
-
-    RwMatrixUpdate(fmat);
+    FrameUpdateCallBackExeVelocity<false, false, false>(c, fd); // no skinned, 2D (0x4D2100)
 }
 
 // 0x4D30A0
@@ -1499,251 +1113,10 @@ void FrameUpdateCallBackNonSkinned(AnimBlendFrameData* fd, void* data) {
 #pragma endregion
 #endif
 
-template<bool IsCompressed, bool IsSkinned, bool ExtractVelocity, bool Extract3DVelocity>
-struct NeedsRemoveQuatFlips : std::false_type {};
-template<>
-struct NeedsRemoveQuatFlips<true, true, false, false> : std::true_type {}; // FrameUpdateCallBackCompressedSkinned
-template<>
-struct NeedsRemoveQuatFlips<false, true, false, false> : std::true_type {}; // FrameUpdateCallBackSkinned
-template<>
-struct NeedsRemoveQuatFlips<false, true, true, false> : std::true_type {}; // FrameUpdateCallBackSkinnedWithVelocityExtraction
-template<>
-struct NeedsRemoveQuatFlips<false, false, true, false> : std::true_type {}; // FrameUpdateCallBackNonSkinnedWithVelocityExtraction
-
-/*!
- * @brief Copy-paste eliminated per-tick frame update
- * @tparam IsCompressed If the anim data is compressed
- * @tparam IsSkinned If the frame is skinned or not
- * @tparam ExtractVelocity Whenever to use the translation to update the ped's position
- * @tparam Extract3DVelocity Whenever to use Z translation too for updating the ped's position
- * @param fd Frame Data
- * @param c Context
-*/
-template<bool IsCompressed, bool IsSkinned, bool ExtractVelocity, bool Extract3DVelocity>
-void FrameUpdateCallBackT(AnimBlendFrameData* fd, AnimBlendUpdateData* c) {
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, true);
-
-    constexpr bool IsFixBugs = true;
-
-    const auto GetVelocityFromTranslation = [](CAnimBlendNode* node, CVector t) {
-        return CVector{
-            !IsFixBugs && Extract3DVelocity || node->GetAnimAssoc()->HasFlag(ANIMATION_CAN_EXTRACT_X_VELOCITY) // BUGFIX: Check this flag for 3D too (Like they did for 2D)
-                ? t.x
-                : 0.f,
-            t.y,
-            Extract3DVelocity
-                ? t.z
-                : 0.f
-        };
-    };
-
-    // (if `ExtractVelocity`): Extract current velocity
-    CVector currV{}; // Current velocity (before update), Z only used if `ExtractZVelocity`
-    if constexpr (ExtractVelocity) {
-        for (auto it = c->BlendNodeArrays; *it; it++) {
-            const auto node = *it;
-
-            if (!node->IsValid() || !node->GetRootKF()->HasTranslation()) {
-                continue;
-            }
-
-            const auto assoc = node->GetAnimAssoc();
-            if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-                continue;
-            }
-
-            if (IsFixBugs || !Extract3DVelocity) {
-                if (assoc->HasFlag(ANIMATION_IGNORE_ROOT_TRANSLATION)) { // BUGFIX: Check this flag for 3D too (Like they did for 2D)
-                    continue;
-                }
-            }
-
-            CVector t;
-            node->I_GetCurrentTranslation<IsCompressed>(t, partialScale);
-            currV += GetVelocityFromTranslation(node, t);
-        }
-    }
-
-    CQuaternion nextQ{}; // Rotation after update
-    CVector     nextT{}; // Translation after update
-
-    // if `ExtractVelocity`:
-    CVector nextV{}, loopedNextV{}; // Velocity after update, Z only used if `ExtractZVelocity`
-    bool    hasLoopedVelocity{};
-    // else:
-    float   nextBlendT{}; // Key-frame blend
-
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        const auto assoc = node->GetAnimAssoc();
-
-        const auto blendScale = partialScale;
-        CVector t;
-        CQuaternion q;
-        const auto looped = node->I_Update<IsCompressed>(t, q, blendScale);
-
-        // NOTE: Not sure if doing this at all is necessary, but let's keep it the way it was.
-        if constexpr (NeedsRemoveQuatFlips<IsCompressed, IsSkinned, ExtractVelocity, Extract3DVelocity>{}) {
-            nextQ = nextQ + (q.Dot(nextQ) >= 0.f ? q : -q);
-        } else {
-            nextQ = nextQ + q;
-        }
-
-        if (!node->GetRootKF()->HasTranslation()) {
-            continue;
-        }
-
-        if (IsFixBugs || ExtractVelocity && !Extract3DVelocity) {
-            if (assoc->HasFlag(ANIMATION_IGNORE_ROOT_TRANSLATION)) { // BUGFIX: Check this flag for 3D too (Like they did for 2D)
-                continue;
-            }
-        }
-
-        nextT += t;
-        if constexpr (!ExtractVelocity) {
-            nextBlendT += node->GetAnimAssoc()->GetBlendAmount();
-        }
-
-        if constexpr (!ExtractVelocity) {
-            continue;
-        }
-
-        if (!assoc->HasFlag(ANIMATION_CAN_EXTRACT_VELOCITY)) {
-            continue;
-        }
-
-        CVector cT;
-        node->I_GetCurrentTranslation<IsCompressed>(cT, partialScale);
-        nextV += GetVelocityFromTranslation(node, cT);
-
-        if (hasLoopedVelocity |= looped) {
-            CVector eT;
-            node->I_GetEndTranslation<IsCompressed>(eT, blendScale);
-            loopedNextV += GetVelocityFromTranslation(node, eT);
-        }
-    }
-
-    const auto fmat = IsSkinned
-        ? nullptr
-        : RwFrameGetMatrix(fd->Frame);
-
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        nextQ.Normalise();
-
-        if constexpr (IsSkinned) {
-            fd->KeyFrame->q = nextQ;
-        } else {
-            RwMatrixSetIdentity(fmat);
-            nextQ.Get(fmat); // Set delta rotation as the rotation of the frame
-        }
-    }
-
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        // Apply velocity
-        if constexpr (ExtractVelocity) {
-            const auto wsPos = gpAnimBlendClump->m_PedPosition;
-
-            wsPos->x = nextV.x - currV.x;
-            wsPos->y = nextV.y - currV.y;
-            if constexpr (Extract3DVelocity) {
-                wsPos->z = nextV.z - currV.z;
-            }
-
-            if (hasLoopedVelocity) {
-                wsPos->x += loopedNextV.x;
-                wsPos->y += loopedNextV.y;
-                if constexpr (Extract3DVelocity) {
-                    wsPos->z += loopedNextV.z;
-                }
-            }
-        }
-
-        // Apply translation
-        RwV3d* t = IsSkinned
-            ? &fd->KeyFrame->t
-            : RwMatrixGetPos(fmat);
-
-        const CVector nodePos = IsSkinned
-            ? fd->BonePos
-            : fd->FramePos;
-
-        if constexpr (ExtractVelocity) {
-            t->x = nextT.x - nextV.x + nodePos.x;
-            t->y = nextT.y - nextV.y + nodePos.y;
-
-            if constexpr (Extract3DVelocity) {
-                t->z = nextT.z - nextV.z + nodePos.z;
-            } else if constexpr (IsSkinned && !IsCompressed) { // FrameUpdateCallBackSkinnedWithVelocityExtraction
-                t->z = nextT.z;
-                if (t->z >= -0.8f) {
-                    t->z += t->z >= -0.4f
-                        ? fd->BonePos.z
-                        : (t->z * 2.5f + 2.f) * fd->BonePos.z;
-                }
-            } // otherwise `z` remains untouched
-        } else {
-            *t = lerp<CVector>(nodePos, nextT, nextBlendT);
-        }
-    }
-
-    if constexpr (!IsSkinned) {
-        RwMatrixUpdate(fmat);
-    }
-}
-
-/*!
- * @brief Per-tick frame update wrapper
- * @tparam IsCompressed If the anim data is compressed
- * @tparam IsSkinned If the frame is skinned or not
- * @param fd Frame Data
- * @param c Context (Real type: `AnimBlendUpdateData*`)
-*/
-template<bool IsCompressed, bool IsSkinned>
-void FrameUpdateCallBackW(AnimBlendFrameData* fd, void* data) {
-    const auto c = static_cast<AnimBlendUpdateData*>(data);
-
-#if USE_COPY_PASTE_FRAME_UPDATE // Templated function
-    if constexpr (IsCompressed) {
-        if constexpr (IsSkinned) {
-            FrameUpdateCallBackCompressedSkinned(fd, c);
-        } else {
-            FrameUpdateCallBackCompressedNonSkinned(fd, c);
-        }
-    } else {
-        if constexpr (IsSkinned) {
-            FrameUpdateCallBackSkinned(fd, c);
-        } else {
-            FrameUpdateCallBackNonSkinned(fd, c);
-        }
-    }
-#else
-    if (fd->HasVelocity && gpAnimBlendClump->m_PedPosition) {
-        if (fd->HasZVelocity) { // NOTE: Originally compressed anims immediately did 3D velocity, so this flag may not be set on compressed anims?
-            FrameUpdateCallBackT<IsCompressed, IsSkinned, true, true>(fd, c);
-        } else {
-            FrameUpdateCallBackT<IsCompressed, IsSkinned, true, false>(fd, c);
-        }
-    } else {
-        FrameUpdateCallBackT<IsCompressed, IsSkinned, false, false>(fd, c);
-    }
-#endif
-}
-
-// 0x4D2E10
+// 0x4D2E10 (callback de frames fuera de pantalla; cdecl, el llamador limpia). Solo extrae la velocidad 2D de skinned no comprimida (0x4D1680) y no toca la pose.
 void FrameUpdateCallBackOffscreen(AnimBlendFrameData* fd, void* data) {
-    const auto c = static_cast<AnimBlendUpdateData*>(data);
-
     if (fd->HasVelocity && gpAnimBlendClump->m_PedPosition) {
-#if USE_COPY_PASTE_FRAME_UPDATE
-        FrameUpdateCallBackSkinnedWithVelocityExtraction(c, fd);
-#else
-        FrameUpdateCallBackT<false, true, true, false>(fd, c);
-#endif
+        FrameUpdateCallBackSkinnedWithVelocityExtraction(static_cast<AnimBlendUpdateData*>(data), fd);
     }
 }
 
@@ -1799,8 +1172,10 @@ void RpAnimBlendClumpUpdateAnimations(RpClump* clump, float timeStep, bool isOnS
             ctx.BlendNodeArrays[nodesCnt++] = a->GetNodesPtr();
         }
         if (a->IsSyncronised()) {
-            totalTime = float(double(ah->GetTotalTime()) / a->GetSpeed() * a->GetBlendAmount() + totalTime);
-            totalBlendAmnt += a->GetBlendAmount();
+            // 0x4D3578: fld total; fdiv speed; fmul blend; fadd totalTime; fstp (la x87 redondea a 24 bits en cada paso; con doubles de SSE solo al final).
+            // Se lee m_BlendAmount sin pasar por GetBlendAmount() (que multiplica por 1.0 en SSE: convierte NaN señalizantes y descarta subnormales).
+            totalTime      = RpUpdateSyncAccumCpp(ah->GetTotalTime(), a->GetSpeed(), a->m_BlendAmount, totalTime);
+            totalBlendAmnt = ExeAdd(totalBlendAmnt, a->m_BlendAmount); // 0x4D3589: fld totalBlend; fadd blend; fstp
         } else {
             ctx.IncludePartial = true;        
         }
@@ -1808,19 +1183,22 @@ void RpAnimBlendClumpUpdateAnimations(RpClump* clump, float timeStep, bool isOnS
     ctx.BlendNodeArrays[nodesCnt] = nullptr; // Null terminator
 
     // 0x4D35A2 - Update animation's timesteps
-    const auto animTimeMult = totalTime == 0.f ? 1.f : totalBlendAmnt / totalTime;
+    // 0x4D35B0: fcomp 0.0 (comparación ordenada de x87: con NaN el EXE sigue por la rama de la división; un subnormal no es cero)
+    const bool totalTimeIsZero = CloudsEqualOrderedCpp(totalTime, 0.f);
+    const auto animTimeMult    = totalTimeIsZero ? 1.f : totalBlendAmnt / totalTime; // UpdateTime lo ignora (0x4D3720..0x4D3751)
     RpAnimBlendClumpForEachAssociation(clump, [&](CAnimBlendAssociation* a) {
         if (!a->IsPlaying()) {
             return;
         }
-        // The executable divides the hierarchy duration before multiplying the
-        // total blend and timestep; calling UpdateTimeStep would round earlier.
-        const double speed = a->IsSyncronised()
-            ? (totalTime == 0.f
-                ? double(a->GetHier()->GetTotalTime())
-                : double(a->GetHier()->GetTotalTime()) / totalTime * totalBlendAmnt)
-            : double(a->GetSpeed());
-        a->m_TimeStep = float(speed * timeStep);
+        // Como el EXE (0x4D35C4..0x4D3605): una cadena x87 sin guardar entre operaciones (cada una redondea a 24 bits) y un solo fstp.
+        // Sincronizada: total/totalTime·totalBlend·timeStep (o total·timeStep con totalTime == 0); libre: speed·timeStep.
+        if (!a->IsSyncronised()) {
+            a->m_TimeStep = ExeMul(a->GetSpeed(), timeStep);
+        } else if (totalTimeIsZero) {
+            a->m_TimeStep = ExeMul(a->GetHier()->GetTotalTime(), timeStep);
+        } else {
+            a->m_TimeStep = RpUpdateSyncStepCpp(a->GetHier()->GetTotalTime(), totalTime, totalBlendAmnt, timeStep);
+        }
     });
 
     // 0x4D360E - Update all animations's frames
@@ -1962,5 +1340,6 @@ void RpAnimBlendPlugin::InjectHooks() {
     //RH_ScopedGlobalInstall(FrameUpdateCallBackNonSkinnedWith3dVelocityExtraction, 0x4D2450);
     //RH_ScopedGlobalInstall(FrameUpdateCallBackNonSkinnedWithVelocityExtraction, 0x4D2100);
     RH_ScopedGlobalInstall(FrameUpdateCallBackNonSkinned, 0x4D30A0, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS});
+    RH_ScopedGlobalInstall(FrameUpdateCallBackOffscreen, 0x4D2E10, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS});
 #endif
 }

@@ -449,43 +449,18 @@ void cHandlingDataMgr::ConvertDataToWorldUnits(tHandlingData* h) {
 void cHandlingDataMgr::ConvertDataToGameUnits(tHandlingData* h) {
     const auto t = &h->GetTransmission();
 
-    const float accel = s_HandlingAccelConst * t->m_EngineAcceleration;
-    t->m_EngineAcceleration = accel;
-    const float velocity = s_HandlingVelocityConst * t->m_MaxVelocity; // Como el original: se guarda aparte (0x6F50A5)
-    t->m_MaxVelocity = velocity;
-    h->m_fBrakeDeceleration = s_HandlingAccelConst * h->m_fBrakeDeceleration;
-    const float massRecpr = 1.0f / h->m_fMass;
-    h->m_fMassRecpr = massRecpr;
-    h->m_fBuoyancyConstant = h->m_fMass * 0.8f / (float)h->m_nPercentSubmerged;
-    h->m_fCollisionDamageMultiplier = massRecpr * h->m_fCollisionDamageMultiplier * 2000.0f;
-
-    // Como el original (0x6F50F0..0x6F5158): el bucle de reduccion va entero en X87Math (0,01 y 1/6 en double, NaN sale)
-    const float maxVelocity = HandlingReduceVelocityCpp(velocity, accel, h->m_fDragMult);
-
-    if (h->m_nVehicleId == VT_RCBANDIT) { // Como el original: usa la velocidad sin reducir
-        t->m_MaxFlatVelocity    = velocity;
-        t->m_MaxReverseVelocity = -velocity;
-    } else if (h->m_bUseMaxspLimit) { // Como el original: velocidad sin reducir por 0.8333333f (0x863278)
-        t->m_MaxFlatVelocity    = velocity * 0.8333333134651184f;
-        t->m_MaxReverseVelocity = std::min(t->m_MaxFlatVelocity * -0.25f, -0.2f);
-    } else if (h->m_nVehicleId >= VT_BIKE && h->m_nVehicleId <= VT_FREEWAY) { // 2 wheelers
-        t->m_MaxFlatVelocity    = maxVelocity;
-        t->m_MaxReverseVelocity = -0.05f;
-        t->m_MaxVelocity        = maxVelocity * 1.2f;
-    } else {
-        t->m_MaxFlatVelocity    = maxVelocity;
-        t->m_MaxVelocity        = maxVelocity * 1.2f;
-        t->m_MaxReverseVelocity = std::min(t->m_MaxFlatVelocity * -0.3f, -0.2f);
-    }
-
-    t->m_EngineAcceleration = accel * (t->m_nDriveType == '4' ? 0.25f : 0.5f);
+    // Como el original (0x6F5085..0x6F5229): toda la aritmetica va en X87Math con la pila x87 del EXE (valores sin redondear a float entre pasos, subnormales
+    // conservados); el SSE de la DLL los descartaria. Solo InitGearRatios queda aqui.
+    HandlingConvertGameUnitsCpp(s_HandlingAccelConst, s_HandlingVelocityConst, h->m_fMass, h->m_nPercentSubmerged, h->m_fDragMult, h->m_nVehicleId,
+                                h->m_bUseMaxspLimit, t->m_nDriveType == '4', &t->m_EngineAcceleration, &t->m_MaxVelocity, &h->m_fBrakeDeceleration,
+                                &h->m_fMassRecpr, &h->m_fBuoyancyConstant, &h->m_fCollisionDamageMultiplier, &t->m_MaxFlatVelocity, &t->m_MaxReverseVelocity);
     t->InitGearRatios();
 }
 
 // 0x6F5240
 void cHandlingDataMgr::ConvertBikeDataToWorldUnits(tBikeHandlingData* bikeHandling) {
     bikeHandling->m_fMaxLean      = ExeAsinDegreesCpp(bikeHandling->m_fMaxLean);
-    bikeHandling->m_fFullAnimLean = HandlingTimesFloatCpp(bikeHandling->m_fFullAnimLean, s_HandlingRadToDeg);
+    bikeHandling->m_fFullAnimLean = X87TimesFloatCpp(bikeHandling->m_fFullAnimLean, s_HandlingRadToDeg);
     bikeHandling->m_fWheelieAng   = ExeAsinDegreesCpp(bikeHandling->m_fWheelieAng);
     bikeHandling->m_fStoppieAng   = ExeAsinDegreesCpp(bikeHandling->m_fStoppieAng);
 }
@@ -493,7 +468,7 @@ void cHandlingDataMgr::ConvertBikeDataToWorldUnits(tBikeHandlingData* bikeHandli
 // 0x6F5290
 void cHandlingDataMgr::ConvertBikeDataToGameUnits(tBikeHandlingData* bikeHandling) {
     bikeHandling->m_fMaxLean      = HandlingSinScaledCpp(bikeHandling->m_fMaxLean, HANDLING_DEG_TO_RAD);
-    bikeHandling->m_fFullAnimLean = HandlingTimesFloatCpp(bikeHandling->m_fFullAnimLean, HANDLING_DEG_TO_RAD);
+    bikeHandling->m_fFullAnimLean = X87TimesFloatCpp(bikeHandling->m_fFullAnimLean, HANDLING_DEG_TO_RAD);
     bikeHandling->m_fWheelieAng   = HandlingSinScaledCpp(bikeHandling->m_fWheelieAng, HANDLING_DEG_TO_RAD);
     bikeHandling->m_fStoppieAng   = HandlingSinScaledCpp(bikeHandling->m_fStoppieAng, HANDLING_DEG_TO_RAD);
 }

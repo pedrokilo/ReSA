@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "945895babb70843f9e7c1836bef0d1c77154f9ace56501936c82e10accb7e4ca",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 7232,
+  "pairs_per_function": {
+    "CPed::AddGogglesModel": 192,
+    "CPed::RemoveGogglesModel": 192,
+    "CPed::PutOnGoggles": 256,
+    "CPed::TakeOffGoggles": 256,
+    "CPed::IsWearingGoggles": 64,
+    "CPed::Dress": 192,
+    "CPed::Undress": 192,
+    "CPed::CreateDeadPedMoney": 512,
+    "CPed::CreateDeadPedPickupCoors-": 128,
+    "CPed::CreateDeadPedWeaponPickups": 512,
+    "CPed::DeadPedMakesTyresBloody": 512,
+    "CPed::RemoveBodyPart": 128,
+    "CPed::SpawnFlyingComponent": 64,
+    "CPed::PedCanPickUpPickUp": 128,
+    "CPed::SetPedAtomicVisibilityCB": 128,
+    "CPed::SetupLighting": 64,
+    "CPed::RemoveLighting": 64,
+    "CPed::Render": 768,
+    "CPed::PreRender": 256,
+    "CPed::PreRenderAfterTest": 1024,
+    "CPed::DeleteRwObject": 64,
+    "CPed::SetModelIndex": 384,
+    "CPed::SetCharCreatedBy": 256,
+    "CPed::UseGroundColModel": 128,
+    "CPed::ProcessBuoyancy": 768
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "df46696a97da24a20a3c8b26599165ed5bd3f860e70d7d965611a5c7ddc9f12e",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

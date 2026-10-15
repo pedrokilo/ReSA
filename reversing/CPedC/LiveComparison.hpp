@@ -80,6 +80,33 @@ inline json Nm(const void* v) {
     for(auto& b:bufs)if(u>=uintptr_t(b.p)&&u<uintptr_t(b.p)+b.n)return std::string(b.nm)+"+"+std::to_string(u-uintptr_t(b.p));
     return u;
 }
+// GetLocalDirection (thiscall, ret 4) llamada con ECX = this, EAX y EDX con semillas por caso y el argumento en la pila: se capturan EAX, ECX y EDX al ret
+// (el EXE los deja con el residuo de _ftol2 0x821B40 o de la reduccion modulo 4) y se comprueba que ESP y EBX/ESI/EDI no cambian. La ruta "original" ejecuta el
+// codigo del EXE y la candidata la DLL; ninguno de los dos llama a colaboradores interceptados (el _ftol2 del EXE se ejecuta real en la original y la DLL lo
+// reproduce con Ftol2RegsCpp), asi que no hace falta ninguna copia por EntryPatch.
+struct LdRegs { uint32 eax,ecx,edx; bool abi; };
+inline LdRegs CallLocalDir(uintptr_t entry,void* self,const void* pt,uint32 seedA,uint32 seedD) {
+    uint32 rA,rC,rD,sp0,sp1,b0,b1,s0,s1,d0,d1;
+    __asm {
+        mov sp0,esp
+        mov b0,ebx
+        mov s0,esi
+        mov d0,edi
+        mov eax,seedA
+        mov edx,seedD
+        push pt
+        mov ecx,self
+        call entry
+        mov rA,eax
+        mov rC,ecx
+        mov rD,edx
+        mov sp1,esp
+        mov b1,ebx
+        mov s1,esi
+        mov d1,edi
+    }
+    return {rA,rC,rD,sp0==sp1&&b0==b1&&s0==s1&&d0==d1};
+}
 inline json Snap() { json r=json::array(); for(auto& b:bufs)r.push_back(Fnv(b.p,b.n)); return r; }
 
 // --- configuracion por caso de las dependencias simuladas ---
@@ -170,7 +197,8 @@ inline void Update() {
         EntryPatch o1(bit_cast<uintptr_t>(static_cast<void(CPlaceable::*)(float,float,float)>(&CPlaceable::SetOrientation)),FakeSetOrient), o1e(0x439A80,FakeSetOrient);
         EntryPatch d1(bit_cast<uintptr_t>(static_cast<int16(CPad::*)() const>(&CPad::GetPedWalkLeftRight)),FakePadLR), d1e(0x53FC90,FakePadLR);
         EntryPatch d2(bit_cast<uintptr_t>(static_cast<int16(CPad::*)() const>(&CPad::GetPedWalkUpDown)),FakePadUD), d2e(0x53FD30,FakePadUD);
-        EntryPatch g1e(0x5F7F10,FakeInPlayersGroup), g2e(0x5F7E80,FakeGetPedsGroup);
+        EntryPatch g1(bit_cast<uintptr_t>(&CPedGroups::IsInPlayersGroup),FakeInPlayersGroup), g1e(0x5F7F10,FakeInPlayersGroup);
+        EntryPatch g2(bit_cast<uintptr_t>(&CPedGroups::GetPedsGroup),FakeGetPedsGroup), g2e(0x5F7E80,FakeGetPedsGroup);
         EntryPatch g3(bit_cast<uintptr_t>(&CPedGroupMembership::GetLeader),FakeGetLeader), g3e(0x5F69A0,FakeGetLeader);
         EntryPatch h1(bit_cast<uintptr_t>(&GetAnimHierarchyFromSkinClump),FakeSkinHier), h1e(0x734A40,FakeSkinHier);
         EntryPatch h2e(0x7C51A0,FakeHAnimIndex), h3e(0x7C5120,FakeHAnimArray);
@@ -315,13 +343,17 @@ inline void Update() {
                     else if(cs=="GetLocalDirection") {
                         float pt[2]{fl(-100.f,100.f),fl(-100.f,100.f)}; if(next()%32==0)pt[next()%2]=FB(0x7FC00000u); if(next()%16==0)pt[0]=pt[1]=0.f;
                         At<float>(pp,P_ROT)=next()%32==0 ? FB(0x7FC00000u) : (next()%3==0 ? uni(-1000.f,1000.f) : fl(-8.f,8.f));
-                        ret=reinterpret_cast<int32(__thiscall*)(void*,const void*)>(a)(pp,pt);
+                        // semillas de EAX/EDX distintas por caso (EAX/EDX de entrada no los lee el EXE; ECX = this); se exige igualdad de EAX/ECX/EDX de salida
+                        const uint32 seedA=next()|1u, seedD=next()^0xA5A5A5A5u;
+                        const auto lr=CallLocalDir(a,pp,pt,seedA,seedD);
+                        ret=int32(lr.eax);
+                        out["regs"]={{"eax",lr.eax},{"ecx",lr.ecx},{"edx",lr.edx},{"abi",lr.abi},{"seed_a",seedA},{"seed_d",seedD},{"this",uint32(uintptr_t(pp))}};
                     }
                     out["snap"]=Snap(); out["ret"]=ret; out["trace"]=trace; out["time"]=timeMs;
                     return out;
                 };
                 const auto original=run(false), candidate=run(true);
-                const bool ok=original==candidate&&original["switches"]==true&&candidate["switches"]==true;
+                const bool ok=original==candidate&&original["switches"]==true&&candidate["switches"]==true&&(!original.contains("regs")||(original["regs"]["abi"]==true&&candidate["regs"]["abi"]==true));
                 passed&=ok; failures+=!ok;
                 if(ok)Write({{"event","comparison"},{"pair",pair++},{"function",full},{"case",i},{"equal",true},{"accepted",true},{"original",original["ret"]},{"candidate",candidate["ret"]},{"events",original["trace"].size()}});
                 else { json diff=json::array(); for(auto& [k,v]:original.items())if(candidate[k]!=v)diff.push_back(k);

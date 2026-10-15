@@ -1,0 +1,3 @@
+FALLO: X87Math: EXE vs DLL bajo precision 24/53/64 y redondeo cercano/abajo/arriba/cero
+GTA no responde (ventana colgada y sin progreso 30 s; abortado).
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cppx87precision1\20261015-145053-562740

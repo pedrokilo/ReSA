@@ -6,9 +6,9 @@
 
 Este documento distingue el lenguaje de la fuente, la reconstrucción, la validación registrada y la independencia del EXE. Reconstruir un cuerpo en ensamblador también es ingeniería inversa; una envoltura que delega el cuerpo al original no lo reconstruye por sí sola.
 
-El inventario asigna **590 apariciones de ensamblador** a **473 definiciones con cuerpo** y **195 declaraciones naked** a **195 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
+El inventario asigna **578 apariciones de ensamblador** a **461 definiciones con cuerpo** y **193 declaraciones naked** a **193 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 473 definiciones, **270 son mixtas** y **203 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 17507 definiciones en 1960 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 461 definiciones, **262 son mixtas** y **199 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 17529 definiciones en 1960 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -19,7 +19,7 @@ De esas 473 definiciones, **270 son mixtas** y **203 contienen sólo ensamblador
 - Una envoltura C++ se reconoce conservadoramente cuando el único statement es una llamada plugin::Call* a dirección fija. Algunos trampolines ASM simples también se reconocen. Otras envolturas indirectas pueden permanecer sin resolver.
 - Se registran colaboradores con dirección fija y posibles datos fijos referenciados por nombre. Un destino catalogado puede estar reconstruido y enlazado mediante hook; el inventario **no determina la ruta efectiva**. Direcciones por sí solas no prueban ausencia de reconstrucción.
 - «Sin indicio directo» sólo significa que los patrones examinados no lo encontraron. No se resuelven todas las llamadas virtuales, macros, alias, punteros ni dependencias transitivas. **Ningún grupo se declara standalone demostrado.**
-- Tree-sitter detectó errores de análisis en 855 cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los 473 cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.
+- Tree-sitter detectó errores de análisis en 854 cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los 461 cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.
 
 - 906 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
 
@@ -390,7 +390,7 @@ De esas 473 definiciones, **270 son mixtas** y **203 contienen sólo ensamblador
 | [CPathFind](implementaciones/detalle-019.md#grupo-361) · [source/game_sa/PathFind.cpp](../source/game_sa/PathFind.cpp), [source/game_sa/PathFind.h](../source/game_sa/PathFind.h) | 54 | 6 | 30 | 6 | 3 |
 | [CPathIntersectionInfo](implementaciones/detalle-019.md#grupo-362) · [source/game_sa/PathFind.h](../source/game_sa/PathFind.h) | 0 | 0 | 1 | 0 | 0 |
 | [CPathNode](implementaciones/detalle-019.md#grupo-363) · [source/game_sa/PathFind.cpp](../source/game_sa/PathFind.cpp), [source/game_sa/PathFind.h](../source/game_sa/PathFind.h) | 1 | 0 | 5 | 0 | 0 |
-| [CPed](implementaciones/detalle-019.md#grupo-364) · [source/game_sa/Entity/Ped/Ped.cpp](../source/game_sa/Entity/Ped/Ped.cpp) | 128 | 2 | 42 | 2 | 0 |
+| [CPed](implementaciones/detalle-019.md#grupo-364) · [source/game_sa/Entity/Ped/Ped.cpp](../source/game_sa/Entity/Ped/Ped.cpp) | 131 | 0 | 41 | 0 | 0 |
 | [CPedAcquaintanceScanner](implementaciones/detalle-019.md#grupo-365) · [source/game_sa/Events/EventScanner.h](../source/game_sa/Events/EventScanner.h) | 0 | 0 | 2 | 0 | 0 |
 | [CPedAttractor](implementaciones/detalle-019.md#grupo-366) · [source/game_sa/Attractors/PedAttractor.cpp](../source/game_sa/Attractors/PedAttractor.cpp) | 18 | 0 | 5 | 0 | 0 |
 | [CPedAttractorManager](implementaciones/detalle-019.md#grupo-367) · [source/game_sa/PedAttractorManager.cpp](../source/game_sa/PedAttractorManager.cpp), [source/game_sa/PedAttractorManager.h](../source/game_sa/PedAttractorManager.h) | 20 | 0 | 11 | 0 | 0 |
@@ -1114,7 +1114,7 @@ De esas 473 definiciones, **270 son mixtas** y **203 contienen sólo ensamblador
 | [Globales y helpers: source/game_sa/Entity/Ped/CopPed.cpp](implementaciones/detalle-055.md#grupo-1085) · [source/game_sa/Entity/Ped/CopPed.cpp](../source/game_sa/Entity/Ped/CopPed.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Entity/Ped/CopPed.h](implementaciones/detalle-055.md#grupo-1086) · [source/game_sa/Entity/Ped/CopPed.h](../source/game_sa/Entity/Ped/CopPed.h) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Entity/Ped/EmergencyPed.h](implementaciones/detalle-055.md#grupo-1087) · [source/game_sa/Entity/Ped/EmergencyPed.h](../source/game_sa/Entity/Ped/EmergencyPed.h) | 0 | 0 | 1 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Entity/Ped/Ped.cpp](implementaciones/detalle-055.md#grupo-1088) · [source/game_sa/Entity/Ped/Ped.cpp](../source/game_sa/Entity/Ped/Ped.cpp) | 0 | 0 | 13 | 4 | 2 |
+| [Globales y helpers: source/game_sa/Entity/Ped/Ped.cpp](implementaciones/detalle-055.md#grupo-1088) · [source/game_sa/Entity/Ped/Ped.cpp](../source/game_sa/Entity/Ped/Ped.cpp) | 0 | 0 | 13 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Entity/Ped/Ped.h](implementaciones/detalle-055.md#grupo-1089) · [source/game_sa/Entity/Ped/Ped.h](../source/game_sa/Entity/Ped/Ped.h) | 0 | 0 | 50 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Entity/Ped/PedStdBonePositions.h](implementaciones/detalle-055.md#grupo-1090) · [source/game_sa/Entity/Ped/PedStdBonePositions.h](../source/game_sa/Entity/Ped/PedStdBonePositions.h) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Entity/Ped/PlayerPed.cpp](implementaciones/detalle-055.md#grupo-1091) · [source/game_sa/Entity/Ped/PlayerPed.cpp](../source/game_sa/Entity/Ped/PlayerPed.cpp) | 0 | 0 | 2 | 0 | 0 |
@@ -1362,7 +1362,7 @@ De esas 473 definiciones, **270 son mixtas** y **203 contienen sólo ensamblador
 | [Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp](implementaciones/detalle-067.md#grupo-1333) · [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp](../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp) | 0 | 0 | 3 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp](implementaciones/detalle-067.md#grupo-1334) · [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp](../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp) | 0 | 0 | 9 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp](implementaciones/detalle-067.md#grupo-1335) · [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp](../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](implementaciones/detalle-067.md#grupo-1336) · [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 7 | 0 | 33 | 6 | 0 |
+| [Globales y helpers: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](implementaciones/detalle-067.md#grupo-1336) · [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 8 | 0 | 34 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h](implementaciones/detalle-067.md#grupo-1337) · [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.cpp](implementaciones/detalle-067.md#grupo-1338) · [source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.cpp](../source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.cpp) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Pools.cpp](implementaciones/detalle-067.md#grupo-1339) · [source/game_sa/Pools.cpp](../source/game_sa/Pools.cpp) | 0 | 0 | 19 | 0 | 0 |
@@ -1815,7 +1815,7 @@ De esas 473 definiciones, **270 son mixtas** y **203 contienen sólo ensamblador
 | [Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.h](implementaciones/detalle-090.md#grupo-1786) · [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.h) | 0 | 0 | 4 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.h](implementaciones/detalle-090.md#grupo-1787) · [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.h) | 0 | 0 | 6 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Text/Text.cpp](implementaciones/detalle-090.md#grupo-1788) · [source/game_sa/Text/Text.cpp](../source/game_sa/Text/Text.cpp) | 0 | 0 | 3 | 0 | 0 |
-| [Globales y helpers: source/game_sa/TheZones.cpp](implementaciones/detalle-090.md#grupo-1789) · [source/game_sa/TheZones.cpp](../source/game_sa/TheZones.cpp) | 0 | 0 | 3 | 0 | 0 |
+| [Globales y helpers: source/game_sa/TheZones.cpp](implementaciones/detalle-090.md#grupo-1789) · [source/game_sa/TheZones.cpp](../source/game_sa/TheZones.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/TimeCycle.cpp](implementaciones/detalle-090.md#grupo-1790) · [source/game_sa/TimeCycle.cpp](../source/game_sa/TimeCycle.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Timer.cpp](implementaciones/detalle-090.md#grupo-1791) · [source/game_sa/Timer.cpp](../source/game_sa/Timer.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Timer.h](implementaciones/detalle-090.md#grupo-1792) · [source/game_sa/Timer.h](../source/game_sa/Timer.h) | 0 | 0 | 1 | 0 | 0 |
@@ -1833,7 +1833,7 @@ De esas 473 definiciones, **270 son mixtas** y **203 contienen sólo ensamblador
 | [Globales y helpers: source/game_sa/Weather.cpp](implementaciones/detalle-091.md#grupo-1804) · [source/game_sa/Weather.cpp](../source/game_sa/Weather.cpp) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-091.md#grupo-1805) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 19 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-091.md#grupo-1806) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-091.md#grupo-1807) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 216 | 0 | 0 | 0 | 0 |
+| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-091.md#grupo-1807) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 237 | 0 | 0 | 0 | 0 |
 | [Globales y helpers: source/game_sa/X87Math.h](implementaciones/detalle-091.md#grupo-1808) · [source/game_sa/X87Math.h](../source/game_sa/X87Math.h) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-091.md#grupo-1809) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.cpp](implementaciones/detalle-091.md#grupo-1810) · [source/game_sa/common.cpp](../source/game_sa/common.cpp) | 3 | 0 | 11 | 0 | 0 |

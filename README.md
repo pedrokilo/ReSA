@@ -47,7 +47,7 @@ Se comprobaron restauración de hooks, configuración y partidas. La sesión de 
 
 ### Migración a C++
 
-Estado de la migracion a C++ al 15/10/2026: 340 funciones fuente convertidas y revalidadas. Quedan 590 apariciones de ensamblador y 195 declaraciones naked en 27 archivos; son conteos lexicos, no funciones. Lista completa: [archivos pendientes](reversing/CppOnlyMigration/FILES.md); evidencia y alcance: [migracion C++](reversing/CppOnlyMigration/README.md).
+Estado de la migracion a C++ al 15/10/2026: 353 funciones fuente convertidas y revalidadas. Quedan 578 apariciones de ensamblador y 193 declaraciones naked en 25 archivos; son conteos lexicos, no funciones. Lista completa: [archivos pendientes](reversing/CppOnlyMigration/FILES.md); evidencia y alcance: [migracion C++](reversing/CppOnlyMigration/README.md).
 
 ## Cómo funciona
 

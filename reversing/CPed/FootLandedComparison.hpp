@@ -42,6 +42,9 @@ __declspec(naked) inline void Dust() {
         ret
     }
 }
+// Lado DLL de los dos emisores: el EXE llama a 0x5E3630/0x5E37C0 con EAX=4 y el argumento de pila (0.15f lluvia, 0 polvo); aqui se registra lo mismo.
+inline void __cdecl RainDll(void* ped,void* position) { RainRecord(static_cast<CPed*>(ped),static_cast<CVector*>(position),4,std::bit_cast<float>(0x3E19999Au)); }
+inline void __cdecl DustDll(void* ped,void* position) { DustRecord(static_cast<CPed*>(ped),static_cast<CVector*>(position),4,0.f); }
 inline bool __cdecl Water(float x,float y,float z,float& out,uint8 touching,CVector* normal) {
     discrete.push_back({"water",touching,normal==nullptr}); numbers.push_back(x); numbers.push_back(y); numbers.push_back(z); out=water; return true;
 }
@@ -60,7 +63,8 @@ inline bool Run(CPlayerPed* player,int& pair,double& maximum) {
     if(!hook) return false;
     bool enabled=hook->Hooked(),locked=hook->Locked(); hook->LockState(false);
     const auto rain=CWeather::Rain; const auto area=CGame::currArea;
-    ReversingProbe::EntryPatch bone(0x5E4280,Bone),bl(0x56D230,Blood),lv(0x55E890,Leaves),sh(0x55E730,Shallow),ca(0x72DDB0,Cam),pl(0x72DDC0,Player),shadow(0x706F60,Shadow),rp(0x5E3630,Rain),dp(0x5E37C0,Dust),wa(0x6EB690,Water),sp(0x4A1150,Splash),au(0x4E2BB0,Audio);
+    ReversingProbe::EntryPatch bone(0x5E4280,Bone),bl(0x56D230,Blood),lv(0x55E890,Leaves),sh(0x55E730,Shallow),ca(0x72DDB0,Cam),pl(0x72DDC0,Player),shadow(0x706F60,Shadow),shadowDll(std::bit_cast<uintptr_t>(&CShadows::AddPermanentShadow),Shadow),rp(0x5E3630,Rain),dp(0x5E37C0,Dust),wa(0x6EB690,Water),sp(0x4A1150,Splash),au(0x4E2BB0,Audio);
+    PedCompletionProbe::footEmit[0]=RainDll; PedCompletionProbe::footEmit[1]=DustDll;
     bool passed=true;
     auto entry=reinterpret_cast<void(__thiscall*)(CPed*,bool,uint8)>(0x5E5380);
     for(int i=0;i<2048 && passed;++i) {
@@ -84,6 +88,7 @@ inline bool Run(CPlayerPed* player,int& pair,double& maximum) {
         passed=Equal(original,candidate,maximum)&&bounded&&middle==start&&end==middle+1;
         Write({{"event","comparison"},{"function","DoFootLanded"},{"pair",pair++},{"input",i},{"original",original},{"candidate",candidate},{"equal",passed},{"bounded",bounded},{"original_candidate_calls",middle-start},{"candidate_calls",end-middle}});
     }
+    PedCompletionProbe::footEmit[0]=nullptr; PedCompletionProbe::footEmit[1]=nullptr;
     CWeather::Rain=rain; CGame::currArea=area; hook->State(enabled); hook->LockState(locked); return passed;
 }
 }

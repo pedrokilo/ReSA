@@ -206,14 +206,6 @@ source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,370,naked,CDecisionMakerTyp
 source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,371,inline_assembly,CDecisionMakerTypes::MakeDecision,370
 source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,449,naked,CDecisionMakerTypes::LoadEventIndices,449
 source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,450,inline_assembly,CDecisionMakerTypes::LoadEventIndices,449
-source/game_sa/Entity/Ped/Ped.cpp,1296,naked,PedE_AtanNegXY,1296
-source/game_sa/Entity/Ped/Ped.cpp,1297,inline_assembly,PedE_AtanNegXY,1296
-source/game_sa/Entity/Ped/Ped.cpp,1307,naked,PedE_AtanNegXYAdd,1307
-source/game_sa/Entity/Ped/Ped.cpp,1308,inline_assembly,PedE_AtanNegXYAdd,1307
-source/game_sa/Entity/Ped/Ped.cpp,2154,inline_assembly,CPed::ProcessBuoyancy,2023
-source/game_sa/Entity/Ped/Ped.cpp,2665,inline_assembly,EmitFootRainParticles,2664
-source/game_sa/Entity/Ped/Ped.cpp,2677,inline_assembly,EmitFootDustParticles,2676
-source/game_sa/Entity/Ped/Ped.cpp,3444,inline_assembly,CPed::PreRenderAfterTest,3211
 source/game_sa/Entity/Physical.cpp,175,inline_assembly,PhysicalSector,172
 source/game_sa/Entity/Physical.cpp,556,inline_assembly,CPhysical::ProcessShift,515
 source/game_sa/Entity/Physical.cpp,567,inline_assembly,CPhysical::ProcessShift,515
@@ -536,12 +528,6 @@ source/game_sa/PedIK.cpp,104,inline_assembly,DivCosX87,102
 source/game_sa/PedIK.cpp,117,inline_assembly,RotateXX87,114
 source/game_sa/PedIK.cpp,185,inline_assembly,RotateYX87,182
 source/game_sa/PedIK.cpp,252,inline_assembly,ArmHeadingDiffX87,248
-source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,821,inline_assembly,FrameUpdateCallBackWithVelocityExtractionCompressedSkinned,817
-source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,927,inline_assembly,FrameUpdateCallBackWithVelocityExtractionCompressedNonSkinned,923
-source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,1039,inline_assembly,FrameUpdateCallBackSkinnedWith3dVelocityExtraction,1035
-source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,1136,inline_assembly,FrameUpdateCallBackSkinnedWithVelocityExtraction,1132
-source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,1270,inline_assembly,FrameUpdateCallBackNonSkinnedWith3dVelocityExtraction,1266
-source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,1369,inline_assembly,FrameUpdateCallBackNonSkinnedWithVelocityExtraction,1365
 source/game_sa/Radar.cpp,460,naked,CRadar::TransformRadarPointToScreenSpace,460
 source/game_sa/Radar.cpp,461,inline_assembly,CRadar::TransformRadarPointToScreenSpace,460
 source/game_sa/Radar.cpp,529,inline_assembly,CRadar::CalculateCachedSinCos,513

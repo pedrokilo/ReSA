@@ -6,7 +6,7 @@ from collections import Counter
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from runtime_runner import run_case,digest
-PROBE_HASH='1c01208a8ae43d5b125309f2b35a0884a28634e2dbcbcffb72b2ab486a7eb633'
+PROBE_HASH='55beca18a14b86900b167b9be677ddd375ad371d5ced01e654f07fb72efa3c67'
 
 def compare(a,b):
     if isinstance(a,dict):
@@ -22,9 +22,9 @@ def compare(a,b):
         return max((compare(x,y) for x,y in zip(a,b)),default=0.)
     if isinstance(a,float) or isinstance(b,float):
         if not isinstance(a,(int,float)) or not isinstance(b,(int,float)) or not math.isfinite(a) or not math.isfinite(b):raise ValueError('Invalid numeric result')
-        error=abs(a-b)
-        if error>1e-5:raise ValueError('Numeric mismatch')
-        return error
+        # Comparacion EXACTA (bits del double, incluido el signo del cero): sin tolerancia
+        if repr(float(a))!=repr(float(b)):raise ValueError('Numeric mismatch')
+        return 0.
     if a!=b:raise ValueError('Value mismatch')
     return 0.
 
@@ -43,7 +43,7 @@ def analyze(path):
         if not r['equal'] or not r['bounded'] or r['original_candidate_calls']!=0 or r['candidate_calls']!=1:raise RuntimeError('Caso divergente: '+str(r['pair']))
         maximum=max(maximum,compare(r['original'],r['candidate']))
     if len(completed)!=1 or not completed[0]['state_restored']:raise RuntimeError('Estado no restaurado.')
-    return dict(pairs=28672,function_pairs=expected,all_equal=True,max_error=maximum,tolerance=1e-5,state_restored=True,log_sha256=digest(path))
+    return dict(pairs=28672,function_pairs=expected,all_equal=True,max_error=maximum,tolerance=0.0,state_restored=True,log_sha256=digest(path))
 
 if __name__=='__main__':
     if len(sys.argv)==3 and sys.argv[1]=='--analyze':

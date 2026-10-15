@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 
 #include "Ped.h"
 #include "PedPlacement.h"
+#include "X87Math.h"
 
 #include "PedType.h"
 #include "Buoyancy.h"
@@ -872,46 +873,27 @@ void CPed::ClearAimFlag() {
 * @returns Which quadrant a given point is in relative to the ped's rotation. (Google: "Angle quadrants" - https://www.mathstips.com/wp-content/uploads/2014/03/unit-circle.png)
 * @param point Point should be relative to the ped's position. Eg.: point = actualPoint - ped.GetPostion2D()
 */
-int32 CPed::GetLocalDirection(const CVector2D& point) const {
+#pragma runtime_checks("", off)
+__declspec(safebuffers) int32 CPed::GetLocalDirection(const CVector2D& point) const {
     // Como el original (0x5DEF60): fpatan a precision completa, constantes del EXE (pi/4 0x859AB0, 2pi 0x858CBC,
     // 2/pi 0x858FB8; NO 90 grados), bucle mientras el angulo sea < 0, truncado a 64 bits (_ftol2) y el resultado
     // solo se reduce modulo 4 cuando es > 3 (un valor <= 3, incluido uno negativo o INT_MIN por NaN, se devuelve tal cual).
-    static const float kQuarterPi = std::bit_cast<float>(0x3F490FDBu);
-    static const float kTwoPi     = std::bit_cast<float>(0x40C90FDBu);
-    static const float kScale     = std::bit_cast<float>(0x3F22F983u);
-    static const float kZero      = 0.0f;
-    const auto* const self = this;
-    const auto* const pt = &point;
-    float scaled;
-    __asm {
-        mov   eax, pt
-        mov   ecx, self
-        fld   dword ptr [eax]
-        fchs
-        fld   dword ptr [eax+4]
-        fpatan
-        fsub  dword ptr [ecx+558h]
-        fadd  dword ptr [kQuarterPi]
-        fcom  dword ptr [kZero]
-        fnstsw ax
-        test  ah, 5
-        jp    L_done
-    L_loop:
-        fadd  dword ptr [kTwoPi]
-        fcom  dword ptr [kZero]
-        fnstsw ax
-        test  ah, 5
-        jnp   L_loop
-    L_done:
-        fmul  dword ptr [kScale]
-        fstp  dword ptr [scaled]
+    // La parte x87 (fpatan(-x, y) - rotacion de 0x558, + pi/4, + 2pi mientras < 0, * 2/pi y _ftol2) esta en X87Math.cpp.
+    //
+    // Registros de salida del EXE (0x5DEFC5, ret 4), que reproduce ResidueRegsCpp (X87Math.h) como ultima llamada:
+    //   entero <= 3 : EAX/ECX/EDX = los que deja _ftol2 (0x821B40) con ECX de entrada = this (ver Ftol2RegsCpp)
+    //   entero  > 3 : ECX = ((n - 4) >> 2) << 2, EDX = 0xFFFFFFFC - ECX, EAX = n + EDX (lea/shr/shl; mov/sub; add)
+    // Sin comprobaciones de ejecucion (RTC) ni cookie tras esa llamada (contrib/audit_register_residue.py).
+    const Ftol2Regs r = PedLocalDirectionRegsCpp(&point.x, m_fCurrentRotation, static_cast<uint32>(reinterpret_cast<uintptr_t>(this)));
+    uint32 eax = r.eax, ecx = r.ecx, edx = r.edx;
+    if (static_cast<int32>(eax) > 3) {
+        ecx = ((eax - 4u) >> 2) << 2;
+        edx = 0xFFFFFFFCu - ecx;
+        eax += edx;
     }
-    int32 dir = (int32)(int64)scaled;
-    if (dir > 3) {
-        dir += -4 - (int32)(((uint32)(dir - 4) >> 2) << 2);
-    }
-    return dir;
+    return static_cast<int32>(ResidueRegsCpp(ecx, edx, eax));
 }
+#pragma runtime_checks("", restore)
 
 /*!
 * @addr 0x5DEFD0
@@ -1268,6 +1250,14 @@ bool CPed::IsPlayer() const
     return false;
 }
 
+// Ayudantes de X87Math.cpp (PedAtanNegXYDblCpp / PedAtanNegXYAddDblCpp) que devuelven un double: el fpatan(-x, y) [+ add] queda sin redondear en ST0.
+// Aqui se declaran como float (alias del enlazador) para que el llamador reciba ST0 tal cual y lo guarde con fstp, como el EXE
+// (mismo mecanismo que PlaceableHeadingFltCpp en Placeable.cpp).
+extern "C" float __cdecl PedAtanNegXYFltCpp(float x, float y);
+extern "C" float __cdecl PedAtanNegXYAddFltCpp(float x, float y, float add);
+#pragma comment(linker, "/alternatename:_PedAtanNegXYFltCpp=_PedAtanNegXYDblCpp")
+#pragma comment(linker, "/alternatename:_PedAtanNegXYAddFltCpp=_PedAtanNegXYAddDblCpp")
+
 namespace {
 // Como el original: constantes exactas del EXE (las de common.h son imprecisas)
 constexpr float PedE_PI      = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
@@ -1292,33 +1282,10 @@ CVector PedE_TransformPoint(const CMatrix& m, const CVector& v) {
     };
 }
 
-// Como el original: atan2(-x, y) con fpatan a precision completa (el resultado se redondea al guardarlo)
-__declspec(naked) float __cdecl PedE_AtanNegXY(float x, float y) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fchs
-        fld  dword ptr [esp + 8]
-        fpatan
-        ret
-    }
-}
-
-// Como el original: atan2(-x, y) + add, sumando con el arcotangente sin redondear
-__declspec(naked) float __cdecl PedE_AtanNegXYAdd(float x, float y, float add) {
-    __asm {
-        fld  dword ptr [esp + 4]
-        fchs
-        fld  dword ptr [esp + 8]
-        fpatan
-        fadd dword ptr [esp + 12]
-        ret
-    }
-}
-
 // Como el original: rumbo de la entidad (matriz: fpatan; sin matriz: el rumbo guardado) + add
 float PedE_HeadingAdd(const CEntity* e, float add) {
     if (const auto* const m = e->m_matrix) {
-        return PedE_AtanNegXYAdd(m->GetForward().x, m->GetForward().y, add);
+        return PedAtanNegXYAddFltCpp(m->GetForward().x, m->GetForward().y, add);
     }
     return e->m_placement.m_fHeading + add;
 }
@@ -1450,7 +1417,7 @@ void CPed::PositionAttachedPed() {
     // Como el original: Multiply3x3 (0x59C790) en el orden de sumas del EXE
     attachedMatrix.GetPosition() += PedE_Multiply3x3(attachedMatrix, offset);
     // Como el original: fpatan a precision completa
-    const auto attachedHeading = PedE_AtanNegXY(attachedMatrix.GetForward().x, attachedMatrix.GetForward().y);
+    const auto attachedHeading = PedAtanNegXYFltCpp(attachedMatrix.GetForward().x, attachedMatrix.GetForward().y);
 
     if (!IsPlayer()) {
         auto heading = attachedHeading;
@@ -2146,34 +2113,15 @@ void CPed::ProcessBuoyancy()
                 return;
         }
 
-        // Como el original: pow(0,9, paso) con el pow del CRT del EXE (0x822130, precisión x87 completa) y producto a float
-        float ts = CTimer::GetTimeStep();
-        float* pSpeed = &m_vecMoveSpeed.x;
-        const double base = (double)0.9F; // 0x86C308
-        const float zero = 0.0F;
-        __asm {
-            fld   qword ptr [base]
-            fld   dword ptr [ts]
-            mov   eax, 0x822130
-            call  eax
-            mov   ecx, pSpeed
-            fld   st(0)
-            fmul  dword ptr [ecx]
-            fstp  dword ptr [ecx]
-            fld   st(0)
-            fmul  dword ptr [ecx + 4]
-            fstp  dword ptr [ecx + 4]
-            fld   dword ptr [ecx + 8]
-            fcomp dword ptr [zero]
-            fnstsw ax
-            test  ah, 5
-            jp    skipZ
-            fmul  dword ptr [ecx + 8]
-            fstp  dword ptr [ecx + 8]
-            jmp   doneZ
-        skipZ:
-            fstp  st(0)
-        doneZ:
+        // Como el original: pow(0,9, paso) con el pow del CRT del EXE (0x822130, precisión x87 completa) y producto a float;
+        // x e y siempre, z solo si es negativa (fcomp ordenado: con NaN no se multiplica). PowScaleVector3Cpp calcula los tres
+        // productos con el mismo factor sin redondear (X87Math.cpp) sobre una copia, y z solo se vuelca si cumple la condición.
+        CVector damped = m_vecMoveSpeed;
+        PowScaleVector3Cpp(&damped.x, 0.9F, CTimer::GetTimeStep()); // 0x86C308 = (double)0.9F
+        m_vecMoveSpeed.x = damped.x;
+        m_vecMoveSpeed.y = damped.y;
+        if (m_vecMoveSpeed.z < 0.0F) {
+            m_vecMoveSpeed.z = damped.z;
         }
 
         return;
@@ -2616,12 +2564,14 @@ void CPed::CalculateNewVelocity() {
     if (m_pedIK.bSlopePitch) {
         if (m_nPedState != PEDSTATE_DIE && !bFallenDown
             && (m_nMoveState < PEDMOVE_WALK || g_surfaceInfos.IsStairs(m_nContactSurface) || bPedHitWallLastFrame)) {
-            const float decay = m_pedIK.m_fSlopePitch != 0.0f || m_pedIK.m_fSlopeRoll != 0.0f ? std::pow(slopeDecay, step) : 0.0f;
+            const float decay = m_pedIK.m_fSlopePitch != 0.0f || m_pedIK.m_fSlopeRoll != 0.0f ? CnvDecayPowCpp(slopeDecay, step) : 0.0f; // _CIpow del EXE (0x822130), fstp dword
             m_pedIK.m_fSlopePitch = std::abs(m_pedIK.m_fSlopePitch) > 0.01f ? m_pedIK.m_fSlopePitch * decay : 0.0f;
             m_pedIK.m_fSlopeRoll = std::abs(m_pedIK.m_fSlopeRoll) > 0.02f ? m_pedIK.m_fSlopeRoll * decay : 0.0f;
         } else {
-            m_pedIK.m_fSlopeRoll = m_nPedState == PEDSTATE_DIE || bFallenDown ? std::asin(std::clamp(slopeRight, -1.0f, 1.0f)) : 0.0f;
-            m_pedIK.m_fSlopePitch = std::asin(std::clamp(slopeForward, -1.0f, 1.0f)) * (1.0f - slopeBlend) + slopeBlend * m_pedIK.m_fSlopePitch;
+            // _CIasin del EXE (0x821E70) a 24 bits (fpatan/fsqrt redondeados a float), no el asinf de la CRT de la DLL.
+            m_pedIK.m_fSlopeRoll = m_nPedState == PEDSTATE_DIE || bFallenDown ? CnvAsinFloatCpp(std::clamp(slopeRight, -1.0f, 1.0f)) : 0.0f;
+            // El asin del EXE queda en ST0 y se multiplica por (1 - mezcla) sin pasar por float (0x5E5131..0x5E514D).
+            m_pedIK.m_fSlopePitch = CnvBlendedAsinCpp(std::clamp(slopeForward, -1.0f, 1.0f), slopeBlend, m_pedIK.m_fSlopePitch);
         }
     } else if (m_nMoveState >= PEDMOVE_WALK && !IsPlayer()) {
         // The original clears the roll even after calculating its decay.
@@ -2629,8 +2579,9 @@ void CPed::CalculateNewVelocity() {
     }
     const float forwardShift = std::sqrt(std::max(1.0f - slopeForward * slopeForward, 0.0f)) * m_vecAnimMovingShiftLocal.y;
     const float rightShift = std::sqrt(std::max(1.0f - slopeRight * slopeRight, 0.0f)) * m_vecAnimMovingShiftLocal.x;
-    m_vecAnimMovingShift = CVector2D{forward.x * forwardShift, forward.y * forwardShift};
-    m_vecAnimMovingShift += CVector2D{right.x * rightShift, right.y * rightShift};
+    // El EXE pone 0x550/0x554 a +0.0 y les suma cada termino (0x5E51F9..0x5E5268): un -0.0 del primer producto pasa a +0.0.
+    m_vecAnimMovingShift.x = CnvZeroPlusSumCpp(forward.x * forwardShift, right.x * rightShift);
+    m_vecAnimMovingShift.y = CnvZeroPlusSumCpp(forward.y * forwardShift, right.y * rightShift);
     m_vecAnimMovingShift *= step < 0.01f && !CTimer::bSlowMotionActive ? 0.01f : 1.0f / step;
 }
 
@@ -2657,34 +2608,76 @@ void CPed::ClearAll() {
     }
 }
 
+// Partículas de pisada. En el EXE (0x5E3630 lluvia, 0x5E37C0 polvo) los argumentos van en registros (EBX/ESI = peatón, EDI/EBX = posición,
+// EAX = 4 partículas; el argumento de la pila no se lee), así que no se pueden llamar sin ensamblador y se reproducen aquí. La rand() del EXE
+// (0x821B1E) se pide a CGeneral::GetRandomNumber (mismo valor) en el mismo orden: x, y (y velocidad x, y en el polvo).
+namespace {
+constexpr float kFootRandScale = std::bit_cast<float>(0x38000100u); // 0x858C7C = 1/32767
+
+// 0x534540 y comprobación de distancia a la cámara: (dy² + dx²) > 100 (0x858628) sale; con NaN no sale.
+bool FootParticlesInRange(CPed* ped, const CVector* position) {
+    if (!ped->GetIsOnScreen()) {
+        return false;
+    }
+    const CVector& camera = TheCamera.GetPosition();
+    const float dx = position->x - camera.x;
+    const float dy = position->y - camera.y;
+    return !(dy * dy + dx * dx > 100.0F);
+}
+
+// ((rand * 1/32767) * 0,2 (0x858CC4) + base) - 0,1 (0x858B1C), un redondeo a float por operación.
+float FootParticleJitter(float base) {
+    const float random = static_cast<float>(CGeneral::GetRandomNumber());
+    return ((random * kFootRandScale) * 0.2F + base) - 0.1F;
+}
+} // namespace
+
+// 0x5E3630
+__declspec(noinline) static void EmitFootRainParticles(CPed* ped, CVector* position) {
+    if (!FootParticlesInRange(ped, position)) {
+        return;
+    }
+    const FxPrtMult_c mult{ 1.0F, 1.0F, 1.0F, 0.1F, 0.15F, 0.0F, 0.15F };
+    for (int32 i = 0; i < 4; ++i) {
+        CVector point = *position;
+        point.x = FootParticleJitter(point.x);
+        point.y = FootParticleJitter(point.y);
+        const CVector still{ 0.0F, 0.0F, 0.0F };
+        const CVector& forward = ped->GetMatrix().GetForward(); // RwMatrix + 0x10
+        // fmul del x87 (0x858CE8 = 1,5): el SSE de la DLL descartaria los subnormales que el EXE conserva
+        const CVector moving{ X87TimesFloatCpp(forward.x, 1.5F), X87TimesFloatCpp(forward.y, 1.5F), X87TimesFloatCpp(forward.z, 1.5F) };
+        g_fx.m_Splash->AddParticle(point, still, 0.0F, mult, -1.0F, 1.2F, 0.6F, false);
+        g_fx.m_Splash->AddParticle(point, moving, 0.0F, mult, -1.0F, 1.2F, 0.6F, false);
+    }
+}
+
+// 0x5E37C0
+__declspec(noinline) static void EmitFootDustParticles(CPed* ped, CVector* position) {
+    if (!FootParticlesInRange(ped, position)) {
+        return;
+    }
+    const FxPrtMult_c mult{ 1.0F, 1.0F, 1.0F, 0.1F, 0.15F, 0.0F, 0.15F };
+    if (!g_surfaceInfos.ProducesFootDust(ped->m_nContactSurface)) {
+        return;
+    }
+    for (int32 i = 0; i < 4; ++i) {
+        CVector point = *position;
+        point.x = FootParticleJitter(point.x);
+        point.y = FootParticleJitter(point.y);
+        CVector velocity;
+        // (rand * 1/32767) * 0,3 (0x858C24) - 0,15 (0x858FCC)
+        velocity.x = (static_cast<float>(CGeneral::GetRandomNumber()) * kFootRandScale) * 0.3F - 0.15F;
+        velocity.y = (static_cast<float>(CGeneral::GetRandomNumber()) * kFootRandScale) * 0.3F - 0.15F;
+        velocity.z = 0.0F;
+        if (!StaticRef<uint8>(0xB72C70)) { // el EXE solo emite si este byte es 0
+            g_fx.m_SmokeII3expand->AddParticle(point, velocity, 0.0F, mult, -1.0F, 1.2F, 0.6F, false);
+        }
+    }
+}
+
 /*!
  * @addr 0x5E5380
  */
-// These particle helpers use register arguments in the original executable.
-static void EmitFootRainParticles(CPed* ped, CVector* position) {
-    __asm {
-        mov ebx, ped
-        mov edi, position
-        mov eax, 4
-        push 0x3E19999A
-        mov ecx, 0x5E3630
-        call ecx
-        add esp, 4
-    }
-}
-
-static void EmitFootDustParticles(CPed* ped, CVector* position) {
-    __asm {
-        mov esi, ped
-        mov ebx, position
-        mov eax, 4
-        push 0
-        mov ecx, 0x5E37C0
-        call ecx
-        add esp, 4
-    }
-}
-
 void CPed::DoFootLanded(bool leftFoot, uint8 arg1) {
     if (!bCalledPreRender || m_bDontUpdateHierarchy) return;
     CVector position;
@@ -2785,8 +2778,8 @@ void CPed::PlayFootSteps() {
         }
         if (m_pedAudio.m_bCanAddEvent) {
             const float speed = walk->m_AnimId == ANIM_ID_WALK ? 0.75f : 1.0f;
-            if (time > 0.0f && previous <= 0.0f) m_pedAudio.AddAudioEvent(AE_PED_SKATE_LEFT, std::log10(adhesion) * 20.0f, speed);
-            else if (adhesion > 0.2f && time > skateTime && previous <= skateTime) m_pedAudio.AddAudioEvent(AE_PED_SKATE_RIGHT, std::log10(adhesion) * 20.0f, speed);
+            if (time > 0.0f && previous <= 0.0f) m_pedAudio.AddAudioEvent(AE_PED_SKATE_LEFT, AudioLog10Times20Cpp(adhesion), speed);
+            else if (adhesion > 0.2f && time > skateTime && previous <= skateTime) m_pedAudio.AddAudioEvent(AE_PED_SKATE_RIGHT, AudioLog10Times20Cpp(adhesion), speed);
         }
         landing(); return;
     }
@@ -3437,17 +3430,8 @@ void CPed::PreRenderAfterTest()
     }
 
     if (m_Wobble > 0.0f) {
-        // Como el original: fsin a precisión completa (x87), * 5 (0x8D21F0) y cambio de signo
-        float wobble = m_Wobble;
-        float factor = 5.0f;
-        float angle;
-        __asm {
-            fld   wobble
-            fsin
-            fmul  factor
-            fchs
-            fstp  angle
-        }
+        // Como el original: fsin a precisión completa (x87), * 5 (0x8D21F0) por fmul y cambio de signo (fchs, exacto sobre el float)
+        const float angle = -TrigSimpleSinMulCpp(m_Wobble, 5.0f);
         m_Wobble = m_Wobble - CTimer::GetTimeStep() * m_WobbleSpeed;
 
         // Como el original: los huesos 302/301 solo para NO jugadores (tipo distinto de 0 y 1)
@@ -4130,7 +4114,8 @@ void CPed::KillPedWithCar(CVehicle* car, float fDamageIntensity, bool bPlayDeadA
                     distance = car->GetColModel()->m_boundBox.m_vecMax.y;
                 }
                 float lift = (top - GetPosition().z) / (distance / car->m_vecMoveSpeed.Magnitude());
-                lift = float(lift * (double(CGeneral::GetRandomNumber() & 255) * 0.002 + 1.5));
+                // El EXE (0x5F094E): fild, fmul 0.002, fadd 1.5, fmul lift con cada paso redondeado a 24 bits
+                lift = KpcBounceLiftScaleCpp(lift, CGeneral::GetRandomNumber() & 255);
                 auto travel = car->m_vecMoveSpeed;
                 travel.Normalise();
                 m_vecMoveSpeed = travel * (lift * 0.2f);
