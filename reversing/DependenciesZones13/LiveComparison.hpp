@@ -29,7 +29,7 @@ inline Fpu CaptureFP(){Fpu f{};auto* p=f.state.data();auto* m=&f.mxcsr;__asm {mo
 inline void RestoreFP(const Fpu& f){const auto* p=f.state.data();const auto m=f.mxcsr;__asm {mov eax,p} __asm {frstor [eax]} __asm {ldmxcsr m}}
 inline void Write(const json& r){ReversingProbe::PumpMessages();log<<r.dump()<<'\n';log.flush();}
 struct ABI {uint32 eax,ecx,edx;bool stack,nv,seh;};
-inline ABI Gate(uintptr_t entry,uint32 seed){uint32 a{},c{},d{},sp0{},sp1{},b0{},b1{},s0{},s1{},d0{},d1{},p0{},p1{},h0{},h1{};
+inline ABI Gate(uintptr_t entry,uint32 seed,uint32 seedC,uint32 seedD){uint32 a{},c{},d{},sp0{},sp1{},b0{},b1{},s0{},s1{},d0{},d1{},p0{},p1{},h0{},h1{};
  __asm {
   mov sp0,esp
   mov b0,ebx
@@ -39,8 +39,8 @@ inline ABI Gate(uintptr_t entry,uint32 seed){uint32 a{},c{},d{},sp0{},sp1{},b0{}
   mov eax,fs:[0]
   mov h0,eax
   mov eax,seed
-  mov ecx,137AFF01h
-  mov edx,0C0DE5921h
+  mov ecx,seedC
+  mov edx,seedD
   call entry
   mov a,eax
   mov c,ecx
@@ -59,6 +59,8 @@ inline ABI Gate(uintptr_t entry,uint32 seed){uint32 a{},c{},d{},sp0{},sp1{},b0{}
 inline constexpr float coordinates[]{-2700,-2100,-1500,-900,-300,300,900,1500,2100,2700,-3000,-2400,-1800,-1200,0,2999};
 inline constexpr unsigned cells[]{0,1,2,3,4,5,6,7,8,9,0,1,2,3,5,9};
 inline uint32 ExpectedLevel(const CVector& v,unsigned count){auto* zones=CTheZones::MapZoneArray.data();for(unsigned i=1;i<count;++i){const auto& z=zones[i];if(v.x>=z.m_fX1&&v.x<=z.m_fX2&&v.y>=z.m_fY1&&v.y<=z.m_fY2&&v.z>=z.m_fZ1&&v.z<=z.m_fZ2)return uint8(z.m_nLevel);}return uint8(zones[0].m_nLevel);}
+// 0x56E010, 0x572300 y 0x572270 con el cuerpo del EXE (hooks de la DLL desactivados): los registros ECX/EDX con que sale 0x572800 dependen de su codigo.
+inline bool nativeCollaborators(){constexpr uint8 a[]{0x8B,0x44,0x24,0x08,0x33,0xD2},b[]{0x53,0x55,0x56,0x57,0x66,0x8B},c[]{0x8B,0x4C,0x24,0x08,0x0F,0xBF};return std::equal(std::begin(a),std::end(a),reinterpret_cast<const uint8*>(0x56E010))&&std::equal(std::begin(b),std::end(b),reinterpret_cast<const uint8*>(0x572300))&&std::equal(std::begin(c),std::end(c),reinterpret_cast<const uint8*>(0x572270));}
 inline void Update(){
  if(done)return;char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);const auto dir=std::filesystem::path(exe).parent_path();
  if(!std::filesystem::exists(dir/"dependencieszones13-runtime.start")){done=true;return;}
@@ -93,13 +95,13 @@ inline void Update(){
    const auto inputPlayer=ReversingProbe::Bytes(player,sizeof(CPlayerPed));const auto inputMatrix=matrix?ReversingProbe::Bytes(matrix,sizeof(CMatrixLink)):std::vector<uint8>{};CVector actualCoords{};
    // Invoke the exact current native collaborator ABI, including its hidden return pointer.
    plugin::Call<0x56E010,CVector*,int32>(&actualCoords,-1);bool actorOK=actorIdentity()&&std::memcmp(&actualCoords,&input,12)==0&&inputPlayer==ReversingProbe::Bytes(player,sizeof(CPlayerPed))&&(!matrix||inputMatrix==ReversingProbe::Bytes(matrix,sizeof(CMatrixLink)));
-   bool helperOK=helpersOK()&&nativeOK(),routeOK=false;RestoreFP(fp);const auto abi=route.Invoke(candidate,[&]{routeOK=ReversingProbe::JumpsToDll(0x572800)==candidate;return Gate(0x572800,0xA5000000|scenario);});helperOK&=helpersOK()&&nativeOK();
+   bool helperOK=helpersOK()&&nativeOK(),routeOK=false,nativeColl=false;RestoreFP(fp);const auto abi=route.Invoke(candidate,[&]{routeOK=ReversingProbe::JumpsToDll(0x572800)==candidate;for(int i=0;i<3;++i)if(helpers[i].hook)helpers[i].hook->State(false);nativeColl=nativeCollaborators();const auto gate=Gate(0x572800,0xA5000000|scenario,0x137AFF01u^(scenario*0x9E3779B1u),0xC0DE5921u^(scenario*0x85EBCA77u));for(int i=0;i<3;++i)if(helpers[i].hook)helpers[i].hook->State(helpers[i].enabled);return gate;});helperOK&=helpersOK()&&nativeOK();
    const auto actualGrid=ReversingProbe::Bytes(reinterpret_cast<void*>(0xBA3730),100);const auto actualCount=*reinterpret_cast<uint32*>(0xBA372C),actualLevel=*reinterpret_cast<uint32*>(0xBA6718);auto expectedGrid=inputGrid;const bool changed=!offMap&&!visited&&!interior;if(changed)expectedGrid[cell]=1;
    actorOK&=actorIdentity()&&inputPlayer==ReversingProbe::Bytes(player,sizeof(CPlayerPed))&&(!matrix||inputMatrix==ReversingProbe::Bytes(matrix,sizeof(CMatrixLink)));
-   const bool contract=std::equal(expectedGrid.begin(),expectedGrid.end(),actualGrid.begin())&&actualCount==inputCount+uint32(changed)&&actualLevel==expectedLevel&&*reinterpret_cast<uint8*>(0xA444A4)==uint8(offMap)&&*reinterpret_cast<uint32*>(0xB72914)==uint32(interior)&&mapIntact();const bool guardOK=guards();const auto coordBytes=ReversingProbe::Bytes(&actualCoords,12);restore();
-   return json{{"x_index",xi},{"y_index",yi},{"off_map",offMap},{"visited",visited},{"interior",interior},{"cell",cell},{"input_count",inputCount},{"expected_level",expectedLevel},{"level",actualLevel},{"count",actualCount},{"grid",actualGrid},{"coordinates_bytes",coordBytes},{"cell_changed",changed},{"stack_restored",abi.stack},{"nonvolatile_preserved",abi.nv},{"seh_restored",abi.seh},{"route_ok",routeOK},{"helper_route_ok",helperOK},{"fixture_contract",contract},{"actor_intact",actorOK},{"map_intact",mapIntact()},{"guards_preserved",guardOK},{"state_restored",restored()},{"floating_state_restored",CaptureFP()==fp}};
+   const bool contract=std::equal(expectedGrid.begin(),expectedGrid.end(),actualGrid.begin())&&actualCount==inputCount+uint32(changed)&&actualLevel==expectedLevel&&*reinterpret_cast<uint8*>(0xA444A4)==uint8(offMap)&&*reinterpret_cast<uint32*>(0xB72914)==uint32(interior)&&mapIntact();const bool exeRegs=abi.eax==(changed?inputCount+1u:1u)&&(!(visited&&!offMap&&!interior)||abi.ecx==uint32(cell-9))&&(!changed||abi.edx==cells[yi]);const bool guardOK=guards();const auto coordBytes=ReversingProbe::Bytes(&actualCoords,12);restore();
+   return json{{"x_index",xi},{"y_index",yi},{"off_map",offMap},{"visited",visited},{"interior",interior},{"cell",cell},{"input_count",inputCount},{"expected_level",expectedLevel},{"level",actualLevel},{"count",actualCount},{"grid",actualGrid},{"coordinates_bytes",coordBytes},{"cell_changed",changed},{"eax",abi.eax},{"ecx",abi.ecx},{"edx",abi.edx},{"native_collaborators",nativeColl},{"registers_contract",exeRegs},{"stack_restored",abi.stack},{"nonvolatile_preserved",abi.nv},{"seh_restored",abi.seh},{"route_ok",routeOK},{"helper_route_ok",helperOK},{"fixture_contract",contract},{"actor_intact",actorOK},{"map_intact",mapIntact()},{"guards_preserved",guardOK},{"state_restored",restored()},{"floating_state_restored",CaptureFP()==fp}};
   };
-  const auto original=invoke(false);const auto candidate=invoke(true);bool ok=original==candidate;for(auto k:{"stack_restored","nonvolatile_preserved","seh_restored","route_ok","helper_route_ok","fixture_contract","actor_intact","map_intact","guards_preserved","state_restored","floating_state_restored"})ok&=original[k]==true&&candidate[k]==true;passed&=ok;failures+=!ok;Write({{"event","comparison"},{"function","CTheZones::SetCurrentZoneAsUnlocked"},{"pair",scenario},{"case",scenario},{"original",original},{"candidate",candidate},{"equal",ok},{"accepted",ok}});RestoreFP(fp);
+  const auto original=invoke(false);const auto candidate=invoke(true);bool ok=original==candidate;for(auto k:{"native_collaborators","registers_contract","stack_restored","nonvolatile_preserved","seh_restored","route_ok","helper_route_ok","fixture_contract","actor_intact","map_intact","guards_preserved","state_restored","floating_state_restored"})ok&=original[k]==true&&candidate[k]==true;passed&=ok;failures+=!ok;Write({{"event","comparison"},{"function","CTheZones::SetCurrentZoneAsUnlocked"},{"pair",scenario},{"case",scenario},{"original",original},{"candidate",candidate},{"equal",ok},{"accepted",ok}});RestoreFP(fp);
  }
  Write({{"event","function_summary"},{"function","CTheZones::SetCurrentZoneAsUnlocked"},{"cases",2048},{"failures",failures}});restore();const bool finalMemory=restored(),finalHelpers=helpersOK()&&nativeOK();const bool finalRoute=route.Restore();const bool final=finalMemory&&finalHelpers&&finalRoute;RestoreFP(fp);
  Write({{"event",passed&&final?"complete":"error"},{"pairs",2048},{"state_restored",final},{"helper_route_ok",helpersOK()},{"native_complete_bodies_ok",nativeOK()},{"floating_state_restored",CaptureFP()==fp}});RestoreFP(fp);

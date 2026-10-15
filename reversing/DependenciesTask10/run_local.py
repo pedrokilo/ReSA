@@ -11,7 +11,8 @@ EXPECTED={f'CPedGroups::{name}':2048 for name in ('AddGroup','Init','CleanUpForS
 HELPERS={0x5FC150,0x5F7250,0x5F80D0,0x5F7350,0x5E95B0,0x571A00,0x571B70,0x5DF8F0,0x61A5A0,0x61A5B0,0x61A500,0x62F310}
 GATES=('stack_restored','nonvolatile_preserved','seh_restored','route_ok','helper_route_ok',
        'references_valid','fixture_contract','guards_preserved','resources_balanced',
-       'state_restored','floating_state_restored','private_arenas_restored','original_task_pool_intact')
+       'state_restored','floating_state_restored','private_arenas_restored','original_task_pool_intact',
+       'regs_contract','exe_collaborators')
 
 def analyze(path):
     summary=common_analyzer(EXPECTED)(path)
@@ -24,7 +25,7 @@ def analyze(path):
     if not 0<capacity<=4096 or begin[0]['original_task_storage_bytes']!=capacity*0x80 or begin[0]['original_task_bitmap_bytes']!=capacity:raise RuntimeError('Incomplete original-pool snapshot')
     helpers=begin[0]['helper_routes']
     if len(helpers)!=12 or {h['entry'] for h in helpers}!=HELPERS or not all(h['route_ok'] and h['module'] for h in helpers):raise RuntimeError('Missing actual collaborator proof')
-    cases={fn:set() for fn in EXPECTED};profiles={fn:set() for fn in EXPECTED};pairs=set()
+    cases={fn:set() for fn in EXPECTED};profiles={fn:set() for fn in EXPECTED};seeds={fn:set() for fn in EXPECTED};pairs=set()
     for r in rows:
         if r['event'].startswith('first_chance_av'):raise RuntimeError('Invalid memory access')
         if r['event']!='comparison':continue
@@ -35,13 +36,16 @@ def analyze(path):
         for side in ('original','candidate'):
             value=r[side]
             if not isinstance(value,dict) or not all(value.get(k) is True for k in GATES):raise RuntimeError('NULL side or failed resource/ABI gate')
-            mask=value['active_mask'];mode=value['member_mode'];tasks=value['has_tasks'];profiles[fn].add((mask,mode,tasks))
+            seeds[fn].add((value['seed_eax'],value['seed_ecx'],value['seed_edx']));mask=value['active_mask'];mode=value['member_mode'];tasks=value['has_tasks'];profiles[fn].add((mask,mode,tasks))
             selected=next((i for i in range(8) if not(mask&(1<<i))),-1) if fn.endswith('AddGroup') else -1
             if value['selected']!=selected or (fn.endswith('AddGroup') and value['return']!=selected):raise RuntimeError('Wrong first inactive group')
+            if not all(isinstance(value.get(k),int) for k in ('eax','ecx','edx','seed_eax','seed_ecx','seed_edx')) or not {0x5F80D0,0x5F7350,0x5E95B0,0x571A00,0x61A5B0}<=set(value['exe_collaborators_off']):raise RuntimeError('Register capture or EXE collaborator routing missing')
             if len(value['groups'])!=8*0x2D4 or len(value['active'])!=8 or len(value['indices'])!=16 or len(value['task_states'])!=16:raise RuntimeError('Truncated object/pool observation')
             if tasks:
                 if value['tasks_acquired']!=8 or len(value['task_virtual_routes'])!=8 or not all(h['route_ok'] and h['module'] for h in value['task_virtual_routes']):raise RuntimeError('Missing genuine task destruction routes')
             elif value['tasks_acquired'] or value['task_virtual_routes']:raise RuntimeError('Unexpected fixture task')
+    for fn,seen in seeds.items():
+        if len(seen)!=2048:raise RuntimeError('Entry register seeds not distinct per case')
     if pairs!=set(range(6144)) or any(v!=set(range(2048)) for v in cases.values()):raise RuntimeError('Incomplete coverage')
     expected_profiles={(mask,mode,tasks) for mask in range(256) for mode in range(4) for tasks in (False,True)}
     if any(v!=expected_profiles for v in profiles.values()):raise RuntimeError('Missing active/member/task branches')

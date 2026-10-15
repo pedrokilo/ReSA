@@ -299,7 +299,36 @@ static constexpr float kF_40C90FDB = std::bit_cast<float>(0x40C90FDBu);
 static constexpr float kF_42652EE0 = std::bit_cast<float>(0x42652EE0u);
 static constexpr float kF_42652EED = std::bit_cast<float>(0x42652EEDu);
 
+// _CIasin (0x821E70) en todas sus ramas; el resultado sale como double porque el EXE lo deja en ST0 despues de guardarlo y recargarlo como qword.
+//  - |x| < 1 (exponente < 0x3FF): fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control (anterior & 0x300) | 0x7F, rama de abajo.
+//  - x == +-1 exacto: +-pi/2 de 64 bits (0x8E313A), que al guardarse como qword (0x828EA7) es el double 0x3FF921FB54442D18 con el signo de x.
+//    No es el fpatan a 24 bits (1.5707964): por 57.29578f da 89.99999 y no 90.
+//  - 1 < |x| < 2, |x| >= 2 e infinitos: dominio. ST0 = "indefinido" real (0x8E3130) y errno = EDOM (33); queda el double 0xFFF8000000000000.
+//  - NaN: se devuelve la propia x con el bit de NaN silencioso puesto y errno = EDOM (33); (el SNaN no llega: fld/fst ya lo silencian).
+// La CRT del EXE (0x83365F/0x82E318/0x82E53A) solo toca ademas las banderas de estado x87 (pegajosas) y el errno del EXE (_errno, 0x82B181).
+static void ExeAsinSetDomainErrno() {
+    using ExeErrnoFn = int*(__cdecl*)();
+    *reinterpret_cast<ExeErrnoFn>(0x0082B181)() = 33; // _errno() del EXE (EDOM)
+}
+
 __declspec(noinline) double __cdecl ExeAsinDoubleCpp(double x) {
+    const unsigned long long bits = std::bit_cast<unsigned long long>(x);
+    const unsigned int exponent = static_cast<unsigned int>(bits >> 32) & 0x7FF00000u;
+    if (exponent >= 0x3FF00000u) {
+        constexpr unsigned long long kFraction = 0x000FFFFFFFFFFFFFull;
+        constexpr unsigned long long kSign = 0x8000000000000000ull;
+        unsigned long long result;
+        if (exponent == 0x7FF00000u && (bits & kFraction) != 0) {
+            result = bits | 0x0008000000000000ull; // NaN silencioso con la misma carga y signo
+            ExeAsinSetDomainErrno();
+        } else if (exponent == 0x3FF00000u && (bits & kFraction) == 0) {
+            result = (bits & kSign) | 0x3FF921FB54442D18ull; // +-pi/2 sin errno
+        } else {
+            result = 0xFFF8000000000000ull; // real indefinido
+            ExeAsinSetDomainErrno();
+        }
+        return std::bit_cast<double>(result);
+    }
     const unsigned previousControl = _control87(0, 0);
     _control87((previousControl & _MCW_PC) | _RC_NEAR | _MCW_EM, _MCW_PC | _MCW_RC | _MCW_EM);
     volatile double angle = atan2(x, sqrt((1.0 + x) * (1.0 - x)));
@@ -2084,3 +2113,40 @@ __declspec(noinline) void __cdecl BoneNodeLocalMatrixCpp(const float* q, float* 
 }
 #pragma float_control(pop)
 
+// --- Lote de tres archivos (cHandlingDataMgr y otros; 15/10/2026) ---
+// cHandlingDataMgr::ConvertBikeData* (fmul x87): producto de dos float con un solo redondeo; en x87 los subnormales se conservan (el SSE de la DLL los descartaria).
+__declspec(noinline) float __cdecl HandlingTimesFloatCpp(float a, float b) {
+    return a * b;
+}
+
+// --- cHandlingDataMgr (lote w20) ---
+__declspec(noinline) float __cdecl HandlingAtofTimes04Cpp(double value) {
+    volatile float result = float(value * 0.4); // fmul qword [0x86A950] a 24 bits y fstp dword
+    return result;
+}
+
+__declspec(noinline) float __cdecl HandlingSinScaledCpp(float angle, float k) {
+    return float(sin(double(angle) * double(k))); // fld, fmul dword, fsin, fstp dword (como TrigCompoundScaledSinMulAdd)
+}
+
+// Orden estricto del EXE (sin reasociar ni sustituir divisiones por constantes); NaN: la comparación falla y el bucle sale.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl HandlingReduceVelocityCpp(float velocity, float accel, float drag) {
+    const double oneSixth = std::bit_cast<double>(0x3FC5555555555554ull); // 0x872350
+    float v = velocity;
+    while (v > 0.0f) {                                    // fcom [0x858B50]; test ah, 0x41
+        v = float(double(v) - 0.01);                      // fsub qword [0x85A308]
+        const float limit = float(double(accel) * oneSixth); // fmul qword [0x872350]
+        float resistance;
+        if (drag < 0.01f) {                               // fcomp [0x858C58]; test ah, 5; jp
+            resistance = -((1.0f / (v * v * drag + 1.0f) - 1.0f) * v);
+        } else {                                          // también con NaN
+            resistance = drag / 1000.0f * 0.5f * v * v;
+        }
+        if (!(limit < resistance)) {                      // fcomp st(1); test ah, 5; jnp
+            break;
+        }
+    }
+    return v;
+}
+#pragma float_control(pop)

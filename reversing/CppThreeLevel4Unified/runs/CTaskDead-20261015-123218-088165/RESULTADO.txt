@@ -1,0 +1,3 @@
+APROBADO: CTaskSimpleDead
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctaskdead\20261015-123218-088165

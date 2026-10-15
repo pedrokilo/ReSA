@@ -4041,5 +4041,185 @@
         "summary": "reversing/CppFiveLevel3Unified/runs\\CTasks15-20261015-105452-637807/summary.json"
       }
     ]
+  },
+  "0x005BD830": {
+    "identity": "cHandlingDataMgr::LoadHandlingData (campo 13: AtofTimes04X87)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/cHandlingDataMgr.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "World11",
+    "run": "20261015-123016-160676",
+    "pairs": 16704,
+    "own_pairs": 16704,
+    "audit": "reversing/CppThreeLevel4Unified/runs\\World11-20261015-123016-160676/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
+    "scope": "HandlingAtofTimes04Cpp: float(atof · 0.4 en double) con un solo redondeo a 24 bits. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x006F5080": {
+    "identity": "cHandlingDataMgr::ConvertDataToGameUnits (SubtractVelocityStepX87 y TimesOneSixthX87)",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/cHandlingDataMgr.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "World11",
+    "run": "20261015-123016-160676",
+    "pairs": 16704,
+    "own_pairs": 16704,
+    "audit": "reversing/CppThreeLevel4Unified/runs\\World11-20261015-123016-160676/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
+    "scope": "HandlingReduceVelocityCpp bajo float_control(precise): el bucle de reducción de velocidad con las constantes double del EXE. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x006F5290": {
+    "identity": "cHandlingDataMgr::ConvertBikeDataToGameUnits (SinX87)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/cHandlingDataMgr.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "World11",
+    "run": "20261015-123016-160676",
+    "pairs": 16704,
+    "own_pairs": 16704,
+    "audit": "reversing/CppThreeLevel4Unified/runs\\World11-20261015-123016-160676/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
+    "scope": "HandlingSinScaledCpp: float(sin(ángulo · k)) con el producto redondeado a 24 bits. m_fFullAnimLean con HandlingTimesFloatCpp (fmul x87). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x006F5240": {
+    "identity": "cHandlingDataMgr::ConvertBikeDataToWorldUnits (AsinDegreesHandlingX87 naked)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/cHandlingDataMgr.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "World11",
+    "run": "20261015-123016-160676",
+    "pairs": 16704,
+    "own_pairs": 16704,
+    "audit": "reversing/CppThreeLevel4Unified/runs\\World11-20261015-123016-160676/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
+    "scope": "ExeAsinDegreesCpp con ExeAsinDoubleCpp reescrito para todas las ramas de _CIasin (0x821E70): |x|<1, ±1 exacto (π/2 de 64 bits), dominio (|x|>1 e infinitos: real indefinido y errno=EDOM) y NaN (propia x silenciada). Los fixtures de World11, Data23 y WeaponFinal2 se ampliaron con entradas ±1, ±1,5, ±2, ±1e30, NaN, ±inf, ±0 y subnormales sin tocar compuertas; los bancos de los demás usuarios (BulletInfo, Weapon, TaskSimpleDead) aprobaron. Además m_fFullAnimLean se multiplica con HandlingTimesFloatCpp (fmul x87): con los fixtures nuevos la multiplicación en SSE de la DLL descartaba subnormales que el EXE conserva (6 de 256 pares). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco.",
+    "additional_banks": [
+      {
+        "bank": "Data23",
+        "run": "20261015-122533-716138",
+        "pairs": 13904,
+        "summary": "reversing/CppThreeLevel4Unified/runs\\Data23-20261015-122533-716138/summary.json"
+      },
+      {
+        "bank": "WeaponFinal2",
+        "run": "20261015-122725-819612",
+        "pairs": 7808,
+        "summary": "reversing/CppThreeLevel4Unified/runs\\WeaponFinal2-20261015-122725-819612/summary.json"
+      },
+      {
+        "bank": "CTaskDead",
+        "run": "20261015-123218-088165",
+        "pairs": 1792,
+        "summary": "reversing/CppThreeLevel4Unified/runs\\CTaskDead-20261015-123218-088165/summary.json"
+      },
+      {
+        "bank": "PickWeap1",
+        "run": "20261015-123336-597200",
+        "pairs": 11020,
+        "summary": "reversing/CppThreeLevel4Unified/runs\\PickWeap1-20261015-123336-597200/summary.json"
+      },
+      {
+        "bank": "WeaponInstant355",
+        "run": "20261015-123442-829673",
+        "pairs": 20480,
+        "summary": "reversing/CppThreeLevel4Unified/runs\\WeaponInstant355-20261015-123442-829673/summary.json"
+      }
+    ]
+  },
+  "0x005FB800": {
+    "identity": "CPedGroups::AddGroup",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/PedGroups.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesTask10",
+    "run": "20261015-121847-483496",
+    "pairs": 6144,
+    "own_pairs": 6144,
+    "audit": "reversing/CppThreeLevel4Unified/runs\\DependenciesTask10-20261015-121847-483496/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
+    "additional_banks": [
+      {
+        "bank": "Game22",
+        "run": "20261015-123629-127288",
+        "pairs": 5824,
+        "summary": "reversing/CppThreeLevel4Unified/runs\\Game22-20261015-123629-127288/summary.json"
+      },
+      {
+        "bank": "ScriptsFinal3",
+        "run": "20261015-123732-441787",
+        "pairs": 16384,
+        "summary": "reversing/CppThreeLevel4Unified/runs\\ScriptsFinal3-20261015-123732-441787/summary.json"
+      },
+      {
+        "bank": "GroupPlacerPending",
+        "run": "20261015-123916-138011",
+        "pairs": 3072,
+        "summary": "reversing/CppThreeLevel4Unified/runs\\GroupPlacerPending-20261015-123916-138011/summary.json"
+      }
+    ],
+    "scope": "AddGroupExe/InitExe/CleanUpForShutDownExe (__fastcall con el ECX/EDX de entrada) terminan en ResidueRegsCpp con los valores de EAX, ECX y EDX con que sale el EXE (modelo del EDX que deja RemoveMember y Flush a partir del análisis del EXE, no del residuo de la DLL). Vacía el grupo como el EXE. El banco DependenciesTask10 ahora compara EAX, ECX y EDX con semillas por caso y devuelve a los colaboradores sus bytes del EXE durante cada llamada. Límite: el modelo supone nulos los eventos y asignadores +0x34, +0x38, +0x2C0 y +0x2C4 del grupo y la rama de miembro no jugador está deducida del EXE sin ejercerse en el banco. Verificado por contrib/audit_register_residue.py. Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005FB8C0": {
+    "identity": "CPedGroups::Init y los puentes naked a RemoveMember y Flush",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/PedGroups.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesTask10",
+    "run": "20261015-121847-483496",
+    "pairs": 6144,
+    "own_pairs": 6144,
+    "audit": "reversing/CppThreeLevel4Unified/runs\\DependenciesTask10-20261015-121847-483496/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
+    "scope": "Igual: la bandera de actividad baja antes de vaciar y ScriptReferenceIndex[g]=1 en los ocho grupos. Reproduce también EAX, ECX y EDX del EXE (ver AddGroup). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x005FB930": {
+    "identity": "CPedGroups::CleanUpForShutDown",
+    "converted_source_functions": 2,
+    "source": "source/game_sa/PedGroups.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesTask10",
+    "run": "20261015-121847-483496",
+    "pairs": 6144,
+    "own_pairs": 6144,
+    "audit": "reversing/CppThreeLevel4Unified/runs\\DependenciesTask10-20261015-121847-483496/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
+    "scope": "Vacía los ocho grupos sin tocar actividad ni índices SCM. Reproduce también EAX, ECX y EDX del EXE (ver AddGroup). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
+  },
+  "0x00572800": {
+    "identity": "CTheZones::SetCurrentZoneAsUnlocked y los cuatro trampolines naked (FindPlayerCoors, GetLevelFromPosition, ZonesVisited y _ftol2)",
+    "converted_source_functions": 5,
+    "source": "source/game_sa/TheZones.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "DependenciesZones13",
+    "run": "20261015-121754-046642",
+    "pairs": 2048,
+    "own_pairs": 2048,
+    "audit": "reversing/CppThreeLevel4Unified/runs\\DependenciesZones13-20261015-121754-046642/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppThreeLevel4Study/README.md",
+    "scope": "Float puro con _ftol2 emulado con enteros (Zones13Ftol2, contrastado contra una simulación del ensamblador) y celda bajo float_control(precise); termina en ResidueRegsCpp con los EAX, ECX y EDX con que sale el EXE en los cuatro caminos (también el residuo de GetLevelFromPosition y FindPlayerCoors). El banco DependenciesZones13 ahora compara los registros con semillas por caso, desactiva durante la compuerta los hooks de las tres colaboradoras para ejecutar las del EXE e incorpora oráculos independientes. Verificado por contrib/audit_register_residue.py (toda salida pasa por el ayudante). Revalidación del banco histórico completo sobre la fuente nueva (sin script de auditoría propio: la evidencia es el resumen y el registro de la corrida). Sin cobertura exhaustiva de x87 más allá de los fixtures del banco."
   }
 }

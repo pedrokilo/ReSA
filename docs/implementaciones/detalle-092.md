@@ -242,7 +242,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| ResidueEcx::Get(unsigned int eaxValue) | [source/game_sa/X87Math.cpp:389](../../source/game_sa/X87Math.cpp#L389) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ResidueEcx::Get(unsigned int eaxValue) | [source/game_sa/X87Math.cpp:418](../../source/game_sa/X87Math.cpp#L418) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1839"></a>
 

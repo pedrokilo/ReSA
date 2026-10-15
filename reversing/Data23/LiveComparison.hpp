@@ -137,6 +137,12 @@ inline bool __cdecl SPlos(const CVector& o,const CVector& t,CColPoint& cp,CEntit
     auto u=[](float a,float c){ return a+(c-a)*float(SNext()%100000)/100000.f; };
     cp.m_vecPoint=CVector{u(o.x,t.x),u(o.y,t.y),u(o.z,t.z)};
     cp.m_vecNormal=CVector{u(-1.f,1.f),u(-1.f,1.f),u(-1.f,1.f)};
+    { // asin del CRT del EXE con argumento -dot >= 1 (+-1 aprox., 1.5, 2, 1e30, FLT_MAX por eje -> +inf) y diminuto (subnormales)
+        const uint32 mode=SNext()%5;
+        const CVector d{t.x-o.x,t.y-o.y,t.z-o.z}; const float len=std::sqrt((d.x*d.x+d.y*d.y)+d.z*d.z);
+        if(mode==0&&len>0.f){ static const float sc[]{1.f,0.99999994f,1.0000001f,1.5f,2.f,1e30f,1e-30f,1e-40f,1e-44f}; const float k=sc[SNext()%std::size(sc)]/len; cp.m_vecNormal=CVector{-d.x*k,-d.y*k,-d.z*k}; }
+        else if(mode==1&&len>0.f){ const float m=3.4028235e38f; cp.m_vecNormal=CVector{d.x>0.f ? -m : m,d.y>0.f ? -m : m,d.z>0.f ? -m : m}; }
+    }
     *reinterpret_cast<float*>(b+0xC)=0.f; *reinterpret_cast<float*>(b+0x1C)=0.f; *reinterpret_cast<float*>(b+0x28)=u(0.f,1.f);
     static const uint8 pieces[]{0,3,9,12,13,14,15,16,17,20};
     b[0x24]=pieces[SNext()%std::size(pieces)];

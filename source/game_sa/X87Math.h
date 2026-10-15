@@ -121,7 +121,8 @@ unsigned int __cdecl X87CompareStatusCpp(const float* a, const float* b);
 unsigned int __fastcall EntryEaxCpp();
 
 // Lote de catorce archivos (12/10/2026).
-// asin del CRT del EXE (_CIasin, 0x821E70) sobre un double: fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control del EXE.
+// asin del CRT del EXE (_CIasin, 0x821E70) sobre un double, todas las ramas: |x| < 1 fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control del EXE;
+// +-1 da +-pi/2 (double 0x3FF921FB54442D18); |x| > 1 e infinitos dan -NaN indefinido (0xFFF8000000000000) y NaN da x silenciosa (ambos con errno = EDOM del EXE).
 double __cdecl ExeAsinDoubleCpp(double x);
 // CIKChain: boneSpeed · acos(dot) · chainSpeed · 57.29578f (0x617AA3..0x617AC5), con el acos del CRT del EXE.
 float __cdecl IKChainRotationAngleCpp(float boneSpeed, float dot, float chainSpeed);
@@ -411,3 +412,13 @@ void __cdecl BoneNodeQuatToEulerCpp(const float* q, float* out);
 void __cdecl BoneNodeLimitClampCpp(float* euler, const float* limitMin, const float* limitMax, bool narrowZ, float poseZ);
 // BoneNode_c::CalcWldMat (0x616CD0): filas right/up/at (3 floats cada una) de la matriz local a partir del quaternion {x, y, z, w} con s = 2/(x²+y²+z²+w²).
 void __cdecl BoneNodeLocalMatrixCpp(const float* q, float* right, float* up, float* at);
+
+// Lote de tres archivos (cHandlingDataMgr y otros; 15/10/2026).
+// Producto de dos float con la fmul del x87 (conserva subnormales).
+float __cdecl HandlingTimesFloatCpp(float a, float b);
+// cHandlingDataMgr::LoadHandlingData (0x5BE2AC): float(valor · 0.4) con 0.4 double (0x86A950) y un solo redondeo a 24 bits (valor = atof).
+float __cdecl HandlingAtofTimes04Cpp(double value);
+// cHandlingDataMgr::ConvertBikeDataToGameUnits (0x6F5294..0x6F529F): float(sin(angle · k)) con el producto redondeado a 24 bits y fsin a precisión completa.
+float __cdecl HandlingSinScaledCpp(float angle, float k);
+// cHandlingDataMgr::ConvertDataToGameUnits (0x6F50F0..0x6F5158): bucle que reduce la velocidad en 0.01 (double) hasta que accel · (1/6 double) >= resistencia; devuelve la velocidad final.
+float __cdecl HandlingReduceVelocityCpp(float velocity, float accel, float drag);

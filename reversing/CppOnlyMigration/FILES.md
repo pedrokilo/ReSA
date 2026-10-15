@@ -4,7 +4,7 @@
 
 # Archivos pendientes de convertir a C++
 
-30 archivos: 605 apariciones de ensamblador y 206 declaraciones naked.
+27 archivos: 590 apariciones de ensamblador y 195 declaraciones naked.
 
 Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos columnas no se suman como funciones: un cuerpo naked puede contener ensamblador.
 
@@ -28,7 +28,6 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/MemoryMgr.cpp](../../source/game_sa/MemoryMgr.cpp) | 8 | 8 |
 | [source/game_sa/Pad.cpp](../../source/game_sa/Pad.cpp) | 10 | 5 |
 | [source/game_sa/PathFind.cpp](../../source/game_sa/PathFind.cpp) | 7 | 4 |
-| [source/game_sa/PedGroups.cpp](../../source/game_sa/PedGroups.cpp) | 5 | 5 |
 | [source/game_sa/PedIK.cpp](../../source/game_sa/PedIK.cpp) | 8 | 1 |
 | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 6 | 0 |
 | [source/game_sa/Radar.cpp](../../source/game_sa/Radar.cpp) | 10 | 2 |
@@ -37,6 +36,4 @@ Conteo lexico de source/game_sa, excluyendo comentarios y cadenas. Las dos colum
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) | 13 | 13 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp) | 6 | 4 |
 | [source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp](../../source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp) | 7 | 6 |
-| [source/game_sa/TheZones.cpp](../../source/game_sa/TheZones.cpp) | 5 | 5 |
 | [source/game_sa/WaterLevel.cpp](../../source/game_sa/WaterLevel.cpp) | 8 | 3 |
-| [source/game_sa/cHandlingDataMgr.cpp](../../source/game_sa/cHandlingDataMgr.cpp) | 5 | 1 |

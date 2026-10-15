@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "cHandlingDataMgr.h"
+#include "X87Math.h"
 
 auto& VehicleNames = StaticRef<char[210][14]>(0x8D3978);
 
@@ -191,26 +192,11 @@ int32 tBikeHandlingData::InitFromData(int32 id, const char* line) {
     return n == 15 ? -1 : n;
 }
 
-// Como el original: atof devuelve un double y el EXE lo multiplica por 0.4 (double, 0x86A950) en la FPU
-// antes de guardarlo como float (un solo redondeo)
-static const double s_EngineAccelFileMult = 0.4;
-
 // Como el original: helpers del bucle de LoadHandlingData (registros por desplazamiento crudo, como el EXE)
 namespace {
 template<typename T>
 T& HandlingField(void* record, size_t offset) {
     return *reinterpret_cast<T*>(static_cast<uint8*>(record) + offset);
-}
-
-float AtofTimes04X87(const char* token) {
-    const double value = atof(token);
-    float result;
-    __asm {
-        fld    value
-        fmul   s_EngineAccelFileMult
-        fstp   result
-    }
-    return result;
 }
 } // namespace
 
@@ -332,7 +318,7 @@ void cHandlingDataMgr::LoadHandlingData() {
                 case 10: HandlingField<float>(vehicle, 0xA8) = (float)atof(token); break;
                 case 11: HandlingField<uint8>(vehicle, 0x76) = (uint8)atoi(token); break;
                 case 12: HandlingField<float>(vehicle, 0x84) = (float)atof(token); break;
-                case 13: HandlingField<float>(vehicle, 0x7C) = AtofTimes04X87(token); break;
+                case 13: HandlingField<float>(vehicle, 0x7C) = HandlingAtofTimes04Cpp(atof(token)); break; // Como el original: atof * 0.4 (double, 0x86A950), un solo redondeo (0x5BE2AC)
                 case 14: HandlingField<float>(vehicle, 0x80) = (float)atof(token); break;
                 case 15: HandlingField<char>(vehicle, 0x74) = token[0]; break;
                 case 16: HandlingField<char>(vehicle, 0x75) = token[0]; break;
@@ -433,75 +419,14 @@ int32 cHandlingDataMgr::GetHandlingId(const char* nameToFind) {
 static inline auto& s_HandlingAccelConst    = StaticRef<float>(0xC2B9B4); // 1 / (50 * 50)
 static inline auto& s_HandlingVelocityConst = StaticRef<float>(0xC2B9BC); // 0.277778 / 50
 
-// Como el original: el bucle de ConvertDataToGameUnits resta 0.01 en double (0x85A308) y divide la aceleracion
-// entre 6 multiplicando por 1/6 en double (0x872350 = 0x3FC5555555555554): un solo redondeo a 24 bits en la FPU
-static const double s_HandlingVelocityStep = 0.01;
-static const double s_HandlingOneSixth     = std::bit_cast<double>(0x3FC5555555555554ull);
 // Como el original: 0x859878 = 57.29578f (0x42652EE0)
 static const float s_HandlingRadToDeg = std::bit_cast<float>(0x42652EE0u);
 
 namespace {
 
-float SubtractVelocityStepX87(float value) {
-    float result;
-    __asm {
-        fld    value
-        fsub   s_HandlingVelocityStep
-        fstp   result
-    }
-    return result;
-}
-
-float TimesOneSixthX87(float value) {
-    float result;
-    __asm {
-        fld    value
-        fmul   s_HandlingOneSixth
-        fstp   result
-    }
-    return result;
-}
-
-// Como el original: fsin a precision completa (0x6F529D)
-float SinX87(float value) {
-    float result;
-    __asm {
-        fld    value
-        fsin
-        fstp   result
-    }
-    return result;
-}
-
 // Como el original: 0x8595EC = 0.017453292f
 constexpr float HANDLING_DEG_TO_RAD = 0.01745329238474369f;
 
-// asin del CRT del juego (0x821E70): fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control
-// (anterior & 0x300) | 0x7F, como en BulletInfo.cpp; el llamador multiplica en la FPU por 57.29578f
-// antes de redondear (un solo redondeo)
-float __declspec(naked) __cdecl AsinDegreesHandlingX87(float x) {
-    __asm {
-        sub    esp, 4
-        fnstcw word ptr [esp]
-        mov    ax, word ptr [esp]
-        and    ax, 300h
-        or     ax, 7Fh
-        mov    word ptr [esp + 2], ax
-        fldcw  word ptr [esp + 2]
-        fld    dword ptr [esp + 8]
-        fld1
-        fadd   st, st(1)
-        fld1
-        fsub   st, st(2)
-        fmulp  st(1), st
-        fsqrt
-        fpatan
-        fldcw  word ptr [esp]
-        fmul   dword ptr [s_HandlingRadToDeg]
-        add    esp, 4
-        ret
-    }
-}
 } // namespace
 
 // 0x6F5010
@@ -534,21 +459,8 @@ void cHandlingDataMgr::ConvertDataToGameUnits(tHandlingData* h) {
     h->m_fBuoyancyConstant = h->m_fMass * 0.8f / (float)h->m_nPercentSubmerged;
     h->m_fCollisionDamageMultiplier = massRecpr * h->m_fCollisionDamageMultiplier * 2000.0f;
 
-    auto maxVelocity = velocity;
-    while (maxVelocity > 0.0f) {
-        maxVelocity = SubtractVelocityStepX87(maxVelocity);
-        const float engineAccelLimit = TimesOneSixthX87(accel);
-        float resistance;
-        if (h->m_fDragMult < 0.01f) {
-            resistance = -((1.0f / (maxVelocity * maxVelocity * h->m_fDragMult + 1.0f) - 1.0f) * maxVelocity);
-        } else { // Como el original: tambien con NaN
-            resistance = h->m_fDragMult / 1000.0f * 0.5f * maxVelocity * maxVelocity;
-        }
-        // Como el original: solo se sigue si el limite es estrictamente menor (NaN sale)
-        if (!(engineAccelLimit < resistance)) {
-            break;
-        }
-    }
+    // Como el original (0x6F50F0..0x6F5158): el bucle de reduccion va entero en X87Math (0,01 y 1/6 en double, NaN sale)
+    const float maxVelocity = HandlingReduceVelocityCpp(velocity, accel, h->m_fDragMult);
 
     if (h->m_nVehicleId == VT_RCBANDIT) { // Como el original: usa la velocidad sin reducir
         t->m_MaxFlatVelocity    = velocity;
@@ -572,18 +484,18 @@ void cHandlingDataMgr::ConvertDataToGameUnits(tHandlingData* h) {
 
 // 0x6F5240
 void cHandlingDataMgr::ConvertBikeDataToWorldUnits(tBikeHandlingData* bikeHandling) {
-    bikeHandling->m_fMaxLean      = AsinDegreesHandlingX87(bikeHandling->m_fMaxLean);
-    bikeHandling->m_fFullAnimLean = bikeHandling->m_fFullAnimLean * s_HandlingRadToDeg;
-    bikeHandling->m_fWheelieAng   = AsinDegreesHandlingX87(bikeHandling->m_fWheelieAng);
-    bikeHandling->m_fStoppieAng   = AsinDegreesHandlingX87(bikeHandling->m_fStoppieAng);
+    bikeHandling->m_fMaxLean      = ExeAsinDegreesCpp(bikeHandling->m_fMaxLean);
+    bikeHandling->m_fFullAnimLean = HandlingTimesFloatCpp(bikeHandling->m_fFullAnimLean, s_HandlingRadToDeg);
+    bikeHandling->m_fWheelieAng   = ExeAsinDegreesCpp(bikeHandling->m_fWheelieAng);
+    bikeHandling->m_fStoppieAng   = ExeAsinDegreesCpp(bikeHandling->m_fStoppieAng);
 }
 
 // 0x6F5290
 void cHandlingDataMgr::ConvertBikeDataToGameUnits(tBikeHandlingData* bikeHandling) {
-    bikeHandling->m_fMaxLean      = SinX87(bikeHandling->m_fMaxLean * HANDLING_DEG_TO_RAD);
-    bikeHandling->m_fFullAnimLean = bikeHandling->m_fFullAnimLean * HANDLING_DEG_TO_RAD;
-    bikeHandling->m_fWheelieAng   = SinX87(bikeHandling->m_fWheelieAng * HANDLING_DEG_TO_RAD);
-    bikeHandling->m_fStoppieAng   = SinX87(bikeHandling->m_fStoppieAng * HANDLING_DEG_TO_RAD);
+    bikeHandling->m_fMaxLean      = HandlingSinScaledCpp(bikeHandling->m_fMaxLean, HANDLING_DEG_TO_RAD);
+    bikeHandling->m_fFullAnimLean = HandlingTimesFloatCpp(bikeHandling->m_fFullAnimLean, HANDLING_DEG_TO_RAD);
+    bikeHandling->m_fWheelieAng   = HandlingSinScaledCpp(bikeHandling->m_fWheelieAng, HANDLING_DEG_TO_RAD);
+    bikeHandling->m_fStoppieAng   = HandlingSinScaledCpp(bikeHandling->m_fStoppieAng, HANDLING_DEG_TO_RAD);
 }
 
 // 0x006F4F30

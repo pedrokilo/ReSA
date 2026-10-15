@@ -55,6 +55,11 @@ inline json CaseDoBulletImpact(Rng& r){
     CVector s=RV(r,40), e=RV(r,40); if(r.pct(3))e=s;
     if(vk==1&&victim&&victim!=fb&&r.pct(35)){ const CVector vp=EntPos(1); s=CVector{vp.x+r.unit(-0.5f,0.5f),vp.y+r.unit(-0.5f,0.5f),vp.z+r.unit(-0.5f,0.5f)}; }   // disparo a quemarropa: golpe critico (150)
     FillCpTpl(r,s); if(vk==2&&r.pct(50))gCpTpl[0x24]=uint8(13+r.below(4));
+    if(r.pct(30)){ // asin del CRT del EXE con -dot >= 1 (normal no unitaria opuesta al disparo), diminuto o +inf (FLT_MAX por eje)
+        const CVector d{e.x-s.x,e.y-s.y,e.z-s.z}; const float len=std::sqrt((d.x*d.x+d.y*d.y)+d.z*d.z);
+        if(len>0.f){ const float k=r.pickF({1.0f,0.99999994f,1.0000001f,1.5f,2.0f,1e30f,1e-30f,1e-40f,1e-44f})/len; uint8* c=gCpTpl.data();
+            if(r.pct(15)){ const float m=3.4028235e38f; At<float>(c,0x10)=d.x>0.f ? -m : m; At<float>(c,0x14)=d.y>0.f ? -m : m; At<float>(c,0x18)=d.z>0.f ? -m : m; }
+            else { At<float>(c,0x10)=-d.x*k; At<float>(c,0x14)=-d.y*k; At<float>(c,0x18)=-d.z*k; } } }
     std::memcpy(fCpIn.data(),gCpTpl.data(),0x2C);
     const int32 incr=r.pickI({0,0,0,0,1,2,5,-1,-2,-3,-7});
     Patches P;

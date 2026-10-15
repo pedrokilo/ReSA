@@ -1,0 +1,3 @@
+APROBADO: CPedGroupPlacer pendientes
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-group-placer-pending\20261015-123916-138011

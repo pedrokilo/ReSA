@@ -36,8 +36,12 @@ struct Fpu {std::array<uint8,108> state;uint32 mxcsr;bool operator==(const Fpu&)
 inline Fpu CaptureFP(){Fpu f{};auto* p=f.state.data();auto* m=&f.mxcsr;__asm {mov eax,p} __asm {fnsave [eax]} __asm {frstor [eax]} __asm {mov eax,m} __asm {stmxcsr [eax]}return f;}
 inline void RestoreFP(const Fpu& f){const auto* p=f.state.data();const auto m=f.mxcsr;__asm {mov eax,p} __asm {frstor [eax]} __asm {ldmxcsr m}}
 inline void Write(const json& r){ReversingProbe::PumpMessages();log<<r.dump()<<'\n';log.flush();}
-struct ABI {uint32 eax;bool stack,nv,seh;};
-inline ABI Gate(uintptr_t entry){uint32 a{},sp0{},sp1{},b0{},b1{},s0{},s1{},d0{},d1{},p0{},p1{},h0{},h1{};
+struct ABI {uint32 eax,ecx,edx;bool stack,nv,seh;};
+// Semillas de entrada de EAX/ECX/EDX, distintas en cada caso y funcion y las mismas para el EXE y el candidato (el EXE lee ECX/EDX/EAX de entrada en AddGroup y Init).
+struct Seeds {uint32 eax,ecx,edx;};
+inline Seeds SeedsFor(unsigned fn,unsigned scenario){const uint32 k=scenario*2654435761u+fn*40503u;return {0xA5123456u^k,0x137AFF01u+(k>>3)*0x01000193u,0xC0DE5921u^(k*0x9E3779B1u+0x7F4A7C15u)};}
+inline ABI Gate(uintptr_t entry,Seeds seed){uint32 a{},outC{},outD{},sp0{},sp1{},b0{},b1{},s0{},s1{},d0{},d1{},p0{},p1{},h0{},h1{};
+ const uint32 seedA=seed.eax,seedC=seed.ecx,seedD=seed.edx;
  __asm {
   mov sp0,esp
   mov b0,ebx
@@ -46,11 +50,13 @@ inline ABI Gate(uintptr_t entry){uint32 a{},sp0{},sp1{},b0{},b1{},s0{},s1{},d0{}
   mov p0,ebp
   mov eax,fs:[0]
   mov h0,eax
-  mov eax,0A5123456h
-  mov ecx,137AFF01h
-  mov edx,0C0DE5921h
+  mov eax,seedA
+  mov ecx,seedC
+  mov edx,seedD
   call entry
   mov a,eax
+  mov outC,ecx
+  mov outD,edx
   mov sp1,esp
   mov b1,ebx
   mov s1,esi
@@ -59,7 +65,19 @@ inline ABI Gate(uintptr_t entry){uint32 a{},sp0{},sp1{},b0{},b1{},s0{},s1{},d0{}
   mov eax,fs:[0]
   mov h1,eax
  }
- return {a,sp0==sp1,b0==b1&&s0==s1&&d0==d1&&p0==p1,h0==h1};}
+ return {a,outC,outD,sp0==sp1,b0==b1&&s0==s1&&d0==d1&&p0==p1,h0==h1};}
+// Los colaboradores 0x5F80D0, 0x5F7350, 0x5E95B0, 0x571A00, 0x5DF8F0, 0x587C60, 0x600BC0 y 0x61A5B0 saltan a la DLL; su residuo de ECX/EDX en Debug no es el del EXE.
+// Mientras se invoca la funcion (EXE y candidato) se devuelven sus bytes originales para que el EXE de referencia deje los registros reales; la DLL los llama
+// directamente por su simbolo. Se restauran (estado, bloqueo) antes de comprobar las rutas auxiliares.
+inline ReversibleHooks::ReversibleHook::Base* FindSimpleHook(uintptr_t at){ReversibleHooks::ReversibleHook::Base* found{};
+ ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c){for(auto& h:c.Items())if(h->Type()==ReversibleHooks::ReversibleHook::Base::HookType::Simple&&reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookGTAAddress())==at)found=h.get();});return found;}
+struct ExeCollaborators {
+ struct Saved {ReversibleHooks::ReversibleHook::Base* hook;bool enabled,locked;};
+ std::vector<Saved> saved;json off=json::array();bool real{true};
+ ExeCollaborators(){for(auto at:{0x5F80D0u,0x5F7350u,0x5E95B0u,0x571A00u,0x5DF8F0u,0x587C60u,0x600BC0u,0x61A5B0u})if(auto* h=FindSimpleHook(at)){
+   saved.push_back({h,h->Hooked(),h->Locked()});h->LockState(false);h->State(false);off.push_back(at);real&=*reinterpret_cast<uint8*>(at)!=0xE9;}}
+ ~ExeCollaborators(){for(auto it=saved.rbegin();it!=saved.rend();++it){it->hook->State(it->enabled);it->hook->LockState(it->locked);}}
+};
 inline void Put(void* p,uintptr_t v){memcpy(p,&v,4);}
 inline CPed*& Member(unsigned g,unsigned m){return *reinterpret_cast<CPed**>(reinterpret_cast<uint8*>(&CPedGroups::ms_groups[g])+0xC+m*4);}
 inline CTask*& TaskAt(unsigned g,unsigned pair){constexpr unsigned bases[]{0xC,0xAC,0x14C,0x1EC};return *reinterpret_cast<CTask**>(reinterpret_cast<uint8*>(&CPedGroups::ms_groups[g])+0x30+bases[pair/8]+20*(pair%8)+4);}
@@ -163,24 +181,33 @@ inline void Update(){
     bool helperOK=helpersOK(),refOK=referencePartition()&&originalRefsIntact(),routeOK=false;
     oldPoolOK&=originalPoolIntact();
     for(const auto& v:virtualRoutes)helperOK&=v.Check();
-    const auto abi=routes[fn]->Invoke(candidate,[&]{routeOK=ReversingProbe::JumpsToDll(fns[fn].address)==candidate;return Gate(fns[fn].address);});
+    const auto seed=SeedsFor(fn,scenario);ABI abi{};json exeOff;bool exeReal=false;
+    {ExeCollaborators exe;exeOff=exe.off;exeReal=exe.real&&exe.off.size()>=5;
+     abi=routes[fn]->Invoke(candidate,[&]{routeOK=ReversingProbe::JumpsToDll(fns[fn].address)==candidate;return Gate(fns[fn].address,seed);});}
     helperOK&=helpersOK();for(const auto& v:virtualRoutes)helperOK&=v.Check();oldPoolOK&=originalPoolIntact();
     refOK&=referencePartition()&&originalRefsIntact();
     const auto actualGroups=ReversingProbe::Bytes(&CPedGroups::ms_groups,sizeof(CPedGroups::ms_groups));const auto actualActive=ReversingProbe::Bytes(&CPedGroups::ms_activeGroups,8);const auto actualIndices=ReversingProbe::Bytes(&CPedGroups::ScriptReferenceIndex,16);
+    // Registros al salir (desensamblado del EXE): AddGroup EAX=indice o -1 (ECX=ECX de entrada con CL=activo[7], EDX de entrada); Init EAX=-1 tras cada vaciado y AL=activo[g] en cada vuelta;
+    // CleanUp EAX=ECX=0; tras un vaciado ECX=0 y, con tareas, EDX=puntero del pool de tareas (0x61A5B0). Sin vaciado, ECX/EDX de entrada.
+    const uint32 poolPtr=uint32(uintptr_t(&ownPool));bool regsOK=true;
+    if(fn==0){regsOK=selected>=0?(abi.eax==uint32(selected)&&abi.ecx==0&&(!hasTasks||abi.edx==poolPtr)):(abi.eax==0xFFFFFFFFu&&abi.ecx==((seed.ecx&0xFFFFFF00u)|inputActive[7])&&abi.edx==seed.edx);}
+    if(fn==1){const uint32 eaxWant=(mask&0x80)?0xFFFFFFFFu:(((mask&0x7F)?0xFFFFFFFFu:seed.eax)&0xFFFFFF00u);
+     regsOK=abi.eax==eaxWant&&abi.ecx==(mask?0u:seed.ecx)&&(mask==0?abi.edx==seed.edx:(!hasTasks||abi.edx==poolPtr));}
+    if(fn==2)regsOK=abi.eax==0&&abi.ecx==0&&(!hasTasks||abi.edx==poolPtr);
     const bool contract=actualGroups==expectedGroups&&actualActive==expectedActive&&actualIndices==expectedIndices&&(fn!=0||int32(abi.eax)==selected)&&ownPool.GetNoOfUsedSpaces()==expectedRemaining;
     const bool guards=arenaGuards()&&groupGuards();const auto taskStates=std::vector<uint8>(bitmap.begin()+16,bitmap.begin()+32);
     for(unsigned g=0;g<8;++g){for(unsigned m=0;m<8;++m)CEntity::SafeCleanUpRef(Member(g,m));for(unsigned t=0;t<32;++t){auto*& p=TaskAt(g,t);if(p){delete p;p=nullptr;}}}
     const bool resources=ownPool.GetNoOfUsedSpaces()==0&&player->m_pReferences==nullptr&&referencePartition()&&originalRefsIntact();
     oldPoolOK&=originalPoolIntact();
     storage=cleanStorage;bitmap=cleanBitmap;referenceArena=cleanReferenceArena;memcpy(&ownPool,ownPoolHeader.data(),ownPoolHeader.size());restore();
-    return json{{"active_mask",mask},{"member_mode",mode},{"has_tasks",hasTasks},{"selected",selected},{"return",fn==0?int32(abi.eax):0},
+    return json{{"active_mask",mask},{"member_mode",mode},{"has_tasks",hasTasks},{"selected",selected},{"return",fn==0?int32(abi.eax):0},{"eax",abi.eax},{"ecx",abi.ecx},{"edx",abi.edx},{"seed_eax",seed.eax},{"seed_ecx",seed.ecx},{"seed_edx",seed.edx},{"regs_contract",regsOK},{"exe_collaborators",exeReal},{"exe_collaborators_off",exeOff},
      {"groups",actualGroups},{"active",actualActive},{"indices",actualIndices},{"task_states",taskStates},{"task_virtual_routes",taskRoutes},{"tasks_acquired",acquiredTasks},{"tasks_remaining",expectedRemaining},
      {"stack_restored",abi.stack},{"nonvolatile_preserved",abi.nv},{"seh_restored",abi.seh},{"route_ok",routeOK},{"helper_route_ok",helperOK},{"references_valid",refOK},
      {"fixture_contract",contract},{"guards_preserved",guards},{"resources_balanced",resources},{"original_task_pool_intact",oldPoolOK&&originalPoolIntact()},{"state_restored",restored()},{"floating_state_restored",CaptureFP()==fp},
      {"private_arenas_restored",storage==cleanStorage&&bitmap==cleanBitmap&&referenceArena==cleanReferenceArena&&ownPoolHeader==ReversingProbe::Bytes(&ownPool,sizeof(ownPool))}};
    };
    const auto original=invoke(false);const auto candidate=invoke(true);bool ok=original==candidate;
-   for(auto k:{"stack_restored","nonvolatile_preserved","seh_restored","route_ok","helper_route_ok","references_valid","fixture_contract","guards_preserved","resources_balanced","original_task_pool_intact","state_restored","floating_state_restored","private_arenas_restored"})ok&=original[k]==true&&candidate[k]==true;
+   for(auto k:{"stack_restored","nonvolatile_preserved","seh_restored","route_ok","helper_route_ok","references_valid","fixture_contract","guards_preserved","resources_balanced","original_task_pool_intact","state_restored","floating_state_restored","private_arenas_restored","regs_contract","exe_collaborators"})ok&=original[k]==true&&candidate[k]==true;
    passed&=ok;failures+=!ok;Write({{"event","comparison"},{"function",std::string("CPedGroups::")+fns[fn].name},{"pair",pair++},{"case",scenario},{"original",original},{"candidate",candidate},{"equal",ok},{"accepted",ok}});RestoreFP(fp);
   }
   Write({{"event","function_summary"},{"function",std::string("CPedGroups::")+fns[fn].name},{"cases",2048},{"failures",failures}});RestoreFP(fp);

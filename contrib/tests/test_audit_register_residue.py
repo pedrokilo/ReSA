@@ -71,6 +71,37 @@ class RegisterResidueAuditTest(unittest.TestCase):
         checked, bad = self.run_audit(['push        ebp', 'call        foo', ENTRY, 'pop         ebp', 'ret'])
         self.assertEqual(len(bad), 1)
 
+    def run_every_path(self, *functions):
+        return audit.audit(audit.split_functions(disassembly(*functions)), every_path=True)
+
+    def test_every_path_accepts_branches_that_all_reach_the_helper(self):
+        checked, bad = self.run_every_path(['push        ebp', 'test        al,al', 'je          0000000F', 'mov         ecx,1', 'jmp         00000012', 'mov         ecx,2',
+                                            CALL, 'pop         ebp', 'ret'])
+        self.assertEqual(bad, [])
+
+    def test_every_path_rejects_a_return_that_skips_the_helper(self):
+        checked, bad = self.run_every_path(['push        ebp', 'test        al,al', 'jne         0000000F', 'pop         ebp', 'ret', 'mov         ecx,2', CALL, 'pop         ebp', 'ret'])
+        self.assertEqual(len(bad), 1)
+        self.assertIn('alcanzable', bad[0][1])
+
+    # PedGroups: las envolturas reciben ECX/EDX de entrada como parametros y deben exigir al menos tres ayudantes de residuo.
+    def test_jmc_prologue_call_is_rejected_when_entry_params_matter(self):
+        function = ['push        ebp', 'mov         ebp,esp', 'call        @__CheckForDebuggerJustMyCode@4', CALL, 'pop         ebp', 'ret']
+        checked, bad = audit.audit(audit.split_functions(disassembly(function)), entry_params=True)
+        self.assertEqual(len(bad), 1)
+        self.assertEqual(audit.audit(audit.split_functions(disassembly(function)))[1], [])  # sin la opcion no cambia el comportamiento previo
+
+    def test_object_with_fewer_residue_calls_than_expected_is_rejected(self):
+        function = ['push        ebp', 'mov         ebp,esp', CALL, 'pop         ebp', 'ret']
+        checked, bad = audit.audit(audit.split_functions(disassembly(function, function)), entry_params=True, min_calls=3)
+        self.assertEqual(len(bad), 1)
+        checked, bad = audit.audit(audit.split_functions(disassembly(function, function, function)), entry_params=True, min_calls=3)
+        self.assertEqual(bad, [])
+
+    def test_pedgroups_is_audited(self):
+        self.assertIn('PedGroups', audit.OBJECTS)
+        self.assertEqual(audit.MIN_RESIDUE_CALLS['PedGroups'], 3)
+
 
 if __name__ == '__main__':
     unittest.main()

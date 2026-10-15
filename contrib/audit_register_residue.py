@@ -19,7 +19,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OBJECTS = ['FxFrustumInfo', 'Garages', 'EventScriptCommand', 'BaseModelInfo', 'ClumpModelInfo', 'PedGroupIntelligence', 'Pools', 'RwHelper', 'TaskInteriorSitInChair',
-           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed', 'PlayerRelationshipRecorder', 'EventSource']
+           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed', 'PlayerRelationshipRecorder', 'EventSource', 'TheZones', 'PedGroups']
+# Objetos cuyas funciones con ayudante de residuo deben salir SIEMPRE por él (una sola salida; ningun `ret` alcanzable sin pasar por la llamada).
+EVERY_PATH_OBJECTS = {'TheZones'}
 HELPER_CALL = re.compile(r'^call\s+\?(ResidueRegsCpp@@YIIIII@Z|Get@ResidueEcx@@QAEII@Z|PlayerPedResidueFloatCpp@@YIMIIM@Z)\b')
 ENTRY_CALL = re.compile(r'^call\s+\?EntryEaxCpp@@YIIXZ$')
 ENTRY_EDX_CALL = re.compile(r'^call\s+\?CarEnterExitEntryEdxCpp@@YI_KXZ$')
@@ -42,6 +44,7 @@ ALLOWED = [
     re.compile(r'^ret(\s+[0-9A-Fa-f]+h?)?$'),
     re.compile(r'^jmp\s+[0-9A-Fa-f]{8}$'),
     re.compile(r'^int\s+3$'),
+    re.compile(r'^nop$'),  # el compilador sin optimizar deja un nop tras una llamada de resultado descartado; no toca registros
 ]
 # Llamadas cuyo residuo de ECX/EDX debe llegar intacto a la salida (CEventSource::ComputeEventSourceType): los tres colaboradores del EXE
 # (se cargan por direccion en un registro justo antes de `call reg`) y la primera llamada indirecta tras leer el EDX de entrada
@@ -52,6 +55,12 @@ CLOBBERS_ECX_EDX = [
     re.compile(r'^(?!push |cmp |test |j\w+ )\w+\s+(ecx|cx|cl|ch|edx|dx|dl|dh)\b'),
     re.compile(r'^(cdq|cwd|mul|div|idiv|rep|xchg)\b'),
 ]
+# Objetos cuyas envolturas reciben el ECX/EDX de entrada como parametros __fastcall (PedGroups: AddGroupExe, InitExe y CleanUpForShutDownExe): ningun
+# prologo puede llamar a nada (p. ej. __CheckForDebuggerJustMyCode de /JMC, que pisa ECX/EDX/EAX) en una funcion que termina con un ayudante de residuo.
+ENTRY_PARAM_OBJECTS = {'PedGroups'}
+JMC_CALL = re.compile(r'^call\s+.*CheckForDebuggerJustMyCode')
+# Minimo de llamadas a ayudantes de residuo por objeto: si baja, alguna funcion dejo de usar la tecnica (el optimizador o un cambio de fuente la elimino).
+MIN_RESIDUE_CALLS = {'PedGroups': 3}
 JUMP_TARGET = re.compile(r'^(j\w+)\s+([0-9A-Fa-f]{8})$')
 
 INSTRUCTION = re.compile(r'^\s*([0-9A-F]{8}):\s+(.*\S)\s*$')
@@ -189,9 +198,50 @@ def violations_before_entry_edx_read(function):
     return found
 
 
-def audit(functions):
-    """Devuelve (llamadas_revisadas, violaciones) para una lista de funciones ya separadas."""
+def violations_unprotected_returns(function):
+    """`ret` alcanzables desde la entrada sin pasar por una llamada a un ayudante de residuo (la función saldría con registros que no son los del EXE)."""
+    found = []
+    by_address = {address: index for index, (address, _) in enumerate(function)}
+    seen, stack = set(), [0]
+    while stack:
+        cursor = stack.pop()
+        if cursor >= len(function) or cursor in seen:
+            continue
+        seen.add(cursor)
+        address, text = function[cursor]
+        if HELPER_CALL.match(text):
+            continue
+        if text.startswith('ret'):
+            found.append((address, text + ' (alcanzable sin pasar por el ayudante de residuo)'))
+            continue
+        jump = JUMP_TARGET.match(text)
+        if jump:
+            if int(jump.group(2), 16) in by_address:
+                stack.append(by_address[int(jump.group(2), 16)])
+            if jump.group(1) == 'jmp':
+                continue
+        stack.append(cursor + 1)
+    return found
+
+
+def violations_jmc_before_residue(function):
+    """Llamadas de prologo tipo /JMC en una funcion con ayudante de residuo cuyos parametros llegan en ECX/EDX."""
+    if not any(HELPER_CALL.match(text) for _, text in function):
+        return []
+    return [(address, text + ' (pisa ECX/EDX/EAX de entrada)') for address, text in function if JMC_CALL.match(text)]
+
+
+def audit(functions, every_path=False, entry_params=False, min_calls=0):
+    """Devuelve (llamadas_revisadas, violaciones) para una lista de funciones ya separadas.
+
+    every_path: exige además que toda salida pase por el ayudante (ver EVERY_PATH_OBJECTS).
+    entry_params: el objeto recibe ECX/EDX de entrada como parametros __fastcall (ver ENTRY_PARAM_OBJECTS).
+    min_calls: minimo de llamadas a ayudantes de residuo que debe haber en el objeto (ver MIN_RESIDUE_CALLS).
+    """
     checked, bad = 0, []
+    residue_calls = sum(1 for function in functions for _, text in function if HELPER_CALL.match(text))
+    if residue_calls < min_calls:
+        bad.append((0, f'solo {residue_calls} llamadas a ayudantes de residuo, se esperaban al menos {min_calls}'))
     for function in functions:
         calls = sum(1 for _, text in function if HELPER_CALL.match(text))
         entry_reads = sum(1 for _, text in function if ENTRY_CALL.match(text) or ENTRY_EDX_CALL.match(text))
@@ -200,9 +250,13 @@ def audit(functions):
             continue
         checked += calls + entry_reads + watched
         bad.extend(violations_after_calls(function))
+        if entry_params:
+            bad.extend(violations_jmc_before_residue(function))
         bad.extend(violations_clobbering_residue(function))
         bad.extend(violations_before_entry_read(function))
         bad.extend(violations_before_entry_edx_read(function))
+        if every_path and calls:
+            bad.extend(violations_unprotected_returns(function))
     return checked, bad
 
 
@@ -219,7 +273,7 @@ def main(argv=None):
         return 0
     total, failed = 0, False
     for obj in present:
-        checked, bad = audit(split_functions(disassemble(dumpbin, obj)))
+        checked, bad = audit(split_functions(disassemble(dumpbin, obj)), obj.stem in EVERY_PATH_OBJECTS, obj.stem in ENTRY_PARAM_OBJECTS, MIN_RESIDUE_CALLS.get(obj.stem, 0))
         total += checked
         print(f'{obj.name}: {checked} llamadas a ayudantes de residuo revisadas, {len(bad)} violaciones')
         for address, text in bad:

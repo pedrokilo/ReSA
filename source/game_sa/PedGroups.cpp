@@ -19,15 +19,157 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "PedGroups.h"
+#include "X87Math.h"
+
+// Registros con que el EXE sale de AddGroup (0x5FB800), Init (0x5FB8C0) y CleanUpForShutDown (0x5FB930), deducidos del desensamblado del EXE
+// (no del residuo de los colaboradores de la DLL, que en Debug es otro):
+//  - Flush (0x5F7350) sale con EAX = -1 y ECX = 0 (ultima lectura: el asignador de respuesta, nulo). Su EDX es el de entrada salvo que
+//    borre alguna tarea: el destructor virtual termina en CTask::operator delete (0x61A5B0), que deja EDX = puntero global del pool de
+//    tareas (0xB744A8). Los cuatro punteros de eventos/asignadores se suponen nulos (si no, ECX/EDX son el residuo de su destructor).
+//  - RemoveMember (0x5F80D0) deja EDX = lo que deja CEntity::CleanUpOldReference (0x571A00): sin lista de referencias, el de entrada;
+//    con lista, la direccion del hueco, o el siguiente nodo del que apunta al hueco. En un no jugador con 0x474 & 0x2000 el aviso
+//    de radar (0x587C60) lo deja en 1. Su ECX/EAX los pisa luego Flush.
+//  - AddGroup sin hueco libre: EAX = -1, ECX = ECX de entrada con CL = ms_activeGroups[7], EDX de entrada.
+//  - Init: EAX = (EAX previo con AL = ms_activeGroups[g]) en cada vuelta y -1 tras cada Flush; ECX/EDX = los de entrada hasta el primer Flush.
+//  - CleanUpForShutDown: EAX = 0 y ECX = 0 (el `pop ecx` final recupera el contador a cero); EDX = el del ultimo Flush.
+// Las envolturas de hook (AddGroupExe, InitExe, CleanUpForShutDownExe) reciben ECX/EDX de entrada como __fastcall (mismo `ret`) y terminan
+// con ResidueRegsCpp; los metodos de la clase llaman al mismo nucleo sin modelo de registros (regs == nullptr).
+namespace {
+struct ExeRegs {
+    uint32 eax, ecx, edx;
+};
+
+// EDX con que sale 0x5F80D0 al quitar el miembro `idx` (aun presente). Se calcula ANTES de llamar al RemoveMember de la clase.
+uint32 ExeEdxAfterRemoveMember(const CPedGroup& group, int32 idx, uint32 edx) {
+    const auto  slot = reinterpret_cast<uintptr_t>(&group) + 0xC + 4u * static_cast<uint32>(idx); // &m_members[idx]
+    const auto* ped  = *reinterpret_cast<const uint8* const*>(slot);
+    // 0x571A00: CEntity::m_pReferences (+0x24); cada nodo es { next, ppEntity }
+    const auto list = *reinterpret_cast<const uintptr_t*>(ped + 0x24);
+    if (list) {
+        edx = static_cast<uint32>(slot);
+        for (auto node = list; node; node = *reinterpret_cast<const uintptr_t*>(node)) {
+            if (*reinterpret_cast<const uintptr_t*>(node + 4) == slot) {
+                edx = *reinterpret_cast<const uint32*>(node); // 0x571A20: mov edx,[eax]
+                break;
+            }
+        }
+    }
+    // 0x5DF8F0: es jugador si el tipo (+0x598) es 0 o 1; solo los demas llegan al aviso de radar
+    const auto type = *reinterpret_cast<const uint32*>(ped + 0x598);
+    if (type != 0 && type != 1 && (*reinterpret_cast<const uint32*>(ped + 0x474) & 0x2000u)) {
+        edx = 1; // 0x587C60 empieza con mov edx,1 y no vuelve a escribirlo
+    }
+    return edx;
+}
+
+// EDX con que sale 0x5F7350: el de entrada, o el puntero del pool de tareas si hay alguna tarea que borrar (cuatro tablas de ocho pares).
+uint32 ExeEdxAfterFlush(const CPedGroup& group, uint32 edx) {
+    const auto* const bytes = reinterpret_cast<const uint8*>(&group);
+    for (const uint32 table : { 0xCu, 0xACu, 0x14Cu, 0x1ECu }) {
+        for (uint32 i = 0; i < TOTAL_PED_GROUP_MEMBERS; i++) {
+            if (*reinterpret_cast<const uint32*>(bytes + 0x30 + table + 20 * i + 4)) { // CPedTaskPair::Task
+                return *reinterpret_cast<const uint32*>(0xB744A8);                    // pool de tareas; 0x61A5B0: mov edx,ecx
+            }
+        }
+    }
+    return edx;
+}
+
+// 0x5FB835..0x5FB855 (y las copias de Init y CleanUpForShutDown): quita los miembros que existan (mirando el hueco
+// en cada vuelta), vacia la inteligencia (0x5F7350) y baja la bandera de grupo de mision.
+// Los colaboradores 0x5F80D0 y 0x5F7350 son los de la clase, enlazados directamente.
+void EmptyGroupLikeExe(CPedGroup& group, ExeRegs* regs) {
+    auto& membership = group.GetMembership();
+    for (int32 i = 0; i < TOTAL_PED_GROUP_MEMBERS; i++) {
+        if (membership.GetMember(i)) {
+            if (regs) {
+                regs->edx = ExeEdxAfterRemoveMember(group, i, regs->edx); // antes de quitarlo: lee la lista de referencias
+            }
+            membership.RemoveMember(i);
+        }
+    }
+    if (regs) {
+        regs->edx = ExeEdxAfterFlush(group, regs->edx); // antes de vaciar: lee las tablas de tareas
+        regs->ecx = 0;
+        regs->eax = 0xFFFFFFFFu;
+    }
+    group.GetIntelligence().Flush();
+    group.m_bIsMissionGroup = false;
+}
+
+// 0x5FB800
+int32 AddGroupCore(ExeRegs* regs) {
+    // .data()[i]: sin los assert de std::array, como el EXE
+    for (int32 g = 0; g < 8; g++) {
+        if (CPedGroups::ms_activeGroups.data()[g]) {
+            continue;
+        }
+        CPedGroups::ms_activeGroups.data()[g] = 1; // Como el original: se marca antes de vaciar el grupo
+        EmptyGroupLikeExe(CPedGroups::ms_groups.data()[g], regs);
+        return g;
+    }
+    if (regs) {
+        // 0x5FB806: mov cl,[ebx+0xC098E0] en cada vuelta; la ultima lee el hueco 7
+        regs->ecx = (regs->ecx & 0xFFFFFF00u) | static_cast<uint8>(CPedGroups::ms_activeGroups.data()[7]);
+    }
+    return -1;
+}
+
+// 0x5FB8C0
+void InitCore(ExeRegs* regs) {
+    for (int32 g = 0; g < 8; g++) {
+        if (regs) {
+            regs->eax = (regs->eax & 0xFFFFFF00u) | static_cast<uint8>(CPedGroups::ms_activeGroups.data()[g]); // 0x5FB8D0 mov al,[..]
+        }
+        if (CPedGroups::ms_activeGroups.data()[g]) {
+            CPedGroups::ms_activeGroups.data()[g] = 0; // Como el original: se baja antes de vaciar el grupo
+            EmptyGroupLikeExe(CPedGroups::ms_groups.data()[g], regs);
+        }
+        CPedGroups::ScriptReferenceIndex.data()[g] = 1; // 0x5FB90C: tambien en los grupos inactivos
+    }
+}
+
+// 0x5FB930
+void CleanUpForShutDownCore(ExeRegs* regs) {
+    // Como el original: vacia los ocho grupos sin tocar las banderas de actividad ni los indices SCM
+    for (int32 g = 0; g < 8; g++) {
+        EmptyGroupLikeExe(CPedGroups::ms_groups.data()[g], regs);
+    }
+}
+
+// Envolturas de hook con los registros del EXE. /RTC1 añade __RTC_CheckEsp tras las llamadas (cambiaria ECX/EDX) y la cookie de /GS
+// tambien: de ahi runtime_checks off y safebuffers (lo vigila contrib/audit_register_residue.py, objeto PedGroups).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) uint32 __fastcall AddGroupExe(uint32 entryEcx, uint32 entryEdx) {
+    ExeRegs     regs{ 0, entryEcx, entryEdx };
+    const int32 result = AddGroupCore(&regs);
+    return ResidueRegsCpp(regs.ecx, regs.edx, static_cast<uint32>(result));
+}
+
+__declspec(safebuffers) uint32 __fastcall InitExe(uint32 entryEcx, uint32 entryEdx) {
+    // Lo primero: ninguna instruccion anterior escribe EAX (lo vigila el auditor)
+    const uint32 entryEax = EntryEaxCpp();
+    ExeRegs      regs{ entryEax, entryEcx, entryEdx };
+    InitCore(&regs);
+    return ResidueRegsCpp(regs.ecx, regs.edx, regs.eax);
+}
+
+__declspec(safebuffers) uint32 __fastcall CleanUpForShutDownExe(uint32 entryEcx, uint32 entryEdx) {
+    ExeRegs regs{ 0, entryEcx, entryEdx };
+    CleanUpForShutDownCore(&regs);
+    return ResidueRegsCpp(0, regs.edx, 0); // `pop ecx` final = contador a cero; `dec eax` final = 0
+}
+#pragma runtime_checks("", restore)
+}
 
 void CPedGroups::InjectHooks() {
     RH_ScopedClass(CPedGroups);
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Process, 0x5FC800);
-    RH_ScopedInstall(AddGroup, 0x5FB800);
-    RH_ScopedInstall(Init, 0x5FB8C0);
-    RH_ScopedInstall(CleanUpForShutDown, 0x5FB930);
+    RH_ScopedNamedGlobalInstall(AddGroupExe, "AddGroup", 0x5FB800); // Como el original: EAX/ECX/EDX de salida
+    RH_ScopedNamedGlobalInstall(InitExe, "Init", 0x5FB8C0);
+    RH_ScopedNamedGlobalInstall(CleanUpForShutDownExe, "CleanUpForShutDown", 0x5FB930);
     RH_ScopedInstall(RemoveGroup, 0x5FB870);
     RH_ScopedInstall(GetPedsGroup, 0x5F7E80);
     RH_ScopedInstall(IsGroupLeader, 0x5F7E40);
@@ -46,68 +188,10 @@ void CPedGroups::Load() {
 }
 #endif
 
-namespace {
-__declspec(naked) void Task10RemoveMember() {
-    __asm {
-        push 005F80D0h
-        ret
-    }
-}
-__declspec(naked) void Task10FlushIntelligence() {
-    __asm {
-        push 005F7350h
-        ret
-    }
-}
-}
-
 // return the index of the added group , return -1 if failed.
 // 0x5FB800
-__declspec(naked) int32 CPedGroups::AddGroup() {
-    __asm {
-        push        ebx
-        or          eax,0FFFFFFFFh
-        xor         ebx,ebx
-task10_5FB806:
-        mov         cl,byte ptr [ebx+00C098E0h]
-        test        cl,cl
-        je          task10_5FB818
-        inc         ebx
-        cmp         ebx,8
-        jl          task10_5FB806
-        pop         ebx
-        ret
-task10_5FB818:
-        push        ebp
-        push        esi
-        mov         esi,ebx
-        imul        esi,esi,2D4h
-        add         esi,0C09920h
-        push        edi
-        mov         byte ptr [ebx+00C098E0h],1
-        xor         edi,edi
-        lea         ebp,[esi+0Ch]
-task10_5FB835:
-        cmp         dword ptr [ebp],0
-        je          task10_5FB844
-        push        edi
-        lea         ecx,[esi+8]
-        call Task10RemoveMember
-task10_5FB844:
-        inc         edi
-        add         ebp,4
-        cmp         edi,8
-        jl          task10_5FB835
-        lea         ecx,[esi+30h]
-        call Task10FlushIntelligence
-        pop         edi
-        mov         byte ptr [esi+000002D0h],0
-        pop         esi
-        pop         ebp
-        mov         eax,ebx
-        pop         ebx
-        ret
-    }
+int32 CPedGroups::AddGroup() {
+    return AddGroupCore(nullptr);
 }
 
 // 0x5FB870
@@ -125,49 +209,8 @@ void CPedGroups::RemoveAllFollowersFromGroup(int32 groupId) {
 }
 
 // 0x5FB8C0
-__declspec(naked) void CPedGroups::Init() {
-    __asm {
-        push        ebx
-        push        ebp
-        push        esi
-        push        edi
-        xor         ebx,ebx
-        mov         edi,0C09928h
-        jmp         task10_5FB8D0
-        lea         ecx,[ecx]
-task10_5FB8D0:
-        mov         al,byte ptr [ebx+00C098E0h]
-        test        al,al
-        je          task10_5FB90C
-        mov         byte ptr [ebx+00C098E0h],0
-        xor         esi,esi
-        lea         ebp,[edi+4]
-task10_5FB8E6:
-        cmp         dword ptr [ebp],0
-        je          task10_5FB8F4
-        push        esi
-        mov         ecx,edi
-        call Task10RemoveMember
-task10_5FB8F4:
-        inc         esi
-        add         ebp,4
-        cmp         esi,8
-        jl          task10_5FB8E6
-        lea         ecx,[edi+28h]
-        call Task10FlushIntelligence
-        mov         byte ptr [edi+000002C8h],0
-task10_5FB90C:
-        mov         word ptr [ebx*2+00C098D0h],1
-        add         edi,2D4h
-        inc         ebx
-        cmp         edi,0C0AFC8h
-        jl          task10_5FB8D0
-        pop         edi
-        pop         esi
-        pop         ebp
-        pop         ebx
-        ret
-    }
+void CPedGroups::Init() {
+    InitCore(nullptr);
 }
 
 // 0x5F7E30
@@ -177,42 +220,8 @@ void CPedGroups::RegisterKillByPlayer() {
 }
 
 // 0x5FB930
-__declspec(naked) void CPedGroups::CleanUpForShutDown() {
-    __asm {
-        push        ecx
-        push        ebp
-        push        esi
-        push        edi
-        mov         edi,0C09928h
-        mov         dword ptr [esp+0Ch],8
-task10_5FB941:
-        xor         esi,esi
-        lea         ebp,[edi+4]
-task10_5FB946:
-        cmp         dword ptr [ebp],0
-        je          task10_5FB954
-        push        esi
-        mov         ecx,edi
-        call Task10RemoveMember
-task10_5FB954:
-        inc         esi
-        add         ebp,4
-        cmp         esi,8
-        jl          task10_5FB946
-        lea         ecx,[edi+28h]
-        call Task10FlushIntelligence
-        mov         eax,dword ptr [esp+0Ch]
-        mov         byte ptr [edi+000002C8h],0
-        add         edi,2D4h
-        dec         eax
-        mov         dword ptr [esp+0Ch],eax
-        jne         task10_5FB941
-        pop         edi
-        pop         esi
-        pop         ebp
-        pop         ecx
-        ret
-    }
+void CPedGroups::CleanUpForShutDown() {
+    CleanUpForShutDownCore(nullptr);
 }
 
 // 0x5F7E40

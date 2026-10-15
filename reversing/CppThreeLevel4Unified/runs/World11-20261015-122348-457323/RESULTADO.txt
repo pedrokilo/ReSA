@@ -1,0 +1,3 @@
+FALLO: Coronas, entradas/salidas, reaparición y manejo de vehículos (lista de 11)
+Funciones con diferencias: cHandlingDataMgr::ConvertBikeDataToWorldUnits: 6/256
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-world11\20261015-122348-457323

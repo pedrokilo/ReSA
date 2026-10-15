@@ -25,7 +25,11 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 
+#include <intrin.h>
+
 #include "TheZones.h"
+#include "World.h"
+#include "X87Math.h"
 
 #include <Extensions/ci_string.hpp>
 
@@ -338,74 +342,140 @@ void CTheZones::Init() {
 
 // Unlock the current zone
 // 0x572800
-static __declspec(naked) void Zones13PlayerCoords() { __asm {
-    push 0056E010h
-    ret
-} }
-static __declspec(naked) void Zones13Level() { __asm {
-    push 00572300h
-    ret
-} }
-static __declspec(naked) void Zones13Visited() { __asm {
-    push 00572130h
-    ret
-} }
-static __declspec(naked) void Zones13FloatToLong() { __asm {
-    push 00821B40h
-    ret
-} }
+// Como el original: guarda SIEMPRE el nivel (dword en 0xBA6718) y sale si el jugador esta fuera del mapa o
+// CGame::currArea != 0. La celda se calcula con (coord + 3000.0f) * 0x865060 (float, 24 bits en x87) y se trunca con
+// _ftol2 quedandose con el byte bajo (0x572130 / 0x821B40); indice = 10 * celdaX - celdaY + 9 sobre ZonesVisited sin
+// acotar, como el EXE.
+//
+// Registros de salida del EXE (0x572899), que reproduce ResidueRegsCpp (X87Math.h) como ultima llamada:
+//   fuera del mapa : EAX = bPlayerIsOffTheMap,      ECX/EDX = los que deja 0x572300 (ZoneLevelResidue)
+//   currArea != 0  : EAX = currArea,                ECX/EDX = los que deja 0x572300
+//   ya visitada    : EAX = 1, ECX = 10*cx - cy,     EDX = EDX de _ftol2(y) (parte alta del int64 truncado)
+//   celda nueva    : EAX = ZonesRevealed + 1,       ECX = ECX de _ftol2(y) (con ECX de entrada 10*cx), EDX = cy
+// &pos del EXE es (ESP de entrada) - 12 (`sub esp,0Ch`); se obtiene con _AddressOfReturnAddress.
+namespace {
+struct Zones13Regs {
+    uint32 eax, ecx, edx;
+};
 
-__declspec(naked) void CTheZones::SetCurrentZoneAsUnlocked() {
-    __asm {
-        sub esp,0Ch
-        lea eax,[esp]
-        push 0FFFFFFFFh
-        push eax
-        call Zones13PlayerCoords
-        lea ecx,[esp+8]
-        push ecx
-        call Zones13Level
-        mov dword ptr ds:[00BA6718h],eax
-        mov al,byte ptr ds:[00A444A4h]
-        add esp,0Ch
-        test al,al
-        jne zones13_572896
-        mov eax,dword ptr ds:[00B72914h]
-        test eax,eax
-        jne zones13_572896
-        mov edx,dword ptr [esp+4]
-        mov eax,dword ptr [esp]
-        push edx
-        push eax
-        call Zones13Visited
-        add esp,8
-        test al,al
-        jne zones13_572896
-        fld dword ptr [esp]
-        push esi
-        fadd dword ptr ds:[00859A94h]
-        fmul dword ptr ds:[00865060h]
-        call Zones13FloatToLong
-        fld dword ptr [esp+8]
-        fadd dword ptr ds:[00859A94h]
-        movzx eax,al
-        lea ecx,[eax+eax*4]
-        shl ecx,1
-        fmul dword ptr ds:[00865060h]
-        mov esi,ecx
-        call Zones13FloatToLong
-        movzx edx,al
-        mov eax,dword ptr ds:[00BA372Ch]
-        sub esi,edx
-        inc eax
-        mov byte ptr [esi+00BA3739h],1
-        mov dword ptr ds:[00BA372Ch],eax
-        pop esi
-zones13_572896:
-        add esp,0Ch
-        ret
+// Registros con que sale _ftol2 (0x821B40) para un valor v (x87 a 24 bits: v ya es un float): EAX/EDX = int64 truncado y ECX = bits de la
+// parte fraccionaria v - redondeo-al-par(v) (+/-0x7FFFFFFF). Si el redondeo da 0 en la palabra baja y la alta es 0 o 0x80000000
+// (|v| < 0.5, v no finito o |v| >= 2^63) sale por 0x821B9F: EAX = 0, EDX = alta, ECX = el de entrada. Solo enteros: no depende del modo de FP.
+Zones13Regs Zones13Ftol2(float v, uint32 entryEcx) {
+    const uint32 bits = std::bit_cast<uint32>(v);
+    const uint32 e    = (bits >> 23) & 0xFFu;
+    const bool   neg  = (bits >> 31) != 0;
+    int64        rounded = 0;
+    uint32       fracBits = 0;
+    if (e == 0xFFu || e >= 127u + 63u) {
+        rounded = int64(0x8000000000000000ull); // fistp: entero indefinido
+    } else if (e >= 126u) {
+        const uint32 m     = (bits & 0x7FFFFFu) | 0x800000u;
+        const int    shift = int(e) - 150;
+        uint64       magnitude;
+        if (shift >= 0) {
+            magnitude = uint64(m) << shift; // ya es entero: v - R = +0
+        } else {
+            const uint32 rs   = uint32(-shift); // 1..24
+            const uint32 q    = m >> rs;
+            const uint32 rem  = m & ((1u << rs) - 1u);
+            const uint32 half = 1u << (rs - 1u);
+            const bool   up   = rem > half || (rem == half && (q & 1u) != 0);
+            magnitude         = uint64(q) + (up ? 1u : 0u);
+            const uint32 d    = up ? (1u << rs) - rem : rem; // |v - R| * 2^rs
+            if (d != 0) {
+                const float frac = float(int32(d)) * std::bit_cast<float>((127u - rs) << 23); // exacto: d < 2^24
+                fracBits         = std::bit_cast<uint32>(frac) | ((neg != up) ? 0x80000000u : 0u);
+            }
+        }
+        rounded = neg ? -int64(magnitude) : int64(magnitude);
+    }
+    const uint32 low  = uint32(uint64(rounded));
+    const uint32 high = uint32(uint64(rounded) >> 32);
+    if (low == 0 && (high & 0x7FFFFFFFu) == 0) {
+        return { 0, entryEcx, high };
+    }
+    if (!neg) { // add ecx,7FFFFFFFh / sbb eax,0 / sbb edx,0
+        const uint32 ecx    = fracBits + 0x7FFFFFFFu;
+        const uint32 carry  = ecx < fracBits ? 1u : 0u;
+        const uint32 borrow = low < carry ? 1u : 0u;
+        return { low - carry, ecx, high - borrow };
+    }
+    const uint32 t     = fracBits ^ 0x80000000u; // xor ecx,80000000h / add ecx,7FFFFFFFh / adc eax,0 / adc edx,0
+    const uint32 ecx   = t + 0x7FFFFFFFu;
+    const uint32 carry = ecx < t ? 1u : 0u;
+    const uint32 eax   = low + carry;
+    return { eax, ecx, high + (eax < low ? 1u : 0u) };
+}
+
+// (coord + 3000.0f) * 0x865060 en este orden (fadd [0x859A94]; fmul [0x865060]) y un redondeo a float por operacion; el /fp:fast global podria
+// reasociar a coord * k + 3000 * k.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float Zones13CellValue(float coord) {
+    return (coord + 3000.0f) * std::bit_cast<float>(0x3ADA740Eu);
+}
+#pragma float_control(pop)
+
+// ECX y EDX con que sale 0x572300 (GetLevelFromPosition) tras llamar a 0x572270 por cada zona 1..total-1 hasta la primera que contiene el punto:
+// EDX = &pos, ECX = la zona probada salvo que llegue a la ultima comparacion (z2), donde 0x5722E4 la sustituye por z2 con signo.
+// Sin ninguna llamada (total <= 1): ECX = &pos (lea ecx,[esp+8]) y EDX = el de 0x56E010 (&pos, o 0 si el jugador seleccionado no existe).
+void Zones13LevelResidue(const CVector& pos, uint32 exePos, uint32& ecx, uint32& edx) {
+    ecx = exePos;
+    edx = CWorld::Players[CWorld::PlayerInFocus].m_pPed ? exePos : 0u;
+    const CZone* zones = CTheZones::MapZoneArray.data();
+    const uint16 count = (uint16)CTheZones::TotalNumberOfMapZones;
+    for (uint16 i = 1; i < count; i++) {
+        const CZone& z = zones[i];
+        edx = exePos;
+        ecx = uint32(uintptr_t(&z));
+        if (!((float)z.m_fX1 <= pos.x) || !((float)z.m_fX2 >= pos.x) || !((float)z.m_fY1 <= pos.y) || !((float)z.m_fY2 >= pos.y) ||
+            !((float)z.m_fZ1 <= pos.z)) {
+            continue;
+        }
+        ecx = uint32(int32(z.m_fZ2)); // movsx ecx, word ptr [ecx+1Ah]
+        if ((float)z.m_fZ2 >= pos.z) {
+            break;
+        }
     }
 }
+} // namespace
+
+#pragma runtime_checks("", off)
+__declspec(safebuffers) void CTheZones::SetCurrentZoneAsUnlocked() {
+    const uint32 exePos = uint32(uintptr_t(_AddressOfReturnAddress())) - 12u; // &pos del EXE
+    const CVector pos = FindPlayerCoors(-1);
+    *reinterpret_cast<uint32*>(&m_CurrLevel) = GetLevelFromPosition(pos);
+    uint32 resEcx, resEdx;
+    Zones13LevelResidue(pos, exePos, resEcx, resEdx);
+    uint32 resEax;
+    const uint8 offMap = *reinterpret_cast<const uint8*>(&CTheScripts::bPlayerIsOffTheMap);
+    if (offMap != 0) {
+        resEax = offMap;
+    } else if (static_cast<int32>(CGame::currArea) != 0) {
+        resEax = uint32(static_cast<int32>(CGame::currArea));
+    } else {
+        const Zones13Regs fx = Zones13Ftol2(Zones13CellValue(pos.x), 0);
+        const uint32 cx = fx.eax & 0xFFu;
+        const Zones13Regs fy = Zones13Ftol2(Zones13CellValue(pos.y), 10u * cx);
+        const uint32 cy = fy.eax & 0xFFu;
+        const int32 index = 10 * (int32)cx - (int32)cy;
+        auto* cells = reinterpret_cast<uint8*>(&ZonesVisited);
+        if (cells[index + 9] != 0) {
+            resEax = 1;
+            resEcx = uint32(index);
+            resEdx = fy.edx;
+        } else {
+            const int32 revealed = ZonesRevealed;
+            cells[index + 9]     = 1;
+            ZonesRevealed        = revealed + 1;
+            resEax = uint32(revealed + 1);
+            resEcx = fy.ecx;
+            resEdx = cy;
+        }
+    }
+    (void)ResidueRegsCpp(resEcx, resEdx, resEax); // lo ultimo: sale con ECX/EDX/EAX del EXE (contrib/audit_register_residue.py)
+}
+#pragma runtime_checks("", restore)
 
 // Creates a zone
 // 0x5728A0

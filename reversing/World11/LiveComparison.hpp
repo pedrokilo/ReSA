@@ -485,6 +485,10 @@ inline void Update() {
                         else if(nm=="ConvertBikeDataToGameUnits"||nm=="ConvertBikeDataToWorldUnits"){ uint8* h=mgr.data()+0x8F54+(next()%13)*0x40; fillWords(h,0x40);
                             const bool game=nm=="ConvertBikeDataToGameUnits"; for(size_t o:{0x14u,0x18u,0x2Cu,0x30u})At<float>(h,o)=game ? uni(-90.f,90.f) : uni(-0.99f,0.99f);
                             if(game&&next()%8==0)At<float>(h,0x14)=next()%2 ? 90.f : 0.f;
+                            if(!game){ // _CIasin fuera de |x|<1: +-1, +-1.5, +-2, +-1e30, NaN, +-inf, +-0, subnormales y vecinos de 1 (X87Math.cpp ExeAsinDoubleCpp)
+                                static const uint32 asinEdge[]{0x3F800000u,0xBF800000u,0x3FC00000u,0xBFC00000u,0x40000000u,0xC0000000u,0x7149F2CAu,0xF149F2CAu,0x7FC00000u,0xFFC00000u,0x7F800000u,0xFF800000u,
+                                    0x00000000u,0x80000000u,0x00000001u,0x80000001u,0x007FFFFFu,0x807FFFFFu,0x00800000u,0x3F800001u,0x3F7FFFFFu,0xBF800001u,0xBF7FFFFFu,0x7F7FFFFFu,0xFF7FFFFFu,0x7F800001u,0x7FA00000u};
+                                for(size_t o:{0x14u,0x18u,0x2Cu,0x30u})if(next()%3==0)At<uint32>(h,o)=asinEdge[next()%std::size(asinEdge)]; }
                             reinterpret_cast<void(__thiscall*)(void*,void*)>(a)(self,h); out["rec"]=ReversingProbe::Bytes(h,0x40); }
                         else if(nm=="FindExactWord"){ static const char* words[]{"BIKE","BMX","LANDSTAL","CAR","BIKEX","landstal","BOAT","SPEEDER","RCBANDIT","RC","ZZZ",""};
                             const uint32 size=8+next()%10, count=1+next()%20; std::memset(nameTable.data(),0,nameTable.size());

@@ -593,10 +593,7 @@ float CWeapon::TargetWeaponRangeMultiplier(CEntity* target, CEntity* weaponOwner
 // Como el original (CRT 0x821E70): asin(x) = fpatan(x, fsqrt((1+x)*(1-x))) con las sumas, el producto y la raiz redondeados a float (x87 a 24 bits)
 // y el fpatan a precision completa; despues "fmul 57.29578" (0x42652EE0) redondeado a float.
 static float AsinDegreesX87(float x) {
-    if (!(x < 1.0f)) {
-        return (float)(std::asin((double)x) * (double)std::bit_cast<float>(0x42652EE0u));
-    }
-    return ExeAsinDegreesCpp(x); // _CIasin (0x821E70) por 57.29578f (0x859878), mismo cuerpo que usa CBulletInfo::Update
+    return ExeAsinDegreesCpp(x); // _CIasin (0x821E70) por 57.29578f (0x859878), todas las ramas (|x| >= 1, NaN) en X87Math.cpp; mismo cuerpo que usa CBulletInfo::Update
 }
 
 // 0x73B550
