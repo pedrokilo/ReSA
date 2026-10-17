@@ -1882,6 +1882,7 @@ PhysicalRotTerms,struct,,source/game_sa/X87Math.cpp,3451,source_type_definition
 PointLightsRaw,struct,,source/game_sa/X87Math.cpp,10347,source_type_definition
 PointLightsShadow,struct,,source/game_sa/X87Math.cpp,10686,source_type_definition
 FlcU128,struct,,source/game_sa/X87Math.cpp,11518,source_type_definition
+FlcExtPlan,struct,,source/game_sa/X87Math.cpp,12434,source_type_definition
 ResidueEcx,struct,,source/game_sa/X87Math.h,113,source_type_definition
 Ftol2Regs,struct,,source/game_sa/X87Math.h,436,source_type_definition
 WaterLevelVertexCpp,struct,,source/game_sa/X87Math.h,559,source_type_definition

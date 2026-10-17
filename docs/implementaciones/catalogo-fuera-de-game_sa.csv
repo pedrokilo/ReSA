@@ -1,4 +1,1 @@
 class,fn_name,address,reversed,locked,validated,type,catalog,registered_in
-WindowedModeHooks,RenderWare::_rwD3D9CameraBeginUpdate,0x007F8F20,1,0,0,S,hooks_notsa.csv,source/app/platform/win/WindowedMode.cpp
-WindowedModeHooks,RenderWare::_rwD3D9CameraClear,0x007F7730,1,0,0,S,hooks_notsa.csv,source/app/platform/win/WindowedMode.cpp
-WindowedModeHooks,notsa::WindowedMode::HookDirect3DDeviceReplacerSA,0x007F6781,1,0,0,S,hooks_notsa.csv,source/app/platform/win/WindowedMode.cpp

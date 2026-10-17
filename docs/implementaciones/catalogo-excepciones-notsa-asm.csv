@@ -1,0 +1,2 @@
+file,line,function,language,asm_occurrences,naked_declarations,catalog,catalog_identity,catalog_address,counts_as_cpp_only
+source/app/platform/win/WindowedMode.cpp,411,notsa::WindowedMode::HookDirect3DDeviceReplacerSA,Mixta (C++ + ASM),14,1,hooks_notsa.csv,WindowedModeHooks::notsa::WindowedMode::HookDirect3DDeviceReplacerSA,0x007F6781,no

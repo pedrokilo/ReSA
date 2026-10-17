@@ -28,7 +28,7 @@ ECX/EDX al volver se registran (`*_residue`) pero NO se exigen: ningun llamador 
 - Oraculo de valores independiente solo para ProcessVerticalLineUsingCache (`fixture_oracle.py`); el resto se decide por igualdad EXE/DLL. Las formulas de Fixtures.hpp se repiten en Python solo para ese oraculo.
 - Colaboradores sustituidos (sin credito): AddAnExtraDirectionalLight, CWorld::ProcessVerticalLine, CSprite::{InitSpriteBuffer, FlushSpriteBuffer, CalcScreenCoors, RenderBufferedOneXLUSprite_Rotate_Aspect},
   CPointLights::ProcessVerticalLineUsingCache (en los pares de RenderFogEffect) y fpRenderStateSet. Se parchea la entrada del EXE y el cuerpo de la DLL (Resolve) con el mismo falso.
-- GetLightMultiplier no tiene llamadores en el EXE: el banco la llama directo con fixtures.
+- GetLightMultiplier no tiene llamadores en el EXE: el banco la llama directo con fixtures. Comprobado el 17/10/2026 con un barrido de todo `.text` del EXE (gta_sa.exe 1.0 US): ningún `call`/`jmp` rel32 apunta a 0x6FFE70 y la dirección no aparece como puntero de 4 bytes en ninguna sección (ni vtables ni tablas), así que es código muerto o solo alcanzable de forma indirecta calculada; el EXE nunca la ejecuta por llamada directa, de ahí que el banco la valide por llamada directa y que el hook sea inocuo en el juego normal.
 
 ## Evidencia sin juego (offline/)
 `make_image.py` + `reloc_gen.py` generan la imagen del EXE y las reubicaciones; `build_a.sh`/`build_b.sh` (usan X87Math.h/.cpp del arbol: `gen_inc.sh`) enlazan el C++ real de X87Math.cpp + anexo y

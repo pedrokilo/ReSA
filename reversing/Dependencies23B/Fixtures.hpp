@@ -5,12 +5,14 @@
 #include <cstdint>
 #include <cstring>
 #include <cmath>
+#include <utility>
 #include <vector>
 using uint8 = std::uint8_t; using uint16 = std::uint16_t; using uint32 = std::uint32_t; using uint64 = std::uint64_t; using int16 = std::int16_t; using int32 = std::int32_t;
 namespace Dependencies23BFix {
 inline constexpr int kRoutes = 11;
 inline constexpr unsigned kCasesPerRoute = 1536;
 inline constexpr size_t kArenaSize = 0x4000;
+inline constexpr unsigned kExactCases = 96;      // los ultimos casos de las rutas con asin/acos (1..6 y 8) son de +-1 exacto con PE limpio (MakeExactCase)
 namespace L { inline constexpr size_t veh = 0x100, fh = 0x1200, mat = 0x1300, driver = 0x1400, pad = 0x1C00, col = 0x1D00, other = 0x1E00; }
 // ---------------------------------------------------------------- generador
 inline uint64 rngState;
@@ -40,6 +42,67 @@ struct Case {
     float ts{}; uint32 wind[3]{}; uint32 ts_bits{};
 };
 inline void FillFloat(uint8* p, float v) { std::memcpy(p, &v, 4); }
+// Casos de +-1 exacto con la bandera de inexacto (PE) limpia: _CIasin(+-1) y _CIacos(-1) (0x821E70 / 0x822380) cargan +-pi/2 y pi con fld tbyte (0x8E313A) y, con PE limpio, no las
+// redondean a 53 bits (0x828EA7). Para que el PE siga limpio hasta la llamada todo lo anterior ha de ser exacto: valores potencia de 2 (o 0), paso de tiempo 1, viento 0 y matriz de
+// permutacion con signos (los vectores arriba/adelante/derecha son +-e_i, los productos y las sumas son exactos). FSW inicial sin PE. Alcanzan los cinco puntos de llamada del EXE:
+//   ala (rutas 1,3,4,5): asin(clamp((v.arriba) / max(|v|, 0,01)) a [-1,1]) con v paralela al eje arriba y |v| potencia de 2 (6D96CD)
+//   rotor (rutas 2,6,8): asin(arriba.x), asin(arriba.y), acos(arriba.z) (6D9BC4..6D9BEE) y asin(datos[0x20] / datos[0x2C]) con ambos iguales en modulo (6DA47D)
+// En una cuarta parte de los casos el +-1 pasa a ser un vecino (0x3F7FFFFF o 0x3F800001): camino normal de fpatan y dominio invalido (IE + errno) tras un tramo exacto.
+inline constexpr int kExactRoutes[] = {1, 2, 3, 4, 5, 6, 8};
+inline bool IsExactRoute(int route) { for (int r : kExactRoutes) if (r == route) return true; return false; }
+inline void MakeExactCase(Case& c) {
+    static constexpr float kNice[] = {0.f, 0.5f, -0.5f, 1.f, -1.f, 2.f, -2.f, 4.f, 0.25f, 8.f};
+    auto N = [&] { return kNice[RndN(10)]; };
+    auto NZ = [&] { static constexpr float k[] = {0.5f, -0.5f, 1.f, -1.f, 2.f, -2.f, 4.f, -4.f}; return k[RndN(8)]; };
+    uint8* a = c.arena.data();
+    uint8* veh = a + L::veh;
+    auto F = [&](size_t off, float v) { FillFloat(veh + off, v); };
+    *reinterpret_cast<uint16*>(veh + 0x22) = uint16(0x1D0 + RndN(60));       // modelo sin los caminos especiales (0x1CC, 0x208 usa fidiv y sin/cos: inexacto)
+    // matriz de permutacion con signos: derecha, adelante y arriba son +-e_i distintos
+    int perm[3] = {0, 1, 2};
+    for (int i = 2; i > 0; --i) std::swap(perm[i], perm[RndN(uint32(i + 1))]);
+    float* mf = reinterpret_cast<float*>(a + L::mat);
+    for (int i = 0; i < 12; ++i) mf[i] = 0.f;
+    float sgn[3];
+    for (int r = 0; r < 3; ++r) { sgn[r] = RndN(2) ? 1.f : -1.f; mf[4 * r + perm[r]] = sgn[r]; }
+    const int upAxis = perm[2];                                 // eje del vector "arriba" (mf[8..10])
+    const float upSign = sgn[2];
+    mf[12] = N(); mf[13] = N(); mf[14] = N(); mf[15] = 0.f;
+    if (RndN(4) == 0) mf[8 + upAxis] = FromBits(Bits(upSign) + (RndN(2) ? 0xFFFFFFFFu : 1u));   // vecino de +-1 (+-1 -+ 1 ulp)
+    // velocidad paralela a "arriba" (la misma en el vehiculo y en el colaborador GetSpeed)
+    const float vmag = NZ();
+    for (int i = 0; i < 3; ++i) {
+        const float v = i == upAxis ? upSign * vmag : 0.f;
+        F(0x44 + 4 * i, v); c.cfg.speed[i] = Bits(v);
+        F(0x50 + 4 * i, N() * 0.25f); F(0xA4 + 4 * i, N());
+    }
+    F(0x8C, 1024.f); F(0x90, 2048.f); F(0x494, N());
+    for (int i = 0; i < 4; ++i) F(0x7D4 + 4 * i, 1.0f);
+    F(0x84C, N()); F(0x9CC, N());
+    float* fh = reinterpret_cast<float*>(a + L::fh);
+    for (int i = 1; i < 0x58 / 4; ++i) fh[i] = N();
+    { const float m = NZ(); fh[0x20 / 4] = RndN(2) ? m : -m; fh[0x2C / 4] = m; if (RndN(4) == 0) fh[0x20 / 4] = FromBits(Bits(m) + 1u); }   // asin(datos[0x20] / datos[0x2C]) = +-1 (o vecino)
+    for (int i = 0; i < 3; ++i) fh[0x40 / 4 + i] = RndN(2) ? 0.5f : 1.f;
+    float* col = reinterpret_cast<float*>(a + L::col);
+    for (int i = 0; i < 6; ++i) col[i] = N();
+    for (int i = 0; i < 3; ++i) c.wind[i] = 0;
+    // lecturas del mando: 0 o potencias de 2 (el producto por las constantes del EXE, 1/128, 1/255, pi/2, queda exacto)
+    auto P2 = [&] { return int16(RndN(3) == 0 ? 0 : (RndN(2) ? 1 : -1) * (1 << RndN(7))); };
+    c.cfg.steerLR = P2(); c.cfg.steerUD = P2(); c.cfg.gunUD = P2(); c.cfg.gunLR = P2();
+    c.cfg.accel = 0; c.cfg.brake = 0;                                                  // (1/255 no es potencia de 2: acelerar/frenar dejaria PE antes de la llamada)
+    c.cfg.ceiling = N();
+    c.ts = 1.0f;
+    for (int i = 0; i < 4; ++i) if (c.args[i] != 0xC61C3FF6u) c.args[i] = Bits(N());
+    // el ala calcula atan2(subida/bajada, deriva) con fpatan (inexacto salvo atan2(+0, x >= 0) = 0): subida/bajada nula y deriva no negativa
+    c.cfg.steerUD = 0; c.cfg.gunUD = 0;
+    if (c.cfg.steerLR < 0) c.cfg.steerLR = int16(-c.cfg.steerLR);
+    if (c.cfg.gunLR < 0) c.cfg.gunLR = int16(-c.cfg.gunLR);
+    if (c.args[1] != 0xC61C3FF6u) c.args[1] = 0;
+    if (c.args[3] != 0xC61C3FF6u) c.args[3] = 0;
+    if (c.args[0] != 0xC61C3FF6u) c.args[0] &= 0x7FFFFFFFu;
+    static const uint32 fsws[] = {0x0000, 0x4500, 0x0004, 0x0001, 0x0002};            // sin PE
+    c.fsw = fsws[RndN(5)];
+}
 inline Case MakeCase(int route, uint64 seed, uintptr_t base) {
     rngState = seed * 0x9E3779B97F4A7C15ull + 88172645463325252ull;
     for (int i = 0; i < 8; ++i) Rnd();
@@ -106,6 +169,7 @@ inline Case MakeCase(int route, uint64 seed, uintptr_t base) {
     c.ts_bits = Rnd();
     static const uint32 fsws[] = {0x0000, 0x0020, 0x003F, 0x0001, 0x4500, 0x0004, 0x0002};
     c.fsw = fsws[RndN(7)];
+    { const uint64 idx = seed - uint64(route) * 1000003ull; if (idx >= kCasesPerRoute - kExactCases && idx < kCasesPerRoute && IsExactRoute(route)) MakeExactCase(c); }
     return c;
 }
 } // namespace Dependencies23BFix

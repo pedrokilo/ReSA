@@ -218,8 +218,10 @@ GAME_SA = 'source/game_sa/'
 # Bodies are scanned in game_sa and in the application/platform layer (hooks of Rs, Ps, Light... live there).
 # The lexical assembly inventory (audit_cpp_assembly.py) keeps covering game_sa only; app files are classified here.
 SCAN_ROOTS = ('source/game_sa', 'source/app')
-# NOTSA file with real inline assembly in macros (outside any definition); its hooks are not part of hooks.csv.
-SKIPPED_FILES = {'source/app/platform/win/WindowedMode.cpp'}
+# Nothing is hidden: NOTSA files with assembly (WindowedMode.cpp) are scanned and reported, flagged as NOTSA exceptions.
+SKIPPED_FILES = set()
+# Preprocessor macro (with backslash continuations): its assembly is attributed to the definitions that expand it.
+DEFINE = re.compile(r'^[ \t]*#[ \t]*define[ \t]+(\w+)(?:[^\n]*\\\n)*[^\n]*', re.M)
 # Attribute macro placed between `class` and the class name; it would hide the class from the parser.
 CLASS_MACROS = re.compile(rb'(?<![A-Za-z0-9_])NOTSA_EXPORT_VTABLE(?![A-Za-z0-9_])')
 
@@ -495,6 +497,12 @@ def outside_game_sa(catalog, registrations, matched):
     return result
 
 
+def notsa_asm_exceptions(functions):
+    """Definitions with assembly outside source/game_sa: the documented NOTSA exception (own project code, not a game function)."""
+    return sorted((r for r in functions if not r['file'].startswith(GAME_SA) and (r['asm_occurrences'] or r['naked_declarations'])),
+                  key=lambda r: (r['file'], r['line']))
+
+
 def collect():
     parser = Parser(Language(tree_sitter_cpp.language()))
     catalog, by_name, by_addr = load_catalog()
@@ -575,6 +583,14 @@ def collect():
                 target['naked_declarations' if kind == 'naked' else 'asm_occurrences'] += 1
                 entry.update(function=target['function'], definition_line=target['line'])
             else:
+                # Assembly inside a #define belongs to every definition of this file that expands the macro (one count per expansion).
+                macro = next((m for m in DEFINE.finditer(lexical) if m.start() <= match.start() < m.end()), None)
+                users = [f for f in definitions if macro and re.search(r'\b' + re.escape(macro[1]) + r'\b', f['body'])]
+                if users:
+                    for user in users:
+                        user['naked_declarations' if kind == 'naked' else 'asm_occurrences'] += 1
+                        occurrences.append(dict(entry, function=user['function'], definition_line=user['line']))
+                    continue
                 entry.update(function='', definition_line='')
                 unresolved.append(entry)
             occurrences.append(entry)
@@ -756,15 +772,30 @@ def write(functions, occurrences, catalog, hashes, errors, outside, shared=()):
         lines.append('')
     for name, lines in details.items():
         (out / name).write_text('\n'.join(lines).rstrip() + '\n', encoding='utf-8')
+    # Assembly counters keep their historical scope (source/game_sa, the lexical audit). Assembly outside game_sa is the documented
+    # NOTSA exception (project-own code, not a game function): it is counted separately and listed, never mixed in nor hidden.
+    in_game = [r for r in functions if r['file'].startswith(GAME_SA)]
+    exceptions = notsa_asm_exceptions(functions)
+    with (out / 'catalogo-excepciones-notsa-asm.csv').open('w', encoding='utf-8', newline='') as stream:
+        writer = csv.writer(stream)
+        writer.writerow(['file', 'line', 'function', 'language', 'asm_occurrences', 'naked_declarations', 'catalog', 'catalog_identity', 'catalog_address', 'counts_as_cpp_only'])
+        for r in exceptions:
+            writer.writerow([r['file'], r['line'], r['function'], r['language'], r['asm_occurrences'], r['naked_declarations'],
+                             r['catalog'], r['catalog_identity'], r['catalog_address'], 'no'])
     totals = {'source_definition_count': len(functions), 'groups': len(groups),
-        'assembly_occurrences': sum(r['asm_occurrences'] for r in functions),
-        'naked_declarations': sum(r['naked_declarations'] for r in functions),
-        'definitions_with_assembly': sum(bool(r['asm_occurrences']) for r in functions),
-        'definitions_with_naked': sum(bool(r['naked_declarations']) for r in functions),
-        'mixed_definitions': sum(r['language'] == 'Mixta (C++ + ASM)' for r in functions),
-        'asm_only_definitions': sum(r['language'] == 'Ensamblador' for r in functions),
+        'assembly_occurrences': sum(r['asm_occurrences'] for r in in_game),
+        'naked_declarations': sum(r['naked_declarations'] for r in in_game),
+        'definitions_with_assembly': sum(bool(r['asm_occurrences']) for r in in_game),
+        'definitions_with_naked': sum(bool(r['naked_declarations']) for r in in_game),
+        'mixed_definitions': sum(r['language'] == 'Mixta (C++ + ASM)' for r in in_game),
+        'asm_only_definitions': sum(r['language'] == 'Ensamblador' for r in in_game),
+        'notsa_asm_exception_definitions': len(exceptions),
+        'notsa_asm_exception_assembly_occurrences': sum(r['asm_occurrences'] for r in exceptions),
+        'notsa_asm_exception_naked_declarations': sum(r['naked_declarations'] for r in exceptions),
+        'notsa_asm_exception_catalog_rows': len({(r['catalog_identity'], r['catalog_address']) for r in exceptions if r['catalog_identity']}),
+        'notsa_asm_exception_files': sorted({r['file'] for r in exceptions}),
         'unassigned_occurrences': 0, 'body_parse_errors': sum(bool(r['parser_error']) for r in functions),
-        'asm_bodies_with_parse_errors': sum(bool(r['asm_occurrences']) and bool(r['parser_error']) for r in functions),
+        'asm_bodies_with_parse_errors': sum(bool(r['asm_occurrences']) and bool(r['parser_error']) for r in in_game),
         'files_with_any_parse_errors': len(errors), 'historical_catalog_rows': len(catalog),
         'catalog_rows_without_unambiguous_source_match_in_scope': len(unmatched),
         'catalog_rows_installed_outside_game_sa': len(outside),
@@ -773,7 +804,7 @@ def write(functions, occurrences, catalog, hashes, errors, outside, shared=()):
         'validated_reconstructed_own_cpp_definitions': sum(r['own_validated_reconstructed'] and r['language'] == 'C++' for r in functions),
         'validated_reconstructed_own_asm_definitions': sum(r['own_validated_reconstructed'] and r['language'] != 'C++' for r in functions),
         'wrapper_definitions': sum(r['implementation'] == 'Envoltura al EXE' for r in functions)}
-    summary = {'scope': 'source/game_sa and source/app (WindowedMode.cpp excluded), definitions in cpp/h/hpp/inc; all preprocessing branches',
+    summary = {'scope': 'source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches',
         'totals': totals, 'source_sha256': hashes,
         'catalog_sha256': {name: hashlib.sha256((ROOT / 'docs' / name).read_bytes()).hexdigest() for name in ('hooks.csv', 'hooks_notsa.csv')},
         'migration_registry_sha256': hashlib.sha256((ROOT / 'reversing/CppOnlyMigration/approvals.json').read_bytes()).hexdigest(),
@@ -792,6 +823,7 @@ def write(functions, occurrences, catalog, hashes, errors, outside, shared=()):
         '- Se registran colaboradores con dirección fija y posibles datos fijos referenciados por nombre. Un destino catalogado puede estar reconstruido y enlazado mediante hook; el inventario **no determina la ruta efectiva**. Direcciones por sí solas no prueban ausencia de reconstrucción.',
         '- «Sin indicio directo» sólo significa que los patrones examinados no lo encontraron. No se resuelven todas las llamadas virtuales, macros, alias, punteros ni dependencias transitivas. **Ningún grupo se declara standalone demostrado.**',
         f"- Tree-sitter detectó errores de análisis en {totals['body_parse_errors']} cuerpos; aparecen marcados y no cuentan como reconstruidos/validados en el resumen. No son diagnósticos de compilación ni fallos de las pruebas del juego. Ninguno de los {totals['definitions_with_assembly']} cuerpos con ASM tiene errores estructurales tras enmascarar sus bloques. Los errores fuera del cuerpo también constan en resumen.json. El inventario cubre ramas del preprocesador sin elegir una configuración de compilación.", '',
+        f"- **Excepción NOTSA con ensamblador fuera de source/game_sa:** {totals['notsa_asm_exception_definitions']} definición con {totals['notsa_asm_exception_assembly_occurrences']} apariciones `__asm` (contadas por expansión de macro) y {totals['notsa_asm_exception_naked_declarations']} `naked` en {', '.join(totals['notsa_asm_exception_files']) or 'ningún archivo'}: código propio del proyecto (modo ventana), no una función del juego, y su hook figura solo en hooks_notsa.csv. Se mantiene como excepción documentada, no se convierte a C++ y **no cuenta como «solo C++»**. Los contadores de ensamblador de arriba cubren source/game_sa; esta excepción se lista aparte en [el listado de excepciones NOTSA](implementaciones/catalogo-excepciones-notsa-asm.csv) y sus apariciones constan en apariciones.csv.", '',
         f"- {len(unmatched)} entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).", '',
         '## Resumen por clase o grupo', '',
         '| Clase / grupo y ubicación | C++ reconstruidas y validadas (histórico) | Con ASM reconstruidas y validadas (histórico) | Otras definiciones / envolturas / pendientes | Apariciones ASM | naked |',
@@ -808,6 +840,7 @@ def write(functions, occurrences, catalog, hashes, errors, outside, shared=()):
         '- [Todas las funciones y sus estados](implementaciones/funciones.csv).',
         '- [Cada aparición ASM/naked asignada a su función](implementaciones/apariciones.csv).',
         '- [Entradas del catálogo sin asociación inequívoca dentro del ámbito](implementaciones/catalogo-sin-coincidencia.csv).',
+        '- [Excepciones NOTSA con ensamblador fuera de source/game_sa (visibles y distinguidas; no cuentan como solo C++)](implementaciones/catalogo-excepciones-notsa-asm.csv).',
         '- [Entradas servidas por el cuerpo genérico de una plantilla ya enlazado a otra instanciación o clase derivada](implementaciones/catalogo-cuerpo-compartido.csv).',
         '- [Entradas cuyo hook se instala fuera de source/game_sa (plataforma, aplicación...) y siguen sin cuerpo enlazado](implementaciones/catalogo-fuera-de-game_sa.csv).',
         '- [Conteos, versiones del parser y hashes de entrada](implementaciones/resumen.json).',

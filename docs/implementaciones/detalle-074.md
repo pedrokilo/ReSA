@@ -8,6 +8,61 @@
 
 <a id="grupo-1461"></a>
 
+## tScriptEffectSystem
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| tScriptEffectSystem() | [source/game_sa/Scripts/TheScripts.h:101](../../source/game_sa/Scripts/TheScripts.h#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetId() const | [source/game_sa/Scripts/TheScripts.h:108](../../source/game_sa/Scripts/TheScripts.h#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsActive() const | [source/game_sa/Scripts/TheScripts.h:111](../../source/game_sa/Scripts/TheScripts.h#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1462"></a>
+
+## tScriptRectangle
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| tScriptRectangle() | [source/game_sa/Scripts/TheScripts.h:183](../../source/game_sa/Scripts/TheScripts.h#L183) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1463"></a>
+
+## tScriptResource
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| tScriptResource() | [source/game_sa/ScriptResourceManager.h:23](../../source/game_sa/ScriptResourceManager.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1464"></a>
+
+## tScriptSearchlight
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| GetId() | [source/game_sa/Scripts/TheScripts.h:239](../../source/game_sa/Scripts/TheScripts.h#L239) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsActive() const | [source/game_sa/Scripts/TheScripts.h:242](../../source/game_sa/Scripts/TheScripts.h#L242) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1465"></a>
+
+## tScriptSequence
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| tScriptSequence() | [source/game_sa/Scripts/TheScripts.h:119](../../source/game_sa/Scripts/TheScripts.h#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetId() const | [source/game_sa/Scripts/TheScripts.h:125](../../source/game_sa/Scripts/TheScripts.h#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsActive() const | [source/game_sa/Scripts/TheScripts.h:128](../../source/game_sa/Scripts/TheScripts.h#L128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1466"></a>
+
+## tScriptSphere
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| tScriptSphere() | [source/game_sa/Scripts/TheScripts.h:262](../../source/game_sa/Scripts/TheScripts.h#L262) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetId() const | [source/game_sa/Scripts/TheScripts.h:271](../../source/game_sa/Scripts/TheScripts.h#L271) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsActive() const | [source/game_sa/Scripts/TheScripts.h:274](../../source/game_sa/Scripts/TheScripts.h#L274) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1467"></a>
+
 ## tSpecificSpeechContextInfo
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -15,7 +70,7 @@
 | IsUseable() const noexcept | [source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h:111](../../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetNumSounds() const noexcept | [source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h:112](../../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1462"></a>
+<a id="grupo-1468"></a>
 
 ## tStreamingChannel
 
@@ -25,7 +80,7 @@
 | IsReading() const noexcept | [source/game_sa/Streaming.h:178](../../source/game_sa/Streaming.h#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsStarted() const noexcept | [source/game_sa/Streaming.h:179](../../source/game_sa/Streaming.h#L179) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1463"></a>
+<a id="grupo-1469"></a>
 
 ## tStreamingFileDesc
 
@@ -34,7 +89,7 @@
 | tStreamingFileDesc(const char* name, bool bNotPlayerImg) | [source/game_sa/Streaming.h:151](../../source/game_sa/Streaming.h#L151) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsInUse() const noexcept | [source/game_sa/Streaming.h:158](../../source/game_sa/Streaming.h#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1464"></a>
+<a id="grupo-1470"></a>
 
 ## tUser3dMarker
 
@@ -44,7 +99,7 @@
 | GetColor() const | [source/game_sa/3dMarkers.h:24](../../source/game_sa/3dMarkers.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsInUse() const | [source/game_sa/3dMarkers.h:26](../../source/game_sa/3dMarkers.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1465"></a>
+<a id="grupo-1471"></a>
 
 ## tVehicleAudioSettings
 
@@ -60,7 +115,7 @@
 | IsCarEngineSound() const | [source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h:37](../../source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsBMX() const | [source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h:38](../../source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1466"></a>
+<a id="grupo-1472"></a>
 
 ## tVirtualChannelSettings
 
@@ -68,7 +123,7 @@
 | --- | --- | --- | --- | --- | --- |
 | tVirtualChannelSettings() | [source/game_sa/Audio/Loaders/AEMP3BankLoader.h:14](../../source/game_sa/Audio/Loaders/AEMP3BankLoader.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1467"></a>
+<a id="grupo-1473"></a>
 
 ## traits::fx_field_scanf_format&lt;char\[size\]&gt;
 
@@ -77,7 +132,7 @@
 | * value() | [source/game_sa/Fx/FxTools.h:36](../../source/game_sa/Fx/FxTools.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | num_parts() | [source/game_sa/Fx/FxTools.h:40](../../source/game_sa/Fx/FxTools.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1468"></a>
+<a id="grupo-1474"></a>
 
 ## traits::fx_field_scanf_format&lt;float&gt;
 
@@ -86,7 +141,7 @@
 | * value() | [source/game_sa/Fx/FxTools.h:27](../../source/game_sa/Fx/FxTools.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | num_parts() | [source/game_sa/Fx/FxTools.h:31](../../source/game_sa/Fx/FxTools.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1469"></a>
+<a id="grupo-1475"></a>
 
 ## traits::fx_field_scanf_format&lt;int32&gt;
 

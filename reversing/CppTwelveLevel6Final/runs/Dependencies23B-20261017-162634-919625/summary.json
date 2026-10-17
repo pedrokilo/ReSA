@@ -1,0 +1,176 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "be9482e62bb668e76403460b86b78e8c8a30bdbc68ecab7827d2b43c376e2c37",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 16896,
+  "pairs_per_function": {
+    "CVehicle::FlyingControl[ruta 0]": 1536,
+    "CVehicle::FlyingControl[ruta 1]": 1536,
+    "CVehicle::FlyingControl[ruta 2]": 1536,
+    "CVehicle::FlyingControl[ruta 3]": 1536,
+    "CVehicle::FlyingControl[ruta 4]": 1536,
+    "CVehicle::FlyingControl[ruta 5]": 1536,
+    "CVehicle::FlyingControl[ruta 6]": 1536,
+    "CVehicle::FlyingControl[ruta 7]": 1536,
+    "CVehicle::FlyingControl[ruta 8]": 1536,
+    "CVehicle::FlyingControl[ruta 9]": 1536,
+    "CVehicle::FlyingControl[ruta 10]": 1536
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "77781d46aad339eee1ded6741a82c7d4fb9aa0f8d4c7033fa0843f3a8dca7e68",
+  "coverage_by_route": {
+    "0": {
+      "1": 1498,
+      "2": 1498,
+      "14": 462,
+      "15": 338,
+      "6": 338,
+      "4": 360
+    },
+    "1": {
+      "1": 1482,
+      "13": 1482,
+      "2": 1482,
+      "3": 1482,
+      "4": 488,
+      "14": 420,
+      "15": 312,
+      "6": 119,
+      "7": 119,
+      "5": 104,
+      "10": 82,
+      "9": 82
+    },
+    "2": {
+      "1": 1493,
+      "2": 1493,
+      "4": 1493,
+      "14": 397,
+      "12": 95,
+      "15": 300,
+      "5": 100,
+      "6": 99,
+      "10": 81,
+      "7": 81,
+      "9": 81,
+      "11": 96,
+      "8": 53
+    },
+    "3": {
+      "1": 1487,
+      "13": 1487,
+      "14": 439,
+      "15": 301,
+      "2": 1487,
+      "3": 1487,
+      "4": 796,
+      "6": 78,
+      "7": 78,
+      "5": 95,
+      "10": 80,
+      "9": 80
+    },
+    "4": {
+      "1": 1489,
+      "13": 1489,
+      "2": 1489,
+      "3": 1489,
+      "4": 789,
+      "14": 418,
+      "15": 322,
+      "5": 94,
+      "10": 89,
+      "9": 89,
+      "6": 103,
+      "7": 103
+    },
+    "5": {
+      "1": 1487,
+      "13": 1487,
+      "2": 1487,
+      "3": 1487,
+      "4": 814,
+      "14": 402,
+      "15": 296,
+      "5": 96,
+      "10": 100,
+      "9": 100,
+      "6": 93,
+      "7": 93
+    },
+    "6": {
+      "1": 1485,
+      "2": 1485,
+      "4": 1485,
+      "14": 367,
+      "12": 86,
+      "15": 279,
+      "5": 93,
+      "6": 99,
+      "10": 72,
+      "7": 72,
+      "9": 72,
+      "11": 80,
+      "8": 42
+    },
+    "7": {
+      "1": 1431,
+      "14": 412,
+      "15": 309
+    },
+    "8": {
+      "1": 1481,
+      "2": 1481,
+      "14": 414,
+      "15": 316,
+      "5": 100,
+      "10": 89,
+      "9": 89,
+      "12": 99,
+      "6": 114,
+      "11": 96,
+      "8": 60
+    },
+    "9": {
+      "1": 1400,
+      "14": 414,
+      "15": 301
+    },
+    "10": {
+      "1": 1428,
+      "14": 413,
+      "15": 311
+    }
+  },
+  "errno_pairs_by_route": [
+    238,
+    289,
+    605,
+    318,
+    312,
+    291,
+    575,
+    228,
+    558,
+    240,
+    205
+  ],
+  "compare_dead_x87_registers": true,
+  "dead_registers_equal_pairs": [
+    16896,
+    16896
+  ],
+  "coverage_method": "serialized_inputs_and_collaborator_trace_counts_per_route",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -12418,8 +12418,57 @@ static __declspec(noinline) void FlcCmpFF(const volatile float* a, const volatil
 // ---- fld qword [a]; fstp dword [sink]: deja a en T-1 y C1 = redondeo de la conversion
 static __declspec(noinline) void FlcStoreD(const volatile double* a) { gFlcSinkF = float(*a); }
 
+// ---- Plantado EXACTO de un valor extendido (mantisa de 64 bits) en un registro muerto.
+// El plantado de arriba solo escribe valores de 53 bits (un double entra por fld qword). El EXE deja, sin tocar, constantes de 64 bits en los registros muertos: _CIasin(+-1) y
+// _CIacos(-1) cargan +-pi/2 y pi con fld tbyte (0x8E313A) y, con PE limpio, no las redondean a 53 bits (0x828EA7). Ese valor se construye en la x87 SIN ensamblador con aritmetica exacta
+// a 64 bits (palabra de control PC=64, que pone Commit). sig (64 bits) = 2 * hi + bajo, con hi = sig >> 1 (63 bits) y bajo = sig & 1. hi se parte en dos doubles EXACTOS (la mitad alta,
+// con sus ceros bajos, y la mitad baja de 32 bits) y se suman en ST0 sin pasar por memoria (un `fild` de un int64 de 63 bits tambien seria exacto, pero el compilador lo redondea a double al
+// convertir en cuanto la expresion es `precise`):
+//     valor = (((h1 + h2) + low) * ka) * kb,   h1 + h2 = hi,   low = +-bajo / 2,   ka * kb = 2^(exp - 62)
+// Todas las operaciones son exactas (sumas cuyo resultado cabe en 64 bits y productos por potencias de 2): no levantan PE ni ninguna otra bandera, no tocan C0, C2 ni C3 y dejan C1 = 0.
+// T-1: la funcion devuelve el double en ST0 (con /fp:fast el compilador no lo redondea a 53 bits) y el llamador lo descarta con `fstp st(0)` (llamada con resultado ignorado), lo que saca el
+// registro SIN modificarlo ni almacenar nada (un fstp a memoria lo redondearia y levantaria PE).
+// Registros mas profundos (T-2 ..): NO se pueden plantar exactos con este metodo. Se probo el mismo arbol de sumas de X87PlantStmt* con el valor calculado en linea o por llamadas
+// (-x y +x para que la suma almacenada sea cero): el compilador (MSVC /O2 /arch:IA32 /fp:fast) evalua primero el subarbol del valor y despues los ceros, que lo sobrescriben, y no hay
+// forma de fijar el orden desde C++. Quedan en 53 bits; el EXE solo deja una constante de 64 bits en T-1 (ver README de Dependencies23B).
+struct FlcExtPlan { double h1; double h2; double low; double ka; double kb; };
+static double FlcPow2(int e) {   // 2^e exacto como double normal (e en [-1022, 1023])
+    return std::bit_cast<double>(static_cast<unsigned long long>(e + 1023) << 52);
+}
+static double FlcSmallInt(unsigned long long m) {   // entero de hasta 53 bits como double, sin instrucciones de coma flotante
+    if (m == 0) return 0.0;
+    const int lz = std::countl_zero(m);
+    const unsigned long long mant = ((m << lz) << 1) >> 12;
+    return std::bit_cast<double>((static_cast<unsigned long long>(63 - lz + 1023) << 52) | mant);
+}
+// false si el valor entra exacto por el plantado de 53 bits (o no es un normal que pueda construirse): el llamador usa entonces FlcPlant.
+static bool FlcPlanExt(const FlcExt& x, FlcExtPlan* p) {
+    if (x.kind != FLC_NORMAL) return false;
+    if (FlcSameBits(FlcFromDouble(FlcToDouble(x), nullptr), x)) return false;   // entra exacto por 53 bits (solo enteros: ninguna instruccion x87)
+    const int s1 = x.exp - 62;                           // exponente del bit menos significativo de hi
+    if (s1 < -2040 || s1 > 2040) return false;           // fuera de lo que cubren dos potencias de 2 normales
+    const int sa = s1 / 2;
+    const int sb = s1 - sa;
+    const unsigned long long hi = x.sig >> 1;
+    const unsigned long long sign = x.neg ? 0x8000000000000000ull : 0ull;
+    p->h1  = std::bit_cast<double>(std::bit_cast<unsigned long long>(FlcSmallInt(hi & 0xFFFFFFFF00000000ull)) | sign);
+    p->h2  = std::bit_cast<double>(std::bit_cast<unsigned long long>(FlcSmallInt(hi & 0xFFFFFFFFull)) | sign);
+    p->low = std::bit_cast<double>((x.sig & 1ull) ? (0x3FE0000000000000ull | sign) : sign);   // +-0,5 o +-0
+    p->ka  = FlcPow2(sa);
+    p->kb  = FlcPow2(sb);
+    return true;
+}
+#pragma float_control(precise, off, push)
+static volatile unsigned gFlcExtTouch;   // lectura volatil: la funcion no es pura y el compilador no puede eliminar la llamada de resultado ignorado
+static __declspec(noinline) double __cdecl FlcExtValue(double h1, double h2, double low, double ka, double kb) { (void)gFlcExtTouch; return (((h1 + h2) + low) * ka) * kb; }
+#pragma float_control(pop)
+static __declspec(noinline) void FlcPlantExt1(const FlcExtPlan& p) { FlcExtValue(p.h1, p.h2, p.low, p.ka, p.kb); }                 // T-1 = x (fstp st(0) del resultado ignorado)
+static __declspec(noinline) void FlcStoreExt(const FlcExtPlan& p) { gFlcSinkF = static_cast<float>(FlcExtValue(p.h1, p.h2, p.low, p.ka, p.kb)); }   // fld x; fstp dword: T-1 = x y C1 = redondeo
 void FlcX87::Commit() {
     if (maxDepth == 0) return;                                         // el EXE no toco la x87
+    // T-1 con mas de 53 bits de mantisa (constante de _CIasin/_CIacos): el plan es de solo enteros y se calcula antes de plantar nada
+    FlcExtPlan topPlan;
+    const bool topExact = FlcPlanExt(reg[0], &topPlan);
     // 1. banderas acumuladas
     if (state & FLC_IE) FlcRaiseIE();
     if (state & FLC_DE) FlcRaiseDE();
@@ -12448,10 +12497,17 @@ void FlcX87::Commit() {
         else { faBits = kOne; fbBits = 0; }
         FlcCmpFF(reinterpret_cast<const volatile float*>(&faBits), reinterpret_cast<const volatile float*>(&fbBits));
     }
-    if (lastClass == 2) FlcStoreD(reinterpret_cast<const volatile double*>(&vBits));   // fld qword [v]; fstp dword: T-1 = v y C1 = redondeo del almacenamiento
+    if (lastClass == 2) {                                                // fld [v]; fstp dword: T-1 = v y C1 = redondeo del almacenamiento
+        if (topExact) {                                                   // v con 64 bits de mantisa: construido exacto (PC = 64)
+            __control87_2(_PC_64, _MCW_PC, &cwIgnored, nullptr);
+            FlcStoreExt(topPlan);
+            __control87_2(cwPrevious, _MCW_PC, &cwIgnored, nullptr);
+        } else FlcStoreD(reinterpret_cast<const volatile double*>(&vBits));
+    }
     else {
         __control87_2(_PC_64, _MCW_PC, &cwIgnored, nullptr);
-        FlcPlant(1, vals[0]);                                                // T-1 = v, C1 = 0
+        if (topExact) FlcPlantExt1(topPlan);                                 // T-1 = v exacto (64 bits), C1 = 0
+        else FlcPlant(1, vals[0]);                                           // T-1 = v, C1 = 0
         __control87_2(cwPrevious, _MCW_PC, &cwIgnored, nullptr);
     }
 }

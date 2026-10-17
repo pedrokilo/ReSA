@@ -534238,7 +534238,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies23B/validation-summary.json",
-        "sha256": "c8ccd224dbbd89530a6cd8f10b49e191ec6e1f1ef96e83204166038910606ab9",
+        "sha256": "b3a7d11eea39cb3884786fbef9d0d175eedd6ff7466d874750b2c8f1540ecef1",
         "passed_path": [
           "covered_functions",
           "CVehicle::FlyingControl"
@@ -534249,11 +534249,11 @@
       "tested_sources": {
         "source/game_sa/Entity/Vehicle/Vehicle.cpp": "729368905b3759af53f39326bbc5b818183b8382004493757c346fe0c0a05056",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
-        "source/game_sa/X87Math.cpp": "8c095e5650de124975b0de0e36063681090f57d49837e6ce33b9b17bc7d8fe90",
+        "source/game_sa/X87Math.cpp": "218837db535132c19242e58a7767ef15246bb071d671e6d1eeafc5fd75e8b547",
         "source/game_sa/X87Math.h": "098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90",
         "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Dependencies23B/Fixtures.hpp": "81448385edfb45dfb4ba9455fa16eaddf9965772362797c4224fbb6372962b5d",
+        "reversing/Dependencies23B/Fixtures.hpp": "c5051a5e1067f464eb664473a578ba5dc9f74070d54f27c505704612d23bc2d8",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },

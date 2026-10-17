@@ -58,7 +58,8 @@ class PublishedInventoryTest(unittest.TestCase):
         with (inventory.ROOT / 'reversing/CppOnlyMigration/inventory.csv').open(encoding='utf-8', newline='') as stream:
             original = list(csv.DictReader(stream))
         key = lambda r: (r['file'], r['line'], r['kind'])
-        self.assertEqual(Counter(map(key, occurrences)), Counter(map(key, original)))
+        # The lexical audit covers source/game_sa; assembly elsewhere is the NOTSA exception and is checked by its own test.
+        self.assertEqual(Counter(map(key, (r for r in occurrences if r['file'].startswith('source/game_sa/')))), Counter(map(key, original)))
         definitions = {(r['file'], r['line'], r['function']) for r in functions}
         self.assertEqual(len(definitions), len(functions))
         for row in occurrences:
@@ -177,6 +178,37 @@ class HookAddressLinkTest(unittest.TestCase):
         spare = self.fn('RsTimer', 'RsTimer()', 'source/app/platform/platform.cpp')
         inventory.link_by_registration([spare], catalog[:1], regs, set(), set())
         self.assertIsNone(spare['catalog_match'])
+
+    def test_notsa_windowed_mode_exception_is_linked_visible_and_not_cpp_only(self):
+        out = inventory.ROOT / 'docs/implementaciones'
+        with (out / 'funciones.csv').open(encoding='utf-8', newline='') as stream:
+            functions = list(csv.DictReader(stream))
+        with (out / 'catalogo-sin-coincidencia.csv').open(encoding='utf-8', newline='') as stream:
+            unmatched = list(csv.DictReader(stream))
+        with (out / 'catalogo-excepciones-notsa-asm.csv').open(encoding='utf-8', newline='') as stream:
+            exceptions = list(csv.DictReader(stream))
+        summary = json.loads((out / 'resumen.json').read_text(encoding='utf-8'))['totals']
+        self.assertFalse([r for r in unmatched if r['class'] == 'WindowedModeHooks'])
+        linked = {r['catalog_identity']: r for r in functions if r['catalog'] == 'hooks_notsa.csv'}
+        for name in ('RenderWare::_rwD3D9CameraBeginUpdate', 'RenderWare::_rwD3D9CameraClear',
+                     'notsa::WindowedMode::HookDirect3DDeviceReplacerSA'):
+            self.assertIn('WindowedModeHooks::' + name, linked)
+            self.assertEqual(linked['WindowedModeHooks::' + name]['file'], 'source/app/platform/win/WindowedMode.cpp')
+        hook = linked['WindowedModeHooks::notsa::WindowedMode::HookDirect3DDeviceReplacerSA']
+        self.assertEqual((hook['language'], hook['naked_declarations']), ('Mixta (C++ + ASM)', '1'))
+        self.assertGreater(int(hook['asm_occurrences']), 0)  # macro assembly (STACK_PUSH/STACK_POP) is counted per expansion
+        self.assertEqual([(r['file'], r['function'], r['counts_as_cpp_only']) for r in exceptions],
+                         [('source/app/platform/win/WindowedMode.cpp', hook['function'], 'no')])
+        self.assertEqual(summary['notsa_asm_exception_definitions'], 1)
+        self.assertEqual(summary['catalog_rows_installed_outside_game_sa'], 0)
+        # Historical game_sa assembly counters are not inflated by the exception.
+        self.assertEqual(summary['assembly_occurrences'], 0)
+        self.assertEqual(summary['naked_declarations'], 0)
+
+    def test_macro_assembly_is_attributed_to_each_expansion(self):
+        match = inventory.DEFINE.search('#define PUSH \\\n    _asm push ebp \\\n    _asm pop ebp\nvoid F() { PUSH }\n')
+        self.assertEqual(match[1], 'PUSH')
+        self.assertTrue(match[0].rstrip().endswith('_asm pop ebp'))
 
     def test_published_inventory_scope_and_unlinked_outside_entries(self):
         out = inventory.ROOT / 'docs/implementaciones'

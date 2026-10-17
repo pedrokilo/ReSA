@@ -48,7 +48,11 @@ static void Hook(uintptr_t at, void* fn) {
 }
 static std::string Hex(const uint8* p, int n) { char t[8]; std::string s; for (int i = 0; i < n; ++i) { std::sprintf(t, "%02x", p[i]); s += t; } return s; }
 
+#if __has_include("../Fixtures.hpp")   // disposicion del repositorio (offline/ dentro de Dependencies23B); en la de trabajo (h/, bank/) se usa ../bank/
+#include "../Fixtures.hpp"
+#else
 #include "../bank/Fixtures.hpp"
+#endif
 using namespace Dependencies23BFix;
 // ---------------------------------------------------------------- arena
 constexpr uintptr_t kArena = 0x30000000;
@@ -130,7 +134,11 @@ static std::set<uint32> gCov;
 #define FLC_COV(a) gCov.insert(a)
 #include "../flc_vehicle_cov.inc"
 #else
+#if __has_include("flc_vehicle.inc")
+#include "flc_vehicle.inc"
+#else
 #include "../flc_vehicle.inc"
+#endif
 #endif
 
 // ---------------------------------------------------------------- llamadas con captura del estado
