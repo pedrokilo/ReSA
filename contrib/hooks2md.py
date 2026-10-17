@@ -70,26 +70,20 @@ def generate(input_path, output_path, update_source_status=False):
             f"({validation['documented']}). Ejecuta: python contrib/sync_validated_flags.py"
         )
     # Funciones reconstruidas del catálogo cuyo cuerpo fuente (inventario de implementaciones) está escrito solo en C++, sin __asm ni naked.
-    # Alcance: source/game_sa. Las entradas reconstruidas cuyo hook se instala fuera de source/game_sa (plataforma, aplicación...) salen del denominador.
-    # Las entradas de game_sa sin fuente identificada de forma inequívoca no se cuentan como C++.
+    # Mide todo el catálogo (game_sa, plataforma y aplicación). Las entradas sin fuente identificada de forma inequívoca no se cuentan como C++.
+    cpp_total = reversed_count
     cpp_only = 0
-    cpp_excluded = 0
     inventory = Path(input_path).with_name('implementaciones') / 'funciones.csv'
-    outside_file = Path(input_path).with_name('implementaciones') / 'catalogo-fuera-de-game_sa.csv'
     if inventory.exists():
         with inventory.open(encoding='utf-8-sig', newline='') as stream:
             # Una entrada del catálogo cuenta una sola vez aunque varios cuerpos (p. ej. constructor y su envoltura Constructor) compartan su dirección;
             # cuenta como C++ solo si todos los cuerpos enlazados están escritos solo en C++.
             linked = {}
             for row in csv.DictReader(stream):
-                if row['reversed'] == '1':
+                if row['reversed'] == '1' and row['catalog'] == Path(input_path).name:  # solo hooks.csv; hooks_notsa.csv queda fuera
                     key = (row['catalog_identity'], row['catalog_address'])
                     linked[key] = linked.get(key, True) and row['language'] == 'C++'
             cpp_only = sum(linked.values())
-        if outside_file.exists():
-            with outside_file.open(encoding='utf-8-sig', newline='') as stream:
-                cpp_excluded = sum(row['reversed'] == '1' and row['catalog'] == Path(input_path).name for row in csv.DictReader(stream))
-    cpp_total = reversed_count - cpp_excluded
     cpp_row = ([f"| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `{'█' * round(20*cpp_only/cpp_total)}{'░' * (20-round(20*cpp_only/cpp_total))}` | {cpp_only:,}/{cpp_total:,} · {cpp_only/cpp_total:.2%} |"]
                if inventory.exists() and cpp_total else [])
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
@@ -114,7 +108,7 @@ def generate(input_path, output_path, update_source_status=False):
              f"| Clases validadas (de las completas) | `{'█' * round(20*len(validated_classes)/len(full))}{'░' * (20-round(20*len(validated_classes)/len(full)))}` | {len(validated_classes)}/{len(full)} · {len(validated_classes)/len(full):.2%} |",
              f"| Funciones reconstruidas | `{'█' * round(20*reversed_count/total)}{'░' * (20-round(20*reversed_count/total))}` | {reversed_count:,}/{total:,} · {reversed_count/total:.2%} |",
              f"| Funciones validadas (de las reconstruidas) | `{'█' * round(20*validated_count/reversed_count)}{'░' * (20-round(20*validated_count/reversed_count))}` | {validated_count:,}/{reversed_count:,} · {validated_count/reversed_count:.2%} |", *cpp_row, "",
-             "Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL." + (f" La última barra mide solo `source/game_sa`: cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas de game_sa sin fuente identificada de forma inequívoca no se cuentan como C++. Su denominador excluye {cpp_excluded:,} funciones reconstruidas cuyo hook se instala fuera de `source/game_sa` (plataforma y aplicación: Rs, Ps, Light, Game, App, Win, Input, VideoMode, VideoPlayer, Securom), listadas en [catalogo-fuera-de-game_sa.csv](implementaciones/catalogo-fuera-de-game_sa.csv); las demás filas siguen midiendo el catálogo completo. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md)." if cpp_row else ""), "",
+             "Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL." + (" La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md)." if cpp_row else ""), "",
              migration_text, "",
              f"Hay {total:,} entradas catalogadas, {locked:,} bloqueadas y {total-locked:,} sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks."
              + (f" Las extensiones o adaptaciones NOTSA ({notsa_count}, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta." if notsa_count else ""), "",

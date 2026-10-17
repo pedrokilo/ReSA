@@ -26,6 +26,7 @@ def blank(data):
 
 
 def sanitized(raw):
+    raw = CLASS_MACROS.sub(lambda m: blank(m[0]), raw)
     clean = MASK.sub(lambda m: blank(m[0]), raw)
     # Keep strings in the syntax tree: removing a string argument can leave
     # f(, value), breaking the surrounding function. Only comments are blanked.
@@ -121,6 +122,7 @@ def load_catalog():
     return rows, by_name, by_addr
 
 
+STRINGS = re.compile(r'"(?:\\.|[^"\\])*"|' + r"'(?:\\.|[^'\\])*'")
 REG = re.compile(r'\bRH_Scoped(\w+)\s*\(')
 SCOPE_KINDS = {'Class', 'NamedClass', 'VirtualClass', 'Namespace', 'NamespaceName'}
 # kind -> (index of symbol, index of suffix/name or None, index of address, index of cast or None)
@@ -131,6 +133,13 @@ INSTALL_ARGS = {
     'VMTOverloadedInstall': (0, 1, 2, 3), 'VMTInstall': (0, None, 1, None)}
 BUILTIN = {'int', 'char', 'float', 'double', 'short', 'long', 'unsigned', 'signed', 'bool', 'void', 'const'}
 GAME_SA = 'source/game_sa/'
+# Bodies are scanned in game_sa and in the application/platform layer (hooks of Rs, Ps, Light... live there).
+# The lexical assembly inventory (audit_cpp_assembly.py) keeps covering game_sa only; app files are classified here.
+SCAN_ROOTS = ('source/game_sa', 'source/app')
+# NOTSA file with real inline assembly in macros (outside any definition); its hooks are not part of hooks.csv.
+SKIPPED_FILES = {'source/app/platform/win/WindowedMode.cpp'}
+# Attribute macro placed between `class` and the class name; it would hide the class from the parser.
+CLASS_MACROS = re.compile(rb'(?<![A-Za-z0-9_])NOTSA_EXPORT_VTABLE(?![A-Za-z0-9_])')
 
 
 def split_args(text, start):
@@ -181,9 +190,15 @@ def literal(value):
 def parse_registrations(raw, relative):
     """Hook registrations (RH_Scoped*Install) in one file; comments are ignored."""
     text = MASK.sub(lambda m: blank(m[0]) if m[0].startswith(b'/') else m[0], raw).decode('utf-8', errors='replace')
-    out, scope = [], (None, None)
+    out, stack, depth, last = [], [], 0, 0  # stack of (brace depth, (namespace, name)); blocks restore the outer scope
     for match in REG.finditer(text):
         kind = match[1]
+        segment = STRINGS.sub('', text[last:match.start()])
+        depth += segment.count('{') - segment.count('}')
+        last = match.start()
+        while stack and stack[-1][0] > depth:
+            stack.pop()
+        scope = stack[-1][1] if stack else (None, None)
         if kind not in SCOPE_KINDS and kind not in INSTALL_ARGS:
             continue
         args, _ = split_args(text, match.end())
@@ -191,11 +206,14 @@ def parse_registrations(raw, relative):
             continue
         if kind in SCOPE_KINDS:
             if kind == 'NamespaceName':
-                scope = (None, literal(args[0]))
+                new_scope = (None, literal(args[0]))
             elif kind == 'NamedClass' and len(args) > 1:
-                scope = (args[0], literal(args[1]))
+                new_scope = (args[0], literal(args[1]))
             else:
-                scope = (args[0], args[0])
+                new_scope = (args[0], args[0])
+            if stack and stack[-1][0] == depth:
+                stack.pop()
+            stack.append((depth, new_scope))
             continue
         sym_i, name_i, addr_i, cast_i = INSTALL_ARGS[kind]
         if len(args) <= addr_i or not re.fullmatch(r'0x[0-9A-Fa-f]{1,8}', args[addr_i]) or not scope[1]:
@@ -258,7 +276,7 @@ def param_types(signature):
     return [] if result == ['void'] else result
 
 
-def link_by_registration(functions, catalog, registrations, matched):
+def link_by_registration(functions, catalog, registrations, matched, scanned):
     """Link catalog rows still unmatched to exactly one source body using the hook installation.
 
     The registration (scope, name, address) identifies the catalog row; the registered C++ symbol
@@ -272,7 +290,7 @@ def link_by_registration(functions, catalog, registrations, matched):
     proposals = defaultdict(set)  # id(catalog row) -> {id(function)}
     rows = {}
     for r in registrations:
-        if not r['file'].startswith(GAME_SA):
+        if r['file'] not in scanned:
             continue
         keyed = catalog_by_key.get((r['scope'], r['display']), [])
         keyed = [c for c in keyed if canonical(c['address']) == r['address'] or (r['virtual'] and int(c['address'], 16) == 0)]
@@ -309,7 +327,7 @@ def link_by_registration(functions, catalog, registrations, matched):
 
 
 def outside_game_sa(catalog, registrations, matched):
-    """Unlinked catalog rows whose hook is installed only from a file outside source/game_sa."""
+    """Catalog rows still without a body whose hook is installed only from a file outside source/game_sa."""
     inside = {(r['scope'], r['display'], r['address']) for r in registrations if r['file'].startswith(GAME_SA)}
     found = {(r['scope'], r['display'], r['address']): r['file'] for r in registrations if not r['file'].startswith(GAME_SA)}
     result = {}
@@ -326,7 +344,9 @@ def collect():
     functions, occurrences, unresolved, file_errors = [], [], [], []
     source_hashes, global_data = {}, defaultdict(list)
     registrations = []
-    paths = sorted(p for p in (ROOT / 'source/game_sa').rglob('*') if p.suffix in {'.cpp', '.h', '.hpp', '.inc'})
+    paths = sorted(p for root in SCAN_ROOTS for p in (ROOT / root).rglob('*')
+                   if p.suffix in {'.cpp', '.h', '.hpp', '.inc'} and p.relative_to(ROOT).as_posix() not in SKIPPED_FILES)
+    scanned = {p.relative_to(ROOT).as_posix() for p in paths}
     for path in paths:
         relative = path.relative_to(ROOT).as_posix()
         raw = path.read_bytes()
@@ -360,7 +380,7 @@ def collect():
                    'has_cpp_body': bool(re.search(rb'[A-Za-z_]', sanitized_raw[body.start_byte:body.end_byte])),
                    'statements': [n.type for n in body.named_children if n.type != 'comment']}
             prefix = raw[max(0, node.start_byte - 450):node.start_byte].decode('utf-8', errors='replace')
-            comments = re.search(r'(?://[^\n]*\n\s*)+$', prefix)
+            comments = re.search(r'(?://[^\n]*\n[ \t]*)+$', prefix)  # contiguous comment lines only: a blank line ends the block
             addresses = HEX.findall(comments[0]) if comments else []
             entries = re.findall(r'//\s*>?\s*(0x[0-9A-Fa-f]{6,8})\b', comments[0]) if comments else []
             row['address'] = canonical(entries[0]) if entries else ''
@@ -401,7 +421,7 @@ def collect():
             file_errors.append(relative)
     for path in sorted((ROOT / 'source').rglob('*')):
         relative = path.relative_to(ROOT).as_posix()
-        if (path.suffix in {'.cpp', '.h', '.hpp', '.inc'} and not relative.startswith(GAME_SA)
+        if (path.suffix in {'.cpp', '.h', '.hpp', '.inc'} and relative not in scanned
                 and not relative.startswith('source/reversiblehooks/')):
             registrations += parse_registrations(path.read_bytes(), relative)
     if unresolved:
@@ -416,8 +436,14 @@ def collect():
         if len(choices) > 1 and row['address']:
             choices = [c for c in choices if canonical(c['address']) == row['address']]
         row['catalog_match'] = choices[0] if len(choices) == 1 else None
+    # Virtual entries (catalog address 0x0) are anchored by their RH_ScopedVMTInstall registration; without it the name match is dropped.
+    anchored = {(r['scope'], r['display']) for r in registrations if r['virtual']}
+    for row in functions:
+        c = row['catalog_match']
+        if c and int(c['address'], 16) == 0 and (c['class'], c['fn_name']) not in anchored:
+            row['catalog_match'] = None
     matched = {id(f['catalog_match']) for f in functions if f['catalog_match']}
-    link_by_registration(functions, catalog, registrations, matched)
+    link_by_registration(functions, catalog, registrations, matched, scanned)
     outside = outside_game_sa(catalog, registrations, matched)
     outside = [(c, outside[id(c)]) for c in catalog if id(c) in outside]
     for row in functions:
@@ -425,6 +451,7 @@ def collect():
         if c and (row['function'].find('::') == -1 and row['function'] == c['fn_name'] or
                   row.get('linked_by_address') and row['owner'].startswith('Globales y helpers')):
             row['owner'] = c['class']
+        row['catalog'] = c['catalog'] if c else ''
         row['catalog_identity'] = (c['class'] + '::' + c['fn_name']) if c else ''
         row['catalog_address'] = canonical(c['address']) if c else ''
         row['reversed'] = c['reversed'] if c else ''
@@ -496,7 +523,7 @@ def write(functions, occurrences, catalog, hashes, errors, outside):
         writer = csv.DictWriter(stream, fieldnames=list(catalog[0]))
         writer.writeheader()
         writer.writerows(unmatched)
-    # Reconstructed hooks installed from files outside source/game_sa (platform, application...): not part of this measurement.
+    # Catalog rows installed from outside source/game_sa (platform, application...) that still have no identifiable body.
     with (out / 'catalogo-fuera-de-game_sa.csv').open('w', encoding='utf-8', newline='') as stream:
         writer = csv.DictWriter(stream, fieldnames=list(catalog[0]) + ['registered_in'])
         writer.writeheader()
@@ -504,7 +531,7 @@ def write(functions, occurrences, catalog, hashes, errors, outside):
     fields = ['owner', 'function', 'signature', 'file', 'line', 'end_line', 'language',
               'asm_occurrences', 'naked_declarations', 'implementation', 'validation',
               'catalog_identity', 'catalog_address', 'reversed', 'validated', 'dependency',
-              'independence', 'parser_error', 'migration_evidence']
+              'independence', 'parser_error', 'migration_evidence', 'catalog']
     with (out / 'funciones.csv').open('w', encoding='utf-8', newline='') as stream:
         writer = csv.DictWriter(stream, fieldnames=fields, extrasaction='ignore')
         writer.writeheader()
@@ -558,7 +585,7 @@ def write(functions, occurrences, catalog, hashes, errors, outside):
         'validated_reconstructed_own_cpp_definitions': sum(r['own_validated_reconstructed'] and r['language'] == 'C++' for r in functions),
         'validated_reconstructed_own_asm_definitions': sum(r['own_validated_reconstructed'] and r['language'] != 'C++' for r in functions),
         'wrapper_definitions': sum(r['implementation'] == 'Envoltura al EXE' for r in functions)}
-    summary = {'scope': 'source/game_sa, definitions in cpp/h/hpp/inc; all preprocessing branches',
+    summary = {'scope': 'source/game_sa and source/app (WindowedMode.cpp excluded), definitions in cpp/h/hpp/inc; all preprocessing branches',
         'totals': totals, 'source_sha256': hashes,
         'catalog_sha256': {name: hashlib.sha256((ROOT / 'docs' / name).read_bytes()).hexdigest() for name in ('hooks.csv', 'hooks_notsa.csv')},
         'migration_registry_sha256': hashlib.sha256((ROOT / 'reversing/CppOnlyMigration/approvals.json').read_bytes()).hexdigest(),
@@ -593,7 +620,7 @@ def write(functions, occurrences, catalog, hashes, errors, outside):
         '- [Todas las funciones y sus estados](implementaciones/funciones.csv).',
         '- [Cada aparición ASM/naked asignada a su función](implementaciones/apariciones.csv).',
         '- [Entradas del catálogo sin asociación inequívoca dentro del ámbito](implementaciones/catalogo-sin-coincidencia.csv).',
-        '- [Entradas cuyo hook se instala fuera de source/game_sa (plataforma, aplicación...); quedan fuera de la medición «solo C++»](implementaciones/catalogo-fuera-de-game_sa.csv).',
+        '- [Entradas cuyo hook se instala fuera de source/game_sa (plataforma, aplicación...) y siguen sin cuerpo enlazado](implementaciones/catalogo-fuera-de-game_sa.csv).',
         '- [Conteos, versiones del parser y hashes de entrada](implementaciones/resumen.json).',
         '- [Conversiones a C++ revalidadas recientemente](../reversing/CppOnlyMigration/README.md).',
         '- [Alcance del catálogo y dependencias fuera de él](CurrentStatus.md).', '',
@@ -610,7 +637,7 @@ def main():
     functions, occurrences, catalog, hashes, errors, outside = collect()
     with (ROOT / 'reversing/CppOnlyMigration/inventory.csv').open(encoding='utf-8', newline='') as stream:
         expected = Counter((r['file'], int(r['line']), r['kind']) for r in csv.DictReader(stream))
-    actual = Counter((r['file'], r['line'], r['kind']) for r in occurrences)
+    actual = Counter((r['file'], r['line'], r['kind']) for r in occurrences if r['file'].startswith(GAME_SA))
     if expected != actual:
         raise ValueError('Lexical inventory mismatch; regenerate audit_cpp_assembly.py first')
     print(json.dumps(write(functions, occurrences, catalog, hashes, errors, outside), ensure_ascii=False))

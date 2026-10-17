@@ -8,6 +8,170 @@
 
 <a id="grupo-1561"></a>
 
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexLeaveCar | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h:13](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h#L13) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h:32](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h:39](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1562"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexLeaveCarAndDie | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h:7](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h#L7) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h:17](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1563"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexLeaveCarAndFlee | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h:10](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h#L10) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h:36](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h:37](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * ControlSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h:40](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1564"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexLeaveCarAndWander | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h:11](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1565"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexLeaveCarAsPassengerWait | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h:9](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h#L9) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h:26](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1566"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexMedicTreatInjuredPed | [source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.h:7](../../source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.h#L7) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.h:22](../../source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1567"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexMoveBackAndJump | [source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h:9](../../source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h#L9) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexMoveBackAndJump(const CTaskComplexMoveBackAndJump&) | [source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h:17](../../source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h:21](../../source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h:22](../../source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * ControlSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h:25](../../source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1568"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexObserveTrafficLights | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h#L5) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h:17](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexObserveTrafficLights::Destructor 0x006317C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexObserveTrafficLights::GetTaskType 0x006317B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexObserveTrafficLights::Clone 0x00636410 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CreateFirstSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h:21](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1569"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexObserveTrafficLightsAndAchieveHeading | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h:23](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h#L23) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h:34](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h:45](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor(int32 durationInMs, float fTargetHeading) | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h:56](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1570"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexOnFire | [source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.h:12](../../source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.h#L12) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexOnFire(const CTaskComplexOnFire&) | [source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.h:26](../../source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1571"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexOpenDriverDoor | [source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h:6](../../source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h#L6) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexOpenDriverDoor(CVehicle* vehicle) | [source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h:12](../../source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h:17](../../source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexOpenDriverDoor::GetTaskType 0x006403C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1572"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexOpenPassengerDoor | [source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h#L5) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexOpenPassengerDoor(CVehicle* vehicle, int32 targetSeat) | [source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h:11](../../source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h:16](../../source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexOpenPassengerDoor::Destructor 0x00640420 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1573"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexPartner | [source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h:11](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h:36](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1574"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexPartnerChat | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.h:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.h#L5) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1575"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexPartnerDeal | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h#L5) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h:15](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h:16](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1576"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexPartnerGreet | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h#L5) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h:20](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1577"></a>
+
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -16,7 +180,7 @@
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.h:15](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.h:16](../../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1562"></a>
+<a id="grupo-1578"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h
 
@@ -26,7 +190,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h:32](../../source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h:33](../../source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1563"></a>
+<a id="grupo-1579"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h
 
@@ -35,7 +199,7 @@
 | CTaskComplexPlayHandSignalAnim | [source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h:14](../../source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h#L14) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h:31](../../source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1564"></a>
+<a id="grupo-1580"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h
 
@@ -46,164 +210,3 @@
 | MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override | [source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h:33](../../source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h:36](../../source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CreateNextSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h:39](../../source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1565"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexPresentIDToCop.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexPresentIDToCop | [source/game_sa/Tasks/TaskTypes/TaskComplexPresentIDToCop.h:10](../../source/game_sa/Tasks/TaskTypes/TaskComplexPresentIDToCop.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexPresentIDToCop.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexPresentIDToCop.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1566"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexProstituteSolicit | [source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h:12](../../source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h#L12) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h:45](../../source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h:46](../../source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexProstituteSolicit::GetTaskType 0x00661AE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1567"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexReactToAttack.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexReactToAttack | [source/game_sa/Tasks/TaskTypes/TaskComplexReactToAttack.h:10](../../source/game_sa/Tasks/TaskTypes/TaskComplexReactToAttack.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexReactToAttack.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexReactToAttack.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1568"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexReactToGunAimedAt | [source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.h:10](../../source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.h#L10) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.h:26](../../source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1569"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexRoadRage | [source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h:9](../../source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h#L9) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h:25](../../source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h:26](../../source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1570"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexScreamInCarThenLeave | [source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h:17](../../source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h#L17) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h:35](../../source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h:36](../../source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1571"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexSeekCoverUntilTargetDead | [source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h#L19) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h:30](../../source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h:44](../../source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1572"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexSeekEntityAiming | [source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h:9](../../source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h#L9) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h:20](../../source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1573"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexShuffleSeats | [source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h:13](../../source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h#L13) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h:26](../../source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1574"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexSignalAtPed | [source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h:7](../../source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h#L7) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h:24](../../source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h:25](../../source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1575"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexSitDownThenIdleThenStandUp | [source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h:8](../../source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h#L8) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h:28](../../source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1576"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexSmartFleeEntity | [source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h:9](../../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h#L9) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h:46](../../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h:47](../../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor(CEntity* entity_1, bool a3, float a4, int32 a5, int32 a6, float a7) | [source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h:56](../../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h:57](../../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h#L57) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1577"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexSmartFleePoint | [source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h:12](../../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h#L12) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h:37](../../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h:38](../../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1578"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexStareAtPed | [source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h:10](../../source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h#L10) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h:29](../../source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h:30](../../source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1579"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexStealCar | [source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h:11](../../source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h:29](../../source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h:30](../../source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1580"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexStuckInAir | [source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexStuckInAir(const CTaskComplexStuckInAir&) | [source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h:12](../../source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h:15](../../source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h:16](../../source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

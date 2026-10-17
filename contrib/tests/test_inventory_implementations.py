@@ -118,7 +118,7 @@ class HookAddressLinkTest(unittest.TestCase):
         b = self.fn('X::Draw', 'X::Draw(float x, float y) const')
         catalog = [self.cat('X', 'Draw-Rect', '0x00401010'), self.cat('X', 'Draw-Quad', '0x00401020'),
                    self.cat('X', 'Plain', '0x00401000')]
-        inventory.link_by_registration([a, b], catalog, regs, set())
+        inventory.link_by_registration([a, b], catalog, regs, set(), {'source/game_sa/X.cpp'})
         self.assertIs(a['catalog_match'], catalog[0])
         self.assertIs(b['catalog_match'], catalog[1])
 
@@ -128,31 +128,65 @@ class HookAddressLinkTest(unittest.TestCase):
         a = self.fn('X::Plain', 'X::Plain()')
         b = self.fn('X::Plain', 'X::Plain(int)', 'source/game_sa/X.h')
         catalog = [self.cat('X', 'Plain', '0x00401000')]
-        inventory.link_by_registration([a, b], catalog, regs, set())
+        inventory.link_by_registration([a, b], catalog, regs, set(), {'source/game_sa/X.cpp'})
         self.assertIsNone(a['catalog_match'])
         self.assertIsNone(b['catalog_match'])
         # A wrong address in the catalog also prevents the link.
         c = self.fn('X::Plain', 'X::Plain()')
-        inventory.link_by_registration([c], [self.cat('X', 'Plain', '0x00402000')], regs, set())
+        inventory.link_by_registration([c], [self.cat('X', 'Plain', '0x00402000')], regs, set(), {'source/game_sa/X.cpp'})
         self.assertIsNone(c['catalog_match'])
 
-    def test_registrations_outside_game_sa_are_excluded_not_linked(self):
-        regs = inventory.parse_registrations(self.SOURCE, 'source/app/platform/platform.cpp')
-        body = self.fn('Impl_Eax', 'Impl_Eax()', 'source/app/platform/platform.cpp')
-        catalog = [self.cat('Rs', 'Impl', '0x00619510')]
-        matched = set()
-        inventory.link_by_registration([body], catalog, regs, matched)
-        self.assertIsNone(body['catalog_match'])
-        self.assertEqual(list(inventory.outside_game_sa(catalog, regs, matched)), [id(catalog[0])])
+    def test_virtual_entry_is_anchored_by_vmt_registration_and_inline_class_macro(self):
+        header = b'class NOTSA_EXPORT_VTABLE X : public Y { CEvent* Clone() const override { return new X; } };'
+        raw = header
+        masked = inventory.sanitized(raw)
+        tree = Parser(Language(tree_sitter_cpp.language())).parse(masked)
+        node = [n for n in inventory.walk(tree.root_node) if n.type == 'function_definition'][0]
+        name = inventory.declarator_name(node.child_by_field_name('declarator'), raw)
+        self.assertEqual(inventory.owner_name(node, raw, name, 'x.h'), ('X', 'X::Clone'))
+        source = (b'void X::InjectHooks() { RH_ScopedVirtualClass(X, 0x85B400, 16);' + bytes([10]) +
+                  b' RH_ScopedVMTInstall(Clone, 0x4B76D0); }' + bytes([10]))
+        regs = inventory.parse_registrations(source, 'source/game_sa/X.cpp')
+        self.assertTrue(regs[0]['virtual'])
+        body = self.fn('X::Clone', 'Clone() const override', 'source/game_sa/X.h')
+        other = self.fn('Z::Clone', 'Clone() const override', 'source/game_sa/Z.h')
+        catalog = [self.cat('X', 'Clone', '0x00000000')]
+        inventory.link_by_registration([body, other], catalog, regs, set(), {'source/game_sa/X.cpp'})
+        self.assertIs(body['catalog_match'], catalog[0])
+        self.assertIsNone(other['catalog_match'])
 
-    def test_published_scope_is_game_sa_only_and_outside_entries_are_not_counted(self):
+    def test_scope_macro_inside_a_block_does_not_leak(self):
+        source = (b'void F() { RH_ScopedVirtualClass(A, 0x1, 1);' + bytes([10]) +
+                  b' { RH_ScopedClass(B); RH_ScopedInstall(Inner, 0x10); }' + bytes([10]) +
+                  b' RH_ScopedVMTInstall(Outer, 0x20); }' + bytes([10]))
+        regs = inventory.parse_registrations(source, 'source/game_sa/A.cpp')
+        self.assertEqual([(r['scope'], r['display']) for r in regs], [('B', 'Inner'), ('A', 'Outer')])
+
+    def test_body_outside_game_sa_is_linked_by_registration(self):
+        source = (b'void InjectHooks() { RH_ScopedNamespaceName("Rs");' + bytes([10]) +
+                  b' RH_ScopedGlobalInstall(RsTimer, 0x619410); RH_ScopedGlobalInstall(RsGone, 0x619420); }' + bytes([10]))
+        regs = inventory.parse_registrations(source, 'source/app/platform/platform.cpp')
+        body = self.fn('RsTimer', 'RsTimer()', 'source/app/platform/platform.cpp')
+        catalog = [self.cat('Rs', 'RsTimer', '0x00619410'), self.cat('Rs', 'RsGone', '0x00619420')]
+        matched = set()
+        inventory.link_by_registration([body], catalog, regs, matched, {'source/app/platform/platform.cpp'})
+        self.assertIs(body['catalog_match'], catalog[0])
+        # An entry whose registration exists but has no scanned body stays unlinked and is reported as outside game_sa.
+        self.assertEqual(list(inventory.outside_game_sa(catalog, regs, matched)), [id(catalog[1])])
+        # Files that are not scanned never provide bodies.
+        spare = self.fn('RsTimer', 'RsTimer()', 'source/app/platform/platform.cpp')
+        inventory.link_by_registration([spare], catalog[:1], regs, set(), set())
+        self.assertIsNone(spare['catalog_match'])
+
+    def test_published_inventory_scope_and_unlinked_outside_entries(self):
         out = inventory.ROOT / 'docs/implementaciones'
         with (out / 'funciones.csv').open(encoding='utf-8', newline='') as stream:
             functions = list(csv.DictReader(stream))
         with (out / 'catalogo-fuera-de-game_sa.csv').open(encoding='utf-8', newline='') as stream:
             outside = list(csv.DictReader(stream))
-        self.assertTrue(all(r['file'].startswith('source/game_sa/') for r in functions))
-        self.assertTrue(outside)
+        self.assertTrue(all(r['file'].startswith(('source/game_sa/', 'source/app/')) for r in functions))
+        self.assertTrue(any(r['file'].startswith('source/app/') and r['catalog'] == 'hooks.csv' for r in functions))
+        self.assertEqual(list(functions[0])[-1], 'catalog')
         linked = {(r['catalog_identity'], r['catalog_address']) for r in functions}
         for r in outside:
             self.assertFalse(r['registered_in'].startswith('source/game_sa/'))

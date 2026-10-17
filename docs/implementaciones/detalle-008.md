@@ -8,6 +8,35 @@
 
 <a id="grupo-141"></a>
 
+## CCover
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CCover::InjectHooks() | [source/game_sa/Cover.cpp:24](../../source/game_sa/Cover.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::Init() | [source/game_sa/Cover.cpp:113](../../source/game_sa/Cover.cpp#L113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::Init 0x00698710 | 0 / 0 | Posible dato fijo m_ListOfProcessedBuildings: source/game_sa/Cover.h:22 (0x00C1A2B8); Posible dato fijo m_NumPoints: source/game_sa/Cover.h:20 (0x00C197A4) |
+| CCover::ClearProcessedBuildings() | [source/game_sa/Cover.cpp:124](../../source/game_sa/Cover.cpp#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_ListOfProcessedBuildings: source/game_sa/Cover.h:22 (0x00C1A2B8) |
+| CCover::RemoveCoverPointIfEntityLost(CCoverPoint& cpt) | [source/game_sa/Cover.cpp:134](../../source/game_sa/Cover.cpp#L134) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::RemoveCoverPointIfEntityLost 0x00698DB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::RemoveCoverPointsForThisEntity(CEntity* entity) | [source/game_sa/Cover.cpp:144](../../source/game_sa/Cover.cpp#L144) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::RemoveCoverPointsForThisEntity 0x00698740 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::ShouldThisBuildingHaveItsCoverPointsCreated(CBuilding* building) | [source/game_sa/Cover.cpp:160](../../source/game_sa/Cover.cpp#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::ShouldThisBuildingHaveItsCoverPointsCreated 0x00699230 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::Update() | [source/game_sa/Cover.cpp:174](../../source/game_sa/Cover.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::Update 0x006997E0 | 0 / 0 | Posible dato fijo m_ListOfProcessedBuildings: source/game_sa/Cover.h:22 (0x00C1A2B8) |
+| * CCover::GetFree() | [source/game_sa/Cover.cpp:345](../../source/game_sa/Cover.cpp#L345) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_NumPoints: source/game_sa/Cover.h:20 (0x00C197A4); Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
+| * CCover::AddCoverPoint(CCoverPoint::eType type, CEntity* coverEntity, const CVector* pos, CCoverPoint::eUsage usage, CCoverPoint::Dir dir) | [source/game_sa/Cover.cpp:357](../../source/game_sa/Cover.cpp#L357) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::AddCoverPoint 0x00698F30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::CalculateHorizontalSize(CColTriangle* triangle, CVector* vertPositions) | [source/game_sa/Cover.cpp:439](../../source/game_sa/Cover.cpp#L439) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::CalculateHorizontalSize 0x006987F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::DoLineCheckWithinObject(CColTriangle* triangles, int32 numTriangles, CVector* vertPositions, CVector* normals, CVector start, CVector end) | [source/game_sa/Cover.cpp:475](../../source/game_sa/Cover.cpp#L475) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::DoLineCheckWithinObject 0x00698990 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::DoesCoverPointStillProvideCover(CCoverPoint* cpt, CVector pos) | [source/game_sa/Cover.cpp:511](../../source/game_sa/Cover.cpp#L511) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::DoesCoverPointStillProvideCover 0x00698DD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::Find2HighestPoints(CColTriangle* triangle, CVector* vertPositions, int32& outPoint1, int32& outPoint2) | [source/game_sa/Cover.cpp:532](../../source/game_sa/Cover.cpp#L532) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::Find2HighestPoints 0x006988E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CCover::FindAndReserveCoverPoint(CPed* ped, const CVector& targetPos, bool isForAttack) | [source/game_sa/Cover.cpp:550](../../source/game_sa/Cover.cpp#L550) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::FindAndReserveCoverPoint 0x006992B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::FindCoordinatesCoverPoint(const CCoverPoint& cpt, CPed* ped, const CVector& position, CVector& outCoordinates) | [source/game_sa/Cover.cpp:619](../../source/game_sa/Cover.cpp#L619) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::FindCoordinatesCoverPoint 0x00699570 | 0 / 0 | Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
+| CCover::FindCoverPointsForThisBuilding(CBuilding* building) | [source/game_sa/Cover.cpp:667](../../source/game_sa/Cover.cpp#L667) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::FindCoverPointsForThisBuilding 0x00699120 | 0 / 0 | Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8) |
+| CCover::FindDirFromVector(CVector dir) | [source/game_sa/Cover.cpp:686](../../source/game_sa/Cover.cpp#L686) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCover::FindDirFromVector 0x00698D40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::FindDirFromVector_Reversed(CVector dir) | [source/game_sa/Cover.cpp:691](../../source/game_sa/Cover.cpp#L691) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::FindVectorFromDir(CCoverPoint::Dir direction) | [source/game_sa/Cover.cpp:696](../../source/game_sa/Cover.cpp#L696) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCover::FindVectorFromDir 0x00698D60 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::FindVectorFromDir_Reversed(uint8 direction) | [source/game_sa/Cover.cpp:700](../../source/game_sa/Cover.cpp#L700) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCover::FindVectorFromFirstToMissingVertex(CColTriangle* triangle, int32* a3, CVector* vertPositions) | [source/game_sa/Cover.cpp:709](../../source/game_sa/Cover.cpp#L709) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::FindVectorFromFirstToMissingVertex 0x00698790 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetCoverPoints() | [source/game_sa/Cover.h:50](../../source/game_sa/Cover.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
+
+<a id="grupo-142"></a>
+
 ## CCoverPoint
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -30,7 +59,7 @@
 | GetPointOnMap() const | [source/game_sa/CoverPoint.h:54](../../source/game_sa/CoverPoint.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCoveredPeds(this auto&& self) | [source/game_sa/CoverPoint.h:56](../../source/game_sa/CoverPoint.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-142"></a>
+<a id="grupo-143"></a>
 
 ## CCranes
 
@@ -43,7 +72,7 @@
 | CCranes::IsThisCarBeingTargettedByAnyCrane(CVehicle* vehicle) | [source/game_sa/Cranes.cpp:52](../../source/game_sa/Cranes.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCranes::IsThisCarBeingTargettedByAnyCrane 0x006F4000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CCranes::IsThisCarPickedUp(float a1, float a2, CVehicle* vehicle) | [source/game_sa/Cranes.cpp:57](../../source/game_sa/Cranes.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCranes::IsThisCarPickedUp 0x006F3FD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-143"></a>
+<a id="grupo-144"></a>
 
 ## CCredits
 
@@ -57,7 +86,7 @@
 | CCredits::PrintCreditSpace(float spaceSize, uint32& position) | [source/game_sa/Credits.cpp:78](../../source/game_sa/Credits.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCredits::PrintCreditSpace 0x005A87C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CCredits::RenderCredits() | [source/game_sa/Credits.cpp:83](../../source/game_sa/Credits.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCredits::RenderCredits 0x005A87F0 | 0 / 0 | Posible dato fijo CreditsStartTime: source/game_sa/Credits.h:11 (0x00C6E978); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo bCreditsGoing: source/game_sa/Credits.h:12 (0x00C6E97C) |
 
-<a id="grupo-144"></a>
+<a id="grupo-145"></a>
 
 ## CCreepingFire
 
@@ -68,7 +97,7 @@
 | CCreepingFire::Update() | [source/game_sa/CreepingFire.cpp:43](../../source/game_sa/CreepingFire.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCreepingFire::Update 0x00539CE0 | 0 / 0 | Posible dato fijo m_aFireStatus: source/game_sa/CreepingFire.h:13 (0x00B71B68) |
 | CCreepingFire::TryToStartFireAtCoors(CVector pos, uint8 nGenerations, bool a5, bool bScriptFire, float fDistance) | [source/game_sa/CreepingFire.cpp:55](../../source/game_sa/CreepingFire.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCreepingFire::TryToStartFireAtCoors 0x0053A450 | 0 / 0 | Posible dato fijo gFireManager: source/game_sa/FireManager.h:81 (0x00B71F80); Posible dato fijo m_aFireStatus: source/game_sa/CreepingFire.h:13 (0x00B71B68) |
 
-<a id="grupo-145"></a>
+<a id="grupo-146"></a>
 
 ## CCrime
 
@@ -78,7 +107,7 @@
 | CCrime::FindImmediateDetectionRange(eCrimeType CrimeType) | [source/game_sa/Crime.cpp:37](../../source/game_sa/Crime.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCrime::FindImmediateDetectionRange 0x00531FC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CCrime::ReportCrime(eCrimeType crimeType, CEntity* pVictim, CPed* pCommitedby) | [source/game_sa/Crime.cpp:51](../../source/game_sa/Crime.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCrime::ReportCrime 0x00532010 | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
 
-<a id="grupo-146"></a>
+<a id="grupo-147"></a>
 
 ## CCullZones
 
@@ -107,7 +136,7 @@
 | CCullZones::FindAttributesForCoors(CVector pos) | [source/game_sa/CullZones.cpp:214](../../source/game_sa/CullZones.cpp#L214) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCullZones::FindAttributesForCoors 0x0072D970 | 0 / 0 | Posible dato fijo NumAttributeZones: source/game_sa/CullZones.h:163 (0x00C87AC8); Posible dato fijo aAttributeZones: source/game_sa/CullZones.h:172 (0x00C81F50) |
 | CCullZones::Update() | [source/game_sa/CullZones.cpp:228](../../source/game_sa/CullZones.cpp#L228) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCullZones::Update 0x0072DEC0 | 0 / 0 | Posible dato fijo CurrentFlags_Camera: source/game_sa/CullZones.h:167 (0x00C87ABC); Posible dato fijo CurrentFlags_Player: source/game_sa/CullZones.h:168 (0x00C87AB8); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo bMilitaryZonesDisabled: source/game_sa/CullZones.h:170 (0x00C87ACD) |
 
-<a id="grupo-147"></a>
+<a id="grupo-148"></a>
 
 ## CCurrentVehicle
 
@@ -119,7 +148,7 @@
 | CCurrentVehicle::Display() const | [source/game_sa/CurrentVehicle.cpp:42](../../source/game_sa/CurrentVehicle.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCurrentVehicle::Display 0x00571EA0 | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
 | CCurrentVehicle::Process() | [source/game_sa/CurrentVehicle.cpp:52](../../source/game_sa/CurrentVehicle.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCurrentVehicle::Process 0x00572040 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-148"></a>
+<a id="grupo-149"></a>
 
 ## CCurves
 
@@ -134,7 +163,7 @@
 | CCurves::TestCurves() | [source/game_sa/Curves.cpp:214](../../source/game_sa/Curves.cpp#L214) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCurves::TestCurves 0x0043C600 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CCurves::RunLocalTests() | [source/game_sa/Curves.cpp:217](../../source/game_sa/Curves.cpp#L217) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-149"></a>
+<a id="grupo-150"></a>
 
 ## CCustomBuildingDNPipeline
 
@@ -170,7 +199,7 @@
 | CCustomBuildingDNPipeline::GetFxEnvShininess(RpMaterial* material) | [source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp:355](../../source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp#L355) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CCustomBuildingDNPipeline::InjectHooks() | [source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp:359](../../source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp#L359) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-150"></a>
+<a id="grupo-151"></a>
 
 ## CCustomBuildingPipeline
 
@@ -185,7 +214,7 @@
 | CCustomBuildingPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* object, RwUInt8 type, RwUInt32 rxGeoFlags) | [source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp:122](../../source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomBuildingPipeline::CustomPipeRenderCB 0x005D77D0 | 0 / 0 | Posible dato fijo EnvMapTexMatrix: source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp:29 (0x00C02C70) |
 | CCustomBuildingPipeline::CustomPipeReinstanceCB(void* object, RwResEntry* resEntry, RxD3D9AllInOneInstanceCallBack instanceCallback) | [source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp:219](../../source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp#L219) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomBuildingPipeline::CustomPipeReinstanceCB 0x005D77A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-151"></a>
+<a id="grupo-152"></a>
 
 ## CCustomBuildingRenderer
 
@@ -200,7 +229,7 @@
 | CCustomBuildingRenderer::UpdateDayNightBalanceParam() | [source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp:80](../../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomBuildingRenderer::UpdateDayNightBalanceParam 0x005D7F80 | 0 / 0 | Posible dato fijo m_fDNBalanceParam: source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h:24 (0x008D12C0) |
 | CCustomBuildingRenderer::Update() | [source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp:104](../../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomBuildingRenderer::Update 0x005D8050 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-152"></a>
+<a id="grupo-153"></a>
 
 ## CCustomCarEnvMapPipeline
 
@@ -210,7 +239,7 @@
 | CCustomCarEnvMapPipeline::RegisterPlugin() | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:298](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L298) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomCarEnvMapPipeline::RegisterPlugin 0x005DA450 | 0 / 0 | Posible dato fijo fakeEnvMapPipeMatData: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:149 (0x00C02D18); Posible dato fijo ms_envMapAtmPluginOffset: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:144 (0x008D12C8); Posible dato fijo ms_envMapPluginOffset: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:143 (0x008D12C4); Posible dato fijo ms_specularMapPluginOffset: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:145 (0x008D12CC) |
 | CCustomCarEnvMapPipeline::CreatePipe() | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:339](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L339) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomCarEnvMapPipeline::CreatePipe 0x005DA020 | 0 / 0 | Posible dato fijo ObjPipeline: source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h:26 (0x00C02C1C), source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h:5 (0x00C02C68), source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:147 (0x00C02D24); Posible dato fijo g_GameLight: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:154 (0x00C02CB0); Posible dato fijo m_gEnvMapPipeAtmDataPool: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:151 (0x00C02D2C); Posible dato fijo m_gEnvMapPipeMatDataPool: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:150 (0x00C02D28); Posible dato fijo m_gSpecMapPipeMatDataPool: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:152 (0x00C02D30) |
 | CCustomCarEnvMapPipeline::DestroyPipe() | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:352](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L352) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomCarEnvMapPipeline::DestroyPipe 0x005DA130 | 0 / 0 | Posible dato fijo ObjPipeline: source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h:26 (0x00C02C1C), source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h:5 (0x00C02C68), source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:147 (0x00C02D24); Posible dato fijo m_gEnvMapPipeAtmDataPool: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:151 (0x00C02D2C); Posible dato fijo m_gEnvMapPipeMatDataPool: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:150 (0x00C02D28); Posible dato fijo m_gSpecMapPipeMatDataPool: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:152 (0x00C02D30) |
-| CCustomCarEnvMapPipeline::PreRenderUpdate() | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:374](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L374) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomCarEnvMapPipeline::PreRenderUpdate 0x005D8870 | 0 / 0 | Posible dato fijo g_GameLight: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:154 (0x00C02CB0) |
+| CCustomCarEnvMapPipeline::PreRenderUpdate() | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:374](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L374) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomCarEnvMapPipeline::PreRenderUpdate 0x005D8870 | 0 / 0 | Posible dato fijo g_GameLight: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:154 (0x00C02CB0); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
 | * CCustomCarEnvMapPipeline::CustomPipeMaterialSetup(RpMaterial* material, void* data) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:391](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L391) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomCarEnvMapPipeline::CustomPipeMaterialSetup 0x005DA560 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CCustomCarEnvMapPipeline::CustomPipeAtomicSetup(RpAtomic* atomic) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:417](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L417) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomCarEnvMapPipeline::CustomPipeAtomicSetup 0x005DA610 | 0 / 0 | Posible dato fijo ObjPipeline: source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h:26 (0x00C02C1C), source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h:5 (0x00C02C68), source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h:147 (0x00C02D24) |
 | * CCustomCarEnvMapPipeline::CreateCustomObjPipe() | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:426](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L426) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomCarEnvMapPipeline::CreateCustomObjPipe 0x005D9F80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
@@ -257,7 +286,7 @@
 | CCustomCarEnvMapPipeline::SetFxSpecTexture(RpMaterial* material, RwTexture* texture) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_SpecMat.cpp:105](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_SpecMat.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CCustomCarEnvMapPipeline::SetFxSpecSpecularity(RpMaterial* material, float value) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_SpecMat.cpp:128](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_SpecMat.cpp#L128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-153"></a>
+<a id="grupo-154"></a>
 
 ## CCustomCarPlateMgr
 
@@ -280,7 +309,7 @@
 | * CCustomCarPlateMgr::SetupClump(RpClump* clump, char* plateText, uint8 plateType) | [source/game_sa/CustomCarPlateMgr.cpp:406](../../source/game_sa/CustomCarPlateMgr.cpp#L406) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomCarPlateMgr::SetupClump 0x006FE0F0 | 0 / 0 | Posible dato fijo CurrentLicensePlateMaterial: source/game_sa/CustomCarPlateMgr.h:31 (0x00C3EF7C); Posible dato fijo CurrentLicensePlateType: source/game_sa/CustomCarPlateMgr.h:32 (0x00C3EF80) |
 | CCustomCarPlateMgr::GeneratePlateText(char* out, uint32 length) | [source/game_sa/CustomCarPlateMgr.cpp:414](../../source/game_sa/CustomCarPlateMgr.cpp#L414) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCustomCarPlateMgr::GeneratePlateText 0x006FD5B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-154"></a>
+<a id="grupo-155"></a>
 
 ## CCustomRoadsignMgr
 
@@ -299,7 +328,7 @@
 | RenderTest(const CVector& vecUnused) | [source/game_sa/CustomRoadsignMgr.h:19](../../source/game_sa/CustomRoadsignMgr.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DebugDrawInternalTexture() | [source/game_sa/CustomRoadsignMgr.h:20](../../source/game_sa/CustomRoadsignMgr.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-155"></a>
+<a id="grupo-156"></a>
 
 ## CCutsceneMgr
 
@@ -321,7 +350,7 @@
 | CCutsceneMgr::HasCutsceneFinished() | [source/game_sa/CutsceneMgr.cpp:329](../../source/game_sa/CutsceneMgr.cpp#L329) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneMgr::HasCutsceneFinished 0x005B0570 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo dataFileLoaded: source/game_sa/CutsceneMgr.h:120 (0x00BC4006) |
 | CCutsceneMgr::HideRequestedObjects() | [source/game_sa/CutsceneMgr.cpp:334](../../source/game_sa/CutsceneMgr.cpp#L334) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneMgr::HideRequestedObjects 0x005AFAD0 | 0 / 0 | Posible dato fijo ms_crToHideItems: source/game_sa/CutsceneMgr.h:91 (0x00BC20D0); Posible dato fijo ms_iNumHiddenEntities: source/game_sa/CutsceneMgr.h:112 (0x00BC3FF8); Posible dato fijo ms_pHiddenEntities: source/game_sa/CutsceneMgr.h:92 (0x00BC2968) |
 | CCutsceneMgr::Initialise() | [source/game_sa/CutsceneMgr.cpp:369](../../source/game_sa/CutsceneMgr.cpp#L369) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneMgr::Initialise 0x004D5A20 | 0 / 0 | Posible dato fijo ms_animLoaded: source/game_sa/CutsceneMgr.h:123 (0x00B5F850); Posible dato fijo ms_cutsceneLoadStatus: source/game_sa/CutsceneMgr.h:76 (0x00B5F84C); Posible dato fijo ms_cutsceneProcessing: source/game_sa/CutsceneMgr.h:78 (0x00B5F852); Posible dato fijo ms_hasFileInfo: source/game_sa/CutsceneMgr.h:81 (0x00B5F855); Posible dato fijo ms_pCutsceneDir: source/game_sa/CutsceneMgr.h:75 (0x00B5F848); Posible dato fijo ms_running: source/game_sa/CutsceneMgr.h:77 (0x00B5F851); Posible dato fijo ms_useLodMultiplier: source/game_sa/CutsceneMgr.h:79 (0x00B5F853); Posible dato fijo ms_wasCutsceneSkipped: source/game_sa/CutsceneMgr.h:80 (0x00B5F854) |
-| CCutsceneMgr::IsCutsceneSkipButtonBeingPressed() | [source/game_sa/CutsceneMgr.cpp:383](../../source/game_sa/CutsceneMgr.cpp#L383) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneMgr::IsCutsceneSkipButtonBeingPressed 0x004D5D10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCutsceneMgr::IsCutsceneSkipButtonBeingPressed() | [source/game_sa/CutsceneMgr.cpp:383](../../source/game_sa/CutsceneMgr.cpp#L383) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneMgr::IsCutsceneSkipButtonBeingPressed 0x004D5D10 | 0 / 0 | Posible dato fijo isForeground: source/app/platform/win/WinPlatform.h:43 (0x00C920EC) |
 | CCutsceneMgr::LoadAnimationUncompressed(const char* animName) | [source/game_sa/CutsceneMgr.cpp:393](../../source/game_sa/CutsceneMgr.cpp#L393) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneMgr::LoadAnimationUncompressed 0x004D5AB0 | 0 / 0 | Posible dato fijo ms_aUncompressedCutsceneAnims: source/game_sa/CutsceneMgr.h:96 (0x00BC2CC0); Posible dato fijo ms_numUncompressedCutsceneAnims: source/game_sa/CutsceneMgr.h:111 (0x00BC3FF4) |
 | CCutsceneMgr::LoadCutsceneData(const char* cutsceneName) | [source/game_sa/CutsceneMgr.cpp:401](../../source/game_sa/CutsceneMgr.cpp#L401) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneMgr::LoadCutsceneData 0x004D5E80 | 0 / 0 | Posible dato fijo ms_pCutsceneDir: source/game_sa/CutsceneMgr.h:75 (0x00B5F848) |
 | CCutsceneMgr::LoadCutsceneData_loading() | [source/game_sa/CutsceneMgr.cpp:419](../../source/game_sa/CutsceneMgr.cpp#L419) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneMgr::LoadCutsceneData_loading 0x005B11C0 | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:32 (0x00A9AE00); Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80); Posible dato fijo ms_aInfoForModel: source/game_sa/Streaming.h:247 (0x008E4CC0); Posible dato fijo ms_bRepeatObject: source/game_sa/CutsceneMgr.h:94 (0x00BC2A34); Posible dato fijo ms_cLoadAnimName: source/game_sa/CutsceneMgr.h:101 (0x00BC3288); Posible dato fijo ms_iAttachObjectToBone: source/game_sa/CutsceneMgr.h:95 (0x00BC2A68); Posible dato fijo ms_iModelIndex: source/game_sa/CutsceneMgr.h:100 (0x00BC31C0); Posible dato fijo ms_iNumParticleEffects: source/game_sa/CutsceneMgr.h:113 (0x00BC3FFC); Posible dato fijo ms_numAttachObjectToBones: source/game_sa/CutsceneMgr.h:93 (0x00BC2A30); Posible dato fijo ms_numCutsceneObjs: source/game_sa/CutsceneMgr.h:107 (0x00BC3FE4); Posible dato fijo ms_numLoadObjectNames: source/game_sa/CutsceneMgr.h:108 (0x00BC3FE8); Posible dato fijo ms_pCutsceneObjects: source/game_sa/CutsceneMgr.h:105 (0x00BC3F18); Posible dato fijo ms_pParticleEffects: source/game_sa/CutsceneMgr.h:90 (0x00BC1D70) |
@@ -347,7 +376,7 @@
 | HasLoaded() | [source/game_sa/CutsceneMgr.h:168](../../source/game_sa/CutsceneMgr.h#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_cutsceneLoadStatus: source/game_sa/CutsceneMgr.h:76 (0x00B5F84C) |
 | IsLoading() | [source/game_sa/CutsceneMgr.h:169](../../source/game_sa/CutsceneMgr.h#L169) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_cutsceneLoadStatus: source/game_sa/CutsceneMgr.h:76 (0x00B5F84C) |
 
-<a id="grupo-156"></a>
+<a id="grupo-157"></a>
 
 ## CCutsceneObject
 
@@ -360,10 +389,10 @@
 | CCutsceneObject::PreRender() | [source/game_sa/Entity/Object/CutsceneObject.cpp:107](../../source/game_sa/Entity/Object/CutsceneObject.cpp#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneObject::PreRender 0x00000000 | 0 / 0 | Posible dato fijo g_realTimeShadowMan: source/game_sa/RealTimeShadowManager.cpp:24 (0x00C40350); Posible dato fijo m_CurrentStoredValue: source/game_sa/TimeCycle.h:110 (0x00B79FD0); Posible dato fijo m_fDNBalanceParam: source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h:24 (0x008D12C0); Posible dato fijo m_fShadowDisplacementX: source/game_sa/TimeCycle.h:118 (0x00B79E90); Posible dato fijo m_fShadowDisplacementY: source/game_sa/TimeCycle.h:119 (0x00B79E50); Posible dato fijo m_fShadowFrontX: source/game_sa/TimeCycle.h:114 (0x00B79F90); Posible dato fijo m_fShadowFrontY: source/game_sa/TimeCycle.h:115 (0x00B79F50); Posible dato fijo m_fShadowSideX: source/game_sa/TimeCycle.h:116 (0x00B79F10); Posible dato fijo m_fShadowSideY: source/game_sa/TimeCycle.h:117 (0x00B79ED0) |
 | CCutsceneObject::SetupLighting() | [source/game_sa/Entity/Object/CutsceneObject.cpp:174](../../source/game_sa/Entity/Object/CutsceneObject.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneObject::SetupLighting 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CCutsceneObject::RemoveLighting(bool bRemove) | [source/game_sa/Entity/Object/CutsceneObject.cpp:180](../../source/game_sa/Entity/Object/CutsceneObject.cpp#L180) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneObject::RemoveLighting 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCutsceneObject::SetupCarPipeAtomicsForClump(unsigned modelId, RpClump* clump) | [source/game_sa/Entity/Object/CutsceneObject.cpp:191](../../source/game_sa/Entity/Object/CutsceneObject.cpp#L191) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneObject::SetupCarPipeAtomicsForClump 0x005B1AB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CCutsceneObject::SetupCarPipeAtomicsForClump(unsigned modelId, RpClump* clump) | [source/game_sa/Entity/Object/CutsceneObject.cpp:191](../../source/game_sa/Entity/Object/CutsceneObject.cpp#L191) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCutsceneObject::SetupCarPipeAtomicsForClump 0x005B1AB0 | 0 / 0 | Posible dato fijo ms_sCutsceneVehNames: source/game_sa/Entity/Object/CutsceneObject.h:25 (0x008D0F68) |
 | * CCutsceneObject::SetupCarPipeAtomicCB(RpAtomic* atomic, void* data) | [source/game_sa/Entity/Object/CutsceneObject.cpp:210](../../source/game_sa/Entity/Object/CutsceneObject.cpp#L210) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-157"></a>
+<a id="grupo-158"></a>
 
 ## CDamageAtomicModelInfo
 
@@ -373,11 +402,12 @@
 | * CDamageAtomicModelInfo::AsDamageAtomicModelInfoPtr() | [source/game_sa/Models/DamageAtomicModelInfo.cpp:43](../../source/game_sa/Models/DamageAtomicModelInfo.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDamageAtomicModelInfo::AsDamageAtomicModelInfoPtr 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDamageAtomicModelInfo::Init() | [source/game_sa/Models/DamageAtomicModelInfo.cpp:49](../../source/game_sa/Models/DamageAtomicModelInfo.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDamageAtomicModelInfo::Init 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDamageAtomicModelInfo::DeleteRwObject() | [source/game_sa/Models/DamageAtomicModelInfo.cpp:57](../../source/game_sa/Models/DamageAtomicModelInfo.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDamageAtomicModelInfo::DeleteRwObject 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CDamageAtomicModelInfo::CreateInstance() | [source/game_sa/Models/DamageAtomicModelInfo.cpp:73](../../source/game_sa/Models/DamageAtomicModelInfo.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CDamageAtomicModelInfo::CreateInstance(RwMatrix* matrix) | [source/game_sa/Models/DamageAtomicModelInfo.cpp:87](../../source/game_sa/Models/DamageAtomicModelInfo.cpp#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CDamageAtomicModelInfo::CreateInstance() | [source/game_sa/Models/DamageAtomicModelInfo.cpp:73](../../source/game_sa/Models/DamageAtomicModelInfo.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_bCreateDamagedVersion: source/game_sa/Models/DamageAtomicModelInfo.h:15 (0x00A9B0B0) |
+| * CDamageAtomicModelInfo::CreateInstance(RwMatrix* matrix) | [source/game_sa/Models/DamageAtomicModelInfo.cpp:87](../../source/game_sa/Models/DamageAtomicModelInfo.cpp#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_bCreateDamagedVersion: source/game_sa/Models/DamageAtomicModelInfo.h:15 (0x00A9B0B0) |
 | CDamageAtomicModelInfo::SetDamagedAtomic(RpAtomic* atomic) | [source/game_sa/Models/DamageAtomicModelInfo.cpp:106](../../source/game_sa/Models/DamageAtomicModelInfo.cpp#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDamageAtomicModelInfo::SetDamagedAtomic 0x004C48D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CDamageAtomicModelInfo() | [source/game_sa/Models/DamageAtomicModelInfo.h:18](../../source/game_sa/Models/DamageAtomicModelInfo.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-158"></a>
+<a id="grupo-159"></a>
 
 ## CDamageManager
 
@@ -426,7 +456,7 @@
 | CDamageManager::GetCarNodeIndexFromDoor(eDoors door) | [source/game_sa/DamageManager.cpp:654](../../source/game_sa/DamageManager.cpp#L654) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDamageManager::GetCarNodeIndexFromDoor 0x006C26F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetWheelStatus_Hooked(eCarWheel wheel) | [source/game_sa/DamageManager.h:219](../../source/game_sa/DamageManager.h#L219) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-159"></a>
+<a id="grupo-160"></a>
 
 ## CDarkel
 
@@ -452,14 +482,3 @@
 | CDarkel::RegisterKillByPlayer(const CPed& killedPed, eWeaponType damageWeaponId, bool headShotted, int32 playerId) | [source/game_sa/Darkel.cpp:494](../../source/game_sa/Darkel.cpp#L494) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::RegisterKillByPlayer 0x0043DCD0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo KillsNeeded: source/game_sa/Darkel.h:31 (0x0096A6EC); Posible dato fijo PedsKilledOfThisType: source/game_sa/Stats.h:49 (0x00B78E90); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo RegisteredKills: source/game_sa/Darkel.h:23 (0x00969A50); Posible dato fijo WeaponType: source/game_sa/Darkel.h:33 (0x0096A700); Posible dato fijo bHeadShotRequired: source/game_sa/Darkel.h:36 (0x00969A49); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | CDarkel::RegisterCarBlownUpByPlayer(CVehicle& vehicle, int32 playerId) | [source/game_sa/Darkel.cpp:563](../../source/game_sa/Darkel.cpp#L563) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::RegisterCarBlownUpByPlayer 0x0043DF20 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo KillsNeeded: source/game_sa/Darkel.h:31 (0x0096A6EC); Posible dato fijo RegisteredKills: source/game_sa/Darkel.h:23 (0x00969A50) |
 | CDarkel::CalcFade(uint32 t, uint32 begin, uint32 end) | [source/game_sa/Darkel.cpp:599](../../source/game_sa/Darkel.cpp#L599) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::CalcFade 0x0043D740 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-160"></a>
-
-## CData
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CData::CData() | [source/game_sa/Text/Data.cpp:6](../../source/game_sa/Text/Data.cpp#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CData::~CData() | [source/game_sa/Text/Data.cpp:11](../../source/game_sa/Text/Data.cpp#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CData::Unload() | [source/game_sa/Text/Data.cpp:16](../../source/game_sa/Text/Data.cpp#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CData::Unload 0x0069F640 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CData::Load(uint32 length, FILESTREAM file, uint32* offset, uint8 unknown) | [source/game_sa/Text/Data.cpp:27](../../source/game_sa/Text/Data.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CData::Load 0x0069F5D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

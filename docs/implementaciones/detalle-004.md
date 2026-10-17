@@ -8,6 +8,15 @@
 
 <a id="grupo-61"></a>
 
+## CAccident
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CAccident() | [source/game_sa/Accident.h:15](../../source/game_sa/Accident.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| IsFree() | [source/game_sa/Accident.h:22](../../source/game_sa/Accident.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+
+<a id="grupo-62"></a>
+
 ## CAccidentManager
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -19,7 +28,7 @@
 | * CAccidentManager::GetNearestFreeAccidentExceptThisOne(CVector& posn, CAccident* thisOne, bool bIgnoreHeadless) | [source/game_sa/AccidentManager.cpp:82](../../source/game_sa/AccidentManager.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAccidentManager::GetNearestFreeAccidentExceptThisOne 0x0056CF90 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | * CAccidentManager::GetNearestFreeAccident(CVector& posn, bool bIgnoreHeadless) | [source/game_sa/AccidentManager.cpp:107](../../source/game_sa/AccidentManager.cpp#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAccidentManager::GetNearestFreeAccident 0x0056D050 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-62"></a>
+<a id="grupo-63"></a>
 
 ## CAcquaintance
 
@@ -38,7 +47,7 @@
 | GetDislike() const | [source/game_sa/Acquaintance.h:63](../../source/game_sa/Acquaintance.h#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetHate() const | [source/game_sa/Acquaintance.h:64](../../source/game_sa/Acquaintance.h#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-63"></a>
+<a id="grupo-64"></a>
 
 ## CActiveOccluder
 
@@ -50,7 +59,7 @@
 | GetLines() const | [source/game_sa/ActiveOccluder.h:20](../../source/game_sa/ActiveOccluder.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetDistToCam() const | [source/game_sa/ActiveOccluder.h:21](../../source/game_sa/ActiveOccluder.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-64"></a>
+<a id="grupo-65"></a>
 
 ## CAnimBlendAssocGroup
 
@@ -77,7 +86,7 @@
 | * Constructor() | [source/game_sa/Animation/AnimBlendAssocGroup.h:116](../../source/game_sa/Animation/AnimBlendAssocGroup.h#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendAssocGroup::Constructor 0x004CDE70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Animation/AnimBlendAssocGroup.h:123](../../source/game_sa/Animation/AnimBlendAssocGroup.h#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendAssocGroup::Destructor 0x004CE1D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-65"></a>
+<a id="grupo-66"></a>
 
 ## CAnimBlendAssociation
 
@@ -109,8 +118,36 @@
 | CAnimBlendAssociation::HasFinished() const | [source/game_sa/Animation/AnimBlendAssociation.cpp:386](../../source/game_sa/Animation/AnimBlendAssociation.cpp#L386) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CAnimBlendAssociation::ReferenceAnimBlock() | [source/game_sa/Animation/AnimBlendAssociation.cpp:392](../../source/game_sa/Animation/AnimBlendAssociation.cpp#L392) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendAssociation::ReferenceAnimBlock 0x004CEA50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CAnimBlendAssociation::GetNodes() | [source/game_sa/Animation/AnimBlendAssociation.cpp:400](../../source/game_sa/Animation/AnimBlendAssociation.cpp#L400) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetBlendAmount(float a) | [source/game_sa/Animation/AnimBlendAssociation.h:156](../../source/game_sa/Animation/AnimBlendAssociation.h#L156) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetBlendAmount(float weight = 1.f) const | [source/game_sa/Animation/AnimBlendAssociation.h:157](../../source/game_sa/Animation/AnimBlendAssociation.h#L157) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetBlendDelta() const | [source/game_sa/Animation/AnimBlendAssociation.h:158](../../source/game_sa/Animation/AnimBlendAssociation.h#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetAnimId() const | [source/game_sa/Animation/AnimBlendAssociation.h:160](../../source/game_sa/Animation/AnimBlendAssociation.h#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsPlaying() const | [source/game_sa/Animation/AnimBlendAssociation.h:162](../../source/game_sa/Animation/AnimBlendAssociation.h#L162) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsLooped() const | [source/game_sa/Animation/AnimBlendAssociation.h:163](../../source/game_sa/Animation/AnimBlendAssociation.h#L163) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsPartial() const | [source/game_sa/Animation/AnimBlendAssociation.h:164](../../source/game_sa/Animation/AnimBlendAssociation.h#L164) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsSyncronised() const | [source/game_sa/Animation/AnimBlendAssociation.h:165](../../source/game_sa/Animation/AnimBlendAssociation.h#L165) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CanExtractXVelocity() const | [source/game_sa/Animation/AnimBlendAssociation.h:166](../../source/game_sa/Animation/AnimBlendAssociation.h#L166) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CanExtractVelocity() const | [source/game_sa/Animation/AnimBlendAssociation.h:167](../../source/game_sa/Animation/AnimBlendAssociation.h#L167) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsFacial() const | [source/game_sa/Animation/AnimBlendAssociation.h:168](../../source/game_sa/Animation/AnimBlendAssociation.h#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetBlendDelta(float value) | [source/game_sa/Animation/AnimBlendAssociation.h:178](../../source/game_sa/Animation/AnimBlendAssociation.h#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetCurrentTime() const | [source/game_sa/Animation/AnimBlendAssociation.h:182](../../source/game_sa/Animation/AnimBlendAssociation.h#L182) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetDefaultDeleteCallback() | [source/game_sa/Animation/AnimBlendAssociation.h:185](../../source/game_sa/Animation/AnimBlendAssociation.h#L185) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetDefaultFinishCallback() | [source/game_sa/Animation/AnimBlendAssociation.h:188](../../source/game_sa/Animation/AnimBlendAssociation.h#L188) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetFlag(eAnimationFlags flag, bool value = true) | [source/game_sa/Animation/AnimBlendAssociation.h:204](../../source/game_sa/Animation/AnimBlendAssociation.h#L204) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| HasFlag(eAnimationFlags flag) const | [source/game_sa/Animation/AnimBlendAssociation.h:211](../../source/game_sa/Animation/AnimBlendAssociation.h#L211) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FromLink(CAnimBlendLink* link) | [source/game_sa/Animation/AnimBlendAssociation.h:213](../../source/game_sa/Animation/AnimBlendAssociation.h#L213) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetSpeed() const | [source/game_sa/Animation/AnimBlendAssociation.h:217](../../source/game_sa/Animation/AnimBlendAssociation.h#L217) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetSpeed(float speed) | [source/game_sa/Animation/AnimBlendAssociation.h:218](../../source/game_sa/Animation/AnimBlendAssociation.h#L218) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetNode(int32 nodeIndex) | [source/game_sa/Animation/AnimBlendAssociation.h:221](../../source/game_sa/Animation/AnimBlendAssociation.h#L221) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetNodesPtr() | [source/game_sa/Animation/AnimBlendAssociation.h:222](../../source/game_sa/Animation/AnimBlendAssociation.h#L222) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetLink() | [source/game_sa/Animation/AnimBlendAssociation.h:224](../../source/game_sa/Animation/AnimBlendAssociation.h#L224) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetHier() const | [source/game_sa/Animation/AnimBlendAssociation.h:225](../../source/game_sa/Animation/AnimBlendAssociation.h#L225) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor0() | [source/game_sa/Animation/AnimBlendAssociation.h:231](../../source/game_sa/Animation/AnimBlendAssociation.h#L231) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendAssociation::Constructor0- 0x004CE9B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor1(RpClump* clump, CAnimBlendHierarchy* animHierarchy) | [source/game_sa/Animation/AnimBlendAssociation.h:232](../../source/game_sa/Animation/AnimBlendAssociation.h#L232) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendAssociation::Constructor1-clump_hier 0x004CEFC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor2(CAnimBlendAssociation& assoc) | [source/game_sa/Animation/AnimBlendAssociation.h:233](../../source/game_sa/Animation/AnimBlendAssociation.h#L233) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendAssociation::Constructor2-blend 0x004CF020 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor3(CAnimBlendStaticAssociation& assoc) | [source/game_sa/Animation/AnimBlendAssociation.h:234](../../source/game_sa/Animation/AnimBlendAssociation.h#L234) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendAssociation::Constructor3-static_blend 0x004CF080 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-66"></a>
+<a id="grupo-67"></a>
 
 ## CAnimBlendClumpData
 
@@ -130,7 +167,7 @@
 | & GetRootFrameData() const | [source/game_sa/Animation/AnimBlendClumpData.h:59](../../source/game_sa/Animation/AnimBlendClumpData.h#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetFrames() const | [source/game_sa/Animation/AnimBlendClumpData.h:61](../../source/game_sa/Animation/AnimBlendClumpData.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-67"></a>
+<a id="grupo-68"></a>
 
 ## CAnimBlendHierarchy
 
@@ -163,7 +200,7 @@
 | * Constructor() | [source/game_sa/Animation/AnimBlendHierarchy.h:76](../../source/game_sa/Animation/AnimBlendHierarchy.h#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendHierarchy::Constructor 0x004CF270 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Animation/AnimBlendHierarchy.h:77](../../source/game_sa/Animation/AnimBlendHierarchy.h#L77) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CAnimBlendHierarchy::Destructor 0x004CF970 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-68"></a>
+<a id="grupo-69"></a>
 
 ## CAnimBlendLink
 
@@ -176,7 +213,7 @@
 | begin() | [source/game_sa/Animation/AnimBlendAssociation.h:112](../../source/game_sa/Animation/AnimBlendAssociation.h#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | end() | [source/game_sa/Animation/AnimBlendAssociation.h:113](../../source/game_sa/Animation/AnimBlendAssociation.h#L113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-69"></a>
+<a id="grupo-70"></a>
 
 ## CAnimBlendLink::BaseIterator
 
@@ -191,7 +228,7 @@
 | operator!=(const BaseIterator&lt;Y&gt;& lhs, const BaseIterator&lt;Y&gt;& rhs) | [source/game_sa/Animation/AnimBlendAssociation.h:71](../../source/game_sa/Animation/AnimBlendAssociation.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DeRefLink() const | [source/game_sa/Animation/AnimBlendAssociation.h:73](../../source/game_sa/Animation/AnimBlendAssociation.h#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-70"></a>
+<a id="grupo-71"></a>
 
 ## CAnimBlendNode
 
@@ -229,7 +266,7 @@
 | I_NextKeyFrame() | [source/game_sa/Animation/AnimBlendNode.h:191](../../source/game_sa/Animation/AnimBlendNode.h#L191) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | I_Update(CVector& trans, CQuaternion& rot, float weight) | [source/game_sa/Animation/AnimBlendNode.h:238](../../source/game_sa/Animation/AnimBlendNode.h#L238) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-71"></a>
+<a id="grupo-72"></a>
 
 ## CAnimBlendSequence
 
@@ -259,7 +296,7 @@
 | * Constructor() | [source/game_sa/Animation/AnimBlendSequence.h:92](../../source/game_sa/Animation/AnimBlendSequence.h#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendSequence::Constructor 0x004D0C10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Animation/AnimBlendSequence.h:93](../../source/game_sa/Animation/AnimBlendSequence.h#L93) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CAnimBlendSequence::Destructor 0x004D0C30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-72"></a>
+<a id="grupo-73"></a>
 
 ## CAnimBlendStaticAssociation
 
@@ -272,9 +309,13 @@
 | CAnimBlendStaticAssociation::Init(RpClump* clump, CAnimBlendHierarchy* h) | [source/game_sa/Animation/AnimBlendStaticAssociation.cpp:79](../../source/game_sa/Animation/AnimBlendStaticAssociation.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendStaticAssociation::Init 0x004CEC20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CAnimBlendStaticAssociation::AllocateSequenceArray(int32 count) | [source/game_sa/Animation/AnimBlendStaticAssociation.cpp:110](../../source/game_sa/Animation/AnimBlendStaticAssociation.cpp#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendStaticAssociation::AllocateSequenceArray 0x004CE960 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CAnimBlendStaticAssociation::FreeSequenceArray() | [source/game_sa/Animation/AnimBlendStaticAssociation.cpp:119](../../source/game_sa/Animation/AnimBlendStaticAssociation.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendStaticAssociation::FreeSequenceArray 0x004CE9A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetHashKey() const noexcept | [source/game_sa/Animation/AnimBlendStaticAssociation.h:35](../../source/game_sa/Animation/AnimBlendStaticAssociation.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsValid() const | [source/game_sa/Animation/AnimBlendStaticAssociation.h:37](../../source/game_sa/Animation/AnimBlendStaticAssociation.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetAnimHierarchy() const | [source/game_sa/Animation/AnimBlendStaticAssociation.h:38](../../source/game_sa/Animation/AnimBlendStaticAssociation.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Constructor1() | [source/game_sa/Animation/AnimBlendStaticAssociation.h:50](../../source/game_sa/Animation/AnimBlendStaticAssociation.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendStaticAssociation::Constructor1 0x004CE940 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Constructor2(RpClump* clump, CAnimBlendHierarchy* h) | [source/game_sa/Animation/AnimBlendStaticAssociation.h:56](../../source/game_sa/Animation/AnimBlendStaticAssociation.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimBlendStaticAssociation::Constructor2 0x004CEF60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-73"></a>
+<a id="grupo-74"></a>
 
 ## CAnimManager
 
@@ -330,7 +371,7 @@
 | GetAssocGroups() | [source/game_sa/Animation/AnimManager.h:115](../../source/game_sa/Animation/AnimManager.h#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_aAnimAssocGroups: source/game_sa/Animation/AnimManager.h:36 (0x00B4EA34); Posible dato fijo ms_numAnimAssocDefinitions: source/game_sa/Animation/AnimManager.h:34 (0x00B4EA28) |
 | GetAssocGroupDefs() | [source/game_sa/Animation/AnimManager.h:116](../../source/game_sa/Animation/AnimManager.h#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_aAnimAssocDefinitions: source/game_sa/Animation/AnimManager.h:33 (0x008AA5A8); Posible dato fijo ms_numAnimAssocDefinitions: source/game_sa/Animation/AnimManager.h:34 (0x00B4EA28) |
 
-<a id="grupo-74"></a>
+<a id="grupo-75"></a>
 
 ## CAnimatedBuilding
 
@@ -340,8 +381,9 @@
 | CAnimatedBuilding::ProcessControl() | [source/game_sa/Entity/AnimatedBuilding.cpp:37](../../source/game_sa/Entity/AnimatedBuilding.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimatedBuilding::ProcessControl 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CAnimatedBuilding::ProcessCollision() | [source/game_sa/Entity/AnimatedBuilding.cpp:42](../../source/game_sa/Entity/AnimatedBuilding.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimatedBuilding::ProcessCollision 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CAnimatedBuilding::PreRender() | [source/game_sa/Entity/AnimatedBuilding.cpp:51](../../source/game_sa/Entity/AnimatedBuilding.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAnimatedBuilding::PreRender 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CAnimatedBuilding() | [source/game_sa/Entity/AnimatedBuilding.h:16](../../source/game_sa/Entity/AnimatedBuilding.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-75"></a>
+<a id="grupo-76"></a>
 
 ## CAtomicModelInfo
 
@@ -358,8 +400,10 @@
 | * CAtomicModelInfo::GetAtomicFromDistance(float distance) | [source/game_sa/Models/AtomicModelInfo.cpp:170](../../source/game_sa/Models/AtomicModelInfo.cpp#L170) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAtomicModelInfo::GetAtomicFromDistance 0x004C44B0 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028) |
 | CAtomicModelInfo::SetupVehicleUpgradeFlags(const char* name) | [source/game_sa/Models/AtomicModelInfo.cpp:185](../../source/game_sa/Models/AtomicModelInfo.cpp#L185) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAtomicModelInfo::SetupVehicleUpgradeFlags 0x004C4570 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetAtomicModelInfoFlags(CAtomicModelInfo* modelInfo, uint32 dwFlags) | [source/game_sa/Models/AtomicModelInfo.cpp:249](../../source/game_sa/Models/AtomicModelInfo.cpp#L249) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAtomicModelInfo::SetAtomicModelInfoFlags 0x005B3B20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CAtomicModelInfo() | [source/game_sa/Models/AtomicModelInfo.h:24](../../source/game_sa/Models/AtomicModelInfo.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetRwModelType() const override | [source/game_sa/Models/AtomicModelInfo.h:34](../../source/game_sa/Models/AtomicModelInfo.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAtomicModelInfo::GetRwModelType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-76"></a>
+<a id="grupo-77"></a>
 
 ## CAttractorScanner
 
@@ -368,7 +412,7 @@
 | CAttractorScanner::Clear() | [source/game_sa/AttractorScanner.cpp:15](../../source/game_sa/AttractorScanner.cpp#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CAttractorScanner::Clear 0x005FFF90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CAttractorScanner::InjectHooks() | [source/game_sa/AttractorScanner.cpp:32](../../source/game_sa/AttractorScanner.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-77"></a>
+<a id="grupo-78"></a>
 
 ## CAttributeZone
 
@@ -376,7 +420,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IsPointWithin(const CVector& point) const | [source/game_sa/CullZones.h:152](../../source/game_sa/CullZones.h#L152) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-78"></a>
+<a id="grupo-79"></a>
 
 ## CAudioEngine
 
@@ -470,26 +514,10 @@
 | CAudioEngine::GetCurrentRadioStationID() | [source/game_sa/Audio/AudioEngine.cpp:993](../../source/game_sa/Audio/AudioEngine.cpp#L993) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAudioEngine::GetCurrentRadioStationID 0x00507040 | 0 / 0 | Posible dato fijo AERadioTrackManager: source/game_sa/Audio/Managers/AERadioTrackManager.cpp:30 (0x008CB6F8) |
 | CAudioEngine::DisplayRadioStationName() | [source/game_sa/Audio/AudioEngine.cpp:998](../../source/game_sa/Audio/AudioEngine.cpp#L998) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAudioEngine::DisplayRadioStationName 0x00507030 | 0 / 0 | Posible dato fijo AERadioTrackManager: source/game_sa/Audio/Managers/AERadioTrackManager.cpp:30 (0x008CB6F8) |
 
-<a id="grupo-79"></a>
+<a id="grupo-80"></a>
 
 ## CAudioLink
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | Init() | [source/game_sa/Audio/Entities/AEScriptAudioEntity.h:18](../../source/game_sa/Audio/Entities/AEScriptAudioEntity.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-80"></a>
-
-## CAudioZones
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CAudioZones::InjectHooks() | [source/game_sa/Audio/AudioZones.cpp:26](../../source/game_sa/Audio/AudioZones.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CAudioZones::Init() | [source/game_sa/Audio/AudioZones.cpp:38](../../source/game_sa/Audio/AudioZones.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAudioZones::Init 0x005081A0 | 0 / 0 | Posible dato fijo m_NumActiveBoxes: source/game_sa/Audio/AudioZones.h:43 (0x00B6DCBC); Posible dato fijo m_NumActiveSpheres: source/game_sa/Audio/AudioZones.h:44 (0x00B6DCC0); Posible dato fijo m_NumBoxes: source/game_sa/Audio/AudioZones.h:45 (0x00B6DCC4), source/game_sa/TimeCycle.h:108 (0x00B7C480); Posible dato fijo m_NumSpheres: source/game_sa/Audio/AudioZones.h:46 (0x00B6DCC8) |
-| CAudioZones::RegisterAudioBox(char name\[8\], int32 id, bool isActive, CVector min, CVector max) | [source/game_sa/Audio/AudioZones.cpp:49](../../source/game_sa/Audio/AudioZones.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAudioZones::RegisterAudioBox 0x00508240 | 0 / 0 | Posible dato fijo m_IsActive: source/game_sa/DecisionMakers/DecisionMakerTypes.h:46 (0x00C0B01C); Posible dato fijo m_NumBoxes: source/game_sa/Audio/AudioZones.h:45 (0x00B6DCC4), source/game_sa/TimeCycle.h:108 (0x00B7C480); Posible dato fijo m_aBoxes: source/game_sa/Audio/AudioZones.h:49 (0x00B6DCD0), source/game_sa/TimeCycle.h:107 (0x00B7C550) |
-| CAudioZones::RegisterAudioSphere(char name\[8\], int32 id, bool isActive, CVector position, float radius) | [source/game_sa/Audio/AudioZones.cpp:69](../../source/game_sa/Audio/AudioZones.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAudioZones::RegisterAudioSphere 0x005081C0 | 0 / 0 | Posible dato fijo m_IsActive: source/game_sa/DecisionMakers/DecisionMakerTypes.h:46 (0x00C0B01C); Posible dato fijo m_NumSpheres: source/game_sa/Audio/AudioZones.h:46 (0x00B6DCC8); Posible dato fijo m_aSpheres: source/game_sa/Audio/AudioZones.h:52 (0x00B6EBA8) |
-| CAudioZones::SwitchAudioZone(const char* zoneName, bool enable) | [source/game_sa/Audio/AudioZones.cpp:82](../../source/game_sa/Audio/AudioZones.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAudioZones::SwitchAudioZone 0x00508320 | 0 / 0 | Posible dato fijo m_IsActive: source/game_sa/DecisionMakers/DecisionMakerTypes.h:46 (0x00C0B01C); Posible dato fijo m_NumBoxes: source/game_sa/Audio/AudioZones.h:45 (0x00B6DCC4), source/game_sa/TimeCycle.h:108 (0x00B7C480); Posible dato fijo m_NumSpheres: source/game_sa/Audio/AudioZones.h:46 (0x00B6DCC8); Posible dato fijo m_aBoxes: source/game_sa/Audio/AudioZones.h:49 (0x00B6DCD0), source/game_sa/TimeCycle.h:107 (0x00B7C550); Posible dato fijo m_aSpheres: source/game_sa/Audio/AudioZones.h:52 (0x00B6EBA8) |
-| CAudioZones::Update(bool forceUpdate, CVector posn) | [source/game_sa/Audio/AudioZones.cpp:104](../../source/game_sa/Audio/AudioZones.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAudioZones::Update 0x005083C0 | 0 / 0 | Posible dato fijo m_FrameCounter: source/game_sa/Timer.h:31 (0x00B7CB4C); Posible dato fijo m_IsActive: source/game_sa/DecisionMakers/DecisionMakerTypes.h:46 (0x00C0B01C); Posible dato fijo m_NumActiveBoxes: source/game_sa/Audio/AudioZones.h:43 (0x00B6DCBC); Posible dato fijo m_NumActiveSpheres: source/game_sa/Audio/AudioZones.h:44 (0x00B6DCC0); Posible dato fijo m_NumBoxes: source/game_sa/Audio/AudioZones.h:45 (0x00B6DCC4), source/game_sa/TimeCycle.h:108 (0x00B7C480); Posible dato fijo m_NumSpheres: source/game_sa/Audio/AudioZones.h:46 (0x00B6DCC8); Posible dato fijo m_aActiveBoxes: source/game_sa/Audio/AudioZones.h:39 (0x00B6DC6C); Posible dato fijo m_aActiveSpheres: source/game_sa/Audio/AudioZones.h:41 (0x00B6DC94); Posible dato fijo m_aBoxes: source/game_sa/Audio/AudioZones.h:49 (0x00B6DCD0), source/game_sa/TimeCycle.h:107 (0x00B7C550); Posible dato fijo m_aSpheres: source/game_sa/Audio/AudioZones.h:52 (0x00B6EBA8) |
-| GetActiveAuZoBoxes() | [source/game_sa/Audio/AudioZones.h:65](../../source/game_sa/Audio/AudioZones.h#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_NumBoxes: source/game_sa/Audio/AudioZones.h:45 (0x00B6DCC4), source/game_sa/TimeCycle.h:108 (0x00B7C480); Posible dato fijo m_aBoxes: source/game_sa/Audio/AudioZones.h:49 (0x00B6DCD0), source/game_sa/TimeCycle.h:107 (0x00B7C550) |
-| GetAvailableBoxes() | [source/game_sa/Audio/AudioZones.h:70](../../source/game_sa/Audio/AudioZones.h#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_NumBoxes: source/game_sa/Audio/AudioZones.h:45 (0x00B6DCC4), source/game_sa/TimeCycle.h:108 (0x00B7C480); Posible dato fijo m_aBoxes: source/game_sa/Audio/AudioZones.h:49 (0x00B6DCD0), source/game_sa/TimeCycle.h:107 (0x00B7C550) |
-| GetAvailableSpheres() | [source/game_sa/Audio/AudioZones.h:74](../../source/game_sa/Audio/AudioZones.h#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_NumSpheres: source/game_sa/Audio/AudioZones.h:46 (0x00B6DCC8); Posible dato fijo m_aSpheres: source/game_sa/Audio/AudioZones.h:52 (0x00B6EBA8) |

@@ -8,6 +8,19 @@
 
 <a id="grupo-121"></a>
 
+## CColModel
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| GetTriCount() const noexcept | [source/game_sa/Collision/ColModel.h:62](../../source/game_sa/Collision/ColModel.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetBoundRadius() const noexcept | [source/game_sa/Collision/ColModel.h:63](../../source/game_sa/Collision/ColModel.h#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetBoundCenter() | [source/game_sa/Collision/ColModel.h:64](../../source/game_sa/Collision/ColModel.h#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetBoundingBox() | [source/game_sa/Collision/ColModel.h:65](../../source/game_sa/Collision/ColModel.h#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetBoundingSphere() | [source/game_sa/Collision/ColModel.h:66](../../source/game_sa/Collision/ColModel.h#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetData() const | [source/game_sa/Collision/ColModel.h:67](../../source/game_sa/Collision/ColModel.h#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-122"></a>
+
 ## CColModelPool
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -16,7 +29,7 @@
 | * New() | [source/game_sa/Pools/ColModelPool.h:51](../../source/game_sa/Pools/ColModelPool.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CColModelPool::New 0x0040FB80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Delete(CColModel* colModel) | [source/game_sa/Pools/ColModelPool.h:57](../../source/game_sa/Pools/ColModelPool.h#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CColModel::operator delete 0x0040FC40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-122"></a>
+<a id="grupo-123"></a>
 
 ## CColSphere
 
@@ -34,7 +47,7 @@
 | CColSphere(const CVector& center, float radius) | [source/game_sa/Collision/ColSphere.h:42](../../source/game_sa/Collision/ColSphere.h#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetSurfaceType() const | [source/game_sa/Collision/ColSphere.h:55](../../source/game_sa/Collision/ColSphere.h#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-123"></a>
+<a id="grupo-124"></a>
 
 ## CColStore
 
@@ -69,7 +82,7 @@
 | CColStore::InjectHooks() | [source/game_sa/Collision/ColStore.cpp:492](../../source/game_sa/Collision/ColStore.cpp#L492) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FindColSlot() | [source/game_sa/Collision/ColStore.h:42](../../source/game_sa/Collision/ColStore.h#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-124"></a>
+<a id="grupo-125"></a>
 
 ## CColTriangle
 
@@ -82,7 +95,7 @@
 | CColTriangle(uint16 a, uint16 b, uint16 c, eSurfaceType material, tColLighting light) | [source/game_sa/Collision/ColTriangle.h:17](../../source/game_sa/Collision/ColTriangle.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetSurfaceType() const | [source/game_sa/Collision/ColTriangle.h:40](../../source/game_sa/Collision/ColTriangle.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-125"></a>
+<a id="grupo-126"></a>
 
 ## CColTrianglePlane
 
@@ -97,7 +110,7 @@
 | GetNormal() const noexcept | [source/game_sa/Collision/ColTrianglePlane.h:47](../../source/game_sa/Collision/ColTrianglePlane.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CColTrianglePlane::GetNormal-Out 0x00411610 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetPtDotNormal(const CVector& pt) const | [source/game_sa/Collision/ColTrianglePlane.h:51](../../source/game_sa/Collision/ColTrianglePlane.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-126"></a>
+<a id="grupo-127"></a>
 
 ## CCollision
 
@@ -172,7 +185,7 @@
 | CCollision::InjectHooks() | [source/game_sa/Collision/Collision.cpp:4211](../../source/game_sa/Collision/Collision.cpp#L4211) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CCollision::Tests(int32 i) | [source/game_sa/Collision/Collision.cpp:4307](../../source/game_sa/Collision/Collision.cpp#L4307) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x00411E70: CCollision::TestSphereSphere; ruta efectiva sin resolver; Colaborador por dirección 0x00411EC0: CCollision::CalculateColPointInsideBox; ruta efectiva sin resolver; Colaborador por dirección 0x004120C0: CCollision::TestSphereBox; ruta efectiva sin resolver; Colaborador por dirección 0x00412130: CCollision::ProcessSphereBox; ruta efectiva sin resolver; Colaborador por dirección 0x00412850: CCollision::DistToLineSqr; ruta efectiva sin resolver; Colaborador por dirección 0x00412A30: CCollision::DistToMathematicalLine2D; ruta efectiva sin resolver; Colaborador por dirección 0x00412AA0: CCollision::ProcessLineSphere; ruta efectiva sin resolver; Colaborador por dirección 0x00413070: CCollision::TestLineBox; ruta efectiva sin resolver; Colaborador por dirección 0x00413080: CCollision::TestVerticalLineBox; ruta efectiva sin resolver; Colaborador por dirección 0x00413AC0: CCollision::TestLineTriangle; ruta efectiva sin resolver; Colaborador por dirección 0x00415730: CCollision::PointInPoly; ruta efectiva sin resolver; Colaborador por dirección 0x00415A40: CCollision::ClosestSquaredDistanceBetweenFiniteLines; ruta efectiva sin resolver; Colaborador por dirección 0x004165B0: CCollision::TestSphereTriangle; ruta efectiva sin resolver; Colaborador por dirección 0x00417470: CCollision::TestLineSphere; ruta efectiva sin resolver |
 
-<a id="grupo-127"></a>
+<a id="grupo-128"></a>
 
 ## CCollision::DebugSettings::ShapeShapeCollision
 
@@ -180,7 +193,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IsEnabled(Shape a, Shape b) | [source/game_sa/Collision/Collision.h:58](../../source/game_sa/Collision/Collision.h#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-128"></a>
+<a id="grupo-129"></a>
 
 ## CCollisionData
 
@@ -212,7 +225,7 @@
 | GetLines() const | [source/game_sa/Collision/CollisionData.h:123](../../source/game_sa/Collision/CollisionData.h#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GetPointerToColArray(size_t byteOffset) | [source/game_sa/Collision/CollisionData.h:135](../../source/game_sa/Collision/CollisionData.h#L135) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-129"></a>
+<a id="grupo-130"></a>
 
 ## CCollisionEventScanner
 
@@ -220,7 +233,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CCollisionEventScanner::ScanForCollisionEvents(CPed* victim, CEventGroup* eventGroup) | [source/game_sa/Collision/CollisionEventScanner.cpp:5](../../source/game_sa/Collision/CollisionEventScanner.cpp#L5) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x00604500: fuera del catálogo consultado; ruta efectiva sin resolver |
 
-<a id="grupo-130"></a>
+<a id="grupo-131"></a>
 
 ## CCollisionPlugin
 
@@ -230,7 +243,7 @@
 | CCollisionPlugin::PluginAttach() | [source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:104](../../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCollisionPlugin::PluginAttach 0x0041B310 | 0 / 0 | Posible dato fijo gCollisionPluginOffset: source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:23 (0x009689DC) |
 | CCollisionPlugin::SetModelInfo(CClumpModelInfo* modelInfo) | [source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:126](../../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCollisionPlugin::SetModelInfo 0x0041B350 | 0 / 0 | Posible dato fijo ms_currentModel: source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.h:25 (0x009689E0) |
 
-<a id="grupo-131"></a>
+<a id="grupo-132"></a>
 
 ## CColourSet
 
@@ -244,7 +257,7 @@
 | GetPostFx1() const | [source/game_sa/Collision/ColourSet.h:118](../../source/game_sa/Collision/ColourSet.h#L118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_fPostFx1Alpha: source/game_sa/TimeCycle.h:93 (0x00B7A598); Posible dato fijo m_fPostFx1Blue: source/game_sa/TimeCycle.h:92 (0x00B7A650); Posible dato fijo m_fPostFx1Green: source/game_sa/TimeCycle.h:91 (0x00B7A708); Posible dato fijo m_fPostFx1Red: source/game_sa/TimeCycle.h:90 (0x00B7A7C0) |
 | GetPostFx2() const | [source/game_sa/Collision/ColourSet.h:127](../../source/game_sa/Collision/ColourSet.h#L127) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_fPostFx2Alpha: source/game_sa/TimeCycle.h:98 (0x00B7A2B8); Posible dato fijo m_fPostFx2Blue: source/game_sa/TimeCycle.h:97 (0x00B7A370); Posible dato fijo m_fPostFx2Green: source/game_sa/TimeCycle.h:96 (0x00B7A428); Posible dato fijo m_fPostFx2Red: source/game_sa/TimeCycle.h:95 (0x00B7A4E0) |
 
-<a id="grupo-132"></a>
+<a id="grupo-133"></a>
 
 ## CCompressedMatrixNotAligned
 
@@ -256,7 +269,7 @@
 | Compress(const CMatrix& matrix) | [source/game_sa/CompressedMatrixNotAligned.h:19](../../source/game_sa/CompressedMatrixNotAligned.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Decompress(const CCompressedMatrixNotAligned& compMatrix) | [source/game_sa/CompressedMatrixNotAligned.h:25](../../source/game_sa/CompressedMatrixNotAligned.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-133"></a>
+<a id="grupo-134"></a>
 
 ## CControllerConfigManager
 
@@ -336,7 +349,7 @@
 | & CControllerConfigManager::GetControllerState(CPad& pad, eControllerType type) | [source/game_sa/ControllerConfigManager.cpp:1571](../../source/game_sa/ControllerConfigManager.cpp#L1571) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/ControllerConfigManager.h:294](../../source/game_sa/ControllerConfigManager.h#L294) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CControllerConfigManager::Constructor 0x00531EE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-134"></a>
+<a id="grupo-135"></a>
 
 ## CControllerState
 
@@ -346,7 +359,7 @@
 | CControllerState::Clear() | [source/game_sa/ControllerState.cpp:32](../../source/game_sa/ControllerState.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CControllerState::Clear 0x0053EF80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CControllerState::CheckForInput() | [source/game_sa/ControllerState.cpp:60](../../source/game_sa/ControllerState.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CControllerState::CheckForInput 0x0053EFF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-135"></a>
+<a id="grupo-136"></a>
 
 ## CConversationForPed
 
@@ -357,7 +370,7 @@
 | CConversationForPed::Update() | [source/game_sa/Conversations/ConversationForPed.cpp:78](../../source/game_sa/Conversations/ConversationForPed.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CConversationForPed::Update 0x0043C190 | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670); Posible dato fijo m_Nodes: source/game_sa/Conversations/Conversations.h:66 (0x00969570); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | CConversationForPed::IsPlayerInPositionForConversation(bool randomConversation) | [source/game_sa/Conversations/ConversationForPed.cpp:169](../../source/game_sa/Conversations/ConversationForPed.cpp#L169) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CConversationForPed::IsPlayerInPositionForConversation 0x0043AC40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 
-<a id="grupo-136"></a>
+<a id="grupo-137"></a>
 
 ## CConversationNode
 
@@ -367,7 +380,7 @@
 | CConversationNode::Clear() | [source/game_sa/Conversations/ConversationNode.cpp:47](../../source/game_sa/Conversations/ConversationNode.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CConversationNode::ClearRecursively() | [source/game_sa/Conversations/ConversationNode.cpp:72](../../source/game_sa/Conversations/ConversationNode.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CConversationNode::ClearRecursively 0x0043A710 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_Nodes: source/game_sa/Conversations/Conversations.h:66 (0x00969570) |
 
-<a id="grupo-137"></a>
+<a id="grupo-138"></a>
 
 ## CConversations
 
@@ -387,7 +400,7 @@
 | CConversations::DoneSettingUpConversation(bool bSuppressSubtitles) | [source/game_sa/Conversations/Conversations.cpp:325](../../source/game_sa/Conversations/Conversations.cpp#L325) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CConversations::DoneSettingUpConversation 0x0043ADB0 | 0 / 0 | Posible dato fijo m_Conversations: source/game_sa/Conversations/Conversations.h:65 (0x009691D8); Posible dato fijo m_Nodes: source/game_sa/Conversations/Conversations.h:66 (0x00969570); Posible dato fijo m_SettingUpConversation: source/game_sa/Conversations/Conversations.h:64 (0x009691D0); Posible dato fijo m_SettingUpConversationNumNodes: source/game_sa/Conversations/Conversations.h:68 (0x009691C8); Posible dato fijo m_SettingUpConversationPed: source/game_sa/Conversations/Conversations.h:69 (0x009691CC); Posible dato fijo m_aTempNodes: source/game_sa/Conversations/Conversations.h:67 (0x00969360); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | * CConversations::FindConversationForPed(CPed* ped) | [source/game_sa/Conversations/Conversations.cpp:419](../../source/game_sa/Conversations/Conversations.cpp#L419) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_Conversations: source/game_sa/Conversations/Conversations.h:65 (0x009691D8); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 
-<a id="grupo-138"></a>
+<a id="grupo-139"></a>
 
 ## CCopPed
 
@@ -408,7 +421,7 @@
 | CCopPed::ClearCriminalsToKill() | [source/game_sa/Entity/Ped/CopPed.cpp:276](../../source/game_sa/Entity/Ped/CopPed.cpp#L276) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCopPed::ClearCriminalsToKill 0x005DE070 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CCopPed::ProcessControl() | [source/game_sa/Entity/Ped/CopPed.cpp:294](../../source/game_sa/Entity/Ped/CopPed.cpp#L294) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCopPed::ProcessControl 0x00000000 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028) |
 
-<a id="grupo-139"></a>
+<a id="grupo-140"></a>
 
 ## CCoronas
 
@@ -428,32 +441,3 @@
 | CCoronas::DoSunAndMoon() | [source/game_sa/Coronas.cpp:826](../../source/game_sa/Coronas.cpp#L826) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCoronas::DoSunAndMoon 0x006FC5A0 | 0 / 0 | Posible dato fijo SunScreenX: source/game_sa/Coronas.h:24 (0x00C3E028); Posible dato fijo SunScreenY: source/game_sa/Coronas.h:25 (0x00C3E02C); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914); Posible dato fijo gpCoronaTexture: source/game_sa/Coronas.h:84 (0x00C3E000); Posible dato fijo m_CurrentColours: source/game_sa/TimeCycle.h:105 (0x00B7C4A0); Posible dato fijo m_CurrentStoredValue: source/game_sa/TimeCycle.h:110 (0x00B79FD0); Posible dato fijo m_VectorToSun: source/game_sa/TimeCycle.h:111 (0x00B7CA50); Posible dato fijo m_fSunSize: source/game_sa/TimeCycle.h:64 (0x00B7B6D8); Posible dato fijo m_nSunCoreBlue: source/game_sa/TimeCycle.h:58 (0x00B7B9B8); Posible dato fijo m_nSunCoreGreen: source/game_sa/TimeCycle.h:57 (0x00B7BA70); Posible dato fijo m_nSunCoreRed: source/game_sa/TimeCycle.h:56 (0x00B7BB28); Posible dato fijo m_nSunCoronaBlue: source/game_sa/TimeCycle.h:62 (0x00B7B790); Posible dato fijo m_nSunCoronaGreen: source/game_sa/TimeCycle.h:61 (0x00B7B848); Posible dato fijo m_nSunCoronaRed: source/game_sa/TimeCycle.h:60 (0x00B7B900) |
 | * CCoronas::GetCoronaByID(int32 id) | [source/game_sa/Coronas.cpp:888](../../source/game_sa/Coronas.cpp#L888) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aCoronas: source/game_sa/Coronas.h:36 (0x00C3E058) |
 | * CCoronas::GetFree() | [source/game_sa/Coronas.cpp:898](../../source/game_sa/Coronas.cpp#L898) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aCoronas: source/game_sa/Coronas.h:36 (0x00C3E058) |
-
-<a id="grupo-140"></a>
-
-## CCover
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CCover::InjectHooks() | [source/game_sa/Cover.cpp:24](../../source/game_sa/Cover.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::Init() | [source/game_sa/Cover.cpp:113](../../source/game_sa/Cover.cpp#L113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::Init 0x00698710 | 0 / 0 | Posible dato fijo m_ListOfProcessedBuildings: source/game_sa/Cover.h:22 (0x00C1A2B8); Posible dato fijo m_NumPoints: source/game_sa/Cover.h:20 (0x00C197A4) |
-| CCover::ClearProcessedBuildings() | [source/game_sa/Cover.cpp:124](../../source/game_sa/Cover.cpp#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_ListOfProcessedBuildings: source/game_sa/Cover.h:22 (0x00C1A2B8) |
-| CCover::RemoveCoverPointIfEntityLost(CCoverPoint& cpt) | [source/game_sa/Cover.cpp:134](../../source/game_sa/Cover.cpp#L134) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::RemoveCoverPointIfEntityLost 0x00698DB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::RemoveCoverPointsForThisEntity(CEntity* entity) | [source/game_sa/Cover.cpp:144](../../source/game_sa/Cover.cpp#L144) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::RemoveCoverPointsForThisEntity 0x00698740 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::ShouldThisBuildingHaveItsCoverPointsCreated(CBuilding* building) | [source/game_sa/Cover.cpp:160](../../source/game_sa/Cover.cpp#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::ShouldThisBuildingHaveItsCoverPointsCreated 0x00699230 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::Update() | [source/game_sa/Cover.cpp:174](../../source/game_sa/Cover.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::Update 0x006997E0 | 0 / 0 | Posible dato fijo m_ListOfProcessedBuildings: source/game_sa/Cover.h:22 (0x00C1A2B8) |
-| * CCover::GetFree() | [source/game_sa/Cover.cpp:345](../../source/game_sa/Cover.cpp#L345) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_NumPoints: source/game_sa/Cover.h:20 (0x00C197A4); Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
-| * CCover::AddCoverPoint(CCoverPoint::eType type, CEntity* coverEntity, const CVector* pos, CCoverPoint::eUsage usage, CCoverPoint::Dir dir) | [source/game_sa/Cover.cpp:357](../../source/game_sa/Cover.cpp#L357) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::AddCoverPoint 0x00698F30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::CalculateHorizontalSize(CColTriangle* triangle, CVector* vertPositions) | [source/game_sa/Cover.cpp:439](../../source/game_sa/Cover.cpp#L439) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::CalculateHorizontalSize 0x006987F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::DoLineCheckWithinObject(CColTriangle* triangles, int32 numTriangles, CVector* vertPositions, CVector* normals, CVector start, CVector end) | [source/game_sa/Cover.cpp:475](../../source/game_sa/Cover.cpp#L475) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::DoLineCheckWithinObject 0x00698990 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::DoesCoverPointStillProvideCover(CCoverPoint* cpt, CVector pos) | [source/game_sa/Cover.cpp:511](../../source/game_sa/Cover.cpp#L511) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::DoesCoverPointStillProvideCover 0x00698DD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::Find2HighestPoints(CColTriangle* triangle, CVector* vertPositions, int32& outPoint1, int32& outPoint2) | [source/game_sa/Cover.cpp:532](../../source/game_sa/Cover.cpp#L532) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::Find2HighestPoints 0x006988E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CCover::FindAndReserveCoverPoint(CPed* ped, const CVector& targetPos, bool isForAttack) | [source/game_sa/Cover.cpp:550](../../source/game_sa/Cover.cpp#L550) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::FindAndReserveCoverPoint 0x006992B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::FindCoordinatesCoverPoint(const CCoverPoint& cpt, CPed* ped, const CVector& position, CVector& outCoordinates) | [source/game_sa/Cover.cpp:619](../../source/game_sa/Cover.cpp#L619) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::FindCoordinatesCoverPoint 0x00699570 | 0 / 0 | Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |
-| CCover::FindCoverPointsForThisBuilding(CBuilding* building) | [source/game_sa/Cover.cpp:667](../../source/game_sa/Cover.cpp#L667) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::FindCoverPointsForThisBuilding 0x00699120 | 0 / 0 | Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8) |
-| CCover::FindDirFromVector(CVector dir) | [source/game_sa/Cover.cpp:686](../../source/game_sa/Cover.cpp#L686) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCover::FindDirFromVector 0x00698D40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::FindDirFromVector_Reversed(CVector dir) | [source/game_sa/Cover.cpp:691](../../source/game_sa/Cover.cpp#L691) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::FindVectorFromDir(CCoverPoint::Dir direction) | [source/game_sa/Cover.cpp:696](../../source/game_sa/Cover.cpp#L696) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCover::FindVectorFromDir 0x00698D60 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::FindVectorFromDir_Reversed(uint8 direction) | [source/game_sa/Cover.cpp:700](../../source/game_sa/Cover.cpp#L700) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CCover::FindVectorFromFirstToMissingVertex(CColTriangle* triangle, int32* a3, CVector* vertPositions) | [source/game_sa/Cover.cpp:709](../../source/game_sa/Cover.cpp#L709) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCover::FindVectorFromFirstToMissingVertex 0x00698790 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetCoverPoints() | [source/game_sa/Cover.h:50](../../source/game_sa/Cover.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_Points: source/game_sa/Cover.h:21 (0x00C197C8) |

@@ -28,13 +28,27 @@
 
 <a id="grupo-3"></a>
 
+## App
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| DoRWStuffStartOfFrame(int16 TopRed, int16 TopGreen, int16 TopBlue, int16 BottomRed, int16 BottomGreen, int16 BottomBlue, int16 Alpha) | [source/app/app.cpp:66](../../source/app/app.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: App::DoRWStuffStartOfFrame 0x0053D690 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038) |
+| DoRWStuffStartOfFrame_Horizon(int16 TopRed, int16 TopGreen, int16 TopBlue, int16 BottomRed, int16 BottomGreen, int16 BottomBlue, int16 Alpha) | [source/app/app.cpp:88](../../source/app/app.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: App::DoRWStuffStartOfFrame_Horizon 0x0053D7A0 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo gColourTop: source/app/app.h:26 (0x00B72CA0) |
+| DoRWStuffEndOfFrame() | [source/app/app.cpp:107](../../source/app/app.cpp#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: App::DoRWStuffEndOfFrame 0x0053D840 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038) |
+| AppEventHandler(RsEvent event, void* param) | [source/app/app.cpp:136](../../source/app/app.cpp#L136) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: App::AppEventHandler 0x0053EC10 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038) |
+| PluginAttach() | [source/app/app.cpp:179](../../source/app/app.cpp#L179) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: App::PluginAttach 0x0053D870 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DefinedState() | [source/app/app.cpp:210](../../source/app/app.cpp#L210) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: App::DefinedState 0x00734650 | 0 / 0 | Posible dato fijo m_CurrentColours: source/game_sa/TimeCycle.h:105 (0x00B7C4A0); Posible dato fijo m_nSkyBottomBlue: source/game_sa/TimeCycle.h:54 (0x00B7BBE0); Posible dato fijo m_nSkyBottomGreen: source/game_sa/TimeCycle.h:53 (0x00B7BC98); Posible dato fijo m_nSkyBottomRed: source/game_sa/TimeCycle.h:52 (0x00B7BD50) |
+| DefinedState2d() | [source/app/app.cpp:235](../../source/app/app.cpp#L235) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: App::DefinedState2d 0x00734750 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-4"></a>
+
 ## Attractor
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | EnableDisabledAttractorOnObject(CObject& object, bool enabled) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:150](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L150) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-4"></a>
+<a id="grupo-5"></a>
 
 ## BoneNodeManager_c
 
@@ -51,7 +65,7 @@
 | * Constructor() | [source/game_sa/Ragdoll/BoneNodeManager.h:45](../../source/game_sa/Ragdoll/BoneNodeManager.h#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: BoneNodeManager_c::Constructor 0x00617330 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Ragdoll/BoneNodeManager.h:50](../../source/game_sa/Ragdoll/BoneNodeManager.h#L50) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: BoneNodeManager_c::Destructor 0x00617390 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-5"></a>
+<a id="grupo-6"></a>
 
 ## BoneNode_c
 
@@ -82,7 +96,7 @@
 | * Constructor() | [source/game_sa/Ragdoll/BoneNode.h:73](../../source/game_sa/Ragdoll/BoneNode.h#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: BoneNode_c::Constructor 0x00616B30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Ragdoll/BoneNode.h:74](../../source/game_sa/Ragdoll/BoneNode.h#L74) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: BoneNode_c::Destructor 0x00616B80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-6"></a>
+<a id="grupo-7"></a>
 
 ## BreakGroup_t
 
@@ -90,7 +104,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetRenderInfos() const | [source/game_sa/BreakObject_c.h:37](../../source/game_sa/BreakObject_c.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-7"></a>
+<a id="grupo-8"></a>
 
 ## BreakManager_c
 
@@ -105,7 +119,7 @@
 | BreakManager_c::Update(float timeStep) | [source/game_sa/BreakManager_c.cpp:73](../../source/game_sa/BreakManager_c.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: BreakManager_c::Update 0x0059E670 | 0 / 0 | Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890) |
 | BreakManager_c::Render(uint8 state) | [source/game_sa/BreakManager_c.cpp:84](../../source/game_sa/BreakManager_c.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: BreakManager_c::Render 0x0059E6A0 | 0 / 0 | Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890) |
 
-<a id="grupo-8"></a>
+<a id="grupo-9"></a>
 
 ## BreakObject_c
 
@@ -117,7 +131,7 @@
 | BreakObject_c::Exit() | [source/game_sa/BreakObject_c.cpp:111](../../source/game_sa/BreakObject_c.cpp#L111) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: BreakObject_c::Exit 0x0059DDD0 | 0 / 0 | Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890) |
 | BreakObject_c::CalcGroupCenter(BreakGroup_t* group) | [source/game_sa/BreakObject_c.cpp:130](../../source/game_sa/BreakObject_c.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: BreakObject_c::CalcGroupCenter 0x0059D190 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | BreakObject_c::SetGroupData(const RwMatrix* matrix, const CVector* vecVelocity, float fVelocityRand) | [source/game_sa/BreakObject_c.cpp:182](../../source/game_sa/BreakObject_c.cpp#L182) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: BreakObject_c::SetGroupData 0x0059D570 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| BreakObject_c::SetBreakInfo(BreakInfo_t* info, int32 bJustFaces) | [source/game_sa/BreakObject_c.cpp:216](../../source/game_sa/BreakObject_c.cpp#L216) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: BreakObject_c::SetBreakInfo 0x0059D7F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| BreakObject_c::SetBreakInfo(BreakInfo_t* info, int32 bJustFaces) | [source/game_sa/BreakObject_c.cpp:216](../../source/game_sa/BreakObject_c.cpp#L216) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: BreakObject_c::SetBreakInfo 0x0059D7F0 | 0 / 0 | Posible dato fijo AmbientLightColourForFrame: source/app/app_light.h:9 (0x00C886D4) |
 | BreakObject_c::DoCollisionResponse(BreakGroup_t* group, float timeStep, const CVector* vecNormal, float groundZ) const | [source/game_sa/BreakObject_c.cpp:293](../../source/game_sa/BreakObject_c.cpp#L293) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: BreakObject_c::DoCollisionResponse 0x0059DE40 | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:32 (0x00A9AE00) |
 | BreakObject_c::DoCollision(BreakGroup_t* group, float timeStep) | [source/game_sa/BreakObject_c.cpp:364](../../source/game_sa/BreakObject_c.cpp#L364) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: BreakObject_c::DoCollision 0x0059E1F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | BreakObject_c::Update(float timeStep) | [source/game_sa/BreakObject_c.cpp:371](../../source/game_sa/BreakObject_c.cpp#L371) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: BreakObject_c::Update 0x0059E220 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
@@ -125,7 +139,7 @@
 | GetBreakGroups() | [source/game_sa/BreakObject_c.h:71](../../source/game_sa/BreakObject_c.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetBreakGroups() const | [source/game_sa/BreakObject_c.h:72](../../source/game_sa/BreakObject_c.h#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-9"></a>
+<a id="grupo-10"></a>
 
 ## BreakablePlugin
 
@@ -140,7 +154,7 @@
 | BreakableStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.cpp:173](../../source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.cpp#L173) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: BreakablePlugin::BreakableStreamGetSize 0x0059D0F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTextures() | [source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h:63](../../source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-10"></a>
+<a id="grupo-11"></a>
 
 ## BreakablePluginData
 
@@ -167,7 +181,7 @@
 | GetSurfacePropsPtr() | [source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h:124](../../source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTexturesPtr() | [source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h:125](../../source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-11"></a>
+<a id="grupo-12"></a>
 
 ## C2dEffect
 
@@ -191,7 +205,7 @@
 | * DynCast(From* p) | [source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.h:271](../../source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.h#L271) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Cast(From* p) | [source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.h:278](../../source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.h#L278) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-12"></a>
+<a id="grupo-13"></a>
 
 ## C2dEffectBase
 
@@ -199,7 +213,7 @@
 | --- | --- | --- | --- | --- | --- |
 | classof(const From* f) | [source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.h:231](../../source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.h#L231) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-13"></a>
+<a id="grupo-14"></a>
 
 ## C3dMarker
 
@@ -214,7 +228,7 @@
 | C3dMarker::UpdateZCoordinate(CVector point, float zDistance) | [source/game_sa/3dMarker.cpp:192](../../source/game_sa/3dMarker.cpp#L192) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: C3dMarker::UpdateZCoordinate 0x00724D40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | C3dMarker::DeleteIfHasAtomic() | [source/game_sa/3dMarker.cpp:217](../../source/game_sa/3dMarker.cpp#L217) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-14"></a>
+<a id="grupo-15"></a>
 
 ## C3dMarkers
 
@@ -246,7 +260,7 @@
 | C3dMarkers::LoadUser3dMarkers() | [source/game_sa/3dMarkers.cpp:733](../../source/game_sa/3dMarkers.cpp#L733) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: C3dMarkers::LoadUser3dMarkers 0x005D42E0 | 0 / 0 | Posible dato fijo ms_user3dMarkers: source/game_sa/3dMarkers.h:59 (0x00C80258) |
 | C3dMarkers::SaveUser3dMarkers() | [source/game_sa/3dMarkers.cpp:741](../../source/game_sa/3dMarkers.cpp#L741) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: C3dMarkers::SaveUser3dMarkers 0x005D4300 | 0 / 0 | Posible dato fijo ms_user3dMarkers: source/game_sa/3dMarkers.h:59 (0x00C80258) |
 
-<a id="grupo-15"></a>
+<a id="grupo-16"></a>
 
 ## CAEAmbienceTrackManager
 
@@ -266,7 +280,7 @@
 | CAEAmbienceTrackManager::CheckForPause() const | [source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp:485](../../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp#L485) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AEAudioHardware: source/game_sa/Audio/Hardware/AEAudioHardware.cpp:30 (0x00B5F8B8); Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748) |
 | CAEAmbienceTrackManager::ChangeStatusToStopped() | [source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp:492](../../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp#L492) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-16"></a>
+<a id="grupo-17"></a>
 
 ## CAEAudioChannel
 
@@ -287,8 +301,10 @@
 | CAEAudioChannel::Lost() const | [source/game_sa/Audio/Hardware/AEAudioChannel.cpp:236](../../source/game_sa/Audio/Hardware/AEAudioChannel.cpp#L236) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAEAudioChannel::Lost 0x004D7A10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CAEAudioChannel::SetReverbAndDepth(uint32 reverbEnv, uint32 depth) | [source/game_sa/Audio/Hardware/AEAudioChannel.cpp:255](../../source/game_sa/Audio/Hardware/AEAudioChannel.cpp#L255) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAEAudioChannel::SetReverbAndDepth 0x004D7AA0 | 0 / 0 | Posible dato fijo AEAudioHardware: source/game_sa/Audio/Hardware/AEAudioHardware.cpp:30 (0x00B5F8B8); Posible dato fijo s_EAXEnvironments: source/game_sa/Audio/Hardware/AEAudioChannel.cpp:252 (0x008AC198); Posible dato fijo s_EAXListenerPropertySet: source/game_sa/Audio/Hardware/AEAudioChannel.cpp:250 (0x0085EFDC) |
 | CAEAudioChannel::SetNotInRoom(bool onStreet) | [source/game_sa/Audio/Hardware/AEAudioChannel.cpp:278](../../source/game_sa/Audio/Hardware/AEAudioChannel.cpp#L278) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAEAudioChannel::SetNotInRoom 0x004D7B50 | 0 / 0 | Posible dato fijo AEAudioHardware: source/game_sa/Audio/Hardware/AEAudioHardware.cpp:30 (0x00B5F8B8); Posible dato fijo s_EAXBufferPropertySet: source/game_sa/Audio/Hardware/AEAudioChannel.cpp:251 (0x0085EF9C) |
+| GetVolume() const | [source/game_sa/Audio/Hardware/AEAudioChannel.h:67](../../source/game_sa/Audio/Hardware/AEAudioChannel.h#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsBufferPlaying() const | [source/game_sa/Audio/Hardware/AEAudioChannel.h:69](../../source/game_sa/Audio/Hardware/AEAudioChannel.h#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-17"></a>
+<a id="grupo-18"></a>
 
 ## CAEAudioEntity
 
@@ -298,8 +314,9 @@
 | CAEAudioEntity::StaticInitialise() | [source/game_sa/Audio/Entities/AEAudioEntity.cpp:49](../../source/game_sa/Audio/Entities/AEAudioEntity.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pAudioEventVolumes: source/game_sa/Audio/Entities/AEAudioEntity.cpp:31 (0x00BD00F8) |
 | CAEAudioEntity::Shutdown() | [source/game_sa/Audio/Entities/AEAudioEntity.cpp:67](../../source/game_sa/Audio/Entities/AEAudioEntity.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pAudioEventVolumes: source/game_sa/Audio/Entities/AEAudioEntity.cpp:31 (0x00BD00F8) |
 | CAEAudioEntity::GetDefaultVolume(eAudioEvents event) | [source/game_sa/Audio/Entities/AEAudioEntity.cpp:71](../../source/game_sa/Audio/Entities/AEAudioEntity.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pAudioEventVolumes: source/game_sa/Audio/Entities/AEAudioEntity.cpp:31 (0x00BD00F8) |
+| * Destructor() | [source/game_sa/Audio/Entities/AEAudioEntity.h:36](../../source/game_sa/Audio/Entities/AEAudioEntity.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAEAudioEntity::Destructor 0x005DE9E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-18"></a>
+<a id="grupo-19"></a>
 
 ## CAEAudioEnvironment
 
@@ -315,7 +332,7 @@
 | CAEAudioEnvironment::GetPositionRelativeToCamera(CPlaceable* placeable) | [source/game_sa/Audio/AEAudioEnvironment.cpp:176](../../source/game_sa/Audio/AEAudioEnvironment.cpp#L176) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CAEAudioEnvironment::GetPositionRelativeToCamera_Placeable(CVector* output, CPlaceable* placeable) | [source/game_sa/Audio/AEAudioEnvironment.cpp:183](../../source/game_sa/Audio/AEAudioEnvironment.cpp#L183) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAEAudioEnvironment::GetPositionRelativeToCamera-placeable 0x004D8340 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-19"></a>
+<a id="grupo-20"></a>
 
 ## CAEAudioHardware
 
@@ -381,24 +398,3 @@
 | GetChannels() const | [source/game_sa/Audio/Hardware/AEAudioHardware.h:208](../../source/game_sa/Audio/Hardware/AEAudioHardware.h#L208) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Audio/Hardware/AEAudioHardware.h:212](../../source/game_sa/Audio/Hardware/AEAudioHardware.h#L212) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAEAudioHardware::Constructor 0x004D83E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Audio/Hardware/AEAudioHardware.h:218](../../source/game_sa/Audio/Hardware/AEAudioHardware.h#L218) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CAEAudioHardware::Destructor 0x004D83A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-20"></a>
-
-## CAEAudioUtility
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CAEAudioUtility::InjectHooks() | [source/game_sa/Audio/AEAudioUtility.cpp:66](../../source/game_sa/Audio/AEAudioUtility.cpp#L66) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CAEAudioUtility::ResolveProbability(float p) | [source/game_sa/Audio/AEAudioUtility.cpp:86](../../source/game_sa/Audio/AEAudioUtility.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAEAudioUtility::ResolveProbability 0x004D9C80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CAEAudioUtility::GetPiecewiseLinear(float x, int16 dataCount, const float (*data)\[2\]) | [source/game_sa/Audio/AEAudioUtility.cpp:98](../../source/game_sa/Audio/AEAudioUtility.cpp#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAEAudioUtility::GetPiecewiseLinear 0x004D9D90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CAEAudioUtility::AudioLog10(float p) | [source/game_sa/Audio/AEAudioUtility.cpp:120](../../source/game_sa/Audio/AEAudioUtility.cpp#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CAEAudioUtility::AudioLog10 0x004D9E50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CAEAudioUtility::GetCurrentTimeInMS() | [source/game_sa/Audio/AEAudioUtility.cpp:129](../../source/game_sa/Audio/AEAudioUtility.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CAEAudioUtility::GetCurrentTimeInMS 0x004D9E80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo Frequency: source/game_sa/Audio/AEAudioUtility.cpp:26 (0x00B610F0); Posible dato fijo startTimeMs: source/game_sa/Audio/AEAudioUtility.cpp:27 (0x00B610F8) |
-| CAEAudioUtility::ConvertFromBytesToMS(uint32 lengthInBytes, uint32 sampleRate, uint16 numChannels) | [source/game_sa/Audio/AEAudioUtility.cpp:137](../../source/game_sa/Audio/AEAudioUtility.cpp#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CAEAudioUtility::ConvertFromBytesToMS 0x004D9EF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CAEAudioUtility::ConvertFromMSToBytes(uint32 a, uint32 frequency, uint16 frequencyMult) | [source/game_sa/Audio/AEAudioUtility.cpp:143](../../source/game_sa/Audio/AEAudioUtility.cpp#L143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CAEAudioUtility::ConvertFromMSToBytes 0x004D9F40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CAEAudioUtility::StaticInitialise() | [source/game_sa/Audio/AEAudioUtility.cpp:151](../../source/game_sa/Audio/AEAudioUtility.cpp#L151) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CAEAudioUtility::StaticInitialise 0x005B97F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo Frequency: source/game_sa/Audio/AEAudioUtility.cpp:26 (0x00B610F0); Posible dato fijo m_sfLogLookup: source/game_sa/Audio/AEAudioUtility.h:53 (0x00B61100); Posible dato fijo startTimeMs: source/game_sa/Audio/AEAudioUtility.cpp:27 (0x00B610F8) |
-| CAEAudioUtility::GetBankAndSoundFromScriptSlotAudioEvent(const eAudioEvents& scriptID, eSoundBankS32& outBankID, int32& outSoundID, int32 slot) | [source/game_sa/Audio/AEAudioUtility.cpp:173](../../source/game_sa/Audio/AEAudioUtility.cpp#L173) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAEAudioUtility::GetBankAndSoundFromScriptSlotAudioEvent 0x004D9CC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CAEAudioUtility::FindVehicleOfPlayer() | [source/game_sa/Audio/AEAudioUtility.cpp:195](../../source/game_sa/Audio/AEAudioUtility.cpp#L195) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAEAudioUtility::FindVehicleOfPlayer 0x004D9E10 | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74) |
-| GetRandomNumberInRange(T min, T max) | [source/game_sa/Audio/AEAudioUtility.h:22](../../source/game_sa/Audio/AEAudioUtility.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetRandomNumberInRange(T min, T max) | [source/game_sa/Audio/AEAudioUtility.h:29](../../source/game_sa/Audio/AEAudioUtility.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetPiecewiseLinearT(float x, const float (&points)\[DataCnt\]\[2\]) | [source/game_sa/Audio/AEAudioUtility.h:44](../../source/game_sa/Audio/AEAudioUtility.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetRandomRadioStation() | [source/game_sa/Audio/AEAudioUtility.h:48](../../source/game_sa/Audio/AEAudioUtility.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

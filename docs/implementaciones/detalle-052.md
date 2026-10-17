@@ -8,21 +8,69 @@
 
 <a id="grupo-1021"></a>
 
-## Globales y helpers: source/game_sa/Audio/Loaders/AEVorbisDecoder.h
+## Globales y helpers: source/game_sa/Audio/Enums/eAEVehicleDoorType.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CAEStreamingDecoder | [source/game_sa/Audio/Loaders/AEVorbisDecoder.h:13](../../source/game_sa/Audio/Loaders/AEVorbisDecoder.h#L13) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EnumToString(eAEVehicleDoorType v) | [source/game_sa/Audio/Enums/eAEVehicleDoorType.h:14](../../source/game_sa/Audio/Enums/eAEVehicleDoorType.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1022"></a>
 
-## Globales y helpers: source/game_sa/Audio/Loaders/AEWMADecoder.h
+## Globales y helpers: source/game_sa/Audio/Enums/eAEVehicleHornType.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CAEStreamingDecoder | [source/game_sa/Audio/Loaders/AEWMADecoder.h:15](../../source/game_sa/Audio/Loaders/AEWMADecoder.h#L15) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EnumToString(eAEVehicleHornType v) | [source/game_sa/Audio/Enums/eAEVehicleHornType.h:25](../../source/game_sa/Audio/Enums/eAEVehicleHornType.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1023"></a>
+
+## Globales y helpers: source/game_sa/Audio/Enums/eBassSetting.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| EnumToString(eBassSetting v) | [source/game_sa/Audio/Enums/eBassSetting.h:14](../../source/game_sa/Audio/Enums/eBassSetting.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1024"></a>
+
+## Globales y helpers: source/game_sa/Audio/Enums/eSoundBank.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| EnumToString(eSoundBank v) | [source/game_sa/Audio/Enums/eSoundBank.h:740](../../source/game_sa/Audio/Enums/eSoundBank.h#L740) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1025"></a>
+
+## Globales y helpers: source/game_sa/Audio/Enums/eSoundBankSlot.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| EnumToString(eSoundBankSlot v) | [source/game_sa/Audio/Enums/eSoundBankSlot.h:87](../../source/game_sa/Audio/Enums/eSoundBankSlot.h#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1026"></a>
+
+## Globales y helpers: source/game_sa/Audio/Hardware/AEAudioHardware.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ExeGainToDecibels(const float* gain) | [source/game_sa/Audio/Hardware/AEAudioHardware.cpp:436](../../source/game_sa/Audio/Hardware/AEAudioHardware.cpp#L436) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1027"></a>
+
+## Globales y helpers: source/game_sa/Audio/Hardware/AEAudioHardware.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CopyFromAESound(const CAESound& sound) | [source/game_sa/Audio/Hardware/AEAudioHardware.h:29](../../source/game_sa/Audio/Hardware/AEAudioHardware.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1028"></a>
+
+## Globales y helpers: source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| SecondsToMs(double seconds) | [source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp:34](../../source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1029"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Loaders/AEWaveDecoder.cpp
 
@@ -30,15 +78,7 @@
 | --- | --- | --- | --- | --- | --- |
 | BytesToMs(uint32 bytes, uint32 bytesPerSecond) | [source/game_sa/Audio/Loaders/AEWaveDecoder.cpp:32](../../source/game_sa/Audio/Loaders/AEWaveDecoder.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1024"></a>
-
-## Globales y helpers: source/game_sa/Audio/Loaders/AEWaveDecoder.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CAEStreamingDecoder | [source/game_sa/Audio/Loaders/AEWaveDecoder.h:16](../../source/game_sa/Audio/Loaders/AEWaveDecoder.h#L16) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1025"></a>
+<a id="grupo-1030"></a>
 
 ## Globales y helpers: source/game_sa/Audio/Managers/AERadioTrackManager.cpp
 
@@ -47,7 +87,7 @@
 | ResetCommon(CAERadioTrackManager& self) | [source/game_sa/Audio/Managers/AERadioTrackManager.cpp:103](../../source/game_sa/Audio/Managers/AERadioTrackManager.cpp#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_nAdvertIndexHistory: source/game_sa/Audio/Managers/AERadioTrackManager.h:169 (0x00B620C0); Posible dato fijo m_nDJBanterIndexHistory: source/game_sa/Audio/Managers/AERadioTrackManager.h:168 (0x00B61D78); Posible dato fijo m_nIdentIndexHistory: source/game_sa/Audio/Managers/AERadioTrackManager.h:170 (0x00B62980); Posible dato fijo m_nMusicTrackIndexHistory: source/game_sa/Audio/Managers/AERadioTrackManager.h:171 (0x00B62B40); Posible dato fijo m_nSpecialDJBanterIndex: source/game_sa/Audio/Managers/AERadioTrackManager.h:199 (0x00B62C72); Posible dato fijo m_nSpecialDJBanterPending: source/game_sa/Audio/Managers/AERadioTrackManager.h:200 (0x00B62C73) |
 | CalculateRadioVolume355() | [source/game_sa/Audio/Managers/AERadioTrackManager.cpp:599](../../source/game_sa/Audio/Managers/AERadioTrackManager.cpp#L599) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CAERadioTrackManager::UpdateRadioVolumes 0x004EA010 | 0 / 0 | Posible dato fijo AEAudioHardware: source/game_sa/Audio/Hardware/AEAudioHardware.cpp:30 (0x00B5F8B8) |
 
-<a id="grupo-1026"></a>
+<a id="grupo-1031"></a>
 
 ## Globales y helpers: source/game_sa/Audio/OpenAL/OALBase.cpp
 
@@ -55,7 +95,7 @@
 | --- | --- | --- | --- | --- | --- |
 | OALCheckErrors(std::string_view file, int32 line) | [source/game_sa/Audio/OpenAL/OALBase.cpp:26](../../source/game_sa/Audio/OpenAL/OALBase.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1027"></a>
+<a id="grupo-1032"></a>
 
 ## Globales y helpers: source/game_sa/Birds.cpp
 
@@ -63,7 +103,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetMaxDistance(eBirdsBiome biome) | [source/game_sa/Birds.cpp:65](../../source/game_sa/Birds.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1028"></a>
+<a id="grupo-1033"></a>
 
 ## Globales y helpers: source/game_sa/BouncingPanel.cpp
 
@@ -73,7 +113,7 @@
 | Multiply3x3_VM_59C810(const CVector& v, const CMatrix& m) | [source/game_sa/BouncingPanel.cpp:61](../../source/game_sa/BouncingPanel.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MultiplyByPow(CVector& pos, float damp, float step) | [source/game_sa/BouncingPanel.cpp:71](../../source/game_sa/BouncingPanel.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1029"></a>
+<a id="grupo-1034"></a>
 
 ## Globales y helpers: source/game_sa/BreakObject_c.cpp
 
@@ -81,7 +121,7 @@
 | --- | --- | --- | --- | --- | --- |
 | MatrixTimesPoint59C890(const CMatrix& m, const CVector& v) | [source/game_sa/BreakObject_c.cpp:49](../../source/game_sa/BreakObject_c.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1030"></a>
+<a id="grupo-1035"></a>
 
 ## Globales y helpers: source/game_sa/BrightLights.cpp
 
@@ -89,7 +129,7 @@
 | --- | --- | --- | --- | --- | --- |
 | BrightFtolByte(float f) | [source/game_sa/BrightLights.cpp:34](../../source/game_sa/BrightLights.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1031"></a>
+<a id="grupo-1036"></a>
 
 ## Globales y helpers: source/game_sa/BulletTraces.cpp
 
@@ -97,7 +137,7 @@
 | --- | --- | --- | --- | --- | --- |
 | PlayFrontEndSoundForTrace(const CVector& fromWorldSpace, const CVector& toWorldSpace) | [source/game_sa/BulletTraces.cpp:62](../../source/game_sa/BulletTraces.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028) |
 
-<a id="grupo-1032"></a>
+<a id="grupo-1037"></a>
 
 ## Globales y helpers: source/game_sa/Buoyancy.cpp
 
@@ -106,7 +146,7 @@
 | BuoyancyMultiply3x3(const CMatrix& m, const CVector& v) | [source/game_sa/Buoyancy.cpp:32](../../source/game_sa/Buoyancy.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | BuoyancyMultiplyPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Buoyancy.cpp:41](../../source/game_sa/Buoyancy.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1033"></a>
+<a id="grupo-1038"></a>
 
 ## Globales y helpers: source/game_sa/C_PcSave.cpp
 
@@ -114,7 +154,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * GxtCharToSafeAscii(const GxtChar* src) | [source/game_sa/C_PcSave.cpp:54](../../source/game_sa/C_PcSave.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1034"></a>
+<a id="grupo-1039"></a>
 
 ## Globales y helpers: source/game_sa/Cam.cpp
 
@@ -199,7 +239,7 @@
 | ConvertPedNode2BoneTag(int32 simpleId) | [source/game_sa/Cam.cpp:3781](../../source/game_sa/Cam.cpp#L3781) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsLampPost(eModelID modelId) | [source/game_sa/Cam.cpp:3806](../../source/game_sa/Cam.cpp#L3806) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo MI_BOLLARDLIGHT: source/game_sa/ModelIndices.cpp:90 (0x008CD5FC); Posible dato fijo MI_MLAMPPOST: source/game_sa/ModelIndices.cpp:96 (0x008CD614); Posible dato fijo MI_SINGLESTREETLIGHTS1: source/game_sa/ModelIndices.cpp:33 (0x008CD518); Posible dato fijo MI_SINGLESTREETLIGHTS2: source/game_sa/ModelIndices.cpp:34 (0x008CD51C); Posible dato fijo MI_SINGLESTREETLIGHTS3: source/game_sa/ModelIndices.cpp:35 (0x008CD520); Posible dato fijo MI_STREETLAMP1: source/game_sa/ModelIndices.cpp:37 (0x008CD528); Posible dato fijo MI_STREETLAMP2: source/game_sa/ModelIndices.cpp:38 (0x008CD52C); Posible dato fijo MI_TELPOLE02: source/game_sa/ModelIndices.cpp:99 (0x008CD620); Posible dato fijo MI_TRAFFICLIGHTS_3: source/game_sa/ModelIndices.cpp:29 (0x008CD508); Posible dato fijo MI_TRAFFICLIGHTS_4: source/game_sa/ModelIndices.cpp:30 (0x008CD50C); Posible dato fijo MI_TRAFFICLIGHTS_5: source/game_sa/ModelIndices.cpp:31 (0x008CD510); Posible dato fijo MI_TRAFFICLIGHTS_GAY: source/game_sa/ModelIndices.cpp:32 (0x008CD514); Posible dato fijo MI_TRAFFICLIGHTS_MIAMI: source/game_sa/ModelIndices.cpp:26 (0x008CD4FC); Posible dato fijo MI_TRAFFICLIGHTS_TWOVERTICAL: source/game_sa/ModelIndices.cpp:28 (0x008CD504) |
 
-<a id="grupo-1035"></a>
+<a id="grupo-1040"></a>
 
 ## Globales y helpers: source/game_sa/Camera.cpp
 
@@ -255,54 +295,3 @@
 | CameraControlLeaveGarage(CCamera& camera) | [source/game_sa/Camera.cpp:3443](../../source/game_sa/Camera.cpp#L3443) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CameraControlVehicleGarage(CCamera& camera, bool& stairs) | [source/game_sa/Camera.cpp:3450](../../source/game_sa/Camera.cpp#L3450) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CameraControlPedGarage(CCamera& camera, bool& stairs) | [source/game_sa/Camera.cpp:3525](../../source/game_sa/Camera.cpp#L3525) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1036"></a>
-
-## Globales y helpers: source/game_sa/CarAI.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| Ftol(float f) | [source/game_sa/CarAI.cpp:81](../../source/game_sa/CarAI.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Dist2D(const CVector& a, const CVector& b) | [source/game_sa/CarAI.cpp:86](../../source/game_sa/CarAI.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Mag3(const CVector& v) | [source/game_sa/CarAI.cpp:93](../../source/game_sa/CarAI.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Dot3(const CVector& a, const CVector& b) | [source/game_sa/CarAI.cpp:98](../../source/game_sa/CarAI.cpp#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ExeForward(const CPlaceable& e) | [source/game_sa/CarAI.cpp:103](../../source/game_sa/CarAI.cpp#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ExeRight(const CPlaceable& e) | [source/game_sa/CarAI.cpp:112](../../source/game_sa/CarAI.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| HeadOnDot(const CPlaceable& e, const CVector& d) | [source/game_sa/CarAI.cpp:122](../../source/game_sa/CarAI.cpp#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsFarFromDestination(const CAutoPilot& ap, const CVector& coors, float threshold) | [source/game_sa/CarAI.cpp:131](../../source/game_sa/CarAI.cpp#L131) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PrepareGoToCoors(CVehicle* veh, eCarDrivingStyle drivingStyle, bool setCruiseSpeed) | [source/game_sa/CarAI.cpp:137](../../source/game_sa/CarAI.cpp#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetTempActionFor(CAutoPilot& ap, eAutoPilotTempAction action, uint32 durMs) | [source/game_sa/CarAI.cpp:150](../../source/game_sa/CarAI.cpp#L150) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PlayerWantedLevel() | [source/game_sa/CarAI.cpp:155](../../source/game_sa/CarAI.cpp#L155) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1037"></a>
-
-## Globales y helpers: source/game_sa/CarEnterExit.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| ComputePassengerIndexFromCarDoor_KeepEdx(const CVehicle* vehicle, int32 doorId) | [source/game_sa/CarEnterExit.cpp:39](../../source/game_sa/CarEnterExit.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1038"></a>
-
-## Globales y helpers: source/game_sa/CdStreamInfo.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| InjectCdStreamHooks() | [source/game_sa/CdStreamInfo.cpp:37](../../source/game_sa/CdStreamInfo.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CdStreamHandleToFileID(CdStreamHandle h) | [source/game_sa/CdStreamInfo.cpp:313](../../source/game_sa/CdStreamInfo.cpp#L313) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1039"></a>
-
-## Globales y helpers: source/game_sa/CdStreamInfo.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CdStreamGetLastPosn() | [source/game_sa/CdStreamInfo.h:94](../../source/game_sa/CdStreamInfo.h#L94) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gLastCdStreamPosn: source/game_sa/CdStreamInfo.cpp:33 (0x008E4898) |
-
-<a id="grupo-1040"></a>
-
-## Globales y helpers: source/game_sa/Clothes.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| GetClothesModelFromName(const char* name) | [source/game_sa/Clothes.cpp:68](../../source/game_sa/Clothes.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

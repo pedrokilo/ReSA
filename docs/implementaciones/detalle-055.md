@@ -8,205 +8,6 @@
 
 <a id="grupo-1081"></a>
 
-## Globales y helpers: source/game_sa/Entity/Object/Projectile.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CProjectile | [source/game_sa/Entity/Object/Projectile.h:11](../../source/game_sa/Entity/Object/Projectile.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1082"></a>
-
-## Globales y helpers: source/game_sa/Entity/Ped/CivilianPed.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CCivilianPed | [source/game_sa/Entity/Ped/CivilianPed.h:11](../../source/game_sa/Entity/Ped/CivilianPed.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1083"></a>
-
-## Globales y helpers: source/game_sa/Entity/Ped/CopPed.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| ResolveModelForCopType(uint32_t typeOrModelID) | [source/game_sa/Entity/Ped/CopPed.cpp:62](../../source/game_sa/Entity/Ped/CopPed.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1084"></a>
-
-## Globales y helpers: source/game_sa/Entity/Ped/CopPed.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CCopPed | [source/game_sa/Entity/Ped/CopPed.h:28](../../source/game_sa/Entity/Ped/CopPed.h#L28) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1085"></a>
-
-## Globales y helpers: source/game_sa/Entity/Ped/EmergencyPed.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CEmergencyPed | [source/game_sa/Entity/Ped/EmergencyPed.h:11](../../source/game_sa/Entity/Ped/EmergencyPed.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1086"></a>
-
-## Globales y helpers: source/game_sa/Entity/Ped/Ped.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| PedE_Multiply3x3(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Ped/Ped.cpp:1268](../../source/game_sa/Entity/Ped/Ped.cpp#L1268) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PedE_TransformPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Ped/Ped.cpp:1277](../../source/game_sa/Entity/Ped/Ped.cpp#L1277) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PedE_HeadingAdd(const CEntity* e, float add) | [source/game_sa/Entity/Ped/Ped.cpp:1286](../../source/game_sa/Entity/Ped/Ped.cpp#L1286) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * PedE_BoneMatrix(CPed* ped, int32 boneTag) | [source/game_sa/Entity/Ped/Ped.cpp:1294](../../source/game_sa/Entity/Ped/Ped.cpp#L1294) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FootParticlesInRange(CPed* ped, const CVector* position) | [source/game_sa/Entity/Ped/Ped.cpp:2618](../../source/game_sa/Entity/Ped/Ped.cpp#L2618) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028) |
-| FootParticleJitter(float base) | [source/game_sa/Entity/Ped/Ped.cpp:2629](../../source/game_sa/Entity/Ped/Ped.cpp#L2629) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| EmitFootRainParticles(CPed* ped, CVector* position) | [source/game_sa/Entity/Ped/Ped.cpp:2636](../../source/game_sa/Entity/Ped/Ped.cpp#L2636) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:32 (0x00A9AE00) |
-| EmitFootDustParticles(CPed* ped, CVector* position) | [source/game_sa/Entity/Ped/Ped.cpp:2655](../../source/game_sa/Entity/Ped/Ped.cpp#L2655) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:32 (0x00A9AE00); Posible dato fijo g_surfaceInfos: source/game_sa/SurfaceInfos_c.h:79 (0x00B79538) |
-| IsPedPointerValid(CPed* ped) | [source/game_sa/Entity/Ped/Ped.cpp:3807](../../source/game_sa/Entity/Ped/Ped.cpp#L3807) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsPedPointerValid_NotInWorld(CPed* ped) | [source/game_sa/Entity/Ped/Ped.cpp:3819](../../source/game_sa/Entity/Ped/Ped.cpp#L3819) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SayJacked(CPed* jacked, CVehicle* vehicle, uint32 timeDelay) | [source/game_sa/Entity/Ped/Ped.cpp:4781](../../source/game_sa/Entity/Ped/Ped.cpp#L4781) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SayJacking(CPed* jacker, CPed* jacked, CVehicle* vehicle, uint32 timeDelay) | [source/game_sa/Entity/Ped/Ped.cpp:4794](../../source/game_sa/Entity/Ped/Ped.cpp#L4794) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1087"></a>
-
-## Globales y helpers: source/game_sa/Entity/Ped/Ped.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPhysical | [source/game_sa/Entity/Ped/Ped.h:113](../../source/game_sa/Entity/Ped/Ped.h#L113) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetPedState() | [source/game_sa/Entity/Ped/Ped.h:475](../../source/game_sa/Entity/Ped/Ped.h#L475) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetStayInSamePlace(bool enable) | [source/game_sa/Entity/Ped/Ped.h:531](../../source/game_sa/Entity/Ped/Ped.h#L531) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsWearingGoggles() const | [source/game_sa/Entity/Ped/Ped.h:532](../../source/game_sa/Entity/Ped/Ped.h#L532) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetPlayerData() const | [source/game_sa/Entity/Ped/Ped.h:535](../../source/game_sa/Entity/Ped/Ped.h#L535) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetPlayerWanted() const | [source/game_sa/Entity/Ped/Ped.h:537](../../source/game_sa/Entity/Ped/Ped.h#L537) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetArmour(float v) | [source/game_sa/Entity/Ped/Ped.h:540](../../source/game_sa/Entity/Ped/Ped.h#L540) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetWeaponShootingRange(uint8 r) | [source/game_sa/Entity/Ped/Ped.h:541](../../source/game_sa/Entity/Ped/Ped.h#L541) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetWeaponAccuracy(uint8 acc) | [source/game_sa/Entity/Ped/Ped.h:542](../../source/game_sa/Entity/Ped/Ped.h#L542) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetAcquaintance() | [source/game_sa/Entity/Ped/Ped.h:544](../../source/game_sa/Entity/Ped/Ped.h#L544) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetVehicleIfInOne() const | [source/game_sa/Entity/Ped/Ped.h:545](../../source/game_sa/Entity/Ped/Ped.h#L545) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetCreatedBy() const | [source/game_sa/Entity/Ped/Ped.h:547](../../source/game_sa/Entity/Ped/Ped.h#L547) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetCreatedBy(ePedCreatedBy v) | [source/game_sa/Entity/Ped/Ped.h:548](../../source/game_sa/Entity/Ped/Ped.h#L548) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsCreatedBy(ePedCreatedBy v) const noexcept | [source/game_sa/Entity/Ped/Ped.h:549](../../source/game_sa/Entity/Ped/Ped.h#L549) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsCreatedByMission() const noexcept | [source/game_sa/Entity/Ped/Ped.h:550](../../source/game_sa/Entity/Ped/Ped.h#L550) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetClothesDesc() | [source/game_sa/Entity/Ped/Ped.h:555](../../source/game_sa/Entity/Ped/Ped.h#L555) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetIntelligence() const | [source/game_sa/Entity/Ped/Ped.h:557](../../source/game_sa/Entity/Ped/Ped.h#L557) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetTaskManager() | [source/game_sa/Entity/Ped/Ped.h:558](../../source/game_sa/Entity/Ped/Ped.h#L558) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetTaskManager() const | [source/game_sa/Entity/Ped/Ped.h:559](../../source/game_sa/Entity/Ped/Ped.h#L559) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetEventGroup() | [source/game_sa/Entity/Ped/Ped.h:560](../../source/game_sa/Entity/Ped/Ped.h#L560) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetEventHandler() | [source/game_sa/Entity/Ped/Ped.h:561](../../source/game_sa/Entity/Ped/Ped.h#L561) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetEventHandlerHistory() | [source/game_sa/Entity/Ped/Ped.h:562](../../source/game_sa/Entity/Ped/Ped.h#L562) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetStuckChecker() | [source/game_sa/Entity/Ped/Ped.h:563](../../source/game_sa/Entity/Ped/Ped.h#L563) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetWeaponInSlot(size_t slot) noexcept | [source/game_sa/Entity/Ped/Ped.h:565](../../source/game_sa/Entity/Ped/Ped.h#L565) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetWeaponInSlot(eWeaponSlot slot) noexcept | [source/game_sa/Entity/Ped/Ped.h:566](../../source/game_sa/Entity/Ped/Ped.h#L566) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetActiveWeapon() noexcept | [source/game_sa/Entity/Ped/Ped.h:567](../../source/game_sa/Entity/Ped/Ped.h#L567) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetWeapon(eWeaponType wt) noexcept | [source/game_sa/Entity/Ped/Ped.h:568](../../source/game_sa/Entity/Ped/Ped.h#L568) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetSavedWeapon() const | [source/game_sa/Entity/Ped/Ped.h:570](../../source/game_sa/Entity/Ped/Ped.h#L570) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetSavedWeapon(eWeaponType weapon) | [source/game_sa/Entity/Ped/Ped.h:571](../../source/game_sa/Entity/Ped/Ped.h#L571) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsStateDriving() const noexcept | [source/game_sa/Entity/Ped/Ped.h:572](../../source/game_sa/Entity/Ped/Ped.h#L572) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsStateDead() const noexcept | [source/game_sa/Entity/Ped/Ped.h:573](../../source/game_sa/Entity/Ped/Ped.h#L573) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsStateDying() const noexcept | [source/game_sa/Entity/Ped/Ped.h:574](../../source/game_sa/Entity/Ped/Ped.h#L574) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsStateDeadForScript() const noexcept | [source/game_sa/Entity/Ped/Ped.h:575](../../source/game_sa/Entity/Ped/Ped.h#L575) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsCop() const noexcept | [source/game_sa/Entity/Ped/Ped.h:578](../../source/game_sa/Entity/Ped/Ped.h#L578) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsGangster() const noexcept | [source/game_sa/Entity/Ped/Ped.h:579](../../source/game_sa/Entity/Ped/Ped.h#L579) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsCivilian() const noexcept | [source/game_sa/Entity/Ped/Ped.h:580](../../source/game_sa/Entity/Ped/Ped.h#L580) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * AsCop() | [source/game_sa/Entity/Ped/Ped.h:582](../../source/game_sa/Entity/Ped/Ped.h#L582) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * AsCivilian() | [source/game_sa/Entity/Ped/Ped.h:583](../../source/game_sa/Entity/Ped/Ped.h#L583) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * AsEmergency() | [source/game_sa/Entity/Ped/Ped.h:584](../../source/game_sa/Entity/Ped/Ped.h#L584) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * AsPlayer() | [source/game_sa/Entity/Ped/Ped.h:585](../../source/game_sa/Entity/Ped/Ped.h#L585) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsInVehicle() const | [source/game_sa/Entity/Ped/Ped.h:591](../../source/game_sa/Entity/Ped/Ped.h#L591) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsInVehicle(const CVehicle* veh) const | [source/game_sa/Entity/Ped/Ped.h:592](../../source/game_sa/Entity/Ped/Ped.h#L592) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsCurrentlyUnarmed() | [source/game_sa/Entity/Ped/Ped.h:594](../../source/game_sa/Entity/Ped/Ped.h#L594) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| && GetAE(this auto&& self) | [source/game_sa/Entity/Ped/Ped.h:596](../../source/game_sa/Entity/Ped/Ped.h#L596) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| && GetSpeechAE(this auto&& self) | [source/game_sa/Entity/Ped/Ped.h:597](../../source/game_sa/Entity/Ped/Ped.h#L597) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| && GetWeaponAE(this auto&& self) | [source/game_sa/Entity/Ped/Ped.h:598](../../source/game_sa/Entity/Ped/Ped.h#L598) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GiveWeapon(const CWeapon& weapon, bool likeUnused) | [source/game_sa/Entity/Ped/Ped.h:630](../../source/game_sa/Entity/Ped/Ped.h#L630) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetPedModelInfo() const | [source/game_sa/Entity/Ped/Ped.h:634](../../source/game_sa/Entity/Ped/Ped.h#L634) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetRealPosition() const | [source/game_sa/Entity/Ped/Ped.h:640](../../source/game_sa/Entity/Ped/Ped.h#L640) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Destructor() | [source/game_sa/Entity/Ped/Ped.h:655](../../source/game_sa/Entity/Ped/Ped.h#L655) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1088"></a>
-
-## Globales y helpers: source/game_sa/Entity/Ped/PedStdBonePositions.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| & GetPedBoneStdPosition(uint32 bone) | [source/game_sa/Entity/Ped/PedStdBonePositions.h:11](../../source/game_sa/Entity/Ped/PedStdBonePositions.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1089"></a>
-
-## Globales y helpers: source/game_sa/Entity/Ped/PlayerPed.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| GetButtonSprintResultsKeepEdx(CPlayerPed* self, uint32 entryEdx, eSprintType sprintType) | [source/game_sa/Entity/Ped/PlayerPed.cpp:52](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PlayerPedATanMinus(float x, float y, float compensation) | [source/game_sa/Entity/Ped/PlayerPed.cpp:1056](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L1056) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1090"></a>
-
-## Globales y helpers: source/game_sa/Entity/Ped/PlayerPed.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPlayerPed | [source/game_sa/Entity/Ped/PlayerPed.h:20](../../source/game_sa/Entity/Ped/PlayerPed.h#L20) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetWanted() | [source/game_sa/Entity/Ped/PlayerPed.h:103](../../source/game_sa/Entity/Ped/PlayerPed.h#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlayerPed::GetWantedLevel 0x0041BE60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetWanted() const | [source/game_sa/Entity/Ped/PlayerPed.h:107](../../source/game_sa/Entity/Ped/PlayerPed.h#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetPlayerGroup() const noexcept | [source/game_sa/Entity/Ped/PlayerPed.h:118](../../source/game_sa/Entity/Ped/PlayerPed.h#L118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1091"></a>
-
-## Globales y helpers: source/game_sa/Entity/Physical.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| PhysicalSector(float coordinate) | [source/game_sa/Entity/Physical.cpp:173](../../source/game_sa/Entity/Physical.cpp#L173) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * PhysicalSectorList(CRepeatSector& sector, eEntityType type) | [source/game_sa/Entity/Physical.cpp:176](../../source/game_sa/Entity/Physical.cpp#L176) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ApplyColMultiply3x3(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Physical.cpp:1044](../../source/game_sa/Entity/Physical.cpp#L1044) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ApplyColSqMag(const CVector& v) | [source/game_sa/Entity/Physical.cpp:1052](../../source/game_sa/Entity/Physical.cpp#L1052) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ApplyColDivide(const CVector& v, float divisor) | [source/game_sa/Entity/Physical.cpp:1056](../../source/game_sa/Entity/Physical.cpp#L1056) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ApplyColMagXZY(const CVector& v) | [source/game_sa/Entity/Physical.cpp:1061](../../source/game_sa/Entity/Physical.cpp#L1061) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ApplyColMagZYX(const CVector& v) | [source/game_sa/Entity/Physical.cpp:1065](../../source/game_sa/Entity/Physical.cpp#L1065) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PhysAttachMatPoint59C890(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Physical.cpp:2259](../../source/game_sa/Entity/Physical.cpp#L2259) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PhysAttachMat3x3_59C790(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Physical.cpp:2268](../../source/game_sa/Entity/Physical.cpp#L2268) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1092"></a>
-
-## Globales y helpers: source/game_sa/Entity/Physical.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPhysical | [source/game_sa/Entity/Physical.h:71](../../source/game_sa/Entity/Physical.h#L71) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetMoveSpeedXY(CVector2D v) | [source/game_sa/Entity/Physical.h:237](../../source/game_sa/Entity/Physical.h#L237) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetMoveSpeed(this auto&& self) | [source/game_sa/Entity/Physical.h:238](../../source/game_sa/Entity/Physical.h#L238) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetVelocity(CVector velocity) | [source/game_sa/Entity/Physical.h:239](../../source/game_sa/Entity/Physical.h#L239) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ResetMoveSpeed() | [source/game_sa/Entity/Physical.h:240](../../source/game_sa/Entity/Physical.h#L240) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetTurnSpeed(this auto&& self) | [source/game_sa/Entity/Physical.h:242](../../source/game_sa/Entity/Physical.h#L242) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ResetTurnSpeed() | [source/game_sa/Entity/Physical.h:243](../../source/game_sa/Entity/Physical.h#L243) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ResetFrictionMoveSpeed() | [source/game_sa/Entity/Physical.h:245](../../source/game_sa/Entity/Physical.h#L245) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ResetFrictionTurnSpeed() | [source/game_sa/Entity/Physical.h:246](../../source/game_sa/Entity/Physical.h#L246) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetMass() const | [source/game_sa/Entity/Physical.h:248](../../source/game_sa/Entity/Physical.h#L248) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetMass(const CVector& pos, const CVector& dir) const | [source/game_sa/Entity/Physical.h:249](../../source/game_sa/Entity/Physical.h#L249) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsImmovable() const | [source/game_sa/Entity/Physical.h:254](../../source/game_sa/Entity/Physical.h#L254) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetCollidingEntities() const | [source/game_sa/Entity/Physical.h:256](../../source/game_sa/Entity/Physical.h#L256) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetBoundingBox() | [source/game_sa/Entity/Physical.h:258](../../source/game_sa/Entity/Physical.h#L258) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor() | [source/game_sa/Entity/Physical.h:263](../../source/game_sa/Entity/Physical.h#L263) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Destructor() | [source/game_sa/Entity/Physical.h:264](../../source/game_sa/Entity/Physical.h#L264) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1093"></a>
-
-## Globales y helpers: source/game_sa/Entity/Placeable.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPlaceable | [source/game_sa/Entity/Placeable.h:22](../../source/game_sa/Entity/Placeable.h#L22) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetOrientation(CVector radians) | [source/game_sa/Entity/Placeable.h:47](../../source/game_sa/Entity/Placeable.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsEntityInRange(const CPlaceable* entity, float range) | [source/game_sa/Entity/Placeable.h:62](../../source/game_sa/Entity/Placeable.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetRight() const | [source/game_sa/Entity/Placeable.h:66](../../source/game_sa/Entity/Placeable.h#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetForward() const | [source/game_sa/Entity/Placeable.h:67](../../source/game_sa/Entity/Placeable.h#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetUp() const | [source/game_sa/Entity/Placeable.h:68](../../source/game_sa/Entity/Placeable.h#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetPosition() const | [source/game_sa/Entity/Placeable.h:69](../../source/game_sa/Entity/Placeable.h#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetPosition() | [source/game_sa/Entity/Placeable.h:70](../../source/game_sa/Entity/Placeable.h#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetPosition2D() | [source/game_sa/Entity/Placeable.h:71](../../source/game_sa/Entity/Placeable.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1094"></a>
-
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Automobile.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -235,31 +36,7 @@
 | * GetCurrentAtomicObjectCB(RwObject* object, void* data) | [source/game_sa/Entity/Vehicle/Automobile.cpp:7095](../../source/game_sa/Entity/Vehicle/Automobile.cpp#L7095) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GetCurrentAtomicObject(RwFrame* frame) | [source/game_sa/Entity/Vehicle/Automobile.cpp:7103](../../source/game_sa/Entity/Vehicle/Automobile.cpp#L7103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1095"></a>
-
-## Globales y helpers: source/game_sa/Entity/Vehicle/Automobile.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CAutomobile | [source/game_sa/Entity/Vehicle/Automobile.h:42](../../source/game_sa/Entity/Vehicle/Automobile.h#L42) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_surfaceInfos: source/game_sa/SurfaceInfos_c.h:79 (0x00B79538) |
-| & GetDoor(eDoors door) | [source/game_sa/Entity/Vehicle/Automobile.h:302](../../source/game_sa/Entity/Vehicle/Automobile.h#L302) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & GetDamageManager() | [source/game_sa/Entity/Vehicle/Automobile.h:303](../../source/game_sa/Entity/Vehicle/Automobile.h#L303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetEngineState(bool state) | [source/game_sa/Entity/Vehicle/Automobile.h:305](../../source/game_sa/Entity/Vehicle/Automobile.h#L305) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AreAllWheelsNotTouchingGround() const | [source/game_sa/Entity/Vehicle/Automobile.h:312](../../source/game_sa/Entity/Vehicle/Automobile.h#L312) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsAnyWheelMakingContactWithGround() | [source/game_sa/Entity/Vehicle/Automobile.h:316](../../source/game_sa/Entity/Vehicle/Automobile.h#L316) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsAnyWheelNotMakingContactWithGround() | [source/game_sa/Entity/Vehicle/Automobile.h:323](../../source/game_sa/Entity/Vehicle/Automobile.h#L323) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsAnyWheelTouchingSand() | [source/game_sa/Entity/Vehicle/Automobile.h:330](../../source/game_sa/Entity/Vehicle/Automobile.h#L330) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_surfaceInfos: source/game_sa/SurfaceInfos_c.h:79 (0x00B79538) |
-| IsAnyWheelTouchingRailTrack() | [source/game_sa/Entity/Vehicle/Automobile.h:340](../../source/game_sa/Entity/Vehicle/Automobile.h#L340) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsAnyWheelTouchingShallowWaterGround() | [source/game_sa/Entity/Vehicle/Automobile.h:350](../../source/game_sa/Entity/Vehicle/Automobile.h#L350) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsAnyFrontAndRearWheelTouchingGround() | [source/game_sa/Entity/Vehicle/Automobile.h:358](../../source/game_sa/Entity/Vehicle/Automobile.h#L358) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AreFrontWheelsNotTouchingGround() const | [source/game_sa/Entity/Vehicle/Automobile.h:366](../../source/game_sa/Entity/Vehicle/Automobile.h#L366) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AreRearWheelsNotTouchingGround() const | [source/game_sa/Entity/Vehicle/Automobile.h:370](../../source/game_sa/Entity/Vehicle/Automobile.h#L370) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DidAnyWheelTouchShallowWaterGroundPrev() | [source/game_sa/Entity/Vehicle/Automobile.h:375](../../source/game_sa/Entity/Vehicle/Automobile.h#L375) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DidAnyWheelTouchGroundPrev() | [source/game_sa/Entity/Vehicle/Automobile.h:382](../../source/game_sa/Entity/Vehicle/Automobile.h#L382) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Constructor(int32 modelIndex, eVehicleCreatedBy createdBy, bool setupSuspensionLines) | [source/game_sa/Entity/Vehicle/Automobile.h:396](../../source/game_sa/Entity/Vehicle/Automobile.h#L396) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Destructor() | [source/game_sa/Entity/Vehicle/Automobile.h:401](../../source/game_sa/Entity/Vehicle/Automobile.h#L401) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1096"></a>
+<a id="grupo-1082"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Bike.cpp
 
@@ -294,32 +71,7 @@
 | BikeSetupHeight355(float force, float suspensionLength, float wheel, float startZ) | [source/game_sa/Entity/Vehicle/Bike.cpp:2389](../../source/game_sa/Entity/Vehicle/Bike.cpp#L2389) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | BikeSetupSphere355(CColSphere* sphere,float limit) | [source/game_sa/Entity/Vehicle/Bike.cpp:2394](../../source/game_sa/Entity/Vehicle/Bike.cpp#L2394) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1097"></a>
-
-## Globales y helpers: source/game_sa/Entity/Vehicle/Bike.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CVehicle | [source/game_sa/Entity/Vehicle/Bike.h:29](../../source/game_sa/Entity/Vehicle/Bike.h#L29) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsDoorReady(eDoors door) override | [source/game_sa/Entity/Vehicle/Bike.h:119](../../source/game_sa/Entity/Vehicle/Bike.h#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsDoorFullyOpen(eDoors door) override | [source/game_sa/Entity/Vehicle/Bike.h:120](../../source/game_sa/Entity/Vehicle/Bike.h#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsDoorClosed(eDoors door) override | [source/game_sa/Entity/Vehicle/Bike.h:121](../../source/game_sa/Entity/Vehicle/Bike.h#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsDoorMissing(eDoors door) override | [source/game_sa/Entity/Vehicle/Bike.h:122](../../source/game_sa/Entity/Vehicle/Bike.h#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsDoorReadyU32(uint32 door) override | [source/game_sa/Entity/Vehicle/Bike.h:123](../../source/game_sa/Entity/Vehicle/Bike.h#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsDoorFullyOpenU32(uint32 door) override | [source/game_sa/Entity/Vehicle/Bike.h:124](../../source/game_sa/Entity/Vehicle/Bike.h#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsDoorClosedU32(uint32 door) override | [source/game_sa/Entity/Vehicle/Bike.h:125](../../source/game_sa/Entity/Vehicle/Bike.h#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsDoorMissingU32(uint32 door) override | [source/game_sa/Entity/Vehicle/Bike.h:126](../../source/game_sa/Entity/Vehicle/Bike.h#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsRoomForPedToLeaveCar(uint32 door, CVector* pvecCarJackOffset) override | [source/game_sa/Entity/Vehicle/Bike.h:128](../../source/game_sa/Entity/Vehicle/Bike.h#L128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsComponentPresent(int32 componentId) const override | [source/game_sa/Entity/Vehicle/Bike.h:129](../../source/game_sa/Entity/Vehicle/Bike.h#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetRideAnimData() override | [source/game_sa/Entity/Vehicle/Bike.h:130](../../source/game_sa/Entity/Vehicle/Bike.h#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetHeightAboveRoad() override | [source/game_sa/Entity/Vehicle/Bike.h:131](../../source/game_sa/Entity/Vehicle/Bike.h#L131) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetNumContactWheels() override | [source/game_sa/Entity/Vehicle/Bike.h:132](../../source/game_sa/Entity/Vehicle/Bike.h#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FindWheelWidth(bool bRear) override | [source/game_sa/Entity/Vehicle/Bike.h:133](../../source/game_sa/Entity/Vehicle/Bike.h#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsAnyWheelNotMakingContactWithGround() const | [source/game_sa/Entity/Vehicle/Bike.h:158](../../source/game_sa/Entity/Vehicle/Bike.h#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Bike.h:161](../../source/game_sa/Entity/Vehicle/Bike.h#L161) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Destructor() | [source/game_sa/Entity/Vehicle/Bike.h:162](../../source/game_sa/Entity/Vehicle/Bike.h#L162) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1098"></a>
+<a id="grupo-1083"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Bmx.cpp
 
@@ -329,20 +81,180 @@
 | BmxMultiply3x3_MV(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/Bmx.cpp:46](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | BmxNeedsNewAnim(const CAnimBlendAssociation* a) | [source/game_sa/Entity/Vehicle/Bmx.cpp:55](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1099"></a>
-
-## Globales y helpers: source/game_sa/Entity/Vehicle/Bmx.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CBike | [source/game_sa/Entity/Vehicle/Bmx.h:27](../../source/game_sa/Entity/Vehicle/Bmx.h#L27) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Bmx.h:62](../../source/game_sa/Entity/Vehicle/Bmx.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Destructor() | [source/game_sa/Entity/Vehicle/Bmx.h:63](../../source/game_sa/Entity/Vehicle/Bmx.h#L63) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1100"></a>
+<a id="grupo-1084"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Boat.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | BoatMultiply3x3(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/Boat.cpp:63](../../source/game_sa/Entity/Vehicle/Boat.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1085"></a>
+
+## Globales y helpers: source/game_sa/Entity/Vehicle/Plane.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| PlaneGenerationHeading355(CVehicle* vehicle, float heading) | [source/game_sa/Entity/Vehicle/Plane.cpp:483](../../source/game_sa/Entity/Vehicle/Plane.cpp#L483) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPlane::DoPlaneGenerationAndRemoval 0x006CD2F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PlaneGenerationVelocity355(float heading, bool helicopter) | [source/game_sa/Entity/Vehicle/Plane.cpp:497](../../source/game_sa/Entity/Vehicle/Plane.cpp#L497) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PlaneGenerationSelect355(int32 aircraftCount) | [source/game_sa/Entity/Vehicle/Plane.cpp:502](../../source/game_sa/Entity/Vehicle/Plane.cpp#L502) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo GenPlane_LastTimeGenerated: source/game_sa/Entity/Vehicle/Plane.h:76 (0x00C1CAE0); Posible dato fijo GenPlane_ModelIndex: source/game_sa/Entity/Vehicle/Plane.h:74 (0x00C1CAD8); Posible dato fijo GenPlane_Status: source/game_sa/Entity/Vehicle/Plane.h:75 (0x00C1CADC) |
+| PlaneGenerationEngine355(CVehicle* vehicle) | [source/game_sa/Entity/Vehicle/Plane.cpp:547](../../source/game_sa/Entity/Vehicle/Plane.cpp#L547) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PlaneQuaternionToMatrix(const CQuaternion& quaternion, RwMatrix* matrix) | [source/game_sa/Entity/Vehicle/Plane.cpp:611](../../source/game_sa/Entity/Vehicle/Plane.cpp#L611) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PlaneTransformPoint(const CMatrix* matrix, const CVector& point) | [source/game_sa/Entity/Vehicle/Plane.cpp:616](../../source/game_sa/Entity/Vehicle/Plane.cpp#L616) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1086"></a>
+
+## Globales y helpers: source/game_sa/Entity/Vehicle/QuadBike.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| QuadMultiply3x3_MV(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:32](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| QuadMultiply3x3_VM(const CVector& v, const CMatrix& m) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:41](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| QuadMax(float a, float b) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:50](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| QuadMin(float a, float b) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:51](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1087"></a>
+
+## Globales y helpers: source/game_sa/Entity/Vehicle/Trailer.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| TransformPoint59C890(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/Trailer.cpp:42](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CopyColPoint(CColPoint& dst, const CColPoint& src) | [source/game_sa/Entity/Vehicle/Trailer.cpp:51](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| HeadingX87(const CPlaceable* placeable) | [source/game_sa/Entity/Vehicle/Trailer.cpp:65](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SteerTowardsTractor(const CPlaceable* tractor, const CPlaceable* self) | [source/game_sa/Entity/Vehicle/Trailer.cpp:75](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1088"></a>
+
+## Globales y helpers: source/game_sa/Entity/Vehicle/Train.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| TrainHitStuff(PtrListType& ptrList, CEntity* entity) | [source/game_sa/Entity/Vehicle/Train.cpp:436](../../source/game_sa/Entity/Vehicle/Train.cpp#L436) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| NodeDistanceFromStart(const CTrainNode& node) | [source/game_sa/Entity/Vehicle/Train.cpp:908](../../source/game_sa/Entity/Vehicle/Train.cpp#L908) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1089"></a>
+
+## Globales y helpers: source/game_sa/Entity/Vehicle/Vehicle.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| VehEFtol(float f) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:79](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VehEMatPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:82](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VehEMatVec(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:91](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VehEInvVec(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:100](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VehEDot(const CVector& a, const CVector& b) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:109](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VehECross(const CVector& a, const CVector& b) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:114](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VehEPow(float base, float exponent) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:123](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VehESinCos(float angle, float& outSin, float& outCos) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:128](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VehENormalise2D(CVector2D& v) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:134](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L134) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VehENormalise(CVector& v) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:146](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| VehENormaliseAndMag(CVector& v) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:159](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L159) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehTowTransformPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:1244](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L1244) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehDMatPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:1360](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L1360) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * SetVehicleAtomicVisibilityCB(RwObject* object, void* data) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:2117](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L2117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicle::SetVehicleAtomicVisibilityCB-Object 0x006D2690 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * SetVehicleAtomicVisibilityCB(RwFrame* frame, void* data) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:2130](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L2130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicle::SetVehicleAtomicVisibilityCB-Frame 0x006D26D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * SetCompAlphaCB(RpMaterial* material, void* data) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:2199](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L2199) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RemoveUpgradeCB(RpAtomic* atomic, void* data) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:2533](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L2533) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FindUpgradeCB(RpAtomic* atomic, void* data) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:2538](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L2538) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RemoveObjectsCB(RwObject* object, void* data) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:2543](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L2543) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicle::RemoveObjectsCB-Object 0x006D33B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * RemoveObjectsCB(RwFrame* frame, void* data) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:2569](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L2569) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicle::RemoveObjectsCB-Frame 0x006D3420 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FindReplacementUpgradeCB(RwObject* object, void* data) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:2591](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L2591) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetupUpgradeAtomicRendering(RpAtomic* atomic, bool setAlphaFlag) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:2608](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L2608) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehNormalise2DInline(float x, float y) | [source/game_sa/Entity/Vehicle/Vehicle.cpp:4896](../../source/game_sa/Entity/Vehicle/Vehicle.cpp#L4896) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1090"></a>
+
+## Globales y helpers: source/game_sa/EntityScanner.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ScannerSector(float position, float range, bool useEnd) | [source/game_sa/EntityScanner.cpp:60](../../source/game_sa/EntityScanner.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1091"></a>
+
+## Globales y helpers: source/game_sa/EntryExit.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| EntryExitGetPositionRelativeToOutsideWorld(CEntryExit* enex, void*, CVector* outPos) | [source/game_sa/EntryExit.cpp:36](../../source/game_sa/EntryExit.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EntryExitGetPositionRelativeToOutsideWorldRegs(CEntryExit* self, uint32 entryEdx, CVector* outPos) | [source/game_sa/EntryExit.cpp:44](../../source/game_sa/EntryExit.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsTeleportPointValid(const CVector& origin, const CVector& target) | [source/game_sa/EntryExit.cpp:123](../../source/game_sa/EntryExit.cpp#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1092"></a>
+
+## Globales y helpers: source/game_sa/EntryExitManager.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| RawArea(const eAreaCodesS8& area) | [source/game_sa/EntryExitManager.cpp:92](../../source/game_sa/EntryExitManager.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CurrArea() | [source/game_sa/EntryExitManager.cpp:96](../../source/game_sa/EntryExitManager.cpp#L96) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914) |
+
+<a id="grupo-1093"></a>
+
+## Globales y helpers: source/game_sa/Enums/eCarWheel.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CarWheelToCarPiece(eCarWheel i) | [source/game_sa/Enums/eCarWheel.cpp:6](../../source/game_sa/Enums/eCarWheel.cpp#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1094"></a>
+
+## Globales y helpers: source/game_sa/Enums/eGameState.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| EnumToString(eGameState gs) | [source/game_sa/Enums/eGameState.h:16](../../source/game_sa/Enums/eGameState.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1095"></a>
+
+## Globales y helpers: source/game_sa/Enums/eIKArm.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| IKArmToIKSlot(eIKArm arm) | [source/game_sa/Enums/eIKArm.h:11](../../source/game_sa/Enums/eIKArm.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKArmToBoneTag(eIKArm arm) | [source/game_sa/Enums/eIKArm.h:19](../../source/game_sa/Enums/eIKArm.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1096"></a>
+
+## Globales y helpers: source/game_sa/Enums/eModelID.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| IsModelIDForCutScene(eModelID modelId) | [source/game_sa/Enums/eModelID.h:14868](../../source/game_sa/Enums/eModelID.h#L14868) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1097"></a>
+
+## Globales y helpers: source/game_sa/Enums/ePedType.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| IsPedTypeGang(ePedType ptype) | [source/game_sa/Enums/ePedType.h:61](../../source/game_sa/Enums/ePedType.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsPedTypePlayer(ePedType pt) | [source/game_sa/Enums/ePedType.h:65](../../source/game_sa/Enums/ePedType.h#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsPedTypeFemale(ePedType type) | [source/game_sa/Enums/ePedType.h:74](../../source/game_sa/Enums/ePedType.h#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetAllGangPedTypes() | [source/game_sa/Enums/ePedType.h:83](../../source/game_sa/Enums/ePedType.h#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetGangOfPedType(ePedType ptype) | [source/game_sa/Enums/ePedType.h:114](../../source/game_sa/Enums/ePedType.h#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1098"></a>
+
+## Globales y helpers: source/game_sa/Enums/eRadioID.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| EnumToString(eRadioID v) | [source/game_sa/Enums/eRadioID.h:30](../../source/game_sa/Enums/eRadioID.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1099"></a>
+
+## Globales y helpers: source/game_sa/Enums/eTaskType.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| EnumToString(eTaskType taskType) | [source/game_sa/Enums/eTaskType.h:578](../../source/game_sa/Enums/eTaskType.h#L578) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1100"></a>
+
+## Globales y helpers: source/game_sa/Enums/eWeaponType.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| IsWeaponTypeProjectile(eWeaponType weaponType) | [source/game_sa/Enums/eWeaponType.h:82](../../source/game_sa/Enums/eWeaponType.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
