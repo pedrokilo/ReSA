@@ -316,11 +316,11 @@ void CVehicle::InjectHooks() {
     // RH_ScopedInstall(FireHeatSeakingMissile, 0x6E05C0);
     // RH_ScopedInstall(PossiblyDropFreeFallBombForPlayer, 0x6E07E0);
     // RH_ScopedInstall(ProcessSirenAndHorn, 0x6E0950);
-    // RH_ScopedInstall(DoHeadLightEffect, 0x6E0A50);
+    RH_ScopedInstall(DoHeadLightEffect, 0x6E0A50);
     RH_ScopedInstall(DoHeadLightReflectionSingle, 0x6E1440);
     RH_ScopedInstall(DoHeadLightReflectionTwin, 0x6E1600);
     RH_ScopedInstall(DoHeadLightReflection, 0x6E1720);
-    // RH_ScopedInstall(DoTailLightEffect, 0x6E1780);
+    RH_ScopedInstall(DoTailLightEffect, 0x6E1780);
     // RH_ScopedInstall(DoVehicleLights, 0x6E1A60);
     RH_ScopedInstall(FillVehicleWithPeds, 0x6E2900);
     RH_ScopedInstall(DoBladeCollision, 0x6E2E50);
@@ -4816,8 +4816,58 @@ void CVehicle::ProcessSirenAndHorn(bool arg0) {
 }
 
 // 0x6E0A50
-bool CVehicle::DoHeadLightEffect(eVehicleDummy dummyId, CMatrix& vehicleMatrix, uint8 lightId, uint8 lightState) {
-    return ((bool(__thiscall*)(CVehicle*, int32, CMatrix&, uint8, uint8))0x6E0A50)(this, dummyId, vehicleMatrix, lightId, lightState);
+bool CVehicle::DoHeadLightEffect(int32 lightId, CMatrix& vehicleMatrix, uint8 isRight, uint8 disabledOrAlarm) {
+    // Como el original: la posicion del dummy es el elemento 2 * lightId del modelo; con lightId == 1 y un vector exactamente nulo (comparacion ordenada: un NaN no cuenta como cero) no se dibuja nada
+    const auto& dummy = GetVehicleModelInfo()->GetModelDummyPosition(static_cast<eVehicleDummy>(2 * lightId));
+    if (lightId == 1 && dummy.x == 0.0f && dummy.y == 0.0f && dummy.z == 0.0f) {
+        return false;
+    }
+
+    // Como el original: toda la geometria es aritmetica x87 (punto + frente * 0.05, CMatrix * CVector de 0x59C890, direccion a la camara con 0x59C970 y producto escalar con el frente de la matriz)
+    float offset[3], magnitude, dot;
+    VehHeadTailHeadGeometryCpp(&dummy.x, m_matrix ? &m_matrix->GetForward().x : nullptr, m_placement.m_fHeading, isRight == 0, reinterpret_cast<const float*>(&vehicleMatrix),
+                               &TheCamera.GetPosition().x, offset, &magnitude, &dot);
+
+    // Como el original: devuelve "disabledOrAlarm == 0" (salvo la salida del dummy nulo, que devuelve false); la geometria se calcula siempre antes de mirar el argumento
+    if (disabledOrAlarm != 0) {
+        return false;
+    }
+    if (!(dot > 0.0f)) {
+        return true;
+    }
+    // En primera persona el jugador no ve las coronas de su propio vehiculo
+    if (CCamera::GetActiveCamera().m_nMode == MODE_1STPERSON && this == FindPlayerVehicle(-1, false)) {
+        return true;
+    }
+
+    // Como el original: un tren que no es el tranvia (subtipo 6, modelo != 0x1C1) usa otro limite, otros tamanos y otro alfa
+    const float sqrtDot = std::sqrt(dot);
+    const bool  isTrain = m_nVehicleSubType == VEHICLE_TYPE_TRAIN && m_nModelIndex != MODEL_TRAM;
+    const bool  halogen = (static_cast<uint32>(m_pHandlingData->m_nHandlingFlags) & VEHICLE_HANDLING_HALOGEN_LIGHTS) != 0;
+    float       size, range;
+    uint32      red, blue;
+    VehHeadTailHeadCoronaCpp(magnitude, sqrtDot, TheCamera.m_fLODDistMultiplier, isTrain, halogen, &size, &range, &red, &blue);
+    const CVector position{ offset[0], offset[1], offset[2] };
+    // Como el original: el id de la corona es la direccion del vehiculo + lado + 2 * indice (+ 4 la linea de luz)
+    const auto id = static_cast<uint32>(reinterpret_cast<uintptr_t>(this)) + isRight + static_cast<uint32>(lightId) * 2;
+
+    if (sqrtDot > (isTrain ? 0.85f : 0.9f) && magnitude < 40.0f) {
+        CCoronas::RegisterCorona(
+            id + 4, this,
+            static_cast<uint8>(halogen ? 0x96 : 0xA0), static_cast<uint8>(halogen ? 0x96 : 0xA0), static_cast<uint8>(halogen ? 0xC3 : 0x8C), 0xFF,
+            position, isTrain ? 0.3f : 0.075f, range,
+            CORONATYPE_HEADLIGHTLINE, FLARETYPE_NONE, CORREFL_NONE, LOSCHECK_OFF, TRAIL_OFF,
+            sqrtDot, false, 0.3f, false, 15.0f, false, false
+        );
+    }
+    CCoronas::RegisterCorona(
+        id, this,
+        static_cast<uint8>(red), static_cast<uint8>(red), static_cast<uint8>(blue), 0x80,
+        position, size, range,
+        CORONATYPE_HEADLIGHT, FLARETYPE_NONE, CORREFL_SIMPLE, LOSCHECK_OFF, TRAIL_OFF,
+        sqrtDot, false, 0.5f, false, 15.0f, false, false
+    );
+    return true;
 }
 
 // 0x6E0E20
@@ -4980,8 +5030,51 @@ void CVehicle::DoHeadLightReflection(CMatrix& matrix, uint32 flags, bool left, b
 }
 
 // 0x6E1780
-bool CVehicle::DoTailLightEffect(int32 lightId, CMatrix& matrix, uint8 arg2, uint8 arg3, uint32 arg4, uint8 arg5) {
-    return ((bool(__thiscall*)(CVehicle*, int32, CMatrix&, uint8, uint8, uint32, uint8))0x6E1780)(this, lightId, matrix, arg2, arg3, arg4, arg5);
+bool CVehicle::DoTailLightEffect(int32 lightId, CMatrix& matrix, uint8 isRight, uint8 disabledOrAlarm, uint32 unused, uint8 staticEmission) {
+    // Como el original: el Stallion (0x1B7) y el Sabre (0x1DB) con el parachoques trasero danado (panel 6) no tienen luz trasera
+    if (m_nModelIndex == MODEL_STALLION || m_nModelIndex == MODEL_SABRE) {
+        if (AsAutomobile()->m_damageManager.GetPanelStatus(REAR_BUMPER) != 0) {
+            return false;
+        }
+    }
+
+    // Como el original: la posicion del dummy es el elemento 2 * lightId + 1 del modelo; con lightId == 1 y un vector exactamente nulo no se dibuja nada
+    const auto& dummy = GetVehicleModelInfo()->GetModelDummyPosition(static_cast<eVehicleDummy>(2 * lightId + 1));
+    if (lightId == 1 && dummy.x == 0.0f && dummy.y == 0.0f && dummy.z == 0.0f) {
+        return false;
+    }
+
+    // Como el original: la geometria es aritmetica x87 (CMatrix * CVector de 0x59C890, direccion a la camara con 0x59C970 y producto escalar con el trasero de la matriz)
+    float offset[3], magnitude, dot;
+    VehHeadTailTailGeometryCpp(&dummy.x, isRight == 0, reinterpret_cast<const float*>(&matrix), &TheCamera.GetPosition().x, offset, &magnitude, &dot);
+
+    if (disabledOrAlarm != 0 || !(dot > 0.0f)) {
+        return false;
+    }
+    // En primera persona el jugador no ve las coronas de su propio vehiculo
+    if (CCamera::GetActiveCamera().m_nMode == MODE_1STPERSON && this == FindPlayerVehicle(-1, false)) {
+        return false;
+    }
+
+    // Como el original: un tren que no es el tranvia (subtipo 6, modelo != 0x1C1) usa otro alfa y otro tamano. El rojo es 128 * alfa con el freno apretado (sin freno de mano y con conductor),
+    // 96 * alfa con staticEmission y 0 en otro caso; el resultado es true solo en los dos primeros casos
+    const bool isTrain = m_nVehicleSubType == VEHICLE_TYPE_TRAIN && m_nModelIndex != MODEL_TRAM;
+    const int  mode    = (m_BrakePedal > 0.0f && !vehicleFlags.bIsHandbrakeOn && m_pDriver) ? 1 : (staticEmission ? 2 : 0);
+    float      size, range;
+    uint32     red;
+    VehHeadTailTailCoronaCpp(magnitude, dot, TheCamera.m_fLODDistMultiplier, isTrain, mode, &size, &range, &red);
+    const float   sqrtDot = std::sqrt(dot);
+    const CVector position{ offset[0], offset[1], offset[2] };
+
+    // Como el original: el id de la corona es la direccion del vehiculo + lado + 2 * indice + 8
+    CCoronas::RegisterCorona(
+        static_cast<uint32>(reinterpret_cast<uintptr_t>(this)) + isRight + static_cast<uint32>(lightId) * 2 + 8, this,
+        static_cast<uint8>(red), 0, 0, 0x80,
+        position, size, range,
+        CORONATYPE_HEADLIGHT, FLARETYPE_NONE, CORREFL_SIMPLE, LOSCHECK_OFF, TRAIL_OFF,
+        sqrtDot, false, 0.5f, false, 15.0f, false, false
+    );
+    return mode != 0;
 }
 
 // 0x6E1A60

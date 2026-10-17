@@ -13,7 +13,7 @@ TARGETS={
 'source/game_sa/Game.cpp':[],
 'source/dllmain.cpp':[]}
 def main():
- saved={ROOT/f:(ROOT/f).read_bytes() for f in TARGETS};artifacts=HERE/'artifacts'
+ saved={ROOT/f:(ROOT/f).read_bytes() for f in TARGETS};artifacts=HERE/'artifacts';artifacts.mkdir(exist_ok=True)
  try:
   for p,data in saved.items():
    (artifacts/(p.name+'.before')).write_bytes(data);s=data.decode().replace('\r\n','\n');header=HERE/('LiveComparison.hpp' if p.name=='Game.cpp' else 'Probe.hpp');s=s.replace('#include "StdInc.h"','#include "StdInc.h"\n#include "'+header.as_posix()+'"')
@@ -32,5 +32,13 @@ def main():
   m=dict(binaries=hashes,sources={str(p.relative_to(ROOT)):hashlib.sha256(data).hexdigest() for p,data in saved.items()},dependencies={f:digest(ROOT/f) for f in dependencies},instrumentation={p.name:digest(p) for p in (HERE/'Probe.hpp',HERE/'LiveComparison.hpp',HERE/'build_probe.py',ROOT/'reversing/ProbeRuntime.hpp')})
   (artifacts/'build-manifest.json').write_text(json.dumps(m,indent=2));print(json.dumps(hashes))
  finally:
-  for p,data in saved.items():p.write_bytes(data)
+  import time
+  for p,data in saved.items():
+   for attempt in range(10):
+    try:
+     if p.read_bytes()!=data:p.write_bytes(data)
+     break
+    except OSError:
+     if attempt==9:raise
+     time.sleep(1)
 if __name__=='__main__':main()

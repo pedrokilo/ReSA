@@ -1,0 +1,3 @@
+APROBADO: CWorld, grupo E (fuego, explosiones, esfera, reposicion, apagado)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-wlde\20261016-220605-252438

@@ -1877,10 +1877,13 @@ CWindModifier,struct,,source/game_sa/WindModifiers.h,3,source_type_definition
 CWindModifiers,class,,source/game_sa/WindModifiers.h,9,source_type_definition
 eSprayPaintState,class,int32,source/game_sa/World.h,27,source_type_definition
 CWorld,class,,source/game_sa/World.h,52,source_type_definition
-PhysicalRotTerms,struct,,source/game_sa/X87Math.cpp,3392,source_type_definition
+PhysicalRotTerms,struct,,source/game_sa/X87Math.cpp,3451,source_type_definition
+PointLightsRaw,struct,,source/game_sa/X87Math.cpp,10404,source_type_definition
+PointLightsShadow,struct,,source/game_sa/X87Math.cpp,10743,source_type_definition
 ResidueEcx,struct,,source/game_sa/X87Math.h,113,source_type_definition
 Ftol2Regs,struct,,source/game_sa/X87Math.h,436,source_type_definition
 WaterLevelVertexCpp,struct,,source/game_sa/X87Math.h,559,source_type_definition
+PointLightsFogSprite,struct,,source/game_sa/X87Math.h,1298,source_type_definition
 CZone,class,,source/game_sa/Zone.h,19,source_type_definition
 eZonePopulationType,class,uint8,source/game_sa/ZoneInfo.h,14,source_type_definition
 CZoneInfo,class,,source/game_sa/ZoneInfo.h,41,source_type_definition

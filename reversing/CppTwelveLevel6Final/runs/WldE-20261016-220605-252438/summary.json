@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "4babe1d6b3385342ed056f4acdb15c6dad3d78c4a7275525f1d6b1536c60f7e1",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 8512,
+  "pairs_per_function": {
+    "CWorld::ResetLineTestOptions": 64,
+    "CWorld::SetAllCarsCanBeDamaged": 256,
+    "CWorld::StopAllLawEnforcersInTheirTracks": 256,
+    "CWorld::UseDetonator": 384,
+    "CWorld::SetPedsOnFire": 640,
+    "CWorld::SetPedsChoking": 512,
+    "CWorld::SetCarsOnFire": 512,
+    "CWorld::SetWorldOnFire": 256,
+    "CWorld::SprayPaintWorld": 640,
+    "CWorld::TestForBuildingsOnTopOfEachOther-Void": 128,
+    "CWorld::TestForBuildingsOnTopOfEachOther<CPtrListDoubleLink<CPhysical*>>-": 256,
+    "CWorld::TestForUnusedModels-": 128,
+    "CWorld::TestForUnusedModels<CPtrListDoubleLink<CPhysical*>>-InputArray": 256,
+    "CWorld::TestSphereAgainstSectorList<CPtrListDoubleLink<CPhysical*>>": 640,
+    "CWorld::TestSphereAgainstWorld": 640,
+    "CWorld::TriggerExplosionSectorList<CPtrListDoubleLink<CPhysical*>>": 1024,
+    "CWorld::TriggerExplosion": 768,
+    "CWorld::RepositionOneObject": 768,
+    "CWorld::RepositionCertainDynamicObjects": 256,
+    "CWorld::ShutDown": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "4e7e8c5bd2741f5d85837f44606ba6d7536fe99ace6cd9b6c32fd0af035c8686",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

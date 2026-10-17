@@ -1,0 +1,3 @@
+APROBADO: Desbloqueos: archivos del motor
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-unlock-file-mgr\20261017-121006-831249

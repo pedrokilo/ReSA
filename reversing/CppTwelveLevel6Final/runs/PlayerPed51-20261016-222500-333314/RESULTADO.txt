@@ -1,0 +1,3 @@
+APROBADO: Peatón del jugador (lista de 34)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playerped51\20261016-222500-333314

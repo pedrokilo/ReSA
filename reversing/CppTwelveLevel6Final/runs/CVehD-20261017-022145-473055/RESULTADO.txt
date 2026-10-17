@@ -1,0 +1,3 @@
+APROBADO: CVehicle grupo D (dibujo, luces y particulas)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cvehd\20261017-022145-473055

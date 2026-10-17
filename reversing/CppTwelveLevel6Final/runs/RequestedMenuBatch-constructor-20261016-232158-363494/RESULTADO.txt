@@ -1,0 +1,3 @@
+APROBADO: constructor
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-small-pending\20261016-232158-363494

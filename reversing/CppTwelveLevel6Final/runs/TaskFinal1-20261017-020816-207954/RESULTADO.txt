@@ -1,0 +1,3 @@
+APROBADO: Tareas finales 1: constructores y destructores (5 clases)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-taskfinal1\20261017-020816-207954

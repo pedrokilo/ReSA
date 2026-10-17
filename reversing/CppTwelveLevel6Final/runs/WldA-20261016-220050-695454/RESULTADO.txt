@@ -1,0 +1,3 @@
+APROBADO: CWorld grupo A: busquedas de entidades por sector
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-wlda\20261016-220050-695454

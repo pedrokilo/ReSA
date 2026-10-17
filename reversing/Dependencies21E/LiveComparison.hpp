@@ -39,9 +39,11 @@ inline constexpr Fn fns[]{
     {"CZoneDef", "GetCenter", 0x72D6D0, 0, -1, int(kCases2)},
     {"CTaskComplexEnterCar", "GetCameraStickModifier", 0x63A380, 0, -1, int(kCases3)},
 };
-// false: los registros x87 vacios (marcados 11 en FTW) no se comparan en crudo: ninguna instruccion puede leerlos sin cargarlos antes, el compilador no puede reproducir
-// el residuo del EXE sin ensamblador y fp_dead_registers_equal / fp_ip_equal van igualmente en cada fila como informacion. El resto del estado x87 se compara entero.
-inline constexpr bool kCompareDeadX87Registers = false;
+// true (valor por defecto, no se relaja): ademas de FCW, FSW completa (TOP, C0..C3, IE/DE/ZE/OE/UE/PE), FTW y los registros con datos, se exige igualdad del contenido crudo de los ocho
+// registros ST, tambien de los que FTW marca vacios. Cada llamada empieza con un residuo conocido y distinto en cada registro (BaseFp + los ocho FSTP de RawCall), asi que se ve tanto
+// lo que un lado escribe y el otro no como lo que escribe con otro valor. FIP, FCS, FDP, FDS y FOP no se comparan (cada lado ejecuta su ultima instruccion x87 en otra direccion):
+// van en fp_difference como informacion.
+inline constexpr bool kCompareDeadX87Registers = true;
 
 inline void ModuleMarker() {}
 inline uintptr_t ModuleOf(uintptr_t address) {
@@ -81,10 +83,16 @@ inline bool FloatingStateRestored() {
     return now == gameFp && ReadMxcsr() == gameMxcsr;
 }
 // Estado inicial de cada caso: el del juego con la pila vacia y FSW = el del fixture (TOP, C0..C3 y banderas pegajosas).
+// Los ocho registros salen "validos" (FTW = 0) con un residuo distinto cada uno; RawCall los vacia con ocho FSTP ST(0) justo despues del FRSTOR: pila vacia, TOP igual y cada registro con su residuo.
 inline FpImage BaseFp(unsigned status) {
     FpImage image = gameFp;
     Put16(image.data() + 4, fx::kFpStatus[status]);
-    Put16(image.data() + 8, 0xFFFF);
+    Put16(image.data() + 8, 0x0000);
+    for (unsigned i = 0; i < 8; ++i) {
+        uint8* r = image.data() + 28 + 10 * i;
+        for (unsigned k = 0; k < 8; ++k) r[k] = uint8(0x11 * (i + 1) + k);
+        r[7] |= 0x80; r[8] = uint8(i); r[9] = 0x40;   // significando normalizado: nunca es un valor especial
+    }
     return image;
 }
 inline void Write(const json& row) {
@@ -115,6 +123,14 @@ __declspec(noinline) inline void RawCall() {
         mov edi, 0D1D1D1D1h
         mov gEbp0, ebp
         frstor gBaseFp
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
         mov gEsp0, esp
         mov ecx, gCount
     pushing:

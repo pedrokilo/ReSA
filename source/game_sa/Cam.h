@@ -21,6 +21,7 @@ extern bool& gbFirstPersonRunThisFrame;
 
 class CCam {
 public:
+    static void WrapAngle(float* angle); // 0x509BE0
     bool GetBoatHeightForFirstPerson(float*); // Descriptive native alias0x509CA0.
     bool      m_bBelowMinDist;
     bool      m_bBehindPlayerDesired;

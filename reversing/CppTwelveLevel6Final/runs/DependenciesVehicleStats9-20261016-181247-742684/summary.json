@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "e02c3d22929a7a7008bfefd71b105cdb57bcee74c796a2a8795f0e193f1013ae",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CStats::UpdateStatsWhenDriving": 2048,
+    "CStats::UpdateStatsWhenFlying": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "990a6a0c829cbb2b6609335b402f4d9a3d4a89829b9a4a63304e72ddd8172a15",
+  "complete_paths": {
+    "CStats::UpdateStatsWhenDriving": [
+      "fast",
+      "grant",
+      "slow",
+      "unchanged"
+    ],
+    "CStats::UpdateStatsWhenFlying": [
+      "contact_skip",
+      "fast",
+      "grant",
+      "slow",
+      "subtype_skip",
+      "unchanged"
+    ]
+  },
+  "coverage_method": "serialized_inputs_and_independent_counter_effects; no_instruction_branch_tracing",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

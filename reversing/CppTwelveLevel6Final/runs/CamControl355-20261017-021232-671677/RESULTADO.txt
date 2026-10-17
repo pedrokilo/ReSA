@@ -1,0 +1,3 @@
+FALLO: CamControl355
+Funciones con diferencias: CCamera::CamControl: 385/24576
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cam-control355\20261017-021232-671677

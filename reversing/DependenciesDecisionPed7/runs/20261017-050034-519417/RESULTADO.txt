@@ -1,0 +1,3 @@
+APROBADO: Decision, pool handle and real task lifecycle
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesdecisionped7\20261017-050034-519417

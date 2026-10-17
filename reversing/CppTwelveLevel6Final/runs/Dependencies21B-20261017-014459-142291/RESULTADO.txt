@@ -1,0 +1,3 @@
+FALLO: Dependencies21B
+Funciones con diferencias: CCamera::ProcessObbeCinemaCameraCar: 1286/2048; CCamera::ProcessObbeCinemaCameraTrain: 1302/2048; CCamera::ProcessObbeCinemaCameraHeli: 1655/2048; CCamera::ProcessObbeCinemaCameraPlane: 1593/2048; CCamera::ProcessObbeCinemaCameraBoat: 1278/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependencies21b\20261017-014459-142291

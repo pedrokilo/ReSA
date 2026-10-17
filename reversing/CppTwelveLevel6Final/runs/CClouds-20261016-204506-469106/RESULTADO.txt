@@ -1,0 +1,3 @@
+FALLO: CClouds::RenderBottomFromHeight
+GTA sin progreso: el registro no crece desde hace 240 s (abortado).
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clouds\20261016-204506-469106

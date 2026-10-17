@@ -1009,11 +1009,11 @@
   },
   {
     "file": "source/game_sa/Cam.cpp",
-    "sha256": "eb4cd87a8e70858eeb55c6ceb1237f7eb6a9e170bf70a41e274759536cfb55ae"
+    "sha256": "6ab1fb927348cf3519da8d4c47023ff04dd0ec7f8d9c0a15db96a9f40bef58d4"
   },
   {
     "file": "source/game_sa/Cam.h",
-    "sha256": "f48cf3c64eda811b598ea3808c1ad78ca126075703d4c81022986500d826524d"
+    "sha256": "2b90b10dd174deb53e54c93e77f5d9447b0904760f180f14960e9c33856deeb2"
   },
   {
     "file": "source/game_sa/Camera.cpp",
@@ -1597,7 +1597,7 @@
   },
   {
     "file": "source/game_sa/CullZones.cpp",
-    "sha256": "557e89464a6d78b8b04c03d2a6320c8806b53f944eee732365903ce6b091597e"
+    "sha256": "f2d9e15763e8e3b0a8ebaafae308575435d45806ab054b446d4ed985912e956a"
   },
   {
     "file": "source/game_sa/CullZones.h",
@@ -1977,11 +1977,11 @@
   },
   {
     "file": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
-    "sha256": "a78fb96300c27d6fdbb0ab402e5af0c1de4b578b2aa62fef5b5f1cfa10462485"
+    "sha256": "8f790f225e98a56259e29d9a946677072eaec3903a9d11e97a08166d3d6c9b9f"
   },
   {
     "file": "source/game_sa/Entity/Vehicle/Vehicle.h",
-    "sha256": "fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d"
+    "sha256": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9"
   },
   {
     "file": "source/game_sa/EntityScanner.cpp",
@@ -3445,7 +3445,7 @@
   },
   {
     "file": "source/game_sa/Fx/FxEmitter.cpp",
-    "sha256": "13bad0938db9835722621e8780199d692f77ec10e8708006bd053ca14d0e44ec"
+    "sha256": "9a8feace3a5c2a3b860175f723a8a62d338ea63e6bbbb8757d93a0ad437bece4"
   },
   {
     "file": "source/game_sa/Fx/FxEmitter.h",
@@ -4633,7 +4633,7 @@
   },
   {
     "file": "source/game_sa/PointLights.cpp",
-    "sha256": "5d69543ed8d16b39a1bed13c4c64592fca14aab14685f917117c214e5bb66ad4"
+    "sha256": "b10358b7b39fce1a8f33c2c0ae382c4fbe25657c64215d57a55653bcc5db6e1b"
   },
   {
     "file": "source/game_sa/PointLights.h",
@@ -7937,7 +7937,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp",
-    "sha256": "236360643ca1b5794bd661071f8ce41a7c3708fc1448e9ac0bf4e08d370e6a49"
+    "sha256": "031b982d5517d7226ae86ae31d08db9d02a9c964a46f419ed12cb2d60e844f37"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h",
@@ -8865,11 +8865,11 @@
   },
   {
     "file": "source/game_sa/X87Math.cpp",
-    "sha256": "2744cf9b95d7657d019d320f455c50af1884474b4901a4ad357a128b441d7cee"
+    "sha256": "b9098287fec661bfbdd610e16c6b0ebbace21dec4069d62e5355c4789d331624"
   },
   {
     "file": "source/game_sa/X87Math.h",
-    "sha256": "a9aa393f782698977e7c6453e1f65fa49357c241164bcd90713093a829c64f01"
+    "sha256": "7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97"
   },
   {
     "file": "source/game_sa/Zone.cpp",

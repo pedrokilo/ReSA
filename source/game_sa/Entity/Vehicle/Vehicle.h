@@ -649,12 +649,12 @@ public:
     void PossiblyDropFreeFallBombForPlayer(eOrdnanceType ordnanceType, bool arg1);
     void ProcessSirenAndHorn(bool arg0);
 
-    bool DoHeadLightEffect(eVehicleDummy dummyId, CMatrix& vehicleMatrix, uint8 lightId, uint8 lightState);
+    bool DoHeadLightEffect(int32 lightId, CMatrix& vehicleMatrix, uint8 isRight, uint8 disabledOrAlarm);
     void DoHeadLightBeam(eVehicleDummy dummyId, CMatrix& matrix, bool arg2);
     void DoHeadLightReflectionSingle(CMatrix& matrix, bool isRight);
     void DoHeadLightReflectionTwin(CMatrix& matrix);
     void DoHeadLightReflection(CMatrix& matrix, uint32 flags, bool left, bool right);
-    bool DoTailLightEffect(int32 lightId, CMatrix& matrix, uint8 arg2, uint8 arg3, uint32 arg4, uint8 arg5);
+    bool DoTailLightEffect(int32 lightId, CMatrix& matrix, uint8 isRight, uint8 disabledOrAlarm, uint32 unused, uint8 staticEmission);
     void DoVehicleLights(CMatrix& matrix, eVehicleLightsFlags flags);
 
     void FillVehicleWithPeds(bool bSetClothesToAfro);

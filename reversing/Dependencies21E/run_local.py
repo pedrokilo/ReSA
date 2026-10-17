@@ -86,8 +86,8 @@ def analyze(path):
         raise RuntimeError('Inicio sin hooks registrados, rutas demostradas o colaboradores falsos')
     if b.get('pairs') != sum(EXPECTED.values()) or b.get('cases') != EXPECTED or b.get('functions') != 3:
         raise RuntimeError('Numero de casos inesperado')
-    if b.get('compare_dead_x87_registers') is not False:
-        raise RuntimeError('Politica de registros x87 vacios inesperada')
+    if b.get('compare_dead_x87_registers') is not True:
+        raise RuntimeError('La igualdad de los registros x87 muertos no esta activa')
     if b['asi_module'] == b['original_module'] or not b['asi_module']:
         raise RuntimeError('Modulo de la DLL no distinguido del EXE')
     for name in ('aim_left_right', 'aim_up_down', 'accelerate', 'brake', 'col_model'):
@@ -119,6 +119,8 @@ def analyze(path):
             fixture = {F1: X.fx1, F2: X.fx2, F3: X.fx3}[fn](case)
             if f_in != fixture:
                 raise RuntimeError('La fixture registrada no es la del oraculo en %s %d' % (fn, case))
+            if len(fp.get('raw_registers', '')) != 160:
+                raise RuntimeError('Registros ST crudos ausentes en %s %d (%s)' % (fn, case, side))
             if fp['fcw'] != fcw or fp['ftw'] != 0xFFFF or fp['valid_registers']:
                 raise RuntimeError('Pila x87 no vacia o FCW alterada en %s %d (%s)' % (fn, case, side))
             base_top = (X.FP_STATUS[fixture['fp']] >> 11) & 7
@@ -146,7 +148,7 @@ def analyze(path):
                 paths[tag] = paths.get(tag, 0) + 1
         for field in row.get('fp_difference', []):
             fp_fields[field] = fp_fields.get(field, 0) + 1
-        for d in ('fcw', 'fsw', 'ftw'):
+        for d in ('fcw', 'fsw', 'ftw', 'dead_registers'):
             if d in row.get('fp_difference', []):
                 raise RuntimeError('Estado x87 distinto (%s) en %s %d' % (d, fn, case))
     for fn, cases in seen_fn.items():
@@ -163,7 +165,7 @@ def analyze(path):
     summary['paths_0x63A380'] = {k: paths[k] for k in sorted(paths)}
     summary['fp_informational_differences'] = fp_fields
     summary['oracles'] = 'EAX exacto (0x610DB0), bytes de salida exactos (0x72D6D0), traza/eleccion/escrituras (0x63A380); aritmetica de 0x63A380 decidida por la igualdad EXE/DLL'
-    summary['compare_dead_x87_registers'] = False
+    summary['compare_dead_x87_registers'] = True
     return summary
 
 

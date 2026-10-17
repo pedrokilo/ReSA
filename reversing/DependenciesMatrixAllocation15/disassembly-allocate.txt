@@ -1,0 +1,34 @@
+0054F560: push esi
+0054F561: mov esi,ecx
+0054F563: mov eax,dword ptr [esi+14h]
+0054F566: test eax,eax
+0054F568: jne 0054F5CB
+0054F56A: mov eax,dword ptr ds:[00B74428h]
+0054F56F: cmp eax,0B7442Ch
+0054F574: je 0054F5AE
+0054F576: mov ecx,dword ptr [eax+50h]
+0054F579: mov edx,dword ptr [eax+4Ch]
+0054F57C: mov dword ptr [ecx+4Ch],edx
+0054F57F: mov ecx,dword ptr [eax+4Ch]
+0054F582: mov edx,dword ptr [eax+50h]
+0054F585: mov dword ptr [ecx+50h],edx
+0054F588: mov ecx,dword ptr ds:[00B742D8h]
+0054F58E: mov dword ptr [eax+50h],ecx
+0054F591: mov edx,dword ptr ds:[00B742D8h]
+0054F597: mov dword ptr [edx+4Ch],eax
+0054F59A: mov dword ptr [eax+4Ch],0B74288h
+ 00
+0054F5A1: mov dword ptr ds:[00B742D8h],eax
+0054F5A6: mov dword ptr [eax+48h],esi
+0054F5A9: mov dword ptr [esi+14h],eax
+0054F5AC: pop esi
+0054F5AD: ret
+0054F5AE: mov eax,dword ptr ds:[00B74328h]
+0054F5B3: mov ecx,dword ptr [eax+48h]
+0054F5B6: call 0054F3B0
+0054F5BB: mov ecx,0B74288h
+0054F5C0: call 0054E9D0
+0054F5C5: mov dword ptr [eax+48h],esi
+0054F5C8: mov dword ptr [esi+14h],eax
+0054F5CB: pop esi
+0054F5CC: ret

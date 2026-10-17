@@ -1,0 +1,3 @@
+FALLO: Desbloqueos: archivos del motor
+GTA termino antes de completar (3221226505).
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-unlock-file-mgr\20261016-224222-894586

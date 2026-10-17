@@ -1,0 +1,3 @@
+FALLO: Auditoría de bloqueos y conmutación CEntryExit
+Inventario de bloqueos incompleto o duplicado
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-hookunlock\20261016-200659-595126

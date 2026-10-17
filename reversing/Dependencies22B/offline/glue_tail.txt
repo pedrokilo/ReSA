@@ -1,0 +1,48 @@
+// 0x6E1780
+bool CVehicle::DoTailLightEffect(int32 lightId, CMatrix& matrix, uint8 isRight, uint8 disabledOrAlarm, uint32 unused, uint8 staticEmission) {
+    // Como el original: el Stallion (0x1B7) y el Sabre (0x1DB) con el parachoques trasero danado (panel 6) no tienen luz trasera
+    if (m_nModelIndex == MODEL_STALLION || m_nModelIndex == MODEL_SABRE) {
+        if (AsAutomobile()->m_damageManager.GetPanelStatus(REAR_BUMPER) != 0) {
+            return false;
+        }
+    }
+
+    // Como el original: la posicion del dummy es el elemento 2 * lightId + 1 del modelo; con lightId == 1 y un vector exactamente nulo no se dibuja nada
+    const auto& dummy = GetVehicleModelInfo()->GetModelDummyPosition(static_cast<eVehicleDummy>(2 * lightId + 1));
+    if (lightId == 1 && dummy.x == 0.0f && dummy.y == 0.0f && dummy.z == 0.0f) {
+        return false;
+    }
+
+    // Como el original: la geometria es aritmetica x87 (CMatrix * CVector de 0x59C890, direccion a la camara con 0x59C970 y producto escalar con el trasero de la matriz)
+    float offset[3], magnitude, dot;
+    VehHeadTailTailGeometryCpp(&dummy.x, isRight == 0, reinterpret_cast<const float*>(&matrix), &TheCamera.GetPosition().x, offset, &magnitude, &dot);
+
+    if (disabledOrAlarm != 0 || !(dot > 0.0f)) {
+        return false;
+    }
+    // En primera persona el jugador no ve las coronas de su propio vehiculo
+    if (CCamera::GetActiveCamera().m_nMode == MODE_1STPERSON && this == FindPlayerVehicle(-1, false)) {
+        return false;
+    }
+
+    // Como el original: un tren que no es el tranvia (subtipo 6, modelo != 0x1C1) usa otro alfa y otro tamano. El rojo es 128 * alfa con el freno apretado (sin freno de mano y con conductor),
+    // 96 * alfa con staticEmission y 0 en otro caso; el resultado es true solo en los dos primeros casos
+    const bool isTrain = m_nVehicleSubType == VEHICLE_TYPE_TRAIN && m_nModelIndex != MODEL_TRAM;
+    const int  mode    = (m_BrakePedal > 0.0f && !vehicleFlags.bIsHandbrakeOn && m_pDriver) ? 1 : (staticEmission ? 2 : 0);
+    float      size, range;
+    uint32     red;
+    VehHeadTailTailCoronaCpp(magnitude, dot, TheCamera.m_fLODDistMultiplier, isTrain, mode, &size, &range, &red);
+    const float   sqrtDot = std::sqrt(dot);
+    const CVector position{ offset[0], offset[1], offset[2] };
+
+    // Como el original: el id de la corona es la direccion del vehiculo + lado + 2 * indice + 8
+    CCoronas::RegisterCorona(
+        static_cast<uint32>(reinterpret_cast<uintptr_t>(this)) + isRight + static_cast<uint32>(lightId) * 2 + 8, this,
+        static_cast<uint8>(red), 0, 0, 0x80,
+        position, size, range,
+        CORONATYPE_HEADLIGHT, FLARETYPE_NONE, CORREFL_SIMPLE, LOSCHECK_OFF, TRAIL_OFF,
+        sqrtDot, false, 0.5f, false, 15.0f, false, false
+    );
+    return mode != 0;
+}
+

@@ -1,0 +1,3 @@
+FALLO: Ayudantes x87 de CCamera, EXE vs DLL con estres
+Funciones con diferencias: Camera::AimHorizontal: 82/2048; Camera::AimVertical: 82/2048; Camera::QuickAimPitch: 82/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cppcamerax87stress1\20261016-204331-433951

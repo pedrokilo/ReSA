@@ -1,0 +1,3 @@
+APROBADO: CWorld: lineas de vision y lineas verticales (grupo B)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-wldb\20261016-220217-153443

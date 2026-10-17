@@ -1,0 +1,37 @@
+{
+  "bank": "DependenciesGarage2",
+  "run": "20261017-050240-699339",
+  "functions": 3,
+  "pairs": 2560,
+  "pairs_per_function": {
+    "CGarage::IsPointInsideGarage-point": 1024,
+    "CGarage::IsPointInsideGarage-radius": 1280,
+    "CGarages::FindSafeHouseIndexForGarageType": 256
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "df0e9d07208b908a9534968c65c9a9f6e1907af98f53ca9f64b70dcece8775af",
+  "tested_sources": {
+    "source/game_sa/Garage.cpp": "4498a718d91e34ddc7e093d171b8c7a8e1a0c54b699980b493deb2a65c1f3808",
+    "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a",
+    "source/game_sa/Garages.cpp": "b6d11644933778f0cd5919d3c59d55b1b88256e302a0476b00af8b4968ed439d",
+    "source/game_sa/Garages.h": "f71fc96fd17d9d22cba76e913da868dea9b8359fe466eea9465241a3f093f658",
+    "source/game_sa/Entity/Object/Object.h": "f03b35af984aea8002242d44d264f4e959b1b4a0fe2bf0dff5e5d1e833fc3750",
+    "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+    "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "7743c1abadc70786b196657a914269ac349278c3b4e2355a863711fc8673f65c",
+    "build_probe.py": "e0904c9d323bed3a685de1785d4392f20344aab070e67c666db0c4ead96e3cc5",
+    "run_local.py": "92db467e5a525aa80964dc702be124bc62c4890f3a487a6202b574ffe870a690"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "e47e83a949c7f367810f5e8e5da85f579308682e08dedee4ebdd13d8c7e424b6",
+  "registered_hook_verified": true
+}

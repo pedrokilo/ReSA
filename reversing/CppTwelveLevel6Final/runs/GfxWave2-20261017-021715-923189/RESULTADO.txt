@@ -1,0 +1,3 @@
+APROBADO: GfxWave2 (CClothesBuilder, CShadows, CWaterLevel)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-gfxwave2\20261017-021715-923189

@@ -1,0 +1,3 @@
+FALLO: ClothesTextures355
+Funciones con diferencias: CClothesBuilder::ConstructTextures: 1366/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clothes-textures355\20261017-022101-045383

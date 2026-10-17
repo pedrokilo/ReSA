@@ -1,0 +1,37 @@
+{
+  "bank": "DependenciesTaskLeaf3",
+  "run": "20261017-051300-411102",
+  "functions": 2,
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CTaskSimpleFight::ControlFight": 2048,
+    "CPedSaveStructure::Construct": 2048
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "7a706eab70de6fa1d1c311e685abc8d7b6ac6a4128a9c6381950ca19f1b96950",
+  "tested_sources": {
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6a3d2d98b4bce0aee97a08790ce20cd2abf453a37baf0137728115469b5a4ebd",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981",
+    "source/game_sa/Entity/Ped/PedSaveStructure.cpp": "6ada0c8149ee915badcd505744150dae241bdc56f513bc0fcc8ab80197cda6f4",
+    "source/game_sa/Entity/Ped/PedSaveStructure.h": "e5c92294002b82a7563cc3dcea70ece869fd25d7ce89e4654b8c530ee4d16187",
+    "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+    "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+    "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
+    "source/game_sa/Reference.h": "f84250056639dbf79a17ba416bdbdea6bd48772e33a19a5f2dbfb90d4c41a797",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "0dfea411c06c9c5b094c168b84f2f00d6097bd9dfd2b0e245e4317e7ec946b57",
+    "build_probe.py": "630f3674e4e0d7dc7ddc324818eb4959c6b78bcbe4302eb8fac86ff422b8cdf7",
+    "run_local.py": "5491abcf8d1a775373345179ff2e6d15813c81e1c664e0037a94824f98e8452f"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "c7be6022a10865ac8f47a4da9a474283b5bffa84106926e610d43a6821c90770",
+  "registered_hook_verified": true
+}

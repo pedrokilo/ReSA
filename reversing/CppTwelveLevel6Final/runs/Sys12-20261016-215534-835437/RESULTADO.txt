@@ -1,0 +1,3 @@
+APROBADO: Scripts en streaming, Game y árbol cuaternario (lista de 12)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-sys12\20261016-215534-835437

@@ -55,7 +55,8 @@ inline Fp MakeBaseFp(u16 cw, u16 swBits) {
     memcpy(f.b, tmp, 108);
     *(u16*)&f.b[0] = cw;
     *(u16*)&f.b[4] = swBits;   // incluye TOP y condiciones; no se activan excepciones
-    *(u16*)&f.b[8] = 0xFFFF;   // todos vacios
+    *(u16*)&f.b[8] = 0x0000;   // todos validos; RunRaw los saca con 8 fstp para dejar residuo conocido
+    for (int i = 0; i < 8; ++i) { u8* r = &f.b[28 + 10 * i]; for (int k = 0; k < 8; ++k) r[k] = u8(0x11 * (i + 1) + k); r[7] |= 0x80; r[8] = u8(i); r[9] = 0x40; }  // residuo distinto por registro (dead raw)
     return f;
 }
 
@@ -79,6 +80,15 @@ __declspec(noinline) inline void RunRaw() {
         mov edi, 0xD1D1D1D1
         mov ebp, 0xBBBBBBBB
         frstor g_baseFp
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+
         mov g_esp0, esp
         mov ecx, g_nargs
     L_push:
@@ -153,11 +163,12 @@ inline float RealFloat(Rng& r, float scale) { return (r.unit() * 2.f - 1.f) * sc
 // ---- comparacion de estado x87 ----
 struct FpDiff {
     bool fcw = false, top = false, ftw = false, cc = false, exc = false, st = false, deadRaw = false, fdp = false;
-    bool any() const { return fcw || top || ftw || cc || exc || st; }   // compuerta: todo salvo registros vacios en crudo y FIP/FCS/FDP/FDS/FOP
+    bool any() const { return fcw || top || ftw || cc || exc || st || deadRaw; }   // compuerta: todo salvo registros vacios en crudo y FIP/FCS/FDP/FDS/FOP
 };
 inline bool FpRegDead(const Fp& f, int st) {
     int phys = (FpTop(f) + st) & 7; return ((FpTw(f) >> (2 * phys)) & 3) == 3;
 }
+inline unsigned gDeadSlot[8]; inline unsigned gDeadShown;
 inline FpDiff CompareFp(const Fp& a, const Fp& b) {
     FpDiff d;
     d.fcw = FpCw(a) != FpCw(b);
@@ -170,7 +181,8 @@ inline FpDiff CompareFp(const Fp& a, const Fp& b) {
         bool same = !memcmp(&a.b[28 + 10 * s], &b.b[28 + 10 * s], 10);
         if (!da && !db) { if (!same) d.st = true; }
         else if (da != db) d.st = true;
-        else if (!same) d.deadRaw = true;
+        else if (!same) { d.deadRaw = true; gDeadSlot[s]++;
+            if (gDeadShown < 24) { gDeadShown++; printf("      deadRaw ST(%d) top=%d ref:", s, FpTop(a)); for (int k = 9; k >= 0; --k) printf("%02x", a.b[28 + 10 * s + k]); printf(" cand:"); for (int k = 9; k >= 0; --k) printf("%02x", b.b[28 + 10 * s + k]); printf("\n"); } }
     }
     d.fdp = memcmp(&a.b[20], &b.b[20], 8) != 0;
     return d;

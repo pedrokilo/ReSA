@@ -1,0 +1,3 @@
+APROBADO: PowEquivalence
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pow-equivalence\20261016-210605-286160

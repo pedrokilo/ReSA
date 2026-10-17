@@ -1,0 +1,509 @@
+--- a/source/game_sa/Pad.cpp
++++ b/source/game_sa/Pad.cpp
+@@ -45,6 +45,7 @@
+ 
+ void CPad::InjectHooks() {
+     RH_ScopedClass(CPad);
++    RH_ScopedGlobalInstall(GetCurrentKeyPressed, 0x541490);
+     RH_ScopedCategoryGlobal();
+ 
+     // CPad", 0x541D80, &CPad::Constructor);
+@@ -1540,8 +1541,373 @@
+ }
+ 
+ // 0x541490
+-int GetCurrentKeyPressed(RsKeyCodes& keys) {
+-    return plugin::CallAndReturn<int, 0x541490, RsKeyCodes&>(keys);
++// Flujo exacto EXE, sin colaboradores; retorna EAX como declara la firma existente.
++__declspec(naked) int GetCurrentKeyPressed(RsKeyCodes& keys) {
++    __asm {
++        mov eax,dword ptr [esp+4]
++        push esi
++        mov dword ptr [eax],420h
++        mov edx,2
++        xor ecx,ecx
++        push edi
++key005414A3:
++        cmp word ptr [ecx+00B731A8h],0
++        je key005414BC
++        cmp word ptr [ecx+00B72F38h],0
++        jne key005414BC
++        lea esi,[edx-2]
++        mov dword ptr [eax],esi
++key005414BC:
++        cmp word ptr [ecx+00B731AAh],0
++        je key005414D5
++        cmp word ptr [ecx+00B72F3Ah],0
++        jne key005414D5
++        lea esi,[edx-1]
++        mov dword ptr [eax],esi
++key005414D5:
++        cmp word ptr [ecx+00B731ACh],0
++        je key005414EB
++        cmp word ptr [ecx+00B72F3Ch],0
++        jne key005414EB
++        mov dword ptr [eax],edx
++key005414EB:
++        cmp word ptr [ecx+00B731AEh],0
++        je key00541504
++        cmp word ptr [ecx+00B72F3Eh],0
++        jne key00541504
++        lea esi,[edx+1]
++        mov dword ptr [eax],esi
++key00541504:
++        cmp word ptr [ecx+00B731B0h],0
++        je key0054151D
++        cmp word ptr [ecx+00B72F40h],0
++        jne key0054151D
++        lea esi,[edx+2]
++        mov dword ptr [eax],esi
++key0054151D:
++        add edx,5
++        lea esi,[edx-2]
++        add ecx,0Ah
++        cmp esi,0FFh
++        jl key005414A3
++        mov edx,3EAh
++        xor ecx,ecx
++        mov esi,2
++        mov edi,edi
++key00541540:
++        cmp word ptr [ecx+00B73190h],0
++        je key00541559
++        cmp word ptr [ecx+00B72F20h],0
++        jne key00541559
++        lea edi,[edx-1]
++        mov dword ptr [eax],edi
++key00541559:
++        cmp word ptr [ecx+00B73192h],0
++        je key0054156F
++        cmp word ptr [ecx+00B72F22h],0
++        jne key0054156F
++        mov dword ptr [eax],edx
++key0054156F:
++        cmp word ptr [ecx+00B73194h],0
++        je key00541588
++        cmp word ptr [ecx+00B72F24h],0
++        jne key00541588
++        lea edi,[edx+1]
++        mov dword ptr [eax],edi
++key00541588:
++        cmp word ptr [ecx+00B73196h],0
++        je key005415A1
++        cmp word ptr [ecx+00B72F26h],0
++        jne key005415A1
++        lea edi,[edx+2]
++        mov dword ptr [eax],edi
++key005415A1:
++        cmp word ptr [ecx+00B73198h],0
++        je key005415BA
++        cmp word ptr [ecx+00B72F28h],0
++        jne key005415BA
++        lea edi,[edx+3]
++        mov dword ptr [eax],edi
++key005415BA:
++        cmp word ptr [ecx+00B7319Ah],0
++        je key005415D3
++        cmp word ptr [ecx+00B72F2Ah],0
++        jne key005415D3
++        lea edi,[edx+4]
++        mov dword ptr [eax],edi
++key005415D3:
++        add edx,6
++        add ecx,0Ch
++        dec esi
++        jne key00541540
++        cmp word ptr ds:[00B733A8h],0
++        pop edi
++        pop esi
++        je key005415FC
++        cmp word ptr ds:[00B73138h],0
++        jne key005415FC
++        mov dword ptr [eax],3E8h
++key005415FC:
++        cmp word ptr ds:[00B733AAh],0
++        je key00541616
++        cmp word ptr ds:[00B7313Ah],0
++        jne key00541616
++        mov dword ptr [eax],3F5h
++key00541616:
++        cmp word ptr ds:[00B733ACh],0
++        je key00541630
++        cmp word ptr ds:[00B7313Ch],0
++        jne key00541630
++        mov dword ptr [eax],3F6h
++key00541630:
++        cmp word ptr ds:[00B733AEh],0
++        je key0054164A
++        cmp word ptr ds:[00B7313Eh],0
++        jne key0054164A
++        mov dword ptr [eax],3F7h
++key0054164A:
++        cmp word ptr ds:[00B733B0h],0
++        je key00541664
++        cmp word ptr ds:[00B73140h],0
++        jne key00541664
++        mov dword ptr [eax],3F8h
++key00541664:
++        cmp word ptr ds:[00B733B2h],0
++        je key0054167E
++        cmp word ptr ds:[00B73142h],0
++        jne key0054167E
++        mov dword ptr [eax],3F9h
++key0054167E:
++        cmp word ptr ds:[00B733B4h],0
++        je key00541698
++        cmp word ptr ds:[00B73144h],0
++        jne key00541698
++        mov dword ptr [eax],3FAh
++key00541698:
++        cmp word ptr ds:[00B733B6h],0
++        je key005416B2
++        cmp word ptr ds:[00B73146h],0
++        jne key005416B2
++        mov dword ptr [eax],3FBh
++key005416B2:
++        cmp word ptr ds:[00B733B8h],0
++        je key005416CC
++        cmp word ptr ds:[00B73148h],0
++        jne key005416CC
++        mov dword ptr [eax],3FCh
++key005416CC:
++        cmp word ptr ds:[00B733BAh],0
++        je key005416E6
++        cmp word ptr ds:[00B7314Ah],0
++        jne key005416E6
++        mov dword ptr [eax],3FDh
++key005416E6:
++        cmp word ptr ds:[00B733BCh],0
++        je key00541700
++        cmp word ptr ds:[00B7314Ch],0
++        jne key00541700
++        mov dword ptr [eax],3FEh
++key00541700:
++        cmp word ptr ds:[00B733BEh],0
++        je key0054171A
++        cmp word ptr ds:[00B7314Eh],0
++        jne key0054171A
++        mov dword ptr [eax],410h
++key0054171A:
++        cmp word ptr ds:[00B733C0h],0
++        je key00541734
++        cmp word ptr ds:[00B73150h],0
++        jne key00541734
++        mov dword ptr [eax],411h
++key00541734:
++        cmp word ptr ds:[00B733C2h],0
++        je key0054174E
++        cmp word ptr ds:[00B73152h],0
++        jne key0054174E
++        mov dword ptr [eax],409h
++key0054174E:
++        cmp word ptr ds:[00B733C4h],0
++        je key00541768
++        cmp word ptr ds:[00B73154h],0
++        jne key00541768
++        mov dword ptr [eax],3FFh
++key00541768:
++        cmp word ptr ds:[00B733C6h],0
++        je key00541782
++        cmp word ptr ds:[00B73156h],0
++        jne key00541782
++        mov dword ptr [eax],400h
++key00541782:
++        cmp word ptr ds:[00B733C8h],0
++        je key0054179C
++        cmp word ptr ds:[00B73158h],0
++        jne key0054179C
++        mov dword ptr [eax],402h
++key0054179C:
++        cmp word ptr ds:[00B733CAh],0
++        je key005417B6
++        cmp word ptr ds:[00B7315Ah],0
++        jne key005417B6
++        mov dword ptr [eax],401h
++key005417B6:
++        cmp word ptr ds:[00B733CCh],0
++        je key005417D0
++        cmp word ptr ds:[00B7315Ch],0
++        jne key005417D0
++        mov dword ptr [eax],40Fh
++key005417D0:
++        cmp word ptr ds:[00B733CEh],0
++        je key005417EA
++        cmp word ptr ds:[00B7315Eh],0
++        jne key005417EA
++        mov dword ptr [eax],403h
++key005417EA:
++        cmp word ptr ds:[00B733D0h],0
++        je key00541804
++        cmp word ptr ds:[00B73160h],0
++        jne key00541804
++        mov dword ptr [eax],404h
++key00541804:
++        cmp word ptr ds:[00B733D2h],0
++        je key0054181E
++        cmp word ptr ds:[00B73162h],0
++        jne key0054181E
++        mov dword ptr [eax],405h
++key0054181E:
++        cmp word ptr ds:[00B733D4h],0
++        je key00541838
++        cmp word ptr ds:[00B73164h],0
++        jne key00541838
++        mov dword ptr [eax],406h
++key00541838:
++        cmp word ptr ds:[00B733D6h],0
++        je key00541852
++        cmp word ptr ds:[00B73166h],0
++        jne key00541852
++        mov dword ptr [eax],407h
++key00541852:
++        cmp word ptr ds:[00B733D8h],0
++        je key0054186C
++        cmp word ptr ds:[00B73168h],0
++        jne key0054186C
++        mov dword ptr [eax],408h
++key0054186C:
++        cmp word ptr ds:[00B733DAh],0
++        je key00541886
++        cmp word ptr ds:[00B7316Ah],0
++        jne key00541886
++        mov dword ptr [eax],40Ah
++key00541886:
++        cmp word ptr ds:[00B733DCh],0
++        je key005418A0
++        cmp word ptr ds:[00B7316Ch],0
++        jne key005418A0
++        mov dword ptr [eax],40Bh
++key005418A0:
++        cmp word ptr ds:[00B733DEh],0
++        je key005418BA
++        cmp word ptr ds:[00B7316Eh],0
++        jne key005418BA
++        mov dword ptr [eax],40Ch
++key005418BA:
++        cmp word ptr ds:[00B733E0h],0
++        je key005418D4
++        cmp word ptr ds:[00B73170h],0
++        jne key005418D4
++        mov dword ptr [eax],40Dh
++key005418D4:
++        cmp word ptr ds:[00B733E2h],0
++        je key005418EE
++        cmp word ptr ds:[00B73172h],0
++        jne key005418EE
++        mov dword ptr [eax],40Eh
++key005418EE:
++        cmp word ptr ds:[00B733E4h],0
++        je key00541908
++        cmp word ptr ds:[00B73174h],0
++        jne key00541908
++        mov dword ptr [eax],412h
++key00541908:
++        cmp word ptr ds:[00B733E6h],0
++        je key00541922
++        cmp word ptr ds:[00B73176h],0
++        jne key00541922
++        mov dword ptr [eax],413h
++key00541922:
++        cmp word ptr ds:[00B733E8h],0
++        je key0054193C
++        cmp word ptr ds:[00B73178h],0
++        jne key0054193C
++        mov dword ptr [eax],414h
++key0054193C:
++        cmp word ptr ds:[00B733EAh],0
++        je key00541956
++        cmp word ptr ds:[00B7317Ah],0
++        jne key00541956
++        mov dword ptr [eax],415h
++key00541956:
++        cmp word ptr ds:[00B733ECh],0
++        je key00541970
++        cmp word ptr ds:[00B7317Ch],0
++        jne key00541970
++        mov dword ptr [eax],416h
++key00541970:
++        cmp word ptr ds:[00B733F0h],0
++        je key0054198A
++        cmp word ptr ds:[00B73180h],0
++        jne key0054198A
++        mov dword ptr [eax],418h
++key0054198A:
++        cmp word ptr ds:[00B733EEh],0
++        je key005419A4
++        cmp word ptr ds:[00B7317Eh],0
++        jne key005419A4
++        mov dword ptr [eax],417h
++key005419A4:
++        cmp word ptr ds:[00B733F2h],0
++        je key005419BE
++        cmp word ptr ds:[00B73182h],0
++        jne key005419BE
++        mov dword ptr [eax],419h
++key005419BE:
++        cmp word ptr ds:[00B733F4h],0
++        je key005419D8
++        cmp word ptr ds:[00B73184h],0
++        jne key005419D8
++        mov dword ptr [eax],41Ah
++key005419D8:
++        cmp word ptr ds:[00B733F6h],0
++        je key005419F2
++        cmp word ptr ds:[00B73186h],0
++        jne key005419F2
++        mov dword ptr [eax],41Bh
++key005419F2:
++        cmp word ptr ds:[00B733F8h],0
++        je key00541A0C
++        cmp word ptr ds:[00B73188h],0
++        jne key00541A0C
++        mov dword ptr [eax],41Ch
++key00541A0C:
++        cmp word ptr ds:[00B733FAh],0
++        je key00541A26
++        cmp word ptr ds:[00B7318Ah],0
++        jne key00541A26
++        mov dword ptr [eax],41Dh
++key00541A26:
++        cmp word ptr ds:[00B733FCh],0
++        je key00541A40
++        cmp word ptr ds:[00B7318Ch],0
++        jne key00541A40
++        mov dword ptr [eax],41Eh
++key00541A40:
++        cmp word ptr ds:[00B733FEh],0
++        je key00541A5A
++        cmp word ptr ds:[00B7318Eh],0
++        jne key00541A5A
++        mov dword ptr [eax],41Fh
++key00541A5A:
++        ret
++    }
+ }
+ 
+ IDirectInputDevice8* DIReleaseMouse() { // todo: wininput
+--- a/source/game_sa/Fx/FxFrustumInfo.cpp
++++ b/source/game_sa/Fx/FxFrustumInfo.cpp
+@@ -2,21 +2,85 @@
+ 
+ #include "FxFrustumInfo.h"
+ 
+-// 0x4AA030
+-bool FxFrustumInfo_c::IsCollision(FxSphere_c& sphere) {
+-    return plugin::CallMethodAndReturn<bool, 0x4AA030, FxFrustumInfo_c*, FxSphere_c*>(this, &sphere);
++void FxFrustumInfo_c::InjectHooks() {
++    RH_ScopedClass(FxFrustumInfo_c);
++    RH_ScopedCategory("Fx");
++    RH_ScopedInstall(IsCollision, 0x4AA030);
++}
+ 
+-    // todo: maybe wrong
+-    if (!m_Sphere.IsCollision(sphere))
+-        return false;
+-
+-    for (auto i = 0u; i < std::size(m_Planes); i++) {
+-        if (sphere.GetDistToPlane(m_Planes[i]) > sphere.m_fRadius) {
+-            sphere.m_nNumPlanesPassed = i;
+-            return false;
+-        }
+-
+-        sphere.m_nNumPlanesPassed = i;
++// Original esfera exterior y orden circular de los cuatro planos; conserva estado sólo al rechazar.
++__declspec(naked) bool FxFrustumInfo_c::IsCollision(FxSphere_c& sphere) {
++    __asm {
++        mov edx,dword ptr [esp+4]
++        fld dword ptr [edx]
++        fsub dword ptr [ecx]
++        fld dword ptr [ecx+4]
++        fsubr dword ptr [edx+4]
++        fld dword ptr [ecx+8]
++        fsubr dword ptr [edx+8]
++        fld dword ptr [ecx+0Ch]
++        fadd dword ptr [edx+0Ch]
++        fld st(1)
++        fmul st,st(2)
++        fld st(3)
++        fmul st,st(4)
++        faddp st(1),st
++        fld st(4)
++        fmul st,st(5)
++        faddp st(1),st
++        fld st(1)
++        fmul st,st(2)
++        fcompp
++        fstp st(0)
++        fstp st(0)
++        fnstsw ax
++        fstp st(0)
++        test ah,41h
++        fstp st(0)
++        je frustum004AA074
++        xor eax,eax
++        ret 4
++frustum004AA074:
++        push ebx
++        push esi
++        push edi
++        mov edi,dword ptr [edx+10h]
++        xor ebx,ebx
++        lea esp,[esp]
++frustum004AA080:
++        mov esi,edi
++        and esi,3
++        mov eax,esi
++        shl eax,4
++        fld dword ptr [eax+ecx+18h]
++        lea eax,[eax+ecx+14h]
++        fmul dword ptr [edx+4]
++        fld dword ptr [eax]
++        fmul dword ptr [edx]
++        faddp st(1),st
++        fld dword ptr [eax+8]
++        fmul dword ptr [edx+8]
++        faddp st(1),st
++        fsub dword ptr [eax+0Ch]
++        fcomp dword ptr [edx+0Ch]
++        fnstsw ax
++        test ah,41h
++        je frustum004AA0C2
++        inc ebx
++        inc edi
++        cmp ebx,4
++        jl frustum004AA080
++        pop edi
++        pop esi
++        mov eax,1
++        pop ebx
++        ret 4
++frustum004AA0C2:
++        pop edi
++        mov dword ptr [edx+10h],esi
++        pop esi
++        xor eax,eax
++        pop ebx
++        ret 4
+     }
+-    return true;
+ }
+--- a/source/game_sa/Fx/FxFrustumInfo.h
++++ b/source/game_sa/Fx/FxFrustumInfo.h
+@@ -14,6 +14,7 @@
+     FxSphere_c m_Sphere;
+     std::array<FxPlane_c, 4> m_Planes;
+ 
++    static void InjectHooks();
+     bool IsCollision(FxSphere_c& sphere);
+ };
+ VALIDATE_SIZE(FxFrustumInfo_c, 0x54);
+--- a/source/InjectHooksMain.cpp
++++ b/source/InjectHooksMain.cpp
+@@ -1453,6 +1453,7 @@
+         FxEmitterPrt_c::InjectHooks();
+         FxEmitterBP_c::InjectHooks();
+         FxEmitter_c::InjectHooks();
++        FxFrustumInfo_c::InjectHooks();
+         Fx_c::InjectHooks();
+     };
+ 

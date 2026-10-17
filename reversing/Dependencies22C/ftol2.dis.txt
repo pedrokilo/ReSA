@@ -1,0 +1,43 @@
+821b40: push ebp
+821b41: mov ebp, esp
+821b43: sub esp, 0x20
+821b46: and esp, 0xfffffff0
+821b49: fld st(0)
+821b4b: fst dword ptr [esp + 0x18]
+821b4f: fistp qword ptr [esp + 0x10]
+821b53: fild qword ptr [esp + 0x10]
+821b57: mov edx, dword ptr [esp + 0x18]
+821b5b: mov eax, dword ptr [esp + 0x10]
+821b5f: test eax, eax
+821b61: je 0x821b9f
+821b63: fsubp st(1)
+821b65: test edx, edx
+821b67: jns 0x821b87
+821b69: fstp dword ptr [esp]
+821b6c: mov ecx, dword ptr [esp]
+821b6f: xor ecx, 0x80000000
+821b75: add ecx, 0x7fffffff
+821b7b: adc eax, 0
+821b7e: mov edx, dword ptr [esp + 0x14]
+821b82: adc edx, 0
+821b85: jmp 0x821bb3
+821b87: fstp dword ptr [esp]
+821b8a: mov ecx, dword ptr [esp]
+821b8d: add ecx, 0x7fffffff
+821b93: sbb eax, 0
+821b96: mov edx, dword ptr [esp + 0x14]
+821b9a: sbb edx, 0
+821b9d: jmp 0x821bb3
+821b9f: mov edx, dword ptr [esp + 0x14]
+821ba3: test edx, 0x7fffffff
+821ba9: jne 0x821b63
+821bab: fstp dword ptr [esp + 0x18]
+821baf: fstp dword ptr [esp + 0x18]
+821bb3: leave 
+821bb4: ret 
+821bb5: push ebp
+821bb6: mov ebp, esp
+821bb8: sub esp, 0x20
+821bbb: push esi
+821bbc: mov esi, dword ptr [ebp + 8]
+821bbf: push edi

@@ -2,9 +2,11 @@
 // con colaboradores falsos: GetSubTask/GetTaskType por tablas virtuales falsas; AimWeaponLeftRight/UpDown, GetAccelerate, GetBrake y GetColModel por saltos en las
 // direcciones del EXE (y llamadas directas desde el candidato). GetPad (0x53FB70) es la funcion real del EXE.
 #include "core.hpp"
-#include "../../ge-bank/Fixtures.hpp"
+#include "../Fixtures.hpp"
 #include <math.h>
 #include <string>
+#include <map>
+#include <tuple>
 
 bool __cdecl EnterCarCamStickBeyondCpp(short value);
 void __cdecl EnterCarCamLateralCpp(const float* matrix, float placementHeading, const float* carPos, const float* pedPos, float distance, float* out);
@@ -151,6 +153,15 @@ static std::vector<u8> Snapshot() {
     return s;
 }
 
+static int TouchedMask(const Fp& f) {
+    int m = 0;
+    for (int s = 0; s < 8; ++s) {
+        u8 prime[10]; for (int k = 0; k < 8; ++k) prime[k] = u8(0x11 * (s + 1) + k); prime[7] |= 0x80; prime[8] = u8(s); prime[9] = 0x40;
+        if (memcmp(&f.b[28 + 10 * s], prime, 10)) m |= 1 << s;
+    }
+    return m;
+}
+static std::map<std::tuple<int,int,int>, std::pair<int,unsigned>> gMasks;
 void RunEnterCar(unsigned cases, unsigned seed, int verbosity, bool bank) {
     Jmp(0x541040, (void*)&FakeAimLR); Jmp(0x5410C0, (void*)&FakeAimUD); Jmp(0x5403F0, (void*)&FakeAccel); Jmp(0x540080, (void*)&FakeBrake); Jmp(0x535300, (void*)&FakeColModel);
     DWORD old; VirtualProtect((void*)0x8D2ECC, 4, PAGE_READWRITE, &old);
@@ -179,6 +190,7 @@ void RunEnterCar(unsigned cases, unsigned seed, int verbosity, bool bank) {
             (side == 0 ? a : b) = r;
         }
         FpDiff d = CompareFp(a.fp, b.fp);
+        { auto key = std::make_tuple(TouchedMask(a.fp), TouchedMask(b.fp), int(memA[0x29])); auto& e = gMasks[key]; if (!e.first++) e.second = i; }
         st.cases++;
         bool bad = false;
         if (!a.stackOk || !b.stackOk) { st.stackBad++; bad = true; }
@@ -189,7 +201,7 @@ void RunEnterCar(unsigned cases, unsigned seed, int verbosity, bool bank) {
         auto Strip = [](const std::vector<Event>& t) { std::vector<Event> o; for (auto& e : t) if (e.kind != kGetSubTask) o.push_back(e); return o; };
         if (Strip(trA) != Strip(trB)) { st.traceBad++; bad = true; }
         if (d.fcw) { st.cw++; bad = true; } if (d.top) { st.top++; bad = true; } if (d.ftw) { st.tw++; bad = true; } if (d.cc) { st.cc++; bad = true; }
-        if (d.exc) { st.exc++; bad = true; } if (d.st) { st.st++; bad = true; } if (d.deadRaw) st.deadRaw++;
+        if (d.exc) { st.exc++; bad = true; } if (d.st) { st.st++; bad = true; } if (d.deadRaw) { st.deadRaw++; bad = true; }
         // cobertura
         if (f.carNull) cov.carNull++; else if (f.subtype == 3) cov.heli++; else if (f.subNull) cov.subNull++;
         else if (!(f.subKind == 802 || f.subKind == 804 || f.subKind == 820 || f.subKind == 807 || f.subKind == 808)) cov.subOther++;
@@ -214,6 +226,7 @@ void RunEnterCar(unsigned cases, unsigned seed, int verbosity, bool bank) {
     }
     printf("0x63A380 EnterCar camara: casos=%u malos=%u | stack=%u nv=%u out=%u mem=%u traza=%u | fcw=%u top=%u ftw=%u cc=%u exc=%u st=%u | info deadRaw=%u\n", st.cases, st.bad, st.stackBad, st.nvBad, st.outBad, st.memBad,
            st.traceBad, st.cw, st.top, st.tw, st.cc, st.exc, st.st, st.deadRaw);
+    for (auto& kv : gMasks) printf("   masks ref=%02x cand=%02x choice=%d : %d casos (ej #%u)\n", std::get<0>(kv.first), std::get<1>(kv.first), std::get<2>(kv.first), kv.second.first, kv.second.second);
     printf("   cobertura: carNull=%u heli=%u subNull=%u subOtro=%u subOk=%u choice3=%u elegido0/1/2=%u/%u/%u beta cambia=%u alpha cambia=%u\n", cov.carNull, cov.heli, cov.subNull, cov.subOther, cov.subOk, cov.choice3,
            cov.choiceSet[0], cov.choiceSet[1], cov.choiceSet[2], cov.betaChanged, cov.alphaChanged);
 }

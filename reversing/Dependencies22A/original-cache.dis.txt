@@ -1,0 +1,89 @@
+6ffff0: sub esp, 0x30
+6ffff3: xor edx, edx
+6ffff5: mov ecx, 0xc3f6e8
+6ffffa: lea ebx, [ebx]
+700000: fld dword ptr [ecx - 8]
+700003: fcomp dword ptr [esp + 0x34]
+700007: fnstsw ax
+700009: test ah, 0x44
+70000c: jp 0x70002d
+70000e: fld dword ptr [ecx - 4]
+700011: fcomp dword ptr [esp + 0x38]
+700015: fnstsw ax
+700017: test ah, 0x44
+70001a: jp 0x70002d
+70001c: fld dword ptr [ecx]
+70001e: fcomp dword ptr [esp + 0x3c]
+700022: fnstsw ax
+700024: test ah, 0x44
+700027: jnp 0x7000c0
+70002d: add ecx, 0xc
+700030: inc edx
+700031: cmp ecx, 0xc3f868
+700037: jl 0x700000
+700039: fld dword ptr [esp + 0x3c]
+70003d: push 0
+70003f: fsub dword ptr [0x858ba4]
+700045: push 0
+700047: push 1
+700049: push 0
+70004b: push 0
+70004d: push 0
+70004f: push 1
+700051: lea edx, [esp + 0x1c]
+700055: push edx
+700056: lea eax, [esp + 0x24]
+70005a: push eax
+70005b: push ecx
+70005c: lea ecx, [esp + 0x5c]
+700060: fstp dword ptr [esp]
+700063: push ecx
+700064: call 0x5674e0
+700069: add esp, 0x2c
+70006c: test al, al
+70006e: je 0x7000d3
+700070: mov eax, dword ptr [0xc3f0d4]
+700075: fld dword ptr [esp + 0xc]
+700079: lea edx, [eax + eax*2]
+70007c: fstp dword ptr [eax*4 + 0xc3f050]
+700083: lea ecx, [edx*4 + 0xc3f6e0]
+70008a: mov edx, dword ptr [esp + 0x34]
+70008e: mov dword ptr [ecx], edx
+700090: mov edx, dword ptr [esp + 0x38]
+700094: mov dword ptr [ecx + 4], edx
+700097: mov edx, dword ptr [esp + 0x3c]
+70009b: inc eax
+70009c: and eax, 0x8000001f
+7000a1: mov dword ptr [ecx + 8], edx
+7000a4: jns 0x7000ab
+7000a6: dec eax
+7000a7: or eax, 0xffffffe0
+7000aa: inc eax
+7000ab: fld dword ptr [esp + 0xc]
+7000af: mov dword ptr [0xc3f0d4], eax
+7000b4: mov eax, dword ptr [esp + 0x40]
+7000b8: fstp dword ptr [eax]
+7000ba: mov al, 1
+7000bc: add esp, 0x30
+7000bf: ret 
+7000c0: mov eax, dword ptr [edx*4 + 0xc3f050]
+7000c7: mov ecx, dword ptr [esp + 0x40]
+7000cb: mov dword ptr [ecx], eax
+7000cd: mov al, 1
+7000cf: add esp, 0x30
+7000d2: ret 
+7000d3: xor al, al
+7000d5: add esp, 0x30
+7000d8: ret 
+7000d9: nop 
+7000da: nop 
+7000db: nop 
+7000dc: nop 
+7000dd: nop 
+7000de: nop 
+7000df: nop 
+7000e0: mov ecx, dword ptr [0xb6f03c]
+7000e6: sub esp, 0x10
+7000e9: test ecx, ecx
+7000eb: lea eax, [ecx + 0x30]
+7000ee: jne 0x7000f5

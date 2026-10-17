@@ -37,6 +37,15 @@ HOOKS = (
     ('RwHelper', 'GetFirstTexture', '0x00734940', 'RwHelper::GetFirstTexture', 'Dependencies21G'),
     ('RwHelper', 'RpGeometryReplaceOldMaterialWithNewMaterial', '0x00734DE0', 'RwHelper::RpGeometryReplaceOldMaterialWithNewMaterial', 'Dependencies21G'),
     ('CQuaternion', 'Slerp-halftheta', '0x0059C300', 'CQuaternion::Slerp', 'Dependencies21G'),
+    # Lote 1 posterior (verificacion de existencia en el EXE): CPointLights, luces de CVehicle, WrapAngle y CreateParticles.
+    ('CPointLights', 'GenerateLightsAffectingObject', '0x006FFBB0', 'CPointLights::GenerateLightsAffectingObject', 'Dependencies22A'),
+    ('CPointLights', 'GetLightMultiplier', '0x006FFE70', 'CPointLights::GetLightMultiplier', 'Dependencies22A'),
+    ('CPointLights', 'ProcessVerticalLineUsingCache', '0x006FFFF0', 'CPointLights::ProcessVerticalLineUsingCache', 'Dependencies22A'),
+    ('CPointLights', 'RenderFogEffect', '0x007002D0', 'CPointLights::RenderFogEffect', 'Dependencies22A'),
+    ('CVehicle', 'DoHeadLightEffect', '0x006E0A50', 'CVehicle::DoHeadLightEffect', 'Dependencies22B'),
+    ('CVehicle', 'DoTailLightEffect', '0x006E1780', 'CVehicle::DoTailLightEffect', 'Dependencies22B'),
+    ('CCam', 'WrapAngle', '0x00509BE0', 'CCam::WrapAngle', 'Dependencies22C'),
+    ('FxEmitter_c', 'CreateParticles', '0x004A41E0', 'FxEmitter_c::CreateParticles', 'Dependencies22C'),
 )
 SOURCES = {
     'CRT::CrtPrintf': 'source/game_sa/VehicleRecording.cpp',
@@ -57,6 +66,10 @@ SOURCES = {
     'RwHelper::GetFirstTexture': 'source/game_sa/RenderWare/rw/rwtexdict.cpp',
     'RwHelper::RpGeometryReplaceOldMaterialWithNewMaterial': 'source/game_sa/RwHelper.cpp',
     'CQuaternion::Slerp': 'source/game_sa/Core/Quaternion.cpp',
+    'CPointLights::GenerateLightsAffectingObject': 'source/game_sa/PointLights.cpp', 'CPointLights::GetLightMultiplier': 'source/game_sa/PointLights.cpp',
+    'CPointLights::ProcessVerticalLineUsingCache': 'source/game_sa/PointLights.cpp', 'CPointLights::RenderFogEffect': 'source/game_sa/PointLights.cpp',
+    'CVehicle::DoHeadLightEffect': 'source/game_sa/Entity/Vehicle/Vehicle.cpp', 'CVehicle::DoTailLightEffect': 'source/game_sa/Entity/Vehicle/Vehicle.cpp',
+    'CCam::WrapAngle': 'source/game_sa/Cam.cpp', 'FxEmitter_c::CreateParticles': 'source/game_sa/Fx/FxEmitter.cpp',
 }
 SCOPE = ('Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. '
          'Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.')

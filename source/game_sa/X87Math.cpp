@@ -2215,6 +2215,56 @@ __declspec(noinline) void __cdecl HandlingConvertGameUnitsCpp(float accelConst, 
 }
 #pragma float_control(pop)
 
+// --- Residuo de los registros x87 muertos (usado por Ftol2RegsCore, CTaskSimpleGangDriveBy y CTaskComplexEnterCar) ---
+// Las operaciones del EXE dejan en los registros por debajo de la cima (T-1, T-2, T-3) los ultimos valores que escribieron, y no tocan ningun otro. El compilador no emite
+// fiadd/fcom con operando de memoria sin sacar un registro, ni conserva una copia (fld st(1)) para fcompp, asi que lo que deja cada secuencia propia sale distinto. En lugar de
+// imitar cada instruccion, la logica real se compila con una pila que nunca llega mas profundo que la del EXE (este nunca escribe en el registro siguiente al ultimo que usa) y estas
+// funciones escriben al final los valores del EXE con aritmetica neutra: sumas con +0 y productos por 1,0 exactos (sin PE, DE, UE ni IE: los operandos son float ya redondeados
+// a 24 bits o ceros) que no cambian C0..C3 (se comprobo en el hardware: fadd, fmul, fld, fstp, fild, fistp, fpatan y fsqrt no tocan C0, C2 ni C3).
+// Los registros llegan por la pila (parametros double): el llamador solo usa T-1 para cargarlos. Las constantes son volatile para que el compilador las cargue como operandos
+// de registro y no las pliegue; en ((0 + 0) + (0 + x)) la pila llega a tres registros y el faddp saca `x` de T-3 sin modificarlo (igual en el resto de las sumas).
+static const volatile float kPlantOne = 1.0f;
+static const volatile float kPlantZeroA = 0.0f;
+// Cada sentencia escribe en un registro (T-k) el valor llegado y deja basura en los de encima, que las sentencias siguientes (T-(k-1) .. T-1) sobrescriben. Con precise el
+// compilador conserva el arbol: una suma de 2^(k-1) hojas "0 * 1" y "1 * d" a la derecha del todo, que necesita k registros; el ultimo faddp saca `d` de T-k tal cual.
+// (Sin precise, /fp:fast reasocia la suma y la pila no llega a k registros.)
+#define X87_PLANT_ZERO (kPlantZeroA * kPlantOne)
+#pragma float_control(precise, on, push)
+static __declspec(noinline) void X87PlantStmt5Cpp(double d) {
+    volatile double sink;
+    sink = (((X87_PLANT_ZERO + X87_PLANT_ZERO) + (X87_PLANT_ZERO + X87_PLANT_ZERO)) + ((X87_PLANT_ZERO + X87_PLANT_ZERO) + (X87_PLANT_ZERO + X87_PLANT_ZERO)))
+         + (((X87_PLANT_ZERO + X87_PLANT_ZERO) + (X87_PLANT_ZERO + X87_PLANT_ZERO)) + ((X87_PLANT_ZERO + X87_PLANT_ZERO) + (X87_PLANT_ZERO + (kPlantOne * d))));
+}
+static __declspec(noinline) void X87PlantStmt4Cpp(double d) {
+    volatile double sink;
+    sink = ((X87_PLANT_ZERO + X87_PLANT_ZERO) + (X87_PLANT_ZERO + X87_PLANT_ZERO)) + ((X87_PLANT_ZERO + X87_PLANT_ZERO) + (X87_PLANT_ZERO + (kPlantOne * d)));
+}
+static __declspec(noinline) void X87PlantStmt3Cpp(double d) {
+    volatile double sink;
+    sink = (X87_PLANT_ZERO + X87_PLANT_ZERO) + (X87_PLANT_ZERO + (kPlantOne * d));
+}
+static __declspec(noinline) void X87PlantStmt2Cpp(double d) {
+    volatile double sink;
+    sink = X87_PLANT_ZERO + (kPlantOne * d);
+}
+static __declspec(noinline) void X87PlantStmt1Cpp(double d) {
+    volatile double sink;
+    sink = kPlantOne * d;
+}
+#pragma float_control(pop)
+// T-2 = d2 (T-1 queda con una suma: basura que el EXE tambien sobrescribe).
+static void X87PlantT2Cpp(double d2) { X87PlantStmt2Cpp(d2); }
+// T-3 = d3, T-2 = d2.
+static void X87PlantT3T2Cpp(double d3, double d2) { X87PlantStmt3Cpp(d3); X87PlantStmt2Cpp(d2); }
+// T-3 = d3, T-2 = d2, T-1 = d1.
+static void X87PlantT3T2T1Cpp(double d3, double d2, double d1) { X87PlantStmt3Cpp(d3); X87PlantStmt2Cpp(d2); X87PlantStmt1Cpp(d1); }
+// T-4 = d4, T-3 = d3, T-2 = d2.
+static void X87PlantT4T3T2Cpp(double d4, double d3, double d2) { X87PlantStmt4Cpp(d4); X87PlantStmt3Cpp(d3); X87PlantStmt2Cpp(d2); }
+// T-5 .. T-1.
+static void X87PlantT5T4T3T2T1Cpp(double d5, double d4, double d3, double d2, double d1) {
+    X87PlantStmt5Cpp(d5); X87PlantStmt4Cpp(d4); X87PlantStmt3Cpp(d3); X87PlantStmt2Cpp(d2); X87PlantStmt1Cpp(d1);
+}
+
 // --- Lote Ped (15/10/2026) ---
 // --- Lote de Ped.cpp (15/10/2026), prefijo Ped ---
 // IMPORTANTE: este bloque debe ir DESPUES de PedGeomShotAngleCpp (static, X87Math.cpp ~l.1640), que reutiliza.
@@ -2262,10 +2312,19 @@ static Ftol2Regs Ftol2RegsCore(double v, unsigned int entryEcx) {
     const unsigned int low     = unsigned(static_cast<unsigned long long>(rounded));
     const unsigned int high    = unsigned(static_cast<unsigned long long>(rounded) >> 32);
     if (low == 0 && (high & 0x7FFFFFFFu) == 0) { // 0x821B9F: sale con ECX de entrada, EAX = 0, EDX = alta
+        // El EXE ya ha ejecutado fild R (R = 0, o -2^63 si v es NaN o no cabe en 64 bits) y saca R y v con dos fstp dword: los registros muertos quedan con R en T-2 y v en T-1,
+        // sin tocar ninguna bandera (el camino normal deja ahi R y v - R).
+        X87PlantStmt2Cpp(double(rounded));
+        X87PlantStmt1Cpp(v);
         return { 0, entryEcx, high };
     }
-    volatile float fraction = float(v - double(rounded)); // fild + fsubp + fstp dword con el modo vigente
-    const unsigned int fracBits = std::bit_cast<unsigned int>(static_cast<float>(fraction));
+    // fild R; fsubp (v - R a la precision vigente); fstp dword. El compilador puede emitir fild R; fsubr [v] (un solo registro) y entonces T-2 no recibiria R: los registros muertos
+    // del EXE (T-2 = R, T-1 = v - R) se plantan al final, sea cual sea la secuencia que salga.
+    volatile double difference = v - double(rounded);
+    volatile float fraction = float(difference);
+    const unsigned int fracBits = *reinterpret_cast<const volatile unsigned int*>(&fraction); // mov ecx, [esp] del EXE: lectura entera, no por la x87
+    X87PlantStmt2Cpp(double(rounded));
+    X87PlantStmt1Cpp(difference);
     if (!neg) { // add ecx,7FFFFFFFh / sbb eax,0 / sbb edx,0
         const unsigned int ecx    = fracBits + 0x7FFFFFFFu;
         const unsigned int carry  = ecx < fracBits ? 1u : 0u;
@@ -9583,6 +9642,14 @@ __declspec(noinline) void __cdecl FightStrikeAdvanceCpp(const float* forward, fl
 }
 #pragma float_control(pop)
 
+// Comparaciones ordenadas de CTaskSimpleGangDriveBy (AITarget y AimGun) (fld dword [a]; fcomp dword [b]; fnstsw; test ah, ...). Con los dos operandos por puntero y sin precise el compilador
+// emite exactamente fld [a]; fcomp [b] (operando de memoria, ST0 = a: mismas C0, C2, C3, IE y DE que el EXE); con parametros por valor invierte el orden. Cada una devuelve el
+// resultado del salto del EXE: Gt = "test ah,41h; jne" no salta, Lt = "test ah,5; jp" no salta, Ge = "test ah,1; jne" no salta, Le = "test ah,41h; jp" no salta (con NaN todas, false).
+__declspec(noinline) bool __cdecl GangDriveByGtCpp(const volatile float* a, const volatile float* b) { return double(*a) > double(*b); }
+__declspec(noinline) bool __cdecl GangDriveByLtCpp(const volatile float* a, const volatile float* b) { return double(*a) < double(*b); }
+__declspec(noinline) bool __cdecl GangDriveByGeCpp(const volatile float* a, const volatile float* b) { return double(*a) >= double(*b); }
+__declspec(noinline) bool __cdecl GangDriveByLeCpp(const volatile float* a, const volatile float* b) { return double(*a) <= double(*b); }
+
 // --- CTaskSimpleGangDriveBy (lote w21 D; prefijo GangDriveBy: PlayerTarget 0x621960, AITarget 0x627600, AimGun 0x628350). Anadir al FINAL de X87Math.cpp ---
 // Usa JetPackSqrtExtCpp (raiz en una funcion aparte que devuelve ST0), ExeAsinDoubleCpp (_CIasin, 0x821E70), RpNanAddCpp/RpNanSubCpp y X87TimesFloatCpp, ya definidos arriba.
 // Regla de las etapas: cada fpatan/fsin/fcos (64 bits de mantisa) se calcula en una funcion SIN precise que devuelve double (ST0 sin guardar) y la funcion siguiente lo consume
@@ -9591,18 +9658,25 @@ __declspec(noinline) void __cdecl FightStrikeAdvanceCpp(const float* forward, fl
 static constexpr float kGangDriveByQuarterPi = std::bit_cast<float>(0x3F490FDBu); // 0x859AB0
 static constexpr float kGangDriveByTwoOverPi = std::bit_cast<float>(0x3F22F983u); // 0x858FB8
 static constexpr float kGangDriveByRangeBonus = std::bit_cast<float>(0x41A00000u); // 0x858BA4
+// Constantes del EXE que el EXE usa como operandos de memoria (fcom/fadd/fsub dword [mem]): como float volatile el compilador las lee igual y no las conserva en un registro de la pila x87.
+static const volatile float kGdPi        = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
+static const volatile float kGdNegPi     = std::bit_cast<float>(0xC0490FDBu); // 0x858CC0
+static const volatile float kGdTwoPi     = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+static const volatile float kGdQuarterPi = std::bit_cast<float>(0x3F490FDBu); // 0x859AB0
+static const volatile float kGdTwoOverPi = std::bit_cast<float>(0x3F22F983u); // 0x858FB8
+static const volatile float kGdZero      = 0.0f;                              // 0x858B50
 
 // Etapa 1 del rumbo (0x6219E1..0x621A09 y 0x6276DE..0x627703): fpatan(-x, y) menos el rumbo del vehiculo (fpatan(-fwdX, fwdY) de su matriz, o el float del placement si no hay
 // matriz); la resta (fsubp / fsub st(1)) redondea a 24 bits. Devuelve ST0 sin guardar.
-static __declspec(noinline) double __cdecl GangDriveByHeadingDiffDbl(float x, float y, const float* forward, float heading) {
+static __declspec(noinline) double __cdecl GangDriveByHeadingDiffDbl(float x, float y, const float* forward, const float* heading) {
     const double aim     = atan2(-double(x), double(y));
-    const double vehicle = forward ? atan2(-double(forward[0]), double(forward[1])) : double(heading);
+    const double vehicle = forward ? atan2(-double(forward[0]), double(forward[1])) : double(*heading);
     return aim - vehicle;
 }
 
 // Rumbo base - rumbo del vehiculo (0x628648 / 0x628672: fsubr [base]); sin guardar.
-static __declspec(noinline) double __cdecl GangDriveByBaseMinusHeadingDbl(float base, const float* forward, float heading) {
-    const double vehicle = forward ? atan2(-double(forward[0]), double(forward[1])) : double(heading);
+static __declspec(noinline) double __cdecl GangDriveByBaseMinusHeadingDbl(float base, const float* forward, const float* heading) {
+    const double vehicle = forward ? atan2(-double(forward[0]), double(forward[1])) : double(*heading);
     return double(base) - vehicle;
 }
 
@@ -9612,22 +9686,28 @@ static __declspec(noinline) double __cdecl GangDriveByCosDbl(double angle) { ret
 #pragma float_control(precise, on, push)
 // 0x621A33..0x621A5F, 0x62786C..0x62787B: angulo + pi/4 (0x859AB0); si < 0 (fcom ordenado: con NaN no) + 2pi (0x858CBC); * 2/pi (0x858FB8); _ftol2 y el byte bajo con signo (movsx al).
 static __forceinline int GangDriveByQuadrantOf(double angle) {
-    double value = angle + double(kGangDriveByQuarterPi);
-    if (value < 0.0) {
-        value = value + double(kF_40C90FDB);
+    double value = angle + kGdQuarterPi;
+    // fcom dword [0.0]: ST0 = valor frente a un operando de memoria (C0 = valor < 0). El compilador, si el valor se usa despues, carga la constante y compara al reves
+    // (C0 invertido); con una copia volatile del valor, `fld copia; fcomp [0.0]` conserva la orientacion del EXE (la copia no cambia el valor: va a doble sin perdida).
+    volatile double copy = value;
+    if (double(copy) < 0.0) {
+        value = value + kGdTwoPi;
     }
-    value = value * double(kGangDriveByTwoOverPi);
-    return static_cast<signed char>(static_cast<long long>(value));
+    value = value * kGdTwoOverPi;
+    // _ftol2 (0x821B40): las banderas PE/IE del fistp las pone el __ftol2 del compilador; los registros muertos (R y v - R) y el resultado, Ftol2RegsDblCpp.
+    volatile long long truncated = static_cast<long long>(value);
+    (void)truncated;
+    return static_cast<signed char>(Ftol2RegsDblCpp(value, 0).eax);
 }
 
 // PlayerTarget (0x621960), cuadrante (0x6219E1..0x621A5F): rumbo de la camara - rumbo del vehiculo, ajuste de +-2pi respecto a +-pi (0x858CB8 / 0x858CC0) sin guardar como float.
 // forward = &matriz->forward (x, y, z consecutivos) o nullptr (entonces heading = placement.m_fHeading del vehiculo).
-__declspec(noinline) int __cdecl GangDriveByPlayerQuadrantCpp(float aimX, float aimY, const float* forward, float heading) {
+__declspec(noinline) int __cdecl GangDriveByPlayerQuadrantCpp(float aimX, float aimY, const float* forward, const float* heading) {
     double angle = GangDriveByHeadingDiffDbl(aimX, aimY, forward, heading);
-    if (angle > double(kF_40490FDB)) {
-        angle = angle - double(kF_40C90FDB);
-    } else if (angle < double(-kF_40490FDB)) {
-        angle = angle + double(kF_40C90FDB);
+    if (angle > kGdPi) {
+        angle = angle - kGdTwoPi;
+    } else if (angle < kGdNegPi) {
+        angle = angle + kGdTwoPi;
     }
     return GangDriveByQuadrantOf(angle);
 }
@@ -9640,13 +9720,14 @@ __declspec(noinline) int __cdecl GangDriveByAiQuadrantCpp(float angle) {
 // AITarget (0x627600), 0x627657..0x627741: dx, dy, dz = objetivo - posicion (cada resta a 24 bits y guardada como float), distancia = float(sqrt((dz^2 + dx^2) + dy^2)),
 // angulo = float(fpatan(-dx, dy) - rumbo del vehiculo) y ajuste de +-2pi respecto a +-pi con un guardado como float por ajuste.
 // target/pos = {x, y, z}; out = {dx, dy, dz, distancia, angulo}.
-__declspec(noinline) void __cdecl GangDriveByAiGeometryCpp(const float* target, const float* pos, const float* forward, float heading, float* out) {
+__declspec(noinline) void __cdecl GangDriveByAiGeometryCpp(const float* target, const float* pos, const float* forward, const float* heading, float* out) {
     volatile float dx = float(double(target[0]) - double(pos[0]));
     volatile float dy = float(double(target[1]) - double(pos[1]));
     volatile float dz = float(double(target[2]) - double(pos[2]));
     const double sum = (double(dz) * double(dz) + double(dx) * double(dx)) + double(dy) * double(dy);
     volatile float distance = float(JetPackSqrtExtCpp(sum));
-    volatile float angle = float(GangDriveByHeadingDiffDbl(dx, dy, forward, heading));
+    const double difference = GangDriveByHeadingDiffDbl(dx, dy, forward, heading);
+    volatile float angle = float(difference);
     if (angle > kF_40490FDB) {
         angle = float(double(angle) - double(kF_40C90FDB));
     } else if (angle < -kF_40490FDB) {
@@ -9657,15 +9738,47 @@ __declspec(noinline) void __cdecl GangDriveByAiGeometryCpp(const float* target, 
     out[2] = dz;
     out[3] = distance;
     out[4] = angle;
+    // Registros muertos del EXE tras el rumbo (0x6276E2..0x627707): T-2 = angulo sin ajustar (fsub st(1) y fstp), T-3 = forward[1] cargado por el segundo fpatan (solo con matriz).
+    // T-1 lo sobrescribe la primera comparacion siguiente.
+    if (forward) {
+        X87PlantT3T2Cpp(double(forward[1]), difference);
+    } else {
+        X87PlantT2Cpp(difference);
+    }
+}
+
+// AITarget (0x627600), 0x6277E7..0x62780B: punto de mira = delta + posicion del ped; fld dz; fadd z; fld dy; fadd y; fld dx; fadd x; y tres fstp: deja las sumas z, y, x en T-1, T-2 y T-3.
+// delta = {dx, dy, dz}; out = {x, y, z}.
+__declspec(noinline) void __cdecl GangDriveByAimPointCpp(const float* delta, const float* pos, float* out) {
+    const double z = double(delta[2]) + double(pos[2]);
+    const double y = double(delta[1]) + double(pos[1]);
+    const double x = double(delta[0]) + double(pos[0]);
+    out[0] = float(x);
+    out[1] = float(y);
+    out[2] = float(z);
+    X87PlantT3T2T1Cpp(x, y, z);
 }
 
 // AimGun (0x628350), 0x6283CB..0x628403 (camara TWOPLAYER_IN_CAR_AND_SHOOTING): float(sqrt((dz^2 + dy^2) + dx^2) + 20.0f) con d = pos - source (sin guardar entre pasos).
+// El EXE (fld/fsub x3, fld st(0), fmul, ..., fsqrt, fstp st(3), fstp st(0) x2, fadd, fstp) apila hasta cinco registros y deja muertos T-5 = dx*dx, T-4 = raiz, T-3 = dz, T-2 = dy y
+// T-1 = el rango: se escriben al final (la logica real no pasa de tres registros).
 __declspec(noinline) float __cdecl GangDriveByAimRangeCpp(const float* pos, const float* source) {
     const double dx = double(pos[0]) - double(source[0]);
     const double dy = double(pos[1]) - double(source[1]);
     const double dz = double(pos[2]) - double(source[2]);
-    volatile float result = float(JetPackSqrtExtCpp((dz * dz + dy * dy) + dx * dx) + double(kGangDriveByRangeBonus));
+    const double root = JetPackSqrtExtCpp((dz * dz + dy * dy) + dx * dx);
+    const double range = root + double(kGangDriveByRangeBonus);
+    volatile float result = float(range);
+    X87PlantT5T4T3T2T1Cpp(dx * dx, root, dz, dy, range);
     return result;
+}
+
+// AimGun (0x628422..0x628460, jugador): x se copia con una lectura entera; y pasa por la x87 (fld/fstp: silencia un NaN senalizante y marca IE/DE como el EXE); z = float(z + 0.7f).
+__declspec(noinline) void __cdecl GangDriveByMuzzleCpp(const float* pos, float* out) {
+    reinterpret_cast<unsigned int*>(out)[0] = reinterpret_cast<const unsigned int*>(pos)[0]; // mov ecx, [eax]; mov [esp+0x38], ecx: copia entera, no silencia un NaN senalizante
+    volatile double y = pos[1];
+    out[1] = float(y);
+    out[2] = float(double(pos[2]) + double(std::bit_cast<float>(0x3F333333u))); // 0x858CB0
 }
 
 // AimGun (0x628350), rama de moto 0x6285F4..0x6286DB. gun = {x, y, z} del hueso de la mano (x e y ya sustituidos por la posicion del ped), target = {x, y, z}.
@@ -9673,19 +9786,52 @@ __declspec(noinline) float __cdecl GangDriveByAimRangeCpp(const float* pos, cons
 //   radianFn se declara con bits en x1/x2/y2 porque el EXE los empuja sin pasar por la x87);
 //   h = base - rumbo del vehiculo; r = float(sin(h) * lean + elevacion); c = float(cos(h)); s = clamp(forward[2], -1, 1) (con NaN se conserva);
 //   resultado = float(asin(s) * c + r) con el _CIasin del EXE. forward debe ser distinto de nullptr (el EXE lee forward[2] sin comprobar).
-__declspec(noinline) float __cdecl GangDriveByBikeElevationCpp(float (__cdecl* radianFn)(unsigned int, float, unsigned int, unsigned int), const float* target, const float* gun, float baseAngle, const float* forward, float heading, float lean) {
+__declspec(noinline) float __cdecl GangDriveByBikeElevationCpp(float (__cdecl* radianFn)(unsigned int, float, unsigned int, unsigned int), const float* target, const float* gun, float baseAngle, const float* forward, const float* heading, float lean) {
     const double dx = double(gun[0]) - double(target[0]);
     const double dy = double(gun[1]) - double(target[1]);
-    volatile float horizontal = float(JetPackSqrtExtCpp(dy * dy + dx * dx));
+    const double dxSquared = dx * dx;
+    const double horizontalRoot = JetPackSqrtExtCpp(dy * dy + dxSquared);
+    volatile float horizontal = float(horizontalRoot);
     // x1, x2 e y2 viajan como bits (el EXE los empuja con mov enteros: un NaN senalizante no se silencia); y1 es el float guardado.
     const double elevation = double(radianFn(*reinterpret_cast<const unsigned int*>(&target[2]), horizontal, *reinterpret_cast<const unsigned int*>(&gun[2]), 0u));
     const double h = GangDriveByBaseMinusHeadingDbl(baseAngle, forward, heading);
-    volatile float result = float(GangDriveBySinDbl(h) * double(lean) + elevation);
-    volatile float cosine = float(GangDriveByCosDbl(h));
-    const float fz = forward[2];
-    const float slope = (-1.0f > fz) ? -1.0f : ((1.0f < fz) ? 1.0f : fz); // 0x858C1C / 0x858624
-    result = float(ExeAsinDoubleCpp(double(slope)) * double(cosine) + double(result));
-    return result;
+    const double sum = GangDriveBySinDbl(h) * double(lean) + elevation;
+    volatile float result = float(sum);
+    const double h2 = GangDriveByBaseMinusHeadingDbl(baseAngle, forward, heading);
+    volatile float cosine = float(GangDriveByCosDbl(h2));
+
+    // Recorte de forward[2] a [-1, 1] como el EXE (0x62867F..0x6286CE): fld -1.0; fcomp [fz]; si fz < -1 -> -1; si no fld fz; fld 1.0; fcomp st(1); fstp st(0) (T-2 queda en 1.0)
+    // y, si 1.0 < fz -> 1.0; si no se repite la comparacion con -1.0 y, si -1.0 <= fz (o NaN), la pendiente es fz.
+    const float minusOne = -1.0f, plusOne = 1.0f; // 0x858C1C / 0x858624
+    const float* const fzPointer = &forward[2];
+    float slope;
+    bool oneRegisterLoaded = false;
+    if (GangDriveByGtCpp(&minusOne, fzPointer)) {
+        GangDriveByGtCpp(&minusOne, fzPointer); // 0x6286AD repite la comparacion
+        slope = minusOne;
+    } else {
+        oneRegisterLoaded = true;
+        if (GangDriveByLtCpp(&plusOne, fzPointer)) {
+            slope = plusOne;
+        } else {
+            GangDriveByGtCpp(&minusOne, fzPointer);
+            slope = *fzPointer;
+        }
+    }
+    // Registros muertos del EXE hasta el _CIasin (0x6286CE): T-4 = dx * dx; T-3 = forward[1] (con matriz, segundo fpatan del rumbo) o la raiz horizontal; T-2 = forward[1] del
+    // segundo rumbo (con matriz) o la suma sin * lean + elevacion, y 1.0 si el recorte cargo el 1.0. El _CIasin que sigue (rama |pendiente| < 1) sobrescribe T-2 con
+    // sqrt((1 + x)(1 - x)) y T-3 con 1 - x por si solo (ExeAsinDoubleCpp deja la misma pila que 0x821EA8..0x821EB4); con |pendiente| = 1 no los toca. Los valores se pasan por
+    // variables volatile para que la preparacion de los argumentos no apile registros por debajo del cuarto.
+    volatile double plantT4 = dxSquared;
+    volatile double plantT3 = forward ? double(forward[1]) : horizontalRoot;
+    volatile double plantT2 = forward ? double(forward[1]) : sum;
+    if (oneRegisterLoaded) {
+        plantT2 = 1.0;
+    }
+    X87PlantT4T3T2Cpp(plantT4, plantT3, plantT2);
+    const double asinValue = ExeAsinDoubleCpp(double(slope));
+    volatile float finalResult = float(asinValue * double(cosine) + double(result));
+    return finalResult;
 }
 #pragma float_control(pop)
 
@@ -9708,23 +9854,31 @@ constexpr double kZero     = 0.0;                                       // 0x858
 }
 
 // 0x610DB0: fild rand (ya enmascarado a 16 bits); fmul dword [0x858B14] (2^-15, exacto); fimul (limite superior - limite inferior, un redondeo a 24 bits);
-// call _ftol2. Devuelve los 32 bits bajos del entero de 64 bits truncado por _ftol2. El llamador suma el limite inferior.
-#pragma float_control(precise, on, push)
+// call _ftol2 (0x821B40). Devuelve los 32 bits bajos del entero de 64 bits truncado por _ftol2. El llamador suma el limite inferior.
+// Los dos enteros llegan como parametros (el compilador solo emite fimul con un entero en memoria) y 2^-15 como float volatile (un operando de memoria, no un registro
+// con la constante): la secuencia x87 es fld; fimul; fimul sobre un unico registro, como el EXE. El truncado lo hace Ftol2RegsDblCpp (mismas operaciones x87 que 0x821B40:
+// deja R y v - R en los dos registros muertos) y el volatile long long aporta las banderas PE/IE del fistp.
+static const volatile float kPopulationUnit15 = std::bit_cast<float>(0x38000000u); // 0x858B14 = 2^-15
+#pragma float_control(precise, off, push)
 __declspec(noinline) int __cdecl PopulationRandomRangeCpp(int random, int range) {
-    double value = double(random) * GeEnterCar::kUnit15;
-    value = value * double(range);
-    return static_cast<int>(static_cast<long long>(value));
+    const double value = double(random) * kPopulationUnit15 * double(range);
+    volatile long long truncated = static_cast<long long>(value); // PE/IE del fistp
+    (void)truncated;
+    return static_cast<int>(Ftol2RegsDblCpp(value, 0).eax);
 }
 #pragma float_control(pop)
 
 // 0x72D6D0 (CZoneDef::GetCenter): zona = 8 int16 {esquinaX, esquinaY, vec1X, vec1Y, vec2X, vec2Y, minZ, maxZ}.
 // x = (vec2X + vec1X) * 0.5 + esquinaX; y = (vec2Y + vec1Y) * 0.5 + esquinaY; z = (minZ + maxZ) * 0.5 (fild/fiadd/fmul dword [0x858B8C]/fiadd/fstp).
 // Todos los pasos son exactos (enteros de 16 bits); el EXE los guarda en el orden x, y, z (z se calcula primero y se guarda el ultimo).
-#pragma float_control(precise, on, push)
-__declspec(noinline) void __cdecl CullZoneCenterCpp(const short* zone, float* out) {
-    const double z = double(int(zone[6]) + int(zone[7])) * GeEnterCar::kHalf;
-    const double y = (double(int(zone[5])) + double(int(zone[3]))) * GeEnterCar::kHalf + double(int(zone[1]));
-    const double x = (double(int(zone[4])) + double(int(zone[2]))) * GeEnterCar::kHalf + double(int(zone[0]));
+// Los siete enteros llegan como parametros ya extendidos (zSum = minZ + maxZ): el compilador solo emite fiadd/fimul con un entero en memoria y, con 0.5f como float volatile
+// (operando de memoria en vez de un registro con la constante), la pila x87 no pasa de tres registros (z, y, x) y no deja residuo de enteros: igual que el EXE.
+static const volatile float kCullZoneHalf = std::bit_cast<float>(0x3F000000u); // 0x858B8C
+#pragma float_control(precise, off, push)
+__declspec(noinline) void __cdecl CullZoneCenterCpp(int zSum, int y5, int y3, int y1, int x4, int x2, int x0, float* out) {
+    const double z = double(zSum) * kCullZoneHalf;
+    const double y = (double(y5) + double(y3)) * kCullZoneHalf + double(y1);
+    const double x = (double(x4) + double(x2)) * kCullZoneHalf + double(x0);
     out[0] = float(x);
     out[1] = float(y);
     out[2] = float(z);
@@ -9777,83 +9931,91 @@ __declspec(noinline) void __cdecl EnterCarCamLateralCpp(const float* matrix, flo
 
 // 0x63A55A..0x63A67A (resto de la camara de EnterCar): camMinY = CColModel::m_boundBox.m_vecMin.y del coche; choice = byte [tarea+0x29] (0, 1 o 2);
 // t1 = float [0x86E684 + 4 * choice]; t2 = float [0x86E678 + 4 * choice]; limit = float [0x8D2ECC] (dato modificable del EXE).
-// Cada comparacion conserva el significado de su fcom/fcomp + test ah (con NaN: "mayor que" falso, "menor o igual" cierto, etc.).
-// Los operandos que el EXE usa como operando de memoria (fadd/fsub/fcomp dword [mem]) se leen por punteros volatile para que el compilador los emita igual que el EXE
-// (un fld previo marcaria la bandera DE con un subnormal incluso cuando el otro operando es NaN, y el EXE no).
+// Cada comparacion conserva el significado de su fcom/fcomp + test ah y se compila con la misma forma que el EXE (ST0 frente a un operando de memoria): con NaN el operando de
+// memoria no marca DE, y asi las banderas x87 salen como las del EXE. Los registros muertos que deja el EXE son T-3 = objetivo (copia para fcompp, antes de ajustar +-2pi),
+// T-2 = escalar (si delta > t1) o -t1 (si no); los escribe X87PlantT3T2Cpp antes de la comparacion final (T-1, el nuevo alfa o la vertical cargada, lo deja la propia secuencia).
+// Constantes del EXE como float volatile: el compilador las lee como operandos de memoria (como fadd/fsub/fcom dword [mem]) y no las deja en un registro de la pila x87.
+static const volatile float kEnterCarPi        = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
+static const volatile float kEnterCarTwoPi     = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+static const volatile float kEnterCarHalfPi    = std::bit_cast<float>(0x3FC90FDBu); // 0x858FE4
+static const volatile float kEnterCarNegHalfPi = std::bit_cast<float>(0xBFC90FDBu); // 0x859998
+static const volatile float kEnterCarZero      = 0.0f;                              // 0x858B50
+// Fuera de precise: con precise el compilador carga los dos operandos y usa fcompp; sin el, ST0 frente a operando de memoria (fcomp dword [mem]) como el EXE.
+// 0x63A548..0x63A56F: fld [colmodel+4]; fchs; fcomp dword [distancia]; test ah, 41h; jne: true si -min.y > distancia (con NaN, false).
+static __declspec(noinline) bool EnterCarCamBeyondCpp(const volatile float* minY, const volatile float* distance) {
+    return -double(*minY) > double(*distance);
+}
+// 0x63A64E..0x63A65B: fld dword [vertical]; fcomp dword [limite]; test ah, 41h; jne: true si vertical > limite (con NaN, false).
+static __declspec(noinline) bool EnterCarCamAboveCpp(const volatile float* vertical, const volatile float* limit) {
+    return double(*vertical) > double(*limit);
+}
 #pragma float_control(precise, on, push)
 // 0x63A63C..0x63A64C: fmul dword [t2] (delta en ST0); fadd dword [beta]; el llamador guarda el resultado con fstp dword.
 static __declspec(noinline) double EnterCarCamBetaSumCpp(double delta, const volatile float* t2, const volatile float* beta) {
     return delta * double(*t2) + double(*beta);
 }
-// 0x63A548..0x63A56F: fld [colmodel+4]; fchs; fcomp dword [distancia]; test ah, 41h; jne: true si -min.y > distancia (con NaN, false).
-// Con -min.y NaN el EXE no lee la distancia como operando (un subnormal no marca DE): se compara con 0, que deja IE y C0/C2/C3 igual (desordenado).
-// "distancia < -min.y" hace que el compilador emita fcompp con -min.y en ST0, el mismo C0/C3 que el fcomp del EXE.
-static __declspec(noinline) bool EnterCarCamBeyondCpp(const volatile float* minY, const volatile float* distance) {
-    const double negMinY = -double(*minY);
-    if (negMinY != negMinY) {
-        return negMinY > GeEnterCar::kZero;
-    }
-    return double(*distance) < -double(*minY);
+// 0x63A64E..0x63A674: fld t2; fmul t1; fsubr dword [alfa]; el llamador guarda el resultado con fstp dword. El producto sale de una funcion (ST0) para que la resta
+// use el operando de memoria (fsubr) y no cargue antes el alfa en un segundo registro.
+static __declspec(noinline) double EnterCarCamAlphaProductCpp(float t2, float t1) {
+    return double(t2) * double(t1);
 }
-// 0x63A64E..0x63A65B: fld dword [vertical]; fcomp dword [limite]; test ah, 41h; jne: true si vertical > limite (con NaN, false). Con vertical NaN no se lee el limite.
-static __declspec(noinline) bool EnterCarCamAboveCpp(const volatile float* vertical, const volatile float* limit) {
-    const double vert = double(*vertical);
-    if (vert != vert) {
-        return vert > GeEnterCar::kZero;
+static __declspec(noinline) double EnterCarCamAlphaCpp(const volatile float* alpha, float t2, float t1) {
+    const double product = EnterCarCamAlphaProductCpp(t2, t1);
+    return double(*alpha) - product;
+}
+// 0x63A571..0x63A63C: del objetivo (cima de la pila) al delta ya acotado. `x` = +-8 grados o el angulo; devuelve delta; target = objetivo antes de ajustar (copia que el EXE
+// compara con fcompp); second = escalar (delta > t1) o -t1. Las comparaciones con la copia usan `1,0 * copia` (registro, no operando de memoria): son fcompp como en el EXE.
+static __declspec(noinline) double EnterCarCamDeltaCpp(double x, float heading, const volatile float* dot, unsigned int choice, const volatile float* t1,
+                                                       const volatile float* horizontal, double* target, double* second) {
+    double objective = (choice == 1u) ? x + (double(heading) + kEnterCarPi) : double(heading) - x;
+    volatile double spill = objective;
+    *target = spill;
+    if (double(*horizontal) + kEnterCarPi < kPlantOne * double(spill)) {
+        objective = objective - kEnterCarTwoPi;
+    } else if (double(*horizontal) - kEnterCarPi > kPlantOne * double(spill)) {
+        objective = objective + kEnterCarTwoPi;
     }
-    return double(*limit) < double(*vertical);
+    double delta = objective - double(*horizontal);
+    const bool dotPositive = (kPlantOne * double(*dot)) > kEnterCarZero;
+    if (dotPositive == (choice == 1u)) {
+        if (delta <= kEnterCarNegHalfPi) {
+            delta = -delta;
+        }
+    } else {
+        if (delta >= kEnterCarHalfPi) {
+            delta = -delta;
+        }
+    }
+    if (delta > double(*t1)) {
+        delta = double(*t1);
+        *second = double(*dot);
+    } else {
+        volatile float negT1 = float(-double(*t1));
+        *second = double(negT1);
+        if (delta < double(negT1)) {
+            delta = double(negT1);
+        }
+    }
+    return delta;
 }
 __declspec(noinline) void __cdecl EnterCarCamStickCpp(float camMinY, float distance, float angle, float heading, float dot, unsigned int choice, float t1, float t2, float limit,
                                                       const volatile float* vertical, const volatile float* horizontal, float* alphaStick, float* betaStick) {
     using namespace GeEnterCar;
     // 0x63A548
     double x = double(angle);
-    const bool beyond = EnterCarCamBeyondCpp(&camMinY, &distance);
-    if (beyond) {
+    if (EnterCarCamBeyondCpp(&camMinY, &distance)) {
         x = (double(angle) > kZero) ? -kEightDeg : kEightDeg;
     }
-    // 0x63A571
-    double target;
-    if (choice == 1u) {
-        target = x + (double(heading) + kPi);
-    } else {
-        target = double(heading) - x;
-    }
-    // 0x63A58B: llevar target a (horizontal - pi, horizontal + pi]
-    if (target > double(*horizontal) + kPi) {
-        target = target - kTwoPi;
-    } else if (target < double(*horizontal) - kPi) {
-        target = target + kTwoPi;
-    }
-    double delta = target - double(*horizontal);
-    // 0x63A5C5
-    const bool dotPositive = double(dot) > kZero;
-    if (dotPositive == (choice == 1u)) {
-        if (delta <= kNegHalfPi) {
-            delta = -delta;
-        }
-    } else {
-        if (delta >= kHalfPi) {
-            delta = -delta;
-        }
-    }
-    // 0x63A5EE: acotar a [-t1, t1]
-    if (delta > double(t1)) {
-        delta = double(t1);
-    } else {
-        volatile float negT1 = float(-double(t1));
-        if (delta < double(negT1)) {
-            delta = double(negT1);
-        }
-    }
+    double target = 0.0, second = 0.0;
+    const double delta = EnterCarCamDeltaCpp(x, heading, &dot, choice, &t1, horizontal, &target, &second);
     // 0x63A63C
     volatile float beta = float(EnterCarCamBetaSumCpp(delta, &t2, betaStick));
     *betaStick = beta;
+    // Registros muertos del EXE T-3 y T-2 (los de T-1 los deja la propia comparacion o el calculo del alfa; la comparacion final fija C0..C3 y debe ir despues).
+    X87PlantT3T2Cpp(target, second);
     // 0x63A64E
-    const bool proceed = EnterCarCamAboveCpp(vertical, &limit);
-    if (proceed) {
-        volatile float alpha = float(double(*alphaStick) - double(t2) * double(t1));
-        *alphaStick = alpha;
+    if (EnterCarCamAboveCpp(vertical, &limit)) {
+        *alphaStick = float(EnterCarCamAlphaCpp(alphaStick, t2, t1)); // fstp dword [alfa] del registro sin releer: T-1 conserva el valor sin pasar por float
     }
 }
 #pragma float_control(pop)
@@ -9920,3 +10082,1239 @@ __declspec(noinline) void __cdecl QuaternionSlerpCpp(float* out, const float* fr
         out[3] = float(q3 + p3);
     }
 }
+
+// --- CVehicle::DoHeadLightEffect (0x6E0A50) y CVehicle::DoTailLightEffect (0x6E1780), lote g22b, prefijo VehHeadTail. Anexar al FINAL de X87Math.cpp. ---
+// Reutiliza JpFixMemOp / kJpFix* / JetPackNegSinExtCpp / JetPackCosExtCpp / FormationRootCpp (definidos mas arriba en este archivo) y Ftol2RegsDblCpp.
+// Convencion: lo que el EXE guarda con fstp dword es un float (o `volatile float`); lo que queda en la pila x87 es double (el proceso corre a 24 bits de mantisa con
+// exponente extendido). Cada `fop dword [mem]` con un registro ya cargado pasa por JpFixMemOp (semantica de NaN del hardware: una memoria senalizante pierde frente a un NaN silencioso
+// del registro y, si el registro es un numero, gana la memoria silenciada); los fld dword (que quitan la senal) y las operaciones registro-registro son double.
+
+// El seno (fsin; fchs, con el signo de NaN que da fchs) y el coseno salen de JetPackNegSinExtCpp / JetPackCosExtCpp (definidos mas arriba: fuera de precise, devuelven ST0 sin redondear).
+
+// Constantes del EXE (float cargado como double por fmul/fadd dword [mem]).
+static constexpr double kVehHeadTailHalf       = double(std::bit_cast<float>(0x3F000000u)); // 0x858B8C (0.5)
+static constexpr double kVehHeadTailThreeTenths    = double(std::bit_cast<float>(0x3E99999Au)); // 0x858C24 (0.3)
+static constexpr double kVehHeadTailFifth      = double(std::bit_cast<float>(0x3E4CCCCDu)); // 0x858CC4 y 0x8D3688 (0.2)
+static constexpr double kVehHeadTailTwoFifths  = double(std::bit_cast<float>(0x3ECCCCCDu)); // 0x8D3684 (0.4)
+static constexpr double kVehHeadTailInv150     = double(std::bit_cast<float>(0x3BDA740Eu)); // 0x862D6C (1/150)
+static constexpr double kVehHeadTailOne        = double(std::bit_cast<float>(0x3F800000u)); // 0x858624 (1.0)
+static constexpr double kVehHeadTail150        = double(std::bit_cast<float>(0x43160000u)); // 0x858A28 (150.0)
+
+#pragma float_control(precise, on, push)
+
+// CMatrix * CVector del EXE (0x59C890): x = ((up.x*z + fwd.x*y) + right.x*x) + pos.x; y = ((up.y*z + right.y*x) + fwd.y*y) + pos.y; z = ((up.z*z + right.z*x) + fwd.z*y) + pos.z,
+// sin redondear a float entre operaciones; m = float[16] como CMatrix (right 0, forward 4, up 8, pos 12), v y out = x, y, z (no se solapan).
+static __declspec(noinline) void VehHeadTailTransformCpp(const float* m, const float* v, float* out) {
+    const double xa = JpFixMemOp(kJpFixMul, double(m[8]), v + 2);
+    const double xb = JpFixMemOp(kJpFixMul, double(m[4]), v + 1);
+    const double xs = xa + xb;
+    const double xc = JpFixMemOp(kJpFixMul, double(m[0]), v + 0);
+    const double xt = xs + xc;
+    out[0] = float(JpFixMemOp(kJpFixAdd, xt, m + 12));
+    const double ya = JpFixMemOp(kJpFixMul, double(m[9]), v + 2);
+    const double yb = JpFixMemOp(kJpFixMul, double(m[1]), v + 0);
+    const double ys = ya + yb;
+    const double yc = JpFixMemOp(kJpFixMul, double(m[5]), v + 1);
+    const double yt = ys + yc;
+    out[1] = float(JpFixMemOp(kJpFixAdd, yt, m + 13));
+    const double za = JpFixMemOp(kJpFixMul, double(m[10]), v + 2);
+    const double zb = JpFixMemOp(kJpFixMul, double(m[2]), v + 0);
+    const double zs = za + zb;
+    const double zc = JpFixMemOp(kJpFixMul, double(m[6]), v + 1);
+    const double zt = zs + zc;
+    out[2] = float(JpFixMemOp(kJpFixAdd, zt, m + 14));
+}
+
+// CVector::NormaliseAndMag del EXE (0x59C970): suma (x*x + y*y) + z*z sin redondear; si es <= 0 (comparacion ordenada: NaN sigue) solo pone x = 1.0f y devuelve 1.0f;
+// si no, recip = 1.0 / sqrt(suma) (24 bits), cada componente = float(recip * componente) y devuelve 1.0 / recip (sin guardar a float: el llamador lo hace).
+static __declspec(noinline) float VehHeadTailNormaliseMagCpp(float* v) {
+    const double x = double(v[0]);
+    const double y = double(v[1]);
+    const double z = double(v[2]);
+    const double sum = (x * x + y * y) + z * z;
+    if (sum <= 0.0) {
+        v[0] = 1.0f;
+        return 1.0f;
+    }
+    const double root = FormationRootCpp(sum);
+    const double recip = 1.0 / root;
+    v[0] = float(JpFixMemOp(kJpFixMul, recip, v + 0));
+    v[1] = float(JpFixMemOp(kJpFixMul, recip, v + 1));
+    v[2] = float(JpFixMemOp(kJpFixMul, recip, v + 2));
+    return float(1.0 / recip);
+}
+
+// Parte comun: world = matriz * punto; delta = camara - world (fld camara; fsub [world], z, y, x, cada uno a float); mag = NormaliseAndMag(delta). Devuelve la magnitud y deja delta normalizado en d.
+static __declspec(noinline) float VehHeadTailDirectionCpp(const float* matrix, const float* point, const float* camera, float* d) {
+    float world[3];
+    VehHeadTailTransformCpp(matrix, point, world);
+    d[2] = float(JpFixMemOp(kJpFixSub, double(camera[2]), world + 2));
+    d[1] = float(JpFixMemOp(kJpFixSub, double(camera[1]), world + 1));
+    d[0] = float(JpFixMemOp(kJpFixSub, double(camera[0]), world + 0));
+    return VehHeadTailNormaliseMagCpp(d);
+}
+
+// CVehicle::DoHeadLightEffect 0x6E0AC5..0x6E0BD6. dummy = posicion del dummy en espacio del modelo (x, y, z); forward = frente de la matriz del vehiculo (x, y, z) o nulo si el vehiculo
+// no tiene matriz (entonces direccion = (-sin(heading), cos(heading), 0)); mirror = lado izquierdo (x = x - (x + x)); matrix = matriz del argumento (float[16] como CMatrix);
+// camera = posicion de la camara. Salidas: offset = punto (relativo al vehiculo) que se pasa a RegisterCorona, magnitude = distancia a la camara (0x59C970), dot = producto escalar
+// del vector normalizado a la camara con el frente de la matriz sumado z, y, x (float).
+__declspec(noinline) void __cdecl VehHeadTailHeadGeometryCpp(const float* dummy, const float* forward, float heading, bool mirror, const float* matrix, const float* camera,
+                                                             float* offset, float* magnitude, float* dot) {
+    double x1, y1;
+    volatile float z1;
+    if (forward) {
+        x1 = double(forward[0]) * kJpFixHeight;
+        y1 = double(forward[1]) * kJpFixHeight;
+        z1 = float(double(forward[2]) * kJpFixHeight);
+    } else {
+        x1 = JetPackNegSinExtCpp(heading) * kJpFixHeight;      // fld heading; fsin; fchs; fmul [0x858C28] (el seno de 64 bits llega al producto sin guardarse)
+        volatile float cosine = float(JetPackCosExtCpp(heading)); // fld heading; fcos; fstp dword
+        y1 = double(cosine) * kJpFixHeight;
+        z1 = float(double(0.0f) * kJpFixHeight);
+    }
+    float v[3];
+    v[0] = float(JpFixMemOp(kJpFixAdd, x1, dummy + 0));
+    v[1] = float(JpFixMemOp(kJpFixAdd, y1, dummy + 1));
+    v[2] = float(JpFixMemOp(kJpFixAdd, double(z1), dummy + 2));
+    if (mirror) {
+        const double twice = double(dummy[0]) + double(dummy[0]);
+        v[0] = float(JpFixMemOp(kJpFixSubr, twice, v + 0));
+    }
+    float d[3];
+    *magnitude = VehHeadTailDirectionCpp(matrix, v, camera, d);
+    const double tz = JpFixMemOp(kJpFixMul, double(d[2]), matrix + 6);
+    const double ty = JpFixMemOp(kJpFixMul, double(d[1]), matrix + 5);
+    const double tx = JpFixMemOp(kJpFixMul, double(d[0]), matrix + 4);
+    *dot = float((tz + ty) + tx);
+    offset[0] = v[0];
+    offset[1] = v[1];
+    offset[2] = v[2];
+}
+
+// CVehicle::DoTailLightEffect 0x6E1820..0x6E18CC. dummy = posicion del dummy (copiada como bits); mirror = lado izquierdo (x = x - (x + x) con la x original en memoria);
+// el producto escalar es el de la direccion a la camara con el trasero de la matriz: ((-fz*dz) + (-fy*dy)) + (-fx*dx).
+__declspec(noinline) void __cdecl VehHeadTailTailGeometryCpp(const float* dummy, bool mirror, const float* matrix, const float* camera, float* offset, float* magnitude, float* dot) {
+    float v[3];
+    memcpy(v, dummy, sizeof v);
+    if (mirror) {
+        const double twice = double(dummy[0]) + double(dummy[0]);
+        v[0] = float(JpFixMemOp(kJpFixSubr, twice, dummy + 0));
+    }
+    float d[3];
+    *magnitude = VehHeadTailDirectionCpp(matrix, v, camera, d);
+    const double tz = JpFixMemOp(kJpFixMul, -double(matrix[6]), d + 2);
+    const double ty = JpFixMemOp(kJpFixMul, -double(matrix[5]), d + 1);
+    const double tx = JpFixMemOp(kJpFixMul, -double(matrix[4]), d + 0);
+    *dot = float((tz + ty) + tx);
+    offset[0] = v[0];
+    offset[1] = v[1];
+    offset[2] = v[2];
+}
+
+// Rango comun: float(lodMultiplier * 150.0f) (fld [0xB6F118]; fmul [0x858A28]; fstp), calculado como double y guardado una sola vez.
+static __declspec(noinline) float VehHeadTailRangeCpp(float lodMultiplier) {
+    return float(double(lodMultiplier) * kVehHeadTail150);
+}
+
+// CVehicle::DoHeadLightEffect 0x6E0D09..0x6E0DAB. a = sqrtDot * 0.5 + 0.3 (sin redondear a float); size = float(((1 - magnitude * (1/150)) * 0.4) * sqrtDot);
+// tren (no tranvia): a = min(a + a, 1.0) y size = float(size * 4); halogeno: red = _ftol2(190 * a), blue = _ftol2(a * 255); si no red = _ftol2(210 * a), blue = _ftol2(a * 195)
+// (EAX completo de _ftol2: el llamador usa solo el byte bajo). range = float(lodMultiplier * 150).
+__declspec(noinline) void __cdecl VehHeadTailHeadCoronaCpp(float magnitude, float sqrtDot, float lodMultiplier, bool train, bool halogen,
+                                                           float* size, float* range, unsigned int* red, unsigned int* blue) {
+    double a = double(sqrtDot) * kVehHeadTailHalf + kVehHeadTailThreeTenths;  // fld sqrtDot; fmul [0.5]; fadd [0.3]
+    double s = double(magnitude) * kVehHeadTailInv150;                         // fld magnitude; fmul [1/150]
+    s = kVehHeadTailOne - s;                                                   // fsubr [1.0]
+    s = s * kVehHeadTailTwoFifths;                                             // fmul [0.4]
+    float sz = float(JpFixMemOp(kJpFixMul, s, &sqrtDot));                      // fmul dword [sqrtDot]; fstp dword
+    if (train) {
+        a = a + a;
+        if (1.0 < a) {
+            a = 1.0;
+        }
+        sz = float(double(sz) * 4.0);
+    }
+    if (halogen) {
+        *red = Ftol2RegsDblCpp(190.0 * a, 0).eax;
+        *blue = Ftol2RegsDblCpp(a * 255.0, 0).eax;
+    } else {
+        *red = Ftol2RegsDblCpp(210.0 * a, 0).eax;
+        *blue = Ftol2RegsDblCpp(a * 195.0, 0).eax;
+    }
+    *size = sz;
+    *range = VehHeadTailRangeCpp(lodMultiplier);
+}
+
+// CVehicle::DoTailLightEffect 0x6E1916..0x6E19E6. a = dot * 0.5 + 0.2; size = float(((1 - magnitude * (1/150)) * 0.2) * dot); tren (no tranvia): a = min(a * 3, 1.0) y size = float(size * 4);
+// mode 1 (freno): red = _ftol2(a * 128); mode 2: red = _ftol2(a * 96); mode 0: red = 0. range = float(lodMultiplier * 150).
+__declspec(noinline) void __cdecl VehHeadTailTailCoronaCpp(float magnitude, float dot, float lodMultiplier, bool train, int mode, float* size, float* range, unsigned int* red) {
+    double a = double(dot) * kVehHeadTailHalf + kVehHeadTailFifth;            // fld dot; fmul [0.5]; fadd [0.2]
+    double s = double(magnitude) * kVehHeadTailInv150;                         // fld magnitude; fmul [1/150]
+    s = kVehHeadTailOne - s;                                                   // fsubr [1.0]
+    s = s * kVehHeadTailFifth;                                                 // fmul [0.2]
+    float sz = float(JpFixMemOp(kJpFixMul, s, &dot));                          // fmul dword [dot]; fstp dword
+    if (train) {
+        a = a * 3.0;
+        if (1.0 < a) {
+            a = 1.0;
+        }
+        sz = float(double(sz) * 4.0);
+    }
+    unsigned int r = 0;
+    if (mode == 1) {
+        r = Ftol2RegsDblCpp(a * 128.0, 0).eax;
+    } else if (mode == 2) {
+        r = Ftol2RegsDblCpp(a * 96.0, 0).eax;
+    }
+    *red = r;
+    *size = sz;
+    *range = VehHeadTailRangeCpp(lodMultiplier);
+}
+
+#pragma float_control(pop)
+
+// --- Grupo g22c (BRIEF_21): CCam::WrapAngle (0x509BE0) y FxEmitter_c::CreateParticles (0x4A41E0). Anadir al FINAL de X87Math.cpp (usa X87FistpQword, definida mas arriba) ---
+// Todo es noinline y se compila con /O2 /Oi /arch:IA32 /fp:fast (PC24 del proceso). Cada bloque deja en la pila x87 los MISMOS valores muertos, las mismas banderas
+// (C0-C3 y acumuladas) y el mismo FTW/TOP que el tramo del EXE, porque los bancos (Dependencies22C) comparan el FNSAVE entero salvo FIP (kCompareDeadX87Registers = true).
+// Comprobado con un arnes aislado (fuera del repo, reversing/Dependencies22C/offline) que ejecuta los bytes reales del EXE reubicados frente a este codigo: ver README del banco.
+// Tecnicas que hay que conservar si se toca algo (el compilador cambia el codigo con cualquiera de ellas):
+//  - Las comparaciones van FUERA de `#pragma float_control(precise, on)`: con precise MSVC carga los dos operandos y emite `fcompp` (dos registros), sin precise emite `fld x; fcomp [y]`
+//    como el EXE. `*y > *x` carga x y compara con la memoria de y (C0-C3 de "x frente a y"); `*y < *x` es "x mayor que y". Con NaN son falsas (mascaras 5 y 41h).
+//  - Los valores que el EXE deja vivos en la pila (rate, visibilidad) se mantienen vivos hasta el final con sumideros volatile (el compilador no puede recolocarlos en el sitio).
+//  - La visibilidad 1.0/0.0 se lee de un volatile (el EXE hace `fld [0x858624]`/`fld [0x858B50]`); numerador y denominador van a volatile double para que el orden de carga sea el del EXE
+//    (dist - lodStart primero) y la pila no pase de tres registros.
+
+// CCam::WrapAngle (0x509BE0): while (a >= pi) a -= 2pi; while (a < -pi) a += 2pi; ST0 queda sin redondear entre pasos (con PC24 ya son 24 bits). Cada comparacion y cada paso es un
+// ayudante propio para que la pila x87 solo use el registro 1 y la comparacion salga `fld [a]; fcomp [pi]` (C0-C3 de "a frente a pi"). pi, 2pi y -pi son 0x858CB8, 0x858CBC y 0x858CC0.
+static __declspec(noinline) bool CamWrapAngleAtLeastPi(float v) { return 3.14159274101257f <= v; }
+static __declspec(noinline) bool CamWrapAngleBelowNegPi(float v) { return -3.14159274101257f > v; }
+static __declspec(noinline) float CamWrapAngleSubTwoPi(float v) { return v - 6.28318548202515f; }
+static __declspec(noinline) float CamWrapAngleAddTwoPi(float v) { return v + 6.28318548202515f; }
+__declspec(noinline) void __cdecl CamWrapAngleCpp(float* angle) {
+    if (CamWrapAngleAtLeastPi(*angle)) {
+        float v = *angle;
+        do { v = CamWrapAngleSubTwoPi(v); } while (CamWrapAngleAtLeastPi(v));
+        *angle = v;
+    }
+    if (CamWrapAngleBelowNegPi(*angle)) {
+        float v = *angle;
+        do { v = CamWrapAngleAddTwoPi(v); } while (CamWrapAngleBelowNegPi(v));
+        *angle = v;
+    }
+}
+
+// FxEmitter_c::CreateParticles (0x4A41E0), tramos x87.
+static const float s_g22cOne = 1.0f;
+static volatile float s_g22cVisibilityOne = 1.0f, s_g22cVisibilityZero = 0.0f;
+static volatile double s_g22cSinkVisibility, s_g22cSinkRate, s_g22cFtolRounded, s_g22cFtolFraction, s_g22cFtolSinkA, s_g22cFtolSinkB;
+static __declspec(noinline) bool G22cLess(const float* x, const float* y) { return *y > *x; }     // fld [x]; fcomp [y]: x < y ordenado
+static __declspec(noinline) bool G22cGreater(const float* x, const float* y) { return *y < *x; }  // fld [x]; fcomp [y]: x > y ordenado
+
+#pragma float_control(precise, on, push)
+// 0x4A4236..0x4A425D: lodStart/64 y lodEnd/64 como float (fild; fmul [1/64]; fstp dword).
+static __declspec(noinline) void G22cLod(unsigned int lodStartRaw, unsigned int lodEndRaw, float* lod) {
+    lod[0] = float(double(int(lodStartRaw)) * 0.015625f);
+    lod[1] = float(double(int(lodEndRaw)) * 0.015625f);
+}
+// 0x4A421C..0x4A42B8: rate = fild(rateMult) * 0.001f (0x858CDC) vive en el registro 1, la visibilidad en el 2 y count * vis * rate + intensidad en el 3 (fstp dword + mov): al salir los
+// tres registros muertos valen rate, vis y la suma, como en el EXE. La suma se copia al campo con movs enteros (el EXE hace `mov ecx,[esp+4]; mov [ebx+0x10],ecx`): sin volver a cargarla
+// en la x87 (un desnormal activaria DE sin que el EXE lo cargue).
+static __declspec(noinline) void G22cSumNear(float count, unsigned int rateMult, float* intensity) {
+    const double rate = double(int(rateMult)) * 0.001f;
+    const double visibility = s_g22cVisibilityOne;
+    volatile float sum = float((double(count) * visibility) * rate + *intensity);
+    s_g22cSinkVisibility = visibility;
+    s_g22cSinkRate = rate;
+    *reinterpret_cast<volatile unsigned int*>(intensity) = *reinterpret_cast<volatile unsigned int*>(&sum);
+}
+static __declspec(noinline) void G22cSumFar(float count, unsigned int rateMult, float* intensity) {
+    const double rate = double(int(rateMult)) * 0.001f;
+    const double visibility = s_g22cVisibilityZero;
+    volatile float sum = float((double(count) * visibility) * rate + *intensity);
+    s_g22cSinkVisibility = visibility;
+    s_g22cSinkRate = rate;
+    *reinterpret_cast<volatile unsigned int*>(intensity) = *reinterpret_cast<volatile unsigned int*>(&sum);
+}
+static __declspec(noinline) void G22cSumMid(const float* dist, const float* lod, float count, unsigned int rateMult, float* intensity) {
+    const double rate = double(int(rateMult)) * 0.001f;
+    volatile double numerator = double(*dist) - lod[0];
+    volatile double denominator = double(lod[1]) - lod[0];
+    const double visibility = 1.0f - numerator / denominator;
+    volatile float sum = float((double(count) * visibility) * rate + *intensity);
+    s_g22cSinkVisibility = visibility;
+    s_g22cSinkRate = rate;
+    *reinterpret_cast<volatile unsigned int*>(intensity) = *reinterpret_cast<volatile unsigned int*>(&sum);
+}
+#pragma float_control(pop)
+
+// 0x4A421C..0x4A4331 (todo lo que el EXE hace en la x87 entre ProcessEmissionInfo y la creacion de matrices): visibilidad por distancia (dist < lodStart -> 1; dist > lodEnd -> 0; si no
+// 1 - (dist - lodStart) / (lodEnd - lodStart)), intensidad += count * vis * rate (se guarda siempre), y los cinco filtros que hacen salir: viento < min, viento > max, lluvia < min,
+// lluvia > max e intensidad < 1.0f (todos ordenados: con NaN no salen). Devuelve false si el EXE sale. Las comparaciones de dist con lodStart/lodEnd son `fld dist; fcomp [lod]`.
+__declspec(noinline) bool __cdecl FxEmitterAccumulateCpp(float* intensity, const float* dist, unsigned int rateMult, unsigned int lodStartRaw, unsigned int lodEndRaw, float count,
+                                                         const float* minWind, const float* maxWind, const float* minRain, const float* maxRain, const float* wind, const float* rain) {
+    float lod[2];
+    G22cLod(lodStartRaw, lodEndRaw, lod);
+    if (G22cLess(dist, &lod[0])) {
+        G22cSumNear(count, rateMult, intensity);
+    } else if (G22cGreater(dist, &lod[1])) {
+        G22cSumFar(count, rateMult, intensity);
+    } else {
+        G22cSumMid(dist, lod, count, rateMult, intensity);
+    }
+    if (G22cLess(wind, minWind)) return false;
+    if (G22cGreater(wind, maxWind)) return false;
+    if (G22cLess(rain, minRain)) return false;
+    if (G22cGreater(rain, maxRain)) return false;
+    return !G22cLess(intensity, &s_g22cOne);
+}
+
+// _ftol2 (0x821B40) del EXE: fld st; fst dword; fistp qword; fild qword; fsubp; fstp dword (o, con R == 0 o R indefinido, dos fstp sin la resta). El _ftol2 del CRT de la DLL (SSE) deja
+// las mismas banderas PE/IE pero ningun valor en la pila: tras llamarlo se escriben aqui los dos registros que el EXE deja muertos (1 = v - R o v, 2 = R) con dos cargas y dos
+// almacenamientos (sin aritmetica ni comparaciones: no cambia banderas ni C0-C3). La resta v - R solo se hace fuera de la ruta corta, donde es exacta.
+static __declspec(noinline) void G22cFtolResidue(const volatile float* value) {
+    const double v = static_cast<double>(*value);
+    const long long rounded = X87FistpQword(v, _control87(0, 0) & _MCW_RC);
+    const bool shortPath = static_cast<unsigned int>(rounded) == 0 && (static_cast<unsigned int>(static_cast<unsigned long long>(rounded) >> 32) & 0x7FFFFFFFu) == 0;
+    s_g22cFtolRounded = static_cast<double>(rounded);
+    s_g22cFtolFraction = shortPath ? v : v - static_cast<double>(rounded);
+    const double fraction = s_g22cFtolFraction;
+    const double integer = s_g22cFtolRounded;
+    s_g22cFtolSinkB = integer;
+    s_g22cFtolSinkA = fraction;
+}
+// 0x4A43B0 / 0x4A440A: fld [intensidad]; call _ftol2 -> EAX (palabra baja del entero truncado).
+__declspec(noinline) int __cdecl FxEmitterTruncateCpp(const float* intensity) {
+    const int whole = int(static_cast<long long>(*intensity));
+    G22cFtolResidue(intensity);
+    return whole;
+}
+// 0x4A43CB..0x4A43FB: fild [paso]; fdiv [intensidad]; fmul [delta]; fstp dword [esp]. Devuelve ST0 sin redondear a float (el llamador lo guarda y la x87 lo redondea al guardarlo).
+__declspec(noinline) float __cdecl FxEmitterTimeSinceCpp(int step, const float* intensity, float deltaTime) {
+    return float(double(step) / *intensity * deltaTime);
+}
+// 0x4A4418..0x4A4431: fld [intensidad]; call _ftol2; fild eax; fsubr [intensidad]; fstp [intensidad] (la parte fraccionaria se queda).
+__declspec(noinline) void __cdecl FxEmitterTakeWholeCpp(float* intensity) {
+    volatile float* const memory = intensity;
+    const int whole = int(static_cast<long long>(*memory));
+    G22cFtolResidue(memory);
+    *memory = float(*memory - double(whole));
+}
+
+// --- Lote g22a (PointLights.cpp, 17/10/2026): GenerateLightsAffectingObject (0x6FFBB0), GetLightMultiplier (0x6FFE70), ProcessVerticalLineUsingCache (0x6FFFF0) y RenderFogEffect (0x7002D0) ---
+// Disposicion de CPointLight (0x30 bytes) para los ayudantes: pos {0x00}, direccion {0x0C}, radio 0x18, color RGB {0x1C}, entidad 0x28, tipo 0x2C, tipo de niebla 0x2D, sombras 0x2E.
+struct PointLightsRaw {
+    float pos[3];
+    float dir[3];
+    float radius;
+    float color[3];
+    const void* entity;
+    unsigned char type, fogType, shadows, pad;
+};
+static_assert(sizeof(PointLightsRaw) == 0x30, "CPointLight layout");
+
+// Raiz fuera de las regiones precise (alli el compilador llama a __CIsqrt): FSQRT en linea.
+static __declspec(noinline) double PointLightsSqrt(double value) {
+    return sqrt(value);
+}
+
+// Devuelve el argumento en ST0 sin tocarlo: fuerza que el primer operando de la operacion siguiente ya este en ST0 y el segundo sea un operando de memoria (FADD/FMUL m32), como en
+// el EXE. El compilador conmuta las operaciones conmutativas y cargaria antes el operando de memoria: con un NaN en el otro operando el EXE no marca un operando denormal (DE).
+static volatile unsigned int PointLightsPassCalls;
+static __declspec(noinline) double PointLightsPass(double value) {
+    PointLightsPassCalls = PointLightsPassCalls + 1;   // efecto observable: sin el, el compilador fusiona las llamadas iguales y reutiliza el valor en otro registro
+    return value;
+}
+
+/// --- Registros x87 muertos de CPointLights (mismo metodo que X87PlantStmt*Cpp de CTaskSimpleGangDriveBy): el EXE deja en los registros por debajo de la cima los ULTIMOS valores que
+// escribio; la logica real se compila con la pila mas baja posible (variables en memoria) y estas sentencias escriben al final los valores del EXE. El elemento neutro es -0,0 (no +0,0):
+// (-0) + x = x tambien para x = +-0 y la suma de dos -0 es -0, de modo que no cambia el signo de un cero.
+static const volatile float kPointLightsNegZero = -0.0f;
+#define POINTLIGHTS_PLANT_ZERO (kPointLightsNegZero * kPlantOne)
+#pragma float_control(precise, on, push)
+static __declspec(noinline) void PointLightsPlant6(double d) {
+    volatile double sink;
+    sink = (((POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO)) + ((POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO)))
+         + (((POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO)) + ((POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + (kPlantOne * d))));
+}
+static __declspec(noinline) void PointLightsPlant5(double d) {
+    volatile double sink;
+    sink = (((POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO)) + ((POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO)))
+         + (((POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO)) + ((POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + (kPlantOne * d))));
+}
+static __declspec(noinline) void PointLightsPlant4(double d) {
+    volatile double sink;
+    sink = ((POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO)) + ((POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + (kPlantOne * d)));
+}
+static __declspec(noinline) void PointLightsPlant3(double d) {
+    volatile double sink;
+    sink = (POINTLIGHTS_PLANT_ZERO + POINTLIGHTS_PLANT_ZERO) + (POINTLIGHTS_PLANT_ZERO + (kPlantOne * d));
+}
+static __declspec(noinline) void PointLightsPlant2(double d) {
+    volatile double sink;
+    sink = POINTLIGHTS_PLANT_ZERO + (kPlantOne * d);
+}
+static __declspec(noinline) void PointLightsPlant1(double d) {
+    volatile double sink;
+    sink = kPlantOne * d;
+}
+#pragma float_control(pop)
+
+// CPointLights::GetLightMultiplier (0x6FFE70). Pila x87 del EXE: F (producto de las luces ANTILIGHT, empieza en 1.0) debajo de S (suma, empieza en 0.0); el resultado F + S
+// queda en ST0 sin guardar como float (por eso devuelve double). Para cada luz que no es de tipo 3 ni 4: dx, dy, dz se guardan como float (dy y dz se comparan con el valor de
+// ST0 antes de guardarlo la primera vez y con el float guardado la segunda); la distancia (dz*dz + dy*dy) + dx*dx se queda en ST0 sin guardar como float.
+// Cada comparacion del EXE es "fld X; fcomp Y" (ST0 = X). MSVC carga el operando izquierdo en ST0 y, si el derecho es un double en memoria, lo usa como operando de FCOMP: por eso
+// X es siempre el izquierdo e Y un double volatile (negRadiusD/radiusD), y los codigos de condicion C0/C2/C3 finales coinciden con los del EXE.
+// Registros muertos (relativos a la cima de entrada): T-1 = resultado, T-2 = S (el EXE lo deja en su registro tras el ultimo faddp), T-3 = ultimo valor del primer registro temporal
+// (n1) y T-4 = ultimo valor del segundo (n2); el EXE no baja de ahi. F, S y los espejos n1/n2 viven en memoria (volatile) y se plantan al final.
+#pragma float_control(precise, on, push)
+extern "C" __declspec(noinline) double __cdecl PointLightsLightMultiplierDblCpp(const float* point, const void* lights, int count) {
+    volatile double F = 1.0;
+    volatile double S = 0.0;
+    volatile double n1 = 0.0, n2 = 0.0;
+    bool wrote1 = false, wrote2 = false;
+    if (count > 0) {
+        unsigned int counter = 0;
+        int index = 0;
+        do {
+            const PointLightsRaw* light = reinterpret_cast<const PointLightsRaw*>(lights) + index;
+            const unsigned type = light->type;
+            if (type != 3 && type != 4) {
+                wrote1 = true;
+                volatile float radius = light->radius;
+                volatile double radiusD = double(radius);
+                volatile double negRadiusD = -double(radius);
+                const double dxU = double(light->pos[0]) - double(point[0]);
+                volatile float dx = float(dxU);
+                n1 = double(dx);
+                if (dx > negRadiusD && dx < radiusD) {
+                    const double dyWide = double(light->pos[1]) - double(point[1]);
+                    volatile float dy = float(dyWide);
+                    volatile double dyU = dyWide;
+                    n1 = dyWide;
+                    if (dyU > negRadiusD) {
+                        n1 = double(dy);
+                    }
+                    if (dyU > negRadiusD && dy < radiusD) {
+                        const double dzWide = double(light->pos[2]) - double(point[2]);
+                        volatile float dz = float(dzWide);
+                        volatile double dzU = dzWide;
+                        n1 = dzWide;
+                        if (dzU > negRadiusD) {
+                            n1 = double(dz);
+                        }
+                        if (dzU > negRadiusD && dz < radiusD) {
+                            const double squared = (double(dz) * double(dz) + double(dy) * double(dy)) + double(dx) * double(dx);
+                            wrote2 = true;
+                            n2 = double(dx) * double(dx);
+                            volatile double distance = PointLightsSqrt(squared);
+                            n1 = distance;
+                            if (distance < radiusD) {
+                                volatile double ratio = double(distance) / double(radius);
+                                n1 = double(ratio);
+                                if (type == 2) {
+                                    F = F * double(ratio);
+                                } else {
+                                    volatile double attenuation = 1.0 - double(ratio);
+                                    n1 = double(attenuation);
+                                    volatile double redTerm = (double(attenuation) * double(light->color[0])) * double(0.33333334f);
+                                    S = S + double(redTerm);
+                                    n2 = double(redTerm);
+                                    volatile double greenTerm = (double(attenuation) * double(light->color[1])) * double(0.33333334f);
+                                    S = S + double(greenTerm);
+                                    n2 = double(greenTerm);
+                                    volatile double blueTerm = (double(attenuation) * double(light->color[2])) * double(0.33333334f);
+                                    S = S + double(blueTerm);
+                                    n1 = double(blueTerm);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            ++counter;
+            index = static_cast<short>(counter);
+        } while (index < count);
+    }
+    if (wrote2) {
+        PointLightsPlant4(n2);
+    }
+    if (wrote1) {
+        PointLightsPlant3(n1);
+    }
+    PointLightsPlant2(S);
+    return F + S;
+}
+#pragma float_control(pop)
+
+// CPointLights::ProcessVerticalLineUsingCache (0x6FFFF0), busqueda en las 32 entradas de aCachedMapReads (12 bytes cada una, x, y, z): "fld entrada; fcomp punto" ordenados de x, y y z
+// con salida en la primera diferencia (NaN nunca coincide; +0 y -0 coinciden). MSVC deja el operando derecho en ST0: la entrada va a la derecha y la igualdad se escribe como
+// dos comparaciones ordenadas (FCOMP, que da IE con NaN como el EXE; una igualdad "==" saldria como FUCOMP). Devuelve el indice de la primera coincidencia o -1.
+#pragma float_control(precise, on, push)
+__declspec(noinline) int __cdecl PointLightsCacheFindCpp(const float* cache, const float* point) {
+    int index = 0;
+    const float* entry = cache;
+    do {
+        bool equal = true;
+        for (int axis = 0; equal && axis < 3; ++axis) {
+            const unsigned int bits = *reinterpret_cast<const unsigned int*>(&entry[axis]);
+            if ((bits & 0x7FFFFFFFu) > 0x7F800000u) {
+                // Entrada NaN: en el EXE "fld entrada; fcomp punto" da IE y desordenado sin que el punto (aunque sea denormal) marque DE. Se copia la entrada a un double y se compara
+                // consigo misma (FLD entrada; FCOMP m64): un solo registro x87, como el EXE.
+                volatile double self = entry[axis];
+                volatile bool unordered = entry[axis] >= self;
+                (void)unordered;
+                equal = false;
+            } else {
+                // El punto pasa por un double volatile (FLD punto; FSTP m64: marca DE si es denormal, como el operando del FCOMP del EXE) y la entrada se carga la ultima y se
+                // compara con FCOMP m64: el EXE deja en T-1 la entrada (la ultima carga) y nada en T-2.
+                volatile double pointWide = point[axis];
+                equal = entry[axis] >= pointWide && entry[axis] <= pointWide;
+            }
+        }
+        if (equal) {
+            return index;
+        }
+        entry += 3;
+        ++index;
+    } while (entry < cache + 96);
+    return -1;
+}
+// Copia de float con fld/fstp (un NaN senalizante sale silenciado): los dos usos de 0x700070..0x7000B8 (cache de resultados y *outZ).
+__declspec(noinline) void __cdecl PointLightsFloatCopyCpp(const float* source, float* destination) {
+    *destination = *source;
+}
+// z - 20.0 (0x858BA4) como float: el segundo argumento de CWorld::ProcessVerticalLine (0x700054..0x700060, fld/fsub/fstp).
+__declspec(noinline) float __cdecl PointLightsVerticalEndZCpp(float z) {
+    return z - 20.0f;
+}
+#pragma float_control(pop)
+
+// CPointLights::GenerateLightsAffectingObject (0x6FFBB0), cuerpo del bucle para UNA luz (0x6FFBE0..0x6FFE48). Devuelve true si el EXE llamaria a AddAnExtraDirectionalLight
+// con args = {dx, dy, dz, rojo, verde, azul} (los tres primeros son copias crudas de los float guardados). *result es el acumulador de la pila ([esp+0x1c] del EXE); totalLighting
+// puede ser nulo. dy y dz se comparan primero con el valor de ST0 antes de guardarlo como float y luego con el float guardado; la distancia se guarda como float (FST) y se
+// compara su valor sin redondear con el radio. El orden y los operandos de cada operacion siguen el desensamblado; las comparaciones usan el mismo operando en ST0 que el EXE
+// (ver el comentario de GetLightMultiplier).
+// Registros muertos: el EXE solo usa la pila x87 para los temporales de cada luz (T-1 es el registro del resultado final, que escribe el fld de la salida) y deja en T-2 .. T-4 los
+// ultimos valores escritos: dx*dx (tras la distancia), y con totalLighting (1.0 - q) -> s1 (T-2), s2 (T-3) y a*G*K (T-4); despues dy/inverso (T-2) y, si es direccional, nx*dirx (T-2).
+// sh2..sh4 son espejos en memoria de esos registros y se plantan antes de salir (PointLightsPlant*), como en CTaskSimpleGangDriveBy.
+static volatile double kPointLightsZero = 0.0;
+static volatile double kPointLightsHalf = 0.5;
+static volatile double kPointLightsOne = 1.0;
+static volatile double kPointLightsThird = 0.33333334f;
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl PointLightsGenerateOneCpp(const void* lightPtr, const float* point, float* totalLighting, const void* entity, float* result, float* args) {
+    const PointLightsRaw* light = reinterpret_cast<const PointLightsRaw*>(lightPtr);
+    const unsigned type = light->type;
+    volatile double sh2, sh3, sh4;   // sin inicializar: un 0,0 inicial se quedaria en un registro x87 durante toda la funcion
+    bool w2 = false, w3 = false;
+    bool answer = false;
+    if (type == 3 || type == 4) {
+        goto done;
+    }
+    {
+    volatile float radius = light->radius;
+    volatile double radiusD = double(radius);
+    volatile double negRadiusD = -double(radius);
+    volatile float dx = float(double(light->pos[0]) - double(point[0]));
+    if (!(dx > negRadiusD && dx < radiusD)) {
+        goto done;
+    }
+    const double dyWide = double(light->pos[1]) - double(point[1]);
+    volatile float dy = float(dyWide);
+    volatile double dyU = dyWide;
+    if (!(dyU > negRadiusD && dy < radiusD)) {
+        goto done;
+    }
+    const double dzWide = double(light->pos[2]) - double(point[2]);
+    volatile float dz = float(dzWide);
+    volatile double dzU = dzWide;
+    if (!(dzU > negRadiusD && dz < radiusD)) {
+        goto done;
+    }
+    const double squared = (double(dz) * double(dz) + double(dy) * double(dy)) + double(dx) * double(dx);
+    w2 = true;
+    sh2 = double(dx) * double(dx);
+    volatile double distanceWide = PointLightsSqrt(squared);
+    volatile float distance = float(distanceWide);
+    if (!(distanceWide < radiusD)) {
+        goto done;
+    }
+    if (type == 2) {
+        volatile float scaled = float((double(distance) / double(radius)) * double(*result));
+        *result = scaled;
+        goto done;
+    }
+    volatile double ratio = double(distance) / double(radius);
+    if (totalLighting) {
+        // Cada termino parte de su propia copia de (1.0 - ratio) en ST0 (el EXE usa FLD ST0 y FMUL m32): con un NaN el EXE no marca el color denormal (DE). Todos los temporales
+        // van a memoria (volatile): la pila del EXE no pasa de cuatro registros y la de la DLL no debe pasar de ahi.
+        const double redA = PointLightsPass(kPointLightsOne - double(ratio));
+        volatile double redTerm = redA * double(light->color[0]);
+        const double redScaled = PointLightsPass(double(redTerm) * kPointLightsThird);
+        volatile double first = redScaled + double(*totalLighting);
+        *totalLighting = float(first);
+        const double greenA = PointLightsPass(kPointLightsOne - double(ratio));
+        volatile double greenTerm = greenA * double(light->color[1]);
+        volatile double greenScaled = double(greenTerm) * kPointLightsThird;
+        volatile double second = double(first) + double(greenScaled);
+        *totalLighting = float(second);
+        const double blueA = PointLightsPass(kPointLightsOne - double(ratio));
+        volatile double blueTerm = blueA * double(light->color[2]);
+        volatile double third = double(blueTerm) * kPointLightsThird + double(second);
+        *totalLighting = float(third);
+        w3 = true;
+        sh2 = double(second);
+        sh3 = double(third);
+        sh4 = double(greenScaled);
+    }
+    volatile float factor;
+    if (ratio < kPointLightsHalf) {
+        factor = 1.0f;
+    } else {
+        volatile double half = double(ratio) - 0.5;
+        half = double(half) + double(half);
+        factor = float(kPointLightsOne - double(half));
+    }
+    if (distance >= kPointLightsZero && distance <= kPointLightsZero) {
+        goto done;
+    }
+    volatile double inverse = kPointLightsOne / double(distance);
+    volatile float* out = args;   // los tres primeros son los float normalizados guardados (el EXE los copia crudos con MOV a los argumentos)
+    out[0] = float(double(dx) * double(inverse));
+    sh2 = double(dy) * double(inverse);
+    out[1] = float(double(sh2));
+    out[2] = float(double(inverse) * double(dz));
+    if (type == 1 && light->entity != entity) {
+        const double aZ = PointLightsPass(double(out[2]));
+        volatile double termZ = aZ * double(light->dir[2]);
+        const double aY = PointLightsPass(double(out[1]));
+        volatile double termY = aY * double(light->dir[1]);
+        volatile double dotZY = double(termZ) + double(termY);
+        const double aX = PointLightsPass(double(out[0]));
+        sh2 = aX * double(light->dir[0]);
+        volatile double dot = double(dotZY) + double(sh2);
+        volatile double value = -double(dot);
+        value = double(value) - kPointLightsHalf;
+        value = double(value) + double(value);
+        volatile float argument = float(double(value));
+        volatile double argumentD = double(argument);
+        const float maximum = (kPointLightsZero > argumentD) ? 0.0f : argument;
+        factor = float(double(maximum) * double(factor));
+    }
+    if (!(factor > kPointLightsZero)) {
+        goto done;
+    }
+    out[5] = float(double(factor) * double(light->color[2]));
+    out[4] = float(double(factor) * double(light->color[1]));
+    out[3] = float(double(factor) * double(light->color[0]));
+    answer = true;
+    }
+done:
+    if (w3) {
+        PointLightsPlant4(sh4);
+        PointLightsPlant3(sh3);
+        PointLightsPlant2(sh2);
+    } else if (w2) {
+        PointLightsPlant2(sh2);
+    }
+    return answer;
+}
+#pragma float_control(pop)
+
+// --- CPointLights::RenderFogEffect (0x7002D0): tramos aritmeticos entre llamadas a colaboradores ---
+// Constantes de comparacion como double volatile: MSVC carga el operando izquierdo en ST0 y usa el derecho (double en memoria) como operando de FCOM/FCOMP, igual que el EXE
+// (fld X; fcomp Y con X en ST0), de modo que C0/C2/C3 al volver son los del EXE. FUCOMP (==) no se usa: la igualdad se escribe con dos comparaciones ordenadas.
+static volatile double kPointLightsFogZero = 0.0;
+static volatile double kPointLightsFogTwelve = 12.0;
+static volatile double kPointLightsFogTwentyFive = 25.0;
+static volatile double kPointLightsFogFifteen = 15.0;
+static volatile double kPointLightsFogSevenAndHalf = 7.5;
+static volatile double kPointLightsFogFive = 5.0;
+static volatile double kPointLightsFogTen = 10.0;
+static volatile double kPointLightsFogTwenty = 20.0;
+static volatile double kPointLightsFogOne = 1.0;
+static volatile double kPointLightsFogTwelfth = 0.083333336f;
+static volatile double kPointLightsFogFifty = 50.0;
+static volatile double kPointLightsFogFifth = 0.2f;
+
+// Espejo de la pila x87 del EXE durante un tramo: Push/Set/Pop/Xch/BinP repiten, en el orden del desensamblado, las instrucciones que ESCRIBEN un registro (fld, operaciones
+// aritmeticas, fxch); un registro sacado conserva su ultimo valor, como en el hardware. Flush() planta al final los ultimos valores de T-1 .. T-m (PointLightsPlant*), que es lo que el
+// EXE deja en los registros muertos; la logica real se compila con variables en memoria para no escribir en ninguno mas profundo. Los valores se guardan como doubles (exactos: son
+// float o resultados de 24 bits de mantisa). v se pone a cero con escrituras enteras para que el constructor no toque la x87.
+struct PointLightsShadow {
+    volatile double v[8];
+    bool w[8];
+    int n;
+    __forceinline PointLightsShadow() : n(0) {
+        for (int i = 0; i < 8; ++i) {
+            reinterpret_cast<volatile unsigned long long*>(v)[i] = 0;
+            w[i] = false;
+        }
+    }
+    __forceinline void Push(double x) { v[n] = x; w[n] = true; ++n; }
+    __forceinline void Set(double x) { v[n - 1] = x; w[n - 1] = true; }
+    __forceinline void Pop() { --n; }
+    __forceinline void Xch(int i) { const double a = v[n - 1], b = v[n - 1 - i]; v[n - 1] = b; v[n - 1 - i] = a; w[n - 1] = w[n - 1 - i] = true; }
+    // operacion con destino st(k) que saca el operando (faddp st(1), fmulp st(2)...): el resultado va a v[n-1-k] y se saca la cima
+    __forceinline void BinP(int k, double x) { v[n - 1 - k] = x; w[n - 1 - k] = true; --n; }
+    // _ftol2 del EXE (0x821B40) con v en la cima: fld st(0), fistp, fild R, fsubp, fstp dword -> la cima queda con v - R (o con v si R es 0) y el registro siguiente con R
+    __forceinline void Ftol2(double x) {
+        const long long rounded = X87FistpQword(x, _control87(0, 0) & _MCW_RC);
+        const unsigned int low = unsigned(static_cast<unsigned long long>(rounded));
+        const unsigned int high = unsigned(static_cast<unsigned long long>(rounded) >> 32);
+        if (!(low == 0 && (high & 0x7FFFFFFFu) == 0)) {
+            volatile double difference = x - double(rounded);
+            v[n - 1] = difference;
+        } else {
+            v[n - 1] = x;
+        }
+        w[n - 1] = true;
+        v[n] = double(rounded);
+        w[n] = true;
+        --n;
+    }
+    __declspec(noinline) void Flush() {
+        int m = 0;
+        for (int i = 0; i < 8; ++i) {
+            if (w[i]) {
+                m = i + 1;
+            }
+        }
+        switch (m) {
+        case 8: case 7: case 6: PointLightsPlant6(v[5]);
+        case 5: PointLightsPlant5(v[4]);
+        case 4: PointLightsPlant4(v[3]);
+        case 3: PointLightsPlant3(v[2]);
+        case 2: PointLightsPlant2(v[1]);
+        case 1: PointLightsPlant1(v[0]);
+        default: break;
+        }
+    }
+};
+
+// _ftol2 del EXE (0x821B40): ST0 se guarda como float (FST dword: OE/UE/PE), FISTP qword con redondeo al mas cercano (PE/IE) y la correccion posterior deja el entero truncado. El _ftol2
+// de la DLL (FISTTP) da el mismo entero y las mismas banderas PE/IE; el almacenamiento a float se anade aqui para las banderas de desbordamiento y subdesbordamiento.
+static __forceinline long long PointLightsFogExeFtol2(double value) {
+    volatile float asFloat = float(value);
+    return static_cast<long long>(value);
+}
+// Conversion a entero de 16 bits como el EXE: _ftol2 (palabra baja del entero de 64 bits) y MOVSX AX.
+static __forceinline int PointLightsFogFtol16(double value) {
+    return static_cast<short>(PointLightsFogExeFtol2(value));
+}
+
+// 0x700370..0x70039D con fogType == 1: intensidad = float(CWeather::Foggyness) (FLD/FST); false si es exactamente 0 (FCOMP + TEST AH,44h + JNP). El EXE deja Foggyness en T-1 (lo mismo
+// que deja esta secuencia fld/fstp/fcomp).
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl PointLightsFogIntensityCpp(const float* foggyness, float* intensity) {
+    *intensity = *foggyness;
+    return !(*foggyness >= kPointLightsFogZero && *foggyness <= kPointLightsFogZero);
+}
+#pragma float_control(pop)
+
+// Tramo 0x7003AB..0x7004E9 (luz direccional): caja de la linea de 12 unidades expandida 5 por lado, alineada a multiplos de 4. out = {gx0, gx1, gy0, gy1} (gx1/gy1 ya con +4).
+// false si el EXE no entra en el bucle: gx0 > gx1 (descarta ademas la pila x87) o gy0 > gy1.
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl PointLightsFogDirBoundsCpp(const void* lightPtr, int* out) {
+    const PointLightsRaw* light = reinterpret_cast<const PointLightsRaw*>(lightPtr);
+    PointLightsShadow sh;
+    volatile double dirX12 = double(light->dir[0]) * 12.0;
+    sh.Push(double(light->dir[0]));
+    sh.Set(dirX12);
+    volatile double dirY12Wide = double(light->dir[1]) * 12.0;
+    sh.Push(double(light->dir[1]));
+    sh.Set(dirY12Wide);
+    volatile float dirY12 = float(dirY12Wide);
+    sh.Pop();
+    const double x1Base = PointLightsPass(double(dirX12));
+    volatile double x1 = x1Base + double(light->pos[0]);
+    sh.Set(x1);
+    sh.Push(double(dirY12));
+    const double y1Base = PointLightsPass(double(dirY12));
+    volatile double y1Wide = y1Base + double(light->pos[1]);
+    sh.Set(y1Wide);
+    volatile float y1 = float(y1Wide);
+    sh.Pop();
+    volatile double posXD = double(light->pos[0]);
+    volatile float loX, hiX;
+    if (x1 < posXD) {
+        loX = float(x1);
+        *reinterpret_cast<volatile unsigned int*>(&hiX) = *reinterpret_cast<const unsigned int*>(&light->pos[0]);
+    } else {
+        hiX = float(x1);
+        *reinterpret_cast<volatile unsigned int*>(&loX) = *reinterpret_cast<const unsigned int*>(&light->pos[0]);
+    }
+    sh.Pop();
+    sh.Push(double(y1));
+    sh.Pop();
+    volatile double posYD = double(light->pos[1]);
+    volatile double hiY, loY;
+    if (y1 < posYD) {
+        hiY = double(light->pos[1]);
+        loY = double(y1);
+        sh.Push(double(y1));
+        sh.Push(double(light->pos[1]));
+    } else {
+        hiY = double(y1);
+        loY = double(light->pos[1]);
+        sh.Push(double(light->pos[1]));
+        sh.Push(double(y1));
+    }
+    sh.Push(double(loX));
+    volatile double loX5Wide = double(loX) - kPointLightsFogFive;
+    sh.Set(loX5Wide);
+    volatile float loX5 = float(loX5Wide);
+    sh.Pop();
+    sh.Push(double(hiX));
+    volatile double hiX5Wide = double(hiX) + kPointLightsFogFive;
+    sh.Set(hiX5Wide);
+    volatile float hiX5 = float(hiX5Wide);
+    sh.Pop();
+    sh.Xch(1);
+    volatile double loY5Wide = double(loY) - kPointLightsFogFive;
+    sh.Set(loY5Wide);
+    volatile float loY5 = float(loY5Wide);
+    sh.Pop();
+    volatile double hiY5 = double(hiY) + kPointLightsFogFive;
+    sh.Set(hiY5);
+    sh.Push(double(loX5));
+    sh.Ftol2(double(loX5));
+    const int xa = PointLightsFogFtol16(double(loX5));
+    const int gx0 = xa - xa % 4;
+    sh.Push(double(hiX5));
+    sh.Ftol2(double(hiX5));
+    const int gx1 = PointLightsFogFtol16(double(hiX5)) + 4;
+    if (gx0 > gx1) {
+        sh.Pop();
+        sh.Flush();
+        return false;
+    }
+    sh.Push(double(loY5));
+    sh.Ftol2(double(loY5));
+    const int ya = PointLightsFogFtol16(double(loY5));
+    const int gy0 = ya - ya % 4;
+    sh.Ftol2(double(hiY5));
+    const int gy1 = PointLightsFogFtol16(hiY5) + 4;
+    sh.Flush();
+    out[0] = gx0;
+    out[1] = gx1;
+    out[2] = gy0;
+    out[3] = gy1;
+    return gy0 <= gy1;
+}
+#pragma float_control(pop)
+
+// Tramo 0x7004F2..0x7005A1 (celda de la luz direccional, antes de ProcessVerticalLine): solo las celdas con (gy>>2 ^ gx>>2) & 15 impar entran; el punto de la celda (gx, gy, z + 10)
+// debe quedar a menos de 12 por delante de la luz (producto con la direccion > 0 y < 12) y a menos de 5 del eje (cuadrado de la distancia perpendicular < 25). origin = {gx, gy, z + 10}
+// como float, *endZ = float(origin.z - 20) (segundo argumento de CWorld::ProcessVerticalLine) y *tab = ((gy>>2 ^ gx>>2) & 15) >> 1.
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl PointLightsFogDirCellPreCpp(const void* lightPtr, int gx, int gy, float* origin, float* endZ, int* tab) {
+    const PointLightsRaw* light = reinterpret_cast<const PointLightsRaw*>(lightPtr);
+    const int cell = ((gy >> 2) ^ (gx >> 2)) & 15;
+    if (!(cell & 1)) {
+        return false;
+    }
+    PointLightsShadow sh;
+    *tab = static_cast<short>(cell) >> 1;
+    sh.Push(double(gx));
+    origin[0] = float(double(gx));
+    volatile double oxWide = double(gx) - double(light->pos[0]);
+    sh.Set(oxWide);
+    volatile float ox = float(oxWide);
+    sh.Pop();
+    sh.Push(double(gy));
+    origin[1] = float(double(gy));
+    volatile double oyWide = double(gy) - double(light->pos[1]);
+    sh.Set(oyWide);
+    volatile float oy = float(oyWide);
+    sh.Pop();
+    sh.Push(double(ox));
+    const double oxBase = PointLightsPass(double(ox));
+    volatile double oxDir = oxBase * double(light->dir[0]);
+    sh.Set(oxDir);
+    sh.Push(double(oy));
+    const double oyBase = PointLightsPass(double(oy));
+    volatile double oyDir = oyBase * double(light->dir[1]);
+    sh.Set(oyDir);
+    volatile double dot = double(oxDir) + double(oyDir);
+    sh.BinP(1, dot);
+    volatile float dotF = float(dot);
+    sh.Pop();
+    if (!(dot > kPointLightsFogZero)) {
+        sh.Flush();
+        return false;
+    }
+    sh.Push(double(dotF));
+    sh.Pop();
+    if (!(dotF < kPointLightsFogTwelve)) {
+        sh.Flush();
+        return false;
+    }
+    sh.Push(double(oy));
+    volatile double oySquared = double(oy) * double(oy);
+    sh.Set(oySquared);
+    sh.Push(double(ox));
+    volatile double oxSquared = double(ox) * double(ox);
+    sh.Set(oxSquared);
+    volatile double plane = double(oySquared) + double(oxSquared);
+    sh.BinP(1, plane);
+    sh.Push(double(dotF));
+    volatile double dotSquared = double(dotF) * double(dotF);
+    sh.Set(dotSquared);
+    volatile double perpendicular = double(plane) - double(dotSquared);
+    sh.BinP(1, perpendicular);
+    sh.Pop();
+    if (!(perpendicular < kPointLightsFogTwentyFive)) {
+        sh.Flush();
+        return false;
+    }
+    volatile double originZWide = double(light->pos[2]) + kPointLightsFogTen;
+    sh.Push(double(light->pos[2]));
+    sh.Set(originZWide);
+    origin[2] = float(originZWide);
+    sh.Pop();
+    sh.Push(double(origin[2]));
+    volatile double endZWide = double(origin[2]) - kPointLightsFogTwenty;
+    sh.Set(endZWide);
+    *endZ = float(endZWide);
+    sh.Pop();
+    sh.Flush();
+    return true;
+}
+#pragma float_control(pop)
+
+// Tramo 0x70060E..0x700754 (luz direccional, tras ProcessVerticalLine con exito): nuevo punto de suelo z + 1.3 (0x859918), mismo filtro con el producto y la distancia perpendicular y
+// calculo del factor alfa que se queda en *alpha como float: (0x70070C..0x700754, ver abajo). posn = {gx, gy, z de suelo + 1.3} (argumento de CSprite::CalcScreenCoors). colPointZ apunta al
+// z del CColPoint; origin al origen que devolvio PointLightsFogDirCellPreCpp (x e y como float).
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl PointLightsFogDirCellPostCpp(const void* lightPtr, const float* origin, const float* colPointZ, const float* intensity, float* posn, float* alpha) {
+    const PointLightsRaw* light = reinterpret_cast<const PointLightsRaw*>(lightPtr);
+    PointLightsShadow sh;
+    sh.Push(double(*colPointZ));
+    volatile double groundZWide = double(*colPointZ) + double(1.2999999523162842);
+    sh.Set(groundZWide);
+    volatile float groundZ = float(groundZWide);
+    sh.Pop();
+    sh.Push(double(origin[0]));
+    volatile double oxWide = double(origin[0]) - double(light->pos[0]);
+    sh.Set(oxWide);
+    volatile float ox = float(oxWide);
+    sh.Pop();
+    sh.Push(double(origin[1]));
+    volatile double oyWide = double(origin[1]) - double(light->pos[1]);
+    sh.Set(oyWide);
+    volatile float oy = float(oyWide);
+    sh.Pop();
+    sh.Push(double(groundZ));
+    const double groundBase = PointLightsPass(double(groundZ));
+    volatile double ozWide = groundBase - double(light->pos[2]);
+    sh.Set(ozWide);
+    volatile float oz = float(ozWide);
+    const double ozBase = PointLightsPass(double(ozWide));
+    volatile double ozDir = ozBase * double(light->dir[2]);
+    sh.Set(ozDir);
+    sh.Push(double(ox));
+    const double oxBase = PointLightsPass(double(ox));
+    volatile double oxDir = oxBase * double(light->dir[0]);
+    sh.Set(oxDir);
+    volatile double dotZX = double(ozDir) + double(oxDir);
+    sh.BinP(1, dotZX);
+    sh.Push(double(oy));
+    const double oyBase = PointLightsPass(double(oy));
+    volatile double oyDir = oyBase * double(light->dir[1]);
+    sh.Set(oyDir);
+    volatile double dot = double(dotZX) + double(oyDir);
+    sh.BinP(1, dot);
+    volatile float dotF = float(dot);
+    sh.Pop();
+    if (!(dot > kPointLightsFogZero)) {
+        sh.Flush();
+        return false;
+    }
+    sh.Push(double(dotF));
+    sh.Pop();
+    if (!(dotF < kPointLightsFogTwelve)) {
+        sh.Flush();
+        return false;
+    }
+    sh.Push(double(oz));
+    volatile double ozSquared = double(oz) * double(oz);
+    sh.Set(ozSquared);
+    sh.Push(double(oy));
+    volatile double oySquared = double(oy) * double(oy);
+    sh.Set(oySquared);
+    volatile double zy = double(ozSquared) + double(oySquared);
+    sh.BinP(1, zy);
+    sh.Push(double(ox));
+    volatile double oxSquared = double(ox) * double(ox);
+    sh.Set(oxSquared);
+    volatile double zyx = double(zy) + double(oxSquared);
+    sh.BinP(1, zyx);
+    volatile float distSquared = float(zyx);
+    sh.Pop();
+    sh.Push(double(dotF));
+    volatile double dotSquared = double(dotF) * double(dotF);
+    sh.Set(dotSquared);
+    volatile double perpendicular = double(distSquared) - double(dotSquared);
+    sh.Set(perpendicular);
+    if (!(perpendicular < kPointLightsFogTwentyFive)) {
+        sh.Pop();
+        sh.Flush();
+        return false;
+    }
+    volatile double rootPerp = PointLightsSqrt(perpendicular);
+    sh.Set(rootPerp);
+    // 0x70070C..0x700754: pila [S = raiz perpendicular]
+    sh.Push(double(dotF));
+    volatile double u = double(dotF) * kPointLightsFogTwelfth;
+    sh.Set(u);
+    sh.Push(double(distSquared));
+    volatile double sd = PointLightsSqrt(double(distSquared));
+    sh.Set(sd);
+    volatile double ratio = double(dotF) / double(sd);
+    sh.Set(ratio);
+    const double ratioBase = PointLightsPass(double(ratio));
+    volatile double scaled0 = ratioBase * double(*intensity);
+    sh.Set(scaled0);
+    volatile double scaled = double(scaled0) * kPointLightsFogFifty;
+    sh.Set(scaled);
+    sh.Push(double(u));
+    volatile double uu = double(u) * double(u);
+    sh.Set(uu);
+    volatile double oneMinusUU = kPointLightsFogOne - double(uu);
+    sh.Set(oneMinusUU);
+    volatile double window = double(scaled) * double(oneMinusUU);
+    sh.BinP(1, window);
+    sh.Push(double(rootPerp));
+    volatile double rootFifth = double(rootPerp) * kPointLightsFogFifth;
+    sh.Set(rootFifth);
+    sh.Xch(3);
+    volatile double rootFifth2 = double(rootPerp) * kPointLightsFogFifth;
+    sh.Set(rootFifth2);
+    volatile double edge = double(rootFifth) * double(rootFifth2);
+    sh.BinP(3, edge);
+    sh.Xch(2);
+    volatile double oneMinusEdge = kPointLightsFogOne - double(edge);
+    sh.Set(oneMinusEdge);
+    volatile double alphaWide = double(window) * double(oneMinusEdge);
+    sh.BinP(2, alphaWide);
+    sh.Xch(1);
+    sh.Pop();
+    sh.Pop();
+    *alpha = float(alphaWide);
+    sh.Flush();
+    // copias crudas (MOV) como las del EXE: ningun FLD/FSTP intermedio
+    *reinterpret_cast<unsigned int*>(&posn[0]) = *reinterpret_cast<const unsigned int*>(&origin[0]);
+    *reinterpret_cast<unsigned int*>(&posn[1]) = *reinterpret_cast<const unsigned int*>(&origin[1]);
+    *reinterpret_cast<unsigned int*>(&posn[2]) = *reinterpret_cast<volatile unsigned int*>(&groundZ);
+    return true;
+}
+#pragma float_control(pop)
+
+// Tramo 0x700898..0x7009A8 (luz no direccional, tras ProcessVerticalLineUsingCache con exito): caja de lado 2*size alrededor de la luz (size = 9 con niebla 1, 3 con niebla 2),
+// alineada a multiplos de 2. out = {gx0, gx1, gy0, gy1} (gx1/gy1 ya con +2); false si no entra (gx0 > gx1 o gy0 > gy1).
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl PointLightsFogPointBoundsCpp(const void* lightPtr, const float* size, int* out) {
+    const PointLightsRaw* light = reinterpret_cast<const PointLightsRaw*>(lightPtr);
+    PointLightsShadow sh;
+    sh.Push(double(light->pos[0]));
+    volatile double xLow = double(light->pos[0]) - double(*size);
+    sh.Set(xLow);
+    sh.Push(double(*size));
+    volatile double xHighWide = double(*size) + double(light->pos[0]);
+    sh.Set(xHighWide);
+    volatile float xHigh = float(xHighWide);
+    sh.Pop();
+    sh.Push(double(light->pos[1]));
+    volatile double yLowWide = double(light->pos[1]) - double(*size);
+    sh.Set(yLowWide);
+    volatile float yLow = float(yLowWide);
+    sh.Pop();
+    sh.Push(double(*size));
+    volatile double yHighWide = double(*size) + double(light->pos[1]);
+    sh.Set(yHighWide);
+    volatile float yHigh = float(yHighWide);
+    sh.Pop();
+    sh.Ftol2(double(xLow));
+    const int xa = PointLightsFogFtol16(double(xLow));
+    const int gx0 = xa - xa % 2;
+    sh.Push(double(xHigh));
+    sh.Ftol2(double(xHigh));
+    const int gx1 = PointLightsFogFtol16(double(xHigh)) + 2;
+    if (gx0 > gx1) {
+        sh.Flush();
+        return false;
+    }
+    sh.Push(double(yLow));
+    sh.Ftol2(double(yLow));
+    const int ya = PointLightsFogFtol16(double(yLow));
+    const int gy0 = ya - ya % 2;
+    sh.Push(double(yHigh));
+    sh.Ftol2(double(yHigh));
+    const int gy1 = PointLightsFogFtol16(double(yHigh)) + 2;
+    sh.Flush();
+    out[0] = gx0;
+    out[1] = gx1;
+    out[2] = gy0;
+    out[3] = gy1;
+    return gy0 <= gy1;
+}
+#pragma float_control(pop)
+
+// Tramo 0x70094F..0x700A9C (celda de la luz no direccional, antes de CalcScreenCoors): cell = ((gy/2) ^ (gx/2)) & 15 debe ser impar; la distancia de la celda a la luz debe ser menor
+// que size y la de la celda a la camara menor de 15; la atenuacion (1 hasta 7.5 de la camara, despues 1 - (d - 7.5)*0.13333334) y 1 - (d/size)^2 dan el alfa de *alpha (por intensidad y 37).
+// posn = {gx, gy, z de CPointLights::ProcessVerticalLineUsingCache + 1.6}; *tab = cell >> 1; camera apunta a x, y, z.
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl PointLightsFogPointCellPreCpp(const void* lightPtr, int gx, int gy, const float* size, const float* camera, const float* intensity, const float* groundZ, float* posn, float* alpha, int* tab) {
+    const PointLightsRaw* light = reinterpret_cast<const PointLightsRaw*>(lightPtr);
+    const int cell = (((gy - (gy >> 31)) >> 1) ^ ((gx - (gx >> 31)) >> 1)) & 15;
+    if (!(cell & 1)) {
+        return false;
+    }
+    PointLightsShadow sh;
+    *tab = static_cast<short>(cell) >> 1;
+    sh.Push(double(gy));
+    sh.Push(double(gy));
+    volatile double oy = double(gy) - double(light->pos[1]);
+    sh.Set(oy);
+    sh.Push(double(gx));
+    volatile float gxf = float(double(gx));
+    volatile double ox = double(gx) - double(light->pos[0]);
+    sh.Set(ox);
+    sh.Push(double(ox));
+    volatile double oxSquared = double(ox) * double(ox);
+    sh.Set(oxSquared);
+    sh.Push(double(oy));
+    volatile double oySquared = double(oy) * double(oy);
+    sh.Set(oySquared);
+    volatile double planeSquared = double(oxSquared) + double(oySquared);
+    sh.BinP(1, planeSquared);
+    volatile double distanceWide = PointLightsSqrt(planeSquared);
+    sh.Set(distanceWide);
+    sh.BinP(2, distanceWide);   // fstp st(2): copia la cima en T-2 y la saca
+    sh.Pop();
+    volatile float distance = float(distanceWide);
+    volatile double sizeD = double(*size);
+    sh.Pop();
+    if (!(distanceWide < sizeD)) {
+        sh.Flush();
+        return false;
+    }
+    sh.Push(double(gy));
+    volatile double cameraY1 = double(gy) - double(camera[1]);
+    sh.Set(cameraY1);
+    sh.Push(double(gy));
+    volatile double cameraY2 = double(gy) - double(camera[1]);
+    sh.Set(cameraY2);
+    volatile double cameraY = double(cameraY1) * double(cameraY2);
+    sh.BinP(1, cameraY);
+    sh.Push(double(gxf));
+    volatile double cameraX1 = double(gxf) - double(camera[0]);
+    sh.Set(cameraX1);
+    sh.Push(double(gxf));
+    volatile double cameraX2 = double(gxf) - double(camera[0]);
+    sh.Set(cameraX2);
+    volatile double cameraX = double(cameraX1) * double(cameraX2);
+    sh.BinP(1, cameraX);
+    volatile double cameraPlane = double(cameraY) + double(cameraX);
+    sh.BinP(1, cameraPlane);
+    volatile double cameraDistanceWide = PointLightsSqrt(cameraPlane);
+    sh.Set(cameraDistanceWide);
+    volatile float cameraDistance = float(cameraDistanceWide);
+    sh.Pop();
+    if (!(cameraDistanceWide < kPointLightsFogFifteen)) {
+        sh.Flush();
+        return false;
+    }
+    sh.Push(double(cameraDistance));
+    sh.Pop();
+    volatile double fade;
+    if (cameraDistance < kPointLightsFogSevenAndHalf) {
+        fade = 1.0;
+        sh.Push(1.0);
+    } else {
+        sh.Push(double(cameraDistance));
+        volatile double fadeA = double(cameraDistance) - kPointLightsFogSevenAndHalf;
+        sh.Set(fadeA);
+        volatile double fadeB = double(fadeA) * double(0.13333334f);
+        sh.Set(fadeB);
+        fade = kPointLightsFogOne - double(fadeB);
+        sh.Set(fade);
+    }
+    sh.Push(1.0);
+    volatile double inverseSize = kPointLightsFogOne / double(*size);
+    sh.Set(inverseSize);
+    volatile double ratio = double(inverseSize) * double(distance);
+    sh.Set(ratio);
+    sh.Push(double(ratio));
+    volatile double ratioSquared = double(ratio) * double(ratio);
+    sh.Set(ratioSquared);
+    volatile double inside = kPointLightsFogOne - double(ratioSquared);
+    sh.Set(inside);
+    volatile double faded = double(inside) * double(fade);
+    sh.Set(faded);
+    volatile double withIntensity = double(faded) * double(*intensity);
+    sh.Set(withIntensity);
+    volatile double alphaWide = double(withIntensity) * 37.0;
+    sh.Set(alphaWide);
+    sh.Pop();
+    sh.Pop();
+    sh.Pop();
+    *alpha = float(alphaWide);
+    *reinterpret_cast<unsigned int*>(&posn[0]) = *reinterpret_cast<volatile unsigned int*>(&gxf);
+    posn[1] = float(double(gy));
+    sh.Pop();
+    sh.Push(double(*groundZ));
+    volatile double posnZWide = double(*groundZ) + double(1.600000023841858);
+    sh.Set(posnZWide);
+    posn[2] = float(posnZWide);
+    sh.Pop();
+    sh.Flush();
+    return true;
+}
+#pragma float_control(pop)
+
+// Argumentos de CSprite::RenderBufferedOneXLUSprite_Rotate_Aspect (0x70E780) tras CalcScreenCoors con exito (0x70076A..0x700817 y 0x700AAC..0x700B6B): angulo = float(timeValue *
+// 0.0007666015625 (direccional, 0x872610) o 0.000191650390625 (resto, 0x872600)), 1/z, intensidad y RGB como low32(_ftol2(alfa [* color])), tamanos h*tab[tab] (* 0.7 en las luces no
+// direccionales) y w*tab[tab]. screen = {x, y, z} que devolvio CalcScreenCoors (copias crudas); alpha = el float que dejo PointLightsFogDirCellPostCpp/PointLightsFogPointCellPreCpp.
+// Registros muertos: el EXE deja T-1 = w*tab (sin guardar) y T-2 = el entero redondeado de la conversion del rojo (_ftol2).
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl PointLightsFogSpriteCpp(const void* lightPtr, const float* alpha, const float* screen, float w, float h, const float* table, int tab, int timeValue, bool pointLight, PointLightsFogSprite* result) {
+    const PointLightsRaw* light = reinterpret_cast<const PointLightsRaw*>(lightPtr);
+    PointLightsShadow sh;
+    result->angle = float(double(timeValue) * (pointLight ? 0.000191650390625 : 0.0007666015625));
+    result->recipNearZ = float(1.0 / double(screen[2]));
+    // alpha va a una variable volatile double y se multiplica siempre como primer operando (FLD alpha; FMUL color): con alpha NaN el EXE no marca el operando denormal del color
+    volatile double alphaWide = double(*alpha);
+    result->intensity = static_cast<int>(PointLightsFogExeFtol2(alphaWide));
+    sh.Push(alphaWide);
+    sh.Ftol2(alphaWide);
+    const double alphaBlue = PointLightsPass(alphaWide);
+    volatile double blue = alphaBlue * double(light->color[2]);
+    result->blue = static_cast<int>(PointLightsFogExeFtol2(blue));
+    sh.Push(blue);
+    sh.Ftol2(blue);
+    const double alphaGreen = PointLightsPass(alphaWide);
+    volatile double green = alphaGreen * double(light->color[1]);
+    result->green = static_cast<int>(PointLightsFogExeFtol2(green));
+    sh.Push(green);
+    sh.Ftol2(green);
+    const double alphaRed = PointLightsPass(alphaWide);
+    volatile double red = alphaRed * double(light->color[0]);
+    result->red = static_cast<int>(PointLightsFogExeFtol2(red));
+    sh.Push(red);
+    sh.Ftol2(red);
+    if (pointLight) {
+        result->h = float((double(h) * double(table[tab])) * double(0.7f));
+    } else {
+        result->h = float(double(h) * double(table[tab]));
+    }
+    volatile double wTab = double(w) * double(table[tab]);
+    result->w = float(wTab);
+    sh.Push(wTab);
+    sh.Pop();
+    sh.Flush();
+    *reinterpret_cast<unsigned int*>(&result->x) = *reinterpret_cast<const unsigned int*>(&screen[0]);
+    *reinterpret_cast<unsigned int*>(&result->y) = *reinterpret_cast<const unsigned int*>(&screen[1]);
+    *reinterpret_cast<unsigned int*>(&result->z) = *reinterpret_cast<const unsigned int*>(&screen[2]);
+}
+#pragma float_control(pop)

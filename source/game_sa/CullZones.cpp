@@ -58,10 +58,11 @@ void CCullZones::InjectHooks() {
 }
 
 // 0x72D6D0
-// Como el original: fild/fiadd exactos (int16), fmul por 0.5f (0x858B8C) y fstp dword en el orden x, y, z; el aritmetico esta en X87Math.cpp. Devuelve out (EAX);
+// Como el original: fild/fiadd exactos (int16), fmul por 0.5f (0x858B8C) y fstp dword en el orden x, y, z; el aritmetico esta en X87Math.cpp. Los enteros se pasan ya extendidos
+// (el compilador solo emite fiadd/fimul con un entero en memoria, y asi la pila x87 y los registros muertos son los del EXE). Devuelve out (EAX);
 // el unico llamador del EXE (CCamera::CamControl, 0x529312) sobrescribe ECX y EDX antes de leerlos, asi que no hay residuo que reproducir.
 CVector* CZoneDef::GetCenter(CVector& out) const {
-    CullZoneCenterCpp(&m_cornerX, &out.x);
+    CullZoneCenterCpp(int(m_minZ) + int(m_maxZ), m_vec2Y, m_vec1Y, m_cornerY, m_vec2X, m_vec1X, m_cornerX, &out.x);
     return &out;
 }
 

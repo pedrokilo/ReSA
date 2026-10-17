@@ -1,0 +1,42 @@
+50a000: fstp st(0)
+50a002: call 0x509be0
+50a007: lea eax, [ebx + 0x40]
+50a00a: mov ebx, dword ptr [esp + 0x30]
+50a00e: fld dword ptr [ebx]
+50a010: push eax
+50a011: fsub dword ptr [0xb6ff60]
+50a017: fstp dword ptr [eax]
+50a019: call 0x509be0
+50a01e: mov eax, dword ptr [edi]
+50a020: mov dword ptr [0xb6ff80], eax
+50a025: mov ecx, dword ptr [edi + 4]
+50a028: mov dword ptr [0xb6ff84], ecx
+50a02e: mov eax, dword ptr [edi + 8]
+50a031: mov dword ptr [0xb6ff88], eax
+50a036: mov ecx, dword ptr [esi]
+50a038: add esp, 8
+50a03b: mov dword ptr [0xb6ff74], ecx
+50a041: mov eax, dword ptr [esi + 4]
+50a044: mov dword ptr [0xb6ff78], eax
+50a049: mov ecx, dword ptr [esi + 8]
+50a04c: mov dword ptr [0xb6ff7c], ecx
+50a052: mov eax, dword ptr [edx]
+50a054: mov dword ptr [0xb6ff68], eax
+50a059: mov ecx, dword ptr [edx + 4]
+50a05c: mov eax, dword ptr [esp + 0x30]
+4a4460: mov al, byte ptr [ecx + 0xc]
+4a4463: test al, al
+4a4465: je 0x4a4475
+4a4467: mov eax, dword ptr [ecx + 8]
+4a446a: test byte ptr [eax + 0x62], 8
+4a446e: jne 0x4a4475
+4a4470: jmp 0x4a41e0
+4a4475: ret 8
+4a4478: nop 
+4a4479: nop 
+4a447a: nop 
+4a447b: nop 
+4a447c: nop 
+4a447d: nop 
+4a447e: nop 
+4a447f: nop 

@@ -1,0 +1,43 @@
+0054E9D0: mov eax,dword ptr [ecx+000001A0h]
+0054E9D6: lea edx,[ecx+000001A4h]
+0054E9DC: cmp eax,edx
+0054E9DE: je 0054EA07
+0054E9E0: mov edx,dword ptr [eax+50h]
+0054E9E3: push esi
+0054E9E4: mov esi,dword ptr [eax+4Ch]
+0054E9E7: mov dword ptr [edx+4Ch],esi
+0054E9EA: mov edx,dword ptr [eax+4Ch]
+0054E9ED: mov esi,dword ptr [eax+50h]
+0054E9F0: mov dword ptr [edx+50h],esi
+0054E9F3: mov edx,dword ptr [ecx+50h]
+0054E9F6: mov dword ptr [eax+50h],edx
+0054E9F9: mov edx,dword ptr [ecx+50h]
+0054E9FC: mov dword ptr [edx+4Ch],eax
+0054E9FF: mov dword ptr [eax+4Ch],ecx
+0054EA02: mov dword ptr [ecx+50h],eax
+0054EA05: pop esi
+0054EA06: ret
+0054EA07: xor eax,eax
+0054EA09: ret
+0054EA10: mov eax,dword ptr [ecx+000001A0h]
+0054EA16: lea edx,[ecx+000001A4h]
+0054EA1C: cmp eax,edx
+0054EA1E: je 0054EA50
+0054EA20: mov edx,dword ptr [eax+50h]
+0054EA23: push esi
+0054EA24: mov esi,dword ptr [eax+4Ch]
+0054EA27: mov dword ptr [edx+4Ch],esi
+0054EA2A: mov edx,dword ptr [eax+4Ch]
+0054EA2D: mov esi,dword ptr [eax+50h]
+0054EA30: mov dword ptr [edx+50h],esi
+0054EA33: mov edx,dword ptr [ecx+000000F8h]
+0054EA39: add ecx,0A8h
+0054EA3F: mov dword ptr [eax+50h],edx
+0054EA42: mov edx,dword ptr [ecx+50h]
+0054EA45: mov dword ptr [edx+4Ch],eax
+0054EA48: mov dword ptr [eax+4Ch],ecx
+0054EA4B: mov dword ptr [ecx+50h],eax
+0054EA4E: pop esi
+0054EA4F: ret
+0054EA50: xor eax,eax
+0054EA52: ret

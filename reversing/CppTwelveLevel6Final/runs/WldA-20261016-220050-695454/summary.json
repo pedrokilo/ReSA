@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "2ae1a6ee14fbd22c9c0745d7aa69aeca427844d03199bc83368fd9d8e0980835",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 8704,
+  "pairs_per_function": {
+    "CWorld::FindObjectsInRange": 640,
+    "CWorld::FindObjectsInRangeSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindObjectsOfTypeInRange": 640,
+    "CWorld::FindObjectsOfTypeInRangeSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindLodOfTypeInRange": 640,
+    "CWorld::FindObjectsKindaColliding": 640,
+    "CWorld::FindObjectsKindaCollidingSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindObjectsIntersectingCube": 640,
+    "CWorld::FindObjectsIntersectingCubeSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindObjectsIntersectingAngledCollisionBox": 640,
+    "CWorld::FindObjectsIntersectingAngledCollisionBoxSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindMissionEntitiesIntersectingCube": 640,
+    "CWorld::FindMissionEntitiesIntersectingCubeSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindNearestObjectOfType": 640,
+    "CWorld::FindNearestObjectOfTypeSectorList<CPtrListDoubleLink<CPhysical*>>": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "4d306d1a6c63dfb0885e39cf6b62fa036e510ceb5f0a2697b5894db692a409f0",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

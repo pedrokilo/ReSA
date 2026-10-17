@@ -1,0 +1,3 @@
+FALLO: Funciones de pelea CTaskSimpleFight (grupo C)
+Funciones con diferencias: CTaskSimpleFight::FightStrike: 639/1536
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependencies21c\20261017-022940-988957

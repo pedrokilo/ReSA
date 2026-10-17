@@ -1,0 +1,3 @@
+APROBADO: ClothesTextures355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clothes-textures355\20261017-023831-582089

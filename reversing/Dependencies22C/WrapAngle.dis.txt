@@ -1,0 +1,42 @@
+509be0: mov ecx, dword ptr [esp + 4]
+509be4: fld dword ptr [ecx]
+509be6: fcomp dword ptr [0x858cb8]
+509bec: fnstsw ax
+509bee: test ah, 1
+509bf1: jne 0x509c15
+509bf3: fld dword ptr [ecx]
+509bf5: jmp 0x509c00
+509bf7: lea esp, [esp]
+509bfe: mov edi, edi
+509c00: fsub dword ptr [0x858cbc]
+509c06: fcom dword ptr [0x858cb8]
+509c0c: fnstsw ax
+509c0e: test ah, 1
+509c11: je 0x509c00
+509c13: fstp dword ptr [ecx]
+509c15: fld dword ptr [ecx]
+509c17: fcomp dword ptr [0x858cc0]
+509c1d: fnstsw ax
+509c1f: test ah, 5
+509c22: jp 0x509c45
+509c24: fld dword ptr [ecx]
+509c26: jmp 0x509c30
+509c28: lea esp, [esp]
+509c2f: nop 
+509c30: fadd dword ptr [0x858cbc]
+509c36: fcom dword ptr [0x858cc0]
+509c3c: fnstsw ax
+509c3e: test ah, 5
+509c41: jnp 0x509c30
+509c43: fstp dword ptr [ecx]
+509c45: ret 
+509c46: nop 
+509c47: nop 
+509c48: nop 
+509c49: nop 
+509c4a: nop 
+509c4b: nop 
+509c4c: nop 
+509c4d: nop 
+509c4e: nop 
+509c4f: nop 

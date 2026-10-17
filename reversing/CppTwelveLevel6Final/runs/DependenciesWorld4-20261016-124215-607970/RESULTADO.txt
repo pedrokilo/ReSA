@@ -1,0 +1,3 @@
+FALLO: D3D toggle and complete nearest garage search
+Funciones con diferencias: CGarages::FindGarageForObject: 4096/4096
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesworld4\20261016-124215-607970

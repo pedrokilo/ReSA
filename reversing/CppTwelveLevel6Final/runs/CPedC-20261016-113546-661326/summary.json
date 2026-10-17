@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "17f07b95e8a26fcf87bf8211a0809c4353504a3e14c3f32ba3e5f03e845c40a7",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 15552,
+  "pairs_per_function": {
+    "CPed::CanUseTorsoWhenLooking": 256,
+    "CPed::ClearAimFlag": 256,
+    "CPed::ClearAll": 512,
+    "CPed::ClearLook": 256,
+    "CPed::ClearLookFlag": 512,
+    "CPed::Look": 1024,
+    "CPed::SetAimFlag-Entity": 256,
+    "CPed::SetAimFlag-Heading": 512,
+    "CPed::SetLook-Entity": 512,
+    "CPed::SetLook-Heading": 512,
+    "CPed::SetLookFlag-Entity": 512,
+    "CPed::SetLookFlag-Heading": 512,
+    "CPed::SetLookTimer": 256,
+    "CPed::TurnBody": 2048,
+    "CPed::ShoulderBoneRotation": 256,
+    "CPed::RestoreHeadingRate": 64,
+    "CPed::RestoreHeadingRateCB": 64,
+    "CPed::SetIdle": 256,
+    "CPed::StopNonPartialAnims": 256,
+    "CPed::RestartNonPartialAnims": 256,
+    "CPed::SetMoveAnim": 1024,
+    "CPed::SetMoveAnimSpeed": 1024,
+    "CPed::SetMoveState": 64,
+    "CPed::GetWalkAnimSpeed": 512,
+    "CPed::CalculateNewOrientation": 256,
+    "CPed::WorkOutHeadingForMovingFirstPerson": 1024,
+    "CPed::GetLocalDirection": 2048,
+    "CPed::IsPlayingHandSignal": 256,
+    "CPed::StopPlayingHandSignal": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "55fafb9f0e1e4cf2a5c632efcdf2af0e0bca7737ea4abe6cc683858da325fd56",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

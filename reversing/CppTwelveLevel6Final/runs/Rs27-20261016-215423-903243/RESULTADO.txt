@@ -1,0 +1,3 @@
+FALLO: Capa Rs (lista de 27)
+Funciones con diferencias: Rs::RsEventHandler: 59/1024; Rs::RsRwInitialize: 1024/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-rs27\20261016-215423-903243

@@ -1,0 +1,3 @@
+APROBADO: CTrain, CPlane y CBike pendientes (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-vehwave2\20261017-022245-895310

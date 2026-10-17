@@ -1,0 +1,3 @@
+APROBADO: DependenciesZones13
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependencieszones13\20261016-194938-294305

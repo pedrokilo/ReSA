@@ -29,6 +29,11 @@ namespace Dependencies21DLive {
 inline bool done{};
 inline std::ofstream log;
 
+// true (valor por defecto, no se relaja): el FNSAVE posterior a cada lado exige igualdad de la palabra de estado completa (TOP, C0..C3, IE/DE/ZE/OE/UE/PE) y del contenido crudo de los ocho
+// registros ST, tambien de los que FTW marca vacios. Antes de cada llamada la pila se rellena con un residuo conocido y distinto por registro (ver BuildPrime): lo que cada lado deja o no
+// escrito en los registros muertos queda a la vista. FIP, FCS, FDP, FDS y FOP no se comparan (cada lado ejecuta su ultima instruccion x87 en otra direccion).
+inline constexpr bool kCompareDeadX87Registers = true;
+
 struct Fn { const char* cls; const char* name; uintptr_t address; int cases; };
 inline constexpr Fn fns[]{
     {"CTaskSimpleGangDriveBy", "Constructor",  0x6217D0, 1024},
@@ -47,6 +52,27 @@ inline void ModuleMarker() {}
 struct Fpu { std::array<uint8, 108> state; uint32 mxcsr; bool operator==(const Fpu&) const = default; };
 inline Fpu CaptureFP() { Fpu f{}; auto* p = f.state.data(); auto* m = &f.mxcsr; __asm { mov eax, p } __asm { fnsave [eax] } __asm { frstor [eax] } __asm { mov eax, m } __asm { stmxcsr [eax] } return f; }
 inline void RestoreFP(const Fpu& f) { const auto* p = f.state.data(); const auto m = f.mxcsr; __asm { mov eax, p } __asm { frstor [eax] } __asm { ldmxcsr m } }
+// Imagen inicial de cada llamada: la x87 del juego con el FSW elegido (TOP y C0..C3 y PE iniciales, como en Dependencies21E), los ocho registros "validos" (FTW = 0) con un residuo distinto cada uno
+// y la mascara de excepciones del juego. CallOne/CallSix la cargan con FRSTOR y la vacian con ocho FSTP ST(0): la pila queda vacia, TOP igual y cada registro conserva su residuo.
+alignas(16) inline std::array<uint8, 108> primeImage{};
+inline constexpr uint16 kFpStatus[4]{0x0000, uint16(0x4700 | (3 << 11)), uint16(0x0100 | 0x0020 | (5 << 11)), uint16(0x0400 | (7 << 11))};
+inline void BuildPrime(const Fpu& game, unsigned variant) {
+    primeImage = game.state;
+    const uint16 status = kFpStatus[variant & 3], tags = 0;
+    std::memcpy(primeImage.data() + 4, &status, 2);
+    std::memcpy(primeImage.data() + 8, &tags, 2);
+    for (unsigned i = 0; i < 8; ++i) {
+        uint8* r = primeImage.data() + 28 + 10 * i;
+        for (unsigned k = 0; k < 8; ++k) r[k] = uint8(0x11 * (i + 1) + k);
+        r[7] |= 0x80; r[8] = uint8(i); r[9] = 0x40;   // significando normalizado, exponente 2^1 + i/256: nunca es un valor especial
+    }
+}
+inline std::string HexString(const uint8* data, size_t size) {
+    constexpr char digits[] = "0123456789abcdef";
+    std::string text; text.reserve(size * 2);
+    for (size_t i = 0; i < size; ++i) { text += digits[data[i] >> 4]; text += digits[data[i] & 15]; }
+    return text;
+}
 inline std::function<bool()> pumpStateCheck; inline bool pumpStateOK = true; inline bool writeFPActive{}; inline Fpu writeFP{};
 struct PumpObserverGuard { ~PumpObserverGuard() { pumpStateCheck = {}; writeFPActive = false; } };
 inline void Write(const json& r) {
@@ -189,11 +215,22 @@ inline void __fastcall FRegisterReference(CEntity* entity, void*, CEntity** slot
 struct Frame {
     uint32 eax{}, espBefore{}, espAfter{}, ebxBefore{}, ebxAfter{}, esiBefore{}, esiAfter{}, ediBefore{}, ediAfter{}, ebpBefore{}, ebpAfter{}, sehBefore{}, sehAfter{};
     std::array<uint8, 28> envBefore{}, envAfter{};
+    std::array<uint8, 108> imageAfter{};   // FNSAVE tras la llamada: FSW completa y registros ST crudos
 };
 inline unsigned EnvWord(const std::array<uint8, 28>& e, int field) { uint16 v; std::memcpy(&v, e.data() + field, 2); return v; }
 __declspec(noinline) inline Frame CallOne(uintptr_t entry, void* self, void* argument) {
-    Frame r{}; uint32 sp0{}, sp1{}, b0{}, b1{}, s0{}, s1{}, d0{}, d1{}, p0{}, p1{}, h0{}, h1{}, rv{}; uint8* e0 = r.envBefore.data(); uint8* e1 = r.envAfter.data();
+    Frame r{}; uint32 sp0{}, sp1{}, b0{}, b1{}, s0{}, s1{}, d0{}, d1{}, p0{}, p1{}, h0{}, h1{}, rv{}; uint8* e0 = r.envBefore.data(); uint8* e1 = r.envAfter.data(); uint8* primePtr = primeImage.data(); uint8* afterPtr = r.imageAfter.data();
     __asm {
+        mov eax, primePtr
+        frstor [eax]
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
         mov eax, e0
         fnstenv [eax]
         fldenv [eax]
@@ -220,13 +257,26 @@ __declspec(noinline) inline Frame CallOne(uintptr_t entry, void* self, void* arg
         mov eax, e1
         fnstenv [eax]
         fldenv [eax]
+        mov eax, afterPtr
+        fnsave [eax]
+        frstor [eax]
     }
     r.eax = rv; r.espBefore = sp0; r.espAfter = sp1; r.ebxBefore = b0; r.ebxAfter = b1; r.esiBefore = s0; r.esiAfter = s1; r.ediBefore = d0; r.ediAfter = d1; r.ebpBefore = p0; r.ebpAfter = p1; r.sehBefore = h0; r.sehAfter = h1;
     return r;
 }
 __declspec(noinline) inline Frame CallSix(uintptr_t entry, void* self, uint32 a1, uint32 a2, uint32 a3, uint32 a4, uint32 a5, uint32 a6) {
-    Frame r{}; uint32 sp0{}, sp1{}, b0{}, b1{}, s0{}, s1{}, d0{}, d1{}, p0{}, p1{}, h0{}, h1{}, rv{}; uint8* e0 = r.envBefore.data(); uint8* e1 = r.envAfter.data();
+    Frame r{}; uint32 sp0{}, sp1{}, b0{}, b1{}, s0{}, s1{}, d0{}, d1{}, p0{}, p1{}, h0{}, h1{}, rv{}; uint8* e0 = r.envBefore.data(); uint8* e1 = r.envAfter.data(); uint8* primePtr = primeImage.data(); uint8* afterPtr = r.imageAfter.data();
     __asm {
+        mov eax, primePtr
+        frstor [eax]
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
         mov eax, e0
         fnstenv [eax]
         fldenv [eax]
@@ -258,6 +308,9 @@ __declspec(noinline) inline Frame CallSix(uintptr_t entry, void* self, uint32 a1
         mov eax, e1
         fnstenv [eax]
         fldenv [eax]
+        mov eax, afterPtr
+        fnsave [eax]
+        frstor [eax]
     }
     r.eax = rv; r.espBefore = sp0; r.espAfter = sp1; r.ebxBefore = b0; r.ebxAfter = b1; r.esiBefore = s0; r.esiAfter = s1; r.ediBefore = d0; r.ediAfter = d1; r.ebpBefore = p0; r.ebpAfter = p1; r.sehBefore = h0; r.sehAfter = h1;
     return r;
@@ -482,7 +535,9 @@ struct Fakes {
 
 // EAX solo lo lee algun llamador del constructor; en PlayerTarget/AITarget/AimGun (ret 4, sin valor) es residuo y no se compara (ver README).
 inline json FrameJson(const Frame& f, bool withEax) {
-    return {{"eax", withEax ? f.eax : 0u}, {"fcw", EnvWord(f.envAfter, 0)}, {"fsw_top", (EnvWord(f.envAfter, 4) >> 11) & 7}, {"ftw", EnvWord(f.envAfter, 8)}};
+    json x87 = {{"eax", withEax ? f.eax : 0u}, {"fcw", EnvWord(f.envAfter, 0)}, {"fsw", EnvWord(f.envAfter, 4)}, {"fsw_top", (EnvWord(f.envAfter, 4) >> 11) & 7}, {"ftw", EnvWord(f.envAfter, 8)}};
+    if (kCompareDeadX87Registers) x87["raw_registers"] = HexString(f.imageAfter.data() + 28, 80);   // ST0..ST7 crudos (10 bytes cada uno), vacios incluidos
+    return x87;
 }
 
 inline void Update() {
@@ -520,7 +575,7 @@ inline void Update() {
     const bool ready = routesReady && Capture().size() == arena.size() + sizeof(CCamera);
     json routesJson = json::array(); for (int f = 0; f < 4; ++f) routesJson.push_back({{"function", fns[f].name}, {"registered", route[f]->Registered()}, {"body", route[f]->Body()}, {"module_ok", ModuleOf(route[f]->Body()) == ModuleOf(uintptr_t(&ModuleMarker))}});
     RestoreFP(fp);
-    Write({{"event", "begin"}, {"registered_hook", routesReady}, {"ready", ready}, {"target_routes_ready", routesReady}, {"routes", routesJson}, {"probe_module", uintptr_t(ModuleOf(uintptr_t(&ModuleMarker)))},
+    Write({{"event", "begin"}, {"registered_hook", routesReady}, {"ready", ready}, {"compare_dead_x87_registers", kCompareDeadX87Registers}, {"target_routes_ready", routesReady}, {"routes", routesJson}, {"probe_module", uintptr_t(ModuleOf(uintptr_t(&ModuleMarker)))},
            {"arena_bytes", arena.size()}, {"camera_bytes", sizeof(CCamera)}, {"scope", "tareas falsas en arena propia; colaboradores falsos en EXE y DLL; sin tareas, peds ni camara reales (la camara real se guarda y restaura completa)"}});
     if (!ready) { Write({{"event", "error"}, {"reason", "routes preflight failed"}, {"pairs", 0}, {"state_restored", true}}); return; }
 
@@ -536,7 +591,7 @@ inline void Update() {
             const Cfg cfg0 = G;
             std::unique_ptr<Fakes> fakes = std::make_unique<Fakes>();
             auto invoke = [&](bool candidate) -> json {
-                Restore(input); G = cfg0; G.radianCalls = 0; trace = json::array(); *ExeErrno() = 0; RestoreFP(fp);
+                Restore(input); G = cfg0; G.radianCalls = 0; trace = json::array(); *ExeErrno() = 0; RestoreFP(fp); BuildPrime(fp, unsigned(n));
                 bool routesOk = false;
                 const auto frame = route[f]->Invoke(candidate, [&] {
                     routesOk = routeProof(f, candidate); RestoreFP(fp);

@@ -1,0 +1,47 @@
+{
+  "bank": "DependenciesZones13",
+  "run": "20261017-114206-755369",
+  "functions": 1,
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CTheZones::SetCurrentZoneAsUnlocked": 2048
+  },
+  "differences": 0,
+  "null_comparison_records": 0,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "hook_routes_verified": true,
+  "log_sha256": "4ca06be5e3a60ee1403bab57747bee7f92e264356ddacbe533d91191f7959e15",
+  "tested_sources": {
+    "source/game_sa/TheZones.cpp": "a5b1268fc9f575876c3faaf5bf58e2563a9a96545a237005199abc56b6f6564a",
+    "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+    "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
+    "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4",
+    "source/game_sa/Enums/eLevelName.h": "1a7a8c4812a2e9eb580be7880c412af3ced3dce1a256c9466a3466d691fdb612",
+    "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
+    "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+    "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
+    "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c",
+    "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+    "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+    "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+    "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+    "source/game_sa/Core/MatrixLink.h": "ce05ae9f46be69790be1ffb2a9270470e8b021519a83284270164fd3d8528355",
+    "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+    "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd",
+    "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+    "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
+  },
+  "bank_sources": {
+    "LiveComparison.hpp": "2ffcc48b29b5ffe51125d4b4ca16b86c7ded64008ed7a3949a066e5736499fb7",
+    "NativeProof.hpp": "8619cd97d4d18dfad233f188c6ded41839c1599e8b88ff453c469336cbc60538",
+    "build_probe.py": "b146596178e946beae81b69657b54ae76129aab53d51c9da7b2d9c70b7152abd",
+    "run_local.py": "ba3e389afd89bb034ea4c251ccd1444c50f7127d1789ec100b6af5565b9a534b"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "297019444488e1f2a46bbbe942ecfb959a147349d4cbb56c1df6d93fdcc012b2",
+  "registered_hook_verified": true
+}

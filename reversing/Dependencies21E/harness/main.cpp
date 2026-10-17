@@ -1,9 +1,9 @@
 #include "core.hpp"
 #include <math.h>
-#include "../../ge-bank/Fixtures.hpp"
+#include "../Fixtures.hpp"
 
 int __cdecl PopulationRandomRangeCpp(int random, int range);
-void __cdecl CullZoneCenterCpp(const short* zone, float* out);
+void __cdecl CullZoneCenterCpp(int zSum, int y5, int y3, int y1, int x4, int x2, int x0, float* out);
 void RunEnterCar(unsigned cases, unsigned seed, int verbosity, bool bank);
 
 static u32 g_randval;
@@ -19,7 +19,7 @@ static int __cdecl Cand610DB0() {
 }
 // --- candidato 0x72D6D0 (copia de la fuente propuesta en CullZones.h) ---
 static float* __fastcall Cand72D6D0(const short* zone, void* /*edx*/, float* out) {
-    CullZoneCenterCpp(zone, out);
+    CullZoneCenterCpp(int(zone[6]) + int(zone[7]), zone[5], zone[3], zone[1], zone[4], zone[2], zone[0], out);
     return out;
 }
 
@@ -38,7 +38,7 @@ static void Accumulate(Stats& s, const Res& a, const Res& b, bool retEq, const c
     if (d.cc) { s.diffCc++; bad = true; }
     if (d.exc) { s.diffExc++; bad = true; }
     if (d.st) { s.diffSt++; bad = true; }
-    if (d.deadRaw) s.deadRaw++;
+    if (d.deadRaw) { s.deadRaw++; bad = true; }
     if (d.fdp) s.fdp++;
     if (bad) {
         s.bad++;
@@ -141,5 +141,6 @@ extern "C" __declspec(dllexport) int HarnessMain(int argc, char** argv) {
     }
     if (!*only || strchr(only, '3')) RunEnterCar(cases, seed, verbosity, false);
     if (strchr(only, 'B')) { RunEnterCar(0, seed, verbosity, true); }
+    printf("deadRaw por ST(i):"); for (int i = 0; i < 8; ++i) printf(" %u", gDeadSlot[i]); printf("\n");
     return 0;
 }

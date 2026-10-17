@@ -1,0 +1,3 @@
+APROBADO: Dependencies21D
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependencies21d\20261017-045615-283032

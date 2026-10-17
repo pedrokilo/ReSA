@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "pairs": 6144,
+  "differences": 0,
+  "registered_pairs": 6144,
+  "registered_functions": 2,
+  "functions": {
+    "CCam::WrapAngle": 2048,
+    "FxEmitter_c::CreateParticles": 4096
+  },
+  "covered_functions": {
+    "CCam::WrapAngle": true,
+    "FxEmitter_c::CreateParticles": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies22C-20261017-044855-179074",
+  "summary_sha256": "82d320b0eee17ad3071d734b3f9759ef8220da694af135c7ad66c187d54f747f",
+  "result_txt_sha256": "e07299f601016b50822a1a1a5c36bee2ea7813fca75912b8a28ad9e8fcff4015",
+  "log_sha256": "feaba6aa8eec845dc50657df12cfbf35104685e506cab28986dca03f02640278",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ab1911de47d4735cb15feee9365536c19e95bdcdb9eabb39ce2d3b6424c061d6",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Cam.cpp": "6ab1fb927348cf3519da8d4c47023ff04dd0ec7f8d9c0a15db96a9f40bef58d4",
+      "source/game_sa/Cam.h": "2b90b10dd174deb53e54c93e77f5d9447b0904760f180f14960e9c33856deeb2",
+      "source/game_sa/Fx/FxEmitter.cpp": "9a8feace3a5c2a3b860175f723a8a62d338ea63e6bbbb8757d93a0ad437bece4",
+      "source/game_sa/Fx/FxEmitter.h": "96dbd9a2fac41759e7abf278f60a2b8a7bce62d2e05ea4f3c77cb5b542ff08d6",
+      "source/game_sa/X87Math.cpp": "53911eca1f684ce3787dc9edad2bf87ec2a1ee74ef7eb717a7152ff8931e5b53",
+      "source/game_sa/X87Math.h": "cfedfb66199bed5d16e338d8da2f3812ef78419fa990916e191be5e117e9b415",
+      "source/game_sa/Fx/FxManager.cpp": "8ad17f1c5c416b0caa461b7c789a32a0e872b4607d4e1c0ec79808e4f185a877",
+      "source/game_sa/Fx/FxPrimBP.cpp": "e7a2d31660532f7c44f7fd765985edb9041bca52e34e6b9e7142765618e54b7b",
+      "source/game_sa/Fx/FxInfoManager.cpp": "3a80e9363873e383e0c430e2a8e3c5b46659c94d5a31db3911ca02dfddccfed9",
+      "source/game_sa/Fx/FxPrtMult.cpp": "d2bd71102b4aa42f1fe48cbce478b753e7fcc3b8c94058a301b97fd2cbe775d4",
+      "source/game_sa/RenderWare/rw/rwplcore.cpp": "2bbb06450fd3800e8576e2b62ccb9b436838d8fa2d1dbf7a58d9a60b7aec58a9",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Dependencies22C/Fixtures.hpp": "3a30a7bb06c535a32f73ccd6d5225b40af6f9a4cde93826091ccd2637ca4ca1d",
+      "reversing/Dependencies22C/Arenas.hpp": "8cc63086d4d917f71c31a362e7f1eee00c54b930050d8e49eea154e2c41603aa",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

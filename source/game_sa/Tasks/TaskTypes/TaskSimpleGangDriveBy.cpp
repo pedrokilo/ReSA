@@ -298,17 +298,16 @@ constexpr float kDeg75             = std::bit_cast<float>(0x3FA78D36u); // 0x86D
 constexpr float kMinusDeg75        = std::bit_cast<float>(0xBFA78D36u); // 0x86DB04
 constexpr float kDeg105            = std::bit_cast<float>(0x3FEA9280u); // 0x86DB00
 constexpr float kMinusDeg105       = std::bit_cast<float>(0xBFEA9280u); // 0x86DAFC
-constexpr float kAimHeightOffset   = std::bit_cast<float>(0x3F333333u); // 0x858CB0
 constexpr float kMinusOne          = -1.0f;                             // 0x858C1C
 
-// fld dword + fstp dword: la x87 silencia un NaN senalizante (bit 22) y conserva el resto de la carga.
-float QuietFloat(float value) {
-    auto bits = std::bit_cast<uint32>(value);
-    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) != 0u) {
-        bits |= 0x00400000u;
-    }
-    return std::bit_cast<float>(bits);
-}
+// Comparaciones x87 ordenadas del EXE (fld dword [a]; fcomp dword [b]): ver X87Math.cpp. Con NaN todas son falsas.
+bool X87Gt(float a, float b) { return GangDriveByGtCpp(&a, &b); }
+bool X87Lt(float a, float b) { return GangDriveByLtCpp(&a, &b); }
+bool X87Ge(float a, float b) { return GangDriveByGeCpp(&a, &b); }
+bool X87Le(float a, float b) { return GangDriveByLeCpp(&a, &b); }
+
+// El EXE compara cada coordenada con 0.0f con fld/fcomp (ordenada, test ah,44h): igual a cero solo si no es NaN. Dos comparaciones ordenadas dejan las mismas banderas.
+bool X87IsZero(float value) { return X87Le(value, 0.0f) && X87Ge(value, 0.0f); }
 
 // El EXE lee el indice de la camara activa sin comprobarlo.
 CCam& ActiveCam() {
@@ -334,7 +333,7 @@ void CTaskSimpleGangDriveBy::PlayerTarget(CPed* ped) {
         // Como el original (0x6219E1..0x621A5F): rumbo de la camara - rumbo del vehiculo (matriz si existe, si no el placement), cuadrante 0..3.
         auto* veh = ped->m_pVehicle;
         const float* forward = veh->m_matrix ? &veh->m_matrix->GetForward().x : nullptr;
-        const auto quadrant = GangDriveByPlayerQuadrantCpp(aim.x, aim.y, forward, veh->m_placement.m_fHeading);
+        const auto quadrant = GangDriveByPlayerQuadrantCpp(aim.x, aim.y, forward, &veh->m_placement.m_fHeading);
         const bool seatRHS = m_bSeatRHS != 0;
         switch (quadrant) {
         case 0: m_nRequiredAnimID = 0xE9 + (seatRHS ? 4 : 0); break;
@@ -373,17 +372,19 @@ void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
     auto* veh = ped->m_pVehicle;
     const float* forward = veh->m_matrix ? &veh->m_matrix->GetForward().x : nullptr;
     float geometry[5]; // dx, dy, dz, distancia, angulo
-    GangDriveByAiGeometryCpp(target, pedPos, forward, veh->m_placement.m_fHeading, geometry);
-    const float dx = geometry[0], dy = geometry[1], dz = geometry[2], distance = geometry[3], angle = geometry[4];
+    GangDriveByAiGeometryCpp(target, pedPos, forward, &veh->m_placement.m_fHeading, geometry);
+    const float distance = geometry[3], angle = geometry[4]; // geometry = {dx, dy, dz, distancia, angulo}
 
+    // Todas las comparaciones de flotantes del EXE son fld/fcomp de la x87 (ordenadas: con NaN no entran); se hacen con GangDriveBy{Gt,Lt,Ge,Le}Cpp para dejar las banderas y
+    // los registros muertos como el EXE (con SSE, en este archivo, no tocarian la x87).
     m_bInRangeToShoot = false;
-    m_bInWeaponRange  = distance < weaponRange;
+    m_bInWeaponRange  = X87Lt(distance, weaponRange);
 
     if (!m_bReachedAbortRange) {
-        if (distance < m_fAbortRange) {
+        if (X87Lt(distance, m_fAbortRange)) {
             m_bReachedAbortRange = true;
         }
-    } else if (distance > m_fAbortRange) {
+    } else if (X87Gt(distance, m_fAbortRange)) {
         m_nNextCommand = 7;
         return;
     }
@@ -392,12 +393,12 @@ void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
     if (auto* entity = m_pTargetEntity) {
         const auto type = entity->GetType();
         if (type == ENTITY_TYPE_PED) {
-            if (entity->AsPed()->m_fHealth <= 0.0f) {
+            if (X87Le(entity->AsPed()->m_fHealth, 0.0f)) {
                 m_nNextCommand = 7;
                 return;
             }
         } else if (type == ENTITY_TYPE_VEHICLE) {
-            if (entity->AsVehicle()->m_fHealth <= 0.0f) {
+            if (X87Le(entity->AsVehicle()->m_fHealth, 0.0f)) {
                 m_nNextCommand = 7;
                 return;
             }
@@ -406,7 +407,8 @@ void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
 
     // Punto de mira en el mundo: delta + posicion del ped (ya reevaluada), un redondeo a float por coordenada.
     const float* pos = &ped->GetPosition().x;
-    CVector aimPoint{ RpNanAddCpp(dx, pos[0]), RpNanAddCpp(dy, pos[1]), RpNanAddCpp(dz, pos[2]) };
+    CVector aimPoint;
+    GangDriveByAimPointCpp(geometry, pos, &aimPoint.x);
     if (!plugin::CallMethodAndReturn<bool, 0x621B10>(this, ped, &aimPoint)) { // linea de vision / alcance (dependencia sin catalogar)
         m_bInRangeToShoot = false;
         return;
@@ -418,14 +420,14 @@ void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
     int8 quadrant = -1; // dl
     if (style != 0 && style != 1 && style != 5 && style != 6) {
         quadrant = int8(GangDriveByAiQuadrantCpp(angle));
-        if (angle > kDeg15 && angle < kDeg165) {
+        if (X87Gt(angle, kDeg15) && X87Lt(angle, kDeg165)) {
             sideX = -1;
-        } else if (angle < kMinusDeg15 && angle > kMinusDeg165) {
+        } else if (X87Lt(angle, kMinusDeg15) && X87Gt(angle, kMinusDeg165)) {
             sideX = 1;
         }
-        if (angle < kDeg75 && angle > kMinusDeg75) {
+        if (X87Lt(angle, kDeg75) && X87Gt(angle, kMinusDeg75)) {
             sideY = -1;
-        } else if (angle > kDeg105 && angle < kMinusDeg105) { // inalcanzable (el EXE compara con y); se conserva
+        } else if (X87Gt(angle, kDeg105) && X87Lt(angle, kMinusDeg105)) { // inalcanzable (el EXE compara con y); se conserva
             sideY = 1;
         }
     }
@@ -475,19 +477,19 @@ void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
     switch (direction) {
     case 0:
         m_nRequiredAnimID = 0xE9 + (seatRHS ? 4 : 0);
-        if (distance < weaponRange && angle >= kMinusPiOver4 && angle <= kPiOver4) { m_bInRangeToShoot = true; }
+        if (X87Lt(distance, weaponRange) && X87Ge(angle, kMinusPiOver4) && X87Le(angle, kPiOver4)) { m_bInRangeToShoot = true; }
         break;
     case 1:
         m_nRequiredAnimID = 0xE7 + (seatRHS ? 5 : 0);
-        if (distance < weaponRange && angle >= kPiOver4 && angle <= kThreePiOver4) { m_bInRangeToShoot = true; }
+        if (X87Lt(distance, weaponRange) && X87Ge(angle, kPiOver4) && X87Le(angle, kThreePiOver4)) { m_bInRangeToShoot = true; }
         break;
     case 2:
         m_nRequiredAnimID = 0xEA + (seatRHS ? 4 : 0);
-        if (distance < weaponRange && (angle >= kMinusThreePiOver4 || angle <= kThreePiOver4)) { m_bInRangeToShoot = true; }
+        if (X87Lt(distance, weaponRange) && (X87Ge(angle, kMinusThreePiOver4) || X87Le(angle, kThreePiOver4))) { m_bInRangeToShoot = true; }
         break;
     case 3:
         m_nRequiredAnimID = 0xE8 + (seatRHS ? 3 : 0);
-        if (distance < weaponRange && angle >= kMinusThreePiOver4 && angle <= kMinusPiOver4) { m_bInRangeToShoot = true; }
+        if (X87Lt(distance, weaponRange) && X87Ge(angle, kMinusThreePiOver4) && X87Le(angle, kMinusPiOver4)) { m_bInRangeToShoot = true; }
         break;
     default: break;
     }
@@ -507,12 +509,13 @@ void CTaskSimpleGangDriveBy::AimGun(CPed* ped) {
             return;
         }
         const auto& pos = ped->GetPosition();
-        const CVector muzzle{ pos.x, QuietFloat(pos.y), RpNanAddCpp(pos.z, kAimHeightOffset) };
+        CVector muzzle;
+        GangDriveByMuzzleCpp(&pos.x, &muzzle.x);
         CVector source = muzzle; // salida (el EXE la deja sin inicializar en z)
         TheCamera.Find3rdPersonCamTargetVector(range, muzzle, source, target);
     } else if (m_pTargetEntity) {
         auto* entity = m_pTargetEntity;
-        const bool zeroCoords = m_vecCoords.x == 0.0f && m_vecCoords.y == 0.0f && m_vecCoords.z == 0.0f;
+        const bool zeroCoords = X87IsZero(m_vecCoords.x) && X87IsZero(m_vecCoords.y) && X87IsZero(m_vecCoords.z);
         if (zeroCoords) {
             if (entity->GetType() == ENTITY_TYPE_PED) {
                 entity->AsPed()->GetBonePosition(&target, BONE_SPINE1, false);
@@ -525,7 +528,7 @@ void CTaskSimpleGangDriveBy::AimGun(CPed* ped) {
             plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&transformed, &matrix, &m_vecCoords);
             target = transformed;
         }
-    } else if (!(m_vecCoords.x == 0.0f && m_vecCoords.y == 0.0f && m_vecCoords.z == 0.0f)) {
+    } else if (!(X87IsZero(m_vecCoords.x) && X87IsZero(m_vecCoords.y) && X87IsZero(m_vecCoords.z))) {
         target = m_vecCoords;
     }
 
@@ -544,7 +547,7 @@ void CTaskSimpleGangDriveBy::AimGun(CPed* ped) {
         const auto lean = *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(veh) + 0x648);
         const auto radianFn = reinterpret_cast<float(__cdecl*)(uint32, float, uint32, uint32)>(
             static_cast<float(*)(float, float, float, float)>(&CGeneral::GetRadianAngleBetweenPoints));
-        elevation = GangDriveByBikeElevationCpp(radianFn, &target.x, &gun.x, baseAngle, forward, veh->m_placement.m_fHeading, lean);
+        elevation = GangDriveByBikeElevationCpp(radianFn, &target.x, &gun.x, baseAngle, forward, &veh->m_placement.m_fHeading, lean);
     }
 
     bool flag = false;

@@ -18,10 +18,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OBJECTS = ['FxFrustumInfo', 'Garages', 'EventScriptCommand', 'BaseModelInfo', 'ClumpModelInfo', 'PedGroupIntelligence', 'Pools', 'RwHelper', 'TaskInteriorSitInChair',
+OBJECTS = ['Cam', 'FxFrustumInfo', 'Garages', 'EventScriptCommand', 'BaseModelInfo', 'ClumpModelInfo', 'PedGroupIntelligence', 'Pools', 'RwHelper', 'TaskInteriorSitInChair',
            'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed', 'PlayerRelationshipRecorder', 'EventSource', 'TheZones', 'PedGroups', 'Ped', 'MemoryMgr', 'Pad', 'PathFind', 'AEVehicleAudioEntity', 'WaterLevel', 'Radar', 'Stats', 'Vehicle', 'TaskSimpleFight', 'DecisionMakerTypes', 'Garage', 'Interior_c', 'platform']
 # Objetos cuyas funciones con ayudante de residuo deben salir SIEMPRE por él (una sola salida; ningun `ret` alcanzable sin pasar por la llamada).
-EVERY_PATH_OBJECTS = {'TheZones', 'Ped', 'MemoryMgr', 'PathFind', 'AEVehicleAudioEntity', 'WaterLevel', 'Vehicle', 'DecisionMakerTypes', 'Interior_c'}
+EVERY_PATH_OBJECTS = {'Cam', 'TheZones', 'Ped', 'MemoryMgr', 'PathFind', 'AEVehicleAudioEntity', 'WaterLevel', 'Vehicle', 'DecisionMakerTypes', 'Interior_c'}
 HELPER_CALL = re.compile(r'^call\s+(?:\?|@)?(ResidueRegsCpp@@YIIIII@Z|Get@ResidueEcx@@QAEII@Z|PlayerPedResidueFloatCpp@@YIMIIM@Z|PathFindResidueFloatCpp@@YIMIIMI@Z|VehicleResidueBoolCpp@12)\b')
 ENTRY_CALL = re.compile(r'^call\s+\?EntryEaxCpp@@YIIXZ$')
 ENTRY_EDX_CALL = re.compile(r'^call\s+\?CarEnterExitEntryEdxCpp@@YI_KXZ$')
@@ -68,7 +68,7 @@ CLOBBERS_ECX_EDX = [
 ENTRY_PARAM_OBJECTS = {'PedGroups', 'PathFind', 'AEVehicleAudioEntity', 'Stats', 'Vehicle', 'TaskSimpleFight', 'DecisionMakerTypes', 'Garage'}
 JMC_CALL = re.compile(r'^call\s+.*CheckForDebuggerJustMyCode')
 # Minimo de llamadas a ayudantes de residuo por objeto: si baja, alguna funcion dejo de usar la tecnica (el optimizador o un cambio de fuente la elimino).
-MIN_RESIDUE_CALLS = {'PedGroups': 3, 'Ped': 1, 'PathFind': 8, 'AEVehicleAudioEntity': 4, 'WaterLevel': 1, 'Stats': 30, 'Vehicle': 2, 'TaskSimpleFight': 6, 'DecisionMakerTypes': 7, 'Garage': 2, 'Interior_c': 2}
+MIN_RESIDUE_CALLS = {'Cam': 1, 'PedGroups': 3, 'Ped': 1, 'PathFind': 8, 'AEVehicleAudioEntity': 4, 'WaterLevel': 1, 'Stats': 30, 'Vehicle': 2, 'TaskSimpleFight': 6, 'DecisionMakerTypes': 7, 'Garage': 2, 'Interior_c': 2}
 JUMP_TARGET = re.compile(r'^(j\w+)\s+([0-9A-Fa-f]{8})$')
 
 # dumpbin escribe una linea de etiqueta (`nombre decorado (firma):`) antes de cada funcion; en un objeto sin /Gy (Interior_c) las funciones

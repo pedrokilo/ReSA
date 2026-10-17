@@ -1,0 +1,1 @@
+{"bank": "CVehD", "build_probe": 0, "run_local": 0, "head": "APROBADO: CVehicle grupo D (dibujo, luces y particulas)", "folder": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cvehd\\20261017-002319-542704", "passed": true, "all_equal": true, "pairs": 10176, "state_restored": true, "saves_unchanged": true, "configs_restored": true, "limpieza_gb": 15.01, "secs": 78}

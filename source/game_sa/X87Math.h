@@ -1212,21 +1212,31 @@ void __cdecl FightStrikeAdvanceCpp(const float* forward, float radius, float* po
 // --- CTaskSimpleGangDriveBy (lote w21 D; prefijo GangDriveBy). Anadir al FINAL de X87Math.h ---
 // PlayerTarget (0x621960, 0x6219E1..0x621A5F): cuadrante 0..3 (byte con signo del _ftol2) de ((atan2(-aimX, aimY) - rumbo del vehiculo) ajustado a +-pi + pi/4, + 2pi si < 0) * 2/pi, sin guardar como float.
 // forward = &matriz del vehiculo->forward (x, y consecutivos) o nullptr (heading = placement.m_fHeading).
-int __cdecl GangDriveByPlayerQuadrantCpp(float aimX, float aimY, const float* forward, float heading);
+int __cdecl GangDriveByPlayerQuadrantCpp(float aimX, float aimY, const float* forward, const float* heading);
 // AITarget (0x627600, 0x627858..0x62787B): igual para el angulo ya guardado como float.
 int __cdecl GangDriveByAiQuadrantCpp(float angle);
 // AITarget (0x627600, 0x627657..0x627741): out = {dx, dy, dz, distancia, angulo} (ver X87Math.cpp); target y pos apuntan a x, y, z.
-void __cdecl GangDriveByAiGeometryCpp(const float* target, const float* pos, const float* forward, float heading, float* out);
+void __cdecl GangDriveByAiGeometryCpp(const float* target, const float* pos, const float* forward, const float* heading, float* out);
+// AITarget (0x6277E7..0x62780B): out = {dx + pos.x, dy + pos.y, dz + pos.z} (delta = {dx, dy, dz}); deja las sumas z, y, x en los registros muertos T-1, T-2 y T-3 como el EXE.
+void __cdecl GangDriveByAimPointCpp(const float* delta, const float* pos, float* out);
+// AITarget: comparaciones ordenadas fld [a]; fcomp [b] con el resultado de los saltos del EXE (Gt: a > b, Lt: a < b, Ge: a >= b, Le: a <= b; con NaN, false).
+bool __cdecl GangDriveByGtCpp(const volatile float* a, const volatile float* b);
+bool __cdecl GangDriveByLtCpp(const volatile float* a, const volatile float* b);
+bool __cdecl GangDriveByGeCpp(const volatile float* a, const volatile float* b);
+bool __cdecl GangDriveByLeCpp(const volatile float* a, const volatile float* b);
 // AimGun (0x628350, 0x6283CB..0x628403): float(sqrt((dz^2 + dy^2) + dx^2) + 20.0f) con d = pos - source.
 float __cdecl GangDriveByAimRangeCpp(const float* pos, const float* source);
+// AimGun (jugador, 0x628422..0x628460): out = {pos.x, pos.y pasado por la x87, pos.z + 0.7f}.
+void __cdecl GangDriveByMuzzleCpp(const float* pos, float* out);
 // AimGun (0x628350, 0x6285F4..0x6286DB): elevacion de la rama de moto. radianFn = CGeneral::GetRadianAngleBetweenPoints reinterpretado con bits en x1, x2 e y2 (se llama una vez); forward != nullptr (lee forward[2]).
-float __cdecl GangDriveByBikeElevationCpp(float (__cdecl* radianFn)(unsigned int, float, unsigned int, unsigned int), const float* target, const float* gun, float baseAngle, const float* forward, float heading, float lean);
+float __cdecl GangDriveByBikeElevationCpp(float (__cdecl* radianFn)(unsigned int, float, unsigned int, unsigned int), const float* target, const float* gun, float baseAngle, const float* forward, const float* heading, float lean);
 
 // --- Grupo E (ge): 0x610DB0, 0x72D6D0 y 0x63A380 ---
 // 0x610DB0: fild random; fmul 2^-15; fimul range; _ftol2; devuelve los 32 bits bajos (el llamador suma el limite inferior). random ya viene enmascarado a 16 bits.
 int __cdecl PopulationRandomRangeCpp(int random, int range);
-// 0x72D6D0 (CZoneDef::GetCenter): zone = 8 int16 {esquinaX, esquinaY, vec1X, vec1Y, vec2X, vec2Y, minZ, maxZ}; out = {x, y, z} (centro, fild/fiadd/fmul 0.5/fiadd/fstp).
-void __cdecl CullZoneCenterCpp(const short* zone, float* out);
+// 0x72D6D0 (CZoneDef::GetCenter): zona = 8 int16 {esquinaX, esquinaY, vec1X, vec1Y, vec2X, vec2Y, minZ, maxZ}; out = {x, y, z} (centro, fild/fiadd/fmul 0.5/fiadd/fstp).
+// Los enteros llegan ya extendidos como parametros (zSum = minZ + maxZ, y5 = vec2Y, y3 = vec1Y, y1 = esquinaY, x4 = vec2X, x2 = vec1X, x0 = esquinaX) para que el compilador emita fimul/fiadd.
+void __cdecl CullZoneCenterCpp(int zSum, int y5, int y3, int y1, int x4, int x2, int x0, float* out);
 // 0x63A460..0x63A49A: true si |valor| > 20 (movsx; fild; fabs; fcomp 20.0f; test ah, 41h; je), con el estado x87 de la comparacion como el EXE.
 bool __cdecl EnterCarCamStickBeyondCpp(short value);
 // 0x63A4CE..0x63A53F (CTaskComplexEnterCar): out = {rumbo - pi/2, escalar coche->peaton . eje derecho, atan2(escalar, distancia) * 0.7f}, los tres como float.
@@ -1241,3 +1251,62 @@ void __cdecl EnterCarCamStickCpp(float camMinY, float distance, float angle, flo
 // CQuaternion::Slerp del EXE (0x59C300): out/from/to = x, y, z, w consecutivos (out puede coincidir con from o to). theta == 0 copia `to`; si no, mezcla from y to con los pesos
 // A = sin((1 - t)·theta')·invSin y B = ±sin(theta'·t)·invSin (theta' = float(pi - theta) si theta > pi/2). Aritmetica x87 de 24 bits, senos sin redondear, estado x87 final como el del EXE.
 void __cdecl QuaternionSlerpCpp(float* out, const float* from, const float* to, float theta, float invSin, float t);
+
+// --- CVehicle::DoHeadLightEffect (0x6E0A50) y CVehicle::DoTailLightEffect (0x6E1780), lote g22b, prefijo VehHeadTail. Anexar al FINAL de X87Math.h. ---
+// Geometria de DoHeadLightEffect (0x6E0AC5..0x6E0BD6): offset = dummy + frente * 0.05 (o (-sin(heading), cos(heading), 0) * 0.05 sin matriz; forward nulo), x = x - (x + x) si mirror;
+// world = matrix * offset (0x59C890), delta = camara - world, magnitude = 0x59C970(delta) y dot = ((dz*fz) + (dy*fy)) + (dx*fx) con el frente de matrix (float[16] como CMatrix).
+// dummy, forward, camera, offset apuntan a x, y, z; magnitude y dot son salidas float. Todo con el x87 a 24 bits y la semantica de NaN del hardware.
+void __cdecl VehHeadTailHeadGeometryCpp(const float* dummy, const float* forward, float heading, bool mirror, const float* matrix, const float* camera,
+                                        float* offset, float* magnitude, float* dot);
+// Geometria de DoTailLightEffect (0x6E1820..0x6E18CC): offset = dummy (x = x - (x + x) si mirror), mismo world/delta/magnitude y dot = ((-fz*dz) + (-fy*dy)) + (-fx*dx).
+void __cdecl VehHeadTailTailGeometryCpp(const float* dummy, bool mirror, const float* matrix, const float* camera, float* offset, float* magnitude, float* dot);
+// Tamano, rango y colores de las coronas de DoHeadLightEffect (0x6E0D09..0x6E0DAB). red/blue = EAX completo de _ftol2 (el llamador pasa solo el byte bajo).
+void __cdecl VehHeadTailHeadCoronaCpp(float magnitude, float sqrtDot, float lodMultiplier, bool train, bool halogen, float* size, float* range, unsigned int* red, unsigned int* blue);
+// Tamano, rango y rojo de la corona de DoTailLightEffect (0x6E1916..0x6E19E6); mode 1 = freno (a * 128), 2 = a * 96, 0 = rojo 0.
+void __cdecl VehHeadTailTailCoronaCpp(float magnitude, float dot, float lodMultiplier, bool train, int mode, float* size, float* range, unsigned int* red);
+
+// --- Grupo g22c (BRIEF_21): CCam::WrapAngle y FxEmitter_c::CreateParticles. Anadir al FINAL de X87Math.h ---
+// CCam::WrapAngle (0x509BE0): while (a >= pi) a -= 2pi; while (a < -pi) a += 2pi sobre *angle (cdecl, ST0 sin redondear entre pasos). Deja la pila x87, las banderas y C0-C3 como el EXE.
+void __cdecl CamWrapAngleCpp(float* angle);
+// FxEmitter_c::CreateParticles (0x4A41E0), tramo 0x4A421C..0x4A4331: visibilidad por distancia, *intensity = count * vis * (rateMult * 0.001f) + *intensity (se guarda siempre) y los filtros
+// de viento, lluvia e intensidad >= 1. Devuelve false si el EXE sale (dist, minWind..maxRain, wind y rain se leen de memoria como floats; lodStart/lodEnd son los uint16 en bruto, /64 dentro).
+bool __cdecl FxEmitterAccumulateCpp(float* intensity, const float* dist, unsigned int rateMult, unsigned int lodStartRaw, unsigned int lodEndRaw, float count,
+                                    const float* minWind, const float* maxWind, const float* minRain, const float* maxRain, const float* wind, const float* rain);
+// _ftol2 sobre *intensity (fld; call _ftol2): palabra baja del entero truncado; deja en la pila x87 el residuo del _ftol2 del EXE (v - R y R en los registros muertos 1 y 2).
+int __cdecl FxEmitterTruncateCpp(const float* intensity);
+// fild paso; fdiv *intensity; fmul delta: devuelve ST0 sin redondear (el llamador lo guarda como float).
+float __cdecl FxEmitterTimeSinceCpp(int step, const float* intensity, float deltaTime);
+// *intensity = *intensity - (float)_ftol2(*intensity) (la parte fraccionaria queda; fild eax; fsubr; fstp).
+void __cdecl FxEmitterTakeWholeCpp(float* intensity);
+
+// --- Lote g22a (PointLights.cpp, 17/10/2026): GenerateLightsAffectingObject, GetLightMultiplier, ProcessVerticalLineUsingCache y RenderFogEffect ---
+// Todos reciben punteros a la memoria original del EXE (la luz es un CPointLight de 0x30 bytes: pos {0x00}, direccion {0x0C}, radio 0x18, color RGB {0x1C}, entidad 0x28, tipo 0x2C,
+// tipo de niebla 0x2D) y conservan el orden, los operandos y los puntos de almacenamiento a float del desensamblado; las comparaciones dejan en C0/C2/C3 lo mismo que el EXE.
+// CPointLights::GetLightMultiplier (0x6FFE70): F (producto de las luces ANTILIGHT) + S (suma de las demas) en ST0 sin guardar como float; GetLightMultiplier lo declara como float con otro
+// nombre (/alternatename). lights = CPointLights::aLights, count = NumLights.
+extern "C" double __cdecl PointLightsLightMultiplierDblCpp(const float* point, const void* lights, int count);
+// CPointLights::ProcessVerticalLineUsingCache (0x6FFFF0): indice de la primera entrada de aCachedMapReads (32 x {x, y, z}) igual al punto (comparaciones ordenadas) o -1.
+int __cdecl PointLightsCacheFindCpp(const float* cache, const float* point);
+// FLD/FSTP de un float (un NaN senalizante sale silenciado): el z que se guarda en la cache y el de *outZ (0x700070..0x7000B8).
+void __cdecl PointLightsFloatCopyCpp(const float* source, float* destination);
+// z - 20.0 como float (segundo argumento de CWorld::ProcessVerticalLine en 0x6FFFF0).
+float __cdecl PointLightsVerticalEndZCpp(float z);
+// CPointLights::GenerateLightsAffectingObject (0x6FFBB0), cuerpo del bucle para una luz: true si el EXE llamaria a AddAnExtraDirectionalLight con args = {x, y, z, rojo, verde, azul};
+// *result es el acumulador (1.0f al empezar), totalLighting puede ser nulo.
+bool __cdecl PointLightsGenerateOneCpp(const void* light, const float* point, float* totalLighting, const void* entity, float* result, float* args);
+// CPointLights::RenderFogEffect (0x7002D0): tramos aritmeticos entre las llamadas a colaboradores.
+struct PointLightsFogSprite { float x, y, z, w, h; int red, green, blue, intensity; float recipNearZ, angle; };
+// fogType == 1: *intensity = float(*foggyness); false si es exactamente 0.
+bool __cdecl PointLightsFogIntensityCpp(const float* foggyness, float* intensity);
+// Luz direccional: out = {gx0, gx1, gy0, gy1} de la rejilla de 4 unidades; false si no hay celdas.
+bool __cdecl PointLightsFogDirBoundsCpp(const void* light, int* out);
+// Luz direccional, celda (gx, gy) antes de CWorld::ProcessVerticalLine: origin = {gx, gy, z + 10}, *endZ = origin.z - 20, *tab = indice de la tabla 0x8D5068.
+bool __cdecl PointLightsFogDirCellPreCpp(const void* light, int gx, int gy, float* origin, float* endZ, int* tab);
+// Luz direccional tras ProcessVerticalLine: posn = argumento de CSprite::CalcScreenCoors, *alpha = factor alfa.
+bool __cdecl PointLightsFogDirCellPostCpp(const void* light, const float* origin, const float* colPointZ, const float* intensity, float* posn, float* alpha);
+// Luces de punto y de solo niebla: out = {gx0, gx1, gy0, gy1} de la rejilla de 2 unidades; size = 9 o 3.
+bool __cdecl PointLightsFogPointBoundsCpp(const void* light, const float* size, int* out);
+// Luz de punto, celda (gx, gy) antes de CSprite::CalcScreenCoors; camera = x, y, z de la camara.
+bool __cdecl PointLightsFogPointCellPreCpp(const void* light, int gx, int gy, const float* size, const float* camera, const float* intensity, const float* groundZ, float* posn, float* alpha, int* tab);
+// Argumentos de CSprite::RenderBufferedOneXLUSprite_Rotate_Aspect tras CalcScreenCoors con exito; table = floats de 0x8D5068, screen = {x, y, z} de CalcScreenCoors.
+void __cdecl PointLightsFogSpriteCpp(const void* light, const float* alpha, const float* screen, float w, float h, const float* table, int tab, int timeValue, bool pointLight, PointLightsFogSprite* result);

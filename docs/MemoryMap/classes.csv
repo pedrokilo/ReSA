@@ -81,7 +81,7 @@ CBuilding,class,2,2,0,2,2,0,0x008585C8,public CEntity,source/game_sa/Entity/Buil
 CBuildingPool,class,1,1,0,1,1,0,,public CPool<CBuilding>,source/game_sa/Pools/BuildingPool.h:31,catalogue_class_or_group
 CBulletInfo,class,4,4,0,4,4,0,,,source/game_sa/BulletInfo.h:16,catalogue_class_or_group
 CBulletTraces,class,5,5,0,5,5,0,,,source/game_sa/BulletTraces.h:11,catalogue_class_or_group
-CCam,class,47,47,0,47,47,0,,,source/game_sa/Cam.h:22,catalogue_class_or_group
+CCam,class,48,48,0,48,48,0,,,source/game_sa/Cam.h:22,catalogue_class_or_group
 CCamera,class,116,116,0,116,116,0,,public CPlaceable,source/game_sa/Camera.h:79,catalogue_class_or_group
 CCarAI,class,25,25,0,25,25,0,,,source/game_sa/CarAI.h:11,catalogue_class_or_group
 CCarCtrl,class,30,30,0,30,30,0,,,source/game_sa/CarCtrl.h:23,catalogue_class_or_group
@@ -341,7 +341,7 @@ CPlayerPed,class,52,52,0,52,52,0,0x0086D168,public CPed,source/game_sa/Entity/Pe
 CPlayerPedData,class,5,5,0,5,5,0,,,source/game_sa/PlayerPedData.h:19,catalogue_class_or_group
 CPlayerRelationshipRecorder,class,1,1,0,1,1,0,,,source/game_sa/PlayerRelationshipRecorder.h:18,catalogue_class_or_group
 CPlayerSkin,class,4,4,0,4,4,0,,,source/game_sa/Entity/Ped/PlayerSkin.h:5,catalogue_class_or_group
-CPointLights,class,3,3,0,3,3,0,,,source/game_sa/PointLights.h:40,catalogue_class_or_group
+CPointLights,class,7,7,0,7,7,0,,,source/game_sa/PointLights.h:40,catalogue_class_or_group
 CPointRoutePool,class,1,1,0,1,1,0,,public CPool<CPointRoute>,source/game_sa/Pools/PointRoutePool.h:31,catalogue_class_or_group
 CPools,class,19,19,0,19,19,0,,,source/game_sa/Pools/Pools.h:169,catalogue_class_or_group
 CPopCycle,class,15,15,0,15,15,0,,,source/game_sa/PopCycle.h:192,catalogue_class_or_group
@@ -716,7 +716,7 @@ CTrain,class,40,40,0,40,40,0,0x00872370,public CVehicle,source/game_sa/Entity/Ve
 CTxdStore,class,26,26,0,26,26,0,,,source/game_sa/TxdStore.h:26,catalogue_class_or_group
 CUpsideDownCarCheck,class,5,5,0,5,5,0,,,source/game_sa/UpsideDownCarCheck.h:25,catalogue_class_or_group
 CUserDisplay,class,2,2,0,2,2,0,,,source/game_sa/UserDisplay.h:13,catalogue_class_or_group
-CVehicle,class,144,144,0,144,144,0,0x00871E80,public CPhysical,source/game_sa/Entity/Vehicle/Vehicle.h:188,catalogue_class_or_group
+CVehicle,class,146,146,0,146,146,0,0x00871E80,public CPhysical,source/game_sa/Entity/Vehicle/Vehicle.h:188,catalogue_class_or_group
 CVehicleAnimGroup,class,5,5,0,5,5,0,,,source/game_sa/VehicleAnimGroupData.h:106,catalogue_class_or_group
 CVehicleAnimGroupData,class,5,5,0,5,5,0,,,source/game_sa/VehicleAnimGroupData.h:143,catalogue_class_or_group
 CVehicleModelInfo,class,75,75,0,75,75,0,0x0085C5C8,public CClumpModelInfo,source/game_sa/Models/VehicleModelInfo.h:143,catalogue_class_or_group
@@ -745,6 +745,7 @@ FurnitureManager_c,class,7,7,0,7,7,0,,,source/game_sa/Interior/FurnitureManager_
 FurnitureSubGroup_c,class,3,3,0,3,3,0,,public ListItem_c<FurnitureSubGroup_c>,source/game_sa/Interior/FurnitureSubGroup_c.h:15,catalogue_class_or_group
 FxEmitterBP_c,class,9,9,0,9,9,0,0x0085A788,public FxPrimBP_c,source/game_sa/Fx/FxEmitterBP.h:7,catalogue_class_or_group
 FxEmitterPrt_c,class,1,1,0,1,1,0,,public Particle_c,source/game_sa/Fx/FxEmitterPrt.h:19,catalogue_class_or_group
+FxEmitter_c,class,1,1,0,1,1,0,0x0085A7A4,public FxPrim_c,source/game_sa/Fx/FxEmitter.h:7,catalogue_class_or_group
 FxFrustumInfo_c,class,1,1,0,1,1,0,,,source/game_sa/Fx/FxFrustumInfo.h:12,catalogue_class_or_group
 FxInfoManager_c,class,4,4,0,4,4,0,,,source/game_sa/Fx/FxInfoManager.h:21,catalogue_class_or_group
 FxManager_c,class,25,25,0,25,25,0,,,source/game_sa/Fx/FxManager.h:28,catalogue_class_or_group

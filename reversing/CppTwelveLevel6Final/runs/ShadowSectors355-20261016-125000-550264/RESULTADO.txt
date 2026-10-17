@@ -1,0 +1,3 @@
+FALLO: ShadowSectors355
+GTA no responde (ventana colgada y sin progreso 30 s; abortado).
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-shadow-sectors355\20261016-125000-550264

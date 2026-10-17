@@ -136,9 +136,29 @@ static void WellBufferMe(float target, float& valueToChange, float& speedSoFar, 
     valueToChange = step * speedSoFar + valueToChange;
 }
 
+// 0x509BE0: cdecl, un `float*`; lleva *angle al intervalo [-pi, pi) (mientras >= pi resta 2pi; mientras < -pi suma 2pi) con la x87 a 24 bits del EXE y deja la pila x87,
+// las banderas y C0-C3 como el, lo hace CamWrapAngleCpp (X87Math.cpp).
+void CCam::WrapAngle(float* angle) {
+    CamWrapAngleCpp(angle);
+}
+
+// Envoltura del hook de 0x509BE0. El unico llamador del EXE es KeepTrackOfTheSpeed (0x50A002 y 0x50A019) y despues de las dos llamadas lee EDX (`mov eax, dword ptr [edx]`
+// en 0x50A052: es el puntero a `up`, que el EXE guarda en EDX antes de WrapAngle y WrapAngle no toca): un hook normal dejaria EDX libre para el compilador y, con el hook de
+// KeepTrackOfTheSpeed desactivado, el EXE desreferenciaria basura. Esta envoltura recibe el argumento cdecl y devuelve EDX de entrada intacto sin ensamblador: lo primero que
+// ejecuta es CarEnterExitEntryEdxCpp (EDX de entrada en la mitad alta del resultado de 64 bits) y lo ultimo ResidueRegsCpp (EDX = el de entrada, ECX = el puntero, como el EXE, que
+// no lo modifica; EAX no lo lee ningun llamador: 0x50A007 y 0x50A01E lo sobrescriben).
+#pragma runtime_checks("", off)
+static uint32 __declspec(safebuffers) __cdecl WrapAngleKeepEdx(float* angle) {
+    const uint32 entryEdx = uint32(CarEnterExitEntryEdxCpp() >> 32);
+    CCam::WrapAngle(angle);
+    return ResidueRegsCpp(uint32(reinterpret_cast<uintptr_t>(angle)), entryEdx, 0);
+}
+#pragma runtime_checks("", restore)
+
 void CCam::InjectHooks() {
     RH_ScopedClass(CCam);
     RH_ScopedCategory("Camera");
+    RH_ScopedNamedGlobalInstall(WrapAngleKeepEdx, "WrapAngle", 0x509BE0);
     RH_ScopedGlobalInstall(CameraPathInterpolateVector, 0x5B2090);
     RH_ScopedGlobalInstall(CameraPathInterpolateScalar, 0x5B2330);
 
@@ -487,15 +507,9 @@ void CCam::KeepTrackOfTheSpeed(const CVector& source, const CVector& target, con
     m_vecUpOverOneFrame = up - oldUp;
     m_fFovSpeedOverOneFrame = fov - previousFov;
     m_fBetaSpeedOverOneFrame = beta - previousBeta;
-    const auto normalise = [](float& angle) {
-        const auto pi = std::bit_cast<float>(0x40490FDBu);
-        const auto twoPi = std::bit_cast<float>(0x40C90FDBu);
-        while (angle >= pi) angle -= twoPi;
-        while (angle < -pi) angle += twoPi;
-    };
-    normalise(m_fBetaSpeedOverOneFrame);
+    WrapAngle(&m_fBetaSpeedOverOneFrame);
     m_fAlphaSpeedOverOneFrame = alpha - oldAlpha;
-    normalise(m_fAlphaSpeedOverOneFrame);
+    WrapAngle(&m_fAlphaSpeedOverOneFrame);
     oldSource = source;
     oldTarget = target;
     oldUp = up;

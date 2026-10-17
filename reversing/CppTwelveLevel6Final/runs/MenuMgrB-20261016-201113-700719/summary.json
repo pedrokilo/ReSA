@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "48fd6b1e57f5b7b76b7c21a06be1980e5ef99ee7e3c143cb9a582c483b958712",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 10560,
+  "pairs_per_function": {
+    "CMenuManager::AdditionalOptionInput": 1024,
+    "CMenuManager::CentreMousePointer": 64,
+    "CMenuManager::CheckCodesForControls": 1024,
+    "CMenuManager::CheckForMenuClosing": 1024,
+    "CMenuManager::CheckFrontEndDownInput": 256,
+    "CMenuManager::CheckFrontEndLeftInput": 256,
+    "CMenuManager::CheckFrontEndRightInput": 256,
+    "CMenuManager::CheckFrontEndUpInput": 256,
+    "CMenuManager::CheckHover": 512,
+    "CMenuManager::CheckRedefineControlInput": 1024,
+    "CMenuManager::CheckSliderMovement": 512,
+    "CMenuManager::ProcessUserInput": 1024,
+    "CMenuManager::RedefineScreenUserInput": 1024,
+    "CMenuManager::ScrollRadioStations": 256,
+    "CMenuManager::UserInput": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b48372055ee8945c345604949905b0b64114add737cf4a16f771c52901ab9267",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

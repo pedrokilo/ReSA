@@ -1,0 +1,3 @@
+APROBADO: additional-lifetime
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-additional-lifetime\20261016-215128-983835

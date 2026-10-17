@@ -1,0 +1,3 @@
+FALLO: Dependencies21D
+Funciones con diferencias: CTaskSimpleGangDriveBy::AITarget: 3671/4096; CTaskSimpleGangDriveBy::AimGun: 4096/4096
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependencies21d\20261017-014713-413897

@@ -1,0 +1,3 @@
+FALLO: Desbloqueos: archivos del motor
+Fallo dentro de GTA; consultar comparisons.jsonl
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-unlock-file-mgr\20261017-115612-006103

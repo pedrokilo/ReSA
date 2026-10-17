@@ -1,0 +1,3 @@
+APROBADO: GangLeader::GetTaskType
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-gang-leader\20261016-195434-550625

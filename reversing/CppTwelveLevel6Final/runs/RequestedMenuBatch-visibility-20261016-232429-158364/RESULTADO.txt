@@ -1,0 +1,3 @@
+APROBADO: visibility
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interesting-visibility-pending\20261016-232429-158364

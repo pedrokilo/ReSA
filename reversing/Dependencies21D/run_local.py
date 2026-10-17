@@ -49,6 +49,8 @@ def analyze(path):
         raise RuntimeError('Invalid preflight')
     if len(b['routes']) != 4 or not all(r['registered'] and r['module_ok'] for r in b['routes']):
         raise RuntimeError('Missing registered hook routes')
+    if b.get('compare_dead_x87_registers') is not True:
+        raise RuntimeError('La igualdad de los registros x87 muertos no esta activa')
     cov = {k: set() for k in ('ctor_target', 'ctor_pos', 'ctor_style', 'pt_mode', 'pt_player', 'pt_coop', 'pt_vm', 'pt_pd', 'pt_anim', 'pt_calls',
                               'ai_style', 'ai_kind', 'ai_tm', 'ai_pm', 'ai_los', 'ai_in', 'ai_next', 'ai_anim', 'ai_calls',
                               'am_player', 'am_bike', 'am_kind', 'am_calls', 'am_flag', 'am_radian', 'am_anim', 'am_kinds', 'errno')}
@@ -63,6 +65,8 @@ def analyze(path):
                 raise RuntimeError('Gate failed in pair %s (%s)' % (r['pair'], side))
             if v['x87']['ftw'] != 0xFFFF:
                 raise RuntimeError('x87 stack not empty')
+            if not isinstance(v['x87'].get('fsw'), int) or ((v['x87']['fsw'] >> 11) & 7) != v['x87']['fsw_top'] or len(v['x87'].get('raw_registers', '')) != 160:
+                raise RuntimeError('FSW completa o registros ST crudos ausentes en el estado x87')
         o, p, fn = r['original'], r['profile'], r['function']
         calls = {name(e) for e in o['trace']}
         cov['errno'].add(o['errno'])
@@ -103,6 +107,7 @@ def analyze(path):
     end = [r for r in rows if r['event'] == 'complete']
     if len(end) != 1 or end[0]['pairs'] != sum(EXPECTED.values()) or not all(end[0].get(k) is True for k in ('state_restored', 'floating_state_restored', 'pump_state_intact')):
         raise RuntimeError('Missing final restoration')
+    summary['compare_dead_x87_registers'] = True
     return summary
 
 
