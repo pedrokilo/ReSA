@@ -1,0 +1,2 @@
+#include <bit>
+#include "FurnitureManager_c.h"

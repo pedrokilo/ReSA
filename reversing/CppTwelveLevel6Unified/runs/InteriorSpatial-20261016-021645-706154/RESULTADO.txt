@@ -1,0 +1,3 @@
+APROBADO: InteriorSpatial
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interior-spatial\20261016-021645-706154

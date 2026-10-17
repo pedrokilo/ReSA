@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113EFDF0: 55                 push        ebp
+  113EFDF1: 8B EC              mov         ebp,esp
+  113EFDF3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113EFDF9: 53                 push        ebx
+  113EFDFA: 56                 push        esi
+  113EFDFB: 57                 push        edi
+  113EFDFC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113EFDFF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113EFE02: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  113EFE05: 8B 11              mov         edx,dword ptr [ecx]
+  113EFE07: 89 10              mov         dword ptr [eax],edx
+  113EFE09: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113EFE0C: 5F                 pop         edi
+  113EFE0D: 5E                 pop         esi
+  113EFE0E: 5B                 pop         ebx
+  113EFE0F: 8B E5              mov         esp,ebp
+  113EFE11: 5D                 pop         ebp
+  113EFE12: C2 0C 00           ret         0Ch
+  113EFE15: CC                 int         3
+  113EFE16: CC                 int         3
+  113EFE17: CC                 int         3
+  113EFE18: CC                 int         3
+  113EFE19: CC                 int         3
+  113EFE1A: CC                 int         3
+  113EFE1B: CC                 int         3
+  113EFE1C: CC                 int         3
+  113EFE1D: CC                 int         3
+  113EFE1E: CC                 int         3
+  113EFE1F: CC                 int         3
+  113EFE20: 55                 push        ebp
+  113EFE21: 8B EC              mov         ebp,esp
+  113EFE23: 81 EC DC 00 00 00  sub         esp,0DCh
+  113EFE29: 53                 push        ebx
+  113EFE2A: 56                 push        esi
+  113EFE2B: 57                 push        edi
+  113EFE2C: 51                 push        ecx
+  113EFE2D: 8D 7D E4           lea         edi,[ebp-1Ch]
+  113EFE30: B9
+
+  Summary
+
+     21DB000 .text

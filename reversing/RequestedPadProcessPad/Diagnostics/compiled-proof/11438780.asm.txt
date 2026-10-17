@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11438780: 55                 push        ebp
+  11438781: 8B EC              mov         ebp,esp
+  11438783: 81 EC F0 00 00 00  sub         esp,0F0h
+  11438789: 53                 push        ebx
+  1143878A: 56                 push        esi
+  1143878B: 57                 push        edi
+  1143878C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1143878F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11438792: 8B 08              mov         ecx,dword ptr [eax]
+  11438794: 83 C1 04           add         ecx,4
+  11438797: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1143879A: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1143879D: 83 38 00           cmp         dword ptr [eax],0
+  114387A0: 74 44              je          114387E6
+  114387A2: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  114387A5: 8B 08              mov         ecx,dword ptr [eax]
+  114387A7: 8B 51 08           mov         edx,dword ptr [ecx+8]
+  114387AA: 89 55 E0           mov         dword ptr [ebp-20h],edx
+  114387AD: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  114387B0: 8B 08              mov         ecx,dword ptr [eax]
+  114387B2: 89 4D D4           mov         dword ptr [ebp-2Ch],ecx
+  114387B5: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  114387B8: 3B 45 08           cmp         eax,dword ptr [ebp+8]
+  114387BB: 72 08              jb          114387C5
+  114387BD: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  114387C0: 3B 45 E0           cmp         eax,dword ptr [ebp-20h]
+  114387C3: 73 0B              jae         114387D0
+  114387C5: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  114387C8: 83 C0 04           add         eax,4
+  114387CB: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  114387CE: EB 14              jmp         114387E4
+  114387D0: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  114387D3: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  114387D9: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  114387DC: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  114387DF: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  114387E2: 89 10              mov         dword ptr [eax],edx
+  114387E4: EB B4              jmp         1143879A
+  114387E6: 5F                 pop         edi
+  114387E7: 5E                 pop         esi
+  114387E8: 5B                 pop         ebx
+  114387E9: 8B E5              mov         esp,ebp
+  114387EB: 5D                 pop         ebp
+  114387EC: C2 08 00           ret         8
+  114387EF: CC                 int         3
+
+  Summary
+
+     21DB000 .text

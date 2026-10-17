@@ -1,0 +1,838 @@
+--- a/source/game_sa/Cam.h
++++ b/source/game_sa/Cam.h
+@@ -195,3 +195,7 @@
+ 
+ int32 ConvertPedNode2BoneTag(int32 simpleId);
+ bool  IsLampPost(eModelID modelId);
++
++// Descriptive aliases for native cutscene spline interpolation helpers.
++void CameraPathInterpolateVector(CVector*,const float*,float,int32*);
++void CameraPathInterpolateScalar(float*,const float*,float,int32*);
+--- a/source/game_sa/Cam.cpp
++++ b/source/game_sa/Cam.cpp
+@@ -135,6 +135,8 @@
+ void CCam::InjectHooks() {
+     RH_ScopedClass(CCam);
+     RH_ScopedCategory("Camera");
++    RH_ScopedGlobalInstall(CameraPathInterpolateVector, 0x5B2090);
++    RH_ScopedGlobalInstall(CameraPathInterpolateScalar, 0x5B2330);
+ 
+     RH_ScopedInstall(Constructor, 0x517730);
+     RH_ScopedInstall(Init, 0x50E490);
+@@ -3638,9 +3640,9 @@
+     if(done){sourceIndex=(int32(sourcePath[0])-1)*10+1;targetIndex=(int32(targetPath[0])-1)*10+1;rollIndex=int32(rollPath[0])*4-3;fovIndex=int32(fovPath[0])*4-3;}
+     else StaticRef<float>(0xB6F168)=time/finish;
+     const auto advance=[&](const float* path,int32& index,int32 step){if(!done)while((path[index]-path[1])*1000.0f<=time)index+=step;};
+-    advance(sourcePath,sourceIndex,10);plugin::Call<0x5B2090>(&m_vecSource,sourcePath,time,&sourceIndex);
+-    advance(targetPath,targetIndex,10);plugin::Call<0x5B2090>(&m_vecFront,targetPath,time,&targetIndex);
+-    float roll=0;advance(rollPath,rollIndex,4);plugin::Call<0x5B2330>(&roll,rollPath,time,&rollIndex);
++    advance(sourcePath,sourceIndex,10);CameraPathInterpolateVector(&m_vecSource,sourcePath,time,&sourceIndex);
++    advance(targetPath,targetIndex,10);CameraPathInterpolateVector(&m_vecFront,targetPath,time,&targetIndex);
++    float roll=0;advance(rollPath,rollIndex,4);CameraPathInterpolateScalar(&roll,rollPath,time,&rollIndex);
+     const float radians=std::bit_cast<float>(0x3C8EFA35u),halfPi=std::bit_cast<float>(0x3FC90FDBu);float upX,upZ;
+     __asm { fld roll
+         fmul radians
+@@ -3652,7 +3654,7 @@
+         fstp upZ
+     }
+     m_vecUp.x=upX;m_vecUp.z=upZ;
+-    advance(fovPath,fovIndex,4);plugin::Call<0x5B2330>(&StaticRef<float>(0xBC4074),fovPath,time,&fovIndex);
++    advance(fovPath,fovIndex,4);CameraPathInterpolateScalar(&StaticRef<float>(0xBC4074),fovPath,time,&fovIndex);
+     if(done){StaticRef<float>(0xB6F168)=1;sourceIndex=targetIndex=rollIndex=fovIndex=0;}
+     m_vecTargetCoorsForFudgeInter=m_vecFront;m_vecFront-=m_vecSource;m_vecFront.Normalise();
+     const auto side=CrossProduct(m_vecUp,m_vecFront);m_vecUp=CrossProduct(m_vecFront,side);m_vecUp.Normalise();m_fFOV=StaticRef<float>(0xBC4074);
+@@ -6311,3 +6313,346 @@
+         modelId
+     );
+ }
++
++// Actual EXE CRT conversion library (ST0 input).
++static uintptr_t CameraPathFtolLibrary=0x821B40;
++
++// 0x5b2090: exact native spline arithmetic and index writes.
++__declspec(naked) void CameraPathInterpolateVector(CVector*,const float*,float,int32*) {
++    __asm {
++    sub esp,34h
++    push esi
++    mov esi,dword ptr [esp+40h]
++    fld dword ptr [esi]
++    push edi
++    call dword ptr [CameraPathFtolLibrary]
++    mov edi,dword ptr [esp+4Ch]
++    mov edx,dword ptr [edi]
++    fld dword ptr [esi+edx*4]
++    mov ecx,eax
++    fsub dword ptr [esi+edx*4-28h]
++    lea eax,[ecx+ecx*4]
++    fmul dword ptr ds:[00858C4Ch]
++    fld dword ptr [esi+eax*8-24h]
++    fmul dword ptr ds:[00858C4Ch]
++    fstp dword ptr [esp+44h]
++    fld dword ptr [esp+48h]
++    fcomp dword ptr [esp+44h]
++    fnstsw ax
++    test ah,5
++    jp L005B2128
++    dec edx
++    mov eax,0CCCCCCCDh
++    mul edx
++    shr edx,3
++    cmp edx,ecx
++    push ebx
++    mov bl,1
++    jbe L005B20F3
++    lea edx,[ecx+ecx*4-5]
++    lea eax,[edx+edx+1]
++    xor bl,bl
++    mov dword ptr [edi],eax
++    L005B20F3: fcom dword ptr ds:[008D0F80h]
++    fnstsw ax
++    test ah,41h
++    jp L005B2127
++    cmp bl,1
++    jne L005B2127
++    mov eax,dword ptr [edi]
++    add eax,0Ah
++    mov dword ptr [edi],eax
++    lea edx,[eax-1]
++    mov eax,0CCCCCCCDh
++    mul edx
++    shr edx,3
++    cmp edx,ecx
++    jbe L005B2127
++    lea eax,[ecx+ecx*4-5]
++    lea ecx,[eax+eax+1]
++    mov dword ptr [edi],ecx
++    L005B2127: pop ebx
++    L005B2128: mov ecx,dword ptr [edi]
++    fld dword ptr [esi+ecx*4-28h]
++    fmul dword ptr ds:[00858C4Ch]
++    fsubr dword ptr [esp+48h]
++    fdivrp st(1),st
++    fcom dword ptr ds:[00858624h]
++    fnstsw ax
++    test ah,41h
++    jne L005B2151
++    fstp st(0)
++    fld dword ptr ds:[00858624h]
++    jmp L005B2166
++    L005B2151: fcom dword ptr ds:[00858B50h]
++    fnstsw ax
++    test ah,5
++    jp L005B2166
++    fstp st(0)
++    fld dword ptr ds:[00858B50h]
++    L005B2166: fld dword ptr [esp+48h]
++    fcomp dword ptr [esp+44h]
++    fnstsw ax
++    test ah,41h
++    jne L005B217D
++    fstp st(0)
++    fld dword ptr ds:[00858624h]
++    L005B217D: fld dword ptr [esi+ecx*4-24h]
++    pop edi
++    fstp dword ptr [esp+8]
++    fld dword ptr [esi+ecx*4-20h]
++    fstp dword ptr [esp+0Ch]
++    fld dword ptr [esi+ecx*4-1Ch]
++    fstp dword ptr [esp+10h]
++    fld dword ptr [esi+ecx*4+4]
++    fstp dword ptr [esp+14h]
++    fld dword ptr [esi+ecx*4+8]
++    fstp dword ptr [esp+18h]
++    fld dword ptr [esi+ecx*4+0Ch]
++    fstp dword ptr [esp+1Ch]
++    fld dword ptr [esi+ecx*4-0Ch]
++    fst dword ptr [esp+20h]
++    fld dword ptr [esi+ecx*4-8]
++    fstp dword ptr [esp+24h]
++    fld dword ptr [esi+ecx*4-4]
++    fstp dword ptr [esp+28h]
++    fld dword ptr [esi+ecx*4+10h]
++    fstp dword ptr [esp+2Ch]
++    fld dword ptr [esi+ecx*4+14h]
++    fstp dword ptr [esp+30h]
++    fld dword ptr [esi+ecx*4+18h]
++    pop esi
++    fstp dword ptr [esp+30h]
++    fcomp dword ptr [esp+4]
++    fnstsw ax
++    test ah,44h
++    jp L005B220C
++    fld dword ptr [esp+20h]
++    fcomp dword ptr [esp+8]
++    fnstsw ax
++    test ah,44h
++    jp L005B220C
++    fld dword ptr [esp+24h]
++    fcomp dword ptr [esp+0Ch]
++    fnstsw ax
++    test ah,44h
++    jnp L005B22C4
++    L005B220C: fld st(0)
++    mov eax,dword ptr [esp+38h]
++    fmul st,st(1)
++    fld st(0)
++    fmul st,st(2)
++    fstp dword ptr [esp+3Ch]
++    fld dword ptr ds:[00858624h]
++    fsub st,st(2)
++    fld st(0)
++    fmul st,st(1)
++    fst dword ptr [esp]
++    fmul st,st(1)
++    fstp dword ptr [esp+44h]
++    fmul st,st(1)
++    fstp dword ptr [esp+40h]
++    fstp st(0)
++    fmul dword ptr [esp]
++    fld dword ptr [esp+40h]
++    fmul dword ptr [esp+28h]
++    fld st(1)
++    fmul dword ptr [esp+1Ch]
++    faddp st(1),st
++    fmul dword ptr ds:[00858B3Ch]
++    fld dword ptr [esp+3Ch]
++    fmul dword ptr [esp+10h]
++    faddp st(1),st
++    fld dword ptr [esp+44h]
++    fmul dword ptr [esp+4]
++    faddp st(1),st
++    fstp dword ptr [eax]
++    fld dword ptr [esp+40h]
++    fmul dword ptr [esp+2Ch]
++    fld st(1)
++    fmul dword ptr [esp+20h]
++    faddp st(1),st
++    fmul dword ptr ds:[00858B3Ch]
++    fld dword ptr [esp+3Ch]
++    fmul dword ptr [esp+14h]
++    faddp st(1),st
++    fld dword ptr [esp+44h]
++    fmul dword ptr [esp+8]
++    faddp st(1),st
++    fstp dword ptr [eax+4]
++    fmul dword ptr [esp+24h]
++    fld dword ptr [esp+40h]
++    fmul dword ptr [esp+30h]
++    faddp st(1),st
++    fmul dword ptr ds:[00858B3Ch]
++    fld dword ptr [esp+3Ch]
++    fmul dword ptr [esp+18h]
++    faddp st(1),st
++    fld dword ptr [esp+44h]
++    fmul dword ptr [esp+0Ch]
++    faddp st(1),st
++    fstp dword ptr [eax+8]
++    jmp L005B22FC
++    L005B22C4: fld dword ptr [esp+10h]
++    mov eax,dword ptr [esp+38h]
++    fsub dword ptr [esp+4]
++    fmul st,st(1)
++    fadd dword ptr [esp+4]
++    fstp dword ptr [eax]
++    fld dword ptr [esp+14h]
++    fsub dword ptr [esp+8]
++    fmul st,st(1)
++    fadd dword ptr [esp+8]
++    fstp dword ptr [eax+4]
++    fld dword ptr [esp+18h]
++    fsub dword ptr [esp+0Ch]
++    fmul st,st(1)
++    fadd dword ptr [esp+0Ch]
++    fstp dword ptr [eax+8]
++    fstp st(0)
++    L005B22FC: fld dword ptr ds:[00B6F8ACh]
++    fadd dword ptr [eax]
++    fstp dword ptr [eax]
++    fld dword ptr ds:[00B6F8B0h]
++    fadd dword ptr [eax+4]
++    fstp dword ptr [eax+4]
++    fld dword ptr ds:[00B6F8B4h]
++    fadd dword ptr [eax+8]
++    fstp dword ptr [eax+8]
++    add esp,34h
++    ret
++    }
++}
++
++// 0x5b2330: exact native spline arithmetic and index writes.
++__declspec(naked) void CameraPathInterpolateScalar(float*,const float*,float,int32*) {
++    __asm {
++    push ebx
++    push esi
++    mov esi,dword ptr [esp+10h]
++    fld dword ptr [esi]
++    push edi
++    call dword ptr [CameraPathFtolLibrary]
++    mov edx,dword ptr [esp+1Ch]
++    mov edi,dword ptr [edx]
++    fld dword ptr [esi+edi*4]
++    mov ecx,eax
++    fsub dword ptr [esi+edi*4-10h]
++    shl eax,4
++    fmul dword ptr ds:[00858C4Ch]
++    fld dword ptr [eax+esi-0Ch]
++    fmul dword ptr ds:[00858C4Ch]
++    fstp dword ptr [esp+14h]
++    fld dword ptr [esp+18h]
++    fcomp dword ptr [esp+14h]
++    fnstsw ax
++    test ah,5
++    jp L005B23B4
++    dec edi
++    shr edi,2
++    cmp edi,ecx
++    mov bl,1
++    jbe L005B2388
++    lea eax,[ecx*4+0FFFFFFFDh]
++    xor bl,bl
++    mov dword ptr [edx],eax
++    L005B2388: fcomp dword ptr ds:[008D0F80h]
++    fnstsw ax
++    test ah,41h
++    jp L005B23B6
++    cmp bl,1
++    jne L005B23B6
++    mov eax,dword ptr [edx]
++    add eax,4
++    mov dword ptr [edx],eax
++    dec eax
++    shr eax,2
++    cmp eax,ecx
++    jbe L005B23B6
++    lea ecx,[ecx*4+0FFFFFFFDh]
++    mov dword ptr [edx],ecx
++    jmp L005B23B6
++    L005B23B4: fstp st(0)
++    L005B23B6: mov ecx,dword ptr [edx]
++    fld dword ptr [esi+ecx*4-10h]
++    fmul dword ptr ds:[00858C4Ch]
++    fsubr dword ptr [esp+18h]
++    fld dword ptr [esi+ecx*4]
++    fsub dword ptr [esi+ecx*4-10h]
++    fmul dword ptr ds:[00858C4Ch]
++    fdivp st(1),st
++    fcom dword ptr ds:[00858624h]
++    fnstsw ax
++    test ah,41h
++    jne L005B23EC
++    fstp st(0)
++    fld dword ptr ds:[00858624h]
++    jmp L005B2401
++    L005B23EC: fcom dword ptr ds:[00858B50h]
++    fnstsw ax
++    test ah,5
++    jp L005B2401
++    fstp st(0)
++    fld dword ptr ds:[00858B50h]
++    L005B2401: fld dword ptr [esp+18h]
++    fcomp dword ptr [esp+14h]
++    fnstsw ax
++    test ah,41h
++    jne L005B2418
++    fstp st(0)
++    fld dword ptr ds:[00858624h]
++    L005B2418: fld dword ptr ds:[00858624h]
++    fsub st,st(1)
++    fld st(0)
++    fmul st,st(1)
++    fld st(0)
++    fmul st,st(2)
++    fld dword ptr [esi+ecx*4-4]
++    fld dword ptr [esi+ecx*4+8]
++    fld st(1)
++    fcomp dword ptr [esi+ecx*4-0Ch]
++    fnstsw ax
++    test ah,44h
++    jnp L005B2477
++    fld dword ptr [esi+ecx*4+4]
++    mov edx,dword ptr [esp+10h]
++    fmul st,st(6)
++    fxch st(1)
++    pop edi
++    fmul st,st(5)
++    fmul dword ptr ds:[00858B3Ch]
++    faddp st(1),st
++    fmul st,st(5)
++    fxch st(1)
++    fmul st,st(3)
++    fmul dword ptr ds:[00858B3Ch]
++    faddp st(1),st
++    fmul st,st(4)
++    fxch st(1)
++    fmul dword ptr [esi+ecx*4-0Ch]
++    pop esi
++    pop ebx
++    faddp st(1),st
++    fstp dword ptr [edx]
++    fstp st(0)
++    fstp st(0)
++    fstp st(0)
++    ret
++    L005B2477: fstp st(0)
++    mov eax,dword ptr [esp+10h]
++    fstp st(0)
++    pop edi
++    fstp st(0)
++    fstp st(0)
++    fstp st(0)
++    fld dword ptr [esi+ecx*4+4]
++    fsub dword ptr [esi+ecx*4-0Ch]
++    fmul st,st(1)
++    fadd dword ptr [esi+ecx*4-0Ch]
++    pop esi
++    pop ebx
++    fstp dword ptr [eax]
++    fstp st(0)
++    ret
++    }
++}
+--- a/source/game_sa/WaterLevel.h
++++ b/source/game_sa/WaterLevel.h
+@@ -265,6 +265,8 @@
+     static void SetUpWaterFog(int32 a1, int32 a2, int32 a3, int32 a4);
+     static void RenderWakeSegment(const CVector2D& a1, const CVector2D& a2, const CVector2D& a3, const CVector2D& a4, const float& widthA, const float& widthB, const float& alphaA, const float& alphaB, const float& wakeZ);
+     static void FindNearestWaterAndItsFlow();
++    static bool GetWaterLevelNoWavesForQuad(const CWaterQuad*,float,float,float,float*,float*,float*);
++    static bool GetWaterLevelNoWavesForTriangle(const CWaterTriangle*,float,float,float,float*,float*,float*);
+     static bool GetWaterLevelNoWaves(CVector pos, float * pOutWaterLevel, float * fUnkn1 = nullptr, float * fUnkn2 = nullptr);
+     static void RenderWaterFog();
+     static bool TestLineAgainstWater(CVector from, CVector to, CVector* intersection);
+--- a/source/game_sa/WaterLevel.cpp
++++ b/source/game_sa/WaterLevel.cpp
+@@ -63,6 +63,8 @@
+     RH_ScopedGlobalInstall(SetUpWaterFog, 0x6EA9F0);
+     RH_ScopedGlobalInstall(FindNearestWaterAndItsFlow, 0x6E9D70);
+     RH_ScopedGlobalInstall(GetWaterLevelNoWaves, 0x6E8580);
++    RH_ScopedInstall(GetWaterLevelNoWavesForQuad, 0x6E5BB0);
++    RH_ScopedInstall(GetWaterLevelNoWavesForTriangle, 0x6E5E90);
+     RH_ScopedGlobalInstall(RenderWaterFog, 0x6E7760);
+     RH_ScopedGlobalInstall(CalculateWavesOnlyForCoordinate, 0x6E6EF0);
+     RH_ScopedGlobalInstall(RenderWater, 0x6EF650);
+@@ -984,9 +986,9 @@
+     const auto check = [&](const PolyInfo& info) {
+         switch (info.Type()) {
+         case PolyInfo::PType::SINGLE_QUAD:
+-            return plugin::CallAndReturn<bool, 0x6E5BB0>(&WaterQuads[info.Id()], pos.x, pos.y, pos.z, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
++            return GetWaterLevelNoWavesForQuad(&WaterQuads[info.Id()], pos.x, pos.y, pos.z, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
+         case PolyInfo::PType::SINGLE_TRI:
+-            return plugin::CallAndReturn<bool, 0x6E5E90>(&WaterTriangles[info.Id()], pos.x, pos.y, pos.z, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
++            return GetWaterLevelNoWavesForTriangle(&WaterTriangles[info.Id()], pos.x, pos.y, pos.z, pOutWaterLevel, pOutBigWaves, pOutSmallWaves);
+         default:
+             return false;
+         }
+@@ -1768,3 +1770,413 @@
+ bool CWaterLevel::TestLineAgainstWater(CVector from, CVector to, CVector* intersection) {
+     return plugin::CallAndReturn<bool, 0x6E61B0, CVector, CVector, CVector*>(from, to, intersection);
+ }
++
++// 0x6e5bb0: reads real loaded water atlas; no game collaborator calls.
++__declspec(naked) bool CWaterLevel::GetWaterLevelNoWavesForQuad(const CWaterQuad*,float,float,float,float*,float*,float*) {
++    __asm {
++    sub esp,10h
++    mov ecx,dword ptr [esp+14h]
++    movsx edx,word ptr [ecx]
++    lea edx,[edx+edx*4]
++    shl edx,2
++    movsx eax,word ptr [edx+00C22910h]
++    mov dword ptr [esp],eax
++    push ebx
++    push ebp
++    fild dword ptr [esp+8]
++    push esi
++    push edi
++    fstp dword ptr [esp+24h]
++    fld dword ptr [esp+28h]
++    fcomp dword ptr [esp+24h]
++    fnstsw ax
++    test ah,1
++    jne L006E5E6E
++    movsx eax,word ptr [ecx+2]
++    lea edi,[eax+eax*4]
++    shl edi,2
++    movsx ebp,word ptr [edi+00C22910h]
++    mov dword ptr [esp+18h],ebp
++    fild dword ptr [esp+18h]
++    fcomp dword ptr [esp+28h]
++    fnstsw ax
++    test ah,1
++    jne L006E5E6E
++    movsx eax,word ptr [edx+00C22912h]
++    mov dword ptr [esp+18h],eax
++    fild dword ptr [esp+18h]
++    fstp dword ptr [esp+14h]
++    fld dword ptr [esp+2Ch]
++    fcomp dword ptr [esp+14h]
++    fnstsw ax
++    test ah,1
++    jne L006E5E6E
++    movsx eax,word ptr [ecx+4]
++    lea esi,[eax+eax*4]
++    shl esi,2
++    movsx ebx,word ptr [esi+00C22912h]
++    mov dword ptr [esp+1Ch],ebx
++    fild dword ptr [esp+1Ch]
++    fcomp dword ptr [esp+2Ch]
++    fnstsw ax
++    test ah,1
++    jne L006E5E6E
++    mov eax,dword ptr [esp+10h]
++    fld dword ptr [esp+28h]
++    fsub dword ptr [esp+24h]
++    sub ebp,eax
++    mov dword ptr [esp+28h],ebp
++    fidiv dword ptr [esp+28h]
++    mov eax,dword ptr [esp+18h]
++    sub ebx,eax
++    mov dword ptr [esp+24h],ebx
++    fstp dword ptr [esp+28h]
++    fld dword ptr [esp+2Ch]
++    fsub dword ptr [esp+14h]
++    fidiv dword ptr [esp+24h]
++    fld dword ptr [esp+28h]
++    fadd st,st(1)
++    fcomp dword ptr ds:[00858624h]
++    fnstsw ax
++    test ah,41h
++    jp L006E5D6A
++    fld dword ptr [esi+00C22914h]
++    mov esi,dword ptr [esp+34h]
++    fsub dword ptr [edx+00C22914h]
++    fmul st,st(1)
++    fld dword ptr [edi+00C22914h]
++    mov edi,dword ptr [esp+38h]
++    test edi,edi
++    fsub dword ptr [edx+00C22914h]
++    fmul dword ptr [esp+28h]
++    faddp st(1),st
++    fadd dword ptr [edx+00C22914h]
++    fstp dword ptr [esi]
++    je L006E5E7A
++    movsx edx,word ptr [ecx+4]
++    movsx eax,word ptr [ecx]
++    lea edx,[edx+edx*4]
++    lea eax,[eax+eax*4]
++    fld dword ptr [edx*4+00C22918h]
++    movsx edx,word ptr [ecx+2]
++    lea edx,[edx+edx*4]
++    fsub dword ptr [eax*4+00C22918h]
++    fmul st,st(1)
++    fld dword ptr [edx*4+00C22918h]
++    fsub dword ptr [eax*4+00C22918h]
++    fmul dword ptr [esp+28h]
++    faddp st(1),st
++    fadd dword ptr [eax*4+00C22918h]
++    fstp dword ptr [edi]
++    movsx edx,word ptr [ecx+4]
++    movsx eax,word ptr [ecx]
++    lea edx,[edx+edx*4]
++    lea eax,[eax+eax*4]
++    fld dword ptr [edx*4+00C2291Ch]
++    movsx edx,word ptr [ecx+2]
++    lea edx,[edx+edx*4]
++    fsub dword ptr [eax*4+00C2291Ch]
++    fmul st,st(1)
++    fld dword ptr [edx*4+00C2291Ch]
++    fsub dword ptr [eax*4+00C2291Ch]
++    fmul dword ptr [esp+28h]
++    faddp st(1),st
++    fadd dword ptr [eax*4+00C2291Ch]
++    mov eax,dword ptr [esp+3Ch]
++    fstp dword ptr [eax]
++    jmp L006E5E40
++    L006E5D6A: fsubr dword ptr ds:[00858624h]
++    movsx eax,word ptr [ecx+6]
++    fld dword ptr ds:[00858624h]
++    lea eax,[eax+eax*4]
++    fsub dword ptr [esp+28h]
++    fld dword ptr [esi+00C22914h]
++    mov esi,dword ptr [esp+34h]
++    fsub dword ptr [eax*4+00C22914h]
++    fmul st,st(1)
++    fld dword ptr [edi+00C22914h]
++    mov edi,dword ptr [esp+38h]
++    test edi,edi
++    fsub dword ptr [eax*4+00C22914h]
++    fmul st,st(3)
++    faddp st(1),st
++    fadd dword ptr [eax*4+00C22914h]
++    fstp dword ptr [esi]
++    je L006E5E78
++    movsx edx,word ptr [ecx+2]
++    movsx eax,word ptr [ecx+6]
++    lea edx,[edx+edx*4]
++    lea eax,[eax+eax*4]
++    fld dword ptr [edx*4+00C22918h]
++    movsx edx,word ptr [ecx+4]
++    lea edx,[edx+edx*4]
++    fsub dword ptr [eax*4+00C22918h]
++    fmul st,st(2)
++    fld dword ptr [edx*4+00C22918h]
++    fsub dword ptr [eax*4+00C22918h]
++    fmul st,st(2)
++    faddp st(1),st
++    fadd dword ptr [eax*4+00C22918h]
++    fstp dword ptr [edi]
++    movsx edx,word ptr [ecx+2]
++    movsx eax,word ptr [ecx+6]
++    lea edx,[edx+edx*4]
++    lea eax,[eax+eax*4]
++    fld dword ptr [edx*4+00C2291Ch]
++    movsx edx,word ptr [ecx+4]
++    lea edx,[edx+edx*4]
++    fsub dword ptr [eax*4+00C2291Ch]
++    fmul st,st(2)
++    fld dword ptr [edx*4+00C2291Ch]
++    fsub dword ptr [eax*4+00C2291Ch]
++    fmul st,st(2)
++    faddp st(1),st
++    fadd dword ptr [eax*4+00C2291Ch]
++    mov eax,dword ptr [esp+3Ch]
++    fstp dword ptr [eax]
++    fstp st(0)
++    L006E5E40: fstp st(0)
++    fld dword ptr [esi]
++    fsub dword ptr ds:[00858B44h]
++    fcomp dword ptr [esp+30h]
++    fnstsw ax
++    test ah,41h
++    jne L006E5E5B
++    test byte ptr [ecx+8],4
++    jne L006E5E6E
++    L006E5E5B: fld dword ptr [esi]
++    fadd dword ptr ds:[00858BA4h]
++    fcomp dword ptr [esp+30h]
++    fnstsw ax
++    test ah,5
++    jp L006E5E7C
++    L006E5E6E: pop edi
++    pop esi
++    pop ebp
++    xor al,al
++    pop ebx
++    add esp,10h
++    ret
++    L006E5E78: fstp st(0)
++    L006E5E7A: fstp st(0)
++    L006E5E7C: pop edi
++    pop esi
++    pop ebp
++    mov al,1
++    pop ebx
++    add esp,10h
++    ret
++    }
++}
++
++// 0x6e5e90: reads real loaded water atlas; no game collaborator calls.
++__declspec(naked) bool CWaterLevel::GetWaterLevelNoWavesForTriangle(const CWaterTriangle*,float,float,float,float*,float*,float*) {
++    __asm {
++    sub esp,10h
++    mov ecx,dword ptr [esp+14h]
++    movsx edx,word ptr [ecx]
++    lea edx,[edx+edx*4]
++    shl edx,2
++    movsx eax,word ptr [edx+00C22910h]
++    mov dword ptr [esp+8],eax
++    push ebx
++    push ebp
++    fild dword ptr [esp+10h]
++    push esi
++    push edi
++    fstp dword ptr [esp+14h]
++    fld dword ptr [esp+28h]
++    fcomp dword ptr [esp+14h]
++    fnstsw ax
++    test ah,1
++    jne L006E619E
++    movsx eax,word ptr [ecx+2]
++    lea ebx,[eax+eax*4]
++    shl ebx,2
++    movsx ebp,word ptr [ebx+00C22910h]
++    mov dword ptr [esp+24h],ebp
++    fild dword ptr [esp+24h]
++    fcomp dword ptr [esp+28h]
++    fnstsw ax
++    test ah,1
++    jne L006E619E
++    movsx eax,word ptr [ecx+4]
++    lea esi,[eax+eax*4]
++    mov ax,word ptr [edx+00C22912h]
++    shl esi,2
++    mov di,word ptr [esi+00C22912h]
++    cmp ax,di
++    movsx edi,di
++    movsx eax,ax
++    mov dword ptr [esp+24h],edi
++    mov dword ptr [esp+10h],eax
++    jge L006E5F2B
++    fild dword ptr [esp+10h]
++    fst dword ptr [esp+1Ch]
++    fild dword ptr [esp+24h]
++    jmp L006E5F37
++    L006E5F2B: fild dword ptr [esp+24h]
++    fild dword ptr [esp+10h]
++    fst dword ptr [esp+1Ch]
++    L006E5F37: fstp dword ptr [esp+24h]
++    fld dword ptr [esp+2Ch]
++    fcomp st(1)
++    fnstsw ax
++    fstp st(0)
++    test ah,1
++    jne L006E619E
++    fld dword ptr [esp+2Ch]
++    fcomp dword ptr [esp+24h]
++    fnstsw ax
++    test ah,41h
++    jp L006E619E
++    mov eax,dword ptr [esp+18h]
++    fld dword ptr [esp+28h]
++    fsub dword ptr [esp+14h]
++    sub ebp,eax
++    mov dword ptr [esp+28h],ebp
++    fidiv dword ptr [esp+28h]
++    mov ebp,dword ptr [esp+10h]
++    sub edi,ebp
++    mov dword ptr [esp+28h],edi
++    mov ax,word ptr [edx+00C22910h]
++    cmp ax,word ptr [esi+00C22910h]
++    fstp dword ptr [esp+24h]
++    fld dword ptr [esp+2Ch]
++    fsub dword ptr [esp+1Ch]
++    fidiv dword ptr [esp+28h]
++    fstp dword ptr [esp+28h]
++    jne L006E608B
++    fld dword ptr [esp+28h]
++    fadd dword ptr [esp+24h]
++    fcomp dword ptr ds:[00858624h]
++    fnstsw ax
++    test ah,41h
++    jp L006E619E
++    fld dword ptr [esi+00C22914h]
++    mov esi,dword ptr [esp+38h]
++    test esi,esi
++    fsub dword ptr [edx+00C22914h]
++    mov edi,dword ptr [esp+34h]
++    fmul dword ptr [esp+28h]
++    fld dword ptr [ebx+00C22914h]
++    fsub dword ptr [edx+00C22914h]
++    fmul dword ptr [esp+24h]
++    faddp st(1),st
++    fadd dword ptr [edx+00C22914h]
++    fstp dword ptr [edi]
++    je L006E6168
++    movsx edx,word ptr [ecx+2]
++    movsx eax,word ptr [ecx]
++    lea edx,[edx+edx*4]
++    lea eax,[eax+eax*4]
++    fld dword ptr [edx*4+00C22918h]
++    movsx edx,word ptr [ecx+4]
++    lea edx,[edx+edx*4]
++    fsub dword ptr [eax*4+00C22918h]
++    fmul dword ptr [esp+24h]
++    fld dword ptr [edx*4+00C22918h]
++    fsub dword ptr [eax*4+00C22918h]
++    fmul dword ptr [esp+28h]
++    faddp st(1),st
++    fadd dword ptr [eax*4+00C22918h]
++    fstp dword ptr [esi]
++    movsx edx,word ptr [ecx+4]
++    movsx eax,word ptr [ecx]
++    lea edx,[edx+edx*4]
++    lea eax,[eax+eax*4]
++    fld dword ptr [edx*4+00C2291Ch]
++    movsx edx,word ptr [ecx+2]
++    lea edx,[edx+edx*4]
++    fsub dword ptr [eax*4+00C2291Ch]
++    fmul dword ptr [esp+28h]
++    fld dword ptr [edx*4+00C2291Ch]
++    fsub dword ptr [eax*4+00C2291Ch]
++    fmul dword ptr [esp+24h]
++    faddp st(1),st
++    fadd dword ptr [eax*4+00C2291Ch]
++    mov eax,dword ptr [esp+3Ch]
++    fstp dword ptr [eax]
++    jmp L006E6168
++    L006E608B: fld dword ptr [esp+24h]
++    fcomp dword ptr [esp+28h]
++    fnstsw ax
++    test ah,1
++    jne L006E619E
++    fld dword ptr ds:[00858624h]
++    mov edi,dword ptr [esp+34h]
++    fsub dword ptr [esp+24h]
++    fld dword ptr [esi+00C22914h]
++    mov esi,dword ptr [esp+38h]
++    test esi,esi
++    fsub dword ptr [ebx+00C22914h]
++    fmul dword ptr [esp+28h]
++    fld dword ptr [edx+00C22914h]
++    fsub dword ptr [ebx+00C22914h]
++    fmul st,st(2)
++    faddp st(1),st
++    fadd dword ptr [ebx+00C22914h]
++    fstp dword ptr [edi]
++    je L006E6166
++    movsx edx,word ptr [ecx]
++    movsx eax,word ptr [ecx+2]
++    lea edx,[edx+edx*4]
++    lea eax,[eax+eax*4]
++    fld dword ptr [edx*4+00C22918h]
++    movsx edx,word ptr [ecx+4]
++    lea edx,[edx+edx*4]
++    fsub dword ptr [eax*4+00C22918h]
++    fmul st,st(1)
++    fld dword ptr [edx*4+00C22918h]
++    fsub dword ptr [eax*4+00C22918h]
++    fmul dword ptr [esp+28h]
++    faddp st(1),st
++    fadd dword ptr [eax*4+00C22918h]
++    fstp dword ptr [esi]
++    movsx edx,word ptr [ecx]
++    movsx eax,word ptr [ecx+2]
++    lea edx,[edx+edx*4]
++    lea eax,[eax+eax*4]
++    fld dword ptr [edx*4+00C2291Ch]
++    movsx edx,word ptr [ecx+4]
++    lea edx,[edx+edx*4]
++    fsub dword ptr [eax*4+00C2291Ch]
++    fmul st,st(1)
++    fld dword ptr [edx*4+00C2291Ch]
++    fsub dword ptr [eax*4+00C2291Ch]
++    fmul dword ptr [esp+28h]
++    faddp st(1),st
++    fadd dword ptr [eax*4+00C2291Ch]
++    mov eax,dword ptr [esp+3Ch]
++    fstp dword ptr [eax]
++    L006E6166: fstp st(0)
++    L006E6168: fld dword ptr [edi]
++    fsub dword ptr ds:[00858B44h]
++    fcomp dword ptr [esp+30h]
++    fnstsw ax
++    test ah,41h
++    jne L006E6181
++    test byte ptr [ecx+6],4
++    jne L006E619E
++    L006E6181: fld dword ptr [edi]
++    fadd dword ptr ds:[00858BA4h]
++    fcomp dword ptr [esp+30h]
++    fnstsw ax
++    test ah,5
++    jnp L006E619E
++    pop edi
++    pop esi
++    pop ebp
++    mov al,1
++    pop ebx
++    add esp,10h
++    ret
++    L006E619E: pop edi
++    pop esi
++    pop ebp
++    xor al,al
++    pop ebx
++    add esp,10h
++    ret
++    }
++}

@@ -1,0 +1,305 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00716C90: D9 05 FC 12 C8 00  fld         dword ptr ds:[00C812FCh]
+  00716C96: 83 EC 60           sub         esp,60h
+  00716C99: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  00716C9F: DF E0              fnstsw      ax
+  00716CA1: F6 C4 44           test        ah,44h
+  00716CA4: 0F 8B B1 00 00 00  jnp         00716D5B
+  00716CAA: A1 14 29 B7 00     mov         eax,dword ptr ds:[00B72914h]
+  00716CAF: 85 C0              test        eax,eax
+  00716CB1: 0F 85 A4 00 00 00  jne         00716D5B
+  00716CB7: 6A FF              push        0FFFFFFFFh
+  00716CB9: E8 52 75 E5 FF     call        0056E210
+  00716CBE: 8A 48 2F           mov         cl,byte ptr [eax+2Fh]
+  00716CC1: 83 C4 04           add         esp,4
+  00716CC4: 84 C9              test        cl,cl
+  00716CC6: 0F 85 8F 00 00 00  jne         00716D5B
+  00716CCC: D9 05 5C CB B7 00  fld         dword ptr ds:[00B7CB5Ch]
+  00716CD2: D8 0D 08 4E 86 00  fmul        dword ptr ds:[00864E08h]
+  00716CD8: D9 5C 24 24        fstp        dword ptr [esp+24h]
+  00716CDC: E8 CF 70 01 00     call        0072DDB0
+  00716CE1: 84 C0              test        al,al
+  00716CE3: 74 32              je          00716D17
+  00716CE5: E8 D6 70 01 00     call        0072DDC0
+  00716CEA: 84 C0              test        al,al
+  00716CEC: 74 29              je          00716D17
+  00716CEE: D9 05 98 57 8D 00  fld         dword ptr ds:[008D5798h]
+  00716CF4: D8 64 24 24        fsub        dword ptr [esp+24h]
+  00716CF8: D9 15 98 57 8D 00  fst         dword ptr ds:[008D5798h]
+  00716CFE: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  00716D04: DF E0              fnstsw      ax
+  00716D06: F6 C4 05           test        ah,5
+  00716D09: 7A 33              jp          00716D3E
+  00716D0B: C7 05 98 57 8D 00  mov         dword ptr ds:[008D5798h],0
+            00 00 00 00
+  00716D15: EB 27              jmp         00716D3E
+  00716D17: D9 05 98 57 8D 00  fld         dword ptr ds:[008D5798h]
+  00716D1D: D8 44 24 24        fadd        dword ptr [esp+24h]
+  00716D21: D9 15 98 57 8D 00  fst         dword ptr ds:[008D5798h]
+  00716D27: D8 1D 24 86 85 00  fcomp       dword ptr ds:[00858624h]
+  00716D2D: DF E0              fnstsw      ax
+  00716D2F: F6 C4 41           test        ah,41h
+  00716D32: 75 0A              jne         00716D3E
+  00716D34: C7 05 98 57 8D 00  mov         dword ptr ds:[008D5798h],3F800000h
+            00 00 80 3F
+  00716D3E: D9 05 2C 13 C8 00  fld         dword ptr ds:[00C8132Ch]
+  00716D44: D8 1D 4C 51 8D 00  fcomp       dword ptr ds:[008D514Ch]
+  00716D4A: DF E0              fnstsw      ax
+  00716D4C: F6 C4 01           test        ah,1
+  00716D4F: 75 0E              jne         00716D5F
+  00716D51: C7 05 98 57 8D 00  mov         dword ptr ds:[008D5798h],0
+            00 00 00 00
+  00716D5B: 83 C4 60           add         esp,60h
+  00716D5E: C3                 ret
+  00716D5F: D9 05 98 57 8D 00  fld         dword ptr ds:[008D5798h]
+  00716D65: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  00716D6B: DF E0              fnstsw      ax
+  00716D6D: F6 C4 44           test        ah,44h
+  00716D70: 7B E9              jnp         00716D5B
+  00716D72: 53                 push        ebx
+  00716D73: 55                 push        ebp
+  00716D74: 56                 push        esi
+  00716D75: 57                 push        edi
+  00716D76: 8D 44 24 58        lea         eax,[esp+58h]
+  00716D7A: 50                 push        eax
+  00716D7B: B9 28 F0 B6 00     mov         ecx,0B6F028h
+  00716D80: E8 9B 76 DF FF     call        0050E420
+  00716D85: 8D 4C 24 64        lea         ecx,[esp+64h]
+  00716D89: 51                 push        ecx
+  00716D8A: B9 28 F0 B6 00     mov         ecx,0B6F028h
+  00716D8F: E8 DC 5E D0 FF     call        0041CC70
+  00716D94: E8 27 9F FE FF     call        00700CC0
+  00716D99: E8 D2 9F FE FF     call        00700D70
+  00716D9E: 8B 15 24 7B C9 00  mov         edx,dword ptr ds:[00C97B24h]
+  00716DA4: 6A 01              push        1
+  00716DA6: 6A 06              push        6
+  00716DA8: FF 52 20           call        dword ptr [edx+20h]
+  00716DAB: A1 7C AA C6 00     mov         eax,dword ptr ds:[00C6AA7Ch]
+  00716DB0: 8B 08              mov         ecx,dword ptr [eax]
+  00716DB2: 8B 15 24 7B C9 00  mov         edx,dword ptr ds:[00C97B24h]
+  00716DB8: 51                 push        ecx
+  00716DB9: 6A 01              push        1
+  00716DBB: FF 52 20           call        dword ptr [edx+20h]
+  00716DBE: A1 24 7B C9 00     mov         eax,dword ptr ds:[00C97B24h]
+  00716DC3: 6A 02              push        2
+  00716DC5: 6A 09              push        9
+  00716DC7: FF 50 20           call        dword ptr [eax+20h]
+  00716DCA: 0F B7 2D CA C4 B7  movzx       ebp,word ptr ds:[00B7C4CAh]
+            00
+  00716DD1: 81 C5 84 00 00 00  add         ebp,84h
+  00716DD7: B9 FF 00 00 00     mov         ecx,0FFh
+  00716DDC: 83 C4 18           add         esp,18h
+  00716DDF: 33 F6              xor         esi,esi
+  00716DE1: 3B E9              cmp         ebp,ecx
+  00716DE3: 89 6C 24 30        mov         dword ptr [esp+30h],ebp
+  00716DE7: 7E 06              jle         00716DEF
+  00716DE9: 89 4C 24 30        mov         dword ptr [esp+30h],ecx
+  00716DED: 8B E9              mov         ebp,ecx
+  00716DEF: 0F B7 05 CC C4 B7  movzx       eax,word ptr ds:[00B7C4CCh]
+            00
+  00716DF6: 05 84 00 00 00     add         eax,84h
+  00716DFB: 3B C1              cmp         eax,ecx
+  00716DFD: 89 44 24 38        mov         dword ptr [esp+38h],eax
+  00716E01: 7E 04              jle         00716E07
+  00716E03: 89 4C 24 38        mov         dword ptr [esp+38h],ecx
+  00716E07: 0F B7 1D CE C4 B7  movzx       ebx,word ptr ds:[00B7C4CEh]
+            00
+  00716E0E: 81 C3 84 00 00 00  add         ebx,84h
+  00716E14: 3B D9              cmp         ebx,ecx
+  00716E16: 89 5C 24 34        mov         dword ptr [esp+34h],ebx
+  00716E1A: 7E 06              jle         00716E22
+  00716E1C: 89 4C 24 34        mov         dword ptr [esp+34h],ecx
+  00716E20: 8B D9              mov         ebx,ecx
+  00716E22: 33 C0              xor         eax,eax
+  00716E24: 89 44 24 3C        mov         dword ptr [esp+3Ch],eax
+  00716E28: BF BC C2 C6 00     mov         edi,0C6C2BCh
+  00716E2D: 8D 49 00           lea         ecx,[ecx]
+  00716E30: 8A 88 58 C1 C6 00  mov         cl,byte ptr [eax+00C6C158h]
+  00716E36: 84 C9              test        cl,cl
+  00716E38: 0F 84 27 02 00 00  je          00717065
+  00716E3E: D9 04 85 20 D3 C6  fld         dword ptr [eax*4+00C6D320h]
+            00
+  00716E45: 8B 4F FC           mov         ecx,dword ptr [edi-4]
+  00716E48: D8 0D 8C 8B 85 00  fmul        dword ptr ds:[00858B8Ch]
+  00716E4E: 8B 17              mov         edx,dword ptr [edi]
+  00716E50: 89 4C 24 10        mov         dword ptr [esp+10h],ecx
+  00716E54: 8B 4F 04           mov         ecx,dword ptr [edi+4]
+  00716E57: D9 C0              fld         st(0)
+  00716E59: 89 54 24 14        mov         dword ptr [esp+14h],edx
+  00716E5D: D9 44 24 58        fld         dword ptr [esp+58h]
+  00716E61: 89 4C 24 18        mov         dword ptr [esp+18h],ecx
+  00716E65: D8 CA              fmul        st,st(2)
+  00716E67: D9 5C 24 4C        fstp        dword ptr [esp+4Ch]
+  00716E6B: D9 44 24 5C        fld         dword ptr [esp+5Ch]
+  00716E6F: D8 CA              fmul        st,st(2)
+  00716E71: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  00716E75: D9 44 24 60        fld         dword ptr [esp+60h]
+  00716E79: D8 CA              fmul        st,st(2)
+  00716E7B: D9 5C 24 54        fstp        dword ptr [esp+54h]
+  00716E7F: DD D9              fstp        st(1)
+  00716E81: D9 44 24 64        fld         dword ptr [esp+64h]
+  00716E85: D8 C9              fmul        st,st(1)
+  00716E87: D9 5C 24 40        fstp        dword ptr [esp+40h]
+  00716E8B: D9 44 24 68        fld         dword ptr [esp+68h]
+  00716E8F: D8 C9              fmul        st,st(1)
+  00716E91: D9 5C 24 44        fstp        dword ptr [esp+44h]
+  00716E95: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  00716E99: D8 C9              fmul        st,st(1)
+  00716E9B: D9 5C 24 48        fstp        dword ptr [esp+48h]
+  00716E9F: DD D8              fstp        st(0)
+  00716EA1: D9 05 FC 12 C8 00  fld         dword ptr ds:[00C812FCh]
+  00716EA7: D8 0C 85 98 D8 C6  fmul        dword ptr [eax*4+00C6D898h]
+            00
+  00716EAE: D8 0D 98 57 8D 00  fmul        dword ptr ds:[008D5798h]
+  00716EB4: E8 87 AC 10 00     call        00821B40
+  00716EB9: 8B 54 24 38        mov         edx,dword ptr [esp+38h]
+  00716EBD: C1 E0 08           shl         eax,8
+  00716EC0: 0B C5              or          eax,ebp
+  00716EC2: C1 E0 08           shl         eax,8
+  00716EC5: 0B C2              or          eax,edx
+  00716EC7: C1 E0 08           shl         eax,8
+  00716ECA: 8B E8              mov         ebp,eax
+  00716ECC: 0B EB              or          ebp,ebx
+  00716ECE: BB 3C E9 C6 00     mov         ebx,0C6E93Ch
+  00716ED3: 8B 03              mov         eax,dword ptr [ebx]
+  00716ED5: 85 C0              test        eax,eax
+  00716ED7: 75 35              jne         00716F0E
+  00716ED9: D9 44 24 40        fld         dword ptr [esp+40h]
+  00716EDD: 89 44 24 2C        mov         dword ptr [esp+2Ch],eax
+  00716EE1: D8 44 24 4C        fadd        dword ptr [esp+4Ch]
+  00716EE5: D8 44 24 10        fadd        dword ptr [esp+10h]
+  00716EE9: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  00716EED: D9 44 24 44        fld         dword ptr [esp+44h]
+  00716EF1: D8 44 24 50        fadd        dword ptr [esp+50h]
+  00716EF5: D8 44 24 14        fadd        dword ptr [esp+14h]
+  00716EF9: D9 5C 24 20        fstp        dword ptr [esp+20h]
+  00716EFD: D9 44 24 48        fld         dword ptr [esp+48h]
+  00716F01: D8 44 24 54        fadd        dword ptr [esp+54h]
+  00716F05: D8 44 24 18        fadd        dword ptr [esp+18h]
+  00716F09: E9 C2 00 00 00     jmp         00716FD0
+  00716F0E: 83 F8 01           cmp         eax,1
+  00716F11: 75 41              jne         00716F54
+  00716F13: D9 44 24 40        fld         dword ptr [esp+40h]
+  00716F17: C7 44 24 28 00 00  mov         dword ptr [esp+28h],3F800000h
+            80 3F
+  00716F1F: D8 44 24 10        fadd        dword ptr [esp+10h]
+  00716F23: C7 44 24 2C 00 00  mov         dword ptr [esp+2Ch],0
+            00 00
+  00716F2B: D8 64 24 4C        fsub        dword ptr [esp+4Ch]
+  00716F2F: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  00716F33: D9 44 24 44        fld         dword ptr [esp+44h]
+  00716F37: D8 44 24 14        fadd        dword ptr [esp+14h]
+  00716F3B: D8 64 24 50        fsub        dword ptr [esp+50h]
+  00716F3F: D9 5C 24 20        fstp        dword ptr [esp+20h]
+  00716F43: D9 44 24 48        fld         dword ptr [esp+48h]
+  00716F47: D8 44 24 18        fadd        dword ptr [esp+18h]
+  00716F4B: D8 64 24 54        fsub        dword ptr [esp+54h]
+  00716F4F: E9 84 00 00 00     jmp         00716FD8
+  00716F54: 83 F8 02           cmp         eax,2
+  00716F57: 75 3E              jne         00716F97
+  00716F59: D9 44 24 10        fld         dword ptr [esp+10h]
+  00716F5D: C7 44 24 28 00 00  mov         dword ptr [esp+28h],3F800000h
+            80 3F
+  00716F65: D8 64 24 40        fsub        dword ptr [esp+40h]
+  00716F69: C7 44 24 2C 00 00  mov         dword ptr [esp+2Ch],3F800000h
+            80 3F
+  00716F71: D8 64 24 4C        fsub        dword ptr [esp+4Ch]
+  00716F75: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  00716F79: D9 44 24 14        fld         dword ptr [esp+14h]
+  00716F7D: D8 64 24 44        fsub        dword ptr [esp+44h]
+  00716F81: D8 64 24 50        fsub        dword ptr [esp+50h]
+  00716F85: D9 5C 24 20        fstp        dword ptr [esp+20h]
+  00716F89: D9 44 24 18        fld         dword ptr [esp+18h]
+  00716F8D: D8 64 24 48        fsub        dword ptr [esp+48h]
+  00716F91: D8 64 24 54        fsub        dword ptr [esp+54h]
+  00716F95: EB 41              jmp         00716FD8
+  00716F97: 83 F8 03           cmp         eax,3
+  00716F9A: 75 40              jne         00716FDC
+  00716F9C: D9 44 24 10        fld         dword ptr [esp+10h]
+  00716FA0: C7 44 24 2C 00 00  mov         dword ptr [esp+2Ch],3F800000h
+            80 3F
+  00716FA8: D8 64 24 40        fsub        dword ptr [esp+40h]
+  00716FAC: D8 44 24 4C        fadd        dword ptr [esp+4Ch]
+  00716FB0: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  00716FB4: D9 44 24 14        fld         dword ptr [esp+14h]
+  00716FB8: D8 64 24 44        fsub        dword ptr [esp+44h]
+  00716FBC: D8 44 24 50        fadd        dword ptr [esp+50h]
+  00716FC0: D9 5C 24 20        fstp        dword ptr [esp+20h]
+  00716FC4: D9 44 24 18        fld         dword ptr [esp+18h]
+  00716FC8: D8 64 24 48        fsub        dword ptr [esp+48h]
+  00716FCC: D8 44 24 54        fadd        dword ptr [esp+54h]
+  00716FD0: C7 44 24 28 00 00  mov         dword ptr [esp+28h],0
+            00 00
+  00716FD8: D9 5C 24 24        fstp        dword ptr [esp+24h]
+  00716FDC: 8B 54 24 1C        mov         edx,dword ptr [esp+1Ch]
+  00716FE0: 8B 4C 24 20        mov         ecx,dword ptr [esp+20h]
+  00716FE4: 8D 04 F6           lea         eax,[esi+esi*8]
+  00716FE7: C1 E0 02           shl         eax,2
+  00716FEA: 89 90 58 D9 C4 00  mov         dword ptr [eax+00C4D958h],edx
+  00716FF0: 8B 54 24 24        mov         edx,dword ptr [esp+24h]
+  00716FF4: 89 88 5C D9 C4 00  mov         dword ptr [eax+00C4D95Ch],ecx
+  00716FFA: 8B 4C 24 28        mov         ecx,dword ptr [esp+28h]
+  00716FFE: 89 90 60 D9 C4 00  mov         dword ptr [eax+00C4D960h],edx
+  00717004: 8B 54 24 2C        mov         edx,dword ptr [esp+2Ch]
+  00717008: 46                 inc         esi
+  00717009: 81 FE FE 07 00 00  cmp         esi,7FEh
+  0071700F: 89 A8 70 D9 C4 00  mov         dword ptr [eax+00C4D970h],ebp
+  00717015: 89 88 74 D9 C4 00  mov         dword ptr [eax+00C4D974h],ecx
+  0071701B: 89 90 78 D9 C4 00  mov         dword ptr [eax+00C4D978h],edx
+  00717021: 75 27              jne         0071704A
+  00717023: 6A 09              push        9
+  00717025: 6A 00              push        0
+  00717027: 56                 push        esi
+  00717028: 68 58 D9 C4 00     push        0C4D958h
+  0071702D: E8 1E 84 0D 00     call        007EF450
+  00717032: 83 C4 10           add         esp,10h
+  00717035: 85 C0              test        eax,eax
+  00717037: 74 0F              je          00717048
+  00717039: 6A 03              push        3
+  0071703B: E8 70 86 0D 00     call        007EF6B0
+  00717040: 83 C4 04           add         esp,4
+  00717043: E8 D8 84 0D 00     call        007EF520
+  00717048: 33 F6              xor         esi,esi
+  0071704A: 83 C3 04           add         ebx,4
+  0071704D: 81 FB 54 E9 C6 00  cmp         ebx,0C6E954h
+  00717053: 0F 8C 7A FE FF FF  jl          00716ED3
+  00717059: 8B 6C 24 30        mov         ebp,dword ptr [esp+30h]
+  0071705D: 8B 44 24 3C        mov         eax,dword ptr [esp+3Ch]
+  00717061: 8B 5C 24 34        mov         ebx,dword ptr [esp+34h]
+  00717065: 40                 inc         eax
+  00717066: 83 C7 0C           add         edi,0Ch
+  00717069: 81 FF 24 D3 C6 00  cmp         edi,0C6D324h
+  0071706F: 89 44 24 3C        mov         dword ptr [esp+3Ch],eax
+  00717073: 0F 8C B7 FD FF FF  jl          00716E30
+  00717079: 85 F6              test        esi,esi
+  0071707B: 7E 25              jle         007170A2
+  0071707D: 6A 09              push        9
+  0071707F: 6A 00              push        0
+  00717081: 56                 push        esi
+  00717082: 68 58 D9 C4 00     push        0C4D958h
+  00717087: E8 C4 83 0D 00     call        007EF450
+  0071708C: 83 C4 10           add         esp,10h
+  0071708F: 85 C0              test        eax,eax
+  00717091: 74 0F              je          007170A2
+  00717093: 6A 03              push        3
+  00717095: E8 16 86 0D 00     call        007EF6B0
+  0071709A: 83 C4 04           add         esp,4
+  0071709D: E8 7E 84 0D 00     call        007EF520
+  007170A2: E8 59 9D FE FF     call        00700E00
+  007170A7: 5F                 pop         edi
+  007170A8: 5E                 pop         esi
+  007170A9: 5D                 pop         ebp
+  007170AA: 5B                 pop         ebx
+  007170AB: 83 C4 60           add         esp,60h
+  007170AE: E9 5D FA FF FF     jmp         00716B10
+
+  Summary
+
+      456000 .text

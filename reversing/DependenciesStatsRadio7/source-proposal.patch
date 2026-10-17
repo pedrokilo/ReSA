@@ -1,0 +1,60 @@
+--- a/source/game_sa/Stats.cpp
++++ b/source/game_sa/Stats.cpp
+@@ -26,6 +26,7 @@
+ #include "StdInc.h"
+ 
+ #include "Stats.h"
++#include "AudioEngine.h"
+ #include "MenuSystem.h"
+ #include "Hud.h"
+ #include "World.h"
+@@ -79,6 +80,8 @@
+     RH_ScopedCategoryGlobal();
+ 
+     RH_ScopedInstall(Init, 0x55C0C0);
++    RH_ScopedInstall(PopulateFavoriteRadioStationList, 0x558EC0);
++    RH_ScopedInstall(FindMostFavoriteRadioStation, 0x558FA0);
+     RH_ScopedInstall(GetFatAndMuscleModifier, 0x559AF0);
+     RH_ScopedOverloadedInstall(GetStatValue, "-OG", 0x558E40, float(*)(eStats));
+     RH_ScopedInstall(SetStatValue, 0x55A070);
+@@ -177,12 +180,37 @@
+ 
+ // 0x558EC0
+ bool CStats::PopulateFavoriteRadioStationList() {
+-    return plugin::CallAndReturn<bool, 0x558EC0>();
++    auto* const times = AudioEngine.GetRadioStationListenTimes();
++    bool allZero = true;
++    for (size_t i = 0; i < FavoriteRadioStationList.size(); ++i) {
++        const int32 time = times[i];
++        FavoriteRadioStationList[i] = time;
++        if (time != 0) {
++            allZero = false;
++        }
++    }
++    return allZero;
+ }
+ 
+ // 0x558FA0
+-eRadioID CStats::FindMostFavoriteRadioStation() {
+-    return plugin::CallAndReturn<eRadioID, 0x558FA0>();
++// The EXE returns the complete station index in EAX despite the int8 enum declaration.
++// Ignore emergency/off (indices 0/13), keep the first strictly greater signed value.
++__declspec(naked) eRadioID CStats::FindMostFavoriteRadioStation() {
++    __asm {
++        xor ecx, ecx
++        mov eax, 1
++        mov edx, 1
++    nextStation:
++        cmp dword ptr [edx*4+0B78E58h], ecx
++        jle keepStation
++        mov ecx, dword ptr [edx*4+0B78E58h]
++        mov eax, edx
++    keepStation:
++        inc edx
++        cmp edx, 13
++        jl nextStation
++        ret
++    }
+ }
+ 
+ // 0x559010

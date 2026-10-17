@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11428230: 55                 push        ebp
+  11428231: 8B EC              mov         ebp,esp
+  11428233: 81 EC CC 00 00 00  sub         esp,0CCh
+  11428239: 53                 push        ebx
+  1142823A: 56                 push        esi
+  1142823B: 57                 push        edi
+  1142823C: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1142823F: B9 03 00 00 00     mov         ecx,3
+  11428244: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11428249: F3 AB              rep stos    dword ptr es:[edi]
+  1142824B: C7 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],0
+            00 00 00 00
+  11428255: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11428258: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1142825B: 51                 push        ecx
+  1142825C: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  1142825F: 8B 02              mov         eax,dword ptr [edx]
+  11428261: 50                 push        eax
+  11428262: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11428265: 51                 push        ecx
+  11428266: E8 8C 9F C9 FF     call        110C21F7
+  1142826B: 83 C4 0C           add         esp,0Ch
+  1142826E: 8B 95 38 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF38h]
+  11428274: 83 CA 01           or          edx,1
+  11428277: 89 95 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],edx
+  1142827D: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11428280: 5F                 pop         edi
+  11428281: 5E                 pop         esi
+  11428282: 5B                 pop         ebx
+  11428283: 81 C4 CC 00 00 00  add         esp,0CCh
+  11428289: 3B EC              cmp         ebp,esp
+  1142828B: E8 FC B7 C6 FF     call        11093A8C
+  11428290: 8B E5              mov         esp,ebp
+  11428292: 5D                 pop         ebp
+  11428293: C3                 ret
+  11428294: CC                 int         3
+
+  Summary
+
+     21DB000 .text

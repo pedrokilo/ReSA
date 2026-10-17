@@ -1,0 +1,204 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11427D20: 55                 push        ebp
+  11427D21: 8B EC              mov         ebp,esp
+  11427D23: 6A FF              push        0FFFFFFFFh
+  11427D25: 68 6C 9D 17 13     push        13179D6Ch
+  11427D2A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  11427D30: 50                 push        eax
+  11427D31: 81 EC 68 01 00 00  sub         esp,168h
+  11427D37: 53                 push        ebx
+  11427D38: 56                 push        esi
+  11427D39: 57                 push        edi
+  11427D3A: 8D BD 4C FF FF FF  lea         edi,[ebp+FFFFFF4Ch]
+  11427D40: B9 2A 00 00 00     mov         ecx,2Ah
+  11427D45: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11427D4A: F3 AB              rep stos    dword ptr es:[edi]
+  11427D4C: A1 C0 D1 89 13     mov         eax,dword ptr ds:[1389D1C0h]
+  11427D51: 33 C5              xor         eax,ebp
+  11427D53: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  11427D56: 50                 push        eax
+  11427D57: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11427D5A: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  11427D60: A1 EC 91 8B 13     mov         eax,dword ptr ds:[138B91ECh]
+  11427D65: 83 C0 01           add         eax,1
+  11427D68: A3 EC 91 8B 13     mov         dword ptr ds:[138B91ECh],eax
+  11427D6D: 6A 04              push        4
+  11427D6F: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11427D72: 50                 push        eax
+  11427D73: E8 20 83 C7 FF     call        110A0098
+  11427D78: 83 C4 08           add         esp,8
+  11427D7B: 88 45 EB           mov         byte ptr [ebp-15h],al
+  11427D7E: 0F B6 05 38 60 7F  movzx       eax,byte ptr ds:[137F6038h]
+            13
+  11427D85: 0F B6 4D EB        movzx       ecx,byte ptr [ebp-15h]
+  11427D89: 23 C1              and         eax,ecx
+  11427D8B: A2 38 60 7F 13     mov         byte ptr ds:[137F6038h],al
+  11427D90: 0F B6 45 EB        movzx       eax,byte ptr [ebp-15h]
+  11427D94: 85 C0              test        eax,eax
+  11427D96: 74 0D              je          11427DA5
+  11427D98: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11427D9B: 8B 11              mov         edx,dword ptr [ecx]
+  11427D9D: 89 95 90 FE FF FF  mov         dword ptr [ebp+FFFFFE90h],edx
+  11427DA3: EB 0A              jmp         11427DAF
+  11427DA5: C7 85 90 FE FF FF  mov         dword ptr [ebp+FFFFFE90h],0FFFFFFFFh
+            FF FF FF FF
+  11427DAF: 8B 85 90 FE FF FF  mov         eax,dword ptr [ebp+FFFFFE90h]
+  11427DB5: 89 45 DC           mov         dword ptr [ebp-24h],eax
+  11427DB8: 68 1C 7C 32 13     push        13327C1Ch
+  11427DBD: 8D 8D 98 FE FF FF  lea         ecx,[ebp+FFFFFE98h]
+  11427DC3: E8 6C 0A C7 FF     call        11098834
+  11427DC8: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  11427DCF: 8D 45 08           lea         eax,[ebp+8]
+  11427DD2: 50                 push        eax
+  11427DD3: 8D 8D B0 FE FF FF  lea         ecx,[ebp+FFFFFEB0h]
+  11427DD9: E8 C7 32 C9 FF     call        110BB0A5
+  11427DDE: C6 45 FC 01        mov         byte ptr [ebp-4],1
+  11427DE2: 8D 4D DC           lea         ecx,[ebp-24h]
+  11427DE5: 51                 push        ecx
+  11427DE6: 8D 8D C8 FE FF FF  lea         ecx,[ebp+FFFFFEC8h]
+  11427DEC: E8 BC 82 CB FF     call        110E00AD
+  11427DF1: C7 45 FC 02 00 00  mov         dword ptr [ebp-4],2
+            00
+  11427DF8: 8D 95 E0 FE FF FF  lea         edx,[ebp+FFFFFEE0h]
+  11427DFE: 52                 push        edx
+  11427DFF: 8D 85 98 FE FF FF  lea         eax,[ebp+FFFFFE98h]
+  11427E05: 50                 push        eax
+  11427E06: 8D 8D 00 FF FF FF  lea         ecx,[ebp+FFFFFF00h]
+  11427E0C: E8 18 69 C8 FF     call        110AE729
+  11427E11: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11427E14: 51                 push        ecx
+  11427E15: 8B 10              mov         edx,dword ptr [eax]
+  11427E17: 52                 push        edx
+  11427E18: 8D 85 E8 FE FF FF  lea         eax,[ebp+FFFFFEE8h]
+  11427E1E: 50                 push        eax
+  11427E1F: E8 A7 9F C7 FF     call        110A1DCB
+  11427E24: 83 C4 0C           add         esp,0Ch
+  11427E27: 89 85 90 FE FF FF  mov         dword ptr [ebp+FFFFFE90h],eax
+  11427E2D: 8B 8D 90 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE90h]
+  11427E33: 89 8D 8C FE FF FF  mov         dword ptr [ebp+FFFFFE8Ch],ecx
+  11427E39: C6 45 FC 03        mov         byte ptr [ebp-4],3
+  11427E3D: 8B 95 8C FE FF FF  mov         edx,dword ptr [ebp+FFFFFE8Ch]
+  11427E43: 52                 push        edx
+  11427E44: B9 B0 91 8B 13     mov         ecx,138B91B0h
+  11427E49: E8 51 39 C8 FF     call        110AB79F
+  11427E4E: C6 45 FC 02        mov         byte ptr [ebp-4],2
+  11427E52: 8D 8D E8 FE FF FF  lea         ecx,[ebp+FFFFFEE8h]
+  11427E58: E8 2C 98 CA FF     call        110D1689
+  11427E5D: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11427E64: 68 01 FF 0B 11     push        110BFF01h
+  11427E69: 6A 03              push        3
+  11427E6B: 6A 18              push        18h
+  11427E6D: 8D 85 98 FE FF FF  lea         eax,[ebp+FFFFFE98h]
+  11427E73: 50                 push        eax
+  11427E74: E8 BB D2 C6 FF     call        11095134
+  11427E79: 90                 nop
+  11427E7A: 0F B6 05 C8 91 8B  movzx       eax,byte ptr ds:[138B91C8h]
+            13
+  11427E81: 83 F8 03           cmp         eax,3
+  11427E84: 75 1E              jne         11427EA4
+  11427E86: 83 3D EC 91 8B 13  cmp         dword ptr ds:[138B91ECh],1
+            01
+  11427E8D: 75 15              jne         11427EA4
+  11427E8F: 0F B6 45 EB        movzx       eax,byte ptr [ebp-15h]
+  11427E93: 85 C0              test        eax,eax
+  11427E95: 74 0D              je          11427EA4
+  11427E97: B8 01 00 00 00     mov         eax,1
+  11427E9C: 2B 45 DC           sub         eax,dword ptr [ebp-24h]
+  11427E9F: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11427EA2: 89 01              mov         dword ptr [ecx],eax
+  11427EA4: 0F B6 05 C8 91 8B  movzx       eax,byte ptr ds:[138B91C8h]
+            13
+  11427EAB: 83 F8 04           cmp         eax,4
+  11427EAE: 75 1F              jne         11427ECF
+  11427EB0: 83 3D EC 91 8B 13  cmp         dword ptr ds:[138B91ECh],1
+            01
+  11427EB7: 75 16              jne         11427ECF
+  11427EB9: 0F B6 05 C5 91 8B  movzx       eax,byte ptr ds:[138B91C5h]
+            13
+  11427EC0: 50                 push        eax
+  11427EC1: E8 24 69 CA FF     call        110CE7EA
+  11427EC6: 83 C4 04           add         esp,4
+  11427EC9: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  11427ECF: 0F B6 05 C8 91 8B  movzx       eax,byte ptr ds:[138B91C8h]
+            13
+  11427ED6: 83 F8 01           cmp         eax,1
+  11427ED9: 75 09              jne         11427EE4
+  11427EDB: 83 3D EC 91 8B 13  cmp         dword ptr ds:[138B91ECh],2
+            02
+  11427EE2: 74 15              je          11427EF9
+  11427EE4: 0F B6 05 C8 91 8B  movzx       eax,byte ptr ds:[138B91C8h]
+            13
+  11427EEB: 83 F8 02           cmp         eax,2
+  11427EEE: 75 45              jne         11427F35
+  11427EF0: 83 3D EC 91 8B 13  cmp         dword ptr ds:[138B91ECh],3
+            03
+  11427EF7: 75 3C              jne         11427F35
+  11427EF9: A1 5C 7B 32 13     mov         eax,dword ptr ds:[13327B5Ch]
+  11427EFE: 50                 push        eax
+  11427EFF: E8 FE C7 C6 FF     call        11094702
+  11427F04: 83 C4 04           add         esp,4
+  11427F07: 89 45 D0           mov         dword ptr [ebp-30h],eax
+  11427F0A: 8B 45 D0           mov         eax,dword ptr [ebp-30h]
+  11427F0D: 0F B6 08           movzx       ecx,byte ptr [eax]
+  11427F10: 85 C9              test        ecx,ecx
+  11427F12: 74 0C              je          11427F20
+  11427F14: C7 85 90 FE FF FF  mov         dword ptr [ebp+FFFFFE90h],0
+            00 00 00 00
+  11427F1E: EB 0A              jmp         11427F2A
+  11427F20: C7 85 90 FE FF FF  mov         dword ptr [ebp+FFFFFE90h],1
+            01 00 00 00
+  11427F2A: 8B 55 D0           mov         edx,dword ptr [ebp-30h]
+  11427F2D: 8A 85 90 FE FF FF  mov         al,byte ptr [ebp+FFFFFE90h]
+  11427F33: 88 02              mov         byte ptr [edx],al
+  11427F35: 33 C0              xor         eax,eax
+  11427F37: 52                 push        edx
+  11427F38: 8B CD              mov         ecx,ebp
+  11427F3A: 50                 push        eax
+  11427F3B: 8D 15 74 7F 42 11  lea         edx,ds:[11427F74h]
+  11427F41: E8 58 12 C7 FF     call        1109919E
+  11427F46: 58                 pop         eax
+  11427F47: 5A                 pop         edx
+  11427F48: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11427F4B: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11427F52: 59                 pop         ecx
+  11427F53: 5F                 pop         edi
+  11427F54: 5E                 pop         esi
+  11427F55: 5B                 pop         ebx
+  11427F56: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  11427F59: 33 CD              xor         ecx,ebp
+  11427F5B: E8 CD A1 C6 FF     call        1109212D
+  11427F60: 81 C4 74 01 00 00  add         esp,174h
+  11427F66: 3B EC              cmp         ebp,esp
+  11427F68: E8 1F BB C6 FF     call        11093A8C
+  11427F6D: 8B E5              mov         esp,ebp
+  11427F6F: 5D                 pop         ebp
+  11427F70: C3                 ret
+  11427F71: 0F 1F 00           nop         dword ptr [eax]
+  11427F74: 01 00              add         dword ptr [eax],eax
+  11427F76: 00 00              add         byte ptr [eax],al
+  11427F78: 7C 7F              jl          11427FF9
+  11427F7A: 42                 inc         edx
+  11427F7B: 11 DC              adc         esp,ebx
+  11427F7D: FF
+  11427F7E: FF
+  11427F7F: FF 04 00           inc         dword ptr [eax+eax]
+  11427F82: 00 00              add         byte ptr [eax],al
+  11427F84: 88 7F 42           mov         byte ptr [edi+42h],bh
+  11427F87: 11 76 61           adc         dword ptr [esi+61h],esi
+  11427F8A: 6C                 ins         byte ptr es:[edi],dx
+  11427F8B: 75 65              jne         11427FF2
+  11427F8D: 00 CC              add         ah,cl
+
+  Summary
+
+     21DB000 .text

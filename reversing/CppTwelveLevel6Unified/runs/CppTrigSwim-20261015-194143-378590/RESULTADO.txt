@@ -1,0 +1,3 @@
+APROBADO: CppTrigSwim
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpptrigswim\20261015-194143-378590

@@ -1,0 +1,323 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "dd8ae697e0652fb33beae824dcb50ca8c5f596fe87482505d943f98fc5e203dc",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "comparisons": 17256,
+  "differences": 0,
+  "model_mismatches": 0,
+  "sincos_one_ulp_tolerated_legs": 0,
+  "return_eax_model_mismatches_original": 0,
+  "return_eax_differences_informational": 16392,
+  "x87_env_status_differences_informational": 15816,
+  "errors": [],
+  "comparison_sha256": "6d3e74b5ba6d04e5dbc0de6907f4644531f4cccf46a00cd51d75e74745937d10",
+  "harness_sha256": "1bf8546d435803cf538a266186c5c70ea760f8fcee0722b12a0dc018b828370c",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "8d87599662411fd808e4805d1bad0278c5f091bc",
+    "tested_sources": {
+      "source/game_sa/Pad.cpp": "1c5dca807d19a1811b60fc19ef2e7a6d98e19788be56a7afac791c9691661981",
+      "source/game_sa/Pad.h": "fc62f4d8e7190a6164e74c206262649d6f6e720ccb213d843f59edf9a440f52e",
+      "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9",
+      "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+      "source/app/platform/platform.cpp": "a00248ce14211ba1978539ce3d2a5e8c1f7c0cbd984f6401e9ef672e0cff26d3",
+      "source/app/platform/platform.h": "9e57624df81af27ef4c8bd3347e93a0b8ba34ac708525891be6fa4a0630cb0f9",
+      "source/game_sa/RenderWare/rw/skeleton.h": "71b122ab04bb543ecd1b8487a455af048f41782e61e5983e1afeb325c5192961",
+      "source/game_sa/RenderWare/RenderWare.h": "b1c989af4fccd7ac2b20236abc72f6740df2348ee26bd3e23065d1b94b6fb630"
+    },
+    "bank_sources": {
+      "reversing/RequestedPadProcessPad/LiveComparison.hpp": "9c8d682245984ef97c7816d392857587880bf30f7a622b2b7de7fbb83483799a",
+      "reversing/RequestedPadProcessPad/Preflight.hpp": "b672d27ccf72f7781aa912db869737164e53980c96d444fe99bf9d63ad73105c",
+      "reversing/RequestedPadProcessPad/VTableRanges.hpp": "994b5faf28cfd82f8fa024b257440cfaffff003b5249aa89c065f4deca88d77f",
+      "reversing/RequestedPadProcessPad/Fixtures.hpp": "ae35e1ebf93c0b35588bbf8244cc4e8bd884147ab2b7e81a22b0a9ed7b26ccb3",
+      "reversing/RequestedPadProcessPad/fixtures.json": "21f80e34738ab469695b279ec1d46db44bba7457974e404c227a6dc80c348d33",
+      "reversing/RequestedPadProcessPad/generate_fixtures.py": "ce929c5f576adfe883933d2adb82e701d03a61936299da6952aba2153392035a",
+      "reversing/RequestedPadProcessPad/model.py": "e135d38f759fa457f835c17f92a210b01202ab730e16a52a3355d3089e83610d",
+      "reversing/RequestedPadProcessPad/build_probe.py": "cfe71080f05b32e041b9f4abd0dbada8d35f987c8b063c4c26bc2b088c8d491c",
+      "reversing/RequestedPadProcessPad/run_local.py": "2b2e10bde96abe885dcb3c3545cf2277fc480d336b4c10b8886411779745bad4",
+      "reversing/RequestedPadProcessPad/inspect_compiled.py": "e97d170bbeece5beb69197b66449a07eefb510e7a818c100824840c88235bb44",
+      "reversing/RequestedPadProcessPad/make_freeze.py": "0abce614994e9d4b040b96d77ecf2e464183748e169dd9fbd8db887edc2a859f",
+      "reversing/RequestedPadProcessPad/corpus-plan.json": "2891bb5318195d7fe3ae6e265e338586761e8f5ff962566dea02b0fa9a33e81f",
+      "reversing/RequestedPadProcessPad/scope.json": "b901633670dd3c8ff993f63cac800ef151ef8c7c552f4701ab043139d7627cb9",
+      "reversing/RequestedPadProcessPad/README.md": "0aff136949154559bded1fa8cec4446bdd1d0351e02d61476680ce512bc3b311",
+      "reversing/RequestedPadProcessPad/evidence/ProcessPad-fresh-combo.txt": "7f49ed0dd15705cd18e454dccd03fc4898c3c90f776c4fe974588dadbfcf88b9",
+      "reversing/RequestedPadProcessPad/evidence/ProcessPad.dumpbin.asm.txt": "55a1d5aaa0a0e550dcce2b252c0496f784b3cd4d8a16d763119d09f4674a6919",
+      "reversing/RequestedPadProcessPad/evidence/ProcessPad.bytes.bin": "9924038ebe8e60e4e4cbdbd4b00d329a8d2e6c77a2f20aa50baeeb9600aa9a92",
+      "reversing/RequestedPadProcessPad/evidence/ProcessPad-constants.json": "dec10c67bf40e91f5fbf34dddd7df2284c3443eac92dc2bddd5cbcbb52ca958f",
+      "reversing/RequestedPadProcessPad/prepared-freeze.json": "5a226c08974f42938c9730ba31186b086b62f050aa22d86a5a79aa8542807df5",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "34a36e1070cfd8f29cdde997e8a86e4bdc1a3164fd21c800b5e4219336c0b961",
+    "expected_pairs": 17000,
+    "fixture_scope": "17256 finite isolated ProcessPad cases; private scripted DirectInput device, traced RsPadEventHandler, native GetPad/FTOL; real global CPad/ControlsManager/stick/joy-table/menu bytes compared with guards; PC24 and PC53; padID 0/1 only. No DirectInput/COM/RsPadEventHandler/GetPad/FTOL/integration credit. Matching PE/PDB and call paths must be reviewed after the coordinator build.",
+    "compiled_callpath_review_required": true,
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "989c998a9944abfc19c3c985e060382de0dae9e517baad9d7cb5180970d3834b"
+    },
+    "asi": "dd8ae697e0652fb33beae824dcb50ca8c5f596fe87482505d943f98fc5e203dc",
+    "pdb": "4d5278b139090c11ad62c27f484f59710f7c9383d71fb02a06e89f07d793a9ae"
+  },
+  "runner_sha256": "2b2e10bde96abe885dcb3c3545cf2277fc480d336b4c10b8886411779745bad4",
+  "compiled_callpath_proof": {
+    "asi_sha256": "dd8ae697e0652fb33beae824dcb50ca8c5f596fe87482505d943f98fc5e203dc",
+    "pdb_sha256": "4d5278b139090c11ad62c27f484f59710f7c9383d71fb02a06e89f07d793a9ae",
+    "manifest_sha256": "aafb2aa4a598c0fbf5c2c81e85568b1ffd4837facf2cd4f0c163e8ececd20daf",
+    "pdb_rsds_match": true,
+    "passed": true,
+    "event_call_paths_verified": true,
+    "inline_getpad_and_float_paths_reviewed": true,
+    "failures": [],
+    "target": {
+      "ProcessPad": "0x11ba2790",
+      "size": 1732,
+      "lambda": "0x11b96ab0",
+      "NormalizePadAxis": "0x11ba2710"
+    },
+    "rs_pad_event_handler": {
+      "native": "0x6195a0",
+      "dll_function_body": "0x113cc4c0",
+      "dll_function_size": 105,
+      "calls": [
+        {
+          "site": "0x11ba2ac8",
+          "event": 32,
+          "thunk_entry": "0x1108fc07",
+          "final_body": "0x113cc4c0",
+          "chain": [
+            [
+              "0x1108fc07",
+              "0x113cc4c0"
+            ]
+          ],
+          "second_arg_is_&padID(ebx+8)_cdecl_add_esp_8": true
+        },
+        {
+          "site": "0x11ba2c2f",
+          "event": 32,
+          "thunk_entry": "0x1108fc07",
+          "final_body": "0x113cc4c0",
+          "chain": [
+            [
+              "0x1108fc07",
+              "0x113cc4c0"
+            ]
+          ],
+          "second_arg_is_&padID(ebx+8)_cdecl_add_esp_8": true
+        },
+        {
+          "site": "0x11ba2c3d",
+          "event": 31,
+          "thunk_entry": "0x1108fc07",
+          "final_body": "0x113cc4c0",
+          "chain": [
+            [
+              "0x1108fc07",
+              "0x113cc4c0"
+            ]
+          ],
+          "second_arg_is_&padID(ebx+8)_cdecl_add_esp_8": true
+        }
+      ],
+      "hook_install_sites": [
+        {
+          "push_native_site": "0x113cab97",
+          "thunk": "0x1108fc07",
+          "body": "0x113cc4c0"
+        }
+      ],
+      "all_imm32_refs_to_native_in_asi": [
+        "0x113cab98",
+        "0x1142cc78",
+        "0x1142cc9f",
+        "0x1142d1d4"
+      ],
+      "dll_function_dispatches_via": "RsGlobal.ps->padHandler (see 113327D0 listing), so the hook target is the single Simple hook"
+    },
+    "com": {
+      "poll_acquire_slots_in_order": [
+        {
+          "site": "0x11ba284a",
+          "slot": "0x64"
+        },
+        {
+          "site": "0x11ba2878",
+          "slot": "0x1c"
+        },
+        {
+          "site": "0x11ba28a5",
+          "slot": "0x1c"
+        },
+        {
+          "site": "0x11ba28d6",
+          "slot": "0x64"
+        }
+      ],
+      "inputlost_value": "0x8007001E",
+      "get_device_state": {
+        "site": "0x11ba2904",
+        "cb": 272,
+        "buffer_ebp_offset": -296,
+        "buffer_end_ebp_offset": -24,
+        "stdcall_args_pushed_right_to_left": [
+          "push eax",
+          "push 110h",
+          "push ecx"
+        ],
+        "buffer_offsets_read": [
+          0,
+          4,
+          8,
+          20,
+          32
+        ]
+      }
+    },
+    "get_pad": {
+      "native": "0x53fb70",
+      "called": [
+        {
+          "site": "0x11ba2c6e",
+          "thunk_entry": "0x1109688b",
+          "final_body": "0x113bca20",
+          "chain": [
+            [
+              "0x1109688b",
+              "0x113bca20"
+            ]
+          ]
+        }
+      ],
+      "inlined": false,
+      "dll_function_size": 32,
+      "note": "candidate calls the DLL CPad::GetPad (not the EXE 0x53FB70, not inlined); then uses the returned CPad* at +0xA8..+0xAF"
+    },
+    "ftol": {
+      "native": "0x821b40",
+      "called_anywhere": false,
+      "replacement": "inline cvttss2si ecx,xmm0 after mulss 128.0f (lambda 0x11b96ab0), result stored as 16-bit",
+      "cvttss2si_site": "0x11b96b2b",
+      "lambda_call_sites_dest_offsets": [
+        {
+          "site": "0x11ba2cbe",
+          "dest_offsets": [
+            "0xa8",
+            "0xaa"
+          ]
+        },
+        {
+          "site": "0x11ba2d09",
+          "dest_offsets": [
+            "0xaa",
+            "0xa8"
+          ]
+        },
+        {
+          "site": "0x11ba2d51",
+          "dest_offsets": [
+            "0xac",
+            "0xae"
+          ]
+        },
+        {
+          "site": "0x11ba2d9c",
+          "dest_offsets": [
+            "0xae",
+            "0xac"
+          ]
+        }
+      ]
+    },
+    "pov_float_path": {
+      "angle_helper_body": "0x12853f20",
+      "sincos_helper_body": "0x12853f90",
+      "fadd_double_constant": 4294967296.0,
+      "multipliers_float": [
+        0.009999999776482582,
+        0.01745329238474369
+      ],
+      "angle_helper_sequence": [
+        "0x12853f20: push ebp",
+        "0x12853f21: mov ebp,esp",
+        "0x12853f23: sub esp,0Ch",
+        "0x12853f26: cmp dword ptr [ebp+8],0",
+        "0x12853f2a: fild dword ptr [ebp+8]",
+        "0x12853f2d: fst qword ptr [ebp-0Ch]",
+        "0x12853f30: jge 12853F3D",
+        "0x12853f32: fadd qword ptr ds:[133651F0h]",
+        "0x12853f38: fstp qword ptr [ebp-0Ch]",
+        "0x12853f3b: jmp 12853F3F",
+        "0x12853f3d: fstp st(0)",
+        "0x12853f3f: lea eax,[ebp+8]",
+        "0x12853f42: mov dword ptr [ebp+8],3C23D70Ah",
+        "0x12853f49: push eax",
+        "0x12853f4a: mov dword ptr [ebp-4],3C8EFA35h",
+        "0x12853f51: call 110D1EB8",
+        "0x12853f56: fmul qword ptr [ebp-0Ch]",
+        "0x12853f59: lea eax,[ebp-4]",
+        "0x12853f5c: push eax",
+        "0x12853f5d: fstp qword ptr [ebp-0Ch]",
+        "0x12853f60: call 110D1EB8",
+        "0x12853f65: fmul qword ptr [ebp-0Ch]",
+        "0x12853f68: add esp,8",
+        "0x12853f6b: mov esp,ebp",
+        "0x12853f6d: pop ebp",
+        "0x12853f6e: ret"
+      ],
+      "sincos_helper_sequence": [
+        "0x12853f90: push ebp",
+        "0x12853f91: mov ebp,esp",
+        "0x12853f93: fld qword ptr [ebp+8]",
+        "0x12853f96: fld st(0)",
+        "0x12853f98: mov eax,dword ptr [ebp+10h]",
+        "0x12853f9b: fsin",
+        "0x12853f9d: fstp dword ptr [eax]",
+        "0x12853f9f: mov eax,dword ptr [ebp+14h]",
+        "0x12853fa2: fcos",
+        "0x12853fa4: fchs",
+        "0x12853fa6: fstp dword ptr [eax]",
+        "0x12853fa8: pop ebp",
+        "0x12853fa9: ret"
+      ],
+      "exe_sequence": "fild dword [pov]; test eax,eax; jge skip; fadd dword [2^32 float] (PC width: 24 bits in game); fmul 0.01f; fmul 0.017453292f; fld st0; fsin; fstp; fcos; fmul -1.0; fstp",
+      "compiled_sequence": "PadPovAngleCpp: fild dword; cmp [pov],0; jge; fadd qword 2^32; fmul qword (0.01f via fld dword); fmul qword (0.017453292f via fld dword) -> double; PadPovSinCosCpp: fld qword; fld st0; fsin; fstp dword; fcos; fchs; fstp dword",
+      "equivalent_to_exe": true
+    },
+    "axis_float_path": {
+      "normalize_pad_axis": "0x11ba2710",
+      "calls": 4,
+      "same_as_exe": "fild; fmul 0.0005f; fstp float (no difference found)",
+      "deadzone_compare": "comiss 0.3f < fabs(x), jb taken when ordered-less OR unordered (NaN proceeds); EXE skips on NaN; NaN is excluded from the corpus"
+    },
+    "known_semantic_difference": {},
+    "limitations": [
+      "Static call/ABI/float-path review of the matching PE only. Not validation; no runtime, no GTA, no hook-state credit."
+    ]
+  },
+  "compiled_callpath_proof_sha256": "bcd200f65d3d67450a005bd94bf274ebeed8b6edd1e5b9074e1ecaa1d3fd235b",
+  "comparison_storage": {
+    "uncompressed_path": "reversing/RequestedPadProcessPad/runs/20261016-231527-741627/comparisons.jsonl",
+    "uncompressed_sha256": "6d3e74b5ba6d04e5dbc0de6907f4644531f4cccf46a00cd51d75e74745937d10",
+    "uncompressed_bytes": 113188423,
+    "compressed_path": "reversing/RequestedPadProcessPad/runs/20261016-231527-741627/comparisons.jsonl.gz",
+    "compressed_sha256": "1ec2de34965217dd4694b3fd9e3df49656859f9b271796d534438c9272a2ee21",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "6d3e74b5ba6d04e5dbc0de6907f4644531f4cccf46a00cd51d75e74745937d10"
+  }
+}

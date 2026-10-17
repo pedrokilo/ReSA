@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "55448163740572cfe72c85a07919cd3d7d4ae9aaa586f8f562abe63e0971664f",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 672,
+  "pairs_per_function": {
+    "CTaskSimpleFightingControl::Constructor": 256,
+    "CTaskComplexProstituteSolicit::Constructor": 128,
+    "CTaskSimpleFightingControl::Destructor": 32,
+    "CTaskComplexProstituteSolicit::Destructor": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "3093b2495930413e8759e71adaf7aa0d69f3c66f4ee2001620f4deac425a1217",
+  "scope": "reference/player ABI fixtures and native child; isolated contracts, no real game actors",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "8d87599662411fd808e4805d1bad0278c5f091bc",
+    "frozen_inputs": {
+      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/RequestedAdditionalLifetimes/build_probe.py": "60187976c04049770c3769a80fe1a57612633bda28250b3a9449fa61e9950ee6",
+      "reversing/RequestedAdditionalLifetimes/LiveComparison.hpp": "13c915b0c10ace372fd50a984baacf3e522b329bb8eef5e437b6fe117209ee55",
+      "reversing/RequestedAdditionalLifetimes/run_local.py": "6444f1680a595c1748b967fb174415aa2a633785eaaa45dc390ce1e640dd134e",
+      "reversing/RequestedParallelTasks/TaskLifetimeComparison.hpp": "bc9766c52f56efc73d4bd5269ce46ca94ac408b84c90d6350c19be746ef5e1d6",
+      "reversing/RequestedParallelTasks/TaskLifetimeExpanded/Expanded.hpp": "86b6b5ac7afc67a99c25cddfcce190af07a43faf24169c6c9753ecc9f6a7d2b8",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+      "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+      "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp": "8230a084c17318bf70d14e8215b3654b7472be2ebff5af86539e2f64990786ec",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h": "e33d4f016d49d437a32ef6ea9d2732dbf146edbe5f85a8b12e1782ca2c1f3fc6",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
+      "source/game_sa/World.cpp": "74cca001e2b1eef4e132cb82de87abffbbd6b83dd713aeed37808071366e6239"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "expected_pairs": 672,
+    "prefix": "additional-lifetime",
+    "fixture_scope": "reference/player ABI contract fixtures; no actual game actors; all destructor branches and poisoned constructor storage",
+    "compiled_instruments": {
+      "source/app/app_game.cpp": "f35f4b6a4978b422c79505844b2777515f76c7103d45b4a82a960f69e310f706",
+      "source/dllmain.cpp": "b62e274fadff8cac584f35d2e0ae7d06238a6fb66b79cbb3715f8a02e6339c49"
+    },
+    "asi": "55448163740572cfe72c85a07919cd3d7d4ae9aaa586f8f562abe63e0971664f",
+    "pdb": "422f919c84995926bb5cc30378cff40db3f1f1e9bc6da09de83cc73cc8f54f3e"
+  },
+  "runner_sha256": "6444f1680a595c1748b967fb174415aa2a633785eaaa45dc390ce1e640dd134e"
+}

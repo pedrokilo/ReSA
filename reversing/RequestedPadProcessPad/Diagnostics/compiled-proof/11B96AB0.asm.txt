@@ -1,0 +1,78 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11B96AB0: 55                 push        ebp
+  11B96AB1: 8B EC              mov         ebp,esp
+  11B96AB3: 81 EC E0 00 00 00  sub         esp,0E0h
+  11B96AB9: 53                 push        ebx
+  11B96ABA: 56                 push        esi
+  11B96ABB: 57                 push        edi
+  11B96ABC: 51                 push        ecx
+  11B96ABD: 8D 7D E0           lea         edi,[ebp-20h]
+  11B96AC0: B9 08 00 00 00     mov         ecx,8
+  11B96AC5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11B96ACA: F3 AB              rep stos    dword ptr es:[edi]
+  11B96ACC: 59                 pop         ecx
+  11B96ACD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11B96AD0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11B96AD3: 51                 push        ecx
+  11B96AD4: F3 0F 10 00        movss       xmm0,dword ptr [eax]
+  11B96AD8: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11B96ADD: E8 B3 6A 51 FF     call        110AD595
+  11B96AE2: 83 C4 04           add         esp,4
+  11B96AE5: D9 9D 24 FF FF FF  fstp        dword ptr [ebp+FFFFFF24h]
+  11B96AEB: F3 0F 10 05 60 C8  movss       xmm0,dword ptr ds:[1332C860h]
+            32 13
+  11B96AF3: 0F 2F 85 24 FF FF  comiss      xmm0,dword ptr [ebp+FFFFFF24h]
+            FF
+  11B96AFA: 72 02              jb          11B96AFE
+  11B96AFC: EB 70              jmp         11B96B6E
+  11B96AFE: 0F B6 45 14        movzx       eax,byte ptr [ebp+14h]
+  11B96B02: 85 C0              test        eax,eax
+  11B96B04: 74 16              je          11B96B1C
+  11B96B06: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11B96B09: F3 0F 10 00        movss       xmm0,dword ptr [eax]
+  11B96B0D: F3 0F 59 05 0C 33  mulss       xmm0,dword ptr ds:[1327330Ch]
+            27 13
+  11B96B15: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11B96B18: F3 0F 11 01        movss       dword ptr [ecx],xmm0
+  11B96B1C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11B96B1F: F3 0F 10 00        movss       xmm0,dword ptr [eax]
+  11B96B23: F3 0F 59 05 6C 3A  mulss       xmm0,dword ptr ds:[13333A6Ch]
+            33 13
+  11B96B2B: F3 0F 2C C8        cvttss2si   ecx,xmm0
+  11B96B2F: 66 89 8D 26 FF FF  mov         word ptr [ebp+FFFFFF26h],cx
+            FF
+  11B96B36: 0F B6 55 18        movzx       edx,byte ptr [ebp+18h]
+  11B96B3A: 85 D2              test        edx,edx
+  11B96B3C: 74 0B              je          11B96B49
+  11B96B3E: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11B96B41: 89 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],eax
+  11B96B47: EB 09              jmp         11B96B52
+  11B96B49: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11B96B4C: 89 8D 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],ecx
+  11B96B52: 8B 95 20 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF20h]
+  11B96B58: 89 95 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],edx
+  11B96B5E: 8B 85 2C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF2Ch]
+  11B96B64: 66 8B 8D 26 FF FF  mov         cx,word ptr [ebp+FFFFFF26h]
+            FF
+  11B96B6B: 66 89 08           mov         word ptr [eax],cx
+  11B96B6E: 5F                 pop         edi
+  11B96B6F: 5E                 pop         esi
+  11B96B70: 5B                 pop         ebx
+  11B96B71: 81 C4 E0 00 00 00  add         esp,0E0h
+  11B96B77: 3B EC              cmp         ebp,esp
+  11B96B79: E8 0E CF 4F FF     call        11093A8C
+  11B96B7E: 8B E5              mov         esp,ebp
+  11B96B80: 5D                 pop         ebp
+  11B96B81: C2 14 00           ret         14h
+  11B96B84: CC                 int         3
+
+  Summary
+
+     21DB000 .text

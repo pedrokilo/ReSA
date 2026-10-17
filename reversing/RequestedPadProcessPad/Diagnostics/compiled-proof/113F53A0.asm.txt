@@ -1,0 +1,80 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113F53A0: 55                 push        ebp
+  113F53A1: 8B EC              mov         ebp,esp
+  113F53A3: 81 EC 08 01 00 00  sub         esp,108h
+  113F53A9: 53                 push        ebx
+  113F53AA: 56                 push        esi
+  113F53AB: 57                 push        edi
+  113F53AC: 51                 push        ecx
+  113F53AD: 8D 7D B8           lea         edi,[ebp-48h]
+  113F53B0: B9 12 00 00 00     mov         ecx,12h
+  113F53B5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113F53BA: F3 AB              rep stos    dword ptr es:[edi]
+  113F53BC: 59                 pop         ecx
+  113F53BD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113F53C0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  113F53C3: E8 33 01 CD FF     call        110C54FB
+  113F53C8: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  113F53CB: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  113F53CE: E8 22 84 CD FF     call        110CD7F5
+  113F53D3: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  113F53D6: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  113F53D9: E8 58 97 C9 FF     call        1108EB36
+  113F53DE: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  113F53E1: EB 09              jmp         113F53EC
+  113F53E3: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  113F53E6: 83 C0 08           add         eax,8
+  113F53E9: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  113F53EC: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  113F53EF: 3B 45 D4           cmp         eax,dword ptr [ebp-2Ch]
+  113F53F2: 74 55              je          113F5449
+  113F53F4: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  113F53F7: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  113F53FA: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  113F53FD: E8 05 4D CA FF     call        1109A107
+  113F5402: 8B C8              mov         ecx,eax
+  113F5404: E8 77 E0 CC FF     call        110C3480
+  113F5409: 85 C0              test        eax,eax
+  113F540B: 75 3A              jne         113F5447
+  113F540D: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  113F5410: E8 58 AA CA FF     call        1109FE6D
+  113F5415: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  113F5418: 8B 4D BC           mov         ecx,dword ptr [ebp-44h]
+  113F541B: E8 1F C3 CB FF     call        110B173F
+  113F5420: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  113F5423: 8B 11              mov         edx,dword ptr [ecx]
+  113F5425: 3B 02              cmp         eax,dword ptr [edx]
+  113F5427: 75 1E              jne         113F5447
+  113F5429: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113F542C: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  113F542F: 8B 55 BC           mov         edx,dword ptr [ebp-44h]
+  113F5432: 89 11              mov         dword ptr [ecx],edx
+  113F5434: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113F5437: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  113F543A: 8B 11              mov         edx,dword ptr [ecx]
+  113F543C: 83 C2 01           add         edx,1
+  113F543F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113F5442: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  113F5445: 89 11              mov         dword ptr [ecx],edx
+  113F5447: EB 9A              jmp         113F53E3
+  113F5449: 5F                 pop         edi
+  113F544A: 5E                 pop         esi
+  113F544B: 5B                 pop         ebx
+  113F544C: 81 C4 08 01 00 00  add         esp,108h
+  113F5452: 3B EC              cmp         ebp,esp
+  113F5454: E8 33 E6 C9 FF     call        11093A8C
+  113F5459: 8B E5              mov         esp,ebp
+  113F545B: 5D                 pop         ebp
+  113F545C: C2 04 00           ret         4
+  113F545F: CC                 int         3
+
+  Summary
+
+     21DB000 .text

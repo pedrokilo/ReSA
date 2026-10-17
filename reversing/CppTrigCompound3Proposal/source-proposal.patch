@@ -1,0 +1,150 @@
+--- a/source/game_sa/3dMarkers.cpp
++++ b/source/game_sa/3dMarkers.cpp
+@@ -17,21 +17,13 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "TrigCompound3Cpp.h"
+ 
+ #include "3dMarkers.h"
+ #include "PostEffects.h"
+ 
+ // x87 como el original: fld ángulo; fmul k; fsin; fmul mult; fadd add (fsin con precisión interna completa)
+-static float __declspec(naked) __cdecl SinMulAddX87(float angle, float k, float mult, float add) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fmul dword ptr [esp + 8]
+-        fsin
+-        fmul dword ptr [esp + 12]
+-        fadd dword ptr [esp + 16]
+-        ret
+-    }
+-}
++
+ 
+ // Tamaño estándar según la distancia al jugador (0x725674 / 0x725A8F), con la aritmética del original.
+ static float ComputeStdSize(float sz, float dist) {
+@@ -486,7 +478,7 @@
+         switch (type) {
+         case MARKER3D_CONE:
+         case MARKER3D_CONE_NO_COLLISION: {
+-            pos.z = SinMulAddX87(m_angleDiamondDeg, 0.017453292f, m->m_RoofHeight < 65535.f ? 0.15f : 0.3f, pos.z);
++            pos.z = TrigCompoundScaledSinMulAdd(m_angleDiamondDeg, 0.017453292f, m->m_RoofHeight < 65535.f ? 0.15f : 0.3f, pos.z);
+         }
+         }
+ 
+@@ -574,7 +566,7 @@
+         switch (type) {
+         case MARKER3D_CONE:
+         case MARKER3D_CONE_NO_COLLISION: {
+-            pos.z = SinMulAddX87(m_angleDiamondDeg, 0.017453292f, 0.3f, pos.z);
++            pos.z = TrigCompoundScaledSinMulAdd(m_angleDiamondDeg, 0.017453292f, 0.3f, pos.z);
+         }
+         }
+ 
+@@ -806,7 +798,7 @@
+ 
+     // Update position
+     CVector pos = m_vecPosition;
+-    pos.z = SinMulAddX87(C3dMarkers::m_angleDiamondDeg, 0.017453292f, 0.25f, pos.z); // fsin x87 como el original (0x7232D2)
++    pos.z = TrigCompoundScaledSinMulAdd(C3dMarkers::m_angleDiamondDeg, 0.017453292f, 0.25f, pos.z); // fsin x87 como el original (0x7232D2)
+     RwFrameTranslate(frame, &pos, rwCOMBINEREPLACE);
+ 
+     // Apply color to material of clump
+--- a/source/game_sa/Birds.cpp
++++ b/source/game_sa/Birds.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "TrigCompound3Cpp.h"
+ #include "TrigSimpleCpp.h"
+ 
+ #include "Birds.h"
+@@ -77,25 +78,9 @@
+ 
+ 
+ 
+-__declspec(naked) float __cdecl BirdsSinMulAdd(float angle, float mult, float add) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fsin
+-        fmul dword ptr [esp + 8]
+-        fadd dword ptr [esp + 12]
+-        ret
+-    }
+-}
+-
+-__declspec(naked) float __cdecl BirdsCosMulAdd(float angle, float mult, float add) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fcos
+-        fmul dword ptr [esp + 8]
+-        fadd dword ptr [esp + 12]
+-        ret
+-    }
+-}
++
++
++
+ 
+ // -sin(angle) / div, con el seno sin redondear
+ __declspec(naked) float __cdecl BirdsNegSinDiv(float angle, float div) {
+@@ -318,8 +303,8 @@
+                 }
+ 
+                 const CVector vecBirdSpawnPos{
+-                    BirdsSinMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.x),
+-                    BirdsCosMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.y),
++                    TrigCompoundSinMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.x),
++                    TrigCompoundCosMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.y),
+                     fBirdSpawnZ
+                 };
+ 
+@@ -405,7 +390,7 @@
+             auto& vecPos = matBirdTransform.GetPosition();
+             const uint32 uiStillness = bird.m_nWingStillness;
+             const uint32 uiTime = CTimer::GetTimeInMS() + uiWingMoveTimeOffset;
+-            vecPos.z = BirdsSinMulAdd((float)(uiTime % uiStillness) * (BIRDS_WING_K / (float)uiStillness), 0.1F, vecPos.z);
++            vecPos.z = TrigCompoundSinMulAdd((float)(uiTime % uiStillness) * (BIRDS_WING_K / (float)uiStillness), 0.1F, vecPos.z);
+         }
+ 
+         CVector vecScreenPos;
+--- a/source/CMakeLists.txt
++++ b/source/CMakeLists.txt
+@@ -56,6 +56,12 @@
+ )
+ list(APPEND SOURCE_FILES_WITHOUT_MODULES_LIST StdInc.cpp)
+ if(MSVC)
++    set_source_files_properties(game_sa/TrigCompound3Cpp.cpp PROPERTIES
++        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
++        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
++        SKIP_PRECOMPILE_HEADERS ON
++        SKIP_UNITY_BUILD_INCLUSION ON
++    )
+     # Scalar x87 intrinsic helpers; callers retain their existing compiler options.
+     set_source_files_properties(game_sa/TrigSimpleCpp.cpp PROPERTIES
+         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+--- /dev/null
++++ b/source/game_sa/TrigCompound3Cpp.cpp
+@@ -0,0 +1,13 @@
++extern "C" double __cdecl sin(double);
++extern "C" double __cdecl cos(double);
++#pragma intrinsic(sin, cos)
++// Offline expressions: not accepted until actual x87 sequence is inspected.
++__declspec(noinline) float __cdecl TrigCompoundScaledSinMulAdd(float angle, float k, float mult, float add) {
++    return float(sin(double(angle) * double(k)) * double(mult) + double(add));
++}
++__declspec(noinline) float __cdecl TrigCompoundSinMulAdd(float angle, float mult, float add) {
++    return float(sin(double(angle)) * double(mult) + double(add));
++}
++__declspec(noinline) float __cdecl TrigCompoundCosMulAdd(float angle, float mult, float add) {
++    return float(cos(double(angle)) * double(mult) + double(add));
++}
+--- /dev/null
++++ b/source/game_sa/TrigCompound3Cpp.h
+@@ -0,0 +1,4 @@
++#pragma once
++float __cdecl TrigCompoundScaledSinMulAdd(float angle, float k, float mult, float add);
++float __cdecl TrigCompoundSinMulAdd(float angle, float mult, float add);
++float __cdecl TrigCompoundCosMulAdd(float angle, float mult, float add);

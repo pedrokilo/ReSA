@@ -1,0 +1,1 @@
+200007 positive finite binary32 inputs checked against independently evaluated sqrt then binary32 rounding. Seed69; includes subnormal/minnormal/maxnormal/zero. Offline mathematical check only, no game or compilation.

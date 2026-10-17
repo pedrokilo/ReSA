@@ -1,0 +1,3 @@
+FALLO: Decision and relationship full entries
+Funciones con diferencias: CDecisionMakerTypes::LoadEventIndices: 128/128
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesdecisionrelationship6\20261016-001607-671701

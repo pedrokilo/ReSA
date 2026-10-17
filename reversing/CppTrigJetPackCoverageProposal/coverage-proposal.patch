@@ -1,0 +1,90 @@
+--- a/reversing/CppTrigJetPack/LiveComparison.hpp
++++ b/reversing/CppTrigJetPack/LiveComparison.hpp
+@@ -403,8 +403,8 @@
+     auto globalsIntact=[&]{ for(size_t k=0;k<regions.size();++k)if(std::memcmp(reinterpret_cast<void*>(regions[k].first),saved[k].data(),regions[k].second))return false; return true; };
+     std::array<bool,NFNS> enabled{},locked{};
+     for(size_t f=0;f<fns.size();++f){enabled[f]=hooks[f]->Hooked();locked[f]=hooks[f]->Locked();hooks[f]->LockState(false);}
+-    bool registered=false; for(size_t f=0;f<fns.size();++f)if(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleJetPack::ProcessPed")registered=enabled[f];
+-    Write({{"event","begin"},{"functions",1},{"pairs",1024},{"registered_hook",registered},{"collaborators_stubbed",true}});
++    bool registered=true; for(size_t f=0;f<fns.size();++f)if(std::string(fns[f].cls)=="CTaskSimpleJetPack"&&(std::string(fns[f].name)=="ProcessPed"||std::string(fns[f].name)=="RenderJetPack"))registered&=enabled[f];
++    Write({{"event","begin"},{"functions",2},{"pairs",1536},{"registered_hook",registered},{"collaborators_stubbed",true}});
+     bool passed=true; int pair=0;
+     {
+         using ReversingProbe::EntryPatch; using std::bit_cast;
+@@ -473,7 +473,7 @@
+ 
+         for(size_t f=0;f<fns.size();++f) {
+             const auto& fn=fns[f]; int failures=0; const std::string cls=fn.cls, nm=fn.name, full=cls+"::"+nm;
+-            if(full!="CTaskSimpleJetPack::ProcessPed")continue;
++            if(full!="CTaskSimpleJetPack::ProcessPed"&&full!="CTaskSimpleJetPack::RenderJetPack")continue;
+             if(!only.empty()&&only!=full)continue;
+             const bool jet=cls=="CTaskSimpleJetPack";
+             for(int i=0;i<fn.cases;++i) {
+@@ -652,7 +652,7 @@
+                     for(auto* h:hooks)h->State(candidate);
+                     const auto vt=reinterpret_cast<uintptr_t*>(fn.vt); const uintptr_t target=fn.slot>=0 ? vt[fn.slot] : fn.address;
+                     const bool switches=fn.slot>=0 ? ((target>=0x400000&&target<0x1000000)!=candidate) : (ReversingProbe::JumpsToDll(fn.address)==candidate);
+-                    json out={{"switches",switches}}; json ret=nullptr; uintptr_t retPtr{}; bool isPtr=false;
++                    json out={{"switches",switches}}; if(jet&&nm=="RenderJetPack")out["fixture_thrust_stop"]=bool(o[0xD]); json ret=nullptr; uintptr_t retPtr{}; bool isPtr=false;
+                     CPed* pd=static_cast<CPed*>(p);
+                     auto callPed=[&]{ return reinterpret_cast<bool(__thiscall*)(void*,CPed*)>(target)(o,pd); };
+                     auto callPedVoid=[&]{ reinterpret_cast<void(__thiscall*)(void*,CPed*)>(target)(o,pd); };
+--- a/reversing/CppTrigJetPack/run_local.py
++++ b/reversing/CppTrigJetPack/run_local.py
+@@ -22,5 +22,5 @@
+     return analyze
+ probe_case.analyzer=strict_analyzer
+ src = (Path(__file__).parent/'LiveComparison.hpp').read_text(encoding='utf-8')
+-EXPECTED = {f'{m[0]}::{m[1]}': int(m[2]) for m in re.findall(r'\{"(\w+)","([^"]+)",(?:0x[0-9A-F]+|0),(?:0x[0-9A-F]+|0),-?\d+,(\d+)\}', src) if m[0]+'::'+m[1]=='CTaskSimpleJetPack::ProcessPed'}
++EXPECTED = {f'{m[0]}::{m[1]}': int(m[2]) for m in re.findall(r'\{"(\w+)","([^"]+)",(?:0x[0-9A-F]+|0),(?:0x[0-9A-F]+|0),-?\d+,(\d+)\}', src) if m[0]+'::'+m[1] in ('CTaskSimpleJetPack::ProcessPed','CTaskSimpleJetPack::RenderJetPack')}
+ if __name__ == '__main__': sys.exit(main(Path(__file__).parent, 'cpptrigjetpack', 'CppTrigJetPack', EXPECTED, timeout=1500))
+--- a/reversing/CppTrigJetPack/audit/audit_run.py
++++ b/reversing/CppTrigJetPack/audit/audit_run.py
+@@ -10,7 +10,7 @@
+ from pathlib import Path
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+-SELECTED = {'CTaskSimpleJetPack::ProcessPed': 1024}
++SELECTED = {'CTaskSimpleJetPack::ProcessPed': 1024, 'CTaskSimpleJetPack::RenderJetPack': 512}
+ EXE = '72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b'
+ 
+ 
+@@ -60,6 +60,14 @@
+             assert row[side].get('clean') is True, (row['pair'],side)
+     for name,count in expected.items():
+         assert {row['case'] for row in pairs if row['function']==name} == set(range(count)),name
++    trig_render_cases=[]
++    for row in pairs:
++        if row['function']!='CTaskSimpleJetPack::RenderJetPack': continue
++        out=row['candidate']
++        if out.get('fixture_thrust_stop') is not True: continue
++        frames={event[2] for event in out['trace'] if isinstance(event,list) and len(event)>=4 and event[0]=='frame_from_name' and event[3] is True}
++        if {'jetball1','jetball2'} <= frames: trig_render_cases.append(row['case'])
++    assert trig_render_cases, 'No measured RenderJetPack ThrustStop case found with both jetball frames nonnull'
+     fsum = [row for row in rows if row.get('event') == 'function_summary']
+     if args.require_registered:
+         begin = [row for row in rows if row.get('event') == 'begin']
+@@ -84,6 +92,7 @@
+                   executed_probe_sha256=summary['executed_probe_sha256'])
+     result['registered_hook_verified'] = args.require_registered
+     result['auditor_sha256'] = sha(Path(__file__))
++    result['jetball_sin_cos_cases'] = trig_render_cases
+     result['route_field'] = 'switches'
+     result['scope'] = 'Legacy consumer fixtures, results/state/traces; collaborators instrumented; no full FP108/EFLAGS/register ABI claim'
+     if args.archive:
+--- a/reversing/CppTrigJetPack/README.md
++++ b/reversing/CppTrigJetPack/README.md
+@@ -1,6 +1,6 @@
+ # CppTrigJetPack: migración trigonométrica C++
+ 
+-Preparado offline, pendiente de compilación, ejecución y aprobación por coordinación. Derivado de CTasks14b sin editar el banco histórico. Única identidad ejecutada: CTaskSimpleJetPack::ProcessPed, 0x6801F0, VMT 0x8705C4 slot 7; 1024 pares.
++Preparado offline, pendiente de compilación, ejecución y aprobación por coordinación. Derivado de CTasks14b sin editar el banco histórico. Dos identidades ejecutadas: ProcessPed 0x6801F0, VMT 0x8705C4 slot 7, 1024 pares; RenderJetPack 0x67F6A0, 512 pares. Total 1536. ProcessPed solo consume SinMul; RenderJetPack cubre SinMul y CosMul en ProcessJetBall cuando ThrustStop y frame válido.
+ 
+ Conserva toda la tabla original de hooks, su conmutación OFF/ON y el índice f original de la semilla. Mantiene fixtures, trazas, snapshots y gates de igualdad, switches y clean. Registra ambos objetos laterales completos incluso en éxito o fallo; retorno void/nulo legítimo permanece dentro del objeto, nunca como registro lateral nulo. El analizador vuelve a exigir objeto completo, switches, clean, ret y trace.
+ 
+@@ -9,3 +9,5 @@
+ Este banco heredado compara resultados y memorias numéricas observables; no contiene captura física FP108 ni comparación completa de flags x87, EFLAGS o ABI. No se introduce tolerancia ni normalización. La fidelidad adicional exige que coordinación compruebe código emitido de los helpers y equivalencia de los callers antes/después; no se da por demostrada aquí.
+ 
+ Manifiesto incluye fuentes históricas, TrigSimpleCpp.cpp/.h, CMake, InjectHooksMain y RH. Los scripts usan exclusivamente E:/JUEGOS/GTA San Andreas - CVehicle Test mediante configuración en memoria, sin editar runtime_runner.py. Solo coordinación compila y ejecuta en serie.
++
++Cobertura adicional: fixture_thrust_stop serializa el byte 0xD sin consumir RNG. El auditor exige al menos un caso RenderJetPack con ThrustStop verdadero y trazas frame_from_name para jetball1 y jetball2 válidas. Los fixtures históricos ya alternan stop, clump y máscara mFrame; no se fuerzan resultados ni se cambian semillas. begin registered_hook exige enabled real de ambas rutas.

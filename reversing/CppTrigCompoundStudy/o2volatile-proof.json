@@ -1,0 +1,180 @@
+{
+  "object_sha256": "57e261ff9e4ad13c3485b3027c342ae800372488cdcb16482a133885c8d2ac6a",
+  "functions": [
+    {
+      "symbol": "?N1@@YAMMM@Z",
+      "section": 15,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442404",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d9fe",
+          "mnemonic": "fsin",
+          "operands": ""
+        },
+        {
+          "offset": 6,
+          "bytes": "d9e0",
+          "mnemonic": "fchs",
+          "operands": ""
+        },
+        {
+          "offset": 8,
+          "bytes": "d8742408",
+          "mnemonic": "fdiv",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 12,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?S2@@YAMMM@Z",
+      "section": 25,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442408",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d9fe",
+          "mnemonic": "fsin",
+          "operands": ""
+        },
+        {
+          "offset": 6,
+          "bytes": "d86c2404",
+          "mnemonic": "fsubr",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 10,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?CV1@@YAMMM@Z",
+      "section": 9,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442404",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d9ff",
+          "mnemonic": "fcos",
+          "operands": ""
+        },
+        {
+          "offset": 6,
+          "bytes": "d84c2408",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 10,
+          "bytes": "d8442408",
+          "mnemonic": "fadd",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 14,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?CV2@@YAMMM@Z",
+      "section": 11,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442404",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d9ff",
+          "mnemonic": "fcos",
+          "operands": ""
+        },
+        {
+          "offset": 6,
+          "bytes": "d84c2408",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 10,
+          "bytes": "d8442408",
+          "mnemonic": "fadd",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 14,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?CV3@@YAMMM@Z",
+      "section": 13,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442404",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d9ff",
+          "mnemonic": "fcos",
+          "operands": ""
+        },
+        {
+          "offset": 6,
+          "bytes": "d84c2408",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 10,
+          "bytes": "d8442408",
+          "mnemonic": "fadd",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 14,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "limitation": "Relocations unresolved; function extents inferred from COFF symbols. No runtime approval."
+}

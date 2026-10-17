@@ -1,0 +1,376 @@
+--- a/source/game_sa/DecisionMakers/DecisionMakerTypes.cpp
++++ b/source/game_sa/DecisionMakers/DecisionMakerTypes.cpp
+@@ -5,11 +5,102 @@
+ void CDecisionMakerTypes::InjectHooks() {
+     RH_ScopedClass(CDecisionMakerTypes);
+     RH_ScopedCategory("DecisionMakers");
++    RH_ScopedInstall(AddDecisionMaker, 0x607050);
++    RH_ScopedInstall(RemoveDecisionMaker, 0x6043A0);
++    RH_ScopedInstall(LoadEventIndices, 0x600840);
++}
++
++static __declspec(naked) void Decision6SetPed() {
++    __asm {
++        push 00600B50h
++        ret
++    }
++}
++static __declspec(naked) void Decision6SetGroup() {
++    __asm {
++        push 005F7340h
++        ret
++    }
++}
++static __declspec(naked) void Decision6Assign() {
++    __asm {
++        push 006006B0h
++        ret
++    }
++}
++static __declspec(naked) void Decision6ReadEvents() {
++    __asm {
++        push 005BB9F0h
++        ret
++    }
+ }
+ 
+ // 0x607050
+-int32 CDecisionMakerTypes::AddDecisionMaker(CDecisionMaker* decisionMaker, eDecisionTypes decisionMakerType, bool bDecisionMakerForMission) {
+-    return plugin::CallMethodAndReturn<int32, 0x607050, CDecisionMakerTypes*, CDecisionMaker*, eDecisionTypes, bool>(this, decisionMaker, decisionMakerType, bDecisionMakerForMission);
++__declspec(naked) int32 CDecisionMakerTypes::AddDecisionMaker(CDecisionMaker* decisionMaker, eDecisionTypes decisionMakerType, bool bDecisionMakerForMission) {
++    __asm {
++        push        ecx
++        mov         dl,byte ptr [esp+10h]
++        push        ebx
++        push        esi
++        or          eax,0FFFFFFFFh
++        test        dl,dl
++        push        edi
++        mov         dword ptr [esp+0Ch],ecx
++        je decision6_60706F
++        mov         edx,0Fh
++        mov         esi,14h
++        jmp decision6_607076
++decision6_60706F:
++        xor         edx,edx
++        mov         esi,0Fh
++decision6_607076:
++        movzx       edi,dx
++        movzx       edx,si
++        cmp         edi,edx
++        jge decision6_6070DA
++decision6_607080:
++        mov         bl,byte ptr [edi+00C0B01Ch]
++        test        bl,bl
++        je decision6_607096
++        inc         edi
++        cmp         edi,edx
++        jl decision6_607080
++        pop         edi
++        pop         esi
++        pop         ebx
++        pop         ecx
++        ret         0Ch
++decision6_607096:
++        mov         al,byte ptr [esp+18h]
++        mov         ebx,dword ptr [esp+14h]
++        mov         edx,edi
++        imul        edx,edx,99Ch
++        lea         esi,[edx+ecx+4]
++        push        ebp
++        mov         byte ptr [edi+00C0B01Ch],1
++        mov         byte ptr [edi+00C0AFE0h],al
++        sub         ebx,esi
++        mov         ebp,29h
++        nop
++decision6_6070C0:
++        lea         eax,[ebx+esi]
++        push        eax
++        mov         ecx,esi
++        call Decision6Assign
++        add         esi,3Ch
++        dec         ebp
++        jne decision6_6070C0
++        mov         eax,dword ptr [esp+10h]
++        inc         dword ptr [eax]
++        mov         eax,edi
++        pop         ebp
++decision6_6070DA:
++        pop         edi
++        pop         esi
++        pop         ebx
++        pop         ecx
++        ret         0Ch
++    }
+ }
+ 
+ // 0x4684F0
+@@ -23,8 +114,91 @@
+ }
+ 
+ // 0x6043A0
+-void CDecisionMakerTypes::RemoveDecisionMaker(eDecisionTypes dm) {
+-    plugin::CallMethod<0x6043A0>(this, dm);
++__declspec(naked) void CDecisionMakerTypes::RemoveDecisionMaker(eDecisionTypes dm) {
++    __asm {
++        push        ecx
++        push        ebx
++        mov         ebx,dword ptr [esp+0Ch]
++        mov         al,byte ptr [ebx+00C0B01Ch]
++        test        al,al
++        mov         dword ptr [esp+4],ecx
++        je decision6_604484
++        mov         al,byte ptr [ebx+00C0AFE0h]
++        test        al,al
++        push        esi
++        push        edi
++        jne decision6_60443A
++        push        ebp
++        mov         ebp,dword ptr ds:[00B74490h]
++        mov         esi,dword ptr [ebp+8]
++        test        esi,esi
++        je decision6_60441F
++        mov         edi,esi
++        imul        edi,edi,7C4h
++        lea         ebx,[ebx+00000000h]
++decision6_6043E0:
++        mov         eax,dword ptr [ebp+4]
++        mov         cl,byte ptr [esi+eax-1]
++        dec         esi
++        sub         edi,7C4h
++        test        cl,cl
++        js decision6_604417
++        mov         eax,dword ptr [ebp]
++        add         eax,edi
++        je decision6_604417
++        mov         ecx,dword ptr [eax+0000047Ch]
++        cmp         dword ptr [ecx+000000B4h],ebx
++        jne decision6_604417
++        mov         edx,dword ptr [eax+0000059Ch]
++        movsx       eax,byte ptr [edx+32h]
++        push        eax
++        call Decision6SetPed
++decision6_604417:
++        test        esi,esi
++        jne decision6_6043E0
++        mov         ecx,dword ptr [esp+10h]
++decision6_60441F:
++        pop         ebp
++        mov         byte ptr [ebx+00C0B01Ch],0
++        mov         byte ptr [ebx+00C0AFE0h],0
++        mov         eax,dword ptr [ecx]
++        pop         edi
++        dec         eax
++        pop         esi
++        mov         dword ptr [ecx],eax
++        pop         ebx
++        pop         ecx
++        ret         4
++decision6_60443A:
++        xor         edi,edi
++        mov         esi,0C09950h
++decision6_604441:
++        mov         al,byte ptr [edi+00C098E0h]
++        test        al,al
++        je decision6_60445C
++        cmp         ebx,dword ptr [esi+00000298h]
++        jne decision6_60445C
++        push        0FFFFFFFFh
++        mov         ecx,esi
++        call Decision6SetGroup
++decision6_60445C:
++        add         esi,2D4h
++        inc         edi
++        cmp         esi,0C0AFF0h
++        jl decision6_604441
++        mov         eax,dword ptr [esp+0Ch]
++        mov         byte ptr [ebx+00C0B01Ch],0
++        mov         byte ptr [ebx+00C0AFE0h],0
++        mov         ecx,dword ptr [eax]
++        dec         ecx
++        pop         edi
++        mov         dword ptr [eax],ecx
++        pop         esi
++decision6_604484:
++        pop         ebx
++        pop         ecx
++        ret         4
++    }
+ }
+ 
+ // 0x606F80
+@@ -43,6 +217,12 @@
+     plugin::CallMethod<0x604490>(this, decisionMakerIndex, eventId);
+ }
+ 
+-void CDecisionMakerTypes::LoadEventIndices() {
+-    plugin::CallMethod<0x600840>(this);
+-}
++__declspec(naked) void CDecisionMakerTypes::LoadEventIndices() {
++    __asm {
++        push        86CD44h
++        lea         eax,[ecx+0000C034h]
++        push        eax
++        call Decision6ReadEvents
++        ret
++    }
++}
+--- a/source/game_sa/PlayerRelationshipRecorder.cpp
++++ b/source/game_sa/PlayerRelationshipRecorder.cpp
+@@ -30,31 +30,111 @@
+ }
+ 
+ // 0x61A1D0
+-void CPlayerRelationshipRecorder::RecordRelationshipWithPlayer(const CPed* ped) {
+-    plugin::CallMethod<0x61A1D0, CPlayerRelationshipRecorder*, const CPed*>(this, ped);
+-    return;
+-
+-    // sheeeet
+-    ClearRelationshipWithPlayer(ped);
+-
+-    bool outIsKillPedTask[4];
+-
+-    auto task1 = ped->GetTaskManager().GetActiveTask();
+-    if (task1) {
+-        outIsKillPedTask[2] = false;
+-
+-        bool unk = false;
+-        CTaskCategories::IsKillPedTask(task1, outIsKillPedTask[2], unk);
+-        if (unk || (outIsKillPedTask[3] = 0, outIsKillPedTask[0] = 0, CTaskCategories::IsFollowPedTask(task1, outIsKillPedTask[3], outIsKillPedTask[0]), outIsKillPedTask[0])) {
+-            AddRelationship(ped, 3);
+-        } else {
+-            bool unk1 = false;
+-            outIsKillPedTask[1] = false;
+-            CTaskCategories::IsKillPedTask(task1, unk1, outIsKillPedTask[1]);
+-            if (outIsKillPedTask[1]) {
+-                AddRelationship(ped, 7);
+-            }
+-        }
++static __declspec(naked) void Relationship6GetActive() {
++    __asm {
++        push 00681720h
++        ret
++    }
++}
++static __declspec(naked) void Relationship6Kill() {
++    __asm {
++        push 006985E0h
++        ret
++    }
++}
++static __declspec(naked) void Relationship6Follow() {
++    __asm {
++        push 00698610h
++        ret
++    }
++}
++__declspec(naked) void CPlayerRelationshipRecorder::RecordRelationshipWithPlayer(const CPed*) {
++    __asm {
++        sub         esp,8
++        push        ebx
++        push        ebp
++        mov         ebp,dword ptr [esp+14h]
++        push        esi
++        xor         ebx,ebx
++        push        edi
++        mov         esi,ecx
++        xor         eax,eax
++relationship6_61A1E1:
++        cmp         dword ptr [esi+eax*8],ebp
++        je relationship6_61A1EE
++        inc         eax
++        cmp         eax,10h
++        jl relationship6_61A1E1
++        jmp relationship6_61A1F5
++relationship6_61A1EE:
++        mov         dword ptr [esi+eax*8],ebx
++        mov         byte ptr [esi+eax*8+4],bl
++relationship6_61A1F5:
++        mov         eax,dword ptr [ebp+0000047Ch]
++        lea         ecx,[eax+4]
++        call Relationship6GetActive
++        mov         edi,eax
++        cmp         edi,ebx
++        je relationship6_61A294
++        lea         eax,[esp+1Ch]
++        push        eax
++        lea         ecx,[esp+19h]
++        push        ecx
++        push        edi
++        mov         byte ptr [esp+21h],bl
++        mov         byte ptr [esp+28h],bl
++        call Relationship6Kill
++        mov         al,byte ptr [esp+28h]
++        add         esp,0Ch
++        cmp         al,bl
++        jne relationship6_61A253
++        lea         edx,[esp+13h]
++        push        edx
++        lea         eax,[esp+1Ah]
++        push        eax
++        push        edi
++        mov         byte ptr [esp+22h],bl
++        mov         byte ptr [esp+1Fh],bl
++        call Relationship6Follow
++        mov         al,byte ptr [esp+1Fh]
++        add         esp,0Ch
++        cmp         al,bl
++        je relationship6_61A267
++relationship6_61A253:
++        cmp         dword ptr [esi],ebx
++        je relationship6_61A294
++        pop         edi
++        mov         byte ptr [esi+4],3
++        mov         dword ptr [esi],ebp
++        pop         esi
++        pop         ebp
++        pop         ebx
++        add         esp,8
++        ret         4
++relationship6_61A267:
++        lea         ecx,[esp+14h]
++        push        ecx
++        lea         edx,[esp+1Bh]
++        push        edx
++        push        edi
++        mov         byte ptr [esp+23h],bl
++        mov         byte ptr [esp+20h],bl
++        call Relationship6Kill
++        mov         al,byte ptr [esp+20h]
++        add         esp,0Ch
++        cmp         al,bl
++        je relationship6_61A294
++        cmp         dword ptr [esi],ebx
++        je relationship6_61A294
++        mov         byte ptr [esi+4],7
++        mov         dword ptr [esi],ebp
++relationship6_61A294:
++        pop         edi
++        pop         esi
++        pop         ebp
++        pop         ebx
++        add         esp,8
++        ret         4
+     }
+ }
+ 
+@@ -88,3 +168,9 @@
+     }
+     return *g_sPlayerRelationshipRecorder;
+ }
++
++void CPlayerRelationshipRecorder::InjectHooks() {
++    RH_ScopedClass(CPlayerRelationshipRecorder);
++    RH_ScopedCategory("Ped");
++    RH_ScopedInstall(RecordRelationshipWithPlayer, 0x61A1D0);
++}
+--- a/source/game_sa/PlayerRelationshipRecorder.h
++++ b/source/game_sa/PlayerRelationshipRecorder.h
+@@ -20,6 +20,7 @@
+     std::array<PlayerRelationship, 16> m_Relationships;
+ 
+ public:
++    static void InjectHooks();
+     CPlayerRelationshipRecorder();
+     ~CPlayerRelationshipRecorder();
+ 

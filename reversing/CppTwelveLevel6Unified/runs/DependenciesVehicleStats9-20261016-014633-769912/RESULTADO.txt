@@ -1,0 +1,3 @@
+FALLO: DependenciesVehicleStats9
+Funciones con diferencias: CStats::UpdateStatsWhenDriving: 784/2048; CStats::UpdateStatsWhenFlying: 160/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesvehiclestats9\20261016-014633-769912

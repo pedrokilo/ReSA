@@ -1,0 +1,58 @@
+--- a/source/game_sa/RwHelper.cpp
++++ b/source/game_sa/RwHelper.cpp
+@@ -37,6 +37,7 @@
+     RH_ScopedGlobalInstall(SkinAtomicGetHAnimHierarchCB, 0x734A20);
+     RH_ScopedGlobalInstall(GetAnimHierarchyFromSkinClump, 0x734A40);
+     // RH_ScopedGlobalInstall(GetAnimHierarchyFromFrame, 0x734AB0);
++    RH_ScopedGlobalInstall(RwTexDictionaryFindHashNamedTexture, 0x734E50);
+     RH_ScopedGlobalInstall(GetAnimHierarchyFromClump, 0x734B10);
+     RH_ScopedGlobalInstall(AtomicRemoveAnimFromSkinCB, 0x734B90);
+     RH_ScopedGlobalInstall(RpAtomicConvertGeometryToTL, 0x734BE0);
+@@ -275,8 +276,45 @@
+ }
+ 
+ // 0x734E50
+-RwTexture* RwTexDictionaryFindHashNamedTexture(RwTexDictionary* txd, uint32 hash) {
+-    return ((RwTexture * (__cdecl*)(RwTexDictionary*, uint32))0x734E50)(txd, hash);
++static uintptr_t TextureUppercaseKeyBody=uintptr_t(static_cast<uint32(*)(const char*)>(&CKeyGen::GetUppercaseKey));
++// 0x734E50: exact intrusive dictionary traversal and hash comparison.
++__declspec(naked) RwTexture* RwTexDictionaryFindHashNamedTexture(RwTexDictionary*,uint32) {
++    __asm {
++    push ebx
++    mov ebx,dword ptr [esp+8]
++    push ebp
++    add ebx,8
++    push esi
++    mov esi,dword ptr [ebx]
++    cmp esi,ebx
++    push edi
++    je L00734E82
++    mov ebp,dword ptr [esp+18h]
++    L00734E65: lea edi,[esi-8]
++    lea eax,[edi+10h]
++    test eax,eax
++    je L00734E7C
++    push eax
++    call dword ptr [TextureUppercaseKeyBody]
++    add esp,4
++    cmp eax,ebp
++    je L00734E89
++    L00734E7C: mov esi,dword ptr [esi]
++    cmp esi,ebx
++    jne L00734E65
++    L00734E82: pop edi
++    pop esi
++    pop ebp
++    xor eax,eax
++    pop ebx
++    ret
++    L00734E89: mov eax,edi
++    pop edi
++    pop esi
++    pop ebp
++    pop ebx
++    ret
++    }
+ }
+ 
+ // 0x734FC0

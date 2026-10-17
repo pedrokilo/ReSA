@@ -1,0 +1,37 @@
+--- a/reversing/DependenciesMemoryCpp16/TraceSupport.hpp
++++ b/reversing/DependenciesMemoryCpp16/TraceSupport.hpp
+@@ -7,7 +7,7 @@
+     bool Check()const{return ModuleOf(body)==ModuleOf(uintptr_t(&ModuleMarker))&&bytes==ReversingProbe::Bytes(reinterpret_cast<void*>(body),64);}
+     json Metadata()const{return {{"body",body},{"module",uintptr_t(ModuleOf(body))},{"stable_prefix_bytes",bytes},{"identity_with_exe_required",false}};}
+ };
+-inline Result ProtectedGate(uintptr_t entry,const std::array<uint32,3>& args,unsigned arity) {
++__declspec(noinline) inline Result ProtectedGate(uintptr_t entry,const std::array<uint32,3>& args,unsigned arity) {
+     Result result{};
+     __try {result=Gate(entry,args,arity);}
+     __except(hardwareTrace.Filter(GetExceptionInformation())) {result.aborted=true;}
+@@ -76,20 +76,25 @@
+         return seen.abi;
+     };
+     auto first=perform("malloc33",0x824257,{33,0,0},1,{{{0x824257,33,0},{}}},1,0);
++    if(!passed){calibrationResourcesRestored=false;RestoreFloating();return rows;}
+     auto* memory=reinterpret_cast<uint8*>(first.eax);passed&=memory!=nullptr;
+     if(memory){Fill(memory,33,13);passed&=Matches(memory,33,13);
+         const auto released=perform("free_malloc33",0x82413F,{uint32(uintptr_t(memory)),0,0},1,{{{0x82413F,uint32(uintptr_t(memory)),0},{}}},1,3);
++        if(!passed){calibrationResourcesRestored=false;RestoreFloating();return rows;}
+         if(released.aborted)NativeFree(memory);}
+     auto created=perform("realloc_null17",0x824269,{0,17,0},2,{{{0x824269,0,17},{0x824257,17,0}}},2,1);
++    if(!passed){calibrationResourcesRestored=false;RestoreFloating();return rows;}
+     memory=reinterpret_cast<uint8*>(created.eax);passed&=memory!=nullptr;if(memory)NativeFree(memory);
+     memory=NativeMalloc(23);passed&=memory!=nullptr;
+     if(memory){const auto released=perform("realloc_owned_zero",0x824269,{uint32(uintptr_t(memory)),0,0},2,
+         {{{0x824269,uint32(uintptr_t(memory)),0},{0x82413F,uint32(uintptr_t(memory)),0}}},2,1);
++        if(!passed){calibrationResourcesRestored=false;RestoreFloating();return rows;}
+         passed&=!released.aborted&&released.eax==0;
+         if(released.aborted)NativeFree(memory);}
+     memory=NativeMalloc(23);passed&=memory!=nullptr;
+     if(memory){Fill(memory,23,19);auto grown=perform("realloc_owned65",0x824269,{uint32(uintptr_t(memory)),65,0},2,
+         {{{0x824269,uint32(uintptr_t(memory)),65},{}}},1,1);
++        if(!passed){calibrationResourcesRestored=false;RestoreFloating();return rows;}
+         auto* output=reinterpret_cast<uint8*>(grown.eax);passed&=output&&Matches(output,23,19);
+         // A rejected first entry has not touched input. Unexpected nested calls
+         // after realloc began do not justify assuming its ownership state.

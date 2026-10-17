@@ -1,0 +1,3 @@
+APROBADO: CamLookSide355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cam-look-side355\20261016-105555-983448

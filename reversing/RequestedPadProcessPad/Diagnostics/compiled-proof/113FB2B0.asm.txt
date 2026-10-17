@@ -1,0 +1,60 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113FB2B0: 55                 push        ebp
+  113FB2B1: 8B EC              mov         ebp,esp
+  113FB2B3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113FB2B9: 53                 push        ebx
+  113FB2BA: 56                 push        esi
+  113FB2BB: 57                 push        edi
+  113FB2BC: 8D 7D F4           lea         edi,[ebp-0Ch]
+  113FB2BF: B9 03 00 00 00     mov         ecx,3
+  113FB2C4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113FB2C9: F3 AB              rep stos    dword ptr es:[edi]
+  113FB2CB: E8 40 37 CD FF     call        110CEA10
+  113FB2D0: 0F B6 C0           movzx       eax,al
+  113FB2D3: 85 C0              test        eax,eax
+  113FB2D5: 74 1B              je          113FB2F2
+  113FB2D7: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  113FB2DA: 50                 push        eax
+  113FB2DB: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  113FB2DE: 51                 push        ecx
+  113FB2DF: E8 16 38 CE FF     call        110DEAFA
+  113FB2E4: 83 C4 04           add         esp,4
+  113FB2E7: 50                 push        eax
+  113FB2E8: E8 9D C6 CD FF     call        110D798A
+  113FB2ED: 83 C4 08           add         esp,8
+  113FB2F0: EB 2D              jmp         113FB31F
+  113FB2F2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113FB2F5: 50                 push        eax
+  113FB2F6: E8 FF 37 CE FF     call        110DEAFA
+  113FB2FB: 83 C4 04           add         esp,4
+  113FB2FE: 50                 push        eax
+  113FB2FF: 6A 04              push        4
+  113FB301: E8 96 45 C9 FF     call        1108F89C
+  113FB306: 83 C4 08           add         esp,8
+  113FB309: 89 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],eax
+  113FB30F: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  113FB312: 51                 push        ecx
+  113FB313: 8B 8D 38 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF38h]
+  113FB319: E8 F2 35 CE FF     call        110DE910
+  113FB31E: 90                 nop
+  113FB31F: 5F                 pop         edi
+  113FB320: 5E                 pop         esi
+  113FB321: 5B                 pop         ebx
+  113FB322: 81 C4 CC 00 00 00  add         esp,0CCh
+  113FB328: 3B EC              cmp         ebp,esp
+  113FB32A: E8 5D 87 C9 FF     call        11093A8C
+  113FB32F: 8B E5              mov         esp,ebp
+  113FB331: 5D                 pop         ebp
+  113FB332: C3                 ret
+  113FB333: CC                 int         3
+
+  Summary
+
+     21DB000 .text

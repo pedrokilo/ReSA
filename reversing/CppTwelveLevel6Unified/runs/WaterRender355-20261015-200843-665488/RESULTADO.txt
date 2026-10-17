@@ -1,0 +1,3 @@
+APROBADO: WaterRender355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-water-render355\20261015-200843-665488

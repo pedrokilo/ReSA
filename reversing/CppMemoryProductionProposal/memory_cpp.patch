@@ -1,0 +1,127 @@
+--- a/source/game_sa/MemoryMgr.cpp
++++ b/source/game_sa/MemoryMgr.cpp
+@@ -261,23 +261,18 @@
+ }
+ 
+ namespace {
+-__declspec(naked) void* __cdecl Memory9NativeMalloc(uint32) {
+-    __asm {
+-        push 00824257h
+-        ret
+-    }
+-}
+-__declspec(naked) uint8* __cdecl Memory9NativeRealloc(void*, uint32) {
+-    __asm {
+-        push 00824269h
+-        ret
+-    }
+-}
+-__declspec(naked) void __cdecl Memory9NativeFree(void*) {
+-    __asm {
+-        push 0082413Fh
+-        ret
+-    }
++// The PC EXE uses its own CRT heap. These are typed library calls, not game-function bridges.
++__forceinline void* Memory9NativeMalloc(uint32 size) {
++    using Function = void* (__cdecl*)(uint32);
++    return reinterpret_cast<Function>(uintptr_t{0x824257})(size);
++}
++__forceinline uint8* Memory9NativeRealloc(void* memory, uint32 size) {
++    using Function = uint8* (__cdecl*)(void*, uint32);
++    return reinterpret_cast<Function>(uintptr_t{0x824269})(memory, size);
++}
++__forceinline void Memory9NativeFree(void* memory) {
++    using Function = void (__cdecl*)(void*);
++    reinterpret_cast<Function>(uintptr_t{0x82413F})(memory);
+ }
+ }
+ 
+@@ -312,14 +307,8 @@
+ #endif
+ }
+ #else
+-__declspec(naked) void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
+-    __asm {
+-        mov eax,[esp+4]
+-        push eax
+-        call Memory9NativeMalloc
+-        add esp,4
+-        ret
+-    }
++void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
++    return Memory9NativeMalloc(size);
+ }
+ #endif
+ 
+@@ -377,16 +366,8 @@
+ #endif
+ }
+ #else
+-__declspec(naked) uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
+-    __asm {
+-        mov eax,[esp+8]
+-        mov ecx,[esp+4]
+-        push eax
+-        push ecx
+-        call Memory9NativeRealloc
+-        add esp,8
+-        ret
+-    }
++uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
++    return Memory9NativeRealloc(memory, size);
+ }
+ #endif
+ 
+@@ -411,24 +392,15 @@
+     return static_cast<uint8*>(result);
+ }
+ #else
+-__declspec(naked) uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
+-    __asm {
+-        mov eax,[esp+4]
+-        push esi
+-        mov esi,[esp+0Ch]
+-        add eax,esi
+-        push eax
+-        call Memory9NativeMalloc
+-        mov ecx,eax
+-        lea eax,[ecx+esi]
+-        add esp,4
+-        dec esi
+-        not esi
+-        and eax,esi
+-        mov [eax-4],ecx
+-        pop esi
+-        ret
+-    }
++uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
++    // Unsigned x86 arithmetic reproduces ADD/LEA wrapping before AND.
++    const uint32 requested = size + align;
++    void* const base = Memory9NativeMalloc(requested);
++    const uint32 baseAddress = static_cast<uint32>(reinterpret_cast<uintptr_t>(base));
++    const uint32 alignedAddress = (baseAddress + align) & ~(align - uint32{1});
++    auto* const result = reinterpret_cast<uint8*>(static_cast<uintptr_t>(alignedAddress));
++    *reinterpret_cast<void**>(result - sizeof(void*)) = base;
++    return result;
+ }
+ #endif
+ 
+@@ -438,13 +410,11 @@
+     Free(*((void**)memory - 1));
+ }
+ #else
+-__declspec(naked) void CMemoryMgr::FreeAlign(void* memory) {
+-    __asm {
+-        mov eax,[esp+4]
+-        mov ecx,[eax-4]
+-        mov [esp+4],ecx
+-        jmp Memory9NativeFree
+-    }
++__declspec(noinline) void CMemoryMgr::FreeAlign(void* volatile memory) {
++    // A volatile parameter makes rewriting its storage an observable operation.
++    // Admission additionally requires the actual incoming x86 argument slot to change.
++    memory = *reinterpret_cast<void**>(static_cast<uint8*>(memory) - sizeof(void*));
++    Memory9NativeFree(memory);
+ }
+ #endif
+ 

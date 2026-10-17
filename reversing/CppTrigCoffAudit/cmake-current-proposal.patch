@@ -1,0 +1,16 @@
+--- a/source/CMakeLists.txt
++++ b/source/CMakeLists.txt
+@@ -56,6 +56,13 @@
+ )
+ list(APPEND SOURCE_FILES_WITHOUT_MODULES_LIST StdInc.cpp)
+ if(MSVC)
++    # Scalar x87 intrinsic helpers; callers retain their existing compiler options.
++    set_source_files_properties(game_sa/TrigSimpleCpp.cpp PROPERTIES
++        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
++        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
++        SKIP_PRECOMPILE_HEADERS ON
++        SKIP_UNITY_BUILD_INCLUSION ON
++    )
+     # Ordinary debug symbols avoid Edit-and-Continue stack padding in constant returns.
+     set_source_files_properties(game_sa/Models/ModelInfo.cpp PROPERTIES
+         COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>"

@@ -1,0 +1,3 @@
+FALLO: Ayudantes x87 de CCam, EXE vs DLL con estres
+Funciones con diferencias: Cam::CamTwoPlayerAimTanCpp: 43/512; Cam::CamAimOffsetsCpp: 25/512; Cam::CamAimProjectionCpp: 512/512; Cam::CamAimMeleeBlendCpp: 512/512; Cam::CamShootingOrbitCpp: 512/512; Cam::CamShootingTiltCpp: 512/512; Cam::CamShootingFovCpp: 512/512; Cam::CamTwoCarsBlendCpp: 512/512; Cam::CamFollowCarFinalHistoryCpp: 512/512; Cam::CamFollowCarBetaCorrectionCpp: 512/512; Cam::CamFollowCarAlphaBlendCpp: 512/512; Cam::CamMouseRepeatedRadiusCpp: 31/512; Cam::CamFollowMouseRadiusCpp: 31/512
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cppcamx87stress1\20261016-105645-456230

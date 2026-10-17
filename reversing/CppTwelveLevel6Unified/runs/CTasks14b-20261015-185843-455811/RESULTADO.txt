@@ -1,0 +1,3 @@
+FALLO: Sostener objeto y jetpack (lista de 14)
+Funciones con diferencias: CTaskSimpleJetPack::ProcessThrust: 1/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctasks14b\20261015-185843-455811

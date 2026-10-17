@@ -1,0 +1,83 @@
+/*
+    Plugin-SDK file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
+
+// Este archivo se compila completo con /O2 /Oi /Oy /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt):
+// SetUseD3DResourceBuffering debe coincidir byte a byte con el EXE (10 bytes, sin prólogo ni relocaciones).
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
+#include "StdInc.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+void D3DResourceSystem::InjectHooks() {
+    RH_ScopedClass(D3DResourceSystem);
+    RH_ScopedCategory("RenderWare");
+    RH_ScopedInstall(SetUseD3DResourceBuffering, 0x730AC0);
+}
+
+// 0x730900
+void D3DResourceSystem::CancelBuffering() {
+    plugin::Call<0x730900>();
+}
+
+// 0x7307F0
+uint32 D3DResourceSystem::GetTotalIndexDataSize() {
+    return plugin::CallAndReturn<uint32, 0x7307F0>();
+}
+
+// 0x730660
+uint32 D3DResourceSystem::GetTotalPixelsSize() {
+    return plugin::CallAndReturn<uint32, 0x730660>();
+}
+
+// 0x730830
+void D3DResourceSystem::Init() {
+    plugin::Call<0x730830>();
+}
+
+// 0x730AC0
+// Writes one byte and preserves EAX high bits, ECX, EDX and the flags as in the EXE.
+void D3DResourceSystem::SetUseD3DResourceBuffering(bool enabled) {
+    *reinterpret_cast<volatile unsigned char*>(0x8D6084) = enabled;
+}
+
+// 0x730A00
+void D3DResourceSystem::Shutdown() {
+    plugin::Call<0x730A00>();
+}
+
+// 0x730740
+void D3DResourceSystem::TidyUpD3DIndexBuffers(uint32 count) {
+    plugin::Call<0x730740, uint32>(count);
+}
+
+// 0x7305E0
+void D3DResourceSystem::TidyUpD3DTextures(uint32 count) {
+    plugin::Call<0x7305E0, uint32>(count);
+}
+
+// 0x7306A0
+int32 D3DResourceSystem::CreateIndexBuffer(uint32 numIndices, uint32 format, void** ppIndexBuffer) {
+    return plugin::CallAndReturn<int32, 0x7306A0, uint32, uint32, void**>(numIndices, format, ppIndexBuffer);
+}
+
+// 0x730510
+int32 D3DResourceSystem::CreateTexture(int32 width, int32 height, uint32 format, void** ppTexture) {
+    return plugin::CallAndReturn<int32, 0x730510, int32, int32, uint32, void**>(width, height, format, ppTexture);
+}
+
+// 0x730D30
+void D3DResourceSystem::DestroyIndexBuffer(void* pIndexBuffer) {
+    plugin::Call<0x730D30, void*>(pIndexBuffer);
+}
+
+// 0x730B70
+void D3DResourceSystem::DestroyTexture(void* texture) {
+    plugin::Call<0x730B70, void*>(texture);
+}

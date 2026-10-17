@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113CC4C0: 55                 push        ebp
+  113CC4C1: 8B EC              mov         ebp,esp
+  113CC4C3: 81 EC C4 00 00 00  sub         esp,0C4h
+  113CC4C9: 53                 push        ebx
+  113CC4CA: 56                 push        esi
+  113CC4CB: 57                 push        edi
+  113CC4CC: 8D 7D FC           lea         edi,[ebp-4]
+  113CC4CF: B9 01 00 00 00     mov         ecx,1
+  113CC4D4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113CC4D9: F3 AB              rep stos    dword ptr es:[edi]
+  113CC4DB: A1 34 8D 8B 13     mov         eax,dword ptr ds:[138B8D34h]
+  113CC4E0: 83 78 34 00        cmp         dword ptr [eax+34h],0
+  113CC4E4: 74 2A              je          113CC510
+  113CC4E6: A1 34 8D 8B 13     mov         eax,dword ptr ds:[138B8D34h]
+  113CC4EB: 8B 48 38           mov         ecx,dword ptr [eax+38h]
+  113CC4EE: 89 8D 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],ecx
+  113CC4F4: 8B F4              mov         esi,esp
+  113CC4F6: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  113CC4F9: 52                 push        edx
+  113CC4FA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113CC4FD: 50                 push        eax
+  113CC4FE: FF 95 3C FF FF FF  call        dword ptr [ebp+FFFFFF3Ch]
+  113CC504: 83 C4 08           add         esp,8
+  113CC507: 3B F4              cmp         esi,esp
+  113CC509: E8 7E 75 CC FF     call        11093A8C
+  113CC50E: EB 05              jmp         113CC515
+  113CC510: B8 02 00 00 00     mov         eax,2
+  113CC515: 5F                 pop         edi
+  113CC516: 5E                 pop         esi
+  113CC517: 5B                 pop         ebx
+  113CC518: 81 C4 C4 00 00 00  add         esp,0C4h
+  113CC51E: 3B EC              cmp         ebp,esp
+  113CC520: E8 67 75 CC FF     call        11093A8C
+  113CC525: 8B E5              mov         esp,ebp
+  113CC527: 5D                 pop         ebp
+  113CC528: C3                 ret
+  113CC529: CC                 int         3
+
+  Summary
+
+     21DB000 .text

@@ -1,0 +1,3 @@
+APROBADO: CRadar (63 funciones)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-radarfinal3\20261015-200936-527484

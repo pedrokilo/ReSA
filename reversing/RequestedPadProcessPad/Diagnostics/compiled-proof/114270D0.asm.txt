@@ -1,0 +1,87 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114270D0: 55                 push        ebp
+  114270D1: 8B EC              mov         ebp,esp
+  114270D3: 81 EC F4 00 00 00  sub         esp,0F4h
+  114270D9: 53                 push        ebx
+  114270DA: 56                 push        esi
+  114270DB: 57                 push        edi
+  114270DC: 8D 7D CC           lea         edi,[ebp-34h]
+  114270DF: B9 0D 00 00 00     mov         ecx,0Dh
+  114270E4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  114270E9: F3 AB              rep stos    dword ptr es:[edi]
+  114270EB: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  114270F2: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  114270F9: E8 7B 8A C8 FF     call        110AFB79
+  114270FE: 89 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],eax
+  11427104: 8D 45 EC           lea         eax,[ebp-14h]
+  11427107: 50                 push        eax
+  11427108: 8D 4D F8           lea         ecx,[ebp-8]
+  1142710B: 51                 push        ecx
+  1142710C: 8D 55 08           lea         edx,[ebp+8]
+  1142710F: 52                 push        edx
+  11427110: 8D 8D 18 FF FF FF  lea         ecx,[ebp+FFFFFF18h]
+  11427116: E8 C3 0B C9 FF     call        110B7CDE
+  1142711B: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11427121: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11427127: 50                 push        eax
+  11427128: 8B 8D 10 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF10h]
+  1142712E: E8 7F B9 C9 FF     call        110C2AB2
+  11427133: 90                 nop
+  11427134: 83 7D EC 01        cmp         dword ptr [ebp-14h],1
+  11427138: 75 0B              jne         11427145
+  1142713A: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1142713D: 89 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],eax
+  11427143: EB 0A              jmp         1142714F
+  11427145: C7 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],0
+            00 00 00 00
+  1142714F: 8B 85 10 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF10h]
+  11427155: 52                 push        edx
+  11427156: 8B CD              mov         ecx,ebp
+  11427158: 50                 push        eax
+  11427159: 8D 15 7C 71 42 11  lea         edx,ds:[1142717Ch]
+  1142715F: E8 3A 20 C7 FF     call        1109919E
+  11427164: 58                 pop         eax
+  11427165: 5A                 pop         edx
+  11427166: 5F                 pop         edi
+  11427167: 5E                 pop         esi
+  11427168: 5B                 pop         ebx
+  11427169: 81 C4 F4 00 00 00  add         esp,0F4h
+  1142716F: 3B EC              cmp         ebp,esp
+  11427171: E8 16 C9 C6 FF     call        11093A8C
+  11427176: 8B E5              mov         esp,ebp
+  11427178: 5D                 pop         ebp
+  11427179: C3                 ret
+  1142717A: 66 90              nop
+  1142717C: 02 00              add         al,byte ptr [eax]
+  1142717E: 00 00              add         byte ptr [eax],al
+  11427180: 84 71 42           test        byte ptr [ecx+42h],dh
+  11427183: 11 F8              adc         eax,edi
+  11427185: FF
+  11427186: FF
+  11427187: FF 04 00           inc         dword ptr [eax+eax]
+  1142718A: 00 00              add         byte ptr [eax],al
+  1142718C: A1 71 42 11 EC     mov         eax,dword ptr ds:[EC114271h]
+  11427191: FF
+  11427192: FF
+  11427193: FF 04 00           inc         dword ptr [eax+eax]
+  11427196: 00 00              add         byte ptr [eax],al
+  11427198: 9C                 pushfd
+  11427199: 71 42              jno         114271DD
+  1142719B: 11 68 69           adc         dword ptr [eax+69h],ebp
+  1142719E: 74 73              je          11427213
+  114271A0: 00 66 6F           add         byte ptr [esi+6Fh],ah
+  114271A3: 75 6E              jne         11427213
+  114271A5: 64 00 CC           add         ah,cl
+
+  Summary
+
+     21DB000 .text

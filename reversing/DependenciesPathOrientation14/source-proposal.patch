@@ -1,0 +1,345 @@
+--- a/source/game_sa/PathFind.cpp
++++ b/source/game_sa/PathFind.cpp
+@@ -107,7 +107,7 @@
+     RH_ScopedOverloadedInstall(FindNodeCoorsForScript, "LinkedNode", 0x4505E0, CVector(CPathFind::*)(CNodeAddress, bool*));
+     RH_ScopedInstall(IsWaterNodeNearby, 0x450DE0);
+     RH_ScopedInstall(CountNeighboursToBeSwitchedOff, 0x4504F0);
+-    //RH_ScopedInstall(FindNodeOrientationForCarPlacement, 0x450320);
++    RH_ScopedInstall(FindNodeOrientationForCarPlacement, 0x450320);
+     //RH_ScopedInstall(FindNodePairClosestToCoors, 0x44FEE0);
+     RH_ScopedInstall(FindNodeClosestToCoorsFavourDirection, 0x44FCE0);
+     //RH_ScopedInstall(FindNodeClosestToCoors, 0x44FA30);
+@@ -1231,8 +1231,331 @@
+ }
+ 
+ // 0x450320
+-float CPathFind::FindNodeOrientationForCarPlacement(CNodeAddress nodeInfo) {
+-    return plugin::CallMethodAndReturn<float, 0x450320, CPathFind*, CNodeAddress>(this, nodeInfo);
++// Complete EXE helper 0x59C910..0x59C960; local reconstruction, no original delegation.
++__declspec(naked) void PathOrientation14Normalise() {
++    __asm {
++    // 0x59C910
++    fld dword ptr [ecx+8]
++    // 0x59C913
++    fld dword ptr [ecx+4]
++    // 0x59C916
++    fld dword ptr [ecx]
++    // 0x59C918
++    fld st(0)
++    // 0x59C91A
++    fmul st,st(1)
++    // 0x59C91C
++    fld st(2)
++    // 0x59C91E
++    fmul st,st(3)
++    // 0x59C920
++    faddp st(1),st
++    // 0x59C922
++    fld st(3)
++    // 0x59C924
++    fmul st,st(4)
++    // 0x59C926
++    faddp st(1),st
++    // 0x59C928
++    fstp st(3)
++    // 0x59C92A
++    fstp st(0)
++    // 0x59C92C
++    fstp st(0)
++    // 0x59C92E
++    fcom dword ptr ds:[000858B50h]
++    // 0x59C934
++    fnstsw ax
++    // 0x59C936
++    test ah,041h
++    // 0x59C939
++    jp PathOrientation14Norm_59C944
++    // 0x59C93B
++    fstp st(0)
++    // 0x59C93D
++    mov dword ptr [ecx],03F800000h
++    // 0x59C943
++    ret
++    PathOrientation14Norm_59C944:
++    fsqrt
++    // 0x59C946
++    fdivr dword ptr ds:[000858624h]
++    // 0x59C94C
++    fld st(0)
++    // 0x59C94E
++    fmul dword ptr [ecx]
++    // 0x59C950
++    fstp dword ptr [ecx]
++    // 0x59C952
++    fld st(0)
++    // 0x59C954
++    fmul dword ptr [ecx+4]
++    // 0x59C957
++    fstp dword ptr [ecx+4]
++    // 0x59C95A
++    fmul dword ptr [ecx+8]
++    // 0x59C95D
++    fstp dword ptr [ecx+8]
++    // 0x59C960
++    ret
++    }
++}
++
++__declspec(naked) float CPathFind::FindNodeOrientationForCarPlacement(CNodeAddress nodeInfo) {
++    __asm {
++    // 0x450320
++    sub esp,028h
++    // 0x450323
++    movzx edx,word ptr [esp+02Ch]
++    // 0x450328
++    mov eax,dword ptr [ecx+edx*4+000000804h]
++    // 0x45032F
++    test eax,eax
++    // 0x450331
++    mov dword ptr [esp],edx
++    // 0x450335
++    jne PathOrientation14_450343
++    // 0x450337
++    fld dword ptr ds:[000858B50h]
++    // 0x45033D
++    add esp,028h
++    // 0x450340
++    ret 4
++    PathOrientation14_450343:
++    push esi
++    // 0x450344
++    mov esi,dword ptr [esp+030h]
++    // 0x450348
++    shr esi,010h
++    // 0x45034B
++    imul esi,esi,01Ch
++    // 0x45034E
++    add esi,eax
++    // 0x450350
++    mov al,byte ptr [esi+018h]
++    // 0x450353
++    test al,00Fh
++    // 0x450355
++    jne PathOrientation14_450364
++    PathOrientation14_450357:
++    fld dword ptr ds:[000858B50h]
++    // 0x45035D
++    pop esi
++    // 0x45035E
++    add esp,028h
++    // 0x450361
++    ret 4
++    PathOrientation14_450364:
++    push ebx
++    // 0x450365
++    and eax,00Fh
++    // 0x450368
++    push ebp
++    // 0x450369
++    lea ebx,[eax-1]
++    // 0x45036C
++    xor ebp,ebp
++    // 0x45036E
++    test ebx,ebx
++    // 0x450370
++    jle PathOrientation14_4503D3
++    // 0x450372
++    movsx eax,word ptr [esi+010h]
++    // 0x450376
++    mov edx,dword ptr [ecx+edx*4+000000DA4h]
++    // 0x45037D
++    push edi
++    // 0x45037E
++    lea edi,[edx+eax*2]
++    PathOrientation14_450381:
++    movzx eax,word ptr [edi]
++    // 0x450384
++    mov edx,eax
++    // 0x450386
++    shr edx,00Ah
++    // 0x450389
++    cmp dword ptr [ecx+edx*4+000000804h],0
++    // 0x450391
++    je PathOrientation14_4503C6
++    // 0x450393
++    mov edx,dword ptr [ecx+edx*4+000000924h]
++    // 0x45039A
++    and eax,03FFh
++    // 0x45039F
++    imul eax,eax,00Eh
++    // 0x4503A2
++    add eax,edx
++    // 0x4503A4
++    mov dx,word ptr [esp+03Ch]
++    // 0x4503A9
++    cmp word ptr [eax+4],dx
++    // 0x4503AD
++    jne PathOrientation14_4503C0
++    // 0x4503AF
++    mov dx,word ptr [esp+03Eh]
++    // 0x4503B4
++    cmp word ptr [eax+6],dx
++    // 0x4503B8
++    jne PathOrientation14_4503C0
++    // 0x4503BA
++    test byte ptr [eax+00Bh],038h
++    // 0x4503BE
++    jmp PathOrientation14_4503C4
++    PathOrientation14_4503C0:
++    test byte ptr [eax+00Bh],7
++    PathOrientation14_4503C4:
++    jne PathOrientation14_4503CE
++    PathOrientation14_4503C6:
++    inc ebp
++    // 0x4503C7
++    add edi,2
++    // 0x4503CA
++    cmp ebp,ebx
++    // 0x4503CC
++    jl PathOrientation14_450381
++    PathOrientation14_4503CE:
++    mov edx,dword ptr [esp+010h]
++    // 0x4503D2
++    pop edi
++    PathOrientation14_4503D3:
++    movsx eax,word ptr [esi+010h]
++    // 0x4503D7
++    mov edx,dword ptr [ecx+edx*4+000000A44h]
++    // 0x4503DE
++    add eax,ebp
++    // 0x4503E0
++    mov eax,dword ptr [edx+eax*4]
++    // 0x4503E3
++    mov dword ptr [esp+038h],eax
++    // 0x4503E7
++    movzx eax,ax
++    // 0x4503EA
++    mov ecx,dword ptr [ecx+eax*4+000000804h]
++    // 0x4503F1
++    test ecx,ecx
++    // 0x4503F3
++    pop ebp
++    // 0x4503F4
++    pop ebx
++    // 0x4503F5
++    je PathOrientation14_450357
++    // 0x4503FB
++    mov eax,dword ptr [esp+030h]
++    // 0x4503FF
++    movsx edx,word ptr [esi+00Ah]
++    // 0x450403
++    shr eax,010h
++    // 0x450406
++    imul eax,eax,01Ch
++    // 0x450409
++    add eax,ecx
++    // 0x45040B
++    movsx ecx,word ptr [esi+8]
++    // 0x45040F
++    mov dword ptr [esp+030h],ecx
++    // 0x450413
++    movsx ecx,word ptr [esi+00Ch]
++    // 0x450417
++    fild dword ptr [esp+030h]
++    // 0x45041B
++    mov dword ptr [esp+030h],edx
++    // 0x45041F
++    fmul dword ptr ds:[000858C48h]
++    // 0x450425
++    movsx edx,word ptr [eax+8]
++    // 0x450429
++    fild dword ptr [esp+030h]
++    // 0x45042D
++    mov dword ptr [esp+030h],ecx
++    // 0x450431
++    fmul dword ptr ds:[000858C48h]
++    // 0x450437
++    movsx ecx,word ptr [eax+00Ah]
++    // 0x45043B
++    fild dword ptr [esp+030h]
++    // 0x45043F
++    mov dword ptr [esp+030h],edx
++    // 0x450443
++    fmul dword ptr ds:[000858C48h]
++    // 0x450449
++    fstp dword ptr [esp+028h]
++    // 0x45044D
++    fild dword ptr [esp+030h]
++    // 0x450451
++    mov dword ptr [esp+030h],ecx
++    // 0x450455
++    fmul dword ptr ds:[000858C48h]
++    // 0x45045B
++    fild dword ptr [esp+030h]
++    // 0x45045F
++    fmul dword ptr ds:[000858C48h]
++    // 0x450465
++    fstp dword ptr [esp+00Ch]
++    // 0x450469
++    movsx edx,word ptr [eax+00Ch]
++    // 0x45046D
++    mov dword ptr [esp+030h],edx
++    // 0x450471
++    fild dword ptr [esp+030h]
++    // 0x450475
++    fmul dword ptr ds:[000858C48h]
++    // 0x45047B
++    fstp dword ptr [esp+010h]
++    // 0x45047F
++    fsub st,st(2)
++    // 0x450481
++    fstp dword ptr [esp+014h]
++    // 0x450485
++    mov eax,dword ptr [esp+014h]
++    // 0x450489
++    fld dword ptr [esp+00Ch]
++    // 0x45048D
++    mov dword ptr [esp+8],eax
++    // 0x450491
++    fsub st,st(1)
++    // 0x450493
++    fstp dword ptr [esp+018h]
++    // 0x450497
++    mov ecx,dword ptr [esp+018h]
++    // 0x45049B
++    fstp st(0)
++    // 0x45049D
++    mov dword ptr [esp+00Ch],ecx
++    // 0x4504A1
++    fstp st(0)
++    // 0x4504A3
++    lea ecx,[esp+8]
++    // 0x4504A7
++    fld dword ptr [esp+010h]
++    // 0x4504AB
++    fsub dword ptr [esp+028h]
++    // 0x4504AF
++    fstp dword ptr [esp+01Ch]
++    // 0x4504B3
++    mov edx,dword ptr [esp+01Ch]
++    // 0x4504B7
++    mov dword ptr [esp+010h],edx
++    // 0x4504BB
++    mov dword ptr [esp+010h],0
++    // 0x4504C3
++    call PathOrientation14Normalise
++    // 0x4504C8
++    fld dword ptr [esp+8]
++    // 0x4504CC
++    fchs
++    // 0x4504CE
++    pop esi
++    // 0x4504CF
++    fld dword ptr [esp+8]
++    // 0x4504D3
++    fpatan
++    // 0x4504D5
++    fmul dword ptr ds:[000859878h]
++    // 0x4504DB
++    add esp,028h
++    // 0x4504DE
++    ret 4
++    }
+ }
+ 
+ // 0x452160

@@ -1,0 +1,603 @@
+--- a/source/game_sa/Stats.cpp
++++ b/source/game_sa/Stats.cpp
+@@ -143,6 +143,9 @@
+ 
+ 
+     RH_ScopedInstall(Init, 0x55C0C0);
++    RH_ScopedInstall(UpdateFatAndMuscleStats, 0x55C470);
++    RH_ScopedInstall(UpdateStatsWhenSwimming, 0x55C990);
++    RH_ScopedInstall(UpdateStatsWhenWeaponHit, 0x55CEB0);
+     RH_ScopedInstall(UpdateStatsWhenDriving, 0x55CAC0);
+     RH_ScopedInstall(UpdateStatsWhenFlying, 0x55CC00);
+     RH_ScopedInstall(PopulateFavoriteRadioStationList, 0x558EC0);
+@@ -2051,8 +2054,266 @@
+ }
+ 
+ // 0x55C470
+-void CStats::UpdateFatAndMuscleStats(uint32 value) {
+-    plugin::Call<0x55C470, uint32>(value);
++
++namespace {
++__declspec(naked) void VehicleStats10Increment() { __asm { push 00055C180h } __asm { ret } }
++__declspec(naked) void VehicleStats10Display() { __asm { push 00055B980h } __asm { ret } }
++__declspec(naked) void VehicleStats10Ftol() { __asm { push 000821B40h } __asm { ret } }
++__declspec(naked) void VehicleStats10CheckMessage() { __asm { push 000559760h } __asm { ret } }
++__declspec(naked) void VehicleStats10FatMuscle() { __asm { push 00055C470h } __asm { ret } }
++__declspec(naked) void VehicleStats10SkillIndex() { __asm { push 000743CD0h } __asm { ret } }
++__declspec(naked) void VehicleStats10Coop() { __asm { push 000441390h } __asm { ret } }
++}
++
++__declspec(naked) void CStats::UpdateFatAndMuscleStats(uint32 value) {
++    __asm {
++        // 0x55C470
++        push ecx
++        // 0x55C471
++        mov eax,dword ptr ds:[000B794FCh]
++        // 0x55C476
++        fild dword ptr ds:[000B794FCh]
++        // 0x55C47C
++        test eax,eax
++        // 0x55C47E
++        jge VehicleStats10_UpdateFatAndMuscleStats_55C486
++        // 0x55C480
++        fadd dword ptr ds:[000858C54h]
++VehicleStats10_UpdateFatAndMuscleStats_55C486:
++        fld dword ptr ds:[000B78FB8h]
++        // 0x55C48C
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55C492
++        fcompp
++        // 0x55C494
++        fnstsw ax
++        // 0x55C496
++        test ah,5
++        // 0x55C499
++        jp VehicleStats10_UpdateFatAndMuscleStats_55C5B1
++        // 0x55C49F
++        fld dword ptr ds:[000B793D4h]
++        // 0x55C4A5
++        mov dword ptr ds:[000B794FCh],0
++        // 0x55C4AF
++        fcomp dword ptr ds:[000858B50h]
++        // 0x55C4B5
++        fnstsw ax
++        // 0x55C4B7
++        test ah,041h
++        // 0x55C4BA
++        jne VehicleStats10_UpdateFatAndMuscleStats_55C556
++        // 0x55C4C0
++        fld dword ptr ds:[000B78F6Ch]
++        // 0x55C4C6
++        fcomp dword ptr ds:[000858B50h]
++        // 0x55C4CC
++        fnstsw ax
++        // 0x55C4CE
++        test ah,041h
++        // 0x55C4D1
++        jne VehicleStats10_UpdateFatAndMuscleStats_55C4FF
++        // 0x55C4D3
++        fld dword ptr ds:[000B793D4h]
++        // 0x55C4D9
++        fsub dword ptr ds:[000B78F6Ch]
++        // 0x55C4DF
++        fcom dword ptr ds:[000858B50h]
++        // 0x55C4E5
++        fnstsw ax
++        // 0x55C4E7
++        test ah,041h
++        // 0x55C4EA
++        je VehicleStats10_UpdateFatAndMuscleStats_55C4F4
++        // 0x55C4EC
++        fstp st(0)
++        // 0x55C4EE
++        fld dword ptr ds:[000858B50h]
++VehicleStats10_UpdateFatAndMuscleStats_55C4F4:
++        fstp dword ptr ds:[000B793D4h]
++        // 0x55C4FA
++        call VehicleStats10CheckMessage
++VehicleStats10_UpdateFatAndMuscleStats_55C4FF:
++        mov ecx,dword ptr ds:[000B78F34h]
++        // 0x55C505
++        push ecx
++        // 0x55C506
++        push 017h
++        // 0x55C508
++        call VehicleStats10Increment
++        // 0x55C50D
++        mov al,byte ptr ds:[000B79534h]
++        // 0x55C512
++        add esp,8
++        // 0x55C515
++        cmp al,1
++        // 0x55C517
++        jne VehicleStats10_UpdateFatAndMuscleStats_55C537
++        // 0x55C519
++        mov eax,dword ptr ds:[000B78F34h]
++        // 0x55C51E
++        push eax
++        // 0x55C51F
++        push 017h
++        // 0x55C521
++        push 1
++        // 0x55C523
++        mov byte ptr ds:[000B79534h],2
++        // 0x55C52A
++        call VehicleStats10Display
++        // 0x55C52F
++        add esp,00Ch
++        // 0x55C532
++        jmp VehicleStats10_UpdateFatAndMuscleStats_55C5E5
++VehicleStats10_UpdateFatAndMuscleStats_55C537:
++        mov edx,dword ptr ds:[000B78F6Ch]
++        // 0x55C53D
++        push edx
++        // 0x55C53E
++        push 015h
++        // 0x55C540
++        push 0
++        // 0x55C542
++        mov byte ptr ds:[000B79534h],1
++        // 0x55C549
++        call VehicleStats10Display
++        // 0x55C54E
++        add esp,00Ch
++        // 0x55C551
++        jmp VehicleStats10_UpdateFatAndMuscleStats_55C5E5
++VehicleStats10_UpdateFatAndMuscleStats_55C556:
++        fld dword ptr ds:[000B78F70h]
++        // 0x55C55C
++        fcomp dword ptr ds:[000858B50h]
++        // 0x55C562
++        fnstsw ax
++        // 0x55C564
++        test ah,041h
++        // 0x55C567
++        jne VehicleStats10_UpdateFatAndMuscleStats_55C595
++        // 0x55C569
++        fld dword ptr ds:[000B793DCh]
++        // 0x55C56F
++        fsub dword ptr ds:[000B78F70h]
++        // 0x55C575
++        fcom dword ptr ds:[000858B50h]
++        // 0x55C57B
++        fnstsw ax
++        // 0x55C57D
++        test ah,041h
++        // 0x55C580
++        je VehicleStats10_UpdateFatAndMuscleStats_55C58A
++        // 0x55C582
++        fstp st(0)
++        // 0x55C584
++        fld dword ptr ds:[000858B50h]
++VehicleStats10_UpdateFatAndMuscleStats_55C58A:
++        fstp dword ptr ds:[000B793DCh]
++        // 0x55C590
++        call VehicleStats10CheckMessage
++VehicleStats10_UpdateFatAndMuscleStats_55C595:
++        mov ecx,dword ptr ds:[000B78F70h]
++        // 0x55C59B
++        push ecx
++        // 0x55C59C
++        push 017h
++        // 0x55C59E
++        push 0
++        // 0x55C5A0
++        mov byte ptr ds:[000B79534h],3
++        // 0x55C5A7
++        call VehicleStats10Display
++        // 0x55C5AC
++        add esp,00Ch
++        // 0x55C5AF
++        jmp VehicleStats10_UpdateFatAndMuscleStats_55C5E5
++VehicleStats10_UpdateFatAndMuscleStats_55C5B1:
++        fld dword ptr ds:[000B7CB5Ch]
++        // 0x55C5B7
++        fmul dword ptr ds:[000858B38h]
++        // 0x55C5BD
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55C5C3
++        call VehicleStats10Ftol
++        // 0x55C5C8
++        mov edx,eax
++        // 0x55C5CA
++        imul edx,dword ptr [esp+8]
++        // 0x55C5CF
++        mov eax,00CCCCCCCDh
++        // 0x55C5D4
++        mul edx
++        // 0x55C5D6
++        mov eax,dword ptr ds:[000B794FCh]
++        // 0x55C5DB
++        shr edx,3
++        // 0x55C5DE
++        add eax,edx
++        // 0x55C5E0
++        mov dword ptr ds:[000B794FCh],eax
++VehicleStats10_UpdateFatAndMuscleStats_55C5E5:
++        mov eax,dword ptr ds:[000B7950Ch]
++        // 0x55C5EA
++        fild dword ptr ds:[000B7950Ch]
++        // 0x55C5F0
++        test eax,eax
++        // 0x55C5F2
++        jge VehicleStats10_UpdateFatAndMuscleStats_55C5FA
++        // 0x55C5F4
++        fadd dword ptr ds:[000858C54h]
++VehicleStats10_UpdateFatAndMuscleStats_55C5FA:
++        fld dword ptr ds:[000B78FC4h]
++        // 0x55C600
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55C606
++        fcompp
++        // 0x55C608
++        fnstsw ax
++        // 0x55C60A
++        test ah,5
++        // 0x55C60D
++        jp VehicleStats10_UpdateFatAndMuscleStats_55C63C
++        // 0x55C60F
++        mov ecx,dword ptr ds:[000B78F3Ch]
++        // 0x55C615
++        push ecx
++        // 0x55C616
++        push 018h
++        // 0x55C618
++        call VehicleStats10Increment
++        // 0x55C61D
++        mov edx,dword ptr ds:[000B78F3Ch]
++        // 0x55C623
++        push edx
++        // 0x55C624
++        push 018h
++        // 0x55C626
++        push 1
++        // 0x55C628
++        call VehicleStats10Display
++        // 0x55C62D
++        add esp,014h
++        // 0x55C630
++        mov dword ptr ds:[000B7950Ch],0
++        // 0x55C63A
++        pop ecx
++        // 0x55C63B
++        ret
++VehicleStats10_UpdateFatAndMuscleStats_55C63C:
++        fld dword ptr ds:[000B7CB5Ch]
++        // 0x55C642
++        fmul dword ptr ds:[000858B38h]
++        // 0x55C648
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55C64E
++        call VehicleStats10Ftol
++        // 0x55C653
++        add dword ptr ds:[000B7950Ch],eax
++        // 0x55C659
++        pop ecx
++        // 0x55C65A
++        ret
++    }
+ }
+ 
+ // 0x55C660
+@@ -2087,8 +2348,161 @@
+ }
+ 
+ // 0x55C990
+-void CStats::UpdateStatsWhenSwimming(bool arg0, bool arg1) {
+-    plugin::Call<0x55C990, bool, bool>(arg0, arg1);
++__declspec(naked) void CStats::UpdateStatsWhenSwimming(bool arg0, bool arg1) {
++    __asm {
++        // 0x55C990
++        push ecx
++        // 0x55C991
++        mov al,byte ptr [esp+8]
++        // 0x55C995
++        test al,al
++        // 0x55C997
++        jne VehicleStats10_UpdateStatsWhenSwimming_55C9A9
++        // 0x55C999
++        mov al,byte ptr [esp+00Ch]
++        // 0x55C99D
++        test al,al
++        // 0x55C99F
++        jne VehicleStats10_UpdateStatsWhenSwimming_55C9A9
++        // 0x55C9A1
++        fld dword ptr ds:[000B78F80h]
++        // 0x55C9A7
++        jmp VehicleStats10_UpdateStatsWhenSwimming_55C9AF
++VehicleStats10_UpdateStatsWhenSwimming_55C9A9:
++        fld dword ptr ds:[000B78F84h]
++VehicleStats10_UpdateStatsWhenSwimming_55C9AF:
++        call VehicleStats10Ftol
++        // 0x55C9B4
++        push eax
++        // 0x55C9B5
++        call VehicleStats10FatMuscle
++        // 0x55C9BA
++        fild dword ptr ds:[000B794E4h]
++        // 0x55C9C0
++        mov eax,dword ptr ds:[000B794E4h]
++        // 0x55C9C5
++        add esp,4
++        // 0x55C9C8
++        test eax,eax
++        // 0x55C9CA
++        jge VehicleStats10_UpdateStatsWhenSwimming_55C9D2
++        // 0x55C9CC
++        fadd dword ptr ds:[000858C54h]
++VehicleStats10_UpdateStatsWhenSwimming_55C9D2:
++        fld dword ptr ds:[000B78F98h]
++        // 0x55C9D8
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55C9DE
++        fcompp
++        // 0x55C9E0
++        fnstsw ax
++        // 0x55C9E2
++        test ah,5
++        // 0x55C9E5
++        jp VehicleStats10_UpdateStatsWhenSwimming_55CA14
++        // 0x55C9E7
++        mov ecx,dword ptr ds:[000B78F14h]
++        // 0x55C9ED
++        push ecx
++        // 0x55C9EE
++        push 016h
++        // 0x55C9F0
++        mov dword ptr ds:[000B794E4h],0
++        // 0x55C9FA
++        call VehicleStats10Increment
++        // 0x55C9FF
++        mov edx,dword ptr ds:[000B78F14h]
++        // 0x55CA05
++        push edx
++        // 0x55CA06
++        push 016h
++        // 0x55CA08
++        push 1
++        // 0x55CA0A
++        call VehicleStats10Display
++        // 0x55CA0F
++        add esp,014h
++        // 0x55CA12
++        jmp VehicleStats10_UpdateStatsWhenSwimming_55CA31
++VehicleStats10_UpdateStatsWhenSwimming_55CA14:
++        fld dword ptr ds:[000B7CB5Ch]
++        // 0x55CA1A
++        fmul dword ptr ds:[000858B38h]
++        // 0x55CA20
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55CA26
++        call VehicleStats10Ftol
++        // 0x55CA2B
++        add dword ptr ds:[000B794E4h],eax
++VehicleStats10_UpdateStatsWhenSwimming_55CA31:
++        mov al,byte ptr [esp+8]
++        // 0x55CA35
++        test al,al
++        // 0x55CA37
++        je VehicleStats10_UpdateStatsWhenSwimming_55CAB3
++        // 0x55CA39
++        mov eax,dword ptr ds:[000B794E8h]
++        // 0x55CA3E
++        fild dword ptr ds:[000B794E8h]
++        // 0x55CA44
++        test eax,eax
++        // 0x55CA46
++        jge VehicleStats10_UpdateStatsWhenSwimming_55CA4E
++        // 0x55CA48
++        fadd dword ptr ds:[000858C54h]
++VehicleStats10_UpdateStatsWhenSwimming_55CA4E:
++        fld dword ptr ds:[000B78FC0h]
++        // 0x55CA54
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55CA5A
++        fcompp
++        // 0x55CA5C
++        fnstsw ax
++        // 0x55CA5E
++        test ah,5
++        // 0x55CA61
++        jp VehicleStats10_UpdateStatsWhenSwimming_55CA96
++        // 0x55CA63
++        mov ecx,dword ptr ds:[000B78F38h]
++        // 0x55CA69
++        push ecx
++        // 0x55CA6A
++        push 00E1h
++        // 0x55CA6F
++        mov dword ptr ds:[000B794E8h],0
++        // 0x55CA79
++        call VehicleStats10Increment
++        // 0x55CA7E
++        mov edx,dword ptr ds:[000B78F38h]
++        // 0x55CA84
++        push edx
++        // 0x55CA85
++        push 00E1h
++        // 0x55CA8A
++        push 1
++        // 0x55CA8C
++        call VehicleStats10Display
++        // 0x55CA91
++        add esp,014h
++        // 0x55CA94
++        pop ecx
++        // 0x55CA95
++        ret
++VehicleStats10_UpdateStatsWhenSwimming_55CA96:
++        fld dword ptr ds:[000B7CB5Ch]
++        // 0x55CA9C
++        fmul dword ptr ds:[000858B38h]
++        // 0x55CAA2
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55CAA8
++        call VehicleStats10Ftol
++        // 0x55CAAD
++        add dword ptr ds:[000B794E8h],eax
++VehicleStats10_UpdateStatsWhenSwimming_55CAB3:
++        pop ecx
++        // 0x55CAB4
++        ret
++    }
+ }
+ 
+ // 0x55CAC0
+@@ -2499,8 +2913,155 @@
+ }
+ 
+ // 0x55CEB0
+-void CStats::UpdateStatsWhenWeaponHit(eWeaponType weaponType) {
+-    plugin::Call<0x55CEB0, eWeaponType>(weaponType);
++__declspec(naked) void CStats::UpdateStatsWhenWeaponHit(eWeaponType weaponType) {
++    __asm {
++        // 0x55CEB0
++        push ecx
++        // 0x55CEB1
++        mov eax,dword ptr [esp+8]
++        // 0x55CEB5
++        push esi
++        // 0x55CEB6
++        push edi
++        // 0x55CEB7
++        push eax
++        // 0x55CEB8
++        call VehicleStats10SkillIndex
++        // 0x55CEBD
++        mov esi,eax
++        // 0x55CEBF
++        add esp,4
++        // 0x55CEC2
++        cmp si,052h
++        // 0x55CEC6
++        lea edi,[esi-045h]
++        // 0x55CEC9
++        jae VehicleStats10_UpdateStatsWhenWeaponHit_55CED7
++        // 0x55CECB
++        movzx ecx,si
++        // 0x55CECE
++        fld dword ptr [ecx*4+000B79380h]
++        // 0x55CED5
++        jmp VehicleStats10_UpdateStatsWhenWeaponHit_55CEE1
++VehicleStats10_UpdateStatsWhenWeaponHit_55CED7:
++        movzx edx,si
++        // 0x55CEDA
++        fild dword ptr [edx*4+000B78E20h]
++VehicleStats10_UpdateStatsWhenWeaponHit_55CEE1:
++        fstp dword ptr [esp+8]
++        // 0x55CEE5
++        call VehicleStats10Coop
++        // 0x55CEEA
++        test al,al
++        // 0x55CEEC
++        jne VehicleStats10_UpdateStatsWhenWeaponHit_55CF90
++        // 0x55CEF2
++        fld dword ptr [esp+8]
++        // 0x55CEF6
++        fcomp dword ptr ds:[000858C4Ch]
++        // 0x55CEFC
++        fnstsw ax
++        // 0x55CEFE
++        test ah,5
++        // 0x55CF01
++        jp VehicleStats10_UpdateStatsWhenWeaponHit_55CF90
++        // 0x55CF07
++        mov eax,dword ptr [edi*4+000B78F40h]
++        // 0x55CF0E
++        push ebx
++        // 0x55CF0F
++        lea ebx,[edi*4+000B78F40h]
++        // 0x55CF16
++        push eax
++        // 0x55CF17
++        push esi
++        // 0x55CF18
++        call VehicleStats10Increment
++        // 0x55CF1D
++        mov eax,dword ptr ds:[000B79514h]
++        // 0x55CF22
++        add esp,8
++        // 0x55CF25
++        cmp eax,edi
++        // 0x55CF27
++        je VehicleStats10_UpdateStatsWhenWeaponHit_55CF3E
++        // 0x55CF29
++        pop ebx
++        // 0x55CF2A
++        mov dword ptr ds:[000B79514h],edi
++        // 0x55CF30
++        pop edi
++        // 0x55CF31
++        mov dword ptr ds:[000B79504h],0
++        // 0x55CF3B
++        pop esi
++        // 0x55CF3C
++        pop ecx
++        // 0x55CF3D
++        ret
++VehicleStats10_UpdateStatsWhenWeaponHit_55CF3E:
++        mov ecx,dword ptr ds:[000B79504h]
++        // 0x55CF44
++        fild dword ptr ds:[000B79504h]
++        // 0x55CF4A
++        test ecx,ecx
++        // 0x55CF4C
++        jge VehicleStats10_UpdateStatsWhenWeaponHit_55CF54
++        // 0x55CF4E
++        fadd dword ptr ds:[000858C54h]
++VehicleStats10_UpdateStatsWhenWeaponHit_55CF54:
++        fcom dword ptr [edi*4+000B78FC8h]
++        // 0x55CF5B
++        fnstsw ax
++        // 0x55CF5D
++        test ah,041h
++        // 0x55CF60
++        jne VehicleStats10_UpdateStatsWhenWeaponHit_55CF82
++        // 0x55CF62
++        fmul dword ptr [ebx]
++        // 0x55CF64
++        push ecx
++        // 0x55CF65
++        fstp dword ptr [esp]
++        // 0x55CF68
++        push esi
++        // 0x55CF69
++        push 1
++        // 0x55CF6B
++        call VehicleStats10Display
++        // 0x55CF70
++        add esp,00Ch
++        // 0x55CF73
++        pop ebx
++        // 0x55CF74
++        pop edi
++        // 0x55CF75
++        mov dword ptr ds:[000B79504h],0
++        // 0x55CF7F
++        pop esi
++        // 0x55CF80
++        pop ecx
++        // 0x55CF81
++        ret
++VehicleStats10_UpdateStatsWhenWeaponHit_55CF82:
++        mov eax,dword ptr ds:[000B79504h]
++        // 0x55CF87
++        fstp st(0)
++        // 0x55CF89
++        inc eax
++        // 0x55CF8A
++        mov dword ptr ds:[000B79504h],eax
++        // 0x55CF8F
++        pop ebx
++VehicleStats10_UpdateStatsWhenWeaponHit_55CF90:
++        pop edi
++        // 0x55CF91
++        pop esi
++        // 0x55CF92
++        pop ecx
++        // 0x55CF93
++        ret
++    }
+ }
+ 
+ // 0x55CFA0

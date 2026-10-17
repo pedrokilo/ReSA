@@ -1,0 +1,220 @@
+--- a/source/game_sa/WaterLevel.cpp
++++ b/source/game_sa/WaterLevel.cpp
+@@ -26,6 +26,7 @@
+ void CWaterLevel::InjectHooks() {
+     RH_ScopedClass(CWaterLevel);
+     RH_ScopedCategoryGlobal();
++    RH_ScopedInstall(CalculateWavesOnlyForCoordinate2Native, 0x6E7210);
+ 
+     RH_ScopedGlobalInstall(WaterLevelInitialise, 0x6EAE80);
+     RH_ScopedGlobalInstall(Shutdown, 0x6E59E0);
+@@ -1364,13 +1365,123 @@
+ }
+ 
+ // 0x6E7210
+-void CWaterLevel::CalculateWavesOnlyForCoordinate2( // TODO: Original name didn't have a 2 in it... I'm just lazy!
+-    int32 x, int32 y,
+-    float* pResultHeight,
+-    float bigWavesAmpl,
+-    float smallWavesAmpl
+-) {
+-    plugin::Call<0x6E7210>(x, y, bigWavesAmpl, smallWavesAmpl, pResultHeight);
++static uintptr_t WaterWaveFtolLibrary=0x821B40;
++// Native stack order differs from public interface: x,y,big,small,height.
++__declspec(naked) void CWaterLevel::CalculateWavesOnlyForCoordinate2Native(int32,int32,float,float,float*) {
++    __asm {
++    mov eax,dword ptr [esp+4]
++    test eax,eax
++    jge L006E721E
++    neg eax
++    mov dword ptr [esp+4],eax
++    L006E721E: mov ecx,dword ptr [esp+8]
++    test ecx,ecx
++    jge L006E722C
++    neg ecx
++    mov dword ptr [esp+8],ecx
++    L006E722C: cdq
++    sub eax,edx
++    push esi
++    mov esi,eax
++    mov eax,ecx
++    mov ecx,dword ptr ds:[00C228A4h]
++    cdq
++    sub eax,edx
++    sar eax,1
++    sar esi,1
++    and eax,7
++    and esi,7
++    xor edx,edx
++    fld dword ptr [esi*4+008D38C8h]
++    fmul dword ptr [eax*4+008D38E8h]
++    mov eax,dword ptr ds:[00B7CB84h]
++    sub eax,ecx
++    mov ecx,1388h
++    div ecx
++    fmul dword ptr ds:[00C812E8h]
++    fild dword ptr [esp+8]
++    fild dword ptr [esp+0Ch]
++    fstp dword ptr [esp+8]
++    test edx,edx
++    mov dword ptr [esp+0Ch],edx
++    fild dword ptr [esp+0Ch]
++    jge L006E7289
++    fadd dword ptr ds:[00858C54h]
++    L006E7289: fmul dword ptr ds:[00872020h]
++    fld dword ptr [esp+8]
++    fadd st,st(2)
++    fmul dword ptr ds:[0087201Ch]
++    faddp st(1),st
++    fmul dword ptr ds:[0085A778h]
++    call dword ptr [WaterWaveFtolLibrary]
++    mov esi,dword ptr [esp+18h]
++    and eax,0FFh
++    fld dword ptr [eax*4+00BB3E00h]
++    mov ecx,0DACh
++    fmul dword ptr ds:[00871FF8h]
++    fmul st,st(2)
++    fmul dword ptr [esp+10h]
++    fadd dword ptr [esi]
++    fst dword ptr [esp+0Ch]
++    fstp dword ptr [esi]
++    mov edx,dword ptr ds:[00C228A4h]
++    mov eax,dword ptr ds:[00B7CB84h]
++    sub eax,edx
++    xor edx,edx
++    div ecx
++    test edx,edx
++    mov dword ptr [esp+10h],edx
++    fild dword ptr [esp+10h]
++    jge L006E72F4
++    fadd dword ptr ds:[00858C54h]
++    L006E72F4: fmul dword ptr ds:[00872018h]
++    fld dword ptr [esp+8]
++    fmul dword ptr ds:[00872014h]
++    faddp st(1),st
++    fxch st(1)
++    fmul dword ptr ds:[00872010h]
++    faddp st(1),st
++    fmul dword ptr ds:[0085A778h]
++    call dword ptr [WaterWaveFtolLibrary]
++    and eax,0FFh
++    fld dword ptr [eax*4+00BB3E00h]
++    mov ecx,0BB8h
++    fmul dword ptr ds:[00871FFCh]
++    fmul st,st(1)
++    fmul dword ptr [esp+14h]
++    fadd dword ptr [esp+0Ch]
++    fst dword ptr [esi]
++    mov edx,dword ptr ds:[00C228A4h]
++    mov eax,dword ptr ds:[00B7CB84h]
++    sub eax,edx
++    xor edx,edx
++    div ecx
++    test edx,edx
++    mov dword ptr [esp+0Ch],edx
++    fild dword ptr [esp+0Ch]
++    jge L006E7361
++    fadd dword ptr ds:[00858C54h]
++    L006E7361: fmul dword ptr ds:[0087200Ch]
++    fld dword ptr [esp+8]
++    fmul dword ptr ds:[00872008h]
++    faddp st(1),st
++    fmul dword ptr ds:[0085A778h]
++    call dword ptr [WaterWaveFtolLibrary]
++    and eax,0FFh
++    fld dword ptr [eax*4+00BB3E00h]
++    fmul dword ptr ds:[00872000h]
++    fmul st,st(2)
++    fmul dword ptr [esp+14h]
++    fadd st,st(1)
++    fstp dword ptr [esi]
++    pop esi
++    fstp st(0)
++    fstp st(0)
++    ret
++    }
++}
++void CWaterLevel::CalculateWavesOnlyForCoordinate2(int32 x,int32 y,float* height,float bigWavesAmpl,float smallWavesAmpl) {
++    CalculateWavesOnlyForCoordinate2Native(x,y,bigWavesAmpl,smallWavesAmpl,height);
+ }
+ 
+ // 0x6E6CA0
+--- a/source/game_sa/WaterLevel.h
++++ b/source/game_sa/WaterLevel.h
+@@ -274,6 +274,7 @@
+     static void MarkQuadsAndPolysToBeRendered(int32 blockX, int32 blockY, bool isInInterior);
+     static void BlockHit(int32 X, int32 Y);
+ 
++    static void CalculateWavesOnlyForCoordinate2Native(int32,int32,float,float,float*);
+     static void CalculateWavesOnlyForCoordinate2(
+         int32 x, int32 y,
+         float* pResultHeight, // in/out variable => in is the "water level" from `GetWaterLevelNoWaves`/out is the Z coordinate of the wave
+--- a/source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h
++++ b/source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h
+@@ -76,6 +76,7 @@
+         if constexpr (std::is_same_v<T_PosCalc, CEntitySeekPosCalculatorXYOffset>) {
+             RH_ScopedVirtualClass(CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>, 0x86FBB4, 11);
+ 
++            RH_ScopedInstall(SetMaxEntityDist2D, 0x4BC470);
+             RH_ScopedInstall(Constructor, 0x661DC0);
+             RH_ScopedInstall(Destructor, 0x661F30);
+ 
+@@ -404,6 +405,8 @@
+         return m_entitySeekPosCalculator;
+     }
+ 
++    void SetMaxEntityDist2D(float); // Common prefix; native distance + scan timer reset.
++
+     void SetEntityMinDist2D(float v) {
+         m_minEntityDist2D = v;
+     }
+@@ -469,3 +472,5 @@
+         return this;
+     }
+ };
++
++template<> void CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D(float);
+--- a/source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp
++++ b/source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp
+@@ -4,3 +4,21 @@
+ void CTaskComplexSeekEntityXYOffset::InjectHooks() {
+ 
+ }
++
++// 0x4BC470: shared SeekEntity prefix used for every calculator specialization.
++template<> __declspec(naked) void CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::SetMaxEntityDist2D(float) {
++    __asm {
++        fld dword ptr [esp+4]
++        fcomp dword ptr [ecx+18h]
++        fnstsw ax
++        test ah,44h
++        jnp done
++        mov eax,dword ptr [esp+4]
++        mov dword ptr [ecx+18h],eax
++        mov edx,dword ptr ds:[00B7CB84h]
++        mov dword ptr [ecx+28h],edx
++        mov dword ptr [ecx+2Ch],0
++        mov byte ptr [ecx+30h],1
++        done: ret 4
++    }
++}
+--- a/source/game_sa/Events/EventHandler.cpp
++++ b/source/game_sa/Events/EventHandler.cpp
+@@ -2020,7 +2020,7 @@
+                 if (tGoTo) {
+                     tGoTo->m_fRadius = mag + 0.1f;
+                 }
+-                plugin::CallMethod<0x4BC470, CTask*, float>(tSeek, mag + 0.1f);
++                static_cast<CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>*>(tSeek)->SetMaxEntityDist2D(mag + 0.1f);
+                 if (mag < 8.f) {
+                     std::memcpy(&tGangFol->dword20, &d, sizeof(float) * 3);
+                 }
+@@ -2177,7 +2177,7 @@
+         } else if (tGoTo) {
+             static_cast<CTaskSimpleGoTo*>(tGoTo)->m_fRadius = mag + 0.1f;
+         }
+-        plugin::CallMethod<0x4BC470, CTask*, float>(tSeek, mag + 0.1f);
++        static_cast<CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>*>(tSeek)->SetMaxEntityDist2D(mag + 0.1f);
+         if (mag < 8.f) {
+             std::memcpy(reinterpret_cast<uint8*>(tGangFol) + 0x20, &d, sizeof(float) * 3);
+         }

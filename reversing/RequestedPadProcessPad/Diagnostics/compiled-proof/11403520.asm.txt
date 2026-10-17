@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11403520: 55                 push        ebp
+  11403521: 8B EC              mov         ebp,esp
+  11403523: 81 EC CC 00 00 00  sub         esp,0CCh
+  11403529: 53                 push        ebx
+  1140352A: 56                 push        esi
+  1140352B: 57                 push        edi
+  1140352C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  11403530: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11403533: 5F                 pop         edi
+  11403534: 5E                 pop         esi
+  11403535: 5B                 pop         ebx
+  11403536: 8B E5              mov         esp,ebp
+  11403538: 5D                 pop         ebp
+  11403539: C3                 ret
+  1140353A: CC                 int         3
+  1140353B: CC                 int         3
+  1140353C: CC                 int         3
+  1140353D: CC                 int         3
+  1140353E: CC                 int         3
+  1140353F: CC                 int         3
+  11403540: 55                 push        ebp
+  11403541: 8B EC              mov         ebp,esp
+  11403543: 81 EC CC 00 00 00  sub         esp,0CCh
+  11403549: 53                 push        ebx
+  1140354A: 56                 push        esi
+  1140354B: 57                 push        edi
+  1140354C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  11403550: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11403553: 5F                 pop         edi
+  11403554: 5E                 pop         esi
+  11403555: 5B                 pop         ebx
+  11403556: 8B E5              mov         esp,ebp
+  11403558: 5D                 pop         ebp
+  11403559: C3                 ret
+  1140355A: CC                 int         3
+  1140355B: CC                 int         3
+  1140355C: CC                 int         3
+  1140355D: CC                 int         3
+  1140355E: CC                 int         3
+  1140355F: CC                 int         3
+  11403560: 55                 push        ebp
+
+  Summary
+
+     21DB000 .text

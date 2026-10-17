@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11401E20: 55                 push        ebp
+  11401E21: 8B EC              mov         ebp,esp
+  11401E23: 81 EC C0 00 00 00  sub         esp,0C0h
+  11401E29: 53                 push        ebx
+  11401E2A: 56                 push        esi
+  11401E2B: 57                 push        edi
+  11401E2C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11401E2F: 8B 00              mov         eax,dword ptr [eax]
+  11401E31: 5F                 pop         edi
+  11401E32: 5E                 pop         esi
+  11401E33: 5B                 pop         ebx
+  11401E34: 8B E5              mov         esp,ebp
+  11401E36: 5D                 pop         ebp
+  11401E37: C3                 ret
+  11401E38: CC                 int         3
+  11401E39: CC                 int         3
+  11401E3A: CC                 int         3
+  11401E3B: CC                 int         3
+  11401E3C: CC                 int         3
+  11401E3D: CC                 int         3
+  11401E3E: CC                 int         3
+  11401E3F: CC                 int         3
+  11401E40: 55                 push        ebp
+  11401E41: 8B EC              mov         ebp,esp
+  11401E43: 81 EC C0 00 00 00  sub         esp,0C0h
+  11401E49: 53                 push        ebx
+  11401E4A: 56                 push        esi
+  11401E4B: 57                 push        edi
+  11401E4C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11401E4F: 8B 00              mov         eax,dword ptr [eax]
+  11401E51: 5F                 pop         edi
+  11401E52: 5E                 pop         esi
+  11401E53: 5B                 pop         ebx
+  11401E54: 8B E5              mov         esp,ebp
+  11401E56: 5D                 pop         ebp
+  11401E57: C3                 ret
+  11401E58: CC                 int         3
+  11401E59: CC                 int         3
+  11401E5A: CC                 int         3
+  11401E5B: CC                 int         3
+  11401E5C: CC                 int         3
+  11401E5D: CC                 int         3
+  11401E5E: CC                 int         3
+  11401E5F: CC                 int         3
+  11401E60: 55                 push        ebp
+
+  Summary
+
+     21DB000 .text

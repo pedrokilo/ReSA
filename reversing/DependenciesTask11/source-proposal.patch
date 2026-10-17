@@ -1,0 +1,130 @@
+--- a/source/game_sa/DecisionMakers/DecisionMakerTypes.cpp
++++ b/source/game_sa/DecisionMakers/DecisionMakerTypes.cpp
+@@ -9,4 +9,5 @@
+     RH_ScopedOverloadedInstall(MakeDecision, "Group", 0x606F80, eTaskType(CDecisionMakerTypes::*)(CPedGroup*, eEventType, int32, bool, eTaskType, eTaskType, eTaskType, eTaskType));
+ 
++    RH_ScopedInstall(GetInstance, 0x4684F0);
+     RH_ScopedInstall(AddDecisionMaker, 0x607050);
+     RH_ScopedInstall(RemoveDecisionMaker, 0x6043A0);
+@@ -108,7 +109,58 @@
+ 
+ // 0x4684F0
+-CDecisionMakerTypes* CDecisionMakerTypes::GetInstance() {
+-    return plugin::CallAndReturn<CDecisionMakerTypes*, 0x4684F0>();
+-}
++namespace {
++__declspec(naked) void Task11AllocateDecisionTypes() {
++    __asm {
++        push 0082119Ah
++        ret
++    }
++}
++__declspec(naked) void Task11ConstructDecisionTypes() {
++    __asm {
++        push 004650F0h
++        ret
++    }
++}
++}
++// The original EXE SEH handler is retained. Normal-path restoration is tested;
++// exception unwinding through this cross-module registration is not certified.
++#pragma warning(push)
++#pragma warning(disable: 4733)
++__declspec(naked) CDecisionMakerTypes* CDecisionMakerTypes::GetInstance() {
++    __asm {
++        push 0FFFFFFFFh
++        push 837D9Bh
++        mov eax,dword ptr fs:[00000000h]
++        push eax
++        mov dword ptr fs:[00000000h],esp
++        push ecx
++        mov eax,dword ptr ds:[00C0B030h]
++        test eax,eax
++        jne task11_46854E
++        push 0F1C0h
++        call Task11AllocateDecisionTypes
++        add esp,4
++        mov dword ptr [esp],eax
++        test eax,eax
++        mov dword ptr [esp+0Ch],0
++        je task11_468547
++        mov ecx,eax
++        call Task11ConstructDecisionTypes
++        mov dword ptr ds:[00C0B030h],eax
++        mov ecx,dword ptr [esp+4]
++        mov dword ptr fs:[00000000h],ecx
++        add esp,10h
++        ret
++task11_468547:
++        xor eax,eax
++        mov dword ptr ds:[00C0B030h],eax
++task11_46854E:
++        mov ecx,dword ptr [esp+4]
++        mov dword ptr fs:[00000000h],ecx
++        add esp,10h
++        ret
++    }
++}
++#pragma warning(pop)
+ 
+ static __declspec(naked) void Decision7One() {
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp
+@@ -24,4 +24,47 @@
+ #include "InterestingEvents.h"
+ 
++// Global game helper: the existing population call targets 0x632140.
++namespace {
++__declspec(naked) void Task11SunnyWeather() {
++    __asm {
++        push 0062F2D0h
++        ret
++    }
++}
++}
++__declspec(naked) bool CanSunbathe() {
++    __asm {
++        mov al,byte ptr ds:[00B70153h]
++        cmp al,0Ah
++        jb task11_63218A
++        cmp al,12h
++        jae task11_63218A
++        mov ax,word ptr ds:[00C8131Ch]
++        cmp ax,1
++        je task11_632184
++        cmp ax,3
++        je task11_632184
++        cmp ax,0Eh
++        je task11_632184
++        cmp ax,5
++        je task11_632184
++        cmp ax,0Ah
++        je task11_632184
++        cmp ax,12h
++        je task11_632184
++        push eax
++        call Task11SunnyWeather
++        add esp,4
++        test al,al
++        je task11_63218A
++task11_632184:
++        mov eax,1
++        ret
++task11_63218A:
++        xor eax,eax
++        ret
++    }
++}
++
+ namespace {
+ bool SunbatheWeatherAllows() {
+@@ -52,5 +95,8 @@
+     RH_ScopedInstall(Destructor, 0x632050);
+ 
+-    //RH_ScopedGlobalInstall(CanSunbathe, 0x632140, { .reversed = false });
++    {
++        RH_ScopedCategory("Tasks/TaskTypes");
++        RH_ScopedGlobalInstall(CanSunbathe, 0x632140);
++    }
+     //RH_ScopedGlobalInstall(ShouldLoadSunbatheAnims, 0x632190, { .reversed = false });
+ 

@@ -1,0 +1,231 @@
+--- a/source/game_sa/Entity/Ped/PlayerPed.cpp
++++ b/source/game_sa/Entity/Ped/PlayerPed.cpp
+@@ -78,6 +78,7 @@
+     RH_ScopedInstall(MakePlayerGroupDisappear, 0x60A440);
+     RH_ScopedInstall(MakePlayerGroupReappear, 0x60A4B0);
+     RH_ScopedInstall(HandleSprintEnergy, 0x60A550);
++    RH_ScopedInstall(ControlButtonSprint, 0x60A610);
+     RH_ScopedInstall(GetButtonSprintResults, 0x60A820);
+     RH_ScopedInstall(HandlePlayerBreath, 0x60A8D0);
+     RH_ScopedOverloadedInstall(MakeChangesForNewWeapon, "", 0x60B460, void(CPlayerPed::*)(eWeaponType));
+@@ -711,10 +712,216 @@
+     { 4.0f, 0.7f, 0.2f, 5.0f, 10.0f, 0.0f, 0.0f, 1.0f }  // UNDERWATER
+ };
+ 
+-// 0x60A610
+-float CPlayerPed::ControlButtonSprint(eSprintType sprintType) {
+-    // El cálculo del control de sprint continúa delegado al ejecutable original.
+-    return plugin::CallMethodAndReturn<float, 0x60A610, CPlayerPed *, eSprintType>(this, sprintType);
++namespace {
++__declspec(naked) void TaskSprint16_0053FB70() {
++    __asm {
++        push 00053FB70h
++        ret
++    }
++}
++__declspec(naked) void TaskSprint16_005407A0() {
++    __asm {
++        push 0005407A0h
++        ret
++    }
++}
++__declspec(naked) void TaskSprint16_005407F0() {
++    __asm {
++        push 0005407F0h
++        ret
++    }
++}
++__declspec(naked) void TaskSprint16_0060A550() {
++    __asm {
++        push 00060A550h
++        ret
++    }
++}
++}
++
++// 0x60A610: conserva el cuerpo x87 y el RET 4 del ejecutable.
++__declspec(naked) float CPlayerPed::ControlButtonSprint(eSprintType sprintType) {
++    __asm {
++        push ecx
++        push edi
++        mov edi,ecx
++        mov eax,dword ptr [edi+00000480h]
++        test eax,eax
++        jne L_0060A629
++        fld dword ptr ds:[00858B50h]
++        pop edi
++        pop ecx
++        ret 4
++    L_0060A629:
++        mov eax,dword ptr [edi+00000598h]
++        test eax,eax
++        push ebx
++        push ebp
++        push esi
++        jne L_0060A643
++        push eax
++        call TaskSprint16_0053FB70
++        add esp,4
++        mov ebp,eax
++        jmp L_0060A657
++    L_0060A643:
++        cmp eax,1
++        jne L_0060A655
++        push eax
++        call TaskSprint16_0053FB70
++        add esp,4
++        mov ebp,eax
++        jmp L_0060A657
++    L_0060A655:
++        xor ebp,ebp
++    L_0060A657:
++        mov ecx,dword ptr [edi+00000480h]
++        mov al,byte ptr [ecx+00000084h]
++        xor bl,bl
++        test al,al
++        jne L_0060A68B
++        fld dword ptr [ecx+1Ch]
++        fcomp dword ptr ds:[00858B50h]
++        fnstsw ax
++        test ah,41h
++        je L_0060A689
++        fld dword ptr [ecx+18h]
++        fcomp dword ptr ds:[00858B50h]
++        fnstsw ax
++        test ah,41h
++        jne L_0060A68B
++    L_0060A689:
++        mov bl,1
++    L_0060A68B:
++        mov ecx,ebp
++        call TaskSprint16_005407F0
++        test al,al
++        mov esi,dword ptr [esp+18h]
++        je L_0060A6D4
++        test bl,bl
++        je L_0060A6D4
++        mov ecx,dword ptr [edi+00000480h]
++        mov eax,esi
++        shl eax,5
++        fld dword ptr [eax+008D2460h]
++        fadd dword ptr [ecx+1Ch]
++        fld dword ptr [eax+008D2470h]
++        fst dword ptr [esp+18h]
++        fcomp st(1)
++        fnstsw ax
++        test ah,5
++        jp L_0060A757
++        fstp st(0)
++        fld dword ptr [esp+18h]
++        jmp L_0060A757
++    L_0060A6D4:
++        mov ecx,ebp
++        call TaskSprint16_005407A0
++        test al,al
++        je L_0060A716
++        test bl,bl
++        je L_0060A716
++        fld dword ptr ds:[00B7CB5Ch]
++        mov ecx,dword ptr [edi+00000480h]
++        mov eax,esi
++        shl eax,5
++        fmul dword ptr [eax+008D2464h]
++        fsubr dword ptr [ecx+1Ch]
++        fld dword ptr ds:[00858624h]
++        fcomp st(1)
++        fnstsw ax
++        test ah,41h
++        jne L_0060A757
++        fstp st(0)
++        fld dword ptr ds:[00858624h]
++        jmp L_0060A757
++    L_0060A716:
++        mov ecx,dword ptr [edi+00000480h]
++        fld dword ptr [ecx+1Ch]
++        fcomp dword ptr ds:[00858B50h]
++        fnstsw ax
++        test ah,41h
++        jne L_0060A75A
++        fld dword ptr ds:[00B7CB5Ch]
++        mov edx,esi
++        shl edx,5
++        fmul dword ptr [edx+008D2468h]
++        fsubr dword ptr [ecx+1Ch]
++        fld dword ptr ds:[00858B50h]
++        fcomp st(1)
++        fnstsw ax
++        test ah,41h
++        jne L_0060A757
++        fstp st(0)
++        fld dword ptr ds:[00858B50h]
++    L_0060A757:
++        fstp dword ptr [ecx+1Ch]
++    L_0060A75A:
++        mov ecx,dword ptr [edi+00000480h]
++        fld dword ptr [ecx+1Ch]
++        shl esi,5
++        fcomp dword ptr [esi+008D246Ch]
++        fld dword ptr [ecx+1Ch]
++        fnstsw ax
++        test ah,41h
++        jne L_0060A7DE
++        fdiv dword ptr [esi+008D246Ch]
++        mov eax,dword ptr [esi+008D2478h]
++        mov dword ptr [esp+18h],eax
++        fst dword ptr [esp+10h]
++        fcomp dword ptr ds:[00858B50h]
++        fnstsw ax
++        test ah,41h
++        jne L_0060A810
++    L_0060A797:
++        mov edx,dword ptr [esp+18h]
++        push edx
++        push 1
++        mov ecx,edi
++        call TaskSprint16_0060A550
++        test al,al
++        je L_0060A803
++        fld dword ptr [esp+10h]
++        fsub dword ptr ds:[00858624h]
++        fld dword ptr ds:[00858B50h]
++        fcomp st(1)
++        fnstsw ax
++        test ah,41h
++        jne L_0060A7CA
++        fstp st(0)
++        fld dword ptr ds:[00858B50h]
++    L_0060A7CA:
++        fmul dword ptr [esi+008D247Ch]
++        pop esi
++        pop ebp
++        pop ebx
++        fadd dword ptr ds:[00858624h]
++        pop edi
++        pop ecx
++        ret 4
++    L_0060A7DE:
++        fcomp dword ptr ds:[00858B50h]
++        fnstsw ax
++        test ah,41h
++        jne L_0060A810
++        test bl,bl
++        je L_0060A810
++        mov ecx,dword ptr [esi+008D2474h]
++        mov dword ptr [esp+10h],3F800000h
++        mov dword ptr [esp+18h],ecx
++        jmp L_0060A797
++    L_0060A803:
++        mov eax,dword ptr [edi+00000480h]
++        mov dword ptr [eax+1Ch],0
++    L_0060A810:
++        fld dword ptr ds:[00858B50h]
++        pop esi
++        pop ebp
++        pop ebx
++        pop edi
++        pop ecx
++        ret 4
++    }
+ }
+ 
+ // The original caller at 0x60B430 keeps an animation pointer in EDX across this call.

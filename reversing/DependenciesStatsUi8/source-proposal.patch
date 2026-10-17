@@ -1,0 +1,1099 @@
+--- a/source/game_sa/Stats.cpp
++++ b/source/game_sa/Stats.cpp
+@@ -76,2 +76,60 @@
+ 
++
++namespace {
++__declspec(naked) void Ui8_Bridge_0053FB70() {
++    __asm {
++        push 053FB70h
++        ret
++    }
++}
++__declspec(naked) void Ui8_Bridge_00588B50() {
++    __asm {
++        push 0588B50h
++        ret
++    }
++}
++__declspec(naked) void Ui8_Bridge_00558E40() {
++    __asm {
++        push 0558E40h
++        ret
++    }
++}
++__declspec(naked) void Ui8_Bridge_006A0050() {
++    __asm {
++        push 06A0050h
++        ret
++    }
++}
++__declspec(naked) void Ui8_Bridge_00588BE0() {
++    __asm {
++        push 0588BE0h
++        ret
++    }
++}
++__declspec(naked) void Ui8_Bridge_00559080() {
++    __asm {
++        push 0559080h
++        ret
++    }
++}
++__declspec(naked) void Ui8_Bridge_00821B40() {
++    __asm {
++        push 0821B40h
++        ret
++    }
++}
++__declspec(naked) void Ui8_Bridge_0055C180() {
++    __asm {
++        push 055C180h
++        ret
++    }
++}
++__declspec(naked) void Ui8_Bridge_0055B980() {
++    __asm {
++        push 055B980h
++        ret
++    }
++}
++}
++
+ void CStats::InjectHooks() {
+@@ -79,2 +137,7 @@
+     RH_ScopedCategoryGlobal();
++    RH_ScopedInstall(CheckForStatsMessage, 0x559760);
++    RH_ScopedInstall(FindCriminalRatingString, 0x55A210);
++    RH_ScopedInstall(UpdateStatsOnRespawn, 0x55CFC0);
++    RH_ScopedInstall(UpdateStatsAddToHealth, 0x55D030);
++
+ 
+@@ -392,4 +455,169 @@
+ // 0x559760
+-void CStats::CheckForStatsMessage() {
+-    plugin::Call<0x559760>();
++__declspec(naked) void CStats::CheckForStatsMessage() {
++    __asm {
++// 0x559760
++        push        0
++// 0x559762
++        call Ui8_Bridge_0053FB70
++// 0x559767
++        mov         cl,byte ptr [eax+00000117h]
++// 0x55976D
++        add         esp,4
++// 0x559770
++        test        cl,cl
++// 0x559772
++        jne Ui8_CheckForStatsMessage_55985F
++// 0x559778
++        mov         al,byte ptr ds:[008CDE56h]
++// 0x55977D
++        test        al,al
++// 0x55977F
++        je Ui8_CheckForStatsMessage_55985F
++// 0x559785
++        mov         al,byte ptr ds:[00B6F065h]
++// 0x55978A
++        test        al,al
++// 0x55978C
++        jne Ui8_CheckForStatsMessage_55985F
++// 0x559792
++        mov         al,byte ptr ds:[00B5F852h]
++// 0x559797
++        test        al,al
++// 0x559799
++        jne Ui8_CheckForStatsMessage_55985F
++// 0x55979F
++        call Ui8_Bridge_00588B50
++// 0x5597A4
++        test        al,al
++// 0x5597A6
++        jne Ui8_CheckForStatsMessage_55985F
++// 0x5597AC
++        mov         al,byte ptr ds:[00BA82E3h]
++// 0x5597B1
++        test        al,al
++// 0x5597B3
++        jne Ui8_CheckForStatsMessage_55985F
++// 0x5597B9
++        push        ebx
++// 0x5597BA
++        push        esi
++// 0x5597BB
++        push        edi
++// 0x5597BC
++        xor         edi,edi
++// 0x5597BE
++        mov         esi,0B78200h
++// 0x5597C3
++        mov         bl,1
++// 0x5597C5
++        jmp Ui8_CheckForStatsMessage_5597D0
++// 0x5597C7
++        lea         esp,[esp+00000000h]
++// 0x5597CE
++        mov         edi,edi
++Ui8_CheckForStatsMessage_5597D0:
++        cmp         edi,dword ptr ds:[00B794D0h]
++// 0x5597D6
++        jae Ui8_CheckForStatsMessage_55985C
++// 0x5597DC
++        mov         al,byte ptr [esi+2]
++// 0x5597DF
++        test        al,al
++// 0x5597E1
++        jne Ui8_CheckForStatsMessage_55984C
++// 0x5597E3
++        mov         al,byte ptr [esi+3]
++// 0x5597E6
++        test        al,al
++// 0x5597E8
++        je Ui8_CheckForStatsMessage_55980E
++// 0x5597EA
++        xor         eax,eax
++// 0x5597EC
++        mov         ax,word ptr [esi]
++// 0x5597EF
++        push        eax
++// 0x5597F0
++        call Ui8_Bridge_00558E40
++// 0x5597F5
++        fcomp       dword ptr [esi+4]
++// 0x5597F8
++        add         esp,4
++// 0x5597FB
++        fnstsw      ax
++// 0x5597FD
++        test        ah,1
++// 0x559800
++        jne Ui8_CheckForStatsMessage_55984C
++// 0x559802
++        push        0
++// 0x559804
++        push        0
++// 0x559806
++        push        0
++// 0x559808
++        lea         ecx,[esi+8]
++// 0x55980B
++        push        ecx
++// 0x55980C
++        jmp Ui8_CheckForStatsMessage_559830
++Ui8_CheckForStatsMessage_55980E:
++        xor         edx,edx
++// 0x559810
++        mov         dx,word ptr [esi]
++// 0x559813
++        push        edx
++// 0x559814
++        call Ui8_Bridge_00558E40
++// 0x559819
++        fcomp       dword ptr [esi+4]
++// 0x55981C
++        add         esp,4
++// 0x55981F
++        fnstsw      ax
++// 0x559821
++        test        ah,41h
++// 0x559824
++        jp Ui8_CheckForStatsMessage_55984C
++// 0x559826
++        push        0
++// 0x559828
++        push        0
++// 0x55982A
++        push        0
++// 0x55982C
++        lea         eax,[esi+8]
++// 0x55982F
++        push        eax
++Ui8_CheckForStatsMessage_559830:
++        mov         ecx,0C1B340h
++// 0x559835
++        mov         byte ptr [esi+2],bl
++// 0x559838
++        call Ui8_Bridge_006A0050
++// 0x55983D
++        push        eax
++// 0x55983E
++        call Ui8_Bridge_00588BE0
++// 0x559843
++        add         esp,10h
++// 0x559846
++        mov         byte ptr ds:[00B794D4h],bl
++Ui8_CheckForStatsMessage_55984C:
++        inc         edi
++// 0x55984D
++        add         esi,10h
++// 0x559850
++        cmp         edi,80h
++// 0x559856
++        jb Ui8_CheckForStatsMessage_5597D0
++Ui8_CheckForStatsMessage_55985C:
++        pop         edi
++// 0x55985D
++        pop         esi
++// 0x55985E
++        pop         ebx
++Ui8_CheckForStatsMessage_55985F:
++        ret
++    }
+ }
+@@ -865,4 +1093,727 @@
+ // 0x55A210
+-GxtChar* CStats::FindCriminalRatingString() {
+-    return plugin::CallAndReturn<GxtChar*, 0x55A210>();
++__declspec(naked) GxtChar* CStats::FindCriminalRatingString() {
++    __asm {
++// 0x55A210
++        call Ui8_Bridge_00559080
++// 0x55A215
++        test        eax,eax
++// 0x55A217
++        jge Ui8_FindCriminalRatingString_55A280
++// 0x55A219
++        cmp         eax,0FFFFFE0Ch
++// 0x55A21E
++        jle Ui8_FindCriminalRatingString_55A230
++// 0x55A220
++        push        86417Ch
++// 0x55A225
++        mov         ecx,0C1B340h
++// 0x55A22A
++        call Ui8_Bridge_006A0050
++// 0x55A22F
++        ret
++Ui8_FindCriminalRatingString_55A230:
++        cmp         eax,0FFFFF830h
++// 0x55A235
++        jle Ui8_FindCriminalRatingString_55A247
++// 0x55A237
++        push        864174h
++// 0x55A23C
++        mov         ecx,0C1B340h
++// 0x55A241
++        call Ui8_Bridge_006A0050
++// 0x55A246
++        ret
++Ui8_FindCriminalRatingString_55A247:
++        cmp         eax,0FFFFF060h
++// 0x55A24C
++        jle Ui8_FindCriminalRatingString_55A25E
++// 0x55A24E
++        push        86416Ch
++// 0x55A253
++        mov         ecx,0C1B340h
++// 0x55A258
++        call Ui8_Bridge_006A0050
++// 0x55A25D
++        ret
++Ui8_FindCriminalRatingString_55A25E:
++        cmp         eax,0FFFFE890h
++// 0x55A263
++        mov         ecx,0C1B340h
++// 0x55A268
++        jle Ui8_FindCriminalRatingString_55A275
++// 0x55A26A
++        push        864164h
++// 0x55A26F
++        call Ui8_Bridge_006A0050
++// 0x55A274
++        ret
++Ui8_FindCriminalRatingString_55A275:
++        push        86415Ch
++// 0x55A27A
++        call Ui8_Bridge_006A0050
++// 0x55A27F
++        ret
++Ui8_FindCriminalRatingString_55A280:
++        cmp         eax,14h
++// 0x55A283
++        jge Ui8_FindCriminalRatingString_55A295
++// 0x55A285
++        push        864154h
++// 0x55A28A
++        mov         ecx,0C1B340h
++// 0x55A28F
++        call Ui8_Bridge_006A0050
++// 0x55A294
++        ret
++Ui8_FindCriminalRatingString_55A295:
++        cmp         eax,32h
++// 0x55A298
++        jge Ui8_FindCriminalRatingString_55A2AA
++// 0x55A29A
++        push        86414Ch
++// 0x55A29F
++        mov         ecx,0C1B340h
++// 0x55A2A4
++        call Ui8_Bridge_006A0050
++// 0x55A2A9
++        ret
++Ui8_FindCriminalRatingString_55A2AA:
++        cmp         eax,4Bh
++// 0x55A2AD
++        jge Ui8_FindCriminalRatingString_55A2BF
++// 0x55A2AF
++        push        864144h
++// 0x55A2B4
++        mov         ecx,0C1B340h
++// 0x55A2B9
++        call Ui8_Bridge_006A0050
++// 0x55A2BE
++        ret
++Ui8_FindCriminalRatingString_55A2BF:
++        cmp         eax,64h
++// 0x55A2C2
++        jge Ui8_FindCriminalRatingString_55A2D4
++// 0x55A2C4
++        push        86413Ch
++// 0x55A2C9
++        mov         ecx,0C1B340h
++// 0x55A2CE
++        call Ui8_Bridge_006A0050
++// 0x55A2D3
++        ret
++Ui8_FindCriminalRatingString_55A2D4:
++        cmp         eax,78h
++// 0x55A2D7
++        jge Ui8_FindCriminalRatingString_55A2E9
++// 0x55A2D9
++        push        864134h
++// 0x55A2DE
++        mov         ecx,0C1B340h
++// 0x55A2E3
++        call Ui8_Bridge_006A0050
++// 0x55A2E8
++        ret
++Ui8_FindCriminalRatingString_55A2E9:
++        cmp         eax,96h
++// 0x55A2EE
++        jge Ui8_FindCriminalRatingString_55A300
++// 0x55A2F0
++        push        86412Ch
++// 0x55A2F5
++        mov         ecx,0C1B340h
++// 0x55A2FA
++        call Ui8_Bridge_006A0050
++// 0x55A2FF
++        ret
++Ui8_FindCriminalRatingString_55A300:
++        cmp         eax,0C8h
++// 0x55A305
++        jge Ui8_FindCriminalRatingString_55A317
++// 0x55A307
++        push        864124h
++// 0x55A30C
++        mov         ecx,0C1B340h
++// 0x55A311
++        call Ui8_Bridge_006A0050
++// 0x55A316
++        ret
++Ui8_FindCriminalRatingString_55A317:
++        cmp         eax,0F0h
++// 0x55A31C
++        jge Ui8_FindCriminalRatingString_55A32E
++// 0x55A31E
++        push        86411Ch
++// 0x55A323
++        mov         ecx,0C1B340h
++// 0x55A328
++        call Ui8_Bridge_006A0050
++// 0x55A32D
++        ret
++Ui8_FindCriminalRatingString_55A32E:
++        cmp         eax,10Eh
++// 0x55A333
++        jge Ui8_FindCriminalRatingString_55A345
++// 0x55A335
++        push        864114h
++// 0x55A33A
++        mov         ecx,0C1B340h
++// 0x55A33F
++        call Ui8_Bridge_006A0050
++// 0x55A344
++        ret
++Ui8_FindCriminalRatingString_55A345:
++        cmp         eax,12Ch
++// 0x55A34A
++        jge Ui8_FindCriminalRatingString_55A35C
++// 0x55A34C
++        push        86410Ch
++// 0x55A351
++        mov         ecx,0C1B340h
++// 0x55A356
++        call Ui8_Bridge_006A0050
++// 0x55A35B
++        ret
++Ui8_FindCriminalRatingString_55A35C:
++        cmp         eax,14Fh
++// 0x55A361
++        jge Ui8_FindCriminalRatingString_55A373
++// 0x55A363
++        push        864104h
++// 0x55A368
++        mov         ecx,0C1B340h
++// 0x55A36D
++        call Ui8_Bridge_006A0050
++// 0x55A372
++        ret
++Ui8_FindCriminalRatingString_55A373:
++        cmp         eax,172h
++// 0x55A378
++        jge Ui8_FindCriminalRatingString_55A38A
++// 0x55A37A
++        push        8640FCh
++// 0x55A37F
++        mov         ecx,0C1B340h
++// 0x55A384
++        call Ui8_Bridge_006A0050
++// 0x55A389
++        ret
++Ui8_FindCriminalRatingString_55A38A:
++        cmp         eax,190h
++// 0x55A38F
++        jge Ui8_FindCriminalRatingString_55A3A1
++// 0x55A391
++        push        8640F4h
++// 0x55A396
++        mov         ecx,0C1B340h
++// 0x55A39B
++        call Ui8_Bridge_006A0050
++// 0x55A3A0
++        ret
++Ui8_FindCriminalRatingString_55A3A1:
++        cmp         eax,1C2h
++// 0x55A3A6
++        jge Ui8_FindCriminalRatingString_55A3B8
++// 0x55A3A8
++        push        8640ECh
++// 0x55A3AD
++        mov         ecx,0C1B340h
++// 0x55A3B2
++        call Ui8_Bridge_006A0050
++// 0x55A3B7
++        ret
++Ui8_FindCriminalRatingString_55A3B8:
++        cmp         eax,1F4h
++// 0x55A3BD
++        jge Ui8_FindCriminalRatingString_55A3CF
++// 0x55A3BF
++        push        8640E4h
++// 0x55A3C4
++        mov         ecx,0C1B340h
++// 0x55A3C9
++        call Ui8_Bridge_006A0050
++// 0x55A3CE
++        ret
++Ui8_FindCriminalRatingString_55A3CF:
++        cmp         eax,226h
++// 0x55A3D4
++        jge Ui8_FindCriminalRatingString_55A3E6
++// 0x55A3D6
++        push        8640DCh
++// 0x55A3DB
++        mov         ecx,0C1B340h
++// 0x55A3E0
++        call Ui8_Bridge_006A0050
++// 0x55A3E5
++        ret
++Ui8_FindCriminalRatingString_55A3E6:
++        cmp         eax,258h
++// 0x55A3EB
++        jge Ui8_FindCriminalRatingString_55A3FD
++// 0x55A3ED
++        push        8640D4h
++// 0x55A3F2
++        mov         ecx,0C1B340h
++// 0x55A3F7
++        call Ui8_Bridge_006A0050
++// 0x55A3FC
++        ret
++Ui8_FindCriminalRatingString_55A3FD:
++        cmp         eax,262h
++// 0x55A402
++        jge Ui8_FindCriminalRatingString_55A414
++// 0x55A404
++        push        8640CCh
++// 0x55A409
++        mov         ecx,0C1B340h
++// 0x55A40E
++        call Ui8_Bridge_006A0050
++// 0x55A413
++        ret
++Ui8_FindCriminalRatingString_55A414:
++        cmp         eax,28Ah
++// 0x55A419
++        jge Ui8_FindCriminalRatingString_55A42B
++// 0x55A41B
++        push        8640C4h
++// 0x55A420
++        mov         ecx,0C1B340h
++// 0x55A425
++        call Ui8_Bridge_006A0050
++// 0x55A42A
++        ret
++Ui8_FindCriminalRatingString_55A42B:
++        cmp         eax,2BCh
++// 0x55A430
++        jge Ui8_FindCriminalRatingString_55A442
++// 0x55A432
++        push        8640BCh
++// 0x55A437
++        mov         ecx,0C1B340h
++// 0x55A43C
++        call Ui8_Bridge_006A0050
++// 0x55A441
++        ret
++Ui8_FindCriminalRatingString_55A442:
++        cmp         eax,352h
++// 0x55A447
++        jge Ui8_FindCriminalRatingString_55A459
++// 0x55A449
++        push        8640B4h
++// 0x55A44E
++        mov         ecx,0C1B340h
++// 0x55A453
++        call Ui8_Bridge_006A0050
++// 0x55A458
++        ret
++Ui8_FindCriminalRatingString_55A459:
++        cmp         eax,3E8h
++// 0x55A45E
++        jge Ui8_FindCriminalRatingString_55A470
++// 0x55A460
++        push        8640ACh
++// 0x55A465
++        mov         ecx,0C1B340h
++// 0x55A46A
++        call Ui8_Bridge_006A0050
++// 0x55A46F
++        ret
++Ui8_FindCriminalRatingString_55A470:
++        cmp         eax,3EDh
++// 0x55A475
++        jge Ui8_FindCriminalRatingString_55A487
++// 0x55A477
++        push        8640A4h
++// 0x55A47C
++        mov         ecx,0C1B340h
++// 0x55A481
++        call Ui8_Bridge_006A0050
++// 0x55A486
++        ret
++Ui8_FindCriminalRatingString_55A487:
++        cmp         eax,47Eh
++// 0x55A48C
++        jge Ui8_FindCriminalRatingString_55A49E
++// 0x55A48E
++        push        86409Ch
++// 0x55A493
++        mov         ecx,0C1B340h
++// 0x55A498
++        call Ui8_Bridge_006A0050
++// 0x55A49D
++        ret
++Ui8_FindCriminalRatingString_55A49E:
++        cmp         eax,514h
++// 0x55A4A3
++        jge Ui8_FindCriminalRatingString_55A4D3
++// 0x55A4A5
++        fild        dword ptr ds:[00B79034h]
++// 0x55A4AB
++        mov         ecx,0C1B340h
++// 0x55A4B0
++        fcomp       dword ptr ds:[00858B50h]
++// 0x55A4B6
++        fnstsw      ax
++// 0x55A4B8
++        test        ah,41h
++// 0x55A4BB
++        jne Ui8_FindCriminalRatingString_55A4C8
++// 0x55A4BD
++        push        864094h
++// 0x55A4C2
++        call Ui8_Bridge_006A0050
++// 0x55A4C7
++        ret
++Ui8_FindCriminalRatingString_55A4C8:
++        push        86409Ch
++// 0x55A4CD
++        call Ui8_Bridge_006A0050
++// 0x55A4D2
++        ret
++Ui8_FindCriminalRatingString_55A4D3:
++        cmp         eax,5DCh
++// 0x55A4D8
++        jge Ui8_FindCriminalRatingString_55A4EA
++// 0x55A4DA
++        push        86408Ch
++// 0x55A4DF
++        mov         ecx,0C1B340h
++// 0x55A4E4
++        call Ui8_Bridge_006A0050
++// 0x55A4E9
++        ret
++Ui8_FindCriminalRatingString_55A4EA:
++        cmp         eax,6A4h
++// 0x55A4EF
++        jge Ui8_FindCriminalRatingString_55A501
++// 0x55A4F1
++        push        864084h
++// 0x55A4F6
++        mov         ecx,0C1B340h
++// 0x55A4FB
++        call Ui8_Bridge_006A0050
++// 0x55A500
++        ret
++Ui8_FindCriminalRatingString_55A501:
++        cmp         eax,7D0h
++// 0x55A506
++        jge Ui8_FindCriminalRatingString_55A518
++// 0x55A508
++        push        86407Ch
++// 0x55A50D
++        mov         ecx,0C1B340h
++// 0x55A512
++        call Ui8_Bridge_006A0050
++// 0x55A517
++        ret
++Ui8_FindCriminalRatingString_55A518:
++        cmp         eax,834h
++// 0x55A51D
++        jge Ui8_FindCriminalRatingString_55A52F
++// 0x55A51F
++        push        864074h
++// 0x55A524
++        mov         ecx,0C1B340h
++// 0x55A529
++        call Ui8_Bridge_006A0050
++// 0x55A52E
++        ret
++Ui8_FindCriminalRatingString_55A52F:
++        cmp         eax,8FCh
++// 0x55A534
++        jge Ui8_FindCriminalRatingString_55A546
++// 0x55A536
++        push        86406Ch
++// 0x55A53B
++        mov         ecx,0C1B340h
++// 0x55A540
++        call Ui8_Bridge_006A0050
++// 0x55A545
++        ret
++Ui8_FindCriminalRatingString_55A546:
++        cmp         eax,9C4h
++// 0x55A54B
++        jge Ui8_FindCriminalRatingString_55A55D
++// 0x55A54D
++        push        864064h
++// 0x55A552
++        mov         ecx,0C1B340h
++// 0x55A557
++        call Ui8_Bridge_006A0050
++// 0x55A55C
++        ret
++Ui8_FindCriminalRatingString_55A55D:
++        cmp         eax,0ABEh
++// 0x55A562
++        jge Ui8_FindCriminalRatingString_55A574
++// 0x55A564
++        push        86405Ch
++// 0x55A569
++        mov         ecx,0C1B340h
++// 0x55A56E
++        call Ui8_Bridge_006A0050
++// 0x55A573
++        ret
++Ui8_FindCriminalRatingString_55A574:
++        cmp         eax,0BB8h
++// 0x55A579
++        jge Ui8_FindCriminalRatingString_55A58B
++// 0x55A57B
++        push        864054h
++// 0x55A580
++        mov         ecx,0C1B340h
++// 0x55A585
++        call Ui8_Bridge_006A0050
++// 0x55A58A
++        ret
++Ui8_FindCriminalRatingString_55A58B:
++        cmp         eax,0DACh
++// 0x55A590
++        jge Ui8_FindCriminalRatingString_55A5A2
++// 0x55A592
++        push        86404Ch
++// 0x55A597
++        mov         ecx,0C1B340h
++// 0x55A59C
++        call Ui8_Bridge_006A0050
++// 0x55A5A1
++        ret
++Ui8_FindCriminalRatingString_55A5A2:
++        cmp         eax,0FA0h
++// 0x55A5A7
++        jge Ui8_FindCriminalRatingString_55A5B9
++// 0x55A5A9
++        push        864044h
++// 0x55A5AE
++        mov         ecx,0C1B340h
++// 0x55A5B3
++        call Ui8_Bridge_006A0050
++// 0x55A5B8
++        ret
++Ui8_FindCriminalRatingString_55A5B9:
++        cmp         eax,1388h
++// 0x55A5BE
++        jge Ui8_FindCriminalRatingString_55A5D0
++// 0x55A5C0
++        push        86403Ch
++// 0x55A5C5
++        mov         ecx,0C1B340h
++// 0x55A5CA
++        call Ui8_Bridge_006A0050
++// 0x55A5CF
++        ret
++Ui8_FindCriminalRatingString_55A5D0:
++        cmp         eax,1D4Ch
++// 0x55A5D5
++        jge Ui8_FindCriminalRatingString_55A5E7
++// 0x55A5D7
++        push        864034h
++// 0x55A5DC
++        mov         ecx,0C1B340h
++// 0x55A5E1
++        call Ui8_Bridge_006A0050
++// 0x55A5E6
++        ret
++Ui8_FindCriminalRatingString_55A5E7:
++        cmp         eax,2710h
++// 0x55A5EC
++        jge Ui8_FindCriminalRatingString_55A5FE
++// 0x55A5EE
++        push        86402Ch
++// 0x55A5F3
++        mov         ecx,0C1B340h
++// 0x55A5F8
++        call Ui8_Bridge_006A0050
++// 0x55A5FD
++        ret
++Ui8_FindCriminalRatingString_55A5FE:
++        cmp         eax,4E20h
++// 0x55A603
++        jge Ui8_FindCriminalRatingString_55A615
++// 0x55A605
++        push        864024h
++// 0x55A60A
++        mov         ecx,0C1B340h
++// 0x55A60F
++        call Ui8_Bridge_006A0050
++// 0x55A614
++        ret
++Ui8_FindCriminalRatingString_55A615:
++        cmp         eax,7530h
++// 0x55A61A
++        jge Ui8_FindCriminalRatingString_55A62C
++// 0x55A61C
++        push        86401Ch
++// 0x55A621
++        mov         ecx,0C1B340h
++// 0x55A626
++        call Ui8_Bridge_006A0050
++// 0x55A62B
++        ret
++Ui8_FindCriminalRatingString_55A62C:
++        cmp         eax,9C40h
++// 0x55A631
++        jge Ui8_FindCriminalRatingString_55A643
++// 0x55A633
++        push        864014h
++// 0x55A638
++        mov         ecx,0C1B340h
++// 0x55A63D
++        call Ui8_Bridge_006A0050
++// 0x55A642
++        ret
++Ui8_FindCriminalRatingString_55A643:
++        cmp         eax,0C350h
++// 0x55A648
++        jge Ui8_FindCriminalRatingString_55A65A
++// 0x55A64A
++        push        86400Ch
++// 0x55A64F
++        mov         ecx,0C1B340h
++// 0x55A654
++        call Ui8_Bridge_006A0050
++// 0x55A659
++        ret
++Ui8_FindCriminalRatingString_55A65A:
++        cmp         eax,0FDE8h
++// 0x55A65F
++        jge Ui8_FindCriminalRatingString_55A671
++// 0x55A661
++        push        864004h
++// 0x55A666
++        mov         ecx,0C1B340h
++// 0x55A66B
++        call Ui8_Bridge_006A0050
++// 0x55A670
++        ret
++Ui8_FindCriminalRatingString_55A671:
++        cmp         eax,13880h
++// 0x55A676
++        jge Ui8_FindCriminalRatingString_55A688
++// 0x55A678
++        push        863FFCh
++// 0x55A67D
++        mov         ecx,0C1B340h
++// 0x55A682
++        call Ui8_Bridge_006A0050
++// 0x55A687
++        ret
++Ui8_FindCriminalRatingString_55A688:
++        cmp         eax,186A0h
++// 0x55A68D
++        jge Ui8_FindCriminalRatingString_55A69F
++// 0x55A68F
++        push        863FF4h
++// 0x55A694
++        mov         ecx,0C1B340h
++// 0x55A699
++        call Ui8_Bridge_006A0050
++// 0x55A69E
++        ret
++Ui8_FindCriminalRatingString_55A69F:
++        cmp         eax,249F0h
++// 0x55A6A4
++        jge Ui8_FindCriminalRatingString_55A6B6
++// 0x55A6A6
++        push        863FECh
++// 0x55A6AB
++        mov         ecx,0C1B340h
++// 0x55A6B0
++        call Ui8_Bridge_006A0050
++// 0x55A6B5
++        ret
++Ui8_FindCriminalRatingString_55A6B6:
++        cmp         eax,30D40h
++// 0x55A6BB
++        jge Ui8_FindCriminalRatingString_55A6CD
++// 0x55A6BD
++        push        863FE4h
++// 0x55A6C2
++        mov         ecx,0C1B340h
++// 0x55A6C7
++        call Ui8_Bridge_006A0050
++// 0x55A6CC
++        ret
++Ui8_FindCriminalRatingString_55A6CD:
++        cmp         eax,493E0h
++// 0x55A6D2
++        jge Ui8_FindCriminalRatingString_55A6E4
++// 0x55A6D4
++        push        863FDCh
++// 0x55A6D9
++        mov         ecx,0C1B340h
++// 0x55A6DE
++        call Ui8_Bridge_006A0050
++// 0x55A6E3
++        ret
++Ui8_FindCriminalRatingString_55A6E4:
++        cmp         eax,5B8D8h
++// 0x55A6E9
++        jge Ui8_FindCriminalRatingString_55A6FB
++// 0x55A6EB
++        push        863FD4h
++// 0x55A6F0
++        mov         ecx,0C1B340h
++// 0x55A6F5
++        call Ui8_Bridge_006A0050
++// 0x55A6FA
++        ret
++Ui8_FindCriminalRatingString_55A6FB:
++        cmp         eax,7A120h
++// 0x55A700
++        jge Ui8_FindCriminalRatingString_55A739
++// 0x55A702
++        fild        dword ptr ds:[00B790C4h]
++// 0x55A708
++        fmul        dword ptr ds:[00863FD0h]
++// 0x55A70E
++        fmul        dword ptr ds:[00859044h]
++// 0x55A714
++        call Ui8_Bridge_00821B40
++// 0x55A719
++        cmp         eax,0Ah
++// 0x55A71C
++        mov         ecx,0C1B340h
++// 0x55A721
++        jle Ui8_FindCriminalRatingString_55A72E
++// 0x55A723
++        push        863FC8h
++// 0x55A728
++        call Ui8_Bridge_006A0050
++// 0x55A72D
++        ret
++Ui8_FindCriminalRatingString_55A72E:
++        push        863FD4h
++// 0x55A733
++        call Ui8_Bridge_006A0050
++// 0x55A738
++        ret
++Ui8_FindCriminalRatingString_55A739:
++        cmp         eax,0F4240h
++// 0x55A73E
++        jl Ui8_FindCriminalRatingString_55A769
++// 0x55A740
++        movzx       eax,byte ptr ds:[00B7CD74h]
++// 0x55A747
++        imul        eax,eax,190h
++// 0x55A74D
++        cmp         dword ptr [eax+00B7CE54h],989680h
++// 0x55A757
++        jle Ui8_FindCriminalRatingString_55A769
++// 0x55A759
++        push        863FC0h
++// 0x55A75E
++        mov         ecx,0C1B340h
++// 0x55A763
++        call Ui8_Bridge_006A0050
++// 0x55A768
++        ret
++Ui8_FindCriminalRatingString_55A769:
++        push        863FB8h
++// 0x55A76E
++        mov         ecx,0C1B340h
++// 0x55A773
++        call Ui8_Bridge_006A0050
++// 0x55A778
++        ret
++    }
+ }
+@@ -1153,4 +2104,67 @@
+ // 0x55CFC0
+-void CStats::UpdateStatsOnRespawn() {
+-    plugin::Call<0x55CFC0>();
++__declspec(naked) void CStats::UpdateStatsOnRespawn() {
++    __asm {
++// 0x55CFC0
++        push        ecx
++// 0x55CFC1
++        mov         eax,dword ptr ds:[00B79508h]
++// 0x55CFC6
++        fild        dword ptr ds:[00B79508h]
++// 0x55CFCC
++        test        eax,eax
++// 0x55CFCE
++        jge Ui8_UpdateStatsOnRespawn_55CFD6
++// 0x55CFD0
++        fadd        dword ptr ds:[00858C54h]
++Ui8_UpdateStatsOnRespawn_55CFD6:
++        fcomp       dword ptr ds:[00B78FF4h]
++// 0x55CFDC
++        fnstsw      ax
++// 0x55CFDE
++        test        ah,41h
++// 0x55CFE1
++        jne Ui8_UpdateStatsOnRespawn_55D023
++// 0x55CFE3
++        fld         dword ptr ds:[00B793E0h]
++// 0x55CFE9
++        fcomp       dword ptr ds:[0085A700h]
++// 0x55CFEF
++        fnstsw      ax
++// 0x55CFF1
++        test        ah,41h
++// 0x55CFF4
++        jne Ui8_UpdateStatsOnRespawn_55D017
++// 0x55CFF6
++        mov         ecx,dword ptr ds:[00B78F74h]
++// 0x55CFFC
++        push        ecx
++// 0x55CFFD
++        push        18h
++// 0x55CFFF
++        call Ui8_Bridge_0055C180
++// 0x55D004
++        mov         edx,dword ptr ds:[00B78F74h]
++// 0x55D00A
++        push        edx
++// 0x55D00B
++        push        18h
++// 0x55D00D
++        push        0
++// 0x55D00F
++        call Ui8_Bridge_0055B980
++// 0x55D014
++        add         esp,14h
++Ui8_UpdateStatsOnRespawn_55D017:
++        mov         dword ptr ds:[00B79508h],0
++// 0x55D021
++        pop         ecx
++// 0x55D022
++        ret
++Ui8_UpdateStatsOnRespawn_55D023:
++        inc         dword ptr ds:[00B79508h]
++// 0x55D029
++        pop         ecx
++// 0x55D02A
++        ret
++    }
+ }
+@@ -1158,4 +2172,53 @@
+ // 0x55D030
+-void CStats::UpdateStatsAddToHealth(uint32 addToHealth) {
+-    plugin::Call<0x55D030, uint32>(addToHealth);
++__declspec(naked) void CStats::UpdateStatsAddToHealth(uint32 addToHealth) {
++    __asm {
++// 0x55D030
++        mov         eax,dword ptr ds:[00B79510h]
++// 0x55D035
++        add         eax,dword ptr [esp+4]
++// 0x55D039
++        test        eax,eax
++// 0x55D03B
++        mov         dword ptr [esp+4],eax
++// 0x55D03F
++        fild        dword ptr [esp+4]
++// 0x55D043
++        mov         dword ptr ds:[00B79510h],eax
++// 0x55D048
++        jge Ui8_UpdateStatsAddToHealth_55D050
++// 0x55D04A
++        fadd        dword ptr ds:[00858C54h]
++Ui8_UpdateStatsAddToHealth_55D050:
++        fcomp       dword ptr ds:[00B78FF8h]
++// 0x55D056
++        fnstsw      ax
++// 0x55D058
++        test        ah,41h
++// 0x55D05B
++        jne Ui8_UpdateStatsAddToHealth_55D087
++// 0x55D05D
++        mov         eax,dword ptr ds:[00B78F3Ch]
++// 0x55D062
++        push        eax
++// 0x55D063
++        push        18h
++// 0x55D065
++        call Ui8_Bridge_0055C180
++// 0x55D06A
++        mov         ecx,dword ptr ds:[00B78F3Ch]
++// 0x55D070
++        push        ecx
++// 0x55D071
++        push        18h
++// 0x55D073
++        push        1
++// 0x55D075
++        call Ui8_Bridge_0055B980
++// 0x55D07A
++        add         esp,14h
++// 0x55D07D
++        mov         dword ptr ds:[00B79510h],0
++Ui8_UpdateStatsAddToHealth_55D087:
++        ret
++    }
+ }

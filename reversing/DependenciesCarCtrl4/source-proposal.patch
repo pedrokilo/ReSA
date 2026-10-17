@@ -1,0 +1,77 @@
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -72,6 +72,8 @@
+     RH_ScopedInstall(ClearInterestingVehicleList, 0x423F00);
+     RH_ScopedInstall(RegisterVehicleOfInterest, 0x423DE0);
+     RH_ScopedInstall(FindSequenceElement, 0x421770);
++    RH_ScopedInstall(SwitchVehicleToRealPhysics, 0x423FC0);
++    RH_ScopedInstall(UpdateCarCount, 0x424000);
+ }
+ 
+ // 0x4212E0
+@@ -1088,7 +1090,13 @@
+ 
+ // 0x423FC0
+ void CCarCtrl::SwitchVehicleToRealPhysics(CVehicle* vehicle) {
+-    plugin::Call<0x423FC0, CVehicle*>(vehicle);
++    vehicle->SetStatus(STATUS_PHYSICS);
++    vehicle->m_autoPilot.m_nTempAction = TEMPACT_NONE;
++    // Two separate original timer reads; the first deadline wraps modulo 2^32.
++    const auto* timer = reinterpret_cast<const volatile uint32*>(0xB7CB84);
++    vehicle->m_autoPilot.m_nTimeToStartMission = *timer + 2000u;
++    vehicle->m_autoPilot.m_nTimeSwitchedToRealPhysics = *timer;
++    vehicle->m_nFakePhysics = 0;
+ }
+ 
+ // 0x425B30
+@@ -1118,7 +1126,49 @@
+ 
+ // 0x424000
+ void CCarCtrl::UpdateCarCount(CVehicle* vehicle, uint8 bDecrease) {
+-    plugin::Call<0x424000, CVehicle*, uint8>(vehicle, bDecrease);
++    // DEC saturates by the sign of its wrapped result, not the input sign.
++    const auto increment = [](auto& counter) {
++        uint32 bits;
++        std::memcpy(&bits, &counter, sizeof(bits));
++        ++bits;
++        std::memcpy(&counter, &bits, sizeof(bits));
++    };
++    const auto decrement = [](auto& counter, bool saturate) {
++        uint32 bits;
++        std::memcpy(&bits, &counter, sizeof(bits));
++        --bits;
++        if (saturate && (bits & 0x80000000u)) bits = 0;
++        std::memcpy(&counter, &bits, sizeof(bits));
++    };
++    if (!bDecrease) {
++        switch (vehicle->m_nCreatedBy) {
++        case RANDOM_VEHICLE:
++            if (vehicle->vehicleFlags.bIsLawEnforcer) increment(NumLawEnforcerCars);
++            increment(NumRandomCars);
++            break;
++        case MISSION_VEHICLE:
++            if (vehicle->vehicleFlags.bIsLawEnforcer) {
++                vehicle->vehicleFlags.bIsLawEnforcer = false;
++                decrement(NumLawEnforcerCars, false);
++            }
++            increment(NumMissionCars);
++            break;
++        case PARKED_VEHICLE: increment(NumParkedCars); break;
++        case PERMANENT_VEHICLE: increment(NumPermanentVehicles); break;
++        default: break;
++        }
++    } else {
++        switch (vehicle->m_nCreatedBy) {
++        case RANDOM_VEHICLE:
++            if (vehicle->vehicleFlags.bIsLawEnforcer) decrement(NumLawEnforcerCars, true);
++            decrement(NumRandomCars, true);
++            break;
++        case MISSION_VEHICLE: decrement(NumMissionCars, true); break;
++        case PARKED_VEHICLE: decrement(NumParkedCars, true); break;
++        case PERMANENT_VEHICLE: decrement(NumPermanentVehicles, true); break;
++        default: break;
++        }
++    }
+ }
+ 
+ // 0x436540

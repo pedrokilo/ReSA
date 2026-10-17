@@ -1,0 +1,112 @@
+--- a/source/game_sa/Formation.cpp
++++ b/source/game_sa/Formation.cpp
+@@ -679,60 +679,52 @@
+     RH_ScopedGlobalInstall(FindCoverPoints, 0x69B860);
+ }
+ 
+-// 0x69B1B0: native first-minimum, claimed mask and x87 distance/total writes.
+-__declspec(naked) int32 CFormation::FindNearestFreeDestination(CVector,float*) {
+-    __asm {
+-    push ecx
+-    fld dword ptr ds:[0086D270h]
+-    push esi
+-    mov esi,dword ptr ds:[00C1A318h]
+-    push edi
+-    or edi,0FFFFFFFFh
+-    xor ecx,ecx
+-    test esi,esi
+-    jle L0069B223
+-    mov edx,0C1A324h
+-    lea ecx,[ecx]
+-    L0069B1D0: mov al,byte ptr [ecx+00C1A43Ch]
+-    test al,al
+-    jne L0069B21B
+-    fld dword ptr [edx-8]
+-    fsub dword ptr [esp+10h]
+-    fld dword ptr [edx-4]
+-    fsub dword ptr [esp+14h]
+-    fld dword ptr [edx]
+-    fsub dword ptr [esp+18h]
+-    fld st(0)
+-    fmul st,st(1)
+-    fld st(2)
+-    fmul st,st(3)
+-    faddp st(1),st
+-    fld st(3)
+-    fmul st,st(4)
+-    faddp st(1),st
+-    fsqrt
+-    fstp st(3)
+-    fstp st(0)
+-    fstp st(0)
+-    fst dword ptr [esp+8]
+-    fcomp st(1)
+-    fnstsw ax
+-    test ah,5
+-    jp L0069B21B
+-    fstp st(0)
+-    mov edi,ecx
+-    fld dword ptr [esp+8]
+-    L0069B21B: inc ecx
+-    add edx,0Ch
+-    cmp ecx,esi
+-    jl L0069B1D0
+-    L0069B223: mov eax,dword ptr [esp+1Ch]
+-    fadd dword ptr [eax]
+-    fstp dword ptr [eax]
+-    mov eax,edi
+-    pop edi
+-    pop esi
+-    pop ecx
+-    ret
+-    }
+-}
++namespace {
++// Requires MSVC x86 /O2 /Oi /arch:IA32 /fp:fast codegen verified before admission.
++// A volatile double store preserves PC24 x87 results without restricting
++// the exponent range to binary32 between arithmetic operations.
++__declspec(noinline) double FormationCppExtendedAdd(double a, double b) {
++    volatile double out = a + b;
++    return out;
++}
++__declspec(noinline) double FormationCppExtendedSubtract(double a, double b) {
++    volatile double out = a - b;
++    return out;
++}
++__declspec(noinline) double FormationCppExtendedMultiply(double a, double b) {
++    volatile double out = a * b;
++    return out;
++}
++#pragma intrinsic(sqrt)
++__declspec(noinline) double FormationCppIntrinsicRoot(double input) {
++    return ::sqrt(input);
++}
++}
++
++int32 CFormation::FindNearestFreeDestination(CVector origin, float* total) {
++    double minimum = 10000000.0;
++    int32 selected = -1;
++    const int32 count = std::bit_cast<int32>(m_Destinations.m_Count);
++    for (int32 i = 0; i < count; ++i) {
++        if (m_Destinations.m_PointHasBeenClaimed[i]) continue;
++        const auto point = m_Destinations.m_Points[size_t(i)];
++        const double deltaX = FormationCppExtendedSubtract(double(point.x), double(origin.x));
++        const double deltaY = FormationCppExtendedSubtract(double(point.y), double(origin.y));
++        const double deltaZ = FormationCppExtendedSubtract(double(point.z), double(origin.z));
++        const double squareZ = FormationCppExtendedMultiply(deltaZ, deltaZ);
++        const double squareY = FormationCppExtendedMultiply(deltaY, deltaY);
++        const double squareZY = FormationCppExtendedAdd(squareZ, squareY);
++        const double squareX = FormationCppExtendedMultiply(deltaX, deltaX);
++        const double squared = FormationCppExtendedAdd(squareZY, squareX);
++        const double extendedDistance = FormationCppIntrinsicRoot(squared);
++        volatile float roundedDistance = static_cast<float>(extendedDistance);
++        if (extendedDistance < minimum) {
++            minimum = double(roundedDistance);
++            selected = i;
++        }
++    }
++    const double extendedTotal = FormationCppExtendedAdd(minimum, double(*total));
++    *total = static_cast<float>(extendedTotal);
++    return selected;
++}
++

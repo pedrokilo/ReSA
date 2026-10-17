@@ -1,0 +1,3 @@
+APROBADO: DependenciesPathOrientation14
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciespathorientation14\20261015-193141-979340

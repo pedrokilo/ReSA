@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113EA370: 55                 push        ebp
+  113EA371: 8B EC              mov         ebp,esp
+  113EA373: 81 EC CC 00 00 00  sub         esp,0CCh
+  113EA379: 53                 push        ebx
+  113EA37A: 56                 push        esi
+  113EA37B: 57                 push        edi
+  113EA37C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113EA37F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113EA382: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  113EA385: 8B 11              mov         edx,dword ptr [ecx]
+  113EA387: 89 10              mov         dword ptr [eax],edx
+  113EA389: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  113EA38C: 5F                 pop         edi
+  113EA38D: 5E                 pop         esi
+  113EA38E: 5B                 pop         ebx
+  113EA38F: 8B E5              mov         esp,ebp
+  113EA391: 5D                 pop         ebp
+  113EA392: C2 08 00           ret         8
+  113EA395: CC                 int         3
+  113EA396: CC                 int         3
+  113EA397: CC                 int         3
+  113EA398: CC                 int         3
+  113EA399: CC                 int         3
+  113EA39A: CC                 int         3
+  113EA39B: CC                 int         3
+  113EA39C: CC                 int         3
+  113EA39D: CC                 int         3
+  113EA39E: CC                 int         3
+  113EA39F: CC                 int         3
+  113EA3A0: 55                 push        ebp
+  113EA3A1: 8B EC              mov         ebp,esp
+  113EA3A3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113EA3A9: 53                 push        ebx
+  113EA3AA: 56                 push        esi
+  113EA3AB: 57                 push        edi
+  113EA3AC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113EA3AF: 8B
+  113EA3B0: 45                 inc         ebp
+
+  Summary
+
+     21DB000 .text

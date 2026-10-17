@@ -1,0 +1,83 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11439B70: 55                 push        ebp
+  11439B71: 8B EC              mov         ebp,esp
+  11439B73: 81 EC 08 01 00 00  sub         esp,108h
+  11439B79: 53                 push        ebx
+  11439B7A: 56                 push        esi
+  11439B7B: 57                 push        edi
+  11439B7C: 51                 push        ecx
+  11439B7D: 8D 7D B8           lea         edi,[ebp-48h]
+  11439B80: B9 12 00 00 00     mov         ecx,12h
+  11439B85: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11439B8A: F3 AB              rep stos    dword ptr es:[edi]
+  11439B8C: 59                 pop         ecx
+  11439B8D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11439B90: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11439B93: E8 2A 77 C6 FF     call        110A12C2
+  11439B98: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11439B9B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11439B9E: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  11439BA1: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11439BA4: 83 C0 04           add         eax,4
+  11439BA7: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  11439BAA: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11439BAD: 83 C0 08           add         eax,8
+  11439BB0: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  11439BB3: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11439BB6: 83 C0 0C           add         eax,0Ch
+  11439BB9: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  11439BBC: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  11439BBF: E8 A7 37 C6 FF     call        1109D36B
+  11439BC4: 90                 nop
+  11439BC5: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11439BC8: 83 38 00           cmp         dword ptr [eax],0
+  11439BCB: 74 50              je          11439C1D
+  11439BCD: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11439BD0: 50                 push        eax
+  11439BD1: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  11439BD4: 8B 11              mov         edx,dword ptr [ecx]
+  11439BD6: 52                 push        edx
+  11439BD7: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11439BDA: 8B 08              mov         ecx,dword ptr [eax]
+  11439BDC: 51                 push        ecx
+  11439BDD: E8 9F 1C C6 FF     call        1109B881
+  11439BE2: 83 C4 0C           add         esp,0Ch
+  11439BE5: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  11439BE8: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  11439BEB: 8B 10              mov         edx,dword ptr [eax]
+  11439BED: 2B 11              sub         edx,dword ptr [ecx]
+  11439BEF: C1 FA 02           sar         edx,2
+  11439BF2: 52                 push        edx
+  11439BF3: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11439BF6: 8B 08              mov         ecx,dword ptr [eax]
+  11439BF8: 51                 push        ecx
+  11439BF9: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11439BFC: E8 EF 41 C8 FF     call        110BDDF0
+  11439C01: 90                 nop
+  11439C02: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11439C05: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  11439C0B: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  11439C0E: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  11439C14: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  11439C17: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  11439C1D: 5F                 pop         edi
+  11439C1E: 5E                 pop         esi
+  11439C1F: 5B                 pop         ebx
+  11439C20: 81 C4 08 01 00 00  add         esp,108h
+  11439C26: 3B EC              cmp         ebp,esp
+  11439C28: E8 5F 9E C5 FF     call        11093A8C
+  11439C2D: 8B E5              mov         esp,ebp
+  11439C2F: 5D                 pop         ebp
+  11439C30: C3                 ret
+  11439C31: CC                 int         3
+
+  Summary
+
+     21DB000 .text

@@ -1,0 +1,16 @@
+// 0x632140: whole EAX result, readonly hour/weather, no original GAME delegation.
+int32 CanSunbathe() {
+    const uint8 hour = *reinterpret_cast<volatile const uint8*>(0xB70153);
+    if (hour < 10 || hour >= 18) {
+        return 0;
+    }
+    const int16 weather = *reinterpret_cast<volatile const int16*>(0xC8131C);
+    switch (weather) {
+    case 0: case 1: case 2: case 3:
+    case 5: case 6: case 10: case 11:
+    case 13: case 14: case 17: case 18:
+        return 1;
+    default:
+        return 0;
+    }
+}

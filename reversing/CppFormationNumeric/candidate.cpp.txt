@@ -1,0 +1,65 @@
+namespace {
+// Integer square root, no CRT/game sqrt delegation. For finite binary32 input,
+// q is floor(sqrt(rad)); rad > q*q+q decides the correctly rounded root.
+float FormationCppSqrt24(float input) {
+    const uint32 bits = std::bit_cast<uint32>(input);
+    const uint32 fraction = bits & 0x7FFFFFu;
+    const uint32 exponent = (bits >> 23) & 0xFFu;
+    if ((bits & 0x7FFFFFFFu) == 0) return input;
+    if (exponent == 0xFFu) {
+        if (fraction) return std::bit_cast<float>(bits | 0x00400000u);
+        return bits >> 31 ? std::bit_cast<float>(0xFFC00000u) : input;
+    }
+    if (bits >> 31) return std::bit_cast<float>(0xFFC00000u);
+    uint32 mantissa = fraction;
+    int32 power = -126;
+    if (exponent) { mantissa |= 0x800000u; power = int32(exponent) - 127; }
+    else while (mantissa < 0x800000u) { mantissa <<= 1; --power; }
+    const int32 rootPower = power >= 0 ? power / 2 : -((-power + 1) / 2);
+    const uint32 parity = uint32(power - 2 * rootPower);
+    const uint64 rad = uint64(mantissa) << (23u + parity);
+    uint64 remainder = rad, root = 0, step = uint64(1) << 62;
+    while (step > remainder) step >>= 2;
+    while (step) {
+        if (remainder >= root + step) {
+            remainder -= root + step;
+            root = (root >> 1) + step;
+        } else root >>= 1;
+        step >>= 2;
+    }
+    if (rad > root * root + root) ++root;
+    int32 outputPower = rootPower;
+    if (root == 0x1000000u) { root >>= 1; ++outputPower; }
+    return std::bit_cast<float>((uint32(outputPower + 127) << 23) | (uint32(root) & 0x7FFFFFu));
+}
+float FormationCppAdd24(float a, float b) { volatile float out = a + b; return out; }
+float FormationCppSub24(float a, float b) { volatile float out = a - b; return out; }
+float FormationCppMul24(float a, float b) { volatile float out = a * b; return out; }
+}
+
+// 0x69B1B0. PC24/RCnearest, bounded finite corpus; other x87 modes not certified.
+int32 CFormation::FindNearestFreeDestination(CVector origin, float* total) {
+    float minimum = 10000000.0f; // Exact EXE float at 0x86D270.
+    int32 selected = -1;
+    const int32 count = std::bit_cast<int32>(m_Destinations.m_Count);
+    for (int32 i = 0; i < count; ++i) {
+        if (m_Destinations.m_PointHasBeenClaimed[i]) continue;
+        const auto point = m_Destinations.m_Points[size_t(i)];
+        const float deltaX = FormationCppSub24(point.x, origin.x);
+        const float deltaY = FormationCppSub24(point.y, origin.y);
+        const float deltaZ = FormationCppSub24(point.z, origin.z);
+        const float squareZ = FormationCppMul24(deltaZ, deltaZ);
+        const float squareY = FormationCppMul24(deltaY, deltaY);
+        const float squareX = FormationCppMul24(deltaX, deltaX);
+        const float squareZY = FormationCppAdd24(squareZ, squareY);
+        const float squared = FormationCppAdd24(squareZY, squareX);
+        const float distance = FormationCppSqrt24(squared);
+        // Native test AH,5 / JP rejects greater, equal and unordered values.
+        if (distance < minimum) {
+            minimum = distance;
+            selected = i;
+        }
+    }
+    *total = FormationCppAdd24(minimum, *total);
+    return selected;
+}

@@ -1,0 +1,51 @@
+--- a/source/game_sa/PathFind.cpp
++++ b/source/game_sa/PathFind.cpp
+@@ -93,6 +93,7 @@
+     RH_ScopedInstall(FindXRegionForCoors, 0x44D890);
+     RH_ScopedInstall(AddInteriorLinkToExternalNode, 0x44DF30);
+     RH_ScopedInstall(AddInteriorLink, 0x44DED0);
++    RH_ScopedInstall(RemoveInteriorLinks, 0x44DF60);
+     RH_ScopedInstall(MarkRegionsForCoors, 0x44DB60);
+     RH_ScopedOverloadedInstall(FindStartPointOfRegion, "", 0x44D930, void(CPathFind::*)(size_t, size_t, float&, float&));
+     RH_ScopedInstall(FindYCoorsForRegion, 0x44D910);
+@@ -1398,6 +1399,40 @@
+     return detail::GetCoorsOfRegion(y, NUM_PATH_MAP_AREA_Y);
+ }
+ 
++// 0x44DF60: clears this node's six slots and signed references in all active rows.
++__declspec(naked) void CPathFind::RemoveInteriorLinks(uint32) {
++    __asm {
++    push edi
++    mov edi,dword ptr ds:[0096EF80h]
++    xor edx,edx
++    test edi,edi
++    jle L0044DF9C
++    push ebx
++    push esi
++    mov esi,dword ptr [esp+10h]
++    mov ecx,96EAC0h
++    L0044DF78: xor eax,eax
++    lea ebx,[ebx]
++    L0044DF7C: cmp edx,esi
++    je L0044DF88
++    movsx ebx,byte ptr [eax+ecx]
++    cmp ebx,esi
++    jne L0044DF8C
++    L0044DF88: mov byte ptr [eax+ecx],0FFh
++    L0044DF8C: inc eax
++    cmp eax,6
++    jl L0044DF7C
++    inc edx
++    add ecx,6
++    cmp edx,edi
++    jl L0044DF78
++    pop esi
++    pop ebx
++    L0044DF9C: pop edi
++    ret 4
++    }
++}
++
+ // 0x44DED0
+ void CPathFind::AddInteriorLink(int32 intNodeA, int32 intNodeB) {
+     const auto AddLink = [](int32 intIdx, int32 linkTo) {

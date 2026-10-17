@@ -1,0 +1,36 @@
+0059A140: push ecx
+0059A141: cmp dword ptr ds:[008D0948h],1
+ 01
+0059A148: push esi
+0059A149: mov esi,ecx
+0059A14B: jle 0059A1A4
+0059A14D: call 00821B1E
+0059A152: and eax,0FFFFh
+0059A157: mov dword ptr [esp+4],eax
+0059A15B: fild dword ptr [esp+4]
+0059A15F: fmul dword ptr ds:[00858B14h]
+0059A165: fmul dword ptr ds:[00858628h]
+0059A16B: call 00821B40
+0059A170: cmp eax,3Ch
+0059A173: jle 0059A1A4
+0059A175: mov eax,dword ptr [esp+14h]
+0059A179: fild dword ptr [esp+10h]
+0059A17D: push 0
+0059A17F: push eax
+0059A180: sub esp,8
+0059A183: fstp dword ptr [esp+4]
+0059A187: mov ecx,esi
+0059A189: fild dword ptr [esp+1Ch]
+0059A18D: fstp dword ptr [esp]
+0059A190: push 8
+0059A192: call 00591E40
+0059A197: xor eax,eax
+0059A199: inc eax
+0059A19A: mov dword ptr ds:[008D0948h],eax
+0059A19F: pop esi
+0059A1A0: pop ecx
+0059A1A1: ret 0Ch
+0059A1A4: inc dword ptr ds:[008D0948h]
+0059A1AA: pop esi
+0059A1AB: pop ecx
+0059A1AC: ret 0Ch

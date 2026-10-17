@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114159F0: 55                 push        ebp
+  114159F1: 8B EC              mov         ebp,esp
+  114159F3: 81 EC CC 00 00 00  sub         esp,0CCh
+  114159F9: 53                 push        ebx
+  114159FA: 56                 push        esi
+  114159FB: 57                 push        edi
+  114159FC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  114159FF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11415A02: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11415A05: 89 08              mov         dword ptr [eax],ecx
+  11415A07: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11415A0A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11415A0D: 89 48 04           mov         dword ptr [eax+4],ecx
+  11415A10: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11415A13: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11415A16: 89 48 08           mov         dword ptr [eax+8],ecx
+  11415A19: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11415A1C: 5F                 pop         edi
+  11415A1D: 5E                 pop         esi
+  11415A1E: 5B                 pop         ebx
+  11415A1F: 8B E5              mov         esp,ebp
+  11415A21: 5D                 pop         ebp
+  11415A22: C2 0C 00           ret         0Ch
+  11415A25: CC                 int         3
+  11415A26: CC                 int         3
+  11415A27: CC                 int         3
+  11415A28: CC                 int         3
+  11415A29: CC                 int         3
+  11415A2A: CC                 int         3
+  11415A2B: CC                 int         3
+  11415A2C: CC                 int         3
+  11415A2D: CC                 int         3
+  11415A2E: CC                 int         3
+  11415A2F: CC                 int         3
+  11415A30: CC                 int         3
+
+  Summary
+
+     21DB000 .text

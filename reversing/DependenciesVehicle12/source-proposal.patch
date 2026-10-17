@@ -1,0 +1,25 @@
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -191,6 +191,7 @@
+     RH_ScopedVirtualClass(CVehicle, 0x871e80, 66);
+     RH_ScopedCategory("Vehicle");
+ 
++    RH_ScopedOverloadedInstall(operator new, "anon", 0x6E2D50, void* (*)(unsigned));
+     RH_ScopedInstall(Constructor, 0x6D5F10);
+     RH_ScopedInstall(Destructor, 0x6E2B40);
+ 
+@@ -547,8 +548,12 @@
+     }
+ }
+ 
+-void* CVehicle::operator new(unsigned size) {
+-    return GetVehiclePool()->New();
++// Como el original: size no se consulta; el pool real usa almacenamiento de 0xA18 bytes.
++// CVehiclePool::New reconstruida se instala separadamente en 0x6E2A50.
++__declspec(naked) void* CVehicle::operator new(unsigned size) {
++    __asm { mov ecx,dword ptr ds:[0B74494h] }
++    __asm { push 06E2A50h }
++    __asm { ret }
+ }
+ 
+ void CVehicle::operator delete(void* data) {

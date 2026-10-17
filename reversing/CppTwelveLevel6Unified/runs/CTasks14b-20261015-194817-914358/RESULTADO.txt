@@ -1,0 +1,3 @@
+APROBADO: Sostener objeto y jetpack (lista de 14)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctasks14b\20261015-194817-914358

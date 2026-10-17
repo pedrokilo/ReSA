@@ -1,0 +1,86 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11438240: 55                 push        ebp
+  11438241: 8B EC              mov         ebp,esp
+  11438243: 6A FF              push        0FFFFFFFFh
+  11438245: 68 4D BB 17 13     push        1317BB4Dh
+  1143824A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  11438250: 50                 push        eax
+  11438251: 81 EC D8 00 00 00  sub         esp,0D8h
+  11438257: 53                 push        ebx
+  11438258: 56                 push        esi
+  11438259: 57                 push        edi
+  1143825A: 51                 push        ecx
+  1143825B: 8D 7D DC           lea         edi,[ebp-24h]
+  1143825E: B9 06 00 00 00     mov         ecx,6
+  11438263: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11438268: F3 AB              rep stos    dword ptr es:[edi]
+  1143826A: 59                 pop         ecx
+  1143826B: A1 C0 D1 89 13     mov         eax,dword ptr ds:[1389D1C0h]
+  11438270: 33 C5              xor         eax,ebp
+  11438272: 50                 push        eax
+  11438273: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11438276: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1143827C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1143827F: 6A 03              push        3
+  11438281: 8D 4D E0           lea         ecx,[ebp-20h]
+  11438284: E8 65 64 C6 FF     call        1109E6EE
+  11438289: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  11438290: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11438293: 50                 push        eax
+  11438294: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11438297: 51                 push        ecx
+  11438298: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1143829B: E8 B7 57 C9 FF     call        110CDA57
+  114382A0: 90                 nop
+  114382A1: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  114382A8: 8D 4D E0           lea         ecx,[ebp-20h]
+  114382AB: E8 E2 15 C6 FF     call        11099892
+  114382B0: 90                 nop
+  114382B1: 52                 push        edx
+  114382B2: 8B CD              mov         ecx,ebp
+  114382B4: 50                 push        eax
+  114382B5: 8D 15 E4 82 43 11  lea         edx,ds:[114382E4h]
+  114382BB: E8 DE 0E C6 FF     call        1109919E
+  114382C0: 58                 pop         eax
+  114382C1: 5A                 pop         edx
+  114382C2: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  114382C5: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  114382CC: 59                 pop         ecx
+  114382CD: 5F                 pop         edi
+  114382CE: 5E                 pop         esi
+  114382CF: 5B                 pop         ebx
+  114382D0: 81 C4 E4 00 00 00  add         esp,0E4h
+  114382D6: 3B EC              cmp         ebp,esp
+  114382D8: E8 AF B7 C5 FF     call        11093A8C
+  114382DD: 8B E5              mov         esp,ebp
+  114382DF: 5D                 pop         ebp
+  114382E0: C2 08 00           ret         8
+  114382E3: 90                 nop
+  114382E4: 01 00              add         dword ptr [eax],eax
+  114382E6: 00 00              add         byte ptr [eax],al
+  114382E8: EC                 in          al,dx
+  114382E9: 82 43 11 E0        add         byte ptr [ebx+11h],0E0h
+  114382ED: FF
+  114382EE: FF
+  114382EF: FF 04 00           inc         dword ptr [eax+eax]
+  114382F2: 00 00              add         byte ptr [eax],al
+  114382F4: F8                 clc
+  114382F5: 82 43 11 5F        add         byte ptr [ebx+11h],5Fh
+  114382F9: 4C                 dec         esp
+  114382FA: 6F                 outs        dx,dword ptr [esi]
+  114382FB: 63 6B 00           arpl        word ptr [ebx],bp
+  114382FE: CC                 int         3
+
+  Summary
+
+     21DB000 .text

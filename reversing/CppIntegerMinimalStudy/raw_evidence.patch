@@ -1,0 +1,52 @@
+--- a/reversing/CppIntegerWorld4/LiveComparison.hpp
++++ b/reversing/CppIntegerWorld4/LiveComparison.hpp
+@@ -12,9 +12,9 @@
+ };
+ inline bool done{};inline std::ofstream log;
+ inline void Write(const json& r){ReversingProbe::PumpMessages();log<<r.dump()<<'\n';log.flush();}
+-struct Result {uint32 eax,ecx,edx,flagsBefore,flagsAfter;bool abi;};
++struct Result {uint32 eax,ecx,edx,flagsBefore,flagsAfter,argAfter;bool abi;};
+ __declspec(noinline) inline Result Call(uintptr_t entry,uintptr_t arg,uint32 seed){
+-    uint32 resultA{},resultC{},resultD{},before{},after{},b{},s{},d{},frameBefore{},frameAfter{},flagsBefore{},flagsAfter{};
++    uint32 resultA{},resultC{},resultD{},before{},after{},b{},s{},d{},frameBefore{},frameAfter{},flagsBefore{},flagsAfter{},argAfter{};
+     __asm {
+         push ebx
+         push esi
+@@ -34,6 +34,8 @@
+         call entry
+         pushfd
+         pop flagsAfter
++        push dword ptr [esp]
++        pop argAfter
+         add esp,4
+         mov resultA,eax
+         mov resultC,ecx
+@@ -47,7 +49,7 @@
+         pop esi
+         pop ebx
+     }
+-    return {resultA,resultC,resultD,flagsBefore,flagsAfter,before==after&&frameBefore==frameAfter&&b==0x13579BDF&&s==0x2468ACE0&&d==0x10293847};
++    return {resultA,resultC,resultD,flagsBefore,flagsAfter,argAfter,before==after&&frameBefore==frameAfter&&b==0x13579BDF&&s==0x2468ACE0&&d==0x10293847};
+ }
+ inline uint16 Top(){uint16 v{};__asm {fnstsw v}return v&0x3800;}
+ inline void SaveFP(void* p){__asm {mov eax,p} __asm {fnsave [eax]} __asm {frstor [eax]}}
+@@ -111,7 +113,7 @@
+                 json value={{"eax",result.eax},{"ecx",result.ecx},{"edx",result.edx},{"route_ok",routeOk},{"stack_restored",result.abi},{"registers_preserved",result.abi},{"fp_preserved",Top()==topBefore&&(_controlfp(0,0)&(_MCW_PC|_MCW_RC))==(_PC_24|_RC_NEAR)},{"helper_route_ok",helperRouteOk}};
+                 value["fixture_unchanged"]=globalsBefore==ReversingProbe::Bytes(&CGarages::aGarages,sizeof(CGarages::aGarages))&&countBefore==CGarages::NumGarages&&objectBefore==object&&matrixBefore==matrix;
+                 if(index){value["return_index"]=int16(result.eax);value["return_range_ok"]=int16(result.eax)>=-1&&int16(result.eax)<countBefore;value["counter"]=countBefore;value["matrix_position"]=bool(scenario&1);value["guards_ok"]=object.front()==0xFEEDFACE&&object.back()==0xBAD0C0DE&&matrix.front()==0x13579BDF&&matrix.back()==0x2468ACE0;}
+-                else{value["flags_before"]=result.flagsBefore&0xCD5u;value["flags_after"]=result.flagsAfter&0xCD5u;value["flags_preserved"]=value["flags_before"]==value["flags_after"];auto expected=toggleBefore;expected[8]=uint8(scenario&1);value["buffering_bytes"]=ReversingProbe::Bytes(reinterpret_cast<void*>(0x8D607C),17);value["setter_exact_ok"]=expected==value["buffering_bytes"].get<std::vector<uint8>>()&&result.eax==((seed&0xFFFFFF00u)|uint32(scenario&1))&&result.ecx==0x41315926&&result.edx==0x81928374&&result.flagsBefore==result.flagsAfter;value["guards_ok"]=expected==value["buffering_bytes"].get<std::vector<uint8>>();}
++                else{value["eax_seed"]=seed;value["argument_before"]=uint32(scenario&1);value["argument_after"]=result.argAfter;value["buffering_before"]=toggleBefore;value["flags_before"]=result.flagsBefore&0xCD5u;value["flags_after"]=result.flagsAfter&0xCD5u;value["flags_preserved"]=value["flags_before"]==value["flags_after"];auto expected=toggleBefore;expected[8]=uint8(scenario&1);value["buffering_bytes"]=ReversingProbe::Bytes(reinterpret_cast<void*>(0x8D607C),17);value["setter_exact_ok"]=expected==value["buffering_bytes"].get<std::vector<uint8>>()&&result.eax==((seed&0xFFFFFF00u)|uint32(scenario&1))&&result.ecx==0x41315926&&result.edx==0x81928374&&result.argAfter==uint32(scenario&1)&&result.flagsBefore==result.flagsAfter;value["guards_ok"]=expected==value["buffering_bytes"].get<std::vector<uint8>>();}
+                 restore();return value;
+             };
+             const auto original=run(false),candidate=run(true);bool equal=registered&&original==candidate;
+--- a/reversing/CppIntegerWorld10/LiveComparison.hpp
++++ b/reversing/CppIntegerWorld10/LiveComparison.hpp
+@@ -129,7 +129,7 @@
+  bool allSeeds=true;uint32 constantFailures=0;
+  const uint32 seeds[]{0,0xFF,0x13579BDF,0x2468ACE0,0xFFFFFFFF,0x80000000,0x01020304,0x7FFFFFFF};
+  for(int scenario=0;scenario<2048;++scenario){auto* v=vehicles[uint32(scenario/8)%vehicles.size()];const auto entityBefore=ReversingProbe::Bytes(v,sizeof(CVehicle));const auto& pos=v->GetPosition();const uint32 x=std::bit_cast<uint32>(pos.x),y=std::bit_cast<uint32>(pos.y),seed=seeds[scenario%8];
+-  auto run=[&](bool candidate){RestoreCanonical();bool routeOK=false;const auto r=constant.Invoke(candidate,[&]{routeOK=ReversingProbe::JumpsToDll(0x424100)==candidate;if(candidate)routeOK&=Resolve(0x424100)==constant.Body()&&ProbeModule(constant.Body());return CallConstant(0x424100,x,y,seed);});const bool contract=r.eax==(seed&0xFFFFFF00u)&&r.xAfter==x&&r.yAfter==y&&r.ecxAfter==0x41315926&&r.edxAfter==0x81928374&&(r.flagsAfter&0x8C5u)==0x44u&&(r.flagsBefore&0x400u)==(r.flagsAfter&0x400u);const bool ro=readonly()&&entityBefore==ReversingProbe::Bytes(v,sizeof(CVehicle));RestoreCanonical();json value={{"return_bits",r.eax},{"al",r.eax&255},{"eax_seed",seed},{"ecx_after",r.ecxAfter},{"edx_after",r.edxAfter},{"flags_after",r.flagsAfter&0xCC5u},{"x_bits",x},{"y_bits",y},{"x_after",r.xAfter},{"y_after",r.yAfter},{"route_ok",routeOK},{"helper_route_ok",true},{"stack_restored",r.abi},{"registers_preserved",r.abi},{"contract_ok",contract},{"readonly_ok",ro},{"guards_ok",r.xAfter==x&&r.yAfter==y},{"fp_state_restored",CanonicalRestored()}};RestoreCanonical();return value;};
++  auto run=[&](bool candidate){RestoreCanonical();bool routeOK=false;const auto r=constant.Invoke(candidate,[&]{routeOK=ReversingProbe::JumpsToDll(0x424100)==candidate;if(candidate)routeOK&=Resolve(0x424100)==constant.Body()&&ProbeModule(constant.Body());return CallConstant(0x424100,x,y,seed);});const bool contract=r.eax==(seed&0xFFFFFF00u)&&r.xAfter==x&&r.yAfter==y&&r.ecxAfter==0x41315926&&r.edxAfter==0x81928374&&(r.flagsAfter&0x8C5u)==0x44u&&(r.flagsBefore&0x400u)==(r.flagsAfter&0x400u);const bool ro=readonly()&&entityBefore==ReversingProbe::Bytes(v,sizeof(CVehicle));RestoreCanonical();json value={{"return_bits",r.eax},{"al",r.eax&255},{"eax_seed",seed},{"ecx_after",r.ecxAfter},{"edx_after",r.edxAfter},{"flags_after",r.flagsAfter&0xCC5u},{"flags_before",r.flagsBefore&0xCC5u},{"x_bits",x},{"y_bits",y},{"x_after",r.xAfter},{"y_after",r.yAfter},{"route_ok",routeOK},{"helper_route_ok",true},{"stack_restored",r.abi},{"registers_preserved",r.abi},{"contract_ok",contract},{"readonly_ok",ro},{"guards_ok",r.xAfter==x&&r.yAfter==y},{"fp_state_restored",CanonicalRestored()}};RestoreCanonical();return value;};
+   const auto original=run(false),candidate=run(true);bool equal=constant.Registered()&&original==candidate;for(auto k:{"route_ok","helper_route_ok","stack_restored","registers_preserved","contract_ok","readonly_ok","guards_ok","fp_state_restored"})equal&=original[k]==true;passed&=equal;constantFailures+=!equal;allSeeds&=original["contract_ok"]==true;Write({{"event","comparison"},{"pair",2048+scenario},{"case",scenario},{"function","CCarCtrl::Native_00424100"},{"original",original},{"candidate",candidate},{"equal",equal},{"accepted",equal}});
+  }
+  Write({{"event","function_summary"},{"function","CCarCtrl::Native_00424100"},{"cases",2048},{"failures",constantFailures},{"complete_paths",allSeeds}});

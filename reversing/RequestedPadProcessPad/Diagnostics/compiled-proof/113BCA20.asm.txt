@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113BCA20: 55                 push        ebp
+  113BCA21: 8B EC              mov         ebp,esp
+  113BCA23: 81 EC C0 00 00 00  sub         esp,0C0h
+  113BCA29: 53                 push        ebx
+  113BCA2A: 56                 push        esi
+  113BCA2B: 57                 push        edi
+  113BCA2C: 69 45 08 34 01 00  imul        eax,dword ptr [ebp+8],134h
+            00
+  113BCA33: 03 05 04 7F 8B 13  add         eax,dword ptr ds:[138B7F04h]
+  113BCA39: 5F                 pop         edi
+  113BCA3A: 5E                 pop         esi
+  113BCA3B: 5B                 pop         ebx
+  113BCA3C: 8B E5              mov         esp,ebp
+  113BCA3E: 5D                 pop         ebp
+  113BCA3F: C3                 ret
+  113BCA40: CC                 int         3
+  113BCA41: CC                 int         3
+  113BCA42: CC                 int         3
+  113BCA43: CC                 int         3
+  113BCA44: CC                 int         3
+  113BCA45: CC                 int         3
+  113BCA46: CC                 int         3
+  113BCA47: CC                 int         3
+  113BCA48: CC                 int         3
+  113BCA49: CC                 int         3
+  113BCA4A: CC                 int         3
+  113BCA4B: CC                 int         3
+  113BCA4C: CC                 int         3
+  113BCA4D: CC                 int         3
+  113BCA4E: CC                 int         3
+  113BCA4F: CC                 int         3
+  113BCA50: 55                 push        ebp
+  113BCA51: 8B EC              mov         ebp,esp
+  113BCA53: 81 EC C0 00 00 00  sub         esp,0C0h
+  113BCA59: 53                 push        ebx
+  113BCA5A: 56                 push        esi
+  113BCA5B: 57                 push        edi
+  113BCA5C: A1 74 82 8B 13     mov         eax,dword ptr ds:[138B8274h]
+
+  Summary
+
+     21DB000 .text

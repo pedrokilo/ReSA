@@ -1,0 +1,55 @@
+--- a/source/game_sa/RwHelper.cpp
++++ b/source/game_sa/RwHelper.cpp
+@@ -36,7 +36,7 @@
+     RH_ScopedGlobalInstall(GetFirstChild, 0x734900);
+     RH_ScopedGlobalInstall(SkinAtomicGetHAnimHierarchCB, 0x734A20);
+     RH_ScopedGlobalInstall(GetAnimHierarchyFromSkinClump, 0x734A40);
+-    // RH_ScopedGlobalInstall(GetAnimHierarchyFromFrame, 0x734AB0);
++    RH_ScopedGlobalInstall(GetAnimHierarchyFromFrame, 0x734AB0);
+     RH_ScopedGlobalInstall(GetAnimHierarchyFromClump, 0x734B10);
+     RH_ScopedGlobalInstall(AtomicRemoveAnimFromSkinCB, 0x734B90);
+     RH_ScopedGlobalInstall(RpAtomicConvertGeometryToTL, 0x734BE0);
+@@ -144,9 +144,40 @@
+ }
+ 
+ // 0x734AB0
+-RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame* frame) {
+-    assert(frame);
+-    return ((RpHAnimHierarchy * (__cdecl*)(RwFrame*))0x734AB0)(frame);
++static uintptr_t FrameHierarchyGetterBody=0x7C5160,FrameChildrenWalkerBody=0x7F0DC0;
++__declspec(naked) RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame*) {
++    __asm {
++    push ecx
++    push esi
++    mov esi,dword ptr [esp+0Ch]
++    push esi
++    mov dword ptr [esp+8],0
++    call dword ptr [FrameHierarchyGetterBody]
++    add esp,4
++    test eax,eax
++    jne L00734AE4
++    lea eax,[esp+4]
++    push eax
++    push 734A70h
++    push esi
++    call dword ptr [FrameChildrenWalkerBody]
++    mov eax,dword ptr [esp+10h]
++    add esp,0Ch
++    jmp L00734AE8
++    L00734AE4: mov dword ptr [esp+4],eax
++    L00734AE8: test eax,eax
++    jne L00734B03
++    lea ecx,[esp+4]
++    push ecx
++    push 734A70h
++    push esi
++    call dword ptr [FrameChildrenWalkerBody]
++    mov eax,dword ptr [esp+10h]
++    add esp,0Ch
++    L00734B03: pop esi
++    pop ecx
++    ret
++    }
+ }
+ 
+ // 0x734B10

@@ -1,0 +1,3 @@
+FALLO: CVehicle grupo C (mejoras, atomics, remaps y componentes)
+Error dentro de GTA; consultar comparisons.jsonl.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cvehc\20261016-020036-166904

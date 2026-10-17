@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1142C010: 55                 push        ebp
+  1142C011: 8B EC              mov         ebp,esp
+  1142C013: 81 EC CC 00 00 00  sub         esp,0CCh
+  1142C019: 53                 push        ebx
+  1142C01A: 56                 push        esi
+  1142C01B: 57                 push        edi
+  1142C01C: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1142C01F: B9 03 00 00 00     mov         ecx,3
+  1142C024: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1142C029: F3 AB              rep stos    dword ptr es:[edi]
+  1142C02B: C7 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],0
+            00 00 00 00
+  1142C035: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1142C038: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1142C03B: 51                 push        ecx
+  1142C03C: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  1142C03F: 8B 02              mov         eax,dword ptr [edx]
+  1142C041: 50                 push        eax
+  1142C042: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1142C045: 51                 push        ecx
+  1142C046: E8 63 84 C7 FF     call        110A44AE
+  1142C04B: 83 C4 0C           add         esp,0Ch
+  1142C04E: 8B 95 38 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF38h]
+  1142C054: 83 CA 01           or          edx,1
+  1142C057: 89 95 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],edx
+  1142C05D: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1142C060: 5F                 pop         edi
+  1142C061: 5E                 pop         esi
+  1142C062: 5B                 pop         ebx
+  1142C063: 81 C4 CC 00 00 00  add         esp,0CCh
+  1142C069: 3B EC              cmp         ebp,esp
+  1142C06B: E8 1C 7A C6 FF     call        11093A8C
+  1142C070: 8B E5              mov         esp,ebp
+  1142C072: 5D                 pop         ebp
+  1142C073: C3                 ret
+  1142C074: CC                 int         3
+
+  Summary
+
+     21DB000 .text

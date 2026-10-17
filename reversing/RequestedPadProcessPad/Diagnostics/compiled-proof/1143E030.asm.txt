@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1143E030: 55                 push        ebp
+  1143E031: 8B EC              mov         ebp,esp
+  1143E033: 81 EC CC 00 00 00  sub         esp,0CCh
+  1143E039: 53                 push        ebx
+  1143E03A: 56                 push        esi
+  1143E03B: 57                 push        edi
+  1143E03C: 51                 push        ecx
+  1143E03D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1143E040: B9 03 00 00 00     mov         ecx,3
+  1143E045: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1143E04A: F3 AB              rep stos    dword ptr es:[edi]
+  1143E04C: 59                 pop         ecx
+  1143E04D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1143E050: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  1143E054: 75 33              jne         1143E089
+  1143E056: 83 7D 0C 00        cmp         dword ptr [ebp+0Ch],0
+  1143E05A: 74 2D              je          1143E089
+  1143E05C: 68 4C 30 27 13     push        1327304Ch
+  1143E061: 68 3C F6 26 13     push        1326F63Ch
+  1143E066: 6A 00              push        0
+  1143E068: 68 DB 03 00 00     push        3DBh
+  1143E06D: 68 40 F6 26 13     push        1326F640h
+  1143E072: 6A 02              push        2
+  1143E074: E8 25 50 C7 FF     call        110B309E
+  1143E079: 83 C4 18           add         esp,18h
+  1143E07C: 83 F8 01           cmp         eax,1
+  1143E07F: 75 01              jne         1143E082
+  1143E081: CC                 int         3
+  1143E082: B9 05 00 00 00     mov         ecx,5
+  1143E087: CD 29              int         29h
+  1143E089: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1143E08C: C1 E0 02           shl         eax,2
+  1143E08F: 50                 push        eax
+  1143E090: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1143E093: 51                 push        ecx
+  1143E094: E8 E2 0B CA FF     call        110DEC7B
+  1143E099: 83 C4 08           add         esp,8
+  1143E09C: 5F                 pop         edi
+  1143E09D: 5E                 pop         esi
+  1143E09E: 5B                 pop         ebx
+  1143E09F: 81 C4 CC 00 00 00  add         esp,0CCh
+  1143E0A5: 3B EC              cmp         ebp,esp
+  1143E0A7: E8 E0 59 C5 FF     call        11093A8C
+  1143E0AC: 8B E5              mov         esp,ebp
+  1143E0AE: 5D                 pop         ebp
+  1143E0AF: C2 08 00           ret         8
+  1143E0B2: CC                 int         3
+
+  Summary
+
+     21DB000 .text

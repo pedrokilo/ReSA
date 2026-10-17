@@ -1,0 +1,3 @@
+FALLO: PathFinal3 (CPathFind: 54 funciones pendientes, banco simple)
+Funciones con diferencias: CPathFind::LoadPathFindData-Area: 512/512; CPathFind::LoadPathFindData-FromStream: 512/512
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pathfinal3\20261015-190708-415270

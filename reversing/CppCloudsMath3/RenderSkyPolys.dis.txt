@@ -1,0 +1,1057 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00714650: A1 3C F0 B6 00     mov         eax,dword ptr ds:[00B6F03Ch]
+  00714655: 83 EC 64           sub         esp,64h
+  00714658: 53                 push        ebx
+  00714659: 55                 push        ebp
+  0071465A: 56                 push        esi
+  0071465B: 33 F6              xor         esi,esi
+  0071465D: 3B C6              cmp         eax,esi
+  0071465F: 57                 push        edi
+  00714660: 74 19              je          0071467B
+  00714662: 83 C0 10           add         eax,10h
+  00714665: 8B 08              mov         ecx,dword ptr [eax]
+  00714667: 89 4C 24 2C        mov         dword ptr [esp+2Ch],ecx
+  0071466B: 8B 50 04           mov         edx,dword ptr [eax+4]
+  0071466E: 89 54 24 30        mov         dword ptr [esp+30h],edx
+  00714672: 8B 40 08           mov         eax,dword ptr [eax+8]
+  00714675: 89 44 24 34        mov         dword ptr [esp+34h],eax
+  00714679: EB 1A              jmp         00714695
+  0071467B: D9 05 38 F0 B6 00  fld         dword ptr ds:[00B6F038h]
+  00714681: D9 FE              fsin
+  00714683: D9 E0              fchs
+  00714685: D9 5C 24 2C        fstp        dword ptr [esp+2Ch]
+  00714689: D9 05 38 F0 B6 00  fld         dword ptr ds:[00B6F038h]
+  0071468F: D9 FF              fcos
+  00714691: D9 5C 24 30        fstp        dword ptr [esp+30h]
+  00714695: 8D 4C 24 2C        lea         ecx,[esp+2Ch]
+  00714699: C7 44 24 34 00 00  mov         dword ptr [esp+34h],0
+            00 00
+  007146A1: E8 6A 82 E8 FF     call        0059C910
+  007146A6: D9 44 24 2C        fld         dword ptr [esp+2Ch]
+  007146AA: 8B 4C 24 30        mov         ecx,dword ptr [esp+30h]
+  007146AE: D9 E0              fchs
+  007146B0: 89 4C 24 5C        mov         dword ptr [esp+5Ch],ecx
+  007146B4: 8B 0D 3C F0 B6 00  mov         ecx,dword ptr ds:[00B6F03Ch]
+  007146BA: 3B CE              cmp         ecx,esi
+  007146BC: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  007146C0: 8D 41 30           lea         eax,[ecx+30h]
+  007146C3: 75 05              jne         007146CA
+  007146C5: B8 2C F0 B6 00     mov         eax,0B6F02Ch
+  007146CA: 3B CE              cmp         ecx,esi
+  007146CC: 8B 10              mov         edx,dword ptr [eax]
+  007146CE: 89 54 24 20        mov         dword ptr [esp+20h],edx
+  007146D2: 8B 50 04           mov         edx,dword ptr [eax+4]
+  007146D5: 8B 40 08           mov         eax,dword ptr [eax+8]
+  007146D8: 89 44 24 28        mov         dword ptr [esp+28h],eax
+  007146DC: 89 54 24 24        mov         dword ptr [esp+24h],edx
+  007146E0: 8D 41 30           lea         eax,[ecx+30h]
+  007146E3: 75 05              jne         007146EA
+  007146E5: B8 2C F0 B6 00     mov         eax,0B6F02Ch
+  007146EA: D9 40 08           fld         dword ptr [eax+8]
+  007146ED: D8 25 E8 8F 85 00  fsub        dword ptr ds:[00858FE8h]
+  007146F3: D8 0D C4 A5 85 00  fmul        dword ptr ds:[0085A5C4h]
+  007146F9: D9 5C 24 10        fstp        dword ptr [esp+10h]
+  007146FD: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  00714703: D8 5C 24 10        fcomp       dword ptr [esp+10h]
+  00714707: DF E0              fnstsw      ax
+  00714709: F6 C4 05           test        ah,5
+  0071470C: 7A 08              jp          00714716
+  0071470E: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  00714714: EB 1D              jmp         00714733
+  00714716: D9 44 24 10        fld         dword ptr [esp+10h]
+  0071471A: D9 05 50 8B 85 00  fld         dword ptr ds:[00858B50h]
+  00714720: D8 5C 24 10        fcomp       dword ptr [esp+10h]
+  00714724: DF E0              fnstsw      ax
+  00714726: F6 C4 41           test        ah,41h
+  00714729: 75 08              jne         00714733
+  0071472B: DD D8              fstp        st(0)
+  0071472D: D9 05 50 8B 85 00  fld         dword ptr ds:[00858B50h]
+  00714733: D8 15 00 13 C8 00  fcom        dword ptr ds:[00C81300h]
+  00714739: DF E0              fnstsw      ax
+  0071473B: F6 C4 41           test        ah,41h
+  0071473E: 74 08              je          00714748
+  00714740: DD D8              fstp        st(0)
+  00714742: D9 05 00 13 C8 00  fld         dword ptr ds:[00C81300h]
+  00714748: 8B 1D 10 CB B7 00  mov         ebx,dword ptr ds:[00B7CB10h]
+  0071474E: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  00714754: 0F B7 15 CA C4 B7  movzx       edx,word ptr ds:[00B7C4CAh]
+            00
+  0071475B: D8 E1              fsub        st,st(1)
+  0071475D: 0F B6 CB           movzx       ecx,bl
+  00714760: 89 4C 24 14        mov         dword ptr [esp+14h],ecx
+  00714764: DB 44 24 14        fild        dword ptr [esp+14h]
+  00714768: 89 54 24 14        mov         dword ptr [esp+14h],edx
+  0071476C: D8 C9              fmul        st,st(1)
+  0071476E: DB 44 24 14        fild        dword ptr [esp+14h]
+  00714772: D8 CB              fmul        st,st(3)
+  00714774: DE C1              faddp       st(1),st
+  00714776: E8 C5 D3 10 00     call        00821B40
+  0071477B: 0F B7 0D CC C4 B7  movzx       ecx,word ptr ds:[00B7C4CCh]
+            00
+  00714782: 88 44 24 18        mov         byte ptr [esp+18h],al
+  00714786: 0F B6 C7           movzx       eax,bh
+  00714789: 89 44 24 14        mov         dword ptr [esp+14h],eax
+  0071478D: DB 44 24 14        fild        dword ptr [esp+14h]
+  00714791: 89 4C 24 14        mov         dword ptr [esp+14h],ecx
+  00714795: D8 C9              fmul        st,st(1)
+  00714797: DB 44 24 14        fild        dword ptr [esp+14h]
+  0071479B: D8 CB              fmul        st,st(3)
+  0071479D: DE C1              faddp       st(1),st
+  0071479F: E8 9C D3 10 00     call        00821B40
+  007147A4: 0F B6 15 12 CB B7  movzx       edx,byte ptr ds:[00B7CB12h]
+            00
+  007147AB: 89 54 24 14        mov         dword ptr [esp+14h],edx
+  007147AF: 88 44 24 19        mov         byte ptr [esp+19h],al
+  007147B3: 0F B7 05 CE C4 B7  movzx       eax,word ptr ds:[00B7C4CEh]
+            00
+  007147BA: DB 44 24 14        fild        dword ptr [esp+14h]
+  007147BE: 89 44 24 14        mov         dword ptr [esp+14h],eax
+  007147C2: D8 C9              fmul        st,st(1)
+  007147C4: DB 44 24 14        fild        dword ptr [esp+14h]
+  007147C8: D8 CB              fmul        st,st(3)
+  007147CA: DE C1              faddp       st(1),st
+  007147CC: E8 6F D3 10 00     call        00821B40
+  007147D1: DD D8              fstp        st(0)
+  007147D3: 8B 0D 24 7B C9 00  mov         ecx,dword ptr ds:[00C97B24h]
+  007147D9: DD D8              fstp        st(0)
+  007147DB: 56                 push        esi
+  007147DC: 6A 01              push        1
+  007147DE: 88 44 24 22        mov         byte ptr [esp+22h],al
+  007147E2: FF 51 20           call        dword ptr [ecx+20h]
+  007147E5: 8B 15 24 7B C9 00  mov         edx,dword ptr ds:[00C97B24h]
+  007147EB: 56                 push        esi
+  007147EC: 6A 06              push        6
+  007147EE: FF 52 20           call        dword ptr [edx+20h]
+  007147F1: A1 24 7B C9 00     mov         eax,dword ptr ds:[00C97B24h]
+  007147F6: 56                 push        esi
+  007147F7: 6A 08              push        8
+  007147F9: FF 50 20           call        dword ptr [eax+20h]
+  007147FC: 8B 0D 24 7B C9 00  mov         ecx,dword ptr ds:[00C97B24h]
+  00714802: 56                 push        esi
+  00714803: 6A 0C              push        0Ch
+  00714805: FF 51 20           call        dword ptr [ecx+20h]
+  00714808: 8B 15 24 7B C9 00  mov         edx,dword ptr ds:[00C97B24h]
+  0071480E: 6A 05              push        5
+  00714810: 6A 0A              push        0Ah
+  00714812: FF 52 20           call        dword ptr [edx+20h]
+  00714815: A1 24 7B C9 00     mov         eax,dword ptr ds:[00C97B24h]
+  0071481A: 6A 06              push        6
+  0071481C: 6A 0B              push        0Bh
+  0071481E: FF 50 20           call        dword ptr [eax+20h]
+  00714821: 8B 0D 24 7B C9 00  mov         ecx,dword ptr ds:[00C97B24h]
+  00714827: 56                 push        esi
+  00714828: 6A 0E              push        0Eh
+  0071482A: FF 51 20           call        dword ptr [ecx+20h]
+  0071482D: 8B 15 24 7B C9 00  mov         edx,dword ptr ds:[00C97B24h]
+  00714833: 6A 01              push        1
+  00714835: 6A 14              push        14h
+  00714837: FF 52 20           call        dword ptr [edx+20h]
+  0071483A: D9 84 24 9C 00 00  fld         dword ptr [esp+0000009Ch]
+            00
+  00714841: D8 0D 94 99 85 00  fmul        dword ptr ds:[00859994h]
+  00714847: 83 C4 40           add         esp,40h
+  0071484A: 89 35 54 B9 C4 00  mov         dword ptr ds:[00C4B954h],esi
+  00714850: 89 35 50 B9 C4 00  mov         dword ptr ds:[00C4B950h],esi
+  00714856: D9 54 24 68        fst         dword ptr [esp+68h]
+  0071485A: D9 44 24 60        fld         dword ptr [esp+60h]
+  0071485E: D8 0D 94 99 85 00  fmul        dword ptr ds:[00859994h]
+  00714864: D9 C0              fld         st(0)
+  00714866: D9 44 24 68        fld         dword ptr [esp+68h]
+  0071486A: D8 44 24 2C        fadd        dword ptr [esp+2Ch]
+  0071486E: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  00714872: D8 44 24 30        fadd        dword ptr [esp+30h]
+  00714876: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  0071487A: D9 44 24 34        fld         dword ptr [esp+34h]
+  0071487E: D9 C0              fld         st(0)
+  00714880: D9 44 24 5C        fld         dword ptr [esp+5Ch]
+  00714884: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  0071488A: D9 44 24 60        fld         dword ptr [esp+60h]
+  0071488E: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714894: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  00714898: D9 C9              fxch        st(1)
+  0071489A: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  007148A0: D9 5C 24 64        fstp        dword ptr [esp+64h]
+  007148A4: D8 44 24 20        fadd        dword ptr [esp+20h]
+  007148A8: D9 5C 24 38        fstp        dword ptr [esp+38h]
+  007148AC: D9 44 24 24        fld         dword ptr [esp+24h]
+  007148B0: D8 44 24 60        fadd        dword ptr [esp+60h]
+  007148B4: D9 5C 24 3C        fstp        dword ptr [esp+3Ch]
+  007148B8: D9 44 24 28        fld         dword ptr [esp+28h]
+  007148BC: D8 44 24 64        fadd        dword ptr [esp+64h]
+  007148C0: D9 5C 24 40        fstp        dword ptr [esp+40h]
+  007148C4: D9 C2              fld         st(2)
+  007148C6: D9 C2              fld         st(2)
+  007148C8: D9 44 24 2C        fld         dword ptr [esp+2Ch]
+  007148CC: D8 E2              fsub        st,st(2)
+  007148CE: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  007148D2: D9 44 24 30        fld         dword ptr [esp+30h]
+  007148D6: D8 E1              fsub        st,st(1)
+  007148D8: DD DA              fstp        st(2)
+  007148DA: DD D8              fstp        st(0)
+  007148DC: D9 44 24 34        fld         dword ptr [esp+34h]
+  007148E0: D9 54 24 10        fst         dword ptr [esp+10h]
+  007148E4: D9 44 24 68        fld         dword ptr [esp+68h]
+  007148E8: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  007148EE: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  007148F2: D9 C9              fxch        st(1)
+  007148F4: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  007148FA: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  007148FE: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714904: D9 44 24 5C        fld         dword ptr [esp+5Ch]
+  00714908: D8 44 24 20        fadd        dword ptr [esp+20h]
+  0071490C: D9 5C 24 44        fstp        dword ptr [esp+44h]
+  00714910: D9 44 24 60        fld         dword ptr [esp+60h]
+  00714914: D8 44 24 24        fadd        dword ptr [esp+24h]
+  00714918: D9 5C 24 48        fstp        dword ptr [esp+48h]
+  0071491C: D8 44 24 28        fadd        dword ptr [esp+28h]
+  00714920: D9 5C 24 4C        fstp        dword ptr [esp+4Ch]
+  00714924: D9 C2              fld         st(2)
+  00714926: D9 C2              fld         st(2)
+  00714928: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  0071492C: D8 44 24 2C        fadd        dword ptr [esp+2Ch]
+  00714930: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  00714934: D8 44 24 30        fadd        dword ptr [esp+30h]
+  00714938: D9 C2              fld         st(2)
+  0071493A: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  0071493E: D9 C9              fxch        st(1)
+  00714940: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  00714944: D9 44 24 70        fld         dword ptr [esp+70h]
+  00714948: D8 05 8C 8B 85 00  fadd        dword ptr ds:[00858B8Ch]
+  0071494E: D9 44 24 5C        fld         dword ptr [esp+5Ch]
+  00714952: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714958: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  0071495C: D9 C9              fxch        st(1)
+  0071495E: 8B 44 24 10        mov         eax,dword ptr [esp+10h]
+  00714962: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714968: 8A 1D CE C4 B7 00  mov         bl,byte ptr ds:[00B7C4CEh]
+  0071496E: 89 44 24 70        mov         dword ptr [esp+70h],eax
+  00714972: 33 C9              xor         ecx,ecx
+  00714974: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  00714978: 33 D2              xor         edx,edx
+  0071497A: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714980: 8A 15 CC C4 B7 00  mov         dl,byte ptr ds:[00B7C4CCh]
+  00714986: D9 44 24 5C        fld         dword ptr [esp+5Ch]
+  0071498A: 33 C0              xor         eax,eax
+  0071498C: D8 44 24 20        fadd        dword ptr [esp+20h]
+  00714990: A0 CA C4 B7 00     mov         al,byte ptr ds:[00B7C4CAh]
+  00714995: 8A CB              mov         cl,bl
+  00714997: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  0071499B: D9 44 24 60        fld         dword ptr [esp+60h]
+  0071499F: D8 44 24 24        fadd        dword ptr [esp+24h]
+  007149A3: D9 5C 24 54        fstp        dword ptr [esp+54h]
+  007149A7: 51                 push        ecx
+  007149A8: D8 44 24 2C        fadd        dword ptr [esp+2Ch]
+  007149AC: 52                 push        edx
+  007149AD: 50                 push        eax
+  007149AE: 33 C9              xor         ecx,ecx
+  007149B0: D9 5C 24 64        fstp        dword ptr [esp+64h]
+  007149B4: 8A 0D C8 C4 B7 00  mov         cl,byte ptr ds:[00B7C4C8h]
+  007149BA: D9 C2              fld         st(2)
+  007149BC: D9 C2              fld         st(2)
+  007149BE: 33 D2              xor         edx,edx
+  007149C0: D9 5C 24 78        fstp        dword ptr [esp+78h]
+  007149C4: 8A 15 C6 C4 B7 00  mov         dl,byte ptr ds:[00B7C4C6h]
+  007149CA: 33 C0              xor         eax,eax
+  007149CC: D8 6C 24 38        fsubr       dword ptr [esp+38h]
+  007149D0: A0 C4 C4 B7 00     mov         al,byte ptr ds:[00B7C4C4h]
+  007149D5: D9 44 24 3C        fld         dword ptr [esp+3Ch]
+  007149D9: D8 64 24 78        fsub        dword ptr [esp+78h]
+  007149DD: D9 C9              fxch        st(1)
+  007149DF: 51                 push        ecx
+  007149E0: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  007149E4: D9 84 24 80 00 00  fld         dword ptr [esp+00000080h]
+            00
+  007149EB: 52                 push        edx
+  007149EC: D8 05 8C 8B 85 00  fadd        dword ptr ds:[00858B8Ch]
+  007149F2: 8B 54 24 4C        mov         edx,dword ptr [esp+4Ch]
+  007149F6: D9 44 24 70        fld         dword ptr [esp+70h]
+  007149FA: 50                 push        eax
+  007149FB: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714A01: 8B 44 24 54        mov         eax,dword ptr [esp+54h]
+  00714A05: 83 EC 0C           sub         esp,0Ch
+  00714A08: 8B CC              mov         ecx,esp
+  00714A0A: D9 9C 24 8C 00 00  fstp        dword ptr [esp+0000008Ch]
+            00
+  00714A11: 89 11              mov         dword ptr [ecx],edx
+  00714A13: 8B 54 24 64        mov         edx,dword ptr [esp+64h]
+  00714A17: D9 C9              fxch        st(1)
+  00714A19: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714A1F: 89 41 04           mov         dword ptr [ecx+4],eax
+  00714A22: 89 51 08           mov         dword ptr [ecx+8],edx
+  00714A25: 8B 4C 24 68        mov         ecx,dword ptr [esp+68h]
+  00714A29: D9 9C 24 90 00 00  fstp        dword ptr [esp+00000090h]
+            00
+  00714A30: 83 EC 0C           sub         esp,0Ch
+  00714A33: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714A39: 8B C4              mov         eax,esp
+  00714A3B: D9 84 24 98 00 00  fld         dword ptr [esp+00000098h]
+            00
+  00714A42: D8 44 24 50        fadd        dword ptr [esp+50h]
+  00714A46: D9 9C 24 8C 00 00  fstp        dword ptr [esp+0000008Ch]
+            00
+  00714A4D: 89 08              mov         dword ptr [eax],ecx
+  00714A4F: D9 84 24 9C 00 00  fld         dword ptr [esp+0000009Ch]
+            00
+  00714A56: D8 44 24 54        fadd        dword ptr [esp+54h]
+  00714A5A: D9 9C 24 90 00 00  fstp        dword ptr [esp+00000090h]
+            00
+  00714A61: D8 44 24 58        fadd        dword ptr [esp+58h]
+  00714A65: D9 9C 24 94 00 00  fstp        dword ptr [esp+00000094h]
+            00
+  00714A6C: 8B 54 24 78        mov         edx,dword ptr [esp+78h]
+  00714A70: 8B 4C 24 7C        mov         ecx,dword ptr [esp+7Ch]
+  00714A74: 89 50 04           mov         dword ptr [eax+4],edx
+  00714A77: 89 48 08           mov         dword ptr [eax+8],ecx
+  00714A7A: 8B 84 24 80 00 00  mov         eax,dword ptr [esp+00000080h]
+            00
+  00714A81: 8B 8C 24 84 00 00  mov         ecx,dword ptr [esp+00000084h]
+            00
+  00714A88: 83 EC 0C           sub         esp,0Ch
+  00714A8B: 8B D4              mov         edx,esp
+  00714A8D: 89 02              mov         dword ptr [edx],eax
+  00714A8F: 8B 84 24 94 00 00  mov         eax,dword ptr [esp+00000094h]
+            00
+  00714A96: 89 4A 04           mov         dword ptr [edx+4],ecx
+  00714A99: 89 42 08           mov         dword ptr [edx+8],eax
+  00714A9C: 8B 94 24 98 00 00  mov         edx,dword ptr [esp+00000098h]
+            00
+  00714AA3: 8B 84 24 9C 00 00  mov         eax,dword ptr [esp+0000009Ch]
+            00
+  00714AAA: 83 EC 0C           sub         esp,0Ch
+  00714AAD: 8B CC              mov         ecx,esp
+  00714AAF: 89 11              mov         dword ptr [ecx],edx
+  00714AB1: 8B 94 24 AC 00 00  mov         edx,dword ptr [esp+000000ACh]
+            00
+  00714AB8: 89 41 04           mov         dword ptr [ecx+4],eax
+  00714ABB: 89 51 08           mov         dword ptr [ecx+8],edx
+  00714ABE: E8 9D E5 FF FF     call        00713060
+  00714AC3: D9 C2              fld         st(2)
+  00714AC5: D9 C2              fld         st(2)
+  00714AC7: 8B 44 24 58        mov         eax,dword ptr [esp+58h]
+  00714ACB: D9 9C 24 B4 00 00  fstp        dword ptr [esp+000000B4h]
+            00
+  00714AD2: 83 C4 48           add         esp,48h
+  00714AD5: D8 44 24 2C        fadd        dword ptr [esp+2Ch]
+  00714AD9: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  00714ADD: D8 44 24 30        fadd        dword ptr [esp+30h]
+  00714AE1: D9 C2              fld         st(2)
+  00714AE3: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  00714AE7: D9 C9              fxch        st(1)
+  00714AE9: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  00714AED: D9 44 24 70        fld         dword ptr [esp+70h]
+  00714AF1: 89 44 24 70        mov         dword ptr [esp+70h],eax
+  00714AF5: D8 25 1C 8B 85 00  fsub        dword ptr ds:[00858B1Ch]
+  00714AFB: D9 44 24 5C        fld         dword ptr [esp+5Ch]
+  00714AFF: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714B05: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  00714B09: D9 C9              fxch        st(1)
+  00714B0B: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714B11: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714B15: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714B1B: D9 44 24 68        fld         dword ptr [esp+68h]
+  00714B1F: D8 44 24 20        fadd        dword ptr [esp+20h]
+  00714B23: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  00714B27: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  00714B2B: D8 44 24 24        fadd        dword ptr [esp+24h]
+  00714B2F: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  00714B33: D8 44 24 28        fadd        dword ptr [esp+28h]
+  00714B37: D9 5C 24 64        fstp        dword ptr [esp+64h]
+  00714B3B: D9 C2              fld         st(2)
+  00714B3D: D9 C2              fld         st(2)
+  00714B3F: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714B43: D8 6C 24 2C        fsubr       dword ptr [esp+2Ch]
+  00714B47: D9 44 24 30        fld         dword ptr [esp+30h]
+  00714B4B: D8 64 24 6C        fsub        dword ptr [esp+6Ch]
+  00714B4F: D9 C9              fxch        st(1)
+  00714B51: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  00714B55: D9 44 24 70        fld         dword ptr [esp+70h]
+  00714B59: D8 25 1C 8B 85 00  fsub        dword ptr ds:[00858B1Ch]
+  00714B5F: D9 44 24 50        fld         dword ptr [esp+50h]
+  00714B63: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714B69: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  00714B6D: D9 C9              fxch        st(1)
+  00714B6F: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714B75: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714B79: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714B7F: D9 44 24 68        fld         dword ptr [esp+68h]
+  00714B83: D8 44 24 20        fadd        dword ptr [esp+20h]
+  00714B87: A0 CC C4 B7 00     mov         al,byte ptr ds:[00B7C4CCh]
+  00714B8C: 33 C9              xor         ecx,ecx
+  00714B8E: 33 D2              xor         edx,edx
+  00714B90: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  00714B94: 8A CB              mov         cl,bl
+  00714B96: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  00714B9A: 8A D0              mov         dl,al
+  00714B9C: D8 44 24 24        fadd        dword ptr [esp+24h]
+  00714BA0: D9 5C 24 54        fstp        dword ptr [esp+54h]
+  00714BA4: D8 44 24 28        fadd        dword ptr [esp+28h]
+  00714BA8: 51                 push        ecx
+  00714BA9: 8A 0D CA C4 B7 00  mov         cl,byte ptr ds:[00B7C4CAh]
+  00714BAF: 52                 push        edx
+  00714BB0: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  00714BB4: D9 C2              fld         st(2)
+  00714BB6: 33 D2              xor         edx,edx
+  00714BB8: D9 C2              fld         st(2)
+  00714BBA: 8A D1              mov         dl,cl
+  00714BBC: D9 C9              fxch        st(1)
+  00714BBE: D8 44 24 34        fadd        dword ptr [esp+34h]
+  00714BC2: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  00714BC6: D8 44 24 38        fadd        dword ptr [esp+38h]
+  00714BCA: 52                 push        edx
+  00714BCB: D9 C1              fld         st(1)
+  00714BCD: 33 D2              xor         edx,edx
+  00714BCF: D9 44 24 74        fld         dword ptr [esp+74h]
+  00714BD3: 8A D3              mov         dl,bl
+  00714BD5: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714BDB: D9 5C 24 74        fstp        dword ptr [esp+74h]
+  00714BDF: D9 C9              fxch        st(1)
+  00714BE1: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714BE7: 52                 push        edx
+  00714BE8: 50                 push        eax
+  00714BE9: D9 9C 24 80 00 00  fstp        dword ptr [esp+00000080h]
+            00
+  00714BF0: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714BF6: D9 44 24 7C        fld         dword ptr [esp+7Ch]
+  00714BFA: D8 44 24 34        fadd        dword ptr [esp+34h]
+  00714BFE: D9 5C 24 58        fstp        dword ptr [esp+58h]
+  00714C02: D9 84 24 80 00 00  fld         dword ptr [esp+00000080h]
+            00
+  00714C09: D8 44 24 38        fadd        dword ptr [esp+38h]
+  00714C0D: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  00714C11: D8 44 24 3C        fadd        dword ptr [esp+3Ch]
+  00714C15: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  00714C19: D9 C2              fld         st(2)
+  00714C1B: D9 C2              fld         st(2)
+  00714C1D: D9 44 24 40        fld         dword ptr [esp+40h]
+  00714C21: D8 E2              fsub        st,st(2)
+  00714C23: D9 5C 24 7C        fstp        dword ptr [esp+7Ch]
+  00714C27: D9 44 24 44        fld         dword ptr [esp+44h]
+  00714C2B: D8 E1              fsub        st,st(1)
+  00714C2D: DD DA              fstp        st(2)
+  00714C2F: DD D8              fstp        st(0)
+  00714C31: D9 44 24 24        fld         dword ptr [esp+24h]
+  00714C35: D9 44 24 7C        fld         dword ptr [esp+7Ch]
+  00714C39: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714C3F: D9 5C 24 7C        fstp        dword ptr [esp+7Ch]
+  00714C43: D9 C9              fxch        st(1)
+  00714C45: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714C4B: D9 9C 24 80 00 00  fstp        dword ptr [esp+00000080h]
+            00
+  00714C52: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714C58: D9 44 24 7C        fld         dword ptr [esp+7Ch]
+  00714C5C: D8 44 24 34        fadd        dword ptr [esp+34h]
+  00714C60: D9 5C 24 4C        fstp        dword ptr [esp+4Ch]
+  00714C64: D9 84 24 80 00 00  fld         dword ptr [esp+00000080h]
+            00
+  00714C6B: D8 44 24 38        fadd        dword ptr [esp+38h]
+  00714C6F: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  00714C73: D8 44 24 3C        fadd        dword ptr [esp+3Ch]
+  00714C77: D9 5C 24 54        fstp        dword ptr [esp+54h]
+  00714C7B: 8B 54 24 74        mov         edx,dword ptr [esp+74h]
+  00714C7F: 51                 push        ecx
+  00714C80: 8B 4C 24 74        mov         ecx,dword ptr [esp+74h]
+  00714C84: 83 EC 0C           sub         esp,0Ch
+  00714C87: 8B C4              mov         eax,esp
+  00714C89: 89 08              mov         dword ptr [eax],ecx
+  00714C8B: 8B 8C 24 88 00 00  mov         ecx,dword ptr [esp+00000088h]
+            00
+  00714C92: 89 50 04           mov         dword ptr [eax+4],edx
+  00714C95: 89 48 08           mov         dword ptr [eax+8],ecx
+  00714C98: 8B 44 24 74        mov         eax,dword ptr [esp+74h]
+  00714C9C: 8B 4C 24 78        mov         ecx,dword ptr [esp+78h]
+  00714CA0: 83 EC 0C           sub         esp,0Ch
+  00714CA3: 8B D4              mov         edx,esp
+  00714CA5: 89 02              mov         dword ptr [edx],eax
+  00714CA7: 8B 84 24 88 00 00  mov         eax,dword ptr [esp+00000088h]
+            00
+  00714CAE: 89 4A 04           mov         dword ptr [edx+4],ecx
+  00714CB1: 89 42 08           mov         dword ptr [edx+8],eax
+  00714CB4: 8B 54 24 74        mov         edx,dword ptr [esp+74h]
+  00714CB8: 8B 44 24 78        mov         eax,dword ptr [esp+78h]
+  00714CBC: 83 EC 0C           sub         esp,0Ch
+  00714CBF: 8B CC              mov         ecx,esp
+  00714CC1: 89 11              mov         dword ptr [ecx],edx
+  00714CC3: 8B 94 24 88 00 00  mov         edx,dword ptr [esp+00000088h]
+            00
+  00714CCA: 89 41 04           mov         dword ptr [ecx+4],eax
+  00714CCD: 89 51 08           mov         dword ptr [ecx+8],edx
+  00714CD0: 8B 4C 24 74        mov         ecx,dword ptr [esp+74h]
+  00714CD4: 8B 54 24 78        mov         edx,dword ptr [esp+78h]
+  00714CD8: 83 EC 0C           sub         esp,0Ch
+  00714CDB: 8B C4              mov         eax,esp
+  00714CDD: 89 08              mov         dword ptr [eax],ecx
+  00714CDF: 8B 8C 24 88 00 00  mov         ecx,dword ptr [esp+00000088h]
+            00
+  00714CE6: 89 50 04           mov         dword ptr [eax+4],edx
+  00714CE9: 89 48 08           mov         dword ptr [eax+8],ecx
+  00714CEC: E8 6F E3 FF FF     call        00713060
+  00714CF1: D9 C2              fld         st(2)
+  00714CF3: D9 C2              fld         st(2)
+  00714CF5: 8B 54 24 58        mov         edx,dword ptr [esp+58h]
+  00714CF9: D9 9C 24 B4 00 00  fstp        dword ptr [esp+000000B4h]
+            00
+  00714D00: 83 C4 48           add         esp,48h
+  00714D03: D8 44 24 2C        fadd        dword ptr [esp+2Ch]
+  00714D07: D9 44 24 30        fld         dword ptr [esp+30h]
+  00714D0B: D8 44 24 6C        fadd        dword ptr [esp+6Ch]
+  00714D0F: D9 C2              fld         st(2)
+  00714D11: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  00714D15: D9 C9              fxch        st(1)
+  00714D17: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  00714D1B: D9 44 24 70        fld         dword ptr [esp+70h]
+  00714D1F: 89 54 24 70        mov         dword ptr [esp+70h],edx
+  00714D23: D8 25 24 8C 85 00  fsub        dword ptr ds:[00858C24h]
+  00714D29: D9 44 24 5C        fld         dword ptr [esp+5Ch]
+  00714D2D: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714D33: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  00714D37: D9 C9              fxch        st(1)
+  00714D39: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714D3F: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714D43: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714D49: D9 44 24 68        fld         dword ptr [esp+68h]
+  00714D4D: D8 44 24 20        fadd        dword ptr [esp+20h]
+  00714D51: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  00714D55: D9 44 24 24        fld         dword ptr [esp+24h]
+  00714D59: D8 44 24 6C        fadd        dword ptr [esp+6Ch]
+  00714D5D: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  00714D61: D9 44 24 28        fld         dword ptr [esp+28h]
+  00714D65: D8 C1              fadd        st,st(1)
+  00714D67: D9 5C 24 64        fstp        dword ptr [esp+64h]
+  00714D6B: DD D8              fstp        st(0)
+  00714D6D: D9 C2              fld         st(2)
+  00714D6F: D9 C2              fld         st(2)
+  00714D71: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714D75: D8 6C 24 2C        fsubr       dword ptr [esp+2Ch]
+  00714D79: D9 44 24 30        fld         dword ptr [esp+30h]
+  00714D7D: D8 64 24 6C        fsub        dword ptr [esp+6Ch]
+  00714D81: D9 C9              fxch        st(1)
+  00714D83: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  00714D87: 8B C2              mov         eax,edx
+  00714D89: D9 44 24 70        fld         dword ptr [esp+70h]
+  00714D8D: D8 25 24 8C 85 00  fsub        dword ptr ds:[00858C24h]
+  00714D93: D9 44 24 50        fld         dword ptr [esp+50h]
+  00714D97: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714D9D: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  00714DA1: D9 C9              fxch        st(1)
+  00714DA3: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714DA9: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714DAD: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714DB3: D9 44 24 68        fld         dword ptr [esp+68h]
+  00714DB7: D8 44 24 20        fadd        dword ptr [esp+20h]
+  00714DBB: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  00714DBF: D9 44 24 24        fld         dword ptr [esp+24h]
+  00714DC3: D8 44 24 6C        fadd        dword ptr [esp+6Ch]
+  00714DC7: D9 5C 24 54        fstp        dword ptr [esp+54h]
+  00714DCB: D9 44 24 28        fld         dword ptr [esp+28h]
+  00714DCF: D8 C1              fadd        st,st(1)
+  00714DD1: D9 5C 24 58        fstp        dword ptr [esp+58h]
+  00714DD5: DD D8              fstp        st(0)
+  00714DD7: D9 C2              fld         st(2)
+  00714DD9: D9 C2              fld         st(2)
+  00714DDB: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714DDF: D8 44 24 2C        fadd        dword ptr [esp+2Ch]
+  00714DE3: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  00714DE7: D8 44 24 30        fadd        dword ptr [esp+30h]
+  00714DEB: D9 C2              fld         st(2)
+  00714DED: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  00714DF1: D9 C9              fxch        st(1)
+  00714DF3: D9 5C 24 44        fstp        dword ptr [esp+44h]
+  00714DF7: D9 44 24 70        fld         dword ptr [esp+70h]
+  00714DFB: 89 44 24 70        mov         dword ptr [esp+70h],eax
+  00714DFF: D8 25 1C 8B 85 00  fsub        dword ptr ds:[00858B1Ch]
+  00714E05: D9 44 24 44        fld         dword ptr [esp+44h]
+  00714E09: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714E0F: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  00714E13: D9 C9              fxch        st(1)
+  00714E15: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714E1B: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714E1F: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714E25: D9 44 24 68        fld         dword ptr [esp+68h]
+  00714E29: D8 44 24 20        fadd        dword ptr [esp+20h]
+  00714E2D: D9 5C 24 44        fstp        dword ptr [esp+44h]
+  00714E31: D9 44 24 24        fld         dword ptr [esp+24h]
+  00714E35: D8 44 24 6C        fadd        dword ptr [esp+6Ch]
+  00714E39: D9 5C 24 48        fstp        dword ptr [esp+48h]
+  00714E3D: D9 44 24 28        fld         dword ptr [esp+28h]
+  00714E41: D8 C1              fadd        st,st(1)
+  00714E43: D9 5C 24 4C        fstp        dword ptr [esp+4Ch]
+  00714E47: DD D8              fstp        st(0)
+  00714E49: D9 C2              fld         st(2)
+  00714E4B: D9 C2              fld         st(2)
+  00714E4D: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714E51: D8 6C 24 2C        fsubr       dword ptr [esp+2Ch]
+  00714E55: D9 44 24 30        fld         dword ptr [esp+30h]
+  00714E59: D8 64 24 6C        fsub        dword ptr [esp+6Ch]
+  00714E5D: D9 C9              fxch        st(1)
+  00714E5F: D9 5C 24 38        fstp        dword ptr [esp+38h]
+  00714E63: D9 44 24 70        fld         dword ptr [esp+70h]
+  00714E67: D8 25 1C 8B 85 00  fsub        dword ptr ds:[00858B1Ch]
+  00714E6D: D9 44 24 38        fld         dword ptr [esp+38h]
+  00714E71: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714E77: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  00714E7B: D9 C9              fxch        st(1)
+  00714E7D: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714E83: 8B 74 24 1A        mov         esi,dword ptr [esp+1Ah]
+  00714E87: 8B 7C 24 19        mov         edi,dword ptr [esp+19h]
+  00714E8B: 8B 6C 24 18        mov         ebp,dword ptr [esp+18h]
+  00714E8F: 33 C9              xor         ecx,ecx
+  00714E91: 8A 0D CC C4 B7 00  mov         cl,byte ptr ds:[00B7C4CCh]
+  00714E97: 56                 push        esi
+  00714E98: 33 D2              xor         edx,edx
+  00714E9A: 8A 15 CA C4 B7 00  mov         dl,byte ptr ds:[00B7C4CAh]
+  00714EA0: 57                 push        edi
+  00714EA1: 55                 push        ebp
+  00714EA2: 53                 push        ebx
+  00714EA3: 51                 push        ecx
+  00714EA4: 8B 4C 24 70        mov         ecx,dword ptr [esp+70h]
+  00714EA8: D9 9C 24 80 00 00  fstp        dword ptr [esp+00000080h]
+            00
+  00714EAF: 52                 push        edx
+  00714EB0: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714EB6: 8B 54 24 78        mov         edx,dword ptr [esp+78h]
+  00714EBA: D9 84 24 80 00 00  fld         dword ptr [esp+00000080h]
+            00
+  00714EC1: 83 EC 0C           sub         esp,0Ch
+  00714EC4: D8 44 24 44        fadd        dword ptr [esp+44h]
+  00714EC8: 8B C4              mov         eax,esp
+  00714ECA: 89 08              mov         dword ptr [eax],ecx
+  00714ECC: 8B 8C 24 88 00 00  mov         ecx,dword ptr [esp+00000088h]
+            00
+  00714ED3: 89 50 04           mov         dword ptr [eax+4],edx
+  00714ED6: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  00714EDA: D9 44 24 48        fld         dword ptr [esp+48h]
+  00714EDE: 89 48 08           mov         dword ptr [eax+8],ecx
+  00714EE1: D8 84 24 90 00 00  fadd        dword ptr [esp+00000090h]
+            00
+  00714EE8: 8B 44 24 74        mov         eax,dword ptr [esp+74h]
+  00714EEC: 8B 4C 24 78        mov         ecx,dword ptr [esp+78h]
+  00714EF0: 83 EC 0C           sub         esp,0Ch
+  00714EF3: 8B D4              mov         edx,esp
+  00714EF5: 89 02              mov         dword ptr [edx],eax
+  00714EF7: 8B 84 24 88 00 00  mov         eax,dword ptr [esp+00000088h]
+            00
+  00714EFE: 89 4A 04           mov         dword ptr [edx+4],ecx
+  00714F01: 89 42 08           mov         dword ptr [edx+8],eax
+  00714F04: 8B 54 24 74        mov         edx,dword ptr [esp+74h]
+  00714F08: 8B 44 24 78        mov         eax,dword ptr [esp+78h]
+  00714F0C: 83 EC 0C           sub         esp,0Ch
+  00714F0F: 8B CC              mov         ecx,esp
+  00714F11: 89 11              mov         dword ptr [ecx],edx
+  00714F13: 8B 94 24 88 00 00  mov         edx,dword ptr [esp+00000088h]
+            00
+  00714F1A: 89 41 04           mov         dword ptr [ecx+4],eax
+  00714F1D: 89 51 08           mov         dword ptr [ecx+8],edx
+  00714F20: 8B 4C 24 74        mov         ecx,dword ptr [esp+74h]
+  00714F24: D9 5C 24 78        fstp        dword ptr [esp+78h]
+  00714F28: D9 44 24 64        fld         dword ptr [esp+64h]
+  00714F2C: 8B 54 24 78        mov         edx,dword ptr [esp+78h]
+  00714F30: D8 C1              fadd        st,st(1)
+  00714F32: 83 EC 0C           sub         esp,0Ch
+  00714F35: 8B C4              mov         eax,esp
+  00714F37: 89 08              mov         dword ptr [eax],ecx
+  00714F39: D9 9C 24 88 00 00  fstp        dword ptr [esp+00000088h]
+            00
+  00714F40: 8B 8C 24 88 00 00  mov         ecx,dword ptr [esp+00000088h]
+            00
+  00714F47: 89 50 04           mov         dword ptr [eax+4],edx
+  00714F4A: DD D8              fstp        st(0)
+  00714F4C: 89 48 08           mov         dword ptr [eax+8],ecx
+  00714F4F: E8 0C E1 FF FF     call        00713060
+  00714F54: D9 C2              fld         st(2)
+  00714F56: D9 9C 24 B0 00 00  fstp        dword ptr [esp+000000B0h]
+            00
+  00714F5D: 83 C4 48           add         esp,48h
+  00714F60: D9 C1              fld         st(1)
+  00714F62: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714F66: D9 44 24 2C        fld         dword ptr [esp+2Ch]
+  00714F6A: D9 E0              fchs
+  00714F6C: D9 54 24 5C        fst         dword ptr [esp+5Ch]
+  00714F70: D9 44 24 30        fld         dword ptr [esp+30h]
+  00714F74: D9 E0              fchs
+  00714F76: D9 54 24 60        fst         dword ptr [esp+60h]
+  00714F7A: D9 44 24 34        fld         dword ptr [esp+34h]
+  00714F7E: D9 E0              fchs
+  00714F80: D9 54 24 14        fst         dword ptr [esp+14h]
+  00714F84: D9 5C 24 64        fstp        dword ptr [esp+64h]
+  00714F88: D9 44 24 68        fld         dword ptr [esp+68h]
+  00714F8C: D8 44 24 5C        fadd        dword ptr [esp+5Ch]
+  00714F90: D9 44 24 60        fld         dword ptr [esp+60h]
+  00714F94: D8 44 24 6C        fadd        dword ptr [esp+6Ch]
+  00714F98: 8B 54 24 14        mov         edx,dword ptr [esp+14h]
+  00714F9C: D9 44 24 64        fld         dword ptr [esp+64h]
+  00714FA0: D9 5C 24 64        fstp        dword ptr [esp+64h]
+  00714FA4: D9 C9              fxch        st(1)
+  00714FA6: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  00714FAA: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714FAE: D9 44 24 64        fld         dword ptr [esp+64h]
+  00714FB2: D8 05 8C 8B 85 00  fadd        dword ptr ds:[00858B8Ch]
+  00714FB8: D9 44 24 68        fld         dword ptr [esp+68h]
+  00714FBC: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714FC2: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  00714FC6: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714FCC: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00714FD0: D9 C9              fxch        st(1)
+  00714FD2: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00714FD8: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  00714FDC: D8 44 24 20        fadd        dword ptr [esp+20h]
+  00714FE0: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  00714FE4: D9 44 24 24        fld         dword ptr [esp+24h]
+  00714FE8: D8 44 24 6C        fadd        dword ptr [esp+6Ch]
+  00714FEC: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  00714FF0: D9 44 24 28        fld         dword ptr [esp+28h]
+  00714FF4: D8 44 24 70        fadd        dword ptr [esp+70h]
+  00714FF8: 89 54 24 70        mov         dword ptr [esp+70h],edx
+  00714FFC: D9 5C 24 64        fstp        dword ptr [esp+64h]
+  00715000: D9 C4              fld         st(4)
+  00715002: D9 C4              fld         st(4)
+  00715004: D9 5C 24 54        fstp        dword ptr [esp+54h]
+  00715008: D9 C2              fld         st(2)
+  0071500A: D9 C2              fld         st(2)
+  0071500C: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00715010: DE E1              fsubrp      st(1),st
+  00715012: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  00715016: D8 64 24 54        fsub        dword ptr [esp+54h]
+  0071501A: D9 44 24 70        fld         dword ptr [esp+70h]
+  0071501E: D9 5C 24 58        fstp        dword ptr [esp+58h]
+  00715022: D9 C9              fxch        st(1)
+  00715024: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  00715028: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  0071502C: D9 44 24 58        fld         dword ptr [esp+58h]
+  00715030: D8 05 8C 8B 85 00  fadd        dword ptr ds:[00858B8Ch]
+  00715036: D9 44 24 68        fld         dword ptr [esp+68h]
+  0071503A: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00715040: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  00715044: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  0071504A: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  0071504E: D9 C9              fxch        st(1)
+  00715050: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00715056: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  0071505A: D8 44 24 20        fadd        dword ptr [esp+20h]
+  0071505E: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  00715062: D9 44 24 24        fld         dword ptr [esp+24h]
+  00715066: D8 44 24 6C        fadd        dword ptr [esp+6Ch]
+  0071506A: D9 5C 24 54        fstp        dword ptr [esp+54h]
+  0071506E: D9 44 24 28        fld         dword ptr [esp+28h]
+  00715072: D8 44 24 70        fadd        dword ptr [esp+70h]
+  00715076: D9 5C 24 58        fstp        dword ptr [esp+58h]
+  0071507A: D9 C4              fld         st(4)
+  0071507C: D9 C4              fld         st(4)
+  0071507E: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00715082: D8 44 24 2C        fadd        dword ptr [esp+2Ch]
+  00715086: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  0071508A: D8 44 24 30        fadd        dword ptr [esp+30h]
+  0071508E: D9 C4              fld         st(4)
+  00715090: 8B 44 24 10        mov         eax,dword ptr [esp+10h]
+  00715094: D9 5C 24 4C        fstp        dword ptr [esp+4Ch]
+  00715098: 89 44 24 40        mov         dword ptr [esp+40h],eax
+  0071509C: D9 C9              fxch        st(1)
+  0071509E: A0 C8 C4 B7 00     mov         al,byte ptr ds:[00B7C4C8h]
+  007150A3: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  007150A7: 33 C9              xor         ecx,ecx
+  007150A9: 8A C8              mov         cl,al
+  007150AB: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  007150AF: D9 44 24 4C        fld         dword ptr [esp+4Ch]
+  007150B3: 33 D2              xor         edx,edx
+  007150B5: D8 05 8C 8B 85 00  fadd        dword ptr ds:[00858B8Ch]
+  007150BB: D9 44 24 68        fld         dword ptr [esp+68h]
+  007150BF: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  007150C5: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  007150C9: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  007150CF: 51                 push        ecx
+  007150D0: 8A 0D C6 C4 B7 00  mov         cl,byte ptr ds:[00B7C4C6h]
+  007150D6: 8A D1              mov         dl,cl
+  007150D8: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  007150DC: D9 C9              fxch        st(1)
+  007150DE: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  007150E4: D9 5C 24 74        fstp        dword ptr [esp+74h]
+  007150E8: 52                 push        edx
+  007150E9: D8 44 24 28        fadd        dword ptr [esp+28h]
+  007150ED: 33 D2              xor         edx,edx
+  007150EF: 8A 15 C4 C4 B7 00  mov         dl,byte ptr ds:[00B7C4C4h]
+  007150F5: 33 DB              xor         ebx,ebx
+  007150F7: D9 5C 24 4C        fstp        dword ptr [esp+4Ch]
+  007150FB: 8A DA              mov         bl,dl
+  007150FD: D9 44 24 2C        fld         dword ptr [esp+2Ch]
+  00715101: D8 44 24 74        fadd        dword ptr [esp+74h]
+  00715105: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  00715109: D9 44 24 30        fld         dword ptr [esp+30h]
+  0071510D: D8 44 24 78        fadd        dword ptr [esp+78h]
+  00715111: 53                 push        ebx
+  00715112: 50                 push        eax
+  00715113: 51                 push        ecx
+  00715114: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  00715118: D9 C4              fld         st(4)
+  0071511A: 52                 push        edx
+  0071511B: D9 C4              fld         st(4)
+  0071511D: D9 9C 24 84 00 00  fstp        dword ptr [esp+00000084h]
+            00
+  00715124: D8 6C 24 44        fsubr       dword ptr [esp+44h]
+  00715128: D9 44 24 48        fld         dword ptr [esp+48h]
+  0071512C: D8 A4 24 84 00 00  fsub        dword ptr [esp+00000084h]
+            00
+  00715133: D9 C9              fxch        st(1)
+  00715135: D9 9C 24 80 00 00  fstp        dword ptr [esp+00000080h]
+            00
+  0071513C: D9 9C 24 84 00 00  fstp        dword ptr [esp+00000084h]
+            00
+  00715143: D9 44 24 58        fld         dword ptr [esp+58h]
+  00715147: D8 05 8C 8B 85 00  fadd        dword ptr ds:[00858B8Ch]
+  0071514D: D9 84 24 80 00 00  fld         dword ptr [esp+00000080h]
+            00
+  00715154: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  0071515A: D9 84 24 84 00 00  fld         dword ptr [esp+00000084h]
+            00
+  00715161: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00715167: D9 9C 24 84 00 00  fstp        dword ptr [esp+00000084h]
+            00
+  0071516E: D9 C9              fxch        st(1)
+  00715170: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00715176: D9 9C 24 88 00 00  fstp        dword ptr [esp+00000088h]
+            00
+  0071517D: D8 44 24 38        fadd        dword ptr [esp+38h]
+  00715181: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  00715185: D9 44 24 3C        fld         dword ptr [esp+3Ch]
+  00715189: D8 84 24 84 00 00  fadd        dword ptr [esp+00000084h]
+            00
+  00715190: D9 5C 24 54        fstp        dword ptr [esp+54h]
+  00715194: D9 44 24 40        fld         dword ptr [esp+40h]
+  00715198: D8 84 24 88 00 00  fadd        dword ptr [esp+00000088h]
+            00
+  0071519F: D9 5C 24 58        fstp        dword ptr [esp+58h]
+  007151A3: 8B 4C 24 74        mov         ecx,dword ptr [esp+74h]
+  007151A7: 8B 54 24 78        mov         edx,dword ptr [esp+78h]
+  007151AB: 83 EC 0C           sub         esp,0Ch
+  007151AE: 8B C4              mov         eax,esp
+  007151B0: 89 08              mov         dword ptr [eax],ecx
+  007151B2: 8B 8C 24 88 00 00  mov         ecx,dword ptr [esp+00000088h]
+            00
+  007151B9: 89 50 04           mov         dword ptr [eax+4],edx
+  007151BC: 89 48 08           mov         dword ptr [eax+8],ecx
+  007151BF: 8B 44 24 74        mov         eax,dword ptr [esp+74h]
+  007151C3: 8B 4C 24 78        mov         ecx,dword ptr [esp+78h]
+  007151C7: 83 EC 0C           sub         esp,0Ch
+  007151CA: 8B D4              mov         edx,esp
+  007151CC: 89 02              mov         dword ptr [edx],eax
+  007151CE: 8B 84 24 88 00 00  mov         eax,dword ptr [esp+00000088h]
+            00
+  007151D5: 89 4A 04           mov         dword ptr [edx+4],ecx
+  007151D8: 89 42 08           mov         dword ptr [edx+8],eax
+  007151DB: 8B 54 24 74        mov         edx,dword ptr [esp+74h]
+  007151DF: 8B 44 24 78        mov         eax,dword ptr [esp+78h]
+  007151E3: 83 EC 0C           sub         esp,0Ch
+  007151E6: 8B CC              mov         ecx,esp
+  007151E8: 89 11              mov         dword ptr [ecx],edx
+  007151EA: 8B 94 24 88 00 00  mov         edx,dword ptr [esp+00000088h]
+            00
+  007151F1: 89 41 04           mov         dword ptr [ecx+4],eax
+  007151F4: 89 51 08           mov         dword ptr [ecx+8],edx
+  007151F7: 8B 4C 24 74        mov         ecx,dword ptr [esp+74h]
+  007151FB: 8B 54 24 78        mov         edx,dword ptr [esp+78h]
+  007151FF: 83 EC 0C           sub         esp,0Ch
+  00715202: 8B C4              mov         eax,esp
+  00715204: 89 08              mov         dword ptr [eax],ecx
+  00715206: 8B 8C 24 88 00 00  mov         ecx,dword ptr [esp+00000088h]
+            00
+  0071520D: 89 50 04           mov         dword ptr [eax+4],edx
+  00715210: 89 48 08           mov         dword ptr [eax+8],ecx
+  00715213: E8 48 DE FF FF     call        00713060
+  00715218: D9 C4              fld         st(4)
+  0071521A: 8B 54 24 5C        mov         edx,dword ptr [esp+5Ch]
+  0071521E: D9 C4              fld         st(4)
+  00715220: D9 9C 24 A8 00 00  fstp        dword ptr [esp+000000A8h]
+            00
+  00715227: 89 94 24 B8 00 00  mov         dword ptr [esp+000000B8h],edx
+            00
+  0071522E: D9 C2              fld         st(2)
+  00715230: 83 C4 48           add         esp,48h
+  00715233: D9 C2              fld         st(2)
+  00715235: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00715239: DE C1              faddp       st(1),st
+  0071523B: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  0071523F: D8 44 24 60        fadd        dword ptr [esp+60h]
+  00715243: D9 44 24 70        fld         dword ptr [esp+70h]
+  00715247: D9 5C 24 64        fstp        dword ptr [esp+64h]
+  0071524B: D9 C9              fxch        st(1)
+  0071524D: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  00715251: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00715255: D9 44 24 64        fld         dword ptr [esp+64h]
+  00715259: D8 25 24 8C 85 00  fsub        dword ptr ds:[00858C24h]
+  0071525F: D9 44 24 68        fld         dword ptr [esp+68h]
+  00715263: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00715269: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  0071526D: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00715273: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00715277: D9 C9              fxch        st(1)
+  00715279: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  0071527F: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  00715283: D8 44 24 20        fadd        dword ptr [esp+20h]
+  00715287: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  0071528B: D9 44 24 24        fld         dword ptr [esp+24h]
+  0071528F: D8 44 24 6C        fadd        dword ptr [esp+6Ch]
+  00715293: D9 5C 24 54        fstp        dword ptr [esp+54h]
+  00715297: D9 44 24 28        fld         dword ptr [esp+28h]
+  0071529B: D8 44 24 70        fadd        dword ptr [esp+70h]
+  0071529F: D9 5C 24 58        fstp        dword ptr [esp+58h]
+  007152A3: D9 C4              fld         st(4)
+  007152A5: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  007152A9: D9 C3              fld         st(3)
+  007152AB: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  007152AF: D9 C9              fxch        st(1)
+  007152B1: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  007152B5: 8B C2              mov         eax,edx
+  007152B7: 89 44 24 64        mov         dword ptr [esp+64h],eax
+  007152BB: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  007152BF: D9 44 24 5C        fld         dword ptr [esp+5Ch]
+  007152C3: D8 64 24 68        fsub        dword ptr [esp+68h]
+  007152C7: D9 44 24 60        fld         dword ptr [esp+60h]
+  007152CB: D8 64 24 6C        fsub        dword ptr [esp+6Ch]
+  007152CF: D9 44 24 64        fld         dword ptr [esp+64h]
+  007152D3: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  007152D7: D9 C9              fxch        st(1)
+  007152D9: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  007152DD: D9 44 24 70        fld         dword ptr [esp+70h]
+  007152E1: D8 25 24 8C 85 00  fsub        dword ptr ds:[00858C24h]
+  007152E7: D9 44 24 5C        fld         dword ptr [esp+5Ch]
+  007152EB: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  007152F1: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  007152F5: D9 C9              fxch        st(1)
+  007152F7: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  007152FD: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00715301: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00715307: D9 44 24 68        fld         dword ptr [esp+68h]
+  0071530B: D8 44 24 20        fadd        dword ptr [esp+20h]
+  0071530F: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  00715313: D9 44 24 24        fld         dword ptr [esp+24h]
+  00715317: D8 44 24 6C        fadd        dword ptr [esp+6Ch]
+  0071531B: D9 5C 24 60        fstp        dword ptr [esp+60h]
+  0071531F: D9 44 24 28        fld         dword ptr [esp+28h]
+  00715323: D8 C1              fadd        st,st(1)
+  00715325: D9 5C 24 64        fstp        dword ptr [esp+64h]
+  00715329: DD D8              fstp        st(0)
+  0071532B: D9 C2              fld         st(2)
+  0071532D: D9 C2              fld         st(2)
+  0071532F: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00715333: D8 44 24 2C        fadd        dword ptr [esp+2Ch]
+  00715337: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  0071533B: D8 44 24 30        fadd        dword ptr [esp+30h]
+  0071533F: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  00715343: D9 C9              fxch        st(1)
+  00715345: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  00715349: D9 44 24 6C        fld         dword ptr [esp+6Ch]
+  0071534D: D9 44 24 70        fld         dword ptr [esp+70h]
+  00715351: D8 25 24 8C 85 00  fsub        dword ptr ds:[00858C24h]
+  00715357: D9 5C 24 70        fstp        dword ptr [esp+70h]
+  0071535B: D9 C9              fxch        st(1)
+  0071535D: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00715363: D9 5C 24 44        fstp        dword ptr [esp+44h]
+  00715367: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  0071536D: D9 44 24 70        fld         dword ptr [esp+70h]
+  00715371: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00715377: D9 44 24 44        fld         dword ptr [esp+44h]
+  0071537B: D8 44 24 20        fadd        dword ptr [esp+20h]
+  0071537F: D9 5C 24 44        fstp        dword ptr [esp+44h]
+  00715383: D9 44 24 24        fld         dword ptr [esp+24h]
+  00715387: D8 C2              fadd        st,st(2)
+  00715389: D9 5C 24 48        fstp        dword ptr [esp+48h]
+  0071538D: D9 44 24 28        fld         dword ptr [esp+28h]
+  00715391: D8 C1              fadd        st,st(1)
+  00715393: D9 5C 24 4C        fstp        dword ptr [esp+4Ch]
+  00715397: DD D8              fstp        st(0)
+  00715399: DD D8              fstp        st(0)
+  0071539B: D9 C9              fxch        st(1)
+  0071539D: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  007153A1: D9 5C 24 6C        fstp        dword ptr [esp+6Ch]
+  007153A5: D9 44 24 2C        fld         dword ptr [esp+2Ch]
+  007153A9: D8 64 24 68        fsub        dword ptr [esp+68h]
+  007153AD: D9 44 24 30        fld         dword ptr [esp+30h]
+  007153B1: 8B 4C 24 10        mov         ecx,dword ptr [esp+10h]
+  007153B5: D8 64 24 6C        fsub        dword ptr [esp+6Ch]
+  007153B9: 8B 44 24 50        mov         eax,dword ptr [esp+50h]
+  007153BD: 89 4C 24 70        mov         dword ptr [esp+70h],ecx
+  007153C1: D9 C9              fxch        st(1)
+  007153C3: D9 5C 24 38        fstp        dword ptr [esp+38h]
+  007153C7: 8B 4C 24 54        mov         ecx,dword ptr [esp+54h]
+  007153CB: D9 44 24 70        fld         dword ptr [esp+70h]
+  007153CF: 56                 push        esi
+  007153D0: D8 25 24 8C 85 00  fsub        dword ptr ds:[00858C24h]
+  007153D6: 57                 push        edi
+  007153D7: D9 44 24 40        fld         dword ptr [esp+40h]
+  007153DB: 55                 push        ebp
+  007153DC: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  007153E2: 56                 push        esi
+  007153E3: 57                 push        edi
+  007153E4: 55                 push        ebp
+  007153E5: D9 9C 24 80 00 00  fstp        dword ptr [esp+00000080h]
+            00
+  007153EC: 83 EC 0C           sub         esp,0Ch
+  007153EF: D9 C9              fxch        st(1)
+  007153F1: 8B D4              mov         edx,esp
+  007153F3: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  007153F9: 89 02              mov         dword ptr [edx],eax
+  007153FB: 8B 44 24 7C        mov         eax,dword ptr [esp+7Ch]
+  007153FF: 89 4A 04           mov         dword ptr [edx+4],ecx
+  00715402: 89 42 08           mov         dword ptr [edx+8],eax
+  00715405: 8B 94 24 80 00 00  mov         edx,dword ptr [esp+00000080h]
+            00
+  0071540C: 8B 84 24 84 00 00  mov         eax,dword ptr [esp+00000084h]
+            00
+  00715413: D9 9C 24 90 00 00  fstp        dword ptr [esp+00000090h]
+            00
+  0071541A: 83 EC 0C           sub         esp,0Ch
+  0071541D: D8 0D A4 8C 85 00  fmul        dword ptr ds:[00858CA4h]
+  00715423: 8B CC              mov         ecx,esp
+  00715425: D9 84 24 98 00 00  fld         dword ptr [esp+00000098h]
+            00
+  0071542C: 89 11              mov         dword ptr [ecx],edx
+  0071542E: D8 44 24 50        fadd        dword ptr [esp+50h]
+  00715432: 8B 94 24 94 00 00  mov         edx,dword ptr [esp+00000094h]
+            00
+  00715439: 89 41 04           mov         dword ptr [ecx+4],eax
+  0071543C: 89 51 08           mov         dword ptr [ecx+8],edx
+  0071543F: 8B 4C 24 74        mov         ecx,dword ptr [esp+74h]
+  00715443: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  00715447: D9 44 24 54        fld         dword ptr [esp+54h]
+  0071544B: 8B 54 24 78        mov         edx,dword ptr [esp+78h]
+  0071544F: D8 84 24 9C 00 00  fadd        dword ptr [esp+0000009Ch]
+            00
+  00715456: 83 EC 0C           sub         esp,0Ch
+  00715459: 8B C4              mov         eax,esp
+  0071545B: 89 08              mov         dword ptr [eax],ecx
+  0071545D: 8B 8C 24 88 00 00  mov         ecx,dword ptr [esp+00000088h]
+            00
+  00715464: 89 50 04           mov         dword ptr [eax+4],edx
+  00715467: 89 48 08           mov         dword ptr [eax+8],ecx
+  0071546A: 8B 44 24 74        mov         eax,dword ptr [esp+74h]
+  0071546E: D9 5C 24 78        fstp        dword ptr [esp+78h]
+  00715472: D9 44 24 64        fld         dword ptr [esp+64h]
+  00715476: 8B 4C 24 78        mov         ecx,dword ptr [esp+78h]
+  0071547A: D8 C1              fadd        st,st(1)
+  0071547C: 83 EC 0C           sub         esp,0Ch
+  0071547F: 8B D4              mov         edx,esp
+  00715481: 89 02              mov         dword ptr [edx],eax
+  00715483: D9 9C 24 88 00 00  fstp        dword ptr [esp+00000088h]
+            00
+  0071548A: 8B 84 24 88 00 00  mov         eax,dword ptr [esp+00000088h]
+            00
+  00715491: 89 4A 04           mov         dword ptr [edx+4],ecx
+  00715494: DD D8              fstp        st(0)
+  00715496: 89 42 08           mov         dword ptr [edx+8],eax
+  00715499: E8 C2 DB FF FF     call        00713060
+  0071549E: 83 C4 48           add         esp,48h
+  007154A1: 5F                 pop         edi
+  007154A2: 5E                 pop         esi
+  007154A3: 5D                 pop         ebp
+  007154A4: 5B                 pop         ebx
+  007154A5: 83 C4 64           add         esp,64h
+  007154A8: E9 A3 CC 00 00     jmp         00722150
+
+  Summary
+
+      456000 .text

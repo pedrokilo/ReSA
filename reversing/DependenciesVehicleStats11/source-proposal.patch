@@ -1,0 +1,527 @@
+--- a/source/game_sa/Stats.cpp
++++ b/source/game_sa/Stats.cpp
+@@ -143,6 +143,7 @@
+ 
+ 
+     RH_ScopedInstall(Init, 0x55C0C0);
++    RH_ScopedInstall(UpdateStatsWhenCycling, 0x55C780);
+     RH_ScopedInstall(UpdateFatAndMuscleStats, 0x55C470);
+     RH_ScopedInstall(UpdateStatsWhenSwimming, 0x55C990);
+     RH_ScopedInstall(UpdateStatsWhenWeaponHit, 0x55CEB0);
+@@ -2343,8 +2344,326 @@
+ }
+ 
+ // 0x55C780
+-void CStats::UpdateStatsWhenCycling(bool arg0, CBmx* bmx) {
+-    plugin::Call<0x55C780, bool, CBmx*>(arg0, bmx);
++
++namespace {
++__declspec(naked) void VehicleStats11Fat() { __asm { push 00055C470h } __asm { ret } }
++__declspec(naked) void VehicleStats11Increment() { __asm { push 00055C180h } __asm { ret } }
++__declspec(naked) void VehicleStats11Display() { __asm { push 00055B980h } __asm { ret } }
++__declspec(naked) void VehicleStats11Ftol() { __asm { push 000821B40h } __asm { ret } }
++__declspec(naked) void VehicleStats11Ceil() { __asm { push 000823820h } __asm { ret } }
++}
++
++__declspec(naked) void CStats::UpdateStatsWhenCycling(bool arg0, CBmx* bmx) {
++    __asm {
++        // 0x55C780
++        push ebx
++        // 0x55C781
++        mov bl,byte ptr [esp+8]
++        // 0x55C785
++        push esi
++        // 0x55C786
++        mov esi,dword ptr [esp+010h]
++        // 0x55C78A
++        fld dword ptr [esi+00000049Ch]
++        // 0x55C790
++        fabs
++        // 0x55C792
++        fcomp dword ptr ds:[000858B50h]
++        // 0x55C798
++        fnstsw ax
++        // 0x55C79A
++        test ah,041h
++        // 0x55C79D
++        je VehicleStats11_Cycling_55C7AF
++        // 0x55C79F
++        test bl,bl
++        // 0x55C7A1
++        je VehicleStats11_Cycling_55C843
++        // 0x55C7A7
++        fld dword ptr ds:[000B78F7Ch]
++        // 0x55C7AD
++        jmp VehicleStats11_Cycling_55C7C1
++VehicleStats11_Cycling_55C7AF:
++        test bl,bl
++        // 0x55C7B1
++        je VehicleStats11_Cycling_55C7BB
++        // 0x55C7B3
++        fld dword ptr ds:[000B78F7Ch]
++        // 0x55C7B9
++        jmp VehicleStats11_Cycling_55C7C1
++VehicleStats11_Cycling_55C7BB:
++        fld dword ptr ds:[000B78F78h]
++VehicleStats11_Cycling_55C7C1:
++        call VehicleStats11Ftol
++        // 0x55C7C6
++        push eax
++        // 0x55C7C7
++        call VehicleStats11Fat
++        // 0x55C7CC
++        fild dword ptr ds:[000B794DCh]
++        // 0x55C7D2
++        mov eax,dword ptr ds:[000B794DCh]
++        // 0x55C7D7
++        add esp,4
++        // 0x55C7DA
++        test eax,eax
++        // 0x55C7DC
++        jge VehicleStats11_Cycling_55C7E4
++        // 0x55C7DE
++        fadd dword ptr ds:[000858C54h]
++VehicleStats11_Cycling_55C7E4:
++        fld dword ptr ds:[000B78F94h]
++        // 0x55C7EA
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55C7F0
++        fcompp
++        // 0x55C7F2
++        fnstsw ax
++        // 0x55C7F4
++        test ah,5
++        // 0x55C7F7
++        jp VehicleStats11_Cycling_55C826
++        // 0x55C7F9
++        mov ecx,dword ptr ds:[000B78F10h]
++        // 0x55C7FF
++        push ecx
++        // 0x55C800
++        push 016h
++        // 0x55C802
++        mov dword ptr ds:[000B794DCh],0
++        // 0x55C80C
++        call VehicleStats11Increment
++        // 0x55C811
++        mov edx,dword ptr ds:[000B78F10h]
++        // 0x55C817
++        push edx
++        // 0x55C818
++        push 016h
++        // 0x55C81A
++        push 1
++        // 0x55C81C
++        call VehicleStats11Display
++        // 0x55C821
++        add esp,014h
++        // 0x55C824
++        jmp VehicleStats11_Cycling_55C843
++VehicleStats11_Cycling_55C826:
++        fld dword ptr ds:[000B7CB5Ch]
++        // 0x55C82C
++        fmul dword ptr ds:[000858B38h]
++        // 0x55C832
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55C838
++        call VehicleStats11Ftol
++        // 0x55C83D
++        add dword ptr ds:[000B794DCh],eax
++VehicleStats11_Cycling_55C843:
++        mov eax,dword ptr ds:[000B794E0h]
++        // 0x55C848
++        fild dword ptr ds:[000B794E0h]
++        // 0x55C84E
++        test eax,eax
++        // 0x55C850
++        jge VehicleStats11_Cycling_55C858
++        // 0x55C852
++        fadd dword ptr ds:[000858C54h]
++VehicleStats11_Cycling_55C858:
++        fld dword ptr ds:[000B78FACh]
++        // 0x55C85E
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55C864
++        fcompp
++        // 0x55C866
++        fnstsw ax
++        // 0x55C868
++        test ah,5
++        // 0x55C86B
++        jp VehicleStats11_Cycling_55C8A1
++        // 0x55C86D
++        mov ecx,dword ptr ds:[000B78F28h]
++        // 0x55C873
++        push ecx
++        // 0x55C874
++        push 00E6h
++        // 0x55C879
++        mov dword ptr ds:[000B794E0h],0
++        // 0x55C883
++        call VehicleStats11Increment
++        // 0x55C888
++        mov edx,dword ptr ds:[000B78F28h]
++        // 0x55C88E
++        push edx
++        // 0x55C88F
++        push 00E6h
++        // 0x55C894
++        push 1
++        // 0x55C896
++        call VehicleStats11Display
++        // 0x55C89B
++        add esp,014h
++        // 0x55C89E
++        pop esi
++        // 0x55C89F
++        pop ebx
++        // 0x55C8A0
++        ret
++VehicleStats11_Cycling_55C8A1:
++        cmp byte ptr [esi+000000804h],2
++        // 0x55C8A8
++        jae VehicleStats11_Cycling_55C8E6
++        // 0x55C8AA
++        fld dword ptr [esi+04Ch]
++        // 0x55C8AD
++        fld dword ptr [esi+048h]
++        // 0x55C8B0
++        fld dword ptr [esi+044h]
++        // 0x55C8B3
++        fld st(0)
++        // 0x55C8B5
++        fmul st,st(1)
++        // 0x55C8B7
++        fld st(2)
++        // 0x55C8B9
++        fmul st,st(3)
++        // 0x55C8BB
++        faddp st(1),st
++        // 0x55C8BD
++        fld st(3)
++        // 0x55C8BF
++        fmul st,st(4)
++        // 0x55C8C1
++        faddp st(1),st
++        // 0x55C8C3
++        fld dword ptr ds:[000863E58h]
++        // 0x55C8C9
++        fmul dword ptr ds:[000863E58h]
++        // 0x55C8CF
++        fcompp
++        // 0x55C8D1
++        fstp st(0)
++        // 0x55C8D3
++        fnstsw ax
++        // 0x55C8D5
++        fstp st(0)
++        // 0x55C8D7
++        test ah,5
++        // 0x55C8DA
++        fstp st(0)
++        // 0x55C8DC
++        jp VehicleStats11_Cycling_55C8E6
++        // 0x55C8DE
++        fld dword ptr ds:[000863E64h]
++        // 0x55C8E4
++        jmp VehicleStats11_Cycling_55C92C
++VehicleStats11_Cycling_55C8E6:
++        fld dword ptr [esi+04Ch]
++        // 0x55C8E9
++        fld dword ptr [esi+048h]
++        // 0x55C8EC
++        fld dword ptr [esi+044h]
++        // 0x55C8EF
++        fld st(0)
++        // 0x55C8F1
++        fmul st,st(1)
++        // 0x55C8F3
++        fld st(2)
++        // 0x55C8F5
++        fmul st,st(3)
++        // 0x55C8F7
++        faddp st(1),st
++        // 0x55C8F9
++        fld st(3)
++        // 0x55C8FB
++        fmul st,st(4)
++        // 0x55C8FD
++        faddp st(1),st
++        // 0x55C8FF
++        fld dword ptr ds:[000863E54h]
++        // 0x55C905
++        fmul dword ptr ds:[000863E54h]
++        // 0x55C90B
++        fcompp
++        // 0x55C90D
++        fstp st(0)
++        // 0x55C90F
++        fnstsw ax
++        // 0x55C911
++        fstp st(0)
++        // 0x55C913
++        test ah,5
++        // 0x55C916
++        fstp st(0)
++        // 0x55C918
++        jp VehicleStats11_Cycling_55C98A
++        // 0x55C91A
++        test bl,bl
++        // 0x55C91C
++        je VehicleStats11_Cycling_55C926
++        // 0x55C91E
++        fld dword ptr ds:[000863E60h]
++        // 0x55C924
++        jmp VehicleStats11_Cycling_55C92C
++VehicleStats11_Cycling_55C926:
++        fld dword ptr ds:[000863E5Ch]
++VehicleStats11_Cycling_55C92C:
++        fcom dword ptr ds:[000858B50h]
++        // 0x55C932
++        fnstsw ax
++        // 0x55C934
++        test ah,041h
++        // 0x55C937
++        jne VehicleStats11_Cycling_55C988
++        // 0x55C939
++        fld dword ptr ds:[000B7CB5Ch]
++        // 0x55C93F
++        fmul dword ptr ds:[000858B38h]
++        // 0x55C945
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55C94B
++        call VehicleStats11Ftol
++        // 0x55C950
++        test eax,eax
++        // 0x55C952
++        mov dword ptr [esp+010h],eax
++        // 0x55C956
++        fild dword ptr [esp+010h]
++        // 0x55C95A
++        jge VehicleStats11_Cycling_55C962
++        // 0x55C95C
++        fadd dword ptr ds:[000858C54h]
++VehicleStats11_Cycling_55C962:
++        fmulp st(1),st
++        // 0x55C964
++        sub esp,8
++        // 0x55C967
++        fstp qword ptr [esp]
++        // 0x55C96A
++        call VehicleStats11Ceil
++        // 0x55C96F
++        add esp,8
++        // 0x55C972
++        call VehicleStats11Ftol
++        // 0x55C977
++        mov ecx,dword ptr ds:[000B794E0h]
++        // 0x55C97D
++        add ecx,eax
++        // 0x55C97F
++        pop esi
++        // 0x55C980
++        mov dword ptr ds:[000B794E0h],ecx
++        // 0x55C986
++        pop ebx
++        // 0x55C987
++        ret
++VehicleStats11_Cycling_55C988:
++        fstp st(0)
++VehicleStats11_Cycling_55C98A:
++        pop esi
++        // 0x55C98B
++        pop ebx
++        // 0x55C98C
++        ret
++    }
+ }
+ 
+ // 0x55C990
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -357,6 +357,7 @@
+     RH_ScopedGlobalOverloadedInstall(SetVehicleAtomicVisibilityCB, "Frame", 0x6D26D0, RwFrame*(*)(RwFrame*, void*));
+     // RH_ScopedGlobalInstall(SetCompAlphaCB, 0x6D2950);
+     RH_ScopedGlobalInstall(IsVehiclePointerValid, 0x6E38F0);
++    RH_ScopedGlobalInstall(IsValidModForVehicle, 0x49B010);
+     // RH_ScopedGlobalInstall(RemoveUpgradeCB, 0x6D3300);
+     // RH_ScopedGlobalInstall(FindUpgradeCB, 0x6D3370);
+     RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Object", 0x6D33B0, RwObject*(*)(RwObject*, void*));
+@@ -5174,8 +5175,175 @@
+     ((void(__thiscall*)(CVehicle*, bool&, eOrdnanceType&))0x6E3440)(this, status, ordnanceType);
+ }
+ 
+-bool IsValidModForVehicle(uint32 modelId, CVehicle* vehicle) {
+-    return plugin::CallAndReturn<bool, 0x49B010, uint32, CVehicle*>(modelId, vehicle);
++
++namespace {
++__declspec(naked) void VehicleStats11WheelCount() { __asm { push 0004C8740h } __asm { ret } }
++__declspec(naked) void VehicleStats11WheelModel() { __asm { push 0004C8750h } __asm { ret } }
++}
++
++__declspec(naked) bool IsValidModForVehicle(uint32 modelId, CVehicle* vehicle) {
++    __asm {
++        // 0x49B010
++        push ebx
++        // 0x49B011
++        mov ebx,dword ptr [esp+8]
++        // 0x49B015
++        push esi
++        // 0x49B016
++        mov esi,dword ptr [esp+010h]
++        // 0x49B01A
++        movsx eax,word ptr [esi+022h]
++        // 0x49B01E
++        mov edx,dword ptr [eax*4+000A9B0C8h]
++        // 0x49B025
++        mov eax,dword ptr [ebx*4+000A9B0C8h]
++        // 0x49B02C
++        xor ecx,ecx
++        // 0x49B02E
++        mov cx,word ptr [eax+012h]
++        // 0x49B032
++        push edi
++        // 0x49B033
++        mov eax,ecx
++        // 0x49B035
++        and eax,0100h
++        // 0x49B03A
++        test ax,ax
++        // 0x49B03D
++        je VehicleStats11_VehicleMod_49B089
++        // 0x49B03F
++        mov edi,ecx
++        // 0x49B041
++        and edi,07C00h
++        // 0x49B047
++        cmp edi,0800h
++        // 0x49B04D
++        jne VehicleStats11_VehicleMod_49B084
++        // 0x49B04F
++        movsx edi,byte ptr [edx+04Fh]
++        // 0x49B053
++        push edi
++        // 0x49B054
++        xor esi,esi
++        // 0x49B056
++        call VehicleStats11WheelCount
++        // 0x49B05B
++        add esp,4
++        // 0x49B05E
++        test eax,eax
++        // 0x49B060
++        jle VehicleStats11_VehicleMod_49B07E
++VehicleStats11_VehicleMod_49B062:
++        push esi
++        // 0x49B063
++        push edi
++        // 0x49B064
++        call VehicleStats11WheelModel
++        // 0x49B069
++        add esp,8
++        // 0x49B06C
++        cmp eax,ebx
++        // 0x49B06E
++        je VehicleStats11_VehicleMod_49B0DA
++        // 0x49B070
++        push edi
++        // 0x49B071
++        inc esi
++        // 0x49B072
++        call VehicleStats11WheelCount
++        // 0x49B077
++        add esp,4
++        // 0x49B07A
++        cmp esi,eax
++        // 0x49B07C
++        jl VehicleStats11_VehicleMod_49B062
++VehicleStats11_VehicleMod_49B07E:
++        xor al,al
++VehicleStats11_VehicleMod_49B080:
++        pop edi
++        // 0x49B081
++        pop esi
++        // 0x49B082
++        pop ebx
++        // 0x49B083
++        ret
++VehicleStats11_VehicleMod_49B084:
++        test ax,ax
++        // 0x49B087
++        jne VehicleStats11_VehicleMod_49B0BC
++VehicleStats11_VehicleMod_49B089:
++        and ecx,07C00h
++        // 0x49B08F
++        cmp ecx,04400h
++        // 0x49B095
++        jne VehicleStats11_VehicleMod_49B0BC
++        // 0x49B097
++        mov al,byte ptr [esi+0000001D3h]
++        // 0x49B09D
++        test al,al
++        // 0x49B09F
++        jne VehicleStats11_VehicleMod_49B07E
++        // 0x49B0A1
++        mov cl,byte ptr [esi+0000001BEh]
++        // 0x49B0A7
++        mov al,1
++        // 0x49B0A9
++        cmp cl,al
++        // 0x49B0AB
++        jne VehicleStats11_VehicleMod_49B080
++        // 0x49B0AD
++        test byte ptr [esi+00000042Eh],010h
++        // 0x49B0B4
++        jne VehicleStats11_VehicleMod_49B080
++        // 0x49B0B6
++        pop edi
++        // 0x49B0B7
++        pop esi
++        // 0x49B0B8
++        xor al,al
++        // 0x49B0BA
++        pop ebx
++        // 0x49B0BB
++        ret
++VehicleStats11_VehicleMod_49B0BC:
++        xor eax,eax
++        // 0x49B0BE
++        lea ecx,[edx+0000002D6h]
++VehicleStats11_VehicleMod_49B0C4:
++        movsx edx,word ptr [ecx]
++        // 0x49B0C7
++        cmp edx,ebx
++        // 0x49B0C9
++        je VehicleStats11_VehicleMod_49B0DA
++        // 0x49B0CB
++        inc eax
++        // 0x49B0CC
++        add ecx,2
++        // 0x49B0CF
++        cmp eax,012h
++        // 0x49B0D2
++        jl VehicleStats11_VehicleMod_49B0C4
++        // 0x49B0D4
++        pop edi
++        // 0x49B0D5
++        pop esi
++        // 0x49B0D6
++        xor al,al
++        // 0x49B0D8
++        pop ebx
++        // 0x49B0D9
++        ret
++VehicleStats11_VehicleMod_49B0DA:
++        pop edi
++        // 0x49B0DB
++        pop esi
++        // 0x49B0DC
++        mov al,1
++        // 0x49B0DE
++        pop ebx
++        // 0x49B0DF
++        ret
++    }
+ }
+ 
+ // 0x6E38F0

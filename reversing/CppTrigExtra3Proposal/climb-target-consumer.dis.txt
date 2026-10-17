@@ -1,0 +1,183 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0067A390: 83 EC 24           sub         esp,24h
+  0067A393: 53                 push        ebx
+  0067A394: 56                 push        esi
+  0067A395: 8B F1              mov         esi,ecx
+  0067A397: 8B 4C 24 30        mov         ecx,dword ptr [esp+30h]
+  0067A39B: 8B 41 14           mov         eax,dword ptr [ecx+14h]
+  0067A39E: 85 C0              test        eax,eax
+  0067A3A0: 74 05              je          0067A3A7
+  0067A3A2: 83 C0 30           add         eax,30h
+  0067A3A5: EB 03              jmp         0067A3AA
+  0067A3A7: 8D 41 04           lea         eax,[ecx+4]
+  0067A3AA: 8B 10              mov         edx,dword ptr [eax]
+  0067A3AC: 8B 5C 24 34        mov         ebx,dword ptr [esp+34h]
+  0067A3B0: 8B CB              mov         ecx,ebx
+  0067A3B2: 89 11              mov         dword ptr [ecx],edx
+  0067A3B4: 8B 50 04           mov         edx,dword ptr [eax+4]
+  0067A3B7: 89 51 04           mov         dword ptr [ecx+4],edx
+  0067A3BA: 8B 40 08           mov         eax,dword ptr [eax+8]
+  0067A3BD: 89 41 08           mov         dword ptr [ecx+8],eax
+  0067A3C0: 8B 46 2C           mov         eax,dword ptr [esi+2Ch]
+  0067A3C3: 85 C0              test        eax,eax
+  0067A3C5: 0F 84 D4 01 00 00  je          0067A59F
+  0067A3CB: D9 40 20           fld         dword ptr [eax+20h]
+  0067A3CE: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  0067A3D1: D8 71 10           fdiv        dword ptr [ecx+10h]
+  0067A3D4: 0F BF 40 2C        movsx       eax,word ptr [eax+2Ch]
+  0067A3D8: 83 C0 87           add         eax,0FFFFFF87h
+  0067A3DB: 83 F8 0D           cmp         eax,0Dh
+  0067A3DE: D9 5C 24 30        fstp        dword ptr [esp+30h]
+  0067A3E2: 0F 87 B7 01 00 00  ja          0067A59F
+  0067A3E8: 0F B6 90 C0 A5 67  movzx       edx,byte ptr [eax+0067A5C0h]
+            00
+  0067A3EF: FF 24 95 A8 A5 67  jmp         dword ptr [edx*4+0067A5A8h]
+            00
+  0067A3F6: D9 05 24 2F 8D 00  fld         dword ptr ds:[008D2F24h]
+  0067A3FC: D8 4C 24 30        fmul        dword ptr [esp+30h]
+  0067A400: D9 05 78 8F C1 00  fld         dword ptr ds:[00C18F78h]
+  0067A406: D8 4C 24 30        fmul        dword ptr [esp+30h]
+  0067A40A: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  0067A410: D8 64 24 30        fsub        dword ptr [esp+30h]
+  0067A414: D9 05 1C 2F 8D 00  fld         dword ptr ds:[008D2F1Ch]
+  0067A41A: D8 C9              fmul        st,st(1)
+  0067A41C: D8 C3              fadd        st,st(3)
+  0067A41E: D9 5C 24 08        fstp        dword ptr [esp+8]
+  0067A422: D8 0D 20 2F 8D 00  fmul        dword ptr ds:[008D2F20h]
+  0067A428: D8 C1              fadd        st,st(1)
+  0067A42A: D9 5C 24 10        fstp        dword ptr [esp+10h]
+  0067A42E: DD D8              fstp        st(0)
+  0067A430: DD D8              fstp        st(0)
+  0067A432: E9 A4 00 00 00     jmp         0067A4DB
+  0067A437: D9 05 28 2F 8D 00  fld         dword ptr ds:[008D2F28h]
+  0067A43D: D8 4C 24 30        fmul        dword ptr [esp+30h]
+  0067A441: D9 05 2C 2F 8D 00  fld         dword ptr ds:[008D2F2Ch]
+  0067A447: D8 4C 24 30        fmul        dword ptr [esp+30h]
+  0067A44B: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  0067A451: D8 64 24 30        fsub        dword ptr [esp+30h]
+  0067A455: D9 05 24 2F 8D 00  fld         dword ptr ds:[008D2F24h]
+  0067A45B: D8 C9              fmul        st,st(1)
+  0067A45D: D8 C3              fadd        st,st(3)
+  0067A45F: D9 5C 24 08        fstp        dword ptr [esp+8]
+  0067A463: D8 0D 78 8F C1 00  fmul        dword ptr ds:[00C18F78h]
+  0067A469: D8 C1              fadd        st,st(1)
+  0067A46B: D9 5C 24 10        fstp        dword ptr [esp+10h]
+  0067A46F: DD D8              fstp        st(0)
+  0067A471: DD D8              fstp        st(0)
+  0067A473: EB 66              jmp         0067A4DB
+  0067A475: D9 05 30 2F 8D 00  fld         dword ptr ds:[008D2F30h]
+  0067A47B: D8 4C 24 30        fmul        dword ptr [esp+30h]
+  0067A47F: D9 05 7C 8F C1 00  fld         dword ptr ds:[00C18F7Ch]
+  0067A485: D8 4C 24 30        fmul        dword ptr [esp+30h]
+  0067A489: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  0067A48F: D8 64 24 30        fsub        dword ptr [esp+30h]
+  0067A493: D9 05 24 2F 8D 00  fld         dword ptr ds:[008D2F24h]
+  0067A499: D8 C9              fmul        st,st(1)
+  0067A49B: D8 C3              fadd        st,st(3)
+  0067A49D: D9 5C 24 08        fstp        dword ptr [esp+8]
+  0067A4A1: D8 0D 78 8F C1 00  fmul        dword ptr ds:[00C18F78h]
+  0067A4A7: D8 C1              fadd        st,st(1)
+  0067A4A9: D9 5C 24 10        fstp        dword ptr [esp+10h]
+  0067A4AD: DD D8              fstp        st(0)
+  0067A4AF: DD D8              fstp        st(0)
+  0067A4B1: EB 28              jmp         0067A4DB
+  0067A4B3: A1 28 2F 8D 00     mov         eax,dword ptr ds:[008D2F28h]
+  0067A4B8: 8B 0D 2C 2F 8D 00  mov         ecx,dword ptr ds:[008D2F2Ch]
+  0067A4BE: 89 44 24 08        mov         dword ptr [esp+8],eax
+  0067A4C2: 89 4C 24 10        mov         dword ptr [esp+10h],ecx
+  0067A4C6: EB 13              jmp         0067A4DB
+  0067A4C8: 8B 15 30 2F 8D 00  mov         edx,dword ptr ds:[008D2F30h]
+  0067A4CE: A1 7C 8F C1 00     mov         eax,dword ptr ds:[00C18F7Ch]
+  0067A4D3: 89 54 24 08        mov         dword ptr [esp+8],edx
+  0067A4D7: 89 44 24 10        mov         dword ptr [esp+10h],eax
+  0067A4DB: D9 46 14           fld         dword ptr [esi+14h]
+  0067A4DE: 8D 4E 18           lea         ecx,[esi+18h]
+  0067A4E1: 8B 11              mov         edx,dword ptr [ecx]
+  0067A4E3: D9 54 24 30        fst         dword ptr [esp+30h]
+  0067A4E7: 55                 push        ebp
+  0067A4E8: 8B 69 04           mov         ebp,dword ptr [ecx+4]
+  0067A4EB: 8B 41 08           mov         eax,dword ptr [ecx+8]
+  0067A4EE: 57                 push        edi
+  0067A4EF: 8B 7E 24           mov         edi,dword ptr [esi+24h]
+  0067A4F2: 89 54 24 1C        mov         dword ptr [esp+1Ch],edx
+  0067A4F6: 89 6C 24 20        mov         dword ptr [esp+20h],ebp
+  0067A4FA: 89 44 24 24        mov         dword ptr [esp+24h],eax
+  0067A4FE: 8A 4F 36           mov         cl,byte ptr [edi+36h]
+  0067A501: 80 E1 07           and         cl,7
+  0067A504: 80 F9 01           cmp         cl,1
+  0067A507: 76 68              jbe         0067A571
+  0067A509: 80 F9 05           cmp         cl,5
+  0067A50C: 73 63              jae         0067A571
+  0067A50E: 8B 47 14           mov         eax,dword ptr [edi+14h]
+  0067A511: DD D8              fstp        st(0)
+  0067A513: 85 C0              test        eax,eax
+  0067A515: 75 13              jne         0067A52A
+  0067A517: 8B CF              mov         ecx,edi
+  0067A519: E8 42 50 ED FF     call        0054F560
+  0067A51E: 8B 57 14           mov         edx,dword ptr [edi+14h]
+  0067A521: 52                 push        edx
+  0067A522: 8D 4F 04           lea         ecx,[edi+4]
+  0067A525: E8 86 4C ED FF     call        0054F1B0
+  0067A52A: 8B 7F 14           mov         edi,dword ptr [edi+14h]
+  0067A52D: 8D 44 24 1C        lea         eax,[esp+1Ch]
+  0067A531: 50                 push        eax
+  0067A532: 8D 4C 24 2C        lea         ecx,[esp+2Ch]
+  0067A536: 57                 push        edi
+  0067A537: 51                 push        ecx
+  0067A538: E8 53 23 F2 FF     call        0059C890
+  0067A53D: 8B 10              mov         edx,dword ptr [eax]
+  0067A53F: 8B 76 24           mov         esi,dword ptr [esi+24h]
+  0067A542: 89 54 24 28        mov         dword ptr [esp+28h],edx
+  0067A546: 8B 68 04           mov         ebp,dword ptr [eax+4]
+  0067A549: 89 6C 24 2C        mov         dword ptr [esp+2Ch],ebp
+  0067A54D: 8B 40 08           mov         eax,dword ptr [eax+8]
+  0067A550: 89 44 24 30        mov         dword ptr [esp+30h],eax
+  0067A554: 8B 4E 14           mov         ecx,dword ptr [esi+14h]
+  0067A557: 83 C4 0C           add         esp,0Ch
+  0067A55A: 85 C9              test        ecx,ecx
+  0067A55C: 74 0C              je          0067A56A
+  0067A55E: D9 41 10           fld         dword ptr [ecx+10h]
+  0067A561: D9 E0              fchs
+  0067A563: D9 41 14           fld         dword ptr [ecx+14h]
+  0067A566: D9 F3              fpatan
+  0067A568: EB 03              jmp         0067A56D
+  0067A56A: D9 46 10           fld         dword ptr [esi+10h]
+  0067A56D: D8 44 24 38        fadd        dword ptr [esp+38h]
+  0067A571: D9 C0              fld         st(0)
+  0067A573: 8B CB              mov         ecx,ebx
+  0067A575: D9 FE              fsin
+  0067A577: 89 11              mov         dword ptr [ecx],edx
+  0067A579: 89 69 04           mov         dword ptr [ecx+4],ebp
+  0067A57C: 89 41 08           mov         dword ptr [ecx+8],eax
+  0067A57F: 5F                 pop         edi
+  0067A580: 5D                 pop         ebp
+  0067A581: D8 4C 24 08        fmul        dword ptr [esp+8]
+  0067A585: D8 2B              fsubr       dword ptr [ebx]
+  0067A587: D9 1B              fstp        dword ptr [ebx]
+  0067A589: D9 FF              fcos
+  0067A58B: D8 4C 24 08        fmul        dword ptr [esp+8]
+  0067A58F: D8 43 04           fadd        dword ptr [ebx+4]
+  0067A592: D9 5B 04           fstp        dword ptr [ebx+4]
+  0067A595: D9 44 24 10        fld         dword ptr [esp+10h]
+  0067A599: D8 43 08           fadd        dword ptr [ebx+8]
+  0067A59C: D9 5B 08           fstp        dword ptr [ebx+8]
+  0067A59F: 5E                 pop         esi
+  0067A5A0: 5B                 pop         ebx
+  0067A5A1: 83 C4 24           add         esp,24h
+  0067A5A4: C2 08 00           ret         8
+  0067A5A7: 90                 nop
+  0067A5A8: C8 A4 67 00        enter       67A4h,0
+  0067A5AC: F6
+  0067A5AD: A3
+  0067A5AE: 67 00 37           add         byte ptr [bx],dh
+
+  Summary
+
+      456000 .text

@@ -1,0 +1,17 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 17/10/2026 (Ciudad de México):** 787 grupos / 8583 funciones reconstruidas; 8583 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 125 aprobadas dentro del juego; 130 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Tres variantes rechazadas: solución C++ con cuerpo completo exacto
+
+Estudio aislado permitido, sin CMake/producción/GTA/Git. MSVC x86 14.51 de VS18, /O2 /Oi /arch:IA32 /fp:fast /Zi; sin PCH y sin /RTC ni /ZI. TrigCompoundRejected3.cpp.proposed y final3-proof.json conservan fuente/hash/opciones/objeto y todas las instrucciones desde entrada hasta RET. Las tres comparaciones de bytes completos contra secuencia naked esperada pasan; NO es búsqueda de subsecuencia.
+
+- NegSinDiv: temporal double sin, negación del temporal, división. Bytes d9442404 d9fe d9e0 d8742408 c3: FLD angle, FSIN, FCHS, FDIV divisor, RET.
+- CosHalf: puntero const volatile float al parámetro half; dos lecturas explícitas en statements sucesivos. Impide cache/reasociación a ST1 y folding half*(cos+1). Bytes d9442404 d9ff d84c2408 d8442408 c3: FLD angle, FCOS, FMUL half, FADD half, RET. Firma original float,float cdecl se conserva; volatile sólo acceso al parámetro local, sin clase/signatura clonada.
+- SubSin: -(sin(angle)-z), transformado por compilador fast a FSUBR exacto. Bytes d9442408 d9fe d86c2404 c3: FLD angle, FSIN, FSUBR z, RET. La identidad algebraica sola no acredita casos NaN/ceros/flags; los bytes completos idénticos al helper previo sí preservan la misma operación hardware en este objeto.
+
+Los tres cuerpos NO tienen prólogo/epílogo añadido, PUSH/POP, stack reserva, stores, CRT calls, ni instrucciones enteras que alteren ECX/EDX/EFLAGS. Retorno ST0 conserva la misma pila FPU. Cada instrucción x87 y orden igual al helper previo; FIP/FDP absolutos se reubican como siempre, no confundir con igualdad numérica/status.
+
+Se probó /O1 y /O2 en estudio preliminar; ambos lograron estos cuerpos. Propuesta final utiliza /O2 para mantener opciones del TU compartido y evitar cambiar consumidores. El pragma precise de propuesta CosHalf debe retirarse al usar este cuerpo fast. Si se integra junto a los otros tres helpers en TU real, volver a inspeccionar el objeto real completo, comparar callers exactos y ejecutar bancos en juego antes de admitir. No concede aprobación nueva por sí solo.
+
+Estudios anteriores conservados en study.cpp y proofs o1fast/o1volatile/o2volatile. Las variantes precise llaman CRT y stores y se rechazan; C1 fast retiene h en ST1 y C2 factoriza, también rechazadas. No tolerancias ni ASM de producción.

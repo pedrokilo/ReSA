@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11429F10: 55                 push        ebp
+  11429F11: 8B EC              mov         ebp,esp
+  11429F13: 81 EC C0 00 00 00  sub         esp,0C0h
+  11429F19: 53                 push        ebx
+  11429F1A: 56                 push        esi
+  11429F1B: 57                 push        edi
+  11429F1C: 6B 45 0C 07        imul        eax,dword ptr [ebp+0Ch],7
+  11429F20: 03 45 08           add         eax,dword ptr [ebp+8]
+  11429F23: 5F                 pop         edi
+  11429F24: 5E                 pop         esi
+  11429F25: 5B                 pop         ebx
+  11429F26: 8B E5              mov         esp,ebp
+  11429F28: 5D                 pop         ebp
+  11429F29: C3                 ret
+  11429F2A: CC                 int         3
+  11429F2B: CC                 int         3
+  11429F2C: CC                 int         3
+  11429F2D: CC                 int         3
+  11429F2E: CC                 int         3
+  11429F2F: CC                 int         3
+  11429F30: 55                 push        ebp
+  11429F31: 8B EC              mov         ebp,esp
+  11429F33: 81 EC 50 01 00 00  sub         esp,150h
+  11429F39: 53                 push        ebx
+  11429F3A: 56                 push        esi
+  11429F3B: 57                 push        edi
+  11429F3C: 8D BD 70 FF FF FF  lea         edi,[ebp+FFFFFF70h]
+  11429F42: B9 24 00 00 00     mov         ecx,24h
+  11429F47: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11429F4C: F3 AB              rep stos    dword ptr es:[edi]
+  11429F4E: A1
+  11429F4F: C0
+  11429F50: D1
+
+  Summary
+
+     21DB000 .text

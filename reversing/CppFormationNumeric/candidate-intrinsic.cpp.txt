@@ -1,0 +1,48 @@
+namespace {
+// Requires MSVC x86 /O2 /Oi /arch:IA32 /fp:fast codegen verified before admission.
+// A volatile double store preserves PC24 x87 results without restricting
+// the exponent range to binary32 between arithmetic operations.
+__declspec(noinline) double FormationCppExtendedAdd(double a, double b) {
+    volatile double out = a + b;
+    return out;
+}
+__declspec(noinline) double FormationCppExtendedSubtract(double a, double b) {
+    volatile double out = a - b;
+    return out;
+}
+__declspec(noinline) double FormationCppExtendedMultiply(double a, double b) {
+    volatile double out = a * b;
+    return out;
+}
+#pragma intrinsic(sqrt)
+__declspec(noinline) double FormationCppIntrinsicRoot(double input) {
+    return ::sqrt(input);
+}
+}
+
+int32 CFormation::FindNearestFreeDestination(CVector origin, float* total) {
+    double minimum = 10000000.0;
+    int32 selected = -1;
+    const int32 count = std::bit_cast<int32>(m_Destinations.m_Count);
+    for (int32 i = 0; i < count; ++i) {
+        if (m_Destinations.m_PointHasBeenClaimed[i]) continue;
+        const auto point = m_Destinations.m_Points[size_t(i)];
+        const double deltaX = FormationCppExtendedSubtract(double(point.x), double(origin.x));
+        const double deltaY = FormationCppExtendedSubtract(double(point.y), double(origin.y));
+        const double deltaZ = FormationCppExtendedSubtract(double(point.z), double(origin.z));
+        const double squareZ = FormationCppExtendedMultiply(deltaZ, deltaZ);
+        const double squareY = FormationCppExtendedMultiply(deltaY, deltaY);
+        const double squareZY = FormationCppExtendedAdd(squareZ, squareY);
+        const double squareX = FormationCppExtendedMultiply(deltaX, deltaX);
+        const double squared = FormationCppExtendedAdd(squareZY, squareX);
+        const double extendedDistance = FormationCppIntrinsicRoot(squared);
+        volatile float roundedDistance = static_cast<float>(extendedDistance);
+        if (extendedDistance < minimum) {
+            minimum = double(roundedDistance);
+            selected = i;
+        }
+    }
+    const double extendedTotal = FormationCppExtendedAdd(minimum, double(*total));
+    *total = static_cast<float>(extendedTotal);
+    return selected;
+}

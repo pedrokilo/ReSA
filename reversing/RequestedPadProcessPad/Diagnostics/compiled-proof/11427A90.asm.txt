@@ -1,0 +1,70 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11427A90: 55                 push        ebp
+  11427A91: 8B EC              mov         ebp,esp
+  11427A93: 81 EC D4 00 00 00  sub         esp,0D4h
+  11427A99: 53                 push        ebx
+  11427A9A: 56                 push        esi
+  11427A9B: 57                 push        edi
+  11427A9C: 8D 7D EC           lea         edi,[ebp-14h]
+  11427A9F: B9 05 00 00 00     mov         ecx,5
+  11427AA4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11427AA9: F3 AB              rep stos    dword ptr es:[edi]
+  11427AAB: 6A 00              push        0
+  11427AAD: B9 F4 8F 8B 13     mov         ecx,138B8FF4h
+  11427AB2: E8 B0 96 C9 FF     call        110C1167
+  11427AB7: 39 45 08           cmp         dword ptr [ebp+8],eax
+  11427ABA: 75 0C              jne         11427AC8
+  11427ABC: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  11427AC6: EB 33              jmp         11427AFB
+  11427AC8: 6A 01              push        1
+  11427ACA: B9 F4 8F 8B 13     mov         ecx,138B8FF4h
+  11427ACF: E8 93 96 C9 FF     call        110C1167
+  11427AD4: 39 45 08           cmp         dword ptr [ebp+8],eax
+  11427AD7: 75 0C              jne         11427AE5
+  11427AD9: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],1
+            01 00 00 00
+  11427AE3: EB 0A              jmp         11427AEF
+  11427AE5: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],0FFFFFFFFh
+            FF FF FF FF
+  11427AEF: 8B 85 2C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF2Ch]
+  11427AF5: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  11427AFB: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  11427B01: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11427B04: 0F B6 05 38 60 7F  movzx       eax,byte ptr ds:[137F6038h]
+            13
+  11427B0B: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  11427B11: 0F B6 0D C5 91 8B  movzx       ecx,byte ptr ds:[138B91C5h]
+            13
+  11427B18: 39 4D F8           cmp         dword ptr [ebp-8],ecx
+  11427B1B: 75 0C              jne         11427B29
+  11427B1D: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],1
+            01 00 00 00
+  11427B27: EB 0A              jmp         11427B33
+  11427B29: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],0
+            00 00 00 00
+  11427B33: 8B 95 30 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF30h]
+  11427B39: 23 95 2C FF FF FF  and         edx,dword ptr [ebp+FFFFFF2Ch]
+  11427B3F: 88 15 38 60 7F 13  mov         byte ptr ds:[137F6038h],dl
+  11427B45: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11427B48: 5F                 pop         edi
+  11427B49: 5E                 pop         esi
+  11427B4A: 5B                 pop         ebx
+  11427B4B: 81 C4 D4 00 00 00  add         esp,0D4h
+  11427B51: 3B EC              cmp         ebp,esp
+  11427B53: E8 34 BF C6 FF     call        11093A8C
+  11427B58: 8B E5              mov         esp,ebp
+  11427B5A: 5D                 pop         ebp
+  11427B5B: C3                 ret
+  11427B5C: CC                 int         3
+
+  Summary
+
+     21DB000 .text

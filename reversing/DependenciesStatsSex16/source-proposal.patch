@@ -1,0 +1,263 @@
+--- a/source/game_sa/Stats.cpp
++++ b/source/game_sa/Stats.cpp
+@@ -137,6 +137,7 @@
+     RH_ScopedClass(CStats);
+     RH_ScopedCategoryGlobal();
+     RH_ScopedInstall(CheckForStatsMessage, 0x559760);
++    RH_ScopedInstall(UpdateSexAppealStat, 0x55BF20);
+     RH_ScopedInstall(FindCriminalRatingString, 0x55A210);
+     RH_ScopedInstall(UpdateStatsOnRespawn, 0x55CFC0);
+     RH_ScopedInstall(UpdateStatsAddToHealth, 0x55D030);
+@@ -1974,9 +1975,250 @@
+     plugin::Call<0x55BC50, uint8>(arg0);
+ }
+ 
++namespace {
++__declspec(naked) void Sex16_Vehicle() { __asm {push 0056E0D0h} __asm {ret} }
++__declspec(naked) void Sex16_Reference() { __asm {push 00571B70h} __asm {ret} }
++__declspec(naked) void Sex16_Coors() { __asm {push 0056E010h} __asm {ret} }
++__declspec(naked) void Sex16_Check() { __asm {push 00559760h} __asm {ret} }
++}
++
+ // 0x55BF20
+-void CStats::UpdateSexAppealStat() {
+-    plugin::Call<0x55BF20>();
++__declspec(naked) void CStats::UpdateSexAppealStat() {
++    __asm {
++// 0x0055BF20
++        sub esp,14h
++// 0x0055BF23
++        fld dword ptr ds:[000B794C0h]
++// 0x0055BF29
++        push 0
++// 0x0055BF2B
++        fmul dword ptr ds:[000858B8Ch]
++// 0x0055BF31
++        push 0FFFFFFFFh
++// 0x0055BF33
++        mov dword ptr [esp+8],0
++// 0x0055BF3B
++        fstp dword ptr [esp+0Ch]
++// 0x0055BF3F
++        call Sex16_Vehicle
++// 0x0055BF44
++        add esp,8
++// 0x0055BF47
++        test eax,eax
++// 0x0055BF49
++        je Sex16_0055BF68
++// 0x0055BF4B
++        push 0
++// 0x0055BF4D
++        push 0FFFFFFFFh
++// 0x0055BF4F
++        call Sex16_Vehicle
++// 0x0055BF54
++        add esp,8
++// 0x0055BF57
++        push 0B79530h
++// 0x0055BF5C
++        mov ecx,eax
++// 0x0055BF5E
++        mov dword ptr ds:[000B79530h],eax
++// 0x0055BF63
++        call Sex16_Reference
++Sex16_0055BF68:
++        mov ecx,dword ptr ds:[000B79530h]
++// 0x0055BF6E
++        test ecx,ecx
++// 0x0055BF70
++        je Sex16_0055C048
++// 0x0055BF76
++        mov eax,dword ptr [ecx+14h]
++// 0x0055BF79
++        test eax,eax
++// 0x0055BF7B
++        push esi
++// 0x0055BF7C
++        lea esi,[eax+30h]
++// 0x0055BF7F
++        jne Sex16_0055BF84
++// 0x0055BF81
++        lea esi,[ecx+4]
++Sex16_0055BF84:
++        lea eax,[esp+0Ch]
++// 0x0055BF88
++        push 0FFFFFFFFh
++// 0x0055BF8A
++        push eax
++// 0x0055BF8B
++        call Sex16_Coors
++// 0x0055BF90
++        fld dword ptr [esi]
++// 0x0055BF92
++        fsub dword ptr [eax]
++// 0x0055BF94
++        add esp,8
++// 0x0055BF97
++        fld dword ptr [esi+4]
++// 0x0055BF9A
++        pop esi
++// 0x0055BF9B
++        fsub dword ptr [eax+4]
++// 0x0055BF9E
++        fld st(0)
++// 0x0055BFA0
++        fmul st,st(1)
++// 0x0055BFA2
++        fld st(2)
++// 0x0055BFA4
++        fmul st,st(3)
++// 0x0055BFA6
++        faddp st(1),st
++// 0x0055BFA8
++        fsqrt
++// 0x0055BFAA
++        fstp st(2)
++// 0x0055BFAC
++        fstp st(0)
++// 0x0055BFAE
++        fcomp dword ptr ds:[00085F070h]
++// 0x0055BFB4
++        fnstsw ax
++// 0x0055BFB6
++        test ah,5
++// 0x0055BFB9
++        jp Sex16_0055C048
++// 0x0055BFBF
++        mov ecx,dword ptr ds:[000B79530h]
++// 0x0055BFC5
++        fld dword ptr [ecx+0000004C0h]
++// 0x0055BFCB
++        fadd st(0),st
++// 0x0055BFCD
++        fsub dword ptr ds:[000858C4Ch]
++// 0x0055BFD3
++        fstp dword ptr [esp]
++// 0x0055BFD7
++        fld dword ptr ds:[000858C4Ch]
++// 0x0055BFDD
++        fcomp dword ptr [esp]
++// 0x0055BFE1
++        fnstsw ax
++// 0x0055BFE3
++        test ah,5
++// 0x0055BFE6
++        jp Sex16_0055BFF0
++// 0x0055BFE8
++        fld dword ptr ds:[000858C4Ch]
++// 0x0055BFEE
++        jmp Sex16_0055C00D
++Sex16_0055BFF0:
++        fld dword ptr [esp]
++// 0x0055BFF4
++        fld dword ptr ds:[000858B50h]
++// 0x0055BFFA
++        fcomp dword ptr [esp]
++// 0x0055BFFE
++        fnstsw ax
++// 0x0055C000
++        test ah,41h
++// 0x0055C003
++        jne Sex16_0055C00D
++// 0x0055C005
++        fstp st(0)
++// 0x0055C007
++        fld dword ptr ds:[000858B50h]
++Sex16_0055C00D:
++        movsx ecx,word ptr [ecx+22h]
++// 0x0055C011
++        mov edx,dword ptr [ecx*4+000A9B0C8h]
++// 0x0055C018
++        movsx eax,byte ptr [edx+4Dh]
++// 0x0055C01C
++        dec eax
++// 0x0055C01D
++        cmp eax,0Ah
++// 0x0055C020
++        ja Sex16_0055C040
++// 0x0055C022
++        movzx eax,byte ptr [eax+00055C0B4h]
++// 0x0055C029
++        pushfd
++        cmp eax,0
++        je Sex16_Table0
++        cmp eax,1
++        je Sex16_Table1
++        cmp eax,2
++        je Sex16_Table2
++        popfd
++        jmp Sex16_0055C040
++Sex16_Table0:
++        popfd
++        jmp Sex16_0055C038
++Sex16_Table1:
++        popfd
++        jmp Sex16_0055C04C
++Sex16_Table2:
++        popfd
++        jmp Sex16_0055C030
++Sex16_0055C030:
++        fmul dword ptr ds:[000858C24h]
++// 0x0055C036
++        jmp Sex16_0055C04C
++Sex16_0055C038:
++        fmul dword ptr ds:[000858B1Ch]
++// 0x0055C03E
++        jmp Sex16_0055C04C
++Sex16_0055C040:
++        fmul dword ptr ds:[000858B8Ch]
++// 0x0055C046
++        jmp Sex16_0055C04C
++Sex16_0055C048:
++        fld dword ptr [esp]
++Sex16_0055C04C:
++        fmul dword ptr ds:[000858B8Ch]
++// 0x0055C052
++        fadd dword ptr [esp+4]
++// 0x0055C056
++        fcom dword ptr ds:[000858B50h]
++// 0x0055C05C
++        fnstsw ax
++// 0x0055C05E
++        test ah,5
++// 0x0055C061
++        jp Sex16_0055C06D
++// 0x0055C063
++        fstp st(0)
++// 0x0055C065
++        fld dword ptr ds:[000858B50h]
++// 0x0055C06B
++        jmp Sex16_0055C082
++Sex16_0055C06D:
++        fcom dword ptr ds:[000858C4Ch]
++// 0x0055C073
++        fnstsw ax
++// 0x0055C075
++        test ah,41h
++// 0x0055C078
++        jne Sex16_0055C082
++// 0x0055C07A
++        fstp st(0)
++// 0x0055C07C
++        fld dword ptr ds:[000858C4Ch]
++Sex16_0055C082:
++        mov al,byte ptr ds:[000969180h]
++// 0x0055C087
++        test al,al
++// 0x0055C089
++        je Sex16_0055C093
++// 0x0055C08B
++        fstp st(0)
++// 0x0055C08D
++        fld dword ptr ds:[000858C4Ch]
++Sex16_0055C093:
++        fstp dword ptr ds:[000B793E4h]
++// 0x0055C099
++        add esp,14h
++// 0x0055C09C
++        jmp Sex16_Check
++    }
+ }
+ 
+ // 0x55C180

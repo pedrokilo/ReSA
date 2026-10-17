@@ -1,0 +1,3 @@
+FALLO: CVehicle grupo E: armas de avion, barco, cabrestante, cuchillas y colision
+Error dentro de GTA; consultar comparisons.jsonl.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cvehe\20261016-020127-459687

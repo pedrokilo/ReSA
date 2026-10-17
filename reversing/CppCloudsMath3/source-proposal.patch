@@ -1,0 +1,76 @@
+--- a/source/game_sa/Clouds.cpp
++++ b/source/game_sa/Clouds.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "CloudsMathCpp.h"
+ 
+ #include "Clouds.h"
+ #include "PostEffects.h"
+@@ -32,29 +33,10 @@
+ const float s_CloudsTwo32 = 4294967296.0f;
+ 
+ // Como el original: fsin/fcos del x87 a precisión interna completa; el resultado queda en ST0.
+-float __declspec(naked) __cdecl CloudsSinX87(float angle) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fsin
+-        ret
+-    }
+-}
+-float __declspec(naked) __cdecl CloudsCosX87(float angle) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fcos
+-        ret
+-    }
+-}
++
++
+ // Como el original (0x712FF0): fsin a precisión completa y producto redondeado por la FPU.
+-float __declspec(naked) __cdecl CloudsSinMulX87(float angle, float k) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fsin
+-        fmul dword ptr [esp + 8]
+-        ret
+-    }
+-}
++
+ // Como el original (0x71303C): fild del dword (corregido a sin signo con +2^32) más el incremento, un único redondeo de la FPU.
+ float __declspec(naked) __cdecl CloudsRotationSumX87(int32 value, float delta) {
+     __asm {
+--- /dev/null
++++ b/source/game_sa/CloudsMathCpp.h
+@@ -0,0 +1,4 @@
++#pragma once
++float __cdecl CloudsSinX87(float angle);
++float __cdecl CloudsCosX87(float angle);
++float __cdecl CloudsSinMulX87(float angle, float k);
+--- /dev/null
++++ b/source/game_sa/CloudsMathCpp.cpp
+@@ -0,0 +1,8 @@
++extern "C" double __cdecl sin(double);
++extern "C" double __cdecl cos(double);
++#pragma intrinsic(sin, cos)
++// Separate translation unit: callers retain their existing compiler settings.
++// Acceptance requires emitted FSIN/FCOS and no intervening float32 store.
++__declspec(noinline) float __cdecl CloudsSinX87(float angle) { return float(sin(double(angle))); }
++__declspec(noinline) float __cdecl CloudsCosX87(float angle) { return float(cos(double(angle))); }
++__declspec(noinline) float __cdecl CloudsSinMulX87(float angle, float k) { return float(sin(double(angle)) * double(k)); }
+--- a/source/CMakeLists.txt
++++ b/source/CMakeLists.txt
+@@ -56,6 +56,12 @@
+ )
+ list(APPEND SOURCE_FILES_WITHOUT_MODULES_LIST StdInc.cpp)
+ if(MSVC)
++    set_source_files_properties(game_sa/CloudsMathCpp.cpp PROPERTIES
++        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
++        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
++        SKIP_PRECOMPILE_HEADERS ON
++        SKIP_UNITY_BUILD_INCLUSION ON
++    )
+     # /ZI reserves stack space even for an empty function, changing EFLAGS.
+     # These C++ bodies must preserve the original caller's flags and registers.
+     # Use ordinary debug symbols and compile separately from the /ZI PCH/unity.

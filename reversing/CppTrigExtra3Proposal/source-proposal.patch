@@ -1,0 +1,79 @@
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "TrigSimpleCpp.h"
+ #include "TaskComplexFollowPointRoute.h"
+ #include "TaskSimpleGoToPointFine.h"
+ #include "TaskComplexGoToPointAndStandStill.h"
+@@ -325,13 +326,6 @@
+ }
+ 
+ // Como el original: fcos del x87 con precision interna completa (el llamador redondea a float)
+-static __declspec(naked) float __cdecl FollowPointRouteCos(float angle) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fcos
+-        ret
+-    }
+-}
+ 
+ // 0x66E710
+ float CTaskComplexFollowPointRoute::CalcBlendRatio(CPed* ped, bool slowing) {
+@@ -362,7 +356,7 @@
+         progress = 1.f;
+     }
+     const float angle  = progress * std::bit_cast<float>(0x40490FDBu); // PI (0x858CB8)
+-    const float cosine = FollowPointRouteCos(angle);
++    const float cosine = TrigSimpleCosCpp(angle);
+     float mult = cosine * 0.5f + 0.5f;
+     mult *= slowing ? m_speedDecreaseAmt : m_speedIncreaseAmt;
+ 
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp
+@@ -23,6 +23,7 @@
+     Do not delete this comment block. Respect others' work!
+ */
+ #include "StdInc.h"
++#include "TrigSimpleCpp.h"
+ 
+ #include "TaskSimpleClimb.h"
+ #include "TaskSimpleClimb_models.h"
+@@ -49,24 +50,8 @@
+ namespace {
+ // Como el original: fsin/fcos/fpatan del x87 con precisión interna completa; el producto/suma siguiente lo redondea la FPU.
+ // sin(a) * m
+-__declspec(naked) float __cdecl ClimbSinMul(float a, float m) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fsin
+-        fmul dword ptr [esp + 8]
+-        ret
+-    }
+-}
+ 
+ // cos(a) * m
+-__declspec(naked) float __cdecl ClimbCosMul(float a, float m) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fcos
+-        fmul dword ptr [esp + 8]
+-        ret
+-    }
+-}
+ 
+ // atan2(-fx, fy) (rumbo de CPlaceable con fpatan)
+ __declspec(naked) float __cdecl ClimbHeadingOf(float fx, float fy) {
+@@ -909,8 +894,8 @@
+ // Como el original: (-sin(a) * h, cos(a) * h, v) con fsin/fcos sin redondear
+ CVector CTaskSimpleClimb::GetClimbOffset3D(CVector2D offset2D, float angle) {
+     return CVector{
+-        -ClimbSinMul(angle, offset2D.x),
+-        ClimbCosMul(angle, offset2D.x),
++        -TrigSimpleSinMulCpp(angle, offset2D.x),
++        TrigSimpleCosMulCpp(angle, offset2D.x),
+         offset2D.y
+     };
+ }

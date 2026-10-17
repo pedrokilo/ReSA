@@ -1,0 +1,3 @@
+APROBADO: Conversión C++ de selección de animación
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpphandsignal1\20261010-233050-855356

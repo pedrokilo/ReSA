@@ -1,0 +1,341 @@
+--- a/source/game_sa/AttractorScanner.cpp
++++ b/source/game_sa/AttractorScanner.cpp
+@@ -2,7 +2,37 @@
+ 
+ #include "AttractorScanner.h"
+ 
+-void CAttractorScanner::Clear()
+-{
+-    plugin::CallMethod<0x5FFF90, CAttractorScanner*>(this);
++__declspec(naked) void CAttractorScanner::Clear() {
++    __asm {
++        push        esi
++        xor         esi,esi
++        xor         edx,edx
++        lea         eax,[ecx+68h]
++        jmp         attractorClear5_5FFFA0
++        lea         ebx,[ebx+00000000h]
++attractorClear5_5FFFA0:
++        cmp         edx,4
++        mov         dword ptr [eax-50h],esi
++        mov         dword ptr [eax-28h],esi
++        fld         dword ptr ds:[0086C52Ch]
++        fmul        dword ptr ds:[0086C52Ch]
++        fstp        dword ptr [eax]
++        je          attractorClear5_5FFFC4
++        cmp         edx,7
++        je          attractorClear5_5FFFC4
++        mov         dword ptr [eax],41C80000h
++attractorClear5_5FFFC4:
++        inc         edx
++        add         eax,4
++        cmp         edx,0Ah
++        jl          attractorClear5_5FFFA0
++        pop         esi
++        ret
++    }
+ }
++
++void CAttractorScanner::InjectHooks() {
++    RH_ScopedClass(CAttractorScanner);
++    RH_ScopedCategoryGlobal();
++    RH_ScopedInstall(Clear, 0x5FFF90);
++}
+--- a/source/game_sa/AttractorScanner.h
++++ b/source/game_sa/AttractorScanner.h
+@@ -21,6 +21,7 @@
+     int32      field_40[10];
+     int32      field_68[10];
+ 
++    static void InjectHooks();
+     void Clear();
+ };
+ 
+--- a/source/game_sa/PedIntelligence.cpp
++++ b/source/game_sa/PedIntelligence.cpp
+@@ -61,6 +61,7 @@
+ {
+     RH_ScopedClass(CPedIntelligence);
+     RH_ScopedCategoryGlobal();
++    RH_ScopedInstall(IncrementAngerAtPlayer, 0x421050);
+ 
+     RH_ScopedInstall(Constructor, 0x607140);
+     RH_ScopedInstall(Destructor, 0x607300);
+@@ -1024,13 +1025,36 @@
+     return std::max(m_fHearingRange, m_fSeeingRange);
+ }
+ 
+-// 0x421050
+-void CPedIntelligence::IncrementAngerAtPlayer(uint8 anger) {
+-    if (!m_mentalState.m_AngerTimer.IsOutOfTime()) {
+-        return;
+-    }
+-    m_mentalState.m_AngerTimer.Start(3000);
+-    m_mentalState.m_AngerAtPlayer += anger;
++// 0x421050: this es CPedIntelligence.
++__declspec(naked) void CPedIntelligence::IncrementAngerAtPlayer(uint8) {
++    __asm {
++        mov         al,byte ptr [ecx+00000180h]
++        test        al,al
++        je          anger5_4210B5
++        mov         al,byte ptr [ecx+00000181h]
++        test        al,al
++        je          anger5_421076
++        mov         eax,dword ptr ds:[00B7CB84h]
++        mov         dword ptr [ecx+00000178h],eax
++        mov         byte ptr [ecx+00000181h],0
++anger5_421076:
++        mov         edx,dword ptr [ecx+00000178h]
++        mov         eax,dword ptr [ecx+0000017Ch]
++        add         eax,edx
++        mov         edx,dword ptr ds:[00B7CB84h]
++        cmp         edx,eax
++        sbb         al,al
++        inc         al
++        test        al,al
++        je          anger5_4210B5
++        mov         dword ptr [ecx+00000178h],edx
++        mov         dl,byte ptr [esp+4]
++        mov         dword ptr [ecx+0000017Ch],0BB8h
++        mov         byte ptr [ecx+00000180h],1
++        add         byte ptr [ecx+00000174h],dl
++anger5_4210B5:
++        ret         4
++    }
+ }
+ 
+ // 0x6074A0
+--- a/source/game_sa/MentalHealth.cpp
++++ b/source/game_sa/MentalHealth.cpp
+@@ -1,9 +1,20 @@
+ #include "StdInc.h"
+ #include "MentalHealth.h"
+ 
+-// 0x421050
++// Como el original: operacion local; 0x421050 recibe CPedIntelligence*, no este this.
+ void CMentalState::IncrementAnger(int32 anger) {
+-    plugin::CallMethod<0x421050, CMentalState*, int32>(this, anger);
++    if (!m_AngerTimer.m_bStarted) return;
++    const uint32 now = CTimer::GetTimeInMS();
++    if (m_AngerTimer.m_bStopped) {
++        m_AngerTimer.m_nStartTime = now;
++        m_AngerTimer.m_bStopped = false;
++    }
++    const uint32 expires = m_AngerTimer.m_nStartTime + static_cast<uint32>(m_AngerTimer.m_nInterval);
++    if (now < expires) return;
++    m_AngerTimer.m_nStartTime = now;
++    m_AngerTimer.m_nInterval = 3000;
++    m_AngerTimer.m_bStarted = true;
++    m_AngerAtPlayer = static_cast<uint8>(m_AngerAtPlayer + static_cast<uint8>(anger));
+ }
+ 
+ // 0x6008A0
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
+@@ -146,6 +146,7 @@
+     RH_ScopedVirtualClass(CTaskSimpleFight, 0x86D684, 9);
+     RH_ScopedCategory("Tasks/TaskTypes");
+ 
++    RH_ScopedInstall(Constructor, 0x61C470);
+     RH_ScopedInstall(ControlFight, 0x61C5E0);
+     RH_ScopedInstall(GetComboAnimGroupID, 0x4ABDA0);
+     RH_ScopedInstall(IsComboSet, 0x4ABDC0);
+@@ -153,10 +154,71 @@
+ 
+ }
+ 
+-CTaskSimpleFight* CTaskSimpleFight::Constructor(CEntity* entity, int32 nCommand, uint32 nIdlePeriod) {
+-    this->CTaskSimpleFight::CTaskSimpleFight(entity, nCommand, nIdlePeriod);
+-    return this;
+-}
++// Colaborador real de referencias, con ruta RH actual.
++static __declspec(naked) void FightCtor5RegisterRef() {
++    __asm {
++        push 00571B70h
++        ret
++    }
++}
++#pragma warning(push)
++#pragma warning(disable: 4733) // Como el original: handler SEH en el EXE.
++__declspec(naked) CTaskSimpleFight* CTaskSimpleFight::Constructor(CEntity*, int32, uint32) {
++    __asm {
++        push        0FFFFFFFFh
++        push        83F318h
++        mov         eax,dword ptr fs:[00000000h]
++        push        eax
++        mov         dword ptr fs:[00000000h],esp
++        push        ecx
++        push        esi
++        mov         esi,ecx
++        push        edi
++        mov         dword ptr [esp+8],esi
++        mov dword ptr [ecx+4],0
++        mov         edi,dword ptr [esp+1Ch]
++        xor         eax,eax
++        or          cl,0FFh
++        cmp         edi,eax
++        mov         byte ptr [esi+24h],cl
++        mov         byte ptr [esi+25h],cl
++        mov         cl,byte ptr [esp+20h]
++        lea         edx,[esi+18h]
++        mov         dword ptr [esp+14h],eax
++        mov         dword ptr [esi],86D684h
++        mov         byte ptr [esi+8],al
++        mov         byte ptr [esi+9],1
++        mov         byte ptr [esi+0Ah],al
++        mov         dword ptr [esi+0Ch],21h
++        mov         word ptr [esi+12h],ax
++        mov         byte ptr [esi+14h],al
++        mov         byte ptr [esi+15h],al
++        mov         dword ptr [edx],edi
++        mov         dword ptr [esi+1Ch],eax
++        mov         dword ptr [esi+20h],eax
++        mov         byte ptr [esi+26h],cl
++        mov         byte ptr [esi+27h],al
++        je          fightCtor5_61C4E8
++        push        edx
++        mov         ecx,edi
++        call FightCtor5RegisterRef
++fightCtor5_61C4E8:
++        mov         eax,dword ptr [esp+24h]
++        cmp         eax,0EA60h
++        jbe         fightCtor5_61C4F8
++        mov         eax,0EA60h
++fightCtor5_61C4F8:
++        mov         ecx,dword ptr [esp+0Ch]
++        mov         word ptr [esi+10h],ax
++        pop         edi
++        mov         eax,esi
++        pop         esi
++        mov         dword ptr fs:[00000000h],ecx
++        add         esp,10h
++        ret         0Ch
++    }
++}
++#pragma warning(pop)
+ 
+ CTaskSimpleFight* CTaskSimpleFight::Destructor() {
+     this->CTaskSimpleFight::~CTaskSimpleFight();
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h
+@@ -70,6 +70,7 @@
+     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
+     bool ProcessPed(CPed* ped) override;
+ 
++    CTaskSimpleFight* Constructor(CEntity* entity, int32 nCommand, uint32 nIdlePeriod);
+     static void LoadMeleeData();
+ 
+     void BeHitWhileBlocking(CPed* ped1, CPed* ped2, int8, int8);
+@@ -104,7 +105,7 @@
+     friend void InjectHooksMain();
+     static void InjectHooks();
+ 
+-    CTaskSimpleFight* Constructor(CEntity* entity, int32 nCommand, uint32 nIdlePeriod);
++
+     CTaskSimpleFight* Destructor();
+ 
+ };
+--- a/source/game_sa/Events/EventSource.cpp
++++ b/source/game_sa/Events/EventSource.cpp
+@@ -2,6 +2,89 @@
+ 
+ #include "EventSource.h"
+ 
+-int32 CEventSource::ComputeEventSourceType(const CEvent& event, const CPed& ped) {
+-    return plugin::CallAndReturn<int32, 0x4ABAC0, const CEvent&, const CPed&>(event, ped);
++static __declspec(naked) void EventSource5IsPlayer() {
++    __asm {
++        push 005DF8F0h
++        ret
++    }
+ }
++static __declspec(naked) void EventSource5Friendly() {
++    __asm {
++        push 00601BC0h
++        ret
++    }
++}
++static __declspec(naked) void EventSource5Threatened() {
++    __asm {
++        push 00601C30h
++        ret
++    }
++}
++__declspec(naked) int32 CEventSource::ComputeEventSourceType(const CEvent&, const CPed&) {
++    __asm {
++        mov         ecx,dword ptr [esp+4]
++        mov         eax,dword ptr [ecx]
++        push        ebx
++        push        esi
++        xor         ebx,ebx
++        call        dword ptr [eax+28h]
++        mov         esi,eax
++        test        esi,esi
++        je          eventSource5_4ABB27
++        mov         cl,byte ptr [esi+36h]
++        and         cl,7
++        cmp         cl,3
++        jne         eventSource5_4ABB27
++        mov         edx,dword ptr [esp+10h]
++        push        edi
++        mov         edi,dword ptr [edx+0000047Ch]
++        push        esi
++        mov         ecx,edi
++        call EventSource5Threatened
++        test        al,al
++        je          eventSource5_4ABAFE
++        pop         edi
++        pop         esi
++        mov         eax,3
++        pop         ebx
++        ret
++eventSource5_4ABAFE:
++        push        esi
++        mov         ecx,edi
++        call EventSource5Friendly
++        test        al,al
++        je          eventSource5_4ABB13
++        pop         edi
++        pop         esi
++        mov         eax,2
++        pop         ebx
++        ret
++eventSource5_4ABB13:
++        mov         ecx,esi
++        call EventSource5IsPlayer
++        test        al,al
++        je          eventSource5_4ABB2C
++        pop         edi
++        pop         esi
++        mov         eax,1
++        pop         ebx
++        ret
++eventSource5_4ABB27:
++        pop         esi
++        xor         eax,eax
++        pop         ebx
++        ret
++eventSource5_4ABB2C:
++        pop         edi
++        pop         esi
++        mov         eax,ebx
++        pop         ebx
++        ret
++    }
++}
++
++void CEventSource::InjectHooks() {
++    RH_ScopedClass(CEventSource);
++    RH_ScopedCategory("Events");
++    RH_ScopedInstall(ComputeEventSourceType, 0x4ABAC0);
++}
+--- a/source/game_sa/Events/EventSource.h
++++ b/source/game_sa/Events/EventSource.h
+@@ -4,6 +4,7 @@
+ 
+ class CEventSource {
+ public:
++    static void InjectHooks();
+     static int32 ComputeEventSourceType(const CEvent& event, const CPed& ped);
+ };
+ 

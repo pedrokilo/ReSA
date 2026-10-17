@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113F5260: 55                 push        ebp
+  113F5261: 8B EC              mov         ebp,esp
+  113F5263: 81 EC D0 00 00 00  sub         esp,0D0h
+  113F5269: 53                 push        ebx
+  113F526A: 56                 push        esi
+  113F526B: 57                 push        edi
+  113F526C: 51                 push        ecx
+  113F526D: 8D 7D F0           lea         edi,[ebp-10h]
+  113F5270: B9 04 00 00 00     mov         ecx,4
+  113F5275: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113F527A: F3 AB              rep stos    dword ptr es:[edi]
+  113F527C: 59                 pop         ecx
+  113F527D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  113F5280: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  113F5283: E8 7F 4E CA FF     call        1109A107
+  113F5288: 8B C8              mov         ecx,eax
+  113F528A: E8 F1 E1 CC FF     call        110C3480
+  113F528F: 83 F8 01           cmp         eax,1
+  113F5292: 75 0C              jne         113F52A0
+  113F5294: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  113F529E: EB 0A              jmp         113F52AA
+  113F52A0: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  113F52AA: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  113F52B1: 5F                 pop         edi
+  113F52B2: 5E                 pop         esi
+  113F52B3: 5B                 pop         ebx
+  113F52B4: 81 C4 D0 00 00 00  add         esp,0D0h
+  113F52BA: 3B EC              cmp         ebp,esp
+  113F52BC: E8 CB E7 C9 FF     call        11093A8C
+  113F52C1: 8B E5              mov         esp,ebp
+  113F52C3: 5D                 pop         ebp
+  113F52C4: C2 04 00           ret         4
+  113F52C7: CC                 int         3
+
+  Summary
+
+     21DB000 .text

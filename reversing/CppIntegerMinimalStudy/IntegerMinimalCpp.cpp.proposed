@@ -1,0 +1,11 @@
+#include "StdInc.h"
+#include "CarCtrl.h"
+#include "RenderWare/D3DResourceSystem.h"
+
+// 0x424100: preserve EAX high24 and reproduce XOR AL flags.
+bool Native_00424100(float, float) { return false; }
+
+// 0x730AC0: write exactly one byte; preserve EAX high24, ECX/EDX and flags.
+void D3DResourceSystem::SetUseD3DResourceBuffering(bool enabled) {
+    *reinterpret_cast<volatile unsigned char*>(0x8D6084) = enabled;
+}

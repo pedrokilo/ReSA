@@ -1,0 +1,23 @@
+--- a/reversing/CppTrigCoffAudit/compare_coff.py
++++ b/reversing/CppTrigCoffAudit/compare_coff.py
+@@ -60,7 +60,7 @@
+     for off,target,typ in sec['relocs']:
+         if not begin<=off<end:continue
+         pos=off-begin
+-        if typ not in (0x6,0x7,0x14):raise ValueError('Unsupported relocation type '+hex(typ))
++        if typ not in (0x6,0x7,0xb,0x14):raise ValueError('Unsupported relocation type '+hex(typ))
+         if pos+4>len(body):raise ValueError('Relocation crosses function boundary')
+         targetname=target['name'];helper=targetname in aliases
+         if helper:
+@@ -68,7 +68,10 @@
+             canonical=aliases[targetname];changes.append({'offset':pos,'helper':canonical,'symbol':targetname})
+         else:canonical=targetname
+         # Relocation addends are compared, not silently normalized.
+-        addend=bytes(body[pos:pos+4]).hex();body[pos:pos+4]=b'\0'*4
++        addend=bytes(body[pos:pos+4]).hex()
++        # SECREL is a 32-bit section/TLS offset. Preserve its raw bytes too;
++        # compare type, offset, addend, symbol and referent without masking it.
++        if typ != 0xb: body[pos:pos+4]=b'\0'*4
+         destination=None if helper else (target['value'],target['type'],target['storage'])
+         referent=None
+         if not helper and target['section']>0 and not target['type']&0x20:

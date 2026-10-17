@@ -1,0 +1,89 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114251A0: 55                 push        ebp
+  114251A1: 8B EC              mov         ebp,esp
+  114251A3: 6A FF              push        0FFFFFFFFh
+  114251A5: 68 20 82 17 13     push        13178220h
+  114251AA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  114251B0: 50                 push        eax
+  114251B1: 81 EC 04 01 00 00  sub         esp,104h
+  114251B7: 53                 push        ebx
+  114251B8: 56                 push        esi
+  114251B9: 57                 push        edi
+  114251BA: 51                 push        ecx
+  114251BB: 8D 7D B0           lea         edi,[ebp-50h]
+  114251BE: B9 11 00 00 00     mov         ecx,11h
+  114251C3: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  114251C8: F3 AB              rep stos    dword ptr es:[edi]
+  114251CA: 59                 pop         ecx
+  114251CB: A1 C0 D1 89 13     mov         eax,dword ptr ds:[1389D1C0h]
+  114251D0: 33 C5              xor         eax,ebp
+  114251D2: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  114251D5: 50                 push        eax
+  114251D6: 8D 45 F4           lea         eax,[ebp-0Ch]
+  114251D9: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  114251DF: 89 4D E8           mov         dword ptr [ebp-18h],ecx
+  114251E2: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  114251E5: 8B 08              mov         ecx,dword ptr [eax]
+  114251E7: 89 8D FC FE FF FF  mov         dword ptr [ebp+FFFFFEFCh],ecx
+  114251ED: 6A 00              push        0
+  114251EF: 6A 00              push        0
+  114251F1: 6A 20              push        20h
+  114251F3: 6A FF              push        0FFFFFFFFh
+  114251F5: 8D 95 04 FF FF FF  lea         edx,[ebp+FFFFFF04h]
+  114251FB: 52                 push        edx
+  114251FC: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  114251FF: E8 E0 00 CA FF     call        110C52E4
+  11425204: 89 85 F8 FE FF FF  mov         dword ptr [ebp+FFFFFEF8h],eax
+  1142520A: 8B 85 F8 FE FF FF  mov         eax,dword ptr [ebp+FFFFFEF8h]
+  11425210: 89 85 F4 FE FF FF  mov         dword ptr [ebp+FFFFFEF4h],eax
+  11425216: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1142521D: 8B 8D F4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEF4h]
+  11425223: 89 8D F0 FE FF FF  mov         dword ptr [ebp+FFFFFEF0h],ecx
+  11425229: 8B 95 F0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEF0h]
+  1142522F: 52                 push        edx
+  11425230: 8B 85 FC FE FF FF  mov         eax,dword ptr [ebp+FFFFFEFCh]
+  11425236: 50                 push        eax
+  11425237: E8 C2 BE C9 FF     call        110C10FE
+  1142523C: 83 C4 08           add         esp,8
+  1142523F: 6A 0A              push        0Ah
+  11425241: 50                 push        eax
+  11425242: E8 07 E0 C6 FF     call        1109324E
+  11425247: 83 C4 08           add         esp,8
+  1142524A: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11425251: 8D 8D 04 FF FF FF  lea         ecx,[ebp+FFFFFF04h]
+  11425257: E8 51 C0 C8 FF     call        110B12AD
+  1142525C: 90                 nop
+  1142525D: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  11425260: 8B 08              mov         ecx,dword ptr [eax]
+  11425262: E8 5D 9F C8 FF     call        110AF1C4
+  11425267: 90                 nop
+  11425268: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1142526B: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11425272: 59                 pop         ecx
+  11425273: 5F                 pop         edi
+  11425274: 5E                 pop         esi
+  11425275: 5B                 pop         ebx
+  11425276: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  11425279: 33 CD              xor         ecx,ebp
+  1142527B: E8 AD CE C6 FF     call        1109212D
+  11425280: 81 C4 10 01 00 00  add         esp,110h
+  11425286: 3B EC              cmp         ebp,esp
+  11425288: E8 FF E7 C6 FF     call        11093A8C
+  1142528D: 8B E5              mov         esp,ebp
+  1142528F: 5D                 pop         ebp
+  11425290: C2 04 00           ret         4
+  11425293: CC                 int         3
+
+  Summary
+
+     21DB000 .text

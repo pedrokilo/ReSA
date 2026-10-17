@@ -1,0 +1,3 @@
+APROBADO: Desbloqueos: ABI, recursos y geometria
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-unlock-core\20261016-002036-527864

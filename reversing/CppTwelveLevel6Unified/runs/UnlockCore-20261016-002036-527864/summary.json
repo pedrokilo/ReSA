@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "87cdbbd361931769e56da8abdb0cf4d54ca45fcab6ffdcf9dd5824f582410949",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 7968,
+  "pairs_per_function": {
+    "0": 4096,
+    "1": 256,
+    "2": 1024,
+    "3": 1024,
+    "4": 512,
+    "5": 512,
+    "6": 16,
+    "7": 16,
+    "8": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 3,
+      "locked": false,
+      "startup_calls": 30
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 4,
+      "locked": false,
+      "startup_calls": 134
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 5,
+      "locked": false,
+      "startup_calls": 7
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 6,
+      "locked": false,
+      "startup_calls": 1
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 7,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 8,
+      "locked": false,
+      "startup_calls": 134
+    }
+  ],
+  "log_sha256": "7e86e95cf968dda58c90d25775458c90f1d0b1644a093d03122d624616f03b11",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

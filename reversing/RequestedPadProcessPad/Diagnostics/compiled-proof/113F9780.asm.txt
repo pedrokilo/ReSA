@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113F9780: 55                 push        ebp
+  113F9781: 8B EC              mov         ebp,esp
+  113F9783: 81 EC C0 00 00 00  sub         esp,0C0h
+  113F9789: 53                 push        ebx
+  113F978A: 56                 push        esi
+  113F978B: 57                 push        edi
+  113F978C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113F978F: 5F                 pop         edi
+  113F9790: 5E                 pop         esi
+  113F9791: 5B                 pop         ebx
+  113F9792: 8B E5              mov         esp,ebp
+  113F9794: 5D                 pop         ebp
+  113F9795: C3                 ret
+  113F9796: CC                 int         3
+  113F9797: CC                 int         3
+  113F9798: CC                 int         3
+  113F9799: CC                 int         3
+  113F979A: CC                 int         3
+  113F979B: CC                 int         3
+  113F979C: CC                 int         3
+  113F979D: CC                 int         3
+  113F979E: CC                 int         3
+  113F979F: CC                 int         3
+  113F97A0: 55                 push        ebp
+  113F97A1: 8B EC              mov         ebp,esp
+  113F97A3: 81 EC C0 00 00 00  sub         esp,0C0h
+  113F97A9: 53                 push        ebx
+  113F97AA: 56                 push        esi
+  113F97AB: 57                 push        edi
+  113F97AC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113F97AF: 5F                 pop         edi
+  113F97B0: 5E                 pop         esi
+  113F97B1: 5B                 pop         ebx
+  113F97B2: 8B E5              mov         esp,ebp
+  113F97B4: 5D                 pop         ebp
+  113F97B5: C3                 ret
+  113F97B6: CC                 int         3
+  113F97B7: CC                 int         3
+  113F97B8: CC                 int         3
+  113F97B9: CC                 int         3
+  113F97BA: CC                 int         3
+  113F97BB: CC                 int         3
+  113F97BC: CC                 int         3
+  113F97BD: CC                 int         3
+  113F97BE: CC                 int         3
+  113F97BF: CC                 int         3
+  113F97C0: 55                 push        ebp
+
+  Summary
+
+     21DB000 .text

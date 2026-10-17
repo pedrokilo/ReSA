@@ -1,0 +1,54 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1143C7B0: 55                 push        ebp
+  1143C7B1: 8B EC              mov         ebp,esp
+  1143C7B3: 81 EC D8 00 00 00  sub         esp,0D8h
+  1143C7B9: 53                 push        ebx
+  1143C7BA: 56                 push        esi
+  1143C7BB: 57                 push        edi
+  1143C7BC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1143C7BF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1143C7C2: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1143C7C5: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1143C7C8: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1143C7CB: 8B 40 0C           mov         eax,dword ptr [eax+0Ch]
+  1143C7CE: 2B 41 04           sub         eax,dword ptr [ecx+4]
+  1143C7D1: C1 F8 02           sar         eax,2
+  1143C7D4: 5F                 pop         edi
+  1143C7D5: 5E                 pop         esi
+  1143C7D6: 5B                 pop         ebx
+  1143C7D7: 8B E5              mov         esp,ebp
+  1143C7D9: 5D                 pop         ebp
+  1143C7DA: C3                 ret
+  1143C7DB: CC                 int         3
+  1143C7DC: CC                 int         3
+  1143C7DD: CC                 int         3
+  1143C7DE: CC                 int         3
+  1143C7DF: CC                 int         3
+  1143C7E0: CC                 int         3
+  1143C7E1: CC                 int         3
+  1143C7E2: CC                 int         3
+  1143C7E3: CC                 int         3
+  1143C7E4: CC                 int         3
+  1143C7E5: CC                 int         3
+  1143C7E6: CC                 int         3
+  1143C7E7: CC                 int         3
+  1143C7E8: CC                 int         3
+  1143C7E9: CC                 int         3
+  1143C7EA: CC                 int         3
+  1143C7EB: CC                 int         3
+  1143C7EC: CC                 int         3
+  1143C7ED: CC                 int         3
+  1143C7EE: CC                 int         3
+  1143C7EF: CC                 int         3
+  1143C7F0: 55                 push        ebp
+
+  Summary
+
+     21DB000 .text

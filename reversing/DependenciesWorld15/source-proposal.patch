@@ -1,0 +1,166 @@
+--- a/source/game_sa/Garage.cpp
++++ b/source/game_sa/Garage.cpp
+@@ -32,7 +32,7 @@
+     RH_ScopedInstall(StoreAndRemoveCarsForThisHideOut, 0x449900);
+     // RH_ScopedInstall(EntityHasASphereWayOutsideGarage, 0x449050);
+     // RH_ScopedInstall(RemoveCarsBlockingDoorNotInside, 0x449690);
+-    // RH_ScopedInstall(IsEntityTouching3D, 0x448EE0);
++    RH_ScopedInstall(IsEntityTouching3D, 0x448EE0);
+     // RH_ScopedInstall(IsEntityEntirelyOutside, 0x448D30);
+     // RH_ScopedInstall(IsStaticPlayerCarEntirelyInside, 0x44A830);
+     // RH_ScopedInstall(IsEntityEntirelyInside3D, 0x448BE0);
+@@ -117,8 +117,152 @@
+ }
+ 
+ // 0x448EE0
+-bool CGarage::IsEntityTouching3D(CEntity* entity) {
+-    return plugin::CallMethodAndReturn<bool, 0x448EE0, CGarage*, CEntity*>(this, entity);
++static uintptr_t GarageTouchColBody = std::bit_cast<uintptr_t>(&CEntity::GetColModel);
++static uintptr_t GarageTouchMatrixBody = std::bit_cast<uintptr_t>(&CPlaceable::GetMatrix);
++static uintptr_t GarageTouchGeometryBody = std::bit_cast<uintptr_t>(static_cast<bool(CGarage::*)(CVector,float)>(&CGarage::IsPointInsideGarage));
++static uintptr_t GarageTouchNativePoint = 0x59C890;
++// Literal x87 and sphere-loop transcription of 0x448EE0..0x449041.
++__declspec(naked) bool CGarage::IsEntityTouching3D(CEntity*) {
++    __asm {
++        sub esp,10h
++        push ebx
++        mov ebx,dword ptr [esp+18h]
++        movsx eax,word ptr [ebx+22h]
++        mov edx,ecx
++        mov ecx,dword ptr [eax*4+00A9B0C8h]
++        mov eax,dword ptr [ecx+14h]
++        mov ecx,dword ptr [eax+24h]
++        push ebp
++        push esi
++        mov dword ptr [esp+20h],ecx
++        mov ecx,dword ptr [ebx+14h]
++        xor esi,esi
++        cmp ecx,esi
++        push edi
++        mov dword ptr [esp+10h],edx
++        lea eax,[ecx+30h]
++        jne garageTouch00448F15
++        lea eax,[ebx+4]
++garageTouch00448F15:
++        fld dword ptr [edx+28h]
++        fsub dword ptr [esp+24h]
++        fcomp dword ptr [eax]
++        fnstsw ax
++        test ah,41h
++        je garageTouch0044902C
++        cmp ecx,esi
++        lea eax,[ecx+30h]
++        jne garageTouch00448F33
++        lea eax,[ebx+4]
++garageTouch00448F33:
++        fld dword ptr [esp+24h]
++        fadd dword ptr [edx+2Ch]
++        fcomp dword ptr [eax]
++        fnstsw ax
++        test ah,5
++        jnp garageTouch0044902C
++        cmp ecx,esi
++        lea eax,[ecx+30h]
++        jne garageTouch00448F51
++        lea eax,[ebx+4]
++garageTouch00448F51:
++        fld dword ptr [edx+30h]
++        fsub dword ptr [esp+24h]
++        fcomp dword ptr [eax+4]
++        fnstsw ax
++        test ah,41h
++        je garageTouch0044902C
++        cmp ecx,esi
++        lea eax,[ecx+30h]
++        jne garageTouch00448F70
++        lea eax,[ebx+4]
++garageTouch00448F70:
++        fld dword ptr [esp+24h]
++        fadd dword ptr [edx+34h]
++        fcomp dword ptr [eax+4]
++        fnstsw ax
++        test ah,5
++        jnp garageTouch0044902C
++        cmp ecx,esi
++        lea eax,[ecx+30h]
++        jne garageTouch00448F8F
++        lea eax,[ebx+4]
++garageTouch00448F8F:
++        fld dword ptr [edx+8]
++        fsub dword ptr [esp+24h]
++        fcomp dword ptr [eax+8]
++        fnstsw ax
++        test ah,41h
++        je garageTouch0044902C
++        cmp ecx,esi
++        je garageTouch00448FAD
++        add ecx,30h
++        jmp garageTouch00448FB0
++garageTouch00448FAD:
++        lea ecx,[ebx+4]
++garageTouch00448FB0:
++        fld dword ptr [esp+24h]
++        fadd dword ptr [edx+1Ch]
++        fcomp dword ptr [ecx+8]
++        fnstsw ax
++        test ah,5
++        jnp garageTouch0044902C
++        mov ecx,ebx
++        call dword ptr [GarageTouchColBody]
++        mov edi,dword ptr [eax+2Ch]
++        cmp word ptr [edi],si
++        mov dword ptr [esp+24h],esi
++        jle garageTouch0044902C
++        mov edx,dword ptr [edi+8]
++garageTouch00448FD7:
++        add edx,esi
++        push edx
++        mov ecx,ebx
++        call dword ptr [GarageTouchMatrixBody]
++        push eax
++        lea eax,[esp+1Ch]
++        push eax
++        call dword ptr [GarageTouchNativePoint]
++        mov edx,dword ptr [edi+8]
++        mov ecx,dword ptr [esi+edx+0Ch]
++        mov ebp,dword ptr [eax]
++        add esp,0Ch
++        push ecx
++        sub esp,0Ch
++        mov ecx,esp
++        mov dword ptr [ecx],ebp
++        mov ebp,dword ptr [eax+4]
++        mov eax,dword ptr [eax+8]
++        mov dword ptr [ecx+4],ebp
++        mov dword ptr [ecx+8],eax
++        mov ecx,dword ptr [esp+20h]
++        call dword ptr [GarageTouchGeometryBody]
++        test al,al
++        jne garageTouch00449038
++        mov eax,dword ptr [esp+24h]
++        movsx ecx,word ptr [edi]
++        inc eax
++        add esi,14h
++        cmp eax,ecx
++        mov dword ptr [esp+24h],eax
++        jl garageTouch00448FD7
++garageTouch0044902C:
++        xor al,al
++        pop edi
++        pop esi
++        pop ebp
++        pop ebx
++        add esp,10h
++        ret 4
++garageTouch00449038:
++        pop edi
++        pop esi
++        pop ebp
++        mov al,1
++        pop ebx
++        add esp,10h
++        ret 4
++    }
+ }
+ 
+ // 0x448D30

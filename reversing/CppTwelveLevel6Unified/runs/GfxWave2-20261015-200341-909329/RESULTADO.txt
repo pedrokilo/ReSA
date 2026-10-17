@@ -1,0 +1,3 @@
+FALLO: GfxWave2 (CClothesBuilder, CShadows, CWaterLevel)
+Funciones con diferencias: CWaterLevel::AddWaterLevelQuad: 2/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-gfxwave2\20261015-200341-909329

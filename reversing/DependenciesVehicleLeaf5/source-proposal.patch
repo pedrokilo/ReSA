@@ -1,0 +1,146 @@
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -74,6 +74,7 @@
+     RH_ScopedInstall(FindSequenceElement, 0x421770);
+     RH_ScopedInstall(SwitchVehicleToRealPhysics, 0x423FC0);
+     RH_ScopedInstall(UpdateCarCount, 0x424000);
++    RH_ScopedInstall(FindSpeedMultiplierWithSpeedFromNodes, 0x424130);
+ }
+ 
+ // 0x4212E0
+@@ -374,7 +375,12 @@
+ 
+ // 0x424130
+ float CCarCtrl::FindSpeedMultiplierWithSpeedFromNodes(int8 arg1) {
+-    return plugin::CallAndReturn<float, 0x424130, int8>(arg1);
++    switch (static_cast<uint8>(arg1)) {
++    case 0xFF: return 0.5f;
++    case 0: return std::bit_cast<float>(0x3F266666u);
++    case 2: return std::bit_cast<float>(0x40133333u);
++    default: return 1.0f;
++    }
+ }
+ 
+ float CCarCtrl::FindGhostRoadHeight(CVehicle* vehicle) {
+--- a/source/game_sa/Entity/Physical.h
++++ b/source/game_sa/Entity/Physical.h
+@@ -181,6 +181,7 @@
+     void ApplyMoveForce(float x, float y, float z);
+     void ApplyMoveForce(CVector force);
+     void ApplyTurnForce(CVector force, CVector point);
++    void ApplyTurnForceComponents(float fx, float fy, float fz, float px, float py, float pz);
+     void ApplyForce(CVector vecMoveSpeed, CVector point, bool bUpdateTurnSpeed);
+ 
+     CVector GetSpeed( CVector point);
+--- a/source/game_sa/Entity/Physical.cpp
++++ b/source/game_sa/Entity/Physical.cpp
+@@ -43,6 +43,7 @@
+ 
+     RH_ScopedInstall(RemoveAndAdd, 0x542560);
+     RH_ScopedInstall(ApplyTurnForce, 0x542A50);
++    RH_ScopedInstall(ApplyTurnForceComponents, 0x65DA70);
+     RH_ScopedInstall(ApplyForce, 0x542B50);
+     RH_ScopedInstall(GetSpeed, 0x542CE0);
+     RH_ScopedInstall(ApplyMoveSpeed, 0x542DD0);
+@@ -779,6 +780,11 @@
+         const float invMass = 1.0f / m_fMass;
+         m_vecMoveSpeed += force * invMass;
+     }
++}
++
++// 0x65DA70: the original adapter passes both vectors by value to 0x542A50.
++void CPhysical::ApplyTurnForceComponents(float fx, float fy, float fz, float px, float py, float pz) {
++    ApplyTurnForce(CVector{fx, fy, fz}, CVector{px, py, pz});
+ }
+ 
+ // 0x542A50
+--- a/source/game_sa/PathFind.h
++++ b/source/game_sa/PathFind.h
+@@ -230,6 +230,7 @@
+     static void InjectHooks();
+ 
+     void Init();
++    void AddRandomOffsetToNodePosition(CNodeAddress first, CNodeAddress second, int16 random, float* x, float* y);
+     static void PreparePathData() { /*noop 0x44D0E0*/ }
+     void UnLoadPathFindData(int32 index);
+     void RemoveBadStartNode(CVector pos, CNodeAddress* address, int16* numPathFindNodes);
+--- a/source/game_sa/PathFind.cpp
++++ b/source/game_sa/PathFind.cpp
+@@ -78,6 +78,7 @@
+ void CPathFind::InjectHooks() {
+     RH_ScopedClass(CPathFind);
+     RH_ScopedCategoryGlobal();
++    RH_ScopedInstall(AddRandomOffsetToNodePosition, 0x44DA30);
+ 
+     // Hooks commented out because most of the functions have no definitions
+     // thus it's not possible to take their address
+@@ -1538,3 +1539,46 @@
+ void CPathFind::SwitchPedRoadsOffInArea(float xMin, float xMax, float yMin, float yMax, float zMin, float zMax, bool bSwitchOff, bool bBackToOriginal) {
+     SwitchRoadsOffInArea(xMin, xMax, yMin, yMax, zMin, zMax, bSwitchOff, false, bBackToOriginal);
+ }
++
++// 0x44DA30: both offsets use the minimum raw width; preserve x-before-y alias order.
++void CPathFind::AddRandomOffsetToNodePosition(CNodeAddress first, CNodeAddress second, int16 random, float* x, float* y) {
++    if (first.m_wAreaId == 0xFFFF || !m_pPathNodes[first.m_wAreaId]) return;
++    if (second.m_wAreaId == 0xFFFF || !m_pPathNodes[second.m_wAreaId]) return;
++    const auto* a = reinterpret_cast<const uint8*>(&m_pPathNodes[first.m_wAreaId][first.m_wNodeId]);
++    const auto* b = reinterpret_cast<const uint8*>(&m_pPathNodes[second.m_wAreaId][second.m_wNodeId]);
++    const int32 xFactor = (uint16(random) & 15) - 7;
++    const int32 yFactor = ((uint16(random) >> 4) & 15) - 7;
++    const float scale = std::bit_cast<float>(0x3BFDF3B6u);
++    int32 displacement;
++    __asm {
++        mov ecx, a
++        mov edx, b
++        movzx eax, byte ptr [ecx + 16h]
++        movzx ebx, byte ptr [edx + 16h]
++        cmp eax, ebx
++        jbe firstMinimum
++        mov eax, ebx
++    firstMinimum:
++        imul eax, xFactor
++        mov displacement, eax
++        mov eax, x
++        fild displacement
++        fmul scale
++        fadd dword ptr [eax]
++        fstp dword ptr [eax]
++        // Original reloads both widths after writing x, including possible aliasing.
++        movzx eax, byte ptr [ecx + 16h]
++        movzx ebx, byte ptr [edx + 16h]
++        cmp eax, ebx
++        jbe secondMinimum
++        mov eax, ebx
++    secondMinimum:
++        imul eax, yFactor
++        mov displacement, eax
++        mov eax, y
++        fild displacement
++        fmul scale
++        fadd dword ptr [eax]
++        fstp dword ptr [eax]
++    }
++}
+--- a/source/game_sa/ScriptsForBrains.cpp
++++ b/source/game_sa/ScriptsForBrains.cpp
+@@ -25,6 +25,7 @@
+     RH_ScopedCategory("Tasks/TaskTypes");
+ 
+     RH_ScopedInstall(Init, 0x46A8C0);
++    RH_ScopedInstall(MarkAttractorScriptBrainWithThisNameAsNoLongerNeeded, 0x46AAE0);
+     //RH_ScopedInstall(SwitchAllObjectBrainsWithThisID, 0x46A900, {.reversed = false});
+     //RH_ScopedInstall(AddNewScriptBrain, 0x46A930, {.reversed = false});
+     //RH_ScopedInstall(AddNewStreamedScriptBrainForCodeUse, 0x46A9C0, {.reversed = false});
+@@ -59,7 +60,11 @@
+ }
+ 
+ void CScriptsForBrains::MarkAttractorScriptBrainWithThisNameAsNoLongerNeeded(const char* name) {
+-    plugin::CallMethod<0x46AAE0, CScriptsForBrains*, const char*>(this, name);
++    const auto index = GetIndexOfScriptBrainWithThisName(name, 5);
++    if (index < 0) return;
++    const auto script = m_aScriptForBrains[index].m_StreamedScriptIndex;
++    auto& users = CTheScripts::StreamedScripts.m_aScripts[script].m_NumberOfUsers;
++    if (users) --users;
+ }
+ 
+ void CScriptsForBrains::RequestAttractorScriptBrainWithThisName(const char* name) {

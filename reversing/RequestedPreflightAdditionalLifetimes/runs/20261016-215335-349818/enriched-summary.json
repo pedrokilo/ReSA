@@ -1,0 +1,117 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "01643d952f4d8bdd5524a9a32acc581cd5161130a5f588f3c533fc918310a20c",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 672,
+  "pairs_per_function": {
+    "CTaskSimpleFightingControl::Constructor": 256,
+    "CTaskComplexProstituteSolicit::Constructor": 128,
+    "CTaskSimpleFightingControl::Destructor": 32,
+    "CTaskComplexProstituteSolicit::Destructor": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "harness_restored": true,
+  "harness_sha256": "16498f2f0ccd6565de542cbe59e34ce04425ce3feb474dad0fba6fcbe5871d31",
+  "log_sha256": "6707c6e3486c9a95ed02808ef338ce8f2ad1b7a95dce07c8ee3452627d93005c",
+  "scope": "reference/player ABI fixtures and native child; isolated contracts, no real game actors",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "8d87599662411fd808e4805d1bad0278c5f091bc",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp": "8230a084c17318bf70d14e8215b3654b7472be2ebff5af86539e2f64990786ec",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h": "e33d4f016d49d437a32ef6ea9d2732dbf146edbe5f85a8b12e1782ca2c1f3fc6",
+      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+      "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
+      "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+      "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+      "source/game_sa/World.cpp": "74cca001e2b1eef4e132cb82de87abffbbd6b83dd713aeed37808071366e6239"
+    },
+    "bank_sources": {
+      "reversing/RequestedPreflightAdditionalLifetimes/LiveComparison.hpp": "249f66baa23e4a40b652193d14a52beee0775d3ad6a1836ca96d614ac867ebda",
+      "reversing/RequestedPreflightAdditionalLifetimes/build_probe.py": "abfd5ffdd8084f17062bf3457c85fce93eacd2a435ea12fd19067e09b38e6115",
+      "reversing/RequestedPreflightAdditionalLifetimes/run_local.py": "f3bc631b0e292e2f9339b9975324f04f6b4782996bf45a32cea267dd298de67a",
+      "reversing/RequestedAdditionalLifetimes/LiveComparison.hpp": "13c915b0c10ace372fd50a984baacf3e522b329bb8eef5e437b6fe117209ee55",
+      "reversing/RequestedParallelTasks/TaskLifetimeComparison.hpp": "bc9766c52f56efc73d4bd5269ce46ca94ac408b84c90d6350c19be746ef5e1d6",
+      "reversing/RequestedParallelTasks/TaskLifetimeExpanded/Expanded.hpp": "86b6b5ac7afc67a99c25cddfcce190af07a43faf24169c6c9753ecc9f6a7d2b8",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "34a36e1070cfd8f29cdde997e8a86e4bdc1a3164fd21c800b5e4219336c0b961",
+    "expected_pairs": 672,
+    "fixture_scope": "Frozen additional bank before graphics; isolated reference/player ABI fixtures and concrete native child; no WinMain/startup equivalence; mismatches remain failure and are preserved.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "f512005b092f2216e84d46469b3a32437784b9a799f934180bebd7f6bae65419"
+    },
+    "asi": "01643d952f4d8bdd5524a9a32acc581cd5161130a5f588f3c533fc918310a20c",
+    "pdb": "79801b38ab956738589db79a9d40fcfbbc30b09a6081c27544acfcfcea8cb82d"
+  },
+  "runner_sha256": "f3bc631b0e292e2f9339b9975324f04f6b4782996bf45a32cea267dd298de67a",
+  "reproduction_diagnostics": {
+    "pairs": 672,
+    "pairs_per_function": {
+      "CTaskSimpleFightingControl::Constructor": 256,
+      "CTaskComplexProstituteSolicit::Constructor": 128,
+      "CTaskSimpleFightingControl::Destructor": 32,
+      "CTaskComplexProstituteSolicit::Destructor": 256
+    },
+    "mismatches": 0,
+    "mismatches_per_function": {},
+    "differing_payload_offsets": {},
+    "terminal_bank_record": {
+      "candidates_restored": true,
+      "collaborator_entries_restored": true,
+      "entries_restored": true,
+      "event": "complete",
+      "flags_restored": true,
+      "pairs": 672,
+      "scope": "reference/player ABI fixtures and native child; isolated contracts, no real game actors",
+      "state_restored": true,
+      "tables_restored": true
+    },
+    "terminal_harness_record": {
+      "crt_assert_report_after": 4,
+      "crt_assert_report_before": 4,
+      "crt_assertion_changed_offsets": [],
+      "crt_assertion_restored": true,
+      "crt_error_mode_after": 0,
+      "crt_error_mode_before": 0,
+      "crt_error_report_after": 4,
+      "crt_error_report_before": 4,
+      "crt_restored": true,
+      "entries_restored": true,
+      "event": "complete",
+      "flags_restored": true,
+      "return_to_winmain": true,
+      "snapshot_ranges": 17112,
+      "state_restored": true,
+      "tables_restored": true,
+      "vectored_handler_removed": true
+    },
+    "harness_sha256": "16498f2f0ccd6565de542cbe59e34ce04425ce3feb474dad0fba6fcbe5871d31",
+    "natural_exit": true,
+    "exit_code": 0
+  },
+  "observed_process_exit_code": 0
+}

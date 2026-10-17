@@ -1,0 +1,59 @@
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -1339,9 +1339,4 @@
+ }
+ 
+ // 0x424100: native no-effect helper. Upper24bits of EAX must survive.
+-__declspec(naked) bool Native_00424100(float,float) {
+-    __asm {
+-        xor al,al
+-        ret
+-    }
+-}
++
+--- a/source/game_sa/RenderWare/D3DResourceSystem.cpp
++++ b/source/game_sa/RenderWare/D3DResourceSystem.cpp
+@@ -35,13 +35,7 @@
+ 
+ // 0x730AC0
+ // Writes one byte and preserves EAX high bits, ECX and EDX as in the EXE.
+-__declspec(naked) void D3DResourceSystem::SetUseD3DResourceBuffering(bool) {
+-    __asm {
+-    mov al,byte ptr [esp+4]
+-    mov byte ptr ds:[008D6084h],al
+-    ret
+-    }
+-}
++
+ 
+ // 0x730A00
+ void D3DResourceSystem::Shutdown() {
+--- a/source/CMakeLists.txt
++++ b/source/CMakeLists.txt
+@@ -81,6 +81,12 @@
+         SKIP_UNITY_BUILD_INCLUSION ON
+     )
+     set_source_files_properties(game_sa/CloudsMathCpp.cpp PROPERTIES
++        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
++        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
++        SKIP_PRECOMPILE_HEADERS ON
++        SKIP_UNITY_BUILD_INCLUSION ON
++    )
++    set_source_files_properties(game_sa/IntegerMinimalCpp.cpp PROPERTIES
+         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+         VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+         SKIP_PRECOMPILE_HEADERS ON
+--- /dev/null
++++ b/source/game_sa/IntegerMinimalCpp.cpp
+@@ -0,0 +1,11 @@
++#include "StdInc.h"
++#include "CarCtrl.h"
++#include "RenderWare/D3DResourceSystem.h"
++
++// 0x424100: preserve EAX high24 and reproduce XOR AL flags.
++bool Native_00424100(float, float) { return false; }
++
++// 0x730AC0: write exactly one byte; preserve EAX high24, ECX/EDX and flags.
++void D3DResourceSystem::SetUseD3DResourceBuffering(bool enabled) {
++    *reinterpret_cast<volatile unsigned char*>(0x8D6084) = enabled;
++}

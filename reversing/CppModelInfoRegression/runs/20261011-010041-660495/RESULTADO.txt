@@ -1,0 +1,3 @@
+APROBADO: Regresión CModelInfo tras /Zi con PCH
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cppmodelinforegression\20261011-010041-660495

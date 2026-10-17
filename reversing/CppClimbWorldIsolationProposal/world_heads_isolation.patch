@@ -1,0 +1,64 @@
+--- a/reversing/CppTrigClimb/LiveComparison.hpp
++++ b/reversing/CppTrigClimb/LiveComparison.hpp
+@@ -5,7 +5,7 @@
+ // 4 peatones con vtable falsa (SetMoveAnim trazado), matriz, inteligencia y tareas falsas en el gestor de tareas
+ // (GetSubTask/GetTaskType/MakeAbortable trazados); 6 entidades (2 edificios, 2 objetos, 2 vehiculos) con matriz y
+ // modelo real con colision (solo se lee su radio); asociaciones de animacion y jerarquia falsas; mando falso.
+-// Mundo falso para la colision de trepar: las listas de los sectores 59..61 x 59..61 y de sus sectores repetidos se
++// Mundo aislado: se guardan/vacian todas las cabezas 120x120 y repeat 16x16; los fixtures 59..61 se
+ // sustituyen por cadenas de nodos propias (se restauran al final de cada ejecucion) y CCollision::ProcessColModels se
+ // simula con un guion de puntos de contacto (punto, normal, superficie, pieza) por llamada.
+ // Se simulan y trazan: RNG, FindPlayerPed, CAnimManager::BlendAnimation, RpAnimBlendClumpGetAssociation,
+@@ -369,14 +369,15 @@
+     std::vector<std::pair<uintptr_t,size_t>> regions{{ADDR_TIME,4},{ADDR_STEP,4},{ADDR_SCAN,2},{ADDR_TEMPCOL,TEMPCOL_SIZE},{ADDR_LOOK_THR,4},
+         {ADDR_STATMAT,0x48},{ADDR_STATMAT_GUARD,4},{ADDR_AVOID_STATIC,8},{ADDR_CLIMBCM,0xC0},
+         {uintptr_t(&CPad::GetPad(0)->DisablePlayerControls),2},{uintptr_t(&CWorld::ms_aRepeatSectors[0][0]),sizeof(CRepeatSector)*16*16}};
+-    for(int y=SECTOR0;y<SECTOR0+NCELL;++y)regions.push_back({uintptr_t(&CWorld::GetSector(SECTOR0,y)),sizeof(CSector)*NCELL});
++    // Preserve ALL regular heads; the traversal may reach beyond the fixture's nine cells.
++    regions.push_back({uintptr_t(&CWorld::ms_aSectors[0][0]),sizeof(CWorld::ms_aSectors)});
+     std::vector<std::vector<uint8>> saved; for(auto& [a,n]:regions)saved.push_back(ReversingProbe::Bytes(reinterpret_cast<void*>(a),n));
+     auto restoreGlobals=[&]{ for(size_t k=0;k<regions.size();++k)std::memcpy(reinterpret_cast<void*>(regions[k].first),saved[k].data(),regions[k].second); };
+     auto globalsIntact=[&]{ for(size_t k=0;k<regions.size();++k)if(std::memcmp(reinterpret_cast<void*>(regions[k].first),saved[k].data(),regions[k].second))return false; return true; };
+     std::array<bool,NFNS> enabled{},locked{};
+     for(size_t f=0;f<fns.size();++f){enabled[f]=hooks[f]->Hooked();locked[f]=hooks[f]->Locked();hooks[f]->LockState(false);}
+     bool registered=true; for(size_t f=0;f<fns.size();++f)if((std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::ProcessPed")||(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::TestForClimb")||(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::TestForStandUp")||(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::TestForVault")||(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::GetCameraStickModifier")||(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::GetCameraTargetPos"))registered&=enabled[f];
+-    Write({{"event","begin"},{"registered_hook",registered},{"functions",6},{"pairs",4608},{"collaborators_stubbed",true}});
++    Write({{"event","begin"},{"registered_hook",registered},{"functions",6},{"pairs",4608},{"collaborators_stubbed",true},{"world_isolation",{{"regular_sectors",120*120},{"repeat_sectors",16*16},{"fixture_sectors",NCELL*NCELL},{"heads_only",true}}}});
+     auto setState=[&](bool on){ for(auto* h:hooks)h->State(on); };
+     bool passed=true; int pair=0;
+     {
+@@ -435,6 +436,11 @@
+                     st=uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0x1515u; if(!st)st=1; trace=json::array(); seed=uint32(i);
+                     rngCalls=blendCalls=colCalls=boolCnt=0; freshIds.clear();
+                     CleanRefs(); restoreGlobals();
++                    // Head-only isolation: do not traverse, destroy, or mutate real nodes/entities.
++                    // CSector contains two pointer heads; CRepeatSector contains three.
++                    static_assert(sizeof(CSector)==8&&sizeof(CRepeatSector)==12);
++                    std::memset(&CWorld::ms_aSectors[0][0],0,sizeof(CWorld::ms_aSectors));
++                    std::memset(&CWorld::ms_aRepeatSectors[0][0],0,sizeof(CWorld::ms_aRepeatSectors));
+                     At<uint32>(reinterpret_cast<void*>(ADDR_TIME),0)=100000u+next()%1000000u;
+                     const uint32 now=At<uint32>(reinterpret_cast<void*>(ADDR_TIME),0);
+                     // paso >= 1.6 en ProcessPed de trepar (rama FIX_BUGS fuera del banco)
+--- a/reversing/CppTrigClimb/run_local.py
++++ b/reversing/CppTrigClimb/run_local.py
+@@ -11,6 +11,10 @@
+     def analyze(path):
+         result=base(path)
+         if result is None: return None
++        rows=[json.loads(line) for line in path.read_text().splitlines()]
++        starts=[row for row in rows if row.get("event")=="begin"]
++        if len(starts)!=1 or starts[0].get("world_isolation")!={"regular_sectors":14400,"repeat_sectors":256,"fixture_sectors":9,"heads_only":True}:
++            raise RuntimeError("Aislamiento completo del mundo no demostrado")
+         for line in path.read_text().splitlines():
+             row=json.loads(line)
+             if row.get("event")!="comparison": continue
+@@ -18,6 +22,9 @@
+                 value=row.get(side)
+                 if not isinstance(value,dict) or value.get("switches") is not True or "trace" not in value or "ret" not in value or value.get("clean") is not True:
+                     raise RuntimeError("Registro lateral incompleto: "+str(row.get("pair")))
++                for call in value["trace"]:
++                    if call[0]=="get_bound_centre" and (len(call)!=2 or call[1] not in {"ent"+str(i)+"+0" for i in range(6)}):
++                        raise RuntimeError("Entidad externa alcanzada: "+str(row.get("pair")))
+         return result
+     return analyze
+ probe_case.analyzer=strict_analyzer

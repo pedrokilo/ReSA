@@ -1,0 +1,185 @@
+--- a/source/game_sa/Interior/Interior_c.cpp
++++ b/source/game_sa/Interior/Interior_c.cpp
+@@ -6745,83 +6745,6 @@
+     }
+ }
+ 
+-// 0x599AF0
+-// Canonical EXE transcription; internal branches reside in this DLL.
+-static const uintptr_t InteriorCommerce_FurnishOfficeCalls[] = {0x00591220,0x00591700,0x00599770,0x00599A30,0x0059A130};
+-__declspec(naked) void Interior_c::FurnishOffice() {
+-    __asm {
+-        push esi
+-        push 0
+-        push 2
+-        push 2
+-        push 2
+-        push 0
+-        push 0
+-        mov esi,ecx
+-        call dword ptr [InteriorCommerce_FurnishOfficeCalls+4]
+-        mov eax,dword ptr [esi+14h]
+-        movzx ecx,byte ptr [eax+3]
+-        push 0
+-        push 2
+-        push 2
+-        push 2
+-        sub ecx,2
+-        push ecx
+-        push 0
+-        mov ecx,esi
+-        call dword ptr [InteriorCommerce_FurnishOfficeCalls+4]
+-        mov edx,dword ptr [esi+14h]
+-        movzx eax,byte ptr [edx+2]
+-        push 0
+-        push 2
+-        push 2
+-        push 2
+-        push 0
+-        sub eax,2
+-        push eax
+-        mov ecx,esi
+-        call dword ptr [InteriorCommerce_FurnishOfficeCalls+4]
+-        mov eax,dword ptr [esi+14h]
+-        movzx ecx,byte ptr [eax+3]
+-        movzx edx,byte ptr [eax+2]
+-        push 0
+-        push 2
+-        push 2
+-        push 2
+-        sub ecx,2
+-        push ecx
+-        sub edx,2
+-        push edx
+-        mov ecx,esi
+-        call dword ptr [InteriorCommerce_FurnishOfficeCalls+4]
+-        mov eax,dword ptr [esi+14h]
+-        xor ecx,ecx
+-        mov cl,byte ptr [eax+1Fh]
+-        push ecx
+-        push 0
+-        push 1
+-        mov ecx,0BAB380h
+-        call dword ptr [InteriorCommerce_FurnishOfficeCalls+0]
+-        mov edx,dword ptr [esi+14h]
+-        mov byte ptr [esi+00000791h],al
+-        xor eax,eax
+-        mov al,byte ptr [edx+1Fh]
+-        mov ecx,0BAB380h
+-        push eax
+-        push 1
+-        push 1
+-        call dword ptr [InteriorCommerce_FurnishOfficeCalls+0]
+-        mov ecx,esi
+-        mov byte ptr [esi+00000792h],al
+-        call dword ptr [InteriorCommerce_FurnishOfficeCalls+8]
+-        mov ecx,esi
+-        call dword ptr [InteriorCommerce_FurnishOfficeCalls+12]
+-        mov ecx,esi
+-        pop esi
+-        jmp dword ptr [InteriorCommerce_FurnishOfficeCalls+16]
+-    }
+-}
+-
+ // 0x599BB0
+ // Canonical EXE transcription; internal branches reside in this DLL.
+ static const uintptr_t InteriorCommerce_Shop_Place3PieceUnitCalls[] = {0x005911E0,0x00592AA0};
+@@ -7391,50 +7314,6 @@
+         pop esi
+         pop ecx
+         ret
+-    }
+-}
+-
+-// 0x59A140
+-// Canonical EXE transcription; internal branches reside in this DLL.
+-static const uintptr_t InteriorCommerce_Shop_AddShelfInfoCalls[] = {0x00591E40,0x00821B1E,0x00821B40};
+-__declspec(naked) void Interior_c::Shop_AddShelfInfo(int32 a2, int32 a3, int32 a5) {
+-    __asm {
+-        push ecx
+-        cmp dword ptr ds:[008D0948h],1
+-        push esi
+-        mov esi,ecx
+-        jle InteriorCommerce_Shop_AddShelfInfo_0059A1A4
+-        call dword ptr [InteriorCommerce_Shop_AddShelfInfoCalls+4]
+-        and eax,0FFFFh
+-        mov dword ptr [esp+4],eax
+-        fild dword ptr [esp+4]
+-        fmul dword ptr ds:[00858B14h]
+-        fmul dword ptr ds:[00858628h]
+-        call dword ptr [InteriorCommerce_Shop_AddShelfInfoCalls+8]
+-        cmp eax,3Ch
+-        jle InteriorCommerce_Shop_AddShelfInfo_0059A1A4
+-        mov eax,dword ptr [esp+14h]
+-        fild dword ptr [esp+10h]
+-        push 0
+-        push eax
+-        sub esp,8
+-        fstp dword ptr [esp+4]
+-        mov ecx,esi
+-        fild dword ptr [esp+1Ch]
+-        fstp dword ptr [esp]
+-        push 8
+-        call dword ptr [InteriorCommerce_Shop_AddShelfInfoCalls+0]
+-        xor eax,eax
+-        inc eax
+-        mov dword ptr ds:[008D0948h],eax
+-        pop esi
+-        pop ecx
+-        ret 0Ch
+-    InteriorCommerce_Shop_AddShelfInfo_0059A1A4:
+-        inc dword ptr ds:[008D0948h]
+-        pop esi
+-        pop ecx
+-        ret 0Ch
+     }
+ }
+ 
+--- a/source/game_sa/Interior/InteriorCpp.cpp
++++ b/source/game_sa/Interior/InteriorCpp.cpp
+@@ -10,6 +10,8 @@
+ #include "app/platform/win/winincl.h"
+ struct tEffectInterior;
+ #include "Interior_c.h"
++#include "FurnitureManager_c.h"
++#include <bit>
+ #ifdef _MSC_VER
+ #pragma warning(pop)
+ #endif
+@@ -41,3 +43,36 @@
+ void Interior_c::Shop_FurnishCeiling() {
+ }
+ 
++
++// 0x599AF0
++void Interior_c::FurnishOffice() {
++    const auto dimension = [this](unsigned offset) {
++        return int32(reinterpret_cast<const uint8*>(m_box)[offset]);
++    };
++    SetTilesStatus(0, 0, 2, 2, 2, 0);
++    SetTilesStatus(0, dimension(3) - 2, 2, 2, 2, 0);
++    SetTilesStatus(dimension(2) - 2, 0, 2, 2, 2, 0);
++    SetTilesStatus(dimension(2) - 2, dimension(3) - 2, 2, 2, 2, 0);
++    m_furnitureId = int8(g_furnitureMan.GetRandomId(1, 0, uint8(dimension(0x1F))));
++    field_792 = int8(g_furnitureMan.GetRandomId(1, 1, uint8(dimension(0x1F))));
++    Office_FurnishEdges();
++    Office_FurnishCenter();
++    Shop_FurnishCeiling();
++}
++
++// 0x59A140
++void Interior_c::Shop_AddShelfInfo(int32 x, int32 y, int32 direction) {
++    auto& counter = *reinterpret_cast<uint32*>(0x8D0948);
++    if (std::bit_cast<int32>(counter) > 1) {
++        // This is the external CRT rand collaborator, not a game method body.
++        const uint32 draw = uint32(reinterpret_cast<int(__cdecl*)()>(0x821B1E)()) & 0xFFFF;
++        const float chance = float(draw) * (1.0f / 32768.0f) * 100.0f;
++        if (int32(chance) > 60) {
++            AddInteriorInfo(8, float(x), float(y), direction, nullptr);
++            counter = 1;
++            return;
++        }
++    }
++    // EXE INC wraps all bit patterns, including INT_MAX. Unsigned avoids UB.
++    ++counter;
++}

@@ -1,0 +1,125 @@
+--- a/source/game_sa/Interior/Interior_c.cpp
++++ b/source/game_sa/Interior/Interior_c.cpp
+@@ -6746,90 +6746,26 @@
+ }
+ 
+ // 0x599A30
+-// Canonical EXE transcription; internal branches reside in this DLL.
+-static const uintptr_t InteriorCommerce_Office_FurnishCenterCalls[] = {0x00599960};
+-__declspec(naked) int32 Interior_c::Office_FurnishCenter() {
+-    __asm {
+-        sub esp,0Ch
+-        push ebx
+-        push ebp
+-        push esi
+-        push edi
+-        mov edi,ecx
+-        mov eax,dword ptr [edi+14h]
+-        movzx ecx,byte ptr [eax+2]
+-        movzx esi,byte ptr [eax+3]
+-        sub ecx,6
+-        mov eax,2AAAAAABh
+-        imul ecx
+-        mov eax,edx
+-        shr eax,1Fh
+-        add edx,eax
+-        mov ebx,edx
+-        sub esi,6
+-        mov eax,2AAAAAABh
+-        imul esi
+-        mov eax,edx
+-        shr eax,1Fh
+-        add edx,eax
+-        mov dword ptr [esp+10h],edx
+-        lea edx,[ebx+ebx*2]
+-        shl edx,1
+-        mov eax,ecx
+-        sub eax,edx
+-        cdq
+-        sub eax,edx
+-        mov ebp,eax
+-        mov eax,dword ptr [esp+10h]
+-        lea eax,[eax+eax*2]
+-        shl eax,1
+-        mov edx,eax
+-        mov eax,esi
+-        sub eax,edx
+-        cdq
+-        sub eax,edx
+-        sar eax,1
+-        sar ebp,1
+-        test ecx,ecx
+-        mov dword ptr [esp+18h],eax
+-        jle InteriorCommerce_Office_FurnishCenter_00599ADD
+-        test esi,esi
+-        jle InteriorCommerce_Office_FurnishCenter_00599ADD
+-        test ebx,ebx
+-        jle InteriorCommerce_Office_FurnishCenter_00599ADD
+-        add ebp,6
+-        mov dword ptr [esp+14h],ebx
+-    InteriorCommerce_Office_FurnishCenter_00599AA7:
+-        mov ebx,dword ptr [esp+10h]
+-        test ebx,ebx
+-        jle InteriorCommerce_Office_FurnishCenter_00599ACF
+-        lea esi,[eax+6]
+-    InteriorCommerce_Office_FurnishCenter_00599AB2:
+-        movsx eax,byte ptr [edi+00000791h]
+-        push eax
+-        push esi
+-        push ebp
+-        push 0FFFFFFFFh
+-        mov ecx,edi
+-        call dword ptr [InteriorCommerce_Office_FurnishCenterCalls+0]
+-        add esi,6
+-        dec ebx
+-        jne InteriorCommerce_Office_FurnishCenter_00599AB2
+-        mov eax,dword ptr [esp+18h]
+-    InteriorCommerce_Office_FurnishCenter_00599ACF:
+-        mov ecx,dword ptr [esp+14h]
+-        add ebp,6
+-        dec ecx
+-        mov dword ptr [esp+14h],ecx
+-        jne InteriorCommerce_Office_FurnishCenter_00599AA7
+-    InteriorCommerce_Office_FurnishCenter_00599ADD:
+-        pop edi
+-        pop esi
+-        pop ebp
+-        pop ebx
+-        add esp,0Ch
+-        ret
++// Integer layout and return value match the EXE, including negative remainders.
++int32 Interior_c::Office_FurnishCenter() {
++    const auto* box = reinterpret_cast<const uint8*>(m_box);
++    const int32 width = int32(box[2]) - 6;
++    const int32 height = int32(box[3]) - 6;
++    const int32 columns = width / 6;
++    const int32 rows = height / 6;
++    const int32 insetX = (width % 6) / 2;
++    const int32 insetY = (height % 6) / 2;
++    if (width > 0 && height > 0 && columns > 0) {
++        for (int32 column = 0; column < columns; ++column) {
++            for (int32 row = 0; row < rows; ++row) {
++                Office_PlaceDeskQuad(-1, insetX + 6 + column * 6,
++                    insetY + 6 + row * 6, int32(m_furnitureId));
++            }
++        }
+     }
++    // 0x599ACB reloads this value after each populated column. Empty paths
++    // retain the same EAX computed at 0x599A8C.
++    return insetY;
+ }
+ 
+ // 0x599AF0
+@@ -7482,11 +7418,7 @@
+ }
+ 
+ // 0x59A130
+-// Canonical EXE transcription; internal branches reside in this DLL.
+-__declspec(naked) void Interior_c::Shop_FurnishCeiling() {
+-    __asm {
+-        ret
+-    }
++void Interior_c::Shop_FurnishCeiling() {
+ }
+ 
+ // 0x59A140

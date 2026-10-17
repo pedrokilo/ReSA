@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11415A90: 55                 push        ebp
+  11415A91: 8B EC              mov         ebp,esp
+  11415A93: 81 EC CC 00 00 00  sub         esp,0CCh
+  11415A99: 53                 push        ebx
+  11415A9A: 56                 push        esi
+  11415A9B: 57                 push        edi
+  11415A9C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11415A9F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11415AA2: 5F                 pop         edi
+  11415AA3: 5E                 pop         esi
+  11415AA4: 5B                 pop         ebx
+  11415AA5: 8B E5              mov         esp,ebp
+  11415AA7: 5D                 pop         ebp
+  11415AA8: C2 04 00           ret         4
+  11415AAB: CC                 int         3
+  11415AAC: CC                 int         3
+  11415AAD: CC                 int         3
+  11415AAE: CC                 int         3
+  11415AAF: CC                 int         3
+  11415AB0: CC                 int         3
+  11415AB1: CC                 int         3
+  11415AB2: CC                 int         3
+  11415AB3: CC                 int         3
+  11415AB4: CC                 int         3
+  11415AB5: CC                 int         3
+  11415AB6: CC                 int         3
+  11415AB7: CC                 int         3
+  11415AB8: CC                 int         3
+  11415AB9: CC                 int         3
+  11415ABA: CC                 int         3
+  11415ABB: CC                 int         3
+  11415ABC: CC                 int         3
+  11415ABD: CC                 int         3
+  11415ABE: CC                 int         3
+  11415ABF: CC                 int         3
+  11415AC0: 55                 push        ebp
+  11415AC1: 8B EC              mov         ebp,esp
+  11415AC3: 81 EC CC 00 00 00  sub         esp,0CCh
+  11415AC9: 53                 push        ebx
+  11415ACA: 56                 push        esi
+  11415ACB: 57                 push        edi
+  11415ACC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11415ACF: 8B
+  11415AD0: 45                 inc         ebp
+
+  Summary
+
+     21DB000 .text

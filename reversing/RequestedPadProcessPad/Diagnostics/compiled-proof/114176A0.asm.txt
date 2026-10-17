@@ -1,0 +1,55 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114176A0: 55                 push        ebp
+  114176A1: 8B EC              mov         ebp,esp
+  114176A3: 81 EC CC 00 00 00  sub         esp,0CCh
+  114176A9: 53                 push        ebx
+  114176AA: 56                 push        esi
+  114176AB: 57                 push        edi
+  114176AC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  114176AF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  114176B2: 5F                 pop         edi
+  114176B3: 5E                 pop         esi
+  114176B4: 5B                 pop         ebx
+  114176B5: 8B E5              mov         esp,ebp
+  114176B7: 5D                 pop         ebp
+  114176B8: C3                 ret
+  114176B9: CC                 int         3
+  114176BA: CC                 int         3
+  114176BB: CC                 int         3
+  114176BC: CC                 int         3
+  114176BD: CC                 int         3
+  114176BE: CC                 int         3
+  114176BF: CC                 int         3
+  114176C0: 55                 push        ebp
+  114176C1: 8B EC              mov         ebp,esp
+  114176C3: 81 EC CC 00 00 00  sub         esp,0CCh
+  114176C9: 53                 push        ebx
+  114176CA: 56                 push        esi
+  114176CB: 57                 push        edi
+  114176CC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  114176CF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  114176D2: 5F                 pop         edi
+  114176D3: 5E                 pop         esi
+  114176D4: 5B                 pop         ebx
+  114176D5: 8B E5              mov         esp,ebp
+  114176D7: 5D                 pop         ebp
+  114176D8: C3                 ret
+  114176D9: CC                 int         3
+  114176DA: CC                 int         3
+  114176DB: CC                 int         3
+  114176DC: CC                 int         3
+  114176DD: CC                 int         3
+  114176DE: CC                 int         3
+  114176DF: CC                 int         3
+  114176E0: 55                 push        ebp
+
+  Summary
+
+     21DB000 .text

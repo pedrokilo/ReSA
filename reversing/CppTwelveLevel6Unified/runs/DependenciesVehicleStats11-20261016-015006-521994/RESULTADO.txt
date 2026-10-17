@@ -1,0 +1,3 @@
+FALLO: DependenciesVehicleStats11
+Funciones con diferencias: CStats::UpdateStatsWhenCycling: 228/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesvehiclestats11\20261016-015006-521994

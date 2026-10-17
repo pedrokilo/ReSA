@@ -1,0 +1,406 @@
+--- a/source/game_sa/Stats.cpp
++++ b/source/game_sa/Stats.cpp
+@@ -143,6 +143,8 @@
+ 
+ 
+     RH_ScopedInstall(Init, 0x55C0C0);
++    RH_ScopedInstall(UpdateStatsWhenDriving, 0x55CAC0);
++    RH_ScopedInstall(UpdateStatsWhenFlying, 0x55CC00);
+     RH_ScopedInstall(PopulateFavoriteRadioStationList, 0x558EC0);
+     RH_ScopedInstall(FindMostFavoriteRadioStation, 0x558FA0);
+     RH_ScopedInstall(GetFatAndMuscleModifier, 0x559AF0);
+@@ -2090,13 +2092,390 @@
+ }
+ 
+ // 0x55CAC0
+-void CStats::UpdateStatsWhenDriving(CVehicle* vehicle) {
+-    plugin::Call<0x55CAC0, CVehicle*>(vehicle);
++
++namespace {
++__declspec(naked) void VehicleStats9Increment() { __asm { push 00055C180h } __asm { ret } }
++__declspec(naked) void VehicleStats9Display() { __asm { push 00055B980h } __asm { ret } }
++__declspec(naked) void VehicleStats9Ftol() { __asm { push 000821B40h } __asm { ret } }
++}
++
++__declspec(naked) void CStats::UpdateStatsWhenDriving(CVehicle* vehicle) {
++    __asm {
++        // 0x55CAC0
++        push ecx
++        // 0x55CAC1
++        mov edx,dword ptr [esp+8]
++        // 0x55CAC5
++        mov eax,dword ptr [edx+000000590h]
++        // 0x55CACB
++        xor ecx,ecx
++        // 0x55CACD
++        test eax,eax
++        // 0x55CACF
++        jne VehicleStats9_UpdateStatsWhenDriving_55CAD3
++        // 0x55CAD1
++        mov ecx,edx
++VehicleStats9_UpdateStatsWhenDriving_55CAD3:
++        mov eax,dword ptr ds:[000B794ECh]
++        // 0x55CAD8
++        fild dword ptr ds:[000B794ECh]
++        // 0x55CADE
++        test eax,eax
++        // 0x55CAE0
++        jge VehicleStats9_UpdateStatsWhenDriving_55CAE8
++        // 0x55CAE2
++        fadd dword ptr ds:[000858C54h]
++VehicleStats9_UpdateStatsWhenDriving_55CAE8:
++        fstp dword ptr [esp+8]
++        // 0x55CAEC
++        fld dword ptr ds:[000B78FA4h]
++        // 0x55CAF2
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55CAF8
++        fcomp dword ptr [esp+8]
++        // 0x55CAFC
++        fnstsw ax
++        // 0x55CAFE
++        test ah,5
++        // 0x55CB01
++        jp VehicleStats9_UpdateStatsWhenDriving_55CB36
++        // 0x55CB03
++        mov ecx,dword ptr ds:[000B78F20h]
++        // 0x55CB09
++        push ecx
++        // 0x55CB0A
++        push 00A0h
++        // 0x55CB0F
++        mov dword ptr ds:[000B794ECh],0
++        // 0x55CB19
++        call VehicleStats9Increment
++        // 0x55CB1E
++        mov edx,dword ptr ds:[000B78F20h]
++        // 0x55CB24
++        push edx
++        // 0x55CB25
++        push 00A0h
++        // 0x55CB2A
++        push 1
++        // 0x55CB2C
++        call VehicleStats9Display
++        // 0x55CB31
++        add esp,014h
++        // 0x55CB34
++        pop ecx
++        // 0x55CB35
++        ret
++VehicleStats9_UpdateStatsWhenDriving_55CB36:
++        fld dword ptr [edx+04Ch]
++        // 0x55CB39
++        fld dword ptr [edx+048h]
++        // 0x55CB3C
++        fld dword ptr [edx+044h]
++        // 0x55CB3F
++        fld st(0)
++        // 0x55CB41
++        fmul st,st(1)
++        // 0x55CB43
++        fld st(2)
++        // 0x55CB45
++        fmul st,st(3)
++        // 0x55CB47
++        faddp st(1),st
++        // 0x55CB49
++        fld st(3)
++        // 0x55CB4B
++        fmul st,st(4)
++        // 0x55CB4D
++        faddp st(1),st
++        // 0x55CB4F
++        fsqrt
++        // 0x55CB51
++        fstp st(3)
++        // 0x55CB53
++        fstp st(0)
++        // 0x55CB55
++        fstp st(0)
++        // 0x55CB57
++        fcom dword ptr ds:[000863E70h]
++        // 0x55CB5D
++        fnstsw ax
++        // 0x55CB5F
++        test ah,041h
++        // 0x55CB62
++        je VehicleStats9_UpdateStatsWhenDriving_55CBBE
++        // 0x55CB64
++        test ecx,ecx
++        // 0x55CB66
++        je VehicleStats9_UpdateStatsWhenDriving_55CB72
++        // 0x55CB68
++        mov al,byte ptr [ecx+000000960h]
++        // 0x55CB6E
++        test al,al
++        // 0x55CB70
++        je VehicleStats9_UpdateStatsWhenDriving_55CBBE
++VehicleStats9_UpdateStatsWhenDriving_55CB72:
++        fcomp dword ptr ds:[000863E68h]
++        // 0x55CB78
++        fnstsw ax
++        // 0x55CB7A
++        test ah,041h
++        // 0x55CB7D
++        jne VehicleStats9_UpdateStatsWhenDriving_55CBFD
++        // 0x55CB7F
++        fld dword ptr ds:[000B7CB5Ch]
++        // 0x55CB85
++        fmul dword ptr ds:[000858B38h]
++        // 0x55CB8B
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55CB91
++        call VehicleStats9Ftol
++        // 0x55CB96
++        test eax,eax
++        // 0x55CB98
++        mov dword ptr [esp],eax
++        // 0x55CB9C
++        fild dword ptr [esp]
++        // 0x55CBA0
++        jge VehicleStats9_UpdateStatsWhenDriving_55CBA8
++        // 0x55CBA2
++        fadd dword ptr ds:[000858C54h]
++VehicleStats9_UpdateStatsWhenDriving_55CBA8:
++        fmul dword ptr ds:[000863E6Ch]
++        // 0x55CBAE
++        fadd dword ptr [esp+8]
++        // 0x55CBB2
++        call VehicleStats9Ftol
++        // 0x55CBB7
++        mov dword ptr ds:[000B794ECh],eax
++        // 0x55CBBC
++        pop ecx
++        // 0x55CBBD
++        ret
++VehicleStats9_UpdateStatsWhenDriving_55CBBE:
++        fstp st(0)
++        // 0x55CBC0
++        fld dword ptr ds:[000B7CB5Ch]
++        // 0x55CBC6
++        fmul dword ptr ds:[000858B38h]
++        // 0x55CBCC
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55CBD2
++        call VehicleStats9Ftol
++        // 0x55CBD7
++        test eax,eax
++        // 0x55CBD9
++        mov dword ptr [esp],eax
++        // 0x55CBDD
++        fild dword ptr [esp]
++        // 0x55CBE1
++        jge VehicleStats9_UpdateStatsWhenDriving_55CBE9
++        // 0x55CBE3
++        fadd dword ptr ds:[000858C54h]
++VehicleStats9_UpdateStatsWhenDriving_55CBE9:
++        fmul dword ptr ds:[000863E74h]
++        // 0x55CBEF
++        fadd dword ptr [esp+8]
++        // 0x55CBF3
++        call VehicleStats9Ftol
++        // 0x55CBF8
++        mov dword ptr ds:[000B794ECh],eax
++VehicleStats9_UpdateStatsWhenDriving_55CBFD:
++        pop ecx
++        // 0x55CBFE
++        ret
++    }
+ }
+ 
+ // 0x55CC00
+-void CStats::UpdateStatsWhenFlying(CVehicle* vehicle) {
+-    plugin::Call<0x55CC00, CVehicle*>(vehicle);
++__declspec(naked) void CStats::UpdateStatsWhenFlying(CVehicle* vehicle) {
++    __asm {
++        // 0x55CC00
++        push ecx
++        // 0x55CC01
++        mov ecx,dword ptr [esp+8]
++        // 0x55CC05
++        mov eax,dword ptr [ecx+000000590h]
++        // 0x55CC0B
++        test eax,eax
++        // 0x55CC0D
++        jne VehicleStats9_UpdateStatsWhenFlying_55CD50
++        // 0x55CC13
++        mov eax,dword ptr ds:[000B794F0h]
++        // 0x55CC18
++        fild dword ptr ds:[000B794F0h]
++        // 0x55CC1E
++        test eax,eax
++        // 0x55CC20
++        jge VehicleStats9_UpdateStatsWhenFlying_55CC28
++        // 0x55CC22
++        fadd dword ptr ds:[000858C54h]
++VehicleStats9_UpdateStatsWhenFlying_55CC28:
++        fstp dword ptr [esp+8]
++        // 0x55CC2C
++        fld dword ptr ds:[000B78FA8h]
++        // 0x55CC32
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55CC38
++        fcomp dword ptr [esp+8]
++        // 0x55CC3C
++        fnstsw ax
++        // 0x55CC3E
++        test ah,5
++        // 0x55CC41
++        jp VehicleStats9_UpdateStatsWhenFlying_55CC76
++        // 0x55CC43
++        mov ecx,dword ptr ds:[000B78F24h]
++        // 0x55CC49
++        push ecx
++        // 0x55CC4A
++        push 00DFh
++        // 0x55CC4F
++        mov dword ptr ds:[000B794F0h],0
++        // 0x55CC59
++        call VehicleStats9Increment
++        // 0x55CC5E
++        mov edx,dword ptr ds:[000B78F24h]
++        // 0x55CC64
++        push edx
++        // 0x55CC65
++        push 00DFh
++        // 0x55CC6A
++        push 1
++        // 0x55CC6C
++        call VehicleStats9Display
++        // 0x55CC71
++        add esp,014h
++        // 0x55CC74
++        pop ecx
++        // 0x55CC75
++        ret
++VehicleStats9_UpdateStatsWhenFlying_55CC76:
++        mov al,byte ptr [ecx+000000960h]
++        // 0x55CC7C
++        test al,al
++        // 0x55CC7E
++        jne VehicleStats9_UpdateStatsWhenFlying_55CD50
++        // 0x55CC84
++        fld dword ptr [ecx+04Ch]
++        // 0x55CC87
++        fld dword ptr [ecx+048h]
++        // 0x55CC8A
++        fld dword ptr [ecx+044h]
++        // 0x55CC8D
++        fld st(0)
++        // 0x55CC8F
++        fmul st,st(1)
++        // 0x55CC91
++        fld st(2)
++        // 0x55CC93
++        fmul st,st(3)
++        // 0x55CC95
++        faddp st(1),st
++        // 0x55CC97
++        fld st(3)
++        // 0x55CC99
++        fmul st,st(4)
++        // 0x55CC9B
++        faddp st(1),st
++        // 0x55CC9D
++        fsqrt
++        // 0x55CC9F
++        fstp st(3)
++        // 0x55CCA1
++        fstp st(0)
++        // 0x55CCA3
++        fstp st(0)
++        // 0x55CCA5
++        fcom dword ptr ds:[000863E80h]
++        // 0x55CCAB
++        fnstsw ax
++        // 0x55CCAD
++        test ah,041h
++        // 0x55CCB0
++        je VehicleStats9_UpdateStatsWhenFlying_55CD11
++        // 0x55CCB2
++        mov eax,dword ptr [ecx+014h]
++        // 0x55CCB5
++        fld dword ptr [eax+028h]
++        // 0x55CCB8
++        fcomp dword ptr ds:[000858B50h]
++        // 0x55CCBE
++        fnstsw ax
++        // 0x55CCC0
++        test ah,5
++        // 0x55CCC3
++        jnp VehicleStats9_UpdateStatsWhenFlying_55CD11
++        // 0x55CCC5
++        fcomp dword ptr ds:[000863E78h]
++        // 0x55CCCB
++        fnstsw ax
++        // 0x55CCCD
++        test ah,041h
++        // 0x55CCD0
++        jne VehicleStats9_UpdateStatsWhenFlying_55CD50
++        // 0x55CCD2
++        fld dword ptr ds:[000B7CB5Ch]
++        // 0x55CCD8
++        fmul dword ptr ds:[000858B38h]
++        // 0x55CCDE
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55CCE4
++        call VehicleStats9Ftol
++        // 0x55CCE9
++        test eax,eax
++        // 0x55CCEB
++        mov dword ptr [esp],eax
++        // 0x55CCEF
++        fild dword ptr [esp]
++        // 0x55CCF3
++        jge VehicleStats9_UpdateStatsWhenFlying_55CCFB
++        // 0x55CCF5
++        fadd dword ptr ds:[000858C54h]
++VehicleStats9_UpdateStatsWhenFlying_55CCFB:
++        fmul dword ptr ds:[000863E7Ch]
++        // 0x55CD01
++        fadd dword ptr [esp+8]
++        // 0x55CD05
++        call VehicleStats9Ftol
++        // 0x55CD0A
++        mov dword ptr ds:[000B794F0h],eax
++        // 0x55CD0F
++        pop ecx
++        // 0x55CD10
++        ret
++VehicleStats9_UpdateStatsWhenFlying_55CD11:
++        fstp st(0)
++        // 0x55CD13
++        fld dword ptr ds:[000B7CB5Ch]
++        // 0x55CD19
++        fmul dword ptr ds:[000858B38h]
++        // 0x55CD1F
++        fmul dword ptr ds:[000858C4Ch]
++        // 0x55CD25
++        call VehicleStats9Ftol
++        // 0x55CD2A
++        test eax,eax
++        // 0x55CD2C
++        mov dword ptr [esp],eax
++        // 0x55CD30
++        fild dword ptr [esp]
++        // 0x55CD34
++        jge VehicleStats9_UpdateStatsWhenFlying_55CD3C
++        // 0x55CD36
++        fadd dword ptr ds:[000858C54h]
++VehicleStats9_UpdateStatsWhenFlying_55CD3C:
++        fmul dword ptr ds:[000863E84h]
++        // 0x55CD42
++        fadd dword ptr [esp+8]
++        // 0x55CD46
++        call VehicleStats9Ftol
++        // 0x55CD4B
++        mov dword ptr ds:[000B794F0h],eax
++VehicleStats9_UpdateStatsWhenFlying_55CD50:
++        pop ecx
++        // 0x55CD51
++        ret
++    }
+ }
+ 
+ // 0x55CD60

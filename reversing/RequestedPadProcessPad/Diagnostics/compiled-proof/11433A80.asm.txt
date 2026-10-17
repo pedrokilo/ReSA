@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11433A80: 55                 push        ebp
+  11433A81: 8B EC              mov         ebp,esp
+  11433A83: 81 EC F0 00 00 00  sub         esp,0F0h
+  11433A89: 53                 push        ebx
+  11433A8A: 56                 push        esi
+  11433A8B: 57                 push        edi
+  11433A8C: 51                 push        ecx
+  11433A8D: 8D 7D D0           lea         edi,[ebp-30h]
+  11433A90: B9 0C 00 00 00     mov         ecx,0Ch
+  11433A95: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11433A9A: F3 AB              rep stos    dword ptr es:[edi]
+  11433A9C: 59                 pop         ecx
+  11433A9D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11433AA0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11433AA3: E8 AB C8 C7 FF     call        110B0353
+  11433AA8: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11433AAB: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11433AAE: E8 CB A0 C9 FF     call        110CDB7E
+  11433AB3: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  11433AB6: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11433AB9: D1 E8              shr         eax,1
+  11433ABB: B9 FF FF FF 3F     mov         ecx,3FFFFFFFh
+  11433AC0: 2B C8              sub         ecx,eax
+  11433AC2: 39 4D EC           cmp         dword ptr [ebp-14h],ecx
+  11433AC5: 76 07              jbe         11433ACE
+  11433AC7: B8 FF FF FF 3F     mov         eax,3FFFFFFFh
+  11433ACC: EB 1B              jmp         11433AE9
+  11433ACE: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11433AD1: D1 E8              shr         eax,1
+  11433AD3: 03 45 EC           add         eax,dword ptr [ebp-14h]
+  11433AD6: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  11433AD9: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11433ADC: 3B 45 08           cmp         eax,dword ptr [ebp+8]
+  11433ADF: 73 05              jae         11433AE6
+  11433AE1: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11433AE4: EB 03              jmp         11433AE9
+  11433AE6: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11433AE9: 5F                 pop         edi
+  11433AEA: 5E                 pop         esi
+  11433AEB: 5B                 pop         ebx
+  11433AEC: 81 C4 F0 00 00 00  add         esp,0F0h
+  11433AF2: 3B EC              cmp         ebp,esp
+  11433AF4: E8 93 FF C5 FF     call        11093A8C
+  11433AF9: 8B E5              mov         esp,ebp
+  11433AFB: 5D                 pop         ebp
+  11433AFC: C2 04 00           ret         4
+  11433AFF: CC                 int         3
+
+  Summary
+
+     21DB000 .text

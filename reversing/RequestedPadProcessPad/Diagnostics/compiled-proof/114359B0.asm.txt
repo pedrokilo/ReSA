@@ -1,0 +1,55 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114359B0: 55                 push        ebp
+  114359B1: 8B EC              mov         ebp,esp
+  114359B3: 81 EC CC 00 00 00  sub         esp,0CCh
+  114359B9: 53                 push        ebx
+  114359BA: 56                 push        esi
+  114359BB: 57                 push        edi
+  114359BC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  114359BF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  114359C2: 5F                 pop         edi
+  114359C3: 5E                 pop         esi
+  114359C4: 5B                 pop         ebx
+  114359C5: 8B E5              mov         esp,ebp
+  114359C7: 5D                 pop         ebp
+  114359C8: C3                 ret
+  114359C9: CC                 int         3
+  114359CA: CC                 int         3
+  114359CB: CC                 int         3
+  114359CC: CC                 int         3
+  114359CD: CC                 int         3
+  114359CE: CC                 int         3
+  114359CF: CC                 int         3
+  114359D0: 55                 push        ebp
+  114359D1: 8B EC              mov         ebp,esp
+  114359D3: 81 EC CC 00 00 00  sub         esp,0CCh
+  114359D9: 53                 push        ebx
+  114359DA: 56                 push        esi
+  114359DB: 57                 push        edi
+  114359DC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  114359DF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  114359E2: 5F                 pop         edi
+  114359E3: 5E                 pop         esi
+  114359E4: 5B                 pop         ebx
+  114359E5: 8B E5              mov         esp,ebp
+  114359E7: 5D                 pop         ebp
+  114359E8: C3                 ret
+  114359E9: CC                 int         3
+  114359EA: CC                 int         3
+  114359EB: CC                 int         3
+  114359EC: CC                 int         3
+  114359ED: CC                 int         3
+  114359EE: CC                 int         3
+  114359EF: CC                 int         3
+  114359F0: 55                 push        ebp
+
+  Summary
+
+     21DB000 .text

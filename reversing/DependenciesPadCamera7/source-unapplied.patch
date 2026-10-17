@@ -1,0 +1,268 @@
+--- a/source/game_sa/Pad.h
++++ b/source/game_sa/Pad.h
+@@ -114,6 +114,9 @@
+     static inline auto& padNumber = StaticRef<char>(0xB73400);
+ 
+ public:
++    bool GetCameraCycleUp() const;
++    int16 GetMouseCameraStickHorizontal() const;
++    int16 GetMouseCameraStickVertical() const;
+     static void InjectHooks();
+ 
+     CPad();
+--- a/source/game_sa/Pad.cpp
++++ b/source/game_sa/Pad.cpp
+@@ -25,6 +25,7 @@
+ #include "StdInc.h"
+ 
+ #include "Pad.h"
++#include "Cam.h"
+ #include "platform/win/WinInput.h"
+ #include "ControllerConfigManager.h"
+ #include "app.h"
+@@ -46,6 +47,9 @@
+ void CPad::InjectHooks() {
+     RH_ScopedClass(CPad);
+     RH_ScopedCategoryGlobal();
++    RH_ScopedInstall(GetCameraCycleUp, 0x5404A0);
++    RH_ScopedInstall(GetMouseCameraStickHorizontal, 0x540E80);
++    RH_ScopedInstall(GetMouseCameraStickVertical, 0x540F80);
+ 
+     // CPad", 0x541D80, &CPad::Constructor);
+     // CPad~", 0x53ED60, &CPad::Destructor);
+@@ -1860,3 +1864,183 @@
+ void InitialiseMouse(bool exclusive) {
+     WinInput::diMouseInit(exclusive);
+ }
++
++static uintptr_t MouseCameraModeBody=std::bit_cast<uintptr_t>(&CCam::Using3rdPersonMouseCam);
++static uintptr_t MouseCameraFtolLibrary=0x821B40;
++
++// 0x5404A0: native table 5404DC = B3,C1,B3,B3; all candidate targets local.
++__declspec(naked) bool CPad::GetCameraCycleUp() const {
++    __asm {
++        movzx eax,word ptr [ecx+10Ah]
++        cmp eax,3
++        ja invalidMode
++        cmp eax,1
++        je alternate
++        cmp word ptr [ecx+1Ah],0
++        je released
++        cmp word ptr [ecx+4Ah],0
++        jmp previous
++    alternate:
++        cmp word ptr [ecx+10h],0
++        je released
++        cmp word ptr [ecx+40h],0
++    previous:
++        jne released
++        mov eax,1
++        ret
++    released:
++        xor eax,eax
++        ret
++    invalidMode:
++        xor al,al
++        ret
++    }
++}
++
++// 0x540e80: exact native x87/integer branches, actual CRT tail call.
++__declspec(naked) int16 CPad::GetMouseCameraStickHorizontal() const {
++    __asm {
++    push ecx
++    movsx eax,word ptr ds:[00B7345Ch]
++    mov dword ptr [esp],eax
++    fild dword ptr [esp]
++    fst dword ptr [esp]
++    fcomp dword ptr ds:[00858B50h]
++    fld dword ptr [esp]
++    fnstsw ax
++    test ah,5
++    jp L00540EA7
++    fchs
++    L00540EA7: fcomp dword ptr ds:[00858628h]
++    fnstsw ax
++    test ah,41h
++    jne L00540F07
++    cmp word ptr [ecx+0000010Eh],0
++    jne L00540ECA
++    cmp word ptr [ecx+26h],0
++    setne al
++    test al,al
++    jne L00540F07
++    L00540ECA: fld dword ptr [esp]
++    fcomp dword ptr ds:[00858B50h]
++    fld dword ptr [esp]
++    fnstsw ax
++    test ah,41h
++    jne L00540EF3
++    fsub dword ptr ds:[00858628h]
++    fadd dword ptr ds:[00858B40h]
++    add esp,4
++    jmp dword ptr [MouseCameraFtolLibrary]
++    L00540EF3: fadd dword ptr ds:[00858628h]
++    fsub dword ptr ds:[00858B40h]
++    add esp,4
++    jmp dword ptr [MouseCameraFtolLibrary]
++    L00540F07: mov ecx,0B6F19Ch
++    call dword ptr [MouseCameraModeBody]
++    test al,al
++    je L00540F76
++    fld dword ptr [esp]
++    fcomp dword ptr ds:[00858B50h]
++    fld dword ptr [esp]
++    fnstsw ax
++    test ah,5
++    jp L00540F2C
++    fchs
++    L00540F2C: fcomp dword ptr ds:[00858B40h]
++    fnstsw ax
++    test ah,41h
++    jne L00540F76
++    fld dword ptr [esp]
++    fcomp dword ptr ds:[00858B50h]
++    fld dword ptr [esp]
++    fnstsw ax
++    test ah,41h
++    jne L00540F62
++    fsub dword ptr ds:[00858B40h]
++    fmul dword ptr ds:[00858B8Ch]
++    add esp,4
++    jmp dword ptr [MouseCameraFtolLibrary]
++    L00540F62: fadd dword ptr ds:[00858B40h]
++    fmul dword ptr ds:[00858B8Ch]
++    add esp,4
++    jmp dword ptr [MouseCameraFtolLibrary]
++    L00540F76: xor ax,ax
++    pop ecx
++    ret
++    }
++}
++
++// 0x540f80: exact native x87/integer branches, actual CRT tail call.
++__declspec(naked) int16 CPad::GetMouseCameraStickVertical() const {
++    __asm {
++    push ecx
++    mov al,byte ptr ds:[00B73402h]
++    test al,al
++    push esi
++    push edi
++    mov di,word ptr ds:[00B7345Eh]
++    mov word ptr [esp+8],di
++    je L00540FA5
++    mov eax,dword ptr [esp+8]
++    neg eax
++    mov dword ptr [esp+8],eax
++    mov di,ax
++    L00540FA5: test di,di
++    movsx esi,di
++    mov eax,esi
++    jge L00540FB1
++    neg eax
++    L00540FB1: cmp eax,64h
++    jle L00540FDF
++    cmp word ptr [ecx+0000010Eh],0
++    jne L00540FCC
++    cmp word ptr [ecx+26h],0
++    setne al
++    test al,al
++    jne L00540FDF
++    L00540FCC: test di,di
++    jle L00540FD8
++    pop edi
++    lea eax,[esi-32h]
++    pop esi
++    pop ecx
++    ret
++    L00540FD8: pop edi
++    lea eax,[esi+32h]
++    pop esi
++    pop ecx
++    ret
++    L00540FDF: mov ecx,0B6F19Ch
++    call dword ptr [MouseCameraModeBody]
++    test al,al
++    je L00541035
++    test di,di
++    mov eax,esi
++    jge L00540FF6
++    neg eax
++    L00540FF6: cmp eax,32h
++    jle L00541035
++    test di,di
++    pop edi
++    jle L0054101B
++    add esi,0FFFFFFCEh
++    mov dword ptr [esp+4],esi
++    fild dword ptr [esp+4]
++    pop esi
++    fmul dword ptr ds:[00858B8Ch]
++    add esp,4
++    jmp dword ptr [MouseCameraFtolLibrary]
++    L0054101B: add esi,32h
++    mov dword ptr [esp+4],esi
++    fild dword ptr [esp+4]
++    pop esi
++    fmul dword ptr ds:[00858B8Ch]
++    add esp,4
++    jmp dword ptr [MouseCameraFtolLibrary]
++    L00541035: pop edi
++    xor ax,ax
++    pop esi
++    pop ecx
++    ret
++    }
++}
+--- a/source/game_sa/Camera.cpp
++++ b/source/game_sa/Camera.cpp
+@@ -3665,7 +3665,7 @@
+     }
+ }
+ bool CameraControlCycleUp(CPad* pad) {
+-    return plugin::CallMethodAndReturn<bool, 0x5404A0, CPad*>(pad);
++    return pad->GetCameraCycleUp();
+ }
+ void CameraControlVehicleCycle(CCamera& camera) {
+     auto& requested = StaticRef<uint16>(0xB70140);
+@@ -3717,8 +3717,8 @@
+         && (!camera.m_bWideScreenOn || camera.m_bEnable1rstPersonCamCntrlsScript)
+         && !camera.m_aCams[camera.m_nActiveCam].Using3rdPersonMouseCam()) {
+         if (!FindPlayerPed()->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK)) {
+-            if (plugin::CallMethodAndReturn<int16, 0x540E80, CPad*>(CPad::GetPad(0)) == 0) {
+-                plugin::CallMethodAndReturn<int16, 0x540F80, CPad*>(CPad::GetPad(0));
++            if (CPad::GetPad(0)->GetMouseCameraStickHorizontal() == 0) {
++                CPad::GetPad(0)->GetMouseCameraStickVertical();
+             }
+         }
+         if (camera.m_bFirstPersonBeingUsed) {
+--- a/source/game_sa/Cam.cpp
++++ b/source/game_sa/Cam.cpp
+@@ -1133,8 +1133,8 @@
+         const float mouseX = StaticRef<float>(0xB73424), mouseY = StaticRef<float>(0xB73428);
+         float betaDelta, alphaDelta;
+         if (mouseX == 0.f && mouseY == 0.f) {
+-            const float horizontal = float(-int(reinterpret_cast<int16(__thiscall*)(CPad*)>(0x540E80)(CPad::GetPad(0))));
+-            orientation = float(int(reinterpret_cast<int16(__thiscall*)(CPad*)>(0x540F80)(CPad::GetPad(0))));
++            const float horizontal = float(-int(CPad::GetPad(0)->GetMouseCameraStickHorizontal()));
++            orientation = float(int(CPad::GetPad(0)->GetMouseCameraStickVertical()));
+             const float horizontalSign = horizontal < 0.f ? -1.f : 1.f, verticalSign = orientation < 0.f ? -1.f : 1.f;
+             const float scale = m_fFOV * f(0x85A5C4);
+             betaDelta = (((horizontal * horizontal) * f(0x858FC4)) * (scale * f(0x863100))) * horizontalSign * CTimer::GetTimeStep();
+@@ -1893,13 +1893,9 @@
+ }
+ // Uncatalogued stick helpers used by the mouse follow camera (0x540E80/0x540F80).
+ int16 MouseCameraStick(const CPad* pad, bool vertical) {
+-    int32 input = StaticRef<int16>(vertical ? 0xB7345E : 0xB7345C);
+-    if (vertical && StaticRef<uint8>(0xB73402)) input = int16(-input);
+-    const auto* bytes = reinterpret_cast<const uint8*>(pad);
+-    if (std::abs(input) > 100 && (*reinterpret_cast<const int16*>(bytes + 0x10E) != 0 || *reinterpret_cast<const int16*>(bytes + 0x26) == 0)) return int16(input > 0 ? input - 50 : input + 50);
+-    if (StaticRef<CCam>(0xB6F19C).Using3rdPersonMouseCam() && std::abs(input) > 50) return int16((input > 0 ? input - 50 : input + 50) / 2);
+-    return 0;
+-}
++    return vertical?pad->GetMouseCameraStickVertical():pad->GetMouseCameraStickHorizontal();
++}
++
+ bool TwoPlayerCameraVisible(const CVector& source) {
+     CColPoint point;
+     CEntity* entity{};

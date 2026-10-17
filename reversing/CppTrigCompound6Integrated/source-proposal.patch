@@ -1,0 +1,261 @@
+--- a/source/game_sa/3dMarkers.cpp
++++ b/source/game_sa/3dMarkers.cpp
+@@ -17,21 +17,13 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "TrigCompound6Cpp.h"
+ 
+ #include "3dMarkers.h"
+ #include "PostEffects.h"
+ 
+ // x87 como el original: fld ángulo; fmul k; fsin; fmul mult; fadd add (fsin con precisión interna completa)
+-static float __declspec(naked) __cdecl SinMulAddX87(float angle, float k, float mult, float add) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fmul dword ptr [esp + 8]
+-        fsin
+-        fmul dword ptr [esp + 12]
+-        fadd dword ptr [esp + 16]
+-        ret
+-    }
+-}
++
+ 
+ // Tamaño estándar según la distancia al jugador (0x725674 / 0x725A8F), con la aritmética del original.
+ static float ComputeStdSize(float sz, float dist) {
+@@ -486,7 +478,7 @@
+         switch (type) {
+         case MARKER3D_CONE:
+         case MARKER3D_CONE_NO_COLLISION: {
+-            pos.z = SinMulAddX87(m_angleDiamondDeg, 0.017453292f, m->m_RoofHeight < 65535.f ? 0.15f : 0.3f, pos.z);
++            pos.z = TrigCompoundScaledSinMulAdd(m_angleDiamondDeg, 0.017453292f, m->m_RoofHeight < 65535.f ? 0.15f : 0.3f, pos.z);
+         }
+         }
+ 
+@@ -574,7 +566,7 @@
+         switch (type) {
+         case MARKER3D_CONE:
+         case MARKER3D_CONE_NO_COLLISION: {
+-            pos.z = SinMulAddX87(m_angleDiamondDeg, 0.017453292f, 0.3f, pos.z);
++            pos.z = TrigCompoundScaledSinMulAdd(m_angleDiamondDeg, 0.017453292f, 0.3f, pos.z);
+         }
+         }
+ 
+@@ -806,7 +798,7 @@
+ 
+     // Update position
+     CVector pos = m_vecPosition;
+-    pos.z = SinMulAddX87(C3dMarkers::m_angleDiamondDeg, 0.017453292f, 0.25f, pos.z); // fsin x87 como el original (0x7232D2)
++    pos.z = TrigCompoundScaledSinMulAdd(C3dMarkers::m_angleDiamondDeg, 0.017453292f, 0.25f, pos.z); // fsin x87 como el original (0x7232D2)
+     RwFrameTranslate(frame, &pos, rwCOMBINEREPLACE);
+ 
+     // Apply color to material of clump
+--- a/source/game_sa/Birds.cpp
++++ b/source/game_sa/Birds.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "TrigCompound6Cpp.h"
+ #include "TrigSimpleCpp.h"
+ 
+ #include "Birds.h"
+@@ -77,36 +78,12 @@
+ 
+ 
+ 
+-__declspec(naked) float __cdecl BirdsSinMulAdd(float angle, float mult, float add) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fsin
+-        fmul dword ptr [esp + 8]
+-        fadd dword ptr [esp + 12]
+-        ret
+-    }
+-}
+-
+-__declspec(naked) float __cdecl BirdsCosMulAdd(float angle, float mult, float add) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fcos
+-        fmul dword ptr [esp + 8]
+-        fadd dword ptr [esp + 12]
+-        ret
+-    }
+-}
++
++
++
+ 
+ // -sin(angle) / div, con el seno sin redondear
+-__declspec(naked) float __cdecl BirdsNegSinDiv(float angle, float div) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fsin
+-        fchs
+-        fdiv dword ptr [esp + 8]
+-        ret
+-    }
+-}
++
+ 
+ // atan2(x, y) con fpatan
+ __declspec(naked) float __cdecl BirdsAtan2(float x, float y) {
+@@ -318,8 +295,8 @@
+                 }
+ 
+                 const CVector vecBirdSpawnPos{
+-                    BirdsSinMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.x),
+-                    BirdsCosMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.y),
++                    TrigCompoundSinMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.x),
++                    TrigCompoundCosMulAdd(fSpawnAngleCamRelative, fSpawnDistance, camPosn.y),
+                     fBirdSpawnZ
+                 };
+ 
+@@ -405,7 +382,7 @@
+             auto& vecPos = matBirdTransform.GetPosition();
+             const uint32 uiStillness = bird.m_nWingStillness;
+             const uint32 uiTime = CTimer::GetTimeInMS() + uiWingMoveTimeOffset;
+-            vecPos.z = BirdsSinMulAdd((float)(uiTime % uiStillness) * (BIRDS_WING_K / (float)uiStillness), 0.1F, vecPos.z);
++            vecPos.z = TrigCompoundSinMulAdd((float)(uiTime % uiStillness) * (BIRDS_WING_K / (float)uiStillness), 0.1F, vecPos.z);
+         }
+ 
+         CVector vecScreenPos;
+@@ -435,7 +412,7 @@
+ 
+                 const auto fSizeUsed = (1.0F > bird.m_fSize) ? 1.0F : bird.m_fSize; // Como el original: NaN usa el tamaño
+                 const auto fSin1Factor = fSin1 / fSizeUsed;
+-                const auto fSin2Factor = BirdsNegSinDiv((float)(uiTime % uiStillness) * fWingK, fSizeUsed);
++                const auto fSin2Factor = TrigCompoundNegSinDiv((float)(uiTime % uiStillness) * fWingK, fSizeUsed);
+ 
+                 const auto fOffX1 = TrigSimpleCosMulCpp(fSin1Factor, 0.5F);
+                 const auto fOffZ1 = TrigSimpleSinMulCpp(fSin1Factor, 0.5F);
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "TrigCompound6Cpp.h"
+ 
+ #include "Interior/InteriorManager_c.h"
+ 
+@@ -67,15 +68,7 @@
+ constexpr float FNR_SPEED_SQ_LIMIT = 0.015625f;                          // 0x86FC74
+ 
+ // Como el original: fcos del x87 con precisión interna completa; producto y suma redondeados por la FPU
+-__declspec(naked) float __cdecl FollowNodeRouteCosHalfX87(float angle, float half) {
+-    __asm {
+-        fld  dword ptr [esp + 4]
+-        fcos
+-        fmul dword ptr [esp + 8]
+-        fadd dword ptr [esp + 8]
+-        ret
+-    }
+-}
++
+ 
+ // Como el original: posición del nodo leída directamente del array del área (sin comprobaciones)
+ CVector FollowNodeRouteNodePos(CNodeAddress addr) {
+@@ -279,7 +272,7 @@
+     } else if (ratio > 1.f) {
+         ratio = 1.f;
+     }
+-    const float change         = FollowNodeRouteCosHalfX87(ratio * FNR_PI, 0.5f) * (slowing ? m_SpeedDecreaseAmt : m_SpeedIncreaseAmt);
++    const float change         = TrigCompoundCosHalf(ratio * FNR_PI, 0.5f) * (slowing ? m_SpeedDecreaseAmt : m_SpeedIncreaseAmt);
+     const float ratioMoveState = CTaskSimpleGoToPointFine::BaseRatio(m_MoveState) - change;
+     const float ratioMin       = CTaskSimpleGoToPointFine::BaseRatio(PEDMOVE_WALK) + 0.75f;
+     return ratioMin > ratioMoveState ? ratioMin : ratioMoveState;
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "TrigCompound6Cpp.h"
+ #include "TrigSimpleCpp.h"
+ 
+ #include "TaskSimpleSwim.h"
+@@ -154,14 +155,7 @@
+ 
+ 
+ // z - fsin(a) a la precisión vigente
+-float __declspec(naked) __cdecl SubSinX87(float z, float a) {
+-    __asm {
+-        fld    dword ptr [esp + 8]
+-        fsin
+-        fsubr  dword ptr [esp + 4]
+-        ret
+-    }
+-}
++
+ 
+ // out[0..2] = fcos(a) * f[0..2], out[3] = fsin(a) * m (productos con el valor completo de ST0)
+ void __declspec(naked) __cdecl CosSinProductsX87(float a, const float* f, float m, float* out) {
+@@ -732,7 +726,7 @@
+                         m_fStateChanger = 0.0f;
+                 }
+             } else {
+-                if (SubSinX87(pedPos.z, m_fRotationX) + 0.65f > fWaterLevel) {
++                if (TrigCompoundSubSin(pedPos.z, m_fRotationX) + 0.65f > fWaterLevel) {
+                     m_fStateChanger = ts * 0.002f + m_fStateChanger;
+                     if (m_fStateChanger > 0.05f) {
+                         m_fStateChanger = 0.05f;
+--- a/source/CMakeLists.txt
++++ b/source/CMakeLists.txt
+@@ -56,6 +56,12 @@
+ )
+ list(APPEND SOURCE_FILES_WITHOUT_MODULES_LIST StdInc.cpp)
+ if(MSVC)
++    set_source_files_properties(game_sa/TrigCompound6Cpp.cpp PROPERTIES
++        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
++        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
++        SKIP_PRECOMPILE_HEADERS ON
++        SKIP_UNITY_BUILD_INCLUSION ON
++    )
+     # Scalar x87 intrinsic helpers; callers retain their existing compiler options.
+     set_source_files_properties(game_sa/TrigSimpleCpp.cpp PROPERTIES
+         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+--- /dev/null
++++ b/source/game_sa/TrigCompound6Cpp.cpp
+@@ -0,0 +1,29 @@
++extern "C" double __cdecl sin(double);
++extern "C" double __cdecl cos(double);
++#pragma intrinsic(sin, cos)
++// Offline expressions: not accepted until actual x87 sequence is inspected.
++__declspec(noinline) float __cdecl TrigCompoundScaledSinMulAdd(float angle, float k, float mult, float add) {
++    return float(sin(double(angle) * double(k)) * double(mult) + double(add));
++}
++__declspec(noinline) float __cdecl TrigCompoundSinMulAdd(float angle, float mult, float add) {
++    return float(sin(double(angle)) * double(mult) + double(add));
++}
++__declspec(noinline) float __cdecl TrigCompoundCosMulAdd(float angle, float mult, float add) {
++    return float(cos(double(angle)) * double(mult) + double(add));
++}
++
++__declspec(noinline) float __cdecl TrigCompoundNegSinDiv(float angle,float divisor){
++    double value=sin(double(angle));
++    value=-value;
++    return float(value/double(divisor));
++}
++__declspec(noinline) float __cdecl TrigCompoundCosHalf(float angle,float half){
++    const volatile float* operand=&half;
++    double value=cos(double(angle));
++    value*=double(*operand);
++    value+=double(*operand);
++    return float(value);
++}
++__declspec(noinline) float __cdecl TrigCompoundSubSin(float z,float angle){
++    return float(-(sin(double(angle))-double(z)));
++}
+--- /dev/null
++++ b/source/game_sa/TrigCompound6Cpp.h
+@@ -0,0 +1,7 @@
++#pragma once
++float __cdecl TrigCompoundScaledSinMulAdd(float angle, float k, float mult, float add);
++float __cdecl TrigCompoundSinMulAdd(float angle, float mult, float add);
++float __cdecl TrigCompoundCosMulAdd(float angle, float mult, float add);
++float __cdecl TrigCompoundNegSinDiv(float angle, float divisor);
++float __cdecl TrigCompoundCosHalf(float angle, float half);
++float __cdecl TrigCompoundSubSin(float z, float angle);

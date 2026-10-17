@@ -1,0 +1,160 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113F8A20: 55                 push        ebp
+  113F8A21: 8B EC              mov         ebp,esp
+  113F8A23: 81 EC C0 00 00 00  sub         esp,0C0h
+  113F8A29: 53                 push        ebx
+  113F8A2A: 56                 push        esi
+  113F8A2B: 57                 push        edi
+  113F8A2C: 8B FD              mov         edi,ebp
+  113F8A2E: 33 C9              xor         ecx,ecx
+  113F8A30: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113F8A35: F3 AB              rep stos    dword ptr es:[edi]
+  113F8A37: 6A 00              push        0
+  113F8A39: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8A3E: E8 27 F8 CB FF     call        110B826A
+  113F8A43: C7 00 75 3A 0C 11  mov         dword ptr [eax],110C3A75h
+  113F8A49: 6A 01              push        1
+  113F8A4B: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8A50: E8 15 F8 CB FF     call        110B826A
+  113F8A55: C7 00 1F 5A 0B 11  mov         dword ptr [eax],110B5A1Fh
+  113F8A5B: 6A 02              push        2
+  113F8A5D: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8A62: E8 03 F8 CB FF     call        110B826A
+  113F8A67: C7 00 C5 8B 0B 11  mov         dword ptr [eax],110B8BC5h
+  113F8A6D: 6A 03              push        3
+  113F8A6F: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8A74: E8 F1 F7 CB FF     call        110B826A
+  113F8A79: C7 00 A0 39 0A 11  mov         dword ptr [eax],110A39A0h
+  113F8A7F: 6A 04              push        4
+  113F8A81: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8A86: E8 DF F7 CB FF     call        110B826A
+  113F8A8B: C7 00 E2 8C 0B 11  mov         dword ptr [eax],110B8CE2h
+  113F8A91: 6A 05              push        5
+  113F8A93: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8A98: E8 CD F7 CB FF     call        110B826A
+  113F8A9D: C7 00 0C E4 0C 11  mov         dword ptr [eax],110CE40Ch
+  113F8AA3: 6A 06              push        6
+  113F8AA5: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8AAA: E8 BB F7 CB FF     call        110B826A
+  113F8AAF: C7 00 F9 18 0E 11  mov         dword ptr [eax],110E18F9h
+  113F8AB5: 6A 07              push        7
+  113F8AB7: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8ABC: E8 A9 F7 CB FF     call        110B826A
+  113F8AC1: C7 00 DC D8 0B 11  mov         dword ptr [eax],110BD8DCh
+  113F8AC7: 6A 08              push        8
+  113F8AC9: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8ACE: E8 97 F7 CB FF     call        110B826A
+  113F8AD3: C7 00 1A D8 0A 11  mov         dword ptr [eax],110AD81Ah
+  113F8AD9: 6A 09              push        9
+  113F8ADB: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8AE0: E8 85 F7 CB FF     call        110B826A
+  113F8AE5: C7 00 09 4D 0B 11  mov         dword ptr [eax],110B4D09h
+  113F8AEB: 6A 0A              push        0Ah
+  113F8AED: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8AF2: E8 73 F7 CB FF     call        110B826A
+  113F8AF7: C7 00 9E 18 0A 11  mov         dword ptr [eax],110A189Eh
+  113F8AFD: 6A 0B              push        0Bh
+  113F8AFF: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8B04: E8 61 F7 CB FF     call        110B826A
+  113F8B09: C7 00 AE 7F 0B 11  mov         dword ptr [eax],110B7FAEh
+  113F8B0F: 6A 0C              push        0Ch
+  113F8B11: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8B16: E8 4F F7 CB FF     call        110B826A
+  113F8B1B: C7 00 3C B4 0C 11  mov         dword ptr [eax],110CB43Ch
+  113F8B21: 6A 0D              push        0Dh
+  113F8B23: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8B28: E8 3D F7 CB FF     call        110B826A
+  113F8B2D: C7 00 0C 95 0B 11  mov         dword ptr [eax],110B950Ch
+  113F8B33: 6A 0E              push        0Eh
+  113F8B35: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8B3A: E8 2B F7 CB FF     call        110B826A
+  113F8B3F: C7 00 98 E2 09 11  mov         dword ptr [eax],1109E298h
+  113F8B45: 6A 0F              push        0Fh
+  113F8B47: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8B4C: E8 19 F7 CB FF     call        110B826A
+  113F8B51: C7 00 EB DE 0A 11  mov         dword ptr [eax],110ADEEBh
+  113F8B57: 6A 10              push        10h
+  113F8B59: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8B5E: E8 07 F7 CB FF     call        110B826A
+  113F8B63: C7 00 61 EF 0B 11  mov         dword ptr [eax],110BEF61h
+  113F8B69: 6A 11              push        11h
+  113F8B6B: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8B70: E8 F5 F6 CB FF     call        110B826A
+  113F8B75: C7 00 D4 8A 0C 11  mov         dword ptr [eax],110C8AD4h
+  113F8B7B: 6A 12              push        12h
+  113F8B7D: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8B82: E8 E3 F6 CB FF     call        110B826A
+  113F8B87: C7 00 98 ED 0D 11  mov         dword ptr [eax],110DED98h
+  113F8B8D: 6A 13              push        13h
+  113F8B8F: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8B94: E8 D1 F6 CB FF     call        110B826A
+  113F8B99: C7 00 03 6D 0A 11  mov         dword ptr [eax],110A6D03h
+  113F8B9F: 6A 14              push        14h
+  113F8BA1: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8BA6: E8 BF F6 CB FF     call        110B826A
+  113F8BAB: C7 00 9E DB 0A 11  mov         dword ptr [eax],110ADB9Eh
+  113F8BB1: 6A 15              push        15h
+  113F8BB3: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8BB8: E8 AD F6 CB FF     call        110B826A
+  113F8BBD: C7 00 37 BE 0C 11  mov         dword ptr [eax],110CBE37h
+  113F8BC3: 6A 16              push        16h
+  113F8BC5: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8BCA: E8 9B F6 CB FF     call        110B826A
+  113F8BCF: C7 00 68 7B 0A 11  mov         dword ptr [eax],110A7B68h
+  113F8BD5: 6A 17              push        17h
+  113F8BD7: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8BDC: E8 89 F6 CB FF     call        110B826A
+  113F8BE1: C7 00 85 46 0E 11  mov         dword ptr [eax],110E4685h
+  113F8BE7: 6A 18              push        18h
+  113F8BE9: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8BEE: E8 77 F6 CB FF     call        110B826A
+  113F8BF3: C7 00 15 5C 0E 11  mov         dword ptr [eax],110E5C15h
+  113F8BF9: 6A 19              push        19h
+  113F8BFB: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8C00: E8 65 F6 CB FF     call        110B826A
+  113F8C05: C7 00 94 61 0C 11  mov         dword ptr [eax],110C6194h
+  113F8C0B: 6A 1A              push        1Ah
+  113F8C0D: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8C12: E8 53 F6 CB FF     call        110B826A
+  113F8C17: C7 00 ED 2F 0D 11  mov         dword ptr [eax],110D2FEDh
+  113F8C1D: 6A 1B              push        1Bh
+  113F8C1F: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8C24: E8 41 F6 CB FF     call        110B826A
+  113F8C29: C7 00 49 A9 0A 11  mov         dword ptr [eax],110AA949h
+  113F8C2F: 6A 1C              push        1Ch
+  113F8C31: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8C36: E8 2F F6 CB FF     call        110B826A
+  113F8C3B: C7 00 0E 09 09 11  mov         dword ptr [eax],1109090Eh
+  113F8C41: 6A 1D              push        1Dh
+  113F8C43: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8C48: E8 1D F6 CB FF     call        110B826A
+  113F8C4D: C7 00 15 54 0C 11  mov         dword ptr [eax],110C5415h
+  113F8C53: 6A 1E              push        1Eh
+  113F8C55: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8C5A: E8 0B F6 CB FF     call        110B826A
+  113F8C5F: C7 00 77 15 0C 11  mov         dword ptr [eax],110C1577h
+  113F8C65: 6A 1F              push        1Fh
+  113F8C67: B9 58 8F 8B 13     mov         ecx,138B8F58h
+  113F8C6C: E8 F9 F5 CB FF     call        110B826A
+  113F8C71: C7 00 F0 35 0E 11  mov         dword ptr [eax],110E35F0h
+  113F8C77: 5F                 pop         edi
+  113F8C78: 5E                 pop         esi
+  113F8C79: 5B                 pop         ebx
+  113F8C7A: 81 C4 C0 00 00 00  add         esp,0C0h
+  113F8C80: 3B EC              cmp         ebp,esp
+  113F8C82: E8 05 AE C9 FF     call        11093A8C
+  113F8C87: 8B E5              mov         esp,ebp
+  113F8C89: 5D                 pop         ebp
+  113F8C8A: C3                 ret
+  113F8C8B: CC                 int         3
+
+  Summary
+
+     21DB000 .text

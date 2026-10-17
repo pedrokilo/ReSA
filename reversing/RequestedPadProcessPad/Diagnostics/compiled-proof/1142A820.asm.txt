@@ -1,0 +1,80 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1142A820: 55                 push        ebp
+  1142A821: 8B EC              mov         ebp,esp
+  1142A823: 81 EC FC 00 00 00  sub         esp,0FCh
+  1142A829: 53                 push        ebx
+  1142A82A: 56                 push        esi
+  1142A82B: 57                 push        edi
+  1142A82C: 8D 7D C4           lea         edi,[ebp-3Ch]
+  1142A82F: B9 0F 00 00 00     mov         ecx,0Fh
+  1142A834: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1142A839: F3 AB              rep stos    dword ptr es:[edi]
+  1142A83B: 33 C0              xor         eax,eax
+  1142A83D: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1142A840: 89 01              mov         dword ptr [ecx],eax
+  1142A842: 89 41 04           mov         dword ptr [ecx+4],eax
+  1142A845: 89 41 08           mov         dword ptr [ecx+8],eax
+  1142A848: 89 41 0C           mov         dword ptr [ecx+0Ch],eax
+  1142A84B: 89 41 10           mov         dword ptr [ecx+10h],eax
+  1142A84E: 89 41 14           mov         dword ptr [ecx+14h],eax
+  1142A851: 89 41 18           mov         dword ptr [ecx+18h],eax
+  1142A854: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1142A857: E8 EA 76 C8 FF     call        110B1F46
+  1142A85C: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1142A85F: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1142A862: D9 30              fnstenv     [eax]
+  1142A864: D9 20              fldenv      [eax]
+  1142A866: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1142A869: 52                 push        edx
+  1142A86A: 8B CD              mov         ecx,ebp
+  1142A86C: 50                 push        eax
+  1142A86D: 8D 15 90 A8 42 11  lea         edx,ds:[1142A890h]
+  1142A873: E8 26 E9 C6 FF     call        1109919E
+  1142A878: 58                 pop         eax
+  1142A879: 5A                 pop         edx
+  1142A87A: 5F                 pop         edi
+  1142A87B: 5E                 pop         esi
+  1142A87C: 5B                 pop         ebx
+  1142A87D: 81 C4 FC 00 00 00  add         esp,0FCh
+  1142A883: 3B EC              cmp         ebp,esp
+  1142A885: E8 02 92 C6 FF     call        11093A8C
+  1142A88A: 8B E5              mov         esp,ebp
+  1142A88C: 5D                 pop         ebp
+  1142A88D: C3                 ret
+  1142A88E: 66 90              nop
+  1142A890: 02 00              add         al,byte ptr [eax]
+  1142A892: 00 00              add         byte ptr [eax],al
+  1142A894: 98                 cwde
+  1142A895: A8 42              test        al,42h
+  1142A897: 11 E0              adc         eax,esp
+  1142A899: FF
+  1142A89A: FF
+  1142A89B: FF 1C 00           call        fword ptr [eax+eax]
+  1142A89E: 00 00              add         byte ptr [eax],al
+  1142A8A0: BB A8 42 11 C8     mov         ebx,0C81142A8h
+  1142A8A5: FF
+  1142A8A6: FF
+  1142A8A7: FF 04 00           inc         dword ptr [eax+eax]
+  1142A8AA: 00 00              add         byte ptr [eax],al
+  1142A8AC: B0 A8              mov         al,0A8h
+  1142A8AE: 42                 inc         edx
+  1142A8AF: 11 5F 24           adc         dword ptr [edi+24h],ebx
+  1142A8B2: 41                 inc         ecx
+  1142A8B3: 72 72              jb          1142A927
+  1142A8B5: 61                 popad
+  1142A8B6: 79 50              jns         1142A908
+  1142A8B8: 61                 popad
+  1142A8B9: 64 00 69 6D        add         byte ptr fs:[ecx+6Dh],ch
+  1142A8BD: 61                 popad
+  1142A8BE: 67 65 00 CC        add         ah,cl
+
+  Summary
+
+     21DB000 .text

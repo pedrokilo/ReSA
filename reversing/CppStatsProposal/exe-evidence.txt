@@ -1,0 +1,15 @@
+EXE original 1.0 US, SHA256 72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b.
+558FA2 xor ecx,ecx
+558FA4 mov eax,1
+558FA9 mov edx,3
+558FAE mov esi,0B78E60h
+558FB3..558FF6 six signed comparisons at [esi-4],[esi],[esi+4],[esi+8],[esi+0C],[esi+10]. Updates EAX to EDX-2,-1,0,+1,+2,+3.
+558FF9 add edx,6
+558FFC lea edi,[edx-2]
+558FFF add esi,18h
+559002 cmp edi,0Dh
+559005 jl 558FB3
+559007 pop edi
+559008 pop esi
+559009 ret
+Final EDX=15, ECX=max(0,signed station values 1..12). EAX first strictly-positive maximum station or default 1.

@@ -1,0 +1,35 @@
+// Reproduce 0x734A70: finding a hierarchy on this frame stops this sibling walk;
+// finding one below does not stop the outer sibling walk.
+static RwFrame* CppIntegerHierarchyCallback(RwFrame* frame, void* opaque) {
+    auto& found = *static_cast<RpHAnimHierarchy**>(opaque);
+    if (auto* hierarchy = RpHAnimFrameGetHierarchy(frame)) {
+        found = hierarchy;
+        return nullptr;
+    }
+    RwFrameForAllChildren(frame, CppIntegerHierarchyCallback, opaque);
+    return frame;
+}
+
+RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame* frame) {
+    RpHAnimHierarchy* found = RpHAnimFrameGetHierarchy(frame);
+    if (!found) {
+        RwFrameForAllChildren(frame, CppIntegerHierarchyCallback, &found);
+    }
+    if (!found) {
+        RwFrameForAllChildren(frame, CppIntegerHierarchyCallback, &found);
+    }
+    return found;
+}
+
+RwTexture* RwTexDictionaryFindHashNamedTexture(RwTexDictionary* dictionary, uint32 hash) {
+    auto* const sentinel = &dictionary->texturesInDict.link;
+    for (auto* link = sentinel->next; link != sentinel; link = link->next) {
+        auto* const texture = reinterpret_cast<RwTexture*>(
+            reinterpret_cast<uint8*>(link) - offsetof(RwTexture, lInDictionary));
+        if (CKeyGen::GetUppercaseKey(texture->name) == hash) {
+            return texture;
+        }
+    }
+    return nullptr;
+}
+

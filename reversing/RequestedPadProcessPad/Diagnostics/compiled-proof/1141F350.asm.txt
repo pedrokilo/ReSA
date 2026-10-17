@@ -1,0 +1,61 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1141F350: 55                 push        ebp
+  1141F351: 8B EC              mov         ebp,esp
+  1141F353: 81 EC D0 00 00 00  sub         esp,0D0h
+  1141F359: 53                 push        ebx
+  1141F35A: 56                 push        esi
+  1141F35B: 57                 push        edi
+  1141F35C: 51                 push        ecx
+  1141F35D: 8D 7D F0           lea         edi,[ebp-10h]
+  1141F360: B9 04 00 00 00     mov         ecx,4
+  1141F365: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1141F36A: F3 AB              rep stos    dword ptr es:[edi]
+  1141F36C: 59                 pop         ecx
+  1141F36D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1141F370: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1141F373: 83 78 04 00        cmp         dword ptr [eax+4],0
+  1141F377: 74 41              je          1141F3BA
+  1141F379: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1141F37C: 8B 08              mov         ecx,dword ptr [eax]
+  1141F37E: 51                 push        ecx
+  1141F37F: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1141F382: 8B 42 10           mov         eax,dword ptr [edx+10h]
+  1141F385: 50                 push        eax
+  1141F386: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1141F389: 8B 51 0C           mov         edx,dword ptr [ecx+0Ch]
+  1141F38C: 52                 push        edx
+  1141F38D: E8 EF C4 C7 FF     call        1109B881
+  1141F392: 83 C4 0C           add         esp,0Ch
+  1141F395: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1141F398: 8B 08              mov         ecx,dword ptr [eax]
+  1141F39A: 89 8D 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],ecx
+  1141F3A0: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1141F3A3: 8B 42 08           mov         eax,dword ptr [edx+8]
+  1141F3A6: 50                 push        eax
+  1141F3A7: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1141F3AA: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  1141F3AD: 52                 push        edx
+  1141F3AE: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  1141F3B4: E8 37 EA C9 FF     call        110BDDF0
+  1141F3B9: 90                 nop
+  1141F3BA: 5F                 pop         edi
+  1141F3BB: 5E                 pop         esi
+  1141F3BC: 5B                 pop         ebx
+  1141F3BD: 81 C4 D0 00 00 00  add         esp,0D0h
+  1141F3C3: 3B EC              cmp         ebp,esp
+  1141F3C5: E8 C2 46 C7 FF     call        11093A8C
+  1141F3CA: 8B E5              mov         esp,ebp
+  1141F3CC: 5D                 pop         ebp
+  1141F3CD: C3                 ret
+  1141F3CE: CC                 int         3
+
+  Summary
+
+     21DB000 .text

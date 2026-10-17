@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11420E10: 55                 push        ebp
+  11420E11: 8B EC              mov         ebp,esp
+  11420E13: 81 EC CC 00 00 00  sub         esp,0CCh
+  11420E19: 53                 push        ebx
+  11420E1A: 56                 push        esi
+  11420E1B: 57                 push        edi
+  11420E1C: 51                 push        ecx
+  11420E1D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11420E20: B9 03 00 00 00     mov         ecx,3
+  11420E25: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11420E2A: F3 AB              rep stos    dword ptr es:[edi]
+  11420E2C: 59                 pop         ecx
+  11420E2D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11420E30: 83 7D 08 02        cmp         dword ptr [ebp+8],2
+  11420E34: 72 2D              jb          11420E63
+  11420E36: 68 B8 2D 27 13     push        13272DB8h
+  11420E3B: 68 3C F6 26 13     push        1326F63Ch
+  11420E40: 6A 00              push        0
+  11420E42: 68 0D 02 00 00     push        20Dh
+  11420E47: 68 E0 2D 27 13     push        13272DE0h
+  11420E4C: 6A 02              push        2
+  11420E4E: E8 4B 22 C9 FF     call        110B309E
+  11420E53: 83 C4 18           add         esp,18h
+  11420E56: 83 F8 01           cmp         eax,1
+  11420E59: 75 01              jne         11420E5C
+  11420E5B: CC                 int         3
+  11420E5C: B9 05 00 00 00     mov         ecx,5
+  11420E61: CD 29              int         29h
+  11420E63: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11420E66: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11420E69: 8D 04 C1           lea         eax,[ecx+eax*8]
+  11420E6C: 5F                 pop         edi
+  11420E6D: 5E                 pop         esi
+  11420E6E: 5B                 pop         ebx
+  11420E6F: 81 C4 CC 00 00 00  add         esp,0CCh
+  11420E75: 3B EC              cmp         ebp,esp
+  11420E77: E8 10 2C C7 FF     call        11093A8C
+  11420E7C: 8B E5              mov         esp,ebp
+  11420E7E: 5D                 pop         ebp
+  11420E7F: C2 04 00           ret         4
+  11420E82: CC                 int         3
+
+  Summary
+
+     21DB000 .text

@@ -1,0 +1,3 @@
+FALLO: CamLookSide355
+Funciones con diferencias: CCam::LookRight: 455/8192
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cam-look-side355\20261016-092402-436862

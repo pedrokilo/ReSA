@@ -1,0 +1,3 @@
+APROBADO: CppSunbatheProposal
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cppsunbatheproposal\20261011-001711-131622

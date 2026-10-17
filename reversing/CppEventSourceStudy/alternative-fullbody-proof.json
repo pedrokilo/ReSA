@@ -1,0 +1,87 @@
+{
+  "status": "OFFLINE_CANDIDATE_ONLY_NO_RUNTIME",
+  "full_bodies": {
+    "volatile_result": {
+      "bytes": "558bec8b4d08568b018b4028ffd08bf085f6745d8a4e3680e10780f90375528b4d0cb8301c600057568bb97c0400008bcfffd084c074095fb8030000005e5dc356b8c01b60008bcfffd084c074095fb8020000005e5dc3b8f0f85d008bceffd033c984c05f0f95c1894d088b45085e5dc333c05e5dc3",
+      "relocations": [],
+      "helpers": [],
+      "object_sha256": "8127b5ecf25a6ae18b17b2700c820d238487b1c46516da9631e623bc02556718",
+      "size": 118
+    },
+    "volatile_bool": {
+      "bytes": "558bec8b4d08568b018b4028ffd08bf085f6745d8a4e3680e10780f90375528b4d0cb8301c600057568bb97c0400008bcfffd084c074095fb8030000005e5dc356b8c01b60008bcfffd084c074095fb8020000005e5dc3b8f0f85d008bceffd088450b33c08a4d0b84c95f0f95c05e5dc333c05e5dc3",
+      "relocations": [],
+      "helpers": [],
+      "object_sha256": "3e4c568036eb373bb1f2119b91f8ff47188b081b2ab38394a2db8f232036aa0a",
+      "size": 118
+    },
+    "explicit_returns": {
+      "bytes": "558bec8b4d0856578b018b4028ffd08bf085f674588a4e3680e10780f903754d8b4d0cb8301c6000568bb97c0400008bcfffd084c074095fb8030000005e5dc356b8c01b60008bcfffd084c074095fb8020000005e5dc3b8f0f85d008bceffd084c074095fb8010000005e5dc35f33c05e5dc3",
+      "relocations": [],
+      "helpers": [],
+      "object_sha256": "e112f5a3e45c1c9d78135fce2d7d13fb3f18d5dfab398e8994d8a3a2097c4252",
+      "size": 115
+    },
+    "volatile_constants": {
+      "bytes": "558bec8b4d08568b018b4028ffd08bf085f674628a4e3680e10780f90375578b4d0cb8301c600057568bb97c0400008bcfffd084c074095fb8030000005e5dc356b8c01b60008bcfffd084c074095fb8020000005e5dc3b8f0f85d008bceffd084c07409a1000000005f5e5dc3a1000000005f5e5dc333c05e5dc3",
+      "relocations": [
+        [
+          101,
+          6,
+          "?one@?1??EventSource_volatile_constants@@9@4HC",
+          "00000000",
+          [
+            0,
+            0,
+            3
+          ],
+          "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450"
+        ],
+        [
+          110,
+          6,
+          "?zero@?1??EventSource_volatile_constants@@9@4HC",
+          "00000000",
+          [
+            0,
+            0,
+            3
+          ],
+          "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+        ]
+      ],
+      "helpers": [],
+      "object_sha256": "a489f2b5144e25d434aa2c306765da24fcd61bdf7178b7fab88c9197e189ca33",
+      "size": 123
+    },
+    "unsigned_call": {
+      "bytes": "558bec8b4d08568b018b4028ffd08bf085f674538a4e3680e10780f90375488b4d0cb8301c600057568bb97c0400008bcfffd084c074095fb8030000005e5dc356b8c01b60008bcfffd084c074095fb8020000005e5dc3b8f0f85d008bceffd05f0fb6c05e5dc333c05e5dc3",
+      "relocations": [],
+      "helpers": [],
+      "object_sha256": "6074c27d020c56998e16baeaa249662f60f75abef706f0b84c1ecd075747fa57",
+      "size": 108
+    },
+    "fastcall_edx": {
+      "bytes": "558bec8b4d0856578b018b4028ffd08bf085f674588a4e3680e10780f903754d8b550cb8301c6000568bba7c0400008bcfffd084c074095fb8030000005e5dc356b8c01b60008bcfffd084c074095fb8020000005e5dc3b8f0f85d008bceffd084c074095fb8010000005e5dc35f33c05e5dc3",
+      "relocations": [],
+      "helpers": [],
+      "object_sha256": "48b0c6135c75af00a2868a25c5cfd77f9f5b7d23dbc4e9a61a772810d34c9c9b",
+      "size": 115
+    }
+  },
+  "recommended_variant": "fastcall_edx",
+  "raw_register_flow": {
+    "null_or_nonped": "Same virtual collaborator receives ECX=event and EDX seed; type masked in CL; EAX zero, ECX/EDX preserved after virtual call except CL mask for non-null source. Actual collaborator implementation still required.",
+    "threatened_true": "Explicit __fastcall signature places victim in EDX, intelligence in ECX, source on stack. Threatened EXE and called 608970/608830 preserve EDX. Returns EAX3 and final ECX from collaborator untouched.",
+    "friendly_true": "Same intelligence ECX/source stack as EXE. Friendly EXE sets EDX=victim pedType and ECX=source pedType before return. Wrapper returns EAX2 without changing ECX/EDX.",
+    "isplayer_true": "IsPlayer EXE receives ECX=source, preserves ECX/EDX; wrapper TEST AL then MOV EAX1 preserves ECX/EDX.",
+    "isplayer_false": "Wrapper XOR EAX,EAX preserves ECX/EDX, EXE MOV EAX,EBX (zero) preserves flags of preceding TEST AL. Raw EAX/ECX/EDX same; AF is undefined in TEST/XOR and no universal EFLAGS identity claimed."
+  },
+  "barriers": [
+    "No runtime or raw-bank execution performed",
+    "Full byte identity false; proof is per-path register-flow inference plus complete emitted bodies",
+    "Calling typed fastcall through address of actual thiscall function is an explicit machine ABI extension, not ISO C++ function-type compatibility",
+    "Consumer stack-depth differs due EBP prologue/saves; no complete exception/unwind or hidden stack-dependent collaborator proof",
+    "Must preserve all historical raw bank gates"
+  ]
+}

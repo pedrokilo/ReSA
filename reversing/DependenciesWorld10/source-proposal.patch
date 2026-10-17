@@ -1,0 +1,89 @@
+--- a/source/game_sa/Cam.h
++++ b/source/game_sa/Cam.h
+@@ -21,6 +21,7 @@
+ 
+ class CCam {
+ public:
++    bool GetBoatHeightForFirstPerson(float*); // Descriptive native alias0x509CA0.
+     bool      m_bBelowMinDist;
+     bool      m_bBehindPlayerDesired;
+     bool      m_bCamLookingAtVector;
+--- a/source/game_sa/Cam.cpp
++++ b/source/game_sa/Cam.cpp
+@@ -153,6 +153,7 @@
+     RH_ScopedInstall(LookRight, 0x520E40);
+     RH_ScopedInstall(RotCamIfInFrontCar, 0x50A4F0);
+     RH_ScopedInstall(Using3rdPersonMouseCam, 0x50A850);
++    RH_ScopedInstall(GetBoatHeightForFirstPerson, 0x509CA0);
+     RH_ScopedInstall(Process, 0x526FC0);
+     RH_ScopedInstall(ProcessArrestCamOne, 0x518500);
+     RH_ScopedInstall(ProcessPedsDeadBaby, 0x519250);
+@@ -615,7 +616,7 @@
+     }
+     CVector target=entity->GetPosition();float distance=9.0f;
+     if(m_nMode==static_cast<eCamMode>(0x12))distance=*reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(this)+0xD0);
+-    else if(m_nMode==static_cast<eCamMode>(0x16)){float height=0;if(plugin::CallMethodAndReturn<bool,0x509CA0>(this,&height)&&!CCullZones::Cam1stPersonForPlayer())m_vecSource.z=target.z+height;}
++    else if(m_nMode==static_cast<eCamMode>(0x16)){float height=0;if(GetBoatHeightForFirstPerson(&height)&&!CCullZones::Cam1stPersonForPlayer())m_vecSource.z=target.z+height;}
+     auto direction=entity->GetMatrix().GetForward();direction.Normalise();
+     LookSideOrbit(direction.x,direction.y,lookRight?1.0f:-1.0f,distance,target.x,target.y,m_vecSource.x,m_vecSource.y);
+     auto* col=entity->GetColModel();const float sourceZ=m_vecSource.z;
+@@ -6652,3 +6653,28 @@
+     ret
+     }
+ }
++
++static uintptr_t CameraBoatHandlingBody=std::bit_cast<uintptr_t>(&cHandlingDataMgr::GetBoatPointer);
++// 0x509CA0: real target/model metadata and handling row; RET4 exact.
++__declspec(naked) bool CCam::GetBoatHeightForFirstPerson(float*) {
++    __asm {
++    mov eax,dword ptr [ecx+0000021Ch]
++    test eax,eax
++    je L00509CD6
++    movsx eax,word ptr [eax+22h]
++    mov ecx,dword ptr [eax*4+00A9B0C8h]
++    movsx eax,word ptr [ecx+4Ah]
++    push eax
++    mov ecx,0C2B9C8h
++    call dword ptr [CameraBoatHandlingBody]
++    test eax,eax
++    je L00509CD6
++    mov edx,dword ptr [eax+20h]
++    mov eax,dword ptr [esp+4]
++    mov dword ptr [eax],edx
++    mov al,1
++    ret 4
++    L00509CD6: xor al,al
++    ret 4
++    }
++}
+--- a/source/game_sa/CarCtrl.h
++++ b/source/game_sa/CarCtrl.h
+@@ -163,3 +163,6 @@
+     static void WeaveThroughPedsSectorList(PtrListType& ptrList, CVehicle* vehicle, CPhysical* physical, float arg4, float arg5, float arg6, float arg7, float* arg8, float* arg9);
+     static float FindMaxSteerAngle(CVehicle* veh);
+ };
++
++// Address alias only; CCarCtrl is instrumentation owner, not a recovered native class.
++bool Native_00424100(float,float);
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -44,6 +44,7 @@
+ void CCarCtrl::InjectHooks()
+ {
+     RH_ScopedClass(CCarCtrl);
+     RH_ScopedCategoryGlobal();
++    RH_ScopedGlobalInstall(Native_00424100, 0x424100);
+ 
+     using namespace ReversibleHooks;
+@@ -1221,3 +1222,11 @@
+     const float angle = 0.9f - speed;
+     return 0.7f < angle ? 0.7f : angle;
+ }
++
++// 0x424100: native no-effect helper. Upper24bits of EAX must survive.
++__declspec(naked) bool Native_00424100(float,float) {
++    __asm {
++        xor al,al
++        ret
++    }
++}

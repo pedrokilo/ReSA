@@ -1,0 +1,66 @@
+{
+  "status": "REJECTED_NO_RUNTIME",
+  "compiler": "MSVC 19.51.36257 x86",
+  "options": [
+    "/O2",
+    "/Oi",
+    "/Oy-",
+    "/arch:IA32",
+    "/fp:fast"
+  ],
+  "old_symbol": "?ComputeEventSourceType@CEventSource@@SAHABVCEvent@@ABVCPed@@@Z",
+  "old_current_object": {
+    "bytes": "8b4c24048b01535633dbff50288bf085f674548a4e3680e10780f90375498b542410578bba7c040000568bcfe80000000084c074095f5eb8030000005bc3568bcfe80000000084c074095f5eb8020000005bc38bcee80000000084c0740e5f5eb8010000005bc35e33c05bc35f5e8bc35bc3",
+    "relocations": [
+      [
+        45,
+        20,
+        "?EventSource5Threatened@@YAXXZ",
+        "00000000",
+        [
+          0,
+          32,
+          3
+        ],
+        null
+      ],
+      [
+        66,
+        20,
+        "?EventSource5Friendly@@YAXXZ",
+        "00000000",
+        [
+          0,
+          32,
+          3
+        ],
+        null
+      ],
+      [
+        86,
+        20,
+        "?EventSource5IsPlayer@@YAXXZ",
+        "00000000",
+        [
+          0,
+          32,
+          3
+        ],
+        null
+      ]
+    ],
+    "helpers": [],
+    "object_sha256": "d7f3e812b38b71b4183913193fe7aea94f3783ae547f331f0b3ac9eb858c332b",
+    "size": 114
+  },
+  "isolated_cpp_full_body": {
+    "bytes": "558bec8b4d08568b018b4028ffd08bf085f674598a4e3680e10780f903754e8b4d0cb8301c600057568bb97c0400008bcfffd084c074095fb8030000005e5dc356b8c01b60008bcfffd084c074095fb8020000005e5dc3b8f0f85d008bceffd033c984c05f0f95c18bc15e5dc333c05e5dc3",
+    "relocations": [],
+    "helpers": [],
+    "object_sha256": "a60f81d7b6dda5161a520693be7fae5abf32c8c4da0bd4284a8fadf948b981c2",
+    "size": 114
+  },
+  "full_body_equal": false,
+  "known_abi_mismatch": "Final IsPlayer branch emits XOR ECX,ECX; SETNE CL; MOV EAX,ECX, overwriting ECX left by real IsPlayer. EXE returns EAX 0/1 without overwriting ECX on this branch.",
+  "bank": "DependenciesTaskPed5, 2048 consumer pairs; raw EAX ECX EDX and ESP/nonvolatile/SEH full comparison; EFLAGS not captured."
+}

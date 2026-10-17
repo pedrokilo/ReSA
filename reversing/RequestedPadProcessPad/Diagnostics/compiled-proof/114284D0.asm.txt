@@ -1,0 +1,58 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114284D0: 55                 push        ebp
+  114284D1: 8B EC              mov         ebp,esp
+  114284D3: 81 EC F4 00 00 00  sub         esp,0F4h
+  114284D9: 53                 push        ebx
+  114284DA: 56                 push        esi
+  114284DB: 57                 push        edi
+  114284DC: 8D 7D CC           lea         edi,[ebp-34h]
+  114284DF: B9 0D 00 00 00     mov         ecx,0Dh
+  114284E4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  114284E9: F3 AB              rep stos    dword ptr es:[edi]
+  114284EB: E8 FC 05 CB FF     call        110D8AEC
+  114284F0: 89 45 F8           mov         dword ptr [ebp-8],eax
+  114284F3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  114284F6: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  114284F9: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  114284FC: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  114284FF: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11428502: 89 4D E0           mov         dword ptr [ebp-20h],ecx
+  11428505: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11428508: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1142850B: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  1142850F: 74 1F              je          11428530
+  11428511: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11428514: 3B 45 EC           cmp         eax,dword ptr [ebp-14h]
+  11428517: 72 17              jb          11428530
+  11428519: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1142851C: 2B 4D 0C           sub         ecx,dword ptr [ebp+0Ch]
+  1142851F: 39 4D D4           cmp         dword ptr [ebp-2Ch],ecx
+  11428522: 77 0C              ja          11428530
+  11428524: C7 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],1
+            01 00 00 00
+  1142852E: EB 0A              jmp         1142853A
+  11428530: C7 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],0
+            00 00 00 00
+  1142853A: 0F B6 85 0C FF FF  movzx       eax,byte ptr [ebp+FFFFFF0Ch]
+            FF
+  11428541: 5F                 pop         edi
+  11428542: 5E                 pop         esi
+  11428543: 5B                 pop         ebx
+  11428544: 81 C4 F4 00 00 00  add         esp,0F4h
+  1142854A: 3B EC              cmp         ebp,esp
+  1142854C: E8 3B B5 C6 FF     call        11093A8C
+  11428551: 8B E5              mov         esp,ebp
+  11428553: 5D                 pop         ebp
+  11428554: C3                 ret
+  11428555: CC                 int         3
+
+  Summary
+
+     21DB000 .text

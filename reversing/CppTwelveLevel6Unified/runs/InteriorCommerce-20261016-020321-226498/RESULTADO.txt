@@ -1,0 +1,3 @@
+FALLO: InteriorCommerce
+Funciones con diferencias: Interior_c::Shop_PlaceFixedUnits: 168/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interior-commerce\20261016-020321-226498

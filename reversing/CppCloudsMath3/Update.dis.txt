@@ -1,0 +1,43 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00712FF0: 51                 push        ecx
+  00712FF1: D9 05 78 F1 B6 00  fld         dword ptr ds:[00B6F178h]
+  00712FF7: A1 6C AA C6 00     mov         eax,dword ptr ds:[00C6AA6Ch]
+  00712FFC: 85 C0              test        eax,eax
+  00712FFE: D8 25 1C 2E 86 00  fsub        dword ptr ds:[00862E1Ch]
+  00713004: D9 FE              fsin
+  00713006: D8 0D F0 12 C8 00  fmul        dword ptr ds:[00C812F0h]
+  0071300C: D8 0D DC 8C 85 00  fmul        dword ptr ds:[00858CDCh]
+  00713012: D8 05 70 AA C6 00  fadd        dword ptr ds:[00C6AA70h]
+  00713018: D9 1D 70 AA C6 00  fstp        dword ptr ds:[00C6AA70h]
+  0071301E: D9 05 5C CB B7 00  fld         dword ptr ds:[00B7CB5Ch]
+  00713024: D8 0D F0 12 C8 00  fmul        dword ptr ds:[00C812F0h]
+  0071302A: D8 0D 8C 8B 85 00  fmul        dword ptr ds:[00858B8Ch]
+  00713030: D8 05 24 8C 85 00  fadd        dword ptr ds:[00858C24h]
+  00713036: D8 0D 34 8B 85 00  fmul        dword ptr ds:[00858B34h]
+  0071303C: DB 05 6C AA C6 00  fild        dword ptr ds:[00C6AA6Ch]
+  00713042: 7D 06              jge         0071304A
+  00713044: D8 05 54 8C 85 00  fadd        dword ptr ds:[00858C54h]
+  0071304A: DE C1              faddp       st(1),st
+  0071304C: E8 EF EA 10 00     call        00821B40
+  00713051: A3 6C AA C6 00     mov         dword ptr ds:[00C6AA6Ch],eax
+  00713056: 59                 pop         ecx
+  00713057: C3                 ret
+  00713058: 90                 nop
+  00713059: 90                 nop
+  0071305A: 90                 nop
+  0071305B: 90                 nop
+  0071305C: 90                 nop
+  0071305D: 90                 nop
+  0071305E: 90                 nop
+  0071305F: 90                 nop
+
+  Summary
+
+      456000 .text

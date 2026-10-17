@@ -1,0 +1,3 @@
+FALLO: DependenciesMemory9
+Error dentro de GTA; consultar comparisons.jsonl.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesmemory9\20261015-203100-117846

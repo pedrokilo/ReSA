@@ -1,0 +1,69 @@
+--- a/source/game_sa/Stats.cpp
++++ b/source/game_sa/Stats.cpp
+@@ -265,22 +265,17 @@
+ // 0x558FA0
+ // The EXE returns the complete station index in EAX despite the int8 enum declaration.
+ // Ignore emergency/off (indices 0/13), keep the first strictly greater signed value.
+-__declspec(naked) eRadioID CStats::FindMostFavoriteRadioStation() {
+-    __asm {
+-        xor ecx, ecx
+-        mov eax, 1
+-        mov edx, 1
+-    nextStation:
+-        cmp dword ptr [edx*4+0B78E58h], ecx
+-        jle keepStation
+-        mov ecx, dword ptr [edx*4+0B78E58h]
+-        mov eax, edx
+-    keepStation:
+-        inc edx
+-        cmp edx, 13
+-        jl nextStation
+-        ret
+-    }
++int32 CStats::FindMostFavoriteRadioStation() {
++    int32 maximum = 0;
++    int32 selected = 1;
++    for (int32 station = 1; station < 13; ++station) {
++        const int32 listened = FavoriteRadioStationList[size_t(station)];
++        if (listened > maximum) {
++            maximum = listened;
++            selected = station;
++        }
++    }
++    return selected;
+ }
+ 
+ // 0x559010
+--- a/source/game_sa/Stats.h
++++ b/source/game_sa/Stats.h
+@@ -80,7 +80,7 @@
+     static void RegisterMissionPassed(uint8 missionId);
+     static bool PopulateFavoriteRadioStationList();
+     static const auto& GetFullFavoriteRadioStationList() { return FavoriteRadioStationList; }
+-    static eRadioID FindMostFavoriteRadioStation();
++    static int32 FindMostFavoriteRadioStation();
+     static int32 FindLeastFavoriteRadioStation();
+     static int32 FindCriminalRatingNumber();
+     static float GetPercentageProgress();
+--- a/source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp
++++ b/source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp
+@@ -193,7 +193,7 @@
+             specialTrackId = 147;
+             break;
+         case 30:
+-            m_AmbienceRadioStation = CStats::FindMostFavoriteRadioStation();
++            m_AmbienceRadioStation = static_cast<eRadioID>(CStats::FindMostFavoriteRadioStation());
+             break;
+         case 34:
+             specialTrackId = 162;
+--- a/source/game_sa/Scripts/Commands/GameCommands.cpp
++++ b/source/game_sa/Scripts/Commands/GameCommands.cpp
+@@ -69,7 +69,7 @@
+ }
+ 
+ void SetRadioToPlayersFavorite() {
+-    AudioEngine.RetuneRadio(CStats::FindMostFavoriteRadioStation());
++    AudioEngine.RetuneRadio(static_cast<eRadioID>(CStats::FindMostFavoriteRadioStation()));
+ }
+ 
+ void SetDisableMilitaryZones(bool disable) {

@@ -1,0 +1,3 @@
+FALLO: CPhysical (lista de 34)
+Funciones con diferencias: CPhysical::AttachEntityToEntity-vec: 178/512; CPhysical::PositionAttachedEntity: 129/1024
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-physical56\20261015-235629-652374

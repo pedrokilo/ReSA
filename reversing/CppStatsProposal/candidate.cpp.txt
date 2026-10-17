@@ -1,0 +1,13 @@
+int32 CStats::FindMostFavoriteRadioStation() {
+    int32 maximum = 0;
+    int32 selected = 1;
+    for (int32 station = 1; station < 13; ++station) {
+        const int32 listened = FavoriteRadioStationList[size_t(station)];
+        if (listened > maximum) {
+            maximum = listened;
+            selected = station;
+        }
+    }
+    return selected;
+}
+

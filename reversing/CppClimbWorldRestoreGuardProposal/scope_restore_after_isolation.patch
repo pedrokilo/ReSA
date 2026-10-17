@@ -1,0 +1,28 @@
+--- a/reversing/CppTrigClimb/LiveComparison.hpp
++++ b/reversing/CppTrigClimb/LiveComparison.hpp
+@@ -374,6 +374,17 @@
+     std::vector<std::vector<uint8>> saved; for(auto& [a,n]:regions)saved.push_back(ReversingProbe::Bytes(reinterpret_cast<void*>(a),n));
+     auto restoreGlobals=[&]{ for(size_t k=0;k<regions.size();++k)std::memcpy(reinterpret_cast<void*>(regions[k].first),saved[k].data(),regions[k].second); };
+     auto globalsIntact=[&]{ for(size_t k=0;k<regions.size();++k)if(std::memcmp(reinterpret_cast<void*>(regions[k].first),saved[k].data(),regions[k].second))return false; return true; };
++    // Scope restoration performs only copies of already saved globals.
++    // It must outlive every isolated side, including exception unwinding.
++    struct GlobalsRestoreGuard {
++        const std::vector<std::pair<uintptr_t,size_t>>& regions;
++        const std::vector<std::vector<uint8>>& saved;
++        ~GlobalsRestoreGuard() noexcept {
++            for(size_t k=0;k<regions.size();++k) {
++                std::memcpy(reinterpret_cast<void*>(regions[k].first),saved[k].data(),regions[k].second);
++            }
++        }
++    };
+     std::array<bool,NFNS> enabled{},locked{};
+     for(size_t f=0;f<fns.size();++f){enabled[f]=hooks[f]->Hooked();locked[f]=hooks[f]->Locked();hooks[f]->LockState(false);}
+     bool registered=true; for(size_t f=0;f<fns.size();++f)if((std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::ProcessPed")||(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::TestForClimb")||(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::TestForStandUp")||(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::TestForVault")||(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::GetCameraStickModifier")||(std::string(fns[f].cls)+"::"+fns[f].name=="CTaskSimpleClimb::GetCameraTargetPos"))registered&=enabled[f];
+@@ -436,6 +447,7 @@
+                     st=uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0x1515u; if(!st)st=1; trace=json::array(); seed=uint32(i);
+                     rngCalls=blendCalls=colCalls=boolCnt=0; freshIds.clear();
+                     CleanRefs(); restoreGlobals();
++                    GlobalsRestoreGuard restoreOnExit{regions,saved};
+                     // Head-only isolation: do not traverse, destroy, or mutate real nodes/entities.
+                     // CSector contains two pointer heads; CRepeatSector contains three.
+                     static_assert(sizeof(CSector)==8&&sizeof(CRepeatSector)==12);

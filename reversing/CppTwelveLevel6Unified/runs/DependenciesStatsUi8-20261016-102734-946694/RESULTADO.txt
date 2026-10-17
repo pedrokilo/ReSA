@@ -1,0 +1,3 @@
+FALLO: DependenciesStatsUi8
+Funciones con diferencias: CStats::CheckForStatsMessage: 64/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesstatsui8\20261016-102734-946694

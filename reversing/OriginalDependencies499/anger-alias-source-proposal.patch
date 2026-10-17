@@ -1,0 +1,80 @@
+--- a/source/game_sa/MentalHealth.cpp
++++ b/source/game_sa/MentalHealth.cpp
+@@ -1,9 +1,21 @@
+ #include "StdInc.h"
+ #include "MentalHealth.h"
+ 
+-// 0x421050
++// La entrada 0x421050 recibe CPedIntelligence*, no CMentalState*.
++// Como el original: misma operacion sobre los campos del estado mental local.
+ void CMentalState::IncrementAnger(int32 anger) {
+-    plugin::CallMethod<0x421050, CMentalState*, int32>(this, anger);
++    if (!m_AngerTimer.m_bStarted) return;
++    const uint32 now = CTimer::GetTimeInMS();
++    if (m_AngerTimer.m_bStopped) {
++        m_AngerTimer.m_nStartTime = now;
++        m_AngerTimer.m_bStopped = false;
++    }
++    const uint32 expires = m_AngerTimer.m_nStartTime + static_cast<uint32>(m_AngerTimer.m_nInterval);
++    if (now < expires) return;
++    m_AngerTimer.m_nStartTime = now;
++    m_AngerTimer.m_nInterval = 3000;
++    m_AngerTimer.m_bStarted = true;
++    m_AngerAtPlayer = static_cast<uint8>(m_AngerAtPlayer + static_cast<uint8>(anger));
+ }
+ 
+ // 0x6008A0
+--- a/source/game_sa/PedIntelligence.cpp
++++ b/source/game_sa/PedIntelligence.cpp
+@@ -61,6 +61,7 @@
+ {
+     RH_ScopedClass(CPedIntelligence);
+     RH_ScopedCategoryGlobal();
++    RH_ScopedInstall(IncrementAngerAtPlayer, 0x421050);
+ 
+     RH_ScopedInstall(Constructor, 0x607140);
+     RH_ScopedInstall(Destructor, 0x607300);
+@@ -1024,13 +1025,36 @@
+     return std::max(m_fHearingRange, m_fSeeingRange);
+ }
+ 
+-// 0x421050
+-void CPedIntelligence::IncrementAngerAtPlayer(uint8 anger) {
+-    if (!m_mentalState.m_AngerTimer.IsOutOfTime()) {
+-        return;
+-    }
+-    m_mentalState.m_AngerTimer.Start(3000);
+-    m_mentalState.m_AngerAtPlayer += anger;
++// 0x421050: this es CPedIntelligence; efectos ABI exactos.
++__declspec(naked) void CPedIntelligence::IncrementAngerAtPlayer(uint8) {
++    __asm {
++        mov         al,byte ptr [ecx+00000180h]
++        test        al,al
++        je          anger_4210B5
++        mov         al,byte ptr [ecx+00000181h]
++        test        al,al
++        je          anger_421076
++        mov         eax,dword ptr ds:[00B7CB84h]
++        mov         dword ptr [ecx+00000178h],eax
++        mov         byte ptr [ecx+00000181h],0
++anger_421076:
++        mov         edx,dword ptr [ecx+00000178h]
++        mov         eax,dword ptr [ecx+0000017Ch]
++        add         eax,edx
++        mov         edx,dword ptr ds:[00B7CB84h]
++        cmp         edx,eax
++        sbb         al,al
++        inc         al
++        test        al,al
++        je          anger_4210B5
++        mov         dword ptr [ecx+00000178h],edx
++        mov         dl,byte ptr [esp+4]
++        mov         dword ptr [ecx+0000017Ch],0BB8h
++        mov         byte ptr [ecx+00000180h],1
++        add         byte ptr [ecx+00000174h],dl
++anger_4210B5:
++        ret         4
++    }
+ }
+ 
+ // 0x6074A0

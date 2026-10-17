@@ -1,0 +1,69 @@
+00599AF0: push esi
+00599AF1: push 0
+00599AF3: push 2
+00599AF5: push 2
+00599AF7: push 2
+00599AF9: push 0
+00599AFB: push 0
+00599AFD: mov esi,ecx
+00599AFF: call 00591700
+00599B04: mov eax,dword ptr [esi+14h]
+00599B07: movzx ecx,byte ptr [eax+3]
+00599B0B: push 0
+00599B0D: push 2
+00599B0F: push 2
+00599B11: push 2
+00599B13: sub ecx,2
+00599B16: push ecx
+00599B17: push 0
+00599B19: mov ecx,esi
+00599B1B: call 00591700
+00599B20: mov edx,dword ptr [esi+14h]
+00599B23: movzx eax,byte ptr [edx+2]
+00599B27: push 0
+00599B29: push 2
+00599B2B: push 2
+00599B2D: push 2
+00599B2F: push 0
+00599B31: sub eax,2
+00599B34: push eax
+00599B35: mov ecx,esi
+00599B37: call 00591700
+00599B3C: mov eax,dword ptr [esi+14h]
+00599B3F: movzx ecx,byte ptr [eax+3]
+00599B43: movzx edx,byte ptr [eax+2]
+00599B47: push 0
+00599B49: push 2
+00599B4B: push 2
+00599B4D: push 2
+00599B4F: sub ecx,2
+00599B52: push ecx
+00599B53: sub edx,2
+00599B56: push edx
+00599B57: mov ecx,esi
+00599B59: call 00591700
+00599B5E: mov eax,dword ptr [esi+14h]
+00599B61: xor ecx,ecx
+00599B63: mov cl,byte ptr [eax+1Fh]
+00599B66: push ecx
+00599B67: push 0
+00599B69: push 1
+00599B6B: mov ecx,0BAB380h
+00599B70: call 00591220
+00599B75: mov edx,dword ptr [esi+14h]
+00599B78: mov byte ptr [esi+00000791h],al
+00599B7E: xor eax,eax
+00599B80: mov al,byte ptr [edx+1Fh]
+00599B83: mov ecx,0BAB380h
+00599B88: push eax
+00599B89: push 1
+00599B8B: push 1
+00599B8D: call 00591220
+00599B92: mov ecx,esi
+00599B94: mov byte ptr [esi+00000792h],al
+00599B9A: call 00599770
+00599B9F: mov ecx,esi
+00599BA1: call 00599A30
+00599BA6: mov ecx,esi
+00599BA8: pop esi
+00599BA9: jmp 0059A130

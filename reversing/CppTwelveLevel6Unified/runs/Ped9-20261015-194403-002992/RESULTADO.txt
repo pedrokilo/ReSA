@@ -1,0 +1,3 @@
+APROBADO: IK del peatón, efectos de armas, cadena IK, lanzar y recoger bici (lista de 9)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ped9\20261015-194403-002992

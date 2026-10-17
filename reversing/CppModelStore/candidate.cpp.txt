@@ -1,0 +1,4 @@
+CStore<C2dEffect, CModelInfo::NUM_2DFX_INFOS>* CModelInfo::Get2dEffectStore()
+{
+    return reinterpret_cast<CStore<C2dEffect, NUM_2DFX_INFOS>*>(uintptr_t{0xB4C2D8});
+}

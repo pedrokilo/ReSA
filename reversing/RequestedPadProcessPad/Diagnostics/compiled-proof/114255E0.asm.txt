@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114255E0: 55                 push        ebp
+  114255E1: 8B EC              mov         ebp,esp
+  114255E3: 81 EC DC 00 00 00  sub         esp,0DCh
+  114255E9: 53                 push        ebx
+  114255EA: 56                 push        esi
+  114255EB: 57                 push        edi
+  114255EC: 51                 push        ecx
+  114255ED: 8D 7D E4           lea         edi,[ebp-1Ch]
+  114255F0: B9 07 00 00 00     mov         ecx,7
+  114255F5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  114255FA: F3 AB              rep stos    dword ptr es:[edi]
+  114255FC: 59                 pop         ecx
+  114255FD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11425600: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11425603: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  11425609: 83 BD 2C FF FF FF  cmp         dword ptr [ebp+FFFFFF2Ch],0
+            00
+  11425610: 74 15              je          11425627
+  11425612: 6A 01              push        1
+  11425614: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  1142561A: E8 DD BC C9 FF     call        110C12FC
+  1142561F: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  11425625: EB 0A              jmp         11425631
+  11425627: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  11425631: 5F                 pop         edi
+  11425632: 5E                 pop         esi
+  11425633: 5B                 pop         ebx
+  11425634: 81 C4 DC 00 00 00  add         esp,0DCh
+  1142563A: 3B EC              cmp         ebp,esp
+  1142563C: E8 4B E4 C6 FF     call        11093A8C
+  11425641: 8B E5              mov         esp,ebp
+  11425643: 5D                 pop         ebp
+  11425644: C2 04 00           ret         4
+  11425647: CC                 int         3
+
+  Summary
+
+     21DB000 .text

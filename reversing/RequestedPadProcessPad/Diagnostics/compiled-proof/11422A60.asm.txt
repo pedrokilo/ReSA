@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11422A60: 55                 push        ebp
+  11422A61: 8B EC              mov         ebp,esp
+  11422A63: 81 EC CC 00 00 00  sub         esp,0CCh
+  11422A69: 53                 push        ebx
+  11422A6A: 56                 push        esi
+  11422A6B: 57                 push        edi
+  11422A6C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11422A6F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11422A72: 8B 00              mov         eax,dword ptr [eax]
+  11422A74: 5F                 pop         edi
+  11422A75: 5E                 pop         esi
+  11422A76: 5B                 pop         ebx
+  11422A77: 8B E5              mov         esp,ebp
+  11422A79: 5D                 pop         ebp
+  11422A7A: C3                 ret
+  11422A7B: CC                 int         3
+  11422A7C: CC                 int         3
+  11422A7D: CC                 int         3
+  11422A7E: CC                 int         3
+  11422A7F: CC                 int         3
+  11422A80: CC                 int         3
+  11422A81: CC                 int         3
+  11422A82: CC                 int         3
+  11422A83: CC                 int         3
+  11422A84: CC                 int         3
+  11422A85: CC                 int         3
+  11422A86: CC                 int         3
+  11422A87: CC                 int         3
+  11422A88: CC                 int         3
+  11422A89: CC                 int         3
+  11422A8A: CC                 int         3
+  11422A8B: CC                 int         3
+  11422A8C: CC                 int         3
+  11422A8D: CC                 int         3
+  11422A8E: CC                 int         3
+  11422A8F: CC                 int         3
+  11422A90: 55                 push        ebp
+  11422A91: 8B EC              mov         ebp,esp
+  11422A93: 81 EC CC 00 00 00  sub         esp,0CCh
+  11422A99: 53                 push        ebx
+  11422A9A: 56                 push        esi
+  11422A9B: 57                 push        edi
+  11422A9C: 51                 push        ecx
+  11422A9D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11422AA0: B9
+
+  Summary
+
+     21DB000 .text

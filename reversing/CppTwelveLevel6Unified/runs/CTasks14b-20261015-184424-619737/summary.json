@@ -1,0 +1,18 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "f8c9b61464f408cb466826bef17e3e34ebd98e974c2bd28e1da8542543b93e4a",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "dialog": "Microsoft Visual C++ Runtime Library / &Anular / &Reintentar / Om&itir / Assertion failed!\n\nProgram: ...n Andreas - CVehicle Test\\scripts\\gta_reversed.asi\nFile: D:\\Original\\gta-reversed-master\\source\\ga...\\X87Math.cpp\nLine: 478\n\nExpression: ResidueHelpersAreTrivial() && \"Los ayudantes de residuo de registros ya no son triviales: revisar X87Math.cpp y las opciones de compilacion\"\n\nFor information on how your program can cause an assertion\nfailure, see the Visual C++ documentation on asserts\n\n(Press Retry to debug the application - JIT must be enabled)",
+  "error": "Dialogo en GTA (abortado): Microsoft Visual C++ Runtime Library / &Anular / &Reintentar / Om&itir / Assertion failed!\n\nProgram: ...n Andreas - CVehicle Test\\scripts\\gta_reversed.asi\nFile: D:\\Original\\gta-reversed-master\\source\\ga...\\X87Math.cpp\nLine: 478\n\nExpression: ResidueHelpersAreTrivial() && \"Los ayudantes de residuo de registros ya no son triviales: revisar X87Math.cpp y las opciones de compilacion\"\n\nFor information on how your program can cause an assertion\nfailure, see the Visual C++ documentation on asserts\n\n(Press Retry to debug the application - JIT must be enabled)",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

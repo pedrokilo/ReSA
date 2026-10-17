@@ -1,0 +1,3 @@
+APROBADO: CRoadBlocks (Init, GenerateRoadBlockPedsForCar) y CRunningScript (GivePedScriptedTask-OG, SetCharCoordinates)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-roadscriptwave3\20261015-200042-956834

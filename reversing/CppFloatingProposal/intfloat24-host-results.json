@@ -1,0 +1,38 @@
+{
+  "scope": "offline integer-only C++ host driver versus independent Fraction oracle",
+  "in_game_validated": false,
+  "pairs": 128976,
+  "differences": 0,
+  "rounding_modes": [
+    "nearest_even",
+    "down",
+    "up",
+    "toward_zero"
+  ],
+  "coverage": {
+    "zero": 320,
+    "finite": 126620,
+    "infinity": 320,
+    "nan": 1716,
+    "signaling_nan": 868,
+    "denormal_input": 2728,
+    "overflow_store": 15020,
+    "inexact_mul": 123060,
+    "exact_mul": 5916,
+    "rounded_magnitude_up": 46120,
+    "subnormal_output": 448,
+    "uint32_high": 31012,
+    "signed_min": 224
+  },
+  "sha256": {
+    "IntFloat24.hpp": "443228ae426cf11ebc1978c646c13e69b6ad232c4dfd97e98ac9ff0790b1281a",
+    "intfloat24_driver.cpp": "2bd5e2d5937c0aabc2d555b56f7168206aeea3e11f575f277c970928638477fc",
+    "test_intfloat24.py": "b0c3304cdc94cf32469667c8ac4c0c9ec7e79ea7a8a51a1f47f3342efafa37a0"
+  },
+  "limitations": [
+    "No GTA execution or original x87 instruction comparisons.",
+    "Software exception flags only; no physical FPU status/control manipulation.",
+    "PC=24 only; masked-exception result semantics; input binary32 plus int32/uint32.",
+    "uint32 models exact nonnegative conversion, not signed FILD dword."
+  ]
+}

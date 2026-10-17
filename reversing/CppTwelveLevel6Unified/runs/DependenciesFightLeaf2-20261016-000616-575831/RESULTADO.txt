@@ -1,0 +1,3 @@
+APROBADO: Hojas de CTaskSimpleFight
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesfightleaf2\20261016-000616-575831

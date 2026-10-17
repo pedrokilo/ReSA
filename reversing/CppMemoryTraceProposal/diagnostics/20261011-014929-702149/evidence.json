@@ -1,0 +1,7 @@
+{
+  "diagnostic_only": true,
+  "admitted": false,
+  "binary_sha256": "04f198b21c4cff7d0630a947ee2f8f16df72c4538ea6c69fec3d57f572f9e1ef",
+  "run": "20261011-014929-702149",
+  "executed_probe_sha256": "59390d2eb80e41f989bad1d773fd1c385757c1b017f1683fe97327d0e8b71747"
+}

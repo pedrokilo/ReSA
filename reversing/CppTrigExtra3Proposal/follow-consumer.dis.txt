@@ -1,0 +1,134 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0066E710: 83 EC 0C           sub         esp,0Ch
+  0066E713: 53                 push        ebx
+  0066E714: 8A 5C 24 18        mov         bl,byte ptr [esp+18h]
+  0066E718: 84 DB              test        bl,bl
+  0066E71A: 56                 push        esi
+  0066E71B: 8B F1              mov         esi,ecx
+  0066E71D: 74 4D              je          0066E76C
+  0066E71F: 8B 4C 24 18        mov         ecx,dword ptr [esp+18h]
+  0066E723: 8B 41 14           mov         eax,dword ptr [ecx+14h]
+  0066E726: 85 C0              test        eax,eax
+  0066E728: 74 05              je          0066E72F
+  0066E72A: 8D 48 30           lea         ecx,[eax+30h]
+  0066E72D: EB 03              jmp         0066E732
+  0066E72F: 83 C1 04           add         ecx,4
+  0066E732: 8B 46 24           mov         eax,dword ptr [esi+24h]
+  0066E735: 8B 56 20           mov         edx,dword ptr [esi+20h]
+  0066E738: 8D 04 40           lea         eax,[eax+eax*2]
+  0066E73B: D9 44 82 04        fld         dword ptr [edx+eax*4+4]
+  0066E73F: 8D 44 82 04        lea         eax,[edx+eax*4+4]
+  0066E743: D8 21              fsub        dword ptr [ecx]
+  0066E745: D9 40 04           fld         dword ptr [eax+4]
+  0066E748: D8 61 04           fsub        dword ptr [ecx+4]
+  0066E74B: D9 40 08           fld         dword ptr [eax+8]
+  0066E74E: D8 61 08           fsub        dword ptr [ecx+8]
+  0066E751: D9 C0              fld         st(0)
+  0066E753: D8 C9              fmul        st,st(1)
+  0066E755: D9 C2              fld         st(2)
+  0066E757: D8 CB              fmul        st,st(3)
+  0066E759: DE C1              faddp       st(1),st
+  0066E75B: D9 C3              fld         st(3)
+  0066E75D: D8 CC              fmul        st,st(4)
+  0066E75F: DE C1              faddp       st(1),st
+  0066E761: DD DB              fstp        st(3)
+  0066E763: DD D8              fstp        st(0)
+  0066E765: DD D8              fstp        st(0)
+  0066E767: D9 46 2C           fld         dword ptr [esi+2Ch]
+  0066E76A: EB 49              jmp         0066E7B5
+  0066E76C: 8B 44 24 18        mov         eax,dword ptr [esp+18h]
+  0066E770: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  0066E773: 85 C9              test        ecx,ecx
+  0066E775: 57                 push        edi
+  0066E776: 8D 79 30           lea         edi,[ecx+30h]
+  0066E779: 75 03              jne         0066E77E
+  0066E77B: 8D 78 04           lea         edi,[eax+4]
+  0066E77E: 50                 push        eax
+  0066E77F: 8D 44 24 10        lea         eax,[esp+10h]
+  0066E783: 50                 push        eax
+  0066E784: 8B CE              mov         ecx,esi
+  0066E786: E8 B5 AB FF FF     call        00669340
+  0066E78B: D9 07              fld         dword ptr [edi]
+  0066E78D: D8 20              fsub        dword ptr [eax]
+  0066E78F: D9 47 04           fld         dword ptr [edi+4]
+  0066E792: D8 60 04           fsub        dword ptr [eax+4]
+  0066E795: D9 47 08           fld         dword ptr [edi+8]
+  0066E798: 5F                 pop         edi
+  0066E799: D8 60 08           fsub        dword ptr [eax+8]
+  0066E79C: D9 C0              fld         st(0)
+  0066E79E: D8 C9              fmul        st,st(1)
+  0066E7A0: D9 C2              fld         st(2)
+  0066E7A2: D8 CB              fmul        st,st(3)
+  0066E7A4: DE C1              faddp       st(1),st
+  0066E7A6: D9 C3              fld         st(3)
+  0066E7A8: D8 CC              fmul        st,st(4)
+  0066E7AA: DE C1              faddp       st(1),st
+  0066E7AC: DD DB              fstp        st(3)
+  0066E7AE: DD D8              fstp        st(0)
+  0066E7B0: DD D8              fstp        st(0)
+  0066E7B2: D9 46 30           fld         dword ptr [esi+30h]
+  0066E7B5: D9 C0              fld         st(0)
+  0066E7B7: DE C9              fmulp       st(1),st
+  0066E7B9: D9 C1              fld         st(1)
+  0066E7BB: D8 D9              fcomp       st(1)
+  0066E7BD: DF E0              fnstsw      ax
+  0066E7BF: F6 C4 05           test        ah,5
+  0066E7C2: 0F 8A 86 00 00 00  jp          0066E84E
+  0066E7C8: DE F9              fdivp       st(1),st
+  0066E7CA: D8 15 50 8B 85 00  fcom        dword ptr ds:[00858B50h]
+  0066E7D0: DF E0              fnstsw      ax
+  0066E7D2: F6 C4 05           test        ah,5
+  0066E7D5: 7A 0A              jp          0066E7E1
+  0066E7D7: DD D8              fstp        st(0)
+  0066E7D9: D9 05 50 8B 85 00  fld         dword ptr ds:[00858B50h]
+  0066E7DF: EB 15              jmp         0066E7F6
+  0066E7E1: D8 15 24 86 85 00  fcom        dword ptr ds:[00858624h]
+  0066E7E7: DF E0              fnstsw      ax
+  0066E7E9: F6 C4 41           test        ah,41h
+  0066E7EC: 75 08              jne         0066E7F6
+  0066E7EE: DD D8              fstp        st(0)
+  0066E7F0: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  0066E7F6: 84 DB              test        bl,bl
+  0066E7F8: D8 0D B8 8C 85 00  fmul        dword ptr ds:[00858CB8h]
+  0066E7FE: D9 FF              fcos
+  0066E800: D8 0D 8C 8B 85 00  fmul        dword ptr ds:[00858B8Ch]
+  0066E806: D8 05 8C 8B 85 00  fadd        dword ptr ds:[00858B8Ch]
+  0066E80C: 74 05              je          0066E813
+  0066E80E: D8 4E 34           fmul        dword ptr [esi+34h]
+  0066E811: EB 03              jmp         0066E816
+  0066E813: D8 4E 38           fmul        dword ptr [esi+38h]
+  0066E816: 8B 4E 14           mov         ecx,dword ptr [esi+14h]
+  0066E819: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  0066E81D: 51                 push        ecx
+  0066E81E: E8 0D 07 FF FF     call        0065EF30
+  0066E823: D8 64 24 20        fsub        dword ptr [esp+20h]
+  0066E827: 6A 04              push        4
+  0066E829: D9 5C 24 24        fstp        dword ptr [esp+24h]
+  0066E82D: E8 FE 06 FF FF     call        0065EF30
+  0066E832: D8 54 24 24        fcom        dword ptr [esp+24h]
+  0066E836: 83 C4 08           add         esp,8
+  0066E839: DF E0              fnstsw      ax
+  0066E83B: F6 C4 41           test        ah,41h
+  0066E83E: 74 18              je          0066E858
+  0066E840: 5E                 pop         esi
+  0066E841: DD D8              fstp        st(0)
+  0066E843: D9 44 24 18        fld         dword ptr [esp+18h]
+  0066E847: 5B                 pop         ebx
+  0066E848: 83 C4 0C           add         esp,0Ch
+  0066E84B: C2 08 00           ret         8
+  0066E84E: DD D8              fstp        st(0)
+  0066E850: DD D8              fstp        st(0)
+  0066E852: D9
+  0066E853: 05
+  0066E854: 1C 8C              sbb         al,8Ch
+
+  Summary
+
+      456000 .text

@@ -1,0 +1,3 @@
+FALLO: DependenciesVehicleStats10
+Funciones con diferencias: CStats::UpdateStatsWhenWeaponHit: 124/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesvehiclestats10\20261016-014817-719603

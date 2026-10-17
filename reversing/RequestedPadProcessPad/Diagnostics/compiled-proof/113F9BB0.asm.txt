@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113F9BB0: 55                 push        ebp
+  113F9BB1: 8B EC              mov         ebp,esp
+  113F9BB3: 81 EC C0 00 00 00  sub         esp,0C0h
+  113F9BB9: 53                 push        ebx
+  113F9BBA: 56                 push        esi
+  113F9BBB: 57                 push        edi
+  113F9BBC: 8B FD              mov         edi,ebp
+  113F9BBE: 33 C9              xor         ecx,ecx
+  113F9BC0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113F9BC5: F3 AB              rep stos    dword ptr es:[edi]
+  113F9BC7: EB 09              jmp         113F9BD2
+  113F9BC9: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113F9BCC: 83 C0 04           add         eax,4
+  113F9BCF: 89 45 08           mov         dword ptr [ebp+8],eax
+  113F9BD2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113F9BD5: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  113F9BD8: 74 2A              je          113F9C04
+  113F9BDA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113F9BDD: 50                 push        eax
+  113F9BDE: 8D 4D 14           lea         ecx,[ebp+14h]
+  113F9BE1: 51                 push        ecx
+  113F9BE2: E8 57 F0 CA FF     call        110A8C3E
+  113F9BE7: 83 C4 08           add         esp,8
+  113F9BEA: 50                 push        eax
+  113F9BEB: 8D 55 10           lea         edx,[ebp+10h]
+  113F9BEE: 52                 push        edx
+  113F9BEF: E8 BE 90 CA FF     call        110A2CB2
+  113F9BF4: 83 C4 08           add         esp,8
+  113F9BF7: 0F B6 C0           movzx       eax,al
+  113F9BFA: 85 C0              test        eax,eax
+  113F9BFC: 75 04              jne         113F9C02
+  113F9BFE: 32 C0              xor         al,al
+  113F9C00: EB 04              jmp         113F9C06
+  113F9C02: EB C5              jmp         113F9BC9
+  113F9C04: B0 01              mov         al,1
+  113F9C06: 5F                 pop         edi
+  113F9C07: 5E                 pop         esi
+  113F9C08: 5B                 pop         ebx
+  113F9C09: 81 C4 C0 00 00 00  add         esp,0C0h
+  113F9C0F: 3B EC              cmp         ebp,esp
+  113F9C11: E8 76 9E C9 FF     call        11093A8C
+  113F9C16: 8B E5              mov         esp,ebp
+  113F9C18: 5D                 pop         ebp
+  113F9C19: C3                 ret
+  113F9C1A: CC                 int         3
+
+  Summary
+
+     21DB000 .text

@@ -1,0 +1,3 @@
+FALLO: CAEAudioHardware (lista de 34)
+[WinError 112] Espacio en disco insuficiente
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-audiohw54\20261011-231120-263033

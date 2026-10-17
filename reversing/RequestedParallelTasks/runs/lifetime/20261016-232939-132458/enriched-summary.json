@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "564bfce593407404ee76ad9524e24ea67d7853005caaeddd27b9d685c54acfa1",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 896,
+  "pairs_per_function": {
+    "CTaskComplexGangJoinRespond::Constructor": 128,
+    "CTaskComplexGangJoinRespond::Destructor": 128,
+    "CTaskComplexGoToAttractor::Constructor": 128,
+    "CTaskComplexGoToAttractor::Destructor": 128,
+    "CTaskComplexSmartFleePoint::Constructor": 128,
+    "CTaskComplexSmartFleePoint::Destructor": 128,
+    "CTaskComplexFollowLeaderInFormation::Destructor": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "07e14d107e60df8fae1c5b29b90f214e67f08ec6a2705a6524f437e1fed32ee0",
+  "scope": "limited fixtures; no full-function validation claim",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "8d87599662411fd808e4805d1bad0278c5f091bc",
+    "frozen_inputs": {
+      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/RequestedParallelTasks/build_probe.py": "eada4607f1591d0c2dfd4de605ab45281df4a9b642fa05f76a4f839d2de7cedf",
+      "reversing/RequestedParallelTasks/Frontend.hpp": "65f378fa95e1ce74a3324999b17964d674e4b5a111edfc725dbd47ac94d9b6d4",
+      "reversing/RequestedParallelTasks/run_local.py": "45238fb90c2ce5b185259b42d4848eee71ba2926b282384b63eb511e7bcbfa72",
+      "reversing/RequestedParallelTasks/TaskLifetimeComparison.hpp": "bc9766c52f56efc73d4bd5269ce46ca94ac408b84c90d6350c19be746ef5e1d6",
+      "reversing/RequestedParallelTasks/TaskLifetimeExpanded/Expanded.hpp": "86b6b5ac7afc67a99c25cddfcce190af07a43faf24169c6c9753ecc9f6a7d2b8",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+      "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+      "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "7e7fef4bdd2b2cb57ed7b8368c9461bd239cbabda4704fc69412f3ffafc28423",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "d7361f1c94baf194fd2e216a6c20ff575827558f2848fe85da1c58987c6e3b5b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "e443d637501c120f5471bc4ca9af38c83bdb4e9d270bdc7ba904b836af626f4d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "7c612b7152c8276c8b1d13812506d271a1e5a6337e5e0862be7b210271d2da34",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "92588930c80f42c734c025469e07f6fc8436b64f5e763afe715f2131904c8839",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.h": "fc34cfe2ff9bcb0802522d154561550b96dfe0544ced46bf150d297da4e02672"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "frontend_entry": "FrontendIdle",
+    "expected_pairs": {
+      "lifetime": 896,
+      "expanded": 192
+    },
+    "fixture_scope": "isolated task lifetime contracts; no FindPlayerPed, no CGame::Process hook, no automatic save load",
+    "compiler_options": {
+      "configuration": "Debug",
+      "_CL_": "/MP6",
+      "parallel": 1
+    },
+    "compiled_instruments": {
+      "source/app/app_game.cpp": "65ebf26a14a43d7692dbee31c99a91202e0bc5bb3cd0304b740378c4cd24e91d",
+      "source/dllmain.cpp": "1aa0f2ba1d7a807ca8b83e9ed8378aedc6a652308afd60f8f50cfb428682853d"
+    },
+    "asi": "564bfce593407404ee76ad9524e24ea67d7853005caaeddd27b9d685c54acfa1",
+    "pdb": "a6004dbcd811a357a329ad497c06170db2d5119bcb0295ed90efd776496e431a"
+  },
+  "runner_sha256": "45238fb90c2ce5b185259b42d4848eee71ba2926b282384b63eb511e7bcbfa72"
+}

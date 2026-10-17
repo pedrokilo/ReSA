@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "1fab718f68eaf091a3af04d49b8aadb8b5af8ced127312f1158bba6aa8b4604c",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 1536,
+  "pairs_per_function": {
+    "CPedGroupPlacer::PlaceGroup": 1536
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b2474e812fe69eba08ffe83e09403b6e4ee5b487ca22ca904fd87fa1525b7824",
+  "accepted_and_leg_contracts_checked": true,
+  "six_enum_product_checked": true,
+  "explicit_fixture_payload_and_trace_checked": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "21e3eddf42d989b7f8d291b08ab076609c11594b",
+    "tested_sources": {
+      "source/game_sa/PedGroupPlacer.cpp": "f2cf2ddee3809e8b01b19c8fdc894e82e46f8f6ea586c33fea5415d9dcdc4cb3",
+      "source/game_sa/PedGroupPlacer.h": "446b8e0181e26701fc2fd52dd9fd8b81a3572616808010b4d40b56d1add22e59",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorType.h": "c56800d4c3142f2c104fd65cc9ab0b734932834961a78e44a237b2549da7828e",
+      "source/Base.h": "09bd63c8bb483f0f49c4db800fba259ee634a0e7dd4e4c356fbd7050b88d4096"
+    },
+    "bank_sources": {
+      "reversing/RequestedGroupPlacerCorrectedV2/LiveComparison.hpp": "a0bd1c9af4a19c596226b80691df8400e08a67f68af4ae37f7cc710cfe4fa35b",
+      "reversing/RequestedGroupPlacerCorrectedV2/build_probe.py": "11b5dfe596fb9b3225c0920fd805bb661c840eb46358916d620e213dfddf0d0f",
+      "reversing/RequestedGroupPlacerCorrectedV2/run_local.py": "912607e51549753463012a5814e9c9ee4f6f76bbeff8da178dd2d99ac82d1133",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "34a36e1070cfd8f29cdde997e8a86e4bdc1a3164fd21c800b5e4219336c0b961",
+    "fixture_scope": "Pregraphics six valid allocator enums, 256 fixtures each, isolated patched native and DLL Formation/Chat/Random delegates. Raw AL equality and explicit route/arguments/payload gates. Upper EAX on delegated bool routes is unspecified and excluded. No group creation or actor integration.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "8a71719e937516aa16fd62e51e048ab4749333b49fa7d32f2b018eec37926121"
+    },
+    "asi": "1fab718f68eaf091a3af04d49b8aadb8b5af8ced127312f1158bba6aa8b4604c",
+    "pdb": "0e8e18949bfa927870f50c95ab6d0855d1f7c7278b13c37721da388d8a02b98b"
+  },
+  "runner_sha256": "912607e51549753463012a5814e9c9ee4f6f76bbeff8da178dd2d99ac82d1133"
+}

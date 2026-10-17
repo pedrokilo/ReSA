@@ -1,0 +1,3 @@
+APROBADO: CMatrix (SetRotate*, Rotate*, Reorthogonalise, Euler), EXE vs DLL directa
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cppmatrixexact1\20261015-195557-238010

@@ -1,0 +1,316 @@
+--- a/source/game_sa/DecisionMakers/DecisionMakerTypes.cpp
++++ b/source/game_sa/DecisionMakers/DecisionMakerTypes.cpp
+@@ -5,6 +5,9 @@
+ void CDecisionMakerTypes::InjectHooks() {
+     RH_ScopedClass(CDecisionMakerTypes);
+     RH_ScopedCategory("DecisionMakers");
++    RH_ScopedOverloadedInstall(MakeDecision, "Ped", 0x606E70, void(CDecisionMakerTypes::*)(CPed*, eEventType, int32, bool, eTaskType, eTaskType, eTaskType, eTaskType, bool, int16&, int16&));
++    RH_ScopedOverloadedInstall(MakeDecision, "Group", 0x606F80, eTaskType(CDecisionMakerTypes::*)(CPedGroup*, eEventType, int32, bool, eTaskType, eTaskType, eTaskType, eTaskType));
++
+     RH_ScopedInstall(AddDecisionMaker, 0x607050);
+     RH_ScopedInstall(RemoveDecisionMaker, 0x6043A0);
+     RH_ScopedInstall(LoadEventIndices, 0x600840);
+@@ -108,9 +111,119 @@
+     return plugin::CallAndReturn<CDecisionMakerTypes*, 0x4684F0>();
+ }
+ 
++static __declspec(naked) void Decision7One() {
++    __asm {
++        push 006040D0h
++        ret
++    }
++}
++static __declspec(naked) void Decision7Many() {
++    __asm {
++        push 00606060h
++        ret
++    }
++}
++
+ // 0x606E70
+-void CDecisionMakerTypes::MakeDecision(CPed* ped, eEventType eventType, int32 eventSourceType, bool bIsPedInVehicle, eTaskType taskTypeToAvoid1, eTaskType taskTypeToAvoid2, eTaskType taskTypeToAvoid3, eTaskType taskTypeToSeek, bool bUseInGroupDecisionMaker, int16& taskType, int16& facialTaskType) {
+-    plugin::CallMethod<0x606E70>(this, ped, eventType, eventSourceType, bIsPedInVehicle, taskTypeToAvoid1, taskTypeToAvoid2, taskTypeToAvoid3, taskTypeToSeek, bUseInGroupDecisionMaker, &taskType, &facialTaskType);
++__declspec(naked) void CDecisionMakerTypes::MakeDecision(CPed* ped, eEventType eventType, int32 eventSourceType, bool bIsPedInVehicle, eTaskType taskTypeToAvoid1, eTaskType taskTypeToAvoid2, eTaskType taskTypeToAvoid3, eTaskType taskTypeToSeek, bool bUseInGroupDecisionMaker, int16& taskType, int16& facialTaskType) {
++    __asm {
++        mov         al,byte ptr [esp+24h]
++        test        al,al
++        push        ebx
++        mov         ebx,dword ptr [esp+8]
++        push        esi
++        push        edi
++        je decision7_606E8D
++        mov         eax,dword ptr [ebx+0000047Ch]
++        mov         eax,dword ptr [eax+000000B8h]
++        jmp decision7_606E99
++decision7_606E8D:
++        mov         edx,dword ptr [ebx+0000047Ch]
++        mov         eax,dword ptr [edx+000000B4h]
++decision7_606E99:
++        cmp         eax,0FFFFFFFEh
++        mov         edi,dword ptr [esp+38h]
++        mov         edx,dword ptr [esp+14h]
++        mov         esi,dword ptr [esp+34h]
++        mov         edx,dword ptr [ecx+edx*4+0000C034h]
++        push        edi
++        mov         word ptr [esi],0C8h
++        mov         word ptr [edi],0FFFFh
++        push        esi
++        jne decision7_606EF0
++        mov         eax,dword ptr [esp+34h]
++        imul        edx,edx,3Ch
++        push        eax
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        lea         ecx,[edx+ecx+0000D4ECh]
++        call Decision7One
++        pop         edi
++        pop         esi
++        pop         ebx
++        ret         2Ch
++decision7_606EF0:
++        cmp         eax,0FFFFFFFFh
++        jne decision7_606F3F
++        cmp         byte ptr [ebx+00000484h],2
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        mov         eax,dword ptr [esp+34h]
++        push        eax
++        push        edx
++        jne decision7_606F2E
++        add         ecx,0CB50h
++        call Decision7Many
++        pop         edi
++        pop         esi
++        pop         ebx
++        ret         2Ch
++decision7_606F2E:
++        add         ecx,0C1B4h
++        call Decision7Many
++        pop         edi
++        pop         esi
++        pop         ebx
++        ret         2Ch
++decision7_606F3F:
++        mov         esi,dword ptr [esp+34h]
++        imul        eax,eax,29h
++        push        esi
++        mov         esi,dword ptr [esp+34h]
++        push        esi
++        mov         esi,dword ptr [esp+34h]
++        push        esi
++        mov         esi,dword ptr [esp+34h]
++        add         eax,edx
++        imul        eax,eax,3Ch
++        push        esi
++        mov         esi,dword ptr [esp+34h]
++        push        esi
++        mov         esi,dword ptr [esp+34h]
++        push        esi
++        lea         ecx,[eax+ecx+4]
++        call Decision7One
++        pop         edi
++        pop         esi
++        pop         ebx
++        ret         2Ch
++    }
+ }
+ 
+ // 0x6043A0
+@@ -202,9 +315,73 @@
+ }
+ 
+ // 0x606F80
+-eTaskType CDecisionMakerTypes::MakeDecision(CPedGroup* pedGroup, eEventType eventType, int32 eventSourceType, bool bIsPedInVehicle, eTaskType taskId1, eTaskType taskId2, eTaskType taskId3, eTaskType taskId4) {
+-    return plugin::CallMethodAndReturn<eTaskType, 0x606F80, CDecisionMakerTypes*, CPedGroup*, int32, int32, bool, int32, int32, int32, int32>(
+-        this, pedGroup, eventType, eventSourceType, bIsPedInVehicle, taskId1, taskId2, taskId3, taskId4);
++__declspec(naked) eTaskType CDecisionMakerTypes::MakeDecision(CPedGroup* pedGroup, eEventType eventType, int32 eventSourceType, bool bIsPedInVehicle, eTaskType taskId1, eTaskType taskId2, eTaskType taskId3, eTaskType taskId4) {
++    __asm {
++        mov         edx,dword ptr [esp+8]
++        mov         edx,dword ptr [ecx+edx*4+0000C034h]
++        push        esi
++        mov         esi,dword ptr [esp+8]
++        mov         eax,dword ptr [esi+000002C8h]
++        cmp         eax,0FFFFFFFFh
++        mov         dword ptr [esp+8],0C8h
++        jne decision7_607002
++        mov         al,byte ptr [esi+000002D0h]
++        imul        edx,edx,3Ch
++        cmp         al,1
++        lea         eax,[esp+24h]
++        push        eax
++        lea         eax,[esp+0Ch]
++        push        eax
++        mov         eax,dword ptr [esp+2Ch]
++        push        eax
++        mov         eax,dword ptr [esp+2Ch]
++        push        eax
++        mov         eax,dword ptr [esp+2Ch]
++        push        eax
++        mov         eax,dword ptr [esp+2Ch]
++        push        eax
++        mov         eax,dword ptr [esp+2Ch]
++        push        eax
++        mov         eax,dword ptr [esp+2Ch]
++        push        eax
++        jne decision7_606FED
++        lea         ecx,[edx+ecx+0000E824h]
++        call Decision7One
++        movsx       eax,word ptr [esp+8]
++        pop         esi
++        ret         20h
++decision7_606FED:
++        lea         ecx,[edx+ecx+0000DE88h]
++        call Decision7One
++        movsx       eax,word ptr [esp+8]
++        pop         esi
++        ret         20h
++decision7_607002:
++        imul        eax,eax,29h
++        lea         esi,[esp+24h]
++        push        esi
++        lea         esi,[esp+0Ch]
++        push        esi
++        mov         esi,dword ptr [esp+2Ch]
++        push        esi
++        mov         esi,dword ptr [esp+2Ch]
++        push        esi
++        mov         esi,dword ptr [esp+2Ch]
++        push        esi
++        mov         esi,dword ptr [esp+2Ch]
++        add         eax,edx
++        imul        eax,eax,3Ch
++        push        esi
++        mov         esi,dword ptr [esp+2Ch]
++        push        esi
++        mov         esi,dword ptr [esp+2Ch]
++        push        esi
++        lea         ecx,[eax+ecx+4]
++        call Decision7One
++        movsx       eax,word ptr [esp+8]
++        pop         esi
++        ret         20h
++    }
+ }
+ 
+ // 0x6044C0
+--- a/source/game_sa/Pools/PedPool.h
++++ b/source/game_sa/Pools/PedPool.h
+@@ -38,6 +38,7 @@
+         RH_ScopedClass(CPedPool);
+         RH_ScopedCategory("Pools");
+ 
++        RH_ScopedInstall(GetRef, 0x4442D0);
+         RH_ScopedInstall(New, 0x005E45E0);
+         RH_ScopedInstall(GetAtRef, 0x404910);
+     }
+@@ -45,6 +46,8 @@
+ public:
+     using CPool::CPool;
+ 
++    int32 GetRef(const CPed*);
++
+     // Como el original: busca desde el cursor + 1 y no rellena el almacenamiento (ver CPool::NewLegacy).
+     CPed* New() {
+         return NewLegacy();
+--- a/source/game_sa/Events/EventScriptCommand.cpp
++++ b/source/game_sa/Events/EventScriptCommand.cpp
+@@ -27,6 +27,7 @@
+     RH_ScopedVirtualClass(CEventScriptCommand, 0x85B378, 17);
+     RH_ScopedCategory("Events");
+ 
++    RH_ScopedInstall(Destructor, 0x4B0A50);
+     RH_ScopedInstall(Constructor, 0x4B0A00);
+     // Como el original se llaman por la vtable: con RH_ScopedInstall el destino era el thunk virtual de la DLL, que
+     // vuelve a saltar por la vtable del EXE (entrada enganchada) y se queda en un bucle infinito
+@@ -106,3 +107,35 @@
+         return m_task->Clone();
+     return nullptr;
+ }
++
++#pragma warning(push)
++#pragma warning(disable: 4733) // Handler SEH original 83A018.
++__declspec(naked) void CEventScriptCommand::Destructor() {
++    __asm {
++        push        0FFFFFFFFh
++        push        83A018h
++        mov         eax,dword ptr fs:[00000000h]
++        push        eax
++        mov         dword ptr fs:[00000000h],esp
++        push        ecx
++        push        esi
++        mov         esi,ecx
++        mov         dword ptr [esp+4],esi
++        mov         dword ptr [esi],85B378h
++        mov         ecx,dword ptr [esi+10h]
++        test        ecx,ecx
++        mov         dword ptr [esp+10h],0
++        je eventdtor7_4B0A88
++        mov         eax,dword ptr [ecx]
++        push        1
++        call        dword ptr [eax]
++eventdtor7_4B0A88:
++        mov         ecx,dword ptr [esp+8]
++        mov         dword ptr [esi],85AB38h
++        pop         esi
++        mov         dword ptr fs:[00000000h],ecx
++        add         esp,10h
++        ret
++    }
++}
++#pragma warning(pop)
+--- a/source/game_sa/Events/EventScriptCommand.h
++++ b/source/game_sa/Events/EventScriptCommand.h
+@@ -15,6 +15,7 @@
+ 
+     CEventScriptCommand(int32 primaryTaskIndex, CTask* task, bool affectsDeadPeds = false);
+     ~CEventScriptCommand() override;
++    void Destructor();
+ 
+     eEventType GetEventType() const override { return Type; }
+     int32 GetEventPriority() const override;
+--- a/source/game_sa/Pools.cpp
++++ b/source/game_sa/Pools.cpp
+@@ -41,6 +41,27 @@
+ #include <Pools/NodeRoutePool.h>
+ #include <Pools/TaskAllocatorPool.h>
+ #include <Pools/PedAttractorPool.h>
++
++
++// 0x4442D0
++__declspec(naked) int32 CPedPool::GetRef(const CPed*) {
++    __asm {
++        mov         eax,dword ptr [ecx]
++        mov         edx,dword ptr [esp+4]
++        mov         ecx,dword ptr [ecx+4]
++        sub         edx,eax
++        mov         eax,41EE7CA7h
++        imul        edx
++        sar         edx,9
++        mov         eax,edx
++        shr         eax,1Fh
++        add         edx,eax
++        movzx       eax,byte ptr [edx+ecx]
++        shl         edx,8
++        add         eax,edx
++        ret         4
++    }
++}
+ 
+ auto& ms_pPedPool               = StaticRef<CPedPool*>(0xB74490);
+ auto& ms_pVehiclePool           = StaticRef<CVehiclePool*>(0xB74494);

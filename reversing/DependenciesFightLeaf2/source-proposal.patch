@@ -1,0 +1,88 @@
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
+@@ -18,18 +18,68 @@
+ }
+ 
+ // 0x4ABDC0
+-bool CTaskSimpleFight::IsComboSet() {
+-    return plugin::CallMethodAndReturn<bool, 0x4ABDC0, CTaskSimpleFight*>(this);
++__declspec(naked) bool CTaskSimpleFight::IsComboSet() {
++    __asm {
++        movsx eax,byte ptr [ecx+24h]
++        mov cl,byte ptr [ecx+25h]
++        add eax,0FFFFFFFCh
++        xor edx,edx
++        test eax,eax
++        setl dl
++        dec edx
++        and eax,edx
++        imul eax,eax,88h
++        movzx eax,word ptr [eax+0C17154h]
++        mov edx,10h
++        shl edx,cl
++        test eax,edx
++        setne al
++        ret
++    }
+ }
+ 
+ // 0x4ABDF0
+-bool CTaskSimpleFight::IsHitComboSet() {
+-    return plugin::CallMethodAndReturn<bool, 0x4ABDF0, CTaskSimpleFight*>(this);
++__declspec(naked) bool CTaskSimpleFight::IsHitComboSet() {
++    __asm {
++        mov eax,ecx
++        mov cl,byte ptr [eax+25h]
++        cmp cl,2
++        jg fightHitFalse
++        movsx eax,byte ptr [eax+24h]
++        add eax,0FFFFFFFCh
++        xor edx,edx
++        test eax,eax
++        setl dl
++        dec edx
++        and eax,edx
++        imul eax,eax,88h
++        movzx eax,word ptr [eax+0C17154h]
++        mov edx,1000h
++        shl edx,cl
++        test edx,eax
++        je fightHitFalse
++        mov eax,1
++        ret
++    fightHitFalse:
++        xor eax,eax
++        ret
++    }
+ }
+ 
+ // 0x4ABDA0
+-AssocGroupId CTaskSimpleFight::GetComboAnimGroupID() {
+-    return plugin::CallMethodAndReturn<AssocGroupId, 0x4ABDA0, CTaskSimpleFight*>(this);
++__declspec(naked) AssocGroupId CTaskSimpleFight::GetComboAnimGroupID() {
++    __asm {
++        movsx eax,byte ptr [ecx+24h]
++        add eax,0FFFFFFFCh
++        xor ecx,ecx
++        test eax,eax
++        setl cl
++        dec ecx
++        and eax,ecx
++        imul eax,eax,88h
++        mov eax,dword ptr [eax+0C170D0h]
++        ret
++    }
+ }
+ 
+ // 0x5BEDC0
+@@ -53,6 +103,10 @@
+     RH_ScopedVirtualClass(CTaskSimpleFight, 0x86D684, 9);
+     RH_ScopedCategory("Tasks/TaskTypes");
+ 
++    RH_ScopedInstall(GetComboAnimGroupID, 0x4ABDA0);
++    RH_ScopedInstall(IsComboSet, 0x4ABDC0);
++    RH_ScopedInstall(IsHitComboSet, 0x4ABDF0);
++
+ }
+ 
+ CTaskSimpleFight* CTaskSimpleFight::Constructor(CEntity* entity, int32 nCommand, uint32 nIdlePeriod) {

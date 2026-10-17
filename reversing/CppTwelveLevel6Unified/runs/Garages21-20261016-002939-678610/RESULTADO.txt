@@ -1,0 +1,3 @@
+APROBADO: Garajes (lista de 21)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-garages21\20261016-002939-678610

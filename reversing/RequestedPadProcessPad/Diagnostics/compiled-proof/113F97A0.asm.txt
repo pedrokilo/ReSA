@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113F97A0: 55                 push        ebp
+  113F97A1: 8B EC              mov         ebp,esp
+  113F97A3: 81 EC C0 00 00 00  sub         esp,0C0h
+  113F97A9: 53                 push        ebx
+  113F97AA: 56                 push        esi
+  113F97AB: 57                 push        edi
+  113F97AC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113F97AF: 5F                 pop         edi
+  113F97B0: 5E                 pop         esi
+  113F97B1: 5B                 pop         ebx
+  113F97B2: 8B E5              mov         esp,ebp
+  113F97B4: 5D                 pop         ebp
+  113F97B5: C3                 ret
+  113F97B6: CC                 int         3
+  113F97B7: CC                 int         3
+  113F97B8: CC                 int         3
+  113F97B9: CC                 int         3
+  113F97BA: CC                 int         3
+  113F97BB: CC                 int         3
+  113F97BC: CC                 int         3
+  113F97BD: CC                 int         3
+  113F97BE: CC                 int         3
+  113F97BF: CC                 int         3
+  113F97C0: 55                 push        ebp
+  113F97C1: 8B EC              mov         ebp,esp
+  113F97C3: 81 EC C0 00 00 00  sub         esp,0C0h
+  113F97C9: 53                 push        ebx
+  113F97CA: 56                 push        esi
+  113F97CB: 57                 push        edi
+  113F97CC: 8B FD              mov         edi,ebp
+  113F97CE: 33 C9              xor         ecx,ecx
+  113F97D0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113F97D5: F3 AB              rep stos    dword ptr es:[edi]
+  113F97D7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113F97DA: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  113F97DD: 8B 10              mov         edx,dword ptr [eax]
+  113F97DF: 3B 11              cmp         edx,dword ptr [ecx]
+
+  Summary
+
+     21DB000 .text

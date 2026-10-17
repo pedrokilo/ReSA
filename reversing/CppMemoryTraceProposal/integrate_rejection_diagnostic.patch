@@ -1,0 +1,194 @@
+--- a/reversing/DependenciesMemoryCpp16/HardwareTrace.hpp
++++ b/reversing/DependenciesMemoryCpp16/HardwareTrace.hpp
+@@ -2,6 +2,7 @@
+ #include <Windows.h>
+ #include <array>
+ #include <cstdint>
++#include "../CppMemoryTraceProposal/FixedRejectionDiagnostic.hpp"
+ 
+ #if !defined(_M_IX86)
+ #error This observer requires an x86 GTA process and x86 CONTEXT.
+@@ -26,6 +27,8 @@
+     inline static HardwareTrace* current{};
+     HANDLE ownerHandle{}, worker{}, request{}, finished{};
+     PVOID handlerToken{};
++    HANDLE diagnosticHandle{INVALID_HANDLE_VALUE};
++    bool diagnosticClosed{true};
+     volatile LONG command{}, workerOK{}, scopeActive{}, rejectionPending{};
+     DWORD owner{}, stackLow{}, stackHigh{};
+     bool savedValid{}, configured{}, workerClosed{}, handlerRemoved{}, registersRestored{};
+@@ -37,6 +40,13 @@
+     std::array<ExpectedEvent, 2> expected{};
+     std::array<HardwareEvent, 16> events{};
+ 
++    MemoryRejectionDiagnostic::State DiagnosticState() const {
++        const HardwareEvent* event=count&&count<=events.size()?&events[count-1]:nullptr;
++        return {owner,serial,rejectedSerial,
++            DWORD(InterlockedCompareExchange(const_cast<volatile LONG*>(&scopeActive),0,0)),
++            DWORD(InterlockedCompareExchange(const_cast<volatile LONG*>(&rejectionPending),0,0)),DWORD(count),
++            rejectedEip,rejectedEsp,event?event->returnAddress:0,event?event->argument0:0,event?event->argument1:0};
++    }
+     static DebugSnapshot Snapshot(const CONTEXT& c) {
+         return {c.Dr0,c.Dr1,c.Dr2,c.Dr3,c.Dr6,c.Dr7};
+     }
+@@ -134,6 +144,7 @@
+             self->rejectedEsp=c.Esp;self->rejectedSerial=self->serial;
+             InterlockedExchange(&self->rejectionPending,1);
+             InterlockedExchange(&self->scopeActive,0);
++            MemoryRejectionDiagnostic::WriteFixed(1,exception,self->DiagnosticState(),0,0xFFFFFFFFu);
+             return EXCEPTION_CONTINUE_SEARCH;
+         }
+         auto& event=self->events[self->count];
+@@ -157,6 +168,7 @@
+             // filter may consume this pending rejection.
+             InterlockedExchange(&self->rejectionPending,1);
+             InterlockedExchange(&self->scopeActive,0);
++            MemoryRejectionDiagnostic::WriteFixed(1,exception,self->DiagnosticState(),0,0xFFFFFFFFu);
+             return EXCEPTION_CONTINUE_SEARCH;
+         }
+         c.EFlags|=0x10000u;
+@@ -165,7 +177,13 @@
+     }
+ public:
+     DWORD expectedGateReturn{};
+-    bool Start() {
++    bool Start(const wchar_t* diagnosticPath) {
++        // Diagnostic file creation occurs before VEH installation and DR arming.
++        diagnosticHandle=CreateFileW(diagnosticPath,GENERIC_WRITE,FILE_SHARE_READ,nullptr,
++            CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL|FILE_FLAG_WRITE_THROUGH,nullptr);
++        if(diagnosticHandle==INVALID_HANDLE_VALUE){apiError=GetLastError();return false;}
++        diagnosticClosed=false;
++        MemoryRejectionDiagnostic::SetPreopenedHandle(diagnosticHandle);
+         owner=GetCurrentThreadId();
+         const auto* tib=reinterpret_cast<const NT_TIB*>(NtCurrentTeb());
+         stackLow=DWORD(reinterpret_cast<std::uintptr_t>(tib->StackLimit));
+@@ -195,12 +213,24 @@
+         return !rejected&&!overflow&&!foreign&&contextOK&&count==expectedCount;
+     }
+     int Filter(EXCEPTION_POINTERS* exception) {
+-        return GetCurrentThreadId()==owner&&rejected&&rejectedSerial==serial
++        DWORD match=0;
++        if(GetCurrentThreadId()==owner)match|=1u<<0;
++        if(rejected)match|=1u<<1;
++        if(rejectedSerial==serial)match|=1u<<2;
++        if(exception->ExceptionRecord->ExceptionCode==EXCEPTION_SINGLE_STEP)match|=1u<<3;
++        if(exception->ContextRecord->Eip==rejectedEip)match|=1u<<4;
++        if(exception->ContextRecord->Esp==rejectedEsp)match|=1u<<5;
++        if(InterlockedCompareExchange(&rejectionPending,0,0)==1)match|=1u<<6;
++        MemoryRejectionDiagnostic::WriteFixed(2,exception,DiagnosticState(),match,0xFFFFFFFFu);
++        // Preserve the original six predicates and exactly one consuming CAS.
++        const int decision=GetCurrentThreadId()==owner&&rejected&&rejectedSerial==serial
+             &&exception->ExceptionRecord->ExceptionCode==EXCEPTION_SINGLE_STEP
+             &&exception->ContextRecord->Eip==rejectedEip
+             &&exception->ContextRecord->Esp==rejectedEsp
+             &&InterlockedCompareExchange(&rejectionPending,0,1)==1
+             ?EXCEPTION_EXECUTE_HANDLER:EXCEPTION_CONTINUE_SEARCH;
++        MemoryRejectionDiagnostic::WriteFixed(3,exception,DiagnosticState(),match,DWORD(decision));
++        return decision;
+     }
+     bool Stop() {
+         InterlockedExchange(&scopeActive,0);
+@@ -217,12 +247,23 @@
+             if(handlerToken){handlerRemoved=RemoveVectoredExceptionHandler(handlerToken)!=0;if(handlerRemoved)handlerToken=nullptr;}
+             else handlerRemoved=true;
+             if(handlerRemoved)current=nullptr;
++            if(handlerRemoved&&diagnosticHandle!=INVALID_HANDLE_VALUE){
++                MemoryRejectionDiagnostic::SetPreopenedHandle(INVALID_HANDLE_VALUE);
++                diagnosticClosed=CloseHandle(diagnosticHandle)!=FALSE;
++                if(diagnosticClosed)diagnosticHandle=INVALID_HANDLE_VALUE;
++                else apiError=GetLastError();
++                ok&=diagnosticClosed;
++            }
+             if(ownerHandle){CloseHandle(ownerHandle);ownerHandle=nullptr;}
+             if(request){CloseHandle(request);request=nullptr;}
+             if(finished){CloseHandle(finished);finished=nullptr;}
+         }
+         return ok&&registersRestored&&workerClosed&&handlerRemoved;
+     }
++    bool DiagnosticClosed()const{return diagnosticClosed;}
++    DWORD DiagnosticError()const{return DWORD(InterlockedCompareExchange(&MemoryRejectionDiagnostic::lastError,0,0));}
++    DWORD DiagnosticMissed()const{return DWORD(InterlockedCompareExchange(&MemoryRejectionDiagnostic::missed,0,0));}
++    DWORD DiagnosticSequence()const{return DWORD(InterlockedCompareExchange(&MemoryRejectionDiagnostic::sequence,0,0));}
+     unsigned Count()const{return count;}
+     const HardwareEvent& Event(unsigned index)const{return events[index];}
+     bool Rejected()const{return rejected;}
+--- a/reversing/DependenciesMemoryCpp16/LiveComparison.hpp
++++ b/reversing/DependenciesMemoryCpp16/LiveComparison.hpp
+@@ -92,7 +92,7 @@
+     if(done)return;
+     char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);const auto dir=std::filesystem::path(exe).parent_path();
+     if(!std::filesystem::exists(dir/"dependenciesmemorycpp16-runtime.start")){done=true;return;}
+-    if(!log.is_open()){log.open(dir/"dependenciesmemorycpp16-runtime.jsonl");Write({{"event","waiting_for_player"}});ReversingProbe::InstallFailureCapture("dependenciesmemorycpp16");}
++    if(!log.is_open()){log.open(dir/"dependenciesmemorycpp16-runtime.jsonl");Write({{"event","waiting_for_player"},{"diagnostic_only",true},{"diagnostic_file","memorycpp16-debug.bin"}});ReversingProbe::InstallFailureCapture("dependenciesmemorycpp16");}
+     if(!FindPlayerPed()||CCutsceneMgr::IsRunning())return;
+     done=true;SaveFP(savedFP.data());savedMXCSR=ReadMXCSR();fpActive=true;
+     using MallocFn=void*(*)(uint32,uint32);
+@@ -117,16 +117,17 @@
+     std::array<std::vector<uint8>,4> originalCode{std::vector<uint8>(native_72F420.begin(),native_72F420.end()),
+         std::vector<uint8>(native_72F440.begin(),native_72F440.end()),std::vector<uint8>(native_72F4C0.begin(),native_72F4C0.end()),std::vector<uint8>(native_72F4F0.begin(),native_72F4F0.end())};
+     for(unsigned i=0;i<4;++i)ready&=originalCode[i]==ReversingProbe::Bytes(reinterpret_cast<void*>(fns[i].address),originalCode[i].size());
+-    const bool observerStarted=ready&&hardwareTrace.Start();bool calibrated=false;json calibration=json::array();
++    const auto diagnosticPath=(dir/"memorycpp16-debug.bin").wstring();
++    const bool observerStarted=ready&&hardwareTrace.Start(diagnosticPath.c_str());bool calibrated=false;json calibration=json::array();
+     if(observerStarted)calibration=Calibrate(calibrated);
+     ready&=observerStarted&&calibrated&&calibrationResourcesRestored&&hardwareTrace.VerifyArmed()&&helpersOK();RestoreFloating();
+-    Write({{"event","begin"},{"registered_hook",ready},{"helper_routes_ok",helpersOK()},{"helper_routes",helperRows},
++    Write({{"event","begin"},{"diagnostic_only",true},{"diagnostic",DiagnosticMetadata()},{"registered_hook",ready},{"helper_routes_ok",helpersOK()},{"helper_routes",helperRows},
+         {"observer_ready",ready},{"owner_thread",hardwareTrace.Owner()},{"calibration",calibration},{"calibration_passed",calibrated},
+         {"debug_saved",DebugJSON(hardwareTrace.Saved())},{"debug_armed",DebugJSON(hardwareTrace.Armed())},
+         {"debug_readback",DebugJSON(hardwareTrace.Readback())},{"probe_module",uintptr_t(ModuleOf(uintptr_t(&ModuleMarker)))},{"calibration_resources_restored",calibrationResourcesRestored},{"candidate_prefixes",prefixRows},{"original_function_bytes",originalCode},
+         {"normalization","owned block identity; raw allocator arguments validated before normalization"},{"crt_entries_modified",false}});
+     if(!ready){const bool observerRestored=hardwareTrace.Stop();bool routesRestored=true;for(auto* route:routes)routesRestored&=route->Restore();RestoreFloating();
+-        Write({{"event","error"},{"pairs",0},{"reason","observer/calibration preflight failed"},{"api_error",hardwareTrace.ApiError()},
++        Write({{"event","error"},{"diagnostic_only",true},{"diagnostic",DiagnosticMetadata()},{"pairs",0},{"reason","observer/calibration preflight failed"},{"api_error",hardwareTrace.ApiError()},
+             {"state_restored",observerRestored&&routesRestored&&helpersOK()&&FloatingRestored()&&calibrationResourcesRestored}});fpActive=false;return;}
+     const unsigned sizes[]{0,1,2,3,4,7,8,15,16,17,31,32,33,63,64,65,127,128,129,255,256,257,511,512,513,1023,1024,1025,2047,2048,2049,4096};
+     const unsigned aligns[]{4,8,16,32,64,128,256};
+@@ -157,7 +158,7 @@
+                 if(result.aborted||!observed.exact||!observed.callers||!observed.debug){
+                     // Never fill/inspect a target block after an unproven request.
+                     const bool stopped=hardwareTrace.Stop();for(auto* route:routes)route->Restore();RestoreFloating();
+-                    Write({{"event","error"},{"pairs",pair},{"reason","allocator argument observation failed; target not accepted"},
++                    Write({{"event","error"},{"diagnostic_only",true},{"diagnostic",DiagnosticMetadata()},{"pairs",pair},{"reason","allocator argument observation failed; target not accepted"},
+                         {"raw_trace",observed.raw},{"gate_aborted",result.aborted},{"observer_restored",stopped},{"state_restored",false}});
+                     std::abort();
+                 }
+@@ -207,7 +208,7 @@
+     const bool observerRestored=hardwareTrace.Stop();restored&=observerRestored;
+     for(auto* route:routes){const bool r=route->Restore();restored&=r;}
+     for(const auto& [at,bytes]:initial)restored&=bytes==ReversingProbe::Bytes(reinterpret_cast<void*>(at),16);
+-    Write({{"event",passed&&restored?"complete":"error"},{"pairs",pair},{"state_restored",restored},{"debug_regs_restored",hardwareTrace.RegistersRestored()},{"veh_removed",hardwareTrace.HandlerRemoved()},
++    Write({{"event",passed&&restored?"complete":"error"},{"diagnostic_only",true},{"diagnostic",DiagnosticMetadata()},{"pairs",pair},{"state_restored",restored},{"debug_regs_restored",hardwareTrace.RegistersRestored()},{"veh_removed",hardwareTrace.HandlerRemoved()},
+         {"worker_closed",hardwareTrace.WorkerClosed()},{"observer_context_preserved",hardwareTrace.ContextOK()},{"debug_final",DebugJSON(hardwareTrace.Readback())},
+         {"outside_scope_hits",hardwareTrace.OutsideHits()},{"foreign_hits",hardwareTrace.ForeignHits()},{"helper_route_ok",helpersOK()},{"floating_state_restored",FloatingRestored()}});
+     RestoreFloating();fpActive=false;
+--- a/reversing/DependenciesMemoryCpp16/TraceSupport.hpp
++++ b/reversing/DependenciesMemoryCpp16/TraceSupport.hpp
+@@ -13,6 +13,9 @@
+     __except(hardwareTrace.Filter(GetExceptionInformation())) {result.aborted=true;}
+     return result;
+ }
++inline json DiagnosticMetadata(){return {{"file","memorycpp16-debug.bin"},{"records_attempted",hardwareTrace.DiagnosticSequence()},
++    {"write_error",hardwareTrace.DiagnosticError()},{"missed",hardwareTrace.DiagnosticMissed()},
++    {"handle_closed",hardwareTrace.DiagnosticClosed()},{"admission_allowed",false}};}
+ inline json DebugJSON(const DebugSnapshot& d){return {{"dr0",d.dr0},{"dr1",d.dr1},{"dr2",d.dr2},{"dr3",d.dr3},{"dr6",d.dr6},{"dr7",d.dr7}};}
+ inline std::array<ExpectedEvent,2> Expected(unsigned fn,uint32 size,uint32 align,uint32 input,uint32 base,unsigned& count){
+     std::array<ExpectedEvent,2> result{};count=1;
+--- a/reversing/DependenciesMemoryCpp16/build_probe.py
++++ b/reversing/DependenciesMemoryCpp16/build_probe.py
+@@ -19,4 +19,5 @@
+         'reversing/DependenciesMemoryCpp16/TraceSupport.hpp',
+         'reversing/DependenciesMemoryCpp16/OriginalCode.hpp',
+         'reversing/CppMemoryTraceProposal/trace_contract.py',
++        'reversing/CppMemoryTraceProposal/FixedRejectionDiagnostic.hpp',
+     ])))
+--- a/reversing/DependenciesMemoryCpp16/run_local.py
++++ b/reversing/DependenciesMemoryCpp16/run_local.py
+@@ -42,6 +42,7 @@
+         must(valid,'Independent actual return address')
+ 
+ def check_observer(begin,rows):
++    must(begin.get("diagnostic_only") is not True,"Diagnostic logger campaign cannot be admitted")
+     must(all(begin.get(k) is True for k in ('registered_hook','helper_routes_ok','observer_ready','calibration_passed','calibration_resources_restored')) and begin.get('crt_entries_modified') is False,'Observer admission')
+     must(begin['owner_thread']>0 and begin['probe_module']>0 and begin['probe_module']!=0x400000,'Own ASI')
+     saved,armed,readback=(begin[k] for k in ('debug_saved','debug_armed','debug_readback'))

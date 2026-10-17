@@ -1,0 +1,46 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1141BF70: 55                 push        ebp
+  1141BF71: 8B EC              mov         ebp,esp
+  1141BF73: 81 EC CC 00 00 00  sub         esp,0CCh
+  1141BF79: 53                 push        ebx
+  1141BF7A: 56                 push        esi
+  1141BF7B: 57                 push        edi
+  1141BF7C: 51                 push        ecx
+  1141BF7D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1141BF80: B9 03 00 00 00     mov         ecx,3
+  1141BF85: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1141BF8A: F3 AB              rep stos    dword ptr es:[edi]
+  1141BF8C: 59                 pop         ecx
+  1141BF8D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1141BF90: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1141BF93: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  1141BF96: 51                 push        ecx
+  1141BF97: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1141BF9A: 8B 42 04           mov         eax,dword ptr [edx+4]
+  1141BF9D: 50                 push        eax
+  1141BF9E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1141BFA1: 8B 11              mov         edx,dword ptr [ecx]
+  1141BFA3: 52                 push        edx
+  1141BFA4: E8 D8 F8 C7 FF     call        1109B881
+  1141BFA9: 83 C4 0C           add         esp,0Ch
+  1141BFAC: 5F                 pop         edi
+  1141BFAD: 5E                 pop         esi
+  1141BFAE: 5B                 pop         ebx
+  1141BFAF: 81 C4 CC 00 00 00  add         esp,0CCh
+  1141BFB5: 3B EC              cmp         ebp,esp
+  1141BFB7: E8 D0 7A C7 FF     call        11093A8C
+  1141BFBC: 8B E5              mov         esp,ebp
+  1141BFBE: 5D                 pop         ebp
+  1141BFBF: C3                 ret
+  1141BFC0: CC                 int         3
+
+  Summary
+
+     21DB000 .text

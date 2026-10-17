@@ -1,0 +1,30 @@
+--- a/reversing/CppTrigClimb/audit/audit_run.py
++++ b/reversing/CppTrigClimb/audit/audit_run.py
+@@ -50,6 +50,8 @@
+     assert len(complete) == 1 and complete[0]['state_restored'] is True
+     assert complete[0]['pairs'] == total
+     assert not any(row.get('event') in ('error', 'assertion', 'first_chance_av', 'first_chance_av_raw') for row in rows)
++    starts=[row for row in rows if row.get('event')=='begin']
++    assert len(starts)==1 and starts[0].get('world_isolation')=={'regular_sectors':14400,'repeat_sectors':256,'fixture_sectors':9,'heads_only':True}, 'Full world isolation not demonstrated'
+     for row in pairs:
+         assert row.get('original') is not None and row.get('candidate') is not None, row['pair']
+         assert row['accepted'] is True and row['equal'] is True and row['original'] == row['candidate'], row['pair']
+@@ -58,6 +60,9 @@
+             assert row[side].get('switches') is True, (row['pair'], side)
+             assert 'ret' in row[side] and isinstance(row[side].get('trace'),list), (row['pair'], side)
+             assert row[side].get('clean') is True, (row['pair'],side)
++            for call in row[side]['trace']:
++                if call[0]=='get_bound_centre':
++                    assert len(call)==2 and call[1] in {'ent'+str(i)+'+0' for i in range(6)}, (row['pair'],side,'External world entity reached',call)
+     for name,count in expected.items():
+         assert {row['case'] for row in pairs if row['function']==name} == set(range(count)),name
+     coverage_cases=[row['case'] for row in pairs if row['function']=='CTaskSimpleClimb::GetCameraStickModifier' and any(isinstance(event,list) and event and event[0]=='process_vertical_line' for event in row['candidate']['trace'])]
+@@ -89,6 +94,8 @@
+     result['trig_coverage_cases'] = coverage_cases
+     result['trig_coverage_evidence'] = 'Control-flow inference: GetCameraStickModifier ProcessVerticalLine occurs only after GetClimbOffset3D, whose sine and cosine calls are unconditional. Not hardware counters.'
+     result['route_field'] = 'switches'
++    result['world_isolation_verified'] = starts[0]['world_isolation']
++    result['external_bound_centre_calls'] = 0
+     result['scope'] = 'Legacy consumer fixtures, results/state/traces; collaborators instrumented; no full FP108/EFLAGS/register ABI claim'
+     if args.archive:
+         dest = bank / 'runs' / args.run.name

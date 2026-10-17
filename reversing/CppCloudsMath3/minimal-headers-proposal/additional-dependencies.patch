@@ -1,0 +1,72 @@
+--- a/source/game_sa/Clouds.cpp
++++ b/source/game_sa/Clouds.cpp
+@@ -34,6 +34,7 @@
+ #include <memory>
+ #include <numeric>
+ #include <optional>
++#include <random>
+ #include <ranges>
+ #include <span>
+ #include <string>
+@@ -48,6 +49,11 @@
+ #include "reversiblehooks/ReversibleHooks.h"
+ #include <extensions/Casting.hpp>
+ #include <Tracy.hpp>
++#include <d3d9.h>
++#include <dinput.h>
++#include "RenderWare/D3DIndexDataBuffer.h"
++#include "RenderWare/D3DResourceSystem.h"
++#include "RenderWare/D3DTextureBuffer.h"
+ #include "RenderWare.h"
+ #include "RenderWare/rw/skeleton.h"
+ #include "Vector.h"
+@@ -61,9 +67,15 @@
+ #include "CloudsMathCpp.h"
+ #include "CloudsAccessCpp.h"
+ #include "CloudsWeatherCpp.h"
++class CColSphere;
++#include "eModelID.h"
++#include "eWeaponType.h"
++#include "Sphere.h"
++#include "Sprite2d.h"
+ #include "Camera.h"
+ #include "PostEffects.h"
+ #include "Sprite.h"
++#include <extensions/FixedVector.hpp>
+ #include "Coronas.h"
+ #include "CullZones.h"
+ #include "TxdStore.h"
+@@ -71,6 +83,7 @@
+ #include "Draw.h"
+ #include "Clock.h"
+ #include "Timer.h"
++#include "Box.h"
+ #include "TimeCycle.h"
+ #include "BrightLights.h"
+ #include "Game.h"
+@@ -1199,9 +1212,9 @@
+     }
+ 
+     // Como el original: calidad media 0,66 (0x3F28F5C3), baja 0,5, el resto 1.
+-    switch (g_fx.GetFxQuality()) {
++    switch (CloudsFxQualityCpp()) {
+     case FX_QUALITY_MEDIUM: m_fVolumetricCloudDensity = std::bit_cast<float>(0x3F28F5C3u); break;
+-    case FX_QUALITY_LOW:    m_fVolumetricCloudDensity = 0.5f; break;
++    case 0 /* FX_QUALITY_LOW */:    m_fVolumetricCloudDensity = 0.5f; break;
+     default:                m_fVolumetricCloudDensity = 1.f; break;
+     }
+ 
+--- a/source/game_sa/CloudsAccessCpp.h
++++ b/source/game_sa/CloudsAccessCpp.h
+@@ -4,3 +4,4 @@
+ int CloudsPlayerAreaCodeCpp();
+ CPlaceable* CloudsPlayerVehiclePlaceableCpp();
+ CVector CloudsPlayerCoorsCpp();
++int CloudsFxQualityCpp();
+--- a/source/game_sa/CloudsAccessCpp.cpp
++++ b/source/game_sa/CloudsAccessCpp.cpp
+@@ -5,3 +5,4 @@
+ int CloudsPlayerAreaCodeCpp() { return int(FindPlayerPed()->GetAreaCode()); }
+ CPlaceable* CloudsPlayerVehiclePlaceableCpp() { return FindPlayerVehicle(-1, false); }
+ CVector CloudsPlayerCoorsCpp() { return FindPlayerCoors(-1); }
++int CloudsFxQualityCpp() { return int(g_fx.GetFxQuality()); }

@@ -1,0 +1,7 @@
+__declspec(noinline) void CMemoryMgr::FreeAlign(void* memory) {
+    // Volatile access to the existing parameter object; signature remains void*.
+    void* volatile* const argument = &memory;
+    *argument = *reinterpret_cast<void**>(static_cast<uint8*>(*argument) - sizeof(void*));
+    using NativeFree = void (__cdecl*)(void*);
+    reinterpret_cast<NativeFree>(uintptr_t{0x82413F})(*argument);
+}

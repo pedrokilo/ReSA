@@ -1,0 +1,270 @@
+{
+  "object_sha256": "d1768f8f0765081a0252793f1eaf97454f80a9baf1d905bb8524e7c717616684",
+  "functions": [
+    {
+      "symbol": "?TrigCompoundScaledSinMulAdd@@YAMMMMM@Z",
+      "section": 9,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442404",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d84c2408",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 8,
+          "bytes": "d9fe",
+          "mnemonic": "fsin",
+          "operands": ""
+        },
+        {
+          "offset": 10,
+          "bytes": "d84c240c",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [esp + 0xc]"
+        },
+        {
+          "offset": 14,
+          "bytes": "d8442410",
+          "mnemonic": "fadd",
+          "operands": "dword ptr [esp + 0x10]"
+        },
+        {
+          "offset": 18,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?TrigCompoundSinMulAdd@@YAMMMM@Z",
+      "section": 11,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442404",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d9fe",
+          "mnemonic": "fsin",
+          "operands": ""
+        },
+        {
+          "offset": 6,
+          "bytes": "d84c2408",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 10,
+          "bytes": "d844240c",
+          "mnemonic": "fadd",
+          "operands": "dword ptr [esp + 0xc]"
+        },
+        {
+          "offset": 14,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?TrigCompoundCosMulAdd@@YAMMMM@Z",
+      "section": 5,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442404",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d9ff",
+          "mnemonic": "fcos",
+          "operands": ""
+        },
+        {
+          "offset": 6,
+          "bytes": "d84c2408",
+          "mnemonic": "fmul",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 10,
+          "bytes": "d844240c",
+          "mnemonic": "fadd",
+          "operands": "dword ptr [esp + 0xc]"
+        },
+        {
+          "offset": 14,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?TrigCompoundNegSinDiv@@YAMMM@Z",
+      "section": 7,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442404",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d9fe",
+          "mnemonic": "fsin",
+          "operands": ""
+        },
+        {
+          "offset": 6,
+          "bytes": "d8742408",
+          "mnemonic": "fdiv",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 10,
+          "bytes": "d9e0",
+          "mnemonic": "fchs",
+          "operands": ""
+        },
+        {
+          "offset": 12,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?TrigCompoundCosHalf@@YAMMM@Z",
+      "section": 3,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "83ec08",
+          "mnemonic": "sub",
+          "operands": "esp, 8"
+        },
+        {
+          "offset": 3,
+          "bytes": "d9442410",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 0x10]"
+        },
+        {
+          "offset": 7,
+          "bytes": "dd1c24",
+          "mnemonic": "fstp",
+          "operands": "qword ptr [esp]"
+        },
+        {
+          "offset": 10,
+          "bytes": "d944240c",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 0xc]"
+        },
+        {
+          "offset": 14,
+          "bytes": "e800000000",
+          "mnemonic": "call",
+          "operands": "0x13"
+        },
+        {
+          "offset": 19,
+          "bytes": "dd0424",
+          "mnemonic": "fld",
+          "operands": "qword ptr [esp]"
+        },
+        {
+          "offset": 22,
+          "bytes": "dcc9",
+          "mnemonic": "fmul",
+          "operands": "st(1), st(0)"
+        },
+        {
+          "offset": 24,
+          "bytes": "dec1",
+          "mnemonic": "faddp",
+          "operands": "st(1)"
+        },
+        {
+          "offset": 26,
+          "bytes": "d95c2410",
+          "mnemonic": "fstp",
+          "operands": "dword ptr [esp + 0x10]"
+        },
+        {
+          "offset": 30,
+          "bytes": "d9442410",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 0x10]"
+        },
+        {
+          "offset": 34,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "operands": "esp, 8"
+        },
+        {
+          "offset": 37,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "symbol": "?TrigCompoundSubSin@@YAMMM@Z",
+      "section": 13,
+      "instructions": [
+        {
+          "offset": 0,
+          "bytes": "d9442404",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 4]"
+        },
+        {
+          "offset": 4,
+          "bytes": "d9442408",
+          "mnemonic": "fld",
+          "operands": "dword ptr [esp + 8]"
+        },
+        {
+          "offset": 8,
+          "bytes": "d9fe",
+          "mnemonic": "fsin",
+          "operands": ""
+        },
+        {
+          "offset": 10,
+          "bytes": "dee9",
+          "mnemonic": "fsubp",
+          "operands": "st(1)"
+        },
+        {
+          "offset": 12,
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "limitation": "Relocations unresolved; function extents inferred from COFF symbols. No runtime approval."
+}

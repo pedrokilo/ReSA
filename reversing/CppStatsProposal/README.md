@@ -1,0 +1,17 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 17/10/2026 (Ciudad de México):** 787 grupos / 8583 funciones reconstruidas; 8583 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 125 aprobadas dentro del juego; 130 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# CppStatsProposal â€” propuesta offline sin aplicar
+
+Lote corto: `CStats::FindMostFavoriteRadioStation` (0x558FA0), 2.048 pares; `PopulateFavoriteRadioStationList` (0x558EC0) acompaÃ±a con otros 2.048 sin cambio de fuente. Total previsto: 4.096. No compilado, no ejecutado, no validado ni registrado.
+
+La propuesta reconstruye el bucle firmado original: mÃ¡ximo inicial 0, resultado inicial 1, estaciones 1..12, desempate conservando la primera estrictamente mayor; Ã­ndices 0 y 13 se excluyen. No llamadas a cuerpos originales ni sustituciones del cÃ¡lculo. Sin desbordamientos aritmÃ©ticos.
+
+El enum eRadioID tiene representaciÃ³n estrecha, pero el EXE devuelve el Ã­ndice completo en EAX. Se propone cambiar sÃ³lo la declaraciÃ³n de esta funciÃ³n a int32, con conversiones explÃ­citas a eRadioID en sus dos consumidores fuente actuales: AEAmbienceTrackManager y GameCommands. No cambiar el tamaÃ±o del enum global. Requiere revisiÃ³n de impacto antes de aplicar.
+
+Evidencia canónica EXE 0x558FA0..0x559009: xor ECX,ECX; EAX=1; EDX=3; seis comparaciones firmadas por iteración; jle conserva; add EDX,6; condición EDX-2<13. Dos iteraciones cubren estaciones 1..12 y EDX termina en 15. La fuente asm histórica actual termina EDX en 13: la equivalencia histórica sólo comprobaba retorno/no volátiles, no este registro. Por ello el banco derivado conserva todos los gates histÃ³ricos y aÃ±ade captura cruda de ECX/EDX con requisito mÃ¡ximo firmado en ECX y 15 en EDX. La propuesta C++ no garantiza esos registros por el estÃ¡ndar: cualquier compilaciÃ³n que no los conserve DEBE FALLAR, aunque el retorno sea correcto. No relajar gates para aprobarla.
+
+`source-proposal.patch` cambia Stats.cpp/Stats.h y dos conversiones de consumidores; `candidate.cpp.txt` contiene sÃ³lo la funciÃ³n C++. Cuatro instrumentos derivados mantienen restauraciÃ³n total, audio real sin stubs, rutas OFF/ON, retorno EAX completo, 4.096 pares Ãºnicos, controles flotantes, snapshots y no volÃ¡tiles. HelperHookRoute es copia local para no modificar evidencia admitida. El manifiesto incluye las dos fuentes consumidoras.
+
+RevisiÃ³n offline: sintaxis de los scripts y git apply --check correctos. El coordinador aplica, compila y ejecuta exclusivamente en serie. Toda fuente fuera de esta carpeta permanece intacta por este subagente.

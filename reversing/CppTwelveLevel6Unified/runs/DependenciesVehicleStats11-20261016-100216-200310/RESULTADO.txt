@@ -1,0 +1,14 @@
+FALLO: DependenciesVehicleStats11
+Dialogo en GTA (abortado): Microsoft Visual C++ Runtime Library / &Anular / &Reintentar / Om&itir / Assertion failed!
+
+Program: ...n Andreas - CVehicle Test\scripts\gta_reversed.asi
+File: D:\Original\gta-reversed-master\source\ga...\X87Math.cpp
+Line: 9403
+
+Expression: StatsCaptureEaxIsTrivial() && StatsCaptureEcxEdxIsTrivial() && "StatsCaptureEcxEdxCpp ya no es `mov eax,ecx; ret`: revisar X87Math.cpp"
+
+For information on how your program can cause an assertion
+failure, see the Visual C++ documentation on asserts
+
+(Press Retry to debug the application - JIT must be enabled)
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesvehiclestats11\20261016-100216-200310

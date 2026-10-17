@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11411170: 55                 push        ebp
+  11411171: 8B EC              mov         ebp,esp
+  11411173: 81 EC CC 00 00 00  sub         esp,0CCh
+  11411179: 53                 push        ebx
+  1141117A: 56                 push        esi
+  1141117B: 57                 push        edi
+  1141117C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1141117F: 8B 08              mov         ecx,dword ptr [eax]
+  11411181: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11411184: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11411187: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1141118A: 8B 11              mov         edx,dword ptr [ecx]
+  1141118C: 89 10              mov         dword ptr [eax],edx
+  1141118E: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11411191: 5F                 pop         edi
+  11411192: 5E                 pop         esi
+  11411193: 5B                 pop         ebx
+  11411194: 8B E5              mov         esp,ebp
+  11411196: 5D                 pop         ebp
+  11411197: C3                 ret
+  11411198: CC                 int         3
+  11411199: CC                 int         3
+  1141119A: CC                 int         3
+  1141119B: CC                 int         3
+  1141119C: CC                 int         3
+  1141119D: CC                 int         3
+  1141119E: CC                 int         3
+  1141119F: CC                 int         3
+  114111A0: CC                 int         3
+  114111A1: CC                 int         3
+  114111A2: CC                 int         3
+  114111A3: CC                 int         3
+  114111A4: CC                 int         3
+  114111A5: CC                 int         3
+  114111A6: CC                 int         3
+  114111A7: CC                 int         3
+  114111A8: CC                 int         3
+  114111A9: CC                 int         3
+  114111AA: CC                 int         3
+  114111AB: CC                 int         3
+  114111AC: CC                 int         3
+  114111AD: CC                 int         3
+  114111AE: CC                 int         3
+  114111AF: CC                 int         3
+  114111B0: 55                 push        ebp
+
+  Summary
+
+     21DB000 .text

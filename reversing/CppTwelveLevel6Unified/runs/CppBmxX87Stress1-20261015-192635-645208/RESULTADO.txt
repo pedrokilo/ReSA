@@ -1,0 +1,3 @@
+APROBADO: Ayudantes x87 de CBmx, EXE vs DLL con estres
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cppbmxx87stress1\20261015-192635-645208

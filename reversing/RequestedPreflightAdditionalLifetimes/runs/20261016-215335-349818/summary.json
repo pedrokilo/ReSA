@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "01643d952f4d8bdd5524a9a32acc581cd5161130a5f588f3c533fc918310a20c",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 672,
+  "pairs_per_function": {
+    "CTaskSimpleFightingControl::Constructor": 256,
+    "CTaskComplexProstituteSolicit::Constructor": 128,
+    "CTaskSimpleFightingControl::Destructor": 32,
+    "CTaskComplexProstituteSolicit::Destructor": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "harness_restored": true,
+  "harness_sha256": "16498f2f0ccd6565de542cbe59e34ce04425ce3feb474dad0fba6fcbe5871d31",
+  "log_sha256": "6707c6e3486c9a95ed02808ef338ce8f2ad1b7a95dce07c8ee3452627d93005c",
+  "scope": "reference/player ABI fixtures and native child; isolated contracts, no real game actors",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
